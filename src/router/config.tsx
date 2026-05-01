@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, Component, ReactNode } from "react";
 import type { RouteObject } from "react-router-dom";
 import PageSkeleton from "@/components/base/PageSkeleton";
 import RequireAuth from "@/components/feature/RequireAuth";
+import AdminGuard from "@/components/feature/AdminGuard";
 
 // ─── Eager (critical path) ────────────────────────────────────────────────────
 import RootPage from "../pages/root/page";
@@ -582,7 +583,7 @@ const routes: RouteObject[] = [
   { path: "/daily-words", element: <DailyWordsPage /> },
   { path: "/learning-roadmap", element: <LearningRoadmapPage /> },
   { path: "/study-stats", element: <RequireAuth title="Thống kê học tập"><StudyStatsPage /></RequireAuth> },
-  { path: "/data-upload", element: <DataUploadPage /> },
+  { path: "/data-upload", element: <AdminGuard><DataUploadPage /></AdminGuard> },
   { path: "/share-progress", element: <RequireAuth title="Chia sẻ tiến độ" message="Đăng nhập để tạo và tải ảnh tiến độ học tập của bạn."><ShareProgressPage /></RequireAuth> },
   // Legacy routes (giữ lại để không break links cũ)
   { path: "/admin-eps", element: <AdminEpsPage /> },

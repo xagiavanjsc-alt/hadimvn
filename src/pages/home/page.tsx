@@ -6,6 +6,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useApiCostTracker } from "@/hooks/useApiCostTracker";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import QuickStartGuide from "@/pages/home/components/QuickStartGuide";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 const SRReviewWidget = lazy(() => import("@/pages/home/components/SRReviewWidget"));
 const StreakWidget = lazy(() => import("@/pages/home/components/StreakWidget"));
@@ -191,6 +192,7 @@ function ToolRow({
 
 export default function Home() {
   const navigate = useNavigate();
+  const isAdmin = useIsAdmin();
   const [approvedLessons] = useLocalStorage<ApprovedLesson[]>("kts_melon_lessons", []);
   const [approvedQAs] = useLocalStorage<ApprovedQA[]>("kts_naver_qas", []);
   const [cachedSearches] = useLocalStorage<CachedSearch[]>("kts_naver_cache", []);
@@ -485,14 +487,16 @@ export default function Home() {
               stat={`${streak.count} ngày streak`}
               path="/study-stats"
             />
-            <ToolRow
-              icon="ri-upload-cloud-2-line"
-              color="#fb923c"
-              title="Tải lên dữ liệu"
-              desc="Nhập bài học K-pop và Naver từ CSV"
-              stat="K-pop · Naver KiN"
-              path="/data-upload"
-            />
+            {isAdmin && (
+              <ToolRow
+                icon="ri-upload-cloud-2-line"
+                color="#fb923c"
+                title="Tải lên dữ liệu (Admin)"
+                desc="Nhập bài học K-pop và Naver từ CSV"
+                stat="K-pop · Naver KiN"
+                path="/data-upload"
+              />
+            )}
           </div>
         </div>
 

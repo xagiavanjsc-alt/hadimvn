@@ -54,15 +54,18 @@
   .dashboard-fade-in {
     animation: dashboardFadeIn 0.22s ease-out both;
   }
+  /* NOTE: Keyframes dùng opacity only — KHÔNG dùng transform.
+     Nếu ancestor có transform (kể cả translateY(0)), position:fixed con sẽ
+     bị relative theo ancestor đó → modal lệch khỏi viewport, phải scroll mới thấy. */
   @keyframes dashboardFadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; }
+    to   { opacity: 1; }
   }
 
   /* Page transition fade-in (no fade-out = no black screen) */
   @keyframes pageFadeIn {
-    from { opacity: 0; transform: translateY(4px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; }
+    to   { opacity: 1; }
   }
 
   /* Utility classes đồng bộ */
