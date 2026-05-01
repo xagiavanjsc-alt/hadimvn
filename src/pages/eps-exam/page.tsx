@@ -6,6 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useStudySync } from "@/hooks/useStudySync";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { epsQuestions } from "@/mocks/epsQuestions";
+import { isExamTooFast, isInCooldown, MIN_EPS_EXAM_TIME_SEC } from "@/lib/xp";
 
 interface ExamResult {
   id: string;
@@ -180,6 +181,13 @@ export default function EpsExamPage() {
   }, []);
 
   const startExam = useCallback(() => {
+    // Anti-cheat: cooldown để chống spam
+    const lastAt = parseInt(localStorage.getItem("kts_eps_exam_last_at") || "0", 10) || null;
+    const { inCooldown, remainingSec } = isInCooldown(lastAt);
+    if (inCooldown) {
+      alert(`Vui lòng chờ ${remainingSec}s trước khi làm bài mới.`);
+      return;
+    }
     const qs = pickQuestions();
     setExamQuestions(qs);
     setAnswers({});
@@ -211,6 +219,11 @@ export default function EpsExamPage() {
     if (timerRef.current) clearInterval(timerRef.current);
     const timeUsed = Math.round((Date.now() - startTimeRef.current) / 1000);
     const correctIds = examQuestions.filter(q => answers[q.id] === q.correctIndex).map(q => q.id);
+
+    // Anti-cheat: nếu submit quá nhanh → kết quả vẫn lưu nhưng KHÔNG cộng XP,
+    // không sync leaderboard. Người dùng thấy kết quả nhưng không ảnh hưởng rank.
+    const tooFast = isExamTooFast(timeUsed, examQuestions.length);
+
     const result: ExamResult = {
       id: Date.now().toString(),
       date: new Date().toISOString(),
@@ -219,23 +232,31 @@ export default function EpsExamPage() {
       timeUsed,
       correctIds,
     };
-    setExamResults(prev => {
-      const updated = [...prev, result];
-      // Auto-sync to cloud after exam
-      if (user) {
-        setSyncing(true);
-        const displayName = profile?.display_name || user.email?.split("@")[0] || "Học viên";
-        Promise.all([
-          syncToCloud(user.id),
-          updateLeaderboard(user.id, displayName),
-        ]).finally(() => setSyncing(false));
-      }
-      return updated;
-    });
-    // Award XP for completing exam
+    setExamResults(prev => [...prev, result]);
+
+    if (tooFast) {
+      // Vẫn hiển thị kết quả, nhưng cảnh báo và không thưởng XP
+      setMode("result");
+      return;
+    }
+
+    // Ghi timestamp cooldown — ngăn spam submit liên tiếp
+    localStorage.setItem("kts_eps_exam_last_at", String(Date.now()));
+
+    // Auto-sync to cloud after valid exam
+    if (user) {
+      setSyncing(true);
+      const displayName = profile?.display_name || user.email?.split("@")[0] || "Học viên";
+      Promise.all([
+        syncToCloud(user.id),
+        updateLeaderboard(user.id, displayName),
+      ]).finally(() => setSyncing(false));
+    }
+
+    // Award XP only for legitimate exam
     awardXP({ type: "eps_exam_completed", amount: 20 + Math.round((correctIds.length / examQuestions.length) * 30) });
     setMode("result");
-  }, [examQuestions, answers, setExamResults, user, profile, syncToCloud, updateLeaderboard]);
+  }, [examQuestions, answers, setExamResults, user, profile, syncToCloud, updateLeaderboard, awardXP]);
 
   const currentQ = examQuestions[currentIdx];
   const answeredCount = Object.keys(answers).length;
@@ -604,10 +625,26 @@ export default function EpsExamPage() {
 
     const lastResult = examResults[examResults.length - 1];
     const timeUsed = lastResult?.timeUsed ?? 0;
+    const flaggedTooFast = isExamTooFast(timeUsed, examQuestions.length);
 
     return (
       <DashboardLayout title="Kết quả thi thử EPS-TOPIK" subtitle="Phân tích chi tiết kết quả bài thi">
         <div className="max-w-3xl mx-auto space-y-5">
+          {/* Anti-cheat warning */}
+          {flaggedTooFast && (
+            <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 flex items-start gap-3">
+              <i className="ri-error-warning-line text-amber-400 text-xl flex-shrink-0 mt-0.5"></i>
+              <div>
+                <p className="text-amber-300 text-sm font-semibold mb-1">Bài thi không hợp lệ</p>
+                <p className="text-amber-200/70 text-xs leading-relaxed">
+                  Thời gian làm bài quá ngắn (dưới {MIN_EPS_EXAM_TIME_SEC}s cho {examQuestions.length} câu).
+                  Kết quả vẫn được lưu để bạn xem lại, nhưng <strong>không được cộng XP</strong> và
+                  <strong> không đưa lên bảng xếp hạng</strong>. Hãy làm bài nghiêm túc để có kết quả chính xác.
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* Score hero */}
           <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-8 text-center">
             <div className="w-16 h-16 flex items-center justify-center rounded-2xl mx-auto mb-4" style={{ backgroundColor: `${grade.color}15` }}>

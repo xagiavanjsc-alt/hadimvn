@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { supabase } from "@/lib/supabase";
+import { computeXP, deriveLevel } from "@/lib/xp";
 
 export function useStudySync() {
   const syncToCloud = useCallback(async (userId: string) => {
@@ -133,21 +134,30 @@ export function useStudySync() {
       const answeredMap = JSON.parse(localStorage.getItem("kts_eps_answers") || "{}");
       const examResults = JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]");
 
-      const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length as number;
+      const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length;
       const epsDone = Object.keys(answeredMap).length;
       const bestScore = examResults.length > 0
         ? Math.max(...examResults.map((r: { score: number; total: number }) => Math.round((r.score / r.total) * 100)))
         : 0;
-      const xp = (streak.count || 0) * 50 + bestScore * 10 + (wordsLearned as number) * 5 + epsDone * 2;
-      const level = bestScore >= 80 ? "TOPIK II" : bestScore >= 60 ? "TOPIK I" : "Cơ bản";
 
+      // NOTE: XP tính ở client chỉ là HIỂN THỊ TẠM THỜI. Server-side trigger
+      // (002_anticheat.sql) sẽ tính lại XP THẬT từ bảng exam_results và ghi đè.
+      const xp = computeXP({
+        streakDays: streak.count || 0,
+        bestScorePct: bestScore,
+        wordsLearned,
+        epsQuestionsDone: epsDone,
+      });
+      const level = deriveLevel(bestScore);
+
+      // Client chỉ upsert các field "raw stats"; server trigger sẽ chuẩn hoá xp.
       await supabase.from("leaderboard_snapshots").upsert({
         user_id: userId,
         display_name: displayName,
         xp,
         streak: streak.count || 0,
         best_score: bestScore,
-        words_learned: wordsLearned as number,
+        words_learned: wordsLearned,
         level,
         updated_at: new Date().toISOString(),
       }, { onConflict: "user_id" });

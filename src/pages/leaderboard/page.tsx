@@ -4,6 +4,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
+import { computeXP, deriveLevel } from "@/lib/xp";
 
 interface ExamResult {
   date: string;
@@ -92,7 +93,12 @@ export default function LeaderboardPage() {
     : 0;
   const myWordsLearned = Object.values(flashcardKnown).filter(Boolean).length;
   const myEpsDone = Object.keys(answeredMap).length;
-  const myXp = streak.count * 50 + myBestScore * 10 + myWordsLearned * 5 + myEpsDone * 2;
+  const myXp = computeXP({
+    streakDays: streak.count,
+    bestScorePct: myBestScore,
+    wordsLearned: myWordsLearned,
+    epsQuestionsDone: myEpsDone,
+  });
 
   const fetchLeaderboard = useCallback(async () => {
     setLoading(true);
@@ -128,7 +134,7 @@ export default function LeaderboardPage() {
             user_id: user.id,
             display_name: profile?.display_name || "Bạn",
             avatar_url: profile?.avatar_url || null,
-            level: myBestScore >= 80 ? "TOPIK II" : myBestScore >= 60 ? "TOPIK I" : "Cơ bản",
+            level: deriveLevel(myBestScore),
             streak: streak.count,
             best_score: myBestScore,
             words_learned: myWordsLearned,
@@ -151,7 +157,7 @@ export default function LeaderboardPage() {
           user_id: user.id,
           display_name: profile?.display_name || "Bạn",
           avatar_url: profile?.avatar_url || null,
-          level: myBestScore >= 80 ? "TOPIK II" : myBestScore >= 60 ? "TOPIK I" : "Cơ bản",
+          level: deriveLevel(myBestScore),
           streak: streak.count,
           best_score: myBestScore,
           words_learned: myWordsLearned,
