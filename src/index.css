@@ -1,15 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   html, body, #root {
-    background-color: #0f1117;
-  }
-  html, body {
-    font-family: 'Be Vietnam Pro', sans-serif;
+    @apply bg-app-bg text-app-text-primary font-app antialiased;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Đồng bộ màu selection */
+  ::selection {
+    @apply bg-app-accent-primary/30 text-white;
+  }
+  
+  /* Đồng bộ focus styles */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-app-accent-primary/50;
   }
 
   /* Tối ưu hiển thị tiếng Việt */
@@ -17,27 +26,28 @@
     font-feature-settings: "kern" 1, "liga" 1;
   }
 
-  /* Heading weights */
+  /* Heading styles đồng bộ */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Be Vietnam Pro', sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.01em;
+    @apply font-app font-bold tracking-tight text-app-text-primary;
   }
+  
+  h1 { @apply text-3xl md:text-4xl; }
+  h2 { @apply text-2xl md:text-3xl; }
+  h3 { @apply text-xl md:text-2xl; }
+  h4 { @apply text-lg md:text-xl; }
 
-  /* Smooth scrollbar */
+  /* Scrollbar đồng bộ */
   ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+    @apply w-1 h-1;
   }
   ::-webkit-scrollbar-track {
-    background: transparent;
+    @apply bg-transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.1);
-    border-radius: 2px;
+    @apply bg-app-border rounded-sm;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255,255,255,0.2);
+    @apply bg-white/20;
   }
 
   /* Dashboard page fade-in animation */
@@ -55,6 +65,31 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
+  /* Utility classes đồng bộ */
+  .app-container {
+    @apply bg-app-bg min-h-screen;
+  }
+  
+  .app-surface {
+    @apply bg-app-surface rounded-xl border border-app-border;
+  }
+  
+  .app-card {
+    @apply bg-app-card rounded-lg border border-app-border p-4;
+  }
+  
+  .app-text-primary {
+    @apply text-app-text-primary;
+  }
+  
+  .app-text-secondary {
+    @apply text-app-text-secondary;
+  }
+  
+  .app-text-muted {
+    @apply text-app-text-muted;
+  }
+  
   /* Performance: reduce paint on scroll-heavy elements */
   .perf-contain {
     contain: layout style paint;
