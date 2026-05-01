@@ -1,7 +1,7 @@
 ﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
-import { supabase } from "@/lib/supabase";
+import { supabase, isVipActive } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 
 const CATEGORIES = [
@@ -69,13 +69,13 @@ export default function FeedbackPage() {
       const { error: err } = await supabase.from("app_feedback").insert({
         user_id: user?.id || null,
         user_name: profile?.display_name || "Khách",
-        user_email: profile?.email || user?.email || "",
+        user_email: user?.email || "",
         rating,
         category,
         title: title.trim(),
         content: content.trim(),
         page_url: window.location.pathname,
-        is_vip: profile?.is_vip || false,
+        is_vip: isVipActive(profile),
         status: "new",
       });
       if (err) throw err;
@@ -198,7 +198,7 @@ export default function FeedbackPage() {
                 <p className="text-white/60 text-xs font-medium">{profile?.display_name || "Học viên"}</p>
                 <p className="text-white/25 text-[10px]">Góp ý sẽ được gửi kèm tên tài khoản</p>
               </div>
-              {profile?.is_vip && (
+              {isVipActive(profile) && (
                 <span className="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-[#e8c84a]/10 text-[#e8c84a] font-bold">VIP</span>
               )}
             </div>

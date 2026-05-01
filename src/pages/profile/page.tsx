@@ -1,8 +1,9 @@
-﻿import { useMemo, useState, useRef, useCallback } from "react";
+﻿import { useMemo, useState, useRef, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
+import { isVipActive } from "@/lib/supabase";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import ShareResultCard from "@/components/feature/ShareResultCard";
@@ -63,7 +64,12 @@ function StatCard({ icon, color, bg, label, value, sub }: {
 
 export default function ProfilePage() {
   const navigate = useNavigate();
-  const { user, profile, updateProfile, signOut } = useAuth();
+  const { user, profile, updateProfile, signOut, refreshProfile } = useAuth();
+
+  // Refresh profile on mount to ensure VIP status is current
+  useEffect(() => {
+    if (user) refreshProfile();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [streak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
@@ -209,8 +215,10 @@ export default function ProfilePage() {
   }, [srCards]);
 
   const displayName = profile?.display_name || user?.email?.split("@")[0] || "Học viên";
-  const isVip = profile?.is_vip || false;
-  const vipExpires = profile?.vip_expires_at ? new Date(profile.vip_expires_at) : null;
+  // VIP logic dùng hàm chung: is_vip=true và chưa hết hạn
+  const isVip = isVipActive(profile);
+  const vipExpires = isVip && profile?.vip_expires_at ? new Date(profile.vip_expires_at) : null;
+  const vipType = profile?.vip_type;
 
   return (
     <DashboardLayout
@@ -325,9 +333,9 @@ export default function ProfilePage() {
                 <div className="flex items-center gap-2">
                   <h2 className="text-white font-bold text-lg">{displayName}</h2>
                   {isVip && (
-                    <span className="flex items-center gap-1 bg-[#e8c84a]/15 text-[#e8c84a] text-[10px] font-bold px-2 py-0.5 rounded-full border border-[#e8c84a]/25">
+                    <span className={`flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full border ${vipType === "year" ? "bg-[#e8c84a]/15 text-[#e8c84a] border-[#e8c84a]/25" : "bg-emerald-500/15 text-emerald-400 border-emerald-500/25"}`}>
                       <i className="ri-vip-crown-fill text-[10px]"></i>
-                      VIP
+                      VIP {vipType === "year" ? "Năm" : "Tháng"}
                     </span>
                   )}
                   {user && (
@@ -375,11 +383,11 @@ export default function ProfilePage() {
             </div>
 
             {/* VIP status */}
-            {isVip && vipExpires && (
+            {isVip && (
               <div className="mt-2 flex items-center gap-2 text-xs">
-                <i className="ri-vip-crown-fill text-[#e8c84a]"></i>
-                <span className="text-[#e8c84a]/70">
-                  VIP đến {vipExpires.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })}
+                <i className={`ri-vip-crown-fill ${vipType === "year" ? "text-[#e8c84a]" : "text-emerald-400"}`}></i>
+                <span className={vipType === "year" ? "text-[#e8c84a]/70" : "text-emerald-400/70"}>
+                  VIP {vipType === "year" ? "Năm" : "Tháng"}{vipExpires ? ` đến ${vipExpires.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })}` : ""}
                 </span>
               </div>
             )}

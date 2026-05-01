@@ -2,6 +2,7 @@
 import AdminLayout from "@/components/feature/AdminLayout";
 import { supabase } from "@/lib/supabase";
 import { useAdminToast } from "@/contexts/AdminToastContext";
+import { logError } from "@/lib/logError";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type ContentTab = "community" | "lessons" | "reports";
@@ -314,12 +315,15 @@ function CommunityPostsTab() {
 
   const fetchPosts = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("community_posts")
       .select("*")
       .order("created_at", { ascending: false });
-    if (data) {
-      setPosts((data as CommunityPost[]).map(p => ({ ...p, status: p.is_pinned ? "approved" : "approved" })));
+    if (error) {
+      showToast({ type: "error", title: "Lỗi tải bài viết", message: error.message });
+      logError("database", `Fetch community_posts failed: ${error.message}`, { pageUrl: "/admin/content" });
+    } else if (data) {
+      setPosts((data as CommunityPost[]).map(p => ({ ...p, status: (p.status || "approved") as PostStatus })));
     }
     setLoading(false);
   }, []);
@@ -339,6 +343,12 @@ function CommunityPostsTab() {
 
   const handleApprove = async (id: string) => {
     const post = posts.find(p => p.id === id);
+    const { error } = await supabase.from("community_posts").update({ status: "approved" }).eq("id", id);
+    if (error) {
+      showToast({ type: "error", title: "Lỗi duyệt bài", message: error.message });
+      logError("database", `Approve post failed [${id}]: ${error.message}`, { pageUrl: "/admin/content" });
+      return;
+    }
     setPosts(prev => prev.map(p => p.id === id ? { ...p, status: "approved" as PostStatus } : p));
     setSelectedPost(null);
     setConfirmAction(null);
@@ -347,6 +357,12 @@ function CommunityPostsTab() {
 
   const handleReject = async (id: string) => {
     const post = posts.find(p => p.id === id);
+    const { error } = await supabase.from("community_posts").update({ status: "rejected" }).eq("id", id);
+    if (error) {
+      showToast({ type: "error", title: "Lỗi từ chối bài", message: error.message });
+      logError("database", `Reject post failed [${id}]: ${error.message}`, { pageUrl: "/admin/content" });
+      return;
+    }
     setPosts(prev => prev.map(p => p.id === id ? { ...p, status: "rejected" as PostStatus } : p));
     setSelectedPost(null);
     setConfirmAction(null);
@@ -356,7 +372,12 @@ function CommunityPostsTab() {
   const handlePin = async (id: string) => {
     const post = posts.find(p => p.id === id);
     if (!post) return;
-    await supabase.from("community_posts").update({ is_pinned: !post.is_pinned }).eq("id", id);
+    const { error } = await supabase.from("community_posts").update({ is_pinned: !post.is_pinned }).eq("id", id);
+    if (error) {
+      showToast({ type: "error", title: "Lỗi ghim bài", message: error.message });
+      logError("database", `Pin post failed [${id}]: ${error.message}`, { pageUrl: "/admin/content" });
+      return;
+    }
     setPosts(prev => prev.map(p => p.id === id ? { ...p, is_pinned: !p.is_pinned } : p));
     if (selectedPost?.id === id) setSelectedPost(prev => prev ? { ...prev, is_pinned: !prev.is_pinned } : null);
     setConfirmAction(null);
@@ -365,7 +386,12 @@ function CommunityPostsTab() {
 
   const handleDelete = async (id: string) => {
     const post = posts.find(p => p.id === id);
-    await supabase.from("community_posts").delete().eq("id", id);
+    const { error } = await supabase.from("community_posts").delete().eq("id", id);
+    if (error) {
+      showToast({ type: "error", title: "Lỗi xóa bài", message: error.message });
+      logError("database", `Delete post failed [${id}]: ${error.message}`, { pageUrl: "/admin/content" });
+      return;
+    }
     setPosts(prev => prev.filter(p => p.id !== id));
     setSelectedPost(null);
     setConfirmAction(null);
@@ -373,24 +399,36 @@ function CommunityPostsTab() {
   };
 
   // Bulk handlers
-  const handleBulkApprove = () => {
+  const handleBulkApprove = async () => {
     const count = selectedIds.size;
+    let ok = 0;
+    for (const id of selectedIds) {
+      const { error } = await supabase.from("community_posts").update({ status: "approved" }).eq("id", id);
+      if (!error) ok++;
+    }
     setPosts(prev => prev.map(p => selectedIds.has(p.id) ? { ...p, status: "approved" as PostStatus } : p));
     setSelectedIds(new Set());
     setBulkConfirm(null);
-    showToast({ type: "approve", title: `Đã duyệt ${count} bài viết`, message: "Tất cả bài viết đã chọn được duyệt" });
+    showToast({ type: "approve", title: `Đã duyệt ${ok}/${count} bài viết`, message: ok < count ? `${count - ok} bài lỗi` : undefined });
   };
-  const handleBulkReject = () => {
+  const handleBulkReject = async () => {
     const count = selectedIds.size;
+    let ok = 0;
+    for (const id of selectedIds) {
+      const { error } = await supabase.from("community_posts").update({ status: "rejected" }).eq("id", id);
+      if (!error) ok++;
+    }
     setPosts(prev => prev.map(p => selectedIds.has(p.id) ? { ...p, status: "rejected" as PostStatus } : p));
     setSelectedIds(new Set());
     setBulkConfirm(null);
-    showToast({ type: "reject", title: `Đã từ chối ${count} bài viết`, message: "Tất cả bài viết đã chọn bị từ chối" });
+    showToast({ type: "reject", title: `Đã từ chối ${ok}/${count} bài viết`, message: ok < count ? `${count - ok} bài lỗi` : undefined });
   };
   const handleBulkDelete = async () => {
     const count = selectedIds.size;
+    let ok = 0;
     for (const id of selectedIds) {
-      await supabase.from("community_posts").delete().eq("id", id);
+      const { error } = await supabase.from("community_posts").delete().eq("id", id);
+      if (!error) ok++;
     }
     setPosts(prev => prev.filter(p => !selectedIds.has(p.id)));
     setSelectedIds(new Set());

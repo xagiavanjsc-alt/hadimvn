@@ -1,6 +1,7 @@
 ﻿import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
+import { isVipActive } from "@/lib/supabase";
 import { useStudySync } from "@/hooks/useStudySync";
 import { useIsAdmin, markAdminVerified } from "@/hooks/useIsAdmin";
 import { useEffect, useState, useMemo, memo } from "react";
@@ -377,7 +378,7 @@ function SidebarInner() {
         </button>
 
         {/* VIP History shortcut — chỉ hiện khi là VIP */}
-        {user && profile?.is_vip && (
+        {user && isVipActive(profile) && (
           <button
             onClick={() => handleNavClick("/vip-history")}
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${

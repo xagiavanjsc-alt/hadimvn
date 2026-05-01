@@ -7,7 +7,7 @@ const DEFAULT_CONFIG = {
     "blockquote", "code", "span", "div", "h1", "h2", "h3", "h4",
     "sub", "sup", "small", "mark", "del", "ins", "table", "tr", "td", "th",
   ],
-  ALLOWED_ATTR: ["href", "target", "rel", "class", "style", "id"],
+  ALLOWED_ATTR: ["href", "target", "rel", "class", "id"],
   ALLOW_DATA_ATTR: false,
 } as const;
 

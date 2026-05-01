@@ -61,7 +61,9 @@ function BulkActionModal({
         setProgress(100);
       } else if (action === "vip_revoke") {
         for (let i = 0; i < selectedUsers.length; i++) {
-          await supabase.from("user_profiles").update({ is_vip: false, vip_expires_at: null }).eq("id", selectedUsers[i].id);
+          await supabase.functions.invoke("admin-grant-vip", {
+            body: { action: "revoke_vip", userId: selectedUsers[i].id },
+          });
           setProgress(Math.round(((i + 1) / selectedUsers.length) * 100));
         }
       } else if (action === "email_expiry") {
@@ -874,10 +876,14 @@ export default function AdminUsersPage() {
   }, [refetch]);
 
   const handleBulkGrantVip = useCallback(async (userIds: string[], type: "month" | "year", expiresAt: string) => {
+    let granted = 0;
     for (const id of userIds) {
-      await supabase.from("user_profiles").update({ is_vip: true, vip_expires_at: expiresAt, updated_at: new Date().toISOString() }).eq("id", id);
+      const res = await supabase.functions.invoke("admin-grant-vip", {
+        body: { action: "grant_vip", userId: id, vipType: type, expiresAt },
+      });
+      if (!res.error && !res.data?.error) granted++;
     }
-    showMsg(`Đã cấp VIP cho ${userIds.length} thành viên!`);
+    showMsg(`Đã cấp VIP cho ${granted}/${userIds.length} thành viên!`);
     refetch();
     setSelectedIds(new Set());
   }, [refetch]);

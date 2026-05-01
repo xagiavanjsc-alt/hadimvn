@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuthContext } from "@/contexts/AuthContext";
+import { isVipActive } from "@/lib/supabase";
 
 export type VipGuardReason = "not_logged_in" | "not_vip" | "not_vip_year" | null;
 
@@ -20,7 +21,7 @@ export function useVipYearGuard() {
 
   const isVipYear = (() => {
     if (!user || !profile) return false;
-    if (!profile.is_vip) return false;
+    if (!isVipActive(profile)) return false;
     if (!profile.vip_expires_at) return false;
     const expiresAt = new Date(profile.vip_expires_at).getTime();
     const thirtyDaysMs = 30 * 24 * 60 * 60 * 1000;
@@ -28,7 +29,7 @@ export function useVipYearGuard() {
   })();
 
   const isLoggedIn = Boolean(user);
-  const isVip = Boolean(profile?.is_vip);
+  const isVip = isVipActive(profile);
   // VIP tháng: đã VIP nhưng không phải VIP năm
   const isVipMonth = isVip && !isVipYear;
 

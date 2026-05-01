@@ -14,10 +14,19 @@ export type UserProfile = {
   display_name: string;
   avatar_url: string | null;
   is_vip: boolean;
+  vip_type: "none" | "month" | "year";
   vip_expires_at: string | null;
+  is_admin: boolean;
   created_at: string;
   updated_at: string;
 };
+
+/** Kiểm tra VIP còn hiệu lực: is_vip=true VÀ chưa hết hạn */
+export function isVipActive(profile: { is_vip?: boolean; vip_expires_at?: string | null } | null | undefined): boolean {
+  if (!profile?.is_vip) return false;
+  if (!profile.vip_expires_at) return true; // không có ngày hết hạn → coi như còn VIP
+  return new Date(profile.vip_expires_at).getTime() > Date.now();
+}
 
 export type StudyProgress = {
   id: string;

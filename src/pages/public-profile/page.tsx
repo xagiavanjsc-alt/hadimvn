@@ -2,7 +2,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
-import { supabase } from "@/lib/supabase";
+import { supabase, isVipActive } from "@/lib/supabase";
 import { RANKS } from "@/data/ranks";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -11,6 +11,7 @@ interface PublicProfile {
   display_name: string;
   avatar_url: string | null;
   is_vip: boolean;
+  vip_expires_at: string | null;
   created_at: string;
 }
 
@@ -55,7 +56,7 @@ function ShareCard({ profile, stats }: { profile: PublicProfile; stats: PublicSt
           <div>
             <div className="flex items-center gap-2">
               <h2 className="text-white font-bold text-base">{profile.display_name}</h2>
-              {profile.is_vip && (
+              {isVipActive(profile) && (
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#e8c84a]/15 text-[#e8c84a] font-bold border border-[#e8c84a]/25">VIP</span>
               )}
             </div>
@@ -119,7 +120,7 @@ export default function PublicProfilePage() {
     try {
       const { data, error } = await supabase
         .from("user_profiles")
-        .select("id, display_name, avatar_url, is_vip, created_at")
+        .select("id, display_name, avatar_url, is_vip, vip_expires_at, created_at")
         .eq("id", userId)
         .maybeSingle();
 
@@ -269,7 +270,7 @@ export default function PublicProfilePage() {
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <h1 className="text-gray-800 font-bold text-xl">{profile.display_name}</h1>
-                {profile.is_vip && (
+                {isVipActive(profile) && (
                   <span className="flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-[#e8c84a]/15 text-[#e8c84a] font-bold border border-[#e8c84a]/25">
                     <i className="ri-vip-crown-fill text-[10px]"></i>VIP
                   </span>

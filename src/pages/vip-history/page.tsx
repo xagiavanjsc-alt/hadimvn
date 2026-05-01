@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
-import { supabase } from "@/lib/supabase";
+import { supabase, isVipActive } from "@/lib/supabase";
 
 interface VipTransaction {
   id: string;
@@ -134,7 +134,7 @@ export default function VipHistoryPage() {
       }
     >
       {/* VIP Status Banner */}
-      {profile?.is_vip && profile.vip_expires_at && (
+      {isVipActive(profile) && profile.vip_expires_at && (
         <div className="relative overflow-hidden rounded-2xl mb-6 p-5"
           style={{ background: "linear-gradient(135deg, #1a1600 0%, #2a2000 100%)" }}>
           <div className="absolute inset-0 opacity-20"

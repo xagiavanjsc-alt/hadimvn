@@ -83,11 +83,15 @@ export default function AdminRolesPage() {
     try {
       const isAdmin = role === "super_admin";
       // Save both is_admin (for backward compat) and user_role (for granular roles)
-      await supabase.from("user_profiles").update({
+      const { error } = await supabase.from("user_profiles").update({
         is_admin: isAdmin,
         user_role: role,
         updated_at: new Date().toISOString()
       }).eq("id", userId);
+      if (error) {
+        showToast(`Lỗi: ${error.message || "Không thể cập nhật quyền"}`);
+        return;
+      }
       setRoleUsers(prev => prev.map(u => u.id === userId ? { ...u, role, permissions, is_admin: isAdmin } : u));
       setEditUser(null);
       showToast(`Đã cập nhật quyền cho ${roleUsers.find(u => u.id === userId)?.display_name}`);

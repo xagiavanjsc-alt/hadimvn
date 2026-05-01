@@ -826,6 +826,7 @@ export default function CommunityPage() {
     const { data } = await supabase
       .from("community_posts")
       .select("*")
+      .or("status.eq.approved,status.is.null")
       .order("created_at", { ascending: false });
     if (data) setPosts(data as Post[]);
     setLoadingPosts(false);

@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
-import { supabase } from "@/lib/supabase";
+import { supabase, isVipActive } from "@/lib/supabase";
 
 type Tab = "security" | "notifications" | "data" | "vip";
 
@@ -179,7 +179,7 @@ export default function AccountSettingsPage() {
           <p className="text-white/40 text-sm">{user.email}</p>
         </div>
         <div className="flex items-center gap-2">
-          {profile?.is_vip ? (
+          {isVipActive(profile) ? (
             <span className="flex items-center gap-1.5 bg-[#e8c84a]/15 text-[#e8c84a] text-xs font-bold px-3 py-1.5 rounded-full border border-[#e8c84a]/25">
               <i className="ri-vip-crown-fill"></i>
               VIP
@@ -367,7 +367,7 @@ export default function AccountSettingsPage() {
 
           {/* VIP Status */}
           <SectionCard title="Trạng thái VIP" icon="ri-vip-crown-line">
-            {profile?.is_vip ? (
+            {isVipActive(profile) ? (
               <div className="space-y-4">
                 <div className="flex items-center gap-3 px-4 py-4 bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl">
                   <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#e8c84a]/15 flex-shrink-0">
@@ -420,7 +420,7 @@ export default function AccountSettingsPage() {
           </SectionCard>
 
           {/* Auto-Renew */}
-          {profile?.is_vip && (
+          {isVipActive(profile) && (
             <SectionCard title="Tự động gia hạn VIP" icon="ri-refresh-line">
               <div className="flex items-start justify-between gap-4 mb-4">
                 <div className="flex-1">

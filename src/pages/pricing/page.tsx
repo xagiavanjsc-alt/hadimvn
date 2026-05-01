@@ -1,7 +1,7 @@
 ﻿import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
-import { supabase } from "@/lib/supabase";
+import { supabase, isVipActive } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 
 interface PlanFeature {
@@ -358,8 +358,8 @@ export default function PricingPage() {
       </div>
 
       {/* Auto-renew section for VIP users */}
-      {profile?.is_vip && (
-        <AutoRenewSection isVip={!!profile?.is_vip} vipExpiresAt={profile?.vip_expires_at || null} />
+      {isVipActive(profile) && (
+        <AutoRenewSection isVip={isVipActive(profile)} vipExpiresAt={profile?.vip_expires_at || null} />
       )}
 
       {/* Pricing cards */}
@@ -383,7 +383,7 @@ export default function PricingPage() {
               </div>
             ))}
           </div>
-          {profile?.is_vip ? (
+          {isVipActive(profile) ? (
             <div className="w-full py-3 rounded-xl border border-white/8 text-white/25 text-sm font-medium text-center">
               Gói cơ bản
             </div>
@@ -432,7 +432,7 @@ export default function PricingPage() {
               </div>
             ))}
           </div>
-          {profile?.is_vip ? (
+          {isVipActive(profile) ? (
             <div className="space-y-2">
               <div className="w-full py-3 rounded-xl bg-[#e8c84a]/10 border border-[#e8c84a]/25 text-[#e8c84a] text-sm font-bold text-center flex items-center justify-center gap-2">
                 <i className="ri-vip-crown-fill"></i>

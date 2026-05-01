@@ -63,6 +63,7 @@ const adminNavGroups = [
     items: [
       { path: "/admin/bugs", icon: "ri-bug-line", label: "Báo cáo lỗi & Vi phạm" },
       { path: "/admin/feedback", icon: "ri-chat-smile-2-line", label: "Góp ý & Đánh giá" },
+      { path: "/admin/error-logs", icon: "ri-error-warning-line", label: "Lỗi hệ thống" },
     ],
   },
   {
@@ -336,13 +337,13 @@ function NavGroup({
           style={{ backgroundColor: hasActive ? group.color : "var(--admin-text-faint)" }}
         />
         <p
-          className="flex-1 text-left text-[9px] tracking-normal font-semibold transition-colors"
+          className="flex-1 text-left text-[11px] tracking-wide font-semibold transition-colors"
           style={{ color: hasActive ? group.color : "var(--admin-text-faint)" }}
         >
           {group.label}
         </p>
         <i
-          className={`text-[10px] transition-transform duration-200 ${open ? "ri-arrow-down-s-line" : "ri-arrow-right-s-line"}`}
+          className={`text-[11px] transition-transform duration-200 ${open ? "ri-arrow-down-s-line" : "ri-arrow-right-s-line"}`}
           style={{ color: "var(--admin-text-faint)" }}
         />
       </button>
@@ -441,7 +442,7 @@ export default function AdminLayout({
 
                 {/* Divider */}
                 <div className="border-t pt-2" style={{ borderColor: "var(--admin-border)" }}>
-                  <p className="text-[9px] tracking-normal font-semibold px-3 pb-1.5" style={{ color: "var(--admin-text-faint)" }}>
+                  <p className="text-[11px] tracking-wide font-semibold px-3 pb-1.5" style={{ color: "var(--admin-text-faint)" }}>
                     Điều hướng
                   </p>
                   <NavLink

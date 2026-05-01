@@ -155,7 +155,7 @@ export default function LeaderboardPage() {
       setPlayers(mapped);
       setLastRefresh(new Date());
     } catch {
-      // fallback: show only current user if logged in
+      // fallback: show only current user if logged in, or empty for guests
       if (user) {
         const myEntry: LeaderboardPlayer = {
           id: "me-local",
@@ -171,6 +171,9 @@ export default function LeaderboardPage() {
           isCurrentUser: true,
         };
         setPlayers([myEntry]);
+      } else {
+        // Guests: ensure players is set (not stale) so UI shows proper empty state
+        setPlayers([]);
       }
     } finally {
       setLoading(false);

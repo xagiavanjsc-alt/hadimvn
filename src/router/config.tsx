@@ -355,6 +355,7 @@ const AdminRevenuePage = lazyPage(() => import("../pages/admin-revenue/page"));
 const AdminAdsPage = lazyPage(() => import("../pages/admin-ads/page"));
 const AdminHanjaPage = lazyPage(() => import("../pages/admin-hanja/page"));
 const AdminControlPage = lazyPage(() => import("../pages/admin-control/page"));
+const AdminErrorLogsPage = lazyPage(() => import("../pages/admin-error-logs/page"));
 const AdminBugsPage = lazyPage(() => import("../pages/admin-bugs/page"));
 const AdminVipTransactionsPage = lazyPage(() => import("../pages/admin-vip-transactions/page"));
 const AdminZaloReminderPage = lazyPage(() => import("../pages/admin-zalo-reminder/page"));
@@ -579,6 +580,7 @@ const routes: RouteObject[] = [
   { path: "/admin/vip-transactions", element: <AdminVipTransactionsPage /> },
   { path: "/admin/zalo-reminder", element: <AdminZaloReminderPage /> },
   { path: "/admin/feedback", element: <AdminFeedbackPage /> },
+  { path: "/admin/error-logs", element: <AdminErrorLogsPage /> },
   { path: "/feedback", element: <FeedbackPage /> },
   { path: "/report-bug", element: <ReportBugPage /> },
   { path: "/vip-history", element: <RequireAuth title="Lịch sử VIP"><VipHistoryPage /></RequireAuth> },
