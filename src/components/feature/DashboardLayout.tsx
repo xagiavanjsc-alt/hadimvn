@@ -84,7 +84,9 @@ export default function DashboardLayout({ children, title, subtitle, actions }: 
         <main className="flex-1 overflow-auto dashboard-fade-in">
           {/* Mobile spacer for fixed header */}
           <div className="h-14 md:hidden" />
-          {children}
+          <div className="max-w-7xl mx-auto w-full px-4 md:px-6">
+            {children}
+          </div>
           {/* Mobile spacer for bottom nav */}
           <div className="h-20 md:hidden" />
         </main>
