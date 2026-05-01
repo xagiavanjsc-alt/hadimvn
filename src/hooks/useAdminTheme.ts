@@ -41,6 +41,9 @@ export const adminThemeVars: Record<AdminTheme, Record<string, string>> = {
     "--admin-text-faint": "rgba(255,255,255,0.50)", // = app-text-muted
     "--admin-hover": "rgba(255,255,255,0.05)",
     "--admin-header": "rgba(15,17,23,0.95)",
+    // Sidebar width variables - Đồng bộ chiều rộng menu
+    "--sidebar-width": "14rem",           // w-56 = 224px
+    "--sidebar-width-collapsed": "3.5rem", // w-14 = 56px
   },
   light: {
     "--admin-bg": "#f8f9fa",
@@ -54,5 +57,8 @@ export const adminThemeVars: Record<AdminTheme, Record<string, string>> = {
     "--admin-text-faint": "rgba(0,0,0,0.40)",
     "--admin-hover": "rgba(0,0,0,0.04)",
     "--admin-header": "rgba(255,255,255,0.95)",
+    // Sidebar width variables - Đồng bộ chiều rộng menu
+    "--sidebar-width": "14rem",
+    "--sidebar-width-collapsed": "3.5rem",
   },
 };

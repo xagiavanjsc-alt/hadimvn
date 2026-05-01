@@ -397,8 +397,9 @@ export default function AdminLayout({
 
         {/* ── Sidebar ── */}
         <aside
-          className={`${sidebarCollapsed ? "w-14" : "w-56"} min-h-screen flex flex-col border-r flex-shrink-0 transition-all duration-200`}
+          className="min-h-screen flex flex-col border-r flex-shrink-0 transition-all duration-200"
           style={{
+            width: sidebarCollapsed ? "var(--sidebar-width-collapsed)" : "var(--sidebar-width)",
             backgroundColor: "var(--admin-sidebar)",
             borderColor: "var(--admin-border)",
           }}
