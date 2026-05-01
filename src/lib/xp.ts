@@ -10,18 +10,43 @@
 
 export interface UserStudyStats {
   streakDays: number;
-  bestScorePct: number; // 0–100
-  wordsLearned: number;
-  epsQuestionsDone: number;
+  bestScorePct: number;       // 0–100, max điểm bài exam
+  averageScorePct?: number;   // 0–100, trung bình các bài exam
+  wordsLearned: number;       // từ vựng đã master
+  totalCorrectAnswers?: number; // tổng câu đúng qua các exam hợp lệ
+  validExamsCount?: number;   // số exam hợp lệ đã hoàn thành
+  /** @deprecated dùng totalCorrectAnswers thay thế (chống spam click) */
+  epsQuestionsDone?: number;
 }
 
-/** Công thức XP thống nhất. Thay đổi ở 1 chỗ duy nhất. */
+/** Cap số từ vựng "đã thuộc" để chống cheat localStorage. */
+export const FLASHCARD_XP_CAP = 500;
+
+/**
+ * Công thức XP — KHỚP với SQL function `compute_user_xp()` ở 003_xp_formula.sql.
+ * Server tính lại từ data thật, client chỉ hiển thị tạm thời.
+ *
+ * XP = streak × 30
+ *    + bestScore × 8
+ *    + averageScore × 5
+ *    + totalCorrectAnswers × 3
+ *    + min(wordsLearned, 500) × 4
+ *    + validExamsCount × 10
+ */
 export function computeXP(s: UserStudyStats): number {
+  // Backward-compat: nếu thiếu field mới, fallback an toàn (không over-grant XP)
+  const avg = s.averageScorePct ?? s.bestScorePct;
+  const correct = s.totalCorrectAnswers ?? 0;
+  const exams = s.validExamsCount ?? 0;
+  const wordsCapped = Math.min(s.wordsLearned, FLASHCARD_XP_CAP);
+
   return (
-    s.streakDays * 50 +
-    s.bestScorePct * 10 +
-    s.wordsLearned * 5 +
-    s.epsQuestionsDone * 2
+    s.streakDays * 30 +
+    s.bestScorePct * 8 +
+    avg * 5 +
+    correct * 3 +
+    wordsCapped * 4 +
+    exams * 10
   );
 }
 

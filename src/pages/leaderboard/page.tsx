@@ -10,6 +10,7 @@ interface ExamResult {
   date: string;
   score: number;
   total: number;
+  correctIds?: string[];
 }
 
 interface LeaderboardPlayer {
@@ -85,19 +86,23 @@ export default function LeaderboardPage() {
   // Local stats for current user
   const [streak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
   const [examResults] = useLocalStorage<ExamResult[]>("kts_eps_exam_results", []);
-  const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
   const [flashcardKnown] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
 
   const myBestScore = examResults.length > 0
     ? Math.max(...examResults.map((r) => Math.round((r.score / r.total) * 100)))
     : 0;
+  const myAvgScore = examResults.length > 0
+    ? Math.round(examResults.reduce((sum, r) => sum + (r.score / r.total) * 100, 0) / examResults.length)
+    : 0;
+  const myTotalCorrect = examResults.reduce((sum, r) => sum + (r.correctIds?.length ?? r.score ?? 0), 0);
   const myWordsLearned = Object.values(flashcardKnown).filter(Boolean).length;
-  const myEpsDone = Object.keys(answeredMap).length;
   const myXp = computeXP({
     streakDays: streak.count,
     bestScorePct: myBestScore,
+    averageScorePct: myAvgScore,
     wordsLearned: myWordsLearned,
-    epsQuestionsDone: myEpsDone,
+    totalCorrectAnswers: myTotalCorrect,
+    validExamsCount: examResults.length,
   });
 
   const fetchLeaderboard = useCallback(async () => {

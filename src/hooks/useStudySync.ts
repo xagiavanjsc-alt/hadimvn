@@ -131,22 +131,27 @@ export function useStudySync() {
     try {
       const streak = JSON.parse(localStorage.getItem("kts_streak") || '{"count":0}');
       const flashcardKnown = JSON.parse(localStorage.getItem("kts_flashcard_known") || "{}");
-      const answeredMap = JSON.parse(localStorage.getItem("kts_eps_answers") || "{}");
       const examResults = JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]");
 
       const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length;
-      const epsDone = Object.keys(answeredMap).length;
-      const bestScore = examResults.length > 0
-        ? Math.max(...examResults.map((r: { score: number; total: number }) => Math.round((r.score / r.total) * 100)))
+      const validExams = examResults as { score: number; total: number; correctIds?: string[] }[];
+      const bestScore = validExams.length > 0
+        ? Math.max(...validExams.map(r => Math.round((r.score / r.total) * 100)))
         : 0;
+      const avgScore = validExams.length > 0
+        ? Math.round(validExams.reduce((sum, r) => sum + (r.score / r.total) * 100, 0) / validExams.length)
+        : 0;
+      const totalCorrect = validExams.reduce((sum, r) => sum + (r.correctIds?.length ?? r.score ?? 0), 0);
 
       // NOTE: XP tính ở client chỉ là HIỂN THỊ TẠM THỜI. Server-side trigger
-      // (002_anticheat.sql) sẽ tính lại XP THẬT từ bảng exam_results và ghi đè.
+      // (002_anticheat.sql + 003_xp_formula.sql) sẽ tính lại XP THẬT và ghi đè.
       const xp = computeXP({
         streakDays: streak.count || 0,
         bestScorePct: bestScore,
+        averageScorePct: avgScore,
         wordsLearned,
-        epsQuestionsDone: epsDone,
+        totalCorrectAnswers: totalCorrect,
+        validExamsCount: validExams.length,
       });
       const level = deriveLevel(bestScore);
 
