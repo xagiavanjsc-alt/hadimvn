@@ -390,7 +390,7 @@ function GlobalSearchInner() {
               ) : (
                 <>
                   {!hasQuery && (
-                    <p className="px-4 py-1.5 text-[10px] tracking-wider font-semibold" style={{ color: "var(--dash-text-muted)" }}>
+                    <p className="px-4 py-1.5 text-[10px] tracking-normal font-semibold" style={{ color: "var(--dash-text-muted)" }}>
                       Gợi ý nhanh
                     </p>
                   )}

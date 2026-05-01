@@ -98,7 +98,7 @@ export default function EbookCoverEditor({ meta, onChange }: Props) {
 
       {/* Divider */}
       <div className="border-t border-white/5 pt-1">
-        <p className="text-white/25 text-[10px] tracking-wider mb-4 flex items-center gap-1.5">
+        <p className="text-white/25 text-[10px] tracking-normal mb-4 flex items-center gap-1.5">
           <i className="ri-pages-line"></i>
           Trang bổ sung
         </p>

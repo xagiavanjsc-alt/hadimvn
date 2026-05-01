@@ -89,7 +89,7 @@ export default function EbookBatchExport({ lessons, meta, template, onExportGrou
 
             {/* Group by selector */}
             <div className="px-6 py-4 border-b border-white/5 flex-shrink-0">
-              <p className="text-white/40 text-xs tracking-wider mb-3">Nhóm theo</p>
+              <p className="text-white/40 text-xs tracking-normal mb-3">Nhóm theo</p>
               <div className="flex gap-2">
                 {([
                   { value: "artist", label: "Nghệ sĩ", icon: "ri-user-voice-line" },

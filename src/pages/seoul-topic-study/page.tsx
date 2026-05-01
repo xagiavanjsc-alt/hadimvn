@@ -216,7 +216,7 @@ export default function SeoulTopicStudyPage() {
       <div className="space-y-6">
         {/* Topic grid */}
         <div>
-          <p className="text-white/50 text-xs font-semibold tracking-wider mb-3">Chọn chủ đề</p>
+          <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Chọn chủ đề</p>
           <div className="grid grid-cols-3 lg:grid-cols-5 gap-3">
             {/* All topics */}
             <button

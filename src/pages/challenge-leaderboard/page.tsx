@@ -141,7 +141,7 @@ export default function ChallengeLeaderboardPage() {
         <div className="space-y-5">
           {/* Top 3 podium */}
           <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-6">
-            <p className="text-white/40 text-xs font-semibold tracking-wider mb-5">Top 3 tuần này</p>
+            <p className="text-white/40 text-xs font-semibold tracking-normal mb-5">Top 3 tuần này</p>
             <div className="flex items-end justify-center gap-4">
               {/* 2nd */}
               {top3[1] && (
@@ -187,7 +187,7 @@ export default function ChallengeLeaderboardPage() {
 
           {/* Full leaderboard */}
           <div className="bg-[#0f1117] border border-white/5 rounded-2xl overflow-hidden">
-            <div className="px-5 py-3 border-b border-white/5 flex items-center gap-4 text-[10px] text-white/25 font-semibold tracking-wider">
+            <div className="px-5 py-3 border-b border-white/5 flex items-center gap-4 text-[10px] text-white/25 font-semibold tracking-normal">
               <span className="w-8">Hạng</span>
               <span className="flex-1">Người chơi</span>
               <span className="w-12 text-center">Thắng</span>

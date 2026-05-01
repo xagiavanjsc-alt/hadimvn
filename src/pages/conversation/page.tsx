@@ -399,7 +399,7 @@ export default function ConversationPage() {
           </div>
 
           <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-8 text-center mb-4 min-h-[240px] flex flex-col items-center justify-center">
-            <p className="text-white/30 text-xs mb-4 tracking-wider">Tiếng Hàn</p>
+            <p className="text-white/30 text-xs mb-4 tracking-normal">Tiếng Hàn</p>
             <p className="text-white font-black text-4xl mb-3">{current.korean}</p>
             {showAnswer ? (
               <div className="mt-4 space-y-2">

@@ -270,7 +270,7 @@ function MatchGame({ vocab, onBack }: { vocab: VocabWord[]; onBack: () => void }
       <div className="grid grid-cols-2 gap-4">
         {/* Left: Korean */}
         <div className="space-y-2">
-          <p className="text-xs font-semibold text-gray-400 tracking-wider text-center mb-3">Tiếng Hàn</p>
+          <p className="text-xs font-semibold text-gray-400 tracking-normal text-center mb-3">Tiếng Hàn</p>
           {leftItems.map((item, i) => {
             const isMatched = matched.has(item.id);
             const isSelected = selectedLeft === i;
@@ -294,7 +294,7 @@ function MatchGame({ vocab, onBack }: { vocab: VocabWord[]; onBack: () => void }
         </div>
         {/* Right: Vietnamese */}
         <div className="space-y-2">
-          <p className="text-xs font-semibold text-gray-400 tracking-wider text-center mb-3">Tiếng Việt</p>
+          <p className="text-xs font-semibold text-gray-400 tracking-normal text-center mb-3">Tiếng Việt</p>
           {rightItems.map((item, i) => {
             const isMatched = matched.has(item.id);
             const isSelected = selectedRight === i;

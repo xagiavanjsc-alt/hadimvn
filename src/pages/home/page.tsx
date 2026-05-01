@@ -354,7 +354,7 @@ export default function Home() {
         {/* ── Quick actions ── */}
         <div>
           <div className="flex items-center justify-between mb-2 sm:mb-3">
-            <h2 className="text-white/60 text-xs font-semibold tracking-wider">
+            <h2 className="text-white/60 text-xs font-semibold tracking-normal">
               Bắt đầu học ngay
             </h2>
             <button
@@ -402,7 +402,7 @@ export default function Home() {
         <div className="flex flex-col md:flex-row gap-3">
           {/* Suggestions */}
           <div className="flex-1 bg-[#0f1117] border border-white/5 rounded-2xl p-3 sm:p-4">
-            <p className="text-white/40 text-xs font-semibold tracking-wider mb-2 sm:mb-3">
+            <p className="text-white/40 text-xs font-semibold tracking-normal mb-2 sm:mb-3">
               Gợi ý cho bạn hôm nay
             </p>
             <div className="space-y-2">
@@ -440,7 +440,7 @@ export default function Home() {
         {/* ── Main tools ── */}
         <div>
           <div className="flex items-center justify-between mb-2 sm:mb-3">
-            <h2 className="text-white/60 text-xs font-semibold tracking-wider">
+            <h2 className="text-white/60 text-xs font-semibold tracking-normal">
               Công cụ chính
             </h2>
             <button
@@ -498,7 +498,7 @@ export default function Home() {
 
         {/* ── Learning paths ── */}
         <div>
-          <h2 className="text-white/60 text-xs font-semibold tracking-wider mb-2 sm:mb-3">
+          <h2 className="text-white/60 text-xs font-semibold tracking-normal mb-2 sm:mb-3">
             Lộ trình học
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">

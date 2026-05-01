@@ -692,7 +692,7 @@ export default function SettingsPage() {
 
               {/* Preview */}
               <div className="bg-white/3 rounded-xl p-4 border border-white/5">
-                <p className="text-white/30 text-[10px] tracking-wider mb-2 flex items-center gap-1.5">
+                <p className="text-white/30 text-[10px] tracking-normal mb-2 flex items-center gap-1.5">
                   <i className="ri-eye-line"></i>
                   Xem trước prompt sẽ gửi cho AI
                 </p>
@@ -760,17 +760,17 @@ export default function SettingsPage() {
                   {/* Summary cards */}
                   <div className="grid grid-cols-3 gap-3">
                     <div className="bg-white/3 rounded-xl p-4 border border-white/5">
-                      <p className="text-white/30 text-[10px] tracking-wider mb-1">Tổng lần gọi</p>
+                      <p className="text-white/30 text-[10px] tracking-normal mb-1">Tổng lần gọi</p>
                       <p className="text-white text-2xl font-bold">{costSummary.totalCalls}</p>
                       <p className="text-white/25 text-[10px] mt-1">Tất cả thời gian</p>
                     </div>
                     <div className="bg-[#e8c84a]/5 rounded-xl p-4 border border-[#e8c84a]/15">
-                      <p className="text-[#e8c84a]/60 text-[10px] tracking-wider mb-1">Chi phí ước tính</p>
+                      <p className="text-[#e8c84a]/60 text-[10px] tracking-normal mb-1">Chi phí ước tính</p>
                       <p className="text-[#e8c84a] text-2xl font-bold">${costSummary.totalCostUsd.toFixed(4)}</p>
                       <p className="text-[#e8c84a]/30 text-[10px] mt-1">USD tổng cộng</p>
                     </div>
                     <div className="bg-emerald-500/5 rounded-xl p-4 border border-emerald-500/15">
-                      <p className="text-emerald-400/60 text-[10px] tracking-wider mb-1">30 ngày qua</p>
+                      <p className="text-emerald-400/60 text-[10px] tracking-normal mb-1">30 ngày qua</p>
                       <p className="text-emerald-400 text-2xl font-bold">{costSummary.last30Days}</p>
                       <p className="text-emerald-400/30 text-[10px] mt-1">${costSummary.last30DaysCost.toFixed(4)}</p>
                     </div>
@@ -779,7 +779,7 @@ export default function SettingsPage() {
                   {/* By model breakdown */}
                   {Object.keys(costSummary.byModel).length > 0 && (
                     <div>
-                      <p className="text-white/40 text-xs font-medium tracking-wider mb-3">Theo model</p>
+                      <p className="text-white/40 text-xs font-medium tracking-normal mb-3">Theo model</p>
                       <div className="space-y-2">
                         {Object.entries(costSummary.byModel)
                           .sort((a, b) => b[1].calls - a[1].calls)
@@ -807,7 +807,7 @@ export default function SettingsPage() {
                   {/* By type */}
                   {Object.keys(costSummary.byType).length > 0 && (
                     <div>
-                      <p className="text-white/40 text-xs font-medium tracking-wider mb-3">Theo tính năng</p>
+                      <p className="text-white/40 text-xs font-medium tracking-normal mb-3">Theo tính năng</p>
                       <div className="flex gap-3">
                         {Object.entries(costSummary.byType).map(([type, stats]) => (
                           <div key={type} className="flex-1 bg-white/3 rounded-xl p-4 border border-white/5">

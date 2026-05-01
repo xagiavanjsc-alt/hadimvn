@@ -87,7 +87,7 @@ export default function ShareFlashcardModal({ cards, onClose }: ShareFlashcardMo
 
           {/* Preview */}
           <div className="bg-white/3 border border-white/5 rounded-xl p-3">
-            <p className="text-white/30 text-[10px] tracking-wider mb-2">Xem trước ({Math.min(cards.length, 3)} từ đầu)</p>
+            <p className="text-white/30 text-[10px] tracking-normal mb-2">Xem trước ({Math.min(cards.length, 3)} từ đầu)</p>
             <div className="space-y-1.5">
               {cards.slice(0, 3).map((c, i) => (
                 <div key={i} className="flex items-center gap-2">

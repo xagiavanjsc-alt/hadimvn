@@ -367,7 +367,7 @@ export default function PricingPage() {
         {/* Free */}
         <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-6">
           <div className="mb-5">
-            <p className="text-white/40 text-xs font-semibold tracking-wider mb-2">Miễn phí</p>
+            <p className="text-white/40 text-xs font-semibold tracking-normal mb-2">Miễn phí</p>
             <div className="flex items-end gap-1 mb-1">
               <span className="text-white font-bold text-4xl">0đ</span>
             </div>
@@ -400,7 +400,7 @@ export default function PricingPage() {
             PHỔ BIẾN NHẤT
           </div>
           <div className="mb-5">
-            <p className="text-[#e8c84a] text-xs font-semibold tracking-wider mb-2">VIP</p>
+            <p className="text-[#e8c84a] text-xs font-semibold tracking-normal mb-2">VIP</p>
             <div className="flex items-end gap-1 mb-1">
               <span className="text-white font-bold text-4xl">{new Intl.NumberFormat("vi-VN").format(currentPrice)}đ</span>
               <span className="text-white/30 text-sm mb-1">/tháng</span>
@@ -464,7 +464,7 @@ export default function PricingPage() {
       <div className="bg-[#0f1117] border border-white/5 rounded-2xl overflow-hidden mb-10 overflow-x-auto">
         <div className="min-w-[480px]">
           <div className="grid grid-cols-[1fr_120px_120px] items-center px-4 py-4 border-b border-white/5">
-            <p className="text-white/40 text-xs font-semibold tracking-wider">Tính năng</p>
+            <p className="text-white/40 text-xs font-semibold tracking-normal">Tính năng</p>
             <p className="text-white/40 text-xs font-semibold text-center">Miễn phí</p>
             <p className="text-[#e8c84a] text-xs font-semibold text-center">VIP</p>
           </div>
@@ -519,7 +519,7 @@ export default function PricingPage() {
 
       {/* Bottom CTA */}
       <div className="bg-gradient-to-r from-[#1a1600] via-[#2a2000] to-[#1a1600] border border-[#e8c84a]/15 rounded-2xl p-8 text-center">
-        <p className="text-[#e8c84a] text-xs font-semibold tracking-wider mb-2">Bắt đầu ngay hôm nay</p>
+        <p className="text-[#e8c84a] text-xs font-semibold tracking-normal mb-2">Bắt đầu ngay hôm nay</p>
         <h3 className="text-white font-bold text-xl mb-2">7 ngày dùng thử — hoàn toàn miễn phí</h3>
         <p className="text-white/40 text-sm mb-5">Không cần thẻ tín dụng. Hủy bất cứ lúc nào. Hỗ trợ qua Zalo 24/7.</p>
         <button

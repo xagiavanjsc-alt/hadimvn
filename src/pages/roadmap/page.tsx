@@ -153,7 +153,7 @@ function LevelCard({ level, lessons, isActive, isCompleted, onSelect }: {
         <div className="mt-5 pt-5 border-t border-white/5 space-y-4">
           {/* Skills */}
           <div>
-            <p className="text-white/30 text-[10px] tracking-wider font-semibold mb-2">Kỹ năng cần đạt</p>
+            <p className="text-white/30 text-[10px] tracking-normal font-semibold mb-2">Kỹ năng cần đạt</p>
             <div className="grid grid-cols-2 gap-2">
               {level.skills.map((skill, i) => (
                 <div key={i} className="flex items-center gap-2">
@@ -166,7 +166,7 @@ function LevelCard({ level, lessons, isActive, isCompleted, onSelect }: {
 
           {/* Grammar */}
           <div>
-            <p className="text-white/30 text-[10px] tracking-wider font-semibold mb-2">Ngữ pháp trọng tâm</p>
+            <p className="text-white/30 text-[10px] tracking-normal font-semibold mb-2">Ngữ pháp trọng tâm</p>
             <div className="flex flex-wrap gap-1.5">
               {level.grammarPoints.map((g, i) => (
                 <span
@@ -183,7 +183,7 @@ function LevelCard({ level, lessons, isActive, isCompleted, onSelect }: {
           {/* Recommended lessons */}
           {matchedLessons.length > 0 && (
             <div>
-              <p className="text-white/30 text-[10px] tracking-wider font-semibold mb-2">Bài học gợi ý từ kho của bạn</p>
+              <p className="text-white/30 text-[10px] tracking-normal font-semibold mb-2">Bài học gợi ý từ kho của bạn</p>
               <div className="space-y-1.5">
                 {matchedLessons.map(l => (
                   <div key={l.song.rank} className="flex items-center gap-2 bg-white/3 rounded-lg px-3 py-2">
@@ -248,7 +248,7 @@ export default function RoadmapPage() {
                     <i className={`${currentLevelData.icon} text-lg`} style={{ color: currentLevelData.color }}></i>
                   </div>
                   <div>
-                    <p className="text-white/40 text-[10px] tracking-wider font-semibold">Cấp độ hiện tại</p>
+                    <p className="text-white/40 text-[10px] tracking-normal font-semibold">Cấp độ hiện tại</p>
                     <p className="text-white font-bold text-sm">{currentLevelData.title}</p>
                   </div>
                 </div>

@@ -369,21 +369,21 @@ function AdvancedFilterPanel({ filters, onChange, onReset, resultCount }: {
       </div>
       <div className="grid grid-cols-4 gap-4">
         <div>
-          <p className="text-[10px] font-semibold mb-2 tracking-wider" style={{ color: "var(--admin-text-faint)" }}>Ngày đăng ký</p>
+          <p className="text-[10px] font-semibold mb-2 tracking-normal" style={{ color: "var(--admin-text-faint)" }}>Ngày đăng ký</p>
           <div className="space-y-2">
             <input type="date" value={filters.dateFrom} onChange={e => set("dateFrom", e.target.value)} className={inputCls} style={inputStyle} />
             <input type="date" value={filters.dateTo} onChange={e => set("dateTo", e.target.value)} className={inputCls} style={inputStyle} />
           </div>
         </div>
         <div>
-          <p className="text-[10px] font-semibold mb-2 tracking-wider" style={{ color: "var(--admin-text-faint)" }}>XP tích lũy</p>
+          <p className="text-[10px] font-semibold mb-2 tracking-normal" style={{ color: "var(--admin-text-faint)" }}>XP tích lũy</p>
           <div className="space-y-2">
             <input type="number" min={0} placeholder="XP tối thiểu" value={filters.xpMin} onChange={e => set("xpMin", e.target.value)} className={inputCls} style={inputStyle} />
             <input type="number" min={0} placeholder="XP tối đa" value={filters.xpMax} onChange={e => set("xpMax", e.target.value)} className={inputCls} style={inputStyle} />
           </div>
         </div>
         <div>
-          <p className="text-[10px] font-semibold mb-2 tracking-wider" style={{ color: "var(--admin-text-faint)" }}>Streak & Hoạt động</p>
+          <p className="text-[10px] font-semibold mb-2 tracking-normal" style={{ color: "var(--admin-text-faint)" }}>Streak & Hoạt động</p>
           <div className="space-y-2">
             <div className="grid grid-cols-2 gap-1">
               <input type="number" min={0} placeholder="Min" value={filters.streakMin} onChange={e => set("streakMin", e.target.value)} className={inputCls} style={inputStyle} />
@@ -399,7 +399,7 @@ function AdvancedFilterPanel({ filters, onChange, onReset, resultCount }: {
           </div>
         </div>
         <div>
-          <p className="text-[10px] font-semibold mb-2 tracking-wider" style={{ color: "var(--admin-text-faint)" }}>Loại VIP</p>
+          <p className="text-[10px] font-semibold mb-2 tracking-normal" style={{ color: "var(--admin-text-faint)" }}>Loại VIP</p>
           <select value={filters.vipType} onChange={e => set("vipType", e.target.value)} className={inputCls + " cursor-pointer"} style={inputStyle}>
             <option value="all">Tất cả</option>
             <option value="none">Chưa có VIP</option>

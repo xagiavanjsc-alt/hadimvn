@@ -67,7 +67,7 @@ export default function StreakWidget() {
             <i className="ri-fire-fill text-2xl" style={{ color: streakColor }} />
           </div>
           <div>
-            <p className="text-white/40 text-xs font-medium tracking-wider">
+            <p className="text-white/40 text-xs font-medium tracking-normal">
               Streak học tập
             </p>
             <div className="flex items-baseline gap-1.5">

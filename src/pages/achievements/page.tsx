@@ -213,7 +213,7 @@ export default function AchievementsPage() {
             <div className="w-20 h-20 flex items-center justify-center rounded-2xl mx-auto mb-4 bg-[#e8c84a]/15 border border-[#e8c84a]/25">
               <i className={`${newBadge.icon} text-4xl text-[#e8c84a]`}></i>
             </div>
-            <p className="text-[#e8c84a] text-xs font-bold tracking-wider mb-2">Huy hiệu mới!</p>
+            <p className="text-[#e8c84a] text-xs font-bold tracking-normal mb-2">Huy hiệu mới!</p>
             <h3 className="text-white text-xl font-bold mb-2">{newBadge.name}</h3>
             <p className="text-white/50 text-sm mb-4">{newBadge.desc}</p>
             <div className="px-4 py-2 bg-[#e8c84a]/10 border border-[#e8c84a]/20 rounded-xl mb-5">

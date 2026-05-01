@@ -93,7 +93,7 @@ function FillBlankQuestion({ q, value, value2, onChange, onChange2, showResult }
   return (
     <div className="mt-3 space-y-3">
       <div>
-        <label className="text-white/30 text-[10px] tracking-wider mb-1.5 block">① Chỗ trống thứ nhất</label>
+        <label className="text-white/30 text-[10px] tracking-normal mb-1.5 block">① Chỗ trống thứ nhất</label>
         <input type="text" value={value} onChange={e => onChange(e.target.value)} disabled={showResult}
           placeholder="Điền vào đây..."
           className={`w-full bg-white/5 border rounded-xl px-4 py-3 text-sm outline-none transition-all ${showResult ? (isCorrect1 ? "border-emerald-500/40 text-emerald-400" : "border-red-500/30 text-red-400") : "border-white/10 text-white/70 focus:border-[#e8c84a]/30"}`} />
@@ -101,7 +101,7 @@ function FillBlankQuestion({ q, value, value2, onChange, onChange2, showResult }
       </div>
       {q.type === "fill_blank2" && (
         <div>
-          <label className="text-white/30 text-[10px] tracking-wider mb-1.5 block">② Chỗ trống thứ hai</label>
+          <label className="text-white/30 text-[10px] tracking-normal mb-1.5 block">② Chỗ trống thứ hai</label>
           <input type="text" value={value2 || ""} onChange={e => onChange2?.(e.target.value)} disabled={showResult}
             placeholder="Điền vào đây..."
             className={`w-full bg-white/5 border rounded-xl px-4 py-3 text-sm outline-none transition-all ${showResult ? (isCorrect2 ? "border-emerald-500/40 text-emerald-400" : "border-red-500/30 text-red-400") : "border-white/10 text-white/70 focus:border-[#e8c84a]/30"}`} />
@@ -110,7 +110,7 @@ function FillBlankQuestion({ q, value, value2, onChange, onChange2, showResult }
       )}
       {showResult && q.sampleAnswer && (
         <div className="bg-emerald-500/5 border border-emerald-500/15 rounded-xl p-3">
-          <p className="text-emerald-400/70 text-[10px] tracking-wider mb-1">Đáp án mẫu</p>
+          <p className="text-emerald-400/70 text-[10px] tracking-normal mb-1">Đáp án mẫu</p>
           <p className="text-white/50 text-xs whitespace-pre-line">{q.sampleAnswer}</p>
           {q.sampleAnswerVi && <p className="text-white/25 text-[10px] italic mt-1">{q.sampleAnswerVi}</p>}
         </div>
@@ -130,7 +130,7 @@ function WritingQuestion({ q, value, onChange, showResult }: { q: T2Question; va
     <div className="mt-3 space-y-3">
       {q.writingGuide && (
         <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-3">
-          <p className="text-[#e8c84a]/70 text-[10px] tracking-wider mb-1.5">Hướng dẫn viết</p>
+          <p className="text-[#e8c84a]/70 text-[10px] tracking-normal mb-1.5">Hướng dẫn viết</p>
           <p className="text-white/40 text-xs whitespace-pre-line leading-relaxed">{q.writingGuide}</p>
         </div>
       )}
@@ -153,7 +153,7 @@ function WritingQuestion({ q, value, onChange, showResult }: { q: T2Question; va
       </div>
       {showResult && q.sampleAnswer && (
         <div className="bg-white/3 border border-white/8 rounded-xl p-4">
-          <p className="text-white/30 text-[10px] tracking-wider mb-2">Bài mẫu tham khảo</p>
+          <p className="text-white/30 text-[10px] tracking-normal mb-2">Bài mẫu tham khảo</p>
           <p className="text-white/50 text-sm leading-relaxed whitespace-pre-line">{q.sampleAnswer}</p>
         </div>
       )}
@@ -199,7 +199,7 @@ function QuestionCard({
             <div className="w-6 h-6 flex items-center justify-center rounded-full bg-[#38bdf8]/15">
               <i className="ri-volume-up-line text-[#38bdf8] text-xs"></i>
             </div>
-            <p className="text-[#38bdf8]/70 text-[10px] tracking-wider">Đoạn hội thoại / Âm thanh</p>
+            <p className="text-[#38bdf8]/70 text-[10px] tracking-normal">Đoạn hội thoại / Âm thanh</p>
           </div>
           <p className="text-white/60 text-sm whitespace-pre-line leading-relaxed">{q.audioScript}</p>
           {q.audioScriptVi && <p className="text-white/25 text-xs italic mt-1.5 whitespace-pre-line">{q.audioScriptVi}</p>}

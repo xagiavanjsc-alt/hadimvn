@@ -238,7 +238,7 @@ export default function TopikListeningPage() {
 
           {/* Level selection */}
           <div className="mb-5">
-            <p className="text-white/60 text-xs tracking-wider mb-3">Cấp độ</p>
+            <p className="text-white/60 text-xs tracking-normal mb-3">Cấp độ</p>
             <div className="grid grid-cols-2 gap-2">
               {LEVELS.map((lv) => (
                 <button
@@ -267,7 +267,7 @@ export default function TopikListeningPage() {
 
           {/* Category */}
           <div className="mb-5">
-            <p className="text-white/60 text-xs tracking-wider mb-3">Chủ đề</p>
+            <p className="text-white/60 text-xs tracking-normal mb-3">Chủ đề</p>
             <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2">
               <button
                 onClick={() => setSelectedCategory("all")}
@@ -300,7 +300,7 @@ export default function TopikListeningPage() {
 
           {/* Session size */}
           <div className="mb-5">
-            <p className="text-white/60 text-xs tracking-wider mb-3">Số câu</p>
+            <p className="text-white/60 text-xs tracking-normal mb-3">Số câu</p>
             <div className="flex gap-2">
               {SESSION_SIZES.map((n) => (
                 <button

@@ -138,7 +138,7 @@ function FlipCard({ card, onKnow, onDontKnow }: {
               backgroundColor: "#0f1117",
             }}
           >
-            <p className="text-white/40 text-xs tracking-wider font-semibold mb-3">Nghĩa</p>
+            <p className="text-white/40 text-xs tracking-normal font-semibold mb-3">Nghĩa</p>
             <p className="text-2xl font-bold text-[#e8c84a] mb-4">{card.meaning}</p>
             {card.example && (
               <div className="bg-white/3 border border-white/5 rounded-xl px-4 py-3 max-w-sm">

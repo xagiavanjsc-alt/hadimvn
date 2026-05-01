@@ -265,7 +265,7 @@ export default function StudyFeedPage() {
       <div className="bg-gradient-to-r from-[#1a1600] via-[#0f1117] to-[#0f1117] border border-[#e8c84a]/15 rounded-2xl p-6 mb-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-[#e8c84a]/70 text-xs font-semibold tracking-wider mb-1">{getGreeting()}</p>
+            <p className="text-[#e8c84a]/70 text-xs font-semibold tracking-normal mb-1">{getGreeting()}</p>
             <h2 className="text-white font-bold text-2xl mb-1">{displayName}!</h2>
             <p className="text-white/40 text-sm">
               Cấp <span style={{ color: currentRank.color }} className="font-semibold">{currentRank.name}</span> · {totalXP.toLocaleString()} XP · Streak {streak.count} ngày

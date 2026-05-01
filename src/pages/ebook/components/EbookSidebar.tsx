@@ -45,7 +45,7 @@ export default function EbookSidebar({
       {/* Quick actions */}
       <div className="bg-[#0f1117] border border-white/5 rounded-xl p-4">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-white/50 text-xs font-medium tracking-wider">Chọn nhanh</p>
+          <p className="text-white/50 text-xs font-medium tracking-normal">Chọn nhanh</p>
           <span className="text-white/25 text-xs">{selectedRanks.length}/{lessons.length} đã chọn</span>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -129,7 +129,7 @@ export default function EbookSidebar({
 
       {/* All lessons to pick from */}
       <div className="bg-[#0f1117] border border-white/5 rounded-xl p-4">
-        <p className="text-white/50 text-xs font-medium tracking-wider mb-3">
+        <p className="text-white/50 text-xs font-medium tracking-normal mb-3">
           Tất cả bài học ({lessons.length})
         </p>
         <div className="space-y-1.5 max-h-96 overflow-y-auto pr-1">

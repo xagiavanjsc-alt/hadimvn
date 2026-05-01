@@ -169,7 +169,7 @@ export default function NotificationBell() {
           {/* XP section header */}
           {xpNotifs.length > 0 && (
             <div className="px-4 py-2 bg-[#e8c84a]/5 border-b border-[#e8c84a]/10">
-              <p className="text-[#e8c84a] text-[10px] font-bold tracking-wider">XP & Cấp bậc</p>
+              <p className="text-[#e8c84a] text-[10px] font-bold tracking-normal">XP & Cấp bậc</p>
             </div>
           )}
 

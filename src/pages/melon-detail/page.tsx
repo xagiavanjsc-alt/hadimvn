@@ -53,7 +53,7 @@ function RelatedSongs({ song, onNavigate }: RelatedSongsProps) {
         <div className="w-5 h-5 flex items-center justify-center">
           <i className="ri-music-2-line text-[#00C73C] text-sm" />
         </div>
-        <h2 className="text-white/70 text-sm font-semibold tracking-wider">Bài hát liên quan</h2>
+        <h2 className="text-white/70 text-sm font-semibold tracking-normal">Bài hát liên quan</h2>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         {related.map((s) => {
@@ -375,7 +375,7 @@ export default function MelonDetailPage() {
                 <div className="w-6 h-6 flex items-center justify-center">
                   <i className="ri-music-line text-[#00C73C] text-sm" />
                 </div>
-                <span className="text-white/60 text-xs font-medium tracking-wider">Lời bài hát (Tiếng Hàn)</span>
+                <span className="text-white/60 text-xs font-medium tracking-normal">Lời bài hát (Tiếng Hàn)</span>
               </div>
               <pre className="text-white/75 text-sm leading-9 font-sans whitespace-pre-wrap">{song.lyrics}</pre>
             </div>
@@ -417,14 +417,14 @@ export default function MelonDetailPage() {
                   <div className="bg-white/3 rounded-2xl border border-white/5 p-5">
                     <div className="flex items-center gap-2 mb-3">
                       <i className="ri-book-open-line text-[#e8c84a] text-sm" />
-                      <span className="text-white/60 text-xs font-medium tracking-wider">Truyện Chêm</span>
+                      <span className="text-white/60 text-xs font-medium tracking-normal">Truyện Chêm</span>
                     </div>
                     <p className="text-white/75 text-sm leading-8 whitespace-pre-line">{result.story}</p>
                   </div>
                   <div className="bg-white/3 rounded-2xl border border-white/5 p-5">
                     <div className="flex items-center gap-2 mb-3">
                       <i className="ri-translate-2 text-[#e8c84a] text-sm" />
-                      <span className="text-white/60 text-xs font-medium tracking-wider">Từ vựng</span>
+                      <span className="text-white/60 text-xs font-medium tracking-normal">Từ vựng</span>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       {result.vocabulary.map((v, i) => (
@@ -439,7 +439,7 @@ export default function MelonDetailPage() {
                   <div className="bg-white/3 rounded-2xl border border-white/5 p-5">
                     <div className="flex items-center gap-2 mb-3">
                       <i className="ri-graduation-cap-line text-[#e8c84a] text-sm" />
-                      <span className="text-white/60 text-xs font-medium tracking-wider">Phân tích ngữ pháp</span>
+                      <span className="text-white/60 text-xs font-medium tracking-normal">Phân tích ngữ pháp</span>
                     </div>
                     <p className="text-white/70 text-sm leading-8 whitespace-pre-line">{result.explanation}</p>
                   </div>

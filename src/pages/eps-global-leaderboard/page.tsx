@@ -177,7 +177,7 @@ export default function EpsGlobalLeaderboardPage() {
           <>
             {/* Top 3 Podium */}
             <div className="bg-[#1a1d27] border border-white/8 rounded-2xl p-6">
-              <h2 className="text-white/60 text-xs font-medium tracking-wider mb-6 text-center">Top 3 xuất sắc nhất</h2>
+              <h2 className="text-white/60 text-xs font-medium tracking-normal mb-6 text-center">Top 3 xuất sắc nhất</h2>
               <div className="flex items-end justify-center gap-4">
                 {/* 2nd */}
                 {top3[1] && (

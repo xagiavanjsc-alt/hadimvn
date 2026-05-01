@@ -272,7 +272,7 @@ export default function SeoulListeningQuizPage() {
 
             {/* Audio Card */}
             <div className="bg-white/3 border border-white/8 rounded-2xl p-8 text-center">
-              <p className="text-white/30 text-xs mb-4 tracking-wider">Nghe và chọn nghĩa đúng</p>
+              <p className="text-white/30 text-xs mb-4 tracking-normal">Nghe và chọn nghĩa đúng</p>
 
               {/* Big play button */}
               <button

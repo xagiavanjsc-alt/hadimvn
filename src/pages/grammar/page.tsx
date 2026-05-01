@@ -186,7 +186,7 @@ function RoadmapPanel({
         <div className="space-y-3">
           {suggestions.needReview.length > 0 && (
             <div>
-              <p className="text-red-400/70 text-[10px] tracking-wider mb-2 flex items-center gap-1.5">
+              <p className="text-red-400/70 text-[10px] tracking-normal mb-2 flex items-center gap-1.5">
                 <i className="ri-refresh-line"></i>Cần ôn lại ({suggestions.needReview.length})
               </p>
               <div className="flex gap-2 flex-wrap">
@@ -203,7 +203,7 @@ function RoadmapPanel({
           )}
           {suggestions.inProgress.length > 0 && (
             <div>
-              <p className="text-[#e8c84a]/70 text-[10px] tracking-wider mb-2 flex items-center gap-1.5">
+              <p className="text-[#e8c84a]/70 text-[10px] tracking-normal mb-2 flex items-center gap-1.5">
                 <i className="ri-loader-line"></i>Đang học dở ({suggestions.inProgress.length})
               </p>
               <div className="flex gap-2 flex-wrap">
@@ -220,7 +220,7 @@ function RoadmapPanel({
           )}
           {suggestions.notStarted.length > 0 && (
             <div>
-              <p className="text-white/30 text-[10px] tracking-wider mb-2 flex items-center gap-1.5">
+              <p className="text-white/30 text-[10px] tracking-normal mb-2 flex items-center gap-1.5">
                 <i className="ri-add-circle-line"></i>Học tiếp theo ({suggestions.notStarted.length})
               </p>
               <div className="flex gap-2 flex-wrap">
@@ -301,7 +301,7 @@ function PatternCard({
 
           {/* Examples */}
           <div className="mb-5">
-            <p className="text-white/30 text-[10px] tracking-wider mb-2">Ví dụ</p>
+            <p className="text-white/30 text-[10px] tracking-normal mb-2">Ví dụ</p>
             <div className="space-y-2">
               {pattern.examples.map((ex, i) => (
                 <div key={i} className="flex items-start gap-3">
@@ -317,7 +317,7 @@ function PatternCard({
 
           {/* Exercises */}
           <div>
-            <p className="text-white/30 text-[10px] tracking-wider mb-3">Bài tập luyện tập</p>
+            <p className="text-white/30 text-[10px] tracking-normal mb-3">Bài tập luyện tập</p>
             <div className="space-y-3">
               {pattern.exercises.map(ex => (
                 <ExerciseItem
@@ -365,7 +365,7 @@ function QuickSearchDropdown({
   return (
     <div className="absolute top-full left-0 right-0 mt-1.5 bg-[#1a1d27] border border-white/10 rounded-xl shadow-2xl z-50 overflow-hidden max-h-80 overflow-y-auto">
       <div className="px-3 py-2 border-b border-white/5">
-        <p className="text-white/30 text-[10px] tracking-wider">{suggestions.length} mẫu câu phù hợp</p>
+        <p className="text-white/30 text-[10px] tracking-normal">{suggestions.length} mẫu câu phù hợp</p>
       </div>
       {suggestions.map(p => {
         const matchedEx = p.examples.find(ex =>

@@ -179,7 +179,7 @@ export default function FlashcardHubPage() {
         {/* Recent deck shortcut */}
         {recentDeckData && (
           <div className="mb-8">
-            <p className="text-white/30 text-xs tracking-wider font-semibold mb-3">Tiếp tục học</p>
+            <p className="text-white/30 text-xs tracking-normal font-semibold mb-3">Tiếp tục học</p>
             <button
               onClick={() => handleSelect(recentDeckData)}
               className="w-full flex items-center gap-4 p-4 rounded-2xl border cursor-pointer hover:scale-[1.01] transition-all"
@@ -208,7 +208,7 @@ export default function FlashcardHubPage() {
 
         {/* All decks */}
         <div>
-          <p className="text-white/30 text-xs tracking-wider font-semibold mb-4">Tất cả bộ thẻ</p>
+          <p className="text-white/30 text-xs tracking-normal font-semibold mb-4">Tất cả bộ thẻ</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {DECK_OPTIONS.map(deck => (
               <DeckCard key={deck.id} deck={deck} onSelect={() => handleSelect(deck)} />

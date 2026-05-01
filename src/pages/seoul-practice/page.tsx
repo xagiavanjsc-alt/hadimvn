@@ -393,7 +393,7 @@ function MatchingMode({ words, onFinish, onWrong }: { words: VocabItem[]; onFini
       <div className="grid grid-cols-2 gap-4">
         {/* Korean column */}
         <div className="space-y-2">
-          <p className="text-white/30 text-[10px] tracking-wider text-center mb-3">Tiếng Hàn</p>
+          <p className="text-white/30 text-[10px] tracking-normal text-center mb-3">Tiếng Hàn</p>
           {koreanCards.map(k => {
             const state = getKoreanState(k);
             return (
@@ -412,7 +412,7 @@ function MatchingMode({ words, onFinish, onWrong }: { words: VocabItem[]; onFini
 
         {/* Vietnamese column */}
         <div className="space-y-2">
-          <p className="text-white/30 text-[10px] tracking-wider text-center mb-3">Tiếng Việt</p>
+          <p className="text-white/30 text-[10px] tracking-normal text-center mb-3">Tiếng Việt</p>
           {vietCards.map(v => {
             const state = getVietState(v);
             return (
@@ -499,7 +499,7 @@ function FillBlankMode({ words, onFinish, onWrong }: { words: VocabItem[]; onFin
         {/* Example sentence with blank */}
         {blankSentence ? (
           <div className="bg-white/3 rounded-xl p-4 mb-4">
-            <p className="text-white/30 text-[10px] tracking-wider mb-2">Câu ví dụ</p>
+            <p className="text-white/30 text-[10px] tracking-normal mb-2">Câu ví dụ</p>
             <p className="text-white text-base leading-relaxed font-medium">
               {blankSentence.split("___").map((part, i, arr) => (
                 <span key={i}>
@@ -516,7 +516,7 @@ function FillBlankMode({ words, onFinish, onWrong }: { words: VocabItem[]; onFin
           </div>
         ) : (
           <div className="bg-white/3 rounded-xl p-4 mb-4 text-center">
-            <p className="text-white/30 text-[10px] tracking-wider mb-2">Phiên âm</p>
+            <p className="text-white/30 text-[10px] tracking-normal mb-2">Phiên âm</p>
             <p className="text-white/60 text-sm">[{current.pronunciation}]</p>
           </div>
         )}
@@ -799,7 +799,7 @@ export default function SeoulPracticePage() {
         <div className="space-y-6">
           {/* Book selector */}
           <div>
-            <p className="text-white/50 text-xs font-semibold tracking-wider mb-3">Chọn cuốn sách</p>
+            <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Chọn cuốn sách</p>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
               {availableBooks.map(book => (
                 <button key={book.id} onClick={() => { setSelectedBook(book); setSelectedLesson(null); }}
@@ -817,7 +817,7 @@ export default function SeoulPracticePage() {
           {/* Lesson selector */}
           {selectedBook && (
             <div>
-              <p className="text-white/50 text-xs font-semibold tracking-wider mb-3">Chọn bài học</p>
+              <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Chọn bài học</p>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                 {selectedBook.lessons.map(lesson => {
                   const best = getLessonBestScore(lesson.id);
@@ -845,7 +845,7 @@ export default function SeoulPracticePage() {
           {/* Mode selector */}
           {selectedLesson && (
             <div>
-              <p className="text-white/50 text-xs font-semibold tracking-wider mb-3">Chọn chế độ luyện tập</p>
+              <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Chọn chế độ luyện tập</p>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                 {(Object.entries(modeInfo) as [PracticeMode, typeof modeInfo[PracticeMode]][]).map(([m, info]) => (
                   <button key={m} onClick={() => setMode(m)}
@@ -875,7 +875,7 @@ export default function SeoulPracticePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             {Object.keys(practiceResults).length > 0 && (
               <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
-                <p className="text-white/50 text-xs font-semibold tracking-wider mb-4">Kết quả gần đây</p>
+                <p className="text-white/50 text-xs font-semibold tracking-normal mb-4">Kết quả gần đây</p>
                 <div className="space-y-2">
                   {Object.entries(practiceResults).slice(-5).reverse().map(([lessonId, results]) => {
                     const last = results[results.length - 1];

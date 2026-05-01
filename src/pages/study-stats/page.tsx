@@ -48,7 +48,7 @@ function BarChart({
 
   return (
     <div>
-      <p className="text-white/30 text-[10px] tracking-wider mb-3">{label}</p>
+      <p className="text-white/30 text-[10px] tracking-normal mb-3">{label}</p>
       <div className="flex items-end gap-1.5 h-20">
         {data.map((day, i) => {
           const val = day[valueKey] as number;

@@ -261,14 +261,14 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
           <div className="p-5 space-y-4">
             {/* Story preview */}
             <div>
-              <p className="text-white/40 text-[10px] font-bold tracking-wider mb-2">Truyện chêm</p>
+              <p className="text-white/40 text-[10px] font-bold tracking-normal mb-2">Truyện chêm</p>
               <p className="text-white/70 text-xs leading-5 whitespace-pre-wrap line-clamp-6">{result.story}</p>
             </div>
 
             {/* Vocab preview */}
             {result.vocabulary.length > 0 && (
               <div>
-                <p className="text-white/40 text-[10px] font-bold tracking-wider mb-2">
+                <p className="text-white/40 text-[10px] font-bold tracking-normal mb-2">
                   Từ vựng ({result.vocabulary.length} từ)
                 </p>
                 <div className="grid grid-cols-2 gap-1.5">
@@ -290,7 +290,7 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
             {/* Grammar preview */}
             {result.explanation && (
               <div>
-                <p className="text-white/40 text-[10px] font-bold tracking-wider mb-2">Ngữ pháp</p>
+                <p className="text-white/40 text-[10px] font-bold tracking-normal mb-2">Ngữ pháp</p>
                 <p className="text-white/50 text-[10px] leading-4 line-clamp-3">{result.explanation}</p>
               </div>
             )}

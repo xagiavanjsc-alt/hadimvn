@@ -268,7 +268,7 @@ export default function DictationPracticePage() {
 
         {/* All items list */}
         <div className="mt-6">
-          <p className="text-white/40 text-xs font-semibold tracking-wider mb-3">Tất cả câu luyện tập</p>
+          <p className="text-white/40 text-xs font-semibold tracking-normal mb-3">Tất cả câu luyện tập</p>
           <div className="space-y-2">
             {filtered.map((item, i) => (
               <button key={item.id} onClick={() => setCurrentIdx(i)}

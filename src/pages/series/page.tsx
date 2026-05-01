@@ -553,7 +553,7 @@ function SeriesCard({
         />
         <div className="flex items-start justify-between">
           <div
-            className="text-[9px] font-bold tracking-wider px-2 py-1 rounded-full"
+            className="text-[9px] font-bold tracking-normal px-2 py-1 rounded-full"
             style={{ backgroundColor: `${series.coverAccent}20`, color: series.coverAccent }}
           >
             {seriesLessons.length} bài

@@ -352,13 +352,13 @@ export default function LeaderboardPage() {
         {/* Full Leaderboard Table */}
         <div className="bg-white/2 border border-white/5 rounded-2xl overflow-hidden">
           <div className="grid grid-cols-[48px_1fr_120px_100px_100px_100px_100px] gap-0 px-5 py-3 border-b border-white/5">
-            <span className="text-white/25 text-[10px] tracking-wider">#</span>
-            <span className="text-white/25 text-[10px] tracking-wider">Học viên</span>
-            <span className="text-white/25 text-[10px] tracking-wider text-right">XP</span>
-            <span className="text-white/25 text-[10px] tracking-wider text-right">Streak</span>
-            <span className="text-white/25 text-[10px] tracking-wider text-right">EPS cao nhất</span>
-            <span className="text-white/25 text-[10px] tracking-wider text-right">Từ đã học</span>
-            <span className="text-white/25 text-[10px] tracking-wider text-right">Cấp độ</span>
+            <span className="text-white/25 text-[10px] tracking-normal">#</span>
+            <span className="text-white/25 text-[10px] tracking-normal">Học viên</span>
+            <span className="text-white/25 text-[10px] tracking-normal text-right">XP</span>
+            <span className="text-white/25 text-[10px] tracking-normal text-right">Streak</span>
+            <span className="text-white/25 text-[10px] tracking-normal text-right">EPS cao nhất</span>
+            <span className="text-white/25 text-[10px] tracking-normal text-right">Từ đã học</span>
+            <span className="text-white/25 text-[10px] tracking-normal text-right">Cấp độ</span>
           </div>
 
           {loading ? (

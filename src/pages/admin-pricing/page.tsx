@@ -125,13 +125,13 @@ function PlanEditorModal({ plan, isNew, onSave, onClose }: {
         <div className="p-5 space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-[10px] font-semibold tracking-wider mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Tên gói *</label>
+              <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Tên gói *</label>
               <input type="text" value={edited.name} onChange={e => setEdited(p => ({ ...p, name: e.target.value }))}
                 className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
             </div>
             <div>
-              <label className="text-[10px] font-semibold tracking-wider mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Badge (tùy chọn)</label>
+              <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Badge (tùy chọn)</label>
               <input type="text" value={edited.badge || ""} onChange={e => setEdited(p => ({ ...p, badge: e.target.value }))}
                 placeholder="VD: Tiết kiệm 25%"
                 className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
@@ -140,7 +140,7 @@ function PlanEditorModal({ plan, isNew, onSave, onClose }: {
           </div>
 
           <div>
-            <label className="text-[10px] font-semibold tracking-wider mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Mô tả</label>
+            <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Mô tả</label>
             <input type="text" value={edited.description} onChange={e => setEdited(p => ({ ...p, description: e.target.value }))}
               className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
@@ -148,19 +148,19 @@ function PlanEditorModal({ plan, isNew, onSave, onClose }: {
 
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="text-[10px] font-semibold tracking-wider mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Giá/tháng (VNĐ)</label>
+              <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Giá/tháng (VNĐ)</label>
               <input type="number" min={0} value={edited.price} onChange={e => setEdited(p => ({ ...p, price: parseInt(e.target.value) || 0 }))}
                 className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
             </div>
             <div>
-              <label className="text-[10px] font-semibold tracking-wider mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Giá năm (VNĐ)</label>
+              <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Giá năm (VNĐ)</label>
               <input type="number" min={0} value={edited.yearlyPrice} onChange={e => setEdited(p => ({ ...p, yearlyPrice: parseInt(e.target.value) || 0 }))}
                 className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
             </div>
             <div>
-              <label className="text-[10px] font-semibold tracking-wider mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Ngày dùng thử</label>
+              <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Ngày dùng thử</label>
               <input type="number" min={0} value={edited.trialDays} onChange={e => setEdited(p => ({ ...p, trialDays: parseInt(e.target.value) || 0 }))}
                 className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
@@ -169,7 +169,7 @@ function PlanEditorModal({ plan, isNew, onSave, onClose }: {
 
           {/* Color picker */}
           <div>
-            <label className="text-[10px] font-semibold tracking-wider mb-2 block" style={{ color: "var(--admin-text-faint)" }}>Màu sắc</label>
+            <label className="text-[10px] font-semibold tracking-normal mb-2 block" style={{ color: "var(--admin-text-faint)" }}>Màu sắc</label>
             <div className="flex items-center gap-2 flex-wrap">
               {COLORS.map(c => (
                 <button key={c} onClick={() => setEdited(p => ({ ...p, color: c }))}
@@ -183,7 +183,7 @@ function PlanEditorModal({ plan, isNew, onSave, onClose }: {
 
           {/* Features */}
           <div>
-            <label className="text-[10px] font-semibold tracking-wider mb-2 block" style={{ color: "var(--admin-text-faint)" }}>Tính năng ({edited.features.length})</label>
+            <label className="text-[10px] font-semibold tracking-normal mb-2 block" style={{ color: "var(--admin-text-faint)" }}>Tính năng ({edited.features.length})</label>
             <div className="space-y-1.5 mb-2 max-h-48 overflow-y-auto">
               {edited.features.map((f, i) => (
                 <div key={i} className="flex items-center gap-2 px-3 py-2 rounded-lg"
@@ -284,14 +284,14 @@ function PlanCard({ plan, onEdit, onDelete, onToggle, userCount }: {
         {/* Pricing */}
         <div className="flex items-end gap-3 mb-4">
           <div>
-            <p className="text-[10px] tracking-wider mb-0.5" style={{ color: "var(--admin-text-faint)" }}>Hàng tháng</p>
+            <p className="text-[10px] tracking-normal mb-0.5" style={{ color: "var(--admin-text-faint)" }}>Hàng tháng</p>
             <p className="font-bold text-2xl" style={{ color: "var(--admin-text)" }}>
               {plan.price === 0 ? "Miễn phí" : `${new Intl.NumberFormat("vi-VN").format(plan.price)}đ`}
             </p>
           </div>
           {plan.yearlyPrice > 0 && (
             <div className="mb-0.5">
-              <p className="text-[10px] tracking-wider mb-0.5" style={{ color: "var(--admin-text-faint)" }}>Hàng năm</p>
+              <p className="text-[10px] tracking-normal mb-0.5" style={{ color: "var(--admin-text-faint)" }}>Hàng năm</p>
               <p className="font-semibold text-base" style={{ color: "var(--admin-text-muted)" }}>
                 {new Intl.NumberFormat("vi-VN").format(plan.yearlyPrice)}đ/năm
               </p>

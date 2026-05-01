@@ -183,7 +183,7 @@ function TopikVocabTab() {
       ) : (
         <>
           <div className="rounded-xl border overflow-hidden mb-4" style={{ borderColor: "var(--admin-border)" }}>
-            <div className="grid grid-cols-[2fr_1fr_2fr_1fr_1fr_auto] px-4 py-2.5 text-[10px] font-bold tracking-wider"
+            <div className="grid grid-cols-[2fr_1fr_2fr_1fr_1fr_auto] px-4 py-2.5 text-[10px] font-bold tracking-normal"
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text-faint)", borderBottom: "1px solid var(--admin-border)" }}>
               <span>Tiếng Hàn</span><span>Phiên âm</span><span>Nghĩa</span><span>Cấp độ</span><span>Loại từ</span><span></span>
             </div>
@@ -349,7 +349,7 @@ function SeoulVocabTab() {
       ) : (
         <>
           <div className="rounded-xl border overflow-hidden mb-4" style={{ borderColor: "var(--admin-border)" }}>
-            <div className="grid grid-cols-[2fr_1fr_2fr_1fr_1fr_auto] px-4 py-2.5 text-[10px] font-bold tracking-wider"
+            <div className="grid grid-cols-[2fr_1fr_2fr_1fr_1fr_auto] px-4 py-2.5 text-[10px] font-bold tracking-normal"
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text-faint)", borderBottom: "1px solid var(--admin-border)" }}>
               <span>Tiếng Hàn</span><span>Phiên âm</span><span>Nghĩa</span><span>Giáo trình</span><span>Bài</span><span></span>
             </div>
@@ -488,7 +488,7 @@ function HanjaTab() {
       ) : (
         <>
           <div className="rounded-xl border overflow-hidden mb-4" style={{ borderColor: "var(--admin-border)" }}>
-            <div className="grid grid-cols-[2fr_1fr_2fr_1fr_1fr_auto] px-4 py-2.5 text-[10px] font-bold tracking-wider"
+            <div className="grid grid-cols-[2fr_1fr_2fr_1fr_1fr_auto] px-4 py-2.5 text-[10px] font-bold tracking-normal"
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text-faint)", borderBottom: "1px solid var(--admin-border)" }}>
               <span>Tiếng Hàn</span><span>Hán tự</span><span>Nghĩa</span><span>Chủ đề</span><span>Độ khó</span><span></span>
             </div>
@@ -631,7 +631,7 @@ function GrammarTab() {
       ) : (
         <>
           <div className="rounded-xl border overflow-hidden mb-4" style={{ borderColor: "var(--admin-border)" }}>
-            <div className="grid grid-cols-[2fr_3fr_1fr_1fr_auto] px-4 py-2.5 text-[10px] font-bold tracking-wider"
+            <div className="grid grid-cols-[2fr_3fr_1fr_1fr_auto] px-4 py-2.5 text-[10px] font-bold tracking-normal"
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text-faint)", borderBottom: "1px solid var(--admin-border)" }}>
               <span>Cấu trúc</span><span>Giải thích</span><span>Cấp độ</span><span>Giáo trình</span><span></span>
             </div>

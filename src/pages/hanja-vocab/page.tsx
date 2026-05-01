@@ -306,7 +306,7 @@ function FlashCard({ entry, isFav, onToggleFav }: { entry: HanjaEntry; isFav: bo
         <div style={{ transition: "transform 0.5s", transformStyle: "preserve-3d", transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)", position: "relative", height: "240px" }}>
           <div style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
             className="absolute inset-0 bg-white border-2 border-gray-100 rounded-2xl flex flex-col items-center justify-center p-6">
-            <p className="text-xs text-gray-400 tracking-wider mb-3">Tiếng Hàn</p>
+            <p className="text-xs text-gray-400 tracking-normal mb-3">Tiếng Hàn</p>
             <p className="text-5xl font-bold text-gray-900 mb-2">{entry.korean}</p>
             <p className="text-2xl text-rose-400 font-bold mb-3">{entry.hanja}</p>
             <button onClick={handleSpeak}
@@ -317,7 +317,7 @@ function FlashCard({ entry, isFav, onToggleFav }: { entry: HanjaEntry; isFav: bo
           </div>
           <div style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
             className="absolute inset-0 bg-rose-50 border-2 border-rose-200 rounded-2xl flex flex-col items-center justify-center p-6">
-            <p className="text-xs text-rose-400 tracking-wider mb-3">Nghĩa tiếng Việt</p>
+            <p className="text-xs text-rose-400 tracking-normal mb-3">Nghĩa tiếng Việt</p>
             <p className="text-3xl font-bold text-rose-700 text-center mb-2">{entry.vietnamese}</p>
             <p className="text-lg text-rose-400 mb-3">{entry.hanja}</p>
             <button onClick={handleSpeak}

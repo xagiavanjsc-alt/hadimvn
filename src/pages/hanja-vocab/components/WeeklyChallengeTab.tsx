@@ -293,14 +293,14 @@ export default function WeeklyChallengeTab() {
           }}>
             <div style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
               className="absolute inset-0 bg-white border-2 border-gray-100 rounded-2xl flex flex-col items-center justify-center p-6">
-              <p className="text-xs text-gray-400 tracking-wider mb-3">Tiếng Hàn</p>
+              <p className="text-xs text-gray-400 tracking-normal mb-3">Tiếng Hàn</p>
               <p className="text-5xl font-bold text-gray-900 mb-2">{currentStudyWord?.korean}</p>
               <p className="text-2xl text-rose-400 font-bold">{currentStudyWord?.hanja}</p>
               <p className="text-xs text-gray-400 mt-3">Nhấn để xem nghĩa</p>
             </div>
             <div style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
               className="absolute inset-0 bg-rose-50 border-2 border-rose-200 rounded-2xl flex flex-col items-center justify-center p-6">
-              <p className="text-xs text-rose-400 tracking-wider mb-3">Nghĩa tiếng Việt</p>
+              <p className="text-xs text-rose-400 tracking-normal mb-3">Nghĩa tiếng Việt</p>
               <p className="text-2xl font-bold text-rose-700 text-center">{currentStudyWord?.vietnamese}</p>
               <p className="text-lg text-rose-400 mt-2">{currentStudyWord?.hanja}</p>
             </div>

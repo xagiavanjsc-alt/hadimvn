@@ -53,7 +53,7 @@ function CoverPage({ meta, totalLessons }: { meta: EbookMeta; totalLessons: numb
       <div className="absolute top-0 left-0 right-0 h-1.5" style={{ backgroundColor: meta.coverAccent }} />
       <div className="absolute -right-16 -top-16 w-48 h-48 rounded-full opacity-5" style={{ backgroundColor: meta.coverAccent }} />
       <div className="mt-4">
-        <p className="text-[10px] font-bold tracking-wider opacity-60 mb-6" style={{ color: meta.coverAccent }}>{meta.author}</p>
+        <p className="text-[10px] font-bold tracking-normal opacity-60 mb-6" style={{ color: meta.coverAccent }}>{meta.author}</p>
       </div>
       <div className="flex-1 flex flex-col justify-center">
         <h1 className="text-2xl font-bold leading-tight mb-2" style={{ color: meta.coverAccent }}>{meta.title || "Tiêu đề ebook"}</h1>
@@ -128,7 +128,7 @@ function ClosingPage({ meta }: { meta: EbookMeta }) {
       <p className="text-white/40 text-[10px] text-center leading-5 mb-6 max-w-[200px]">Hy vọng ebook này giúp bạn tiến bộ tiếng Hàn mỗi ngày.</p>
       {(meta.contactInfo || meta.website) && (
         <div className="rounded-xl p-4 text-center w-full max-w-[220px]" style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}>
-          <p className="text-[8px] font-bold tracking-wider mb-2" style={{ color: meta.coverAccent }}>Liên hệ</p>
+          <p className="text-[8px] font-bold tracking-normal mb-2" style={{ color: meta.coverAccent }}>Liên hệ</p>
           {meta.contactInfo && <p className="text-white/40 text-[8px] leading-4 whitespace-pre-wrap mb-2">{meta.contactInfo}</p>}
           {meta.website && <p className="text-[9px] font-semibold" style={{ color: meta.coverAccent }}>{meta.website}</p>}
         </div>
@@ -163,7 +163,7 @@ function LessonPage({ meta, lesson, idx, pageNum }: { meta: EbookMeta; lesson: A
     <div className="w-full h-full bg-white flex flex-col p-8 overflow-hidden relative">
       <div className="flex items-start justify-between mb-4">
         <div>
-          <p className="text-[9px] font-bold tracking-wider mb-1" style={{ color: meta.coverAccent }}>Bài {idx + 1}</p>
+          <p className="text-[9px] font-bold tracking-normal mb-1" style={{ color: meta.coverAccent }}>Bài {idx + 1}</p>
           <h2 className="text-lg font-bold text-gray-900 leading-tight">{lesson.song.title}</h2>
           <p className="text-gray-400 text-xs mt-0.5">{lesson.song.artist}</p>
         </div>
@@ -201,7 +201,7 @@ function LessonPageTwoCol({ meta, lesson, idx, pageNum }: { meta: EbookMeta; les
     <div className="w-full h-full bg-[#fafafa] flex flex-col p-6 overflow-hidden relative">
       <div className="flex items-center justify-between mb-3">
         <div>
-          <p className="text-[9px] font-bold tracking-wider mb-0.5" style={{ color: meta.coverAccent }}>Bài {idx + 1}</p>
+          <p className="text-[9px] font-bold tracking-normal mb-0.5" style={{ color: meta.coverAccent }}>Bài {idx + 1}</p>
           <h2 className="text-base font-bold text-gray-900 leading-tight">{lesson.song.title}</h2>
           <p className="text-gray-400 text-[10px]">{lesson.song.artist}</p>
         </div>
@@ -210,12 +210,12 @@ function LessonPageTwoCol({ meta, lesson, idx, pageNum }: { meta: EbookMeta; les
       <div className="w-full h-px mb-3" style={{ backgroundColor: `${meta.coverAccent}30` }} />
       <div className="flex gap-4 flex-1 overflow-hidden">
         <div className="flex-1 overflow-hidden">
-          <p className="text-[9px] font-bold text-gray-500 tracking-wider mb-1.5">Truyện Chêm</p>
+          <p className="text-[9px] font-bold text-gray-500 tracking-normal mb-1.5">Truyện Chêm</p>
           <p className="text-gray-600 text-[9px] leading-4 line-clamp-[20] whitespace-pre-wrap">{removeRomanization(lesson.story)}</p>
         </div>
         <div className="w-px bg-gray-200 flex-shrink-0" />
         <div className="w-2/5 flex-shrink-0 overflow-hidden">
-          <p className="text-[9px] font-bold text-gray-500 tracking-wider mb-1.5">Từ vựng</p>
+          <p className="text-[9px] font-bold text-gray-500 tracking-normal mb-1.5">Từ vựng</p>
           <div className="space-y-1.5">
             {lesson.vocabulary.slice(0, 10).map((v, i) => {
               const p = parseVocab(v);
@@ -243,7 +243,7 @@ function LessonPageDark({ meta, lesson, idx, pageNum }: { meta: EbookMeta; lesso
     <div className="w-full h-full flex flex-col p-8 overflow-hidden relative" style={{ backgroundColor: "#0f1117" }}>
       <div className="flex items-start justify-between mb-4">
         <div>
-          <p className="text-[9px] font-bold tracking-wider mb-1" style={{ color: meta.coverAccent }}>Bài {idx + 1}</p>
+          <p className="text-[9px] font-bold tracking-normal mb-1" style={{ color: meta.coverAccent }}>Bài {idx + 1}</p>
           <h2 className="text-lg font-bold leading-tight" style={{ color: "#e8e8e8" }}>{lesson.song.title}</h2>
           <p className="text-[10px] mt-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>{lesson.song.artist}</p>
         </div>
@@ -251,12 +251,12 @@ function LessonPageDark({ meta, lesson, idx, pageNum }: { meta: EbookMeta; lesso
       </div>
       <div className="w-full h-px mb-4" style={{ backgroundColor: "rgba(255,255,255,0.08)" }} />
       <div className="mb-4 flex-1 overflow-hidden">
-        <p className="text-[9px] font-bold tracking-wider mb-2" style={{ color: meta.coverAccent }}>Truyện Chêm</p>
+        <p className="text-[9px] font-bold tracking-normal mb-2" style={{ color: meta.coverAccent }}>Truyện Chêm</p>
         <p className="text-[10px] leading-5 line-clamp-8 whitespace-pre-wrap" style={{ color: "rgba(255,255,255,0.65)" }}>{removeRomanization(lesson.story)}</p>
       </div>
       {lesson.vocabulary.length > 0 && (
         <div>
-          <p className="text-[9px] font-bold tracking-wider mb-2" style={{ color: meta.coverAccent }}>Từ vựng</p>
+          <p className="text-[9px] font-bold tracking-normal mb-2" style={{ color: meta.coverAccent }}>Từ vựng</p>
           <div className="grid grid-cols-2 gap-1.5">
             {lesson.vocabulary.slice(0, 6).map((v, i) => <VocabCard key={i} v={v} dark />)}
           </div>
@@ -279,7 +279,7 @@ function LessonPageAlbum({ meta, lesson, idx, pageNum }: { meta: EbookMeta; less
           <img src={albumImg} alt="album" className="w-full h-full object-cover" />
         </div>
         <div className="flex-1 p-4 flex flex-col justify-center" style={{ backgroundColor: "#dc2626", backgroundImage: "linear-gradient(135deg, #dc2626, #991b1b)" }}>
-          <p className="text-[9px] font-bold tracking-wider text-white/60 mb-1">Bài {idx + 1}</p>
+          <p className="text-[9px] font-bold tracking-normal text-white/60 mb-1">Bài {idx + 1}</p>
           <h2 className="text-base font-bold text-white leading-tight">{lesson.song.title}</h2>
           <p className="text-white/60 text-[10px] mt-0.5">{lesson.song.artist}</p>
           {lesson.song.genre && <span className="mt-2 self-start text-[8px] bg-white/20 text-white px-2 py-0.5 rounded-full">{toViGenre(lesson.song.genre)}</span>}
@@ -287,12 +287,12 @@ function LessonPageAlbum({ meta, lesson, idx, pageNum }: { meta: EbookMeta; less
       </div>
       <div className="flex-1 p-5 overflow-hidden flex flex-col">
         <div className="mb-3 flex-1 overflow-hidden">
-          <p className="text-[9px] font-bold tracking-wider text-gray-400 mb-1.5">Truyện Chêm</p>
+          <p className="text-[9px] font-bold tracking-normal text-gray-400 mb-1.5">Truyện Chêm</p>
           <p className="text-gray-600 text-[9px] leading-4 line-clamp-10 whitespace-pre-wrap">{removeRomanization(lesson.story)}</p>
         </div>
         {lesson.vocabulary.length > 0 && (
           <div>
-            <p className="text-[9px] font-bold tracking-wider text-gray-400 mb-1.5">Từ vựng</p>
+            <p className="text-[9px] font-bold tracking-normal text-gray-400 mb-1.5">Từ vựng</p>
             <div className="grid grid-cols-3 gap-1">
               {lesson.vocabulary.slice(0, 6).map((v, i) => {
                 const p = parseVocab(v);
@@ -325,7 +325,7 @@ function LessonPageGradient({ meta, lesson, idx, pageNum }: { meta: EbookMeta; l
       <div className="flex-shrink-0 px-6 py-4 relative" style={{ background: gradient, minHeight: "22%" }}>
         <div className="absolute inset-0 bg-black/10" />
         <div className="relative z-10">
-          <p className="text-[8px] font-bold tracking-wider text-white/60 mb-1">Bài {idx + 1}</p>
+          <p className="text-[8px] font-bold tracking-normal text-white/60 mb-1">Bài {idx + 1}</p>
           <h2 className="text-base font-bold text-white leading-tight">{lesson.song.title}</h2>
           <p className="text-white/60 text-[10px] mt-0.5">{lesson.song.artist}</p>
         </div>
@@ -338,7 +338,7 @@ function LessonPageGradient({ meta, lesson, idx, pageNum }: { meta: EbookMeta; l
         <div className="flex-1 overflow-hidden">
           <div className="flex items-center gap-1.5 mb-1.5">
             <div className="w-0.5 h-3 rounded-full" style={{ backgroundColor: meta.coverAccent }} />
-            <p className="text-[9px] font-bold text-gray-500 tracking-wider">Truyện Chêm</p>
+            <p className="text-[9px] font-bold text-gray-500 tracking-normal">Truyện Chêm</p>
           </div>
           <p className="text-gray-600 text-[9px] leading-4 line-clamp-10 whitespace-pre-wrap">{removeRomanization(lesson.story)}</p>
         </div>
@@ -346,7 +346,7 @@ function LessonPageGradient({ meta, lesson, idx, pageNum }: { meta: EbookMeta; l
           <div>
             <div className="flex items-center gap-1.5 mb-1.5">
               <div className="w-0.5 h-3 rounded-full bg-emerald-500" />
-              <p className="text-[9px] font-bold text-gray-500 tracking-wider">Từ vựng</p>
+              <p className="text-[9px] font-bold text-gray-500 tracking-normal">Từ vựng</p>
             </div>
             <div className="grid grid-cols-3 gap-1">
               {lesson.vocabulary.slice(0, 6).map((v, i) => {
@@ -383,7 +383,7 @@ function LessonPageMagazine({ meta, lesson, idx, pageNum }: { meta: EbookMeta; l
         <div className="absolute bottom-0 left-0 right-0 p-4">
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-[8px] font-bold tracking-wider mb-1" style={{ color: meta.coverAccent }}>Bài {idx + 1}</p>
+              <p className="text-[8px] font-bold tracking-normal mb-1" style={{ color: meta.coverAccent }}>Bài {idx + 1}</p>
               <h2 className="text-base font-bold text-white leading-tight">{lesson.song.title}</h2>
               <p className="text-white/60 text-[9px]">{lesson.song.artist}</p>
             </div>
@@ -396,12 +396,12 @@ function LessonPageMagazine({ meta, lesson, idx, pageNum }: { meta: EbookMeta; l
       {/* Content */}
       <div className="flex-1 p-4 overflow-hidden flex flex-col gap-2.5">
         <div className="flex-1 overflow-hidden">
-          <p className="text-[9px] font-bold tracking-wider text-gray-400 mb-1.5">Truyện Chêm</p>
+          <p className="text-[9px] font-bold tracking-normal text-gray-400 mb-1.5">Truyện Chêm</p>
           <p className="text-gray-600 text-[9px] leading-4 line-clamp-9 whitespace-pre-wrap">{removeRomanization(lesson.story)}</p>
         </div>
         {lesson.vocabulary.length > 0 && (
           <div>
-            <p className="text-[9px] font-bold tracking-wider text-gray-400 mb-1.5">Từ vựng</p>
+            <p className="text-[9px] font-bold tracking-normal text-gray-400 mb-1.5">Từ vựng</p>
             <div className="grid grid-cols-3 gap-1">
               {lesson.vocabulary.slice(0, 6).map((v, i) => {
                 const p = parseVocab(v);

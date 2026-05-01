@@ -596,7 +596,7 @@ export default function FriendChallengePage() {
 
           {/* History */}
           <div>
-            <p className="text-white/40 text-xs font-semibold tracking-wider mb-3">Lịch sử thách đấu</p>
+            <p className="text-white/40 text-xs font-semibold tracking-normal mb-3">Lịch sử thách đấu</p>
             <div className="space-y-3">
               {challenges.map(c => (
                 <ChallengeResultCard key={c.id} session={c} />

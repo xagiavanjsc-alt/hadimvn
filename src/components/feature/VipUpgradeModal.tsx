@@ -102,7 +102,7 @@ export default function VipUpgradeModal({ open, onClose, reason, featureName }: 
         {/* Plan comparison — only for vip-related reasons */}
         {reason !== "not_logged_in" && (
           <div className="px-5 py-4 bg-gray-50 border-b border-gray-100">
-            <p className="text-xs font-semibold text-gray-500 tracking-wider mb-3">So sánh gói</p>
+            <p className="text-xs font-semibold text-gray-500 tracking-normal mb-3">So sánh gói</p>
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>

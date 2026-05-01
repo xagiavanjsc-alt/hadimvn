@@ -93,7 +93,7 @@ export default function GlobalLeaderboardPage() {
 
         {/* Top 3 Podium */}
         <div className="bg-[#1a1f2e] rounded-2xl p-6 border border-white/8">
-          <h3 className="text-white/60 text-xs tracking-wider font-semibold mb-6 text-center">Top 3 {activeTab}</h3>
+          <h3 className="text-white/60 text-xs tracking-normal font-semibold mb-6 text-center">Top 3 {activeTab}</h3>
           <div className="flex items-end justify-center gap-4">
             {/* 2nd */}
             <div className="flex flex-col items-center gap-2 flex-1">

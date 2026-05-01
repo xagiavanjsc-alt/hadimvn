@@ -235,7 +235,7 @@ export default function EpsMelonPage() {
           <div className="w-full lg:w-64 flex-shrink-0">
             <div className="bg-white/3 border border-white/5 rounded-2xl overflow-hidden">
               <div className="px-4 py-3 border-b border-white/5">
-                <p className="text-white/60 text-xs font-semibold tracking-wider">Bài hát</p>
+                <p className="text-white/60 text-xs font-semibold tracking-normal">Bài hát</p>
               </div>
 
               {/* All words option */}

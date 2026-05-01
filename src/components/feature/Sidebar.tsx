@@ -1,4 +1,4 @@
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+﻿import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { useStudySync } from "@/hooks/useStudySync";
@@ -154,7 +154,7 @@ function PinnedSection({ pinnedPaths, onUnpin, onNavigate, currentPath }: {
   const items = pinnedPaths.map(p => ALL_NAV_ITEMS.find(i => i.path === p)).filter(Boolean) as typeof ALL_NAV_ITEMS;
   return (
     <div className="mb-2">
-      <p className="text-[9px] tracking-wider font-semibold text-[#e8c84a]/40 px-3 py-1">Đã ghim</p>
+      <p className="text-[9px] tracking-normal font-semibold text-[#e8c84a]/40 px-3 py-1">Đã ghim</p>
       <div className="space-y-0.5">
         {items.map(item => {
           const isActive = currentPath === item.path;
@@ -456,7 +456,7 @@ function SidebarInner() {
                 <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
                   <i className={`${group.icon} text-xs`} style={{ color: hasActive ? grpColor : "rgba(255,255,255,0.3)" }}></i>
                 </div>
-                <p className="flex-1 text-left text-[10px] tracking-wider font-semibold transition-colors"
+                <p className="flex-1 text-left text-[10px] tracking-normal font-semibold transition-colors"
                   style={{ color: hasActive ? grpColor + "99" : "rgba(255,255,255,0.35)" }}>
                   {group.label}
                 </p>

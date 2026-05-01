@@ -339,7 +339,7 @@ export default function EbookPage() {
           <div className="w-80 flex-shrink-0">
             <div className="sticky top-5">
               <div className="flex items-center justify-between mb-3">
-                <p className="text-white/40 text-xs tracking-wider">Preview</p>
+                <p className="text-white/40 text-xs tracking-normal">Preview</p>
                 <span className="text-white/20 text-[10px]">A4 layout</span>
               </div>
               <EbookCanvas

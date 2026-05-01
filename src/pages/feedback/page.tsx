@@ -133,7 +133,7 @@ export default function FeedbackPage() {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Star rating */}
           <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-6">
-            <p className="text-white/50 text-xs font-semibold tracking-wider mb-4 text-center">
+            <p className="text-white/50 text-xs font-semibold tracking-normal mb-4 text-center">
               Bạn đánh giá ứng dụng như thế nào?
             </p>
             <StarRating value={rating} onChange={setRating} />
@@ -141,7 +141,7 @@ export default function FeedbackPage() {
 
           {/* Category */}
           <div>
-            <label className="text-xs font-semibold text-white/50 mb-3 block tracking-wider">Chủ đề góp ý</label>
+            <label className="text-xs font-semibold text-white/50 mb-3 block tracking-normal">Chủ đề góp ý</label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {CATEGORIES.map(cat => (
                 <button key={cat.id} type="button" onClick={() => setCategory(cat.id)}

@@ -274,7 +274,7 @@ export default function HangulWritePage() {
                 <p className="text-white/50 text-sm mb-3">{selectedChar.tips}</p>
                 {/* Stroke order */}
                 <div>
-                  <p className="text-white/25 text-[10px] tracking-wider mb-1.5">Thứ tự nét viết</p>
+                  <p className="text-white/25 text-[10px] tracking-normal mb-1.5">Thứ tự nét viết</p>
                   <div className="flex flex-wrap gap-1.5">
                     {selectedChar.strokeOrder.map((stroke, i) => (
                       <div key={i} className="flex items-center gap-1.5 bg-white/3 rounded-lg px-2.5 py-1">
@@ -339,7 +339,7 @@ export default function HangulWritePage() {
                 ) : (
                   <div className="space-y-2">
                     <div className="bg-white/3 rounded-xl p-3">
-                      <p className="text-white/30 text-[10px] tracking-wider mb-2">Hướng dẫn</p>
+                      <p className="text-white/30 text-[10px] tracking-normal mb-2">Hướng dẫn</p>
                       <ul className="space-y-1.5">
                         {[
                           "Vẽ theo thứ tự nét đã hướng dẫn",
@@ -357,7 +357,7 @@ export default function HangulWritePage() {
 
                     {/* Next char suggestion */}
                     <div className="bg-white/3 rounded-xl p-3">
-                      <p className="text-white/30 text-[10px] tracking-wider mb-2">Ký tự tiếp theo</p>
+                      <p className="text-white/30 text-[10px] tracking-normal mb-2">Ký tự tiếp theo</p>
                       <div className="flex gap-2">
                         {HANGUL_CHARS.filter(c => !masteredChars.includes(c.char) && c.char !== selectedChar.char).slice(0, 3).map(c => (
                           <button key={c.char} onClick={() => handleSelectChar(c)}

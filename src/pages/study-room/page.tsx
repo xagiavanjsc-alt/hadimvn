@@ -405,7 +405,7 @@ function StudyRoomChat({ room, onLeave, profile }: { room: StudyRoom; onLeave: (
       {/* Right: Members */}
       <div className="w-64 flex flex-col gap-3">
         <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4 flex-1">
-          <h4 className="text-white/50 text-[10px] tracking-wider mb-3">Thành viên ({members.length})</h4>
+          <h4 className="text-white/50 text-[10px] tracking-normal mb-3">Thành viên ({members.length})</h4>
           <div className="space-y-2.5">
             {members.map(m => (
               <div key={m.id} className="flex items-center gap-2.5">
@@ -434,7 +434,7 @@ function StudyRoomChat({ room, onLeave, profile }: { room: StudyRoom; onLeave: (
 
         {/* Study stats */}
         <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4">
-          <h4 className="text-white/50 text-[10px] tracking-wider mb-3">Phiên học này</h4>
+          <h4 className="text-white/50 text-[10px] tracking-normal mb-3">Phiên học này</h4>
           <div className="space-y-2">
             {[
               { label: "Thời gian học", value: formatTimer(studyTimer), icon: "ri-timer-line", color: "#e8c84a" },

@@ -267,7 +267,7 @@ function AISuggestionPanel({ post, onClose }: { post: Post; onClose: () => void 
         <div className="flex-1 overflow-y-auto px-5 py-4 space-y-3">
           {/* Post preview */}
           <div className="bg-white/3 border border-white/5 rounded-xl p-3 mb-4">
-            <p className="text-white/40 text-[10px] tracking-wider mb-1">Bài đăng</p>
+            <p className="text-white/40 text-[10px] tracking-normal mb-1">Bài đăng</p>
             <p className="text-white/70 text-xs font-medium line-clamp-2">{post.title}</p>
           </div>
 
@@ -702,7 +702,7 @@ function NewPostModal({
           {/* Preview */}
           {content.trim() && (
             <div className="bg-white/3 border border-white/8 rounded-xl p-4">
-              <p className="text-white/30 text-[10px] tracking-wider mb-2">Xem trước</p>
+              <p className="text-white/30 text-[10px] tracking-normal mb-2">Xem trước</p>
               <div className="text-white/70 text-sm leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: renderContent(content) }} />
             </div>

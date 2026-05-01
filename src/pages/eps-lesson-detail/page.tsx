@@ -194,7 +194,7 @@ function GrammarTab({ lesson }: { lesson: EpsLesson }) {
             <div className="px-5 pb-5 space-y-4">
               <p className="text-white/60 text-sm leading-relaxed bg-white/3 rounded-lg p-3">{g.explanation}</p>
               <div className="space-y-2">
-                <p className="text-white/30 text-xs font-medium tracking-wider">Ví dụ</p>
+                <p className="text-white/30 text-xs font-medium tracking-normal">Ví dụ</p>
                 {g.examples.map((ex, j) => (
                   <div key={j} className="flex items-start gap-3 p-3 rounded-lg bg-[#e8c84a]/5 border border-[#e8c84a]/10">
                     <button onClick={() => speakKorean(ex.korean)} className="w-6 h-6 flex items-center justify-center rounded-md bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 flex-shrink-0 mt-0.5 cursor-pointer">
@@ -366,7 +366,7 @@ function MatchingTab({ lesson }: { lesson: EpsLesson }) {
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-2">
-          <p className="text-white/30 text-[10px] font-semibold tracking-wider text-center mb-2">Tiếng Hàn</p>
+          <p className="text-white/30 text-[10px] font-semibold tracking-normal text-center mb-2">Tiếng Hàn</p>
           {koreanOrder.map(v => {
             const idx = pairs.indexOf(v);
             return (
@@ -377,7 +377,7 @@ function MatchingTab({ lesson }: { lesson: EpsLesson }) {
           })}
         </div>
         <div className="space-y-2">
-          <p className="text-white/30 text-[10px] font-semibold tracking-wider text-center mb-2">Tiếng Việt</p>
+          <p className="text-white/30 text-[10px] font-semibold tracking-normal text-center mb-2">Tiếng Việt</p>
           {vietnameseOrder.map(v => {
             const idx = pairs.indexOf(v);
             return (

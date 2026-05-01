@@ -546,9 +546,9 @@ export default function AdminVipTransactionsPage() {
               className="grid grid-cols-[auto_1fr_auto] items-center gap-4 px-5 py-3 border-b"
               style={{ borderColor: "var(--admin-border)", backgroundColor: "var(--admin-card2)" }}
             >
-              <span className="text-[10px] tracking-wider font-semibold w-9" style={{ color: "var(--admin-text-faint)" }}>Loại</span>
-              <span className="text-[10px] tracking-wider font-semibold" style={{ color: "var(--admin-text-faint)" }}>Thành viên & Chi tiết</span>
-              <span className="text-[10px] tracking-wider font-semibold text-right" style={{ color: "var(--admin-text-faint)" }}>Số tiền / Thời gian</span>
+              <span className="text-[10px] tracking-normal font-semibold w-9" style={{ color: "var(--admin-text-faint)" }}>Loại</span>
+              <span className="text-[10px] tracking-normal font-semibold" style={{ color: "var(--admin-text-faint)" }}>Thành viên & Chi tiết</span>
+              <span className="text-[10px] tracking-normal font-semibold text-right" style={{ color: "var(--admin-text-faint)" }}>Số tiền / Thời gian</span>
             </div>
 
             {paginated.map(tx => (

@@ -338,7 +338,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
 
       {/* Date */}
       <div className="mb-4">
-        <label className="block text-xs font-semibold text-gray-500 tracking-wider mb-1.5">Ngày học</label>
+        <label className="block text-xs font-semibold text-gray-500 tracking-normal mb-1.5">Ngày học</label>
         <input
           type="date"
           value={date}
@@ -350,7 +350,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
 
       {/* Mood */}
       <div className="mb-4">
-        <label className="block text-xs font-semibold text-gray-500 tracking-wider mb-1.5">Cảm xúc hôm nay</label>
+        <label className="block text-xs font-semibold text-gray-500 tracking-normal mb-1.5">Cảm xúc hôm nay</label>
         <div className="flex gap-2 flex-wrap">
           {MOODS.map(m => (
             <button
@@ -373,7 +373,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
       {/* Stats */}
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div>
-          <label className="block text-xs font-semibold text-gray-500 tracking-wider mb-1.5">Thời gian học (phút)</label>
+          <label className="block text-xs font-semibold text-gray-500 tracking-normal mb-1.5">Thời gian học (phút)</label>
           <input
             type="number"
             value={studyMinutes}
@@ -384,7 +384,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
           />
         </div>
         <div>
-          <label className="block text-xs font-semibold text-gray-500 tracking-wider mb-1.5">Số từ đã học</label>
+          <label className="block text-xs font-semibold text-gray-500 tracking-normal mb-1.5">Số từ đã học</label>
           <input
             type="number"
             value={wordsLearned}
@@ -397,7 +397,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
 
       {/* Content */}
       <div className="mb-4">
-        <label className="block text-xs font-semibold text-gray-500 tracking-wider mb-1.5">
+        <label className="block text-xs font-semibold text-gray-500 tracking-normal mb-1.5">
           Ghi chú / Cảm nhận
           <span className="ml-2 text-gray-300 normal-case font-normal">({content.length}/500)</span>
         </label>
@@ -412,7 +412,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
 
       {/* Tags */}
       <div className="mb-5">
-        <label className="block text-xs font-semibold text-gray-500 tracking-wider mb-1.5">Chủ đề học</label>
+        <label className="block text-xs font-semibold text-gray-500 tracking-normal mb-1.5">Chủ đề học</label>
         <div className="flex flex-wrap gap-1.5 mb-2">
           {PRESET_TAGS.map(tag => (
             <button
@@ -576,7 +576,7 @@ function WeeklyMoodChart({ entries }: { entries: JournalEntry[] }) {
 
       {/* Weekly trend bar chart */}
       <div className="border-t border-gray-50 pt-4">
-        <p className="text-[10px] text-gray-400 font-semibold tracking-wider mb-3">Điểm cảm xúc trung bình mỗi tuần</p>
+        <p className="text-[10px] text-gray-400 font-semibold tracking-normal mb-3">Điểm cảm xúc trung bình mỗi tuần</p>
         <div className="flex items-end gap-3 h-16">
           {weeks.map((week, wi) => {
             const avg = weeklyAvg[wi];
@@ -603,7 +603,7 @@ function WeeklyMoodChart({ entries }: { entries: JournalEntry[] }) {
 
       {/* Mood distribution this month */}
       <div className="border-t border-gray-50 pt-4 mt-2">
-        <p className="text-[10px] text-gray-400 font-semibold tracking-wider mb-3">Phân bố cảm xúc (28 ngày qua)</p>
+        <p className="text-[10px] text-gray-400 font-semibold tracking-normal mb-3">Phân bố cảm xúc (28 ngày qua)</p>
         <div className="flex gap-1 h-3 rounded-full overflow-hidden">
           {(() => {
             const allDays = weeks.flatMap(w => w.days).filter(d => d.mood !== null);
@@ -859,7 +859,7 @@ export default function StudyJournalPage() {
           {/* Avg stats */}
           {entries.length >= 3 && (
             <div className="mt-6 bg-white rounded-xl border border-gray-100 p-4">
-              <p className="text-xs font-semibold text-gray-500 tracking-wider mb-3">Thống kê trung bình</p>
+              <p className="text-xs font-semibold text-gray-500 tracking-normal mb-3">Thống kê trung bình</p>
               <div className="flex gap-6 flex-wrap">
                 <div>
                   <p className="text-lg font-bold text-gray-900">{avgMinutes} phút</p>

@@ -281,7 +281,7 @@ export default function TranslationPracticePage() {
 
         {/* All items list */}
         <div className="mt-6">
-          <p className="text-white/40 text-xs font-semibold tracking-wider mb-3">Tất cả câu ({filtered.length})</p>
+          <p className="text-white/40 text-xs font-semibold tracking-normal mb-3">Tất cả câu ({filtered.length})</p>
           <div className="space-y-2">
             {filtered.map((it, i) => (
               <button key={it.id} onClick={() => { setCurrentIdx(i); setInput(""); setSubmitted(false); setShowHints(false); }}

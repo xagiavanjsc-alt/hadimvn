@@ -301,12 +301,12 @@ function NodeDetailPanel({
 
       <div className="flex overflow-x-auto h-full" style={{ maxHeight: "290px" }}>
         <div className="flex-shrink-0 w-56 p-4 border-r border-white/8 overflow-y-auto">
-          <p className="text-[10px] text-white/30 font-semibold tracking-wider mb-2">Nghĩa</p>
+          <p className="text-[10px] text-white/30 font-semibold tracking-normal mb-2">Nghĩa</p>
           <p className="text-sm font-semibold text-white/80 mb-2">{node.vietnamese}</p>
           {node.meaning_detail && <p className="text-xs text-white/40 leading-relaxed">{node.meaning_detail}</p>}
           {node.hanja_chars?.length > 0 && (
             <div className="mt-3">
-              <p className="text-[10px] text-white/30 font-semibold tracking-wider mb-1.5">Phân tích Hán tự</p>
+              <p className="text-[10px] text-white/30 font-semibold tracking-normal mb-1.5">Phân tích Hán tự</p>
               <div className="flex flex-wrap gap-1.5">
                 {node.hanja_chars.map((char, i) => (
                   <div key={i} className="flex items-center gap-1 bg-rose-500/15 rounded-lg px-2 py-1 border border-rose-500/20">
@@ -327,7 +327,7 @@ function NodeDetailPanel({
 
         {node.examples?.length > 0 && (
           <div className="flex-shrink-0 w-72 p-4 border-r border-white/8 overflow-y-auto">
-            <p className="text-[10px] text-white/30 font-semibold tracking-wider mb-2">Ví dụ ({node.examples.length})</p>
+            <p className="text-[10px] text-white/30 font-semibold tracking-normal mb-2">Ví dụ ({node.examples.length})</p>
             <div className="space-y-2">
               {node.examples.map((ex, i) => (
                 <div key={i} className="bg-white/5 rounded-lg p-2.5">
@@ -352,7 +352,7 @@ function NodeDetailPanel({
 
         {node.related_words?.length > 0 && (
           <div className="flex-shrink-0 w-52 p-4 overflow-y-auto">
-            <p className="text-[10px] text-white/30 font-semibold tracking-wider mb-2">Từ liên quan</p>
+            <p className="text-[10px] text-white/30 font-semibold tracking-normal mb-2">Từ liên quan</p>
             <div className="space-y-1.5">
               {node.related_words.map((rw, i) => (
                 <div key={i} className="flex items-center justify-between bg-rose-500/10 rounded-lg px-2.5 py-2 border border-rose-500/20">

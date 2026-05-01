@@ -398,7 +398,7 @@ export default function MelonFlashcardPage() {
               {/* Song breakdown */}
               {analysisCount > 0 && (
                 <div className="bg-white/3 border border-white/5 rounded-2xl p-4">
-                  <p className="text-white/40 text-xs tracking-wider mb-3">Từ theo bài hát (AI)</p>
+                  <p className="text-white/40 text-xs tracking-normal mb-3">Từ theo bài hát (AI)</p>
                   <div className="space-y-2">
                     {Array.from(new Set(analysisCards.map(c => c.songRank))).map((rank) => {
                       const songCards = analysisCards.filter(c => c.songRank === rank);

@@ -256,7 +256,7 @@ export default function SeoulGrammarPage() {
             <div className="w-52 flex-shrink-0 space-y-4">
               {/* Level filter */}
               <div className="bg-white/3 border border-white/8 rounded-xl p-4">
-                <p className="text-white/50 text-xs font-semibold tracking-wider mb-3">Cấp độ</p>
+                <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Cấp độ</p>
                 <div className="space-y-1">
                   {[
                     { id: "all", label: "Tất cả" },
@@ -281,7 +281,7 @@ export default function SeoulGrammarPage() {
 
               {/* Lesson filter */}
               <div className="bg-white/3 border border-white/8 rounded-xl p-4">
-                <p className="text-white/50 text-xs font-semibold tracking-wider mb-3">Bài học</p>
+                <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Bài học</p>
                 <div className="space-y-1 max-h-64 overflow-y-auto">
                   <button
                     onClick={() => setSelectedLesson(null)}
@@ -368,7 +368,7 @@ export default function SeoulGrammarPage() {
                           <p className="text-white/70 text-sm mb-3">{g.explanation}</p>
                           {g.examples.length > 0 && (
                             <div className="space-y-2">
-                              <p className="text-white/40 text-xs font-semibold tracking-wider">Ví dụ</p>
+                              <p className="text-white/40 text-xs font-semibold tracking-normal">Ví dụ</p>
                               {g.examples.map((ex, i) => (
                                 <div key={i} className="bg-white/3 rounded-lg p-3">
                                   <p className="text-white font-medium text-sm">{ex.korean}</p>
@@ -453,7 +453,7 @@ export default function SeoulGrammarPage() {
 
                 {/* Question */}
                 <div className="bg-white/3 border border-white/8 rounded-2xl p-6 mb-4">
-                  <p className="text-white/40 text-xs font-semibold tracking-wider mb-3">
+                  <p className="text-white/40 text-xs font-semibold tracking-normal mb-3">
                     Chọn cấu trúc ngữ pháp phù hợp với giải thích sau:
                   </p>
                   <p className="text-white text-base font-medium mb-4">{currentQ.explanation}</p>

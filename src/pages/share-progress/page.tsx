@@ -246,7 +246,7 @@ export default function ShareProgressPage() {
           {/* Left: Card preview */}
           <div className="space-y-4">
             <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
-              <p className="text-white/50 text-xs font-semibold tracking-wider mb-4">Xem trước thẻ</p>
+              <p className="text-white/50 text-xs font-semibold tracking-normal mb-4">Xem trước thẻ</p>
               <div className="flex items-center justify-center overflow-hidden rounded-xl bg-white/3 p-4" style={{ minHeight: 300 }}>
                 <ProgressCard
                   theme={theme}
@@ -283,7 +283,7 @@ export default function ShareProgressPage() {
             {/* Share text */}
             <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4">
               <div className="flex items-center justify-between mb-3">
-                <p className="text-white/50 text-xs font-semibold tracking-wider">Caption chia sẻ</p>
+                <p className="text-white/50 text-xs font-semibold tracking-normal">Caption chia sẻ</p>
                 <button
                   onClick={() => setShareTextIdx(i => (i + 1) % shareTexts.length)}
                   className="text-[10px] text-white/30 hover:text-white/60 cursor-pointer whitespace-nowrap transition-colors"
@@ -328,7 +328,7 @@ export default function ShareProgressPage() {
           <div className="space-y-4">
             {/* Theme selector */}
             <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
-              <p className="text-white/50 text-xs font-semibold tracking-wider mb-3">Chủ đề màu sắc</p>
+              <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Chủ đề màu sắc</p>
               <div className="grid grid-cols-2 gap-2">
                 {THEMES.map(t => (
                   <button
@@ -351,7 +351,7 @@ export default function ShareProgressPage() {
 
             {/* Layout selector */}
             <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
-              <p className="text-white/50 text-xs font-semibold tracking-wider mb-3">Kích thước thẻ</p>
+              <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Kích thước thẻ</p>
               <div className="space-y-2">
                 {LAYOUTS.map(l => (
                   <button
@@ -378,7 +378,7 @@ export default function ShareProgressPage() {
 
             {/* Stats summary */}
             <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
-              <p className="text-white/50 text-xs font-semibold tracking-wider mb-3">Thống kê của bạn</p>
+              <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Thống kê của bạn</p>
               <div className="grid grid-cols-2 gap-2">
                 {[
                   { label: "Streak", value: `${progressData.streak} ngày`, icon: "ri-fire-line", color: "#fb923c" },
