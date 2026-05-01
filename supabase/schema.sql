@@ -526,6 +526,29 @@ CREATE TABLE IF NOT EXISTS public.coupons (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Fix column name if table already exists with 'active' instead of 'is_active'
+DO $$
+BEGIN
+    -- Check if 'active' column exists and rename to 'is_active'
+    IF EXISTS (
+        SELECT 1 FROM information_schema.columns 
+        WHERE table_name = 'coupons' AND column_name = 'active'
+    ) AND NOT EXISTS (
+        SELECT 1 FROM information_schema.columns 
+        WHERE table_name = 'coupons' AND column_name = 'is_active'
+    ) THEN
+        ALTER TABLE public.coupons RENAME COLUMN active TO is_active;
+    END IF;
+    
+    -- Add is_active column if it doesn't exist at all
+    IF NOT EXISTS (
+        SELECT 1 FROM information_schema.columns 
+        WHERE table_name = 'coupons' AND column_name = 'is_active'
+    ) THEN
+        ALTER TABLE public.coupons ADD COLUMN is_active BOOLEAN DEFAULT TRUE;
+    END IF;
+END $$;
+
 ALTER TABLE public.coupons ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "Everyone can view active coupons" ON public.coupons;
