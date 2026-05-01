@@ -104,7 +104,7 @@ export default function LeaderboardPage() {
     setLoading(true);
     try {
       const { data, error } = await supabase
-        .from("leaderboard_snapshots")
+        .from("leaderboard")
         .select("*")
         .order(sortKey, { ascending: false })
         .limit(50);

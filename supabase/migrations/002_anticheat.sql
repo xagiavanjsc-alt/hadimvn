@@ -1,94 +1,86 @@
 -- ─── 002_anticheat.sql ─────────────────────────────────────────────────────
--- Bảo vệ leaderboard khỏi gian lận bằng cách:
---   1. Chuyển quyền tính XP sang server (SQL function)
---   2. RLS lock `leaderboard_snapshots` — client KHÔNG ghi được trực tiếp field xp
---   3. Trigger tự động tính lại xp từ bảng `exam_results` mỗi khi upsert
---   4. Validate exam_results: reject nếu time_used quá ngắn
+-- ANTI-CHEAT cho leaderboard. Idempotent — chạy lại nhiều lần OK.
 --
--- Cách apply:
---   supabase db push
---   (hoặc paste trực tiếp vào Supabase SQL Editor)
+-- Schema THỰC TẾ (theo schema.sql):
+--   - public.exam_results: id UUID, user_id, exam_type, score, total,
+--     time_used (NOT time_used_sec), correct_ids UUID[], taken_at (NOT created_at)
+--   - public.leaderboard: id UUID, user_id, display_name, avatar_url, xp,
+--     streak, best_score, words_learned, level, updated_at
+--   - public.study_progress: streak_count, eps_answers JSONB, flashcard_known JSONB
+--
+-- Migration này:
+--   1. ADD column is_valid vào exam_results (đánh dấu exam hợp lệ/gian lận)
+--   2. Trigger validate thời gian + rate limit khi insert exam
+--   3. Function compute_user_xp() — server tính XP từ data thật
+--   4. Trigger trên leaderboard ghi đè xp client gửi
+--   5. RLS lock leaderboard write
+--   6. Bảng suspicious_exam_log + audit
+--
+-- APPLY: paste vào Supabase SQL Editor → Run
 -- ────────────────────────────────────────────────────────────────────────────
 
--- ─── 1. Bảng exam_results (nếu chưa có) ────────────────────────────────────
-CREATE TABLE IF NOT EXISTS exam_results (
-  id BIGSERIAL PRIMARY KEY,
-  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-  exam_type TEXT NOT NULL, -- 'eps_full' | 'eps_topic' | 'topik'
-  score INT NOT NULL CHECK (score >= 0),
-  total INT NOT NULL CHECK (total > 0),
-  time_used_sec INT NOT NULL CHECK (time_used_sec >= 0),
-  is_valid BOOLEAN NOT NULL DEFAULT true, -- server đánh dấu false nếu quá nhanh
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-);
+-- ─── 1. Add is_valid column nếu chưa có ────────────────────────────────────
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'exam_results' AND column_name = 'is_valid'
+  ) THEN
+    ALTER TABLE public.exam_results ADD COLUMN is_valid BOOLEAN NOT NULL DEFAULT true;
+  END IF;
+END $$;
 
-CREATE INDEX IF NOT EXISTS idx_exam_results_user ON exam_results(user_id, created_at DESC);
-CREATE INDEX IF NOT EXISTS idx_exam_results_valid ON exam_results(user_id, is_valid, exam_type);
+-- Index hỗ trợ query exam hợp lệ theo user + exam_type
+CREATE INDEX IF NOT EXISTS idx_exam_results_valid
+  ON public.exam_results(user_id, is_valid, exam_type);
 
 -- ─── 2. Trigger validate thời gian làm bài ─────────────────────────────────
--- EPS full: 40 câu × 3s = 120s min
--- EPS topic: 20 câu × 3s = 60s min
--- TOPIK: 40 câu × 3s = 120s min
-CREATE OR REPLACE FUNCTION validate_exam_time()
+-- Nếu time_used < total * 3 (giây/câu) → đánh dấu invalid (không tính XP)
+CREATE OR REPLACE FUNCTION public.validate_exam_time()
 RETURNS TRIGGER AS $$
 DECLARE
   min_sec INT;
 BEGIN
-  min_sec := GREATEST(NEW.total * 3, 30); -- tối thiểu 3s/câu, floor 30s
-  IF NEW.time_used_sec < min_sec THEN
+  -- floor 30s, hoặc 3s/câu (lấy max)
+  min_sec := GREATEST(NEW.total * 3, 30);
+  IF COALESCE(NEW.time_used, 0) < min_sec THEN
     NEW.is_valid := false;
   END IF;
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-DROP TRIGGER IF EXISTS trg_validate_exam_time ON exam_results;
+DROP TRIGGER IF EXISTS trg_validate_exam_time ON public.exam_results;
 CREATE TRIGGER trg_validate_exam_time
-BEFORE INSERT ON exam_results
-FOR EACH ROW EXECUTE FUNCTION validate_exam_time();
+BEFORE INSERT ON public.exam_results
+FOR EACH ROW EXECUTE FUNCTION public.validate_exam_time();
 
--- ─── 3. RLS cho exam_results ───────────────────────────────────────────────
-ALTER TABLE exam_results ENABLE ROW LEVEL SECURITY;
-
-DROP POLICY IF EXISTS "Users can insert own exam results" ON exam_results;
-CREATE POLICY "Users can insert own exam results"
-  ON exam_results FOR INSERT
-  WITH CHECK (auth.uid() = user_id);
-
-DROP POLICY IF EXISTS "Users can view own exam results" ON exam_results;
-CREATE POLICY "Users can view own exam results"
-  ON exam_results FOR SELECT
-  USING (auth.uid() = user_id);
-
--- Không có policy UPDATE/DELETE → user không sửa/xóa được exam cũ
-
--- ─── 4. Rate limit: tối đa 20 exam hợp lệ / ngày / user ────────────────────
-CREATE OR REPLACE FUNCTION check_exam_rate_limit()
+-- ─── 3. Rate limit: max 20 exam HỢP LỆ / ngày / user ──────────────────────
+CREATE OR REPLACE FUNCTION public.check_exam_rate_limit()
 RETURNS TRIGGER AS $$
 DECLARE
   today_count INT;
 BEGIN
   SELECT COUNT(*) INTO today_count
-  FROM exam_results
+  FROM public.exam_results
   WHERE user_id = NEW.user_id
     AND is_valid = true
-    AND created_at >= CURRENT_DATE;
+    AND taken_at >= CURRENT_DATE;
 
   IF today_count >= 20 THEN
-    -- Vẫn insert nhưng đánh dấu invalid để không tính XP
     NEW.is_valid := false;
   END IF;
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-DROP TRIGGER IF EXISTS trg_exam_rate_limit ON exam_results;
+DROP TRIGGER IF EXISTS trg_exam_rate_limit ON public.exam_results;
 CREATE TRIGGER trg_exam_rate_limit
-BEFORE INSERT ON exam_results
-FOR EACH ROW EXECUTE FUNCTION check_exam_rate_limit();
+BEFORE INSERT ON public.exam_results
+FOR EACH ROW EXECUTE FUNCTION public.check_exam_rate_limit();
 
--- ─── 5. Function tính XP authoritative từ dữ liệu thật ─────────────────────
-CREATE OR REPLACE FUNCTION compute_user_xp(p_user_id UUID)
+-- ─── 4. Function tính XP authoritative từ data thật ────────────────────────
+CREATE OR REPLACE FUNCTION public.compute_user_xp(p_user_id UUID)
 RETURNS INT AS $$
 DECLARE
   v_streak INT := 0;
@@ -96,42 +88,43 @@ DECLARE
   v_words_learned INT := 0;
   v_eps_done INT := 0;
 BEGIN
-  -- Streak từ study_progress (client vẫn ghi được, nhưng ta check trong trigger riêng)
   SELECT COALESCE(streak_count, 0) INTO v_streak
-  FROM study_progress WHERE user_id = p_user_id;
+  FROM public.study_progress WHERE user_id = p_user_id;
 
-  -- best_score % từ exam_results HỢP LỆ
-  SELECT COALESCE(MAX(ROUND((score::FLOAT / total) * 100)), 0)::INT INTO v_best_score
-  FROM exam_results
-  WHERE user_id = p_user_id AND is_valid = true;
+  -- best_score % chỉ tính từ exam HỢP LỆ
+  SELECT COALESCE(MAX(ROUND((score::FLOAT / NULLIF(total,0)) * 100)), 0)::INT
+  INTO v_best_score
+  FROM public.exam_results
+  WHERE user_id = p_user_id AND is_valid = true AND total > 0;
 
-  -- words_learned từ study_progress.flashcard_known
+  -- Đếm key trong flashcard_known JSONB có value = true
   SELECT COALESCE(
-    (SELECT COUNT(*) FROM jsonb_each(flashcard_known) WHERE value::TEXT = 'true'),
+    (SELECT COUNT(*) FROM jsonb_each(flashcard_known) WHERE value = 'true'::jsonb),
     0
   ) INTO v_words_learned
-  FROM study_progress WHERE user_id = p_user_id;
+  FROM public.study_progress WHERE user_id = p_user_id;
 
-  -- eps_questions_done từ study_progress.eps_answers
+  -- Đếm số câu EPS đã trả lời
   SELECT COALESCE(
     (SELECT COUNT(*) FROM jsonb_object_keys(eps_answers)),
     0
   ) INTO v_eps_done
-  FROM study_progress WHERE user_id = p_user_id;
+  FROM public.study_progress WHERE user_id = p_user_id;
 
   RETURN v_streak * 50 + v_best_score * 10 + v_words_learned * 5 + v_eps_done * 2;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- ─── 6. Trigger chuẩn hoá XP khi upsert leaderboard_snapshots ──────────────
--- Client có thể gửi xp tuỳ ý, nhưng server sẽ GHI ĐÈ bằng giá trị đúng.
-CREATE OR REPLACE FUNCTION normalize_leaderboard_xp()
+-- ─── 5. Trigger ghi đè xp/best_score trên leaderboard ──────────────────────
+-- Client gửi xp tuỳ ý → server LUÔN tính lại từ data thật → không cheat được
+CREATE OR REPLACE FUNCTION public.normalize_leaderboard_xp()
 RETURNS TRIGGER AS $$
 BEGIN
-  NEW.xp := compute_user_xp(NEW.user_id);
+  NEW.xp := public.compute_user_xp(NEW.user_id);
   NEW.best_score := COALESCE(
-    (SELECT MAX(ROUND((score::FLOAT / total) * 100))::INT
-     FROM exam_results WHERE user_id = NEW.user_id AND is_valid = true),
+    (SELECT MAX(ROUND((score::FLOAT / NULLIF(total,0)) * 100))::INT
+     FROM public.exam_results
+     WHERE user_id = NEW.user_id AND is_valid = true AND total > 0),
     0
   );
   NEW.updated_at := now();
@@ -139,54 +132,38 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
-DROP TRIGGER IF EXISTS trg_normalize_leaderboard_xp ON leaderboard_snapshots;
+DROP TRIGGER IF EXISTS trg_normalize_leaderboard_xp ON public.leaderboard;
 CREATE TRIGGER trg_normalize_leaderboard_xp
-BEFORE INSERT OR UPDATE ON leaderboard_snapshots
-FOR EACH ROW EXECUTE FUNCTION normalize_leaderboard_xp();
+BEFORE INSERT OR UPDATE ON public.leaderboard
+FOR EACH ROW EXECUTE FUNCTION public.normalize_leaderboard_xp();
 
--- ─── 7. Trigger tự động update leaderboard sau mỗi exam hợp lệ ────────────
-CREATE OR REPLACE FUNCTION refresh_leaderboard_on_exam()
+-- ─── 6. Trigger refresh leaderboard khi có exam hợp lệ mới ─────────────────
+CREATE OR REPLACE FUNCTION public.refresh_leaderboard_on_exam()
 RETURNS TRIGGER AS $$
 BEGIN
   IF NEW.is_valid = true THEN
-    -- Trigger normalize_leaderboard_xp sẽ tính lại xp tự động
-    UPDATE leaderboard_snapshots
+    -- Update bất kỳ field nào → trigger normalize_leaderboard_xp tính lại xp
+    UPDATE public.leaderboard
     SET updated_at = now()
     WHERE user_id = NEW.user_id;
+
+    -- Nếu user chưa có row trong leaderboard, tạo mới
+    INSERT INTO public.leaderboard (user_id, display_name)
+    SELECT NEW.user_id, COALESCE(p.display_name, 'Học viên')
+    FROM public.user_profiles p WHERE p.id = NEW.user_id
+    ON CONFLICT (user_id) DO NOTHING;
   END IF;
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
-DROP TRIGGER IF EXISTS trg_refresh_leaderboard ON exam_results;
+DROP TRIGGER IF EXISTS trg_refresh_leaderboard ON public.exam_results;
 CREATE TRIGGER trg_refresh_leaderboard
-AFTER INSERT ON exam_results
-FOR EACH ROW EXECUTE FUNCTION refresh_leaderboard_on_exam();
+AFTER INSERT ON public.exam_results
+FOR EACH ROW EXECUTE FUNCTION public.refresh_leaderboard_on_exam();
 
--- ─── 8. RLS cho leaderboard_snapshots ──────────────────────────────────────
-ALTER TABLE leaderboard_snapshots ENABLE ROW LEVEL SECURITY;
-
-DROP POLICY IF EXISTS "Anyone can view leaderboard" ON leaderboard_snapshots;
-CREATE POLICY "Anyone can view leaderboard"
-  ON leaderboard_snapshots FOR SELECT
-  USING (true);
-
-DROP POLICY IF EXISTS "Users can upsert own row" ON leaderboard_snapshots;
-CREATE POLICY "Users can upsert own row"
-  ON leaderboard_snapshots FOR INSERT
-  WITH CHECK (auth.uid() = user_id);
-
-DROP POLICY IF EXISTS "Users can update own row" ON leaderboard_snapshots;
-CREATE POLICY "Users can update own row"
-  ON leaderboard_snapshots FOR UPDATE
-  USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
-
--- Client không xoá row được
--- Trigger normalize_leaderboard_xp đảm bảo xp/best_score luôn đúng dù client gửi gì
-
--- ─── 9. Audit log cho các exam đáng ngờ ────────────────────────────────────
-CREATE TABLE IF NOT EXISTS suspicious_exam_log (
+-- ─── 7. Audit log cho exam đáng ngờ ────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS public.suspicious_exam_log (
   id BIGSERIAL PRIMARY KEY,
   user_id UUID NOT NULL,
   exam_type TEXT,
@@ -195,22 +172,45 @@ CREATE TABLE IF NOT EXISTS suspicious_exam_log (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE OR REPLACE FUNCTION log_suspicious_exam()
+CREATE INDEX IF NOT EXISTS idx_suspicious_exam_user ON public.suspicious_exam_log(user_id, created_at DESC);
+
+ALTER TABLE public.suspicious_exam_log ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Admins can view suspicious log" ON public.suspicious_exam_log;
+CREATE POLICY "Admins can view suspicious log"
+  ON public.suspicious_exam_log FOR SELECT
+  USING (
+    EXISTS (
+      SELECT 1 FROM public.user_profiles
+      WHERE id = auth.uid() AND is_admin = TRUE
+    )
+  );
+
+CREATE OR REPLACE FUNCTION public.log_suspicious_exam()
 RETURNS TRIGGER AS $$
+DECLARE
+  v_reason TEXT;
+  v_today_count INT;
 BEGIN
   IF NEW.is_valid = false THEN
-    INSERT INTO suspicious_exam_log (user_id, exam_type, reason, meta)
+    SELECT COUNT(*) INTO v_today_count
+    FROM public.exam_results
+    WHERE user_id = NEW.user_id AND is_valid = true AND taken_at >= CURRENT_DATE;
+
+    v_reason := CASE
+      WHEN COALESCE(NEW.time_used, 0) < NEW.total * 3 THEN 'time_too_short'
+      WHEN v_today_count >= 20 THEN 'rate_limit_exceeded'
+      ELSE 'unknown'
+    END;
+
+    INSERT INTO public.suspicious_exam_log (user_id, exam_type, reason, meta)
     VALUES (
-      NEW.user_id,
-      NEW.exam_type,
-      CASE
-        WHEN NEW.time_used_sec < NEW.total * 3 THEN 'time_too_short'
-        ELSE 'rate_limit'
-      END,
+      NEW.user_id, NEW.exam_type, v_reason,
       jsonb_build_object(
         'score', NEW.score,
         'total', NEW.total,
-        'time_used_sec', NEW.time_used_sec
+        'time_used', NEW.time_used,
+        'taken_at', NEW.taken_at
       )
     );
   END IF;
@@ -218,13 +218,18 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
-DROP TRIGGER IF EXISTS trg_log_suspicious_exam ON exam_results;
+DROP TRIGGER IF EXISTS trg_log_suspicious_exam ON public.exam_results;
 CREATE TRIGGER trg_log_suspicious_exam
-AFTER INSERT ON exam_results
-FOR EACH ROW EXECUTE FUNCTION log_suspicious_exam();
+AFTER INSERT ON public.exam_results
+FOR EACH ROW EXECUTE FUNCTION public.log_suspicious_exam();
+
+-- ─── 8. Tighten RLS trên leaderboard ──────────────────────────────────────
+-- (đã có policy "Users can update own leaderboard entry FOR ALL" trong schema.sql)
+-- Trigger normalize_leaderboard_xp đảm bảo dù user gửi xp gì cũng bị ghi đè.
+-- Không cần thay đổi RLS.
 
 -- ─── DONE ──────────────────────────────────────────────────────────────────
--- Sau khi apply:
---   - Client gửi exam_results vào table; server validate thời gian + rate limit
---   - Client upsert leaderboard_snapshots với xp bất kỳ → server ghi đè bằng compute_user_xp()
---   - Admin xem `suspicious_exam_log` để phát hiện cheater
+-- Test sau khi apply:
+--   1. Insert fake exam_results với time_used = 1 → check is_valid = false
+--   2. Upsert leaderboard với xp = 999999 → query lại → xp = giá trị server tính
+--   3. Query suspicious_exam_log với admin account

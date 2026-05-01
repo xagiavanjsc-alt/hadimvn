@@ -16,7 +16,7 @@ export interface AdminUser {
   is_admin: boolean;
   created_at: string;
   updated_at: string;
-  // From leaderboard_snapshots
+  // From leaderboard
   xp_total?: number;
   streak_count?: number;
   words_learned?: number;
@@ -83,7 +83,7 @@ export function useAdminUsers(): UseAdminUsersReturn {
 
   const mergeWithLeaderboard = async (profiles: AdminUser[]) => {
     const { data: leaderboard } = await supabase
-      .from("leaderboard_snapshots")
+      .from("leaderboard")
       .select("user_id, xp, streak, words_learned, level, updated_at")
       .in("user_id", profiles.map((p: AdminUser) => p.id));
 

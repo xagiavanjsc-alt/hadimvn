@@ -72,7 +72,7 @@ function RlsStatusPanel() {
 
       // Fallback: query information_schema directly
       const knownTables = [
-        "user_profiles", "leaderboard_snapshots", "topik_vocabulary", "seoul_vocabulary",
+        "user_profiles", "leaderboard", "topik_vocabulary", "seoul_vocabulary",
         "hanja_vocab_entries", "seoul_grammar", "community_posts", "community_comments",
         "community_likes", "study_progress", "exam_results", "melon_study_history",
         "topik_flashcard_progress", "melon_flashcard_progress", "topik_quiz_history",

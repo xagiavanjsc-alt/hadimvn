@@ -151,7 +151,7 @@ export function useStudySync() {
       const level = deriveLevel(bestScore);
 
       // Client chỉ upsert các field "raw stats"; server trigger sẽ chuẩn hoá xp.
-      await supabase.from("leaderboard_snapshots").upsert({
+      await supabase.from("leaderboard").upsert({
         user_id: userId,
         display_name: displayName,
         xp,

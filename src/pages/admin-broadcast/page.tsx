@@ -156,7 +156,7 @@ export default function AdminBroadcastPage() {
       const [allRes, vipRes, lbRes] = await Promise.all([
         supabase.from("user_profiles").select("id, is_vip, created_at", { count: "exact" }),
         supabase.from("user_profiles").select("id", { count: "exact", head: true }).eq("is_vip", true),
-        supabase.from("leaderboard_snapshots").select("user_id, streak, updated_at"),
+        supabase.from("leaderboard").select("user_id, streak, updated_at"),
       ]);
       const allUsers = allRes.data || [];
       const total = allRes.count || 0;

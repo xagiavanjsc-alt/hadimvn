@@ -4,6 +4,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { epsQuestions, EPS_TOPICS } from "@/mocks/epsQuestions";
+import { isExamTooFast, isInCooldown } from "@/lib/xp";
 
 const TOPIC_EXAM_COUNT = 20;
 const TOPIC_EXAM_DURATION = 25 * 60; // 25 minutes
@@ -63,6 +64,13 @@ export default function EpsTopicExamPage() {
   }, []);
 
   const startExam = useCallback((topicId: string) => {
+    // Anti-cheat: cooldown chống spam
+    const lastAt = parseInt(localStorage.getItem("kts_eps_topic_exam_last_at") || "0", 10) || null;
+    const { inCooldown, remainingSec } = isInCooldown(lastAt);
+    if (inCooldown) {
+      alert(`Vui lòng chờ ${remainingSec}s trước khi làm bài mới.`);
+      return;
+    }
     const topicQs = epsQuestions.filter(q => q.topic === topicId);
     const shuffled = seededShuffle(topicQs, Date.now());
     const picked = shuffled.slice(0, Math.min(TOPIC_EXAM_COUNT, shuffled.length));
@@ -97,6 +105,10 @@ export default function EpsTopicExamPage() {
     const timeUsed = Math.round((Date.now() - startTimeRef.current) / 1000);
     const correct = examQuestions.filter(q => answers[q.id] === q.correctIndex).length;
     const topicInfo = EPS_TOPICS.find(t => t.id === selectedTopic);
+
+    // Anti-cheat: submit quá nhanh → lưu kết quả nhưng KHÔNG cộng XP
+    const tooFast = isExamTooFast(timeUsed, examQuestions.length);
+
     const result: TopicExamResult = {
       id: Date.now().toString(),
       date: new Date().toISOString(),
@@ -107,6 +119,13 @@ export default function EpsTopicExamPage() {
       timeUsed,
     };
     setHistory(prev => [...prev, result]);
+
+    if (tooFast) {
+      setMode("result");
+      return;
+    }
+
+    localStorage.setItem("kts_eps_topic_exam_last_at", String(Date.now()));
     awardXP({ type: "eps_exam_completed", amount: 15 + Math.round((correct / examQuestions.length) * 20) });
     setMode("result");
   }, [examQuestions, answers, selectedTopic, setHistory, awardXP]);
