@@ -127,39 +127,7 @@ interface StudyGroup {
   examType: string;
 }
 
-// ─── Mock Data ────────────────────────────────────────────────────────────────
-const MOCK_GROUPS: StudyGroup[] = [
-  {
-    id: "g1",
-    name: "Nhóm EPS Hà Nội 2026",
-    code: "HN2026",
-    description: "Nhóm ôn thi EPS-TOPIK cho kỳ thi tháng 6/2026. Mục tiêu đạt 80%+",
-    members: [
-      { id: "m1", name: "Nguyễn Văn Hùng", avatar: "H", score: 92, streak: 15, lastActive: "Hôm nay", isOwner: true },
-      { id: "m2", name: "Trần Thị Mai", avatar: "M", score: 88, streak: 12, lastActive: "Hôm nay" },
-      { id: "m3", name: "Lê Minh Tuấn", avatar: "T", score: 85, streak: 8, lastActive: "Hôm qua" },
-      { id: "m4", name: "Phạm Thị Lan", avatar: "L", score: 78, streak: 5, lastActive: "2 ngày trước" },
-      { id: "m5", name: "Hoàng Văn Nam", avatar: "N", score: 75, streak: 3, lastActive: "3 ngày trước" },
-    ],
-    createdAt: "2026-03-01",
-    weeklyGoal: 5,
-    examType: "EPS-TOPIK 40 câu",
-  },
-  {
-    id: "g2",
-    name: "EPS Sài Gòn - Lớp A",
-    code: "SGN_A",
-    description: "Lớp học EPS buổi tối, ôn tập cùng nhau mỗi ngày",
-    members: [
-      { id: "m6", name: "Vũ Thị Hoa", avatar: "H", score: 95, streak: 20, lastActive: "Hôm nay", isOwner: true },
-      { id: "m7", name: "Đặng Văn Bình", avatar: "B", score: 90, streak: 18, lastActive: "Hôm nay" },
-      { id: "m8", name: "Bùi Thị Thu", avatar: "T", score: 82, streak: 10, lastActive: "Hôm nay" },
-    ],
-    createdAt: "2026-02-15",
-    weeklyGoal: 7,
-    examType: "Thi theo chủ đề",
-  },
-];
+// Groups stored in localStorage (no mock data)
 
 const AVATAR_COLORS = ["#e8c84a", "#34d399", "#06b6d4", "#a78bfa", "#f87171", "#fb923c", "#ec4899", "#84cc16"];
 
@@ -732,7 +700,7 @@ function JoinGroupModal({ onClose, onJoin, groups }: { onClose: () => void; onJo
 export default function EpsStudyGroupPage() {
   const navigate = useNavigate();
   const { user, profile } = useAuth();
-  const [groups, setGroups] = useLocalStorage<StudyGroup[]>("kts_eps_groups", MOCK_GROUPS);
+  const [groups, setGroups] = useLocalStorage<StudyGroup[]>("kts_eps_groups", []);
   const [joinedIds, setJoinedIds] = useLocalStorage<string[]>("kts_eps_joined_groups", []);
   const [selectedGroup, setSelectedGroup] = useState<StudyGroup | null>(null);
   const [showCreate, setShowCreate] = useState(false);
@@ -743,48 +711,7 @@ export default function EpsStudyGroupPage() {
   const [liveToast, setLiveToast] = useState<GroupNotification | null>(null);
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Simulate real-time notifications from group members
-  useEffect(() => {
-    if (joinedIds.length === 0) return;
-    const MOCK_EVENTS: Array<{ type: GroupNotification["type"]; memberName: string; memberAvatar: string; message: (name: string) => string; score?: number }> = [
-      { type: "exam_done", memberName: "Trần Thị Mai", memberAvatar: "M", message: (n) => `${n} vừa hoàn thành bài thi EPS 40 câu — đạt 88%! 🎯`, score: 88 },
-      { type: "top_score", memberName: "Nguyễn Văn Hùng", memberAvatar: "H", message: (n) => `${n} vừa phá kỷ lục nhóm với 95% trong bài thi theo chủ đề! 🏆`, score: 95 },
-      { type: "streak", memberName: "Lê Minh Tuấn", memberAvatar: "T", message: (n) => `${n} vừa đạt streak 10 ngày liên tiếp! 🔥` },
-      { type: "exam_done", memberName: "Phạm Thị Lan", memberAvatar: "L", message: (n) => `${n} vừa hoàn thành bài thi mô phỏng thật — đạt 72%! 💪`, score: 72 },
-      { type: "joined", memberName: "Hoàng Văn Nam", memberAvatar: "N", message: (n) => `${n} vừa tham gia nhóm! Chào mừng thành viên mới 👋` },
-    ];
-
-    const intervals = [8000, 18000, 32000, 50000, 75000];
-    const timers: ReturnType<typeof setTimeout>[] = [];
-
-    intervals.forEach((delay, i) => {
-      const t = setTimeout(() => {
-        const event = MOCK_EVENTS[i % MOCK_EVENTS.length];
-        const groupId = joinedIds[0];
-        const notif: GroupNotification = {
-          id: `notif_${Date.now()}_${i}`,
-          groupId,
-          memberName: event.memberName,
-          memberAvatar: event.memberAvatar,
-          type: event.type,
-          message: event.message(event.memberName),
-          score: event.score,
-          timestamp: Date.now(),
-          read: false,
-        };
-        setNotifications(prev => [notif, ...prev].slice(0, 50));
-        setLiveToast(notif);
-        if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
-        toastTimerRef.current = setTimeout(() => setLiveToast(null), 4000);
-      }, delay);
-      timers.push(t);
-    });
-
-    return () => {
-      timers.forEach(clearTimeout);
-      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
-    };
-  }, [joinedIds.length]);
+  // Notifications sẽ được thêm thật khi có Supabase Realtime (không còn fake events)
 
   const markRead = (id: string) => setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));
   const clearNotifications = () => setNotifications([]);

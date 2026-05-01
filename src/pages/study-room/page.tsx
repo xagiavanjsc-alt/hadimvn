@@ -40,35 +40,7 @@ interface StudyRoom {
 }
 
 // ─── Mock rooms ───────────────────────────────────────────────────────────────
-const MOCK_ROOMS: StudyRoom[] = [
-  { id: "r1", name: "EPS-TOPIK Cùng Chinh Phục", topic: "EPS-TOPIK", memberCount: 8, maxMembers: 10, isPublic: true, hostName: "Minh Tuấn", language: "Tiếng Hàn", tags: ["EPS", "Thi thử", "Từ vựng"], color: "#fb923c" },
-  { id: "r2", name: "TOPIK II Nâng Cao", topic: "TOPIK II", memberCount: 5, maxMembers: 8, isPublic: true, hostName: "Hải Đăng", language: "Tiếng Hàn", tags: ["TOPIK", "Ngữ pháp", "Đọc hiểu"], color: "#60a5fa" },
-  { id: "r3", name: "K-pop Lyrics Club", topic: "K-pop", memberCount: 12, maxMembers: 15, isPublic: true, hostName: "Thảo Nguyên", language: "Tiếng Hàn", tags: ["K-pop", "Lời bài hát", "Phát âm"], color: "#f472b6" },
-  { id: "r4", name: "Giáo Trình Seoul 2A", topic: "Seoul", memberCount: 3, maxMembers: 6, isPublic: true, hostName: "Lan Anh", language: "Tiếng Hàn", tags: ["Seoul", "Hội thoại", "Ngữ pháp"], color: "#a78bfa" },
-  { id: "r5", name: "Hangul Cho Người Mới", topic: "Hangul", memberCount: 6, maxMembers: 10, isPublic: true, hostName: "Văn Đức", language: "Tiếng Hàn", tags: ["Hangul", "Cơ bản", "Phát âm"], color: "#34d399" },
-  { id: "r6", name: "Từ Vựng Hán Hàn", topic: "Hán Hàn", memberCount: 4, maxMembers: 8, isPublic: false, hostName: "Bích Ngọc", language: "Tiếng Hàn", tags: ["Hán Hàn", "Từ vựng", "Nâng cao"], color: "#e8c84a" },
-];
-
-const MOCK_MEMBERS: RoomMember[] = [
-  { id: "m1", name: "Bạn", level: "B1", color: "#e8c84a", joinedAt: Date.now(), activity: "Đang học từ vựng", streak: 15, isHost: false },
-  { id: "m2", name: "Minh Tuấn", level: "B2", color: "#fb923c", joinedAt: Date.now() - 300000, activity: "Làm bài thi thử", streak: 47, isHost: true },
-  { id: "m3", name: "Thu Hà", level: "A2", color: "#34d399", joinedAt: Date.now() - 600000, activity: "Ôn flashcard", streak: 12, isHost: false },
-  { id: "m4", name: "Văn Đức", level: "B1", color: "#60a5fa", joinedAt: Date.now() - 900000, activity: "Luyện nghe", streak: 23, isHost: false },
-  { id: "m5", name: "Lan Anh", level: "A1", color: "#f472b6", joinedAt: Date.now() - 1200000, activity: "Học Hangul", streak: 5, isHost: false },
-];
-
-const MOCK_MESSAGES: ChatMessage[] = [
-  { id: "c1", userId: "m2", userName: "Minh Tuấn", color: "#fb923c", text: "Chào mọi người! Hôm nay mình học chủ đề an toàn lao động nhé 💪", time: Date.now() - 600000, type: "message" },
-  { id: "c2", userId: "m3", userName: "Thu Hà", color: "#34d399", text: "Oke! Mình vừa làm xong 20 flashcard rồi 😊", time: Date.now() - 540000, type: "message" },
-  { id: "c3", userId: "system", userName: "Hệ thống", color: "#e8c84a", text: "Văn Đức đã tham gia phòng học", time: Date.now() - 480000, type: "system" },
-  { id: "c4", userId: "m4", userName: "Văn Đức", color: "#60a5fa", text: "안녕하세요! 오늘도 열심히 공부해요!", time: Date.now() - 420000, type: "message" },
-  { id: "c5", userId: "m3", userName: "Thu Hà", color: "#34d399", text: "화이팅! cùng 열심히 해요 🔥", time: Date.now() - 360000, type: "message" },
-  { id: "c6", userId: "system", userName: "Hệ thống", color: "#e8c84a", text: "Minh Tuấn đạt 95/100 điểm thi thử EPS! 🏆", time: Date.now() - 300000, type: "achievement" },
-  { id: "c7", userId: "m2", userName: "Minh Tuấn", color: "#fb923c", text: "Mọi người thử làm bài thi thử 40 câu xem sao nhé!", time: Date.now() - 240000, type: "message" },
-  { id: "c8", userId: "m5", userName: "Lan Anh", color: "#f472b6", text: "Mình mới bắt đầu học, có ai giải thích giúp mình câu này không? 산업재해가 뭐예요?", time: Date.now() - 180000, type: "message" },
-  { id: "c9", userId: "m2", userName: "Minh Tuấn", color: "#fb923c", text: "산업재해 là tai nạn lao động đó bạn! Rất quan trọng trong EPS 👍", time: Date.now() - 120000, type: "message" },
-  { id: "c10", userId: "m5", userName: "Lan Anh", color: "#f472b6", text: "Cảm ơn bạn nhiều! 감사합니다 🙏", time: Date.now() - 60000, type: "message" },
-];
+// Rooms + chat data stored in localStorage (no mock data)
 
 const QUICK_PHRASES = [
   "화이팅! 💪", "감사합니다 🙏", "잘 모르겠어요 🤔", "이해했어요! ✅",
@@ -234,8 +206,8 @@ function RoomCard({ room, onJoin }: { room: StudyRoom; onJoin: (r: StudyRoom) =>
 
 // ─── Study Room Chat ──────────────────────────────────────────────────────────
 function StudyRoomChat({ room, onLeave, profile }: { room: StudyRoom; onLeave: () => void; profile: { display_name: string } | null }) {
-  const [messages, setMessages] = useState<ChatMessage[]>(MOCK_MESSAGES);
-  const [members] = useState<RoomMember[]>(MOCK_MEMBERS);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [members] = useState<RoomMember[]>(profile ? [{ id: "me", name: profile.display_name, level: "", color: "#e8c84a", joinedAt: Date.now(), activity: "Đang học", streak: 0, isHost: true }] : []);
   const [inputText, setInputText] = useState("");
   const [studyTimer, setStudyTimer] = useState(0);
   const [timerRunning, setTimerRunning] = useState(true);
@@ -256,21 +228,6 @@ function StudyRoomChat({ room, onLeave, profile }: { room: StudyRoom; onLeave: (
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, [timerRunning]);
 
-  // Simulate incoming messages
-  useEffect(() => {
-    const msgs = [
-      { userId: "m3", userName: "Thu Hà", color: "#34d399", text: "Mình vừa hoàn thành bài thi thử! 🎉" },
-      { userId: "m4", userName: "Văn Đức", color: "#60a5fa", text: "오늘 날씨가 좋아요! 공부하기 좋은 날이에요 ☀️" },
-      { userId: "m2", userName: "Minh Tuấn", color: "#fb923c", text: "Ai cần giải thích từ vựng gì không? Mình giúp được!" },
-    ];
-    let i = 0;
-    const t = setInterval(() => {
-      const msg = msgs[i % msgs.length];
-      setMessages(prev => [...prev, { ...msg, id: `live_${Date.now()}`, time: Date.now(), type: "message" }]);
-      i++;
-    }, 12000);
-    return () => clearInterval(t);
-  }, []);
 
   const formatTimer = (s: number) => {
     const m = Math.floor(s / 60);
@@ -465,7 +422,7 @@ export default function StudyRoomPage() {
   const [newRoomName, setNewRoomName] = useState("");
   const [newRoomTopic, setNewRoomTopic] = useState("EPS-TOPIK");
   const [newRoomPublic, setNewRoomPublic] = useState(true);
-  const [rooms, setRooms] = useState<StudyRoom[]>(MOCK_ROOMS);
+  const [rooms, setRooms] = useState<StudyRoom[]>([]);
   const [searchRoom, setSearchRoom] = useState("");
   const [activeTab, setActiveTab] = useState<"rooms" | "leaderboard">("rooms");
   const [, setStudyTime] = useLocalStorage<number>("kts_study_room_time", 0);
