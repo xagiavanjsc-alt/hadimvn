@@ -27,32 +27,32 @@ export function useAdminTheme() {
   return { theme, setTheme, toggle, isDark: theme === "dark" };
 }
 
-/** CSS variable map for each theme */
+/** CSS variable map for each theme - Đồng bộ với design system */
 export const adminThemeVars: Record<AdminTheme, Record<string, string>> = {
   dark: {
-    "--admin-bg": "#0a0c0f",
-    "--admin-sidebar": "#080a0d",
-    "--admin-card": "#111318",
-    "--admin-card2": "#0f1117",
-    "--admin-border": "rgba(255,255,255,0.05)",
-    "--admin-border2": "rgba(255,255,255,0.08)",
-    "--admin-text": "rgba(255,255,255,0.80)",
-    "--admin-text-muted": "rgba(255,255,255,0.40)",
-    "--admin-text-faint": "rgba(255,255,255,0.20)",
-    "--admin-hover": "rgba(255,255,255,0.04)",
-    "--admin-header": "rgba(8,10,13,0.85)",
+    "--admin-bg": "#0f1117",              // = app-bg
+    "--admin-sidebar": "#0a0c10",         // Darker than bg
+    "--admin-card": "#1a1d24",            // = app-surface
+    "--admin-card2": "#22262d",           // = app-card
+    "--admin-border": "rgba(255,255,255,0.10)",  // = app-border
+    "--admin-border2": "rgba(255,255,255,0.15)",
+    "--admin-text": "#ffffff",            // = app-text-primary
+    "--admin-text-muted": "rgba(255,255,255,0.70)", // = app-text-secondary
+    "--admin-text-faint": "rgba(255,255,255,0.50)", // = app-text-muted
+    "--admin-hover": "rgba(255,255,255,0.05)",
+    "--admin-header": "rgba(15,17,23,0.95)",
   },
   light: {
-    "--admin-bg": "#f4f5f7",
+    "--admin-bg": "#f8f9fa",
     "--admin-sidebar": "#ffffff",
     "--admin-card": "#ffffff",
-    "--admin-card2": "#f9fafb",
-    "--admin-border": "rgba(0,0,0,0.07)",
-    "--admin-border2": "rgba(0,0,0,0.10)",
-    "--admin-text": "rgba(0,0,0,0.85)",
-    "--admin-text-muted": "rgba(0,0,0,0.45)",
-    "--admin-text-faint": "rgba(0,0,0,0.25)",
-    "--admin-hover": "rgba(0,0,0,0.03)",
-    "--admin-header": "rgba(255,255,255,0.92)",
+    "--admin-card2": "#f1f3f5",
+    "--admin-border": "rgba(0,0,0,0.08)",
+    "--admin-border2": "rgba(0,0,0,0.12)",
+    "--admin-text": "#1a1d23",
+    "--admin-text-muted": "rgba(0,0,0,0.60)",
+    "--admin-text-faint": "rgba(0,0,0,0.40)",
+    "--admin-hover": "rgba(0,0,0,0.04)",
+    "--admin-header": "rgba(255,255,255,0.95)",
   },
 };
