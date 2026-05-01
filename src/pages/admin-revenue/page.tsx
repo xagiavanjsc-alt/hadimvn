@@ -155,8 +155,7 @@ function CohortRetentionChart({ users }: { users: VipUser[] }) {
         } else {
           const base = retention[m - 1];
           const decay = m === 1 ? 0.72 : m === 2 ? 0.85 : m === 3 ? 0.88 : m === 4 ? 0.90 : 0.92;
-          const noise = (Math.random() - 0.5) * 8;
-          retention.push(Math.max(0, Math.min(100, Math.round(base * decay + noise))));
+          retention.push(Math.max(0, Math.min(100, Math.round(base * decay))));
         }
       }
       rows.push({ cohortMonth, label, size, retention });
@@ -524,8 +523,12 @@ export default function AdminRevenuePage() {
         return u.is_vip && joined <= monthEnd;
       }).length;
 
-      // Simulate churn (5-15% monthly)
-      const churnedVip = Math.round(totalVip * (0.05 + Math.random() * 0.1));
+      // churnedVip tính từ số VIP thực tế bị hết hạn trong tháng
+      const churnedVip = users.filter(u => {
+        if (!u.is_vip || !u.vip_expires_at) return false;
+        const exp = new Date(u.vip_expires_at);
+        return exp.getFullYear() === d.getFullYear() && exp.getMonth() === d.getMonth();
+      }).length;
 
       const mrrMonth = Math.round(totalVip * 0.6 * MONTH_PRICE);
       const mrrYear = Math.round(totalVip * 0.4 * YEAR_PRICE_MONTHLY);

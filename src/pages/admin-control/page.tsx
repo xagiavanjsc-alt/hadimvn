@@ -584,20 +584,8 @@ function ExportTab() {
       filename: "study_progress_export.csv",
       getData: (): string[][] => {
         const headers = ["Ngày", "Từ đã học", "Câu EPS", "Flashcard", "Thời gian (phút)", "Streak"];
-        const rows: string[][] = [headers];
-        for (let i = 6; i >= 0; i--) {
-          const d = new Date();
-          d.setDate(d.getDate() - i);
-          rows.push([
-            d.toLocaleDateString("vi-VN"),
-            String(Math.floor(Math.random() * 20) + 5),
-            String(Math.floor(Math.random() * 15) + 3),
-            String(Math.floor(Math.random() * 30) + 10),
-            String(Math.floor(Math.random() * 45) + 15),
-            String(7 - i),
-          ]);
-        }
-        return rows;
+        // Dữ liệu học tập lưu ở localStorage phía client — export từ admin không khả dụng
+        return [headers, ["Xem trực tiếp tại study_history trong Supabase", "-", "-", "-", "-", "-"]];
       },
     },
   ];

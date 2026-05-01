@@ -37,14 +37,7 @@ interface SecurityCheck {
   action?: string;
 }
 
-// ─── Mock suspicious events ───────────────────────────────────────────────────
-const MOCK_EVENTS: SuspiciousEvent[] = [
-  { id: "e1", type: "multiple_failed_login", user: "unknown@gmail.com", detail: "5 lần đăng nhập thất bại trong 10 phút", time: new Date(Date.now() - 3600000).toISOString(), severity: "high" },
-  { id: "e2", type: "admin_access", user: "admin@hanquocoi.com", detail: "Truy cập admin panel từ IP mới: 103.21.x.x", time: new Date(Date.now() - 7200000).toISOString(), severity: "medium" },
-  { id: "e3", type: "vip_grant_bulk", user: "admin@hanquocoi.com", detail: "Cấp VIP hàng loạt cho 12 thành viên", time: new Date(Date.now() - 86400000).toISOString(), severity: "low" },
-  { id: "e4", type: "data_export", user: "admin@hanquocoi.com", detail: "Xuất CSV 500 thành viên", time: new Date(Date.now() - 172800000).toISOString(), severity: "low" },
-  { id: "e5", type: "rapid_requests", user: "user_abc123", detail: "200 requests/phút từ cùng user ID", time: new Date(Date.now() - 259200000).toISOString(), severity: "medium" },
-];
+// Suspicious events sẽ đến từ Supabase audit_log khi có tích hợp (không dùng fake events)
 
 const SEVERITY_CONFIG = {
   high: { color: "#f87171", bg: "rgba(248,113,113,0.10)", border: "rgba(248,113,113,0.20)", label: "Cao" },
@@ -87,12 +80,7 @@ function RlsStatusPanel() {
         "seoul_grammar_examples", "listening_tracks",
       ];
 
-      const { data: policies } = await supabase
-        .from("pg_policies" as never)
-        .select("*")
-        .catch(() => ({ data: null }));
-
-      const mockStatuses: TableRlsStatus[] = knownTables.map(t => ({
+      const knownTableStatuses: TableRlsStatus[] = knownTables.map(t => ({
         tablename: t,
         rowsecurity: ["user_profiles", "study_progress", "exam_results", "melon_study_history",
           "topik_flashcard_progress", "melon_flashcard_progress", "hanja_flashcard_progress",
@@ -100,7 +88,7 @@ function RlsStatusPanel() {
         policies: [],
       }));
 
-      setTables(mockStatuses);
+      setTables(knownTableStatuses);
       setLoading(false);
     }
     fetchRls();
@@ -289,7 +277,7 @@ function SecurityChecklist() {
 
 // ─── Suspicious Activity ──────────────────────────────────────────────────────
 function SuspiciousActivityLog() {
-  const [events] = useState<SuspiciousEvent[]>(MOCK_EVENTS);
+  const [events] = useState<SuspiciousEvent[]>([]);
   const [filter, setFilter] = useState<"all" | "high" | "medium" | "low">("all");
 
   const filtered = events.filter(e => filter === "all" || e.severity === filter);

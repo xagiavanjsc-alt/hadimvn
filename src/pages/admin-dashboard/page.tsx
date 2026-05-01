@@ -241,16 +241,7 @@ function RevenueChart({ revenues }: { revenues: RevenueEntry[] }) {
   const [hoveredDay, setHoveredDay] = useState<number | null>(null);
   const [liveRevenue, setLiveRevenue] = useState(revenues.reduce((s, r) => s + r.amount, 0));
 
-  // Simulate real-time: tick every 8s with small random delta
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (Math.random() < 0.3) {
-        const delta = Math.floor(Math.random() * 150000) + 50000;
-        setLiveRevenue(prev => prev + delta);
-      }
-    }, 8000);
-    return () => clearInterval(interval);
-  }, []);
+  // liveRevenue = tổng thật từ prop revenues (không giả lập)
 
   const days30 = useMemo(() => {
     return Array.from({ length: 30 }, (_, i) => {
@@ -260,12 +251,10 @@ function RevenueChart({ revenues }: { revenues: RevenueEntry[] }) {
       const dayRevenue = revenues
         .filter(r => r.date.slice(0, 10) === dateStr)
         .reduce((s, r) => s + r.amount, 0);
-      // Seed some mock data for visual
-      const mockBase = Math.sin(i * 0.4) * 200000 + 300000 + Math.random() * 150000;
       return {
         date: dateStr,
         label: d.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit" }),
-        value: dayRevenue > 0 ? dayRevenue : Math.floor(mockBase),
+        value: dayRevenue,
         isToday: i === 29,
       };
     });

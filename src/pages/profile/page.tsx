@@ -54,7 +54,7 @@ function StatCard({ icon, color, bg, label, value, sub }: {
       <div className={`w-10 h-10 flex items-center justify-center ${bg} rounded-xl mb-3`}>
         <i className={`${icon} ${color} text-lg`}></i>
       </div>
-      <p className="text-white font-bold text-2xl leading-none">{value}</p>
+      <p className="text-white font-bold text-xl leading-none">{value}</p>
       <p className="text-white/40 text-xs mt-1">{label}</p>
       {sub && <p className="text-white/25 text-[10px] mt-1">{sub}</p>}
     </div>
