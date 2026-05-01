@@ -100,6 +100,17 @@ CREATE TABLE IF NOT EXISTS public.exam_results (
     taken_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Add exam_type column if it doesn't exist (for existing tables)
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM information_schema.columns 
+        WHERE table_name = 'exam_results' AND column_name = 'exam_type'
+    ) THEN
+        ALTER TABLE public.exam_results ADD COLUMN exam_type TEXT DEFAULT 'topik1';
+    END IF;
+END $$;
+
 ALTER TABLE public.exam_results ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "Users can view own exam results" ON public.exam_results;
