@@ -70,6 +70,7 @@ const adminNavGroups = [
     color: "#e8c84a",
     items: [
       { path: "/admin/control", icon: "ri-settings-4-line", label: "Cài đặt admin" },
+      { path: "/admin/xp-config", icon: "ri-scales-3-line", label: "Cấu hình XP & Anti-cheat" },
       { path: "/admin/settings", icon: "ri-settings-3-line", label: "Cài đặt API & Keys" },
       { path: "/admin/backup", icon: "ri-save-line", label: "Backup & Restore" },
       { path: "/admin/audit", icon: "ri-history-line", label: "Audit Log" },

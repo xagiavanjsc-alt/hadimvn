@@ -337,6 +337,7 @@ const AdminUsersPage = lazyPage(() => import("../pages/admin-users/page"));
 const AdminEpsPage = lazyPage(() => import("../pages/admin-eps/page"));
 const AdminEpsUploadPage = lazyPage(() => import("../pages/admin-eps-upload/page"));
 const AdminCouponPage = lazyPage(() => import("../pages/admin-coupon/page"));
+const AdminXPConfigPage = lazyPage(() => import("../pages/admin-xp-config/page"));
 const AdminPricingPage = lazyPage(() => import("../pages/admin-pricing/page"));
 const AdminSeriesPage = lazyPage(() => import("../pages/admin-series/page"));
 const AdminStatsPage = lazyPage(() => import("../pages/admin-stats/page"));
@@ -555,6 +556,7 @@ const routes: RouteObject[] = [
   { path: "/admin", element: <AdminDashboardPage /> },
   { path: "/admin/users", element: <AdminUsersPage /> },
   { path: "/admin/coupon", element: <AdminCouponPage /> },
+  { path: "/admin/xp-config", element: <AdminXPConfigPage /> },
   { path: "/admin/pricing", element: <AdminPricingPage /> },
   { path: "/admin/series", element: <AdminSeriesPage /> },
   { path: "/admin/stats", element: <AdminStatsPage /> },
