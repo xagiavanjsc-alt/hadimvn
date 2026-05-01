@@ -73,6 +73,15 @@ export default defineConfig({
   build: {
     sourcemap: true,
     outDir: 'dist',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'supabase': ['@supabase/supabase-js'],
+          'ai-service': ['./src/services/aiService'],
+        }
+      }
+    }
   },
   resolve: {
     alias: {

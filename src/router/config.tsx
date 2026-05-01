@@ -26,69 +26,48 @@ function lazyPage(
 }
 
 // ─── Preload helper — kick off import() without blocking render ───────────────
-function preload(factory: () => Promise<unknown>) {
-  // Fire and forget — browser caches the module chunk
-  factory().catch(() => {/* ignore */});
+const preloadCache = new Set<string>();
+const abortControllers = new Map<string, AbortController>();
+
+function preload(factory: () => Promise<unknown>, key: string) {
+  if (preloadCache.has(key)) return;
+  preloadCache.add(key);
+  
+  const controller = new AbortController();
+  abortControllers.set(key, controller);
+  
+  factory().catch(() => {/* ignore */}).finally(() => {
+    abortControllers.delete(key);
+  });
+}
+
+// Cleanup function for preloading
+export function cancelPreloads() {
+  abortControllers.forEach((controller) => controller.abort());
+  abortControllers.clear();
 }
 
 // ─── PreloadOnMount — preloads common routes after app is idle ────────────────
 export function PreloadCommonRoutes() {
   useEffect(() => {
+    const mounted = { current: true };
+    
+    const doPreload = () => {
+      if (!mounted.current) return;
+      
+      // Core pages only - reduce initial load
+      preload(() => import("../pages/eps/page"), "eps");
+      preload(() => import("../pages/melon/page"), "melon");
+      preload(() => import("../pages/community/page"), "community");
+      preload(() => import("../pages/profile/page"), "profile");
+    };
+    
     const id = requestIdleCallback
-      ? requestIdleCallback(() => {
-          // Core pages
-          preload(() => import("../pages/eps/page"));
-          preload(() => import("../pages/eps-vocabulary/page"));
-          preload(() => import("../pages/eps-exam/page"));
-          preload(() => import("../pages/eps-flashcard/page"));
-          preload(() => import("../pages/eps-lessons/page"));
-          preload(() => import("../pages/eps-smart-wrong/page"));
-          preload(() => import("../pages/eps-listening/page"));
-          preload(() => import("../pages/melon/page"));
-          preload(() => import("../pages/community/page"));
-          preload(() => import("../pages/profile/page"));
-          preload(() => import("../pages/stats/page"));
-          preload(() => import("../pages/leaderboard/page"));
-          preload(() => import("../pages/settings/page"));
-          // Sidebar shortcuts
-          preload(() => import("../pages/daily-words/page"));
-          preload(() => import("../pages/learning-roadmap/page"));
-          preload(() => import("../pages/study-stats/page"));
-          preload(() => import("../pages/flashcard-hub/page"));
-          // Hanja
-          preload(() => import("../pages/hanja-detail/page"));
-          preload(() => import("../pages/hanja-tree/page"));
-          preload(() => import("../pages/hanja-dashboard/page"));
-          preload(() => import("../pages/advanced-dictionary/page"));
-          // Seoul
-          preload(() => import("../pages/seoul-textbook/page"));
-          preload(() => import("../pages/seoul-practice/page"));
-          preload(() => import("../pages/seoul-exam/page"));
-          // TOPIK
-          preload(() => import("../pages/topik-test/page"));
-          preload(() => import("../pages/topik-dictionary/page"));
-          // AI
-          preload(() => import("../pages/ai-chatbot/page"));
-          preload(() => import("../pages/ai-pronunciation/page"));
-          preload(() => import("../pages/ai-writing/page"));
-          preload(() => import("../pages/kdrama-learn/page"));
-        }, { timeout: 2000 })
-      : setTimeout(() => {
-          preload(() => import("../pages/eps/page"));
-          preload(() => import("../pages/eps-vocabulary/page"));
-          preload(() => import("../pages/eps-exam/page"));
-          preload(() => import("../pages/eps-lessons/page"));
-          preload(() => import("../pages/melon/page"));
-          preload(() => import("../pages/community/page"));
-          preload(() => import("../pages/profile/page"));
-          preload(() => import("../pages/stats/page"));
-          preload(() => import("../pages/daily-words/page"));
-          preload(() => import("../pages/flashcard-hub/page"));
-          preload(() => import("../pages/hanja-detail/page"));
-          preload(() => import("../pages/seoul-textbook/page"));
-          preload(() => import("../pages/topik-test/page"));
-        }, 1500);
+      ? requestIdleCallback(doPreload, { timeout: 2000 })
+      : setTimeout(doPreload, 1500);
+      
     return () => {
+      mounted.current = false;
       if (typeof id === "number") clearTimeout(id);
       else if (typeof cancelIdleCallback !== "undefined") cancelIdleCallback(id as number);
     };

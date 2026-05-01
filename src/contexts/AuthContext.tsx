@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect, useCallback, ReactNode 
 import { User, Session } from "@supabase/supabase-js";
 import { supabase, UserProfile, isSupabaseConfigured } from "@/lib/supabase";
 import { trackLoginSession } from "@/hooks/useAdminUsers";
+import { reportError } from "@/lib/errorReporting";
 
 interface AuthState {
   user: User | null;
@@ -93,7 +94,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               setState(prev => ({ ...prev, profile }));
             }
           } catch (err) {
-            console.error("Failed to fetch/create profile:", err);
+            reportError({
+              type: "AUTH_PROFILE_ERROR",
+              message: err instanceof Error ? err.message : "Failed to fetch/create profile",
+              userId: session.user.id,
+              stack: err instanceof Error ? err.stack : undefined,
+            });
           }
         }, 0);
       } else {
@@ -134,13 +140,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 }
                 if (mounted) setState(prev => ({ ...prev, profile }));
               } catch (err) {
-                console.error("Failed to fetch/create profile (fallback):", err);
+                reportError({
+                  type: "AUTH_PROFILE_FALLBACK_ERROR",
+                  message: err instanceof Error ? err.message : "Failed to fetch/create profile (fallback)",
+                  userId: session.user.id,
+                  stack: err instanceof Error ? err.stack : undefined,
+                });
               }
             }, 0);
             return;
           }
         } catch (err) {
-          console.error("getSession() fallback also failed:", err);
+          reportError({
+            type: "AUTH_GETSESSION_ERROR",
+            message: err instanceof Error ? err.message : "getSession() fallback failed",
+            stack: err instanceof Error ? err.stack : undefined,
+          });
         }
         // All attempts failed — show app without auth
         initialized = true;

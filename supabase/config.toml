@@ -1,0 +1,64 @@
+# Supabase Configuration File
+# For local development and deployment
+
+project_id = "hanquocoi"
+
+[api]
+# Port to use for Supabase API
+port = 54321
+# Schemas to expose in your API
+schemas = ["public", "storage", "graphql_public"]
+# Extra schemas to add to the search_path of every request
+extra_search_path = ["public", "extensions"]
+# Maximum rows to return from a table or view
+max_rows = 1000
+
+[db]
+# Port to use for local PostgreSQL database
+port = 54322
+# Major version of PostgreSQL
+major_version = 15
+
+[studio]
+# Port to use for Supabase Studio
+port = 54323
+
+[inbucket]
+# Port to use for Inbucket (email testing)
+port = 54324
+
+[storage]
+# Port to use for Storage API
+port = 54325
+
+[auth]
+# Port to use for GoTrue (Auth) API
+port = 54326
+# The site URL to use for redirects
+site_url = "http://localhost:3000"
+# Additional redirect URLs
+additional_redirect_urls = ["https://localhost:3000"]
+# How long tokens are valid for
+jwt_expiry = 3600
+# Enable/disable email confirmations
+enable_confirmations = false
+
+[realtime]
+# Port to use for Realtime API
+port = 54327
+
+[functions]
+# Port to use for Functions API
+port = 54328
+
+[functions.admin-grant-vip]
+verify_jwt = false
+
+[functions.vip-expiry-scheduler]
+verify_jwt = false
+
+[functions.zalo-reminder-scheduler]
+verify_jwt = false
+
+[functions.send-email-resend]
+verify_jwt = false
