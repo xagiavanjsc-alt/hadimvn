@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
@@ -21,7 +21,7 @@ const ALPHABET = "ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ".split("");
 
 function getInitialConsonant(char: string): string {
   const code = char.charCodeAt(0) - 0xAC00;
-  if (code < 0 || code > 11171) return char[0]?.to() ?? "#";
+  if (code < 0 || code > 11171) return char[0]?.toUpperCase() ?? "#";
   const consonants = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
   return consonants[Math.floor(code / 588)] ?? "#";
 }

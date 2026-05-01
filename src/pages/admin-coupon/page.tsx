@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import type { EbookSeries } from "@/pages/series/page";
 import VirtualList from "@/components/base/VirtualList";
@@ -44,7 +44,7 @@ function CouponForm({ initial, series, onSave, onCancel }: {
 
   const generateCode = () => {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    const prefix = couponType === "vip" ? "VIP" : channel.replace(/\s+/g, "").to().slice(0, 4);
+    const prefix = couponType === "vip" ? "VIP" : channel.replace(/\s+/g, "").toUpperCase().slice(0, 4);
     const rand = Array.from({ length: 4 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
     setCode(`${prefix}${rand}`);
   };
@@ -53,7 +53,7 @@ function CouponForm({ initial, series, onSave, onCancel }: {
     if (!code.trim() || !discount) return;
     onSave({
       id: initial?.id ?? `cpn-${Date.now()}`,
-      code: code.trim().to(),
+      code: code.trim().toUpperCase(),
       discount: parseFloat(discount),
       discountType,
       channel,
@@ -107,7 +107,7 @@ function CouponForm({ initial, series, onSave, onCancel }: {
               <input
                 type="text"
                 value={code}
-                onChange={e => setCode(e.target.value.to())}
+                onChange={e => setCode(e.target.value.toUpperCase())}
                 placeholder={couponType === "vip" ? "VD: VIP20" : "VD: ZALO20"}
                 className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40 transition-colors font-mono tracking-widest"
               />

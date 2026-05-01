@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
@@ -49,7 +49,7 @@ function ShareCard({ profile, stats }: { profile: PublicProfile; stats: PublicSt
             {profile.avatar_url ? (
               <img src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
             ) : (
-              <span className="text-[#e8c84a] text-xl font-bold">{profile.display_name?.[0]?.to()}</span>
+              <span className="text-[#e8c84a] text-xl font-bold">{profile.display_name?.[0]?.toUpperCase()}</span>
             )}
           </div>
           <div>
@@ -222,7 +222,7 @@ export default function PublicProfilePage() {
               {profile.avatar_url ? (
                 <img src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
               ) : (
-                <span className="text-[#e8c84a] text-2xl font-bold">{profile.display_name?.[0]?.to()}</span>
+                <span className="text-[#e8c84a] text-2xl font-bold">{profile.display_name?.[0]?.toUpperCase()}</span>
               )}
             </div>
             <div className="flex-1">

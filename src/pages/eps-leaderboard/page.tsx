@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
@@ -131,7 +131,7 @@ export default function EpsLeaderboardPage() {
       rank: 0,
       userId: user?.id || "me",
       name: myName,
-      avatar: myName[0]?.to() || "B",
+      avatar: myName[0]?.toUpperCase() || "B",
       score: bestScore,
       correct: bestEntry?.correct || 0,
       total: bestEntry?.total || 40,

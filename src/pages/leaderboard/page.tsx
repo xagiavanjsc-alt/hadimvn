@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -59,7 +59,7 @@ function AvatarCell({ player, size = 36 }: { player: LeaderboardPlayer; size?: n
       />
     );
   }
-  const initials = player.display_name.slice(0, 2).to();
+  const initials = player.display_name.slice(0, 2).toUpperCase();
   const colors = ["#e8c84a", "#34d399", "#fb923c", "#a78bfa", "#06b6d4", "#f87171"];
   const colorIdx = player.display_name.charCodeAt(0) % colors.length;
   return (

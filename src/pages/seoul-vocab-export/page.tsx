@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { seoulBooks } from "@/mocks/seoulTextbook";
@@ -294,7 +294,7 @@ export default function SeoulVocabExportPage() {
               ? "Đã xuất thành công!"
               : !canExport
               ? getExportBtnLabel(isLoggedIn, isVip, isVipYear, "")
-              : `Xuất ${filteredVocab.length.toLocaleString()} từ (.${format.to()})`}
+              : `Xuất ${filteredVocab.length.toLocaleString()} từ (.${format.toUpperCase()})`}
           </button>
         </div>
       </div>

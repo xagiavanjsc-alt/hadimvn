@@ -1,4 +1,4 @@
-﻿import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
@@ -481,7 +481,7 @@ function SendNotifModal({ group, myName, onClose, onSend }: SendNotifModalProps)
       id: `manual_${Date.now()}`,
       groupId: group.id,
       memberName: myName,
-      memberAvatar: myName[0]?.to() || "B",
+      memberAvatar: myName[0]?.toUpperCase() || "B",
       type,
       message: `${myName}: ${msg}`,
       timestamp: Date.now(),
@@ -544,7 +544,7 @@ function SendNotifModal({ group, myName, onClose, onSend }: SendNotifModalProps)
               <p className="text-gray-400 text-xs mb-1">Xem trước:</p>
               <div className="flex items-start gap-2">
                 <div className="w-7 h-7 rounded-full bg-amber-100 flex items-center justify-center text-xs font-bold text-amber-700 flex-shrink-0">
-                  {myName[0]?.to() || "B"}
+                  {myName[0]?.toUpperCase() || "B"}
                 </div>
                 <p className="text-gray-600 text-xs leading-relaxed">
                   <span className="font-semibold">{myName}:</span> {customMsg.trim() || selected.placeholder}
@@ -585,7 +585,7 @@ function CreateGroupModal({ onClose, onCreate, myName, myId }: CreateGroupModalP
 
   const handleCreate = () => {
     if (!name.trim()) return;
-    const code = name.to().replace(/[^A-Z0-9]/g, "").slice(0, 6) + Math.floor(Math.random() * 100);
+    const code = name.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 6) + Math.floor(Math.random() * 100);
     const group: StudyGroup = {
       id: `g_${Date.now()}`,
       name: name.trim(),
@@ -594,7 +594,7 @@ function CreateGroupModal({ onClose, onCreate, myName, myId }: CreateGroupModalP
       members: [{
         id: myId,
         name: myName,
-        avatar: myName[0]?.to() || "B",
+        avatar: myName[0]?.toUpperCase() || "B",
         score: 0,
         streak: 0,
         lastActive: "Hôm nay",
@@ -689,12 +689,12 @@ function JoinGroupModal({ onClose, onJoin, groups }: { onClose: () => void; onJo
   const [error, setError] = useState("");
 
   const handleJoin = () => {
-    const found = groups.find(g => g.code.to() === code.to().trim());
+    const found = groups.find(g => g.code.toUpperCase() === code.toUpperCase().trim());
     if (!found) {
       setError("Không tìm thấy nhóm với mã này. Kiểm tra lại mã nhóm.");
       return;
     }
-    onJoin(code.to().trim());
+    onJoin(code.toUpperCase().trim());
   };
 
   return (
@@ -710,7 +710,7 @@ function JoinGroupModal({ onClose, onJoin, groups }: { onClose: () => void; onJo
           <label className="text-gray-600 text-xs font-medium mb-1.5 block">Nhập mã nhóm</label>
           <input
             value={code}
-            onChange={e => { setCode(e.target.value.to()); setError(""); }}
+            onChange={e => { setCode(e.target.value.toUpperCase()); setError(""); }}
             placeholder="VD: HN2026"
             className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-700 text-sm font-mono focus:outline-none focus:border-[#e8c84a]/50 "
             maxLength={10}
