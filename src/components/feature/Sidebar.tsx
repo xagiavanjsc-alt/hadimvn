@@ -334,29 +334,29 @@ function SidebarInner() {
         {/* Home */}
         <button
           onClick={() => handleNavClick("/")}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all cursor-pointer whitespace-nowrap text-left ${
+          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
             location.pathname === "/" || location.pathname === "/dashboard"
               ? "bg-[#e8c84a]/10 text-[#e8c84a] font-medium"
               : "text-white/55 hover:text-white/85 hover:bg-white/6"
           }`}
         >
-          <div className="w-5 h-5 flex items-center justify-center">
-            <i className="ri-home-4-line text-base"></i>
+          <div className="w-4 h-4 flex items-center justify-center">
+            <i className="ri-home-4-line text-sm"></i>
           </div>
-          Trang chủ
+          <span className="flex-1">Trang chủ</span>
         </button>
 
         {/* Daily words shortcut */}
         <button
           onClick={() => handleNavClick("/daily-words")}
-          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all cursor-pointer whitespace-nowrap text-left ${
+          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
             location.pathname === "/daily-words"
               ? "bg-[#4ade80]/10 text-[#4ade80] font-medium"
               : "text-white/50 hover:text-white/80 hover:bg-white/6"
           }`}
         >
-          <div className="w-5 h-5 flex items-center justify-center">
-            <i className="ri-sun-line text-base"></i>
+          <div className="w-4 h-4 flex items-center justify-center">
+            <i className="ri-sun-line text-sm"></i>
           </div>
           <span className="flex-1">Học từ mới hôm nay</span>
         </button>
@@ -364,14 +364,14 @@ function SidebarInner() {
         {/* Stats shortcut */}
         <button
           onClick={() => handleNavClick("/study-stats")}
-          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all cursor-pointer whitespace-nowrap text-left ${
+          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
             location.pathname === "/study-stats"
               ? "bg-[#38bdf8]/10 text-[#38bdf8] font-medium"
               : "text-white/50 hover:text-white/80 hover:bg-white/6"
           }`}
         >
-          <div className="w-5 h-5 flex items-center justify-center">
-            <i className="ri-bar-chart-2-line text-base"></i>
+          <div className="w-4 h-4 flex items-center justify-center">
+            <i className="ri-bar-chart-2-line text-sm"></i>
           </div>
           <span className="flex-1">Thống kê học tập</span>
         </button>
@@ -380,30 +380,30 @@ function SidebarInner() {
         {user && profile?.is_vip && (
           <button
             onClick={() => handleNavClick("/vip-history")}
-            className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all cursor-pointer whitespace-nowrap text-left ${
+            className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
               location.pathname === "/vip-history"
                 ? "bg-[#e8c84a]/10 text-[#e8c84a] font-medium"
                 : "text-white/50 hover:text-white/80 hover:bg-white/6"
             }`}
           >
-            <div className="w-5 h-5 flex items-center justify-center">
-              <i className="ri-vip-crown-line text-base"></i>
+            <div className="w-4 h-4 flex items-center justify-center">
+              <i className="ri-vip-crown-line text-sm"></i>
             </div>
-            Lịch sử VIP
+            <span className="flex-1">Lịch sử VIP</span>
           </button>
         )}
 
         {/* Share progress shortcut */}
         <button
           onClick={() => handleNavClick("/share-progress")}
-          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all cursor-pointer whitespace-nowrap text-left ${
+          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
             location.pathname === "/share-progress"
               ? "bg-[#fb923c]/10 text-[#fb923c] font-medium"
               : "text-white/50 hover:text-white/80 hover:bg-white/6"
           }`}
         >
-          <div className="w-5 h-5 flex items-center justify-center">
-            <i className="ri-share-line text-base"></i>
+          <div className="w-4 h-4 flex items-center justify-center">
+            <i className="ri-share-line text-sm"></i>
           </div>
           <span className="flex-1">Chia sẻ tiến độ</span>
         </button>
@@ -411,14 +411,14 @@ function SidebarInner() {
         {/* Feedback shortcut */}
         <button
           onClick={() => handleNavClick("/feedback")}
-          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all cursor-pointer whitespace-nowrap text-left ${
+          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
             location.pathname === "/feedback"
               ? "bg-[#34d399]/10 text-[#34d399] font-medium"
               : "text-white/50 hover:text-white/80 hover:bg-white/6"
           }`}
         >
-          <div className="w-5 h-5 flex items-center justify-center">
-            <i className="ri-chat-smile-2-line text-base"></i>
+          <div className="w-4 h-4 flex items-center justify-center">
+            <i className="ri-chat-smile-2-line text-sm"></i>
           </div>
           <span className="flex-1">Góp ý &amp; Đánh giá</span>
         </button>
@@ -426,16 +426,16 @@ function SidebarInner() {
         {/* Roadmap shortcut */}
         <button
           onClick={() => handleNavClick("/learning-roadmap")}
-          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all cursor-pointer whitespace-nowrap text-left ${
+          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
             location.pathname === "/learning-roadmap"
               ? "bg-[#e8c84a]/10 text-[#e8c84a] font-medium"
               : "text-white/50 hover:text-white/80 hover:bg-white/6"
           }`}
         >
-          <div className="w-5 h-5 flex items-center justify-center">
-            <i className="ri-route-line text-base"></i>
+          <div className="w-4 h-4 flex items-center justify-center">
+            <i className="ri-route-line text-sm"></i>
           </div>
-          Lộ trình học
+          <span className="flex-1">Lộ trình học</span>
         </button>
 
         {/* Nav groups */}
@@ -449,14 +449,14 @@ function SidebarInner() {
             <div key={group.label}>
               <button
                 onClick={() => toggleGroup(group.label)}
-                className={`w-full flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all cursor-pointer group ${
+                className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-all cursor-pointer group ${
                   hasActive ? "bg-white/3" : "hover:bg-white/3"
                 }`}
               >
                 <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
-                  <i className={`${group.icon} text-xs`} style={{ color: hasActive ? grpColor : "rgba(255,255,255,0.3)" }}></i>
+                  <i className={`${group.icon} text-sm`} style={{ color: hasActive ? grpColor : "rgba(255,255,255,0.3)" }}></i>
                 </div>
-                <p className="flex-1 text-left text-[10px] tracking-normal font-semibold transition-colors"
+                <p className="flex-1 text-left text-xs font-semibold transition-colors"
                   style={{ color: hasActive ? grpColor + "99" : "rgba(255,255,255,0.35)" }}>
                   {group.label}
                 </p>
@@ -519,10 +519,10 @@ function SidebarInner() {
         {user && isAdminDetected && (
           <button
             onClick={() => { markAdminVerified(); navigate("/admin"); }}
-            className="w-full flex items-center gap-2 px-3 py-2.5 rounded-lg transition-all cursor-pointer mt-1"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all cursor-pointer mt-1"
             style={{ backgroundColor: "rgba(244,63,94,0.08)", border: "1px solid rgba(244,63,94,0.20)" }}
           >
-            <div className="w-5 h-5 flex items-center justify-center">
+            <div className="w-4 h-4 flex items-center justify-center">
               <i className="ri-shield-keyhole-line text-rose-400 text-sm"></i>
             </div>
             <span className="text-xs font-semibold text-rose-400 flex-1 text-left">Trang quản lý admin</span>
