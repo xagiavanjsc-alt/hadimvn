@@ -27,39 +27,7 @@ const CHALLENGE_META: Record<string, { title: string; icon: string; color: strin
 const TOTAL_CHALLENGES = Object.keys(CHALLENGE_META).length;
 const MAX_XP_PER_WEEK = Object.values(CHALLENGE_META).reduce((s, c) => s + c.xpReward, 0) + 300; // +300 bonus
 
-// ─── Generate mock history ────────────────────────────────────────────────────
-function generateMockHistory(): WeekRecord[] {
-  const records: WeekRecord[] = [];
-  const now = new Date();
-
-  for (let w = 1; w <= 8; w++) {
-    const weekStart = new Date(now);
-    weekStart.setDate(now.getDate() - w * 7);
-    const weekEnd = new Date(weekStart);
-    weekEnd.setDate(weekStart.getDate() + 6);
-    const fmt = (d: Date) => d.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit" });
-    const weekLabel = `${fmt(weekStart)} – ${fmt(weekEnd)}`;
-
-    // Simulate varying performance
-    const completedCount = w <= 2 ? TOTAL_CHALLENGES : w <= 4 ? Math.floor(Math.random() * 4) + 3 : Math.floor(Math.random() * 5) + 1;
-    const completedIds = Object.keys(CHALLENGE_META).slice(0, completedCount);
-    const xpEarned = completedIds.reduce((s, id) => s + (CHALLENGE_META[id]?.xpReward || 0), 0) + (completedCount === TOTAL_CHALLENGES ? 300 : 0);
-    const year = weekStart.getFullYear();
-    const startOfYear = new Date(year, 0, 1);
-    const weekNum = Math.ceil(((weekStart.getTime() - startOfYear.getTime()) / 86400000 + startOfYear.getDay() + 1) / 7);
-
-    records.push({
-      weekKey: `${year}-W${weekNum}`,
-      weekLabel,
-      completedCount,
-      totalCount: TOTAL_CHALLENGES,
-      xpEarned,
-      bonusClaimed: completedCount === TOTAL_CHALLENGES,
-      completedIds,
-    });
-  }
-  return records;
-}
+// History loaded from localStorage kts_challenge_history (saved by weekly-challenge page)
 
 // ─── Streak calculator ────────────────────────────────────────────────────────
 function calcChallengeStreak(records: WeekRecord[]): number {
@@ -171,8 +139,7 @@ export default function ChallengeHistoryPage() {
   const [expandedWeek, setExpandedWeek] = useState<string | null>(null);
   const [filterView, setFilterView] = useState<"all" | "perfect" | "incomplete">("all");
 
-  // Use mock history (in real app would load from Supabase)
-  const history = useMemo(() => generateMockHistory(), []);
+  const [history] = useLocalStorage<WeekRecord[]>("kts_challenge_history", []);
 
   const challengeStreak = calcChallengeStreak(history);
   const totalXPFromChallenges = history.reduce((s, r) => s + r.xpEarned, 0);

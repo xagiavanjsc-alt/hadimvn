@@ -93,23 +93,6 @@ function generateStudyData(
     data[date].minutes += 10;
   });
 
-  // Fill in some realistic mock data for past 30 days if sparse
-  const today = new Date();
-  for (let i = 0; i < 30; i++) {
-    const d = new Date(today);
-    d.setDate(d.getDate() - i);
-    const key = getDayKey(d);
-    if (!data[key] && Math.random() > 0.35) {
-      const mins = Math.floor(Math.random() * 45) + 5;
-      data[key] = {
-        date: key,
-        minutes: mins,
-        xp: mins * 4 + Math.floor(Math.random() * 30),
-        words: Math.floor(mins / 3),
-      };
-    }
-  }
-
   return data;
 }
 

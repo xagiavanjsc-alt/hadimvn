@@ -25,25 +25,6 @@ function getWeekLabel(weekKey: string) {
   return `${start.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit" })} – ${end.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit" })}`;
 }
 
-// Mock data for demo when no real data
-const MOCK_RESULTS: ExamResult[] = (() => {
-  const results: ExamResult[] = [];
-  const now = new Date();
-  const scores = [55, 60, 58, 65, 70, 68, 72, 75, 78, 80, 77, 82, 85, 83, 88];
-  scores.forEach((score, i) => {
-    const d = new Date(now);
-    d.setDate(d.getDate() - (scores.length - 1 - i) * 2 - Math.floor(Math.random() * 2));
-    results.push({
-      id: `mock_${i}`,
-      date: d.toISOString(),
-      score: Math.round((score / 100) * 40),
-      total: 40,
-      timeUsed: 2400 + Math.floor(Math.random() * 600),
-    });
-  });
-  return results;
-})();
-
 interface WeekStat {
   weekKey: string;
   label: string;
@@ -55,7 +36,7 @@ interface WeekStat {
 
 export default function EpsWeeklyProgressPage() {
   const [realResults] = useLocalStorage<ExamResult[]>("kts_eps_exam_history", []);
-  const results = realResults.length >= 3 ? realResults : MOCK_RESULTS;
+  const results = realResults;
 
   const weekStats = useMemo<WeekStat[]>(() => {
     const map: Record<string, ExamResult[]> = {};
@@ -216,7 +197,7 @@ export default function EpsWeeklyProgressPage() {
                       {/* Avg bar */}
                       <div
                         className={`flex-1 rounded-t-lg transition-all duration-500 ${isLast ? "ring-1 ring-offset-1 ring-offset-[#0f1117]" : ""}`}
-                        style={{ height: `${avgH}px`, backgroundColor: isLast ? avgColor : `${avgColor}70`, ringColor: avgColor }}
+                        style={{ height: `${avgH}px`, backgroundColor: isLast ? avgColor : `${avgColor}70` }}
                       />
                     </div>
                     <p className="text-white/30 text-[9px] text-center leading-tight">{week.label.split("–")[0]}</p>

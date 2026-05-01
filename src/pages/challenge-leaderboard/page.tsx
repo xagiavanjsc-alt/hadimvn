@@ -35,18 +35,7 @@ interface LeaderboardEntry {
   isMe?: boolean;
 }
 
-const MOCK_LEADERBOARD: LeaderboardEntry[] = [
-  { rank: 1, name: "Nguyễn Thị Lan", avatar: "L", wins: 47, losses: 8, draws: 3, totalGames: 58, winRate: 81, avgScore: 87, bestScore: 100, streak: 12, xpEarned: 2850, badge: "Vô địch", badgeColor: "#e8c84a" },
-  { rank: 2, name: "Trần Văn Minh", avatar: "M", wins: 39, losses: 12, draws: 5, totalGames: 56, winRate: 70, avgScore: 82, bestScore: 95, streak: 8, xpEarned: 2340, badge: "Cao thủ", badgeColor: "#a78bfa" },
-  { rank: 3, name: "Lê Thị Hoa", avatar: "H", wins: 35, losses: 15, draws: 4, totalGames: 54, winRate: 65, avgScore: 79, bestScore: 100, streak: 5, xpEarned: 2100, badge: "Xuất sắc", badgeColor: "#34d399" },
-  { rank: 4, name: "Phạm Quốc Bảo", avatar: "B", wins: 28, losses: 18, draws: 6, totalGames: 52, winRate: 54, avgScore: 74, bestScore: 90, streak: 3, xpEarned: 1680, badge: "Giỏi", badgeColor: "#fb923c" },
-  { rank: 5, name: "Hoàng Thị Mai", avatar: "M", wins: 24, losses: 20, draws: 3, totalGames: 47, winRate: 51, avgScore: 71, bestScore: 85, streak: 2, xpEarned: 1440, badge: "Khá", badgeColor: "#38bdf8" },
-  { rank: 6, name: "Vũ Đức Thành", avatar: "T", wins: 21, losses: 22, draws: 4, totalGames: 47, winRate: 45, avgScore: 68, bestScore: 80, streak: 1, xpEarned: 1260, badge: "Trung bình", badgeColor: "#94a3b8" },
-  { rank: 7, name: "Đặng Thị Linh", avatar: "L", wins: 18, losses: 25, draws: 2, totalGames: 45, winRate: 40, avgScore: 65, bestScore: 85, streak: 0, xpEarned: 1080, badge: "Đang học", badgeColor: "#64748b" },
-  { rank: 8, name: "Bùi Văn Hùng", avatar: "H", wins: 15, losses: 28, draws: 3, totalGames: 46, winRate: 33, avgScore: 61, bestScore: 75, streak: 0, xpEarned: 900, badge: "Đang học", badgeColor: "#64748b" },
-  { rank: 9, name: "Ngô Thị Thu", avatar: "T", wins: 12, losses: 30, draws: 1, totalGames: 43, winRate: 28, avgScore: 58, bestScore: 70, streak: 0, xpEarned: 720, badge: "Mới bắt đầu", badgeColor: "#475569" },
-  { rank: 10, name: "Bạn", avatar: "B", wins: 2, losses: 1, draws: 0, totalGames: 3, winRate: 67, avgScore: 80, bestScore: 80, streak: 1, xpEarned: 120, badge: "Mới bắt đầu", badgeColor: "#475569", isMe: true },
-];
+// Leaderboard built from real local challenge history (no mock)
 
 const PERIOD_OPTIONS = [
   { id: "week", label: "Tuần này" },
@@ -84,22 +73,27 @@ export default function ChallengeLeaderboardPage() {
     return { wins, losses, draws, total: completed.length, avgScore };
   }, [challenges]);
 
-  const leaderboard = useMemo(() => {
-    // Merge my real stats into mock
-    return MOCK_LEADERBOARD.map(e => {
-      if (e.isMe) {
-        return {
-          ...e,
-          wins: myStats.wins || e.wins,
-          losses: myStats.losses || e.losses,
-          draws: myStats.draws || e.draws,
-          totalGames: myStats.total || e.totalGames,
-          winRate: myStats.total > 0 ? Math.round((myStats.wins / myStats.total) * 100) : e.winRate,
-          avgScore: myStats.avgScore || e.avgScore,
-        };
-      }
-      return e;
-    }).sort((a, b) => b.wins - a.wins).map((e, i) => ({ ...e, rank: i + 1 }));
+  const leaderboard = useMemo<LeaderboardEntry[]>(() => {
+    if (myStats.total === 0) return [];
+    const badge = myStats.wins >= 10 ? "Cao thủ" : myStats.wins >= 5 ? "Giỏi" : myStats.wins >= 1 ? "Khá" : "Mới bắt đầu";
+    const badgeColor = myStats.wins >= 10 ? "#e8c84a" : myStats.wins >= 5 ? "#fb923c" : myStats.wins >= 1 ? "#38bdf8" : "#64748b";
+    return [{
+      rank: 1,
+      name: "Bạn",
+      avatar: "B",
+      wins: myStats.wins,
+      losses: myStats.losses,
+      draws: myStats.draws,
+      totalGames: myStats.total,
+      winRate: myStats.total > 0 ? Math.round((myStats.wins / myStats.total) * 100) : 0,
+      avgScore: myStats.avgScore,
+      bestScore: myStats.avgScore,
+      streak: myStats.wins,
+      xpEarned: myStats.wins * 50 + myStats.total * 20,
+      badge,
+      badgeColor,
+      isMe: true,
+    }];
   }, [myStats]);
 
   const myEntry = leaderboard.find(e => e.isMe);

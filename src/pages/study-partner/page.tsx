@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { supabase } from "@/lib/supabase";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Partner {
@@ -25,15 +26,7 @@ interface Message {
   type: "text" | "vocab" | "question";
 }
 
-// ─── Mock partners ────────────────────────────────────────────────────────────
-const MOCK_PARTNERS: Partner[] = [
-  { id: "p1", name: "Nguyễn Minh Anh", level: "B1", avatar: "MA", streak: 45, xp: 3200, status: "online", topic: "TOPIK II", bio: "Đang ôn thi TOPIK II, cần bạn luyện nói và hỏi đáp từ vựng.", languages: ["Tiếng Hàn", "Tiếng Anh"], joinedAt: "2024-01" },
-  { id: "p2", name: "Trần Thị Hoa", level: "A2", avatar: "TH", streak: 12, xp: 890, status: "studying", topic: "EPS-TOPIK", bio: "Mới bắt đầu học EPS, muốn luyện từ vựng cơ bản cùng nhau.", languages: ["Tiếng Hàn"], joinedAt: "2024-03" },
-  { id: "p3", name: "Lê Văn Đức", level: "B2", avatar: "LD", streak: 78, xp: 5600, status: "online", topic: "Giao tiếp", bio: "Đã học 2 năm, muốn luyện hội thoại tự nhiên và phát âm.", languages: ["Tiếng Hàn", "Tiếng Nhật"], joinedAt: "2023-08" },
-  { id: "p4", name: "Phạm Thu Trang", level: "A1", avatar: "PT", streak: 5, xp: 320, status: "online", topic: "Hangul", bio: "Mới học bảng chữ cái, cần bạn kiên nhẫn hướng dẫn.", languages: ["Tiếng Hàn"], joinedAt: "2024-04" },
-  { id: "p5", name: "Hoàng Quốc Bảo", level: "C1", avatar: "HB", streak: 120, xp: 12000, status: "away", topic: "Học thuật", bio: "Đang học cao học tại Hàn Quốc, muốn luyện tiếng Hàn học thuật.", languages: ["Tiếng Hàn", "Tiếng Anh", "Tiếng Pháp"], joinedAt: "2022-06" },
-  { id: "p6", name: "Vũ Thị Lan", level: "B1", avatar: "VL", streak: 33, xp: 2100, status: "studying", topic: "K-pop", bio: "Học tiếng Hàn qua K-pop và phim Hàn, muốn luyện nghe và hát.", languages: ["Tiếng Hàn"], joinedAt: "2023-11" },
-];
+// Partners fetched from Supabase leaderboard + user_profiles (no mock)
 
 const QUICK_PHRASES = [
   "안녕하세요! 같이 공부해요 😊",
@@ -338,7 +331,55 @@ function ChatSession({ partner, onClose }: { partner: Partner; onClose: () => vo
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function StudyPartnerPage() {
-  const [partners] = useState<Partner[]>(MOCK_PARTNERS);
+  const [partners, setPartners] = useState<Partner[]>([]);
+  const [loadingPartners, setLoadingPartners] = useState(true);
+
+  const fetchPartners = useCallback(async () => {
+    setLoadingPartners(true);
+    try {
+      const { data: lbRows } = await supabase
+        .from("leaderboard")
+        .select("user_id, streak, total_xp")
+        .order("total_xp", { ascending: false })
+        .limit(20);
+
+      if (!lbRows || lbRows.length === 0) { setPartners([]); return; }
+
+      const userIds = lbRows.map((r: { user_id: string }) => r.user_id);
+      const { data: profiles } = await supabase
+        .from("user_profiles")
+        .select("id, display_name")
+        .in("id", userIds);
+
+      const nameMap = Object.fromEntries(
+        (profiles || []).map((p: { id: string; display_name: string }) => [p.id, p.display_name || "Học viên"])
+      );
+
+      const mapped: Partner[] = lbRows.map((r: { user_id: string; streak: number; total_xp: number }) => {
+        const name = nameMap[r.user_id] || "Học viên";
+        return {
+          id: r.user_id,
+          name,
+          level: "",
+          avatar: name.slice(0, 2).toUpperCase(),
+          streak: r.streak || 0,
+          xp: r.total_xp || 0,
+          status: "online" as const,
+          topic: "Tiếng Hàn",
+          bio: "",
+          languages: ["Tiếng Hàn"],
+          joinedAt: "",
+        };
+      });
+      setPartners(mapped);
+    } catch {
+      setPartners([]);
+    } finally {
+      setLoadingPartners(false);
+    }
+  }, []);
+
+  useEffect(() => { fetchPartners(); }, [fetchPartners]);
   const [selectedPartner, setSelectedPartner] = useState<Partner | null>(null);
   const [filterLevel, setFilterLevel] = useState<string>("all");
   const [filterStatus, setFilterStatus] = useState<string>("all");
