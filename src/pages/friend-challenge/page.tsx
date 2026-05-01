@@ -41,51 +41,8 @@ const TOPICS = [
 
 const QUESTION_COUNTS = [5, 10, 15, 20];
 
-// ─── Mock challenge history ───────────────────────────────────────────────
-const MOCK_HISTORY: ChallengeSession[] = [
-  {
-    id: "ch_001",
-    createdAt: new Date(Date.now() - 2 * 3600000).toISOString(),
-    creatorName: "Bạn",
-    topic: "all",
-    questionCount: 10,
-    questions: [],
-    myScore: 8,
-    myTime: 142,
-    opponentScore: 6,
-    opponentName: "Nguyễn Văn A",
-    opponentTime: 198,
-    status: "completed",
-  },
-  {
-    id: "ch_002",
-    createdAt: new Date(Date.now() - 24 * 3600000).toISOString(),
-    creatorName: "Bạn",
-    topic: "workplace",
-    questionCount: 10,
-    questions: [],
-    myScore: 7,
-    myTime: 165,
-    opponentScore: 9,
-    opponentName: "Trần Thị B",
-    opponentTime: 120,
-    status: "completed",
-  },
-  {
-    id: "ch_003",
-    createdAt: new Date(Date.now() - 3 * 24 * 3600000).toISOString(),
-    creatorName: "Bạn",
-    topic: "safety",
-    questionCount: 15,
-    questions: [],
-    myScore: 12,
-    myTime: 210,
-    opponentScore: undefined,
-    opponentName: undefined,
-    opponentTime: undefined,
-    status: "waiting",
-  },
-];
+// Challenge history lưu trong localStorage, mặc định rỗng (không còn fake)
+const INITIAL_HISTORY: ChallengeSession[] = [];
 
 // ─── Quiz Mode ────────────────────────────────────────────────────────────
 function QuizMode({
@@ -280,8 +237,8 @@ function ChallengeResultCard({ session }: { session: ChallengeSession }) {
 
 // ─── Main Page ────────────────────────────────────────────────────────────
 export default function FriendChallengePage() {
-  const { addXP } = useXPSystem();
-  const [challenges, setChallenges] = useLocalStorage<ChallengeSession[]>("kts_friend_challenges", MOCK_HISTORY);
+  const { awardXP } = useXPSystem();
+  const [challenges, setChallenges] = useLocalStorage<ChallengeSession[]>("kts_friend_challenges", INITIAL_HISTORY);
   const [view, setView] = useState<"home" | "create" | "quiz" | "result" | "join">("home");
   const [selectedTopic, setSelectedTopic] = useState("all");
   const [questionCount, setQuestionCount] = useState(10);
@@ -341,7 +298,7 @@ export default function FriendChallengePage() {
     });
     setActiveChallenge(updated);
     setFinalScore({ score, time: timeSeconds });
-    addXP(score * 5 + 20, "Thách đấu bạn bè");
+    awardXP({ type: "eps_exam_completed", amount: score * 5 + 20 });
     setView("result");
   };
 
@@ -655,27 +612,26 @@ export default function FriendChallengePage() {
             </div>
           </div>
 
-          {/* Leaderboard mini */}
+          {/* My stats */}
           <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
-            <p className="text-white font-semibold text-sm mb-3">Top thách đấu</p>
+            <p className="text-white font-semibold text-sm mb-3">Thống kê của bạn</p>
             <div className="space-y-2">
-              {[
-                { name: "Nguyễn Văn A", wins: 12, avatar: "A" },
-                { name: "Trần Thị B", wins: 9, avatar: "B" },
-                { name: "Lê Văn C", wins: 7, avatar: "C" },
-                { name: "Bạn", wins: wins, avatar: "B" },
-              ].sort((a, b) => b.wins - a.wins).map((p, i) => (
-                <div key={p.name} className={`flex items-center gap-3 p-2 rounded-lg ${p.name === "Bạn" ? "bg-[#e8c84a]/5 border border-[#e8c84a]/15" : ""}`}>
-                  <span className={`text-xs font-bold w-5 text-center ${i === 0 ? "text-[#e8c84a]" : i === 1 ? "text-white/50" : i === 2 ? "text-[#fb923c]/70" : "text-white/25"}`}>
-                    {i + 1}
-                  </span>
-                  <div className="w-7 h-7 flex items-center justify-center rounded-full bg-white/10 text-white/60 text-xs font-bold flex-shrink-0">
-                    {p.avatar}
-                  </div>
-                  <span className={`flex-1 text-xs ${p.name === "Bạn" ? "text-[#e8c84a] font-semibold" : "text-white/50"}`}>{p.name}</span>
-                  <span className="text-xs font-bold text-emerald-400">{p.wins}W</span>
-                </div>
-              ))}
+              <div className="flex justify-between items-center py-1.5 border-b border-white/5">
+                <span className="text-white/40 text-xs">Tổng thách đấu</span>
+                <span className="text-white font-bold text-sm">{challenges.length}</span>
+              </div>
+              <div className="flex justify-between items-center py-1.5 border-b border-white/5">
+                <span className="text-white/40 text-xs">Thắng</span>
+                <span className="text-emerald-400 font-bold text-sm">{wins}</span>
+              </div>
+              <div className="flex justify-between items-center py-1.5 border-b border-white/5">
+                <span className="text-white/40 text-xs">Thua</span>
+                <span className="text-red-400 font-bold text-sm">{losses}</span>
+              </div>
+              <div className="flex justify-between items-center py-1.5">
+                <span className="text-white/40 text-xs">Hòa</span>
+                <span className="text-[#e8c84a] font-bold text-sm">{draws}</span>
+              </div>
             </div>
           </div>
         </div>

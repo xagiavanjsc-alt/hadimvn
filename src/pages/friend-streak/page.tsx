@@ -42,19 +42,7 @@ function StreakFlame({ count }: { count: number }) {
   );
 }
 
-// ─── Mock leaderboard data ────────────────────────────────────────────────────
-const MOCK_FRIENDS: FriendStreak[] = [
-  { id: "m1", display_name: "Nguyễn Thị Lan", streak_count: 47, last_active: new Date(Date.now() - 3600000).toISOString(), total_xp: 12400, avatar_color: "#e8c84a" },
-  { id: "m2", display_name: "Trần Văn Minh", streak_count: 32, last_active: new Date(Date.now() - 7200000).toISOString(), total_xp: 8900, avatar_color: "#34d399" },
-  { id: "m3", display_name: "Lê Thị Hoa", streak_count: 28, last_active: new Date(Date.now() - 86400000).toISOString(), total_xp: 7200, avatar_color: "#f472b6" },
-  { id: "m4", display_name: "Phạm Quốc Hùng", streak_count: 21, last_active: new Date(Date.now() - 43200000).toISOString(), total_xp: 5600, avatar_color: "#fb923c" },
-  { id: "m5", display_name: "Hoàng Thị Mai", streak_count: 15, last_active: new Date(Date.now() - 172800000).toISOString(), total_xp: 4100, avatar_color: "#38bdf8" },
-  { id: "m6", display_name: "Vũ Đức Thắng", streak_count: 12, last_active: new Date(Date.now() - 259200000).toISOString(), total_xp: 3200, avatar_color: "#a78bfa" },
-  { id: "m7", display_name: "Đặng Thị Thu", streak_count: 8, last_active: new Date(Date.now() - 86400000).toISOString(), total_xp: 2100, avatar_color: "#f87171" },
-  { id: "m8", display_name: "Bùi Văn Nam", streak_count: 5, last_active: new Date(Date.now() - 432000000).toISOString(), total_xp: 1400, avatar_color: "#06b6d4" },
-  { id: "m9", display_name: "Ngô Thị Linh", streak_count: 3, last_active: new Date(Date.now() - 604800000).toISOString(), total_xp: 800, avatar_color: "#e8c84a" },
-  { id: "m10", display_name: "Đinh Văn Tú", streak_count: 1, last_active: new Date(Date.now() - 86400000).toISOString(), total_xp: 300, avatar_color: "#34d399" },
-];
+// Leaderboard data fetched from Supabase (không còn mock)
 
 export default function FriendStreakPage() {
   const { user } = useAuth();
@@ -68,27 +56,42 @@ export default function FriendStreakPage() {
   const fetchLeaderboard = useCallback(async () => {
     setLoading(true);
     try {
-      const { data } = await supabase
-        .from("leaderboard_snapshots")
-        .select("user_id, display_name, streak_count, total_xp, updated_at")
-        .order("streak_count", { ascending: false })
+      // leaderboard: user_id, streak, total_xp, last_activity
+      const { data: lbRows } = await supabase
+        .from("leaderboard")
+        .select("user_id, streak, total_xp, last_activity")
+        .order("streak", { ascending: false })
         .limit(50);
 
-      if (data && data.length > 0) {
-        const mapped: FriendStreak[] = data.map((d: { user_id: string; display_name: string; streak_count: number; total_xp: number; updated_at: string }) => ({
-          id: d.user_id,
-          display_name: d.display_name || "Học viên",
-          streak_count: d.streak_count || 0,
-          last_active: d.updated_at,
-          total_xp: d.total_xp || 0,
-          avatar_color: getAvatarColor(d.display_name || ""),
-        }));
-        setLeaderboard(mapped);
-      } else {
-        setLeaderboard(MOCK_FRIENDS);
+      if (!lbRows || lbRows.length === 0) {
+        setLeaderboard([]);
+        return;
       }
+
+      const userIds = lbRows.map((r: { user_id: string }) => r.user_id);
+      const { data: profiles } = await supabase
+        .from("user_profiles")
+        .select("id, display_name")
+        .in("id", userIds);
+
+      const nameMap = Object.fromEntries(
+        (profiles || []).map((p: { id: string; display_name: string }) => [p.id, p.display_name || "Học viên"])
+      );
+
+      const mapped: FriendStreak[] = lbRows.map((d: { user_id: string; streak: number; total_xp: number; last_activity: string }) => {
+        const name = nameMap[d.user_id] || "Học viên";
+        return {
+          id: d.user_id,
+          display_name: name,
+          streak_count: d.streak || 0,
+          last_active: d.last_activity || new Date().toISOString(),
+          total_xp: d.total_xp || 0,
+          avatar_color: getAvatarColor(name),
+        };
+      });
+      setLeaderboard(mapped);
     } catch {
-      setLeaderboard(MOCK_FRIENDS);
+      setLeaderboard([]);
     }
     setLoading(false);
   }, []);
@@ -161,6 +164,12 @@ export default function FriendStreakPage() {
           {loading ? (
             <div className="flex items-center justify-center py-16">
               <div className="w-6 h-6 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>
+            </div>
+          ) : sorted.length === 0 ? (
+            <div className="text-center py-16">
+              <i className="ri-fire-line text-white/15 text-4xl mb-3 block"></i>
+              <p className="text-white/40 text-sm">Chưa có dữ liệu streak cộng đồng</p>
+              <p className="text-white/25 text-xs mt-1">Hãy học mỗi ngày để có mặt trên bảng xếp hạng!</p>
             </div>
           ) : (
             <div className="space-y-2">
