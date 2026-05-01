@@ -12,16 +12,7 @@ interface ReferralRecord {
   status: "active" | "pending";
 }
 
-// Mock referred friends
-const MOCK_REFERRALS: ReferralRecord[] = [
-  { id: "r1", name: "Nguyễn Thị Mai", joinedAt: "2026-04-10", xpAwarded: true, status: "active" },
-  { id: "r2", name: "Trần Văn Hùng", joinedAt: "2026-04-08", xpAwarded: true, status: "active" },
-  { id: "r3", name: "Lê Thị Lan", joinedAt: "2026-04-05", xpAwarded: true, status: "active" },
-  { id: "r4", name: "Phạm Minh Đức", joinedAt: "2026-04-01", xpAwarded: false, status: "pending" },
-];
-
 const XP_PER_REFERRAL = 100;
-const XP_FOR_REFERRED = 50;
 const MILESTONE_REWARDS = [
   { count: 1,  xp: 100,  label: "Người mời đầu tiên",  icon: "ri-user-add-line",    color: "#34d399" },
   { count: 3,  xp: 300,  label: "Nhóm học nhỏ",        icon: "ri-group-line",       color: "#e8c84a" },
@@ -36,12 +27,11 @@ function generateReferralCode(userId: string): string {
 }
 
 export default function ReferralPage() {
-  const { user, profile } = useAuth();
+  const { user } = useAuth();
   const { awardXP } = useXPSystem();
-  const [referrals] = useLocalStorage<ReferralRecord[]>("kts_referrals", MOCK_REFERRALS);
+  const [referrals] = useLocalStorage<ReferralRecord[]>("kts_referrals", []);
   const [claimedMilestones, setClaimedMilestones] = useLocalStorage<number[]>("kts_referral_milestones_claimed", []);
   const [copied, setCopied] = useState<"link" | "code" | null>(null);
-  const [showShareMenu, setShowShareMenu] = useState(false);
 
   const referralCode = generateReferralCode(user?.id || "demo");
   const referralLink = `${window.location.origin}?ref=${referralCode}`;
