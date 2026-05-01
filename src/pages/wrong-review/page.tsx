@@ -28,35 +28,9 @@ function speakKorean(text: string) {
   window.speechSynthesis.speak(u);
 }
 
-// ─── Mock wrong items from lesson quiz history ────────────────────────────
-function generateMockWrongItems(): WrongItem[] {
-  const items: WrongItem[] = [];
-  const lessons = epsLessons.slice(0, 20);
-  lessons.forEach(lesson => {
-    lesson.exercises.slice(0, 2).forEach((ex, i) => {
-      if (Math.random() > 0.6) {
-        items.push({
-          id: `${lesson.id}-${ex.id}`,
-          lessonId: lesson.id,
-          lessonTitle: lesson.titleVi,
-          question: ex.question,
-          questionVi: ex.questionVi,
-          yourAnswer: ex.type === "multiple_choice"
-            ? (ex.options?.[Math.floor(Math.random() * (ex.options.length - 1))] ?? "Sai")
-            : "Câu trả lời sai",
-          correctAnswer: ex.type === "multiple_choice"
-            ? (ex.options?.[ex.correctIndex ?? 0] ?? "")
-            : (ex.correctAnswer ?? ""),
-          type: ex.type,
-          addedAt: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString(),
-          reviewCount: Math.floor(Math.random() * 3),
-          mastered: false,
-        });
-      }
-    });
-  });
-  return items;
-}
+// Default empty - câu sai thật được các trang quiz push vào localStorage khi user trả lời sai
+// (xem ep-lesson-quiz, eps-exam, topik-* pages)
+const EMPTY_WRONG_ITEMS: WrongItem[] = [];
 
 // ─── Review Card ──────────────────────────────────────────────────────────
 function ReviewCard({
@@ -214,7 +188,7 @@ export default function WrongReviewPage() {
   const { addXP } = useXPSystem();
   const [wrongItems, setWrongItems] = useLocalStorage<WrongItem[]>(
     "kts_wrong_review_items",
-    generateMockWrongItems()
+    EMPTY_WRONG_ITEMS
   );
   const [filterStatus, setFilterStatus] = useState<"all" | "pending" | "mastered">("pending");
   const [filterLesson, setFilterLesson] = useState<string>("all");

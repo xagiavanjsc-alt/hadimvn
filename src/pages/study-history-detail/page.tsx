@@ -1,5 +1,7 @@
-﻿import { useState, useEffect } from "react";
+﻿import { useState, useEffect, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/lib/supabase";
 
 interface DayRecord {
   date: string; // YYYY-MM-DD
@@ -20,112 +22,120 @@ interface WordRecord {
   category: string;
 }
 
-// Generate mock history for last 30 days
-function generateHistory(): DayRecord[] {
-  const records: DayRecord[] = [];
-  const today = new Date();
-  const wordPool = [
-    { w: "사랑", m: "Tình yêu" }, { w: "행복", m: "Hạnh phúc" }, { w: "공부", m: "Học tập" },
-    { w: "친구", m: "Bạn bè" }, { w: "가족", m: "Gia đình" }, { w: "음식", m: "Thức ăn" },
-    { w: "여행", m: "Du lịch" }, { w: "음악", m: "Âm nhạc" }, { w: "영화", m: "Phim ảnh" },
-    { w: "날씨", m: "Thời tiết" }, { w: "시간", m: "Thời gian" }, { w: "학교", m: "Trường học" },
-    { w: "노력", m: "Nỗ lực" }, { w: "성공", m: "Thành công" }, { w: "경험", m: "Kinh nghiệm" },
-    { w: "발전", m: "Phát triển" }, { w: "문화", m: "Văn hóa" }, { w: "사회", m: "Xã hội" },
-    { w: "경제", m: "Kinh tế" }, { w: "환경", m: "Môi trường" },
-  ];
-
-  for (let i = 29; i >= 0; i--) {
-    const d = new Date(today);
-    d.setDate(d.getDate() - i);
-    const dateStr = d.toISOString().split("T")[0];
-    const active = Math.random() > 0.25; // 75% chance of studying
-    if (!active) continue;
-
-    const numWords = Math.floor(Math.random() * 8) + 3;
-    const words = wordPool.sort(() => Math.random() - 0.5).slice(0, numWords).map(w => w.w);
-    const minutes = Math.floor(Math.random() * 45) + 10;
-    const score = Math.floor(Math.random() * 40) + 60;
-    const xp = Math.floor(minutes * 2.5 + numWords * 3);
-
-    records.push({
-      date: dateStr,
-      wordsLearned: words,
-      quizScore: score,
-      studyMinutes: minutes,
-      xpEarned: xp,
-      activities: [
-        { type: "vocab", label: "Từ vựng", count: numWords, icon: "ri-translate-2", color: "text-sky-500" },
-        { type: "quiz", label: "Quiz", count: Math.floor(Math.random() * 3) + 1, icon: "ri-survey-line", color: "text-amber-500" },
-        { type: "flashcard", label: "Flashcard", count: Math.floor(Math.random() * 20) + 5, icon: "ri-stack-line", color: "text-violet-500" },
-        ...(Math.random() > 0.5 ? [{ type: "listen", label: "Nghe", count: 1, icon: "ri-headphone-line", color: "text-emerald-500" }] : []),
-      ],
-    });
-  }
-  return records;
-}
-
-function generateWordHistory(): WordRecord[] {
-  const words = [
-    { word: "사랑", meaning: "Tình yêu", category: "Cảm xúc" },
-    { word: "행복", meaning: "Hạnh phúc", category: "Cảm xúc" },
-    { word: "공부", meaning: "Học tập", category: "Giáo dục" },
-    { word: "친구", meaning: "Bạn bè", category: "Người" },
-    { word: "가족", meaning: "Gia đình", category: "Người" },
-    { word: "음식", meaning: "Thức ăn", category: "Ăn uống" },
-    { word: "여행", meaning: "Du lịch", category: "Hoạt động" },
-    { word: "음악", meaning: "Âm nhạc", category: "Văn hóa" },
-    { word: "영화", meaning: "Phim ảnh", category: "Văn hóa" },
-    { word: "날씨", meaning: "Thời tiết", category: "Thiên nhiên" },
-    { word: "노력", meaning: "Nỗ lực", category: "Tư duy" },
-    { word: "성공", meaning: "Thành công", category: "Tư duy" },
-    { word: "경험", meaning: "Kinh nghiệm", category: "Tư duy" },
-    { word: "발전", meaning: "Phát triển", category: "Xã hội" },
-    { word: "문화", meaning: "Văn hóa", category: "Xã hội" },
-    { word: "경제", meaning: "Kinh tế", category: "Xã hội" },
-    { word: "환경", meaning: "Môi trường", category: "Thiên nhiên" },
-    { word: "시간", meaning: "Thời gian", category: "Cơ bản" },
-    { word: "학교", meaning: "Trường học", category: "Giáo dục" },
-    { word: "사회", meaning: "Xã hội", category: "Xã hội" },
-  ];
-
-  const today = new Date();
-  return words.map(w => {
-    const daysAgo = Math.floor(Math.random() * 30);
-    const d = new Date(today);
-    d.setDate(d.getDate() - daysAgo);
-    const reviewDaysAgo = Math.floor(Math.random() * daysAgo);
-    const rd = new Date(today);
-    rd.setDate(rd.getDate() - reviewDaysAgo);
-    return {
-      ...w,
-      learnedAt: d.toISOString().split("T")[0],
-      reviewCount: Math.floor(Math.random() * 8) + 1,
-      lastReview: rd.toISOString().split("T")[0],
-      mastery: Math.floor(Math.random() * 60) + 40,
-    };
-  });
-}
-
-const HISTORY = generateHistory();
-const WORD_HISTORY = generateWordHistory();
-
 type ViewMode = "calendar" | "list" | "words";
 
 export default function StudyHistoryDetailPage() {
+  const { user } = useAuth();
   const [viewMode, setViewMode] = useState<ViewMode>("calendar");
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedDay, setSelectedDay] = useState<DayRecord | null>(null);
   const [wordFilter, setWordFilter] = useState("all");
   const [wordSort, setWordSort] = useState<"date" | "mastery" | "review">("date");
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [history, setHistory] = useState<DayRecord[]>([]);
+  const [wordHistory, setWordHistory] = useState<WordRecord[]>([]);
 
-  const totalDays = HISTORY.length;
-  const totalWords = HISTORY.reduce((s, d) => s + d.wordsLearned.length, 0);
-  const totalMinutes = HISTORY.reduce((s, d) => s + d.studyMinutes, 0);
-  const totalXP = HISTORY.reduce((s, d) => s + d.xpEarned, 0);
-  const avgScore = Math.round(HISTORY.reduce((s, d) => s + d.quizScore, 0) / HISTORY.length);
+  // Load lịch sử học thật từ study_history + topik_quiz_history
+  useEffect(() => {
+    if (!user?.id) return;
+    let cancelled = false;
+    (async () => {
+      const since = new Date();
+      since.setDate(since.getDate() - 30);
+      const sinceStr = since.toISOString().split("T")[0];
 
-  const historyMap = Object.fromEntries(HISTORY.map(d => [d.date, d]));
+      const [{ data: historyRows }, { data: quizRows }] = await Promise.all([
+        supabase.from("study_history")
+          .select("study_date, study_time, vocab_count, grammar_count")
+          .eq("user_id", user.id)
+          .gte("study_date", sinceStr),
+        supabase.from("topik_quiz_history")
+          .select("score, total, created_at")
+          .eq("user_id", user.id)
+          .gte("created_at", since.toISOString()),
+      ]);
+
+      if (cancelled) return;
+
+      // Gộp quiz theo ngày để tính trung bình score
+      const quizByDate: Record<string, { total: number; count: number }> = {};
+      (quizRows || []).forEach((row: { score: number; total: number; created_at: string }) => {
+        const d = row.created_at.split("T")[0];
+        if (!quizByDate[d]) quizByDate[d] = { total: 0, count: 0 };
+        if (row.total > 0) {
+          quizByDate[d].total += Math.round((row.score / row.total) * 100);
+          quizByDate[d].count += 1;
+        }
+      });
+
+      const records: DayRecord[] = [];
+      (historyRows || []).forEach((row: { study_date: string; study_time?: number; vocab_count?: number; grammar_count?: number }) => {
+        const minutes = Math.round((row.study_time || 0) / 60);
+        const numWords = row.vocab_count || 0;
+        const numGrammar = row.grammar_count || 0;
+        const xp = numWords * 5 + numGrammar * 10;
+        const quiz = quizByDate[row.study_date];
+        const avgQuiz = quiz ? Math.round(quiz.total / quiz.count) : 0;
+
+        records.push({
+          date: row.study_date,
+          wordsLearned: [],
+          quizScore: avgQuiz,
+          studyMinutes: minutes,
+          xpEarned: xp,
+          activities: [
+            { type: "vocab", label: "Từ vựng", count: numWords, icon: "ri-translate-2", color: "text-sky-500" },
+            { type: "quiz", label: "Quiz", count: quiz?.count || 0, icon: "ri-survey-line", color: "text-amber-500" },
+            { type: "grammar", label: "Ngữ pháp", count: numGrammar, icon: "ri-stack-line", color: "text-violet-500" },
+          ],
+        });
+      });
+      setHistory(records);
+
+      // Load từ đã biết từ study_progress.vocab_known / flashcard_known
+      const { data: spData } = await supabase
+        .from("study_progress")
+        .select("vocab_known, flashcard_known")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+      if (cancelled || !spData) return;
+
+      const knownIds = [
+        ...(Array.isArray(spData.vocab_known) ? spData.vocab_known : []),
+        ...(Array.isArray(spData.flashcard_known) ? spData.flashcard_known : []),
+      ];
+      // Lấy chi tiết từ vựng
+      if (knownIds.length > 0) {
+        const { data: vocabRows } = await supabase
+          .from("topik_vocabulary")
+          .select("id, korean, vietnamese, category")
+          .in("id", knownIds.slice(0, 200));
+        if (cancelled) return;
+        const today = new Date().toISOString().split("T")[0];
+        setWordHistory(
+          (vocabRows || []).map((v: { korean: string; vietnamese: string; category?: string }) => ({
+            word: v.korean,
+            meaning: v.vietnamese,
+            category: v.category || "Khác",
+            learnedAt: today,
+            reviewCount: 1,
+            lastReview: today,
+            mastery: 70,
+          }))
+        );
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [user?.id]);
+
+  const totalDays = history.length;
+  const totalWords = useMemo(() => history.reduce((s, d) => s + (d.activities.find(a => a.type === "vocab")?.count || 0), 0), [history]);
+  const totalMinutes = useMemo(() => history.reduce((s, d) => s + d.studyMinutes, 0), [history]);
+  const totalXP = useMemo(() => history.reduce((s, d) => s + d.xpEarned, 0), [history]);
+  const avgScore = history.length > 0 ? Math.round(history.reduce((s, d) => s + d.quizScore, 0) / history.length) : 0;
+
+  const historyMap = useMemo(() => Object.fromEntries(history.map(d => [d.date, d])), [history]);
 
   // Calendar grid
   const year = currentMonth.getFullYear();
@@ -156,8 +166,8 @@ export default function StudyHistoryDetailPage() {
 
   const intensityColors = ["bg-gray-100", "bg-emerald-100", "bg-emerald-300", "bg-emerald-500", "bg-emerald-700"];
 
-  const categories = ["all", ...Array.from(new Set(WORD_HISTORY.map(w => w.category)))];
-  const filteredWords = WORD_HISTORY
+  const categories = ["all", ...Array.from(new Set(wordHistory.map(w => w.category)))];
+  const filteredWords = wordHistory
     .filter(w => wordFilter === "all" || w.category === wordFilter)
     .sort((a, b) => {
       if (wordSort === "date") return b.learnedAt.localeCompare(a.learnedAt);
@@ -331,7 +341,7 @@ export default function StudyHistoryDetailPage() {
         {/* List view */}
         {viewMode === "list" && (
           <div className="space-y-3">
-            {[...HISTORY].reverse().map(day => (
+            {[...history].reverse().map(day => (
               <div key={day.date} className="bg-white rounded-2xl border border-gray-100 p-5">
                 <div className="flex items-start justify-between mb-3">
                   <div>

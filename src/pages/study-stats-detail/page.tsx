@@ -1,37 +1,105 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/lib/supabase";
 
 const DAYS = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
 const MONTHS = ["T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11","T12"];
 
-function generateWeeklyData() {
-  return Array.from({ length: 7 }, (_, i) => ({
-    day: DAYS[i],
-    minutes: Math.floor(Math.random() * 60) + 5,
-    words: Math.floor(Math.random() * 30) + 2,
-  }));
-}
-
-function generateMonthlyData() {
-  return Array.from({ length: 12 }, (_, i) => ({
-    month: MONTHS[i],
-    minutes: Math.floor(Math.random() * 300) + 30,
-    words: Math.floor(Math.random() * 200) + 20,
-    lessons: Math.floor(Math.random() * 10) + 1,
-  }));
-}
+interface WeeklyRow { day: string; minutes: number; words: number }
+interface MonthlyRow { month: string; minutes: number; words: number; lessons: number }
 
 export default function StudyStatsDetailPage() {
+  const { user } = useAuth();
   const [view, setView] = useState<"week" | "month">("week");
   const [completedLessons] = useLocalStorage<Record<number, { score: number; completedAt: string }>>("kts_eps_lessons_progress", {});
+  const [weeklyData, setWeeklyData] = useState<WeeklyRow[]>(
+    Array.from({ length: 7 }, (_, i) => ({ day: DAYS[i], minutes: 0, words: 0 }))
+  );
+  const [monthlyData, setMonthlyData] = useState<MonthlyRow[]>(
+    Array.from({ length: 12 }, (_, i) => ({ month: MONTHS[i], minutes: 0, words: 0, lessons: 0 }))
+  );
 
-  const weeklyData = useMemo(() => generateWeeklyData(), []);
-  const monthlyData = useMemo(() => generateMonthlyData(), []);
+  // Load data thật từ bảng study_history
+  useEffect(() => {
+    if (!user?.id) return;
+    let cancelled = false;
+
+    (async () => {
+      // 7 ngày gần nhất cho weekly
+      const weekAgo = new Date();
+      weekAgo.setDate(weekAgo.getDate() - 6);
+      const weekAgoStr = weekAgo.toISOString().split("T")[0];
+
+      const { data: weekRows } = await supabase
+        .from("study_history")
+        .select("study_date, study_time, vocab_count, grammar_count")
+        .eq("user_id", user.id)
+        .gte("study_date", weekAgoStr);
+
+      if (cancelled) return;
+
+      // Gom theo thứ trong tuần (0=CN, 1=T2, ...)
+      const weeklyMap: Record<number, WeeklyRow> = {};
+      for (let i = 0; i < 7; i++) {
+        const d = new Date();
+        d.setDate(d.getDate() - (6 - i));
+        const dayIdx = d.getDay();
+        weeklyMap[i] = { day: DAYS[dayIdx], minutes: 0, words: 0 };
+      }
+      for (const row of weekRows || []) {
+        const rowDate = new Date(row.study_date);
+        const diffDays = Math.floor((Date.now() - rowDate.getTime()) / (1000 * 60 * 60 * 24));
+        const idx = 6 - diffDays;
+        if (idx >= 0 && idx < 7) {
+          weeklyMap[idx].minutes += Math.round((row.study_time || 0) / 60);
+          weeklyMap[idx].words += row.vocab_count || 0;
+        }
+      }
+      setWeeklyData(Object.values(weeklyMap));
+
+      // 12 tháng gần nhất cho monthly
+      const yearAgo = new Date();
+      yearAgo.setMonth(yearAgo.getMonth() - 11);
+      yearAgo.setDate(1);
+      const yearAgoStr = yearAgo.toISOString().split("T")[0];
+
+      const { data: monthRows } = await supabase
+        .from("study_history")
+        .select("study_date, study_time, vocab_count, grammar_count")
+        .eq("user_id", user.id)
+        .gte("study_date", yearAgoStr);
+
+      if (cancelled) return;
+
+      const monthlyAgg: Record<number, MonthlyRow> = {};
+      for (let i = 0; i < 12; i++) {
+        const d = new Date();
+        d.setMonth(d.getMonth() - (11 - i));
+        monthlyAgg[i] = { month: MONTHS[d.getMonth()], minutes: 0, words: 0, lessons: 0 };
+      }
+      for (const row of monthRows || []) {
+        const rowDate = new Date(row.study_date);
+        const monthDiff =
+          (new Date().getFullYear() - rowDate.getFullYear()) * 12 +
+          (new Date().getMonth() - rowDate.getMonth());
+        const idx = 11 - monthDiff;
+        if (idx >= 0 && idx < 12) {
+          monthlyAgg[idx].minutes += Math.round((row.study_time || 0) / 60);
+          monthlyAgg[idx].words += row.vocab_count || 0;
+          monthlyAgg[idx].lessons += row.grammar_count || 0;
+        }
+      }
+      setMonthlyData(Object.values(monthlyAgg));
+    })();
+
+    return () => { cancelled = true; };
+  }, [user?.id]);
 
   const totalLessons = Object.keys(completedLessons).length;
-  const totalWords = totalLessons * 15;
-  const totalMinutes = totalLessons * 22;
+  const totalWords = useMemo(() => monthlyData.reduce((s, d) => s + d.words, 0), [monthlyData]);
+  const totalMinutes = useMemo(() => monthlyData.reduce((s, d) => s + d.minutes, 0), [monthlyData]);
   const avgScore = totalLessons > 0
     ? Math.round(Object.values(completedLessons).reduce((s, v) => s + v.score, 0) / totalLessons * 10)
     : 0;

@@ -58,7 +58,8 @@ function generateHeatmap(srsData: SRSData): DayActivity[] {
     const d = new Date(now);
     d.setDate(now.getDate() - i);
     const key = d.toISOString().split("T")[0];
-    const count = activityMap[key] || (Math.random() < 0.4 ? Math.floor(Math.random() * 15) : 0);
+    // Chỉ dùng data thật từ SRS — không bịa fake data
+    const count = activityMap[key] || 0;
     const level = count === 0 ? 0 : count < 3 ? 1 : count < 7 ? 2 : count < 12 ? 3 : 4;
     days.push({ date: key, count, level: level as 0 | 1 | 2 | 3 | 4 });
   }

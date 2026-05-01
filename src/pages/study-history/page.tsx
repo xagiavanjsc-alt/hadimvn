@@ -45,23 +45,16 @@ function isDueForReview(nextReview: string): boolean {
   return new Date(nextReview) <= new Date();
 }
 
-// ─── Generate mock activity data ──────────────────────────────────────────────
-function generateActivityData(days: number): DayActivity[] {
+// ─── Empty activity data (placeholder khi chưa có data thật) ────────────────
+function emptyActivityData(days: number): DayActivity[] {
   const result: DayActivity[] = [];
   for (let i = days - 1; i >= 0; i--) {
     const d = new Date();
     d.setDate(d.getDate() - i);
-    const dateStr = d.toISOString().split("T")[0];
-    const dayOfWeek = d.getDay();
-    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-    const hasActivity = Math.random() > (isWeekend ? 0.4 : 0.2);
     result.push({
-      date: dateStr,
+      date: d.toISOString().split("T")[0],
       label: d.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit" }),
-      sessions: hasActivity ? Math.floor(Math.random() * 4) + 1 : 0,
-      words: hasActivity ? Math.floor(Math.random() * 30) + 5 : 0,
-      xp: hasActivity ? Math.floor(Math.random() * 150) + 20 : 0,
-      quizzes: hasActivity ? Math.floor(Math.random() * 3) : 0,
+      sessions: 0, words: 0, xp: 0, quizzes: 0,
     });
   }
   return result;
@@ -129,22 +122,35 @@ interface HourlyCell {
 }
 
 function generateHourlyData(activityData: DayActivity[]): HourlyCell[] {
-  // Build a 7x24 grid with seeded mock data based on activity
+  // Grid 7×24. Schema không lưu hour-level data → phân bổ đều XP ngày theo peak hours hợp lý.
+  // Không dùng Math.random — phân bổ deterministic.
   const grid: HourlyCell[] = [];
+  // Compute daily totals theo weekday
+  const byWeekday: Record<number, { xp: number; sessions: number }> = {};
+  for (const d of activityData) {
+    if (d.sessions === 0) continue;
+    const weekday = new Date(d.date).getDay();
+    if (!byWeekday[weekday]) byWeekday[weekday] = { xp: 0, sessions: 0 };
+    byWeekday[weekday].xp += d.xp;
+    byWeekday[weekday].sessions += d.sessions;
+  }
+  // Phân bổ theo peak hours (morning 7-9, evening 20-22) — chỉ dùng khi có activity
+  const HOUR_WEIGHTS: Record<number, number> = {};
+  for (let h = 0; h < 24; h++) HOUR_WEIGHTS[h] = 0.01;
+  [7, 8, 9, 20, 21, 22].forEach(h => (HOUR_WEIGHTS[h] = 0.15));
+  [6, 10, 19, 23].forEach(h => (HOUR_WEIGHTS[h] = 0.06));
+  const weightSum = Object.values(HOUR_WEIGHTS).reduce((s, v) => s + v, 0);
+
   for (let day = 0; day < 7; day++) {
+    const total = byWeekday[day] || { xp: 0, sessions: 0 };
     for (let hour = 0; hour < 24; hour++) {
-      // Peak hours: morning 6-9, evening 19-23
-      const isMorningPeak = hour >= 6 && hour <= 9;
-      const isEveningPeak = hour >= 19 && hour <= 23;
-      const isWeekend = day === 0 || day === 6;
-      const baseProb = isMorningPeak ? 0.65 : isEveningPeak ? 0.75 : 0.15;
-      const weekendBoost = isWeekend ? 0.15 : 0;
-      const hasActivity = Math.random() < baseProb + weekendBoost;
-      // Use real activity data to scale
-      const dayActivities = activityData.filter((_, i) => new Date(activityData[i]?.date || "").getDay() === day);
-      const avgXP = dayActivities.length > 0 ? dayActivities.reduce((s, d) => s + d.xp, 0) / dayActivities.length : 0;
-      const xp = hasActivity ? Math.floor((avgXP / 24) * (isMorningPeak || isEveningPeak ? 3 : 1) * (0.5 + Math.random())) : 0;
-      grid.push({ day, hour, xp, sessions: hasActivity ? Math.floor(Math.random() * 3) + 1 : 0 });
+      const share = HOUR_WEIGHTS[hour] / weightSum;
+      grid.push({
+        day,
+        hour,
+        xp: Math.round(total.xp * share),
+        sessions: Math.round(total.sessions * share),
+      });
     }
   }
   return grid;
@@ -399,7 +405,7 @@ export default function StudyHistoryPage() {
   const [supabaseActivity, setSupabaseActivity] = useState<DayActivity[] | null>(null);
   const [loadingActivity, setLoadingActivity] = useState(false);
 
-  const localActivity = useMemo(() => generateActivityData(30), []);
+  const localActivity = useMemo(() => emptyActivityData(30), []);
 
   const fetchSupabaseActivity = useCallback(async () => {
     if (!user) return;
@@ -407,46 +413,65 @@ export default function StudyHistoryPage() {
     try {
       const since = new Date();
       since.setDate(since.getDate() - 30);
-      const { data } = await supabase
-        .from("study_progress")
-        .select("*")
-        .eq("user_id", user.id)
-        .gte("updated_at", since.toISOString())
-        .order("updated_at", { ascending: true });
+      const sinceStr = since.toISOString().split("T")[0];
 
-      if (data && data.length > 0) {
-        // Group by date
-        const byDate: Record<string, DayActivity> = {};
-        data.forEach((row: { updated_at: string; xp_earned?: number; words_learned?: number }) => {
-          const date = row.updated_at.split("T")[0];
-          const d = new Date(date);
-          if (!byDate[date]) {
-            byDate[date] = {
-              date,
-              label: d.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit" }),
-              sessions: 0, words: 0, xp: 0, quizzes: 0,
-            };
-          }
-          byDate[date].sessions += 1;
-          byDate[date].xp += row.xp_earned || 0;
-          byDate[date].words += row.words_learned || 0;
-        });
-        // Fill missing days
-        const result: DayActivity[] = [];
-        for (let i = 29; i >= 0; i--) {
-          const d = new Date();
-          d.setDate(d.getDate() - i);
-          const dateStr = d.toISOString().split("T")[0];
-          result.push(byDate[dateStr] || {
-            date: dateStr,
+      // Query bảng study_history (schema thật: study_date, study_time, vocab_count, grammar_count)
+      const { data: historyData } = await supabase
+        .from("study_history")
+        .select("study_date, study_time, vocab_count, grammar_count")
+        .eq("user_id", user.id)
+        .gte("study_date", sinceStr)
+        .order("study_date", { ascending: true });
+
+      // Đếm số quiz thật từ topik_quiz_history
+      const { data: quizData } = await supabase
+        .from("topik_quiz_history")
+        .select("created_at")
+        .eq("user_id", user.id)
+        .gte("created_at", since.toISOString());
+
+      // Gộp quiz theo ngày
+      const quizByDate: Record<string, number> = {};
+      (quizData || []).forEach((row: { created_at: string }) => {
+        const date = row.created_at.split("T")[0];
+        quizByDate[date] = (quizByDate[date] || 0) + 1;
+      });
+
+      // Gộp activity theo ngày (mỗi row là 1 session)
+      const byDate: Record<string, DayActivity> = {};
+      (historyData || []).forEach((row: { study_date: string; study_time?: number; vocab_count?: number; grammar_count?: number }) => {
+        const date = row.study_date;
+        const d = new Date(date);
+        if (!byDate[date]) {
+          byDate[date] = {
+            date,
             label: d.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit" }),
             sessions: 0, words: 0, xp: 0, quizzes: 0,
-          });
+          };
         }
-        setSupabaseActivity(result);
+        byDate[date].sessions += 1;
+        byDate[date].words += row.vocab_count || 0;
+        // XP approx = vocab * 5 + grammar * 10 (vì schema không lưu xp per day)
+        byDate[date].xp += (row.vocab_count || 0) * 5 + (row.grammar_count || 0) * 10;
+      });
+
+      // Fill đủ 30 ngày với data thật
+      const result: DayActivity[] = [];
+      for (let i = 29; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const dateStr = d.toISOString().split("T")[0];
+        const entry = byDate[dateStr] || {
+          date: dateStr,
+          label: d.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit" }),
+          sessions: 0, words: 0, xp: 0, quizzes: 0,
+        };
+        entry.quizzes = quizByDate[dateStr] || 0;
+        result.push(entry);
       }
+      setSupabaseActivity(result);
     } catch {
-      // fallback to local
+      // fallback to empty
     }
     setLoadingActivity(false);
   }, [user]);
