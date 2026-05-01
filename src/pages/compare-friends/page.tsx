@@ -3,7 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { epsQuestions } from "@/mocks/epsQuestions";
-import { RANKS } from "@/pages/community-ranks/page";
+import { RANKS } from "@/data/ranks";
 
 function getRankForXP(xp: number) {
   return [...RANKS].reverse().find(r => xp >= r.minXP) || RANKS[0];

@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
-import { RANKS } from "@/pages/community-ranks/page";
+import { RANKS } from "@/data/ranks";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface PublicProfile {

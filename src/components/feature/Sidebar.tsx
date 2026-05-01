@@ -5,7 +5,7 @@ import { useStudySync } from "@/hooks/useStudySync";
 import { useIsAdmin, markAdminVerified } from "@/hooks/useIsAdmin";
 import { useEffect, useState, useMemo, memo } from "react";
 import AuthModal from "./AuthModal";
-import { RANKS } from "@/pages/community-ranks/page";
+import { RANKS } from "@/data/ranks";
 
 function getRankForXP(xp: number) {
   return [...RANKS].reverse().find(r => xp >= r.minXP) || RANKS[0];

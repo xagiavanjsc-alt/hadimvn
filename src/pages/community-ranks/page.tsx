@@ -2,99 +2,10 @@ import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
+import { RANKS, BADGES } from "@/data/ranks";
 
-// ─── Rank System ─────────────────────────────────────────────────────────────
-export const RANKS = [
-  {
-    id: "newbie",
-    name: "Tân binh",
-    nameKo: "신병",
-    icon: "ri-seedling-line",
-    color: "#94a3b8",
-    bgColor: "#94a3b815",
-    borderColor: "#94a3b830",
-    minXP: 0,
-    maxXP: 99,
-    description: "Mới bắt đầu hành trình học tiếng Hàn",
-    perks: ["Tham gia cộng đồng", "Đăng bài và bình luận"],
-  },
-  {
-    id: "learner",
-    name: "Học viên",
-    nameKo: "학습자",
-    icon: "ri-book-open-line",
-    color: "#34d399",
-    bgColor: "#34d39915",
-    borderColor: "#34d39930",
-    minXP: 100,
-    maxXP: 499,
-    description: "Đang xây dựng nền tảng tiếng Hàn vững chắc",
-    perks: ["Huy hiệu Học viên", "Ưu tiên hiển thị bài đăng", "Tham gia sự kiện cộng đồng"],
-  },
-  {
-    id: "warrior",
-    name: "Chiến binh",
-    nameKo: "전사",
-    icon: "ri-sword-line",
-    color: "#60a5fa",
-    bgColor: "#60a5fa15",
-    borderColor: "#60a5fa30",
-    minXP: 500,
-    maxXP: 1499,
-    description: "Kiên trì luyện tập mỗi ngày, không bỏ cuộc",
-    perks: ["Huy hiệu Chiến binh", "Khung avatar đặc biệt", "Quyền tạo nhóm học tập"],
-  },
-  {
-    id: "master",
-    name: "Cao thủ",
-    nameKo: "고수",
-    icon: "ri-vip-crown-line",
-    color: "#f59e0b",
-    bgColor: "#f59e0b15",
-    borderColor: "#f59e0b30",
-    minXP: 1500,
-    maxXP: 4999,
-    description: "Thành thạo tiếng Hàn, truyền cảm hứng cho cộng đồng",
-    perks: ["Huy hiệu Cao thủ", "Nhãn xác minh", "Quyền ghim bài đăng", "Tư vấn thành viên mới"],
-  },
-  {
-    id: "legend",
-    name: "Huyền thoại",
-    nameKo: "전설",
-    icon: "ri-fire-fill",
-    color: "#e8c84a",
-    bgColor: "#e8c84a15",
-    borderColor: "#e8c84a40",
-    minXP: 5000,
-    maxXP: Infinity,
-    description: "Đỉnh cao của cộng đồng — biểu tượng học tiếng Hàn",
-    perks: ["Huy hiệu Huyền thoại", "Tên hiển thị màu vàng", "Quyền moderator", "Phần thưởng độc quyền hàng tháng"],
-  },
-];
-
-// ─── Badge System ─────────────────────────────────────────────────────────────
-export const BADGES = [
-  // Streak badges
-  { id: "streak7", name: "Streak 7 ngày", nameKo: "7일 연속", icon: "ri-fire-line", color: "#fb923c", category: "streak", condition: "Duy trì streak 7 ngày liên tiếp", xpReward: 50 },
-  { id: "streak30", name: "Streak 30 ngày", nameKo: "30일 연속", icon: "ri-fire-fill", color: "#ef4444", category: "streak", condition: "Duy trì streak 30 ngày liên tiếp", xpReward: 200 },
-  { id: "streak100", name: "Streak 100 ngày", nameKo: "100일 연속", icon: "ri-meteor-line", color: "#e8c84a", category: "streak", condition: "Duy trì streak 100 ngày liên tiếp", xpReward: 500 },
-  // Achievement badges
-  { id: "eps_pass", name: "Đậu EPS", nameKo: "EPS 합격", icon: "ri-trophy-fill", color: "#FFD700", category: "achievement", condition: "Đạt điểm đậu trong bài thi thử EPS", xpReward: 300 },
-  { id: "topik1_pass", name: "Đậu TOPIK I", nameKo: "TOPIK I 합격", icon: "ri-medal-line", color: "#34d399", category: "achievement", condition: "Đạt điểm đậu trong bài thi thử TOPIK I", xpReward: 200 },
-  { id: "topik2_pass", name: "Đậu TOPIK II", nameKo: "TOPIK II 합격", icon: "ri-medal-fill", color: "#60a5fa", category: "achievement", condition: "Đạt điểm đậu trong bài thi thử TOPIK II", xpReward: 400 },
-  // Community badges
-  { id: "first_post", name: "Bài đăng đầu tiên", nameKo: "첫 게시물", icon: "ri-quill-pen-line", color: "#a78bfa", category: "community", condition: "Đăng bài đầu tiên trong cộng đồng", xpReward: 20 },
-  { id: "helpful", name: "Người hữu ích", nameKo: "도움이 되는 사람", icon: "ri-heart-fill", color: "#f43f5e", category: "community", condition: "Nhận 50 lượt thích trong cộng đồng", xpReward: 100 },
-  { id: "top10", name: "Top 10 BXH", nameKo: "상위 10위", icon: "ri-bar-chart-fill", color: "#e8c84a", category: "community", condition: "Lọt vào top 10 bảng xếp hạng", xpReward: 150 },
-  // Learning badges
-  { id: "vocab200", name: "200 từ vựng", nameKo: "단어 200개", icon: "ri-translate-2", color: "#22d3ee", category: "learning", condition: "Học 200 từ vựng EPS", xpReward: 100 },
-  { id: "hangul_master", name: "Thành thạo Hangul", nameKo: "한글 마스터", icon: "ri-font-size", color: "#84cc16", category: "learning", condition: "Hoàn thành tất cả bài học Hangul", xpReward: 80 },
-  { id: "perfect_score", name: "Điểm tuyệt đối", nameKo: "만점", icon: "ri-star-fill", color: "#f59e0b", category: "learning", condition: "Đạt 100% trong một bài thi thử", xpReward: 200 },
-  // Special badges
-  { id: "early_bird", name: "Chim sớm", nameKo: "얼리버드", icon: "ri-sun-line", color: "#fbbf24", category: "special", condition: "Học trước 7 giờ sáng 10 ngày", xpReward: 60 },
-  { id: "night_owl", name: "Cú đêm", nameKo: "올빼미", icon: "ri-moon-line", color: "#818cf8", category: "special", condition: "Học sau 11 giờ đêm 10 ngày", xpReward: 60 },
-  { id: "veteran", name: "Lão làng", nameKo: "베테랑", icon: "ri-time-line", color: "#94a3b8", category: "special", condition: "Tham gia cộng đồng hơn 1 năm", xpReward: 100 },
-];
+// Re-export for backward compatibility
+export { RANKS, BADGES };
 
 const BADGE_CATEGORIES = [
   { id: "all", label: "Tất cả" },

@@ -1,6 +1,6 @@
 ﻿import { useEffect, useState } from "react";
 import { useXPSystem, XPNotification } from "@/hooks/useXPSystem";
-import { RANKS, BADGES } from "@/pages/community-ranks/page";
+import { RANKS, BADGES } from "@/data/ranks";
 
 function getRankById(id: string) {
   return RANKS.find((r) => r.id === id) || RANKS[0];

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { RANKS, BADGES } from "@/pages/community-ranks/page";
+import { RANKS, BADGES } from "@/data/ranks";
 
 export interface XPEvent {
   type:
