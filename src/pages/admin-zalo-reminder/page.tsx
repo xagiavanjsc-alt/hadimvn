@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+﻿import { useState, useMemo, useEffect, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useAdminUsers, type AdminUser } from "@/hooks/useAdminUsers";
 import { supabase } from "@/lib/supabase";
@@ -411,7 +411,7 @@ export default function AdminZaloReminderPage() {
 
             {/* Quick templates */}
             <div className="space-y-1.5 mb-4">
-              <p className="text-white/30 text-[10px] uppercase tracking-wider font-semibold mb-1">Mẫu tin nhắn</p>
+              <p className="text-white/30 text-[10px] tracking-wider font-semibold mb-1">Mẫu tin nhắn</p>
               {DEFAULT_MESSAGES.map((msg, i) => (
                 <button key={i} onClick={() => setMessage(msg)}
                   className={`w-full text-left px-3 py-2 rounded-lg text-xs leading-relaxed transition-colors cursor-pointer ${
@@ -425,7 +425,7 @@ export default function AdminZaloReminderPage() {
             </div>
 
             <div>
-              <label className="text-white/30 text-[10px] uppercase tracking-wider font-semibold block mb-1.5">Nội dung tùy chỉnh</label>
+              <label className="text-white/30 text-[10px] tracking-wider font-semibold block mb-1.5">Nội dung tùy chỉnh</label>
               <textarea value={message} onChange={e => setMessage(e.target.value.slice(0, 500))}
                 rows={5} maxLength={500}
                 placeholder="Nhập nội dung tin nhắn Zalo OA..."

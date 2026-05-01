@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect, lazy, Suspense } from "react";
+﻿import { useState, useMemo, useCallback, useEffect, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
@@ -306,7 +306,7 @@ function FlashCard({ entry, isFav, onToggleFav }: { entry: HanjaEntry; isFav: bo
         <div style={{ transition: "transform 0.5s", transformStyle: "preserve-3d", transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)", position: "relative", height: "240px" }}>
           <div style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
             className="absolute inset-0 bg-white border-2 border-gray-100 rounded-2xl flex flex-col items-center justify-center p-6">
-            <p className="text-xs text-gray-400 uppercase tracking-widest mb-3">Tiếng Hàn</p>
+            <p className="text-xs text-gray-400 tracking-wider mb-3">Tiếng Hàn</p>
             <p className="text-5xl font-bold text-gray-900 mb-2">{entry.korean}</p>
             <p className="text-2xl text-rose-400 font-bold mb-3">{entry.hanja}</p>
             <button onClick={handleSpeak}
@@ -317,7 +317,7 @@ function FlashCard({ entry, isFav, onToggleFav }: { entry: HanjaEntry; isFav: bo
           </div>
           <div style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
             className="absolute inset-0 bg-rose-50 border-2 border-rose-200 rounded-2xl flex flex-col items-center justify-center p-6">
-            <p className="text-xs text-rose-400 uppercase tracking-widest mb-3">Nghĩa tiếng Việt</p>
+            <p className="text-xs text-rose-400 tracking-wider mb-3">Nghĩa tiếng Việt</p>
             <p className="text-3xl font-bold text-rose-700 text-center mb-2">{entry.vietnamese}</p>
             <p className="text-lg text-rose-400 mb-3">{entry.hanja}</p>
             <button onClick={handleSpeak}
@@ -1291,7 +1291,7 @@ function QuizTab({ favs }: { favs: Set<string> }) {
       </div>
 
       <div className="bg-white border border-gray-100 rounded-2xl p-8 text-center mb-4">
-        <p className="text-xs text-gray-400 mb-2 uppercase tracking-wide">
+        <p className="text-xs text-gray-400 mb-2 tracking-wide">
           {mode === "ko2vi" ? "Từ tiếng Hàn này có nghĩa là gì?" : mode === "vi2ko" ? "Từ tiếng Việt này là từ Hàn nào?" : mode === "listen" ? "Nghe và chọn từ Hàn đúng" : "Hán tự này đọc là gì?"}
         </p>
         {mode === "listen" ? (

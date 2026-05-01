@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -319,7 +319,7 @@ export default function PhraseDictionaryPage() {
           {(["all", "cơ bản", "trung cấp", "nâng cao"] as const).map(l => (
             <button key={l} onClick={() => setLevel(l)}
               className={`px-3 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${level === l ? "bg-white/10 text-white" : "text-white/40 hover:text-white/60"}`}>
-              {l === "all" ? "Tất cả" : l.charAt(0).toUpperCase() + l.slice(1)}
+              {l === "all" ? "Tất cả" : l.charAt(0).to() + l.slice(1)}
             </button>
           ))}
         </div>

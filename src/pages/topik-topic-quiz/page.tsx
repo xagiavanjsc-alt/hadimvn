@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { vocabularyData, VOCAB_CATEGORIES, type VocabItem } from "@/mocks/vocabularyData";
 import ShareResultModal from "@/components/feature/ShareResultModal";
@@ -152,7 +152,7 @@ export default function TopikTopicQuizPage() {
 
           {/* Category */}
           <div className="mb-6">
-            <p className="text-white/60 text-xs uppercase tracking-widest mb-3">Chủ đề từ vựng</p>
+            <p className="text-white/60 text-xs tracking-wider mb-3">Chủ đề từ vựng</p>
             <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2">
               <button
                 onClick={() => setSelectedCategory("all")}
@@ -187,7 +187,7 @@ export default function TopikTopicQuizPage() {
 
           {/* Level */}
           <div className="mb-6">
-            <p className="text-white/60 text-xs uppercase tracking-widest mb-3">Cấp độ TOPIK</p>
+            <p className="text-white/60 text-xs tracking-wider mb-3">Cấp độ TOPIK</p>
             <div className="flex flex-wrap gap-2">
               {LEVELS.map((lv) => (
                 <button
@@ -212,7 +212,7 @@ export default function TopikTopicQuizPage() {
 
           {/* Question count */}
           <div className="mb-8">
-            <p className="text-white/60 text-xs uppercase tracking-widest mb-3">Số câu hỏi</p>
+            <p className="text-white/60 text-xs tracking-wider mb-3">Số câu hỏi</p>
             <div className="flex gap-2">
               {QUESTION_COUNTS.map((n) => (
                 <button
@@ -300,7 +300,7 @@ export default function TopikTopicQuizPage() {
 
           {/* Question */}
           <div className="bg-white/3 border border-white/8 rounded-2xl p-6 mb-6 text-center">
-            <p className="text-white/40 text-xs mb-3 uppercase tracking-widest">
+            <p className="text-white/40 text-xs mb-3 tracking-wider">
               {q.questionType === "ko2vi" ? "Từ tiếng Hàn → Nghĩa tiếng Việt" : "Nghĩa tiếng Việt → Từ tiếng Hàn"}
             </p>
             <p className="text-3xl font-bold text-white mb-2">
@@ -358,7 +358,7 @@ export default function TopikTopicQuizPage() {
           {/* Explanation */}
           {showExplanation && (
             <div className="bg-white/3 border border-white/8 rounded-xl p-4 mb-4">
-              <p className="text-white/50 text-xs mb-2 uppercase tracking-widest">Ví dụ câu</p>
+              <p className="text-white/50 text-xs mb-2 tracking-wider">Ví dụ câu</p>
               <p className="text-white/80 text-sm mb-1">{q.word.example}</p>
               <p className="text-white/40 text-xs italic">{q.word.exampleVi}</p>
             </div>

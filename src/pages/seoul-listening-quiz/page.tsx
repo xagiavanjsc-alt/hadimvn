@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+﻿import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { seoulBooks, SeoulVocabItem } from "@/mocks/seoulTextbook";
@@ -272,7 +272,7 @@ export default function SeoulListeningQuizPage() {
 
             {/* Audio Card */}
             <div className="bg-white/3 border border-white/8 rounded-2xl p-8 text-center">
-              <p className="text-white/30 text-xs mb-4 uppercase tracking-widest">Nghe và chọn nghĩa đúng</p>
+              <p className="text-white/30 text-xs mb-4 tracking-wider">Nghe và chọn nghĩa đúng</p>
 
               {/* Big play button */}
               <button

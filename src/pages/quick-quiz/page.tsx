@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+﻿import { useState, useEffect, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -352,7 +352,7 @@ export default function QuickQuizPage() {
       <div className="max-w-2xl mx-auto">
         {/* Mode selection */}
         <div className="mb-6">
-          <h3 className="text-white/50 text-xs uppercase tracking-widest mb-3">Chọn chủ đề</h3>
+          <h3 className="text-white/50 text-xs tracking-wider mb-3">Chọn chủ đề</h3>
           <div className="grid grid-cols-3 gap-3">
             {QUIZ_MODES.map(mode => (
               <button

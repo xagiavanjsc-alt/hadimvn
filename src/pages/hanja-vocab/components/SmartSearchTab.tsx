@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect } from "react";
+﻿import { useState, useMemo, useRef, useEffect } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 
 const SR_KEY = "hanja_sr_data";
@@ -248,7 +248,7 @@ export default function SmartSearchTab() {
       {/* Popular searches */}
       {!submitted && (
         <div className="mb-8">
-          <p className="text-xs font-semibold text-gray-500 mb-3 uppercase tracking-wide">Tìm kiếm phổ biến</p>
+          <p className="text-xs font-semibold text-gray-500 mb-3 tracking-wide">Tìm kiếm phổ biến</p>
           <div className="flex flex-wrap gap-2">
             {POPULAR_SEARCHES.map(s => (
               <button key={s} onClick={() => handleSearch(s)}

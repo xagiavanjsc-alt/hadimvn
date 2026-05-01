@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+﻿import { useState, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { EbookSeries } from "@/pages/series/page";
@@ -116,7 +116,7 @@ export default function AdminSeriesPage() {
         </div>
       ) : (
         <div className="bg-[#0f1117] border border-white/5 rounded-2xl overflow-hidden">
-          <div className="grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-0 text-[10px] text-white/25 uppercase tracking-wider font-bold px-5 py-3 border-b border-white/5">
+          <div className="grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-0 text-[10px] text-white/25 tracking-wider font-bold px-5 py-3 border-b border-white/5">
             <span className="w-8">Bìa</span>
             <span className="pl-3">Tên series</span>
             <span className="w-20 text-center">Bài học</span>

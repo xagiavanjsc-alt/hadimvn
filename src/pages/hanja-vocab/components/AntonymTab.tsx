@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+﻿import { useState, useMemo, useCallback } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 
 const SR_KEY = "hanja_sr_data";
@@ -183,7 +183,7 @@ function AntonymQuiz({ pairs, onClose }: { pairs: AntonymPair[]; onClose: () => 
         <div className="bg-rose-400 h-1.5 rounded-full transition-all" style={{ width: `${(idx / questions.length) * 100}%` }}></div>
       </div>
       <div className="bg-rose-50 border border-rose-200 rounded-2xl p-6 text-center mb-5">
-        <p className="text-xs text-rose-400 uppercase tracking-widest mb-2">Từ đối nghĩa của từ này là gì?</p>
+        <p className="text-xs text-rose-400 tracking-wider mb-2">Từ đối nghĩa của từ này là gì?</p>
         <p className="text-4xl font-bold text-gray-900 mb-1">{current.pair.a}</p>
         {entryA && <p className="text-lg text-rose-400 font-bold mb-1">{entryA.hanja}</p>}
         {entryA && <p className="text-sm text-gray-500">{entryA.vietnamese}</p>}

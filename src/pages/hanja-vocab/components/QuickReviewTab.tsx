@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef } from "react";
+﻿import { useState, useMemo, useCallback, useRef } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 
 const ALPHABET_GROUPS = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
@@ -125,7 +125,7 @@ function SwipeCard({
             borderColor: dragX > 40 ? "#22c55e" : dragX < -40 ? "#ef4444" : "#f3f4f6",
           }}
         >
-          <p className="text-xs text-gray-400 uppercase tracking-widest mb-3">Tiếng Hàn</p>
+          <p className="text-xs text-gray-400 tracking-wider mb-3">Tiếng Hàn</p>
           <p className="text-5xl font-bold text-gray-900 mb-2">{entry.korean}</p>
           <p className="text-2xl text-rose-400 font-bold mb-4">{entry.hanja}</p>
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -216,7 +216,7 @@ export default function SchedulerPage() {
 
             {/* Day of week */}
             <div className="mb-5">
-              <p className="text-white/40 text-xs uppercase tracking-wider mb-3">Ngày trong tuần</p>
+              <p className="text-white/40 text-xs tracking-wider mb-3">Ngày trong tuần</p>
               <div className="grid grid-cols-7 gap-1.5">
                 {DAY_SHORT.map((day, i) => (
                   <button
@@ -236,7 +236,7 @@ export default function SchedulerPage() {
 
             {/* Time */}
             <div className="mb-5">
-              <p className="text-white/40 text-xs uppercase tracking-wider mb-3">Giờ quét</p>
+              <p className="text-white/40 text-xs tracking-wider mb-3">Giờ quét</p>
               <div className="flex items-center gap-3">
                 <div className="flex-1">
                   <label className="text-white/30 text-[10px] mb-1.5 block">Giờ</label>
@@ -277,7 +277,7 @@ export default function SchedulerPage() {
 
             {/* Notifications */}
             <div className="mb-5">
-              <p className="text-white/40 text-xs uppercase tracking-wider mb-3">Thông báo khi có bài mới</p>
+              <p className="text-white/40 text-xs tracking-wider mb-3">Thông báo khi có bài mới</p>
               <div className="space-y-2">
                 <div className="flex items-center justify-between bg-white/3 border border-white/8 rounded-xl px-4 py-3">
                   <div className="flex items-center gap-3">
@@ -343,7 +343,7 @@ export default function SchedulerPage() {
           <div className="bg-[#0f1117] border border-white/5 rounded-xl p-5">
             <div className="flex items-center gap-2 mb-4">
               <i className="ri-information-line text-white/30 text-sm"></i>
-              <p className="text-white/40 text-xs uppercase tracking-wider">Cách hoạt động</p>
+              <p className="text-white/40 text-xs tracking-wider">Cách hoạt động</p>
             </div>
             <div className="space-y-3">
               {[
@@ -369,7 +369,7 @@ export default function SchedulerPage() {
         <div className="space-y-4">
           {/* Stats */}
           <div className="bg-[#0f1117] border border-white/5 rounded-xl p-4">
-            <p className="text-white/30 text-[10px] uppercase tracking-wider mb-4">Thống kê</p>
+            <p className="text-white/30 text-[10px] tracking-wider mb-4">Thống kê</p>
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-white/50 text-xs">Tổng lần quét</span>
@@ -394,7 +394,7 @@ export default function SchedulerPage() {
 
           {/* Scan logs */}
           <div className="bg-[#0f1117] border border-white/5 rounded-xl p-4">
-            <p className="text-white/30 text-[10px] uppercase tracking-wider mb-3">Lịch sử quét</p>
+            <p className="text-white/30 text-[10px] tracking-wider mb-3">Lịch sử quét</p>
             <div className="space-y-2">
               {logs.length === 0 ? (
                 <p className="text-white/20 text-xs text-center py-4">Chưa có lịch sử</p>

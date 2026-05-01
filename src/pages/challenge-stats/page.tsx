@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
@@ -316,7 +316,7 @@ export default function ChallengeStatsPage() {
       {/* Topics tab */}
       {activeTab === "topics" && (
         <div className="bg-[#0f1117] border border-white/5 rounded-2xl overflow-hidden">
-          <div className="px-5 py-3 border-b border-white/5 flex items-center gap-4 text-[10px] text-white/25 font-semibold uppercase tracking-wider">
+          <div className="px-5 py-3 border-b border-white/5 flex items-center gap-4 text-[10px] text-white/25 font-semibold tracking-wider">
             <span className="flex-1">Chủ đề</span>
             <span className="w-16 text-center">Trận</span>
             <span className="w-16 text-center">Thắng</span>

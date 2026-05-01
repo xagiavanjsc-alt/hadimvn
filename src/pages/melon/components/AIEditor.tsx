@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import { MelonSong } from "@/mocks/melonSongs";
 
 interface VocabItem {
@@ -171,7 +171,7 @@ export default function AIEditor({
             <div className="w-5 h-5 flex items-center justify-center">
               <i className="ri-music-line text-white/40 text-sm"></i>
             </div>
-            <span className="text-white/50 text-xs font-medium uppercase tracking-wider">Lời gốc (Tiếng Hàn)</span>
+            <span className="text-white/50 text-xs font-medium tracking-wider">Lời gốc (Tiếng Hàn)</span>
           </div>
           <div className="flex-1 bg-white/3 rounded-xl p-5 overflow-auto">
             <pre className="text-white/70 text-sm leading-8 font-sans whitespace-pre-wrap">{song.lyrics}</pre>
@@ -184,7 +184,7 @@ export default function AIEditor({
             <div className="w-5 h-5 flex items-center justify-center">
               <i className="ri-sparkling-line text-[#e8c84a] text-sm"></i>
             </div>
-            <span className="text-white/50 text-xs font-medium uppercase tracking-wider">Nội dung chế biến</span>
+            <span className="text-white/50 text-xs font-medium tracking-wider">Nội dung chế biến</span>
           </div>
 
           {/* Tabs */}

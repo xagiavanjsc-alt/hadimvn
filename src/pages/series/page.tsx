@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+﻿import { useState, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
@@ -553,7 +553,7 @@ function SeriesCard({
         />
         <div className="flex items-start justify-between">
           <div
-            className="text-[9px] font-bold uppercase tracking-widest px-2 py-1 rounded-full"
+            className="text-[9px] font-bold tracking-wider px-2 py-1 rounded-full"
             style={{ backgroundColor: `${series.coverAccent}20`, color: series.coverAccent }}
           >
             {seriesLessons.length} bài

@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MobileNav from "../../components/feature/MobileNav";
 
@@ -99,7 +99,7 @@ const NotificationSettingsPage = () => {
       <div className="pt-16 px-4 mt-4 space-y-4">
         {sections.map((section) => (
           <div key={section.title} className="bg-white rounded-2xl shadow-sm px-4">
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide pt-4 pb-2">
+            <p className="text-xs font-semibold text-gray-400 tracking-wide pt-4 pb-2">
               {section.title}
             </p>
             <div className="divide-y divide-gray-50">

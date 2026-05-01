@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+﻿import { useState, useEffect, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface DictEntry {
@@ -191,7 +191,7 @@ export default function AdvancedDictionaryPage() {
             {/* Recent searches */}
             {recentSearches.length > 0 && (
               <div className="rounded-2xl border p-4" style={{ backgroundColor: "#0f1117", borderColor: "rgba(255,255,255,0.07)" }}>
-                <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>Tìm kiếm gần đây</p>
+                <p className="text-[10px] font-semibold tracking-wider mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>Tìm kiếm gần đây</p>
                 <div className="flex flex-wrap gap-2">
                   {recentSearches.map(r => (
                     <button
@@ -209,7 +209,7 @@ export default function AdvancedDictionaryPage() {
 
             {/* Quick browse */}
             <div className="rounded-2xl border p-4" style={{ backgroundColor: "#0f1117", borderColor: "rgba(255,255,255,0.07)" }}>
-              <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>Từ phổ biến</p>
+              <p className="text-[10px] font-semibold tracking-wider mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>Từ phổ biến</p>
               <div className="space-y-0.5">
                 {DICT_DATA.map(d => {
                   const lc = LEVEL_COLORS[d.level] || { bg: "rgba(255,255,255,0.08)", text: "rgba(255,255,255,0.4)" };

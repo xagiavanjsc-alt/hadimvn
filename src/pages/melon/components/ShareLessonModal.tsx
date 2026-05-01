@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import { MelonSong } from "@/mocks/melonSongs";
 import { MelonLessonResult } from "@/services/aiService";
 
@@ -252,7 +252,7 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
 
           {/* Theme selector */}
           <div className="mb-5">
-            <p className="text-white/40 text-xs uppercase tracking-wider mb-2">Chủ đề màu sắc</p>
+            <p className="text-white/40 text-xs tracking-wider mb-2">Chủ đề màu sắc</p>
             <div className="flex gap-2">
               {THEMES.map((t) => (
                 <button

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
@@ -398,14 +398,14 @@ export default function EpsGrammarPage() {
                         <div className="border-t border-white/6 px-4 pb-4 pt-3 space-y-3">
                           {/* Full explanation */}
                           <div className="bg-amber-500/5 border border-amber-500/10 rounded-lg p-3">
-                            <p className="text-amber-400/70 text-xs font-semibold mb-1 uppercase tracking-wide">Giải thích</p>
+                            <p className="text-amber-400/70 text-xs font-semibold mb-1 tracking-wide">Giải thích</p>
                             <p className="text-white/70 text-sm leading-relaxed">{g.explanation}</p>
                           </div>
 
                           {/* Notes */}
                           {g.notes && (
                             <div className="bg-white/3 rounded-lg p-3">
-                              <p className="text-white/30 text-xs font-semibold mb-1 uppercase tracking-wide">Ghi chú</p>
+                              <p className="text-white/30 text-xs font-semibold mb-1 tracking-wide">Ghi chú</p>
                               <p className="text-white/55 text-sm leading-relaxed">{g.notes}</p>
                             </div>
                           )}
@@ -413,7 +413,7 @@ export default function EpsGrammarPage() {
                           {/* Examples */}
                           {g.examples.length > 0 && (
                             <div>
-                              <p className="text-white/30 text-xs font-semibold mb-2 uppercase tracking-wide">Ví dụ</p>
+                              <p className="text-white/30 text-xs font-semibold mb-2 tracking-wide">Ví dụ</p>
                               <div className="space-y-2">
                                 {g.examples.map(ex => (
                                   <div key={ex.id} className="bg-white/3 rounded-lg p-3">
@@ -479,7 +479,7 @@ export default function EpsGrammarPage() {
 
                 {/* Question */}
                 <div className="bg-white/4 border border-white/10 rounded-xl p-5 mb-5">
-                  <p className="text-white/40 text-xs mb-2 uppercase tracking-wide">Cấu trúc ngữ pháp là gì?</p>
+                  <p className="text-white/40 text-xs mb-2 tracking-wide">Cấu trúc ngữ pháp là gì?</p>
                   <p className="text-white font-bold text-lg leading-snug">{quizQuestions[quizIndex].grammar.pattern}</p>
                   {quizQuestions[quizIndex].grammar.examples.length > 0 && (
                     <div className="mt-3 pt-3 border-t border-white/6">

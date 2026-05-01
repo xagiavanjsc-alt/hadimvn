@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+﻿import { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -67,7 +67,7 @@ export default function StreakWidget() {
             <i className="ri-fire-fill text-2xl" style={{ color: streakColor }} />
           </div>
           <div>
-            <p className="text-white/40 text-xs font-medium uppercase tracking-wider">
+            <p className="text-white/40 text-xs font-medium tracking-wider">
               Streak học tập
             </p>
             <div className="flex items-baseline gap-1.5">

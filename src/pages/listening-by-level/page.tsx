@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+﻿import { useState, useRef, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface TranscriptLine {
@@ -262,7 +262,7 @@ export default function ListeningByLevelPage() {
           <div className="lg:col-span-1 space-y-4">
             {/* Level filter */}
             <div className="bg-white rounded-2xl p-4 border border-gray-100">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Cấp độ</p>
+              <p className="text-xs font-semibold text-gray-400 tracking-wider mb-3">Cấp độ</p>
               <div className="grid grid-cols-4 gap-1.5">
                 <button
                   onClick={() => setSelectedLevel("all")}
@@ -319,7 +319,7 @@ export default function ListeningByLevelPage() {
 
             {/* Stats */}
             <div className="bg-white rounded-2xl p-4 border border-gray-100">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Tiến độ</p>
+              <p className="text-xs font-semibold text-gray-400 tracking-wider mb-3">Tiến độ</p>
               <div className="grid grid-cols-2 gap-3">
                 <div className="bg-gray-50 rounded-xl p-3 text-center">
                   <p className="text-xl font-bold text-gray-800">{completedTracks.size}/{TRACKS.length}</p>

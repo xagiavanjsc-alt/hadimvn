@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { seoulBooks } from "@/mocks/seoulTextbook";
@@ -237,7 +237,7 @@ export default function SeoulVocabExportPage() {
                   className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${format === f ? "border-[#e8c84a]/40 bg-[#e8c84a]/8" : "border-white/8 bg-white/2 hover:border-white/15"}`}>
                   <div className="flex items-center gap-2 mb-1">
                     <i className={`${f === "csv" ? "ri-table-line" : "ri-file-text-line"} text-lg ${format === f ? "text-[#e8c84a]" : "text-white/40"}`}></i>
-                    <span className={`font-bold text-sm uppercase ${format === f ? "text-[#e8c84a]" : "text-white/60"}`}>{f}</span>
+                    <span className={`font-bold text-sm ${format === f ? "text-[#e8c84a]" : "text-white/60"}`}>{f}</span>
                   </div>
                   <p className="text-white/40 text-xs">{f === "csv" ? "Mở bằng Excel, Google Sheets" : "File văn bản thuần"}</p>
                 </button>
@@ -294,7 +294,7 @@ export default function SeoulVocabExportPage() {
               ? "Đã xuất thành công!"
               : !canExport
               ? getExportBtnLabel(isLoggedIn, isVip, isVipYear, "")
-              : `Xuất ${filteredVocab.length.toLocaleString()} từ (.${format.toUpperCase()})`}
+              : `Xuất ${filteredVocab.length.toLocaleString()} từ (.${format.to()})`}
           </button>
         </div>
       </div>

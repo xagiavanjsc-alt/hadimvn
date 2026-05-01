@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { STATS, TESTIMONIALS, FAQ_ITEMS } from "@/mocks/landingData";
@@ -245,7 +245,7 @@ export default function LandingPage() {
           <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-2 bg-[#22c55e]/10 border border-[#22c55e]/20 rounded-full px-4 py-1.5 mb-4">
               <i className="ri-apps-2-line text-[#22c55e] text-xs"></i>
-              <span className="text-[#22c55e] text-xs font-semibold uppercase tracking-widest">Tính năng</span>
+              <span className="text-[#22c55e] text-xs font-semibold tracking-wider">Tính năng</span>
             </div>
             <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">Mọi thứ bạn cần để học tiếng Hàn</h2>
             <p className="text-gray-500 text-sm md:text-base max-w-lg mx-auto">Từ bảng chữ cái đến thi EPS-TOPIK — một nền tảng duy nhất. <strong className="text-gray-700">60+ tính năng</strong> thiết kế cho người Việt.</p>
@@ -267,7 +267,7 @@ export default function LandingPage() {
           <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-2 bg-[#ec4899]/10 border border-[#ec4899]/20 rounded-full px-4 py-1.5 mb-4">
               <i className="ri-eye-line text-[#ec4899] text-xs"></i>
-              <span className="text-[#ec4899] text-xs font-semibold uppercase tracking-widest">Xem thử</span>
+              <span className="text-[#ec4899] text-xs font-semibold tracking-wider">Xem thử</span>
             </div>
             <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">Trải nghiệm học thật sự</h2>
             <p className="text-gray-500 text-sm md:text-base max-w-lg mx-auto">Không chỉ học từ vựng khô khan — học qua hội thoại thực tế, K-pop và ngữ cảnh sống động.</p>
@@ -357,7 +357,7 @@ export default function LandingPage() {
           <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-2 bg-[#f59e0b]/10 border border-[#f59e0b]/20 rounded-full px-4 py-1.5 mb-4">
               <i className="ri-route-line text-[#f59e0b] text-xs"></i>
-              <span className="text-[#f59e0b] text-xs font-semibold uppercase tracking-widest">Cách hoạt động</span>
+              <span className="text-[#f59e0b] text-xs font-semibold tracking-wider">Cách hoạt động</span>
             </div>
             <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">4 bước đến thành công</h2>
           </div>
@@ -373,7 +373,7 @@ export default function LandingPage() {
                 <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: `${step.color}15` }}>
                   <i className={`${step.icon} text-xl`} style={{ color: step.color }}></i>
                 </div>
-                <span className="text-[10px] font-black uppercase tracking-widest" style={{ color: step.color }}>{step.step}</span>
+                <span className="text-[10px] font-black tracking-wider" style={{ color: step.color }}>{step.step}</span>
                 <h3 className="text-gray-900 font-bold text-sm mt-1 mb-2">{step.title}</h3>
                 <p className="text-gray-400 text-xs leading-relaxed">{step.desc}</p>
               </div>
@@ -388,7 +388,7 @@ export default function LandingPage() {
           <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-2 bg-[#06b6d4]/10 border border-[#06b6d4]/20 rounded-full px-4 py-1.5 mb-4">
               <i className="ri-star-fill text-[#06b6d4] text-xs"></i>
-              <span className="text-[#06b6d4] text-xs font-semibold uppercase tracking-widest">Học viên nói gì</span>
+              <span className="text-[#06b6d4] text-xs font-semibold tracking-wider">Học viên nói gì</span>
             </div>
             <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">Hơn 3,200 người đã đậu EPS</h2>
           </div>
@@ -422,7 +422,7 @@ export default function LandingPage() {
           <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-2 bg-[#22c55e]/10 border border-[#22c55e]/20 rounded-full px-4 py-1.5 mb-4">
               <i className="ri-price-tag-3-line text-[#22c55e] text-xs"></i>
-              <span className="text-[#22c55e] text-xs font-semibold uppercase tracking-widest">Bảng giá</span>
+              <span className="text-[#22c55e] text-xs font-semibold tracking-wider">Bảng giá</span>
             </div>
             <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">Đơn giản, minh bạch</h2>
             <p className="text-gray-500 text-sm md:text-base">Bắt đầu miễn phí, nâng cấp khi cần.</p>
@@ -479,7 +479,7 @@ export default function LandingPage() {
           <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-2 bg-[#10b981]/10 border border-[#10b981]/20 rounded-full px-4 py-1.5 mb-4">
               <i className="ri-question-line text-[#10b981] text-xs"></i>
-              <span className="text-[#10b981] text-xs font-semibold uppercase tracking-widest">FAQ</span>
+              <span className="text-[#10b981] text-xs font-semibold tracking-wider">FAQ</span>
             </div>
             <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">Câu hỏi thường gặp</h2>
           </div>
@@ -508,7 +508,7 @@ export default function LandingPage() {
             <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://readdy.ai/api/search-image?query=Korean%20traditional%20Gyeongbokgung%20palace%20cherry%20blossom%20spring%20beautiful%20warm%20light%20soft%20bokeh%20green%20nature%20peaceful%20serene&width=1200&height=500&seq=cta_landing_v12&orientation=landscape')" }} />
             <div className="absolute inset-0 bg-gradient-to-br from-[#052e16]/90 via-[#14532d]/80 to-[#052e16]/90" />
             <div className="relative z-10 p-8 md:p-14 text-center">
-              <p className="text-[#4ade80] text-xs font-semibold uppercase tracking-widest mb-4">Lên tàu ngay thôi!</p>
+              <p className="text-[#4ade80] text-xs font-semibold tracking-wider mb-4">Lên tàu ngay thôi!</p>
               <h2 className="text-2xl md:text-5xl font-black text-white mb-4 leading-tight">Biến tiếng Hàn<br />thành chuyện nhỏ</h2>
               <p className="text-white/50 text-sm md:text-base mb-8 max-w-xl mx-auto">Miễn phí hoàn toàn. Không cần thẻ tín dụng. Bắt đầu học ngay trong 2 phút.</p>
               <button onClick={handleStart} className="inline-flex items-center gap-2 bg-[#22c55e] text-white font-bold px-8 md:px-10 py-3.5 md:py-4 rounded-xl text-sm md:text-base hover:bg-[#16a34a] transition-all hover:scale-105 whitespace-nowrap cursor-pointer">

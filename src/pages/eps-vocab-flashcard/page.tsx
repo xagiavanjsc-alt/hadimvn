@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+﻿import { useState, useMemo, useCallback, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsVocabulary, EPS_VOCAB_TOPICS, type EpsVocabItem } from "@/mocks/epsVocabulary";
@@ -67,7 +67,7 @@ function Flashcard({
             className="absolute inset-0 rounded-2xl border border-white/8 flex flex-col items-center justify-center p-8 bg-[#0f1117]"
             style={{ backfaceVisibility: "hidden" }}
           >
-            <p className="text-white/20 text-xs mb-4 uppercase tracking-widest">Tiếng Hàn</p>
+            <p className="text-white/20 text-xs mb-4 tracking-wider">Tiếng Hàn</p>
             <p className="text-white text-5xl font-bold mb-3">{item.korean}</p>
             <p className="text-white/40 text-lg">[{item.reading}]</p>
             <p className="text-white/20 text-xs mt-6">Nhấn để lật thẻ</p>
@@ -78,7 +78,7 @@ function Flashcard({
             className="absolute inset-0 rounded-2xl border border-[#e8c84a]/20 flex flex-col items-center justify-center p-8"
             style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)", backgroundColor: "#1a1600" }}
           >
-            <p className="text-[#e8c84a]/40 text-xs mb-4 uppercase tracking-widest">Tiếng Việt</p>
+            <p className="text-[#e8c84a]/40 text-xs mb-4 tracking-wider">Tiếng Việt</p>
             <p className="text-white text-3xl font-bold mb-4 text-center">{item.vietnamese}</p>
             <div className="bg-white/5 rounded-xl px-4 py-3 text-center max-w-sm">
               <p className="text-white/60 text-sm">{item.example}</p>

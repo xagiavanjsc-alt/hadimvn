@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
@@ -649,7 +649,7 @@ export default function GuidePage() {
           <div className="w-full lg:w-56 flex-shrink-0">
             <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden sticky top-4">
               <div className="p-3 border-b border-gray-100">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Mục lục</p>
+                <p className="text-xs font-semibold text-gray-500 tracking-wider">Mục lục</p>
               </div>
               <div className="p-2">
                 {GUIDE_SECTIONS.map(section => (

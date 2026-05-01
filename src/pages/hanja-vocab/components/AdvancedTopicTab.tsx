@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { HANJA_DATA } from "@/mocks/hanjaData";
 
 interface TopicWord {
@@ -323,7 +323,7 @@ export default function AdvancedTopicTab() {
           <div className="bg-rose-400 h-1.5 rounded-full transition-all" style={{ width: `${(quiz.idx / quiz.words.length) * 100}%` }}></div>
         </div>
         <div className="bg-white border border-gray-100 rounded-2xl p-8 text-center mb-4">
-          <p className="text-xs text-gray-400 mb-2 uppercase tracking-wide">Từ tiếng Hàn này có nghĩa là gì?</p>
+          <p className="text-xs text-gray-400 mb-2 tracking-wide">Từ tiếng Hàn này có nghĩa là gì?</p>
           <p className="text-4xl font-bold text-gray-900 mb-2">{current.korean}</p>
           <p className="text-xl text-rose-400 font-bold">{current.hanja}</p>
         </div>

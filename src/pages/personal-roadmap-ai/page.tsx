@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import DashboardLayout from "@/components/feature/DashboardLayout";
@@ -563,7 +563,7 @@ export default function PersonalRoadmapAIPage() {
                             </div>
                           )}
                           <div>
-                            <p className="text-white/50 text-xs font-semibold uppercase tracking-wider mb-2">Nhiệm vụ hàng ngày</p>
+                            <p className="text-white/50 text-xs font-semibold tracking-wider mb-2">Nhiệm vụ hàng ngày</p>
                             <div className="space-y-1.5">
                               {s.tasks.map((task, ti) => (
                                 <div key={ti} className="flex items-center gap-2 text-white/60 text-sm">
@@ -576,7 +576,7 @@ export default function PersonalRoadmapAIPage() {
                             </div>
                           </div>
                           <div>
-                            <p className="text-white/50 text-xs font-semibold uppercase tracking-wider mb-2">Tài nguyên học tập</p>
+                            <p className="text-white/50 text-xs font-semibold tracking-wider mb-2">Tài nguyên học tập</p>
                             <div className="flex flex-wrap gap-2">
                               {s.resources.map((r, ri) => (
                                 <button

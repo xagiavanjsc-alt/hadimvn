@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MobileNav from "@/components/feature/MobileNav";
 import MobileHeader from "@/components/feature/MobileHeader";
@@ -116,7 +116,7 @@ export default function ReportBugPage() {
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Category */}
           <div>
-            <label className="text-xs font-semibold text-white/50 mb-3 block uppercase tracking-wider">Loại vấn đề</label>
+            <label className="text-xs font-semibold text-white/50 mb-3 block tracking-wider">Loại vấn đề</label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {CATEGORIES.map(cat => (
                 <button

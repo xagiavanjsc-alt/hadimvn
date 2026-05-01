@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+﻿import { useParams, useNavigate } from "react-router-dom";
 import MobileNav from "@/components/feature/MobileNav";
 
 const MemberProfilePage = () => {
@@ -66,7 +66,7 @@ const MemberProfilePage = () => {
 
         {/* Badges */}
         <div className="bg-white/3 border border-white/6 rounded-2xl p-4">
-          <h3 className="text-xs font-bold text-white/50 uppercase tracking-wider mb-3">Huy hiệu</h3>
+          <h3 className="text-xs font-bold text-white/50 tracking-wider mb-3">Huy hiệu</h3>
           <div className="flex flex-wrap gap-2">
             {member.badges.map((badge) => (
               <span
@@ -81,7 +81,7 @@ const MemberProfilePage = () => {
 
         {/* Activity Stats */}
         <div className="bg-white/3 border border-white/6 rounded-2xl p-4">
-          <h3 className="text-xs font-bold text-white/50 uppercase tracking-wider mb-3">Hoạt động học tập</h3>
+          <h3 className="text-xs font-bold text-white/50 tracking-wider mb-3">Hoạt động học tập</h3>
           <div className="space-y-3">
             {[
               { label: "Bài kiểm tra hoàn thành", value: member.stats.quizzes, icon: "ri-question-line", color: "text-[#e8c84a]", bg: "bg-[#e8c84a]/10" },
@@ -101,7 +101,7 @@ const MemberProfilePage = () => {
 
         {/* Recent activity */}
         <div className="bg-white/3 border border-white/6 rounded-2xl p-4">
-          <h3 className="text-xs font-bold text-white/50 uppercase tracking-wider mb-3">Hoạt động gần đây</h3>
+          <h3 className="text-xs font-bold text-white/50 tracking-wider mb-3">Hoạt động gần đây</h3>
           <div className="space-y-2.5">
             {[
               { text: "Hoàn thành bài kiểm tra TOPIK I", time: "2 giờ trước", icon: "ri-checkbox-circle-line", color: "text-emerald-400" },

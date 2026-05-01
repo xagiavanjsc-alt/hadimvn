@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 import { useVipYearGuard, getExportBtnLabel, getExportBtnIcon, addCsvWatermark } from "@/hooks/useVipYearGuard";
 import VipUpgradeModal from "@/components/feature/VipUpgradeModal";
@@ -79,7 +79,7 @@ function exportPDFHtml(entries: HanjaEntry[]) {
   h1 { font-size: 22px; color: #111; margin-bottom: 4px; }
   p { color: #888; font-size: 13px; margin-bottom: 20px; }
   table { width: 100%; border-collapse: collapse; border: 1px solid #eee; }
-  th { background: #f5f5f5; padding: 10px 14px; text-align: left; font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
+  th { background: #f5f5f5; padding: 10px 14px; text-align: left; font-size: 12px; color: #888; text-transform: ; letter-spacing: 0.05em; }
   @media print { body { padding: 0; } }
 </style>
 </head>
@@ -334,10 +334,10 @@ export default function FlashcardExportTab() {
                 <table className="w-full text-sm">
                   <thead className="sticky top-0 bg-gray-50 border-b border-gray-100">
                     <tr>
-                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">Tiếng Hàn</th>
-                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">Hán tự</th>
-                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">Tiếng Việt</th>
-                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">Trạng thái</th>
+                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-500 tracking-wide">Tiếng Hàn</th>
+                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-500 tracking-wide">Hán tự</th>
+                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-500 tracking-wide">Tiếng Việt</th>
+                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-500 tracking-wide">Trạng thái</th>
                     </tr>
                   </thead>
                   <tbody>

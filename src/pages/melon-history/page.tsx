@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+﻿import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { mockMelonSongs } from "@/mocks/melonSongs";
 import { MelonLessonResult } from "@/services/aiService";
@@ -339,7 +339,7 @@ export default function MelonHistoryPage() {
             {/* Genre breakdown */}
             {genreCounts.length > 0 && (
               <div className="bg-white/3 border border-white/5 rounded-2xl p-4 mb-6">
-                <p className="text-white/40 text-xs uppercase tracking-wider mb-3">Thể loại đã học</p>
+                <p className="text-white/40 text-xs tracking-wider mb-3">Thể loại đã học</p>
                 <div className="flex flex-wrap gap-2">
                   {genreCounts.map(([genre, count]) => (
                     <span key={genre} className="flex items-center gap-1.5 bg-white/5 border border-white/8 text-white/60 text-xs px-3 py-1.5 rounded-full">

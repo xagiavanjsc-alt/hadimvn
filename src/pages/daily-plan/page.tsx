@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { EPS_TOPICS } from "@/mocks/epsQuestions";
@@ -441,7 +441,7 @@ export default function DailyPlanPage() {
 
         {/* Quick Links */}
         <div className="bg-white/2 border border-white/5 rounded-2xl p-5">
-          <p className="text-white/40 text-xs uppercase tracking-widest mb-4">Truy cập nhanh</p>
+          <p className="text-white/40 text-xs tracking-wider mb-4">Truy cập nhanh</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
               { label: "Thi thử EPS", icon: "ri-timer-line", path: "/eps-exam", color: "#fb923c" },

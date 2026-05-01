@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface DayRecord {
@@ -299,7 +299,7 @@ export default function StudyHistoryDetailPage() {
                       </div>
                     ))}
                   </div>
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Hoạt động</p>
+                  <p className="text-xs font-semibold text-gray-400 tracking-wider mb-2">Hoạt động</p>
                   <div className="space-y-2 mb-4">
                     {selectedDay.activities.map((a, i) => (
                       <div key={i} className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2">
@@ -309,7 +309,7 @@ export default function StudyHistoryDetailPage() {
                       </div>
                     ))}
                   </div>
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Từ đã học ({selectedDay.wordsLearned.length})</p>
+                  <p className="text-xs font-semibold text-gray-400 tracking-wider mb-2">Từ đã học ({selectedDay.wordsLearned.length})</p>
                   <div className="flex flex-wrap gap-1.5">
                     {selectedDay.wordsLearned.map(w => (
                       <span key={w} className="px-2 py-1 bg-teal-50 text-teal-700 rounded-lg text-sm font-medium">{w}</span>

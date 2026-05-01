@@ -1,4 +1,4 @@
-/**
+﻿/**
  * slugify.ts — Tạo SEO-friendly slug từ tiếng Việt, tiếng Hàn, hoặc bất kỳ ngôn ngữ nào
  *
  * Quy tắc:
@@ -28,7 +28,7 @@ const VI_MAP: Record<string, string> = {
   ư: "u", ứ: "u", ừ: "u", ử: "u", ữ: "u", ự: "u",
   ỳ: "y", ý: "y", ỷ: "y", ỹ: "y", ỵ: "y",
   đ: "d",
-  // Uppercase
+  // 
   À: "a", Á: "a", Ả: "a", Ã: "a", Ạ: "a",
   Ă: "a", Ắ: "a", Ặ: "a", Ằ: "a", Ẳ: "a", Ẵ: "a",
   Â: "a", Ấ: "a", Ầ: "a", Ẩ: "a", Ẫ: "a", Ậ: "a",

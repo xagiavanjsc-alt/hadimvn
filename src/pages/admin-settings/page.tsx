@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useApiCostTracker } from "@/hooks/useApiCostTracker";
 import { supabase } from "@/lib/supabase";
@@ -621,15 +621,15 @@ export default function AdminSettingsPage() {
                 <>
                   <div className="grid grid-cols-3 gap-3">
                     <div className="bg-white/3 rounded-xl p-4 border border-white/5">
-                      <p className="text-white/30 text-[10px] uppercase tracking-wider mb-1">Tổng lần gọi</p>
+                      <p className="text-white/30 text-[10px] tracking-wider mb-1">Tổng lần gọi</p>
                       <p className="text-white text-2xl font-bold">{costSummary.totalCalls}</p>
                     </div>
                     <div className="bg-[#e8c84a]/5 rounded-xl p-4 border border-[#e8c84a]/15">
-                      <p className="text-[#e8c84a]/60 text-[10px] uppercase tracking-wider mb-1">Chi phí ước tính</p>
+                      <p className="text-[#e8c84a]/60 text-[10px] tracking-wider mb-1">Chi phí ước tính</p>
                       <p className="text-[#e8c84a] text-2xl font-bold">${costSummary.totalCostUsd.toFixed(4)}</p>
                     </div>
                     <div className="bg-emerald-500/5 rounded-xl p-4 border border-emerald-500/15">
-                      <p className="text-emerald-400/60 text-[10px] uppercase tracking-wider mb-1">30 ngày qua</p>
+                      <p className="text-emerald-400/60 text-[10px] tracking-wider mb-1">30 ngày qua</p>
                       <p className="text-emerald-400 text-2xl font-bold">{costSummary.last30Days}</p>
                     </div>
                   </div>

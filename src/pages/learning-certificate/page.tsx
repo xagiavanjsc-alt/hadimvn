@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+﻿import { useState, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -282,7 +282,7 @@ export default function LearningCertificatePage() {
             <div ref={certRef} className="p-8 text-center" style={{ backgroundColor: selectedCert.bgColor }}>
               <div className="flex items-center justify-center gap-2 mb-6">
                 <div className="h-px flex-1" style={{ backgroundColor: selectedCert.color + "40" }}></div>
-                <span className="text-xs font-bold uppercase tracking-widest" style={{ color: selectedCert.color }}>Hàn Quốc Ơi!</span>
+                <span className="text-xs font-bold tracking-wider" style={{ color: selectedCert.color }}>Hàn Quốc Ơi!</span>
                 <div className="h-px flex-1" style={{ backgroundColor: selectedCert.color + "40" }}></div>
               </div>
 

@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+﻿import { useState, useMemo, useEffect, useCallback } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 
 const WC_KEY = "hanja_weekly_challenge";
@@ -133,7 +133,7 @@ function WeeklyQuiz({ words, onPass, onFail }: {
         <div className="bg-rose-400 h-2 rounded-full transition-all" style={{ width: `${(idx / questions.length) * 100}%` }}></div>
       </div>
       <div className="bg-white border-2 border-gray-100 rounded-2xl p-8 text-center mb-4">
-        <p className="text-xs text-gray-400 mb-2 uppercase tracking-wide">Từ tiếng Hàn này có nghĩa là gì?</p>
+        <p className="text-xs text-gray-400 mb-2 tracking-wide">Từ tiếng Hàn này có nghĩa là gì?</p>
         <p className="text-4xl font-bold text-gray-900 mb-2">{current.entry.korean}</p>
         <p className="text-xl text-rose-400 font-bold">{current.entry.hanja}</p>
       </div>
@@ -293,14 +293,14 @@ export default function WeeklyChallengeTab() {
           }}>
             <div style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
               className="absolute inset-0 bg-white border-2 border-gray-100 rounded-2xl flex flex-col items-center justify-center p-6">
-              <p className="text-xs text-gray-400 uppercase tracking-widest mb-3">Tiếng Hàn</p>
+              <p className="text-xs text-gray-400 tracking-wider mb-3">Tiếng Hàn</p>
               <p className="text-5xl font-bold text-gray-900 mb-2">{currentStudyWord?.korean}</p>
               <p className="text-2xl text-rose-400 font-bold">{currentStudyWord?.hanja}</p>
               <p className="text-xs text-gray-400 mt-3">Nhấn để xem nghĩa</p>
             </div>
             <div style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
               className="absolute inset-0 bg-rose-50 border-2 border-rose-200 rounded-2xl flex flex-col items-center justify-center p-6">
-              <p className="text-xs text-rose-400 uppercase tracking-widest mb-3">Nghĩa tiếng Việt</p>
+              <p className="text-xs text-rose-400 tracking-wider mb-3">Nghĩa tiếng Việt</p>
               <p className="text-2xl font-bold text-rose-700 text-center">{currentStudyWord?.vietnamese}</p>
               <p className="text-lg text-rose-400 mt-2">{currentStudyWord?.hanja}</p>
             </div>

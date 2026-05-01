@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+﻿import { useState, useEffect, useMemo, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 
@@ -196,7 +196,7 @@ function FlashCard({ card, onRate, cardIndex, total }: {
         <div className="flex flex-col items-center justify-center p-8 min-h-[260px]">
           {!flipped ? (
             <div className="text-center">
-              <p className="text-white/30 text-xs mb-4 uppercase tracking-widest">Tiếng Hàn</p>
+              <p className="text-white/30 text-xs mb-4 tracking-wider">Tiếng Hàn</p>
               <p className="text-white font-bold text-4xl mb-3">{card.korean}</p>
               <button onClick={e => handleTTS(e, card.korean)}
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white/8 hover:bg-white/15 text-white/50 hover:text-white/80 transition-colors mx-auto">
@@ -206,7 +206,7 @@ function FlashCard({ card, onRate, cardIndex, total }: {
             </div>
           ) : (
             <div className="text-center w-full">
-              <p className="text-white/30 text-xs mb-4 uppercase tracking-widest">Tiếng Việt</p>
+              <p className="text-white/30 text-xs mb-4 tracking-wider">Tiếng Việt</p>
               <p className="text-[#e8c84a] font-bold text-3xl mb-3">{card.vietnamese}</p>
               <p className="text-white font-medium text-xl mb-4">{card.korean}</p>
               {card.example && (

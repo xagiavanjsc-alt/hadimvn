@@ -1,4 +1,4 @@
-import { RefObject } from "react";
+﻿import { RefObject } from "react";
 import type { EbookMeta } from "@/pages/ebook/page";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
 import type { EbookTemplate } from "./EbookTemplates";
@@ -135,7 +135,7 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
         <div style={{ backgroundColor: meta.coverColor, padding: "24px", minHeight: "200px", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative" }}>
           <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "3px", backgroundColor: accent }} />
           <div>
-            <div style={{ fontSize: "10px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "12px", opacity: 0.7, color: accent }}>{meta.author}</div>
+            <div style={{ fontSize: "10px", fontWeight: 700, textTransform: "", letterSpacing: "0.1em", marginBottom: "12px", opacity: 0.7, color: accent }}>{meta.author}</div>
             <h2 style={{ fontSize: "14px", fontWeight: 700, lineHeight: 1.3, marginBottom: "4px", color: accent }}>{meta.title || "Tiêu đề ebook"}</h2>
             <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "10px", lineHeight: 1.5 }}>{meta.subtitle}</p>
           </div>
@@ -146,7 +146,7 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
         </div>
         {lessons.length > 0 && (
           <div style={{ padding: "12px", maxHeight: "256px", overflowY: "auto" }}>
-            <p style={{ color: "rgba(255,255,255,0.25)", fontSize: "9px", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>Mục lục</p>
+            <p style={{ color: "rgba(255,255,255,0.25)", fontSize: "9px", textTransform: "", letterSpacing: "0.1em", marginBottom: "8px" }}>Mục lục</p>
             {lessons.map((lesson, idx) => (
               <div key={lesson.song.rank} style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
                 <span style={{ fontSize: "9px", fontWeight: 700, width: "16px", textAlign: "right", flexShrink: 0, color: accent }}>{idx + 1}</span>
@@ -193,7 +193,7 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
         <div className="ebook-page" style={{ ...PAGE_STYLE, backgroundColor: meta.coverColor, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
           <div style={{ width: "48px", height: "4px", backgroundColor: accent, marginBottom: "32px" }} />
           <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-            <p style={{ fontSize: "10pt", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "24px", opacity: 0.65, color: accent }}>{meta.author}</p>
+            <p style={{ fontSize: "10pt", fontWeight: 700, textTransform: "", letterSpacing: "0.15em", marginBottom: "24px", opacity: 0.65, color: accent }}>{meta.author}</p>
             <h1 style={{ fontSize: "32pt", fontWeight: 700, lineHeight: 1.2, marginBottom: "12px", color: accent }}>{meta.title}</h1>
             <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "14pt", marginBottom: "24px" }}>{meta.subtitle}</p>
             <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "10pt", lineHeight: 1.8, maxWidth: "380px" }}>{meta.description}</p>
@@ -253,7 +253,7 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
                 {/* Lesson header */}
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px" }}>
                   <div>
-                    <p style={{ fontSize: "8pt", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", marginBottom: "5px", color: accent }}>Bài {idx + 1}</p>
+                    <p style={{ fontSize: "8pt", fontWeight: 700, textTransform: "", letterSpacing: "0.14em", marginBottom: "5px", color: accent }}>Bài {idx + 1}</p>
                     <h2 style={{ fontSize: "19pt", fontWeight: 700, color: "#111", marginBottom: "3px", lineHeight: 1.2 }}>{lesson.song.title}</h2>
                     <p style={{ color: "#888", fontSize: "10.5pt" }}>{lesson.song.artist}</p>
                   </div>
@@ -337,7 +337,7 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
                 <div key={`${lesson.song.rank}-p2`} className="ebook-page" style={{ ...PAGE_STYLE }}>
                   {/* Continuation header */}
                   <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "18px" }}>
-                    <p style={{ fontSize: "8pt", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: accent }}>Bài {idx + 1} — tiếp theo</p>
+                    <p style={{ fontSize: "8pt", fontWeight: 700, textTransform: "", letterSpacing: "0.14em", color: accent }}>Bài {idx + 1} — tiếp theo</p>
                     <div style={{ flex: 1, height: "1px", backgroundColor: "#f0f0f0" }} />
                     <p style={{ fontSize: "8pt", color: "#ccc" }}>{lesson.song.title}</p>
                   </div>
@@ -408,7 +408,7 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
           </p>
           {(meta.contactInfo || meta.website) && (
             <div style={{ backgroundColor: "rgba(255,255,255,0.05)", borderRadius: "12px", padding: "24px 32px", border: "1px solid rgba(255,255,255,0.08)", maxWidth: "360px", width: "100%" }}>
-              <p style={{ color: accent, fontSize: "9pt", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "14px" }}>Liên hệ & Theo dõi</p>
+              <p style={{ color: accent, fontSize: "9pt", fontWeight: 700, textTransform: "", letterSpacing: "0.12em", marginBottom: "14px" }}>Liên hệ & Theo dõi</p>
               {meta.contactInfo && <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "10pt", lineHeight: 2, whiteSpace: "pre-wrap", marginBottom: "12px" }}>{meta.contactInfo}</p>}
               {meta.website && <p style={{ color: accent, fontSize: "11pt", fontWeight: 600 }}>{meta.website}</p>}
             </div>

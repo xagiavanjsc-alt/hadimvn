@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+﻿import { useState, useEffect, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
@@ -596,7 +596,7 @@ export default function FriendChallengePage() {
 
           {/* History */}
           <div>
-            <p className="text-white/40 text-xs font-semibold uppercase tracking-wider mb-3">Lịch sử thách đấu</p>
+            <p className="text-white/40 text-xs font-semibold tracking-wider mb-3">Lịch sử thách đấu</p>
             <div className="space-y-3">
               {challenges.map(c => (
                 <ChallengeResultCard key={c.id} session={c} />

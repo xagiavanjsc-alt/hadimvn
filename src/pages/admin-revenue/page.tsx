@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+﻿import { useState, useEffect, useMemo, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { supabase } from "@/lib/supabase";
 
@@ -210,10 +210,10 @@ function CohortRetentionChart({ users }: { users: VipUser[] }) {
         <table className="w-full text-xs border-collapse" style={{ minWidth: 520 }}>
           <thead>
             <tr>
-              <th className="text-left pr-4 pb-2 font-semibold text-[10px] uppercase tracking-wider" style={{ color: "var(--admin-text-faint)", minWidth: 80 }}>Cohort</th>
-              <th className="text-center px-2 pb-2 font-semibold text-[10px] uppercase tracking-wider" style={{ color: "var(--admin-text-faint)", minWidth: 50 }}>Size</th>
+              <th className="text-left pr-4 pb-2 font-semibold text-[10px] tracking-wider" style={{ color: "var(--admin-text-faint)", minWidth: 80 }}>Cohort</th>
+              <th className="text-center px-2 pb-2 font-semibold text-[10px] tracking-wider" style={{ color: "var(--admin-text-faint)", minWidth: 50 }}>Size</th>
               {Array.from({ length: maxMonths }, (_, i) => (
-                <th key={i} className="text-center px-1 pb-2 font-semibold text-[10px] uppercase tracking-wider" style={{ color: "var(--admin-text-faint)", minWidth: 60 }}>
+                <th key={i} className="text-center px-1 pb-2 font-semibold text-[10px] tracking-wider" style={{ color: "var(--admin-text-faint)", minWidth: 60 }}>
                   {i === 0 ? "Tháng 0" : `+${i}th`}
                 </th>
               ))}
@@ -363,7 +363,7 @@ function QuarterlyYearlyTab({ monthlyData, users }: { monthlyData: MonthlyData[]
               <thead>
                 <tr className="border-b" style={{ borderColor: "var(--admin-border)" }}>
                   {["Quý", "Doanh thu", "VIP mới", "Tổng VIP", "Churn", "Tăng trưởng"].map(h => (
-                    <th key={h} className="text-left px-4 py-2.5 text-[10px] uppercase tracking-wider font-semibold" style={{ color: "var(--admin-text-faint)" }}>{h}</th>
+                    <th key={h} className="text-left px-4 py-2.5 text-[10px] tracking-wider font-semibold" style={{ color: "var(--admin-text-faint)" }}>{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -761,7 +761,7 @@ export default function AdminRevenuePage() {
                 <thead>
                   <tr className="border-b" style={{ borderColor: "var(--admin-border)" }}>
                     {["Tháng", "VIP mới", "Tổng VIP", "MRR Tháng", "MRR Năm", "Tổng MRR", "Tăng trưởng"].map(h => (
-                      <th key={h} className="text-left px-4 py-2.5 text-[10px] uppercase tracking-wider font-semibold" style={{ color: "var(--admin-text-faint)" }}>{h}</th>
+                      <th key={h} className="text-left px-4 py-2.5 text-[10px] tracking-wider font-semibold" style={{ color: "var(--admin-text-faint)" }}>{h}</th>
                     ))}
                   </tr>
                 </thead>

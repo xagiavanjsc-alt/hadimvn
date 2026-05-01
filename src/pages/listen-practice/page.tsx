@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+﻿import { useState, useRef, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -163,7 +163,7 @@ function PracticeCard({
 
       {/* Tips */}
       <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/10 rounded-xl px-3 py-2 mb-4">
-        <p className="text-[#e8c84a]/60 text-[10px] uppercase tracking-widest mb-0.5">Mẹo phát âm</p>
+        <p className="text-[#e8c84a]/60 text-[10px] tracking-wider mb-0.5">Mẹo phát âm</p>
         <p className="text-white/40 text-xs">{item.tips}</p>
       </div>
 

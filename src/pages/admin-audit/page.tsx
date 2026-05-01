@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+﻿import { useState, useMemo, useEffect, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { supabase } from "@/lib/supabase";
 
@@ -99,7 +99,7 @@ function LogDetailModal({ log, onClose }: { log: SystemEvent; onClose: () => voi
           ].map(row => (
             <div key={row.label} className="flex items-start gap-3 px-3 py-2.5 rounded-xl"
               style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>
-              <span className="text-[10px] font-semibold uppercase tracking-wider w-28 flex-shrink-0 mt-0.5" style={{ color: "var(--admin-text-faint)" }}>{row.label}</span>
+              <span className="text-[10px] font-semibold tracking-wider w-28 flex-shrink-0 mt-0.5" style={{ color: "var(--admin-text-faint)" }}>{row.label}</span>
               <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>{row.value}</span>
             </div>
           ))}

@@ -62,7 +62,7 @@ function StreakBadge() {
 // ─── Nav groups — Tối ưu gọn nhất ───────────────────────────────────────────
 const navGroups = [
   {
-    label: "Hán Hàn VIP",
+    label: "Hán Hàn Vip",
     icon: "ri-character-recognition-line",
     badge: "VIP",
     color: "#e8c84a",
@@ -75,7 +75,7 @@ const navGroups = [
     ],
   },
   {
-    label: "EPS (Lao động)",
+    label: "Eps (Lao động)",
     icon: "ri-file-list-3-line",
     color: "#4ade80",
     items: [
@@ -96,7 +96,7 @@ const navGroups = [
     ],
   },
   {
-    label: "TOPIK (Chứng chỉ)",
+    label: "Topik (Chứng chỉ)",
     icon: "ri-survey-line",
     color: "#f472b6",
     items: [
@@ -107,7 +107,7 @@ const navGroups = [
     ],
   },
   {
-    label: "AI & Kỹ năng",
+    label: "Ai & Kỹ năng",
     icon: "ri-robot-2-line",
     color: "#a78bfa",
     items: [
@@ -133,11 +133,11 @@ const navGroups = [
 // Admin group removed from user sidebar — admin has its own dedicated panel at /admin
 
 const DEFAULT_OPEN: Record<string, boolean> = {
-  "Hán Hàn VIP": true,
-  "EPS (Lao động)": false,
+  "Hán Hàn Vip": true,
+  "Eps (Lao động)": false,
   "Seoul (Du học)": false,
-  "TOPIK (Chứng chỉ)": false,
-  "AI & Kỹ năng": false,
+  "Topik (Chứng chỉ)": false,
+  "Ai & Kỹ năng": false,
   "Cộng đồng": false,
 };
 
@@ -154,7 +154,7 @@ function PinnedSection({ pinnedPaths, onUnpin, onNavigate, currentPath }: {
   const items = pinnedPaths.map(p => ALL_NAV_ITEMS.find(i => i.path === p)).filter(Boolean) as typeof ALL_NAV_ITEMS;
   return (
     <div className="mb-2">
-      <p className="text-[9px] uppercase tracking-widest font-semibold text-[#e8c84a]/40 px-3 py-1">Đã ghim</p>
+      <p className="text-[9px] tracking-wider font-semibold text-[#e8c84a]/40 px-3 py-1">Đã ghim</p>
       <div className="space-y-0.5">
         {items.map(item => {
           const isActive = currentPath === item.path;
@@ -456,7 +456,7 @@ function SidebarInner() {
                 <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
                   <i className={`${group.icon} text-xs`} style={{ color: hasActive ? grpColor : "rgba(255,255,255,0.3)" }}></i>
                 </div>
-                <p className="flex-1 text-left text-[10px] uppercase tracking-widest font-semibold transition-colors"
+                <p className="flex-1 text-left text-[10px] tracking-wider font-semibold transition-colors"
                   style={{ color: hasActive ? grpColor + "99" : "rgba(255,255,255,0.35)" }}>
                   {group.label}
                 </p>
@@ -525,7 +525,7 @@ function SidebarInner() {
             <div className="w-5 h-5 flex items-center justify-center">
               <i className="ri-shield-keyhole-line text-rose-400 text-sm"></i>
             </div>
-            <span className="text-xs font-bold text-rose-400 flex-1 text-left">Trang quản lý admin</span>
+            <span className="text-xs font-semibold text-rose-400 flex-1 text-left">Trang quản lý admin</span>
             <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse flex-shrink-0"></span>
           </button>
         )}

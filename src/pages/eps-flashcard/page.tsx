@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect, useRef } from "react";
+﻿import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsVocabulary, EPS_VOCAB_TOPICS, type EpsVocabItem } from "@/mocks/epsVocabulary";
@@ -145,7 +145,7 @@ function EpsFlipCard({
             className="absolute inset-0 rounded-2xl border border-[#e8c84a]/20 flex flex-col items-center justify-center p-8 text-center bg-[#0f1117]"
             style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
           >
-            <p className="text-white/30 text-xs uppercase tracking-widest mb-3">Nghĩa tiếng Việt</p>
+            <p className="text-white/30 text-xs tracking-wider mb-3">Nghĩa tiếng Việt</p>
             <p className="text-3xl font-bold text-[#e8c84a] mb-5">{card.vietnamese}</p>
             <div className="bg-white/3 border border-white/5 rounded-xl px-5 py-3 max-w-sm w-full">
               <p className="text-white/60 text-sm leading-relaxed mb-1">{card.example}</p>

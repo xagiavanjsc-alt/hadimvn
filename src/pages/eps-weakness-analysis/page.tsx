@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useCallback } from "react";
+﻿import { useState, useMemo, useRef, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsQuestions } from "@/mocks/epsQuestions";
@@ -721,7 +721,7 @@ export default function EpsWeaknessAnalysisPage() {
         <div className="grid grid-cols-[260px_1fr] gap-6">
           {/* Left: Topic selector */}
           <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4 h-fit">
-            <p className="text-white/40 text-xs font-semibold uppercase tracking-wider mb-3">Chọn chủ đề</p>
+            <p className="text-white/40 text-xs font-semibold tracking-wider mb-3">Chọn chủ đề</p>
             <div className="space-y-1">
               {topicAnalysis.map(t => {
                 const cfg = getLevelConfig(t.level);
@@ -788,7 +788,7 @@ export default function EpsWeaknessAnalysisPage() {
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    <p className="text-white/40 text-xs font-semibold uppercase tracking-wider">
+                    <p className="text-white/40 text-xs font-semibold tracking-wider">
                       {selectedAnalysis.wrongQuestions.length} câu đã làm sai
                     </p>
                     {selectedAnalysis.wrongQuestions.map((q, i) => {

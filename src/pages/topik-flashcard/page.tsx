@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+﻿import { useState, useEffect, useCallback, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { vocabularyData, VOCAB_CATEGORIES, type VocabItem } from "@/mocks/vocabularyData";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -370,7 +370,7 @@ export default function TopikFlashcardPage() {
 
           {/* Level */}
           <div className="mb-5">
-            <p className="text-white/60 text-xs uppercase tracking-widest mb-3">Cấp độ</p>
+            <p className="text-white/60 text-xs tracking-wider mb-3">Cấp độ</p>
             <div className="flex flex-wrap gap-2">
               {LEVELS.map((lv) => (
                 <button
@@ -393,7 +393,7 @@ export default function TopikFlashcardPage() {
 
           {/* Category */}
           <div className="mb-5">
-            <p className="text-white/60 text-xs uppercase tracking-widest mb-3">Chủ đề</p>
+            <p className="text-white/60 text-xs tracking-wider mb-3">Chủ đề</p>
             <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2">
               <button
                 onClick={() => setSelectedCategory("all")}
@@ -426,7 +426,7 @@ export default function TopikFlashcardPage() {
 
           {/* Session size */}
           <div className="mb-8">
-            <p className="text-white/60 text-xs uppercase tracking-widest mb-3">Số thẻ mỗi phiên</p>
+            <p className="text-white/60 text-xs tracking-wider mb-3">Số thẻ mỗi phiên</p>
             <div className="flex gap-2">
               {[10, 20, 30, 50].map((n) => (
                 <button
@@ -759,7 +759,7 @@ ${exportWords.map(w => `
             >
               <p className="text-white/40 text-sm mb-2">{currentWord?.korean} [{currentWord?.reading}]</p>
               <p className="text-3xl font-bold text-[#e8c84a] mb-4 text-center">{currentWord?.vietnamese}</p>
-              <p className="text-white/30 text-xs mb-1 uppercase tracking-widest">Ví dụ</p>
+              <p className="text-white/30 text-xs mb-1 tracking-wider">Ví dụ</p>
               <p className="text-white/60 text-sm text-center mb-1">{currentWord?.example}</p>
               <p className="text-white/30 text-xs text-center italic">{currentWord?.exampleVi}</p>
             </div>

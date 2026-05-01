@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { EPS_VOCAB_TOPICS, epsVocabulary, EpsVocabItem } from "@/mocks/epsVocabulary";
 
@@ -300,7 +300,7 @@ export default function EpsTopicDictionaryPage() {
           <div className="w-56 flex-shrink-0">
             <div className="bg-[#0f1117] rounded-xl border border-white/5 overflow-hidden sticky top-4">
               <div className="px-4 py-3 border-b border-white/5">
-                <p className="text-xs font-semibold text-white/30 uppercase tracking-wider">Chủ đề</p>
+                <p className="text-xs font-semibold text-white/30 tracking-wider">Chủ đề</p>
               </div>
               <div className="max-h-[calc(100vh-200px)] overflow-y-auto">
                 <button
@@ -395,10 +395,10 @@ export default function EpsTopicDictionaryPage() {
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-white/5 bg-white/2">
-                      <th className="text-left px-4 py-3 text-xs font-semibold text-white/30 uppercase tracking-wider">Tiếng Hàn</th>
-                      <th className="text-left px-4 py-3 text-xs font-semibold text-white/30 uppercase tracking-wider">Phiên âm</th>
-                      <th className="text-left px-4 py-3 text-xs font-semibold text-white/30 uppercase tracking-wider">Nghĩa</th>
-                      <th className="text-left px-4 py-3 text-xs font-semibold text-white/30 uppercase tracking-wider">Cấp độ</th>
+                      <th className="text-left px-4 py-3 text-xs font-semibold text-white/30 tracking-wider">Tiếng Hàn</th>
+                      <th className="text-left px-4 py-3 text-xs font-semibold text-white/30 tracking-wider">Phiên âm</th>
+                      <th className="text-left px-4 py-3 text-xs font-semibold text-white/30 tracking-wider">Nghĩa</th>
+                      <th className="text-left px-4 py-3 text-xs font-semibold text-white/30 tracking-wider">Cấp độ</th>
                       <th className="px-4 py-3"></th>
                     </tr>
                   </thead>

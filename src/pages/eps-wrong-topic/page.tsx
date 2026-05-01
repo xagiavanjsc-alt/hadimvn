@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef } from "react";
+﻿import { useState, useMemo, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -730,7 +730,7 @@ function ExportModal({ items, onClose }: { items: WrongItem[]; onClose: () => vo
 
           {/* Preview */}
           <div className="bg-white/3 border border-white/8 rounded-xl p-3 max-h-32 overflow-y-auto">
-            <p className="text-white/30 text-[10px] font-semibold mb-2 uppercase">Xem trước</p>
+            <p className="text-white/30 text-[10px] font-semibold mb-2 ">Xem trước</p>
             <pre className="text-white/50 text-[10px] font-mono whitespace-pre-wrap leading-relaxed">
               {generateContent().slice(0, 300)}{generateContent().length > 300 ? "..." : ""}
             </pre>

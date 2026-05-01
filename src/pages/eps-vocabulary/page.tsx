@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+﻿import { useState, useMemo, useCallback, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -386,7 +386,7 @@ export default function EpsVocabularyPage() {
 
       {/* Topic grid */}
       <div className="mb-5">
-        <p className="text-white/30 text-[10px] uppercase tracking-widest mb-3">Chủ đề</p>
+        <p className="text-white/30 text-[10px] tracking-wider mb-3">Chủ đề</p>
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setSelectedTopic("all")}

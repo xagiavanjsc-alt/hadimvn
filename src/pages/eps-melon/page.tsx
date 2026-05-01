@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+﻿import { useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { mockMelonSongs, MelonSong } from "@/mocks/melonSongs";
 import { epsVocabulary } from "@/mocks/epsVocabulary";
@@ -235,7 +235,7 @@ export default function EpsMelonPage() {
           <div className="w-full lg:w-64 flex-shrink-0">
             <div className="bg-white/3 border border-white/5 rounded-2xl overflow-hidden">
               <div className="px-4 py-3 border-b border-white/5">
-                <p className="text-white/60 text-xs font-semibold uppercase tracking-wider">Bài hát</p>
+                <p className="text-white/60 text-xs font-semibold tracking-wider">Bài hát</p>
               </div>
 
               {/* All words option */}
@@ -395,7 +395,7 @@ export default function EpsMelonPage() {
 
                       <div className="p-4">
                         {/* Category tag */}
-                        <span className="inline-block text-[9px] font-semibold text-white/30 bg-white/5 px-2 py-0.5 rounded-full mb-2 uppercase tracking-wide">
+                        <span className="inline-block text-[9px] font-semibold text-white/30 bg-white/5 px-2 py-0.5 rounded-full mb-2 tracking-wide">
                           {epsWord.category}
                         </span>
 
@@ -419,7 +419,7 @@ export default function EpsMelonPage() {
                         {/* Context from lyrics */}
                         {context && (isFlipped || isLearned) && (
                           <div className="mt-2 pt-2 border-t border-white/8">
-                            <p className="text-white/25 text-[10px] mb-1 uppercase tracking-wide">Trong lời bài hát</p>
+                            <p className="text-white/25 text-[10px] mb-1 tracking-wide">Trong lời bài hát</p>
                             <p className="text-white/50 text-xs leading-relaxed italic">
                               {context.length > 60 ? context.slice(0, 60) + "…" : context}
                             </p>

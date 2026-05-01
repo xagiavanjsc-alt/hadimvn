@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react";
+﻿import { useState, useCallback, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -31,7 +31,7 @@ const MILESTONE_REWARDS = [
 
 function generateReferralCode(userId: string): string {
   // Simple deterministic code from userId — HQO = Hàn Quốc Ơi
-  const base = userId ? userId.slice(-6).toUpperCase() : "GUEST1";
+  const base = userId ? userId.slice(-6).to() : "GUEST1";
   return `HQO-${base}`;
 }
 

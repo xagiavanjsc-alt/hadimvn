@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "./AuthModal";
@@ -193,7 +193,7 @@ export default function MobileNav() {
             <div className="overflow-y-auto flex-1 px-4 py-3 pb-6 space-y-4">
               {MENU_GROUPS.map((group) => (
                 <div key={group.label}>
-                  <p className="text-white/20 text-[10px] uppercase tracking-widest px-2 mb-2">{group.label}</p>
+                  <p className="text-white/20 text-[10px] tracking-wider px-2 mb-2">{group.label}</p>
                   <div className="grid grid-cols-2 gap-1.5">
                     {group.items.map((item) => (
                       <NavLink
@@ -220,7 +220,7 @@ export default function MobileNav() {
 
               {/* Landing page link */}
               <div>
-                <p className="text-white/20 text-[10px] uppercase tracking-widest px-2 mb-2">Khác</p>
+                <p className="text-white/20 text-[10px] tracking-wider px-2 mb-2">Khác</p>
                 <div className="grid grid-cols-2 gap-1.5">
                   <NavLink
                     to="/landing"

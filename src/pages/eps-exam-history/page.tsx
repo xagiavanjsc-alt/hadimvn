@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
@@ -429,7 +429,7 @@ export default function EpsExamHistoryPage() {
         {selectedExam && (
           <div className="sticky top-4 h-fit">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-white/50 text-xs font-semibold uppercase tracking-wider">Chi tiết lần thi</p>
+              <p className="text-white/50 text-xs font-semibold tracking-wider">Chi tiết lần thi</p>
               <button
                 onClick={() => setSelectedId(null)}
                 className="w-6 h-6 flex items-center justify-center rounded-lg hover:bg-white/10 text-white/30 hover:text-white/60 transition-colors cursor-pointer"

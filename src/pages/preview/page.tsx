@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { EbookSeries } from "@/pages/series/page";
@@ -105,7 +105,7 @@ export default function PreviewPage() {
                 style={{ backgroundColor: accent }}
               />
               <div
-                className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-3"
+                className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-wider px-2.5 py-1 rounded-full mb-3"
                 style={{ backgroundColor: `${accent}20`, color: accent }}
               >
                 <i className="ri-eye-line text-[10px]"></i>
@@ -224,7 +224,7 @@ export default function PreviewPage() {
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <div
-                        className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-3"
+                        className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-wider px-2.5 py-1 rounded-full mb-3"
                         style={{ backgroundColor: `${accent}15`, color: accent }}
                       >
                         Bài {activeLesson + 1} / {lessons.length}
@@ -248,7 +248,7 @@ export default function PreviewPage() {
                   {/* Story preview */}
                   {currentLesson.story && (
                     <div>
-                      <p className="text-white/30 text-[10px] uppercase tracking-widest font-semibold mb-3">
+                      <p className="text-white/30 text-[10px] tracking-wider font-semibold mb-3">
                         Truyện chêm
                       </p>
                       <div className="bg-white/3 rounded-xl p-4 border border-white/5">
@@ -269,7 +269,7 @@ export default function PreviewPage() {
                 {/* Vocabulary preview */}
                 {currentLesson.vocab && currentLesson.vocab.length > 0 && (
                   <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-6">
-                    <p className="text-white/30 text-[10px] uppercase tracking-widest font-semibold mb-4">
+                    <p className="text-white/30 text-[10px] tracking-wider font-semibold mb-4">
                       Từ vựng cốt lõi ({currentLesson.vocab.length} từ)
                     </p>
                     <div className="grid grid-cols-2 gap-3">
@@ -301,7 +301,7 @@ export default function PreviewPage() {
                 {/* Grammar preview */}
                 {currentLesson.grammar && currentLesson.grammar.length > 0 && (
                   <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-6">
-                    <p className="text-white/30 text-[10px] uppercase tracking-widest font-semibold mb-4">
+                    <p className="text-white/30 text-[10px] tracking-wider font-semibold mb-4">
                       Ngữ pháp ({currentLesson.grammar.length} điểm)
                     </p>
                     <div className="space-y-3">

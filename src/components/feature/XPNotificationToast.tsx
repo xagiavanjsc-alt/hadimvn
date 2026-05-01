@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { useXPSystem, XPNotification } from "@/hooks/useXPSystem";
 import { RANKS, BADGES } from "@/pages/community-ranks/page";
 
@@ -104,7 +104,7 @@ function Toast({
             </span>
             {isLevelUp && (
               <span
-                className="text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wide"
+                className="text-[9px] font-bold px-1.5 py-0.5 rounded-full tracking-wide"
                 style={{ backgroundColor: `${accentColor}20`, color: accentColor }}
               >
                 Lên cấp!
@@ -112,7 +112,7 @@ function Toast({
             )}
             {isBadge && (
               <span
-                className="text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wide"
+                className="text-[9px] font-bold px-1.5 py-0.5 rounded-full tracking-wide"
                 style={{ backgroundColor: `${accentColor}20`, color: accentColor }}
               >
                 Huy hiệu

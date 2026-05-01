@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
@@ -21,7 +21,7 @@ const ALPHABET = "ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ".split("");
 
 function getInitialConsonant(char: string): string {
   const code = char.charCodeAt(0) - 0xAC00;
-  if (code < 0 || code > 11171) return char[0]?.toUpperCase() ?? "#";
+  if (code < 0 || code > 11171) return char[0]?.to() ?? "#";
   const consonants = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
   return consonants[Math.floor(code / 588)] ?? "#";
 }
@@ -246,7 +246,7 @@ export default function DictionaryPage() {
                   <div className="fixed inset-0 z-40" onClick={() => setShowExportMenu(false)} />
                   <div className="absolute right-0 top-full mt-1.5 z-50 bg-[#1a1d27] border border-white/10 rounded-xl overflow-hidden shadow-xl min-w-52">
                     <div className="px-3 py-2 border-b border-white/5">
-                      <p className="text-white/30 text-[10px] uppercase tracking-wider">Chọn định dạng xuất</p>
+                      <p className="text-white/30 text-[10px] tracking-wider">Chọn định dạng xuất</p>
                     </div>
                     <button
                       onClick={handleExportCSV}
@@ -329,7 +329,7 @@ export default function DictionaryPage() {
           <div className="w-56 flex-shrink-0 space-y-4">
             {/* Stats */}
             <div className="bg-[#0f1117] border border-white/5 rounded-xl p-4 space-y-3">
-              <p className="text-white/30 text-[10px] uppercase tracking-wider">Thống kê</p>
+              <p className="text-white/30 text-[10px] tracking-wider">Thống kê</p>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-white/50 text-xs">Tổng từ vựng</span>
@@ -353,7 +353,7 @@ export default function DictionaryPage() {
             {/* Top frequent words */}
             {stats.topWords.length > 0 && (
               <div className="bg-[#0f1117] border border-white/5 rounded-xl p-4">
-                <p className="text-white/30 text-[10px] uppercase tracking-wider mb-3">Từ phổ biến nhất</p>
+                <p className="text-white/30 text-[10px] tracking-wider mb-3">Từ phổ biến nhất</p>
                 <div className="space-y-2">
                   {stats.topWords.map((w, i) => (
                     <button
@@ -372,7 +372,7 @@ export default function DictionaryPage() {
 
             {/* Alphabet nav */}
             <div className="bg-[#0f1117] border border-white/5 rounded-xl p-4">
-              <p className="text-white/30 text-[10px] uppercase tracking-wider mb-3">Tra theo chữ cái</p>
+              <p className="text-white/30 text-[10px] tracking-wider mb-3">Tra theo chữ cái</p>
               <button
                 onClick={() => setSelectedLetter("all")}
                 className={`w-full text-left px-2 py-1.5 rounded-lg text-xs font-medium mb-1 transition-colors cursor-pointer ${
@@ -519,13 +519,13 @@ export default function DictionaryPage() {
 
             {selectedWord.example && (
               <div className="bg-white/3 border border-white/8 rounded-xl px-4 py-3 mb-4">
-                <p className="text-white/30 text-[10px] uppercase tracking-wider mb-1.5">Ví dụ</p>
+                <p className="text-white/30 text-[10px] tracking-wider mb-1.5">Ví dụ</p>
                 <p className="text-white/70 text-sm italic leading-relaxed">{selectedWord.example}</p>
               </div>
             )}
 
             <div>
-              <p className="text-white/30 text-[10px] uppercase tracking-wider mb-3">
+              <p className="text-white/30 text-[10px] tracking-wider mb-3">
                 Xuất hiện trong {selectedWord.songs.length} bài hát
               </p>
               <div className="space-y-2">

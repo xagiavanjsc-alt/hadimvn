@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+﻿import { useState, useCallback } from "react";
 import type { EbookMeta } from "@/pages/ebook/page";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
 import type { EbookTemplate } from "./EbookTemplates";
@@ -153,7 +153,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
           </div>` : ""}
         ${gp.example ? `
           <div style="background:${darkMode ? "rgba(255,255,255,0.04)" : "#f9f6ee"};border-left:3px solid ${accent};border-radius:0 6px 6px 0;padding:8px 12px;margin-top:6px;">
-            <div style="font-size:8pt;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:${subColor};margin-bottom:4px;">Ví dụ</div>
+            <div style="font-size:8pt;font-weight:700;text-transform:;letter-spacing:0.08em;color:${subColor};margin-bottom:4px;">Ví dụ</div>
             <div style="font-size:10pt;color:${exColor};font-style:italic;line-height:1.7;">${highlightKorean(gp.example)}</div>
           </div>` : ""}
       </div>`).join("");
@@ -195,7 +195,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
       <div class="page" style="background:#0f1117;color:#e8e8e8;">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
           <div>
-            <div style="font-size:8pt;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:5px;color:${accent};">Bài ${idx + 1}</div>
+            <div style="font-size:8pt;font-weight:700;text-transform:;letter-spacing:0.12em;margin-bottom:5px;color:${accent};">Bài ${idx + 1}</div>
             <h2 style="font-size:19pt;font-weight:700;color:#e8e8e8;margin-bottom:3px;line-height:1.2;">${lesson.song.title}</h2>
             <div style="color:rgba(255,255,255,0.4);font-size:10.5pt;">${lesson.song.artist}</div>
           </div>
@@ -229,7 +229,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
       const page2 = lessonPageCount === 2 ? `
       <div class="page" style="background:#0f1117;color:#e8e8e8;">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
-          <span style="font-size:8pt;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:${accent};">Bài ${idx + 1} — tiếp theo</span>
+          <span style="font-size:8pt;font-weight:700;text-transform:;letter-spacing:0.12em;color:${accent};">Bài ${idx + 1} — tiếp theo</span>
           <div style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></div>
           <span style="font-size:8pt;color:rgba(255,255,255,0.2);">${lesson.song.title}</span>
         </div>
@@ -258,7 +258,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
     <div class="page">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
         <div>
-          <div style="font-size:8pt;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;margin-bottom:5px;color:${accent};">Bài ${idx + 1}</div>
+          <div style="font-size:8pt;font-weight:700;text-transform:;letter-spacing:0.14em;margin-bottom:5px;color:${accent};">Bài ${idx + 1}</div>
           <h2 style="font-size:19pt;font-weight:700;color:#111;margin-bottom:3px;line-height:1.2;">${lesson.song.title}</h2>
           <div style="color:#888;font-size:10.5pt;">${lesson.song.artist}</div>
         </div>
@@ -292,7 +292,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
     const page2 = lessonPageCount === 2 ? `
     <div class="page">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
-        <span style="font-size:8pt;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:${accent};">Bài ${idx + 1} — tiếp theo</span>
+        <span style="font-size:8pt;font-weight:700;text-transform:;letter-spacing:0.14em;color:${accent};">Bài ${idx + 1} — tiếp theo</span>
         <div style="flex:1;height:1px;background:#f0f0f0;"></div>
         <span style="font-size:8pt;color:#ccc;">${lesson.song.title}</span>
       </div>
@@ -353,7 +353,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
     <p style="color:rgba(255,255,255,0.5);font-size:12pt;margin-bottom:40px;max-width:320px;line-height:1.8;">Hy vọng ebook này giúp bạn tiến bộ tiếng Hàn mỗi ngày.</p>
     ${(meta.contactInfo || meta.website) ? `
     <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:24px 32px;border:1px solid rgba(255,255,255,0.08);max-width:360px;width:100%;">
-      <div style="color:${accent};font-size:9pt;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:14px;">Liên hệ & Theo dõi</div>
+      <div style="color:${accent};font-size:9pt;font-weight:700;text-transform:;letter-spacing:0.12em;margin-bottom:14px;">Liên hệ & Theo dõi</div>
       ${meta.contactInfo ? `<div style="color:rgba(255,255,255,0.5);font-size:10pt;line-height:2;white-space:pre-wrap;margin-bottom:12px;">${meta.contactInfo}</div>` : ""}
       ${meta.website ? `<div style="color:${accent};font-size:11pt;font-weight:600;">${meta.website}</div>` : ""}
     </div>` : ""}
@@ -421,7 +421,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
   <div class="page" style="background:${meta.coverColor};display:flex;flex-direction:column;justify-content:space-between;">
     <div style="width:48px;height:4px;background:${accent};margin-bottom:32px;"></div>
     <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
-      <div style="font-size:10pt;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:24px;opacity:0.65;color:${accent};">${meta.author}</div>
+      <div style="font-size:10pt;font-weight:700;text-transform:;letter-spacing:0.15em;margin-bottom:24px;opacity:0.65;color:${accent};">${meta.author}</div>
       <h1 style="font-size:32pt;font-weight:700;line-height:1.2;margin-bottom:12px;color:${accent};">${meta.title}</h1>
       <div style="color:rgba(255,255,255,0.55);font-size:14pt;margin-bottom:24px;">${meta.subtitle}</div>
       <div style="color:rgba(255,255,255,0.35);font-size:10pt;line-height:1.8;max-width:380px;">${meta.description}</div>

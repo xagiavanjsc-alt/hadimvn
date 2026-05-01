@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+﻿import { useState, useMemo, useEffect, useCallback } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 
 const SR_KEY = "hanja_sr_data";
@@ -164,7 +164,7 @@ function HomophoneQuiz({ group, onClose }: { group: { korean: string; words: Han
       </div>
 
       <div className="bg-white border-2 border-gray-100 rounded-2xl p-8 text-center mb-4">
-        <p className="text-xs text-gray-400 uppercase tracking-wide mb-3">Hán tự này thuộc từ nào?</p>
+        <p className="text-xs text-gray-400 tracking-wide mb-3">Hán tự này thuộc từ nào?</p>
         <p className="text-5xl font-bold text-rose-500 mb-2">{q.word.hanja}</p>
         <p className="text-2xl font-bold text-gray-900 mb-1">{q.word.korean}</p>
         <p className="text-sm text-gray-400">Chọn nghĩa tiếng Việt đúng</p>
@@ -331,7 +331,7 @@ export default function HomophoneTab() {
       {/* Famous homophones highlight */}
       {!search && !filterFamous && (
         <div className="mb-5">
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Từ đồng âm nổi tiếng — dễ nhầm nhất</p>
+          <p className="text-xs font-semibold text-gray-500 tracking-wide mb-3">Từ đồng âm nổi tiếng — dễ nhầm nhất</p>
           <div className="flex flex-wrap gap-2">
             {FAMOUS_HOMOPHONES.map(korean => {
               const group = allGroups.find(g => g.korean === korean);

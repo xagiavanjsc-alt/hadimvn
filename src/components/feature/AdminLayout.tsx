@@ -335,7 +335,7 @@ function NavGroup({
           style={{ backgroundColor: hasActive ? group.color : "var(--admin-text-faint)" }}
         />
         <p
-          className="flex-1 text-left text-[9px] uppercase tracking-widest font-bold transition-colors"
+          className="flex-1 text-left text-[9px] tracking-wider font-semibold transition-colors"
           style={{ color: hasActive ? group.color : "var(--admin-text-faint)" }}
         >
           {group.label}
@@ -440,7 +440,7 @@ export default function AdminLayout({
 
                 {/* Divider */}
                 <div className="border-t pt-2" style={{ borderColor: "var(--admin-border)" }}>
-                  <p className="text-[9px] uppercase tracking-widest font-bold px-3 pb-1.5" style={{ color: "var(--admin-text-faint)" }}>
+                  <p className="text-[9px] tracking-wider font-semibold px-3 pb-1.5" style={{ color: "var(--admin-text-faint)" }}>
                     Điều hướng
                   </p>
                   <NavLink

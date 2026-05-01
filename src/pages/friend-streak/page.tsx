@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -185,7 +185,7 @@ export default function FriendStreakPage() {
                     {/* Avatar */}
                     <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm"
                       style={{ backgroundColor: `${friend.avatar_color}20`, color: friend.avatar_color }}>
-                      {friend.display_name.charAt(0).toUpperCase()}
+                      {friend.display_name.charAt(0).to()}
                     </div>
 
                     {/* Info */}

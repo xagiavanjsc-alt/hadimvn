@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect, useRef } from "react";
+﻿import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
@@ -392,7 +392,7 @@ export default function EpsSmartFlashcardPage() {
                     <i className={`${isPlaying ? "ri-volume-up-fill" : "ri-volume-up-line"} text-lg`}></i>
                   </button>
                   <div className="text-center">
-                    <p className="text-white/20 text-xs uppercase tracking-widest mb-1">Tiếng Hàn</p>
+                    <p className="text-white/20 text-xs tracking-wider mb-1">Tiếng Hàn</p>
                     <p className="text-white text-5xl font-bold">{currentItem.korean}</p>
                     <p className="text-white/40 text-base mt-1">[{currentItem.reading}]</p>
                   </div>
@@ -418,7 +418,7 @@ export default function EpsSmartFlashcardPage() {
                 className="absolute inset-0 rounded-2xl border border-[#e8c84a]/20 flex flex-col items-center justify-center p-8"
                 style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)", backgroundColor: "#1a1600" }}
               >
-                <p className="text-[#e8c84a]/40 text-xs uppercase tracking-widest mb-3">Tiếng Việt</p>
+                <p className="text-[#e8c84a]/40 text-xs tracking-wider mb-3">Tiếng Việt</p>
                 <p className="text-white text-3xl font-bold mb-2 text-center">{currentItem.vietnamese}</p>
                 <p className="text-white/40 text-sm mb-4">[{currentItem.reading}]</p>
 

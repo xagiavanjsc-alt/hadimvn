@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+﻿import { useState, useEffect, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { supabase } from "@/lib/supabase";
@@ -261,7 +261,7 @@ export default function VocabSuggestionPage() {
           {/* Left: suggestion groups */}
           <div className="space-y-2">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-white/50 text-xs uppercase tracking-widest font-semibold">Gợi ý AI</h3>
+              <h3 className="text-white/50 text-xs tracking-wider font-semibold">Gợi ý AI</h3>
               <button
                 onClick={() => setRefreshKey(k => k + 1)}
                 className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/30 cursor-pointer transition-colors"

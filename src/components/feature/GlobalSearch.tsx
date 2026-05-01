@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, memo, useMemo } from "react";
+﻿import { useState, useEffect, useRef, useCallback, memo, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { epsVocabulary } from "@/mocks/epsVocabulary";
 import { seoulBooks } from "@/mocks/seoulTextbook";
@@ -390,7 +390,7 @@ function GlobalSearchInner() {
               ) : (
                 <>
                   {!hasQuery && (
-                    <p className="px-4 py-1.5 text-[10px] uppercase tracking-widest font-semibold" style={{ color: "var(--dash-text-muted)" }}>
+                    <p className="px-4 py-1.5 text-[10px] tracking-wider font-semibold" style={{ color: "var(--dash-text-muted)" }}>
                       Gợi ý nhanh
                     </p>
                   )}

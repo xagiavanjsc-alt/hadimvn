@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+﻿import { useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -421,7 +421,7 @@ export default function SeoulWrongReviewPage() {
           {/* Filter by book */}
           {booksWithWrong.length > 1 && (
             <div>
-              <p className="text-white/50 text-xs font-semibold uppercase tracking-widest mb-3">Lọc theo cuốn sách</p>
+              <p className="text-white/50 text-xs font-semibold tracking-wider mb-3">Lọc theo cuốn sách</p>
               <div className="flex flex-wrap gap-2">
                 <button onClick={() => setFilterBook("all")} className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap ${filterBook === "all" ? "bg-white/10 text-white" : "bg-white/3 text-white/40 hover:bg-white/6"}`}>
                   Tất cả ({wrongWords.length})
@@ -441,7 +441,7 @@ export default function SeoulWrongReviewPage() {
 
           {/* Mode selector */}
           <div>
-            <p className="text-white/50 text-xs font-semibold uppercase tracking-widest mb-3">Chọn chế độ ôn tập</p>
+            <p className="text-white/50 text-xs font-semibold tracking-wider mb-3">Chọn chế độ ôn tập</p>
             <div className="grid grid-cols-3 gap-3">
               {(Object.entries(modeInfo) as [ReviewMode, typeof modeInfo[ReviewMode]][]).map(([m, info]) => (
                 <button key={m} onClick={() => setMode(m)} className={`p-4 rounded-xl border text-center transition-all cursor-pointer ${mode === m ? "border-red-500/30 bg-red-500/8" : "border-white/8 bg-white/2 hover:border-white/15"}`}>
@@ -457,7 +457,7 @@ export default function SeoulWrongReviewPage() {
 
           {/* Word list preview */}
           <div>
-            <p className="text-white/50 text-xs font-semibold uppercase tracking-widest mb-3">Danh sách từ sai ({sortedWords.length} từ)</p>
+            <p className="text-white/50 text-xs font-semibold tracking-wider mb-3">Danh sách từ sai ({sortedWords.length} từ)</p>
             <div className="space-y-2 max-h-80 overflow-y-auto">
               {sortedWords.map((word, i) => {
                 const book = seoulBooks.find(b => b.id === word.bookId);

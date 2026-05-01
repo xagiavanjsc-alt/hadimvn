@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+﻿import { useState, useEffect, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import DashboardLayout from "@/components/feature/DashboardLayout";
@@ -326,7 +326,7 @@ function MatchingMode({ words, onBack }: { words: Vocab[]; onBack: () => void })
       ) : (
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Tiếng Hàn</p>
+            <p className="text-xs font-bold text-gray-400 tracking-wider mb-3">Tiếng Hàn</p>
             {koreans.map(k => {
               const isMatched = matched.has(k);
               const isSelected = selectedK === k;
@@ -346,7 +346,7 @@ function MatchingMode({ words, onBack }: { words: Vocab[]; onBack: () => void })
             })}
           </div>
           <div className="space-y-2">
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Tiếng Việt</p>
+            <p className="text-xs font-bold text-gray-400 tracking-wider mb-3">Tiếng Việt</p>
             {vietnameses.map(v => {
               const isMatched = matched.has(v);
               const isSelected = selectedV === v;

@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef } from "react";
+﻿import { useState, useMemo, useCallback, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -140,7 +140,7 @@ function EmailPreviewModal({ report, email, onClose, onSend, sending }: {
             {/* Quiz scores */}
             {report.quizScores.length > 0 && (
               <div className="px-5 pb-5">
-                <p className="text-white/50 text-xs font-semibold mb-3 uppercase tracking-wider">Kết quả quiz tuần này</p>
+                <p className="text-white/50 text-xs font-semibold mb-3 tracking-wider">Kết quả quiz tuần này</p>
                 <div className="space-y-2">
                   {report.quizScores.slice(0, 5).map((q, i) => (
                     <div key={i} className="flex items-center justify-between bg-white/3 rounded-lg px-3 py-2">
@@ -733,7 +733,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
 
           {/* Tips */}
           <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
-            <p className="text-white/50 text-xs font-semibold mb-3 uppercase tracking-wider">Gợi ý cải thiện</p>
+            <p className="text-white/50 text-xs font-semibold mb-3 tracking-wider">Gợi ý cải thiện</p>
             <div className="space-y-2.5">
               {accuracy < 70 && (
                 <div className="flex items-start gap-2">

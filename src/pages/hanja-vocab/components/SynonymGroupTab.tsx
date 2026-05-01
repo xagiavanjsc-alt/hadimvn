@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 
 const SR_KEY = "hanja_sr_data";
@@ -202,13 +202,13 @@ function MatchQuiz({ groups, onClose }: { groups: SynonymGroup[]; onClose: () =>
         <div className="bg-rose-400 h-1.5 rounded-full transition-all" style={{ width: `${(round / ROUNDS) * 100}%` }}></div>
       </div>
       <div className="bg-rose-50 border border-rose-200 rounded-xl p-3 text-center mb-5">
-        <p className="text-xs text-rose-500 font-semibold uppercase tracking-wide mb-1">Chủ đề nhóm</p>
+        <p className="text-xs text-rose-500 font-semibold tracking-wide mb-1">Chủ đề nhóm</p>
         <p className="text-lg font-bold text-gray-900 capitalize">{current.group.label}</p>
         <p className="text-xs text-gray-500">Ghép từ Hàn với nghĩa tiếng Việt tương ứng</p>
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-3">
-          <p className="text-xs font-semibold text-gray-500 text-center uppercase tracking-wide">Tiếng Hàn</p>
+          <p className="text-xs font-semibold text-gray-500 text-center tracking-wide">Tiếng Hàn</p>
           {leftWords.map(korean => {
             const isMatched = pairMatched.has(korean);
             const isSelected = leftSel === korean;
@@ -229,7 +229,7 @@ function MatchQuiz({ groups, onClose }: { groups: SynonymGroup[]; onClose: () =>
           })}
         </div>
         <div className="space-y-3">
-          <p className="text-xs font-semibold text-gray-500 text-center uppercase tracking-wide">Tiếng Việt</p>
+          <p className="text-xs font-semibold text-gray-500 text-center tracking-wide">Tiếng Việt</p>
           {rightWords.map(viet => {
             const matchedKorean = current.words.find(w => w.vietnamese === viet && pairMatched.has(w.korean));
             const isMatched = !!matchedKorean;

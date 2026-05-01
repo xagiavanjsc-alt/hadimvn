@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+﻿import { useState, useEffect, useRef, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { supabase } from "@/lib/supabase";
@@ -511,7 +511,7 @@ export default function DailyChallengePageComponent() {
                       <i className={`${c.icon} text-xl`} style={{ color: c.color }}></i>
                     </div>
                     <div>
-                      <p className="text-white/30 text-[10px] uppercase tracking-widest">Thử thách {idx + 1}</p>
+                      <p className="text-white/30 text-[10px] tracking-wider">Thử thách {idx + 1}</p>
                       <p className="text-white font-bold text-sm">{c.title}</p>
                     </div>
                   </div>
