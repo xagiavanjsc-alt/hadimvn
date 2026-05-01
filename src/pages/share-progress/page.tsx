@@ -1,8 +1,8 @@
-﻿import { useState, useRef, useCallback } from "react";
+﻿import { useState, useRef, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { supabase } from "@/lib/supabase";
 
 type CardTheme = "dark" | "gold" | "green" | "pink";
 type CardLayout = "square" | "story" | "wide";
@@ -174,23 +174,60 @@ function ProgressCard({
 export default function ShareProgressPage() {
   const navigate = useNavigate();
   const { user, profile } = useAuth();
-  const [streakData] = useLocalStorage<{ count: number }>("kts_streak", { count: 0 });
-  const [xpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
 
   const [theme, setTheme] = useState<CardTheme>("dark");
   const [layout, setLayout] = useState<CardLayout>("square");
   const [copied, setCopied] = useState(false);
   const [downloading, setDownloading] = useState(false);
+  const [loadingData, setLoadingData] = useState(true);
+  const [progressData, setProgressData] = useState<ProgressData>({
+    streak: 0,
+    xp: 0,
+    wordsLearned: 0,
+    quizScore: 0,
+    level: "A1",
+    daysStudied: 0,
+  });
   const cardRef = useRef<HTMLDivElement>(null);
 
-  const progressData: ProgressData = {
-    streak: streakData.count || 42,
-    xp: xpData.total || 8420,
-    wordsLearned: 1240,
-    quizScore: 87,
-    level: profile?.level || "B1",
-    daysStudied: 68,
-  };
+  useEffect(() => {
+    if (!user?.id) {
+      setLoadingData(false);
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      try {
+        // Leaderboard: xp, streak, words_learned, best_score, level
+        const { data: lb } = await supabase
+          .from("leaderboard")
+          .select("xp, streak, words_learned, best_score, level")
+          .eq("user_id", user.id)
+          .maybeSingle();
+
+        // Số ngày đã học thực tế
+        const { count: daysStudied } = await supabase
+          .from("study_history")
+          .select("*", { count: "exact", head: true })
+          .eq("user_id", user.id);
+
+        if (cancelled) return;
+        setProgressData({
+          streak: lb?.streak || 0,
+          xp: lb?.xp || 0,
+          wordsLearned: lb?.words_learned || 0,
+          quizScore: lb?.best_score || 0,
+          level: lb?.level || "A1",
+          daysStudied: daysStudied || 0,
+        });
+      } finally {
+        if (!cancelled) setLoadingData(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [user?.id]);
 
   const displayName = profile?.display_name || user?.email?.split("@")[0] || "Học viên";
 

@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, Component, ReactNode } from "react";
 import type { RouteObject } from "react-router-dom";
 import PageSkeleton from "@/components/base/PageSkeleton";
+import RequireAuth from "@/components/feature/RequireAuth";
 
 // ─── Eager (critical path) ────────────────────────────────────────────────────
 import RootPage from "../pages/root/page";
@@ -510,16 +511,16 @@ const routes: RouteObject[] = [
   { path: "/scheduler", element: <SchedulerPage /> },
   { path: "/study-calendar", element: <StudyCalendarPage /> },
   { path: "/study-reminder", element: <StudyReminderPage /> },
-  { path: "/study-journal", element: <StudyJournalPage /> },
-  { path: "/study-history", element: <StudyHistoryPage /> },
+  { path: "/study-journal", element: <RequireAuth title="Nhật ký học"><StudyJournalPage /></RequireAuth> },
+  { path: "/study-history", element: <RequireAuth title="Lịch sử học"><StudyHistoryPage /></RequireAuth> },
   { path: "/study-feed", element: <StudyFeedPage /> },
-  { path: "/weekly-report", element: <WeeklyReportPage /> },
+  { path: "/weekly-report", element: <RequireAuth title="Báo cáo tuần"><WeeklyReportPage /></RequireAuth> },
 
   // Profile & Account
-  { path: "/profile", element: <ProfilePage /> },
-  { path: "/account-settings", element: <AccountSettingsPage /> },
-  { path: "/settings", element: <SettingsPage /> },
-  { path: "/notification-settings", element: <NotificationSettingsPage /> },
+  { path: "/profile", element: <RequireAuth title="Hồ sơ cá nhân"><ProfilePage /></RequireAuth> },
+  { path: "/account-settings", element: <RequireAuth title="Cài đặt tài khoản"><AccountSettingsPage /></RequireAuth> },
+  { path: "/settings", element: <RequireAuth title="Cài đặt"><SettingsPage /></RequireAuth> },
+  { path: "/notification-settings", element: <RequireAuth title="Cài đặt thông báo"><NotificationSettingsPage /></RequireAuth> },
   { path: "/public-profile/:userId", element: <PublicProfilePage /> },
   { path: "/member/:userId", element: <MemberPage /> },
 
@@ -577,12 +578,12 @@ const routes: RouteObject[] = [
   { path: "/admin/feedback", element: <AdminFeedbackPage /> },
   { path: "/feedback", element: <FeedbackPage /> },
   { path: "/report-bug", element: <ReportBugPage /> },
-  { path: "/vip-history", element: <VipHistoryPage /> },
+  { path: "/vip-history", element: <RequireAuth title="Lịch sử VIP"><VipHistoryPage /></RequireAuth> },
   { path: "/daily-words", element: <DailyWordsPage /> },
   { path: "/learning-roadmap", element: <LearningRoadmapPage /> },
-  { path: "/study-stats", element: <StudyStatsPage /> },
+  { path: "/study-stats", element: <RequireAuth title="Thống kê học tập"><StudyStatsPage /></RequireAuth> },
   { path: "/data-upload", element: <DataUploadPage /> },
-  { path: "/share-progress", element: <ShareProgressPage /> },
+  { path: "/share-progress", element: <RequireAuth title="Chia sẻ tiến độ" message="Đăng nhập để tạo và tải ảnh tiến độ học tập của bạn."><ShareProgressPage /></RequireAuth> },
   // Legacy routes (giữ lại để không break links cũ)
   { path: "/admin-eps", element: <AdminEpsPage /> },
   { path: "/admin-eps-upload", element: <AdminEpsUploadPage /> },

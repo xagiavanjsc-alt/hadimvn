@@ -130,25 +130,66 @@ export default function PublicProfilePage() {
 
       setProfile(data);
 
-      // Load leaderboard stats
+      // Load leaderboard stats (cột đúng: xp, streak — theo schema leaderboard)
       const { data: lbData } = await supabase
-        .from("leaderboard_snapshots")
-        .select("total_xp, streak_count")
+        .from("leaderboard")
+        .select("xp, streak, words_learned, best_score")
         .eq("user_id", userId)
         .maybeSingle();
 
-      const totalXP = lbData?.total_xp || 0;
-      const streak = lbData?.streak_count || 0;
+      const totalXP = lbData?.xp || 0;
+      const streak = lbData?.streak || 0;
       const rank = getRankForXP(totalXP);
 
-      // Mock EPS stats (in real app would be from DB)
+      // EPS exam stats thật từ bảng exam_results
+      const { data: epsData } = await supabase
+        .from("exam_results")
+        .select("score, total, exam_type")
+        .eq("user_id", userId)
+        .ilike("exam_type", "eps%");
+
+      let epsBestScore = 0;
+      const epsExamCount = epsData?.length || 0;
+      if (epsData && epsData.length > 0) {
+        for (const r of epsData) {
+          if (r.total && r.total > 0) {
+            const pct = Math.round((r.score / r.total) * 100);
+            if (pct > epsBestScore) epsBestScore = pct;
+          }
+        }
+      }
+
+      // Flashcard đã biết — đếm từ study_progress.flashcard_known (jsonb)
+      const { data: spData } = await supabase
+        .from("study_progress")
+        .select("flashcard_known, vocab_known")
+        .eq("user_id", userId)
+        .maybeSingle();
+
+      const flashcardKnown =
+        (Array.isArray(spData?.flashcard_known) ? spData.flashcard_known.length : 0) +
+        (Array.isArray(spData?.vocab_known) ? spData.vocab_known.length : 0);
+
+      // Huy hiệu — tạm tính dựa trên các milestone streak + XP + words_learned
+      const badgeCount =
+        (streak >= 7 ? 1 : 0) +
+        (streak >= 30 ? 1 : 0) +
+        (streak >= 100 ? 1 : 0) +
+        (totalXP >= 1000 ? 1 : 0) +
+        (totalXP >= 5000 ? 1 : 0) +
+        (totalXP >= 10000 ? 1 : 0) +
+        ((lbData?.words_learned || 0) >= 100 ? 1 : 0) +
+        ((lbData?.words_learned || 0) >= 500 ? 1 : 0) +
+        (epsExamCount >= 5 ? 1 : 0) +
+        (epsBestScore >= 80 ? 1 : 0);
+
       setStats({
         streak,
         totalXP,
-        epsBestScore: Math.floor(Math.random() * 30) + 70,
-        epsExamCount: Math.floor(Math.random() * 20) + 1,
-        flashcardKnown: Math.floor(Math.random() * 200) + 50,
-        badgeCount: Math.floor(Math.random() * 8) + 2,
+        epsBestScore,
+        epsExamCount,
+        flashcardKnown,
+        badgeCount,
         rankName: rank.name,
         rankColor: rank.color,
         rankIcon: rank.icon,
