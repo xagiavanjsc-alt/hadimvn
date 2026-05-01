@@ -4,6 +4,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import { RANKS } from "@/data/ranks";
+import { supabase } from "@/lib/supabase";
 
 function getRankForXP(xp: number) {
   return [...RANKS].reverse().find(r => xp >= r.minXP) || RANKS[0];
@@ -24,48 +25,7 @@ interface FriendData {
   levelIcon: string;
 }
 
-// Mock friend data for demo
-const MOCK_FRIENDS: FriendData[] = [
-  {
-    id: "friend1",
-    name: "Nguyễn Minh Tuấn",
-    xp: 1850,
-    streak: 23,
-    epsAccuracy: 78,
-    epsDone: 145,
-    flashcardKnown: 89,
-    badges: 7,
-    level: "Cao thủ",
-    levelColor: "#a78bfa",
-    levelIcon: "ri-vip-crown-line",
-  },
-  {
-    id: "friend2",
-    name: "Trần Thu Hương",
-    xp: 620,
-    streak: 8,
-    epsAccuracy: 65,
-    epsDone: 87,
-    flashcardKnown: 54,
-    badges: 4,
-    level: "Chiến binh",
-    levelColor: "#fb923c",
-    levelIcon: "ri-sword-line",
-  },
-  {
-    id: "friend3",
-    name: "Lê Văn Đức",
-    xp: 320,
-    streak: 5,
-    epsAccuracy: 55,
-    epsDone: 60,
-    flashcardKnown: 32,
-    badges: 2,
-    level: "Học viên",
-    levelColor: "#34d399",
-    levelIcon: "ri-book-open-line",
-  },
-];
+// Friend data giờ được fetch thật từ Supabase (không còn mock)
 
 const COMPARE_METRICS = [
   { key: "xp", label: "Tổng XP", icon: "ri-star-line", color: "#e8c84a", format: (v: number) => v.toLocaleString() },
@@ -145,29 +105,89 @@ export default function CompareFriendsPage() {
     levelIcon: currentRank.icon,
   };
 
-  const handleLoadFriend = useCallback(() => {
+  const handleLoadFriend = useCallback(async () => {
     if (!linkInput.trim()) return;
     setLoading(true);
     setLoadError("");
-    // Simulate loading — in real app would fetch from Supabase by userId
-    setTimeout(() => {
-      // Extract userId from link if possible
-      const match = linkInput.match(/\/member\/([a-zA-Z0-9-]+)/);
-      if (match) {
-        // Try to find in mock friends or generate random
-        const mockIdx = Math.floor(Math.random() * MOCK_FRIENDS.length);
-        const friend = { ...MOCK_FRIENDS[mockIdx], id: match[1] };
-        setSelectedFriend(friend);
-        setSavedFriends(prev => {
-          const exists = prev.find(f => f.id === friend.id);
-          return exists ? prev : [friend, ...prev.slice(0, 4)];
-        });
-        setLinkInput("");
-      } else {
-        setLoadError("Link không hợp lệ. Hãy dùng link hồ sơ công khai dạng /member/...");
+    try {
+      // Hỗ trợ cả /member/:id (legacy) và /public-profile/:id
+      const match = linkInput.match(/\/(?:member|public-profile)\/([a-zA-Z0-9-]+)/);
+      if (!match) {
+        setLoadError("Link không hợp lệ. Dùng link dạng /public-profile/... hoặc /member/...");
+        setLoading(false);
+        return;
       }
+      const userId = match[1];
+
+      // Query user_profiles + leaderboard + exam_results + study_progress song song
+      const [{ data: profile }, { data: lb }, { data: epsRows }, { data: sp }] = await Promise.all([
+        supabase.from("user_profiles").select("id, display_name, avatar_url").eq("id", userId).maybeSingle(),
+        supabase.from("leaderboard").select("xp, streak").eq("user_id", userId).maybeSingle(),
+        supabase.from("exam_results").select("score, total, exam_type").eq("user_id", userId).ilike("exam_type", "eps%"),
+        supabase.from("study_progress").select("flashcard_known, vocab_known").eq("user_id", userId).maybeSingle(),
+      ]);
+
+      if (!profile) {
+        setLoadError("Không tìm thấy hồ sơ người dùng này.");
+        setLoading(false);
+        return;
+      }
+
+      // EPS stats
+      let epsAccuracy = 0;
+      let epsDone = 0;
+      if (epsRows && epsRows.length > 0) {
+        let totalScore = 0;
+        let totalQuestions = 0;
+        epsRows.forEach((r: { score: number; total: number }) => {
+          totalScore += r.score || 0;
+          totalQuestions += r.total || 0;
+        });
+        epsAccuracy = totalQuestions > 0 ? Math.round((totalScore / totalQuestions) * 100) : 0;
+        epsDone = totalQuestions;
+      }
+
+      const flashcardKnown =
+        (Array.isArray(sp?.flashcard_known) ? sp.flashcard_known.length : 0) +
+        (Array.isArray(sp?.vocab_known) ? sp.vocab_known.length : 0);
+
+      const xp = lb?.xp || 0;
+      const streak = lb?.streak || 0;
+      const rank = getRankForXP(xp);
+
+      // Badges: cùng công thức với public-profile để nhất quán
+      const badges =
+        (streak >= 7 ? 1 : 0) + (streak >= 30 ? 1 : 0) + (streak >= 100 ? 1 : 0) +
+        (xp >= 1000 ? 1 : 0) + (xp >= 5000 ? 1 : 0) + (xp >= 10000 ? 1 : 0) +
+        (epsDone >= 50 ? 1 : 0) + (epsDone >= 200 ? 1 : 0) +
+        (epsAccuracy >= 80 ? 1 : 0) + (flashcardKnown >= 100 ? 1 : 0);
+
+      const friend: FriendData = {
+        id: userId,
+        name: profile.display_name || "Học viên",
+        avatar: profile.avatar_url,
+        xp,
+        streak,
+        epsAccuracy,
+        epsDone,
+        flashcardKnown,
+        badges,
+        level: rank.name,
+        levelColor: rank.color,
+        levelIcon: rank.icon,
+      };
+
+      setSelectedFriend(friend);
+      setSavedFriends(prev => {
+        const exists = prev.find(f => f.id === friend.id);
+        return exists ? prev.map(f => f.id === friend.id ? friend : f) : [friend, ...prev.slice(0, 4)];
+      });
+      setLinkInput("");
+    } catch (e) {
+      setLoadError("Lỗi khi tải dữ liệu. Thử lại sau.");
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   }, [linkInput, setSavedFriends]);
 
   const winsCount = selectedFriend
@@ -288,21 +308,6 @@ export default function CompareFriendsPage() {
               <p className="text-white/40 text-base font-medium mb-2">Chưa có bạn bè để so sánh</p>
               <p className="text-white/20 text-sm">Nhập link hồ sơ công khai của bạn bè ở trên để bắt đầu so sánh</p>
 
-              {/* Demo with mock friends */}
-              <div className="mt-6">
-                <p className="text-white/20 text-xs mb-3">Hoặc thử so sánh với học viên mẫu:</p>
-                <div className="flex gap-2 justify-center flex-wrap">
-                  {MOCK_FRIENDS.map(f => (
-                    <button
-                      key={f.id}
-                      onClick={() => setSelectedFriend(f)}
-                      className="px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer whitespace-nowrap transition-all bg-white/5 text-white/40 border border-white/8 hover:text-white/70 hover:bg-white/10"
-                    >
-                      {f.name}
-                    </button>
-                  ))}
-                </div>
-              </div>
             </div>
           )}
         </div>
