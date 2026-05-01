@@ -2,6 +2,7 @@
 import type { EbookMeta } from "@/pages/ebook/page";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
 import type { EbookTemplate } from "./EbookTemplates";
+import { sanitizeHtml } from "@/lib/sanitize";
 
 interface Props {
   meta: EbookMeta;
@@ -275,7 +276,7 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
                   </div>
                   <div
                     className="story-text"
-                    dangerouslySetInnerHTML={{ __html: storyHtml }}
+                    dangerouslySetInnerHTML={{ __html: sanitizeHtml(storyHtml) }}
                   />
                 </div>
 
@@ -295,7 +296,7 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
                             {parsed.romanization && <div className="vocab-romanization">{parsed.romanization}</div>}
                             <div className="vocab-meaning">{parsed.meaning}</div>
                             {parsed.example && (
-                              <div className="vocab-example" dangerouslySetInnerHTML={{ __html: wrapKorean(parsed.example) }} />
+                              <div className="vocab-example" dangerouslySetInnerHTML={{ __html: sanitizeHtml(wrapKorean(parsed.example)) }} />
                             )}
                           </div>
                         );
@@ -315,10 +316,10 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
                       {grammarPoints.map((gp, gi) => (
                         <div key={gi} className="grammar-point">
                           {gp.pattern && (
-                            <div className="grammar-pattern" dangerouslySetInnerHTML={{ __html: wrapKorean(gp.pattern) }} />
+                            <div className="grammar-pattern" dangerouslySetInnerHTML={{ __html: sanitizeHtml(wrapKorean(gp.pattern)) }} />
                           )}
                           {gp.explain && (
-                            <div className="grammar-explain" dangerouslySetInnerHTML={{ __html: wrapKorean(gp.explain) }} />
+                            <div className="grammar-explain" dangerouslySetInnerHTML={{ __html: sanitizeHtml(wrapKorean(gp.explain)) }} />
                           )}
                         </div>
                       ))}
@@ -358,7 +359,7 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
                               {parsed.romanization && <div className="vocab-romanization">{parsed.romanization}</div>}
                               <div className="vocab-meaning">{parsed.meaning}</div>
                               {parsed.example && (
-                                <div className="vocab-example" dangerouslySetInnerHTML={{ __html: wrapKorean(parsed.example) }} />
+                                <div className="vocab-example" dangerouslySetInnerHTML={{ __html: sanitizeHtml(wrapKorean(parsed.example)) }} />
                               )}
                             </div>
                           );
@@ -378,10 +379,10 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
                         {grammarPoints.map((gp, gi) => (
                           <div key={gi} className="grammar-point">
                             {gp.pattern && (
-                              <div className="grammar-pattern" dangerouslySetInnerHTML={{ __html: wrapKorean(gp.pattern) }} />
+                              <div className="grammar-pattern" dangerouslySetInnerHTML={{ __html: sanitizeHtml(wrapKorean(gp.pattern)) }} />
                             )}
                             {gp.explain && (
-                              <div className="grammar-explain" dangerouslySetInnerHTML={{ __html: wrapKorean(gp.explain) }} />
+                              <div className="grammar-explain" dangerouslySetInnerHTML={{ __html: sanitizeHtml(wrapKorean(gp.explain)) }} />
                             )}
                           </div>
                         ))}

@@ -153,7 +153,7 @@ export default function SettingsPage() {
           else if (res.status === 429) { msg = "Đã vượt rate limit — thử lại sau"; }
           else { msg = `Lỗi ${res.status}`; }
         } else if (provider === "gemini") {
-          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${form.aiApiKey.trim()}`);
+          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models`, { headers: { "x-goog-api-key": form.aiApiKey.trim() } });
           if (res.ok) { ok = true; msg = "Hợp lệ — Gemini kết nối thành công"; }
           else if (res.status === 400 || res.status === 403) { msg = "API Key không hợp lệ"; }
           else { msg = `Lỗi ${res.status}`; }

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
+import { sanitizeHtml } from "@/lib/sanitize";
 import { supabase } from "@/lib/supabase";
 import { communitySlug } from "@/lib/slugify";
 import OnlineUsersWidget from "./components/OnlineUsersWidget";
@@ -704,7 +705,7 @@ function NewPostModal({
             <div className="bg-white/3 border border-white/8 rounded-xl p-4">
               <p className="text-white/30 text-[10px] tracking-normal mb-2">Xem trước</p>
               <div className="text-white/70 text-sm leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: renderContent(content) }} />
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(renderContent(content)) }} />
             </div>
           )}
 

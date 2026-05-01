@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { sanitizeHtml } from "@/lib/sanitize";
 
 export interface AdConfig {
   id: string;
@@ -81,7 +82,7 @@ function AdItem({ ad, onDismiss }: { ad: AdConfig; onDismiss: () => void }) {
         className={`relative transition-all duration-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
       >
         <div
-          dangerouslySetInnerHTML={{ __html: ad.content }}
+          dangerouslySetInnerHTML={{ __html: sanitizeHtml(ad.content) }}
           className="ad-banner-html"
         />
         <button

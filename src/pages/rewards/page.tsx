@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { HANJA_DATA } from "@/mocks/hanjaData";
+import { sanitizeHtml } from "@/lib/sanitize";
 
 const ADMIN_KEY = "kts_admin_mode";
 
@@ -801,7 +802,7 @@ export default function RewardsPage() {
                     <i className={`${s.icon} text-lg`} style={{ color: s.color }}></i>
                   </div>
                   <div className="flex-1">
-                    <p className="text-white/80 text-sm font-medium" dangerouslySetInnerHTML={{ __html: s.label }}></p>
+                    <p className="text-white/80 text-sm font-medium" dangerouslySetInnerHTML={{ __html: sanitizeHtml(s.label) }}></p>
                     <p className="text-white/30 text-xs">{s.desc}</p>
                   </div>
                   <div className="text-right">

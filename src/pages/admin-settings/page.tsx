@@ -232,7 +232,7 @@ export default function AdminSettingsPage() {
           const res = await fetch("https://api.openai.com/v1/models", { headers: { Authorization: `Bearer ${form.aiApiKey.trim()}` } });
           ok = res.ok; msg = res.ok ? "Hợp lệ — OpenAI kết nối thành công" : `Lỗi ${res.status}`;
         } else if (provider === "gemini") {
-          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${form.aiApiKey.trim()}`);
+          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models`, { headers: { "x-goog-api-key": form.aiApiKey.trim() } });
           ok = res.ok; msg = res.ok ? "Hợp lệ — Gemini kết nối thành công" : `Lỗi ${res.status}`;
         } else {
           const res = await fetch("https://openrouter.ai/api/v1/models", { headers: { Authorization: `Bearer ${form.aiApiKey.trim()}` } });

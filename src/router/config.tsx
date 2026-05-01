@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, Component, ReactNode } from "react";
 import type { RouteObject } from "react-router-dom";
 import PageSkeleton from "@/components/base/PageSkeleton";
 
@@ -10,6 +10,28 @@ import NotFound from "../pages/NotFound";
 
 type SkeletonVariant = "dashboard" | "full" | "vocab" | "exam" | "flashcard";
 
+// ─── Error Boundary for lazy routes ─────────────────────────────────────────
+interface ErrorBoundaryProps { children: ReactNode; name?: string }
+interface ErrorBoundaryState { hasError: boolean; error?: Error }
+
+class LazyErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  state: ErrorBoundaryState = { hasError: false };
+  static getDerivedStateFromError(error: Error) { return { hasError: true, error }; }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4 px-4">
+          <i className="ri-error-warning-line text-4xl text-red-400"></i>
+          <h2 className="text-white text-lg font-semibold">Đã xảy ra lỗi</h2>
+          <p className="text-white/50 text-sm text-center max-w-md">{this.state.error?.message || "Không thể tải trang này. Thử lại sau."}</p>
+          <button onClick={() => { this.setState({ hasError: false }); window.location.reload(); }} className="mt-2 px-5 py-2 rounded-lg bg-[#e8c84a] text-[#0f1117] font-semibold text-sm hover:bg-[#e8c84a]/90 transition-colors cursor-pointer">Tải lại trang</button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 // ─── Lazy page helper — returns a stable wrapper component ─────────────────────
 function lazyPage(
   factory: () => Promise<{ default: React.ComponentType<unknown> }>,
@@ -18,9 +40,11 @@ function lazyPage(
   const LazyComponent = lazy(factory);
   return function LazyRouteWrapper() {
     return (
-      <Suspense fallback={<PageSkeleton variant={skeleton} />}>
-        <LazyComponent />
-      </Suspense>
+      <LazyErrorBoundary>
+        <Suspense fallback={<PageSkeleton variant={skeleton} />}>
+          <LazyComponent />
+        </Suspense>
+      </LazyErrorBoundary>
     );
   };
 }

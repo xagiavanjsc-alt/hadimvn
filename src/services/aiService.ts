@@ -615,10 +615,13 @@ async function callOpenRouter(config: AIConfig, prompt: string): Promise<string>
 async function callGemini(config: AIConfig, prompt: string): Promise<string> {
   const model = config.model ?? "gemini-1.5-flash";
   const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${config.apiKey}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
     {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": config.apiKey,
+      },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: { temperature: 0.7, maxOutputTokens: 2000 },

@@ -2,6 +2,7 @@ import { useState } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { AdConfig } from "@/components/feature/AdBanner";
+import { sanitizeHtml } from "@/lib/sanitize";
 
 const POSITION_LABELS: Record<AdConfig["position"], string> = {
   top: "Đầu trang",
@@ -116,7 +117,7 @@ function AdEditor({
             <div>
               <p className="text-xs mb-3 font-semibold" style={{ color: "var(--admin-text-muted)" }}>Xem trước quảng cáo:</p>
               {form.type === "html" ? (
-                <div dangerouslySetInnerHTML={{ __html: form.content || "" }} />
+                <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(form.content || "") }} />
               ) : form.type === "image" ? (
                 <img src={form.content} alt="preview" className="w-full rounded-xl" />
               ) : (
