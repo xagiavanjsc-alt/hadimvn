@@ -8,13 +8,14 @@ const ADMIN_EMAILS: string[] = [
 
 /**
  * useIsAdmin — check if the current user has admin privileges.
- * Priority: 1) Supabase user email in ADMIN_EMAILS list
- *           2) user_profiles.is_vip = true AND localStorage verified
- *           3) localStorage kts_admin_verified (manual toggle fallback)
+ * Priority: 1) Supabase DB is_admin (authoritative)
+ *           2) user email in ADMIN_EMAILS list
+ *           3) localStorage cache (1 hour TTL, UI hint only)
+ * RLS is the real guard — this hook only controls UI visibility.
  */
 export function useIsAdmin(): boolean {
   const [isAdmin, setIsAdmin] = useState<boolean>(() => {
-    // Fast sync check from localStorage
+    // Fast sync check from localStorage (cache only, short TTL)
     try {
       const raw = localStorage.getItem("kts_admin_verified");
       if (!raw) return false;
@@ -35,15 +36,15 @@ export function useIsAdmin(): boolean {
     supabase.auth.getUser().then(async ({ data }) => {
       if (!mounted) return;
       const user = data?.user;
-      if (!user) return;
-      const email = user.email || "";
-      // Check email list
-      if (ADMIN_EMAILS.length > 0 && ADMIN_EMAILS.includes(email)) {
-        markAdminVerified();
-        setIsAdmin(true);
+      if (!user) {
+        // No session → clear cache
+        localStorage.removeItem("kts_admin_verified");
+        setIsAdmin(false);
         return;
       }
-      // Check is_admin from profile
+      const email = user.email || "";
+
+      // 1. Check is_admin from DB (authoritative)
       const { data: profile } = await supabase
         .from("user_profiles")
         .select("is_admin")
@@ -53,7 +54,19 @@ export function useIsAdmin(): boolean {
       if (profile?.is_admin === true) {
         markAdminVerified();
         setIsAdmin(true);
+        return;
       }
+
+      // 2. Check email whitelist (fallback)
+      if (ADMIN_EMAILS.length > 0 && ADMIN_EMAILS.includes(email)) {
+        markAdminVerified();
+        setIsAdmin(true);
+        return;
+      }
+
+      // 3. Not admin → clear cache
+      localStorage.removeItem("kts_admin_verified");
+      setIsAdmin(false);
     });
     return () => { mounted = false; };
   }, []);
@@ -63,15 +76,15 @@ export function useIsAdmin(): boolean {
 
 /**
  * Mark the current session as admin-verified.
- * Call this when the user successfully loads the admin panel.
+ * Short TTL (1 hour) to force re-verification frequently.
  */
 export function markAdminVerified(): void {
   localStorage.setItem(
     "kts_admin_verified",
     JSON.stringify({
       verified: true,
-      // Expires after 48 hours
-      expiresAt: Date.now() + 48 * 60 * 60 * 1000,
+      // Expires after 1 hour (was 48h — too long for admin cache)
+      expiresAt: Date.now() + 60 * 60 * 1000,
     })
   );
 }
