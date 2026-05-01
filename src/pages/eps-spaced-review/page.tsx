@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+﻿import { useState, useEffect, useCallback, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAudioCache } from "@/hooks/useAudioCache";
@@ -68,7 +68,7 @@ function StatsPanel({ cards, srData }: { cards: EpsVocabItem[]; srData: Record<s
   const learned = Object.values(srData).filter(s => s.repetitions > 0).length;
   const mastered = Object.values(srData).filter(s => s.repetitions >= 5 && s.easeFactor >= 2.5).length;
   return (
-    <div className="grid grid-cols-4 gap-4 mb-6">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
       {[
         { label: "Cần ôn hôm nay", value: dueToday, color: dueToday > 0 ? "#f87171" : "#34d399", icon: "ri-time-line" },
         { label: "Đã học", value: learned, color: "#e8c84a", icon: "ri-book-open-line" },
@@ -96,7 +96,7 @@ function WrongQStatsPanel({ srQData, totalWrong }: { srQData: Record<string, SRQ
   const mastered = Object.values(srQData).filter(c => c.repetitions >= 4).length;
   const inQueue = Object.keys(srQData).length;
   return (
-    <div className="grid grid-cols-4 gap-4 mb-6">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
       {[
         { label: "Câu sai đã thêm", value: totalWrong, color: "#f87171", icon: "ri-error-warning-line" },
         { label: "Trong hàng đợi SR", value: inQueue, color: "#fb923c", icon: "ri-time-line" },
@@ -174,7 +174,7 @@ function ReviewCard({ item, srCard, onRate, sessionIdx, sessionTotal }: {
               )}
             </div>
             <p className="text-white/30 text-xs text-center mb-3">Bạn nhớ từ này ở mức nào?</p>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {QUALITY_LABELS.map(({ q, label, bg, icon }) => (
                 <button key={q} onClick={() => onRate(q)} className={`flex flex-col items-center gap-1.5 py-3 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${bg}`}>
                   <i className={`${icon} text-lg`}></i><span>{label}</span>
@@ -277,7 +277,7 @@ function WrongQuestionCard({ question, srCard, onRate, sessionIdx, sessionTotal 
               <p className="text-white/55 text-xs leading-relaxed">{question.explanation}</p>
             </div>
             <p className="text-white/30 text-xs text-center mb-3">Bạn nhớ câu này ở mức nào?</p>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {QUALITY_LABELS.map(({ q, label, bg, icon }) => (
                 <button key={q} onClick={() => onRate(q)} className={`flex flex-col items-center gap-1.5 py-3 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${bg}`}>
                   <i className={`${icon} text-lg`}></i><span>{label}</span>
@@ -303,7 +303,7 @@ function SessionComplete({ results, onRestart, onClose }: {
       </div>
       <h2 className="text-white font-bold text-2xl mb-2">Phiên ôn tập hoàn thành!</h2>
       <p className="text-white/40 text-sm mb-6">Tuyệt vời! Bạn đã ôn xong {results.total} thẻ hôm nay.</p>
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <div className="bg-[#0f1117] border border-white/5 rounded-xl p-4">
           <p className="text-emerald-400 font-bold text-2xl">{results.correct}</p>
           <p className="text-white/40 text-xs mt-1">Nhớ được</p>
@@ -490,7 +490,7 @@ function WrongQuestionsTab() {
         </div>
       )}
 
-      <div className="grid grid-cols-[1fr_300px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         <div className="space-y-5">
           {/* Topic filter */}
           <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
@@ -675,7 +675,7 @@ function VocabSRTab() {
   return (
     <>
       <StatsPanel cards={filteredVocab} srData={srData} />
-      <div className="grid grid-cols-[1fr_300px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         <div className="space-y-5">
           <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
             <p className="text-white font-semibold text-sm mb-4">Chọn chủ đề ôn tập</p>
@@ -794,3 +794,6 @@ export default function EpsSpacedReviewPage() {
     </DashboardLayout>
   );
 }
+
+
+

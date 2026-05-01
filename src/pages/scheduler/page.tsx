@@ -180,7 +180,7 @@ export default function SchedulerPage() {
         </div>
       )}
 
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
         {/* Left: Config */}
         <div className="col-span-2 space-y-4">
           {/* Next run banner */}
@@ -434,3 +434,4 @@ export default function SchedulerPage() {
     </DashboardLayout>
   );
 }
+

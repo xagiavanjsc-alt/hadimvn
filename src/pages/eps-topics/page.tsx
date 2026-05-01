@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -67,7 +67,7 @@ function TopicDetailModal({
           <div className="h-2 bg-white/5 rounded-full overflow-hidden mb-3">
             <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: topic.color }} />
           </div>
-          <div className="grid grid-cols-3 gap-3 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
             <div>
               <p className="text-white font-bold text-lg">{done}</p>
               <p className="text-white/30 text-[10px]">Đã làm</p>
@@ -84,7 +84,7 @@ function TopicDetailModal({
         </div>
 
         {/* Difficulty breakdown */}
-        <div className="grid grid-cols-3 gap-2 mb-5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-5">
           {[
             { label: "Dễ", count: byDifficulty.easy, color: "#34d399" },
             { label: "Trung bình", count: byDifficulty.medium, color: "#e8c84a" },
@@ -259,7 +259,7 @@ export default function EpsTopicsPage() {
       subtitle="Lộ trình học có hệ thống — từ giao tiếp cơ bản đến pháp luật lao động"
     >
       {/* Overall stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Tổng câu hỏi", value: epsQuestions.length, icon: "ri-survey-line", color: "#e8c84a" },
           { label: "Đã hoàn thành", value: `${overallPct}%`, icon: "ri-pie-chart-line", color: "#34d399" },
@@ -278,7 +278,7 @@ export default function EpsTopicsPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-[1fr_300px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         {/* Left: Topics */}
         <div>
           {/* View toggle */}
@@ -417,3 +417,6 @@ export default function EpsTopicsPage() {
     </DashboardLayout>
   );
 }
+
+
+

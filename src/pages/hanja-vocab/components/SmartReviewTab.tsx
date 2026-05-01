@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+﻿import { useState, useMemo, useCallback } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 
 const SR_KEY = "hanja_sr_data";
@@ -194,7 +194,7 @@ export default function SmartReviewTab() {
         {/* Start buttons */}
         <div className="bg-white border border-gray-100 rounded-2xl p-5 mb-5">
           <h3 className="font-semibold text-gray-900 mb-3">Bắt đầu ôn tập</h3>
-          <div className="grid grid-cols-3 gap-3 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
             {[
               { count: 10, label: "Nhanh", sub: "10 từ · ~5 phút", color: "border-green-300 bg-green-50 text-green-700" },
               { count: 20, label: "Tiêu chuẩn", sub: "20 từ · ~10 phút", color: "border-amber-300 bg-amber-50 text-amber-700" },
@@ -372,3 +372,4 @@ export default function SmartReviewTab() {
     </div>
   );
 }
+

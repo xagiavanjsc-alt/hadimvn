@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -171,7 +171,7 @@ export default function ChallengeHistoryPage() {
       subtitle="Xem lại kết quả các tuần trước và streak thử thách của bạn"
     >
       {/* Summary stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Streak thử thách", value: `${challengeStreak} tuần`, icon: "ri-fire-line", color: "#fb923c", sub: "Liên tiếp ≥50% thử thách" },
           { label: "Tuần hoàn hảo", value: perfectWeeks, icon: "ri-vip-crown-line", color: "#e8c84a", sub: `/${history.length} tuần đã ghi nhận` },
@@ -191,7 +191,7 @@ export default function ChallengeHistoryPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-[1fr_280px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
         {/* Left: week list */}
         <div>
           {/* Filter */}
@@ -244,7 +244,7 @@ export default function ChallengeHistoryPage() {
                 <p className="text-white/40 text-xs">tuần liên tiếp</p>
               </div>
             </div>
-            <div className="grid grid-cols-4 gap-1.5">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
               {history.slice(0, 8).reverse().map((r, i) => {
                 const isGood = r.completedCount >= Math.ceil(r.totalCount / 2);
                 const isPerfect = r.completedCount === r.totalCount;
@@ -316,3 +316,5 @@ export default function ChallengeHistoryPage() {
     </DashboardLayout>
   );
 }
+
+

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -187,7 +187,7 @@ export default function ProgressPage() {
       }
     >
       {/* Overall stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Câu đã làm", value: totalDone, sub: `/ ${epsQuestions.length} tổng`, color: "#e8c84a", icon: "ri-survey-line" },
           { label: "Tỷ lệ đúng", value: `${overallPct}%`, sub: `${totalCorrect} câu đúng`, color: "#34d399", icon: "ri-checkbox-circle-line" },
@@ -362,3 +362,4 @@ export default function ProgressPage() {
     </DashboardLayout>
   );
 }
+

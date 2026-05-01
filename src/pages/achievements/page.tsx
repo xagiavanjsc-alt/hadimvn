@@ -257,7 +257,7 @@ export default function AchievementsPage() {
               style={{ width: `${(unlockedCount / ACHIEVEMENTS.length) * 100}%` }}
             />
           </div>
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {rarityBreakdown.map(rb => {
               const r = RARITY_CONFIG[rb.rarity];
               return (
@@ -271,7 +271,7 @@ export default function AchievementsPage() {
         </div>
 
         {/* Current stats */}
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
             { label: "Streak hiện tại", value: `${userStats.streak} ngày`, icon: "ri-fire-line", color: "text-orange-400" },
             { label: "Điểm EPS cao nhất", value: `${userStats.epsScore}`, icon: "ri-trophy-line", color: "text-[#e8c84a]" },
@@ -317,7 +317,7 @@ export default function AchievementsPage() {
         </div>
 
         {/* Achievement grid */}
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {filtered.map(a => (
             <AchievementCard key={a.id} achievement={a} unlocked={unlockedIds.has(a.id)} />
           ))}
@@ -335,3 +335,4 @@ export default function AchievementsPage() {
     </DashboardLayout>
   );
 }
+

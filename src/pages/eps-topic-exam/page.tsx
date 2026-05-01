@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+﻿import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -127,7 +127,7 @@ export default function EpsTopicExamPage() {
   if (mode === "select") {
     return (
       <DashboardLayout title="Thi thử EPS theo chủ đề" subtitle="Chọn 1 chủ đề và thi 20 câu tập trung">
-        <div className="grid grid-cols-[1fr_300px] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
           <div>
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
               {topicsWithCount.map(topic => {
@@ -277,7 +277,7 @@ export default function EpsTopicExamPage() {
           </button>
         </div>
 
-        <div className="grid grid-cols-[1fr_240px] gap-5 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_240px] gap-5 max-w-5xl mx-auto">
           {/* Question */}
           <div className="space-y-4">
             <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-6">
@@ -481,3 +481,4 @@ export default function EpsTopicExamPage() {
 
   return null;
 }
+

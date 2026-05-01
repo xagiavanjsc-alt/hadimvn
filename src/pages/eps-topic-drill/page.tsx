@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { epsQuestions, EPS_TOPICS, EpsQuestion } from "@/mocks/epsQuestions";
@@ -358,7 +358,7 @@ function ResultsScreen({
         <p className="font-bold text-base mb-1" style={{ color: grade.color }}>{grade.label}</p>
         <p className="text-white/40 text-sm">{correct}/{total} câu đúng · {topic?.label}</p>
 
-        <div className="grid grid-cols-3 gap-3 mt-5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5">
           {[
             { label: "Đúng", value: correct, color: "#34d399" },
             { label: "Sai", value: total - correct, color: "#f87171" },
@@ -539,3 +539,4 @@ export default function EpsTopicDrillPage() {
     </DashboardLayout>
   );
 }
+

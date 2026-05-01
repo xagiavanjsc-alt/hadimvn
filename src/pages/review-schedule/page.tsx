@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+﻿import { useState, useMemo, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -724,7 +724,7 @@ export default function ReviewSchedulePage() {
           {/* Quick add */}
           <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4">
             <p className="text-white font-semibold text-sm mb-3">Thêm lịch ôn nhanh</p>
-            <div className="grid grid-cols-3 gap-2 mb-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-3">
               {["Hôm nay", "Ngày mai", "Tuần sau"].map((label, i) => {
                 const d = addDays(today, i === 0 ? 0 : i === 1 ? 1 : 7);
                 const dateStr = formatDate(d);
@@ -858,3 +858,4 @@ export default function ReviewSchedulePage() {
     </DashboardLayout>
   );
 }
+

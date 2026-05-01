@@ -293,7 +293,7 @@ function ResultScreen({ mcAnswers, fillAnswers, writeAnswers, onRetry }: {
       </div>
 
       {/* Section breakdown */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
           { label: "듣기 (Nghe)", score: listeningScore, max: listeningQs.reduce((s,q)=>s+q.points,0), color: "#38bdf8", icon: "ri-headphone-line" },
           { label: "읽기 (Đọc)", score: readingScore, max: readingQs.reduce((s,q)=>s+q.points,0), color: "#a78bfa", icon: "ri-book-open-line" },
@@ -306,7 +306,7 @@ function ResultScreen({ mcAnswers, fillAnswers, writeAnswers, onRetry }: {
               </div>
               <p className="text-white/60 text-xs font-medium">{sec.label}</p>
             </div>
-            <div className="text-2xl font-black mb-1" style={{ color: sec.color }}>{sec.score}</div>
+            <div className="text-xl font-bold mb-1" style={{ color: sec.color }}>{sec.score}</div>
             <p className="text-white/25 text-[10px] mb-2">/ {sec.max} điểm</p>
             <div className="bg-white/5 rounded-full h-1.5 overflow-hidden">
               <div className="h-full rounded-full" style={{ width: `${sec.max > 0 ? (sec.score/sec.max)*100 : 0}%`, backgroundColor: sec.color }}></div>
@@ -375,7 +375,7 @@ export default function Topik2TestPage() {
             <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-[#e8c84a]/10 mx-auto mb-4">
               <i className="ri-file-list-3-line text-[#e8c84a] text-3xl"></i>
             </div>
-            <h2 className="text-white text-2xl font-black mb-2">TOPIK II</h2>
+            <h2 className="text-white text-xl font-bold mb-2">TOPIK II</h2>
             <p className="text-white/40 text-sm mb-4">한국어능력시험 중·고급 — Trung cấp & Cao cấp</p>
             {bestScore > 0 && (
               <div className="inline-flex items-center gap-2 bg-[#e8c84a]/8 border border-[#e8c84a]/15 rounded-xl px-4 py-2">
@@ -387,7 +387,7 @@ export default function Topik2TestPage() {
           </div>
 
           {/* Format info */}
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
               { icon: "ri-headphone-line", label: "Phần Nghe", value: "50 câu · 60 phút", color: "#38bdf8" },
               { icon: "ri-book-open-line", label: "Phần Đọc", value: "50 câu · 70 phút", color: "#a78bfa" },
@@ -537,3 +537,5 @@ export default function Topik2TestPage() {
     </DashboardLayout>
   );
 }
+
+

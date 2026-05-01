@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+﻿import { useState, useEffect, useRef } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { supabase } from "@/lib/supabase";
 
@@ -61,7 +61,7 @@ function SendProgressModal({ total, sent, success, fail, done, onClose }: {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-3 mb-5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
           {[
             { label: "Tổng", value: total, color: "var(--admin-text)" },
             { label: "Thành công", value: success, color: "#34d399" },
@@ -370,7 +370,7 @@ export default function AdminBroadcastPage() {
             {/* Email type */}
             <div className="rounded-2xl p-5 border" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
               <p className="text-xs font-semibold mb-3" style={{ color: "var(--admin-text-muted)" }}>Loại email</p>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 {EMAIL_TYPES.map(t => (
                   <button key={t.value} onClick={() => setEmailType(t.value)}
                     className="flex flex-col items-center gap-2 py-3 rounded-xl border transition-all cursor-pointer"
@@ -519,3 +519,4 @@ export default function AdminBroadcastPage() {
     </AdminLayout>
   );
 }
+

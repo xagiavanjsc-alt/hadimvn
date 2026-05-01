@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+﻿import { useState, useMemo, useEffect } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useAdminUsers, type AdminUser } from "@/hooks/useAdminUsers";
 import { supabase } from "@/lib/supabase";
@@ -123,7 +123,7 @@ export default function AdminRolesPage() {
       )}
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         {([
           { key: "superAdmin", role: "super_admin" as Role },
           { key: "moderator", role: "moderator" as Role },
@@ -141,7 +141,7 @@ export default function AdminRolesPage() {
                   <p className="text-[10px]" style={{ color: "var(--admin-text-muted)" }}>{cfg.desc}</p>
                 </div>
               </div>
-              <p className="text-3xl font-black" style={{ color: cfg.color }}>{stats[key]}</p>
+              <p className="text-2xl font-bold" style={{ color: cfg.color }}>{stats[key]}</p>
             </div>
           );
         })}
@@ -280,3 +280,5 @@ export default function AdminRolesPage() {
     </AdminLayout>
   );
 }
+
+

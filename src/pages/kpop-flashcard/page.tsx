@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+﻿import { useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useKpopFlashcard, KpopFlashcard } from "@/hooks/useKpopFlashcard";
 import { mockMelonSongs } from "@/mocks/melonSongs";
@@ -582,7 +582,7 @@ export default function KpopFlashcardPage() {
 
       <div className="max-w-2xl mx-auto w-full px-4 py-5 flex flex-col gap-4">
         {/* Stats */}
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {[
             { label: "Bài hát", value: totalSongs, icon: "ri-music-2-line", color: "#e8c84a" },
             { label: "Tổng từ", value: totalWords, icon: "ri-book-open-line", color: "#34d399" },
@@ -729,3 +729,4 @@ export default function KpopFlashcardPage() {
     </div>
   );
 }
+

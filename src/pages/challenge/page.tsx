@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+﻿import { useState, useMemo, useCallback } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -424,7 +424,7 @@ export default function ChallengePage() {
                 <p className="text-white/40 text-sm">Làm quiz EPS-TOPIK → gửi link → so sánh điểm</p>
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
                 { icon: "ri-play-circle-line", color: "#fb923c", label: "Bước 1", desc: "Làm quiz trước" },
                 { icon: "ri-share-line", color: "#e8c84a", label: "Bước 2", desc: "Gửi link cho bạn" },
@@ -490,3 +490,4 @@ export default function ChallengePage() {
     </DashboardLayout>
   );
 }
+

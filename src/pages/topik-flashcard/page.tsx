@@ -353,7 +353,7 @@ export default function TopikFlashcardPage() {
           )}
 
           {/* Stats overview */}
-          <div className="grid grid-cols-3 gap-3 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
             <div className="bg-white/3 border border-white/8 rounded-xl p-4 text-center">
               <p className="text-2xl font-bold text-[#e8c84a]">{dueCards.length}</p>
               <p className="text-white/40 text-xs">Cần ôn hôm nay</p>
@@ -558,7 +558,7 @@ ${exportWords.map(w => `
           <h2 className="text-2xl font-bold text-white mb-2">Phiên học hoàn thành!</h2>
           <p className="text-white/40 text-sm mb-8">Hệ thống đã lên lịch ôn tập thông minh cho bạn</p>
 
-          <div className="grid grid-cols-4 gap-3 mb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
             {(["easy", "medium", "hard", "skip"] as Difficulty[]).map((d) => {
               const colors = { easy: "#34d399", medium: "#e8c84a", hard: "#fb923c", skip: "#94a3b8" };
               const labels = { easy: "Dễ", medium: "Ổn", hard: "Khó", skip: "Bỏ qua" };
@@ -768,7 +768,7 @@ ${exportWords.map(w => `
 
         {/* Difficulty buttons — only show on back */}
         {cardState === "back" ? (
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {(["hard", "medium", "easy", "skip"] as Difficulty[]).map((d) => {
               const config = {
                 hard: { label: "Khó", color: "#fb923c", icon: "ri-emotion-unhappy-line" },
@@ -802,3 +802,5 @@ ${exportWords.map(w => `
     </DashboardLayout>
   );
 }
+
+

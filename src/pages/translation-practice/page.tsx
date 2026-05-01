@@ -110,7 +110,7 @@ export default function TranslationPracticePage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
             { label: "Đã dịch", value: Object.keys(scores).length, icon: "ri-translate-2", color: "#e8c84a" },
             { label: "Điểm TB", value: `${avgScore}%`, icon: "ri-percent-line", color: "#34d399" },
@@ -304,3 +304,4 @@ export default function TranslationPracticePage() {
     </DashboardLayout>
   );
 }
+

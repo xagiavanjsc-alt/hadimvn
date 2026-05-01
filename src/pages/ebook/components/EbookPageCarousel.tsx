@@ -293,7 +293,7 @@ function LessonPageAlbum({ meta, lesson, idx, pageNum }: { meta: EbookMeta; less
         {lesson.vocabulary.length > 0 && (
           <div>
             <p className="text-[9px] font-bold tracking-normal text-gray-400 mb-1.5">Từ vựng</p>
-            <div className="grid grid-cols-3 gap-1">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-1">
               {lesson.vocabulary.slice(0, 6).map((v, i) => {
                 const p = parseVocab(v);
                 return (
@@ -348,7 +348,7 @@ function LessonPageGradient({ meta, lesson, idx, pageNum }: { meta: EbookMeta; l
               <div className="w-0.5 h-3 rounded-full bg-emerald-500" />
               <p className="text-[9px] font-bold text-gray-500 tracking-normal">Từ vựng</p>
             </div>
-            <div className="grid grid-cols-3 gap-1">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-1">
               {lesson.vocabulary.slice(0, 6).map((v, i) => {
                 const p = parseVocab(v);
                 return (
@@ -402,7 +402,7 @@ function LessonPageMagazine({ meta, lesson, idx, pageNum }: { meta: EbookMeta; l
         {lesson.vocabulary.length > 0 && (
           <div>
             <p className="text-[9px] font-bold tracking-normal text-gray-400 mb-1.5">Từ vựng</p>
-            <div className="grid grid-cols-3 gap-1">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-1">
               {lesson.vocabulary.slice(0, 6).map((v, i) => {
                 const p = parseVocab(v);
                 return (
@@ -599,3 +599,4 @@ export default function EbookPageCarousel({ meta, lessons, template = "classic" 
     </div>
   );
 }
+

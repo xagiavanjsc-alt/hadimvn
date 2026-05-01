@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+﻿import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -136,7 +136,7 @@ function AdminPanel() {
             <h3 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
               <i className="ri-user-line text-white/40"></i>Hoạt động người dùng
             </h3>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
                 { label: "XP tích lũy", value: xpData.toLocaleString() + " XP", color: "#e8c84a" },
                 { label: "Streak hiện tại", value: (streakData?.currentStreak || 0) + " ngày", color: "#fb923c" },
@@ -222,7 +222,7 @@ function AdminPanel() {
               </div>
 
               {/* Summary */}
-              <div className="grid grid-cols-3 gap-3 mt-5">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5">
                 {[
                   { label: "Tổng từ ôn (30 ngày)", value: activityData.reduce((s, d) => s + d.count, 0), color: "#f43f5e" },
                   { label: "Ngày học nhiều nhất", value: Math.max(...activityData.map(d => d.count)), color: "#fb923c" },
@@ -701,7 +701,7 @@ export default function RewardsPage() {
 
       {/* Rewards tab */}
       {activeTab === "rewards" && (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {REWARDS.map(reward => {
             const canAfford = displayXp >= reward.xpCost;
             const redeemed = redeemedRewards.includes(reward.id);
@@ -870,3 +870,4 @@ export default function RewardsPage() {
     </DashboardLayout>
   );
 }
+

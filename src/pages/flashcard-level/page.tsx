@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { supabase } from "@/lib/supabase";
@@ -253,7 +253,7 @@ export default function FlashcardLevelPage() {
       {!sessionStarted ? (
         <>
           {/* Stats */}
-          <div className="grid grid-cols-4 gap-4 mb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
             {[
               { label: "Tổng từ vựng", value: allCards.length, icon: "ri-book-open-line", color: "#e8c84a" },
               { label: "Cần ôn hôm nay", value: dueCards.length, icon: "ri-calendar-check-line", color: "#fb923c" },
@@ -338,7 +338,7 @@ export default function FlashcardLevelPage() {
           </div>
 
           {/* Level breakdown */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {([1, 2, 3] as const).map(diff => {
               const cfg = LEVEL_MAP[diff];
               const cards = allCards.filter(c => c.difficulty === diff);
@@ -350,7 +350,7 @@ export default function FlashcardLevelPage() {
               return (
                 <div key={diff} className={`bg-[#0f1117] border ${cfg.border} rounded-2xl p-5`}>
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="text-2xl font-black" style={{ color: cfg.color }}>{cfg.koreanLevel}</span>
+                    <span className="text-xl font-bold" style={{ color: cfg.color }}>{cfg.koreanLevel}</span>
                     <span className="text-white/40 text-xs">{cfg.label.split("·")[1]?.trim()}</span>
                   </div>
                   <div className="space-y-1.5 text-xs">
@@ -390,7 +390,7 @@ export default function FlashcardLevelPage() {
           </div>
           <h2 className="text-white font-bold text-2xl mb-2">Hoàn thành phiên học!</h2>
           <p className="text-white/40 text-sm mb-8">Bạn đã ôn tập {sessionStats.total} từ vựng</p>
-          <div className="grid grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
             {[
               { label: "Nhớ được", value: sessionStats.correct, color: "#34d399", icon: "ri-check-line" },
               { label: "Cần ôn thêm", value: sessionStats.hard, color: "#f87171", icon: "ri-close-line" },
@@ -462,3 +462,6 @@ export default function FlashcardLevelPage() {
     </DashboardLayout>
   );
 }
+
+
+

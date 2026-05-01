@@ -233,7 +233,7 @@ export default function RoadmapPage() {
       title="Lộ trình học tiếng Hàn"
       subtitle="Từ Hangul đến TOPIK — theo từng bước rõ ràng"
     >
-      <div className="grid grid-cols-[1fr_320px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
         {/* Left: Roadmap */}
         <div className="space-y-3">
           {/* Current level banner */}
@@ -380,3 +380,4 @@ export default function RoadmapPage() {
     </DashboardLayout>
   );
 }
+

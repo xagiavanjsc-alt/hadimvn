@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
@@ -267,7 +267,7 @@ export default function StudyCalendarPage() {
         </div>
 
         {/* Stats row */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {stats.map((s, i) => (
             <div key={i} className="bg-[#1a1d27] border border-white/8 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
@@ -378,3 +378,4 @@ export default function StudyCalendarPage() {
     </DashboardLayout>
   );
 }
+

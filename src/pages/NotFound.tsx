@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export default function NotFound() {
@@ -98,7 +98,7 @@ export default function NotFound() {
           {/* Quick links */}
           <div className="w-full mt-2">
             <p className="text-white/20 text-xs mb-3">Hoặc đến nhanh:</p>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {[
                 { label: "Melon Chart", icon: "ri-music-2-line", path: "/melon" },
                 { label: "EPS", icon: "ri-book-open-line", path: "/eps" },
@@ -125,3 +125,4 @@ export default function NotFound() {
     </div>
   );
 }
+

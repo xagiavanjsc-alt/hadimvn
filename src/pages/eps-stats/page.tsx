@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -171,7 +171,7 @@ export default function EpsStatsPage() {
       {activeTab === "overview" && (
         <div className="space-y-5">
           {/* KPI cards */}
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
               {
                 label: "Từ vựng đã thuộc",
@@ -287,7 +287,7 @@ export default function EpsStatsPage() {
           </div>
 
           {/* Quick actions */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
               { icon: "ri-timer-line", label: "Thi thử EPS 40 câu", sub: "Ngẫu nhiên toàn chủ đề", color: "#e8c84a", path: "/eps-exam" },
               { icon: "ri-translate-2", label: "Ôn từ vựng EPS", sub: `${vocabStats.total - vocabStats.mastered} từ chưa thuộc`, color: "#34d399", path: "/eps-vocabulary" },
@@ -394,7 +394,7 @@ export default function EpsStatsPage() {
               <div className="flex-1">
                 <h3 className="text-white font-bold text-lg mb-1">Tiến độ từ vựng EPS</h3>
                 <p className="text-white/40 text-sm mb-4">{vocabStats.mastered} / {vocabStats.total} từ đã thuộc</p>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
                     { label: "Đã thuộc", value: vocabStats.mastered, color: "#34d399" },
                     { label: "Chưa thuộc", value: vocabStats.total - vocabStats.mastered, color: "#f87171" },
@@ -458,7 +458,7 @@ export default function EpsStatsPage() {
             />
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {EPS_TOPICS.map(topic => {
               const qs = epsQuestions.filter(q => q.topic === topic.id);
               const easy = qs.filter(q => q.difficulty === "easy").length;
@@ -518,3 +518,5 @@ export default function EpsStatsPage() {
     </DashboardLayout>
   );
 }
+
+

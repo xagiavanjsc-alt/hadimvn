@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { seoulBooks, SeoulVocabItem } from "@/mocks/seoulTextbook";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
@@ -370,7 +370,7 @@ export default function SeoulWordPairsPage() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-3 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
             {[
               { type: "synonym" as PairType, label: "Đồng nghĩa", color: "#34d399", count: counts.synonym },
               { type: "antonym" as PairType, label: "Trái nghĩa", color: "#f87171", count: counts.antonym },
@@ -451,3 +451,4 @@ export default function SeoulWordPairsPage() {
     </DashboardLayout>
   );
 }
+

@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { seoulBooks } from "@/mocks/seoulTextbook";
@@ -75,7 +75,7 @@ export default function SeoulProgressPage() {
               <p className="text-white/40 text-sm">Toàn bộ giáo trình Seoul 1A–4B</p>
             </div>
             <div className="text-right">
-              <p className="text-white text-3xl font-black">{totalProg.pct}%</p>
+              <p className="text-white text-2xl font-bold">{totalProg.pct}%</p>
               <p className="text-white/40 text-sm">{totalProg.done}/{totalProg.total} bài</p>
             </div>
           </div>
@@ -84,7 +84,7 @@ export default function SeoulProgressPage() {
           </div>
 
           {/* Stats row */}
-          <div className="grid grid-cols-4 gap-3 mt-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
             {LEVEL_GROUPS.map(g => {
               const groupBooks = seoulBooks.filter(b => g.books.includes(b.id));
               const groupLessons = groupBooks.flatMap(b => b.lessons);
@@ -119,7 +119,7 @@ export default function SeoulProgressPage() {
                   <p className="text-white/40 text-xs">{activeBook.description}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-2xl font-black" style={{ color: activeBook.color }}>{getBookProgress(activeBook.id).pct}%</p>
+                  <p className="text-xl font-bold" style={{ color: activeBook.color }}>{getBookProgress(activeBook.id).pct}%</p>
                   <p className="text-white/30 text-xs">{getBookProgress(activeBook.id).done}/{getBookProgress(activeBook.id).total} bài</p>
                 </div>
               </div>
@@ -195,7 +195,7 @@ export default function SeoulProgressPage() {
                           <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: book.color + "20" }}>
                             <i className="ri-book-3-line" style={{ color: book.color }}></i>
                           </div>
-                          <span className="text-2xl font-black" style={{ color: book.color }}>{prog.pct}%</span>
+                          <span className="text-xl font-bold" style={{ color: book.color }}>{prog.pct}%</span>
                         </div>
                         <h3 className="text-white font-bold mb-0.5">{book.name}</h3>
                         <p className="text-white/30 text-xs mb-3 line-clamp-2">{book.description}</p>
@@ -227,7 +227,7 @@ export default function SeoulProgressPage() {
             {/* Quick Actions */}
             <div className="bg-white/3 border border-white/8 rounded-xl p-4">
               <h3 className="text-white font-semibold text-sm mb-3">Hành động nhanh</h3>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <button onClick={() => navigate("/seoul-textbook")} className="flex flex-col items-center gap-2 p-3 rounded-xl bg-white/3 hover:bg-white/6 cursor-pointer transition-all">
                   <div className="w-8 h-8 flex items-center justify-center">
                     <i className="ri-book-3-line text-[#e8c84a]"></i>
@@ -266,3 +266,7 @@ export default function SeoulProgressPage() {
     </DashboardLayout>
   );
 }
+
+
+
+

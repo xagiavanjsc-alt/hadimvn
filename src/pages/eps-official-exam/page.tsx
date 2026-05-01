@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+﻿import { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
@@ -254,7 +254,7 @@ function ResultScreen({ exam, answers, onRetry, onBack }: { exam: UploadedExam; 
     <div className="p-6 md:p-8 max-w-2xl mx-auto">
       <div className={`rounded-2xl p-6 text-center mb-6 ${passed ? "bg-emerald-50 border border-emerald-200" : "bg-rose-50 border border-rose-200"}`}>
         <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-3 ${passed ? "bg-emerald-100" : "bg-rose-100"}`}>
-          <span className={`text-3xl font-black ${passed ? "text-emerald-600" : "text-rose-500"}`}>{score}</span>
+          <span className={`text-2xl font-bold ${passed ? "text-emerald-600" : "text-rose-500"}`}>{score}</span>
         </div>
         <h2 className={`text-xl font-bold mb-1 ${passed ? "text-emerald-700" : "text-rose-600"}`}>
           {passed ? "ĐẬU! Xuất sắc!" : "Chưa đậu — Cố lên!"}
@@ -262,7 +262,7 @@ function ResultScreen({ exam, answers, onRetry, onBack }: { exam: UploadedExam; 
         <p className="text-gray-500 text-sm">{correct}/{exam.questions.length} câu đúng • {answered} câu đã trả lời</p>
       </div>
 
-      <div className="grid grid-cols-3 gap-3 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
         {[
           { label: "Câu đúng", value: correct, color: "text-emerald-600", bg: "bg-emerald-50" },
           { label: "Câu sai", value: answered - correct, color: "text-rose-500", bg: "bg-rose-50" },
@@ -474,3 +474,5 @@ export default function EpsOfficialExamPage() {
     </DashboardLayout>
   );
 }
+
+

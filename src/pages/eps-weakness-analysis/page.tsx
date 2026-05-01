@@ -439,7 +439,7 @@ export default function EpsWeaknessAnalysisPage() {
         />
       )}
       {/* Stats overview */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         <StatCard icon="ri-question-answer-line" label="Câu đã làm" value={totalAnswered} sub={`/ ${epsQuestions.length} câu`} color="#e8c84a" />
         <StatCard icon="ri-percent-line" label="Độ chính xác tổng" value={`${overallAccuracy}%`} sub={`${totalCorrect} câu đúng`} color={overallAccuracy >= 70 ? "#34d399" : overallAccuracy >= 50 ? "#e8c84a" : "#f87171"} />
         <StatCard icon="ri-alarm-warning-line" label="Chủ đề cần ôn" value={criticalTopics.length} sub="yếu + rất yếu" color="#f87171" />
@@ -472,7 +472,7 @@ export default function EpsWeaknessAnalysisPage() {
 
       {/* ── Tab: Tổng quan ── */}
       {activeTab === "overview" && (
-        <div className="grid grid-cols-[1fr_320px] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
           {/* Left: Topic list */}
           <div>
             {/* Sort controls */}
@@ -625,7 +625,7 @@ export default function EpsWeaknessAnalysisPage() {
 
       {/* ── Tab: Lộ trình ── */}
       {activeTab === "roadmap" && (
-        <div className="grid grid-cols-[1fr_300px] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
           <div>
             <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5 mb-4">
               <div className="flex items-center gap-3 mb-4">
@@ -658,7 +658,7 @@ export default function EpsWeaknessAnalysisPage() {
                   <i className="ri-time-line text-[#e8c84a]"></i>
                   <p className="text-white font-semibold text-sm">Ước tính thời gian hoàn thành</p>
                 </div>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
                     { label: "Ôn chủ đề yếu", value: `${criticalTopics.length * 3}–${criticalTopics.length * 5} ngày`, color: "#f87171" },
                     { label: "Luyện tổng hợp", value: "3–5 ngày", color: "#e8c84a" },
@@ -849,3 +849,6 @@ export default function EpsWeaknessAnalysisPage() {
     </DashboardLayout>
   );
 }
+
+
+

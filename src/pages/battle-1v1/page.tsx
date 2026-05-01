@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+﻿import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import DashboardLayout from "@/components/feature/DashboardLayout";
@@ -275,7 +275,7 @@ export default function Battle1v1Page() {
                   <i className="ri-settings-3-line text-white/50"></i>
                   Độ khó
                 </h3>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {([
                     { key: "easy", label: "Dễ", desc: "Từ A1-A2", color: "emerald" },
                     { key: "medium", label: "Trung bình", desc: "Từ A1-B1", color: "amber" },
@@ -298,7 +298,7 @@ export default function Battle1v1Page() {
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
                   { icon: "ri-question-line", label: "Số câu hỏi", value: `${TOTAL_QUESTIONS} câu` },
                   { icon: "ri-timer-line", label: "Thời gian/câu", value: `${QUESTION_TIME}s` },
@@ -379,7 +379,7 @@ export default function Battle1v1Page() {
                 </div>
                 <div className="text-center">
                   <div className="w-16 h-16 rounded-full bg-rose-500/20 border-2 border-rose-500/40 flex items-center justify-center">
-                    <span className="text-rose-400 text-3xl font-black">{countdown}</span>
+                    <span className="text-rose-400 text-2xl font-bold">{countdown}</span>
                   </div>
                   <p className="text-white/40 text-xs mt-2">VS</p>
                 </div>
@@ -524,7 +524,7 @@ export default function Battle1v1Page() {
                 <div className="text-6xl mb-4">
                   {isDraw ? "🤝" : playerWon ? "🏆" : "😔"}
                 </div>
-                <h2 className={`text-3xl font-black mb-2 ${
+                <h2 className={`text-2xl font-bold mb-2 ${
                   isDraw ? "text-amber-400" : playerWon ? "text-emerald-400" : "text-rose-400"
                 }`}>
                   {isDraw ? "Hòa!" : playerWon ? "Chiến thắng!" : "Thua rồi!"}
@@ -542,18 +542,18 @@ export default function Battle1v1Page() {
                       <i className="ri-user-3-line text-[#e8c84a] text-2xl"></i>
                     </div>
                     <p className="text-white font-bold">{player.name}</p>
-                    <p className="text-[#e8c84a] text-3xl font-black">{player.score}</p>
+                    <p className="text-[#e8c84a] text-2xl font-bold">{player.score}</p>
                     <p className="text-white/40 text-xs">{playerAnswers.filter(Boolean).length}/{TOTAL_QUESTIONS} đúng</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-white/30 text-2xl font-black">VS</p>
+                    <p className="text-white/30 text-xl font-bold">VS</p>
                   </div>
                   <div className="text-center">
                     <div className="w-16 h-16 rounded-full bg-white/5 border-2 border-white/15 overflow-hidden mx-auto mb-3">
                       <img src={opponent.avatar} alt={opponent.name} className="w-full h-full object-cover" />
                     </div>
                     <p className="text-white font-bold">{opponent.name}</p>
-                    <p className="text-rose-400 text-3xl font-black">{opponent.score}</p>
+                    <p className="text-rose-400 text-2xl font-bold">{opponent.score}</p>
                     <p className="text-white/40 text-xs">{opponentAnswers.filter(Boolean).length}/{TOTAL_QUESTIONS} đúng</p>
                   </div>
                 </div>
@@ -623,3 +623,6 @@ export default function Battle1v1Page() {
     </DashboardLayout>
   );
 }
+
+
+

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface SentencePattern {
@@ -162,7 +162,7 @@ export default function SentencePatternVocabPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
             { label: "Mẫu câu", value: patterns.length, color: "#e8c84a" },
             { label: "Đã học", value: learnedIds.size, color: "#34d399" },
@@ -327,3 +327,4 @@ export default function SentencePatternVocabPage() {
     </DashboardLayout>
   );
 }
+

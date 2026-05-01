@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -320,7 +320,7 @@ export default function StudyReminderPage() {
       title="Nhắc nhở học tập"
       subtitle="Cài đặt thông báo trình duyệt để không bỏ lỡ buổi học nào"
     >
-      <div className="grid grid-cols-[1fr_300px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         {/* Left */}
         <div className="space-y-5">
           {/* Permission banner */}
@@ -458,3 +458,4 @@ export default function StudyReminderPage() {
     </DashboardLayout>
   );
 }
+

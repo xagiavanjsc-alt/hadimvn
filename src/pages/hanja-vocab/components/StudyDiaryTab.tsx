@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { useVipYearGuard, addCsvWatermark } from "@/hooks/useVipYearGuard";
 import VipUpgradeModal from "@/components/feature/VipUpgradeModal";
 
@@ -217,7 +217,7 @@ export default function StudyDiaryTab() {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-3 mb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
               <div>
                 <label className="text-xs font-semibold text-gray-600 block mb-1">Từ đã học</label>
                 <input
@@ -504,3 +504,4 @@ export default function StudyDiaryTab() {
     </div>
   );
 }
+

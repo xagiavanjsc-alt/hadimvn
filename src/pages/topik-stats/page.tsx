@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { vocabularyData, VOCAB_CATEGORIES } from "@/mocks/vocabularyData";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -301,7 +301,7 @@ export default function TopikStatsPage() {
             {/* Quiz summary */}
             <div className="bg-white/3 border border-white/8 rounded-2xl p-5">
               <p className="text-white/60 text-sm font-medium mb-4">Kết quả Quiz</p>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="text-center">
                   <p className="text-2xl font-bold text-[#e8c84a]">{quizHistory.length}</p>
                   <p className="text-white/30 text-xs">Bài đã làm</p>
@@ -320,7 +320,7 @@ export default function TopikStatsPage() {
             {/* Study activity */}
             <div className="bg-white/3 border border-white/8 rounded-2xl p-5">
               <p className="text-white/60 text-sm font-medium mb-4">Hoạt động học tập</p>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="text-center">
                   <p className="text-2xl font-bold text-[#e8c84a]">{spacedData.cards.length}</p>
                   <p className="text-white/30 text-xs">Thẻ đã xem</p>
@@ -361,7 +361,7 @@ export default function TopikStatsPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-4 gap-3 mb-4">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
                   {[
                     { label: "Tổng từ", value: lv.total, color: "text-white" },
                     { label: "Đã học", value: lv.studied, color: "text-[#38bdf8]" },
@@ -488,3 +488,5 @@ export default function TopikStatsPage() {
     </DashboardLayout>
   );
 }
+
+

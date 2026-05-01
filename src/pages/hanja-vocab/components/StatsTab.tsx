@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+﻿import { useMemo } from "react";
 import { HANJA_DATA } from "@/mocks/hanjaData";
 
 const ALPHABET_GROUPS = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
@@ -69,7 +69,7 @@ export default function StatsTab() {
       {/* Overall summary */}
       <div className="bg-white border border-gray-100 rounded-2xl p-6 mb-6">
         <h2 className="text-base font-bold text-gray-800 mb-4">Tổng quan tiến độ</h2>
-        <div className="grid grid-cols-3 gap-4 mb-5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
           <div className="text-center bg-gray-50 rounded-xl p-4">
             <p className="text-2xl font-bold text-gray-500">{overall.new}</p>
             <p className="text-xs text-gray-400 mt-1">Chưa học</p>
@@ -155,3 +155,4 @@ export default function StatsTab() {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Admin EPS page — dùng AdminLayout (rose theme)
  * Re-export từ admin-eps/page.tsx nhưng thay DashboardLayout → AdminLayout
  */
@@ -350,7 +350,7 @@ export default function AdminEpsNewPage() {
 
       {activeTab === "vocabulary" && (
         <div>
-          <div className="grid grid-cols-3 gap-4 mb-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
             {[
               { label: "Tổng từ gốc", value: epsVocabulary.length, color: "#e8c84a" },
               { label: "Sau khi dedup", value: dedupedVocab.result.length, color: "#34d399" },
@@ -398,3 +398,4 @@ export default function AdminEpsNewPage() {
     </AdminLayout>
   );
 }
+

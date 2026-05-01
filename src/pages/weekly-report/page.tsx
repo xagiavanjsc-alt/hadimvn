@@ -457,7 +457,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
       </div>
 
       {/* Stats grid */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <StatCard icon="ri-flashlight-line" label="XP kiếm được" value={`+${report.xpEarned}`} sub="tuần này" color="#e8c84a" />
         <StatCard icon="ri-translate-2" label="Từ đã học" value={report.wordsLearned} sub="tổng cộng" color="#34d399" />
         <StatCard icon="ri-fire-line" label="Streak hiện tại" value={`${report.streakDays} ngày`} sub="liên tiếp" color="#fb923c" />
@@ -466,7 +466,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
         <StatCard icon="ri-brain-line" label="SR đã ôn" value={report.srCardsReviewed} sub={`${report.srMastered} thẻ nắm vững`} color="#f43f5e" />
       </div>
 
-      <div className="grid grid-cols-[1fr_340px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6">
         {/* Left */}
         <div className="space-y-5">
           {/* Activity chart */}
@@ -777,3 +777,5 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
     </DashboardLayout>
   );
 }
+
+

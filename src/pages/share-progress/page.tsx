@@ -340,7 +340,7 @@ export default function ShareProgressPage() {
             </div>
 
             {/* Social share buttons */}
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {[
                 { label: "Facebook", icon: "ri-facebook-fill", color: "#1877f2", bg: "rgba(24,119,242,0.12)", url: `https://www.facebook.com/sharer/sharer.php?u=https://hanquocoi.vn` },
                 { label: "Zalo", icon: "ri-chat-1-line", color: "#0068ff", bg: "rgba(0,104,255,0.12)", url: `https://zalo.me/share?url=https://hanquocoi.vn` },
@@ -448,3 +448,4 @@ export default function ShareProgressPage() {
     </DashboardLayout>
   );
 }
+

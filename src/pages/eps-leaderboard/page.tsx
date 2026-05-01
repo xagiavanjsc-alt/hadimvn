@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
@@ -81,17 +81,17 @@ function MyScoreCard() {
         </button>
       </div>
       {bestScore !== null ? (
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div className="text-center">
-            <p className="text-2xl font-black text-[#e8c84a]">{bestScore}</p>
+            <p className="text-xl font-bold text-[#e8c84a]">{bestScore}</p>
             <p className="text-white/40 text-xs">Điểm cao nhất</p>
           </div>
           <div className="text-center">
-            <p className="text-2xl font-black text-white">{lastScore}</p>
+            <p className="text-xl font-bold text-white">{lastScore}</p>
             <p className="text-white/40 text-xs">Lần thi gần nhất</p>
           </div>
           <div className="text-center">
-            <p className="text-2xl font-black text-white">{history.length}</p>
+            <p className="text-xl font-bold text-white">{history.length}</p>
             <p className="text-white/40 text-xs">Lần đã thi</p>
           </div>
         </div>
@@ -266,7 +266,7 @@ export default function EpsLeaderboardPage() {
         </div>
 
         {/* Top 3 podium */}
-        <div className="grid grid-cols-3 gap-3 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
           {[entries[1], entries[0], entries[2]].map((entry, podiumIdx) => {
             if (!entry) return <div key={podiumIdx} />;
             const heights = ["h-24", "h-32", "h-20"];
@@ -284,7 +284,7 @@ export default function EpsLeaderboardPage() {
                   className={`w-full ${heights[podiumIdx]} rounded-t-xl flex items-center justify-center`}
                   style={{ backgroundColor: `${colors[podiumIdx]}20`, border: `1px solid ${colors[podiumIdx]}30` }}
                 >
-                  <span className="text-2xl font-black" style={{ color: colors[podiumIdx] }}>{labels[podiumIdx]}</span>
+                  <span className="text-xl font-bold" style={{ color: colors[podiumIdx] }}>{labels[podiumIdx]}</span>
                 </div>
               </div>
             );
@@ -380,3 +380,5 @@ export default function EpsLeaderboardPage() {
     </DashboardLayout>
   );
 }
+
+

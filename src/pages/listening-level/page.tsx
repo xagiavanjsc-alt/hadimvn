@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+﻿import { useState, useRef, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 
@@ -408,7 +408,7 @@ export default function ListeningLevelPage() {
               }`}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-2xl font-black" style={{ color: selectedLevel === level ? cfg.color : "rgba(255,255,255,0.3)" }}>{level}</span>
+                <span className="text-xl font-bold" style={{ color: selectedLevel === level ? cfg.color : "rgba(255,255,255,0.3)" }}>{level}</span>
                 <span className="text-xs font-bold px-1.5 py-0.5 rounded-full bg-white/5 text-white/30">{count}</span>
               </div>
               <p className="text-xs font-semibold" style={{ color: selectedLevel === level ? cfg.color : "rgba(255,255,255,0.4)" }}>{cfg.label}</p>
@@ -476,7 +476,7 @@ export default function ListeningLevelPage() {
           <i className="ri-lightbulb-line text-[#e8c84a] text-sm"></i>
           <h3 className="text-white font-semibold text-sm">Mẹo luyện nghe hiệu quả</h3>
         </div>
-        <div className="grid grid-cols-3 gap-4 text-xs text-white/40 leading-relaxed">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-white/40 leading-relaxed">
           <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Nghe lần đầu không xem transcript để kiểm tra khả năng nghe hiểu</p>
           <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Nghe lần 2 với transcript để hiểu rõ từng câu và từ vựng mới</p>
           <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Làm bài kiểm tra sau khi nghe để củng cố kiến thức</p>
@@ -487,3 +487,5 @@ export default function ListeningLevelPage() {
     </DashboardLayout>
   );
 }
+
+

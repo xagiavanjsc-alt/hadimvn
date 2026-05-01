@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+﻿import { useState, useMemo, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsQuestions, EPS_TOPICS, type EpsQuestion } from "@/mocks/epsQuestions";
@@ -596,7 +596,7 @@ export default function AdminEpsPage() {
       {/* Vocabulary tab */}
       {activeTab === "vocabulary" && (
         <div>
-          <div className="grid grid-cols-3 gap-4 mb-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
             {[
               { label: "Tổng từ gốc", value: epsVocabulary.length, color: "#e8c84a" },
               { label: "Sau khi dedup", value: dedupedVocab.result.length, color: "#34d399" },
@@ -653,3 +653,4 @@ export default function AdminEpsPage() {
     </DashboardLayout>
   );
 }
+

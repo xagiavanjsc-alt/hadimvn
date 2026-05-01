@@ -382,7 +382,7 @@ export default function FlashcardPage() {
       }
     >
       {/* Stats bar */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Tổng từ vựng", value: allCards.length, icon: "ri-translate-2", color: "#e8c84a" },
           { label: "Đã thuộc", value: masteredCount, icon: "ri-checkbox-circle-line", color: "#34d399" },
@@ -508,7 +508,7 @@ export default function FlashcardPage() {
               )}
             </div>
           ) : (
-            <div className="grid grid-cols-3 gap-3 max-h-[500px] overflow-y-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-h-[500px] overflow-y-auto">
               {filteredCards.map(card => (
                 <div
                   key={card.id}
@@ -542,3 +542,5 @@ export default function FlashcardPage() {
     </DashboardLayout>
   );
 }
+
+

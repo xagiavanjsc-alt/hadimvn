@@ -350,7 +350,7 @@ export default function EpsExamHistoryPage() {
       subtitle="Xem lại từng lần thi, so sánh điểm qua các lần và theo dõi tiến bộ"
     >
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         <StatCard icon="ri-file-list-3-line" label="Tổng lần thi" value={allHistory.length} sub={`${fullExams.length} lần thi thử 40 câu`} color="#e8c84a" />
         <StatCard icon="ri-trophy-line" label="Điểm cao nhất" value={bestScore} sub="trên 200 điểm" color="#34d399" />
         <StatCard icon="ri-bar-chart-line" label="Điểm trung bình" value={avgScore} sub="thi thử 40 câu" color="#38bdf8" />
@@ -483,3 +483,4 @@ export default function EpsExamHistoryPage() {
     </DashboardLayout>
   );
 }
+

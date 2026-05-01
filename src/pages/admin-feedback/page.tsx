@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+﻿import { useState, useEffect, useCallback, useMemo } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { supabase } from "@/lib/supabase";
 
@@ -260,7 +260,7 @@ export default function AdminFeedbackPage() {
         <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
           <p className="font-semibold text-sm mb-1" style={{ color: "var(--admin-text)" }}>Phân bố đánh giá</p>
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-3xl font-black" style={{ color: "#e8c84a" }}>{avgRating}</span>
+            <span className="text-2xl font-bold" style={{ color: "#e8c84a" }}>{avgRating}</span>
             <div>
               <div className="flex items-center gap-0.5">
                 {[1,2,3,4,5].map(s => (
@@ -365,3 +365,4 @@ export default function AdminFeedbackPage() {
     </AdminLayout>
   );
 }
+

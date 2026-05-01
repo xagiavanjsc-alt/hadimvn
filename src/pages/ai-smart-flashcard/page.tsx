@@ -221,7 +221,7 @@ function FlashCard({ card, onRate, cardIndex, total }: {
 
       {/* Rating buttons */}
       {flipped && (
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {ratings.map(r => (
             <button key={r.value} onClick={() => handleRate(r.value)}
               className={`flex flex-col items-center py-3 rounded-xl border text-xs font-bold cursor-pointer transition-all whitespace-nowrap ${r.color}`}>
@@ -353,7 +353,7 @@ function SessionComplete({ results, onRestart }: {
         {correct}/{results.length} từ nhớ tốt ({pct}%)
       </p>
 
-      <div className="grid grid-cols-4 gap-3 mb-8 max-w-sm mx-auto">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8 max-w-sm mx-auto">
         {[
           { label: "Lại", count: results.filter(r => r.rating === 1).length, color: "#f87171" },
           { label: "Khó", count: results.filter(r => r.rating === 2).length, color: "#fbbf24" },
@@ -579,3 +579,4 @@ export default function AISmartFlashcardPage() {
     </DashboardLayout>
   );
 }
+

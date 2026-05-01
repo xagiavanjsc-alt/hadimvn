@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+﻿import { useState, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface GrammarError {
@@ -260,7 +260,7 @@ export default function AIWritingPage() {
                     <div className={`h-full rounded-full transition-all duration-1000 ${scoreBg(result.overallScore)}`} style={{ width: `${result.overallScore}%` }}></div>
                   </div>
                   <p className="text-white/70 text-sm mb-4">{result.feedback}</p>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {[
                       { label: "Ngữ pháp", score: result.grammarScore, icon: "ri-book-2-line" },
                       { label: "Từ vựng", score: result.vocabScore, icon: "ri-translate-2" },
@@ -414,3 +414,4 @@ export default function AIWritingPage() {
     </DashboardLayout>
   );
 }
+

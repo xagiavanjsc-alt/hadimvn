@@ -901,7 +901,7 @@ export default function CommunityPage() {
         )
       }
     >
-      <div className="grid grid-cols-[1fr_280px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
         {/* Main feed */}
         <div className="space-y-4">
           <div className="flex items-center gap-3">
@@ -1086,3 +1086,4 @@ export default function CommunityPage() {
     </>
   );
 }
+

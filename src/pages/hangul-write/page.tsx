@@ -220,7 +220,7 @@ export default function HangulWritePage() {
       title="Luyện viết Hangul"
       subtitle="Vẽ ký tự trực tiếp — chấm điểm độ chính xác từng nét"
     >
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         {/* Left: Char list */}
         <div className="col-span-1">
           {/* Stats */}
@@ -246,7 +246,7 @@ export default function HangulWritePage() {
           </div>
 
           {/* Char grid */}
-          <div className="grid grid-cols-4 gap-1.5 max-h-[520px] overflow-y-auto pr-1">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 max-h-[520px] overflow-y-auto pr-1">
             {filteredChars.map(char => (
               <CharCard key={char.char} char={char} isSelected={selectedChar.char === char.char}
                 isMastered={masteredChars.includes(char.char)} onSelect={() => handleSelectChar(char)} />
@@ -389,3 +389,5 @@ export default function HangulWritePage() {
     </DashboardLayout>
   );
 }
+
+

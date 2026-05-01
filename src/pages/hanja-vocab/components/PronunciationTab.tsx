@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect, useCallback } from "react";
+﻿import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 
 const XP_KEY = "kts_total_xp";
@@ -296,7 +296,7 @@ export default function PronunciationTab() {
   return (
     <div className="max-w-2xl mx-auto">
       {/* Header stats */}
-      <div className="grid grid-cols-3 gap-3 mb-5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
         {[
           { label: "Đã luyện", value: history.length, icon: "ri-mic-line", color: "#f43f5e" },
           { label: "Điểm TB", value: avgScore ? `${avgScore}%` : "—", icon: "ri-bar-chart-line", color: "#fb923c" },
@@ -503,3 +503,4 @@ export default function PronunciationTab() {
     </div>
   );
 }
+

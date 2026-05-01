@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect, useCallback } from "react";
+﻿import { useMemo, useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useAdminUsers, getAdminStats } from "@/hooks/useAdminUsers";
@@ -154,7 +154,7 @@ function BroadcastModal({ onClose, totalUsers, vipCount }: {
               <label className="text-xs font-semibold mb-2 block" style={{ color: "var(--admin-text-muted)" }}>
                 Đối tượng nhận
               </label>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 {(["all", "vip", "free"] as const).map(t => (
                   <button key={t} onClick={() => setTarget(t)}
                     className="flex flex-col items-center py-3 rounded-xl border transition-all cursor-pointer"
@@ -362,7 +362,7 @@ function RevenueChart({ revenues }: { revenues: RevenueEntry[] }) {
       </div>
 
       {/* Mini stats row */}
-      <div className="grid grid-cols-3 gap-3 mt-4 pt-4 border-t" style={{ borderColor: "var(--admin-border)" }}>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4 pt-4 border-t" style={{ borderColor: "var(--admin-border)" }}>
         {[
           { label: "Tổng tháng", value: formatVND(totalMonth) + "đ", color: "#34d399" },
           { label: "Cao nhất/ngày", value: formatVND(maxVal) + "đ", color: "#e8c84a" },
@@ -774,3 +774,4 @@ export default function AdminDashboardPage() {
     </AdminLayout>
   );
 }
+

@@ -331,7 +331,7 @@ export default function EpsVocabFlashcardPage() {
         title="Flashcard từ vựng EPS theo chủ đề"
         subtitle="Học từ vựng theo từng chủ đề với flashcard lật thẻ và quiz"
       >
-        <div className="grid grid-cols-[1fr_280px] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
           <div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {FEATURED_TOPICS.map(topic => {
@@ -473,3 +473,4 @@ export default function EpsVocabFlashcardPage() {
     </DashboardLayout>
   );
 }
+

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { epsLessons, EpsVocabItem } from "@/mocks/epsLessons";
@@ -478,7 +478,7 @@ export default function EpsQuickReviewPage() {
               </div>
 
               {/* Score */}
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4">
                   <p className="text-3xl font-bold text-emerald-400">{results.correct}</p>
                   <p className="text-emerald-400/60 text-xs mt-1">Đúng</p>
@@ -558,3 +558,4 @@ export default function EpsQuickReviewPage() {
     </DashboardLayout>
   );
 }
+

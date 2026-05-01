@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
@@ -78,7 +78,7 @@ function ShareCard({ profile, stats }: { profile: PublicProfile; stats: PublicSt
       </div>
 
       {/* Stats grid */}
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
           { icon: "ri-fire-line", color: "#fb923c", label: "Streak", value: `${stats.streak} ngày` },
           { icon: "ri-trophy-line", color: "#e8c84a", label: "Điểm EPS cao nhất", value: `${stats.epsBestScore}%` },
@@ -331,3 +331,4 @@ export default function PublicProfilePage() {
     </DashboardLayout>
   );
 }
+

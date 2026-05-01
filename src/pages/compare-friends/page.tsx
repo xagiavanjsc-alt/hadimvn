@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+﻿import { useState, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
@@ -199,7 +199,7 @@ export default function CompareFriendsPage() {
       title="So sánh tiến độ bạn bè"
       subtitle="Nhập link hồ sơ công khai để so sánh cấp bậc, streak và điểm EPS"
     >
-      <div className="grid grid-cols-[1fr_300px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         {/* Main */}
         <div className="space-y-6">
           {/* Input */}
@@ -375,3 +375,4 @@ export default function CompareFriendsPage() {
     </DashboardLayout>
   );
 }
+

@@ -213,7 +213,7 @@ function PracticeCard({
         {/* Score */}
         {lastScore !== null && !isListening && (
           <div className={`flex items-center gap-3 px-4 py-3 rounded-xl border ${lastScore >= 80 ? "border-emerald-500/25 bg-emerald-500/5" : lastScore >= 55 ? "border-[#e8c84a]/20 bg-[#e8c84a]/5" : "border-red-500/20 bg-red-500/5"}`}>
-            <div className="text-3xl font-black" style={{ color: getScoreColor(lastScore) }}>{lastScore}</div>
+            <div className="text-2xl font-bold" style={{ color: getScoreColor(lastScore) }}>{lastScore}</div>
             <div>
               <p className="text-sm font-bold" style={{ color: getScoreColor(lastScore) }}>{getScoreLabel(lastScore)}</p>
               <p className="text-white/25 text-[10px]">Lần thử #{attempts}</p>
@@ -271,7 +271,7 @@ export default function ListenPracticePage() {
       )}
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Tổng câu", value: PRACTICE_ITEMS.length, icon: "ri-mic-2-line", color: "#e8c84a" },
           { label: "Đã luyện", value: totalPracticed, icon: "ri-checkbox-circle-line", color: "#34d399" },
@@ -343,3 +343,5 @@ export default function ListenPracticePage() {
     </DashboardLayout>
   );
 }
+
+

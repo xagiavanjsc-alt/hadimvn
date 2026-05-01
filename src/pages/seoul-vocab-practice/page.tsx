@@ -108,7 +108,7 @@ function FlashcardMode({ words, onBack }: { words: Vocab[]; onBack: () => void }
             </>
           ) : (
             <>
-              <p className="text-2xl font-black mb-2 text-white">{card.vietnamese}</p>
+              <p className="text-xl font-bold mb-2 text-white">{card.vietnamese}</p>
               <p className="text-sm text-gray-400 mb-1">{card.part_of_speech}</p>
               {card.hanja && <p className="text-sm text-yellow-400 mb-3">{card.hanja}</p>}
               {card.example && (
@@ -317,7 +317,7 @@ function MatchingMode({ words, onBack }: { words: Vocab[]; onBack: () => void })
       {done ? (
         <div className="text-center p-8 rounded-3xl" style={{ background: "linear-gradient(135deg, #ecfdf5, #f0fdf4)" }}>
           <p className="text-4xl mb-3">🎉</p>
-          <p className="text-2xl font-black text-emerald-700 mb-2">Hoàn thành!</p>
+          <p className="text-xl font-bold text-emerald-700 mb-2">Hoàn thành!</p>
           <p className="text-emerald-600 mb-4">Bạn đã ghép đúng tất cả {pairs.length} cặp từ!</p>
           <button onClick={onBack} className="px-8 py-3 rounded-2xl bg-emerald-500 text-white font-bold cursor-pointer">
             Chọn bài khác
@@ -427,7 +427,7 @@ function FillMode({ words, onBack }: { words: Vocab[]; onBack: () => void }) {
 
       <div className="text-center mb-6 p-6 rounded-3xl border-2 border-gray-100">
         <p className="text-sm text-gray-400 mb-2">Điền từ tiếng Hàn tương ứng</p>
-        <p className="text-2xl font-black text-gray-900 mb-1">{current.vietnamese}</p>
+        <p className="text-xl font-bold text-gray-900 mb-1">{current.vietnamese}</p>
         <p className="text-sm text-gray-400">{current.part_of_speech}</p>
         {current.example_vi && (
           <p className="text-xs text-gray-400 mt-2 italic">"{current.example_vi}"</p>
@@ -527,7 +527,7 @@ export default function SeoulVocabPracticePage() {
             <i className="ri-arrow-left-line text-gray-500"></i>
           </button>
           <div>
-            <h1 className="text-2xl font-black text-gray-900">Luyện từ vựng Seoul</h1>
+            <h1 className="text-xl font-bold text-gray-900">Luyện từ vựng Seoul</h1>
             <p className="text-sm text-gray-500">Flashcard · Quiz · Ghép cặp · Điền từ theo từng bài học</p>
           </div>
         </div>
@@ -637,3 +637,4 @@ export default function SeoulVocabPracticePage() {
     </DashboardLayout>
   );
 }
+

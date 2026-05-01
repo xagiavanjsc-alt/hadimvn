@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+﻿import { useState, useMemo, useEffect } from "react";
 import { HANJA_DATA } from "@/mocks/hanjaData";
 
 interface LeaderboardEntry {
@@ -161,7 +161,7 @@ export default function WeeklyLeaderboardTab() {
               <span className="text-rose-600 font-bold text-sm">{myProgress.xp.toLocaleString()} XP</span>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
               { label: "Từ đã học", value: myProgress.wordsLearned, icon: "ri-book-open-line", color: "#e11d48" },
               { label: "Quiz tốt nhất", value: `${myProgress.quizScore}%`, icon: "ri-gamepad-line", color: "#f97316" },
@@ -199,7 +199,7 @@ export default function WeeklyLeaderboardTab() {
       </div>
 
       {/* Top 3 podium */}
-      <div className="grid grid-cols-3 gap-3 mb-5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
         {[top3[1], top3[0], top3[2]].map((entry, podiumIdx) => {
           if (!entry) return <div key={podiumIdx} />;
           const rank = podiumIdx === 1 ? 1 : podiumIdx === 0 ? 2 : 3;
@@ -305,3 +305,4 @@ export default function WeeklyLeaderboardTab() {
     </div>
   );
 }
+

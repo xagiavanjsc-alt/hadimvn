@@ -681,7 +681,7 @@ function ExportModal({ items, onClose }: { items: WrongItem[]; onClose: () => vo
           {/* Format */}
           <div>
             <p className="text-white/50 text-xs font-semibold mb-3">Định dạng xuất</p>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {([
                 { id: "csv", icon: "ri-file-excel-line", label: "CSV", desc: "Excel/Sheets" },
                 { id: "txt", icon: "ri-file-text-line", label: "TXT", desc: "Văn bản thuần" },
@@ -1014,7 +1014,7 @@ export default function EpsWrongTopicPage() {
               {/* Summary */}
               <div className="bg-red-500/5 border border-red-500/15 rounded-xl p-4">
                 <p className="text-white/50 text-xs mb-1">Từ cần ôn lại</p>
-                <p className="text-red-400 text-3xl font-black">{filteredWrongItems.length}</p>
+                <p className="text-red-400 text-2xl font-bold">{filteredWrongItems.length}</p>
                 <p className="text-white/30 text-xs mt-1">
                   từ {selectedTopics.size > 0 ? selectedTopics.size : EPS_LESSON_TOPICS.length} chủ đề
                 </p>
@@ -1176,3 +1176,5 @@ export default function EpsWrongTopicPage() {
     </DashboardLayout>
   );
 }
+
+

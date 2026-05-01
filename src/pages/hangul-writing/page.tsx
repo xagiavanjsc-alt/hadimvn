@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+﻿import { useState, useRef, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface HangulChar {
@@ -160,7 +160,7 @@ export default function HangulWritingPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
             { label: "Ký tự đang luyện", value: selectedChar.char, color: "#e8c84a" },
             { label: "Số lần thử", value: attempts, color: "#a78bfa" },
@@ -185,7 +185,7 @@ export default function HangulWritingPage() {
                 </button>
               ))}
             </div>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {filtered.map(c => (
                 <button key={c.char} onClick={() => setSelectedChar(c)}
                   className={`aspect-square flex flex-col items-center justify-center rounded-xl border cursor-pointer transition-all ${selectedChar.char === c.char ? "border-[#e8c84a]/40 bg-[#e8c84a]/8" : "border-white/8 bg-white/3 hover:bg-white/6"}`}>
@@ -301,3 +301,5 @@ export default function HangulWritingPage() {
     </DashboardLayout>
   );
 }
+
+

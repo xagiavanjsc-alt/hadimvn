@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -239,7 +239,7 @@ function StatsOverview({ completedMap }: { completedMap: Record<string, boolean>
           </div>
           <span className="text-white/40 text-xs">Tiến độ</span>
         </div>
-        <p className="text-[#a78bfa] text-2xl font-black">{overallPct}%</p>
+        <p className="text-[#a78bfa] text-xl font-bold">{overallPct}%</p>
         <p className="text-white/30 text-[10px] mt-0.5">{totalCompleted}/{totalLessons} bài</p>
       </div>
       <div className="bg-[#0f1117] border border-white/5 rounded-xl p-3 md:p-4">
@@ -249,7 +249,7 @@ function StatsOverview({ completedMap }: { completedMap: Record<string, boolean>
           </div>
           <span className="text-white/40 text-xs">Đã học</span>
         </div>
-        <p className="text-emerald-400 text-2xl font-black">{totalCompleted}</p>
+        <p className="text-emerald-400 text-xl font-bold">{totalCompleted}</p>
         <p className="text-white/30 text-[10px] mt-0.5">bài hoàn thành</p>
       </div>
       <div className="bg-[#0f1117] border border-white/5 rounded-xl p-3 md:p-4">
@@ -269,7 +269,7 @@ function StatsOverview({ completedMap }: { completedMap: Record<string, boolean>
           </div>
           <span className="text-white/40 text-xs">Còn lại</span>
         </div>
-        <p className="text-[#e8c84a] text-2xl font-black">{estimatedHours}h</p>
+        <p className="text-[#e8c84a] text-xl font-bold">{estimatedHours}h</p>
         <p className="text-white/30 text-[10px] mt-0.5">{remainingLessons} bài · ~30 phút/bài</p>
       </div>
     </div>
@@ -520,3 +520,4 @@ export default function SeoulLearningPathPage() {
     </DashboardLayout>
   );
 }
+

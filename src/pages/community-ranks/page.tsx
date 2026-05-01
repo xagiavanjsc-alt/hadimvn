@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -217,7 +217,7 @@ export default function CommunityRanksPage() {
       title="Cấp bậc & Huy hiệu"
       subtitle="Hệ thống gamification — leo hạng và sưu tầm huy hiệu thành tích"
     >
-      <div className="grid grid-cols-[1fr_300px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         {/* Main content */}
         <div>
           {/* User rank card */}
@@ -259,7 +259,7 @@ export default function CommunityRanksPage() {
           </div>
 
           {/* Tabs */}
-          <div className="flex items-center gap-1 bg-white/5 rounded-xl p-1 mb-5 w-fit">
+          <div className="flex items-center gap-1 bg-white/5 rounded-xl p-1 mb-5 w-fit max-w-full overflow-x-auto">
             {tabs.map(tab => (
               <button key={tab.id} onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${activeTab === tab.id ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/40 hover:text-white/60"}`}>
@@ -393,3 +393,5 @@ export default function CommunityRanksPage() {
     </DashboardLayout>
   );
 }
+
+

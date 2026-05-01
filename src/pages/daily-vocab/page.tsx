@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+﻿import { useState, useEffect, useMemo, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { supabase } from "@/lib/supabase";
@@ -238,7 +238,7 @@ export default function DailyVocabPage() {
       </div>
 
       {/* Stats row */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Từ hôm nay", value: dailyWords.length, icon: "ri-book-open-line", color: "#e8c84a" },
           { label: "Đã xem nghĩa", value: revealedCount, icon: "ri-eye-line", color: "#60a5fa" },
@@ -289,7 +289,7 @@ export default function DailyVocabPage() {
           <i className="ri-information-line text-white/30 text-sm"></i>
           <h4 className="text-white/50 text-sm font-medium">Về tính năng này</h4>
         </div>
-        <div className="grid grid-cols-3 gap-4 text-xs text-white/35">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-white/35">
           <div className="flex items-start gap-2">
             <i className="ri-database-2-line text-[#e8c84a] mt-0.5 flex-shrink-0"></i>
             <span>Từ vựng được lấy trực tiếp từ Supabase — dữ liệu thật, không mất khi reload</span>
@@ -307,3 +307,5 @@ export default function DailyVocabPage() {
     </DashboardLayout>
   );
 }
+
+

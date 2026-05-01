@@ -362,7 +362,7 @@ export default function AdminAuditPage() {
               <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>Theo dõi email tự động gửi bởi VIP Expiry Scheduler</p>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-3 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
             {[
               { label: "Tổng email đã gửi", value: emailCount, color: "#38bdf8", icon: "ri-mail-check-line" },
               { label: "Broadcast", value: typeCount("broadcast_sent"), color: "#a78bfa", icon: "ri-broadcast-line" },
@@ -471,3 +471,4 @@ export default function AdminAuditPage() {
     </AdminLayout>
   );
 }
+

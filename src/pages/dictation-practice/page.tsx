@@ -204,7 +204,7 @@ export default function DictationPracticePage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
             { label: "Đã luyện", value: Object.keys(scores).length, icon: "ri-checkbox-circle-line", color: "#34d399" },
             { label: "Điểm TB", value: `${avgScore}%`, icon: "ri-percent-line", color: "#e8c84a" },
@@ -288,3 +288,4 @@ export default function DictationPracticePage() {
     </DashboardLayout>
   );
 }
+

@@ -183,7 +183,7 @@ export default function EpsSmartFlashcardPage() {
   if (phase === "select") {
     return (
       <DashboardLayout title="Flashcard thông minh EPS" subtitle="Tự động ưu tiên từ chưa thuộc · Phát âm tiếng Hàn · Spaced Repetition">
-        <div className="grid grid-cols-[1fr_300px] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
           <div className="space-y-5">
             {/* Quick start */}
             <div className="bg-gradient-to-r from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/15 rounded-2xl p-6">
@@ -498,7 +498,7 @@ export default function EpsSmartFlashcardPage() {
             <p className="text-white/40 text-sm mt-1">Tỷ lệ nhớ trong phiên này</p>
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-emerald-500/5 border border-emerald-500/15 rounded-xl p-4">
               <p className="text-emerald-400 text-2xl font-bold">{sessionStats.known}</p>
               <p className="text-white/40 text-xs mt-1">Đã nhớ</p>
@@ -535,3 +535,5 @@ export default function EpsSmartFlashcardPage() {
 
   return null;
 }
+
+

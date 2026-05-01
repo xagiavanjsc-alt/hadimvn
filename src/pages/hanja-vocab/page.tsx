@@ -524,7 +524,7 @@ function SRTab({ favs }: { favs: Set<string> }) {
         {revealed && (
           <div>
             <p className="text-center text-xs text-gray-400 mb-3">Bạn nhớ từ này như thế nào?</p>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {[
                 { q: 0, label: "Quên", sub: "Không nhớ", color: "border-red-300 bg-red-50 text-red-700 hover:bg-red-100" },
                 { q: 2, label: "Khó", sub: "Nhớ mờ", color: "border-orange-300 bg-orange-50 text-orange-700 hover:bg-orange-100" },
@@ -1587,3 +1587,4 @@ export default function HanjaVocabPage() {
     </DashboardLayout>
   );
 }
+

@@ -149,7 +149,7 @@ function TopikVocabTab() {
       {showAdd && (
         <div className="rounded-2xl border p-5 mb-4" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border2)" }}>
           <p className="font-bold text-sm mb-4" style={{ color: "var(--admin-text)" }}>Thêm từ vựng TOPIK mới</p>
-          <div className="grid grid-cols-3 gap-3 mb-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
             <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Tiếng Hàn *</label><input value={form.korean} onChange={e => setForm(f => ({ ...f, korean: e.target.value }))} placeholder="학교" className={inputCls} style={inputStyle} /></div>
             <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Phiên âm</label><input value={form.reading} onChange={e => setForm(f => ({ ...f, reading: e.target.value }))} placeholder="hak-gyo" className={inputCls} style={inputStyle} /></div>
             <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Nghĩa *</label><input value={form.vietnamese} onChange={e => setForm(f => ({ ...f, vietnamese: e.target.value }))} placeholder="trường học" className={inputCls} style={inputStyle} /></div>
@@ -730,3 +730,4 @@ export default function AdminContentLearnPage() {
     </AdminLayout>
   );
 }
+

@@ -165,7 +165,7 @@ function RoadmapPanel({
       </div>
 
       {/* Level progress bars */}
-      <div className="grid grid-cols-4 gap-3 mb-5">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
         {levelStats.map(({ lv, pct, doneEx, totalEx }) => (
           <div key={lv} className={`rounded-xl p-3 border transition-all ${lv === currentLevel ? "border-white/12 bg-white/3" : "border-white/5"}`}>
             <div className="flex items-center justify-between mb-2">
@@ -493,7 +493,7 @@ export default function GrammarPage() {
       )}
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Mẫu câu", value: grammarPatterns.length, icon: "ri-book-open-line", color: "#e8c84a" },
           { label: "Bài tập", value: totalExercises, icon: "ri-pencil-line", color: "#34d399" },
@@ -576,3 +576,4 @@ export default function GrammarPage() {
     </DashboardLayout>
   );
 }
+

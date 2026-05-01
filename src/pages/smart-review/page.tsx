@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -188,7 +188,7 @@ export default function SmartReviewPage() {
         </div>
 
         {/* Stats row */}
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
             { label: "Cần ôn hôm nay", value: dueToday, color: "text-red-400", icon: "ri-alarm-warning-line" },
             { label: "Đã thuộc", value: masteredCards, color: "text-emerald-400", icon: "ri-checkbox-circle-line" },
@@ -327,7 +327,7 @@ export default function SmartReviewPage() {
                     {showAnswer && (
                       <div>
                         <p className="text-white/30 text-xs text-center mb-3">Bạn nhớ từ này như thế nào?</p>
-                        <div className="grid grid-cols-4 gap-2">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                           {[
                             { quality: 0 as const, label: "Không nhớ", sub: "Ôn lại ngay", color: "bg-red-500/15 border-red-500/30 text-red-400 hover:bg-red-500/25" },
                             { quality: 2 as const, label: "Khó nhớ", sub: "Ôn lại sớm", color: "bg-orange-500/15 border-orange-500/30 text-orange-400 hover:bg-orange-500/25" },
@@ -403,3 +403,4 @@ export default function SmartReviewPage() {
     </DashboardLayout>
   );
 }
+

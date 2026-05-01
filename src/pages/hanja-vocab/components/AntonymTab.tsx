@@ -487,7 +487,7 @@ export default function AntonymTab() {
       {showAddModal && <AddPairModal onAdd={handleAddPair} onClose={() => setShowAddModal(false)} />}
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-3 mb-5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
         <div className="bg-green-50 rounded-xl p-4 text-center">
           <p className="text-2xl font-bold text-green-600">{stats.bothMastered}</p>
           <p className="text-xs text-gray-500 mt-1">Cặp đã thuộc cả 2</p>
@@ -592,3 +592,4 @@ export default function AntonymTab() {
     </div>
   );
 }
+

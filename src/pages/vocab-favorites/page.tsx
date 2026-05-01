@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -260,7 +260,7 @@ export default function VocabFavoritesPage() {
         /* Setup screen */
         <div className="max-w-lg mx-auto space-y-5">
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
               { label: "Từ yêu thích", value: favoriteItems.length, icon: "ri-bookmark-fill", color: "#e8c84a" },
               { label: "A1/A2", value: favoriteItems.filter(v => ["A1","A2"].includes(v.topikLevel)).length, icon: "ri-seedling-line", color: "#34d399" },
@@ -348,3 +348,4 @@ export default function VocabFavoritesPage() {
     </DashboardLayout>
   );
 }
+

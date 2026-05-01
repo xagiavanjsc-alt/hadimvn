@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+﻿import { useState, useEffect, useCallback, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { grammarPatterns } from "@/mocks/grammarData";
@@ -439,7 +439,7 @@ export default function DailyReviewPage() {
       title="Ôn tập hàng ngày"
       subtitle="10 câu mỗi ngày — duy trì streak và củng cố kiến thức"
     >
-      <div className="grid grid-cols-[1fr_260px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6">
         {/* Main content */}
         <div>
           {!session || questions.length === 0 ? (
@@ -633,3 +633,4 @@ export default function DailyReviewPage() {
     </DashboardLayout>
   );
 }
+

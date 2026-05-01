@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -193,17 +193,17 @@ export default function SeoulStreakPage() {
           </div>
 
           {/* Stats row */}
-          <div className="grid grid-cols-3 gap-3 mt-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5">
             <div className="bg-white/5 rounded-xl p-3 text-center">
-              <p className="text-[#f97316] text-2xl font-black">{streak.count}</p>
+              <p className="text-[#f97316] text-xl font-bold">{streak.count}</p>
               <p className="text-white/40 text-xs mt-0.5">Streak hiện tại</p>
             </div>
             <div className="bg-white/5 rounded-xl p-3 text-center">
-              <p className="text-white text-2xl font-black">{streak.longestStreak || 0}</p>
+              <p className="text-white text-xl font-bold">{streak.longestStreak || 0}</p>
               <p className="text-white/40 text-xs mt-0.5">Streak dài nhất</p>
             </div>
             <div className="bg-white/5 rounded-xl p-3 text-center">
-              <p className="text-emerald-400 text-2xl font-black">{streak.totalDays || 0}</p>
+              <p className="text-emerald-400 text-xl font-bold">{streak.totalDays || 0}</p>
               <p className="text-white/40 text-xs mt-0.5">Tổng ngày học</p>
             </div>
           </div>
@@ -357,7 +357,7 @@ export default function SeoulStreakPage() {
           </div>
 
           {/* Quick actions */}
-          <div className="grid grid-cols-3 gap-3 mt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
             <button
               onClick={() => navigate("/seoul-textbook")}
               className="flex flex-col items-center gap-2 p-3 rounded-xl bg-white/3 hover:bg-white/6 cursor-pointer transition-all"
@@ -406,3 +406,5 @@ export default function SeoulStreakPage() {
     </DashboardLayout>
   );
 }
+
+

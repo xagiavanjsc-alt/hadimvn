@@ -279,7 +279,7 @@ export default function StudyFeedPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-[1fr_280px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
         {/* Left: feed */}
         <div>
           {/* Filter tabs */}
@@ -395,3 +395,4 @@ export default function StudyFeedPage() {
     </DashboardLayout>
   );
 }
+

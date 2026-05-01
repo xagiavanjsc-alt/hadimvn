@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+﻿import { useState, useMemo, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -236,7 +236,7 @@ export default function VocabularyPage() {
       }
     >
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Tổng từ vựng", value: vocabularyData.length, icon: "ri-translate-2", color: "#e8c84a" },
           { label: "Đã thuộc", value: totalMastered, icon: "ri-checkbox-circle-line", color: "#34d399" },
@@ -298,7 +298,7 @@ export default function VocabularyPage() {
 
       {/* Grid */}
       {filteredItems.length > 0 ? (
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {filteredItems.map(item => (
             <VocabCard
               key={item.id}
@@ -324,3 +324,5 @@ export default function VocabularyPage() {
     </DashboardLayout>
   );
 }
+
+

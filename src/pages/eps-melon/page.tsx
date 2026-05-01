@@ -208,7 +208,7 @@ export default function EpsMelonPage() {
         </div>
 
         {/* Stats row */}
-        <div className="grid grid-cols-4 gap-3 mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
             { icon: "ri-book-2-line", color: "text-emerald-400", val: totalVocab, label: "Tổng từ EPS" },
             { icon: "ri-music-2-line", color: "text-[#e8c84a]", val: songMatches.length, label: "Bài có từ EPS" },
@@ -478,3 +478,4 @@ export default function EpsMelonPage() {
     </div>
   );
 }
+

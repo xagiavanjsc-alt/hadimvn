@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsLessons, EPS_LESSON_TOPICS } from "@/mocks/epsLessons";
@@ -91,7 +91,7 @@ function PlacementQuiz({ onComplete }: { onComplete: (result: PlacementResult) =
           Làm 20 câu hỏi ngắn để AI phân tích điểm mạnh/yếu và tạo lộ trình học phù hợp nhất với bạn.
         </p>
         <p className="text-white/30 text-xs mb-8">Thời gian: ~5-10 phút · Không giới hạn thời gian</p>
-        <div className="grid grid-cols-3 gap-3 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
           {[
             { icon: "ri-survey-line", label: "20 câu hỏi", color: "#e8c84a" },
             { icon: "ri-folder-line", label: "9 chủ đề", color: "#34d399" },
@@ -403,7 +403,7 @@ export default function EpsPersonalizedRoadmapPage() {
       title="Lộ trình EPS cá nhân hóa"
       subtitle="Lộ trình học được tạo dựa trên kết quả kiểm tra trình độ của bạn"
     >
-      <div className="grid grid-cols-[1fr_280px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
         {/* Left: Roadmap */}
         <div className="space-y-5">
           {/* Level badge */}
@@ -557,3 +557,5 @@ export default function EpsPersonalizedRoadmapPage() {
     </DashboardLayout>
   );
 }
+
+

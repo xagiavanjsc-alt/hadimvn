@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -196,7 +196,7 @@ export default function QuizHistoryDetailPage() {
       subtitle="Xem lại từng câu đã làm, đáp án đúng/sai và giải thích"
     >
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Tổng lần làm", value: totalAttempts, icon: "ri-history-line", color: "#e8c84a" },
           { label: "Điểm trung bình", value: `${avgScore}%`, icon: "ri-bar-chart-line", color: "#34d399" },
@@ -334,3 +334,4 @@ export default function QuizHistoryDetailPage() {
     </DashboardLayout>
   );
 }
+

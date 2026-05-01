@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+﻿import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
@@ -271,7 +271,7 @@ function ReviewQuizModal({ nodes, learnedSet, onClose }: {
           <div className="w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4" style={{ backgroundColor: pct >= 70 ? "rgba(16,185,129,0.15)" : "rgba(244,63,94,0.15)" }}>
             <i className={`text-4xl ${pct >= 70 ? "ri-trophy-line text-emerald-400" : "ri-emotion-sad-line text-rose-400"}`}></i>
           </div>
-          <h3 className="text-2xl font-black text-white/90 mb-1">{pct}%</h3>
+          <h3 className="text-xl font-bold text-white/90 mb-1">{pct}%</h3>
           <p className="text-sm text-white/50 mb-4">
             {score.correct}/{total} câu đúng
             {pct >= 80 ? " — Xuất sắc!" : pct >= 60 ? " — Khá tốt!" : " — Cần ôn thêm!"}
@@ -715,7 +715,7 @@ export default function HanjaDashboardPage() {
               </div>
               <div>
                 <p className="text-xs text-orange-400 font-semibold">Streak học Hán Hàn</p>
-                <p className="text-2xl font-black text-orange-300">{streak.current} <span className="text-sm font-normal text-orange-400/70">ngày liên tiếp</span></p>
+                <p className="text-xl font-bold text-orange-300">{streak.current} <span className="text-sm font-normal text-orange-400/70">ngày liên tiếp</span></p>
               </div>
             </div>
             <div className="flex items-center gap-6 ml-auto flex-wrap">
@@ -777,7 +777,7 @@ export default function HanjaDashboardPage() {
 
             <div className="bg-white/5 border border-white/8 rounded-2xl p-5">
               <h3 className="text-sm font-bold text-white/80 mb-4">Phân bổ theo độ khó</h3>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {diffStats.map(d => (
                   <div key={d.label} className="text-center p-4 rounded-xl border border-white/8 bg-white/3">
                     <p className="text-2xl font-bold mb-1" style={{ color: d.color }}>{d.learned}</p>
@@ -855,3 +855,5 @@ export default function HanjaDashboardPage() {
     </DashboardLayout>
   );
 }
+
+

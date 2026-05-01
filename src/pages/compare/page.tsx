@@ -295,7 +295,7 @@ export default function ComparePage() {
               )}
 
               {/* Overlap stats */}
-              <div className="grid grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {[
                   { label: "Từ vựng trùng", value: comparison.shared.length, color: "text-[#e8c84a]", icon: "ri-links-line" },
                   { label: "Chỉ có ở A", value: comparison.onlyA.length, color: "text-[#e8c84a]", icon: "ri-subtract-line" },
@@ -476,3 +476,4 @@ export default function ComparePage() {
     </DashboardLayout>
   );
 }
+

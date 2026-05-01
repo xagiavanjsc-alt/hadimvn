@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -211,7 +211,7 @@ function ResultScreen({
         </div>
       </div>
 
-      <div className="grid grid-cols-[1fr_320px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
         {/* Roadmap */}
         <div>
           <h3 className="text-white font-semibold text-sm mb-4">Lộ trình học cá nhân của bạn</h3>
@@ -397,7 +397,7 @@ export default function PlacementTestPage() {
               Làm 10 câu hỏi trong 5 phút. AI sẽ phân tích trình độ của bạn và tạo lộ trình học cá nhân phù hợp nhất.
             </p>
 
-            <div className="grid grid-cols-3 gap-4 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
               {[
                 { icon: "ri-survey-line", label: "10 câu hỏi", desc: "Từ A1 đến B2", color: "#e8c84a" },
                 { icon: "ri-timer-line", label: "5 phút", desc: "Không cần vội", color: "#34d399" },
@@ -528,3 +528,5 @@ export default function PlacementTestPage() {
     </DashboardLayout>
   );
 }
+
+

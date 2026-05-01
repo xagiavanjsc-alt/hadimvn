@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect } from "react";
+﻿import { useState, useMemo, useRef, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { seoulBooks } from "@/mocks/seoulTextbook";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -224,7 +224,7 @@ export default function SeoulWritingPage() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
               <p className="text-white font-bold text-2xl">{ALL_QUESTIONS.length}</p>
               <p className="text-white/40 text-xs mt-0.5">Tổng câu hỏi</p>
@@ -300,7 +300,7 @@ export default function SeoulWritingPage() {
           </div>
 
           {/* Start buttons */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
               { count: 10, label: "10 câu", desc: "Luyện nhanh", xp: "200 XP" },
               { count: 20, label: "20 câu", desc: "Luyện vừa", xp: "400 XP" },
@@ -373,7 +373,7 @@ export default function SeoulWritingPage() {
             <h2 className="text-white font-bold text-2xl">Hoàn thành!</h2>
             <p className="text-white/40 text-sm">Bạn đã luyện viết {sessionStats.total} câu</p>
 
-            <div className="grid grid-cols-4 gap-3 mt-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
               <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 text-center">
                 <p className="text-emerald-400 font-bold text-xl">{sessionStats.correct}</p>
                 <p className="text-emerald-400/60 text-xs">Đúng</p>
@@ -617,3 +617,5 @@ export default function SeoulWritingPage() {
     </DashboardLayout>
   );
 }
+
+

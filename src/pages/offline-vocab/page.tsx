@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 
@@ -190,7 +190,7 @@ export default function OfflineVocabPage() {
         </div>
 
         {/* Stats bar */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8 text-center">
             <p className="text-2xl font-bold text-[#e8c84a]">{cachedPacks.size}</p>
             <p className="text-white/40 text-xs mt-0.5">Gói đã tải</p>
@@ -371,3 +371,4 @@ export default function OfflineVocabPage() {
     </DashboardLayout>
   );
 }
+

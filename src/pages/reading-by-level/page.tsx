@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -524,7 +524,7 @@ export default function ReadingByLevelPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
             { label: "Bài đọc", value: passages.length, icon: "ri-article-line", color: "#e8c84a" },
             { label: "Đã hoàn thành", value: completedIds.size, icon: "ri-checkbox-circle-line", color: "#34d399" },
@@ -585,3 +585,4 @@ export default function ReadingByLevelPage() {
     </DashboardLayout>
   );
 }
+

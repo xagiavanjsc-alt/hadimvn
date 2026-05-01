@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect, useMemo } from "react";
+﻿import { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
@@ -488,7 +488,7 @@ export default function EpsListeningPage() {
       subtitle="Nghe audio câu hỏi EPS thật — luyện kỹ năng nghe hiểu cho kỳ thi lao động Hàn Quốc"
     >
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Tổng câu nghe", value: LISTENING_QUESTIONS.length, icon: "ri-headphone-line", color: "#e8c84a" },
           { label: "Đã luyện", value: totalAnswered, icon: "ri-checkbox-circle-line", color: "#34d399" },
@@ -549,7 +549,7 @@ export default function EpsListeningPage() {
 
       {/* Browse mode */}
       {mode === "browse" && (
-        <div className="grid grid-cols-[1fr_260px] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6">
           <div className="space-y-4">
             <p className="text-white/30 text-xs">{filteredQuestions.length} câu hỏi</p>
             {filteredQuestions.map(q => (
@@ -701,3 +701,5 @@ export default function EpsListeningPage() {
     </DashboardLayout>
   );
 }
+
+

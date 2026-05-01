@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface FreqWord {
@@ -93,7 +93,7 @@ export default function TopikFrequencyVocabPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-4 gap-3 mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
             { label: "Tổng từ", value: freqWords.length, color: "#e8c84a" },
             { label: "TOPIK I", value: freqWords.filter(w => w.topikLevel === "I").length, color: "#34d399" },
@@ -253,7 +253,7 @@ export default function TopikFrequencyVocabPage() {
                   <p className="text-white/40 text-xs italic">{selectedWord.exampleVi}</p>
                 </div>
 
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div className="text-center p-2 rounded-lg bg-white/5">
                     <p className="text-white/60 text-xs font-bold">Hạng</p>
                     <p className="text-[#e8c84a] font-bold">#{selectedWord.rank}</p>
@@ -282,3 +282,5 @@ export default function TopikFrequencyVocabPage() {
     </DashboardLayout>
   );
 }
+
+

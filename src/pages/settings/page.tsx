@@ -758,7 +758,7 @@ export default function SettingsPage() {
               ) : (
                 <>
                   {/* Summary cards */}
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div className="bg-white/3 rounded-xl p-4 border border-white/5">
                       <p className="text-white/30 text-[10px] tracking-normal mb-1">Tổng lần gọi</p>
                       <p className="text-white text-2xl font-bold">{costSummary.totalCalls}</p>
@@ -857,7 +857,7 @@ export default function SettingsPage() {
               <p className="text-white/40 text-xs">Dữ liệu đã duyệt lưu trong localStorage của trình duyệt</p>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
               { key: "kts_melon_lessons", label: "Bài học K-pop", icon: "ri-music-2-line", color: "text-[#e8c84a]" },
               { key: "kts_naver_qas", label: "Q&A Naver KiN", icon: "ri-question-answer-line", color: "text-sky-400" },
@@ -935,3 +935,4 @@ export default function SettingsPage() {
     </DashboardLayout>
   );
 }
+

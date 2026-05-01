@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+﻿import { useState, useRef, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -655,7 +655,7 @@ export default function HangulCanvasPage() {
             {strokes.length > 0 && !submitted && (
               <div className="bg-white/5 border border-white/10 rounded-2xl p-4 space-y-3">
                 <p className="text-white/60 text-sm font-medium text-center">Tự đánh giá bài viết của bạn</p>
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {[
                     { score: 90, label: "Xuất sắc", color: "bg-emerald-500/15 border-emerald-500/30 text-emerald-400" },
                     { score: 75, label: "Tốt", color: "bg-sky-500/15 border-sky-500/30 text-sky-400" },
@@ -797,3 +797,4 @@ export default function HangulCanvasPage() {
     </DashboardLayout>
   );
 }
+

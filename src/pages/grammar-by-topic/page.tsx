@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -571,7 +571,7 @@ export default function GrammarByTopicPage() {
         {!searchQuery && (
           <>
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               {[
                 { label: "Chủ đề", value: grammarTopics.length, icon: "ri-apps-line", color: "#e8c84a" },
                 { label: "Cấu trúc", value: totalPoints, icon: "ri-book-2-line", color: "#34d399" },
@@ -651,3 +651,4 @@ export default function GrammarByTopicPage() {
     </DashboardLayout>
   );
 }
+

@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react";
+﻿import { useState, useCallback, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -70,7 +70,7 @@ export default function ReferralPage() {
       title="Mời bạn bè"
       subtitle="Chia sẻ link mời — bạn bè đăng ký được +50 XP, bạn nhận +100 XP"
     >
-      <div className="grid grid-cols-[1fr_300px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         {/* Left main */}
         <div className="space-y-6">
           {/* Referral link card */}
@@ -140,7 +140,7 @@ export default function ReferralPage() {
           {/* How it works */}
           <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">Cách hoạt động</h3>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
                 { step: "1", icon: "ri-share-line", color: "#e8c84a", title: "Chia sẻ link", desc: "Gửi link mời hoặc mã giới thiệu cho bạn bè" },
                 { step: "2", icon: "ri-user-add-line", color: "#34d399", title: "Bạn đăng ký", desc: "Bạn bè đăng ký tài khoản qua link của bạn" },
@@ -293,3 +293,5 @@ export default function ReferralPage() {
     </DashboardLayout>
   );
 }
+
+

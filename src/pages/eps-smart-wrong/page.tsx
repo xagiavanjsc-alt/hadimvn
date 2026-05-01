@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { epsQuestions, EpsQuestion } from "@/mocks/epsQuestions";
@@ -192,7 +192,7 @@ function ReviewQuiz({ session, onAnswer, onNext, onFinish }: ReviewQuizProps) {
     return (
       <div className="text-center py-8">
         <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4 ${score >= 80 ? "bg-emerald-500/15" : "bg-rose-500/15"}`}>
-          <span className={`text-3xl font-black ${score >= 80 ? "text-emerald-400" : "text-rose-400"}`}>{score}</span>
+          <span className={`text-2xl font-bold ${score >= 80 ? "text-emerald-400" : "text-rose-400"}`}>{score}</span>
         </div>
         <h3 className={`text-lg font-bold mb-1 ${score >= 80 ? "text-emerald-400" : "text-rose-400"}`}>
           {score >= 80 ? "Xuất sắc! Đã nắm vững!" : "Cần ôn thêm!"}
@@ -430,7 +430,7 @@ export default function EpsSmartWrongPage() {
         ) : (
           <>
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-3 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
               {[
                 { label: "Tổng câu sai", value: totalWrong, color: "#f87171", icon: "ri-close-circle-line" },
                 { label: "Sai ≥3 lần", value: frequentWrong, color: "#fb923c", icon: "ri-alarm-warning-line" },
@@ -521,3 +521,5 @@ export default function EpsSmartWrongPage() {
     </DashboardLayout>
   );
 }
+
+

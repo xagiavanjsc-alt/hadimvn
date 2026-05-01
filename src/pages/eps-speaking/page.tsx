@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+﻿import { useState, useRef, useCallback, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -304,7 +304,7 @@ export default function EpsSpeakingPage() {
               <h3 className="text-white font-semibold">Thống kê phát âm</h3>
 
               {/* Summary */}
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {[
                   { label: "Điểm TB (30 lần gần nhất)", value: `${avgScore}%`, color: avgScore >= 70 ? "text-emerald-400" : "text-amber-400" },
                   { label: "Điểm cao nhất", value: `${best}%`, color: "text-amber-400" },
@@ -642,3 +642,4 @@ export default function EpsSpeakingPage() {
     </DashboardLayout>
   );
 }
+

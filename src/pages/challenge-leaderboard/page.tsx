@@ -130,7 +130,7 @@ export default function ChallengeLeaderboardPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-[1fr_280px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
         {/* Left: Leaderboard */}
         <div className="space-y-5">
           {/* Top 3 podium */}
@@ -314,3 +314,4 @@ export default function ChallengeLeaderboardPage() {
     </DashboardLayout>
   );
 }
+

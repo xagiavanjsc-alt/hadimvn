@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+﻿import { useState, useMemo, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useAdminToast } from "@/contexts/AdminToastContext";
 
@@ -269,7 +269,7 @@ function CompareTab({ snapshots }: { snapshots: BackupSnapshot[] }) {
       {snapA && snapB && snapA.id !== snapB.id && (
         <>
           {/* Summary stats */}
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {(["added", "removed", "changed", "unchanged"] as DiffType[]).map(type => {
               const cfg = DIFF_CONFIG[type];
               const count = stats[type];
@@ -611,7 +611,7 @@ function ScheduleTab({ onCreateBackup, snapshots: externalSnapshots, setSnapshot
         </button>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
           { label: "Lịch đang hoạt động", value: schedules.filter(s => s.status === "active").length, color: "#34d399", icon: "ri-play-circle-line" },
           { label: "Tổng backup đã tạo", value: schedules.reduce((s, r) => s + r.backupCount, 0), color: "#a78bfa", icon: "ri-save-line" },
@@ -625,7 +625,7 @@ function ScheduleTab({ onCreateBackup, snapshots: externalSnapshots, setSnapshot
               </div>
               <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>{s.label}</span>
             </div>
-            <p className="text-2xl font-black" style={{ color: s.color }}>{s.value}</p>
+            <p className="text-xl font-bold" style={{ color: s.color }}>{s.value}</p>
           </div>
         ))}
       </div>
@@ -815,7 +815,7 @@ function ScheduleTab({ onCreateBackup, snapshots: externalSnapshots, setSnapshot
               </div>
               <div>
                 <label className="text-xs font-semibold mb-1.5 block" style={{ color: "var(--admin-text-muted)" }}>Chu kỳ</label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   {(["daily", "weekly", "monthly"] as ScheduleFreq[]).map(f => {
                     const cfg = FREQ_CONFIG[f];
                     return (
@@ -1144,7 +1144,7 @@ export default function AdminBackupPage() {
       {activeTab === "overview" && (
         <div className="space-y-5">
           {/* Summary stats */}
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
               { label: "Tổng keys", value: entries.length, color: "#a78bfa", icon: "ri-key-line" },
               { label: "Dung lượng", value: formatBytes(totalSize), color: "#34d399", icon: "ri-database-line" },
@@ -1498,3 +1498,6 @@ export default function AdminBackupPage() {
     </AdminLayout>
   );
 }
+
+
+

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+﻿import { useState, useEffect, useRef, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { topikQuestions, type TopikQuestion } from "@/mocks/topikQuestions";
@@ -198,7 +198,7 @@ function ResultScreen({
                   {secPassed ? "ĐẠT" : "CHƯA ĐẠT"}
                 </div>
               </div>
-              <div className="text-3xl font-black mb-1" style={{ color: sec.color }}>{sec.score}</div>
+              <div className="text-2xl font-bold mb-1" style={{ color: sec.color }}>{sec.score}</div>
               <p className="text-white/30 text-xs mb-3">/ {sec.max} điểm · {sec.correct}/{sec.total} câu đúng</p>
               <div className="bg-white/5 rounded-full h-2 overflow-hidden">
                 <div className="h-full rounded-full" style={{ width: `${(sec.score / sec.max) * 100}%`, backgroundColor: sec.color }}></div>
@@ -307,7 +307,7 @@ export default function TopikTestPage() {
             <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-[#e8c84a]/10 mx-auto mb-4">
               <i className="ri-file-list-3-line text-[#e8c84a] text-3xl"></i>
             </div>
-            <h2 className="text-white text-2xl font-black mb-2">TOPIK I</h2>
+            <h2 className="text-white text-xl font-bold mb-2">TOPIK I</h2>
             <p className="text-white/40 text-sm mb-6">한국어능력시험 — Kỳ thi năng lực tiếng Hàn</p>
             {bestScore > 0 && (
               <div className="inline-flex items-center gap-2 bg-[#e8c84a]/8 border border-[#e8c84a]/15 rounded-xl px-4 py-2 mb-4">
@@ -478,3 +478,5 @@ export default function TopikTestPage() {
     </DashboardLayout>
   );
 }
+
+

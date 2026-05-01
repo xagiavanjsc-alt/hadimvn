@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+﻿import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { seoulBooks } from "@/mocks/seoulTextbook";
@@ -87,7 +87,7 @@ export default function SeoulStreakBanner() {
               )}
             </div>
             <div className="flex items-baseline gap-1.5 mt-0.5">
-              <span className="text-3xl font-black" style={{ color: streakColor }}>
+              <span className="text-2xl font-bold" style={{ color: streakColor }}>
                 {seoulStreak.count}
               </span>
               <span className="text-white/40 text-sm">ngày liên tiếp</span>
@@ -142,3 +142,4 @@ export default function SeoulStreakBanner() {
     </div>
   );
 }
+

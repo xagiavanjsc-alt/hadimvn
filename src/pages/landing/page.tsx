@@ -227,7 +227,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 rounded-2xl overflow-hidden backdrop-blur-sm">
             {STATS.map((s, i) => (
               <div key={s.label} className={`bg-black/20 backdrop-blur-sm px-4 md:px-6 py-4 md:py-5 text-center ${i === 0 ? "rounded-tl-2xl rounded-bl-2xl" : ""} ${i === 3 ? "rounded-tr-2xl rounded-br-2xl" : ""}`}>
-                <p className="text-xl md:text-3xl font-black text-[#4ade80]">{s.value}</p>
+                <p className="text-xl md:text-2xl font-bold text-[#4ade80]">{s.value}</p>
                 <p className="text-white/50 text-xs mt-1">{s.label}</p>
               </div>
             ))}
@@ -340,7 +340,7 @@ export default function LandingPage() {
                   <i className="ri-music-2-line text-[#ec4899] text-xs"></i>
                   <span className="text-[#ec4899] text-xs font-semibold">Tính năng độc quyền</span>
                 </div>
-                <h3 className="text-white text-xl md:text-3xl font-black mb-2 md:mb-3">Học tiếng Hàn qua K-pop</h3>
+                <h3 className="text-white text-xl md:text-2xl font-bold mb-2 md:mb-3">Học tiếng Hàn qua K-pop</h3>
                 <p className="text-white/60 text-sm leading-relaxed max-w-md">AI phân tích lời bài hát Melon Chart, trích xuất từ vựng quan trọng, tạo quiz tương tác. Học từ BLACKPINK, BTS, aespa...</p>
               </div>
               <button onClick={handleStart} className="flex-shrink-0 inline-flex items-center gap-2 bg-[#ec4899] hover:bg-[#db2777] text-white font-bold px-6 py-3 rounded-xl text-sm transition-all cursor-pointer whitespace-nowrap">
@@ -546,3 +546,4 @@ export default function LandingPage() {
     </div>
   );
 }
+

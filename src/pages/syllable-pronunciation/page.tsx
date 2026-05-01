@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+﻿import { useState, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface SyllableGroup {
@@ -143,7 +143,7 @@ export default function SyllablePronunciationPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-4 gap-3 mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
             { label: "Tổng âm tiết", value: allSyllables.length, color: "#e8c84a" },
             { label: "Đã thành thạo", value: masteredIds.size, color: "#34d399" },
@@ -311,3 +311,4 @@ export default function SyllablePronunciationPage() {
     </DashboardLayout>
   );
 }
+

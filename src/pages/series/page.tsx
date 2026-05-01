@@ -464,7 +464,7 @@ function LandingPageModal({ series, lessons, onClose }: {
             </div>
 
             {/* Features */}
-            <div className="grid grid-cols-3 gap-4 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
               {[
                 { icon: "ri-book-read-line", title: "Truyện chêm", desc: "Câu chuyện thú vị lồng ghép từ vựng tiếng Hàn tự nhiên" },
                 { icon: "ri-translate-2", title: "Từ vựng cốt lõi", desc: "6-8 từ vựng quan trọng với phiên âm và ví dụ thực tế" },
@@ -986,7 +986,7 @@ export default function SeriesPage() {
       )}
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         {[
           { label: "Tổng series", value: seriesList.length, icon: "ri-stack-line", color: "#e8c84a" },
           { label: "Tổng bài học", value: totalLessons, icon: "ri-book-open-line", color: "#34d399" },
@@ -1024,7 +1024,7 @@ export default function SeriesPage() {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {seriesList.map((series) => (
             <SeriesCard
               key={series.id}
@@ -1129,3 +1129,4 @@ export default function SeriesPage() {
     </DashboardLayout>
   );
 }
+

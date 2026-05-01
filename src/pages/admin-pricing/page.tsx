@@ -146,7 +146,7 @@ function PlanEditorModal({ plan, isNew, onSave, onClose }: {
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Giá/tháng (VNĐ)</label>
               <input type="number" min={0} value={edited.price} onChange={e => setEdited(p => ({ ...p, price: parseInt(e.target.value) || 0 }))}
@@ -699,7 +699,7 @@ export default function AdminPricingPage() {
             {schedulerResult && (
               <div className="mt-4 rounded-xl p-4" style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>
                 <p className="text-xs font-semibold mb-2" style={{ color: "var(--admin-text)" }}>Kết quả:</p>
-                <div className="grid grid-cols-4 gap-3 mb-3">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
                   {[
                     { label: "Kiểm tra", key: "checked", color: "#a78bfa" },
                     { label: "Đã gửi", key: "sent", color: "#34d399" },
@@ -733,3 +733,5 @@ export default function AdminPricingPage() {
     </AdminLayout>
   );
 }
+
+

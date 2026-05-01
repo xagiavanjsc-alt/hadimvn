@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -261,7 +261,7 @@ function WeaknessAnalysis({ examResults }: { examResults: ExamResult[] }) {
   return (
     <div className="space-y-5">
       {/* Score overview */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
           { label: "Điểm TB gần đây", value: `${avgScore}%`, color: avgScore >= 80 ? "#34d399" : avgScore >= 60 ? "#e8c84a" : "#f87171", icon: "ri-bar-chart-line" },
           { label: "Chủ đề yếu", value: weakTopics.length, color: "#f87171", icon: "ri-error-warning-line" },
@@ -634,7 +634,7 @@ export default function PersonalStatsPage() {
                 </div>
               </div>
               <BarChart data={xpByDay} maxVal={maxXPDay} color="#e8c84a" labels={chartLabels} />
-              <div className="grid grid-cols-3 gap-4 mt-5 pt-4 border-t border-white/5">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5 pt-4 border-t border-white/5">
                 {[
                   { label: "Tổng XP kỳ này", value: totalXPInPeriod.toLocaleString(), color: "#e8c84a" },
                   { label: "Ngày hoạt động", value: `${activeDays}/${dateRange.length}`, color: "#34d399" },
@@ -774,7 +774,7 @@ export default function PersonalStatsPage() {
           <div className="space-y-5">
             <StreakCalendar xpLog={xpLog} />
             {/* Streak stats */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
                 { label: "Streak hiện tại", value: `${streak.count} ngày`, color: "#fb923c", icon: "ri-fire-line" },
                 { label: "Tổng ngày học", value: new Set(xpLog.map(e => e.date?.split("T")[0]).filter(Boolean)).size, color: "#34d399", icon: "ri-calendar-check-line" },
@@ -803,3 +803,4 @@ export default function PersonalStatsPage() {
     </DashboardLayout>
   );
 }
+

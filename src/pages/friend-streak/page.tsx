@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -124,7 +124,7 @@ export default function FriendStreakPage() {
         </button>
       }
     >
-      <div className="grid grid-cols-[1fr_300px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         {/* Main leaderboard */}
         <div>
           {/* My stats card */}
@@ -307,3 +307,4 @@ export default function FriendStreakPage() {
     </DashboardLayout>
   );
 }
+

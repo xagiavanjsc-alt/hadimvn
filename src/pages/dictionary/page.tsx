@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
@@ -383,7 +383,7 @@ export default function DictionaryPage() {
               >
                 Tất cả ({dictionary.length})
               </button>
-              <div className="grid grid-cols-4 gap-1">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1">
                 {ALPHABET.map((letter) => {
                   const count = letterCounts[letter] ?? 0;
                   if (count === 0) return null;
@@ -555,3 +555,4 @@ export default function DictionaryPage() {
     </DashboardLayout>
   );
 }
+

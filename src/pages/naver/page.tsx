@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import MobileHeader from "@/components/feature/MobileHeader";
 import MobileNav from "@/components/feature/MobileNav";
 import { useNavigate } from "react-router-dom";
@@ -175,7 +175,7 @@ const NaverPage = () => {
         </div>
 
         {/* Stats row */}
-        <div className="grid grid-cols-3 gap-2 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
           {[
             { label: "Câu hỏi", value: qaData.length, icon: "ri-question-line", color: "#03C75A" },
             { label: "Đã thích", value: likedIds.length, icon: "ri-thumb-up-line", color: "#e8c84a" },
@@ -245,3 +245,4 @@ const NaverPage = () => {
 };
 
 export default NaverPage;
+

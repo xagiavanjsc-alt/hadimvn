@@ -220,7 +220,7 @@ export default function TopikListeningPage() {
           </div>
 
           {/* How it works */}
-          <div className="grid grid-cols-3 gap-3 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
             {[
               { icon: "ri-volume-up-line", color: "#34d399", title: "Nghe", desc: "Hệ thống đọc câu tiếng Hàn" },
               { icon: "ri-checkbox-multiple-line", color: "#e8c84a", title: "Chọn đáp án", desc: "4 lựa chọn nghĩa tiếng Việt" },
@@ -397,7 +397,7 @@ export default function TopikListeningPage() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-4 gap-3 mb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
             {[
               { label: "Đúng", value: correctCount, color: "#34d399" },
               { label: "Sai", value: results.filter((r) => !r.correct).length, color: "#f87171" },
@@ -660,3 +660,5 @@ export default function TopikListeningPage() {
     </DashboardLayout>
   );
 }
+
+

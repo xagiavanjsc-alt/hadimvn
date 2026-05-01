@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -144,7 +144,7 @@ export default function XPStatsPage() {
       </div>
 
       {/* Summary cards */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Tổng XP tích lũy", value: totalXP.toLocaleString(), icon: "ri-award-line", color: "#e8c84a", sub: `Cấp ${currentRank.name}` },
           { label: `XP trong ${days} ngày`, value: periodXP.toLocaleString(), icon: "ri-bar-chart-line", color: "#34d399", sub: `${avgXPPerDay} XP/ngày TB` },
@@ -164,7 +164,7 @@ export default function XPStatsPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-[1fr_320px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
         {/* Left column */}
         <div className="space-y-6">
           {/* Bar chart */}
@@ -399,3 +399,5 @@ export default function XPStatsPage() {
     </DashboardLayout>
   );
 }
+
+

@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, lazy, Suspense } from "react";
+﻿import { useState, useMemo, useEffect, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -66,7 +66,7 @@ function BookCard({
 
       <p className="text-white/40 text-xs leading-relaxed mb-3 line-clamp-2 hidden md:block">{book.description}</p>
 
-      <div className="grid grid-cols-3 gap-1.5 md:gap-2 mb-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 md:gap-2 mb-3">
         {[
           { label: "Bài", value: book.totalLessons },
           { label: "Từ", value: book.totalVocab },
@@ -459,7 +459,7 @@ function BookDetailView({
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 md:gap-3 mt-4 md:mt-5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 md:gap-3 mt-4 md:mt-5">
           {[
             { label: "Tổng bài", value: book.totalLessons, icon: "ri-book-open-line" },
             { label: "Từ vựng", value: `~${book.totalVocab}`, icon: "ri-translate-2" },
@@ -775,3 +775,4 @@ export default function SeoulTextbookPage() {
     </DashboardLayout>
   );
 }
+

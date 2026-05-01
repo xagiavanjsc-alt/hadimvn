@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+﻿import { useState, useMemo, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -535,7 +535,7 @@ export default function StudyHistoryPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1 bg-white/5 rounded-xl p-1 mb-5 w-fit">
+      <div className="flex items-center gap-1 bg-white/5 rounded-xl p-1 mb-5 w-fit max-w-full overflow-x-auto">
         {([
           { id: "chart", label: "Biểu đồ", icon: "ri-bar-chart-line" },
           { id: "due", label: `Ôn tập (${dueItems.length})`, icon: "ri-alarm-line" },
@@ -550,7 +550,7 @@ export default function StudyHistoryPage() {
       </div>
 
       {activeTab === "chart" && (
-        <div className="grid grid-cols-[1fr_280px] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
           {/* Chart area */}
           <div className="space-y-5">
             {/* Controls */}
@@ -618,7 +618,7 @@ export default function StudyHistoryPage() {
             {/* Weekly comparison */}
             <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
               <h3 className="text-white font-semibold text-sm mb-4">So sánh tuần này vs tuần trước</h3>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
                   { label: "XP kiếm được", thisWeek: activityData.slice(-7).reduce((s, d) => s + d.xp, 0), lastWeek: activityData.slice(-14, -7).reduce((s, d) => s + d.xp, 0), color: "#e8c84a" },
                   { label: "Từ đã học", thisWeek: activityData.slice(-7).reduce((s, d) => s + d.words, 0), lastWeek: activityData.slice(-14, -7).reduce((s, d) => s + d.words, 0), color: "#34d399" },
@@ -702,7 +702,7 @@ export default function StudyHistoryPage() {
       )}
 
       {(activeTab === "due" || activeTab === "questions" || activeTab === "vocab") && (
-        <div className="grid grid-cols-[1fr_280px] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
           <div>
             {activeTab === "due" && dueItems.length > 0 && (
               <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-3 mb-4 flex items-start gap-2">
@@ -751,3 +751,6 @@ export default function StudyHistoryPage() {
     </DashboardLayout>
   );
 }
+
+
+

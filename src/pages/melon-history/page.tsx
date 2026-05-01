@@ -149,7 +149,7 @@ function GoalModal({ goal, onSave, onClose }: { goal: WeeklyGoal; onSave: (g: We
           </button>
         </div>
         <p className="text-white/40 text-xs mb-4">Chọn số bài hát muốn học mỗi tuần:</p>
-        <div className="grid grid-cols-4 gap-2 mb-5">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
           {OPTIONS.map(n => (
             <button
               key={n}
@@ -319,7 +319,7 @@ export default function MelonHistoryPage() {
             />
 
             {/* Stats overview */}
-            <div className="grid grid-cols-4 gap-3 mb-7">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-7">
               {[
                 { icon: "ri-music-2-line", val: learnedSongs.length, label: "Bài đã học", color: "text-[#22c55e]" },
                 { icon: "ri-translate-2", val: totalVocab, label: "Từ vựng", color: "text-[#e8c84a]" },
@@ -499,3 +499,4 @@ export default function MelonHistoryPage() {
     </div>
   );
 }
+

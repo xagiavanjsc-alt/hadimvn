@@ -283,7 +283,7 @@ export default function PersonalRoadmapAIPage() {
           {step === "setup" && (
             <div className="space-y-8">
               {/* Stats bar */}
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
                   { icon: "ri-user-line", label: "Học viên đã dùng", value: "12,847" },
                   { icon: "ri-translate-2", label: "Từ vựng trong kho", value: vocabCount.toLocaleString() },
@@ -342,7 +342,7 @@ export default function PersonalRoadmapAIPage() {
                   Mục tiêu học tập
                 </h2>
                 <p className="text-white/40 text-sm mb-4 ml-8">Bạn muốn đạt được điều gì?</p>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {(Object.keys(GOAL_LABELS) as Goal[]).map(goal => {
                     const g = GOAL_LABELS[goal];
                     return (
@@ -381,7 +381,7 @@ export default function PersonalRoadmapAIPage() {
                   Thời gian học
                 </h2>
                 <p className="text-white/40 text-sm mb-4 ml-8">Bạn có bao nhiêu thời gian để đạt mục tiêu?</p>
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {(Object.keys(TIMEFRAME_LABELS) as TimeFrame[]).map(tf => (
                     <button
                       key={tf}
@@ -492,7 +492,7 @@ export default function PersonalRoadmapAIPage() {
                     <div className="text-white/40 text-xs">Tỷ lệ thành công</div>
                   </div>
                 </div>
-                <div className="grid grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   {[
                     { icon: "ri-calendar-2-line", label: "Tổng tuần", value: `${roadmap.totalWeeks} tuần` },
                     { icon: "ri-translate-2", label: "Mục tiêu từ vựng", value: `${roadmap.vocabTarget} từ` },
@@ -621,3 +621,5 @@ export default function PersonalRoadmapAIPage() {
     </DashboardLayout>
   );
 }
+
+

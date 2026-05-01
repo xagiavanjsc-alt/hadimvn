@@ -367,7 +367,7 @@ function AdvancedFilterPanel({ filters, onChange, onReset, resultCount }: {
         </div>
         {hasActiveFilters(filters) && <button onClick={onReset} className="text-xs cursor-pointer whitespace-nowrap" style={{ color: "var(--admin-text-muted)" }}><i className="ri-refresh-line mr-1"></i>Xóa bộ lọc</button>}
       </div>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div>
           <p className="text-[10px] font-semibold mb-2 tracking-normal" style={{ color: "var(--admin-text-faint)" }}>Ngày đăng ký</p>
           <div className="space-y-2">
@@ -667,7 +667,7 @@ function LoginSessionsPanel() {
   return (
     <div className="space-y-4">
       {/* Summary */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {[
           { label: "Tổng phiên", value: sessions.length, icon: "ri-login-circle-line", color: "#34d399" },
           { label: "Bất thường", value: suspicious.length, icon: "ri-alarm-warning-line", color: "#f87171" },
@@ -1125,3 +1125,5 @@ export default function AdminUsersPage() {
     </AdminLayout>
   );
 }
+
+

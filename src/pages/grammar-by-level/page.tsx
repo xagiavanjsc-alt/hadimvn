@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface GrammarPattern {
@@ -410,7 +410,7 @@ export default function GrammarByLevelPage() {
                       ) : (
                         <div className="space-y-3">
                           <div className={`p-4 rounded-xl text-center ${correctCount === selectedPattern.exercises.length ? "bg-green-50" : "bg-amber-50"}`}>
-                            <p className="text-2xl font-black mb-1" style={{ color: correctCount === selectedPattern.exercises.length ? "#22c55e" : "#f59e0b" }}>
+                            <p className="text-xl font-bold mb-1" style={{ color: correctCount === selectedPattern.exercises.length ? "#22c55e" : "#f59e0b" }}>
                               {correctCount}/{selectedPattern.exercises.length}
                             </p>
                             <p className="text-sm font-medium text-gray-600">
@@ -433,3 +433,4 @@ export default function GrammarByLevelPage() {
     </DashboardLayout>
   );
 }
+

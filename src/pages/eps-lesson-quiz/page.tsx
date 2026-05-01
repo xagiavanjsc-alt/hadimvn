@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+﻿import { useState, useMemo, useCallback } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -130,7 +130,7 @@ function LessonSelector({
             <p className="text-white/40 text-sm">Chọn bài học để thi thử — câu hỏi tự động tạo từ từ vựng</p>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-3 mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
           {[
             { label: "Bài có thể thi", value: epsLessons.length, color: "#e8c84a" },
             { label: "Đã thi thử", value: Object.keys(quizHistory).length, color: "#34d399" },
@@ -466,7 +466,7 @@ function ResultScreen({
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-3 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
         {[
           { label: "Câu đúng", value: result.score, color: "#34d399" },
           { label: "Câu sai", value: result.total - result.score, color: "#f87171" },
@@ -677,3 +677,4 @@ export default function EpsLessonQuizPage() {
     </DashboardLayout>
   );
 }
+

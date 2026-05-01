@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+﻿import { useState, useEffect, useRef, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { supabase } from "@/lib/supabase";
@@ -413,7 +413,7 @@ export default function StudyPartnerPage() {
       subtitle="Ghép cặp ngẫu nhiên để luyện nói, hỏi đáp từ vựng và học cùng nhau"
     >
       {/* Stats bar */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Học viên online", value: onlineCount, icon: "ri-user-line", color: "#34d399" },
           { label: "Đang học cùng", value: partners.filter(p => p.status === "studying").length, icon: "ri-group-line", color: "#e8c84a" },
@@ -509,7 +509,7 @@ export default function StudyPartnerPage() {
       </div>
 
       {/* Partner grid */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {filtered.map(partner => (
           <PartnerCard key={partner.id} partner={partner} onConnect={() => setSelectedPartner(partner)} />
         ))}
@@ -528,7 +528,7 @@ export default function StudyPartnerPage() {
           <i className="ri-lightbulb-line text-[#e8c84a] text-sm"></i>
           <h3 className="text-white font-semibold text-sm">Mẹo học cùng đối tác hiệu quả</h3>
         </div>
-        <div className="grid grid-cols-3 gap-4 text-xs text-white/40 leading-relaxed">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-white/40 leading-relaxed">
           <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Dùng tính năng "Thử thách từ vựng" để kiểm tra nhau</p>
           <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Luyện nói bằng cách đọc to các câu trong transcript</p>
           <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Đặt lịch học cố định mỗi ngày để duy trì streak</p>
@@ -539,3 +539,5 @@ export default function StudyPartnerPage() {
     </DashboardLayout>
   );
 }
+
+

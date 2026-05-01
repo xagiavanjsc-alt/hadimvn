@@ -384,7 +384,7 @@ export default function FriendChallengePage() {
           </div>
 
           {/* Share via */}
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
               { label: "Zalo", icon: "ri-message-2-line", color: "#0068ff", bg: "#0068ff15" },
               { label: "Facebook", icon: "ri-facebook-circle-line", color: "#1877f2", bg: "#1877f215" },
@@ -420,11 +420,11 @@ export default function FriendChallengePage() {
       title="Thách đấu bạn bè"
       subtitle="Tạo quiz, chia sẻ link — bạn bè làm cùng bộ câu hỏi và so sánh điểm"
     >
-      <div className="grid grid-cols-[1fr_300px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         {/* Left */}
         <div className="space-y-5">
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
               { label: "Thắng", value: wins, icon: "ri-trophy-line", color: "#34d399" },
               { label: "Thua", value: losses, icon: "ri-close-circle-line", color: "#f87171" },
@@ -639,3 +639,5 @@ export default function FriendChallengePage() {
     </DashboardLayout>
   );
 }
+
+

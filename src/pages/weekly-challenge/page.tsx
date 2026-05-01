@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+﻿import { useState, useMemo, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
@@ -319,7 +319,7 @@ export default function WeeklyChallengePage() {
       )}
 
       {/* Weekly summary */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Thử thách hoàn thành", value: `${completedCount}/${WEEKLY_CHALLENGES.length}`, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "XP đã nhận tuần này", value: `${earnedXP}`, icon: "ri-star-line", color: "#e8c84a" },
@@ -417,3 +417,4 @@ export default function WeeklyChallengePage() {
     </DashboardLayout>
   );
 }
+

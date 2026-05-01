@@ -405,7 +405,7 @@ function FillGame({ vocab, onBack }: { vocab: VocabWord[]; onBack: () => void })
           {current?.word.split("").map((char, i) => (
             <div
               key={i}
-              className={`w-14 h-14 flex items-center justify-center rounded-xl text-2xl font-black border-2 ${
+              className={`w-14 h-14 flex items-center justify-center rounded-xl text-xl font-bold border-2 ${
                 i === blankIndex
                   ? submitted
                     ? input === expectedChar
@@ -628,3 +628,4 @@ export default function VocabGamesPage() {
     </DashboardLayout>
   );
 }
+

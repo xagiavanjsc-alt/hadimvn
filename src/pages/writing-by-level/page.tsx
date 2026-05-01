@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+﻿import { useState, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -509,7 +509,7 @@ export default function WritingByLevelPage() {
           <p className="text-white/50 text-sm">Bài viết từ A1 đến C2 với gợi ý, từ vựng và chấm điểm tự động</p>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
             { label: "Bài viết", value: prompts.length, icon: "ri-quill-pen-line", color: "#e8c84a" },
             { label: "Đã hoàn thành", value: completedIds.size, icon: "ri-checkbox-circle-line", color: "#34d399" },
@@ -565,3 +565,4 @@ export default function WritingByLevelPage() {
     </DashboardLayout>
   );
 }
+

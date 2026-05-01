@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+﻿import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -60,7 +60,7 @@ function ModuleCard({
           <p className="text-white font-semibold text-sm mb-0.5">{title}</p>
           <p className="text-white/30 text-xs mb-2">{subtitle}</p>
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-black" style={{ color }}>{pct}%</span>
+            <span className="text-xl font-bold" style={{ color }}>{pct}%</span>
             <span className="text-white/25 text-xs">{mainStat.done}/{mainStat.total} {mainStat.label}</span>
           </div>
         </div>
@@ -229,7 +229,7 @@ export default function LearnOverviewPage() {
           <div className="relative flex-shrink-0">
             <RadialProgress value={overallPct} max={100} color="#e8c84a" size={120} />
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-3xl font-black text-[#e8c84a]">{overallPct}%</span>
+              <span className="text-2xl font-bold text-[#e8c84a]">{overallPct}%</span>
               <span className="text-white/30 text-[10px]">Tổng thể</span>
             </div>
           </div>
@@ -243,7 +243,7 @@ export default function LearnOverviewPage() {
                "Xuất sắc! Bạn đã học rất nhiều!"}
             </p>
             {/* Quick stats */}
-            <div className="grid grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
                 { label: "Streak", value: `${streak.count} ngày`, icon: "ri-fire-line", color: "#fb923c" },
                 { label: "TOPIK I", value: topik1Attempts > 0 ? `${topik1Best}đ` : "Chưa thi", icon: "ri-file-list-2-line", color: "#38bdf8" },
@@ -356,3 +356,6 @@ export default function LearnOverviewPage() {
     </DashboardLayout>
   );
 }
+
+
+

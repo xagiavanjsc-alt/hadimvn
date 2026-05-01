@@ -798,7 +798,7 @@ export default function AdminRevenuePage() {
       {/* Churn Tab */}
       {activeTab === "churn" && (
         <div className="space-y-5">
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
               { label: "Churn Rate (30 ngày)", value: `${churnRate.toFixed(1)}%`, color: churnRate > 20 ? "#f87171" : "#fb923c", icon: "ri-user-unfollow-line" },
               { label: "VIP sắp hết hạn", value: churnRisk.length, color: "#fb923c", icon: "ri-alarm-warning-line" },
@@ -920,3 +920,4 @@ export default function AdminRevenuePage() {
     </AdminLayout>
   );
 }
+

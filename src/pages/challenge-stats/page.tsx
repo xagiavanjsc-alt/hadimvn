@@ -178,7 +178,7 @@ export default function ChallengeStatsPage() {
       }
     >
       {/* Summary cards */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Tổng trận", value: stats.total, icon: "ri-gamepad-line", color: "#e8c84a" },
           { label: "Tỷ lệ thắng", value: `${stats.total > 0 ? Math.round((stats.wins / stats.total) * 100) : 0}%`, icon: "ri-trophy-line", color: "#34d399" },
@@ -212,7 +212,7 @@ export default function ChallengeStatsPage() {
 
       {/* Overview tab */}
       {activeTab === "overview" && (
-        <div className="grid grid-cols-[1fr_280px] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
           <div className="space-y-5">
             {/* Win/Loss/Draw donut */}
             <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
@@ -412,3 +412,5 @@ export default function ChallengeStatsPage() {
     </DashboardLayout>
   );
 }
+
+

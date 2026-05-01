@@ -390,7 +390,7 @@ export default function TopikTopicQuizPage() {
               border: `2px solid ${accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "#e8c84a" : "#f87171"}40`,
             }}
           >
-            <span className="text-2xl font-black" style={{ color: accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "#e8c84a" : "#f87171" }}>
+            <span className="text-xl font-bold" style={{ color: accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "#e8c84a" : "#f87171" }}>
               {accuracy}%
             </span>
           </div>
@@ -497,3 +497,4 @@ export default function TopikTopicQuizPage() {
     </DashboardLayout>
   );
 }
+

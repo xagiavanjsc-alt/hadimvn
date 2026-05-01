@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+﻿import { useState, useMemo, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -233,7 +233,7 @@ export default function EpsPage() {
       }
     >
       {/* Overall stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Tổng câu hỏi", value: epsQuestions.length, icon: "ri-survey-line", color: "#e8c84a" },
           { label: "Đã làm", value: totalDone, icon: "ri-checkbox-circle-line", color: "#34d399" },
@@ -254,7 +254,7 @@ export default function EpsPage() {
 
       {/* Topics view */}
       {mode === "topics" && (
-        <div className="grid grid-cols-[1fr_320px] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
           <div>
             <h3 className="text-white font-semibold text-sm mb-4">Chọn chủ đề luyện tập</h3>
             <div className="grid grid-cols-2 gap-3">
@@ -307,7 +307,7 @@ export default function EpsPage() {
 
       {/* Practice view */}
       {mode === "practice" && currentQ && (
-        <div className="grid grid-cols-[1fr_280px] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
           <div className="space-y-4">
             {/* Progress */}
             <div className="flex items-center gap-3">
@@ -439,3 +439,5 @@ export default function EpsPage() {
     </DashboardLayout>
   );
 }
+
+

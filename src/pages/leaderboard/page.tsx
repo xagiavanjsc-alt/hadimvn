@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+﻿import { useState, useMemo, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -229,7 +229,7 @@ export default function LeaderboardPage() {
                   : "Tiếp tục học để leo hạng!"}
               </p>
             </div>
-            <div className="grid grid-cols-4 gap-4 text-center">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
               {[
                 { label: "XP", value: myXp.toLocaleString(), color: "#e8c84a" },
                 { label: "Streak", value: `${streak.count}d`, color: "#fb923c" },
@@ -521,3 +521,4 @@ export default function LeaderboardPage() {
     </DashboardLayout>
   );
 }
+

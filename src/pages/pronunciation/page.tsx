@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+﻿import { useState, useRef, useCallback, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -299,7 +299,7 @@ export default function PronunciationPage() {
       subtitle="Ghi âm giọng nói — AI chấm điểm và phân tích phát âm của bạn"
     >
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Tổng từ/câu", value: PRONUNCIATION_ITEMS.length, icon: "ri-translate-2", color: "#e8c84a" },
           { label: "Đã luyện", value: practicedCount, icon: "ri-mic-line", color: "#34d399" },
@@ -385,3 +385,4 @@ export default function PronunciationPage() {
     </DashboardLayout>
   );
 }
+

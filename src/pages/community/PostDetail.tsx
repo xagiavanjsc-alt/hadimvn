@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
@@ -217,7 +217,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
           <button onClick={() => navigate("/community")} className="mt-4 text-[#e8c84a] text-sm cursor-pointer whitespace-nowrap">← Quay lại cộng đồng</button>
         </div>
       ) : (
-        <div className="grid grid-cols-[1fr_300px] gap-6 max-w-5xl">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 max-w-5xl">
           {/* Main content */}
           <div>
             {/* Post */}
@@ -404,3 +404,4 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
     </DashboardLayout>
   );
 }
+

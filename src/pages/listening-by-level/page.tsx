@@ -263,7 +263,7 @@ export default function ListeningByLevelPage() {
             {/* Level filter */}
             <div className="bg-white rounded-2xl p-4 border border-gray-100">
               <p className="text-xs font-semibold text-gray-400 tracking-normal mb-3">Cấp độ</p>
-              <div className="grid grid-cols-4 gap-1.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
                 <button
                   onClick={() => setSelectedLevel("all")}
                   className={`py-1.5 rounded-lg text-xs font-semibold cursor-pointer whitespace-nowrap transition-all ${selectedLevel === "all" ? "bg-gray-800 text-white" : "bg-gray-50 text-gray-500 hover:bg-gray-100"}`}
@@ -483,3 +483,4 @@ export default function ListeningByLevelPage() {
     </DashboardLayout>
   );
 }
+

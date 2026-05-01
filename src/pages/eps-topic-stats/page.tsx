@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -189,7 +189,7 @@ export default function EpsTopicStatsPage() {
                 </div>
 
                 {/* Stats row */}
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   <div className="text-center">
                     <p className="text-white/70 text-sm font-bold">{topic.studiedVocab}</p>
                     <p className="text-white/30 text-[10px]">Từ đã học</p>
@@ -376,3 +376,4 @@ export default function EpsTopicStatsPage() {
     </DashboardLayout>
   );
 }
+

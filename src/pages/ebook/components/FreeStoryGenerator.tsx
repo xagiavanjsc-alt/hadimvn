@@ -150,7 +150,7 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
         </div>
 
         {/* Level + Length + Style */}
-        <div className="grid grid-cols-3 gap-3 mb-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
           <div>
             <label className="text-white/40 text-[10px] font-medium block mb-1.5">Trình độ</label>
             <select
@@ -333,3 +333,4 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
     </div>
   );
 }
+

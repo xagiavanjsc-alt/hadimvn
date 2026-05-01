@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { epsLessons, EPS_LESSON_TOPICS } from "@/mocks/epsLessons";
@@ -393,7 +393,7 @@ export default function EpsProgressRoadmapPage() {
             </div>
 
             {/* Summary row */}
-            <div className="grid grid-cols-3 gap-3 mb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
               {(() => {
                 const totalVocab = epsLessons.reduce((sum, l) => sum + (l.vocabulary?.length || 0), 0);
                 const studiedLessons = epsLessons.filter(l => lessonProgress[l.id]?.completed || lessonProgress[l.id]?.score > 0);
@@ -479,3 +479,4 @@ export default function EpsProgressRoadmapPage() {
     </DashboardLayout>
   );
 }
+

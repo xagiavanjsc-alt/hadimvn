@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback, useRef, lazy, Suspense } from "react";
+﻿import { useState, useEffect, useMemo, useCallback, useRef, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -277,7 +277,7 @@ export default function EpsExamPage() {
             <h2 className="text-white font-bold text-xl text-center mb-2">Đề thi thử EPS-TOPIK</h2>
             <p className="text-white/40 text-sm text-center mb-6">Câu hỏi được chọn ngẫu nhiên từ ngân hàng đề. Làm bài nghiêm túc như thi thật!</p>
 
-            <div className="grid grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               {[
                 { icon: "ri-survey-line", color: "#e8c84a", label: "Số câu hỏi", value: `${Math.min(EXAM_QUESTION_COUNT, epsQuestions.length)} câu` },
                 { icon: "ri-timer-line", color: "#34d399", label: "Thời gian", value: "50 phút" },
@@ -730,3 +730,4 @@ export default function EpsExamPage() {
 
   return null;
 }
+

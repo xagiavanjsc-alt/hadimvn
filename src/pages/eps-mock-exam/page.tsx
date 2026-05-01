@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+﻿import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { epsQuestions, EpsQuestion } from "@/mocks/epsQuestions";
@@ -344,7 +344,7 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
           <i className="ri-trophy-line text-[#e8c84a]"></i>
           <span className="text-[#e8c84a] font-semibold text-sm">Thang điểm</span>
         </div>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {[
             { label: "Đậu", score: "≥ 80 điểm", color: "#34d399" },
             { label: "Trung bình", score: "60-79 điểm", color: "#e8c84a" },
@@ -446,7 +446,7 @@ function ResultScreen({ questions, results, timeUsed, onReview, onRetry }: Resul
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {[
           { label: "Câu đúng", value: correct, color: "#34d399", icon: "ri-check-line" },
           { label: "Câu sai", value: questions.length - correct, color: "#f87171", icon: "ri-close-line" },
@@ -764,3 +764,4 @@ export default function EpsMockExamPage() {
     </DashboardLayout>
   );
 }
+

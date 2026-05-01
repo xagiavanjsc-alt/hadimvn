@@ -195,7 +195,7 @@ export default function SeoulGrammarPage() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-4 gap-3 mt-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
             {[
               { label: "Tổng điểm ngữ pháp", value: grammar.length, icon: "ri-book-2-line", color: "#e8c84a" },
               { label: "Sơ cấp", value: grammar.filter(g => g.level === "beginner").length, icon: "ri-seedling-line", color: "#34d399" },
@@ -515,3 +515,4 @@ export default function SeoulGrammarPage() {
     </DashboardLayout>
   );
 }
+

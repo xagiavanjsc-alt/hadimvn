@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from "react";
+﻿import { useState, useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
@@ -862,7 +862,7 @@ export default function EpsStudyGroupPage() {
             <i className="ri-question-line text-[#e8c84a]"></i>
             Cách hoạt động
           </h3>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
               { icon: "ri-add-circle-line", color: "#e8c84a", title: "Tạo hoặc tham gia", desc: "Tạo nhóm mới hoặc nhập mã nhóm từ bạn bè" },
               { icon: "ri-timer-line", color: "#06b6d4", title: "Thi đua cùng nhau", desc: "Làm bài thi EPS, điểm tự động cập nhật BXH nhóm" },
@@ -921,3 +921,4 @@ export default function EpsStudyGroupPage() {
     </DashboardLayout>
   );
 }
+

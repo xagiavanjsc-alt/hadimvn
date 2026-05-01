@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+﻿import { useMemo, useState, useEffect } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
@@ -134,21 +134,21 @@ export default function AdminStatsPage() {
       }
     >
       {/* Top stats */}
-      <div className="grid grid-cols-4 gap-4 mb-4" style={{ contentVisibility: "auto", containIntrinsicHeight: "120px" }}>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4" style={{ contentVisibility: "auto", containIntrinsicHeight: "120px" }}>
         <StatCard icon="ri-money-dollar-circle-line" label="Tổng doanh thu" value={formatVND(stats.totalRevenue)} sub={`${revenues.length} đơn hàng`} color="#34d399" />
         <StatCard icon="ri-calendar-line" label="Doanh thu tháng này" value={formatVND(stats.monthRevenue)} color="#e8c84a" />
         <StatCard icon="ri-survey-line" label="Câu hỏi EPS" value={epsQuestions.length} sub={`${stats.epsWithImage} có ảnh`} color="#fb923c" />
         <StatCard icon="ri-music-2-line" label="Bài K-pop đã duyệt" value={approvedLessons.length} sub={`${stats.highStarLessons} bài 4-5 sao`} color="#a78bfa" />
       </div>
       {/* Real DB stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         <StatCard icon="ri-user-line" label="Tổng học viên (DB)" value={dbStats.totalUsers} sub={`${dbStats.totalVip} VIP`} color="#06b6d4" />
         <StatCard icon="ri-file-list-3-line" label="Lượt thi thử (DB)" value={dbStats.totalExams} sub={`${dbStats.recentExams} tuần này`} color="#a78bfa" />
         <StatCard icon="ri-percent-line" label="Điểm TB (DB)" value={`${dbStats.avgScore}%`} sub="Tất cả bài thi" color="#f59e0b" />
         <StatCard icon="ri-vip-crown-line" label="Học viên VIP" value={dbStats.totalVip} sub={`${dbStats.totalUsers > 0 ? Math.round((dbStats.totalVip / dbStats.totalUsers) * 100) : 0}% tổng số`} color="#ec4899" />
       </div>
 
-      <div className="grid grid-cols-3 gap-5 mb-6" style={{ contentVisibility: "auto", containIntrinsicHeight: "400px" }}>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-6" style={{ contentVisibility: "auto", containIntrinsicHeight: "400px" }}>
         {/* Revenue chart */}
         <div className="col-span-2 bg-[#0f1117] border border-white/5 rounded-2xl p-5">
           <div className="flex items-center justify-between mb-5">
@@ -286,3 +286,5 @@ export default function AdminStatsPage() {
     </AdminLayout>
   );
 }
+
+

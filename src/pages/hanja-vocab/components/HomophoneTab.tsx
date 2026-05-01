@@ -299,7 +299,7 @@ export default function HomophoneTab() {
       </div>
 
       {/* Stats banner */}
-      <div className="grid grid-cols-3 gap-3 mb-5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
         {[
           { label: "Nhóm đồng âm", value: allGroups.length, icon: "ri-sound-module-line", color: "#f43f5e" },
           { label: "Từ nổi tiếng", value: allGroups.filter(g => FAMOUS_HOMOPHONES.includes(g.korean)).length, icon: "ri-star-line", color: "#fb923c" },
@@ -410,3 +410,4 @@ export default function HomophoneTab() {
     </div>
   );
 }
+

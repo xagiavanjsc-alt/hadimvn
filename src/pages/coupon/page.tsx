@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { EbookSeries } from "@/pages/series/page";
@@ -325,7 +325,7 @@ export default function CouponPage() {
       )}
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Tổng coupon", value: coupons.length, icon: "ri-coupon-3-line", color: "#e8c84a" },
           { label: "Đang hoạt động", value: coupons.filter(c => c.active).length, icon: "ri-checkbox-circle-line", color: "#34d399" },
@@ -344,7 +344,7 @@ export default function CouponPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-3 gap-5 mb-5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-5">
         {/* Channel ranking */}
         <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-1">Kênh hiệu quả nhất</h3>
@@ -529,3 +529,5 @@ export default function CouponPage() {
     </DashboardLayout>
   );
 }
+
+

@@ -233,7 +233,7 @@ export default function VocabSuggestionPage() {
       subtitle="AI phân tích lịch sử quiz để đề xuất từ bạn cần học nhất"
     >
       {/* Stats bar */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Tổng từ vựng", value: totalCount, icon: "ri-book-open-line", color: "#e8c84a" },
           { label: "Đã thuộc", value: masteredCount, icon: "ri-check-double-line", color: "#34d399" },
@@ -374,3 +374,4 @@ export default function VocabSuggestionPage() {
     </DashboardLayout>
   );
 }
+

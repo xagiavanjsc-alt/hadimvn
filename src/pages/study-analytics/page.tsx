@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -278,7 +278,7 @@ function ModuleProgressCard({
       </div>
 
       {/* Details */}
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
         {details.map((d, i) => (
           <div key={i} className="text-center">
             <p className="text-white font-semibold text-sm">{d.value}</p>
@@ -606,3 +606,4 @@ export default function StudyAnalyticsPage() {
     </DashboardLayout>
   );
 }
+

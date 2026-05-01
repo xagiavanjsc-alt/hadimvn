@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useMemo } from "react";
+﻿import { useState, useRef, useCallback, useMemo } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { supabase } from "@/lib/supabase";
@@ -306,7 +306,7 @@ export default function AdminHanjaPage() {
       )}
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Tổng từ", value: stats.total, color: "#e8c84a", icon: "ri-character-recognition-line" },
           { label: "Dễ", value: stats.easy, color: "#4ade80", icon: "ri-seedling-line" },
@@ -465,3 +465,4 @@ export default function AdminHanjaPage() {
     </AdminLayout>
   );
 }
+

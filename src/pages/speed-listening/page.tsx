@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+﻿import { useState, useRef, useCallback, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface ListenTrack {
@@ -115,7 +115,7 @@ export default function SpeedListeningPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
             { label: "Tổng bài", value: tracks.length, color: "#e8c84a" },
             { label: "Đã nghe", value: completedIds.size, color: "#34d399" },
@@ -260,3 +260,4 @@ export default function SpeedListeningPage() {
     </DashboardLayout>
   );
 }
+

@@ -339,7 +339,7 @@ export default function AdminZaloReminderPage() {
         {/* Left: Member list */}
         <div className="lg:col-span-2 space-y-4">
           {/* Stats bar */}
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
               { label: "Chưa học", value: inactiveMembers.length, color: "#f87171", icon: "ri-user-forbid-line" },
               { label: "Đã chọn", value: selectedIds.size, color: "#e8c84a", icon: "ri-user-add-line" },
@@ -494,3 +494,4 @@ export default function AdminZaloReminderPage() {
     </AdminLayout>
   );
 }
+

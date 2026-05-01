@@ -633,7 +633,7 @@ function LeaderboardPanel() {
       </div>
 
       {/* My stats */}
-      <div className="grid grid-cols-3 gap-3 mb-5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
         <div className="bg-white/3 rounded-xl p-3 text-center">
           <p className="text-[#e8c84a] text-xl font-bold">{stats.totalSessions}</p>
           <p className="text-white/30 text-[10px] mt-0.5">Buổi học</p>
@@ -923,3 +923,4 @@ export default function SeoulPracticePage() {
     </DashboardLayout>
   );
 }
+

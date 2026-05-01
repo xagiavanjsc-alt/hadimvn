@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef, useCallback } from "react";
+﻿import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 
 const EXAM_DURATION = 30 * 60; // 30 minutes in seconds
@@ -201,7 +201,7 @@ export default function TopikMockExamTab() {
 
           <div className="p-6">
             {/* Exam info */}
-            <div className="grid grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               {[
                 { icon: "ri-question-line", label: "Số câu", value: "30 câu", color: "#f43f5e" },
                 { icon: "ri-timer-line", label: "Thời gian", value: "30 phút", color: "#fb923c" },
@@ -418,7 +418,7 @@ export default function TopikMockExamTab() {
           </p>
           <p className="text-gray-500 text-sm mb-4">Đúng {examResult.score}/{examResult.total} câu · Thời gian: {formatTime(examResult.timeUsed)}</p>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
               { label: "Đúng", value: examResult.score, color: "text-green-600", bg: "bg-green-100" },
               { label: "Sai", value: examResult.total - examResult.score, color: "text-red-500", bg: "bg-red-100" },
@@ -537,3 +537,4 @@ export default function TopikMockExamTab() {
 
   return null;
 }
+

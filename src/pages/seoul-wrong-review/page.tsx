@@ -403,7 +403,7 @@ export default function SeoulWrongReviewPage() {
       ) : !started ? (
         <div className="space-y-6">
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-[#0f1117] border border-red-500/15 rounded-2xl p-5 text-center">
               <p className="text-red-400 text-3xl font-bold">{wrongWords.length}</p>
               <p className="text-white/40 text-xs mt-1">Từ cần ôn</p>
@@ -442,7 +442,7 @@ export default function SeoulWrongReviewPage() {
           {/* Mode selector */}
           <div>
             <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Chọn chế độ ôn tập</p>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {(Object.entries(modeInfo) as [ReviewMode, typeof modeInfo[ReviewMode]][]).map(([m, info]) => (
                 <button key={m} onClick={() => setMode(m)} className={`p-4 rounded-xl border text-center transition-all cursor-pointer ${mode === m ? "border-red-500/30 bg-red-500/8" : "border-white/8 bg-white/2 hover:border-white/15"}`}>
                   <div className="w-10 h-10 flex items-center justify-center rounded-xl mx-auto mb-2" style={{ backgroundColor: mode === m ? "rgba(239,68,68,0.15)" : "rgba(255,255,255,0.05)" }}>
@@ -529,3 +529,4 @@ export default function SeoulWrongReviewPage() {
     </DashboardLayout>
   );
 }
+

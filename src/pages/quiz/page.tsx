@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef } from "react";
+﻿import { useState, useMemo, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -473,7 +473,7 @@ export default function QuizPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-[1fr_300px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         {/* Left: Quiz area */}
         <div>
           {/* EPS Weak mode */}
@@ -563,7 +563,7 @@ export default function QuizPage() {
               </div>
 
               {/* Question types info */}
-              <div className="grid grid-cols-3 gap-3 mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
                 {[
                   { type: "Từ vựng", icon: "ri-translate-2", color: "#e8c84a", desc: "Chọn nghĩa đúng" },
                   { type: "Ngữ pháp", icon: "ri-graduation-cap-line", color: "#a78bfa", desc: "Chọn cấu trúc đúng" },
@@ -707,3 +707,5 @@ export default function QuizPage() {
     </DashboardLayout>
   );
 }
+
+

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { useNavigate } from "react-router-dom";
@@ -460,7 +460,7 @@ export default function SeoulPlacementPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               {[
                 { icon: "ri-question-line", label: `${totalQ} câu hỏi`, sub: "Từ dễ đến khó" },
                 { icon: "ri-time-line", label: "~15 phút", sub: "Không giới hạn thời gian" },
@@ -507,7 +507,7 @@ export default function SeoulPlacementPage() {
           </div>
 
           {/* Level preview */}
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {LEVEL_ORDER.map(level => (
               <div key={level} className="bg-[#0f1117] border border-white/5 rounded-xl p-3 text-center">
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${LEVEL_COLORS[level]}15` }}>
@@ -603,7 +603,7 @@ export default function SeoulPlacementPage() {
           {/* Main result */}
           <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-8 mb-6 text-center">
             <div className="w-20 h-20 flex items-center justify-center rounded-2xl mx-auto mb-4" style={{ backgroundColor: `${LEVEL_COLORS[recommendedLevel]}15` }}>
-              <span className="text-3xl font-black" style={{ color: LEVEL_COLORS[recommendedLevel] }}>{recommendedLevel}</span>
+              <span className="text-2xl font-bold" style={{ color: LEVEL_COLORS[recommendedLevel] }}>{recommendedLevel}</span>
             </div>
             <h2 className="text-white font-bold text-2xl mb-2">Trình độ của bạn: Seoul {recommendedLevel}</h2>
             <p className="text-white/40 text-sm mb-1">{LEVEL_CEFR[recommendedLevel]} — {LEVEL_DESC[recommendedLevel]}</p>
@@ -684,3 +684,6 @@ export default function SeoulPlacementPage() {
     </DashboardLayout>
   );
 }
+
+
+

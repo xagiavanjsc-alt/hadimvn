@@ -365,7 +365,7 @@ export default function EpsVocabularyPage() {
       }
     >
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Tổng từ EPS", value: DEDUPED_VOCAB.length, icon: "ri-file-list-3-line", color: "#fb923c" },
           { label: "Đã thuộc", value: totalMastered, icon: "ri-checkbox-circle-line", color: "#34d399" },
@@ -437,7 +437,7 @@ export default function EpsVocabularyPage() {
       {/* Grid */}
       {pagedItems.length > 0 ? (
         <>
-          <div className="grid grid-cols-3 gap-3" style={{ contentVisibility: "auto", containIntrinsicSize: "0 2000px" }}>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" style={{ contentVisibility: "auto", containIntrinsicSize: "0 2000px" }}>
             {pagedItems.map(item => (
               <EpsVocabCard
                 key={item.id}
@@ -463,3 +463,5 @@ export default function EpsVocabularyPage() {
     </DashboardLayout>
   );
 }
+
+

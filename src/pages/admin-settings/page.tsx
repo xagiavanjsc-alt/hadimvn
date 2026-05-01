@@ -619,7 +619,7 @@ export default function AdminSettingsPage() {
                 </div>
               ) : (
                 <>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div className="bg-white/3 rounded-xl p-4 border border-white/5">
                       <p className="text-white/30 text-[10px] tracking-normal mb-1">Tổng lần gọi</p>
                       <p className="text-white text-2xl font-bold">{costSummary.totalCalls}</p>
@@ -673,3 +673,4 @@ export default function AdminSettingsPage() {
     </AdminLayout>
   );
 }
+

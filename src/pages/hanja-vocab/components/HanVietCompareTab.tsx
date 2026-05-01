@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { HANJA_DATA } from "@/mocks/hanjaData";
 
 // Mapping Hán tự → Hán Việt đọc (phiên âm Hán Việt)
@@ -192,7 +192,7 @@ export default function HanVietCompareTab() {
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-3 mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
           {[
             { label: "Giống hệt", value: stats.identical, color: "#34d399", pct: Math.round((stats.identical / stats.total) * 100) },
             { label: "Gần giống", value: stats.similar, color: "#fb923c", pct: Math.round((stats.similar / stats.total) * 100) },
@@ -370,3 +370,4 @@ export default function HanVietCompareTab() {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -210,14 +210,14 @@ export default function StatsPage() {
       }
     >
       {/* Top stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         <StatCard icon="ri-money-dollar-circle-line" label="Tổng doanh thu" value={formatVND(stats.totalRevenue)} sub={`${revenues.length} đơn hàng`} color="#34d399" />
         <StatCard icon="ri-calendar-line" label="Tháng này" value={formatVND(stats.monthRevenue)} sub={`Dự kiến: ${formatVND(stats.projectedMonthly)}`} color="#e8c84a" />
         <StatCard icon="ri-stack-line" label="Tổng series" value={seriesList.length} sub="ebook đang bán" color="#fb923c" onClick={() => navigate("/series")} />
         <StatCard icon="ri-book-open-line" label="Bài học sẵn sàng" value={approvedLessons.filter(l => (l.stars ?? 0) >= 4).length} sub="4-5 sao" color="#a78bfa" onClick={() => navigate("/ebook")} />
       </div>
 
-      <div className="grid grid-cols-3 gap-5 mb-5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-5">
         {/* Revenue chart */}
         <div className="col-span-2 bg-[#0f1117] border border-white/5 rounded-2xl p-5">
           <div className="flex items-center justify-between mb-5">
@@ -391,3 +391,5 @@ export default function StatsPage() {
     </DashboardLayout>
   );
 }
+
+

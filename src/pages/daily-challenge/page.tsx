@@ -447,7 +447,7 @@ export default function DailyChallengePageComponent() {
       {showXPToast && <XPToast xp={earnedXP} onDone={() => setShowXPToast(false)} />}
 
       {/* Header stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Streak hôm nay", value: `${dailyRecord.streak} ngày`, icon: "ri-fire-line", color: "#fb923c" },
           { label: "XP hôm nay", value: `+${isToday ? dailyRecord.totalXP : 0}`, icon: "ri-star-line", color: "#e8c84a" },
@@ -486,7 +486,7 @@ export default function DailyChallengePageComponent() {
           <p className="text-white/30 text-sm">Đang tạo thử thách hôm nay...</p>
         </div>
       ) : (
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
           {challenges.map((c, idx) => {
             const isDone = isToday && dailyRecord.completed.includes(c.id);
             return (
@@ -566,3 +566,5 @@ export default function DailyChallengePageComponent() {
     </DashboardLayout>
   );
 }
+
+

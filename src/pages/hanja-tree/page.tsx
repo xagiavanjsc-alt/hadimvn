@@ -100,7 +100,7 @@ function TreeQuizModal({ nodes, learnedSet, rootChar, rootMeaning, onClose }: {
             </div>
             <div>
               <p className="text-xs font-semibold text-white/50 mb-2">Từ cần ôn:</p>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 {(["all", "learned", "unlearned"] as const).map(t => {
                   const count = t === "all" ? nodes.length : t === "learned" ? nodes.filter(n => learnedSet.has(n.korean)).length : nodes.filter(n => !learnedSet.has(n.korean)).length;
                   return (
@@ -125,7 +125,7 @@ function TreeQuizModal({ nodes, learnedSet, rootChar, rootMeaning, onClose }: {
             <div className="w-16 h-16 flex items-center justify-center rounded-full mx-auto mb-4" style={{ backgroundColor: score.correct / (score.correct + score.wrong) >= 0.7 ? "rgba(16,185,129,0.15)" : "rgba(244,63,94,0.15)" }}>
               <i className={`text-3xl ${score.correct / (score.correct + score.wrong) >= 0.7 ? "ri-trophy-line text-emerald-400" : "ri-emotion-sad-line text-rose-400"}`}></i>
             </div>
-            <h3 className="text-2xl font-black text-white/90 mb-1">{Math.round((score.correct / (score.correct + score.wrong)) * 100)}%</h3>
+            <h3 className="text-xl font-bold text-white/90 mb-1">{Math.round((score.correct / (score.correct + score.wrong)) * 100)}%</h3>
             <p className="text-sm text-white/50 mb-4">{score.correct}/{score.correct + score.wrong} câu đúng</p>
             <div className="grid grid-cols-2 gap-3 mb-5">
               <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3"><p className="text-2xl font-bold text-emerald-400">{score.correct}</p><p className="text-xs text-emerald-500/70">Đúng</p></div>
@@ -965,3 +965,5 @@ export default function HanjaTreePage() {
     </DashboardLayout>
   );
 }
+
+

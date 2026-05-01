@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef, useCallback } from "react";
+﻿import { useMemo, useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -444,7 +444,7 @@ export default function ProfilePage() {
                 <i className="ri-close-line text-sm"></i>
               </button>
             </div>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {AVATAR_PRESETS.map((url, i) => (
                 <button
                   key={i}
@@ -481,7 +481,7 @@ export default function ProfilePage() {
       {/* Overview tab */}
       {activeTab === "overview" && (
         <div className="space-y-5">
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <StatCard icon="ri-file-list-3-line" color="text-[#e8c84a]" bg="bg-[#e8c84a]/10" label="Câu EPS đã làm" value={epsDone} sub={`${epsAccuracy}% chính xác`} />
             <StatCard icon="ri-stack-line" color="text-[#a78bfa]" bg="bg-[#a78bfa]/10" label="Từ vựng đã thuộc" value={flashcardKnown} sub="qua Flashcard" />
             <StatCard icon="ri-font-size" color="text-emerald-400" bg="bg-emerald-500/10" label="Hangul đã học" value={`${hangulKnown}/40`} sub="ký tự cơ bản" />
@@ -575,7 +575,7 @@ export default function ProfilePage() {
       {/* EPS tab */}
       {activeTab === "eps" && (
         <div className="space-y-5">
-          <div className="grid grid-cols-3 gap-4 mb-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-2">
             <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5 text-center">
               <p className="text-[#e8c84a] font-bold text-3xl">{epsDone}</p>
               <p className="text-white/40 text-xs mt-1">Câu đã làm</p>
@@ -635,7 +635,7 @@ export default function ProfilePage() {
       {activeTab === "hanja" && (
         <div className="space-y-5">
           {/* Stats overview */}
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5 text-center">
               <p className="text-[#f97316] font-bold text-3xl">{srCards.length}</p>
               <p className="text-white/40 text-xs mt-1">Từ trong SR</p>
@@ -796,7 +796,7 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {BADGES.map(badge => {
               const earned = earnedBadges.includes(badge.id);
               return (
@@ -925,7 +925,7 @@ export default function ProfilePage() {
           </div>
 
           {/* Quick actions */}
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
               { label: "Lộ trình học", icon: "ri-route-line", color: "#e8c84a", route: "/learning-path" },
               { label: "Thống kê XP", icon: "ri-bar-chart-line", color: "#34d399", route: "/xp-stats" },
@@ -958,3 +958,5 @@ export default function ProfilePage() {
     </DashboardLayout>
   );
 }
+
+

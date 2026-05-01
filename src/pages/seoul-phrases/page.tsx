@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { seoulBooks } from "@/mocks/seoulTextbook";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -228,7 +228,7 @@ export default function SeoulPhrasesPage() {
               <i className="ri-trophy-line text-[#e8c84a] text-3xl"></i>
             </div>
             <h2 className="text-white font-bold text-2xl">Kết quả kiểm tra</h2>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 text-center">
                 <p className="text-emerald-400 font-bold text-xl">{quiz.score}</p>
                 <p className="text-emerald-400/60 text-xs">Đúng</p>
@@ -456,3 +456,4 @@ export default function SeoulPhrasesPage() {
     </DashboardLayout>
   );
 }
+

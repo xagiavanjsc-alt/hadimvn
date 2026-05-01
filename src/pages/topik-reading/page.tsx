@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
@@ -708,7 +708,7 @@ export default function TopikReadingPage() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
                 { label: "Đúng", value: score, color: "#34d399" },
                 { label: "Sai", value: totalQuestions - score, color: "#f87171" },
@@ -823,3 +823,4 @@ export default function TopikReadingPage() {
     </DashboardLayout>
   );
 }
+

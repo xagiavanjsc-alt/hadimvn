@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect } from "react";
+﻿import { useState, useMemo, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { epsLessons, EPS_LESSON_TOPICS, EpsVocabItem } from "@/mocks/epsLessons";
@@ -806,7 +806,7 @@ export default function EpsTopicStudyPage() {
               {/* Summary */}
               <div className="bg-white/3 border border-white/8 rounded-xl p-4">
                 <p className="text-white/50 text-xs mb-1">Từ vựng đã chọn</p>
-                <p className="text-white text-3xl font-black">{allVocab.length}</p>
+                <p className="text-white text-2xl font-bold">{allVocab.length}</p>
                 <p className="text-white/30 text-xs mt-1">
                   từ từ {selectedTopics.size > 0 ? selectedTopics.size : EPS_LESSON_TOPICS.length} chủ đề
                 </p>

@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+﻿import { useState, useRef, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { epsQuestions, type EpsQuestion } from "@/mocks/epsQuestions";
 import { koreanToRomanization } from "@/hooks/useAudioCache";
@@ -203,7 +203,7 @@ function PhoneticGenerator() {
   const doneCount = items.filter(v => v.status === "done").length;
 
   return (
-    <div className="grid grid-cols-[1fr_320px] gap-5">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-5">
       <div className="space-y-4">
         <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-list-unordered text-rose-400 mr-2"></i>Nhập danh sách từ vựng</h3>
@@ -392,13 +392,13 @@ export default function AdminUploadPage() {
             </div>
           )}
           {uploads.length > 0 ? (
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {uploads.map(item => <UploadCard key={item.id} item={item} questions={epsQuestions} onAssign={handleAssign} onRemove={handleRemove} onUpload={simulateUpload} />)}
             </div>
           ) : (
             <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-8">
               <h3 className="text-white font-semibold text-sm mb-4">Hướng dẫn upload ảnh EPS</h3>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
                   { step: "1", icon: "ri-drag-drop-line", title: "Kéo thả ảnh", desc: "Kéo nhiều ảnh cùng lúc vào vùng upload phía trên" },
                   { step: "2", icon: "ri-link-m", title: "Gán câu hỏi", desc: "Chọn câu hỏi EPS tương ứng cho từng ảnh" },
@@ -449,3 +449,6 @@ export default function AdminUploadPage() {
     </AdminLayout>
   );
 }
+
+
+

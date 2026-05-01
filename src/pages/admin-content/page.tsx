@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+﻿import { useState, useMemo, useEffect, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { supabase } from "@/lib/supabase";
 import { useAdminToast } from "@/contexts/AdminToastContext";
@@ -428,7 +428,7 @@ function CommunityPostsTab() {
   return (
     <div>
       {/* Stats row */}
-      <div className="grid grid-cols-4 gap-3 mb-5">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
         {[
           { label: "Tổng bài", value: stats.total, color: "#a78bfa", icon: "ri-article-line" },
           { label: "Chờ duyệt", value: stats.pending, color: "#e8c84a", icon: "ri-time-line" },
@@ -737,7 +737,7 @@ function LessonsTab() {
   return (
     <div>
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-3 mb-5">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
         {[
           { label: "Tổng bài học", value: stats.total, color: "#a78bfa", icon: "ri-book-open-line" },
           { label: "Chờ duyệt", value: stats.pending, color: "#e8c84a", icon: "ri-time-line" },
@@ -1090,7 +1090,7 @@ function ReportsTab() {
 
   return (
     <div>
-      <div className="grid grid-cols-4 gap-3 mb-5">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
         {[
           { label: "Tổng báo cáo", value: stats.total, color: "#a78bfa", icon: "ri-flag-line" },
           { label: "Chờ xử lý", value: stats.pending, color: "#e8c84a", icon: "ri-time-line" },
@@ -1230,3 +1230,4 @@ export default function AdminContentPage() {
     </AdminLayout>
   );
 }
+

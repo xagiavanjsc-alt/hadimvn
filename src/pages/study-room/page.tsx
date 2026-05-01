@@ -486,7 +486,7 @@ export default function StudyRoomPage() {
       }
     >
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Phòng đang mở", value: rooms.filter(r => r.memberCount < r.maxMembers).length, icon: "ri-door-open-line", color: "#34d399" },
           { label: "Học viên online", value: rooms.reduce((s, r) => s + r.memberCount, 0), icon: "ri-group-line", color: "#e8c84a" },
@@ -535,7 +535,7 @@ export default function StudyRoomPage() {
           </div>
 
           {/* Rooms grid */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {filteredRooms.map(room => (
               <RoomCard key={room.id} room={room} onJoin={handleJoin} />
             ))}
@@ -584,3 +584,5 @@ export default function StudyRoomPage() {
     </DashboardLayout>
   );
 }
+
+

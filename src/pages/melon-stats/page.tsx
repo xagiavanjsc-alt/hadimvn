@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { mockMelonSongs } from "@/mocks/melonSongs";
 import { MelonLessonResult } from "@/services/aiService";
@@ -411,7 +411,7 @@ export default function MelonStatsPage() {
                 {/* All learned songs */}
                 <div className="bg-white/3 border border-white/5 rounded-2xl p-5">
                   <p className="text-white/70 text-sm font-semibold mb-3">Tất cả bài đã học ({learnedSongs.length})</p>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     {learnedSongs.map(({ song, quiz }) => (
                       <div
                         key={song?.rank}
@@ -441,7 +441,7 @@ export default function MelonStatsPage() {
             {activeTab === "quiz" && (
               <div className="space-y-4">
                 {/* Quiz KPIs */}
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
                     { val: quizDone, label: "Quiz đã làm", color: "#22c55e", icon: "ri-check-double-line" },
                     { val: `${avgScore}%`, label: "Điểm trung bình", color: "#e8c84a", icon: "ri-percent-line" },
@@ -528,3 +528,4 @@ export default function MelonStatsPage() {
     </div>
   );
 }
+

@@ -249,7 +249,7 @@ export default function WeeklyChallengeTab() {
             <p className="text-4xl font-bold text-amber-600">+{earnedXp} XP</p>
             <p className="text-sm text-amber-500 mt-1">Đã cộng vào tài khoản của bạn!</p>
           </div>
-          <div className="grid grid-cols-3 gap-3 mb-6 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6 text-center">
             {[
               { label: "Từ đã học", value: learnedCount, color: "text-green-600" },
               { label: "Quiz đạt", value: "70%+", color: "text-rose-600" },
@@ -418,7 +418,7 @@ export default function WeeklyChallengeTab() {
       </div>
 
       {/* Status cards */}
-      <div className="grid grid-cols-3 gap-3 mb-5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
         {[
           { label: "Đã học", value: learnedCount, icon: "ri-check-double-line", color: "text-green-600", bg: "bg-green-50" },
           { label: "Chưa học", value: totalWords - learnedCount, icon: "ri-book-open-line", color: "text-amber-600", bg: "bg-amber-50" },
@@ -514,3 +514,4 @@ export default function WeeklyChallengeTab() {
     </div>
   );
 }
+

@@ -135,7 +135,7 @@ export default function SeoulListeningQuizPage() {
           <div className="space-y-4">
             <div className="bg-white/3 border border-white/8 rounded-xl p-5">
               <h2 className="text-white font-semibold mb-4">Chọn cuốn sách</h2>
-              <div className="grid grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {LEVELS.map(level => {
                   const b = seoulBooks.find(bk => bk.id === level);
                   if (!b) return null;
@@ -349,14 +349,14 @@ export default function SeoulListeningQuizPage() {
           <div className="space-y-5">
             <div className="bg-white/3 border border-white/8 rounded-2xl p-8 text-center">
               <div className="w-20 h-20 rounded-full mx-auto flex items-center justify-center mb-4" style={{ backgroundColor: book.color + "20" }}>
-                <span className="text-3xl font-black" style={{ color: book.color }}>{pct}%</span>
+                <span className="text-2xl font-bold" style={{ color: book.color }}>{pct}%</span>
               </div>
               <h2 className="text-white text-xl font-bold mb-1">
                 {pct >= 80 ? "Xuất sắc!" : pct >= 60 ? "Tốt lắm!" : "Cần luyện thêm!"}
               </h2>
               <p className="text-white/40 text-sm">{score}/{questions.length} câu đúng</p>
 
-              <div className="grid grid-cols-3 gap-3 mt-6">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
                 <div className="bg-emerald-500/10 rounded-xl p-3">
                   <p className="text-emerald-400 text-xl font-bold">{score}</p>
                   <p className="text-white/40 text-xs">Đúng</p>
@@ -410,3 +410,6 @@ export default function SeoulListeningQuizPage() {
     </DashboardLayout>
   );
 }
+
+
+
