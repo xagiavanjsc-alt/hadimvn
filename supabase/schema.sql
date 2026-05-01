@@ -26,17 +26,22 @@ CREATE TABLE IF NOT EXISTS public.user_profiles (
 -- Enable RLS
 ALTER TABLE public.user_profiles ENABLE ROW LEVEL SECURITY;
 
--- RLS Policies for user_profiles
-CREATE POLICY "Users can view own profile" 
-    ON public.user_profiles FOR SELECT 
+-- RLS Policies for user_profiles (drop if exists to avoid conflicts)
+DROP POLICY IF EXISTS "Users can view own profile" ON public.user_profiles;
+DROP POLICY IF EXISTS "Users can update own profile" ON public.user_profiles;
+DROP POLICY IF EXISTS "Users can insert own profile" ON public.user_profiles;
+DROP POLICY IF EXISTS "Admins can view all profiles" ON public.user_profiles;
+
+CREATE POLICY "Users can view own profile"
+    ON public.user_profiles FOR SELECT
     USING (auth.uid() = id);
 
-CREATE POLICY "Users can update own profile" 
-    ON public.user_profiles FOR UPDATE 
+CREATE POLICY "Users can update own profile"
+    ON public.user_profiles FOR UPDATE
     USING (auth.uid() = id);
 
-CREATE POLICY "Users can insert own profile" 
-    ON public.user_profiles FOR INSERT 
+CREATE POLICY "Users can insert own profile"
+    ON public.user_profiles FOR INSERT
     WITH CHECK (auth.uid() = id);
 
 -- Admin can view all profiles
@@ -44,7 +49,7 @@ CREATE POLICY "Admins can view all profiles"
     ON public.user_profiles FOR SELECT
     USING (
         EXISTS (
-            SELECT 1 FROM public.user_profiles 
+            SELECT 1 FROM public.user_profiles
             WHERE id = auth.uid() AND is_admin = TRUE
         )
     );
@@ -70,6 +75,9 @@ CREATE TABLE IF NOT EXISTS public.study_progress (
 
 ALTER TABLE public.study_progress ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Users can view own study progress" ON public.study_progress;
+DROP POLICY IF EXISTS "Users can update own study progress" ON public.study_progress;
+
 CREATE POLICY "Users can view own study progress"
     ON public.study_progress FOR SELECT
     USING (auth.uid() = user_id);
@@ -93,6 +101,9 @@ CREATE TABLE IF NOT EXISTS public.exam_results (
 );
 
 ALTER TABLE public.exam_results ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Users can view own exam results" ON public.exam_results;
+DROP POLICY IF EXISTS "Users can insert own exam results" ON public.exam_results;
 
 CREATE POLICY "Users can view own exam results"
     ON public.exam_results FOR SELECT
@@ -121,6 +132,9 @@ CREATE TABLE IF NOT EXISTS public.leaderboard (
 
 ALTER TABLE public.leaderboard ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Everyone can view leaderboard" ON public.leaderboard;
+DROP POLICY IF EXISTS "Users can update own leaderboard entry" ON public.leaderboard;
+
 CREATE POLICY "Everyone can view leaderboard"
     ON public.leaderboard FOR SELECT
     TO PUBLIC
@@ -147,6 +161,8 @@ CREATE TABLE IF NOT EXISTS public.vip_revenue_log (
 );
 
 ALTER TABLE public.vip_revenue_log ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Admins can view revenue log" ON public.vip_revenue_log;
 
 CREATE POLICY "Admins can view revenue log"
     ON public.vip_revenue_log FOR SELECT
@@ -176,6 +192,8 @@ INSERT INTO public.admin_settings (id) VALUES ('global') ON CONFLICT (id) DO NOT
 
 ALTER TABLE public.admin_settings ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Admins can manage settings" ON public.admin_settings;
+
 CREATE POLICY "Admins can manage settings"
     ON public.admin_settings FOR ALL
     USING (
@@ -203,6 +221,11 @@ CREATE TABLE IF NOT EXISTS public.community_posts (
 );
 
 ALTER TABLE public.community_posts ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Everyone can view posts" ON public.community_posts;
+DROP POLICY IF EXISTS "Users can create posts" ON public.community_posts;
+DROP POLICY IF EXISTS "Users can update own posts" ON public.community_posts;
+DROP POLICY IF EXISTS "Users can delete own posts" ON public.community_posts;
 
 CREATE POLICY "Everyone can view posts"
     ON public.community_posts FOR SELECT
@@ -237,6 +260,11 @@ CREATE TABLE IF NOT EXISTS public.comments (
 
 ALTER TABLE public.comments ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Everyone can view comments" ON public.comments;
+DROP POLICY IF EXISTS "Users can create comments" ON public.comments;
+DROP POLICY IF EXISTS "Users can update own comments" ON public.comments;
+DROP POLICY IF EXISTS "Users can delete own comments" ON public.comments;
+
 CREATE POLICY "Everyone can view comments"
     ON public.comments FOR SELECT
     TO PUBLIC
@@ -269,6 +297,10 @@ CREATE TABLE IF NOT EXISTS public.notifications (
 );
 
 ALTER TABLE public.notifications ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Users can view own notifications" ON public.notifications;
+DROP POLICY IF EXISTS "Users can update own notifications" ON public.notifications;
+DROP POLICY IF EXISTS "Users can delete own notifications" ON public.notifications;
 
 CREATE POLICY "Users can view own notifications"
     ON public.notifications FOR SELECT
@@ -312,6 +344,9 @@ CREATE TABLE IF NOT EXISTS public.zalo_reminders (
 
 ALTER TABLE public.zalo_reminders ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Users can view own reminders" ON public.zalo_reminders;
+DROP POLICY IF EXISTS "Users can manage own reminders" ON public.zalo_reminders;
+
 CREATE POLICY "Users can view own reminders"
     ON public.zalo_reminders FOR SELECT
     USING (auth.uid() = user_id);
@@ -332,6 +367,8 @@ CREATE TABLE IF NOT EXISTS public.daily_vocab (
 
 ALTER TABLE public.daily_vocab ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Everyone can view daily vocab" ON public.daily_vocab;
+
 CREATE POLICY "Everyone can view daily vocab"
     ON public.daily_vocab FOR SELECT
     TO PUBLIC
@@ -351,6 +388,9 @@ CREATE TABLE IF NOT EXISTS public.user_daily_vocab (
 );
 
 ALTER TABLE public.user_daily_vocab ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Users can view own daily vocab progress" ON public.user_daily_vocab;
+DROP POLICY IF EXISTS "Users can update own daily vocab progress" ON public.user_daily_vocab;
 
 CREATE POLICY "Users can view own daily vocab progress"
     ON public.user_daily_vocab FOR SELECT
@@ -375,6 +415,9 @@ CREATE TABLE IF NOT EXISTS public.study_history (
 );
 
 ALTER TABLE public.study_history ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Users can view own study history" ON public.study_history;
+DROP POLICY IF EXISTS "Users can update own study history" ON public.study_history;
 
 CREATE POLICY "Users can view own study history"
     ON public.study_history FOR SELECT
@@ -401,6 +444,11 @@ CREATE TABLE IF NOT EXISTS public.bug_reports (
 );
 
 ALTER TABLE public.bug_reports ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Users can view own bug reports" ON public.bug_reports;
+DROP POLICY IF EXISTS "Users can create bug reports" ON public.bug_reports;
+DROP POLICY IF EXISTS "Admins can view all bug reports" ON public.bug_reports;
+DROP POLICY IF EXISTS "Admins can update bug reports" ON public.bug_reports;
 
 CREATE POLICY "Users can view own bug reports"
     ON public.bug_reports FOR SELECT
@@ -442,6 +490,10 @@ CREATE TABLE IF NOT EXISTS public.feedback (
 
 ALTER TABLE public.feedback ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Users can view own feedback" ON public.feedback;
+DROP POLICY IF EXISTS "Users can submit feedback" ON public.feedback;
+DROP POLICY IF EXISTS "Admins can view all feedback" ON public.feedback;
+
 CREATE POLICY "Users can view own feedback"
     ON public.feedback FOR SELECT
     USING (auth.uid() = user_id);
@@ -476,6 +528,9 @@ CREATE TABLE IF NOT EXISTS public.coupons (
 
 ALTER TABLE public.coupons ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Everyone can view active coupons" ON public.coupons;
+DROP POLICY IF EXISTS "Admins can manage coupons" ON public.coupons;
+
 CREATE POLICY "Everyone can view active coupons"
     ON public.coupons FOR SELECT
     TO PUBLIC
@@ -503,6 +558,8 @@ CREATE TABLE IF NOT EXISTS public.user_coupons (
 );
 
 ALTER TABLE public.user_coupons ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Users can view own coupons" ON public.user_coupons;
 
 CREATE POLICY "Users can view own coupons"
     ON public.user_coupons FOR SELECT
