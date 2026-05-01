@@ -514,8 +514,12 @@ CREATE POLICY "Admins can view all feedback"
 -- =====================================================
 -- Coupons
 -- =====================================================
-CREATE TABLE IF NOT EXISTS public.coupons (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+-- Drop and recreate with TEXT id to match existing data
+DROP TABLE IF EXISTS public.user_coupons;
+DROP TABLE IF EXISTS public.coupons;
+
+CREATE TABLE public.coupons (
+    id TEXT PRIMARY KEY,
     code TEXT UNIQUE NOT NULL,
     discount_percent INTEGER NOT NULL,
     max_uses INTEGER,
@@ -571,10 +575,13 @@ CREATE POLICY "Admins can manage coupons"
 -- =====================================================
 -- User Coupons
 -- =====================================================
-CREATE TABLE IF NOT EXISTS public.user_coupons (
+-- Drop existing table to recreate with correct foreign key type
+DROP TABLE IF EXISTS public.user_coupons;
+
+CREATE TABLE public.user_coupons (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id UUID NOT NULL REFERENCES public.user_profiles(id) ON DELETE CASCADE,
-    coupon_id UUID NOT NULL REFERENCES public.coupons(id) ON DELETE CASCADE,
+    coupon_id TEXT NOT NULL REFERENCES public.coupons(id) ON DELETE CASCADE,
     used_at TIMESTAMP WITH TIME ZONE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     UNIQUE(user_id, coupon_id)
