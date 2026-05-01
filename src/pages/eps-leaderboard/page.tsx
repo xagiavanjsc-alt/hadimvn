@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/lib/supabase";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface LeaderboardEntry {
@@ -20,19 +21,14 @@ interface LeaderboardEntry {
 type Period = "week" | "month" | "alltime";
 type ExamType = "all" | "mock" | "topic" | "quick";
 
-// ─── Mock Data ────────────────────────────────────────────────────────────────
-const MOCK_LEADERBOARD: LeaderboardEntry[] = [
-  { rank: 1, userId: "u1", name: "Nguyễn Văn Hùng", avatar: "H", score: 98, correct: 39, total: 40, examType: "Thi mô phỏng thật", date: "2026-04-15", badge: "👑" },
-  { rank: 2, userId: "u2", name: "Trần Thị Mai", avatar: "M", score: 95, correct: 38, total: 40, examType: "Thi mô phỏng thật", date: "2026-04-14", badge: "🥈" },
-  { rank: 3, userId: "u3", name: "Lê Minh Tuấn", avatar: "T", score: 93, correct: 37, total: 40, examType: "Thi mô phỏng thật", date: "2026-04-15", badge: "🥉" },
-  { rank: 4, userId: "u4", name: "Phạm Thị Lan", avatar: "L", score: 90, correct: 36, total: 40, examType: "Thi theo chủ đề", date: "2026-04-13" },
-  { rank: 5, userId: "u5", name: "Hoàng Văn Nam", avatar: "N", score: 88, correct: 35, total: 40, examType: "Thi mô phỏng thật", date: "2026-04-12" },
-  { rank: 6, userId: "u6", name: "Vũ Thị Hoa", avatar: "H", score: 85, correct: 34, total: 40, examType: "Thi mô phỏng thật", date: "2026-04-11" },
-  { rank: 7, userId: "u7", name: "Đặng Văn Bình", avatar: "B", score: 83, correct: 33, total: 40, examType: "Thi theo chủ đề", date: "2026-04-10" },
-  { rank: 8, userId: "u8", name: "Bùi Thị Thu", avatar: "T", score: 80, correct: 32, total: 40, examType: "Thi mô phỏng thật", date: "2026-04-09" },
-  { rank: 9, userId: "u9", name: "Ngô Văn Đức", avatar: "Đ", score: 78, correct: 31, total: 40, examType: "Thi theo chủ đề", date: "2026-04-08" },
-  { rank: 10, userId: "u10", name: "Đinh Thị Hằng", avatar: "H", score: 75, correct: 30, total: 40, examType: "Thi mô phỏng thật", date: "2026-04-07" },
-];
+// Leaderboard data fetched from exam_results + user_profiles (không còn mock)
+
+const EXAM_TYPE_LABELS: Record<string, string> = {
+  eps_mock: "Thi mô phỏng thật",
+  eps_topic: "Thi theo chủ đề",
+  eps_quick: "Ôn tập nhanh",
+  eps: "Thi EPS",
+};
 
 const AVATAR_COLORS = [
   "#e8c84a", "#34d399", "#06b6d4", "#a78bfa", "#f87171",
@@ -115,39 +111,107 @@ export default function EpsLeaderboardPage() {
   const { user, profile } = useAuth();
   const [period, setPeriod] = useState<Period>("week");
   const [examType, setExamType] = useState<ExamType>("all");
-  const [entries, setEntries] = useState<LeaderboardEntry[]>(MOCK_LEADERBOARD);
+  const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [myRank, setMyRank] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Merge local history into leaderboard
+  // Fetch leaderboard thật từ exam_results + user_profiles
   useEffect(() => {
-    const history = JSON.parse(localStorage.getItem("kts_eps_exam_history") || "[]");
-    if (history.length === 0) return;
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      try {
+        let query = supabase
+          .from("exam_results")
+          .select("id, user_id, score, total, exam_type, created_at")
+          .ilike("exam_type", "eps%");
 
-    const bestScore = Math.max(...history.map((h: { score: number }) => h.score));
-    const bestEntry = history.find((h: { score: number }) => h.score === bestScore);
+        // Filter theo period
+        if (period === "week") {
+          const wAgo = new Date();
+          wAgo.setDate(wAgo.getDate() - 7);
+          query = query.gte("created_at", wAgo.toISOString());
+        } else if (period === "month") {
+          const mAgo = new Date();
+          mAgo.setMonth(mAgo.getMonth() - 1);
+          query = query.gte("created_at", mAgo.toISOString());
+        }
 
-    const myName = profile?.display_name || user?.email?.split("@")[0] || "Bạn";
-    const myEntry: LeaderboardEntry = {
-      rank: 0,
-      userId: user?.id || "me",
-      name: myName,
-      avatar: myName[0]?.toUpperCase() || "B",
-      score: bestScore,
-      correct: bestEntry?.correct || 0,
-      total: bestEntry?.total || 40,
-      examType: bestEntry?.typeLabel || "Thi thử",
-      date: bestEntry?.date || new Date().toISOString(),
-    };
+        // Filter theo exam type
+        if (examType === "mock") query = query.ilike("exam_type", "%mock%");
+        else if (examType === "topic") query = query.ilike("exam_type", "%topic%");
+        else if (examType === "quick") query = query.ilike("exam_type", "%quick%");
 
-    const combined = [...MOCK_LEADERBOARD, myEntry]
-      .sort((a, b) => b.score - a.score)
-      .map((e, i) => ({ ...e, rank: i + 1 }));
+        const { data: rows } = await query
+          .order("score", { ascending: false })
+          .limit(100); // lấy nhiều để tính rank của user
 
-    const myIdx = combined.findIndex(e => e.userId === (user?.id || "me"));
-    if (myIdx >= 0) setMyRank(myIdx + 1);
+        if (cancelled || !rows) return;
 
-    setEntries(combined.slice(0, 10));
-  }, [user, profile]);
+        // Gộp theo user_id, giữ điểm cao nhất (pct)
+        const bestByUser: Record<string, { score: number; correct: number; total: number; exam_type: string; created_at: string }> = {};
+        rows.forEach((r: { user_id: string; score: number; total: number; exam_type: string; created_at: string }) => {
+          const pct = r.total > 0 ? Math.round((r.score / r.total) * 100) : 0;
+          const existing = bestByUser[r.user_id];
+          if (!existing || pct > existing.score) {
+            bestByUser[r.user_id] = {
+              score: pct,
+              correct: r.score,
+              total: r.total,
+              exam_type: r.exam_type,
+              created_at: r.created_at,
+            };
+          }
+        });
+
+        const userIds = Object.keys(bestByUser);
+        if (userIds.length === 0) {
+          setEntries([]);
+          setLoading(false);
+          return;
+        }
+
+        // Lấy display_name cho tất cả users
+        const { data: profiles } = await supabase
+          .from("user_profiles")
+          .select("id, display_name")
+          .in("id", userIds);
+
+        if (cancelled) return;
+        const nameMap = Object.fromEntries(
+          (profiles || []).map((p: { id: string; display_name: string }) => [p.id, p.display_name || "Học viên"])
+        );
+
+        const combined: LeaderboardEntry[] = userIds
+          .map(uid => {
+            const d = bestByUser[uid];
+            const name = nameMap[uid] || "Học viên";
+            return {
+              rank: 0,
+              userId: uid,
+              name,
+              avatar: name.charAt(0).toUpperCase(),
+              score: d.score,
+              correct: d.correct,
+              total: d.total,
+              examType: EXAM_TYPE_LABELS[d.exam_type] || "Thi EPS",
+              date: d.created_at,
+            };
+          })
+          .sort((a, b) => b.score - a.score)
+          .map((e, i) => ({ ...e, rank: i + 1 }));
+
+        const myIdx = user?.id ? combined.findIndex(e => e.userId === user.id) : -1;
+        if (myIdx >= 0) setMyRank(myIdx + 1);
+        else setMyRank(null);
+
+        setEntries(combined.slice(0, 10));
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [period, examType, user?.id, profile]);
 
   const periodLabels: Record<Period, string> = {
     week: "Tuần này",
@@ -233,6 +297,15 @@ export default function EpsLeaderboardPage() {
             <h3 className="text-white font-semibold text-sm">Top 10 điểm cao nhất</h3>
             <span className="text-white/30 text-xs">{periodLabels[period]}</span>
           </div>
+          {loading ? (
+            <div className="py-10 text-center text-white/30 text-sm">Đang tải bảng xếp hạng...</div>
+          ) : entries.length === 0 ? (
+            <div className="py-10 text-center">
+              <i className="ri-trophy-line text-white/20 text-4xl mb-2 block"></i>
+              <p className="text-white/40 text-sm">Chưa có ai thi EPS trong {periodLabels[period].toLowerCase()}</p>
+              <p className="text-white/25 text-xs mt-1">Hãy là người đầu tiên!</p>
+            </div>
+          ) : (
           <div className="divide-y divide-white/5">
             {entries.map((entry) => {
               const isMe = entry.userId === (user?.id || "me");
@@ -267,6 +340,7 @@ export default function EpsLeaderboardPage() {
               );
             })}
           </div>
+          )}
         </div>
 
         {/* My rank if not in top 10 */}

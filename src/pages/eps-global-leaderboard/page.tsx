@@ -18,20 +18,7 @@ interface LeaderboardEntry {
   isCurrentUser?: boolean;
 }
 
-const MOCK_LEADERBOARD: LeaderboardEntry[] = [
-  { rank: 1, userId: "u1", displayName: "Nguyễn Thị Hoa", avatar: "https://readdy.ai/api/search-image?query=young%20Vietnamese%20woman%20smiling%20portrait%20professional%20warm%20lighting%20natural%20background&width=60&height=60&seq=lb1&orientation=squarish", score: 98, streak: 142, totalExams: 87, badge: "🏆", region: "Hà Nội" },
-  { rank: 2, userId: "u2", displayName: "Trần Minh Khoa", avatar: "https://readdy.ai/api/search-image?query=young%20Vietnamese%20man%20smiling%20portrait%20casual%20warm%20lighting%20natural%20background&width=60&height=60&seq=lb2&orientation=squarish", score: 96, streak: 98, totalExams: 72, badge: "🥈", region: "TP.HCM" },
-  { rank: 3, userId: "u3", displayName: "Lê Thị Bích Ngọc", avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20woman%20smiling%20portrait%20casual%20warm%20lighting%20natural%20background%20friendly&width=60&height=60&seq=lb3&orientation=squarish", score: 95, streak: 76, totalExams: 65, badge: "🥉", region: "Đà Nẵng" },
-  { rank: 4, userId: "u4", displayName: "Phạm Văn Đức", avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20man%20smiling%20portrait%20casual%20warm%20lighting%20natural%20background%20confident&width=60&height=60&seq=lb4&orientation=squarish", score: 93, streak: 54, totalExams: 58, badge: "⭐", region: "Hải Phòng" },
-  { rank: 5, userId: "u5", displayName: "Võ Thị Thanh Hương", avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20woman%20smiling%20portrait%20professional%20warm%20lighting%20natural%20background%20soft&width=60&height=60&seq=lb5&orientation=squarish", score: 91, streak: 47, totalExams: 51, badge: "⭐", region: "Cần Thơ" },
-  { rank: 6, userId: "u6", displayName: "Hoàng Văn Nam", avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20man%20smiling%20portrait%20casual%20warm%20lighting%20natural%20background%20relaxed&width=60&height=60&seq=lb6&orientation=squarish", score: 90, streak: 39, totalExams: 44, badge: "⭐", region: "Nghệ An" },
-  { rank: 7, userId: "u7", displayName: "Đặng Thị Mai", avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20woman%20smiling%20portrait%20casual%20warm%20lighting%20natural%20background%20happy&width=60&height=60&seq=lb7&orientation=squarish", score: 89, streak: 33, totalExams: 40, badge: "⭐", region: "Bình Dương" },
-  { rank: 8, userId: "u8", displayName: "Bùi Quang Huy", avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20man%20smiling%20portrait%20casual%20warm%20lighting%20natural%20background%20young&width=60&height=60&seq=lb8&orientation=squarish", score: 88, streak: 28, totalExams: 37, badge: "⭐", region: "Đồng Nai" },
-  { rank: 9, userId: "u9", displayName: "Ngô Thị Lan Anh", avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20woman%20smiling%20portrait%20professional%20warm%20lighting%20natural%20background%20bright&width=60&height=60&seq=lb9&orientation=squarish", score: 87, streak: 22, totalExams: 33, badge: "⭐", region: "Hà Nội" },
-  { rank: 10, userId: "u10", displayName: "Đinh Văn Tùng", avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20man%20smiling%20portrait%20casual%20warm%20lighting%20natural%20background%20cheerful&width=60&height=60&seq=lb10&orientation=squarish", score: 86, streak: 18, totalExams: 29, badge: "⭐", region: "TP.HCM" },
-  { rank: 11, userId: "u11", displayName: "Trịnh Thị Hằng", avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20woman%20smiling%20portrait%20casual%20warm%20lighting%20natural%20background%20gentle&width=60&height=60&seq=lb11&orientation=squarish", score: 85, streak: 15, totalExams: 26, badge: "⭐", region: "Quảng Ninh" },
-  { rank: 12, userId: "u12", displayName: "Lý Văn Phúc", avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20man%20smiling%20portrait%20casual%20warm%20lighting%20natural%20background%20friendly%20face&width=60&height=60&seq=lb12&orientation=squarish", score: 84, streak: 12, totalExams: 23, badge: "⭐", region: "Thanh Hóa" },
-];
+// Leaderboard data fetched from Supabase (không còn mock)
 
 const PERIOD_LABELS: Record<Period, string> = {
   week: "Tuần này",
@@ -59,60 +46,124 @@ export default function EpsGlobalLeaderboardPage() {
   }, [period]);
 
   useEffect(() => {
-    // Simulate live activity feed
-    const activities = [
-      "Nguyễn Thị Hoa vừa đạt 98/100 điểm EPS! 🔥",
-      "Trần Minh Khoa streak 98 ngày liên tiếp! 💪",
-      "Lê Thị Bích Ngọc vừa hoàn thành bài thi EPS! ⭐",
-      "Phạm Văn Đức vừa vào top 5 bảng xếp hạng! 🎉",
-      "Võ Thị Thanh Hương đạt điểm cao nhất tuần! 🏆",
-    ];
-    let idx = 0;
-    const interval = setInterval(() => {
-      setLiveActivity(prev => [activities[idx % activities.length], ...prev].slice(0, 3));
-      idx++;
-    }, 5000);
-    return () => clearInterval(interval);
+    // Live activity feed thật từ exam_results gần nhất
+    let cancelled = false;
+    const load = async () => {
+      const { data: recentExams } = await supabase
+        .from("exam_results")
+        .select("user_id, score, total, exam_type, created_at")
+        .ilike("exam_type", "eps%")
+        .order("created_at", { ascending: false })
+        .limit(10);
+
+      if (cancelled || !recentExams || recentExams.length === 0) return;
+
+      const userIds = Array.from(new Set(recentExams.map((r: { user_id: string }) => r.user_id)));
+      const { data: profiles } = await supabase
+        .from("user_profiles")
+        .select("id, display_name")
+        .in("id", userIds);
+
+      if (cancelled) return;
+      const nameMap = Object.fromEntries(
+        (profiles || []).map((p: { id: string; display_name: string }) => [p.id, p.display_name || "Học viên"])
+      );
+
+      const feed = recentExams.map((r: { user_id: string; score: number; total: number }) => {
+        const name = nameMap[r.user_id] || "Học viên";
+        const pct = r.total > 0 ? Math.round((r.score / r.total) * 100) : 0;
+        const emoji = pct >= 90 ? "🔥" : pct >= 80 ? "⭐" : "📝";
+        return `${name} vừa đạt ${pct}/100 điểm EPS! ${emoji}`;
+      });
+      setLiveActivity(feed.slice(0, 3));
+    };
+    load();
+    const interval = setInterval(load, 30000); // refresh mỗi 30s
+    return () => { cancelled = true; clearInterval(interval); };
   }, []);
 
   const loadLeaderboard = async () => {
     setLoading(true);
     try {
-      // Try to load from Supabase leaderboard_snapshots
-      const { data } = await supabase
-        .from("leaderboard_snapshots")
-        .select("*")
-        .order("score", { ascending: false })
-        .limit(20);
+      // Query exam_results theo period
+      let q = supabase
+        .from("exam_results")
+        .select("user_id, score, total, exam_type, created_at")
+        .ilike("exam_type", "eps%");
 
-      if (data && data.length > 0) {
-        const mapped: LeaderboardEntry[] = data.map((d, i) => ({
-          rank: i + 1,
-          userId: d.user_id || "",
-          displayName: d.display_name || "Học viên",
-          avatar: d.avatar_url || `https://readdy.ai/api/search-image?query=Vietnamese%20person%20smiling%20portrait%20casual%20warm%20lighting%20natural%20background&width=60&height=60&seq=lbr${i}&orientation=squarish`,
-          score: d.score || 0,
-          streak: d.streak || 0,
-          totalExams: d.total_exams || 0,
-          badge: i === 0 ? "🏆" : i === 1 ? "🥈" : i === 2 ? "🥉" : "⭐",
-          region: d.region || "Việt Nam",
-          isCurrentUser: user ? d.user_id === user.id : false,
-        }));
-        setEntries(mapped);
-        if (user) {
-          const me = mapped.find(e => e.isCurrentUser);
-          setMyRank(me || null);
-        }
-      } else {
-        // Use mock data
-        const mock = MOCK_LEADERBOARD.map(e => ({
-          ...e,
-          isCurrentUser: false,
-        }));
-        setEntries(mock);
+      if (period === "week") {
+        const wAgo = new Date();
+        wAgo.setDate(wAgo.getDate() - 7);
+        q = q.gte("created_at", wAgo.toISOString());
+      } else if (period === "month") {
+        const mAgo = new Date();
+        mAgo.setMonth(mAgo.getMonth() - 1);
+        q = q.gte("created_at", mAgo.toISOString());
       }
+
+      const { data: rows } = await q.limit(500);
+      if (!rows || rows.length === 0) {
+        setEntries([]);
+        setMyRank(null);
+        return;
+      }
+
+      // Gộp theo user: best score + total exams count
+      const byUser: Record<string, { best: number; count: number }> = {};
+      rows.forEach((r: { user_id: string; score: number; total: number }) => {
+        const pct = r.total > 0 ? Math.round((r.score / r.total) * 100) : 0;
+        if (!byUser[r.user_id]) byUser[r.user_id] = { best: pct, count: 1 };
+        else {
+          byUser[r.user_id].count += 1;
+          if (pct > byUser[r.user_id].best) byUser[r.user_id].best = pct;
+        }
+      });
+
+      const userIds = Object.keys(byUser);
+
+      // Lấy profile + streak từ leaderboard
+      const [{ data: profiles }, { data: lbs }] = await Promise.all([
+        supabase.from("user_profiles").select("id, display_name, avatar_url").in("id", userIds),
+        supabase.from("leaderboard").select("user_id, streak").in("user_id", userIds),
+      ]);
+
+      const profileMap = Object.fromEntries(
+        (profiles || []).map((p: { id: string; display_name: string; avatar_url: string }) => [p.id, p])
+      );
+      const streakMap = Object.fromEntries(
+        (lbs || []).map((l: { user_id: string; streak: number }) => [l.user_id, l.streak || 0])
+      );
+
+      const combined: LeaderboardEntry[] = userIds
+        .map(uid => {
+          const p = profileMap[uid];
+          const d = byUser[uid];
+          return {
+            rank: 0,
+            userId: uid,
+            displayName: p?.display_name || "Học viên",
+            avatar: p?.avatar_url || "",
+            score: d.best,
+            streak: streakMap[uid] || 0,
+            totalExams: d.count,
+            badge: "⭐",
+            region: "Việt Nam",
+            isCurrentUser: user ? uid === user.id : false,
+          };
+        })
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 50)
+        .map((e, i) => ({
+          ...e,
+          rank: i + 1,
+          badge: i === 0 ? "🏆" : i === 1 ? "🥈" : i === 2 ? "🥉" : "⭐",
+        }));
+
+      setEntries(combined);
+      const me = combined.find(e => e.isCurrentUser);
+      setMyRank(me || null);
     } catch {
-      setEntries(MOCK_LEADERBOARD);
+      setEntries([]);
     } finally {
       setLoading(false);
     }
