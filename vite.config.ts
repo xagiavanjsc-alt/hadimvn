@@ -79,6 +79,11 @@ export default defineConfig({
           if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router-dom')) return 'react-vendor';
           if (id.includes('node_modules/@supabase')) return 'supabase';
           if (id.includes('src/services/aiService')) return 'ai-service';
+          // Large static data — split into own chunks for lazy loading
+          if (id.includes('src/mocks/data/seoul-books-data')) return 'data-seoul';
+          if (id.includes('src/mocks/data/eps-lessons-data')) return 'data-eps';
+          if (id.includes('src/mocks/data/vocabulary-data-data')) return 'data-vocab';
+          if (id.includes('src/mocks/data/hanja-data')) return 'data-hanja';
         }
       }
     }
