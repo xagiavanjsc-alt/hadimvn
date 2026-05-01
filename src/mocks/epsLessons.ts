@@ -1,9 +1,13 @@
+import { epsLessons } from "./data/eps-lessons-data";
+export { epsLessons };
+
 export interface EpsVocabItem {
   korean: string;
-  pronunciation: string;
+  pronunciation?: string;
+  romanization?: string;
   vietnamese: string;
-  example: string;
-  exampleVi: string;
+  example?: string;
+  exampleVi?: string;
 }
 
 export interface EpsGrammarPoint {
@@ -548,7 +552,7 @@ epsLessons.push({
 });
 
 // ── BÀI 53–54 THẬT ──
-epsLessons.push({
+epsLessons.push(normLesson({
   id: 53,
   title: "산업 안전 및 보건 표지",
   titleVi: "An toàn công nghiệp và Biển báo bảo vệ sức khỏe",
@@ -620,9 +624,9 @@ epsLessons.push({
     { speaker: "A", korean: "저쪽에 통행 금지 표지도 있네요.", vietnamese: "Bên kia cũng có biển cấm đi lại nữa." },
     { speaker: "B", korean: "네, 그쪽은 지게차가 다니는 구역이라 위험해요.", vietnamese: "Vâng, khu vực đó xe nâng đi lại nên nguy hiểm lắm." },
   ],
-});
+}));
 
-epsLessons.push({
+epsLessons.push(normLesson({
   id: 54,
   title: "산업 안전 및 보건 수칙",
   titleVi: "Quy tắc an toàn công nghiệp và bảo vệ sức khỏe",
@@ -694,10 +698,10 @@ epsLessons.push({
     { speaker: "A", korean: "개인 보호구는 어떤 걸 착용해야 하나요?", vietnamese: "Phải mang thiết bị bảo hộ cá nhân loại nào vậy?" },
     { speaker: "B", korean: "안전모, 안전화, 안전대를 반드시 착용하고 수칙을 꼭 지키세요.", vietnamese: "Nhất định phải đội mũ bảo hộ, mang giày bảo hộ, đeo dây an toàn và tuân thủ quy tắc." },
   ],
-});
+}));
 
 // ── BÀI 55–56 THẬT ──
-epsLessons.push({
+epsLessons.push(normLesson({
   id: 55,
   title: "산업 안전 및 위생 장비",
   titleVi: "Thiết bị an toàn và vệ sinh công nghiệp",
@@ -778,9 +782,9 @@ epsLessons.push({
     { speaker: "A", korean: "귀마개도 필요한가요?", vietnamese: "Có cần nút tai không?" },
     { speaker: "B", korean: "네, 소음이 심한 작업이라 귀덮개나 귀마개를 꼭 착용하세요.", vietnamese: "Vâng, công việc có tiếng ồn lớn nên nhất định phải đeo bịt tai hoặc nút tai." },
   ],
-});
+}));
 
-epsLessons.push({
+epsLessons.push(normLesson({
   id: 56,
   title: "산업 재해 및 응급 처치",
   titleVi: "Tai nạn lao động và sơ cứu",
@@ -844,7 +848,7 @@ epsLessons.push({
     { speaker: "A", korean: "소화기로 진화할 수 있을까요?", vietnamese: "Có thể dập lửa bằng bình cứu hỏa không?" },
     { speaker: "B", korean: "진화가 어려우면 즉시 대피하고 119에 신고하세요.", vietnamese: "Nếu dập cháy khó khăn thì sơ tán ngay và báo 119." },
   ],
-});
+}));
 
 // ── BÀI 57–60 THẬT ──
 epsLessons.push({
@@ -1152,6 +1156,5 @@ epsLessons.push({
 
 // Bộ dữ liệu 60 bài EPS-TOPIK đã hoàn chỉnh — không thêm placeholder
 
-// Data moved to data/eps-lessons-data.ts for code splitting
-export { epsLessons } from "./data/eps-lessons-data";
+// Data: bài 1–46 ở eps-lessons-data.ts, bài 47–60 push ở trên
 
