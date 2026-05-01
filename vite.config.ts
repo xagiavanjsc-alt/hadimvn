@@ -75,10 +75,10 @@ export default defineConfig({
     outDir: 'dist',
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'supabase': ['@supabase/supabase-js'],
-          'ai-service': ['./src/services/aiService'],
+        manualChunks(id) {
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router-dom')) return 'react-vendor';
+          if (id.includes('node_modules/@supabase')) return 'supabase';
+          if (id.includes('src/services/aiService')) return 'ai-service';
         }
       }
     }
