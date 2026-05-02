@@ -366,8 +366,8 @@ export default function LeaderboardPage() {
         </div>
 
         {/* Full Leaderboard Table */}
-        <div className="bg-white/2 border border-white/5 rounded-2xl overflow-hidden">
-          <div className="grid grid-cols-[48px_1fr_120px_100px_100px_100px_100px] gap-0 px-5 py-3 border-b border-white/5">
+        <div className="bg-white/2 border border-white/5 rounded-2xl overflow-x-auto">
+          <div className="grid grid-cols-[48px_1fr_120px_100px_100px_100px_100px] gap-0 px-5 py-3 border-b border-white/5 min-w-[600px]">
             <span className="text-white/25 text-[10px] tracking-normal">#</span>
             <span className="text-white/25 text-[10px] tracking-normal">Học viên</span>
             <span className="text-white/25 text-[10px] tracking-normal text-right">XP</span>
@@ -397,7 +397,7 @@ export default function LeaderboardPage() {
               return (
                 <div
                   key={player.id}
-                  className={`grid grid-cols-[48px_1fr_120px_100px_100px_100px_100px] gap-0 px-5 py-3.5 border-b border-white/3 transition-colors ${
+                  className={`grid grid-cols-[48px_1fr_120px_100px_100px_100px_100px] gap-0 px-5 py-3.5 border-b border-white/3 transition-colors min-w-[600px] ${
                     isMe
                       ? "bg-[#e8c84a]/5 border-l-2 border-l-[#e8c84a]/40"
                       : "hover:bg-white/2"
