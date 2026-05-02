@@ -1,7 +1,8 @@
 -- Fix: Users can update their own profile (display_name, avatar_url)
 -- This fixes the issue where users cannot change their name in profile page
 
--- Drop existing admin-only policy to avoid conflicts
+-- Drop existing policy if exists (for idempotency)
+DROP POLICY IF EXISTS "Users can update own profile" ON public.user_profiles;
 DROP POLICY IF EXISTS "Admins can update all profiles" ON public.user_profiles;
 
 -- Create policy for users to update their own profile (display_name, avatar_url)
