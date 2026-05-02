@@ -11,6 +11,8 @@ CREATE TABLE IF NOT EXISTS public.user_progress (
     streak_count INTEGER DEFAULT 0,
     streak_last_date DATE,
     total_study_time_seconds INTEGER DEFAULT 0,
+    best_score INTEGER DEFAULT 0,
+    words_learned INTEGER DEFAULT 0,
     last_active_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -136,18 +138,24 @@ ON CONFLICT (user_id, card_id) DO NOTHING;
 CREATE OR REPLACE FUNCTION public.sync_leaderboard_from_user_progress()
 RETURNS TRIGGER AS $$
 BEGIN
-    INSERT INTO public.leaderboard (user_id, display_name, xp, streak, updated_at)
+    INSERT INTO public.leaderboard (user_id, display_name, xp, streak, best_score, words_learned, level, updated_at)
     VALUES (
         NEW.user_id,
         (SELECT display_name FROM public.user_profiles WHERE id = NEW.user_id),
         NEW.xp,
         NEW.streak_count,
+        NEW.best_score,
+        NEW.words_learned,
+        NEW.level,
         NEW.updated_at
     )
     ON CONFLICT (user_id) 
     DO UPDATE SET
         xp = NEW.xp,
         streak = NEW.streak_count,
+        best_score = NEW.best_score,
+        words_learned = NEW.words_learned,
+        level = NEW.level,
         updated_at = NEW.updated_at;
     RETURN NEW;
 END;

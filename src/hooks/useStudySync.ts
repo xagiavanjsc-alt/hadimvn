@@ -37,6 +37,8 @@ export function useStudySync() {
         level,
         streak_count: streak.count || 0,
         streak_last_date: streak.lastDate || null,
+        best_score: bestScore,
+        words_learned: wordsLearned,
         last_active_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       }, { onConflict: "user_id" });
@@ -107,6 +109,13 @@ export function useStudySync() {
           localStorage.setItem("kts_streak", JSON.stringify({ count: userProgress.streak_count, lastDate: userProgress.streak_last_date || "" }));
         }
         localStorage.setItem("kts_xp_total", JSON.stringify({ total: userProgress.xp }));
+        // Store best_score and words_learned for leaderboard sync
+        if (userProgress.best_score !== undefined) {
+          localStorage.setItem("kts_best_score", JSON.stringify(userProgress.best_score));
+        }
+        if (userProgress.words_learned !== undefined) {
+          localStorage.setItem("kts_words_learned", JSON.stringify(userProgress.words_learned));
+        }
       }
 
       // Load module_progress
@@ -195,9 +204,9 @@ export function useStudySync() {
         user_id: userId,
         xp,
         level,
-        streak: streak.count || 0,
-        best_score: bestScore,
-        words_learned: wordsLearned,
+        streak_count: streak.count || 0,
+        streak_last_date: streak.lastDate || null,
+        last_active_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       }, { onConflict: "user_id" });
     } catch {
