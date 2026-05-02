@@ -5,9 +5,10 @@ import { supabase } from "@/lib/supabase";
 export default function AdminHanjaUploadPage() {
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
-  const [result, setResult] = useState<{ created: number; errors: number; total: number; duplicates: number } | null>(null);
+  const [result, setResult] = useState<{ created: number; errors: number; total: number; duplicates: number; skipped: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [checkDuplicates, setCheckDuplicates] = useState(true);
+  const [duplicateAction, setDuplicateAction] = useState<'overwrite' | 'skip'>('skip');
   const [duplicateList, setDuplicateList] = useState<Array<{ korean: string; hanja: string }>>([]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,6 +54,7 @@ export default function AdminHanjaUploadPage() {
 
       // Check duplicates in DB if enabled
       let duplicates: Array<{ korean: string; hanja: string }> = [];
+      const duplicatesSet = new Set<string>();
       if (checkDuplicates) {
         for (const entry of entries) {
           const { data: existing } = await supabase
@@ -64,17 +66,23 @@ export default function AdminHanjaUploadPage() {
 
           if (existing) {
             duplicates.push({ korean: entry.korean, hanja: entry.hanja });
+            duplicatesSet.add(`${entry.korean}|${entry.hanja}`);
           }
         }
         setDuplicateList(duplicates);
       }
 
+      // Filter entries based on duplicate action
+      let entriesToSync = entries;
+      if (checkDuplicates && duplicateAction === 'skip') {
+        entriesToSync = entries.filter(e => !duplicatesSet.has(`${e.korean}|${e.hanja}`));
+      }
+
       // Sync to Supabase via RPC
       let created = 0;
-      let updated = 0;
       let errors = 0;
 
-      for (const entry of entries) {
+      for (const entry of entriesToSync) {
         const { data: result, error } = await supabase.rpc('upsert_hanja_entry', {
           p_korean: entry.korean,
           p_hanja: entry.hanja,
@@ -95,7 +103,7 @@ export default function AdminHanjaUploadPage() {
         }
       }
 
-      setResult({ created, errors, total: entries.length, duplicates: duplicates.length });
+      setResult({ created, errors, total: entries.length, duplicates: duplicates.length, skipped: entries.length - entriesToSync.length });
     } catch (err: any) {
       setError(err.message || 'Lỗi khi xử lý file');
     } finally {
@@ -132,9 +140,35 @@ export default function AdminHanjaUploadPage() {
                 onChange={(e) => setCheckDuplicates(e.target.checked)}
                 className="w-4 h-4 rounded border-app-border bg-app-card text-app-accent-primary focus:ring-app-accent-primary/50 cursor-pointer"
               />
-              <span className="text-app-text-secondary text-sm">Kiểm tra trùng lặp trước khi upload</span>
+              <span className="text-app-text-secondary text-sm">Kiểm tra trùng lặp</span>
             </label>
           </div>
+
+          {checkDuplicates && (
+            <div className="flex items-center gap-4 mb-4 bg-app-card/50 rounded-lg p-3">
+              <span className="text-app-text-secondary text-sm">Khi trùng lặp:</span>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  value="overwrite"
+                  checked={duplicateAction === 'overwrite'}
+                  onChange={(e) => setDuplicateAction(e.target.value as 'overwrite' | 'skip')}
+                  className="w-4 h-4 text-app-accent-primary focus:ring-app-accent-primary/50 cursor-pointer"
+                />
+                <span className="text-app-text-primary text-sm">Upload đè (thay thế dữ liệu cũ)</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  value="skip"
+                  checked={duplicateAction === 'skip'}
+                  onChange={(e) => setDuplicateAction(e.target.value as 'overwrite' | 'skip')}
+                  className="w-4 h-4 text-app-accent-primary focus:ring-app-accent-primary/50 cursor-pointer"
+                />
+                <span className="text-app-text-primary text-sm">Bỏ qua (giữ nguyên)</span>
+              </label>
+            </div>
+          )}
 
           {file && (
             <div className="bg-app-card rounded-lg p-3 mb-4">
@@ -179,9 +213,12 @@ export default function AdminHanjaUploadPage() {
                 <p className="text-app-text-muted text-xs">Trùng lặp</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-app-text-primary">{result.total}</p>
-                <p className="text-app-text-muted text-xs">Tổng</p>
+                <p className="text-2xl font-bold text-app-text-muted">{result.skipped}</p>
+                <p className="text-app-text-muted text-xs">Bỏ qua</p>
               </div>
+            </div>
+            <div className="text-center mb-4">
+              <p className="text-app-text-secondary text-sm">Tổng số: {result.total} từ</p>
             </div>
             {duplicateList.length > 0 && (
               <div className="mt-4">
