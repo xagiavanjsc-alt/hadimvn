@@ -21,8 +21,8 @@ interface ScheduleConfig {
 }
 
 const DEFAULT_MESSAGES = [
-  "🇰🇷 Chào bạn! Hôm nay bạn chưa học tiếng Hàn đúng không? Chỉ 10 phút thôi là đủ để giữ streak rồi! Vào hanquocoi.vn học ngay nhé! 🔥",
-  "📚 Nhắc nhở học tập: Bạn đang có streak tốt đấy! Đừng để gián đoạn nhé. Vào học 1 bài EPS hoặc 10 từ vựng ngay nào! hanquocoi.vn",
+  "🇰🇷 Chào bạn! Hôm nay bạn chưa học tiếng Hàn đúng không? Chỉ 10 phút thôi là đủ để giữ streak rồi! Vào hadim.vn học ngay nhé! 🔥",
+  "📚 Nhắc nhở học tập: Bạn đang có streak tốt đấy! Đừng để gián đoạn nhé. Vào học 1 bài EPS hoặc 10 từ vựng ngay nào! hadim.vn",
   "⚡ Hôm nay bạn chưa học tiếng Hàn! Chỉ cần 5 phút luyện phát âm hoặc 10 flashcard thôi. Giữ vững thói quen mỗi ngày nhé! 💪",
 ];
 

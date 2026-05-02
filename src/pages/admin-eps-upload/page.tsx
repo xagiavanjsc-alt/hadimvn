@@ -14,8 +14,8 @@ interface UploadItem {
   targetUrl?: string;
 }
 
-const VPS_IMAGE_BASE = "https://img.hanquocoi.vn/eps";
-const VPS_AUDIO_BASE = "https://audio.hanquocoi.vn/tts";
+const VPS_IMAGE_BASE = "https://img.hadim.vn/eps";
+const VPS_AUDIO_BASE = "https://audio.hadim.vn/tts";
 
 // ─── Drag & Drop Zone ─────────────────────────────────────────────────────────
 function DropZone({ onFiles }: { onFiles: (files: File[]) => void }) {
@@ -152,8 +152,8 @@ function VPSGuide() {
     navigator.clipboard.writeText(text).then(() => { setCopied(key); setTimeout(() => setCopied(null), 2000); });
   };
   const configs = [
-    { label: "Cấu trúc thư mục ảnh", key: "dir", code: `/var/www/img.hanquocoi.vn/\n├── eps/\n│   ├── safety/\n│   ├── greeting/\n│   ├── workplace/\n│   ├── daily/\n│   ├── emergency/\n│   ├── culture/\n│   ├── law/\n│   ├── listening/\n│   └── reading/` },
-    { label: "Nginx config (CORS)", key: "nginx", code: `server {\n    listen 80;\n    server_name img.hanquocoi.vn;\n    root /var/www/img.hanquocoi.vn;\n    add_header Access-Control-Allow-Origin *;\n    add_header Cache-Control "public, max-age=31536000";\n    location / { try_files $uri $uri/ =404; }\n}` },
+    { label: "Cấu trúc thư mục ảnh", key: "dir", code: `/var/www/img.hadim.vn/\n├── eps/\n│   ├── safety/\n│   ├── greeting/\n│   ├── workplace/\n│   ├── daily/\n│   ├── emergency/\n│   ├── culture/\n│   ├── law/\n│   ├── listening/\n│   └── reading/` },
+    { label: "Nginx config (CORS)", key: "nginx", code: `server {\n    listen 80;\n    server_name img.hadim.vn;\n    root /var/www/img.hadim.vn;\n    add_header Access-Control-Allow-Origin *;\n    add_header Cache-Control "public, max-age=31536000";\n    location / { try_files $uri $uri/ =404; }\n}` },
   ];
   return (
     <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
@@ -520,7 +520,7 @@ export default function AdminEpsUploadPage() {
                 { icon: "ri-translate-2", color: "#e8c84a", title: "Phiên âm latinh", desc: "안전모 → anjeonmo.mp3 (tên file an toàn cho mọi VPS)" },
                 { icon: "ri-google-line", color: "#34d399", title: "Google TTS miễn phí", desc: "Tạo MP3 chất lượng tốt, không cần API key" },
                 { icon: "ri-save-line", color: "#fb923c", title: "Cache vĩnh viễn", desc: "Lần đầu nghe → cache browser. Lần sau phát từ cache" },
-                { icon: "ri-server-line", color: "#a78bfa", title: "Upload VPS", desc: "Tải file MP3 về → upload lên audio.hanquocoi.vn/tts/" },
+                { icon: "ri-server-line", color: "#a78bfa", title: "Upload VPS", desc: "Tải file MP3 về → upload lên audio.hadim.vn/tts/" },
               ].map(s => (
                 <div key={s.title} className="flex items-start gap-3 p-3 bg-white/3 rounded-xl">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>

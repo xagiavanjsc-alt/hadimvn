@@ -47,7 +47,7 @@ function exportToPDF(items: EpsVocabItem[], topicId: string) {
 </head>
 <body>
 <h1>Từ vựng EPS-TOPIK</h1>
-<p class="meta">Chủ đề: ${topicLabel} &nbsp;·&nbsp; ${items.length} từ &nbsp;·&nbsp; Xuất ngày ${date} &nbsp;·&nbsp; hanquocoi.vn</p>
+<p class="meta">Chủ đề: ${topicLabel} &nbsp;·&nbsp; ${items.length} từ &nbsp;·&nbsp; Xuất ngày ${date} &nbsp;·&nbsp; hadim.vn</p>
 <table>
   <thead>
     <tr>
@@ -61,7 +61,7 @@ function exportToPDF(items: EpsVocabItem[], topicId: string) {
   </thead>
   <tbody>${rows}</tbody>
 </table>
-<p class="footer">Hàn Quốc Ơi! — Học tiếng Hàn cùng cộng đồng · hanquocoi.vn</p>
+<p class="footer">Hàn Quốc Ơi! — Học tiếng Hàn cùng cộng đồng · hadim.vn</p>
 <script>window.onload = () => window.print();</script>
 </body>
 </html>`;

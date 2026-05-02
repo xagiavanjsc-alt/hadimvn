@@ -14,8 +14,8 @@ interface UploadItem {
   targetUrl?: string;
 }
 
-const VPS_IMAGE_BASE = "https://img.hanquocoi.vn/eps";
-const VPS_AUDIO_BASE = "https://audio.hanquocoi.vn/tts";
+const VPS_IMAGE_BASE = "https://img.hadim.vn/eps";
+const VPS_AUDIO_BASE = "https://audio.hadim.vn/tts";
 
 const OPENROUTER_MODELS = [
   { id: "google/gemma-3-12b-it:free", label: "Gemma 3 12B (Miễn phí)" },
@@ -430,7 +430,7 @@ export default function AdminUploadPage() {
                 { icon: "ri-translate-2", color: "#e8c84a", title: "Phiên âm latinh", desc: "안전모 → anjeonmo.mp3 (tên file an toàn cho mọi VPS)" },
                 { icon: "ri-google-line", color: "#34d399", title: "Google TTS miễn phí", desc: "Tạo MP3 chất lượng tốt, không cần API key" },
                 { icon: "ri-save-line", color: "#fb923c", title: "Cache vĩnh viễn", desc: "Lần đầu nghe → cache browser. Lần sau phát từ cache" },
-                { icon: "ri-server-line", color: "#a78bfa", title: "Upload VPS", desc: "Tải file MP3 về → upload lên audio.hanquocoi.vn/tts/" },
+                { icon: "ri-server-line", color: "#a78bfa", title: "Upload VPS", desc: "Tải file MP3 về → upload lên audio.hadim.vn/tts/" },
               ].map(s => (
                 <div key={s.title} className="flex items-start gap-3 p-3 bg-white/3 rounded-xl">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>

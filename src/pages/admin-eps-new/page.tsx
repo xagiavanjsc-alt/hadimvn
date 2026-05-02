@@ -35,7 +35,7 @@ function QuestionEditor({ question, onSave, onCancel }: {
         <div>
           <label className="text-white/40 text-xs mb-1 block">URL ảnh minh họa</label>
           <input type="text" value={imageUrl} onChange={e => setImageUrl(e.target.value)}
-            placeholder="https://img.hanquocoi.vn/eps/safety/helmet-01.jpg"
+            placeholder="https://img.hadim.vn/eps/safety/helmet-01.jpg"
             className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-white/70 text-sm outline-none focus:border-rose-400/40 placeholder-white/20" />
         </div>
         <div>
@@ -151,8 +151,8 @@ function ImportPanel() {
 function VpsGuide() {
   const [copied, setCopied] = useState<string | null>(null);
   const copy = (text: string, key: string) => { navigator.clipboard.writeText(text); setCopied(key); setTimeout(() => setCopied(null), 2000); };
-  const nginxConfig = `server {\n    listen 80;\n    server_name img.hanquocoi.vn;\n    root /var/www/img.hanquocoi.vn;\n    add_header Access-Control-Allow-Origin *;\n    add_header Cache-Control "public, max-age=31536000";\n    location / { try_files $uri $uri/ =404; }\n}`;
-  const folderStructure = `/var/www/img.hanquocoi.vn/\n├── eps/\n│   ├── safety/\n│   ├── greeting/\n│   ├── workplace/\n│   ├── daily/\n│   ├── emergency/\n│   ├── culture/\n│   ├── law/\n│   ├── listening/\n│   └── reading/`;
+  const nginxConfig = `server {\n    listen 80;\n    server_name img.hadim.vn;\n    root /var/www/img.hadim.vn;\n    add_header Access-Control-Allow-Origin *;\n    add_header Cache-Control "public, max-age=31536000";\n    location / { try_files $uri $uri/ =404; }\n}`;
+  const folderStructure = `/var/www/img.hadim.vn/\n├── eps/\n│   ├── safety/\n│   ├── greeting/\n│   ├── workplace/\n│   ├── daily/\n│   ├── emergency/\n│   ├── culture/\n│   ├── law/\n│   ├── listening/\n│   └── reading/`;
   return (
     <div className="space-y-5">
       {[
