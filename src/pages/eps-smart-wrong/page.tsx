@@ -49,22 +49,22 @@ function EmptyState() {
   return (
     <div className="text-center py-16">
       <div className="w-20 h-20 flex items-center justify-center rounded-2xl bg-emerald-500/10 border border-emerald-500/20 mx-auto mb-4">
-        <i className="ri-check-double-line text-emerald-400 text-4xl"></i>
+        <i className="ri-check-double-line text-app-accent-success text-4xl"></i>
       </div>
       <h3 className="text-white font-bold text-lg mb-2">Chưa có câu sai nào!</h3>
-      <p className="text-white/40 text-sm mb-6 max-w-xs mx-auto">
+      <p className="text-app-text-secondary text-sm mb-6 max-w-xs mx-auto">
         Làm bài thi EPS để hệ thống tự động ghi lại câu sai và tạo đề ôn tập cá nhân hóa cho bạn.
       </p>
       <div className="flex items-center justify-center gap-3 flex-wrap">
         <button
           onClick={() => navigate("/eps-mock-exam")}
-          className="px-5 py-2.5 bg-[#e8c84a] text-[#0f1117] rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
+          className="px-5 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
         >
           Thi mô phỏng thật
         </button>
         <button
           onClick={() => navigate("/eps-exam")}
-          className="px-5 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white/60 text-sm hover:bg-white/8 transition-colors cursor-pointer whitespace-nowrap"
+          className="px-5 py-2.5 bg-app-card/50 border border-app-border rounded-xl text-white/60 text-sm hover:bg-white/8 transition-colors cursor-pointer whitespace-nowrap"
         >
           Thi thử 40 câu
         </button>
@@ -84,9 +84,9 @@ function WrongCard({ item, onRemove }: WrongCardProps) {
   const q = item.question;
 
   return (
-    <div className="bg-white/3 border border-white/8 rounded-xl overflow-hidden">
+    <div className="bg-app-surface/50 border border-app-border rounded-xl overflow-hidden">
       <div
-        className="flex items-start gap-3 p-4 cursor-pointer hover:bg-white/3 transition-colors"
+        className="flex items-start gap-3 p-4 cursor-pointer hover:bg-app-surface/50 transition-colors"
         onClick={() => setExpanded(v => !v)}
       >
         {/* Wrong count badge */}
@@ -100,15 +100,15 @@ function WrongCard({ item, onRemove }: WrongCardProps) {
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1 flex-wrap">
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-white/40">{q.topicVi}</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-app-text-secondary">{q.topicVi}</span>
             <span className={`text-[10px] px-2 py-0.5 rounded-full ${
-              q.difficulty === "easy" ? "bg-emerald-500/15 text-emerald-400" :
+              q.difficulty === "easy" ? "bg-app-accent-success/15 text-app-accent-success" :
               q.difficulty === "medium" ? "bg-amber-500/15 text-amber-400" :
               "bg-rose-500/15 text-rose-400"
             }`}>
               {q.difficulty === "easy" ? "Dễ" : q.difficulty === "medium" ? "TB" : "Khó"}
             </span>
-            <span className="text-white/20 text-[10px]">{timeAgo(item.lastWrong)}</span>
+            <span className="text-app-text-muted text-[10px]">{timeAgo(item.lastWrong)}</span>
           </div>
           <p className="text-white/70 text-sm leading-relaxed line-clamp-2">{q.questionVi}</p>
         </div>
@@ -116,20 +116,20 @@ function WrongCard({ item, onRemove }: WrongCardProps) {
         <div className="flex items-center gap-2 flex-shrink-0">
           <button
             onClick={e => { e.stopPropagation(); onRemove(item.questionId); }}
-            className="w-7 h-7 flex items-center justify-center rounded-lg text-white/20 hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
+            className="w-7 h-7 flex items-center justify-center rounded-lg text-app-text-muted hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
           >
             <i className="ri-delete-bin-line text-sm"></i>
           </button>
-          <i className={`text-white/30 text-sm transition-transform ${expanded ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
+          <i className={`text-app-text-muted text-sm transition-transform ${expanded ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
         </div>
       </div>
 
       {expanded && (
-        <div className="px-4 pb-4 border-t border-white/5 pt-3 space-y-3">
+        <div className="px-4 pb-4 border-t border-app-border pt-3 space-y-3">
           {/* Question */}
-          <div className="bg-white/3 rounded-lg p-3">
+          <div className="bg-app-surface/50 rounded-lg p-3">
             <p className="text-white text-sm font-medium mb-1">{q.question}</p>
-            <p className="text-white/40 text-xs">{q.questionVi}</p>
+            <p className="text-app-text-secondary text-xs">{q.questionVi}</p>
           </div>
 
           {/* Options */}
@@ -143,7 +143,7 @@ function WrongCard({ item, onRemove }: WrongCardProps) {
                   className={`flex items-start gap-2 px-3 py-2 rounded-lg text-xs ${
                     isCorrect ? "bg-emerald-500/10 border border-emerald-500/20 text-emerald-300" :
                     isWrong ? "bg-rose-500/10 border border-rose-500/20 text-rose-300" :
-                    "bg-white/3 text-white/40"
+                    "bg-app-surface/50 text-app-text-secondary"
                   }`}
                 >
                   <span className="flex-shrink-0 font-bold">{["①", "②", "③", "④"][i]}</span>
@@ -159,8 +159,8 @@ function WrongCard({ item, onRemove }: WrongCardProps) {
           </div>
 
           {/* Explanation */}
-          <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-lg p-3">
-            <p className="text-[#e8c84a] text-[10px] font-semibold mb-1 flex items-center gap-1">
+          <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-lg p-3">
+            <p className="text-app-accent-primary text-[10px] font-semibold mb-1 flex items-center gap-1">
               <i className="ri-lightbulb-line"></i> Giải thích
             </p>
             <p className="text-white/50 text-xs leading-relaxed">{q.explanation}</p>
@@ -191,16 +191,16 @@ function ReviewQuiz({ session, onAnswer, onNext, onFinish }: ReviewQuizProps) {
     const score = Math.round((correct / questions.length) * 100);
     return (
       <div className="text-center py-8">
-        <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4 ${score >= 80 ? "bg-emerald-500/15" : "bg-rose-500/15"}`}>
-          <span className={`text-2xl font-bold ${score >= 80 ? "text-emerald-400" : "text-rose-400"}`}>{score}</span>
+        <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4 ${score >= 80 ? "bg-app-accent-success/15" : "bg-rose-500/15"}`}>
+          <span className={`text-2xl font-bold ${score >= 80 ? "text-app-accent-success" : "text-rose-400"}`}>{score}</span>
         </div>
-        <h3 className={`text-lg font-bold mb-1 ${score >= 80 ? "text-emerald-400" : "text-rose-400"}`}>
+        <h3 className={`text-lg font-bold mb-1 ${score >= 80 ? "text-app-accent-success" : "text-rose-400"}`}>
           {score >= 80 ? "Xuất sắc! Đã nắm vững!" : "Cần ôn thêm!"}
         </h3>
         <p className="text-white/50 text-sm mb-6">{correct}/{questions.length} câu đúng</p>
         <button
           onClick={onFinish}
-          className="px-6 py-2.5 bg-[#e8c84a] text-[#0f1117] rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
+          className="px-6 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
         >
           Hoàn thành
         </button>
@@ -212,29 +212,29 @@ function ReviewQuiz({ session, onAnswer, onNext, onFinish }: ReviewQuizProps) {
     <div className="space-y-4">
       {/* Progress */}
       <div className="flex items-center justify-between mb-2">
-        <span className="text-white/40 text-xs">Câu {currentIndex + 1}/{questions.length}</span>
+        <span className="text-app-text-secondary text-xs">Câu {currentIndex + 1}/{questions.length}</span>
         <div className="h-1.5 flex-1 mx-3 bg-white/8 rounded-full overflow-hidden">
-          <div className="h-full bg-[#e8c84a] rounded-full transition-all" style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }} />
+          <div className="h-full bg-app-accent-primary rounded-full transition-all" style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }} />
         </div>
-        <span className="text-white/40 text-xs">{q.topicVi}</span>
+        <span className="text-app-text-secondary text-xs">{q.topicVi}</span>
       </div>
 
       {/* Question */}
-      <div className="bg-white/3 rounded-xl p-4 border border-white/5">
+      <div className="bg-app-surface/50 rounded-xl p-4 border border-app-border">
         <p className="text-white font-medium text-sm leading-relaxed">{q.question}</p>
-        <p className="text-white/40 text-xs mt-2">{q.questionVi}</p>
+        <p className="text-app-text-secondary text-xs mt-2">{q.questionVi}</p>
       </div>
 
       {/* Options */}
       <div className="space-y-2">
         {q.options.map((opt, i) => {
-          let style = "bg-white/3 border-white/8 text-white/70 hover:bg-white/6";
+          let style = "bg-app-surface/50 border-app-border text-white/70 hover:bg-white/6";
           if (answered !== null) {
-            if (i === q.correctIndex) style = "bg-emerald-500/15 border-emerald-500/40 text-emerald-300";
+            if (i === q.correctIndex) style = "bg-app-accent-success/15 border-emerald-500/40 text-emerald-300";
             else if (i === answered) style = "bg-rose-500/15 border-rose-500/40 text-rose-300";
-            else style = "bg-white/3 border-white/5 text-white/30";
+            else style = "bg-app-surface/50 border-app-border text-app-text-muted";
           } else if (answered === i) {
-            style = "bg-[#e8c84a]/12 border-[#e8c84a]/40 text-[#e8c84a]";
+            style = "bg-app-accent-primary/12 border-app-accent-primary/40 text-app-accent-primary";
           }
           return (
             <button
@@ -257,8 +257,8 @@ function ReviewQuiz({ session, onAnswer, onNext, onFinish }: ReviewQuizProps) {
 
       {/* Explanation after answer */}
       {answered !== null && (
-        <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4">
-          <p className="text-[#e8c84a] text-xs font-semibold mb-1 flex items-center gap-1">
+        <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
+          <p className="text-app-accent-primary text-xs font-semibold mb-1 flex items-center gap-1">
             <i className="ri-lightbulb-line"></i> Giải thích
           </p>
           <p className="text-white/50 text-xs leading-relaxed">{q.explanation}</p>
@@ -268,7 +268,7 @@ function ReviewQuiz({ session, onAnswer, onNext, onFinish }: ReviewQuizProps) {
       {answered !== null && (
         <button
           onClick={isLast ? onFinish : onNext}
-          className="w-full py-3 bg-[#e8c84a] text-[#0f1117] rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
+          className="w-full py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
         >
           {isLast ? "Xem kết quả" : "Câu tiếp theo"}
         </button>
@@ -412,13 +412,13 @@ export default function EpsSmartWrongPage() {
             </div>
             <div>
               <h1 className="text-xl font-bold text-white">Ôn tập câu sai thông minh</h1>
-              <p className="text-white/40 text-sm">Tổng hợp câu sai từ mọi bài thi</p>
+              <p className="text-app-text-secondary text-sm">Tổng hợp câu sai từ mọi bài thi</p>
             </div>
           </div>
           {wrongAnswers.length > 0 && (
             <button
               onClick={handleClearAll}
-              className="text-xs text-white/30 hover:text-rose-400 transition-colors cursor-pointer whitespace-nowrap"
+              className="text-xs text-app-text-muted hover:text-rose-400 transition-colors cursor-pointer whitespace-nowrap"
             >
               Xóa tất cả
             </button>
@@ -434,14 +434,14 @@ export default function EpsSmartWrongPage() {
               {[
                 { label: "Tổng câu sai", value: totalWrong, color: "#f87171", icon: "ri-close-circle-line" },
                 { label: "Sai ≥3 lần", value: frequentWrong, color: "#fb923c", icon: "ri-alarm-warning-line" },
-                { label: "Sai tuần này", value: recentWrong, color: "#e8c84a", icon: "ri-calendar-line" },
+                { label: "Sai tuần này", value: recentWrong, color: "app-accent-primary", icon: "ri-calendar-line" },
               ].map((item, i) => (
-                <div key={i} className="bg-white/3 border border-white/8 rounded-xl p-4 text-center">
+                <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${item.color}15` }}>
                     <i className={`${item.icon} text-sm`} style={{ color: item.color }}></i>
                   </div>
                   <p className="text-white font-bold text-xl">{item.value}</p>
-                  <p className="text-white/40 text-xs">{item.label}</p>
+                  <p className="text-app-text-secondary text-xs">{item.label}</p>
                 </div>
               ))}
             </div>
@@ -451,7 +451,7 @@ export default function EpsSmartWrongPage() {
               <div className="flex items-center justify-between mb-3">
                 <div>
                   <h3 className="text-white font-semibold text-sm">Bắt đầu ôn tập ngay</h3>
-                  <p className="text-white/40 text-xs mt-0.5">Hệ thống tự tạo đề ôn tập cá nhân hóa từ câu sai của bạn</p>
+                  <p className="text-app-text-secondary text-xs mt-0.5">Hệ thống tự tạo đề ôn tập cá nhân hóa từ câu sai của bạn</p>
                 </div>
               </div>
               <div className="flex items-center gap-2 flex-wrap">
@@ -474,7 +474,7 @@ export default function EpsSmartWrongPage() {
 
             {/* Filters */}
             <div className="flex items-center gap-3 mb-4 flex-wrap">
-              <div className="flex items-center gap-1 bg-white/5 border border-white/8 rounded-xl p-1">
+              <div className="flex items-center gap-1 bg-app-card/50 border border-app-border rounded-xl p-1">
                 {[
                   { key: "all", label: "Tất cả" },
                   { key: "frequent", label: "Sai nhiều nhất" },
@@ -484,7 +484,7 @@ export default function EpsSmartWrongPage() {
                     key={f.key}
                     onClick={() => setFilter(f.key as typeof filter)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
-                      filter === f.key ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/50 hover:text-white/80"
+                      filter === f.key ? "bg-app-accent-primary text-app-bg" : "text-white/50 hover:text-white/80"
                     }`}
                   >
                     {f.label}
@@ -495,7 +495,7 @@ export default function EpsSmartWrongPage() {
                 <select
                   value={topicFilter}
                   onChange={e => setTopicFilter(e.target.value)}
-                  className="bg-white/5 border border-white/8 rounded-xl px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
+                  className="bg-app-card/50 border border-app-border rounded-xl px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
                 >
                   <option value="all">Tất cả chủ đề</option>
                   {topics.map(t => (
@@ -508,7 +508,7 @@ export default function EpsSmartWrongPage() {
             {/* Wrong answer list */}
             <div className="space-y-3">
               {filtered.length === 0 ? (
-                <div className="text-center py-8 text-white/30 text-sm">Không có câu sai nào phù hợp bộ lọc</div>
+                <div className="text-center py-8 text-app-text-muted text-sm">Không có câu sai nào phù hợp bộ lọc</div>
               ) : (
                 filtered.map(item => (
                   <WrongCard key={item.questionId} item={item} onRemove={handleRemove} />

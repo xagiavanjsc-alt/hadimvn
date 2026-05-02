@@ -81,7 +81,7 @@ function UploadZone({ onFileSelect, processing }: UploadZoneProps) {
       onDrop={handleDrop}
       onClick={() => fileRef.current?.click()}
       className={`border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer transition-all ${
-        dragging ? "border-[#e8c84a] bg-[#e8c84a]/5" : "border-gray-300 hover:border-[#e8c84a]/50 hover:bg-[#e8c84a]/3"
+        dragging ? "border-app-accent-primary bg-app-accent-primary/5" : "border-gray-300 hover:border-app-accent-primary/50 hover:bg-app-accent-primary/3"
       }`}
     >
       <input
@@ -93,14 +93,14 @@ function UploadZone({ onFileSelect, processing }: UploadZoneProps) {
       />
       {processing ? (
         <div className="space-y-3">
-          <div className="w-12 h-12 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin mx-auto"></div>
+          <div className="w-12 h-12 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin mx-auto"></div>
           <p className="text-gray-600 font-medium">Đang xử lý file...</p>
           <p className="text-gray-400 text-sm">Hệ thống đang phân tích đề thi</p>
         </div>
       ) : (
         <div className="space-y-3">
-          <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-[#e8c84a]/10 mx-auto">
-            <i className="ri-upload-cloud-2-line text-[#e8c84a] text-3xl"></i>
+          <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-app-accent-primary/10 mx-auto">
+            <i className="ri-upload-cloud-2-line text-app-accent-primary text-3xl"></i>
           </div>
           <div>
             <p className="text-gray-700 font-semibold text-base">Kéo thả hoặc click để upload đề thi</p>
@@ -154,7 +154,7 @@ function ExamSession({ exam, onFinish, onBack }: ExamSessionProps) {
         <div className="flex-1 min-w-0">
           <p className="text-gray-700 font-semibold text-sm truncate">{exam.name}</p>
           <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden mt-1">
-            <div className="h-full bg-[#e8c84a] rounded-full transition-all" style={{ width: `${((currentIndex + 1) / exam.questions.length) * 100}%` }} />
+            <div className="h-full bg-app-accent-primary rounded-full transition-all" style={{ width: `${((currentIndex + 1) / exam.questions.length) * 100}%` }} />
           </div>
         </div>
         <div className={`flex items-center gap-1.5 font-mono font-bold text-sm ${timerColor}`}>
@@ -164,7 +164,7 @@ function ExamSession({ exam, onFinish, onBack }: ExamSessionProps) {
         <span className="text-gray-400 text-xs">{answered}/{exam.questions.length}</span>
         <button
           onClick={() => onFinish(answers)}
-          className="px-4 py-1.5 bg-[#e8c84a] text-[#0f1117] rounded-lg text-xs font-bold cursor-pointer whitespace-nowrap"
+          className="px-4 py-1.5 bg-app-accent-primary text-app-bg rounded-lg text-xs font-bold cursor-pointer whitespace-nowrap"
         >
           Nộp bài
         </button>
@@ -175,7 +175,7 @@ function ExamSession({ exam, onFinish, onBack }: ExamSessionProps) {
         <div className="max-w-2xl mx-auto space-y-4">
           <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
-              <span className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#e8c84a]/15 text-[#e8c84a] text-xs font-bold">{q.number}</span>
+              <span className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-accent-primary/15 text-app-accent-primary text-xs font-bold">{q.number}</span>
               <span className="text-gray-400 text-xs">Câu {currentIndex + 1}/{exam.questions.length}</span>
             </div>
             <p className="text-gray-700 font-medium text-sm leading-relaxed">{q.text}</p>
@@ -188,12 +188,12 @@ function ExamSession({ exam, onFinish, onBack }: ExamSessionProps) {
                 onClick={() => selectAnswer(i)}
                 className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl border text-left transition-all cursor-pointer ${
                   answers[currentIndex] === i
-                    ? "bg-[#e8c84a]/10 border-[#e8c84a]/40 text-gray-800"
-                    : "bg-white border-gray-200 text-gray-600 hover:border-[#e8c84a]/30 hover:bg-[#e8c84a]/3"
+                    ? "bg-app-accent-primary/10 border-app-accent-primary/40 text-gray-800"
+                    : "bg-white border-gray-200 text-gray-600 hover:border-app-accent-primary/30 hover:bg-app-accent-primary/3"
                 }`}
               >
                 <span className={`w-7 h-7 flex items-center justify-center rounded-full text-xs font-bold flex-shrink-0 ${
-                  answers[currentIndex] === i ? "bg-[#e8c84a] text-[#0f1117]" : "bg-gray-100 text-gray-500"
+                  answers[currentIndex] === i ? "bg-app-accent-primary text-app-bg" : "bg-gray-100 text-gray-500"
                 }`}>
                   {["①", "②", "③", "④"][i]}
                 </span>
@@ -221,8 +221,8 @@ function ExamSession({ exam, onFinish, onBack }: ExamSessionProps) {
                 key={i}
                 onClick={() => setCurrentIndex(i)}
                 className={`w-7 h-7 flex-shrink-0 rounded-md text-[10px] font-bold transition-all cursor-pointer ${
-                  i === currentIndex ? "bg-[#e8c84a] text-[#0f1117]" :
-                  answers[i] !== null ? "bg-[#e8c84a]/20 text-[#e8c84a]" :
+                  i === currentIndex ? "bg-app-accent-primary text-app-bg" :
+                  answers[i] !== null ? "bg-app-accent-primary/20 text-app-accent-primary" :
                   "bg-gray-100 text-gray-400"
                 }`}
               >
@@ -232,7 +232,7 @@ function ExamSession({ exam, onFinish, onBack }: ExamSessionProps) {
           </div>
           <button
             onClick={() => currentIndex === exam.questions.length - 1 ? onFinish(answers) : setCurrentIndex(prev => prev + 1)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-[#e8c84a] text-[#0f1117] rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-2 px-4 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap"
           >
             {currentIndex === exam.questions.length - 1 ? "Nộp bài" : "Tiếp"}
             <i className="ri-arrow-right-line"></i>
@@ -279,7 +279,7 @@ function ResultScreen({ exam, answers, onRetry, onBack }: { exam: UploadedExam; 
         <button onClick={onBack} className="flex-1 py-3 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium cursor-pointer whitespace-nowrap">
           Về thư viện đề
         </button>
-        <button onClick={onRetry} className="flex-1 py-3 bg-[#e8c84a] text-[#0f1117] rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap">
+        <button onClick={onRetry} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap">
           Thi lại
         </button>
       </div>
@@ -390,7 +390,7 @@ export default function EpsOfficialExamPage() {
         {/* Upload zone */}
         <div className="mb-6">
           <h2 className="text-gray-700 font-semibold text-sm mb-3 flex items-center gap-2">
-            <i className="ri-upload-cloud-2-line text-[#e8c84a]"></i>
+            <i className="ri-upload-cloud-2-line text-app-accent-primary"></i>
             Upload đề thi của bạn
           </h2>
           <UploadZone onFileSelect={handleFileUpload} processing={processing} />
@@ -407,14 +407,14 @@ export default function EpsOfficialExamPage() {
         {/* Exam library */}
         <div>
           <h2 className="text-gray-700 font-semibold text-sm mb-3 flex items-center gap-2">
-            <i className="ri-book-shelf-line text-[#e8c84a]"></i>
+            <i className="ri-book-shelf-line text-app-accent-primary"></i>
             Thư viện đề thi ({exams.length} bộ đề)
           </h2>
           <div className="space-y-3">
             {exams.map(exam => (
               <div key={exam.id} className="bg-white border border-gray-200 rounded-2xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-[#e8c84a]/10 flex-shrink-0">
-                  <i className="ri-file-list-3-line text-[#e8c84a] text-xl"></i>
+                <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-app-accent-primary/10 flex-shrink-0">
+                  <i className="ri-file-list-3-line text-app-accent-primary text-xl"></i>
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="text-gray-800 font-semibold text-sm truncate">{exam.name}</h3>
@@ -438,7 +438,7 @@ export default function EpsOfficialExamPage() {
                 </div>
                 <button
                   onClick={() => startExam(exam)}
-                  className="flex items-center gap-2 px-4 py-2.5 bg-[#e8c84a] text-[#0f1117] rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap flex-shrink-0"
+                  className="flex items-center gap-2 px-4 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap flex-shrink-0"
                 >
                   <i className="ri-play-fill"></i>
                   Thi ngay
@@ -451,7 +451,7 @@ export default function EpsOfficialExamPage() {
         {/* Tips */}
         <div className="mt-6 bg-gray-50 border border-gray-200 rounded-2xl p-5">
           <h3 className="text-gray-700 font-semibold text-sm mb-3 flex items-center gap-2">
-            <i className="ri-lightbulb-line text-[#e8c84a]"></i>
+            <i className="ri-lightbulb-line text-app-accent-primary"></i>
             Mẹo luyện thi hiệu quả
           </h3>
           <div className="space-y-2">
@@ -462,8 +462,8 @@ export default function EpsOfficialExamPage() {
               "Mục tiêu đạt 80%+ trong 3 lần thi liên tiếp trước khi thi thật",
             ].map((tip, i) => (
               <div key={i} className="flex items-start gap-2">
-                <div className="w-5 h-5 flex items-center justify-center rounded-full bg-[#e8c84a]/15 flex-shrink-0 mt-0.5">
-                  <span className="text-[#e8c84a] text-[10px] font-bold">{i + 1}</span>
+                <div className="w-5 h-5 flex items-center justify-center rounded-full bg-app-accent-primary/15 flex-shrink-0 mt-0.5">
+                  <span className="text-app-accent-primary text-[10px] font-bold">{i + 1}</span>
                 </div>
                 <p className="text-gray-500 text-xs leading-relaxed">{tip}</p>
               </div>

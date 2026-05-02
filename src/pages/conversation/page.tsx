@@ -27,7 +27,7 @@ const TOPICS: Topic[] = [
   {
     id: "greetings",
     icon: "ri-hand-heart-line",
-    color: "#e8c84a",
+    color: "app-accent-primary",
     title: "Chào hỏi & Giới thiệu",
     subtitle: "Những câu đầu tiên cần biết",
     phrases: [
@@ -287,10 +287,10 @@ function PhraseCard({ phrase, onSpeak, isFavorite, onToggleFavorite }: {
 }) {
   const [showExample, setShowExample] = useState(false);
   const [showRoman, setShowRoman] = useState(false);
-  const levelColor = phrase.level === "cơ bản" ? "#34d399" : phrase.level === "trung cấp" ? "#e8c84a" : "#f87171";
+  const levelColor = phrase.level === "cơ bản" ? "#34d399" : phrase.level === "trung cấp" ? "app-accent-primary" : "#f87171";
 
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-xl p-4 hover:border-white/10 transition-all group">
+    <div className="bg-app-bg border border-app-border rounded-xl p-4 hover:border-app-border transition-all group">
       <div className="flex items-start justify-between gap-3 mb-2">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1 flex-wrap">
@@ -300,17 +300,17 @@ function PhraseCard({ phrase, onSpeak, isFavorite, onToggleFavorite }: {
           </div>
           <p className="text-white font-bold text-lg leading-tight">{phrase.korean}</p>
           {showRoman && (
-            <p className="text-white/40 text-xs italic mt-0.5">{phrase.romanization}</p>
+            <p className="text-app-text-secondary text-xs italic mt-0.5">{phrase.romanization}</p>
           )}
           <p className="text-white/60 text-sm mt-1">{phrase.vietnamese}</p>
         </div>
         <div className="flex items-center gap-1.5 flex-shrink-0">
           <button onClick={() => onToggleFavorite(phrase.id)}
-            className={`w-7 h-7 flex items-center justify-center rounded-lg transition-colors cursor-pointer ${isFavorite ? "text-[#e8c84a] bg-[#e8c84a]/10" : "text-white/20 hover:text-white/50 hover:bg-white/5"}`}>
+            className={`w-7 h-7 flex items-center justify-center rounded-lg transition-colors cursor-pointer ${isFavorite ? "text-app-accent-primary bg-app-accent-primary/10" : "text-app-text-muted hover:text-white/50 hover:bg-app-card/50"}`}>
             <i className={isFavorite ? "ri-star-fill text-sm" : "ri-star-line text-sm"}></i>
           </button>
           <button onClick={() => onSpeak(phrase.korean)}
-            className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-white/70 transition-colors cursor-pointer">
+            className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-white/70 transition-colors cursor-pointer">
             <i className="ri-volume-up-line text-sm"></i>
           </button>
         </div>
@@ -318,19 +318,19 @@ function PhraseCard({ phrase, onSpeak, isFavorite, onToggleFavorite }: {
 
       <div className="flex items-center gap-2 mt-2">
         <button onClick={() => setShowRoman(v => !v)}
-          className="text-[10px] text-white/25 hover:text-white/50 cursor-pointer whitespace-nowrap transition-colors">
+          className="text-[10px] text-app-text-muted hover:text-white/50 cursor-pointer whitespace-nowrap transition-colors">
           {showRoman ? "Ẩn phiên âm" : "Xem phiên âm"}
         </button>
         {phrase.example && (
           <button onClick={() => setShowExample(v => !v)}
-            className="text-[10px] text-white/25 hover:text-[#e8c84a]/60 cursor-pointer whitespace-nowrap transition-colors">
+            className="text-[10px] text-app-text-muted hover:text-app-accent-primary/60 cursor-pointer whitespace-nowrap transition-colors">
             {showExample ? "Ẩn ví dụ" : "Xem ví dụ"}
           </button>
         )}
       </div>
 
       {showExample && phrase.example && (
-        <div className="mt-3 p-3 bg-white/3 rounded-lg border border-white/5">
+        <div className="mt-3 p-3 bg-app-surface/50 rounded-lg border border-app-border">
           <p className="text-white/70 text-xs font-medium">{phrase.example}</p>
           <p className="text-white/35 text-[10px] italic mt-1">{phrase.exampleVi}</p>
         </div>
@@ -395,20 +395,20 @@ export default function ConversationPage() {
               className="flex items-center gap-2 text-white/50 hover:text-white text-sm cursor-pointer whitespace-nowrap">
               <i className="ri-arrow-left-line"></i>Quay lại
             </button>
-            <span className="text-white/30 text-sm">{(practiceIdx % practiceList.length) + 1} / {practiceList.length}</span>
+            <span className="text-app-text-muted text-sm">{(practiceIdx % practiceList.length) + 1} / {practiceList.length}</span>
           </div>
 
-          <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-8 text-center mb-4 min-h-[240px] flex flex-col items-center justify-center">
-            <p className="text-white/30 text-xs mb-4 tracking-normal">Tiếng Hàn</p>
+          <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center mb-4 min-h-[240px] flex flex-col items-center justify-center">
+            <p className="text-app-text-muted text-xs mb-4 tracking-normal">Tiếng Hàn</p>
             <p className="text-white font-black text-4xl mb-3">{current.korean}</p>
             {showAnswer ? (
               <div className="mt-4 space-y-2">
                 <p className="text-white/50 text-sm italic">{current.romanization}</p>
-                <p className="text-[#e8c84a] font-semibold text-lg">{current.vietnamese}</p>
+                <p className="text-app-accent-primary font-semibold text-lg">{current.vietnamese}</p>
               </div>
             ) : (
               <button onClick={() => setShowAnswer(true)}
-                className="mt-4 px-6 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white/50 text-sm cursor-pointer whitespace-nowrap transition-colors">
+                className="mt-4 px-6 py-2.5 rounded-xl bg-app-card/50 hover:bg-app-card/70 text-white/50 text-sm cursor-pointer whitespace-nowrap transition-colors">
                 Xem nghĩa
               </button>
             )}
@@ -416,11 +416,11 @@ export default function ConversationPage() {
 
           <div className="flex gap-3">
             <button onClick={() => speak(current.korean)}
-              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-white/10 text-white/50 hover:bg-white/5 text-sm cursor-pointer whitespace-nowrap transition-colors">
+              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-app-border text-white/50 hover:bg-app-card/50 text-sm cursor-pointer whitespace-nowrap transition-colors">
               <i className="ri-volume-up-line"></i>Nghe
             </button>
             <button onClick={() => { setPracticeIdx(i => i + 1); setShowAnswer(false); }}
-              className="flex-1 py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
+              className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
               Tiếp theo <i className="ri-arrow-right-line"></i>
             </button>
           </div>
@@ -436,7 +436,7 @@ export default function ConversationPage() {
       actions={
         favorites.length > 0 ? (
           <button onClick={() => { setPracticeMode(true); setPracticeIdx(0); setShowAnswer(false); }}
-            className="flex items-center gap-2 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
+            className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
             <i className="ri-play-line"></i>Luyện tập ({favorites.length} câu)
           </button>
         ) : undefined
@@ -447,9 +447,9 @@ export default function ConversationPage() {
         <div className="space-y-2">
           <button
             onClick={() => setSelectedTopic(null)}
-            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer text-left ${!selectedTopic ? "bg-[#e8c84a]/10 border border-[#e8c84a]/20 text-[#e8c84a]" : "bg-white/3 border border-white/5 text-white/50 hover:text-white/70 hover:bg-white/5"}`}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer text-left ${!selectedTopic ? "bg-app-accent-primary/10 border border-app-accent-primary/20 text-app-accent-primary" : "bg-app-surface/50 border border-app-border text-white/50 hover:text-white/70 hover:bg-app-card/50"}`}
           >
-            <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 flex-shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 flex-shrink-0">
               <i className="ri-apps-line text-sm"></i>
             </div>
             <div className="flex-1 min-w-0">
@@ -462,7 +462,7 @@ export default function ConversationPage() {
             <button
               key={t.id}
               onClick={() => setSelectedTopic(t.id)}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer text-left ${selectedTopic === t.id ? "border" : "bg-white/3 border border-white/5 text-white/50 hover:text-white/70 hover:bg-white/5"}`}
+              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer text-left ${selectedTopic === t.id ? "border" : "bg-app-surface/50 border border-app-border text-white/50 hover:text-white/70 hover:bg-app-card/50"}`}
               style={selectedTopic === t.id ? { backgroundColor: `${t.color}10`, borderColor: `${t.color}25`, color: t.color } : {}}
             >
               <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${t.color}15` }}>
@@ -479,10 +479,10 @@ export default function ConversationPage() {
           {favorites.length > 0 && (
             <button
               onClick={() => setShowFavoritesOnly(v => !v)}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer text-left mt-2 ${showFavoritesOnly ? "bg-[#e8c84a]/10 border border-[#e8c84a]/20 text-[#e8c84a]" : "bg-white/3 border border-white/5 text-white/50 hover:text-white/70"}`}
+              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer text-left mt-2 ${showFavoritesOnly ? "bg-app-accent-primary/10 border border-app-accent-primary/20 text-app-accent-primary" : "bg-app-surface/50 border border-app-border text-white/50 hover:text-white/70"}`}
             >
-              <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#e8c84a]/10 flex-shrink-0">
-                <i className="ri-star-fill text-[#e8c84a] text-sm"></i>
+              <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-accent-primary/10 flex-shrink-0">
+                <i className="ri-star-fill text-app-accent-primary text-sm"></i>
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-medium text-xs">Yêu thích</p>
@@ -502,7 +502,7 @@ export default function ConversationPage() {
               </div>
               <div>
                 <h2 className="text-white font-bold text-base">{currentTopic.title}</h2>
-                <p className="text-white/40 text-xs">{currentTopic.subtitle} · {currentTopic.phrases.length} câu</p>
+                <p className="text-app-text-secondary text-xs">{currentTopic.subtitle} · {currentTopic.phrases.length} câu</p>
               </div>
             </div>
           )}
@@ -510,15 +510,15 @@ export default function ConversationPage() {
           {/* Filters */}
           <div className="flex items-center gap-3 mb-5">
             <div className="flex-1 relative">
-              <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
+              <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
               <input value={search} onChange={e => setSearch(e.target.value)}
                 placeholder="Tìm câu tiếng Hàn hoặc tiếng Việt..."
-                className="w-full bg-[#0f1117] border border-white/8 rounded-xl pl-9 pr-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#e8c84a]/30 placeholder-white/20" />
+                className="w-full bg-app-bg border border-app-border rounded-xl pl-9 pr-4 py-2.5 text-white text-sm focus:outline-none focus:border-app-accent-primary/30 placeholder-white/20" />
             </div>
-            <div className="flex items-center gap-1 bg-white/3 p-1 rounded-lg">
+            <div className="flex items-center gap-1 bg-app-surface/50 p-1 rounded-lg">
               {(["all", "cơ bản", "trung cấp"] as const).map(l => (
                 <button key={l} onClick={() => setLevelFilter(l)}
-                  className={`px-3 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${levelFilter === l ? "bg-white/10 text-white" : "text-white/40 hover:text-white/60"}`}>
+                  className={`px-3 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${levelFilter === l ? "bg-app-card/70 text-white" : "text-app-text-secondary hover:text-white/60"}`}>
                   {l === "all" ? "Tất cả" : l.charAt(0).toUpperCase() + l.slice(1)}
                 </button>
               ))}
@@ -527,9 +527,9 @@ export default function ConversationPage() {
 
           {/* Count */}
           <div className="flex items-center justify-between mb-3">
-            <p className="text-white/30 text-xs">{filteredPhrases.length} câu</p>
+            <p className="text-app-text-muted text-xs">{filteredPhrases.length} câu</p>
             <button onClick={() => { filteredPhrases.forEach(p => toggleFavorite(p.id)); }}
-              className="text-white/25 hover:text-[#e8c84a]/60 text-xs cursor-pointer whitespace-nowrap transition-colors">
+              className="text-app-text-muted hover:text-app-accent-primary/60 text-xs cursor-pointer whitespace-nowrap transition-colors">
               <i className="ri-star-line mr-1"></i>Lưu tất cả
             </button>
           </div>
@@ -538,7 +538,7 @@ export default function ConversationPage() {
           {filteredPhrases.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-center">
               <i className="ri-chat-3-line text-white/10 text-4xl mb-3"></i>
-              <p className="text-white/30 text-sm">Không tìm thấy câu nào</p>
+              <p className="text-app-text-muted text-sm">Không tìm thấy câu nào</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">

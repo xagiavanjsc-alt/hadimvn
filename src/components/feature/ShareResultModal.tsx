@@ -55,25 +55,25 @@ export default function ShareResultModal({ score, total, level, quizType, onClos
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-      <div className="bg-[#13151c] border border-white/10 rounded-2xl w-full max-w-sm p-6">
+      <div className="bg-[#13151c] border border-app-border rounded-2xl w-full max-w-sm p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-5">
           <h3 className="text-white font-bold text-base">Chia sẻ kết quả</h3>
-          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 text-white/50 cursor-pointer">
+          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 text-white/50 cursor-pointer">
             <i className="ri-close-line text-sm"></i>
           </button>
         </div>
 
         {/* Score preview card */}
-        <div className="bg-gradient-to-br from-[#e8c84a]/10 to-[#e8c84a]/3 border border-[#e8c84a]/20 rounded-xl p-5 mb-5 text-center">
+        <div className="bg-gradient-to-br from-[app-accent-primary]/10 to-[app-accent-primary]/3 border border-app-accent-primary/20 rounded-xl p-5 mb-5 text-center">
           <p className="text-4xl mb-2">{emoji}</p>
-          <p className="text-[#e8c84a] font-black text-3xl mb-1">{pct}%</p>
+          <p className="text-app-accent-primary font-black text-3xl mb-1">{pct}%</p>
           <p className="text-white/60 text-sm">{score}/{total} câu đúng</p>
-          <p className="text-white/40 text-xs mt-1">{typeLabel} TOPIK {level} · Hàn Quốc Ơi!</p>
+          <p className="text-app-text-secondary text-xs mt-1">{typeLabel} TOPIK {level} · Hàn Quốc Ơi!</p>
         </div>
 
         {/* Share text preview */}
-        <div className="bg-white/3 border border-white/8 rounded-xl p-3 mb-4">
+        <div className="bg-app-surface/50 border border-app-border rounded-xl p-3 mb-4">
           <p className="text-white/50 text-xs leading-relaxed whitespace-pre-line">{shareText}</p>
         </div>
 
@@ -95,7 +95,7 @@ export default function ShareResultModal({ score, total, level, quizType, onClos
           </button>
           <button
             onClick={handleTwitter}
-            className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white/60 text-sm font-medium cursor-pointer hover:bg-white/10 transition-all whitespace-nowrap"
+            className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-app-card/50 border border-app-border text-white/60 text-sm font-medium cursor-pointer hover:bg-app-card/70 transition-all whitespace-nowrap"
           >
             <i className="ri-twitter-x-fill text-base"></i>
             Twitter/X
@@ -114,7 +114,7 @@ export default function ShareResultModal({ score, total, level, quizType, onClos
               className={`flex items-center justify-center gap-2 py-2.5 rounded-xl border text-sm font-medium cursor-pointer transition-all whitespace-nowrap ${
                 copied
                   ? "bg-[#34d399]/15 border-[#34d399]/30 text-[#34d399]"
-                  : "bg-white/5 border-white/10 text-white/60 hover:bg-white/10"
+                  : "bg-app-card/50 border-app-border text-white/60 hover:bg-app-card/70"
               }`}
             >
               <i className={`${copied ? "ri-check-line" : "ri-clipboard-line"} text-base`}></i>
@@ -128,7 +128,7 @@ export default function ShareResultModal({ score, total, level, quizType, onClos
           className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${
             copied
               ? "bg-[#34d399]/10 border-[#34d399]/20 text-[#34d399]"
-              : "bg-white/3 border-white/8 text-white/40 hover:text-white/70"
+              : "bg-app-surface/50 border-app-border text-app-text-secondary hover:text-white/70"
           }`}
         >
           <i className={`${copied ? "ri-check-line" : "ri-file-copy-line"} text-sm`}></i>

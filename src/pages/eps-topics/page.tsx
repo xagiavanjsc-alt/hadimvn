@@ -41,7 +41,7 @@ function TopicDetailModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
       <div
-        className="bg-[#0f1117] border border-white/10 rounded-2xl p-6 w-full max-w-md mx-4"
+        className="bg-app-bg border border-app-border rounded-2xl p-6 w-full max-w-md mx-4"
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
@@ -51,34 +51,34 @@ function TopicDetailModal({
           </div>
           <div className="flex-1">
             <h2 className="text-white font-bold text-lg">{topic.label}</h2>
-            <p className="text-white/40 text-sm">{questions.length} câu hỏi</p>
+            <p className="text-app-text-secondary text-sm">{questions.length} câu hỏi</p>
           </div>
-          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5 cursor-pointer">
-            <i className="ri-close-line text-white/40"></i>
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-app-card/50 cursor-pointer">
+            <i className="ri-close-line text-app-text-secondary"></i>
           </button>
         </div>
 
         {/* Progress */}
-        <div className="bg-white/3 rounded-xl p-4 mb-4">
+        <div className="bg-app-surface/50 rounded-xl p-4 mb-4">
           <div className="flex items-center justify-between mb-2">
             <p className="text-white/50 text-xs">Tiến độ</p>
             <span className="text-sm font-bold" style={{ color: topic.color }}>{pct}%</span>
           </div>
-          <div className="h-2 bg-white/5 rounded-full overflow-hidden mb-3">
+          <div className="h-2 bg-app-card/50 rounded-full overflow-hidden mb-3">
             <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: topic.color }} />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
             <div>
               <p className="text-white font-bold text-lg">{done}</p>
-              <p className="text-white/30 text-[10px]">Đã làm</p>
+              <p className="text-app-text-muted text-[10px]">Đã làm</p>
             </div>
             <div>
-              <p className="text-emerald-400 font-bold text-lg">{correct}</p>
-              <p className="text-white/30 text-[10px]">Đúng</p>
+              <p className="text-app-accent-success font-bold text-lg">{correct}</p>
+              <p className="text-app-text-muted text-[10px]">Đúng</p>
             </div>
             <div>
               <p className="text-white/60 font-bold text-lg">{questions.length - done}</p>
-              <p className="text-white/30 text-[10px]">Còn lại</p>
+              <p className="text-app-text-muted text-[10px]">Còn lại</p>
             </div>
           </div>
         </div>
@@ -87,12 +87,12 @@ function TopicDetailModal({
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-5">
           {[
             { label: "Dễ", count: byDifficulty.easy, color: "#34d399" },
-            { label: "Trung bình", count: byDifficulty.medium, color: "#e8c84a" },
+            { label: "Trung bình", count: byDifficulty.medium, color: "app-accent-primary" },
             { label: "Khó", count: byDifficulty.hard, color: "#f87171" },
           ].map(d => (
-            <div key={d.label} className="bg-white/3 rounded-xl p-3 text-center">
+            <div key={d.label} className="bg-app-surface/50 rounded-xl p-3 text-center">
               <p className="font-bold text-base" style={{ color: d.color }}>{d.count}</p>
-              <p className="text-white/30 text-[10px]">{d.label}</p>
+              <p className="text-app-text-muted text-[10px]">{d.label}</p>
             </div>
           ))}
         </div>
@@ -101,7 +101,7 @@ function TopicDetailModal({
         <div className="flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 py-3 rounded-xl border border-white/10 text-white/50 text-sm hover:bg-white/5 transition-colors cursor-pointer whitespace-nowrap"
+            className="flex-1 py-3 rounded-xl border border-app-border text-white/50 text-sm hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"
           >
             Đóng
           </button>
@@ -135,7 +135,7 @@ function TopicCard({
   return (
     <button
       onClick={onClick}
-      className="w-full text-left bg-[#0f1117] border border-white/5 hover:border-white/12 rounded-2xl p-5 transition-all cursor-pointer group"
+      className="w-full text-left bg-app-bg border border-app-border hover:border-white/12 rounded-2xl p-5 transition-all cursor-pointer group"
     >
       {/* Icon + badge */}
       <div className="flex items-start justify-between mb-4">
@@ -143,16 +143,16 @@ function TopicCard({
           <i className={`${topic.icon} text-xl`} style={{ color: topic.color }}></i>
         </div>
         {isCompleted ? (
-          <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-emerald-500/15 text-emerald-400">
+          <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-app-accent-success/15 text-app-accent-success">
             <i className="ri-checkbox-circle-fill text-xs"></i>
             Hoàn thành
           </span>
         ) : isStarted ? (
-          <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-white/5 text-white/40">
+          <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-app-card/50 text-app-text-secondary">
             {pct}%
           </span>
         ) : (
-          <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-white/5 text-white/25">
+          <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-app-card/50 text-app-text-muted">
             Chưa học
           </span>
         )}
@@ -160,10 +160,10 @@ function TopicCard({
 
       {/* Title */}
       <h3 className="text-white font-semibold text-sm mb-1 group-hover:text-white transition-colors">{topic.label}</h3>
-      <p className="text-white/30 text-xs mb-4">{progress.total} câu hỏi</p>
+      <p className="text-app-text-muted text-xs mb-4">{progress.total} câu hỏi</p>
 
       {/* Progress bar */}
-      <div className="h-1.5 bg-white/5 rounded-full overflow-hidden mb-2">
+      <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden mb-2">
         <div
           className="h-full rounded-full transition-all"
           style={{ width: `${pct}%`, backgroundColor: topic.color }}
@@ -172,9 +172,9 @@ function TopicCard({
 
       {/* Stats */}
       <div className="flex items-center justify-between text-[10px]">
-        <span className="text-white/25">{progress.done}/{progress.total} đã làm</span>
+        <span className="text-app-text-muted">{progress.done}/{progress.total} đã làm</span>
         {progress.done > 0 && (
-          <span className="text-emerald-400/70">{progress.correct} đúng</span>
+          <span className="text-app-accent-success/70">{progress.correct} đúng</span>
         )}
       </div>
     </button>
@@ -205,7 +205,7 @@ const LEARNING_PATHS = [
     id: "eps",
     label: "Thi EPS-TOPIK",
     icon: "ri-trophy-line",
-    color: "#e8c84a",
+    color: "app-accent-primary",
     desc: "Pháp luật, nghe hiểu, đọc hiểu — chuẩn bị thi",
     topics: ["law", "listening", "reading"],
     duration: "4-6 tuần",
@@ -261,18 +261,18 @@ export default function EpsTopicsPage() {
       {/* Overall stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng câu hỏi", value: epsQuestions.length, icon: "ri-survey-line", color: "#e8c84a" },
+          { label: "Tổng câu hỏi", value: epsQuestions.length, icon: "ri-survey-line", color: "app-accent-primary" },
           { label: "Đã hoàn thành", value: `${overallPct}%`, icon: "ri-pie-chart-line", color: "#34d399" },
           { label: "Câu đúng", value: totalCorrect, icon: "ri-checkbox-circle-line", color: "#a78bfa" },
           { label: "Chủ đề", value: EPS_TOPICS.length, icon: "ri-folder-line", color: "#fb923c" },
         ].map(stat => (
-          <div key={stat.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-4 flex items-center gap-3">
+          <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
               <i className={`${stat.icon} text-lg`} style={{ color: stat.color }}></i>
             </div>
             <div>
               <p className="text-white font-bold text-xl leading-none">{stat.value}</p>
-              <p className="text-white/40 text-xs mt-0.5">{stat.label}</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">{stat.label}</p>
             </div>
           </div>
         ))}
@@ -283,16 +283,16 @@ export default function EpsTopicsPage() {
         <div>
           {/* View toggle */}
           <div className="flex items-center gap-3 mb-5">
-            <div className="flex items-center bg-white/5 rounded-xl p-1">
+            <div className="flex items-center bg-app-card/50 rounded-xl p-1">
               <button
                 onClick={() => setView("path")}
-                className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${view === "path" ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/40 hover:text-white/60"}`}
+                className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${view === "path" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}
               >
                 Theo lộ trình
               </button>
               <button
                 onClick={() => setView("all")}
-                className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${view === "all" ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/40 hover:text-white/60"}`}
+                className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${view === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}
               >
                 Tất cả chủ đề
               </button>
@@ -300,7 +300,7 @@ export default function EpsTopicsPage() {
             {view === "path" && activePath && (
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full" style={{ backgroundColor: activePath.color }}></div>
-                <span className="text-white/40 text-xs">{activePath.label}</span>
+                <span className="text-app-text-secondary text-xs">{activePath.label}</span>
               </div>
             )}
           </div>
@@ -334,7 +334,7 @@ export default function EpsTopicsPage() {
                   <button
                     key={path.id}
                     onClick={() => { setSelectedPath(path.id); setView("path"); }}
-                    className={`w-full text-left p-4 rounded-xl border transition-all cursor-pointer ${isActive ? "border-white/15 bg-white/5" : "border-white/5 hover:border-white/10"}`}
+                    className={`w-full text-left p-4 rounded-xl border transition-all cursor-pointer ${isActive ? "border-white/15 bg-app-card/50" : "border-app-border hover:border-app-border"}`}
                   >
                     <div className="flex items-center gap-3 mb-2">
                       <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${path.color}15` }}>
@@ -342,12 +342,12 @@ export default function EpsTopicsPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className={`text-xs font-semibold ${isActive ? "text-white" : "text-white/60"}`}>{path.label}</p>
-                        <p className="text-white/25 text-[10px]">{path.duration}</p>
+                        <p className="text-app-text-muted text-[10px]">{path.duration}</p>
                       </div>
                       <span className="text-[10px] font-bold" style={{ color: path.color }}>{pathPct}%</span>
                     </div>
-                    <p className="text-white/30 text-[10px] leading-relaxed mb-2">{path.desc}</p>
-                    <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+                    <p className="text-app-text-muted text-[10px] leading-relaxed mb-2">{path.desc}</p>
+                    <div className="h-1 bg-app-card/50 rounded-full overflow-hidden">
                       <div className="h-full rounded-full" style={{ width: `${pathPct}%`, backgroundColor: path.color }} />
                     </div>
                   </button>
@@ -357,8 +357,8 @@ export default function EpsTopicsPage() {
           </div>
 
           {/* Quick tips */}
-          <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4">
-            <p className="text-[#e8c84a]/80 text-xs font-semibold mb-2">Gợi ý học hiệu quả</p>
+          <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
+            <p className="text-app-accent-primary/80 text-xs font-semibold mb-2">Gợi ý học hiệu quả</p>
             <div className="space-y-2">
               {[
                 { icon: "ri-time-line", text: "Học 20-30 phút/ngày, đều đặn hơn học dồn" },
@@ -367,7 +367,7 @@ export default function EpsTopicsPage() {
                 { icon: "ri-trophy-line", text: "Hoàn thành 1 chủ đề trước khi sang chủ đề khác" },
               ].map((tip, i) => (
                 <div key={i} className="flex items-start gap-2">
-                  <i className={`${tip.icon} text-[#e8c84a]/50 text-xs flex-shrink-0 mt-0.5`}></i>
+                  <i className={`${tip.icon} text-app-accent-primary/50 text-xs flex-shrink-0 mt-0.5`}></i>
                   <p className="text-white/35 text-[10px] leading-relaxed">{tip.text}</p>
                 </div>
               ))}
@@ -378,29 +378,29 @@ export default function EpsTopicsPage() {
           <div className="space-y-2">
             <button
               onClick={() => navigate("/eps-exam")}
-              className="w-full flex items-center gap-3 p-3 rounded-xl border border-white/5 hover:border-white/10 hover:bg-white/3 transition-all cursor-pointer"
+              className="w-full flex items-center gap-3 p-3 rounded-xl border border-app-border hover:border-app-border hover:bg-app-surface/50 transition-all cursor-pointer"
             >
               <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#f87171]/10 flex-shrink-0">
                 <i className="ri-timer-line text-[#f87171] text-sm"></i>
               </div>
               <div className="text-left">
                 <p className="text-white/60 text-xs font-medium">Thi thử EPS (40 câu)</p>
-                <p className="text-white/25 text-[10px]">Mô phỏng đề thi thật</p>
+                <p className="text-app-text-muted text-[10px]">Mô phỏng đề thi thật</p>
               </div>
-              <i className="ri-arrow-right-line text-white/20 ml-auto"></i>
+              <i className="ri-arrow-right-line text-app-text-muted ml-auto"></i>
             </button>
             <button
               onClick={() => navigate("/placement-test")}
-              className="w-full flex items-center gap-3 p-3 rounded-xl border border-white/5 hover:border-white/10 hover:bg-white/3 transition-all cursor-pointer"
+              className="w-full flex items-center gap-3 p-3 rounded-xl border border-app-border hover:border-app-border hover:bg-app-surface/50 transition-all cursor-pointer"
             >
               <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#a78bfa]/10 flex-shrink-0">
                 <i className="ri-brain-line text-[#a78bfa] text-sm"></i>
               </div>
               <div className="text-left">
                 <p className="text-white/60 text-xs font-medium">Kiểm tra đầu vào</p>
-                <p className="text-white/25 text-[10px]">AI phân tích trình độ</p>
+                <p className="text-app-text-muted text-[10px]">AI phân tích trình độ</p>
               </div>
-              <i className="ri-arrow-right-line text-white/20 ml-auto"></i>
+              <i className="ri-arrow-right-line text-app-text-muted ml-auto"></i>
             </button>
           </div>
         </div>

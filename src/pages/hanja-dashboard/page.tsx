@@ -110,8 +110,8 @@ function GlobalSearchPanel({ nodes }: { nodes: HanjaNode[] }) {
 
   return (
     <div className="relative mb-6">
-      <div className={`flex items-center gap-3 border-2 rounded-2xl px-4 py-3 transition-all ${focused ? "border-rose-500/60 bg-white/5" : "border-white/10 bg-white/5"}`}>
-        <i className="ri-search-line text-white/40 text-lg flex-shrink-0"></i>
+      <div className={`flex items-center gap-3 border-2 rounded-2xl px-4 py-3 transition-all ${focused ? "border-rose-500/60 bg-app-card/50" : "border-app-border bg-app-card/50"}`}>
+        <i className="ri-search-line text-app-text-secondary text-lg flex-shrink-0"></i>
         <input
           ref={inputRef}
           type="text"
@@ -123,20 +123,20 @@ function GlobalSearchPanel({ nodes }: { nodes: HanjaNode[] }) {
           className="flex-1 text-sm text-white/80 placeholder-white/30 focus:outline-none bg-transparent"
         />
         {query && (
-          <button onClick={() => setQuery("")} className="text-white/30 hover:text-white/60 cursor-pointer flex-shrink-0">
+          <button onClick={() => setQuery("")} className="text-app-text-muted hover:text-white/60 cursor-pointer flex-shrink-0">
             <i className="ri-close-line text-lg"></i>
           </button>
         )}
-        <span className="text-xs text-white/25 flex-shrink-0 hidden sm:block">{nodes.length} từ</span>
+        <span className="text-xs text-app-text-muted flex-shrink-0 hidden sm:block">{nodes.length} từ</span>
       </div>
 
       {focused && results.length > 0 && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-[#1a1d27] border border-white/10 rounded-2xl overflow-hidden z-50 max-h-80 overflow-y-auto">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-[#1a1d27] border border-app-border rounded-2xl overflow-hidden z-50 max-h-80 overflow-y-auto">
           {results.map(node => (
             <button
               key={node.id}
               onMouseDown={() => handleSelect(node)}
-              className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 transition-colors cursor-pointer text-left border-b border-white/5 last:border-0"
+              className="w-full flex items-center gap-3 px-4 py-3 hover:bg-app-card/50 transition-colors cursor-pointer text-left border-b border-app-border last:border-0"
             >
               <div className="w-10 h-10 flex items-center justify-center bg-rose-500/20 rounded-xl flex-shrink-0">
                 <span className="text-rose-400 font-bold text-sm">{node.hanja}</span>
@@ -144,14 +144,14 @@ function GlobalSearchPanel({ nodes }: { nodes: HanjaNode[] }) {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="font-bold text-white/90 text-sm">{node.korean}</span>
-                  <span className="text-xs text-white/40">{node.pronunciation}</span>
+                  <span className="text-xs text-app-text-secondary">{node.pronunciation}</span>
                 </div>
                 <p className="text-xs text-white/50 truncate">{node.vietnamese}</p>
               </div>
               <div className="flex items-center gap-1.5 flex-shrink-0">
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-white/40">{node.root_char}</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-app-text-secondary">{node.root_char}</span>
                 <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
-                  node.difficulty === 1 ? "bg-emerald-500/20 text-emerald-400" :
+                  node.difficulty === 1 ? "bg-emerald-500/20 text-app-accent-success" :
                   node.difficulty === 2 ? "bg-amber-500/20 text-amber-400" : "bg-red-500/20 text-red-400"
                 }`}>{node.difficulty === 1 ? "Dễ" : node.difficulty === 2 ? "TB" : "Khó"}</span>
               </div>
@@ -161,9 +161,9 @@ function GlobalSearchPanel({ nodes }: { nodes: HanjaNode[] }) {
       )}
 
       {focused && query.trim() && results.length === 0 && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-[#1a1d27] border border-white/10 rounded-2xl p-6 text-center z-50">
-          <i className="ri-search-line text-2xl text-white/20 mb-2 block"></i>
-          <p className="text-sm text-white/40">Không tìm thấy từ nào cho &ldquo;{query}&rdquo;</p>
+        <div className="absolute top-full left-0 right-0 mt-2 bg-[#1a1d27] border border-app-border rounded-2xl p-6 text-center z-50">
+          <i className="ri-search-line text-2xl text-app-text-muted mb-2 block"></i>
+          <p className="text-sm text-app-text-secondary">Không tìm thấy từ nào cho &ldquo;{query}&rdquo;</p>
         </div>
       )}
 
@@ -171,7 +171,7 @@ function GlobalSearchPanel({ nodes }: { nodes: HanjaNode[] }) {
         <div className="mt-3 bg-[#1a1d27] border-2 border-rose-500/30 rounded-2xl p-4 relative">
           <button
             onClick={() => setSelected(null)}
-            className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/12 text-white/40 cursor-pointer"
+            className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/12 text-app-text-secondary cursor-pointer"
           >
             <i className="ri-close-line text-sm"></i>
           </button>
@@ -183,18 +183,18 @@ function GlobalSearchPanel({ nodes }: { nodes: HanjaNode[] }) {
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-xl font-black text-white/90">{selected.korean}</span>
                 {selected.pronunciation && (
-                  <span className="text-sm text-white/40">[{selected.pronunciation}]</span>
+                  <span className="text-sm text-app-text-secondary">[{selected.pronunciation}]</span>
                 )}
               </div>
               <p className="text-sm font-semibold text-white/70 mb-1">{selected.vietnamese}</p>
               {selected.meaning_detail && (
-                <p className="text-xs text-white/40 leading-relaxed">{selected.meaning_detail}</p>
+                <p className="text-xs text-app-text-secondary leading-relaxed">{selected.meaning_detail}</p>
               )}
               <div className="flex items-center gap-2 mt-2">
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-white/40">Gốc: {selected.root_char}</span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-white/40">{selected.category}</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-app-text-secondary">Gốc: {selected.root_char}</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-app-text-secondary">{selected.category}</span>
                 <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
-                  selected.difficulty === 1 ? "bg-emerald-500/20 text-emerald-400" :
+                  selected.difficulty === 1 ? "bg-emerald-500/20 text-app-accent-success" :
                   selected.difficulty === 2 ? "bg-amber-500/20 text-amber-400" : "bg-red-500/20 text-red-400"
                 }`}>{selected.difficulty === 1 ? "Dễ" : selected.difficulty === 2 ? "Trung bình" : "Khó"}</span>
               </div>
@@ -252,10 +252,10 @@ function ReviewQuizModal({ nodes, learnedSet, onClose }: {
   if (learnedNodes.length === 0) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" onClick={onClose}>
-        <div className="bg-[#1a1d27] border border-white/10 rounded-2xl p-8 max-w-sm w-full text-center" onClick={e => e.stopPropagation()}>
-          <i className="ri-book-open-line text-4xl text-white/20 mb-3 block"></i>
+        <div className="bg-[#1a1d27] border border-app-border rounded-2xl p-8 max-w-sm w-full text-center" onClick={e => e.stopPropagation()}>
+          <i className="ri-book-open-line text-4xl text-app-text-muted mb-3 block"></i>
           <h3 className="text-lg font-bold text-white/80 mb-2">Chưa có từ đã học</h3>
-          <p className="text-sm text-white/40 mb-4">Hãy vào Hán Hàn hình cây và đánh dấu một số từ đã học trước nhé!</p>
+          <p className="text-sm text-app-text-secondary mb-4">Hãy vào Hán Hàn hình cây và đánh dấu một số từ đã học trước nhé!</p>
           <button onClick={onClose} className="w-full py-2.5 bg-rose-500 text-white font-bold rounded-xl cursor-pointer whitespace-nowrap">Đóng</button>
         </div>
       </div>
@@ -267,9 +267,9 @@ function ReviewQuizModal({ nodes, learnedSet, onClose }: {
     const pct = total > 0 ? Math.round((score.correct / total) * 100) : 0;
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" onClick={onClose}>
-        <div className="bg-[#1a1d27] border border-white/10 rounded-2xl p-8 max-w-sm w-full text-center" onClick={e => e.stopPropagation()}>
+        <div className="bg-[#1a1d27] border border-app-border rounded-2xl p-8 max-w-sm w-full text-center" onClick={e => e.stopPropagation()}>
           <div className="w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4" style={{ backgroundColor: pct >= 70 ? "rgba(16,185,129,0.15)" : "rgba(244,63,94,0.15)" }}>
-            <i className={`text-4xl ${pct >= 70 ? "ri-trophy-line text-emerald-400" : "ri-emotion-sad-line text-rose-400"}`}></i>
+            <i className={`text-4xl ${pct >= 70 ? "ri-trophy-line text-app-accent-success" : "ri-emotion-sad-line text-rose-400"}`}></i>
           </div>
           <h3 className="text-xl font-bold text-white/90 mb-1">{pct}%</h3>
           <p className="text-sm text-white/50 mb-4">
@@ -278,7 +278,7 @@ function ReviewQuizModal({ nodes, learnedSet, onClose }: {
           </p>
           <div className="grid grid-cols-2 gap-3 mb-5">
             <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3">
-              <p className="text-2xl font-bold text-emerald-400">{score.correct}</p>
+              <p className="text-2xl font-bold text-app-accent-success">{score.correct}</p>
               <p className="text-xs text-emerald-500/70">Đúng</p>
             </div>
             <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3">
@@ -328,7 +328,7 @@ function ReviewQuizModal({ nodes, learnedSet, onClose }: {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" onClick={onClose}>
-      <div className="bg-[#1a1d27] border border-white/10 rounded-2xl w-full max-w-md" onClick={e => e.stopPropagation()}>
+      <div className="bg-[#1a1d27] border border-app-border rounded-2xl w-full max-w-md" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between px-5 pt-5 pb-3">
           <div className="flex items-center gap-2">
             <i className="ri-brain-line text-rose-400"></i>
@@ -341,16 +341,16 @@ function ReviewQuizModal({ nodes, learnedSet, onClose }: {
             >
               {quizMode === "kr-to-vi" ? "HK → VN" : "VN → HK"}
             </button>
-            <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/12 text-white/40 cursor-pointer">
+            <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/12 text-app-text-secondary cursor-pointer">
               <i className="ri-close-line text-sm"></i>
             </button>
           </div>
         </div>
 
         <div className="px-5 pb-3">
-          <div className="flex items-center justify-between text-xs text-white/40 mb-1.5">
+          <div className="flex items-center justify-between text-xs text-app-text-secondary mb-1.5">
             <span>{currentIdx + 1}/{cards.length}</span>
-            <span className="text-emerald-400 font-medium">{score.correct} đúng</span>
+            <span className="text-app-accent-success font-medium">{score.correct} đúng</span>
           </div>
           <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
             <div className="h-full bg-rose-400 rounded-full transition-all" style={{ width: `${((currentIdx) / cards.length) * 100}%` }} />
@@ -364,14 +364,14 @@ function ReviewQuizModal({ nodes, learnedSet, onClose }: {
                 <p className="text-4xl font-black text-white/90 mb-1">{currentCard.korean}</p>
                 <p className="text-lg text-rose-400 font-bold">{currentCard.hanja}</p>
                 {currentCard.pronunciation && (
-                  <p className="text-sm text-white/40 mt-1">[{currentCard.pronunciation}]</p>
+                  <p className="text-sm text-app-text-secondary mt-1">[{currentCard.pronunciation}]</p>
                 )}
-                <p className="text-xs text-white/30 mt-2">Nghĩa tiếng Việt là gì?</p>
+                <p className="text-xs text-app-text-muted mt-2">Nghĩa tiếng Việt là gì?</p>
               </>
             ) : (
               <>
                 <p className="text-2xl font-bold text-white/80 mb-1">{currentCard.vietnamese}</p>
-                <p className="text-xs text-white/30 mt-2">Từ tiếng Hàn tương ứng là gì?</p>
+                <p className="text-xs text-app-text-muted mt-2">Từ tiếng Hàn tương ứng là gì?</p>
               </>
             )}
           </div>
@@ -380,11 +380,11 @@ function ReviewQuizModal({ nodes, learnedSet, onClose }: {
             {options.map(opt => {
               const isCorrect = opt === correctAnswer;
               const isSelected = opt === selectedOption;
-              let cls = "border-white/10 bg-white/5 text-white/70 hover:border-white/20 hover:bg-white/8";
+              let cls = "border-app-border bg-app-card/50 text-white/70 hover:border-white/20 hover:bg-white/8";
               if (selectedOption) {
-                if (isCorrect) cls = "border-emerald-500/50 bg-emerald-500/15 text-emerald-400";
+                if (isCorrect) cls = "border-emerald-500/50 bg-app-accent-success/15 text-app-accent-success";
                 else if (isSelected) cls = "border-red-500/50 bg-red-500/15 text-red-400";
-                else cls = "border-white/5 bg-white/3 text-white/30";
+                else cls = "border-app-border bg-app-surface/50 text-app-text-muted";
               }
               return (
                 <button
@@ -394,7 +394,7 @@ function ReviewQuizModal({ nodes, learnedSet, onClose }: {
                   className={`border-2 rounded-xl px-3 py-3 text-sm font-semibold transition-all cursor-pointer whitespace-nowrap text-center ${cls}`}
                 >
                   {opt}
-                  {selectedOption && isCorrect && <i className="ri-check-line ml-1 text-emerald-400"></i>}
+                  {selectedOption && isCorrect && <i className="ri-check-line ml-1 text-app-accent-success"></i>}
                   {selectedOption && isSelected && !isCorrect && <i className="ri-close-line ml-1 text-red-400"></i>}
                 </button>
               );
@@ -460,7 +460,7 @@ function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
   if (dailyWords.length === 0) return null;
 
   return (
-    <div className="bg-white/5 border border-white/8 rounded-2xl p-5 mb-6">
+    <div className="bg-app-card/50 border border-app-border rounded-2xl p-5 mb-6">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 flex items-center justify-center bg-rose-500/20 rounded-xl">
@@ -468,16 +468,16 @@ function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
           </div>
           <div>
             <h3 className="text-sm font-bold text-white/80">Học từ mới hôm nay</h3>
-            <p className="text-xs text-white/40">{learnedToday}/{dailyWords.length} từ đã học · Nhấn thẻ để xem nghĩa</p>
+            <p className="text-xs text-app-text-secondary">{learnedToday}/{dailyWords.length} từ đã học · Nhấn thẻ để xem nghĩa</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
           {learnedToday === dailyWords.length && dailyWords.length > 0 && (
-            <span className="flex items-center gap-1 text-xs text-emerald-400 font-semibold bg-emerald-500/15 px-2.5 py-1 rounded-full">
+            <span className="flex items-center gap-1 text-xs text-app-accent-success font-semibold bg-app-accent-success/15 px-2.5 py-1 rounded-full">
               <i className="ri-checkbox-circle-fill"></i>Hoàn thành!
             </span>
           )}
-          <button onClick={refreshDaily} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/12 text-white/40 cursor-pointer transition-all" title="Làm mới danh sách">
+          <button onClick={refreshDaily} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/12 text-app-text-secondary cursor-pointer transition-all" title="Làm mới danh sách">
             <i className="ri-refresh-line text-sm"></i>
           </button>
         </div>
@@ -501,7 +501,7 @@ function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
                     ? "border-emerald-500/30 bg-emerald-500/8"
                     : isFlipped
                     ? "border-rose-500/30 bg-rose-500/8"
-                    : "border-white/8 bg-white/4 hover:border-rose-500/30 hover:bg-rose-500/8"
+                    : "border-app-border bg-white/4 hover:border-rose-500/30 hover:bg-rose-500/8"
                 }`}
               >
                 {!isFlipped ? (
@@ -513,12 +513,12 @@ function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
                       </div>
                       {isLearned && (
                         <div className="w-5 h-5 flex items-center justify-center bg-emerald-500/20 rounded-full flex-shrink-0">
-                          <i className="ri-check-line text-emerald-400 text-[10px]"></i>
+                          <i className="ri-check-line text-app-accent-success text-[10px]"></i>
                         </div>
                       )}
                     </div>
-                    <p className="text-[10px] text-white/30 mt-1">{node.pronunciation}</p>
-                    <p className="text-[10px] text-white/20 mt-1 text-center">Nhấn để xem nghĩa</p>
+                    <p className="text-[10px] text-app-text-muted mt-1">{node.pronunciation}</p>
+                    <p className="text-[10px] text-app-text-muted mt-1 text-center">Nhấn để xem nghĩa</p>
                   </>
                 ) : (
                   <>
@@ -526,15 +526,15 @@ function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
                       <p className="text-xs font-bold text-white/80 mb-0.5">{node.korean} · {node.hanja}</p>
                       <p className="text-sm font-semibold text-rose-400">{node.vietnamese}</p>
                       {node.meaning_detail && (
-                        <p className="text-[10px] text-white/40 mt-1 leading-relaxed line-clamp-2">{node.meaning_detail}</p>
+                        <p className="text-[10px] text-app-text-secondary mt-1 leading-relaxed line-clamp-2">{node.meaning_detail}</p>
                       )}
                     </div>
                     <div className="flex items-center gap-1 mt-2">
                       <span className={`text-[9px] px-1.5 py-0.5 rounded-full ${
-                        node.difficulty === 1 ? "bg-emerald-500/20 text-emerald-400" :
+                        node.difficulty === 1 ? "bg-emerald-500/20 text-app-accent-success" :
                         node.difficulty === 2 ? "bg-amber-500/20 text-amber-400" : "bg-red-500/20 text-red-400"
                       }`}>{node.difficulty === 1 ? "Dễ" : node.difficulty === 2 ? "TB" : "Khó"}</span>
-                      <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-white/8 text-white/40">{node.category}</span>
+                      <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-white/8 text-app-text-secondary">{node.category}</span>
                     </div>
                   </>
                 )}
@@ -542,7 +542,7 @@ function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
               <button
                 onClick={() => onToggleLearned(node.korean)}
                 className={`absolute -top-1.5 -right-1.5 w-6 h-6 flex items-center justify-center rounded-full border-2 border-[#141720] cursor-pointer transition-all ${
-                  isLearned ? "bg-emerald-400 text-white" : "bg-white/15 text-white/40 hover:bg-emerald-400 hover:text-white"
+                  isLearned ? "bg-emerald-400 text-white" : "bg-white/15 text-app-text-secondary hover:bg-emerald-400 hover:text-white"
                 }`}
                 title={isLearned ? "Bỏ đánh dấu" : "Đánh dấu đã học"}
               >
@@ -668,20 +668,20 @@ export default function HanjaDashboardPage() {
             { label: "Tiến độ", value: `${totalPct}%`, icon: "ri-pie-chart-2-line", color: "#f59e0b" },
             { label: "Streak hiện tại", value: `${streak.current} ngày`, icon: "ri-fire-line", color: "#f97316" },
           ].map(s => (
-            <div key={s.label} className="bg-white/5 border border-white/8 rounded-xl p-4 flex items-center gap-3">
+            <div key={s.label} className="bg-app-card/50 border border-app-border rounded-xl p-4 flex items-center gap-3">
               <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}20` }}>
                 <i className={`${s.icon} text-lg`} style={{ color: s.color }}></i>
               </div>
               <div>
                 <p className="text-xl font-bold text-white/90">{loading ? "..." : s.value}</p>
-                <p className="text-xs text-white/40">{s.label}</p>
+                <p className="text-xs text-app-text-secondary">{s.label}</p>
               </div>
             </div>
           ))}
         </div>
 
         {/* Overall progress bar + actions */}
-        <div className="bg-white/5 border border-white/8 rounded-xl p-4 mb-4">
+        <div className="bg-app-card/50 border border-app-border rounded-xl p-4 mb-4">
           <div className="flex items-center justify-between mb-2">
             <p className="text-sm font-semibold text-white/70">Tiến độ tổng thể</p>
             <div className="flex items-center gap-2 flex-wrap justify-end">
@@ -703,7 +703,7 @@ export default function HanjaDashboardPage() {
           <div className="h-3 bg-white/8 rounded-full overflow-hidden">
             <div className="h-full bg-gradient-to-r from-rose-500 to-rose-400 rounded-full transition-all duration-700" style={{ width: `${totalPct}%` }} />
           </div>
-          <p className="text-xs text-white/30 mt-1.5">Còn {nodes.length - totalLearned} từ chưa học</p>
+          <p className="text-xs text-app-text-muted mt-1.5">Còn {nodes.length - totalLearned} từ chưa học</p>
         </div>
 
         {/* Streak card */}
@@ -721,15 +721,15 @@ export default function HanjaDashboardPage() {
             <div className="flex items-center gap-6 ml-auto flex-wrap">
               <div className="text-center">
                 <p className="text-lg font-bold text-white/70">{streak.longest}</p>
-                <p className="text-[10px] text-white/30">Dài nhất</p>
+                <p className="text-[10px] text-app-text-muted">Dài nhất</p>
               </div>
               <div className="text-center">
                 <p className="text-lg font-bold text-white/70">{streak.total}</p>
-                <p className="text-[10px] text-white/30">Tổng ngày</p>
+                <p className="text-[10px] text-app-text-muted">Tổng ngày</p>
               </div>
               <div className="text-center">
                 <p className="text-lg font-bold text-white/70">{totalLearned}</p>
-                <p className="text-[10px] text-white/30">Đã học</p>
+                <p className="text-[10px] text-app-text-muted">Đã học</p>
               </div>
             </div>
           </div>
@@ -738,7 +738,7 @@ export default function HanjaDashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left: Tree progress + Difficulty */}
           <div className="lg:col-span-2 space-y-5">
-            <div className="bg-white/5 border border-white/8 rounded-2xl p-5">
+            <div className="bg-app-card/50 border border-app-border rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-sm font-bold text-white/80">Tiến độ theo cây</h3>
                 <button onClick={() => navigate("/hanja-tree")} className="flex items-center gap-1.5 text-xs text-rose-400 hover:text-rose-300 cursor-pointer font-medium">
@@ -747,10 +747,10 @@ export default function HanjaDashboardPage() {
               </div>
               {loading ? (
                 <div className="flex items-center justify-center py-8">
-                  <i className="ri-loader-4-line animate-spin text-white/30"></i>
+                  <i className="ri-loader-4-line animate-spin text-app-text-muted"></i>
                 </div>
               ) : treeStats.length === 0 ? (
-                <div className="text-center py-8 text-white/30">
+                <div className="text-center py-8 text-app-text-muted">
                   <i className="ri-tree-line text-3xl mb-2 block"></i>
                   <p className="text-sm">Chưa có dữ liệu. Import CSV để bắt đầu!</p>
                 </div>
@@ -758,12 +758,12 @@ export default function HanjaDashboardPage() {
                 <div className="space-y-3">
                   {treeStats.map(t => (
                     <button key={t.rootChar} onClick={() => navigate("/hanja-tree")}
-                      className="w-full flex items-center gap-3 hover:bg-white/5 rounded-xl p-2 transition-all cursor-pointer text-left">
+                      className="w-full flex items-center gap-3 hover:bg-app-card/50 rounded-xl p-2 transition-all cursor-pointer text-left">
                       <div className="w-10 h-10 flex items-center justify-center bg-rose-500/20 rounded-xl text-lg font-bold text-rose-400 flex-shrink-0">{t.rootChar}</div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-1">
                           <p className="text-sm font-semibold text-white/70">{t.rootMeaning}</p>
-                          <span className="text-xs text-white/40">{t.learned}/{t.total} · {t.pct}%</span>
+                          <span className="text-xs text-app-text-secondary">{t.learned}/{t.total} · {t.pct}%</span>
                         </div>
                         <div className="h-2 bg-white/8 rounded-full overflow-hidden">
                           <div className="h-full rounded-full transition-all" style={{ width: `${t.pct}%`, backgroundColor: t.pct >= 80 ? "#10b981" : t.pct >= 50 ? "#f59e0b" : "#f43f5e" }} />
@@ -775,24 +775,24 @@ export default function HanjaDashboardPage() {
               )}
             </div>
 
-            <div className="bg-white/5 border border-white/8 rounded-2xl p-5">
+            <div className="bg-app-card/50 border border-app-border rounded-2xl p-5">
               <h3 className="text-sm font-bold text-white/80 mb-4">Phân bổ theo độ khó</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {diffStats.map(d => (
-                  <div key={d.label} className="text-center p-4 rounded-xl border border-white/8 bg-white/3">
+                  <div key={d.label} className="text-center p-4 rounded-xl border border-app-border bg-app-surface/50">
                     <p className="text-2xl font-bold mb-1" style={{ color: d.color }}>{d.learned}</p>
                     <p className="text-xs text-white/50 mb-2">{d.label}</p>
                     <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
                       <div className="h-full rounded-full" style={{ width: `${d.total > 0 ? (d.learned / d.total) * 100 : 0}%`, backgroundColor: d.color }} />
                     </div>
-                    <p className="text-[10px] text-white/30 mt-1">{d.learned}/{d.total}</p>
+                    <p className="text-[10px] text-app-text-muted mt-1">{d.learned}/{d.total}</p>
                   </div>
                 ))}
               </div>
             </div>
 
             {recentLearned.length > 0 && (
-              <div className="bg-white/5 border border-white/8 rounded-2xl p-5">
+              <div className="bg-app-card/50 border border-app-border rounded-2xl p-5">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-sm font-bold text-white/80">Từ vừa học gần đây</h3>
                   <button onClick={() => setShowReview(true)} className="text-xs text-rose-400 hover:text-rose-300 cursor-pointer font-medium flex items-center gap-1">
@@ -804,7 +804,7 @@ export default function HanjaDashboardPage() {
                     <div key={i} className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
                       <span className="text-sm font-bold text-white/80">{n.korean}</span>
                       <span className="text-xs text-rose-400">{n.hanja}</span>
-                      <span className="text-xs text-white/40">{n.vietnamese}</span>
+                      <span className="text-xs text-app-text-secondary">{n.vietnamese}</span>
                     </div>
                   ))}
                 </div>
@@ -814,7 +814,7 @@ export default function HanjaDashboardPage() {
 
           {/* Right: Quick actions */}
           <div>
-            <div className="bg-white/5 border border-white/8 rounded-2xl p-4 space-y-2">
+            <div className="bg-app-card/50 border border-app-border rounded-2xl p-4 space-y-2">
               <h3 className="text-xs font-bold text-white/50 mb-3">Truy cập nhanh</h3>
               {[
                 { label: "Học theo cây", icon: "ri-git-merge-line", path: "/hanja-tree", color: "#f43f5e" },
@@ -822,12 +822,12 @@ export default function HanjaDashboardPage() {
                 { label: "Hán Hàn chi tiết", icon: "ri-character-recognition-line", path: "/hanja-detail", color: "#f59e0b" },
               ].map(a => (
                 <button key={a.path} onClick={() => navigate(a.path)}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/5 transition-all cursor-pointer text-left border border-white/8">
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-app-card/50 transition-all cursor-pointer text-left border border-app-border">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${a.color}20` }}>
                     <i className={`${a.icon} text-sm`} style={{ color: a.color }}></i>
                   </div>
                   <span className="text-sm font-medium text-white/70">{a.label}</span>
-                  <i className="ri-arrow-right-s-line text-white/20 ml-auto"></i>
+                  <i className="ri-arrow-right-s-line text-app-text-muted ml-auto"></i>
                 </button>
               ))}
             </div>

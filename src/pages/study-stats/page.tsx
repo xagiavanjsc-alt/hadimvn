@@ -48,7 +48,7 @@ function BarChart({
 
   return (
     <div>
-      <p className="text-white/30 text-[10px] tracking-normal mb-3">{label}</p>
+      <p className="text-app-text-muted text-[10px] tracking-normal mb-3">{label}</p>
       <div className="flex items-end gap-1.5 h-20">
         {data.map((day, i) => {
           const val = day[valueKey] as number;
@@ -60,9 +60,9 @@ function BarChart({
                 className="w-full rounded-t-sm transition-all duration-500 cursor-default"
                 style={{ height: `${barH}px`, backgroundColor: color, opacity: val > 0 ? 1 : 0.15 }}
               />
-              <span className="text-white/20 text-[9px]">{dayLabels[dayOfWeek]}</span>
+              <span className="text-app-text-muted text-[9px]">{dayLabels[dayOfWeek]}</span>
               {val > 0 && (
-                <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 bg-[#1a1d27] border border-white/10 text-white/70 text-[9px] px-2 py-0.5 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 bg-[#1a1d27] border border-app-border text-white/70 text-[9px] px-2 py-0.5 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
                   {val} {label.toLowerCase()}
                 </div>
               )}
@@ -97,7 +97,7 @@ function CompareBar({
         <span className="text-white/50 text-xs">{label}</span>
         <span
           className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-            diff >= 0 ? "bg-emerald-500/15 text-emerald-400" : "bg-rose-500/15 text-rose-400"
+            diff >= 0 ? "bg-app-accent-success/15 text-app-accent-success" : "bg-rose-500/15 text-rose-400"
           }`}
         >
           {diff >= 0 ? "+" : ""}
@@ -106,8 +106,8 @@ function CompareBar({
       </div>
       <div className="space-y-1">
         <div className="flex items-center gap-2">
-          <span className="text-[9px] text-white/25 w-16">Tuần này</span>
-          <div className="flex-1 h-2 bg-white/5 rounded-full overflow-hidden">
+          <span className="text-[9px] text-app-text-muted w-16">Tuần này</span>
+          <div className="flex-1 h-2 bg-app-card/50 rounded-full overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-700"
               style={{ width: `${(thisWeek / max) * 100}%`, backgroundColor: color }}
@@ -118,14 +118,14 @@ function CompareBar({
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-[9px] text-white/25 w-16">Tuần trước</span>
-          <div className="flex-1 h-2 bg-white/5 rounded-full overflow-hidden">
+          <span className="text-[9px] text-app-text-muted w-16">Tuần trước</span>
+          <div className="flex-1 h-2 bg-app-card/50 rounded-full overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-700"
               style={{ width: `${(lastWeek / max) * 100}%`, backgroundColor: `${color}55` }}
             />
           </div>
-          <span className="text-[10px] text-white/30 w-10 text-right">
+          <span className="text-[10px] text-app-text-muted w-10 text-right">
             {lastWeek} {unit}
           </span>
         </div>
@@ -215,7 +215,7 @@ export default function StudyStatsPage() {
             },
             {
               icon: "ri-book-open-line",
-              color: "#e8c84a",
+              color: "app-accent-primary",
               bg: "rgba(232,200,74,0.1)",
               label: "Từ đã học",
               value: `${totalDailyWords}`,
@@ -251,15 +251,15 @@ export default function StudyStatsPage() {
               </div>
               <p className="text-2xl font-bold" style={{ color: s.color }}>
                 {s.value}
-                <span className="text-sm ml-1 font-normal text-white/40">{s.unit}</span>
+                <span className="text-sm ml-1 font-normal text-app-text-secondary">{s.unit}</span>
               </p>
-              <p className="text-white/40 text-xs mt-1">{s.label}</p>
+              <p className="text-app-text-secondary text-xs mt-1">{s.label}</p>
             </div>
           ))}
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 bg-white/5 rounded-xl p-1 w-fit">
+        <div className="flex gap-1 bg-app-card/50 rounded-xl p-1 w-fit">
           {[
             { id: "overview", label: "Tổng quan", icon: "ri-bar-chart-2-line" },
             { id: "streak", label: "Streak", icon: "ri-fire-line" },
@@ -270,8 +270,8 @@ export default function StudyStatsPage() {
               onClick={() => setActiveTab(tab.id as typeof activeTab)}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${
                 activeTab === tab.id
-                  ? "bg-[#e8c84a]/15 text-[#e8c84a]"
-                  : "text-white/40 hover:text-white/60"
+                  ? "bg-app-accent-primary/15 text-app-accent-primary"
+                  : "text-app-text-secondary hover:text-white/60"
               }`}
             >
               <i className={tab.icon} />
@@ -285,33 +285,33 @@ export default function StudyStatsPage() {
           <div className="space-y-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {/* Words chart */}
-              <div className="bg-[#0f1117] border border-white/6 rounded-2xl p-5">
+              <div className="bg-app-bg border border-white/6 rounded-2xl p-5">
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-7 h-7 flex items-center justify-center bg-[#e8c84a]/10 rounded-lg">
-                    <i className="ri-book-open-line text-[#e8c84a] text-sm" />
+                  <div className="w-7 h-7 flex items-center justify-center bg-app-accent-primary/10 rounded-lg">
+                    <i className="ri-book-open-line text-app-accent-primary text-sm" />
                   </div>
                   <div>
                     <h3 className="text-white font-semibold text-sm">Từ học mỗi ngày</h3>
-                    <p className="text-white/30 text-xs">7 ngày gần nhất</p>
+                    <p className="text-app-text-muted text-xs">7 ngày gần nhất</p>
                   </div>
                 </div>
                 <BarChart
                   data={thisWeekStats}
                   valueKey="wordsLearned"
-                  color="#e8c84a"
+                  color="app-accent-primary"
                   label="Từ mới"
                 />
               </div>
 
               {/* EPS chart */}
-              <div className="bg-[#0f1117] border border-white/6 rounded-2xl p-5">
+              <div className="bg-app-bg border border-white/6 rounded-2xl p-5">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-7 h-7 flex items-center justify-center bg-emerald-500/10 rounded-lg">
-                    <i className="ri-file-list-3-line text-emerald-400 text-sm" />
+                    <i className="ri-file-list-3-line text-app-accent-success text-sm" />
                   </div>
                   <div>
                     <h3 className="text-white font-semibold text-sm">Câu EPS mỗi ngày</h3>
-                    <p className="text-white/30 text-xs">7 ngày gần nhất</p>
+                    <p className="text-app-text-muted text-xs">7 ngày gần nhất</p>
                   </div>
                 </div>
                 <BarChart
@@ -323,14 +323,14 @@ export default function StudyStatsPage() {
               </div>
 
               {/* Flashcard chart */}
-              <div className="bg-[#0f1117] border border-white/6 rounded-2xl p-5">
+              <div className="bg-app-bg border border-white/6 rounded-2xl p-5">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-7 h-7 flex items-center justify-center bg-violet-500/10 rounded-lg">
                     <i className="ri-stack-line text-violet-400 text-sm" />
                   </div>
                   <div>
                     <h3 className="text-white font-semibold text-sm">Flashcard mỗi ngày</h3>
-                    <p className="text-white/30 text-xs">7 ngày gần nhất</p>
+                    <p className="text-app-text-muted text-xs">7 ngày gần nhất</p>
                   </div>
                 </div>
                 <BarChart
@@ -342,14 +342,14 @@ export default function StudyStatsPage() {
               </div>
 
               {/* Minutes chart */}
-              <div className="bg-[#0f1117] border border-white/6 rounded-2xl p-5">
+              <div className="bg-app-bg border border-white/6 rounded-2xl p-5">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-7 h-7 flex items-center justify-center bg-sky-500/10 rounded-lg">
                     <i className="ri-time-line text-sky-400 text-sm" />
                   </div>
                   <div>
                     <h3 className="text-white font-semibold text-sm">Thời gian học</h3>
-                    <p className="text-white/30 text-xs">Phút mỗi ngày</p>
+                    <p className="text-app-text-muted text-xs">Phút mỗi ngày</p>
                   </div>
                 </div>
                 <BarChart
@@ -362,11 +362,11 @@ export default function StudyStatsPage() {
             </div>
 
             {/* Extra stats */}
-            <div className="bg-[#0f1117] border border-white/6 rounded-2xl p-5">
+            <div className="bg-app-bg border border-white/6 rounded-2xl p-5">
               <h3 className="text-white font-semibold text-sm mb-4">Thống kê tổng hợp</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
-                  { label: "Ngày học", value: studyDays, unit: "ngày", color: "#e8c84a" },
+                  { label: "Ngày học", value: studyDays, unit: "ngày", color: "app-accent-primary" },
                   { label: "Câu EPS đã làm", value: epsDone, unit: "câu", color: "#4ade80" },
                   { label: "Điểm thi cao nhất", value: bestExamPct, unit: "%", color: "#fb923c" },
                   { label: "Từ thuộc lòng", value: knownCount, unit: "từ", color: "#a78bfa" },
@@ -374,7 +374,7 @@ export default function StudyStatsPage() {
                   <div key={s.label} className="text-center">
                     <p className="text-2xl font-bold" style={{ color: s.color }}>
                       {s.value}
-                      <span className="text-sm ml-0.5 font-normal text-white/40">{s.unit}</span>
+                      <span className="text-sm ml-0.5 font-normal text-app-text-secondary">{s.unit}</span>
                     </p>
                     <p className="text-white/35 text-xs mt-1">{s.label}</p>
                   </div>
@@ -387,7 +387,7 @@ export default function StudyStatsPage() {
         {/* Streak tab */}
         {activeTab === "streak" && (
           <div className="space-y-4">
-            <div className="bg-[#0f1117] border border-white/6 rounded-2xl p-5">
+            <div className="bg-app-bg border border-white/6 rounded-2xl p-5">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-12 h-12 flex items-center justify-center bg-[#fb923c]/15 rounded-2xl">
                   <i className="ri-fire-line text-[#fb923c] text-2xl" />
@@ -395,19 +395,19 @@ export default function StudyStatsPage() {
                 <div>
                   <p className="text-white font-bold text-xl">
                     {streak.count}{" "}
-                    <span className="text-white/40 text-sm font-normal">ngày liên tiếp</span>
+                    <span className="text-app-text-secondary text-sm font-normal">ngày liên tiếp</span>
                   </p>
-                  <p className="text-white/30 text-xs">
+                  <p className="text-app-text-muted text-xs">
                     Học mỗi ngày để duy trì streak
                   </p>
                 </div>
               </div>
 
               {/* Calendar heatmap */}
-              <p className="text-white/30 text-xs mb-3">35 ngày gần nhất</p>
+              <p className="text-app-text-muted text-xs mb-3">35 ngày gần nhất</p>
               <div className="grid grid-cols-7 gap-1.5">
                 {["CN", "T2", "T3", "T4", "T5", "T6", "T7"].map((d) => (
-                  <div key={d} className="text-center text-[9px] text-white/20 pb-1">
+                  <div key={d} className="text-center text-[9px] text-app-text-muted pb-1">
                     {d}
                   </div>
                 ))}
@@ -425,26 +425,26 @@ export default function StudyStatsPage() {
                 ))}
               </div>
 
-              <div className="mt-4 flex items-center gap-4 text-xs text-white/30">
+              <div className="mt-4 flex items-center gap-4 text-xs text-app-text-muted">
                 <div className="flex items-center gap-1.5">
                   <div className="w-3 h-3 rounded-sm bg-[#fb923c]/60" />
                   <span>Có học</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <div className="w-3 h-3 rounded-sm bg-white/5" />
+                  <div className="w-3 h-3 rounded-sm bg-app-card/50" />
                   <span>Không học</span>
                 </div>
               </div>
             </div>
 
             {/* Streak tips */}
-            <div className="bg-[#0f1117] border border-white/6 rounded-2xl p-5">
+            <div className="bg-app-bg border border-white/6 rounded-2xl p-5">
               <h3 className="text-white font-semibold text-sm mb-3">Mẹo duy trì streak</h3>
               <div className="space-y-3">
                 {[
                   {
                     icon: "ri-sun-line",
-                    color: "#e8c84a",
+                    color: "app-accent-primary",
                     tip: "Học từ mới mỗi sáng — chỉ cần 5 phút với 8 từ hôm nay",
                     action: "/daily-words",
                     actionLabel: "Học ngay",
@@ -466,7 +466,7 @@ export default function StudyStatsPage() {
                 ].map((t) => (
                   <div
                     key={t.tip}
-                    className="flex items-center gap-3 p-3 rounded-xl bg-white/3"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-app-surface/50"
                   >
                     <div
                       className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0"
@@ -492,14 +492,14 @@ export default function StudyStatsPage() {
         {/* Compare tab */}
         {activeTab === "compare" && (
           <div className="space-y-4">
-            <div className="bg-[#0f1117] border border-white/6 rounded-2xl p-5">
+            <div className="bg-app-bg border border-white/6 rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-5">
-                <div className="w-7 h-7 flex items-center justify-center bg-[#e8c84a]/10 rounded-lg">
-                  <i className="ri-arrow-left-right-line text-[#e8c84a] text-sm" />
+                <div className="w-7 h-7 flex items-center justify-center bg-app-accent-primary/10 rounded-lg">
+                  <i className="ri-arrow-left-right-line text-app-accent-primary text-sm" />
                 </div>
                 <div>
                   <h3 className="text-white font-semibold text-sm">So sánh tuần này vs tuần trước</h3>
-                  <p className="text-white/30 text-xs">Xem bạn đang tiến bộ hay thụt lùi</p>
+                  <p className="text-app-text-muted text-xs">Xem bạn đang tiến bộ hay thụt lùi</p>
                 </div>
               </div>
 
@@ -508,7 +508,7 @@ export default function StudyStatsPage() {
                   label="Từ mới đã học"
                   thisWeek={thisWeekTotals.words}
                   lastWeek={lastWeekTotals.words}
-                  color="#e8c84a"
+                  color="app-accent-primary"
                   unit="từ"
                 />
                 <CompareBar
@@ -537,17 +537,17 @@ export default function StudyStatsPage() {
 
             {/* Weekly summary */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-[#0f1117] border border-white/6 rounded-2xl p-4">
-                <p className="text-white/30 text-xs mb-3">Tuần này</p>
+              <div className="bg-app-bg border border-white/6 rounded-2xl p-4">
+                <p className="text-app-text-muted text-xs mb-3">Tuần này</p>
                 <div className="space-y-2">
                   {[
-                    { label: "Từ mới", value: thisWeekTotals.words, color: "#e8c84a" },
+                    { label: "Từ mới", value: thisWeekTotals.words, color: "app-accent-primary" },
                     { label: "Câu EPS", value: thisWeekTotals.eps, color: "#4ade80" },
                     { label: "Flashcard", value: thisWeekTotals.flashcard, color: "#a78bfa" },
                     { label: "Phút học", value: thisWeekTotals.minutes, color: "#38bdf8" },
                   ].map((s) => (
                     <div key={s.label} className="flex items-center justify-between">
-                      <span className="text-white/40 text-xs">{s.label}</span>
+                      <span className="text-app-text-secondary text-xs">{s.label}</span>
                       <span className="text-sm font-bold" style={{ color: s.color }}>
                         {s.value}
                       </span>
@@ -555,17 +555,17 @@ export default function StudyStatsPage() {
                   ))}
                 </div>
               </div>
-              <div className="bg-[#0f1117] border border-white/6 rounded-2xl p-4">
-                <p className="text-white/30 text-xs mb-3">Tuần trước</p>
+              <div className="bg-app-bg border border-white/6 rounded-2xl p-4">
+                <p className="text-app-text-muted text-xs mb-3">Tuần trước</p>
                 <div className="space-y-2">
                   {[
-                    { label: "Từ mới", value: lastWeekTotals.words, color: "#e8c84a55" },
+                    { label: "Từ mới", value: lastWeekTotals.words, color: "app-accent-primary55" },
                     { label: "Câu EPS", value: lastWeekTotals.eps, color: "#4ade8055" },
                     { label: "Flashcard", value: lastWeekTotals.flashcard, color: "#a78bfa55" },
                     { label: "Phút học", value: lastWeekTotals.minutes, color: "#38bdf855" },
                   ].map((s) => (
                     <div key={s.label} className="flex items-center justify-between">
-                      <span className="text-white/40 text-xs">{s.label}</span>
+                      <span className="text-app-text-secondary text-xs">{s.label}</span>
                       <span className="text-sm font-bold" style={{ color: s.color }}>
                         {s.value}
                       </span>
@@ -580,7 +580,7 @@ export default function StudyStatsPage() {
         {/* Quick actions */}
         <div className="flex flex-wrap gap-3">
           {[
-            { path: "/daily-words", icon: "ri-sun-line", label: "Học từ hôm nay", color: "#e8c84a" },
+            { path: "/daily-words", icon: "ri-sun-line", label: "Học từ hôm nay", color: "app-accent-primary" },
             { path: "/eps-exam", icon: "ri-timer-line", label: "Thi thử EPS", color: "#4ade80" },
             { path: "/flashcard-hub", icon: "ri-stack-line", label: "Ôn Flashcard", color: "#a78bfa" },
             { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ cá nhân", color: "#38bdf8" },

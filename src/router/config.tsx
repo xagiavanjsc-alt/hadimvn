@@ -26,7 +26,7 @@ class LazyErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState
           <i className="ri-error-warning-line text-4xl text-red-400"></i>
           <h2 className="text-white text-lg font-semibold">Đã xảy ra lỗi</h2>
           <p className="text-white/50 text-sm text-center max-w-md">{this.state.error?.message || "Không thể tải trang này. Thử lại sau."}</p>
-          <button onClick={() => { this.setState({ hasError: false }); window.location.reload(); }} className="mt-2 px-5 py-2 rounded-lg bg-[#e8c84a] text-[#0f1117] font-semibold text-sm hover:bg-[#e8c84a]/90 transition-colors cursor-pointer">Tải lại trang</button>
+          <button onClick={() => { this.setState({ hasError: false }); window.location.reload(); }} className="mt-2 px-5 py-2 rounded-lg bg-app-accent-primary text-app-bg font-semibold text-sm hover:bg-app-accent-primary/90 transition-colors cursor-pointer">Tải lại trang</button>
         </div>
       );
     }

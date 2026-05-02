@@ -201,7 +201,7 @@ export default function LandingPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/75" />
 
         <div className="relative z-10 text-center px-4 md:px-6 max-w-5xl mx-auto w-full">
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6 md:mb-8">
+          <div className="inline-flex items-center gap-2 bg-app-card/70 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6 md:mb-8">
             <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse flex-shrink-0"></span>
             <span className="text-white/90 text-xs font-medium">10,000+ học viên đang học mỗi ngày</span>
           </div>
@@ -219,12 +219,12 @@ export default function LandingPage() {
             <button onClick={handleStart} className="bg-[#22c55e] text-white font-bold px-7 md:px-8 py-3.5 md:py-4 rounded-xl text-sm md:text-base hover:bg-[#16a34a] transition-all hover:scale-105 whitespace-nowrap cursor-pointer w-full sm:w-auto">
               Bắt đầu miễn phí ngay <i className="ri-arrow-right-line ml-2"></i>
             </button>
-            <a href="#features" className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/40 text-white/80 hover:text-white text-sm md:text-base px-5 md:px-6 py-3.5 md:py-4 rounded-xl transition-all whitespace-nowrap cursor-pointer w-full sm:w-auto justify-center">
+            <a href="#features" className="flex items-center gap-2 bg-app-card/70 backdrop-blur-sm border border-white/20 hover:border-white/40 text-white/80 hover:text-white text-sm md:text-base px-5 md:px-6 py-3.5 md:py-4 rounded-xl transition-all whitespace-nowrap cursor-pointer w-full sm:w-auto justify-center">
               <i className="ri-apps-2-line text-[#4ade80]"></i>
               Khám phá tính năng
             </a>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 rounded-2xl overflow-hidden backdrop-blur-sm">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-app-card/70 rounded-2xl overflow-hidden backdrop-blur-sm">
             {STATS.map((s, i) => (
               <div key={s.label} className={`bg-black/20 backdrop-blur-sm px-4 md:px-6 py-4 md:py-5 text-center ${i === 0 ? "rounded-tl-2xl rounded-bl-2xl" : ""} ${i === 3 ? "rounded-tr-2xl rounded-br-2xl" : ""}`}>
                 <p className="text-xl md:text-2xl font-bold text-[#4ade80]">{s.value}</p>
@@ -234,8 +234,8 @@ export default function LandingPage() {
           </div>
         </div>
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 animate-bounce">
-          <span className="text-white/30 text-xs">Cuộn xuống</span>
-          <i className="ri-arrow-down-line text-white/30"></i>
+          <span className="text-app-text-muted text-xs">Cuộn xuống</span>
+          <i className="ri-arrow-down-line text-app-text-muted"></i>
         </div>
       </section>
 
@@ -514,7 +514,7 @@ export default function LandingPage() {
               <button onClick={handleStart} className="inline-flex items-center gap-2 bg-[#22c55e] text-white font-bold px-8 md:px-10 py-3.5 md:py-4 rounded-xl text-sm md:text-base hover:bg-[#16a34a] transition-all hover:scale-105 whitespace-nowrap cursor-pointer">
                 Bắt đầu học miễn phí <i className="ri-arrow-right-line"></i>
               </button>
-              <p className="text-white/25 text-xs mt-4">Không cần thẻ tín dụng · Miễn phí mãi mãi</p>
+              <p className="text-app-text-muted text-xs mt-4">Không cần thẻ tín dụng · Miễn phí mãi mãi</p>
             </div>
           </div>
         </div>
@@ -530,14 +530,14 @@ export default function LandingPage() {
               </div>
               <div>
                 <p className="text-white font-bold text-sm">Hàn Quốc Ơi!</p>
-                <p className="text-white/30 text-xs">Vui là chính, giỏi là tất yếu!</p>
+                <p className="text-app-text-muted text-xs">Vui là chính, giỏi là tất yếu!</p>
               </div>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
               {[["#features", "Tính năng"], ["#preview", "Xem thử"], ["#pricing", "Bảng giá"], ["#faq", "FAQ"]].map(([href, label]) => (
-                <a key={href} href={href} className="text-white/30 hover:text-white/60 text-xs transition-colors">{label}</a>
+                <a key={href} href={href} className="text-app-text-muted hover:text-white/60 text-xs transition-colors">{label}</a>
               ))}
-              <button onClick={() => navigate("/dashboard")} className="text-white/30 hover:text-white/60 text-xs transition-colors cursor-pointer whitespace-nowrap">Vào app</button>
+              <button onClick={() => navigate("/dashboard")} className="text-app-text-muted hover:text-white/60 text-xs transition-colors cursor-pointer whitespace-nowrap">Vào app</button>
             </div>
             <p className="text-white/15 text-xs">© 2026 Hàn Quốc Ơi! All rights reserved.</p>
           </div>

@@ -6,13 +6,13 @@ import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
 
 function StatCard({ icon, label, value, color }: { icon: string; label: string; value: number | string; color: string }) {
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-xl p-4 flex items-center gap-3">
+    <div className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
       <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${color}15` }}>
         <i className={`${icon} text-lg`} style={{ color }}></i>
       </div>
       <div>
         <p className="text-white font-bold text-xl leading-none">{value}</p>
-        <p className="text-white/40 text-xs mt-0.5">{label}</p>
+        <p className="text-app-text-secondary text-xs mt-0.5">{label}</p>
       </div>
     </div>
   );
@@ -66,7 +66,7 @@ export default function AdminSeriesPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        <StatCard icon="ri-stack-line" label="Tổng series" value={seriesList.length} color="#e8c84a" />
+        <StatCard icon="ri-stack-line" label="Tổng series" value={seriesList.length} color="app-accent-primary" />
         <StatCard icon="ri-book-open-line" label="Tổng bài học" value={totalLessons} color="#34d399" />
         <StatCard icon="ri-checkbox-circle-line" label="Bài đã duyệt" value={approvedLessons.length} color="#fb923c" />
         <StatCard icon="ri-price-tag-3-line" label="Series có giá" value={withPrice} color="#a78bfa" />
@@ -74,8 +74,8 @@ export default function AdminSeriesPage() {
 
       {/* Search */}
       <div className="flex items-center gap-3 mb-5">
-        <div className="flex-1 flex items-center gap-2 bg-white/5 border border-white/8 rounded-xl px-3 py-2.5">
-          <i className="ri-search-line text-white/30 text-sm"></i>
+        <div className="flex-1 flex items-center gap-2 bg-app-card/50 border border-app-border rounded-xl px-3 py-2.5">
+          <i className="ri-search-line text-app-text-muted text-sm"></i>
           <input
             type="text"
             value={search}
@@ -84,24 +84,24 @@ export default function AdminSeriesPage() {
             className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder-white/20"
           />
           {search && (
-            <button onClick={() => setSearch("")} className="text-white/30 hover:text-white/60 cursor-pointer">
+            <button onClick={() => setSearch("")} className="text-app-text-muted hover:text-white/60 cursor-pointer">
               <i className="ri-close-line text-sm"></i>
             </button>
           )}
         </div>
-        <span className="text-white/30 text-xs whitespace-nowrap">{filtered.length}/{seriesList.length} series</span>
+        <span className="text-app-text-muted text-xs whitespace-nowrap">{filtered.length}/{seriesList.length} series</span>
       </div>
 
       {/* Series table */}
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center">
-          <div className="w-16 h-16 flex items-center justify-center bg-white/5 rounded-2xl mb-4">
-            <i className="ri-stack-line text-white/20 text-3xl"></i>
+          <div className="w-16 h-16 flex items-center justify-center bg-app-card/50 rounded-2xl mb-4">
+            <i className="ri-stack-line text-app-text-muted text-3xl"></i>
           </div>
-          <p className="text-white/40 text-sm font-medium mb-1">
+          <p className="text-app-text-secondary text-sm font-medium mb-1">
             {search ? "Không tìm thấy series nào" : "Chưa có series nào"}
           </p>
-          <p className="text-white/20 text-xs mb-5">
+          <p className="text-app-text-muted text-xs mb-5">
             {search ? "Thử từ khóa khác" : "Tạo series từ trang Series để quản lý ebook"}
           </p>
           {!search && (
@@ -115,8 +115,8 @@ export default function AdminSeriesPage() {
           )}
         </div>
       ) : (
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl overflow-hidden">
-          <div className="grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-0 text-[10px] text-white/25 tracking-normal font-bold px-5 py-3 border-b border-white/5">
+        <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden">
+          <div className="grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-0 text-[10px] text-app-text-muted tracking-normal font-bold px-5 py-3 border-b border-app-border">
             <span className="w-8">Bìa</span>
             <span className="pl-3">Tên series</span>
             <span className="w-20 text-center">Bài học</span>
@@ -131,7 +131,7 @@ export default function AdminSeriesPage() {
                 <div key={series.id} className="grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-0 items-center px-5 py-3.5 hover:bg-white/2 transition-colors">
                   {/* Cover swatch */}
                   <div
-                    className="w-8 h-8 rounded-lg flex-shrink-0 border border-white/10 relative overflow-hidden"
+                    className="w-8 h-8 rounded-lg flex-shrink-0 border border-app-border relative overflow-hidden"
                     style={{ backgroundColor: series.coverColor }}
                   >
                     <div className="absolute top-0 left-0 right-0 h-1" style={{ backgroundColor: series.coverAccent }} />
@@ -144,7 +144,7 @@ export default function AdminSeriesPage() {
                   <div className="pl-3 min-w-0">
                     <p className="text-white/80 text-sm font-semibold truncate">{series.name}</p>
                     {series.description && (
-                      <p className="text-white/30 text-xs truncate mt-0.5">{series.description}</p>
+                      <p className="text-app-text-muted text-xs truncate mt-0.5">{series.description}</p>
                     )}
                     {series.tags && series.tags.length > 0 && (
                       <div className="flex gap-1 mt-1 flex-wrap">
@@ -160,21 +160,21 @@ export default function AdminSeriesPage() {
                   {/* Lesson count */}
                   <div className="w-20 text-center">
                     <span className="text-white/60 text-sm font-bold">{lessonCount}</span>
-                    <p className="text-white/25 text-[10px]">bài</p>
+                    <p className="text-app-text-muted text-[10px]">bài</p>
                   </div>
 
                   {/* Price */}
                   <div className="w-24 text-center">
                     {series.price ? (
-                      <span className="text-emerald-400 text-xs font-semibold">{series.price}</span>
+                      <span className="text-app-accent-success text-xs font-semibold">{series.price}</span>
                     ) : (
-                      <span className="text-white/20 text-xs">—</span>
+                      <span className="text-app-text-muted text-xs">—</span>
                     )}
                   </div>
 
                   {/* Date */}
                   <div className="w-24 text-center">
-                    <span className="text-white/30 text-xs">
+                    <span className="text-app-text-muted text-xs">
                       {new Date(series.createdAt).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "2-digit" })}
                     </span>
                   </div>
@@ -183,10 +183,10 @@ export default function AdminSeriesPage() {
                   <div className="w-16 flex items-center justify-center gap-1">
                     <a
                       href="/series"
-                      className="w-7 h-7 flex items-center justify-center bg-white/5 hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
+                      className="w-7 h-7 flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 rounded-lg transition-colors cursor-pointer"
                       title="Chỉnh sửa"
                     >
-                      <i className="ri-edit-line text-white/40 text-xs"></i>
+                      <i className="ri-edit-line text-app-text-secondary text-xs"></i>
                     </a>
                     <button
                       onClick={() => setConfirmDelete(series.id)}
@@ -208,7 +208,7 @@ export default function AdminSeriesPage() {
         <i className="ri-information-line text-rose-400 text-sm mt-0.5 flex-shrink-0"></i>
         <div>
           <p className="text-rose-400/80 text-xs font-semibold mb-1">Lưu ý quản lý Series</p>
-          <p className="text-white/40 text-xs leading-relaxed">
+          <p className="text-app-text-secondary text-xs leading-relaxed">
             Để tạo hoặc chỉnh sửa series, vào trang <strong className="text-white/60">Series</strong> trong menu chính.
             Trang này chỉ hiển thị tổng quan và cho phép xóa series không cần thiết.
           </p>
@@ -218,16 +218,16 @@ export default function AdminSeriesPage() {
       {/* Confirm delete modal */}
       {confirmDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="bg-[#0f1117] border border-white/10 rounded-2xl w-full max-w-sm p-6 text-center">
+          <div className="bg-app-bg border border-app-border rounded-2xl w-full max-w-sm p-6 text-center">
             <div className="w-12 h-12 flex items-center justify-center bg-red-500/10 rounded-2xl mx-auto mb-4">
               <i className="ri-delete-bin-line text-red-400 text-2xl"></i>
             </div>
             <p className="text-white font-bold text-base mb-2">Xóa series này?</p>
-            <p className="text-white/40 text-sm mb-6">Hành động này không thể hoàn tác. Series và tất cả cấu hình sẽ bị xóa vĩnh viễn.</p>
+            <p className="text-app-text-secondary text-sm mb-6">Hành động này không thể hoàn tác. Series và tất cả cấu hình sẽ bị xóa vĩnh viễn.</p>
             <div className="flex gap-3">
               <button
                 onClick={() => setConfirmDelete(null)}
-                className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm font-medium hover:bg-white/5 transition-colors cursor-pointer whitespace-nowrap"
+                className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"
               >
                 Hủy
               </button>

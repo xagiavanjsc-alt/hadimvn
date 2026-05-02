@@ -103,7 +103,7 @@ export default function SpeedListeningPage() {
 
   const filteredTracks = levelFilter === "all" ? tracks : tracks.filter(t => t.level === levelFilter);
 
-  const speedColor = speed < 1 ? "#34d399" : speed === 1 ? "#e8c84a" : speed <= 1.5 ? "#fb923c" : "#f87171";
+  const speedColor = speed < 1 ? "#34d399" : speed === 1 ? "app-accent-primary" : speed <= 1.5 ? "#fb923c" : "#f87171";
 
   return (
     <DashboardLayout>
@@ -117,13 +117,13 @@ export default function SpeedListeningPage() {
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
-            { label: "Tổng bài", value: tracks.length, color: "#e8c84a" },
+            { label: "Tổng bài", value: tracks.length, color: "app-accent-primary" },
             { label: "Đã nghe", value: completedIds.size, color: "#34d399" },
             { label: "Tốc độ hiện tại", value: `${speed}x`, color: speedColor },
           ].map(s => (
-            <div key={s.label} className="rounded-xl border border-white/8 bg-white/3 p-4 text-center">
+            <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-4 text-center">
               <p className="font-bold text-xl" style={{ color: s.color }}>{s.value}</p>
-              <p className="text-white/40 text-xs">{s.label}</p>
+              <p className="text-app-text-secondary text-xs">{s.label}</p>
             </div>
           ))}
         </div>
@@ -143,19 +143,19 @@ export default function SpeedListeningPage() {
             <div className="space-y-2">
               {filteredTracks.map(t => (
                 <button key={t.id} onClick={() => handleSelectTrack(t)}
-                  className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl border text-left cursor-pointer transition-all ${selectedTrack.id === t.id ? "border-[#e8c84a]/30 bg-[#e8c84a]/5" : "border-white/8 bg-white/3 hover:bg-white/5"}`}>
+                  className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl border text-left cursor-pointer transition-all ${selectedTrack.id === t.id ? "border-app-accent-primary/30 bg-app-accent-primary/5" : "border-app-border bg-app-surface/50 hover:bg-app-card/50"}`}>
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0"
                     style={{ backgroundColor: `${t.levelColor}20` }}>
                     {completedIds.has(t.id)
-                      ? <i className="ri-checkbox-circle-fill text-emerald-400 text-sm"></i>
+                      ? <i className="ri-checkbox-circle-fill text-app-accent-success text-sm"></i>
                       : <i className="ri-headphone-line text-sm" style={{ color: t.levelColor }}></i>}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-white text-xs font-semibold truncate">{t.title}</p>
                     <div className="flex items-center gap-1.5 mt-0.5">
                       <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ backgroundColor: `${t.levelColor}20`, color: t.levelColor }}>{t.level}</span>
-                      <span className="text-white/30 text-[9px]">{t.topic}</span>
-                      <span className="text-white/20 text-[9px]">{t.duration}s</span>
+                      <span className="text-app-text-muted text-[9px]">{t.topic}</span>
+                      <span className="text-app-text-muted text-[9px]">{t.duration}s</span>
                     </div>
                   </div>
                 </button>
@@ -165,25 +165,25 @@ export default function SpeedListeningPage() {
 
           {/* Player */}
           <div className="lg:col-span-2">
-            <div className="rounded-2xl border border-white/8 bg-white/3 p-6">
+            <div className="rounded-2xl border border-app-border bg-app-surface/50 p-6">
               {/* Track info */}
               <div className="flex items-start justify-between mb-5">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${selectedTrack.levelColor}20`, color: selectedTrack.levelColor }}>{selectedTrack.level}</span>
-                    <span className="text-white/40 text-xs">{selectedTrack.topic}</span>
+                    <span className="text-app-text-secondary text-xs">{selectedTrack.topic}</span>
                   </div>
                   <h2 className="text-white font-bold text-lg">{selectedTrack.title}</h2>
                 </div>
                 <div className="text-right">
                   <p className="font-bold text-2xl" style={{ color: speedColor }}>{speed}x</p>
-                  <p className="text-white/30 text-xs">tốc độ</p>
+                  <p className="text-app-text-muted text-xs">tốc độ</p>
                 </div>
               </div>
 
               {/* Speed selector */}
               <div className="mb-5">
-                <p className="text-white/40 text-xs mb-2">Chọn tốc độ phát:</p>
+                <p className="text-app-text-secondary text-xs mb-2">Chọn tốc độ phát:</p>
                 <div className="flex gap-2 flex-wrap">
                   {SPEEDS.map(s => (
                     <button key={s} onClick={() => { setSpeed(s); if (isPlaying) stopPlayback(); }}
@@ -196,16 +196,16 @@ export default function SpeedListeningPage() {
                   ))}
                 </div>
                 <div className="mt-3 flex items-center gap-3">
-                  <span className="text-white/30 text-xs">Chậm</span>
+                  <span className="text-app-text-muted text-xs">Chậm</span>
                   <div className="flex-1 h-1.5 bg-white/8 rounded-full overflow-hidden">
                     <div className="h-full rounded-full transition-all" style={{ width: `${((speed - 0.5) / 1.5) * 100}%`, backgroundColor: speedColor }} />
                   </div>
-                  <span className="text-white/30 text-xs">Nhanh</span>
+                  <span className="text-app-text-muted text-xs">Nhanh</span>
                 </div>
               </div>
 
               {/* Text display */}
-              <div className="p-4 rounded-xl bg-white/5 border border-white/8 mb-5">
+              <div className="p-4 rounded-xl bg-app-card/50 border border-app-border mb-5">
                 <p className="text-white font-medium text-lg leading-9 tracking-wide">{selectedTrack.text}</p>
               </div>
 
@@ -215,8 +215,8 @@ export default function SpeedListeningPage() {
                   <div className="h-full rounded-full transition-all duration-100" style={{ width: `${progress}%`, backgroundColor: speedColor }} />
                 </div>
                 <div className="flex justify-between mt-1">
-                  <span className="text-white/30 text-xs">0:00</span>
-                  <span className="text-white/30 text-xs">{Math.round(selectedTrack.duration / speed)}s</span>
+                  <span className="text-app-text-muted text-xs">0:00</span>
+                  <span className="text-app-text-muted text-xs">{Math.round(selectedTrack.duration / speed)}s</span>
                 </div>
               </div>
 
@@ -230,23 +230,23 @@ export default function SpeedListeningPage() {
                 </button>
                 <button onClick={() => setShowTranslation(v => !v)}
                   className="px-4 py-3 rounded-xl text-sm cursor-pointer whitespace-nowrap transition-all"
-                  style={{ backgroundColor: showTranslation ? "rgba(232,200,74,0.15)" : "rgba(255,255,255,0.05)", color: showTranslation ? "#e8c84a" : "rgba(255,255,255,0.5)" }}>
+                  style={{ backgroundColor: showTranslation ? "rgba(232,200,74,0.15)" : "rgba(255,255,255,0.05)", color: showTranslation ? "app-accent-primary" : "rgba(255,255,255,0.5)" }}>
                   <i className="ri-translate-2 mr-1"></i>Dịch
                 </button>
               </div>
 
               {/* Translation */}
               {showTranslation && (
-                <div className="p-4 rounded-xl bg-[#e8c84a]/5 border border-[#e8c84a]/15">
-                  <p className="text-white/40 text-xs mb-1">Bản dịch:</p>
+                <div className="p-4 rounded-xl bg-app-accent-primary/5 border border-app-accent-primary/15">
+                  <p className="text-app-text-secondary text-xs mb-1">Bản dịch:</p>
                   <p className="text-white/70 text-sm leading-7">{selectedTrack.translation}</p>
                 </div>
               )}
 
               {/* Speed tips */}
-              <div className="mt-4 p-3 rounded-xl bg-white/3 border border-white/5">
-                <p className="text-white/40 text-xs font-semibold mb-1">Gợi ý luyện tập:</p>
-                <p className="text-white/30 text-xs">
+              <div className="mt-4 p-3 rounded-xl bg-app-surface/50 border border-app-border">
+                <p className="text-app-text-secondary text-xs font-semibold mb-1">Gợi ý luyện tập:</p>
+                <p className="text-app-text-muted text-xs">
                   {speed <= 0.75 ? "Tốc độ chậm — tập nghe từng âm tiết, chú ý phát âm chuẩn"
                     : speed === 1.0 ? "Tốc độ bình thường — nghe như người bản ngữ nói chuyện thực tế"
                     : speed <= 1.5 ? "Tốc độ nhanh — luyện phản xạ nghe, tập trung vào từ khóa"

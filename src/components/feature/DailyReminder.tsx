@@ -12,7 +12,7 @@ interface ReminderSettings {
 }
 
 const STUDY_TOPICS = [
-  { id: "eps", label: "EPS-TOPIK", icon: "ri-file-list-3-line", color: "#e8c84a" },
+  { id: "eps", label: "EPS-TOPIK", icon: "ri-file-list-3-line", color: "app-accent-primary" },
   { id: "topik1", label: "TOPIK I", icon: "ri-book-2-line", color: "#10b981" },
   { id: "topik2", label: "TOPIK II", icon: "ri-book-3-line", color: "#7c3aed" },
   { id: "vocab", label: "Từ vựng", icon: "ri-translate-2", color: "#f59e0b" },
@@ -111,21 +111,21 @@ export default function DailyReminder() {
     <div className="fixed bottom-6 right-6 z-50 max-w-sm w-full">
       <div className="bg-[#13161e] border border-white/12 rounded-2xl overflow-hidden">
         {/* Header */}
-        <div className={`px-4 py-3 flex items-center justify-between ${missedYesterday ? "bg-[#f87171]/8 border-b border-[#f87171]/15" : "bg-[#e8c84a]/8 border-b border-[#e8c84a]/15"}`}>
+        <div className={`px-4 py-3 flex items-center justify-between ${missedYesterday ? "bg-[#f87171]/8 border-b border-[#f87171]/15" : "bg-app-accent-primary/8 border-b border-app-accent-primary/15"}`}>
           <div className="flex items-center gap-2">
-            <i className={`text-base ${missedYesterday ? "ri-alarm-warning-line text-[#f87171]" : "ri-notification-3-line text-[#e8c84a]"}`}></i>
-            <span className={`text-sm font-semibold ${missedYesterday ? "text-[#f87171]" : "text-[#e8c84a]"}`}>
+            <i className={`text-base ${missedYesterday ? "ri-alarm-warning-line text-[#f87171]" : "ri-notification-3-line text-app-accent-primary"}`}></i>
+            <span className={`text-sm font-semibold ${missedYesterday ? "text-[#f87171]" : "text-app-accent-primary"}`}>
               {missedYesterday ? "Streak có nguy cơ bị mất!" : "Nhắc học hôm nay"}
             </span>
           </div>
           <div className="flex items-center gap-1">
             <button
               onClick={() => setShowSettings(!showSettings)}
-              className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/30 hover:text-white/60 cursor-pointer transition-colors"
+              className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-muted hover:text-white/60 cursor-pointer transition-colors"
             >
               <i className="ri-settings-3-line text-sm"></i>
             </button>
-            <button onClick={handleDismiss} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/30 hover:text-white/60 cursor-pointer transition-colors">
+            <button onClick={handleDismiss} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-muted hover:text-white/60 cursor-pointer transition-colors">
               <i className="ri-close-line text-sm"></i>
             </button>
           </div>
@@ -140,7 +140,7 @@ export default function DailyReminder() {
                 type="time"
                 value={localTime}
                 onChange={e => setLocalTime(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-[#e8c84a]/40"
+                className="w-full bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary/40"
               />
             </div>
             <div>
@@ -152,8 +152,8 @@ export default function DailyReminder() {
                     onClick={() => toggleTopic(topic.id)}
                     className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer border ${
                       localTopics.includes(topic.id)
-                        ? "border-[#e8c84a]/40 bg-[#e8c84a]/10 text-[#e8c84a]"
-                        : "border-white/8 bg-white/3 text-white/40 hover:bg-white/6"
+                        ? "border-app-accent-primary/40 bg-app-accent-primary/10 text-app-accent-primary"
+                        : "border-app-border bg-app-surface/50 text-app-text-secondary hover:bg-white/6"
                     }`}
                   >
                     <i className={`${topic.icon} text-sm`} style={{ color: localTopics.includes(topic.id) ? topic.color : undefined }}></i>
@@ -165,13 +165,13 @@ export default function DailyReminder() {
             <div className="flex gap-2">
               <button
                 onClick={handleSaveSettings}
-                className="flex-1 bg-[#e8c84a] text-[#0a0c10] font-semibold py-2 rounded-lg text-xs hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer"
+                className="flex-1 bg-app-accent-primary text-[#0a0c10] font-semibold py-2 rounded-lg text-xs hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer"
               >
                 Lưu cài đặt
               </button>
               <button
                 onClick={() => setShowSettings(false)}
-                className="px-3 bg-white/5 text-white/50 rounded-lg text-xs hover:bg-white/8 transition-colors cursor-pointer"
+                className="px-3 bg-app-card/50 text-white/50 rounded-lg text-xs hover:bg-white/8 transition-colors cursor-pointer"
               >
                 Hủy
               </button>
@@ -196,14 +196,14 @@ export default function DailyReminder() {
                     value={emailInput}
                     onChange={e => setEmailInput(e.target.value)}
                     placeholder="email@example.com"
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm placeholder-white/25 focus:outline-none focus:border-[#e8c84a]/40"
+                    className="w-full bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/40"
                   />
                 </div>
                 <div className="flex gap-2">
-                  <button type="submit" className="flex-1 bg-[#e8c84a] text-[#0a0c10] font-semibold py-2 rounded-lg text-xs hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer">
+                  <button type="submit" className="flex-1 bg-app-accent-primary text-[#0a0c10] font-semibold py-2 rounded-lg text-xs hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer">
                     Đăng ký
                   </button>
-                  <button type="button" onClick={() => setShowEmailForm(false)} className="px-3 bg-white/5 text-white/50 rounded-lg text-xs hover:bg-white/8 transition-colors cursor-pointer">
+                  <button type="button" onClick={() => setShowEmailForm(false)} className="px-3 bg-app-card/50 text-white/50 rounded-lg text-xs hover:bg-white/8 transition-colors cursor-pointer">
                     Hủy
                   </button>
                 </div>
@@ -214,8 +214,8 @@ export default function DailyReminder() {
           /* Main body */
           <div className="p-4">
             <div className="flex items-start gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-[#e8c84a]/10 flex items-center justify-center flex-shrink-0">
-                <i className="ri-fire-line text-[#e8c84a] text-lg"></i>
+              <div className="w-10 h-10 rounded-xl bg-app-accent-primary/10 flex items-center justify-center flex-shrink-0">
+                <i className="ri-fire-line text-app-accent-primary text-lg"></i>
               </div>
               <div>
                 <p className="text-white text-sm font-medium mb-0.5">
@@ -259,32 +259,32 @@ export default function DailyReminder() {
             <div className="flex gap-2 mb-3">
               <button
                 onClick={() => navigate("/daily-plan")}
-                className="flex-1 bg-[#e8c84a] text-[#0a0c10] font-semibold py-2 rounded-lg text-xs hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer"
+                className="flex-1 bg-app-accent-primary text-[#0a0c10] font-semibold py-2 rounded-lg text-xs hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer"
               >
                 Học ngay
               </button>
               {!settings.emailRegistered ? (
                 <button
                   onClick={() => setShowEmailForm(true)}
-                  className="flex-1 bg-white/5 text-white/60 py-2 rounded-lg text-xs hover:bg-white/8 transition-colors whitespace-nowrap cursor-pointer border border-white/8"
+                  className="flex-1 bg-app-card/50 text-white/60 py-2 rounded-lg text-xs hover:bg-white/8 transition-colors whitespace-nowrap cursor-pointer border border-app-border"
                 >
                   Nhắc qua email
                 </button>
               ) : (
                 <div className="flex-1 flex items-center justify-center gap-1 bg-emerald-500/10 border border-emerald-500/20 rounded-lg py-2">
-                  <i className="ri-check-line text-emerald-400 text-xs"></i>
-                  <span className="text-emerald-400 text-[10px]">Đã đăng ký</span>
+                  <i className="ri-check-line text-app-accent-success text-xs"></i>
+                  <span className="text-app-accent-success text-[10px]">Đã đăng ký</span>
                 </div>
               )}
             </div>
 
             <div className="flex items-center justify-between">
-              <p className="text-white/25 text-[10px]">
+              <p className="text-app-text-muted text-[10px]">
                 Nhắc lúc {settings.time} · {settings.topics.length} chủ đề
               </p>
               <button
                 onClick={() => setShowSettings(true)}
-                className="text-white/30 text-[10px] hover:text-white/60 cursor-pointer flex items-center gap-1"
+                className="text-app-text-muted text-[10px] hover:text-white/60 cursor-pointer flex items-center gap-1"
               >
                 <i className="ri-settings-3-line text-[10px]"></i>
                 Cài đặt

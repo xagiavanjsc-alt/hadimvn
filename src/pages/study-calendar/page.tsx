@@ -40,11 +40,11 @@ function generateStudyData(): StudyDay[] {
 const MOCK_STUDY_DATA = generateStudyData();
 
 function getIntensityClass(count: number): string {
-  if (count === 0) return "bg-white/5 border border-white/8";
-  if (count === 1) return "bg-[#e8c84a]/20 border border-[#e8c84a]/25";
-  if (count === 2) return "bg-[#e8c84a]/45 border border-[#e8c84a]/50";
-  if (count === 3) return "bg-[#e8c84a]/70 border border-[#e8c84a]/75";
-  return "bg-[#e8c84a] border border-[#e8c84a]";
+  if (count === 0) return "bg-app-card/50 border border-app-border";
+  if (count === 1) return "bg-app-accent-primary/20 border border-app-accent-primary/25";
+  if (count === 2) return "bg-app-accent-primary/45 border border-app-accent-primary/50";
+  if (count === 3) return "bg-app-accent-primary/70 border border-app-accent-primary/75";
+  return "bg-app-accent-primary border border-app-accent-primary";
 }
 
 function ContributionGraph({ data }: { data: StudyDay[] }) {
@@ -92,7 +92,7 @@ function ContributionGraph({ data }: { data: StudyDay[] }) {
         {months.map((m, i) => (
           <div
             key={i}
-            className="text-white/30 text-[10px] absolute"
+            className="text-app-text-muted text-[10px] absolute"
             style={{ left: `${m.col * 14 + 32}px` }}
           >
             {m.label}
@@ -103,7 +103,7 @@ function ContributionGraph({ data }: { data: StudyDay[] }) {
         {/* Day labels */}
         <div className="flex flex-col gap-0.5 mr-1.5">
           {["CN", "T2", "T3", "T4", "T5", "T6", "T7"].map(d => (
-            <div key={d} className="w-6 h-[11px] text-white/20 text-[9px] flex items-center justify-end pr-1">
+            <div key={d} className="w-6 h-[11px] text-app-text-muted text-[9px] flex items-center justify-end pr-1">
               {d === "T2" || d === "T4" || d === "T6" ? d : ""}
             </div>
           ))}
@@ -134,18 +134,18 @@ function ContributionGraph({ data }: { data: StudyDay[] }) {
       {/* Tooltip */}
       {tooltip && tooltip.day.date && (
         <div
-          className="fixed z-50 bg-[#1a1d27] border border-white/10 rounded-lg px-3 py-2 text-xs pointer-events-none shadow-xl"
+          className="fixed z-50 bg-[#1a1d27] border border-app-border rounded-lg px-3 py-2 text-xs pointer-events-none shadow-xl"
           style={{ left: tooltip.x + 16, top: tooltip.y - 60 }}
         >
           <p className="text-white/70 font-medium">
             {new Date(tooltip.day.date).toLocaleDateString("vi-VN", { weekday: "long", day: "numeric", month: "long" })}
           </p>
           {tooltip.day.count === 0 ? (
-            <p className="text-white/30 mt-0.5">Chưa học ngày này</p>
+            <p className="text-app-text-muted mt-0.5">Chưa học ngày này</p>
           ) : (
             <>
-              <p className="text-[#e8c84a] mt-0.5">{tooltip.day.count} hoạt động</p>
-              <p className="text-white/40 mt-0.5">{tooltip.day.activities.join(", ")}</p>
+              <p className="text-app-accent-primary mt-0.5">{tooltip.day.count} hoạt động</p>
+              <p className="text-app-text-secondary mt-0.5">{tooltip.day.activities.join(", ")}</p>
             </>
           )}
         </div>
@@ -162,7 +162,7 @@ function StreakCalendar({ data }: { data: StudyDay[] }) {
   return (
     <div className="grid grid-cols-7 gap-1.5">
       {["CN", "T2", "T3", "T4", "T5", "T6", "T7"].map(d => (
-        <div key={d} className="text-center text-white/25 text-[10px] font-medium pb-1">{d}</div>
+        <div key={d} className="text-center text-app-text-muted text-[10px] font-medium pb-1">{d}</div>
       ))}
       {last35.map((day, i) => {
         const isToday = day.date === today;
@@ -172,12 +172,12 @@ function StreakCalendar({ data }: { data: StudyDay[] }) {
           <div
             key={i}
             className={`aspect-square rounded-lg flex flex-col items-center justify-center text-xs font-medium transition-all cursor-pointer
-              ${isToday ? "ring-2 ring-[#e8c84a] ring-offset-1 ring-offset-[#0f1117]" : ""}
-              ${hasStudy ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "bg-white/3 text-white/20"}
+              ${isToday ? "ring-2 ring-[app-accent-primary] ring-offset-1 ring-offset-[#0f1117]" : ""}
+              ${hasStudy ? "bg-app-accent-primary/15 text-app-accent-primary" : "bg-app-surface/50 text-app-text-muted"}
             `}
           >
             <span className="text-[11px]">{d.getDate()}</span>
-            {hasStudy && <div className="w-1 h-1 rounded-full bg-[#e8c84a] mt-0.5"></div>}
+            {hasStudy && <div className="w-1 h-1 rounded-full bg-app-accent-primary mt-0.5"></div>}
           </div>
         );
       })}
@@ -209,10 +209,10 @@ function MonthlyBarChart({ data }: { data: StudyDay[] }) {
         <div key={i} className="flex-1 flex flex-col items-center gap-1">
           <span className="text-white/50 text-[10px]">{m.value}</span>
           <div
-            className="w-full rounded-t-md bg-gradient-to-t from-[#e8c84a]/60 to-[#e8c84a]/30 transition-all"
+            className="w-full rounded-t-md bg-gradient-to-t from-[app-accent-primary]/60 to-[app-accent-primary]/30 transition-all"
             style={{ height: `${(m.value / max) * 80}px` }}
           />
-          <span className="text-white/30 text-[10px]">{m.label}</span>
+          <span className="text-app-text-muted text-[10px]">{m.label}</span>
         </div>
       ))}
     </div>
@@ -243,8 +243,8 @@ export default function StudyCalendarPage() {
 
   const stats = [
     { icon: "ri-fire-line", label: "Streak hiện tại", value: `${streak.count} ngày`, color: "text-orange-400" },
-    { icon: "ri-trophy-line", label: "Streak dài nhất", value: `${longestStreak} ngày`, color: "text-[#e8c84a]" },
-    { icon: "ri-calendar-check-line", label: "Ngày học tháng này", value: `${thisMonthDays} ngày`, color: "text-emerald-400" },
+    { icon: "ri-trophy-line", label: "Streak dài nhất", value: `${longestStreak} ngày`, color: "text-app-accent-primary" },
+    { icon: "ri-calendar-check-line", label: "Ngày học tháng này", value: `${thisMonthDays} ngày`, color: "text-app-accent-success" },
     { icon: "ri-bar-chart-2-line", label: "Tổng hoạt động", value: `${totalActivities}`, color: "text-sky-400" },
   ];
 
@@ -255,11 +255,11 @@ export default function StudyCalendarPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-white text-2xl font-bold">Lịch học tập</h1>
-            <p className="text-white/40 text-sm mt-1">Theo dõi hành trình học tiếng Hàn của bạn</p>
+            <p className="text-app-text-secondary text-sm mt-1">Theo dõi hành trình học tiếng Hàn của bạn</p>
           </div>
           <button
             onClick={() => navigate("/learn-stats")}
-            className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-white/60 text-sm transition-all cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-2 px-4 py-2 bg-app-card/50 hover:bg-app-card/70 border border-app-border rounded-lg text-white/60 text-sm transition-all cursor-pointer whitespace-nowrap"
           >
             <i className="ri-bar-chart-box-line text-sm"></i>
             Thống kê chi tiết
@@ -269,12 +269,12 @@ export default function StudyCalendarPage() {
         {/* Stats row */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {stats.map((s, i) => (
-            <div key={i} className="bg-[#1a1d27] border border-white/8 rounded-xl p-4">
+            <div key={i} className="bg-[#1a1d27] border border-app-border rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-7 h-7 flex items-center justify-center">
                   <i className={`${s.icon} ${s.color} text-lg`}></i>
                 </div>
-                <span className="text-white/40 text-xs">{s.label}</span>
+                <span className="text-app-text-secondary text-xs">{s.label}</span>
               </div>
               <p className={`text-xl font-bold ${s.color}`}>{s.value}</p>
             </div>
@@ -282,18 +282,18 @@ export default function StudyCalendarPage() {
         </div>
 
         {/* Contribution Graph */}
-        <div className="bg-[#1a1d27] border border-white/8 rounded-xl p-6">
+        <div className="bg-[#1a1d27] border border-app-border rounded-xl p-6">
           <div className="flex items-center justify-between mb-5">
             <div>
               <h2 className="text-white font-semibold">Biểu đồ hoạt động</h2>
               <p className="text-white/35 text-xs mt-0.5">{totalStudyDays} ngày học trong 12 tháng qua</p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-white/30 text-xs">Ít</span>
+              <span className="text-app-text-muted text-xs">Ít</span>
               {[0, 1, 2, 3, 4].map(v => (
                 <div key={v} className={`w-3 h-3 rounded-sm ${getIntensityClass(v)}`} />
               ))}
-              <span className="text-white/30 text-xs">Nhiều</span>
+              <span className="text-app-text-muted text-xs">Nhiều</span>
             </div>
           </div>
           <div className="overflow-x-auto pb-2">
@@ -304,7 +304,7 @@ export default function StudyCalendarPage() {
         {/* Bottom row */}
         <div className="grid grid-cols-2 gap-4">
           {/* Streak Calendar */}
-          <div className="bg-[#1a1d27] border border-white/8 rounded-xl p-5">
+          <div className="bg-[#1a1d27] border border-app-border rounded-xl p-5">
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h2 className="text-white font-semibold">Lịch 5 tuần gần nhất</h2>
@@ -319,7 +319,7 @@ export default function StudyCalendarPage() {
           </div>
 
           {/* Monthly bar */}
-          <div className="bg-[#1a1d27] border border-white/8 rounded-xl p-5">
+          <div className="bg-[#1a1d27] border border-app-border rounded-xl p-5">
             <div className="mb-4">
               <h2 className="text-white font-semibold">Ngày học theo tháng</h2>
               <p className="text-white/35 text-xs mt-0.5">6 tháng gần nhất</p>
@@ -327,21 +327,21 @@ export default function StudyCalendarPage() {
             <MonthlyBarChart data={studyData} />
 
             {/* Activity breakdown */}
-            <div className="mt-4 pt-4 border-t border-white/5">
-              <p className="text-white/40 text-xs mb-3">Hoạt động phổ biến nhất</p>
+            <div className="mt-4 pt-4 border-t border-app-border">
+              <p className="text-app-text-secondary text-xs mb-3">Hoạt động phổ biến nhất</p>
               <div className="space-y-2">
                 {[
-                  { name: "Flashcard", pct: 82, color: "bg-[#e8c84a]" },
+                  { name: "Flashcard", pct: 82, color: "bg-app-accent-primary" },
                   { name: "Quiz & Kiểm tra", pct: 67, color: "bg-emerald-400" },
                   { name: "Luyện thi EPS", pct: 54, color: "bg-sky-400" },
                   { name: "Học qua Tin tức", pct: 41, color: "bg-purple-400" },
                 ].map((a, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <span className="text-white/50 text-xs w-28 truncate">{a.name}</span>
-                    <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <div className="flex-1 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                       <div className={`h-full ${a.color} rounded-full`} style={{ width: `${a.pct}%` }} />
                     </div>
-                    <span className="text-white/30 text-xs w-8 text-right">{a.pct}%</span>
+                    <span className="text-app-text-muted text-xs w-8 text-right">{a.pct}%</span>
                   </div>
                 ))}
               </div>
@@ -350,24 +350,24 @@ export default function StudyCalendarPage() {
         </div>
 
         {/* Recent activity log */}
-        <div className="bg-[#1a1d27] border border-white/8 rounded-xl p-5">
+        <div className="bg-[#1a1d27] border border-app-border rounded-xl p-5">
           <h2 className="text-white font-semibold mb-4">Nhật ký học tập gần đây</h2>
           <div className="space-y-2">
             {studyData.filter(d => d.count > 0).slice(-7).reverse().map((day, i) => (
-              <div key={i} className="flex items-center gap-4 py-2.5 border-b border-white/5 last:border-0">
-                <div className="w-20 text-white/40 text-xs">
+              <div key={i} className="flex items-center gap-4 py-2.5 border-b border-app-border last:border-0">
+                <div className="w-20 text-app-text-secondary text-xs">
                   {new Date(day.date).toLocaleDateString("vi-VN", { weekday: "short", day: "numeric", month: "numeric" })}
                 </div>
                 <div className="flex gap-1.5 flex-wrap flex-1">
                   {day.activities.map((act, j) => (
-                    <span key={j} className="px-2 py-0.5 bg-[#e8c84a]/10 border border-[#e8c84a]/20 rounded-full text-[#e8c84a] text-[10px]">
+                    <span key={j} className="px-2 py-0.5 bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-full text-app-accent-primary text-[10px]">
                       {act}
                     </span>
                   ))}
                 </div>
                 <div className="flex items-center gap-1">
                   {Array.from({ length: day.count }).map((_, k) => (
-                    <div key={k} className="w-1.5 h-1.5 rounded-full bg-[#e8c84a]/60" />
+                    <div key={k} className="w-1.5 h-1.5 rounded-full bg-app-accent-primary/60" />
                   ))}
                 </div>
               </div>

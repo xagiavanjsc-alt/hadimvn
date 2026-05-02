@@ -126,7 +126,7 @@ export default function LyricsQuizModal({ song, result, onClose }: LyricsQuizMod
   };
 
   const getGrade = () => {
-    if (score === 5) return { label: "Xuất sắc! 🏆", color: "text-[#e8c84a]" };
+    if (score === 5) return { label: "Xuất sắc! 🏆", color: "text-app-accent-primary" };
     if (score >= 4) return { label: "Rất tốt! 🎉", color: "text-green-400" };
     if (score >= 3) return { label: "Khá tốt 👍", color: "text-blue-400" };
     return { label: "Cần ôn thêm 📚", color: "text-orange-400" };
@@ -135,12 +135,12 @@ export default function LyricsQuizModal({ song, result, onClose }: LyricsQuizMod
   return (
     <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-4">
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full sm:max-w-md bg-[#0f1117] sm:rounded-2xl rounded-t-2xl border border-white/8 flex flex-col max-h-[92vh] overflow-hidden">
+      <div className="relative w-full sm:max-w-md bg-app-bg sm:rounded-2xl rounded-t-2xl border border-app-border flex flex-col max-h-[92vh] overflow-hidden">
 
         {/* Header */}
-        <div className="flex items-center gap-3 px-5 pt-5 pb-4 border-b border-white/8 flex-shrink-0">
-          <div className="w-9 h-9 flex items-center justify-center bg-[#e8c84a]/10 rounded-xl flex-shrink-0">
-            <i className="ri-lightbulb-flash-line text-[#e8c84a] text-base" />
+        <div className="flex items-center gap-3 px-5 pt-5 pb-4 border-b border-app-border flex-shrink-0">
+          <div className="w-9 h-9 flex items-center justify-center bg-app-accent-primary/10 rounded-xl flex-shrink-0">
+            <i className="ri-lightbulb-flash-line text-app-accent-primary text-base" />
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-white font-semibold text-sm">Quiz — {song.title}</p>
@@ -148,7 +148,7 @@ export default function LyricsQuizModal({ song, result, onClose }: LyricsQuizMod
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/40 hover:text-white cursor-pointer flex-shrink-0"
+            className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white cursor-pointer flex-shrink-0"
           >
             <i className="ri-close-line" />
           </button>
@@ -158,7 +158,7 @@ export default function LyricsQuizModal({ song, result, onClose }: LyricsQuizMod
           {/* Result screen */}
           {showResult ? (
             <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
-              <div className="w-20 h-20 flex items-center justify-center bg-[#e8c84a]/10 rounded-3xl mb-5">
+              <div className="w-20 h-20 flex items-center justify-center bg-app-accent-primary/10 rounded-3xl mb-5">
                 <span className="text-4xl">{score === 5 ? "🏆" : score >= 3 ? "🎉" : "📚"}</span>
               </div>
               <p className={`text-2xl font-bold mb-1 ${getGrade().color}`}>{getGrade().label}</p>
@@ -188,14 +188,14 @@ export default function LyricsQuizModal({ song, result, onClose }: LyricsQuizMod
               <div className="flex gap-3 w-full">
                 <button
                   onClick={handleRestart}
-                  className="flex-1 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white/60 text-sm font-medium cursor-pointer transition-colors whitespace-nowrap"
+                  className="flex-1 py-3 rounded-xl bg-app-card/50 hover:bg-app-card/70 text-white/60 text-sm font-medium cursor-pointer transition-colors whitespace-nowrap"
                 >
                   <i className="ri-restart-line mr-1.5" />
                   Làm lại
                 </button>
                 <button
                   onClick={onClose}
-                  className="flex-1 py-3 rounded-xl bg-[#e8c84a] hover:bg-[#e8c84a]/80 text-[#0f1117] text-sm font-bold cursor-pointer transition-colors whitespace-nowrap"
+                  className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold cursor-pointer transition-colors whitespace-nowrap"
                 >
                   Hoàn thành
                 </button>
@@ -207,34 +207,34 @@ export default function LyricsQuizModal({ song, result, onClose }: LyricsQuizMod
               <div className="flex items-center gap-3 mb-5">
                 <div className="flex-1 h-1.5 bg-white/8 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-[#e8c84a] rounded-full transition-all duration-500"
+                    className="h-full bg-app-accent-primary rounded-full transition-all duration-500"
                     style={{ width: `${((current) / questions.length) * 100}%` }}
                   />
                 </div>
-                <span className="text-white/30 text-xs whitespace-nowrap">
+                <span className="text-app-text-muted text-xs whitespace-nowrap">
                   {current + 1}/{questions.length}
                 </span>
               </div>
 
               {/* Question */}
-              <div className="bg-white/3 rounded-2xl p-4 border border-white/5 mb-4">
+              <div className="bg-app-surface/50 rounded-2xl p-4 border border-app-border mb-4">
                 <p className="text-white/80 text-sm font-medium leading-relaxed">{q.question}</p>
               </div>
 
               {/* Options */}
               <div className="space-y-2.5 mb-5">
                 {q.options.map((opt, idx) => {
-                  let style = "border-white/8 bg-white/3 text-white/70 hover:border-white/20 hover:bg-white/5";
+                  let style = "border-app-border bg-app-surface/50 text-white/70 hover:border-white/20 hover:bg-app-card/50";
                   if (isAnswered) {
                     if (idx === q.correctIndex) {
                       style = "border-green-500/50 bg-green-500/10 text-green-300";
                     } else if (idx === selected && selected !== q.correctIndex) {
                       style = "border-red-500/40 bg-red-500/8 text-red-300";
                     } else {
-                      style = "border-white/5 bg-white/2 text-white/30";
+                      style = "border-app-border bg-white/2 text-app-text-muted";
                     }
                   } else if (selected === idx) {
-                    style = "border-[#e8c84a]/50 bg-[#e8c84a]/10 text-[#e8c84a]";
+                    style = "border-app-accent-primary/50 bg-app-accent-primary/10 text-app-accent-primary";
                   }
                   return (
                     <button
@@ -269,8 +269,8 @@ export default function LyricsQuizModal({ song, result, onClose }: LyricsQuizMod
                 disabled={!isAnswered}
                 className={`w-full py-3 rounded-xl text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                   isAnswered
-                    ? "bg-[#e8c84a] hover:bg-[#e8c84a]/80 text-[#0f1117]"
-                    : "bg-white/5 text-white/20 cursor-not-allowed"
+                    ? "bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg"
+                    : "bg-app-card/50 text-app-text-muted cursor-not-allowed"
                 }`}
               >
                 {current + 1 >= questions.length ? "Xem kết quả" : "Câu tiếp theo"}

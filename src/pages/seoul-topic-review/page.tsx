@@ -5,7 +5,7 @@ import { seoulBooks } from "@/mocks/seoulTextbook";
 
 // ─── Topic definitions ───────────────────────────────────────────────────────
 const TOPICS = [
-  { id: "all", label: "Tất cả", icon: "ri-apps-line", color: "#e8c84a" },
+  { id: "all", label: "Tất cả", icon: "ri-apps-line", color: "app-accent-primary" },
   { id: "love", label: "Tình yêu & Hôn nhân", icon: "ri-heart-line", color: "#f87171" },
   { id: "work", label: "Công việc & Nghề nghiệp", icon: "ri-briefcase-line", color: "#60a5fa" },
   { id: "health", label: "Sức khỏe & Thể dục", icon: "ri-heart-pulse-line", color: "#34d399" },
@@ -115,7 +115,7 @@ function FlashCard({ word, onNext, onPrev, index, total }: {
 
   return (
     <div className="flex flex-col items-center gap-6">
-      <div className="text-sm text-white/40">{index + 1} / {total}</div>
+      <div className="text-sm text-app-text-secondary">{index + 1} / {total}</div>
       <div
         className="w-full max-w-lg cursor-pointer"
         style={{ perspective: "1000px" }}
@@ -127,23 +127,23 @@ function FlashCard({ word, onNext, onPrev, index, total }: {
         >
           {/* Front */}
           <div
-            className="absolute inset-0 bg-[#1a1d27] border border-white/10 rounded-2xl flex flex-col items-center justify-center gap-3 p-6"
+            className="absolute inset-0 bg-[#1a1d27] border border-app-border rounded-2xl flex flex-col items-center justify-center gap-3 p-6"
             style={{ backfaceVisibility: "hidden" }}
           >
             <p className="text-4xl font-bold text-white">{word.korean}</p>
-            <p className="text-white/40 text-sm">{word.pronunciation}</p>
-            <p className="text-white/25 text-xs mt-2">{word.partOfSpeech}</p>
-            <p className="text-white/20 text-xs mt-1">Nhấn để xem nghĩa</p>
+            <p className="text-app-text-secondary text-sm">{word.pronunciation}</p>
+            <p className="text-app-text-muted text-xs mt-2">{word.partOfSpeech}</p>
+            <p className="text-app-text-muted text-xs mt-1">Nhấn để xem nghĩa</p>
           </div>
           {/* Back */}
           <div
-            className="absolute inset-0 bg-[#1a1d27] border border-[#e8c84a]/20 rounded-2xl flex flex-col items-center justify-center gap-3 p-6"
+            className="absolute inset-0 bg-[#1a1d27] border border-app-accent-primary/20 rounded-2xl flex flex-col items-center justify-center gap-3 p-6"
             style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
           >
-            <p className="text-2xl font-bold text-[#e8c84a]">{word.vietnamese}</p>
+            <p className="text-2xl font-bold text-app-accent-primary">{word.vietnamese}</p>
             <p className="text-white/50 text-sm italic mt-2">{word.example}</p>
             <p className="text-white/35 text-xs">{word.exampleVi}</p>
-            <div className="mt-2 px-2 py-1 bg-white/5 rounded-full text-white/30 text-xs">
+            <div className="mt-2 px-2 py-1 bg-app-card/50 rounded-full text-app-text-muted text-xs">
               {word.bookName} — Bài {word.lessonNumber}
             </div>
           </div>
@@ -152,13 +152,13 @@ function FlashCard({ word, onNext, onPrev, index, total }: {
       <div className="flex items-center gap-4">
         <button
           onClick={() => { setFlipped(false); onPrev(); }}
-          className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-white transition-all cursor-pointer"
+          className="w-10 h-10 flex items-center justify-center rounded-full bg-app-card/50 hover:bg-app-card/70 text-white/50 hover:text-white transition-all cursor-pointer"
         >
           <i className="ri-arrow-left-line"></i>
         </button>
         <button
           onClick={() => { setFlipped(false); onNext(); }}
-          className="px-6 py-2 bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 border border-[#e8c84a]/20 rounded-full text-[#e8c84a] text-sm font-medium transition-all cursor-pointer whitespace-nowrap"
+          className="px-6 py-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 border border-app-accent-primary/20 rounded-full text-app-accent-primary text-sm font-medium transition-all cursor-pointer whitespace-nowrap"
         >
           Tiếp theo
         </button>
@@ -197,13 +197,13 @@ function QuizMode({ words }: { words: VocabItem[] }) {
 
   if (done) return (
     <div className="flex flex-col items-center gap-6 py-10">
-      <div className="w-20 h-20 flex items-center justify-center rounded-full bg-[#e8c84a]/10 border border-[#e8c84a]/20">
-        <i className="ri-trophy-line text-[#e8c84a] text-3xl"></i>
+      <div className="w-20 h-20 flex items-center justify-center rounded-full bg-app-accent-primary/10 border border-app-accent-primary/20">
+        <i className="ri-trophy-line text-app-accent-primary text-3xl"></i>
       </div>
       <p className="text-2xl font-bold text-white">Hoàn thành!</p>
       <p className="text-white/50">Đúng {score}/{shuffled.length} câu ({Math.round(score / shuffled.length * 100)}%)</p>
       <button onClick={() => { setCurrent(0); setSelected(null); setScore(0); setDone(false); }}
-        className="px-6 py-2.5 bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 border border-[#e8c84a]/20 rounded-full text-[#e8c84a] font-medium cursor-pointer whitespace-nowrap">
+        className="px-6 py-2.5 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 border border-app-accent-primary/20 rounded-full text-app-accent-primary font-medium cursor-pointer whitespace-nowrap">
         Làm lại
       </button>
     </div>
@@ -213,23 +213,23 @@ function QuizMode({ words }: { words: VocabItem[] }) {
 
   return (
     <div className="flex flex-col gap-6 max-w-lg mx-auto">
-      <div className="flex items-center justify-between text-sm text-white/40">
+      <div className="flex items-center justify-between text-sm text-app-text-secondary">
         <span>Câu {current + 1}/{shuffled.length}</span>
-        <span className="text-[#e8c84a]">Đúng: {score}</span>
+        <span className="text-app-accent-primary">Đúng: {score}</span>
       </div>
-      <div className="bg-[#1a1d27] border border-white/10 rounded-2xl p-8 text-center">
+      <div className="bg-[#1a1d27] border border-app-border rounded-2xl p-8 text-center">
         <p className="text-3xl font-bold text-white mb-2">{word.korean}</p>
-        <p className="text-white/40 text-sm">{word.pronunciation}</p>
+        <p className="text-app-text-secondary text-sm">{word.pronunciation}</p>
       </div>
       <div className="grid grid-cols-2 gap-3">
         {options.map(opt => {
           const isCorrect = opt.vietnamese === word.vietnamese;
           const isSelected = selected === opt.vietnamese;
           let cls = "p-4 rounded-xl border text-sm text-left transition-all cursor-pointer ";
-          if (!selected) cls += "bg-white/3 border-white/10 hover:bg-white/8 hover:border-white/20 text-white/70";
-          else if (isCorrect) cls += "bg-emerald-500/10 border-emerald-500/30 text-emerald-400";
+          if (!selected) cls += "bg-app-surface/50 border-app-border hover:bg-white/8 hover:border-white/20 text-white/70";
+          else if (isCorrect) cls += "bg-emerald-500/10 border-emerald-500/30 text-app-accent-success";
           else if (isSelected) cls += "bg-red-500/10 border-red-500/30 text-red-400";
-          else cls += "bg-white/3 border-white/5 text-white/30";
+          else cls += "bg-app-surface/50 border-app-border text-app-text-muted";
           return (
             <button key={opt.vietnamese} className={cls} onClick={() => handleSelect(opt.vietnamese)}>
               {opt.vietnamese}
@@ -239,7 +239,7 @@ function QuizMode({ words }: { words: VocabItem[] }) {
       </div>
       {selected && (
         <button onClick={handleNext}
-          className="w-full py-3 bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 border border-[#e8c84a]/20 rounded-xl text-[#e8c84a] font-medium cursor-pointer whitespace-nowrap">
+          className="w-full py-3 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 border border-app-accent-primary/20 rounded-xl text-app-accent-primary font-medium cursor-pointer whitespace-nowrap">
           {current + 1 >= shuffled.length ? "Xem kết quả" : "Câu tiếp theo"}
         </button>
       )}
@@ -281,12 +281,12 @@ export default function SeoulTopicReviewPage() {
       <div className="p-6 max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-4 mb-6">
-          <button onClick={() => navigate(-1)} className="w-9 h-9 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-white transition-all cursor-pointer">
+          <button onClick={() => navigate(-1)} className="w-9 h-9 flex items-center justify-center rounded-full bg-app-card/50 hover:bg-app-card/70 text-white/50 hover:text-white transition-all cursor-pointer">
             <i className="ri-arrow-left-line"></i>
           </button>
           <div>
             <h1 className="text-xl font-bold text-white">Ôn tập theo chủ đề</h1>
-            <p className="text-white/40 text-sm">Lọc và ôn từ vựng Seoul theo chủ đề</p>
+            <p className="text-app-text-secondary text-sm">Lọc và ôn từ vựng Seoul theo chủ đề</p>
           </div>
         </div>
 
@@ -299,7 +299,7 @@ export default function SeoulTopicReviewPage() {
               className={`flex flex-col items-center gap-1.5 p-2.5 rounded-xl border transition-all cursor-pointer ${
                 selectedTopic === topic.id
                   ? "border-opacity-40 bg-opacity-10"
-                  : "border-white/8 bg-white/3 hover:bg-white/6"
+                  : "border-app-border bg-app-surface/50 hover:bg-white/6"
               }`}
               style={selectedTopic === topic.id ? { borderColor: topic.color + "66", backgroundColor: topic.color + "18" } : {}}
             >
@@ -316,29 +316,29 @@ export default function SeoulTopicReviewPage() {
         {/* Filters + Mode */}
         <div className="flex flex-col sm:flex-row gap-3 mb-6">
           <div className="flex-1 relative">
-            <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
+            <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
             <input
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Tìm từ vựng..."
-              className="w-full bg-white/5 border border-white/10 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder-white/25 focus:outline-none focus:border-[#e8c84a]/30"
+              className="w-full bg-app-card/50 border border-app-border rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder-white/25 focus:outline-none focus:border-app-accent-primary/30"
             />
           </div>
           <select
             value={selectedBook}
             onChange={e => setSelectedBook(e.target.value)}
-            className="bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white/70 focus:outline-none cursor-pointer"
+            className="bg-app-card/50 border border-app-border rounded-xl px-3 py-2.5 text-sm text-white/70 focus:outline-none cursor-pointer"
           >
             <option value="all">Tất cả cuốn</option>
             {books.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}
           </select>
-          <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-xl p-1">
+          <div className="flex items-center gap-1 bg-app-card/50 border border-app-border rounded-xl p-1">
             {(["list", "flashcard", "quiz"] as const).map(m => (
               <button
                 key={m}
                 onClick={() => { setMode(m); setFlashIndex(0); }}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
-                  mode === m ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "text-white/40 hover:text-white/60"
+                  mode === m ? "bg-app-accent-primary/15 text-app-accent-primary" : "text-app-text-secondary hover:text-white/60"
                 }`}
               >
                 {m === "list" ? "Danh sách" : m === "flashcard" ? "Flashcard" : "Quiz"}
@@ -348,22 +348,22 @@ export default function SeoulTopicReviewPage() {
         </div>
 
         {/* Stats bar */}
-        <div className="flex items-center gap-3 mb-5 px-4 py-3 bg-white/3 border border-white/8 rounded-xl">
+        <div className="flex items-center gap-3 mb-5 px-4 py-3 bg-app-surface/50 border border-app-border rounded-xl">
           <div className="w-7 h-7 flex items-center justify-center">
             <i className={`${topicInfo.icon} text-base`} style={{ color: topicInfo.color }}></i>
           </div>
           <div>
             <p className="text-white font-medium text-sm">{topicInfo.label}</p>
-            <p className="text-white/40 text-xs">{filtered.length} từ vựng</p>
+            <p className="text-app-text-secondary text-xs">{filtered.length} từ vựng</p>
           </div>
           <div className="ml-auto flex items-center gap-2">
-            <span className="text-white/30 text-xs">Tổng: {allVocab.length} từ</span>
+            <span className="text-app-text-muted text-xs">Tổng: {allVocab.length} từ</span>
           </div>
         </div>
 
         {/* Content */}
         {filtered.length === 0 ? (
-          <div className="text-center py-16 text-white/30">
+          <div className="text-center py-16 text-app-text-muted">
             <i className="ri-search-line text-4xl mb-3 block"></i>
             <p>Không tìm thấy từ vựng nào</p>
           </div>
@@ -380,20 +380,20 @@ export default function SeoulTopicReviewPage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {filtered.map((word, idx) => (
-              <div key={idx} className="bg-[#1a1d27] border border-white/8 rounded-xl p-4 hover:border-white/15 transition-all">
+              <div key={idx} className="bg-[#1a1d27] border border-app-border rounded-xl p-4 hover:border-white/15 transition-all">
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <div>
                     <p className="text-white font-semibold text-base">{word.korean}</p>
                     <p className="text-white/35 text-xs">{word.pronunciation}</p>
                   </div>
-                  <span className="text-[10px] px-2 py-0.5 bg-white/5 rounded-full text-white/30 whitespace-nowrap flex-shrink-0">{word.partOfSpeech}</span>
+                  <span className="text-[10px] px-2 py-0.5 bg-app-card/50 rounded-full text-app-text-muted whitespace-nowrap flex-shrink-0">{word.partOfSpeech}</span>
                 </div>
-                <p className="text-[#e8c84a] text-sm font-medium mb-2">{word.vietnamese}</p>
-                <p className="text-white/40 text-xs italic mb-1">{word.example}</p>
-                <p className="text-white/25 text-xs">{word.exampleVi}</p>
+                <p className="text-app-accent-primary text-sm font-medium mb-2">{word.vietnamese}</p>
+                <p className="text-app-text-secondary text-xs italic mb-1">{word.example}</p>
+                <p className="text-app-text-muted text-xs">{word.exampleVi}</p>
                 <div className="mt-3 flex items-center gap-1.5 flex-wrap">
-                  <span className="text-[10px] px-2 py-0.5 bg-white/5 rounded-full text-white/25">{word.bookName}</span>
-                  <span className="text-[10px] px-2 py-0.5 bg-white/5 rounded-full text-white/25">Bài {word.lessonNumber}</span>
+                  <span className="text-[10px] px-2 py-0.5 bg-app-card/50 rounded-full text-app-text-muted">{word.bookName}</span>
+                  <span className="text-[10px] px-2 py-0.5 bg-app-card/50 rounded-full text-app-text-muted">Bài {word.lessonNumber}</span>
                 </div>
               </div>
             ))}

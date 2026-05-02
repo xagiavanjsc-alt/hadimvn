@@ -41,10 +41,10 @@ function Toast({
   const rank = isLevelUp && notif.rankId ? getRankById(notif.rankId) : null;
   const badge = isBadge && notif.badgeId ? getBadgeById(notif.badgeId) : null;
 
-  const accentColor = rank?.color || badge?.color || "#e8c84a";
-  const bgColor = rank?.bgColor || (badge ? `${badge.color}10` : "#e8c84a10");
+  const accentColor = rank?.color || badge?.color || "app-accent-primary";
+  const bgColor = rank?.bgColor || (badge ? `${badge.color}10` : "app-accent-primary10");
   const borderColor =
-    rank?.borderColor || (badge ? `${badge.color}25` : "#e8c84a25");
+    rank?.borderColor || (badge ? `${badge.color}25` : "app-accent-primary25");
   const icon = rank?.icon || badge?.icon || "ri-star-fill";
 
   return (
@@ -91,7 +91,7 @@ function Toast({
               className="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center"
               style={{ backgroundColor: accentColor }}
             >
-              <i className="ri-arrow-up-line text-[#0f1117] text-[9px] font-bold" />
+              <i className="ri-arrow-up-line text-app-bg text-[9px] font-bold" />
             </div>
           )}
         </div>
@@ -122,8 +122,8 @@ function Toast({
           <p className="text-white/50 text-xs leading-relaxed">{notif.message}</p>
           {notif.xpAmount && (
             <div className="flex items-center gap-1 mt-1.5">
-              <i className="ri-star-fill text-[#e8c84a] text-[10px]" />
-              <span className="text-[#e8c84a] text-[10px] font-bold">
+              <i className="ri-star-fill text-app-accent-primary text-[10px]" />
+              <span className="text-app-accent-primary text-[10px] font-bold">
                 +{notif.xpAmount} XP
               </span>
             </div>
@@ -132,7 +132,7 @@ function Toast({
 
         {/* Close */}
         <button
-          className="w-5 h-5 flex items-center justify-center rounded-md text-white/20 hover:text-white/50 flex-shrink-0 cursor-pointer"
+          className="w-5 h-5 flex items-center justify-center rounded-md text-app-text-muted hover:text-white/50 flex-shrink-0 cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
             handleDismiss();
@@ -143,7 +143,7 @@ function Toast({
       </div>
 
       {/* Progress bar (auto-dismiss timer) */}
-      <div className="h-0.5 bg-white/5">
+      <div className="h-0.5 bg-app-card/50">
         <div
           className="h-full"
           style={{

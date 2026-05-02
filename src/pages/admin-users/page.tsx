@@ -80,7 +80,7 @@ function BulkActionModal({
   };
 
   const actions = [
-    { id: "vip_grant" as const, icon: "ri-vip-crown-line", label: "Cấp VIP hàng loạt", color: "#e8c84a", desc: `Cấp VIP cho ${selectedUsers.length} thành viên` },
+    { id: "vip_grant" as const, icon: "ri-vip-crown-line", label: "Cấp VIP hàng loạt", color: "app-accent-primary", desc: `Cấp VIP cho ${selectedUsers.length} thành viên` },
     { id: "vip_revoke" as const, icon: "ri-close-circle-line", label: "Hủy VIP hàng loạt", color: "#f87171", desc: `Hủy VIP của ${selectedUsers.length} thành viên` },
     { id: "email_expiry" as const, icon: "ri-mail-send-line", label: "Gửi email nhắc gia hạn", color: "#fb923c", desc: "Gửi email nhắc gia hạn VIP" },
     { id: "email_bulk" as const, icon: "ri-broadcast-line", label: "Gửi email thông báo", color: "#a78bfa", desc: "Gửi email tùy chỉnh" },
@@ -108,7 +108,7 @@ function BulkActionModal({
         {done ? (
           <div className="p-8 text-center">
             <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-emerald-500/12 mx-auto mb-4">
-              <i className="ri-checkbox-circle-line text-emerald-400 text-3xl"></i>
+              <i className="ri-checkbox-circle-line text-app-accent-success text-3xl"></i>
             </div>
             <p className="font-bold text-base mb-1" style={{ color: "var(--admin-text)" }}>Hoàn thành!</p>
             <p className="text-sm mb-6" style={{ color: "var(--admin-text-muted)" }}>
@@ -164,7 +164,7 @@ function BulkActionModal({
                 <div className="grid grid-cols-2 gap-2">
                   {([
                     { type: "month" as const, label: "VIP Tháng", sub: "30 ngày", color: "#34d399" },
-                    { type: "year" as const, label: "VIP Năm", sub: "365 ngày", color: "#e8c84a" },
+                    { type: "year" as const, label: "VIP Năm", sub: "365 ngày", color: "app-accent-primary" },
                   ]).map(opt => (
                     <button key={opt.type} onClick={() => setVipType(opt.type)}
                       className="flex items-center gap-2 px-3 py-2.5 rounded-xl border transition-all cursor-pointer"
@@ -283,8 +283,8 @@ function VipGrantModal({ user, onClose, onGrant }: {
         style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border2)" }}>
         <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: "var(--admin-border)" }}>
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-[#e8c84a]/12 flex items-center justify-center">
-              <i className="ri-vip-crown-line text-[#e8c84a] text-sm"></i>
+            <div className="w-8 h-8 rounded-xl bg-app-accent-primary/12 flex items-center justify-center">
+              <i className="ri-vip-crown-line text-app-accent-primary text-sm"></i>
             </div>
             <div>
               <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>Cấp VIP</p>
@@ -299,7 +299,7 @@ function VipGrantModal({ user, onClose, onGrant }: {
           <div className="grid grid-cols-2 gap-3">
             {([
               { type: "month" as const, label: "VIP Tháng", sub: "30 ngày", color: "#34d399" },
-              { type: "year" as const, label: "VIP Năm", sub: "365 ngày", color: "#e8c84a" },
+              { type: "year" as const, label: "VIP Năm", sub: "365 ngày", color: "app-accent-primary" },
             ]).map(opt => (
               <button key={opt.type} onClick={() => setVipType(opt.type)}
                 className="flex flex-col items-center gap-2 py-4 rounded-xl border transition-all cursor-pointer"
@@ -322,7 +322,7 @@ function VipGrantModal({ user, onClose, onGrant }: {
           <div className="px-4 py-3 rounded-xl" style={{ backgroundColor: "rgba(232,200,74,0.06)", border: "1px solid rgba(232,200,74,0.15)" }}>
             <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>
               <span className="font-bold" style={{ color: "var(--admin-text)" }}>{user.display_name}</span> → VIP {vipType === "month" ? "Tháng" : "Năm"} đến{" "}
-              <span className="font-bold" style={{ color: "#e8c84a" }}>{new Date(expiresAt).toLocaleDateString("vi-VN")}</span> ({daysLeft} ngày)
+              <span className="font-bold" style={{ color: "app-accent-primary" }}>{new Date(expiresAt).toLocaleDateString("vi-VN")}</span> ({daysLeft} ngày)
             </p>
           </div>
           <label className="flex items-center gap-2 cursor-pointer">
@@ -332,7 +332,7 @@ function VipGrantModal({ user, onClose, onGrant }: {
           <div className="flex gap-3">
             <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap" style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>Hủy</button>
             <button onClick={handleGrant} disabled={saving}
-              className="flex-1 py-2.5 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] disabled:opacity-50 text-black font-bold text-sm cursor-pointer whitespace-nowrap">
+              className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-50 text-black font-bold text-sm cursor-pointer whitespace-nowrap">
               {saving ? "Đang cấp..." : "Cấp VIP ngay"}
             </button>
           </div>
@@ -486,7 +486,7 @@ function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVi
           <div className="flex items-center gap-2 flex-wrap">
             {user.is_vip ? (
               <span className="text-xs px-3 py-1 rounded-full font-medium"
-                style={{ backgroundColor: vipType === "year" ? "rgba(232,200,74,0.12)" : "rgba(52,211,153,0.10)", color: vipType === "year" ? "#e8c84a" : "#34d399", border: `1px solid ${vipType === "year" ? "rgba(232,200,74,0.25)" : "rgba(52,211,153,0.20)"}` }}>
+                style={{ backgroundColor: vipType === "year" ? "rgba(232,200,74,0.12)" : "rgba(52,211,153,0.10)", color: vipType === "year" ? "app-accent-primary" : "#34d399", border: `1px solid ${vipType === "year" ? "rgba(232,200,74,0.25)" : "rgba(52,211,153,0.20)"}` }}>
                 <i className="ri-vip-crown-line mr-1"></i>VIP {vipType === "year" ? "Năm" : "Tháng"}
               </span>
             ) : (
@@ -503,8 +503,8 @@ function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVi
             <div className="px-4 py-3 rounded-xl space-y-2"
               style={{ backgroundColor: vipType === "year" ? "rgba(232,200,74,0.06)" : "rgba(52,211,153,0.06)", border: `1px solid ${vipType === "year" ? "rgba(232,200,74,0.15)" : "rgba(52,211,153,0.15)"}` }}>
               <div className="flex items-center justify-between">
-                <p className="text-xs font-semibold" style={{ color: vipType === "year" ? "#e8c84a" : "#34d399" }}>VIP {vipType === "year" ? "Năm" : "Tháng"}</p>
-                <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${daysLeft !== null && daysLeft <= 7 ? "bg-rose-500/15 text-rose-400" : "bg-emerald-500/15 text-emerald-400"}`}>
+                <p className="text-xs font-semibold" style={{ color: vipType === "year" ? "app-accent-primary" : "#34d399" }}>VIP {vipType === "year" ? "Năm" : "Tháng"}</p>
+                <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${daysLeft !== null && daysLeft <= 7 ? "bg-rose-500/15 text-rose-400" : "bg-app-accent-success/15 text-app-accent-success"}`}>
                   {daysLeft !== null ? (daysLeft <= 0 ? "Đã hết hạn" : `Còn ${daysLeft} ngày`) : ""}
                 </span>
               </div>
@@ -525,7 +525,7 @@ function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVi
             <p className="text-xs font-semibold mb-3" style={{ color: "var(--admin-text-muted)" }}>Thống kê học tập</p>
             <div className="grid grid-cols-2 gap-2">
               {[
-                { label: "XP tổng", value: (user.xp_total || 0).toLocaleString(), icon: "ri-star-line", color: "#e8c84a" },
+                { label: "XP tổng", value: (user.xp_total || 0).toLocaleString(), icon: "ri-star-line", color: "app-accent-primary" },
                 { label: "Streak", value: `${user.streak_count || 0} ngày`, icon: "ri-fire-line", color: "#fb923c" },
                 { label: "Từ đã học", value: (user.words_learned || 0).toLocaleString(), icon: "ri-book-open-line", color: "#34d399" },
                 { label: "Cấp độ", value: user.level || "A1", icon: "ri-bar-chart-line", color: "#a78bfa" },
@@ -550,7 +550,7 @@ function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVi
             <div className="grid grid-cols-2 gap-2">
               <button onClick={() => onGrantVip(user)}
                 className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap"
-                style={{ backgroundColor: "rgba(232,200,74,0.10)", color: "#e8c84a", border: "1px solid rgba(232,200,74,0.20)" }}>
+                style={{ backgroundColor: "rgba(232,200,74,0.10)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.20)" }}>
                 <i className="ri-vip-crown-line"></i>Cấp / Gia hạn VIP
               </button>
               {user.is_vip && (
@@ -606,7 +606,7 @@ function UserRow({ user, selected, onSelect, onToggleVip, onToggleAdmin, onViewD
           <p className="text-xs font-semibold truncate" style={{ color: "var(--admin-text)" }}>{user.display_name}</p>
           {user.is_admin && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-rose-500/15 text-rose-400 font-bold">ADMIN</span>}
           {user.is_vip && (
-            <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${vipType === "year" ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "bg-emerald-500/15 text-emerald-400"}`}>
+            <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${vipType === "year" ? "bg-app-accent-primary/15 text-app-accent-primary" : "bg-app-accent-success/15 text-app-accent-success"}`}>
               VIP {vipType === "year" ? "Năm" : "Tháng"}
             </span>
           )}
@@ -619,7 +619,7 @@ function UserRow({ user, selected, onSelect, onToggleVip, onToggleAdmin, onViewD
       <div className="hidden md:flex items-center gap-4 flex-shrink-0">
         <div className="text-center">
           <p className="text-[10px]" style={{ color: "var(--admin-text-muted)" }}>XP</p>
-          <p className="text-[#e8c84a] text-xs font-bold">{(user.xp_total || 0).toLocaleString()}</p>
+          <p className="text-app-accent-primary text-xs font-bold">{(user.xp_total || 0).toLocaleString()}</p>
         </div>
         <div className="text-center">
           <p className="text-[10px]" style={{ color: "var(--admin-text-muted)" }}>Streak</p>
@@ -628,19 +628,19 @@ function UserRow({ user, selected, onSelect, onToggleVip, onToggleAdmin, onViewD
         {user.is_vip && daysLeft !== null && (
           <div className="text-center">
             <p className="text-[10px]" style={{ color: "var(--admin-text-muted)" }}>VIP còn</p>
-            <p className={`text-xs font-bold ${daysLeft <= 7 ? "text-rose-400" : "text-emerald-400"}`}>{daysLeft}d</p>
+            <p className={`text-xs font-bold ${daysLeft <= 7 ? "text-rose-400" : "text-app-accent-success"}`}>{daysLeft}d</p>
           </div>
         )}
         <div className="text-center">
           <p className="text-[10px]" style={{ color: "var(--admin-text-muted)" }}>Hoạt động</p>
-          <p className="text-xs" style={{ color: daysSinceActive !== null && daysSinceActive <= 1 ? "#34d399" : daysSinceActive !== null && daysSinceActive <= 7 ? "#e8c84a" : "var(--admin-text-faint)" }}>
+          <p className="text-xs" style={{ color: daysSinceActive !== null && daysSinceActive <= 1 ? "#34d399" : daysSinceActive !== null && daysSinceActive <= 7 ? "app-accent-primary" : "var(--admin-text-faint)" }}>
             {daysSinceActive === null ? "—" : daysSinceActive === 0 ? "Hôm nay" : `${daysSinceActive}d`}
           </p>
         </div>
       </div>
 
       <div className="flex items-center gap-1 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" onClick={e => e.stopPropagation()}>
-        <button onClick={() => onGrantVip(user)} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "#e8c84a" }}>
+        <button onClick={() => onGrantVip(user)} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary" }}>
           <i className="ri-vip-crown-line text-xs"></i>
         </button>
         <button onClick={() => onToggleAdmin(user.id, user.is_admin)} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer"
@@ -673,7 +673,7 @@ function LoginSessionsPanel() {
         {[
           { label: "Tổng phiên", value: sessions.length, icon: "ri-login-circle-line", color: "#34d399" },
           { label: "Bất thường", value: suspicious.length, icon: "ri-alarm-warning-line", color: "#f87171" },
-          { label: "Hôm nay", value: sessions.filter(s => s.created_at.startsWith(new Date().toISOString().split("T")[0])).length, icon: "ri-calendar-check-line", color: "#e8c84a" },
+          { label: "Hôm nay", value: sessions.filter(s => s.created_at.startsWith(new Date().toISOString().split("T")[0])).length, icon: "ri-calendar-check-line", color: "app-accent-primary" },
         ].map(s => (
           <div key={s.label} className="flex items-center gap-3 px-4 py-3 rounded-xl border"
             style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
@@ -721,13 +721,13 @@ function LoginSessionsPanel() {
         ) : (
           sessions.slice(0, 50).map((s: LoginSession) => (
             <div key={s.id} className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all ${
-              s.is_suspicious ? "border-rose-500/25 bg-rose-500/5" : "border-white/5 bg-white/2"
+              s.is_suspicious ? "border-rose-500/25 bg-rose-500/5" : "border-app-border bg-white/2"
             }`}>
               <div className={`w-8 h-8 flex items-center justify-center rounded-xl flex-shrink-0 ${
-                s.is_suspicious ? "bg-rose-500/15" : "bg-white/5"
+                s.is_suspicious ? "bg-rose-500/15" : "bg-app-card/50"
               }`}>
                 <i className={`${deviceIcon(s.device_type)} text-sm ${
-                  s.is_suspicious ? "text-rose-400" : "text-white/40"
+                  s.is_suspicious ? "text-rose-400" : "text-app-text-secondary"
                 }`}></i>
               </div>
               <div className="flex-1 min-w-0">
@@ -760,7 +760,7 @@ function LoginSessionsPanel() {
 
       {/* Security tips */}
       <div className="rounded-xl p-4 space-y-2" style={{ backgroundColor: "rgba(232,200,74,0.05)", border: "1px solid rgba(232,200,74,0.12)" }}>
-        <p className="text-xs font-bold" style={{ color: "#e8c84a" }}><i className="ri-shield-check-line mr-1.5"></i>Gợi ý bảo mật</p>
+        <p className="text-xs font-bold" style={{ color: "app-accent-primary" }}><i className="ri-shield-check-line mr-1.5"></i>Gợi ý bảo mật</p>
         <ul className="space-y-1.5">
           {[
             "Nếu thấy đăng nhập bất thường, liên hệ thành viên để xác nhận",
@@ -769,7 +769,7 @@ function LoginSessionsPanel() {
             "Có thể hủy VIP nếu phát hiện vi phạm điều khoản sử dụng",
           ].map((tip, i) => (
             <li key={i} className="flex items-start gap-2 text-[11px]" style={{ color: "var(--admin-text-muted)" }}>
-              <i className="ri-checkbox-circle-line text-[#e8c84a]/60 flex-shrink-0 mt-0.5"></i>
+              <i className="ri-checkbox-circle-line text-app-accent-primary/60 flex-shrink-0 mt-0.5"></i>
               {tip}
             </li>
           ))}
@@ -965,11 +965,11 @@ export default function AdminUsersPage() {
       )}
 
       {/* Main tab switcher */}
-      <div className="flex bg-white/5 rounded-xl p-1 mb-5 border" style={{ borderColor: "var(--admin-border)" }}>
+      <div className="flex bg-app-card/50 rounded-xl p-1 mb-5 border" style={{ borderColor: "var(--admin-border)" }}>
         <button
           onClick={() => setActiveMainTab("members")}
           className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap font-medium ${
-            activeMainTab === "members" ? "bg-rose-500 text-white" : "text-white/40 hover:text-white/60"
+            activeMainTab === "members" ? "bg-rose-500 text-white" : "text-app-text-secondary hover:text-white/60"
           }`}
         >
           <i className="ri-user-line mr-1.5"></i>Thành viên ({users.length})
@@ -977,7 +977,7 @@ export default function AdminUsersPage() {
         <button
           onClick={() => setActiveMainTab("sessions")}
           className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap font-medium relative ${
-            activeMainTab === "sessions" ? "bg-rose-500 text-white" : "text-white/40 hover:text-white/60"
+            activeMainTab === "sessions" ? "bg-rose-500 text-white" : "text-app-text-secondary hover:text-white/60"
           }`}
         >
           <i className="ri-shield-keyhole-line mr-1.5"></i>Đăng nhập & Bảo mật
@@ -991,7 +991,7 @@ export default function AdminUsersPage() {
       <div className="grid grid-cols-3 lg:grid-cols-6 gap-3 mb-5">
         {[
           { label: "Tổng thành viên", value: users.length, icon: "ri-user-line", color: "#f87171" },
-          { label: "VIP Năm", value: vipYearCount, icon: "ri-vip-crown-2-line", color: "#e8c84a" },
+          { label: "VIP Năm", value: vipYearCount, icon: "ri-vip-crown-2-line", color: "app-accent-primary" },
           { label: "VIP Tháng", value: vipMonthCount, icon: "ri-vip-crown-line", color: "#34d399" },
           { label: "Admin", value: adminCount, icon: "ri-shield-keyhole-line", color: "#a78bfa" },
           { label: "Hoạt động hôm nay", value: activeToday, icon: "ri-pulse-line", color: "#34d399" },

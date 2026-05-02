@@ -178,7 +178,7 @@ const NaverPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
           {[
             { label: "Câu hỏi", value: qaData.length, icon: "ri-question-line", color: "#03C75A" },
-            { label: "Đã thích", value: likedIds.length, icon: "ri-thumb-up-line", color: "#e8c84a" },
+            { label: "Đã thích", value: likedIds.length, icon: "ri-thumb-up-line", color: "app-accent-primary" },
             { label: "Danh mục", value: CATEGORIES.length - 1, icon: "ri-folder-line", color: "#a78bfa" },
           ].map(s => (
             <div key={s.label} className="rounded-xl p-3 text-center" style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
@@ -212,7 +212,7 @@ const NaverPage = () => {
                   <button
                     onClick={() => toggleLike(item.id)}
                     className="flex items-center gap-1 cursor-pointer transition-all"
-                    style={{ color: liked ? "#e8c84a" : "rgba(255,255,255,0.3)" }}
+                    style={{ color: liked ? "app-accent-primary" : "rgba(255,255,255,0.3)" }}
                   >
                     <div className="w-4 h-4 flex items-center justify-center">
                       <i className={liked ? "ri-thumb-up-fill text-sm" : "ri-thumb-up-line text-sm"} />

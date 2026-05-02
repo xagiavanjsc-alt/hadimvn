@@ -23,11 +23,11 @@ function EpsQuestionCard({ q, answered, onAnswer }: {
   onAnswer: (i: number) => void;
 }) {
   const topic = EPS_TOPICS.find(t => t.id === q.topic);
-  const diffColor = q.difficulty === "easy" ? "#34d399" : q.difficulty === "medium" ? "#e8c84a" : "#f87171";
+  const diffColor = q.difficulty === "easy" ? "#34d399" : q.difficulty === "medium" ? "app-accent-primary" : "#f87171";
   const diffLabel = q.difficulty === "easy" ? "Dễ" : q.difficulty === "medium" ? "Trung bình" : "Khó";
 
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-6">
+    <div className="bg-app-bg border border-app-border rounded-2xl p-6">
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
         {topic && (
@@ -41,7 +41,7 @@ function EpsQuestionCard({ q, answered, onAnswer }: {
         {q.audioText && (
           <button
             onClick={() => speakKorean(q.audioText!)}
-            className="ml-auto flex items-center gap-1.5 text-[10px] text-white/30 hover:text-white/60 cursor-pointer transition-colors bg-white/5 hover:bg-white/10 px-2.5 py-1 rounded-lg"
+            className="ml-auto flex items-center gap-1.5 text-[10px] text-app-text-muted hover:text-white/60 cursor-pointer transition-colors bg-app-card/50 hover:bg-app-card/70 px-2.5 py-1 rounded-lg"
           >
             <i className="ri-volume-up-line text-xs"></i>
             Nghe
@@ -51,7 +51,7 @@ function EpsQuestionCard({ q, answered, onAnswer }: {
 
       {/* Image illustration — dùng ImageWithFallback để tự fallback nếu VPS lỗi */}
       {q.imageUrl && (
-        <div className="mb-4 rounded-xl overflow-hidden border border-white/8">
+        <div className="mb-4 rounded-xl overflow-hidden border border-app-border">
           <ImageWithFallback
             src={q.imageUrl}
             alt={q.imageAlt || q.questionVi}
@@ -66,17 +66,17 @@ function EpsQuestionCard({ q, answered, onAnswer }: {
       {/* Question */}
       <div className="mb-2">
         <p className="text-white font-semibold text-sm leading-relaxed mb-1">{q.question}</p>
-        <p className="text-white/40 text-xs leading-relaxed italic">{q.questionVi}</p>
+        <p className="text-app-text-secondary text-xs leading-relaxed italic">{q.questionVi}</p>
       </div>
 
       {/* Options */}
       <div className="space-y-2 mt-4">
         {q.options.map((opt, i) => {
-          let cls = "border-white/8 bg-white/3 hover:border-white/15 hover:bg-white/5 cursor-pointer";
+          let cls = "border-app-border bg-app-surface/50 hover:border-white/15 hover:bg-app-card/50 cursor-pointer";
           if (answered !== null) {
             if (i === q.correctIndex) cls = "border-emerald-500/40 bg-emerald-500/10 cursor-default";
             else if (i === answered) cls = "border-red-500/40 bg-red-500/10 cursor-default";
-            else cls = "border-white/5 bg-white/2 opacity-50 cursor-default";
+            else cls = "border-app-border bg-white/2 opacity-50 cursor-default";
           }
           return (
             <button
@@ -86,19 +86,19 @@ function EpsQuestionCard({ q, answered, onAnswer }: {
               className={`w-full flex items-start gap-3 px-4 py-3 rounded-xl border transition-all text-left ${cls}`}
             >
               <span className={`w-6 h-6 flex items-center justify-center rounded-lg text-[10px] font-bold flex-shrink-0 mt-0.5 ${
-                answered !== null && i === q.correctIndex ? "bg-emerald-500/20 text-emerald-400"
+                answered !== null && i === q.correctIndex ? "bg-emerald-500/20 text-app-accent-success"
                 : answered !== null && i === answered ? "bg-red-500/20 text-red-400"
-                : "bg-white/5 text-white/30"
+                : "bg-app-card/50 text-app-text-muted"
               }`}>
                 {["A", "B", "C", "D"][i]}
               </span>
               <div className="flex-1 min-w-0">
-                <p className={`text-sm font-medium ${answered !== null && i === q.correctIndex ? "text-emerald-400" : answered !== null && i === answered ? "text-red-400" : "text-white/70"}`}>
+                <p className={`text-sm font-medium ${answered !== null && i === q.correctIndex ? "text-app-accent-success" : answered !== null && i === answered ? "text-red-400" : "text-white/70"}`}>
                   {opt}
                 </p>
-                <p className="text-white/30 text-[10px] mt-0.5">{q.optionsVi[i]}</p>
+                <p className="text-app-text-muted text-[10px] mt-0.5">{q.optionsVi[i]}</p>
               </div>
-              {answered !== null && i === q.correctIndex && <i className="ri-checkbox-circle-fill text-emerald-400 flex-shrink-0 mt-0.5"></i>}
+              {answered !== null && i === q.correctIndex && <i className="ri-checkbox-circle-fill text-app-accent-success flex-shrink-0 mt-0.5"></i>}
               {answered !== null && i === answered && i !== q.correctIndex && <i className="ri-close-circle-fill text-red-400 flex-shrink-0 mt-0.5"></i>}
             </button>
           );
@@ -107,7 +107,7 @@ function EpsQuestionCard({ q, answered, onAnswer }: {
 
       {/* Explanation */}
       {answered !== null && (
-        <div className={`mt-4 p-4 rounded-xl border text-xs leading-relaxed ${answered === q.correctIndex ? "border-emerald-500/20 bg-emerald-500/5 text-emerald-400/80" : "border-orange-500/20 bg-orange-500/5 text-orange-400/80"}`}>
+        <div className={`mt-4 p-4 rounded-xl border text-xs leading-relaxed ${answered === q.correctIndex ? "border-emerald-500/20 bg-emerald-500/5 text-app-accent-success/80" : "border-orange-500/20 bg-orange-500/5 text-orange-400/80"}`}>
           <div className="flex items-start gap-2">
             <i className="ri-lightbulb-line text-sm flex-shrink-0 mt-0.5"></i>
             <p>{q.explanation}</p>
@@ -130,7 +130,7 @@ function TopicCard({ topic, count, done, isSelected, onClick }: {
   return (
     <button
       onClick={onClick}
-      className={`w-full text-left p-4 rounded-2xl border transition-all cursor-pointer ${isSelected ? "border-white/20 bg-white/5" : "border-white/5 bg-[#0f1117] hover:border-white/10"}`}
+      className={`w-full text-left p-4 rounded-2xl border transition-all cursor-pointer ${isSelected ? "border-white/20 bg-app-card/50" : "border-app-border bg-app-bg hover:border-app-border"}`}
     >
       <div className="flex items-center gap-3 mb-3">
         <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${topic.color}15` }}>
@@ -138,11 +138,11 @@ function TopicCard({ topic, count, done, isSelected, onClick }: {
         </div>
         <div className="flex-1 min-w-0">
           <p className={`text-sm font-semibold ${isSelected ? "text-white" : "text-white/70"}`}>{topic.label}</p>
-          <p className="text-white/30 text-[10px]">{count} câu hỏi</p>
+          <p className="text-app-text-muted text-[10px]">{count} câu hỏi</p>
         </div>
         <span className="text-xs font-bold" style={{ color: topic.color }}>{pct}%</span>
       </div>
-      <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+      <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
         <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: topic.color }} />
       </div>
     </button>
@@ -224,7 +224,7 @@ export default function EpsPage() {
         mode !== "topics" ? (
           <button
             onClick={() => { setMode("topics"); setCurrentIdx(0); }}
-            className="flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white/60 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/60 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-arrow-left-line"></i>
             Về danh sách chủ đề
@@ -235,18 +235,18 @@ export default function EpsPage() {
       {/* Overall stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng câu hỏi", value: epsQuestions.length, icon: "ri-survey-line", color: "#e8c84a" },
+          { label: "Tổng câu hỏi", value: epsQuestions.length, icon: "ri-survey-line", color: "app-accent-primary" },
           { label: "Đã làm", value: totalDone, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Trả lời đúng", value: totalCorrect, icon: "ri-trophy-line", color: "#a78bfa" },
           { label: "Tỷ lệ đúng", value: `${overallPct}%`, icon: "ri-bar-chart-line", color: "#fb923c" },
         ].map(stat => (
-          <div key={stat.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-4 flex items-center gap-3">
+          <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
               <i className={`${stat.icon} text-lg`} style={{ color: stat.color }}></i>
             </div>
             <div>
               <p className="text-white font-bold text-xl leading-none">{stat.value}</p>
-              <p className="text-white/40 text-xs mt-0.5">{stat.label}</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">{stat.label}</p>
             </div>
           </div>
         ))}
@@ -273,7 +273,7 @@ export default function EpsPage() {
 
           <div className="space-y-4">
             {/* EPS info */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <h3 className="text-white font-semibold text-sm mb-3">Về kỳ thi EPS-TOPIK</h3>
               <div className="space-y-3">
                 {[
@@ -283,21 +283,21 @@ export default function EpsPage() {
                   { icon: "ri-calendar-line", title: "Tần suất", desc: "Tổ chức 2-3 lần/năm tại Việt Nam" },
                 ].map(item => (
                   <div key={item.title} className="flex items-start gap-3">
-                    <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#e8c84a]/10 flex-shrink-0">
-                      <i className={`${item.icon} text-[#e8c84a] text-xs`}></i>
+                    <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-accent-primary/10 flex-shrink-0">
+                      <i className={`${item.icon} text-app-accent-primary text-xs`}></i>
                     </div>
                     <div>
                       <p className="text-white/70 text-xs font-semibold">{item.title}</p>
-                      <p className="text-white/30 text-[10px] leading-relaxed">{item.desc}</p>
+                      <p className="text-app-text-muted text-[10px] leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4">
-              <p className="text-[#e8c84a]/80 text-xs font-semibold mb-1">Mẹo luyện thi EPS</p>
-              <p className="text-white/40 text-xs leading-relaxed">
+            <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
+              <p className="text-app-accent-primary/80 text-xs font-semibold mb-1">Mẹo luyện thi EPS</p>
+              <p className="text-app-text-secondary text-xs leading-relaxed">
                 Làm hết tất cả chủ đề ít nhất 3 lần. Chú ý các câu về an toàn lao động và quy định pháp luật — thường chiếm 30% đề thi.
               </p>
             </div>
@@ -311,16 +311,16 @@ export default function EpsPage() {
           <div className="space-y-4">
             {/* Progress */}
             <div className="flex items-center gap-3">
-              <p className="text-white/40 text-xs whitespace-nowrap">
+              <p className="text-app-text-secondary text-xs whitespace-nowrap">
                 {currentIdx + 1} / {topicQuestions.length}
               </p>
-              <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+              <div className="flex-1 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                 <div
-                  className="h-full rounded-full bg-[#e8c84a] transition-all"
+                  className="h-full rounded-full bg-app-accent-primary transition-all"
                   style={{ width: `${((currentIdx) / topicQuestions.length) * 100}%` }}
                 />
               </div>
-              <p className="text-emerald-400 text-xs font-bold whitespace-nowrap">
+              <p className="text-app-accent-success text-xs font-bold whitespace-nowrap">
                 {Object.values(sessionAnswers).filter((v, i) => v === topicQuestions[i]?.correctIndex).length} đúng
               </p>
             </div>
@@ -355,7 +355,7 @@ export default function EpsPage() {
                 )}
                 <button
                   onClick={() => { setShowRecorder(false); handleNext(); }}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
                 >
                   {currentIdx + 1 >= topicQuestions.length ? "Xem kết quả" : "Câu tiếp theo"}
                   <i className="ri-arrow-right-line"></i>
@@ -366,8 +366,8 @@ export default function EpsPage() {
 
           {/* Side: topic progress */}
           <div className="space-y-3">
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4">
-              <p className="text-white/40 text-xs font-medium mb-3">Tiến độ chủ đề này</p>
+            <div className="bg-app-bg border border-app-border rounded-2xl p-4">
+              <p className="text-app-text-secondary text-xs font-medium mb-3">Tiến độ chủ đề này</p>
               <div className="space-y-2">
                 {topicQuestions.map((q, i) => {
                   const ans = answeredMap[q.id];
@@ -377,13 +377,13 @@ export default function EpsPage() {
                     <button
                       key={q.id}
                       onClick={() => setCurrentIdx(i)}
-                      className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-colors cursor-pointer text-left ${i === currentIdx ? "bg-white/8" : "hover:bg-white/3"}`}
+                      className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-colors cursor-pointer text-left ${i === currentIdx ? "bg-white/8" : "hover:bg-app-surface/50"}`}
                     >
                       <div className={`w-5 h-5 flex items-center justify-center rounded-md text-[9px] font-bold flex-shrink-0 ${
-                        isDone && isCorrect ? "bg-emerald-500/20 text-emerald-400"
+                        isDone && isCorrect ? "bg-emerald-500/20 text-app-accent-success"
                         : isDone ? "bg-red-500/20 text-red-400"
-                        : i === currentIdx ? "bg-[#e8c84a]/20 text-[#e8c84a]"
-                        : "bg-white/5 text-white/25"
+                        : i === currentIdx ? "bg-app-accent-primary/20 text-app-accent-primary"
+                        : "bg-app-card/50 text-app-text-muted"
                       }`}>
                         {isDone ? (isCorrect ? "✓" : "✗") : i + 1}
                       </div>
@@ -399,11 +399,11 @@ export default function EpsPage() {
 
       {/* Result view */}
       {mode === "result" && (
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-8 max-w-lg mx-auto text-center">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-8 max-w-lg mx-auto text-center">
           {(() => {
             const pct = topicQuestions.length > 0 ? Math.round((sessionScore / topicQuestions.length) * 100) : 0;
             const grade = pct >= 80 ? { label: "Xuất sắc!", color: "#34d399", icon: "ri-trophy-line" }
-              : pct >= 60 ? { label: "Khá tốt!", color: "#e8c84a", icon: "ri-medal-line" }
+              : pct >= 60 ? { label: "Khá tốt!", color: "app-accent-primary", icon: "ri-medal-line" }
               : { label: "Cần ôn thêm!", color: "#fb923c", icon: "ri-refresh-line" };
             return (
               <>
@@ -411,22 +411,22 @@ export default function EpsPage() {
                   <i className={`${grade.icon} text-3xl`} style={{ color: grade.color }}></i>
                 </div>
                 <h2 className="text-white font-bold text-xl mb-2">{grade.label}</h2>
-                <p className="text-white/40 text-sm mb-5">
+                <p className="text-app-text-secondary text-sm mb-5">
                   Đúng <span className="font-bold" style={{ color: grade.color }}>{sessionScore}/{topicQuestions.length}</span> câu ({pct}%)
                 </p>
-                <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden mb-6">
+                <div className="w-full h-2 bg-app-card/50 rounded-full overflow-hidden mb-6">
                   <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: grade.color }} />
                 </div>
                 <div className="flex gap-3">
                   <button
                     onClick={() => { setCurrentIdx(0); setSessionAnswers({}); setMode("practice"); }}
-                    className="flex-1 py-3 rounded-xl border border-white/10 text-white/60 text-sm font-medium hover:bg-white/5 transition-colors cursor-pointer whitespace-nowrap"
+                    className="flex-1 py-3 rounded-xl border border-app-border text-white/60 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"
                   >
                     Làm lại
                   </button>
                   <button
                     onClick={() => setMode("topics")}
-                    className="flex-1 py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
+                    className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
                   >
                     Chủ đề khác
                   </button>

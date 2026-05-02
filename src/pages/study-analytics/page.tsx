@@ -102,22 +102,22 @@ function StreakCalendar({ studyData }: { studyData: Record<string, DayData> }) {
   const maxMinutes = Math.max(...Object.values(studyData).map(d => d.minutes), 1);
 
   const getColor = (minutes: number) => {
-    if (minutes === 0) return "bg-white/5";
+    if (minutes === 0) return "bg-app-card/50";
     const ratio = minutes / maxMinutes;
-    if (ratio < 0.25) return "bg-[#e8c84a]/20";
-    if (ratio < 0.5) return "bg-[#e8c84a]/45";
-    if (ratio < 0.75) return "bg-[#e8c84a]/70";
-    return "bg-[#e8c84a]";
+    if (ratio < 0.25) return "bg-app-accent-primary/20";
+    if (ratio < 0.5) return "bg-app-accent-primary/45";
+    if (ratio < 0.75) return "bg-app-accent-primary/70";
+    return "bg-app-accent-primary";
   };
 
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+    <div className="bg-app-bg border border-app-border rounded-2xl p-5">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-white font-semibold text-sm">Lịch học tập (12 tuần)</h3>
-        <div className="flex items-center gap-2 text-xs text-white/30">
+        <div className="flex items-center gap-2 text-xs text-app-text-muted">
           <span>Ít</span>
           <div className="flex gap-1">
-            {["bg-white/5", "bg-[#e8c84a]/20", "bg-[#e8c84a]/45", "bg-[#e8c84a]/70", "bg-[#e8c84a]"].map((c, i) => (
+            {["bg-app-card/50", "bg-app-accent-primary/20", "bg-app-accent-primary/45", "bg-app-accent-primary/70", "bg-app-accent-primary"].map((c, i) => (
               <div key={i} className={`w-3 h-3 rounded-sm ${c}`}></div>
             ))}
           </div>
@@ -128,7 +128,7 @@ function StreakCalendar({ studyData }: { studyData: Record<string, DayData> }) {
       {/* Day labels */}
       <div className="flex gap-1 mb-1 ml-10">
         {weeks.map((w, i) => (
-          <div key={i} className="flex-1 text-center text-[9px] text-white/25 truncate">{w.label}</div>
+          <div key={i} className="flex-1 text-center text-[9px] text-app-text-muted truncate">{w.label}</div>
         ))}
       </div>
 
@@ -137,7 +137,7 @@ function StreakCalendar({ studyData }: { studyData: Record<string, DayData> }) {
         {/* Day of week labels */}
         <div className="flex flex-col gap-1 mr-1">
           {["T2", "T3", "T4", "T5", "T6", "T7", "CN"].map(d => (
-            <div key={d} className="h-3 flex items-center text-[9px] text-white/25 w-8">{d}</div>
+            <div key={d} className="h-3 flex items-center text-[9px] text-app-text-muted w-8">{d}</div>
           ))}
         </div>
 
@@ -178,7 +178,7 @@ function WeeklyChart({
   const maxVal = Math.max(...values, 1);
 
   const metricLabel = metric === "minutes" ? "phút" : metric === "xp" ? "XP" : "từ";
-  const metricColor = metric === "minutes" ? "#e8c84a" : metric === "xp" ? "#a78bfa" : "#34d399";
+  const metricColor = metric === "minutes" ? "app-accent-primary" : metric === "xp" ? "#a78bfa" : "#34d399";
 
   return (
     <div className="space-y-3">
@@ -189,7 +189,7 @@ function WeeklyChart({
           const isToday = day === getDayKey(new Date());
           return (
             <div key={day} className="flex-1 flex flex-col items-center gap-1">
-              <span className="text-[10px] text-white/40">{val > 0 ? val : ""}</span>
+              <span className="text-[10px] text-app-text-secondary">{val > 0 ? val : ""}</span>
               <div className="w-full flex items-end" style={{ height: "80px" }}>
                 <div
                   className="w-full rounded-t-md transition-all duration-500"
@@ -200,14 +200,14 @@ function WeeklyChart({
                   }}
                 ></div>
               </div>
-              <span className={`text-[10px] font-medium ${isToday ? "text-white" : "text-white/40"}`}>
+              <span className={`text-[10px] font-medium ${isToday ? "text-white" : "text-app-text-secondary"}`}>
                 {getDayOfWeek(day)}
               </span>
             </div>
           );
         })}
       </div>
-      <div className="flex justify-between text-xs text-white/30">
+      <div className="flex justify-between text-xs text-app-text-muted">
         <span>7 ngày qua</span>
         <span>Tổng: {values.reduce((a, b) => a + b, 0)} {metricLabel}</span>
       </div>
@@ -241,7 +241,7 @@ function ModuleProgressCard({
   return (
     <div
       onClick={() => navigate(href)}
-      className="bg-[#0f1117] border border-white/5 rounded-2xl p-5 cursor-pointer hover:border-white/10 transition-all group"
+      className="bg-app-bg border border-app-border rounded-2xl p-5 cursor-pointer hover:border-app-border transition-all group"
     >
       <div className="flex items-start gap-4 mb-4">
         {/* Circle progress */}
@@ -268,12 +268,12 @@ function ModuleProgressCard({
             </div>
             <p className="text-white font-semibold text-sm truncate">{title}</p>
           </div>
-          <p className="text-white/40 text-xs">{completed}/{total} hoàn thành</p>
+          <p className="text-app-text-secondary text-xs">{completed}/{total} hoàn thành</p>
         </div>
       </div>
 
       {/* Progress bar */}
-      <div className="h-1.5 bg-white/5 rounded-full overflow-hidden mb-4">
+      <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden mb-4">
         <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, backgroundColor: color }} />
       </div>
 
@@ -282,12 +282,12 @@ function ModuleProgressCard({
         {details.map((d, i) => (
           <div key={i} className="text-center">
             <p className="text-white font-semibold text-sm">{d.value}</p>
-            <p className="text-white/30 text-[10px]">{d.label}</p>
+            <p className="text-app-text-muted text-[10px]">{d.label}</p>
           </div>
         ))}
       </div>
 
-      <div className="mt-3 flex items-center justify-end gap-1 text-white/30 group-hover:text-white/50 transition-colors">
+      <div className="mt-3 flex items-center justify-end gap-1 text-app-text-muted group-hover:text-white/50 transition-colors">
         <span className="text-xs">Xem chi tiết</span>
         <i className="ri-arrow-right-s-line text-sm"></i>
       </div>
@@ -298,7 +298,7 @@ function ModuleProgressCard({
 // ─── Vocabulary Heatmap by Topic ──────────────────────────────────────────
 function VocabTopicChart({ completedLessons }: { completedLessons: Record<number, { score: number }> }) {
   const topics = [
-    { label: "Chào hỏi", range: [1, 5], color: "#e8c84a" },
+    { label: "Chào hỏi", range: [1, 5], color: "app-accent-primary" },
     { label: "Sinh hoạt", range: [6, 12], color: "#a78bfa" },
     { label: "Cuối tuần", range: [13, 19], color: "#34d399" },
     { label: "Internet", range: [20, 25], color: "#06b6d4" },
@@ -319,7 +319,7 @@ function VocabTopicChart({ completedLessons }: { completedLessons: Record<number
               <span className="text-white/60">{t.label} (Bài {t.range[0]}–{t.range[1]})</span>
               <span className="font-semibold" style={{ color: t.color }}>{done}/{total}</span>
             </div>
-            <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+            <div className="h-2 bg-app-card/50 rounded-full overflow-hidden">
               <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, backgroundColor: t.color }} />
             </div>
           </div>
@@ -396,33 +396,33 @@ export default function StudyAnalyticsPage() {
         {[
           { label: "Streak hiện tại", value: `${streak} ngày`, icon: "ri-fire-line", color: "#fb923c", sub: "Liên tiếp" },
           { label: "Ngày học (30 ngày)", value: `${activeDays30} ngày`, icon: "ri-calendar-check-line", color: "#34d399", sub: `${Math.round((activeDays30 / 30) * 100)}% tháng này` },
-          { label: "Tổng XP", value: totalXP.toLocaleString(), icon: "ri-star-line", color: "#e8c84a", sub: "Điểm kinh nghiệm" },
+          { label: "Tổng XP", value: totalXP.toLocaleString(), icon: "ri-star-line", color: "app-accent-primary", sub: "Điểm kinh nghiệm" },
           { label: "Từ vựng đã học", value: `~${totalVocabLearned}`, icon: "ri-book-2-line", color: "#a78bfa", sub: `${totalLessons} bài hoàn thành` },
         ].map(s => (
-          <div key={s.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-4">
+          <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4">
             <div className="flex items-center gap-2 mb-2">
               <div className="w-8 h-8 flex items-center justify-center rounded-lg" style={{ backgroundColor: `${s.color}15` }}>
                 <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
               </div>
-              <p className="text-white/40 text-xs">{s.label}</p>
+              <p className="text-app-text-secondary text-xs">{s.label}</p>
             </div>
             <p className="text-white font-bold text-xl leading-none mb-1">{s.value}</p>
-            <p className="text-white/30 text-xs">{s.sub}</p>
+            <p className="text-app-text-muted text-xs">{s.sub}</p>
           </div>
         ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         {/* Weekly chart */}
-        <div className="lg:col-span-2 bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+        <div className="lg:col-span-2 bg-app-bg border border-app-border rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
             <h3 className="text-white font-semibold text-sm">Biểu đồ 7 ngày qua</h3>
-            <div className="flex rounded-lg border border-white/8 overflow-hidden">
+            <div className="flex rounded-lg border border-app-border overflow-hidden">
               {(["minutes", "xp", "words"] as const).map(m => (
                 <button
                   key={m}
                   onClick={() => setChartMetric(m)}
-                  className={`px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap ${chartMetric === m ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "text-white/40 hover:text-white/60"}`}
+                  className={`px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap ${chartMetric === m ? "bg-app-accent-primary/15 text-app-accent-primary" : "text-app-text-secondary hover:text-white/60"}`}
                 >
                   {m === "minutes" ? "Thời gian" : m === "xp" ? "XP" : "Từ vựng"}
                 </button>
@@ -433,12 +433,12 @@ export default function StudyAnalyticsPage() {
         </div>
 
         {/* Quick stats */}
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-4">Tóm tắt tuần này</h3>
           <div className="space-y-4">
             {[
               { label: "Ngày học", value: `${activeDays7}/7`, icon: "ri-calendar-line", color: "#34d399" },
-              { label: "Tổng thời gian", value: `${totalMinutes7} phút`, icon: "ri-time-line", color: "#e8c84a" },
+              { label: "Tổng thời gian", value: `${totalMinutes7} phút`, icon: "ri-time-line", color: "app-accent-primary" },
               { label: "TB mỗi ngày học", value: `${avgMinutes7} phút`, icon: "ri-bar-chart-line", color: "#a78bfa" },
               { label: "Từ vựng ôn", value: `~${totalWords7} từ`, icon: "ri-book-open-line", color: "#06b6d4" },
               { label: "Ngày học tốt nhất", value: bestDay.date ? `${formatDate(bestDay.date)} (${bestDay.minutes}p)` : "—", icon: "ri-trophy-line", color: "#fb923c" },
@@ -448,7 +448,7 @@ export default function StudyAnalyticsPage() {
                   <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-white/40 text-xs">{s.label}</p>
+                  <p className="text-app-text-secondary text-xs">{s.label}</p>
                   <p className="text-white font-semibold text-sm">{s.value}</p>
                 </div>
               </div>
@@ -469,7 +469,7 @@ export default function StudyAnalyticsPage() {
           <ModuleProgressCard
             title="EPS-TOPIK"
             icon="ri-book-open-line"
-            color="#e8c84a"
+            color="app-accent-primary"
             completed={totalLessons}
             total={60}
             details={[
@@ -510,63 +510,63 @@ export default function StudyAnalyticsPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         {/* Vocab by topic */}
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-4">Từ vựng EPS theo chủ đề</h3>
           <VocabTopicChart completedLessons={completedLessons} />
           <button
             onClick={() => navigate("/eps-lessons")}
-            className="mt-4 w-full py-2.5 rounded-xl border border-[#e8c84a]/20 bg-[#e8c84a]/5 text-[#e8c84a] text-xs font-semibold hover:bg-[#e8c84a]/10 transition-colors cursor-pointer whitespace-nowrap"
+            className="mt-4 w-full py-2.5 rounded-xl border border-app-accent-primary/20 bg-app-accent-primary/5 text-app-accent-primary text-xs font-semibold hover:bg-app-accent-primary/10 transition-colors cursor-pointer whitespace-nowrap"
           >
             Tiếp tục học EPS
           </button>
         </div>
 
         {/* Study habits */}
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-4">Thói quen học tập</h3>
           <div className="space-y-3">
             {/* Best time of day — mock */}
-            <div className="p-3 rounded-xl bg-white/3 border border-white/5">
+            <div className="p-3 rounded-xl bg-app-surface/50 border border-app-border">
               <div className="flex items-center gap-2 mb-2">
-                <i className="ri-sun-line text-[#e8c84a] text-sm"></i>
+                <i className="ri-sun-line text-app-accent-primary text-sm"></i>
                 <p className="text-white/60 text-xs font-medium">Thời điểm học tốt nhất</p>
               </div>
               <p className="text-white font-semibold text-sm">Buổi tối (19:00 – 22:00)</p>
-              <p className="text-white/30 text-xs mt-0.5">Dựa trên lịch sử học tập</p>
+              <p className="text-app-text-muted text-xs mt-0.5">Dựa trên lịch sử học tập</p>
             </div>
 
             {/* Consistency */}
-            <div className="p-3 rounded-xl bg-white/3 border border-white/5">
+            <div className="p-3 rounded-xl bg-app-surface/50 border border-app-border">
               <div className="flex items-center gap-2 mb-2">
                 <i className="ri-repeat-line text-[#34d399] text-sm"></i>
                 <p className="text-white/60 text-xs font-medium">Tính nhất quán</p>
               </div>
               <div className="flex items-center gap-2">
-                <div className="flex-1 h-2 bg-white/5 rounded-full overflow-hidden">
+                <div className="flex-1 h-2 bg-app-card/50 rounded-full overflow-hidden">
                   <div className="h-full rounded-full bg-[#34d399]" style={{ width: `${Math.round((activeDays30 / 30) * 100)}%` }} />
                 </div>
                 <span className="text-[#34d399] font-bold text-sm">{Math.round((activeDays30 / 30) * 100)}%</span>
               </div>
-              <p className="text-white/30 text-xs mt-1">{activeDays30}/30 ngày trong tháng</p>
+              <p className="text-app-text-muted text-xs mt-1">{activeDays30}/30 ngày trong tháng</p>
             </div>
 
             {/* Avg session */}
-            <div className="p-3 rounded-xl bg-white/3 border border-white/5">
+            <div className="p-3 rounded-xl bg-app-surface/50 border border-app-border">
               <div className="flex items-center gap-2 mb-2">
                 <i className="ri-timer-line text-[#a78bfa] text-sm"></i>
                 <p className="text-white/60 text-xs font-medium">Thời gian học trung bình</p>
               </div>
               <p className="text-white font-semibold text-sm">{avgMinutes7} phút / buổi</p>
-              <p className="text-white/30 text-xs mt-0.5">
+              <p className="text-app-text-muted text-xs mt-0.5">
                 {avgMinutes7 >= 30 ? "Tốt! Duy trì nhé" : avgMinutes7 >= 15 ? "Khá tốt, cố gắng thêm" : "Hãy học thêm mỗi ngày"}
               </p>
             </div>
 
             {/* Recommendation */}
-            <div className="p-3 rounded-xl bg-[#e8c84a]/5 border border-[#e8c84a]/15">
+            <div className="p-3 rounded-xl bg-app-accent-primary/5 border border-app-accent-primary/15">
               <div className="flex items-center gap-2 mb-1">
-                <i className="ri-lightbulb-line text-[#e8c84a] text-sm"></i>
-                <p className="text-[#e8c84a] text-xs font-semibold">Gợi ý hôm nay</p>
+                <i className="ri-lightbulb-line text-app-accent-primary text-sm"></i>
+                <p className="text-app-accent-primary text-xs font-semibold">Gợi ý hôm nay</p>
               </div>
               <p className="text-white/60 text-xs leading-relaxed">
                 {totalLessons < 5
@@ -581,11 +581,11 @@ export default function StudyAnalyticsPage() {
       </div>
 
       {/* Quick actions */}
-      <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-5">
         <h3 className="text-white font-semibold text-sm mb-4">Hành động nhanh</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[
-            { label: "Tiếp tục học EPS", icon: "ri-book-open-line", color: "#e8c84a", href: "/eps-lessons" },
+            { label: "Tiếp tục học EPS", icon: "ri-book-open-line", color: "app-accent-primary", href: "/eps-lessons" },
             { label: "Ôn flashcard", icon: "ri-stack-line", color: "#a78bfa", href: "/eps-flashcard" },
             { label: "Thi thử EPS", icon: "ri-file-text-line", color: "#34d399", href: "/eps-exam" },
             { label: "Lộ trình học", icon: "ri-map-2-line", color: "#fb923c", href: "/learning-path" },
@@ -593,7 +593,7 @@ export default function StudyAnalyticsPage() {
             <button
               key={a.label}
               onClick={() => navigate(a.href)}
-              className="flex flex-col items-center gap-2 p-4 rounded-xl border border-white/5 bg-white/2 hover:border-white/10 hover:bg-white/4 transition-all cursor-pointer group"
+              className="flex flex-col items-center gap-2 p-4 rounded-xl border border-app-border bg-white/2 hover:border-app-border hover:bg-white/4 transition-all cursor-pointer group"
             >
               <div className="w-10 h-10 flex items-center justify-center rounded-xl" style={{ backgroundColor: `${a.color}15` }}>
                 <i className={`${a.icon} text-lg`} style={{ color: a.color }}></i>

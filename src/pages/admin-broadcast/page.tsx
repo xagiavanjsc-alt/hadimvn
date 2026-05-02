@@ -41,8 +41,8 @@ function SendProgressModal({ total, sent, success, fail, done, onClose }: {
       <div className="w-full max-w-md rounded-2xl border p-6"
         style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border2)" }}>
         <div className="flex items-center gap-3 mb-5">
-          <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${done ? "bg-emerald-500/15" : "bg-rose-500/15"}`}>
-            <i className={`text-lg ${done ? "ri-checkbox-circle-line text-emerald-400" : "ri-send-plane-line text-rose-400 animate-pulse"}`}></i>
+          <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${done ? "bg-app-accent-success/15" : "bg-rose-500/15"}`}>
+            <i className={`text-lg ${done ? "ri-checkbox-circle-line text-app-accent-success" : "ri-send-plane-line text-rose-400 animate-pulse"}`}></i>
           </div>
           <div>
             <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>{done ? "Gửi hoàn tất!" : "Đang gửi email..."}</p>
@@ -102,7 +102,7 @@ function HistoryRow({ record }: { record: BroadcastRecord }) {
           <p className="text-sm font-semibold" style={{ color: "var(--admin-text)" }}>{record.title}</p>
           <span className="text-[10px] px-1.5 py-0.5 rounded-full font-semibold flex-shrink-0"
             style={{ backgroundColor: `${emailType.color}15`, color: emailType.color }}>{emailType.label}</span>
-          <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold flex-shrink-0 ${record.status === "done" ? "bg-emerald-500/15 text-emerald-400" : record.status === "sending" ? "bg-amber-500/15 text-amber-400" : "bg-rose-500/15 text-rose-400"}`}>
+          <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold flex-shrink-0 ${record.status === "done" ? "bg-app-accent-success/15 text-app-accent-success" : record.status === "sending" ? "bg-amber-500/15 text-amber-400" : "bg-rose-500/15 text-rose-400"}`}>
             {record.status === "done" ? "Đã gửi" : record.status === "sending" ? "Đang gửi" : "Lỗi"}
           </span>
         </div>
@@ -110,13 +110,13 @@ function HistoryRow({ record }: { record: BroadcastRecord }) {
         <div className="flex items-center gap-4 text-xs flex-wrap" style={{ color: "var(--admin-text-faint)" }}>
           <span><i className="ri-group-line mr-1"></i>{record.targetLabel}</span>
           <span><i className="ri-send-plane-line mr-1"></i>{record.sentCount.toLocaleString()} gửi</span>
-          <span className="text-emerald-400"><i className="ri-checkbox-circle-line mr-1"></i>{record.successCount} thành công</span>
+          <span className="text-app-accent-success"><i className="ri-checkbox-circle-line mr-1"></i>{record.successCount} thành công</span>
           {record.failCount > 0 && <span className="text-rose-400"><i className="ri-close-circle-line mr-1"></i>{record.failCount} thất bại</span>}
           <span>{new Date(record.sentAt).toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" })}</span>
         </div>
       </div>
       <div className="flex-shrink-0 text-right">
-        <p className="text-lg font-black" style={{ color: successRate >= 90 ? "#34d399" : successRate >= 70 ? "#e8c84a" : "#f87171" }}>{successRate}%</p>
+        <p className="text-lg font-black" style={{ color: successRate >= 90 ? "#34d399" : successRate >= 70 ? "app-accent-primary" : "#f87171" }}>{successRate}%</p>
         <p className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>Thành công</p>
       </div>
     </div>
@@ -180,7 +180,7 @@ export default function AdminBroadcastPage() {
       setTargetOptions([
         { value: "all", label: "Tất cả học viên", count: total, icon: "ri-group-line", color: "#f87171" },
         { value: "free", label: "Học viên Free", count: total - vipCount, icon: "ri-seedling-line", color: "#34d399" },
-        { value: "vip", label: "Học viên VIP", count: vipCount, icon: "ri-vip-crown-line", color: "#e8c84a" },
+        { value: "vip", label: "Học viên VIP", count: vipCount, icon: "ri-vip-crown-line", color: "app-accent-primary" },
         { value: "vip_expiring", label: "VIP sắp hết hạn (7 ngày)", count: 0, icon: "ri-alarm-warning-line", color: "#fb923c" },
         { value: "streak7", label: "Streak ≥ 7 ngày", count: streak7, icon: "ri-fire-line", color: "#fb923c" },
         { value: "streak30", label: "Streak ≥ 30 ngày", count: streak30, icon: "ri-fire-fill", color: "#f87171" },
@@ -333,7 +333,7 @@ export default function AdminBroadcastPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Tổng lần broadcast", value: history.length, icon: "ri-send-plane-line", color: "#34d399" },
-          { label: "Tổng email đã gửi", value: totalSent.toLocaleString(), icon: "ri-mail-send-line", color: "#e8c84a" },
+          { label: "Tổng email đã gửi", value: totalSent.toLocaleString(), icon: "ri-mail-send-line", color: "app-accent-primary" },
           { label: "Tỷ lệ thành công TB", value: `${avgSuccessRate}%`, icon: "ri-checkbox-circle-line", color: "#a78bfa" },
           { label: "Tổng học viên", value: (targetOptions[0]?.count || 0).toLocaleString(), icon: "ri-group-line", color: "#fb923c" },
         ].map(s => (
@@ -494,7 +494,7 @@ export default function AdminBroadcastPage() {
                 <li className="flex items-start gap-1.5"><i className="ri-information-line text-amber-400 flex-shrink-0 mt-0.5"></i>Email được gửi qua Resend API — cần cấu hình RESEND_API_KEY</li>
                 <li className="flex items-start gap-1.5"><i className="ri-information-line text-amber-400 flex-shrink-0 mt-0.5"></i>Email không lưu trong user_profiles — dùng email placeholder</li>
                 <li className="flex items-start gap-1.5"><i className="ri-information-line text-amber-400 flex-shrink-0 mt-0.5"></i>Gửi theo batch 5 email/lần để tránh rate limit</li>
-                <li className="flex items-start gap-1.5"><i className="ri-check-line text-emerald-400 flex-shrink-0 mt-0.5"></i>Mọi lần gửi đều được ghi vào Audit Log</li>
+                <li className="flex items-start gap-1.5"><i className="ri-check-line text-app-accent-success flex-shrink-0 mt-0.5"></i>Mọi lần gửi đều được ghi vào Audit Log</li>
               </ul>
             </div>
           </div>

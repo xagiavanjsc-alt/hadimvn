@@ -75,7 +75,7 @@ function simulateAIGrading(text: string): WritingResult {
 }
 
 const levelColor: Record<string, string> = {
-  A1: "bg-emerald-500/20 text-emerald-400",
+  A1: "bg-emerald-500/20 text-app-accent-success",
   A2: "bg-teal-500/20 text-teal-400",
   B1: "bg-amber-500/20 text-amber-400",
   B2: "bg-orange-500/20 text-orange-400",
@@ -130,15 +130,15 @@ export default function AIWritingPage() {
   };
 
   const scoreColor = (s: number) => {
-    if (s >= 85) return "text-emerald-400";
-    if (s >= 70) return "text-[#e8c84a]";
+    if (s >= 85) return "text-app-accent-success";
+    if (s >= 70) return "text-app-accent-primary";
     if (s >= 55) return "text-orange-400";
     return "text-rose-400";
   };
 
   const scoreBg = (s: number) => {
     if (s >= 85) return "bg-emerald-500";
-    if (s >= 70) return "bg-[#e8c84a]";
+    if (s >= 70) return "bg-app-accent-primary";
     if (s >= 55) return "bg-orange-500";
     return "bg-rose-500";
   };
@@ -157,7 +157,7 @@ export default function AIWritingPage() {
           {history.length > 0 && (
             <div className="text-right">
               <p className={`text-2xl font-bold ${scoreColor(avgScore)}`}>{avgScore}</p>
-              <p className="text-white/30 text-xs">Điểm TB</p>
+              <p className="text-app-text-muted text-xs">Điểm TB</p>
             </div>
           )}
         </div>
@@ -167,17 +167,17 @@ export default function AIWritingPage() {
           <div className="lg:col-span-2 space-y-4">
             {/* Prompt selector */}
             {selectedPrompt && (
-              <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/20 rounded-xl p-4">
+              <div className="bg-app-accent-primary/5 border border-app-accent-primary/20 rounded-xl p-4">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
                       <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${levelColor[selectedPrompt.level]}`}>{selectedPrompt.level}</span>
-                      <span className="text-white/40 text-xs">{selectedPrompt.topic}</span>
+                      <span className="text-app-text-secondary text-xs">{selectedPrompt.topic}</span>
                     </div>
                     <p className="text-white/80 text-sm font-medium">{selectedPrompt.prompt}</p>
-                    <p className="text-white/40 text-xs mt-1">Ví dụ: {selectedPrompt.example}</p>
+                    <p className="text-app-text-secondary text-xs mt-1">Ví dụ: {selectedPrompt.example}</p>
                   </div>
-                  <button onClick={() => setSelectedPrompt(null)} className="text-white/30 hover:text-white/60 cursor-pointer">
+                  <button onClick={() => setSelectedPrompt(null)} className="text-app-text-muted hover:text-white/60 cursor-pointer">
                     <i className="ri-close-line"></i>
                   </button>
                 </div>
@@ -185,13 +185,13 @@ export default function AIWritingPage() {
             )}
 
             {/* Tabs */}
-            <div className="flex gap-1 bg-white/5 rounded-lg p-1 w-fit">
+            <div className="flex gap-1 bg-app-card/50 rounded-lg p-1 w-fit">
               {(["write", "result"] as const).map(tab => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={`px-4 py-1.5 rounded-md text-sm transition-all cursor-pointer whitespace-nowrap ${
-                    activeTab === tab ? "bg-[#e8c84a]/20 text-[#e8c84a] font-semibold" : "text-white/40 hover:text-white/60"
+                    activeTab === tab ? "bg-app-accent-primary/20 text-app-accent-primary font-semibold" : "text-app-text-secondary hover:text-white/60"
                   }`}
                 >
                   {tab === "write" ? "Viết bài" : "Kết quả"}
@@ -203,10 +203,10 @@ export default function AIWritingPage() {
             </div>
 
             {activeTab === "write" && (
-              <div className="bg-[#1a1f2e] rounded-xl border border-white/8 overflow-hidden">
-                <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/5">
-                  <span className="text-white/40 text-xs">Viết tiếng Hàn bên dưới</span>
-                  <span className="text-white/30 text-xs">{text.trim().split(/\s+/).filter(w => w).length} từ</span>
+              <div className="bg-[#1a1f2e] rounded-xl border border-app-border overflow-hidden">
+                <div className="flex items-center justify-between px-4 py-2.5 border-b border-app-border">
+                  <span className="text-app-text-secondary text-xs">Viết tiếng Hàn bên dưới</span>
+                  <span className="text-app-text-muted text-xs">{text.trim().split(/\s+/).filter(w => w).length} từ</span>
                 </div>
                 <textarea
                   ref={textareaRef}
@@ -217,19 +217,19 @@ export default function AIWritingPage() {
                   rows={10}
                   maxLength={2000}
                 />
-                <div className="flex items-center justify-between px-4 py-3 border-t border-white/5">
-                  <span className="text-white/20 text-xs">{text.length}/2000 ký tự</span>
+                <div className="flex items-center justify-between px-4 py-3 border-t border-app-border">
+                  <span className="text-app-text-muted text-xs">{text.length}/2000 ký tự</span>
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => { setText(""); setResult(null); }}
-                      className="px-3 py-1.5 rounded-lg bg-white/5 text-white/40 text-sm hover:bg-white/10 transition-all cursor-pointer whitespace-nowrap"
+                      className="px-3 py-1.5 rounded-lg bg-app-card/50 text-app-text-secondary text-sm hover:bg-app-card/70 transition-all cursor-pointer whitespace-nowrap"
                     >
                       Xóa
                     </button>
                     <button
                       onClick={handleAnalyze}
                       disabled={!text.trim() || text.trim().length < 5 || isAnalyzing}
-                      className="px-5 py-1.5 rounded-lg bg-[#e8c84a] text-black text-sm font-bold hover:bg-[#e8c84a]/90 transition-all cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2"
+                      className="px-5 py-1.5 rounded-lg bg-app-accent-primary text-black text-sm font-bold hover:bg-app-accent-primary/90 transition-all cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2"
                     >
                       {isAnalyzing ? (
                         <>
@@ -251,10 +251,10 @@ export default function AIWritingPage() {
             {activeTab === "result" && result && (
               <div className="space-y-4 animate-fade-in">
                 {/* Score overview */}
-                <div className="bg-[#1a1f2e] rounded-xl p-5 border border-white/8">
+                <div className="bg-[#1a1f2e] rounded-xl p-5 border border-app-border">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-white font-bold">Kết quả đánh giá</h3>
-                    <div className={`text-4xl font-bold ${scoreColor(result.overallScore)}`}>{result.overallScore}<span className="text-lg text-white/30">/100</span></div>
+                    <div className={`text-4xl font-bold ${scoreColor(result.overallScore)}`}>{result.overallScore}<span className="text-lg text-app-text-muted">/100</span></div>
                   </div>
                   <div className="h-2 bg-white/8 rounded-full overflow-hidden mb-4">
                     <div className={`h-full rounded-full transition-all duration-1000 ${scoreBg(result.overallScore)}`} style={{ width: `${result.overallScore}%` }}></div>
@@ -266,14 +266,14 @@ export default function AIWritingPage() {
                       { label: "Từ vựng", score: result.vocabScore, icon: "ri-translate-2" },
                       { label: "Mạch lạc", score: result.coherenceScore, icon: "ri-flow-chart" },
                     ].map(item => (
-                      <div key={item.label} className="bg-white/5 rounded-lg p-3 text-center">
-                        <i className={`${item.icon} text-white/30 text-lg mb-1 block`}></i>
+                      <div key={item.label} className="bg-app-card/50 rounded-lg p-3 text-center">
+                        <i className={`${item.icon} text-app-text-muted text-lg mb-1 block`}></i>
                         <p className={`text-xl font-bold ${scoreColor(item.score)}`}>{item.score}</p>
-                        <p className="text-white/40 text-xs">{item.label}</p>
+                        <p className="text-app-text-secondary text-xs">{item.label}</p>
                       </div>
                     ))}
                   </div>
-                  <div className="flex items-center gap-4 mt-3 text-white/30 text-xs">
+                  <div className="flex items-center gap-4 mt-3 text-app-text-muted text-xs">
                     <span><i className="ri-text mr-1"></i>{result.wordCount} từ</span>
                     <span><i className="ri-list-check mr-1"></i>{result.sentenceCount} câu</span>
                   </div>
@@ -281,7 +281,7 @@ export default function AIWritingPage() {
 
                 {/* Errors */}
                 {result.errors.length > 0 && (
-                  <div className="bg-[#1a1f2e] rounded-xl p-5 border border-white/8">
+                  <div className="bg-[#1a1f2e] rounded-xl p-5 border border-app-border">
                     <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
                       <i className="ri-error-warning-line text-amber-400"></i>
                       Lỗi cần sửa ({result.errors.length})
@@ -290,7 +290,7 @@ export default function AIWritingPage() {
                       {result.errors.map((err, i) => (
                         <div key={i} className={`rounded-lg p-3 border ${errorTypeColor[err.type]}`}>
                           <div className="flex items-center gap-2 mb-1.5">
-                            <span className="text-xs font-semibold px-1.5 py-0.5 rounded bg-white/10">{errorTypeLabel[err.type]}</span>
+                            <span className="text-xs font-semibold px-1.5 py-0.5 rounded bg-app-card/70">{errorTypeLabel[err.type]}</span>
                           </div>
                           <div className="flex items-center gap-2 text-sm mb-1">
                             <span className="line-through opacity-60">{err.original}</span>
@@ -305,15 +305,15 @@ export default function AIWritingPage() {
                 )}
 
                 {/* Suggestions */}
-                <div className="bg-[#1a1f2e] rounded-xl p-5 border border-white/8">
+                <div className="bg-[#1a1f2e] rounded-xl p-5 border border-app-border">
                   <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
-                    <i className="ri-lightbulb-line text-[#e8c84a]"></i>
+                    <i className="ri-lightbulb-line text-app-accent-primary"></i>
                     Gợi ý cải thiện
                   </h3>
                   <ul className="space-y-2">
                     {result.suggestions.map((s, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-white/60">
-                        <span className="text-[#e8c84a] mt-0.5 flex-shrink-0">•</span>
+                        <span className="text-app-accent-primary mt-0.5 flex-shrink-0">•</span>
                         {s}
                       </li>
                     ))}
@@ -331,7 +331,7 @@ export default function AIWritingPage() {
             )}
 
             {activeTab === "result" && !result && (
-              <div className="bg-[#1a1f2e] rounded-xl p-12 border border-white/8 text-center text-white/30">
+              <div className="bg-[#1a1f2e] rounded-xl p-12 border border-app-border text-center text-app-text-muted">
                 <i className="ri-robot-line text-4xl mb-3 block"></i>
                 <p>Chưa có kết quả. Hãy viết bài và nhấn "AI Chấm bài"</p>
               </div>
@@ -342,7 +342,7 @@ export default function AIWritingPage() {
           <div className="space-y-4">
             {/* Stats */}
             {history.length > 0 && (
-              <div className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8">
+              <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border">
                 <h3 className="text-white/70 text-sm font-semibold mb-3">Lịch sử gần đây</h3>
                 <div className="space-y-2">
                   {history.map((h, i) => (
@@ -356,7 +356,7 @@ export default function AIWritingPage() {
             )}
 
             {/* Prompt list */}
-            <div className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8">
+            <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-white/70 text-sm font-semibold">Đề bài gợi ý</h3>
               </div>
@@ -366,7 +366,7 @@ export default function AIWritingPage() {
                     key={l}
                     onClick={() => setFilterLevel(l)}
                     className={`px-2 py-0.5 rounded text-xs transition-all cursor-pointer whitespace-nowrap ${
-                      filterLevel === l ? "bg-[#e8c84a]/20 text-[#e8c84a]" : "bg-white/5 text-white/40 hover:bg-white/10"
+                      filterLevel === l ? "bg-app-accent-primary/20 text-app-accent-primary" : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70"
                     }`}
                   >
                     {l}
@@ -380,13 +380,13 @@ export default function AIWritingPage() {
                     onClick={() => handleUsePrompt(p)}
                     className={`w-full text-left p-3 rounded-lg border transition-all cursor-pointer ${
                       selectedPrompt?.id === p.id
-                        ? "bg-[#e8c84a]/10 border-[#e8c84a]/20"
-                        : "bg-white/3 border-white/5 hover:bg-white/6 hover:border-white/10"
+                        ? "bg-app-accent-primary/10 border-app-accent-primary/20"
+                        : "bg-app-surface/50 border-app-border hover:bg-white/6 hover:border-app-border"
                     }`}
                   >
                     <div className="flex items-center gap-1.5 mb-1">
                       <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${levelColor[p.level]}`}>{p.level}</span>
-                      <span className="text-white/40 text-[10px]">{p.topic}</span>
+                      <span className="text-app-text-secondary text-[10px]">{p.topic}</span>
                     </div>
                     <p className="text-white/60 text-xs leading-snug">{p.prompt}</p>
                   </button>
@@ -395,8 +395,8 @@ export default function AIWritingPage() {
             </div>
 
             {/* Grammar tips */}
-            <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4">
-              <h3 className="text-[#e8c84a] text-sm font-semibold mb-2">
+            <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
+              <h3 className="text-app-accent-primary text-sm font-semibold mb-2">
                 <i className="ri-lightbulb-line mr-1.5"></i>
                 Mẹo viết tốt hơn
               </h3>

@@ -65,31 +65,31 @@ export default function EpsLessonsPage() {
       {/* Overall stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6">
         {[
-          { label: "Tổng bài học", value: epsLessons.length, icon: "ri-book-open-line", color: "#e8c84a" },
+          { label: "Tổng bài học", value: epsLessons.length, icon: "ri-book-open-line", color: "app-accent-primary" },
           { label: "Đã hoàn thành", value: totalCompleted, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Tiến độ", value: `${overallProgress}%`, icon: "ri-pie-chart-2-line", color: "#a78bfa" },
           { label: "XP đã nhận", value: `+${totalXPEarned}`, icon: "ri-star-line", color: "#fb923c" },
         ].map(s => (
-          <div key={s.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-3 md:p-4 flex items-center gap-3">
+          <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-3 md:p-4 flex items-center gap-3">
             <div className="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
               <i className={`${s.icon} text-base md:text-lg`} style={{ color: s.color }}></i>
             </div>
             <div>
               <p className="text-white font-bold text-lg md:text-xl leading-none">{s.value}</p>
-              <p className="text-white/40 text-xs mt-0.5">{s.label}</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">{s.label}</p>
             </div>
           </div>
         ))}
       </div>
 
       {/* Progress bar */}
-      <div className="bg-[#0f1117] border border-white/5 rounded-xl p-4 mb-6">
+      <div className="bg-app-bg border border-app-border rounded-xl p-4 mb-6">
         <div className="flex items-center justify-between mb-2">
           <p className="text-white/60 text-sm font-medium">Tiến độ tổng thể</p>
-          <p className="text-[#e8c84a] text-sm font-bold">{totalCompleted}/{epsLessons.length} bài</p>
+          <p className="text-app-accent-primary text-sm font-bold">{totalCompleted}/{epsLessons.length} bài</p>
         </div>
-        <div className="h-2.5 bg-white/5 rounded-full overflow-hidden">
-          <div className="h-full rounded-full bg-[#e8c84a] transition-all duration-700" style={{ width: `${overallProgress}%` }} />
+        <div className="h-2.5 bg-app-card/50 rounded-full overflow-hidden">
+          <div className="h-full rounded-full bg-app-accent-primary transition-all duration-700" style={{ width: `${overallProgress}%` }} />
         </div>
       </div>
 
@@ -99,20 +99,20 @@ export default function EpsLessonsPage() {
           {/* Filters */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 mb-4 flex-wrap">
             <div className="relative flex-1 min-w-0">
-              <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
+              <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
               <input
                 type="text"
                 value={search}
                 onChange={e => handleFilterChange(setSearch, e.target.value)}
                 placeholder="Tìm bài học..."
-                className="w-full bg-white/5 border border-white/8 rounded-lg pl-9 pr-4 py-2 text-white text-sm placeholder-white/25 focus:outline-none focus:border-white/20"
+                className="w-full bg-app-card/50 border border-app-border rounded-lg pl-9 pr-4 py-2 text-white text-sm placeholder-white/25 focus:outline-none focus:border-white/20"
               />
             </div>
             <div className="flex gap-2 flex-wrap">
               <select
                 value={filterTopic}
                 onChange={e => handleFilterChange(setFilterTopic, e.target.value)}
-                className="flex-1 sm:flex-none bg-white/5 border border-white/8 rounded-lg px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
+                className="flex-1 sm:flex-none bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
               >
                 <option value="all">Tất cả chủ đề</option>
                 {EPS_LESSON_TOPICS.map(t => (
@@ -122,7 +122,7 @@ export default function EpsLessonsPage() {
               <select
                 value={filterLevel}
                 onChange={e => handleFilterChange(setFilterLevel, e.target.value)}
-                className="flex-1 sm:flex-none bg-white/5 border border-white/8 rounded-lg px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
+                className="flex-1 sm:flex-none bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
               >
                 <option value="all">Tất cả cấp độ</option>
                 <option value="beginner">Cơ bản</option>
@@ -130,12 +130,12 @@ export default function EpsLessonsPage() {
                 <option value="advanced">Nâng cao</option>
               </select>
             </div>
-            <div className="flex rounded-lg border border-white/8 overflow-hidden">
+            <div className="flex rounded-lg border border-app-border overflow-hidden">
               {(["all", "pending", "completed"] as const).map(s => (
                 <button
                   key={s}
                   onClick={() => handleFilterChange(setFilterStatus, s)}
-                  className={`flex-1 sm:flex-none px-3 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap ${filterStatus === s ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "text-white/40 hover:text-white/60"}`}
+                  className={`flex-1 sm:flex-none px-3 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap ${filterStatus === s ? "bg-app-accent-primary/15 text-app-accent-primary" : "text-app-text-secondary hover:text-white/60"}`}
                 >
                   {s === "all" ? "Tất cả" : s === "pending" ? "Chưa học" : "Đã học"}
                 </button>
@@ -144,9 +144,9 @@ export default function EpsLessonsPage() {
           </div>
 
           <div className="flex items-center justify-between mb-3">
-            <p className="text-white/30 text-xs">{filteredLessons.length} bài học</p>
+            <p className="text-app-text-muted text-xs">{filteredLessons.length} bài học</p>
             {totalPages > 1 && (
-              <p className="text-white/30 text-xs">
+              <p className="text-app-text-muted text-xs">
                 Trang {currentPage}/{totalPages} · Hiển thị {(currentPage - 1) * LESSONS_PER_PAGE + 1}–{Math.min(currentPage * LESSONS_PER_PAGE, filteredLessons.length)}
               </p>
             )}
@@ -164,7 +164,7 @@ export default function EpsLessonsPage() {
               />
             ))}
             {filteredLessons.length === 0 && (
-              <div className="text-center py-12 text-white/30">
+              <div className="text-center py-12 text-app-text-muted">
                 <i className="ri-search-line text-3xl mb-2 block"></i>
                 <p className="text-sm">Không tìm thấy bài học phù hợp</p>
               </div>
@@ -177,7 +177,7 @@ export default function EpsLessonsPage() {
               <button
                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className="w-9 h-9 flex items-center justify-center rounded-lg border border-white/8 bg-white/3 text-white/40 hover:text-white/70 hover:bg-white/6 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                className="w-9 h-9 flex items-center justify-center rounded-lg border border-app-border bg-app-surface/50 text-app-text-secondary hover:text-white/70 hover:bg-white/6 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 <i className="ri-arrow-left-s-line text-base"></i>
               </button>
@@ -185,7 +185,7 @@ export default function EpsLessonsPage() {
                 const isActive = page === currentPage;
                 const isNear = Math.abs(page - currentPage) <= 1 || page === 1 || page === totalPages;
                 if (!isNear && Math.abs(page - currentPage) === 2) {
-                  return <span key={page} className="text-white/20 text-xs px-1">...</span>;
+                  return <span key={page} className="text-app-text-muted text-xs px-1">...</span>;
                 }
                 if (!isNear) return null;
                 return (
@@ -193,7 +193,7 @@ export default function EpsLessonsPage() {
                     key={page}
                     onClick={() => setCurrentPage(page)}
                     className={`w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${
-                      isActive ? "bg-[#e8c84a] text-black font-bold" : "border border-white/8 bg-white/3 text-white/50 hover:text-white/60"
+                      isActive ? "bg-app-accent-primary text-black font-bold" : "border border-app-border bg-app-surface/50 text-white/50 hover:text-white/60"
                     }`}
                   >
                     {page}
@@ -203,7 +203,7 @@ export default function EpsLessonsPage() {
               <button
                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                 disabled={currentPage === totalPages}
-                className="w-9 h-9 flex items-center justify-center rounded-lg border border-white/8 bg-white/3 text-white/40 hover:text-white/70 hover:bg-white/6 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                className="w-9 h-9 flex items-center justify-center rounded-lg border border-app-border bg-app-surface/50 text-app-text-secondary hover:text-white/70 hover:bg-white/6 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 <i className="ri-arrow-right-s-line text-base"></i>
               </button>

@@ -24,7 +24,7 @@ const TOPICS: TopicDef[] = [
     id: "food",
     label: "Ẩm thực",
     icon: "ri-restaurant-line",
-    color: "#e8c84a",
+    color: "app-accent-primary",
     keywords: ["ăn", "uống", "canh", "cơm", "mỳ", "thịt", "cá", "rau", "ngọt", "mặn", "cay", "chua", "đắng", "nhạt", "món", "bữa", "nhà hàng", "gọi", "đặt", "vị", "hương vị", "nấu", "nướng", "hầm", "kho", "trộn", "miến", "bánh", "sườn", "gà", "bò", "lợn", "đậu", "kim chi"],
   },
   {
@@ -73,7 +73,7 @@ const TOPICS: TopicDef[] = [
     id: "phone",
     label: "Điện thoại",
     icon: "ri-phone-line",
-    color: "#e8c84a",
+    color: "app-accent-primary",
     keywords: ["điện thoại", "gọi", "nhận", "ngắt", "chuyển", "tin nhắn", "gửi", "nhắn", "số điện thoại", "máy bận", "quốc tế", "trong nước", "phí", "a lô", "xóa", "trả lời", "thông tin", "tư vấn", "hỏi"],
   },
   {
@@ -108,7 +108,7 @@ const TOPICS: TopicDef[] = [
     id: "finance",
     label: "Tài chính",
     icon: "ri-money-dollar-circle-line",
-    color: "#e8c84a",
+    color: "app-accent-primary",
     keywords: ["tiền", "đổi tiền", "rút tiền", "nộp tiền", "chuyển tiền", "gửi tiền", "tài khoản", "ngân hàng", "thẻ", "tín dụng", "đặt cọc", "phí", "giá", "đắt", "rẻ", "tiết kiệm", "tỉ giá", "ATM", "chuyển khoản", "số tài khoản"],
   },
   {
@@ -208,7 +208,7 @@ export default function SeoulTopicStudyPage() {
       title="Học theo chủ đề"
       subtitle="Gom từ vựng xuyên suốt các bài học theo chủ đề: gia đình, ẩm thực, giao thông..."
       actions={
-        <button onClick={() => navigate("/seoul-practice")} className="flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white/60 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
+        <button onClick={() => navigate("/seoul-practice")} className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/60 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
           <i className="ri-gamepad-line"></i>Luyện tập
         </button>
       }
@@ -221,26 +221,26 @@ export default function SeoulTopicStudyPage() {
             {/* All topics */}
             <button
               onClick={() => setSelectedTopic(null)}
-              className={`p-3 rounded-xl border text-center transition-all cursor-pointer ${!selectedTopic ? "border-white/25 bg-white/5" : "border-white/8 bg-white/2 hover:border-white/15"}`}
+              className={`p-3 rounded-xl border text-center transition-all cursor-pointer ${!selectedTopic ? "border-white/25 bg-app-card/50" : "border-app-border bg-white/2 hover:border-white/15"}`}
             >
-              <div className="w-9 h-9 flex items-center justify-center rounded-xl mx-auto mb-2" style={{ backgroundColor: !selectedTopic ? "#e8c84a20" : "rgba(255,255,255,0.05)" }}>
-                <i className="ri-apps-line text-lg" style={{ color: !selectedTopic ? "#e8c84a" : "rgba(255,255,255,0.3)" }}></i>
+              <div className="w-9 h-9 flex items-center justify-center rounded-xl mx-auto mb-2" style={{ backgroundColor: !selectedTopic ? "app-accent-primary20" : "rgba(255,255,255,0.05)" }}>
+                <i className="ri-apps-line text-lg" style={{ color: !selectedTopic ? "app-accent-primary" : "rgba(255,255,255,0.3)" }}></i>
               </div>
-              <p className={`text-xs font-semibold ${!selectedTopic ? "text-white" : "text-white/40"}`}>Tất cả</p>
-              <p className="text-white/25 text-[10px] mt-0.5">{allVocab.length} từ</p>
+              <p className={`text-xs font-semibold ${!selectedTopic ? "text-white" : "text-app-text-secondary"}`}>Tất cả</p>
+              <p className="text-app-text-muted text-[10px] mt-0.5">{allVocab.length} từ</p>
             </button>
 
             {TOPICS.map(topic => (
               <button
                 key={topic.id}
                 onClick={() => setSelectedTopic(topic)}
-                className={`p-3 rounded-xl border text-center transition-all cursor-pointer ${selectedTopic?.id === topic.id ? "border-white/25 bg-white/5" : "border-white/8 bg-white/2 hover:border-white/15"}`}
+                className={`p-3 rounded-xl border text-center transition-all cursor-pointer ${selectedTopic?.id === topic.id ? "border-white/25 bg-app-card/50" : "border-app-border bg-white/2 hover:border-white/15"}`}
               >
                 <div className="w-9 h-9 flex items-center justify-center rounded-xl mx-auto mb-2" style={{ backgroundColor: selectedTopic?.id === topic.id ? `${topic.color}20` : "rgba(255,255,255,0.05)" }}>
                   <i className={`${topic.icon} text-lg`} style={{ color: selectedTopic?.id === topic.id ? topic.color : "rgba(255,255,255,0.3)" }}></i>
                 </div>
-                <p className={`text-xs font-semibold ${selectedTopic?.id === topic.id ? "text-white" : "text-white/40"}`}>{topic.label}</p>
-                <p className="text-white/25 text-[10px] mt-0.5">{topicCounts[topic.id]} từ</p>
+                <p className={`text-xs font-semibold ${selectedTopic?.id === topic.id ? "text-white" : "text-app-text-secondary"}`}>{topic.label}</p>
+                <p className="text-app-text-muted text-[10px] mt-0.5">{topicCounts[topic.id]} từ</p>
               </button>
             ))}
           </div>
@@ -250,13 +250,13 @@ export default function SeoulTopicStudyPage() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
           {/* Search */}
           <div className="relative flex-1 max-w-xs">
-            <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
+            <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
             <input
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Tìm từ vựng..."
-              className="w-full pl-9 pr-4 py-2.5 bg-white/3 border border-white/10 rounded-xl text-sm text-white placeholder-white/20 outline-none focus:border-white/25 transition-colors"
+              className="w-full pl-9 pr-4 py-2.5 bg-app-surface/50 border border-app-border rounded-xl text-sm text-white placeholder-white/20 outline-none focus:border-white/25 transition-colors"
             />
           </div>
 
@@ -264,7 +264,7 @@ export default function SeoulTopicStudyPage() {
           <div className="flex items-center gap-2 flex-wrap">
             <button
               onClick={() => setSelectedBook("all")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${selectedBook === "all" ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "bg-white/5 text-white/40 hover:bg-white/8"}`}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${selectedBook === "all" ? "bg-app-accent-primary/15 text-app-accent-primary" : "bg-app-card/50 text-app-text-secondary hover:bg-white/8"}`}
             >
               Tất cả sách
             </button>
@@ -272,7 +272,7 @@ export default function SeoulTopicStudyPage() {
               <button
                 key={book.id}
                 onClick={() => setSelectedBook(book.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${selectedBook === book.id ? "text-[#0f1117]" : "bg-white/5 text-white/40 hover:bg-white/8"}`}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${selectedBook === book.id ? "text-app-bg" : "bg-app-card/50 text-app-text-secondary hover:bg-white/8"}`}
                 style={selectedBook === book.id ? { backgroundColor: book.color } : {}}
               >
                 {book.level}
@@ -281,11 +281,11 @@ export default function SeoulTopicStudyPage() {
           </div>
 
           {/* View toggle */}
-          <div className="flex items-center gap-1 bg-white/5 rounded-lg p-1 ml-auto">
-            <button onClick={() => setViewMode("grid")} className={`w-7 h-7 flex items-center justify-center rounded-md transition-colors cursor-pointer ${viewMode === "grid" ? "bg-white/10 text-white" : "text-white/30 hover:text-white/60"}`}>
+          <div className="flex items-center gap-1 bg-app-card/50 rounded-lg p-1 ml-auto">
+            <button onClick={() => setViewMode("grid")} className={`w-7 h-7 flex items-center justify-center rounded-md transition-colors cursor-pointer ${viewMode === "grid" ? "bg-app-card/70 text-white" : "text-app-text-muted hover:text-white/60"}`}>
               <i className="ri-grid-line text-sm"></i>
             </button>
-            <button onClick={() => setViewMode("list")} className={`w-7 h-7 flex items-center justify-center rounded-md transition-colors cursor-pointer ${viewMode === "list" ? "bg-white/10 text-white" : "text-white/30 hover:text-white/60"}`}>
+            <button onClick={() => setViewMode("list")} className={`w-7 h-7 flex items-center justify-center rounded-md transition-colors cursor-pointer ${viewMode === "list" ? "bg-app-card/70 text-white" : "text-app-text-muted hover:text-white/60"}`}>
               <i className="ri-list-check text-sm"></i>
             </button>
           </div>
@@ -299,16 +299,16 @@ export default function SeoulTopicStudyPage() {
               {selectedTopic.label}
             </div>
           )}
-          <p className="text-white/30 text-xs">{filteredVocab.length} từ vựng</p>
+          <p className="text-app-text-muted text-xs">{filteredVocab.length} từ vựng</p>
         </div>
 
         {/* Vocab display */}
         {filteredVocab.length === 0 ? (
           <div className="text-center py-16">
-            <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-white/3 mx-auto mb-4">
-              <i className="ri-search-line text-3xl text-white/20"></i>
+            <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-app-surface/50 mx-auto mb-4">
+              <i className="ri-search-line text-3xl text-app-text-muted"></i>
             </div>
-            <p className="text-white/30 text-sm">Không tìm thấy từ vựng nào</p>
+            <p className="text-app-text-muted text-sm">Không tìm thấy từ vựng nào</p>
             <p className="text-white/15 text-xs mt-1">Thử chọn chủ đề khác hoặc xóa bộ lọc</p>
           </div>
         ) : viewMode === "grid" ? (
@@ -329,12 +329,12 @@ export default function SeoulTopicStudyPage() {
                   >
                     {/* Front */}
                     <div
-                      className="absolute inset-0 flex flex-col items-center justify-center p-4 rounded-xl border border-white/8 bg-[#0f1117]"
+                      className="absolute inset-0 flex flex-col items-center justify-center p-4 rounded-xl border border-app-border bg-app-bg"
                       style={{ backfaceVisibility: "hidden" }}
                     >
                       <span className="text-[9px] px-1.5 py-0.5 rounded-full font-semibold mb-2" style={{ backgroundColor: `${word.bookColor}15`, color: word.bookColor }}>{word.lessonTitle}</span>
                       <p className="text-white text-2xl font-bold text-center mb-1">{word.korean}</p>
-                      <p className="text-white/30 text-xs">[{word.pronunciation}]</p>
+                      <p className="text-app-text-muted text-xs">[{word.pronunciation}]</p>
                       <button
                         onClick={e => { e.stopPropagation(); speakKorean(word.korean); }}
                         className="mt-2 w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer"
@@ -349,7 +349,7 @@ export default function SeoulTopicStudyPage() {
                       style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)", backgroundColor: `${word.bookColor}08`, borderColor: `${word.bookColor}25` }}
                     >
                       <p className="text-lg font-bold text-center mb-1" style={{ color: word.bookColor }}>{word.vietnamese}</p>
-                      <p className="text-white/40 text-xs text-center italic">{word.example}</p>
+                      <p className="text-app-text-secondary text-xs text-center italic">{word.example}</p>
                     </div>
                   </div>
                 </div>
@@ -359,7 +359,7 @@ export default function SeoulTopicStudyPage() {
         ) : (
           <div className="space-y-2">
             {filteredVocab.map((word, i) => (
-              <div key={`${word.lessonId}-${word.korean}-${i}`} className="flex items-center gap-4 p-4 rounded-xl border border-white/8 bg-white/2 hover:bg-white/4 transition-colors">
+              <div key={`${word.lessonId}-${word.korean}-${i}`} className="flex items-center gap-4 p-4 rounded-xl border border-app-border bg-white/2 hover:bg-white/4 transition-colors">
                 <div className="flex-shrink-0">
                   <button onClick={() => speakKorean(word.korean)} className="w-9 h-9 flex items-center justify-center rounded-xl cursor-pointer transition-colors" style={{ backgroundColor: `${word.bookColor}15` }}>
                     <i className="ri-volume-up-line text-sm" style={{ color: word.bookColor }}></i>
@@ -368,14 +368,14 @@ export default function SeoulTopicStudyPage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
                     <p className="text-white font-bold text-base">{word.korean}</p>
-                    <p className="text-white/30 text-xs">[{word.pronunciation}]</p>
+                    <p className="text-app-text-muted text-xs">[{word.pronunciation}]</p>
                   </div>
                   <p className="font-semibold text-sm" style={{ color: word.bookColor }}>{word.vietnamese}</p>
-                  <p className="text-white/30 text-xs italic mt-0.5 truncate">{word.example}</p>
+                  <p className="text-app-text-muted text-xs italic mt-0.5 truncate">{word.example}</p>
                 </div>
                 <div className="flex-shrink-0 text-right">
                   <span className="text-[9px] px-1.5 py-0.5 rounded-full font-semibold" style={{ backgroundColor: `${word.bookColor}15`, color: word.bookColor }}>{word.lessonTitle}</span>
-                  <p className="text-white/20 text-[10px] mt-1">{word.partOfSpeech}</p>
+                  <p className="text-app-text-muted text-[10px] mt-1">{word.partOfSpeech}</p>
                 </div>
               </div>
             ))}

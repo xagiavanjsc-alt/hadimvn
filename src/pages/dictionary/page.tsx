@@ -228,14 +228,14 @@ export default function DictionaryPage() {
       subtitle={`${stats.total} từ vựng từ ${approvedLessons.length} bài học`}
       actions={
         <div className="flex items-center gap-2">
-          <span className="text-white/30 text-xs bg-white/5 px-3 py-1.5 rounded-full">
+          <span className="text-app-text-muted text-xs bg-app-card/50 px-3 py-1.5 rounded-full">
             {stats.multiSong} từ xuất hiện nhiều bài
           </span>
           {dictionary.length > 0 && (
             <div className="relative">
               <button
                 onClick={() => setShowExportMenu((v) => !v)}
-                className="flex items-center gap-2 bg-[#e8c84a] hover:bg-[#d4b43a] text-black text-xs font-bold px-4 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
+                className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-black text-xs font-bold px-4 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
               >
                 <i className="ri-download-2-line"></i>
                 Xuất từ điển
@@ -244,44 +244,44 @@ export default function DictionaryPage() {
               {showExportMenu && (
                 <>
                   <div className="fixed inset-0 z-40" onClick={() => setShowExportMenu(false)} />
-                  <div className="absolute right-0 top-full mt-1.5 z-50 bg-[#1a1d27] border border-white/10 rounded-xl overflow-hidden shadow-xl min-w-52">
-                    <div className="px-3 py-2 border-b border-white/5">
-                      <p className="text-white/30 text-[10px] tracking-normal">Chọn định dạng xuất</p>
+                  <div className="absolute right-0 top-full mt-1.5 z-50 bg-[#1a1d27] border border-app-border rounded-xl overflow-hidden shadow-xl min-w-52">
+                    <div className="px-3 py-2 border-b border-app-border">
+                      <p className="text-app-text-muted text-[10px] tracking-normal">Chọn định dạng xuất</p>
                     </div>
                     <button
                       onClick={handleExportCSV}
-                      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 transition-colors cursor-pointer text-left"
+                      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-app-card/50 transition-colors cursor-pointer text-left"
                     >
                       <div className="w-8 h-8 flex items-center justify-center bg-emerald-500/10 rounded-lg flex-shrink-0">
-                        <i className="ri-file-text-line text-emerald-400 text-sm"></i>
+                        <i className="ri-file-text-line text-app-accent-success text-sm"></i>
                       </div>
                       <div>
                         <p className="text-white/80 text-xs font-medium">CSV (UTF-8)</p>
-                        <p className="text-white/30 text-[10px]">{isVipYear ? "Toàn bộ" : isVipMonth ? "50 từ (VIP Tháng)" : "Cần VIP"}</p>
+                        <p className="text-app-text-muted text-[10px]">{isVipYear ? "Toàn bộ" : isVipMonth ? "50 từ (VIP Tháng)" : "Cần VIP"}</p>
                       </div>
                     </button>
                     <button
                       onClick={handleExportExcel}
-                      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 transition-colors cursor-pointer text-left"
+                      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-app-card/50 transition-colors cursor-pointer text-left"
                     >
-                      <div className="w-8 h-8 flex items-center justify-center bg-[#e8c84a]/10 rounded-lg flex-shrink-0">
-                        <i className="ri-file-excel-2-line text-[#e8c84a] text-sm"></i>
+                      <div className="w-8 h-8 flex items-center justify-center bg-app-accent-primary/10 rounded-lg flex-shrink-0">
+                        <i className="ri-file-excel-2-line text-app-accent-primary text-sm"></i>
                       </div>
                       <div>
                         <p className="text-white/80 text-xs font-medium">Excel (.xlsx)</p>
-                        <p className="text-white/30 text-[10px]">{isVipYear ? "Toàn bộ" : isVipMonth ? "50 từ (VIP Tháng)" : "Cần VIP"}</p>
+                        <p className="text-app-text-muted text-[10px]">{isVipYear ? "Toàn bộ" : isVipMonth ? "50 từ (VIP Tháng)" : "Cần VIP"}</p>
                       </div>
                     </button>
                     <button
                       onClick={handleExportAnki}
-                      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 transition-colors cursor-pointer text-left border-t border-white/5"
+                      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-app-card/50 transition-colors cursor-pointer text-left border-t border-app-border"
                     >
                       <div className="w-8 h-8 flex items-center justify-center bg-sky-500/10 rounded-lg flex-shrink-0">
                         <i className="ri-stack-line text-sky-400 text-sm"></i>
                       </div>
                       <div>
                         <p className="text-white/80 text-xs font-medium">Anki Deck (.txt)</p>
-                        <p className="text-white/30 text-[10px]">{isVipYear ? "Toàn bộ" : "Chỉ VIP Năm"}</p>
+                        <p className="text-app-text-muted text-[10px]">{isVipYear ? "Toàn bộ" : "Chỉ VIP Năm"}</p>
                       </div>
                     </button>
                   </div>
@@ -310,14 +310,14 @@ export default function DictionaryPage() {
 
       {approvedLessons.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-24 text-center">
-          <div className="w-16 h-16 flex items-center justify-center bg-white/5 rounded-2xl mb-5">
-            <i className="ri-book-open-line text-white/20 text-3xl"></i>
+          <div className="w-16 h-16 flex items-center justify-center bg-app-card/50 rounded-2xl mb-5">
+            <i className="ri-book-open-line text-app-text-muted text-3xl"></i>
           </div>
-          <p className="text-white/40 text-sm font-medium">Chưa có từ vựng nào</p>
-          <p className="text-white/20 text-xs mt-1 mb-5">Duyệt bài học trong K-pop Lesson để tích lũy từ vựng</p>
+          <p className="text-app-text-secondary text-sm font-medium">Chưa có từ vựng nào</p>
+          <p className="text-app-text-muted text-xs mt-1 mb-5">Duyệt bài học trong K-pop Lesson để tích lũy từ vựng</p>
           <a
             href="/melon"
-            className="flex items-center gap-2 bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 text-[#e8c84a] text-sm font-medium px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-sm font-medium px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-music-2-line"></i>
             Đến K-pop Lesson
@@ -328,12 +328,12 @@ export default function DictionaryPage() {
           {/* Left: Stats + alphabet nav */}
           <div className="w-56 flex-shrink-0 space-y-4">
             {/* Stats */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-xl p-4 space-y-3">
-              <p className="text-white/30 text-[10px] tracking-normal">Thống kê</p>
+            <div className="bg-app-bg border border-app-border rounded-xl p-4 space-y-3">
+              <p className="text-app-text-muted text-[10px] tracking-normal">Thống kê</p>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-white/50 text-xs">Tổng từ vựng</span>
-                  <span className="text-[#e8c84a] font-bold text-sm">{stats.total}</span>
+                  <span className="text-app-accent-primary font-bold text-sm">{stats.total}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-white/50 text-xs">Từ duy nhất</span>
@@ -341,7 +341,7 @@ export default function DictionaryPage() {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-white/50 text-xs">Xuất hiện &gt;1 bài</span>
-                  <span className="text-emerald-400 text-sm font-medium">{stats.multiSong}</span>
+                  <span className="text-app-accent-success text-sm font-medium">{stats.multiSong}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-white/50 text-xs">Từ bài học</span>
@@ -352,18 +352,18 @@ export default function DictionaryPage() {
 
             {/* Top frequent words */}
             {stats.topWords.length > 0 && (
-              <div className="bg-[#0f1117] border border-white/5 rounded-xl p-4">
-                <p className="text-white/30 text-[10px] tracking-normal mb-3">Từ phổ biến nhất</p>
+              <div className="bg-app-bg border border-app-border rounded-xl p-4">
+                <p className="text-app-text-muted text-[10px] tracking-normal mb-3">Từ phổ biến nhất</p>
                 <div className="space-y-2">
                   {stats.topWords.map((w, i) => (
                     <button
                       key={w.word}
                       onClick={() => setSelectedWord(w)}
-                      className="w-full flex items-center gap-2 text-left hover:bg-white/5 rounded-lg px-2 py-1.5 transition-colors cursor-pointer group"
+                      className="w-full flex items-center gap-2 text-left hover:bg-app-card/50 rounded-lg px-2 py-1.5 transition-colors cursor-pointer group"
                     >
-                      <span className="text-[#e8c84a]/40 text-[10px] font-bold w-4">{i + 1}</span>
+                      <span className="text-app-accent-primary/40 text-[10px] font-bold w-4">{i + 1}</span>
                       <span className="text-white/70 text-xs font-medium flex-1 truncate group-hover:text-white/90">{w.word}</span>
-                      <span className="text-white/25 text-[10px] bg-white/5 px-1.5 py-0.5 rounded">{w.songs.length}b</span>
+                      <span className="text-app-text-muted text-[10px] bg-app-card/50 px-1.5 py-0.5 rounded">{w.songs.length}b</span>
                     </button>
                   ))}
                 </div>
@@ -371,14 +371,14 @@ export default function DictionaryPage() {
             )}
 
             {/* Alphabet nav */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-xl p-4">
-              <p className="text-white/30 text-[10px] tracking-normal mb-3">Tra theo chữ cái</p>
+            <div className="bg-app-bg border border-app-border rounded-xl p-4">
+              <p className="text-app-text-muted text-[10px] tracking-normal mb-3">Tra theo chữ cái</p>
               <button
                 onClick={() => setSelectedLetter("all")}
                 className={`w-full text-left px-2 py-1.5 rounded-lg text-xs font-medium mb-1 transition-colors cursor-pointer ${
                   selectedLetter === "all"
-                    ? "bg-[#e8c84a]/10 text-[#e8c84a]"
-                    : "text-white/40 hover:text-white/70 hover:bg-white/5"
+                    ? "bg-app-accent-primary/10 text-app-accent-primary"
+                    : "text-app-text-secondary hover:text-white/70 hover:bg-app-card/50"
                 }`}
               >
                 Tất cả ({dictionary.length})
@@ -393,8 +393,8 @@ export default function DictionaryPage() {
                       onClick={() => setSelectedLetter(letter === selectedLetter ? "all" : letter)}
                       className={`flex flex-col items-center py-1.5 rounded-lg transition-colors cursor-pointer ${
                         selectedLetter === letter
-                          ? "bg-[#e8c84a]/15 text-[#e8c84a]"
-                          : "text-white/40 hover:text-white/70 hover:bg-white/5"
+                          ? "bg-app-accent-primary/15 text-app-accent-primary"
+                          : "text-app-text-secondary hover:text-white/70 hover:bg-app-card/50"
                       }`}
                     >
                       <span className="text-xs font-bold">{letter}</span>
@@ -412,32 +412,32 @@ export default function DictionaryPage() {
             <div className="flex items-center gap-3 mb-4">
               <div className="relative flex-1">
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center">
-                  <i className="ri-search-line text-white/25 text-sm"></i>
+                  <i className="ri-search-line text-app-text-muted text-sm"></i>
                 </div>
                 <input
                   type="text"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Tìm từ vựng, nghĩa, ví dụ..."
-                  className="w-full bg-[#0f1117] border border-white/8 rounded-xl pl-9 pr-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/30 transition-colors"
+                  className="w-full bg-app-bg border border-app-border rounded-xl pl-9 pr-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/30 transition-colors"
                 />
                 {search && (
                   <button
                     onClick={() => setSearch("")}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center text-white/25 hover:text-white/60 cursor-pointer"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center text-app-text-muted hover:text-white/60 cursor-pointer"
                   >
                     <i className="ri-close-line text-xs"></i>
                   </button>
                 )}
               </div>
-              <div className="flex items-center gap-1 bg-[#0f1117] border border-white/5 rounded-xl p-1">
+              <div className="flex items-center gap-1 bg-app-bg border border-app-border rounded-xl p-1">
                 {([["alpha", "A-Z", "ri-sort-asc"], ["freq", "Phổ biến", "ri-bar-chart-line"]] as const).map(([mode, label, icon]) => (
                   <button
                     key={mode}
                     onClick={() => setSortMode(mode)}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
                       sortMode === mode
-                        ? "bg-[#e8c84a]/10 text-[#e8c84a]"
+                        ? "bg-app-accent-primary/10 text-app-accent-primary"
                         : "text-white/35 hover:text-white/60"
                     }`}
                   >
@@ -450,17 +450,17 @@ export default function DictionaryPage() {
 
             {/* Results count */}
             {(search || selectedLetter !== "all") && (
-              <p className="text-white/30 text-xs mb-3">
+              <p className="text-app-text-muted text-xs mb-3">
                 Tìm thấy <strong className="text-white/60">{filtered.length}</strong> từ
-                {selectedLetter !== "all" && <span> bắt đầu bằng <strong className="text-[#e8c84a]">{selectedLetter}</strong></span>}
+                {selectedLetter !== "all" && <span> bắt đầu bằng <strong className="text-app-accent-primary">{selectedLetter}</strong></span>}
               </p>
             )}
 
             {/* Word grid */}
             {filtered.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-16 text-center bg-[#0f1117] border border-white/5 rounded-xl">
+              <div className="flex flex-col items-center justify-center py-16 text-center bg-app-bg border border-app-border rounded-xl">
                 <i className="ri-search-line text-white/15 text-3xl mb-3"></i>
-                <p className="text-white/30 text-sm">Không tìm thấy từ nào</p>
+                <p className="text-app-text-muted text-sm">Không tìm thấy từ nào</p>
               </div>
             ) : (
               <div className="grid grid-cols-2 xl:grid-cols-3 gap-2">
@@ -468,23 +468,23 @@ export default function DictionaryPage() {
                   <button
                     key={entry.word}
                     onClick={() => setSelectedWord(entry)}
-                    className="bg-[#0f1117] border border-white/5 hover:border-[#e8c84a]/20 rounded-xl p-4 text-left transition-all cursor-pointer group hover:bg-[#e8c84a]/3"
+                    className="bg-app-bg border border-app-border hover:border-app-accent-primary/20 rounded-xl p-4 text-left transition-all cursor-pointer group hover:bg-app-accent-primary/3"
                   >
                     <div className="flex items-start justify-between mb-2">
-                      <span className="text-white/90 font-bold text-base group-hover:text-[#e8c84a] transition-colors">{entry.word}</span>
+                      <span className="text-white/90 font-bold text-base group-hover:text-app-accent-primary transition-colors">{entry.word}</span>
                       {entry.songs.length > 1 && (
-                        <span className="text-[9px] bg-emerald-500/10 text-emerald-400 px-1.5 py-0.5 rounded-full border border-emerald-500/20 flex-shrink-0 ml-2">
+                        <span className="text-[9px] bg-emerald-500/10 text-app-accent-success px-1.5 py-0.5 rounded-full border border-emerald-500/20 flex-shrink-0 ml-2">
                           {entry.songs.length} bài
                         </span>
                       )}
                     </div>
                     <p className="text-white/50 text-xs mb-2 line-clamp-1">{entry.meaning}</p>
                     {entry.example && (
-                      <p className="text-white/25 text-[10px] italic line-clamp-1">{entry.example}</p>
+                      <p className="text-app-text-muted text-[10px] italic line-clamp-1">{entry.example}</p>
                     )}
-                    <div className="mt-2 pt-2 border-t border-white/5 flex items-center gap-1">
-                      <i className="ri-music-2-line text-white/20 text-[10px]"></i>
-                      <span className="text-white/25 text-[10px] truncate">{entry.songs[0]}</span>
+                    <div className="mt-2 pt-2 border-t border-app-border flex items-center gap-1">
+                      <i className="ri-music-2-line text-app-text-muted text-[10px]"></i>
+                      <span className="text-app-text-muted text-[10px] truncate">{entry.songs[0]}</span>
                     </div>
                   </button>
                 ))}
@@ -501,42 +501,42 @@ export default function DictionaryPage() {
           onClick={() => setSelectedWord(null)}
         >
           <div
-            className="bg-[#0f1117] border border-white/10 rounded-2xl p-6 max-w-lg w-full mx-4 max-h-[80vh] overflow-y-auto"
+            className="bg-app-bg border border-app-border rounded-2xl p-6 max-w-lg w-full mx-4 max-h-[80vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between mb-5">
               <div>
-                <h2 className="text-[#e8c84a] text-3xl font-bold mb-1">{selectedWord.word}</h2>
+                <h2 className="text-app-accent-primary text-3xl font-bold mb-1">{selectedWord.word}</h2>
                 <p className="text-white/60 text-base">{selectedWord.meaning}</p>
               </div>
               <button
                 onClick={() => setSelectedWord(null)}
-                className="w-8 h-8 flex items-center justify-center text-white/30 hover:text-white/70 cursor-pointer rounded-lg hover:bg-white/5 transition-colors"
+                className="w-8 h-8 flex items-center justify-center text-app-text-muted hover:text-white/70 cursor-pointer rounded-lg hover:bg-app-card/50 transition-colors"
               >
                 <i className="ri-close-line"></i>
               </button>
             </div>
 
             {selectedWord.example && (
-              <div className="bg-white/3 border border-white/8 rounded-xl px-4 py-3 mb-4">
-                <p className="text-white/30 text-[10px] tracking-normal mb-1.5">Ví dụ</p>
+              <div className="bg-app-surface/50 border border-app-border rounded-xl px-4 py-3 mb-4">
+                <p className="text-app-text-muted text-[10px] tracking-normal mb-1.5">Ví dụ</p>
                 <p className="text-white/70 text-sm italic leading-relaxed">{selectedWord.example}</p>
               </div>
             )}
 
             <div>
-              <p className="text-white/30 text-[10px] tracking-normal mb-3">
+              <p className="text-app-text-muted text-[10px] tracking-normal mb-3">
                 Xuất hiện trong {selectedWord.songs.length} bài hát
               </p>
               <div className="space-y-2">
                 {selectedWord.songs.map((song, i) => (
-                  <div key={i} className="flex items-center gap-3 bg-white/3 rounded-lg px-3 py-2.5">
-                    <div className="w-7 h-7 flex items-center justify-center bg-[#e8c84a]/10 rounded-lg flex-shrink-0">
-                      <i className="ri-music-2-line text-[#e8c84a] text-xs"></i>
+                  <div key={i} className="flex items-center gap-3 bg-app-surface/50 rounded-lg px-3 py-2.5">
+                    <div className="w-7 h-7 flex items-center justify-center bg-app-accent-primary/10 rounded-lg flex-shrink-0">
+                      <i className="ri-music-2-line text-app-accent-primary text-xs"></i>
                     </div>
                     <div>
                       <p className="text-white/70 text-xs font-medium">{song}</p>
-                      <p className="text-white/30 text-[10px]">{selectedWord.artists[i]}</p>
+                      <p className="text-app-text-muted text-[10px]">{selectedWord.artists[i]}</p>
                     </div>
                   </div>
                 ))}
@@ -545,7 +545,7 @@ export default function DictionaryPage() {
 
             <button
               onClick={() => setSelectedWord(null)}
-              className="w-full mt-5 bg-white/5 hover:bg-white/10 text-white/50 text-sm py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
+              className="w-full mt-5 bg-app-card/50 hover:bg-app-card/70 text-white/50 text-sm py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
             >
               Đóng
             </button>

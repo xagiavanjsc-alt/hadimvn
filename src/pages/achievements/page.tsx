@@ -62,10 +62,10 @@ const ACHIEVEMENTS: Achievement[] = [
 ];
 
 const RARITY_CONFIG = {
-  common: { label: "Phổ thông", color: "text-white/60", bg: "bg-white/5", border: "border-white/10", glow: "" },
+  common: { label: "Phổ thông", color: "text-white/60", bg: "bg-app-card/50", border: "border-app-border", glow: "" },
   rare: { label: "Hiếm", color: "text-sky-400", bg: "bg-sky-500/8", border: "border-sky-500/20", glow: "shadow-sky-500/10" },
   epic: { label: "Sử thi", color: "text-purple-400", bg: "bg-purple-500/8", border: "border-purple-500/20", glow: "shadow-purple-500/10" },
-  legendary: { label: "Huyền thoại", color: "text-[#e8c84a]", bg: "bg-[#e8c84a]/8", border: "border-[#e8c84a]/25", glow: "shadow-[#e8c84a]/15" },
+  legendary: { label: "Huyền thoại", color: "text-app-accent-primary", bg: "bg-app-accent-primary/8", border: "border-app-accent-primary/25", glow: "shadow-[app-accent-primary]/15" },
 };
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -92,46 +92,46 @@ function AchievementCard({ achievement, unlocked }: { achievement: Achievement; 
         {unlocked && (
           <div className="absolute top-2 right-2">
             <div className="w-4 h-4 flex items-center justify-center">
-              <i className="ri-checkbox-circle-fill text-emerald-400 text-sm"></i>
+              <i className="ri-checkbox-circle-fill text-app-accent-success text-sm"></i>
             </div>
           </div>
         )}
-        <div className={`w-10 h-10 flex items-center justify-center rounded-xl mb-3 ${unlocked ? r.bg : "bg-white/5"} border ${r.border}`}>
-          <i className={`${achievement.icon} text-xl ${unlocked ? r.color : "text-white/20"}`}></i>
+        <div className={`w-10 h-10 flex items-center justify-center rounded-xl mb-3 ${unlocked ? r.bg : "bg-app-card/50"} border ${r.border}`}>
+          <i className={`${achievement.icon} text-xl ${unlocked ? r.color : "text-app-text-muted"}`}></i>
         </div>
-        <p className={`text-sm font-semibold mb-1 ${unlocked ? "text-white" : "text-white/30"}`}>{achievement.name}</p>
+        <p className={`text-sm font-semibold mb-1 ${unlocked ? "text-white" : "text-app-text-muted"}`}>{achievement.name}</p>
         <p className="text-white/35 text-xs leading-relaxed">{achievement.desc}</p>
         <div className="mt-3 flex items-center justify-between">
           <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${r.color} ${r.bg} ${r.border}`}>
             {r.label}
           </span>
-          {unlocked && <span className="text-[#e8c84a] text-[10px] font-medium">{achievement.reward}</span>}
+          {unlocked && <span className="text-app-accent-primary text-[10px] font-medium">{achievement.reward}</span>}
         </div>
       </div>
 
       {showDetail && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => setShowDetail(false)}>
-          <div className="bg-[#1a1d27] border border-white/10 rounded-2xl p-6 w-80 shadow-2xl" onClick={e => e.stopPropagation()}>
+          <div className="bg-[#1a1d27] border border-app-border rounded-2xl p-6 w-80 shadow-2xl" onClick={e => e.stopPropagation()}>
             <div className={`w-16 h-16 flex items-center justify-center rounded-2xl mx-auto mb-4 ${r.bg} border ${r.border}`}>
-              <i className={`${achievement.icon} text-3xl ${unlocked ? r.color : "text-white/20"}`}></i>
+              <i className={`${achievement.icon} text-3xl ${unlocked ? r.color : "text-app-text-muted"}`}></i>
             </div>
             <h3 className="text-white text-lg font-bold text-center">{achievement.name}</h3>
             <p className={`text-center text-xs font-medium mt-1 ${r.color}`}>{r.label}</p>
             <p className="text-white/50 text-sm text-center mt-3 leading-relaxed">{achievement.desc}</p>
             {unlocked ? (
               <div className="mt-4 p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-center">
-                <p className="text-emerald-400 text-xs font-medium">Đã mở khóa!</p>
-                <p className="text-[#e8c84a] text-sm font-bold mt-1">{achievement.reward}</p>
+                <p className="text-app-accent-success text-xs font-medium">Đã mở khóa!</p>
+                <p className="text-app-accent-primary text-sm font-bold mt-1">{achievement.reward}</p>
               </div>
             ) : (
-              <div className="mt-4 p-3 bg-white/3 border border-white/8 rounded-xl text-center">
-                <p className="text-white/30 text-xs">Chưa mở khóa</p>
+              <div className="mt-4 p-3 bg-app-surface/50 border border-app-border rounded-xl text-center">
+                <p className="text-app-text-muted text-xs">Chưa mở khóa</p>
                 <p className="text-white/50 text-sm mt-1">{achievement.reward}</p>
               </div>
             )}
             <button
               onClick={() => setShowDetail(false)}
-              className="mt-4 w-full py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-white/60 text-sm transition-all cursor-pointer whitespace-nowrap"
+              className="mt-4 w-full py-2 bg-app-card/50 hover:bg-app-card/70 border border-app-border rounded-lg text-white/60 text-sm transition-all cursor-pointer whitespace-nowrap"
             >
               Đóng
             </button>
@@ -209,17 +209,17 @@ export default function AchievementsPage() {
       {/* Auto-badge popup */}
       {newBadge && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => setNewBadge(null)}>
-          <div className="bg-[#0f1117] border border-[#e8c84a]/30 rounded-2xl p-8 w-80 text-center" onClick={e => e.stopPropagation()}>
-            <div className="w-20 h-20 flex items-center justify-center rounded-2xl mx-auto mb-4 bg-[#e8c84a]/15 border border-[#e8c84a]/25">
-              <i className={`${newBadge.icon} text-4xl text-[#e8c84a]`}></i>
+          <div className="bg-app-bg border border-app-accent-primary/30 rounded-2xl p-8 w-80 text-center" onClick={e => e.stopPropagation()}>
+            <div className="w-20 h-20 flex items-center justify-center rounded-2xl mx-auto mb-4 bg-app-accent-primary/15 border border-app-accent-primary/25">
+              <i className={`${newBadge.icon} text-4xl text-app-accent-primary`}></i>
             </div>
-            <p className="text-[#e8c84a] text-xs font-bold tracking-normal mb-2">Huy hiệu mới!</p>
+            <p className="text-app-accent-primary text-xs font-bold tracking-normal mb-2">Huy hiệu mới!</p>
             <h3 className="text-white text-xl font-bold mb-2">{newBadge.name}</h3>
             <p className="text-white/50 text-sm mb-4">{newBadge.desc}</p>
-            <div className="px-4 py-2 bg-[#e8c84a]/10 border border-[#e8c84a]/20 rounded-xl mb-5">
-              <p className="text-[#e8c84a] font-bold text-sm">{newBadge.reward}</p>
+            <div className="px-4 py-2 bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-xl mb-5">
+              <p className="text-app-accent-primary font-bold text-sm">{newBadge.reward}</p>
             </div>
-            <button onClick={() => setNewBadge(null)} className="w-full py-2.5 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold rounded-xl text-sm cursor-pointer whitespace-nowrap transition-colors">
+            <button onClick={() => setNewBadge(null)} className="w-full py-2.5 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold rounded-xl text-sm cursor-pointer whitespace-nowrap transition-colors">
               Tuyệt vời!
             </button>
           </div>
@@ -231,29 +231,29 @@ export default function AchievementsPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-white text-2xl font-bold">Huy hiệu & Thành tích</h1>
-            <p className="text-white/40 text-sm mt-1">Mở khóa tự động khi đạt các mốc học tập</p>
+            <p className="text-app-text-secondary text-sm mt-1">Mở khóa tự động khi đạt các mốc học tập</p>
           </div>
-          <div className="flex items-center gap-2 px-4 py-2 bg-[#e8c84a]/10 border border-[#e8c84a]/20 rounded-xl">
-            <i className="ri-vip-crown-line text-[#e8c84a]"></i>
-            <span className="text-[#e8c84a] font-bold">{totalXP.toLocaleString()} XP</span>
+          <div className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-xl">
+            <i className="ri-vip-crown-line text-app-accent-primary"></i>
+            <span className="text-app-accent-primary font-bold">{totalXP.toLocaleString()} XP</span>
           </div>
         </div>
 
         {/* Progress overview */}
-        <div className="bg-[#1a1d27] border border-white/8 rounded-xl p-5">
+        <div className="bg-[#1a1d27] border border-app-border rounded-xl p-5">
           <div className="flex items-center justify-between mb-4">
             <div>
               <p className="text-white font-semibold">{unlockedCount}/{ACHIEVEMENTS.length} huy hiệu đã mở khóa</p>
               <p className="text-white/35 text-xs mt-0.5">Tiếp tục học để mở khóa thêm!</p>
             </div>
             <div className="text-right">
-              <p className="text-[#e8c84a] text-2xl font-bold">{Math.round((unlockedCount / ACHIEVEMENTS.length) * 100)}%</p>
-              <p className="text-white/30 text-xs">hoàn thành</p>
+              <p className="text-app-accent-primary text-2xl font-bold">{Math.round((unlockedCount / ACHIEVEMENTS.length) * 100)}%</p>
+              <p className="text-app-text-muted text-xs">hoàn thành</p>
             </div>
           </div>
-          <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden mb-4">
+          <div className="w-full h-2 bg-app-card/50 rounded-full overflow-hidden mb-4">
             <div
-              className="h-full bg-gradient-to-r from-[#e8c84a]/80 to-[#e8c84a] rounded-full transition-all"
+              className="h-full bg-gradient-to-r from-[app-accent-primary]/80 to-[app-accent-primary] rounded-full transition-all"
               style={{ width: `${(unlockedCount / ACHIEVEMENTS.length) * 100}%` }}
             />
           </div>
@@ -263,7 +263,7 @@ export default function AchievementsPage() {
               return (
                 <div key={rb.rarity} className={`p-3 rounded-lg border ${r.bg} ${r.border}`}>
                   <p className={`text-xs font-medium ${r.color}`}>{r.label}</p>
-                  <p className="text-white text-lg font-bold mt-1">{rb.unlocked}<span className="text-white/30 text-sm">/{rb.total}</span></p>
+                  <p className="text-white text-lg font-bold mt-1">{rb.unlocked}<span className="text-app-text-muted text-sm">/{rb.total}</span></p>
                 </div>
               );
             })}
@@ -274,16 +274,16 @@ export default function AchievementsPage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
             { label: "Streak hiện tại", value: `${userStats.streak} ngày`, icon: "ri-fire-line", color: "text-orange-400" },
-            { label: "Điểm EPS cao nhất", value: `${userStats.epsScore}`, icon: "ri-trophy-line", color: "text-[#e8c84a]" },
-            { label: "Từ đã học", value: `${userStats.wordsLearned}`, icon: "ri-book-open-line", color: "text-emerald-400" },
+            { label: "Điểm EPS cao nhất", value: `${userStats.epsScore}`, icon: "ri-trophy-line", color: "text-app-accent-primary" },
+            { label: "Từ đã học", value: `${userStats.wordsLearned}`, icon: "ri-book-open-line", color: "text-app-accent-success" },
             { label: "Bài quiz đã làm", value: `${userStats.quizCount}`, icon: "ri-survey-line", color: "text-sky-400" },
           ].map((s, i) => (
-            <div key={i} className="bg-[#1a1d27] border border-white/8 rounded-xl p-4 flex items-center gap-3">
+            <div key={i} className="bg-[#1a1d27] border border-app-border rounded-xl p-4 flex items-center gap-3">
               <div className="w-9 h-9 flex items-center justify-center">
                 <i className={`${s.icon} ${s.color} text-xl`}></i>
               </div>
               <div>
-                <p className="text-white/40 text-[10px]">{s.label}</p>
+                <p className="text-app-text-secondary text-[10px]">{s.label}</p>
                 <p className={`text-lg font-bold ${s.color}`}>{s.value}</p>
               </div>
             </div>
@@ -292,13 +292,13 @@ export default function AchievementsPage() {
 
         {/* Filters */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1 p-1 bg-white/3 border border-white/8 rounded-xl">
+          <div className="flex items-center gap-1 p-1 bg-app-surface/50 border border-app-border rounded-xl">
             {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
               <button
                 key={key}
                 onClick={() => setActiveCategory(key)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
-                  activeCategory === key ? "bg-[#e8c84a]/15 text-[#e8c84a] border border-[#e8c84a]/25" : "text-white/40 hover:text-white/70"
+                  activeCategory === key ? "bg-app-accent-primary/15 text-app-accent-primary border border-app-accent-primary/25" : "text-app-text-secondary hover:text-white/70"
                 }`}
               >
                 {label}
@@ -308,7 +308,7 @@ export default function AchievementsPage() {
           <button
             onClick={() => setShowUnlockedOnly(!showUnlockedOnly)}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs border transition-all cursor-pointer whitespace-nowrap ${
-              showUnlockedOnly ? "bg-emerald-500/10 border-emerald-500/25 text-emerald-400" : "bg-white/3 border-white/10 text-white/40 hover:text-white/70"
+              showUnlockedOnly ? "bg-emerald-500/10 border-emerald-500/25 text-app-accent-success" : "bg-app-surface/50 border-app-border text-app-text-secondary hover:text-white/70"
             }`}
           >
             <i className={`${showUnlockedOnly ? "ri-checkbox-circle-fill" : "ri-checkbox-circle-line"} text-sm`}></i>
@@ -324,7 +324,7 @@ export default function AchievementsPage() {
         </div>
 
         {filtered.length === 0 && (
-          <div className="text-center py-16 text-white/30">
+          <div className="text-center py-16 text-app-text-muted">
             <div className="w-12 h-12 flex items-center justify-center mx-auto mb-3">
               <i className="ri-medal-line text-4xl"></i>
             </div>

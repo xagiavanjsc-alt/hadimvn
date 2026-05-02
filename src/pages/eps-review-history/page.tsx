@@ -133,22 +133,22 @@ export default function EpsReviewHistoryPage() {
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-[#0f1117] text-white">
+      <div className="min-h-screen bg-app-bg text-white">
         {/* Header */}
-        <div className="bg-[#1a1d2e] border-b border-white/5 px-6 py-4">
+        <div className="bg-[#1a1d2e] border-b border-app-border px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <button onClick={() => navigate(-1)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+              <button onClick={() => navigate(-1)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-app-card/70 transition-colors cursor-pointer">
                 <i className="ri-arrow-left-line text-white/60"></i>
               </button>
               <div>
                 <h1 className="text-lg font-bold text-white">Lịch sử ôn tập</h1>
-                <p className="text-white/40 text-xs">Xem lại các phiên ôn tập trước</p>
+                <p className="text-app-text-secondary text-xs">Xem lại các phiên ôn tập trước</p>
               </div>
             </div>
             <button
               onClick={() => navigate("/eps-quick-review")}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-[#e8c84a]/15 hover:bg-[#e8c84a]/25 border border-[#e8c84a]/30 rounded-lg text-[#e8c84a] text-xs font-medium transition-all cursor-pointer whitespace-nowrap"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-app-accent-primary/15 hover:bg-app-accent-primary/25 border border-app-accent-primary/30 rounded-lg text-app-accent-primary text-xs font-medium transition-all cursor-pointer whitespace-nowrap"
             >
               <i className="ri-flashlight-line text-xs"></i>
               Ôn tập ngay
@@ -160,17 +160,17 @@ export default function EpsReviewHistoryPage() {
           {/* Overall Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              { label: "Phiên ôn tập", value: overallStats.totalSessions, icon: "ri-history-line", color: "#e8c84a" },
+              { label: "Phiên ôn tập", value: overallStats.totalSessions, icon: "ri-history-line", color: "app-accent-primary" },
               { label: "Từ đã ôn", value: overallStats.totalWords, icon: "ri-translate-2", color: "#34d399" },
               { label: "Độ chính xác", value: `${overallStats.avgAccuracy}%`, icon: "ri-bar-chart-line", color: "#60a5fa" },
               { label: "Tổng thời gian", value: formatDuration(overallStats.totalTime), icon: "ri-time-line", color: "#f59e0b" },
             ].map((s, i) => (
-              <div key={i} className="bg-white/3 border border-white/8 rounded-xl p-4">
+              <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-7 h-7 flex items-center justify-center rounded-lg" style={{ backgroundColor: `${s.color}20` }}>
                     <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
                   </div>
-                  <span className="text-white/40 text-xs">{s.label}</span>
+                  <span className="text-app-text-secondary text-xs">{s.label}</span>
                 </div>
                 <p className="text-2xl font-bold text-white">{s.value}</p>
               </div>
@@ -178,9 +178,9 @@ export default function EpsReviewHistoryPage() {
           </div>
 
           {/* Weekly Chart */}
-          <div className="bg-white/3 border border-white/8 rounded-xl p-5">
+          <div className="bg-app-surface/50 border border-app-border rounded-xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
-              <i className="ri-bar-chart-2-line text-[#e8c84a]"></i>
+              <i className="ri-bar-chart-2-line text-app-accent-primary"></i>
               Hoạt động 7 ngày qua
             </h3>
             <div className="flex items-end gap-2 h-28">
@@ -207,24 +207,24 @@ export default function EpsReviewHistoryPage() {
                         ></div>
                       </div>
                     ) : (
-                      <div className="w-full h-1 bg-white/5 rounded-full"></div>
+                      <div className="w-full h-1 bg-app-card/50 rounded-full"></div>
                     )}
                   </div>
-                  <span className="text-white/30 text-[10px]">{day.label}</span>
+                  <span className="text-app-text-muted text-[10px]">{day.label}</span>
                   {day.sessions > 0 && (
-                    <span className="text-[#e8c84a] text-[9px] font-bold">{day.total}t</span>
+                    <span className="text-app-accent-primary text-[9px] font-bold">{day.total}t</span>
                   )}
                 </div>
               ))}
             </div>
-            <div className="flex items-center gap-4 mt-3 pt-3 border-t border-white/5">
+            <div className="flex items-center gap-4 mt-3 pt-3 border-t border-app-border">
               <div className="flex items-center gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-sm bg-emerald-400"></div>
-                <span className="text-white/40 text-xs">Đúng</span>
+                <span className="text-app-text-secondary text-xs">Đúng</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-sm bg-red-400 opacity-60"></div>
-                <span className="text-white/40 text-xs">Sai</span>
+                <span className="text-app-text-secondary text-xs">Sai</span>
               </div>
             </div>
           </div>
@@ -245,16 +245,16 @@ export default function EpsReviewHistoryPage() {
                   const vocab = lesson?.vocabulary.find(v => v.korean === korean);
                   if (!vocab) return null;
                   return (
-                    <div key={key} className="flex items-center justify-between py-2 border-b border-white/5 last:border-0">
+                    <div key={key} className="flex items-center justify-between py-2 border-b border-app-border last:border-0">
                       <div>
                         <span className="text-white font-medium text-sm">{vocab.korean}</span>
-                        <span className="text-white/40 text-xs ml-2">{vocab.vietnamese}</span>
+                        <span className="text-app-text-secondary text-xs ml-2">{vocab.vietnamese}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="text-red-400 text-xs font-bold bg-red-500/10 px-2 py-0.5 rounded-full">
                           Sai {hist.wrong}x
                         </span>
-                        <span className="text-emerald-400 text-xs bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                        <span className="text-app-accent-success text-xs bg-emerald-500/10 px-2 py-0.5 rounded-full">
                           Đúng {hist.correct}x
                         </span>
                       </div>
@@ -276,13 +276,13 @@ export default function EpsReviewHistoryPage() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-white font-semibold text-sm">Lịch sử phiên ôn tập</h3>
-              <div className="flex items-center gap-1 bg-white/5 rounded-lg p-1">
+              <div className="flex items-center gap-1 bg-app-card/50 rounded-lg p-1">
                 {(["all", "random", "wrong_only"] as const).map(m => (
                   <button
                     key={m}
                     onClick={() => setFilterMode(m)}
                     className={`px-2.5 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
-                      filterMode === m ? "bg-white/10 text-white" : "text-white/40 hover:text-white/70"
+                      filterMode === m ? "bg-app-card/70 text-white" : "text-app-text-secondary hover:text-white/70"
                     }`}
                   >
                     {m === "all" ? "Tất cả" : m === "random" ? "Ngẫu nhiên" : "Từ sai"}
@@ -293,7 +293,7 @@ export default function EpsReviewHistoryPage() {
 
             <div className="space-y-3">
               {filteredSessions.length === 0 ? (
-                <div className="text-center py-10 text-white/30">
+                <div className="text-center py-10 text-app-text-muted">
                   <i className="ri-history-line text-3xl mb-2 block"></i>
                   <p className="text-sm">Chưa có phiên ôn tập nào</p>
                 </div>
@@ -304,16 +304,16 @@ export default function EpsReviewHistoryPage() {
                   const accuracyColor = accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "#f59e0b" : "#ef4444";
 
                   return (
-                    <div key={session.id} className="bg-white/3 border border-white/8 rounded-xl overflow-hidden">
+                    <div key={session.id} className="bg-app-surface/50 border border-app-border rounded-xl overflow-hidden">
                       <button
                         onClick={() => setExpandedSession(isExpanded ? null : session.id)}
-                        className="w-full px-4 py-3.5 flex items-center gap-3 hover:bg-white/3 transition-colors cursor-pointer"
+                        className="w-full px-4 py-3.5 flex items-center gap-3 hover:bg-app-surface/50 transition-colors cursor-pointer"
                       >
                         {/* Mode icon */}
                         <div className={`w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0 ${
-                          session.mode === "wrong_only" ? "bg-red-500/15" : "bg-[#e8c84a]/10"
+                          session.mode === "wrong_only" ? "bg-red-500/15" : "bg-app-accent-primary/10"
                         }`}>
-                          <i className={`${session.mode === "wrong_only" ? "ri-error-warning-line text-red-400" : "ri-shuffle-line text-[#e8c84a]"} text-base`}></i>
+                          <i className={`${session.mode === "wrong_only" ? "ri-error-warning-line text-red-400" : "ri-shuffle-line text-app-accent-primary"} text-base`}></i>
                         </div>
 
                         {/* Info */}
@@ -322,12 +322,12 @@ export default function EpsReviewHistoryPage() {
                             <span className="text-white text-sm font-medium">
                               {session.mode === "wrong_only" ? "Ôn từ sai" : "Ôn ngẫu nhiên"}
                             </span>
-                            <span className="text-white/30 text-xs">•</span>
-                            <span className="text-white/40 text-xs">{formatDate(session.date)} {formatTime(session.date)}</span>
+                            <span className="text-app-text-muted text-xs">•</span>
+                            <span className="text-app-text-secondary text-xs">{formatDate(session.date)} {formatTime(session.date)}</span>
                           </div>
                           <div className="flex items-center gap-3">
-                            <span className="text-white/40 text-xs">{session.total} từ</span>
-                            <span className="text-white/40 text-xs">{formatDuration(session.duration)}</span>
+                            <span className="text-app-text-secondary text-xs">{session.total} từ</span>
+                            <span className="text-app-text-secondary text-xs">{formatDuration(session.duration)}</span>
                           </div>
                         </div>
 
@@ -335,34 +335,34 @@ export default function EpsReviewHistoryPage() {
                         <div className="flex items-center gap-3 flex-shrink-0">
                           <div className="text-right">
                             <p className="text-lg font-bold" style={{ color: accuracyColor }}>{accuracy}%</p>
-                            <p className="text-white/30 text-[10px]">{session.correct}/{session.total} đúng</p>
+                            <p className="text-app-text-muted text-[10px]">{session.correct}/{session.total} đúng</p>
                           </div>
                           <div className="w-5 h-5 flex items-center justify-center">
-                            <i className={isExpanded ? "ri-arrow-up-s-line text-white/30" : "ri-arrow-down-s-line text-white/30"}></i>
+                            <i className={isExpanded ? "ri-arrow-up-s-line text-app-text-muted" : "ri-arrow-down-s-line text-app-text-muted"}></i>
                           </div>
                         </div>
                       </button>
 
                       {/* Expanded: wrong words */}
                       {isExpanded && (
-                        <div className="px-4 pb-4 border-t border-white/5">
+                        <div className="px-4 pb-4 border-t border-app-border">
                           {/* Mini bar chart */}
                           <div className="flex items-center gap-2 mt-3 mb-3">
-                            <div className="flex-1 h-2 bg-white/5 rounded-full overflow-hidden">
+                            <div className="flex-1 h-2 bg-app-card/50 rounded-full overflow-hidden">
                               <div
                                 className="h-full rounded-full"
                                 style={{ width: `${accuracy}%`, backgroundColor: accuracyColor }}
                               ></div>
                             </div>
                             <div className="flex items-center gap-2 text-xs flex-shrink-0">
-                              <span className="text-emerald-400 font-medium">{session.correct} đúng</span>
+                              <span className="text-app-accent-success font-medium">{session.correct} đúng</span>
                               <span className="text-red-400 font-medium">{session.wrong} sai</span>
                             </div>
                           </div>
 
                           {session.wrongWords.length > 0 ? (
                             <div>
-                              <p className="text-white/40 text-xs mb-2 flex items-center gap-1">
+                              <p className="text-app-text-secondary text-xs mb-2 flex items-center gap-1">
                                 <i className="ri-close-circle-line text-red-400"></i>
                                 Từ sai trong phiên này:
                               </p>
@@ -370,13 +370,13 @@ export default function EpsReviewHistoryPage() {
                                 {session.wrongWords.map((w, i) => (
                                   <div key={i} className="bg-red-500/8 border border-red-500/15 rounded-lg px-2.5 py-1.5">
                                     <p className="text-white text-xs font-medium">{w.korean}</p>
-                                    <p className="text-white/40 text-[10px]">{w.vietnamese}</p>
+                                    <p className="text-app-text-secondary text-[10px]">{w.vietnamese}</p>
                                   </div>
                                 ))}
                               </div>
                             </div>
                           ) : (
-                            <div className="flex items-center gap-2 text-emerald-400 text-xs">
+                            <div className="flex items-center gap-2 text-app-accent-success text-xs">
                               <i className="ri-checkbox-circle-fill"></i>
                               <span>Hoàn hảo! Không có từ nào sai trong phiên này.</span>
                             </div>

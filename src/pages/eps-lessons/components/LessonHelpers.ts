@@ -13,6 +13,6 @@ export function speakKorean(text: string) {
 
 export const LEVEL_LABELS: Record<string, { label: string; color: string }> = {
   beginner: { label: "Cơ bản", color: "#34d399" },
-  intermediate: { label: "Trung cấp", color: "#e8c84a" },
+  intermediate: { label: "Trung cấp", color: "app-accent-primary" },
   advanced: { label: "Nâng cao", color: "#f87171" },
 };

@@ -31,7 +31,7 @@ interface QuizQuestion {
 }
 
 const TOPICS = [
-  { id: "all", label: "Tất cả chủ đề", icon: "ri-apps-line", color: "#e8c84a" },
+  { id: "all", label: "Tất cả chủ đề", icon: "ri-apps-line", color: "app-accent-primary" },
   { id: "greeting", label: "Chào hỏi", icon: "ri-hand-heart-line", color: "#34d399" },
   { id: "workplace", label: "Nơi làm việc", icon: "ri-building-line", color: "#fb923c" },
   { id: "safety", label: "An toàn lao động", icon: "ri-shield-check-line", color: "#f87171" },
@@ -91,17 +91,17 @@ function QuizMode({
     const pct = Math.round((score / questions.length) * 100);
     return (
       <div className="flex flex-col items-center justify-center py-12 text-center max-w-md mx-auto">
-        <div className={`w-20 h-20 flex items-center justify-center rounded-full mb-5 ${pct >= 80 ? "bg-emerald-500/15" : pct >= 60 ? "bg-[#e8c84a]/15" : "bg-red-500/15"}`}>
-          <i className={`text-3xl ${pct >= 80 ? "ri-trophy-line text-emerald-400" : pct >= 60 ? "ri-thumb-up-line text-[#e8c84a]" : "ri-emotion-sad-line text-red-400"}`}></i>
+        <div className={`w-20 h-20 flex items-center justify-center rounded-full mb-5 ${pct >= 80 ? "bg-app-accent-success/15" : pct >= 60 ? "bg-app-accent-primary/15" : "bg-red-500/15"}`}>
+          <i className={`text-3xl ${pct >= 80 ? "ri-trophy-line text-app-accent-success" : pct >= 60 ? "ri-thumb-up-line text-app-accent-primary" : "ri-emotion-sad-line text-red-400"}`}></i>
         </div>
         <p className="text-white font-bold text-2xl mb-1">{score}/{questions.length} câu đúng</p>
-        <p className="text-white/40 text-sm mb-2">Thời gian: {formatTime(elapsed)}</p>
-        <p className={`text-lg font-bold mb-6 ${pct >= 80 ? "text-emerald-400" : pct >= 60 ? "text-[#e8c84a]" : "text-red-400"}`}>
+        <p className="text-app-text-secondary text-sm mb-2">Thời gian: {formatTime(elapsed)}</p>
+        <p className={`text-lg font-bold mb-6 ${pct >= 80 ? "text-app-accent-success" : pct >= 60 ? "text-app-accent-primary" : "text-red-400"}`}>
           {pct >= 80 ? "Xuất sắc!" : pct >= 60 ? "Khá tốt!" : "Cần cố gắng thêm!"}
         </p>
         <button
           onClick={() => onFinish(score, elapsed)}
-          className="px-8 py-3 rounded-xl bg-[#e8c84a] text-[#0f1117] font-bold text-sm cursor-pointer whitespace-nowrap hover:bg-[#d4b43a] transition-colors"
+          className="px-8 py-3 rounded-xl bg-app-accent-primary text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap hover:bg-[#d4b43a] transition-colors"
         >
           Xem kết quả & Chia sẻ link
         </button>
@@ -114,21 +114,21 @@ function QuizMode({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="text-white/40 text-sm">{currentIdx + 1}/{questions.length}</span>
-          <div className="w-32 h-1.5 bg-white/5 rounded-full overflow-hidden">
-            <div className="h-full bg-[#e8c84a] rounded-full transition-all" style={{ width: `${progress}%` }} />
+          <span className="text-app-text-secondary text-sm">{currentIdx + 1}/{questions.length}</span>
+          <div className="w-32 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
+            <div className="h-full bg-app-accent-primary rounded-full transition-all" style={{ width: `${progress}%` }} />
           </div>
         </div>
-        <div className="flex items-center gap-2 text-white/40 text-sm">
+        <div className="flex items-center gap-2 text-app-text-secondary text-sm">
           <i className="ri-timer-line"></i>
           <span className="font-mono">{formatTime(elapsed)}</span>
         </div>
       </div>
 
       {/* Question */}
-      <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-6">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-6">
         <p className="text-white font-bold text-lg mb-1 leading-relaxed">{current.question}</p>
-        <p className="text-white/40 text-sm italic">{current.questionVi}</p>
+        <p className="text-app-text-secondary text-sm italic">{current.questionVi}</p>
       </div>
 
       {/* Options */}
@@ -137,13 +137,13 @@ function QuizMode({
           const answered = answers[currentIdx] !== undefined;
           const isSelected = answers[currentIdx] === i;
           const isCorrect = i === current.correctIndex;
-          let cls = "border-white/8 bg-white/2 hover:border-white/20 hover:bg-white/4 cursor-pointer";
+          let cls = "border-app-border bg-white/2 hover:border-white/20 hover:bg-white/4 cursor-pointer";
           if (answered) {
             if (isCorrect) cls = "border-emerald-500/40 bg-emerald-500/8 cursor-default";
             else if (isSelected) cls = "border-red-500/40 bg-red-500/8 cursor-default";
-            else cls = "border-white/5 opacity-40 cursor-default";
+            else cls = "border-app-border opacity-40 cursor-default";
           } else if (isSelected) {
-            cls = "border-[#e8c84a]/40 bg-[#e8c84a]/8 cursor-pointer";
+            cls = "border-app-accent-primary/40 bg-app-accent-primary/8 cursor-pointer";
           }
           return (
             <button
@@ -152,14 +152,14 @@ function QuizMode({
               disabled={answered}
               className={`w-full flex items-center gap-4 px-5 py-3.5 rounded-xl border transition-all text-left ${cls}`}
             >
-              <span className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 text-white/40 text-xs font-bold flex-shrink-0">
+              <span className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary text-xs font-bold flex-shrink-0">
                 {["A", "B", "C", "D"][i]}
               </span>
               <div>
                 <p className="text-white/80 text-sm font-medium">{opt}</p>
-                {current.optionsVi && <p className="text-white/30 text-xs">{current.optionsVi[i]}</p>}
+                {current.optionsVi && <p className="text-app-text-muted text-xs">{current.optionsVi[i]}</p>}
               </div>
-              {answered && isCorrect && <i className="ri-checkbox-circle-fill text-emerald-400 ml-auto text-lg"></i>}
+              {answered && isCorrect && <i className="ri-checkbox-circle-fill text-app-accent-success ml-auto text-lg"></i>}
               {answered && isSelected && !isCorrect && <i className="ri-close-circle-fill text-red-400 ml-auto text-lg"></i>}
             </button>
           );
@@ -187,7 +187,7 @@ function ChallengeResultCard({ session }: { session: ChallengeSession }) {
   const formatTime = (s?: number) => s !== undefined ? `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}` : "--:--";
 
   return (
-    <div className={`bg-[#0f1117] border rounded-2xl p-5 ${isWaiting ? "border-[#e8c84a]/20" : isWin ? "border-emerald-500/20" : isDraw ? "border-white/10" : "border-red-500/15"}`}>
+    <div className={`bg-app-bg border rounded-2xl p-5 ${isWaiting ? "border-app-accent-primary/20" : isWin ? "border-emerald-500/20" : isDraw ? "border-app-border" : "border-red-500/15"}`}>
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${topicInfo.color}15` }}>
@@ -195,17 +195,17 @@ function ChallengeResultCard({ session }: { session: ChallengeSession }) {
           </div>
           <div>
             <p className="text-white font-semibold text-sm">{topicInfo.label}</p>
-            <p className="text-white/30 text-xs">{session.questionCount} câu · {timeAgo}</p>
+            <p className="text-app-text-muted text-xs">{session.questionCount} câu · {timeAgo}</p>
           </div>
         </div>
         {isWaiting ? (
-          <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-[#e8c84a]/15 text-[#e8c84a] flex items-center gap-1">
+          <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-app-accent-primary/15 text-app-accent-primary flex items-center gap-1">
             <i className="ri-time-line"></i>Chờ bạn bè
           </span>
         ) : isWin ? (
-          <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-400">Thắng</span>
+          <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-app-accent-success/15 text-app-accent-success">Thắng</span>
         ) : isDraw ? (
-          <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white/10 text-white/50">Hòa</span>
+          <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-app-card/70 text-white/50">Hòa</span>
         ) : (
           <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-red-500/15 text-red-400">Thua</span>
         )}
@@ -213,20 +213,20 @@ function ChallengeResultCard({ session }: { session: ChallengeSession }) {
 
       {/* Score comparison */}
       <div className="flex items-center gap-4">
-        <div className="flex-1 text-center p-3 rounded-xl bg-white/3">
-          <p className="text-white/40 text-[10px] mb-1">Bạn</p>
+        <div className="flex-1 text-center p-3 rounded-xl bg-app-surface/50">
+          <p className="text-app-text-secondary text-[10px] mb-1">Bạn</p>
           <p className="text-white font-bold text-2xl">{session.myScore ?? "--"}</p>
-          <p className="text-white/30 text-[10px]">{formatTime(session.myTime)}</p>
+          <p className="text-app-text-muted text-[10px]">{formatTime(session.myTime)}</p>
         </div>
-        <div className="text-white/20 font-bold text-lg">VS</div>
-        <div className={`flex-1 text-center p-3 rounded-xl ${isWaiting ? "bg-[#e8c84a]/5 border border-dashed border-[#e8c84a]/20" : "bg-white/3"}`}>
-          <p className="text-white/40 text-[10px] mb-1">{session.opponentName || "Chờ..."}</p>
+        <div className="text-app-text-muted font-bold text-lg">VS</div>
+        <div className={`flex-1 text-center p-3 rounded-xl ${isWaiting ? "bg-app-accent-primary/5 border border-dashed border-app-accent-primary/20" : "bg-app-surface/50"}`}>
+          <p className="text-app-text-secondary text-[10px] mb-1">{session.opponentName || "Chờ..."}</p>
           {isWaiting ? (
-            <p className="text-[#e8c84a]/50 text-sm font-medium">Chưa làm</p>
+            <p className="text-app-accent-primary/50 text-sm font-medium">Chưa làm</p>
           ) : (
             <>
               <p className="text-white font-bold text-2xl">{session.opponentScore ?? "--"}</p>
-              <p className="text-white/30 text-[10px]">{formatTime(session.opponentTime)}</p>
+              <p className="text-app-text-muted text-[10px]">{formatTime(session.opponentTime)}</p>
             </>
           )}
         </div>
@@ -335,7 +335,7 @@ export default function FriendChallengePage() {
     return (
       <DashboardLayout title="Thách đấu bạn bè" subtitle="Làm bài quiz — sau đó chia sẻ link cho bạn bè">
         <div className="mb-6">
-          <button onClick={() => setView("home")} className="flex items-center gap-2 text-white/40 hover:text-white/70 text-sm cursor-pointer whitespace-nowrap transition-colors">
+          <button onClick={() => setView("home")} className="flex items-center gap-2 text-app-text-secondary hover:text-white/70 text-sm cursor-pointer whitespace-nowrap transition-colors">
             <i className="ri-arrow-left-line"></i>Quay lại
           </button>
         </div>
@@ -352,12 +352,12 @@ export default function FriendChallengePage() {
       <DashboardLayout title="Kết quả thách đấu" subtitle="Chia sẻ link để bạn bè cùng làm bài">
         <div className="max-w-lg mx-auto space-y-5">
           {/* Score card */}
-          <div className="bg-[#0f1117] border border-[#e8c84a]/20 rounded-2xl p-6 text-center">
-            <div className="w-16 h-16 flex items-center justify-center rounded-full bg-[#e8c84a]/15 mx-auto mb-4">
-              <i className="ri-trophy-line text-[#e8c84a] text-2xl"></i>
+          <div className="bg-app-bg border border-app-accent-primary/20 rounded-2xl p-6 text-center">
+            <div className="w-16 h-16 flex items-center justify-center rounded-full bg-app-accent-primary/15 mx-auto mb-4">
+              <i className="ri-trophy-line text-app-accent-primary text-2xl"></i>
             </div>
             <p className="text-white font-bold text-3xl mb-1">{finalScore.score}/{activeChallenge.questionCount}</p>
-            <p className="text-white/40 text-sm mb-1">Thời gian: {formatTime(finalScore.time)}</p>
+            <p className="text-app-text-secondary text-sm mb-1">Thời gian: {formatTime(finalScore.time)}</p>
             <div className="flex items-center justify-center gap-2 mt-2">
               <div className="w-8 h-8 flex items-center justify-center rounded-lg" style={{ backgroundColor: `${topicInfo.color}15` }}>
                 <i className={`${topicInfo.icon} text-sm`} style={{ color: topicInfo.color }}></i>
@@ -367,20 +367,20 @@ export default function FriendChallengePage() {
           </div>
 
           {/* Share link */}
-          <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <p className="text-white font-semibold text-sm mb-3">Chia sẻ thách đấu</p>
             <div className="flex gap-2 mb-3">
-              <div className="flex-1 bg-white/5 border border-white/8 rounded-xl px-4 py-2.5 text-white/50 text-xs font-mono truncate">
+              <div className="flex-1 bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white/50 text-xs font-mono truncate">
                 {challengeLink}
               </div>
               <button
                 onClick={handleCopyLink}
-                className={`px-4 py-2.5 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap transition-all ${linkCopied ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/25" : "bg-[#e8c84a] text-[#0f1117] hover:bg-[#d4b43a]"}`}
+                className={`px-4 py-2.5 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap transition-all ${linkCopied ? "bg-app-accent-success/15 text-app-accent-success border border-emerald-500/25" : "bg-app-accent-primary text-app-bg hover:bg-[#d4b43a]"}`}
               >
                 {linkCopied ? <><i className="ri-check-line mr-1"></i>Đã sao chép</> : <><i className="ri-file-copy-line mr-1"></i>Sao chép</>}
               </button>
             </div>
-            <p className="text-white/30 text-xs">Gửi link này cho bạn bè — họ sẽ làm cùng bộ câu hỏi và so sánh điểm với bạn!</p>
+            <p className="text-app-text-muted text-xs">Gửi link này cho bạn bè — họ sẽ làm cùng bộ câu hỏi và so sánh điểm với bạn!</p>
           </div>
 
           {/* Share via */}
@@ -388,24 +388,24 @@ export default function FriendChallengePage() {
             {[
               { label: "Zalo", icon: "ri-message-2-line", color: "#0068ff", bg: "#0068ff15" },
               { label: "Facebook", icon: "ri-facebook-circle-line", color: "#1877f2", bg: "#1877f215" },
-              { label: "Copy text", icon: "ri-clipboard-line", color: "#e8c84a", bg: "#e8c84a15" },
+              { label: "Copy text", icon: "ri-clipboard-line", color: "app-accent-primary", bg: "app-accent-primary15" },
             ].map(s => (
               <button
                 key={s.label}
                 onClick={handleCopyLink}
-                className="flex flex-col items-center gap-2 p-3 rounded-xl border border-white/8 hover:bg-white/3 cursor-pointer transition-colors"
+                className="flex flex-col items-center gap-2 p-3 rounded-xl border border-app-border hover:bg-app-surface/50 cursor-pointer transition-colors"
               >
                 <div className="w-9 h-9 flex items-center justify-center rounded-xl" style={{ backgroundColor: s.bg }}>
                   <i className={`${s.icon} text-lg`} style={{ color: s.color }}></i>
                 </div>
-                <span className="text-white/40 text-xs">{s.label}</span>
+                <span className="text-app-text-secondary text-xs">{s.label}</span>
               </button>
             ))}
           </div>
 
           <button
             onClick={() => { setView("home"); setActiveChallenge(null); setFinalScore(null); }}
-            className="w-full py-3 rounded-xl border border-white/10 text-white/50 text-sm hover:bg-white/5 cursor-pointer whitespace-nowrap transition-colors"
+            className="w-full py-3 rounded-xl border border-app-border text-white/50 text-sm hover:bg-app-card/50 cursor-pointer whitespace-nowrap transition-colors"
           >
             Về trang chính
           </button>
@@ -428,15 +428,15 @@ export default function FriendChallengePage() {
             {[
               { label: "Thắng", value: wins, icon: "ri-trophy-line", color: "#34d399" },
               { label: "Thua", value: losses, icon: "ri-close-circle-line", color: "#f87171" },
-              { label: "Hòa", value: draws, icon: "ri-scales-3-line", color: "#e8c84a" },
+              { label: "Hòa", value: draws, icon: "ri-scales-3-line", color: "app-accent-primary" },
             ].map(s => (
-              <div key={s.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-4 flex items-center gap-3">
+              <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
                 <div className="w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
                   <i className={`${s.icon} text-base`} style={{ color: s.color }}></i>
                 </div>
                 <div>
                   <p className="text-white font-bold text-xl leading-none">{s.value}</p>
-                  <p className="text-white/40 text-xs mt-0.5">{s.label}</p>
+                  <p className="text-app-text-secondary text-xs mt-0.5">{s.label}</p>
                 </div>
               </div>
             ))}
@@ -444,35 +444,35 @@ export default function FriendChallengePage() {
 
           {/* Create challenge */}
           {view === "create" ? (
-            <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-6 space-y-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-6 space-y-5">
               <div className="flex items-center justify-between">
                 <p className="text-white font-semibold">Tạo thách đấu mới</p>
-                <button onClick={() => setView("home")} className="text-white/30 hover:text-white/60 cursor-pointer">
+                <button onClick={() => setView("home")} className="text-app-text-muted hover:text-white/60 cursor-pointer">
                   <i className="ri-close-line text-lg"></i>
                 </button>
               </div>
 
               {/* Creator name */}
               <div>
-                <label className="text-white/40 text-xs mb-2 block">Tên của bạn</label>
+                <label className="text-app-text-secondary text-xs mb-2 block">Tên của bạn</label>
                 <input
                   type="text"
                   value={creatorName}
                   onChange={e => setCreatorName(e.target.value)}
                   placeholder="Nhập tên..."
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-white/25"
+                  className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-white/25"
                 />
               </div>
 
               {/* Topic */}
               <div>
-                <label className="text-white/40 text-xs mb-2 block">Chủ đề câu hỏi</label>
+                <label className="text-app-text-secondary text-xs mb-2 block">Chủ đề câu hỏi</label>
                 <div className="grid grid-cols-2 gap-2">
                   {TOPICS.map(t => (
                     <button
                       key={t.id}
                       onClick={() => setSelectedTopic(t.id)}
-                      className={`flex items-center gap-2 p-3 rounded-xl border text-left cursor-pointer transition-all ${selectedTopic === t.id ? "" : "border-white/8 bg-white/2 hover:bg-white/4"}`}
+                      className={`flex items-center gap-2 p-3 rounded-xl border text-left cursor-pointer transition-all ${selectedTopic === t.id ? "" : "border-app-border bg-white/2 hover:bg-white/4"}`}
                       style={selectedTopic === t.id ? { backgroundColor: `${t.color}10`, borderColor: `${t.color}30` } : {}}
                     >
                       <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${t.color}15` }}>
@@ -486,13 +486,13 @@ export default function FriendChallengePage() {
 
               {/* Question count */}
               <div>
-                <label className="text-white/40 text-xs mb-2 block">Số câu hỏi</label>
+                <label className="text-app-text-secondary text-xs mb-2 block">Số câu hỏi</label>
                 <div className="flex gap-2">
                   {QUESTION_COUNTS.map(n => (
                     <button
                       key={n}
                       onClick={() => setQuestionCount(n)}
-                      className={`flex-1 py-2.5 rounded-xl border text-sm font-bold cursor-pointer whitespace-nowrap transition-all ${questionCount === n ? "bg-[#e8c84a] text-[#0f1117] border-[#e8c84a]" : "border-white/10 text-white/40 hover:text-white/60"}`}
+                      className={`flex-1 py-2.5 rounded-xl border text-sm font-bold cursor-pointer whitespace-nowrap transition-all ${questionCount === n ? "bg-app-accent-primary text-app-bg border-app-accent-primary" : "border-app-border text-app-text-secondary hover:text-white/60"}`}
                     >
                       {n}
                     </button>
@@ -502,32 +502,32 @@ export default function FriendChallengePage() {
 
               <button
                 onClick={handleCreateChallenge}
-                className="w-full py-3.5 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
+                className="w-full py-3.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
               >
                 <i className="ri-sword-line mr-2"></i>Bắt đầu làm bài
               </button>
             </div>
           ) : view === "join" ? (
-            <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-6 space-y-4">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-6 space-y-4">
               <div className="flex items-center justify-between">
                 <p className="text-white font-semibold">Tham gia thách đấu</p>
-                <button onClick={() => setView("home")} className="text-white/30 hover:text-white/60 cursor-pointer">
+                <button onClick={() => setView("home")} className="text-app-text-muted hover:text-white/60 cursor-pointer">
                   <i className="ri-close-line text-lg"></i>
                 </button>
               </div>
-              <p className="text-white/40 text-sm">Nhập mã thách đấu hoặc dán link từ bạn bè</p>
+              <p className="text-app-text-secondary text-sm">Nhập mã thách đấu hoặc dán link từ bạn bè</p>
               <input
                 type="text"
                 value={joinCode}
                 onChange={e => { setJoinCode(e.target.value); setJoinError(""); }}
                 placeholder="Nhập mã hoặc link thách đấu..."
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-white/25"
+                className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-white/25"
               />
               {joinError && <p className="text-red-400 text-xs">{joinError}</p>}
               <button
                 onClick={handleJoinChallenge}
                 disabled={!joinCode.trim()}
-                className="w-full py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm cursor-pointer whitespace-nowrap transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-full py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Tham gia ngay
               </button>
@@ -536,14 +536,14 @@ export default function FriendChallengePage() {
             <div className="flex gap-3">
               <button
                 onClick={() => setView("create")}
-                className="flex-1 flex items-center justify-center gap-3 py-4 rounded-2xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
+                className="flex-1 flex items-center justify-center gap-3 py-4 rounded-2xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
               >
                 <i className="ri-add-circle-line text-lg"></i>
                 Tạo thách đấu mới
               </button>
               <button
                 onClick={() => setView("join")}
-                className="flex-1 flex items-center justify-center gap-3 py-4 rounded-2xl border border-white/10 bg-white/3 hover:bg-white/6 text-white/60 font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
+                className="flex-1 flex items-center justify-center gap-3 py-4 rounded-2xl border border-app-border bg-app-surface/50 hover:bg-white/6 text-white/60 font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
               >
                 <i className="ri-link text-lg"></i>
                 Tham gia bằng link
@@ -553,13 +553,13 @@ export default function FriendChallengePage() {
 
           {/* History */}
           <div>
-            <p className="text-white/40 text-xs font-semibold tracking-normal mb-3">Lịch sử thách đấu</p>
+            <p className="text-app-text-secondary text-xs font-semibold tracking-normal mb-3">Lịch sử thách đấu</p>
             <div className="space-y-3">
               {challenges.map(c => (
                 <ChallengeResultCard key={c.id} session={c} />
               ))}
               {challenges.length === 0 && (
-                <div className="text-center py-10 text-white/25">
+                <div className="text-center py-10 text-app-text-muted">
                   <i className="ri-sword-line text-3xl mb-2 block"></i>
                   <p className="text-sm">Chưa có thách đấu nào. Tạo thách đấu đầu tiên!</p>
                 </div>
@@ -571,11 +571,11 @@ export default function FriendChallengePage() {
         {/* Right */}
         <div className="space-y-4">
           {/* How it works */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <p className="text-white font-semibold text-sm mb-4">Cách thức hoạt động</p>
             <div className="space-y-4">
               {[
-                { step: "1", icon: "ri-add-circle-line", color: "#e8c84a", title: "Tạo thách đấu", desc: "Chọn chủ đề và số câu hỏi, sau đó làm bài" },
+                { step: "1", icon: "ri-add-circle-line", color: "app-accent-primary", title: "Tạo thách đấu", desc: "Chọn chủ đề và số câu hỏi, sau đó làm bài" },
                 { step: "2", icon: "ri-share-line", color: "#34d399", title: "Chia sẻ link", desc: "Sao chép link và gửi cho bạn bè qua Zalo/Facebook" },
                 { step: "3", icon: "ri-user-received-line", color: "#a78bfa", title: "Bạn bè tham gia", desc: "Bạn bè mở link và làm cùng bộ câu hỏi" },
                 { step: "4", icon: "ri-trophy-line", color: "#fb923c", title: "So sánh điểm", desc: "Xem ai đúng nhiều hơn và nhanh hơn!" },
@@ -586,7 +586,7 @@ export default function FriendChallengePage() {
                   </div>
                   <div>
                     <p className="text-white/70 text-xs font-semibold">{s.title}</p>
-                    <p className="text-white/30 text-[10px] mt-0.5 leading-relaxed">{s.desc}</p>
+                    <p className="text-app-text-muted text-[10px] mt-0.5 leading-relaxed">{s.desc}</p>
                   </div>
                 </div>
               ))}
@@ -598,39 +598,39 @@ export default function FriendChallengePage() {
             <p className="text-[#a78bfa] text-xs font-semibold mb-2">Phần thưởng XP</p>
             <div className="space-y-1.5">
               <div className="flex justify-between text-xs">
-                <span className="text-white/40">Tham gia thách đấu</span>
+                <span className="text-app-text-secondary">Tham gia thách đấu</span>
                 <span className="text-[#a78bfa] font-bold">+20 XP</span>
               </div>
               <div className="flex justify-between text-xs">
-                <span className="text-white/40">Mỗi câu đúng</span>
+                <span className="text-app-text-secondary">Mỗi câu đúng</span>
                 <span className="text-[#a78bfa] font-bold">+5 XP</span>
               </div>
               <div className="flex justify-between text-xs">
-                <span className="text-white/40">Thắng thách đấu</span>
+                <span className="text-app-text-secondary">Thắng thách đấu</span>
                 <span className="text-[#a78bfa] font-bold">+50 XP</span>
               </div>
             </div>
           </div>
 
           {/* My stats */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <p className="text-white font-semibold text-sm mb-3">Thống kê của bạn</p>
             <div className="space-y-2">
-              <div className="flex justify-between items-center py-1.5 border-b border-white/5">
-                <span className="text-white/40 text-xs">Tổng thách đấu</span>
+              <div className="flex justify-between items-center py-1.5 border-b border-app-border">
+                <span className="text-app-text-secondary text-xs">Tổng thách đấu</span>
                 <span className="text-white font-bold text-sm">{challenges.length}</span>
               </div>
-              <div className="flex justify-between items-center py-1.5 border-b border-white/5">
-                <span className="text-white/40 text-xs">Thắng</span>
-                <span className="text-emerald-400 font-bold text-sm">{wins}</span>
+              <div className="flex justify-between items-center py-1.5 border-b border-app-border">
+                <span className="text-app-text-secondary text-xs">Thắng</span>
+                <span className="text-app-accent-success font-bold text-sm">{wins}</span>
               </div>
-              <div className="flex justify-between items-center py-1.5 border-b border-white/5">
-                <span className="text-white/40 text-xs">Thua</span>
+              <div className="flex justify-between items-center py-1.5 border-b border-app-border">
+                <span className="text-app-text-secondary text-xs">Thua</span>
                 <span className="text-red-400 font-bold text-sm">{losses}</span>
               </div>
               <div className="flex justify-between items-center py-1.5">
-                <span className="text-white/40 text-xs">Hòa</span>
-                <span className="text-[#e8c84a] font-bold text-sm">{draws}</span>
+                <span className="text-app-text-secondary text-xs">Hòa</span>
+                <span className="text-app-accent-primary font-bold text-sm">{draws}</span>
               </div>
             </div>
           </div>

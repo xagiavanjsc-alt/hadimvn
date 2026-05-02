@@ -112,26 +112,26 @@ export default function TranslationPracticePage() {
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
-            { label: "Đã dịch", value: Object.keys(scores).length, icon: "ri-translate-2", color: "#e8c84a" },
+            { label: "Đã dịch", value: Object.keys(scores).length, icon: "ri-translate-2", color: "app-accent-primary" },
             { label: "Điểm TB", value: `${avgScore}%`, icon: "ri-percent-line", color: "#34d399" },
             { label: "Tổng câu", value: items.length, icon: "ri-list-check", color: "#a78bfa" },
           ].map(s => (
-            <div key={s.label} className="rounded-xl border border-white/8 bg-white/3 p-4 text-center">
+            <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-4 text-center">
               <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${s.color}20` }}>
                 <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
               </div>
               <p className="text-white font-bold text-lg">{s.value}</p>
-              <p className="text-white/40 text-xs">{s.label}</p>
+              <p className="text-app-text-secondary text-xs">{s.label}</p>
             </div>
           ))}
         </div>
 
         {/* Filters */}
         <div className="flex flex-wrap gap-2 mb-5">
-          <div className="flex gap-1 p-1 bg-white/5 rounded-xl">
+          <div className="flex gap-1 p-1 bg-app-card/50 rounded-xl">
             {(["all", "kr-vi", "vi-kr"] as const).map(t => (
               <button key={t} onClick={() => { setTypeFilter(t); setCurrentIdx(0); setInput(""); setSubmitted(false); }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${typeFilter === t ? "bg-[#e8c84a] text-[#141720]" : "text-white/50 hover:text-white/80"}`}>
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${typeFilter === t ? "bg-app-accent-primary text-[#141720]" : "text-white/50 hover:text-white/80"}`}>
                 {t === "all" ? "Tất cả" : t === "kr-vi" ? "Hàn → Việt" : "Việt → Hàn"}
               </button>
             ))}
@@ -154,45 +154,45 @@ export default function TranslationPracticePage() {
           <div className="flex items-center gap-2">
             <button onClick={() => { setCurrentIdx(i => Math.max(0, i - 1)); setInput(""); setSubmitted(false); setShowHints(false); }}
               disabled={currentIdx === 0}
-              className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-white/50 disabled:opacity-30 cursor-pointer">
+              className="w-9 h-9 flex items-center justify-center rounded-xl bg-app-card/50 hover:bg-app-card/70 text-white/50 disabled:opacity-30 cursor-pointer">
               <i className="ri-arrow-left-s-line"></i>
             </button>
             <span className="text-white/50 text-sm">{currentIdx + 1} / {filtered.length}</span>
             <button onClick={() => { setCurrentIdx(i => Math.min(filtered.length - 1, i + 1)); setInput(""); setSubmitted(false); setShowHints(false); }}
               disabled={currentIdx >= filtered.length - 1}
-              className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-white/50 disabled:opacity-30 cursor-pointer">
+              className="w-9 h-9 flex items-center justify-center rounded-xl bg-app-card/50 hover:bg-app-card/70 text-white/50 disabled:opacity-30 cursor-pointer">
               <i className="ri-arrow-right-s-line"></i>
             </button>
           </div>
           <div className="flex gap-1">
             {filtered.slice(0, 13).map((it, i) => (
               <button key={it.id} onClick={() => { setCurrentIdx(i); setInput(""); setSubmitted(false); setShowHints(false); }}
-                className={`w-2 h-2 rounded-full transition-all cursor-pointer ${i === currentIdx ? "bg-[#e8c84a] w-4" : scores[it.id] ? "bg-emerald-400" : "bg-white/15"}`} />
+                className={`w-2 h-2 rounded-full transition-all cursor-pointer ${i === currentIdx ? "bg-app-accent-primary w-4" : scores[it.id] ? "bg-emerald-400" : "bg-white/15"}`} />
             ))}
           </div>
         </div>
 
         {current && (
-          <div className="rounded-2xl border border-white/8 bg-white/3 p-6">
+          <div className="rounded-2xl border border-app-border bg-app-surface/50 p-6">
             {/* Level + type badge */}
             <div className="flex items-center gap-2 mb-5">
               <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${current.levelColor}20`, color: current.levelColor }}>{current.level}</span>
               <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${current.type === "kr-vi" ? "bg-amber-500/15 text-amber-400" : "bg-sky-500/15 text-sky-400"}`}>
                 {current.type === "kr-vi" ? "Hàn → Việt" : "Việt → Hàn"}
               </span>
-              <span className="text-white/30 text-xs">{current.topic}</span>
+              <span className="text-app-text-muted text-xs">{current.topic}</span>
             </div>
 
             {/* Source text */}
-            <div className="p-4 rounded-xl bg-white/5 border border-white/8 mb-5">
+            <div className="p-4 rounded-xl bg-app-card/50 border border-app-border mb-5">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-white/40 text-xs mb-2">{current.type === "kr-vi" ? "Tiếng Hàn" : "Tiếng Việt"}</p>
+                  <p className="text-app-text-secondary text-xs mb-2">{current.type === "kr-vi" ? "Tiếng Hàn" : "Tiếng Việt"}</p>
                   <p className="text-white font-medium text-lg leading-8">{current.source}</p>
                 </div>
                 {current.type === "kr-vi" && (
                   <button onClick={() => handleTTS(current.source, "ko-KR")}
-                    className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/8 hover:bg-white/15 text-white/40 hover:text-white/70 cursor-pointer flex-shrink-0">
+                    className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/8 hover:bg-white/15 text-app-text-secondary hover:text-white/70 cursor-pointer flex-shrink-0">
                     <i className="ri-volume-up-line"></i>
                   </button>
                 )}
@@ -206,18 +206,18 @@ export default function TranslationPracticePage() {
                 <textarea value={input} onChange={e => setInput(e.target.value)}
                   placeholder={current.type === "kr-vi" ? "Nhập bản dịch tiếng Việt..." : "Nhập bản dịch tiếng Hàn..."}
                   rows={3}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none resize-none placeholder-white/20 focus:border-white/20 mb-4" />
+                  className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm outline-none resize-none placeholder-white/20 focus:border-white/20 mb-4" />
 
                 {/* Hints */}
                 <button onClick={() => setShowHints(v => !v)}
-                  className="flex items-center gap-2 text-white/40 hover:text-white/60 text-xs mb-4 cursor-pointer transition-colors">
-                  <i className="ri-lightbulb-line text-[#e8c84a]"></i>
+                  className="flex items-center gap-2 text-app-text-secondary hover:text-white/60 text-xs mb-4 cursor-pointer transition-colors">
+                  <i className="ri-lightbulb-line text-app-accent-primary"></i>
                   {showHints ? "Ẩn gợi ý" : "Xem gợi ý"}
                 </button>
                 {showHints && (
                   <div className="grid grid-cols-1 gap-1.5 mb-4">
                     {current.hints.map((h, i) => (
-                      <div key={i} className="px-3 py-2 rounded-lg bg-[#e8c84a]/5 border border-[#e8c84a]/15">
+                      <div key={i} className="px-3 py-2 rounded-lg bg-app-accent-primary/5 border border-app-accent-primary/15">
                         <p className="text-white/60 text-xs">{h}</p>
                       </div>
                     ))}
@@ -225,7 +225,7 @@ export default function TranslationPracticePage() {
                 )}
 
                 <button onClick={handleCheck} disabled={!input.trim()}
-                  className="w-full py-3 rounded-xl bg-[#e8c84a] text-[#141720] font-bold text-sm disabled:opacity-30 cursor-pointer whitespace-nowrap">
+                  className="w-full py-3 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm disabled:opacity-30 cursor-pointer whitespace-nowrap">
                   Kiểm tra bản dịch
                 </button>
               </>
@@ -234,12 +234,12 @@ export default function TranslationPracticePage() {
                 {/* Result */}
                 <div className={`p-4 rounded-xl border mb-4 ${similarity >= 80 ? "border-emerald-500/30 bg-emerald-500/5" : similarity >= 50 ? "border-amber-500/30 bg-amber-500/5" : "border-rose-500/30 bg-rose-500/5"}`}>
                   <div className="flex items-center justify-between mb-2">
-                    <span className={`font-bold text-sm ${similarity >= 80 ? "text-emerald-400" : similarity >= 50 ? "text-amber-400" : "text-rose-400"}`}>
+                    <span className={`font-bold text-sm ${similarity >= 80 ? "text-app-accent-success" : similarity >= 50 ? "text-amber-400" : "text-rose-400"}`}>
                       {similarity >= 80 ? "Rất tốt!" : similarity >= 50 ? "Khá ổn!" : "Cần cải thiện"} — {similarity}% khớp
                     </span>
                     <div className="flex gap-0.5">
                       {[...Array(5)].map((_, i) => (
-                        <i key={i} className={`text-sm ${i < Math.round(similarity / 20) ? "ri-star-fill text-[#e8c84a]" : "ri-star-line text-white/15"}`}></i>
+                        <i key={i} className={`text-sm ${i < Math.round(similarity / 20) ? "ri-star-fill text-app-accent-primary" : "ri-star-line text-white/15"}`}></i>
                       ))}
                     </div>
                   </div>
@@ -248,16 +248,16 @@ export default function TranslationPracticePage() {
                 </div>
 
                 {/* Correct answer */}
-                <div className="p-4 rounded-xl bg-white/5 border border-white/8 mb-4">
+                <div className="p-4 rounded-xl bg-app-card/50 border border-app-border mb-4">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-white/40 text-xs mb-1">Đáp án tham khảo:</p>
+                      <p className="text-app-text-secondary text-xs mb-1">Đáp án tham khảo:</p>
                       <p className="text-white font-medium text-base leading-7">{current.answer}</p>
-                      {current.notes && <p className="text-white/40 text-xs mt-2 italic">{current.notes}</p>}
+                      {current.notes && <p className="text-app-text-secondary text-xs mt-2 italic">{current.notes}</p>}
                     </div>
                     {current.type === "vi-kr" && (
                       <button onClick={() => handleTTS(current.answer, "ko-KR")}
-                        className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/8 hover:bg-white/15 text-white/40 hover:text-white/70 cursor-pointer flex-shrink-0">
+                        className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/8 hover:bg-white/15 text-app-text-secondary hover:text-white/70 cursor-pointer flex-shrink-0">
                         <i className="ri-volume-up-line"></i>
                       </button>
                     )}
@@ -270,7 +270,7 @@ export default function TranslationPracticePage() {
                     Thử lại
                   </button>
                   <button onClick={handleNext} disabled={currentIdx >= filtered.length - 1}
-                    className="flex-1 py-2.5 rounded-xl bg-[#e8c84a] text-[#141720] font-bold text-sm disabled:opacity-30 cursor-pointer whitespace-nowrap">
+                    className="flex-1 py-2.5 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm disabled:opacity-30 cursor-pointer whitespace-nowrap">
                     Câu tiếp <i className="ri-arrow-right-line ml-1"></i>
                   </button>
                 </div>
@@ -281,18 +281,18 @@ export default function TranslationPracticePage() {
 
         {/* All items list */}
         <div className="mt-6">
-          <p className="text-white/40 text-xs font-semibold tracking-normal mb-3">Tất cả câu ({filtered.length})</p>
+          <p className="text-app-text-secondary text-xs font-semibold tracking-normal mb-3">Tất cả câu ({filtered.length})</p>
           <div className="space-y-2">
             {filtered.map((it, i) => (
               <button key={it.id} onClick={() => { setCurrentIdx(i); setInput(""); setSubmitted(false); setShowHints(false); }}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border text-left cursor-pointer transition-all ${i === currentIdx ? "border-[#e8c84a]/30 bg-[#e8c84a]/5" : "border-white/8 bg-white/3 hover:bg-white/5"}`}>
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border text-left cursor-pointer transition-all ${i === currentIdx ? "border-app-accent-primary/30 bg-app-accent-primary/5" : "border-app-border bg-app-surface/50 hover:bg-app-card/50"}`}>
                 <span className="text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0" style={{ backgroundColor: `${it.levelColor}20`, color: it.levelColor }}>{it.level}</span>
                 <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold flex-shrink-0 ${it.type === "kr-vi" ? "bg-amber-500/15 text-amber-400" : "bg-sky-500/15 text-sky-400"}`}>
                   {it.type === "kr-vi" ? "KR→VI" : "VI→KR"}
                 </span>
                 <span className="text-white/60 text-sm flex-1 truncate">{it.source}</span>
                 {scores[it.id] !== undefined && (
-                  <span className={`text-xs font-bold flex-shrink-0 ${scores[it.id] >= 80 ? "text-emerald-400" : scores[it.id] >= 50 ? "text-amber-400" : "text-rose-400"}`}>
+                  <span className={`text-xs font-bold flex-shrink-0 ${scores[it.id] >= 80 ? "text-app-accent-success" : scores[it.id] >= 50 ? "text-amber-400" : "text-rose-400"}`}>
                     {scores[it.id]}%
                   </span>
                 )}

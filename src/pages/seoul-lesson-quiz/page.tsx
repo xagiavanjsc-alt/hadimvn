@@ -228,7 +228,7 @@ function LessonSelector({
             key={b.id}
             onClick={() => setSelectedBook(b.id)}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${
-              selectedBook === b.id ? "text-white" : "bg-white/5 text-white/50 hover:bg-white/10 hover:text-white/70"
+              selectedBook === b.id ? "text-white" : "bg-app-card/50 text-white/50 hover:bg-app-card/70 hover:text-white/70"
             }`}
             style={selectedBook === b.id ? { backgroundColor: b.color, color: "#000" } : {}}
           >
@@ -246,7 +246,7 @@ function LessonSelector({
               <button
                 key={lesson.id}
                 onClick={() => onStart(book.id, lesson.lessonNumber, lesson.titleVi, lesson.id)}
-                className="bg-white/5 hover:bg-white/8 border border-white/8 hover:border-white/15 rounded-xl p-4 text-left transition-all cursor-pointer group"
+                className="bg-app-card/50 hover:bg-white/8 border border-app-border hover:border-white/15 rounded-xl p-4 text-left transition-all cursor-pointer group"
               >
                 <div className="flex items-start justify-between mb-2">
                   <div
@@ -257,14 +257,14 @@ function LessonSelector({
                   </div>
                   <div className="flex items-center gap-1">
                     {hasGrammar && (
-                      <span className="text-[10px] bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded-full">Ngữ pháp</span>
+                      <span className="text-[10px] bg-app-accent-success/15 text-app-accent-success px-2 py-0.5 rounded-full">Ngữ pháp</span>
                     )}
-                    <span className="text-[10px] bg-white/8 text-white/40 px-2 py-0.5 rounded-full">{vocabCount} từ</span>
+                    <span className="text-[10px] bg-white/8 text-app-text-secondary px-2 py-0.5 rounded-full">{vocabCount} từ</span>
                   </div>
                 </div>
                 <p className="text-white/80 text-sm font-medium group-hover:text-white transition-colors leading-snug">{lesson.titleVi}</p>
                 <p className="text-white/35 text-xs mt-1">{lesson.title}</p>
-                <div className="mt-3 flex items-center gap-1 text-white/30 text-xs">
+                <div className="mt-3 flex items-center gap-1 text-app-text-muted text-xs">
                   <div className="w-3 h-3 flex items-center justify-center"><i className="ri-question-line text-xs"></i></div>
                   <span>~10 câu hỏi</span>
                   <span className="mx-1">·</span>
@@ -357,11 +357,11 @@ function QuizSession({
   if (state.questions.length === 0) {
     return (
       <div className="max-w-xl mx-auto text-center py-20">
-        <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 bg-white/5 rounded-full">
-          <i className="ri-information-line text-2xl text-white/40"></i>
+        <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 bg-app-card/50 rounded-full">
+          <i className="ri-information-line text-2xl text-app-text-secondary"></i>
         </div>
         <p className="text-white/60 mb-4">Bài học này chưa có câu hỏi.</p>
-        <button onClick={onBack} className="px-4 py-2 bg-white/10 rounded-lg text-white/70 text-sm cursor-pointer">Quay lại</button>
+        <button onClick={onBack} className="px-4 py-2 bg-app-card/70 rounded-lg text-white/70 text-sm cursor-pointer">Quay lại</button>
       </div>
     );
   }
@@ -380,9 +380,9 @@ function QuizSession({
 
     return (
       <div className="max-w-xl mx-auto">
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center mb-6">
+        <div className="bg-app-card/50 border border-app-border rounded-2xl p-8 text-center mb-6">
           <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-bold ${
-            pct >= 80 ? "bg-emerald-500/20 text-emerald-400" : pct >= 60 ? "bg-[#e8c84a]/20 text-[#e8c84a]" : "bg-red-500/20 text-red-400"
+            pct >= 80 ? "bg-emerald-500/20 text-app-accent-success" : pct >= 60 ? "bg-app-accent-primary/20 text-app-accent-primary" : "bg-red-500/20 text-red-400"
           }`}>
             {pct}%
           </div>
@@ -392,22 +392,22 @@ function QuizSession({
           <p className="text-white/50 text-sm mb-4">{lessonTitle}</p>
           <div className="flex justify-center gap-6 text-sm">
             <div>
-              <p className="text-white/30 text-xs">Đúng</p>
-              <p className="text-emerald-400 font-bold text-lg">{score}/{total}</p>
+              <p className="text-app-text-muted text-xs">Đúng</p>
+              <p className="text-app-accent-success font-bold text-lg">{score}/{total}</p>
             </div>
             <div>
-              <p className="text-white/30 text-xs">Thời gian</p>
+              <p className="text-app-text-muted text-xs">Thời gian</p>
               <p className="text-white/70 font-bold text-lg">{mins}:{secs.toString().padStart(2, "0")}</p>
             </div>
             {wrongCount > 0 && (
               <div>
-                <p className="text-white/30 text-xs">Từ sai</p>
+                <p className="text-app-text-muted text-xs">Từ sai</p>
                 <p className="text-red-400 font-bold text-lg">{wrongCount}</p>
               </div>
             )}
           </div>
           {pct >= 60 && (
-            <div className="mt-4 flex items-center justify-center gap-2 text-emerald-400 text-xs">
+            <div className="mt-4 flex items-center justify-center gap-2 text-app-accent-success text-xs">
               <i className="ri-checkbox-circle-line"></i>
               <span>Bài học đã được đánh dấu hoàn thành!</span>
             </div>
@@ -420,7 +420,7 @@ function QuizSession({
               <i className="ri-error-warning-line text-red-400 text-sm"></i>
               <p className="text-red-300 text-sm font-semibold">Đã lưu {wrongCount} từ sai vào danh sách ôn tập</p>
             </div>
-            <p className="text-white/40 text-xs">Vào "Ôn tập từ sai Seoul" để ôn lại những từ này.</p>
+            <p className="text-app-text-secondary text-xs">Vào "Ôn tập từ sai Seoul" để ôn lại những từ này.</p>
             <button
               onClick={() => navigate("/seoul-wrong-review")}
               className="mt-3 flex items-center gap-2 text-red-400 text-xs hover:text-red-300 cursor-pointer transition-colors"
@@ -437,7 +437,7 @@ function QuizSession({
             return (
               <div key={q.id} className={`rounded-xl p-4 border ${isCorrect ? "bg-emerald-500/5 border-emerald-500/20" : "bg-red-500/5 border-red-500/20"}`}>
                 <div className="flex items-start gap-2 mb-2">
-                  <div className={`w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5 ${isCorrect ? "text-emerald-400" : "text-red-400"}`}>
+                  <div className={`w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5 ${isCorrect ? "text-app-accent-success" : "text-red-400"}`}>
                     <i className={isCorrect ? "ri-checkbox-circle-line" : "ri-close-circle-line"}></i>
                   </div>
                   <p className="text-white/80 text-sm">{q.question}</p>
@@ -445,10 +445,10 @@ function QuizSession({
                 {!isCorrect && (
                   <div className="ml-7 space-y-1">
                     <p className="text-red-400/70 text-xs">Bạn chọn: {userAns !== null ? q.options[userAns] : "Không trả lời"}</p>
-                    <p className="text-emerald-400/70 text-xs">Đáp án đúng: {correctTexts[i]}</p>
+                    <p className="text-app-accent-success/70 text-xs">Đáp án đúng: {correctTexts[i]}</p>
                   </div>
                 )}
-                <p className="ml-7 text-white/30 text-xs mt-1">{q.explanation}</p>
+                <p className="ml-7 text-app-text-muted text-xs mt-1">{q.explanation}</p>
               </div>
             );
           })}
@@ -461,13 +461,13 @@ function QuizSession({
               current: 0, selected: null, answers: [], finished: false,
               startTime: Date.now(), wrongWordsSaved: [],
             })}
-            className="flex-1 py-3 bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 border border-[#e8c84a]/20 rounded-xl text-[#e8c84a] text-sm font-medium transition-all cursor-pointer"
+            className="flex-1 py-3 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 border border-app-accent-primary/20 rounded-xl text-app-accent-primary text-sm font-medium transition-all cursor-pointer"
           >
             Làm lại
           </button>
           <button
             onClick={onBack}
-            className="flex-1 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-white/70 text-sm font-medium transition-all cursor-pointer"
+            className="flex-1 py-3 bg-app-card/50 hover:bg-app-card/70 border border-app-border rounded-xl text-white/70 text-sm font-medium transition-all cursor-pointer"
           >
             Chọn bài khác
           </button>
@@ -483,31 +483,31 @@ function QuizSession({
   return (
     <div className="max-w-xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <button onClick={onBack} className="flex items-center gap-1 text-white/40 hover:text-white/70 text-sm cursor-pointer">
+        <button onClick={onBack} className="flex items-center gap-1 text-app-text-secondary hover:text-white/70 text-sm cursor-pointer">
           <div className="w-4 h-4 flex items-center justify-center"><i className="ri-arrow-left-line"></i></div>
           Quay lại
         </button>
         <div className="text-center">
           <p className="text-white/60 text-xs">{lessonTitle}</p>
-          <p className="text-white/30 text-[10px]">Câu {state.current + 1}/{state.questions.length}</p>
+          <p className="text-app-text-muted text-[10px]">Câu {state.current + 1}/{state.questions.length}</p>
         </div>
         <div className="text-right">
-          <p className="text-[#e8c84a] text-sm font-bold">
+          <p className="text-app-accent-primary text-sm font-bold">
             {state.answers.filter((a, i) => a !== null && state.questions[i].options[a] === correctTexts[i]).length}
-            <span className="text-white/30">/{state.current}</span>
+            <span className="text-app-text-muted">/{state.current}</span>
           </p>
         </div>
       </div>
 
       <div className="h-1.5 bg-white/8 rounded-full mb-6 overflow-hidden">
-        <div className="h-full bg-[#e8c84a] rounded-full transition-all duration-300" style={{ width: `${(state.current / state.questions.length) * 100}%` }} />
+        <div className="h-full bg-app-accent-primary rounded-full transition-all duration-300" style={{ width: `${(state.current / state.questions.length) * 100}%` }} />
       </div>
 
       <div className="mb-4">
-        <span className="text-[10px] bg-white/8 text-white/40 px-2 py-1 rounded-full">{current.pattern}</span>
+        <span className="text-[10px] bg-white/8 text-app-text-secondary px-2 py-1 rounded-full">{current.pattern}</span>
       </div>
 
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-4">
+      <div className="bg-app-card/50 border border-app-border rounded-2xl p-6 mb-4">
         <p className="text-white text-base leading-relaxed">{current.question}</p>
       </div>
 
@@ -515,11 +515,11 @@ function QuizSession({
         {current.options.map((opt, idx) => {
           const isSelected = state.selected === idx;
           const isCorrectOpt = opt === correctText;
-          let cls = "bg-white/5 border-white/10 text-white/70 hover:bg-white/8 hover:border-white/20 cursor-pointer";
+          let cls = "bg-app-card/50 border-app-border text-white/70 hover:bg-white/8 hover:border-white/20 cursor-pointer";
           if (state.selected !== null) {
-            if (isCorrectOpt) cls = "bg-emerald-500/15 border-emerald-500/40 text-emerald-300";
+            if (isCorrectOpt) cls = "bg-app-accent-success/15 border-emerald-500/40 text-emerald-300";
             else if (isSelected) cls = "bg-red-500/15 border-red-500/40 text-red-300";
-            else cls = "bg-white/3 border-white/5 text-white/30";
+            else cls = "bg-app-surface/50 border-app-border text-app-text-muted";
           }
           return (
             <button key={idx} onClick={() => handleSelect(idx)} className={`w-full text-left px-4 py-3 rounded-xl border text-sm transition-all ${cls}`}>
@@ -529,7 +529,7 @@ function QuizSession({
                 </span>
                 <span>{opt}</span>
                 {state.selected !== null && isCorrectOpt && (
-                  <div className="ml-auto w-4 h-4 flex items-center justify-center"><i className="ri-checkbox-circle-fill text-emerald-400"></i></div>
+                  <div className="ml-auto w-4 h-4 flex items-center justify-center"><i className="ri-checkbox-circle-fill text-app-accent-success"></i></div>
                 )}
                 {state.selected !== null && isSelected && !isCorrectOpt && (
                   <div className="ml-auto w-4 h-4 flex items-center justify-center"><i className="ri-close-circle-fill text-red-400"></i></div>
@@ -541,7 +541,7 @@ function QuizSession({
       </div>
 
       {state.selected !== null && (
-        <div className="bg-white/3 border border-white/8 rounded-xl p-4 mb-4">
+        <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 mb-4">
           <p className="text-white/50 text-xs leading-relaxed">{current.explanation}</p>
         </div>
       )}
@@ -550,7 +550,7 @@ function QuizSession({
         onClick={handleNext}
         disabled={state.selected === null}
         className={`w-full py-3 rounded-xl text-sm font-medium transition-all ${
-          state.selected !== null ? "bg-[#e8c84a] text-black hover:bg-[#e8c84a]/90 cursor-pointer" : "bg-white/5 text-white/20 cursor-not-allowed"
+          state.selected !== null ? "bg-app-accent-primary text-black hover:bg-app-accent-primary/90 cursor-pointer" : "bg-app-card/50 text-app-text-muted cursor-not-allowed"
         }`}
       >
         {isLast ? "Xem kết quả" : "Câu tiếp theo"}
@@ -571,7 +571,7 @@ export default function SeoulLessonQuizPage() {
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-[#0f1117] px-4 py-8">
+      <div className="min-h-screen bg-app-bg px-4 py-8">
         {session ? (
           <QuizSession
             bookId={session.bookId}

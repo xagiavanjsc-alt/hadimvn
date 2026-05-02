@@ -247,13 +247,13 @@ export default function AdminBugsPage() {
       </div>
 
       {/* Tab switcher */}
-      <div className="flex bg-white/5 rounded-xl p-1 mb-5 border" style={{ borderColor: "var(--admin-border)" }}>
+      <div className="flex bg-app-card/50 rounded-xl p-1 mb-5 border" style={{ borderColor: "var(--admin-border)" }}>
         <button onClick={() => setActiveTab("bugs")}
-          className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap font-medium ${activeTab === "bugs" ? "bg-rose-500 text-white" : "text-white/40 hover:text-white/60"}`}>
+          className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap font-medium ${activeTab === "bugs" ? "bg-rose-500 text-white" : "text-app-text-secondary hover:text-white/60"}`}>
           <i className="ri-bug-line mr-1.5" />Báo cáo lỗi ({bugs.length})
         </button>
         <button onClick={() => setActiveTab("violations")}
-          className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap font-medium relative ${activeTab === "violations" ? "bg-rose-500 text-white" : "text-white/40 hover:text-white/60"}`}>
+          className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap font-medium relative ${activeTab === "violations" ? "bg-rose-500 text-white" : "text-app-text-secondary hover:text-white/60"}`}>
           <i className="ri-shield-cross-line mr-1.5" />Vi phạm VIP ({violations.length})
           {pendingViolations > 0 && (
             <span className="absolute top-1 right-2 w-4 h-4 flex items-center justify-center bg-rose-400 rounded-full text-[9px] font-bold text-white">{pendingViolations}</span>

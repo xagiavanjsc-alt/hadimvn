@@ -134,7 +134,7 @@ export default function AdminXPConfigPage() {
   if (loading) {
     return (
       <AdminLayout title="Cấu hình XP" subtitle="Đang tải...">
-        <div className="text-white/40 text-sm">Đang tải cấu hình...</div>
+        <div className="text-app-text-secondary text-sm">Đang tải cấu hình...</div>
       </AdminLayout>
     );
   }
@@ -172,7 +172,7 @@ export default function AdminXPConfigPage() {
         {/* Trọng số XP */}
         <div className="rounded-2xl p-5 border" style={{ borderColor: "var(--admin-border)", background: "var(--admin-card-bg)" }}>
           <h3 className="text-sm font-bold mb-4 flex items-center gap-2" style={{ color: "var(--admin-text)" }}>
-            <i className="ri-scales-3-line text-[#e8c84a]"></i>
+            <i className="ri-scales-3-line text-app-accent-primary"></i>
             Trọng số XP
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -216,7 +216,7 @@ export default function AdminXPConfigPage() {
           <div className="text-xs space-y-1" style={{ color: "var(--admin-text-muted)" }}>
             <p>Streak {examplePreview.stats.streak} ngày · Best {examplePreview.stats.bestScorePct}% · Avg {examplePreview.stats.avgScorePct}% · {examplePreview.stats.correctAnswers} câu đúng · {examplePreview.stats.wordsLearned} từ · {examplePreview.stats.validExams} exam hợp lệ</p>
           </div>
-          <p className="text-2xl font-bold mt-3" style={{ color: "#e8c84a" }}>
+          <p className="text-2xl font-bold mt-3" style={{ color: "app-accent-primary" }}>
             ≈ {examplePreview.xp.toLocaleString("vi-VN")} XP
           </p>
         </div>
@@ -225,7 +225,7 @@ export default function AdminXPConfigPage() {
         <div className="flex items-center justify-end gap-2 sticky bottom-4 p-3 rounded-2xl" style={{ background: "var(--admin-card-bg)", borderColor: "var(--admin-border)", border: "1px solid" }}>
           <button
             onClick={handleReset}
-            className="px-3 py-2 rounded-xl text-xs font-semibold border hover:bg-white/5"
+            className="px-3 py-2 rounded-xl text-xs font-semibold border hover:bg-app-card/50"
             style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}
           >
             <i className="ri-refresh-line mr-1"></i>Mặc định
@@ -233,7 +233,7 @@ export default function AdminXPConfigPage() {
           {isDirty && (
             <button
               onClick={handleRevert}
-              className="px-3 py-2 rounded-xl text-xs font-semibold border hover:bg-white/5"
+              className="px-3 py-2 rounded-xl text-xs font-semibold border hover:bg-app-card/50"
               style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}
             >
               <i className="ri-arrow-go-back-line mr-1"></i>Hủy thay đổi
@@ -242,8 +242,8 @@ export default function AdminXPConfigPage() {
           <button
             disabled={!isDirty || saving}
             onClick={handleSave}
-            className="px-4 py-2 rounded-xl text-xs font-semibold text-[#0f1117] disabled:opacity-40"
-            style={{ background: "#e8c84a" }}
+            className="px-4 py-2 rounded-xl text-xs font-semibold text-app-bg disabled:opacity-40"
+            style={{ background: "app-accent-primary" }}
           >
             <i className="ri-save-line mr-1"></i>
             {saving ? "Đang lưu..." : isDirty ? "Lưu thay đổi" : "Đã lưu"}
@@ -295,7 +295,7 @@ function NumberField({
           max={field.max}
           value={value}
           onChange={e => handleChange(e.target.value)}
-          className="flex-1 bg-black/20 border rounded-lg px-2 py-1.5 text-sm font-mono text-white outline-none focus:border-[#e8c84a]/50"
+          className="flex-1 bg-black/20 border rounded-lg px-2 py-1.5 text-sm font-mono text-white outline-none focus:border-app-accent-primary/50"
           style={{ borderColor: "var(--admin-border)" }}
         />
         {field.unit && (

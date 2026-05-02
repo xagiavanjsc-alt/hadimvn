@@ -171,7 +171,7 @@ const LEVELS = ["Tất cả", "A1", "A2", "B1", "B2"];
 const TOPICS = ["Tất cả", "Giao tiếp", "Ẩm thực", "Giao thông", "Văn hóa", "Công việc", "K-pop"];
 
 const levelColor: Record<string, string> = {
-  A1: "bg-emerald-500/20 text-emerald-400",
+  A1: "bg-emerald-500/20 text-app-accent-success",
   A2: "bg-teal-500/20 text-teal-400",
   B1: "bg-amber-500/20 text-amber-400",
   B2: "bg-orange-500/20 text-orange-400",
@@ -260,7 +260,7 @@ export default function PodcastLearnPage() {
             <h1 className="text-2xl font-bold text-white">Luyện Nghe Qua Podcast</h1>
             <p className="text-white/50 text-sm mt-1">Học tiếng Hàn qua podcast với transcript song ngữ</p>
           </div>
-          <div className="text-white/30 text-sm"><i className="ri-headphone-line mr-1"></i>{PODCASTS.length} podcast</div>
+          <div className="text-app-text-muted text-sm"><i className="ri-headphone-line mr-1"></i>{PODCASTS.length} podcast</div>
         </div>
 
         {selectedPodcast ? (
@@ -272,23 +272,23 @@ export default function PodcastLearnPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Player */}
               <div className="lg:col-span-1 space-y-4">
-                <div className="bg-[#1a1f2e] rounded-2xl overflow-hidden border border-white/8">
+                <div className="bg-[#1a1f2e] rounded-2xl overflow-hidden border border-app-border">
                   <img src={selectedPodcast.thumbnail} alt={selectedPodcast.title} className="w-full h-56 object-cover object-top" />
                   <div className="p-5">
                     <div className="flex items-center gap-2 mb-2">
                       <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${levelColor[selectedPodcast.level]}`}>{selectedPodcast.level}</span>
                       <span className="text-xs px-2 py-0.5 rounded-full bg-white/8 text-white/50">{selectedPodcast.topic}</span>
-                      {selectedPodcast.isPremium && <span className="text-xs px-2 py-0.5 rounded-full bg-[#e8c84a]/20 text-[#e8c84a] font-semibold">VIP</span>}
+                      {selectedPodcast.isPremium && <span className="text-xs px-2 py-0.5 rounded-full bg-app-accent-primary/20 text-app-accent-primary font-semibold">VIP</span>}
                     </div>
                     <h2 className="text-white font-bold text-base mb-1">{selectedPodcast.title}</h2>
-                    <p className="text-white/40 text-xs mb-4">{selectedPodcast.host} · {selectedPodcast.plays.toLocaleString()} lượt nghe</p>
+                    <p className="text-app-text-secondary text-xs mb-4">{selectedPodcast.host} · {selectedPodcast.plays.toLocaleString()} lượt nghe</p>
 
                     {/* Progress */}
                     <div className="mb-3">
                       <div className="h-2 bg-white/8 rounded-full overflow-hidden cursor-pointer" onClick={seek}>
-                        <div className="h-full bg-[#e8c84a] rounded-full transition-all" style={{ width: `${(currentTime / selectedPodcast.durationSec) * 100}%` }}></div>
+                        <div className="h-full bg-app-accent-primary rounded-full transition-all" style={{ width: `${(currentTime / selectedPodcast.durationSec) * 100}%` }}></div>
                       </div>
-                      <div className="flex justify-between text-white/30 text-xs mt-1">
+                      <div className="flex justify-between text-app-text-muted text-xs mt-1">
                         <span>{formatTime(currentTime)}</span>
                         <span>{selectedPodcast.duration}</span>
                       </div>
@@ -299,7 +299,7 @@ export default function PodcastLearnPage() {
                       <button onClick={() => setCurrentTime(Math.max(0, currentTime - 10))} className="w-10 h-10 rounded-full bg-white/8 flex items-center justify-center text-white/60 hover:bg-white/12 cursor-pointer transition-all">
                         <i className="ri-replay-10-line text-lg"></i>
                       </button>
-                      <button onClick={togglePlay} className="w-14 h-14 rounded-full bg-[#e8c84a] flex items-center justify-center text-black hover:bg-[#e8c84a]/90 cursor-pointer transition-all shadow-lg shadow-[#e8c84a]/20">
+                      <button onClick={togglePlay} className="w-14 h-14 rounded-full bg-app-accent-primary flex items-center justify-center text-black hover:bg-app-accent-primary/90 cursor-pointer transition-all shadow-lg shadow-[app-accent-primary]/20">
                         <i className={`${isPlaying ? "ri-pause-fill" : "ri-play-fill"} text-2xl ml-0.5`}></i>
                       </button>
                       <button onClick={() => setCurrentTime(Math.min(selectedPodcast.durationSec, currentTime + 10))} className="w-10 h-10 rounded-full bg-white/8 flex items-center justify-center text-white/60 hover:bg-white/12 cursor-pointer transition-all">
@@ -308,11 +308,11 @@ export default function PodcastLearnPage() {
                     </div>
 
                     <div className="flex items-center justify-between mt-4">
-                      <button onClick={() => setShowTranslation(!showTranslation)} className={`text-xs px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap ${showTranslation ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "bg-white/5 text-white/40"}`}>
+                      <button onClick={() => setShowTranslation(!showTranslation)} className={`text-xs px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap ${showTranslation ? "bg-app-accent-primary/15 text-app-accent-primary" : "bg-app-card/50 text-app-text-secondary"}`}>
                         <i className="ri-translate-2 mr-1"></i>
                         {showTranslation ? "Ẩn dịch" : "Hiện dịch"}
                       </button>
-                      <span className="text-white/30 text-xs">{savedVocab.size} từ đã lưu</span>
+                      <span className="text-app-text-muted text-xs">{savedVocab.size} từ đã lưu</span>
                     </div>
                   </div>
                 </div>
@@ -320,10 +320,10 @@ export default function PodcastLearnPage() {
 
               {/* Transcript */}
               <div className="lg:col-span-2">
-                <div ref={transcriptRef} className="bg-[#1a1f2e] rounded-xl border border-white/8 overflow-hidden">
-                  <div className="px-4 py-3 border-b border-white/5 flex items-center justify-between">
+                <div ref={transcriptRef} className="bg-[#1a1f2e] rounded-xl border border-app-border overflow-hidden">
+                  <div className="px-4 py-3 border-b border-app-border flex items-center justify-between">
                     <h3 className="text-white font-semibold text-sm">Transcript</h3>
-                    <span className="text-white/30 text-xs">{selectedPodcast.transcript.length} đoạn</span>
+                    <span className="text-app-text-muted text-xs">{selectedPodcast.transcript.length} đoạn</span>
                   </div>
                   <div className="p-4 space-y-3 max-h-[500px] overflow-y-auto">
                     {selectedPodcast.transcript.map((line, idx) => (
@@ -332,23 +332,23 @@ export default function PodcastLearnPage() {
                         onClick={() => jumpToLine(line.time)}
                         className={`p-3 rounded-xl cursor-pointer transition-all border ${
                           idx === activeLineIdx
-                            ? "bg-[#e8c84a]/10 border-[#e8c84a]/20"
-                            : "bg-white/3 border-transparent hover:bg-white/5"
+                            ? "bg-app-accent-primary/10 border-app-accent-primary/20"
+                            : "bg-app-surface/50 border-transparent hover:bg-app-card/50"
                         }`}
                       >
                         <div className="flex items-start gap-3">
-                          <span className="text-white/25 text-xs mt-0.5 flex-shrink-0 w-8">{formatTime(line.time)}</span>
+                          <span className="text-app-text-muted text-xs mt-0.5 flex-shrink-0 w-8">{formatTime(line.time)}</span>
                           <div className="flex-1">
                             <div className="flex items-start gap-2">
                               <p className={`text-sm leading-relaxed flex-1 ${idx === activeLineIdx ? "text-white font-medium" : "text-white/70"}`}>
                                 {line.korean}
                               </p>
-                              <button onClick={e => { e.stopPropagation(); playTTS(line.korean); }} className="text-white/20 hover:text-white/50 cursor-pointer flex-shrink-0 mt-0.5">
+                              <button onClick={e => { e.stopPropagation(); playTTS(line.korean); }} className="text-app-text-muted hover:text-white/50 cursor-pointer flex-shrink-0 mt-0.5">
                                 <i className="ri-volume-up-line text-sm"></i>
                               </button>
                             </div>
                             {showTranslation && (
-                              <p className="text-white/40 text-xs mt-1 italic">{line.vietnamese}</p>
+                              <p className="text-app-text-secondary text-xs mt-1 italic">{line.vietnamese}</p>
                             )}
                             {line.vocab && line.vocab.length > 0 && (
                               <div className="flex flex-wrap gap-1.5 mt-2">
@@ -357,7 +357,7 @@ export default function PodcastLearnPage() {
                                     key={v.word}
                                     onClick={e => { e.stopPropagation(); setSavedVocab(prev => { const next = new Set(prev); next.has(v.word) ? next.delete(v.word) : next.add(v.word); return next; }); }}
                                     className={`text-xs px-2 py-0.5 rounded-full transition-all cursor-pointer ${
-                                      savedVocab.has(v.word) ? "bg-emerald-500/20 text-emerald-400" : "bg-white/8 text-white/50 hover:bg-white/12"
+                                      savedVocab.has(v.word) ? "bg-emerald-500/20 text-app-accent-success" : "bg-white/8 text-white/50 hover:bg-white/12"
                                     }`}
                                   >
                                     {v.word}: {v.meaning}
@@ -378,24 +378,24 @@ export default function PodcastLearnPage() {
         ) : (
           <div className="space-y-4">
             {/* Filters */}
-            <div className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8 space-y-3">
+            <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border space-y-3">
               <div className="relative">
-                <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
-                <input type="text" placeholder="Tìm kiếm podcast..." value={search} onChange={e => setSearch(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#e8c84a]/40" />
+                <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
+                <input type="text" placeholder="Tìm kiếm podcast..." value={search} onChange={e => setSearch(e.target.value)} className="w-full bg-app-card/50 border border-app-border rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-app-accent-primary/40" />
               </div>
               <div className="flex flex-wrap gap-2">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-white/30 text-xs">Cấp độ:</span>
+                  <span className="text-app-text-muted text-xs">Cấp độ:</span>
                   {LEVELS.map(l => (
-                    <button key={l} onClick={() => setFilterLevel(l)} className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${filterLevel === l ? "bg-[#e8c84a]/20 text-[#e8c84a] font-semibold" : "bg-white/5 text-white/40 hover:bg-white/10"}`}>{l}</button>
+                    <button key={l} onClick={() => setFilterLevel(l)} className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${filterLevel === l ? "bg-app-accent-primary/20 text-app-accent-primary font-semibold" : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70"}`}>{l}</button>
                   ))}
                 </div>
               </div>
               <div className="flex flex-wrap gap-2">
                 <div className="flex items-center gap-1.5 flex-wrap">
-                  <span className="text-white/30 text-xs">Chủ đề:</span>
+                  <span className="text-app-text-muted text-xs">Chủ đề:</span>
                   {TOPICS.map(t => (
-                    <button key={t} onClick={() => setFilterTopic(t)} className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${filterTopic === t ? "bg-[#e8c84a]/20 text-[#e8c84a] font-semibold" : "bg-white/5 text-white/40 hover:bg-white/10"}`}>{t}</button>
+                    <button key={t} onClick={() => setFilterTopic(t)} className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${filterTopic === t ? "bg-app-accent-primary/20 text-app-accent-primary font-semibold" : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70"}`}>{t}</button>
                   ))}
                 </div>
               </div>
@@ -403,21 +403,21 @@ export default function PodcastLearnPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filtered.map(podcast => (
-                <div key={podcast.id} onClick={() => { setSelectedPodcast(podcast); setCurrentTime(0); setIsPlaying(false); setActiveLineIdx(0); }} className="bg-[#1a1f2e] rounded-xl overflow-hidden border border-white/8 hover:border-white/20 transition-all cursor-pointer group">
+                <div key={podcast.id} onClick={() => { setSelectedPodcast(podcast); setCurrentTime(0); setIsPlaying(false); setActiveLineIdx(0); }} className="bg-[#1a1f2e] rounded-xl overflow-hidden border border-app-border hover:border-white/20 transition-all cursor-pointer group">
                   <div className="relative">
                     <img src={podcast.thumbnail} alt={podcast.title} className="w-full h-44 object-cover object-top group-hover:scale-105 transition-transform duration-300" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div className="absolute bottom-2 left-2 flex items-center gap-1.5">
                       <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${levelColor[podcast.level]}`}>{podcast.level}</span>
-                      {podcast.isPremium && <span className="text-xs px-2 py-0.5 rounded-full bg-[#e8c84a]/80 text-black font-bold">VIP</span>}
+                      {podcast.isPremium && <span className="text-xs px-2 py-0.5 rounded-full bg-app-accent-primary/80 text-black font-bold">VIP</span>}
                     </div>
                     <div className="absolute bottom-2 right-2 bg-black/60 text-white/70 text-xs px-2 py-0.5 rounded">{podcast.duration}</div>
                   </div>
                   <div className="p-4">
-                    <p className="text-[#e8c84a] text-xs font-semibold mb-0.5">{podcast.host}</p>
+                    <p className="text-app-accent-primary text-xs font-semibold mb-0.5">{podcast.host}</p>
                     <h3 className="text-white font-semibold text-sm mb-1 line-clamp-2">{podcast.title}</h3>
-                    <p className="text-white/40 text-xs line-clamp-2 mb-3">{podcast.description}</p>
-                    <div className="flex items-center justify-between text-white/30 text-xs">
+                    <p className="text-app-text-secondary text-xs line-clamp-2 mb-3">{podcast.description}</p>
+                    <div className="flex items-center justify-between text-app-text-muted text-xs">
                       <span><i className="ri-headphone-line mr-1"></i>{(podcast.plays / 1000).toFixed(0)}K lượt nghe</span>
                       <span><i className="ri-file-text-line mr-1"></i>{podcast.transcript.length} đoạn</span>
                     </div>

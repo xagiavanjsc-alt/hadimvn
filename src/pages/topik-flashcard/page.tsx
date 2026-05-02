@@ -25,7 +25,7 @@ interface FlashcardSession {
 }
 
 const LEVELS = [
-  { id: "all", label: "Tất cả", color: "#e8c84a" },
+  { id: "all", label: "Tất cả", color: "app-accent-primary" },
   { id: "A1", label: "A1", color: "#34d399" },
   { id: "A2", label: "A2", color: "#38bdf8" },
   { id: "B1", label: "B1", color: "#fb923c" },
@@ -296,23 +296,23 @@ export default function TopikFlashcardPage() {
         <div className="p-6 max-w-3xl mx-auto">
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-white mb-1">Flashcard TOPIK</h1>
-            <p className="text-white/40 text-sm">Luyện từ vựng TOPIK I/II với spaced repetition — hệ thống tự động nhắc lại đúng lúc</p>
+            <p className="text-app-text-secondary text-sm">Luyện từ vựng TOPIK I/II với spaced repetition — hệ thống tự động nhắc lại đúng lúc</p>
           </div>
 
           {/* Sync status banner */}
           {user ? (
             <div className={`flex items-center justify-between px-4 py-3 rounded-xl border mb-5 ${
               syncStatus === "synced" ? "bg-emerald-500/8 border-emerald-500/20" :
-              syncStatus === "syncing" ? "bg-[#e8c84a]/8 border-[#e8c84a]/20" :
+              syncStatus === "syncing" ? "bg-app-accent-primary/8 border-app-accent-primary/20" :
               syncStatus === "error" ? "bg-red-500/8 border-red-500/20" :
-              "bg-white/3 border-white/8"
+              "bg-app-surface/50 border-app-border"
             }`}>
               <div className="flex items-center gap-2">
                 <i className={`text-sm ${
-                  syncStatus === "synced" ? "ri-cloud-line text-emerald-400" :
-                  syncStatus === "syncing" ? "ri-loader-4-line text-[#e8c84a] animate-spin" :
+                  syncStatus === "synced" ? "ri-cloud-line text-app-accent-success" :
+                  syncStatus === "syncing" ? "ri-loader-4-line text-app-accent-primary animate-spin" :
                   syncStatus === "error" ? "ri-cloud-off-line text-red-400" :
-                  "ri-cloud-line text-white/30"
+                  "ri-cloud-line text-app-text-muted"
                 }`}></i>
                 <div>
                   <p className="text-white/60 text-xs font-medium">
@@ -322,7 +322,7 @@ export default function TopikFlashcardPage() {
                      "Chưa đồng bộ"}
                   </p>
                   {lastSyncTime && (
-                    <p className="text-white/20 text-[10px]">
+                    <p className="text-app-text-muted text-[10px]">
                       Lần cuối: {new Date(lastSyncTime).toLocaleTimeString("vi-VN")}
                     </p>
                   )}
@@ -332,39 +332,39 @@ export default function TopikFlashcardPage() {
                 <button
                   onClick={syncFromSupabase}
                   disabled={syncStatus === "syncing"}
-                  className="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 text-xs cursor-pointer whitespace-nowrap border border-white/8 transition-all"
+                  className="px-3 py-1 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary text-xs cursor-pointer whitespace-nowrap border border-app-border transition-all"
                 >
                   <i className="ri-download-cloud-line mr-1"></i>Tải về
                 </button>
                 <button
                   onClick={syncToSupabase}
                   disabled={syncStatus === "syncing"}
-                  className="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 text-xs cursor-pointer whitespace-nowrap border border-white/8 transition-all"
+                  className="px-3 py-1 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary text-xs cursor-pointer whitespace-nowrap border border-app-border transition-all"
                 >
                   <i className="ri-upload-cloud-line mr-1"></i>Lưu lên
                 </button>
               </div>
             </div>
           ) : (
-            <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-white/8 bg-white/3 mb-5">
-              <i className="ri-cloud-off-line text-white/20 text-sm"></i>
-              <p className="text-white/30 text-xs">Đăng nhập để đồng bộ tiến độ lên cloud — không mất dữ liệu khi đổi thiết bị</p>
+            <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-app-border bg-app-surface/50 mb-5">
+              <i className="ri-cloud-off-line text-app-text-muted text-sm"></i>
+              <p className="text-app-text-muted text-xs">Đăng nhập để đồng bộ tiến độ lên cloud — không mất dữ liệu khi đổi thiết bị</p>
             </div>
           )}
 
           {/* Stats overview */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
-            <div className="bg-white/3 border border-white/8 rounded-xl p-4 text-center">
-              <p className="text-2xl font-bold text-[#e8c84a]">{dueCards.length}</p>
-              <p className="text-white/40 text-xs">Cần ôn hôm nay</p>
+            <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
+              <p className="text-2xl font-bold text-app-accent-primary">{dueCards.length}</p>
+              <p className="text-app-text-secondary text-xs">Cần ôn hôm nay</p>
             </div>
-            <div className="bg-white/3 border border-white/8 rounded-xl p-4 text-center">
-              <p className="text-2xl font-bold text-emerald-400">{masteredCount}</p>
-              <p className="text-white/40 text-xs">Đã thuộc</p>
+            <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
+              <p className="text-2xl font-bold text-app-accent-success">{masteredCount}</p>
+              <p className="text-app-text-secondary text-xs">Đã thuộc</p>
             </div>
-            <div className="bg-white/3 border border-white/8 rounded-xl p-4 text-center">
+            <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
               <p className="text-2xl font-bold text-white">{filteredWords.length}</p>
-              <p className="text-white/40 text-xs">Tổng từ</p>
+              <p className="text-app-text-secondary text-xs">Tổng từ</p>
             </div>
           </div>
 
@@ -377,7 +377,7 @@ export default function TopikFlashcardPage() {
                   key={lv.id}
                   onClick={() => setSelectedLevel(lv.id)}
                   className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap border ${
-                    selectedLevel === lv.id ? "text-white" : "border-white/8 text-white/40 hover:text-white/70"
+                    selectedLevel === lv.id ? "text-white" : "border-app-border text-app-text-secondary hover:text-white/70"
                   }`}
                   style={
                     selectedLevel === lv.id
@@ -399,8 +399,8 @@ export default function TopikFlashcardPage() {
                 onClick={() => setSelectedCategory("all")}
                 className={`px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
                   selectedCategory === "all"
-                    ? "bg-[#e8c84a]/15 border-[#e8c84a]/40 text-[#e8c84a]"
-                    : "border-white/8 text-white/40 hover:text-white/70"
+                    ? "bg-app-accent-primary/15 border-app-accent-primary/40 text-app-accent-primary"
+                    : "border-app-border text-app-text-secondary hover:text-white/70"
                 }`}
               >
                 Tất cả
@@ -410,7 +410,7 @@ export default function TopikFlashcardPage() {
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
                   className={`px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
-                    selectedCategory === cat.id ? "text-white" : "border-white/8 text-white/40 hover:text-white/70"
+                    selectedCategory === cat.id ? "text-white" : "border-app-border text-app-text-secondary hover:text-white/70"
                   }`}
                   style={
                     selectedCategory === cat.id
@@ -434,8 +434,8 @@ export default function TopikFlashcardPage() {
                   onClick={() => setSessionSize(n)}
                   className={`px-5 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer whitespace-nowrap border ${
                     sessionSize === n
-                      ? "bg-[#e8c84a]/15 border-[#e8c84a]/40 text-[#e8c84a]"
-                      : "border-white/8 text-white/40 hover:text-white/70"
+                      ? "bg-app-accent-primary/15 border-app-accent-primary/40 text-app-accent-primary"
+                      : "border-app-border text-app-text-secondary hover:text-white/70"
                   }`}
                 >
                   {n}
@@ -447,7 +447,7 @@ export default function TopikFlashcardPage() {
           <button
             onClick={startSession}
             disabled={filteredWords.length === 0}
-            className="w-full py-3.5 bg-[#e8c84a] hover:bg-[#e8c84a]/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
+            className="w-full py-3.5 bg-app-accent-primary hover:bg-app-accent-primary/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
           >
             <i className="ri-stack-line mr-2"></i>
             Bắt đầu học ({Math.min(sessionSize, dueCards.length + newCards.length)} thẻ)
@@ -552,20 +552,20 @@ ${exportWords.map(w => `
     return (
       <DashboardLayout>
         <div className="p-6 max-w-2xl mx-auto text-center">
-          <div className="w-20 h-20 rounded-full bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center mx-auto mb-4">
-            <i className="ri-check-double-line text-emerald-400 text-3xl"></i>
+          <div className="w-20 h-20 rounded-full bg-app-accent-success/15 border border-emerald-500/30 flex items-center justify-center mx-auto mb-4">
+            <i className="ri-check-double-line text-app-accent-success text-3xl"></i>
           </div>
           <h2 className="text-2xl font-bold text-white mb-2">Phiên học hoàn thành!</h2>
-          <p className="text-white/40 text-sm mb-8">Hệ thống đã lên lịch ôn tập thông minh cho bạn</p>
+          <p className="text-app-text-secondary text-sm mb-8">Hệ thống đã lên lịch ôn tập thông minh cho bạn</p>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
             {(["easy", "medium", "hard", "skip"] as Difficulty[]).map((d) => {
-              const colors = { easy: "#34d399", medium: "#e8c84a", hard: "#fb923c", skip: "#94a3b8" };
+              const colors = { easy: "#34d399", medium: "app-accent-primary", hard: "#fb923c", skip: "#94a3b8" };
               const labels = { easy: "Dễ", medium: "Ổn", hard: "Khó", skip: "Bỏ qua" };
               return (
-                <div key={d} className="bg-white/3 border border-white/8 rounded-xl p-3 text-center">
+                <div key={d} className="bg-app-surface/50 border border-app-border rounded-xl p-3 text-center">
                   <p className="text-xl font-bold" style={{ color: colors[d] }}>{sessionStats[d]}</p>
-                  <p className="text-white/30 text-xs">{labels[d]}</p>
+                  <p className="text-app-text-muted text-xs">{labels[d]}</p>
                 </div>
               );
             })}
@@ -578,7 +578,7 @@ ${exportWords.map(w => `
               className={`w-full py-3 mb-4 border font-medium rounded-xl transition-all cursor-pointer whitespace-nowrap flex items-center justify-center gap-2 ${
                 isVipYear
                   ? "bg-[#fb923c]/10 hover:bg-[#fb923c]/20 border-[#fb923c]/30 text-[#fb923c]"
-                  : "bg-white/5 border-white/10 text-white/30"
+                  : "bg-app-card/50 border-app-border text-app-text-muted"
               }`}
             >
               <i className={isVipYear ? "ri-file-pdf-line text-base" : "ri-lock-line text-base"}></i>
@@ -590,8 +590,8 @@ ${exportWords.map(w => `
             onClick={() => checkAndRun(exportHardWordsPDF)}
             className={`w-full py-2.5 mb-4 border text-sm rounded-xl transition-all cursor-pointer whitespace-nowrap flex items-center justify-center gap-2 ${
               isVipYear
-                ? "bg-white/3 hover:bg-white/6 border-white/8 text-white/50"
-                : "bg-white/3 border-white/8 text-white/25"
+                ? "bg-app-surface/50 hover:bg-white/6 border-app-border text-white/50"
+                : "bg-app-surface/50 border-app-border text-app-text-muted"
             }`}
           >
             <i className={isVipYear ? "ri-download-line text-sm" : "ri-lock-line text-sm"}></i>
@@ -606,13 +606,13 @@ ${exportWords.map(w => `
             featureName="Xuất PDF từ vựng TOPIK"
           />
 
-          <div className="bg-white/3 border border-white/8 rounded-xl p-4 mb-6 text-left">
+          <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 mb-6 text-left">
             <p className="text-white/50 text-xs mb-2">Lịch ôn tập tiếp theo</p>
             <p className="text-white/70 text-sm">
-              Thẻ "Dễ" → ôn lại sau <span className="text-emerald-400 font-bold">6 ngày</span>
+              Thẻ "Dễ" → ôn lại sau <span className="text-app-accent-success font-bold">6 ngày</span>
             </p>
             <p className="text-white/70 text-sm">
-              Thẻ "Ổn" → ôn lại sau <span className="text-[#e8c84a] font-bold">3 ngày</span>
+              Thẻ "Ổn" → ôn lại sau <span className="text-app-accent-primary font-bold">3 ngày</span>
             </p>
             <p className="text-white/70 text-sm">
               Thẻ "Khó" → ôn lại <span className="text-red-400 font-bold">ngày mai</span>
@@ -622,13 +622,13 @@ ${exportWords.map(w => `
           <div className="flex gap-3">
             <button
               onClick={() => setPhase("setup")}
-              className="flex-1 py-3 bg-white/5 hover:bg-white/10 text-white/70 font-medium rounded-xl transition-all cursor-pointer whitespace-nowrap border border-white/8"
+              className="flex-1 py-3 bg-app-card/50 hover:bg-app-card/70 text-white/70 font-medium rounded-xl transition-all cursor-pointer whitespace-nowrap border border-app-border"
             >
               Cài đặt lại
             </button>
             <button
               onClick={startSession}
-              className="flex-1 py-3 bg-[#e8c84a] hover:bg-[#e8c84a]/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap"
+              className="flex-1 py-3 bg-app-accent-primary hover:bg-app-accent-primary/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap"
             >
               <i className="ri-refresh-line mr-2"></i>Học tiếp
             </button>
@@ -646,7 +646,7 @@ ${exportWords.map(w => `
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={() => setPhase("setup")}
-            className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/50 cursor-pointer"
+            className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-white/50 cursor-pointer"
           >
             <i className="ri-arrow-left-line text-sm"></i>
           </button>
@@ -656,7 +656,7 @@ ${exportWords.map(w => `
           <button
             onClick={() => setAutoPlay((a) => !a)}
             className={`w-8 h-8 flex items-center justify-center rounded-lg transition-all cursor-pointer ${
-              autoPlay ? "bg-[#e8c84a]/20 text-[#e8c84a]" : "bg-white/5 text-white/30 hover:text-white/60"
+              autoPlay ? "bg-app-accent-primary/20 text-app-accent-primary" : "bg-app-card/50 text-app-text-muted hover:text-white/60"
             }`}
             title="Tự động lật thẻ"
           >
@@ -666,18 +666,18 @@ ${exportWords.map(w => `
 
         {/* Progress */}
         <div className="h-1 bg-white/8 rounded-full mb-6 overflow-hidden">
-          <div className="h-full bg-[#e8c84a] rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
+          <div className="h-full bg-app-accent-primary rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
         </div>
 
         {/* Stats row */}
         <div className="flex gap-2 mb-4 justify-center">
           {(["easy", "medium", "hard"] as const).map((d) => {
-            const colors = { easy: "#34d399", medium: "#e8c84a", hard: "#fb923c" };
+            const colors = { easy: "#34d399", medium: "app-accent-primary", hard: "#fb923c" };
             const icons = { easy: "ri-emotion-happy-line", medium: "ri-emotion-normal-line", hard: "ri-emotion-unhappy-line" };
             return (
-              <div key={d} className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white/3">
+              <div key={d} className="flex items-center gap-1 px-2 py-1 rounded-lg bg-app-surface/50">
                 <i className={`${icons[d]} text-xs`} style={{ color: colors[d] }}></i>
-                <span className="text-white/40 text-xs">{sessionStats[d]}</span>
+                <span className="text-app-text-secondary text-xs">{sessionStats[d]}</span>
               </div>
             );
           })}
@@ -717,7 +717,7 @@ ${exportWords.map(w => `
           >
             {/* Front */}
             <div
-              className="absolute inset-0 bg-white/3 border border-white/10 rounded-2xl p-8 flex flex-col items-center justify-center"
+              className="absolute inset-0 bg-app-surface/50 border border-app-border rounded-2xl p-8 flex flex-col items-center justify-center"
               style={{ backfaceVisibility: "hidden" }}
             >
               <div className="flex items-center gap-2 mb-4">
@@ -730,12 +730,12 @@ ${exportWords.map(w => `
                 >
                   {currentWord?.topikLevel}
                 </span>
-                <span className="text-white/20 text-xs">
+                <span className="text-app-text-muted text-xs">
                   {VOCAB_CATEGORIES.find((c) => c.id === currentWord?.category)?.label}
                 </span>
               </div>
               <p className="text-5xl font-bold text-white mb-3">{currentWord?.korean}</p>
-              <p className="text-white/30 text-lg">[{currentWord?.reading}]</p>
+              <p className="text-app-text-muted text-lg">[{currentWord?.reading}]</p>
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -745,23 +745,23 @@ ${exportWords.map(w => `
                     speechSynthesis.speak(u);
                   }
                 }}
-                className="mt-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white/40 hover:text-white/70 transition-all cursor-pointer"
+                className="mt-4 w-10 h-10 flex items-center justify-center rounded-full bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-white/70 transition-all cursor-pointer"
               >
                 <i className="ri-volume-up-line text-lg"></i>
               </button>
-              <p className="text-white/20 text-xs mt-4">Nhấn để lật thẻ</p>
+              <p className="text-app-text-muted text-xs mt-4">Nhấn để lật thẻ</p>
             </div>
 
             {/* Back */}
             <div
-              className="absolute inset-0 bg-white/3 border border-[#e8c84a]/20 rounded-2xl p-8 flex flex-col items-center justify-center"
+              className="absolute inset-0 bg-app-surface/50 border border-app-accent-primary/20 rounded-2xl p-8 flex flex-col items-center justify-center"
               style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
             >
-              <p className="text-white/40 text-sm mb-2">{currentWord?.korean} [{currentWord?.reading}]</p>
-              <p className="text-3xl font-bold text-[#e8c84a] mb-4 text-center">{currentWord?.vietnamese}</p>
-              <p className="text-white/30 text-xs mb-1 tracking-normal">Ví dụ</p>
+              <p className="text-app-text-secondary text-sm mb-2">{currentWord?.korean} [{currentWord?.reading}]</p>
+              <p className="text-3xl font-bold text-app-accent-primary mb-4 text-center">{currentWord?.vietnamese}</p>
+              <p className="text-app-text-muted text-xs mb-1 tracking-normal">Ví dụ</p>
               <p className="text-white/60 text-sm text-center mb-1">{currentWord?.example}</p>
-              <p className="text-white/30 text-xs text-center italic">{currentWord?.exampleVi}</p>
+              <p className="text-app-text-muted text-xs text-center italic">{currentWord?.exampleVi}</p>
             </div>
           </div>
         </div>
@@ -772,7 +772,7 @@ ${exportWords.map(w => `
             {(["hard", "medium", "easy", "skip"] as Difficulty[]).map((d) => {
               const config = {
                 hard: { label: "Khó", color: "#fb923c", icon: "ri-emotion-unhappy-line" },
-                medium: { label: "Ổn", color: "#e8c84a", icon: "ri-emotion-normal-line" },
+                medium: { label: "Ổn", color: "app-accent-primary", icon: "ri-emotion-normal-line" },
                 easy: { label: "Dễ", color: "#34d399", icon: "ri-emotion-happy-line" },
                 skip: { label: "Bỏ qua", color: "#94a3b8", icon: "ri-skip-right-line" },
               };
@@ -793,7 +793,7 @@ ${exportWords.map(w => `
         ) : (
           <button
             onClick={flipCard}
-            className="w-full py-3 bg-white/5 hover:bg-white/10 text-white/60 font-medium rounded-xl transition-all cursor-pointer whitespace-nowrap border border-white/8"
+            className="w-full py-3 bg-app-card/50 hover:bg-app-card/70 text-white/60 font-medium rounded-xl transition-all cursor-pointer whitespace-nowrap border border-app-border"
           >
             <i className="ri-refresh-line mr-2"></i>Lật thẻ để xem nghĩa
           </button>

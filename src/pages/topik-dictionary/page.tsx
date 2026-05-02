@@ -14,7 +14,7 @@ const PARTS = [
 ];
 
 const LEVEL_COLORS: Record<string, string> = {
-  A1: "bg-emerald-500/15 text-emerald-400 border-emerald-500/20",
+  A1: "bg-app-accent-success/15 text-app-accent-success border-emerald-500/20",
   A2: "bg-sky-500/15 text-sky-400 border-sky-500/20",
   B1: "bg-amber-500/15 text-amber-400 border-amber-500/20",
   B2: "bg-rose-500/15 text-rose-400 border-rose-500/20",
@@ -88,8 +88,8 @@ const WordRow = ({
 
   return (
     <div
-      className={`bg-white/5 border rounded-2xl transition-all mb-2 ${
-        note?.difficult ? "border-red-500/20" : isExpanded ? "border-white/15" : "border-white/8 hover:border-white/12"
+      className={`bg-app-card/50 border rounded-2xl transition-all mb-2 ${
+        note?.difficult ? "border-red-500/20" : isExpanded ? "border-white/15" : "border-app-border hover:border-white/12"
       }`}
     >
       {/* Main row */}
@@ -105,7 +105,7 @@ const WordRow = ({
           >
             {word.korean}
           </p>
-          <p className="text-white/30 text-[10px] font-mono truncate">[{word.reading}]</p>
+          <p className="text-app-text-muted text-[10px] font-mono truncate">[{word.reading}]</p>
         </div>
 
         {/* Vietnamese + badges — single line */}
@@ -117,7 +117,7 @@ const WordRow = ({
             <span className={`px-1.5 py-0.5 rounded text-[10px] border flex-shrink-0 ${LEVEL_COLORS[word.topikLevel]}`}>
               {word.topikLevel}
             </span>
-            <span className="text-white/25 text-[10px] hidden sm:inline whitespace-nowrap">{partLabel}</span>
+            <span className="text-app-text-muted text-[10px] hidden sm:inline whitespace-nowrap">{partLabel}</span>
             {cat && (
               <span
                 className="text-[10px] px-1.5 py-0.5 rounded hidden md:inline whitespace-nowrap"
@@ -143,14 +143,14 @@ const WordRow = ({
         <div className="flex items-center gap-1 flex-shrink-0" onClick={e => e.stopPropagation()}>
           <button
             onClick={() => onSpeak(word.korean)}
-            className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-white/70 transition-all cursor-pointer"
+            className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-white/70 transition-all cursor-pointer"
           >
             <i className="ri-volume-up-line text-xs"></i>
           </button>
           <button
             onClick={onToggleDifficult}
             className={`w-7 h-7 flex items-center justify-center rounded-lg transition-all cursor-pointer ${
-              note?.difficult ? "bg-red-500/15 text-red-400" : "bg-white/5 hover:bg-white/10 text-white/30 hover:text-red-400"
+              note?.difficult ? "bg-red-500/15 text-red-400" : "bg-app-card/50 hover:bg-app-card/70 text-app-text-muted hover:text-red-400"
             }`}
           >
             <i className="ri-flag-line text-xs"></i>
@@ -158,7 +158,7 @@ const WordRow = ({
           <button
             onClick={onOpenNote}
             className={`w-7 h-7 flex items-center justify-center rounded-lg transition-all cursor-pointer ${
-              note?.note ? "bg-amber-500/15 text-amber-400" : "bg-white/5 hover:bg-white/10 text-white/30 hover:text-amber-400"
+              note?.note ? "bg-amber-500/15 text-amber-400" : "bg-app-card/50 hover:bg-app-card/70 text-app-text-muted hover:text-amber-400"
             }`}
           >
             <i className="ri-edit-line text-xs"></i>
@@ -166,33 +166,33 @@ const WordRow = ({
           <button
             onClick={onToggleFav}
             className={`w-7 h-7 flex items-center justify-center rounded-lg transition-all cursor-pointer ${
-              isFav ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "bg-white/5 hover:bg-white/10 text-white/30 hover:text-[#e8c84a]"
+              isFav ? "bg-app-accent-primary/15 text-app-accent-primary" : "bg-app-card/50 hover:bg-app-card/70 text-app-text-muted hover:text-app-accent-primary"
             }`}
           >
             <i className={`${isFav ? "ri-bookmark-fill" : "ri-bookmark-line"} text-xs`}></i>
           </button>
           <div className="w-4 h-4 flex items-center justify-center">
-            <i className={`${isExpanded ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"} text-white/25 text-xs`}></i>
+            <i className={`${isExpanded ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"} text-app-text-muted text-xs`}></i>
           </div>
         </div>
       </div>
 
       {/* Expanded content */}
       {isExpanded && (
-        <div className="px-4 pb-4 space-y-3 border-t border-white/5 pt-3">
-          <div className="bg-white/5 rounded-xl p-3 space-y-2">
+        <div className="px-4 pb-4 space-y-3 border-t border-app-border pt-3">
+          <div className="bg-app-card/50 rounded-xl p-3 space-y-2">
             <div className="flex items-center justify-between">
-              <p className="text-white/40 text-xs font-medium">Ví dụ câu</p>
+              <p className="text-app-text-secondary text-xs font-medium">Ví dụ câu</p>
               <div className="flex gap-1.5">
                 <button
                   onClick={() => onSpeak(word.example)}
-                  className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-white/70 text-[10px] transition-all cursor-pointer whitespace-nowrap"
+                  className="flex items-center gap-1 px-2 py-1 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-white/70 text-[10px] transition-all cursor-pointer whitespace-nowrap"
                 >
                   <i className="ri-volume-up-line text-xs"></i> Nghe
                 </button>
                 <button
                   onClick={() => onSpeak(word.example, true)}
-                  className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-white/70 text-[10px] transition-all cursor-pointer whitespace-nowrap"
+                  className="flex items-center gap-1 px-2 py-1 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-white/70 text-[10px] transition-all cursor-pointer whitespace-nowrap"
                 >
                   <i className="ri-slow-down-line text-xs"></i> Chậm
                 </button>
@@ -215,7 +215,7 @@ const WordRow = ({
           <div className="flex gap-2">
             <button
               onClick={onOpenNote}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-white/60 text-xs transition-all cursor-pointer whitespace-nowrap"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-white/60 text-xs transition-all cursor-pointer whitespace-nowrap"
             >
               <i className="ri-edit-line text-xs"></i>
               {note?.note ? "Sửa ghi chú" : "Thêm ghi chú"}
@@ -225,7 +225,7 @@ const WordRow = ({
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${
                 note?.difficult
                   ? "bg-red-500/15 text-red-400 hover:bg-red-500/20"
-                  : "bg-white/5 hover:bg-white/10 text-white/40 hover:text-red-400"
+                  : "bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-red-400"
               }`}
             >
               <i className="ri-flag-line text-xs"></i>
@@ -349,19 +349,19 @@ export default function TopikDictionaryPage() {
             <h1 className="text-xl font-bold text-white" style={{ fontFamily: "'Nunito', sans-serif" }}>
               Từ điển TOPIK
             </h1>
-            <p className="text-white/40 text-xs mt-0.5">Tra cứu từ vựng TOPIK I/II với ví dụ câu, phiên âm và bộ lọc theo cấp độ A1–B2</p>
+            <p className="text-app-text-secondary text-xs mt-0.5">Tra cứu từ vựng TOPIK I/II với ví dụ câu, phiên âm và bộ lọc theo cấp độ A1–B2</p>
           </div>
           <div className="flex gap-2 flex-wrap">
             {[
               { label: "Tổng", value: stats.total, color: "text-white" },
-              { label: "A1", value: stats.a1, color: "text-emerald-400" },
+              { label: "A1", value: stats.a1, color: "text-app-accent-success" },
               { label: "A2", value: stats.a2, color: "text-sky-400" },
               { label: "B1", value: stats.b1, color: "text-amber-400" },
               { label: "B2", value: stats.b2, color: "text-rose-400" },
             ].map(s => (
-              <div key={s.label} className="bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-center min-w-[44px]">
+              <div key={s.label} className="bg-app-card/50 border border-app-border rounded-xl px-3 py-1.5 text-center min-w-[44px]">
                 <p className={`font-bold text-base ${s.color}`}>{s.value}</p>
-                <p className="text-white/30 text-[10px]">{s.label}</p>
+                <p className="text-app-text-muted text-[10px]">{s.label}</p>
               </div>
             ))}
           </div>
@@ -370,19 +370,19 @@ export default function TopikDictionaryPage() {
         {/* Search */}
         <div className="relative">
           <div className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center">
-            <i className="ri-search-line text-white/30 text-sm"></i>
+            <i className="ri-search-line text-app-text-muted text-sm"></i>
           </div>
           <input
             type="text"
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Tìm kiếm tiếng Hàn, tiếng Việt, phiên âm..."
-            className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-white text-sm placeholder-white/25 focus:outline-none focus:border-white/20"
+            className="w-full bg-app-card/50 border border-app-border rounded-xl pl-10 pr-4 py-2.5 text-white text-sm placeholder-white/25 focus:outline-none focus:border-white/20"
           />
           {search && (
             <button
               onClick={() => setSearch("")}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 cursor-pointer"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-app-text-muted hover:text-white/60 cursor-pointer"
             >
               <i className="ri-close-line text-sm"></i>
             </button>
@@ -391,7 +391,7 @@ export default function TopikDictionaryPage() {
 
         {/* Filter tabs + sort */}
         <div className="flex flex-wrap gap-2 items-center justify-between">
-          <div className="flex gap-1 bg-white/5 border border-white/10 rounded-xl p-1">
+          <div className="flex gap-1 bg-app-card/50 border border-app-border rounded-xl p-1">
             {[
               { key: "all", label: `Tất cả (${stats.total})` },
               { key: "difficult", label: `Từ khó (${stats.difficult})` },
@@ -401,7 +401,7 @@ export default function TopikDictionaryPage() {
                 key={tab.key}
                 onClick={() => setFilterTab(tab.key as "all" | "difficult" | "noted")}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
-                  filterTab === tab.key ? "bg-white/15 text-white" : "text-white/40 hover:text-white/70"
+                  filterTab === tab.key ? "bg-white/15 text-white" : "text-app-text-secondary hover:text-white/70"
                 }`}
               >
                 {tab.label}
@@ -411,7 +411,7 @@ export default function TopikDictionaryPage() {
           <select
             value={sortBy}
             onChange={e => setSortBy(e.target.value as "alpha" | "level" | "category")}
-            className="bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-white/60 text-xs focus:outline-none cursor-pointer"
+            className="bg-app-card/50 border border-app-border rounded-lg px-3 py-1.5 text-white/60 text-xs focus:outline-none cursor-pointer"
           >
             <option value="level">Sắp xếp: Cấp độ</option>
             <option value="alpha">Sắp xếp: A-Z</option>
@@ -428,21 +428,21 @@ export default function TopikDictionaryPage() {
               className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
                 selectedLevel === lv
                   ? lv === "Tất cả" ? "bg-white/15 border-white/20 text-white" : `${LEVEL_COLORS[lv]} border-current`
-                  : "bg-white/5 border-white/10 text-white/40 hover:text-white/60"
+                  : "bg-app-card/50 border-app-border text-app-text-secondary hover:text-white/60"
               }`}
             >
               {lv}
             </button>
           ))}
-          <div className="w-px bg-white/10 mx-1"></div>
+          <div className="w-px bg-app-card/70 mx-1"></div>
           {PARTS.map(p => (
             <button
               key={p.value}
               onClick={() => setSelectedPart(p.value)}
               className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
                 selectedPart === p.value
-                  ? "bg-[#e8c84a]/15 border-[#e8c84a]/30 text-[#e8c84a]"
-                  : "bg-white/5 border-white/10 text-white/40 hover:text-white/60"
+                  ? "bg-app-accent-primary/15 border-app-accent-primary/30 text-app-accent-primary"
+                  : "bg-app-card/50 border-app-border text-app-text-secondary hover:text-white/60"
               }`}
             >
               {p.label}
@@ -457,7 +457,7 @@ export default function TopikDictionaryPage() {
             className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
               selectedCategory === "all"
                 ? "bg-white/15 border-white/20 text-white"
-                : "bg-white/5 border-white/10 text-white/40 hover:text-white/60"
+                : "bg-app-card/50 border-app-border text-app-text-secondary hover:text-white/60"
             }`}
           >
             Tất cả chủ đề
@@ -467,7 +467,7 @@ export default function TopikDictionaryPage() {
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
               className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
-                selectedCategory === cat.id ? "border-current" : "bg-white/5 border-white/10 text-white/40 hover:text-white/60"
+                selectedCategory === cat.id ? "border-current" : "bg-app-card/50 border-app-border text-app-text-secondary hover:text-white/60"
               }`}
               style={selectedCategory === cat.id ? { backgroundColor: `${cat.color}20`, color: cat.color, borderColor: `${cat.color}40` } : {}}
             >
@@ -478,13 +478,13 @@ export default function TopikDictionaryPage() {
 
         {/* Results count + pagination info */}
         <div className="flex items-center justify-between">
-          <p className="text-white/30 text-xs">{filtered.length} từ tìm thấy · Trang {page + 1}/{Math.max(1, totalPages)}</p>
+          <p className="text-app-text-muted text-xs">{filtered.length} từ tìm thấy · Trang {page + 1}/{Math.max(1, totalPages)}</p>
           {totalPages > 1 && (
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setPage(p => Math.max(0, p - 1))}
                 disabled={page === 0}
-                className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-white/40 hover:text-white/70 disabled:opacity-30 cursor-pointer transition-all"
+                className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 border border-app-border text-app-text-secondary hover:text-white/70 disabled:opacity-30 cursor-pointer transition-all"
               >
                 <i className="ri-arrow-left-s-line text-sm"></i>
               </button>
@@ -496,8 +496,8 @@ export default function TopikDictionaryPage() {
                     onClick={() => setPage(pageNum)}
                     className={`w-7 h-7 flex items-center justify-center rounded-lg text-xs font-medium cursor-pointer transition-all ${
                       pageNum === page
-                        ? "bg-[#e8c84a]/20 border border-[#e8c84a]/30 text-[#e8c84a]"
-                        : "bg-white/5 border border-white/10 text-white/40 hover:text-white/70"
+                        ? "bg-app-accent-primary/20 border border-app-accent-primary/30 text-app-accent-primary"
+                        : "bg-app-card/50 border border-app-border text-app-text-secondary hover:text-white/70"
                     }`}
                   >
                     {pageNum + 1}
@@ -507,7 +507,7 @@ export default function TopikDictionaryPage() {
               <button
                 onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
                 disabled={page >= totalPages - 1}
-                className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-white/40 hover:text-white/70 disabled:opacity-30 cursor-pointer transition-all"
+                className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 border border-app-border text-app-text-secondary hover:text-white/70 disabled:opacity-30 cursor-pointer transition-all"
               >
                 <i className="ri-arrow-right-s-line text-sm"></i>
               </button>
@@ -520,9 +520,9 @@ export default function TopikDictionaryPage() {
           {pageItems.length === 0 ? (
             <div className="text-center py-16">
               <div className="w-12 h-12 flex items-center justify-center mx-auto mb-3">
-                <i className="ri-search-line text-white/20 text-3xl"></i>
+                <i className="ri-search-line text-app-text-muted text-3xl"></i>
               </div>
-              <p className="text-white/30 text-sm">Không tìm thấy từ nào</p>
+              <p className="text-app-text-muted text-sm">Không tìm thấy từ nào</p>
             </div>
           ) : (
             pageItems.map(word => (
@@ -548,15 +548,15 @@ export default function TopikDictionaryPage() {
             <button
               onClick={() => { setPage(p => Math.max(0, p - 1)); window.scrollTo({ top: 0, behavior: "smooth" }); }}
               disabled={page === 0}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white/50 text-xs hover:text-white/70 disabled:opacity-30 cursor-pointer transition-all whitespace-nowrap"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-app-card/50 border border-app-border text-white/50 text-xs hover:text-white/70 disabled:opacity-30 cursor-pointer transition-all whitespace-nowrap"
             >
               <i className="ri-arrow-left-line text-xs"></i> Trang trước
             </button>
-            <span className="text-white/30 text-xs">{page + 1} / {totalPages}</span>
+            <span className="text-app-text-muted text-xs">{page + 1} / {totalPages}</span>
             <button
               onClick={() => { setPage(p => Math.min(totalPages - 1, p + 1)); window.scrollTo({ top: 0, behavior: "smooth" }); }}
               disabled={page >= totalPages - 1}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white/50 text-xs hover:text-white/70 disabled:opacity-30 cursor-pointer transition-all whitespace-nowrap"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-app-card/50 border border-app-border text-white/50 text-xs hover:text-white/70 disabled:opacity-30 cursor-pointer transition-all whitespace-nowrap"
             >
               Trang sau <i className="ri-arrow-right-line text-xs"></i>
             </button>
@@ -567,17 +567,17 @@ export default function TopikDictionaryPage() {
       {/* Note Modal */}
       {noteModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#1a1d2e] border border-white/10 rounded-2xl p-6 w-full max-w-md space-y-4">
+          <div className="bg-[#1a1d2e] border border-app-border rounded-2xl p-6 w-full max-w-md space-y-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-white font-bold text-xl" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>
                   {noteModal.word.korean}
                 </p>
-                <p className="text-white/40 text-sm">{noteModal.word.vietnamese}</p>
+                <p className="text-app-text-secondary text-sm">{noteModal.word.vietnamese}</p>
               </div>
               <button
                 onClick={() => setNoteModal(null)}
-                className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/40 cursor-pointer"
+                className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary cursor-pointer"
               >
                 <i className="ri-close-line text-sm"></i>
               </button>
@@ -591,21 +591,21 @@ export default function TopikDictionaryPage() {
                   if (e.target.value.length <= 500) setNoteText(e.target.value);
                 }}
                 placeholder="Mẹo nhớ từ, ngữ cảnh sử dụng, phát âm đặc biệt..."
-                className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-white/20 resize-none h-32"
+                className="w-full bg-app-card/50 border border-app-border rounded-xl p-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-white/20 resize-none h-32"
               />
-              <p className="text-white/20 text-xs text-right">{noteText.length}/500</p>
+              <p className="text-app-text-muted text-xs text-right">{noteText.length}/500</p>
             </div>
 
             <div className="flex gap-3">
               <button
                 onClick={() => setNoteModal(null)}
-                className="flex-1 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white/50 text-sm transition-all cursor-pointer whitespace-nowrap"
+                className="flex-1 py-2.5 rounded-xl bg-app-card/50 hover:bg-app-card/70 text-white/50 text-sm transition-all cursor-pointer whitespace-nowrap"
               >
                 Hủy
               </button>
               <button
                 onClick={saveNote}
-                className="flex-1 py-2.5 rounded-xl bg-[#e8c84a]/15 hover:bg-[#e8c84a]/25 border border-[#e8c84a]/20 text-[#e8c84a] text-sm font-medium transition-all cursor-pointer whitespace-nowrap"
+                className="flex-1 py-2.5 rounded-xl bg-app-accent-primary/15 hover:bg-app-accent-primary/25 border border-app-accent-primary/20 text-app-accent-primary text-sm font-medium transition-all cursor-pointer whitespace-nowrap"
               >
                 Lưu ghi chú
               </button>

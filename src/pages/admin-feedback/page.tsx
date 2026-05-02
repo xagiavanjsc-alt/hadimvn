@@ -19,7 +19,7 @@ interface Feedback {
 }
 
 const STATUS_CONFIG = {
-  new: { label: "Mới", color: "#e8c84a", bg: "rgba(232,200,74,0.12)", icon: "ri-mail-unread-line" },
+  new: { label: "Mới", color: "app-accent-primary", bg: "rgba(232,200,74,0.12)", icon: "ri-mail-unread-line" },
   reviewed: { label: "Đã xem", color: "#38bdf8", bg: "rgba(56,189,248,0.12)", icon: "ri-eye-line" },
   resolved: { label: "Đã xử lý", color: "#34d399", bg: "rgba(52,211,153,0.12)", icon: "ri-checkbox-circle-line" },
   dismissed: { label: "Bỏ qua", color: "#6b7280", bg: "rgba(107,114,128,0.12)", icon: "ri-close-circle-line" },
@@ -34,7 +34,7 @@ function StarDisplay({ rating }: { rating: number }) {
   return (
     <div className="flex items-center gap-0.5">
       {[1, 2, 3, 4, 5].map(s => (
-        <i key={s} className={`text-xs ${s <= rating ? "ri-star-fill text-[#e8c84a]" : "ri-star-line text-white/15"}`} />
+        <i key={s} className={`text-xs ${s <= rating ? "ri-star-fill text-app-accent-primary" : "ri-star-line text-white/15"}`} />
       ))}
     </div>
   );
@@ -77,11 +77,11 @@ function FeedbackDetailModal({ feedback, onClose, onUpdate }: {
           {/* Rating + category */}
           <div className="flex items-center gap-3 flex-wrap">
             <StarDisplay rating={feedback.rating} />
-            <span className="text-xs px-2 py-0.5 rounded-full bg-white/5 text-white/50">
+            <span className="text-xs px-2 py-0.5 rounded-full bg-app-card/50 text-white/50">
               {CATEGORY_LABELS[feedback.category] || feedback.category}
             </span>
             {feedback.is_vip && (
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#e8c84a]/10 text-[#e8c84a] font-bold">VIP</span>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-accent-primary/10 text-app-accent-primary font-bold">VIP</span>
             )}
           </div>
 
@@ -222,7 +222,7 @@ export default function AdminFeedbackPage() {
       subtitle="Quản lý phản hồi từ thành viên"
       actions={
         <button onClick={fetchFeedbacks}
-          className="flex items-center gap-2 text-xs font-medium px-3 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap bg-white/5 text-white/50 border border-white/10 hover:bg-white/10">
+          className="flex items-center gap-2 text-xs font-medium px-3 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap bg-app-card/50 text-white/50 border border-app-border hover:bg-app-card/70">
           <i className="ri-refresh-line" />Làm mới
         </button>
       }
@@ -236,7 +236,7 @@ export default function AdminFeedbackPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
         {[
-          { label: "Tổng góp ý", value: feedbacks.length, color: "#e8c84a", icon: "ri-chat-smile-2-line" },
+          { label: "Tổng góp ý", value: feedbacks.length, color: "app-accent-primary", icon: "ri-chat-smile-2-line" },
           { label: "Mới chưa xem", value: feedbacks.filter(f => f.status === "new").length, color: "#f87171", icon: "ri-mail-unread-line" },
           { label: "Đã xử lý", value: feedbacks.filter(f => f.status === "resolved").length, color: "#34d399", icon: "ri-checkbox-circle-line" },
           { label: "Đánh giá TB", value: avgRating, color: "#fb923c", icon: "ri-star-line" },
@@ -260,11 +260,11 @@ export default function AdminFeedbackPage() {
         <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
           <p className="font-semibold text-sm mb-1" style={{ color: "var(--admin-text)" }}>Phân bố đánh giá</p>
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-2xl font-bold" style={{ color: "#e8c84a" }}>{avgRating}</span>
+            <span className="text-2xl font-bold" style={{ color: "app-accent-primary" }}>{avgRating}</span>
             <div>
               <div className="flex items-center gap-0.5">
                 {[1,2,3,4,5].map(s => (
-                  <i key={s} className={`text-xs ${parseFloat(avgRating) >= s ? "ri-star-fill text-[#e8c84a]" : "ri-star-line text-white/15"}`} />
+                  <i key={s} className={`text-xs ${parseFloat(avgRating) >= s ? "ri-star-fill text-app-accent-primary" : "ri-star-line text-white/15"}`} />
                 ))}
               </div>
               <p className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>{feedbacks.length} đánh giá</p>
@@ -274,9 +274,9 @@ export default function AdminFeedbackPage() {
             {ratingDist.map(r => (
               <div key={r.rating} className="flex items-center gap-2">
                 <span className="text-[10px] w-3 text-right" style={{ color: "var(--admin-text-faint)" }}>{r.rating}</span>
-                <i className="ri-star-fill text-[#e8c84a] text-[10px]"></i>
+                <i className="ri-star-fill text-app-accent-primary text-[10px]"></i>
                 <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: "var(--admin-hover)" }}>
-                  <div className="h-full rounded-full bg-[#e8c84a] transition-all" style={{ width: `${r.pct}%` }} />
+                  <div className="h-full rounded-full bg-app-accent-primary transition-all" style={{ width: `${r.pct}%` }} />
                 </div>
                 <span className="text-[10px] w-6 text-right" style={{ color: "var(--admin-text-faint)" }}>{r.count}</span>
               </div>
@@ -336,7 +336,7 @@ export default function AdminFeedbackPage() {
                         <p className="text-xs font-semibold" style={{ color: "var(--admin-text)" }}>{fb.title}</p>
                         <span className="text-[9px] px-1.5 py-0.5 rounded-full font-bold"
                           style={{ backgroundColor: cfg.bg, color: cfg.color }}>{cfg.label}</span>
-                        {fb.is_vip && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-[#e8c84a]/10 text-[#e8c84a] font-bold">VIP</span>}
+                        {fb.is_vip && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-app-accent-primary/10 text-app-accent-primary font-bold">VIP</span>}
                       </div>
                       <p className="text-[10px] truncate mb-1" style={{ color: "var(--admin-text-muted)" }}>{fb.content}</p>
                       <div className="flex items-center gap-3">

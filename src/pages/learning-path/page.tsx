@@ -30,7 +30,7 @@ interface PathPhase {
   steps: PathStep[];
 }
 
-const PHASE_COLORS = ["#e8c84a", "#34d399", "#fb923c", "#a78bfa", "#06b6d4", "#f87171"];
+const PHASE_COLORS = ["app-accent-primary", "#34d399", "#fb923c", "#a78bfa", "#06b6d4", "#f87171"];
 
 export default function LearningPathPage() {
   const navigate = useNavigate();
@@ -67,7 +67,7 @@ export default function LearningPathPage() {
           titleVi: "Học 40 ký tự cơ bản",
           description: "Nắm vững nguyên âm và phụ âm tiếng Hàn",
           icon: "ri-font-size",
-          color: "#e8c84a",
+          color: "app-accent-primary",
           route: "/hangul",
           type: "hangul",
           estimatedMinutes: 30,
@@ -82,7 +82,7 @@ export default function LearningPathPage() {
           titleVi: "자기소개 — 40 từ vựng",
           description: "Học cách giới thiệu bản thân, quốc tịch, nghề nghiệp",
           icon: "ri-hand-heart-line",
-          color: "#e8c84a",
+          color: "app-accent-primary",
           route: "/eps-lessons",
           type: "lesson",
           estimatedMinutes: 20,
@@ -96,7 +96,7 @@ export default function LearningPathPage() {
           titleVi: "생활용품 — 27 từ vựng",
           description: "Tên các đồ dùng hàng ngày trong tiếng Hàn",
           icon: "ri-home-3-line",
-          color: "#e8c84a",
+          color: "app-accent-primary",
           route: "/eps-lessons",
           type: "lesson",
           estimatedMinutes: 20,
@@ -461,13 +461,13 @@ export default function LearningPathPage() {
       subtitle="Hệ thống gợi ý bài tiếp theo dựa trên tiến độ của bạn"
       actions={
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 bg-white/5 border border-white/8 rounded-xl px-4 py-2">
-            <i className="ri-route-line text-[#e8c84a]"></i>
+          <div className="flex items-center gap-2 bg-app-card/50 border border-app-border rounded-xl px-4 py-2">
+            <i className="ri-route-line text-app-accent-primary"></i>
             <span className="text-white/60 text-sm">{completedSteps}/{totalSteps} bước</span>
-            <div className="w-20 h-1.5 bg-white/10 rounded-full overflow-hidden ml-1">
-              <div className="h-full bg-[#e8c84a] rounded-full transition-all" style={{ width: `${overallProgress}%` }} />
+            <div className="w-20 h-1.5 bg-app-card/70 rounded-full overflow-hidden ml-1">
+              <div className="h-full bg-app-accent-primary rounded-full transition-all" style={{ width: `${overallProgress}%` }} />
             </div>
-            <span className="text-[#e8c84a] text-sm font-bold">{overallProgress}%</span>
+            <span className="text-app-accent-primary text-sm font-bold">{overallProgress}%</span>
           </div>
         </div>
       }
@@ -488,14 +488,14 @@ export default function LearningPathPage() {
                 <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${nextStep.phase.color}20`, color: nextStep.phase.color }}>
                   Tiếp theo
                 </span>
-                <span className="text-white/30 text-xs">{nextStep.phase.title}</span>
+                <span className="text-app-text-muted text-xs">{nextStep.phase.title}</span>
               </div>
               <h3 className="text-white font-bold text-base">{nextStep.step.title}</h3>
               <p className="text-white/50 text-sm">{nextStep.step.description}</p>
             </div>
             <div className="flex items-center gap-3">
               <div className="text-right">
-                <p className="text-white/30 text-xs">{nextStep.step.estimatedMinutes} phút</p>
+                <p className="text-app-text-muted text-xs">{nextStep.step.estimatedMinutes} phút</p>
                 {nextStep.step.progress !== undefined && nextStep.step.progress > 0 && (
                   <p className="text-xs font-semibold" style={{ color: nextStep.phase.color }}>{nextStep.step.progress}% hoàn thành</p>
                 )}
@@ -521,7 +521,7 @@ export default function LearningPathPage() {
           return (
             <div
               key={phase.id}
-              className={`rounded-2xl border transition-all ${isCurrent ? "border-white/15" : "border-white/5"}`}
+              className={`rounded-2xl border transition-all ${isCurrent ? "border-white/15" : "border-app-border"}`}
               style={{ backgroundColor: isCurrent ? `${phase.color}08` : "#0f1117" }}
             >
               {/* Phase header */}
@@ -538,28 +538,28 @@ export default function LearningPathPage() {
                 </div>
                 <div className="flex-1 text-left">
                   <div className="flex items-center gap-2 mb-0.5">
-                    <h3 className={`font-bold text-sm ${isLocked ? "text-white/30" : "text-white"}`}>{phase.title}</h3>
+                    <h3 className={`font-bold text-sm ${isLocked ? "text-app-text-muted" : "text-white"}`}>{phase.title}</h3>
                     {isCurrent && (
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${phase.color}20`, color: phase.color }}>
                         Đang học
                       </span>
                     )}
                     {phaseCompleted === phaseTotal && (
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success">
                         Hoàn thành
                       </span>
                     )}
                   </div>
-                  <p className="text-white/30 text-xs">{phase.description}</p>
+                  <p className="text-app-text-muted text-xs">{phase.description}</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="text-right">
                     <p className="text-xs font-bold" style={{ color: phase.color }}>{phaseCompleted}/{phaseTotal}</p>
-                    <div className="w-16 h-1 bg-white/10 rounded-full overflow-hidden mt-1">
+                    <div className="w-16 h-1 bg-app-card/70 rounded-full overflow-hidden mt-1">
                       <div className="h-full rounded-full transition-all" style={{ width: `${phaseProgress}%`, backgroundColor: phase.color }} />
                     </div>
                   </div>
-                  <i className={`ri-arrow-${isExpanded ? "up" : "down"}-s-line text-white/30 text-lg`}></i>
+                  <i className={`ri-arrow-${isExpanded ? "up" : "down"}-s-line text-app-text-muted text-lg`}></i>
                 </div>
               </button>
 
@@ -575,17 +575,17 @@ export default function LearningPathPage() {
                           step.isCompleted
                             ? "border-emerald-500/20 bg-emerald-500/5"
                             : isStepLocked
-                            ? "border-white/5 bg-white/2 opacity-50"
-                            : "border-white/10 bg-white/3 cursor-pointer hover:bg-white/5"
+                            ? "border-app-border bg-white/2 opacity-50"
+                            : "border-app-border bg-app-surface/50 cursor-pointer hover:bg-app-card/50"
                         }`}
                         onClick={() => !isStepLocked && navigate(step.route)}
                       >
                         {/* Step number / status */}
                         <div className="w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: step.isCompleted ? "rgba(52,211,153,0.15)" : isStepLocked ? "rgba(255,255,255,0.05)" : `${step.color}15` }}>
                           {step.isCompleted ? (
-                            <i className="ri-check-line text-emerald-400 text-sm"></i>
+                            <i className="ri-check-line text-app-accent-success text-sm"></i>
                           ) : isStepLocked ? (
-                            <i className="ri-lock-line text-white/20 text-sm"></i>
+                            <i className="ri-lock-line text-app-text-muted text-sm"></i>
                           ) : (
                             <i className={`${step.icon} text-sm`} style={{ color: step.color }}></i>
                           )}
@@ -594,19 +594,19 @@ export default function LearningPathPage() {
                         {/* Step info */}
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-0.5">
-                            <p className={`text-sm font-semibold ${step.isCompleted ? "text-emerald-400" : isStepLocked ? "text-white/25" : "text-white"}`}>
+                            <p className={`text-sm font-semibold ${step.isCompleted ? "text-app-accent-success" : isStepLocked ? "text-app-text-muted" : "text-white"}`}>
                               {step.title}
                             </p>
                             {step.badge && (
-                              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#e8c84a]/15 text-[#e8c84a]">
+                              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary">
                                 {step.badge}
                               </span>
                             )}
                           </div>
-                          <p className="text-white/30 text-xs truncate">{step.titleVi}</p>
+                          <p className="text-app-text-muted text-xs truncate">{step.titleVi}</p>
                           {step.progress !== undefined && step.progress > 0 && !step.isCompleted && (
                             <div className="mt-1.5 flex items-center gap-2">
-                              <div className="flex-1 h-1 bg-white/10 rounded-full overflow-hidden">
+                              <div className="flex-1 h-1 bg-app-card/70 rounded-full overflow-hidden">
                                 <div className="h-full rounded-full transition-all" style={{ width: `${step.progress}%`, backgroundColor: step.color }} />
                               </div>
                               <span className="text-[10px] font-semibold" style={{ color: step.color }}>{step.progress}%</span>
@@ -616,7 +616,7 @@ export default function LearningPathPage() {
 
                         {/* Time + action */}
                         <div className="flex items-center gap-2 flex-shrink-0">
-                          <span className="text-white/25 text-xs">{step.estimatedMinutes}p</span>
+                          <span className="text-app-text-muted text-xs">{step.estimatedMinutes}p</span>
                           {!isStepLocked && !step.isCompleted && (
                             <div className="w-7 h-7 flex items-center justify-center rounded-lg" style={{ backgroundColor: `${step.color}15` }}>
                               <i className="ri-arrow-right-line text-xs" style={{ color: step.color }}></i>
@@ -636,17 +636,17 @@ export default function LearningPathPage() {
       {/* Bottom stats */}
       <div className="mt-6 grid grid-cols-4 gap-4">
         {[
-          { label: "Bài học hoàn thành", value: lessonsDone, icon: "ri-book-open-line", color: "#e8c84a" },
+          { label: "Bài học hoàn thành", value: lessonsDone, icon: "ri-book-open-line", color: "app-accent-primary" },
           { label: "Từ vựng đã thuộc", value: flashcardKnown, icon: "ri-stack-line", color: "#34d399" },
           { label: "Câu EPS đã làm", value: epsDone, icon: "ri-file-list-3-line", color: "#fb923c" },
           { label: "Điểm thi cao nhất", value: `${bestExamScore}%`, icon: "ri-trophy-line", color: "#a78bfa" },
         ].map((stat, i) => (
-          <div key={i} className="bg-[#0f1117] border border-white/5 rounded-2xl p-4 text-center">
+          <div key={i} className="bg-app-bg border border-app-border rounded-2xl p-4 text-center">
             <div className="w-9 h-9 flex items-center justify-center rounded-xl mx-auto mb-2" style={{ backgroundColor: `${stat.color}15` }}>
               <i className={`${stat.icon} text-sm`} style={{ color: stat.color }}></i>
             </div>
             <p className="text-white font-bold text-xl">{stat.value}</p>
-            <p className="text-white/30 text-xs mt-0.5">{stat.label}</p>
+            <p className="text-app-text-muted text-xs mt-0.5">{stat.label}</p>
           </div>
         ))}
       </div>

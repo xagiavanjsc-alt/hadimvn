@@ -17,7 +17,7 @@ interface UnifiedFlashcardProps {
 const MODULE_CONFIG = {
   eps: { name: "EPS-TOPIK", color: "#4ade80", icon: "ri-file-list-3-line" },
   seoul: { name: "Seoul", color: "#60a5fa", icon: "ri-book-3-line" },
-  hanja: { name: "Hán Hàn", color: "#e8c84a", icon: "ri-character-recognition-line" },
+  hanja: { name: "Hán Hàn", color: "app-accent-primary", icon: "ri-character-recognition-line" },
   melon: { name: "K-pop", color: "#fb923c", icon: "ri-music-2-line" },
   topik: { name: "TOPIK", color: "#f472b6", icon: "ri-survey-line" },
 };
@@ -161,7 +161,7 @@ export function UnifiedFlashcard({ moduleId, userId, cards, onComplete }: Unifie
         </p>
         <div className="flex gap-4 text-sm">
           <div className="text-green-400">{correct} đúng</div>
-          <div className="text-white/30">{total - correct} sai</div>
+          <div className="text-app-text-muted">{total - correct} sai</div>
         </div>
       </div>
     );
@@ -180,14 +180,14 @@ export function UnifiedFlashcard({ moduleId, userId, cards, onComplete }: Unifie
           </div>
           <span className="text-white/60 text-sm">{config.name}</span>
         </div>
-        <div className="text-white/40 text-xs">
+        <div className="text-app-text-secondary text-xs">
           {currentIndex + 1} / {cards.length}
         </div>
       </div>
 
       {/* Flashcard */}
       <div
-        className="relative w-full h-80 bg-[#0f1117] border border-white/5 rounded-2xl cursor-pointer transition-all duration-300 hover:border-white/10"
+        className="relative w-full h-80 bg-app-bg border border-app-border rounded-2xl cursor-pointer transition-all duration-300 hover:border-app-border"
         onClick={handleFlip}
         style={{ transformStyle: "preserve-3d", transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)" }}
       >
@@ -253,7 +253,7 @@ export function UnifiedFlashcard({ moduleId, userId, cards, onComplete }: Unifie
       )}
 
       {/* Progress bar */}
-      <div className="mt-6 h-2 bg-white/5 rounded-full overflow-hidden">
+      <div className="mt-6 h-2 bg-app-card/50 rounded-full overflow-hidden">
         <div
           className="h-full rounded-full transition-all duration-300"
           style={{ width: `${((currentIndex + 1) / cards.length) * 100}%`, backgroundColor: config.color }}

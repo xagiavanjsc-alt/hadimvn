@@ -76,16 +76,16 @@ export default function QuickStartGuide() {
       style={{ backgroundColor: "#0f1117", borderColor: "rgba(255,255,255,0.07)" }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-white/5">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-app-border">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#e8c84a]/12">
-            <i className="ri-compass-3-line text-[#e8c84a] text-sm" />
+          <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-accent-primary/12">
+            <i className="ri-compass-3-line text-app-accent-primary text-sm" />
           </div>
           <p className="text-white/80 font-semibold text-sm">Bắt đầu từ đâu?</p>
         </div>
         <button
           onClick={() => setDismissed(true)}
-          className="w-6 h-6 flex items-center justify-center rounded-md bg-white/5 hover:bg-white/10 text-white/25 hover:text-white/50 cursor-pointer transition-colors"
+          className="w-6 h-6 flex items-center justify-center rounded-md bg-app-card/50 hover:bg-app-card/70 text-app-text-muted hover:text-white/50 cursor-pointer transition-colors"
         >
           <i className="ri-close-line text-xs" />
         </button>
@@ -127,7 +127,7 @@ export default function QuickStartGuide() {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-white/20 text-[9px] font-bold">#{i + 1}</span>
+                  <span className="text-app-text-muted text-[9px] font-bold">#{i + 1}</span>
                   <p className="text-white/75 text-xs font-medium group-hover:text-white transition-colors truncate">
                     {step.label}
                   </p>
@@ -140,7 +140,7 @@ export default function QuickStartGuide() {
                     </span>
                   )}
                 </div>
-                <p className="text-white/30 text-[10px] truncate">{step.desc}</p>
+                <p className="text-app-text-muted text-[10px] truncate">{step.desc}</p>
               </div>
               <i
                 className="ri-arrow-right-line text-xs flex-shrink-0 group-hover:translate-x-0.5 transition-transform"
@@ -154,7 +154,7 @@ export default function QuickStartGuide() {
         <button
           onClick={() => navigate("/onboarding")}
           className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all"
-          style={{ backgroundColor: "rgba(232,200,74,0.08)", color: "#e8c84a", border: "1px solid rgba(232,200,74,0.15)" }}
+          style={{ backgroundColor: "rgba(232,200,74,0.08)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.15)" }}
         >
           <i className="ri-route-line" />
           Tạo lộ trình cá nhân

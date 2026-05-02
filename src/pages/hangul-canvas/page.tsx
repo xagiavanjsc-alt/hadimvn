@@ -149,7 +149,7 @@ export default function HangulCanvasPage() {
     if (!ctx) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.strokeStyle = "#e8c84a";
+    ctx.strokeStyle = "app-accent-primary";
     ctx.lineWidth = 4;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -250,7 +250,7 @@ export default function HangulCanvasPage() {
     : 0;
 
   const scoreColor = (s: number) =>
-    s >= 80 ? "text-emerald-400" : s >= 60 ? "text-amber-400" : "text-red-400";
+    s >= 80 ? "text-app-accent-success" : s >= 60 ? "text-amber-400" : "text-red-400";
 
   const speechAccuracy = speechRecords.length > 0
     ? Math.round((speechRecords.filter(r => r.correct).length / speechRecords.length) * 100)
@@ -333,40 +333,40 @@ export default function HangulCanvasPage() {
             <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "'Nunito', sans-serif" }}>
               Luyện viết Hangul
             </h1>
-            <p className="text-white/40 text-sm mt-0.5">Luyện viết tay + kiểm tra phát âm bằng AI nhận dạng giọng nói</p>
+            <p className="text-app-text-secondary text-sm mt-0.5">Luyện viết tay + kiểm tra phát âm bằng AI nhận dạng giọng nói</p>
           </div>
           <div className="flex gap-3">
             {speechRecords.length > 0 && (
-              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-center">
-                <p className={`font-bold text-xl ${speechAccuracy >= 70 ? "text-emerald-400" : speechAccuracy >= 50 ? "text-amber-400" : "text-red-400"}`}>{speechAccuracy}%</p>
-                <p className="text-white/40 text-xs">Phát âm đúng</p>
+              <div className="bg-app-card/50 border border-app-border rounded-xl px-4 py-2 text-center">
+                <p className={`font-bold text-xl ${speechAccuracy >= 70 ? "text-app-accent-success" : speechAccuracy >= 50 ? "text-amber-400" : "text-red-400"}`}>{speechAccuracy}%</p>
+                <p className="text-app-text-secondary text-xs">Phát âm đúng</p>
               </div>
             )}
             {scores.length > 0 && (
-              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-center">
+              <div className="bg-app-card/50 border border-app-border rounded-xl px-4 py-2 text-center">
                 <p className={`font-bold text-xl ${scoreColor(avgScore)}`}>{avgScore}%</p>
-                <p className="text-white/40 text-xs">Điểm viết TB</p>
+                <p className="text-app-text-secondary text-xs">Điểm viết TB</p>
               </div>
             )}
-            <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-center">
+            <div className="bg-app-card/50 border border-app-border rounded-xl px-4 py-2 text-center">
               <p className="text-white font-bold text-xl">{scores.length}</p>
-              <p className="text-white/40 text-xs">Lần luyện</p>
+              <p className="text-app-text-secondary text-xs">Lần luyện</p>
             </div>
           </div>
         </div>
 
         {/* Mode + Category */}
         <div className="flex flex-wrap gap-3 items-center justify-between">
-          <div className="flex gap-1 bg-white/5 border border-white/10 rounded-xl p-1">
+          <div className="flex gap-1 bg-app-card/50 border border-app-border rounded-xl p-1">
             <button
               onClick={() => { setMode("practice"); clearCanvas(); setCurrentIdx(0); }}
-              className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${mode === "practice" ? "bg-white/15 text-white" : "text-white/40 hover:text-white/70"}`}
+              className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${mode === "practice" ? "bg-white/15 text-white" : "text-app-text-secondary hover:text-white/70"}`}
             >
               Luyện tập
             </button>
             <button
               onClick={() => { setMode("quiz"); clearCanvas(); setQuizIdx(0); setQuizStreak(0); }}
-              className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${mode === "quiz" ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "text-white/40 hover:text-white/70"}`}
+              className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${mode === "quiz" ? "bg-app-accent-primary/15 text-app-accent-primary" : "text-app-text-secondary hover:text-white/70"}`}
             >
               Kiểm tra
             </button>
@@ -379,8 +379,8 @@ export default function HangulCanvasPage() {
                 onClick={() => { setSelectedCategory(cat); clearCanvas(); setCurrentIdx(0); setQuizIdx(0); }}
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
                   selectedCategory === cat
-                    ? "bg-[#e8c84a]/15 border-[#e8c84a]/30 text-[#e8c84a]"
-                    : "bg-white/5 border-white/10 text-white/40 hover:text-white/60"
+                    ? "bg-app-accent-primary/15 border-app-accent-primary/30 text-app-accent-primary"
+                    : "bg-app-card/50 border-app-border text-app-text-secondary hover:text-white/60"
                 }`}
               >
                 {cat}
@@ -393,13 +393,13 @@ export default function HangulCanvasPage() {
           {/* Left: Character info */}
           <div className="space-y-4">
             {/* Character display */}
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center space-y-3">
+            <div className="bg-app-card/50 border border-app-border rounded-2xl p-6 text-center space-y-3">
               {mode === "quiz" && (
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <div className="w-4 h-4 flex items-center justify-center">
-                    <i className="ri-fire-line text-[#e8c84a] text-sm"></i>
+                    <i className="ri-fire-line text-app-accent-primary text-sm"></i>
                   </div>
-                  <span className="text-[#e8c84a] text-sm font-medium">Streak: {quizStreak}</span>
+                  <span className="text-app-accent-primary text-sm font-medium">Streak: {quizStreak}</span>
                 </div>
               )}
 
@@ -411,7 +411,7 @@ export default function HangulCanvasPage() {
               </div>
 
               <div className="flex items-center justify-center gap-3">
-                <span className="text-white/40 text-sm font-mono">[{currentChar.romanization}]</span>
+                <span className="text-app-text-secondary text-sm font-mono">[{currentChar.romanization}]</span>
                 <button
                   onClick={() => speakKorean(currentChar.char)}
                   className="w-8 h-8 flex items-center justify-center bg-white/8 hover:bg-white/15 rounded-full transition-all cursor-pointer"
@@ -421,19 +421,19 @@ export default function HangulCanvasPage() {
                 </button>
                 <span className={`px-2 py-0.5 rounded-full text-[10px] border ${
                   currentChar.type === "vowel" ? "bg-sky-500/10 text-sky-400 border-sky-500/20" :
-                  currentChar.type === "consonant" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" :
+                  currentChar.type === "consonant" ? "bg-emerald-500/10 text-app-accent-success border-emerald-500/20" :
                   "bg-violet-500/10 text-violet-400 border-violet-500/20"
                 }`}>
                   {currentChar.category}
                 </span>
               </div>
 
-              <div className="bg-white/5 rounded-xl p-3 text-left space-y-1.5">
+              <div className="bg-app-card/50 rounded-xl p-3 text-left space-y-1.5">
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 flex items-center justify-center">
-                    <i className="ri-pencil-line text-white/30 text-xs"></i>
+                    <i className="ri-pencil-line text-app-text-muted text-xs"></i>
                   </div>
-                  <span className="text-white/40 text-xs">Số nét: <span className="text-white/70">{currentChar.strokes}</span></span>
+                  <span className="text-app-text-secondary text-xs">Số nét: <span className="text-white/70">{currentChar.strokes}</span></span>
                 </div>
                 <div className="flex items-start gap-2">
                   <div className="w-4 h-4 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -448,15 +448,15 @@ export default function HangulCanvasPage() {
                 <div className="flex items-center justify-between pt-1">
                   <button
                     onClick={prevChar}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-white/60 text-xs transition-all cursor-pointer whitespace-nowrap"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-white/60 text-xs transition-all cursor-pointer whitespace-nowrap"
                   >
                     <i className="ri-arrow-left-line text-xs"></i>
                     Trước
                   </button>
-                  <span className="text-white/25 text-xs">{currentIdx + 1} / {filtered.length}</span>
+                  <span className="text-app-text-muted text-xs">{currentIdx + 1} / {filtered.length}</span>
                   <button
                     onClick={nextChar}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-white/60 text-xs transition-all cursor-pointer whitespace-nowrap"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-white/60 text-xs transition-all cursor-pointer whitespace-nowrap"
                   >
                     Tiếp
                     <i className="ri-arrow-right-line text-xs"></i>
@@ -466,7 +466,7 @@ export default function HangulCanvasPage() {
             </div>
 
             {/* Speech Recognition Panel */}
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-4 space-y-3">
+            <div className="bg-app-card/50 border border-app-border rounded-2xl p-4 space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="w-5 h-5 flex items-center justify-center">
@@ -476,13 +476,13 @@ export default function HangulCanvasPage() {
                 </div>
                 <button
                   onClick={() => setShowSpeechPanel(!showSpeechPanel)}
-                  className="text-white/30 hover:text-white/60 text-xs cursor-pointer whitespace-nowrap"
+                  className="text-app-text-muted hover:text-white/60 text-xs cursor-pointer whitespace-nowrap"
                 >
                   {showSpeechPanel ? "Thu gọn" : "Mở rộng"}
                 </button>
               </div>
 
-              <p className="text-white/40 text-xs">Viết xong rồi đọc to chữ <span className="text-white font-bold" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{currentChar.char}</span> để AI chấm phát âm</p>
+              <p className="text-app-text-secondary text-xs">Viết xong rồi đọc to chữ <span className="text-white font-bold" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{currentChar.char}</span> để AI chấm phát âm</p>
 
               {/* Mic button */}
               <div className="flex items-center gap-3">
@@ -501,7 +501,7 @@ export default function HangulCanvasPage() {
                 </button>
 
                 {speechRecords.length > 0 && (
-                  <div className="text-xs text-white/30">
+                  <div className="text-xs text-app-text-muted">
                     {speechRecords.filter(r => r.char === currentChar.char && r.correct).length}/{speechRecords.filter(r => r.char === currentChar.char).length} đúng
                   </div>
                 )}
@@ -512,9 +512,9 @@ export default function HangulCanvasPage() {
                 <div className={`rounded-xl p-3 border ${speechResult.correct ? "bg-emerald-500/10 border-emerald-500/30" : "bg-red-500/10 border-red-500/30"}`}>
                   <div className="flex items-center gap-2 mb-1">
                     <div className="w-4 h-4 flex items-center justify-center">
-                      <i className={`text-sm ${speechResult.correct ? "ri-checkbox-circle-fill text-emerald-400" : "ri-close-circle-fill text-red-400"}`}></i>
+                      <i className={`text-sm ${speechResult.correct ? "ri-checkbox-circle-fill text-app-accent-success" : "ri-close-circle-fill text-red-400"}`}></i>
                     </div>
-                    <span className={`text-sm font-bold ${speechResult.correct ? "text-emerald-400" : "text-red-400"}`}>
+                    <span className={`text-sm font-bold ${speechResult.correct ? "text-app-accent-success" : "text-red-400"}`}>
                       {speechResult.correct ? `Chính xác! +${speechResult.xp} XP` : "Chưa đúng"}
                     </span>
                   </div>
@@ -522,7 +522,7 @@ export default function HangulCanvasPage() {
                     AI nghe được: <span className="text-white font-medium" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{speechResult.recognized || "(không rõ)"}</span>
                   </p>
                   {!speechResult.correct && (
-                    <p className="text-white/30 text-xs mt-1">Hãy nghe mẫu rồi thử lại nhé!</p>
+                    <p className="text-app-text-muted text-xs mt-1">Hãy nghe mẫu rồi thử lại nhé!</p>
                   )}
                 </div>
               )}
@@ -536,20 +536,20 @@ export default function HangulCanvasPage() {
 
               {/* Speech history (expanded) */}
               {showSpeechPanel && speechRecords.length > 0 && (
-                <div className="space-y-2 pt-1 border-t border-white/5">
-                  <p className="text-white/30 text-xs font-medium">Lịch sử phát âm gần đây</p>
+                <div className="space-y-2 pt-1 border-t border-app-border">
+                  <p className="text-app-text-muted text-xs font-medium">Lịch sử phát âm gần đây</p>
                   <div className="space-y-1.5 max-h-36 overflow-y-auto">
                     {speechRecords.slice(0, 10).map((r, i) => (
                       <div key={i} className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <span className="text-white text-sm font-medium" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{r.char}</span>
-                          <span className="text-white/30 text-xs">→ {r.recognized || "?"}</span>
+                          <span className="text-app-text-muted text-xs">→ {r.recognized || "?"}</span>
                         </div>
                         <div className="flex items-center gap-1.5">
                           <div className="w-3 h-3 flex items-center justify-center">
-                            <i className={`text-xs ${r.correct ? "ri-checkbox-circle-fill text-emerald-400" : "ri-close-circle-fill text-red-400"}`}></i>
+                            <i className={`text-xs ${r.correct ? "ri-checkbox-circle-fill text-app-accent-success" : "ri-close-circle-fill text-red-400"}`}></i>
                           </div>
-                          <span className="text-white/20 text-[10px]">{new Date(r.date).toLocaleDateString("vi-VN")}</span>
+                          <span className="text-app-text-muted text-[10px]">{new Date(r.date).toLocaleDateString("vi-VN")}</span>
                         </div>
                       </div>
                     ))}
@@ -560,14 +560,14 @@ export default function HangulCanvasPage() {
 
             {/* Recent scores */}
             {scores.length > 0 && (
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 space-y-2">
-                <p className="text-white/40 text-xs font-medium">Lịch sử viết gần đây</p>
+              <div className="bg-app-card/50 border border-app-border rounded-2xl p-4 space-y-2">
+                <p className="text-app-text-secondary text-xs font-medium">Lịch sử viết gần đây</p>
                 <div className="space-y-1.5 max-h-40 overflow-y-auto">
                   {scores.slice(0, 8).map((s, i) => (
                     <div key={i} className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className="text-white font-medium text-sm" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{s.char}</span>
-                        <span className="text-white/30 text-xs">{new Date(s.date).toLocaleDateString("vi-VN")}</span>
+                        <span className="text-app-text-muted text-xs">{new Date(s.date).toLocaleDateString("vi-VN")}</span>
                       </div>
                       <span className={`text-sm font-bold ${scoreColor(s.score)}`}>{s.score}%</span>
                     </div>
@@ -585,8 +585,8 @@ export default function HangulCanvasPage() {
                 onClick={() => setShowGuide(!showGuide)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
                   showGuide
-                    ? "bg-[#e8c84a]/10 border-[#e8c84a]/20 text-[#e8c84a]"
-                    : "bg-white/5 border-white/10 text-white/40 hover:text-white/60"
+                    ? "bg-app-accent-primary/10 border-app-accent-primary/20 text-app-accent-primary"
+                    : "bg-app-card/50 border-app-border text-app-text-secondary hover:text-white/60"
                 }`}
               >
                 <div className="w-3 h-3 flex items-center justify-center">
@@ -596,7 +596,7 @@ export default function HangulCanvasPage() {
               </button>
               <button
                 onClick={clearCanvas}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white/40 hover:text-white/60 text-xs transition-all cursor-pointer whitespace-nowrap"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-card/50 hover:bg-app-card/70 border border-app-border text-app-text-secondary hover:text-white/60 text-xs transition-all cursor-pointer whitespace-nowrap"
               >
                 <div className="w-3 h-3 flex items-center justify-center">
                   <i className="ri-delete-bin-line text-xs"></i>
@@ -606,7 +606,7 @@ export default function HangulCanvasPage() {
             </div>
 
             {/* Canvas area */}
-            <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-[#0d0f18]" style={{ aspectRatio: "1" }}>
+            <div className="relative rounded-2xl overflow-hidden border border-app-border bg-[#0d0f18]" style={{ aspectRatio: "1" }}>
               {/* Guide canvas (background) */}
               <canvas
                 ref={guideCanvasRef}
@@ -643,7 +643,7 @@ export default function HangulCanvasPage() {
                   <p className="text-white/50 text-xs mt-1">Đọc to: <span style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{currentChar.char}</span></p>
                   <button
                     onClick={stopListening}
-                    className="mt-3 px-4 py-1.5 rounded-lg bg-white/10 text-white/60 text-xs cursor-pointer whitespace-nowrap"
+                    className="mt-3 px-4 py-1.5 rounded-lg bg-app-card/70 text-white/60 text-xs cursor-pointer whitespace-nowrap"
                   >
                     Dừng
                   </button>
@@ -653,11 +653,11 @@ export default function HangulCanvasPage() {
 
             {/* Self-scoring */}
             {strokes.length > 0 && !submitted && (
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-4 space-y-3">
+              <div className="bg-app-card/50 border border-app-border rounded-2xl p-4 space-y-3">
                 <p className="text-white/60 text-sm font-medium text-center">Tự đánh giá bài viết của bạn</p>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {[
-                    { score: 90, label: "Xuất sắc", color: "bg-emerald-500/15 border-emerald-500/30 text-emerald-400" },
+                    { score: 90, label: "Xuất sắc", color: "bg-app-accent-success/15 border-emerald-500/30 text-app-accent-success" },
                     { score: 75, label: "Tốt", color: "bg-sky-500/15 border-sky-500/30 text-sky-400" },
                     { score: 55, label: "Được", color: "bg-amber-500/15 border-amber-500/30 text-amber-400" },
                     { score: 30, label: "Cần cải thiện", color: "bg-red-500/15 border-red-500/30 text-red-400" },
@@ -672,7 +672,7 @@ export default function HangulCanvasPage() {
                   ))}
                 </div>
                 {/* Quick speech check after writing */}
-                <div className="flex items-center gap-2 pt-1 border-t border-white/5">
+                <div className="flex items-center gap-2 pt-1 border-t border-app-border">
                   <button
                     onClick={isListening ? stopListening : startSpeechRecognition}
                     className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap border flex-1 justify-center ${
@@ -700,15 +700,15 @@ export default function HangulCanvasPage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div className="w-5 h-5 flex items-center justify-center">
-                      <i className={`text-lg ${selfScore >= 80 ? "ri-checkbox-circle-fill text-emerald-400" : selfScore >= 60 ? "ri-error-warning-fill text-amber-400" : "ri-close-circle-fill text-red-400"}`}></i>
+                      <i className={`text-lg ${selfScore >= 80 ? "ri-checkbox-circle-fill text-app-accent-success" : selfScore >= 60 ? "ri-error-warning-fill text-amber-400" : "ri-close-circle-fill text-red-400"}`}></i>
                     </div>
-                    <span className={`font-bold text-sm ${selfScore >= 80 ? "text-emerald-400" : selfScore >= 60 ? "text-amber-400" : "text-red-400"}`}>
+                    <span className={`font-bold text-sm ${selfScore >= 80 ? "text-app-accent-success" : selfScore >= 60 ? "text-amber-400" : "text-red-400"}`}>
                       {selfScore}% — {selfScore >= 80 ? "+15 XP" : selfScore >= 60 ? "+10 XP" : "+5 XP"}
                     </span>
                   </div>
                   <button
                     onClick={nextChar}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 text-white/60 text-xs transition-all cursor-pointer whitespace-nowrap"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-card/70 hover:bg-white/15 text-white/60 text-xs transition-all cursor-pointer whitespace-nowrap"
                   >
                     Chữ tiếp
                     <i className="ri-arrow-right-line text-xs"></i>
@@ -738,11 +738,11 @@ export default function HangulCanvasPage() {
                 {speechResult && (
                   <div className={`rounded-xl p-2.5 border ${speechResult.correct ? "bg-emerald-500/10 border-emerald-500/30" : "bg-red-500/10 border-red-500/30"}`}>
                     <div className="flex items-center gap-1.5">
-                      <i className={`text-sm ${speechResult.correct ? "ri-checkbox-circle-fill text-emerald-400" : "ri-close-circle-fill text-red-400"}`}></i>
-                      <span className={`text-xs font-bold ${speechResult.correct ? "text-emerald-400" : "text-red-400"}`}>
+                      <i className={`text-sm ${speechResult.correct ? "ri-checkbox-circle-fill text-app-accent-success" : "ri-close-circle-fill text-red-400"}`}></i>
+                      <span className={`text-xs font-bold ${speechResult.correct ? "text-app-accent-success" : "text-red-400"}`}>
                         Phát âm: {speechResult.correct ? `Đúng! +${speechResult.xp} XP` : "Chưa đúng"}
                       </span>
-                      <span className="text-white/30 text-xs ml-auto">AI nghe: {speechResult.recognized || "?"}</span>
+                      <span className="text-app-text-muted text-xs ml-auto">AI nghe: {speechResult.recognized || "?"}</span>
                     </div>
                   </div>
                 )}
@@ -752,7 +752,7 @@ export default function HangulCanvasPage() {
         </div>
 
         {/* Character grid */}
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-5 space-y-3">
+        <div className="bg-app-card/50 border border-app-border rounded-2xl p-5 space-y-3">
           <h2 className="text-white font-semibold text-sm">Danh sách ký tự ({filtered.length})</h2>
           <div className="flex flex-wrap gap-2">
             {filtered.map((c, i) => {
@@ -767,18 +767,18 @@ export default function HangulCanvasPage() {
                   onClick={() => { clearCanvas(); setSpeechResult(null); setSpeechError(null); if (mode === "practice") setCurrentIdx(i); else setQuizIdx(i); }}
                   className={`relative w-12 h-12 flex flex-col items-center justify-center rounded-xl border transition-all cursor-pointer ${
                     isActive
-                      ? "bg-[#e8c84a]/15 border-[#e8c84a]/40 text-[#e8c84a]"
+                      ? "bg-app-accent-primary/15 border-app-accent-primary/40 text-app-accent-primary"
                       : best !== null
                       ? best >= 80 ? "bg-emerald-500/10 border-emerald-500/20 text-white"
                         : best >= 60 ? "bg-amber-500/10 border-amber-500/20 text-white"
                         : "bg-red-500/10 border-red-500/20 text-white"
-                      : "bg-white/5 border-white/10 text-white/60 hover:text-white hover:border-white/20"
+                      : "bg-app-card/50 border-app-border text-white/60 hover:text-white hover:border-white/20"
                   }`}
                   title={`${c.char} [${c.romanization}]`}
                 >
                   <span className="text-lg leading-none" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{c.char}</span>
                   {best !== null && (
-                    <span className={`text-[8px] font-bold ${best >= 80 ? "text-emerald-400" : best >= 60 ? "text-amber-400" : "text-red-400"}`}>
+                    <span className={`text-[8px] font-bold ${best >= 80 ? "text-app-accent-success" : best >= 60 ? "text-amber-400" : "text-red-400"}`}>
                       {best}%
                     </span>
                   )}
@@ -791,7 +791,7 @@ export default function HangulCanvasPage() {
               );
             })}
           </div>
-          <p className="text-white/20 text-xs">Chấm đỏ = đã luyện phát âm đúng</p>
+          <p className="text-app-text-muted text-xs">Chấm đỏ = đã luyện phát âm đúng</p>
         </div>
       </div>
     </DashboardLayout>

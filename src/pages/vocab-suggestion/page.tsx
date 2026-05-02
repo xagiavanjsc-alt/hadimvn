@@ -31,7 +31,7 @@ interface SuggestionGroup {
 
 // ─── Difficulty label ─────────────────────────────────────────────────────────
 const diffLabel = (d: number) => d === 1 ? "Cơ bản" : d === 2 ? "Trung cấp" : "Nâng cao";
-const diffColor = (d: number) => d === 1 ? "#34d399" : d === 2 ? "#e8c84a" : "#f87171";
+const diffColor = (d: number) => d === 1 ? "#34d399" : d === 2 ? "app-accent-primary" : "#f87171";
 
 // ─── Vocab Card ───────────────────────────────────────────────────────────────
 function VocabCard({ word, isFlipped, onFlip, onMastered, isMastered }: {
@@ -43,14 +43,14 @@ function VocabCard({ word, isFlipped, onFlip, onMastered, isMastered }: {
 }) {
   return (
     <div
-      className={`relative bg-[#0f1117] border rounded-2xl p-5 cursor-pointer transition-all hover:border-white/15 ${
-        isMastered ? "opacity-50 border-white/5" : "border-white/8"
+      className={`relative bg-app-bg border rounded-2xl p-5 cursor-pointer transition-all hover:border-white/15 ${
+        isMastered ? "opacity-50 border-app-border" : "border-app-border"
       }`}
       onClick={onFlip}
     >
       {isMastered && (
         <div className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center rounded-full bg-emerald-500/20">
-          <i className="ri-check-line text-emerald-400 text-xs"></i>
+          <i className="ri-check-line text-app-accent-success text-xs"></i>
         </div>
       )}
 
@@ -61,26 +61,26 @@ function VocabCard({ word, isFlipped, onFlip, onMastered, isMastered }: {
             <div>
               <p className="text-white font-bold text-2xl">{word.korean}</p>
               {word.hanja && word.hanja !== word.korean && (
-                <p className="text-white/25 text-xs mt-0.5">{word.hanja}</p>
+                <p className="text-app-text-muted text-xs mt-0.5">{word.hanja}</p>
               )}
             </div>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-white/30 flex-shrink-0">{word.category}</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-card/50 text-app-text-muted flex-shrink-0">{word.category}</span>
           </div>
-          <p className="text-white/30 text-xs">[{word.pronunciation}]</p>
+          <p className="text-app-text-muted text-xs">[{word.pronunciation}]</p>
           <div className="mt-3 flex items-center gap-2">
             <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: `${diffColor(word.difficulty)}15`, color: diffColor(word.difficulty) }}>
               {diffLabel(word.difficulty)}
             </span>
-            <span className="text-white/20 text-[10px]">Nhấn để xem nghĩa</span>
+            <span className="text-app-text-muted text-[10px]">Nhấn để xem nghĩa</span>
           </div>
         </div>
       ) : (
         /* Back */
         <div>
           <p className="text-white font-bold text-lg mb-1">{word.vietnamese}</p>
-          <p className="text-white/40 text-xs mb-3">[{word.pronunciation}]</p>
+          <p className="text-app-text-secondary text-xs mb-3">[{word.pronunciation}]</p>
           {word.examples?.[0] && (
-            <div className="bg-white/3 rounded-xl p-3 mb-3">
+            <div className="bg-app-surface/50 rounded-xl p-3 mb-3">
               <p className="text-white/70 text-xs">{word.examples[0].korean}</p>
               <p className="text-white/35 text-xs mt-1">{word.examples[0].vietnamese}</p>
             </div>
@@ -89,8 +89,8 @@ function VocabCard({ word, isFlipped, onFlip, onMastered, isMastered }: {
             onClick={e => { e.stopPropagation(); onMastered(); }}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
               isMastered
-                ? "bg-white/5 text-white/30"
-                : "bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/25"
+                ? "bg-app-card/50 text-app-text-muted"
+                : "bg-app-accent-success/15 text-app-accent-success hover:bg-emerald-500/25"
             }`}
           >
             <i className={isMastered ? "ri-close-line" : "ri-check-line"}></i>
@@ -186,7 +186,7 @@ export default function VocabSuggestionPage() {
     groups.push({
       reason: topCat ? `Chủ đề hay sai: ${topCat}` : "Tính cách & Cảm xúc",
       icon: "ri-apps-line",
-      color: "#e8c84a",
+      color: "app-accent-primary",
       words: catWords,
     });
 
@@ -235,17 +235,17 @@ export default function VocabSuggestionPage() {
       {/* Stats bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng từ vựng", value: totalCount, icon: "ri-book-open-line", color: "#e8c84a" },
+          { label: "Tổng từ vựng", value: totalCount, icon: "ri-book-open-line", color: "app-accent-primary" },
           { label: "Đã thuộc", value: masteredCount, icon: "ri-check-double-line", color: "#34d399" },
           { label: "Cần ôn tập", value: totalCount - masteredCount, icon: "ri-refresh-line", color: "#fb923c" },
           { label: "Từ hay sai", value: wrongHistory.length, icon: "ri-error-warning-line", color: "#f87171" },
         ].map(s => (
-          <div key={s.label} className="bg-[#0f1117] border border-white/5 rounded-2xl p-4">
+          <div key={s.label} className="bg-app-bg border border-app-border rounded-2xl p-4">
             <div className="flex items-center gap-2 mb-2">
               <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
                 <i className={`${s.icon} text-xs`} style={{ color: s.color }}></i>
               </div>
-              <p className="text-white/40 text-xs">{s.label}</p>
+              <p className="text-app-text-secondary text-xs">{s.label}</p>
             </div>
             <p className="text-white font-bold text-2xl">{s.value}</p>
           </div>
@@ -254,7 +254,7 @@ export default function VocabSuggestionPage() {
 
       {loading ? (
         <div className="flex items-center justify-center py-20">
-          <div className="w-8 h-8 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>
+          <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
         </div>
       ) : (
         <div className="grid grid-cols-[240px_1fr] gap-6">
@@ -264,7 +264,7 @@ export default function VocabSuggestionPage() {
               <h3 className="text-white/50 text-xs tracking-normal font-semibold">Gợi ý AI</h3>
               <button
                 onClick={() => setRefreshKey(k => k + 1)}
-                className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/30 cursor-pointer transition-colors"
+                className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-muted cursor-pointer transition-colors"
                 title="Làm mới gợi ý"
               >
                 <i className="ri-refresh-line text-xs"></i>
@@ -275,7 +275,7 @@ export default function VocabSuggestionPage() {
                 key={i}
                 onClick={() => { setActiveGroup(i); setFlippedCards(new Set()); }}
                 className={`w-full text-left p-3 rounded-xl transition-all cursor-pointer ${
-                  activeGroup === i ? "bg-white/8 border border-white/10" : "hover:bg-white/4 border border-transparent"
+                  activeGroup === i ? "bg-white/8 border border-app-border" : "hover:bg-white/4 border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
@@ -284,25 +284,25 @@ export default function VocabSuggestionPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-white/70 text-xs font-medium leading-tight">{group.reason}</p>
-                    <p className="text-white/25 text-[10px] mt-0.5">{group.words.length} từ</p>
+                    <p className="text-app-text-muted text-[10px] mt-0.5">{group.words.length} từ</p>
                   </div>
                 </div>
               </button>
             ))}
 
             {/* Progress */}
-            <div className="mt-4 p-3 bg-[#0f1117] border border-white/5 rounded-xl">
+            <div className="mt-4 p-3 bg-app-bg border border-app-border rounded-xl">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-white/40 text-xs">Tiến độ thuộc từ</p>
+                <p className="text-app-text-secondary text-xs">Tiến độ thuộc từ</p>
                 <p className="text-white/60 text-xs font-bold">{totalCount > 0 ? Math.round((masteredCount / totalCount) * 100) : 0}%</p>
               </div>
-              <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+              <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                 <div
                   className="h-full rounded-full bg-emerald-400 transition-all duration-500"
                   style={{ width: `${totalCount > 0 ? (masteredCount / totalCount) * 100 : 0}%` }}
                 ></div>
               </div>
-              <p className="text-white/20 text-[10px] mt-1.5">{masteredCount}/{totalCount} từ đã thuộc</p>
+              <p className="text-app-text-muted text-[10px] mt-1.5">{masteredCount}/{totalCount} từ đã thuộc</p>
             </div>
           </div>
 
@@ -317,12 +317,12 @@ export default function VocabSuggestionPage() {
                     </div>
                     <div>
                       <h2 className="text-white font-semibold text-sm">{currentGroup.reason}</h2>
-                      <p className="text-white/30 text-xs">{currentGroup.words.length} từ được gợi ý · Nhấn thẻ để lật</p>
+                      <p className="text-app-text-muted text-xs">{currentGroup.words.length} từ được gợi ý · Nhấn thẻ để lật</p>
                     </div>
                   </div>
                   <button
                     onClick={() => setFlippedCards(new Set())}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 text-xs cursor-pointer transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary text-xs cursor-pointer transition-colors"
                   >
                     <i className="ri-refresh-line text-xs"></i>
                     Lật lại tất cả
@@ -343,12 +343,12 @@ export default function VocabSuggestionPage() {
                 </div>
 
                 {/* AI explanation */}
-                <div className="mt-4 p-4 bg-[#0f1117] border border-white/5 rounded-2xl">
+                <div className="mt-4 p-4 bg-app-bg border border-app-border rounded-2xl">
                   <div className="flex items-center gap-2 mb-2">
-                    <i className="ri-robot-line text-[#e8c84a] text-sm"></i>
+                    <i className="ri-robot-line text-app-accent-primary text-sm"></i>
                     <p className="text-white/50 text-xs font-semibold">Tại sao AI gợi ý nhóm này?</p>
                   </div>
-                  <p className="text-white/30 text-xs leading-relaxed">
+                  <p className="text-app-text-muted text-xs leading-relaxed">
                     {activeGroup === 0 && wrongHistory.length > 0
                       ? `Bạn đã trả lời sai ${wrongHistory.length} từ trong các bài quiz gần đây. Ôn lại những từ này sẽ giúp tăng điểm nhanh nhất.`
                       : activeGroup === 1
@@ -364,8 +364,8 @@ export default function VocabSuggestionPage() {
             ) : (
               <div className="flex flex-col items-center justify-center py-20 text-center">
                 <i className="ri-robot-line text-white/10 text-5xl mb-4"></i>
-                <p className="text-white/30 text-sm">Chưa có dữ liệu quiz để phân tích</p>
-                <p className="text-white/20 text-xs mt-1">Hãy làm một vài bài quiz để AI gợi ý từ phù hợp</p>
+                <p className="text-app-text-muted text-sm">Chưa có dữ liệu quiz để phân tích</p>
+                <p className="text-app-text-muted text-xs mt-1">Hãy làm một vài bài quiz để AI gợi ý từ phù hợp</p>
               </div>
             )}
           </div>

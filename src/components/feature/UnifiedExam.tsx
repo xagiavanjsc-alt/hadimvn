@@ -189,20 +189,20 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
         <div className="grid grid-cols-3 gap-6 mb-8">
           <div>
             <p className="text-3xl font-bold" style={{ color: config.color }}>{percentage}%</p>
-            <p className="text-white/40 text-xs">Điểm</p>
+            <p className="text-app-text-secondary text-xs">Điểm</p>
           </div>
           <div>
             <p className="text-3xl font-bold text-white">{score}/{questions.length}</p>
-            <p className="text-white/40 text-xs">Đúng</p>
+            <p className="text-app-text-secondary text-xs">Đúng</p>
           </div>
           <div>
             <p className="text-3xl font-bold text-white">{formatTime(timeUsed)}</p>
-            <p className="text-white/40 text-xs">Thời gian</p>
+            <p className="text-app-text-secondary text-xs">Thời gian</p>
           </div>
         </div>
 
         <div className="flex gap-3">
-          <button onClick={handleRestart} className="px-6 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white text-sm font-medium transition-colors">
+          <button onClick={handleRestart} className="px-6 py-2.5 rounded-xl bg-app-card/50 hover:bg-app-card/70 text-white text-sm font-medium transition-colors">
             Làm lại
           </button>
           <button onClick={() => window.location.href = "/learning-hub"} className="px-6 py-2.5 rounded-xl text-sm font-medium transition-colors" style={{ backgroundColor: config.color, color: "#0f1117" }}>
@@ -226,11 +226,11 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
           <span className="text-white/60 text-sm">{config.name}</span>
         </div>
         <div className="flex items-center gap-4">
-          <div className="text-white/40 text-xs">
+          <div className="text-app-text-secondary text-xs">
             Câu {currentIndex + 1} / {questions.length}
           </div>
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5">
-            <i className="ri-timer-line text-white/40 text-sm"></i>
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-card/50">
+            <i className="ri-timer-line text-app-text-secondary text-sm"></i>
             <span className={`text-sm font-medium ${timeRemaining < 60 ? "text-red-400" : "text-white"}`}>
               {formatTime(timeRemaining)}
             </span>
@@ -239,7 +239,7 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
       </div>
 
       {/* Progress bar */}
-      <div className="mb-6 h-2 bg-white/5 rounded-full overflow-hidden">
+      <div className="mb-6 h-2 bg-app-card/50 rounded-full overflow-hidden">
         <div
           className="h-full rounded-full transition-all duration-300"
           style={{ width: `${((currentIndex + 1) / questions.length) * 100}%`, backgroundColor: config.color }}
@@ -247,13 +247,13 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
       </div>
 
       {/* Question card */}
-      <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-6 mb-6">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-6 mb-6">
         <h3 className="text-white text-lg font-medium mb-6">{currentQuestion.question}</h3>
 
         <div className="space-y-3">
           {currentQuestion.options.map((option, index) => {
-            let bgColor = "bg-white/3";
-            let borderColor = "border-white/5";
+            let bgColor = "bg-app-surface/50";
+            let borderColor = "border-app-border";
             let textColor = "text-white";
 
             if (showExplanation) {
@@ -267,7 +267,7 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
                 textColor = "text-red-400";
               }
             } else if (selectedAnswer === index) {
-              bgColor = "bg-white/10";
+              bgColor = "bg-app-card/70";
               borderColor = "border-white/20";
             }
 
@@ -277,7 +277,7 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
                 onClick={() => !showExplanation && handleAnswer(index)}
                 disabled={showExplanation}
                 className={`w-full p-4 rounded-xl border text-left transition-all ${bgColor} ${borderColor} ${textColor} ${
-                  !showExplanation ? "hover:border-white/10 hover:bg-white/5 cursor-pointer" : "cursor-default"
+                  !showExplanation ? "hover:border-app-border hover:bg-app-card/50 cursor-pointer" : "cursor-default"
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -292,7 +292,7 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
         </div>
 
         {showExplanation && currentQuestion.explanation && (
-          <div className="mt-4 p-4 rounded-lg bg-white/3 border border-white/5">
+          <div className="mt-4 p-4 rounded-lg bg-app-surface/50 border border-app-border">
             <p className="text-white/60 text-xs">
               <strong className="text-white/80">Giải thích:</strong> {currentQuestion.explanation}
             </p>

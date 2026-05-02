@@ -18,7 +18,7 @@ export default {
             muted: 'rgba(255,255,255,0.5)',
           },
           'app-accent': {
-            primary: '#6366f1', // Indigo
+            primary: '#e8c84a', // Gold - main accent used throughout site
             secondary: '#8b5cf6', // Violet
             success: '#22c55e',
             warning: '#eab308',

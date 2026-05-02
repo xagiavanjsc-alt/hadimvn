@@ -59,29 +59,29 @@ export default function SRReviewWidget() {
 
   if (dueWords.length === 0) {
     return (
-      <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4 md:p-5">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-4 md:p-5">
         <div className="flex items-center gap-2 mb-3">
           <div className="w-7 h-7 flex items-center justify-center bg-emerald-500/10 rounded-lg">
-            <i className="ri-brain-line text-emerald-400 text-sm"></i>
+            <i className="ri-brain-line text-app-accent-success text-sm"></i>
           </div>
           <div>
             <h3 className="text-white font-semibold text-sm">Ôn tập hôm nay</h3>
-            <p className="text-white/25 text-[10px]">Spaced Repetition</p>
+            <p className="text-app-text-muted text-[10px]">Spaced Repetition</p>
           </div>
         </div>
         <div className="flex flex-col items-center justify-center py-6 text-center">
           <div className="w-10 h-10 flex items-center justify-center bg-emerald-500/10 rounded-full mb-2">
-            <i className="ri-check-double-line text-emerald-400 text-lg"></i>
+            <i className="ri-check-double-line text-app-accent-success text-lg"></i>
           </div>
-          <p className="text-emerald-400 text-sm font-semibold">Tuyệt vời!</p>
-          <p className="text-white/30 text-xs mt-1">Không có từ cần ôn hôm nay</p>
+          <p className="text-app-accent-success text-sm font-semibold">Tuyệt vời!</p>
+          <p className="text-app-text-muted text-xs mt-1">Không có từ cần ôn hôm nay</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4 md:p-5">
+    <div className="bg-app-bg border border-app-border rounded-2xl p-4 md:p-5">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 flex items-center justify-center bg-rose-500/10 rounded-lg">
@@ -89,7 +89,7 @@ export default function SRReviewWidget() {
           </div>
           <div>
             <h3 className="text-white font-semibold text-sm">Gợi ý ôn hôm nay</h3>
-            <p className="text-white/25 text-[10px]">Spaced Repetition · {totalDue} từ cần ôn</p>
+            <p className="text-app-text-muted text-[10px]">Spaced Repetition · {totalDue} từ cần ôn</p>
           </div>
         </div>
         <button
@@ -110,7 +110,7 @@ export default function SRReviewWidget() {
               className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all cursor-pointer text-left border ${
                 isRev
                   ? "bg-rose-500/5 border-rose-500/20"
-                  : "bg-white/3 border-white/5 hover:border-white/10"
+                  : "bg-app-surface/50 border-app-border hover:border-app-border"
               }`}
             >
               <div className="flex-1 min-w-0">
@@ -118,16 +118,16 @@ export default function SRReviewWidget() {
                   <div className="flex items-center gap-3">
                     <div>
                       <span className="text-rose-400 font-bold text-sm">{item.entry.korean}</span>
-                      <span className="text-white/30 text-xs ml-1.5">{item.entry.hanja}</span>
+                      <span className="text-app-text-muted text-xs ml-1.5">{item.entry.hanja}</span>
                     </div>
-                    <i className="ri-arrow-right-line text-white/20 text-xs"></i>
+                    <i className="ri-arrow-right-line text-app-text-muted text-xs"></i>
                     <span className="text-white/70 text-xs">{item.entry.vietnamese}</span>
                   </div>
                 ) : (
                   <div className="flex items-center gap-2">
-                    <span className="text-white/20 text-[10px] font-bold w-4">{i + 1}</span>
+                    <span className="text-app-text-muted text-[10px] font-bold w-4">{i + 1}</span>
                     <span className="text-white/80 text-sm font-bold">{item.entry.korean}</span>
-                    <span className="text-white/30 text-xs">{item.entry.hanja}</span>
+                    <span className="text-app-text-muted text-xs">{item.entry.hanja}</span>
                     {item.isNew && (
                       <span className="ml-auto text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-400">Mới</span>
                     )}
@@ -143,8 +143,8 @@ export default function SRReviewWidget() {
         })}
       </div>
 
-      <div className="mt-3 pt-3 border-t border-white/5 flex items-center justify-between">
-        <p className="text-white/20 text-[10px]">Nhấn để xem nghĩa · Dựa trên SM-2</p>
+      <div className="mt-3 pt-3 border-t border-app-border flex items-center justify-between">
+        <p className="text-app-text-muted text-[10px]">Nhấn để xem nghĩa · Dựa trên SM-2</p>
         <button
           onClick={() => navigate("/hanja-vocab")}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-semibold cursor-pointer whitespace-nowrap transition-colors"

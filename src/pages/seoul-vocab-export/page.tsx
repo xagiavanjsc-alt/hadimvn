@@ -128,14 +128,14 @@ export default function SeoulVocabExportPage() {
   if (!isAdmin) {
     return (
       <DashboardLayout>
-        <div className="min-h-screen bg-[#0f1117] flex items-center justify-center">
+        <div className="min-h-screen bg-app-bg flex items-center justify-center">
           <div className="text-center max-w-sm px-6">
             <div className="w-16 h-16 flex items-center justify-center rounded-2xl mx-auto mb-4" style={{ backgroundColor: "rgba(248,113,113,0.12)" }}>
               <i className="ri-lock-line text-3xl" style={{ color: "#f87171" }}></i>
             </div>
             <h2 className="text-white font-bold text-lg mb-2">Chỉ dành cho Admin</h2>
-            <p className="text-white/40 text-sm mb-6">Tính năng xuất từ vựng chỉ dành cho quản trị viên.</p>
-            <button onClick={() => navigate(-1)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl mx-auto cursor-pointer whitespace-nowrap" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "#e8c84a", border: "1px solid rgba(232,200,74,0.25)" }}>
+            <p className="text-app-text-secondary text-sm mb-6">Tính năng xuất từ vựng chỉ dành cho quản trị viên.</p>
+            <button onClick={() => navigate(-1)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl mx-auto cursor-pointer whitespace-nowrap" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.25)" }}>
               <i className="ri-arrow-left-line"></i>Quay lại
             </button>
           </div>
@@ -149,29 +149,29 @@ export default function SeoulVocabExportPage() {
       <div className="p-6 max-w-3xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-4 mb-6">
-          <button onClick={() => navigate(-1)} className="w-9 h-9 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-white transition-all cursor-pointer">
+          <button onClick={() => navigate(-1)} className="w-9 h-9 flex items-center justify-center rounded-full bg-app-card/50 hover:bg-app-card/70 text-white/50 hover:text-white transition-all cursor-pointer">
             <i className="ri-arrow-left-line"></i>
           </button>
           <div>
             <h1 className="text-xl font-bold text-white">Xuất từ vựng Seoul</h1>
-            <p className="text-white/40 text-sm">Tải từ vựng ra file CSV hoặc TXT để học offline</p>
+            <p className="text-app-text-secondary text-sm">Tải từ vựng ra file CSV hoặc TXT để học offline</p>
           </div>
         </div>
 
         <div className="space-y-5">
           {/* Book selector */}
-          <div className="bg-[#1a1d27] border border-white/8 rounded-2xl p-5">
+          <div className="bg-[#1a1d27] border border-app-border rounded-2xl p-5">
             <p className="text-white font-semibold text-sm mb-3">
-              <i className="ri-book-3-line mr-2 text-[#e8c84a]"></i>Chọn cuốn sách
+              <i className="ri-book-3-line mr-2 text-app-accent-primary"></i>Chọn cuốn sách
             </p>
             <div className="flex flex-wrap gap-2">
               <button onClick={() => setSelectedBook("all")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${selectedBook === "all" ? "bg-[#e8c84a] text-black" : "bg-white/5 text-white/50 hover:bg-white/10"}`}>
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${selectedBook === "all" ? "bg-app-accent-primary text-black" : "bg-app-card/50 text-white/50 hover:bg-app-card/70"}`}>
                 Tất cả
               </button>
               {seoulBooks.map(b => (
                 <button key={b.id} onClick={() => setSelectedBook(b.id)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${selectedBook === b.id ? "text-black" : "bg-white/5 text-white/50 hover:bg-white/10"}`}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${selectedBook === b.id ? "text-black" : "bg-app-card/50 text-white/50 hover:bg-app-card/70"}`}
                   style={selectedBook === b.id ? { backgroundColor: b.color } : {}}>
                   {b.level}
                 </button>
@@ -180,17 +180,17 @@ export default function SeoulVocabExportPage() {
           </div>
 
           {/* Topic filter */}
-          <div className="bg-[#1a1d27] border border-white/8 rounded-2xl p-5">
+          <div className="bg-[#1a1d27] border border-app-border rounded-2xl p-5">
             <p className="text-white font-semibold text-sm mb-3">
-              <i className="ri-apps-line mr-2 text-[#e8c84a]"></i>Lọc theo chủ đề
+              <i className="ri-apps-line mr-2 text-app-accent-primary"></i>Lọc theo chủ đề
             </p>
             <div className="flex flex-wrap gap-2">
               {TOPICS.map(t => (
                 <button key={t.id} onClick={() => setSelectedTopic(t.id)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer whitespace-nowrap ${
                     selectedTopic === t.id
-                      ? "bg-[#e8c84a]/20 text-[#e8c84a] border border-[#e8c84a]/30"
-                      : "bg-white/5 text-white/50 hover:bg-white/10 border border-transparent"
+                      ? "bg-app-accent-primary/20 text-app-accent-primary border border-app-accent-primary/30"
+                      : "bg-app-card/50 text-white/50 hover:bg-app-card/70 border border-transparent"
                   }`}>
                   {t.label}
                 </button>
@@ -199,68 +199,68 @@ export default function SeoulVocabExportPage() {
           </div>
 
           {/* Search */}
-          <div className="bg-[#1a1d27] border border-white/8 rounded-2xl p-5">
+          <div className="bg-[#1a1d27] border border-app-border rounded-2xl p-5">
             <p className="text-white font-semibold text-sm mb-3">
-              <i className="ri-search-line mr-2 text-[#e8c84a]"></i>Tìm kiếm từ khóa
+              <i className="ri-search-line mr-2 text-app-accent-primary"></i>Tìm kiếm từ khóa
             </p>
             <div className="relative">
-              <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
+              <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
               <input
                 type="text"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 placeholder="Nhập tiếng Hàn, tiếng Việt hoặc phiên âm..."
-                className="w-full bg-white/5 border border-white/10 rounded-xl pl-9 pr-4 py-2.5 text-white text-sm placeholder-white/25 focus:outline-none focus:border-[#e8c84a]/40 transition-colors"
+                className="w-full bg-app-card/50 border border-app-border rounded-xl pl-9 pr-4 py-2.5 text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
               />
               {searchQuery && (
                 <button onClick={() => setSearchQuery("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 cursor-pointer">
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-app-text-muted hover:text-white/60 cursor-pointer">
                   <i className="ri-close-line text-sm"></i>
                 </button>
               )}
             </div>
             {searchQuery && (
-              <p className="text-white/30 text-xs mt-2">
-                Tìm thấy <span className="text-[#e8c84a] font-semibold">{filteredVocab.length}</span> từ khớp với "{searchQuery}"
+              <p className="text-app-text-muted text-xs mt-2">
+                Tìm thấy <span className="text-app-accent-primary font-semibold">{filteredVocab.length}</span> từ khớp với "{searchQuery}"
               </p>
             )}
           </div>
 
           {/* Format selector */}
-          <div className="bg-[#1a1d27] border border-white/8 rounded-2xl p-5">
+          <div className="bg-[#1a1d27] border border-app-border rounded-2xl p-5">
             <p className="text-white font-semibold text-sm mb-3">
-              <i className="ri-file-line mr-2 text-[#e8c84a]"></i>Định dạng xuất
+              <i className="ri-file-line mr-2 text-app-accent-primary"></i>Định dạng xuất
             </p>
             <div className="grid grid-cols-2 gap-3">
               {(["csv", "txt"] as const).map(f => (
                 <button key={f} onClick={() => setFormat(f)}
-                  className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${format === f ? "border-[#e8c84a]/40 bg-[#e8c84a]/8" : "border-white/8 bg-white/2 hover:border-white/15"}`}>
+                  className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${format === f ? "border-app-accent-primary/40 bg-app-accent-primary/8" : "border-app-border bg-white/2 hover:border-white/15"}`}>
                   <div className="flex items-center gap-2 mb-1">
-                    <i className={`${f === "csv" ? "ri-table-line" : "ri-file-text-line"} text-lg ${format === f ? "text-[#e8c84a]" : "text-white/40"}`}></i>
-                    <span className={`font-bold text-sm ${format === f ? "text-[#e8c84a]" : "text-white/60"}`}>{f}</span>
+                    <i className={`${f === "csv" ? "ri-table-line" : "ri-file-text-line"} text-lg ${format === f ? "text-app-accent-primary" : "text-app-text-secondary"}`}></i>
+                    <span className={`font-bold text-sm ${format === f ? "text-app-accent-primary" : "text-white/60"}`}>{f}</span>
                   </div>
-                  <p className="text-white/40 text-xs">{f === "csv" ? "Mở bằng Excel, Google Sheets" : "File văn bản thuần"}</p>
+                  <p className="text-app-text-secondary text-xs">{f === "csv" ? "Mở bằng Excel, Google Sheets" : "File văn bản thuần"}</p>
                 </button>
               ))}
             </div>
           </div>
 
           {/* Preview */}
-          <div className="bg-[#1a1d27] border border-white/8 rounded-2xl p-5">
+          <div className="bg-[#1a1d27] border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-4">
               <p className="text-white font-semibold text-sm">
-                <i className="ri-eye-line mr-2 text-[#e8c84a]"></i>Xem trước
+                <i className="ri-eye-line mr-2 text-app-accent-primary"></i>Xem trước
               </p>
               <div className="flex items-center gap-2">
-                <span className="text-[#e8c84a] text-sm font-bold">{filteredVocab.length.toLocaleString()} từ</span>
+                <span className="text-app-accent-primary text-sm font-bold">{filteredVocab.length.toLocaleString()} từ</span>
                 {filteredVocab.length !== allVocab.length && (
-                  <span className="text-white/30 text-xs">/ {allVocab.length.toLocaleString()} tổng</span>
+                  <span className="text-app-text-muted text-xs">/ {allVocab.length.toLocaleString()} tổng</span>
                 )}
               </div>
             </div>
 
             {filteredVocab.length === 0 ? (
-              <div className="text-center py-8 text-white/30">
+              <div className="text-center py-8 text-app-text-muted">
                 <i className="ri-search-line text-3xl mb-2 block"></i>
                 <p className="text-sm">Không tìm thấy từ nào</p>
                 <p className="text-xs mt-1">Thử thay đổi bộ lọc hoặc từ khóa</p>
@@ -268,15 +268,15 @@ export default function SeoulVocabExportPage() {
             ) : (
               <div className="space-y-2 max-h-52 overflow-y-auto">
                 {filteredVocab.slice(0, 10).map((v, i) => (
-                  <div key={i} className="flex items-center gap-3 p-2.5 bg-white/3 rounded-lg">
+                  <div key={i} className="flex items-center gap-3 p-2.5 bg-app-surface/50 rounded-lg">
                     <span className="text-white font-semibold text-sm w-24 flex-shrink-0">{v.korean}</span>
                     <span className="text-white/35 text-xs w-20 flex-shrink-0 hidden sm:block">[{v.pronunciation}]</span>
-                    <span className="text-[#e8c84a] text-xs flex-1 truncate">{v.vietnamese}</span>
-                    <span className="text-white/20 text-[10px] flex-shrink-0 hidden sm:block">{v.bookId}</span>
+                    <span className="text-app-accent-primary text-xs flex-1 truncate">{v.vietnamese}</span>
+                    <span className="text-app-text-muted text-[10px] flex-shrink-0 hidden sm:block">{v.bookId}</span>
                   </div>
                 ))}
                 {filteredVocab.length > 10 && (
-                  <p className="text-white/25 text-xs text-center py-1">... và {filteredVocab.length - 10} từ nữa</p>
+                  <p className="text-app-text-muted text-xs text-center py-1">... và {filteredVocab.length - 10} từ nữa</p>
                 )}
               </div>
             )}
@@ -286,8 +286,8 @@ export default function SeoulVocabExportPage() {
           <button onClick={handleExport} disabled={filteredVocab.length === 0}
             className={`w-full py-4 rounded-2xl font-bold text-base transition-all cursor-pointer flex items-center justify-center gap-2 ${
               exported ? "bg-emerald-500 text-white"
-              : !canExport ? "bg-white/8 border border-white/10 text-white/40"
-              : "bg-[#e8c84a] text-black hover:bg-[#e8c84a]/90"
+              : !canExport ? "bg-white/8 border border-app-border text-app-text-secondary"
+              : "bg-app-accent-primary text-black hover:bg-app-accent-primary/90"
             } disabled:opacity-40 disabled:cursor-not-allowed`}>
             <i className={exported ? "ri-checkbox-circle-line" : getExportBtnIcon(isLoggedIn, isVip, isVipYear)}></i>
             {exported

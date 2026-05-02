@@ -79,18 +79,18 @@ function DictationCard({ item, onComplete }: { item: DictationItem; onComplete: 
   };
 
   return (
-    <div className="rounded-2xl border border-white/8 bg-white/3 p-6">
+    <div className="rounded-2xl border border-app-border bg-app-surface/50 p-6">
       {/* Level + topic */}
       <div className="flex items-center gap-2 mb-5">
         <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${item.levelColor}20`, color: item.levelColor }}>{item.level}</span>
-        <span className="text-white/40 text-xs">{item.topic}</span>
-        {item.hint && <span className="text-white/25 text-xs">· {item.hint}</span>}
+        <span className="text-app-text-secondary text-xs">{item.topic}</span>
+        {item.hint && <span className="text-app-text-muted text-xs">· {item.hint}</span>}
       </div>
 
       {/* Play buttons */}
       <div className="flex gap-3 mb-5">
         <button onClick={() => handlePlay(false)}
-          className={`flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm cursor-pointer transition-all whitespace-nowrap ${isPlaying ? "bg-[#e8c84a]/30 text-[#e8c84a]" : "bg-[#e8c84a] text-[#141720] hover:opacity-90"}`}>
+          className={`flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm cursor-pointer transition-all whitespace-nowrap ${isPlaying ? "bg-app-accent-primary/30 text-app-accent-primary" : "bg-app-accent-primary text-[#141720] hover:opacity-90"}`}>
           <i className={isPlaying ? "ri-pause-circle-line" : "ri-play-circle-line"}></i>
           {isPlaying ? "Đang phát..." : "Nghe"}
         </button>
@@ -100,7 +100,7 @@ function DictationCard({ item, onComplete }: { item: DictationItem; onComplete: 
           Chậm
         </button>
         {playCount > 0 && (
-          <span className="flex items-center text-white/25 text-xs ml-auto">
+          <span className="flex items-center text-app-text-muted text-xs ml-auto">
             <i className="ri-repeat-line mr-1"></i>{playCount} lần
           </span>
         )}
@@ -116,11 +116,11 @@ function DictationCard({ item, onComplete }: { item: DictationItem; onComplete: 
             onChange={e => setInput(e.target.value)}
             placeholder="Gõ tiếng Hàn ở đây..."
             rows={3}
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none resize-none placeholder-white/20 focus:border-white/20 mb-4"
+            className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm outline-none resize-none placeholder-white/20 focus:border-white/20 mb-4"
           />
           <div className="flex gap-3">
             <button onClick={handleCheck} disabled={!input.trim()}
-              className="flex-1 py-3 rounded-xl bg-[#e8c84a] text-[#141720] font-bold text-sm disabled:opacity-30 cursor-pointer whitespace-nowrap">
+              className="flex-1 py-3 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm disabled:opacity-30 cursor-pointer whitespace-nowrap">
               Kiểm tra
             </button>
             <button onClick={() => { setRevealed(true); setResult(null); }}
@@ -134,18 +134,18 @@ function DictationCard({ item, onComplete }: { item: DictationItem; onComplete: 
           {result && (
             <div className={`p-4 rounded-xl border mb-4 ${result.correct ? "border-emerald-500/30 bg-emerald-500/5" : result.similarity >= 70 ? "border-amber-500/30 bg-amber-500/5" : "border-rose-500/30 bg-rose-500/5"}`}>
               <div className="flex items-center justify-between mb-2">
-                <span className={`text-sm font-bold ${result.correct ? "text-emerald-400" : result.similarity >= 70 ? "text-amber-400" : "text-rose-400"}`}>
+                <span className={`text-sm font-bold ${result.correct ? "text-app-accent-success" : result.similarity >= 70 ? "text-amber-400" : "text-rose-400"}`}>
                   {result.correct ? "Chính xác!" : `${result.similarity}% đúng`}
                 </span>
                 <div className="flex items-center gap-1">
                   {[...Array(5)].map((_, i) => (
-                    <i key={i} className={`text-sm ${i < Math.round(result.similarity / 20) ? "ri-star-fill text-[#e8c84a]" : "ri-star-line text-white/15"}`}></i>
+                    <i key={i} className={`text-sm ${i < Math.round(result.similarity / 20) ? "ri-star-fill text-app-accent-primary" : "ri-star-line text-white/15"}`}></i>
                   ))}
                 </div>
               </div>
               {!result.correct && (
                 <div className="text-sm">
-                  <p className="text-white/40 text-xs mb-1">Bạn viết:</p>
+                  <p className="text-app-text-secondary text-xs mb-1">Bạn viết:</p>
                   <p className="text-white/60 mb-2">{input}</p>
                 </div>
               )}
@@ -153,10 +153,10 @@ function DictationCard({ item, onComplete }: { item: DictationItem; onComplete: 
           )}
 
           {/* Answer */}
-          <div className="p-4 rounded-xl bg-white/5 border border-white/8 mb-4">
-            <p className="text-white/40 text-xs mb-2">Đáp án đúng:</p>
+          <div className="p-4 rounded-xl bg-app-card/50 border border-app-border mb-4">
+            <p className="text-app-text-secondary text-xs mb-2">Đáp án đúng:</p>
             <p className="text-white font-medium text-base leading-8">{item.korean}</p>
-            <p className="text-white/40 text-sm mt-1 italic">{item.vietnamese}</p>
+            <p className="text-app-text-secondary text-sm mt-1 italic">{item.vietnamese}</p>
           </div>
 
           <button onClick={() => { setInput(""); setRevealed(false); setResult(null); setPlayCount(0); }}
@@ -207,15 +207,15 @@ export default function DictationPracticePage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
             { label: "Đã luyện", value: Object.keys(scores).length, icon: "ri-checkbox-circle-line", color: "#34d399" },
-            { label: "Điểm TB", value: `${avgScore}%`, icon: "ri-percent-line", color: "#e8c84a" },
+            { label: "Điểm TB", value: `${avgScore}%`, icon: "ri-percent-line", color: "app-accent-primary" },
             { label: "Tổng câu", value: dictationItems.length, icon: "ri-list-check", color: "#a78bfa" },
           ].map(s => (
-            <div key={s.label} className="rounded-xl border border-white/8 bg-white/3 p-4 text-center">
+            <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-4 text-center">
               <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${s.color}20` }}>
                 <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
               </div>
               <p className="text-white font-bold text-lg">{s.value}</p>
-              <p className="text-white/40 text-xs">{s.label}</p>
+              <p className="text-app-text-secondary text-xs">{s.label}</p>
             </div>
           ))}
         </div>
@@ -223,7 +223,7 @@ export default function DictationPracticePage() {
         {/* Level filter */}
         <div className="flex gap-2 flex-wrap mb-5">
           <button onClick={() => { setSelectedLevel("all"); setCurrentIdx(0); }}
-            className={`px-4 py-2 rounded-full text-xs font-semibold cursor-pointer transition-all whitespace-nowrap ${selectedLevel === "all" ? "bg-white/15 text-white" : "bg-white/5 text-white/50 hover:bg-white/8"}`}>
+            className={`px-4 py-2 rounded-full text-xs font-semibold cursor-pointer transition-all whitespace-nowrap ${selectedLevel === "all" ? "bg-white/15 text-white" : "bg-app-card/50 text-white/50 hover:bg-white/8"}`}>
             Tất cả ({dictationItems.length})
           </button>
           {Object.entries(levelConfig).map(([lvl, cfg]) => {
@@ -242,12 +242,12 @@ export default function DictationPracticePage() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <button onClick={() => setCurrentIdx(i => Math.max(0, i - 1))} disabled={currentIdx === 0}
-              className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-white/50 disabled:opacity-30 cursor-pointer transition-colors">
+              className="w-9 h-9 flex items-center justify-center rounded-xl bg-app-card/50 hover:bg-app-card/70 text-white/50 disabled:opacity-30 cursor-pointer transition-colors">
               <i className="ri-arrow-left-s-line"></i>
             </button>
             <span className="text-white/50 text-sm">{currentIdx + 1} / {filtered.length}</span>
             <button onClick={() => setCurrentIdx(i => Math.min(filtered.length - 1, i + 1))} disabled={currentIdx >= filtered.length - 1}
-              className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-white/50 disabled:opacity-30 cursor-pointer transition-colors">
+              className="w-9 h-9 flex items-center justify-center rounded-xl bg-app-card/50 hover:bg-app-card/70 text-white/50 disabled:opacity-30 cursor-pointer transition-colors">
               <i className="ri-arrow-right-s-line"></i>
             </button>
           </div>
@@ -256,7 +256,7 @@ export default function DictationPracticePage() {
           <div className="flex gap-1 flex-wrap max-w-xs justify-end">
             {filtered.slice(0, 12).map((item, i) => (
               <button key={item.id} onClick={() => setCurrentIdx(i)}
-                className={`w-2 h-2 rounded-full transition-all cursor-pointer ${i === currentIdx ? "bg-[#e8c84a] w-4" : scores[item.id] ? "bg-emerald-400" : "bg-white/15"}`} />
+                className={`w-2 h-2 rounded-full transition-all cursor-pointer ${i === currentIdx ? "bg-app-accent-primary w-4" : scores[item.id] ? "bg-emerald-400" : "bg-white/15"}`} />
             ))}
           </div>
         </div>
@@ -268,15 +268,15 @@ export default function DictationPracticePage() {
 
         {/* All items list */}
         <div className="mt-6">
-          <p className="text-white/40 text-xs font-semibold tracking-normal mb-3">Tất cả câu luyện tập</p>
+          <p className="text-app-text-secondary text-xs font-semibold tracking-normal mb-3">Tất cả câu luyện tập</p>
           <div className="space-y-2">
             {filtered.map((item, i) => (
               <button key={item.id} onClick={() => setCurrentIdx(i)}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border text-left cursor-pointer transition-all ${i === currentIdx ? "border-[#e8c84a]/30 bg-[#e8c84a]/5" : "border-white/8 bg-white/3 hover:bg-white/5"}`}>
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border text-left cursor-pointer transition-all ${i === currentIdx ? "border-app-accent-primary/30 bg-app-accent-primary/5" : "border-app-border bg-app-surface/50 hover:bg-app-card/50"}`}>
                 <span className="text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0" style={{ backgroundColor: `${item.levelColor}20`, color: item.levelColor }}>{item.level}</span>
                 <span className="text-white/70 text-sm flex-1 truncate">{item.korean}</span>
                 {scores[item.id] !== undefined && (
-                  <span className={`text-xs font-bold flex-shrink-0 ${scores[item.id] >= 95 ? "text-emerald-400" : scores[item.id] >= 70 ? "text-amber-400" : "text-rose-400"}`}>
+                  <span className={`text-xs font-bold flex-shrink-0 ${scores[item.id] >= 95 ? "text-app-accent-success" : scores[item.id] >= 70 ? "text-amber-400" : "text-rose-400"}`}>
                     {scores[item.id]}%
                   </span>
                 )}

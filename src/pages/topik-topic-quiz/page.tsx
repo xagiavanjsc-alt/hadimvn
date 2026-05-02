@@ -19,7 +19,7 @@ type QuizResult = {
 };
 
 const LEVELS = [
-  { id: "all", label: "Tất cả", color: "#e8c84a" },
+  { id: "all", label: "Tất cả", color: "app-accent-primary" },
   { id: "A1", label: "A1", color: "#34d399" },
   { id: "A2", label: "A2", color: "#38bdf8" },
   { id: "B1", label: "B1", color: "#fb923c" },
@@ -147,7 +147,7 @@ export default function TopikTopicQuizPage() {
         <div className="p-6 max-w-4xl mx-auto">
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-white mb-1">Luyện thi TOPIK theo chủ đề</h1>
-            <p className="text-white/40 text-sm">Chọn chủ đề và cấp độ, làm bài trắc nghiệm với giải thích đáp án chi tiết</p>
+            <p className="text-app-text-secondary text-sm">Chọn chủ đề và cấp độ, làm bài trắc nghiệm với giải thích đáp án chi tiết</p>
           </div>
 
           {/* Category */}
@@ -158,8 +158,8 @@ export default function TopikTopicQuizPage() {
                 onClick={() => setSelectedCategory("all")}
                 className={`px-3 py-2.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
                   selectedCategory === "all"
-                    ? "bg-[#e8c84a]/15 border-[#e8c84a]/40 text-[#e8c84a]"
-                    : "border-white/8 text-white/40 hover:text-white/70 hover:border-white/20"
+                    ? "bg-app-accent-primary/15 border-app-accent-primary/40 text-app-accent-primary"
+                    : "border-app-border text-app-text-secondary hover:text-white/70 hover:border-white/20"
                 }`}
               >
                 <i className="ri-apps-line mr-1.5"></i>Tất cả
@@ -171,7 +171,7 @@ export default function TopikTopicQuizPage() {
                   className={`px-3 py-2.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
                     selectedCategory === cat.id
                       ? "border-opacity-40 text-white"
-                      : "border-white/8 text-white/40 hover:text-white/70 hover:border-white/20"
+                      : "border-app-border text-app-text-secondary hover:text-white/70 hover:border-white/20"
                   }`}
                   style={
                     selectedCategory === cat.id
@@ -196,7 +196,7 @@ export default function TopikTopicQuizPage() {
                   className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap border ${
                     selectedLevel === lv.id
                       ? "text-white"
-                      : "border-white/8 text-white/40 hover:text-white/70"
+                      : "border-app-border text-app-text-secondary hover:text-white/70"
                   }`}
                   style={
                     selectedLevel === lv.id
@@ -220,8 +220,8 @@ export default function TopikTopicQuizPage() {
                   onClick={() => setQuestionCount(n)}
                   className={`px-5 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer whitespace-nowrap border ${
                     questionCount === n
-                      ? "bg-[#e8c84a]/15 border-[#e8c84a]/40 text-[#e8c84a]"
-                      : "border-white/8 text-white/40 hover:text-white/70"
+                      ? "bg-app-accent-primary/15 border-app-accent-primary/40 text-app-accent-primary"
+                      : "border-app-border text-app-text-secondary hover:text-white/70"
                   }`}
                 >
                   {n} câu
@@ -231,27 +231,27 @@ export default function TopikTopicQuizPage() {
           </div>
 
           {/* Stats */}
-          <div className="bg-white/3 border border-white/8 rounded-xl p-4 mb-6 flex items-center gap-6">
+          <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 mb-6 flex items-center gap-6">
             <div className="text-center">
-              <p className="text-2xl font-bold text-[#e8c84a]">{filteredWords.length}</p>
-              <p className="text-white/40 text-xs">Từ có sẵn</p>
+              <p className="text-2xl font-bold text-app-accent-primary">{filteredWords.length}</p>
+              <p className="text-app-text-secondary text-xs">Từ có sẵn</p>
             </div>
             <div className="w-px h-10 bg-white/8"></div>
             <div className="text-center">
               <p className="text-2xl font-bold text-white">{Math.min(questionCount, filteredWords.length)}</p>
-              <p className="text-white/40 text-xs">Câu sẽ thi</p>
+              <p className="text-app-text-secondary text-xs">Câu sẽ thi</p>
             </div>
             <div className="w-px h-10 bg-white/8"></div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-emerald-400">{Math.min(questionCount, filteredWords.length) * 15}</p>
-              <p className="text-white/40 text-xs">XP tối đa</p>
+              <p className="text-2xl font-bold text-app-accent-success">{Math.min(questionCount, filteredWords.length) * 15}</p>
+              <p className="text-app-text-secondary text-xs">XP tối đa</p>
             </div>
           </div>
 
           <button
             onClick={startQuiz}
             disabled={filteredWords.length < 4}
-            className="w-full py-3.5 bg-[#e8c84a] hover:bg-[#e8c84a]/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed"
+            className="w-full py-3.5 bg-app-accent-primary hover:bg-app-accent-primary/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <i className="ri-play-fill mr-2"></i>Bắt đầu luyện thi
           </button>
@@ -275,17 +275,17 @@ export default function TopikTopicQuizPage() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setPhase("setup")}
-                className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/50 cursor-pointer"
+                className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-white/50 cursor-pointer"
               >
                 <i className="ri-arrow-left-line text-sm"></i>
               </button>
               <div>
                 <p className="text-white font-semibold text-sm">Câu {currentIdx + 1} / {questions.length}</p>
-                <p className="text-white/30 text-xs">{correctCount} đúng</p>
+                <p className="text-app-text-muted text-xs">{correctCount} đúng</p>
               </div>
             </div>
-            <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg">
-              <i className="ri-time-line text-white/40 text-sm"></i>
+            <div className="flex items-center gap-2 bg-app-card/50 px-3 py-1.5 rounded-lg">
+              <i className="ri-time-line text-app-text-secondary text-sm"></i>
               <span className="text-white/60 text-sm font-mono">{formatTime(timer)}</span>
             </div>
           </div>
@@ -293,21 +293,21 @@ export default function TopikTopicQuizPage() {
           {/* Progress */}
           <div className="h-1.5 bg-white/8 rounded-full mb-8 overflow-hidden">
             <div
-              className="h-full bg-[#e8c84a] rounded-full transition-all duration-500"
+              className="h-full bg-app-accent-primary rounded-full transition-all duration-500"
               style={{ width: `${progress}%` }}
             ></div>
           </div>
 
           {/* Question */}
-          <div className="bg-white/3 border border-white/8 rounded-2xl p-6 mb-6 text-center">
-            <p className="text-white/40 text-xs mb-3 tracking-normal">
+          <div className="bg-app-surface/50 border border-app-border rounded-2xl p-6 mb-6 text-center">
+            <p className="text-app-text-secondary text-xs mb-3 tracking-normal">
               {q.questionType === "ko2vi" ? "Từ tiếng Hàn → Nghĩa tiếng Việt" : "Nghĩa tiếng Việt → Từ tiếng Hàn"}
             </p>
             <p className="text-3xl font-bold text-white mb-2">
               {q.questionType === "ko2vi" ? q.word.korean : q.word.vietnamese}
             </p>
             {q.questionType === "ko2vi" && (
-              <p className="text-white/30 text-sm">[{q.word.reading}]</p>
+              <p className="text-app-text-muted text-sm">[{q.word.reading}]</p>
             )}
             <div className="flex items-center justify-center gap-2 mt-3">
               <span
@@ -319,7 +319,7 @@ export default function TopikTopicQuizPage() {
               >
                 {q.word.topikLevel}
               </span>
-              <span className="text-white/20 text-xs">
+              <span className="text-app-text-muted text-xs">
                 {VOCAB_CATEGORIES.find((c) => c.id === q.word.category)?.label}
               </span>
             </div>
@@ -328,12 +328,12 @@ export default function TopikTopicQuizPage() {
           {/* Options */}
           <div className="grid grid-cols-1 gap-3 mb-6">
             {q.options.map((opt, i) => {
-              let style = "border-white/10 text-white/70 hover:border-white/30 hover:bg-white/5";
+              let style = "border-app-border text-white/70 hover:border-white/30 hover:bg-app-card/50";
               if (selectedAnswer !== null) {
-                if (opt === q.correctAnswer) style = "border-emerald-500/60 bg-emerald-500/10 text-emerald-400";
+                if (opt === q.correctAnswer) style = "border-emerald-500/60 bg-emerald-500/10 text-app-accent-success";
                 else if (opt === selectedAnswer && opt !== q.correctAnswer)
                   style = "border-red-500/60 bg-red-500/10 text-red-400";
-                else style = "border-white/5 text-white/30";
+                else style = "border-app-border text-app-text-muted";
               }
               return (
                 <button
@@ -342,10 +342,10 @@ export default function TopikTopicQuizPage() {
                   disabled={selectedAnswer !== null}
                   className={`w-full px-4 py-3.5 rounded-xl border text-sm font-medium text-left transition-all cursor-pointer whitespace-nowrap ${style}`}
                 >
-                  <span className="text-white/30 mr-3">{String.fromCharCode(65 + i)}.</span>
+                  <span className="text-app-text-muted mr-3">{String.fromCharCode(65 + i)}.</span>
                   {opt}
                   {selectedAnswer !== null && opt === q.correctAnswer && (
-                    <i className="ri-check-line text-emerald-400 float-right mt-0.5"></i>
+                    <i className="ri-check-line text-app-accent-success float-right mt-0.5"></i>
                   )}
                   {selectedAnswer !== null && opt === selectedAnswer && opt !== q.correctAnswer && (
                     <i className="ri-close-line text-red-400 float-right mt-0.5"></i>
@@ -357,17 +357,17 @@ export default function TopikTopicQuizPage() {
 
           {/* Explanation */}
           {showExplanation && (
-            <div className="bg-white/3 border border-white/8 rounded-xl p-4 mb-4">
+            <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 mb-4">
               <p className="text-white/50 text-xs mb-2 tracking-normal">Ví dụ câu</p>
               <p className="text-white/80 text-sm mb-1">{q.word.example}</p>
-              <p className="text-white/40 text-xs italic">{q.word.exampleVi}</p>
+              <p className="text-app-text-secondary text-xs italic">{q.word.exampleVi}</p>
             </div>
           )}
 
           {selectedAnswer && (
             <button
               onClick={nextQuestion}
-              className="w-full py-3 bg-[#e8c84a] hover:bg-[#e8c84a]/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap"
+              className="w-full py-3 bg-app-accent-primary hover:bg-app-accent-primary/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap"
             >
               {currentIdx + 1 >= questions.length ? "Xem kết quả" : "Câu tiếp theo"}
               <i className="ri-arrow-right-line ml-2"></i>
@@ -383,35 +383,35 @@ export default function TopikTopicQuizPage() {
     <DashboardLayout>
       <div className="p-6 max-w-3xl mx-auto">
         {/* Score card */}
-        <div className="bg-white/3 border border-white/8 rounded-2xl p-6 mb-6 text-center">
+        <div className="bg-app-surface/50 border border-app-border rounded-2xl p-6 mb-6 text-center">
           <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4"
             style={{
               background: accuracy >= 80 ? "rgba(52,211,153,0.15)" : accuracy >= 60 ? "rgba(232,200,74,0.15)" : "rgba(248,113,113,0.15)",
-              border: `2px solid ${accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "#e8c84a" : "#f87171"}40`,
+              border: `2px solid ${accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "app-accent-primary" : "#f87171"}40`,
             }}
           >
-            <span className="text-xl font-bold" style={{ color: accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "#e8c84a" : "#f87171" }}>
+            <span className="text-xl font-bold" style={{ color: accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "app-accent-primary" : "#f87171" }}>
               {accuracy}%
             </span>
           </div>
           <h2 className="text-xl font-bold text-white mb-1">
             {accuracy >= 80 ? "Xuất sắc!" : accuracy >= 60 ? "Tốt lắm!" : "Cần cố gắng thêm!"}
           </h2>
-          <p className="text-white/40 text-sm mb-4">
+          <p className="text-app-text-secondary text-sm mb-4">
             {correctCount}/{results.length} câu đúng · {formatTime(totalTime)}
           </p>
           <div className="flex items-center justify-center gap-6">
             <div className="text-center">
-              <p className="text-2xl font-bold text-emerald-400">{correctCount}</p>
-              <p className="text-white/30 text-xs">Đúng</p>
+              <p className="text-2xl font-bold text-app-accent-success">{correctCount}</p>
+              <p className="text-app-text-muted text-xs">Đúng</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold text-red-400">{results.length - correctCount}</p>
-              <p className="text-white/30 text-xs">Sai</p>
+              <p className="text-app-text-muted text-xs">Sai</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-[#e8c84a]">+{xpEarned}</p>
-              <p className="text-white/30 text-xs">XP</p>
+              <p className="text-2xl font-bold text-app-accent-primary">+{xpEarned}</p>
+              <p className="text-app-text-muted text-xs">XP</p>
             </div>
           </div>
         </div>
@@ -424,8 +424,8 @@ export default function TopikTopicQuizPage() {
               onClick={() => setReviewFilter(f)}
               className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
                 reviewFilter === f
-                  ? "bg-[#e8c84a]/15 border-[#e8c84a]/40 text-[#e8c84a]"
-                  : "border-white/8 text-white/40 hover:text-white/70"
+                  ? "bg-app-accent-primary/15 border-app-accent-primary/40 text-app-accent-primary"
+                  : "border-app-border text-app-text-secondary hover:text-white/70"
               }`}
             >
               {f === "all" ? `Tất cả (${results.length})` : f === "correct" ? `Đúng (${correctCount})` : `Sai (${results.length - correctCount})`}
@@ -438,25 +438,25 @@ export default function TopikTopicQuizPage() {
           {reviewResults.map((r, i) => (
             <div
               key={i}
-              className={`bg-white/3 border rounded-xl p-4 ${r.isCorrect ? "border-emerald-500/20" : "border-red-500/20"}`}
+              className={`bg-app-surface/50 border rounded-xl p-4 ${r.isCorrect ? "border-emerald-500/20" : "border-red-500/20"}`}
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className={`text-xs font-bold ${r.isCorrect ? "text-emerald-400" : "text-red-400"}`}>
+                    <span className={`text-xs font-bold ${r.isCorrect ? "text-app-accent-success" : "text-red-400"}`}>
                       {r.isCorrect ? "✓ Đúng" : "✗ Sai"}
                     </span>
-                    <span className="text-white/20 text-xs">{r.question.word.topikLevel}</span>
+                    <span className="text-app-text-muted text-xs">{r.question.word.topikLevel}</span>
                   </div>
                   <p className="text-white font-semibold text-sm">{r.question.word.korean}</p>
-                  <p className="text-white/40 text-xs">[{r.question.word.reading}]</p>
+                  <p className="text-app-text-secondary text-xs">[{r.question.word.reading}]</p>
                   <p className="text-white/60 text-xs mt-1">{r.question.word.vietnamese}</p>
                   {!r.isCorrect && (
                     <p className="text-red-400/70 text-xs mt-1">Bạn chọn: {r.userAnswer}</p>
                   )}
                 </div>
                 <div className="text-right">
-                  <p className="text-white/20 text-xs">{r.question.word.example}</p>
+                  <p className="text-app-text-muted text-xs">{r.question.word.example}</p>
                   <p className="text-white/15 text-xs italic">{r.question.word.exampleVi}</p>
                 </div>
               </div>
@@ -467,19 +467,19 @@ export default function TopikTopicQuizPage() {
         <div className="flex gap-3">
           <button
             onClick={() => setPhase("setup")}
-            className="flex-1 py-3 bg-white/5 hover:bg-white/10 text-white/70 font-medium rounded-xl transition-all cursor-pointer whitespace-nowrap border border-white/8"
+            className="flex-1 py-3 bg-app-card/50 hover:bg-app-card/70 text-white/70 font-medium rounded-xl transition-all cursor-pointer whitespace-nowrap border border-app-border"
           >
             <i className="ri-settings-3-line mr-2"></i>Cài đặt lại
           </button>
           <button
             onClick={() => setShowShare(true)}
-            className="py-3 px-4 bg-white/5 hover:bg-white/10 text-white/60 font-medium rounded-xl transition-all cursor-pointer whitespace-nowrap border border-white/8"
+            className="py-3 px-4 bg-app-card/50 hover:bg-app-card/70 text-white/60 font-medium rounded-xl transition-all cursor-pointer whitespace-nowrap border border-app-border"
           >
             <i className="ri-share-line mr-1"></i>Chia sẻ
           </button>
           <button
             onClick={startQuiz}
-            className="flex-1 py-3 bg-[#e8c84a] hover:bg-[#e8c84a]/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap"
+            className="flex-1 py-3 bg-app-accent-primary hover:bg-app-accent-primary/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap"
           >
             <i className="ri-refresh-line mr-2"></i>Làm lại
           </button>

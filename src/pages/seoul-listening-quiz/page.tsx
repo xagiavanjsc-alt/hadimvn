@@ -121,19 +121,19 @@ export default function SeoulListeningQuizPage() {
       <div className="p-6 max-w-3xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
-          <button onClick={() => navigate(-1)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5 text-white/40 hover:text-white/70 cursor-pointer">
+          <button onClick={() => navigate(-1)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-app-card/50 text-app-text-secondary hover:text-white/70 cursor-pointer">
             <i className="ri-arrow-left-line text-lg"></i>
           </button>
           <div>
             <h1 className="text-white font-bold text-xl">Nghe và nhận biết</h1>
-            <p className="text-white/40 text-sm">Nghe phát âm từ vựng Seoul rồi chọn đúng từ</p>
+            <p className="text-app-text-secondary text-sm">Nghe phát âm từ vựng Seoul rồi chọn đúng từ</p>
           </div>
         </div>
 
         {/* Select Book */}
         {mode === "select-book" && (
           <div className="space-y-4">
-            <div className="bg-white/3 border border-white/8 rounded-xl p-5">
+            <div className="bg-app-surface/50 border border-app-border rounded-xl p-5">
               <h2 className="text-white font-semibold mb-4">Chọn cuốn sách</h2>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {LEVELS.map(level => {
@@ -147,8 +147,8 @@ export default function SeoulListeningQuizPage() {
                       disabled={!hasVocab}
                       className={`p-4 rounded-xl border text-center transition-all cursor-pointer ${
                         hasVocab
-                          ? "border-white/10 hover:border-white/20 hover:bg-white/5"
-                          : "border-white/5 opacity-30 cursor-not-allowed"
+                          ? "border-app-border hover:border-white/20 hover:bg-app-card/50"
+                          : "border-app-border opacity-30 cursor-not-allowed"
                       }`}
                       style={{ borderColor: hasVocab ? b.color + "40" : undefined }}
                     >
@@ -156,7 +156,7 @@ export default function SeoulListeningQuizPage() {
                         <i className="ri-book-3-line text-sm" style={{ color: b.color }}></i>
                       </div>
                       <p className="text-white font-bold text-sm">{level}</p>
-                      <p className="text-white/30 text-xs mt-0.5">{b.lessons.filter(l => l.vocabulary.length >= 4).length} bài</p>
+                      <p className="text-app-text-muted text-xs mt-0.5">{b.lessons.filter(l => l.vocabulary.length >= 4).length} bài</p>
                     </button>
                   );
                 })}
@@ -164,13 +164,13 @@ export default function SeoulListeningQuizPage() {
             </div>
 
             {/* Tips */}
-            <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4">
+            <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-                  <i className="ri-lightbulb-line text-[#e8c84a]"></i>
+                  <i className="ri-lightbulb-line text-app-accent-primary"></i>
                 </div>
                 <div>
-                  <p className="text-[#e8c84a] font-semibold text-sm mb-1">Cách luyện tập</p>
+                  <p className="text-app-accent-primary font-semibold text-sm mb-1">Cách luyện tập</p>
                   <ul className="text-white/50 text-xs space-y-1">
                     <li>• Nghe phát âm tiếng Hàn rồi chọn nghĩa tiếng Việt đúng</li>
                     <li>• Luyện tai nghe phân biệt âm thanh tiếng Hàn</li>
@@ -186,21 +186,21 @@ export default function SeoulListeningQuizPage() {
         {mode === "select-lesson" && book && (
           <div className="space-y-4">
             <div className="flex items-center gap-3 mb-2">
-              <button onClick={() => { setMode("select-book"); setSelectedBook(""); }} className="text-white/40 hover:text-white/70 cursor-pointer text-sm flex items-center gap-1">
+              <button onClick={() => { setMode("select-book"); setSelectedBook(""); }} className="text-app-text-secondary hover:text-white/70 cursor-pointer text-sm flex items-center gap-1">
                 <i className="ri-arrow-left-s-line"></i> Chọn lại cuốn
               </button>
-              <span className="text-white/20">/</span>
+              <span className="text-app-text-muted">/</span>
               <span className="font-bold text-sm" style={{ color: book.color }}>{book.name}</span>
             </div>
 
             {/* Settings */}
-            <div className="bg-white/3 border border-white/8 rounded-xl p-4 flex items-center gap-6">
+            <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 flex items-center gap-6">
               <div>
                 <p className="text-white/50 text-xs mb-1">Số câu hỏi</p>
                 <div className="flex gap-2">
                   {[5, 10, 15, 20].map(n => (
                     <button key={n} onClick={() => setQuestionCount(n)}
-                      className={`px-3 py-1 rounded-lg text-xs font-medium cursor-pointer transition-all ${questionCount === n ? "text-white" : "bg-white/5 text-white/40 hover:bg-white/8"}`}
+                      className={`px-3 py-1 rounded-lg text-xs font-medium cursor-pointer transition-all ${questionCount === n ? "text-white" : "bg-app-card/50 text-app-text-secondary hover:bg-white/8"}`}
                       style={questionCount === n ? { backgroundColor: book.color + "30", color: book.color } : {}}>
                       {n}
                     </button>
@@ -210,7 +210,7 @@ export default function SeoulListeningQuizPage() {
               <div>
                 <p className="text-white/50 text-xs mb-1">Tự động phát âm</p>
                 <button onClick={() => setAutoPlay(a => !a)}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs cursor-pointer transition-all ${autoPlay ? "text-white" : "bg-white/5 text-white/40"}`}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs cursor-pointer transition-all ${autoPlay ? "text-white" : "bg-app-card/50 text-app-text-secondary"}`}
                   style={autoPlay ? { backgroundColor: book.color + "20", color: book.color } : {}}>
                   <i className={autoPlay ? "ri-volume-up-line" : "ri-volume-mute-line"}></i>
                   {autoPlay ? "Bật" : "Tắt"}
@@ -218,7 +218,7 @@ export default function SeoulListeningQuizPage() {
               </div>
             </div>
 
-            <div className="bg-white/3 border border-white/8 rounded-xl p-5">
+            <div className="bg-app-surface/50 border border-app-border rounded-xl p-5">
               <h2 className="text-white font-semibold mb-4">Chọn bài học — {book.name}</h2>
               <div className="space-y-2">
                 {book.lessons.filter(l => l.vocabulary.length >= 4).map(l => (
@@ -228,7 +228,7 @@ export default function SeoulListeningQuizPage() {
                     className={`w-full flex items-center gap-4 p-3 rounded-xl border transition-all cursor-pointer text-left ${
                       selectedLesson === l.id
                         ? "border-opacity-60"
-                        : "border-white/8 hover:border-white/15 hover:bg-white/3"
+                        : "border-app-border hover:border-white/15 hover:bg-app-surface/50"
                     }`}
                     style={selectedLesson === l.id ? { borderColor: book.color, backgroundColor: book.color + "10" } : {}}
                   >
@@ -237,9 +237,9 @@ export default function SeoulListeningQuizPage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-white text-sm font-medium truncate">{l.title}</p>
-                      <p className="text-white/40 text-xs truncate">{l.titleVi}</p>
+                      <p className="text-app-text-secondary text-xs truncate">{l.titleVi}</p>
                     </div>
-                    <span className="text-white/30 text-xs flex-shrink-0">{l.vocabulary.length} từ</span>
+                    <span className="text-app-text-muted text-xs flex-shrink-0">{l.vocabulary.length} từ</span>
                   </button>
                 ))}
               </div>
@@ -266,13 +266,13 @@ export default function SeoulListeningQuizPage() {
               <div className="flex-1 h-2 bg-white/8 rounded-full overflow-hidden">
                 <div className="h-full rounded-full transition-all duration-500" style={{ width: `${((currentIdx) / questions.length) * 100}%`, backgroundColor: book.color }}></div>
               </div>
-              <span className="text-white/40 text-xs whitespace-nowrap">{currentIdx + 1}/{questions.length}</span>
+              <span className="text-app-text-secondary text-xs whitespace-nowrap">{currentIdx + 1}/{questions.length}</span>
               <span className="text-xs font-bold" style={{ color: book.color }}>{score} đúng</span>
             </div>
 
             {/* Audio Card */}
-            <div className="bg-white/3 border border-white/8 rounded-2xl p-8 text-center">
-              <p className="text-white/30 text-xs mb-4 tracking-normal">Nghe và chọn nghĩa đúng</p>
+            <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8 text-center">
+              <p className="text-app-text-muted text-xs mb-4 tracking-normal">Nghe và chọn nghĩa đúng</p>
 
               {/* Big play button */}
               <button
@@ -292,15 +292,15 @@ export default function SeoulListeningQuizPage() {
                 )}
               </button>
 
-              <p className="text-white/30 text-sm">Nhấn để nghe lại</p>
+              <p className="text-app-text-muted text-sm">Nhấn để nghe lại</p>
 
               {/* Show Korean after answering */}
               {selected !== null && (
-                <div className="mt-4 p-3 rounded-xl bg-white/5">
+                <div className="mt-4 p-3 rounded-xl bg-app-card/50">
                   <p className="text-white text-2xl font-bold">{q.word.korean}</p>
-                  <p className="text-white/40 text-sm mt-1">{q.word.pronunciation}</p>
+                  <p className="text-app-text-secondary text-sm mt-1">{q.word.pronunciation}</p>
                   {q.word.example && (
-                    <p className="text-white/30 text-xs mt-2 italic">{q.word.example}</p>
+                    <p className="text-app-text-muted text-xs mt-2 italic">{q.word.example}</p>
                   )}
                 </div>
               )}
@@ -309,11 +309,11 @@ export default function SeoulListeningQuizPage() {
             {/* Options */}
             <div className="grid grid-cols-2 gap-3">
               {q.options.map((opt, idx) => {
-                let cls = "border-white/10 hover:border-white/20 hover:bg-white/5 text-white/70";
+                let cls = "border-app-border hover:border-white/20 hover:bg-app-card/50 text-white/70";
                 if (selected !== null) {
-                  if (idx === q.correctIndex) cls = "border-emerald-500/60 bg-emerald-500/10 text-emerald-400";
+                  if (idx === q.correctIndex) cls = "border-emerald-500/60 bg-emerald-500/10 text-app-accent-success";
                   else if (idx === selected && selected !== q.correctIndex) cls = "border-red-500/60 bg-red-500/10 text-red-400";
-                  else cls = "border-white/5 text-white/30";
+                  else cls = "border-app-border text-app-text-muted";
                 }
                 return (
                   <button
@@ -324,7 +324,7 @@ export default function SeoulListeningQuizPage() {
                   >
                     <p className="font-medium text-sm">{opt.vietnamese}</p>
                     {selected !== null && idx === q.correctIndex && (
-                      <p className="text-emerald-400/60 text-xs mt-1">{opt.korean}</p>
+                      <p className="text-app-accent-success/60 text-xs mt-1">{opt.korean}</p>
                     )}
                   </button>
                 );
@@ -347,34 +347,34 @@ export default function SeoulListeningQuizPage() {
         {/* Result */}
         {mode === "result" && book && (
           <div className="space-y-5">
-            <div className="bg-white/3 border border-white/8 rounded-2xl p-8 text-center">
+            <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8 text-center">
               <div className="w-20 h-20 rounded-full mx-auto flex items-center justify-center mb-4" style={{ backgroundColor: book.color + "20" }}>
                 <span className="text-2xl font-bold" style={{ color: book.color }}>{pct}%</span>
               </div>
               <h2 className="text-white text-xl font-bold mb-1">
                 {pct >= 80 ? "Xuất sắc!" : pct >= 60 ? "Tốt lắm!" : "Cần luyện thêm!"}
               </h2>
-              <p className="text-white/40 text-sm">{score}/{questions.length} câu đúng</p>
+              <p className="text-app-text-secondary text-sm">{score}/{questions.length} câu đúng</p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
                 <div className="bg-emerald-500/10 rounded-xl p-3">
-                  <p className="text-emerald-400 text-xl font-bold">{score}</p>
-                  <p className="text-white/40 text-xs">Đúng</p>
+                  <p className="text-app-accent-success text-xl font-bold">{score}</p>
+                  <p className="text-app-text-secondary text-xs">Đúng</p>
                 </div>
                 <div className="bg-red-500/10 rounded-xl p-3">
                   <p className="text-red-400 text-xl font-bold">{questions.length - score}</p>
-                  <p className="text-white/40 text-xs">Sai</p>
+                  <p className="text-app-text-secondary text-xs">Sai</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-3">
+                <div className="bg-app-card/50 rounded-xl p-3">
                   <p className="text-white text-xl font-bold">{questions.length}</p>
-                  <p className="text-white/40 text-xs">Tổng</p>
+                  <p className="text-app-text-secondary text-xs">Tổng</p>
                 </div>
               </div>
             </div>
 
             {/* Review wrong answers */}
             {answers.some(a => !a.correct) && (
-              <div className="bg-white/3 border border-white/8 rounded-xl p-4">
+              <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
                 <h3 className="text-white font-semibold text-sm mb-3">Từ cần ôn lại</h3>
                 <div className="space-y-2">
                   {questions.map((q, i) => answers[i] && !answers[i].correct && (
@@ -384,11 +384,11 @@ export default function SeoulListeningQuizPage() {
                       </button>
                       <div className="flex-1 min-w-0">
                         <p className="text-white text-sm font-medium">{q.word.korean}</p>
-                        <p className="text-white/40 text-xs">{q.word.vietnamese}</p>
+                        <p className="text-app-text-secondary text-xs">{q.word.vietnamese}</p>
                       </div>
                       <div className="text-right text-xs">
                         <p className="text-red-400">Chọn: {q.options[answers[i].chosen]?.vietnamese}</p>
-                        <p className="text-emerald-400">Đúng: {q.word.vietnamese}</p>
+                        <p className="text-app-accent-success">Đúng: {q.word.vietnamese}</p>
                       </div>
                     </div>
                   ))}
@@ -397,7 +397,7 @@ export default function SeoulListeningQuizPage() {
             )}
 
             <div className="flex gap-3">
-              <button onClick={restart} className="flex-1 py-3 rounded-xl border border-white/10 text-white/60 hover:bg-white/5 text-sm cursor-pointer transition-all">
+              <button onClick={restart} className="flex-1 py-3 rounded-xl border border-app-border text-white/60 hover:bg-app-card/50 text-sm cursor-pointer transition-all">
                 <i className="ri-refresh-line mr-2"></i>Chọn bài khác
               </button>
               <button onClick={startQuiz} className="flex-1 py-3 rounded-xl font-semibold text-sm cursor-pointer transition-all hover:opacity-90" style={{ backgroundColor: book.color, color: "#000" }}>

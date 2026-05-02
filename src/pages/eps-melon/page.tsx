@@ -164,25 +164,25 @@ export default function EpsMelonPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0f1117]">
+    <div className="min-h-screen bg-app-bg">
       {/* Header */}
-      <header className="sticky top-0 z-30 bg-[#0f1117]/95 backdrop-blur-md border-b border-white/8 h-14 flex items-center px-4 md:px-6 gap-3">
+      <header className="sticky top-0 z-30 bg-app-bg/95 backdrop-blur-md border-b border-app-border h-14 flex items-center px-4 md:px-6 gap-3">
         <button
           onClick={() => navigate("/melon")}
-          className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/60 hover:text-white cursor-pointer flex-shrink-0"
+          className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-white/60 hover:text-white cursor-pointer flex-shrink-0"
         >
           <i className="ri-arrow-left-line" />
         </button>
         <div className="flex items-center gap-2 flex-1 min-w-0">
           <div className="w-7 h-7 flex items-center justify-center bg-emerald-500/20 rounded-lg flex-shrink-0">
-            <i className="ri-book-2-line text-emerald-400 text-sm" />
+            <i className="ri-book-2-line text-app-accent-success text-sm" />
           </div>
           <div className="min-w-0">
             <p className="text-white font-bold text-sm leading-tight">EPS + Melon</p>
-            <p className="text-white/30 text-[10px] hidden sm:block">Học từ vựng EPS-TOPIK qua lời bài hát K-pop</p>
+            <p className="text-app-text-muted text-[10px] hidden sm:block">Học từ vựng EPS-TOPIK qua lời bài hát K-pop</p>
           </div>
         </div>
-        <div className="flex-shrink-0 flex items-center gap-1.5 text-xs text-emerald-400/70">
+        <div className="flex-shrink-0 flex items-center gap-1.5 text-xs text-app-accent-success/70">
           <i className="ri-checkbox-circle-line" />
           <span className="hidden sm:inline">{learnedCount}/{totalVocab} đã học</span>
           <span className="sm:hidden">{learnedCount}/{totalVocab}</span>
@@ -210,8 +210,8 @@ export default function EpsMelonPage() {
         {/* Stats row */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
-            { icon: "ri-book-2-line", color: "text-emerald-400", val: totalVocab, label: "Tổng từ EPS" },
-            { icon: "ri-music-2-line", color: "text-[#e8c84a]", val: songMatches.length, label: "Bài có từ EPS" },
+            { icon: "ri-book-2-line", color: "text-app-accent-success", val: totalVocab, label: "Tổng từ EPS" },
+            { icon: "ri-music-2-line", color: "text-app-accent-primary", val: songMatches.length, label: "Bài có từ EPS" },
             { icon: "ri-checkbox-circle-line", color: "text-green-400", val: learnedCount, label: "Đã học" },
             {
               icon: "ri-percent-line",
@@ -220,12 +220,12 @@ export default function EpsMelonPage() {
               label: "Tiến độ",
             },
           ].map((s) => (
-            <div key={s.label} className="bg-white/3 border border-white/5 rounded-2xl p-3 text-center">
+            <div key={s.label} className="bg-app-surface/50 border border-app-border rounded-2xl p-3 text-center">
               <div className="w-8 h-8 flex items-center justify-center mx-auto mb-1">
                 <i className={`${s.icon} ${s.color} text-lg`} />
               </div>
               <p className={`text-base font-bold ${s.color}`}>{s.val}</p>
-              <p className="text-white/30 text-[10px]">{s.label}</p>
+              <p className="text-app-text-muted text-[10px]">{s.label}</p>
             </div>
           ))}
         </div>
@@ -233,26 +233,26 @@ export default function EpsMelonPage() {
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Left: Song list */}
           <div className="w-full lg:w-64 flex-shrink-0">
-            <div className="bg-white/3 border border-white/5 rounded-2xl overflow-hidden">
-              <div className="px-4 py-3 border-b border-white/5">
+            <div className="bg-app-surface/50 border border-app-border rounded-2xl overflow-hidden">
+              <div className="px-4 py-3 border-b border-app-border">
                 <p className="text-white/60 text-xs font-semibold tracking-normal">Bài hát</p>
               </div>
 
               {/* All words option */}
               <button
                 onClick={() => setSelectedSong(null)}
-                className={`w-full flex items-center gap-3 px-4 py-3 border-b border-white/5 cursor-pointer transition-colors ${
-                  !selectedSong ? "bg-emerald-500/10 text-emerald-300" : "hover:bg-white/5 text-white/50"
+                className={`w-full flex items-center gap-3 px-4 py-3 border-b border-app-border cursor-pointer transition-colors ${
+                  !selectedSong ? "bg-emerald-500/10 text-emerald-300" : "hover:bg-app-card/50 text-white/50"
                 }`}
               >
-                <div className="w-8 h-8 flex items-center justify-center bg-emerald-500/15 rounded-lg flex-shrink-0">
-                  <i className="ri-list-check text-emerald-400 text-sm" />
+                <div className="w-8 h-8 flex items-center justify-center bg-app-accent-success/15 rounded-lg flex-shrink-0">
+                  <i className="ri-list-check text-app-accent-success text-sm" />
                 </div>
                 <div className="flex-1 text-left min-w-0">
                   <p className="text-sm font-medium truncate">Tất cả từ EPS</p>
-                  <p className="text-[10px] text-white/30">{epsWords.length} từ</p>
+                  <p className="text-[10px] text-app-text-muted">{epsWords.length} từ</p>
                 </div>
-                {!selectedSong && <i className="ri-arrow-right-s-line text-emerald-400 flex-shrink-0" />}
+                {!selectedSong && <i className="ri-arrow-right-s-line text-app-accent-success flex-shrink-0" />}
               </button>
 
               {/* Song list */}
@@ -261,10 +261,10 @@ export default function EpsMelonPage() {
                   <button
                     key={song.rank}
                     onClick={() => setSelectedSong(song)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 border-b border-white/5 cursor-pointer transition-colors last:border-0 ${
+                    className={`w-full flex items-center gap-3 px-4 py-3 border-b border-app-border cursor-pointer transition-colors last:border-0 ${
                       selectedSong?.rank === song.rank
-                        ? "bg-[#e8c84a]/8 text-[#e8c84a]"
-                        : "hover:bg-white/5 text-white/60"
+                        ? "bg-app-accent-primary/8 text-app-accent-primary"
+                        : "hover:bg-app-card/50 text-white/60"
                     }`}
                   >
                     <img
@@ -274,12 +274,12 @@ export default function EpsMelonPage() {
                     />
                     <div className="flex-1 min-w-0 text-left">
                       <p className="text-xs font-medium truncate text-white/80">{song.title}</p>
-                      <p className="text-[10px] text-white/30 truncate">{song.artist}</p>
+                      <p className="text-[10px] text-app-text-muted truncate">{song.artist}</p>
                     </div>
                     <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full flex-shrink-0 ${
                       selectedSong?.rank === song.rank
-                        ? "bg-[#e8c84a]/20 text-[#e8c84a]"
-                        : "bg-white/8 text-white/40"
+                        ? "bg-app-accent-primary/20 text-app-accent-primary"
+                        : "bg-white/8 text-app-text-secondary"
                     }`}>
                       {matches.length}
                     </span>
@@ -291,10 +291,10 @@ export default function EpsMelonPage() {
             {/* Info card */}
             <div className="mt-3 bg-emerald-500/5 border border-emerald-500/15 rounded-2xl p-4">
               <div className="flex items-center gap-2 mb-2">
-                <i className="ri-information-line text-emerald-400 text-sm" />
-                <p className="text-emerald-400/80 text-xs font-semibold">Cách học hiệu quả</p>
+                <i className="ri-information-line text-app-accent-success text-sm" />
+                <p className="text-app-accent-success/80 text-xs font-semibold">Cách học hiệu quả</p>
               </div>
-              <ol className="text-white/40 text-[10px] leading-relaxed space-y-1 list-decimal list-inside">
+              <ol className="text-app-text-secondary text-[10px] leading-relaxed space-y-1 list-decimal list-inside">
                 <li>Chọn bài hát yêu thích</li>
                 <li>Xem từ EPS xuất hiện trong lời</li>
                 <li>Nhấn thẻ để xem nghĩa & ví dụ</li>
@@ -307,7 +307,7 @@ export default function EpsMelonPage() {
           <div className="flex-1 min-w-0">
             {/* Song context header */}
             {selectedSong && (
-              <div className="flex items-center gap-3 bg-white/3 border border-white/5 rounded-2xl p-4 mb-5">
+              <div className="flex items-center gap-3 bg-app-surface/50 border border-app-border rounded-2xl p-4 mb-5">
                 <img src={selectedSong.albumArt} alt="" className="w-12 h-12 rounded-xl object-cover flex-shrink-0" />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
@@ -316,11 +316,11 @@ export default function EpsMelonPage() {
                       #{selectedSong.rank}
                     </span>
                   </div>
-                  <p className="text-white/40 text-xs">{selectedSong.artist}</p>
+                  <p className="text-app-text-secondary text-xs">{selectedSong.artist}</p>
                 </div>
                 <div className="text-right flex-shrink-0">
-                  <p className="text-[#e8c84a] font-bold text-lg">{activeMatches.length}</p>
-                  <p className="text-white/30 text-[10px]">từ EPS</p>
+                  <p className="text-app-accent-primary font-bold text-lg">{activeMatches.length}</p>
+                  <p className="text-app-text-muted text-[10px]">từ EPS</p>
                 </div>
               </div>
             )}
@@ -329,13 +329,13 @@ export default function EpsMelonPage() {
             <div className="flex flex-col sm:flex-row gap-2 mb-4">
               {/* Search */}
               <div className="relative flex-1">
-                <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm pointer-events-none" />
+                <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm pointer-events-none" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Tìm từ vựng..."
-                  className="w-full bg-white/5 border border-white/8 rounded-xl pl-9 pr-4 py-2 text-white/80 text-sm placeholder-white/25 focus:outline-none focus:border-white/20 transition-colors"
+                  className="w-full bg-app-card/50 border border-app-border rounded-xl pl-9 pr-4 py-2 text-white/80 text-sm placeholder-white/25 focus:outline-none focus:border-white/20 transition-colors"
                 />
               </div>
               {/* Category filter */}
@@ -347,7 +347,7 @@ export default function EpsMelonPage() {
                     className={`text-xs px-3 py-2 rounded-xl whitespace-nowrap cursor-pointer transition-all ${
                       categoryFilter === cat
                         ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
-                        : "bg-white/5 text-white/40 border border-white/8 hover:border-white/15"
+                        : "bg-app-card/50 text-app-text-secondary border border-app-border hover:border-white/15"
                     }`}
                   >
                     {cat}
@@ -359,11 +359,11 @@ export default function EpsMelonPage() {
             {/* Cards grid */}
             {activeMatches.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 text-center">
-                <div className="w-14 h-14 flex items-center justify-center bg-white/5 rounded-2xl mb-3">
-                  <i className="ri-search-line text-white/20 text-xl" />
+                <div className="w-14 h-14 flex items-center justify-center bg-app-card/50 rounded-2xl mb-3">
+                  <i className="ri-search-line text-app-text-muted text-xl" />
                 </div>
-                <p className="text-white/40 text-sm">Không tìm thấy từ vựng nào</p>
-                <p className="text-white/20 text-xs mt-1">
+                <p className="text-app-text-secondary text-sm">Không tìm thấy từ vựng nào</p>
+                <p className="text-app-text-muted text-xs mt-1">
                   {selectedSong
                     ? "Bài hát này chưa có từ EPS phù hợp"
                     : "Thử thay đổi bộ lọc"}
@@ -381,8 +381,8 @@ export default function EpsMelonPage() {
                         isLearned
                           ? "bg-emerald-500/8 border-emerald-500/25"
                           : isFlipped
-                          ? "bg-[#e8c84a]/5 border-[#e8c84a]/20"
-                          : "bg-white/3 border-white/5 hover:border-white/10"
+                          ? "bg-app-accent-primary/5 border-app-accent-primary/20"
+                          : "bg-app-surface/50 border-app-border hover:border-app-border"
                       }`}
                       onClick={() => toggleFlip(epsWord.id)}
                     >
@@ -395,18 +395,18 @@ export default function EpsMelonPage() {
 
                       <div className="p-4">
                         {/* Category tag */}
-                        <span className="inline-block text-[9px] font-semibold text-white/30 bg-white/5 px-2 py-0.5 rounded-full mb-2 tracking-wide">
+                        <span className="inline-block text-[9px] font-semibold text-app-text-muted bg-app-card/50 px-2 py-0.5 rounded-full mb-2 tracking-wide">
                           {epsWord.category}
                         </span>
 
                         {/* Korean word — always shown */}
-                        <p className={`text-xl font-bold mb-1 ${isLearned ? "text-emerald-300" : "text-[#e8c84a]"}`}>
+                        <p className={`text-xl font-bold mb-1 ${isLearned ? "text-emerald-300" : "text-app-accent-primary"}`}>
                           {epsWord.korean}
                         </p>
 
                         {/* Meaning & example — revealed on flip */}
                         {!isFlipped && !isLearned ? (
-                          <p className="text-white/25 text-xs italic">Nhấn để xem nghĩa</p>
+                          <p className="text-app-text-muted text-xs italic">Nhấn để xem nghĩa</p>
                         ) : (
                           <>
                             <p className="text-white/75 text-sm font-medium mb-2">{epsWord.vietnamese}</p>
@@ -418,8 +418,8 @@ export default function EpsMelonPage() {
 
                         {/* Context from lyrics */}
                         {context && (isFlipped || isLearned) && (
-                          <div className="mt-2 pt-2 border-t border-white/8">
-                            <p className="text-white/25 text-[10px] mb-1 tracking-wide">Trong lời bài hát</p>
+                          <div className="mt-2 pt-2 border-t border-app-border">
+                            <p className="text-app-text-muted text-[10px] mb-1 tracking-wide">Trong lời bài hát</p>
                             <p className="text-white/50 text-xs leading-relaxed italic">
                               {context.length > 60 ? context.slice(0, 60) + "…" : context}
                             </p>
@@ -433,8 +433,8 @@ export default function EpsMelonPage() {
                           onClick={(e) => { e.stopPropagation(); toggleLearned(epsWord.id); }}
                           className={`w-full py-2.5 text-xs font-semibold border-t transition-colors cursor-pointer ${
                             isLearned
-                              ? "border-emerald-500/20 text-emerald-400/70 hover:text-red-400 bg-emerald-500/5"
-                              : "border-white/8 text-white/40 hover:text-emerald-400 hover:bg-emerald-500/8"
+                              ? "border-emerald-500/20 text-app-accent-success/70 hover:text-red-400 bg-emerald-500/5"
+                              : "border-app-border text-app-text-secondary hover:text-app-accent-success hover:bg-emerald-500/8"
                           }`}
                         >
                           {isLearned ? (
@@ -452,10 +452,10 @@ export default function EpsMelonPage() {
 
             {/* Progress bar */}
             {activeMatches.length > 0 && (
-              <div className="mt-6 bg-white/3 border border-white/5 rounded-2xl p-4">
+              <div className="mt-6 bg-app-surface/50 border border-app-border rounded-2xl p-4">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-white/50 text-xs">Tiến độ học EPS qua K-pop</span>
-                  <span className="text-emerald-400 text-xs font-bold">
+                  <span className="text-app-accent-success text-xs font-bold">
                     {learnedCount}/{totalVocab} từ
                   </span>
                 </div>
@@ -466,7 +466,7 @@ export default function EpsMelonPage() {
                   />
                 </div>
                 {learnedCount > 0 && (
-                  <p className="text-white/25 text-[10px] mt-2 text-center">
+                  <p className="text-app-text-muted text-[10px] mt-2 text-center">
                     🎉 Bạn đã học được {learnedCount} từ EPS từ K-pop. Tiếp tục phát huy!
                   </p>
                 )}

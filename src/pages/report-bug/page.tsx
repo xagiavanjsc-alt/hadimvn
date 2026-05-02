@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 const CATEGORIES = [
   { id: "bug", label: "Lỗi kỹ thuật", icon: "ri-bug-line", color: "#f87171" },
   { id: "ui", label: "Giao diện lỗi", icon: "ri-layout-line", color: "#fb923c" },
-  { id: "content", label: "Nội dung sai", icon: "ri-file-warning-line", color: "#e8c84a" },
+  { id: "content", label: "Nội dung sai", icon: "ri-file-warning-line", color: "app-accent-primary" },
   { id: "feature", label: "Tính năng không hoạt động", icon: "ri-settings-line", color: "#a78bfa" },
   { id: "payment", label: "Vấn đề thanh toán/VIP", icon: "ri-vip-crown-line", color: "#34d399" },
   { id: "other", label: "Khác", icon: "ri-question-line", color: "#94a3b8" },
@@ -54,21 +54,21 @@ export default function ReportBugPage() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-[#0f1117] flex flex-col items-center justify-center px-4 pb-24 md:pb-8">
+      <div className="min-h-screen bg-app-bg flex flex-col items-center justify-center px-4 pb-24 md:pb-8">
         <div className="w-full max-w-sm text-center">
           <div className="w-20 h-20 flex items-center justify-center bg-emerald-500/10 rounded-3xl mx-auto mb-5">
-            <i className="ri-checkbox-circle-line text-emerald-400 text-4xl" />
+            <i className="ri-checkbox-circle-line text-app-accent-success text-4xl" />
           </div>
           <h2 className="text-white font-bold text-xl mb-2">Đã gửi báo cáo!</h2>
-          <p className="text-white/40 text-sm mb-2">Cảm ơn bạn đã phản hồi. Đội ngũ kỹ thuật sẽ xem xét và xử lý sớm nhất có thể.</p>
-          <p className="text-white/25 text-xs mb-8">Thường trong vòng 24–48 giờ làm việc</p>
+          <p className="text-app-text-secondary text-sm mb-2">Cảm ơn bạn đã phản hồi. Đội ngũ kỹ thuật sẽ xem xét và xử lý sớm nhất có thể.</p>
+          <p className="text-app-text-muted text-xs mb-8">Thường trong vòng 24–48 giờ làm việc</p>
           <div className="flex gap-3">
             <button onClick={() => navigate(-1)}
-              className="flex-1 py-3 rounded-xl border border-white/10 text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-white/5 transition-colors">
+              className="flex-1 py-3 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50 transition-colors">
               Quay lại
             </button>
             <button onClick={() => { setSubmitted(false); setTitle(""); setDescription(""); }}
-              className="flex-1 py-3 rounded-xl bg-[#e8c84a] text-[#0f1117] font-bold text-sm cursor-pointer whitespace-nowrap">
+              className="flex-1 py-3 rounded-xl bg-app-accent-primary text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap">
               Báo cáo thêm
             </button>
           </div>
@@ -79,13 +79,13 @@ export default function ReportBugPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0f1117] pb-24 md:pb-8">
+    <div className="min-h-screen bg-app-bg pb-24 md:pb-8">
       <MobileHeader title="Báo cáo lỗi" showBack />
 
       {/* Desktop header */}
-      <header className="hidden md:flex sticky top-0 z-30 bg-[#0f1117]/95 backdrop-blur-md border-b border-white/8 h-14 items-center px-6 gap-4">
+      <header className="hidden md:flex sticky top-0 z-30 bg-app-bg/95 backdrop-blur-md border-b border-app-border h-14 items-center px-6 gap-4">
         <button onClick={() => navigate(-1)}
-          className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/60 hover:text-white cursor-pointer">
+          className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-white/60 hover:text-white cursor-pointer">
           <i className="ri-arrow-left-line" />
         </button>
         <div className="flex items-center gap-2">
@@ -106,7 +106,7 @@ export default function ReportBugPage() {
             </div>
             <div>
               <h1 className="text-white font-bold text-base mb-1">Phát hiện lỗi? Hãy cho chúng tôi biết!</h1>
-              <p className="text-white/40 text-xs leading-relaxed">
+              <p className="text-app-text-secondary text-xs leading-relaxed">
                 Mỗi báo cáo của bạn giúp chúng tôi cải thiện ứng dụng tốt hơn. Đội ngũ kỹ thuật sẽ xem xét và phản hồi sớm nhất.
               </p>
             </div>
@@ -151,10 +151,10 @@ export default function ReportBugPage() {
               value={title}
               onChange={e => setTitle(e.target.value.slice(0, 100))}
               placeholder="VD: Không thể phát âm bài hát, trang bị trắng..."
-              className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-3 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40 transition-colors"
+              className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40 transition-colors"
               required
             />
-            <p className="text-[10px] text-right mt-1 text-white/20">{title.length}/100</p>
+            <p className="text-[10px] text-right mt-1 text-app-text-muted">{title.length}/100</p>
           </div>
 
           {/* Description */}
@@ -168,10 +168,10 @@ export default function ReportBugPage() {
               placeholder="Mô tả lỗi xảy ra như thế nào, các bước để tái hiện lỗi, kết quả mong đợi vs thực tế..."
               rows={5}
               maxLength={500}
-              className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-3 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40 transition-colors resize-none"
+              className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40 transition-colors resize-none"
               required
             />
-            <p className="text-[10px] text-right mt-1 text-white/20">{description.length}/500</p>
+            <p className="text-[10px] text-right mt-1 text-app-text-muted">{description.length}/500</p>
           </div>
 
           {/* Page URL */}
@@ -182,15 +182,15 @@ export default function ReportBugPage() {
               value={pageUrl}
               onChange={e => setPageUrl(e.target.value)}
               placeholder="VD: /melon, /eps-exam..."
-              className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-3 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40 transition-colors"
+              className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40 transition-colors"
             />
           </div>
 
           {/* User info */}
           {!user && (
-            <div className="flex items-start gap-3 px-4 py-3 bg-[#e8c84a]/5 border border-[#e8c84a]/10 rounded-xl">
-              <i className="ri-information-line text-[#e8c84a]/60 text-sm flex-shrink-0 mt-0.5" />
-              <p className="text-white/40 text-xs leading-relaxed">
+            <div className="flex items-start gap-3 px-4 py-3 bg-app-accent-primary/5 border border-app-accent-primary/10 rounded-xl">
+              <i className="ri-information-line text-app-accent-primary/60 text-sm flex-shrink-0 mt-0.5" />
+              <p className="text-app-text-secondary text-xs leading-relaxed">
                 Đăng nhập để chúng tôi có thể liên hệ phản hồi kết quả xử lý lỗi cho bạn.
               </p>
             </div>
@@ -217,11 +217,11 @@ export default function ReportBugPage() {
         </form>
 
         {/* Recent reports by user */}
-        <div className="mt-8 pt-6 border-t border-white/5">
-          <p className="text-white/25 text-xs text-center">
+        <div className="mt-8 pt-6 border-t border-app-border">
+          <p className="text-app-text-muted text-xs text-center">
             Cần hỗ trợ khẩn cấp? Liên hệ qua{" "}
             <a href="https://zalo.me" target="_blank" rel="nofollow noopener noreferrer"
-              className="text-[#e8c84a]/60 hover:text-[#e8c84a] underline">Zalo</a>
+              className="text-app-accent-primary/60 hover:text-app-accent-primary underline">Zalo</a>
             {" "}hoặc email hỗ trợ.
           </p>
         </div>

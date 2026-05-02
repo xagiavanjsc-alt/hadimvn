@@ -37,7 +37,7 @@ function getDayOfWeek() {
 function FeedCard({ item, onDismiss }: { item: FeedItem; onDismiss?: (id: string) => void }) {
   const navigate = useNavigate();
   return (
-    <div className={`bg-[#0f1117] border rounded-2xl p-5 transition-all hover:border-white/10 ${item.pinned ? "border-[#e8c84a]/20" : "border-white/5"}`}>
+    <div className={`bg-app-bg border rounded-2xl p-5 transition-all hover:border-app-border ${item.pinned ? "border-app-accent-primary/20" : "border-app-border"}`}>
       <div className="flex items-start gap-4">
         <div className="w-11 h-11 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${item.color}15` }}>
           <i className={`${item.icon} text-xl`} style={{ color: item.color }}></i>
@@ -46,13 +46,13 @@ function FeedCard({ item, onDismiss }: { item: FeedItem; onDismiss?: (id: string
           <div className="flex items-start justify-between gap-2 mb-1">
             <div className="flex items-center gap-2 flex-wrap">
               <p className="text-white font-semibold text-sm">{item.title}</p>
-              {item.pinned && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[#e8c84a]/15 text-[#e8c84a]">Ghim</span>}
+              {item.pinned && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary">Ghim</span>}
               {item.xp && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ backgroundColor: `${item.color}15`, color: item.color }}>+{item.xp} XP</span>}
             </div>
             <div className="flex items-center gap-2 flex-shrink-0">
-              <span className="text-white/20 text-[10px] whitespace-nowrap">{item.time}</span>
+              <span className="text-app-text-muted text-[10px] whitespace-nowrap">{item.time}</span>
               {onDismiss && (
-                <button onClick={() => onDismiss(item.id)} className="w-5 h-5 flex items-center justify-center rounded text-white/20 hover:text-white/50 cursor-pointer transition-colors">
+                <button onClick={() => onDismiss(item.id)} className="w-5 h-5 flex items-center justify-center rounded text-app-text-muted hover:text-white/50 cursor-pointer transition-colors">
                   <i className="ri-close-line text-xs"></i>
                 </button>
               )}
@@ -92,7 +92,7 @@ function DailyProgressRing({ value, max, label, color }: { value: number; max: n
           <span className="text-white font-bold text-sm">{pct}%</span>
         </div>
       </div>
-      <p className="text-white/40 text-[10px] text-center leading-tight">{label}</p>
+      <p className="text-app-text-secondary text-[10px] text-center leading-tight">{label}</p>
       <p className="text-white/60 text-xs font-semibold">{value}/{max}</p>
     </div>
   );
@@ -125,7 +125,7 @@ export default function StudyFeedPage() {
   const suggestions = useMemo(() => {
     const items: { title: string; desc: string; path: string; icon: string; color: string; reason: string }[] = [];
     if (epsDone < 50) items.push({ title: "Luyện thi EPS theo chủ đề", desc: "Bạn chưa làm nhiều câu EPS. Bắt đầu với chủ đề An toàn lao động!", path: "/eps-topic-drill", icon: "ri-focus-3-line", color: "#34d399", reason: `Mới làm ${epsDone} câu` });
-    if (vocabMastered < 30) items.push({ title: "Flashcard EPS theo chủ đề", desc: "Học từ vựng theo chủ đề Y tế và Giao thông — quan trọng cho kỳ thi!", path: "/eps-vocab-flashcard", icon: "ri-stack-line", color: "#e8c84a", reason: `Mới thuộc ${vocabMastered} từ` });
+    if (vocabMastered < 30) items.push({ title: "Flashcard EPS theo chủ đề", desc: "Học từ vựng theo chủ đề Y tế và Giao thông — quan trọng cho kỳ thi!", path: "/eps-vocab-flashcard", icon: "ri-stack-line", color: "app-accent-primary", reason: `Mới thuộc ${vocabMastered} từ` });
     if (streak.count < 7) items.push({ title: "Duy trì streak hàng ngày", desc: `Streak hiện tại: ${streak.count} ngày. Học thêm hôm nay để giữ streak!`, path: "/daily-review", icon: "ri-fire-line", color: "#fb923c", reason: "Streak chưa đủ 7 ngày" });
     if (epsAccuracy < 70 && epsDone > 10) items.push({ title: "Ôn lại câu sai EPS", desc: `Độ chính xác ${epsAccuracy}% — cần ôn lại các câu sai để cải thiện!`, path: "/study-history", icon: "ri-refresh-line", color: "#f472b6", reason: `Độ chính xác ${epsAccuracy}%` });
     if (flashcardKnown < 20) items.push({ title: "Flashcard từ vựng tổng hợp", desc: "Học từ vựng qua flashcard — cách nhanh nhất để mở rộng vốn từ!", path: "/flashcard", icon: "ri-translate-2", color: "#a78bfa", reason: "Chưa học nhiều từ vựng" });
@@ -161,7 +161,7 @@ export default function StudyFeedPage() {
         title: `Hôm nay bạn đã kiếm ${todayXP} XP`,
         body: `Tiến độ tốt! Tổng XP tích lũy: ${totalXP.toLocaleString()} XP — Cấp ${currentRank.name}.`,
         icon: "ri-star-fill",
-        color: "#e8c84a",
+        color: "app-accent-primary",
         action: { label: "Xem thống kê XP", path: "/xp-stats" },
         time: "Hôm nay",
         xp: todayXP,
@@ -188,7 +188,7 @@ export default function StudyFeedPage() {
         title: `EPS: ${epsDone} câu đã làm — ${epsAccuracy}% chính xác`,
         body: epsAccuracy >= 80 ? "Xuất sắc! Bạn đang ở mức sẵn sàng thi thật. Hãy thử bài thi đầy đủ!" : `Cần cải thiện thêm. Mục tiêu: đạt 80%+ để tự tin thi thật.`,
         icon: "ri-file-list-3-line",
-        color: epsAccuracy >= 80 ? "#34d399" : "#e8c84a",
+        color: epsAccuracy >= 80 ? "#34d399" : "app-accent-primary",
         action: { label: epsAccuracy >= 80 ? "Thi thử ngay" : "Luyện thêm", path: epsAccuracy >= 80 ? "/eps-exam" : "/eps-topic-drill" },
         time: "Cập nhật",
       });
@@ -262,17 +262,17 @@ export default function StudyFeedPage() {
       subtitle={`${getDayOfWeek()} · ${new Date().toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })}`}
     >
       {/* Hero greeting */}
-      <div className="bg-gradient-to-r from-[#1a1600] via-[#0f1117] to-[#0f1117] border border-[#e8c84a]/15 rounded-2xl p-6 mb-6">
+      <div className="bg-gradient-to-r from-app-surface via-[#0f1117] to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-6 mb-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-[#e8c84a]/70 text-xs font-semibold tracking-normal mb-1">{getGreeting()}</p>
+            <p className="text-app-accent-primary/70 text-xs font-semibold tracking-normal mb-1">{getGreeting()}</p>
             <h2 className="text-white font-bold text-2xl mb-1">{displayName}!</h2>
-            <p className="text-white/40 text-sm">
+            <p className="text-app-text-secondary text-sm">
               Cấp <span style={{ color: currentRank.color }} className="font-semibold">{currentRank.name}</span> · {totalXP.toLocaleString()} XP · Streak {streak.count} ngày
             </p>
           </div>
           <div className="flex items-center gap-6">
-            <DailyProgressRing value={todayXP} max={100} label="XP hôm nay" color="#e8c84a" />
+            <DailyProgressRing value={todayXP} max={100} label="XP hôm nay" color="app-accent-primary" />
             <DailyProgressRing value={streak.count} max={30} label="Streak" color="#fb923c" />
             <DailyProgressRing value={epsAccuracy} max={100} label="EPS chính xác" color="#34d399" />
           </div>
@@ -288,7 +288,7 @@ export default function StudyFeedPage() {
               <button
                 key={tab.key}
                 onClick={() => setFilterType(tab.key)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${filterType === tab.key ? "bg-[#e8c84a]/15 text-[#e8c84a] border border-[#e8c84a]/25" : "bg-white/3 text-white/40 border border-white/8 hover:text-white/60"}`}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${filterType === tab.key ? "bg-app-accent-primary/15 text-app-accent-primary border border-app-accent-primary/25" : "bg-app-surface/50 text-app-text-secondary border border-app-border hover:text-white/60"}`}
               >
                 <i className={`${tab.icon} text-xs`}></i>{tab.label}
               </button>
@@ -298,9 +298,9 @@ export default function StudyFeedPage() {
           {/* Feed items */}
           <div className="space-y-3">
             {filteredFeed.length === 0 ? (
-              <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-12 text-center">
+              <div className="bg-app-bg border border-app-border rounded-2xl p-12 text-center">
                 <i className="ri-inbox-line text-white/10 text-4xl mb-3"></i>
-                <p className="text-white/30 text-sm">Không có thông báo nào</p>
+                <p className="text-app-text-muted text-sm">Không có thông báo nào</p>
               </div>
             ) : (
               filteredFeed.map(item => (
@@ -317,9 +317,9 @@ export default function StudyFeedPage() {
         {/* Right: suggestions + quick actions */}
         <div className="space-y-4">
           {/* Suggested next lessons */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-4">
-              <i className="ri-lightbulb-line text-[#e8c84a] text-sm"></i>
+              <i className="ri-lightbulb-line text-app-accent-primary text-sm"></i>
               <h3 className="text-white font-semibold text-sm">Gợi ý bài học tiếp theo</h3>
             </div>
             <div className="space-y-2.5">
@@ -327,28 +327,28 @@ export default function StudyFeedPage() {
                 <button
                   key={i}
                   onClick={() => navigate(s.path)}
-                  className="w-full flex items-center gap-3 p-3 rounded-xl bg-white/2 hover:bg-white/5 border border-white/5 hover:border-white/10 transition-all cursor-pointer text-left"
+                  className="w-full flex items-center gap-3 p-3 rounded-xl bg-white/2 hover:bg-app-card/50 border border-app-border hover:border-app-border transition-all cursor-pointer text-left"
                 >
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
                     <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-white/70 text-xs font-medium truncate">{s.title}</p>
-                    <p className="text-white/30 text-[10px]">{s.reason}</p>
+                    <p className="text-app-text-muted text-[10px]">{s.reason}</p>
                   </div>
-                  <i className="ri-arrow-right-s-line text-white/20 text-sm flex-shrink-0"></i>
+                  <i className="ri-arrow-right-s-line text-app-text-muted text-sm flex-shrink-0"></i>
                 </button>
               ))}
             </div>
           </div>
 
           {/* Quick actions */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">Truy cập nhanh</h3>
             <div className="grid grid-cols-2 gap-2">
               {[
                 { label: "Thi EPS", icon: "ri-timer-line", color: "#34d399", path: "/eps-exam" },
-                { label: "Flashcard", icon: "ri-stack-line", color: "#e8c84a", path: "/eps-flashcard" },
+                { label: "Flashcard", icon: "ri-stack-line", color: "app-accent-primary", path: "/eps-flashcard" },
                 { label: "Cộng đồng", icon: "ri-group-line", color: "#f472b6", path: "/community" },
                 { label: "Thử thách", icon: "ri-trophy-line", color: "#fb923c", path: "/weekly-challenge" },
                 { label: "Từ vựng", icon: "ri-translate-2", color: "#a78bfa", path: "/eps-vocab-flashcard" },
@@ -357,7 +357,7 @@ export default function StudyFeedPage() {
                 <button
                   key={a.path}
                   onClick={() => navigate(a.path)}
-                  className="flex items-center gap-2 p-2.5 rounded-xl bg-white/3 hover:bg-white/6 border border-white/5 hover:border-white/10 transition-all cursor-pointer"
+                  className="flex items-center gap-2 p-2.5 rounded-xl bg-app-surface/50 hover:bg-white/6 border border-app-border hover:border-app-border transition-all cursor-pointer"
                 >
                   <div className="w-6 h-6 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${a.color}15` }}>
                     <i className={`${a.icon} text-xs`} style={{ color: a.color }}></i>
@@ -369,9 +369,9 @@ export default function StudyFeedPage() {
           </div>
 
           {/* Today's goal */}
-          <div className="bg-gradient-to-br from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/15 rounded-2xl p-5">
+          <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
-              <i className="ri-focus-3-line text-[#e8c84a] text-sm"></i>
+              <i className="ri-focus-3-line text-app-accent-primary text-sm"></i>
               <h3 className="text-white font-semibold text-sm">Mục tiêu hôm nay</h3>
             </div>
             <div className="space-y-2.5">
@@ -382,10 +382,10 @@ export default function StudyFeedPage() {
                 { label: "Kiếm 50 XP", done: todayXP >= 50, icon: "ri-star-line" },
               ].map((g, i) => (
                 <div key={i} className="flex items-center gap-2.5">
-                  <div className={`w-5 h-5 flex items-center justify-center rounded-full flex-shrink-0 ${g.done ? "bg-emerald-500/20" : "bg-white/5"}`}>
-                    <i className={`${g.done ? "ri-checkbox-circle-fill text-emerald-400" : "ri-circle-line text-white/20"} text-xs`}></i>
+                  <div className={`w-5 h-5 flex items-center justify-center rounded-full flex-shrink-0 ${g.done ? "bg-emerald-500/20" : "bg-app-card/50"}`}>
+                    <i className={`${g.done ? "ri-checkbox-circle-fill text-app-accent-success" : "ri-circle-line text-app-text-muted"} text-xs`}></i>
                   </div>
-                  <span className={`text-xs ${g.done ? "text-white/60 line-through" : "text-white/40"}`}>{g.label}</span>
+                  <span className={`text-xs ${g.done ? "text-white/60 line-through" : "text-app-text-secondary"}`}>{g.label}</span>
                 </div>
               ))}
             </div>

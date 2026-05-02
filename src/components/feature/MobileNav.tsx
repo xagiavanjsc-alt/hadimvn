@@ -92,7 +92,7 @@ export default function MobileNav() {
   return (
     <>
       {/* Bottom Navigation Bar */}
-      <nav className="fixed bottom-0 left-0 right-0 z-40 bg-[#0f1117] border-t border-white/8 flex md:hidden">
+      <nav className="fixed bottom-0 left-0 right-0 z-40 bg-app-bg border-t border-app-border flex md:hidden">
         {BOTTOM_NAV.map((item) => (
           <NavLink
             key={item.path}
@@ -100,7 +100,7 @@ export default function MobileNav() {
             end={item.exact}
             className={({ isActive }) =>
               `flex-1 flex flex-col items-center justify-center py-2.5 gap-0.5 transition-all ${
-                isActive ? "text-[#e8c84a]" : "text-white/35 hover:text-white/60"
+                isActive ? "text-app-accent-primary" : "text-white/35 hover:text-white/60"
               }`
             }
           >
@@ -131,14 +131,14 @@ export default function MobileNav() {
             onClick={() => setMenuOpen(false)}
           />
           {/* Panel */}
-          <div className="absolute bottom-0 left-0 right-0 bg-[#0f1117] rounded-t-2xl max-h-[85vh] flex flex-col">
+          <div className="absolute bottom-0 left-0 right-0 bg-app-bg rounded-t-2xl max-h-[85vh] flex flex-col">
             {/* Handle */}
             <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
               <div className="w-10 h-1 rounded-full bg-white/15"></div>
             </div>
 
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-3 border-b border-white/8 flex-shrink-0">
+            <div className="flex items-center justify-between px-5 py-3 border-b border-app-border flex-shrink-0">
               <div className="flex items-center gap-3">
                 <img
                   src="https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png"
@@ -149,28 +149,28 @@ export default function MobileNav() {
               </div>
               <button
                 onClick={() => setMenuOpen(false)}
-                className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/50 cursor-pointer"
+                className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-white/50 cursor-pointer"
               >
                 <i className="ri-close-line text-base"></i>
               </button>
             </div>
 
             {/* User info */}
-            <div className="px-5 py-3 border-b border-white/5 flex-shrink-0">
+            <div className="px-5 py-3 border-b border-app-border flex-shrink-0">
               {user ? (
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-[#e8c84a]/20 flex items-center justify-center">
-                      <i className="ri-user-line text-[#e8c84a] text-sm"></i>
+                    <div className="w-9 h-9 rounded-full bg-app-accent-primary/20 flex items-center justify-center">
+                      <i className="ri-user-line text-app-accent-primary text-sm"></i>
                     </div>
                     <div>
                       <p className="text-white/80 text-sm font-medium">{profile?.display_name || "Học viên"}</p>
-                      <p className="text-white/30 text-xs">Đã đăng nhập</p>
+                      <p className="text-app-text-muted text-xs">Đã đăng nhập</p>
                     </div>
                   </div>
                   <button
                     onClick={() => { signOut(); setMenuOpen(false); }}
-                    className="text-white/30 text-xs px-3 py-1.5 rounded-lg bg-white/5 cursor-pointer whitespace-nowrap"
+                    className="text-app-text-muted text-xs px-3 py-1.5 rounded-lg bg-app-card/50 cursor-pointer whitespace-nowrap"
                   >
                     Đăng xuất
                   </button>
@@ -178,12 +178,12 @@ export default function MobileNav() {
               ) : (
                 <button
                   onClick={() => { setShowAuth(true); setMenuOpen(false); }}
-                  className="w-full flex items-center gap-3 bg-[#e8c84a]/10 border border-[#e8c84a]/20 rounded-xl px-4 py-3 cursor-pointer"
+                  className="w-full flex items-center gap-3 bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-xl px-4 py-3 cursor-pointer"
                 >
-                  <i className="ri-cloud-line text-[#e8c84a] text-base"></i>
+                  <i className="ri-cloud-line text-app-accent-primary text-base"></i>
                   <div className="text-left">
-                    <p className="text-[#e8c84a] text-sm font-semibold">Đăng nhập</p>
-                    <p className="text-[#e8c84a]/50 text-xs">Đồng bộ dữ liệu cloud</p>
+                    <p className="text-app-accent-primary text-sm font-semibold">Đăng nhập</p>
+                    <p className="text-app-accent-primary/50 text-xs">Đồng bộ dữ liệu cloud</p>
                   </div>
                 </button>
               )}
@@ -193,7 +193,7 @@ export default function MobileNav() {
             <div className="overflow-y-auto flex-1 px-4 py-3 pb-6 space-y-4">
               {MENU_GROUPS.map((group) => (
                 <div key={group.label}>
-                  <p className="text-white/20 text-[10px] tracking-normal px-2 mb-2">{group.label}</p>
+                  <p className="text-app-text-muted text-[10px] tracking-normal px-2 mb-2">{group.label}</p>
                   <div className="grid grid-cols-2 gap-1.5">
                     {group.items.map((item) => (
                       <NavLink
@@ -203,8 +203,8 @@ export default function MobileNav() {
                         className={({ isActive }) =>
                           `flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs transition-all ${
                             isActive
-                              ? "bg-[#e8c84a]/10 text-[#e8c84a] font-medium"
-                              : "text-white/50 hover:text-white/80 hover:bg-white/5"
+                              ? "bg-app-accent-primary/10 text-app-accent-primary font-medium"
+                              : "text-white/50 hover:text-white/80 hover:bg-app-card/50"
                           }`
                         }
                       >
@@ -220,12 +220,12 @@ export default function MobileNav() {
 
               {/* Landing page link */}
               <div>
-                <p className="text-white/20 text-[10px] tracking-normal px-2 mb-2">Khác</p>
+                <p className="text-app-text-muted text-[10px] tracking-normal px-2 mb-2">Khác</p>
                 <div className="grid grid-cols-2 gap-1.5">
                   <NavLink
                     to="/landing"
                     onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs text-white/50 hover:text-white/80 hover:bg-white/5"
+                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs text-white/50 hover:text-white/80 hover:bg-app-card/50"
                   >
                     <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
                       <i className="ri-global-line text-sm"></i>
@@ -235,7 +235,7 @@ export default function MobileNav() {
                   <NavLink
                     to="/pricing"
                     onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs text-white/50 hover:text-white/80 hover:bg-white/5"
+                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs text-white/50 hover:text-white/80 hover:bg-app-card/50"
                   >
                     <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
                       <i className="ri-vip-crown-line text-sm"></i>
@@ -245,7 +245,7 @@ export default function MobileNav() {
                   <NavLink
                     to="/feedback"
                     onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs text-white/50 hover:text-white/80 hover:bg-white/5"
+                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs text-white/50 hover:text-white/80 hover:bg-app-card/50"
                   >
                     <i className="ri-chat-smile-2-line text-sm"></i>
                     Góp ý &amp; Đánh giá
@@ -253,7 +253,7 @@ export default function MobileNav() {
                   <NavLink
                     to="/report-bug"
                     onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs text-white/50 hover:text-white/80 hover:bg-white/5"
+                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs text-white/50 hover:text-white/80 hover:bg-app-card/50"
                   >
                     <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
                       <i className="ri-bug-line text-sm"></i>

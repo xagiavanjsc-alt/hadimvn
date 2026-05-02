@@ -37,7 +37,7 @@ interface DownloadState {
 }
 
 const colorMap: Record<string, { bg: string; text: string; border: string; progress: string }> = {
-  emerald: { bg: "bg-emerald-500/10", text: "text-emerald-400", border: "border-emerald-500/20", progress: "bg-emerald-500" },
+  emerald: { bg: "bg-emerald-500/10", text: "text-app-accent-success", border: "border-emerald-500/20", progress: "bg-emerald-500" },
   teal: { bg: "bg-teal-500/10", text: "text-teal-400", border: "border-teal-500/20", progress: "bg-teal-500" },
   pink: { bg: "bg-pink-500/10", text: "text-pink-400", border: "border-pink-500/20", progress: "bg-pink-500" },
   amber: { bg: "bg-amber-500/10", text: "text-amber-400", border: "border-amber-500/20", progress: "bg-amber-500" },
@@ -48,7 +48,7 @@ const colorMap: Record<string, { bg: string; text: string; border: string; progr
   blue: { bg: "bg-blue-500/10", text: "text-blue-400", border: "border-blue-500/20", progress: "bg-blue-500" },
   green: { bg: "bg-green-500/10", text: "text-green-400", border: "border-green-500/20", progress: "bg-green-500" },
   purple: { bg: "bg-purple-500/10", text: "text-purple-400", border: "border-purple-500/20", progress: "bg-purple-500" },
-  yellow: { bg: "bg-[#e8c84a]/10", text: "text-[#e8c84a]", border: "border-[#e8c84a]/20", progress: "bg-[#e8c84a]" },
+  yellow: { bg: "bg-app-accent-primary/10", text: "text-app-accent-primary", border: "border-app-accent-primary/20", progress: "bg-app-accent-primary" },
 };
 
 export default function OfflineVocabPage() {
@@ -167,11 +167,11 @@ export default function OfflineVocabPage() {
   };
 
   const levelColor: Record<string, string> = {
-    "A1": "text-emerald-400",
+    "A1": "text-app-accent-success",
     "A2": "text-teal-400",
     "B1": "text-amber-400",
     "B2": "text-orange-400",
-    "A1-C1": "text-[#e8c84a]",
+    "A1-C1": "text-app-accent-primary",
   };
 
   return (
@@ -183,7 +183,7 @@ export default function OfflineVocabPage() {
             <h1 className="text-2xl font-bold text-white">Gói Từ Vựng Offline</h1>
             <p className="text-white/50 text-sm mt-1">Tải từ vựng để học không cần kết nối internet</p>
           </div>
-          <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold ${isOnline ? "bg-emerald-500/15 text-emerald-400" : "bg-rose-500/15 text-rose-400"}`}>
+          <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold ${isOnline ? "bg-app-accent-success/15 text-app-accent-success" : "bg-rose-500/15 text-rose-400"}`}>
             <div className={`w-1.5 h-1.5 rounded-full ${isOnline ? "bg-emerald-400" : "bg-rose-400"} animate-pulse`}></div>
             {isOnline ? "Online" : "Offline"}
           </div>
@@ -191,17 +191,17 @@ export default function OfflineVocabPage() {
 
         {/* Stats bar */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8 text-center">
-            <p className="text-2xl font-bold text-[#e8c84a]">{cachedPacks.size}</p>
-            <p className="text-white/40 text-xs mt-0.5">Gói đã tải</p>
+          <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border text-center">
+            <p className="text-2xl font-bold text-app-accent-primary">{cachedPacks.size}</p>
+            <p className="text-app-text-secondary text-xs mt-0.5">Gói đã tải</p>
           </div>
-          <div className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8 text-center">
-            <p className="text-2xl font-bold text-emerald-400">{totalCached}</p>
-            <p className="text-white/40 text-xs mt-0.5">Từ offline</p>
+          <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border text-center">
+            <p className="text-2xl font-bold text-app-accent-success">{totalCached}</p>
+            <p className="text-app-text-secondary text-xs mt-0.5">Từ offline</p>
           </div>
-          <div className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8 text-center">
+          <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border text-center">
             <p className="text-2xl font-bold text-white/70">{storageUsed}</p>
-            <p className="text-white/40 text-xs mt-0.5">Dung lượng</p>
+            <p className="text-app-text-secondary text-xs mt-0.5">Dung lượng</p>
           </div>
         </div>
 
@@ -226,7 +226,7 @@ export default function OfflineVocabPage() {
             })();
 
             return (
-              <div key={pack.id} className={`bg-[#1a1f2e] rounded-xl p-5 border transition-all ${isCached ? `${colors.border} border` : "border-white/8"}`}>
+              <div key={pack.id} className={`bg-[#1a1f2e] rounded-xl p-5 border transition-all ${isCached ? `${colors.border} border` : "border-app-border"}`}>
                 <div className="flex items-start gap-4">
                   <div className={`w-12 h-12 rounded-xl ${colors.bg} flex items-center justify-center flex-shrink-0`}>
                     <i className={`${pack.icon} ${colors.text} text-xl`}></i>
@@ -234,16 +234,16 @@ export default function OfflineVocabPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-0.5">
                       <h3 className="text-white font-semibold text-sm">{pack.name}</h3>
-                      {isCached && <i className="ri-checkbox-circle-line text-emerald-400 text-sm"></i>}
+                      {isCached && <i className="ri-checkbox-circle-line text-app-accent-success text-sm"></i>}
                     </div>
-                    <p className="text-white/40 text-xs mb-2 line-clamp-2">{pack.description}</p>
-                    <div className="flex items-center gap-3 text-xs text-white/30">
+                    <p className="text-app-text-secondary text-xs mb-2 line-clamp-2">{pack.description}</p>
+                    <div className="flex items-center gap-3 text-xs text-app-text-muted">
                       <span className={`font-semibold ${levelColor[pack.level] || "text-white/50"}`}>{pack.level}</span>
                       <span><i className="ri-translate-2 mr-0.5"></i>{pack.wordCount} từ</span>
                       <span><i className="ri-hard-drive-2-line mr-0.5"></i>{pack.size}</span>
                     </div>
                     {meta && (
-                      <p className="text-white/20 text-[10px] mt-1">
+                      <p className="text-app-text-muted text-[10px] mt-1">
                         Đã tải: {new Date(meta.downloadedAt).toLocaleDateString("vi-VN")} · {meta.count} từ
                       </p>
                     )}
@@ -256,14 +256,14 @@ export default function OfflineVocabPage() {
                     <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
                       <div className={`h-full ${colors.progress} rounded-full transition-all duration-300`} style={{ width: `${dl.progress}%` }}></div>
                     </div>
-                    <p className="text-white/30 text-xs mt-1">Đang tải... {dl.progress}%</p>
+                    <p className="text-app-text-muted text-xs mt-1">Đang tải... {dl.progress}%</p>
                   </div>
                 )}
 
                 <div className="flex items-center gap-2 mt-4">
                   <button
                     onClick={() => previewPackWords(pack)}
-                    className="px-3 py-1.5 rounded-lg bg-white/5 text-white/40 text-xs hover:bg-white/10 transition-all cursor-pointer whitespace-nowrap"
+                    className="px-3 py-1.5 rounded-lg bg-app-card/50 text-app-text-secondary text-xs hover:bg-app-card/70 transition-all cursor-pointer whitespace-nowrap"
                   >
                     <i className="ri-eye-line mr-1"></i>
                     Xem trước
@@ -273,7 +273,7 @@ export default function OfflineVocabPage() {
                       <button
                         onClick={() => downloadPack(pack)}
                         disabled={!isOnline || dl?.status === "downloading"}
-                        className="flex-1 py-1.5 rounded-lg bg-white/5 text-white/40 text-xs hover:bg-white/10 transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
+                        className="flex-1 py-1.5 rounded-lg bg-app-card/50 text-app-text-secondary text-xs hover:bg-app-card/70 transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
                       >
                         <i className="ri-refresh-line mr-1"></i>
                         Cập nhật
@@ -312,20 +312,20 @@ export default function OfflineVocabPage() {
         {/* Preview modal */}
         {previewPack && (
           <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setPreviewPack(null)}>
-            <div className="bg-[#1a1f2e] rounded-2xl p-6 border border-white/10 w-full max-w-md" onClick={e => e.stopPropagation()}>
+            <div className="bg-[#1a1f2e] rounded-2xl p-6 border border-app-border w-full max-w-md" onClick={e => e.stopPropagation()}>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-white font-bold">{previewPack.name}</h3>
-                <button onClick={() => setPreviewPack(null)} className="text-white/40 hover:text-white/70 cursor-pointer"><i className="ri-close-line text-lg"></i></button>
+                <button onClick={() => setPreviewPack(null)} className="text-app-text-secondary hover:text-white/70 cursor-pointer"><i className="ri-close-line text-lg"></i></button>
               </div>
-              <p className="text-white/40 text-xs mb-4">10 từ đầu tiên trong gói:</p>
+              <p className="text-app-text-secondary text-xs mb-4">10 từ đầu tiên trong gói:</p>
               <div className="space-y-2 max-h-64 overflow-y-auto">
                 {previewWords.map((w, i) => (
-                  <div key={i} className="flex items-center justify-between py-1.5 border-b border-white/5">
+                  <div key={i} className="flex items-center justify-between py-1.5 border-b border-app-border">
                     <span className="text-white font-medium text-sm">{w.korean}</span>
                     <span className="text-white/50 text-xs">{w.vietnamese}</span>
                   </div>
                 ))}
-                {previewWords.length === 0 && <p className="text-white/30 text-sm text-center py-4">Đang tải...</p>}
+                {previewWords.length === 0 && <p className="text-app-text-muted text-sm text-center py-4">Đang tải...</p>}
               </div>
               <div className="flex gap-2 mt-4">
                 <button onClick={() => setPreviewPack(null)} className="flex-1 py-2 rounded-lg bg-white/8 text-white/50 text-sm cursor-pointer whitespace-nowrap">Đóng</button>
@@ -333,7 +333,7 @@ export default function OfflineVocabPage() {
                   <button
                     onClick={() => { downloadPack(previewPack); setPreviewPack(null); }}
                     disabled={!isOnline}
-                    className="flex-1 py-2 rounded-lg bg-[#e8c84a] text-black text-sm font-bold cursor-pointer whitespace-nowrap disabled:opacity-40"
+                    className="flex-1 py-2 rounded-lg bg-app-accent-primary text-black text-sm font-bold cursor-pointer whitespace-nowrap disabled:opacity-40"
                   >
                     <i className="ri-download-line mr-1.5"></i>Tải xuống
                   </button>
@@ -344,9 +344,9 @@ export default function OfflineVocabPage() {
         )}
 
         {/* How it works */}
-        <div className="bg-[#1a1f2e] rounded-xl p-5 border border-white/8">
+        <div className="bg-[#1a1f2e] rounded-xl p-5 border border-app-border">
           <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
-            <i className="ri-information-line text-[#e8c84a]"></i>
+            <i className="ri-information-line text-app-accent-primary"></i>
             Cách hoạt động
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -356,12 +356,12 @@ export default function OfflineVocabPage() {
               { icon: "ri-refresh-line", title: "3. Đồng bộ", desc: "Khi có mạng trở lại, tiến độ học tự động đồng bộ lên cloud" },
             ].map(item => (
               <div key={item.title} className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#e8c84a]/10 flex items-center justify-center flex-shrink-0">
-                  <i className={`${item.icon} text-[#e8c84a] text-sm`}></i>
+                <div className="w-8 h-8 rounded-lg bg-app-accent-primary/10 flex items-center justify-center flex-shrink-0">
+                  <i className={`${item.icon} text-app-accent-primary text-sm`}></i>
                 </div>
                 <div>
                   <p className="text-white/70 text-sm font-semibold">{item.title}</p>
-                  <p className="text-white/40 text-xs mt-0.5">{item.desc}</p>
+                  <p className="text-app-text-secondary text-xs mt-0.5">{item.desc}</p>
                 </div>
               </div>
             ))}

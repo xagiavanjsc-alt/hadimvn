@@ -53,11 +53,11 @@ export default function StreakWidget() {
       : streak.count >= 14
       ? "#fb923c"
       : streak.count >= 7
-      ? "#e8c84a"
+      ? "app-accent-primary"
       : "#fb923c";
 
   return (
-    <div className="bg-gradient-to-br from-[#1a1200] to-[#0f1117] border border-[#e8c84a]/15 rounded-2xl p-5">
+    <div className="bg-gradient-to-br from-[#1a1200] to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
           <div
@@ -67,20 +67,20 @@ export default function StreakWidget() {
             <i className="ri-fire-fill text-2xl" style={{ color: streakColor }} />
           </div>
           <div>
-            <p className="text-white/40 text-xs font-medium tracking-normal">
+            <p className="text-app-text-secondary text-xs font-medium tracking-normal">
               Streak học tập
             </p>
             <div className="flex items-baseline gap-1.5">
               <p className="text-4xl font-bold" style={{ color: streakColor }}>
                 {streak.count}
               </p>
-              <p className="text-white/40 text-sm">ngày liên tiếp</p>
+              <p className="text-app-text-secondary text-sm">ngày liên tiếp</p>
             </div>
           </div>
         </div>
         <button
           onClick={() => navigate("/study-calendar")}
-          className="text-white/25 hover:text-white/50 text-xs cursor-pointer whitespace-nowrap transition-colors"
+          className="text-app-text-muted hover:text-white/50 text-xs cursor-pointer whitespace-nowrap transition-colors"
         >
           Xem lịch <i className="ri-arrow-right-line" />
         </button>
@@ -101,7 +101,7 @@ export default function StreakWidget() {
                 <i className="ri-fire-fill text-xs" style={{ color: streakColor }} />
               )}
             </div>
-            <p className="text-white/25 text-[9px]">{d.label}</p>
+            <p className="text-app-text-muted text-[9px]">{d.label}</p>
           </div>
         ))}
       </div>
@@ -109,15 +109,15 @@ export default function StreakWidget() {
       {/* Milestone progress */}
       <div>
         <div className="flex items-center justify-between mb-1.5">
-          <p className="text-white/30 text-[10px]">
+          <p className="text-app-text-muted text-[10px]">
             Mục tiêu tiếp theo:{" "}
-            <span className="text-[#e8c84a]">{nextMilestone} ngày</span>
+            <span className="text-app-accent-primary">{nextMilestone} ngày</span>
           </p>
-          <p className="text-white/30 text-[10px]">
+          <p className="text-app-text-muted text-[10px]">
             {streak.count}/{nextMilestone}
           </p>
         </div>
-        <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+        <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-all duration-700"
             style={{ width: `${milestoneProgress}%`, backgroundColor: streakColor }}
@@ -126,7 +126,7 @@ export default function StreakWidget() {
       </div>
 
       {streak.count === 0 && (
-        <p className="text-white/25 text-xs mt-3 text-center">
+        <p className="text-app-text-muted text-xs mt-3 text-center">
           Học bài hôm nay để bắt đầu streak!
         </p>
       )}

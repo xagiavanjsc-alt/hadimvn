@@ -17,7 +17,7 @@ interface ProgressData {
 }
 
 const THEMES: { id: CardTheme; label: string; bg: string; accent: string; text: string; sub: string }[] = [
-  { id: "dark", label: "Tối sang trọng", bg: "linear-gradient(135deg, #0f1117 0%, #1a1d27 50%, #0f1117 100%)", accent: "#e8c84a", text: "#ffffff", sub: "rgba(255,255,255,0.5)" },
+  { id: "dark", label: "Tối sang trọng", bg: "linear-gradient(135deg, #0f1117 0%, #1a1d27 50%, #0f1117 100%)", accent: "app-accent-primary", text: "#ffffff", sub: "rgba(255,255,255,0.5)" },
   { id: "gold", label: "Vàng rực rỡ", bg: "linear-gradient(135deg, #1a1200 0%, #2d2000 50%, #1a1200 100%)", accent: "#fbbf24", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
   { id: "green", label: "Xanh tươi mát", bg: "linear-gradient(135deg, #022c22 0%, #064e3b 50%, #022c22 100%)", accent: "#34d399", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
   { id: "pink", label: "Hồng năng động", bg: "linear-gradient(135deg, #1a0010 0%, #2d0020 50%, #1a0010 100%)", accent: "#f472b6", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
@@ -282,9 +282,9 @@ export default function ShareProgressPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left: Card preview */}
           <div className="space-y-4">
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <p className="text-white/50 text-xs font-semibold tracking-normal mb-4">Xem trước thẻ</p>
-              <div className="flex items-center justify-center overflow-hidden rounded-xl bg-white/3 p-4" style={{ minHeight: 300 }}>
+              <div className="flex items-center justify-center overflow-hidden rounded-xl bg-app-surface/50 p-4" style={{ minHeight: 300 }}>
                 <ProgressCard
                   theme={theme}
                   layout={layout}
@@ -300,7 +300,7 @@ export default function ShareProgressPage() {
               <button
                 onClick={handleDownload}
                 disabled={downloading}
-                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] disabled:opacity-50 text-[#0f1117] font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
+                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-50 text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
               >
                 {downloading ? (
                   <><i className="ri-loader-4-line animate-spin" />Đang tải...</>
@@ -310,30 +310,30 @@ export default function ShareProgressPage() {
               </button>
               <button
                 onClick={handleCopyLink}
-                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 text-sm font-medium cursor-pointer whitespace-nowrap transition-colors"
+                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/70 text-sm font-medium cursor-pointer whitespace-nowrap transition-colors"
               >
-                <i className={copied ? "ri-check-line text-emerald-400" : "ri-link"} />
+                <i className={copied ? "ri-check-line text-app-accent-success" : "ri-link"} />
                 {copied ? "Đã copy!" : "Copy link hồ sơ"}
               </button>
             </div>
 
             {/* Share text */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-4">
               <div className="flex items-center justify-between mb-3">
                 <p className="text-white/50 text-xs font-semibold tracking-normal">Caption chia sẻ</p>
                 <button
                   onClick={() => setShareTextIdx(i => (i + 1) % shareTexts.length)}
-                  className="text-[10px] text-white/30 hover:text-white/60 cursor-pointer whitespace-nowrap transition-colors"
+                  className="text-[10px] text-app-text-muted hover:text-white/60 cursor-pointer whitespace-nowrap transition-colors"
                 >
                   <i className="ri-refresh-line mr-1" />Đổi caption
                 </button>
               </div>
-              <div className="bg-white/3 rounded-xl p-3 mb-3">
+              <div className="bg-app-surface/50 rounded-xl p-3 mb-3">
                 <p className="text-white/60 text-xs leading-relaxed">{shareTexts[shareTextIdx]}</p>
               </div>
               <button
                 onClick={() => { navigator.clipboard.writeText(shareTexts[shareTextIdx]); }}
-                className="flex items-center gap-1.5 text-xs text-[#e8c84a] hover:text-[#d4b43a] cursor-pointer whitespace-nowrap transition-colors"
+                className="flex items-center gap-1.5 text-xs text-app-accent-primary hover:text-[#d4b43a] cursor-pointer whitespace-nowrap transition-colors"
               >
                 <i className="ri-clipboard-line" />Copy caption
               </button>
@@ -351,7 +351,7 @@ export default function ShareProgressPage() {
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex flex-col items-center gap-1.5 py-3 rounded-xl border border-white/8 cursor-pointer transition-all hover:scale-[1.02]"
+                  className="flex flex-col items-center gap-1.5 py-3 rounded-xl border border-app-border cursor-pointer transition-all hover:scale-[1.02]"
                   style={{ backgroundColor: s.bg }}
                 >
                   <i className={`${s.icon} text-lg`} style={{ color: s.color }} />
@@ -364,7 +364,7 @@ export default function ShareProgressPage() {
           {/* Right: Customization */}
           <div className="space-y-4">
             {/* Theme selector */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Chủ đề màu sắc</p>
               <div className="grid grid-cols-2 gap-2">
                 {THEMES.map(t => (
@@ -387,7 +387,7 @@ export default function ShareProgressPage() {
             </div>
 
             {/* Layout selector */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Kích thước thẻ</p>
               <div className="space-y-2">
                 {LAYOUTS.map(l => (
@@ -401,42 +401,42 @@ export default function ShareProgressPage() {
                     }}
                   >
                     <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: layout === l.id ? "rgba(232,200,74,0.15)" : "rgba(255,255,255,0.05)" }}>
-                      <i className={`${l.icon} text-sm`} style={{ color: layout === l.id ? "#e8c84a" : "rgba(255,255,255,0.3)" }} />
+                      <i className={`${l.icon} text-sm`} style={{ color: layout === l.id ? "app-accent-primary" : "rgba(255,255,255,0.3)" }} />
                     </div>
                     <div className="flex-1 text-left">
-                      <p className="text-sm font-medium" style={{ color: layout === l.id ? "#e8c84a" : "rgba(255,255,255,0.6)" }}>{l.label}</p>
+                      <p className="text-sm font-medium" style={{ color: layout === l.id ? "app-accent-primary" : "rgba(255,255,255,0.6)" }}>{l.label}</p>
                       <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>{l.w} × {l.h}px</p>
                     </div>
-                    {layout === l.id && <i className="ri-check-line text-[#e8c84a] text-sm" />}
+                    {layout === l.id && <i className="ri-check-line text-app-accent-primary text-sm" />}
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Stats summary */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Thống kê của bạn</p>
               <div className="grid grid-cols-2 gap-2">
                 {[
                   { label: "Streak", value: `${progressData.streak} ngày`, icon: "ri-fire-line", color: "#fb923c" },
-                  { label: "XP tổng", value: progressData.xp.toLocaleString(), icon: "ri-flashlight-line", color: "#e8c84a" },
+                  { label: "XP tổng", value: progressData.xp.toLocaleString(), icon: "ri-flashlight-line", color: "app-accent-primary" },
                   { label: "Từ đã học", value: progressData.wordsLearned.toLocaleString(), icon: "ri-book-open-line", color: "#34d399" },
                   { label: "Cấp độ", value: progressData.level, icon: "ri-medal-line", color: "#a78bfa" },
                 ].map(s => (
-                  <div key={s.label} className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white/3">
+                  <div key={s.label} className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-app-surface/50">
                     <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
                       <i className={`${s.icon} text-sm`} style={{ color: s.color }} />
                     </div>
                     <div>
                       <p className="text-white/70 text-xs font-semibold">{s.value}</p>
-                      <p className="text-white/30 text-[10px]">{s.label}</p>
+                      <p className="text-app-text-muted text-[10px]">{s.label}</p>
                     </div>
                   </div>
                 ))}
               </div>
               <button
                 onClick={() => navigate("/personal-stats")}
-                className="w-full mt-3 flex items-center justify-center gap-2 py-2 rounded-xl border border-white/8 text-white/40 text-xs hover:bg-white/5 cursor-pointer whitespace-nowrap transition-colors"
+                className="w-full mt-3 flex items-center justify-center gap-2 py-2 rounded-xl border border-app-border text-app-text-secondary text-xs hover:bg-app-card/50 cursor-pointer whitespace-nowrap transition-colors"
               >
                 <i className="ri-bar-chart-line" />
                 Xem thống kê chi tiết

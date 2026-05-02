@@ -52,7 +52,7 @@ export default function NotificationBell() {
       message: "7 thử thách mới đã sẵn sàng. Hoàn thành để nhận tới 1.000+ XP thưởng.",
       time: "Đầu tuần",
       icon: "ri-trophy-line",
-      color: "#e8c84a",
+      color: "app-accent-primary",
     });
     items.push({
       id: "community-like-1",
@@ -84,7 +84,7 @@ export default function NotificationBell() {
       message: n.message,
       time: timeAgo(n.timestamp),
       icon: n.type === "level_up" ? "ri-arrow-up-circle-fill" : n.type === "badge_earned" ? "ri-medal-fill" : "ri-star-fill",
-      color: n.type === "level_up" ? "#e8c84a" : n.type === "badge_earned" ? "#a78bfa" : "#34d399",
+      color: n.type === "level_up" ? "app-accent-primary" : n.type === "badge_earned" ? "#a78bfa" : "#34d399",
       isXP: true,
       xpAmount: n.xpAmount,
     }));
@@ -136,30 +136,30 @@ export default function NotificationBell() {
     <div className="relative" ref={panelRef}>
       <button
         onClick={() => setOpen(v => !v)}
-        className="relative w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-white/50 hover:text-white/80 transition-all cursor-pointer"
+        className="relative w-9 h-9 flex items-center justify-center rounded-xl bg-app-card/50 hover:bg-app-card/70 text-white/50 hover:text-white/80 transition-all cursor-pointer"
       >
         <i className="ri-notification-3-line text-base"></i>
         {unreadCount > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 w-4 h-4 flex items-center justify-center bg-[#e8c84a] text-[#0f1117] text-[9px] font-bold rounded-full">
+          <span className="absolute -top-0.5 -right-0.5 w-4 h-4 flex items-center justify-center bg-app-accent-primary text-app-bg text-[9px] font-bold rounded-full">
             {unreadCount > 9 ? "9+" : unreadCount}
           </span>
         )}
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 w-80 bg-[#0f1117] border border-white/10 rounded-2xl z-50 overflow-hidden">
+        <div className="absolute right-0 top-full mt-2 w-80 bg-app-bg border border-app-border rounded-2xl z-50 overflow-hidden">
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-white/5">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-app-border">
             <div className="flex items-center gap-2">
               <h3 className="text-white font-semibold text-sm">Thông báo</h3>
               {unreadCount > 0 && (
-                <span className="px-1.5 py-0.5 bg-[#e8c84a]/15 text-[#e8c84a] text-[10px] font-bold rounded-full">{unreadCount} mới</span>
+                <span className="px-1.5 py-0.5 bg-app-accent-primary/15 text-app-accent-primary text-[10px] font-bold rounded-full">{unreadCount} mới</span>
               )}
             </div>
             {unreadCount > 0 && (
               <button
                 onClick={markAllRead}
-                className="text-[10px] text-white/30 hover:text-[#e8c84a]/70 cursor-pointer whitespace-nowrap transition-colors"
+                className="text-[10px] text-app-text-muted hover:text-app-accent-primary/70 cursor-pointer whitespace-nowrap transition-colors"
               >
                 Đánh dấu đã đọc
               </button>
@@ -168,8 +168,8 @@ export default function NotificationBell() {
 
           {/* XP section header */}
           {xpNotifs.length > 0 && (
-            <div className="px-4 py-2 bg-[#e8c84a]/5 border-b border-[#e8c84a]/10">
-              <p className="text-[#e8c84a] text-[10px] font-bold tracking-normal">XP & Cấp bậc</p>
+            <div className="px-4 py-2 bg-app-accent-primary/5 border-b border-app-accent-primary/10">
+              <p className="text-app-accent-primary text-[10px] font-bold tracking-normal">XP & Cấp bậc</p>
             </div>
           )}
 
@@ -178,7 +178,7 @@ export default function NotificationBell() {
             {allNotifications.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-10 text-center">
                 <i className="ri-notification-off-line text-white/15 text-3xl mb-2"></i>
-                <p className="text-white/25 text-sm">Không có thông báo mới</p>
+                <p className="text-app-text-muted text-sm">Không có thông báo mới</p>
               </div>
             ) : (
               allNotifications.map(n => {
@@ -187,7 +187,7 @@ export default function NotificationBell() {
                   <button
                     key={n.id}
                     onClick={() => handleItemClick(n)}
-                    className={`w-full flex items-start gap-3 px-4 py-3 text-left transition-colors cursor-pointer ${!read ? "bg-white/2 hover:bg-white/5" : "hover:bg-white/3"}`}
+                    className={`w-full flex items-start gap-3 px-4 py-3 text-left transition-colors cursor-pointer ${!read ? "bg-white/2 hover:bg-app-card/50" : "hover:bg-app-surface/50"}`}
                   >
                     <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0 mt-0.5" style={{ backgroundColor: `${n.color}15` }}>
                       <i className={`${n.icon} text-sm`} style={{ color: n.color }}></i>
@@ -195,13 +195,13 @@ export default function NotificationBell() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2">
                         <p className={`text-xs font-semibold leading-tight ${!read ? "text-white" : "text-white/60"}`}>{n.title}</p>
-                        {!read && <div className="w-1.5 h-1.5 rounded-full bg-[#e8c84a] flex-shrink-0 mt-1"></div>}
+                        {!read && <div className="w-1.5 h-1.5 rounded-full bg-app-accent-primary flex-shrink-0 mt-1"></div>}
                       </div>
                       <p className="text-white/35 text-[10px] leading-relaxed mt-0.5 line-clamp-2">{n.message}</p>
                       <div className="flex items-center gap-2 mt-1">
-                        <p className="text-white/20 text-[10px]">{n.time}</p>
+                        <p className="text-app-text-muted text-[10px]">{n.time}</p>
                         {n.xpAmount && (
-                          <span className="text-[10px] font-bold text-[#e8c84a]">+{n.xpAmount} XP</span>
+                          <span className="text-[10px] font-bold text-app-accent-primary">+{n.xpAmount} XP</span>
                         )}
                       </div>
                     </div>
@@ -212,14 +212,14 @@ export default function NotificationBell() {
           </div>
 
           {/* Footer */}
-          <div className="px-4 py-2.5 border-t border-white/5 flex items-center justify-between">
+          <div className="px-4 py-2.5 border-t border-app-border flex items-center justify-between">
             <button
               onClick={() => { clearAllNotifications(); setReadIds(staticNotifs.map(n => n.id)); setOpen(false); }}
-              className="text-[10px] text-white/20 hover:text-white/40 cursor-pointer whitespace-nowrap transition-colors"
+              className="text-[10px] text-app-text-muted hover:text-app-text-secondary cursor-pointer whitespace-nowrap transition-colors"
             >
               Xóa tất cả
             </button>
-            <span className="text-[10px] text-white/20">{allNotifications.length} thông báo</span>
+            <span className="text-[10px] text-app-text-muted">{allNotifications.length} thông báo</span>
           </div>
         </div>
       )}

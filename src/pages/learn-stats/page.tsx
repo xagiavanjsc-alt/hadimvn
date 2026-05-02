@@ -9,7 +9,7 @@ interface ExamResult { id: string; date: string; score: number; total: number; t
 function MiniBar({ value, max, color }: { value: number; max: number; color: string }) {
   const pct = max > 0 ? Math.min((value / max) * 100, 100) : 0;
   return (
-    <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+    <div className="flex-1 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
       <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, backgroundColor: color }} />
     </div>
   );
@@ -106,13 +106,13 @@ export default function LearnStatsPage() {
     return score;
   }, [epsDone, epsCorrect, knownCount, hangulCount, examResults, quizHistory, streak, newsLessons]);
 
-  const scoreLevel = overallScore >= 1000 ? { label: "Bậc thầy", color: "#e8c84a", icon: "ri-vip-crown-line" }
+  const scoreLevel = overallScore >= 1000 ? { label: "Bậc thầy", color: "app-accent-primary", icon: "ri-vip-crown-line" }
     : overallScore >= 500 ? { label: "Nâng cao", color: "#a78bfa", icon: "ri-star-fill" }
     : overallScore >= 200 ? { label: "Trung cấp", color: "#34d399", icon: "ri-star-half-line" }
     : { label: "Mới bắt đầu", color: "#06b6d4", icon: "ri-seedling-line" };
 
   const activities = [
-    { label: "Câu EPS đã làm", value: epsDone, max: epsQuestions.length, color: "#e8c84a", icon: "ri-file-list-3-line", path: "/eps" },
+    { label: "Câu EPS đã làm", value: epsDone, max: epsQuestions.length, color: "app-accent-primary", icon: "ri-file-list-3-line", path: "/eps" },
     { label: "Từ vựng đã thuộc", value: knownCount, max: 200, color: "#a78bfa", icon: "ri-stack-line", path: "/flashcard" },
     { label: "Hangul đã học", value: hangulCount, max: 40, color: "#34d399", icon: "ri-font-size", path: "/hangul" },
     { label: "Lần thi thử EPS", value: examResults.length, max: 20, color: "#06b6d4", icon: "ri-timer-line", path: "/eps-exam" },
@@ -126,7 +126,7 @@ export default function LearnStatsPage() {
       subtitle="Theo dõi tiến bộ toàn diện — mọi hoạt động học tiếng Hàn"
     >
       {/* Overall score hero */}
-      <div className="bg-gradient-to-r from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/15 rounded-2xl p-6 mb-6">
+      <div className="bg-gradient-to-r from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-6 mb-6">
         <div className="flex items-center gap-6">
           <div className="text-center flex-shrink-0">
             <div className="w-20 h-20 flex items-center justify-center rounded-2xl mx-auto mb-2" style={{ backgroundColor: `${scoreLevel.color}15`, border: `2px solid ${scoreLevel.color}30` }}>
@@ -137,12 +137,12 @@ export default function LearnStatsPage() {
           <div className="flex-1">
             <div className="flex items-end gap-3 mb-2">
               <p className="text-white font-bold text-5xl leading-none">{overallScore.toLocaleString()}</p>
-              <p className="text-white/30 text-sm mb-1">điểm học tập</p>
+              <p className="text-app-text-muted text-sm mb-1">điểm học tập</p>
             </div>
-            <div className="h-3 bg-white/5 rounded-full overflow-hidden mb-2">
+            <div className="h-3 bg-app-card/50 rounded-full overflow-hidden mb-2">
               <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${Math.min((overallScore / 1000) * 100, 100)}%`, backgroundColor: scoreLevel.color }} />
             </div>
-            <div className="flex items-center justify-between text-[10px] text-white/25">
+            <div className="flex items-center justify-between text-[10px] text-app-text-muted">
               <span>0</span>
               <span style={{ color: scoreLevel.color }}>Cấp tiếp theo: {overallScore >= 1000 ? "Tối đa!" : overallScore >= 500 ? "1000 — Bậc thầy" : overallScore >= 200 ? "500 — Nâng cao" : "200 — Trung cấp"}</span>
               <span>1000</span>
@@ -152,12 +152,12 @@ export default function LearnStatsPage() {
             {[
               { label: "Streak", value: `${streak.count}d`, color: "#fb923c" },
               { label: "EPS đúng", value: `${epsAccuracy}%`, color: "#34d399" },
-              { label: "Thi cao nhất", value: bestExam > 0 ? `${bestExam}%` : "—", color: "#e8c84a" },
+              { label: "Thi cao nhất", value: bestExam > 0 ? `${bestExam}%` : "—", color: "app-accent-primary" },
               { label: "TB Quiz", value: avgQuiz > 0 ? `${avgQuiz}%` : "—", color: "#a78bfa" },
             ].map(s => (
-              <div key={s.label} className="bg-white/3 rounded-xl p-3 text-center min-w-[80px]">
+              <div key={s.label} className="bg-app-surface/50 rounded-xl p-3 text-center min-w-[80px]">
                 <p className="font-bold text-lg" style={{ color: s.color }}>{s.value}</p>
-                <p className="text-white/30 text-[10px]">{s.label}</p>
+                <p className="text-app-text-muted text-[10px]">{s.label}</p>
               </div>
             ))}
           </div>
@@ -166,9 +166,9 @@ export default function LearnStatsPage() {
 
       <div className="grid grid-cols-2 gap-6 mb-6">
         {/* Weekly activity chart */}
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-1">Hoạt động 8 tuần qua</h3>
-          <p className="text-white/30 text-xs mb-4">Quiz + Thi thử + Tin tức</p>
+          <p className="text-app-text-muted text-xs mb-4">Quiz + Thi thử + Tin tức</p>
           <div className="flex items-end gap-2 h-28 mb-2">
             {weeklyData.map((w, i) => {
               const total = w.quiz + w.exam + w.news;
@@ -179,7 +179,7 @@ export default function LearnStatsPage() {
               return (
                 <div key={i} className="flex-1 flex flex-col items-center gap-1 group relative">
                   {total > 0 && (
-                    <div className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-[#1a1d27] border border-white/10 text-white/70 text-[9px] px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                    <div className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-[#1a1d27] border border-app-border text-white/70 text-[9px] px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
                       {w.quiz > 0 && `Quiz: ${w.quiz} `}{w.exam > 0 && `Thi: ${w.exam} `}{w.news > 0 && `Tin: ${w.news}`}
                     </div>
                   )}
@@ -189,12 +189,12 @@ export default function LearnStatsPage() {
                     <div style={{ height: `${newsH}px`, backgroundColor: "#ec4899" }} className="w-full rounded-t-sm" />
                     {total === 0 && <div className="w-full" style={{ height: "2px", backgroundColor: "rgba(255,255,255,0.05)" }} />}
                   </div>
-                  <span className="text-white/20 text-[9px]">{w.label}</span>
+                  <span className="text-app-text-muted text-[9px]">{w.label}</span>
                 </div>
               );
             })}
           </div>
-          <div className="flex items-center gap-4 text-[10px] text-white/30">
+          <div className="flex items-center gap-4 text-[10px] text-app-text-muted">
             <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-[#fb923c]"></div>Quiz</div>
             <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-[#06b6d4]"></div>Thi thử</div>
             <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-[#ec4899]"></div>Tin tức</div>
@@ -202,35 +202,35 @@ export default function LearnStatsPage() {
         </div>
 
         {/* Monthly exam trend */}
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-1">Điểm thi EPS theo tháng</h3>
-          <p className="text-white/30 text-xs mb-4">Điểm trung bình mỗi tháng</p>
+          <p className="text-app-text-muted text-xs mb-4">Điểm trung bình mỗi tháng</p>
           {monthlyExam.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-10 text-center">
               <i className="ri-line-chart-line text-white/10 text-3xl mb-2"></i>
-              <p className="text-white/25 text-sm">Chưa có dữ liệu thi</p>
-              <button onClick={() => navigate("/eps-exam")} className="mt-3 text-[#e8c84a] text-xs cursor-pointer whitespace-nowrap">Thi thử ngay →</button>
+              <p className="text-app-text-muted text-sm">Chưa có dữ liệu thi</p>
+              <button onClick={() => navigate("/eps-exam")} className="mt-3 text-app-accent-primary text-xs cursor-pointer whitespace-nowrap">Thi thử ngay →</button>
             </div>
           ) : (
             <>
               <div className="flex items-end gap-3 h-28 mb-2">
                 {monthlyExam.map((m, i) => {
                   const barH = Math.max((m.avg / maxMonthly) * 96, 4);
-                  const color = m.avg >= 80 ? "#34d399" : m.avg >= 60 ? "#e8c84a" : "#f87171";
+                  const color = m.avg >= 80 ? "#34d399" : m.avg >= 60 ? "app-accent-primary" : "#f87171";
                   return (
                     <div key={i} className="flex-1 flex flex-col items-center gap-1 group relative">
-                      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-[#1a1d27] border border-white/10 text-white/70 text-[9px] px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-[#1a1d27] border border-app-border text-white/70 text-[9px] px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
                         {m.avg}% TB
                       </div>
                       <div className="w-full rounded-t-lg" style={{ height: `${barH}px`, backgroundColor: color }} />
-                      <span className="text-white/20 text-[9px]">{m.label}</span>
+                      <span className="text-app-text-muted text-[9px]">{m.label}</span>
                     </div>
                   );
                 })}
               </div>
-              <div className="flex items-center gap-2 text-[10px] text-white/25">
-                <div className="w-4 h-px border-t border-dashed border-[#e8c84a]/40"></div>
-                <span className="text-[#e8c84a]/50">Ngưỡng đậu 80%</span>
+              <div className="flex items-center gap-2 text-[10px] text-app-text-muted">
+                <div className="w-4 h-px border-t border-dashed border-app-accent-primary/40"></div>
+                <span className="text-app-accent-primary/50">Ngưỡng đậu 80%</span>
               </div>
             </>
           )}
@@ -238,12 +238,12 @@ export default function LearnStatsPage() {
       </div>
 
       {/* Activity breakdown */}
-      <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5 mb-6">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-5 mb-6">
         <h3 className="text-white font-semibold text-sm mb-4">Chi tiết từng hoạt động</h3>
         <div className="grid grid-cols-2 gap-4">
           {activities.map(a => (
             <button key={a.label} onClick={() => navigate(a.path)}
-              className="flex items-center gap-3 px-4 py-3 bg-white/3 hover:bg-white/5 rounded-xl transition-colors cursor-pointer text-left">
+              className="flex items-center gap-3 px-4 py-3 bg-app-surface/50 hover:bg-app-card/50 rounded-xl transition-colors cursor-pointer text-left">
               <div className="w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${a.color}15` }}>
                 <i className={`${a.icon} text-base`} style={{ color: a.color }}></i>
               </div>
@@ -261,29 +261,29 @@ export default function LearnStatsPage() {
 
       {/* Exam history table */}
       {examResults.length > 0 && (
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-white font-semibold text-sm">Lịch sử thi thử EPS ({examResults.length} lần)</h3>
-            <div className="flex items-center gap-4 text-xs text-white/30">
-              <span>TB: <span className="text-[#e8c84a] font-bold">{avgExam}%</span></span>
-              <span>Cao nhất: <span className="text-emerald-400 font-bold">{bestExam}%</span></span>
+            <div className="flex items-center gap-4 text-xs text-app-text-muted">
+              <span>TB: <span className="text-app-accent-primary font-bold">{avgExam}%</span></span>
+              <span>Cao nhất: <span className="text-app-accent-success font-bold">{bestExam}%</span></span>
             </div>
           </div>
           <div className="space-y-2 max-h-64 overflow-y-auto">
             {examResults.slice().reverse().map((r, i) => {
               const pct = Math.round((r.score / r.total) * 100);
-              const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
+              const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
               return (
-                <div key={r.id} className="flex items-center gap-3 px-4 py-2.5 bg-white/3 rounded-xl">
-                  <span className="text-white/20 text-xs w-5 flex-shrink-0">#{examResults.length - i}</span>
+                <div key={r.id} className="flex items-center gap-3 px-4 py-2.5 bg-app-surface/50 rounded-xl">
+                  <span className="text-app-text-muted text-xs w-5 flex-shrink-0">#{examResults.length - i}</span>
                   <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${color}15` }}>
                     <span className="text-xs font-bold" style={{ color }}>{pct}%</span>
                   </div>
                   <div className="flex-1">
                     <p className="text-white/60 text-xs font-medium">{r.score}/{r.total} câu đúng</p>
-                    <p className="text-white/25 text-[10px]">{new Date(r.date).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })} · {Math.floor(r.timeUsed / 60)}:{String(r.timeUsed % 60).padStart(2, "0")} phút</p>
+                    <p className="text-app-text-muted text-[10px]">{new Date(r.date).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })} · {Math.floor(r.timeUsed / 60)}:{String(r.timeUsed % 60).padStart(2, "0")} phút</p>
                   </div>
-                  <div className="w-24 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                  <div className="w-24 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                     <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: color }} />
                   </div>
                 </div>

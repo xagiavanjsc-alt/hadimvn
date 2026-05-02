@@ -147,7 +147,7 @@ export default function HangulWritingPage() {
 
   const filtered = typeFilter === "all" ? HANGUL_CHARS : HANGUL_CHARS.filter(c => c.type === typeFilter);
 
-  const scoreColor = score === null ? "#e8c84a" : score >= 80 ? "#34d399" : score >= 60 ? "#fbbf24" : "#f87171";
+  const scoreColor = score === null ? "app-accent-primary" : score >= 80 ? "#34d399" : score >= 60 ? "#fbbf24" : "#f87171";
   const scoreLabel = score === null ? "" : score >= 80 ? "Xuất sắc!" : score >= 60 ? "Khá tốt!" : "Cần luyện thêm";
 
   return (
@@ -162,13 +162,13 @@ export default function HangulWritingPage() {
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
-            { label: "Ký tự đang luyện", value: selectedChar.char, color: "#e8c84a" },
+            { label: "Ký tự đang luyện", value: selectedChar.char, color: "app-accent-primary" },
             { label: "Số lần thử", value: attempts, color: "#a78bfa" },
             { label: "Điểm gần nhất", value: score !== null ? `${score}/100` : "—", color: scoreColor },
           ].map(s => (
-            <div key={s.label} className="rounded-xl border border-white/8 bg-white/3 p-4 text-center">
+            <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-4 text-center">
               <p className="font-bold text-xl" style={{ color: s.color }}>{s.value}</p>
-              <p className="text-white/40 text-xs">{s.label}</p>
+              <p className="text-app-text-secondary text-xs">{s.label}</p>
             </div>
           ))}
         </div>
@@ -188,9 +188,9 @@ export default function HangulWritingPage() {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {filtered.map(c => (
                 <button key={c.char} onClick={() => setSelectedChar(c)}
-                  className={`aspect-square flex flex-col items-center justify-center rounded-xl border cursor-pointer transition-all ${selectedChar.char === c.char ? "border-[#e8c84a]/40 bg-[#e8c84a]/8" : "border-white/8 bg-white/3 hover:bg-white/6"}`}>
+                  className={`aspect-square flex flex-col items-center justify-center rounded-xl border cursor-pointer transition-all ${selectedChar.char === c.char ? "border-app-accent-primary/40 bg-app-accent-primary/8" : "border-app-border bg-app-surface/50 hover:bg-white/6"}`}>
                   <span className="text-white font-bold text-xl">{c.char}</span>
-                  <span className="text-white/30 text-[9px]">{c.romanization}</span>
+                  <span className="text-app-text-muted text-[9px]">{c.romanization}</span>
                 </button>
               ))}
             </div>
@@ -204,23 +204,23 @@ export default function HangulWritingPage() {
                 <span className="text-white font-bold text-3xl">{selectedChar.char}</span>
                 <div>
                   <p className="text-white/60 text-sm">{selectedChar.romanization}</p>
-                  <p className="text-white/30 text-xs">{selectedChar.strokes} nét · {selectedChar.type === "consonant" ? "Phụ âm" : selectedChar.type === "vowel" ? "Nguyên âm" : "Âm tiết"}</p>
+                  <p className="text-app-text-muted text-xs">{selectedChar.strokes} nét · {selectedChar.type === "consonant" ? "Phụ âm" : selectedChar.type === "vowel" ? "Nguyên âm" : "Âm tiết"}</p>
                 </div>
               </div>
               <button onClick={() => setShowGuide(v => !v)}
-                className={`px-3 py-1.5 rounded-lg text-xs cursor-pointer whitespace-nowrap ${showGuide ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "bg-white/8 text-white/40"}`}>
+                className={`px-3 py-1.5 rounded-lg text-xs cursor-pointer whitespace-nowrap ${showGuide ? "bg-app-accent-primary/15 text-app-accent-primary" : "bg-white/8 text-app-text-secondary"}`}>
                 <i className="ri-lightbulb-line mr-1"></i>Gợi ý
               </button>
             </div>
 
             {showGuide && (
-              <div className="p-3 rounded-xl bg-[#e8c84a]/5 border border-[#e8c84a]/15 mb-3">
-                <p className="text-[#e8c84a] text-xs"><i className="ri-lightbulb-line mr-1"></i>{selectedChar.tip}</p>
+              <div className="p-3 rounded-xl bg-app-accent-primary/5 border border-app-accent-primary/15 mb-3">
+                <p className="text-app-accent-primary text-xs"><i className="ri-lightbulb-line mr-1"></i>{selectedChar.tip}</p>
               </div>
             )}
 
             {/* Canvas */}
-            <div className="relative rounded-2xl overflow-hidden border border-white/10 mb-3"
+            <div className="relative rounded-2xl overflow-hidden border border-app-border mb-3"
               style={{ backgroundColor: "#0d0f18" }}>
               {/* Ghost character */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
@@ -252,7 +252,7 @@ export default function HangulWritingPage() {
                 </div>
                 <div>
                   <p className="font-bold text-sm" style={{ color: scoreColor }}>{scoreLabel}</p>
-                  <p className="text-white/40 text-xs">
+                  <p className="text-app-text-secondary text-xs">
                     {score >= 80 ? "Nét vẽ đẹp, cân đối tốt!" : score >= 60 ? "Tiếp tục luyện tập để hoàn thiện hơn" : "Hãy xem lại gợi ý và thử lại"}
                   </p>
                 </div>
@@ -273,7 +273,7 @@ export default function HangulWritingPage() {
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="text-white/30 text-xs">Cỡ:</span>
+                <span className="text-app-text-muted text-xs">Cỡ:</span>
                 {[3, 6, 10, 16].map(s => (
                   <button key={s} onClick={() => setPenSize(s)}
                     className="flex items-center justify-center rounded-full cursor-pointer transition-all"
@@ -290,7 +290,7 @@ export default function HangulWritingPage() {
                   <i className="ri-delete-bin-line mr-1"></i>Xóa
                 </button>
                 <button onClick={analyzeDrawing} disabled={!hasDrawing}
-                  className="px-4 py-2 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap disabled:opacity-30 bg-[#e8c84a] text-[#141720]">
+                  className="px-4 py-2 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap disabled:opacity-30 bg-app-accent-primary text-[#141720]">
                   <i className="ri-ai-generate mr-1"></i>Chấm điểm
                 </button>
               </div>

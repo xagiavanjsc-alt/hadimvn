@@ -30,7 +30,7 @@ const GOAL_ROADMAPS: Record<Goal, { title: string; subtitle: string; icon: strin
         { id: "eps-vocab-basic", title: "Từ vựng cơ bản EPS", description: "500 từ vựng thường gặp nhất trong đề thi EPS", icon: "ri-translate-2", color: "#4ade80", path: "/eps-vocabulary", estimatedDays: 14 },
       ],
       [
-        { id: "eps-lessons", title: "60 Bài học EPS", description: "Học toàn bộ 60 bài theo giáo trình chính thức", icon: "ri-book-open-line", color: "#e8c84a", path: "/eps-lessons", estimatedDays: 30 },
+        { id: "eps-lessons", title: "60 Bài học EPS", description: "Học toàn bộ 60 bài theo giáo trình chính thức", icon: "ri-book-open-line", color: "app-accent-primary", path: "/eps-lessons", estimatedDays: 30 },
         { id: "eps-grammar", title: "Ngữ pháp EPS", description: "Các cấu trúc ngữ pháp quan trọng trong đề thi", icon: "ri-book-2-line", color: "#fb923c", path: "/eps-grammar", estimatedDays: 14, isOptional: true },
       ],
       [
@@ -42,7 +42,7 @@ const GOAL_ROADMAPS: Record<Goal, { title: string; subtitle: string; icon: strin
         { id: "eps-wrong", title: "Ôn tập câu sai", description: "Phân tích và ôn lại các câu làm sai để cải thiện", icon: "ri-error-warning-line", color: "#fb923c", path: "/eps-smart-wrong", estimatedDays: 7 },
       ],
       [
-        { id: "eps-final", title: "Thi thử toàn bộ", description: "Làm nhiều đề thi thử, đạt 80%+ trước khi thi thật", icon: "ri-trophy-line", color: "#e8c84a", path: "/eps-mock-exam", estimatedDays: 14, badge: "Mục tiêu" },
+        { id: "eps-final", title: "Thi thử toàn bộ", description: "Làm nhiều đề thi thử, đạt 80%+ trước khi thi thật", icon: "ri-trophy-line", color: "app-accent-primary", path: "/eps-mock-exam", estimatedDays: 14, badge: "Mục tiêu" },
       ],
     ],
   },
@@ -66,10 +66,10 @@ const GOAL_ROADMAPS: Record<Goal, { title: string; subtitle: string; icon: strin
       ],
       [
         { id: "seoul-2b", title: "Seoul 2B — Trung cấp", description: "Xã hội, văn hóa, tin tức, thảo luận", icon: "ri-book-3-line", color: "#38bdf8", path: "/seoul-textbook", estimatedDays: 45 },
-        { id: "seoul-exam", title: "Kiểm tra định kỳ", description: "Thi thử theo từng bài để đánh giá tiến độ", icon: "ri-file-list-2-line", color: "#e8c84a", path: "/seoul-exam", estimatedDays: 7 },
+        { id: "seoul-exam", title: "Kiểm tra định kỳ", description: "Thi thử theo từng bài để đánh giá tiến độ", icon: "ri-file-list-2-line", color: "app-accent-primary", path: "/seoul-exam", estimatedDays: 7 },
       ],
       [
-        { id: "seoul-topik", title: "Luyện thi TOPIK I", description: "Sau Seoul 2B, bạn đủ trình độ thi TOPIK I (cấp 1-2)", icon: "ri-trophy-line", color: "#e8c84a", path: "/topik-test", estimatedDays: 30, badge: "Mục tiêu" },
+        { id: "seoul-topik", title: "Luyện thi TOPIK I", description: "Sau Seoul 2B, bạn đủ trình độ thi TOPIK I (cấp 1-2)", icon: "ri-trophy-line", color: "app-accent-primary", path: "/topik-test", estimatedDays: 30, badge: "Mục tiêu" },
       ],
     ],
   },
@@ -92,7 +92,7 @@ const GOAL_ROADMAPS: Record<Goal, { title: string; subtitle: string; icon: strin
         { id: "topik-quiz", title: "Quiz theo chủ đề", description: "Luyện tập theo từng chủ đề: gia đình, công việc, xã hội...", icon: "ri-survey-line", color: "#fb923c", path: "/topik-topic-quiz", estimatedDays: 14 },
       ],
       [
-        { id: "topik-test1", title: "Thi thử TOPIK I", description: "Làm đề thi thử TOPIK I đầy đủ, mục tiêu 80%+", icon: "ri-file-list-2-line", color: "#e8c84a", path: "/topik-test", estimatedDays: 7, badge: "Quan trọng" },
+        { id: "topik-test1", title: "Thi thử TOPIK I", description: "Làm đề thi thử TOPIK I đầy đủ, mục tiêu 80%+", icon: "ri-file-list-2-line", color: "app-accent-primary", path: "/topik-test", estimatedDays: 7, badge: "Quan trọng" },
         { id: "topik-test2", title: "Thi thử TOPIK II", description: "Nâng cao — luyện thi TOPIK II cho cấp 3-6", icon: "ri-file-list-3-line", color: "#f87171", path: "/topik2-test", estimatedDays: 14, isOptional: true },
       ],
     ],
@@ -101,10 +101,10 @@ const GOAL_ROADMAPS: Record<Goal, { title: string; subtitle: string; icon: strin
     title: "Hán Hàn VIP",
     subtitle: "Lộ trình học 2.691 từ Hán Hàn chuyên sâu",
     icon: "ri-character-recognition-line",
-    color: "#e8c84a",
+    color: "app-accent-primary",
     steps: [
       [
-        { id: "hanja-intro", title: "Giới thiệu Hán Hàn", description: "Hiểu về từ gốc Hán trong tiếng Hàn và tầm quan trọng", icon: "ri-information-line", color: "#e8c84a", path: "/hanja-detail", estimatedDays: 3 },
+        { id: "hanja-intro", title: "Giới thiệu Hán Hàn", description: "Hiểu về từ gốc Hán trong tiếng Hàn và tầm quan trọng", icon: "ri-information-line", color: "app-accent-primary", path: "/hanja-detail", estimatedDays: 3 },
         { id: "hanja-tree-basic", title: "Hình cây từ vựng", description: "Học từ theo cây — hiểu gốc từ để nhớ nhiều từ hơn", icon: "ri-git-merge-line", color: "#fb923c", path: "/hanja-tree", estimatedDays: 14 },
       ],
       [
@@ -116,7 +116,7 @@ const GOAL_ROADMAPS: Record<Goal, { title: string; subtitle: string; icon: strin
         { id: "hanja-search", title: "Tra cứu Hán Hàn", description: "Tra từ điển nâng cao khi gặp từ mới trong cuộc sống", icon: "ri-search-2-line", color: "#60a5fa", path: "/advanced-dictionary", estimatedDays: 0, isOptional: true },
       ],
       [
-        { id: "hanja-1000", title: "Mục tiêu 1000 từ", description: "Học và thuộc 1000 từ Hán Hàn đầu tiên", icon: "ri-trophy-line", color: "#e8c84a", path: "/hanja-dashboard", estimatedDays: 90, badge: "Mục tiêu" },
+        { id: "hanja-1000", title: "Mục tiêu 1000 từ", description: "Học và thuộc 1000 từ Hán Hàn đầu tiên", icon: "ri-trophy-line", color: "app-accent-primary", path: "/hanja-dashboard", estimatedDays: 90, badge: "Mục tiêu" },
         { id: "hanja-2691", title: "Mục tiêu 2691 từ", description: "Hoàn thành toàn bộ 2.691 từ Hán Hàn VIP", icon: "ri-vip-crown-line", color: "#f87171", path: "/hanja-dashboard", estimatedDays: 365, badge: "VIP" },
       ],
     ],
@@ -137,7 +137,7 @@ const GOAL_ROADMAPS: Record<Goal, { title: string; subtitle: string; icon: strin
       ],
       [
         { id: "conv-ai", title: "Gia sư AI", description: "Luyện hội thoại với AI — không ngại nói sai", icon: "ri-robot-2-line", color: "#a78bfa", path: "/ai-chatbot", estimatedDays: 30, badge: "AI" },
-        { id: "conv-kdrama", title: "Học qua phim Hàn", description: "Nghe và học từ vựng tự nhiên qua phim, K-pop", icon: "ri-film-line", color: "#e8c84a", path: "/kdrama-learn", estimatedDays: 30, isOptional: true },
+        { id: "conv-kdrama", title: "Học qua phim Hàn", description: "Nghe và học từ vựng tự nhiên qua phim, K-pop", icon: "ri-film-line", color: "app-accent-primary", path: "/kdrama-learn", estimatedDays: 30, isOptional: true },
       ],
       [
         { id: "conv-podcast", title: "Luyện nghe Podcast", description: "Nghe podcast tiếng Hàn theo cấp độ", icon: "ri-headphone-line", color: "#34d399", path: "/podcast-learn", estimatedDays: 30 },
@@ -151,7 +151,7 @@ const GOAL_OPTIONS: { id: Goal; title: string; subtitle: string; icon: string; c
   { id: "eps", title: "EPS-TOPIK", subtitle: "Thi chứng chỉ lao động", icon: "ri-file-list-3-line", color: "#4ade80" },
   { id: "seoul", title: "Giáo trình Seoul", subtitle: "Du học, học thuật", icon: "ri-book-3-line", color: "#60a5fa" },
   { id: "topik", title: "Luyện thi TOPIK", subtitle: "Chứng chỉ quốc tế", icon: "ri-survey-line", color: "#f472b6" },
-  { id: "hanja", title: "Hán Hàn VIP", subtitle: "Từ vựng chuyên sâu", icon: "ri-character-recognition-line", color: "#e8c84a" },
+  { id: "hanja", title: "Hán Hàn VIP", subtitle: "Từ vựng chuyên sâu", icon: "ri-character-recognition-line", color: "app-accent-primary" },
   { id: "conversation", title: "Giao tiếp", subtitle: "Nói chuyện tự nhiên", icon: "ri-chat-voice-line", color: "#fb923c" },
 ];
 
@@ -178,16 +178,16 @@ function StepCard({ step, isCompleted, isCurrent, onStart }: {
         </span>
       )}
       {step.isOptional && (
-        <span className="absolute top-3 right-3 text-[9px] px-2 py-0.5 rounded-full bg-white/5 text-white/30 font-medium">
+        <span className="absolute top-3 right-3 text-[9px] px-2 py-0.5 rounded-full bg-app-card/50 text-app-text-muted font-medium">
           Tùy chọn
         </span>
       )}
 
       <div className="flex items-start gap-3">
-        <div className={`w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0 ${isCompleted ? "bg-emerald-500/15" : ""}`}
+        <div className={`w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0 ${isCompleted ? "bg-app-accent-success/15" : ""}`}
           style={{ backgroundColor: isCompleted ? undefined : `${step.color}15` }}>
           {isCompleted ? (
-            <i className="ri-check-line text-emerald-400 text-base"></i>
+            <i className="ri-check-line text-app-accent-success text-base"></i>
           ) : (
             <i className={`${step.icon} text-base`} style={{ color: step.color }}></i>
           )}
@@ -196,7 +196,7 @@ function StepCard({ step, isCompleted, isCurrent, onStart }: {
           <p className={`text-sm font-semibold ${isCompleted ? "text-white/50 line-through" : "text-white"}`}>{step.title}</p>
           <p className="text-white/35 text-xs mt-0.5 leading-relaxed">{step.description}</p>
           {step.estimatedDays > 0 && (
-            <p className="text-white/20 text-[10px] mt-1.5">
+            <p className="text-app-text-muted text-[10px] mt-1.5">
               <i className="ri-time-line mr-1"></i>
               ~{step.estimatedDays} ngày
             </p>
@@ -260,7 +260,7 @@ export default function LearningRoadmapPage() {
           <div>
             <div className="text-center mb-8">
               <h2 className="text-white text-2xl font-bold mb-2">Mục tiêu của bạn là gì?</h2>
-              <p className="text-white/40 text-sm">Chọn mục tiêu để nhận lộ trình học phù hợp nhất</p>
+              <p className="text-app-text-secondary text-sm">Chọn mục tiêu để nhận lộ trình học phù hợp nhất</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {GOAL_OPTIONS.map(goal => (
@@ -275,7 +275,7 @@ export default function LearningRoadmapPage() {
                   </div>
                   <div>
                     <p className="text-white font-bold text-base">{goal.title}</p>
-                    <p className="text-white/40 text-xs mt-0.5">{goal.subtitle}</p>
+                    <p className="text-app-text-secondary text-xs mt-0.5">{goal.subtitle}</p>
                   </div>
                   <div className="w-full py-2 rounded-xl text-xs font-semibold transition-all" style={{ backgroundColor: `${goal.color}12`, color: goal.color }}>
                     Chọn lộ trình này
@@ -294,7 +294,7 @@ export default function LearningRoadmapPage() {
                 </div>
                 <div>
                   <h2 className="text-white font-bold text-lg">{roadmap.title}</h2>
-                  <p className="text-white/40 text-xs">{roadmap.subtitle}</p>
+                  <p className="text-app-text-secondary text-xs">{roadmap.subtitle}</p>
                 </div>
               </div>
               <button
@@ -316,14 +316,14 @@ export default function LearningRoadmapPage() {
                 </div>
                 <span className="text-2xl font-bold" style={{ color: roadmap.color }}>{progressPct}%</span>
               </div>
-              <div className="h-2.5 rounded-full overflow-hidden bg-white/5">
+              <div className="h-2.5 rounded-full overflow-hidden bg-app-card/50">
                 <div
                   className="h-full rounded-full transition-all duration-700"
                   style={{ width: `${progressPct}%`, backgroundColor: roadmap.color }}
                 />
               </div>
               {progressPct === 100 && (
-                <div className="mt-3 flex items-center gap-2 text-emerald-400 text-xs font-semibold">
+                <div className="mt-3 flex items-center gap-2 text-app-accent-success text-xs font-semibold">
                   <i className="ri-trophy-fill"></i>
                   Chúc mừng! Bạn đã hoàn thành lộ trình!
                 </div>
@@ -342,15 +342,15 @@ export default function LearningRoadmapPage() {
                     {/* Phase header */}
                     <div className="flex items-center gap-3 mb-3">
                       <div className={`w-7 h-7 flex items-center justify-center rounded-full text-xs font-bold flex-shrink-0 ${
-                        isPastPhase ? "bg-emerald-500/20 text-emerald-400" : isCurrentPhase ? "text-white" : "bg-white/5 text-white/30"
+                        isPastPhase ? "bg-emerald-500/20 text-app-accent-success" : isCurrentPhase ? "text-white" : "bg-app-card/50 text-app-text-muted"
                       }`} style={isCurrentPhase ? { backgroundColor: `${roadmap.color}20`, color: roadmap.color } : {}}>
                         {isPastPhase ? <i className="ri-check-line text-xs"></i> : phaseIdx + 1}
                       </div>
-                      <p className={`text-sm font-semibold ${isPastPhase ? "text-white/40" : isCurrentPhase ? "text-white" : "text-white/30"}`}>
+                      <p className={`text-sm font-semibold ${isPastPhase ? "text-app-text-secondary" : isCurrentPhase ? "text-white" : "text-app-text-muted"}`}>
                         {phaseLabel}
                         {isCurrentPhase && <span className="ml-2 text-[10px] px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: `${roadmap.color}20`, color: roadmap.color }}>Đang học</span>}
                       </p>
-                      <div className="flex-1 h-px bg-white/5"></div>
+                      <div className="flex-1 h-px bg-app-card/50"></div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pl-10">
@@ -385,12 +385,12 @@ export default function LearningRoadmapPage() {
             {/* Tips */}
             <div className="mt-8 p-5 rounded-2xl border border-white/6 bg-white/2">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#e8c84a]/10 flex-shrink-0">
-                  <i className="ri-lightbulb-line text-[#e8c84a] text-sm"></i>
+                <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-accent-primary/10 flex-shrink-0">
+                  <i className="ri-lightbulb-line text-app-accent-primary text-sm"></i>
                 </div>
                 <div>
                   <p className="text-white/70 text-sm font-semibold mb-1">Mẹo học hiệu quả</p>
-                  <p className="text-white/40 text-xs leading-relaxed">
+                  <p className="text-app-text-secondary text-xs leading-relaxed">
                     Nhấn vào ô tròn bên trái mỗi bước để đánh dấu hoàn thành. Học đều đặn mỗi ngày 30-60 phút sẽ hiệu quả hơn học dồn. Đừng bỏ qua bước nào — mỗi bước đều có lý do!
                   </p>
                 </div>

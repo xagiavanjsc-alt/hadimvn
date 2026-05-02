@@ -145,11 +145,11 @@ function CardStudyModal({
   if (studyCards.length === 0) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-        <div className="w-full max-w-sm bg-[#1a1d27] border border-white/10 rounded-2xl p-8 text-center">
+        <div className="w-full max-w-sm bg-[#1a1d27] border border-app-border rounded-2xl p-8 text-center">
           <div className="text-4xl mb-4">🎉</div>
           <p className="text-white font-bold text-lg mb-2">Đã thuộc hết!</p>
-          <p className="text-white/40 text-sm mb-6">Bạn đã thuộc tất cả từ trong bài hát này</p>
-          <button onClick={onClose} className="w-full py-3 bg-[#e8c84a] text-[#0f1117] font-bold rounded-xl cursor-pointer whitespace-nowrap">Đóng</button>
+          <p className="text-app-text-secondary text-sm mb-6">Bạn đã thuộc tất cả từ trong bài hát này</p>
+          <button onClick={onClose} className="w-full py-3 bg-app-accent-primary text-app-bg font-bold rounded-xl cursor-pointer whitespace-nowrap">Đóng</button>
         </div>
       </div>
     );
@@ -158,15 +158,15 @@ function CardStudyModal({
   if (finished) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-        <div className="w-full max-w-sm bg-[#1a1d27] border border-white/10 rounded-2xl p-8 text-center">
+        <div className="w-full max-w-sm bg-[#1a1d27] border border-app-border rounded-2xl p-8 text-center">
           <div className="text-4xl mb-4">✅</div>
           <p className="text-white font-bold text-lg mb-2">Xong buổi học!</p>
-          <p className="text-white/40 text-sm mb-6">Đã học qua {studyCards.length} từ</p>
+          <p className="text-app-text-secondary text-sm mb-6">Đã học qua {studyCards.length} từ</p>
           <div className="flex gap-3">
             <button onClick={() => { setIdx(0); setFlipped(false); setFinished(false); }}
               className="flex-1 py-3 bg-white/8 text-white/60 text-sm font-medium rounded-xl cursor-pointer whitespace-nowrap">Học lại</button>
             <button onClick={onClose}
-              className="flex-1 py-3 bg-[#e8c84a] text-[#0f1117] font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap">Xong</button>
+              className="flex-1 py-3 bg-app-accent-primary text-app-bg font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap">Xong</button>
           </div>
         </div>
       </div>
@@ -175,19 +175,19 @@ function CardStudyModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-      <div className="w-full max-w-sm bg-[#1a1d27] border border-white/10 rounded-2xl overflow-hidden">
-        <div className="flex items-center gap-3 px-4 py-3 border-b border-white/8">
-          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center text-white/30 hover:text-white cursor-pointer flex-shrink-0">
+      <div className="w-full max-w-sm bg-[#1a1d27] border border-app-border rounded-2xl overflow-hidden">
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-app-border">
+          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-white cursor-pointer flex-shrink-0">
             <i className="ri-close-line" />
           </button>
           <div className="flex-1 h-1.5 bg-white/8 rounded-full overflow-hidden">
-            <div className="h-full bg-[#e8c84a] rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
+            <div className="h-full bg-app-accent-primary rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
           </div>
-          <span className="text-white/30 text-xs whitespace-nowrap flex-shrink-0">{idx}/{studyCards.length}</span>
+          <span className="text-app-text-muted text-xs whitespace-nowrap flex-shrink-0">{idx}/{studyCards.length}</span>
         </div>
-        <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/5">
-          <i className="ri-music-2-line text-white/20 text-xs" />
-          <p className="text-white/30 text-xs truncate">{card?.songTitle}</p>
+        <div className="flex items-center gap-2 px-4 py-2.5 border-b border-app-border">
+          <i className="ri-music-2-line text-app-text-muted text-xs" />
+          <p className="text-app-text-muted text-xs truncate">{card?.songTitle}</p>
         </div>
         <div className="p-5">
           <div
@@ -200,31 +200,31 @@ function CardStudyModal({
           >
             {!flipped ? (
               <>
-                <p className="text-[#e8c84a] text-2xl font-bold mb-2">{card?.word}</p>
-                <p className="text-white/20 text-xs">Nhấn để xem nghĩa</p>
+                <p className="text-app-accent-primary text-2xl font-bold mb-2">{card?.word}</p>
+                <p className="text-app-text-muted text-xs">Nhấn để xem nghĩa</p>
               </>
             ) : (
               <>
-                <p className="text-[#e8c84a] text-lg font-bold mb-2">{card?.word}</p>
+                <p className="text-app-accent-primary text-lg font-bold mb-2">{card?.word}</p>
                 <p className="text-white/85 text-base font-medium mb-3">{card?.meaning}</p>
                 <div className="w-8 h-px bg-white/15 mb-3" />
-                <p className="text-white/40 text-sm italic leading-relaxed">{card?.example}</p>
+                <p className="text-app-text-secondary text-sm italic leading-relaxed">{card?.example}</p>
               </>
             )}
           </div>
           {!flipped ? (
             <button onClick={() => setFlipped(true)}
-              className="w-full mt-4 py-3 bg-white/5 hover:bg-white/10 text-white/60 text-sm font-medium rounded-xl cursor-pointer whitespace-nowrap">
+              className="w-full mt-4 py-3 bg-app-card/50 hover:bg-app-card/70 text-white/60 text-sm font-medium rounded-xl cursor-pointer whitespace-nowrap">
               Xem nghĩa <i className="ri-arrow-down-s-line ml-1" />
             </button>
           ) : (
             <div className="flex gap-3 mt-4">
               <button onClick={goNext}
-                className="flex-1 py-3 bg-white/5 hover:bg-white/10 border border-white/8 text-white/50 text-sm font-medium rounded-xl cursor-pointer whitespace-nowrap">
+                className="flex-1 py-3 bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/50 text-sm font-medium rounded-xl cursor-pointer whitespace-nowrap">
                 <i className="ri-refresh-line mr-1.5" />Học lại
               </button>
               <button onClick={() => { onMastered(card.id); goNext(); }}
-                className="flex-1 py-3 bg-[#e8c84a] hover:bg-[#e8c84a]/80 text-[#0f1117] text-sm font-bold rounded-xl cursor-pointer whitespace-nowrap">
+                className="flex-1 py-3 bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold rounded-xl cursor-pointer whitespace-nowrap">
                 <i className="ri-checkbox-circle-line mr-1.5" />Đã thuộc!
               </button>
             </div>
@@ -268,7 +268,7 @@ function SongCard({
   };
 
   return (
-    <div className="bg-white/3 border border-white/6 rounded-2xl overflow-hidden">
+    <div className="bg-app-surface/50 border border-white/6 rounded-2xl overflow-hidden">
       <div className="flex items-center gap-3 p-4">
         <img src={group.albumArt} alt={group.songTitle} className="w-12 h-12 rounded-xl object-cover flex-shrink-0" />
         <div className="flex-1 min-w-0">
@@ -276,9 +276,9 @@ function SongCard({
           <p className="text-white/35 text-xs truncate">{group.artist}</p>
           <div className="flex items-center gap-2 mt-1.5">
             <div className="flex-1 h-1 bg-white/8 rounded-full overflow-hidden">
-              <div className="h-full bg-[#e8c84a] rounded-full transition-all" style={{ width: `${pct}%` }} />
+              <div className="h-full bg-app-accent-primary rounded-full transition-all" style={{ width: `${pct}%` }} />
             </div>
-            <span className="text-[10px] text-white/30 whitespace-nowrap">{mastered}/{total}</span>
+            <span className="text-[10px] text-app-text-muted whitespace-nowrap">{mastered}/{total}</span>
           </div>
         </div>
         <div className="flex items-center gap-1.5 flex-shrink-0">
@@ -288,8 +288,8 @@ function SongCard({
             disabled={remaining === 0}
             className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors ${
               remaining === 0
-                ? "bg-emerald-500/10 text-emerald-400/60 cursor-not-allowed"
-                : "bg-[#e8c84a] hover:bg-[#e8c84a]/80 text-[#0f1117] font-bold"
+                ? "bg-emerald-500/10 text-app-accent-success/60 cursor-not-allowed"
+                : "bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg font-bold"
             }`}
           >
             {remaining === 0 ? <><i className="ri-checkbox-circle-line" />Xong</> : <><i className="ri-play-circle-line" />Học ({remaining})</>}
@@ -301,17 +301,17 @@ function SongCard({
               <button
                 onClick={() => setMarkConfirm(v => !v)}
                 title="Đánh dấu tất cả đã thuộc"
-                className="w-7 h-7 flex items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400/60 hover:text-emerald-400 hover:bg-emerald-500/20 cursor-pointer transition-colors"
+                className="w-7 h-7 flex items-center justify-center rounded-lg bg-emerald-500/10 text-app-accent-success/60 hover:text-app-accent-success hover:bg-emerald-500/20 cursor-pointer transition-colors"
               >
                 <i className="ri-checkbox-multiple-line text-sm" />
               </button>
               {markConfirm && (
-                <div className="absolute right-0 top-9 z-20 bg-[#1a1d27] border border-white/10 rounded-xl p-3 shadow-xl min-w-[180px]">
+                <div className="absolute right-0 top-9 z-20 bg-[#1a1d27] border border-app-border rounded-xl p-3 shadow-xl min-w-[180px]">
                   <p className="text-white/60 text-xs mb-2">Đánh dấu {remaining} từ còn lại là đã thuộc?</p>
                   <div className="flex gap-2">
-                    <button onClick={() => setMarkConfirm(false)} className="flex-1 py-1.5 text-xs text-white/40 bg-white/5 rounded-lg cursor-pointer whitespace-nowrap">Hủy</button>
+                    <button onClick={() => setMarkConfirm(false)} className="flex-1 py-1.5 text-xs text-app-text-secondary bg-app-card/50 rounded-lg cursor-pointer whitespace-nowrap">Hủy</button>
                     <button onClick={() => { onMarkAllMastered(); setMarkConfirm(false); }}
-                      className="flex-1 py-1.5 text-xs text-emerald-400 bg-emerald-500/15 rounded-lg cursor-pointer whitespace-nowrap font-bold">Xác nhận</button>
+                      className="flex-1 py-1.5 text-xs text-app-accent-success bg-app-accent-success/15 rounded-lg cursor-pointer whitespace-nowrap font-bold">Xác nhận</button>
                   </div>
                 </div>
               )}
@@ -323,17 +323,17 @@ function SongCard({
             <button
               onClick={() => setShowExport(v => !v)}
               title="Xuất CSV / Anki"
-              className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 text-white/30 hover:text-white/60 hover:bg-white/10 cursor-pointer transition-colors"
+              className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-muted hover:text-white/60 hover:bg-app-card/70 cursor-pointer transition-colors"
             >
               <i className="ri-download-2-line text-sm" />
             </button>
             {showExport && (
-              <div className="absolute right-0 top-9 z-20 bg-[#1a1d27] border border-white/10 rounded-xl overflow-hidden shadow-xl min-w-[150px]">
+              <div className="absolute right-0 top-9 z-20 bg-[#1a1d27] border border-app-border rounded-xl overflow-hidden shadow-xl min-w-[150px]">
                 <button onClick={handleExportCSV} className="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-white/60 hover:text-white hover:bg-white/8 cursor-pointer whitespace-nowrap transition-colors">
-                  <i className="ri-file-excel-line text-emerald-400" />Xuất CSV
+                  <i className="ri-file-excel-line text-app-accent-success" />Xuất CSV
                 </button>
                 <button onClick={handleExportAnki} className="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-white/60 hover:text-white hover:bg-white/8 cursor-pointer whitespace-nowrap transition-colors">
-                  <i className="ri-stack-line text-[#e8c84a]" />Xuất Anki
+                  <i className="ri-stack-line text-app-accent-primary" />Xuất Anki
                 </button>
               </div>
             )}
@@ -342,7 +342,7 @@ function SongCard({
           {/* Expand toggle */}
           <button
             onClick={onToggleExpand}
-            className="w-7 h-7 flex items-center justify-center text-white/30 hover:text-white/60 cursor-pointer transition-colors"
+            className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-white/60 cursor-pointer transition-colors"
           >
             {isExpanded ? <i className="ri-arrow-up-s-line text-sm" /> : <i className="ri-arrow-down-s-line text-sm" />}
           </button>
@@ -351,19 +351,19 @@ function SongCard({
 
       {/* Expanded word list */}
       {isExpanded && (
-        <div className="border-t border-white/5 px-4 pb-4 pt-3">
+        <div className="border-t border-app-border px-4 pb-4 pt-3">
           <div className="space-y-2">
             {group.cards.map((card) => (
               <div key={card.id} className={`flex items-center gap-3 py-2 border-b border-white/4 last:border-0 ${masteredIds.has(card.id) ? "opacity-50" : ""}`}>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="text-[#e8c84a] text-sm font-bold">{card.word}</span>
+                    <span className="text-app-accent-primary text-sm font-bold">{card.word}</span>
                     <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${
-                      card.source === "analysis" ? "bg-[#e8c84a]/15 text-[#e8c84a]/70" : "bg-emerald-500/15 text-emerald-400/70"
+                      card.source === "analysis" ? "bg-app-accent-primary/15 text-app-accent-primary/70" : "bg-app-accent-success/15 text-app-accent-success/70"
                     }`}>
                       {card.source === "analysis" ? "AI" : "Lưu"}
                     </span>
-                    {masteredIds.has(card.id) && <span className="text-[9px] text-emerald-400/60">✓ Thuộc</span>}
+                    {masteredIds.has(card.id) && <span className="text-[9px] text-app-accent-success/60">✓ Thuộc</span>}
                   </div>
                   <p className="text-white/45 text-xs truncate">{card.meaning}</p>
                 </div>
@@ -485,20 +485,20 @@ export default function KpopFlashcardPage() {
 
   if (allCards.length === 0) {
     return (
-      <div className="min-h-screen bg-[#0f1117] flex flex-col">
-        <header className="h-14 flex items-center px-4 gap-3 border-b border-white/8">
-          <button onClick={() => navigate("/melon")} className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/60 hover:text-white cursor-pointer">
+      <div className="min-h-screen bg-app-bg flex flex-col">
+        <header className="h-14 flex items-center px-4 gap-3 border-b border-app-border">
+          <button onClick={() => navigate("/melon")} className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-white/60 hover:text-white cursor-pointer">
             <i className="ri-arrow-left-line" />
           </button>
           <p className="text-white font-bold text-sm">Bộ Flashcard K-pop Cá Nhân</p>
         </header>
         <div className="flex-1 flex flex-col items-center justify-center text-center px-6">
-          <div className="w-16 h-16 flex items-center justify-center bg-white/5 rounded-2xl mb-4">
-            <i className="ri-music-2-line text-white/20 text-2xl" />
+          <div className="w-16 h-16 flex items-center justify-center bg-app-card/50 rounded-2xl mb-4">
+            <i className="ri-music-2-line text-app-text-muted text-2xl" />
           </div>
-          <p className="text-white/40 text-sm font-medium mb-1">Chưa có từ vựng nào</p>
-          <p className="text-white/20 text-xs mb-5">Phân tích AI bài hát Melon hoặc nhấn nút<br />"Lưu" trong tab Từ vựng để tạo flashcard</p>
-          <button onClick={() => navigate("/melon")} className="bg-[#e8c84a] hover:bg-[#e8c84a]/80 text-[#0f1117] text-sm font-bold px-6 py-2.5 rounded-xl cursor-pointer whitespace-nowrap">
+          <p className="text-app-text-secondary text-sm font-medium mb-1">Chưa có từ vựng nào</p>
+          <p className="text-app-text-muted text-xs mb-5">Phân tích AI bài hát Melon hoặc nhấn nút<br />"Lưu" trong tab Từ vựng để tạo flashcard</p>
+          <button onClick={() => navigate("/melon")} className="bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold px-6 py-2.5 rounded-xl cursor-pointer whitespace-nowrap">
             Đến Melon Chart
           </button>
         </div>
@@ -507,7 +507,7 @@ export default function KpopFlashcardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0f1117] flex flex-col">
+    <div className="min-h-screen bg-app-bg flex flex-col">
       {/* Toast */}
       {toast && (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-emerald-600 text-white text-xs font-medium px-4 py-2.5 rounded-xl shadow-lg whitespace-nowrap">
@@ -534,46 +534,46 @@ export default function KpopFlashcardPage() {
       )}
 
       {/* Header */}
-      <header className="sticky top-0 z-30 bg-[#0f1117]/95 backdrop-blur-md border-b border-white/8 h-14 flex items-center px-4 md:px-6 gap-3 flex-shrink-0">
-        <button onClick={() => navigate("/melon")} className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/60 hover:text-white cursor-pointer flex-shrink-0">
+      <header className="sticky top-0 z-30 bg-app-bg/95 backdrop-blur-md border-b border-app-border h-14 flex items-center px-4 md:px-6 gap-3 flex-shrink-0">
+        <button onClick={() => navigate("/melon")} className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-white/60 hover:text-white cursor-pointer flex-shrink-0">
           <i className="ri-arrow-left-line" />
         </button>
         <div className="flex-1 min-w-0">
           <p className="text-white font-bold text-sm">Bộ Flashcard K-pop Cá Nhân</p>
-          <p className="text-white/30 text-xs">{totalSongs} bài hát · {totalWords} từ · {totalMastered} đã thuộc</p>
+          <p className="text-app-text-muted text-xs">{totalSongs} bài hát · {totalWords} từ · {totalMastered} đã thuộc</p>
         </div>
         {/* Export all */}
         <div className="relative">
           <button
             onClick={() => setShowExportAll(v => !v)}
-            className="flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors border border-white/8"
+            className="flex items-center gap-1.5 text-xs text-app-text-secondary hover:text-white/70 bg-app-card/50 hover:bg-app-card/70 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors border border-app-border"
           >
             <i className="ri-download-2-line" />
             <span className="hidden sm:inline">Xuất tất cả</span>
           </button>
           {showExportAll && (
-            <div className="absolute right-0 top-10 z-20 bg-[#1a1d27] border border-white/10 rounded-xl overflow-hidden shadow-xl min-w-[160px]">
+            <div className="absolute right-0 top-10 z-20 bg-[#1a1d27] border border-app-border rounded-xl overflow-hidden shadow-xl min-w-[160px]">
               <button onClick={() => { exportCSV(allCards, "kpop-flashcard-all.csv"); setShowExportAll(false); }}
                 className="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-white/60 hover:text-white hover:bg-white/8 cursor-pointer whitespace-nowrap transition-colors">
-                <i className="ri-file-excel-line text-emerald-400" />Xuất CSV (tất cả)
+                <i className="ri-file-excel-line text-app-accent-success" />Xuất CSV (tất cả)
               </button>
               <button onClick={() => { exportAnki(allCards, "kpop-flashcard-all.txt"); setShowExportAll(false); }}
                 className="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-white/60 hover:text-white hover:bg-white/8 cursor-pointer whitespace-nowrap transition-colors">
-                <i className="ri-stack-line text-[#e8c84a]" />Xuất Anki (tất cả)
+                <i className="ri-stack-line text-app-accent-primary" />Xuất Anki (tất cả)
               </button>
             </div>
           )}
         </div>
         <button
           onClick={() => setShowShare(true)}
-          className="flex items-center gap-1.5 text-xs text-[#e8c84a]/70 hover:text-[#e8c84a] bg-[#e8c84a]/8 hover:bg-[#e8c84a]/15 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors border border-[#e8c84a]/15"
+          className="flex items-center gap-1.5 text-xs text-app-accent-primary/70 hover:text-app-accent-primary bg-app-accent-primary/8 hover:bg-app-accent-primary/15 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors border border-app-accent-primary/15"
         >
           <i className="ri-share-line" />
           <span className="hidden sm:inline">Chia sẻ</span>
         </button>
         <button
           onClick={() => navigate("/melon-flashcard")}
-          className="flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors border border-white/8"
+          className="flex items-center gap-1.5 text-xs text-app-text-secondary hover:text-white/70 bg-app-card/50 hover:bg-app-card/70 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors border border-app-border"
         >
           <i className="ri-stack-line" />
           <span className="hidden sm:inline">Ôn tập</span>
@@ -584,41 +584,41 @@ export default function KpopFlashcardPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {[
-            { label: "Bài hát", value: totalSongs, icon: "ri-music-2-line", color: "#e8c84a" },
+            { label: "Bài hát", value: totalSongs, icon: "ri-music-2-line", color: "app-accent-primary" },
             { label: "Tổng từ", value: totalWords, icon: "ri-book-open-line", color: "#34d399" },
             { label: "Đã thuộc", value: totalMastered, icon: "ri-checkbox-circle-line", color: "#34d399" },
             { label: "Bài xong", value: completedSongs, icon: "ri-trophy-line", color: "#fb923c" },
           ].map(s => (
-            <div key={s.label} className="bg-white/3 border border-white/5 rounded-xl p-3 text-center">
+            <div key={s.label} className="bg-app-surface/50 border border-app-border rounded-xl p-3 text-center">
               <div className="w-7 h-7 flex items-center justify-center rounded-lg mx-auto mb-1.5" style={{ backgroundColor: `${s.color}15` }}>
                 <i className={`${s.icon} text-xs`} style={{ color: s.color }} />
               </div>
               <p className="font-bold text-base leading-none" style={{ color: s.color }}>{s.value}</p>
-              <p className="text-[10px] text-white/30 mt-0.5">{s.label}</p>
+              <p className="text-[10px] text-app-text-muted mt-0.5">{s.label}</p>
             </div>
           ))}
         </div>
 
         {/* Overall progress */}
-        <div className="bg-white/3 border border-white/5 rounded-xl px-4 py-3">
+        <div className="bg-app-surface/50 border border-app-border rounded-xl px-4 py-3">
           <div className="flex items-center justify-between mb-2">
             <p className="text-white/50 text-xs">Tiến độ tổng thể</p>
-            <p className="text-[#e8c84a] text-xs font-bold">{totalWords > 0 ? Math.round((totalMastered / totalWords) * 100) : 0}%</p>
+            <p className="text-app-accent-primary text-xs font-bold">{totalWords > 0 ? Math.round((totalMastered / totalWords) * 100) : 0}%</p>
           </div>
           <div className="h-2 bg-white/8 rounded-full overflow-hidden">
-            <div className="h-full bg-[#e8c84a] rounded-full transition-all duration-700"
+            <div className="h-full bg-app-accent-primary rounded-full transition-all duration-700"
               style={{ width: `${totalWords > 0 ? (totalMastered / totalWords) * 100 : 0}%` }} />
           </div>
         </div>
 
         {/* Tab switcher */}
-        <div className="flex bg-white/5 rounded-xl p-1">
+        <div className="flex bg-app-card/50 rounded-xl p-1">
           <button onClick={() => setActiveTab("by-song")}
-            className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap ${activeTab === "by-song" ? "bg-[#e8c84a] text-[#0f1117] font-semibold" : "text-white/40"}`}>
+            className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap ${activeTab === "by-song" ? "bg-app-accent-primary text-app-bg font-semibold" : "text-app-text-secondary"}`}>
             <i className="ri-music-2-line mr-1.5" />Theo bài hát
           </button>
           <button onClick={() => setActiveTab("all-words")}
-            className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap ${activeTab === "all-words" ? "bg-[#e8c84a] text-[#0f1117] font-semibold" : "text-white/40"}`}>
+            className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap ${activeTab === "all-words" ? "bg-app-accent-primary text-app-bg font-semibold" : "text-app-text-secondary"}`}>
             <i className="ri-list-check mr-1.5" />Tất cả từ ({totalWords})
           </button>
         </div>
@@ -626,13 +626,13 @@ export default function KpopFlashcardPage() {
         {/* Search */}
         <div className="relative">
           <div className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center pointer-events-none">
-            <i className="ri-search-line text-white/30 text-sm" />
+            <i className="ri-search-line text-app-text-muted text-sm" />
           </div>
           <input type="text" value={search} onChange={e => setSearch(e.target.value)}
             placeholder={activeTab === "by-song" ? "Tìm bài hát, nghệ sĩ..." : "Tìm từ vựng, nghĩa..."}
-            className="w-full bg-white/5 border border-white/8 rounded-xl pl-9 pr-4 py-2.5 text-white/80 text-sm placeholder-white/25 focus:outline-none focus:border-white/20 transition-colors" />
+            className="w-full bg-app-card/50 border border-app-border rounded-xl pl-9 pr-4 py-2.5 text-white/80 text-sm placeholder-white/25 focus:outline-none focus:border-white/20 transition-colors" />
           {search && (
-            <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center text-white/30 hover:text-white/60 cursor-pointer">
+            <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center text-app-text-muted hover:text-white/60 cursor-pointer">
               <i className="ri-close-line text-sm" />
             </button>
           )}
@@ -643,8 +643,8 @@ export default function KpopFlashcardPage() {
           <div className="space-y-3">
             {filteredGroups.length === 0 ? (
               <div className="text-center py-10">
-                <i className="ri-search-line text-white/20 text-2xl mb-2" />
-                <p className="text-white/30 text-sm">Không tìm thấy bài hát</p>
+                <i className="ri-search-line text-app-text-muted text-2xl mb-2" />
+                <p className="text-app-text-muted text-sm">Không tìm thấy bài hát</p>
               </div>
             ) : (
               filteredGroups.map(group => (
@@ -666,7 +666,7 @@ export default function KpopFlashcardPage() {
         {activeTab === "all-words" && (
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <div className="flex bg-white/5 rounded-xl p-1 flex-1">
+              <div className="flex bg-app-card/50 rounded-xl p-1 flex-1">
                 {([["all", "Tất cả"], ["analysis", "Phân tích AI"], ["saved", "Đã lưu"]] as ["all" | "analysis" | "saved", string][]).map(([val, label]) => (
                   <button key={val} onClick={() => setSourceFilter(val)}
                     className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer whitespace-nowrap ${sourceFilter === val ? "bg-white/15 text-white font-semibold" : "text-white/35"}`}>
@@ -676,46 +676,46 @@ export default function KpopFlashcardPage() {
               </div>
               {/* Export filtered */}
               <button onClick={() => exportCSV(filteredAllCards, "kpop-filtered.csv")}
-                className="flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 bg-white/5 px-3 py-2 rounded-xl cursor-pointer whitespace-nowrap border border-white/8 transition-colors">
+                className="flex items-center gap-1.5 text-xs text-app-text-secondary hover:text-white/70 bg-app-card/50 px-3 py-2 rounded-xl cursor-pointer whitespace-nowrap border border-app-border transition-colors">
                 <i className="ri-download-2-line" />CSV
               </button>
               <button onClick={() => exportAnki(filteredAllCards, "kpop-filtered.txt")}
-                className="flex items-center gap-1.5 text-xs text-[#e8c84a]/60 hover:text-[#e8c84a] bg-[#e8c84a]/5 px-3 py-2 rounded-xl cursor-pointer whitespace-nowrap border border-[#e8c84a]/15 transition-colors">
+                className="flex items-center gap-1.5 text-xs text-app-accent-primary/60 hover:text-app-accent-primary bg-app-accent-primary/5 px-3 py-2 rounded-xl cursor-pointer whitespace-nowrap border border-app-accent-primary/15 transition-colors">
                 <i className="ri-stack-line" />Anki
               </button>
             </div>
 
             {filteredAllCards.length === 0 ? (
               <div className="text-center py-10">
-                <i className="ri-search-line text-white/20 text-2xl mb-2" />
-                <p className="text-white/30 text-sm">Không tìm thấy từ nào</p>
+                <i className="ri-search-line text-app-text-muted text-2xl mb-2" />
+                <p className="text-app-text-muted text-sm">Không tìm thấy từ nào</p>
               </div>
             ) : (
               filteredAllCards.map(card => (
-                <div key={card.id} className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${masteredIds.has(card.id) ? "border-emerald-500/15 bg-emerald-500/5" : "border-white/5 bg-white/2"}`}>
+                <div key={card.id} className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${masteredIds.has(card.id) ? "border-emerald-500/15 bg-emerald-500/5" : "border-app-border bg-white/2"}`}>
                   <img src={getAlbumArt(card)} alt="" className="w-9 h-9 rounded-lg object-cover flex-shrink-0" />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-[#e8c84a] font-bold text-sm">{card.word}</span>
-                      <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${card.source === "analysis" ? "bg-[#e8c84a]/15 text-[#e8c84a]/70" : "bg-emerald-500/15 text-emerald-400/70"}`}>
+                      <span className="text-app-accent-primary font-bold text-sm">{card.word}</span>
+                      <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${card.source === "analysis" ? "bg-app-accent-primary/15 text-app-accent-primary/70" : "bg-app-accent-success/15 text-app-accent-success/70"}`}>
                         {card.source === "analysis" ? "AI" : "Lưu"}
                       </span>
-                      {masteredIds.has(card.id) && <span className="text-[9px] text-emerald-400/70">✓ Thuộc</span>}
+                      {masteredIds.has(card.id) && <span className="text-[9px] text-app-accent-success/70">✓ Thuộc</span>}
                     </div>
                     <p className="text-white/50 text-xs truncate">{card.meaning}</p>
-                    <p className="text-white/25 text-[10px] truncate">{card.songTitle}</p>
+                    <p className="text-app-text-muted text-[10px] truncate">{card.songTitle}</p>
                   </div>
                   <div className="flex items-center gap-1 flex-shrink-0">
                     {!masteredIds.has(card.id) && (
                       <button onClick={() => handleMastered(card.id)}
-                        className="w-7 h-7 flex items-center justify-center text-white/20 hover:text-emerald-400 cursor-pointer transition-colors"
+                        className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-app-accent-success cursor-pointer transition-colors"
                         title="Đánh dấu đã thuộc">
                         <i className="ri-checkbox-circle-line text-sm" />
                       </button>
                     )}
                     {card.source === "saved" && (
                       <button onClick={() => removeCard(card.id)}
-                        className="w-7 h-7 flex items-center justify-center text-white/20 hover:text-red-400 cursor-pointer transition-colors">
+                        className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-red-400 cursor-pointer transition-colors">
                         <i className="ri-delete-bin-line text-sm" />
                       </button>
                     )}

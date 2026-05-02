@@ -190,15 +190,15 @@ export default function AIPronunciationPage() {
   };
 
   const scoreColor = (s: number) => {
-    if (s >= 85) return "text-emerald-400";
-    if (s >= 70) return "text-[#e8c84a]";
+    if (s >= 85) return "text-app-accent-success";
+    if (s >= 70) return "text-app-accent-primary";
     if (s >= 55) return "text-orange-400";
     return "text-rose-400";
   };
 
   const scoreBg = (s: number) => {
     if (s >= 85) return "bg-emerald-500";
-    if (s >= 70) return "bg-[#e8c84a]";
+    if (s >= 70) return "bg-app-accent-primary";
     if (s >= 55) return "bg-orange-500";
     return "bg-rose-500";
   };
@@ -217,7 +217,7 @@ export default function AIPronunciationPage() {
           {history.length > 0 && (
             <div className="text-right">
               <p className={`text-2xl font-bold ${scoreColor(avgScore)}`}>{avgScore}</p>
-              <p className="text-white/30 text-xs">Điểm TB</p>
+              <p className="text-app-text-muted text-xs">Điểm TB</p>
             </div>
           )}
         </div>
@@ -238,13 +238,13 @@ export default function AIPronunciationPage() {
           <div className="lg:col-span-2 space-y-4">
             {/* Difficulty filter */}
             <div className="flex items-center gap-2">
-              <span className="text-white/40 text-sm">Độ khó:</span>
+              <span className="text-app-text-secondary text-sm">Độ khó:</span>
               {[0, 1, 2, 3, 4].map(d => (
                 <button
                   key={d}
                   onClick={() => { setSelectedDifficulty(d); setCurrentIndex(0); }}
                   className={`px-3 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${
-                    selectedDifficulty === d ? "bg-[#e8c84a]/20 text-[#e8c84a] font-semibold" : "bg-white/5 text-white/40 hover:bg-white/10"
+                    selectedDifficulty === d ? "bg-app-accent-primary/20 text-app-accent-primary font-semibold" : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70"
                   }`}
                 >
                   {d === 0 ? "Tất cả" : "★".repeat(d)}
@@ -253,16 +253,16 @@ export default function AIPronunciationPage() {
             </div>
 
             {/* Word Card */}
-            <div className="bg-[#1a1f2e] rounded-2xl p-8 border border-white/8 text-center space-y-4">
+            <div className="bg-[#1a1f2e] rounded-2xl p-8 border border-app-border text-center space-y-4">
               <div className="flex items-center justify-center gap-2 mb-2">
                 {Array.from({ length: current.difficulty }).map((_, i) => (
-                  <i key={i} className="ri-star-fill text-[#e8c84a] text-xs"></i>
+                  <i key={i} className="ri-star-fill text-app-accent-primary text-xs"></i>
                 ))}
               </div>
 
               <div>
                 <p className="text-5xl font-bold text-white mb-3">{current.korean}</p>
-                <p className="text-white/40 text-lg">{current.romanization}</p>
+                <p className="text-app-text-secondary text-lg">{current.romanization}</p>
                 <p className="text-white/60 text-base mt-1">{current.vietnamese}</p>
               </div>
 
@@ -278,13 +278,13 @@ export default function AIPronunciationPage() {
               {/* Tip */}
               <button
                 onClick={() => setShowTip(!showTip)}
-                className="text-xs text-[#e8c84a]/60 hover:text-[#e8c84a] transition-colors cursor-pointer"
+                className="text-xs text-app-accent-primary/60 hover:text-app-accent-primary transition-colors cursor-pointer"
               >
                 <i className="ri-lightbulb-line mr-1"></i>
                 {showTip ? "Ẩn mẹo" : "Xem mẹo phát âm"}
               </button>
               {showTip && (
-                <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-lg p-3 text-sm text-[#e8c84a]/80 text-left">
+                <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-lg p-3 text-sm text-app-accent-primary/80 text-left">
                   <i className="ri-lightbulb-flash-line mr-1.5"></i>
                   {current.tips}
                 </div>
@@ -293,15 +293,15 @@ export default function AIPronunciationPage() {
               {/* Recording area */}
               <div className="pt-2">
                 {transcript && (
-                  <div className="mb-3 p-3 bg-white/5 rounded-lg text-white/60 text-sm">
-                    <span className="text-white/30 text-xs mr-2">Bạn nói:</span>
+                  <div className="mb-3 p-3 bg-app-card/50 rounded-lg text-white/60 text-sm">
+                    <span className="text-app-text-muted text-xs mr-2">Bạn nói:</span>
                     {transcript}
                   </div>
                 )}
 
                 {isAnalyzing ? (
                   <div className="flex items-center justify-center gap-3 py-4">
-                    <div className="w-5 h-5 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>
+                    <div className="w-5 h-5 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
                     <span className="text-white/50 text-sm">AI đang phân tích...</span>
                   </div>
                 ) : (
@@ -311,7 +311,7 @@ export default function AIPronunciationPage() {
                     className={`w-20 h-20 rounded-full mx-auto flex items-center justify-center transition-all cursor-pointer ${
                       isRecording
                         ? "bg-rose-500 animate-pulse shadow-lg shadow-rose-500/30"
-                        : "bg-[#e8c84a] hover:bg-[#e8c84a]/90 shadow-lg shadow-[#e8c84a]/20"
+                        : "bg-app-accent-primary hover:bg-app-accent-primary/90 shadow-lg shadow-[app-accent-primary]/20"
                     } ${!supported ? "opacity-40 cursor-not-allowed" : ""}`}
                   >
                     <i className={`${isRecording ? "ri-stop-fill" : "ri-mic-fill"} text-3xl text-black`}></i>
@@ -325,14 +325,14 @@ export default function AIPronunciationPage() {
                   </p>
                 )}
                 {!isRecording && !isAnalyzing && !result && (
-                  <p className="text-white/30 text-xs mt-2">Nhấn để bắt đầu ghi âm</p>
+                  <p className="text-app-text-muted text-xs mt-2">Nhấn để bắt đầu ghi âm</p>
                 )}
               </div>
             </div>
 
             {/* Score Result */}
             {result && (
-              <div className="bg-[#1a1f2e] rounded-2xl p-6 border border-white/8 space-y-4 animate-fade-in">
+              <div className="bg-[#1a1f2e] rounded-2xl p-6 border border-app-border space-y-4 animate-fade-in">
                 <div className="flex items-center justify-between">
                   <h3 className="text-white font-bold">Kết quả đánh giá</h3>
                   <div className={`text-3xl font-bold ${scoreColor(result.score)}`}>{result.score}/100</div>
@@ -364,7 +364,7 @@ export default function AIPronunciationPage() {
                           style={{ width: `${d.score}%` }}
                         ></div>
                       </div>
-                      <p className="text-white/30 text-xs mt-0.5">{d.comment}</p>
+                      <p className="text-app-text-muted text-xs mt-0.5">{d.comment}</p>
                     </div>
                   ))}
                 </div>
@@ -373,7 +373,7 @@ export default function AIPronunciationPage() {
                   <button
                     onClick={startRecording}
                     disabled={!supported}
-                    className="flex-1 py-2 rounded-lg bg-[#e8c84a]/15 text-[#e8c84a] text-sm font-semibold hover:bg-[#e8c84a]/25 transition-all cursor-pointer whitespace-nowrap"
+                    className="flex-1 py-2 rounded-lg bg-app-accent-primary/15 text-app-accent-primary text-sm font-semibold hover:bg-app-accent-primary/25 transition-all cursor-pointer whitespace-nowrap"
                   >
                     <i className="ri-refresh-line mr-1.5"></i>
                     Thử lại
@@ -401,7 +401,7 @@ export default function AIPronunciationPage() {
                 <i className="ri-arrow-left-line mr-1.5"></i>
                 Trước
               </button>
-              <span className="text-white/30 text-sm">{currentIndex + 1} / {filtered.length}</span>
+              <span className="text-app-text-muted text-sm">{currentIndex + 1} / {filtered.length}</span>
               <button
                 onClick={() => setCurrentIndex(prev => Math.min(filtered.length - 1, prev + 1))}
                 disabled={currentIndex === filtered.length - 1}
@@ -416,34 +416,34 @@ export default function AIPronunciationPage() {
           {/* Sidebar */}
           <div className="space-y-4">
             {/* Stats */}
-            <div className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8">
+            <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border">
               <h3 className="text-white/70 text-sm font-semibold mb-3">Thống kê hôm nay</h3>
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-white/5 rounded-lg p-3 text-center">
+                <div className="bg-app-card/50 rounded-lg p-3 text-center">
                   <p className="text-2xl font-bold text-white">{history.length}</p>
-                  <p className="text-white/30 text-xs">Lần luyện</p>
+                  <p className="text-app-text-muted text-xs">Lần luyện</p>
                 </div>
-                <div className="bg-white/5 rounded-lg p-3 text-center">
+                <div className="bg-app-card/50 rounded-lg p-3 text-center">
                   <p className={`text-2xl font-bold ${scoreColor(avgScore)}`}>{avgScore || "--"}</p>
-                  <p className="text-white/30 text-xs">Điểm TB</p>
+                  <p className="text-app-text-muted text-xs">Điểm TB</p>
                 </div>
-                <div className="bg-white/5 rounded-lg p-3 text-center">
-                  <p className="text-2xl font-bold text-emerald-400">
+                <div className="bg-app-card/50 rounded-lg p-3 text-center">
+                  <p className="text-2xl font-bold text-app-accent-success">
                     {history.filter(h => h.score >= 80).length}
                   </p>
-                  <p className="text-white/30 text-xs">Điểm cao</p>
+                  <p className="text-app-text-muted text-xs">Điểm cao</p>
                 </div>
-                <div className="bg-white/5 rounded-lg p-3 text-center">
-                  <p className="text-2xl font-bold text-[#e8c84a]">
+                <div className="bg-app-card/50 rounded-lg p-3 text-center">
+                  <p className="text-2xl font-bold text-app-accent-primary">
                     {history.length > 0 ? Math.max(...history.map(h => h.score)) : "--"}
                   </p>
-                  <p className="text-white/30 text-xs">Cao nhất</p>
+                  <p className="text-app-text-muted text-xs">Cao nhất</p>
                 </div>
               </div>
             </div>
 
             {/* Word list */}
-            <div className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8">
+            <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border">
               <h3 className="text-white/70 text-sm font-semibold mb-3">Danh sách từ</h3>
               <div className="space-y-1 max-h-64 overflow-y-auto">
                 {filtered.map((word, idx) => (
@@ -451,11 +451,11 @@ export default function AIPronunciationPage() {
                     key={word.korean}
                     onClick={() => setCurrentIndex(idx)}
                     className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition-all cursor-pointer text-left ${
-                      idx === currentIndex ? "bg-[#e8c84a]/10 text-[#e8c84a]" : "text-white/50 hover:bg-white/5"
+                      idx === currentIndex ? "bg-app-accent-primary/10 text-app-accent-primary" : "text-white/50 hover:bg-app-card/50"
                     }`}
                   >
                     <span className="font-medium">{word.korean}</span>
-                    <span className="text-white/30">{word.vietnamese}</span>
+                    <span className="text-app-text-muted">{word.vietnamese}</span>
                   </button>
                 ))}
               </div>
@@ -463,14 +463,14 @@ export default function AIPronunciationPage() {
 
             {/* History */}
             {history.length > 0 && (
-              <div className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8">
+              <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border">
                 <h3 className="text-white/70 text-sm font-semibold mb-3">Lịch sử gần đây</h3>
                 <div className="space-y-2">
                   {history.slice(0, 6).map((h, i) => (
                     <div key={i} className="flex items-center justify-between">
                       <div>
                         <p className="text-white/70 text-xs font-medium">{h.word}</p>
-                        <p className="text-white/25 text-[10px]">{h.date}</p>
+                        <p className="text-app-text-muted text-[10px]">{h.date}</p>
                       </div>
                       <span className={`text-sm font-bold ${scoreColor(h.score)}`}>{h.score}</span>
                     </div>
@@ -480,8 +480,8 @@ export default function AIPronunciationPage() {
             )}
 
             {/* Tips */}
-            <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4">
-              <h3 className="text-[#e8c84a] text-sm font-semibold mb-2">
+            <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
+              <h3 className="text-app-accent-primary text-sm font-semibold mb-2">
                 <i className="ri-lightbulb-line mr-1.5"></i>
                 Mẹo luyện tập
               </h3>

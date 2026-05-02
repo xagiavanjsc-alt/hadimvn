@@ -329,7 +329,7 @@ export default function LearningCertificatePage() {
 
       {copied && (
         <div className="fixed bottom-6 right-6 z-50 bg-gray-900 text-white text-sm px-4 py-3 rounded-xl flex items-center gap-2">
-          <i className="ri-check-line text-emerald-400"></i>
+          <i className="ri-check-line text-app-accent-success"></i>
           Đã copy vào clipboard!
         </div>
       )}

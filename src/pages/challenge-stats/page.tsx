@@ -25,7 +25,7 @@ const TOPIC_LABELS: Record<string, string> = {
 };
 
 const TOPIC_COLORS: Record<string, string> = {
-  greeting: "#34d399", workplace: "#e8c84a", safety: "#f87171",
+  greeting: "#34d399", workplace: "app-accent-primary", safety: "#f87171",
   law: "#a78bfa", daily: "#fb923c", culture: "#38bdf8",
   emergency: "#f43f5e", listening: "#06b6d4", reading: "#84cc16",
 };
@@ -54,10 +54,10 @@ function WeeklyChart({ data }: { data: { week: string; wins: number; losses: num
           <div key={i} className="flex-1 flex flex-col items-center gap-1">
             <div className="w-full flex flex-col justify-end gap-0.5" style={{ height: "100px" }}>
               {winH > 0 && <div className="w-full rounded-sm bg-emerald-500/60" style={{ height: `${winH}%` }}></div>}
-              {drawH > 0 && <div className="w-full rounded-sm bg-[#e8c84a]/60" style={{ height: `${drawH}%` }}></div>}
+              {drawH > 0 && <div className="w-full rounded-sm bg-app-accent-primary/60" style={{ height: `${drawH}%` }}></div>}
               {lossH > 0 && <div className="w-full rounded-sm bg-red-500/40" style={{ height: `${lossH}%` }}></div>}
             </div>
-            <span className="text-white/25 text-[9px]">{d.week}</span>
+            <span className="text-app-text-muted text-[9px]">{d.week}</span>
           </div>
         );
       })}
@@ -129,7 +129,7 @@ export default function ChallengeStatsPage() {
     return Object.entries(topics).map(([topic, data]) => ({
       topic,
       label: TOPIC_LABELS[topic] || topic,
-      color: TOPIC_COLORS[topic] || "#e8c84a",
+      color: TOPIC_COLORS[topic] || "app-accent-primary",
       ...data,
       winRate: data.total > 0 ? Math.round((data.wins / data.total) * 100) : 0,
     })).sort((a, b) => b.winRate - a.winRate);
@@ -171,7 +171,7 @@ export default function ChallengeStatsPage() {
       actions={
         <button
           onClick={() => navigate("/friend-challenge")}
-          className="flex items-center gap-2 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
+          className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-sword-line"></i>Tạo thách đấu mới
         </button>
@@ -180,30 +180,30 @@ export default function ChallengeStatsPage() {
       {/* Summary cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng trận", value: stats.total, icon: "ri-gamepad-line", color: "#e8c84a" },
+          { label: "Tổng trận", value: stats.total, icon: "ri-gamepad-line", color: "app-accent-primary" },
           { label: "Tỷ lệ thắng", value: `${stats.total > 0 ? Math.round((stats.wins / stats.total) * 100) : 0}%`, icon: "ri-trophy-line", color: "#34d399" },
           { label: "Điểm TB", value: `${stats.avgScore}%`, icon: "ri-bar-chart-line", color: "#a78bfa" },
           { label: "Streak hiện tại", value: stats.currentStreak, icon: "ri-fire-line", color: "#fb923c" },
         ].map(s => (
-          <div key={s.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-4 flex items-center gap-3">
+          <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
               <i className={`${s.icon} text-lg`} style={{ color: s.color }}></i>
             </div>
             <div>
               <p className="text-white font-bold text-xl leading-none">{s.value}</p>
-              <p className="text-white/40 text-xs mt-0.5">{s.label}</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">{s.label}</p>
             </div>
           </div>
         ))}
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-white/3 p-1 rounded-xl mb-6 w-fit">
+      <div className="flex gap-1 bg-app-surface/50 p-1 rounded-xl mb-6 w-fit">
         {(["overview", "topics", "history"] as const).map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${activeTab === tab ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/40 hover:text-white/60"}`}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${activeTab === tab ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}
           >
             {tab === "overview" ? "Tổng quan" : tab === "topics" ? "Theo chủ đề" : "Lịch sử"}
           </button>
@@ -215,7 +215,7 @@ export default function ChallengeStatsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
           <div className="space-y-5">
             {/* Win/Loss/Draw donut */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <p className="text-white font-semibold text-sm mb-5">Kết quả tổng hợp</p>
               <div className="flex items-center gap-8">
                 {/* Visual bar */}
@@ -226,7 +226,7 @@ export default function ChallengeStatsPage() {
                         <div className="bg-emerald-500/60 flex items-center justify-center text-xs font-bold text-white" style={{ width: `${(stats.wins / stats.total) * 100}%` }}>
                           {stats.wins > 0 && stats.wins}
                         </div>
-                        <div className="bg-[#e8c84a]/60 flex items-center justify-center text-xs font-bold text-[#0f1117]" style={{ width: `${(stats.draws / stats.total) * 100}%` }}>
+                        <div className="bg-app-accent-primary/60 flex items-center justify-center text-xs font-bold text-app-bg" style={{ width: `${(stats.draws / stats.total) * 100}%` }}>
                           {stats.draws > 0 && stats.draws}
                         </div>
                         <div className="bg-red-500/40 flex items-center justify-center text-xs font-bold text-white" style={{ width: `${(stats.losses / stats.total) * 100}%` }}>
@@ -234,31 +234,31 @@ export default function ChallengeStatsPage() {
                         </div>
                       </>
                     ) : (
-                      <div className="flex-1 bg-white/5 flex items-center justify-center text-white/20 text-xs">Chưa có trận nào</div>
+                      <div className="flex-1 bg-app-card/50 flex items-center justify-center text-app-text-muted text-xs">Chưa có trận nào</div>
                     )}
                   </div>
                   <div className="flex items-center gap-4 mt-3">
                     <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-emerald-500/60"></div><span className="text-white/50 text-xs">Thắng ({stats.wins})</span></div>
-                    <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-[#e8c84a]/60"></div><span className="text-white/50 text-xs">Hòa ({stats.draws})</span></div>
+                    <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-app-accent-primary/60"></div><span className="text-white/50 text-xs">Hòa ({stats.draws})</span></div>
                     <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-red-500/40"></div><span className="text-white/50 text-xs">Thua ({stats.losses})</span></div>
                   </div>
                 </div>
                 {/* Big number */}
                 <div className="text-center flex-shrink-0">
-                  <p className="text-emerald-400 font-bold text-4xl">{stats.total > 0 ? Math.round((stats.wins / stats.total) * 100) : 0}%</p>
-                  <p className="text-white/30 text-xs mt-1">Tỷ lệ thắng</p>
+                  <p className="text-app-accent-success font-bold text-4xl">{stats.total > 0 ? Math.round((stats.wins / stats.total) * 100) : 0}%</p>
+                  <p className="text-app-text-muted text-xs mt-1">Tỷ lệ thắng</p>
                 </div>
               </div>
             </div>
 
             {/* Weekly chart */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <p className="text-white font-semibold text-sm mb-4">Thắng/Thua theo tuần (8 tuần gần nhất)</p>
               <WeeklyChart data={weeklyData} />
               <div className="flex items-center gap-4 mt-3">
-                <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-sm bg-emerald-500/60"></div><span className="text-white/40 text-xs">Thắng</span></div>
-                <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-sm bg-[#e8c84a]/60"></div><span className="text-white/40 text-xs">Hòa</span></div>
-                <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-sm bg-red-500/40"></div><span className="text-white/40 text-xs">Thua</span></div>
+                <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-sm bg-emerald-500/60"></div><span className="text-app-text-secondary text-xs">Thắng</span></div>
+                <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-sm bg-app-accent-primary/60"></div><span className="text-app-text-secondary text-xs">Hòa</span></div>
+                <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-sm bg-red-500/40"></div><span className="text-app-text-secondary text-xs">Thua</span></div>
               </div>
             </div>
           </div>
@@ -266,11 +266,11 @@ export default function ChallengeStatsPage() {
           {/* Right sidebar */}
           <div className="space-y-4">
             {/* Personal records */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <p className="text-white font-semibold text-sm mb-4">Kỷ lục cá nhân</p>
               <div className="space-y-3">
                 {[
-                  { label: "Điểm cao nhất", value: `${stats.bestScore}%`, icon: "ri-trophy-line", color: "#e8c84a" },
+                  { label: "Điểm cao nhất", value: `${stats.bestScore}%`, icon: "ri-trophy-line", color: "app-accent-primary" },
                   { label: "Streak thắng dài nhất", value: `${stats.maxStreak} trận`, icon: "ri-fire-fill", color: "#fb923c" },
                   { label: "Thời gian TB", value: `${Math.floor(stats.avgTime / 60)}:${String(stats.avgTime % 60).padStart(2, "0")}`, icon: "ri-time-line", color: "#38bdf8" },
                   { label: "Tổng trận đã chơi", value: stats.total, icon: "ri-gamepad-line", color: "#a78bfa" },
@@ -280,7 +280,7 @@ export default function ChallengeStatsPage() {
                       <div className="w-6 h-6 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${item.color}15` }}>
                         <i className={`${item.icon} text-xs`} style={{ color: item.color }}></i>
                       </div>
-                      <span className="text-white/40 text-xs">{item.label}</span>
+                      <span className="text-app-text-secondary text-xs">{item.label}</span>
                     </div>
                     <span className="text-white font-bold text-sm">{item.value}</span>
                   </div>
@@ -291,16 +291,16 @@ export default function ChallengeStatsPage() {
             {/* Strong/Weak topics */}
             {strongestTopic && (
               <div className="bg-emerald-500/5 border border-emerald-500/15 rounded-xl p-4">
-                <p className="text-emerald-400 text-xs font-semibold mb-2">Chủ đề mạnh nhất</p>
+                <p className="text-app-accent-success text-xs font-semibold mb-2">Chủ đề mạnh nhất</p>
                 <p className="text-white font-bold text-base">{strongestTopic.label}</p>
-                <p className="text-white/40 text-xs mt-1">{strongestTopic.winRate}% tỷ lệ thắng · {strongestTopic.total} trận</p>
+                <p className="text-app-text-secondary text-xs mt-1">{strongestTopic.winRate}% tỷ lệ thắng · {strongestTopic.total} trận</p>
               </div>
             )}
             {weakestTopic && weakestTopic.topic !== strongestTopic?.topic && (
               <div className="bg-red-500/5 border border-red-500/15 rounded-xl p-4">
                 <p className="text-red-400 text-xs font-semibold mb-2">Chủ đề cần cải thiện</p>
                 <p className="text-white font-bold text-base">{weakestTopic.label}</p>
-                <p className="text-white/40 text-xs mt-1">{weakestTopic.winRate}% tỷ lệ thắng · {weakestTopic.total} trận</p>
+                <p className="text-app-text-secondary text-xs mt-1">{weakestTopic.winRate}% tỷ lệ thắng · {weakestTopic.total} trận</p>
                 <button
                   onClick={() => navigate("/eps-topic-drill")}
                   className="mt-2 text-[10px] text-red-400 hover:text-red-300 cursor-pointer whitespace-nowrap"
@@ -315,8 +315,8 @@ export default function ChallengeStatsPage() {
 
       {/* Topics tab */}
       {activeTab === "topics" && (
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl overflow-hidden">
-          <div className="px-5 py-3 border-b border-white/5 flex items-center gap-4 text-[10px] text-white/25 font-semibold tracking-normal">
+        <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden">
+          <div className="px-5 py-3 border-b border-app-border flex items-center gap-4 text-[10px] text-app-text-muted font-semibold tracking-normal">
             <span className="flex-1">Chủ đề</span>
             <span className="w-16 text-center">Trận</span>
             <span className="w-16 text-center">Thắng</span>
@@ -327,7 +327,7 @@ export default function ChallengeStatsPage() {
           {topicStats.length === 0 ? (
             <div className="text-center py-12">
               <i className="ri-bar-chart-line text-white/10 text-3xl mb-2 block"></i>
-              <p className="text-white/25 text-sm">Chưa có dữ liệu thách đấu</p>
+              <p className="text-app-text-muted text-sm">Chưa có dữ liệu thách đấu</p>
             </div>
           ) : (
             <div className="divide-y divide-white/3">
@@ -340,19 +340,19 @@ export default function ChallengeStatsPage() {
                     <div>
                       <p className="text-white/70 text-sm font-semibold">{t.label}</p>
                       <div className="flex items-center gap-1 mt-0.5">
-                        {t.winRate >= 70 && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-bold">Mạnh</span>}
+                        {t.winRate >= 70 && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success font-bold">Mạnh</span>}
                         {t.winRate < 40 && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-red-500/15 text-red-400 font-bold">Cần cải thiện</span>}
                       </div>
                     </div>
                   </div>
                   <span className="w-16 text-center text-white/50 text-sm">{t.total}</span>
-                  <span className="w-16 text-center text-emerald-400 font-bold text-sm">{t.wins}</span>
+                  <span className="w-16 text-center text-app-accent-success font-bold text-sm">{t.wins}</span>
                   <span className="w-16 text-center text-red-400/70 text-sm">{t.losses}</span>
                   <div className="w-20 text-center">
-                    <span className={`text-sm font-bold ${t.winRate >= 60 ? "text-emerald-400" : t.winRate >= 40 ? "text-[#e8c84a]" : "text-red-400"}`}>
+                    <span className={`text-sm font-bold ${t.winRate >= 60 ? "text-app-accent-success" : t.winRate >= 40 ? "text-app-accent-primary" : "text-red-400"}`}>
                       {t.winRate}%
                     </span>
-                    <div className="h-1 bg-white/5 rounded-full overflow-hidden mt-1">
+                    <div className="h-1 bg-app-card/50 rounded-full overflow-hidden mt-1">
                       <div className="h-full rounded-full" style={{ width: `${t.winRate}%`, backgroundColor: t.color }} />
                     </div>
                   </div>
@@ -368,22 +368,22 @@ export default function ChallengeStatsPage() {
       {activeTab === "history" && (
         <div className="space-y-3">
           {completed.length === 0 ? (
-            <div className="text-center py-16 bg-[#0f1117] border border-white/5 rounded-2xl">
+            <div className="text-center py-16 bg-app-bg border border-app-border rounded-2xl">
               <i className="ri-history-line text-white/10 text-3xl mb-2 block"></i>
-              <p className="text-white/25 text-sm">Chưa có lịch sử thách đấu</p>
-              <button onClick={() => navigate("/friend-challenge")} className="mt-3 text-[#e8c84a] text-xs cursor-pointer">Tạo thách đấu ngay →</button>
+              <p className="text-app-text-muted text-sm">Chưa có lịch sử thách đấu</p>
+              <button onClick={() => navigate("/friend-challenge")} className="mt-3 text-app-accent-primary text-xs cursor-pointer">Tạo thách đấu ngay →</button>
             </div>
           ) : (
             completed.map((c, i) => {
               const myPct = Math.round((c.myScore! / c.questionCount) * 100);
               const oppPct = Math.round((c.opponentScore! / c.questionCount) * 100);
               const result = c.myScore! > c.opponentScore! ? "win" : c.myScore! < c.opponentScore! ? "loss" : "draw";
-              const resultColor = result === "win" ? "#34d399" : result === "loss" ? "#f87171" : "#e8c84a";
+              const resultColor = result === "win" ? "#34d399" : result === "loss" ? "#f87171" : "app-accent-primary";
               const resultLabel = result === "win" ? "Thắng" : result === "loss" ? "Thua" : "Hòa";
-              const topicColor = TOPIC_COLORS[c.topic] || "#e8c84a";
+              const topicColor = TOPIC_COLORS[c.topic] || "app-accent-primary";
 
               return (
-                <div key={c.id || i} className="bg-[#0f1117] border border-white/5 rounded-xl p-4 flex items-center gap-4">
+                <div key={c.id || i} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-4">
                   <div className="w-12 h-12 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${resultColor}15` }}>
                     <i className={`${result === "win" ? "ri-trophy-line" : result === "loss" ? "ri-close-circle-line" : "ri-scales-3-line"} text-xl`} style={{ color: resultColor }}></i>
                   </div>
@@ -393,15 +393,15 @@ export default function ChallengeStatsPage() {
                       <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: `${topicColor}10`, color: topicColor }}>
                         {TOPIC_LABELS[c.topic] || c.topic}
                       </span>
-                      <span className="text-white/20 text-[10px]">{c.questionCount} câu</span>
+                      <span className="text-app-text-muted text-[10px]">{c.questionCount} câu</span>
                     </div>
                     <p className="text-white/50 text-xs">vs. {c.opponentName || "Đối thủ"}</p>
-                    <p className="text-white/25 text-[10px] mt-0.5">{new Date(c.createdAt).toLocaleDateString("vi-VN")}</p>
+                    <p className="text-app-text-muted text-[10px] mt-0.5">{new Date(c.createdAt).toLocaleDateString("vi-VN")}</p>
                   </div>
                   <div className="text-right flex-shrink-0">
-                    <p className="text-white font-bold text-sm">{myPct}% <span className="text-white/20">vs</span> {oppPct}%</p>
-                    <p className="text-white/30 text-[10px]">{c.myScore}/{c.questionCount} đúng</p>
-                    {c.myTime && <p className="text-white/20 text-[10px]">{Math.floor(c.myTime / 60)}:{String(c.myTime % 60).padStart(2, "0")} phút</p>}
+                    <p className="text-white font-bold text-sm">{myPct}% <span className="text-app-text-muted">vs</span> {oppPct}%</p>
+                    <p className="text-app-text-muted text-[10px]">{c.myScore}/{c.questionCount} đúng</p>
+                    {c.myTime && <p className="text-app-text-muted text-[10px]">{Math.floor(c.myTime / 60)}:{String(c.myTime % 60).padStart(2, "0")} phút</p>}
                   </div>
                 </div>
               );

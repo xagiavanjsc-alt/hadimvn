@@ -105,7 +105,7 @@ const FONT_FAMILY_MAP: Record<string, string> = {
 };
 
 function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: EbookTemplate): string {
-  const accent = meta.coverAccent || "#e8c84a";
+  const accent = meta.coverAccent || "app-accent-primary";
   const isDark = template === "dark";
   const hasForeword = !!meta.foreword?.trim();
   const pageOffsets = calcPageOffsets(lessons, hasForeword);
@@ -139,7 +139,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
     const subColor = darkMode ? "rgba(255,255,255,0.5)" : "#666";
     const exColor = darkMode ? "rgba(255,255,255,0.35)" : "#888";
     const borderColor = darkMode ? "rgba(255,255,255,0.06)" : "#f0e8c0";
-    const patternColor = darkMode ? "#e8c84a" : "#1a1a1a";
+    const patternColor = darkMode ? "app-accent-primary" : "#1a1a1a";
 
     return points.map((gp, gi) => `
       <div style="margin-bottom:${gi < points.length - 1 ? "18px" : "0"};padding-bottom:${gi < points.length - 1 ? "18px" : "0"};border-bottom:${gi < points.length - 1 ? `1px solid ${borderColor}` : "none"};">
@@ -490,14 +490,14 @@ export default function EbookPDFPreview({ meta, lessons, template = "classic", d
       {open && (
         <div className="fixed inset-0 z-50 flex flex-col bg-black/90 backdrop-blur-sm">
           {/* Toolbar */}
-          <div className="flex items-center justify-between px-6 py-3.5 bg-[#0f1117] border-b border-white/8 flex-shrink-0">
+          <div className="flex items-center justify-between px-6 py-3.5 bg-app-bg border-b border-app-border flex-shrink-0">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 flex items-center justify-center bg-sky-500/10 rounded-lg">
                 <i className="ri-file-pdf-2-line text-sky-400 text-base"></i>
               </div>
               <div>
                 <p className="text-white font-semibold text-sm">{meta.title}</p>
-                <p className="text-white/40 text-xs">{lessons.length} bài học · Xem trước trước khi in</p>
+                <p className="text-app-text-secondary text-xs">{lessons.length} bài học · Xem trước trước khi in</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -513,14 +513,14 @@ export default function EbookPDFPreview({ meta, lessons, template = "classic", d
                   const iframe = document.getElementById("ebook-preview-iframe") as HTMLIFrameElement;
                   iframe?.contentWindow?.print();
                 }}
-                className="flex items-center gap-2 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] text-xs font-bold px-5 py-2 rounded-lg transition-colors whitespace-nowrap cursor-pointer"
+                className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-xs font-bold px-5 py-2 rounded-lg transition-colors whitespace-nowrap cursor-pointer"
               >
                 <i className="ri-printer-line"></i>
                 In / Lưu PDF
               </button>
               <button
                 onClick={() => setOpen(false)}
-                className="w-8 h-8 flex items-center justify-center text-white/30 hover:text-white/70 hover:bg-white/5 rounded-lg transition-colors cursor-pointer"
+                className="w-8 h-8 flex items-center justify-center text-app-text-muted hover:text-white/70 hover:bg-app-card/50 rounded-lg transition-colors cursor-pointer"
               >
                 <i className="ri-close-line text-lg"></i>
               </button>

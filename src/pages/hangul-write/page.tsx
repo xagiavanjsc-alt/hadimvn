@@ -110,7 +110,7 @@ function DrawingCanvas({ targetChar, onScore }: { targetChar: HangulChar; onScor
     ctx.beginPath();
     ctx.moveTo(lastPos.current.x, lastPos.current.y);
     ctx.lineTo(pos.x, pos.y);
-    ctx.strokeStyle = "#e8c84a";
+    ctx.strokeStyle = "app-accent-primary";
     ctx.lineWidth = 5;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -145,17 +145,17 @@ function DrawingCanvas({ targetChar, onScore }: { targetChar: HangulChar; onScor
       <canvas
         ref={canvasRef}
         width={280} height={280}
-        className="rounded-2xl border border-white/10 bg-[#0a0c10] touch-none cursor-crosshair"
+        className="rounded-2xl border border-app-border bg-[#0a0c10] touch-none cursor-crosshair"
         style={{ width: "280px", height: "280px" }}
         onMouseDown={startDraw} onMouseMove={draw} onMouseUp={endDraw} onMouseLeave={endDraw}
         onTouchStart={startDraw} onTouchMove={draw} onTouchEnd={endDraw}
       />
       <div className="flex gap-2">
-        <button onClick={clearCanvas} className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/5 border border-white/8 text-white/40 text-xs hover:bg-white/8 cursor-pointer whitespace-nowrap transition-colors">
+        <button onClick={clearCanvas} className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-app-card/50 border border-app-border text-app-text-secondary text-xs hover:bg-white/8 cursor-pointer whitespace-nowrap transition-colors">
           <i className="ri-eraser-line"></i>Xóa
         </button>
         <button onClick={checkScore} disabled={!hasDrawn}
-          className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#e8c84a] text-[#0f1117] text-xs font-bold disabled:opacity-40 cursor-pointer whitespace-nowrap transition-colors hover:bg-[#d4b43a]">
+          className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-app-accent-primary text-app-bg text-xs font-bold disabled:opacity-40 cursor-pointer whitespace-nowrap transition-colors hover:bg-[#d4b43a]">
           <i className="ri-check-line"></i>Chấm điểm
         </button>
       </div>
@@ -169,10 +169,10 @@ function CharCard({ char, isSelected, isMastered, onSelect }: { char: HangulChar
   const col = typeColors[char.type];
   return (
     <button onClick={onSelect}
-      className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border transition-all cursor-pointer ${isSelected ? "border-[#e8c84a]/40 bg-[#e8c84a]/8" : isMastered ? "border-emerald-500/20 bg-emerald-500/5" : "border-white/5 bg-white/2 hover:border-white/12"}`}>
-      <span className="text-3xl font-bold" style={{ color: isSelected ? "#e8c84a" : "white" }}>{char.char}</span>
+      className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border transition-all cursor-pointer ${isSelected ? "border-app-accent-primary/40 bg-app-accent-primary/8" : isMastered ? "border-emerald-500/20 bg-emerald-500/5" : "border-app-border bg-white/2 hover:border-white/12"}`}>
+      <span className="text-3xl font-bold" style={{ color: isSelected ? "app-accent-primary" : "white" }}>{char.char}</span>
       <span className="text-[9px] font-mono" style={{ color: col }}>[{char.romanization}]</span>
-      {isMastered && <i className="ri-checkbox-circle-fill text-emerald-400 text-[10px]"></i>}
+      {isMastered && <i className="ri-checkbox-circle-fill text-app-accent-success text-[10px]"></i>}
     </button>
   );
 }
@@ -209,7 +209,7 @@ export default function HangulWritePage() {
     ? Math.round(scoreHistory[selectedChar.char].reduce((a, b) => a + b, 0) / scoreHistory[selectedChar.char].length)
     : null;
 
-  const getScoreColor = (s: number) => s >= 80 ? "#34d399" : s >= 60 ? "#e8c84a" : "#f87171";
+  const getScoreColor = (s: number) => s >= 80 ? "#34d399" : s >= 60 ? "app-accent-primary" : "#f87171";
   const getScoreLabel = (s: number) => s >= 80 ? "Xuất sắc!" : s >= 60 ? "Khá tốt!" : "Cần luyện thêm";
 
   const typeColors: Record<string, string> = { vowel: "#38bdf8", consonant: "#a78bfa", syllable: "#34d399" };
@@ -225,13 +225,13 @@ export default function HangulWritePage() {
         <div className="col-span-1">
           {/* Stats */}
           <div className="grid grid-cols-2 gap-2 mb-4">
-            <div className="bg-[#0f1117] border border-white/5 rounded-xl p-3 text-center">
+            <div className="bg-app-bg border border-app-border rounded-xl p-3 text-center">
               <p className="text-white font-bold text-xl">{masteredChars.length}</p>
-              <p className="text-white/30 text-[10px]">Đã thành thạo</p>
+              <p className="text-app-text-muted text-[10px]">Đã thành thạo</p>
             </div>
-            <div className="bg-[#0f1117] border border-white/5 rounded-xl p-3 text-center">
+            <div className="bg-app-bg border border-app-border rounded-xl p-3 text-center">
               <p className="text-white font-bold text-xl">{HANGUL_CHARS.length - masteredChars.length}</p>
-              <p className="text-white/30 text-[10px]">Cần luyện</p>
+              <p className="text-app-text-muted text-[10px]">Cần luyện</p>
             </div>
           </div>
 
@@ -239,7 +239,7 @@ export default function HangulWritePage() {
           <div className="flex flex-wrap gap-1 mb-3">
             {CATEGORIES.map(cat => (
               <button key={cat.id} onClick={() => setCategory(cat.id)}
-                className={`px-2.5 py-1 rounded-lg text-[10px] font-medium transition-all cursor-pointer whitespace-nowrap ${category === cat.id ? "bg-[#e8c84a] text-[#0f1117]" : "bg-white/5 text-white/40 hover:text-white/60"}`}>
+                className={`px-2.5 py-1 rounded-lg text-[10px] font-medium transition-all cursor-pointer whitespace-nowrap ${category === cat.id ? "bg-app-accent-primary text-app-bg" : "bg-app-card/50 text-app-text-secondary hover:text-white/60"}`}>
                 {cat.label}
               </button>
             ))}
@@ -257,7 +257,7 @@ export default function HangulWritePage() {
         {/* Right: Practice area */}
         <div className="col-span-2 space-y-4">
           {/* Char info */}
-          <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-start gap-5">
               {/* Big char display */}
               <div className="w-24 h-24 flex items-center justify-center rounded-2xl flex-shrink-0" style={{ backgroundColor: `${typeColors[selectedChar.type]}10`, border: `1px solid ${typeColors[selectedChar.type]}20` }}>
@@ -266,7 +266,7 @@ export default function HangulWritePage() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
                   <span className="text-2xl font-bold text-white">{selectedChar.char}</span>
-                  <span className="text-sm font-mono text-white/40">[{selectedChar.romanization}]</span>
+                  <span className="text-sm font-mono text-app-text-secondary">[{selectedChar.romanization}]</span>
                   <span className="text-[10px] px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: `${typeColors[selectedChar.type]}15`, color: typeColors[selectedChar.type] }}>
                     {typeLabels[selectedChar.type]}
                   </span>
@@ -274,12 +274,12 @@ export default function HangulWritePage() {
                 <p className="text-white/50 text-sm mb-3">{selectedChar.tips}</p>
                 {/* Stroke order */}
                 <div>
-                  <p className="text-white/25 text-[10px] tracking-normal mb-1.5">Thứ tự nét viết</p>
+                  <p className="text-app-text-muted text-[10px] tracking-normal mb-1.5">Thứ tự nét viết</p>
                   <div className="flex flex-wrap gap-1.5">
                     {selectedChar.strokeOrder.map((stroke, i) => (
-                      <div key={i} className="flex items-center gap-1.5 bg-white/3 rounded-lg px-2.5 py-1">
-                        <span className="w-4 h-4 flex items-center justify-center rounded-full bg-[#e8c84a]/15 text-[#e8c84a] text-[9px] font-bold">{i+1}</span>
-                        <span className="text-white/40 text-[10px]">{stroke}</span>
+                      <div key={i} className="flex items-center gap-1.5 bg-app-surface/50 rounded-lg px-2.5 py-1">
+                        <span className="w-4 h-4 flex items-center justify-center rounded-full bg-app-accent-primary/15 text-app-accent-primary text-[9px] font-bold">{i+1}</span>
+                        <span className="text-app-text-secondary text-[10px]">{stroke}</span>
                       </div>
                     ))}
                   </div>
@@ -287,13 +287,13 @@ export default function HangulWritePage() {
                 {/* Score history */}
                 {scoreHistory[selectedChar.char]?.length > 0 && (
                   <div className="mt-3 flex items-center gap-3">
-                    <p className="text-white/25 text-[10px]">Lịch sử:</p>
+                    <p className="text-app-text-muted text-[10px]">Lịch sử:</p>
                     <div className="flex gap-1">
                       {scoreHistory[selectedChar.char].map((s, i) => (
                         <span key={i} className="text-[10px] font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: `${getScoreColor(s)}15`, color: getScoreColor(s) }}>{s}</span>
                       ))}
                     </div>
-                    {avgScore !== null && <span className="text-white/25 text-[10px]">TB: {avgScore}</span>}
+                    {avgScore !== null && <span className="text-app-text-muted text-[10px]">TB: {avgScore}</span>}
                   </div>
                 )}
               </div>
@@ -301,16 +301,16 @@ export default function HangulWritePage() {
           </div>
 
           {/* Drawing area */}
-          <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-4">
               <div>
                 <p className="text-white/60 text-sm font-semibold">Vùng luyện viết</p>
-                <p className="text-white/25 text-xs">Vẽ ký tự theo hướng dẫn — ký tự mờ là gợi ý</p>
+                <p className="text-app-text-muted text-xs">Vẽ ký tự theo hướng dẫn — ký tự mờ là gợi ý</p>
               </div>
               {masteredChars.includes(selectedChar.char) && (
                 <div className="flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-3 py-1.5">
-                  <i className="ri-checkbox-circle-fill text-emerald-400 text-sm"></i>
-                  <span className="text-emerald-400 text-xs font-semibold">Đã thành thạo</span>
+                  <i className="ri-checkbox-circle-fill text-app-accent-success text-sm"></i>
+                  <span className="text-app-accent-success text-xs font-semibold">Đã thành thạo</span>
                 </div>
               )}
             </div>
@@ -321,25 +321,25 @@ export default function HangulWritePage() {
               {/* Score display */}
               <div className="flex-1 space-y-3">
                 {score !== null ? (
-                  <div className="text-center py-6 bg-white/3 rounded-2xl border border-white/5">
+                  <div className="text-center py-6 bg-app-surface/50 rounded-2xl border border-app-border">
                     <div className="text-6xl font-black mb-2" style={{ color: getScoreColor(score) }}>{score}</div>
                     <p className="text-sm font-bold mb-1" style={{ color: getScoreColor(score) }}>{getScoreLabel(score)}</p>
-                    <p className="text-white/25 text-xs">/ 100 điểm</p>
+                    <p className="text-app-text-muted text-xs">/ 100 điểm</p>
                     {score >= 70 && (
-                      <div className="mt-3 flex items-center justify-center gap-1.5 text-emerald-400 text-xs">
+                      <div className="mt-3 flex items-center justify-center gap-1.5 text-app-accent-success text-xs">
                         <i className="ri-checkbox-circle-fill"></i>
                         <span>Đã đánh dấu thành thạo!</span>
                       </div>
                     )}
                     <button onClick={() => { setScore(null); setCanvasKey(k => k + 1); }}
-                      className="mt-4 px-4 py-2 rounded-xl bg-white/5 border border-white/8 text-white/40 text-xs hover:bg-white/8 cursor-pointer whitespace-nowrap transition-colors">
+                      className="mt-4 px-4 py-2 rounded-xl bg-app-card/50 border border-app-border text-app-text-secondary text-xs hover:bg-white/8 cursor-pointer whitespace-nowrap transition-colors">
                       <i className="ri-refresh-line mr-1"></i>Thử lại
                     </button>
                   </div>
                 ) : (
                   <div className="space-y-2">
-                    <div className="bg-white/3 rounded-xl p-3">
-                      <p className="text-white/30 text-[10px] tracking-normal mb-2">Hướng dẫn</p>
+                    <div className="bg-app-surface/50 rounded-xl p-3">
+                      <p className="text-app-text-muted text-[10px] tracking-normal mb-2">Hướng dẫn</p>
                       <ul className="space-y-1.5">
                         {[
                           "Vẽ theo thứ tự nét đã hướng dẫn",
@@ -348,7 +348,7 @@ export default function HangulWritePage() {
                           "Đạt 70+ điểm để đánh dấu thành thạo",
                         ].map((tip, i) => (
                           <li key={i} className="flex items-start gap-2 text-white/35 text-[10px]">
-                            <i className="ri-checkbox-blank-circle-fill text-[#e8c84a]/30 text-[6px] mt-1 flex-shrink-0"></i>
+                            <i className="ri-checkbox-blank-circle-fill text-app-accent-primary/30 text-[6px] mt-1 flex-shrink-0"></i>
                             {tip}
                           </li>
                         ))}
@@ -356,14 +356,14 @@ export default function HangulWritePage() {
                     </div>
 
                     {/* Next char suggestion */}
-                    <div className="bg-white/3 rounded-xl p-3">
-                      <p className="text-white/30 text-[10px] tracking-normal mb-2">Ký tự tiếp theo</p>
+                    <div className="bg-app-surface/50 rounded-xl p-3">
+                      <p className="text-app-text-muted text-[10px] tracking-normal mb-2">Ký tự tiếp theo</p>
                       <div className="flex gap-2">
                         {HANGUL_CHARS.filter(c => !masteredChars.includes(c.char) && c.char !== selectedChar.char).slice(0, 3).map(c => (
                           <button key={c.char} onClick={() => handleSelectChar(c)}
-                            className="flex-1 flex flex-col items-center gap-1 py-2 rounded-lg bg-white/5 hover:bg-white/8 cursor-pointer transition-colors">
+                            className="flex-1 flex flex-col items-center gap-1 py-2 rounded-lg bg-app-card/50 hover:bg-white/8 cursor-pointer transition-colors">
                             <span className="text-xl text-white/60">{c.char}</span>
-                            <span className="text-[9px] text-white/25">[{c.romanization}]</span>
+                            <span className="text-[9px] text-app-text-muted">[{c.romanization}]</span>
                           </button>
                         ))}
                       </div>
@@ -375,13 +375,13 @@ export default function HangulWritePage() {
           </div>
 
           {/* Progress bar */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-xl p-4">
+          <div className="bg-app-bg border border-app-border rounded-xl p-4">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-white/40 text-xs">Tiến độ tổng thể</p>
-              <p className="text-white/40 text-xs">{masteredChars.length}/{HANGUL_CHARS.length} ký tự</p>
+              <p className="text-app-text-secondary text-xs">Tiến độ tổng thể</p>
+              <p className="text-app-text-secondary text-xs">{masteredChars.length}/{HANGUL_CHARS.length} ký tự</p>
             </div>
-            <div className="bg-white/5 rounded-full h-2 overflow-hidden">
-              <div className="h-full rounded-full bg-[#e8c84a] transition-all duration-500" style={{ width: `${(masteredChars.length / HANGUL_CHARS.length) * 100}%` }}></div>
+            <div className="bg-app-card/50 rounded-full h-2 overflow-hidden">
+              <div className="h-full rounded-full bg-app-accent-primary transition-all duration-500" style={{ width: `${(masteredChars.length / HANGUL_CHARS.length) * 100}%` }}></div>
             </div>
           </div>
         </div>

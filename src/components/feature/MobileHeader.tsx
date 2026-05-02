@@ -18,11 +18,11 @@ export default function MobileHeader({ title, showBack }: MobileHeaderProps) {
 
   return (
     <>
-      <header className="md:hidden fixed top-0 left-0 right-0 z-30 bg-[#0f1117]/95 backdrop-blur-md border-b border-white/8 h-14 flex items-center px-4 gap-3">
+      <header className="md:hidden fixed top-0 left-0 right-0 z-30 bg-app-bg/95 backdrop-blur-md border-b border-app-border h-14 flex items-center px-4 gap-3">
         {showBack ? (
           <button
             onClick={() => navigate(-1)}
-            className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/60 cursor-pointer flex-shrink-0"
+            className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-white/60 cursor-pointer flex-shrink-0"
           >
             <i className="ri-arrow-left-line text-base"></i>
           </button>
@@ -64,7 +64,7 @@ export default function MobileHeader({ title, showBack }: MobileHeaderProps) {
           {!loading && !user && (
             <button
               onClick={() => setShowAuth(true)}
-              className="text-xs font-semibold text-[#e8c84a] bg-[#e8c84a]/10 border border-[#e8c84a]/20 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap"
+              className="text-xs font-semibold text-app-accent-primary bg-app-accent-primary/10 border border-app-accent-primary/20 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap"
             >
               Đăng nhập
             </button>
@@ -72,9 +72,9 @@ export default function MobileHeader({ title, showBack }: MobileHeaderProps) {
           {!loading && user && (
             <button
               onClick={() => navigate("/profile")}
-              className="w-8 h-8 rounded-full bg-[#e8c84a]/20 flex items-center justify-center cursor-pointer"
+              className="w-8 h-8 rounded-full bg-app-accent-primary/20 flex items-center justify-center cursor-pointer"
             >
-              <i className="ri-user-line text-[#e8c84a] text-sm"></i>
+              <i className="ri-user-line text-app-accent-primary text-sm"></i>
             </button>
           )}
         </div>

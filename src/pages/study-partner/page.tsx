@@ -48,21 +48,21 @@ const VOCAB_CHALLENGES = [
 
 const STATUS_CONFIG = {
   online: { color: "#34d399", label: "Online", dot: "bg-emerald-400" },
-  studying: { color: "#e8c84a", label: "Đang học", dot: "bg-yellow-400" },
+  studying: { color: "app-accent-primary", label: "Đang học", dot: "bg-yellow-400" },
   away: { color: "#fb923c", label: "Vắng mặt", dot: "bg-orange-400" },
 };
 
 const LEVEL_COLORS: Record<string, string> = {
-  A1: "#34d399", A2: "#84cc16", B1: "#e8c84a", B2: "#fb923c", C1: "#f87171",
+  A1: "#34d399", A2: "#84cc16", B1: "app-accent-primary", B2: "#fb923c", C1: "#f87171",
 };
 
 // ─── Partner Card ─────────────────────────────────────────────────────────────
 function PartnerCard({ partner, onConnect }: { partner: Partner; onConnect: () => void }) {
   const statusCfg = STATUS_CONFIG[partner.status];
-  const levelColor = LEVEL_COLORS[partner.level] || "#e8c84a";
+  const levelColor = LEVEL_COLORS[partner.level] || "app-accent-primary";
 
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5 hover:border-white/10 transition-all">
+    <div className="bg-app-bg border border-app-border rounded-2xl p-5 hover:border-app-border transition-all">
       <div className="flex items-start gap-3 mb-3">
         <div className="relative flex-shrink-0">
           <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold text-sm" style={{ backgroundColor: `${levelColor}20` }}>
@@ -75,7 +75,7 @@ function PartnerCard({ partner, onConnect }: { partner: Partner; onConnect: () =
             <p className="text-white font-semibold text-sm">{partner.name}</p>
             <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full" style={{ backgroundColor: `${levelColor}15`, color: levelColor }}>{partner.level}</span>
           </div>
-          <div className="flex items-center gap-2 text-[10px] text-white/30">
+          <div className="flex items-center gap-2 text-[10px] text-app-text-muted">
             <span style={{ color: statusCfg.color }}>{statusCfg.label}</span>
             <span>·</span>
             <span>{partner.topic}</span>
@@ -83,17 +83,17 @@ function PartnerCard({ partner, onConnect }: { partner: Partner; onConnect: () =
         </div>
       </div>
 
-      <p className="text-white/40 text-xs leading-relaxed mb-3 line-clamp-2">{partner.bio}</p>
+      <p className="text-app-text-secondary text-xs leading-relaxed mb-3 line-clamp-2">{partner.bio}</p>
 
-      <div className="flex items-center gap-3 mb-4 text-[10px] text-white/25">
+      <div className="flex items-center gap-3 mb-4 text-[10px] text-app-text-muted">
         <span className="flex items-center gap-1"><i className="ri-fire-line text-[#fb923c]"></i>{partner.streak} ngày</span>
-        <span className="flex items-center gap-1"><i className="ri-star-line text-[#e8c84a]"></i>{partner.xp.toLocaleString()} XP</span>
+        <span className="flex items-center gap-1"><i className="ri-star-line text-app-accent-primary"></i>{partner.xp.toLocaleString()} XP</span>
         <span className="flex items-center gap-1"><i className="ri-calendar-line"></i>Từ {partner.joinedAt}</span>
       </div>
 
       <div className="flex flex-wrap gap-1 mb-4">
         {partner.languages.map(lang => (
-          <span key={lang} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-white/30">{lang}</span>
+          <span key={lang} className="text-[10px] px-2 py-0.5 rounded-full bg-app-card/50 text-app-text-muted">{lang}</span>
         ))}
       </div>
 
@@ -132,7 +132,7 @@ function ChatSession({ partner, onClose }: { partner: Partner; onClose: () => vo
   const [sessionTime, setSessionTime] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const levelColor = LEVEL_COLORS[partner.level] || "#e8c84a";
+  const levelColor = LEVEL_COLORS[partner.level] || "app-accent-primary";
 
   useEffect(() => {
     timerRef.current = setInterval(() => setSessionTime(t => t + 1), 1000);
@@ -210,12 +210,12 @@ function ChatSession({ partner, onClose }: { partner: Partner; onClose: () => vo
   return (
     <div className="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div
-        className="bg-[#0f1117] border border-white/10 rounded-3xl w-full max-w-2xl flex flex-col"
+        className="bg-app-bg border border-app-border rounded-3xl w-full max-w-2xl flex flex-col"
         style={{ height: "85vh" }}
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center gap-3 p-4 border-b border-white/5 flex-shrink-0">
+        <div className="flex items-center gap-3 p-4 border-b border-app-border flex-shrink-0">
           <div className="relative">
             <div className="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold" style={{ backgroundColor: `${levelColor}20`, color: levelColor }}>
               {partner.avatar}
@@ -224,14 +224,14 @@ function ChatSession({ partner, onClose }: { partner: Partner; onClose: () => vo
           </div>
           <div className="flex-1">
             <p className="text-white font-semibold text-sm">{partner.name}</p>
-            <p className="text-white/30 text-xs">{partner.level} · {partner.topic}</p>
+            <p className="text-app-text-muted text-xs">{partner.level} · {partner.topic}</p>
           </div>
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 text-white/40 text-xs">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-card/50 text-app-text-secondary text-xs">
               <i className="ri-time-line text-xs"></i>
               {formatTime(sessionTime)}
             </div>
-            <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white/50 cursor-pointer">
+            <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-app-card/50 hover:bg-app-card/70 text-white/50 cursor-pointer">
               <i className="ri-close-line text-sm"></i>
             </button>
           </div>
@@ -247,12 +247,12 @@ function ChatSession({ partner, onClose }: { partner: Partner; onClose: () => vo
                     msg.sender === "me"
                       ? "text-[#141720] rounded-br-sm"
                       : "bg-white/8 text-white/80 rounded-bl-sm"
-                  } ${msg.type === "question" ? "border border-[#e8c84a]/30" : ""} ${msg.type === "vocab" ? "border border-emerald-500/20" : ""}`}
+                  } ${msg.type === "question" ? "border border-app-accent-primary/30" : ""} ${msg.type === "vocab" ? "border border-emerald-500/20" : ""}`}
                   style={msg.sender === "me" ? { backgroundColor: levelColor } : {}}
                 >
                   {msg.text}
                 </div>
-                <span className="text-white/20 text-[10px]">{msg.time}</span>
+                <span className="text-app-text-muted text-[10px]">{msg.time}</span>
               </div>
             </div>
           ))}
@@ -262,7 +262,7 @@ function ChatSession({ partner, onClose }: { partner: Partner; onClose: () => vo
         {/* Challenge input */}
         {showChallenge && (
           <div className="px-4 pb-2 flex-shrink-0">
-            <div className="flex gap-2 p-3 rounded-xl bg-[#e8c84a]/8 border border-[#e8c84a]/20">
+            <div className="flex gap-2 p-3 rounded-xl bg-app-accent-primary/8 border border-app-accent-primary/20">
               <input
                 type="text"
                 placeholder={`Nghĩa của "${currentChallenge.korean}" là...`}
@@ -273,7 +273,7 @@ function ChatSession({ partner, onClose }: { partner: Partner; onClose: () => vo
               />
               <button
                 onClick={checkAnswer}
-                className="px-3 py-1 rounded-lg bg-[#e8c84a] text-[#141720] text-xs font-bold cursor-pointer whitespace-nowrap"
+                className="px-3 py-1 rounded-lg bg-app-accent-primary text-[#141720] text-xs font-bold cursor-pointer whitespace-nowrap"
               >
                 Trả lời
               </button>
@@ -288,7 +288,7 @@ function ChatSession({ partner, onClose }: { partner: Partner; onClose: () => vo
               <button
                 key={i}
                 onClick={() => sendMessage(phrase)}
-                className="flex-shrink-0 px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 text-[10px] cursor-pointer transition-colors whitespace-nowrap"
+                className="flex-shrink-0 px-2.5 py-1 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary text-[10px] cursor-pointer transition-colors whitespace-nowrap"
               >
                 {phrase}
               </button>
@@ -297,11 +297,11 @@ function ChatSession({ partner, onClose }: { partner: Partner; onClose: () => vo
         </div>
 
         {/* Input */}
-        <div className="p-4 border-t border-white/5 flex-shrink-0">
+        <div className="p-4 border-t border-app-border flex-shrink-0">
           <div className="flex gap-2">
             <button
               onClick={sendChallenge}
-              className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-white/40 cursor-pointer transition-colors flex-shrink-0"
+              className="w-9 h-9 flex items-center justify-center rounded-xl bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary cursor-pointer transition-colors flex-shrink-0"
               title="Gửi thử thách từ vựng"
             >
               <i className="ri-sword-line text-sm"></i>
@@ -312,7 +312,7 @@ function ChatSession({ partner, onClose }: { partner: Partner; onClose: () => vo
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => e.key === "Enter" && sendMessage(input)}
-              className="flex-1 bg-white/5 border border-white/8 rounded-xl px-4 py-2 text-sm text-white placeholder-white/25 outline-none focus:border-white/20"
+              className="flex-1 bg-app-card/50 border border-app-border rounded-xl px-4 py-2 text-sm text-white placeholder-white/25 outline-none focus:border-white/20"
             />
             <button
               onClick={() => sendMessage(input)}
@@ -416,16 +416,16 @@ export default function StudyPartnerPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Học viên online", value: onlineCount, icon: "ri-user-line", color: "#34d399" },
-          { label: "Đang học cùng", value: partners.filter(p => p.status === "studying").length, icon: "ri-group-line", color: "#e8c84a" },
+          { label: "Đang học cùng", value: partners.filter(p => p.status === "studying").length, icon: "ri-group-line", color: "app-accent-primary" },
           { label: "Phiên học hôm nay", value: 3, icon: "ri-history-line", color: "#fb923c" },
           { label: "Thời gian học cùng", value: "47 phút", icon: "ri-time-line", color: "#a78bfa" },
         ].map(s => (
-          <div key={s.label} className="bg-[#0f1117] border border-white/5 rounded-2xl p-4">
+          <div key={s.label} className="bg-app-bg border border-app-border rounded-2xl p-4">
             <div className="flex items-center gap-2 mb-2">
               <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
                 <i className={`${s.icon} text-xs`} style={{ color: s.color }}></i>
               </div>
-              <p className="text-white/40 text-xs">{s.label}</p>
+              <p className="text-app-text-secondary text-xs">{s.label}</p>
             </div>
             <p className="text-white font-bold text-2xl">{s.value}</p>
           </div>
@@ -433,21 +433,21 @@ export default function StudyPartnerPage() {
       </div>
 
       {/* Random match banner */}
-      <div className="bg-gradient-to-r from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/20 rounded-2xl p-5 mb-6">
+      <div className="bg-gradient-to-r from-app-surface to-[#0f1117] border border-app-accent-primary/20 rounded-2xl p-5 mb-6">
         <div className="flex items-center justify-between gap-4">
           <div>
             <h3 className="text-white font-bold text-base mb-1">Ghép cặp ngẫu nhiên</h3>
-            <p className="text-white/40 text-sm">AI sẽ tìm đối tác phù hợp với trình độ và mục tiêu của bạn</p>
+            <p className="text-app-text-secondary text-sm">AI sẽ tìm đối tác phù hợp với trình độ và mục tiêu của bạn</p>
           </div>
           {matchedPartner ? (
             <div className="flex items-center gap-3">
               <div className="text-right">
                 <p className="text-white/50 text-xs">Đã tìm thấy!</p>
-                <p className="text-[#e8c84a] font-bold text-sm">{matchedPartner.name}</p>
+                <p className="text-app-accent-primary font-bold text-sm">{matchedPartner.name}</p>
               </div>
               <button
                 onClick={() => { setSelectedPartner(matchedPartner); setMatchedPartner(null); }}
-                className="px-4 py-2 rounded-xl bg-[#e8c84a] text-[#141720] text-sm font-bold cursor-pointer whitespace-nowrap"
+                className="px-4 py-2 rounded-xl bg-app-accent-primary text-[#141720] text-sm font-bold cursor-pointer whitespace-nowrap"
               >
                 Kết nối ngay
               </button>
@@ -456,10 +456,10 @@ export default function StudyPartnerPage() {
             <button
               onClick={handleRandomMatch}
               disabled={isMatching}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#e8c84a]/15 border border-[#e8c84a]/25 text-[#e8c84a] font-semibold text-sm cursor-pointer hover:bg-[#e8c84a]/25 transition-colors disabled:opacity-60 whitespace-nowrap"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-app-accent-primary/15 border border-app-accent-primary/25 text-app-accent-primary font-semibold text-sm cursor-pointer hover:bg-app-accent-primary/25 transition-colors disabled:opacity-60 whitespace-nowrap"
             >
               {isMatching ? (
-                <><div className="w-4 h-4 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>Đang tìm...</>
+                <><div className="w-4 h-4 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>Đang tìm...</>
               ) : (
                 <><i className="ri-shuffle-line"></i>Ghép ngẫu nhiên</>
               )}
@@ -471,13 +471,13 @@ export default function StudyPartnerPage() {
       {/* Filters */}
       <div className="flex items-center gap-3 mb-5">
         <div className="flex-1 relative">
-          <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
+          <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
           <input
             type="text"
             placeholder="Tìm theo tên, chủ đề, mô tả..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full bg-[#0f1117] border border-white/8 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder-white/25 outline-none focus:border-white/20"
+            className="w-full bg-app-bg border border-app-border rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder-white/25 outline-none focus:border-white/20"
           />
         </div>
         <div className="flex gap-1.5">
@@ -486,7 +486,7 @@ export default function StudyPartnerPage() {
               key={level}
               onClick={() => setFilterLevel(level)}
               className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all whitespace-nowrap ${
-                filterLevel === level ? "bg-white/10 text-white" : "text-white/30 hover:text-white/50"
+                filterLevel === level ? "bg-app-card/70 text-white" : "text-app-text-muted hover:text-white/50"
               }`}
             >
               {level === "all" ? "Tất cả" : level}
@@ -499,7 +499,7 @@ export default function StudyPartnerPage() {
               key={val}
               onClick={() => setFilterStatus(val)}
               className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-all whitespace-nowrap ${
-                filterStatus === val ? "bg-[#34d399]/15 text-[#34d399] border border-[#34d399]/25" : "bg-white/3 text-white/30 border border-white/8 hover:text-white/50"
+                filterStatus === val ? "bg-[#34d399]/15 text-[#34d399] border border-[#34d399]/25" : "bg-app-surface/50 text-app-text-muted border border-app-border hover:text-white/50"
               }`}
             >
               {label}
@@ -516,22 +516,22 @@ export default function StudyPartnerPage() {
       </div>
 
       {filtered.length === 0 && (
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-16 text-center">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-16 text-center">
           <i className="ri-user-search-line text-white/10 text-5xl mb-4"></i>
-          <p className="text-white/30 text-sm">Không tìm thấy đối tác phù hợp</p>
+          <p className="text-app-text-muted text-sm">Không tìm thấy đối tác phù hợp</p>
         </div>
       )}
 
       {/* Tips */}
-      <div className="mt-6 bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+      <div className="mt-6 bg-app-bg border border-app-border rounded-2xl p-5">
         <div className="flex items-center gap-2 mb-3">
-          <i className="ri-lightbulb-line text-[#e8c84a] text-sm"></i>
+          <i className="ri-lightbulb-line text-app-accent-primary text-sm"></i>
           <h3 className="text-white font-semibold text-sm">Mẹo học cùng đối tác hiệu quả</h3>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-white/40 leading-relaxed">
-          <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Dùng tính năng "Thử thách từ vựng" để kiểm tra nhau</p>
-          <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Luyện nói bằng cách đọc to các câu trong transcript</p>
-          <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Đặt lịch học cố định mỗi ngày để duy trì streak</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-app-text-secondary leading-relaxed">
+          <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Dùng tính năng "Thử thách từ vựng" để kiểm tra nhau</p>
+          <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Luyện nói bằng cách đọc to các câu trong transcript</p>
+          <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Đặt lịch học cố định mỗi ngày để duy trì streak</p>
         </div>
       </div>
 

@@ -52,8 +52,8 @@ function TopicCard({
       onClick={onClick}
       className={`w-full text-left p-4 rounded-xl border transition-all cursor-pointer ${
         isSelected
-          ? "border-[#e8c84a] bg-[#e8c84a]/10"
-          : "border-white/10 bg-white/3 hover:border-white/20 hover:bg-white/5"
+          ? "border-app-accent-primary bg-app-accent-primary/10"
+          : "border-app-border bg-app-surface/50 hover:border-white/20 hover:bg-app-card/50"
       }`}
     >
       <div className="flex items-center gap-3 mb-2">
@@ -64,14 +64,14 @@ function TopicCard({
           <i className={`${topic.icon} text-lg`} style={{ color: topic.color }}></i>
         </div>
         <div className="flex-1 min-w-0">
-          <p className={`text-sm font-semibold truncate ${isSelected ? "text-[#e8c84a]" : "text-white/80"}`}>
+          <p className={`text-sm font-semibold truncate ${isSelected ? "text-app-accent-primary" : "text-white/80"}`}>
             {topic.label}
           </p>
-          <p className="text-white/40 text-xs">{count} từ vựng</p>
+          <p className="text-app-text-secondary text-xs">{count} từ vựng</p>
         </div>
         {isSelected && (
           <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-            <i className="ri-check-line text-[#e8c84a] text-sm"></i>
+            <i className="ri-check-line text-app-accent-primary text-sm"></i>
           </div>
         )}
       </div>
@@ -99,33 +99,33 @@ function BrowseMode({ vocab }: { vocab: VocabCard[] }) {
       <div className="flex items-center gap-3">
         <div className="flex-1 relative">
           <div className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center">
-            <i className="ri-search-line text-white/30 text-sm"></i>
+            <i className="ri-search-line text-app-text-muted text-sm"></i>
           </div>
           <input
             type="text"
             placeholder="Tìm từ vựng..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#e8c84a]/40"
+            className="w-full bg-app-card/50 border border-app-border rounded-lg pl-9 pr-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-app-accent-primary/40"
           />
         </div>
         <button
           onClick={() => setShowVi(!showVi)}
           className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${
-            showVi ? "bg-[#e8c84a]/10 text-[#e8c84a] border border-[#e8c84a]/30" : "bg-white/5 text-white/50 border border-white/10"
+            showVi ? "bg-app-accent-primary/10 text-app-accent-primary border border-app-accent-primary/30" : "bg-app-card/50 text-white/50 border border-app-border"
           }`}
         >
           {showVi ? "Ẩn nghĩa" : "Hiện nghĩa"}
         </button>
       </div>
 
-      <p className="text-white/30 text-xs">{filtered.length} từ</p>
+      <p className="text-app-text-muted text-xs">{filtered.length} từ</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         {filtered.map((v, i) => (
           <div
             key={i}
-            className="bg-white/3 border border-white/8 rounded-xl p-4 hover:border-white/15 transition-all"
+            className="bg-app-surface/50 border border-app-border rounded-xl p-4 hover:border-white/15 transition-all"
           >
             <div className="flex items-start justify-between gap-2 mb-2">
               <div>
@@ -133,25 +133,25 @@ function BrowseMode({ vocab }: { vocab: VocabCard[] }) {
                   <p className="text-white font-bold text-lg leading-tight">{v.korean}</p>
                   <button
                     onClick={() => speakKorean(v.korean)}
-                    className="w-6 h-6 flex items-center justify-center rounded-md bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 transition-colors cursor-pointer flex-shrink-0"
+                    className="w-6 h-6 flex items-center justify-center rounded-md bg-app-accent-primary/10 hover:bg-app-accent-primary/20 transition-colors cursor-pointer flex-shrink-0"
                   >
-                    <i className="ri-volume-up-line text-[#e8c84a] text-xs"></i>
+                    <i className="ri-volume-up-line text-app-accent-primary text-xs"></i>
                   </button>
                 </div>
                 <p className="text-white/35 text-xs mt-0.5">{v.pronunciation}</p>
               </div>
-              <span className="text-[10px] text-white/25 bg-white/5 px-2 py-0.5 rounded-full whitespace-nowrap flex-shrink-0">
+              <span className="text-[10px] text-app-text-muted bg-app-card/50 px-2 py-0.5 rounded-full whitespace-nowrap flex-shrink-0">
                 Bài {v.lessonId}
               </span>
             </div>
             {showVi && (
-              <p className="text-[#e8c84a] text-sm font-medium mb-2">{v.vietnamese}</p>
+              <p className="text-app-accent-primary text-sm font-medium mb-2">{v.vietnamese}</p>
             )}
             {v.example && (
-              <div className="border-t border-white/5 pt-2 mt-2">
+              <div className="border-t border-app-border pt-2 mt-2">
                 <p className="text-white/50 text-xs italic">{v.example}</p>
                 {showVi && v.exampleVi && (
-                  <p className="text-white/30 text-xs mt-0.5">{v.exampleVi}</p>
+                  <p className="text-app-text-muted text-xs mt-0.5">{v.exampleVi}</p>
                 )}
               </div>
             )}
@@ -160,7 +160,7 @@ function BrowseMode({ vocab }: { vocab: VocabCard[] }) {
       </div>
 
       {filtered.length === 0 && (
-        <div className="text-center py-12 text-white/30">
+        <div className="text-center py-12 text-app-text-muted">
           <div className="w-12 h-12 flex items-center justify-center mx-auto mb-3">
             <i className="ri-search-line text-3xl"></i>
           </div>
@@ -196,17 +196,17 @@ function FlashcardMode({ vocab }: { vocab: VocabCard[] }) {
   if (idx >= cards.length) {
     return (
       <div className="text-center py-16">
-        <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 bg-[#e8c84a]/10 rounded-full">
-          <i className="ri-trophy-line text-[#e8c84a] text-3xl"></i>
+        <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 bg-app-accent-primary/10 rounded-full">
+          <i className="ri-trophy-line text-app-accent-primary text-3xl"></i>
         </div>
         <h3 className="text-white text-xl font-bold mb-2">Hoàn thành!</h3>
         <p className="text-white/50 text-sm mb-6">
-          Biết: <span className="text-emerald-400 font-bold">{known.size}</span> từ &nbsp;|&nbsp;
+          Biết: <span className="text-app-accent-success font-bold">{known.size}</span> từ &nbsp;|&nbsp;
           Chưa biết: <span className="text-red-400 font-bold">{unknown.size}</span> từ
         </p>
         <button
           onClick={() => { setIdx(0); setFlipped(false); setKnown(new Set()); setUnknown(new Set()); }}
-          className="px-6 py-3 bg-[#e8c84a] text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
+          className="px-6 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
         >
           Học lại từ đầu
         </button>
@@ -219,21 +219,21 @@ function FlashcardMode({ vocab }: { vocab: VocabCard[] }) {
       <div className="flex items-center gap-3">
         <div className="flex-1 h-2 bg-white/8 rounded-full overflow-hidden">
           <div
-            className="h-full bg-[#e8c84a] rounded-full transition-all duration-300"
+            className="h-full bg-app-accent-primary rounded-full transition-all duration-300"
             style={{ width: `${progress}%` }}
           ></div>
         </div>
-        <span className="text-white/40 text-xs whitespace-nowrap">{idx + 1}/{cards.length}</span>
+        <span className="text-app-text-secondary text-xs whitespace-nowrap">{idx + 1}/{cards.length}</span>
       </div>
 
       <div className="flex gap-4 justify-center text-sm">
-        <span className="text-emerald-400">✓ {known.size} biết</span>
+        <span className="text-app-accent-success">✓ {known.size} biết</span>
         <span className="text-red-400">✗ {unknown.size} chưa biết</span>
       </div>
 
       <div
         onClick={() => setFlipped(!flipped)}
-        className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center cursor-pointer hover:border-white/20 transition-all min-h-[220px] flex flex-col items-center justify-center"
+        className="bg-app-card/50 border border-app-border rounded-2xl p-8 text-center cursor-pointer hover:border-white/20 transition-all min-h-[220px] flex flex-col items-center justify-center"
       >
         {!flipped ? (
           <>
@@ -241,19 +241,19 @@ function FlashcardMode({ vocab }: { vocab: VocabCard[] }) {
             <p className="text-white/35 text-sm">{card.pronunciation}</p>
             <button
               onClick={e => { e.stopPropagation(); speakKorean(card.korean); }}
-              className="mt-3 w-9 h-9 flex items-center justify-center rounded-xl bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 transition-colors cursor-pointer"
+              className="mt-3 w-9 h-9 flex items-center justify-center rounded-xl bg-app-accent-primary/10 hover:bg-app-accent-primary/20 transition-colors cursor-pointer"
             >
-              <i className="ri-volume-up-line text-[#e8c84a]"></i>
+              <i className="ri-volume-up-line text-app-accent-primary"></i>
             </button>
-            <p className="text-white/25 text-xs mt-3">Nhấn để xem nghĩa</p>
+            <p className="text-app-text-muted text-xs mt-3">Nhấn để xem nghĩa</p>
           </>
         ) : (
           <>
-            <p className="text-[#e8c84a] text-2xl font-bold mb-2">{card.vietnamese}</p>
+            <p className="text-app-accent-primary text-2xl font-bold mb-2">{card.vietnamese}</p>
             {card.example && (
-              <div className="mt-3 text-left w-full border-t border-white/10 pt-3">
+              <div className="mt-3 text-left w-full border-t border-app-border pt-3">
                 <p className="text-white/50 text-sm italic">{card.example}</p>
-                <p className="text-white/30 text-xs mt-1">{card.exampleVi}</p>
+                <p className="text-app-text-muted text-xs mt-1">{card.exampleVi}</p>
               </div>
             )}
           </>
@@ -269,7 +269,7 @@ function FlashcardMode({ vocab }: { vocab: VocabCard[] }) {
         </button>
         <button
           onClick={handleKnow}
-          className="flex-1 py-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl font-medium cursor-pointer whitespace-nowrap hover:bg-emerald-500/20 transition-all"
+          className="flex-1 py-3 bg-emerald-500/10 border border-emerald-500/20 text-app-accent-success rounded-xl font-medium cursor-pointer whitespace-nowrap hover:bg-emerald-500/20 transition-all"
         >
           <i className="ri-check-line mr-1"></i> Đã biết
         </button>
@@ -313,11 +313,11 @@ function QuizMode({ vocab }: { vocab: VocabCard[] }) {
     const pct = Math.round((score / questions.length) * 100);
     return (
       <div className="text-center py-16 max-w-md mx-auto">
-        <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-[#e8c84a]/10 rounded-full">
-          <i className="ri-trophy-line text-[#e8c84a] text-4xl"></i>
+        <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-app-accent-primary/10 rounded-full">
+          <i className="ri-trophy-line text-app-accent-primary text-4xl"></i>
         </div>
         <h3 className="text-white text-2xl font-bold mb-2">Kết quả</h3>
-        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171" }}>
+        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
           {pct}%
         </p>
         <p className="text-white/50 text-sm mb-6">
@@ -325,7 +325,7 @@ function QuizMode({ vocab }: { vocab: VocabCard[] }) {
         </p>
         <button
           onClick={() => { setCurrent(0); setSelected(null); setScore(0); setFinished(false); }}
-          className="px-6 py-3 bg-[#e8c84a] text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
+          className="px-6 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
         >
           Làm lại
         </button>
@@ -338,32 +338,32 @@ function QuizMode({ vocab }: { vocab: VocabCard[] }) {
       <div className="flex items-center gap-3">
         <div className="flex-1 h-2 bg-white/8 rounded-full overflow-hidden">
           <div
-            className="h-full bg-[#e8c84a] rounded-full transition-all duration-300"
+            className="h-full bg-app-accent-primary rounded-full transition-all duration-300"
             style={{ width: `${((current + 1) / questions.length) * 100}%` }}
           ></div>
         </div>
-        <span className="text-white/40 text-xs whitespace-nowrap">{current + 1}/{questions.length}</span>
+        <span className="text-app-text-secondary text-xs whitespace-nowrap">{current + 1}/{questions.length}</span>
       </div>
 
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center">
-        <p className="text-white/40 text-xs mb-3">Nghĩa của từ này là gì?</p>
+      <div className="bg-app-card/50 border border-app-border rounded-2xl p-8 text-center">
+        <p className="text-app-text-secondary text-xs mb-3">Nghĩa của từ này là gì?</p>
         <p className="text-white text-4xl font-bold mb-2">{q.question.korean}</p>
         <p className="text-white/35 text-sm">{q.question.pronunciation}</p>
         <button
           onClick={() => speakKorean(q.question.korean)}
-          className="mt-3 w-9 h-9 flex items-center justify-center rounded-xl bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 transition-colors cursor-pointer mx-auto"
+          className="mt-3 w-9 h-9 flex items-center justify-center rounded-xl bg-app-accent-primary/10 hover:bg-app-accent-primary/20 transition-colors cursor-pointer mx-auto"
         >
-          <i className="ri-volume-up-line text-[#e8c84a]"></i>
+          <i className="ri-volume-up-line text-app-accent-primary"></i>
         </button>
       </div>
 
       <div className="grid grid-cols-1 gap-3">
         {q.options.map((opt, idx) => {
-          let cls = "bg-white/5 border border-white/10 text-white/70 hover:border-white/20 hover:bg-white/8";
+          let cls = "bg-app-card/50 border border-app-border text-white/70 hover:border-white/20 hover:bg-white/8";
           if (selected !== null) {
-            if (idx === q.correctIdx) cls = "bg-emerald-500/15 border border-emerald-500/40 text-emerald-400";
+            if (idx === q.correctIdx) cls = "bg-app-accent-success/15 border border-emerald-500/40 text-app-accent-success";
             else if (idx === selected) cls = "bg-red-500/15 border border-red-500/40 text-red-400";
-            else cls = "bg-white/3 border border-white/5 text-white/30";
+            else cls = "bg-app-surface/50 border border-app-border text-app-text-muted";
           }
           return (
             <button
@@ -428,17 +428,17 @@ function ListenMode({ vocab }: { vocab: VocabCard[] }) {
     const pct = Math.round((score / cards.length) * 100);
     return (
       <div className="text-center py-16 max-w-md mx-auto">
-        <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-[#e8c84a]/10 rounded-full">
-          <i className="ri-trophy-line text-[#e8c84a] text-4xl"></i>
+        <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-app-accent-primary/10 rounded-full">
+          <i className="ri-trophy-line text-app-accent-primary text-4xl"></i>
         </div>
         <h3 className="text-white text-2xl font-bold mb-2">Kết quả nghe</h3>
-        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171" }}>
+        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
           {pct}%
         </p>
         <p className="text-white/50 text-sm mb-6">{score}/{cards.length} câu đúng</p>
         <button
           onClick={() => { setIdx(0); setInput(""); setSubmitted(false); setScore(0); setFinished(false); setShowHint(false); }}
-          className="px-6 py-3 bg-[#e8c84a] text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
+          className="px-6 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
         >
           Làm lại
         </button>
@@ -450,30 +450,30 @@ function ListenMode({ vocab }: { vocab: VocabCard[] }) {
     <div className="max-w-lg mx-auto space-y-6">
       <div className="flex items-center gap-3">
         <div className="flex-1 h-2 bg-white/8 rounded-full overflow-hidden">
-          <div className="h-full bg-[#e8c84a] rounded-full transition-all duration-300" style={{ width: `${((idx + 1) / cards.length) * 100}%` }} />
+          <div className="h-full bg-app-accent-primary rounded-full transition-all duration-300" style={{ width: `${((idx + 1) / cards.length) * 100}%` }} />
         </div>
-        <span className="text-white/40 text-xs whitespace-nowrap">{idx + 1}/{cards.length}</span>
+        <span className="text-app-text-secondary text-xs whitespace-nowrap">{idx + 1}/{cards.length}</span>
       </div>
 
       <div className="flex gap-4 justify-center text-sm">
-        <span className="text-emerald-400">✓ {score} đúng</span>
+        <span className="text-app-accent-success">✓ {score} đúng</span>
         <span className="text-red-400">✗ {idx - score} sai</span>
       </div>
 
       {/* Audio card */}
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center space-y-4">
-        <p className="text-white/40 text-xs">Nghe và điền từ tiếng Hàn</p>
+      <div className="bg-app-card/50 border border-app-border rounded-2xl p-8 text-center space-y-4">
+        <p className="text-app-text-secondary text-xs">Nghe và điền từ tiếng Hàn</p>
 
         {/* Big play button */}
         <button
           onClick={playAudio}
           className={`w-24 h-24 flex items-center justify-center rounded-full mx-auto transition-all cursor-pointer ${
             isPlaying
-              ? "bg-[#e8c84a] scale-110"
-              : "bg-[#e8c84a]/15 hover:bg-[#e8c84a]/25 hover:scale-105"
+              ? "bg-app-accent-primary scale-110"
+              : "bg-app-accent-primary/15 hover:bg-app-accent-primary/25 hover:scale-105"
           }`}
         >
-          <i className={`${isPlaying ? "ri-volume-up-fill" : "ri-play-circle-line"} text-4xl ${isPlaying ? "text-black" : "text-[#e8c84a]"}`}></i>
+          <i className={`${isPlaying ? "ri-volume-up-fill" : "ri-play-circle-line"} text-4xl ${isPlaying ? "text-black" : "text-app-accent-primary"}`}></i>
         </button>
 
         {isPlaying && (
@@ -481,23 +481,23 @@ function ListenMode({ vocab }: { vocab: VocabCard[] }) {
             {[...Array(5)].map((_, i) => (
               <div
                 key={i}
-                className="w-1.5 bg-[#e8c84a] rounded-full animate-pulse"
+                className="w-1.5 bg-app-accent-primary rounded-full animate-pulse"
                 style={{ height: `${8 + Math.random() * 16}px`, animationDelay: `${i * 0.1}s` }}
               />
             ))}
           </div>
         )}
 
-        <p className="text-white/30 text-xs">Nhấn để nghe phát âm</p>
+        <p className="text-app-text-muted text-xs">Nhấn để nghe phát âm</p>
 
         {/* Hint: Vietnamese meaning */}
-        <div className="border-t border-white/8 pt-3">
+        <div className="border-t border-app-border pt-3">
           {showHint ? (
-            <p className="text-[#e8c84a] text-sm font-medium">{card.vietnamese}</p>
+            <p className="text-app-accent-primary text-sm font-medium">{card.vietnamese}</p>
           ) : (
             <button
               onClick={() => setShowHint(true)}
-              className="text-white/25 text-xs hover:text-white/50 cursor-pointer whitespace-nowrap"
+              className="text-app-text-muted text-xs hover:text-white/50 cursor-pointer whitespace-nowrap"
             >
               <i className="ri-eye-line mr-1"></i>Xem gợi ý nghĩa
             </button>
@@ -518,16 +518,16 @@ function ListenMode({ vocab }: { vocab: VocabCard[] }) {
           className={`w-full rounded-xl px-5 py-4 text-lg font-bold text-center border transition-all focus:outline-none ${
             submitted
               ? isCorrect
-                ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400"
+                ? "bg-emerald-500/10 border-emerald-500/40 text-app-accent-success"
                 : "bg-red-500/10 border-red-500/40 text-red-400"
-              : "bg-white/5 border-white/10 text-white focus:border-[#e8c84a]/40"
+              : "bg-app-card/50 border-app-border text-white focus:border-app-accent-primary/40"
           }`}
         />
 
         {submitted && (
           <div className={`p-4 rounded-xl border text-center ${isCorrect ? "bg-emerald-500/8 border-emerald-500/20" : "bg-red-500/8 border-red-500/20"}`}>
             {isCorrect ? (
-              <p className="text-emerald-400 font-bold">Chính xác!</p>
+              <p className="text-app-accent-success font-bold">Chính xác!</p>
             ) : (
               <>
                 <p className="text-red-400 font-bold mb-1">Sai rồi!</p>
@@ -542,14 +542,14 @@ function ListenMode({ vocab }: { vocab: VocabCard[] }) {
           <button
             onClick={handleSubmit}
             disabled={!input.trim()}
-            className="w-full py-3 bg-[#e8c84a] text-black font-bold rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#e8c84a]/90 transition-all"
+            className="w-full py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed hover:bg-app-accent-primary/90 transition-all"
           >
             Kiểm tra
           </button>
         ) : (
           <button
             onClick={handleNext}
-            className="w-full py-3 bg-white/10 text-white font-bold rounded-xl cursor-pointer whitespace-nowrap hover:bg-white/15 transition-all"
+            className="w-full py-3 bg-app-card/70 text-white font-bold rounded-xl cursor-pointer whitespace-nowrap hover:bg-white/15 transition-all"
           >
             Từ tiếp theo <i className="ri-arrow-right-line ml-1"></i>
           </button>
@@ -596,17 +596,17 @@ function FillMode({ vocab }: { vocab: VocabCard[] }) {
     const pct = Math.round((score / cards.length) * 100);
     return (
       <div className="text-center py-16 max-w-md mx-auto">
-        <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-[#e8c84a]/10 rounded-full">
-          <i className="ri-trophy-line text-[#e8c84a] text-4xl"></i>
+        <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-app-accent-primary/10 rounded-full">
+          <i className="ri-trophy-line text-app-accent-primary text-4xl"></i>
         </div>
         <h3 className="text-white text-2xl font-bold mb-2">Kết quả điền từ</h3>
-        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171" }}>
+        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
           {pct}%
         </p>
         <p className="text-white/50 text-sm mb-6">{score}/{cards.length} câu đúng</p>
         <button
           onClick={() => { setIdx(0); setInput(""); setSubmitted(false); setScore(0); setFinished(false); }}
-          className="px-6 py-3 bg-[#e8c84a] text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
+          className="px-6 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
         >
           Làm lại
         </button>
@@ -618,27 +618,27 @@ function FillMode({ vocab }: { vocab: VocabCard[] }) {
     <div className="max-w-lg mx-auto space-y-6">
       <div className="flex items-center gap-3">
         <div className="flex-1 h-2 bg-white/8 rounded-full overflow-hidden">
-          <div className="h-full bg-[#e8c84a] rounded-full transition-all duration-300" style={{ width: `${((idx + 1) / cards.length) * 100}%` }} />
+          <div className="h-full bg-app-accent-primary rounded-full transition-all duration-300" style={{ width: `${((idx + 1) / cards.length) * 100}%` }} />
         </div>
-        <span className="text-white/40 text-xs whitespace-nowrap">{idx + 1}/{cards.length}</span>
+        <span className="text-app-text-secondary text-xs whitespace-nowrap">{idx + 1}/{cards.length}</span>
       </div>
 
       <div className="flex gap-4 justify-center text-sm">
-        <span className="text-emerald-400">✓ {score} đúng</span>
+        <span className="text-app-accent-success">✓ {score} đúng</span>
         <span className="text-red-400">✗ {idx - score} sai</span>
       </div>
 
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center space-y-3">
-        <p className="text-white/40 text-xs">Điền từ tiếng Hàn có nghĩa:</p>
-        <p className="text-[#e8c84a] text-2xl font-bold">{card.vietnamese}</p>
+      <div className="bg-app-card/50 border border-app-border rounded-2xl p-8 text-center space-y-3">
+        <p className="text-app-text-secondary text-xs">Điền từ tiếng Hàn có nghĩa:</p>
+        <p className="text-app-accent-primary text-2xl font-bold">{card.vietnamese}</p>
         {card.example && (
-          <p className="text-white/30 text-xs italic">{card.exampleVi}</p>
+          <p className="text-app-text-muted text-xs italic">{card.exampleVi}</p>
         )}
         <button
           onClick={() => speakKorean(card.korean)}
-          className="w-8 h-8 flex items-center justify-center rounded-xl bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 transition-colors cursor-pointer mx-auto"
+          className="w-8 h-8 flex items-center justify-center rounded-xl bg-app-accent-primary/10 hover:bg-app-accent-primary/20 transition-colors cursor-pointer mx-auto"
         >
-          <i className="ri-volume-up-line text-[#e8c84a] text-sm"></i>
+          <i className="ri-volume-up-line text-app-accent-primary text-sm"></i>
         </button>
       </div>
 
@@ -654,16 +654,16 @@ function FillMode({ vocab }: { vocab: VocabCard[] }) {
           className={`w-full rounded-xl px-5 py-4 text-lg font-bold text-center border transition-all focus:outline-none ${
             submitted
               ? isCorrect
-                ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400"
+                ? "bg-emerald-500/10 border-emerald-500/40 text-app-accent-success"
                 : "bg-red-500/10 border-red-500/40 text-red-400"
-              : "bg-white/5 border-white/10 text-white focus:border-[#e8c84a]/40"
+              : "bg-app-card/50 border-app-border text-white focus:border-app-accent-primary/40"
           }`}
         />
 
         {submitted && (
           <div className={`p-4 rounded-xl border text-center ${isCorrect ? "bg-emerald-500/8 border-emerald-500/20" : "bg-red-500/8 border-red-500/20"}`}>
             {isCorrect ? (
-              <p className="text-emerald-400 font-bold">Chính xác!</p>
+              <p className="text-app-accent-success font-bold">Chính xác!</p>
             ) : (
               <>
                 <p className="text-red-400 font-bold mb-1">Sai rồi!</p>
@@ -678,14 +678,14 @@ function FillMode({ vocab }: { vocab: VocabCard[] }) {
           <button
             onClick={handleSubmit}
             disabled={!input.trim()}
-            className="w-full py-3 bg-[#e8c84a] text-black font-bold rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#e8c84a]/90 transition-all"
+            className="w-full py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed hover:bg-app-accent-primary/90 transition-all"
           >
             Kiểm tra
           </button>
         ) : (
           <button
             onClick={handleNext}
-            className="w-full py-3 bg-white/10 text-white font-bold rounded-xl cursor-pointer whitespace-nowrap hover:bg-white/15 transition-all"
+            className="w-full py-3 bg-app-card/70 text-white font-bold rounded-xl cursor-pointer whitespace-nowrap hover:bg-white/15 transition-all"
           >
             Từ tiếp theo <i className="ri-arrow-right-line ml-1"></i>
           </button>
@@ -765,13 +765,13 @@ export default function EpsTopicStudyPage() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => started ? setStarted(false) : navigate(-1)}
-            className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 transition-all cursor-pointer"
+            className="w-9 h-9 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 transition-all cursor-pointer"
           >
             <i className="ri-arrow-left-line text-white/60"></i>
           </button>
           <div>
             <h1 className="text-white text-xl font-bold">Học theo chủ đề</h1>
-            <p className="text-white/40 text-sm">Lọc và học từ vựng theo nhóm chủ đề EPS</p>
+            <p className="text-app-text-secondary text-sm">Lọc và học từ vựng theo nhóm chủ đề EPS</p>
           </div>
         </div>
 
@@ -782,9 +782,9 @@ export default function EpsTopicStudyPage() {
               <div className="flex items-center justify-between">
                 <h2 className="text-white font-semibold">Chọn chủ đề</h2>
                 <div className="flex gap-2">
-                  <button onClick={selectAll} className="text-xs text-[#e8c84a] hover:underline cursor-pointer whitespace-nowrap">Chọn tất cả</button>
-                  <span className="text-white/20">|</span>
-                  <button onClick={clearAll} className="text-xs text-white/40 hover:text-white/60 cursor-pointer whitespace-nowrap">Bỏ chọn</button>
+                  <button onClick={selectAll} className="text-xs text-app-accent-primary hover:underline cursor-pointer whitespace-nowrap">Chọn tất cả</button>
+                  <span className="text-app-text-muted">|</span>
+                  <button onClick={clearAll} className="text-xs text-app-text-secondary hover:text-white/60 cursor-pointer whitespace-nowrap">Bỏ chọn</button>
                 </div>
               </div>
 
@@ -804,16 +804,16 @@ export default function EpsTopicStudyPage() {
             {/* Right: mode + start */}
             <div className="space-y-4">
               {/* Summary */}
-              <div className="bg-white/3 border border-white/8 rounded-xl p-4">
+              <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
                 <p className="text-white/50 text-xs mb-1">Từ vựng đã chọn</p>
                 <p className="text-white text-2xl font-bold">{allVocab.length}</p>
-                <p className="text-white/30 text-xs mt-1">
+                <p className="text-app-text-muted text-xs mt-1">
                   từ từ {selectedTopics.size > 0 ? selectedTopics.size : EPS_LESSON_TOPICS.length} chủ đề
                 </p>
               </div>
 
               {/* Mode picker */}
-              <div className="bg-white/3 border border-white/8 rounded-xl p-4 space-y-2">
+              <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 space-y-2">
                 <p className="text-white/50 text-xs mb-3">Chế độ học</p>
                 {MODES.map((m) => (
                   <button
@@ -821,20 +821,20 @@ export default function EpsTopicStudyPage() {
                     onClick={() => setStudyMode(m.id)}
                     className={`w-full flex items-center gap-3 p-3 rounded-lg border transition-all cursor-pointer text-left ${
                       studyMode === m.id
-                        ? "border-[#e8c84a]/40 bg-[#e8c84a]/8"
-                        : "border-white/8 hover:border-white/15 hover:bg-white/3"
+                        ? "border-app-accent-primary/40 bg-app-accent-primary/8"
+                        : "border-app-border hover:border-white/15 hover:bg-app-surface/50"
                     }`}
                   >
-                    <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 flex-shrink-0">
-                      <i className={`${m.icon} text-sm ${studyMode === m.id ? "text-[#e8c84a]" : "text-white/40"}`}></i>
+                    <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 flex-shrink-0">
+                      <i className={`${m.icon} text-sm ${studyMode === m.id ? "text-app-accent-primary" : "text-app-text-secondary"}`}></i>
                     </div>
                     <div>
-                      <p className={`text-sm font-medium ${studyMode === m.id ? "text-[#e8c84a]" : "text-white/70"}`}>{m.label}</p>
-                      <p className="text-white/30 text-xs">{m.desc}</p>
+                      <p className={`text-sm font-medium ${studyMode === m.id ? "text-app-accent-primary" : "text-white/70"}`}>{m.label}</p>
+                      <p className="text-app-text-muted text-xs">{m.desc}</p>
                     </div>
                     {studyMode === m.id && (
                       <div className="ml-auto w-4 h-4 flex items-center justify-center">
-                        <i className="ri-check-line text-[#e8c84a] text-sm"></i>
+                        <i className="ri-check-line text-app-accent-primary text-sm"></i>
                       </div>
                     )}
                   </button>
@@ -845,15 +845,15 @@ export default function EpsTopicStudyPage() {
               <button
                 onClick={handleStart}
                 disabled={allVocab.length === 0}
-                className="w-full py-4 bg-[#e8c84a] text-black font-bold rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#e8c84a]/90 transition-all text-sm"
+                className="w-full py-4 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed hover:bg-app-accent-primary/90 transition-all text-sm"
               >
                 <i className="ri-play-fill mr-2"></i>
                 Bắt đầu học ({allVocab.length} từ)
               </button>
 
               {/* Quick links */}
-              <div className="bg-white/3 border border-white/8 rounded-xl p-4 space-y-2">
-                <p className="text-white/40 text-xs mb-2">Học thêm</p>
+              <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 space-y-2">
+                <p className="text-app-text-secondary text-xs mb-2">Học thêm</p>
                 <button
                   onClick={() => navigate("/eps-lessons")}
                   className="w-full flex items-center gap-2 text-white/50 hover:text-white/80 text-xs py-1.5 cursor-pointer whitespace-nowrap"
@@ -882,14 +882,14 @@ export default function EpsTopicStudyPage() {
           /* ── Study screen ── */
           <div className="space-y-4">
             {/* Mode tabs */}
-            <div className="flex items-center gap-1 bg-white/3 border border-white/8 rounded-xl p-1 flex-wrap">
+            <div className="flex items-center gap-1 bg-app-surface/50 border border-app-border rounded-xl p-1 flex-wrap">
               {MODES.map((m) => (
                 <button
                   key={m.id}
                   onClick={() => setStudyMode(m.id)}
                   className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
                     studyMode === m.id
-                      ? "bg-[#e8c84a] text-black"
+                      ? "bg-app-accent-primary text-black"
                       : "text-white/50 hover:text-white/80"
                   }`}
                 >
@@ -900,7 +900,7 @@ export default function EpsTopicStudyPage() {
             </div>
 
             {/* Info bar */}
-            <div className="flex items-center gap-4 text-xs text-white/30">
+            <div className="flex items-center gap-4 text-xs text-app-text-muted">
               <span>
                 {selectedTopics.size > 0
                   ? Array.from(selectedTopics)

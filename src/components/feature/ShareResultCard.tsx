@@ -50,8 +50,8 @@ export default function ShareResultCard({
           title: `${pct}% — ${score}/${total} câu đúng`,
           subtitle: `${quizType === "topik" ? "TOPIK" : quizType === "hanja" ? "Hán Hàn" : "Quiz từ vựng"} · Cấp ${level}`,
           text: `${pct >= 90 ? "🏆" : pct >= 70 ? "⭐" : "💪"} Mình vừa đạt ${pct}% (${score}/${total} câu) trong bài ${quizType === "topik" ? "TOPIK" : "Quiz Hán Hàn"} trên Hàn Quốc Ơi!\n\n📅 ${today}\n\nLuyện tiếng Hàn miễn phí: hanquocoi.app\n#HànQuốcƠi #HọcTiếngHàn #TOPIK`,
-          color: pct >= 90 ? "#34d399" : pct >= 70 ? "#e8c84a" : "#fb923c",
-          bg: pct >= 90 ? "from-emerald-900/40 to-[#0f1117]" : pct >= 70 ? "from-[#1a1600] to-[#0f1117]" : "from-[#1a0a00] to-[#0f1117]",
+          color: pct >= 90 ? "#34d399" : pct >= 70 ? "app-accent-primary" : "#fb923c",
+          bg: pct >= 90 ? "from-emerald-900/40 to-[#0f1117]" : pct >= 70 ? "from-app-surface to-[#0f1117]" : "from-[#1a0a00] to-[#0f1117]",
         };
       case "streak":
         return {
@@ -59,7 +59,7 @@ export default function ShareResultCard({
           title: `${streakCount} ngày liên tiếp`,
           subtitle: "Streak học tiếng Hàn",
           text: `🔥 Mình đã học tiếng Hàn ${streakCount} ngày liên tiếp trên Hàn Quốc Ơi!\n\n📅 ${today}\n\nCùng học tiếng Hàn miễn phí: hanquocoi.app\n#HànQuốcƠi #HọcTiếngHàn #Streak${streakCount}Ngày`,
-          color: streakCount >= 30 ? "#f87171" : streakCount >= 14 ? "#fb923c" : "#e8c84a",
+          color: streakCount >= 30 ? "#f87171" : streakCount >= 14 ? "#fb923c" : "app-accent-primary",
           bg: "from-[#1a0800] to-[#0f1117]",
         };
       case "sr":
@@ -77,8 +77,8 @@ export default function ShareResultCard({
           title: "Học tiếng Hàn",
           subtitle: "Hàn Quốc Ơi!",
           text: `📚 Mình đang học tiếng Hàn trên Hàn Quốc Ơi!\n\nhanquocoi.app\n#HànQuốcƠi #HọcTiếngHàn`,
-          color: "#e8c84a",
-          bg: "from-[#1a1600] to-[#0f1117]",
+          color: "app-accent-primary",
+          bg: "from-app-surface to-[#0f1117]",
         };
     }
   }, [type, pct, score, total, quizType, level, streakCount, srCount]);
@@ -159,7 +159,7 @@ export default function ShareResultCard({
               <img src="https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png" alt="Logo" className="w-full h-full object-cover" />
             </div>
             <span className="text-white/60 text-xs font-semibold">Hàn Quốc Ơi!</span>
-            <span className="ml-auto text-white/25 text-[10px]">{new Date().toLocaleDateString("vi-VN")}</span>
+            <span className="ml-auto text-app-text-muted text-[10px]">{new Date().toLocaleDateString("vi-VN")}</span>
           </div>
 
           {/* Main content */}
@@ -168,7 +168,7 @@ export default function ShareResultCard({
             <h2 className="text-white font-black text-3xl mb-1" style={{ color: content.color }}>{content.title}</h2>
             <p className="text-white/50 text-sm">{content.subtitle}</p>
             {displayName && displayName !== "Học viên" && (
-              <p className="text-white/30 text-xs mt-1">— {displayName}</p>
+              <p className="text-app-text-muted text-xs mt-1">— {displayName}</p>
             )}
           </div>
 
@@ -177,17 +177,17 @@ export default function ShareResultCard({
             <div className="flex items-center justify-center gap-6">
               <div className="text-center">
                 <p className="text-white font-bold text-xl">{score}</p>
-                <p className="text-white/30 text-[10px]">Câu đúng</p>
+                <p className="text-app-text-muted text-[10px]">Câu đúng</p>
               </div>
-              <div className="w-px h-8 bg-white/10"></div>
+              <div className="w-px h-8 bg-app-card/70"></div>
               <div className="text-center">
                 <p className="text-white font-bold text-xl">{total - score}</p>
-                <p className="text-white/30 text-[10px]">Câu sai</p>
+                <p className="text-app-text-muted text-[10px]">Câu sai</p>
               </div>
-              <div className="w-px h-8 bg-white/10"></div>
+              <div className="w-px h-8 bg-app-card/70"></div>
               <div className="text-center">
                 <p className="font-bold text-xl" style={{ color: content.color }}>{pct}%</p>
-                <p className="text-white/30 text-[10px]">Chính xác</p>
+                <p className="text-app-text-muted text-[10px]">Chính xác</p>
               </div>
             </div>
           )}
@@ -198,43 +198,43 @@ export default function ShareResultCard({
                   <i className="ri-fire-fill text-sm" style={{ color: content.color }}></i>
                 </div>
               ))}
-              {streakCount > 7 && <span className="text-white/40 text-xs">+{streakCount - 7}</span>}
+              {streakCount > 7 && <span className="text-app-text-secondary text-xs">+{streakCount - 7}</span>}
             </div>
           )}
           {type === "sr" && (
             <div className="flex items-center justify-center gap-6">
               <div className="text-center">
                 <p className="font-bold text-2xl" style={{ color: content.color }}>{srCount}</p>
-                <p className="text-white/30 text-[10px]">Từ đã ôn</p>
+                <p className="text-app-text-muted text-[10px]">Từ đã ôn</p>
               </div>
-              <div className="w-px h-8 bg-white/10"></div>
+              <div className="w-px h-8 bg-app-card/70"></div>
               <div className="text-center">
                 <p className="text-white font-bold text-2xl">SR</p>
-                <p className="text-white/30 text-[10px]">Spaced Rep.</p>
+                <p className="text-app-text-muted text-[10px]">Spaced Rep.</p>
               </div>
             </div>
           )}
 
           {/* Bottom tag */}
-          <div className="mt-4 pt-4 border-t border-white/5 flex items-center justify-center gap-2">
-            <span className="text-white/20 text-[10px]">hanquocoi.app</span>
+          <div className="mt-4 pt-4 border-t border-app-border flex items-center justify-center gap-2">
+            <span className="text-app-text-muted text-[10px]">hanquocoi.app</span>
             <span className="text-white/10">·</span>
-            <span className="text-white/20 text-[10px]">#HànQuốcƠi</span>
+            <span className="text-app-text-muted text-[10px]">#HànQuốcƠi</span>
           </div>
         </div>
 
         {/* Share buttons */}
-        <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-5">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-white font-bold text-sm">Chia sẻ kết quả</h3>
-            <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 text-white/40 hover:text-white/70 cursor-pointer">
+            <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white/70 cursor-pointer">
               <i className="ri-close-line text-sm"></i>
             </button>
           </div>
 
           {/* Share text preview */}
-          <div className="bg-white/3 border border-white/8 rounded-xl p-3 mb-4 max-h-20 overflow-y-auto">
-            <p className="text-white/40 text-xs leading-relaxed whitespace-pre-line">{content.text}</p>
+          <div className="bg-app-surface/50 border border-app-border rounded-xl p-3 mb-4 max-h-20 overflow-y-auto">
+            <p className="text-app-text-secondary text-xs leading-relaxed whitespace-pre-line">{content.text}</p>
           </div>
 
           {/* Platform buttons */}
@@ -255,7 +255,7 @@ export default function ShareResultCard({
             </button>
             <button
               onClick={() => handleShare("twitter")}
-              className={`flex items-center justify-center gap-2 py-2.5 rounded-xl border text-sm font-medium cursor-pointer transition-all whitespace-nowrap ${activeShare === "twitter" ? "bg-white/15 border-white/25" : "bg-white/5 border-white/10 hover:bg-white/10"} text-white/60`}
+              className={`flex items-center justify-center gap-2 py-2.5 rounded-xl border text-sm font-medium cursor-pointer transition-all whitespace-nowrap ${activeShare === "twitter" ? "bg-white/15 border-white/25" : "bg-app-card/50 border-app-border hover:bg-app-card/70"} text-white/60`}
             >
               <i className="ri-twitter-x-fill text-base"></i>
               Twitter/X
@@ -271,7 +271,7 @@ export default function ShareResultCard({
             ) : (
               <button
                 onClick={handleCopy}
-                className={`flex items-center justify-center gap-2 py-2.5 rounded-xl border text-sm font-medium cursor-pointer transition-all whitespace-nowrap ${copied ? "bg-[#34d399]/15 border-[#34d399]/30 text-[#34d399]" : "bg-white/5 border-white/10 text-white/60 hover:bg-white/10"}`}
+                className={`flex items-center justify-center gap-2 py-2.5 rounded-xl border text-sm font-medium cursor-pointer transition-all whitespace-nowrap ${copied ? "bg-[#34d399]/15 border-[#34d399]/30 text-[#34d399]" : "bg-app-card/50 border-app-border text-white/60 hover:bg-app-card/70"}`}
               >
                 <i className={`${copied ? "ri-check-line" : "ri-clipboard-line"} text-base`}></i>
                 {copied ? "Đã sao chép!" : "Sao chép"}
@@ -281,7 +281,7 @@ export default function ShareResultCard({
 
           <button
             onClick={handleCopy}
-            className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${copied ? "bg-[#34d399]/10 border-[#34d399]/20 text-[#34d399]" : "bg-white/3 border-white/8 text-white/40 hover:text-white/70"}`}
+            className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${copied ? "bg-[#34d399]/10 border-[#34d399]/20 text-[#34d399]" : "bg-app-surface/50 border-app-border text-app-text-secondary hover:text-white/70"}`}
           >
             <i className={`${copied ? "ri-check-line" : "ri-file-copy-line"} text-sm`}></i>
             {copied ? "Đã sao chép nội dung!" : "Sao chép nội dung chia sẻ"}
@@ -290,7 +290,7 @@ export default function ShareResultCard({
           {/* Share history toggle */}
           {shareHistory.length > 1 && (
             <button onClick={() => setShowHistory(v => !v)}
-              className="w-full flex items-center justify-center gap-2 py-2 text-white/25 hover:text-white/50 text-xs cursor-pointer transition-colors whitespace-nowrap mt-1">
+              className="w-full flex items-center justify-center gap-2 py-2 text-app-text-muted hover:text-white/50 text-xs cursor-pointer transition-colors whitespace-nowrap mt-1">
               <i className="ri-history-line text-xs"></i>
               {showHistory ? "Ẩn lịch sử" : `Lịch sử chia sẻ (${shareHistory.length - 1})`}
             </button>
@@ -299,16 +299,16 @@ export default function ShareResultCard({
           {showHistory && shareHistory.length > 1 && (
             <div className="mt-2 space-y-2 max-h-40 overflow-y-auto">
               {shareHistory.slice(1, 6).map(item => (
-                <div key={item.id} className="flex items-center gap-2 px-3 py-2 bg-white/3 rounded-lg border border-white/5">
-                  <div className="w-6 h-6 flex items-center justify-center rounded-md bg-white/5 flex-shrink-0">
-                    <i className={`text-[10px] ${item.type === "streak" ? "ri-fire-line text-[#fb923c]" : item.type === "sr" ? "ri-brain-line text-[#a78bfa]" : "ri-trophy-line text-[#e8c84a]"}`}></i>
+                <div key={item.id} className="flex items-center gap-2 px-3 py-2 bg-app-surface/50 rounded-lg border border-app-border">
+                  <div className="w-6 h-6 flex items-center justify-center rounded-md bg-app-card/50 flex-shrink-0">
+                    <i className={`text-[10px] ${item.type === "streak" ? "ri-fire-line text-[#fb923c]" : item.type === "sr" ? "ri-brain-line text-[#a78bfa]" : "ri-trophy-line text-app-accent-primary"}`}></i>
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-white/60 text-[10px] truncate">{item.title}</p>
-                    <p className="text-white/25 text-[9px]">{new Date(item.sharedAt).toLocaleDateString("vi-VN")}</p>
+                    <p className="text-app-text-muted text-[9px]">{new Date(item.sharedAt).toLocaleDateString("vi-VN")}</p>
                   </div>
                   <button onClick={async () => { await navigator.clipboard.writeText(item.text); }}
-                    className="text-white/25 hover:text-white/60 cursor-pointer transition-colors flex-shrink-0">
+                    className="text-app-text-muted hover:text-white/60 cursor-pointer transition-colors flex-shrink-0">
                     <i className="ri-file-copy-line text-xs"></i>
                   </button>
                 </div>

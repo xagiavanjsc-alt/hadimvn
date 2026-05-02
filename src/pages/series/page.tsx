@@ -155,13 +155,13 @@ function EmailDeliveryModal({ series, lessons, onClose }: {
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-      <div className="bg-[#0f1117] border border-white/10 rounded-2xl w-full max-w-lg">
-        <div className="flex items-center justify-between p-5 border-b border-white/5">
+      <div className="bg-app-bg border border-app-border rounded-2xl w-full max-w-lg">
+        <div className="flex items-center justify-between p-5 border-b border-app-border">
           <div className="flex items-center gap-2">
-            <i className="ri-mail-send-line text-[#e8c84a] text-sm"></i>
+            <i className="ri-mail-send-line text-app-accent-primary text-sm"></i>
             <p className="text-white font-semibold text-sm">Gửi ebook qua email</p>
           </div>
-          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center text-white/30 hover:text-white/70 cursor-pointer">
+          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-white/70 cursor-pointer">
             <i className="ri-close-line"></i>
           </button>
         </div>
@@ -169,21 +169,21 @@ function EmailDeliveryModal({ series, lessons, onClose }: {
         {sent ? (
           <div className="p-8 text-center">
             <div className="w-14 h-14 flex items-center justify-center bg-emerald-500/10 rounded-2xl mx-auto mb-4">
-              <i className="ri-checkbox-circle-line text-emerald-400 text-3xl"></i>
+              <i className="ri-checkbox-circle-line text-app-accent-success text-3xl"></i>
             </div>
             <p className="text-white font-bold text-base mb-2">Đã xử lý!</p>
-            <p className="text-white/40 text-sm leading-relaxed mb-5">
+            <p className="text-app-text-secondary text-sm leading-relaxed mb-5">
               {method === "mailto"
                 ? "Ứng dụng email đã mở. Đính kèm file HTML ebook vào email rồi gửi nhé!"
                 : "Đã copy nội dung email. Dán vào Gmail/Zalo để gửi cho người mua!"}
             </p>
-            <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-3 text-left mb-5">
-              <p className="text-[#e8c84a]/80 text-xs font-semibold mb-1">Nhớ đính kèm file ebook!</p>
-              <p className="text-white/40 text-xs leading-relaxed">
+            <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-3 text-left mb-5">
+              <p className="text-app-accent-primary/80 text-xs font-semibold mb-1">Nhớ đính kèm file ebook!</p>
+              <p className="text-app-text-secondary text-xs leading-relaxed">
                 Xuất file HTML từ nút "Watermark" hoặc "Xuất HTML" trong Landing Page, rồi đính kèm vào email.
               </p>
             </div>
-            <button onClick={onClose} className="w-full py-2.5 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] text-sm font-bold transition-colors cursor-pointer whitespace-nowrap">
+            <button onClick={onClose} className="w-full py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold transition-colors cursor-pointer whitespace-nowrap">
               Xong
             </button>
           </div>
@@ -191,9 +191,9 @@ function EmailDeliveryModal({ series, lessons, onClose }: {
           <>
             <div className="p-5 space-y-4">
               {/* Info */}
-              <div className="bg-white/3 border border-white/5 rounded-xl p-3 flex items-start gap-2">
-                <i className="ri-information-line text-white/30 text-sm mt-0.5 flex-shrink-0"></i>
-                <p className="text-white/40 text-xs leading-relaxed">
+              <div className="bg-app-surface/50 border border-app-border rounded-xl p-3 flex items-start gap-2">
+                <i className="ri-information-line text-app-text-muted text-sm mt-0.5 flex-shrink-0"></i>
+                <p className="text-app-text-secondary text-xs leading-relaxed">
                   Tool này tạo nội dung email sẵn sàng gửi. Bạn cần đính kèm file HTML ebook thủ công vào email trước khi gửi.
                 </p>
               </div>
@@ -201,53 +201,53 @@ function EmailDeliveryModal({ series, lessons, onClose }: {
               {/* Buyer info */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-white/40 text-xs font-medium block mb-1.5">Email người mua *</label>
+                  <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Email người mua *</label>
                   <input
                     type="email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     placeholder="nguyen@gmail.com"
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40 transition-colors"
+                    className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="text-white/40 text-xs font-medium block mb-1.5">Tên người mua</label>
+                  <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Tên người mua</label>
                   <input
                     type="text"
                     value={buyerName}
                     onChange={e => setBuyerName(e.target.value)}
                     placeholder="Nguyễn Văn A"
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40 transition-colors"
+                    className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
                   />
                 </div>
               </div>
 
               {/* Method */}
               <div>
-                <label className="text-white/40 text-xs font-medium block mb-2">Phương thức gửi</label>
+                <label className="text-app-text-secondary text-xs font-medium block mb-2">Phương thức gửi</label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => setMethod("mailto")}
                     className={`flex items-center gap-2 p-3 rounded-xl border transition-all cursor-pointer text-left ${
-                      method === "mailto" ? "border-[#e8c84a]/40 bg-[#e8c84a]/5" : "border-white/8 bg-white/3 hover:border-white/15"
+                      method === "mailto" ? "border-app-accent-primary/40 bg-app-accent-primary/5" : "border-app-border bg-app-surface/50 hover:border-white/15"
                     }`}
                   >
-                    <i className={`ri-mail-open-line text-sm ${method === "mailto" ? "text-[#e8c84a]" : "text-white/30"}`}></i>
+                    <i className={`ri-mail-open-line text-sm ${method === "mailto" ? "text-app-accent-primary" : "text-app-text-muted"}`}></i>
                     <div>
-                      <p className={`text-xs font-semibold ${method === "mailto" ? "text-[#e8c84a]" : "text-white/50"}`}>Mở ứng dụng email</p>
-                      <p className="text-white/25 text-[10px]">Gmail, Outlook...</p>
+                      <p className={`text-xs font-semibold ${method === "mailto" ? "text-app-accent-primary" : "text-white/50"}`}>Mở ứng dụng email</p>
+                      <p className="text-app-text-muted text-[10px]">Gmail, Outlook...</p>
                     </div>
                   </button>
                   <button
                     onClick={() => setMethod("copy")}
                     className={`flex items-center gap-2 p-3 rounded-xl border transition-all cursor-pointer text-left ${
-                      method === "copy" ? "border-[#e8c84a]/40 bg-[#e8c84a]/5" : "border-white/8 bg-white/3 hover:border-white/15"
+                      method === "copy" ? "border-app-accent-primary/40 bg-app-accent-primary/5" : "border-app-border bg-app-surface/50 hover:border-white/15"
                     }`}
                   >
-                    <i className={`ri-clipboard-line text-sm ${method === "copy" ? "text-[#e8c84a]" : "text-white/30"}`}></i>
+                    <i className={`ri-clipboard-line text-sm ${method === "copy" ? "text-app-accent-primary" : "text-app-text-muted"}`}></i>
                     <div>
-                      <p className={`text-xs font-semibold ${method === "copy" ? "text-[#e8c84a]" : "text-white/50"}`}>Copy nội dung</p>
-                      <p className="text-white/25 text-[10px]">Dán vào Zalo/Gmail</p>
+                      <p className={`text-xs font-semibold ${method === "copy" ? "text-app-accent-primary" : "text-white/50"}`}>Copy nội dung</p>
+                      <p className="text-app-text-muted text-[10px]">Dán vào Zalo/Gmail</p>
                     </div>
                   </button>
                 </div>
@@ -255,19 +255,19 @@ function EmailDeliveryModal({ series, lessons, onClose }: {
 
               {/* Preview */}
               <div>
-                <label className="text-white/40 text-xs font-medium block mb-1.5">Xem trước nội dung email</label>
-                <div className="bg-white/3 border border-white/5 rounded-xl p-3 max-h-32 overflow-y-auto">
-                  <p className="text-white/40 text-[10px] leading-relaxed whitespace-pre-wrap">{buildEmailBody()}</p>
+                <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Xem trước nội dung email</label>
+                <div className="bg-app-surface/50 border border-app-border rounded-xl p-3 max-h-32 overflow-y-auto">
+                  <p className="text-app-text-secondary text-[10px] leading-relaxed whitespace-pre-wrap">{buildEmailBody()}</p>
                 </div>
               </div>
             </div>
 
-            <div className="flex gap-3 p-5 border-t border-white/5">
-              <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm font-medium hover:bg-white/5 transition-colors cursor-pointer whitespace-nowrap">Hủy</button>
+            <div className="flex gap-3 p-5 border-t border-app-border">
+              <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">Hủy</button>
               <button
                 onClick={method === "mailto" ? handleSendMailto : handleCopyContent}
                 disabled={!email.trim()}
-                className="flex-1 py-2.5 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-[#0f1117] text-sm font-bold transition-colors cursor-pointer whitespace-nowrap flex items-center justify-center gap-2"
+                className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg text-sm font-bold transition-colors cursor-pointer whitespace-nowrap flex items-center justify-center gap-2"
               >
                 <i className={method === "mailto" ? "ri-mail-send-line" : "ri-clipboard-line"}></i>
                 {method === "mailto" ? "Mở email" : "Copy nội dung"}
@@ -286,50 +286,50 @@ function WatermarkModal({ onClose, onApply }: { onClose: () => void; onApply: (n
   const [note, setNote] = useState("");
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-      <div className="bg-[#0f1117] border border-white/10 rounded-2xl w-full max-w-md">
-        <div className="flex items-center justify-between p-5 border-b border-white/5">
+      <div className="bg-app-bg border border-app-border rounded-2xl w-full max-w-md">
+        <div className="flex items-center justify-between p-5 border-b border-app-border">
           <div className="flex items-center gap-2">
-            <i className="ri-shield-keyhole-line text-[#e8c84a] text-sm"></i>
+            <i className="ri-shield-keyhole-line text-app-accent-primary text-sm"></i>
             <p className="text-white font-semibold text-sm">Chèn watermark người mua</p>
           </div>
-          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center text-white/30 hover:text-white/70 cursor-pointer">
+          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-white/70 cursor-pointer">
             <i className="ri-close-line"></i>
           </button>
         </div>
         <div className="p-5 space-y-4">
-          <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-3 flex items-start gap-2">
-            <i className="ri-information-line text-[#e8c84a] text-sm mt-0.5 flex-shrink-0"></i>
+          <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-3 flex items-start gap-2">
+            <i className="ri-information-line text-app-accent-primary text-sm mt-0.5 flex-shrink-0"></i>
             <p className="text-white/50 text-xs leading-relaxed">
               Tên người mua sẽ được chèn vào footer mỗi trang ebook HTML. Giúp truy vết nếu ebook bị chia sẻ trái phép.
             </p>
           </div>
           <div>
-            <label className="text-white/40 text-xs font-medium block mb-1.5">Tên người mua *</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Tên người mua *</label>
             <input
               type="text"
               value={buyerName}
               onChange={e => setBuyerName(e.target.value)}
               placeholder="Ví dụ: Nguyễn Văn A"
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40 transition-colors"
+              className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
             />
           </div>
           <div>
-            <label className="text-white/40 text-xs font-medium block mb-1.5">Ghi chú thêm (tùy chọn)</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Ghi chú thêm (tùy chọn)</label>
             <input
               type="text"
               value={note}
               onChange={e => setNote(e.target.value)}
               placeholder="Ví dụ: Mua ngày 14/04/2026 · Zalo: 0901..."
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40 transition-colors"
+              className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
             />
           </div>
         </div>
-        <div className="flex gap-3 p-5 border-t border-white/5">
-          <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm font-medium hover:bg-white/5 transition-colors cursor-pointer whitespace-nowrap">Hủy</button>
+        <div className="flex gap-3 p-5 border-t border-app-border">
+          <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">Hủy</button>
           <button
             onClick={() => { if (buyerName.trim()) onApply(buyerName.trim(), note.trim()); }}
             disabled={!buyerName.trim()}
-            className="flex-1 py-2.5 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-[#0f1117] text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
+            className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
           >
             Xuất ebook có watermark
           </button>
@@ -372,30 +372,30 @@ function LandingPageModal({ series, lessons, onClose }: {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-      <div className="bg-[#0f1117] border border-white/10 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+      <div className="bg-app-bg border border-app-border rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
         {/* Toolbar */}
-        <div className="flex items-center justify-between p-4 border-b border-white/5">
+        <div className="flex items-center justify-between p-4 border-b border-app-border">
           <div className="flex items-center gap-2">
-            <i className="ri-store-2-line text-[#e8c84a] text-sm"></i>
+            <i className="ri-store-2-line text-app-accent-primary text-sm"></i>
             <p className="text-white font-semibold text-sm">Landing Page Preview</p>
-            <span className="text-white/30 text-xs">— {series.name}</span>
+            <span className="text-app-text-muted text-xs">— {series.name}</span>
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={handleCopyLink}
-              className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 text-white/50 text-xs font-medium px-3 py-1.5 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
+              className="flex items-center gap-1.5 bg-app-card/50 hover:bg-app-card/70 text-white/50 text-xs font-medium px-3 py-1.5 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-clipboard-line text-xs"></i>
               Copy text
             </button>
             <button
               onClick={handleExportLandingHTML}
-              className="flex items-center gap-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 text-xs font-medium px-3 py-1.5 rounded-lg border border-emerald-500/20 transition-colors cursor-pointer whitespace-nowrap"
+              className="flex items-center gap-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-app-accent-success text-xs font-medium px-3 py-1.5 rounded-lg border border-emerald-500/20 transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-html5-line text-xs"></i>
               Xuất HTML
             </button>
-            <button onClick={onClose} className="w-7 h-7 flex items-center justify-center text-white/30 hover:text-white/70 cursor-pointer transition-colors">
+            <button onClick={onClose} className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-white/70 cursor-pointer transition-colors">
               <i className="ri-close-line"></i>
             </button>
           </div>
@@ -429,7 +429,7 @@ function LandingPageModal({ series, lessons, onClose }: {
               {series.price && (
                 <div className="inline-flex items-center gap-3 mb-6">
                   <span className="text-2xl font-bold" style={{ color: accent }}>{series.price}</span>
-                  <span className="text-white/30 text-sm line-through">Giá gốc</span>
+                  <span className="text-app-text-muted text-sm line-through">Giá gốc</span>
                 </div>
               )}
               <div className="flex items-center justify-center gap-3">
@@ -483,7 +483,7 @@ function LandingPageModal({ series, lessons, onClose }: {
             {/* CTA bottom */}
             <div className="text-center p-6 rounded-2xl" style={{ backgroundColor: bg }}>
               <p className="font-bold text-lg mb-1" style={{ color: accent }}>Sẵn sàng học tiếng Hàn?</p>
-              <p className="text-white/40 text-sm mb-4">Nhận ebook ngay hôm nay và bắt đầu hành trình của bạn</p>
+              <p className="text-app-text-secondary text-sm mb-4">Nhận ebook ngay hôm nay và bắt đầu hành trình của bạn</p>
               <button className="font-bold text-sm px-8 py-3 rounded-xl cursor-pointer whitespace-nowrap" style={{ backgroundColor: accent, color: bg }}>
                 {series.price ? `Mua ngay — ${series.price}` : "Liên hệ để nhận ebook"}
               </button>
@@ -509,7 +509,7 @@ export interface EbookSeries {
 }
 
 const ACCENT_COLORS = [
-  "#e8c84a", "#34d399", "#fb923c", "#f472b6", "#a78bfa", "#38bdf8", "#f87171",
+  "app-accent-primary", "#34d399", "#fb923c", "#f472b6", "#a78bfa", "#38bdf8", "#f87171",
 ];
 const COVER_COLORS = [
   "#0f1117", "#0d1b2a", "#1a1208", "#13111c", "#0a1628", "#1a0a0a",
@@ -541,7 +541,7 @@ function SeriesCard({
     .filter(Boolean) as ApprovedLesson[];
 
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-2xl overflow-hidden hover:border-white/10 transition-all group">
+    <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden hover:border-app-border transition-all group">
       {/* Cover preview */}
       <div
         className="h-28 relative flex flex-col justify-between p-4"
@@ -561,7 +561,7 @@ function SeriesCard({
           <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
             <button
               onClick={() => onEdit(series)}
-              className="w-6 h-6 flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-lg transition-colors cursor-pointer"
+              className="w-6 h-6 flex items-center justify-center bg-app-card/70 hover:bg-app-border/200 rounded-lg transition-colors cursor-pointer"
             >
               <i className="ri-edit-line text-white/60 text-[10px]"></i>
             </button>
@@ -578,7 +578,7 @@ function SeriesCard({
             {series.name}
           </h3>
           {series.price && (
-            <p className="text-white/40 text-[10px] mt-0.5">{series.price}</p>
+            <p className="text-app-text-secondary text-[10px] mt-0.5">{series.price}</p>
           )}
         </div>
       </div>
@@ -586,7 +586,7 @@ function SeriesCard({
       {/* Info */}
       <div className="p-4">
         {series.description && (
-          <p className="text-white/40 text-xs leading-relaxed mb-3 line-clamp-2">{series.description}</p>
+          <p className="text-app-text-secondary text-xs leading-relaxed mb-3 line-clamp-2">{series.description}</p>
         )}
 
         {/* Tags */}
@@ -615,24 +615,24 @@ function SeriesCard({
             </div>
           ))}
           {seriesLessons.length > 3 && (
-            <p className="text-white/25 text-[9px] pl-6">+{seriesLessons.length - 3} bài nữa</p>
+            <p className="text-app-text-muted text-[9px] pl-6">+{seriesLessons.length - 3} bài nữa</p>
           )}
         </div>
 
-        <div className="flex items-center gap-1.5 pt-3 border-t border-white/5">
-          <button onClick={() => onPreview(series)} className="flex items-center justify-center bg-white/5 hover:bg-white/10 text-white/40 text-xs px-2 py-2 rounded-lg transition-colors cursor-pointer" title="Xem thử công khai">
+        <div className="flex items-center gap-1.5 pt-3 border-t border-app-border">
+          <button onClick={() => onPreview(series)} className="flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary text-xs px-2 py-2 rounded-lg transition-colors cursor-pointer" title="Xem thử công khai">
             <i className="ri-eye-line text-xs"></i>
           </button>
-          <button onClick={() => onLanding(series)} className="flex items-center justify-center bg-white/5 hover:bg-white/10 text-white/40 text-xs px-2 py-2 rounded-lg transition-colors cursor-pointer" title="Landing Page">
+          <button onClick={() => onLanding(series)} className="flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary text-xs px-2 py-2 rounded-lg transition-colors cursor-pointer" title="Landing Page">
             <i className="ri-store-2-line text-xs"></i>
           </button>
-          <button onClick={() => onEmail(series)} className="flex items-center justify-center bg-white/5 hover:bg-white/10 text-white/40 text-xs px-2 py-2 rounded-lg transition-colors cursor-pointer" title="Gửi qua email">
+          <button onClick={() => onEmail(series)} className="flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary text-xs px-2 py-2 rounded-lg transition-colors cursor-pointer" title="Gửi qua email">
             <i className="ri-mail-send-line text-xs"></i>
           </button>
-          <button onClick={() => onWatermark(series)} className="flex items-center justify-center bg-white/5 hover:bg-white/10 text-white/40 text-xs px-2 py-2 rounded-lg transition-colors cursor-pointer" title="Xuất có watermark">
+          <button onClick={() => onWatermark(series)} className="flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary text-xs px-2 py-2 rounded-lg transition-colors cursor-pointer" title="Xuất có watermark">
             <i className="ri-shield-keyhole-line text-xs"></i>
           </button>
-          <button onClick={() => onExport(series)} className="flex-1 flex items-center justify-center gap-1.5 bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 text-[#e8c84a] text-xs font-medium py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap">
+          <button onClick={() => onExport(series)} className="flex-1 flex items-center justify-center gap-1.5 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-xs font-medium py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap">
             <i className="ri-file-pdf-2-line text-xs"></i>
             Xuất PDF
           </button>
@@ -655,7 +655,7 @@ function SeriesForm({ initial, lessons, onSave, onCancel }: SeriesFormProps) {
   const [price, setPrice] = useState(initial?.price ?? "");
   const [tags, setTags] = useState(initial?.tags?.join(", ") ?? "");
   const [coverColor, setCoverColor] = useState(initial?.coverColor ?? "#0f1117");
-  const [coverAccent, setCoverAccent] = useState(initial?.coverAccent ?? "#e8c84a");
+  const [coverAccent, setCoverAccent] = useState(initial?.coverAccent ?? "app-accent-primary");
   const [template, setTemplate] = useState<EbookTemplate>(initial?.template ?? "classic");
   const [selectedRanks, setSelectedRanks] = useState<number[]>(initial?.lessonRanks ?? []);
 
@@ -691,14 +691,14 @@ function SeriesForm({ initial, lessons, onSave, onCancel }: SeriesFormProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-      <div className="bg-[#0f1117] border border-white/10 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between p-5 border-b border-white/5">
+      <div className="bg-app-bg border border-app-border rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between p-5 border-b border-app-border">
           <h2 className="text-white font-bold text-base">
             {initial ? "Chỉnh sửa series" : "Tạo series mới"}
           </h2>
           <button
             onClick={onCancel}
-            className="w-8 h-8 flex items-center justify-center text-white/40 hover:text-white/70 cursor-pointer transition-colors"
+            className="w-8 h-8 flex items-center justify-center text-app-text-secondary hover:text-white/70 cursor-pointer transition-colors"
           >
             <i className="ri-close-line text-lg"></i>
           </button>
@@ -707,56 +707,56 @@ function SeriesForm({ initial, lessons, onSave, onCancel }: SeriesFormProps) {
         <div className="p-5 space-y-4">
           {/* Name */}
           <div>
-            <label className="text-white/40 text-xs font-medium block mb-1.5">Tên series *</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Tên series *</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Ví dụ: K-pop Beginner Vol.1"
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40 transition-colors"
+              className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
             />
           </div>
 
           {/* Description */}
           <div>
-            <label className="text-white/40 text-xs font-medium block mb-1.5">Mô tả</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Mô tả</label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Mô tả ngắn về series này..."
               rows={2}
               maxLength={300}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40 transition-colors resize-none"
+              className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors resize-none"
             />
           </div>
 
           {/* Price + Tags */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-white/40 text-xs font-medium block mb-1.5">Giá bán (tùy chọn)</label>
+              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Giá bán (tùy chọn)</label>
               <input
                 type="text"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 placeholder="Ví dụ: 49.000đ"
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40 transition-colors"
+                className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
               />
             </div>
             <div>
-              <label className="text-white/40 text-xs font-medium block mb-1.5">Tags (cách nhau bởi dấu phẩy)</label>
+              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Tags (cách nhau bởi dấu phẩy)</label>
               <input
                 type="text"
                 value={tags}
                 onChange={(e) => setTags(e.target.value)}
                 placeholder="K-pop, Sơ cấp, BTS"
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40 transition-colors"
+                className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
               />
             </div>
           </div>
 
           {/* Template */}
           <div>
-            <label className="text-white/40 text-xs font-medium block mb-2">Template layout</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-2">Template layout</label>
             <div className="flex gap-2">
               {templateOptions.map((t) => (
                 <button
@@ -764,8 +764,8 @@ function SeriesForm({ initial, lessons, onSave, onCancel }: SeriesFormProps) {
                   onClick={() => setTemplate(t.id)}
                   className={`flex-1 flex flex-col items-center gap-1 py-2.5 rounded-xl border transition-all cursor-pointer ${
                     template === t.id
-                      ? "border-[#e8c84a]/50 bg-[#e8c84a]/8 text-[#e8c84a]"
-                      : "border-white/8 bg-white/3 text-white/40 hover:border-white/15"
+                      ? "border-app-accent-primary/50 bg-app-accent-primary/8 text-app-accent-primary"
+                      : "border-app-border bg-app-surface/50 text-app-text-secondary hover:border-white/15"
                   }`}
                 >
                   <i className={`${t.icon} text-sm`}></i>
@@ -778,14 +778,14 @@ function SeriesForm({ initial, lessons, onSave, onCancel }: SeriesFormProps) {
           {/* Colors */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-white/40 text-xs font-medium block mb-2">Màu nền bìa</label>
+              <label className="text-app-text-secondary text-xs font-medium block mb-2">Màu nền bìa</label>
               <div className="flex gap-2 flex-wrap">
                 {COVER_COLORS.map((c) => (
                   <button
                     key={c}
                     onClick={() => setCoverColor(c)}
                     className={`w-7 h-7 rounded-lg border-2 transition-all cursor-pointer ${
-                      coverColor === c ? "border-white/60 scale-110" : "border-white/10 hover:border-white/30"
+                      coverColor === c ? "border-white/60 scale-110" : "border-app-border hover:border-white/30"
                     }`}
                     style={{ backgroundColor: c }}
                   />
@@ -793,14 +793,14 @@ function SeriesForm({ initial, lessons, onSave, onCancel }: SeriesFormProps) {
               </div>
             </div>
             <div>
-              <label className="text-white/40 text-xs font-medium block mb-2">Màu nhấn</label>
+              <label className="text-app-text-secondary text-xs font-medium block mb-2">Màu nhấn</label>
               <div className="flex gap-2 flex-wrap">
                 {ACCENT_COLORS.map((c) => (
                   <button
                     key={c}
                     onClick={() => setCoverAccent(c)}
                     className={`w-7 h-7 rounded-lg border-2 transition-all cursor-pointer ${
-                      coverAccent === c ? "border-white/60 scale-110" : "border-white/10 hover:border-white/30"
+                      coverAccent === c ? "border-white/60 scale-110" : "border-app-border hover:border-white/30"
                     }`}
                     style={{ backgroundColor: c }}
                   />
@@ -812,27 +812,27 @@ function SeriesForm({ initial, lessons, onSave, onCancel }: SeriesFormProps) {
           {/* Lesson picker */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-white/40 text-xs font-medium">
+              <label className="text-app-text-secondary text-xs font-medium">
                 Chọn bài học ({selectedRanks.length} đã chọn)
               </label>
               <div className="flex gap-2">
                 <button
                   onClick={() => setSelectedRanks(lessons.map((l) => l.song.rank))}
-                  className="text-[10px] text-[#e8c84a]/70 hover:text-[#e8c84a] cursor-pointer transition-colors whitespace-nowrap"
+                  className="text-[10px] text-app-accent-primary/70 hover:text-app-accent-primary cursor-pointer transition-colors whitespace-nowrap"
                 >
                   Chọn tất cả
                 </button>
                 <button
                   onClick={() => setSelectedRanks([])}
-                  className="text-[10px] text-white/30 hover:text-white/60 cursor-pointer transition-colors whitespace-nowrap"
+                  className="text-[10px] text-app-text-muted hover:text-white/60 cursor-pointer transition-colors whitespace-nowrap"
                 >
                   Bỏ chọn
                 </button>
               </div>
             </div>
-            <div className="max-h-48 overflow-y-auto space-y-1 bg-white/3 rounded-xl p-2 border border-white/5">
+            <div className="max-h-48 overflow-y-auto space-y-1 bg-app-surface/50 rounded-xl p-2 border border-app-border">
               {lessons.length === 0 ? (
-                <p className="text-white/25 text-xs text-center py-4">Chưa có bài học nào được duyệt</p>
+                <p className="text-app-text-muted text-xs text-center py-4">Chưa có bài học nào được duyệt</p>
               ) : (
                 lessons.map((lesson) => {
                   const isSelected = selectedRanks.includes(lesson.song.rank);
@@ -842,23 +842,23 @@ function SeriesForm({ initial, lessons, onSave, onCancel }: SeriesFormProps) {
                       onClick={() => toggleLesson(lesson.song.rank)}
                       className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg border transition-all cursor-pointer text-left ${
                         isSelected
-                          ? "bg-[#e8c84a]/8 border-[#e8c84a]/20"
-                          : "bg-transparent border-transparent hover:bg-white/5"
+                          ? "bg-app-accent-primary/8 border-app-accent-primary/20"
+                          : "bg-transparent border-transparent hover:bg-app-card/50"
                       }`}
                     >
                       <div
                         className={`w-4 h-4 flex items-center justify-center rounded border flex-shrink-0 transition-all ${
-                          isSelected ? "bg-[#e8c84a] border-[#e8c84a]" : "border-white/20"
+                          isSelected ? "bg-app-accent-primary border-app-accent-primary" : "border-white/20"
                         }`}
                       >
-                        {isSelected && <i className="ri-check-line text-[#0f1117] text-[10px]"></i>}
+                        {isSelected && <i className="ri-check-line text-app-bg text-[10px]"></i>}
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-white/70 text-xs truncate">{lesson.song.title}</p>
-                        <p className="text-white/30 text-[10px]">{lesson.song.artist}</p>
+                        <p className="text-app-text-muted text-[10px]">{lesson.song.artist}</p>
                       </div>
                       {(lesson.stars ?? 0) >= 4 && (
-                        <i className="ri-star-fill text-[#e8c84a] text-[10px] flex-shrink-0"></i>
+                        <i className="ri-star-fill text-app-accent-primary text-[10px] flex-shrink-0"></i>
                       )}
                     </button>
                   );
@@ -868,17 +868,17 @@ function SeriesForm({ initial, lessons, onSave, onCancel }: SeriesFormProps) {
           </div>
         </div>
 
-        <div className="flex items-center gap-3 p-5 border-t border-white/5">
+        <div className="flex items-center gap-3 p-5 border-t border-app-border">
           <button
             onClick={onCancel}
-            className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm font-medium hover:bg-white/5 transition-colors cursor-pointer whitespace-nowrap"
+            className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"
           >
             Hủy
           </button>
           <button
             onClick={handleSave}
             disabled={!name.trim()}
-            className="flex-1 py-2.5 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-[#0f1117] text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
+            className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
           >
             {initial ? "Lưu thay đổi" : "Tạo series"}
           </button>
@@ -895,7 +895,7 @@ export default function SeriesPage() {
     subtitle: "Truyện Chêm & Từ Vựng Thực Tế",
     author: "Hà Dím",
     coverColor: "#0f1117",
-    coverAccent: "#e8c84a",
+    coverAccent: "app-accent-primary",
     description: "",
     fontFamily: "sans",
   });
@@ -967,7 +967,7 @@ export default function SeriesPage() {
       actions={
         <button
           onClick={() => { setEditingSeries(null); setShowForm(true); }}
-          className="flex items-center gap-2 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
+          className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-add-line"></i>
           Tạo series mới
@@ -988,11 +988,11 @@ export default function SeriesPage() {
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         {[
-          { label: "Tổng series", value: seriesList.length, icon: "ri-stack-line", color: "#e8c84a" },
+          { label: "Tổng series", value: seriesList.length, icon: "ri-stack-line", color: "app-accent-primary" },
           { label: "Tổng bài học", value: totalLessons, icon: "ri-book-open-line", color: "#34d399" },
           { label: "Bài đã duyệt", value: approvedLessons.length, icon: "ri-checkbox-circle-line", color: "#fb923c" },
         ].map((stat) => (
-          <div key={stat.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-4 flex items-center gap-3">
+          <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div
               className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0"
               style={{ backgroundColor: `${stat.color}15` }}
@@ -1001,7 +1001,7 @@ export default function SeriesPage() {
             </div>
             <div>
               <p className="text-white font-bold text-xl leading-none">{stat.value}</p>
-              <p className="text-white/40 text-xs mt-0.5">{stat.label}</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">{stat.label}</p>
             </div>
           </div>
         ))}
@@ -1010,14 +1010,14 @@ export default function SeriesPage() {
       {/* Series grid */}
       {seriesList.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-24 text-center">
-          <div className="w-16 h-16 flex items-center justify-center bg-white/5 rounded-2xl mb-5">
-            <i className="ri-stack-line text-white/20 text-3xl"></i>
+          <div className="w-16 h-16 flex items-center justify-center bg-app-card/50 rounded-2xl mb-5">
+            <i className="ri-stack-line text-app-text-muted text-3xl"></i>
           </div>
-          <p className="text-white/40 text-sm font-medium mb-1">Chưa có series nào</p>
-          <p className="text-white/20 text-xs mb-6">Tạo series để gom bài học thành gói ebook có thể bán</p>
+          <p className="text-app-text-secondary text-sm font-medium mb-1">Chưa có series nào</p>
+          <p className="text-app-text-muted text-xs mb-6">Tạo series để gom bài học thành gói ebook có thể bán</p>
           <button
             onClick={() => { setEditingSeries(null); setShowForm(true); }}
-            className="flex items-center gap-2 bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 text-[#e8c84a] text-sm font-medium px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-sm font-medium px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-add-line"></i>
             Tạo series đầu tiên
@@ -1042,25 +1042,25 @@ export default function SeriesPage() {
           {/* Add new card */}
           <button
             onClick={() => { setEditingSeries(null); setShowForm(true); }}
-            className="bg-white/2 border border-dashed border-white/10 rounded-2xl flex flex-col items-center justify-center gap-3 p-8 hover:border-white/20 hover:bg-white/4 transition-all cursor-pointer min-h-[200px]"
+            className="bg-white/2 border border-dashed border-app-border rounded-2xl flex flex-col items-center justify-center gap-3 p-8 hover:border-white/20 hover:bg-white/4 transition-all cursor-pointer min-h-[200px]"
           >
-            <div className="w-10 h-10 flex items-center justify-center bg-white/5 rounded-xl">
-              <i className="ri-add-line text-white/30 text-xl"></i>
+            <div className="w-10 h-10 flex items-center justify-center bg-app-card/50 rounded-xl">
+              <i className="ri-add-line text-app-text-muted text-xl"></i>
             </div>
-            <p className="text-white/30 text-sm font-medium">Tạo series mới</p>
+            <p className="text-app-text-muted text-sm font-medium">Tạo series mới</p>
           </button>
         </div>
       )}
 
       {/* Tips */}
       {seriesList.length > 0 && (
-        <div className="mt-6 bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4 flex items-start gap-3">
+        <div className="mt-6 bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4 flex items-start gap-3">
           <div className="w-5 h-5 flex items-center justify-center mt-0.5 flex-shrink-0">
-            <i className="ri-lightbulb-line text-[#e8c84a] text-sm"></i>
+            <i className="ri-lightbulb-line text-app-accent-primary text-sm"></i>
           </div>
           <div>
-            <p className="text-[#e8c84a]/80 text-xs font-semibold mb-1">Mẹo bán ebook</p>
-            <p className="text-white/40 text-xs leading-relaxed">
+            <p className="text-app-accent-primary/80 text-xs font-semibold mb-1">Mẹo bán ebook</p>
+            <p className="text-app-text-secondary text-xs leading-relaxed">
               Tạo nhiều series theo chủ đề (Sơ cấp, Trung cấp, Theo nghệ sĩ...) để dễ bán theo gói.
               Xuất PDF từng series rồi bán qua Zalo, Facebook hoặc Gumroad.
             </p>

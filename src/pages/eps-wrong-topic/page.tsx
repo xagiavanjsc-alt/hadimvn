@@ -92,17 +92,17 @@ function FlashcardReview({
   if (idx >= cards.length) {
     return (
       <div className="text-center py-16 max-w-md mx-auto">
-        <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 bg-[#e8c84a]/10 rounded-full">
-          <i className="ri-trophy-line text-[#e8c84a] text-3xl"></i>
+        <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 bg-app-accent-primary/10 rounded-full">
+          <i className="ri-trophy-line text-app-accent-primary text-3xl"></i>
         </div>
         <h3 className="text-white text-xl font-bold mb-2">Hoàn thành!</h3>
         <p className="text-white/50 text-sm mb-6">
-          Đã nhớ: <span className="text-emerald-400 font-bold">{masteredSet.size}</span> từ &nbsp;|&nbsp;
+          Đã nhớ: <span className="text-app-accent-success font-bold">{masteredSet.size}</span> từ &nbsp;|&nbsp;
           Vẫn sai: <span className="text-red-400 font-bold">{stillWrong.size}</span> từ
         </p>
         <button
           onClick={() => { setIdx(0); setFlipped(false); setMasteredSet(new Set()); setStillWrong(new Set()); }}
-          className="px-6 py-3 bg-[#e8c84a] text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
+          className="px-6 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
         >
           Ôn lại từ đầu
         </button>
@@ -114,13 +114,13 @@ function FlashcardReview({
     <div className="max-w-lg mx-auto space-y-6">
       <div className="flex items-center gap-3">
         <div className="flex-1 h-2 bg-white/8 rounded-full overflow-hidden">
-          <div className="h-full bg-[#e8c84a] rounded-full transition-all duration-300" style={{ width: `${progress}%` }} />
+          <div className="h-full bg-app-accent-primary rounded-full transition-all duration-300" style={{ width: `${progress}%` }} />
         </div>
-        <span className="text-white/40 text-xs whitespace-nowrap">{idx + 1}/{cards.length}</span>
+        <span className="text-app-text-secondary text-xs whitespace-nowrap">{idx + 1}/{cards.length}</span>
       </div>
 
       <div className="flex gap-4 justify-center text-sm">
-        <span className="text-emerald-400">✓ {masteredSet.size} đã nhớ</span>
+        <span className="text-app-accent-success">✓ {masteredSet.size} đã nhớ</span>
         <span className="text-red-400">✗ {stillWrong.size} vẫn sai</span>
       </div>
 
@@ -132,21 +132,21 @@ function FlashcardReview({
 
       <div
         onClick={() => setFlipped(!flipped)}
-        className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center cursor-pointer hover:border-white/20 transition-all min-h-[220px] flex flex-col items-center justify-center"
+        className="bg-app-card/50 border border-app-border rounded-2xl p-8 text-center cursor-pointer hover:border-white/20 transition-all min-h-[220px] flex flex-col items-center justify-center"
       >
         {!flipped ? (
           <>
             <p className="text-white text-4xl font-bold mb-3">{card.korean}</p>
             <p className="text-white/35 text-sm">{card.pronunciation}</p>
-            <p className="text-white/25 text-xs mt-4">Nhấn để xem nghĩa</p>
+            <p className="text-app-text-muted text-xs mt-4">Nhấn để xem nghĩa</p>
           </>
         ) : (
           <>
-            <p className="text-[#e8c84a] text-2xl font-bold mb-2">{card.vietnamese}</p>
+            <p className="text-app-accent-primary text-2xl font-bold mb-2">{card.vietnamese}</p>
             {card.example && (
-              <div className="mt-3 text-left w-full border-t border-white/10 pt-3">
+              <div className="mt-3 text-left w-full border-t border-app-border pt-3">
                 <p className="text-white/50 text-sm italic">{card.example}</p>
-                <p className="text-white/30 text-xs mt-1">{card.exampleVi}</p>
+                <p className="text-app-text-muted text-xs mt-1">{card.exampleVi}</p>
               </div>
             )}
           </>
@@ -162,7 +162,7 @@ function FlashcardReview({
         </button>
         <button
           onClick={handleMastered}
-          className="flex-1 py-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl font-medium cursor-pointer whitespace-nowrap hover:bg-emerald-500/20 transition-all"
+          className="flex-1 py-3 bg-emerald-500/10 border border-emerald-500/20 text-app-accent-success rounded-xl font-medium cursor-pointer whitespace-nowrap hover:bg-emerald-500/20 transition-all"
         >
           <i className="ri-check-line mr-1"></i> Đã nhớ rồi!
         </button>
@@ -208,11 +208,11 @@ function QuizReview({ items, allItems }: { items: WrongItem[]; allItems: WrongIt
     const pct = Math.round((score / questions.length) * 100);
     return (
       <div className="text-center py-16 max-w-md mx-auto">
-        <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-[#e8c84a]/10 rounded-full">
-          <i className="ri-trophy-line text-[#e8c84a] text-4xl"></i>
+        <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-app-accent-primary/10 rounded-full">
+          <i className="ri-trophy-line text-app-accent-primary text-4xl"></i>
         </div>
         <h3 className="text-white text-2xl font-bold mb-2">Kết quả</h3>
-        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171" }}>
+        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
           {pct}%
         </p>
         <p className="text-white/50 text-sm mb-6">{score}/{questions.length} câu đúng</p>
@@ -228,7 +228,7 @@ function QuizReview({ items, allItems }: { items: WrongItem[]; allItems: WrongIt
         )}
         <button
           onClick={() => { setCurrent(0); setSelected(null); setScore(0); setFinished(false); setWrongAnswers([]); }}
-          className="px-6 py-3 bg-[#e8c84a] text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
+          className="px-6 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
         >
           Làm lại
         </button>
@@ -240,29 +240,29 @@ function QuizReview({ items, allItems }: { items: WrongItem[]; allItems: WrongIt
     <div className="max-w-lg mx-auto space-y-6">
       <div className="flex items-center gap-3">
         <div className="flex-1 h-2 bg-white/8 rounded-full overflow-hidden">
-          <div className="h-full bg-[#e8c84a] rounded-full transition-all duration-300" style={{ width: `${((current + 1) / questions.length) * 100}%` }} />
+          <div className="h-full bg-app-accent-primary rounded-full transition-all duration-300" style={{ width: `${((current + 1) / questions.length) * 100}%` }} />
         </div>
-        <span className="text-white/40 text-xs whitespace-nowrap">{current + 1}/{questions.length}</span>
+        <span className="text-app-text-secondary text-xs whitespace-nowrap">{current + 1}/{questions.length}</span>
       </div>
 
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center">
+      <div className="bg-app-card/50 border border-app-border rounded-2xl p-8 text-center">
         <div className="flex justify-center mb-3">
           <span className="text-xs px-3 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
             Đã sai {q.question.wrongCount} lần
           </span>
         </div>
-        <p className="text-white/40 text-xs mb-3">Nghĩa của từ này là gì?</p>
+        <p className="text-app-text-secondary text-xs mb-3">Nghĩa của từ này là gì?</p>
         <p className="text-white text-4xl font-bold mb-2">{q.question.korean}</p>
         <p className="text-white/35 text-sm">{q.question.pronunciation}</p>
       </div>
 
       <div className="grid grid-cols-1 gap-3">
         {q.options.map((opt, idx) => {
-          let cls = "bg-white/5 border border-white/10 text-white/70 hover:border-white/20 hover:bg-white/8";
+          let cls = "bg-app-card/50 border border-app-border text-white/70 hover:border-white/20 hover:bg-white/8";
           if (selected !== null) {
-            if (idx === q.correctIdx) cls = "bg-emerald-500/15 border border-emerald-500/40 text-emerald-400";
+            if (idx === q.correctIdx) cls = "bg-app-accent-success/15 border border-emerald-500/40 text-app-accent-success";
             else if (idx === selected) cls = "bg-red-500/15 border border-red-500/40 text-red-400";
-            else cls = "bg-white/3 border border-white/5 text-white/30";
+            else cls = "bg-app-surface/50 border border-app-border text-app-text-muted";
           }
           return (
             <button
@@ -310,17 +310,17 @@ function FillReview({ items }: { items: WrongItem[] }) {
     const pct = Math.round((score / cards.length) * 100);
     return (
       <div className="text-center py-16 max-w-md mx-auto">
-        <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-[#e8c84a]/10 rounded-full">
-          <i className="ri-trophy-line text-[#e8c84a] text-4xl"></i>
+        <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-app-accent-primary/10 rounded-full">
+          <i className="ri-trophy-line text-app-accent-primary text-4xl"></i>
         </div>
         <h3 className="text-white text-2xl font-bold mb-2">Kết quả điền từ</h3>
-        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171" }}>
+        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
           {pct}%
         </p>
         <p className="text-white/50 text-sm mb-6">{score}/{cards.length} câu đúng</p>
         <button
           onClick={() => { setIdx(0); setInput(""); setSubmitted(false); setScore(0); setFinished(false); }}
-          className="px-6 py-3 bg-[#e8c84a] text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
+          className="px-6 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
         >
           Làm lại
         </button>
@@ -332,21 +332,21 @@ function FillReview({ items }: { items: WrongItem[] }) {
     <div className="max-w-lg mx-auto space-y-6">
       <div className="flex items-center gap-3">
         <div className="flex-1 h-2 bg-white/8 rounded-full overflow-hidden">
-          <div className="h-full bg-[#e8c84a] rounded-full transition-all duration-300" style={{ width: `${((idx + 1) / cards.length) * 100}%` }} />
+          <div className="h-full bg-app-accent-primary rounded-full transition-all duration-300" style={{ width: `${((idx + 1) / cards.length) * 100}%` }} />
         </div>
-        <span className="text-white/40 text-xs whitespace-nowrap">{idx + 1}/{cards.length}</span>
+        <span className="text-app-text-secondary text-xs whitespace-nowrap">{idx + 1}/{cards.length}</span>
       </div>
 
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center space-y-3">
+      <div className="bg-app-card/50 border border-app-border rounded-2xl p-8 text-center space-y-3">
         <div className="flex justify-center">
           <span className="text-xs px-3 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
             Đã sai {card.wrongCount} lần
           </span>
         </div>
-        <p className="text-white/40 text-xs">Điền từ tiếng Hàn có nghĩa:</p>
-        <p className="text-[#e8c84a] text-2xl font-bold">{card.vietnamese}</p>
+        <p className="text-app-text-secondary text-xs">Điền từ tiếng Hàn có nghĩa:</p>
+        <p className="text-app-accent-primary text-2xl font-bold">{card.vietnamese}</p>
         {card.example && (
-          <p className="text-white/30 text-xs italic">{card.exampleVi}</p>
+          <p className="text-app-text-muted text-xs italic">{card.exampleVi}</p>
         )}
       </div>
 
@@ -361,16 +361,16 @@ function FillReview({ items }: { items: WrongItem[] }) {
           className={`w-full rounded-xl px-5 py-4 text-lg font-bold text-center border transition-all focus:outline-none ${
             submitted
               ? isCorrect
-                ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400"
+                ? "bg-emerald-500/10 border-emerald-500/40 text-app-accent-success"
                 : "bg-red-500/10 border-red-500/40 text-red-400"
-              : "bg-white/5 border-white/10 text-white focus:border-[#e8c84a]/40"
+              : "bg-app-card/50 border-app-border text-white focus:border-app-accent-primary/40"
           }`}
         />
 
         {submitted && (
           <div className={`p-4 rounded-xl border text-center ${isCorrect ? "bg-emerald-500/8 border-emerald-500/20" : "bg-red-500/8 border-red-500/20"}`}>
             {isCorrect ? (
-              <p className="text-emerald-400 font-bold">Chính xác!</p>
+              <p className="text-app-accent-success font-bold">Chính xác!</p>
             ) : (
               <>
                 <p className="text-red-400 font-bold mb-1">Sai rồi!</p>
@@ -385,14 +385,14 @@ function FillReview({ items }: { items: WrongItem[] }) {
           <button
             onClick={handleSubmit}
             disabled={!input.trim()}
-            className="w-full py-3 bg-[#e8c84a] text-black font-bold rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#e8c84a]/90 transition-all"
+            className="w-full py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed hover:bg-app-accent-primary/90 transition-all"
           >
             Kiểm tra
           </button>
         ) : (
           <button
             onClick={handleNext}
-            className="w-full py-3 bg-white/10 text-white font-bold rounded-xl cursor-pointer whitespace-nowrap hover:bg-white/15 transition-all"
+            className="w-full py-3 bg-app-card/70 text-white font-bold rounded-xl cursor-pointer whitespace-nowrap hover:bg-white/15 transition-all"
           >
             Từ tiếp theo <i className="ri-arrow-right-line ml-1"></i>
           </button>
@@ -448,17 +448,17 @@ function ListenFillReview({ items }: { items: WrongItem[] }) {
     const pct = Math.round((score / cards.length) * 100);
     return (
       <div className="text-center py-16 max-w-md mx-auto">
-        <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-[#e8c84a]/10 rounded-full">
-          <i className="ri-trophy-line text-[#e8c84a] text-4xl"></i>
+        <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-app-accent-primary/10 rounded-full">
+          <i className="ri-trophy-line text-app-accent-primary text-4xl"></i>
         </div>
         <h3 className="text-white text-2xl font-bold mb-2">Kết quả Nghe & Điền</h3>
-        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171" }}>
+        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
           {pct}%
         </p>
         <p className="text-white/50 text-sm mb-6">{score}/{cards.length} câu đúng</p>
         <button
           onClick={() => { setIdx(0); setInput(""); setSubmitted(false); setScore(0); setFinished(false); setPlayCount(0); setShowHint(false); }}
-          className="px-6 py-3 bg-[#e8c84a] text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
+          className="px-6 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
         >
           Làm lại
         </button>
@@ -476,13 +476,13 @@ function ListenFillReview({ items }: { items: WrongItem[] }) {
       {/* Progress */}
       <div className="flex items-center gap-3">
         <div className="flex-1 h-2 bg-white/8 rounded-full overflow-hidden">
-          <div className="h-full bg-[#e8c84a] rounded-full transition-all duration-300" style={{ width: `${((idx + 1) / cards.length) * 100}%` }} />
+          <div className="h-full bg-app-accent-primary rounded-full transition-all duration-300" style={{ width: `${((idx + 1) / cards.length) * 100}%` }} />
         </div>
-        <span className="text-white/40 text-xs whitespace-nowrap">{idx + 1}/{cards.length}</span>
+        <span className="text-app-text-secondary text-xs whitespace-nowrap">{idx + 1}/{cards.length}</span>
       </div>
 
       <div className="flex gap-4 justify-center text-sm">
-        <span className="text-emerald-400">✓ {score} đúng</span>
+        <span className="text-app-accent-success">✓ {score} đúng</span>
         <span className="text-red-400">✗ {idx - score} sai</span>
       </div>
 
@@ -494,7 +494,7 @@ function ListenFillReview({ items }: { items: WrongItem[] }) {
       </div>
 
       {/* Listen card */}
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center space-y-5">
+      <div className="bg-app-card/50 border border-app-border rounded-2xl p-8 text-center space-y-5">
         <p className="text-white/50 text-sm">Nghe phát âm rồi điền từ tiếng Hàn</p>
 
         {/* Big play button */}
@@ -503,33 +503,33 @@ function ListenFillReview({ items }: { items: WrongItem[] }) {
           disabled={isPlaying || submitted}
           className={`mx-auto w-24 h-24 flex items-center justify-center rounded-full border-2 transition-all cursor-pointer ${
             isPlaying
-              ? "border-[#e8c84a] bg-[#e8c84a]/20 scale-110"
+              ? "border-app-accent-primary bg-app-accent-primary/20 scale-110"
               : submitted
-              ? "border-white/10 bg-white/3 opacity-50 cursor-not-allowed"
-              : "border-[#e8c84a]/50 bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 hover:scale-105"
+              ? "border-app-border bg-app-surface/50 opacity-50 cursor-not-allowed"
+              : "border-app-accent-primary/50 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 hover:scale-105"
           }`}
         >
-          <i className={`${isPlaying ? "ri-volume-up-fill" : "ri-volume-up-line"} text-[#e8c84a] text-4xl`}></i>
+          <i className={`${isPlaying ? "ri-volume-up-fill" : "ri-volume-up-line"} text-app-accent-primary text-4xl`}></i>
         </button>
 
         {playCount > 0 && !submitted && (
-          <p className="text-white/30 text-xs">Đã nghe {playCount} lần — nhấn lại để nghe thêm</p>
+          <p className="text-app-text-muted text-xs">Đã nghe {playCount} lần — nhấn lại để nghe thêm</p>
         )}
         {playCount === 0 && (
-          <p className="text-white/25 text-xs">Nhấn nút loa để nghe phát âm</p>
+          <p className="text-app-text-muted text-xs">Nhấn nút loa để nghe phát âm</p>
         )}
 
         {/* Meaning hint */}
-        <div className="border-t border-white/8 pt-4">
-          <p className="text-white/30 text-xs mb-1">Nghĩa tiếng Việt:</p>
-          <p className="text-[#e8c84a] text-lg font-bold">{card.vietnamese}</p>
+        <div className="border-t border-app-border pt-4">
+          <p className="text-app-text-muted text-xs mb-1">Nghĩa tiếng Việt:</p>
+          <p className="text-app-accent-primary text-lg font-bold">{card.vietnamese}</p>
         </div>
 
         {/* Hint toggle */}
         {!submitted && playCount >= 2 && (
           <button
             onClick={() => setShowHint(h => !h)}
-            className="text-xs text-white/30 hover:text-white/60 cursor-pointer whitespace-nowrap transition-colors"
+            className="text-xs text-app-text-muted hover:text-white/60 cursor-pointer whitespace-nowrap transition-colors"
           >
             <i className="ri-lightbulb-line mr-1"></i>
             {showHint ? "Ẩn gợi ý" : "Xem gợi ý (chữ cái đầu)"}
@@ -553,9 +553,9 @@ function ListenFillReview({ items }: { items: WrongItem[] }) {
           className={`w-full rounded-xl px-5 py-4 text-lg font-bold text-center border transition-all focus:outline-none ${
             submitted
               ? isCorrect
-                ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400"
+                ? "bg-emerald-500/10 border-emerald-500/40 text-app-accent-success"
                 : "bg-red-500/10 border-red-500/40 text-red-400"
-              : "bg-white/5 border-white/10 text-white focus:border-[#e8c84a]/40"
+              : "bg-app-card/50 border-app-border text-white focus:border-app-accent-primary/40"
           }`}
         />
 
@@ -563,8 +563,8 @@ function ListenFillReview({ items }: { items: WrongItem[] }) {
           <div className={`p-4 rounded-xl border text-center ${isCorrect ? "bg-emerald-500/8 border-emerald-500/20" : "bg-red-500/8 border-red-500/20"}`}>
             {isCorrect ? (
               <div>
-                <p className="text-emerald-400 font-bold text-lg mb-1">Chính xác!</p>
-                <p className="text-white/40 text-xs">[{card.pronunciation}]</p>
+                <p className="text-app-accent-success font-bold text-lg mb-1">Chính xác!</p>
+                <p className="text-app-text-secondary text-xs">[{card.pronunciation}]</p>
               </div>
             ) : (
               <>
@@ -572,7 +572,7 @@ function ListenFillReview({ items }: { items: WrongItem[] }) {
                 <p className="text-white/60 text-sm">Đáp án đúng: <span className="text-white font-bold text-xl">{card.korean}</span></p>
                 <p className="text-white/35 text-xs mt-1">[{card.pronunciation}]</p>
                 {card.example && (
-                  <p className="text-white/25 text-xs mt-2 italic">{card.example}</p>
+                  <p className="text-app-text-muted text-xs mt-2 italic">{card.example}</p>
                 )}
               </>
             )}
@@ -583,14 +583,14 @@ function ListenFillReview({ items }: { items: WrongItem[] }) {
           <button
             onClick={handleSubmit}
             disabled={!input.trim() || playCount === 0}
-            className="w-full py-3 bg-[#e8c84a] text-black font-bold rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#e8c84a]/90 transition-all"
+            className="w-full py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed hover:bg-app-accent-primary/90 transition-all"
           >
             {playCount === 0 ? "Nghe trước rồi điền" : "Kiểm tra"}
           </button>
         ) : (
           <button
             onClick={handleNext}
-            className="w-full py-3 bg-white/10 text-white font-bold rounded-xl cursor-pointer whitespace-nowrap hover:bg-white/15 transition-all"
+            className="w-full py-3 bg-app-card/70 text-white font-bold rounded-xl cursor-pointer whitespace-nowrap hover:bg-white/15 transition-all"
           >
             Từ tiếp theo <i className="ri-arrow-right-line ml-1"></i>
           </button>
@@ -666,13 +666,13 @@ function ExportModal({ items, onClose }: { items: WrongItem[]; onClose: () => vo
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-      <div className="bg-[#0f1117] border border-white/10 rounded-2xl w-full max-w-md">
-        <div className="flex items-center justify-between p-5 border-b border-white/8">
+      <div className="bg-app-bg border border-app-border rounded-2xl w-full max-w-md">
+        <div className="flex items-center justify-between p-5 border-b border-app-border">
           <div>
             <h3 className="text-white font-bold">Xuất danh sách từ sai</h3>
-            <p className="text-white/40 text-xs mt-0.5">{items.length} từ cần ôn lại</p>
+            <p className="text-app-text-secondary text-xs mt-0.5">{items.length} từ cần ôn lại</p>
           </div>
-          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/8 text-white/40 cursor-pointer">
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/8 text-app-text-secondary cursor-pointer">
             <i className="ri-close-line"></i>
           </button>
         </div>
@@ -692,15 +692,15 @@ function ExportModal({ items, onClose }: { items: WrongItem[]; onClose: () => vo
                   onClick={() => setFormat(f.id)}
                   className={`p-3 rounded-xl border text-center transition-all cursor-pointer ${
                     format === f.id
-                      ? "border-[#e8c84a]/40 bg-[#e8c84a]/8"
-                      : "border-white/8 bg-white/3 hover:border-white/15"
+                      ? "border-app-accent-primary/40 bg-app-accent-primary/8"
+                      : "border-app-border bg-app-surface/50 hover:border-white/15"
                   }`}
                 >
                   <div className="w-8 h-8 flex items-center justify-center mx-auto mb-1">
-                    <i className={`${f.icon} text-xl ${format === f.id ? "text-[#e8c84a]" : "text-white/40"}`}></i>
+                    <i className={`${f.icon} text-xl ${format === f.id ? "text-app-accent-primary" : "text-app-text-secondary"}`}></i>
                   </div>
-                  <p className={`text-xs font-bold ${format === f.id ? "text-[#e8c84a]" : "text-white/60"}`}>{f.label}</p>
-                  <p className="text-white/25 text-[10px]">{f.desc}</p>
+                  <p className={`text-xs font-bold ${format === f.id ? "text-app-accent-primary" : "text-white/60"}`}>{f.label}</p>
+                  <p className="text-app-text-muted text-[10px]">{f.desc}</p>
                 </button>
               ))}
             </div>
@@ -717,10 +717,10 @@ function ExportModal({ items, onClose }: { items: WrongItem[]; onClose: () => vo
                 <button
                   key={opt.label}
                   onClick={() => opt.setter(!opt.value)}
-                  className="w-full flex items-center justify-between p-3 rounded-lg border border-white/8 hover:border-white/15 transition-all cursor-pointer"
+                  className="w-full flex items-center justify-between p-3 rounded-lg border border-app-border hover:border-white/15 transition-all cursor-pointer"
                 >
                   <span className="text-white/60 text-sm">{opt.label}</span>
-                  <div className={`w-10 h-5 rounded-full transition-all relative ${opt.value ? "bg-[#e8c84a]" : "bg-white/10"}`}>
+                  <div className={`w-10 h-5 rounded-full transition-all relative ${opt.value ? "bg-app-accent-primary" : "bg-app-card/70"}`}>
                     <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all ${opt.value ? "left-5" : "left-0.5"}`} />
                   </div>
                 </button>
@@ -729,8 +729,8 @@ function ExportModal({ items, onClose }: { items: WrongItem[]; onClose: () => vo
           </div>
 
           {/* Preview */}
-          <div className="bg-white/3 border border-white/8 rounded-xl p-3 max-h-32 overflow-y-auto">
-            <p className="text-white/30 text-[10px] font-semibold mb-2 ">Xem trước</p>
+          <div className="bg-app-surface/50 border border-app-border rounded-xl p-3 max-h-32 overflow-y-auto">
+            <p className="text-app-text-muted text-[10px] font-semibold mb-2 ">Xem trước</p>
             <pre className="text-white/50 text-[10px] font-mono whitespace-pre-wrap leading-relaxed">
               {generateContent().slice(0, 300)}{generateContent().length > 300 ? "..." : ""}
             </pre>
@@ -740,13 +740,13 @@ function ExportModal({ items, onClose }: { items: WrongItem[]; onClose: () => vo
           <div className="flex gap-3">
             <button
               onClick={handleCopy}
-              className="flex-1 py-3 bg-white/8 border border-white/10 text-white/70 rounded-xl font-medium cursor-pointer whitespace-nowrap hover:bg-white/12 transition-all text-sm"
+              className="flex-1 py-3 bg-white/8 border border-app-border text-white/70 rounded-xl font-medium cursor-pointer whitespace-nowrap hover:bg-white/12 transition-all text-sm"
             >
               <i className="ri-clipboard-line mr-2"></i>Sao chép
             </button>
             <button
               onClick={handleDownload}
-              className="flex-1 py-3 bg-[#e8c84a] text-black font-bold rounded-xl cursor-pointer whitespace-nowrap hover:bg-[#e8c84a]/90 transition-all text-sm"
+              className="flex-1 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap hover:bg-app-accent-primary/90 transition-all text-sm"
             >
               <i className="ri-download-line mr-2"></i>Tải xuống
             </button>
@@ -838,19 +838,19 @@ export default function EpsWrongTopicPage() {
           <div className="flex items-center gap-4 mb-8">
             <button
               onClick={() => navigate(-1)}
-              className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 transition-all cursor-pointer"
+              className="w-9 h-9 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 transition-all cursor-pointer"
             >
               <i className="ri-arrow-left-line text-white/60"></i>
             </button>
             <div>
               <h1 className="text-white text-xl font-bold">Ôn tập sai theo chủ đề</h1>
-              <p className="text-white/40 text-sm">Lọc và ôn lại từ vựng đã sai theo nhóm chủ đề</p>
+              <p className="text-app-text-secondary text-sm">Lọc và ôn lại từ vựng đã sai theo nhóm chủ đề</p>
             </div>
           </div>
 
           <div className="text-center py-20">
             <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-emerald-500/10 rounded-full">
-              <i className="ri-checkbox-circle-line text-emerald-400 text-4xl"></i>
+              <i className="ri-checkbox-circle-line text-app-accent-success text-4xl"></i>
             </div>
             <h3 className="text-white text-xl font-bold mb-2">Chưa có từ sai nào!</h3>
             <p className="text-white/50 text-sm mb-6 max-w-sm mx-auto">
@@ -859,13 +859,13 @@ export default function EpsWrongTopicPage() {
             <div className="flex gap-3 justify-center flex-wrap">
               <button
                 onClick={() => navigate("/eps-lessons")}
-                className="px-5 py-2.5 bg-[#e8c84a] text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
+                className="px-5 py-2.5 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
               >
                 <i className="ri-book-open-line mr-2"></i>Đến 60 Bài Học EPS
               </button>
               <button
                 onClick={() => navigate("/eps-topic-study")}
-                className="px-5 py-2.5 bg-white/8 text-white/70 rounded-xl cursor-pointer whitespace-nowrap border border-white/10"
+                className="px-5 py-2.5 bg-white/8 text-white/70 rounded-xl cursor-pointer whitespace-nowrap border border-app-border"
               >
                 <i className="ri-bookmark-3-line mr-2"></i>Học theo chủ đề
               </button>
@@ -883,13 +883,13 @@ export default function EpsWrongTopicPage() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => started ? setStarted(false) : navigate(-1)}
-            className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 transition-all cursor-pointer"
+            className="w-9 h-9 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 transition-all cursor-pointer"
           >
             <i className="ri-arrow-left-line text-white/60"></i>
           </button>
           <div>
             <h1 className="text-white text-xl font-bold">Ôn tập sai theo chủ đề</h1>
-            <p className="text-white/40 text-sm">
+            <p className="text-app-text-secondary text-sm">
               {totalWrong} từ cần ôn lại · {masteredWords.length} từ đã nhớ
             </p>
           </div>
@@ -898,7 +898,7 @@ export default function EpsWrongTopicPage() {
             {allWrongItems.length > 0 && !started && (
               <button
                 onClick={() => setShowExport(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 text-white/60 rounded-xl text-sm font-medium cursor-pointer whitespace-nowrap hover:bg-white/10 hover:text-white/80 transition-all"
+                className="flex items-center gap-2 px-4 py-2 bg-app-card/50 border border-app-border text-white/60 rounded-xl text-sm font-medium cursor-pointer whitespace-nowrap hover:bg-app-card/70 hover:text-white/80 transition-all"
               >
                 <i className="ri-download-line text-sm"></i>
                 Xuất file
@@ -907,7 +907,7 @@ export default function EpsWrongTopicPage() {
             {masteredWords.length > 0 && !started && (
               <button
                 onClick={handleClearMastered}
-                className="text-xs text-white/30 hover:text-white/60 cursor-pointer whitespace-nowrap"
+                className="text-xs text-app-text-muted hover:text-white/60 cursor-pointer whitespace-nowrap"
               >
                 <i className="ri-refresh-line mr-1"></i>Reset đã nhớ
               </button>
@@ -924,14 +924,14 @@ export default function EpsWrongTopicPage() {
                 <div className="flex gap-2">
                   <button
                     onClick={() => setSelectedTopics(new Set(EPS_LESSON_TOPICS.map(t => t.id)))}
-                    className="text-xs text-[#e8c84a] hover:underline cursor-pointer whitespace-nowrap"
+                    className="text-xs text-app-accent-primary hover:underline cursor-pointer whitespace-nowrap"
                   >
                     Chọn tất cả
                   </button>
-                  <span className="text-white/20">|</span>
+                  <span className="text-app-text-muted">|</span>
                   <button
                     onClick={() => setSelectedTopics(new Set())}
-                    className="text-xs text-white/40 hover:text-white/60 cursor-pointer whitespace-nowrap"
+                    className="text-xs text-app-text-secondary hover:text-white/60 cursor-pointer whitespace-nowrap"
                   >
                     Bỏ chọn
                   </button>
@@ -950,7 +950,7 @@ export default function EpsWrongTopicPage() {
                       className={`w-full text-left p-4 rounded-xl border transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ${
                         isSelected
                           ? "border-red-500/40 bg-red-500/8"
-                          : "border-white/10 bg-white/3 hover:border-white/20 hover:bg-white/5"
+                          : "border-app-border bg-app-surface/50 hover:border-white/20 hover:bg-app-card/50"
                       }`}
                     >
                       <div className="flex items-center gap-3 mb-2">
@@ -964,7 +964,7 @@ export default function EpsWrongTopicPage() {
                           <p className={`text-sm font-semibold truncate ${isSelected ? "text-red-400" : "text-white/80"}`}>
                             {topic.label}
                           </p>
-                          <p className="text-white/40 text-xs">
+                          <p className="text-app-text-secondary text-xs">
                             {count > 0 ? `${count} từ cần ôn` : "Không có từ sai"}
                           </p>
                         </div>
@@ -975,7 +975,7 @@ export default function EpsWrongTopicPage() {
                         )}
                       </div>
                       {count > 0 && (
-                        <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                        <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                           <div
                             className="h-full rounded-full"
                             style={{
@@ -992,7 +992,7 @@ export default function EpsWrongTopicPage() {
 
               {/* Top wrong words preview */}
               {filteredWrongItems.length > 0 && (
-                <div className="bg-white/3 border border-white/8 rounded-xl p-4">
+                <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
                   <p className="text-white/50 text-xs font-semibold mb-3">Từ sai nhiều nhất</p>
                   <div className="flex flex-wrap gap-2">
                     {filteredWrongItems.slice(0, 10).map((item, i) => (
@@ -1002,7 +1002,7 @@ export default function EpsWrongTopicPage() {
                       </div>
                     ))}
                     {filteredWrongItems.length > 10 && (
-                      <span className="text-white/25 text-xs px-2 py-1.5">+{filteredWrongItems.length - 10} từ nữa</span>
+                      <span className="text-app-text-muted text-xs px-2 py-1.5">+{filteredWrongItems.length - 10} từ nữa</span>
                     )}
                   </div>
                 </div>
@@ -1015,13 +1015,13 @@ export default function EpsWrongTopicPage() {
               <div className="bg-red-500/5 border border-red-500/15 rounded-xl p-4">
                 <p className="text-white/50 text-xs mb-1">Từ cần ôn lại</p>
                 <p className="text-red-400 text-2xl font-bold">{filteredWrongItems.length}</p>
-                <p className="text-white/30 text-xs mt-1">
+                <p className="text-app-text-muted text-xs mt-1">
                   từ {selectedTopics.size > 0 ? selectedTopics.size : EPS_LESSON_TOPICS.length} chủ đề
                 </p>
               </div>
 
               {/* Mode picker */}
-              <div className="bg-white/3 border border-white/8 rounded-xl p-4 space-y-2">
+              <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 space-y-2">
                 <p className="text-white/50 text-xs mb-3">Chế độ ôn tập</p>
                 {(
                   [
@@ -1037,15 +1037,15 @@ export default function EpsWrongTopicPage() {
                     className={`w-full flex items-center gap-3 p-3 rounded-lg border transition-all cursor-pointer text-left ${
                       reviewMode === m.id
                         ? "border-red-500/30 bg-red-500/8"
-                        : "border-white/8 hover:border-white/15 hover:bg-white/3"
+                        : "border-app-border hover:border-white/15 hover:bg-app-surface/50"
                     }`}
                   >
-                    <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 flex-shrink-0">
-                      <i className={`${m.icon} text-sm ${reviewMode === m.id ? "text-red-400" : "text-white/40"}`}></i>
+                    <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 flex-shrink-0">
+                      <i className={`${m.icon} text-sm ${reviewMode === m.id ? "text-red-400" : "text-app-text-secondary"}`}></i>
                     </div>
                     <div>
                       <p className={`text-sm font-medium ${reviewMode === m.id ? "text-red-400" : "text-white/70"}`}>{m.label}</p>
-                      <p className="text-white/30 text-xs">{m.desc}</p>
+                      <p className="text-app-text-muted text-xs">{m.desc}</p>
                     </div>
                     {reviewMode === m.id && (
                       <div className="ml-auto w-4 h-4 flex items-center justify-center">
@@ -1067,8 +1067,8 @@ export default function EpsWrongTopicPage() {
               </button>
 
               {/* Quick links */}
-              <div className="bg-white/3 border border-white/8 rounded-xl p-4 space-y-2">
-                <p className="text-white/40 text-xs mb-2">Liên kết nhanh</p>
+              <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 space-y-2">
+                <p className="text-app-text-secondary text-xs mb-2">Liên kết nhanh</p>
                 <button
                   onClick={() => navigate("/eps-lessons")}
                   className="w-full flex items-center gap-2 text-white/50 hover:text-white/80 text-xs py-1.5 cursor-pointer whitespace-nowrap"
@@ -1097,7 +1097,7 @@ export default function EpsWrongTopicPage() {
           /* ── Review screen ── */
           <div className="space-y-4">
             {/* Mode tabs */}
-            <div className="flex items-center gap-1 bg-white/3 border border-white/8 rounded-xl p-1 w-fit flex-wrap">
+            <div className="flex items-center gap-1 bg-app-surface/50 border border-app-border rounded-xl p-1 w-fit flex-wrap">
               {(
                 [
                   { id: "flashcard", icon: "ri-stack-line", label: "Flashcard" },
@@ -1122,7 +1122,7 @@ export default function EpsWrongTopicPage() {
             </div>
 
             {/* Info bar */}
-            <div className="flex items-center gap-4 text-xs text-white/30">
+            <div className="flex items-center gap-4 text-xs text-app-text-muted">
               <span>
                 {selectedTopics.size > 0
                   ? Array.from(selectedTopics)

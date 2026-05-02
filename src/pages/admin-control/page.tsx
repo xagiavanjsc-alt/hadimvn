@@ -9,7 +9,7 @@ type TabId = "ads" | "draft" | "import" | "export";
 
 const TABS: { id: TabId; icon: string; label: string; color: string }[] = [
   { id: "ads", icon: "ri-advertisement-line", label: "Quảng cáo", color: "#fb923c" },
-  { id: "draft", icon: "ri-draft-line", label: "Chế độ nháp", color: "#e8c84a" },
+  { id: "draft", icon: "ri-draft-line", label: "Chế độ nháp", color: "app-accent-primary" },
   { id: "import", icon: "ri-upload-cloud-line", label: "Import dữ liệu", color: "#4ade80" },
   { id: "export", icon: "ri-download-cloud-line", label: "Export dữ liệu", color: "#38bdf8" },
 ];
@@ -30,8 +30,8 @@ function AdsTab() {
         style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}
       >
         <div className="flex items-center gap-3">
-          <div className={`w-10 h-10 flex items-center justify-center rounded-xl ${globalEnabled ? "bg-emerald-500/12" : "bg-white/5"}`}>
-            <i className={`ri-advertisement-line text-lg ${globalEnabled ? "text-emerald-400" : "text-white/30"}`}></i>
+          <div className={`w-10 h-10 flex items-center justify-center rounded-xl ${globalEnabled ? "bg-emerald-500/12" : "bg-app-card/50"}`}>
+            <i className={`ri-advertisement-line text-lg ${globalEnabled ? "text-app-accent-success" : "text-app-text-muted"}`}></i>
           </div>
           <div>
             <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>
@@ -53,7 +53,7 @@ function AdsTab() {
           </span>
           <button
             onClick={() => setGlobalEnabled(!globalEnabled)}
-            className={`w-12 h-6 rounded-full transition-all cursor-pointer relative ${globalEnabled ? "bg-emerald-500" : "bg-white/10"}`}
+            className={`w-12 h-6 rounded-full transition-all cursor-pointer relative ${globalEnabled ? "bg-emerald-500" : "bg-app-card/70"}`}
           >
             <div
               className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-all ${globalEnabled ? "left-6" : "left-0.5"}`}
@@ -68,7 +68,7 @@ function AdsTab() {
           { label: "Tổng quảng cáo", value: adConfigs.length, icon: "ri-advertisement-line", color: "#fb923c" },
           { label: "Đang hiển thị", value: totalEnabled, icon: "ri-eye-line", color: "#4ade80" },
           { label: "Đang tắt", value: adConfigs.length - totalEnabled, icon: "ri-eye-off-line", color: "#f87171" },
-          { label: "Vị trí đang dùng", value: new Set(adConfigs.map((a) => a.position)).size, icon: "ri-layout-line", color: "#e8c84a" },
+          { label: "Vị trí đang dùng", value: new Set(adConfigs.map((a) => a.position)).size, icon: "ri-layout-line", color: "app-accent-primary" },
         ].map((stat) => (
           <div
             key={stat.label}
@@ -149,7 +149,7 @@ function AdsTab() {
                   </p>
                 </div>
                 <span
-                  className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${ad.enabled && globalEnabled ? "bg-emerald-500/15 text-emerald-400" : "bg-white/5 text-white/25"}`}
+                  className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${ad.enabled && globalEnabled ? "bg-app-accent-success/15 text-app-accent-success" : "bg-app-card/50 text-app-text-muted"}`}
                 >
                   {ad.enabled && globalEnabled ? "BẬT" : "TẮT"}
                 </span>
@@ -182,7 +182,7 @@ function DraftTab() {
     {
       key: "melon",
       icon: "ri-music-2-line",
-      color: "#e8c84a",
+      color: "app-accent-primary",
       title: "K-pop Lesson",
       desc: "Melon Top 100 → AI phân tích → Xuất Excel",
       detail: "Tính năng học tiếng Hàn qua lời bài hát K-pop với AI phân tích từ vựng và ngữ pháp",
@@ -208,7 +208,7 @@ function DraftTab() {
         style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}
       >
         <div className="flex items-center gap-2 mb-1">
-          <i className="ri-information-line text-[#e8c84a]"></i>
+          <i className="ri-information-line text-app-accent-primary"></i>
           <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>
             Về chế độ nháp
           </p>
@@ -248,7 +248,7 @@ function DraftTab() {
               </div>
               <div className="flex flex-col items-end gap-2 flex-shrink-0">
                 <span
-                  className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${item.value ? "bg-amber-500/15 text-amber-400" : "bg-emerald-500/15 text-emerald-400"}`}
+                  className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${item.value ? "bg-amber-500/15 text-amber-400" : "bg-app-accent-success/15 text-app-accent-success"}`}
                 >
                   {item.value ? "NHÁP" : "CÔNG KHAI"}
                 </span>
@@ -308,7 +308,7 @@ function ImportTab() {
     {
       key: "melon",
       icon: "ri-music-2-line",
-      color: "#e8c84a",
+      color: "app-accent-primary",
       title: "K-pop Lesson (Melon)",
       desc: "Import danh sách bài hát và từ vựng đã xử lý",
       template: "song_title,artist,vocabulary,meaning,example",
@@ -341,7 +341,7 @@ function ImportTab() {
         style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}
       >
         <p className="text-xs leading-relaxed" style={{ color: "var(--admin-text-muted)" }}>
-          <i className="ri-information-line mr-1 text-[#e8c84a]"></i>
+          <i className="ri-information-line mr-1 text-app-accent-primary"></i>
           Tải file CSV (UTF-8) hoặc Excel. Dòng đầu tiên là tiêu đề cột. Tải template mẫu để biết đúng định dạng.
         </p>
       </div>
@@ -380,7 +380,7 @@ function ImportTab() {
               </div>
               {savedData && (
                 <div className="text-right">
-                  <p className="text-[10px] text-emerald-400 font-semibold">Đã import</p>
+                  <p className="text-[10px] text-app-accent-success font-semibold">Đã import</p>
                   <p className="text-[9px]" style={{ color: "var(--admin-text-faint)" }}>
                     {new Date(savedData.importedAt).toLocaleDateString("vi-VN")}
                   </p>
@@ -410,10 +410,10 @@ function ImportTab() {
                 />
                 {status === "success" ? (
                   <>
-                    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-emerald-500/15 mb-2">
-                      <i className="ri-check-line text-emerald-400 text-xl"></i>
+                    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-app-accent-success/15 mb-2">
+                      <i className="ri-check-line text-app-accent-success text-xl"></i>
                     </div>
-                    <p className="text-sm font-semibold text-emerald-400">Import thành công!</p>
+                    <p className="text-sm font-semibold text-app-accent-success">Import thành công!</p>
                     <p className="text-xs mt-1" style={{ color: "var(--admin-text-muted)" }}>
                       Click để import file khác
                     </p>
@@ -498,7 +498,7 @@ function ExportTab() {
     {
       key: "melon",
       icon: "ri-music-2-line",
-      color: "#e8c84a",
+      color: "app-accent-primary",
       title: "K-pop Lesson (Melon)",
       desc: "Xuất danh sách bài hát và từ vựng đã học",
       filename: "kpop_lesson_export.csv",

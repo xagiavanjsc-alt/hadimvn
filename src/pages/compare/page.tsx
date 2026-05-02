@@ -14,11 +14,11 @@ function VocabTag({ v, highlight }: { v: VocabItem; highlight?: boolean }) {
     <div
       className={`rounded-lg px-2.5 py-1.5 border transition-all ${
         highlight
-          ? "bg-[#e8c84a]/10 border-[#e8c84a]/30"
-          : "bg-white/5 border-white/5"
+          ? "bg-app-accent-primary/10 border-app-accent-primary/30"
+          : "bg-app-card/50 border-app-border"
       }`}
     >
-      <span className={`text-[11px] font-bold ${highlight ? "text-[#e8c84a]" : "text-white/70"}`}>
+      <span className={`text-[11px] font-bold ${highlight ? "text-app-accent-primary" : "text-white/70"}`}>
         {v.word}
       </span>
       <span className="text-white/35 text-[10px] ml-1.5">{v.meaning}</span>
@@ -28,16 +28,16 @@ function VocabTag({ v, highlight }: { v: VocabItem; highlight?: boolean }) {
 
 function StarBadge({ stars }: { stars?: number }) {
   const s = stars ?? 0;
-  if (s === 0) return <span className="text-white/20 text-xs">Chưa đánh giá</span>;
+  if (s === 0) return <span className="text-app-text-muted text-xs">Chưa đánh giá</span>;
   return (
     <div className="flex items-center gap-0.5">
       {[1, 2, 3, 4, 5].map((i) => (
         <i
           key={i}
-          className={`text-xs ${i <= s ? "ri-star-fill text-[#e8c84a]" : "ri-star-line text-white/15"}`}
+          className={`text-xs ${i <= s ? "ri-star-fill text-app-accent-primary" : "ri-star-line text-white/15"}`}
         ></i>
       ))}
-      <span className="text-white/40 text-[10px] ml-1">
+      <span className="text-app-text-secondary text-[10px] ml-1">
         {s === 5 ? "Xuất sắc" : s === 4 ? "Rất tốt" : s === 3 ? "Khá" : s === 2 ? "Trung bình" : "Yếu"}
       </span>
     </div>
@@ -75,12 +75,12 @@ function LessonSelector({
     <div className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center gap-3 bg-[#0f1117] border border-white/8 hover:border-white/15 rounded-xl px-4 py-3 transition-colors cursor-pointer text-left"
+        className="w-full flex items-center gap-3 bg-app-bg border border-app-border hover:border-white/15 rounded-xl px-4 py-3 transition-colors cursor-pointer text-left"
       >
         {selected ? (
           <>
-            <div className="w-8 h-8 flex items-center justify-center bg-[#e8c84a]/10 rounded-lg flex-shrink-0">
-              <i className="ri-music-2-line text-[#e8c84a] text-sm"></i>
+            <div className="w-8 h-8 flex items-center justify-center bg-app-accent-primary/10 rounded-lg flex-shrink-0">
+              <i className="ri-music-2-line text-app-accent-primary text-sm"></i>
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-white/80 text-sm font-medium truncate">{selected.song.title}</p>
@@ -88,18 +88,18 @@ function LessonSelector({
             </div>
             <button
               onClick={(e) => { e.stopPropagation(); onSelect(null); }}
-              className="text-white/20 hover:text-white/60 cursor-pointer"
+              className="text-app-text-muted hover:text-white/60 cursor-pointer"
             >
               <i className="ri-close-line text-sm"></i>
             </button>
           </>
         ) : (
           <>
-            <div className="w-8 h-8 flex items-center justify-center bg-white/5 rounded-lg flex-shrink-0">
-              <i className="ri-add-line text-white/30 text-sm"></i>
+            <div className="w-8 h-8 flex items-center justify-center bg-app-card/50 rounded-lg flex-shrink-0">
+              <i className="ri-add-line text-app-text-muted text-sm"></i>
             </div>
-            <span className="text-white/30 text-sm flex-1">{label}</span>
-            <i className="ri-arrow-down-s-line text-white/20"></i>
+            <span className="text-app-text-muted text-sm flex-1">{label}</span>
+            <i className="ri-arrow-down-s-line text-app-text-muted"></i>
           </>
         )}
       </button>
@@ -107,37 +107,37 @@ function LessonSelector({
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute left-0 right-0 top-full mt-1.5 z-50 bg-[#1a1d27] border border-white/10 rounded-xl overflow-hidden max-h-72 flex flex-col">
-            <div className="p-2 border-b border-white/5">
+          <div className="absolute left-0 right-0 top-full mt-1.5 z-50 bg-[#1a1d27] border border-app-border rounded-xl overflow-hidden max-h-72 flex flex-col">
+            <div className="p-2 border-b border-app-border">
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Tìm bài hát..."
-                className="w-full bg-white/5 rounded-lg px-3 py-2 text-white text-xs placeholder-white/20 focus:outline-none"
+                className="w-full bg-app-card/50 rounded-lg px-3 py-2 text-white text-xs placeholder-white/20 focus:outline-none"
                 autoFocus
               />
             </div>
             <div className="overflow-y-auto flex-1">
               {filtered.length === 0 ? (
-                <div className="text-center py-6 text-white/25 text-xs">Không tìm thấy</div>
+                <div className="text-center py-6 text-app-text-muted text-xs">Không tìm thấy</div>
               ) : (
                 filtered.map((l) => (
                   <button
                     key={l.song.rank}
                     onClick={() => { onSelect(l); setOpen(false); setSearch(""); }}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-white/5 transition-colors cursor-pointer text-left"
+                    className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-app-card/50 transition-colors cursor-pointer text-left"
                   >
-                    <span className="text-[#e8c84a]/50 text-[10px] font-bold w-5">#{l.song.rank}</span>
+                    <span className="text-app-accent-primary/50 text-[10px] font-bold w-5">#{l.song.rank}</span>
                     <div className="flex-1 min-w-0">
                       <p className="text-white/70 text-xs font-medium truncate">{l.song.title}</p>
-                      <p className="text-white/30 text-[10px]">{l.song.artist}</p>
+                      <p className="text-app-text-muted text-[10px]">{l.song.artist}</p>
                     </div>
                     <div className="flex items-center gap-0.5 flex-shrink-0">
                       {[1, 2, 3, 4, 5].map((i) => (
                         <i
                           key={i}
-                          className={`text-[9px] ${i <= (l.stars ?? 0) ? "ri-star-fill text-[#e8c84a]" : "ri-star-line text-white/10"}`}
+                          className={`text-[9px] ${i <= (l.stars ?? 0) ? "ri-star-fill text-app-accent-primary" : "ri-star-line text-white/10"}`}
                         ></i>
                       ))}
                     </div>
@@ -195,14 +195,14 @@ export default function ComparePage() {
     >
       {approvedLessons.length < 2 ? (
         <div className="flex flex-col items-center justify-center py-24 text-center">
-          <div className="w-16 h-16 flex items-center justify-center bg-white/5 rounded-2xl mb-5">
-            <i className="ri-layout-column-line text-white/20 text-3xl"></i>
+          <div className="w-16 h-16 flex items-center justify-center bg-app-card/50 rounded-2xl mb-5">
+            <i className="ri-layout-column-line text-app-text-muted text-3xl"></i>
           </div>
-          <p className="text-white/40 text-sm font-medium">Cần ít nhất 2 bài học đã duyệt</p>
-          <p className="text-white/20 text-xs mt-1 mb-5">Hiện có {approvedLessons.length} bài — duyệt thêm trong K-pop Lesson</p>
+          <p className="text-app-text-secondary text-sm font-medium">Cần ít nhất 2 bài học đã duyệt</p>
+          <p className="text-app-text-muted text-xs mt-1 mb-5">Hiện có {approvedLessons.length} bài — duyệt thêm trong K-pop Lesson</p>
           <a
             href="/melon"
-            className="flex items-center gap-2 bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 text-[#e8c84a] text-sm font-medium px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-sm font-medium px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-music-2-line"></i>
             Đến K-pop Lesson
@@ -213,8 +213,8 @@ export default function ComparePage() {
           {/* Selectors */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-white/30 text-[10px] tracking-normal mb-2 flex items-center gap-2">
-                <span className="w-5 h-5 flex items-center justify-center bg-[#e8c84a]/15 rounded text-[#e8c84a] text-[10px] font-bold">A</span>
+              <p className="text-app-text-muted text-[10px] tracking-normal mb-2 flex items-center gap-2">
+                <span className="w-5 h-5 flex items-center justify-center bg-app-accent-primary/15 rounded text-app-accent-primary text-[10px] font-bold">A</span>
                 Bài học thứ nhất
               </p>
               <LessonSelector
@@ -226,7 +226,7 @@ export default function ComparePage() {
               />
             </div>
             <div>
-              <p className="text-white/30 text-[10px] tracking-normal mb-2 flex items-center gap-2">
+              <p className="text-app-text-muted text-[10px] tracking-normal mb-2 flex items-center gap-2">
                 <span className="w-5 h-5 flex items-center justify-center bg-sky-500/15 rounded text-sky-400 text-[10px] font-bold">B</span>
                 Bài học thứ hai
               </p>
@@ -241,9 +241,9 @@ export default function ComparePage() {
           </div>
 
           {!canCompare && (
-            <div className="flex flex-col items-center justify-center py-16 bg-[#0f1117] border border-white/5 rounded-2xl text-center">
+            <div className="flex flex-col items-center justify-center py-16 bg-app-bg border border-app-border rounded-2xl text-center">
               <i className="ri-layout-column-line text-white/10 text-4xl mb-3"></i>
-              <p className="text-white/25 text-sm">Chọn 2 bài học để bắt đầu so sánh</p>
+              <p className="text-app-text-muted text-sm">Chọn 2 bài học để bắt đầu so sánh</p>
               <p className="text-white/15 text-xs mt-1">Xem từ vựng trùng nhau, chất lượng và gợi ý bài tốt hơn</p>
             </div>
           )}
@@ -254,42 +254,42 @@ export default function ComparePage() {
               {comparison.winner !== "tie" ? (
                 <div className={`flex items-center gap-4 rounded-2xl px-6 py-4 border ${
                   comparison.winner === "A"
-                    ? "bg-[#e8c84a]/5 border-[#e8c84a]/20"
+                    ? "bg-app-accent-primary/5 border-app-accent-primary/20"
                     : "bg-sky-500/5 border-sky-500/20"
                 }`}>
                   <div className={`w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0 ${
-                    comparison.winner === "A" ? "bg-[#e8c84a]/15" : "bg-sky-500/15"
+                    comparison.winner === "A" ? "bg-app-accent-primary/15" : "bg-sky-500/15"
                   }`}>
-                    <i className={`ri-trophy-fill text-lg ${comparison.winner === "A" ? "text-[#e8c84a]" : "text-sky-400"}`}></i>
+                    <i className={`ri-trophy-fill text-lg ${comparison.winner === "A" ? "text-app-accent-primary" : "text-sky-400"}`}></i>
                   </div>
                   <div className="flex-1">
-                    <p className={`font-bold text-sm ${comparison.winner === "A" ? "text-[#e8c84a]" : "text-sky-400"}`}>
+                    <p className={`font-bold text-sm ${comparison.winner === "A" ? "text-app-accent-primary" : "text-sky-400"}`}>
                       Bài {comparison.winner} được gợi ý cho ebook
                     </p>
-                    <p className="text-white/40 text-xs mt-0.5">
+                    <p className="text-app-text-secondary text-xs mt-0.5">
                       {comparison.winner === "A"
                         ? `"${lessonA.song.title}" — điểm tổng hợp cao hơn (sao, từ vựng, độ dài truyện)`
                         : `"${lessonB.song.title}" — điểm tổng hợp cao hơn (sao, từ vựng, độ dài truyện)`}
                     </p>
                   </div>
-                  <div className="flex items-center gap-3 text-xs text-white/30">
-                    <span className={`font-bold ${comparison.winner === "A" ? "text-[#e8c84a]" : "text-white/40"}`}>
+                  <div className="flex items-center gap-3 text-xs text-app-text-muted">
+                    <span className={`font-bold ${comparison.winner === "A" ? "text-app-accent-primary" : "text-app-text-secondary"}`}>
                       A: {comparison.scoreA.toFixed(1)}đ
                     </span>
                     <span>vs</span>
-                    <span className={`font-bold ${comparison.winner === "B" ? "text-sky-400" : "text-white/40"}`}>
+                    <span className={`font-bold ${comparison.winner === "B" ? "text-sky-400" : "text-app-text-secondary"}`}>
                       B: {comparison.scoreB.toFixed(1)}đ
                     </span>
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center gap-4 bg-white/3 border border-white/8 rounded-2xl px-6 py-4">
-                  <div className="w-10 h-10 flex items-center justify-center bg-white/5 rounded-xl flex-shrink-0">
-                    <i className="ri-scales-3-line text-white/40 text-lg"></i>
+                <div className="flex items-center gap-4 bg-app-surface/50 border border-app-border rounded-2xl px-6 py-4">
+                  <div className="w-10 h-10 flex items-center justify-center bg-app-card/50 rounded-xl flex-shrink-0">
+                    <i className="ri-scales-3-line text-app-text-secondary text-lg"></i>
                   </div>
                   <div>
                     <p className="text-white/60 font-semibold text-sm">Hai bài tương đương nhau</p>
-                    <p className="text-white/30 text-xs mt-0.5">Điểm chênh lệch không đáng kể — chọn theo cảm nhận cá nhân</p>
+                    <p className="text-app-text-muted text-xs mt-0.5">Điểm chênh lệch không đáng kể — chọn theo cảm nhận cá nhân</p>
                   </div>
                 </div>
               )}
@@ -297,23 +297,23 @@ export default function ComparePage() {
               {/* Overlap stats */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {[
-                  { label: "Từ vựng trùng", value: comparison.shared.length, color: "text-[#e8c84a]", icon: "ri-links-line" },
-                  { label: "Chỉ có ở A", value: comparison.onlyA.length, color: "text-[#e8c84a]", icon: "ri-subtract-line" },
+                  { label: "Từ vựng trùng", value: comparison.shared.length, color: "text-app-accent-primary", icon: "ri-links-line" },
+                  { label: "Chỉ có ở A", value: comparison.onlyA.length, color: "text-app-accent-primary", icon: "ri-subtract-line" },
                   { label: "Chỉ có ở B", value: comparison.onlyB.length, color: "text-sky-400", icon: "ri-subtract-line" },
-                  { label: "Tỷ lệ trùng", value: `${comparison.overlapPct}%`, color: comparison.overlapPct > 50 ? "text-amber-400" : "text-emerald-400", icon: "ri-percent-line" },
+                  { label: "Tỷ lệ trùng", value: `${comparison.overlapPct}%`, color: comparison.overlapPct > 50 ? "text-amber-400" : "text-app-accent-success", icon: "ri-percent-line" },
                 ].map((stat) => (
-                  <div key={stat.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-4 text-center">
-                    <div className="w-7 h-7 flex items-center justify-center bg-white/5 rounded-lg mx-auto mb-2">
+                  <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 text-center">
+                    <div className="w-7 h-7 flex items-center justify-center bg-app-card/50 rounded-lg mx-auto mb-2">
                       <i className={`${stat.icon} ${stat.color} text-sm`}></i>
                     </div>
                     <p className={`text-xl font-bold ${stat.color}`}>{stat.value}</p>
-                    <p className="text-white/30 text-[10px] mt-0.5">{stat.label}</p>
+                    <p className="text-app-text-muted text-[10px] mt-0.5">{stat.label}</p>
                   </div>
                 ))}
               </div>
 
               {/* Tabs */}
-              <div className="flex items-center gap-1 bg-[#0f1117] border border-white/5 rounded-xl p-1 w-fit">
+              <div className="flex items-center gap-1 bg-app-bg border border-app-border rounded-xl p-1 w-fit">
                 {([
                   ["overview", "Tổng quan", "ri-layout-grid-line"],
                   ["vocab", "Từ vựng", "ri-translate-2"],
@@ -324,7 +324,7 @@ export default function ComparePage() {
                     onClick={() => setActiveTab(tab)}
                     className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
                       activeTab === tab
-                        ? "bg-white/10 text-white"
+                        ? "bg-app-card/70 text-white"
                         : "text-white/35 hover:text-white/60"
                     }`}
                   >
@@ -337,11 +337,11 @@ export default function ComparePage() {
               {/* Tab content */}
               {activeTab === "overview" && (
                 <div className="grid grid-cols-2 gap-4">
-                  {([["A", lessonA, "text-[#e8c84a]", "border-[#e8c84a]/15", "bg-[#e8c84a]/5"], ["B", lessonB, "text-sky-400", "border-sky-500/15", "bg-sky-500/5"]] as const).map(
+                  {([["A", lessonA, "text-app-accent-primary", "border-app-accent-primary/15", "bg-app-accent-primary/5"], ["B", lessonB, "text-sky-400", "border-sky-500/15", "bg-sky-500/5"]] as const).map(
                     ([label, lesson, color, border, bg]) => (
                       <div key={label} className={`${bg} border ${border} rounded-2xl p-5 space-y-4`}>
                         <div className="flex items-center gap-3">
-                          <span className={`w-7 h-7 flex items-center justify-center rounded-lg text-xs font-bold ${color} bg-white/5`}>
+                          <span className={`w-7 h-7 flex items-center justify-center rounded-lg text-xs font-bold ${color} bg-app-card/50`}>
                             {label}
                           </span>
                           <div className="flex-1 min-w-0">
@@ -349,35 +349,35 @@ export default function ComparePage() {
                             <p className="text-white/35 text-xs">{lesson.song.artist}</p>
                           </div>
                           {comparison.winner === label && (
-                            <i className="ri-trophy-fill text-[#e8c84a] text-base"></i>
+                            <i className="ri-trophy-fill text-app-accent-primary text-base"></i>
                           )}
                         </div>
 
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
-                            <span className="text-white/40 text-xs">Đánh giá</span>
+                            <span className="text-app-text-secondary text-xs">Đánh giá</span>
                             <StarBadge stars={lesson.stars} />
                           </div>
                           <div className="flex items-center justify-between">
-                            <span className="text-white/40 text-xs">Từ vựng</span>
+                            <span className="text-app-text-secondary text-xs">Từ vựng</span>
                             <span className={`text-xs font-bold ${color}`}>{lesson.vocabulary.length} từ</span>
                           </div>
                           <div className="flex items-center justify-between">
-                            <span className="text-white/40 text-xs">Độ dài truyện</span>
+                            <span className="text-app-text-secondary text-xs">Độ dài truyện</span>
                             <span className="text-white/60 text-xs">{lesson.story.length} ký tự</span>
                           </div>
                           <div className="flex items-center justify-between">
-                            <span className="text-white/40 text-xs">Thể loại</span>
+                            <span className="text-app-text-secondary text-xs">Thể loại</span>
                             <span className="text-white/50 text-xs">{lesson.song.genre || "—"}</span>
                           </div>
                           <div className="flex items-center justify-between">
-                            <span className="text-white/40 text-xs">Đã đăng</span>
-                            <span className={`text-xs ${lesson.publishedAt ? "text-emerald-400" : "text-white/25"}`}>
+                            <span className="text-app-text-secondary text-xs">Đã đăng</span>
+                            <span className={`text-xs ${lesson.publishedAt ? "text-app-accent-success" : "text-app-text-muted"}`}>
                               {lesson.publishedAt ? "Đã đăng" : "Chưa đăng"}
                             </span>
                           </div>
                           <div className="flex items-center justify-between">
-                            <span className="text-white/40 text-xs">Điểm tổng hợp</span>
+                            <span className="text-app-text-secondary text-xs">Điểm tổng hợp</span>
                             <span className={`text-sm font-bold ${color}`}>
                               {label === "A" ? comparison.scoreA.toFixed(1) : comparison.scoreB.toFixed(1)}đ
                             </span>
@@ -393,15 +393,15 @@ export default function ComparePage() {
                 <div className="space-y-4">
                   {/* Shared vocab */}
                   {comparison.shared.length > 0 && (
-                    <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+                    <div className="bg-app-bg border border-app-border rounded-2xl p-5">
                       <div className="flex items-center gap-2 mb-3">
-                        <div className="w-6 h-6 flex items-center justify-center bg-[#e8c84a]/10 rounded-lg">
-                          <i className="ri-links-line text-[#e8c84a] text-xs"></i>
+                        <div className="w-6 h-6 flex items-center justify-center bg-app-accent-primary/10 rounded-lg">
+                          <i className="ri-links-line text-app-accent-primary text-xs"></i>
                         </div>
                         <p className="text-white/60 text-xs font-semibold">
                           Từ vựng trùng nhau ({comparison.shared.length} từ)
                         </p>
-                        <span className="text-[10px] bg-[#e8c84a]/10 text-[#e8c84a] px-2 py-0.5 rounded-full">
+                        <span className="text-[10px] bg-app-accent-primary/10 text-app-accent-primary px-2 py-0.5 rounded-full">
                           Xuất hiện ở cả 2 bài
                         </span>
                       </div>
@@ -415,13 +415,13 @@ export default function ComparePage() {
 
                   {/* Side by side unique vocab */}
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-[#0f1117] border border-[#e8c84a]/10 rounded-2xl p-5">
+                    <div className="bg-app-bg border border-app-accent-primary/10 rounded-2xl p-5">
                       <div className="flex items-center gap-2 mb-3">
-                        <span className="w-5 h-5 flex items-center justify-center bg-[#e8c84a]/15 rounded text-[#e8c84a] text-[10px] font-bold">A</span>
+                        <span className="w-5 h-5 flex items-center justify-center bg-app-accent-primary/15 rounded text-app-accent-primary text-[10px] font-bold">A</span>
                         <p className="text-white/50 text-xs">Chỉ có ở bài A ({comparison.onlyA.length} từ)</p>
                       </div>
                       {comparison.onlyA.length === 0 ? (
-                        <p className="text-white/20 text-xs">Không có từ riêng</p>
+                        <p className="text-app-text-muted text-xs">Không có từ riêng</p>
                       ) : (
                         <div className="flex flex-wrap gap-1.5">
                           {comparison.onlyA.map((v) => (
@@ -430,13 +430,13 @@ export default function ComparePage() {
                         </div>
                       )}
                     </div>
-                    <div className="bg-[#0f1117] border border-sky-500/10 rounded-2xl p-5">
+                    <div className="bg-app-bg border border-sky-500/10 rounded-2xl p-5">
                       <div className="flex items-center gap-2 mb-3">
                         <span className="w-5 h-5 flex items-center justify-center bg-sky-500/15 rounded text-sky-400 text-[10px] font-bold">B</span>
                         <p className="text-white/50 text-xs">Chỉ có ở bài B ({comparison.onlyB.length} từ)</p>
                       </div>
                       {comparison.onlyB.length === 0 ? (
-                        <p className="text-white/20 text-xs">Không có từ riêng</p>
+                        <p className="text-app-text-muted text-xs">Không có từ riêng</p>
                       ) : (
                         <div className="flex flex-wrap gap-1.5">
                           {comparison.onlyB.map((v) => (
@@ -451,15 +451,15 @@ export default function ComparePage() {
 
               {activeTab === "story" && (
                 <div className="grid grid-cols-2 gap-4">
-                  {([["A", lessonA, "border-[#e8c84a]/10", "text-[#e8c84a]"] , ["B", lessonB, "border-sky-500/10", "text-sky-400"]] as const).map(
+                  {([["A", lessonA, "border-app-accent-primary/10", "text-app-accent-primary"] , ["B", lessonB, "border-sky-500/10", "text-sky-400"]] as const).map(
                     ([label, lesson, border, color]) => (
-                      <div key={label} className={`bg-[#0f1117] border ${border} rounded-2xl p-5`}>
+                      <div key={label} className={`bg-app-bg border ${border} rounded-2xl p-5`}>
                         <div className="flex items-center gap-2 mb-3">
-                          <span className={`w-5 h-5 flex items-center justify-center bg-white/5 rounded text-[10px] font-bold ${color}`}>
+                          <span className={`w-5 h-5 flex items-center justify-center bg-app-card/50 rounded text-[10px] font-bold ${color}`}>
                             {label}
                           </span>
                           <p className="text-white/50 text-xs font-medium truncate">{lesson.song.title}</p>
-                          <span className="text-white/20 text-[10px] ml-auto flex-shrink-0">{lesson.story.length} ký tự</span>
+                          <span className="text-app-text-muted text-[10px] ml-auto flex-shrink-0">{lesson.story.length} ký tự</span>
                         </div>
                         <p className="text-white/60 text-xs leading-6 whitespace-pre-wrap max-h-80 overflow-y-auto">
                           {lesson.story}

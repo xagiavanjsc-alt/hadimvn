@@ -48,7 +48,7 @@ export default function SeoulStreakBanner() {
       : seoulStreak.count >= 14
       ? "#fb923c"
       : seoulStreak.count >= 7
-      ? "#e8c84a"
+      ? "app-accent-primary"
       : "#f97316";
 
   return (
@@ -75,7 +75,7 @@ export default function SeoulStreakBanner() {
             <div className="flex items-center gap-2 flex-wrap">
               <p className="text-white font-bold text-sm">Seoul Streak</p>
               {isActiveToday && (
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-semibold">
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success font-semibold">
                   <i className="ri-check-line mr-0.5" />
                   Hôm nay đã học
                 </span>
@@ -90,11 +90,11 @@ export default function SeoulStreakBanner() {
               <span className="text-2xl font-bold" style={{ color: streakColor }}>
                 {seoulStreak.count}
               </span>
-              <span className="text-white/40 text-sm">ngày liên tiếp</span>
-              <span className="text-white/20 text-xs">·</span>
-              <span className="text-white/40 text-xs">{overallPct}% hoàn thành</span>
+              <span className="text-app-text-secondary text-sm">ngày liên tiếp</span>
+              <span className="text-app-text-muted text-xs">·</span>
+              <span className="text-app-text-secondary text-xs">{overallPct}% hoàn thành</span>
             </div>
-            <div className="mt-2 h-1.5 bg-white/5 rounded-full overflow-hidden w-full max-w-xs">
+            <div className="mt-2 h-1.5 bg-app-card/50 rounded-full overflow-hidden w-full max-w-xs">
               <div
                 className="h-full rounded-full transition-all duration-700"
                 style={{ width: `${overallPct}%`, backgroundColor: streakColor }}
@@ -132,7 +132,7 @@ export default function SeoulStreakBanner() {
           </button>
           <button
             onClick={() => navigate("/seoul-learning-path")}
-            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-white/10 bg-white/3 hover:bg-white/6 transition-all cursor-pointer whitespace-nowrap"
+            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-app-border bg-app-surface/50 hover:bg-white/6 transition-all cursor-pointer whitespace-nowrap"
           >
             <i className="ri-route-line text-white/50 text-sm" />
             <span className="text-white/50 text-xs font-semibold">Lộ trình</span>

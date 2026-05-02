@@ -367,7 +367,7 @@ export default function ListeningByLevelPage() {
 
                   {/* Progress bar */}
                   <div
-                    className="h-2 bg-white/50 rounded-full mb-3 cursor-pointer"
+                    className="h-2 bg-app-card/500 rounded-full mb-3 cursor-pointer"
                     onClick={e => {
                       const rect = e.currentTarget.getBoundingClientRect();
                       const pct = (e.clientX - rect.left) / rect.width;

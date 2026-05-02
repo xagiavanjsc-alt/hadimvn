@@ -134,7 +134,7 @@ export default function SeoulStreakPage() {
       actions={
         <button
           onClick={() => navigate("/seoul-textbook")}
-          className="flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white/60 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
+          className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/60 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-book-3-line"></i>Giáo trình Seoul
         </button>
@@ -194,23 +194,23 @@ export default function SeoulStreakPage() {
 
           {/* Stats row */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5">
-            <div className="bg-white/5 rounded-xl p-3 text-center">
+            <div className="bg-app-card/50 rounded-xl p-3 text-center">
               <p className="text-[#f97316] text-xl font-bold">{streak.count}</p>
-              <p className="text-white/40 text-xs mt-0.5">Streak hiện tại</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">Streak hiện tại</p>
             </div>
-            <div className="bg-white/5 rounded-xl p-3 text-center">
+            <div className="bg-app-card/50 rounded-xl p-3 text-center">
               <p className="text-white text-xl font-bold">{streak.longestStreak || 0}</p>
-              <p className="text-white/40 text-xs mt-0.5">Streak dài nhất</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">Streak dài nhất</p>
             </div>
-            <div className="bg-white/5 rounded-xl p-3 text-center">
-              <p className="text-emerald-400 text-xl font-bold">{streak.totalDays || 0}</p>
-              <p className="text-white/40 text-xs mt-0.5">Tổng ngày học</p>
+            <div className="bg-app-card/50 rounded-xl p-3 text-center">
+              <p className="text-app-accent-success text-xl font-bold">{streak.totalDays || 0}</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">Tổng ngày học</p>
             </div>
           </div>
         </div>
 
         {/* Weekly calendar */}
-        <div className="bg-white/3 border border-white/8 rounded-2xl p-5">
+        <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-4">Tuần này</h3>
           <div className="grid grid-cols-7 gap-2">
             {weekDays.map((day, i) => {
@@ -219,7 +219,7 @@ export default function SeoulStreakPage() {
               const isPast = day < today;
               return (
                 <div key={day} className="flex flex-col items-center gap-1.5">
-                  <span className="text-white/30 text-[10px]">{DAY_LABELS[i]}</span>
+                  <span className="text-app-text-muted text-[10px]">{DAY_LABELS[i]}</span>
                   <div
                     className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${
                       hasActivity
@@ -227,7 +227,7 @@ export default function SeoulStreakPage() {
                         : isToday
                         ? "bg-white/8 border border-white/20"
                         : isPast
-                        ? "bg-white/3 border border-white/5"
+                        ? "bg-app-surface/50 border border-app-border"
                         : "bg-white/2 border border-white/3"
                     }`}
                   >
@@ -236,9 +236,9 @@ export default function SeoulStreakPage() {
                     ) : isToday ? (
                       <div className="w-2 h-2 rounded-full bg-white/40"></div>
                     ) : isPast ? (
-                      <div className="w-2 h-2 rounded-full bg-white/10"></div>
+                      <div className="w-2 h-2 rounded-full bg-app-card/70"></div>
                     ) : (
-                      <div className="w-1.5 h-1.5 rounded-full bg-white/5"></div>
+                      <div className="w-1.5 h-1.5 rounded-full bg-app-card/50"></div>
                     )}
                   </div>
                 </div>
@@ -249,7 +249,7 @@ export default function SeoulStreakPage() {
 
         {/* Next milestone */}
         {nextMilestone && (
-          <div className="bg-white/3 border border-white/8 rounded-2xl p-5">
+          <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-white font-semibold text-sm">Mốc tiếp theo</h3>
               <span className="text-[#f97316] text-xs font-semibold">+{nextMilestone.bonus} XP bonus</span>
@@ -268,7 +268,7 @@ export default function SeoulStreakPage() {
                     }}
                   ></div>
                 </div>
-                <p className="text-white/30 text-xs mt-1.5">
+                <p className="text-app-text-muted text-xs mt-1.5">
                   Còn {nextMilestone.days - streak.count} ngày nữa để nhận {nextMilestone.bonus} XP bonus
                 </p>
               </div>
@@ -280,7 +280,7 @@ export default function SeoulStreakPage() {
         )}
 
         {/* XP Bonus milestones */}
-        <div className="bg-white/3 border border-white/8 rounded-2xl p-5">
+        <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-4">Mốc thưởng XP</h3>
           <div className="space-y-2">
             {XP_BONUSES.map(milestone => {
@@ -293,31 +293,31 @@ export default function SeoulStreakPage() {
                     achieved
                       ? "bg-[#f97316]/8 border-[#f97316]/20"
                       : isCurrent
-                      ? "bg-white/5 border-white/15"
-                      : "bg-white/2 border-white/5"
+                      ? "bg-app-card/50 border-white/15"
+                      : "bg-white/2 border-app-border"
                   }`}
                 >
                   <div
                     className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${
-                      achieved ? "bg-[#f97316]/20" : "bg-white/5"
+                      achieved ? "bg-[#f97316]/20" : "bg-app-card/50"
                     }`}
                   >
                     {achieved ? (
                       <i className="ri-checkbox-circle-fill text-[#f97316]"></i>
                     ) : (
-                      <i className="ri-fire-line text-white/20"></i>
+                      <i className="ri-fire-line text-app-text-muted"></i>
                     )}
                   </div>
                   <div className="flex-1">
-                    <p className={`text-sm font-semibold ${achieved ? "text-white" : "text-white/40"}`}>
+                    <p className={`text-sm font-semibold ${achieved ? "text-white" : "text-app-text-secondary"}`}>
                       {milestone.label} liên tiếp
                     </p>
-                    <p className="text-white/30 text-xs">{milestone.days} ngày học Seoul</p>
+                    <p className="text-app-text-muted text-xs">{milestone.days} ngày học Seoul</p>
                   </div>
-                  <div className={`text-right flex-shrink-0 ${achieved ? "text-[#f97316]" : "text-white/25"}`}>
+                  <div className={`text-right flex-shrink-0 ${achieved ? "text-[#f97316]" : "text-app-text-muted"}`}>
                     <p className="text-sm font-bold">+{milestone.bonus} XP</p>
                     {isCurrent && !achieved && (
-                      <p className="text-[10px] text-white/30">Còn {milestone.days - streak.count} ngày</p>
+                      <p className="text-[10px] text-app-text-muted">Còn {milestone.days - streak.count} ngày</p>
                     )}
                   </div>
                 </div>
@@ -327,7 +327,7 @@ export default function SeoulStreakPage() {
         </div>
 
         {/* Progress summary */}
-        <div className="bg-white/3 border border-white/8 rounded-2xl p-5">
+        <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-4">Tiến độ học tập</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -345,11 +345,11 @@ export default function SeoulStreakPage() {
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <span className="text-white/50 text-xs">Tổng XP</span>
-                <span className="text-[#e8c84a] text-xs font-semibold">{(xpData.total || 0).toLocaleString()}</span>
+                <span className="text-app-accent-primary text-xs font-semibold">{(xpData.total || 0).toLocaleString()}</span>
               </div>
               <div className="h-2 bg-white/8 rounded-full overflow-hidden">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-[#e8c84a] to-[#fbbf24] transition-all"
+                  className="h-full rounded-full bg-gradient-to-r from-[app-accent-primary] to-[#fbbf24] transition-all"
                   style={{ width: `${Math.min(100, ((xpData.total || 0) / 10000) * 100)}%` }}
                 ></div>
               </div>
@@ -360,7 +360,7 @@ export default function SeoulStreakPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
             <button
               onClick={() => navigate("/seoul-textbook")}
-              className="flex flex-col items-center gap-2 p-3 rounded-xl bg-white/3 hover:bg-white/6 cursor-pointer transition-all"
+              className="flex flex-col items-center gap-2 p-3 rounded-xl bg-app-surface/50 hover:bg-white/6 cursor-pointer transition-all"
             >
               <div className="w-8 h-8 flex items-center justify-center">
                 <i className="ri-book-3-line text-[#a78bfa]"></i>
@@ -369,7 +369,7 @@ export default function SeoulStreakPage() {
             </button>
             <button
               onClick={() => navigate("/seoul-lesson-quiz")}
-              className="flex flex-col items-center gap-2 p-3 rounded-xl bg-white/3 hover:bg-white/6 cursor-pointer transition-all"
+              className="flex flex-col items-center gap-2 p-3 rounded-xl bg-app-surface/50 hover:bg-white/6 cursor-pointer transition-all"
             >
               <div className="w-8 h-8 flex items-center justify-center">
                 <i className="ri-file-list-3-line text-[#34d399]"></i>
@@ -378,7 +378,7 @@ export default function SeoulStreakPage() {
             </button>
             <button
               onClick={() => navigate("/seoul-wrong-review")}
-              className="flex flex-col items-center gap-2 p-3 rounded-xl bg-white/3 hover:bg-white/6 cursor-pointer transition-all"
+              className="flex flex-col items-center gap-2 p-3 rounded-xl bg-app-surface/50 hover:bg-white/6 cursor-pointer transition-all"
             >
               <div className="w-8 h-8 flex items-center justify-center">
                 <i className="ri-error-warning-line text-red-400"></i>
@@ -396,7 +396,7 @@ export default function SeoulStreakPage() {
             </div>
             <div>
               <p className="text-white/70 text-xs font-semibold mb-1">Mẹo duy trì streak</p>
-              <p className="text-white/40 text-xs leading-relaxed">
+              <p className="text-app-text-secondary text-xs leading-relaxed">
                 Học ít nhất 1 bài mỗi ngày để duy trì streak. Làm quiz bài học sẽ tự động cập nhật streak và tiến độ. Streak càng dài, XP bonus càng nhiều!
               </p>
             </div>

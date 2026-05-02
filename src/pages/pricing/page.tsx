@@ -125,26 +125,26 @@ function VipViolationModal({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-      <div className="w-full max-w-md bg-[#1a1a1a] border border-white/10 rounded-2xl overflow-hidden">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-white/8">
+      <div className="w-full max-w-md bg-[#1a1a1a] border border-app-border rounded-2xl overflow-hidden">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-app-border">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 flex items-center justify-center bg-rose-500/12 rounded-xl">
               <i className="ri-shield-cross-line text-rose-400 text-sm" />
             </div>
             <p className="text-white font-bold text-sm">Báo cáo vi phạm VIP</p>
           </div>
-          <button onClick={onClose} className="text-white/30 hover:text-white/60 cursor-pointer">
+          <button onClick={onClose} className="text-app-text-muted hover:text-white/60 cursor-pointer">
             <i className="ri-close-line" />
           </button>
         </div>
         {done ? (
           <div className="p-8 text-center">
             <div className="w-14 h-14 flex items-center justify-center bg-emerald-500/10 rounded-2xl mx-auto mb-4">
-              <i className="ri-checkbox-circle-line text-emerald-400 text-3xl" />
+              <i className="ri-checkbox-circle-line text-app-accent-success text-3xl" />
             </div>
             <p className="text-white font-bold mb-2">Đã gửi báo cáo!</p>
-            <p className="text-white/40 text-sm mb-5">Cảm ơn bạn đã giúp bảo vệ cộng đồng. Admin sẽ xử lý sớm nhất.</p>
-            <button onClick={onClose} className="px-6 py-2.5 bg-[#e8c84a] text-[#0f1117] font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap">Xong</button>
+            <p className="text-app-text-secondary text-sm mb-5">Cảm ơn bạn đã giúp bảo vệ cộng đồng. Admin sẽ xử lý sớm nhất.</p>
+            <button onClick={onClose} className="px-6 py-2.5 bg-app-accent-primary text-app-bg font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap">Xong</button>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="p-5 space-y-4">
@@ -152,24 +152,24 @@ function VipViolationModal({ onClose }: { onClose: () => void }) {
               <label className="text-xs font-semibold text-white/50 mb-1.5 block">Email tài khoản nghi ngờ (nếu biết)</label>
               <input type="email" value={suspectedEmail} onChange={e => setSuspectedEmail(e.target.value)}
                 placeholder="example@gmail.com"
-                className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-2.5 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40" />
+                className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40" />
             </div>
             <div>
               <label className="text-xs font-semibold text-white/50 mb-1.5 block">Lý do báo cáo <span className="text-rose-400">*</span></label>
               <textarea value={reason} onChange={e => setReason(e.target.value.slice(0, 300))} rows={3} maxLength={300} required
                 placeholder="Mô tả hành vi vi phạm (chia sẻ tài khoản, bán lại VIP...)"
-                className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-2.5 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40 resize-none" />
-              <p className="text-[10px] text-right mt-0.5 text-white/20">{reason.length}/300</p>
+                className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40 resize-none" />
+              <p className="text-[10px] text-right mt-0.5 text-app-text-muted">{reason.length}/300</p>
             </div>
             <div>
               <label className="text-xs font-semibold text-white/50 mb-1.5 block">Bằng chứng (link, ảnh...)</label>
               <input type="text" value={evidence} onChange={e => setEvidence(e.target.value.slice(0, 200))}
                 placeholder="Link bằng chứng hoặc mô tả thêm"
-                className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-2.5 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40" />
+                className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40" />
             </div>
             <div className="flex gap-3 pt-1">
               <button type="button" onClick={onClose}
-                className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/40 text-sm cursor-pointer whitespace-nowrap">Hủy</button>
+                className="flex-1 py-2.5 rounded-xl border border-app-border text-app-text-secondary text-sm cursor-pointer whitespace-nowrap">Hủy</button>
               <button type="submit" disabled={submitting || !reason.trim()}
                 className="flex-1 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 disabled:opacity-40 text-white font-bold text-sm cursor-pointer whitespace-nowrap">
                 {submitting ? "Đang gửi..." : "Gửi báo cáo"}
@@ -185,24 +185,24 @@ function VipViolationModal({ onClose }: { onClose: () => void }) {
 function FeatureRow({ feature }: { feature: PlanFeature }) {
   const renderValue = (val: boolean | string, isVip: boolean) => {
     if (val === false) {
-      return <i className="ri-close-line text-white/20 text-lg"></i>;
+      return <i className="ri-close-line text-app-text-muted text-lg"></i>;
     }
     if (val === true) {
       return (
-        <div className="w-6 h-6 flex items-center justify-center rounded-full mx-auto" style={{ backgroundColor: isVip ? "#e8c84a20" : "#34d39920" }}>
-          <i className={`ri-check-line text-sm ${isVip ? "text-[#e8c84a]" : "text-emerald-400"}`}></i>
+        <div className="w-6 h-6 flex items-center justify-center rounded-full mx-auto" style={{ backgroundColor: isVip ? "app-accent-primary20" : "#34d39920" }}>
+          <i className={`ri-check-line text-sm ${isVip ? "text-app-accent-primary" : "text-app-accent-success"}`}></i>
         </div>
       );
     }
     return (
-      <span className={`text-xs font-medium ${isVip ? "text-[#e8c84a]" : "text-white/50"}`}>{val}</span>
+      <span className={`text-xs font-medium ${isVip ? "text-app-accent-primary" : "text-white/50"}`}>{val}</span>
     );
   };
 
   return (
-    <div className={`grid grid-cols-[1fr_120px_120px] items-center py-3 px-4 rounded-xl transition-colors ${feature.highlight ? "bg-white/3" : "hover:bg-white/2"}`}>
+    <div className={`grid grid-cols-[1fr_120px_120px] items-center py-3 px-4 rounded-xl transition-colors ${feature.highlight ? "bg-app-surface/50" : "hover:bg-white/2"}`}>
       <div className="flex items-center gap-2">
-        {feature.highlight && <div className="w-1 h-1 rounded-full bg-[#e8c84a] flex-shrink-0"></div>}
+        {feature.highlight && <div className="w-1 h-1 rounded-full bg-app-accent-primary flex-shrink-0"></div>}
         <span className={`text-xs sm:text-sm ${feature.highlight ? "text-white/80 font-medium" : "text-white/50"}`}>{feature.label}</span>
       </div>
       <div className="text-center">{renderValue(feature.free, false)}</div>
@@ -215,7 +215,7 @@ function StarRating({ count }: { count: number }) {
   return (
     <div className="flex gap-0.5">
       {Array.from({ length: count }).map((_, i) => (
-        <i key={i} className="ri-star-fill text-[#e8c84a] text-xs"></i>
+        <i key={i} className="ri-star-fill text-app-accent-primary text-xs"></i>
       ))}
     </div>
   );
@@ -254,20 +254,20 @@ function AutoRenewSection({ isVip, vipExpiresAt }: { isVip: boolean; vipExpiresA
     : null;
 
   return (
-    <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-5 mb-6">
+    <div className="bg-app-bg border border-app-border rounded-2xl p-5 mb-6">
       {toast && (
-        <div className="fixed top-6 right-6 z-50 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-4 py-3 rounded-xl text-sm font-medium flex items-center gap-2">
+        <div className="fixed top-6 right-6 z-50 bg-emerald-500/10 border border-emerald-500/30 text-app-accent-success px-4 py-3 rounded-xl text-sm font-medium flex items-center gap-2">
           <i className="ri-checkbox-circle-fill"></i>{toast}
         </div>
       )}
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-start gap-3">
-          <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#e8c84a]/10 flex-shrink-0">
-            <i className="ri-refresh-line text-[#e8c84a] text-lg"></i>
+          <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-app-accent-primary/10 flex-shrink-0">
+            <i className="ri-refresh-line text-app-accent-primary text-lg"></i>
           </div>
           <div>
             <p className="text-white font-semibold text-sm">Tự động gia hạn VIP</p>
-            <p className="text-white/40 text-xs mt-0.5 leading-relaxed">
+            <p className="text-app-text-secondary text-xs mt-0.5 leading-relaxed">
               {autoRenew
                 ? `VIP sẽ tự động gia hạn${daysLeft !== null ? ` sau ${daysLeft} ngày` : ""}. Bạn sẽ nhận email nhắc trước 3 ngày.`
                 : `Bật để không bị gián đoạn học tập. Hệ thống sẽ nhắc bạn trước khi hết hạn.`
@@ -276,7 +276,7 @@ function AutoRenewSection({ isVip, vipExpiresAt }: { isVip: boolean; vipExpiresA
             {autoRenew && (
               <div className="flex items-center gap-1.5 mt-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></div>
-                <span className="text-emerald-400 text-[10px] font-semibold">Đang hoạt động</span>
+                <span className="text-app-accent-success text-[10px] font-semibold">Đang hoạt động</span>
               </div>
             )}
           </div>
@@ -285,19 +285,19 @@ function AutoRenewSection({ isVip, vipExpiresAt }: { isVip: boolean; vipExpiresA
           onClick={handleToggle}
           disabled={saving}
           className="relative w-12 h-6 rounded-full cursor-pointer flex-shrink-0 transition-colors disabled:opacity-50"
-          style={{ backgroundColor: autoRenew ? "#e8c84a" : "rgba(255,255,255,0.1)" }}
+          style={{ backgroundColor: autoRenew ? "app-accent-primary" : "rgba(255,255,255,0.1)" }}
         >
           <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${autoRenew ? "left-7" : "left-1"}`} />
         </button>
       </div>
       {autoRenew && (
-        <div className="mt-4 pt-4 border-t border-white/5 grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="mt-4 pt-4 border-t border-app-border grid grid-cols-1 sm:grid-cols-3 gap-3">
           {[
             { icon: "ri-mail-check-line", text: "Email nhắc trước 7 ngày", color: "#a78bfa" },
             { icon: "ri-shield-check-line", text: "Không bị gián đoạn học", color: "#34d399" },
             { icon: "ri-close-circle-line", text: "Hủy bất cứ lúc nào", color: "#fb923c" },
           ].map(item => (
-            <div key={item.text} className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/3">
+            <div key={item.text} className="flex items-center gap-2 px-3 py-2 rounded-xl bg-app-surface/50">
               <i className={`${item.icon} text-sm flex-shrink-0`} style={{ color: item.color }}></i>
               <span className="text-xs text-white/50">{item.text}</span>
             </div>
@@ -408,7 +408,7 @@ export default function PricingPage() {
     >
       {/* Success toast */}
       {showSuccess && (
-        <div className="fixed top-6 right-6 z-50 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-5 py-3.5 rounded-xl text-sm font-medium flex items-center gap-2.5 shadow-lg">
+        <div className="fixed top-6 right-6 z-50 bg-emerald-500/10 border border-emerald-500/30 text-app-accent-success px-5 py-3.5 rounded-xl text-sm font-medium flex items-center gap-2.5 shadow-lg">
           <i className="ri-checkbox-circle-fill text-lg"></i>
           Đã gửi yêu cầu thanh toán! Chúng tôi sẽ xác nhận và kích hoạt VIP trong vòng 30 phút.
         </div>
@@ -417,18 +417,18 @@ export default function PricingPage() {
       {/* Payment Submission Modal */}
       {showPaymentModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="bg-[#0f1117] border border-white/10 rounded-2xl w-full max-w-md p-6">
+          <div className="bg-app-bg border border-app-border rounded-2xl w-full max-w-md p-6">
             <div className="flex items-center justify-between mb-5">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 flex items-center justify-center bg-emerald-500/10 rounded-xl">
-                  <i className="ri-bank-line text-emerald-400 text-lg"></i>
+                  <i className="ri-bank-line text-app-accent-success text-lg"></i>
                 </div>
                 <div>
                   <p className="text-white font-semibold text-sm">Gửi minh chứng thanh toán</p>
-                  <p className="text-white/40 text-xs">Chụp màn hình giao dịch chuyển khoản</p>
+                  <p className="text-app-text-secondary text-xs">Chụp màn hình giao dịch chuyển khoản</p>
                 </div>
               </div>
-              <button onClick={() => setShowPaymentModal(false)} className="text-white/30 hover:text-white/60 cursor-pointer">
+              <button onClick={() => setShowPaymentModal(false)} className="text-app-text-muted hover:text-white/60 cursor-pointer">
                 <i className="ri-close-line text-xl"></i>
               </button>
             </div>
@@ -446,17 +446,17 @@ export default function PricingPage() {
                   />
                   <label
                     htmlFor="payment-proof"
-                    className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-white/10 rounded-xl cursor-pointer hover:border-white/20 transition-colors bg-white/3"
+                    className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-app-border rounded-xl cursor-pointer hover:border-white/20 transition-colors bg-app-surface/50"
                   >
                     {paymentProof ? (
                       <div className="text-center">
-                        <i className="ri-image-line text-2xl text-emerald-400"></i>
+                        <i className="ri-image-line text-2xl text-app-accent-success"></i>
                         <p className="text-white/60 text-xs mt-2">{paymentProof.name}</p>
                       </div>
                     ) : (
                       <div className="text-center">
-                        <i className="ri-upload-cloud-line text-2xl text-white/30"></i>
-                        <p className="text-white/40 text-xs mt-2">Click để chọn ảnh</p>
+                        <i className="ri-upload-cloud-line text-2xl text-app-text-muted"></i>
+                        <p className="text-app-text-secondary text-xs mt-2">Click để chọn ảnh</p>
                       </div>
                     )}
                   </label>
@@ -470,17 +470,17 @@ export default function PricingPage() {
                   onChange={e => setPaymentNote(e.target.value)}
                   placeholder="VD: Đã chuyển 790.000đ cho gói VIP tháng"
                   rows={3}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-emerald-400/40 transition-colors resize-none"
+                  className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-emerald-400/40 transition-colors resize-none"
                 />
               </div>
               
               <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-3">
                 <div className="flex items-start gap-2">
-                  <i className="ri-information-line text-emerald-400 text-xs mt-0.5 flex-shrink-0"></i>
-                  <p className="text-emerald-400/70 text-xs leading-relaxed">
-                    Số tiền cần chuyển: <span className="text-emerald-400 font-semibold">{new Intl.NumberFormat("vi-VN").format(billing === "monthly" ? monthlyPrice : yearlyPrice * 12)}đ</span>
+                  <i className="ri-information-line text-app-accent-success text-xs mt-0.5 flex-shrink-0"></i>
+                  <p className="text-app-accent-success/70 text-xs leading-relaxed">
+                    Số tiền cần chuyển: <span className="text-app-accent-success font-semibold">{new Intl.NumberFormat("vi-VN").format(billing === "monthly" ? monthlyPrice : yearlyPrice * 12)}đ</span>
                     <br />
-                    Nội dung chuyển khoản: <span className="text-emerald-400 font-semibold">VIP_{user?.email?.split("@")[0] || "EMAIL"}</span>
+                    Nội dung chuyển khoản: <span className="text-app-accent-success font-semibold">VIP_{user?.email?.split("@")[0] || "EMAIL"}</span>
                   </p>
                 </div>
               </div>
@@ -488,7 +488,7 @@ export default function PricingPage() {
               <div className="flex gap-3 pt-2">
                 <button
                   onClick={() => setShowPaymentModal(false)}
-                  className="flex-1 py-3 rounded-xl border border-white/10 text-white/50 text-sm font-medium hover:bg-white/5 transition-colors cursor-pointer"
+                  className="flex-1 py-3 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer"
                 >
                   Hủy
                 </button>
@@ -519,16 +519,16 @@ export default function PricingPage() {
       <div className="relative overflow-hidden rounded-2xl mb-8 p-8"
         style={{ background: "linear-gradient(135deg, #1a1600 0%, #2a2000 50%, #1a1600 100%)" }}>
         <div className="absolute inset-0 opacity-20"
-          style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #e8c84a 0%, transparent 50%), radial-gradient(circle at 80% 50%, #fb923c 0%, transparent 50%)" }}>
+          style={{ backgroundImage: "radial-gradient(circle at 20% 50%, app-accent-primary 0%, transparent 50%), radial-gradient(circle at 80% 50%, #fb923c 0%, transparent 50%)" }}>
         </div>
         <div className="relative z-10 text-center max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 bg-[#e8c84a]/10 border border-[#e8c84a]/20 text-[#e8c84a] text-xs font-semibold px-4 py-1.5 rounded-full mb-4">
+          <div className="inline-flex items-center gap-2 bg-app-accent-primary/10 border border-app-accent-primary/20 text-app-accent-primary text-xs font-semibold px-4 py-1.5 rounded-full mb-4">
             <i className="ri-vip-crown-line"></i>
             Dùng thử 7 ngày MIỄN PHÍ
           </div>
           <h2 className="text-white font-bold text-3xl mb-3 leading-tight">
             Học tiếng Hàn thật sự hiệu quả<br />
-            <span className="text-[#e8c84a]">không cần đến trung tâm</span>
+            <span className="text-app-accent-primary">không cần đến trung tâm</span>
           </h2>
           <p className="text-white/50 text-sm leading-relaxed">
             Kết hợp K-pop, tin tức thật, EPS-TOPIK và AI — phương pháp học độc đáo<br />
@@ -539,16 +539,16 @@ export default function PricingPage() {
 
       {/* Billing toggle */}
       <div className="flex items-center justify-center gap-4 mb-8">
-        <span className={`text-sm font-medium ${billing === "monthly" ? "text-white" : "text-white/40"}`}>Hàng tháng</span>
+        <span className={`text-sm font-medium ${billing === "monthly" ? "text-white" : "text-app-text-secondary"}`}>Hàng tháng</span>
         <button
           onClick={() => setBilling(b => b === "monthly" ? "yearly" : "monthly")}
-          className={`relative w-12 h-6 rounded-full transition-colors cursor-pointer ${billing === "yearly" ? "bg-[#e8c84a]" : "bg-white/10"}`}
+          className={`relative w-12 h-6 rounded-full transition-colors cursor-pointer ${billing === "yearly" ? "bg-app-accent-primary" : "bg-app-card/70"}`}
         >
           <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${billing === "yearly" ? "left-7" : "left-1"}`}></div>
         </button>
         <div className="flex items-center gap-2">
-          <span className={`text-sm font-medium ${billing === "yearly" ? "text-white" : "text-white/40"}`}>Hàng năm</span>
-          <span className="text-[10px] font-bold bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded-full">
+          <span className={`text-sm font-medium ${billing === "yearly" ? "text-white" : "text-app-text-secondary"}`}>Hàng năm</span>
+          <span className="text-[10px] font-bold bg-app-accent-success/15 text-app-accent-success px-2 py-0.5 rounded-full">
             Tiết kiệm {new Intl.NumberFormat("vi-VN").format(yearSaving)}đ
           </span>
         </div>
@@ -562,51 +562,51 @@ export default function PricingPage() {
       {/* Pricing cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-10 max-w-3xl mx-auto">
         {/* Free */}
-        <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-6">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-6">
           <div className="mb-5">
-            <p className="text-white/40 text-xs font-semibold tracking-normal mb-2">Miễn phí</p>
+            <p className="text-app-text-secondary text-xs font-semibold tracking-normal mb-2">Miễn phí</p>
             <div className="flex items-end gap-1 mb-1">
               <span className="text-white font-bold text-4xl">0đ</span>
             </div>
-            <p className="text-white/30 text-xs">Mãi mãi miễn phí</p>
+            <p className="text-app-text-muted text-xs">Mãi mãi miễn phí</p>
           </div>
           <div className="space-y-2.5 mb-6">
             {["Hangul cơ bản", "20 flashcard/ngày", "3 câu EPS/ngày", "5 câu quiz/lần", "Streak hàng ngày"].map(f => (
               <div key={f} className="flex items-center gap-2.5">
-                <div className="w-4 h-4 flex items-center justify-center rounded-full bg-white/5 flex-shrink-0">
-                  <i className="ri-check-line text-white/30 text-[10px]"></i>
+                <div className="w-4 h-4 flex items-center justify-center rounded-full bg-app-card/50 flex-shrink-0">
+                  <i className="ri-check-line text-app-text-muted text-[10px]"></i>
                 </div>
-                <span className="text-white/40 text-sm">{f}</span>
+                <span className="text-app-text-secondary text-sm">{f}</span>
               </div>
             ))}
           </div>
           {isVipActive(profile) ? (
-            <div className="w-full py-3 rounded-xl border border-white/8 text-white/25 text-sm font-medium text-center">
+            <div className="w-full py-3 rounded-xl border border-app-border text-app-text-muted text-sm font-medium text-center">
               Gói cơ bản
             </div>
           ) : (
-            <button className="w-full py-3 rounded-xl border border-white/10 text-white/40 text-sm font-medium cursor-default whitespace-nowrap">
+            <button className="w-full py-3 rounded-xl border border-app-border text-app-text-secondary text-sm font-medium cursor-default whitespace-nowrap">
               Đang dùng
             </button>
           )}
         </div>
 
         {/* VIP */}
-        <div className="relative bg-gradient-to-b from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/30 rounded-2xl p-6 overflow-hidden">
-          <div className="absolute top-0 right-0 bg-[#e8c84a] text-[#0f1117] text-[10px] font-bold px-3 py-1 rounded-bl-xl">
+        <div className="relative bg-gradient-to-b from-app-surface to-[#0f1117] border border-app-accent-primary/30 rounded-2xl p-6 overflow-hidden">
+          <div className="absolute top-0 right-0 bg-app-accent-primary text-app-bg text-[10px] font-bold px-3 py-1 rounded-bl-xl">
             PHỔ BIẾN NHẤT
           </div>
           <div className="mb-5">
-            <p className="text-[#e8c84a] text-xs font-semibold tracking-normal mb-2">VIP</p>
+            <p className="text-app-accent-primary text-xs font-semibold tracking-normal mb-2">VIP</p>
             <div className="flex items-end gap-1 mb-1">
               <span className="text-white font-bold text-4xl">{new Intl.NumberFormat("vi-VN").format(currentPrice)}đ</span>
-              <span className="text-white/30 text-sm mb-1">/tháng</span>
+              <span className="text-app-text-muted text-sm mb-1">/tháng</span>
             </div>
             {billing === "yearly" && (
-              <p className="text-white/30 text-xs">Thanh toán {new Intl.NumberFormat("vi-VN").format(currentPrice * 12)}đ/năm</p>
+              <p className="text-app-text-muted text-xs">Thanh toán {new Intl.NumberFormat("vi-VN").format(currentPrice * 12)}đ/năm</p>
             )}
             {billing === "monthly" && (
-              <p className="text-white/30 text-xs">Hủy bất cứ lúc nào</p>
+              <p className="text-app-text-muted text-xs">Hủy bất cứ lúc nào</p>
             )}
           </div>
           <div className="space-y-2.5 mb-6">
@@ -622,8 +622,8 @@ export default function PricingPage() {
               "Hỗ trợ ưu tiên qua Zalo",
             ].map(f => (
               <div key={f} className="flex items-center gap-2.5">
-                <div className="w-4 h-4 flex items-center justify-center rounded-full bg-[#e8c84a]/15 flex-shrink-0">
-                  <i className="ri-check-line text-[#e8c84a] text-[10px]"></i>
+                <div className="w-4 h-4 flex items-center justify-center rounded-full bg-app-accent-primary/15 flex-shrink-0">
+                  <i className="ri-check-line text-app-accent-primary text-[10px]"></i>
                 </div>
                 <span className="text-white/70 text-sm">{f}</span>
               </div>
@@ -631,13 +631,13 @@ export default function PricingPage() {
           </div>
           {isVipActive(profile) ? (
             <div className="space-y-2">
-              <div className="w-full py-3 rounded-xl bg-[#e8c84a]/10 border border-[#e8c84a]/25 text-[#e8c84a] text-sm font-bold text-center flex items-center justify-center gap-2">
+              <div className="w-full py-3 rounded-xl bg-app-accent-primary/10 border border-app-accent-primary/25 text-app-accent-primary text-sm font-bold text-center flex items-center justify-center gap-2">
                 <i className="ri-vip-crown-fill"></i>
                 Đang sử dụng VIP
               </div>
               <button
                 onClick={() => navigate("/vip-history")}
-                className="w-full py-2 rounded-xl border border-white/8 text-white/40 text-xs cursor-pointer whitespace-nowrap hover:bg-white/5 transition-colors"
+                className="w-full py-2 rounded-xl border border-app-border text-app-text-secondary text-xs cursor-pointer whitespace-nowrap hover:bg-app-card/50 transition-colors"
               >
                 Xem lịch sử giao dịch
               </button>
@@ -646,24 +646,24 @@ export default function PricingPage() {
             <>
               <button
                 onClick={handleRegister}
-                className="w-full py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] text-sm font-bold transition-colors cursor-pointer whitespace-nowrap flex items-center justify-center gap-2"
+                className="w-full py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold transition-colors cursor-pointer whitespace-nowrap flex items-center justify-center gap-2"
               >
                 <i className="ri-vip-crown-line"></i>
                 Dùng thử 7 ngày miễn phí
               </button>
-              <p className="text-white/25 text-[10px] text-center mt-2">Không cần thẻ tín dụng</p>
+              <p className="text-app-text-muted text-[10px] text-center mt-2">Không cần thẻ tín dụng</p>
             </>
           )}
         </div>
       </div>
 
       {/* Feature comparison table */}
-      <div className="bg-[#0f1117] border border-white/5 rounded-2xl overflow-hidden mb-10 overflow-x-auto">
+      <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden mb-10 overflow-x-auto">
         <div className="min-w-[480px]">
-          <div className="grid grid-cols-[1fr_120px_120px] items-center px-4 py-4 border-b border-white/5">
-            <p className="text-white/40 text-xs font-semibold tracking-normal">Tính năng</p>
-            <p className="text-white/40 text-xs font-semibold text-center">Miễn phí</p>
-            <p className="text-[#e8c84a] text-xs font-semibold text-center">VIP</p>
+          <div className="grid grid-cols-[1fr_120px_120px] items-center px-4 py-4 border-b border-app-border">
+            <p className="text-app-text-secondary text-xs font-semibold tracking-normal">Tính năng</p>
+            <p className="text-app-text-secondary text-xs font-semibold text-center">Miễn phí</p>
+            <p className="text-app-accent-primary text-xs font-semibold text-center">VIP</p>
           </div>
           <div className="divide-y divide-white/3">
             {features.map(f => <FeatureRow key={f.label} feature={f} />)}
@@ -673,56 +673,56 @@ export default function PricingPage() {
 
       {/* Payment Information */}
       {bankAccount && bankAccount.bankName && bankAccount.accountNumber && (
-        <div className="bg-[#0f1117] border border-emerald-500/20 rounded-2xl p-6 mb-10">
+        <div className="bg-app-bg border border-emerald-500/20 rounded-2xl p-6 mb-10">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 flex items-center justify-center bg-emerald-500/10 rounded-xl">
-              <i className="ri-bank-line text-emerald-400 text-lg"></i>
+              <i className="ri-bank-line text-app-accent-success text-lg"></i>
             </div>
             <div>
               <p className="text-white font-semibold text-sm">Thông tin thanh toán</p>
-              <p className="text-white/40 text-xs">Chuyển khoản ngân hàng hoặc quét QR Code</p>
+              <p className="text-app-text-secondary text-xs">Chuyển khoản ngân hàng hoặc quét QR Code</p>
             </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Bank Account Info */}
             <div className="space-y-3">
-              <div className="flex items-center justify-between py-2 border-b border-white/5">
-                <span className="text-white/40 text-xs">Ngân hàng</span>
+              <div className="flex items-center justify-between py-2 border-b border-app-border">
+                <span className="text-app-text-secondary text-xs">Ngân hàng</span>
                 <span className="text-white text-sm font-medium">{bankAccount.bankName}</span>
               </div>
-              <div className="flex items-center justify-between py-2 border-b border-white/5">
-                <span className="text-white/40 text-xs">Số tài khoản</span>
+              <div className="flex items-center justify-between py-2 border-b border-app-border">
+                <span className="text-app-text-secondary text-xs">Số tài khoản</span>
                 <span className="text-white text-sm font-medium font-mono">{bankAccount.accountNumber}</span>
               </div>
-              <div className="flex items-center justify-between py-2 border-b border-white/5">
-                <span className="text-white/40 text-xs">Chủ tài khoản</span>
+              <div className="flex items-center justify-between py-2 border-b border-app-border">
+                <span className="text-app-text-secondary text-xs">Chủ tài khoản</span>
                 <span className="text-white text-sm font-medium">{bankAccount.accountName}</span>
               </div>
               {bankAccount.branch && (
-                <div className="flex items-center justify-between py-2 border-b border-white/5">
-                  <span className="text-white/40 text-xs">Chi nhánh</span>
+                <div className="flex items-center justify-between py-2 border-b border-app-border">
+                  <span className="text-app-text-secondary text-xs">Chi nhánh</span>
                   <span className="text-white text-sm font-medium">{bankAccount.branch}</span>
                 </div>
               )}
               <div className="flex items-center justify-between py-2">
-                <span className="text-white/40 text-xs">Nội dung chuyển khoản</span>
-                <span className="text-emerald-400 text-sm font-medium">VIP_[EMAIL_CUA_BAN]</span>
+                <span className="text-app-text-secondary text-xs">Nội dung chuyển khoản</span>
+                <span className="text-app-accent-success text-sm font-medium">VIP_[EMAIL_CUA_BAN]</span>
               </div>
             </div>
             
             {/* QR Code */}
             {bankAccount.qrCodeUrl && (
-              <div className="flex flex-col items-center justify-center p-4 bg-white/5 rounded-xl">
-                <p className="text-white/40 text-xs mb-3">Quét mã QR để chuyển khoản</p>
+              <div className="flex flex-col items-center justify-center p-4 bg-app-card/50 rounded-xl">
+                <p className="text-app-text-secondary text-xs mb-3">Quét mã QR để chuyển khoản</p>
                 <img src={bankAccount.qrCodeUrl} alt="QR Code" className="w-48 h-48 rounded-lg" />
-                <p className="text-white/30 text-[10px] mt-3 text-center">Sử dụng app ngân hàng để quét mã</p>
+                <p className="text-app-text-muted text-[10px] mt-3 text-center">Sử dụng app ngân hàng để quét mã</p>
               </div>
             )}
           </div>
           
-          <div className="mt-4 pt-4 border-t border-white/5">
-            <div className="flex items-start gap-2 text-emerald-400/60 text-xs bg-emerald-400/5 px-3 py-2 rounded-lg">
+          <div className="mt-4 pt-4 border-t border-app-border">
+            <div className="flex items-start gap-2 text-app-accent-success/60 text-xs bg-emerald-400/5 px-3 py-2 rounded-lg">
               <i className="ri-information-line mt-0.5 flex-shrink-0"></i>
               <p>Sau khi chuyển khoản, vui lòng chụp màn hình giao dịch và gửi qua Zalo để admin kích hoạt VIP trong vòng 30 phút.</p>
             </div>
@@ -735,14 +735,14 @@ export default function PricingPage() {
         <h3 className="text-white font-bold text-lg mb-5 text-center">Học viên nói gì về Hàn Việt KTS?</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {testimonials.map(t => (
-            <div key={t.name} className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div key={t.name} className="bg-app-bg border border-app-border rounded-2xl p-5">
               <StarRating count={t.rating} />
               <p className="text-white/60 text-sm leading-relaxed mt-3 mb-4 italic">&ldquo;{t.text}&rdquo;</p>
               <div className="flex items-center gap-3">
                 <img src={t.avatar} alt={t.name} className="w-9 h-9 rounded-full object-cover object-top flex-shrink-0" />
                 <div>
                   <p className="text-white/80 text-xs font-semibold">{t.name}</p>
-                  <p className="text-white/30 text-[10px]">{t.role}</p>
+                  <p className="text-app-text-muted text-[10px]">{t.role}</p>
                 </div>
               </div>
             </div>
@@ -755,17 +755,17 @@ export default function PricingPage() {
         <h3 className="text-white font-bold text-lg mb-5 text-center">Câu hỏi thường gặp</h3>
         <div className="space-y-2">
           {faqs.map((faq, i) => (
-            <div key={i} className="bg-[#0f1117] border border-white/5 rounded-xl overflow-hidden">
+            <div key={i} className="bg-app-bg border border-app-border rounded-xl overflow-hidden">
               <button
                 onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 className="w-full flex items-center justify-between px-5 py-4 text-left cursor-pointer hover:bg-white/2 transition-colors"
               >
                 <span className="text-white/80 text-sm font-medium">{faq.q}</span>
-                <i className={`ri-arrow-down-s-line text-white/30 transition-transform flex-shrink-0 ml-3 ${openFaq === i ? "rotate-180" : ""}`}></i>
+                <i className={`ri-arrow-down-s-line text-app-text-muted transition-transform flex-shrink-0 ml-3 ${openFaq === i ? "rotate-180" : ""}`}></i>
               </button>
               {openFaq === i && (
                 <div className="px-5 pb-4">
-                  <p className="text-white/40 text-sm leading-relaxed">{faq.a}</p>
+                  <p className="text-app-text-secondary text-sm leading-relaxed">{faq.a}</p>
                 </div>
               )}
             </div>
@@ -774,13 +774,13 @@ export default function PricingPage() {
       </div>
 
       {/* Bottom CTA */}
-      <div className="bg-gradient-to-r from-[#1a1600] via-[#2a2000] to-[#1a1600] border border-[#e8c84a]/15 rounded-2xl p-8 text-center">
-        <p className="text-[#e8c84a] text-xs font-semibold tracking-normal mb-2">Bắt đầu ngay hôm nay</p>
+      <div className="bg-gradient-to-r from-app-surface via-[#2a2000] to-[#1a1600] border border-app-accent-primary/15 rounded-2xl p-8 text-center">
+        <p className="text-app-accent-primary text-xs font-semibold tracking-normal mb-2">Bắt đầu ngay hôm nay</p>
         <h3 className="text-white font-bold text-xl mb-2">7 ngày dùng thử — hoàn toàn miễn phí</h3>
-        <p className="text-white/40 text-sm mb-5">Không cần thẻ tín dụng. Hủy bất cứ lúc nào. Hỗ trợ qua Zalo 24/7.</p>
+        <p className="text-app-text-secondary text-sm mb-5">Không cần thẻ tín dụng. Hủy bất cứ lúc nào. Hỗ trợ qua Zalo 24/7.</p>
         <button
           onClick={handleRegister}
-          className="inline-flex items-center gap-2 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm px-8 py-3.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
+          className="inline-flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-8 py-3.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-vip-crown-line"></i>
           Đăng ký VIP ngay
@@ -791,7 +791,7 @@ export default function PricingPage() {
       <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
         <button
           onClick={() => setShowViolationModal(true)}
-          className="flex items-center gap-2 text-xs text-white/25 hover:text-rose-400 transition-colors cursor-pointer whitespace-nowrap"
+          className="flex items-center gap-2 text-xs text-app-text-muted hover:text-rose-400 transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-shield-cross-line" />
           Báo cáo tài khoản chia sẻ VIP trái phép
@@ -799,7 +799,7 @@ export default function PricingPage() {
         <span className="text-white/10 hidden sm:block">|</span>
         <button
           onClick={() => navigate("/report-bug")}
-          className="flex items-center gap-2 text-xs text-white/25 hover:text-[#e8c84a] transition-colors cursor-pointer whitespace-nowrap"
+          className="flex items-center gap-2 text-xs text-app-text-muted hover:text-app-accent-primary transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-bug-line" />
           Báo cáo lỗi kỹ thuật

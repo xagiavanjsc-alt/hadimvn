@@ -33,10 +33,10 @@ const DEFAULT_ADS: AdConfig[] = [
     <span style="font-size:20px;">👑</span>
   </div>
   <div style="flex:1;">
-    <p style="color:#e8c84a;font-weight:700;font-size:13px;margin:0 0 2px;">Nâng cấp VIP — Học không giới hạn</p>
+    <p style="color:app-accent-primary;font-weight:700;font-size:13px;margin:0 0 2px;">Nâng cấp VIP — Học không giới hạn</p>
     <p style="color:rgba(255,255,255,0.45);font-size:11px;margin:0;">Mở khóa 2.691 từ Hán Hàn, AI Gia sư, Spaced Repetition và nhiều hơn nữa</p>
   </div>
-  <a href="/pricing" style="background:#e8c84a;color:#0f1117;font-weight:700;font-size:11px;padding:8px 16px;border-radius:8px;text-decoration:none;white-space:nowrap;flex-shrink:0;">Xem gói VIP</a>
+  <a href="/pricing" style="background:app-accent-primary;color:#0f1117;font-weight:700;font-size:11px;padding:8px 16px;border-radius:8px;text-decoration:none;white-space:nowrap;flex-shrink:0;">Xem gói VIP</a>
 </div>`,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -87,12 +87,12 @@ function AdItem({ ad, onDismiss }: { ad: AdConfig; onDismiss: () => void }) {
         />
         <button
           onClick={handleDismiss}
-          className="absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded-full bg-black/30 text-white/40 hover:text-white/70 cursor-pointer transition-colors z-10"
+          className="absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded-full bg-black/30 text-app-text-secondary hover:text-white/70 cursor-pointer transition-colors z-10"
           title="Đóng quảng cáo"
         >
           <i className="ri-close-line text-[10px]"></i>
         </button>
-        <span className="absolute bottom-2 right-2 text-[8px] text-white/20 pointer-events-none">Quảng cáo</span>
+        <span className="absolute bottom-2 right-2 text-[8px] text-app-text-muted pointer-events-none">Quảng cáo</span>
       </div>
     );
   }
@@ -106,7 +106,7 @@ function AdItem({ ad, onDismiss }: { ad: AdConfig; onDismiss: () => void }) {
         <button onClick={handleDismiss} className="absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded-full bg-black/50 text-white/60 hover:text-white cursor-pointer">
           <i className="ri-close-line text-[10px]"></i>
         </button>
-        <span className="absolute bottom-2 right-2 text-[8px] text-white/30 bg-black/40 px-1.5 py-0.5 rounded">Quảng cáo</span>
+        <span className="absolute bottom-2 right-2 text-[8px] text-app-text-muted bg-black/40 px-1.5 py-0.5 rounded">Quảng cáo</span>
       </div>
     );
   }
@@ -117,17 +117,17 @@ function AdItem({ ad, onDismiss }: { ad: AdConfig; onDismiss: () => void }) {
       className={`relative rounded-xl p-4 transition-all duration-300 ${visible ? "opacity-100" : "opacity-0"}`}
       style={{ backgroundColor: ad.bgColor || "rgba(232,200,74,0.06)", border: "1px solid rgba(232,200,74,0.15)" }}
     >
-      <button onClick={handleDismiss} className="absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded-full bg-white/5 text-white/30 hover:text-white/60 cursor-pointer">
+      <button onClick={handleDismiss} className="absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded-full bg-app-card/50 text-app-text-muted hover:text-white/60 cursor-pointer">
         <i className="ri-close-line text-[10px]"></i>
       </button>
-      <p className="text-sm font-semibold mb-1 pr-6" style={{ color: ad.textColor || "#e8c84a" }}>{ad.title}</p>
-      {ad.description && <p className="text-xs text-white/40">{ad.description}</p>}
+      <p className="text-sm font-semibold mb-1 pr-6" style={{ color: ad.textColor || "app-accent-primary" }}>{ad.title}</p>
+      {ad.description && <p className="text-xs text-app-text-secondary">{ad.description}</p>}
       {ad.linkUrl && (
-        <a href={ad.linkUrl} className="mt-2 inline-block text-xs font-semibold underline" style={{ color: ad.textColor || "#e8c84a" }}>
+        <a href={ad.linkUrl} className="mt-2 inline-block text-xs font-semibold underline" style={{ color: ad.textColor || "app-accent-primary" }}>
           Xem thêm →
         </a>
       )}
-      <span className="absolute bottom-2 right-2 text-[8px] text-white/20">Quảng cáo</span>
+      <span className="absolute bottom-2 right-2 text-[8px] text-app-text-muted">Quảng cáo</span>
     </div>
   );
 }

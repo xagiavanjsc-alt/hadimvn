@@ -21,10 +21,10 @@ const LOCAL_STORAGE_KEYS = [
 
 function SectionCard({ title, icon, children }: { title: string; icon: string; children: React.ReactNode }) {
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-6">
+    <div className="bg-app-bg border border-app-border rounded-2xl p-6">
       <div className="flex items-center gap-2 mb-5">
-        <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#e8c84a]/10">
-          <i className={`${icon} text-[#e8c84a] text-sm`}></i>
+        <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-accent-primary/10">
+          <i className={`${icon} text-app-accent-primary text-sm`}></i>
         </div>
         <h3 className="text-white font-semibold text-sm">{title}</h3>
       </div>
@@ -138,12 +138,12 @@ export default function AccountSettingsPage() {
     return (
       <DashboardLayout title="Cài đặt tài khoản" subtitle="Quản lý bảo mật và dữ liệu của bạn">
         <div className="flex flex-col items-center justify-center py-20 text-center">
-          <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-white/5 mb-4">
-            <i className="ri-lock-line text-white/20 text-3xl"></i>
+          <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-app-card/50 mb-4">
+            <i className="ri-lock-line text-app-text-muted text-3xl"></i>
           </div>
-          <p className="text-white/40 text-base font-medium mb-2">Cần đăng nhập</p>
-          <p className="text-white/25 text-sm mb-5">Đăng nhập để quản lý cài đặt tài khoản</p>
-          <button onClick={() => navigate("/profile")} className="flex items-center gap-2 bg-[#e8c84a] text-[#0f1117] font-bold text-sm px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap">
+          <p className="text-app-text-secondary text-base font-medium mb-2">Cần đăng nhập</p>
+          <p className="text-app-text-muted text-sm mb-5">Đăng nhập để quản lý cài đặt tài khoản</p>
+          <button onClick={() => navigate("/profile")} className="flex items-center gap-2 bg-app-accent-primary text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap">
             <i className="ri-user-line"></i>
             Đến trang hồ sơ
           </button>
@@ -158,7 +158,7 @@ export default function AccountSettingsPage() {
       subtitle="Quản lý bảo mật, thông báo và dữ liệu học tập"
       actions={
         deleteMsg ? (
-          <span className="flex items-center gap-1.5 text-emerald-400 text-xs font-medium px-3 py-1.5 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
+          <span className="flex items-center gap-1.5 text-app-accent-success text-xs font-medium px-3 py-1.5 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
             <i className="ri-checkbox-circle-fill"></i>
             {deleteMsg}
           </span>
@@ -166,26 +166,26 @@ export default function AccountSettingsPage() {
       }
     >
       {/* User info banner */}
-      <div className="bg-gradient-to-r from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/15 rounded-2xl p-5 mb-6 flex items-center gap-4">
-        <div className="w-12 h-12 rounded-xl bg-[#e8c84a]/15 flex items-center justify-center flex-shrink-0">
+      <div className="bg-gradient-to-r from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5 mb-6 flex items-center gap-4">
+        <div className="w-12 h-12 rounded-xl bg-app-accent-primary/15 flex items-center justify-center flex-shrink-0">
           {profile?.avatar_url ? (
             <img src={profile.avatar_url} alt="" className="w-12 h-12 rounded-xl object-cover" />
           ) : (
-            <i className="ri-user-3-line text-[#e8c84a] text-xl"></i>
+            <i className="ri-user-3-line text-app-accent-primary text-xl"></i>
           )}
         </div>
         <div className="flex-1">
           <p className="text-white font-bold text-base">{profile?.display_name || "Học viên KTS"}</p>
-          <p className="text-white/40 text-sm">{user.email}</p>
+          <p className="text-app-text-secondary text-sm">{user.email}</p>
         </div>
         <div className="flex items-center gap-2">
           {isVipActive(profile) ? (
-            <span className="flex items-center gap-1.5 bg-[#e8c84a]/15 text-[#e8c84a] text-xs font-bold px-3 py-1.5 rounded-full border border-[#e8c84a]/25">
+            <span className="flex items-center gap-1.5 bg-app-accent-primary/15 text-app-accent-primary text-xs font-bold px-3 py-1.5 rounded-full border border-app-accent-primary/25">
               <i className="ri-vip-crown-fill"></i>
               VIP
             </span>
           ) : (
-            <button onClick={() => navigate("/pricing")} className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 text-white/50 text-xs px-3 py-1.5 rounded-full border border-white/10 cursor-pointer whitespace-nowrap transition-colors">
+            <button onClick={() => navigate("/pricing")} className="flex items-center gap-1.5 bg-app-card/50 hover:bg-app-card/70 text-white/50 text-xs px-3 py-1.5 rounded-full border border-app-border cursor-pointer whitespace-nowrap transition-colors">
               <i className="ri-vip-crown-line"></i>
               Nâng cấp VIP
             </button>
@@ -194,7 +194,7 @@ export default function AccountSettingsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-white/3 p-1 rounded-xl mb-6 w-fit">
+      <div className="flex gap-1 bg-app-surface/50 p-1 rounded-xl mb-6 w-fit">
         {([
           ["security", "ri-shield-keyhole-line", "Bảo mật"],
           ["notifications", "ri-notification-3-line", "Thông báo"],
@@ -204,7 +204,7 @@ export default function AccountSettingsPage() {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${activeTab === tab ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/40 hover:text-white/60"}`}
+            className={`flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${activeTab === tab ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}
           >
             <i className={icon}></i>
             {label}
@@ -217,63 +217,63 @@ export default function AccountSettingsPage() {
         <div className="space-y-5 max-w-xl">
           <SectionCard title="Đổi mật khẩu" icon="ri-lock-password-line">
             {pwMsg && (
-              <div className={`mb-4 flex items-center gap-2 px-4 py-3 rounded-xl border text-xs ${pwMsg.type === "success" ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" : "bg-red-500/10 border-red-500/20 text-red-400"}`}>
+              <div className={`mb-4 flex items-center gap-2 px-4 py-3 rounded-xl border text-xs ${pwMsg.type === "success" ? "bg-emerald-500/10 border-emerald-500/20 text-app-accent-success" : "bg-red-500/10 border-red-500/20 text-red-400"}`}>
                 <i className={pwMsg.type === "success" ? "ri-checkbox-circle-line" : "ri-error-warning-line"}></i>
                 {pwMsg.text}
               </div>
             )}
             <div className="space-y-4">
               <div>
-                <label className="text-white/40 text-xs font-medium block mb-1.5">Mật khẩu hiện tại</label>
+                <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Mật khẩu hiện tại</label>
                 <div className="relative">
                   <input
                     type={showCurrentPw ? "text" : "password"}
                     value={currentPw}
                     onChange={e => setCurrentPw(e.target.value)}
                     placeholder="Nhập mật khẩu hiện tại"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#e8c84a]/40 pr-10"
+                    className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 pr-10"
                   />
-                  <button onClick={() => setShowCurrentPw(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 cursor-pointer">
+                  <button onClick={() => setShowCurrentPw(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-app-text-muted hover:text-white/60 cursor-pointer">
                     <i className={showCurrentPw ? "ri-eye-off-line" : "ri-eye-line"}></i>
                   </button>
                 </div>
               </div>
               <div>
-                <label className="text-white/40 text-xs font-medium block mb-1.5">Mật khẩu mới</label>
+                <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Mật khẩu mới</label>
                 <div className="relative">
                   <input
                     type={showNewPw ? "text" : "password"}
                     value={newPw}
                     onChange={e => setNewPw(e.target.value)}
                     placeholder="Tối thiểu 6 ký tự"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#e8c84a]/40 pr-10"
+                    className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 pr-10"
                   />
-                  <button onClick={() => setShowNewPw(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 cursor-pointer">
+                  <button onClick={() => setShowNewPw(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-app-text-muted hover:text-white/60 cursor-pointer">
                     <i className={showNewPw ? "ri-eye-off-line" : "ri-eye-line"}></i>
                   </button>
                 </div>
                 {newPw.length > 0 && (
                   <div className="mt-1.5 flex gap-1">
                     {[1,2,3,4].map(i => (
-                      <div key={i} className={`flex-1 h-1 rounded-full transition-all ${newPw.length >= i * 3 ? (newPw.length >= 10 ? "bg-emerald-400" : newPw.length >= 7 ? "bg-[#e8c84a]" : "bg-[#fb923c]") : "bg-white/10"}`}></div>
+                      <div key={i} className={`flex-1 h-1 rounded-full transition-all ${newPw.length >= i * 3 ? (newPw.length >= 10 ? "bg-emerald-400" : newPw.length >= 7 ? "bg-app-accent-primary" : "bg-[#fb923c]") : "bg-app-card/70"}`}></div>
                     ))}
                   </div>
                 )}
               </div>
               <div>
-                <label className="text-white/40 text-xs font-medium block mb-1.5">Xác nhận mật khẩu mới</label>
+                <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Xác nhận mật khẩu mới</label>
                 <input
                   type="password"
                   value={confirmPw}
                   onChange={e => setConfirmPw(e.target.value)}
                   placeholder="Nhập lại mật khẩu mới"
-                  className={`w-full bg-white/5 border rounded-xl px-4 py-3 text-white text-sm focus:outline-none transition-colors ${confirmPw && confirmPw !== newPw ? "border-red-500/40" : "border-white/10 focus:border-[#e8c84a]/40"}`}
+                  className={`w-full bg-app-card/50 border rounded-xl px-4 py-3 text-white text-sm focus:outline-none transition-colors ${confirmPw && confirmPw !== newPw ? "border-red-500/40" : "border-app-border focus:border-app-accent-primary/40"}`}
                 />
               </div>
               <button
                 onClick={handleChangePassword}
                 disabled={pwLoading || !newPw || !confirmPw}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-[#0f1117] font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
               >
                 {pwLoading ? <><i className="ri-loader-4-line animate-spin"></i> Đang cập nhật...</> : <><i className="ri-save-line"></i> Đổi mật khẩu</>}
               </button>
@@ -287,12 +287,12 @@ export default function AccountSettingsPage() {
                 { label: "Ngày tạo tài khoản", value: new Date(user.created_at).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" }), icon: "ri-calendar-line" },
                 { label: "Trạng thái", value: user.email_confirmed_at ? "Đã xác minh email" : "Chưa xác minh", icon: "ri-shield-check-line" },
               ].map(item => (
-                <div key={item.label} className="flex items-center gap-3 px-4 py-3 bg-white/3 rounded-xl">
-                  <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 flex-shrink-0">
-                    <i className={`${item.icon} text-white/40 text-sm`}></i>
+                <div key={item.label} className="flex items-center gap-3 px-4 py-3 bg-app-surface/50 rounded-xl">
+                  <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 flex-shrink-0">
+                    <i className={`${item.icon} text-app-text-secondary text-sm`}></i>
                   </div>
                   <div className="flex-1">
-                    <p className="text-white/30 text-[10px]">{item.label}</p>
+                    <p className="text-app-text-muted text-[10px]">{item.label}</p>
                     <p className="text-white/70 text-sm font-medium">{item.value}</p>
                   </div>
                 </div>
@@ -308,7 +308,7 @@ export default function AccountSettingsPage() {
           <SectionCard title="Cài đặt thông báo" icon="ri-notification-3-line">
             <div className="space-y-1">
               {([
-                { key: "dailyReminder", label: "Nhắc nhở học hàng ngày", desc: "Thông báo khi chưa học trong ngày", icon: "ri-time-line", color: "#e8c84a" },
+                { key: "dailyReminder", label: "Nhắc nhở học hàng ngày", desc: "Thông báo khi chưa học trong ngày", icon: "ri-time-line", color: "app-accent-primary" },
                 { key: "streakAlert", label: "Cảnh báo streak sắp mất", desc: "Nhắc khi streak có nguy cơ bị reset", icon: "ri-fire-line", color: "#fb923c" },
                 { key: "leaderboardUpdate", label: "Cập nhật bảng xếp hạng", desc: "Thông báo khi bị vượt hạng", icon: "ri-trophy-line", color: "#FFD700" },
                 { key: "weeklyReport", label: "Báo cáo học tập hàng tuần", desc: "Tổng kết tiến độ mỗi Chủ nhật", icon: "ri-bar-chart-line", color: "#34d399" },
@@ -320,19 +320,19 @@ export default function AccountSettingsPage() {
                   </div>
                   <div className="flex-1">
                     <p className="text-white/80 text-sm font-medium">{item.label}</p>
-                    <p className="text-white/30 text-xs">{item.desc}</p>
+                    <p className="text-app-text-muted text-xs">{item.desc}</p>
                   </div>
                   <button
                     onClick={() => setNotifSettings(prev => ({ ...prev, [item.key]: !prev[item.key] }))}
-                    className={`relative w-11 h-6 rounded-full transition-all cursor-pointer flex-shrink-0 ${notifSettings[item.key] ? "bg-[#e8c84a]" : "bg-white/10"}`}
+                    className={`relative w-11 h-6 rounded-full transition-all cursor-pointer flex-shrink-0 ${notifSettings[item.key] ? "bg-app-accent-primary" : "bg-app-card/70"}`}
                   >
                     <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-all ${notifSettings[item.key] ? "left-5" : "left-0.5"}`}></div>
                   </button>
                 </div>
               ))}
             </div>
-            <div className="mt-4 pt-4 border-t border-white/5">
-              <p className="text-white/20 text-xs leading-relaxed">
+            <div className="mt-4 pt-4 border-t border-app-border">
+              <p className="text-app-text-muted text-xs leading-relaxed">
                 Lưu ý: Thông báo in-app hoạt động ngay. Thông báo email cần cấu hình thêm trong phần email reminder.
               </p>
             </div>
@@ -341,16 +341,16 @@ export default function AccountSettingsPage() {
           <SectionCard title="Giờ nhắc nhở" icon="ri-alarm-line">
             <div className="space-y-3">
               <div>
-                <label className="text-white/40 text-xs font-medium block mb-2">Giờ nhắc học hàng ngày</label>
+                <label className="text-app-text-secondary text-xs font-medium block mb-2">Giờ nhắc học hàng ngày</label>
                 <div className="flex gap-2 flex-wrap">
                   {["07:00", "08:00", "12:00", "18:00", "20:00", "21:00"].map(t => (
-                    <button key={t} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white/50 text-xs hover:border-[#e8c84a]/30 hover:text-[#e8c84a] transition-colors cursor-pointer whitespace-nowrap">
+                    <button key={t} className="px-3 py-1.5 rounded-lg bg-app-card/50 border border-app-border text-white/50 text-xs hover:border-app-accent-primary/30 hover:text-app-accent-primary transition-colors cursor-pointer whitespace-nowrap">
                       {t}
                     </button>
                   ))}
                 </div>
               </div>
-              <p className="text-white/20 text-xs">Tính năng đặt lịch nhắc qua email sẽ sớm ra mắt.</p>
+              <p className="text-app-text-muted text-xs">Tính năng đặt lịch nhắc qua email sẽ sớm ra mắt.</p>
             </div>
           </SectionCard>
         </div>
@@ -360,7 +360,7 @@ export default function AccountSettingsPage() {
       {activeTab === "vip" && (
         <div className="space-y-5 max-w-xl">
           {autoRenewToast && (
-            <div className="fixed top-6 right-6 z-50 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-4 py-3 rounded-xl text-sm font-medium flex items-center gap-2">
+            <div className="fixed top-6 right-6 z-50 bg-emerald-500/10 border border-emerald-500/30 text-app-accent-success px-4 py-3 rounded-xl text-sm font-medium flex items-center gap-2">
               <i className="ri-checkbox-circle-fill" />{autoRenewToast}
             </div>
           )}
@@ -369,15 +369,15 @@ export default function AccountSettingsPage() {
           <SectionCard title="Trạng thái VIP" icon="ri-vip-crown-line">
             {isVipActive(profile) ? (
               <div className="space-y-4">
-                <div className="flex items-center gap-3 px-4 py-4 bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl">
-                  <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#e8c84a]/15 flex-shrink-0">
-                    <i className="ri-vip-crown-fill text-[#e8c84a] text-xl" />
+                <div className="flex items-center gap-3 px-4 py-4 bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl">
+                  <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-app-accent-primary/15 flex-shrink-0">
+                    <i className="ri-vip-crown-fill text-app-accent-primary text-xl" />
                   </div>
                   <div className="flex-1">
                     <p className="text-white font-bold text-sm">Tài khoản VIP đang hoạt động</p>
                     {profile.vip_expires_at && (
-                      <p className="text-white/40 text-xs mt-0.5">
-                        Hết hạn: <span className="text-[#e8c84a] font-semibold">
+                      <p className="text-app-text-secondary text-xs mt-0.5">
+                        Hết hạn: <span className="text-app-accent-primary font-semibold">
                           {new Date(profile.vip_expires_at).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })}
                         </span>
                         {" · "}
@@ -385,13 +385,13 @@ export default function AccountSettingsPage() {
                       </p>
                     )}
                   </div>
-                  <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-emerald-500/15 text-emerald-400">
+                  <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-app-accent-success/15 text-app-accent-success">
                     ACTIVE
                   </span>
                 </div>
                 <button
                   onClick={() => navigate("/pricing")}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 border border-[#e8c84a]/20 text-[#e8c84a] text-sm font-semibold cursor-pointer whitespace-nowrap transition-colors"
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-app-accent-primary/10 hover:bg-app-accent-primary/20 border border-app-accent-primary/20 text-app-accent-primary text-sm font-semibold cursor-pointer whitespace-nowrap transition-colors"
                 >
                   <i className="ri-refresh-line" />
                   Gia hạn VIP sớm
@@ -399,18 +399,18 @@ export default function AccountSettingsPage() {
               </div>
             ) : (
               <div className="space-y-4">
-                <div className="flex items-center gap-3 px-4 py-4 bg-white/3 rounded-xl">
-                  <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 flex-shrink-0">
-                    <i className="ri-vip-crown-line text-white/30 text-xl" />
+                <div className="flex items-center gap-3 px-4 py-4 bg-app-surface/50 rounded-xl">
+                  <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-app-card/50 flex-shrink-0">
+                    <i className="ri-vip-crown-line text-app-text-muted text-xl" />
                   </div>
                   <div className="flex-1">
                     <p className="text-white/60 font-semibold text-sm">Tài khoản Free</p>
-                    <p className="text-white/30 text-xs mt-0.5">Nâng cấp để mở khóa toàn bộ tính năng</p>
+                    <p className="text-app-text-muted text-xs mt-0.5">Nâng cấp để mở khóa toàn bộ tính năng</p>
                   </div>
                 </div>
                 <button
                   onClick={() => navigate("/pricing")}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] text-sm font-bold cursor-pointer whitespace-nowrap transition-colors"
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold cursor-pointer whitespace-nowrap transition-colors"
                 >
                   <i className="ri-vip-crown-line" />
                   Nâng cấp VIP ngay
@@ -433,7 +433,7 @@ export default function AccountSettingsPage() {
                   {autoRenew && (
                     <div className="flex items-center gap-1.5 mt-2">
                       <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      <span className="text-emerald-400 text-[10px] font-semibold">Đang hoạt động</span>
+                      <span className="text-app-accent-success text-[10px] font-semibold">Đang hoạt động</span>
                     </div>
                   )}
                 </div>
@@ -441,19 +441,19 @@ export default function AccountSettingsPage() {
                   onClick={handleAutoRenewToggle}
                   disabled={autoRenewSaving}
                   className="relative w-12 h-6 rounded-full cursor-pointer flex-shrink-0 transition-colors disabled:opacity-50"
-                  style={{ backgroundColor: autoRenew ? "#e8c84a" : "rgba(255,255,255,0.1)" }}
+                  style={{ backgroundColor: autoRenew ? "app-accent-primary" : "rgba(255,255,255,0.1)" }}
                 >
                   <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${autoRenew ? "left-7" : "left-1"}`} />
                 </button>
               </div>
               {autoRenew && (
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-4 border-t border-white/5">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-4 border-t border-app-border">
                   {[
                     { icon: "ri-mail-check-line", text: "Email nhắc trước 7 ngày", color: "#a78bfa" },
                     { icon: "ri-shield-check-line", text: "Không bị gián đoạn học", color: "#34d399" },
                     { icon: "ri-close-circle-line", text: "Hủy bất cứ lúc nào", color: "#fb923c" },
                   ].map(item => (
-                    <div key={item.text} className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/3">
+                    <div key={item.text} className="flex items-center gap-2 px-3 py-2 rounded-xl bg-app-surface/50">
                       <i className={`${item.icon} text-sm flex-shrink-0`} style={{ color: item.color }} />
                       <span className="text-xs text-white/50">{item.text}</span>
                     </div>
@@ -470,7 +470,7 @@ export default function AccountSettingsPage() {
             </p>
             <button
               onClick={() => navigate("/vip-history")}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 border border-[#e8c84a]/20 text-[#e8c84a] text-sm font-medium cursor-pointer whitespace-nowrap transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-app-accent-primary/10 hover:bg-app-accent-primary/20 border border-app-accent-primary/20 text-app-accent-primary text-sm font-medium cursor-pointer whitespace-nowrap transition-colors"
             >
               <i className="ri-history-line" />
               Xem lịch sử giao dịch
@@ -483,21 +483,21 @@ export default function AccountSettingsPage() {
       {activeTab === "data" && (
         <div className="space-y-5 max-w-2xl">
           <SectionCard title="Dữ liệu học tập trên thiết bị" icon="ri-hard-drive-2-line">
-            <p className="text-white/30 text-xs mb-4 leading-relaxed">
+            <p className="text-app-text-muted text-xs mb-4 leading-relaxed">
               Dữ liệu được lưu trong localStorage của trình duyệt. Xóa từng mục hoặc xóa tất cả nếu muốn bắt đầu lại.
-              <span className="text-[#e8c84a]/70"> Dữ liệu đã sync lên cloud sẽ không bị ảnh hưởng.</span>
+              <span className="text-app-accent-primary/70"> Dữ liệu đã sync lên cloud sẽ không bị ảnh hưởng.</span>
             </p>
             <div className="space-y-2">
               {LOCAL_STORAGE_KEYS.map(({ key, label }) => {
                 const size = getDataSize(key);
                 return (
-                  <div key={key} className="flex items-center gap-3 px-4 py-3 bg-white/3 rounded-xl">
-                    <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 flex-shrink-0">
-                      <i className="ri-database-line text-white/30 text-sm"></i>
+                  <div key={key} className="flex items-center gap-3 px-4 py-3 bg-app-surface/50 rounded-xl">
+                    <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 flex-shrink-0">
+                      <i className="ri-database-line text-app-text-muted text-sm"></i>
                     </div>
                     <div className="flex-1">
                       <p className="text-white/70 text-sm font-medium">{label}</p>
-                      <p className="text-white/25 text-[10px]">{size ? size : "Trống"}</p>
+                      <p className="text-app-text-muted text-[10px]">{size ? size : "Trống"}</p>
                     </div>
                     {size && (
                       <button
@@ -521,7 +521,7 @@ export default function AccountSettingsPage() {
                 <i className="ri-error-warning-line text-red-400 text-lg flex-shrink-0 mt-0.5"></i>
                 <div>
                   <p className="text-red-400 font-semibold text-sm mb-1">Cảnh báo: Không thể hoàn tác</p>
-                  <p className="text-white/40 text-xs leading-relaxed">
+                  <p className="text-app-text-secondary text-xs leading-relaxed">
                     Thao tác này sẽ xóa toàn bộ dữ liệu học tập trên thiết bị này (streak, EPS, flashcard, quiz...).
                     Dữ liệu đã đồng bộ lên Supabase cloud sẽ không bị xóa.
                   </p>
@@ -544,10 +544,10 @@ export default function AccountSettingsPage() {
                   value={deleteConfirm}
                   onChange={e => setDeleteConfirm(e.target.value)}
                   placeholder="Nhập XOA"
-                  className="w-full bg-white/5 border border-red-500/30 rounded-xl px-4 py-3 text-white text-sm focus:outline-none"
+                  className="w-full bg-app-card/50 border border-red-500/30 rounded-xl px-4 py-3 text-white text-sm focus:outline-none"
                 />
                 <div className="flex gap-3">
-                  <button onClick={() => { setDeleteAllConfirm(false); setDeleteConfirm(""); }} className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-white/5">
+                  <button onClick={() => { setDeleteAllConfirm(false); setDeleteConfirm(""); }} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50">
                     Hủy
                   </button>
                   <button
@@ -563,7 +563,7 @@ export default function AccountSettingsPage() {
           </SectionCard>
 
           <SectionCard title="Xuất dữ liệu" icon="ri-download-cloud-line">
-            <p className="text-white/30 text-xs mb-4">Tải xuống toàn bộ dữ liệu học tập của bạn dưới dạng JSON.</p>
+            <p className="text-app-text-muted text-xs mb-4">Tải xuống toàn bộ dữ liệu học tập của bạn dưới dạng JSON.</p>
             <button
               onClick={() => {
                 const data: Record<string, unknown> = {};
@@ -577,7 +577,7 @@ export default function AccountSettingsPage() {
                 a.href = url; a.download = `kts-data-${new Date().toISOString().split("T")[0]}.json`;
                 a.click(); URL.revokeObjectURL(url);
               }}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 text-[#e8c84a] text-sm font-medium transition-colors cursor-pointer whitespace-nowrap border border-[#e8c84a]/20"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-sm font-medium transition-colors cursor-pointer whitespace-nowrap border border-app-accent-primary/20"
             >
               <i className="ri-download-line"></i>
               Tải xuống dữ liệu (JSON)

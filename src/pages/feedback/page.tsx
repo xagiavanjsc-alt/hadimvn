@@ -9,7 +9,7 @@ const CATEGORIES = [
   { id: "feature", label: "Tính năng", icon: "ri-settings-line", color: "#a78bfa" },
   { id: "content", label: "Nội dung học", icon: "ri-book-open-line", color: "#fb923c" },
   { id: "ui", label: "Giao diện", icon: "ri-layout-line", color: "#38bdf8" },
-  { id: "performance", label: "Hiệu suất", icon: "ri-speed-line", color: "#e8c84a" },
+  { id: "performance", label: "Hiệu suất", icon: "ri-speed-line", color: "app-accent-primary" },
   { id: "suggestion", label: "Đề xuất tính năng", icon: "ri-lightbulb-line", color: "#f472b6" },
 ];
 
@@ -32,7 +32,7 @@ function StarRating({ value, onChange }: { value: number; onChange: (v: number) 
           >
             <i
               className={`text-3xl ${(hover || value) >= star ? "ri-star-fill" : "ri-star-line"}`}
-              style={{ color: (hover || value) >= star ? "#e8c84a" : "rgba(255,255,255,0.15)" }}
+              style={{ color: (hover || value) >= star ? "app-accent-primary" : "rgba(255,255,255,0.15)" }}
             />
           </button>
         ))}
@@ -93,17 +93,17 @@ export default function FeedbackPage() {
         <div className="max-w-md mx-auto text-center py-16">
           <div className="text-6xl mb-4">🎉</div>
           <h2 className="text-white font-bold text-xl mb-2">Cảm ơn bạn rất nhiều!</h2>
-          <p className="text-white/40 text-sm mb-2 leading-relaxed">
+          <p className="text-app-text-secondary text-sm mb-2 leading-relaxed">
             Góp ý của bạn rất có giá trị với chúng tôi. Đội ngũ phát triển sẽ xem xét và cải thiện ứng dụng dựa trên phản hồi của bạn.
           </p>
-          <p className="text-white/25 text-xs mb-8">Thường phản hồi trong vòng 24–48 giờ</p>
+          <p className="text-app-text-muted text-xs mb-8">Thường phản hồi trong vòng 24–48 giờ</p>
           <div className="flex gap-3 justify-center">
             <button onClick={() => navigate(-1)}
-              className="px-6 py-3 rounded-xl border border-white/10 text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-white/5 transition-colors">
+              className="px-6 py-3 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50 transition-colors">
               Quay lại
             </button>
             <button onClick={() => { setSubmitted(false); setRating(0); setTitle(""); setContent(""); }}
-              className="px-6 py-3 rounded-xl bg-[#e8c84a] text-[#0f1117] font-bold text-sm cursor-pointer whitespace-nowrap">
+              className="px-6 py-3 rounded-xl bg-app-accent-primary text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap">
               Góp ý thêm
             </button>
           </div>
@@ -122,17 +122,17 @@ export default function FeedbackPage() {
         <div className="relative overflow-hidden rounded-2xl mb-6 p-6"
           style={{ background: "linear-gradient(135deg, #0f1117 0%, #1a1d27 100%)" }}>
           <div className="absolute inset-0 opacity-20"
-            style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #e8c84a 0%, transparent 50%), radial-gradient(circle at 80% 50%, #34d399 0%, transparent 50%)" }} />
+            style={{ backgroundImage: "radial-gradient(circle at 20% 50%, app-accent-primary 0%, transparent 50%), radial-gradient(circle at 80% 50%, #34d399 0%, transparent 50%)" }} />
           <div className="relative z-10 text-center">
             <div className="text-4xl mb-3">💬</div>
             <h2 className="text-white font-bold text-lg mb-1">Ý kiến của bạn quan trọng với chúng tôi!</h2>
-            <p className="text-white/40 text-sm">Mỗi góp ý giúp Hàn Quốc Ơi! trở nên tốt hơn mỗi ngày</p>
+            <p className="text-app-text-secondary text-sm">Mỗi góp ý giúp Hàn Quốc Ơi! trở nên tốt hơn mỗi ngày</p>
           </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Star rating */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-6">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-6">
             <p className="text-white/50 text-xs font-semibold tracking-normal mb-4 text-center">
               Bạn đánh giá ứng dụng như thế nào?
             </p>
@@ -170,9 +170,9 @@ export default function FeedbackPage() {
             </label>
             <input type="text" value={title} onChange={e => setTitle(e.target.value.slice(0, 100))}
               placeholder="VD: Tính năng flashcard rất hay, muốn thêm chế độ..."
-              className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-3 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40 transition-colors"
+              className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
               required />
-            <p className="text-[10px] text-right mt-1 text-white/20">{title.length}/100</p>
+            <p className="text-[10px] text-right mt-1 text-app-text-muted">{title.length}/100</p>
           </div>
 
           {/* Content */}
@@ -183,23 +183,23 @@ export default function FeedbackPage() {
             <textarea value={content} onChange={e => setContent(e.target.value.slice(0, 500))}
               placeholder="Mô tả chi tiết góp ý, đề xuất hoặc trải nghiệm của bạn..."
               rows={5} maxLength={500}
-              className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-3 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40 transition-colors resize-none"
+              className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors resize-none"
               required />
-            <p className="text-[10px] text-right mt-1 text-white/20">{content.length}/500</p>
+            <p className="text-[10px] text-right mt-1 text-app-text-muted">{content.length}/500</p>
           </div>
 
           {/* User info display */}
           {user && (
-            <div className="flex items-center gap-3 px-4 py-3 bg-white/3 border border-white/5 rounded-xl">
-              <div className="w-8 h-8 rounded-full bg-[#e8c84a]/15 flex items-center justify-center flex-shrink-0">
-                <i className="ri-user-line text-[#e8c84a] text-sm" />
+            <div className="flex items-center gap-3 px-4 py-3 bg-app-surface/50 border border-app-border rounded-xl">
+              <div className="w-8 h-8 rounded-full bg-app-accent-primary/15 flex items-center justify-center flex-shrink-0">
+                <i className="ri-user-line text-app-accent-primary text-sm" />
               </div>
               <div>
                 <p className="text-white/60 text-xs font-medium">{profile?.display_name || "Học viên"}</p>
-                <p className="text-white/25 text-[10px]">Góp ý sẽ được gửi kèm tên tài khoản</p>
+                <p className="text-app-text-muted text-[10px]">Góp ý sẽ được gửi kèm tên tài khoản</p>
               </div>
               {isVipActive(profile) && (
-                <span className="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-[#e8c84a]/10 text-[#e8c84a] font-bold">VIP</span>
+                <span className="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-app-accent-primary/10 text-app-accent-primary font-bold">VIP</span>
               )}
             </div>
           )}
@@ -212,7 +212,7 @@ export default function FeedbackPage() {
           )}
 
           <button type="submit" disabled={submitting || rating === 0 || !title.trim() || !content.trim()}
-            className="w-full py-3.5 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] disabled:opacity-40 text-[#0f1117] font-bold text-sm cursor-pointer whitespace-nowrap transition-colors flex items-center justify-center gap-2">
+            className="w-full py-3.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors flex items-center justify-center gap-2">
             {submitting ? (
               <><div className="w-4 h-4 border-2 border-[#0f1117]/30 border-t-[#0f1117] rounded-full animate-spin" />Đang gửi...</>
             ) : (
@@ -221,8 +221,8 @@ export default function FeedbackPage() {
           </button>
         </form>
 
-        <div className="mt-6 pt-6 border-t border-white/5 text-center">
-          <p className="text-white/25 text-xs">
+        <div className="mt-6 pt-6 border-t border-app-border text-center">
+          <p className="text-app-text-muted text-xs">
             Có lỗi kỹ thuật?{" "}
             <button onClick={() => navigate("/report-bug")}
               className="text-rose-400/60 hover:text-rose-400 cursor-pointer transition-colors">

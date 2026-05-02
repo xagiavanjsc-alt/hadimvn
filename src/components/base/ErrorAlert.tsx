@@ -100,7 +100,7 @@ export default function ErrorAlert({ message, onDismiss, onRetry, showSettingsLi
           )}
           <button
             onClick={() => setExpanded(!expanded)}
-            className="flex items-center gap-1.5 text-xs text-white/25 hover:text-white/50 transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-white/50 transition-colors cursor-pointer"
           >
             <i className={`ri-${expanded ? "arrow-up" : "arrow-down"}-s-line text-[11px]`}></i>
             {expanded ? "Ẩn chi tiết" : "Xem chi tiết kỹ thuật"}
@@ -108,7 +108,7 @@ export default function ErrorAlert({ message, onDismiss, onRetry, showSettingsLi
         </div>
 
         {expanded && (
-          <pre className="mt-2 text-[10px] text-white/20 bg-white/3 rounded-lg px-3 py-2 overflow-x-auto whitespace-pre-wrap break-all">
+          <pre className="mt-2 text-[10px] text-app-text-muted bg-app-surface/50 rounded-lg px-3 py-2 overflow-x-auto whitespace-pre-wrap break-all">
             {message}
           </pre>
         )}
@@ -116,7 +116,7 @@ export default function ErrorAlert({ message, onDismiss, onRetry, showSettingsLi
       {onDismiss && (
         <button
           onClick={onDismiss}
-          className="w-5 h-5 flex items-center justify-center text-white/20 hover:text-white/50 transition-colors cursor-pointer flex-shrink-0"
+          className="w-5 h-5 flex items-center justify-center text-app-text-muted hover:text-white/50 transition-colors cursor-pointer flex-shrink-0"
         >
           <i className="ri-close-line text-sm"></i>
         </button>

@@ -55,10 +55,10 @@ function Flashcard({
     <div className="flex flex-col items-center gap-6 w-full max-w-lg mx-auto">
       {/* Progress */}
       <div className="w-full flex items-center gap-3">
-        <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
-          <div className="h-full bg-[#e8c84a] rounded-full transition-all" style={{ width: `${((cardIndex) / total) * 100}%` }} />
+        <div className="flex-1 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
+          <div className="h-full bg-app-accent-primary rounded-full transition-all" style={{ width: `${((cardIndex) / total) * 100}%` }} />
         </div>
-        <span className="text-white/30 text-xs whitespace-nowrap">{cardIndex + 1}/{total}</span>
+        <span className="text-app-text-muted text-xs whitespace-nowrap">{cardIndex + 1}/{total}</span>
       </div>
 
       {/* Card */}
@@ -68,10 +68,10 @@ function Flashcard({
           style={{ transformStyle: "preserve-3d", transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)", height: "260px" }}
         >
           {/* Front */}
-          <div className="absolute inset-0 rounded-2xl border border-white/8 bg-[#0f1117] flex flex-col items-center justify-center p-8 text-center" style={{ backfaceVisibility: "hidden" }}>
+          <div className="absolute inset-0 rounded-2xl border border-app-border bg-app-bg flex flex-col items-center justify-center p-8 text-center" style={{ backfaceVisibility: "hidden" }}>
             <p className="text-4xl font-bold text-white mb-3">{front}</p>
-            {frontSub && <p className="text-white/30 text-base font-mono">{frontSub}</p>}
-            <button onClick={speakKorean} className="mt-4 flex items-center gap-1.5 text-xs text-white/25 hover:text-white/50 bg-white/5 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors">
+            {frontSub && <p className="text-app-text-muted text-base font-mono">{frontSub}</p>}
+            <button onClick={speakKorean} className="mt-4 flex items-center gap-1.5 text-xs text-app-text-muted hover:text-white/50 bg-app-card/50 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors">
               <i className="ri-volume-up-line"></i>Nghe phát âm
             </button>
             {!revealed && (
@@ -79,9 +79,9 @@ function Flashcard({
             )}
           </div>
           {/* Back */}
-          <div className="absolute inset-0 rounded-2xl border border-[#e8c84a]/25 bg-gradient-to-br from-[#1a1600] to-[#0f1117] flex flex-col items-center justify-center p-8 text-center" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
-            <p className="text-3xl font-bold text-[#e8c84a] mb-3">{back}</p>
-            {backSub && <p className="text-white/40 text-sm leading-relaxed">{backSub}</p>}
+          <div className="absolute inset-0 rounded-2xl border border-app-accent-primary/25 bg-gradient-to-br from-app-surface to-[#0f1117] flex flex-col items-center justify-center p-8 text-center" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
+            <p className="text-3xl font-bold text-app-accent-primary mb-3">{back}</p>
+            {backSub && <p className="text-app-text-secondary text-sm leading-relaxed">{backSub}</p>}
           </div>
         </div>
       </div>
@@ -97,7 +97,7 @@ function Flashcard({
           </button>
           <button
             onClick={onCorrect}
-            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl border-2 border-emerald-400/30 bg-emerald-400/8 text-emerald-400 font-bold text-sm cursor-pointer whitespace-nowrap hover:bg-emerald-400/15 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl border-2 border-emerald-400/30 bg-emerald-400/8 text-app-accent-success font-bold text-sm cursor-pointer whitespace-nowrap hover:bg-emerald-400/15 transition-colors"
           >
             <i className="ri-check-line text-lg"></i>Đã nhớ
           </button>
@@ -105,7 +105,7 @@ function Flashcard({
       ) : (
         <button
           onClick={handleReveal}
-          className="w-full py-3.5 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
+          className="w-full py-3.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
         >
           <i className="ri-eye-line mr-2"></i>Xem nghĩa
         </button>
@@ -132,27 +132,27 @@ function ResultScreen({
 
   return (
     <div className="max-w-lg mx-auto space-y-5">
-      <div className="bg-gradient-to-br from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/20 rounded-2xl p-8 text-center">
+      <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/20 rounded-2xl p-8 text-center">
         <div className="text-5xl mb-4">{pct >= 80 ? "🎉" : pct >= 60 ? "👍" : "💪"}</div>
         <h2 className="text-white font-bold text-2xl mb-1">{correct}/{results.length} từ đã nhớ</h2>
-        <p className="text-white/40 text-sm mb-4">Đạt {pct}%</p>
-        <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden">
-          <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171" }} />
+        <p className="text-app-text-secondary text-sm mb-4">Đạt {pct}%</p>
+        <div className="w-full h-3 bg-app-card/50 rounded-full overflow-hidden">
+          <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }} />
         </div>
       </div>
 
       {wrongItems.length > 0 && (
-        <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-5">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-3">
-            <i className="ri-refresh-line text-[#e8c84a] mr-2"></i>
+            <i className="ri-refresh-line text-app-accent-primary mr-2"></i>
             Cần ôn lại ({wrongItems.length} từ)
           </h3>
           <div className="space-y-2 max-h-48 overflow-y-auto">
             {wrongItems.map(item => (
               <div key={item.id} className="flex items-center gap-3 p-2.5 bg-red-400/5 border border-red-400/10 rounded-xl">
                 <span className="text-white font-bold text-base">{item.korean}</span>
-                <span className="text-white/30 text-xs">[{item.reading}]</span>
-                <span className="text-[#e8c84a] text-sm ml-auto">{item.vietnamese}</span>
+                <span className="text-app-text-muted text-xs">[{item.reading}]</span>
+                <span className="text-app-accent-primary text-sm ml-auto">{item.vietnamese}</span>
               </div>
             ))}
           </div>
@@ -165,7 +165,7 @@ function ResultScreen({
             <i className="ri-refresh-line mr-2"></i>Ôn từ chưa nhớ ({wrongItems.length})
           </button>
         )}
-        <button onClick={onRestart} className="flex-1 py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
+        <button onClick={onRestart} className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
           <i className="ri-play-line mr-2"></i>Học lại tất cả
         </button>
       </div>
@@ -237,7 +237,7 @@ export default function VocabFavoritesPage() {
       title="Ôn tập từ yêu thích"
       subtitle="Flashcard riêng cho các từ đã bookmark — luyện đến khi thuộc hết"
       actions={
-        <button onClick={() => navigate("/vocabulary")} className="flex items-center gap-2 bg-white/5 border border-white/8 hover:bg-white/8 text-white/60 text-sm px-4 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors">
+        <button onClick={() => navigate("/vocabulary")} className="flex items-center gap-2 bg-app-card/50 border border-app-border hover:bg-white/8 text-white/60 text-sm px-4 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors">
           <i className="ri-bookmark-line"></i>Quản lý từ yêu thích
         </button>
       }
@@ -245,14 +245,14 @@ export default function VocabFavoritesPage() {
       {favoriteItems.length === 0 ? (
         /* Empty state */
         <div className="flex flex-col items-center justify-center py-24 text-center">
-          <div className="w-20 h-20 flex items-center justify-center rounded-2xl bg-[#e8c84a]/10 mb-5">
-            <i className="ri-bookmark-line text-[#e8c84a] text-4xl"></i>
+          <div className="w-20 h-20 flex items-center justify-center rounded-2xl bg-app-accent-primary/10 mb-5">
+            <i className="ri-bookmark-line text-app-accent-primary text-4xl"></i>
           </div>
           <h2 className="text-white font-bold text-xl mb-2">Chưa có từ yêu thích</h2>
-          <p className="text-white/40 text-sm mb-6 max-w-sm leading-relaxed">
-            Nhấn nút bookmark <i className="ri-bookmark-line text-[#e8c84a]"></i> trên trang Từ vựng để lưu các từ khó vào đây
+          <p className="text-app-text-secondary text-sm mb-6 max-w-sm leading-relaxed">
+            Nhấn nút bookmark <i className="ri-bookmark-line text-app-accent-primary"></i> trên trang Từ vựng để lưu các từ khó vào đây
           </p>
-          <button onClick={() => navigate("/vocabulary")} className="flex items-center gap-2 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold px-6 py-3 rounded-xl cursor-pointer whitespace-nowrap transition-colors">
+          <button onClick={() => navigate("/vocabulary")} className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold px-6 py-3 rounded-xl cursor-pointer whitespace-nowrap transition-colors">
             <i className="ri-translate-2"></i>Đến trang Từ vựng
           </button>
         </div>
@@ -262,35 +262,35 @@ export default function VocabFavoritesPage() {
           {/* Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { label: "Từ yêu thích", value: favoriteItems.length, icon: "ri-bookmark-fill", color: "#e8c84a" },
+              { label: "Từ yêu thích", value: favoriteItems.length, icon: "ri-bookmark-fill", color: "app-accent-primary" },
               { label: "A1/A2", value: favoriteItems.filter(v => ["A1","A2"].includes(v.topikLevel)).length, icon: "ri-seedling-line", color: "#34d399" },
               { label: "B1/B2", value: favoriteItems.filter(v => ["B1","B2"].includes(v.topikLevel)).length, icon: "ri-fire-line", color: "#fb923c" },
             ].map(s => (
-              <div key={s.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-4 text-center">
+              <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4 text-center">
                 <div className="w-10 h-10 flex items-center justify-center rounded-xl mx-auto mb-2" style={{ backgroundColor: `${s.color}15` }}>
                   <i className={`${s.icon} text-lg`} style={{ color: s.color }}></i>
                 </div>
                 <p className="text-white font-bold text-2xl">{s.value}</p>
-                <p className="text-white/40 text-xs mt-0.5">{s.label}</p>
+                <p className="text-app-text-secondary text-xs mt-0.5">{s.label}</p>
               </div>
             ))}
           </div>
 
           {/* Mode selector */}
-          <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-5">
-            <p className="text-white/40 text-xs font-medium mb-3">Chế độ học</p>
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
+            <p className="text-app-text-secondary text-xs font-medium mb-3">Chế độ học</p>
             <div className="grid grid-cols-2 gap-3">
               {([["korean_to_vi", "ri-translate-2", "Hàn → Việt", "Xem tiếng Hàn, đoán nghĩa"], ["vi_to_korean", "ri-font-size", "Việt → Hàn", "Xem tiếng Việt, đoán tiếng Hàn"]] as [CardMode, string, string, string][]).map(([m, icon, label, desc]) => (
                 <button
                   key={m}
                   onClick={() => setMode(m)}
-                  className={`flex flex-col items-start gap-1 p-4 rounded-xl border-2 cursor-pointer transition-all ${mode === m ? "border-[#e8c84a]/40 bg-[#e8c84a]/8" : "border-white/8 bg-white/3 hover:border-white/15"}`}
+                  className={`flex flex-col items-start gap-1 p-4 rounded-xl border-2 cursor-pointer transition-all ${mode === m ? "border-app-accent-primary/40 bg-app-accent-primary/8" : "border-app-border bg-app-surface/50 hover:border-white/15"}`}
                 >
                   <div className="flex items-center gap-2">
-                    <i className={`${icon} ${mode === m ? "text-[#e8c84a]" : "text-white/40"} text-base`}></i>
-                    <span className={`text-sm font-bold ${mode === m ? "text-[#e8c84a]" : "text-white/60"}`}>{label}</span>
+                    <i className={`${icon} ${mode === m ? "text-app-accent-primary" : "text-app-text-secondary"} text-base`}></i>
+                    <span className={`text-sm font-bold ${mode === m ? "text-app-accent-primary" : "text-white/60"}`}>{label}</span>
                   </div>
-                  <p className="text-white/30 text-xs">{desc}</p>
+                  <p className="text-app-text-muted text-xs">{desc}</p>
                 </button>
               ))}
             </div>
@@ -299,25 +299,25 @@ export default function VocabFavoritesPage() {
           {/* Start button */}
           <button
             onClick={() => startSession(favoriteItems)}
-            className="w-full py-4 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-base rounded-xl cursor-pointer whitespace-nowrap transition-colors"
+            className="w-full py-4 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-base rounded-xl cursor-pointer whitespace-nowrap transition-colors"
           >
             <i className="ri-play-fill mr-2"></i>Bắt đầu ôn tập ({favoriteItems.length} từ)
           </button>
 
           {/* Word list */}
-          <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-white font-semibold text-sm">Danh sách từ yêu thích</h3>
-              <span className="text-white/30 text-xs">{favoriteItems.length} từ</span>
+              <span className="text-app-text-muted text-xs">{favoriteItems.length} từ</span>
             </div>
             <div className="space-y-2 max-h-64 overflow-y-auto">
               {favoriteItems.map(item => (
-                <div key={item.id} className="flex items-center gap-3 p-2.5 bg-white/3 rounded-xl">
+                <div key={item.id} className="flex items-center gap-3 p-2.5 bg-app-surface/50 rounded-xl">
                   <span className="text-white font-bold text-base w-24 flex-shrink-0">{item.korean}</span>
-                  <span className="text-white/30 text-xs flex-shrink-0">[{item.reading}]</span>
-                  <span className="text-[#e8c84a] text-sm flex-1">{item.vietnamese}</span>
+                  <span className="text-app-text-muted text-xs flex-shrink-0">[{item.reading}]</span>
+                  <span className="text-app-accent-primary text-sm flex-1">{item.vietnamese}</span>
                   <button onClick={() => handleRemoveFavorite(item.id)} className="w-6 h-6 flex items-center justify-center rounded-lg hover:bg-red-400/15 cursor-pointer transition-colors flex-shrink-0">
-                    <i className="ri-close-line text-white/25 hover:text-red-400 text-xs"></i>
+                    <i className="ri-close-line text-app-text-muted hover:text-red-400 text-xs"></i>
                   </button>
                 </div>
               ))}

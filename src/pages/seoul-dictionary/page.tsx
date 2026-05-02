@@ -5,7 +5,7 @@ import { seoulBooks } from "@/mocks/seoulTextbook";
 const bookColors: Record<string, string> = {
   "1A": "text-amber-400 bg-amber-500/10 border-amber-500/20",
   "1B": "text-orange-400 bg-orange-500/10 border-orange-500/20",
-  "2A": "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+  "2A": "text-app-accent-success bg-emerald-500/10 border-emerald-500/20",
   "2B": "text-teal-400 bg-teal-500/10 border-teal-500/20",
   "3A": "text-violet-400 bg-violet-500/10 border-violet-500/20",
   "3B": "text-pink-400 bg-pink-500/10 border-pink-500/20",
@@ -56,7 +56,7 @@ const ALL_VOCAB = buildDictionary();
 
 const POS_COLORS: Record<string, string> = {
   "Danh từ": "bg-sky-500/10 text-sky-400 border-sky-500/20",
-  "Động từ": "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+  "Động từ": "bg-emerald-500/10 text-app-accent-success border-emerald-500/20",
   "Tính từ": "bg-violet-500/10 text-violet-400 border-violet-500/20",
   "Phó từ": "bg-amber-500/10 text-amber-400 border-amber-500/20",
   "Cụm từ": "bg-pink-500/10 text-pink-400 border-pink-500/20",
@@ -86,7 +86,7 @@ function NoteModal({ vocab, note, onSave, onClose }: NoteModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
       <div
-        className="bg-[#1a1d27] border border-white/10 rounded-2xl p-6 w-full max-w-md mx-4 space-y-4"
+        className="bg-[#1a1d27] border border-app-border rounded-2xl p-6 w-full max-w-md mx-4 space-y-4"
         onClick={e => e.stopPropagation()}
       >
         <div className="flex items-start justify-between">
@@ -94,9 +94,9 @@ function NoteModal({ vocab, note, onSave, onClose }: NoteModalProps) {
             <h3 className="text-white font-bold text-lg" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>
               {vocab.korean}
             </h3>
-            <p className="text-white/40 text-sm">{vocab.vietnamese}</p>
+            <p className="text-app-text-secondary text-sm">{vocab.vietnamese}</p>
           </div>
-          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center text-white/30 hover:text-white/60 cursor-pointer">
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center text-app-text-muted hover:text-white/60 cursor-pointer">
             <i className="ri-close-line text-lg"></i>
           </button>
         </div>
@@ -107,7 +107,7 @@ function NoteModal({ vocab, note, onSave, onClose }: NoteModalProps) {
           className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${
             isHard
               ? "bg-red-500/15 border-red-500/30 text-red-400"
-              : "bg-white/5 border-white/10 text-white/40 hover:text-white/60"
+              : "bg-app-card/50 border-app-border text-app-text-secondary hover:text-white/60"
           }`}
         >
           <div className="w-4 h-4 flex items-center justify-center">
@@ -118,28 +118,28 @@ function NoteModal({ vocab, note, onSave, onClose }: NoteModalProps) {
 
         {/* Note textarea */}
         <div>
-          <label className="text-white/40 text-xs mb-2 block">Ghi chú cá nhân</label>
+          <label className="text-app-text-secondary text-xs mb-2 block">Ghi chú cá nhân</label>
           <textarea
             value={text}
             onChange={e => setText(e.target.value)}
             placeholder="Viết ghi chú của bạn... (ví dụ: cách nhớ từ, ngữ cảnh sử dụng, mẹo phát âm...)"
             maxLength={500}
             rows={4}
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-white/25 resize-none"
+            className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-white/25 resize-none"
           />
-          <p className="text-white/20 text-xs text-right mt-1">{text.length}/500</p>
+          <p className="text-app-text-muted text-xs text-right mt-1">{text.length}/500</p>
         </div>
 
         <div className="flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/40 text-sm hover:text-white/60 transition-all cursor-pointer whitespace-nowrap"
+            className="flex-1 py-2.5 rounded-xl border border-app-border text-app-text-secondary text-sm hover:text-white/60 transition-all cursor-pointer whitespace-nowrap"
           >
             Hủy
           </button>
           <button
             onClick={() => { onSave(text, isHard); onClose(); }}
-            className="flex-1 py-2.5 rounded-xl bg-[#e8c84a]/15 border border-[#e8c84a]/30 text-[#e8c84a] text-sm font-medium hover:bg-[#e8c84a]/25 transition-all cursor-pointer whitespace-nowrap"
+            className="flex-1 py-2.5 rounded-xl bg-app-accent-primary/15 border border-app-accent-primary/30 text-app-accent-primary text-sm font-medium hover:bg-app-accent-primary/25 transition-all cursor-pointer whitespace-nowrap"
           >
             Lưu ghi chú
           </button>
@@ -253,17 +253,17 @@ export default function SeoulDictionaryPage() {
             <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "'Nunito', sans-serif" }}>
               Từ điển Seoul
             </h1>
-            <p className="text-white/40 text-sm mt-0.5">Tra cứu từ vựng theo từng cuốn 1A–4B với ghi chú cá nhân và đánh dấu từ khó</p>
+            <p className="text-app-text-secondary text-sm mt-0.5">Tra cứu từ vựng theo từng cuốn 1A–4B với ghi chú cá nhân và đánh dấu từ khó</p>
           </div>
           <div className="flex gap-3">
-            <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-center">
+            <div className="bg-app-card/50 border border-app-border rounded-xl px-4 py-2 text-center">
               <p className="text-white font-bold text-xl">{ALL_VOCAB.length}</p>
-              <p className="text-white/40 text-xs">Tổng từ vựng</p>
+              <p className="text-app-text-secondary text-xs">Tổng từ vựng</p>
             </div>
             {hardCount > 0 && (
               <div className="bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-2 text-center">
                 <p className="text-red-400 font-bold text-xl">{hardCount}</p>
-                <p className="text-red-400/60 text-xs">Từ khó</p>
+                <p className="text-app-accent-error/60 text-xs">Từ khó</p>
               </div>
             )}
           </div>
@@ -281,8 +281,8 @@ export default function SeoulDictionaryPage() {
               onClick={() => setFilterMode(tab.id as "all" | "hard" | "noted")}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
                 filterMode === tab.id
-                  ? "bg-[#e8c84a]/15 border-[#e8c84a]/30 text-[#e8c84a]"
-                  : "bg-white/5 border-white/10 text-white/40 hover:text-white/60"
+                  ? "bg-app-accent-primary/15 border-app-accent-primary/30 text-app-accent-primary"
+                  : "bg-app-card/50 border-app-border text-app-text-secondary hover:text-white/60"
               }`}
             >
               <div className="w-3 h-3 flex items-center justify-center">
@@ -297,7 +297,7 @@ export default function SeoulDictionaryPage() {
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setSelectedBook("all")}
-            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${selectedBook === "all" ? "bg-white/15 text-white border-white/20" : "bg-white/5 text-white/40 hover:text-white/70 border-transparent"}`}
+            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${selectedBook === "all" ? "bg-white/15 text-white border-white/20" : "bg-app-card/50 text-app-text-secondary hover:text-white/70 border-transparent"}`}
           >
             Tất cả ({ALL_VOCAB.length})
           </button>
@@ -305,7 +305,7 @@ export default function SeoulDictionaryPage() {
             <button
               key={book.id}
               onClick={() => setSelectedBook(book.id)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${selectedBook === book.id ? bookColors[book.id] : "bg-white/5 text-white/40 hover:text-white/70 border-transparent"}`}
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${selectedBook === book.id ? bookColors[book.id] : "bg-app-card/50 text-app-text-secondary hover:text-white/70 border-transparent"}`}
             >
               {book.name} ({totalByBook[book.id] || 0})
             </button>
@@ -316,18 +316,18 @@ export default function SeoulDictionaryPage() {
         <div className="flex gap-3">
           <div className="flex-1 relative">
             <div className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center">
-              <i className="ri-search-line text-white/30 text-sm"></i>
+              <i className="ri-search-line text-app-text-muted text-sm"></i>
             </div>
             <input
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Tìm kiếm tiếng Hàn, tiếng Việt, phiên âm..."
-              className="w-full bg-white/5 border border-white/10 rounded-xl pl-9 pr-4 py-2.5 text-white text-sm placeholder-white/25 focus:outline-none focus:border-white/25"
+              className="w-full bg-app-card/50 border border-app-border rounded-xl pl-9 pr-4 py-2.5 text-white text-sm placeholder-white/25 focus:outline-none focus:border-white/25"
             />
             {searchQuery && (
               <button onClick={() => setSearchQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer">
-                <i className="ri-close-line text-white/30 text-sm"></i>
+                <i className="ri-close-line text-app-text-muted text-sm"></i>
               </button>
             )}
           </div>
@@ -335,22 +335,22 @@ export default function SeoulDictionaryPage() {
           <select
             value={selectedPos}
             onChange={e => setSelectedPos(e.target.value)}
-            className="bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-white/60 text-sm focus:outline-none cursor-pointer"
+            className="bg-app-card/50 border border-app-border rounded-xl px-3 py-2.5 text-white/60 text-sm focus:outline-none cursor-pointer"
           >
             <option value="all">Tất cả từ loại</option>
             {allPos.map(pos => <option key={pos} value={pos}>{pos}</option>)}
           </select>
 
-          <div className="flex gap-1 bg-white/5 border border-white/10 rounded-xl p-1">
+          <div className="flex gap-1 bg-app-card/50 border border-app-border rounded-xl p-1">
             <button
               onClick={() => setSortBy("book")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${sortBy === "book" ? "bg-white/15 text-white" : "text-white/40 hover:text-white/70"}`}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${sortBy === "book" ? "bg-white/15 text-white" : "text-app-text-secondary hover:text-white/70"}`}
             >
               Theo cuốn
             </button>
             <button
               onClick={() => setSortBy("korean")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${sortBy === "korean" ? "bg-white/15 text-white" : "text-white/40 hover:text-white/70"}`}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${sortBy === "korean" ? "bg-white/15 text-white" : "text-app-text-secondary hover:text-white/70"}`}
             >
               A–Z
             </button>
@@ -359,18 +359,18 @@ export default function SeoulDictionaryPage() {
 
         {/* Results count */}
         <div className="flex items-center justify-between">
-          <p className="text-white/30 text-sm">
+          <p className="text-app-text-muted text-sm">
             {filtered.length === ALL_VOCAB.length ? `${ALL_VOCAB.length} từ vựng` : `${filtered.length} kết quả`}
           </p>
         </div>
 
         {/* Vocabulary list */}
         {filtered.length === 0 ? (
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-12 text-center">
-            <div className="w-12 h-12 flex items-center justify-center bg-white/5 rounded-full mx-auto mb-3">
-              <i className="ri-search-line text-white/30 text-xl"></i>
+          <div className="bg-app-card/50 border border-app-border rounded-2xl p-12 text-center">
+            <div className="w-12 h-12 flex items-center justify-center bg-app-card/50 rounded-full mx-auto mb-3">
+              <i className="ri-search-line text-app-text-muted text-xl"></i>
             </div>
-            <p className="text-white/40 text-sm">Không tìm thấy từ vựng phù hợp</p>
+            <p className="text-app-text-secondary text-sm">Không tìm thấy từ vựng phù hợp</p>
           </div>
         ) : (
           <div className="space-y-2">
@@ -384,12 +384,12 @@ export default function SeoulDictionaryPage() {
               return (
                 <div
                   key={idx}
-                  className={`bg-white/5 border rounded-xl transition-all ${
+                  className={`bg-app-card/50 border rounded-xl transition-all ${
                     isHard
                       ? "border-red-500/20"
                       : isExpanded
                       ? "border-white/20"
-                      : "border-white/8 hover:border-white/15"
+                      : "border-app-border hover:border-white/15"
                   }`}
                 >
                   <div
@@ -413,12 +413,12 @@ export default function SeoulDictionaryPage() {
                           onClick={e => { e.stopPropagation(); speakKorean(vocab.korean); }}
                           className="w-6 h-6 flex items-center justify-center bg-white/8 hover:bg-white/15 rounded-full transition-all cursor-pointer flex-shrink-0"
                         >
-                          <i className="ri-volume-up-line text-white/40 text-xs"></i>
+                          <i className="ri-volume-up-line text-app-text-secondary text-xs"></i>
                         </button>
-                        <span className="text-white/30 text-xs font-mono">[{vocab.pronunciation}]</span>
+                        <span className="text-app-text-muted text-xs font-mono">[{vocab.pronunciation}]</span>
                         {hasNote && (
                           <div className="w-4 h-4 flex items-center justify-center">
-                            <i className="ri-sticky-note-fill text-[#e8c84a]/60 text-xs"></i>
+                            <i className="ri-sticky-note-fill text-app-accent-primary/60 text-xs"></i>
                           </div>
                         )}
                       </div>
@@ -427,7 +427,7 @@ export default function SeoulDictionaryPage() {
 
                     {/* Meta */}
                     <div className="flex items-center gap-2 flex-shrink-0">
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] border ${POS_COLORS[vocab.partOfSpeech] || "bg-white/10 text-white/40 border-white/10"}`}>
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] border ${POS_COLORS[vocab.partOfSpeech] || "bg-app-card/70 text-app-text-secondary border-app-border"}`}>
                         {vocab.partOfSpeech}
                       </span>
                       <span className={`px-2 py-0.5 rounded-full text-[10px] border ${bookColors[vocab.bookId]}`}>
@@ -438,42 +438,42 @@ export default function SeoulDictionaryPage() {
                         onClick={e => { e.stopPropagation(); setNoteModal(vocab); }}
                         className={`w-7 h-7 flex items-center justify-center rounded-lg transition-all cursor-pointer ${
                           hasNote || isHard
-                            ? "bg-[#e8c84a]/15 text-[#e8c84a]"
-                            : "bg-white/5 text-white/25 hover:text-white/50 hover:bg-white/10"
+                            ? "bg-app-accent-primary/15 text-app-accent-primary"
+                            : "bg-app-card/50 text-app-text-muted hover:text-white/50 hover:bg-app-card/70"
                         }`}
                         title="Ghi chú cá nhân"
                       >
                         <i className="ri-edit-line text-xs"></i>
                       </button>
                       <div className="w-4 h-4 flex items-center justify-center">
-                        <i className={`${isExpanded ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"} text-white/30 text-sm`}></i>
+                        <i className={`${isExpanded ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"} text-app-text-muted text-sm`}></i>
                       </div>
                     </div>
                   </div>
 
                   {/* Expanded content */}
                   {isExpanded && (
-                    <div className="px-4 pb-4 border-t border-white/8 pt-3 space-y-3">
+                    <div className="px-4 pb-4 border-t border-app-border pt-3 space-y-3">
                       {/* Example */}
-                      <div className="bg-white/5 rounded-xl p-3">
-                        <p className="text-white/40 text-xs mb-1">Ví dụ câu</p>
+                      <div className="bg-app-card/50 rounded-xl p-3">
+                        <p className="text-app-text-secondary text-xs mb-1">Ví dụ câu</p>
                         <div className="flex items-start gap-2">
                           <button
                             onClick={() => speakKorean(vocab.example)}
                             className="w-6 h-6 flex items-center justify-center bg-white/8 hover:bg-white/15 rounded-full transition-all cursor-pointer flex-shrink-0 mt-0.5"
                           >
-                            <i className="ri-volume-up-line text-white/40 text-xs"></i>
+                            <i className="ri-volume-up-line text-app-text-secondary text-xs"></i>
                           </button>
                           <div>
                             <p className="text-white/80 text-sm" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{vocab.example}</p>
-                            <p className="text-white/40 text-xs mt-0.5 italic">{vocab.exampleVi}</p>
+                            <p className="text-app-text-secondary text-xs mt-0.5 italic">{vocab.exampleVi}</p>
                           </div>
                         </div>
                       </div>
 
                       {/* Personal note display */}
                       {(hasNote || isHard) && (
-                        <div className={`rounded-xl p-3 border ${isHard ? "bg-red-500/5 border-red-500/15" : "bg-[#e8c84a]/5 border-[#e8c84a]/15"}`}>
+                        <div className={`rounded-xl p-3 border ${isHard ? "bg-red-500/5 border-red-500/15" : "bg-app-accent-primary/5 border-app-accent-primary/15"}`}>
                           <div className="flex items-center gap-2 mb-1.5">
                             {isHard && (
                               <div className="flex items-center gap-1">
@@ -486,9 +486,9 @@ export default function SeoulDictionaryPage() {
                             {hasNote && (
                               <div className="flex items-center gap-1">
                                 <div className="w-3 h-3 flex items-center justify-center">
-                                  <i className="ri-sticky-note-line text-[#e8c84a] text-xs"></i>
+                                  <i className="ri-sticky-note-line text-app-accent-primary text-xs"></i>
                                 </div>
-                                <span className="text-[#e8c84a] text-xs font-medium">Ghi chú của bạn</span>
+                                <span className="text-app-accent-primary text-xs font-medium">Ghi chú của bạn</span>
                               </div>
                             )}
                           </div>
@@ -500,7 +500,7 @@ export default function SeoulDictionaryPage() {
 
                       {/* Note action */}
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2 text-xs text-white/30">
+                        <div className="flex items-center gap-2 text-xs text-app-text-muted">
                           <div className="w-3 h-3 flex items-center justify-center">
                             <i className="ri-book-3-line text-xs"></i>
                           </div>
@@ -508,7 +508,7 @@ export default function SeoulDictionaryPage() {
                         </div>
                         <button
                           onClick={() => setNoteModal(vocab)}
-                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-white/60 text-xs transition-all cursor-pointer whitespace-nowrap"
+                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-white/60 text-xs transition-all cursor-pointer whitespace-nowrap"
                         >
                           <div className="w-3 h-3 flex items-center justify-center">
                             <i className="ri-edit-line text-xs"></i>
@@ -537,7 +537,7 @@ export default function SeoulDictionaryPage() {
 
       {/* Save toast */}
       {saveToast && (
-        <div className="fixed bottom-6 right-6 z-50 bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 px-4 py-2.5 rounded-xl text-sm font-medium flex items-center gap-2 animate-fade-in">
+        <div className="fixed bottom-6 right-6 z-50 bg-emerald-500/20 border border-emerald-500/30 text-app-accent-success px-4 py-2.5 rounded-xl text-sm font-medium flex items-center gap-2 animate-fade-in">
           <div className="w-4 h-4 flex items-center justify-center">
             <i className="ri-check-line text-sm"></i>
           </div>

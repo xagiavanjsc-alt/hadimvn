@@ -95,14 +95,14 @@ export default function TopikFrequencyVocabPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
-            { label: "Tổng từ", value: freqWords.length, color: "#e8c84a" },
+            { label: "Tổng từ", value: freqWords.length, color: "app-accent-primary" },
             { label: "TOPIK I", value: freqWords.filter(w => w.topikLevel === "I").length, color: "#34d399" },
             { label: "TOPIK II", value: freqWords.filter(w => w.topikLevel === "II").length, color: "#f87171" },
             { label: "Đã học", value: learnedIds.size, color: "#a78bfa" },
           ].map(s => (
-            <div key={s.label} className="rounded-xl border border-white/8 bg-white/3 p-3 text-center">
+            <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-3 text-center">
               <p className="text-white font-bold text-xl" style={{ color: s.color }}>{s.value}</p>
-              <p className="text-white/40 text-xs">{s.label}</p>
+              <p className="text-app-text-secondary text-xs">{s.label}</p>
             </div>
           ))}
         </div>
@@ -110,36 +110,36 @@ export default function TopikFrequencyVocabPage() {
         {/* Progress bar */}
         <div className="mb-5">
           <div className="flex items-center justify-between mb-1.5">
-            <span className="text-white/40 text-xs">Tiến độ học</span>
+            <span className="text-app-text-secondary text-xs">Tiến độ học</span>
             <span className="text-white/60 text-xs font-bold">{learnedIds.size}/{freqWords.length} từ</span>
           </div>
           <div className="h-2 bg-white/8 rounded-full overflow-hidden">
-            <div className="h-full bg-[#e8c84a] rounded-full transition-all duration-500"
+            <div className="h-full bg-app-accent-primary rounded-full transition-all duration-500"
               style={{ width: `${(learnedIds.size / freqWords.length) * 100}%` }} />
           </div>
         </div>
 
         {/* Filters */}
         <div className="flex flex-wrap gap-3 mb-5">
-          <div className="flex gap-1 p-1 bg-white/5 rounded-xl">
+          <div className="flex gap-1 p-1 bg-app-card/50 rounded-xl">
             {(["all", "I", "II"] as const).map(t => (
               <button key={t} onClick={() => setTopikFilter(t)}
-                className={`px-4 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${topikFilter === t ? "bg-[#e8c84a] text-[#141720]" : "text-white/50 hover:text-white/80"}`}>
+                className={`px-4 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${topikFilter === t ? "bg-app-accent-primary text-[#141720]" : "text-white/50 hover:text-white/80"}`}>
                 {t === "all" ? "Tất cả" : `TOPIK ${t}`}
               </button>
             ))}
           </div>
           <div className="relative flex-1 min-w-48">
-            <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
+            <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
             <input type="text" value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
               placeholder="Tìm từ..."
-              className="w-full pl-9 pr-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder-white/25 outline-none focus:border-white/20" />
+              className="w-full pl-9 pr-4 py-2 rounded-xl bg-app-card/50 border border-app-border text-white text-sm placeholder-white/25 outline-none focus:border-white/20" />
           </div>
-          <div className="flex gap-1 p-1 bg-white/5 rounded-xl">
-            <button onClick={() => setViewMode("list")} className={`w-8 h-8 flex items-center justify-center rounded-lg cursor-pointer ${viewMode === "list" ? "bg-white/15 text-white" : "text-white/40"}`}>
+          <div className="flex gap-1 p-1 bg-app-card/50 rounded-xl">
+            <button onClick={() => setViewMode("list")} className={`w-8 h-8 flex items-center justify-center rounded-lg cursor-pointer ${viewMode === "list" ? "bg-white/15 text-white" : "text-app-text-secondary"}`}>
               <i className="ri-list-check text-sm"></i>
             </button>
-            <button onClick={() => setViewMode("grid")} className={`w-8 h-8 flex items-center justify-center rounded-lg cursor-pointer ${viewMode === "grid" ? "bg-white/15 text-white" : "text-white/40"}`}>
+            <button onClick={() => setViewMode("grid")} className={`w-8 h-8 flex items-center justify-center rounded-lg cursor-pointer ${viewMode === "grid" ? "bg-white/15 text-white" : "text-app-text-secondary"}`}>
               <i className="ri-grid-line text-sm"></i>
             </button>
           </div>
@@ -149,7 +149,7 @@ export default function TopikFrequencyVocabPage() {
         <div className="flex gap-2 flex-wrap mb-5">
           {categories.map(cat => (
             <button key={cat} onClick={() => setCategoryFilter(cat)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${categoryFilter === cat ? "bg-white/15 text-white" : "bg-white/5 text-white/40 hover:bg-white/8"}`}>
+              className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${categoryFilter === cat ? "bg-white/15 text-white" : "bg-app-card/50 text-app-text-secondary hover:bg-white/8"}`}>
               {cat}
             </button>
           ))}
@@ -160,40 +160,40 @@ export default function TopikFrequencyVocabPage() {
           <div className="space-y-2">
             {filtered.map(w => (
               <div key={w.rank}
-                className={`flex items-center gap-4 px-4 py-3 rounded-xl border cursor-pointer transition-all ${learnedIds.has(w.rank) ? "border-emerald-500/20 bg-emerald-500/5" : "border-white/8 bg-white/3 hover:bg-white/5"}`}
+                className={`flex items-center gap-4 px-4 py-3 rounded-xl border cursor-pointer transition-all ${learnedIds.has(w.rank) ? "border-emerald-500/20 bg-emerald-500/5" : "border-app-border bg-app-surface/50 hover:bg-app-card/50"}`}
                 onClick={() => setSelectedWord(w)}>
                 {/* Rank */}
-                <span className="text-white/25 text-xs font-bold w-6 text-center flex-shrink-0">#{w.rank}</span>
+                <span className="text-app-text-muted text-xs font-bold w-6 text-center flex-shrink-0">#{w.rank}</span>
 
                 {/* Frequency bar */}
                 <div className="w-12 flex-shrink-0">
                   <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
-                    <div className="h-full rounded-full bg-[#e8c84a]" style={{ width: `${(w.frequency / 85) * 100}%` }} />
+                    <div className="h-full rounded-full bg-app-accent-primary" style={{ width: `${(w.frequency / 85) * 100}%` }} />
                   </div>
-                  <p className="text-white/20 text-[9px] mt-0.5 text-center">{w.frequency}/1k</p>
+                  <p className="text-app-text-muted text-[9px] mt-0.5 text-center">{w.frequency}/1k</p>
                 </div>
 
                 {/* Word */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <span className="text-white font-bold text-base">{w.korean}</span>
-                    <span className="text-white/30 text-xs">[{w.pronunciation}]</span>
-                    <span className="text-white/25 text-[10px]">{w.partOfSpeech}</span>
+                    <span className="text-app-text-muted text-xs">[{w.pronunciation}]</span>
+                    <span className="text-app-text-muted text-[10px]">{w.partOfSpeech}</span>
                   </div>
-                  <p className="text-[#e8c84a] text-sm">{w.meaning}</p>
+                  <p className="text-app-accent-primary text-sm">{w.meaning}</p>
                 </div>
 
                 {/* Badges */}
                 <div className="flex items-center gap-2 flex-shrink-0">
-                  <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${w.topikLevel === "I" ? "bg-emerald-500/15 text-emerald-400" : "bg-rose-500/15 text-rose-400"}`}>
+                  <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${w.topikLevel === "I" ? "bg-app-accent-success/15 text-app-accent-success" : "bg-rose-500/15 text-rose-400"}`}>
                     TOPIK {w.topikLevel}
                   </span>
                   <button onClick={e => { e.stopPropagation(); handleTTS(w.korean); }}
-                    className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/30 hover:text-white/60 cursor-pointer">
+                    className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-muted hover:text-white/60 cursor-pointer">
                     <i className="ri-volume-up-line text-xs"></i>
                   </button>
                   <button onClick={e => { e.stopPropagation(); toggleLearned(w.rank); }}
-                    className={`w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer transition-colors ${learnedIds.has(w.rank) ? "bg-emerald-500/20 text-emerald-400" : "bg-white/5 hover:bg-white/10 text-white/30 hover:text-white/60"}`}>
+                    className={`w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer transition-colors ${learnedIds.has(w.rank) ? "bg-emerald-500/20 text-app-accent-success" : "bg-app-card/50 hover:bg-app-card/70 text-app-text-muted hover:text-white/60"}`}>
                     <i className={learnedIds.has(w.rank) ? "ri-checkbox-circle-fill text-xs" : "ri-checkbox-blank-circle-line text-xs"}></i>
                   </button>
                 </div>
@@ -204,18 +204,18 @@ export default function TopikFrequencyVocabPage() {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {filtered.map(w => (
               <div key={w.rank}
-                className={`p-4 rounded-xl border cursor-pointer transition-all ${learnedIds.has(w.rank) ? "border-emerald-500/20 bg-emerald-500/5" : "border-white/8 bg-white/3 hover:bg-white/5"}`}
+                className={`p-4 rounded-xl border cursor-pointer transition-all ${learnedIds.has(w.rank) ? "border-emerald-500/20 bg-emerald-500/5" : "border-app-border bg-app-surface/50 hover:bg-app-card/50"}`}
                 onClick={() => setSelectedWord(w)}>
                 <div className="flex items-start justify-between mb-2">
-                  <span className="text-white/20 text-[10px]">#{w.rank}</span>
-                  <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${w.topikLevel === "I" ? "bg-emerald-500/15 text-emerald-400" : "bg-rose-500/15 text-rose-400"}`}>
+                  <span className="text-app-text-muted text-[10px]">#{w.rank}</span>
+                  <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${w.topikLevel === "I" ? "bg-app-accent-success/15 text-app-accent-success" : "bg-rose-500/15 text-rose-400"}`}>
                     TOPIK {w.topikLevel}
                   </span>
                 </div>
                 <p className="text-white font-bold text-lg mb-0.5">{w.korean}</p>
-                <p className="text-[#e8c84a] text-sm mb-2">{w.meaning}</p>
+                <p className="text-app-accent-primary text-sm mb-2">{w.meaning}</p>
                 <div className="h-1 bg-white/8 rounded-full overflow-hidden">
-                  <div className="h-full rounded-full bg-[#e8c84a]/60" style={{ width: `${(w.frequency / 85) * 100}%` }} />
+                  <div className="h-full rounded-full bg-app-accent-primary/60" style={{ width: `${(w.frequency / 85) * 100}%` }} />
                 </div>
               </div>
             ))}
@@ -225,7 +225,7 @@ export default function TopikFrequencyVocabPage() {
         {/* Word detail modal */}
         {selectedWord && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" onClick={() => setSelectedWord(null)}>
-            <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#1a1f2e] p-6" onClick={e => e.stopPropagation()}>
+            <div className="w-full max-w-md rounded-2xl border border-app-border bg-[#1a1f2e] p-6" onClick={e => e.stopPropagation()}>
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
@@ -235,43 +235,43 @@ export default function TopikFrequencyVocabPage() {
                       <i className="ri-volume-up-line"></i>
                     </button>
                   </div>
-                  <p className="text-white/40 text-sm">[{selectedWord.pronunciation}] · {selectedWord.partOfSpeech}</p>
+                  <p className="text-app-text-secondary text-sm">[{selectedWord.pronunciation}] · {selectedWord.partOfSpeech}</p>
                 </div>
-                <button onClick={() => setSelectedWord(null)} className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/40 cursor-pointer">
+                <button onClick={() => setSelectedWord(null)} className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary cursor-pointer">
                   <i className="ri-close-line"></i>
                 </button>
               </div>
 
               <div className="space-y-4">
-                <div className="p-3 rounded-xl bg-[#e8c84a]/5 border border-[#e8c84a]/15">
-                  <p className="text-[#e8c84a] font-bold text-lg">{selectedWord.meaning}</p>
+                <div className="p-3 rounded-xl bg-app-accent-primary/5 border border-app-accent-primary/15">
+                  <p className="text-app-accent-primary font-bold text-lg">{selectedWord.meaning}</p>
                 </div>
 
-                <div className="p-3 rounded-xl bg-white/5 border border-white/8">
-                  <p className="text-white/40 text-xs mb-1">Ví dụ</p>
+                <div className="p-3 rounded-xl bg-app-card/50 border border-app-border">
+                  <p className="text-app-text-secondary text-xs mb-1">Ví dụ</p>
                   <p className="text-white text-sm mb-1">{selectedWord.example}</p>
-                  <p className="text-white/40 text-xs italic">{selectedWord.exampleVi}</p>
+                  <p className="text-app-text-secondary text-xs italic">{selectedWord.exampleVi}</p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div className="text-center p-2 rounded-lg bg-white/5">
+                  <div className="text-center p-2 rounded-lg bg-app-card/50">
                     <p className="text-white/60 text-xs font-bold">Hạng</p>
-                    <p className="text-[#e8c84a] font-bold">#{selectedWord.rank}</p>
+                    <p className="text-app-accent-primary font-bold">#{selectedWord.rank}</p>
                   </div>
-                  <div className="text-center p-2 rounded-lg bg-white/5">
+                  <div className="text-center p-2 rounded-lg bg-app-card/50">
                     <p className="text-white/60 text-xs font-bold">Tần suất</p>
-                    <p className="text-[#e8c84a] font-bold">{selectedWord.frequency}/1k</p>
+                    <p className="text-app-accent-primary font-bold">{selectedWord.frequency}/1k</p>
                   </div>
-                  <div className="text-center p-2 rounded-lg bg-white/5">
+                  <div className="text-center p-2 rounded-lg bg-app-card/50">
                     <p className="text-white/60 text-xs font-bold">TOPIK</p>
-                    <p className={`font-bold ${selectedWord.topikLevel === "I" ? "text-emerald-400" : "text-rose-400"}`}>
+                    <p className={`font-bold ${selectedWord.topikLevel === "I" ? "text-app-accent-success" : "text-rose-400"}`}>
                       {selectedWord.topikLevel}
                     </p>
                   </div>
                 </div>
 
                 <button onClick={() => { toggleLearned(selectedWord.rank); setSelectedWord(null); }}
-                  className={`w-full py-3 rounded-xl font-bold text-sm cursor-pointer whitespace-nowrap transition-colors ${learnedIds.has(selectedWord.rank) ? "bg-white/8 text-white/60" : "bg-[#e8c84a] text-[#141720]"}`}>
+                  className={`w-full py-3 rounded-xl font-bold text-sm cursor-pointer whitespace-nowrap transition-colors ${learnedIds.has(selectedWord.rank) ? "bg-white/8 text-white/60" : "bg-app-accent-primary text-[#141720]"}`}>
                   {learnedIds.has(selectedWord.rank) ? "Bỏ đánh dấu đã học" : "Đánh dấu đã học"}
                 </button>
               </div>

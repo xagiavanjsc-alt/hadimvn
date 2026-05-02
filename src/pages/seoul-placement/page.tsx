@@ -349,7 +349,7 @@ const PLACEMENT_QUESTIONS: PlacementQuestion[] = [
 // ─── Level mapping ────────────────────────────────────────────────────────
 const LEVEL_ORDER = ["1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B"] as const;
 const LEVEL_COLORS: Record<string, string> = {
-  "1A": "#e8c84a", "1B": "#fb923c", "2A": "#34d399", "2B": "#06b6d4",
+  "1A": "app-accent-primary", "1B": "#fb923c", "2A": "#34d399", "2B": "#06b6d4",
   "3A": "#a78bfa", "3B": "#ec4899", "4A": "#84cc16", "4B": "#f87171",
 };
 const LEVEL_CEFR: Record<string, string> = {
@@ -449,14 +449,14 @@ export default function SeoulPlacementPage() {
       {/* Intro */}
       {phase === "intro" && (
         <div className="max-w-2xl mx-auto">
-          <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-8 mb-6">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-8 mb-6">
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#e8c84a]/10">
-                <i className="ri-graduation-cap-line text-3xl text-[#e8c84a]"></i>
+              <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-app-accent-primary/10">
+                <i className="ri-graduation-cap-line text-3xl text-app-accent-primary"></i>
               </div>
               <div>
                 <h2 className="text-white font-bold text-lg">Bài kiểm tra trình độ</h2>
-                <p className="text-white/40 text-sm">Giáo trình Seoul 1A → 4B</p>
+                <p className="text-app-text-secondary text-sm">Giáo trình Seoul 1A → 4B</p>
               </div>
             </div>
 
@@ -466,15 +466,15 @@ export default function SeoulPlacementPage() {
                 { icon: "ri-time-line", label: "~15 phút", sub: "Không giới hạn thời gian" },
                 { icon: "ri-bar-chart-line", label: "8 cấp độ", sub: "1A đến 4B" },
               ].map(item => (
-                <div key={item.label} className="bg-white/3 rounded-xl p-4 text-center">
-                  <i className={`${item.icon} text-[#e8c84a] text-xl mb-2 block`}></i>
+                <div key={item.label} className="bg-app-surface/50 rounded-xl p-4 text-center">
+                  <i className={`${item.icon} text-app-accent-primary text-xl mb-2 block`}></i>
                   <p className="text-white font-semibold text-sm">{item.label}</p>
-                  <p className="text-white/30 text-xs mt-0.5">{item.sub}</p>
+                  <p className="text-app-text-muted text-xs mt-0.5">{item.sub}</p>
                 </div>
               ))}
             </div>
 
-            <div className="bg-white/3 rounded-xl p-4 mb-6">
+            <div className="bg-app-surface/50 rounded-xl p-4 mb-6">
               <p className="text-white/60 text-sm font-medium mb-3">Bài test bao gồm:</p>
               <div className="space-y-2">
                 {[
@@ -483,23 +483,23 @@ export default function SeoulPlacementPage() {
                   { icon: "ri-file-text-line", text: "Đọc hiểu — phân tích câu và đoạn văn" },
                 ].map(item => (
                   <div key={item.text} className="flex items-center gap-2">
-                    <i className={`${item.icon} text-[#e8c84a] text-sm`}></i>
+                    <i className={`${item.icon} text-app-accent-primary text-sm`}></i>
                     <p className="text-white/50 text-sm">{item.text}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4 mb-6">
-              <p className="text-[#e8c84a] text-xs font-semibold mb-1">Lưu ý</p>
-              <p className="text-white/40 text-xs leading-relaxed">
+            <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4 mb-6">
+              <p className="text-app-accent-primary text-xs font-semibold mb-1">Lưu ý</p>
+              <p className="text-app-text-secondary text-xs leading-relaxed">
                 Hãy trả lời thật thành thật — không cần đoán mò. Nếu không biết, chọn "Không biết" hoặc bỏ qua. Kết quả sẽ giúp bạn bắt đầu đúng cấp độ, tránh học lại những gì đã biết hoặc bỏ qua kiến thức quan trọng.
               </p>
             </div>
 
             <button
               onClick={() => setPhase("test")}
-              className="w-full py-4 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-base transition-colors cursor-pointer whitespace-nowrap"
+              className="w-full py-4 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-base transition-colors cursor-pointer whitespace-nowrap"
             >
               Bắt đầu kiểm tra
               <i className="ri-arrow-right-line ml-2"></i>
@@ -509,11 +509,11 @@ export default function SeoulPlacementPage() {
           {/* Level preview */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {LEVEL_ORDER.map(level => (
-              <div key={level} className="bg-[#0f1117] border border-white/5 rounded-xl p-3 text-center">
+              <div key={level} className="bg-app-bg border border-app-border rounded-xl p-3 text-center">
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${LEVEL_COLORS[level]}15` }}>
                   <span className="text-xs font-bold" style={{ color: LEVEL_COLORS[level] }}>{level}</span>
                 </div>
-                <p className="text-white/30 text-[10px]">{LEVEL_CEFR[level]}</p>
+                <p className="text-app-text-muted text-[10px]">{LEVEL_CEFR[level]}</p>
               </div>
             ))}
           </div>
@@ -526,33 +526,33 @@ export default function SeoulPlacementPage() {
           {/* Progress bar */}
           <div className="mb-6">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-white/40 text-xs">Câu {currentIdx + 1} / {totalQ}</p>
+              <p className="text-app-text-secondary text-xs">Câu {currentIdx + 1} / {totalQ}</p>
               <div className="flex items-center gap-2">
                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full`} style={{ backgroundColor: `${LEVEL_COLORS[currentQ.targetLevel]}15`, color: LEVEL_COLORS[currentQ.targetLevel] }}>
                   {currentQ.targetLevel} — {LEVEL_CEFR[currentQ.targetLevel]}
                 </span>
-                <span className="text-[10px] text-white/30 bg-white/5 px-2 py-0.5 rounded-full">
+                <span className="text-[10px] text-app-text-muted bg-app-card/50 px-2 py-0.5 rounded-full">
                   <i className={`${SKILL_ICONS[currentQ.skill]} mr-1`}></i>{SKILL_LABELS[currentQ.skill]}
                 </span>
               </div>
             </div>
-            <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
-              <div className="h-full rounded-full bg-[#e8c84a] transition-all" style={{ width: `${progress}%` }} />
+            <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
+              <div className="h-full rounded-full bg-app-accent-primary transition-all" style={{ width: `${progress}%` }} />
             </div>
           </div>
 
           {/* Question card */}
-          <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-6 mb-4">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-6 mb-4">
             <p className="text-white font-semibold text-base mb-1">{currentQ.question}</p>
-            <p className="text-white/40 text-sm italic mb-6">{currentQ.questionVi}</p>
+            <p className="text-app-text-secondary text-sm italic mb-6">{currentQ.questionVi}</p>
 
             <div className="space-y-2">
               {currentQ.options.map((opt, i) => {
-                let cls = "border-white/8 bg-white/3 hover:border-white/15 hover:bg-white/5 cursor-pointer";
+                let cls = "border-app-border bg-app-surface/50 hover:border-white/15 hover:bg-app-card/50 cursor-pointer";
                 if (selectedAnswer !== null) {
                   if (i === currentQ.correctIndex) cls = "border-emerald-500/40 bg-emerald-500/8 cursor-default";
                   else if (i === selectedAnswer) cls = "border-red-500/40 bg-red-500/8 cursor-default";
-                  else cls = "border-white/5 opacity-30 cursor-default";
+                  else cls = "border-app-border opacity-30 cursor-default";
                 }
                 return (
                   <button
@@ -561,14 +561,14 @@ export default function SeoulPlacementPage() {
                     disabled={selectedAnswer !== null}
                     className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-left ${cls}`}
                   >
-                    <span className={`w-7 h-7 flex items-center justify-center rounded-lg text-xs font-bold flex-shrink-0 ${selectedAnswer !== null && i === currentQ.correctIndex ? "bg-emerald-500/20 text-emerald-400" : selectedAnswer !== null && i === selectedAnswer ? "bg-red-500/20 text-red-400" : "bg-white/5 text-white/30"}`}>
+                    <span className={`w-7 h-7 flex items-center justify-center rounded-lg text-xs font-bold flex-shrink-0 ${selectedAnswer !== null && i === currentQ.correctIndex ? "bg-emerald-500/20 text-app-accent-success" : selectedAnswer !== null && i === selectedAnswer ? "bg-red-500/20 text-red-400" : "bg-app-card/50 text-app-text-muted"}`}>
                       {["A","B","C","D"][i]}
                     </span>
                     <div className="flex-1">
-                      <p className={`text-sm font-medium ${selectedAnswer !== null && i === currentQ.correctIndex ? "text-emerald-400" : selectedAnswer !== null && i === selectedAnswer ? "text-red-400" : "text-white/70"}`}>{opt}</p>
-                      <p className="text-white/25 text-xs">{currentQ.optionsVi[i]}</p>
+                      <p className={`text-sm font-medium ${selectedAnswer !== null && i === currentQ.correctIndex ? "text-app-accent-success" : selectedAnswer !== null && i === selectedAnswer ? "text-red-400" : "text-white/70"}`}>{opt}</p>
+                      <p className="text-app-text-muted text-xs">{currentQ.optionsVi[i]}</p>
                     </div>
-                    {selectedAnswer !== null && i === currentQ.correctIndex && <i className="ri-checkbox-circle-fill text-emerald-400"></i>}
+                    {selectedAnswer !== null && i === currentQ.correctIndex && <i className="ri-checkbox-circle-fill text-app-accent-success"></i>}
                     {selectedAnswer !== null && i === selectedAnswer && i !== currentQ.correctIndex && <i className="ri-close-circle-fill text-red-400"></i>}
                   </button>
                 );
@@ -576,7 +576,7 @@ export default function SeoulPlacementPage() {
             </div>
 
             {showExplanation && (
-              <div className={`mt-4 p-3 rounded-xl border text-xs leading-relaxed ${selectedAnswer === currentQ.correctIndex ? "border-emerald-500/20 bg-emerald-500/5 text-emerald-400/80" : "border-orange-500/20 bg-orange-500/5 text-orange-400/80"}`}>
+              <div className={`mt-4 p-3 rounded-xl border text-xs leading-relaxed ${selectedAnswer === currentQ.correctIndex ? "border-emerald-500/20 bg-emerald-500/5 text-app-accent-success/80" : "border-orange-500/20 bg-orange-500/5 text-orange-400/80"}`}>
                 <div className="flex items-start gap-2">
                   <i className="ri-lightbulb-line text-sm flex-shrink-0 mt-0.5"></i>
                   <p>{currentQ.explanation}</p>
@@ -588,7 +588,7 @@ export default function SeoulPlacementPage() {
           {selectedAnswer !== null && (
             <button
               onClick={handleNext}
-              className="w-full py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
+              className="w-full py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
             >
               {currentIdx + 1 >= totalQ ? "Xem kết quả" : "Câu tiếp theo"}
               <i className="ri-arrow-right-line ml-2"></i>
@@ -601,32 +601,32 @@ export default function SeoulPlacementPage() {
       {phase === "result" && (
         <div className="max-w-3xl mx-auto">
           {/* Main result */}
-          <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-8 mb-6 text-center">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-8 mb-6 text-center">
             <div className="w-20 h-20 flex items-center justify-center rounded-2xl mx-auto mb-4" style={{ backgroundColor: `${LEVEL_COLORS[recommendedLevel]}15` }}>
               <span className="text-2xl font-bold" style={{ color: LEVEL_COLORS[recommendedLevel] }}>{recommendedLevel}</span>
             </div>
             <h2 className="text-white font-bold text-2xl mb-2">Trình độ của bạn: Seoul {recommendedLevel}</h2>
-            <p className="text-white/40 text-sm mb-1">{LEVEL_CEFR[recommendedLevel]} — {LEVEL_DESC[recommendedLevel]}</p>
-            <p className="text-white/30 text-xs mb-6">Đúng {totalCorrect}/{totalQ} câu ({accuracy}%)</p>
+            <p className="text-app-text-secondary text-sm mb-1">{LEVEL_CEFR[recommendedLevel]} — {LEVEL_DESC[recommendedLevel]}</p>
+            <p className="text-app-text-muted text-xs mb-6">Đúng {totalCorrect}/{totalQ} câu ({accuracy}%)</p>
 
             <div className="flex items-center justify-center gap-3 mb-6">
               <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-5 py-3">
-                <p className="text-emerald-400 font-bold text-xl">{totalCorrect}</p>
-                <p className="text-white/30 text-xs">Câu đúng</p>
+                <p className="text-app-accent-success font-bold text-xl">{totalCorrect}</p>
+                <p className="text-app-text-muted text-xs">Câu đúng</p>
               </div>
               <div className="bg-red-500/10 border border-red-500/20 rounded-xl px-5 py-3">
                 <p className="text-red-400 font-bold text-xl">{totalQ - totalCorrect}</p>
-                <p className="text-white/30 text-xs">Câu sai</p>
+                <p className="text-app-text-muted text-xs">Câu sai</p>
               </div>
-              <div className="bg-[#e8c84a]/10 border border-[#e8c84a]/20 rounded-xl px-5 py-3">
-                <p className="text-[#e8c84a] font-bold text-xl">+{totalCorrect * 10 + 50}</p>
-                <p className="text-white/30 text-xs">XP nhận được</p>
+              <div className="bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-xl px-5 py-3">
+                <p className="text-app-accent-primary font-bold text-xl">+{totalCorrect * 10 + 50}</p>
+                <p className="text-app-text-muted text-xs">XP nhận được</p>
               </div>
             </div>
 
-            <div className="bg-white/3 rounded-xl p-4 text-left mb-6">
+            <div className="bg-app-surface/50 rounded-xl p-4 text-left mb-6">
               <p className="text-white/60 text-sm font-medium mb-2">Gợi ý học tập</p>
-              <p className="text-white/40 text-sm leading-relaxed">
+              <p className="text-app-text-secondary text-sm leading-relaxed">
                 Bạn nên bắt đầu từ <span className="font-bold" style={{ color: LEVEL_COLORS[recommendedLevel] }}>Seoul {recommendedLevel}</span>. 
                 {recommendedLevel !== "1A" && ` Bạn đã nắm vững kiến thức đến cấp ${LEVEL_ORDER[LEVEL_ORDER.indexOf(recommendedLevel) - 1]}.`}
                 {" "}Hãy học đều đặn mỗi ngày và ôn lại từ vựng bằng Flashcard Seoul.
@@ -636,13 +636,13 @@ export default function SeoulPlacementPage() {
             <div className="flex gap-3">
               <button
                 onClick={() => navigate("/seoul-textbook")}
-                className="flex-1 py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
+                className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
               >
                 <i className="ri-book-open-line mr-2"></i>Học Seoul {recommendedLevel} ngay
               </button>
               <button
                 onClick={() => { setPhase("intro"); setCurrentIdx(0); setAnswers({}); setSelectedAnswer(null); setShowExplanation(false); }}
-                className="px-5 py-3 rounded-xl border border-white/10 text-white/50 text-sm font-medium hover:bg-white/5 transition-colors cursor-pointer whitespace-nowrap"
+                className="px-5 py-3 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"
               >
                 Làm lại
               </button>
@@ -650,7 +650,7 @@ export default function SeoulPlacementPage() {
           </div>
 
           {/* Level breakdown */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-6">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-6">
             <h3 className="text-white font-semibold text-sm mb-4">Kết quả theo cấp độ</h3>
             <div className="space-y-3">
               {LEVEL_ORDER.map(level => {
@@ -658,7 +658,7 @@ export default function SeoulPlacementPage() {
                 const pct = s.total > 0 ? Math.round((s.correct / s.total) * 100) : 0;
                 const isRecommended = level === recommendedLevel;
                 return (
-                  <div key={level} className={`flex items-center gap-4 p-3 rounded-xl ${isRecommended ? "bg-white/3 border border-white/8" : ""}`}>
+                  <div key={level} className={`flex items-center gap-4 p-3 rounded-xl ${isRecommended ? "bg-app-surface/50 border border-app-border" : ""}`}>
                     <div className="w-10 h-10 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${LEVEL_COLORS[level]}15` }}>
                       <span className="text-xs font-bold" style={{ color: LEVEL_COLORS[level] }}>{level}</span>
                     </div>
@@ -666,11 +666,11 @@ export default function SeoulPlacementPage() {
                       <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-2">
                           <span className="text-white/60 text-xs">{LEVEL_CEFR[level]}</span>
-                          {isRecommended && <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#e8c84a]/15 text-[#e8c84a]">Đề xuất</span>}
+                          {isRecommended && <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary">Đề xuất</span>}
                         </div>
                         <span className="text-xs font-bold" style={{ color: LEVEL_COLORS[level] }}>{s.correct}/{s.total} ({pct}%)</span>
                       </div>
-                      <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                      <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                         <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: LEVEL_COLORS[level] }} />
                       </div>
                     </div>

@@ -83,7 +83,7 @@ function BarChart({ data, metric, color }: { data: DayActivity[]; metric: keyof 
               ></div>
             </div>
             {/* Tooltip */}
-            <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 bg-[#1a1d27] border border-white/10 rounded-lg px-2 py-1 text-[9px] text-white/70 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+            <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 bg-[#1a1d27] border border-app-border rounded-lg px-2 py-1 text-[9px] text-white/70 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
               {d.label}: {val}
             </div>
           </div>
@@ -100,7 +100,7 @@ function ActivityHeatmap({ data }: { data: DayActivity[] }) {
     <div className="flex flex-wrap gap-1">
       {data.map((d, i) => {
         const intensity = d.xp / maxXP;
-        const bg = d.xp === 0 ? "bg-white/5" : intensity > 0.7 ? "bg-[#e8c84a]" : intensity > 0.4 ? "bg-[#e8c84a]/60" : "bg-[#e8c84a]/25";
+        const bg = d.xp === 0 ? "bg-app-card/50" : intensity > 0.7 ? "bg-app-accent-primary" : intensity > 0.4 ? "bg-app-accent-primary/60" : "bg-app-accent-primary/25";
         return (
           <div key={i} title={`${d.label}: ${d.xp} XP`}
             className={`w-3 h-3 rounded-sm cursor-default ${bg} transition-all hover:scale-125`}></div>
@@ -178,7 +178,7 @@ function TrendHeatmap({ activityData }: { activityData: DayActivity[] }) {
   const getColor = (val: number) => {
     if (val === 0) return "rgba(255,255,255,0.04)";
     const intensity = val / maxVal;
-    if (intensity > 0.8) return "#e8c84a";
+    if (intensity > 0.8) return "app-accent-primary";
     if (intensity > 0.55) return "rgba(232,200,74,0.7)";
     if (intensity > 0.3) return "rgba(232,200,74,0.4)";
     return "rgba(232,200,74,0.18)";
@@ -188,17 +188,17 @@ function TrendHeatmap({ activityData }: { activityData: DayActivity[] }) {
   const xLabels = HOURS.filter(h => h % 3 === 0);
 
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+    <div className="bg-app-bg border border-app-border rounded-2xl p-5">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="text-white font-semibold text-sm">Xu hướng học theo giờ &amp; ngày</h3>
-          <p className="text-white/30 text-[10px] mt-0.5">Giờ nào, ngày nào bạn học hiệu quả nhất</p>
+          <p className="text-app-text-muted text-[10px] mt-0.5">Giờ nào, ngày nào bạn học hiệu quả nhất</p>
         </div>
-        <div className="flex items-center gap-1 bg-white/3 p-1 rounded-lg">
+        <div className="flex items-center gap-1 bg-app-surface/50 p-1 rounded-lg">
           {(["xp", "sessions"] as const).map(m => (
             <button key={m} onClick={() => setMetric(m)}
               className={`px-2.5 py-1 rounded-md text-[10px] font-medium transition-all cursor-pointer whitespace-nowrap ${
-                metric === m ? "bg-white/10 text-white" : "text-white/40 hover:text-white/60"
+                metric === m ? "bg-app-card/70 text-white" : "text-app-text-secondary hover:text-white/60"
               }`}>
               {m === "xp" ? "XP" : "Phương"}
             </button>
@@ -208,9 +208,9 @@ function TrendHeatmap({ activityData }: { activityData: DayActivity[] }) {
 
       {/* Peak insights */}
       <div className="flex items-center gap-3 mb-4">
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#e8c84a]/8 border border-[#e8c84a]/15">
-          <i className="ri-time-line text-[#e8c84a] text-xs"></i>
-          <span className="text-[10px] text-white/60">Giờ đỉnh: <strong className="text-[#e8c84a]">{peakHour}:00 - {peakHour+1}:00</strong></span>
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-app-accent-primary/8 border border-app-accent-primary/15">
+          <i className="ri-time-line text-app-accent-primary text-xs"></i>
+          <span className="text-[10px] text-white/60">Giờ đỉnh: <strong className="text-app-accent-primary">{peakHour}:00 - {peakHour+1}:00</strong></span>
         </div>
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#34d399]/8 border border-[#34d399]/15">
           <i className="ri-calendar-line text-[#34d399] text-xs"></i>
@@ -226,7 +226,7 @@ function TrendHeatmap({ activityData }: { activityData: DayActivity[] }) {
             {HOURS.map(h => (
               <div key={h} className="flex-1 text-center">
                 {h % 3 === 0 && (
-                  <span className="text-[8px] text-white/20">{h}h</span>
+                  <span className="text-[8px] text-app-text-muted">{h}h</span>
                 )}
               </div>
             ))}
@@ -235,7 +235,7 @@ function TrendHeatmap({ activityData }: { activityData: DayActivity[] }) {
           {/* Grid rows */}
           {DAYS_OF_WEEK.map((dayLabel, dayIdx) => (
             <div key={dayIdx} className="flex items-center gap-0.5 mb-0.5">
-              <span className="text-[9px] text-white/30 w-7 text-right pr-1 flex-shrink-0">{dayLabel}</span>
+              <span className="text-[9px] text-app-text-muted w-7 text-right pr-1 flex-shrink-0">{dayLabel}</span>
               {HOURS.map(hour => {
                 const cell = grid.find(c => c.day === dayIdx && c.hour === hour)!;
                 const val = metric === "xp" ? cell.xp : cell.sessions;
@@ -249,11 +249,11 @@ function TrendHeatmap({ activityData }: { activityData: DayActivity[] }) {
                   >
                     {hoveredCell === cell && val > 0 && (
                       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 z-20 pointer-events-none">
-                        <div className="bg-[#1a1d27] border border-white/10 rounded-lg px-2 py-1 text-center whitespace-nowrap">
-                          <p className="text-[9px] font-bold text-[#e8c84a]">
+                        <div className="bg-[#1a1d27] border border-app-border rounded-lg px-2 py-1 text-center whitespace-nowrap">
+                          <p className="text-[9px] font-bold text-app-accent-primary">
                             {metric === "xp" ? `${val} XP` : `${val} phiên`}
                           </p>
-                          <p className="text-[8px] text-white/40">{dayLabel} {hour}:00</p>
+                          <p className="text-[8px] text-app-text-secondary">{dayLabel} {hour}:00</p>
                         </div>
                       </div>
                     )}
@@ -265,13 +265,13 @@ function TrendHeatmap({ activityData }: { activityData: DayActivity[] }) {
 
           {/* Legend */}
           <div className="flex items-center gap-2 mt-3 justify-end">
-            <span className="text-[9px] text-white/25">Thấp</span>
+            <span className="text-[9px] text-app-text-muted">Thấp</span>
             {[0.04, 0.18, 0.4, 0.7, 1].map((intensity, i) => (
               <div key={i} className="w-3 h-3 rounded-sm"
                 style={{ backgroundColor: intensity === 0.04 ? "rgba(255,255,255,0.04)" : `rgba(232,200,74,${intensity})` }}
               />
             ))}
-            <span className="text-[9px] text-white/25">Cao</span>
+            <span className="text-[9px] text-app-text-muted">Cao</span>
           </div>
         </div>
       </div>
@@ -345,7 +345,7 @@ function ReviewCard({ item, onMarkReviewed }: { item: WrongItem; onMarkReviewed:
   const nextDays = SR_INTERVALS[Math.min(item.reviewCount + 1, SR_INTERVALS.length - 1)];
 
   return (
-    <div className={`bg-[#0f1117] border rounded-xl overflow-hidden transition-all ${isDue ? "border-[#e8c84a]/20" : "border-white/5"}`}>
+    <div className={`bg-app-bg border rounded-xl overflow-hidden transition-all ${isDue ? "border-app-accent-primary/20" : "border-app-border"}`}>
       <div className="flex items-center gap-3 p-4 cursor-pointer hover:bg-white/2" onClick={() => setExpanded(e => !e)}>
         <div className={`w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0 ${item.type === "eps_question" ? "bg-[#fb923c]/10" : "bg-[#38bdf8]/10"}`}>
           <i className={`${item.type === "eps_question" ? "ri-survey-line text-[#fb923c]" : "ri-translate-2 text-[#38bdf8]"} text-sm`}></i>
@@ -355,36 +355,36 @@ function ReviewCard({ item, onMarkReviewed }: { item: WrongItem; onMarkReviewed:
             {item.type === "eps_question" ? item.questionVi : item.korean}
           </p>
           {item.type === "eps_question" && item.correctAnswer && (
-            <p className="text-emerald-400/60 text-[10px] truncate">✓ {item.correctAnswer}</p>
+            <p className="text-app-accent-success/60 text-[10px] truncate">✓ {item.correctAnswer}</p>
           )}
           {item.type === "eps_vocab" && item.question && (
-            <p className="text-[#e8c84a]/60 text-[10px]">{item.question}</p>
+            <p className="text-app-accent-primary/60 text-[10px]">{item.question}</p>
           )}
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
-          {isDue && <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#e8c84a]/15 text-[#e8c84a]">Ôn ngay</span>}
+          {isDue && <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary">Ôn ngay</span>}
           <div className="flex gap-0.5">
             {SR_INTERVALS.map((_, i) => (
-              <div key={i} className={`w-1.5 h-1.5 rounded-full ${i <= srLevel ? "bg-[#e8c84a]" : "bg-white/10"}`}></div>
+              <div key={i} className={`w-1.5 h-1.5 rounded-full ${i <= srLevel ? "bg-app-accent-primary" : "bg-app-card/70"}`}></div>
             ))}
           </div>
-          <i className={`ri-arrow-down-s-line text-white/30 text-sm transition-transform ${expanded ? "rotate-180" : ""}`}></i>
+          <i className={`ri-arrow-down-s-line text-app-text-muted text-sm transition-transform ${expanded ? "rotate-180" : ""}`}></i>
         </div>
       </div>
       {expanded && (
-        <div className="px-4 pb-4 border-t border-white/5 pt-3">
+        <div className="px-4 pb-4 border-t border-app-border pt-3">
           {item.type === "eps_question" && (
             <div className="space-y-2 mb-3">
               <p className="text-white/50 text-xs">{item.question}</p>
               {item.answer && <div className="flex items-center gap-2"><span className="text-[10px] text-red-400/70">Bạn chọn:</span><span className="text-red-400 text-xs">{item.answer}</span></div>}
-              {item.correctAnswer && <div className="flex items-center gap-2"><span className="text-[10px] text-emerald-400/70">Đáp án đúng:</span><span className="text-emerald-400 text-xs font-semibold">{item.correctAnswer}</span></div>}
+              {item.correctAnswer && <div className="flex items-center gap-2"><span className="text-[10px] text-app-accent-success/70">Đáp án đúng:</span><span className="text-app-accent-success text-xs font-semibold">{item.correctAnswer}</span></div>}
             </div>
           )}
-          {item.type === "eps_vocab" && <div className="mb-3"><p className="text-white/40 text-xs">Từ chưa thuộc — hãy ôn lại trong Flashcard EPS</p></div>}
+          {item.type === "eps_vocab" && <div className="mb-3"><p className="text-app-text-secondary text-xs">Từ chưa thuộc — hãy ôn lại trong Flashcard EPS</p></div>}
           <div className="flex items-center justify-between">
-            <span className="text-[10px] text-white/30">Lần ôn tiếp: {isDue ? "Hôm nay" : `${nextDays} ngày nữa`}</span>
+            <span className="text-[10px] text-app-text-muted">Lần ôn tiếp: {isDue ? "Hôm nay" : `${nextDays} ngày nữa`}</span>
             <button onClick={() => onMarkReviewed(item.id)}
-              className="flex items-center gap-1.5 text-[10px] font-semibold px-3 py-1.5 rounded-lg bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 text-[#e8c84a] transition-colors cursor-pointer whitespace-nowrap">
+              className="flex items-center gap-1.5 text-[10px] font-semibold px-3 py-1.5 rounded-lg bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary transition-colors cursor-pointer whitespace-nowrap">
               <i className="ri-check-line text-xs"></i>Đã ôn xong
             </button>
           </div>
@@ -494,7 +494,7 @@ export default function StudyHistoryPage() {
   const xpChange = prevXP > 0 ? Math.round(((totalXP - prevXP) / prevXP) * 100) : 0;
 
   const metricConfig = {
-    xp: { label: "XP", color: "#e8c84a", icon: "ri-star-line" },
+    xp: { label: "XP", color: "app-accent-primary", icon: "ri-star-line" },
     words: { label: "Từ học", color: "#34d399", icon: "ri-translate-2" },
     sessions: { label: "Phiên học", color: "#fb923c", icon: "ri-time-line" },
     quizzes: { label: "Quiz", color: "#a78bfa", icon: "ri-survey-line" },
@@ -516,26 +516,26 @@ export default function StudyHistoryPage() {
       {/* Summary stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {[
-          { label: `Tổng XP (${chartRange} ngày)`, value: totalXP.toLocaleString(), icon: "ri-star-line", color: "#e8c84a", sub: xpChange !== 0 ? `${xpChange > 0 ? "+" : ""}${xpChange}% so với kỳ trước` : undefined },
+          { label: `Tổng XP (${chartRange} ngày)`, value: totalXP.toLocaleString(), icon: "ri-star-line", color: "app-accent-primary", sub: xpChange !== 0 ? `${xpChange > 0 ? "+" : ""}${xpChange}% so với kỳ trước` : undefined },
           { label: "Ngày học tích cực", value: `${activeDays}/${chartRange}`, icon: "ri-calendar-check-line", color: "#34d399", sub: `${Math.round((activeDays / chartRange) * 100)}% tỷ lệ` },
           { label: "Từ đã học", value: totalWords.toLocaleString(), icon: "ri-translate-2", color: "#fb923c", sub: `TB ${Math.round(totalWords / Math.max(activeDays, 1))}/ngày` },
           { label: "Cần ôn ngay", value: dueItems.length, icon: "ri-alarm-line", color: dueItems.length > 0 ? "#f87171" : "#34d399", sub: dueItems.length > 0 ? "Hãy ôn ngay!" : "Tất cả đã ôn" },
         ].map(stat => (
-          <div key={stat.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-4">
+          <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4">
             <div className="flex items-center gap-2 mb-2">
               <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
                 <i className={`${stat.icon} text-sm`} style={{ color: stat.color }}></i>
               </div>
-              <p className="text-white/40 text-[10px]">{stat.label}</p>
+              <p className="text-app-text-secondary text-[10px]">{stat.label}</p>
             </div>
             <p className="text-white font-black text-2xl">{stat.value}</p>
-            {stat.sub && <p className="text-white/30 text-[10px] mt-0.5">{stat.sub}</p>}
+            {stat.sub && <p className="text-app-text-muted text-[10px] mt-0.5">{stat.sub}</p>}
           </div>
         ))}
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1 bg-white/5 rounded-xl p-1 mb-5 w-fit max-w-full overflow-x-auto">
+      <div className="flex items-center gap-1 bg-app-card/50 rounded-xl p-1 mb-5 w-fit max-w-full overflow-x-auto">
         {([
           { id: "chart", label: "Biểu đồ", icon: "ri-bar-chart-line" },
           { id: "due", label: `Ôn tập (${dueItems.length})`, icon: "ri-alarm-line" },
@@ -543,7 +543,7 @@ export default function StudyHistoryPage() {
           { id: "vocab", label: `Từ vựng (${wrongVocab.length})`, icon: "ri-translate-2" },
         ] as const).map(tab => (
           <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${activeTab === tab.id ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/40 hover:text-white/60"}`}>
+            className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${activeTab === tab.id ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>
             <i className={tab.icon}></i>{tab.label}
           </button>
         ))}
@@ -555,18 +555,18 @@ export default function StudyHistoryPage() {
           <div className="space-y-5">
             {/* Controls */}
             <div className="flex items-center justify-between flex-wrap gap-3">
-              <div className="flex items-center gap-1 bg-white/3 p-1 rounded-lg">
+              <div className="flex items-center gap-1 bg-app-surface/50 p-1 rounded-lg">
                 {([7, 14, 30] as const).map(r => (
                   <button key={r} onClick={() => setChartRange(r)}
-                    className={`px-3 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${chartRange === r ? "bg-white/10 text-white" : "text-white/40 hover:text-white/60"}`}>
+                    className={`px-3 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${chartRange === r ? "bg-app-card/70 text-white" : "text-app-text-secondary hover:text-white/60"}`}>
                     {r} ngày
                   </button>
                 ))}
               </div>
-              <div className="flex items-center gap-1 bg-white/3 p-1 rounded-lg">
+              <div className="flex items-center gap-1 bg-app-surface/50 p-1 rounded-lg">
                 {(Object.entries(metricConfig) as [keyof typeof metricConfig, typeof metricConfig[keyof typeof metricConfig]][]).map(([key, cfg]) => (
                   <button key={key} onClick={() => setChartMetric(key)}
-                    className={`flex items-center gap-1 px-3 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${chartMetric === key ? "bg-white/10 text-white" : "text-white/40 hover:text-white/60"}`}>
+                    className={`flex items-center gap-1 px-3 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${chartMetric === key ? "bg-app-card/70 text-white" : "text-app-text-secondary hover:text-white/60"}`}>
                     <i className={cfg.icon}></i>{cfg.label}
                   </button>
                 ))}
@@ -574,14 +574,14 @@ export default function StudyHistoryPage() {
             </div>
 
             {/* Bar chart */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h3 className="text-white font-semibold text-sm">{metricConfig[chartMetric].label} theo ngày</h3>
-                  {user && supabaseActivity && <p className="text-emerald-400/60 text-[10px] mt-0.5"><i className="ri-cloud-line mr-1"></i>Dữ liệu thật từ cloud</p>}
-                  {!user && <p className="text-white/25 text-[10px] mt-0.5">Đăng nhập để xem dữ liệu thật</p>}
+                  {user && supabaseActivity && <p className="text-app-accent-success/60 text-[10px] mt-0.5"><i className="ri-cloud-line mr-1"></i>Dữ liệu thật từ cloud</p>}
+                  {!user && <p className="text-app-text-muted text-[10px] mt-0.5">Đăng nhập để xem dữ liệu thật</p>}
                 </div>
-                {loadingActivity && <div className="w-4 h-4 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>}
+                {loadingActivity && <div className="w-4 h-4 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>}
               </div>
               <BarChart data={activityData} metric={chartMetric} color={metricConfig[chartMetric].color} />
               {/* X-axis labels */}
@@ -589,7 +589,7 @@ export default function StudyHistoryPage() {
                 {activityData.map((d, i) => (
                   <div key={i} className="flex-1 text-center">
                     {(i === 0 || i === Math.floor(activityData.length / 2) || i === activityData.length - 1) && (
-                      <span className="text-[8px] text-white/20">{d.label}</span>
+                      <span className="text-[8px] text-app-text-muted">{d.label}</span>
                     )}
                   </div>
                 ))}
@@ -600,15 +600,15 @@ export default function StudyHistoryPage() {
             <TrendHeatmap activityData={activityData} />
 
             {/* Activity heatmap */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-white font-semibold text-sm">Bản đồ hoạt động (30 ngày)</h3>
-                <div className="flex items-center gap-1.5 text-[10px] text-white/30">
-                  <div className="w-2.5 h-2.5 rounded-sm bg-white/5"></div>
+                <div className="flex items-center gap-1.5 text-[10px] text-app-text-muted">
+                  <div className="w-2.5 h-2.5 rounded-sm bg-app-card/50"></div>
                   <span>Không học</span>
-                  <div className="w-2.5 h-2.5 rounded-sm bg-[#e8c84a]/25"></div>
-                  <div className="w-2.5 h-2.5 rounded-sm bg-[#e8c84a]/60"></div>
-                  <div className="w-2.5 h-2.5 rounded-sm bg-[#e8c84a]"></div>
+                  <div className="w-2.5 h-2.5 rounded-sm bg-app-accent-primary/25"></div>
+                  <div className="w-2.5 h-2.5 rounded-sm bg-app-accent-primary/60"></div>
+                  <div className="w-2.5 h-2.5 rounded-sm bg-app-accent-primary"></div>
                   <span>Nhiều</span>
                 </div>
               </div>
@@ -616,23 +616,23 @@ export default function StudyHistoryPage() {
             </div>
 
             {/* Weekly comparison */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <h3 className="text-white font-semibold text-sm mb-4">So sánh tuần này vs tuần trước</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
-                  { label: "XP kiếm được", thisWeek: activityData.slice(-7).reduce((s, d) => s + d.xp, 0), lastWeek: activityData.slice(-14, -7).reduce((s, d) => s + d.xp, 0), color: "#e8c84a" },
+                  { label: "XP kiếm được", thisWeek: activityData.slice(-7).reduce((s, d) => s + d.xp, 0), lastWeek: activityData.slice(-14, -7).reduce((s, d) => s + d.xp, 0), color: "app-accent-primary" },
                   { label: "Từ đã học", thisWeek: activityData.slice(-7).reduce((s, d) => s + d.words, 0), lastWeek: activityData.slice(-14, -7).reduce((s, d) => s + d.words, 0), color: "#34d399" },
                   { label: "Ngày học", thisWeek: activityData.slice(-7).filter(d => d.sessions > 0).length, lastWeek: activityData.slice(-14, -7).filter(d => d.sessions > 0).length, color: "#fb923c" },
                 ].map(item => {
                   const diff = item.lastWeek > 0 ? Math.round(((item.thisWeek - item.lastWeek) / item.lastWeek) * 100) : 0;
                   const isUp = diff >= 0;
                   return (
-                    <div key={item.label} className="text-center p-3 bg-white/3 rounded-xl">
-                      <p className="text-white/30 text-[10px] mb-2">{item.label}</p>
+                    <div key={item.label} className="text-center p-3 bg-app-surface/50 rounded-xl">
+                      <p className="text-app-text-muted text-[10px] mb-2">{item.label}</p>
                       <p className="text-white font-bold text-xl">{item.thisWeek}</p>
-                      <p className="text-white/30 text-[10px]">vs {item.lastWeek}</p>
+                      <p className="text-app-text-muted text-[10px]">vs {item.lastWeek}</p>
                       {item.lastWeek > 0 && (
-                        <p className={`text-[10px] font-semibold mt-1 ${isUp ? "text-emerald-400" : "text-red-400"}`}>
+                        <p className={`text-[10px] font-semibold mt-1 ${isUp ? "text-app-accent-success" : "text-red-400"}`}>
                           <i className={`${isUp ? "ri-arrow-up-line" : "ri-arrow-down-line"} mr-0.5`}></i>
                           {Math.abs(diff)}%
                         </p>
@@ -646,35 +646,35 @@ export default function StudyHistoryPage() {
 
           {/* Sidebar */}
           <div className="space-y-4">
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <h3 className="text-white font-semibold text-sm mb-4">Lịch ôn tập sắp tới</h3>
               <div className="space-y-3">
                 {upcomingDays.map(({ label, count }) => (
                   <div key={label} className="flex items-center justify-between">
                     <p className="text-white/50 text-xs">{label}</p>
                     <div className="flex items-center gap-2">
-                      <div className="h-1.5 w-20 bg-white/5 rounded-full overflow-hidden">
-                        <div className="h-full rounded-full bg-[#e8c84a]"
+                      <div className="h-1.5 w-20 bg-app-card/50 rounded-full overflow-hidden">
+                        <div className="h-full rounded-full bg-app-accent-primary"
                           style={{ width: `${Math.min((count / Math.max(allItems.length, 1)) * 100, 100)}%` }} />
                       </div>
-                      <span className="text-white/40 text-xs w-6 text-right">{count}</span>
+                      <span className="text-app-text-secondary text-xs w-6 text-right">{count}</span>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <h3 className="text-white font-semibold text-sm mb-3">Cấp độ SR</h3>
               <div className="space-y-2">
                 {SR_INTERVALS.map((days, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <div className="flex gap-0.5">
                       {SR_INTERVALS.map((_, j) => (
-                        <div key={j} className={`w-1.5 h-1.5 rounded-full ${j <= i ? "bg-[#e8c84a]" : "bg-white/10"}`}></div>
+                        <div key={j} className={`w-1.5 h-1.5 rounded-full ${j <= i ? "bg-app-accent-primary" : "bg-app-card/70"}`}></div>
                       ))}
                     </div>
-                    <p className="text-white/40 text-[10px]">Cấp {i + 1} — {days} ngày</p>
+                    <p className="text-app-text-secondary text-[10px]">Cấp {i + 1} — {days} ngày</p>
                   </div>
                 ))}
               </div>
@@ -683,17 +683,17 @@ export default function StudyHistoryPage() {
             <div className="space-y-2">
               <h3 className="text-white font-semibold text-sm mb-2">Ôn tập ngay</h3>
               {[
-                { icon: "ri-file-list-3-line", label: "Luyện thi EPS", path: "/eps", color: "#e8c84a" },
+                { icon: "ri-file-list-3-line", label: "Luyện thi EPS", path: "/eps", color: "app-accent-primary" },
                 { icon: "ri-stack-line", label: "Flashcard EPS", path: "/eps-flashcard", color: "#34d399" },
                 { icon: "ri-brain-line", label: "Kiểm tra đầu vào", path: "/placement-test", color: "#a78bfa" },
               ].map(item => (
                 <button key={item.path} onClick={() => navigate(item.path)}
-                  className="w-full flex items-center gap-3 p-3 rounded-xl border border-white/5 hover:border-white/10 hover:bg-white/3 transition-all cursor-pointer">
+                  className="w-full flex items-center gap-3 p-3 rounded-xl border border-app-border hover:border-app-border hover:bg-app-surface/50 transition-all cursor-pointer">
                   <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${item.color}15` }}>
                     <i className={`${item.icon} text-xs`} style={{ color: item.color }}></i>
                   </div>
                   <p className="text-white/60 text-xs">{item.label}</p>
-                  <i className="ri-arrow-right-line text-white/20 ml-auto text-xs"></i>
+                  <i className="ri-arrow-right-line text-app-text-muted ml-auto text-xs"></i>
                 </button>
               ))}
             </div>
@@ -705,20 +705,20 @@ export default function StudyHistoryPage() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
           <div>
             {activeTab === "due" && dueItems.length > 0 && (
-              <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-3 mb-4 flex items-start gap-2">
-                <i className="ri-brain-line text-[#e8c84a] text-sm flex-shrink-0 mt-0.5"></i>
-                <p className="text-white/40 text-xs leading-relaxed">
-                  <strong className="text-[#e8c84a]/80">Spaced Repetition:</strong> Ôn đúng lúc giúp nhớ lâu gấp 5 lần. Hãy ôn {dueItems.length} mục hôm nay!
+              <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-3 mb-4 flex items-start gap-2">
+                <i className="ri-brain-line text-app-accent-primary text-sm flex-shrink-0 mt-0.5"></i>
+                <p className="text-app-text-secondary text-xs leading-relaxed">
+                  <strong className="text-app-accent-primary/80">Spaced Repetition:</strong> Ôn đúng lúc giúp nhớ lâu gấp 5 lần. Hãy ôn {dueItems.length} mục hôm nay!
                 </p>
               </div>
             )}
             {(() => {
               const items = activeTab === "due" ? dueItems : activeTab === "questions" ? wrongQuestions : wrongVocab;
               return items.length === 0 ? (
-                <div className="text-center py-16 bg-[#0f1117] border border-white/5 rounded-2xl">
-                  <i className="ri-checkbox-circle-line text-emerald-400 text-3xl mb-3 block"></i>
-                  <p className="text-white/40 text-sm">Không có gì cần ôn!</p>
-                  <p className="text-white/20 text-xs mt-1">Làm thêm bài tập để xem lịch sử</p>
+                <div className="text-center py-16 bg-app-bg border border-app-border rounded-2xl">
+                  <i className="ri-checkbox-circle-line text-app-accent-success text-3xl mb-3 block"></i>
+                  <p className="text-app-text-secondary text-sm">Không có gì cần ôn!</p>
+                  <p className="text-app-text-muted text-xs mt-1">Làm thêm bài tập để xem lịch sử</p>
                 </div>
               ) : (
                 <div className="space-y-2">
@@ -728,18 +728,18 @@ export default function StudyHistoryPage() {
             })()}
           </div>
           <div className="space-y-4">
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <h3 className="text-white font-semibold text-sm mb-4">Lịch ôn tập sắp tới</h3>
               <div className="space-y-3">
                 {upcomingDays.map(({ label, count }) => (
                   <div key={label} className="flex items-center justify-between">
                     <p className="text-white/50 text-xs">{label}</p>
                     <div className="flex items-center gap-2">
-                      <div className="h-1.5 w-20 bg-white/5 rounded-full overflow-hidden">
-                        <div className="h-full rounded-full bg-[#e8c84a]"
+                      <div className="h-1.5 w-20 bg-app-card/50 rounded-full overflow-hidden">
+                        <div className="h-full rounded-full bg-app-accent-primary"
                           style={{ width: `${Math.min((count / Math.max(allItems.length, 1)) * 100, 100)}%` }} />
                       </div>
-                      <span className="text-white/40 text-xs w-6 text-right">{count}</span>
+                      <span className="text-app-text-secondary text-xs w-6 text-right">{count}</span>
                     </div>
                   </div>
                 ))}

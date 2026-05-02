@@ -103,13 +103,13 @@ export default function PronunciationRecorder({ targetText, targetTextVi, onClos
 
   const scoreColor = score !== null
     ? score >= 85 ? "#34d399"
-    : score >= 75 ? "#e8c84a"
+    : score >= 75 ? "app-accent-primary"
     : score >= 65 ? "#fb923c"
     : "#f87171"
-    : "#e8c84a";
+    : "app-accent-primary";
 
   return (
-    <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-5">
+    <div className="bg-app-bg border border-app-border rounded-2xl p-5">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
@@ -119,16 +119,16 @@ export default function PronunciationRecorder({ targetText, targetTextVi, onClos
           <p className="text-white/80 text-sm font-semibold">Luyện phát âm</p>
         </div>
         {onClose && (
-          <button onClick={onClose} className="w-6 h-6 flex items-center justify-center rounded-lg hover:bg-white/5 cursor-pointer transition-colors">
-            <i className="ri-close-line text-white/30 text-sm"></i>
+          <button onClick={onClose} className="w-6 h-6 flex items-center justify-center rounded-lg hover:bg-app-card/50 cursor-pointer transition-colors">
+            <i className="ri-close-line text-app-text-muted text-sm"></i>
           </button>
         )}
       </div>
 
       {/* Target text */}
-      <div className="bg-white/3 rounded-xl p-4 mb-4">
+      <div className="bg-app-surface/50 rounded-xl p-4 mb-4">
         <p className="text-white font-bold text-xl text-center mb-1 tracking-wide">{targetText}</p>
-        {targetTextVi && <p className="text-white/40 text-xs text-center">{targetTextVi}</p>}
+        {targetTextVi && <p className="text-app-text-secondary text-xs text-center">{targetTextVi}</p>}
       </div>
 
       {/* Controls */}
@@ -136,7 +136,7 @@ export default function PronunciationRecorder({ targetText, targetTextVi, onClos
         {/* Listen button */}
         <button
           onClick={speakTarget}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/8 text-white/60 hover:text-white/80 text-sm transition-colors cursor-pointer whitespace-nowrap"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-app-card/50 hover:bg-white/8 text-white/60 hover:text-white/80 text-sm transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-volume-up-line"></i>
           Nghe mẫu
@@ -164,7 +164,7 @@ export default function PronunciationRecorder({ targetText, targetTextVi, onClos
         )}
 
         {state === "comparing" && (
-          <div className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/5 text-white/40 text-sm">
+          <div className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-app-card/50 text-app-text-secondary text-sm">
             <i className="ri-loader-4-line animate-spin"></i>
             Đang phân tích...
           </div>
@@ -173,7 +173,7 @@ export default function PronunciationRecorder({ targetText, targetTextVi, onClos
         {state === "recorded" && (
           <button
             onClick={reset}
-            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/5 hover:bg-white/8 text-white/60 text-sm transition-colors cursor-pointer whitespace-nowrap"
+            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-app-card/50 hover:bg-white/8 text-white/60 text-sm transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-refresh-line"></i>
             Ghi lại
@@ -184,26 +184,26 @@ export default function PronunciationRecorder({ targetText, targetTextVi, onClos
       {/* Playback */}
       {audioUrl && state === "recorded" && (
         <div className="mb-4">
-          <p className="text-white/30 text-[10px] mb-1.5">Giọng của bạn:</p>
+          <p className="text-app-text-muted text-[10px] mb-1.5">Giọng của bạn:</p>
           <audio src={audioUrl} controls className="w-full h-8" style={{ filter: "invert(0.8) hue-rotate(180deg)" }} />
         </div>
       )}
 
       {/* Score */}
       {score !== null && state === "recorded" && (
-        <div className="bg-white/3 rounded-xl p-4">
+        <div className="bg-app-surface/50 rounded-xl p-4">
           <div className="flex items-center justify-between mb-3">
             <p className="text-white/50 text-xs font-medium">Điểm phát âm</p>
             <span className="text-2xl font-bold" style={{ color: scoreColor }}>{score}/100</span>
           </div>
-          <div className="h-2 bg-white/5 rounded-full overflow-hidden mb-3">
+          <div className="h-2 bg-app-card/50 rounded-full overflow-hidden mb-3">
             <div
               className="h-full rounded-full transition-all duration-700"
               style={{ width: `${score}%`, backgroundColor: scoreColor }}
             />
           </div>
           <div className="flex items-start gap-2">
-            <i className="ri-lightbulb-line text-[#e8c84a] text-sm flex-shrink-0 mt-0.5"></i>
+            <i className="ri-lightbulb-line text-app-accent-primary text-sm flex-shrink-0 mt-0.5"></i>
             <p className="text-white/50 text-xs leading-relaxed">{feedback}</p>
           </div>
         </div>
@@ -212,8 +212,8 @@ export default function PronunciationRecorder({ targetText, targetTextVi, onClos
       {/* Tips */}
       {state === "idle" && (
         <div className="flex items-start gap-2 mt-2">
-          <i className="ri-information-line text-white/20 text-xs flex-shrink-0 mt-0.5"></i>
-          <p className="text-white/25 text-[10px] leading-relaxed">
+          <i className="ri-information-line text-app-text-muted text-xs flex-shrink-0 mt-0.5"></i>
+          <p className="text-app-text-muted text-[10px] leading-relaxed">
             Nghe mẫu trước, sau đó nhấn ghi âm và đọc to câu trên. Hệ thống sẽ so sánh và cho điểm phát âm của bạn.
           </p>
         </div>

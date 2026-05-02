@@ -23,7 +23,7 @@ interface UserProgress {
 const MODULE_CONFIG = {
   eps: { name: "EPS-TOPIK", icon: "ri-file-list-3-line", color: "#4ade80", totalLessons: 60 },
   seoul: { name: "Seoul", icon: "ri-book-3-line", color: "#60a5fa", totalLessons: 40 },
-  hanja: { name: "Hán Hàn", icon: "ri-character-recognition-line", color: "#e8c84a", totalLessons: 100 },
+  hanja: { name: "Hán Hàn", icon: "ri-character-recognition-line", color: "app-accent-primary", totalLessons: 100 },
   melon: { name: "K-pop", icon: "ri-music-2-line", color: "#fb923c", totalLessons: 20 },
   topik: { name: "TOPIK", icon: "ri-survey-line", color: "#f472b6", totalLessons: 30 },
 };
@@ -87,7 +87,7 @@ export default function LearningHubPage() {
         <div className="grid grid-cols-2 gap-4">
           <button
             onClick={() => navigate("/flashcard-hub")}
-            className="p-4 rounded-xl border border-white/5 bg-white/2 hover:bg-white/5 hover:border-white/10 transition-all text-left"
+            className="p-4 rounded-xl border border-app-border bg-white/2 hover:bg-app-card/50 hover:border-app-border transition-all text-left"
           >
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#4ade80]/15">
@@ -95,11 +95,11 @@ export default function LearningHubPage() {
               </div>
               <span className="text-white font-semibold">Flashcard Hub</span>
             </div>
-            <p className="text-white/40 text-xs">Học thẻ ghi nhớ với Spaced Repetition</p>
+            <p className="text-app-text-secondary text-xs">Học thẻ ghi nhớ với Spaced Repetition</p>
           </button>
           <button
             onClick={() => navigate("/exam-hub")}
-            className="p-4 rounded-xl border border-white/5 bg-white/2 hover:bg-white/5 hover:border-white/10 transition-all text-left"
+            className="p-4 rounded-xl border border-app-border bg-white/2 hover:bg-app-card/50 hover:border-app-border transition-all text-left"
           >
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#f472b6]/15">
@@ -107,7 +107,7 @@ export default function LearningHubPage() {
               </div>
               <span className="text-white font-semibold">Exam Hub</span>
             </div>
-            <p className="text-white/40 text-xs">Luyện thi với timer và lịch sử</p>
+            <p className="text-app-text-secondary text-xs">Luyện thi với timer và lịch sử</p>
           </button>
         </div>
 
@@ -125,37 +125,37 @@ export default function LearningHubPage() {
           <div className="space-y-6">
             {/* Overview Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-[#0f1117] border border-white/5 rounded-xl p-5">
+              <div className="bg-app-bg border border-app-border rounded-xl p-5">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 flex items-center justify-center bg-[#e8c84a]/10 rounded-xl">
-                    <i className="ri-star-line text-[#e8c84a] text-lg"></i>
+                  <div className="w-10 h-10 flex items-center justify-center bg-app-accent-primary/10 rounded-xl">
+                    <i className="ri-star-line text-app-accent-primary text-lg"></i>
                   </div>
                   <div>
-                    <p className="text-white/40 text-xs">Tổng XP</p>
+                    <p className="text-app-text-secondary text-xs">Tổng XP</p>
                     <p className="text-white font-bold text-xl">{totalXP.toLocaleString()}</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-[#0f1117] border border-white/5 rounded-xl p-5">
+              <div className="bg-app-bg border border-app-border rounded-xl p-5">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 flex items-center justify-center bg-rose-500/10 rounded-xl">
                     <i className="ri-fire-line text-rose-400 text-lg"></i>
                   </div>
                   <div>
-                    <p className="text-white/40 text-xs">Streak</p>
+                    <p className="text-app-text-secondary text-xs">Streak</p>
                     <p className="text-white font-bold text-xl">{totalStreak} ngày</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-[#0f1117] border border-white/5 rounded-xl p-5">
+              <div className="bg-app-bg border border-app-border rounded-xl p-5">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 flex items-center justify-center bg-sky-500/10 rounded-xl">
                     <i className="ri-trophy-line text-sky-400 text-lg"></i>
                   </div>
                   <div>
-                    <p className="text-white/40 text-xs">Level</p>
+                    <p className="text-app-text-secondary text-xs">Level</p>
                     <p className="text-white font-bold text-xl">{userProgress?.level || "beginner"}</p>
                   </div>
                 </div>
@@ -163,15 +163,15 @@ export default function LearningHubPage() {
             </div>
 
             {/* Overall Progress */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-xl p-6">
+            <div className="bg-app-bg border border-app-border rounded-xl p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-white font-semibold">Tiến độ tổng quát</h2>
                 <span className="text-white/60 text-sm">{overallProgress}% hoàn thành</span>
               </div>
-              <div className="h-3 bg-white/5 rounded-full overflow-hidden">
+              <div className="h-3 bg-app-card/50 rounded-full overflow-hidden">
                 <div
                   className="h-full rounded-full transition-all duration-500"
-                  style={{ width: `${overallProgress}%`, backgroundColor: "#e8c84a" }}
+                  style={{ width: `${overallProgress}%`, backgroundColor: "app-accent-primary" }}
                 ></div>
               </div>
             </div>
@@ -181,23 +181,23 @@ export default function LearningHubPage() {
               {Object.entries(MODULE_CONFIG).map(([moduleId, config]) => {
                 const progress = getModuleProgress(moduleId);
                 return (
-                  <div key={moduleId} className="bg-[#0f1117] border border-white/5 rounded-xl p-5 hover:border-white/10 transition-colors">
+                  <div key={moduleId} className="bg-app-bg border border-app-border rounded-xl p-5 hover:border-app-border transition-colors">
                     <div className="flex items-center gap-3 mb-4">
                       <div className="w-12 h-12 flex items-center justify-center rounded-xl" style={{ backgroundColor: `${config.color}15` }}>
                         <i className={`${config.icon} text-xl`} style={{ color: config.color }}></i>
                       </div>
                       <div className="flex-1">
                         <h3 className="text-white font-semibold text-sm">{config.name}</h3>
-                        <p className="text-white/40 text-xs">{progress.lessons_completed}/{config.totalLessons} bài</p>
+                        <p className="text-app-text-secondary text-xs">{progress.lessons_completed}/{config.totalLessons} bài</p>
                       </div>
                     </div>
 
                     <div className="mb-3">
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-white/40 text-xs">Tiến độ</span>
+                        <span className="text-app-text-secondary text-xs">Tiến độ</span>
                         <span className="text-white/60 text-xs">{progress.progress_percent}%</span>
                       </div>
-                      <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                      <div className="h-2 bg-app-card/50 rounded-full overflow-hidden">
                         <div
                           className="h-full rounded-full transition-all duration-500"
                           style={{ width: `${progress.progress_percent}%`, backgroundColor: config.color }}
@@ -206,7 +206,7 @@ export default function LearningHubPage() {
                     </div>
 
                     {progress.last_studied_at && (
-                      <p className="text-white/30 text-[10px]">
+                      <p className="text-app-text-muted text-[10px]">
                         Học gần nhất: {new Date(progress.last_studied_at).toLocaleDateString("vi-VN")}
                       </p>
                     )}
@@ -216,7 +216,7 @@ export default function LearningHubPage() {
             </div>
 
             {/* Recommendations */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-xl p-6">
+            <div className="bg-app-bg border border-app-border rounded-xl p-6">
               <h2 className="text-white font-semibold mb-4">Gợi ý học tiếp</h2>
               <div className="space-y-3">
                 {moduleProgress
@@ -226,22 +226,22 @@ export default function LearningHubPage() {
                   .map((mod) => {
                     const config = MODULE_CONFIG[mod.module_id as keyof typeof MODULE_CONFIG];
                     return (
-                      <div key={mod.module_id} className="flex items-center gap-3 p-3 bg-white/3 rounded-lg">
+                      <div key={mod.module_id} className="flex items-center gap-3 p-3 bg-app-surface/50 rounded-lg">
                         <div className="w-8 h-8 flex items-center justify-center rounded-lg" style={{ backgroundColor: `${config.color}15` }}>
                           <i className={`${config.icon} text-sm`} style={{ color: config.color }}></i>
                         </div>
                         <div className="flex-1">
                           <p className="text-white text-sm font-medium">{config.name}</p>
-                          <p className="text-white/40 text-xs">Hoàn thành {mod.progress_percent}%</p>
+                          <p className="text-app-text-secondary text-xs">Hoàn thành {mod.progress_percent}%</p>
                         </div>
-                        <button className="px-3 py-1.5 bg-white/5 hover:bg-white/10 rounded-lg text-white/60 hover:text-white text-xs transition-colors">
+                        <button className="px-3 py-1.5 bg-app-card/50 hover:bg-app-card/70 rounded-lg text-white/60 hover:text-white text-xs transition-colors">
                           Tiếp tục
                         </button>
                       </div>
                     );
                   })}
                 {moduleProgress.filter(m => m.progress_percent < 100).length === 0 && (
-                  <p className="text-white/30 text-sm text-center py-4">Bạn đã hoàn thành tất cả modules! 🎉</p>
+                  <p className="text-app-text-muted text-sm text-center py-4">Bạn đã hoàn thành tất cả modules! 🎉</p>
                 )}
               </div>
             </div>

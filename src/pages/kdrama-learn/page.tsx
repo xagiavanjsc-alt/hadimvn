@@ -231,7 +231,7 @@ const LEVELS = ["Tất cả", "A1", "A2", "B1", "B2"];
 const GENRES = ["Tất cả", "Lãng mạn", "Huyền bí", "Hành động", "Gia đình"];
 
 const levelColor: Record<string, string> = {
-  A1: "bg-emerald-500/20 text-emerald-400",
+  A1: "bg-emerald-500/20 text-app-accent-success",
   A2: "bg-teal-500/20 text-teal-400",
   B1: "bg-amber-500/20 text-amber-400",
   B2: "bg-orange-500/20 text-orange-400",
@@ -286,7 +286,7 @@ export default function KDramaLearnPage() {
             <h1 className="text-2xl font-bold text-white">Học Qua Phim Hàn</h1>
             <p className="text-white/50 text-sm mt-1">Học từ vựng và ngữ pháp qua các cảnh phim nổi tiếng</p>
           </div>
-          <div className="flex items-center gap-2 text-white/40 text-sm">
+          <div className="flex items-center gap-2 text-app-text-secondary text-sm">
             <i className="ri-film-line"></i>
             <span>{DRAMA_SCENES.length} cảnh phim</span>
           </div>
@@ -306,7 +306,7 @@ export default function KDramaLearnPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Left: Video + Info */}
               <div className="lg:col-span-1 space-y-4">
-                <div className="bg-[#1a1f2e] rounded-xl overflow-hidden border border-white/8">
+                <div className="bg-[#1a1f2e] rounded-xl overflow-hidden border border-app-border">
                   <img src={selectedScene.thumbnail} alt={selectedScene.title} className="w-full h-48 object-cover object-top" />
                   <div className="p-4">
                     <div className="flex items-center gap-2 mb-2">
@@ -315,17 +315,17 @@ export default function KDramaLearnPage() {
                     </div>
                     <h2 className="text-white font-bold">{selectedScene.drama}</h2>
                     <p className="text-white/50 text-sm">{selectedScene.episode} · {selectedScene.title}</p>
-                    <p className="text-white/40 text-xs mt-2">{selectedScene.description}</p>
+                    <p className="text-app-text-secondary text-xs mt-2">{selectedScene.description}</p>
                     <div className="flex flex-wrap gap-1 mt-3">
                       {selectedScene.tags.map(tag => (
-                        <span key={tag} className="text-xs px-1.5 py-0.5 rounded bg-white/5 text-white/30">#{tag}</span>
+                        <span key={tag} className="text-xs px-1.5 py-0.5 rounded bg-app-card/50 text-app-text-muted">#{tag}</span>
                       ))}
                     </div>
                   </div>
                 </div>
 
                 {/* Progress */}
-                <div className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8">
+                <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border">
                   <p className="text-white/50 text-xs mb-2">Từ vựng đã học</p>
                   <div className="flex items-center gap-2">
                     <div className="flex-1 h-2 bg-white/8 rounded-full overflow-hidden">
@@ -341,13 +341,13 @@ export default function KDramaLearnPage() {
 
               {/* Right: Tabs */}
               <div className="lg:col-span-2 space-y-4">
-                <div className="flex gap-1 bg-white/5 rounded-lg p-1">
+                <div className="flex gap-1 bg-app-card/50 rounded-lg p-1">
                   {(["dialogue", "vocab", "grammar", "culture"] as const).map(tab => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
                       className={`flex-1 py-1.5 rounded-md text-xs transition-all cursor-pointer whitespace-nowrap ${
-                        activeTab === tab ? "bg-[#e8c84a]/20 text-[#e8c84a] font-semibold" : "text-white/40 hover:text-white/60"
+                        activeTab === tab ? "bg-app-accent-primary/20 text-app-accent-primary font-semibold" : "text-app-text-secondary hover:text-white/60"
                       }`}
                     >
                       {tab === "dialogue" ? "Hội thoại" : tab === "vocab" ? "Từ vựng" : tab === "grammar" ? "Ngữ pháp" : "Văn hóa"}
@@ -356,12 +356,12 @@ export default function KDramaLearnPage() {
                 </div>
 
                 {activeTab === "dialogue" && (
-                  <div className="bg-[#1a1f2e] rounded-xl p-5 border border-white/8 space-y-3">
+                  <div className="bg-[#1a1f2e] rounded-xl p-5 border border-app-border space-y-3">
                     <div className="flex items-center justify-between mb-2">
                       <h3 className="text-white font-semibold">Hội thoại</h3>
                       <button
                         onClick={() => setShowTranslation(prev => prev.size === selectedScene.dialogue.length ? new Set() : new Set(selectedScene.dialogue.map((_, i) => i)))}
-                        className="text-xs text-white/40 hover:text-white/70 cursor-pointer"
+                        className="text-xs text-app-text-secondary hover:text-white/70 cursor-pointer"
                       >
                         {showTranslation.size === selectedScene.dialogue.length ? "Ẩn dịch" : "Hiện dịch"}
                       </button>
@@ -369,21 +369,21 @@ export default function KDramaLearnPage() {
                     {selectedScene.dialogue.map((line, idx) => (
                       <div key={idx} className="flex gap-3">
                         <div className="flex-shrink-0 w-16 text-right">
-                          <span className="text-[#e8c84a] text-xs font-semibold">{line.speaker}</span>
-                          <p className="text-white/20 text-[10px]">{line.timestamp}</p>
+                          <span className="text-app-accent-primary text-xs font-semibold">{line.speaker}</span>
+                          <p className="text-app-text-muted text-[10px]">{line.timestamp}</p>
                         </div>
                         <div className="flex-1">
                           <div className="flex items-start gap-2">
                             <p className="text-white/80 text-sm leading-relaxed flex-1">{line.korean}</p>
-                            <button onClick={() => playTTS(line.korean)} className="text-white/20 hover:text-white/50 cursor-pointer flex-shrink-0 mt-0.5">
+                            <button onClick={() => playTTS(line.korean)} className="text-app-text-muted hover:text-white/50 cursor-pointer flex-shrink-0 mt-0.5">
                               <i className="ri-volume-up-line text-sm"></i>
                             </button>
-                            <button onClick={() => toggleTranslation(idx)} className="text-white/20 hover:text-white/50 cursor-pointer flex-shrink-0 mt-0.5">
+                            <button onClick={() => toggleTranslation(idx)} className="text-app-text-muted hover:text-white/50 cursor-pointer flex-shrink-0 mt-0.5">
                               <i className="ri-translate-2 text-sm"></i>
                             </button>
                           </div>
                           {showTranslation.has(idx) && (
-                            <p className="text-white/40 text-xs mt-1 italic">{line.vietnamese}</p>
+                            <p className="text-app-text-secondary text-xs mt-1 italic">{line.vietnamese}</p>
                           )}
                         </div>
                       </div>
@@ -392,28 +392,28 @@ export default function KDramaLearnPage() {
                 )}
 
                 {activeTab === "vocab" && (
-                  <div className="bg-[#1a1f2e] rounded-xl p-5 border border-white/8 space-y-3">
+                  <div className="bg-[#1a1f2e] rounded-xl p-5 border border-app-border space-y-3">
                     <h3 className="text-white font-semibold mb-1">Từ vựng trong cảnh ({selectedScene.vocab.length} từ)</h3>
                     {selectedScene.vocab.map((v, idx) => (
                       <div key={idx} className={`flex items-center gap-3 p-3 rounded-lg border transition-all ${
-                        learnedVocab.has(v.korean) ? "bg-emerald-500/10 border-emerald-500/20" : "bg-white/3 border-white/5"
+                        learnedVocab.has(v.korean) ? "bg-emerald-500/10 border-emerald-500/20" : "bg-app-surface/50 border-app-border"
                       }`}>
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-0.5">
                             <span className="text-white font-bold text-base">{v.korean}</span>
-                            <button onClick={() => playTTS(v.korean)} className="text-white/20 hover:text-white/50 cursor-pointer">
+                            <button onClick={() => playTTS(v.korean)} className="text-app-text-muted hover:text-white/50 cursor-pointer">
                               <i className="ri-volume-up-line text-sm"></i>
                             </button>
                             <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${levelColor[v.level]}`}>{v.level}</span>
                           </div>
-                          <p className="text-white/40 text-xs">{v.romanization}</p>
+                          <p className="text-app-text-secondary text-xs">{v.romanization}</p>
                           <p className="text-white/70 text-sm">{v.vietnamese}</p>
-                          <p className="text-white/30 text-xs">{v.partOfSpeech}</p>
+                          <p className="text-app-text-muted text-xs">{v.partOfSpeech}</p>
                         </div>
                         <button
                           onClick={() => toggleLearnedVocab(v.korean)}
                           className={`w-8 h-8 rounded-full flex items-center justify-center transition-all cursor-pointer ${
-                            learnedVocab.has(v.korean) ? "bg-emerald-500/20 text-emerald-400" : "bg-white/5 text-white/30 hover:bg-white/10"
+                            learnedVocab.has(v.korean) ? "bg-emerald-500/20 text-app-accent-success" : "bg-app-card/50 text-app-text-muted hover:bg-app-card/70"
                           }`}
                         >
                           <i className={learnedVocab.has(v.korean) ? "ri-check-line" : "ri-add-line"}></i>
@@ -424,20 +424,20 @@ export default function KDramaLearnPage() {
                 )}
 
                 {activeTab === "grammar" && (
-                  <div className="bg-[#1a1f2e] rounded-xl p-5 border border-white/8 space-y-4">
+                  <div className="bg-[#1a1f2e] rounded-xl p-5 border border-app-border space-y-4">
                     <h3 className="text-white font-semibold">Ngữ pháp trong cảnh</h3>
                     {selectedScene.grammar.map((g, idx) => (
-                      <div key={idx} className="bg-white/3 rounded-xl p-4 border border-white/5">
+                      <div key={idx} className="bg-app-surface/50 rounded-xl p-4 border border-app-border">
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="text-[#e8c84a] font-bold text-base">{g.pattern}</span>
-                          <button onClick={() => playTTS(g.pattern)} className="text-white/20 hover:text-white/50 cursor-pointer">
+                          <span className="text-app-accent-primary font-bold text-base">{g.pattern}</span>
+                          <button onClick={() => playTTS(g.pattern)} className="text-app-text-muted hover:text-white/50 cursor-pointer">
                             <i className="ri-volume-up-line text-sm"></i>
                           </button>
                         </div>
                         <p className="text-white/60 text-sm mb-3">{g.explanation}</p>
-                        <div className="bg-white/5 rounded-lg p-3">
+                        <div className="bg-app-card/50 rounded-lg p-3">
                           <p className="text-white/70 text-sm font-medium">{g.example}</p>
-                          <p className="text-white/40 text-xs mt-0.5 italic">{g.translation}</p>
+                          <p className="text-app-text-secondary text-xs mt-0.5 italic">{g.translation}</p>
                         </div>
                       </div>
                     ))}
@@ -445,14 +445,14 @@ export default function KDramaLearnPage() {
                 )}
 
                 {activeTab === "culture" && (
-                  <div className="bg-[#1a1f2e] rounded-xl p-5 border border-white/8">
+                  <div className="bg-[#1a1f2e] rounded-xl p-5 border border-app-border">
                     <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
-                      <i className="ri-global-line text-[#e8c84a]"></i>
+                      <i className="ri-global-line text-app-accent-primary"></i>
                       Ghi chú văn hóa
                     </h3>
                     <p className="text-white/70 text-sm leading-relaxed">{selectedScene.culturalNote}</p>
-                    <div className="mt-4 p-3 bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-lg">
-                      <p className="text-[#e8c84a] text-xs font-semibold mb-1">
+                    <div className="mt-4 p-3 bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-lg">
+                      <p className="text-app-accent-primary text-xs font-semibold mb-1">
                         <i className="ri-lightbulb-line mr-1"></i>
                         Mẹo học
                       </p>
@@ -467,41 +467,41 @@ export default function KDramaLearnPage() {
           /* Scene List View */
           <div className="space-y-4">
             {/* Filters */}
-            <div className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8 space-y-3">
+            <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border space-y-3">
               <div className="relative">
-                <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
+                <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
                 <input
                   type="text"
                   placeholder="Tìm kiếm phim..."
                   value={search}
                   onChange={e => setSearch(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#e8c84a]/40"
+                  className="w-full bg-app-card/50 border border-app-border rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-app-accent-primary/40"
                 />
               </div>
               <div className="flex flex-wrap gap-2">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-white/30 text-xs">Cấp độ:</span>
+                  <span className="text-app-text-muted text-xs">Cấp độ:</span>
                   {LEVELS.map(l => (
-                    <button key={l} onClick={() => setFilterLevel(l)} className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${filterLevel === l ? "bg-[#e8c84a]/20 text-[#e8c84a] font-semibold" : "bg-white/5 text-white/40 hover:bg-white/10"}`}>{l}</button>
+                    <button key={l} onClick={() => setFilterLevel(l)} className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${filterLevel === l ? "bg-app-accent-primary/20 text-app-accent-primary font-semibold" : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70"}`}>{l}</button>
                   ))}
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <span className="text-white/30 text-xs">Thể loại:</span>
+                  <span className="text-app-text-muted text-xs">Thể loại:</span>
                   {GENRES.map(g => (
-                    <button key={g} onClick={() => setFilterGenre(g)} className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${filterGenre === g ? "bg-[#e8c84a]/20 text-[#e8c84a] font-semibold" : "bg-white/5 text-white/40 hover:bg-white/10"}`}>{g}</button>
+                    <button key={g} onClick={() => setFilterGenre(g)} className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${filterGenre === g ? "bg-app-accent-primary/20 text-app-accent-primary font-semibold" : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70"}`}>{g}</button>
                   ))}
                 </div>
               </div>
             </div>
 
-            <p className="text-white/30 text-sm">{filtered.length} cảnh phim</p>
+            <p className="text-app-text-muted text-sm">{filtered.length} cảnh phim</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filtered.map(scene => (
                 <div
                   key={scene.id}
                   onClick={() => { setSelectedScene(scene); setActiveTab("dialogue"); setLearnedVocab(new Set()); setShowTranslation(new Set()); }}
-                  className="bg-[#1a1f2e] rounded-xl overflow-hidden border border-white/8 hover:border-white/20 transition-all cursor-pointer group"
+                  className="bg-[#1a1f2e] rounded-xl overflow-hidden border border-app-border hover:border-white/20 transition-all cursor-pointer group"
                 >
                   <div className="relative">
                     <img src={scene.thumbnail} alt={scene.title} className="w-full h-44 object-cover object-top group-hover:scale-105 transition-transform duration-300" />
@@ -515,10 +515,10 @@ export default function KDramaLearnPage() {
                     </div>
                   </div>
                   <div className="p-4">
-                    <p className="text-[#e8c84a] text-xs font-semibold mb-0.5">{scene.drama}</p>
+                    <p className="text-app-accent-primary text-xs font-semibold mb-0.5">{scene.drama}</p>
                     <h3 className="text-white font-semibold text-sm mb-1">{scene.title}</h3>
-                    <p className="text-white/40 text-xs line-clamp-2 mb-3">{scene.description}</p>
-                    <div className="flex items-center justify-between text-white/30 text-xs">
+                    <p className="text-app-text-secondary text-xs line-clamp-2 mb-3">{scene.description}</p>
+                    <div className="flex items-center justify-between text-app-text-muted text-xs">
                       <span><i className="ri-translate-2 mr-1"></i>{scene.vocab.length} từ vựng</span>
                       <span><i className="ri-book-2-line mr-1"></i>{scene.grammar.length} ngữ pháp</span>
                       <span><i className="ri-chat-3-line mr-1"></i>{scene.dialogue.length} câu</span>

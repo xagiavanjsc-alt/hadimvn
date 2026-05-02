@@ -39,7 +39,7 @@ interface ListeningTrack {
 const LEVEL_CONFIG: Record<string, { color: string; bg: string; border: string; label: string; desc: string }> = {
   A1: { color: "#34d399", bg: "bg-emerald-500/10", border: "border-emerald-500/20", label: "Sơ cấp 1", desc: "Người mới bắt đầu" },
   A2: { color: "#84cc16", bg: "bg-lime-500/10", border: "border-lime-500/20", label: "Sơ cấp 2", desc: "Cơ bản" },
-  B1: { color: "#e8c84a", bg: "bg-yellow-500/10", border: "border-yellow-500/20", label: "Trung cấp 1", desc: "Trung bình" },
+  B1: { color: "app-accent-primary", bg: "bg-yellow-500/10", border: "border-yellow-500/20", label: "Trung cấp 1", desc: "Trung bình" },
   B2: { color: "#fb923c", bg: "bg-orange-500/10", border: "border-orange-500/20", label: "Trung cấp 2", desc: "Trên trung bình" },
   C1: { color: "#f87171", bg: "bg-red-500/10", border: "border-red-500/20", label: "Cao cấp", desc: "Nâng cao" },
 };
@@ -90,26 +90,26 @@ function AudioPlayer({ track, onClose }: { track: ListeningTrack; onClose: () =>
   return (
     <div className="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div
-        className="bg-[#0f1117] border border-white/10 rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+        className="bg-app-bg border border-app-border rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="p-6 border-b border-white/5">
+        <div className="p-6 border-b border-app-border">
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2 flex-wrap">
                 <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${cfg.bg} border ${cfg.border}`} style={{ color: cfg.color }}>
                   {track.level} · {cfg.label}
                 </span>
-                <span className="text-white/30 text-xs">{track.topic}</span>
+                <span className="text-app-text-muted text-xs">{track.topic}</span>
                 {track.is_premium && (
-                  <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-[#e8c84a]/15 text-[#e8c84a] border border-[#e8c84a]/25">VIP</span>
+                  <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary border border-app-accent-primary/25">VIP</span>
                 )}
               </div>
               <h2 className="text-white font-bold text-xl">{track.title}</h2>
-              <p className="text-white/40 text-sm mt-1">{track.description}</p>
+              <p className="text-app-text-secondary text-sm mt-1">{track.description}</p>
             </div>
-            <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white/50 cursor-pointer flex-shrink-0">
+            <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-app-card/50 hover:bg-app-card/70 text-white/50 cursor-pointer flex-shrink-0">
               <i className="ri-close-line text-sm"></i>
             </button>
           </div>
@@ -118,9 +118,9 @@ function AudioPlayer({ track, onClose }: { track: ListeningTrack; onClose: () =>
         <div className="p-6">
           {/* Audio note */}
           {!track.audio_url && (
-            <div className="flex items-center gap-2 p-3 rounded-xl bg-[#e8c84a]/8 border border-[#e8c84a]/15 mb-4">
-              <i className="ri-information-line text-[#e8c84a] text-sm flex-shrink-0"></i>
-              <p className="text-[#e8c84a]/80 text-xs">Audio thật sẽ được tích hợp cho thành viên VIP. Hiện tại bạn có thể đọc transcript và dùng TTS.</p>
+            <div className="flex items-center gap-2 p-3 rounded-xl bg-app-accent-primary/8 border border-app-accent-primary/15 mb-4">
+              <i className="ri-information-line text-app-accent-primary text-sm flex-shrink-0"></i>
+              <p className="text-app-accent-primary/80 text-xs">Audio thật sẽ được tích hợp cho thành viên VIP. Hiện tại bạn có thể đọc transcript và dùng TTS.</p>
             </div>
           )}
 
@@ -137,14 +137,14 @@ function AudioPlayer({ track, onClose }: { track: ListeningTrack; onClose: () =>
               <div className="h-full rounded-full transition-all duration-300" style={{ width: `${progress}%`, backgroundColor: cfg.color }}></div>
             </div>
             <div className="flex justify-between mt-1">
-              <span className="text-white/30 text-xs">{formatTime(currentTime)}</span>
-              <span className="text-white/30 text-xs">{formatTime(track.duration_sec)}</span>
+              <span className="text-app-text-muted text-xs">{formatTime(currentTime)}</span>
+              <span className="text-app-text-muted text-xs">{formatTime(track.duration_sec)}</span>
             </div>
           </div>
 
           {/* Controls */}
           <div className="flex items-center justify-center gap-4 mb-6">
-            <button onClick={() => setCurrentTime(Math.max(0, currentTime - 10))} className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white/50 cursor-pointer">
+            <button onClick={() => setCurrentTime(Math.max(0, currentTime - 10))} className="w-10 h-10 flex items-center justify-center rounded-full bg-app-card/50 hover:bg-app-card/70 text-white/50 cursor-pointer">
               <i className="ri-replay-10-line text-lg"></i>
             </button>
             <button
@@ -154,7 +154,7 @@ function AudioPlayer({ track, onClose }: { track: ListeningTrack; onClose: () =>
             >
               <i className={`${isPlaying ? "ri-pause-fill" : "ri-play-fill"} text-2xl`}></i>
             </button>
-            <button onClick={() => setCurrentTime(Math.min(track.duration_sec, currentTime + 10))} className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white/50 cursor-pointer">
+            <button onClick={() => setCurrentTime(Math.min(track.duration_sec, currentTime + 10))} className="w-10 h-10 flex items-center justify-center rounded-full bg-app-card/50 hover:bg-app-card/70 text-white/50 cursor-pointer">
               <i className="ri-forward-10-line text-lg"></i>
             </button>
           </div>
@@ -169,7 +169,7 @@ function AudioPlayer({ track, onClose }: { track: ListeningTrack; onClose: () =>
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
-                    activeTab === tab ? "text-[#141720]" : "bg-white/5 text-white/40 hover:text-white/60"
+                    activeTab === tab ? "text-[#141720]" : "bg-app-card/50 text-app-text-secondary hover:text-white/60"
                   }`}
                   style={activeTab === tab ? { backgroundColor: cfg.color } : {}}
                 >
@@ -181,7 +181,7 @@ function AudioPlayer({ track, onClose }: { track: ListeningTrack; onClose: () =>
             {activeTab === "transcript" && (
               <button
                 onClick={() => setShowTranslation(v => !v)}
-                className={`ml-auto flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs cursor-pointer transition-all ${showTranslation ? "bg-white/10 text-white/60" : "text-white/25 hover:text-white/40"}`}
+                className={`ml-auto flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs cursor-pointer transition-all ${showTranslation ? "bg-app-card/70 text-white/60" : "text-app-text-muted hover:text-app-text-secondary"}`}
               >
                 <i className="ri-translate-2 text-xs"></i>
                 {showTranslation ? "Ẩn dịch" : "Hiện dịch"}
@@ -191,13 +191,13 @@ function AudioPlayer({ track, onClose }: { track: ListeningTrack; onClose: () =>
 
           {/* Transcript */}
           {activeTab === "transcript" && (
-            <div className="bg-white/3 rounded-2xl p-4 space-y-3 max-h-72 overflow-y-auto">
+            <div className="bg-app-surface/50 rounded-2xl p-4 space-y-3 max-h-72 overflow-y-auto">
               {track.transcript.map((item, i) => (
                 <div key={i} className={`transition-all ${i === highlightLine && isPlaying ? "opacity-100" : "opacity-60"}`}>
                   <div className="flex items-start gap-2">
                     <button
                       onClick={() => speak(item.line)}
-                      className="w-5 h-5 flex items-center justify-center rounded flex-shrink-0 mt-0.5 hover:bg-white/10 text-white/30 cursor-pointer"
+                      className="w-5 h-5 flex items-center justify-center rounded flex-shrink-0 mt-0.5 hover:bg-app-card/70 text-app-text-muted cursor-pointer"
                     >
                       <i className="ri-volume-up-line text-xs"></i>
                     </button>
@@ -215,18 +215,18 @@ function AudioPlayer({ track, onClose }: { track: ListeningTrack; onClose: () =>
           {activeTab === "vocab" && (
             <div className="space-y-2 max-h-72 overflow-y-auto">
               {track.vocabulary.map((v, i) => (
-                <div key={i} className="flex items-center gap-3 p-3 bg-white/3 rounded-xl">
+                <div key={i} className="flex items-center gap-3 p-3 bg-app-surface/50 rounded-xl">
                   <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${cfg.color}15` }}>
                     <span className="text-xs font-bold" style={{ color: cfg.color }}>{i + 1}</span>
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
                       <span className="text-white font-semibold text-sm">{v.korean}</span>
-                      <span className="text-white/30 text-xs">[{v.pronunciation}]</span>
+                      <span className="text-app-text-muted text-xs">[{v.pronunciation}]</span>
                     </div>
                     <p className="text-white/50 text-xs">{v.vietnamese}</p>
                   </div>
-                  <button onClick={() => speak(v.korean)} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/40 cursor-pointer">
+                  <button onClick={() => speak(v.korean)} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary cursor-pointer">
                     <i className="ri-volume-up-line text-xs"></i>
                   </button>
                 </div>
@@ -238,7 +238,7 @@ function AudioPlayer({ track, onClose }: { track: ListeningTrack; onClose: () =>
           {activeTab === "quiz" && (
             <div className="space-y-4 max-h-72 overflow-y-auto">
               {track.questions.map((q, qi) => (
-                <div key={qi} className="bg-white/3 rounded-2xl p-4">
+                <div key={qi} className="bg-app-surface/50 rounded-2xl p-4">
                   <p className="text-white font-medium text-sm mb-3">{qi + 1}. {q.question}</p>
                   <div className="space-y-2">
                     {q.options.map((opt, oi) => {
@@ -250,10 +250,10 @@ function AudioPlayer({ track, onClose }: { track: ListeningTrack; onClose: () =>
                           key={oi}
                           onClick={() => !submitted && setAnswers(prev => ({ ...prev, [qi]: oi }))}
                           className={`w-full text-left px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer border ${
-                            isCorrect ? "bg-emerald-500/15 border-emerald-500/30 text-emerald-400"
+                            isCorrect ? "bg-app-accent-success/15 border-emerald-500/30 text-app-accent-success"
                             : isWrong ? "bg-red-500/15 border-red-500/30 text-red-400"
                             : isSelected ? "border-white/20 text-white"
-                            : "bg-white/3 text-white/50 hover:bg-white/6 border-transparent"
+                            : "bg-app-surface/50 text-white/50 hover:bg-white/6 border-transparent"
                           }`}
                           style={isSelected && !submitted ? { borderColor: cfg.color, color: cfg.color, backgroundColor: `${cfg.color}10` } : {}}
                         >
@@ -295,22 +295,22 @@ function TrackCard({ track, onPlay }: { track: ListeningTrack; onPlay: () => voi
   const formatTime = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5 hover:border-white/10 transition-all group">
+    <div className="bg-app-bg border border-app-border rounded-2xl p-5 hover:border-app-border transition-all group">
       <div className="flex items-start justify-between gap-3 mb-3">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1.5 flex-wrap">
             <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${cfg.bg} border ${cfg.border}`} style={{ color: cfg.color }}>
               {track.level}
             </span>
-            <span className="text-white/25 text-[10px]">{track.topic}</span>
+            <span className="text-app-text-muted text-[10px]">{track.topic}</span>
             {track.is_premium && (
-              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#e8c84a]/15 text-[#e8c84a]">VIP</span>
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary">VIP</span>
             )}
           </div>
           <h3 className="text-white font-semibold text-sm">{track.title}</h3>
           <p className="text-white/35 text-xs mt-1 line-clamp-2">{track.description}</p>
         </div>
-        <div className="flex items-center gap-1 text-white/30 text-xs flex-shrink-0">
+        <div className="flex items-center gap-1 text-app-text-muted text-xs flex-shrink-0">
           <i className="ri-time-line text-xs"></i>
           {formatTime(track.duration_sec)}
         </div>
@@ -318,12 +318,12 @@ function TrackCard({ track, onPlay }: { track: ListeningTrack; onPlay: () => voi
 
       <div className="flex flex-wrap gap-1 mb-4">
         {track.tags.map(tag => (
-          <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-white/30">#{tag}</span>
+          <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-app-card/50 text-app-text-muted">#{tag}</span>
         ))}
       </div>
 
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3 text-white/25 text-xs">
+        <div className="flex items-center gap-3 text-app-text-muted text-xs">
           <span className="flex items-center gap-1"><i className="ri-file-text-line"></i>{track.transcript.length} dòng</span>
           <span className="flex items-center gap-1"><i className="ri-translate-2"></i>{track.vocabulary.length} từ</span>
           <span className="flex items-center gap-1"><i className="ri-survey-line"></i>{track.questions.length} câu</span>
@@ -332,7 +332,7 @@ function TrackCard({ track, onPlay }: { track: ListeningTrack; onPlay: () => voi
         {track.is_premium ? (
           <button
             onClick={onPlay}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-transform hover:scale-105 bg-[#e8c84a]/15 border border-[#e8c84a]/25 text-[#e8c84a]"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-transform hover:scale-105 bg-app-accent-primary/15 border border-app-accent-primary/25 text-app-accent-primary"
           >
             <i className="ri-vip-crown-fill"></i>
             VIP
@@ -404,15 +404,15 @@ export default function ListeningLevelPage() {
               key={level}
               onClick={() => setSelectedLevel(level)}
               className={`p-4 rounded-2xl border text-left cursor-pointer transition-all ${
-                selectedLevel === level ? `${cfg.bg} ${cfg.border}` : "bg-[#0f1117] border-white/5 hover:border-white/10"
+                selectedLevel === level ? `${cfg.bg} ${cfg.border}` : "bg-app-bg border-app-border hover:border-app-border"
               }`}
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xl font-bold" style={{ color: selectedLevel === level ? cfg.color : "rgba(255,255,255,0.3)" }}>{level}</span>
-                <span className="text-xs font-bold px-1.5 py-0.5 rounded-full bg-white/5 text-white/30">{count}</span>
+                <span className="text-xs font-bold px-1.5 py-0.5 rounded-full bg-app-card/50 text-app-text-muted">{count}</span>
               </div>
               <p className="text-xs font-semibold" style={{ color: selectedLevel === level ? cfg.color : "rgba(255,255,255,0.4)" }}>{cfg.label}</p>
-              <p className="text-[10px] text-white/25 mt-0.5">{cfg.desc}</p>
+              <p className="text-[10px] text-app-text-muted mt-0.5">{cfg.desc}</p>
             </button>
           );
         })}
@@ -421,13 +421,13 @@ export default function ListeningLevelPage() {
       {/* Search + filter */}
       <div className="flex items-center gap-3 mb-5">
         <div className="flex-1 relative">
-          <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
+          <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
           <input
             type="text"
             placeholder="Tìm bài nghe theo tên, chủ đề, tag..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full bg-[#0f1117] border border-white/8 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder-white/25 outline-none focus:border-white/20"
+            className="w-full bg-app-bg border border-app-border rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder-white/25 outline-none focus:border-white/20"
           />
         </div>
         <div className="flex gap-1.5">
@@ -436,7 +436,7 @@ export default function ListeningLevelPage() {
               key={level}
               onClick={() => setSelectedLevel(level)}
               className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
-                selectedLevel === level ? "bg-white/10 text-white" : "text-white/30 hover:text-white/50"
+                selectedLevel === level ? "bg-app-card/70 text-white" : "text-app-text-muted hover:text-white/50"
               }`}
             >
               {level === "all" ? "Tất cả" : level}
@@ -450,17 +450,17 @@ export default function ListeningLevelPage() {
       {loading ? (
         <div className="grid grid-cols-2 gap-4">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="bg-[#0f1117] border border-white/5 rounded-2xl p-5 animate-pulse">
-              <div className="h-4 bg-white/5 rounded mb-3 w-1/3"></div>
-              <div className="h-5 bg-white/5 rounded mb-2 w-2/3"></div>
-              <div className="h-3 bg-white/5 rounded w-full"></div>
+            <div key={i} className="bg-app-bg border border-app-border rounded-2xl p-5 animate-pulse">
+              <div className="h-4 bg-app-card/50 rounded mb-3 w-1/3"></div>
+              <div className="h-5 bg-app-card/50 rounded mb-2 w-2/3"></div>
+              <div className="h-3 bg-app-card/50 rounded w-full"></div>
             </div>
           ))}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-16 text-center">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-16 text-center">
           <i className="ri-headphone-line text-white/10 text-5xl mb-4"></i>
-          <p className="text-white/30 text-sm">Không tìm thấy bài nghe phù hợp</p>
+          <p className="text-app-text-muted text-sm">Không tìm thấy bài nghe phù hợp</p>
         </div>
       ) : (
         <div className="grid grid-cols-2 gap-4">
@@ -471,15 +471,15 @@ export default function ListeningLevelPage() {
       )}
 
       {/* Tips */}
-      <div className="mt-6 bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+      <div className="mt-6 bg-app-bg border border-app-border rounded-2xl p-5">
         <div className="flex items-center gap-2 mb-3">
-          <i className="ri-lightbulb-line text-[#e8c84a] text-sm"></i>
+          <i className="ri-lightbulb-line text-app-accent-primary text-sm"></i>
           <h3 className="text-white font-semibold text-sm">Mẹo luyện nghe hiệu quả</h3>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-white/40 leading-relaxed">
-          <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Nghe lần đầu không xem transcript để kiểm tra khả năng nghe hiểu</p>
-          <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Nghe lần 2 với transcript để hiểu rõ từng câu và từ vựng mới</p>
-          <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Làm bài kiểm tra sau khi nghe để củng cố kiến thức</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-app-text-secondary leading-relaxed">
+          <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nghe lần đầu không xem transcript để kiểm tra khả năng nghe hiểu</p>
+          <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nghe lần 2 với transcript để hiểu rõ từng câu và từ vựng mới</p>
+          <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Làm bài kiểm tra sau khi nghe để củng cố kiến thức</p>
         </div>
       </div>
 

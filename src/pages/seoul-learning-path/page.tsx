@@ -58,20 +58,20 @@ function StepCard({
           : isNext
           ? "border-[#a78bfa]/40 bg-[#a78bfa]/8 hover:border-[#a78bfa]/60 shadow-lg shadow-[#a78bfa]/5"
           : isLocked
-          ? "border-white/5 bg-white/1 opacity-50 cursor-not-allowed"
-          : "border-white/8 bg-white/2 hover:border-white/15 hover:bg-white/4"
+          ? "border-app-border bg-white/1 opacity-50 cursor-not-allowed"
+          : "border-app-border bg-white/2 hover:border-white/15 hover:bg-white/4"
       }`}
     >
       {/* Step indicator */}
       <div
         className={`w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-xl flex-shrink-0 font-bold text-sm transition-all ${
           isCompleted
-            ? "bg-emerald-500/15 text-emerald-400"
+            ? "bg-app-accent-success/15 text-app-accent-success"
             : isNext
             ? "text-white"
             : isLocked
-            ? "bg-white/5 text-white/20"
-            : "bg-white/5 text-white/40"
+            ? "bg-app-card/50 text-app-text-muted"
+            : "bg-app-card/50 text-app-text-secondary"
         }`}
         style={isNext ? { backgroundColor: `${book.color}25`, color: book.color } : {}}
       >
@@ -106,12 +106,12 @@ function StepCard({
         >
           {lesson.titleVi}
         </p>
-        <p className="text-white/30 text-[10px] truncate">{lesson.title}</p>
+        <p className="text-app-text-muted text-[10px] truncate">{lesson.title}</p>
         <div className="flex items-center gap-2 mt-1">
-          <span className="text-[9px] text-white/25 flex items-center gap-0.5">
+          <span className="text-[9px] text-app-text-muted flex items-center gap-0.5">
             <i className="ri-translate-2 text-xs"></i>{lesson.vocabulary.length} từ
           </span>
-          <span className="text-[9px] text-white/25 flex items-center gap-0.5">
+          <span className="text-[9px] text-app-text-muted flex items-center gap-0.5">
             <i className="ri-book-2-line text-xs"></i>{lesson.grammarPoints.length} NP
           </span>
         </div>
@@ -121,7 +121,7 @@ function StepCard({
       {!isLocked && (
         <i
           className={`ri-arrow-right-s-line text-sm flex-shrink-0 transition-colors ${
-            isNext ? "text-[#a78bfa]" : "text-white/20 group-hover:text-white/50"
+            isNext ? "text-[#a78bfa]" : "text-app-text-muted group-hover:text-white/50"
           }`}
         ></i>
       )}
@@ -154,13 +154,13 @@ function BookSection({
           ? "border-[#a78bfa]/25 bg-[#a78bfa]/3"
           : completedCount === steps.length && steps.length > 0
           ? "border-emerald-500/20 bg-emerald-500/2"
-          : "border-white/8 bg-white/1"
+          : "border-app-border bg-white/1"
       }`}
     >
       {/* Book header */}
       <button
         onClick={onToggle}
-        className="w-full flex items-center gap-3 md:gap-4 p-4 md:p-5 cursor-pointer hover:bg-white/3 transition-colors text-left"
+        className="w-full flex items-center gap-3 md:gap-4 p-4 md:p-5 cursor-pointer hover:bg-app-surface/50 transition-colors text-left"
       >
         <div
           className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-xl font-bold text-sm flex-shrink-0"
@@ -177,24 +177,24 @@ function BookSection({
               </span>
             )}
             {completedCount === steps.length && steps.length > 0 && (
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-semibold">
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success font-semibold">
                 <i className="ri-checkbox-circle-fill mr-0.5"></i>Hoàn thành
               </span>
             )}
           </div>
           <div className="flex items-center gap-3">
-            <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden max-w-[120px]">
+            <div className="flex-1 h-1.5 bg-app-card/50 rounded-full overflow-hidden max-w-[120px]">
               <div
                 className="h-full rounded-full transition-all duration-700"
                 style={{ width: `${progress}%`, backgroundColor: book.color }}
               />
             </div>
-            <span className="text-white/30 text-[10px]">{completedCount}/{steps.length} bài</span>
+            <span className="text-app-text-muted text-[10px]">{completedCount}/{steps.length} bài</span>
           </div>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
-          <span className="text-white/40 text-xs font-bold">{progress}%</span>
-          <i className={`text-white/30 text-sm transition-transform ${isExpanded ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
+          <span className="text-app-text-secondary text-xs font-bold">{progress}%</span>
+          <i className={`text-app-text-muted text-sm transition-transform ${isExpanded ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
         </div>
       </button>
 
@@ -232,45 +232,45 @@ function StatsOverview({ completedMap }: { completedMap: Record<string, boolean>
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-5 md:mb-6">
-      <div className="bg-[#0f1117] border border-white/5 rounded-xl p-3 md:p-4">
+      <div className="bg-app-bg border border-app-border rounded-xl p-3 md:p-4">
         <div className="flex items-center gap-2 mb-2">
           <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#a78bfa]/15">
             <i className="ri-route-line text-[#a78bfa] text-sm"></i>
           </div>
-          <span className="text-white/40 text-xs">Tiến độ</span>
+          <span className="text-app-text-secondary text-xs">Tiến độ</span>
         </div>
         <p className="text-[#a78bfa] text-xl font-bold">{overallPct}%</p>
-        <p className="text-white/30 text-[10px] mt-0.5">{totalCompleted}/{totalLessons} bài</p>
+        <p className="text-app-text-muted text-[10px] mt-0.5">{totalCompleted}/{totalLessons} bài</p>
       </div>
-      <div className="bg-[#0f1117] border border-white/5 rounded-xl p-3 md:p-4">
+      <div className="bg-app-bg border border-app-border rounded-xl p-3 md:p-4">
         <div className="flex items-center gap-2 mb-2">
-          <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-emerald-500/15">
-            <i className="ri-checkbox-circle-line text-emerald-400 text-sm"></i>
+          <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-accent-success/15">
+            <i className="ri-checkbox-circle-line text-app-accent-success text-sm"></i>
           </div>
-          <span className="text-white/40 text-xs">Đã học</span>
+          <span className="text-app-text-secondary text-xs">Đã học</span>
         </div>
-        <p className="text-emerald-400 text-xl font-bold">{totalCompleted}</p>
-        <p className="text-white/30 text-[10px] mt-0.5">bài hoàn thành</p>
+        <p className="text-app-accent-success text-xl font-bold">{totalCompleted}</p>
+        <p className="text-app-text-muted text-[10px] mt-0.5">bài hoàn thành</p>
       </div>
-      <div className="bg-[#0f1117] border border-white/5 rounded-xl p-3 md:p-4">
+      <div className="bg-app-bg border border-app-border rounded-xl p-3 md:p-4">
         <div className="flex items-center gap-2 mb-2">
           <div className="w-7 h-7 flex items-center justify-center rounded-lg" style={{ backgroundColor: `${currentBook.color}15` }}>
             <i className="ri-book-3-line text-sm" style={{ color: currentBook.color }}></i>
           </div>
-          <span className="text-white/40 text-xs">Đang học</span>
+          <span className="text-app-text-secondary text-xs">Đang học</span>
         </div>
         <p className="text-white font-black text-lg">{currentBook.level}</p>
-        <p className="text-white/30 text-[10px] mt-0.5">{currentBook.cefrLevel}</p>
+        <p className="text-app-text-muted text-[10px] mt-0.5">{currentBook.cefrLevel}</p>
       </div>
-      <div className="bg-[#0f1117] border border-white/5 rounded-xl p-3 md:p-4">
+      <div className="bg-app-bg border border-app-border rounded-xl p-3 md:p-4">
         <div className="flex items-center gap-2 mb-2">
-          <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#e8c84a]/15">
-            <i className="ri-time-line text-[#e8c84a] text-sm"></i>
+          <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-accent-primary/15">
+            <i className="ri-time-line text-app-accent-primary text-sm"></i>
           </div>
-          <span className="text-white/40 text-xs">Còn lại</span>
+          <span className="text-app-text-secondary text-xs">Còn lại</span>
         </div>
-        <p className="text-[#e8c84a] text-xl font-bold">{estimatedHours}h</p>
-        <p className="text-white/30 text-[10px] mt-0.5">{remainingLessons} bài · ~30 phút/bài</p>
+        <p className="text-app-accent-primary text-xl font-bold">{estimatedHours}h</p>
+        <p className="text-app-text-muted text-[10px] mt-0.5">{remainingLessons} bài · ~30 phút/bài</p>
       </div>
     </div>
   );
@@ -392,22 +392,22 @@ export default function SeoulLearningPathPage() {
                   </span>
                 </div>
                 <p className="text-white font-bold text-sm md:text-base">{nextStep.lesson.titleVi}</p>
-                <p className="text-white/40 text-xs mt-0.5">{nextStep.lesson.title}</p>
+                <p className="text-app-text-secondary text-xs mt-0.5">{nextStep.lesson.title}</p>
                 <div className="flex items-center gap-3 mt-2">
-                  <span className="text-[10px] text-white/30 flex items-center gap-1">
+                  <span className="text-[10px] text-app-text-muted flex items-center gap-1">
                     <i className="ri-translate-2 text-xs"></i>{nextStep.lesson.vocabulary.length} từ vựng
                   </span>
-                  <span className="text-[10px] text-white/30 flex items-center gap-1">
+                  <span className="text-[10px] text-app-text-muted flex items-center gap-1">
                     <i className="ri-book-2-line text-xs"></i>{nextStep.lesson.grammarPoints.length} ngữ pháp
                   </span>
-                  <span className="text-[10px] text-white/30 flex items-center gap-1">
+                  <span className="text-[10px] text-app-text-muted flex items-center gap-1">
                     <i className="ri-time-line text-xs"></i>~30 phút
                   </span>
                 </div>
               </div>
               <button
                 onClick={() => navigate("/seoul-textbook")}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all cursor-pointer whitespace-nowrap flex-shrink-0 text-[#0f1117] hover:opacity-90 active:scale-95"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all cursor-pointer whitespace-nowrap flex-shrink-0 text-app-bg hover:opacity-90 active:scale-95"
                 style={{ backgroundColor: nextStep.book.color }}
               >
                 <i className="ri-play-fill"></i>Học ngay
@@ -417,7 +417,7 @@ export default function SeoulLearningPathPage() {
             {/* Objectives */}
             <div className="mt-3 flex flex-wrap gap-1.5">
               {nextStep.lesson.objectives.map((obj, i) => (
-                <span key={i} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-white/40">
+                <span key={i} className="text-[10px] px-2 py-0.5 rounded-full bg-app-card/50 text-app-text-secondary">
                   {obj}
                 </span>
               ))}
@@ -440,7 +440,7 @@ export default function SeoulLearningPathPage() {
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
                   filterMode === f.id
                     ? "bg-[#a78bfa]/20 text-[#a78bfa]"
-                    : "text-white/40 hover:text-white/60 hover:bg-white/5"
+                    : "text-app-text-secondary hover:text-white/60 hover:bg-app-card/50"
                 }`}
               >
                 {f.label}
@@ -448,11 +448,11 @@ export default function SeoulLearningPathPage() {
             ))}
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={expandAll} className="text-white/30 hover:text-white/60 text-xs cursor-pointer whitespace-nowrap transition-colors">
+            <button onClick={expandAll} className="text-app-text-muted hover:text-white/60 text-xs cursor-pointer whitespace-nowrap transition-colors">
               Mở tất cả
             </button>
             <span className="text-white/15">·</span>
-            <button onClick={collapseAll} className="text-white/30 hover:text-white/60 text-xs cursor-pointer whitespace-nowrap transition-colors">
+            <button onClick={collapseAll} className="text-app-text-muted hover:text-white/60 text-xs cursor-pointer whitespace-nowrap transition-colors">
               Thu gọn
             </button>
           </div>
@@ -478,7 +478,7 @@ export default function SeoulLearningPathPage() {
         {/* Quick actions */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[
-            { icon: "ri-stack-line", color: "#e8c84a", label: "Flashcard Seoul", path: "/seoul-flashcard" },
+            { icon: "ri-stack-line", color: "app-accent-primary", label: "Flashcard Seoul", path: "/seoul-flashcard" },
             { icon: "ri-file-list-3-line", color: "#34d399", label: "Thi thử bài", path: "/seoul-lesson-quiz" },
             { icon: "ri-headphone-line", color: "#06b6d4", label: "Nghe & nhận biết", path: "/seoul-listening-quiz" },
             { icon: "ri-error-warning-line", color: "#f87171", label: "Ôn từ sai", path: "/seoul-wrong-review" },
@@ -486,7 +486,7 @@ export default function SeoulLearningPathPage() {
             <button
               key={a.path}
               onClick={() => navigate(a.path)}
-              className="flex flex-col items-center gap-2 p-3 md:p-4 rounded-xl border border-white/8 bg-white/2 hover:border-white/15 hover:bg-white/4 transition-all cursor-pointer group"
+              className="flex flex-col items-center gap-2 p-3 md:p-4 rounded-xl border border-app-border bg-white/2 hover:border-white/15 hover:bg-white/4 transition-all cursor-pointer group"
             >
               <div
                 className="w-9 h-9 flex items-center justify-center rounded-xl"
@@ -507,7 +507,7 @@ export default function SeoulLearningPathPage() {
             </div>
             <div>
               <p className="text-white/70 text-xs font-semibold mb-1">Mẹo học theo lộ trình</p>
-              <ul className="text-white/40 text-xs leading-relaxed space-y-1">
+              <ul className="text-app-text-secondary text-xs leading-relaxed space-y-1">
                 <li>• Học theo thứ tự từ 1A đến 4B để đảm bảo nền tảng vững chắc</li>
                 <li>• Mỗi bài học khoảng 30 phút — học 1 bài/ngày để duy trì streak</li>
                 <li>• Sau mỗi bài, làm quiz để củng cố và nhận XP</li>

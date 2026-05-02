@@ -45,11 +45,11 @@ function StreakBadge() {
     : 100;
 
   return (
-    <div className="px-3 py-2.5 bg-[#e8c84a]/5 border border-[#e8c84a]/10 rounded-xl mb-2 space-y-2">
+    <div className="px-3 py-2.5 bg-app-accent-primary/5 border border-app-accent-primary/10 rounded-xl mb-2 space-y-2">
       <div className="flex items-center gap-1.5">
-        <i className="ri-fire-line text-[#e8c84a] text-sm"></i>
+        <i className="ri-fire-line text-app-accent-primary text-sm"></i>
         <div className="flex-1">
-          <p className="text-[#e8c84a] text-xs font-bold">{streak.count} ngày liên tiếp</p>
+          <p className="text-app-accent-primary text-xs font-bold">{streak.count} ngày liên tiếp</p>
         </div>
       </div>
       <div className="flex items-center gap-1.5">
@@ -59,7 +59,7 @@ function StreakBadge() {
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-0.5">
             <span className="text-[10px] font-bold" style={{ color: rank.color }}>{rank.name}</span>
-            <span className="text-white/30 text-[9px]">{totalXP.toLocaleString()} XP</span>
+            <span className="text-app-text-muted text-[9px]">{totalXP.toLocaleString()} XP</span>
           </div>
           <div className="h-1 bg-white/8 rounded-full overflow-hidden">
             <div className="h-full rounded-full transition-all duration-500" style={{ width: `${progress}%`, backgroundColor: rank.color }}></div>
@@ -75,7 +75,7 @@ const navGroups = [
   {
     label: "Tổng quan",
     icon: "ri-dashboard-line",
-    color: "#e8c84a",
+    color: "app-accent-primary",
     items: [
       { path: "/learning-hub", icon: "ri-dashboard-line", label: "Learning Hub" },
       { path: "/exam-hub", icon: "ri-file-list-3-line", label: "Exam Hub" },
@@ -98,7 +98,7 @@ const navGroups = [
     label: "Hán Hàn Vip",
     icon: "ri-character-recognition-line",
     badge: "VIP",
-    color: "#e8c84a",
+    color: "app-accent-primary",
     items: [
       { path: "/hanja-tree", icon: "ri-git-merge-line", label: "Hình cây từ vựng" },
       { path: "/hanja-dashboard", icon: "ri-bar-chart-2-line", label: "Tiến độ & Streak" },
@@ -151,7 +151,7 @@ function PinnedSection({ pinnedPaths, onUnpin, onNavigate, currentPath }: {
   const items = pinnedPaths.map(p => ALL_NAV_ITEMS.find(i => i.path === p)).filter(Boolean) as typeof ALL_NAV_ITEMS;
   return (
     <div className="mb-2">
-      <p className="text-[9px] tracking-normal font-semibold text-[#e8c84a]/40 px-3 py-1">Đã ghim</p>
+      <p className="text-[9px] tracking-normal font-semibold text-app-accent-primary/40 px-3 py-1">Đã ghim</p>
       <div className="space-y-0.5">
         {items.map(item => {
           const isActive = currentPath === item.path;
@@ -160,7 +160,7 @@ function PinnedSection({ pinnedPaths, onUnpin, onNavigate, currentPath }: {
               <button
                 onClick={() => onNavigate(item.path)}
                 className={`flex-1 flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
-                  isActive ? "bg-[#e8c84a]/10 text-[#e8c84a] font-medium" : "text-white/55 hover:text-white/85 hover:bg-white/6"
+                  isActive ? "bg-app-accent-primary/10 text-app-accent-primary font-medium" : "text-white/55 hover:text-white/85 hover:bg-white/6"
                 }`}
               >
                 <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
@@ -179,7 +179,7 @@ function PinnedSection({ pinnedPaths, onUnpin, onNavigate, currentPath }: {
           );
         })}
       </div>
-      <div className="mx-3 mt-1 mb-1 h-px bg-white/5"></div>
+      <div className="mx-3 mt-1 mb-1 h-px bg-app-card/50"></div>
     </div>
   );
 }
@@ -299,11 +299,11 @@ function SidebarInner() {
   };
 
   return (
-    <aside className="w-60 min-h-screen bg-[#141720] flex flex-col border-r border-white/8 overflow-y-auto">
+    <aside className="w-60 min-h-screen bg-[#141720] flex flex-col border-r border-app-border overflow-y-auto">
       {/* Logo */}
       <button
         onClick={() => handleNavClick("/")}
-        className="flex items-center gap-3 px-5 py-5 border-b border-white/5 flex-shrink-0 cursor-pointer text-left hover:bg-white/3 transition-colors"
+        className="flex items-center gap-3 px-5 py-5 border-b border-app-border flex-shrink-0 cursor-pointer text-left hover:bg-app-surface/50 transition-colors"
       >
         <img
           src="https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png"
@@ -312,7 +312,7 @@ function SidebarInner() {
         />
         <div>
           <p className="text-white font-semibold text-sm leading-tight">Hàn Quốc Ơi!</p>
-          <p className="text-white/40 text-xs">Học tiếng Hàn</p>
+          <p className="text-app-text-secondary text-xs">Học tiếng Hàn</p>
         </div>
       </button>
 
@@ -333,7 +333,7 @@ function SidebarInner() {
           onClick={() => handleNavClick("/")}
           className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
             location.pathname === "/" || location.pathname === "/dashboard"
-              ? "bg-[#e8c84a]/10 text-[#e8c84a] font-medium"
+              ? "bg-app-accent-primary/10 text-app-accent-primary font-medium"
               : "text-white/55 hover:text-white/85 hover:bg-white/6"
           }`}
         >
@@ -379,7 +379,7 @@ function SidebarInner() {
             onClick={() => handleNavClick("/vip-history")}
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
               location.pathname === "/vip-history"
-                ? "bg-[#e8c84a]/10 text-[#e8c84a] font-medium"
+                ? "bg-app-accent-primary/10 text-app-accent-primary font-medium"
                 : "text-white/50 hover:text-white/80 hover:bg-white/6"
             }`}
           >
@@ -425,7 +425,7 @@ function SidebarInner() {
           onClick={() => handleNavClick("/learning-roadmap")}
           className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
             location.pathname === "/learning-roadmap"
-              ? "bg-[#e8c84a]/10 text-[#e8c84a] font-medium"
+              ? "bg-app-accent-primary/10 text-app-accent-primary font-medium"
               : "text-white/50 hover:text-white/80 hover:bg-white/6"
           }`}
         >
@@ -440,14 +440,14 @@ function SidebarInner() {
           const isOpen = openGroups[group.label] ?? DEFAULT_OPEN[group.label] ?? false;
           const hasActive = group.items.some(item => location.pathname === item.path);
           const grpWithBadge = group as typeof group & { badge?: string; color?: string };
-          const grpColor = grpWithBadge.color || "#e8c84a";
+          const grpColor = grpWithBadge.color || "app-accent-primary";
 
           return (
             <div key={group.label}>
               <button
                 onClick={() => toggleGroup(group.label)}
                 className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-all cursor-pointer group ${
-                  hasActive ? "bg-white/3" : "hover:bg-white/3"
+                  hasActive ? "bg-app-surface/50" : "hover:bg-app-surface/50"
                 }`}
               >
                 <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
@@ -462,7 +462,7 @@ function SidebarInner() {
                 )}
                 <div className="w-3 h-3 flex items-center justify-center flex-shrink-0">
                   <i className={`text-[10px] transition-transform duration-200 ${
-                    isOpen ? "ri-arrow-down-s-line text-white/25" : "ri-arrow-right-s-line text-white/15"
+                    isOpen ? "ri-arrow-down-s-line text-app-text-muted" : "ri-arrow-right-s-line text-white/15"
                   }`}></i>
                 </div>
               </button>
@@ -483,7 +483,7 @@ function SidebarInner() {
                           onMouseEnter={() => handleNavHover(item.path)}
                           className={`flex-1 flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
                             isActive
-                              ? "bg-[#e8c84a]/10 text-[#e8c84a] font-medium"
+                              ? "bg-app-accent-primary/10 text-app-accent-primary font-medium"
                               : "text-white/50 hover:text-white/80 hover:bg-white/6"
                           }`}
                         >
@@ -496,8 +496,8 @@ function SidebarInner() {
                           onClick={() => togglePin(item.path)}
                           className={`w-6 h-6 flex items-center justify-center rounded-md transition-all cursor-pointer mr-1 flex-shrink-0 ${
                             isPinned
-                              ? "text-[#e8c84a]/60 hover:text-red-400 hover:bg-red-500/10"
-                              : "text-white/10 hover:text-[#e8c84a]/50 hover:bg-[#e8c84a]/10 opacity-0 group-hover/item:opacity-100"
+                              ? "text-app-accent-primary/60 hover:text-red-400 hover:bg-red-500/10"
+                              : "text-white/10 hover:text-app-accent-primary/50 hover:bg-app-accent-primary/10 opacity-0 group-hover/item:opacity-100"
                           }`}
                           title={isPinned ? "Bỏ ghim" : "Ghim vào đầu"}
                         >
@@ -529,27 +529,27 @@ function SidebarInner() {
       </nav>
 
       {/* Footer — Auth */}
-      <div className="px-4 py-3 border-t border-white/5 flex-shrink-0 space-y-2">
+      <div className="px-4 py-3 border-t border-app-border flex-shrink-0 space-y-2">
         {user ? (
           <div>
             <button
               onClick={() => navigate("/profile")}
-              className="w-full flex items-center gap-2 hover:bg-white/5 rounded-lg px-2 py-2 transition-colors cursor-pointer"
+              className="w-full flex items-center gap-2 hover:bg-app-card/50 rounded-lg px-2 py-2 transition-colors cursor-pointer"
             >
-              <div className="w-7 h-7 rounded-full bg-[#e8c84a]/20 flex items-center justify-center flex-shrink-0">
-                <i className="ri-user-line text-[#e8c84a] text-xs"></i>
+              <div className="w-7 h-7 rounded-full bg-app-accent-primary/20 flex items-center justify-center flex-shrink-0">
+                <i className="ri-user-line text-app-accent-primary text-xs"></i>
               </div>
               <div className="text-left flex-1 min-w-0">
                 <p className="text-white/70 text-xs font-medium truncate">{profile?.display_name || "Học viên"}</p>
                 <div className="flex items-center gap-1">
-                  <div className={`w-1.5 h-1.5 rounded-full ${syncing ? "bg-[#e8c84a] animate-pulse" : "bg-emerald-400"}`}></div>
-                  <p className="text-white/25 text-[10px]">{syncing ? "Đang sync..." : "Đã đồng bộ"}</p>
+                  <div className={`w-1.5 h-1.5 rounded-full ${syncing ? "bg-app-accent-primary animate-pulse" : "bg-emerald-400"}`}></div>
+                  <p className="text-app-text-muted text-[10px]">{syncing ? "Đang sync..." : "Đã đồng bộ"}</p>
                 </div>
               </div>
             </button>
             <button
               onClick={signOut}
-              className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-white/25 hover:text-white/50 text-xs cursor-pointer whitespace-nowrap"
+              className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-app-text-muted hover:text-white/50 text-xs cursor-pointer whitespace-nowrap"
             >
               <i className="ri-logout-box-line text-xs"></i>
               Đăng xuất
@@ -562,27 +562,27 @@ function SidebarInner() {
       {showPinSearch && (
         <div className="fixed inset-0 z-[200] flex items-start justify-start" onClick={() => setShowPinSearch(false)}>
           <div
-            className="w-60 ml-0 mt-0 bg-[#1a1d27] border border-white/10 rounded-r-2xl shadow-2xl flex flex-col"
+            className="w-60 ml-0 mt-0 bg-[#1a1d27] border border-app-border rounded-r-2xl shadow-2xl flex flex-col"
             style={{ maxHeight: "100vh" }}
             onClick={e => e.stopPropagation()}
           >
-            <div className="p-3 border-b border-white/8 flex items-center gap-2">
-              <i className="ri-pushpin-line text-[#e8c84a] text-sm"></i>
+            <div className="p-3 border-b border-app-border flex items-center gap-2">
+              <i className="ri-pushpin-line text-app-accent-primary text-sm"></i>
               <p className="text-white/70 text-xs font-semibold flex-1">Ghim menu yêu thích</p>
-              <button onClick={() => setShowPinSearch(false)} className="text-white/30 hover:text-white/60 cursor-pointer">
+              <button onClick={() => setShowPinSearch(false)} className="text-app-text-muted hover:text-white/60 cursor-pointer">
                 <i className="ri-close-line text-sm"></i>
               </button>
             </div>
-            <div className="p-2 border-b border-white/5">
+            <div className="p-2 border-b border-app-border">
               <div className="relative">
-                <i className="ri-search-line absolute left-2.5 top-1/2 -translate-y-1/2 text-white/30 text-xs"></i>
+                <i className="ri-search-line absolute left-2.5 top-1/2 -translate-y-1/2 text-app-text-muted text-xs"></i>
                 <input
                   type="text"
                   placeholder="Tìm menu..."
                   value={pinSearchQuery}
                   onChange={e => setPinSearchQuery(e.target.value)}
                   autoFocus
-                  className="w-full pl-7 pr-3 py-1.5 bg-white/5 border border-white/8 rounded-lg text-white text-xs placeholder-white/25 focus:outline-none focus:border-white/20"
+                  className="w-full pl-7 pr-3 py-1.5 bg-app-card/50 border border-app-border rounded-lg text-white text-xs placeholder-white/25 focus:outline-none focus:border-white/20"
                 />
               </div>
             </div>
@@ -595,7 +595,7 @@ function SidebarInner() {
                     onClick={() => togglePin(item.path)}
                     className={`w-full flex items-center gap-2 px-2.5 py-2 rounded-lg text-xs transition-all cursor-pointer text-left ${
                       isPinned
-                        ? "bg-[#e8c84a]/10 text-[#e8c84a]"
+                        ? "bg-app-accent-primary/10 text-app-accent-primary"
                         : "text-white/50 hover:text-white/80 hover:bg-white/6"
                     }`}
                   >
@@ -603,16 +603,16 @@ function SidebarInner() {
                       <i className={`${item.icon} text-sm`}></i>
                     </div>
                     <span className="flex-1 truncate">{item.label}</span>
-                    <i className={`${isPinned ? "ri-pushpin-fill text-[#e8c84a]" : "ri-pushpin-line text-white/20"} text-xs flex-shrink-0`}></i>
+                    <i className={`${isPinned ? "ri-pushpin-fill text-app-accent-primary" : "ri-pushpin-line text-app-text-muted"} text-xs flex-shrink-0`}></i>
                   </button>
                 );
               })}
             </div>
             {pinnedPaths.length > 0 && (
-              <div className="p-2 border-t border-white/5">
+              <div className="p-2 border-t border-app-border">
                 <button
                   onClick={() => setPinnedPaths([])}
-                  className="w-full py-1.5 text-xs text-red-400/60 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all cursor-pointer"
+                  className="w-full py-1.5 text-xs text-app-accent-error/60 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all cursor-pointer"
                 >
                   Xóa tất cả ghim ({pinnedPaths.length})
                 </button>

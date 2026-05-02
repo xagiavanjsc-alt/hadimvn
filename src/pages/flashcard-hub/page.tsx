@@ -22,7 +22,7 @@ const DECK_OPTIONS: DeckOption[] = [
     title: "Hán Hàn",
     subtitle: "Hán tự & Từ gốc Hán",
     icon: "ri-character-recognition-line",
-    color: "#e8c84a",
+    color: "app-accent-primary",
     bgColor: "rgba(232,200,74,0.08)",
     path: "/flashcard",
     totalCards: 3501,
@@ -125,7 +125,7 @@ function DeckCard({ deck, onSelect }: { deck: DeckOption; onSelect: () => void }
           </div>
           <div className="flex-1 min-w-0">
             <h3 className="text-white font-bold text-base leading-tight">{deck.title}</h3>
-            <p className="text-white/40 text-xs mt-0.5">{deck.subtitle}</p>
+            <p className="text-app-text-secondary text-xs mt-0.5">{deck.subtitle}</p>
           </div>
         </div>
 
@@ -182,12 +182,12 @@ export default function FlashcardHubPage() {
 
         {recentDeckData && (
           <div className="mb-6">
-            <p className="text-white/40 text-xs mb-3">Gần đây</p>
+            <p className="text-app-text-secondary text-xs mb-3">Gần đây</p>
             <DeckCard deck={recentDeckData} onSelect={() => handleNavigate(recentDeckData)} />
           </div>
         )}
 
-        <p className="text-white/40 text-xs mb-3">Tất cả decks</p>
+        <p className="text-app-text-secondary text-xs mb-3">Tất cả decks</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {DECK_OPTIONS.map(deck => (
             <DeckCard key={deck.id} deck={deck} onSelect={() => handleNavigate(deck)} />

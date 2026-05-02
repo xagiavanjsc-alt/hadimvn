@@ -168,9 +168,9 @@ const GROUP_COLORS: Record<string, string> = {
   "EPS-TOPIK": "#fb923c",
   "Giáo Trình Seoul": "#a78bfa",
   "Cộng đồng & Tiến độ": "#f472b6",
-  "K-pop & Nội dung": "#e8c84a",
+  "K-pop & Nội dung": "app-accent-primary",
   "Tài khoản": "#94a3b8",
-  "Từ vựng": "#e8c84a",
+  "Từ vựng": "app-accent-primary",
   "Naver Q&A": "#03C75A",
 };
 
@@ -186,7 +186,7 @@ function highlight(text: string, query: string) {
   return (
     <>
       {text.slice(0, idx)}
-      <mark className="rounded px-0.5" style={{ backgroundColor: "rgba(232,200,74,0.25)", color: "#e8c84a" }}>{text.slice(idx, idx + query.length)}</mark>
+      <mark className="rounded px-0.5" style={{ backgroundColor: "rgba(232,200,74,0.25)", color: "app-accent-primary" }}>{text.slice(idx, idx + query.length)}</mark>
       {text.slice(idx + query.length)}
     </>
   );
@@ -369,7 +369,7 @@ function GlobalSearchInner() {
                     className="px-2.5 py-1 rounded-lg text-[10px] font-semibold cursor-pointer whitespace-nowrap transition-all"
                     style={{
                       backgroundColor: activeFilter === f.key ? "rgba(232,200,74,0.15)" : "rgba(255,255,255,0.04)",
-                      color: activeFilter === f.key ? "#e8c84a" : "rgba(255,255,255,0.35)",
+                      color: activeFilter === f.key ? "app-accent-primary" : "rgba(255,255,255,0.35)",
                       border: activeFilter === f.key ? "1px solid rgba(232,200,74,0.25)" : "1px solid rgba(255,255,255,0.06)",
                     }}
                   >
@@ -399,7 +399,7 @@ function GlobalSearchInner() {
                     const bg = isActive ? "var(--dash-hover, rgba(255,255,255,0.05))" : "transparent";
 
                     if (r.type === "nav") {
-                      const color = GROUP_COLORS[r.item.group] || "#e8c84a";
+                      const color = GROUP_COLORS[r.item.group] || "app-accent-primary";
                       return (
                         <button
                           key={`nav-${r.item.path}`}
@@ -424,7 +424,7 @@ function GlobalSearchInner() {
                     }
 
                     if (r.type === "vocab") {
-                      const lc = LEVEL_COLORS[r.item.level] || "#e8c84a";
+                      const lc = LEVEL_COLORS[r.item.level] || "app-accent-primary";
                       return (
                         <button
                           key={`vocab-${r.item.word}`}
@@ -435,7 +435,7 @@ function GlobalSearchInner() {
                           style={{ backgroundColor: bg }}
                         >
                           <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: "rgba(232,200,74,0.10)" }}>
-                            <span className="text-sm font-bold" style={{ color: "#e8c84a" }}>{r.item.word.slice(0, 2)}</span>
+                            <span className="text-sm font-bold" style={{ color: "app-accent-primary" }}>{r.item.word.slice(0, 2)}</span>
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2">

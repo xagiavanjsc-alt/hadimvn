@@ -17,7 +17,7 @@ export default function StarDistribution({ lessons }: StarDistributionProps) {
 
   if (total === 0) {
     return (
-      <div className="text-center py-4 text-white/20 text-xs">
+      <div className="text-center py-4 text-app-text-muted text-xs">
         Chưa có bài nào được đánh sao
       </div>
     );
@@ -34,30 +34,30 @@ export default function StarDistribution({ lessons }: StarDistributionProps) {
                 <i
                   key={s}
                   className={`text-[9px] ${
-                    s <= d.stars ? "ri-star-fill text-[#e8c84a]" : "ri-star-line text-white/10"
+                    s <= d.stars ? "ri-star-fill text-app-accent-primary" : "ri-star-line text-white/10"
                   }`}
                 />
               ))}
             </div>
-            <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+            <div className="flex-1 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
               <div
                 className="h-full rounded-full transition-all duration-700"
                 style={{
                   width: `${barPct}%`,
                   backgroundColor:
-                    d.stars >= 4 ? "#e8c84a" : d.stars >= 3 ? "#fb923c" : "rgba(255,255,255,0.2)",
+                    d.stars >= 4 ? "app-accent-primary" : d.stars >= 3 ? "#fb923c" : "rgba(255,255,255,0.2)",
                 }}
               />
             </div>
-            <span className="text-white/40 text-[10px] w-6 text-right flex-shrink-0">
+            <span className="text-app-text-secondary text-[10px] w-6 text-right flex-shrink-0">
               {d.count}
             </span>
           </div>
         );
       })}
-      <div className="pt-2 border-t border-white/5 flex items-center justify-between">
-        <span className="text-white/30 text-[10px]">Bài 4-5 sao (ebook-ready)</span>
-        <span className="text-[#e8c84a] text-xs font-bold">{pct}%</span>
+      <div className="pt-2 border-t border-app-border flex items-center justify-between">
+        <span className="text-app-text-muted text-[10px]">Bài 4-5 sao (ebook-ready)</span>
+        <span className="text-app-accent-primary text-xs font-bold">{pct}%</span>
       </div>
     </div>
   );

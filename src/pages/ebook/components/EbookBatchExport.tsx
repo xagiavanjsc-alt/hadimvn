@@ -62,7 +62,7 @@ export default function EbookBatchExport({ lessons, meta, template, onExportGrou
     <>
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white/60 hover:text-white/90 text-sm font-medium px-4 py-2.5 rounded-xl transition-colors whitespace-nowrap cursor-pointer border border-white/8"
+        className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/60 hover:text-white/90 text-sm font-medium px-4 py-2.5 rounded-xl transition-colors whitespace-nowrap cursor-pointer border border-app-border"
       >
         <i className="ri-stack-line"></i>
         Batch xuất
@@ -70,26 +70,26 @@ export default function EbookBatchExport({ lessons, meta, template, onExportGrou
 
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="bg-[#0f1117] border border-white/10 rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden">
+          <div className="bg-app-bg border border-app-border rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden">
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-white/5 flex-shrink-0">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-app-border flex-shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 flex items-center justify-center bg-[#e8c84a]/10 rounded-lg">
-                  <i className="ri-stack-line text-[#e8c84a] text-base"></i>
+                <div className="w-8 h-8 flex items-center justify-center bg-app-accent-primary/10 rounded-lg">
+                  <i className="ri-stack-line text-app-accent-primary text-base"></i>
                 </div>
                 <div>
                   <h3 className="text-white font-semibold text-sm">Batch xuất PDF</h3>
-                  <p className="text-white/40 text-xs">Xuất nhiều ebook theo nhóm cùng lúc</p>
+                  <p className="text-app-text-secondary text-xs">Xuất nhiều ebook theo nhóm cùng lúc</p>
                 </div>
               </div>
-              <button onClick={() => setOpen(false)} className="w-7 h-7 flex items-center justify-center text-white/30 hover:text-white/60 cursor-pointer">
+              <button onClick={() => setOpen(false)} className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-white/60 cursor-pointer">
                 <i className="ri-close-line text-lg"></i>
               </button>
             </div>
 
             {/* Group by selector */}
-            <div className="px-6 py-4 border-b border-white/5 flex-shrink-0">
-              <p className="text-white/40 text-xs tracking-normal mb-3">Nhóm theo</p>
+            <div className="px-6 py-4 border-b border-app-border flex-shrink-0">
+              <p className="text-app-text-secondary text-xs tracking-normal mb-3">Nhóm theo</p>
               <div className="flex gap-2">
                 {([
                   { value: "artist", label: "Nghệ sĩ", icon: "ri-user-voice-line" },
@@ -101,8 +101,8 @@ export default function EbookBatchExport({ lessons, meta, template, onExportGrou
                     onClick={() => { setGroupBy(opt.value); setSelected(new Set()); }}
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${
                       groupBy === opt.value
-                        ? "bg-[#e8c84a] text-[#0f1117]"
-                        : "bg-white/5 text-white/50 hover:text-white/80 hover:bg-white/8"
+                        ? "bg-app-accent-primary text-app-bg"
+                        : "bg-app-card/50 text-white/50 hover:text-white/80 hover:bg-white/8"
                     }`}
                   >
                     <i className={opt.icon}></i>
@@ -115,11 +115,11 @@ export default function EbookBatchExport({ lessons, meta, template, onExportGrou
             {/* Groups list */}
             <div className="flex-1 overflow-y-auto px-6 py-4 space-y-2">
               <div className="flex items-center justify-between mb-3">
-                <p className="text-white/30 text-xs">{groups.length} nhóm · {lessons.length} bài tổng</p>
+                <p className="text-app-text-muted text-xs">{groups.length} nhóm · {lessons.length} bài tổng</p>
                 <div className="flex items-center gap-2">
-                  <button onClick={selectAll} className="text-[#e8c84a]/70 hover:text-[#e8c84a] text-xs cursor-pointer whitespace-nowrap">Chọn tất cả</button>
-                  <span className="text-white/20 text-xs">·</span>
-                  <button onClick={clearAll} className="text-white/30 hover:text-white/60 text-xs cursor-pointer whitespace-nowrap">Bỏ chọn</button>
+                  <button onClick={selectAll} className="text-app-accent-primary/70 hover:text-app-accent-primary text-xs cursor-pointer whitespace-nowrap">Chọn tất cả</button>
+                  <span className="text-app-text-muted text-xs">·</span>
+                  <button onClick={clearAll} className="text-app-text-muted hover:text-white/60 text-xs cursor-pointer whitespace-nowrap">Bỏ chọn</button>
                 </div>
               </div>
 
@@ -132,28 +132,28 @@ export default function EbookBatchExport({ lessons, meta, template, onExportGrou
                     onClick={() => toggleGroup(groupName)}
                     className={`flex items-center gap-4 px-4 py-3.5 rounded-xl border cursor-pointer transition-all ${
                       isSelected
-                        ? "bg-[#e8c84a]/8 border-[#e8c84a]/30"
-                        : "bg-white/3 border-white/5 hover:border-white/15"
+                        ? "bg-app-accent-primary/8 border-app-accent-primary/30"
+                        : "bg-app-surface/50 border-app-border hover:border-white/15"
                     }`}
                   >
                     <div className={`w-5 h-5 flex items-center justify-center rounded border-2 transition-colors flex-shrink-0 ${
-                      isSelected ? "bg-[#e8c84a] border-[#e8c84a]" : "border-white/20"
+                      isSelected ? "bg-app-accent-primary border-app-accent-primary" : "border-white/20"
                     }`}>
-                      {isSelected && <i className="ri-check-line text-[#0f1117] text-[10px]"></i>}
+                      {isSelected && <i className="ri-check-line text-app-bg text-[10px]"></i>}
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className={`text-sm font-semibold truncate ${isSelected ? "text-white" : "text-white/70"}`}>{groupName}</p>
-                      <p className="text-white/30 text-xs mt-0.5">{groupLessons.length} bài học</p>
+                      <p className="text-app-text-muted text-xs mt-0.5">{groupLessons.length} bài học</p>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
                       {/* Stars preview */}
                       <div className="flex items-center gap-0.5">
                         {[1,2,3,4,5].map(s => {
                           const avgStars = groupLessons.reduce((sum, l) => sum + (l.stars ?? 0), 0) / groupLessons.length;
-                          return <i key={s} className={`text-[9px] ${s <= Math.round(avgStars) ? "ri-star-fill text-[#e8c84a]" : "ri-star-line text-white/15"}`}></i>;
+                          return <i key={s} className={`text-[9px] ${s <= Math.round(avgStars) ? "ri-star-fill text-app-accent-primary" : "ri-star-line text-white/15"}`}></i>;
                         })}
                       </div>
-                      {isExporting && <i className="ri-loader-4-line animate-spin text-[#e8c84a] text-sm"></i>}
+                      {isExporting && <i className="ri-loader-4-line animate-spin text-app-accent-primary text-sm"></i>}
                     </div>
                   </div>
                 );
@@ -161,18 +161,18 @@ export default function EbookBatchExport({ lessons, meta, template, onExportGrou
             </div>
 
             {/* Footer */}
-            <div className="px-6 py-4 border-t border-white/5 flex-shrink-0 flex items-center justify-between">
-              <div className="text-white/30 text-xs">
+            <div className="px-6 py-4 border-t border-app-border flex-shrink-0 flex items-center justify-between">
+              <div className="text-app-text-muted text-xs">
                 {selected.size > 0 ? (
-                  <span className="text-[#e8c84a]">{selected.size} nhóm đã chọn · {groups.filter(([k]) => selected.has(k)).reduce((sum, [, l]) => sum + l.length, 0)} bài</span>
+                  <span className="text-app-accent-primary">{selected.size} nhóm đã chọn · {groups.filter(([k]) => selected.has(k)).reduce((sum, [, l]) => sum + l.length, 0)} bài</span>
                 ) : "Chọn nhóm để xuất"}
               </div>
               <div className="flex items-center gap-2">
-                <button onClick={() => setOpen(false)} className="px-4 py-2 text-white/40 hover:text-white/70 text-sm cursor-pointer whitespace-nowrap">Hủy</button>
+                <button onClick={() => setOpen(false)} className="px-4 py-2 text-app-text-secondary hover:text-white/70 text-sm cursor-pointer whitespace-nowrap">Hủy</button>
                 <button
                   onClick={handleExportSelected}
                   disabled={selected.size === 0 || !!exporting}
-                  className="flex items-center gap-2 bg-[#e8c84a] hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-[#0f1117] font-bold text-sm px-5 py-2.5 rounded-xl transition-colors whitespace-nowrap cursor-pointer"
+                  className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors whitespace-nowrap cursor-pointer"
                 >
                   {exporting ? (
                     <><i className="ri-loader-4-line animate-spin"></i>Đang xuất...</>

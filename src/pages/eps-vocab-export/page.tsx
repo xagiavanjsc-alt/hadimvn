@@ -143,19 +143,19 @@ function PrintPreview({ lessons, onClose }: { lessons: typeof epsLessons; onClos
   return (
     <div className="fixed inset-0 z-50 bg-black/80 flex flex-col">
       {/* Toolbar */}
-      <div className="bg-[#1a1d2e] border-b border-white/10 px-6 py-3 flex items-center justify-between flex-shrink-0">
+      <div className="bg-[#1a1d2e] border-b border-app-border px-6 py-3 flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-3">
-          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-app-card/70 transition-colors cursor-pointer">
             <i className="ri-close-line text-white/60"></i>
           </button>
           <div>
             <p className="text-white font-semibold text-sm">Xem trước khi in</p>
-            <p className="text-white/40 text-xs">{lessons.length} bài — {lessons.reduce((s, l) => s + l.vocabulary.length, 0)} từ</p>
+            <p className="text-app-text-secondary text-xs">{lessons.length} bài — {lessons.reduce((s, l) => s + l.vocabulary.length, 0)} từ</p>
           </div>
         </div>
         <button
           onClick={handlePrint}
-          className="flex items-center gap-2 px-4 py-2 bg-[#e8c84a]/15 hover:bg-[#e8c84a]/25 border border-[#e8c84a]/30 rounded-lg text-[#e8c84a] font-semibold text-sm transition-all cursor-pointer whitespace-nowrap"
+          className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary/15 hover:bg-app-accent-primary/25 border border-app-accent-primary/30 rounded-lg text-app-accent-primary font-semibold text-sm transition-all cursor-pointer whitespace-nowrap"
         >
           <i className="ri-printer-line"></i>
           In ngay (Ctrl+P)
@@ -247,14 +247,14 @@ export default function EpsVocabExportPage() {
   if (!isAdmin) {
     return (
       <DashboardLayout>
-        <div className="min-h-screen bg-[#0f1117] flex items-center justify-center">
+        <div className="min-h-screen bg-app-bg flex items-center justify-center">
           <div className="text-center max-w-sm px-6">
             <div className="w-16 h-16 flex items-center justify-center rounded-2xl mx-auto mb-4" style={{ backgroundColor: "rgba(248,113,113,0.12)" }}>
               <i className="ri-lock-line text-3xl" style={{ color: "#f87171" }}></i>
             </div>
             <h2 className="text-white font-bold text-lg mb-2">Chỉ dành cho Admin</h2>
-            <p className="text-white/40 text-sm mb-6">Tính năng xuất từ vựng chỉ dành cho quản trị viên. Vui lòng đăng nhập với tài khoản admin.</p>
-            <button onClick={() => navigate(-1)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl mx-auto cursor-pointer whitespace-nowrap transition-colors" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "#e8c84a", border: "1px solid rgba(232,200,74,0.25)" }}>
+            <p className="text-app-text-secondary text-sm mb-6">Tính năng xuất từ vựng chỉ dành cho quản trị viên. Vui lòng đăng nhập với tài khoản admin.</p>
+            <button onClick={() => navigate(-1)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl mx-auto cursor-pointer whitespace-nowrap transition-colors" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.25)" }}>
               <i className="ri-arrow-left-line"></i>Quay lại
             </button>
           </div>
@@ -279,7 +279,7 @@ export default function EpsVocabExportPage() {
 
   const formatInfo: Record<ExportFormat, { icon: string; label: string; desc: string; color: string }> = {
     csv: { icon: "ri-table-line", label: "CSV", desc: "Mở bằng Excel, Google Sheets. Dễ in thành bảng.", color: "#34d399" },
-    txt: { icon: "ri-file-text-line", label: "TXT", desc: "File văn bản thuần. Dễ đọc, in ấn đơn giản.", color: "#e8c84a" },
+    txt: { icon: "ri-file-text-line", label: "TXT", desc: "File văn bản thuần. Dễ đọc, in ấn đơn giản.", color: "app-accent-primary" },
     json: { icon: "ri-code-line", label: "JSON", desc: "Dữ liệu có cấu trúc. Dùng cho ứng dụng khác.", color: "#a78bfa" },
     print: { icon: "ri-printer-line", label: "In A4", desc: "Xem trước và in bảng từ vựng đẹp ra giấy A4.", color: "#f97316" },
   };
@@ -290,25 +290,25 @@ export default function EpsVocabExportPage() {
         <PrintPreview lessons={selectedLessons} onClose={() => setShowPrintPreview(false)} />
       )}
 
-      <div className="min-h-screen bg-[#0f1117] text-white">
+      <div className="min-h-screen bg-app-bg text-white">
         {/* Header */}
-        <div className="bg-[#1a1d2e] border-b border-white/5 px-6 py-4">
+        <div className="bg-[#1a1d2e] border-b border-app-border px-6 py-4">
           <div className="flex items-center gap-3">
-            <button onClick={() => navigate(-1)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+            <button onClick={() => navigate(-1)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-app-card/70 transition-colors cursor-pointer">
               <i className="ri-arrow-left-line text-white/60"></i>
             </button>
             <div>
               <h1 className="text-lg font-bold text-white">Xuất & In từ vựng</h1>
-              <p className="text-white/40 text-xs">Tải hoặc in từ vựng EPS để học offline</p>
+              <p className="text-app-text-secondary text-xs">Tải hoặc in từ vựng EPS để học offline</p>
             </div>
           </div>
         </div>
 
         <div className="max-w-2xl mx-auto px-4 py-8 space-y-6">
           {/* Step 1: Choose format */}
-          <div className="bg-white/3 border border-white/8 rounded-xl p-5">
+          <div className="bg-app-surface/50 border border-app-border rounded-xl p-5">
             <h2 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
-              <span className="w-5 h-5 flex items-center justify-center rounded-full bg-[#e8c84a]/20 text-[#e8c84a] text-xs font-bold">1</span>
+              <span className="w-5 h-5 flex items-center justify-center rounded-full bg-app-accent-primary/20 text-app-accent-primary text-xs font-bold">1</span>
               Chọn định dạng xuất
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -317,7 +317,7 @@ export default function EpsVocabExportPage() {
                   key={key}
                   onClick={() => setFormat(key)}
                   className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
-                    format === key ? "" : "border-white/8 bg-white/2 hover:bg-white/5"
+                    format === key ? "" : "border-app-border bg-white/2 hover:bg-app-card/50"
                   }`}
                   style={format === key ? { borderColor: info.color, backgroundColor: `${info.color}15` } : {}}
                 >
@@ -325,7 +325,7 @@ export default function EpsVocabExportPage() {
                     <i className={`${info.icon} text-base`} style={{ color: info.color }}></i>
                   </div>
                   <p className="text-white font-semibold text-sm">{info.label}</p>
-                  <p className="text-white/40 text-[10px] mt-1 leading-relaxed">{info.desc}</p>
+                  <p className="text-app-text-secondary text-[10px] mt-1 leading-relaxed">{info.desc}</p>
                   {key === "print" && (
                     <span className="inline-block mt-1.5 text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ backgroundColor: `${info.color}20`, color: info.color }}>MỚI</span>
                   )}
@@ -335,9 +335,9 @@ export default function EpsVocabExportPage() {
           </div>
 
           {/* Step 2: Choose lessons */}
-          <div className="bg-white/3 border border-white/8 rounded-xl p-5">
+          <div className="bg-app-surface/50 border border-app-border rounded-xl p-5">
             <h2 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
-              <span className="w-5 h-5 flex items-center justify-center rounded-full bg-[#e8c84a]/20 text-[#e8c84a] text-xs font-bold">2</span>
+              <span className="w-5 h-5 flex items-center justify-center rounded-full bg-app-accent-primary/20 text-app-accent-primary text-xs font-bold">2</span>
               Chọn bài học
             </h2>
 
@@ -347,7 +347,7 @@ export default function EpsVocabExportPage() {
                   key={f}
                   onClick={() => setLessonFilter(f)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
-                    lessonFilter === f ? "bg-[#e8c84a]/20 text-[#e8c84a] border border-[#e8c84a]/30" : "bg-white/5 text-white/40 hover:text-white/70"
+                    lessonFilter === f ? "bg-app-accent-primary/20 text-app-accent-primary border border-app-accent-primary/30" : "bg-app-card/50 text-app-text-secondary hover:text-white/70"
                   }`}
                 >
                   {f === "all" ? "Tất cả bài" : f === "range" ? "Theo khoảng" : "Chọn từng bài"}
@@ -358,26 +358,26 @@ export default function EpsVocabExportPage() {
             {lessonFilter === "range" && (
               <div className="flex items-center gap-3 mb-4">
                 <div className="flex-1">
-                  <label className="text-white/40 text-xs mb-1 block">Từ bài</label>
+                  <label className="text-app-text-secondary text-xs mb-1 block">Từ bài</label>
                   <input
                     type="number"
                     min={1}
                     max={56}
                     value={rangeFrom}
                     onChange={e => setRangeFrom(Math.max(1, parseInt(e.target.value) || 1))}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-[#e8c84a]/50"
+                    className="w-full bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary/50"
                   />
                 </div>
-                <div className="text-white/30 mt-5">—</div>
+                <div className="text-app-text-muted mt-5">—</div>
                 <div className="flex-1">
-                  <label className="text-white/40 text-xs mb-1 block">Đến bài</label>
+                  <label className="text-app-text-secondary text-xs mb-1 block">Đến bài</label>
                   <input
                     type="number"
                     min={1}
                     max={56}
                     value={rangeTo}
                     onChange={e => setRangeTo(Math.min(56, parseInt(e.target.value) || 56))}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-[#e8c84a]/50"
+                    className="w-full bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary/50"
                   />
                 </div>
               </div>
@@ -391,8 +391,8 @@ export default function EpsVocabExportPage() {
                     onClick={() => toggleLesson(lesson.id)}
                     className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
                       selectedIds.has(lesson.id)
-                        ? "bg-[#e8c84a]/20 text-[#e8c84a] border border-[#e8c84a]/30"
-                        : "bg-white/5 text-white/40 hover:text-white/70 border border-white/8"
+                        ? "bg-app-accent-primary/20 text-app-accent-primary border border-app-accent-primary/30"
+                        : "bg-app-card/50 text-app-text-secondary hover:text-white/70 border border-app-border"
                     }`}
                   >
                     Bài {lesson.id}
@@ -402,13 +402,13 @@ export default function EpsVocabExportPage() {
             )}
 
             {/* Summary */}
-            <div className="bg-white/3 rounded-lg px-4 py-3 flex items-center justify-between">
+            <div className="bg-app-surface/50 rounded-lg px-4 py-3 flex items-center justify-between">
               <div>
                 <p className="text-white text-sm font-medium">{selectedLessons.length} bài được chọn</p>
-                <p className="text-white/40 text-xs">{totalVocab} từ vựng</p>
+                <p className="text-app-text-secondary text-xs">{totalVocab} từ vựng</p>
               </div>
-              <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#e8c84a]/10">
-                <i className="ri-translate-2 text-[#e8c84a] text-sm"></i>
+              <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-accent-primary/10">
+                <i className="ri-translate-2 text-app-accent-primary text-sm"></i>
               </div>
             </div>
           </div>
@@ -427,14 +427,14 @@ export default function EpsVocabExportPage() {
             disabled={selectedLessons.length === 0}
             className={`w-full py-4 rounded-xl font-bold text-base transition-all cursor-pointer flex items-center justify-center gap-2 ${
               exported
-                ? "bg-emerald-500/20 border border-emerald-500/30 text-emerald-400"
+                ? "bg-emerald-500/20 border border-emerald-500/30 text-app-accent-success"
                 : selectedLessons.length === 0
-                ? "bg-white/5 border border-white/10 text-white/30 cursor-not-allowed"
+                ? "bg-app-card/50 border border-app-border text-app-text-muted cursor-not-allowed"
                 : format === "print"
                 ? "bg-orange-500/15 hover:bg-orange-500/25 border border-orange-500/30 text-orange-400"
                 : !canExport
-                ? "bg-white/5 border border-white/10 text-white/40"
-                : "bg-[#e8c84a]/15 hover:bg-[#e8c84a]/25 border border-[#e8c84a]/30 text-[#e8c84a]"
+                ? "bg-app-card/50 border border-app-border text-app-text-secondary"
+                : "bg-app-accent-primary/15 hover:bg-app-accent-primary/25 border border-app-accent-primary/30 text-app-accent-primary"
             }`}
           >
             {exported ? (
@@ -473,9 +473,9 @@ export default function EpsVocabExportPage() {
           )}
 
           {/* Tips */}
-          <div className="bg-white/2 border border-white/5 rounded-xl p-4 space-y-2">
+          <div className="bg-white/2 border border-app-border rounded-xl p-4 space-y-2">
             <p className="text-white/50 text-xs font-semibold flex items-center gap-1.5">
-              <i className="ri-lightbulb-line text-[#e8c84a]"></i>
+              <i className="ri-lightbulb-line text-app-accent-primary"></i>
               Mẹo học offline
             </p>
             <ul className="space-y-1.5">
@@ -485,8 +485,8 @@ export default function EpsVocabExportPage() {
                 "TXT: Copy vào Anki hoặc Quizlet để tạo flashcard",
                 "JSON: Import vào ứng dụng học tiếng Hàn khác",
               ].map((tip, i) => (
-                <li key={i} className="text-white/30 text-xs flex items-start gap-1.5">
-                  <i className="ri-arrow-right-s-line text-white/20 flex-shrink-0 mt-0.5"></i>
+                <li key={i} className="text-app-text-muted text-xs flex items-start gap-1.5">
+                  <i className="ri-arrow-right-s-line text-app-text-muted flex-shrink-0 mt-0.5"></i>
                   {tip}
                 </li>
               ))}

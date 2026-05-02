@@ -56,14 +56,14 @@ function formatDate(d: Date): string {
 // ─── Stat Card ────────────────────────────────────────────────────────────
 function StatCard({ icon, label, value, sub, color }: { icon: string; label: string; value: string | number; sub?: string; color: string }) {
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5 flex items-center gap-4">
+    <div className="bg-app-bg border border-app-border rounded-2xl p-5 flex items-center gap-4">
       <div className="w-12 h-12 flex items-center justify-center rounded-2xl flex-shrink-0" style={{ backgroundColor: `${color}15` }}>
         <i className={`${icon} text-xl`} style={{ color }}></i>
       </div>
       <div>
         <p className="text-white font-bold text-2xl leading-none">{value}</p>
         <p className="text-white/50 text-xs mt-1">{label}</p>
-        {sub && <p className="text-white/25 text-[10px] mt-0.5">{sub}</p>}
+        {sub && <p className="text-app-text-muted text-[10px] mt-0.5">{sub}</p>}
       </div>
     </div>
   );
@@ -77,7 +77,7 @@ function MiniBarChart({ data, color }: { data: { label: string; value: number }[
       {data.map((d, i) => (
         <div key={i} className="flex-1 flex flex-col items-center gap-1">
           <div className="w-full rounded-t-sm transition-all duration-500" style={{ height: `${(d.value / max) * 52}px`, backgroundColor: d.value > 0 ? color : "rgba(255,255,255,0.05)", minHeight: "4px" }}></div>
-          <span className="text-[9px] text-white/25">{d.label}</span>
+          <span className="text-[9px] text-app-text-muted">{d.label}</span>
         </div>
       ))}
     </div>
@@ -91,47 +91,47 @@ function EmailPreviewModal({ report, email, onClose, onSend, sending }: {
   const accuracy = report.questionsAnswered > 0 ? Math.round((report.correctAnswers / report.questionsAnswered) * 100) : 0;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" onClick={onClose}>
-      <div className="bg-[#1a1d27] border border-white/10 rounded-2xl w-full max-w-lg max-h-[85vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-        <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-white/5">
+      <div className="bg-[#1a1d27] border border-app-border rounded-2xl w-full max-w-lg max-h-[85vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+        <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-app-border">
           <div>
             <h3 className="text-white font-bold text-base">Xem trước email báo cáo</h3>
-            <p className="text-white/40 text-xs mt-0.5">Gửi đến: {email}</p>
+            <p className="text-app-text-secondary text-xs mt-0.5">Gửi đến: {email}</p>
           </div>
-          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/40 cursor-pointer">
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary cursor-pointer">
             <i className="ri-close-line"></i>
           </button>
         </div>
 
         {/* Email preview */}
         <div className="p-6">
-          <div className="bg-[#0f1117] rounded-2xl overflow-hidden border border-white/5">
+          <div className="bg-app-bg rounded-2xl overflow-hidden border border-app-border">
             {/* Email header */}
-            <div className="bg-gradient-to-r from-[#e8c84a]/20 to-[#fb923c]/10 p-6 text-center border-b border-white/5">
-              <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-[#e8c84a]/20 mx-auto mb-3">
-                <i className="ri-bar-chart-box-line text-[#e8c84a] text-2xl"></i>
+            <div className="bg-gradient-to-r from-[app-accent-primary]/20 to-[#fb923c]/10 p-6 text-center border-b border-app-border">
+              <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-app-accent-primary/20 mx-auto mb-3">
+                <i className="ri-bar-chart-box-line text-app-accent-primary text-2xl"></i>
               </div>
               <h2 className="text-white font-bold text-lg">Báo cáo học tập tuần</h2>
               <p className="text-white/50 text-sm mt-1">{report.weekLabel}</p>
-              <p className="text-white/30 text-xs mt-1">Hàn Quốc Ơi! — Học tiếng Hàn</p>
+              <p className="text-app-text-muted text-xs mt-1">Hàn Quốc Ơi! — Học tiếng Hàn</p>
             </div>
 
             {/* Stats grid */}
             <div className="p-5 grid grid-cols-2 gap-3">
               {[
-                { icon: "ri-flashlight-line", label: "XP kiếm được", value: `+${report.xpEarned}`, color: "#e8c84a" },
+                { icon: "ri-flashlight-line", label: "XP kiếm được", value: `+${report.xpEarned}`, color: "app-accent-primary" },
                 { icon: "ri-translate-2", label: "Từ đã học", value: report.wordsLearned, color: "#34d399" },
                 { icon: "ri-fire-line", label: "Streak", value: `${report.streakDays} ngày`, color: "#fb923c" },
                 { icon: "ri-percent-line", label: "Độ chính xác", value: `${accuracy}%`, color: "#a78bfa" },
                 { icon: "ri-calendar-check-line", label: "Ngày học", value: `${report.studyDays}/7`, color: "#38bdf8" },
                 { icon: "ri-brain-line", label: "SR đã ôn", value: report.srCardsReviewed, color: "#f43f5e" },
               ].map(s => (
-                <div key={s.label} className="bg-white/3 rounded-xl p-3 flex items-center gap-3">
+                <div key={s.label} className="bg-app-surface/50 rounded-xl p-3 flex items-center gap-3">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
                     <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
                   </div>
                   <div>
                     <p className="text-white font-bold text-base leading-none">{s.value}</p>
-                    <p className="text-white/40 text-[10px] mt-0.5">{s.label}</p>
+                    <p className="text-app-text-secondary text-[10px] mt-0.5">{s.label}</p>
                   </div>
                 </div>
               ))}
@@ -143,9 +143,9 @@ function EmailPreviewModal({ report, email, onClose, onSend, sending }: {
                 <p className="text-white/50 text-xs font-semibold mb-3 tracking-normal">Kết quả quiz tuần này</p>
                 <div className="space-y-2">
                   {report.quizScores.slice(0, 5).map((q, i) => (
-                    <div key={i} className="flex items-center justify-between bg-white/3 rounded-lg px-3 py-2">
+                    <div key={i} className="flex items-center justify-between bg-app-surface/50 rounded-lg px-3 py-2">
                       <span className="text-white/60 text-xs truncate flex-1">{q.lesson}</span>
-                      <span className="text-[#e8c84a] font-bold text-xs ml-2">{q.score}/{q.total}</span>
+                      <span className="text-app-accent-primary font-bold text-xs ml-2">{q.score}/{q.total}</span>
                     </div>
                   ))}
                 </div>
@@ -154,25 +154,25 @@ function EmailPreviewModal({ report, email, onClose, onSend, sending }: {
 
             {/* Motivational message */}
             <div className="px-5 pb-5">
-              <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4 text-center">
-                <p className="text-[#e8c84a] text-sm font-semibold mb-1">
+              <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4 text-center">
+                <p className="text-app-accent-primary text-sm font-semibold mb-1">
                   {report.studyDays >= 5 ? "Xuất sắc! Bạn học rất chăm chỉ!" : report.studyDays >= 3 ? "Tốt lắm! Tiếp tục duy trì nhé!" : "Hãy cố gắng hơn tuần tới!"}
                 </p>
-                <p className="text-white/40 text-xs">Tiếp tục học mỗi ngày để đạt mục tiêu EPS-TOPIK!</p>
+                <p className="text-app-text-secondary text-xs">Tiếp tục học mỗi ngày để đạt mục tiêu EPS-TOPIK!</p>
               </div>
             </div>
 
             <div className="px-5 pb-5 text-center">
-              <p className="text-white/20 text-[10px]">Email này được gửi tự động từ Hàn Quốc Ơi!</p>
+              <p className="text-app-text-muted text-[10px]">Email này được gửi tự động từ Hàn Quốc Ơi!</p>
             </div>
           </div>
         </div>
 
         <div className="px-6 pb-6 flex gap-3">
-          <button onClick={onClose} className="flex-1 py-3 bg-white/5 hover:bg-white/10 border border-white/8 text-white/60 text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors">
+          <button onClick={onClose} className="flex-1 py-3 bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/60 text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors">
             Hủy
           </button>
-          <button onClick={onSend} disabled={sending} className="flex-1 py-3 bg-[#e8c84a] hover:bg-[#d4b43a] disabled:opacity-50 text-[#0f1117] font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors">
+          <button onClick={onSend} disabled={sending} className="flex-1 py-3 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-50 text-app-bg font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors">
             {sending ? <><i className="ri-loader-4-line animate-spin mr-2"></i>Đang gửi...</> : <><i className="ri-send-plane-line mr-2"></i>Gửi email ngay</>}
           </button>
         </div>
@@ -431,7 +431,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
         <button
           onClick={handleExportPdf}
           disabled={exportingPdf}
-          className="flex items-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white/60 hover:text-white/80 text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors disabled:opacity-50"
+          className="flex items-center gap-2 px-4 py-2.5 bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/60 hover:text-white/80 text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors disabled:opacity-50"
         >
           <i className={exportingPdf ? "ri-loader-4-line animate-spin" : "ri-file-pdf-line"}></i>
           {exportingPdf ? "Đang xuất..." : "Xuất PDF"}
@@ -443,12 +443,12 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
       {/* Week selector */}
       <div className="flex items-center gap-3 mb-6">
         <p className="text-white/50 text-sm">Chọn tuần:</p>
-        <div className="flex items-center bg-white/5 rounded-xl p-1 flex-wrap gap-1">
+        <div className="flex items-center bg-app-card/50 rounded-xl p-1 flex-wrap gap-1">
           {weeks.map((w, i) => (
             <button
               key={i}
               onClick={() => setSelectedWeek(i)}
-              className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedWeek === i ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/40 hover:text-white/70"}`}
+              className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedWeek === i ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/70"}`}
             >
               {i === 0 ? "Tuần này" : i === 1 ? "Tuần trước" : w.label}
             </button>
@@ -458,7 +458,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
 
       {/* Stats grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <StatCard icon="ri-flashlight-line" label="XP kiếm được" value={`+${report.xpEarned}`} sub="tuần này" color="#e8c84a" />
+        <StatCard icon="ri-flashlight-line" label="XP kiếm được" value={`+${report.xpEarned}`} sub="tuần này" color="app-accent-primary" />
         <StatCard icon="ri-translate-2" label="Từ đã học" value={report.wordsLearned} sub="tổng cộng" color="#34d399" />
         <StatCard icon="ri-fire-line" label="Streak hiện tại" value={`${report.streakDays} ngày`} sub="liên tiếp" color="#fb923c" />
         <StatCard icon="ri-percent-line" label="Độ chính xác" value={`${accuracy}%`} sub={`${report.correctAnswers}/${report.questionsAnswered} câu`} color="#a78bfa" />
@@ -470,46 +470,46 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
         {/* Left */}
         <div className="space-y-5">
           {/* Activity chart */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-4">
               <p className="text-white font-semibold text-sm">Hoạt động trong tuần</p>
-              <span className="text-white/30 text-xs">{report.weekLabel}</span>
+              <span className="text-app-text-muted text-xs">{report.weekLabel}</span>
             </div>
-            <MiniBarChart data={dailyActivity} color="#e8c84a" />
+            <MiniBarChart data={dailyActivity} color="app-accent-primary" />
             <div className="flex items-center gap-4 mt-3">
               <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-[#e8c84a]"></div>
-                <span className="text-white/30 text-[10px]">Điểm quiz mỗi ngày</span>
+                <div className="w-2 h-2 rounded-full bg-app-accent-primary"></div>
+                <span className="text-app-text-muted text-[10px]">Điểm quiz mỗi ngày</span>
               </div>
             </div>
           </div>
 
           {/* Quiz history */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <p className="text-white font-semibold text-sm mb-4">Kết quả quiz tuần này</p>
             {report.quizScores.length === 0 ? (
               <div className="text-center py-6">
                 <i className="ri-file-list-3-line text-white/15 text-3xl mb-2 block"></i>
-                <p className="text-white/30 text-sm">Chưa có quiz nào trong tuần này</p>
-                <p className="text-white/20 text-xs mt-1">Hãy làm bài thi EPS hoặc quiz để có dữ liệu</p>
+                <p className="text-app-text-muted text-sm">Chưa có quiz nào trong tuần này</p>
+                <p className="text-app-text-muted text-xs mt-1">Hãy làm bài thi EPS hoặc quiz để có dữ liệu</p>
               </div>
             ) : (
               <div className="space-y-2">
                 {report.quizScores.map((q, i) => {
                   const pct = q.total > 0 ? Math.round((q.score / q.total) * 100) : 0;
-                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
+                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
                   return (
-                    <div key={i} className="flex items-center gap-3 p-3 bg-white/3 rounded-xl">
+                    <div key={i} className="flex items-center gap-3 p-3 bg-app-surface/50 rounded-xl">
                       <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${color}15` }}>
                         <i className="ri-file-list-3-line text-sm" style={{ color }}></i>
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-white/70 text-xs font-medium truncate">{q.lesson}</p>
-                        <p className="text-white/30 text-[10px]">{q.date}</p>
+                        <p className="text-app-text-muted text-[10px]">{q.date}</p>
                       </div>
                       <div className="text-right flex-shrink-0">
                         <p className="font-bold text-sm" style={{ color }}>{q.score}/{q.total}</p>
-                        <p className="text-white/30 text-[10px]">{pct}%</p>
+                        <p className="text-app-text-muted text-[10px]">{pct}%</p>
                       </div>
                     </div>
                   );
@@ -519,11 +519,11 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
           </div>
 
           {/* Progress comparison */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <p className="text-white font-semibold text-sm mb-4">Tiến độ tổng thể</p>
             <div className="space-y-4">
               {[
-                { label: "Từ vựng EPS", current: report.wordsLearned, total: 1500, color: "#e8c84a" },
+                { label: "Từ vựng EPS", current: report.wordsLearned, total: 1500, color: "app-accent-primary" },
                 { label: "Câu hỏi EPS đã làm", current: report.questionsAnswered, total: epsQuestions.length, color: "#34d399" },
                 { label: "Thẻ SR nắm vững", current: report.srMastered, total: epsVocabulary.length, color: "#a78bfa" },
               ].map(item => {
@@ -532,9 +532,9 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
                   <div key={item.label}>
                     <div className="flex items-center justify-between mb-1.5">
                       <span className="text-white/50 text-xs">{item.label}</span>
-                      <span className="text-white/30 text-xs">{item.current}/{item.total} ({pct}%)</span>
+                      <span className="text-app-text-muted text-xs">{item.current}/{item.total} ({pct}%)</span>
                     </div>
-                    <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-2 bg-app-card/50 rounded-full overflow-hidden">
                       <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, backgroundColor: item.color }}></div>
                     </div>
                   </div>
@@ -547,29 +547,29 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
         {/* Right: Email settings */}
         <div className="space-y-4">
           {/* Send report */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#e8c84a]/10">
-                <i className="ri-mail-send-line text-[#e8c84a] text-sm"></i>
+              <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-accent-primary/10">
+                <i className="ri-mail-send-line text-app-accent-primary text-sm"></i>
               </div>
               <p className="text-white font-semibold text-sm">Gửi báo cáo qua email</p>
             </div>
 
             <div className="mb-4">
-              <label className="text-white/40 text-xs mb-1.5 block">Địa chỉ email nhận báo cáo</label>
+              <label className="text-app-text-secondary text-xs mb-1.5 block">Địa chỉ email nhận báo cáo</label>
               <input
                 type="email"
                 value={emailInput}
                 onChange={e => setEmailInput(e.target.value)}
                 placeholder="email@example.com"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40"
+                className="w-full bg-app-card/50 border border-app-border rounded-xl px-3 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40"
               />
             </div>
 
             {emailStatus.success && (
               <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 mb-3 flex items-center gap-2">
-                <i className="ri-checkbox-circle-fill text-emerald-400"></i>
-                <p className="text-emerald-400 text-xs">Email đã được gửi thành công!</p>
+                <i className="ri-checkbox-circle-fill text-app-accent-success"></i>
+                <p className="text-app-accent-success text-xs">Email đã được gửi thành công!</p>
               </div>
             )}
             {emailStatus.error && (
@@ -581,22 +581,22 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
             <div className="space-y-2">
               <button
                 onClick={() => { setEmailStatus({ loading: false, success: false, error: "" }); setShowPreview(true); }}
-                className="w-full flex items-center justify-center gap-2 py-3 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors"
+                className="w-full flex items-center justify-center gap-2 py-3 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors"
               >
                 <i className="ri-eye-line"></i>Xem trước & Gửi email
               </button>
               <button
                 onClick={handleSaveEmail}
-                className="w-full flex items-center justify-center gap-2 py-2.5 bg-white/5 hover:bg-white/10 border border-white/8 text-white/60 text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors"
+                className="w-full flex items-center justify-center gap-2 py-2.5 bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/60 text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors"
               >
-                <i className={savedEmail ? "ri-checkbox-circle-line text-emerald-400" : "ri-save-line"}></i>
+                <i className={savedEmail ? "ri-checkbox-circle-line text-app-accent-success" : "ri-save-line"}></i>
                 {savedEmail ? "Đã lưu!" : "Lưu email mặc định"}
               </button>
             </div>
           </div>
 
           {/* Auto send */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-3">
               <div>
                 <p className="text-white font-semibold text-sm">Gửi tự động hàng tuần</p>
@@ -604,14 +604,14 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
               </div>
               <button
                 onClick={() => setAutoSendEnabled(v => !v)}
-                className={`relative w-10 h-5 rounded-full transition-all cursor-pointer flex-shrink-0 ${autoSendEnabled ? "bg-[#e8c84a]" : "bg-white/10"}`}
+                className={`relative w-10 h-5 rounded-full transition-all cursor-pointer flex-shrink-0 ${autoSendEnabled ? "bg-app-accent-primary" : "bg-app-card/70"}`}
               >
                 <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-all ${autoSendEnabled ? "left-5" : "left-0.5"}`}></div>
               </button>
             </div>
             {autoSendEnabled && (
-              <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-3">
-                <p className="text-[#e8c84a] text-xs">
+              <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-3">
+                <p className="text-app-accent-primary text-xs">
                   <i className="ri-information-line mr-1"></i>
                   Báo cáo sẽ được gửi đến: <strong>{reportEmail || emailInput || "chưa cài đặt"}</strong>
                 </p>
@@ -620,20 +620,20 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
           </div>
 
           {/* Summary card */}
-          <div className="bg-gradient-to-br from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/15 rounded-2xl p-5">
+          <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
-              <i className="ri-trophy-line text-[#e8c84a] text-sm"></i>
+              <i className="ri-trophy-line text-app-accent-primary text-sm"></i>
               <p className="text-white font-semibold text-sm">Tóm tắt tuần</p>
             </div>
             <div className="space-y-2.5">
               {[
-                { label: "Tổng XP tích lũy", value: `${xpData.total.toLocaleString()} XP`, color: "#e8c84a" },
+                { label: "Tổng XP tích lũy", value: `${xpData.total.toLocaleString()} XP`, color: "app-accent-primary" },
                 { label: "Streak hiện tại", value: `${streak.count} ngày`, color: "#fb923c" },
                 { label: "Từ vựng đã học", value: `${report.wordsLearned} từ`, color: "#34d399" },
                 { label: "Độ chính xác EPS", value: `${accuracy}%`, color: "#a78bfa" },
               ].map(s => (
                 <div key={s.label} className="flex items-center justify-between">
-                  <span className="text-white/40 text-xs">{s.label}</span>
+                  <span className="text-app-text-secondary text-xs">{s.label}</span>
                   <span className="font-bold text-sm" style={{ color: s.color }}>{s.value}</span>
                 </div>
               ))}
@@ -641,20 +641,20 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
           </div>
 
           {/* Web Push Notifications */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#a78bfa]/10">
                 <i className="ri-notification-3-line text-[#a78bfa] text-sm"></i>
               </div>
               <div>
                 <p className="text-white font-semibold text-sm">Web Push Notifications</p>
-                <p className="text-white/30 text-[10px]">Nhắc nhở học tập trên trình duyệt</p>
+                <p className="text-app-text-muted text-[10px]">Nhắc nhở học tập trên trình duyệt</p>
               </div>
             </div>
 
             {!pushSupported ? (
-              <div className="bg-white/3 rounded-xl p-3">
-                <p className="text-white/30 text-xs">Trình duyệt của bạn không hỗ trợ Web Push</p>
+              <div className="bg-app-surface/50 rounded-xl p-3">
+                <p className="text-app-text-muted text-xs">Trình duyệt của bạn không hỗ trợ Web Push</p>
               </div>
             ) : pushPermission === "denied" ? (
               <div className="bg-[#f87171]/5 border border-[#f87171]/15 rounded-xl p-3">
@@ -675,11 +675,11 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-white/65 text-xs font-medium">Nhắc báo cáo thứ Hai</p>
-                    <p className="text-white/30 text-[10px]">Lúc {pushSettings.weeklyReportHour}:00 sáng</p>
+                    <p className="text-app-text-muted text-[10px]">Lúc {pushSettings.weeklyReportHour}:00 sáng</p>
                   </div>
                   <button
                     onClick={() => updatePushSettings({ weeklyReport: !pushSettings.weeklyReport })}
-                    className={`relative w-9 h-5 rounded-full transition-all cursor-pointer flex-shrink-0 ${pushSettings.weeklyReport ? "bg-[#a78bfa]" : "bg-white/10"}`}
+                    className={`relative w-9 h-5 rounded-full transition-all cursor-pointer flex-shrink-0 ${pushSettings.weeklyReport ? "bg-[#a78bfa]" : "bg-app-card/70"}`}
                   >
                     <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-all ${pushSettings.weeklyReport ? "left-4" : "left-0.5"}`}></div>
                   </button>
@@ -687,11 +687,11 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-white/65 text-xs font-medium">Nhắc học hàng ngày</p>
-                    <p className="text-white/30 text-[10px]">Lúc {pushSettings.studyReminderHour}:00 tối</p>
+                    <p className="text-app-text-muted text-[10px]">Lúc {pushSettings.studyReminderHour}:00 tối</p>
                   </div>
                   <button
                     onClick={() => updatePushSettings({ studyReminder: !pushSettings.studyReminder })}
-                    className={`relative w-9 h-5 rounded-full transition-all cursor-pointer flex-shrink-0 ${pushSettings.studyReminder ? "bg-[#a78bfa]" : "bg-white/10"}`}
+                    className={`relative w-9 h-5 rounded-full transition-all cursor-pointer flex-shrink-0 ${pushSettings.studyReminder ? "bg-[#a78bfa]" : "bg-app-card/70"}`}
                   >
                     <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-all ${pushSettings.studyReminder ? "left-4" : "left-0.5"}`}></div>
                   </button>
@@ -699,14 +699,14 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-white/65 text-xs font-medium">Nhắc ôn tập SR</p>
-                    <p className="text-white/30 text-[10px]">
+                    <p className="text-app-text-muted text-[10px]">
                       Lúc {pushSettings.srReminderHour}:00 sáng
                       {countSRDueToday() > 0 && <span className="text-[#f43f5e] ml-1">· {countSRDueToday()} thẻ hôm nay</span>}
                     </p>
                   </div>
                   <button
                     onClick={() => updatePushSettings({ srReminder: !pushSettings.srReminder })}
-                    className={`relative w-9 h-5 rounded-full transition-all cursor-pointer flex-shrink-0 ${pushSettings.srReminder ? "bg-[#f43f5e]" : "bg-white/10"}`}
+                    className={`relative w-9 h-5 rounded-full transition-all cursor-pointer flex-shrink-0 ${pushSettings.srReminder ? "bg-[#f43f5e]" : "bg-app-card/70"}`}
                   >
                     <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-all ${pushSettings.srReminder ? "left-4" : "left-0.5"}`}></div>
                   </button>
@@ -719,20 +719,20 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
                 </button>
                 <button
                   onClick={testNotification}
-                  className="w-full flex items-center justify-center gap-1.5 py-2 bg-white/5 hover:bg-white/8 text-white/40 text-xs rounded-lg cursor-pointer whitespace-nowrap transition-colors"
+                  className="w-full flex items-center justify-center gap-1.5 py-2 bg-app-card/50 hover:bg-white/8 text-app-text-secondary text-xs rounded-lg cursor-pointer whitespace-nowrap transition-colors"
                 >
                   <i className="ri-send-plane-line text-xs"></i>Gửi thông báo thử
                 </button>
                 <div className="flex items-center gap-1.5">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
-                  <p className="text-emerald-400/70 text-[10px]">Thông báo đã được bật</p>
+                  <p className="text-app-accent-success/70 text-[10px]">Thông báo đã được bật</p>
                 </div>
               </div>
             )}
           </div>
 
           {/* Tips */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <p className="text-white/50 text-xs font-semibold mb-3 tracking-normal">Gợi ý cải thiện</p>
             <div className="space-y-2.5">
               {accuracy < 70 && (
@@ -755,7 +755,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
               )}
               {report.studyDays >= 5 && accuracy >= 70 && report.srCardsReviewed > 0 && (
                 <div className="flex items-start gap-2">
-                  <i className="ri-checkbox-circle-line text-emerald-400 text-sm flex-shrink-0 mt-0.5"></i>
+                  <i className="ri-checkbox-circle-line text-app-accent-success text-sm flex-shrink-0 mt-0.5"></i>
                   <p className="text-white/45 text-xs">Tuyệt vời! Bạn đang học rất hiệu quả tuần này!</p>
                 </div>
               )}

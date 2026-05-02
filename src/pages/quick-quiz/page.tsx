@@ -90,7 +90,7 @@ function generateTopikQuestions(count: number): QuizQuestion[] {
 const QUIZ_MODES = [
   { id: "vocab_eps", label: "Từ vựng EPS", icon: "ri-translate-2", color: "#fb923c", desc: "Hàn ↔ Việt từ vựng EPS-TOPIK", time: 120 },
   { id: "topik", label: "TOPIK I", icon: "ri-file-list-2-line", color: "#60a5fa", desc: "Câu hỏi thi thử TOPIK I", time: 120 },
-  { id: "mixed", label: "Tổng hợp", icon: "ri-shuffle-line", color: "#e8c84a", desc: "Kết hợp từ vựng + TOPIK", time: 120 },
+  { id: "mixed", label: "Tổng hợp", icon: "ri-shuffle-line", color: "app-accent-primary", desc: "Kết hợp từ vựng + TOPIK", time: 120 },
 ];
 
 // ─── Result Screen ────────────────────────────────────────────────────────────
@@ -103,50 +103,50 @@ function ResultScreen({
 }) {
   const pct = Math.round((score / total) * 100);
   const grade = pct >= 90 ? { label: "Xuất sắc!", color: "#34d399", icon: "ri-trophy-fill" }
-    : pct >= 70 ? { label: "Tốt!", color: "#e8c84a", icon: "ri-thumb-up-fill" }
+    : pct >= 70 ? { label: "Tốt!", color: "app-accent-primary", icon: "ri-thumb-up-fill" }
     : pct >= 50 ? { label: "Khá!", color: "#60a5fa", icon: "ri-star-fill" }
     : { label: "Cần cố gắng hơn", color: "#f87171", icon: "ri-refresh-line" };
 
   return (
     <div className="max-w-2xl mx-auto">
       {/* Score card */}
-      <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-8 text-center mb-6">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center mb-6">
         <div className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: `${grade.color}15` }}>
           <i className={`${grade.icon} text-4xl`} style={{ color: grade.color }}></i>
         </div>
         <h2 className="text-white font-bold text-2xl mb-1">{grade.label}</h2>
-        <p className="text-white/40 text-sm mb-5">Bài kiểm tra nhanh 2 phút — {mode}</p>
+        <p className="text-app-text-secondary text-sm mb-5">Bài kiểm tra nhanh 2 phút — {mode}</p>
         <div className="flex justify-center gap-6 mb-5">
           <div>
             <p className="font-bold text-4xl" style={{ color: grade.color }}>{pct}%</p>
-            <p className="text-white/30 text-xs mt-1">Điểm số</p>
+            <p className="text-app-text-muted text-xs mt-1">Điểm số</p>
           </div>
-          <div className="w-px bg-white/5"></div>
+          <div className="w-px bg-app-card/50"></div>
           <div>
             <p className="text-white font-bold text-4xl">{score}/{total}</p>
-            <p className="text-white/30 text-xs mt-1">Câu đúng</p>
+            <p className="text-app-text-muted text-xs mt-1">Câu đúng</p>
           </div>
-          <div className="w-px bg-white/5"></div>
+          <div className="w-px bg-app-card/50"></div>
           <div>
             <p className="text-white font-bold text-4xl">{timeUsed}s</p>
-            <p className="text-white/30 text-xs mt-1">Thời gian</p>
+            <p className="text-app-text-muted text-xs mt-1">Thời gian</p>
           </div>
         </div>
-        <div className="h-3 bg-white/5 rounded-full overflow-hidden mb-5">
+        <div className="h-3 bg-app-card/50 rounded-full overflow-hidden mb-5">
           <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${pct}%`, backgroundColor: grade.color }}></div>
         </div>
         <div className="flex gap-3">
-          <button onClick={onRetry} className="flex-1 py-3 rounded-xl font-bold text-sm cursor-pointer whitespace-nowrap transition-colors" style={{ backgroundColor: "#e8c84a", color: "#0f1117" }}>
+          <button onClick={onRetry} className="flex-1 py-3 rounded-xl font-bold text-sm cursor-pointer whitespace-nowrap transition-colors" style={{ backgroundColor: "app-accent-primary", color: "#0f1117" }}>
             <i className="ri-refresh-line mr-2"></i>Làm lại
           </button>
-          <button onClick={onHome} className="flex-1 py-3 rounded-xl font-bold text-sm cursor-pointer whitespace-nowrap transition-colors bg-white/5 text-white/60 hover:bg-white/8">
+          <button onClick={onHome} className="flex-1 py-3 rounded-xl font-bold text-sm cursor-pointer whitespace-nowrap transition-colors bg-app-card/50 text-white/60 hover:bg-white/8">
             <i className="ri-home-line mr-2"></i>Về trang chủ
           </button>
         </div>
       </div>
 
       {/* Review answers */}
-      <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-5">
         <h3 className="text-white font-semibold text-sm mb-4">Xem lại đáp án</h3>
         <div className="space-y-3">
           {questions.map((q, i) => {
@@ -156,19 +156,19 @@ function ResultScreen({
               <div key={q.id} className={`rounded-xl p-4 border ${isCorrect ? "border-emerald-500/20 bg-emerald-500/5" : "border-red-500/20 bg-red-500/5"}`}>
                 <div className="flex items-start gap-2 mb-2">
                   <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${isCorrect ? "bg-emerald-500/20" : "bg-red-500/20"}`}>
-                    <i className={`${isCorrect ? "ri-check-line text-emerald-400" : "ri-close-line text-red-400"} text-[10px]`}></i>
+                    <i className={`${isCorrect ? "ri-check-line text-app-accent-success" : "ri-close-line text-red-400"} text-[10px]`}></i>
                   </div>
                   <p className="text-white/75 text-sm font-medium">{q.question}</p>
                 </div>
                 <div className="pl-7 space-y-1">
                   {q.options.map((opt, j) => (
-                    <div key={j} className={`text-xs px-2 py-1 rounded-lg ${j === q.correctIdx ? "text-emerald-400 font-semibold" : j === userAns && !isCorrect ? "text-red-400 line-through" : "text-white/30"}`}>
+                    <div key={j} className={`text-xs px-2 py-1 rounded-lg ${j === q.correctIdx ? "text-app-accent-success font-semibold" : j === userAns && !isCorrect ? "text-red-400 line-through" : "text-app-text-muted"}`}>
                       {j === q.correctIdx && <i className="ri-check-line mr-1"></i>}
                       {j === userAns && !isCorrect && <i className="ri-close-line mr-1"></i>}
                       {opt}
                     </div>
                   ))}
-                  {q.explanation && <p className="text-white/25 text-[10px] italic mt-1">{q.explanation}</p>}
+                  {q.explanation && <p className="text-app-text-muted text-[10px] italic mt-1">{q.explanation}</p>}
                 </div>
               </div>
             );
@@ -261,7 +261,7 @@ export default function QuickQuizPage() {
 
   const currentQ = questions[currentIdx];
   const timerPct = (timeLeft / 120) * 100;
-  const timerColor = timeLeft > 60 ? "#34d399" : timeLeft > 30 ? "#e8c84a" : "#f87171";
+  const timerColor = timeLeft > 60 ? "#34d399" : timeLeft > 30 ? "app-accent-primary" : "#f87171";
 
   if (phase === "result") {
     return (
@@ -291,17 +291,17 @@ export default function QuickQuizPage() {
                 <i className="ri-timer-line text-sm" style={{ color: timerColor }}></i>
                 <span className="font-mono font-bold text-sm" style={{ color: timerColor }}>{timeLeft}s</span>
               </div>
-              <span className="text-white/30 text-xs">{currentIdx + 1}/{questions.length} câu · {score} đúng</span>
+              <span className="text-app-text-muted text-xs">{currentIdx + 1}/{questions.length} câu · {score} đúng</span>
             </div>
-            <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+            <div className="h-2 bg-app-card/50 rounded-full overflow-hidden">
               <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${timerPct}%`, backgroundColor: timerColor }}></div>
             </div>
           </div>
 
           {/* Question */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-8 mb-4 text-center">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-8 mb-4 text-center">
             <div className="flex items-center justify-center gap-2 mb-4">
-              <span className="text-[10px] px-2.5 py-1 rounded-full bg-white/5 text-white/35">{currentQ.category}</span>
+              <span className="text-[10px] px-2.5 py-1 rounded-full bg-app-card/50 text-white/35">{currentQ.category}</span>
               <span className="text-[10px] px-2.5 py-1 rounded-full" style={{ backgroundColor: currentQ.type === "vocab_kr_to_vi" ? "rgba(251,146,60,0.12)" : "rgba(96,165,250,0.12)", color: currentQ.type === "vocab_kr_to_vi" ? "#fb923c" : "#60a5fa" }}>
                 {currentQ.type === "vocab_kr_to_vi" ? "Hàn → Việt" : currentQ.type === "vocab_vi_to_kr" ? "Việt → Hàn" : "TOPIK"}
               </span>
@@ -312,13 +312,13 @@ export default function QuickQuizPage() {
           {/* Options */}
           <div className="grid grid-cols-2 gap-3">
             {currentQ.options.map((opt, i) => {
-              let style = "bg-[#0f1117] border-white/8 text-white/70 hover:border-white/20 hover:bg-white/3";
+              let style = "bg-app-bg border-app-border text-white/70 hover:border-white/20 hover:bg-app-surface/50";
               if (showFeedback) {
-                if (i === currentQ.correctIdx) style = "bg-emerald-500/15 border-emerald-500/40 text-emerald-400";
+                if (i === currentQ.correctIdx) style = "bg-app-accent-success/15 border-emerald-500/40 text-app-accent-success";
                 else if (i === selectedOption) style = "bg-red-500/15 border-red-500/40 text-red-400";
-                else style = "bg-[#0f1117] border-white/5 text-white/30";
+                else style = "bg-app-bg border-app-border text-app-text-muted";
               } else if (selectedOption === i) {
-                style = "bg-[#e8c84a]/10 border-[#e8c84a]/40 text-[#e8c84a]";
+                style = "bg-app-accent-primary/10 border-app-accent-primary/40 text-app-accent-primary";
               }
               return (
                 <button
@@ -329,7 +329,7 @@ export default function QuickQuizPage() {
                 >
                   <span className="text-[10px] font-bold mr-2 opacity-50">{String.fromCharCode(65 + i)}.</span>
                   {opt}
-                  {showFeedback && i === currentQ.correctIdx && <i className="ri-check-line ml-2 text-emerald-400"></i>}
+                  {showFeedback && i === currentQ.correctIdx && <i className="ri-check-line ml-2 text-app-accent-success"></i>}
                   {showFeedback && i === selectedOption && i !== currentQ.correctIdx && <i className="ri-close-line ml-2 text-red-400"></i>}
                 </button>
               );
@@ -337,8 +337,8 @@ export default function QuickQuizPage() {
           </div>
 
           {showFeedback && currentQ.explanation && (
-            <div className="mt-3 px-4 py-3 rounded-xl bg-white/3 border border-white/5">
-              <p className="text-white/40 text-xs"><i className="ri-information-line mr-1"></i>{currentQ.explanation}</p>
+            <div className="mt-3 px-4 py-3 rounded-xl bg-app-surface/50 border border-app-border">
+              <p className="text-app-text-secondary text-xs"><i className="ri-information-line mr-1"></i>{currentQ.explanation}</p>
             </div>
           )}
         </div>
@@ -382,7 +382,7 @@ export default function QuickQuizPage() {
         <button
           onClick={startQuiz}
           className="w-full py-4 rounded-2xl font-bold text-base cursor-pointer whitespace-nowrap transition-all mb-6"
-          style={{ backgroundColor: "#e8c84a", color: "#0f1117" }}
+          style={{ backgroundColor: "app-accent-primary", color: "#0f1117" }}
         >
           <span className="flex items-center justify-center gap-2">
             <i className="ri-play-fill text-lg"></i>
@@ -392,12 +392,12 @@ export default function QuickQuizPage() {
 
         {/* History */}
         {history.length > 0 && (
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">Lịch sử gần đây</h3>
             <div className="space-y-2.5">
               {history.slice(0, 5).map((h, i) => {
                 const pct = Math.round((h.score / h.total) * 100);
-                const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
+                const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
                 return (
                   <div key={i} className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${color}15` }}>
@@ -405,9 +405,9 @@ export default function QuickQuizPage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-white/65 text-xs font-medium">{h.mode}</p>
-                      <p className="text-white/25 text-[10px]">{h.score}/{h.total} đúng · {h.timeSeconds}s · {new Date(h.date).toLocaleDateString("vi-VN")}</p>
+                      <p className="text-app-text-muted text-[10px]">{h.score}/{h.total} đúng · {h.timeSeconds}s · {new Date(h.date).toLocaleDateString("vi-VN")}</p>
                     </div>
-                    <div className="w-16 h-1.5 bg-white/5 rounded-full overflow-hidden flex-shrink-0">
+                    <div className="w-16 h-1.5 bg-app-card/50 rounded-full overflow-hidden flex-shrink-0">
                       <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: color }}></div>
                     </div>
                   </div>

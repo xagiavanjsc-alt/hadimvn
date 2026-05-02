@@ -42,7 +42,7 @@ function GroupNotificationPanel({
   }, []);
 
   const typeConfig = {
-    exam_done: { icon: "ri-file-list-3-line", color: "#e8c84a" },
+    exam_done: { icon: "ri-file-list-3-line", color: "app-accent-primary" },
     streak: { icon: "ri-fire-line", color: "#ea580c" },
     joined: { icon: "ri-user-add-line", color: "#10b981" },
     top_score: { icon: "ri-trophy-line", color: "#d97706" },
@@ -129,7 +129,7 @@ interface StudyGroup {
 
 // Groups stored in localStorage (no mock data)
 
-const AVATAR_COLORS = ["#e8c84a", "#34d399", "#06b6d4", "#a78bfa", "#f87171", "#fb923c", "#ec4899", "#84cc16"];
+const AVATAR_COLORS = ["app-accent-primary", "#34d399", "#06b6d4", "#a78bfa", "#f87171", "#fb923c", "#ec4899", "#84cc16"];
 
 // ─── Group Card ───────────────────────────────────────────────────────────────
 interface GroupCardProps {
@@ -183,7 +183,7 @@ function GroupCard({ group, onJoin, onView, isJoined }: GroupCardProps) {
         <span className="text-gray-400 text-xs">{group.members.length} thành viên</span>
         <span className="text-gray-300">·</span>
         <span className="text-gray-400 text-xs flex items-center gap-1">
-          <i className="ri-trophy-line text-[#e8c84a] text-[10px]"></i>
+          <i className="ri-trophy-line text-app-accent-primary text-[10px]"></i>
           Top: {topMember.name.split(" ").pop()} ({topMember.score}%)
         </span>
       </div>
@@ -191,7 +191,7 @@ function GroupCard({ group, onJoin, onView, isJoined }: GroupCardProps) {
       {/* Stats */}
       <div className="flex items-center gap-3 mb-4 flex-wrap">
         <span className="flex items-center gap-1 text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded-lg">
-          <i className="ri-timer-line text-[#e8c84a] text-[10px]"></i>
+          <i className="ri-timer-line text-app-accent-primary text-[10px]"></i>
           {group.examType}
         </span>
         <span className="flex items-center gap-1 text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded-lg">
@@ -210,7 +210,7 @@ function GroupCard({ group, onJoin, onView, isJoined }: GroupCardProps) {
         {!isJoined ? (
           <button
             onClick={() => onJoin(group)}
-            className="flex-1 py-2.5 bg-[#e8c84a] text-[#0f1117] rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
+            className="flex-1 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
           >
             Tham gia
           </button>
@@ -260,14 +260,14 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
             <h2 className="text-gray-800 font-bold text-lg">{group.name}</h2>
             <p className="text-gray-400 text-sm mt-0.5">{group.description}</p>
           </div>
-          <div className="bg-[#e8c84a]/10 border border-[#e8c84a]/20 rounded-xl px-3 py-2 text-center flex-shrink-0 ml-3">
-            <p className="text-[#e8c84a] font-mono font-bold text-sm">{group.code}</p>
+          <div className="bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-xl px-3 py-2 text-center flex-shrink-0 ml-3">
+            <p className="text-app-accent-primary font-mono font-bold text-sm">{group.code}</p>
             <p className="text-gray-400 text-[10px]">Mã nhóm</p>
           </div>
         </div>
         <div className="flex items-center gap-4 flex-wrap">
           <span className="text-gray-500 text-xs flex items-center gap-1">
-            <i className="ri-group-line text-[#e8c84a]"></i>
+            <i className="ri-group-line text-app-accent-primary"></i>
             {group.members.length} thành viên
           </span>
           <span className="text-gray-500 text-xs flex items-center gap-1">
@@ -308,7 +308,7 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
               <div
                 key={member.id}
                 className={`flex items-center gap-3 p-4 rounded-xl border transition-colors ${
-                  isMe ? "bg-[#e8c84a]/5 border-[#e8c84a]/20" : "bg-white border-gray-200"
+                  isMe ? "bg-app-accent-primary/5 border-app-accent-primary/20" : "bg-white border-gray-200"
                 }`}
               >
                 <div className="w-8 flex items-center justify-center flex-shrink-0">
@@ -325,9 +325,9 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <p className={`text-sm font-semibold ${isMe ? "text-[#e8c84a]" : "text-gray-700"}`}>
+                    <p className={`text-sm font-semibold ${isMe ? "text-app-accent-primary" : "text-gray-700"}`}>
                       {member.name}
-                      {isMe && <span className="ml-1 text-[10px] text-[#e8c84a]/60">(Bạn)</span>}
+                      {isMe && <span className="ml-1 text-[10px] text-app-accent-primary/60">(Bạn)</span>}
                     </p>
                     {member.isOwner && <span className="text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500">Trưởng nhóm</span>}
                   </div>
@@ -342,7 +342,7 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
                 </div>
                 <div className="flex items-center gap-2 flex-shrink-0">
                   <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-[#e8c84a] rounded-full" style={{ width: `${member.score}%` }} />
+                    <div className="h-full bg-app-accent-primary rounded-full" style={{ width: `${member.score}%` }} />
                   </div>
                   <span className="text-sm font-bold text-gray-700 w-10 text-right">{member.score}%</span>
                 </div>
@@ -355,7 +355,7 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
       {tab === "activity" && (
         <div className="space-y-3">
           {[
-            { member: sorted[0], action: "đạt điểm cao nhất tuần này", score: sorted[0].score, time: "2 giờ trước", icon: "ri-trophy-line", color: "#e8c84a" },
+            { member: sorted[0], action: "đạt điểm cao nhất tuần này", score: sorted[0].score, time: "2 giờ trước", icon: "ri-trophy-line", color: "app-accent-primary" },
             { member: sorted[1], action: "hoàn thành bài thi EPS 40 câu", score: sorted[1].score, time: "5 giờ trước", icon: "ri-file-list-3-line", color: "#06b6d4" },
             { member: sorted[2], action: "duy trì streak 8 ngày", score: null, time: "Hôm qua", icon: "ri-fire-line", color: "#fb923c" },
             { member: sorted[0], action: "ôn tập câu sai thông minh", score: null, time: "Hôm qua", icon: "ri-brain-line", color: "#a78bfa" },
@@ -368,7 +368,7 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
                 <p className="text-gray-700 text-sm">
                   <span className="font-semibold">{item.member.name.split(" ").pop()}</span>
                   {" "}{item.action}
-                  {item.score && <span className="text-[#e8c84a] font-bold"> ({item.score}%)</span>}
+                  {item.score && <span className="text-app-accent-primary font-bold"> ({item.score}%)</span>}
                 </p>
                 <p className="text-gray-400 text-xs mt-0.5">{item.time}</p>
               </div>
@@ -384,7 +384,7 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
       <div className="mt-5 grid grid-cols-2 gap-3">
         <button
           onClick={() => navigate("/eps-mock-exam")}
-          className="flex items-center justify-center gap-2 py-3 bg-[#e8c84a] text-[#0f1117] rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap"
+          className="flex items-center justify-center gap-2 py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap"
         >
           <i className="ri-play-fill"></i>
           Thi để cạnh tranh
@@ -404,7 +404,7 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
           onClick={() => setShowSendNotif(true)}
           className="w-full flex items-center justify-center gap-2 py-3 bg-white border border-gray-200 text-gray-600 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors cursor-pointer whitespace-nowrap"
         >
-          <i className="ri-megaphone-line text-[#e8c84a]"></i>
+          <i className="ri-megaphone-line text-app-accent-primary"></i>
           Gửi thông báo cho cả nhóm
         </button>
       </div>
@@ -435,7 +435,7 @@ function SendNotifModal({ group, myName, onClose, onSend }: SendNotifModalProps)
   const [sent, setSent] = useState(false);
 
   const TEMPLATES = [
-    { type: "exam_done" as const, icon: "ri-file-list-3-line", color: "#e8c84a", label: "Vừa thi xong", placeholder: "VD: Vừa đạt 85% trong bài thi EPS! 🎯" },
+    { type: "exam_done" as const, icon: "ri-file-list-3-line", color: "app-accent-primary", label: "Vừa thi xong", placeholder: "VD: Vừa đạt 85% trong bài thi EPS! 🎯" },
     { type: "streak" as const, icon: "ri-fire-line", color: "#ea580c", label: "Streak mới", placeholder: "VD: Đã học 15 ngày liên tiếp! 🔥" },
     { type: "top_score" as const, icon: "ri-trophy-line", color: "#d97706", label: "Điểm cao mới", placeholder: "VD: Phá kỷ lục cá nhân với 92%! 🏆" },
     { type: "joined" as const, icon: "ri-megaphone-line", color: "#10b981", label: "Nhắc nhở nhóm", placeholder: "VD: Nhớ ôn bài hôm nay nhé mọi người! 💪" },
@@ -486,7 +486,7 @@ function SendNotifModal({ group, myName, onClose, onSend }: SendNotifModalProps)
                   <button
                     key={t.type}
                     onClick={() => setType(t.type)}
-                    className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border text-sm font-medium transition-all cursor-pointer ${type === t.type ? "border-[#e8c84a]/40 bg-[#e8c84a]/5 text-gray-700" : "border-gray-200 text-gray-500 hover:bg-gray-50"}`}
+                    className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border text-sm font-medium transition-all cursor-pointer ${type === t.type ? "border-app-accent-primary/40 bg-app-accent-primary/5 text-gray-700" : "border-gray-200 text-gray-500 hover:bg-gray-50"}`}
                   >
                     <i className={`${t.icon} text-base`} style={{ color: t.color }}></i>
                     {t.label}
@@ -503,7 +503,7 @@ function SendNotifModal({ group, myName, onClose, onSend }: SendNotifModalProps)
                 placeholder={selected.placeholder}
                 rows={3}
                 maxLength={200}
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-700 text-sm focus:outline-none focus:border-[#e8c84a]/50 resize-none"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-700 text-sm focus:outline-none focus:border-app-accent-primary/50 resize-none"
               />
               <p className="text-gray-400 text-xs mt-1 text-right">{customMsg.length}/200</p>
             </div>
@@ -524,7 +524,7 @@ function SendNotifModal({ group, myName, onClose, onSend }: SendNotifModalProps)
               <button onClick={onClose} className="flex-1 py-3 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium cursor-pointer whitespace-nowrap">Hủy</button>
               <button
                 onClick={handleSend}
-                className="flex-1 py-3 bg-[#e8c84a] text-[#0f1117] rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap"
+                className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap"
               >
                 <i className="ri-send-plane-line mr-1.5"></i>
                 Gửi thông báo
@@ -592,7 +592,7 @@ function CreateGroupModal({ onClose, onCreate, myName, myId }: CreateGroupModalP
               value={name}
               onChange={e => setName(e.target.value)}
               placeholder="VD: Nhóm EPS Hà Nội 2026"
-              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-700 text-sm focus:outline-none focus:border-[#e8c84a]/50 focus:bg-white transition-colors"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-700 text-sm focus:outline-none focus:border-app-accent-primary/50 focus:bg-white transition-colors"
               maxLength={50}
             />
           </div>
@@ -603,7 +603,7 @@ function CreateGroupModal({ onClose, onCreate, myName, myId }: CreateGroupModalP
               onChange={e => setDescription(e.target.value)}
               placeholder="Mục tiêu, lịch học, yêu cầu thành viên..."
               rows={3}
-              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-700 text-sm focus:outline-none focus:border-[#e8c84a]/50 focus:bg-white transition-colors resize-none"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-700 text-sm focus:outline-none focus:border-app-accent-primary/50 focus:bg-white transition-colors resize-none"
               maxLength={200}
             />
           </div>
@@ -641,7 +641,7 @@ function CreateGroupModal({ onClose, onCreate, myName, myId }: CreateGroupModalP
           <button
             onClick={handleCreate}
             disabled={!name.trim()}
-            className="flex-1 py-3 bg-[#e8c84a] text-[#0f1117] rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap disabled:opacity-50"
+            className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap disabled:opacity-50"
           >
             Tạo nhóm
           </button>
@@ -680,14 +680,14 @@ function JoinGroupModal({ onClose, onJoin, groups }: { onClose: () => void; onJo
             value={code}
             onChange={e => { setCode(e.target.value.toUpperCase()); setError(""); }}
             placeholder="VD: HN2026"
-            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-700 text-sm font-mono focus:outline-none focus:border-[#e8c84a]/50 "
+            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-700 text-sm font-mono focus:outline-none focus:border-app-accent-primary/50 "
             maxLength={10}
           />
           {error && <p className="text-rose-500 text-xs mt-1.5">{error}</p>}
         </div>
         <div className="flex gap-3">
           <button onClick={onClose} className="flex-1 py-3 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium cursor-pointer whitespace-nowrap">Hủy</button>
-          <button onClick={handleJoin} disabled={!code.trim()} className="flex-1 py-3 bg-[#e8c84a] text-[#0f1117] rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap disabled:opacity-50">
+          <button onClick={handleJoin} disabled={!code.trim()} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap disabled:opacity-50">
             Tham gia
           </button>
         </div>
@@ -782,7 +782,7 @@ export default function EpsStudyGroupPage() {
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Tìm nhóm theo tên hoặc mã..."
-              className="w-full bg-white border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 text-gray-700 text-sm focus:outline-none focus:border-[#e8c84a]/50 shadow-sm"
+              className="w-full bg-white border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 text-gray-700 text-sm focus:outline-none focus:border-app-accent-primary/50 shadow-sm"
             />
           </div>
           <GroupNotificationPanel
@@ -799,7 +799,7 @@ export default function EpsStudyGroupPage() {
           </button>
           <button
             onClick={() => setShowCreate(true)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-[#e8c84a] text-[#0f1117] rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-2 px-4 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-add-line"></i>
             Tạo nhóm mới
@@ -810,7 +810,7 @@ export default function EpsStudyGroupPage() {
         {joinedIds.length > 0 && (
           <div className="mb-6">
             <h2 className="text-gray-700 font-semibold text-sm mb-3 flex items-center gap-2">
-              <i className="ri-group-fill text-[#e8c84a]"></i>
+              <i className="ri-group-fill text-app-accent-primary"></i>
               Nhóm của tôi ({joinedIds.length})
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -830,14 +830,14 @@ export default function EpsStudyGroupPage() {
         {/* All groups */}
         <div>
           <h2 className="text-gray-700 font-semibold text-sm mb-3 flex items-center gap-2">
-            <i className="ri-global-line text-[#e8c84a]"></i>
+            <i className="ri-global-line text-app-accent-primary"></i>
             Khám phá nhóm ({filtered.length})
           </h2>
           {filtered.length === 0 ? (
             <div className="text-center py-12 bg-white rounded-2xl border border-gray-200">
               <i className="ri-group-line text-gray-300 text-4xl mb-3 block"></i>
               <p className="text-gray-500 text-sm">Không tìm thấy nhóm nào</p>
-              <button onClick={() => setShowCreate(true)} className="mt-3 text-[#e8c84a] text-sm font-medium cursor-pointer">
+              <button onClick={() => setShowCreate(true)} className="mt-3 text-app-accent-primary text-sm font-medium cursor-pointer">
                 Tạo nhóm đầu tiên →
               </button>
             </div>
@@ -859,14 +859,14 @@ export default function EpsStudyGroupPage() {
         {/* How it works */}
         <div className="mt-8 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
           <h3 className="text-gray-700 font-semibold text-sm mb-4 flex items-center gap-2">
-            <i className="ri-question-line text-[#e8c84a]"></i>
+            <i className="ri-question-line text-app-accent-primary"></i>
             Cách hoạt động
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { icon: "ri-add-circle-line", color: "#e8c84a", title: "Tạo hoặc tham gia", desc: "Tạo nhóm mới hoặc nhập mã nhóm từ bạn bè" },
+              { icon: "ri-add-circle-line", color: "app-accent-primary", title: "Tạo hoặc tham gia", desc: "Tạo nhóm mới hoặc nhập mã nhóm từ bạn bè" },
               { icon: "ri-timer-line", color: "#06b6d4", title: "Thi đua cùng nhau", desc: "Làm bài thi EPS, điểm tự động cập nhật BXH nhóm" },
-              { icon: "ri-trophy-line", color: "#e8c84a", title: "So sánh tiến bộ", desc: "Xem ai đang dẫn đầu, ai cần cố gắng thêm" },
+              { icon: "ri-trophy-line", color: "app-accent-primary", title: "So sánh tiến bộ", desc: "Xem ai đang dẫn đầu, ai cần cố gắng thêm" },
             ].map((item, i) => (
               <div key={i} className="text-center">
                 <div className="w-12 h-12 flex items-center justify-center rounded-2xl mx-auto mb-3" style={{ backgroundColor: `${item.color}15` }}>

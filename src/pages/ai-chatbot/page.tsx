@@ -166,15 +166,15 @@ const TRANSLATIONS: Record<string, string> = {
 const colorMap: Record<string, { bg: string; text: string; border: string; light: string }> = {
   amber: { bg: "bg-amber-500/20", text: "text-amber-400", border: "border-amber-500/30", light: "bg-amber-500/10" },
   teal: { bg: "bg-teal-500/20", text: "text-teal-400", border: "border-teal-500/30", light: "bg-teal-500/10" },
-  emerald: { bg: "bg-emerald-500/20", text: "text-emerald-400", border: "border-emerald-500/30", light: "bg-emerald-500/10" },
+  emerald: { bg: "bg-emerald-500/20", text: "text-app-accent-success", border: "border-emerald-500/30", light: "bg-emerald-500/10" },
   orange: { bg: "bg-orange-500/20", text: "text-orange-400", border: "border-orange-500/30", light: "bg-orange-500/10" },
   violet: { bg: "bg-violet-500/20", text: "text-violet-400", border: "border-violet-500/30", light: "bg-violet-500/10" },
-  yellow: { bg: "bg-[#e8c84a]/20", text: "text-[#e8c84a]", border: "border-[#e8c84a]/30", light: "bg-[#e8c84a]/10" },
+  yellow: { bg: "bg-app-accent-primary/20", text: "text-app-accent-primary", border: "border-app-accent-primary/30", light: "bg-app-accent-primary/10" },
 };
 
 const levelColor: Record<string, string> = {
-  "A1": "text-emerald-400", "A2": "text-teal-400", "B1": "text-amber-400",
-  "B2": "text-orange-400", "A1-C1": "text-[#e8c84a]",
+  "A1": "text-app-accent-success", "A2": "text-teal-400", "B1": "text-amber-400",
+  "B2": "text-orange-400", "A1-C1": "text-app-accent-primary",
 };
 
 export default function AIChatbotPage() {
@@ -329,7 +329,7 @@ export default function AIChatbotPage() {
                   <button
                     key={scenario.id}
                     onClick={() => startScenario(scenario)}
-                    className="bg-[#1a1f2e] rounded-xl p-5 border border-white/8 hover:border-white/20 transition-all cursor-pointer text-left group"
+                    className="bg-[#1a1f2e] rounded-xl p-5 border border-app-border hover:border-white/20 transition-all cursor-pointer text-left group"
                   >
                     <div className={`w-12 h-12 rounded-xl ${colors.light} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}>
                       <i className={`${scenario.icon} ${colors.text} text-xl`}></i>
@@ -338,7 +338,7 @@ export default function AIChatbotPage() {
                       <h3 className="text-white font-semibold text-sm">{scenario.title}</h3>
                       <span className={`text-[10px] font-bold ${levelColor[scenario.level]}`}>{scenario.level}</span>
                     </div>
-                    <p className="text-white/40 text-xs">{scenario.description}</p>
+                    <p className="text-app-text-secondary text-xs">{scenario.description}</p>
                     <div className={`mt-3 flex items-center gap-1 ${colors.text} text-xs font-semibold`}>
                       <i className="ri-play-circle-line"></i>
                       Bắt đầu
@@ -348,8 +348,8 @@ export default function AIChatbotPage() {
               })}
             </div>
 
-            <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4">
-              <h3 className="text-[#e8c84a] text-sm font-semibold mb-2"><i className="ri-lightbulb-line mr-1.5"></i>Mẹo luyện tập</h3>
+            <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
+              <h3 className="text-app-accent-primary text-sm font-semibold mb-2"><i className="ri-lightbulb-line mr-1.5"></i>Mẹo luyện tập</h3>
               <ul className="space-y-1 text-white/50 text-xs">
                 <li>• Cố gắng viết bằng tiếng Hàn, không dùng tiếng Việt</li>
                 <li>• Dùng Quick Phrases để học câu mẫu nhanh</li>
@@ -361,9 +361,9 @@ export default function AIChatbotPage() {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
             {/* Chat area */}
-            <div className="lg:col-span-3 flex flex-col bg-[#1a1f2e] rounded-xl border border-white/8 overflow-hidden" style={{ height: "calc(100vh - 220px)", minHeight: "500px" }}>
+            <div className="lg:col-span-3 flex flex-col bg-[#1a1f2e] rounded-xl border border-app-border overflow-hidden" style={{ height: "calc(100vh - 220px)", minHeight: "500px" }}>
               {/* Chat header */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-white/8 flex-shrink-0">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-app-border flex-shrink-0">
                 <div className="flex items-center gap-3">
                   <div className={`w-9 h-9 rounded-xl ${colorMap[selectedScenario.color].light} flex items-center justify-center`}>
                     <i className={`${selectedScenario.icon} ${colorMap[selectedScenario.color].text} text-base`}></i>
@@ -372,14 +372,14 @@ export default function AIChatbotPage() {
                     <p className="text-white font-semibold text-sm">{selectedScenario.title}</p>
                     <div className="flex items-center gap-2">
                       <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></div>
-                      <span className="text-white/30 text-xs">AI đang hoạt động</span>
+                      <span className="text-app-text-muted text-xs">AI đang hoạt động</span>
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="text-right">
                     <p className="text-white/50 text-xs">{formatDuration(sessionStats.duration)}</p>
-                    <p className="text-white/30 text-[10px]">{sessionStats.messages} tin nhắn</p>
+                    <p className="text-app-text-muted text-[10px]">{sessionStats.messages} tin nhắn</p>
                   </div>
                   <button onClick={endSession} className="px-3 py-1.5 rounded-lg bg-white/8 text-white/50 text-xs hover:bg-white/12 transition-all cursor-pointer whitespace-nowrap">
                     <i className="ri-stop-circle-line mr-1"></i>Kết thúc
@@ -392,7 +392,7 @@ export default function AIChatbotPage() {
                 {messages.map(msg => (
                   <div key={msg.id} className={`flex gap-3 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                      msg.role === "ai" ? `${colorMap[selectedScenario.color].light}` : "bg-white/10"
+                      msg.role === "ai" ? `${colorMap[selectedScenario.color].light}` : "bg-app-card/70"
                     }`}>
                       <i className={`text-sm ${msg.role === "ai" ? `${colorMap[selectedScenario.color].text} ri-robot-line` : "text-white/60 ri-user-line"}`}></i>
                     </div>
@@ -405,13 +405,13 @@ export default function AIChatbotPage() {
                         {msg.text}
                       </div>
                       {showTranslation.has(msg.id) && msg.translation && (
-                        <p className="text-white/40 text-xs italic px-1">{msg.translation}</p>
+                        <p className="text-app-text-secondary text-xs italic px-1">{msg.translation}</p>
                       )}
                       <div className={`flex items-center gap-1.5 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
-                        <button onClick={() => playTTS(msg.text)} className="text-white/20 hover:text-white/50 cursor-pointer transition-colors">
+                        <button onClick={() => playTTS(msg.text)} className="text-app-text-muted hover:text-white/50 cursor-pointer transition-colors">
                           <i className="ri-volume-up-line text-xs"></i>
                         </button>
-                        <button onClick={() => toggleTranslation(msg.id)} className="text-white/20 hover:text-white/50 cursor-pointer transition-colors">
+                        <button onClick={() => toggleTranslation(msg.id)} className="text-app-text-muted hover:text-white/50 cursor-pointer transition-colors">
                           <i className="ri-translate-2 text-xs"></i>
                         </button>
                         <span className="text-white/15 text-[10px]">{msg.timestamp.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" })}</span>
@@ -435,7 +435,7 @@ export default function AIChatbotPage() {
               </div>
 
               {/* Quick phrases */}
-              <div className="px-4 py-2 border-t border-white/5 flex gap-2 overflow-x-auto flex-shrink-0">
+              <div className="px-4 py-2 border-t border-app-border flex gap-2 overflow-x-auto flex-shrink-0">
                 {(QUICK_PHRASES[selectedScenario.id] || []).map(phrase => (
                   <button
                     key={phrase}
@@ -448,7 +448,7 @@ export default function AIChatbotPage() {
               </div>
 
               {/* Input */}
-              <div className="px-4 py-3 border-t border-white/8 flex gap-2 flex-shrink-0">
+              <div className="px-4 py-3 border-t border-app-border flex gap-2 flex-shrink-0">
                 <input
                   ref={inputRef}
                   type="text"
@@ -456,7 +456,7 @@ export default function AIChatbotPage() {
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={e => e.key === "Enter" && sendMessage()}
                   placeholder="한국어로 입력하세요... (Nhập tiếng Hàn)"
-                  className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/25 focus:outline-none focus:border-white/25"
+                  className="flex-1 bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/25 focus:outline-none focus:border-white/25"
                 />
                 <button
                   onClick={sendMessage}
@@ -470,7 +470,7 @@ export default function AIChatbotPage() {
 
             {/* Sidebar */}
             <div className="space-y-4">
-              <div className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8">
+              <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border">
                 <h3 className="text-white/70 text-sm font-semibold mb-3">Thống kê phiên</h3>
                 <div className="space-y-2">
                   {[
@@ -479,7 +479,7 @@ export default function AIChatbotPage() {
                     { label: "Tình huống", value: selectedScenario.title, icon: "ri-map-pin-line" },
                   ].map(item => (
                     <div key={item.label} className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-white/40 text-xs">
+                      <div className="flex items-center gap-2 text-app-text-secondary text-xs">
                         <i className={`${item.icon} text-sm`}></i>
                         {item.label}
                       </div>
@@ -489,7 +489,7 @@ export default function AIChatbotPage() {
                 </div>
               </div>
 
-              <div className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8">
+              <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border">
                 <h3 className="text-white/70 text-sm font-semibold mb-3">Đổi tình huống</h3>
                 <div className="space-y-1">
                   {SCENARIOS.map(s => (
@@ -497,7 +497,7 @@ export default function AIChatbotPage() {
                       key={s.id}
                       onClick={() => startScenario(s)}
                       className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer text-left ${
-                        selectedScenario.id === s.id ? `${colorMap[s.color].light} ${colorMap[s.color].text}` : "text-white/40 hover:bg-white/5"
+                        selectedScenario.id === s.id ? `${colorMap[s.color].light} ${colorMap[s.color].text}` : "text-app-text-secondary hover:bg-app-card/50"
                       }`}
                     >
                       <i className={`${s.icon} text-sm`}></i>
@@ -507,9 +507,9 @@ export default function AIChatbotPage() {
                 </div>
               </div>
 
-              <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4">
-                <h3 className="text-[#e8c84a] text-xs font-semibold mb-2"><i className="ri-lightbulb-line mr-1"></i>Mẹo</h3>
-                <p className="text-white/40 text-xs">Nhấn nút dịch 🌐 để xem nghĩa tiếng Việt của từng tin nhắn</p>
+              <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
+                <h3 className="text-app-accent-primary text-xs font-semibold mb-2"><i className="ri-lightbulb-line mr-1"></i>Mẹo</h3>
+                <p className="text-app-text-secondary text-xs">Nhấn nút dịch 🌐 để xem nghĩa tiếng Việt của từng tin nhắn</p>
               </div>
             </div>
           </div>

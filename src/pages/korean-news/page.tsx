@@ -270,7 +270,7 @@ const CATEGORIES = ["Tất cả", "경제", "사회", "문화", "날씨", "음�
 const LEVELS = ["Tất cả", "A1", "A2", "B1", "B2"];
 
 const levelColor: Record<string, string> = {
-  A1: "bg-emerald-500/20 text-emerald-400",
+  A1: "bg-emerald-500/20 text-app-accent-success",
   A2: "bg-teal-500/20 text-teal-400",
   B1: "bg-amber-500/20 text-amber-400",
   B2: "bg-orange-500/20 text-orange-400",
@@ -282,7 +282,7 @@ const categoryColor: Record<string, string> = {
   문화: "bg-pink-500/15 text-pink-300",
   날씨: "bg-sky-500/15 text-sky-300",
   음식: "bg-orange-500/15 text-orange-300",
-  교육: "bg-emerald-500/15 text-emerald-300",
+  교육: "bg-app-accent-success/15 text-emerald-300",
 };
 
 export default function KoreanNewsPage() {
@@ -348,7 +348,7 @@ export default function KoreanNewsPage() {
             <h1 className="text-2xl font-bold text-white">Luyện Nghe Qua Tin Tức Hàn Quốc</h1>
             <p className="text-white/50 text-sm mt-1">Đọc báo Hàn với từ vựng được highlight và dịch song ngữ</p>
           </div>
-          <div className="text-white/30 text-sm"><i className="ri-newspaper-line mr-1"></i>{ARTICLES.length} bài báo</div>
+          <div className="text-app-text-muted text-sm"><i className="ri-newspaper-line mr-1"></i>{ARTICLES.length} bài báo</div>
         </div>
 
         {selectedArticle ? (
@@ -358,13 +358,13 @@ export default function KoreanNewsPage() {
                 <i className="ri-arrow-left-line"></i>Quay lại
               </button>
               <div className="flex items-center gap-2">
-                <span className="text-white/30 text-xs">Cỡ chữ:</span>
+                <span className="text-app-text-muted text-xs">Cỡ chữ:</span>
                 {(["sm", "base", "lg"] as const).map(s => (
-                  <button key={s} onClick={() => setFontSize(s)} className={`w-7 h-7 rounded-lg text-xs transition-all cursor-pointer ${fontSize === s ? "bg-[#e8c84a]/20 text-[#e8c84a]" : "bg-white/5 text-white/40"}`}>
+                  <button key={s} onClick={() => setFontSize(s)} className={`w-7 h-7 rounded-lg text-xs transition-all cursor-pointer ${fontSize === s ? "bg-app-accent-primary/20 text-app-accent-primary" : "bg-app-card/50 text-app-text-secondary"}`}>
                     {s === "sm" ? "A" : s === "base" ? "A" : "A"}
                   </button>
                 ))}
-                <button onClick={() => setShowTranslation(!showTranslation)} className={`px-3 py-1.5 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${showTranslation ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "bg-white/5 text-white/40"}`}>
+                <button onClick={() => setShowTranslation(!showTranslation)} className={`px-3 py-1.5 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${showTranslation ? "bg-app-accent-primary/15 text-app-accent-primary" : "bg-app-card/50 text-app-text-secondary"}`}>
                   <i className="ri-translate-2 mr-1"></i>{showTranslation ? "Ẩn dịch" : "Hiện dịch"}
                 </button>
               </div>
@@ -373,23 +373,23 @@ export default function KoreanNewsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Article */}
               <div className="lg:col-span-2 space-y-4">
-                <div className="bg-[#1a1f2e] rounded-2xl overflow-hidden border border-white/8">
+                <div className="bg-[#1a1f2e] rounded-2xl overflow-hidden border border-app-border">
                   <img src={selectedArticle.thumbnail} alt={selectedArticle.title} className="w-full h-52 object-cover object-top" />
                   <div className="p-6">
                     <div className="flex items-center gap-2 mb-3">
                       <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${levelColor[selectedArticle.level]}`}>{selectedArticle.level}</span>
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${categoryColor[selectedArticle.category] || "bg-white/10 text-white/50"}`}>{selectedArticle.category}</span>
-                      <span className="text-white/30 text-xs">{selectedArticle.source} · {selectedArticle.date}</span>
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${categoryColor[selectedArticle.category] || "bg-app-card/70 text-white/50"}`}>{selectedArticle.category}</span>
+                      <span className="text-app-text-muted text-xs">{selectedArticle.source} · {selectedArticle.date}</span>
                     </div>
                     <div className="flex items-start gap-2 mb-1">
                       <h2 className={`text-white font-bold leading-snug flex-1 ${fontSizeClass}`}>{selectedArticle.title}</h2>
-                      <button onClick={() => playTTS(selectedArticle.title)} className="text-white/30 hover:text-white/60 cursor-pointer flex-shrink-0 mt-0.5">
+                      <button onClick={() => playTTS(selectedArticle.title)} className="text-app-text-muted hover:text-white/60 cursor-pointer flex-shrink-0 mt-0.5">
                         <i className="ri-volume-up-line"></i>
                       </button>
                     </div>
-                    {showTranslation && <p className="text-white/40 text-sm italic mb-4">{selectedArticle.titleVi}</p>}
+                    {showTranslation && <p className="text-app-text-secondary text-sm italic mb-4">{selectedArticle.titleVi}</p>}
 
-                    <div className="border-t border-white/5 pt-4 mt-4">
+                    <div className="border-t border-app-border pt-4 mt-4">
                       {/* Highlighted content */}
                       <div className={`${fontSizeClass} leading-relaxed text-white/80 whitespace-pre-line relative`}>
                         {highlightContent(selectedArticle.content, selectedArticle.vocab).map((part, i) =>
@@ -400,7 +400,7 @@ export default function KoreanNewsPage() {
                               onMouseEnter={() => setHoveredWord(part.vocab!)}
                               onMouseLeave={() => setHoveredWord(null)}
                             >
-                              <span className={`border-b-2 border-dashed transition-colors ${savedWords.has(part.vocab.word) ? "border-emerald-400 text-emerald-300" : "border-[#e8c84a]/60 text-[#e8c84a]"}`}>
+                              <span className={`border-b-2 border-dashed transition-colors ${savedWords.has(part.vocab.word) ? "border-emerald-400 text-emerald-300" : "border-app-accent-primary/60 text-app-accent-primary"}`}>
                                 {part.text}
                               </span>
                             </span>
@@ -410,7 +410,7 @@ export default function KoreanNewsPage() {
                         )}
                       </div>
                       {showTranslation && (
-                        <div className={`mt-4 pt-4 border-t border-white/5 ${fontSizeClass} leading-relaxed text-white/40 italic whitespace-pre-line`}>
+                        <div className={`mt-4 pt-4 border-t border-app-border ${fontSizeClass} leading-relaxed text-app-text-secondary italic whitespace-pre-line`}>
                           {selectedArticle.contentVi}
                         </div>
                       )}
@@ -423,14 +423,14 @@ export default function KoreanNewsPage() {
               <div className="space-y-4">
                 {/* Hovered word tooltip */}
                 {hoveredWord && (
-                  <div className="bg-[#e8c84a]/10 border border-[#e8c84a]/25 rounded-xl p-4 animate-pulse-once">
+                  <div className="bg-app-accent-primary/10 border border-app-accent-primary/25 rounded-xl p-4 animate-pulse-once">
                     <div className="flex items-center justify-between mb-1">
-                      <p className="text-[#e8c84a] font-bold text-lg">{hoveredWord.word}</p>
+                      <p className="text-app-accent-primary font-bold text-lg">{hoveredWord.word}</p>
                       <div className="flex items-center gap-1.5">
-                        <button onClick={() => playTTS(hoveredWord.word)} className="text-white/40 hover:text-white/70 cursor-pointer">
+                        <button onClick={() => playTTS(hoveredWord.word)} className="text-app-text-secondary hover:text-white/70 cursor-pointer">
                           <i className="ri-volume-up-line text-sm"></i>
                         </button>
-                        <button onClick={() => setSavedWords(prev => { const n = new Set(prev); n.has(hoveredWord.word) ? n.delete(hoveredWord.word) : n.add(hoveredWord.word); return n; })} className={`cursor-pointer ${savedWords.has(hoveredWord.word) ? "text-emerald-400" : "text-white/30 hover:text-white/60"}`}>
+                        <button onClick={() => setSavedWords(prev => { const n = new Set(prev); n.has(hoveredWord.word) ? n.delete(hoveredWord.word) : n.add(hoveredWord.word); return n; })} className={`cursor-pointer ${savedWords.has(hoveredWord.word) ? "text-app-accent-success" : "text-app-text-muted hover:text-white/60"}`}>
                           <i className={`${savedWords.has(hoveredWord.word) ? "ri-bookmark-fill" : "ri-bookmark-line"} text-sm`}></i>
                         </button>
                       </div>
@@ -442,26 +442,26 @@ export default function KoreanNewsPage() {
                 )}
 
                 {/* Vocab list */}
-                <div className="bg-[#1a1f2e] rounded-xl border border-white/8 overflow-hidden">
-                  <div className="px-4 py-3 border-b border-white/5 flex items-center justify-between">
+                <div className="bg-[#1a1f2e] rounded-xl border border-app-border overflow-hidden">
+                  <div className="px-4 py-3 border-b border-app-border flex items-center justify-between">
                     <h3 className="text-white/70 text-sm font-semibold">Từ vựng trong bài</h3>
-                    <span className="text-white/30 text-xs">{savedWords.size} đã lưu</span>
+                    <span className="text-app-text-muted text-xs">{savedWords.size} đã lưu</span>
                   </div>
                   <div className="p-3 space-y-1.5">
                     {selectedArticle.vocab.map(v => (
-                      <div key={v.word} className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-all group">
+                      <div key={v.word} className="flex items-center gap-3 p-2 rounded-lg hover:bg-app-card/50 transition-all group">
                         <div className="flex-1">
                           <div className="flex items-center gap-2">
-                            <span className="text-[#e8c84a] font-semibold text-sm">{v.word}</span>
+                            <span className="text-app-accent-primary font-semibold text-sm">{v.word}</span>
                             <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${levelColor[v.level]}`}>{v.level}</span>
                           </div>
-                          <p className="text-white/40 text-xs">{v.pronunciation} · {v.meaning}</p>
+                          <p className="text-app-text-secondary text-xs">{v.pronunciation} · {v.meaning}</p>
                         </div>
                         <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <button onClick={() => playTTS(v.word)} className="text-white/30 hover:text-white/60 cursor-pointer">
+                          <button onClick={() => playTTS(v.word)} className="text-app-text-muted hover:text-white/60 cursor-pointer">
                             <i className="ri-volume-up-line text-xs"></i>
                           </button>
-                          <button onClick={() => setSavedWords(prev => { const n = new Set(prev); n.has(v.word) ? n.delete(v.word) : n.add(v.word); return n; })} className={`cursor-pointer ${savedWords.has(v.word) ? "text-emerald-400" : "text-white/30 hover:text-white/60"}`}>
+                          <button onClick={() => setSavedWords(prev => { const n = new Set(prev); n.has(v.word) ? n.delete(v.word) : n.add(v.word); return n; })} className={`cursor-pointer ${savedWords.has(v.word) ? "text-app-accent-success" : "text-app-text-muted hover:text-white/60"}`}>
                             <i className={`${savedWords.has(v.word) ? "ri-bookmark-fill" : "ri-bookmark-line"} text-xs`}></i>
                           </button>
                         </div>
@@ -470,13 +470,13 @@ export default function KoreanNewsPage() {
                   </div>
                 </div>
 
-                <div className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8">
+                <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border">
                   <h3 className="text-white/70 text-sm font-semibold mb-2">Hướng dẫn đọc</h3>
-                  <ul className="space-y-1.5 text-white/40 text-xs">
-                    <li className="flex items-start gap-1.5"><i className="ri-checkbox-circle-line text-[#e8c84a] mt-0.5 flex-shrink-0"></i>Di chuột vào từ màu vàng để xem nghĩa</li>
-                    <li className="flex items-start gap-1.5"><i className="ri-checkbox-circle-line text-[#e8c84a] mt-0.5 flex-shrink-0"></i>Nhấn 🔖 để lưu từ vựng</li>
-                    <li className="flex items-start gap-1.5"><i className="ri-checkbox-circle-line text-[#e8c84a] mt-0.5 flex-shrink-0"></i>Nhấn 🔊 để nghe phát âm</li>
-                    <li className="flex items-start gap-1.5"><i className="ri-checkbox-circle-line text-[#e8c84a] mt-0.5 flex-shrink-0"></i>Bật "Hiện dịch" để xem bản dịch tiếng Việt</li>
+                  <ul className="space-y-1.5 text-app-text-secondary text-xs">
+                    <li className="flex items-start gap-1.5"><i className="ri-checkbox-circle-line text-app-accent-primary mt-0.5 flex-shrink-0"></i>Di chuột vào từ màu vàng để xem nghĩa</li>
+                    <li className="flex items-start gap-1.5"><i className="ri-checkbox-circle-line text-app-accent-primary mt-0.5 flex-shrink-0"></i>Nhấn 🔖 để lưu từ vựng</li>
+                    <li className="flex items-start gap-1.5"><i className="ri-checkbox-circle-line text-app-accent-primary mt-0.5 flex-shrink-0"></i>Nhấn 🔊 để nghe phát âm</li>
+                    <li className="flex items-start gap-1.5"><i className="ri-checkbox-circle-line text-app-accent-primary mt-0.5 flex-shrink-0"></i>Bật "Hiện dịch" để xem bản dịch tiếng Việt</li>
                   </ul>
                 </div>
               </div>
@@ -485,24 +485,24 @@ export default function KoreanNewsPage() {
         ) : (
           <div className="space-y-4">
             {/* Filters */}
-            <div className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8 space-y-3">
+            <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border space-y-3">
               <div className="relative">
-                <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
-                <input type="text" placeholder="Tìm kiếm bài báo..." value={search} onChange={e => setSearch(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#e8c84a]/40" />
+                <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
+                <input type="text" placeholder="Tìm kiếm bài báo..." value={search} onChange={e => setSearch(e.target.value)} className="w-full bg-app-card/50 border border-app-border rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-app-accent-primary/40" />
               </div>
               <div className="flex flex-wrap gap-2">
                 <div className="flex items-center gap-1.5 flex-wrap">
-                  <span className="text-white/30 text-xs">Chủ đề:</span>
+                  <span className="text-app-text-muted text-xs">Chủ đề:</span>
                   {CATEGORIES.map(c => (
-                    <button key={c} onClick={() => setFilterCat(c)} className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${filterCat === c ? "bg-[#e8c84a]/20 text-[#e8c84a] font-semibold" : "bg-white/5 text-white/40 hover:bg-white/10"}`}>{c}</button>
+                    <button key={c} onClick={() => setFilterCat(c)} className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${filterCat === c ? "bg-app-accent-primary/20 text-app-accent-primary font-semibold" : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70"}`}>{c}</button>
                   ))}
                 </div>
               </div>
               <div className="flex flex-wrap gap-2">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-white/30 text-xs">Cấp độ:</span>
+                  <span className="text-app-text-muted text-xs">Cấp độ:</span>
                   {LEVELS.map(l => (
-                    <button key={l} onClick={() => setFilterLevel(l)} className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${filterLevel === l ? "bg-[#e8c84a]/20 text-[#e8c84a] font-semibold" : "bg-white/5 text-white/40 hover:bg-white/10"}`}>{l}</button>
+                    <button key={l} onClick={() => setFilterLevel(l)} className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${filterLevel === l ? "bg-app-accent-primary/20 text-app-accent-primary font-semibold" : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70"}`}>{l}</button>
                   ))}
                 </div>
               </div>
@@ -510,21 +510,21 @@ export default function KoreanNewsPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filtered.map(article => (
-                <div key={article.id} onClick={() => setSelectedArticle(article)} className="bg-[#1a1f2e] rounded-xl overflow-hidden border border-white/8 hover:border-white/20 transition-all cursor-pointer group">
+                <div key={article.id} onClick={() => setSelectedArticle(article)} className="bg-[#1a1f2e] rounded-xl overflow-hidden border border-app-border hover:border-white/20 transition-all cursor-pointer group">
                   <div className="relative">
                     <img src={article.thumbnail} alt={article.title} className="w-full h-44 object-cover object-top group-hover:scale-105 transition-transform duration-300" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div className="absolute bottom-2 left-2 flex items-center gap-1.5">
                       <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${levelColor[article.level]}`}>{article.level}</span>
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${categoryColor[article.category] || "bg-white/20 text-white/70"}`}>{article.category}</span>
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${categoryColor[article.category] || "bg-app-border/200 text-white/70"}`}>{article.category}</span>
                     </div>
                     <div className="absolute bottom-2 right-2 bg-black/60 text-white/70 text-xs px-2 py-0.5 rounded"><i className="ri-time-line mr-0.5"></i>{article.readTime}</div>
                   </div>
                   <div className="p-4">
-                    <p className="text-[#e8c84a] text-xs font-semibold mb-0.5">{article.source} · {article.date}</p>
+                    <p className="text-app-accent-primary text-xs font-semibold mb-0.5">{article.source} · {article.date}</p>
                     <h3 className="text-white font-semibold text-sm mb-1 line-clamp-2">{article.title}</h3>
-                    <p className="text-white/40 text-xs line-clamp-1 mb-3 italic">{article.titleVi}</p>
-                    <div className="flex items-center justify-between text-white/30 text-xs">
+                    <p className="text-app-text-secondary text-xs line-clamp-1 mb-3 italic">{article.titleVi}</p>
+                    <div className="flex items-center justify-between text-app-text-muted text-xs">
                       <span><i className="ri-eye-line mr-1"></i>{(article.views / 1000).toFixed(0)}K lượt xem</span>
                       <span><i className="ri-translate-2 mr-1"></i>{article.vocab.length} từ vựng</span>
                     </div>

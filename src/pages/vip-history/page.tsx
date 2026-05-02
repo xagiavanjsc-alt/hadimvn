@@ -21,7 +21,7 @@ function StatusBadge({ expiresAt }: { expiresAt: string }) {
 
   if (daysLeft < 0) {
     return (
-      <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 text-white/30">
+      <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-app-card/50 text-app-text-muted">
         <i className="ri-time-line" />
         Đã hết hạn
       </span>
@@ -36,7 +36,7 @@ function StatusBadge({ expiresAt }: { expiresAt: string }) {
     );
   }
   return (
-    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400">
+    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success">
       <i className="ri-checkbox-circle-line" />
       Đang hoạt động
     </span>
@@ -46,8 +46,8 @@ function StatusBadge({ expiresAt }: { expiresAt: string }) {
 function EmptyState({ onUpgrade }: { onUpgrade: () => void }) {
   return (
     <div className="flex flex-col items-center justify-center py-20 text-center">
-      <div className="w-20 h-20 flex items-center justify-center rounded-2xl bg-[#e8c84a]/8 border border-[#e8c84a]/15 mb-5">
-        <i className="ri-vip-crown-line text-[#e8c84a] text-4xl" />
+      <div className="w-20 h-20 flex items-center justify-center rounded-2xl bg-app-accent-primary/8 border border-app-accent-primary/15 mb-5">
+        <i className="ri-vip-crown-line text-app-accent-primary text-4xl" />
       </div>
       <p className="text-white font-bold text-base mb-2">Chưa có giao dịch VIP nào</p>
       <p className="text-white/35 text-sm mb-6 max-w-xs leading-relaxed">
@@ -55,7 +55,7 @@ function EmptyState({ onUpgrade }: { onUpgrade: () => void }) {
       </p>
       <button
         onClick={onUpgrade}
-        className="flex items-center gap-2 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm px-6 py-3 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
+        className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-6 py-3 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
       >
         <i className="ri-vip-crown-line" />
         Nâng cấp VIP ngay
@@ -107,11 +107,11 @@ export default function VipHistoryPage() {
     return (
       <DashboardLayout title="Lịch sử VIP" subtitle="Xem lại các lần nâng cấp VIP của bạn">
         <div className="flex flex-col items-center justify-center py-20 text-center">
-          <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-white/5 mb-4">
-            <i className="ri-lock-line text-white/20 text-3xl" />
+          <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-app-card/50 mb-4">
+            <i className="ri-lock-line text-app-text-muted text-3xl" />
           </div>
-          <p className="text-white/40 text-base font-medium mb-2">Cần đăng nhập</p>
-          <button onClick={() => navigate("/profile")} className="flex items-center gap-2 bg-[#e8c84a] text-[#0f1117] font-bold text-sm px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap">
+          <p className="text-app-text-secondary text-base font-medium mb-2">Cần đăng nhập</p>
+          <button onClick={() => navigate("/profile")} className="flex items-center gap-2 bg-app-accent-primary text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap">
             <i className="ri-user-line" />Đến trang hồ sơ
           </button>
         </div>
@@ -126,7 +126,7 @@ export default function VipHistoryPage() {
       actions={
         <button
           onClick={() => navigate("/pricing")}
-          className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-lg bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] cursor-pointer whitespace-nowrap transition-colors"
+          className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-lg bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg cursor-pointer whitespace-nowrap transition-colors"
         >
           <i className="ri-vip-crown-line" />
           Gia hạn VIP
@@ -138,10 +138,10 @@ export default function VipHistoryPage() {
         <div className="relative overflow-hidden rounded-2xl mb-6 p-5"
           style={{ background: "linear-gradient(135deg, #1a1600 0%, #2a2000 100%)" }}>
           <div className="absolute inset-0 opacity-20"
-            style={{ backgroundImage: "radial-gradient(circle at 80% 50%, #e8c84a 0%, transparent 60%)" }} />
+            style={{ backgroundImage: "radial-gradient(circle at 80% 50%, app-accent-primary 0%, transparent 60%)" }} />
           <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-[#e8c84a]/15 flex-shrink-0">
-              <i className="ri-vip-crown-fill text-[#e8c84a] text-2xl" />
+            <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-app-accent-primary/15 flex-shrink-0">
+              <i className="ri-vip-crown-fill text-app-accent-primary text-2xl" />
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
@@ -149,14 +149,14 @@ export default function VipHistoryPage() {
                 <StatusBadge expiresAt={profile.vip_expires_at} />
               </div>
               <p className="text-white/45 text-sm">
-                Hết hạn: <span className="text-[#e8c84a] font-semibold">{formatDateShort(profile.vip_expires_at)}</span>
+                Hết hạn: <span className="text-app-accent-primary font-semibold">{formatDateShort(profile.vip_expires_at)}</span>
                 {" · "}
                 Còn {Math.max(0, Math.floor((new Date(profile.vip_expires_at).getTime() - Date.now()) / 86400000))} ngày
               </p>
             </div>
             <button
               onClick={() => navigate("/pricing")}
-              className="flex items-center gap-2 bg-[#e8c84a]/15 hover:bg-[#e8c84a]/25 border border-[#e8c84a]/25 text-[#e8c84a] text-xs font-bold px-4 py-2 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
+              className="flex items-center gap-2 bg-app-accent-primary/15 hover:bg-app-accent-primary/25 border border-app-accent-primary/25 text-app-accent-primary text-xs font-bold px-4 py-2 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
             >
               <i className="ri-refresh-line" />
               Gia hạn sớm
@@ -169,11 +169,11 @@ export default function VipHistoryPage() {
       {transactions.length > 0 && (
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
           {[
-            { label: "Tổng giao dịch", value: String(transactions.length), icon: "ri-exchange-line", color: "#e8c84a" },
+            { label: "Tổng giao dịch", value: String(transactions.length), icon: "ri-exchange-line", color: "app-accent-primary" },
             { label: "Đang hoạt động", value: String(activeCount), icon: "ri-checkbox-circle-line", color: "#34d399" },
             { label: "Tổng chi tiêu", value: formatVND(totalSpent), icon: "ri-money-dollar-circle-line", color: "#a78bfa" },
           ].map(s => (
-            <div key={s.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-4">
+            <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4">
               <div className="w-8 h-8 flex items-center justify-center rounded-lg mb-2.5" style={{ backgroundColor: `${s.color}15` }}>
                 <i className={`${s.icon} text-sm`} style={{ color: s.color }} />
               </div>
@@ -187,7 +187,7 @@ export default function VipHistoryPage() {
       {/* Transaction List */}
       {loading ? (
         <div className="flex items-center justify-center py-20">
-          <div className="w-8 h-8 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin" />
+          <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin" />
         </div>
       ) : transactions.length === 0 ? (
         <EmptyState onUpgrade={() => navigate("/pricing")} />
@@ -200,13 +200,13 @@ export default function VipHistoryPage() {
               <div
                 key={tx.id}
                 onClick={() => setSelectedTx(tx)}
-                className="bg-[#0f1117] border rounded-2xl p-4 sm:p-5 cursor-pointer hover:border-[#e8c84a]/20 transition-all group"
+                className="bg-app-bg border rounded-2xl p-4 sm:p-5 cursor-pointer hover:border-app-accent-primary/20 transition-all group"
                 style={{ borderColor: isLatest && isActive ? "rgba(232,200,74,0.2)" : "rgba(255,255,255,0.05)" }}
               >
                 <div className="flex items-start gap-3 sm:gap-4">
                   {/* Icon */}
-                  <div className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl flex-shrink-0 ${tx.vip_type === "year" ? "bg-[#e8c84a]/12" : "bg-emerald-500/12"}`}>
-                    <i className={`${isActive ? "ri-vip-crown-fill" : "ri-vip-crown-line"} text-lg sm:text-xl ${tx.vip_type === "year" ? "text-[#e8c84a]" : "text-emerald-400"}`} />
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl flex-shrink-0 ${tx.vip_type === "year" ? "bg-app-accent-primary/12" : "bg-emerald-500/12"}`}>
+                    <i className={`${isActive ? "ri-vip-crown-fill" : "ri-vip-crown-line"} text-lg sm:text-xl ${tx.vip_type === "year" ? "text-app-accent-primary" : "text-app-accent-success"}`} />
                   </div>
 
                   {/* Info */}
@@ -216,7 +216,7 @@ export default function VipHistoryPage() {
                         VIP {tx.vip_type === "year" ? "Năm" : "Tháng"}
                       </p>
                       {isLatest && isActive && (
-                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[#e8c84a]/15 text-[#e8c84a]">
+                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary">
                           HIỆN TẠI
                         </span>
                       )}
@@ -233,7 +233,7 @@ export default function VipHistoryPage() {
                       </p>
                     </div>
                     {tx.note && (
-                      <p className="text-white/25 text-xs mt-1 truncate">
+                      <p className="text-app-text-muted text-xs mt-1 truncate">
                         <i className="ri-sticky-note-line mr-1" />
                         {tx.note}
                       </p>
@@ -243,11 +243,11 @@ export default function VipHistoryPage() {
                   {/* Amount + arrow */}
                   <div className="flex items-center gap-2 flex-shrink-0">
                     {tx.amount > 0 && (
-                      <span className={`text-sm font-bold ${tx.vip_type === "year" ? "text-[#e8c84a]" : "text-emerald-400"}`}>
+                      <span className={`text-sm font-bold ${tx.vip_type === "year" ? "text-app-accent-primary" : "text-app-accent-success"}`}>
                         {formatVND(tx.amount)}
                       </span>
                     )}
-                    <i className="ri-arrow-right-s-line text-white/20 group-hover:text-white/40 transition-colors" />
+                    <i className="ri-arrow-right-s-line text-app-text-muted group-hover:text-app-text-secondary transition-colors" />
                   </div>
                 </div>
               </div>
@@ -259,19 +259,19 @@ export default function VipHistoryPage() {
       {/* Detail Modal */}
       {selectedTx && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="w-full max-w-md bg-[#1a1a1a] border border-white/10 rounded-2xl overflow-hidden">
+          <div className="w-full max-w-md bg-[#1a1a1a] border border-app-border rounded-2xl overflow-hidden">
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-white/8">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-app-border">
               <div className="flex items-center gap-3">
-                <div className={`w-9 h-9 flex items-center justify-center rounded-xl ${selectedTx.vip_type === "year" ? "bg-[#e8c84a]/12" : "bg-emerald-500/12"}`}>
-                  <i className={`ri-vip-crown-fill text-base ${selectedTx.vip_type === "year" ? "text-[#e8c84a]" : "text-emerald-400"}`} />
+                <div className={`w-9 h-9 flex items-center justify-center rounded-xl ${selectedTx.vip_type === "year" ? "bg-app-accent-primary/12" : "bg-emerald-500/12"}`}>
+                  <i className={`ri-vip-crown-fill text-base ${selectedTx.vip_type === "year" ? "text-app-accent-primary" : "text-app-accent-success"}`} />
                 </div>
                 <div>
                   <p className="text-white font-bold text-sm">Chi tiết giao dịch VIP</p>
                   <p className="text-white/35 text-[10px]">ID: {selectedTx.id.slice(0, 8)}...</p>
                 </div>
               </div>
-              <button onClick={() => setSelectedTx(null)} className="text-white/30 hover:text-white/60 cursor-pointer">
+              <button onClick={() => setSelectedTx(null)} className="text-app-text-muted hover:text-white/60 cursor-pointer">
                 <i className="ri-close-line text-lg" />
               </button>
             </div>
@@ -279,31 +279,31 @@ export default function VipHistoryPage() {
             {/* Body */}
             <div className="p-5 space-y-3">
               {[
-                { label: "Loại gói", value: `VIP ${selectedTx.vip_type === "year" ? "Năm" : "Tháng"}`, icon: "ri-vip-crown-line", color: selectedTx.vip_type === "year" ? "#e8c84a" : "#34d399" },
+                { label: "Loại gói", value: `VIP ${selectedTx.vip_type === "year" ? "Năm" : "Tháng"}`, icon: "ri-vip-crown-line", color: selectedTx.vip_type === "year" ? "app-accent-primary" : "#34d399" },
                 { label: "Ngày kích hoạt", value: formatDate(selectedTx.granted_at), icon: "ri-calendar-check-line", color: "#a78bfa" },
                 { label: "Ngày hết hạn", value: formatDate(selectedTx.expires_at), icon: "ri-calendar-close-line", color: "#fb923c" },
                 { label: "Số tiền", value: selectedTx.amount > 0 ? formatVND(selectedTx.amount) : "Miễn phí / Admin cấp", icon: "ri-money-dollar-circle-line", color: "#34d399" },
-                ...(selectedTx.note ? [{ label: "Ghi chú", value: selectedTx.note, icon: "ri-sticky-note-line", color: "#e8c84a" }] : []),
+                ...(selectedTx.note ? [{ label: "Ghi chú", value: selectedTx.note, icon: "ri-sticky-note-line", color: "app-accent-primary" }] : []),
               ].map(item => (
-                <div key={item.label} className="flex items-center gap-3 px-4 py-3 bg-white/3 rounded-xl">
+                <div key={item.label} className="flex items-center gap-3 px-4 py-3 bg-app-surface/50 rounded-xl">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${item.color}15` }}>
                     <i className={`${item.icon} text-sm`} style={{ color: item.color }} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-white/30 text-[10px]">{item.label}</p>
+                    <p className="text-app-text-muted text-[10px]">{item.label}</p>
                     <p className="text-white/80 text-sm font-medium truncate">{item.value}</p>
                   </div>
                 </div>
               ))}
 
               {/* Status */}
-              <div className="flex items-center justify-between px-4 py-3 bg-white/3 rounded-xl">
+              <div className="flex items-center justify-between px-4 py-3 bg-app-surface/50 rounded-xl">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5">
-                    <i className="ri-shield-check-line text-sm text-white/40" />
+                  <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50">
+                    <i className="ri-shield-check-line text-sm text-app-text-secondary" />
                   </div>
                   <div>
-                    <p className="text-white/30 text-[10px]">Trạng thái</p>
+                    <p className="text-app-text-muted text-[10px]">Trạng thái</p>
                     <p className="text-white/80 text-sm font-medium">Trạng thái hiện tại</p>
                   </div>
                 </div>
@@ -314,7 +314,7 @@ export default function VipHistoryPage() {
             <div className="px-5 pb-5">
               <button
                 onClick={() => setSelectedTx(null)}
-                className="w-full py-2.5 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
+                className="w-full py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
               >
                 Đóng
               </button>

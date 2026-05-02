@@ -109,7 +109,7 @@ function StatCard({ icon, label, value, sub, color, trend }: {
           <i className={`${icon} text-base`} style={{ color }}></i>
         </div>
         {trend !== undefined && (
-          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${trend >= 0 ? "bg-emerald-500/12 text-emerald-400" : "bg-rose-500/12 text-rose-400"}`}>
+          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${trend >= 0 ? "bg-emerald-500/12 text-app-accent-success" : "bg-rose-500/12 text-rose-400"}`}>
             {trend >= 0 ? "+" : ""}{trend}%
           </span>
         )}
@@ -186,7 +186,7 @@ export default function AdminLearnStatsPage() {
     const buckets = [
       { label: "0-20%", min: 0, max: 20, count: 0, color: "#f87171" },
       { label: "21-40%", min: 21, max: 40, count: 0, color: "#fb923c" },
-      { label: "41-60%", min: 41, max: 60, count: 0, color: "#e8c84a" },
+      { label: "41-60%", min: 41, max: 60, count: 0, color: "app-accent-primary" },
       { label: "61-80%", min: 61, max: 80, count: 0, color: "#34d399" },
       { label: "81-100%", min: 81, max: 100, count: 0, color: "#a78bfa" },
     ];
@@ -214,7 +214,7 @@ export default function AdminLearnStatsPage() {
     return [
       { label: "Free", count: free, color: "var(--admin-text-faint)", pct: users.length > 0 ? Math.round((free / users.length) * 100) : 0 },
       { label: "VIP Tháng", count: vipMonth, color: "#34d399", pct: users.length > 0 ? Math.round((vipMonth / users.length) * 100) : 0 },
-      { label: "VIP Năm", count: vipYear, color: "#e8c84a", pct: users.length > 0 ? Math.round((vipYear / users.length) * 100) : 0 },
+      { label: "VIP Năm", count: vipYear, color: "app-accent-primary", pct: users.length > 0 ? Math.round((vipYear / users.length) * 100) : 0 },
     ];
   }, [users]);
 
@@ -246,7 +246,7 @@ export default function AdminLearnStatsPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <StatCard icon="ri-user-add-line" label="Người dùng mới tuần này" value={newThisWeek} sub={`${totalUsers} tổng`} color="#34d399" trend={weekGrowth} />
         <StatCard icon="ri-pulse-line" label="Hoạt động 7 ngày qua" value={activeUsers} sub={`${retentionRate}% retention`} color="#a78bfa" />
-        <StatCard icon="ri-survey-line" label="Tổng lượt thi" value={examStats.length} sub={`Điểm TB: ${avgScore}%`} color="#e8c84a" />
+        <StatCard icon="ri-survey-line" label="Tổng lượt thi" value={examStats.length} sub={`Điểm TB: ${avgScore}%`} color="app-accent-primary" />
         <StatCard icon="ri-book-open-line" label="Lượt học tập" value={studyProgressCount.toLocaleString()} sub={`${melonHistoryCount} K-pop · ${communityPostsCount} bài đăng`} color="#fb923c" />
       </div>
 
@@ -387,7 +387,7 @@ export default function AdminLearnStatsPage() {
             { label: "Lượt học tập (study_progress)", value: studyProgressCount, icon: "ri-book-open-line", color: "#34d399", sub: "Tổng bản ghi" },
             { label: "Lịch sử K-pop", value: melonHistoryCount, icon: "ri-music-2-line", color: "#a78bfa", sub: "melon_study_history" },
             { label: "Bài đăng cộng đồng", value: communityPostsCount, icon: "ri-group-line", color: "#fb923c", sub: "community_posts" },
-            { label: "Lượt thi thử", value: examStats.length, icon: "ri-survey-line", color: "#e8c84a", sub: "exam_results" },
+            { label: "Lượt thi thử", value: examStats.length, icon: "ri-survey-line", color: "app-accent-primary", sub: "exam_results" },
           ].map(s => (
             <div key={s.label} className="flex items-center gap-3 px-4 py-4 rounded-xl"
               style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>

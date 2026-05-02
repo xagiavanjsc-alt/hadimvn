@@ -13,7 +13,7 @@ interface FriendStreak {
   avatar_color: string;
 }
 
-const AVATAR_COLORS = ["#e8c84a", "#34d399", "#fb923c", "#f472b6", "#38bdf8", "#a78bfa", "#f87171", "#06b6d4"];
+const AVATAR_COLORS = ["app-accent-primary", "#34d399", "#fb923c", "#f472b6", "#38bdf8", "#a78bfa", "#f87171", "#06b6d4"];
 
 function getAvatarColor(name: string) {
   let hash = 0;
@@ -33,7 +33,7 @@ function timeAgo(dateStr: string) {
 
 function StreakFlame({ count }: { count: number }) {
   const size = count >= 30 ? "text-2xl" : count >= 7 ? "text-xl" : "text-base";
-  const color = count >= 30 ? "#ef4444" : count >= 14 ? "#fb923c" : count >= 7 ? "#e8c84a" : "#94a3b8";
+  const color = count >= 30 ? "#ef4444" : count >= 14 ? "#fb923c" : count >= 7 ? "app-accent-primary" : "#94a3b8";
   return (
     <div className="flex items-center gap-1">
       <i className={`ri-fire-fill ${size}`} style={{ color }}></i>
@@ -118,7 +118,7 @@ export default function FriendStreakPage() {
       subtitle="Xem streak của cộng đồng — cạnh tranh duy trì streak dài nhất"
       actions={
         <button onClick={shareChallenge}
-          className={`flex items-center gap-2 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap font-bold ${copied ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" : "bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117]"}`}>
+          className={`flex items-center gap-2 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap font-bold ${copied ? "bg-emerald-500/20 text-app-accent-success border border-emerald-500/30" : "bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg"}`}>
           <i className={copied ? "ri-check-line" : "ri-share-line"}></i>
           {copied ? "Đã copy!" : "Thách đấu bạn bè"}
         </button>
@@ -128,33 +128,33 @@ export default function FriendStreakPage() {
         {/* Main leaderboard */}
         <div>
           {/* My stats card */}
-          <div className="bg-gradient-to-r from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/20 rounded-2xl p-5 mb-5">
+          <div className="bg-gradient-to-r from-app-surface to-[#0f1117] border border-app-accent-primary/20 rounded-2xl p-5 mb-5">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-[#e8c84a]/15 flex items-center justify-center flex-shrink-0">
-                <i className="ri-fire-fill text-[#e8c84a] text-2xl"></i>
+              <div className="w-14 h-14 rounded-2xl bg-app-accent-primary/15 flex items-center justify-center flex-shrink-0">
+                <i className="ri-fire-fill text-app-accent-primary text-2xl"></i>
               </div>
               <div className="flex-1">
-                <p className="text-white/40 text-xs mb-1">Streak của bạn</p>
+                <p className="text-app-text-secondary text-xs mb-1">Streak của bạn</p>
                 <div className="flex items-baseline gap-2">
                   <span className="text-white font-black text-3xl">{myStreak.count}</span>
-                  <span className="text-white/40 text-sm">ngày liên tiếp</span>
+                  <span className="text-app-text-secondary text-sm">ngày liên tiếp</span>
                 </div>
                 {myRank > 0 && (
-                  <p className="text-[#e8c84a]/70 text-xs mt-1">Hạng #{myRank} trong cộng đồng</p>
+                  <p className="text-app-accent-primary/70 text-xs mt-1">Hạng #{myRank} trong cộng đồng</p>
                 )}
               </div>
               <div className="text-right">
-                <p className="text-white/40 text-xs mb-1">Tổng XP</p>
+                <p className="text-app-text-secondary text-xs mb-1">Tổng XP</p>
                 <p className="text-white font-bold text-xl">{(myXP.total || 0).toLocaleString()}</p>
               </div>
             </div>
           </div>
 
           {/* Tab */}
-          <div className="flex items-center gap-1 bg-white/3 p-1 rounded-lg mb-4 w-fit">
+          <div className="flex items-center gap-1 bg-app-surface/50 p-1 rounded-lg mb-4 w-fit">
             {([["streak", "ri-fire-line", "Streak"], ["xp", "ri-star-line", "XP"]] as const).map(([t, icon, label]) => (
               <button key={t} onClick={() => setTab(t)}
-                className={`flex items-center gap-1.5 px-4 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${tab === t ? "bg-white/10 text-white" : "text-white/40 hover:text-white/60"}`}>
+                className={`flex items-center gap-1.5 px-4 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${tab === t ? "bg-app-card/70 text-white" : "text-app-text-secondary hover:text-white/60"}`}>
                 <i className={icon}></i>{label}
               </button>
             ))}
@@ -163,13 +163,13 @@ export default function FriendStreakPage() {
           {/* Leaderboard */}
           {loading ? (
             <div className="flex items-center justify-center py-16">
-              <div className="w-6 h-6 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>
+              <div className="w-6 h-6 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
             </div>
           ) : sorted.length === 0 ? (
             <div className="text-center py-16">
               <i className="ri-fire-line text-white/15 text-4xl mb-3 block"></i>
-              <p className="text-white/40 text-sm">Chưa có dữ liệu streak cộng đồng</p>
-              <p className="text-white/25 text-xs mt-1">Hãy học mỗi ngày để có mặt trên bảng xếp hạng!</p>
+              <p className="text-app-text-secondary text-sm">Chưa có dữ liệu streak cộng đồng</p>
+              <p className="text-app-text-muted text-xs mt-1">Hãy học mỗi ngày để có mặt trên bảng xếp hạng!</p>
             </div>
           ) : (
             <div className="space-y-2">
@@ -181,13 +181,13 @@ export default function FriendStreakPage() {
 
                 return (
                   <div key={friend.id}
-                    className={`flex items-center gap-4 p-4 rounded-xl border transition-all ${isMe ? "bg-[#e8c84a]/5 border-[#e8c84a]/20" : "bg-[#0f1117] border-white/5 hover:border-white/10"}`}>
+                    className={`flex items-center gap-4 p-4 rounded-xl border transition-all ${isMe ? "bg-app-accent-primary/5 border-app-accent-primary/20" : "bg-app-bg border-app-border hover:border-app-border"}`}>
                     {/* Rank */}
                     <div className="w-8 text-center flex-shrink-0">
                       {rank <= 3 ? (
                         <i className="ri-trophy-fill text-lg" style={{ color: rankColor }}></i>
                       ) : (
-                        <span className="text-white/30 text-sm font-bold">#{rank}</span>
+                        <span className="text-app-text-muted text-sm font-bold">#{rank}</span>
                       )}
                     </div>
 
@@ -200,15 +200,15 @@ export default function FriendStreakPage() {
                     {/* Info */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className={`font-semibold text-sm ${isMe ? "text-[#e8c84a]" : "text-white/80"}`}>
+                        <span className={`font-semibold text-sm ${isMe ? "text-app-accent-primary" : "text-white/80"}`}>
                           {friend.display_name}
-                          {isMe && <span className="text-[10px] ml-1 text-[#e8c84a]/60">(bạn)</span>}
+                          {isMe && <span className="text-[10px] ml-1 text-app-accent-primary/60">(bạn)</span>}
                         </span>
                         {isActive && (
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
                         )}
                       </div>
-                      <p className="text-white/25 text-[10px]">{timeAgo(friend.last_active)}</p>
+                      <p className="text-app-text-muted text-[10px]">{timeAgo(friend.last_active)}</p>
                     </div>
 
                     {/* Streak / XP */}
@@ -218,7 +218,7 @@ export default function FriendStreakPage() {
                       ) : (
                         <div>
                           <p className="text-white font-bold text-base">{friend.total_xp.toLocaleString()}</p>
-                          <p className="text-white/30 text-[10px]">XP</p>
+                          <p className="text-app-text-muted text-[10px]">XP</p>
                         </div>
                       )}
                     </div>
@@ -232,27 +232,27 @@ export default function FriendStreakPage() {
         {/* Sidebar */}
         <div className="space-y-4">
           {/* Streak milestones */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">Cột mốc Streak</h3>
             <div className="space-y-3">
               {[
                 { days: 3, icon: "ri-seedling-line", color: "#34d399", label: "Khởi đầu", desc: "3 ngày liên tiếp" },
-                { days: 7, icon: "ri-fire-line", color: "#e8c84a", label: "Tuần đầu", desc: "7 ngày liên tiếp" },
+                { days: 7, icon: "ri-fire-line", color: "app-accent-primary", label: "Tuần đầu", desc: "7 ngày liên tiếp" },
                 { days: 14, icon: "ri-fire-fill", color: "#fb923c", label: "Hai tuần", desc: "14 ngày liên tiếp" },
                 { days: 30, icon: "ri-fire-fill", color: "#ef4444", label: "Một tháng", desc: "30 ngày liên tiếp" },
                 { days: 100, icon: "ri-vip-crown-fill", color: "#FFD700", label: "Huyền thoại", desc: "100 ngày liên tiếp" },
               ].map(m => {
                 const achieved = myStreak.count >= m.days;
                 return (
-                  <div key={m.days} className={`flex items-center gap-3 p-2.5 rounded-xl transition-all ${achieved ? "bg-white/3" : "opacity-40"}`}>
+                  <div key={m.days} className={`flex items-center gap-3 p-2.5 rounded-xl transition-all ${achieved ? "bg-app-surface/50" : "opacity-40"}`}>
                     <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${m.color}15` }}>
                       <i className={`${m.icon} text-sm`} style={{ color: m.color }}></i>
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-white/70 text-xs font-semibold">{m.label}</p>
-                      <p className="text-white/30 text-[10px]">{m.desc}</p>
+                      <p className="text-app-text-muted text-[10px]">{m.desc}</p>
                     </div>
-                    {achieved && <i className="ri-check-line text-emerald-400 text-sm flex-shrink-0"></i>}
+                    {achieved && <i className="ri-check-line text-app-accent-success text-sm flex-shrink-0"></i>}
                   </div>
                 );
               })}
@@ -260,9 +260,9 @@ export default function FriendStreakPage() {
           </div>
 
           {/* Tips */}
-          <div className="bg-gradient-to-br from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/15 rounded-2xl p-5">
+          <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
-              <i className="ri-lightbulb-line text-[#e8c84a] text-sm"></i>
+              <i className="ri-lightbulb-line text-app-accent-primary text-sm"></i>
               <h3 className="text-white font-semibold text-sm">Mẹo duy trì streak</h3>
             </div>
             <ul className="space-y-2">
@@ -274,7 +274,7 @@ export default function FriendStreakPage() {
                 "Tham gia thử thách tuần",
               ].map((tip, i) => (
                 <li key={i} className="flex items-start gap-2 text-white/50 text-xs">
-                  <i className="ri-checkbox-circle-line text-[#e8c84a]/60 text-sm flex-shrink-0 mt-0.5"></i>
+                  <i className="ri-checkbox-circle-line text-app-accent-primary/60 text-sm flex-shrink-0 mt-0.5"></i>
                   {tip}
                 </li>
               ))}
@@ -282,11 +282,11 @@ export default function FriendStreakPage() {
           </div>
 
           {/* Stats summary */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-3">Thống kê cộng đồng</h3>
             <div className="space-y-2.5">
               {[
-                { icon: "ri-group-line", label: "Đang học", value: `${leaderboard.length}+ người`, color: "#e8c84a" },
+                { icon: "ri-group-line", label: "Đang học", value: `${leaderboard.length}+ người`, color: "app-accent-primary" },
                 { icon: "ri-fire-line", label: "Streak TB", value: `${Math.round(leaderboard.reduce((s, f) => s + f.streak_count, 0) / Math.max(leaderboard.length, 1))} ngày`, color: "#fb923c" },
                 { icon: "ri-trophy-line", label: "Streak cao nhất", value: `${Math.max(...leaderboard.map(f => f.streak_count), 0)} ngày`, color: "#FFD700" },
               ].map(s => (
@@ -295,7 +295,7 @@ export default function FriendStreakPage() {
                     <i className={`${s.icon} text-xs`} style={{ color: s.color }}></i>
                   </div>
                   <div className="flex-1">
-                    <p className="text-white/30 text-[10px]">{s.label}</p>
+                    <p className="text-app-text-muted text-[10px]">{s.label}</p>
                     <p className="text-white font-bold text-sm">{s.value}</p>
                   </div>
                 </div>

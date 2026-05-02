@@ -216,22 +216,22 @@ export default function TopikListeningPage() {
         <div className="p-6 max-w-3xl mx-auto">
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-white mb-1">Luyện nghe TOPIK</h1>
-            <p className="text-white/40 text-sm">Nghe câu tiếng Hàn rồi chọn đáp án đúng — luyện kỹ năng nghe cho kỳ thi TOPIK</p>
+            <p className="text-app-text-secondary text-sm">Nghe câu tiếng Hàn rồi chọn đáp án đúng — luyện kỹ năng nghe cho kỳ thi TOPIK</p>
           </div>
 
           {/* How it works */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
             {[
               { icon: "ri-volume-up-line", color: "#34d399", title: "Nghe", desc: "Hệ thống đọc câu tiếng Hàn" },
-              { icon: "ri-checkbox-multiple-line", color: "#e8c84a", title: "Chọn đáp án", desc: "4 lựa chọn nghĩa tiếng Việt" },
+              { icon: "ri-checkbox-multiple-line", color: "app-accent-primary", title: "Chọn đáp án", desc: "4 lựa chọn nghĩa tiếng Việt" },
               { icon: "ri-bar-chart-line", color: "#fb923c", title: "Xem kết quả", desc: "Giải thích chi tiết từng câu" },
             ].map((step) => (
-              <div key={step.title} className="bg-white/3 border border-white/8 rounded-xl p-4 text-center">
+              <div key={step.title} className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: `${step.color}20` }}>
                   <i className={`${step.icon} text-lg`} style={{ color: step.color }}></i>
                 </div>
                 <p className="text-white/80 text-sm font-semibold mb-1">{step.title}</p>
-                <p className="text-white/30 text-xs">{step.desc}</p>
+                <p className="text-app-text-muted text-xs">{step.desc}</p>
               </div>
             ))}
           </div>
@@ -245,7 +245,7 @@ export default function TopikListeningPage() {
                   key={lv.id}
                   onClick={() => setSelectedLevel(lv.id)}
                   className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
-                    selectedLevel === lv.id ? "border-opacity-60" : "border-white/8 hover:border-white/20"
+                    selectedLevel === lv.id ? "border-opacity-60" : "border-app-border hover:border-white/20"
                   }`}
                   style={
                     selectedLevel === lv.id
@@ -259,7 +259,7 @@ export default function TopikListeningPage() {
                     </span>
                     <span className="text-white/70 text-xs">{lv.label.split(" - ")[1]}</span>
                   </div>
-                  <p className="text-white/30 text-xs">{lv.desc}</p>
+                  <p className="text-app-text-muted text-xs">{lv.desc}</p>
                 </button>
               ))}
             </div>
@@ -273,8 +273,8 @@ export default function TopikListeningPage() {
                 onClick={() => setSelectedCategory("all")}
                 className={`px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
                   selectedCategory === "all"
-                    ? "bg-[#e8c84a]/15 border-[#e8c84a]/40 text-[#e8c84a]"
-                    : "border-white/8 text-white/40 hover:text-white/70"
+                    ? "bg-app-accent-primary/15 border-app-accent-primary/40 text-app-accent-primary"
+                    : "border-app-border text-app-text-secondary hover:text-white/70"
                 }`}
               >
                 Tất cả
@@ -284,7 +284,7 @@ export default function TopikListeningPage() {
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
                   className={`px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
-                    selectedCategory === cat.id ? "text-white" : "border-white/8 text-white/40 hover:text-white/70"
+                    selectedCategory === cat.id ? "text-white" : "border-app-border text-app-text-secondary hover:text-white/70"
                   }`}
                   style={
                     selectedCategory === cat.id
@@ -308,8 +308,8 @@ export default function TopikListeningPage() {
                   onClick={() => setSessionSize(n)}
                   className={`px-5 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer whitespace-nowrap border ${
                     sessionSize === n
-                      ? "bg-[#e8c84a]/15 border-[#e8c84a]/40 text-[#e8c84a]"
-                      : "border-white/8 text-white/40 hover:text-white/70"
+                      ? "bg-app-accent-primary/15 border-app-accent-primary/40 text-app-accent-primary"
+                      : "border-app-border text-app-text-secondary hover:text-white/70"
                   }`}
                 >
                   {n}
@@ -323,20 +323,20 @@ export default function TopikListeningPage() {
             <label className="flex items-center gap-2 cursor-pointer">
               <div
                 onClick={() => setAutoPlayEnabled((a) => !a)}
-                className={`w-10 h-5 rounded-full transition-all relative cursor-pointer ${autoPlayEnabled ? "bg-[#e8c84a]" : "bg-white/10"}`}
+                className={`w-10 h-5 rounded-full transition-all relative cursor-pointer ${autoPlayEnabled ? "bg-app-accent-primary" : "bg-app-card/70"}`}
               >
                 <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all ${autoPlayEnabled ? "left-5" : "left-0.5"}`}></div>
               </div>
               <span className="text-white/50 text-xs">Tự động phát âm</span>
             </label>
             <div className="flex items-center gap-2">
-              <span className="text-white/30 text-xs">Tốc độ:</span>
+              <span className="text-app-text-muted text-xs">Tốc độ:</span>
               {[0.7, 1.0, 1.2].map((r) => (
                 <button
                   key={r}
                   onClick={() => setPlaybackRate(r)}
                   className={`px-2 py-1 rounded text-xs cursor-pointer whitespace-nowrap border transition-all ${
-                    playbackRate === r ? "bg-[#e8c84a]/15 border-[#e8c84a]/40 text-[#e8c84a]" : "border-white/8 text-white/30"
+                    playbackRate === r ? "bg-app-accent-primary/15 border-app-accent-primary/40 text-app-accent-primary" : "border-app-border text-app-text-muted"
                   }`}
                 >
                   {r === 0.7 ? "Chậm" : r === 1.0 ? "Bình thường" : "Nhanh"}
@@ -346,7 +346,7 @@ export default function TopikListeningPage() {
           </div>
 
           <div className="flex items-center justify-between mb-4">
-            <p className="text-white/30 text-xs">
+            <p className="text-app-text-muted text-xs">
               {filteredWords.length} từ có sẵn ở cấp {selectedLevel}
               {selectedCategory !== "all" ? ` · chủ đề ${VOCAB_CATEGORIES.find((c) => c.id === selectedCategory)?.label}` : ""}
             </p>
@@ -355,7 +355,7 @@ export default function TopikListeningPage() {
           <button
             onClick={startSession}
             disabled={filteredWords.length < 4}
-            className="w-full py-3.5 bg-[#e8c84a] hover:bg-[#e8c84a]/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
+            className="w-full py-3.5 bg-app-accent-primary hover:bg-app-accent-primary/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
           >
             <i className="ri-headphone-line mr-2"></i>
             Bắt đầu luyện nghe ({Math.min(sessionSize, filteredWords.length)} câu)
@@ -382,8 +382,8 @@ export default function TopikListeningPage() {
             <div
               className="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4 border-4"
               style={{
-                borderColor: score >= 80 ? "#34d399" : score >= 60 ? "#e8c84a" : "#f87171",
-                backgroundColor: score >= 80 ? "#34d39920" : score >= 60 ? "#e8c84a20" : "#f8717120",
+                borderColor: score >= 80 ? "#34d399" : score >= 60 ? "app-accent-primary" : "#f87171",
+                backgroundColor: score >= 80 ? "#34d39920" : score >= 60 ? "app-accent-primary20" : "#f8717120",
               }}
             >
               <span className="text-3xl font-bold text-white">{score}%</span>
@@ -391,7 +391,7 @@ export default function TopikListeningPage() {
             <h2 className="text-2xl font-bold text-white mb-1">
               {score >= 80 ? "Xuất sắc!" : score >= 60 ? "Khá tốt!" : "Cần luyện thêm!"}
             </h2>
-            <p className="text-white/40 text-sm">
+            <p className="text-app-text-secondary text-sm">
               {correctCount}/{results.length} câu đúng · Thời gian TB: {avgTime}s/câu
             </p>
           </div>
@@ -401,12 +401,12 @@ export default function TopikListeningPage() {
             {[
               { label: "Đúng", value: correctCount, color: "#34d399" },
               { label: "Sai", value: results.filter((r) => !r.correct).length, color: "#f87171" },
-              { label: "Điểm", value: `${score}%`, color: "#e8c84a" },
+              { label: "Điểm", value: `${score}%`, color: "app-accent-primary" },
               { label: "Thời gian TB", value: `${avgTime}s`, color: "#38bdf8" },
             ].map((s) => (
-              <div key={s.label} className="bg-white/3 border border-white/8 rounded-xl p-3 text-center">
+              <div key={s.label} className="bg-app-surface/50 border border-app-border rounded-xl p-3 text-center">
                 <p className="text-xl font-bold" style={{ color: s.color }}>{s.value}</p>
-                <p className="text-white/30 text-xs">{s.label}</p>
+                <p className="text-app-text-muted text-xs">{s.label}</p>
               </div>
             ))}
           </div>
@@ -418,7 +418,7 @@ export default function TopikListeningPage() {
                 key={tab}
                 onClick={() => setFilterTab(tab)}
                 className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
-                  filterTab === tab ? "bg-[#e8c84a]/15 border-[#e8c84a]/40 text-[#e8c84a]" : "border-white/8 text-white/40"
+                  filterTab === tab ? "bg-app-accent-primary/15 border-app-accent-primary/40 text-app-accent-primary" : "border-app-border text-app-text-secondary"
                 }`}
               >
                 {tab === "all" ? `Tất cả (${results.length})` : tab === "correct" ? `Đúng (${correctCount})` : `Sai (${results.filter((r) => !r.correct).length})`}
@@ -439,13 +439,13 @@ export default function TopikListeningPage() {
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <div className="flex items-center gap-2">
                       <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${r.correct ? "bg-emerald-500/20" : "bg-red-500/20"}`}>
-                        <i className={`${r.correct ? "ri-check-line text-emerald-400" : "ri-close-line text-red-400"} text-xs`}></i>
+                        <i className={`${r.correct ? "ri-check-line text-app-accent-success" : "ri-close-line text-red-400"} text-xs`}></i>
                       </div>
                       <span className="text-white/50 text-xs">Câu {results.indexOf(r) + 1}</span>
                     </div>
                     <button
                       onClick={() => speakText(q.audioText)}
-                      className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/40 cursor-pointer flex-shrink-0"
+                      className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary cursor-pointer flex-shrink-0"
                     >
                       <i className="ri-volume-up-line text-xs"></i>
                     </button>
@@ -457,17 +457,17 @@ export default function TopikListeningPage() {
                         key={oi}
                         className={`px-3 py-1.5 rounded-lg text-xs ${
                           oi === q.correctIndex
-                            ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
+                            ? "bg-app-accent-success/15 text-app-accent-success border border-emerald-500/30"
                             : oi === r.selectedIndex && !r.correct
                             ? "bg-red-500/15 text-red-400 border border-red-500/30"
-                            : "bg-white/3 text-white/30 border border-white/5"
+                            : "bg-app-surface/50 text-app-text-muted border border-app-border"
                         }`}
                       >
                         {opt}
                       </div>
                     ))}
                   </div>
-                  <p className="text-white/30 text-xs italic">{q.explanation}</p>
+                  <p className="text-app-text-muted text-xs italic">{q.explanation}</p>
                 </div>
               );
             })}
@@ -476,13 +476,13 @@ export default function TopikListeningPage() {
           <div className="flex gap-3">
             <button
               onClick={() => setPhase("setup")}
-              className="flex-1 py-3 bg-white/5 hover:bg-white/10 text-white/70 font-medium rounded-xl transition-all cursor-pointer whitespace-nowrap border border-white/8"
+              className="flex-1 py-3 bg-app-card/50 hover:bg-app-card/70 text-white/70 font-medium rounded-xl transition-all cursor-pointer whitespace-nowrap border border-app-border"
             >
               Cài đặt lại
             </button>
             <button
               onClick={startSession}
-              className="flex-1 py-3 bg-[#e8c84a] hover:bg-[#e8c84a]/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap"
+              className="flex-1 py-3 bg-app-accent-primary hover:bg-app-accent-primary/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap"
             >
               <i className="ri-refresh-line mr-2"></i>Luyện lại
             </button>
@@ -494,7 +494,7 @@ export default function TopikListeningPage() {
 
   // ─── Listening Phase ──────────────────────────────────────────────────────
   const timerPercent = (timeLeft / 30) * 100;
-  const timerColor = timeLeft > 15 ? "#34d399" : timeLeft > 7 ? "#e8c84a" : "#f87171";
+  const timerColor = timeLeft > 15 ? "#34d399" : timeLeft > 7 ? "app-accent-primary" : "#f87171";
 
   return (
     <DashboardLayout>
@@ -503,30 +503,30 @@ export default function TopikListeningPage() {
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={() => { speechSynthesis.cancel(); setPhase("setup"); }}
-            className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/50 cursor-pointer"
+            className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-white/50 cursor-pointer"
           >
             <i className="ri-arrow-left-line text-sm"></i>
           </button>
           <div className="text-center">
             <p className="text-white/60 text-sm">{currentIdx + 1} / {questions.length}</p>
-            <p className="text-white/20 text-xs">{levelInfo?.label}</p>
+            <p className="text-app-text-muted text-xs">{levelInfo?.label}</p>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="w-5 h-5 flex items-center justify-center">
-              <i className="ri-check-line text-emerald-400 text-xs"></i>
+              <i className="ri-check-line text-app-accent-success text-xs"></i>
             </div>
-            <span className="text-emerald-400 text-sm font-bold">{correctCount}</span>
+            <span className="text-app-accent-success text-sm font-bold">{correctCount}</span>
           </div>
         </div>
 
         {/* Progress bar */}
         <div className="h-1 bg-white/8 rounded-full mb-2 overflow-hidden">
-          <div className="h-full bg-[#e8c84a] rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
+          <div className="h-full bg-app-accent-primary rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
         </div>
 
         {/* Timer bar */}
         {!showResult && (
-          <div className="h-0.5 bg-white/5 rounded-full mb-6 overflow-hidden">
+          <div className="h-0.5 bg-app-card/50 rounded-full mb-6 overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-1000"
               style={{ width: `${timerPercent}%`, backgroundColor: timerColor }}
@@ -535,7 +535,7 @@ export default function TopikListeningPage() {
         )}
 
         {/* Audio player card */}
-        <div className="bg-white/3 border border-white/10 rounded-2xl p-6 mb-5">
+        <div className="bg-app-surface/50 border border-app-border rounded-2xl p-6 mb-5">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <span
@@ -547,14 +547,14 @@ export default function TopikListeningPage() {
               >
                 {selectedLevel}
               </span>
-              <span className="text-white/20 text-xs">
+              <span className="text-app-text-muted text-xs">
                 {currentQ?.type === "word-meaning" ? "Nghe từ" : currentQ?.type === "sentence-fill" ? "Nghe câu" : "Nghe hội thoại"}
               </span>
             </div>
             {!showResult && (
               <div className="flex items-center gap-1">
-                <i className="ri-time-line text-white/20 text-xs"></i>
-                <span className="text-white/30 text-xs">{timeLeft}s</span>
+                <i className="ri-time-line text-app-text-muted text-xs"></i>
+                <span className="text-app-text-muted text-xs">{timeLeft}s</span>
               </div>
             )}
           </div>
@@ -566,13 +566,13 @@ export default function TopikListeningPage() {
               disabled={isPlaying}
               className={`w-20 h-20 rounded-full flex items-center justify-center transition-all cursor-pointer mb-3 ${
                 isPlaying
-                  ? "bg-[#e8c84a]/20 border-2 border-[#e8c84a]/60 animate-pulse"
-                  : "bg-[#e8c84a]/10 border-2 border-[#e8c84a]/30 hover:bg-[#e8c84a]/20 hover:border-[#e8c84a]/60"
+                  ? "bg-app-accent-primary/20 border-2 border-app-accent-primary/60 animate-pulse"
+                  : "bg-app-accent-primary/10 border-2 border-app-accent-primary/30 hover:bg-app-accent-primary/20 hover:border-app-accent-primary/60"
               }`}
             >
-              <i className={`${isPlaying ? "ri-volume-up-fill" : "ri-play-fill"} text-[#e8c84a] text-3xl`}></i>
+              <i className={`${isPlaying ? "ri-volume-up-fill" : "ri-play-fill"} text-app-accent-primary text-3xl`}></i>
             </button>
-            <p className="text-white/30 text-xs mb-1">
+            <p className="text-app-text-muted text-xs mb-1">
               {isPlaying ? "Đang phát..." : `Nhấn để nghe${playCount > 0 ? ` (đã nghe ${playCount} lần)` : ""}`}
             </p>
 
@@ -583,7 +583,7 @@ export default function TopikListeningPage() {
                   key={r}
                   onClick={() => setPlaybackRate(r)}
                   className={`px-2 py-0.5 rounded text-[10px] cursor-pointer whitespace-nowrap border transition-all ${
-                    playbackRate === r ? "bg-[#e8c84a]/15 border-[#e8c84a]/40 text-[#e8c84a]" : "border-white/8 text-white/20"
+                    playbackRate === r ? "bg-app-accent-primary/15 border-app-accent-primary/40 text-app-accent-primary" : "border-app-border text-app-text-muted"
                   }`}
                 >
                   {r === 0.7 ? "0.7x" : r === 1.0 ? "1.0x" : "1.2x"}
@@ -594,7 +594,7 @@ export default function TopikListeningPage() {
 
           {/* Show text after answering */}
           {showResult && (
-            <div className="mt-3 pt-3 border-t border-white/8 text-center">
+            <div className="mt-3 pt-3 border-t border-app-border text-center">
               <p className="text-white/60 text-sm font-medium">{currentQ?.audioText}</p>
             </div>
           )}
@@ -606,14 +606,14 @@ export default function TopikListeningPage() {
         {/* Options */}
         <div className="grid grid-cols-2 gap-3 mb-5">
           {currentQ?.options.map((opt, oi) => {
-            let btnClass = "border-white/10 bg-white/3 text-white/60 hover:border-white/30 hover:bg-white/8";
+            let btnClass = "border-app-border bg-app-surface/50 text-white/60 hover:border-white/30 hover:bg-white/8";
             if (showResult) {
               if (oi === currentQ.correctIndex) {
-                btnClass = "border-emerald-500/50 bg-emerald-500/10 text-emerald-400";
+                btnClass = "border-emerald-500/50 bg-emerald-500/10 text-app-accent-success";
               } else if (oi === selectedOption && selectedOption !== currentQ.correctIndex) {
                 btnClass = "border-red-500/50 bg-red-500/10 text-red-400";
               } else {
-                btnClass = "border-white/5 bg-white/2 text-white/20";
+                btnClass = "border-app-border bg-white/2 text-app-text-muted";
               }
             }
             return (
@@ -623,7 +623,7 @@ export default function TopikListeningPage() {
                 disabled={showResult}
                 className={`p-3.5 rounded-xl border text-sm font-medium transition-all cursor-pointer whitespace-nowrap text-left ${btnClass}`}
               >
-                <span className="text-white/30 text-xs mr-2">{String.fromCharCode(65 + oi)}.</span>
+                <span className="text-app-text-muted text-xs mr-2">{String.fromCharCode(65 + oi)}.</span>
                 {opt}
               </button>
             );
@@ -634,8 +634,8 @@ export default function TopikListeningPage() {
         {showResult && (
           <div className={`rounded-xl p-4 mb-4 border ${selectedOption === currentQ?.correctIndex ? "bg-emerald-500/8 border-emerald-500/20" : "bg-red-500/8 border-red-500/20"}`}>
             <div className="flex items-center gap-2 mb-2">
-              <i className={`${selectedOption === currentQ?.correctIndex ? "ri-check-double-line text-emerald-400" : "ri-close-circle-line text-red-400"} text-base`}></i>
-              <span className={`text-sm font-bold ${selectedOption === currentQ?.correctIndex ? "text-emerald-400" : "text-red-400"}`}>
+              <i className={`${selectedOption === currentQ?.correctIndex ? "ri-check-double-line text-app-accent-success" : "ri-close-circle-line text-red-400"} text-base`}></i>
+              <span className={`text-sm font-bold ${selectedOption === currentQ?.correctIndex ? "text-app-accent-success" : "text-red-400"}`}>
                 {selectedOption === currentQ?.correctIndex ? "Chính xác!" : selectedOption === -1 ? "Hết giờ!" : "Chưa đúng!"}
               </span>
             </div>
@@ -647,7 +647,7 @@ export default function TopikListeningPage() {
         {showResult && (
           <button
             onClick={nextQuestion}
-            className="w-full py-3 bg-[#e8c84a] hover:bg-[#e8c84a]/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap"
+            className="w-full py-3 bg-app-accent-primary hover:bg-app-accent-primary/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap"
           >
             {currentIdx + 1 >= questions.length ? (
               <><i className="ri-flag-line mr-2"></i>Xem kết quả</>

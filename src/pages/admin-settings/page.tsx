@@ -308,7 +308,7 @@ export default function AdminSettingsPage() {
           </button>
           <button
             onClick={handleReset}
-            className="flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white/50 hover:text-white/80 text-xs font-medium px-4 py-2 rounded-lg transition-colors whitespace-nowrap cursor-pointer"
+            className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/50 hover:text-white/80 text-xs font-medium px-4 py-2 rounded-lg transition-colors whitespace-nowrap cursor-pointer"
           >
             <i className="ri-delete-bin-line"></i>
             Xóa tất cả
@@ -334,11 +334,11 @@ export default function AdminSettingsPage() {
       {/* Storage info banner */}
       <div className="flex items-center gap-3 px-4 py-3 rounded-xl mb-5 border bg-emerald-500/5 border-emerald-500/20">
         <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-emerald-500/10 flex-shrink-0">
-          <i className="ri-database-2-line text-emerald-400 text-sm"></i>
+          <i className="ri-database-2-line text-app-accent-success text-sm"></i>
         </div>
         <div>
-          <p className="text-emerald-400 text-sm font-medium">Lưu trữ an toàn trên Supabase</p>
-          <p className="text-emerald-400/60 text-xs">API keys được lưu vào database — không mất khi xóa cache hay đổi trình duyệt</p>
+          <p className="text-app-accent-success text-sm font-medium">Lưu trữ an toàn trên Supabase</p>
+          <p className="text-app-accent-success/60 text-xs">API keys được lưu vào database — không mất khi xóa cache hay đổi trình duyệt</p>
         </div>
       </div>
 
@@ -346,18 +346,18 @@ export default function AdminSettingsPage() {
       <div className={`flex items-center justify-between px-5 py-4 rounded-xl mb-6 border ${isFullyConfigured ? "bg-emerald-500/5 border-emerald-500/20" : "bg-amber-500/5 border-amber-500/20"}`}>
         <div className="flex items-center gap-3">
           <div className={`w-8 h-8 flex items-center justify-center rounded-lg ${isFullyConfigured ? "bg-emerald-500/10" : "bg-amber-500/10"}`}>
-            <i className={`text-base ${isFullyConfigured ? "ri-checkbox-circle-line text-emerald-400" : "ri-error-warning-line text-amber-400"}`}></i>
+            <i className={`text-base ${isFullyConfigured ? "ri-checkbox-circle-line text-app-accent-success" : "ri-error-warning-line text-amber-400"}`}></i>
           </div>
           <div>
-            <p className={`text-sm font-medium ${isFullyConfigured ? "text-emerald-400" : "text-amber-400"}`}>
+            <p className={`text-sm font-medium ${isFullyConfigured ? "text-app-accent-success" : "text-amber-400"}`}>
               {isFullyConfigured ? "Đã cấu hình đầy đủ — Sẵn sàng dùng API thật" : "Chưa cấu hình đầy đủ — Đang dùng dữ liệu mẫu"}
             </p>
             <div className="flex items-center gap-3 mt-1">
-              <span className={`flex items-center gap-1 text-xs ${isApifyConfigured ? "text-emerald-400" : "text-white/25"}`}>
+              <span className={`flex items-center gap-1 text-xs ${isApifyConfigured ? "text-app-accent-success" : "text-app-text-muted"}`}>
                 <i className={isApifyConfigured ? "ri-checkbox-circle-fill" : "ri-circle-line"}></i>
                 Apify
               </span>
-              <span className={`flex items-center gap-1 text-xs ${isAIConfigured ? "text-emerald-400" : "text-white/25"}`}>
+              <span className={`flex items-center gap-1 text-xs ${isAIConfigured ? "text-app-accent-success" : "text-app-text-muted"}`}>
                 <i className={isAIConfigured ? "ri-checkbox-circle-fill" : "ri-circle-line"}></i>
                 {PROVIDER_LABELS[form.aiProvider]}
               </span>
@@ -374,7 +374,7 @@ export default function AdminSettingsPage() {
 
       {/* Test Connection Panel */}
       {showTestPanel && (
-        <div className="bg-[#0f1117] border border-white/8 rounded-xl p-5 mb-5">
+        <div className="bg-app-bg border border-app-border rounded-xl p-5 mb-5">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 flex items-center justify-center bg-sky-500/10 rounded-lg">
@@ -382,7 +382,7 @@ export default function AdminSettingsPage() {
               </div>
               <p className="text-white font-semibold text-sm">Kết quả kiểm tra kết nối</p>
             </div>
-            <button onClick={() => setShowTestPanel(false)} className="text-white/20 hover:text-white/50 cursor-pointer">
+            <button onClick={() => setShowTestPanel(false)} className="text-app-text-muted hover:text-white/50 cursor-pointer">
               <i className="ri-close-line text-sm"></i>
             </button>
           </div>
@@ -394,20 +394,20 @@ export default function AdminSettingsPage() {
               <div key={key} className={`flex items-center gap-3 px-4 py-3 rounded-xl border ${
                 testResult[key] === "ok" ? "bg-emerald-500/5 border-emerald-500/20" :
                 testResult[key] === "fail" ? "bg-red-500/5 border-red-500/20" :
-                testResult[key] === "testing" ? "bg-sky-500/5 border-sky-500/15" : "bg-white/3 border-white/8"
+                testResult[key] === "testing" ? "bg-sky-500/5 border-sky-500/15" : "bg-app-surface/50 border-app-border"
               }`}>
                 <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
                   {testResult[key] === "testing" && <i className="ri-loader-4-line animate-spin text-sky-400 text-sm"></i>}
-                  {testResult[key] === "ok" && <i className="ri-checkbox-circle-fill text-emerald-400 text-sm"></i>}
+                  {testResult[key] === "ok" && <i className="ri-checkbox-circle-fill text-app-accent-success text-sm"></i>}
                   {testResult[key] === "fail" && <i className="ri-close-circle-fill text-red-400 text-sm"></i>}
-                  {testResult[key] === "idle" && <i className={`${icon} text-white/20 text-sm`}></i>}
+                  {testResult[key] === "idle" && <i className={`${icon} text-app-text-muted text-sm`}></i>}
                 </div>
                 <div className="flex-1">
                   <p className="text-white/60 text-xs font-medium">{label}</p>
                   <p className={`text-xs mt-0.5 ${
-                    testResult[key] === "ok" ? "text-emerald-400" :
+                    testResult[key] === "ok" ? "text-app-accent-success" :
                     testResult[key] === "fail" ? "text-red-400/80" :
-                    testResult[key] === "testing" ? "text-sky-400/70" : "text-white/25"
+                    testResult[key] === "testing" ? "text-sky-400/70" : "text-app-text-muted"
                   }`}>
                     {testResult[key] === "idle" ? "Chưa kiểm tra" : (key === "apify" ? testResult.apifyMsg : testResult.aiMsg)}
                   </p>
@@ -420,7 +420,7 @@ export default function AdminSettingsPage() {
 
       <div className="space-y-5">
         {/* Apify Section */}
-        <section className="bg-[#0f1117] border border-white/5 rounded-xl overflow-hidden">
+        <section className="bg-app-bg border border-app-border rounded-xl overflow-hidden">
           <button onClick={() => setShowApify(!showApify)} className="w-full flex items-center justify-between px-6 py-5 cursor-pointer hover:bg-white/2 transition-colors">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 flex items-center justify-center bg-orange-500/10 rounded-xl">
@@ -428,10 +428,10 @@ export default function AdminSettingsPage() {
               </div>
               <div className="text-left">
                 <p className="text-white font-semibold text-sm">Apify API Token</p>
-                <p className="text-white/40 text-xs">Dùng cho Melon Scraper &amp; Naver KiN Scraper</p>
+                <p className="text-app-text-secondary text-xs">Dùng cho Melon Scraper &amp; Naver KiN Scraper</p>
               </div>
               {isApifyConfigured ? (
-                <span className="ml-2 flex items-center gap-1 text-emerald-400 text-xs bg-emerald-400/10 px-2.5 py-1 rounded-full">
+                <span className="ml-2 flex items-center gap-1 text-app-accent-success text-xs bg-emerald-400/10 px-2.5 py-1 rounded-full">
                   <i className="ri-checkbox-circle-fill text-[10px]"></i>Đã nhập
                 </span>
               ) : (
@@ -440,31 +440,31 @@ export default function AdminSettingsPage() {
                 </span>
               )}
             </div>
-            <i className={`text-white/30 text-sm transition-transform ${showApify ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
+            <i className={`text-app-text-muted text-sm transition-transform ${showApify ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
           </button>
           {showApify && (
-            <div className="px-6 pb-6 border-t border-white/5 pt-5 space-y-4">
+            <div className="px-6 pb-6 border-t border-app-border pt-5 space-y-4">
               <div>
                 <label className="text-white/50 text-xs font-medium block mb-2">Apify API Token</label>
                 <div className="relative">
                   <div className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center">
-                    <i className="ri-key-2-line text-white/30 text-sm"></i>
+                    <i className="ri-key-2-line text-app-text-muted text-sm"></i>
                   </div>
                   <input
                     type={showApifyToken ? "text" : "password"}
                     value={form.apifyToken}
                     onChange={e => setForm({ ...form, apifyToken: e.target.value })}
                     placeholder="apify_api_xxxxxxxxxxxxxxxxxxxx"
-                    className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-12 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-orange-400/50 transition-colors font-mono"
+                    className="w-full bg-app-card/50 border border-app-border rounded-lg pl-9 pr-12 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-orange-400/50 transition-colors font-mono"
                   />
-                  <button type="button" onClick={() => setShowApifyToken(!showApifyToken)} className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-white/30 hover:text-white/60 transition-colors cursor-pointer">
+                  <button type="button" onClick={() => setShowApifyToken(!showApifyToken)} className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-app-text-muted hover:text-white/60 transition-colors cursor-pointer">
                     <i className={showApifyToken ? "ri-eye-off-line" : "ri-eye-line"}></i>
                   </button>
                 </div>
               </div>
-              <div className="bg-white/3 rounded-lg px-4 py-3 flex items-start gap-2">
-                <i className="ri-information-line text-white/30 text-sm mt-0.5"></i>
-                <p className="text-white/30 text-xs leading-relaxed">
+              <div className="bg-app-surface/50 rounded-lg px-4 py-3 flex items-start gap-2">
+                <i className="ri-information-line text-app-text-muted text-sm mt-0.5"></i>
+                <p className="text-app-text-muted text-xs leading-relaxed">
                   Lấy token tại{" "}
                   <a href="https://console.apify.com/account/integrations" target="_blank" rel="nofollow noreferrer" className="text-orange-400/70 hover:text-orange-400 underline">
                     console.apify.com → Account → Integrations
@@ -476,18 +476,18 @@ export default function AdminSettingsPage() {
         </section>
 
         {/* AI Section */}
-        <section className="bg-[#0f1117] border border-white/5 rounded-xl overflow-hidden">
+        <section className="bg-app-bg border border-app-border rounded-xl overflow-hidden">
           <button onClick={() => setShowAI(!showAI)} className="w-full flex items-center justify-between px-6 py-5 cursor-pointer hover:bg-white/2 transition-colors">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 flex items-center justify-center bg-[#e8c84a]/10 rounded-xl">
-                <i className="ri-sparkling-2-line text-[#e8c84a] text-lg"></i>
+              <div className="w-9 h-9 flex items-center justify-center bg-app-accent-primary/10 rounded-xl">
+                <i className="ri-sparkling-2-line text-app-accent-primary text-lg"></i>
               </div>
               <div className="text-left">
                 <p className="text-white font-semibold text-sm">AI API Key</p>
-                <p className="text-white/40 text-xs">OpenAI · Google Gemini · OpenRouter</p>
+                <p className="text-app-text-secondary text-xs">OpenAI · Google Gemini · OpenRouter</p>
               </div>
               {isAIConfigured ? (
-                <span className="ml-2 flex items-center gap-1 text-emerald-400 text-xs bg-emerald-400/10 px-2.5 py-1 rounded-full">
+                <span className="ml-2 flex items-center gap-1 text-app-accent-success text-xs bg-emerald-400/10 px-2.5 py-1 rounded-full">
                   <i className="ri-checkbox-circle-fill text-[10px]"></i>Đã nhập
                 </span>
               ) : (
@@ -496,16 +496,16 @@ export default function AdminSettingsPage() {
                 </span>
               )}
             </div>
-            <i className={`text-white/30 text-sm transition-transform ${showAI ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
+            <i className={`text-app-text-muted text-sm transition-transform ${showAI ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
           </button>
           {showAI && (
-            <div className="px-6 pb-6 border-t border-white/5 pt-5 space-y-4">
+            <div className="px-6 pb-6 border-t border-app-border pt-5 space-y-4">
               <div>
                 <label className="text-white/50 text-xs font-medium block mb-2">Nhà cung cấp AI</label>
                 <div className="flex gap-2 flex-wrap">
                   {(["gemini", "openai", "openrouter"] as AIProvider[]).map(p => (
                     <button key={p} onClick={() => setForm({ ...form, aiProvider: p, aiModel: "" })}
-                      className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${form.aiProvider === p ? "bg-rose-500 text-white" : "bg-white/5 text-white/50 hover:text-white/80 hover:bg-white/8"}`}>
+                      className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${form.aiProvider === p ? "bg-rose-500 text-white" : "bg-app-card/50 text-white/50 hover:text-white/80 hover:bg-white/8"}`}>
                       <i className={PROVIDER_ICONS[p]}></i>
                       {PROVIDER_LABELS[p]}
                     </button>
@@ -516,16 +516,16 @@ export default function AdminSettingsPage() {
                 <label className="text-white/50 text-xs font-medium block mb-2">API Key</label>
                 <div className="relative">
                   <div className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center">
-                    <i className="ri-key-2-line text-white/30 text-sm"></i>
+                    <i className="ri-key-2-line text-app-text-muted text-sm"></i>
                   </div>
                   <input
                     type={showAIKey ? "text" : "password"}
                     value={form.aiApiKey}
                     onChange={e => setForm({ ...form, aiApiKey: e.target.value })}
                     placeholder={form.aiProvider === "openai" ? "sk-proj-..." : form.aiProvider === "openrouter" ? "sk-or-v1-..." : "AIzaSy..."}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-12 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-rose-400/50 transition-colors font-mono"
+                    className="w-full bg-app-card/50 border border-app-border rounded-lg pl-9 pr-12 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-rose-400/50 transition-colors font-mono"
                   />
-                  <button type="button" onClick={() => setShowAIKey(!showAIKey)} className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-white/30 hover:text-white/60 transition-colors cursor-pointer">
+                  <button type="button" onClick={() => setShowAIKey(!showAIKey)} className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-app-text-muted hover:text-white/60 transition-colors cursor-pointer">
                     <i className={showAIKey ? "ri-eye-off-line" : "ri-eye-line"}></i>
                   </button>
                 </div>
@@ -533,9 +533,9 @@ export default function AdminSettingsPage() {
               <div>
                 <label className="text-white/50 text-xs font-medium block mb-2">Model</label>
                 <select value={form.aiModel || defaultModel} onChange={e => setForm({ ...form, aiModel: e.target.value })}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-rose-400/50 transition-colors cursor-pointer">
+                  className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-rose-400/50 transition-colors cursor-pointer">
                   {modelOptions.map(m => (
-                    <option key={m} value={m} className="bg-[#0f1117]">{m}{m.includes(":free") ? " (Miễn phí)" : ""}</option>
+                    <option key={m} value={m} className="bg-app-bg">{m}{m.includes(":free") ? " (Miễn phí)" : ""}</option>
                   ))}
                 </select>
               </div>
@@ -544,7 +544,7 @@ export default function AdminSettingsPage() {
         </section>
 
         {/* Story Prompt */}
-        <section className="bg-[#0f1117] border border-white/5 rounded-xl overflow-hidden">
+        <section className="bg-app-bg border border-app-border rounded-xl overflow-hidden">
           <button onClick={() => setShowPrompt(!showPrompt)} className="w-full flex items-center justify-between px-6 py-5 cursor-pointer hover:bg-white/2 transition-colors">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 flex items-center justify-center bg-violet-500/10 rounded-xl">
@@ -552,31 +552,31 @@ export default function AdminSettingsPage() {
               </div>
               <div className="text-left">
                 <p className="text-white font-semibold text-sm">Tùy chỉnh Prompt Truyện Chêm</p>
-                <p className="text-white/40 text-xs">Bối cảnh, nhân vật, độ dài, phong cách</p>
+                <p className="text-app-text-secondary text-xs">Bối cảnh, nhân vật, độ dài, phong cách</p>
               </div>
             </div>
-            <i className={`text-white/30 text-sm transition-transform ${showPrompt ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
+            <i className={`text-app-text-muted text-sm transition-transform ${showPrompt ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
           </button>
           {showPrompt && (
-            <div className="px-6 pb-6 border-t border-white/5 pt-5 space-y-4">
+            <div className="px-6 pb-6 border-t border-app-border pt-5 space-y-4">
               <div>
                 <label className="text-white/50 text-xs font-medium block mb-1.5">Bối cảnh câu chuyện</label>
                 <textarea value={sp.context} onChange={e => updateStoryPrompt({ context: e.target.value })}
                   rows={2} maxLength={300}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-violet-400/40 transition-colors resize-none" />
+                  className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-violet-400/40 transition-colors resize-none" />
               </div>
               <div>
                 <label className="text-white/50 text-xs font-medium block mb-1.5">Nhân vật trong truyện</label>
                 <textarea value={sp.characters} onChange={e => updateStoryPrompt({ characters: e.target.value })}
                   rows={2} maxLength={300}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-violet-400/40 transition-colors resize-none" />
+                  className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-violet-400/40 transition-colors resize-none" />
               </div>
               <div>
                 <label className="text-white/50 text-xs font-medium block mb-2">Độ dài truyện</label>
                 <div className="flex gap-2">
                   {([{ value: "short", label: "Ngắn", desc: "~150 từ" }, { value: "medium", label: "Vừa", desc: "~300 từ" }, { value: "long", label: "Dài", desc: "~500 từ" }] as const).map(opt => (
                     <button key={opt.value} onClick={() => updateStoryPrompt({ storyLength: opt.value })}
-                      className={`flex-1 flex flex-col items-center py-3 rounded-xl border transition-all cursor-pointer ${sp.storyLength === opt.value ? "bg-violet-500/15 border-violet-500/40 text-violet-300" : "bg-white/3 border-white/8 text-white/40 hover:border-white/20"}`}>
+                      className={`flex-1 flex flex-col items-center py-3 rounded-xl border transition-all cursor-pointer ${sp.storyLength === opt.value ? "bg-violet-500/15 border-violet-500/40 text-violet-300" : "bg-app-surface/50 border-app-border text-app-text-secondary hover:border-white/20"}`}>
                       <span className="text-sm font-semibold">{opt.label}</span>
                       <span className="text-[10px] opacity-60 mt-0.5">{opt.desc}</span>
                     </button>
@@ -586,10 +586,10 @@ export default function AdminSettingsPage() {
               <div>
                 <label className="text-white/50 text-xs font-medium block mb-1.5">Phong cách viết</label>
                 <input type="text" value={sp.style} onChange={e => updateStoryPrompt({ style: e.target.value })} maxLength={200}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-violet-400/40 transition-colors" />
+                  className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-violet-400/40 transition-colors" />
               </div>
               <div className="flex items-center justify-between pt-2">
-                <button onClick={handleResetPrompt} className="flex items-center gap-1.5 text-white/25 hover:text-white/50 text-xs transition-colors cursor-pointer">
+                <button onClick={handleResetPrompt} className="flex items-center gap-1.5 text-app-text-muted hover:text-white/50 text-xs transition-colors cursor-pointer">
                   <i className="ri-refresh-line"></i>Khôi phục mặc định
                 </button>
               </div>
@@ -598,49 +598,49 @@ export default function AdminSettingsPage() {
         </section>
 
         {/* API Cost */}
-        <section className="bg-[#0f1117] border border-white/5 rounded-xl overflow-hidden">
+        <section className="bg-app-bg border border-app-border rounded-xl overflow-hidden">
           <button onClick={() => setShowCost(!showCost)} className="w-full flex items-center justify-between px-6 py-5 cursor-pointer hover:bg-white/2 transition-colors">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 flex items-center justify-center bg-emerald-500/10 rounded-xl">
-                <i className="ri-money-dollar-circle-line text-emerald-400 text-lg"></i>
+                <i className="ri-money-dollar-circle-line text-app-accent-success text-lg"></i>
               </div>
               <div className="text-left">
                 <p className="text-white font-semibold text-sm">Thống kê chi phí API</p>
-                <p className="text-white/40 text-xs">Ước tính chi phí AI đã dùng theo model</p>
+                <p className="text-app-text-secondary text-xs">Ước tính chi phí AI đã dùng theo model</p>
               </div>
               <div className="ml-2 flex items-center gap-2">
-                <span className="flex items-center gap-1 text-emerald-400 text-xs bg-emerald-400/10 px-2.5 py-1 rounded-full">
+                <span className="flex items-center gap-1 text-app-accent-success text-xs bg-emerald-400/10 px-2.5 py-1 rounded-full">
                   <i className="ri-bar-chart-line text-[10px]"></i>
                   {costSummary.totalCalls} lần gọi
                 </span>
-                <span className="flex items-center gap-1 text-[#e8c84a] text-xs bg-[#e8c84a]/10 px-2.5 py-1 rounded-full">
+                <span className="flex items-center gap-1 text-app-accent-primary text-xs bg-app-accent-primary/10 px-2.5 py-1 rounded-full">
                   ~${costSummary.totalCostUsd.toFixed(4)}
                 </span>
               </div>
             </div>
-            <i className={`text-white/30 text-sm transition-transform ${showCost ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
+            <i className={`text-app-text-muted text-sm transition-transform ${showCost ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
           </button>
           {showCost && (
-            <div className="px-6 pb-6 border-t border-white/5 pt-5 space-y-4">
+            <div className="px-6 pb-6 border-t border-app-border pt-5 space-y-4">
               {costSummary.totalCalls === 0 ? (
-                <div className="text-center py-8 text-white/25 text-sm">
+                <div className="text-center py-8 text-app-text-muted text-sm">
                   <i className="ri-bar-chart-line text-2xl block mb-2 opacity-30"></i>
                   Chưa có lần gọi AI nào được ghi nhận
                 </div>
               ) : (
                 <>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div className="bg-white/3 rounded-xl p-4 border border-white/5">
-                      <p className="text-white/30 text-[10px] tracking-normal mb-1">Tổng lần gọi</p>
+                    <div className="bg-app-surface/50 rounded-xl p-4 border border-app-border">
+                      <p className="text-app-text-muted text-[10px] tracking-normal mb-1">Tổng lần gọi</p>
                       <p className="text-white text-2xl font-bold">{costSummary.totalCalls}</p>
                     </div>
-                    <div className="bg-[#e8c84a]/5 rounded-xl p-4 border border-[#e8c84a]/15">
-                      <p className="text-[#e8c84a]/60 text-[10px] tracking-normal mb-1">Chi phí ước tính</p>
-                      <p className="text-[#e8c84a] text-2xl font-bold">${costSummary.totalCostUsd.toFixed(4)}</p>
+                    <div className="bg-app-accent-primary/5 rounded-xl p-4 border border-app-accent-primary/15">
+                      <p className="text-app-accent-primary/60 text-[10px] tracking-normal mb-1">Chi phí ước tính</p>
+                      <p className="text-app-accent-primary text-2xl font-bold">${costSummary.totalCostUsd.toFixed(4)}</p>
                     </div>
                     <div className="bg-emerald-500/5 rounded-xl p-4 border border-emerald-500/15">
-                      <p className="text-emerald-400/60 text-[10px] tracking-normal mb-1">30 ngày qua</p>
-                      <p className="text-emerald-400 text-2xl font-bold">{costSummary.last30Days}</p>
+                      <p className="text-app-accent-success/60 text-[10px] tracking-normal mb-1">30 ngày qua</p>
+                      <p className="text-app-accent-success text-2xl font-bold">{costSummary.last30Days}</p>
                     </div>
                   </div>
                   <button onClick={() => { clearRecords(); showToastMsg("Đã xóa lịch sử thống kê"); }}
@@ -654,18 +654,18 @@ export default function AdminSettingsPage() {
         </section>
 
         {/* Bank Account Configuration */}
-        <section className="bg-[#0f1117] border border-white/5 rounded-xl overflow-hidden">
+        <section className="bg-app-bg border border-app-border rounded-xl overflow-hidden">
           <button onClick={() => setShowBank(!showBank)} className="w-full flex items-center justify-between px-6 py-5 cursor-pointer hover:bg-white/2 transition-colors">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 flex items-center justify-center bg-emerald-500/10 rounded-xl">
-                <i className="ri-bank-line text-emerald-400 text-lg"></i>
+                <i className="ri-bank-line text-app-accent-success text-lg"></i>
               </div>
               <div className="text-left">
                 <p className="text-white font-semibold text-sm">Cấu hình tài khoản ngân hàng</p>
-                <p className="text-white/40 text-xs">Thanh toán VIP qua chuyển khoản ATM</p>
+                <p className="text-app-text-secondary text-xs">Thanh toán VIP qua chuyển khoản ATM</p>
               </div>
               {form.bankAccount?.accountNumber ? (
-                <span className="ml-2 flex items-center gap-1 text-emerald-400 text-xs bg-emerald-400/10 px-2.5 py-1 rounded-full">
+                <span className="ml-2 flex items-center gap-1 text-app-accent-success text-xs bg-emerald-400/10 px-2.5 py-1 rounded-full">
                   <i className="ri-checkbox-circle-fill text-[10px]"></i>Đã cấu hình
                 </span>
               ) : (
@@ -674,16 +674,16 @@ export default function AdminSettingsPage() {
                 </span>
               )}
             </div>
-            <i className={`text-white/30 text-sm transition-transform ${showBank ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
+            <i className={`text-app-text-muted text-sm transition-transform ${showBank ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
           </button>
           {showBank && (
-            <div className="px-6 pb-6 border-t border-white/5 pt-5 space-y-4">
+            <div className="px-6 pb-6 border-t border-app-border pt-5 space-y-4">
               <div>
                 <label className="text-white/50 text-xs font-medium block mb-2">Tên ngân hàng</label>
                 <select
                   value={form.bankAccount?.bankName || ""}
                   onChange={e => setForm(prev => ({ ...prev, bankAccount: { ...(prev.bankAccount || { accountNumber: "", accountName: "", branch: "" }), bankName: e.target.value } }))}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-emerald-400/40 transition-colors"
+                  className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-emerald-400/40 transition-colors"
                 >
                   <option value="">Chọn ngân hàng</option>
                   <option value="Vietcombank">Vietcombank</option>
@@ -705,7 +705,7 @@ export default function AdminSettingsPage() {
                   value={form.bankAccount?.accountNumber || ""}
                   onChange={e => setForm(prev => ({ ...prev, bankAccount: { ...(prev.bankAccount || { bankName: "", accountName: "", branch: "" }), accountNumber: e.target.value } }))}
                   placeholder="VD: 123456789"
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-emerald-400/40 transition-colors"
+                  className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-emerald-400/40 transition-colors"
                 />
               </div>
               <div>
@@ -715,7 +715,7 @@ export default function AdminSettingsPage() {
                   value={form.bankAccount?.accountName || ""}
                   onChange={e => setForm(prev => ({ ...prev, bankAccount: { ...(prev.bankAccount || { bankName: "", accountNumber: "", branch: "" }), accountName: e.target.value } }))}
                   placeholder="VD: NGUYEN VAN A"
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-emerald-400/40 transition-colors"
+                  className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-emerald-400/40 transition-colors"
                 />
               </div>
               <div>
@@ -725,17 +725,17 @@ export default function AdminSettingsPage() {
                   value={form.bankAccount?.branch || ""}
                   onChange={e => setForm(prev => ({ ...prev, bankAccount: { ...(prev.bankAccount || { bankName: "", accountNumber: "", accountName: "" }), branch: e.target.value } }))}
                   placeholder="VD: Chi nhánh Hà Nội"
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-emerald-400/40 transition-colors"
+                  className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-emerald-400/40 transition-colors"
                 />
               </div>
-              <div className="flex items-center gap-2 text-emerald-400/60 text-xs bg-emerald-400/5 px-3 py-2 rounded-lg">
+              <div className="flex items-center gap-2 text-app-accent-success/60 text-xs bg-emerald-400/5 px-3 py-2 rounded-lg">
                 <i className="ri-information-line"></i>
                 Thông tin này sẽ hiển thị trên trang pricing để người dùng chuyển khoản
               </div>
               
               {/* QR Code Preview */}
               {form.bankAccount?.bankName && form.bankAccount?.accountNumber && (
-                <div className="mt-4 pt-4 border-t border-white/5">
+                <div className="mt-4 pt-4 border-t border-app-border">
                   <label className="text-white/50 text-xs font-medium block mb-3">QR Code chuyển khoản</label>
                   <div className="flex items-start gap-4">
                     <div className="w-32 h-32 bg-white rounded-xl flex items-center justify-center flex-shrink-0">
@@ -781,7 +781,7 @@ export default function AdminSettingsPage() {
                           }));
                           showToastMsg("Đã tạo QR Code!");
                         }}
-                        className="flex items-center gap-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 text-xs font-medium px-3 py-2 rounded-lg transition-colors cursor-pointer border border-emerald-500/20"
+                        className="flex items-center gap-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-app-accent-success text-xs font-medium px-3 py-2 rounded-lg transition-colors cursor-pointer border border-emerald-500/20"
                       >
                         <i className="ri-qr-code-line"></i>Tạo QR Code
                       </button>
@@ -796,7 +796,7 @@ export default function AdminSettingsPage() {
                             qrCodeUrl: undefined 
                           } 
                         }))}
-                        className="flex items-center gap-2 text-red-400/60 hover:text-red-400 text-xs transition-colors cursor-pointer"
+                        className="flex items-center gap-2 text-app-accent-error/60 hover:text-red-400 text-xs transition-colors cursor-pointer"
                       >
                         <i className="ri-delete-bin-line"></i>Xóa QR Code
                       </button>
@@ -809,19 +809,19 @@ export default function AdminSettingsPage() {
         </section>
 
         {/* Data Management */}
-        <section className="bg-[#0f1117] border border-white/5 rounded-xl p-6">
+        <section className="bg-app-bg border border-app-border rounded-xl p-6">
           <div className="flex items-center gap-3 mb-5">
-            <div className="w-9 h-9 flex items-center justify-center bg-white/5 rounded-xl">
-              <i className="ri-database-2-line text-white/40 text-lg"></i>
+            <div className="w-9 h-9 flex items-center justify-center bg-app-card/50 rounded-xl">
+              <i className="ri-database-2-line text-app-text-secondary text-lg"></i>
             </div>
             <div>
               <p className="text-white font-semibold text-sm">Quản lý dữ liệu cục bộ</p>
-              <p className="text-white/40 text-xs">Dữ liệu cache trong localStorage của trình duyệt</p>
+              <p className="text-app-text-secondary text-xs">Dữ liệu cache trong localStorage của trình duyệt</p>
             </div>
           </div>
           <div className="space-y-2">
             <button onClick={() => { ["kts_melon_lessons", "kts_naver_qas"].forEach(k => localStorage.removeItem(k)); showToastMsg("Đã xóa dữ liệu đã duyệt"); }}
-              className="flex items-center gap-2 text-red-400/60 hover:text-red-400 text-xs transition-colors cursor-pointer">
+              className="flex items-center gap-2 text-app-accent-error/60 hover:text-red-400 text-xs transition-colors cursor-pointer">
               <i className="ri-delete-bin-line"></i>Xóa dữ liệu đã duyệt (giữ lại API keys)
             </button>
             <button onClick={() => { ["kts_melon_seen_songs", "kts_melon_cached_songs", "kts_melon_fetch_meta"].forEach(k => localStorage.removeItem(k)); showToastMsg("Đã reset lịch sử bài hát Melon"); }}

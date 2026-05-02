@@ -19,7 +19,7 @@ interface HanjaEntry {
 
 const DIFF_COLORS = {
   easy: { bg: "rgba(74,222,128,0.12)", text: "#4ade80", label: "Dễ" },
-  medium: { bg: "rgba(232,200,74,0.12)", text: "#e8c84a", label: "TB" },
+  medium: { bg: "rgba(232,200,74,0.12)", text: "app-accent-primary", label: "TB" },
   hard: { bg: "rgba(248,113,113,0.12)", text: "#f87171", label: "Khó" },
 };
 
@@ -149,7 +149,7 @@ function EntryEditor({ entry, onSave, onCancel }: {
           <button onClick={onCancel} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap"
             style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>Hủy</button>
           <button onClick={handleSave} disabled={!form.korean?.trim() || !form.vietnamese?.trim()}
-            className="flex-1 py-2.5 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] disabled:opacity-40 text-[#0f1117] font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
+            className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
             Lưu từ
           </button>
         </div>
@@ -285,7 +285,7 @@ export default function AdminHanjaPage() {
             {syncing ? "Đang sync..." : "Sync Supabase"}
           </button>
           <button onClick={() => setEditingEntry({})}
-            className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-lg bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] cursor-pointer whitespace-nowrap transition-colors">
+            className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-lg bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg cursor-pointer whitespace-nowrap transition-colors">
             <i className="ri-add-line"></i>
             Thêm từ
           </button>
@@ -295,22 +295,22 @@ export default function AdminHanjaPage() {
       {/* Notifications */}
       {importResult && (
         <div className="mb-4 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-2">
-          <i className="ri-checkbox-circle-line text-emerald-400"></i>
-          <p className="text-emerald-400 text-sm">Import thành công: +{importResult.added} từ mới, bỏ qua {importResult.skipped} từ trùng</p>
+          <i className="ri-checkbox-circle-line text-app-accent-success"></i>
+          <p className="text-app-accent-success text-sm">Import thành công: +{importResult.added} từ mới, bỏ qua {importResult.skipped} từ trùng</p>
         </div>
       )}
       {syncResult && (
         <div className={`mb-4 p-3 rounded-xl flex items-center gap-2 ${syncResult.startsWith("✓") ? "bg-emerald-500/10 border border-emerald-500/20" : "bg-rose-500/10 border border-rose-500/20"}`}>
-          <p className={`text-sm ${syncResult.startsWith("✓") ? "text-emerald-400" : "text-rose-400"}`}>{syncResult}</p>
+          <p className={`text-sm ${syncResult.startsWith("✓") ? "text-app-accent-success" : "text-rose-400"}`}>{syncResult}</p>
         </div>
       )}
 
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng từ", value: stats.total, color: "#e8c84a", icon: "ri-character-recognition-line" },
+          { label: "Tổng từ", value: stats.total, color: "app-accent-primary", icon: "ri-character-recognition-line" },
           { label: "Dễ", value: stats.easy, color: "#4ade80", icon: "ri-seedling-line" },
-          { label: "Trung bình", value: stats.medium, color: "#e8c84a", icon: "ri-star-line" },
+          { label: "Trung bình", value: stats.medium, color: "app-accent-primary", icon: "ri-star-line" },
           { label: "Khó", value: stats.hard, color: "#f87171", icon: "ri-fire-line" },
         ].map(s => (
           <div key={s.label} className="rounded-xl border p-4" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
@@ -326,7 +326,7 @@ export default function AdminHanjaPage() {
       {/* CSV format guide */}
       <div className="mb-5 p-4 rounded-xl border" style={{ backgroundColor: "var(--admin-card2)", borderColor: "var(--admin-border)" }}>
         <div className="flex items-center gap-2 mb-2">
-          <i className="ri-information-line text-[#e8c84a] text-sm"></i>
+          <i className="ri-information-line text-app-accent-primary text-sm"></i>
           <p className="text-xs font-semibold" style={{ color: "var(--admin-text)" }}>Định dạng CSV import</p>
         </div>
         <p className="text-[10px] font-mono" style={{ color: "var(--admin-text-muted)" }}>
@@ -356,7 +356,7 @@ export default function AdminHanjaPage() {
               className="px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap"
               style={{
                 backgroundColor: filterDiff === d ? (d === "all" ? "rgba(232,200,74,0.15)" : DIFF_COLORS[d as keyof typeof DIFF_COLORS]?.bg || "rgba(232,200,74,0.15)") : "transparent",
-                color: filterDiff === d ? (d === "all" ? "#e8c84a" : DIFF_COLORS[d as keyof typeof DIFF_COLORS]?.text || "#e8c84a") : "var(--admin-text-muted)",
+                color: filterDiff === d ? (d === "all" ? "app-accent-primary" : DIFF_COLORS[d as keyof typeof DIFF_COLORS]?.text || "app-accent-primary") : "var(--admin-text-muted)",
               }}>
               {d === "all" ? "Tất cả" : DIFF_COLORS[d as keyof typeof DIFF_COLORS]?.label}
             </button>
@@ -386,7 +386,7 @@ export default function AdminHanjaPage() {
                   <i className="ri-upload-cloud-2-line"></i>Import CSV
                 </button>
                 <button onClick={() => setEditingEntry({})}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm cursor-pointer whitespace-nowrap bg-[#e8c84a] text-[#0f1117] font-bold">
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm cursor-pointer whitespace-nowrap bg-app-accent-primary text-app-bg font-bold">
                   <i className="ri-add-line"></i>Thêm từ đầu tiên
                 </button>
               </div>

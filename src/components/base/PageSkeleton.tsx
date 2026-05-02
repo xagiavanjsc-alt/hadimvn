@@ -1,6 +1,6 @@
 /**
  * PageSkeleton — loading fallback cho lazy routes (dark theme)
- * Match với bg-[#0f1117] của toàn bộ app, không còn nháy trắng
+ * Match với bg-app-bg của toàn bộ app, không còn nháy trắng
  */
 
 interface PageSkeletonProps {
@@ -9,7 +9,7 @@ interface PageSkeletonProps {
 
 function SkeletonBlock({ className }: { className: string }) {
   return (
-    <div className={`bg-white/5 rounded-xl animate-pulse ${className}`} />
+    <div className={`bg-app-card/50 rounded-xl animate-pulse ${className}`} />
   );
 }
 
@@ -17,7 +17,7 @@ function DashboardSkeleton() {
   return (
     <div className="flex min-h-screen bg-[#13151c]">
       {/* Sidebar skeleton */}
-      <div className="hidden md:flex flex-col w-60 bg-[#0f1117] border-r border-white/5 p-4 gap-3 flex-shrink-0">
+      <div className="hidden md:flex flex-col w-60 bg-app-bg border-r border-app-border p-4 gap-3 flex-shrink-0">
         <SkeletonBlock className="h-9 w-32 mb-4" />
         {[...Array(8)].map((_, i) => (
           <SkeletonBlock key={i} className="h-8 w-full" />
@@ -41,7 +41,7 @@ function DashboardSkeleton() {
         {/* Stats row */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="bg-[#0f1117] rounded-2xl p-4 border border-white/5">
+            <div key={i} className="bg-app-bg rounded-2xl p-4 border border-app-border">
               <SkeletonBlock className="h-4 w-20 mb-3" />
               <SkeletonBlock className="h-8 w-16 mb-1" />
               <SkeletonBlock className="h-3 w-24" />
@@ -51,7 +51,7 @@ function DashboardSkeleton() {
 
         {/* Content blocks */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <div className="lg:col-span-2 bg-[#0f1117] rounded-2xl p-5 border border-white/5">
+          <div className="lg:col-span-2 bg-app-bg rounded-2xl p-5 border border-app-border">
             <SkeletonBlock className="h-5 w-36 mb-4" />
             <div className="space-y-3">
               {[...Array(5)].map((_, i) => (
@@ -65,7 +65,7 @@ function DashboardSkeleton() {
               ))}
             </div>
           </div>
-          <div className="bg-[#0f1117] rounded-2xl p-5 border border-white/5">
+          <div className="bg-app-bg rounded-2xl p-5 border border-app-border">
             <SkeletonBlock className="h-5 w-28 mb-4" />
             <SkeletonBlock className="h-32 w-full mb-3" />
             <div className="space-y-2">
@@ -85,7 +85,7 @@ function VocabSkeleton() {
   return (
     <div className="flex min-h-screen bg-[#13151c]">
       {/* Sidebar */}
-      <div className="hidden md:flex flex-col w-60 bg-[#0f1117] border-r border-white/5 p-4 gap-3 flex-shrink-0">
+      <div className="hidden md:flex flex-col w-60 bg-app-bg border-r border-app-border p-4 gap-3 flex-shrink-0">
         <SkeletonBlock className="h-9 w-32 mb-4" />
         {[...Array(10)].map((_, i) => (
           <SkeletonBlock key={i} className="h-8 w-full" />
@@ -108,7 +108,7 @@ function VocabSkeleton() {
         {/* Stats row */}
         <div className="grid grid-cols-4 gap-4 mb-5">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="bg-[#0f1117] rounded-xl p-4 border border-white/5 flex items-center gap-3">
+            <div key={i} className="bg-app-bg rounded-xl p-4 border border-app-border flex items-center gap-3">
               <SkeletonBlock className="h-10 w-10 rounded-xl flex-shrink-0" />
               <div className="flex-1">
                 <SkeletonBlock className="h-6 w-12 mb-1" />
@@ -135,7 +135,7 @@ function VocabSkeleton() {
         {/* Vocab grid 3 cols */}
         <div className="grid grid-cols-3 gap-3">
           {[...Array(12)].map((_, i) => (
-            <div key={i} className="bg-[#0f1117] border border-white/5 rounded-xl p-4">
+            <div key={i} className="bg-app-bg border border-app-border rounded-xl p-4">
               <div className="flex items-start justify-between mb-2">
                 <div className="flex-1">
                   <SkeletonBlock className="h-7 w-24 mb-1.5" />
@@ -161,7 +161,7 @@ function VocabSkeleton() {
 function ExamSkeleton() {
   return (
     <div className="flex min-h-screen bg-[#13151c]">
-      <div className="hidden md:flex flex-col w-60 bg-[#0f1117] border-r border-white/5 p-4 gap-3 flex-shrink-0">
+      <div className="hidden md:flex flex-col w-60 bg-app-bg border-r border-app-border p-4 gap-3 flex-shrink-0">
         <SkeletonBlock className="h-9 w-32 mb-4" />
         {[...Array(8)].map((_, i) => (
           <SkeletonBlock key={i} className="h-8 w-full" />
@@ -174,7 +174,7 @@ function ExamSkeleton() {
         </div>
         <div className="max-w-2xl mx-auto">
           <SkeletonBlock className="h-3 w-full rounded-full mb-6" />
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-8 mb-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-8 mb-5">
             <SkeletonBlock className="h-5 w-24 mb-4" />
             <SkeletonBlock className="h-8 w-full mb-2" />
             <SkeletonBlock className="h-8 w-3/4" />
@@ -194,7 +194,7 @@ function ExamSkeleton() {
 function FlashcardSkeleton() {
   return (
     <div className="flex min-h-screen bg-[#13151c]">
-      <div className="hidden md:flex flex-col w-60 bg-[#0f1117] border-r border-white/5 p-4 gap-3 flex-shrink-0">
+      <div className="hidden md:flex flex-col w-60 bg-app-bg border-r border-app-border p-4 gap-3 flex-shrink-0">
         <SkeletonBlock className="h-9 w-32 mb-4" />
         {[...Array(8)].map((_, i) => (
           <SkeletonBlock key={i} className="h-8 w-full" />
@@ -215,7 +215,7 @@ function FlashcardSkeleton() {
 
 function FullPageSkeleton() {
   return (
-    <div className="min-h-screen bg-[#0f1117] flex flex-col items-center justify-center px-6">
+    <div className="min-h-screen bg-app-bg flex flex-col items-center justify-center px-6">
       <SkeletonBlock className="h-16 w-16 rounded-2xl mb-6" />
       <SkeletonBlock className="h-7 w-56 mb-3" />
       <SkeletonBlock className="h-4 w-72 mb-2" />

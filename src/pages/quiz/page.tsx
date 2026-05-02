@@ -29,7 +29,7 @@ function QuizCard({ q, index, total, onAnswer, answered }: {
 }) {
   const isCorrect = (i: number) => i === q.correctIndex;
   const typeLabel = q.type === "vocab" ? "Từ vựng" : q.type === "grammar" ? "Ngữ pháp" : "Điền vào chỗ trống";
-  const typeColor = q.type === "vocab" ? "#e8c84a" : q.type === "grammar" ? "#a78bfa" : "#34d399";
+  const typeColor = q.type === "vocab" ? "app-accent-primary" : q.type === "grammar" ? "#a78bfa" : "#34d399";
 
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
@@ -67,14 +67,14 @@ function QuizCard({ q, index, total, onAnswer, answered }: {
 
   return (
     <div
-      className="bg-[#0f1117] border border-white/5 rounded-2xl p-6 relative overflow-hidden"
+      className="bg-app-bg border border-app-border rounded-2xl p-6 relative overflow-hidden"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
       {/* Swipe direction indicator */}
       {swipeDir && (
-        <div className={`absolute inset-y-0 ${swipeDir === "right" ? "left-0 bg-gradient-to-r" : "right-0 bg-gradient-to-l"} from-[#e8c84a]/10 to-transparent w-24 pointer-events-none transition-opacity`} />
+        <div className={`absolute inset-y-0 ${swipeDir === "right" ? "left-0 bg-gradient-to-r" : "right-0 bg-gradient-to-l"} from-[app-accent-primary]/10 to-transparent w-24 pointer-events-none transition-opacity`} />
       )}
 
       {/* Mobile swipe hint */}
@@ -92,14 +92,14 @@ function QuizCard({ q, index, total, onAnswer, answered }: {
           {q.word && (
             <button
               onClick={() => speakKorean(q.word!)}
-              className="flex items-center gap-1 text-[10px] text-white/30 hover:text-white/60 cursor-pointer transition-colors"
+              className="flex items-center gap-1 text-[10px] text-app-text-muted hover:text-white/60 cursor-pointer transition-colors"
             >
               <i className="ri-volume-up-line text-xs"></i>
               {q.word}
             </button>
           )}
         </div>
-        <span className="text-white/25 text-xs">{index + 1} / {total}</span>
+        <span className="text-app-text-muted text-xs">{index + 1} / {total}</span>
       </div>
 
       {/* Question */}
@@ -108,11 +108,11 @@ function QuizCard({ q, index, total, onAnswer, answered }: {
       {/* Options */}
       <div className="space-y-2.5">
         {q.options.map((opt, i) => {
-          let style = "border-white/8 bg-white/3 text-white/70 hover:border-white/15 hover:bg-white/5";
+          let style = "border-app-border bg-app-surface/50 text-white/70 hover:border-white/15 hover:bg-app-card/50";
           if (answered !== null) {
-            if (i === q.correctIndex) style = "border-emerald-500/40 bg-emerald-500/10 text-emerald-400";
+            if (i === q.correctIndex) style = "border-emerald-500/40 bg-emerald-500/10 text-app-accent-success";
             else if (i === answered && answered !== q.correctIndex) style = "border-red-500/40 bg-red-500/10 text-red-400";
-            else style = "border-white/5 bg-white/2 text-white/30";
+            else style = "border-app-border bg-white/2 text-app-text-muted";
           }
           return (
             <button
@@ -132,7 +132,7 @@ function QuizCard({ q, index, total, onAnswer, answered }: {
               </span>
               {opt}
               {answered !== null && i === q.correctIndex && (
-                <i className="ri-checkbox-circle-fill text-emerald-400 ml-auto flex-shrink-0"></i>
+                <i className="ri-checkbox-circle-fill text-app-accent-success ml-auto flex-shrink-0"></i>
               )}
               {answered !== null && i === answered && answered !== q.correctIndex && (
                 <i className="ri-close-circle-fill text-red-400 ml-auto flex-shrink-0"></i>
@@ -144,7 +144,7 @@ function QuizCard({ q, index, total, onAnswer, answered }: {
 
       {/* Explanation */}
       {answered !== null && (
-        <div className={`mt-4 p-3 rounded-xl border text-xs leading-relaxed ${answered === q.correctIndex ? "border-emerald-500/20 bg-emerald-500/5 text-emerald-400/80" : "border-red-500/20 bg-red-500/5 text-red-400/80"}`}>
+        <div className={`mt-4 p-3 rounded-xl border text-xs leading-relaxed ${answered === q.correctIndex ? "border-emerald-500/20 bg-emerald-500/5 text-app-accent-success/80" : "border-red-500/20 bg-red-500/5 text-red-400/80"}`}>
           <div className="flex items-start gap-2">
             <i className={`${answered === q.correctIndex ? "ri-lightbulb-line" : "ri-information-line"} text-sm flex-shrink-0 mt-0.5`}></i>
             <p>{q.explanation}</p>
@@ -167,21 +167,21 @@ function QuizResult({ score, total, questions, answers, onRetry, onNew, lessonTi
   const [showShare, setShowShare] = useState(false);
   const pct = Math.round((score / total) * 100);
   const grade = pct >= 80 ? { label: "Xuất sắc!", color: "#34d399", icon: "ri-trophy-line" }
-    : pct >= 60 ? { label: "Khá tốt!", color: "#e8c84a", icon: "ri-medal-line" }
+    : pct >= 60 ? { label: "Khá tốt!", color: "app-accent-primary", icon: "ri-medal-line" }
     : { label: "Cần ôn thêm!", color: "#fb923c", icon: "ri-refresh-line" };
 
   return (
     <>
-    <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-8">
+    <div className="bg-app-bg border border-app-border rounded-2xl p-8">
       <div className="text-center mb-8">
         <div className="w-20 h-20 flex items-center justify-center rounded-2xl mx-auto mb-4" style={{ backgroundColor: `${grade.color}15` }}>
           <i className={`${grade.icon} text-4xl`} style={{ color: grade.color }}></i>
         </div>
         <h2 className="text-white font-bold text-2xl mb-1">{grade.label}</h2>
-        <p className="text-white/40 text-sm mb-4">
+        <p className="text-app-text-secondary text-sm mb-4">
           Bạn trả lời đúng <span className="font-bold" style={{ color: grade.color }}>{score}/{total}</span> câu ({pct}%)
         </p>
-        <div className="w-full max-w-xs mx-auto h-2 bg-white/5 rounded-full overflow-hidden">
+        <div className="w-full max-w-xs mx-auto h-2 bg-app-card/50 rounded-full overflow-hidden">
           <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: grade.color }} />
         </div>
       </div>
@@ -192,11 +192,11 @@ function QuizResult({ score, total, questions, answers, onRetry, onNew, lessonTi
           const correct = answers[i] === q.correctIndex;
           return (
             <div key={q.id} className={`flex items-start gap-3 px-4 py-3 rounded-xl border ${correct ? "border-emerald-500/15 bg-emerald-500/5" : "border-red-500/15 bg-red-500/5"}`}>
-              <i className={`${correct ? "ri-checkbox-circle-fill text-emerald-400" : "ri-close-circle-fill text-red-400"} text-sm flex-shrink-0 mt-0.5`}></i>
+              <i className={`${correct ? "ri-checkbox-circle-fill text-app-accent-success" : "ri-close-circle-fill text-red-400"} text-sm flex-shrink-0 mt-0.5`}></i>
               <div className="flex-1 min-w-0">
                 <p className="text-white/60 text-xs leading-relaxed truncate">{q.question}</p>
                 {!correct && (
-                  <p className="text-emerald-400/70 text-[10px] mt-0.5">Đáp án đúng: {q.options[q.correctIndex]}</p>
+                  <p className="text-app-accent-success/70 text-[10px] mt-0.5">Đáp án đúng: {q.options[q.correctIndex]}</p>
                 )}
               </div>
             </div>
@@ -205,10 +205,10 @@ function QuizResult({ score, total, questions, answers, onRetry, onNew, lessonTi
       </div>
 
       <div className="flex gap-3 mb-3">
-        <button onClick={onRetry} className="flex-1 py-3 rounded-xl border border-white/10 text-white/60 text-sm font-medium hover:bg-white/5 transition-colors cursor-pointer whitespace-nowrap">
+        <button onClick={onRetry} className="flex-1 py-3 rounded-xl border border-app-border text-white/60 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">
           Làm lại
         </button>
-        <button onClick={onNew} className="flex-1 py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] text-sm font-bold transition-colors cursor-pointer whitespace-nowrap">
+        <button onClick={onNew} className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold transition-colors cursor-pointer whitespace-nowrap">
           Quiz mới
         </button>
       </div>
@@ -260,19 +260,19 @@ function EpsWeakQuiz({ weakTopicId, onBack }: { weakTopicId: string; onBack: () 
 
   if (done || (currentIdx >= questions.length && questions.length > 0)) {
     const pct = questions.length > 0 ? Math.round((score / questions.length) * 100) : 0;
-    const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
+    const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
     return (
-      <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-8 text-center">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center">
         <div className="w-14 h-14 flex items-center justify-center rounded-2xl mx-auto mb-4" style={{ backgroundColor: `${color}15` }}>
           <i className={`${pct >= 80 ? "ri-trophy-line" : "ri-refresh-line"} text-2xl`} style={{ color }}></i>
         </div>
         <p className="text-white font-bold text-xl mb-1">{pct >= 80 ? "Xuất sắc!" : "Cần ôn thêm!"}</p>
-        <p className="text-white/40 text-sm mb-5">{score}/{questions.length} câu đúng ({pct}%)</p>
+        <p className="text-app-text-secondary text-sm mb-5">{score}/{questions.length} câu đúng ({pct}%)</p>
         <div className="flex gap-3">
-          <button onClick={onBack} className="flex-1 py-3 rounded-xl border border-white/10 text-white/60 text-sm cursor-pointer whitespace-nowrap hover:bg-white/5">
+          <button onClick={onBack} className="flex-1 py-3 rounded-xl border border-app-border text-white/60 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50">
             Chọn chủ đề khác
           </button>
-          <button onClick={() => { setSessionAnswers({}); setCurrentIdx(0); setDone(false); }} className="flex-1 py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm cursor-pointer whitespace-nowrap">
+          <button onClick={() => { setSessionAnswers({}); setCurrentIdx(0); setDone(false); }} className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap">
             Làm lại
           </button>
         </div>
@@ -287,13 +287,13 @@ function EpsWeakQuiz({ weakTopicId, onBack }: { weakTopicId: string; onBack: () 
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-3">
-        <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
-          <div className="h-full rounded-full bg-[#e8c84a] transition-all" style={{ width: `${(currentIdx / questions.length) * 100}%` }} />
+        <div className="flex-1 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
+          <div className="h-full rounded-full bg-app-accent-primary transition-all" style={{ width: `${(currentIdx / questions.length) * 100}%` }} />
         </div>
-        <span className="text-white/30 text-xs whitespace-nowrap">{currentIdx + 1}/{questions.length}</span>
+        <span className="text-app-text-muted text-xs whitespace-nowrap">{currentIdx + 1}/{questions.length}</span>
       </div>
 
-      <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-6">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-6">
         {topic && (
           <div className="flex items-center gap-2 mb-4">
             <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${topic.color}15`, color: topic.color }}>
@@ -301,38 +301,38 @@ function EpsWeakQuiz({ weakTopicId, onBack }: { weakTopicId: string; onBack: () 
             </span>
             {currentQ.audioText && (
               <button onClick={() => { const u = new SpeechSynthesisUtterance(currentQ.audioText!); u.lang = "ko-KR"; u.rate = 0.8; window.speechSynthesis.speak(u); }}
-                className="ml-auto text-[10px] text-white/30 hover:text-white/60 cursor-pointer flex items-center gap-1">
+                className="ml-auto text-[10px] text-app-text-muted hover:text-white/60 cursor-pointer flex items-center gap-1">
                 <i className="ri-volume-up-line"></i>Nghe
               </button>
             )}
           </div>
         )}
         <p className="text-white font-semibold text-sm leading-relaxed mb-1">{currentQ.question}</p>
-        <p className="text-white/40 text-xs italic mb-4">{currentQ.questionVi}</p>
+        <p className="text-app-text-secondary text-xs italic mb-4">{currentQ.questionVi}</p>
         <div className="space-y-2">
           {currentQ.options.map((opt, i) => {
-            let cls = "border-white/8 bg-white/3 hover:border-white/15 cursor-pointer";
+            let cls = "border-app-border bg-app-surface/50 hover:border-white/15 cursor-pointer";
             if (answered !== null) {
               if (i === currentQ.correctIndex) cls = "border-emerald-500/40 bg-emerald-500/10 cursor-default";
               else if (i === answered) cls = "border-red-500/40 bg-red-500/10 cursor-default";
-              else cls = "border-white/5 opacity-40 cursor-default";
+              else cls = "border-app-border opacity-40 cursor-default";
             }
             return (
               <button key={i} onClick={() => handleAnswer(i)} disabled={answered !== null}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-left ${cls}`}>
-                <span className={`w-6 h-6 flex items-center justify-center rounded-lg text-[10px] font-bold flex-shrink-0 ${answered !== null && i === currentQ.correctIndex ? "bg-emerald-500/20 text-emerald-400" : answered !== null && i === answered ? "bg-red-500/20 text-red-400" : "bg-white/5 text-white/30"}`}>
+                <span className={`w-6 h-6 flex items-center justify-center rounded-lg text-[10px] font-bold flex-shrink-0 ${answered !== null && i === currentQ.correctIndex ? "bg-emerald-500/20 text-app-accent-success" : answered !== null && i === answered ? "bg-red-500/20 text-red-400" : "bg-app-card/50 text-app-text-muted"}`}>
                   {["A","B","C","D"][i]}
                 </span>
                 <div>
-                  <p className={`text-sm ${answered !== null && i === currentQ.correctIndex ? "text-emerald-400" : answered !== null && i === answered ? "text-red-400" : "text-white/70"}`}>{opt}</p>
-                  <p className="text-white/25 text-[10px]">{currentQ.optionsVi[i]}</p>
+                  <p className={`text-sm ${answered !== null && i === currentQ.correctIndex ? "text-app-accent-success" : answered !== null && i === answered ? "text-red-400" : "text-white/70"}`}>{opt}</p>
+                  <p className="text-app-text-muted text-[10px]">{currentQ.optionsVi[i]}</p>
                 </div>
               </button>
             );
           })}
         </div>
         {answered !== null && (
-          <div className={`mt-4 p-3 rounded-xl border text-xs leading-relaxed ${answered === currentQ.correctIndex ? "border-emerald-500/20 bg-emerald-500/5 text-emerald-400/80" : "border-orange-500/20 bg-orange-500/5 text-orange-400/80"}`}>
+          <div className={`mt-4 p-3 rounded-xl border text-xs leading-relaxed ${answered === currentQ.correctIndex ? "border-emerald-500/20 bg-emerald-500/5 text-app-accent-success/80" : "border-orange-500/20 bg-orange-500/5 text-orange-400/80"}`}>
             <i className="ri-lightbulb-line mr-1.5"></i>{currentQ.explanation}
           </div>
         )}
@@ -340,7 +340,7 @@ function EpsWeakQuiz({ weakTopicId, onBack }: { weakTopicId: string; onBack: () 
 
       {answered !== null && (
         <button onClick={() => { if (currentIdx + 1 >= questions.length) setDone(true); else setCurrentIdx(i => i + 1); }}
-          className="w-full py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm cursor-pointer whitespace-nowrap">
+          className="w-full py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap">
           {currentIdx + 1 >= questions.length ? "Xem kết quả" : "Câu tiếp theo"}
         </button>
       )}
@@ -464,10 +464,10 @@ export default function QuizPage() {
       subtitle="Trắc nghiệm từ vựng + ngữ pháp — luyện theo chủ đề yếu"
     >
       {/* Mode tabs */}
-      <div className="flex gap-1 bg-white/3 p-1 rounded-xl mb-5 w-fit">
+      <div className="flex gap-1 bg-app-surface/50 p-1 rounded-xl mb-5 w-fit">
         {([["kpop", "ri-music-2-line", "Quiz K-pop"], ["eps-weak", "ri-focus-3-line", "Luyện chủ đề yếu EPS"]] as const).map(([m, icon, label]) => (
           <button key={m} onClick={() => { setQuizMode(m); setSelectedWeakTopic(null); }}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${quizMode === m ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/40 hover:text-white/60"}`}>
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${quizMode === m ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>
             <i className={icon}></i>{label}
           </button>
         ))}
@@ -482,32 +482,32 @@ export default function QuizPage() {
               {selectedWeakTopic ? (
                 <EpsWeakQuiz weakTopicId={selectedWeakTopic} onBack={() => setSelectedWeakTopic(null)} />
               ) : (
-                <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-6">
+                <div className="bg-app-bg border border-app-border rounded-2xl p-6">
                   <h3 className="text-white font-bold text-base mb-2">Chọn chủ đề cần ôn</h3>
-                  <p className="text-white/40 text-xs mb-5">Chủ đề được sắp xếp từ yếu nhất — tập trung vào những chủ đề đỏ trước!</p>
+                  <p className="text-app-text-secondary text-xs mb-5">Chủ đề được sắp xếp từ yếu nhất — tập trung vào những chủ đề đỏ trước!</p>
                   <div className="space-y-2">
                     {weakTopics.map(t => {
-                      const color = t.pct === -1 ? "rgba(255,255,255,0.2)" : t.pct >= 80 ? "#34d399" : t.pct >= 60 ? "#e8c84a" : "#f87171";
+                      const color = t.pct === -1 ? "rgba(255,255,255,0.2)" : t.pct >= 80 ? "#34d399" : t.pct >= 60 ? "app-accent-primary" : "#f87171";
                       return (
                         <button key={t.id} onClick={() => setSelectedWeakTopic(t.id)}
-                          className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-white/3 hover:bg-white/5 border border-white/5 hover:border-white/10 transition-all cursor-pointer text-left">
+                          className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-app-surface/50 hover:bg-app-card/50 border border-app-border hover:border-app-border transition-all cursor-pointer text-left">
                           <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${t.color}15` }}>
                             <i className={`${t.icon} text-sm`} style={{ color: t.color }}></i>
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className="text-white/70 text-sm font-medium">{t.label}</p>
-                            <p className="text-white/30 text-[10px]">{t.done > 0 ? `${t.done}/${t.total} câu đã làm` : "Chưa làm câu nào"}</p>
+                            <p className="text-app-text-muted text-[10px]">{t.done > 0 ? `${t.done}/${t.total} câu đã làm` : "Chưa làm câu nào"}</p>
                           </div>
                           <div className="flex items-center gap-3 flex-shrink-0">
                             {t.done > 0 && (
-                              <div className="w-16 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                              <div className="w-16 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                                 <div className="h-full rounded-full" style={{ width: `${t.pct}%`, backgroundColor: color }} />
                               </div>
                             )}
                             <span className="text-sm font-bold w-10 text-right" style={{ color }}>
                               {t.pct === -1 ? "Mới" : `${t.pct}%`}
                             </span>
-                            <i className="ri-arrow-right-line text-white/20 text-xs"></i>
+                            <i className="ri-arrow-right-line text-app-text-muted text-xs"></i>
                           </div>
                         </button>
                       );
@@ -519,7 +519,7 @@ export default function QuizPage() {
           )}
 
           {quizMode === "kpop" && mode === "setup" && (
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-6">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-6">
               <h3 className="text-white font-bold text-base mb-5">Cài đặt Quiz</h3>
 
               {error && (
@@ -531,15 +531,15 @@ export default function QuizPage() {
 
               {/* Lesson select */}
               <div className="mb-4">
-                <label className="text-white/40 text-xs font-medium block mb-2">Chọn bài học</label>
+                <label className="text-app-text-secondary text-xs font-medium block mb-2">Chọn bài học</label>
                 <select
                   value={selectedRank === "all" ? "all" : String(selectedRank)}
                   onChange={e => setSelectedRank(e.target.value === "all" ? "all" : parseInt(e.target.value))}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#e8c84a]/40 transition-colors cursor-pointer"
+                  className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 transition-colors cursor-pointer"
                 >
-                  <option value="all" className="bg-[#0f1117]">Ngẫu nhiên từ tất cả bài học</option>
+                  <option value="all" className="bg-app-bg">Ngẫu nhiên từ tất cả bài học</option>
                   {approvedLessons.map(l => (
-                    <option key={l.song.rank} value={l.song.rank} className="bg-[#0f1117]">
+                    <option key={l.song.rank} value={l.song.rank} className="bg-app-bg">
                       {l.song.title} — {l.song.artist}
                     </option>
                   ))}
@@ -548,13 +548,13 @@ export default function QuizPage() {
 
               {/* Question count */}
               <div className="mb-6">
-                <label className="text-white/40 text-xs font-medium block mb-2">Số câu hỏi</label>
+                <label className="text-app-text-secondary text-xs font-medium block mb-2">Số câu hỏi</label>
                 <div className="flex gap-2">
                   {[5, 8, 10, 15].map(n => (
                     <button
                       key={n}
                       onClick={() => setQuestionCount(n)}
-                      className={`flex-1 py-2.5 rounded-xl border text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${questionCount === n ? "border-[#e8c84a]/40 bg-[#e8c84a]/10 text-[#e8c84a]" : "border-white/8 bg-white/3 text-white/40 hover:border-white/15"}`}
+                      className={`flex-1 py-2.5 rounded-xl border text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${questionCount === n ? "border-app-accent-primary/40 bg-app-accent-primary/10 text-app-accent-primary" : "border-app-border bg-app-surface/50 text-app-text-secondary hover:border-white/15"}`}
                     >
                       {n}
                     </button>
@@ -565,16 +565,16 @@ export default function QuizPage() {
               {/* Question types info */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
                 {[
-                  { type: "Từ vựng", icon: "ri-translate-2", color: "#e8c84a", desc: "Chọn nghĩa đúng" },
+                  { type: "Từ vựng", icon: "ri-translate-2", color: "app-accent-primary", desc: "Chọn nghĩa đúng" },
                   { type: "Ngữ pháp", icon: "ri-graduation-cap-line", color: "#a78bfa", desc: "Chọn cấu trúc đúng" },
                   { type: "Điền chỗ trống", icon: "ri-edit-line", color: "#34d399", desc: "Hoàn thành câu" },
                 ].map(t => (
-                  <div key={t.type} className="p-3 rounded-xl bg-white/3 border border-white/5 text-center">
+                  <div key={t.type} className="p-3 rounded-xl bg-app-surface/50 border border-app-border text-center">
                     <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${t.color}15` }}>
                       <i className={`${t.icon} text-sm`} style={{ color: t.color }}></i>
                     </div>
                     <p className="text-white/60 text-xs font-semibold">{t.type}</p>
-                    <p className="text-white/25 text-[10px]">{t.desc}</p>
+                    <p className="text-app-text-muted text-[10px]">{t.desc}</p>
                   </div>
                 ))}
               </div>
@@ -582,7 +582,7 @@ export default function QuizPage() {
               <button
                 onClick={handleStartQuiz}
                 disabled={loading || approvedLessons.length === 0}
-                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-[#0f1117] font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
               >
                 {loading ? (
                   <><i className="ri-loader-4-line animate-spin"></i> AI đang tạo câu hỏi...</>
@@ -592,7 +592,7 @@ export default function QuizPage() {
               </button>
 
               {approvedLessons.length === 0 && (
-                <p className="text-white/25 text-xs text-center mt-3">Cần có bài học trong K-pop Lesson trước</p>
+                <p className="text-app-text-muted text-xs text-center mt-3">Cần có bài học trong K-pop Lesson trước</p>
               )}
             </div>
           )}
@@ -601,15 +601,15 @@ export default function QuizPage() {
             <div className="space-y-4">
               {/* Progress */}
               <div className="flex items-center gap-3">
-                <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                <div className="flex-1 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                   <div
-                    className="h-full rounded-full bg-[#e8c84a] transition-all"
+                    className="h-full rounded-full bg-app-accent-primary transition-all"
                     style={{ width: `${((currentIdx) / questions.length) * 100}%` }}
                   />
                 </div>
                 <button
                   onClick={() => setMode("setup")}
-                  className="text-white/25 hover:text-white/50 text-xs cursor-pointer transition-colors whitespace-nowrap"
+                  className="text-app-text-muted hover:text-white/50 text-xs cursor-pointer transition-colors whitespace-nowrap"
                 >
                   Thoát
                 </button>
@@ -644,11 +644,11 @@ export default function QuizPage() {
         {/* Right: Stats */}
         <div className="space-y-4">
           {/* Stats */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">Thống kê</h3>
             <div className="space-y-3">
               {[
-                { label: "Lần làm quiz", value: quizHistory.length, icon: "ri-survey-line", color: "#e8c84a" },
+                { label: "Lần làm quiz", value: quizHistory.length, icon: "ri-survey-line", color: "app-accent-primary" },
                 { label: "Điểm trung bình", value: `${avgScore}%`, icon: "ri-bar-chart-line", color: "#34d399" },
                 { label: "Bài học có quiz", value: new Set(quizHistory.map(h => h.lesson)).size, icon: "ri-book-2-line", color: "#a78bfa" },
               ].map(stat => (
@@ -657,7 +657,7 @@ export default function QuizPage() {
                     <i className={`${stat.icon} text-sm`} style={{ color: stat.color }}></i>
                   </div>
                   <div className="flex-1">
-                    <p className="text-white/40 text-[10px]">{stat.label}</p>
+                    <p className="text-app-text-secondary text-[10px]">{stat.label}</p>
                     <p className="text-white font-bold text-sm">{stat.value}</p>
                   </div>
                 </div>
@@ -667,22 +667,22 @@ export default function QuizPage() {
 
           {/* History */}
           {quizHistory.length > 0 && (
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <h3 className="text-white font-semibold text-sm mb-3">Lịch sử</h3>
               <div className="space-y-2 max-h-64 overflow-y-auto">
                 {quizHistory.slice(0, 10).map((h, i) => {
                   const pct = Math.round((h.score / h.total) * 100);
-                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#fb923c";
+                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#fb923c";
                   return (
-                    <div key={i} className="flex items-center gap-3 px-3 py-2 bg-white/3 rounded-lg">
+                    <div key={i} className="flex items-center gap-3 px-3 py-2 bg-app-surface/50 rounded-lg">
                       <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0 text-xs font-bold" style={{ backgroundColor: `${color}15`, color }}>
                         {pct}%
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-white/60 text-xs truncate">{h.lesson}</p>
-                        <p className="text-white/25 text-[10px]">{h.score}/{h.total} câu đúng</p>
+                        <p className="text-app-text-muted text-[10px]">{h.score}/{h.total} câu đúng</p>
                       </div>
-                      <p className="text-white/20 text-[10px] flex-shrink-0">{new Date(h.date).toLocaleDateString("vi-VN")}</p>
+                      <p className="text-app-text-muted text-[10px] flex-shrink-0">{new Date(h.date).toLocaleDateString("vi-VN")}</p>
                     </div>
                   );
                 })}
@@ -691,12 +691,12 @@ export default function QuizPage() {
           )}
 
           {/* TTS tip */}
-          <div className="bg-white/3 border border-white/5 rounded-xl p-4">
+          <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
             <div className="flex items-start gap-2">
-              <i className="ri-volume-up-line text-white/30 text-sm mt-0.5 flex-shrink-0"></i>
+              <i className="ri-volume-up-line text-app-text-muted text-sm mt-0.5 flex-shrink-0"></i>
               <div>
                 <p className="text-white/50 text-xs font-semibold mb-1">Phát âm tích hợp</p>
-                <p className="text-white/25 text-[10px] leading-relaxed">
+                <p className="text-app-text-muted text-[10px] leading-relaxed">
                   Nhấn vào từ tiếng Hàn trong câu hỏi để nghe phát âm chuẩn trước khi trả lời.
                 </p>
               </div>

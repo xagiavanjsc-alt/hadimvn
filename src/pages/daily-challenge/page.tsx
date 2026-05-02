@@ -55,7 +55,7 @@ function XPToast({ xp, onDone }: { xp: number; onDone: () => void }) {
   }, [onDone]);
   return (
     <div className="fixed top-6 right-6 z-50 flex items-center gap-3 px-5 py-3 rounded-2xl shadow-lg animate-bounce"
-      style={{ backgroundColor: "#e8c84a", color: "#0f1117" }}>
+      style={{ backgroundColor: "app-accent-primary", color: "#0f1117" }}>
       <i className="ri-star-fill text-xl"></i>
       <div>
         <p className="font-black text-lg">+{xp} XP</p>
@@ -135,7 +135,7 @@ function QuizChallenge({ challenge, onComplete }: { challenge: Challenge; onComp
   }
 
   const timerPct = (timeLeft / challenge.timeLimit) * 100;
-  const timerColor = timerPct > 50 ? "#34d399" : timerPct > 25 ? "#e8c84a" : "#f87171";
+  const timerColor = timerPct > 50 ? "#34d399" : timerPct > 25 ? "app-accent-primary" : "#f87171";
 
   return (
     <div className="max-w-lg mx-auto">
@@ -150,7 +150,7 @@ function QuizChallenge({ challenge, onComplete }: { challenge: Challenge; onComp
           ))}
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-24 h-1.5 bg-white/10 rounded-full overflow-hidden">
+          <div className="w-24 h-1.5 bg-app-card/70 rounded-full overflow-hidden">
             <div className="h-full rounded-full transition-all" style={{ width: `${timerPct}%`, backgroundColor: timerColor }}></div>
           </div>
           <span className="text-sm font-mono font-bold" style={{ color: timerColor }}>{timeLeft}s</span>
@@ -159,9 +159,9 @@ function QuizChallenge({ challenge, onComplete }: { challenge: Challenge; onComp
 
       {/* Question */}
       <div className="rounded-2xl p-6 mb-5 text-center" style={{ backgroundColor: `${challenge.color}08`, border: `1px solid ${challenge.color}15` }}>
-        <p className="text-white/40 text-xs mb-2">Câu {current + 1}/{totalQ} — Chọn nghĩa đúng</p>
+        <p className="text-app-text-secondary text-xs mb-2">Câu {current + 1}/{totalQ} — Chọn nghĩa đúng</p>
         <p className="text-white font-black text-4xl mb-2">{q.korean}</p>
-        <p className="text-white/40 text-sm font-mono">{q.pronunciation}</p>
+        <p className="text-app-text-secondary text-sm font-mono">{q.pronunciation}</p>
       </div>
 
       {/* Options */}
@@ -257,13 +257,13 @@ function WriteChallenge({ challenge, onComplete }: { challenge: Challenge; onCom
   return (
     <div className="max-w-lg mx-auto">
       <div className="flex items-center justify-between mb-4">
-        <span className="text-white/40 text-sm">Câu {current + 1}/{challenge.questions.length}</span>
+        <span className="text-app-text-secondary text-sm">Câu {current + 1}/{challenge.questions.length}</span>
         <span className="text-sm font-mono font-bold" style={{ color: timeLeft > 30 ? "#34d399" : "#f87171" }}>{timeLeft}s</span>
       </div>
       <div className="rounded-2xl p-6 mb-5 text-center" style={{ backgroundColor: `${challenge.color}08`, border: `1px solid ${challenge.color}15` }}>
-        <p className="text-white/40 text-xs mb-2">Viết nghĩa tiếng Việt của từ sau</p>
+        <p className="text-app-text-secondary text-xs mb-2">Viết nghĩa tiếng Việt của từ sau</p>
         <p className="text-white font-black text-4xl mb-2">{q.korean}</p>
-        <p className="text-white/40 text-sm font-mono">{q.pronunciation}</p>
+        <p className="text-app-text-secondary text-sm font-mono">{q.pronunciation}</p>
       </div>
       <div className="flex gap-3">
         <input
@@ -289,7 +289,7 @@ function WriteChallenge({ challenge, onComplete }: { challenge: Challenge; onCom
         </button>
       </div>
       {result === "wrong" && (
-        <p className="text-white/40 text-xs mt-2 text-center">Đáp án đúng: <span className="text-[#34d399] font-bold">{q.correctAnswer}</span></p>
+        <p className="text-app-text-secondary text-xs mt-2 text-center">Đáp án đúng: <span className="text-[#34d399] font-bold">{q.correctAnswer}</span></p>
       )}
     </div>
   );
@@ -371,7 +371,7 @@ export default function DailyChallengePageComponent() {
             xpReward: 50,
             timeLimit: 90,
             icon: "ri-question-answer-line",
-            color: "#e8c84a",
+            color: "app-accent-primary",
             questions: quizQuestions,
           },
           {
@@ -421,7 +421,7 @@ export default function DailyChallengePageComponent() {
     return (
       <DashboardLayout title={activeChallenge.title} subtitle={activeChallenge.description}>
         <div className="max-w-2xl mx-auto">
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-8">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-8">
             {activeChallenge.type === "quiz" || activeChallenge.type === "listen" ? (
               <QuizChallenge challenge={activeChallenge} onComplete={handleComplete} />
             ) : (
@@ -430,7 +430,7 @@ export default function DailyChallengePageComponent() {
           </div>
           <button
             onClick={() => setActiveChallenge(null)}
-            className="mt-4 flex items-center gap-2 text-white/30 hover:text-white/60 text-sm cursor-pointer transition-colors"
+            className="mt-4 flex items-center gap-2 text-app-text-muted hover:text-white/60 text-sm cursor-pointer transition-colors"
           >
             <i className="ri-arrow-left-line"></i>Quay lại
           </button>
@@ -450,17 +450,17 @@ export default function DailyChallengePageComponent() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Streak hôm nay", value: `${dailyRecord.streak} ngày`, icon: "ri-fire-line", color: "#fb923c" },
-          { label: "XP hôm nay", value: `+${isToday ? dailyRecord.totalXP : 0}`, icon: "ri-star-line", color: "#e8c84a" },
+          { label: "XP hôm nay", value: `+${isToday ? dailyRecord.totalXP : 0}`, icon: "ri-star-line", color: "app-accent-primary" },
           { label: "Đã hoàn thành", value: `${isToday ? dailyRecord.completed.length : 0}/3`, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Thử thách còn lại", value: `${challenges.filter(c => !dailyRecord.completed.includes(c.id)).length}`, icon: "ri-timer-line", color: "#a78bfa" },
         ].map(s => (
-          <div key={s.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-4 flex items-center gap-3">
+          <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
               <i className={`${s.icon} text-lg`} style={{ color: s.color }}></i>
             </div>
             <div>
               <p className="text-white font-bold text-lg">{s.value}</p>
-              <p className="text-white/40 text-xs">{s.label}</p>
+              <p className="text-app-text-secondary text-xs">{s.label}</p>
             </div>
           </div>
         ))}
@@ -469,12 +469,12 @@ export default function DailyChallengePageComponent() {
       {/* All done banner */}
       {allDone && (
         <div className="mb-6 rounded-2xl p-5 flex items-center gap-4" style={{ background: "linear-gradient(135deg, rgba(232,200,74,0.15), rgba(52,211,153,0.1))", border: "1px solid rgba(232,200,74,0.2)" }}>
-          <div className="w-12 h-12 flex items-center justify-center rounded-full bg-[#e8c84a]/20 flex-shrink-0">
-            <i className="ri-trophy-fill text-2xl text-[#e8c84a]"></i>
+          <div className="w-12 h-12 flex items-center justify-center rounded-full bg-app-accent-primary/20 flex-shrink-0">
+            <i className="ri-trophy-fill text-2xl text-app-accent-primary"></i>
           </div>
           <div>
             <p className="text-white font-bold text-base">Xuất sắc! Bạn đã hoàn thành tất cả thử thách hôm nay 🎉</p>
-            <p className="text-white/50 text-sm">Tổng XP nhận được hôm nay: <span className="text-[#e8c84a] font-bold">+{dailyRecord.totalXP} XP</span></p>
+            <p className="text-white/50 text-sm">Tổng XP nhận được hôm nay: <span className="text-app-accent-primary font-bold">+{dailyRecord.totalXP} XP</span></p>
           </div>
         </div>
       )}
@@ -482,8 +482,8 @@ export default function DailyChallengePageComponent() {
       {/* Challenges */}
       {challenges.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 gap-3">
-          <div className="w-10 h-10 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>
-          <p className="text-white/30 text-sm">Đang tạo thử thách hôm nay...</p>
+          <div className="w-10 h-10 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
+          <p className="text-app-text-muted text-sm">Đang tạo thử thách hôm nay...</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
@@ -500,7 +500,7 @@ export default function DailyChallengePageComponent() {
               >
                 {isDone && (
                   <div className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-full bg-emerald-500/20">
-                    <i className="ri-check-line text-emerald-400 text-sm"></i>
+                    <i className="ri-check-line text-app-accent-success text-sm"></i>
                   </div>
                 )}
 
@@ -511,7 +511,7 @@ export default function DailyChallengePageComponent() {
                       <i className={`${c.icon} text-xl`} style={{ color: c.color }}></i>
                     </div>
                     <div>
-                      <p className="text-white/30 text-[10px] tracking-normal">Thử thách {idx + 1}</p>
+                      <p className="text-app-text-muted text-[10px] tracking-normal">Thử thách {idx + 1}</p>
                       <p className="text-white font-bold text-sm">{c.title}</p>
                     </div>
                   </div>
@@ -521,12 +521,12 @@ export default function DailyChallengePageComponent() {
                   {/* Stats */}
                   <div className="flex items-center gap-3 mb-4">
                     <div className="flex items-center gap-1.5">
-                      <i className="ri-timer-line text-white/30 text-xs"></i>
-                      <span className="text-white/40 text-xs">{c.timeLimit}s</span>
+                      <i className="ri-timer-line text-app-text-muted text-xs"></i>
+                      <span className="text-app-text-secondary text-xs">{c.timeLimit}s</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <i className="ri-question-line text-white/30 text-xs"></i>
-                      <span className="text-white/40 text-xs">{c.questions.length} câu</span>
+                      <i className="ri-question-line text-app-text-muted text-xs"></i>
+                      <span className="text-app-text-secondary text-xs">{c.questions.length} câu</span>
                     </div>
                     <div className="flex items-center gap-1.5">
                       <i className="ri-star-line text-xs" style={{ color: c.color }}></i>
@@ -554,12 +554,12 @@ export default function DailyChallengePageComponent() {
       )}
 
       {/* History hint */}
-      <div className="mt-8 p-4 rounded-xl border border-white/5 bg-white/2">
+      <div className="mt-8 p-4 rounded-xl border border-app-border bg-white/2">
         <div className="flex items-center gap-3">
-          <i className="ri-information-line text-white/25 text-lg"></i>
+          <i className="ri-information-line text-app-text-muted text-lg"></i>
           <div>
             <p className="text-white/50 text-sm">Thử thách được tạo mới mỗi ngày lúc 00:00</p>
-            <p className="text-white/30 text-xs">Hoàn thành cả 3 thử thách để nhận tối đa <span className="text-[#e8c84a]">190 XP</span> mỗi ngày</p>
+            <p className="text-app-text-muted text-xs">Hoàn thành cả 3 thử thách để nhận tối đa <span className="text-app-accent-primary">190 XP</span> mỗi ngày</p>
           </div>
         </div>
       </div>

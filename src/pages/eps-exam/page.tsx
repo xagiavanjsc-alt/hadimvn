@@ -63,23 +63,23 @@ function ShareResultCard({ pct, correct, total, examResults }: { pct: number; co
     window.open("https://zalo.me/", "_blank");
   };
 
-  const gradeColor = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
+  const gradeColor = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
   const gradeBg = pct >= 80 ? "from-emerald-900/40 to-emerald-950/60" : pct >= 60 ? "from-amber-900/40 to-amber-950/60" : "from-red-900/30 to-red-950/50";
 
   return (
-    <div className="rounded-2xl overflow-hidden border border-white/8">
+    <div className="rounded-2xl overflow-hidden border border-app-border">
       {/* Visual card preview */}
       <div className={`bg-gradient-to-br ${gradeBg} p-6 relative`}>
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "url('https://readdy.ai/api/search-image?query=Korean%20pattern%20subtle%20texture%20dark%20background&width=600&height=200&seq=share_bg1&orientation=landscape')", backgroundSize: "cover" }} />
         <div className="relative z-10">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-[#e8c84a]/20 flex items-center justify-center">
-                <i className="ri-leaf-line text-[#e8c84a] text-sm"></i>
+              <div className="w-7 h-7 rounded-lg bg-app-accent-primary/20 flex items-center justify-center">
+                <i className="ri-leaf-line text-app-accent-primary text-sm"></i>
               </div>
               <span className="text-white/60 text-xs font-semibold">Hàn Quốc Ơi!</span>
             </div>
-            <span className="text-white/30 text-xs">EPS-TOPIK Thi thử</span>
+            <span className="text-app-text-muted text-xs">EPS-TOPIK Thi thử</span>
           </div>
 
           <div className="flex items-center gap-6">
@@ -88,38 +88,38 @@ function ShareResultCard({ pct, correct, total, examResults }: { pct: number; co
               <p className="text-white/50 text-xs mt-1">{correct}/{total} câu đúng</p>
             </div>
             <div className="flex-1">
-              <div className="h-3 bg-white/10 rounded-full overflow-hidden mb-2">
+              <div className="h-3 bg-app-card/70 rounded-full overflow-hidden mb-2">
                 <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: gradeColor }} />
               </div>
-              <div className="flex items-center justify-between text-[10px] text-white/30">
+              <div className="flex items-center justify-between text-[10px] text-app-text-muted">
                 <span>0%</span>
                 <span style={{ color: gradeColor }}>Ngưỡng đậu 80%</span>
                 <span>100%</span>
               </div>
               <p className="text-sm font-bold mt-2" style={{ color: gradeColor }}>{grade}</p>
-              <p className="text-white/40 text-xs">⏱️ {Math.floor(timeUsed / 60)} phút {timeUsed % 60} giây</p>
+              <p className="text-app-text-secondary text-xs">⏱️ {Math.floor(timeUsed / 60)} phút {timeUsed % 60} giây</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Share actions */}
-      <div className="bg-[#0f1117] p-4">
+      <div className="bg-app-bg p-4">
         <div className="flex items-center justify-between mb-3">
           <p className="text-white/60 text-sm font-semibold flex items-center gap-2">
-            <i className="ri-share-line text-[#e8c84a]"></i>
+            <i className="ri-share-line text-app-accent-primary"></i>
             Chia sẻ thành tích
           </p>
           <button
             onClick={() => setShowCard(!showCard)}
-            className="text-white/30 hover:text-white/60 text-xs cursor-pointer"
+            className="text-app-text-muted hover:text-white/60 text-xs cursor-pointer"
           >
             {showCard ? "Ẩn nội dung" : "Xem nội dung chia sẻ"}
           </button>
         </div>
 
         {showCard && (
-          <div className="bg-white/3 rounded-xl p-3 mb-3 font-mono text-xs text-white/40 leading-relaxed whitespace-pre-line border border-white/5">
+          <div className="bg-app-surface/50 rounded-xl p-3 mb-3 font-mono text-xs text-app-text-secondary leading-relaxed whitespace-pre-line border border-app-border">
             {shareText}
           </div>
         )}
@@ -127,7 +127,7 @@ function ShareResultCard({ pct, correct, total, examResults }: { pct: number; co
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
           <button
             onClick={handleCopy}
-            className={`flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${copied ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" : "bg-white/5 hover:bg-white/10 text-white/60 border border-white/10"}`}
+            className={`flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${copied ? "bg-emerald-500/20 text-app-accent-success border border-emerald-500/30" : "bg-app-card/50 hover:bg-app-card/70 text-white/60 border border-app-border"}`}
           >
             <i className={copied ? "ri-checkbox-circle-line" : "ri-clipboard-line"}></i>
             {copied ? "Đã copy!" : "Copy"}
@@ -146,7 +146,7 @@ function ShareResultCard({ pct, correct, total, examResults }: { pct: number; co
           </button>
           <button
             onClick={() => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`, "_blank", "width=600,height=400")}
-            className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white/50 text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap border border-white/10"
+            className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-app-card/50 hover:bg-app-card/70 text-white/50 text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap border border-app-border"
           >
             <i className="ri-twitter-x-line"></i>X
           </button>
@@ -291,31 +291,31 @@ export default function EpsExamPage() {
       <DashboardLayout title="Thi thử EPS-TOPIK" subtitle="Mô phỏng đề thi thật — 40 câu · 50 phút">
         <div className="max-w-2xl mx-auto">
           {/* Exam info */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-8 mb-5">
-            <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#e8c84a]/10 mx-auto mb-5">
-              <i className="ri-file-list-3-line text-[#e8c84a] text-2xl"></i>
+          <div className="bg-app-bg border border-app-border rounded-2xl p-8 mb-5">
+            <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-app-accent-primary/10 mx-auto mb-5">
+              <i className="ri-file-list-3-line text-app-accent-primary text-2xl"></i>
             </div>
             <h2 className="text-white font-bold text-xl text-center mb-2">Đề thi thử EPS-TOPIK</h2>
-            <p className="text-white/40 text-sm text-center mb-6">Câu hỏi được chọn ngẫu nhiên từ ngân hàng đề. Làm bài nghiêm túc như thi thật!</p>
+            <p className="text-app-text-secondary text-sm text-center mb-6">Câu hỏi được chọn ngẫu nhiên từ ngân hàng đề. Làm bài nghiêm túc như thi thật!</p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               {[
-                { icon: "ri-survey-line", color: "#e8c84a", label: "Số câu hỏi", value: `${Math.min(EXAM_QUESTION_COUNT, epsQuestions.length)} câu` },
+                { icon: "ri-survey-line", color: "app-accent-primary", label: "Số câu hỏi", value: `${Math.min(EXAM_QUESTION_COUNT, epsQuestions.length)} câu` },
                 { icon: "ri-timer-line", color: "#34d399", label: "Thời gian", value: "50 phút" },
                 { icon: "ri-trophy-line", color: "#a78bfa", label: "Điểm đậu", value: "≥ 80/200" },
               ].map(item => (
-                <div key={item.label} className="bg-white/3 rounded-xl p-4 text-center">
+                <div key={item.label} className="bg-app-surface/50 rounded-xl p-4 text-center">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${item.color}15` }}>
                     <i className={`${item.icon} text-sm`} style={{ color: item.color }}></i>
                   </div>
                   <p className="text-white font-bold text-sm">{item.value}</p>
-                  <p className="text-white/30 text-[10px] mt-0.5">{item.label}</p>
+                  <p className="text-app-text-muted text-[10px] mt-0.5">{item.label}</p>
                 </div>
               ))}
             </div>
 
-            <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4 mb-6">
-              <p className="text-[#e8c84a]/80 text-xs font-semibold mb-2">Lưu ý trước khi thi</p>
+            <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4 mb-6">
+              <p className="text-app-accent-primary/80 text-xs font-semibold mb-2">Lưu ý trước khi thi</p>
               <ul className="space-y-1.5">
                 {[
                   "Câu hỏi được chọn ngẫu nhiên từ tất cả chủ đề",
@@ -323,8 +323,8 @@ export default function EpsExamPage() {
                   "Hết giờ sẽ tự động nộp bài",
                   "Kết quả được lưu vào hồ sơ học viên",
                 ].map(note => (
-                  <li key={note} className="flex items-start gap-2 text-white/40 text-xs">
-                    <i className="ri-checkbox-circle-line text-[#e8c84a]/50 flex-shrink-0 mt-0.5"></i>
+                  <li key={note} className="flex items-start gap-2 text-app-text-secondary text-xs">
+                    <i className="ri-checkbox-circle-line text-app-accent-primary/50 flex-shrink-0 mt-0.5"></i>
                     {note}
                   </li>
                 ))}
@@ -333,7 +333,7 @@ export default function EpsExamPage() {
 
             <button
               onClick={startExam}
-              className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-base transition-colors cursor-pointer whitespace-nowrap"
+              className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-base transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-play-circle-line text-lg"></i>
               Bắt đầu thi ngay
@@ -342,22 +342,22 @@ export default function EpsExamPage() {
 
           {/* Past results */}
           {examResults.length > 0 && (
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <h3 className="text-white font-semibold text-sm mb-4">Lịch sử thi ({examResults.length} lần)</h3>
               <div className="space-y-2" style={{ contentVisibility: "auto", containIntrinsicSize: "0 300px" }}>
                 {examResults.slice(-5).reverse().map((r, i) => {
                   const pct = Math.round((r.score / r.total) * 100);
-                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
+                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
                   return (
-                    <div key={i} className="flex items-center gap-3 px-3 py-2.5 bg-white/3 rounded-xl">
+                    <div key={i} className="flex items-center gap-3 px-3 py-2.5 bg-app-surface/50 rounded-xl">
                       <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${color}15` }}>
                         <span className="text-sm font-bold" style={{ color }}>{pct}%</span>
                       </div>
                       <div className="flex-1">
                         <p className="text-white/70 text-xs font-medium">{r.score}/{r.total} câu đúng</p>
-                        <p className="text-white/25 text-[10px]">{new Date(r.date).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })} · {Math.floor(r.timeUsed / 60)} phút {r.timeUsed % 60} giây</p>
+                        <p className="text-app-text-muted text-[10px]">{new Date(r.date).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })} · {Math.floor(r.timeUsed / 60)} phút {r.timeUsed % 60} giây</p>
                       </div>
-                      <div className="w-20 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                      <div className="w-20 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                         <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: color }} />
                       </div>
                     </div>
@@ -379,27 +379,27 @@ export default function EpsExamPage() {
         subtitle={`Câu ${currentIdx + 1}/${examQuestions.length}`}
       >
         {/* Mobile sticky timer bar */}
-        <div className="md:hidden sticky top-0 z-30 bg-[#0f1117] border-b border-white/10 px-3 py-2 flex items-center gap-2 shadow-lg">
+        <div className="md:hidden sticky top-0 z-30 bg-app-bg border-b border-app-border px-3 py-2 flex items-center gap-2 shadow-lg">
           <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border font-mono font-bold text-sm flex-shrink-0" style={{ borderColor: `${timeColor}40`, backgroundColor: `${timeColor}12`, color: timeColor }}>
             <i className="ri-timer-line text-xs"></i>
             {timeStr}
           </div>
           <div className="flex-1 flex flex-col gap-0.5 min-w-0">
             <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
-              <div className="h-full rounded-full transition-all duration-300" style={{ width: `${progressPct}%`, backgroundColor: "#e8c84a" }} />
+              <div className="h-full rounded-full transition-all duration-300" style={{ width: `${progressPct}%`, backgroundColor: "app-accent-primary" }} />
             </div>
             <span className="text-white/35 text-[10px]">{answeredCount}/{examQuestions.length} câu · Câu {currentIdx + 1}</span>
           </div>
           <button
             onClick={() => setShowReview(!showReview)}
-            className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer whitespace-nowrap flex-shrink-0 ${showReview ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "bg-white/5 text-white/50"}`}
+            className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer whitespace-nowrap flex-shrink-0 ${showReview ? "bg-app-accent-primary/15 text-app-accent-primary" : "bg-app-card/50 text-white/50"}`}
           >
             <i className="ri-list-check-2 text-xs"></i>
             <span>DS</span>
           </button>
           <button
             onClick={submitExam}
-            className="flex items-center gap-1 bg-[#e8c84a] text-[#0f1117] font-bold text-xs px-2.5 py-1.5 rounded-lg cursor-pointer whitespace-nowrap flex-shrink-0"
+            className="flex items-center gap-1 bg-app-accent-primary text-app-bg font-bold text-xs px-2.5 py-1.5 rounded-lg cursor-pointer whitespace-nowrap flex-shrink-0"
           >
             <i className="ri-send-plane-line text-xs"></i>
             Nộp
@@ -407,25 +407,25 @@ export default function EpsExamPage() {
         </div>
 
         {/* Desktop actions bar */}
-        <div className="hidden md:flex items-center gap-3 px-8 py-3 bg-[#0f1117] border-b border-white/5">
+        <div className="hidden md:flex items-center gap-3 px-8 py-3 bg-app-bg border-b border-app-border">
           <div className="flex items-center gap-2 px-4 py-2 rounded-xl border font-mono font-bold text-sm" style={{ borderColor: `${timeColor}30`, backgroundColor: `${timeColor}10`, color: timeColor }}>
             <i className="ri-timer-line"></i>
             {timeStr}
           </div>
           <div className="flex-1 h-1.5 bg-white/8 rounded-full overflow-hidden">
-            <div className="h-full rounded-full bg-[#e8c84a] transition-all" style={{ width: `${progressPct}%` }} />
+            <div className="h-full rounded-full bg-app-accent-primary transition-all" style={{ width: `${progressPct}%` }} />
           </div>
-          <span className="text-white/40 text-sm">{answeredCount}/{examQuestions.length} đã trả lời</span>
+          <span className="text-app-text-secondary text-sm">{answeredCount}/{examQuestions.length} đã trả lời</span>
           <button
             onClick={() => setShowReview(!showReview)}
-            className="flex items-center gap-2 bg-white/5 hover:bg-white/8 text-white/60 text-sm px-4 py-2 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-2 bg-app-card/50 hover:bg-white/8 text-white/60 text-sm px-4 py-2 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-list-check-2"></i>
             Xem lại
           </button>
           <button
             onClick={submitExam}
-            className="flex items-center gap-2 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm px-4 py-2 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-4 py-2 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-send-plane-line"></i>
             Nộp bài
@@ -437,9 +437,9 @@ export default function EpsExamPage() {
             {/* Main question */}
             <div className="space-y-4">
               {/* Question card */}
-              <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4 md:p-6">
+              <div className="bg-app-bg border border-app-border rounded-2xl p-4 md:p-6">
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="text-white/30 text-xs font-mono">Câu {currentIdx + 1}</span>
+                  <span className="text-app-text-muted text-xs font-mono">Câu {currentIdx + 1}</span>
                   <button
                     onClick={() => setFlagged(prev => {
                       const next = new Set(prev);
@@ -447,7 +447,7 @@ export default function EpsExamPage() {
                       else next.add(currentQ.id);
                       return next;
                     })}
-                    className={`ml-auto flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg transition-colors cursor-pointer whitespace-nowrap ${flagged.has(currentQ.id) ? "bg-[#fb923c]/15 text-[#fb923c]" : "bg-white/5 text-white/30 hover:text-white/50"}`}
+                    className={`ml-auto flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg transition-colors cursor-pointer whitespace-nowrap ${flagged.has(currentQ.id) ? "bg-[#fb923c]/15 text-[#fb923c]" : "bg-app-card/50 text-app-text-muted hover:text-white/50"}`}
                   >
                     <i className={flagged.has(currentQ.id) ? "ri-flag-fill" : "ri-flag-line"}></i>
                     <span className="hidden sm:inline">{flagged.has(currentQ.id) ? "Đã đánh dấu" : "Đánh dấu"}</span>
@@ -455,7 +455,7 @@ export default function EpsExamPage() {
                   {currentQ.audioText && (
                     <button
                       onClick={() => speakKorean(currentQ.audioText!)}
-                      className="flex items-center gap-1.5 text-xs bg-white/5 hover:bg-white/8 text-white/30 hover:text-white/60 px-2.5 py-1 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
+                      className="flex items-center gap-1.5 text-xs bg-app-card/50 hover:bg-white/8 text-app-text-muted hover:text-white/60 px-2.5 py-1 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
                     >
                       <i className="ri-volume-up-line"></i>
                       <span className="hidden sm:inline">Nghe</span>
@@ -464,7 +464,7 @@ export default function EpsExamPage() {
                 </div>
 
                 <p className="text-white font-semibold text-sm leading-relaxed mb-1">{currentQ.question}</p>
-                <p className="text-white/40 text-xs leading-relaxed italic mb-5">{currentQ.questionVi}</p>
+                <p className="text-app-text-secondary text-xs leading-relaxed italic mb-5">{currentQ.questionVi}</p>
 
                 <div className="space-y-2">
                   {currentQ.options.map((opt, i) => {
@@ -473,16 +473,16 @@ export default function EpsExamPage() {
                       <button
                         key={i}
                         onClick={() => setAnswers(prev => ({ ...prev, [currentQ.id]: i }))}
-                        className={`w-full flex items-start gap-3 px-4 py-3 rounded-xl border transition-all text-left cursor-pointer ${isSelected ? "border-[#e8c84a]/40 bg-[#e8c84a]/8" : "border-white/8 bg-white/3 hover:border-white/15 hover:bg-white/5"}`}
+                        className={`w-full flex items-start gap-3 px-4 py-3 rounded-xl border transition-all text-left cursor-pointer ${isSelected ? "border-app-accent-primary/40 bg-app-accent-primary/8" : "border-app-border bg-app-surface/50 hover:border-white/15 hover:bg-app-card/50"}`}
                       >
-                        <span className={`w-6 h-6 flex items-center justify-center rounded-lg text-[10px] font-bold flex-shrink-0 mt-0.5 ${isSelected ? "bg-[#e8c84a]/20 text-[#e8c84a]" : "bg-white/5 text-white/30"}`}>
+                        <span className={`w-6 h-6 flex items-center justify-center rounded-lg text-[10px] font-bold flex-shrink-0 mt-0.5 ${isSelected ? "bg-app-accent-primary/20 text-app-accent-primary" : "bg-app-card/50 text-app-text-muted"}`}>
                           {["A", "B", "C", "D"][i]}
                         </span>
                         <div className="flex-1 min-w-0">
-                          <p className={`text-sm font-medium ${isSelected ? "text-[#e8c84a]" : "text-white/70"}`}>{opt}</p>
-                          <p className="text-white/30 text-[10px] mt-0.5">{currentQ.optionsVi[i]}</p>
+                          <p className={`text-sm font-medium ${isSelected ? "text-app-accent-primary" : "text-white/70"}`}>{opt}</p>
+                          <p className="text-app-text-muted text-[10px] mt-0.5">{currentQ.optionsVi[i]}</p>
                         </div>
-                        {isSelected && <i className="ri-checkbox-circle-fill text-[#e8c84a] flex-shrink-0 mt-0.5"></i>}
+                        {isSelected && <i className="ri-checkbox-circle-fill text-app-accent-primary flex-shrink-0 mt-0.5"></i>}
                       </button>
                     );
                   })}
@@ -494,14 +494,14 @@ export default function EpsExamPage() {
                 <button
                   onClick={() => setCurrentIdx(i => Math.max(0, i - 1))}
                   disabled={currentIdx === 0}
-                  className="flex items-center gap-2 px-4 py-3 rounded-xl border border-white/10 text-white/50 text-sm hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer whitespace-nowrap"
+                  className="flex items-center gap-2 px-4 py-3 rounded-xl border border-app-border text-white/50 text-sm hover:bg-app-card/50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer whitespace-nowrap"
                 >
                   <i className="ri-arrow-left-line"></i>
                   <span className="hidden sm:inline">Câu trước</span>
                 </button>
-                <div className="flex-1 text-center text-white/25 text-xs">
+                <div className="flex-1 text-center text-app-text-muted text-xs">
                   {answers[currentQ.id] !== undefined ? (
-                    <span className="text-[#e8c84a]/60">Đã trả lời</span>
+                    <span className="text-app-accent-primary/60">Đã trả lời</span>
                   ) : (
                     <span>Chưa trả lời</span>
                   )}
@@ -509,7 +509,7 @@ export default function EpsExamPage() {
                 <button
                   onClick={() => setCurrentIdx(i => Math.min(examQuestions.length - 1, i + 1))}
                   disabled={currentIdx === examQuestions.length - 1}
-                  className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 text-[#e8c84a] text-sm disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer whitespace-nowrap"
+                  className="flex items-center gap-2 px-4 py-3 rounded-xl bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-sm disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer whitespace-nowrap"
                 >
                   <span className="hidden sm:inline">Câu tiếp</span>
                   <i className="ri-arrow-right-line"></i>
@@ -519,10 +519,10 @@ export default function EpsExamPage() {
               {/* Mobile question grid (collapsible) — triggered from sticky bar too */}
               <div className="md:hidden">
                 {showReview && (
-                  <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-4">
+                  <div className="bg-app-bg border border-app-border rounded-2xl p-4">
                     <div className="flex items-center justify-between mb-3">
                       <p className="text-white/50 text-xs font-medium">Danh sách câu hỏi</p>
-                      <button onClick={() => setShowReview(false)} className="w-6 h-6 flex items-center justify-center rounded-md bg-white/5 text-white/40 cursor-pointer">
+                      <button onClick={() => setShowReview(false)} className="w-6 h-6 flex items-center justify-center rounded-md bg-app-card/50 text-app-text-secondary cursor-pointer">
                         <i className="ri-close-line text-xs"></i>
                       </button>
                     </div>
@@ -536,9 +536,9 @@ export default function EpsExamPage() {
                             key={q.id}
                             onClick={() => { setCurrentIdx(i); setShowReview(false); }}
                             className={`h-8 rounded-lg text-[10px] font-bold transition-all cursor-pointer relative ${
-                              isCurrent ? "bg-[#e8c84a] text-[#0f1117]"
-                              : isAnswered ? "bg-emerald-500/20 text-emerald-400"
-                              : "bg-white/5 text-white/30 hover:bg-white/8"
+                              isCurrent ? "bg-app-accent-primary text-app-bg"
+                              : isAnswered ? "bg-emerald-500/20 text-app-accent-success"
+                              : "bg-app-card/50 text-app-text-muted hover:bg-white/8"
                             }`}
                           >
                             {i + 1}
@@ -547,15 +547,15 @@ export default function EpsExamPage() {
                         );
                       })}
                     </div>
-                    <div className="flex items-center gap-4 pt-2 border-t border-white/5">
-                      <div className="flex items-center gap-1.5 text-[10px] text-white/30">
+                    <div className="flex items-center gap-4 pt-2 border-t border-app-border">
+                      <div className="flex items-center gap-1.5 text-[10px] text-app-text-muted">
                         <div className="w-3 h-3 rounded bg-emerald-500/20"></div>{answeredCount} đã trả lời
                       </div>
-                      <div className="flex items-center gap-1.5 text-[10px] text-white/30">
-                        <div className="w-3 h-3 rounded bg-white/5"></div>{examQuestions.length - answeredCount} chưa trả lời
+                      <div className="flex items-center gap-1.5 text-[10px] text-app-text-muted">
+                        <div className="w-3 h-3 rounded bg-app-card/50"></div>{examQuestions.length - answeredCount} chưa trả lời
                       </div>
                       {flagged.size > 0 && (
-                        <div className="flex items-center gap-1.5 text-[10px] text-white/30">
+                        <div className="flex items-center gap-1.5 text-[10px] text-app-text-muted">
                           <div className="w-3 h-3 rounded bg-[#fb923c]/20"></div>{flagged.size} đánh dấu
                         </div>
                       )}
@@ -567,8 +567,8 @@ export default function EpsExamPage() {
 
             {/* Desktop sidebar panel */}
             <div className="hidden md:block space-y-4">
-              <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4">
-                <p className="text-white/40 text-xs font-medium mb-3">Danh sách câu hỏi</p>
+              <div className="bg-app-bg border border-app-border rounded-2xl p-4">
+                <p className="text-app-text-secondary text-xs font-medium mb-3">Danh sách câu hỏi</p>
                 <div className="grid grid-cols-5 gap-1.5">
                   {examQuestions.map((q, i) => {
                     const isAnswered = answers[q.id] !== undefined;
@@ -579,9 +579,9 @@ export default function EpsExamPage() {
                         key={q.id}
                         onClick={() => setCurrentIdx(i)}
                         className={`h-8 rounded-lg text-[10px] font-bold transition-all cursor-pointer relative ${
-                          isCurrent ? "bg-[#e8c84a] text-[#0f1117]"
-                          : isAnswered ? "bg-emerald-500/20 text-emerald-400"
-                          : "bg-white/5 text-white/30 hover:bg-white/8"
+                          isCurrent ? "bg-app-accent-primary text-app-bg"
+                          : isAnswered ? "bg-emerald-500/20 text-app-accent-success"
+                          : "bg-app-card/50 text-app-text-muted hover:bg-white/8"
                         }`}
                       >
                         {i + 1}
@@ -590,22 +590,22 @@ export default function EpsExamPage() {
                     );
                   })}
                 </div>
-                <div className="mt-3 pt-3 border-t border-white/5 space-y-1.5">
-                  <div className="flex items-center gap-2 text-[10px] text-white/30">
+                <div className="mt-3 pt-3 border-t border-app-border space-y-1.5">
+                  <div className="flex items-center gap-2 text-[10px] text-app-text-muted">
                     <div className="w-3 h-3 rounded bg-emerald-500/20"></div>Đã trả lời ({answeredCount})
                   </div>
-                  <div className="flex items-center gap-2 text-[10px] text-white/30">
-                    <div className="w-3 h-3 rounded bg-white/5"></div>Chưa trả lời ({examQuestions.length - answeredCount})
+                  <div className="flex items-center gap-2 text-[10px] text-app-text-muted">
+                    <div className="w-3 h-3 rounded bg-app-card/50"></div>Chưa trả lời ({examQuestions.length - answeredCount})
                   </div>
-                  <div className="flex items-center gap-2 text-[10px] text-white/30">
+                  <div className="flex items-center gap-2 text-[10px] text-app-text-muted">
                     <div className="w-3 h-3 rounded bg-[#fb923c]/30 relative"><span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-[#fb923c]"></span></div>Đánh dấu ({flagged.size})
                   </div>
                 </div>
               </div>
-              <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4 text-center">
-                <p className="text-white/30 text-xs mb-1">Thời gian còn lại</p>
+              <div className="bg-app-bg border border-app-border rounded-2xl p-4 text-center">
+                <p className="text-app-text-muted text-xs mb-1">Thời gian còn lại</p>
                 <p className="font-mono font-bold text-3xl" style={{ color: timeColor }}>{timeStr}</p>
-                <div className="mt-2 h-1 bg-white/5 rounded-full overflow-hidden">
+                <div className="mt-2 h-1 bg-app-card/50 rounded-full overflow-hidden">
                   <div className="h-full rounded-full transition-all" style={{ width: `${(timeLeft / EXAM_DURATION) * 100}%`, backgroundColor: timeColor }} />
                 </div>
               </div>
@@ -620,7 +620,7 @@ export default function EpsExamPage() {
   if (mode === "result" && resultStats) {
     const { correct, pct, byTopic } = resultStats;
     const grade = pct >= 80 ? { label: "Đậu!", color: "#34d399", icon: "ri-trophy-line", desc: "Xuất sắc! Bạn đã vượt ngưỡng điểm đậu EPS-TOPIK." }
-      : pct >= 60 ? { label: "Gần đậu", color: "#e8c84a", icon: "ri-medal-line", desc: "Khá tốt! Cần ôn thêm một chút để đạt điểm đậu." }
+      : pct >= 60 ? { label: "Gần đậu", color: "app-accent-primary", icon: "ri-medal-line", desc: "Khá tốt! Cần ôn thêm một chút để đạt điểm đậu." }
       : { label: "Cần ôn thêm", color: "#f87171", icon: "ri-refresh-line", desc: "Hãy ôn luyện thêm các chủ đề yếu và thử lại." };
 
     const lastResult = examResults[examResults.length - 1];
@@ -646,57 +646,57 @@ export default function EpsExamPage() {
           )}
 
           {/* Score hero */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-8 text-center">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center">
             <div className="w-16 h-16 flex items-center justify-center rounded-2xl mx-auto mb-4" style={{ backgroundColor: `${grade.color}15` }}>
               <i className={`${grade.icon} text-3xl`} style={{ color: grade.color }}></i>
             </div>
             <h2 className="text-white font-bold text-2xl mb-1">{grade.label}</h2>
-            <p className="text-white/40 text-sm mb-5">{grade.desc}</p>
+            <p className="text-app-text-secondary text-sm mb-5">{grade.desc}</p>
 
             <div className="flex items-center justify-center gap-8 mb-5">
               <div>
                 <p className="font-bold text-4xl" style={{ color: grade.color }}>{pct}%</p>
-                <p className="text-white/30 text-xs mt-1">Tỷ lệ đúng</p>
+                <p className="text-app-text-muted text-xs mt-1">Tỷ lệ đúng</p>
               </div>
-              <div className="w-px h-12 bg-white/10"></div>
+              <div className="w-px h-12 bg-app-card/70"></div>
               <div>
-                <p className="text-white font-bold text-4xl">{correct}<span className="text-white/30 text-xl">/{examQuestions.length}</span></p>
-                <p className="text-white/30 text-xs mt-1">Câu đúng</p>
+                <p className="text-white font-bold text-4xl">{correct}<span className="text-app-text-muted text-xl">/{examQuestions.length}</span></p>
+                <p className="text-app-text-muted text-xs mt-1">Câu đúng</p>
               </div>
-              <div className="w-px h-12 bg-white/10"></div>
+              <div className="w-px h-12 bg-app-card/70"></div>
               <div>
                 <p className="text-white font-bold text-2xl">{Math.floor(timeUsed / 60)}:{String(timeUsed % 60).padStart(2, "0")}</p>
-                <p className="text-white/30 text-xs mt-1">Thời gian làm</p>
+                <p className="text-app-text-muted text-xs mt-1">Thời gian làm</p>
               </div>
             </div>
 
-            <div className="w-full h-3 bg-white/5 rounded-full overflow-hidden mb-2">
+            <div className="w-full h-3 bg-app-card/50 rounded-full overflow-hidden mb-2">
               <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${pct}%`, backgroundColor: grade.color }} />
             </div>
-            <div className="flex items-center justify-between text-[10px] text-white/25">
+            <div className="flex items-center justify-between text-[10px] text-app-text-muted">
               <span>0%</span>
-              <span className="text-[#e8c84a]">Ngưỡng đậu: 80%</span>
+              <span className="text-app-accent-primary">Ngưỡng đậu: 80%</span>
               <span>100%</span>
             </div>
           </div>
 
           {/* By topic */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">Kết quả theo chủ đề</h3>
             <div className="grid grid-cols-2 gap-3">
               {Object.entries(byTopic).map(([topicId, data]) => {
                 const topicPct = data.total > 0 ? Math.round((data.correct / data.total) * 100) : 0;
-                const color = topicPct >= 80 ? "#34d399" : topicPct >= 60 ? "#e8c84a" : "#f87171";
+                const color = topicPct >= 80 ? "#34d399" : topicPct >= 60 ? "app-accent-primary" : "#f87171";
                 return (
-                  <div key={topicId} className="bg-white/3 rounded-xl p-3">
+                  <div key={topicId} className="bg-app-surface/50 rounded-xl p-3">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-white/60 text-xs font-medium">{topicLabels[topicId] ?? topicId}</span>
                       <span className="text-xs font-bold" style={{ color }}>{topicPct}%</span>
                     </div>
-                    <div className="h-1.5 bg-white/5 rounded-full overflow-hidden mb-1">
+                    <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden mb-1">
                       <div className="h-full rounded-full" style={{ width: `${topicPct}%`, backgroundColor: color }} />
                     </div>
-                    <p className="text-white/25 text-[10px]">{data.correct}/{data.total} câu đúng</p>
+                    <p className="text-app-text-muted text-[10px]">{data.correct}/{data.total} câu đúng</p>
                   </div>
                 );
               })}
@@ -704,7 +704,7 @@ export default function EpsExamPage() {
           </div>
 
           {/* Review wrong answers */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">
               Câu trả lời sai ({examQuestions.filter(q => answers[q.id] !== undefined && answers[q.id] !== q.correctIndex).length} câu)
             </h3>
@@ -714,20 +714,20 @@ export default function EpsExamPage() {
                   <p className="text-white/70 text-xs font-medium mb-1">{i + 1}. {q.questionVi}</p>
                   <div className="flex items-center gap-2 text-[10px] mt-2">
                     <span className="text-red-400/70">Bạn chọn: {q.optionsVi[answers[q.id]]}</span>
-                    <span className="text-white/20">·</span>
-                    <span className="text-emerald-400/70">Đáp án: {q.optionsVi[q.correctIndex]}</span>
+                    <span className="text-app-text-muted">·</span>
+                    <span className="text-app-accent-success/70">Đáp án: {q.optionsVi[q.correctIndex]}</span>
                   </div>
                 </div>
               ))}
               {examQuestions.filter(q => answers[q.id] !== undefined && answers[q.id] !== q.correctIndex).length === 0 && (
-                <p className="text-white/25 text-sm text-center py-4">Không có câu sai nào!</p>
+                <p className="text-app-text-muted text-sm text-center py-4">Không có câu sai nào!</p>
               )}
             </div>
           </div>
 
           {/* Cloud sync indicator */}
           {user && (
-            <div className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-xs ${syncing ? "bg-[#e8c84a]/5 border-[#e8c84a]/15 text-[#e8c84a]/70" : "bg-emerald-500/5 border-emerald-500/15 text-emerald-400/70"}`}>
+            <div className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-xs ${syncing ? "bg-app-accent-primary/5 border-app-accent-primary/15 text-app-accent-primary/70" : "bg-emerald-500/5 border-emerald-500/15 text-app-accent-success/70"}`}>
               <i className={`${syncing ? "ri-loader-4-line animate-spin" : "ri-cloud-line"} text-sm`}></i>
               {syncing ? "Đang đồng bộ kết quả lên cloud..." : "Kết quả đã được lưu lên cloud và cập nhật bảng xếp hạng!"}
             </div>
@@ -740,21 +740,21 @@ export default function EpsExamPage() {
           <div className="flex gap-3">
             <button
               onClick={() => navigate("/profile")}
-              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-white/10 text-white/60 text-sm hover:bg-white/5 transition-colors cursor-pointer whitespace-nowrap"
+              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-app-border text-white/60 text-sm hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-user-line"></i>
               Xem hồ sơ
             </button>
             <button
               onClick={() => navigate("/progress")}
-              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-white/10 text-white/60 text-sm hover:bg-white/5 transition-colors cursor-pointer whitespace-nowrap"
+              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-app-border text-white/60 text-sm hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-radar-line"></i>
               So sánh tiến độ
             </button>
             <button
               onClick={startExam}
-              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
+              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-refresh-line"></i>
               Thi lại

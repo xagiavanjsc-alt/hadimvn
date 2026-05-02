@@ -54,7 +54,7 @@ const WEEKLY_CHALLENGES: Challenge[] = [
     title: "Flashcard Marathon",
     description: "Học 50 từ vựng qua flashcard trong tuần này",
     icon: "ri-stack-line",
-    color: "#e8c84a",
+    color: "app-accent-primary",
     target: 50,
     unit: "từ",
     xpReward: 100,
@@ -162,7 +162,7 @@ function ChallengeCard({
   const [inputVal, setInputVal] = useState("");
 
   return (
-    <div className={`bg-[#0f1117] border rounded-2xl p-5 transition-all ${completed ? "border-emerald-500/25" : "border-white/5 hover:border-white/10"}`}>
+    <div className={`bg-app-bg border rounded-2xl p-5 transition-all ${completed ? "border-emerald-500/25" : "border-app-border hover:border-app-border"}`}>
       {/* Header */}
       <div className="flex items-start gap-3 mb-4">
         <div className="w-11 h-11 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${challenge.color}15` }}>
@@ -172,22 +172,22 @@ function ChallengeCard({
           <div className="flex items-center gap-2 flex-wrap">
             <p className="text-white font-semibold text-sm">{challenge.title}</p>
             {completed && (
-              <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400">
+              <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success">
                 <i className="ri-checkbox-circle-fill"></i>Hoàn thành
               </span>
             )}
           </div>
-          <p className="text-white/40 text-xs mt-0.5 leading-relaxed">{challenge.description}</p>
+          <p className="text-app-text-secondary text-xs mt-0.5 leading-relaxed">{challenge.description}</p>
         </div>
       </div>
 
       {/* Progress */}
       <div className="mb-3">
         <div className="flex items-center justify-between mb-1.5">
-          <span className="text-white/40 text-xs">{progress}/{challenge.target} {challenge.unit}</span>
+          <span className="text-app-text-secondary text-xs">{progress}/{challenge.target} {challenge.unit}</span>
           <span className="text-xs font-bold" style={{ color: completed ? "#34d399" : challenge.color }}>{pct}%</span>
         </div>
-        <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+        <div className="h-2 bg-app-card/50 rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-all duration-500"
             style={{ width: `${pct}%`, backgroundColor: completed ? "#34d399" : challenge.color }}
@@ -201,7 +201,7 @@ function ChallengeCard({
           <i className="ri-star-line"></i>+{challenge.xpReward} XP
         </span>
         {challenge.bonusXP && (
-          <span className="flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-lg bg-white/5 text-white/40">
+          <span className="flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-lg bg-app-card/50 text-app-text-secondary">
             <i className="ri-gift-line"></i>Bonus +{challenge.bonusXP} XP: {challenge.bonusLabel}
           </span>
         )}
@@ -211,7 +211,7 @@ function ChallengeCard({
       {completed ? (
         <button
           onClick={() => onClaim(challenge.id)}
-          className="w-full py-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/25 text-emerald-400 text-sm font-semibold cursor-pointer whitespace-nowrap hover:bg-emerald-500/25 transition-colors flex items-center justify-center gap-2"
+          className="w-full py-2.5 rounded-xl bg-app-accent-success/15 border border-emerald-500/25 text-app-accent-success text-sm font-semibold cursor-pointer whitespace-nowrap hover:bg-emerald-500/25 transition-colors flex items-center justify-center gap-2"
         >
           <i className="ri-gift-2-line"></i>Nhận thưởng {challenge.xpReward} XP
         </button>
@@ -224,7 +224,7 @@ function ChallengeCard({
             value={inputVal}
             onChange={e => setInputVal(e.target.value)}
             placeholder="Nhập số..."
-            className="flex-1 bg-white/5 border border-white/8 rounded-xl px-3 py-2 text-white/70 text-sm outline-none focus:border-white/20 placeholder-white/20"
+            className="flex-1 bg-app-card/50 border border-app-border rounded-xl px-3 py-2 text-white/70 text-sm outline-none focus:border-white/20 placeholder-white/20"
           />
           <button
             onClick={() => {
@@ -307,13 +307,13 @@ export default function WeeklyChallengePage() {
       {/* Celebration overlay */}
       {showCelebration && (
         <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
-          <div className="bg-[#0f1117] border border-emerald-500/30 rounded-2xl px-8 py-6 text-center animate-bounce shadow-2xl">
-            <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-emerald-500/15 mx-auto mb-3">
-              <i className="ri-trophy-fill text-emerald-400 text-3xl"></i>
+          <div className="bg-app-bg border border-emerald-500/30 rounded-2xl px-8 py-6 text-center animate-bounce shadow-2xl">
+            <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-app-accent-success/15 mx-auto mb-3">
+              <i className="ri-trophy-fill text-app-accent-success text-3xl"></i>
             </div>
             <p className="text-white font-bold text-lg">Thử thách hoàn thành!</p>
             <p className="text-white/50 text-sm mt-1">{showCelebration.title}</p>
-            <p className="text-emerald-400 font-bold text-2xl mt-2">+{showCelebration.xp} XP</p>
+            <p className="text-app-accent-success font-bold text-2xl mt-2">+{showCelebration.xp} XP</p>
           </div>
         </div>
       )}
@@ -322,16 +322,16 @@ export default function WeeklyChallengePage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Thử thách hoàn thành", value: `${completedCount}/${WEEKLY_CHALLENGES.length}`, icon: "ri-checkbox-circle-line", color: "#34d399" },
-          { label: "XP đã nhận tuần này", value: `${earnedXP}`, icon: "ri-star-line", color: "#e8c84a" },
+          { label: "XP đã nhận tuần này", value: `${earnedXP}`, icon: "ri-star-line", color: "app-accent-primary" },
           { label: "XP có thể nhận", value: `${totalXPAvailable}`, icon: "ri-gift-line", color: "#a78bfa" },
           { label: "Ngày còn lại", value: daysLeft, icon: "ri-time-line", color: "#fb923c" },
         ].map(s => (
-          <div key={s.label} className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div key={s.label} className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
                 <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
               </div>
-              <p className="text-white/40 text-xs">{s.label}</p>
+              <p className="text-app-text-secondary text-xs">{s.label}</p>
             </div>
             <p className="text-white font-bold text-2xl">{s.value}</p>
           </div>
@@ -340,9 +340,9 @@ export default function WeeklyChallengePage() {
 
       {/* All-complete bonus */}
       {allDone && !currentProgress.claimedBonus && (
-        <div className="mb-6 p-5 bg-gradient-to-r from-[#e8c84a]/10 to-[#fb923c]/10 border border-[#e8c84a]/25 rounded-2xl flex items-center gap-4">
-          <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#e8c84a]/15 flex-shrink-0">
-            <i className="ri-vip-crown-fill text-[#e8c84a] text-3xl"></i>
+        <div className="mb-6 p-5 bg-gradient-to-r from-[app-accent-primary]/10 to-[#fb923c]/10 border border-app-accent-primary/25 rounded-2xl flex items-center gap-4">
+          <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-app-accent-primary/15 flex-shrink-0">
+            <i className="ri-vip-crown-fill text-app-accent-primary text-3xl"></i>
           </div>
           <div className="flex-1">
             <p className="text-white font-bold text-base">Hoàn thành tất cả thử thách!</p>
@@ -355,7 +355,7 @@ export default function WeeklyChallengePage() {
               setShowCelebration({ title: "Hoàn thành tất cả thử thách!", xp: 300 });
               setTimeout(() => setShowCelebration(null), 3000);
             }}
-            className="flex items-center gap-2 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm px-5 py-3 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
+            className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-5 py-3 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
           >
             <i className="ri-gift-2-line"></i>Nhận +300 XP
           </button>
@@ -363,14 +363,14 @@ export default function WeeklyChallengePage() {
       )}
 
       {/* Progress bar overall */}
-      <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5 mb-6">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-5 mb-6">
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-white font-semibold text-sm">Tiến độ tổng thể tuần này</h3>
-          <span className="text-[#e8c84a] font-bold text-sm">{Math.round((completedCount / WEEKLY_CHALLENGES.length) * 100)}%</span>
+          <span className="text-app-accent-primary font-bold text-sm">{Math.round((completedCount / WEEKLY_CHALLENGES.length) * 100)}%</span>
         </div>
-        <div className="h-3 bg-white/5 rounded-full overflow-hidden mb-2">
+        <div className="h-3 bg-app-card/50 rounded-full overflow-hidden mb-2">
           <div
-            className="h-full rounded-full transition-all duration-700 bg-gradient-to-r from-[#e8c84a] to-[#fb923c]"
+            className="h-full rounded-full transition-all duration-700 bg-gradient-to-r from-[app-accent-primary] to-[#fb923c]"
             style={{ width: `${(completedCount / WEEKLY_CHALLENGES.length) * 100}%` }}
           ></div>
         </div>
@@ -394,7 +394,7 @@ export default function WeeklyChallengePage() {
           <button
             key={key}
             onClick={() => setFilter(key)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${filter === key ? "bg-[#e8c84a]/15 text-[#e8c84a] border border-[#e8c84a]/25" : "bg-white/3 text-white/40 border border-white/8 hover:text-white/60"}`}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${filter === key ? "bg-app-accent-primary/15 text-app-accent-primary border border-app-accent-primary/25" : "bg-app-surface/50 text-app-text-secondary border border-app-border hover:text-white/60"}`}
           >
             {label}
           </button>

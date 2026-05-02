@@ -53,14 +53,14 @@ function updateSRS(srs: SRSData, cardId: string, rating: number): SRSData {
 
 const LEVEL_MAP: Record<number, { label: string; color: string; bg: string; border: string; koreanLevel: string }> = {
   1: { label: "A1 · Sơ cấp 1", color: "#34d399", bg: "bg-emerald-500/10", border: "border-emerald-500/20", koreanLevel: "A1" },
-  2: { label: "A2–B1 · Trung cấp", color: "#e8c84a", bg: "bg-yellow-500/10", border: "border-yellow-500/20", koreanLevel: "A2" },
+  2: { label: "A2–B1 · Trung cấp", color: "app-accent-primary", bg: "bg-yellow-500/10", border: "border-yellow-500/20", koreanLevel: "A2" },
   3: { label: "B2–C1 · Nâng cao", color: "#f87171", bg: "bg-red-500/10", border: "border-red-500/20", koreanLevel: "C1" },
 };
 
 const RATING_LABELS = [
   { value: 1, label: "Không nhớ", color: "#f87171", icon: "ri-close-circle-line" },
   { value: 2, label: "Khó", color: "#fb923c", icon: "ri-emotion-unhappy-line" },
-  { value: 3, label: "Nhớ được", color: "#e8c84a", icon: "ri-emotion-normal-line" },
+  { value: 3, label: "Nhớ được", color: "app-accent-primary", icon: "ri-emotion-normal-line" },
   { value: 4, label: "Dễ", color: "#34d399", icon: "ri-emotion-happy-line" },
   { value: 5, label: "Rất dễ", color: "#a78bfa", icon: "ri-emotion-laugh-line" },
 ];
@@ -97,7 +97,7 @@ function FlashCard({ card, onRate, srsData }: {
         >
           {/* Front */}
           <div
-            className="absolute inset-0 bg-[#0f1117] border border-white/10 rounded-3xl p-8 flex flex-col items-center justify-center"
+            className="absolute inset-0 bg-app-bg border border-app-border rounded-3xl p-8 flex flex-col items-center justify-center"
             style={{ backfaceVisibility: "hidden" }}
           >
             <div className="flex items-center gap-2 mb-4">
@@ -107,15 +107,15 @@ function FlashCard({ card, onRate, srsData }: {
             </div>
             <p className="text-white font-black text-5xl mb-2 text-center">{card.korean}</p>
             {card.hanja && card.hanja !== card.korean && (
-              <p className="text-white/25 text-sm mb-3">{card.hanja}</p>
+              <p className="text-app-text-muted text-sm mb-3">{card.hanja}</p>
             )}
-            <p className="text-white/30 text-sm">[{card.pronunciation}]</p>
-            <div className="mt-6 flex items-center gap-2 text-white/20 text-xs">
+            <p className="text-app-text-muted text-sm">[{card.pronunciation}]</p>
+            <div className="mt-6 flex items-center gap-2 text-app-text-muted text-xs">
               <i className="ri-hand-coin-line"></i>
               <span>Nhấn để xem nghĩa</span>
             </div>
             {cardSRS && (
-              <div className="absolute top-4 right-4 flex items-center gap-1 text-white/20 text-[10px]">
+              <div className="absolute top-4 right-4 flex items-center gap-1 text-app-text-muted text-[10px]">
                 <i className="ri-repeat-line"></i>
                 <span>{cardSRS.repetitions}x · {cardSRS.interval}d</span>
               </div>
@@ -124,20 +124,20 @@ function FlashCard({ card, onRate, srsData }: {
 
           {/* Back */}
           <div
-            className="absolute inset-0 bg-[#0f1117] border border-white/10 rounded-3xl p-8 flex flex-col items-center justify-center"
+            className="absolute inset-0 bg-app-bg border border-app-border rounded-3xl p-8 flex flex-col items-center justify-center"
             style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
           >
             <p className="text-white font-bold text-3xl mb-2 text-center">{card.vietnamese}</p>
-            <p className="text-white/40 text-sm mb-4">[{card.pronunciation}]</p>
+            <p className="text-app-text-secondary text-sm mb-4">[{card.pronunciation}]</p>
             {card.examples?.[0] && (
-              <div className="w-full bg-white/3 rounded-2xl p-4 mb-4">
+              <div className="w-full bg-app-surface/50 rounded-2xl p-4 mb-4">
                 <p className="text-white/70 text-sm text-center">{card.examples[0].korean}</p>
                 <p className="text-white/35 text-xs text-center mt-1">{card.examples[0].vietnamese}</p>
               </div>
             )}
             <button
               onClick={e => { e.stopPropagation(); speak(); }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 text-xs cursor-pointer transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary text-xs cursor-pointer transition-colors"
             >
               <i className="ri-volume-up-line"></i>
               Phát âm
@@ -149,13 +149,13 @@ function FlashCard({ card, onRate, srsData }: {
       {/* Rating buttons — only show when flipped */}
       {flipped && (
         <div className="mt-6 w-full max-w-lg">
-          <p className="text-white/30 text-xs text-center mb-3">Bạn nhớ từ này như thế nào?</p>
+          <p className="text-app-text-muted text-xs text-center mb-3">Bạn nhớ từ này như thế nào?</p>
           <div className="flex gap-2">
             {RATING_LABELS.map(r => (
               <button
                 key={r.value}
                 onClick={() => { setFlipped(false); onRate(r.value); }}
-                className="flex-1 flex flex-col items-center gap-1 py-3 rounded-xl border border-white/8 hover:border-white/20 cursor-pointer transition-all hover:scale-105"
+                className="flex-1 flex flex-col items-center gap-1 py-3 rounded-xl border border-app-border hover:border-white/20 cursor-pointer transition-all hover:scale-105"
                 style={{ backgroundColor: `${r.color}10` }}
               >
                 <i className={`${r.icon} text-lg`} style={{ color: r.color }}></i>
@@ -255,17 +255,17 @@ export default function FlashcardLevelPage() {
           {/* Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
             {[
-              { label: "Tổng từ vựng", value: allCards.length, icon: "ri-book-open-line", color: "#e8c84a" },
+              { label: "Tổng từ vựng", value: allCards.length, icon: "ri-book-open-line", color: "app-accent-primary" },
               { label: "Cần ôn hôm nay", value: dueCards.length, icon: "ri-calendar-check-line", color: "#fb923c" },
               { label: "Đã ôn tập", value: totalReviewed, icon: "ri-refresh-line", color: "#34d399" },
               { label: "Đã thuộc (3+ lần)", value: masteredCount, icon: "ri-check-double-line", color: "#a78bfa" },
             ].map(s => (
-              <div key={s.label} className="bg-[#0f1117] border border-white/5 rounded-2xl p-4">
+              <div key={s.label} className="bg-app-bg border border-app-border rounded-2xl p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
                     <i className={`${s.icon} text-xs`} style={{ color: s.color }}></i>
                   </div>
-                  <p className="text-white/40 text-xs">{s.label}</p>
+                  <p className="text-app-text-secondary text-xs">{s.label}</p>
                 </div>
                 <p className="text-white font-bold text-2xl">{s.value}</p>
               </div>
@@ -273,19 +273,19 @@ export default function FlashcardLevelPage() {
           </div>
 
           {/* Filters */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5 mb-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5 mb-5">
             <h3 className="text-white font-semibold text-sm mb-4">Chọn bộ thẻ</h3>
             <div className="grid grid-cols-2 gap-4">
               {/* Difficulty */}
               <div>
-                <p className="text-white/30 text-xs mb-2">Cấp độ</p>
+                <p className="text-app-text-muted text-xs mb-2">Cấp độ</p>
                 <div className="flex flex-wrap gap-2">
-                  {([["all", "Tất cả", "#e8c84a"], [1, "A1 · Cơ bản", "#34d399"], [2, "A2-B1 · Trung cấp", "#e8c84a"], [3, "B2-C1 · Nâng cao", "#f87171"]] as const).map(([val, label, color]) => (
+                  {([["all", "Tất cả", "app-accent-primary"], [1, "A1 · Cơ bản", "#34d399"], [2, "A2-B1 · Trung cấp", "app-accent-primary"], [3, "B2-C1 · Nâng cao", "#f87171"]] as const).map(([val, label, color]) => (
                     <button
                       key={String(val)}
                       onClick={() => setSelectedDifficulty(val as number | "all")}
                       className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap border ${
-                        selectedDifficulty === val ? "border-white/20 text-white" : "border-white/8 text-white/40 hover:text-white/60"
+                        selectedDifficulty === val ? "border-white/20 text-white" : "border-app-border text-app-text-secondary hover:text-white/60"
                       }`}
                       style={selectedDifficulty === val ? { backgroundColor: `${color}15`, borderColor: `${color}30`, color } : {}}
                     >
@@ -296,14 +296,14 @@ export default function FlashcardLevelPage() {
               </div>
               {/* Category */}
               <div>
-                <p className="text-white/30 text-xs mb-2">Chủ đề</p>
+                <p className="text-app-text-muted text-xs mb-2">Chủ đề</p>
                 <div className="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto">
                   {categories.map(cat => (
                     <button
                       key={cat}
                       onClick={() => setSelectedCategory(cat)}
                       className={`px-2.5 py-1 rounded-lg text-[10px] font-medium cursor-pointer transition-all whitespace-nowrap border ${
-                        selectedCategory === cat ? "bg-[#e8c84a]/15 border-[#e8c84a]/30 text-[#e8c84a]" : "border-white/8 text-white/35 hover:text-white/55"
+                        selectedCategory === cat ? "bg-app-accent-primary/15 border-app-accent-primary/30 text-app-accent-primary" : "border-app-border text-white/35 hover:text-white/55"
                       }`}
                     >
                       {cat === "all" ? "Tất cả" : cat}
@@ -312,8 +312,8 @@ export default function FlashcardLevelPage() {
                 </div>
               </div>
             </div>
-            <div className="mt-4 pt-4 border-t border-white/5 flex items-center justify-between">
-              <p className="text-white/40 text-sm">
+            <div className="mt-4 pt-4 border-t border-app-border flex items-center justify-between">
+              <p className="text-app-text-secondary text-sm">
                 <span className="text-white font-bold">{filteredCards.length}</span> từ · <span className="text-[#fb923c] font-bold">{dueCards.length}</span> cần ôn hôm nay
               </p>
               <div className="flex gap-2">
@@ -328,7 +328,7 @@ export default function FlashcardLevelPage() {
                 <button
                   onClick={() => startSession(filteredCards)}
                   disabled={filteredCards.length === 0}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#e8c84a]/15 border border-[#e8c84a]/25 text-[#e8c84a] text-sm font-semibold cursor-pointer hover:bg-[#e8c84a]/25 transition-colors disabled:opacity-40 whitespace-nowrap"
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-app-accent-primary/15 border border-app-accent-primary/25 text-app-accent-primary text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/25 transition-colors disabled:opacity-40 whitespace-nowrap"
                 >
                   <i className="ri-play-fill"></i>
                   Học tất cả
@@ -348,26 +348,26 @@ export default function FlashcardLevelPage() {
               });
               const mastered = cards.filter(c => (srsData[c.id]?.repetitions || 0) >= 3);
               return (
-                <div key={diff} className={`bg-[#0f1117] border ${cfg.border} rounded-2xl p-5`}>
+                <div key={diff} className={`bg-app-bg border ${cfg.border} rounded-2xl p-5`}>
                   <div className="flex items-center gap-2 mb-3">
                     <span className="text-xl font-bold" style={{ color: cfg.color }}>{cfg.koreanLevel}</span>
-                    <span className="text-white/40 text-xs">{cfg.label.split("·")[1]?.trim()}</span>
+                    <span className="text-app-text-secondary text-xs">{cfg.label.split("·")[1]?.trim()}</span>
                   </div>
                   <div className="space-y-1.5 text-xs">
                     <div className="flex justify-between">
-                      <span className="text-white/40">Tổng từ</span>
+                      <span className="text-app-text-secondary">Tổng từ</span>
                       <span className="text-white font-bold">{cards.length}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-white/40">Cần ôn hôm nay</span>
+                      <span className="text-app-text-secondary">Cần ôn hôm nay</span>
                       <span className="font-bold" style={{ color: cfg.color }}>{due.length}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-white/40">Đã thuộc</span>
-                      <span className="text-emerald-400 font-bold">{mastered.length}</span>
+                      <span className="text-app-text-secondary">Đã thuộc</span>
+                      <span className="text-app-accent-success font-bold">{mastered.length}</span>
                     </div>
                   </div>
-                  <div className="mt-3 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                  <div className="mt-3 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                     <div className="h-full rounded-full" style={{ width: `${cards.length > 0 ? (mastered.length / cards.length) * 100 : 0}%`, backgroundColor: cfg.color }}></div>
                   </div>
                   <button
@@ -385,36 +385,36 @@ export default function FlashcardLevelPage() {
       ) : sessionDone ? (
         /* Session complete */
         <div className="flex flex-col items-center justify-center py-16">
-          <div className="w-20 h-20 flex items-center justify-center rounded-full bg-[#e8c84a]/15 mb-6">
-            <i className="ri-trophy-fill text-[#e8c84a] text-4xl"></i>
+          <div className="w-20 h-20 flex items-center justify-center rounded-full bg-app-accent-primary/15 mb-6">
+            <i className="ri-trophy-fill text-app-accent-primary text-4xl"></i>
           </div>
           <h2 className="text-white font-bold text-2xl mb-2">Hoàn thành phiên học!</h2>
-          <p className="text-white/40 text-sm mb-8">Bạn đã ôn tập {sessionStats.total} từ vựng</p>
+          <p className="text-app-text-secondary text-sm mb-8">Bạn đã ôn tập {sessionStats.total} từ vựng</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
             {[
               { label: "Nhớ được", value: sessionStats.correct, color: "#34d399", icon: "ri-check-line" },
               { label: "Cần ôn thêm", value: sessionStats.hard, color: "#f87171", icon: "ri-close-line" },
-              { label: "Tổng từ", value: sessionStats.total, color: "#e8c84a", icon: "ri-stack-line" },
+              { label: "Tổng từ", value: sessionStats.total, color: "app-accent-primary", icon: "ri-stack-line" },
             ].map(s => (
               <div key={s.label} className="text-center">
                 <div className="w-14 h-14 flex items-center justify-center rounded-2xl mx-auto mb-2" style={{ backgroundColor: `${s.color}15` }}>
                   <i className={`${s.icon} text-2xl`} style={{ color: s.color }}></i>
                 </div>
                 <p className="text-white font-bold text-2xl">{s.value}</p>
-                <p className="text-white/40 text-xs">{s.label}</p>
+                <p className="text-app-text-secondary text-xs">{s.label}</p>
               </div>
             ))}
           </div>
           <div className="flex gap-3">
             <button
               onClick={() => { setSessionStarted(false); setSessionDone(false); }}
-              className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white/60 text-sm font-semibold cursor-pointer hover:bg-white/10 transition-colors whitespace-nowrap"
+              className="px-6 py-3 rounded-xl bg-app-card/50 border border-app-border text-white/60 text-sm font-semibold cursor-pointer hover:bg-app-card/70 transition-colors whitespace-nowrap"
             >
               Về trang chọn
             </button>
             <button
               onClick={() => startSession(sessionCards)}
-              className="px-6 py-3 rounded-xl bg-[#e8c84a]/15 border border-[#e8c84a]/25 text-[#e8c84a] text-sm font-semibold cursor-pointer hover:bg-[#e8c84a]/25 transition-colors whitespace-nowrap"
+              className="px-6 py-3 rounded-xl bg-app-accent-primary/15 border border-app-accent-primary/25 text-app-accent-primary text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/25 transition-colors whitespace-nowrap"
             >
               Học lại
             </button>
@@ -427,29 +427,29 @@ export default function FlashcardLevelPage() {
           <div className="flex items-center justify-between mb-4">
             <button
               onClick={() => setSessionStarted(false)}
-              className="flex items-center gap-1.5 text-white/30 hover:text-white/60 text-sm cursor-pointer transition-colors"
+              className="flex items-center gap-1.5 text-app-text-muted hover:text-white/60 text-sm cursor-pointer transition-colors"
             >
               <i className="ri-arrow-left-line"></i>
               Thoát
             </button>
             <div className="flex-1 mx-4">
               <div className="h-2 bg-white/8 rounded-full overflow-hidden">
-                <div className="h-full bg-[#e8c84a] rounded-full transition-all duration-300" style={{ width: `${progress}%` }}></div>
+                <div className="h-full bg-app-accent-primary rounded-full transition-all duration-300" style={{ width: `${progress}%` }}></div>
               </div>
             </div>
-            <span className="text-white/40 text-sm whitespace-nowrap">{currentIndex + 1} / {sessionCards.length}</span>
+            <span className="text-app-text-secondary text-sm whitespace-nowrap">{currentIndex + 1} / {sessionCards.length}</span>
           </div>
 
           {loading ? (
             <div className="flex items-center justify-center py-20">
-              <div className="w-8 h-8 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>
+              <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
             </div>
           ) : currentCard ? (
             <FlashCard card={currentCard} onRate={handleRate} srsData={srsData} />
           ) : null}
 
           {/* SRS info */}
-          <div className="mt-6 flex items-center justify-center gap-4 text-white/20 text-xs">
+          <div className="mt-6 flex items-center justify-center gap-4 text-app-text-muted text-xs">
             {RATING_LABELS.map(r => (
               <span key={r.value} className="flex items-center gap-1">
                 <i className={r.icon} style={{ color: r.color }}></i>

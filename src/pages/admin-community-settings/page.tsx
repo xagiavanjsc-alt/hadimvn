@@ -8,7 +8,7 @@ type AccessMode = "normal" | "holiday" | "maintenance";
 
 const MODE_CONFIG: Record<AccessMode, { label: string; color: string; icon: string; desc: string }> = {
   normal: { label: "Bình thường", color: "#34d399", icon: "ri-shield-check-line", desc: "Áp dụng giới hạn theo cấu hình" },
-  holiday: { label: "Lễ/Sự kiện", color: "#e8c84a", icon: "ri-gift-line", desc: "Mở full — không giới hạn đăng bài và xem" },
+  holiday: { label: "Lễ/Sự kiện", color: "app-accent-primary", icon: "ri-gift-line", desc: "Mở full — không giới hạn đăng bài và xem" },
   maintenance: { label: "Bảo trì", color: "#f87171", icon: "ri-tools-line", desc: "Không ai đăng được bài mới" },
 };
 
@@ -105,7 +105,7 @@ export default function AdminCommunitySettingsPage() {
               <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>Bật để áp dụng giới hạn, tắt để mở full</p>
             </div>
             <button onClick={() => setAccessControlEnabled(!accessControlEnabled)}
-              className={`w-12 h-6 rounded-full transition-colors cursor-pointer relative ${accessControlEnabled ? "bg-emerald-500" : "bg-white/10"}`}>
+              className={`w-12 h-6 rounded-full transition-colors cursor-pointer relative ${accessControlEnabled ? "bg-emerald-500" : "bg-app-card/70"}`}>
               <div className={`w-5 h-5 rounded-full bg-white absolute top-0.5 transition-all ${accessControlEnabled ? "left-6" : "left-0.5"}`}></div>
             </button>
           </div>
@@ -174,12 +174,12 @@ export default function AdminCommunitySettingsPage() {
           </p>
           <div className="space-y-2 text-xs" style={{ color: "var(--admin-text-muted)" }}>
             <p>
-              <span className={`inline-block w-2 h-2 rounded-full mr-2 ${accessMode === "normal" ? "bg-emerald-400" : accessMode === "holiday" ? "bg-[#e8c84a]" : "bg-rose-400"}`}></span>
+              <span className={`inline-block w-2 h-2 rounded-full mr-2 ${accessMode === "normal" ? "bg-emerald-400" : accessMode === "holiday" ? "bg-app-accent-primary" : "bg-rose-400"}`}></span>
               Chế độ: <strong style={{ color: "var(--admin-text)" }}>{currentMode.label}</strong>
               {modeNote && <span className="ml-1" style={{ color: currentMode.color }}>({modeNote})</span>}
             </p>
             {!accessControlEnabled && (
-              <p style={{ color: "#e8c84a" }}>⚠️ Kiểm soát truy cập đang TẮT — tất cả đều truy cập tự do</p>
+              <p style={{ color: "app-accent-primary" }}>⚠️ Kiểm soát truy cập đang TẮT — tất cả đều truy cập tự do</p>
             )}
             {accessControlEnabled && accessMode === "normal" && (
               <>
@@ -199,7 +199,7 @@ export default function AdminCommunitySettingsPage() {
 
         {/* Save */}
         <button onClick={handleSave} disabled={saving}
-          className="w-full py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] text-sm font-bold cursor-pointer whitespace-nowrap transition-colors disabled:opacity-50">
+          className="w-full py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold cursor-pointer whitespace-nowrap transition-colors disabled:opacity-50">
           {saving ? <i className="ri-loader-4-line animate-spin mr-1"></i> : <i className="ri-save-line mr-1"></i>}
           Lưu cấu hình
         </button>

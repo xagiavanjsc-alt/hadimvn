@@ -90,7 +90,7 @@ export default function StreakReminderModal() {
 
   if (!visible) return null;
 
-  const streakColor = streakCount >= 30 ? "#ef4444" : streakCount >= 7 ? "#fb923c" : "#e8c84a";
+  const streakColor = streakCount >= 30 ? "#ef4444" : streakCount >= 7 ? "#fb923c" : "app-accent-primary";
   const urgencyMsg = hoursSince >= 48
     ? "Bạn đã không học hơn 2 ngày rồi!"
     : hoursSince >= 24
@@ -99,12 +99,12 @@ export default function StreakReminderModal() {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ backgroundColor: "rgba(0,0,0,0.7)", backdropFilter: "blur(8px)" }}>
-      <div className="relative w-full max-w-sm bg-[#0f1117] border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+      <div className="relative w-full max-w-sm bg-app-bg border border-app-border rounded-2xl overflow-hidden shadow-2xl">
         {/* Top accent bar */}
         <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${streakColor}, ${streakColor}80)` }} />
 
         {/* Close button */}
-        <button onClick={handleDismiss} className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg text-white/30 hover:text-white/60 hover:bg-white/5 transition-colors cursor-pointer">
+        <button onClick={handleDismiss} className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg text-app-text-muted hover:text-white/60 hover:bg-app-card/50 transition-colors cursor-pointer">
           <i className="ri-close-line text-lg"></i>
         </button>
 
@@ -116,7 +116,7 @@ export default function StreakReminderModal() {
                 <span className="text-4xl">🔥</span>
               </div>
               {streakCount > 0 && (
-                <div className="absolute -bottom-1 -right-1 w-7 h-7 flex items-center justify-center rounded-full text-xs font-bold text-[#0f1117]" style={{ backgroundColor: streakColor }}>
+                <div className="absolute -bottom-1 -right-1 w-7 h-7 flex items-center justify-center rounded-full text-xs font-bold text-app-bg" style={{ backgroundColor: streakColor }}>
                   {streakCount}
                 </div>
               )}
@@ -130,7 +130,7 @@ export default function StreakReminderModal() {
           </div>
 
           {/* Message */}
-          <div className="bg-white/3 border border-white/8 rounded-xl p-4 mb-5 text-center">
+          <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 mb-5 text-center">
             <p className="text-white/70 text-sm mb-1">{urgencyMsg}</p>
             {streakCount > 0 ? (
               <p className="text-white/50 text-xs">
@@ -155,15 +155,15 @@ export default function StreakReminderModal() {
 
           {/* Buttons */}
           <div className="flex gap-3">
-            <button onClick={handleDismiss} className="flex-1 py-3 rounded-xl border border-white/10 text-white/40 text-sm font-medium hover:bg-white/5 transition-colors cursor-pointer whitespace-nowrap">
+            <button onClick={handleDismiss} className="flex-1 py-3 rounded-xl border border-app-border text-app-text-secondary text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">
               Để sau
             </button>
-            <button onClick={handleStudyNow} className="flex-1 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer whitespace-nowrap text-[#0f1117] hover:opacity-90" style={{ backgroundColor: streakColor }}>
+            <button onClick={handleStudyNow} className="flex-1 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer whitespace-nowrap text-app-bg hover:opacity-90" style={{ backgroundColor: streakColor }}>
               <i className="ri-play-fill mr-1"></i>Học ngay!
             </button>
           </div>
 
-          <p className="text-white/20 text-[10px] text-center mt-3">Thông báo sẽ không hiện lại trong 6 giờ</p>
+          <p className="text-app-text-muted text-[10px] text-center mt-3">Thông báo sẽ không hiện lại trong 6 giờ</p>
         </div>
       </div>
     </div>

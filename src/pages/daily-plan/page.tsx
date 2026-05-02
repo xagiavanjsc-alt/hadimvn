@@ -76,7 +76,7 @@ function generateDailyPlan(
       duration: 5,
       xp: 20,
       icon: "ri-font-size",
-      color: "#e8c84a",
+      color: "app-accent-primary",
       path: "/hangul",
       priority: "medium",
       reason: "Streak mới bắt đầu — xây dựng thói quen học mỗi ngày",
@@ -193,8 +193,8 @@ function generateDailyPlan(
 
 const PRIORITY_LABELS: Record<string, { label: string; color: string }> = {
   high: { label: "Ưu tiên cao", color: "text-red-400 bg-red-400/10" },
-  medium: { label: "Nên làm", color: "text-[#e8c84a] bg-[#e8c84a]/10" },
-  low: { label: "Tùy chọn", color: "text-white/40 bg-white/5" },
+  medium: { label: "Nên làm", color: "text-app-accent-primary bg-app-accent-primary/10" },
+  low: { label: "Tùy chọn", color: "text-app-text-secondary bg-app-card/50" },
 };
 
 export default function DailyPlanPage() {
@@ -251,11 +251,11 @@ export default function DailyPlanPage() {
   });
 
   return (
-    <div className="min-h-screen bg-[#0f1117] text-white p-6">
+    <div className="min-h-screen bg-app-bg text-white p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center gap-2 text-white/40 text-xs mb-2">
+          <div className="flex items-center gap-2 text-app-text-secondary text-xs mb-2">
             <i className="ri-calendar-line"></i>
             <span>{dateStr}</span>
           </div>
@@ -266,7 +266,7 @@ export default function DailyPlanPage() {
         {/* Progress Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           {/* Daily Progress */}
-          <div className="md:col-span-2 bg-white/3 border border-white/8 rounded-2xl p-5">
+          <div className="md:col-span-2 bg-app-surface/50 border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-4">
               <div>
                 <p className="text-white/50 text-xs mb-1">Tiến độ hôm nay</p>
@@ -275,40 +275,40 @@ export default function DailyPlanPage() {
                 </p>
               </div>
               <div className="text-right">
-                <p className="text-[#e8c84a] font-bold text-xl">+{xpGained} XP</p>
-                <p className="text-white/40 text-xs">/{totalXp} XP tổng</p>
+                <p className="text-app-accent-primary font-bold text-xl">+{xpGained} XP</p>
+                <p className="text-app-text-secondary text-xs">/{totalXp} XP tổng</p>
               </div>
             </div>
             <div className="w-full bg-white/8 rounded-full h-2.5 mb-3">
               <div
-                className="bg-gradient-to-r from-[#e8c84a] to-[#f0d060] h-2.5 rounded-full transition-all duration-500"
+                className="bg-gradient-to-r from-[app-accent-primary] to-[#f0d060] h-2.5 rounded-full transition-all duration-500"
                 style={{ width: `${progress}%` }}
               />
             </div>
-            <div className="flex items-center justify-between text-xs text-white/40">
+            <div className="flex items-center justify-between text-xs text-app-text-secondary">
               <span>{Math.round(progress)}% hoàn thành</span>
               <span>Còn {remainingMinutes} phút</span>
             </div>
           </div>
 
           {/* Streak + Stats */}
-          <div className="bg-white/3 border border-white/8 rounded-2xl p-5 flex flex-col justify-between">
+          <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5 flex flex-col justify-between">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-[#e8c84a]/10 flex items-center justify-center">
-                <i className="ri-fire-line text-[#e8c84a] text-xl"></i>
+              <div className="w-10 h-10 rounded-xl bg-app-accent-primary/10 flex items-center justify-center">
+                <i className="ri-fire-line text-app-accent-primary text-xl"></i>
               </div>
               <div>
                 <p className="text-white font-bold text-xl">{streak.count}</p>
-                <p className="text-white/40 text-xs">ngày liên tiếp</p>
+                <p className="text-app-text-secondary text-xs">ngày liên tiếp</p>
               </div>
             </div>
             <div className="space-y-2">
               <div className="flex justify-between text-xs">
-                <span className="text-white/40">Tổng thời gian</span>
+                <span className="text-app-text-secondary">Tổng thời gian</span>
                 <span className="text-white">{totalMinutes} phút</span>
               </div>
               <div className="flex justify-between text-xs">
-                <span className="text-white/40">Lần thi gần nhất</span>
+                <span className="text-app-text-secondary">Lần thi gần nhất</span>
                 <span className="text-white">
                   {examResults.length > 0
                     ? `${examResults[examResults.length - 1].score}/${examResults[examResults.length - 1].total}`
@@ -321,13 +321,13 @@ export default function DailyPlanPage() {
 
         {/* AI Analysis */}
         {weakTopics.length > 0 && (
-          <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-2xl p-5 mb-6">
+          <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-2xl p-5 mb-6">
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-lg bg-[#e8c84a]/15 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <i className="ri-robot-line text-[#e8c84a] text-sm"></i>
+              <div className="w-8 h-8 rounded-lg bg-app-accent-primary/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i className="ri-robot-line text-app-accent-primary text-sm"></i>
               </div>
               <div>
-                <p className="text-[#e8c84a] font-semibold text-sm mb-1">Phân tích AI</p>
+                <p className="text-app-accent-primary font-semibold text-sm mb-1">Phân tích AI</p>
                 <p className="text-white/60 text-xs leading-relaxed">
                   Dựa trên {examResults.length} lần thi gần đây, AI phát hiện bạn cần cải thiện:{" "}
                   {weakTopics.map((t, i) => (
@@ -367,8 +367,8 @@ export default function DailyPlanPage() {
               key={task.id}
               className={`border rounded-2xl p-4 transition-all cursor-pointer ${
                 task.completed
-                  ? "bg-white/2 border-white/5 opacity-60"
-                  : "bg-white/3 border-white/8 hover:border-white/15"
+                  ? "bg-white/2 border-app-border opacity-60"
+                  : "bg-app-surface/50 border-app-border hover:border-white/15"
               }`}
               onClick={() => setSelectedTask(task)}
             >
@@ -385,13 +385,13 @@ export default function DailyPlanPage() {
                       <i className={`${task.icon} text-lg`} style={{ color: task.color }}></i>
                     )}
                   </div>
-                  <span className="text-white/20 text-[9px]">#{idx + 1}</span>
+                  <span className="text-app-text-muted text-[9px]">#{idx + 1}</span>
                 </div>
 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
-                    <h3 className={`font-semibold text-sm ${task.completed ? "line-through text-white/40" : "text-white"}`}>
+                    <h3 className={`font-semibold text-sm ${task.completed ? "line-through text-app-text-secondary" : "text-white"}`}>
                       {task.title}
                     </h3>
                     <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${PRIORITY_LABELS[task.priority].color}`}>
@@ -405,7 +405,7 @@ export default function DailyPlanPage() {
                       {task.duration} phút
                     </span>
                     <span className="flex items-center gap-1">
-                      <i className="ri-star-line text-[#e8c84a]"></i>
+                      <i className="ri-star-line text-app-accent-primary"></i>
                       +{task.xp} XP
                     </span>
                   </div>
@@ -413,7 +413,7 @@ export default function DailyPlanPage() {
 
                 {/* Arrow */}
                 {!task.completed && (
-                  <i className="ri-arrow-right-s-line text-white/20 text-lg flex-shrink-0 mt-2"></i>
+                  <i className="ri-arrow-right-s-line text-app-text-muted text-lg flex-shrink-0 mt-2"></i>
                 )}
               </div>
             </div>
@@ -422,17 +422,17 @@ export default function DailyPlanPage() {
 
         {/* Completion Banner */}
         {completedCount === tasks.length && tasks.length > 0 && (
-          <div className="bg-gradient-to-r from-[#e8c84a]/10 to-[#4ade80]/10 border border-[#e8c84a]/20 rounded-2xl p-6 text-center mb-8">
-            <div className="w-14 h-14 rounded-full bg-[#e8c84a]/15 flex items-center justify-center mx-auto mb-3">
-              <i className="ri-trophy-line text-[#e8c84a] text-2xl"></i>
+          <div className="bg-gradient-to-r from-[app-accent-primary]/10 to-[#4ade80]/10 border border-app-accent-primary/20 rounded-2xl p-6 text-center mb-8">
+            <div className="w-14 h-14 rounded-full bg-app-accent-primary/15 flex items-center justify-center mx-auto mb-3">
+              <i className="ri-trophy-line text-app-accent-primary text-2xl"></i>
             </div>
             <h3 className="text-white font-bold text-lg mb-1">Hoàn thành lộ trình hôm nay!</h3>
             <p className="text-white/50 text-sm mb-3">
-              Bạn đã kiếm được <strong className="text-[#e8c84a]">+{xpGained} XP</strong> hôm nay. Tuyệt vời!
+              Bạn đã kiếm được <strong className="text-app-accent-primary">+{xpGained} XP</strong> hôm nay. Tuyệt vời!
             </p>
             <button
               onClick={() => navigate("/profile")}
-              className="bg-[#e8c84a] text-[#0a0c10] font-semibold px-5 py-2 rounded-lg text-sm hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer"
+              className="bg-app-accent-primary text-[#0a0c10] font-semibold px-5 py-2 rounded-lg text-sm hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer"
             >
               Xem hồ sơ học viên
             </button>
@@ -440,19 +440,19 @@ export default function DailyPlanPage() {
         )}
 
         {/* Quick Links */}
-        <div className="bg-white/2 border border-white/5 rounded-2xl p-5">
-          <p className="text-white/40 text-xs tracking-normal mb-4">Truy cập nhanh</p>
+        <div className="bg-white/2 border border-app-border rounded-2xl p-5">
+          <p className="text-app-text-secondary text-xs tracking-normal mb-4">Truy cập nhanh</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
               { label: "Thi thử EPS", icon: "ri-timer-line", path: "/eps-exam", color: "#fb923c" },
               { label: "So sánh tiến độ", icon: "ri-radar-line", path: "/progress", color: "#a78bfa" },
               { label: "Thống kê", icon: "ri-bar-chart-box-line", path: "/learn-stats", color: "#4ade80" },
-              { label: "Hồ sơ", icon: "ri-user-3-line", path: "/profile", color: "#e8c84a" },
+              { label: "Hồ sơ", icon: "ri-user-3-line", path: "/profile", color: "app-accent-primary" },
             ].map((link) => (
               <button
                 key={link.path}
                 onClick={() => navigate(link.path)}
-                className="flex flex-col items-center gap-2 p-3 bg-white/3 border border-white/8 rounded-xl hover:border-white/15 transition-all cursor-pointer"
+                className="flex flex-col items-center gap-2 p-3 bg-app-surface/50 border border-app-border rounded-xl hover:border-white/15 transition-all cursor-pointer"
               >
                 <div className="w-8 h-8 flex items-center justify-center">
                   <i className={`${link.icon} text-lg`} style={{ color: link.color }}></i>
@@ -467,7 +467,7 @@ export default function DailyPlanPage() {
       {/* Task Detail Modal */}
       {selectedTask && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="bg-[#13161e] border border-white/10 rounded-2xl w-full max-w-md p-6">
+          <div className="bg-[#13161e] border border-app-border rounded-2xl w-full max-w-md p-6">
             <div className="flex items-start gap-4 mb-5">
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -479,15 +479,15 @@ export default function DailyPlanPage() {
                 <h3 className="text-white font-bold text-base mb-1">{selectedTask.title}</h3>
                 <p className="text-white/50 text-sm">{selectedTask.desc}</p>
               </div>
-              <button onClick={() => setSelectedTask(null)} className="text-white/30 hover:text-white cursor-pointer">
+              <button onClick={() => setSelectedTask(null)} className="text-app-text-muted hover:text-white cursor-pointer">
                 <i className="ri-close-line text-xl"></i>
               </button>
             </div>
 
             {/* AI Reason */}
-            <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-3 mb-5">
+            <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-3 mb-5">
               <div className="flex items-start gap-2">
-                <i className="ri-robot-line text-[#e8c84a] text-sm mt-0.5"></i>
+                <i className="ri-robot-line text-app-accent-primary text-sm mt-0.5"></i>
                 <p className="text-white/60 text-xs leading-relaxed">{selectedTask.reason}</p>
               </div>
             </div>
@@ -497,7 +497,7 @@ export default function DailyPlanPage() {
                 <i className="ri-time-line"></i>
                 <span>{selectedTask.duration} phút</span>
               </div>
-              <div className="flex items-center gap-1.5 text-[#e8c84a]">
+              <div className="flex items-center gap-1.5 text-app-accent-primary">
                 <i className="ri-star-line"></i>
                 <span>+{selectedTask.xp} XP</span>
               </div>
@@ -507,7 +507,7 @@ export default function DailyPlanPage() {
             </div>
 
             {selectedTask.completed ? (
-              <div className="flex items-center justify-center gap-2 py-3 bg-white/5 rounded-xl text-white/40 text-sm">
+              <div className="flex items-center justify-center gap-2 py-3 bg-app-card/50 rounded-xl text-app-text-secondary text-sm">
                 <i className="ri-check-double-line text-[#4ade80]"></i>
                 Đã hoàn thành hôm nay
               </div>
@@ -515,7 +515,7 @@ export default function DailyPlanPage() {
               <div className="flex gap-3">
                 <button
                   onClick={() => handleStartTask(selectedTask)}
-                  className="flex-1 bg-[#e8c84a] text-[#0a0c10] font-bold py-3 rounded-xl text-sm hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer"
+                  className="flex-1 bg-app-accent-primary text-[#0a0c10] font-bold py-3 rounded-xl text-sm hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer"
                 >
                   Bắt đầu ngay
                 </button>

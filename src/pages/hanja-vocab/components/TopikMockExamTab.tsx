@@ -192,7 +192,7 @@ export default function TopikMockExamTab() {
         <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden mb-5">
           {/* Header */}
           <div className="bg-gradient-to-r from-rose-500 to-orange-500 p-6 text-white text-center">
-            <div className="w-14 h-14 flex items-center justify-center bg-white/20 rounded-2xl mx-auto mb-3">
+            <div className="w-14 h-14 flex items-center justify-center bg-app-border/200 rounded-2xl mx-auto mb-3">
               <i className="ri-file-paper-2-line text-white text-2xl"></i>
             </div>
             <h2 className="text-xl font-bold mb-1">Thi thử TOPIK Hán Hàn</h2>

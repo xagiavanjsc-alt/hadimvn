@@ -33,11 +33,11 @@ const EPS_PATH: LearningPath = {
   description: "Chuẩn bị thi EPS-TOPIK để đi làm tại Hàn Quốc",
   targetLevel: "EPS Pass",
   totalDays: 90,
-  color: "#e8c84a",
+  color: "app-accent-primary",
   icon: "ri-briefcase-line",
   steps: [
     { id: "e1", title: "Hangul cơ bản", description: "Học bảng chữ cái và phát âm chuẩn", path: "/hangul", icon: "ri-font-size", color: "text-amber-400", estimatedDays: 7, xpReward: 200, type: "lesson" },
-    { id: "e2", title: "Từ vựng EPS 205 từ", description: "Học toàn bộ 205 từ vựng EPS cơ bản", path: "/eps-vocabulary", icon: "ri-translate-2", color: "text-emerald-400", estimatedDays: 14, xpReward: 500, type: "lesson" },
+    { id: "e2", title: "Từ vựng EPS 205 từ", description: "Học toàn bộ 205 từ vựng EPS cơ bản", path: "/eps-vocabulary", icon: "ri-translate-2", color: "text-app-accent-success", estimatedDays: 14, xpReward: 500, type: "lesson" },
     { id: "e3", title: "60 Bài học EPS", description: "Học theo bài có cấu trúc rõ ràng", path: "/eps-lessons", icon: "ri-book-open-line", color: "text-sky-400", estimatedDays: 21, xpReward: 800, type: "lesson" },
     { id: "e4", title: "Luyện nghe EPS", description: "Nghe audio câu hỏi EPS thật", path: "/eps-listening", icon: "ri-headphone-line", color: "text-violet-400", estimatedDays: 14, xpReward: 400, type: "practice" },
     { id: "e5", title: "Luyện nói EPS", description: "Ghi âm và so sánh phát âm chuẩn", path: "/eps-speaking", icon: "ri-mic-line", color: "text-pink-400", estimatedDays: 14, xpReward: 400, type: "practice" },
@@ -58,7 +58,7 @@ const SEOUL_1A_PATH: LearningPath = {
   steps: [
     { id: "s1", title: "Kiểm tra trình độ", description: "Xác định điểm bắt đầu phù hợp", path: "/seoul-placement", icon: "ri-brain-line", color: "text-violet-400", estimatedDays: 1, xpReward: 100, type: "test" },
     { id: "s2", title: "Hangul & Phát âm", description: "Nền tảng bảng chữ cái Hangul", path: "/hangul", icon: "ri-font-size", color: "text-amber-400", estimatedDays: 7, xpReward: 200, type: "lesson" },
-    { id: "s3", title: "Seoul 1A — 15 bài học", description: "Chào hỏi, giới thiệu, số đếm, thời gian", path: "/seoul-textbook", icon: "ri-book-3-line", color: "text-emerald-400", estimatedDays: 21, xpReward: 750, type: "lesson" },
+    { id: "s3", title: "Seoul 1A — 15 bài học", description: "Chào hỏi, giới thiệu, số đếm, thời gian", path: "/seoul-textbook", icon: "ri-book-3-line", color: "text-app-accent-success", estimatedDays: 21, xpReward: 750, type: "lesson" },
     { id: "s4", title: "Flashcard Seoul 1A", description: "Ôn từ vựng bằng flashcard lật thẻ", path: "/seoul-flashcard", icon: "ri-stack-line", color: "text-sky-400", estimatedDays: 7, xpReward: 200, type: "review" },
     { id: "s5", title: "Seoul 1B — 15 bài học", description: "Quá khứ, tương lai, so sánh, cảm xúc", path: "/seoul-textbook", icon: "ri-book-3-line", color: "text-teal-400", estimatedDays: 21, xpReward: 750, type: "lesson" },
     { id: "s6", title: "Ôn tập thông minh", description: "Spaced repetition từ vựng Seoul", path: "/smart-review", icon: "ri-brain-line", color: "text-orange-400", estimatedDays: 7, xpReward: 200, type: "review" },
@@ -77,7 +77,7 @@ const SEOUL_2A_PATH: LearningPath = {
   icon: "ri-book-3-line",
   steps: [
     { id: "s1", title: "Kiểm tra trình độ", description: "Xác nhận đã đạt A1+", path: "/seoul-placement", icon: "ri-brain-line", color: "text-violet-400", estimatedDays: 1, xpReward: 100, type: "test" },
-    { id: "s2", title: "Seoul 2A — 14 bài học", description: "Kinh nghiệm, nhờ vả, ý kiến", path: "/seoul-textbook", icon: "ri-book-3-line", color: "text-emerald-400", estimatedDays: 21, xpReward: 700, type: "lesson" },
+    { id: "s2", title: "Seoul 2A — 14 bài học", description: "Kinh nghiệm, nhờ vả, ý kiến", path: "/seoul-textbook", icon: "ri-book-3-line", color: "text-app-accent-success", estimatedDays: 21, xpReward: 700, type: "lesson" },
     { id: "s3", title: "Flashcard Seoul 2A", description: "Ôn từ vựng 2A bằng flashcard", path: "/seoul-flashcard", icon: "ri-stack-line", color: "text-sky-400", estimatedDays: 7, xpReward: 200, type: "review" },
     { id: "s4", title: "Seoul 2B — 14 bài học", description: "Nguyên nhân, điều kiện, tình huống phức tạp", path: "/seoul-textbook", icon: "ri-book-3-line", color: "text-teal-400", estimatedDays: 21, xpReward: 700, type: "lesson" },
     { id: "s5", title: "Ôn tập thông minh", description: "Spaced repetition từ vựng 2A-2B", path: "/smart-review", icon: "ri-brain-line", color: "text-orange-400", estimatedDays: 7, xpReward: 200, type: "review" },
@@ -97,7 +97,7 @@ const TOPIK_PATH: LearningPath = {
   steps: [
     { id: "t1", title: "Kiểm tra đầu vào", description: "Đánh giá trình độ hiện tại", path: "/placement-test", icon: "ri-brain-line", color: "text-violet-400", estimatedDays: 1, xpReward: 100, type: "test" },
     { id: "t2", title: "Từ vựng TOPIK I", description: "Học 800+ từ vựng cần thiết", path: "/vocabulary", icon: "ri-translate-2", color: "text-amber-400", estimatedDays: 21, xpReward: 600, type: "lesson" },
-    { id: "t3", title: "Ngữ pháp cơ bản", description: "Các điểm ngữ pháp TOPIK I", path: "/grammar", icon: "ri-book-2-line", color: "text-emerald-400", estimatedDays: 14, xpReward: 400, type: "lesson" },
+    { id: "t3", title: "Ngữ pháp cơ bản", description: "Các điểm ngữ pháp TOPIK I", path: "/grammar", icon: "ri-book-2-line", color: "text-app-accent-success", estimatedDays: 14, xpReward: 400, type: "lesson" },
     { id: "t4", title: "Luyện nghe TOPIK", description: "Nghe hiểu theo format TOPIK", path: "/listen-practice", icon: "ri-headphone-line", color: "text-sky-400", estimatedDays: 14, xpReward: 400, type: "practice" },
     { id: "t5", title: "Ôn tập thông minh", description: "Spaced repetition từ vựng TOPIK", path: "/smart-review", icon: "ri-brain-line", color: "text-teal-400", estimatedDays: 14, xpReward: 300, type: "review" },
     { id: "t6", title: "Thi thử TOPIK I", description: "Đề thi mô phỏng 50 câu", path: "/topik-test", icon: "ri-file-list-2-line", color: "text-red-400", estimatedDays: 7, xpReward: 400, type: "test" },
@@ -110,7 +110,7 @@ const ALL_PATHS = [EPS_PATH, SEOUL_1A_PATH, SEOUL_2A_PATH, TOPIK_PATH];
 
 const typeLabel: Record<string, string> = { lesson: "Bài học", practice: "Luyện tập", test: "Kiểm tra", review: "Ôn tập" };
 const typeColor: Record<string, string> = {
-  lesson: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+  lesson: "bg-emerald-500/10 text-app-accent-success border-emerald-500/20",
   practice: "bg-sky-500/10 text-sky-400 border-sky-500/20",
   test: "bg-red-500/10 text-red-400 border-red-500/20",
   review: "bg-amber-500/10 text-amber-400 border-amber-500/20",
@@ -149,7 +149,7 @@ export default function PersonalizedRoadmapPage() {
           <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "'Nunito', sans-serif" }}>
             Lộ trình học cá nhân hóa
           </h1>
-          <p className="text-white/40 text-sm mt-0.5">Chọn mục tiêu học tập và theo dõi tiến độ từng bước</p>
+          <p className="text-app-text-secondary text-sm mt-0.5">Chọn mục tiêu học tập và theo dõi tiến độ từng bước</p>
         </div>
 
         {!selectedPath ? (
@@ -162,7 +162,7 @@ export default function PersonalizedRoadmapPage() {
                   <div
                     key={path.id}
                     onClick={() => setSelectedPath(path)}
-                    className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/8 transition-all cursor-pointer group"
+                    className="bg-app-card/50 border border-app-border rounded-2xl p-6 hover:bg-white/8 transition-all cursor-pointer group"
                   >
                     <div className="flex items-start gap-4 mb-4">
                       <div className="w-12 h-12 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${path.color}15` }}>
@@ -170,7 +170,7 @@ export default function PersonalizedRoadmapPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="text-white font-semibold text-base">{path.name}</h3>
-                        <p className="text-white/40 text-xs mt-0.5">{path.description}</p>
+                        <p className="text-app-text-secondary text-xs mt-0.5">{path.description}</p>
                       </div>
                     </div>
 
@@ -178,13 +178,13 @@ export default function PersonalizedRoadmapPage() {
                       <span className="text-xs px-2 py-0.5 rounded-full border" style={{ color: path.color, borderColor: `${path.color}30`, backgroundColor: `${path.color}10` }}>
                         {path.targetLevel}
                       </span>
-                      <span className="text-white/30 text-xs">{path.totalDays} ngày</span>
-                      <span className="text-white/30 text-xs">{path.steps.length} bước</span>
+                      <span className="text-app-text-muted text-xs">{path.totalDays} ngày</span>
+                      <span className="text-app-text-muted text-xs">{path.steps.length} bước</span>
                     </div>
 
                     <div className="space-y-1.5">
                       <div className="flex items-center justify-between">
-                        <span className="text-white/40 text-xs">Tiến độ</span>
+                        <span className="text-app-text-secondary text-xs">Tiến độ</span>
                         <span className="text-xs font-medium" style={{ color: path.color }}>{done}/{total} bước</span>
                       </div>
                       <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
@@ -193,7 +193,7 @@ export default function PersonalizedRoadmapPage() {
                     </div>
 
                     <div className="flex items-center justify-between mt-4">
-                      <span className="text-white/30 text-xs">
+                      <span className="text-app-text-muted text-xs">
                         {path.steps.reduce((s, st) => s + st.xpReward, 0).toLocaleString()} XP tổng
                       </span>
                       <div className="flex items-center gap-1 text-sm font-medium group-hover:gap-2 transition-all" style={{ color: path.color }}>
@@ -209,7 +209,7 @@ export default function PersonalizedRoadmapPage() {
             </div>
 
             {/* Tips */}
-            <div className="bg-white/3 border border-white/8 rounded-xl p-5">
+            <div className="bg-app-surface/50 border border-app-border rounded-xl p-5">
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 flex items-center justify-center bg-amber-500/10 rounded-lg flex-shrink-0">
                   <i className="ri-lightbulb-line text-amber-400 text-sm"></i>
@@ -240,14 +240,14 @@ export default function PersonalizedRoadmapPage() {
             </button>
 
             {/* Path header */}
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+            <div className="bg-app-card/50 border border-app-border rounded-2xl p-6">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-14 h-14 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${selectedPath.color}15` }}>
                   <i className={`${selectedPath.icon} text-2xl`} style={{ color: selectedPath.color }}></i>
                 </div>
                 <div>
                   <h2 className="text-white font-bold text-xl">{selectedPath.name}</h2>
-                  <p className="text-white/40 text-sm">{selectedPath.description}</p>
+                  <p className="text-app-text-secondary text-sm">{selectedPath.description}</p>
                 </div>
               </div>
 
@@ -256,16 +256,16 @@ export default function PersonalizedRoadmapPage() {
                 return (
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-white/40 text-sm">Tiến độ tổng thể</span>
+                      <span className="text-app-text-secondary text-sm">Tiến độ tổng thể</span>
                       <span className="font-bold text-sm" style={{ color: selectedPath.color }}>{pct}% ({done}/{total} bước)</span>
                     </div>
                     <div className="h-2 bg-white/8 rounded-full overflow-hidden">
                       <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, backgroundColor: selectedPath.color }} />
                     </div>
                     <div className="flex gap-4 pt-1">
-                      <span className="text-white/30 text-xs">{selectedPath.totalDays} ngày ước tính</span>
-                      <span className="text-white/30 text-xs">{selectedPath.steps.reduce((s, st) => s + st.xpReward, 0).toLocaleString()} XP tổng</span>
-                      <span className="text-white/30 text-xs">Mục tiêu: {selectedPath.targetLevel}</span>
+                      <span className="text-app-text-muted text-xs">{selectedPath.totalDays} ngày ước tính</span>
+                      <span className="text-app-text-muted text-xs">{selectedPath.steps.reduce((s, st) => s + st.xpReward, 0).toLocaleString()} XP tổng</span>
+                      <span className="text-app-text-muted text-xs">Mục tiêu: {selectedPath.targetLevel}</span>
                     </div>
                   </div>
                 );
@@ -282,15 +282,15 @@ export default function PersonalizedRoadmapPage() {
                 return (
                   <div
                     key={step.id}
-                    className={`bg-white/5 border rounded-xl p-5 transition-all ${done ? "border-white/15 opacity-80" : isLocked ? "border-white/5 opacity-50" : "border-white/10 hover:border-white/20"}`}
+                    className={`bg-app-card/50 border rounded-xl p-5 transition-all ${done ? "border-white/15 opacity-80" : isLocked ? "border-app-border opacity-50" : "border-app-border hover:border-white/20"}`}
                   >
                     <div className="flex items-start gap-4">
                       {/* Step number / check */}
                       <div className={`w-10 h-10 flex items-center justify-center rounded-full flex-shrink-0 transition-all ${done ? "bg-emerald-500/20" : "bg-white/8"}`}>
                         {done ? (
-                          <i className="ri-check-line text-emerald-400 text-lg"></i>
+                          <i className="ri-check-line text-app-accent-success text-lg"></i>
                         ) : (
-                          <span className="text-white/40 text-sm font-bold">{idx + 1}</span>
+                          <span className="text-app-text-secondary text-sm font-bold">{idx + 1}</span>
                         )}
                       </div>
 
@@ -303,9 +303,9 @@ export default function PersonalizedRoadmapPage() {
                           <h3 className={`font-semibold text-sm ${done ? "text-white/50 line-through" : "text-white"}`}>{step.title}</h3>
                           <span className={`px-2 py-0.5 rounded-full text-[10px] border ${typeColor[step.type]}`}>{typeLabel[step.type]}</span>
                         </div>
-                        <p className="text-white/40 text-xs mb-3">{step.description}</p>
+                        <p className="text-app-text-secondary text-xs mb-3">{step.description}</p>
                         <div className="flex items-center gap-3">
-                          <span className="text-white/25 text-xs">{step.estimatedDays} ngày</span>
+                          <span className="text-app-text-muted text-xs">{step.estimatedDays} ngày</span>
                           <span className="text-amber-400/60 text-xs">+{step.xpReward} XP</span>
                         </div>
                       </div>
@@ -315,7 +315,7 @@ export default function PersonalizedRoadmapPage() {
                         {!isLocked && (
                           <button
                             onClick={() => navigate(step.path)}
-                            className="flex items-center gap-1.5 bg-white/8 hover:bg-white/15 border border-white/10 rounded-lg px-3 py-1.5 text-white/60 text-xs transition-all cursor-pointer whitespace-nowrap"
+                            className="flex items-center gap-1.5 bg-white/8 hover:bg-white/15 border border-app-border rounded-lg px-3 py-1.5 text-white/60 text-xs transition-all cursor-pointer whitespace-nowrap"
                           >
                             <div className="w-3 h-3 flex items-center justify-center">
                               <i className="ri-external-link-line text-xs"></i>
@@ -330,18 +330,18 @@ export default function PersonalizedRoadmapPage() {
                             done
                               ? "bg-emerald-500/20 border-emerald-500/30 cursor-pointer"
                               : isLocked
-                              ? "bg-white/3 border-white/5 cursor-not-allowed"
-                              : "bg-white/8 border-white/15 hover:bg-emerald-500/15 hover:border-emerald-500/30 cursor-pointer"
+                              ? "bg-app-surface/50 border-app-border cursor-not-allowed"
+                              : "bg-white/8 border-white/15 hover:bg-app-accent-success/15 hover:border-emerald-500/30 cursor-pointer"
                           }`}
                         >
-                          <i className={`text-sm ${done ? "ri-checkbox-circle-fill text-emerald-400" : "ri-checkbox-blank-circle-line text-white/30"}`}></i>
+                          <i className={`text-sm ${done ? "ri-checkbox-circle-fill text-app-accent-success" : "ri-checkbox-blank-circle-line text-app-text-muted"}`}></i>
                         </button>
                       </div>
                     </div>
 
                     {/* Connector line */}
                     {idx < selectedPath.steps.length - 1 && (
-                      <div className="ml-5 mt-3 w-0.5 h-3 bg-white/10 rounded-full"></div>
+                      <div className="ml-5 mt-3 w-0.5 h-3 bg-app-card/70 rounded-full"></div>
                     )}
                   </div>
                 );
@@ -352,7 +352,7 @@ export default function PersonalizedRoadmapPage() {
             {getPathProgress(selectedPath).pct === 100 && (
               <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-8 text-center">
                 <div className="w-16 h-16 flex items-center justify-center bg-emerald-500/20 rounded-full mx-auto mb-4">
-                  <i className="ri-trophy-line text-emerald-400 text-3xl"></i>
+                  <i className="ri-trophy-line text-app-accent-success text-3xl"></i>
                 </div>
                 <h3 className="text-white font-bold text-xl mb-2">Hoàn thành lộ trình!</h3>
                 <p className="text-white/50 text-sm">Bạn đã hoàn thành toàn bộ {selectedPath.steps.length} bước của lộ trình {selectedPath.name}!</p>

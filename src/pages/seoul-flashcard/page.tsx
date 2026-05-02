@@ -81,23 +81,23 @@ function FlipCard({
         >
           {/* Front */}
           <div
-            className="absolute inset-0 rounded-2xl border border-white/8 bg-[#0f1117] flex flex-col items-center justify-center p-8"
+            className="absolute inset-0 rounded-2xl border border-app-border bg-app-bg flex flex-col items-center justify-center p-8"
             style={{ backfaceVisibility: "hidden" }}
           >
             <div className="flex items-center gap-2 mb-6">
               <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${card.bookColor}15`, color: card.bookColor }}>
                 {card.bookName}
               </span>
-              <span className="text-[10px] text-white/30">{card.lessonTitle}</span>
+              <span className="text-[10px] text-app-text-muted">{card.lessonTitle}</span>
             </div>
             <p className="text-5xl font-bold text-white mb-3 text-center">{card.korean}</p>
-            <p className="text-white/40 text-sm">[{card.pronunciation}]</p>
-            <p className="text-white/20 text-xs mt-8">Nhấn để lật thẻ</p>
+            <p className="text-app-text-secondary text-sm">[{card.pronunciation}]</p>
+            <p className="text-app-text-muted text-xs mt-8">Nhấn để lật thẻ</p>
           </div>
 
           {/* Back */}
           <div
-            className="absolute inset-0 rounded-2xl border border-white/8 bg-[#0f1117] flex flex-col items-center justify-center p-8"
+            className="absolute inset-0 rounded-2xl border border-app-border bg-app-bg flex flex-col items-center justify-center p-8"
             style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
           >
             <div className="flex items-center gap-2 mb-4">
@@ -107,9 +107,9 @@ function FlipCard({
             </div>
             <p className="text-3xl font-bold text-white mb-2 text-center">{card.vietnamese}</p>
             <p className="text-white/50 text-sm mb-4 text-center">{card.korean} [{card.pronunciation}]</p>
-            <div className="w-full bg-white/3 rounded-xl p-3 text-center">
+            <div className="w-full bg-app-surface/50 rounded-xl p-3 text-center">
               <p className="text-white/60 text-sm">{card.example}</p>
-              <p className="text-white/30 text-xs mt-1 italic">{card.exampleVi}</p>
+              <p className="text-app-text-muted text-xs mt-1 italic">{card.exampleVi}</p>
             </div>
           </div>
         </div>
@@ -119,7 +119,7 @@ function FlipCard({
       <div className="flex items-center gap-3 mt-6 w-full max-w-lg">
         <button
           onClick={e => { e.stopPropagation(); speakKorean(card.korean); }}
-          className="w-10 h-10 flex items-center justify-center rounded-xl border border-white/8 text-white/40 hover:text-white/70 hover:bg-white/5 transition-all cursor-pointer"
+          className="w-10 h-10 flex items-center justify-center rounded-xl border border-app-border text-app-text-secondary hover:text-white/70 hover:bg-app-card/50 transition-all cursor-pointer"
         >
           <i className="ri-volume-up-line"></i>
         </button>
@@ -134,7 +134,7 @@ function FlipCard({
             </button>
             <button
               onClick={onKnow}
-              className="flex-1 py-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 font-semibold text-sm hover:bg-emerald-500/10 transition-all cursor-pointer whitespace-nowrap"
+              className="flex-1 py-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-app-accent-success font-semibold text-sm hover:bg-emerald-500/10 transition-all cursor-pointer whitespace-nowrap"
             >
               <i className="ri-checkbox-circle-line mr-2"></i>Đã nhớ!
             </button>
@@ -142,7 +142,7 @@ function FlipCard({
         ) : (
           <button
             onClick={onFlip}
-            className="flex-1 py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm transition-all cursor-pointer whitespace-nowrap"
+            className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm transition-all cursor-pointer whitespace-nowrap"
           >
             Lật thẻ xem nghĩa
           </button>
@@ -278,17 +278,17 @@ export default function SeoulFlashcardPage() {
       <div className="p-6 md:p-8">
         {/* Login notice */}
         {!user && (
-          <div className="mb-5 flex items-center gap-3 bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl px-4 py-3">
-            <i className="ri-information-line text-[#e8c84a] text-sm"></i>
-            <p className="text-[#e8c84a]/70 text-xs">Đăng nhập để lưu tiến độ vào cloud — không mất dữ liệu khi đổi thiết bị</p>
+          <div className="mb-5 flex items-center gap-3 bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl px-4 py-3">
+            <i className="ri-information-line text-app-accent-primary text-sm"></i>
+            <p className="text-app-accent-primary/70 text-xs">Đăng nhập để lưu tiến độ vào cloud — không mất dữ liệu khi đổi thiết bị</p>
           </div>
         )}
 
         {/* DB sync status */}
         {user && (
           <div className="mb-5 flex items-center gap-3 bg-emerald-500/5 border border-emerald-500/15 rounded-xl px-4 py-3">
-            <div className={`w-2 h-2 rounded-full ${saving ? "bg-[#e8c84a] animate-pulse" : dbLoading ? "bg-white/30 animate-pulse" : "bg-emerald-400"}`}></div>
-            <p className="text-emerald-400/70 text-xs">
+            <div className={`w-2 h-2 rounded-full ${saving ? "bg-app-accent-primary animate-pulse" : dbLoading ? "bg-app-surface/500 animate-pulse" : "bg-emerald-400"}`}></div>
+            <p className="text-app-accent-success/70 text-xs">
               {dbLoading ? "Đang tải tiến độ từ cloud..." : saving ? "Đang lưu..." : "Tiến độ được đồng bộ cloud tự động"}
             </p>
           </div>
@@ -297,35 +297,35 @@ export default function SeoulFlashcardPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           {[
-            { label: "Tổng từ vựng", value: ALL_FLASHCARDS.length, color: "#e8c84a", icon: "ri-stack-line" },
+            { label: "Tổng từ vựng", value: ALL_FLASHCARDS.length, color: "app-accent-primary", icon: "ri-stack-line" },
             { label: "Đã thuộc", value: totalKnown, color: "#34d399", icon: "ri-checkbox-circle-line" },
             { label: "Đang học", value: totalLearning, color: "#fb923c", icon: "ri-refresh-line" },
             { label: "Chưa học", value: totalNew, color: "#a78bfa", icon: "ri-time-line" },
           ].map(s => (
-            <div key={s.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-4 flex items-center gap-3">
+            <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
               <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
                 <i className={`${s.icon} text-lg`} style={{ color: s.color }}></i>
               </div>
               <div>
                 <p className="text-white font-bold text-xl leading-none">{s.value}</p>
-                <p className="text-white/40 text-xs mt-0.5">{s.label}</p>
+                <p className="text-app-text-secondary text-xs mt-0.5">{s.label}</p>
               </div>
             </div>
           ))}
         </div>
 
         {/* Overall progress bar */}
-        <div className="mb-6 bg-[#0f1117] border border-white/5 rounded-xl p-4">
+        <div className="mb-6 bg-app-bg border border-app-border rounded-xl p-4">
           <div className="flex items-center justify-between mb-2">
             <span className="text-white/50 text-xs">Tiến độ tổng thể</span>
-            <span className="text-[#e8c84a] text-xs font-bold">{ALL_FLASHCARDS.length > 0 ? Math.round((totalKnown / ALL_FLASHCARDS.length) * 100) : 0}% đã thuộc</span>
+            <span className="text-app-accent-primary text-xs font-bold">{ALL_FLASHCARDS.length > 0 ? Math.round((totalKnown / ALL_FLASHCARDS.length) * 100) : 0}% đã thuộc</span>
           </div>
-          <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+          <div className="h-2 bg-app-card/50 rounded-full overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-500"
               style={{
                 width: `${ALL_FLASHCARDS.length > 0 ? (totalKnown / ALL_FLASHCARDS.length) * 100 : 0}%`,
-                background: "linear-gradient(90deg, #e8c84a, #34d399)"
+                background: "linear-gradient(90deg, app-accent-primary, #34d399)"
               }}
             />
           </div>
@@ -333,12 +333,12 @@ export default function SeoulFlashcardPage() {
 
         {/* Mode + Filters */}
         <div className="flex items-center gap-3 mb-6 flex-wrap">
-          <div className="flex rounded-xl border border-white/8 overflow-hidden">
+          <div className="flex rounded-xl border border-app-border overflow-hidden">
             {(["study", "overview"] as const).map(m => (
               <button
                 key={m}
                 onClick={() => setMode(m)}
-                className={`px-5 py-2.5 text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap ${mode === m ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "text-white/40 hover:text-white/60"}`}
+                className={`px-5 py-2.5 text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap ${mode === m ? "bg-app-accent-primary/15 text-app-accent-primary" : "text-app-text-secondary hover:text-white/60"}`}
               >
                 {m === "study" ? "Học flashcard" : "Tổng quan"}
               </button>
@@ -348,7 +348,7 @@ export default function SeoulFlashcardPage() {
           <select
             value={selectedBook}
             onChange={e => { setSelectedBook(e.target.value); setCurrentIdx(0); setShowBack(false); }}
-            className="bg-white/5 border border-white/8 rounded-lg px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
+            className="bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
           >
             <option value="all">Tất cả cuốn</option>
             {seoulBooks.map(b => (
@@ -359,7 +359,7 @@ export default function SeoulFlashcardPage() {
           <select
             value={filterStatus}
             onChange={e => { setFilterStatus(e.target.value as typeof filterStatus); setCurrentIdx(0); setShowBack(false); }}
-            className="bg-white/5 border border-white/8 rounded-lg px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
+            className="bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
           >
             <option value="all">Tất cả trạng thái</option>
             <option value="new">Chưa học</option>
@@ -369,8 +369,8 @@ export default function SeoulFlashcardPage() {
 
           {sessionTotal > 0 && (
             <div className="ml-auto flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-3 py-2">
-              <i className="ri-trophy-line text-emerald-400 text-xs"></i>
-              <span className="text-emerald-400 text-xs font-bold">{sessionKnown}/{sessionTotal} đúng phiên này</span>
+              <i className="ri-trophy-line text-app-accent-success text-xs"></i>
+              <span className="text-app-accent-success text-xs font-bold">{sessionKnown}/{sessionTotal} đúng phiên này</span>
             </div>
           )}
         </div>
@@ -380,13 +380,13 @@ export default function SeoulFlashcardPage() {
           <div className="max-w-2xl mx-auto">
             {filteredCards.length === 0 ? (
               <div className="text-center py-16">
-                <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-white/5 mx-auto mb-4">
-                  <i className="ri-stack-line text-3xl text-white/20"></i>
+                <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-app-card/50 mx-auto mb-4">
+                  <i className="ri-stack-line text-3xl text-app-text-muted"></i>
                 </div>
-                <p className="text-white/40 text-sm">Không có thẻ nào phù hợp với bộ lọc</p>
+                <p className="text-app-text-secondary text-sm">Không có thẻ nào phù hợp với bộ lọc</p>
                 <button
                   onClick={() => { setFilterStatus("all"); setCurrentIdx(0); }}
-                  className="mt-4 px-4 py-2 rounded-lg bg-white/5 text-white/50 text-xs hover:bg-white/10 cursor-pointer whitespace-nowrap"
+                  className="mt-4 px-4 py-2 rounded-lg bg-app-card/50 text-white/50 text-xs hover:bg-app-card/70 cursor-pointer whitespace-nowrap"
                 >
                   Xóa bộ lọc
                 </button>
@@ -395,9 +395,9 @@ export default function SeoulFlashcardPage() {
               <>
                 {/* Progress bar */}
                 <div className="flex items-center gap-3 mb-5">
-                  <p className="text-white/30 text-xs whitespace-nowrap">{currentIdx + 1} / {filteredCards.length}</p>
-                  <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
-                    <div className="h-full rounded-full bg-[#e8c84a] transition-all" style={{ width: `${((currentIdx + 1) / filteredCards.length) * 100}%` }} />
+                  <p className="text-app-text-muted text-xs whitespace-nowrap">{currentIdx + 1} / {filteredCards.length}</p>
+                  <div className="flex-1 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
+                    <div className="h-full rounded-full bg-app-accent-primary transition-all" style={{ width: `${((currentIdx + 1) / filteredCards.length) * 100}%` }} />
                   </div>
                   <div className="flex gap-1">
                     {filteredCards.slice(Math.max(0, currentIdx - 2), currentIdx + 5).map(c => {
@@ -424,7 +424,7 @@ export default function SeoulFlashcardPage() {
                   <button
                     onClick={handlePrev}
                     disabled={currentIdx === 0}
-                    className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/8 text-white/40 hover:text-white/60 hover:bg-white/5 text-sm transition-all cursor-pointer disabled:opacity-30 whitespace-nowrap"
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl border border-app-border text-app-text-secondary hover:text-white/60 hover:bg-app-card/50 text-sm transition-all cursor-pointer disabled:opacity-30 whitespace-nowrap"
                   >
                     <i className="ri-arrow-left-line"></i>Trước
                   </button>
@@ -432,12 +432,12 @@ export default function SeoulFlashcardPage() {
                   <div className="flex gap-4">
                     {(["new", "learning", "known"] as const).map(st => {
                       const cnt = filteredCards.filter(c => (progress[c.id] ?? "new") === st).length;
-                      const colors = { new: "text-white/30", learning: "text-orange-400", known: "text-emerald-400" };
+                      const colors = { new: "text-app-text-muted", learning: "text-orange-400", known: "text-app-accent-success" };
                       const labels = { new: "Mới", learning: "Đang học", known: "Thuộc" };
                       return (
                         <div key={st} className="text-center">
                           <p className={`text-xs font-bold ${colors[st]}`}>{cnt}</p>
-                          <p className="text-white/20 text-[10px]">{labels[st]}</p>
+                          <p className="text-app-text-muted text-[10px]">{labels[st]}</p>
                         </div>
                       );
                     })}
@@ -446,7 +446,7 @@ export default function SeoulFlashcardPage() {
                   <button
                     onClick={handleNext}
                     disabled={currentIdx >= filteredCards.length - 1}
-                    className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/8 text-white/40 hover:text-white/60 hover:bg-white/5 text-sm transition-all cursor-pointer disabled:opacity-30 whitespace-nowrap"
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl border border-app-border text-app-text-secondary hover:text-white/60 hover:bg-app-card/50 text-sm transition-all cursor-pointer disabled:opacity-30 whitespace-nowrap"
                   >
                     Tiếp<i className="ri-arrow-right-line"></i>
                   </button>
@@ -456,12 +456,12 @@ export default function SeoulFlashcardPage() {
                 {currentIdx >= filteredCards.length - 1 && (
                   <div className="mt-6 text-center">
                     <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-6">
-                      <i className="ri-trophy-line text-3xl text-emerald-400 mb-2 block"></i>
-                      <p className="text-emerald-400 font-bold mb-1">Hoàn thành bộ thẻ!</p>
-                      <p className="text-white/30 text-xs mb-4">Đã học {sessionKnown}/{sessionTotal} từ trong phiên này</p>
+                      <i className="ri-trophy-line text-3xl text-app-accent-success mb-2 block"></i>
+                      <p className="text-app-accent-success font-bold mb-1">Hoàn thành bộ thẻ!</p>
+                      <p className="text-app-text-muted text-xs mb-4">Đã học {sessionKnown}/{sessionTotal} từ trong phiên này</p>
                       <button
                         onClick={() => { setCurrentIdx(0); setShowBack(false); setSessionKnown(0); setSessionTotal(0); }}
-                        className="px-6 py-2.5 rounded-xl bg-emerald-500/20 text-emerald-400 font-semibold text-sm hover:bg-emerald-500/30 cursor-pointer whitespace-nowrap"
+                        className="px-6 py-2.5 rounded-xl bg-emerald-500/20 text-app-accent-success font-semibold text-sm hover:bg-emerald-500/30 cursor-pointer whitespace-nowrap"
                       >
                         Học lại từ đầu
                       </button>
@@ -482,17 +482,17 @@ export default function SeoulFlashcardPage() {
               const learning = bookCards.filter(c => progress[c.id] === "learning").length;
               const pct = bookCards.length > 0 ? Math.round((known / bookCards.length) * 100) : 0;
               return (
-                <div key={book.id} className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+                <div key={book.id} className="bg-app-bg border border-app-border rounded-2xl p-5">
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${book.color}15`, color: book.color }}>
                           {book.level}
                         </span>
-                        <span className="text-white/30 text-xs">{book.cefrLevel}</span>
+                        <span className="text-app-text-muted text-xs">{book.cefrLevel}</span>
                       </div>
                       <h3 className="text-white font-semibold text-sm">{book.name}</h3>
-                      <p className="text-white/30 text-xs mt-0.5">{bookCards.length} từ vựng</p>
+                      <p className="text-app-text-muted text-xs mt-0.5">{bookCards.length} từ vựng</p>
                     </div>
                     <button
                       onClick={() => { setSelectedBook(book.id); setFilterStatus("all"); setCurrentIdx(0); setShowBack(false); setMode("study"); }}
@@ -505,22 +505,22 @@ export default function SeoulFlashcardPage() {
 
                   <div className="space-y-2">
                     <div className="flex justify-between text-xs">
-                      <span className="text-white/30">Đã thuộc</span>
+                      <span className="text-app-text-muted">Đã thuộc</span>
                       <span className="font-bold" style={{ color: book.color }}>{known}/{bookCards.length} ({pct}%)</span>
                     </div>
-                    <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-2 bg-app-card/50 rounded-full overflow-hidden">
                       <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: book.color }} />
                     </div>
                     <div className="flex gap-3 text-[10px]">
-                      <span className="text-emerald-400">{known} thuộc</span>
+                      <span className="text-app-accent-success">{known} thuộc</span>
                       <span className="text-orange-400">{learning} đang học</span>
-                      <span className="text-white/20">{bookCards.length - known - learning} mới</span>
+                      <span className="text-app-text-muted">{bookCards.length - known - learning} mới</span>
                     </div>
                   </div>
 
                   {/* Lessons breakdown */}
-                  <div className="mt-3 pt-3 border-t border-white/5">
-                    <p className="text-white/20 text-[10px] mb-2">Tiến độ theo bài học</p>
+                  <div className="mt-3 pt-3 border-t border-app-border">
+                    <p className="text-app-text-muted text-[10px] mb-2">Tiến độ theo bài học</p>
                     <div className="flex flex-wrap gap-1">
                       {book.lessons.map(lesson => {
                         const lCards = ALL_FLASHCARDS.filter(c => c.lessonId === lesson.id);

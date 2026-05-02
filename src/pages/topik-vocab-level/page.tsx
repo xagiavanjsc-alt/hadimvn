@@ -476,7 +476,7 @@ export default function TopikVocabLevelPage() {
                           <button
                             onClick={() => toggleLearned(word.id)}
                             className={`w-7 h-7 flex items-center justify-center cursor-pointer rounded-lg transition-all ${
-                              isLearned ? "bg-emerald-100 text-emerald-500" : "text-gray-300 hover:text-emerald-400"
+                              isLearned ? "bg-emerald-100 text-emerald-500" : "text-gray-300 hover:text-app-accent-success"
                             }`}
                           >
                             <i className={`${isLearned ? "ri-checkbox-circle-fill" : "ri-checkbox-blank-circle-line"} text-base`}></i>

@@ -20,9 +20,9 @@ export default function WrongSavedToast({ count, onDone }: WrongSavedToastProps)
       </div>
       <div>
         <p className="text-white font-semibold">Đã lưu {count} từ cần ôn lại</p>
-        <p className="text-white/40 text-xs">Vào &quot;Ôn tập sai theo chủ đề&quot; để ôn</p>
+        <p className="text-app-text-secondary text-xs">Vào &quot;Ôn tập sai theo chủ đề&quot; để ôn</p>
       </div>
-      <button onClick={onDone} className="ml-2 text-white/30 hover:text-white/60 cursor-pointer">
+      <button onClick={onDone} className="ml-2 text-app-text-muted hover:text-white/60 cursor-pointer">
         <i className="ri-close-line"></i>
       </button>
     </div>

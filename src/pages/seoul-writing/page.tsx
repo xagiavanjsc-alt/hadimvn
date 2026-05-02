@@ -189,7 +189,7 @@ export default function SeoulWritingPage() {
 
   const typeColors: Record<string, string> = {
     "fill-blank": "text-amber-400 bg-amber-500/10 border-amber-500/20",
-    "translate-vi": "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+    "translate-vi": "text-app-accent-success bg-emerald-500/10 border-emerald-500/20",
     "translate-ko": "text-sky-400 bg-sky-500/10 border-sky-500/20",
   };
 
@@ -206,7 +206,7 @@ export default function SeoulWritingPage() {
   };
 
   const scoreIcons: Record<ScoreResult, string> = {
-    correct: "ri-checkbox-circle-fill text-emerald-400",
+    correct: "ri-checkbox-circle-fill text-app-accent-success",
     partial: "ri-error-warning-fill text-amber-400",
     wrong: "ri-close-circle-fill text-red-400",
   };
@@ -220,36 +220,36 @@ export default function SeoulWritingPage() {
             <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "'Nunito', sans-serif" }}>
               Luyện viết Seoul
             </h1>
-            <p className="text-white/40 text-sm mt-0.5">Luyện viết câu theo bài học Seoul với chấm điểm tự động</p>
+            <p className="text-app-text-secondary text-sm mt-0.5">Luyện viết câu theo bài học Seoul với chấm điểm tự động</p>
           </div>
 
           {/* Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
+            <div className="bg-app-card/50 border border-app-border rounded-xl p-4 text-center">
               <p className="text-white font-bold text-2xl">{ALL_QUESTIONS.length}</p>
-              <p className="text-white/40 text-xs mt-0.5">Tổng câu hỏi</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">Tổng câu hỏi</p>
             </div>
-            <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
+            <div className="bg-app-card/50 border border-app-border rounded-xl p-4 text-center">
               <p className="text-white font-bold text-2xl">{seoulBooks.length}</p>
-              <p className="text-white/40 text-xs mt-0.5">Cuốn sách</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">Cuốn sách</p>
             </div>
-            <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
-              <p className="text-[#e8c84a] font-bold text-2xl">3</p>
-              <p className="text-white/40 text-xs mt-0.5">Dạng bài</p>
+            <div className="bg-app-card/50 border border-app-border rounded-xl p-4 text-center">
+              <p className="text-app-accent-primary font-bold text-2xl">3</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">Dạng bài</p>
             </div>
           </div>
 
           {/* Filters */}
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-5 space-y-4">
+          <div className="bg-app-card/50 border border-app-border rounded-2xl p-5 space-y-4">
             <h2 className="text-white font-semibold text-sm">Tùy chỉnh bài luyện</h2>
 
             {/* Book filter */}
             <div>
-              <p className="text-white/40 text-xs mb-2">Chọn cuốn sách</p>
+              <p className="text-app-text-secondary text-xs mb-2">Chọn cuốn sách</p>
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => setSelectedBook("all")}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${selectedBook === "all" ? "bg-white/15 text-white border-white/20" : "bg-white/5 text-white/40 hover:text-white/70 border-transparent"}`}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${selectedBook === "all" ? "bg-white/15 text-white border-white/20" : "bg-app-card/50 text-app-text-secondary hover:text-white/70 border-transparent"}`}
                 >
                   Tất cả
                 </button>
@@ -259,8 +259,8 @@ export default function SeoulWritingPage() {
                     onClick={() => setSelectedBook(book.id)}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
                       selectedBook === book.id
-                        ? "bg-[#e8c84a]/15 text-[#e8c84a] border-[#e8c84a]/30"
-                        : "bg-white/5 text-white/40 hover:text-white/70 border-transparent"
+                        ? "bg-app-accent-primary/15 text-app-accent-primary border-app-accent-primary/30"
+                        : "bg-app-card/50 text-app-text-secondary hover:text-white/70 border-transparent"
                     }`}
                   >
                     {book.name}
@@ -271,7 +271,7 @@ export default function SeoulWritingPage() {
 
             {/* Type filter */}
             <div>
-              <p className="text-white/40 text-xs mb-2">Dạng bài</p>
+              <p className="text-app-text-secondary text-xs mb-2">Dạng bài</p>
               <div className="flex flex-wrap gap-2">
                 {[
                   { id: "all", label: "Tất cả dạng" },
@@ -284,8 +284,8 @@ export default function SeoulWritingPage() {
                     onClick={() => setSelectedType(t.id as "all" | "fill-blank" | "translate-vi" | "translate-ko")}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${
                       selectedType === t.id
-                        ? "bg-[#e8c84a]/15 text-[#e8c84a] border-[#e8c84a]/30"
-                        : "bg-white/5 text-white/40 hover:text-white/70 border-transparent"
+                        ? "bg-app-accent-primary/15 text-app-accent-primary border-app-accent-primary/30"
+                        : "bg-app-card/50 text-app-text-secondary hover:text-white/70 border-transparent"
                     }`}
                   >
                     {t.label}
@@ -294,7 +294,7 @@ export default function SeoulWritingPage() {
               </div>
             </div>
 
-            <p className="text-white/30 text-xs">
+            <p className="text-app-text-muted text-xs">
               {filteredQuestions.length} câu hỏi phù hợp với bộ lọc
             </p>
           </div>
@@ -310,26 +310,26 @@ export default function SeoulWritingPage() {
                 key={opt.count}
                 onClick={() => startSession(Math.min(opt.count, filteredQuestions.length))}
                 disabled={filteredQuestions.length === 0}
-                className="bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-2xl p-5 text-center transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                className="bg-app-card/50 hover:bg-app-card/70 border border-app-border hover:border-white/20 rounded-2xl p-5 text-center transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 <p className="text-white font-bold text-xl">{opt.label}</p>
-                <p className="text-white/40 text-xs mt-1">{opt.desc}</p>
-                <p className="text-[#e8c84a] text-xs mt-2 font-medium">Tối đa {opt.xp}</p>
+                <p className="text-app-text-secondary text-xs mt-1">{opt.desc}</p>
+                <p className="text-app-accent-primary text-xs mt-2 font-medium">Tối đa {opt.xp}</p>
               </button>
             ))}
           </div>
 
           {/* Type guide */}
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-5 space-y-3">
+          <div className="bg-app-card/50 border border-app-border rounded-2xl p-5 space-y-3">
             <h2 className="text-white font-semibold text-sm">Hướng dẫn chấm điểm</h2>
             <div className="space-y-2">
               <div className="flex items-center gap-3">
                 <div className="w-6 h-6 flex items-center justify-center">
-                  <i className="ri-checkbox-circle-fill text-emerald-400 text-base"></i>
+                  <i className="ri-checkbox-circle-fill text-app-accent-success text-base"></i>
                 </div>
                 <div>
                   <p className="text-white/70 text-sm font-medium">Chính xác — +20 XP</p>
-                  <p className="text-white/30 text-xs">Câu trả lời khớp hoàn toàn với đáp án</p>
+                  <p className="text-app-text-muted text-xs">Câu trả lời khớp hoàn toàn với đáp án</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -338,7 +338,7 @@ export default function SeoulWritingPage() {
                 </div>
                 <div>
                   <p className="text-white/70 text-sm font-medium">Gần đúng — +10 XP</p>
-                  <p className="text-white/30 text-xs">Câu trả lời chứa ít nhất 60% từ khóa đúng</p>
+                  <p className="text-app-text-muted text-xs">Câu trả lời chứa ít nhất 60% từ khóa đúng</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -347,7 +347,7 @@ export default function SeoulWritingPage() {
                 </div>
                 <div>
                   <p className="text-white/70 text-sm font-medium">Chưa đúng — +0 XP</p>
-                  <p className="text-white/30 text-xs">Xem đáp án và ghi nhớ để lần sau làm đúng</p>
+                  <p className="text-app-text-muted text-xs">Xem đáp án và ghi nhớ để lần sau làm đúng</p>
                 </div>
               </div>
             </div>
@@ -366,17 +366,17 @@ export default function SeoulWritingPage() {
     return (
       <DashboardLayout>
         <div className="p-6 max-w-2xl mx-auto space-y-6">
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center space-y-4">
-            <div className="w-16 h-16 flex items-center justify-center bg-[#e8c84a]/10 rounded-full mx-auto">
-              <i className="ri-trophy-line text-[#e8c84a] text-3xl"></i>
+          <div className="bg-app-card/50 border border-app-border rounded-2xl p-8 text-center space-y-4">
+            <div className="w-16 h-16 flex items-center justify-center bg-app-accent-primary/10 rounded-full mx-auto">
+              <i className="ri-trophy-line text-app-accent-primary text-3xl"></i>
             </div>
             <h2 className="text-white font-bold text-2xl">Hoàn thành!</h2>
-            <p className="text-white/40 text-sm">Bạn đã luyện viết {sessionStats.total} câu</p>
+            <p className="text-app-text-secondary text-sm">Bạn đã luyện viết {sessionStats.total} câu</p>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
               <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 text-center">
-                <p className="text-emerald-400 font-bold text-xl">{sessionStats.correct}</p>
-                <p className="text-emerald-400/60 text-xs">Đúng</p>
+                <p className="text-app-accent-success font-bold text-xl">{sessionStats.correct}</p>
+                <p className="text-app-accent-success/60 text-xs">Đúng</p>
               </div>
               <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 text-center">
                 <p className="text-amber-400 font-bold text-xl">{sessionStats.partial}</p>
@@ -384,18 +384,18 @@ export default function SeoulWritingPage() {
               </div>
               <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3 text-center">
                 <p className="text-red-400 font-bold text-xl">{sessionStats.wrong}</p>
-                <p className="text-red-400/60 text-xs">Sai</p>
+                <p className="text-app-accent-error/60 text-xs">Sai</p>
               </div>
-              <div className="bg-[#e8c84a]/10 border border-[#e8c84a]/20 rounded-xl p-3 text-center">
-                <p className="text-[#e8c84a] font-bold text-xl">{sessionStats.xpEarned}</p>
-                <p className="text-[#e8c84a]/60 text-xs">XP</p>
+              <div className="bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-xl p-3 text-center">
+                <p className="text-app-accent-primary font-bold text-xl">{sessionStats.xpEarned}</p>
+                <p className="text-app-accent-primary/60 text-xs">XP</p>
               </div>
             </div>
 
             {/* Accuracy bar */}
             <div className="mt-2">
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-white/40 text-xs">Độ chính xác</span>
+                <span className="text-app-text-secondary text-xs">Độ chính xác</span>
                 <span className="text-white font-bold text-sm">{accuracy}%</span>
               </div>
               <div className="h-2 bg-white/8 rounded-full overflow-hidden">
@@ -403,7 +403,7 @@ export default function SeoulWritingPage() {
                   className="h-full rounded-full transition-all duration-700"
                   style={{
                     width: `${accuracy}%`,
-                    backgroundColor: accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "#e8c84a" : "#f87171",
+                    backgroundColor: accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "app-accent-primary" : "#f87171",
                   }}
                 ></div>
               </div>
@@ -412,13 +412,13 @@ export default function SeoulWritingPage() {
             <div className="flex gap-3 mt-4">
               <button
                 onClick={() => setMode("setup")}
-                className="flex-1 py-3 rounded-xl border border-white/10 text-white/60 text-sm hover:text-white/80 transition-all cursor-pointer whitespace-nowrap"
+                className="flex-1 py-3 rounded-xl border border-app-border text-white/60 text-sm hover:text-white/80 transition-all cursor-pointer whitespace-nowrap"
               >
                 Về trang chủ
               </button>
               <button
                 onClick={() => startSession(sessionStats.total)}
-                className="flex-1 py-3 rounded-xl bg-[#e8c84a]/15 border border-[#e8c84a]/30 text-[#e8c84a] text-sm font-medium hover:bg-[#e8c84a]/25 transition-all cursor-pointer whitespace-nowrap"
+                className="flex-1 py-3 rounded-xl bg-app-accent-primary/15 border border-app-accent-primary/30 text-app-accent-primary text-sm font-medium hover:bg-app-accent-primary/25 transition-all cursor-pointer whitespace-nowrap"
               >
                 Luyện lại
               </button>
@@ -441,7 +441,7 @@ export default function SeoulWritingPage() {
         <div className="flex items-center justify-between">
           <button
             onClick={() => setMode("setup")}
-            className="flex items-center gap-1.5 text-white/40 hover:text-white/60 text-sm transition-all cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-1.5 text-app-text-secondary hover:text-white/60 text-sm transition-all cursor-pointer whitespace-nowrap"
           >
             <div className="w-4 h-4 flex items-center justify-center">
               <i className="ri-arrow-left-line text-sm"></i>
@@ -449,12 +449,12 @@ export default function SeoulWritingPage() {
             Thoát
           </button>
           <div className="flex items-center gap-3">
-            <span className="text-white/40 text-sm">{currentIdx + 1}/{sessionQuestions.length}</span>
+            <span className="text-app-text-secondary text-sm">{currentIdx + 1}/{sessionQuestions.length}</span>
             <div className="flex items-center gap-1.5">
               <div className="w-4 h-4 flex items-center justify-center">
-                <i className="ri-star-fill text-[#e8c84a] text-xs"></i>
+                <i className="ri-star-fill text-app-accent-primary text-xs"></i>
               </div>
-              <span className="text-[#e8c84a] text-sm font-medium">{sessionStats.xpEarned} XP</span>
+              <span className="text-app-accent-primary text-sm font-medium">{sessionStats.xpEarned} XP</span>
             </div>
           </div>
         </div>
@@ -462,19 +462,19 @@ export default function SeoulWritingPage() {
         {/* Progress bar */}
         <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
           <div
-            className="h-full bg-[#e8c84a] rounded-full transition-all duration-500"
+            className="h-full bg-app-accent-primary rounded-full transition-all duration-500"
             style={{ width: `${progress}%` }}
           ></div>
         </div>
 
         {/* Question card */}
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
+        <div className="bg-app-card/50 border border-app-border rounded-2xl p-6 space-y-4">
           {/* Type badge */}
           <div className="flex items-center justify-between">
             <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${typeColors[currentQ.type]}`}>
               {typeLabels[currentQ.type]}
             </span>
-            <span className="text-white/25 text-xs">{currentQ.bookName} · Bài {currentQ.lessonNumber}</span>
+            <span className="text-app-text-muted text-xs">{currentQ.bookName} · Bài {currentQ.lessonNumber}</span>
           </div>
 
           {/* Prompt */}
@@ -494,7 +494,7 @@ export default function SeoulWritingPage() {
           {currentQ.type === "translate-ko" && (
             <button
               onClick={() => speakKorean(currentQ.prompt.split("\n")[1]?.replace(/"/g, "") || "")}
-              className="flex items-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-white/50 text-sm transition-all cursor-pointer whitespace-nowrap"
+              className="flex items-center gap-2 px-3 py-2 bg-app-card/50 hover:bg-app-card/70 border border-app-border rounded-xl text-white/50 text-sm transition-all cursor-pointer whitespace-nowrap"
             >
               <div className="w-4 h-4 flex items-center justify-center">
                 <i className="ri-volume-up-line text-sm"></i>
@@ -527,18 +527,18 @@ export default function SeoulWritingPage() {
               className={`w-full rounded-xl px-4 py-3 text-white text-base placeholder-white/20 focus:outline-none resize-none transition-all border ${
                 submitted && scoreResult
                   ? scoreColors[scoreResult]
-                  : "bg-white/5 border-white/10 focus:border-white/25"
+                  : "bg-app-card/50 border-app-border focus:border-white/25"
               }`}
               style={{ fontFamily: currentQ.type !== "translate-ko" ? "'Noto Sans KR', sans-serif" : "inherit" }}
             />
-            <p className="text-white/20 text-xs mt-1">Nhấn Enter để nộp bài</p>
+            <p className="text-app-text-muted text-xs mt-1">Nhấn Enter để nộp bài</p>
           </div>
 
           {/* Hint */}
           {!submitted && (
             <button
               onClick={() => setShowHint(!showHint)}
-              className="flex items-center gap-1.5 text-white/30 hover:text-white/50 text-xs transition-all cursor-pointer whitespace-nowrap"
+              className="flex items-center gap-1.5 text-app-text-muted hover:text-white/50 text-xs transition-all cursor-pointer whitespace-nowrap"
             >
               <div className="w-3 h-3 flex items-center justify-center">
                 <i className="ri-lightbulb-line text-xs"></i>
@@ -563,7 +563,7 @@ export default function SeoulWritingPage() {
               <p className="text-white font-semibold text-sm">{scoreLabels[scoreResult]}</p>
             </div>
             <div>
-              <p className="text-white/40 text-xs mb-1">Đáp án đúng:</p>
+              <p className="text-app-text-secondary text-xs mb-1">Đáp án đúng:</p>
               <p
                 className="text-white font-medium text-base"
                 style={{ fontFamily: currentQ.type !== "translate-ko" ? "'Noto Sans KR', sans-serif" : "inherit" }}
@@ -583,14 +583,14 @@ export default function SeoulWritingPage() {
             <button
               onClick={handleSubmit}
               disabled={!userInput.trim()}
-              className="flex-1 py-3 rounded-xl bg-[#e8c84a]/15 border border-[#e8c84a]/30 text-[#e8c84a] font-medium text-sm hover:bg-[#e8c84a]/25 transition-all cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex-1 py-3 rounded-xl bg-app-accent-primary/15 border border-app-accent-primary/30 text-app-accent-primary font-medium text-sm hover:bg-app-accent-primary/25 transition-all cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Nộp bài
             </button>
           ) : (
             <button
               onClick={handleNext}
-              className="flex-1 py-3 rounded-xl bg-[#e8c84a]/15 border border-[#e8c84a]/30 text-[#e8c84a] font-medium text-sm hover:bg-[#e8c84a]/25 transition-all cursor-pointer whitespace-nowrap"
+              className="flex-1 py-3 rounded-xl bg-app-accent-primary/15 border border-app-accent-primary/30 text-app-accent-primary font-medium text-sm hover:bg-app-accent-primary/25 transition-all cursor-pointer whitespace-nowrap"
             >
               {currentIdx + 1 >= sessionQuestions.length ? "Xem kết quả" : "Câu tiếp theo"}
               <i className="ri-arrow-right-line ml-2"></i>
@@ -601,8 +601,8 @@ export default function SeoulWritingPage() {
         {/* Mini stats */}
         <div className="flex gap-3">
           <div className="flex-1 bg-emerald-500/8 border border-emerald-500/15 rounded-xl p-2.5 text-center">
-            <p className="text-emerald-400 font-bold">{sessionStats.correct}</p>
-            <p className="text-emerald-400/50 text-xs">Đúng</p>
+            <p className="text-app-accent-success font-bold">{sessionStats.correct}</p>
+            <p className="text-app-accent-success/50 text-xs">Đúng</p>
           </div>
           <div className="flex-1 bg-amber-500/8 border border-amber-500/15 rounded-xl p-2.5 text-center">
             <p className="text-amber-400 font-bold">{sessionStats.partial}</p>

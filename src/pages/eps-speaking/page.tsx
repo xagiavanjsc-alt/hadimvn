@@ -31,7 +31,7 @@ const speakingQuestions: SpeakingQuestion[] = [
 ];
 
 const topicColors: Record<string, string> = {
-  "Chào hỏi": "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+  "Chào hỏi": "bg-emerald-500/10 text-app-accent-success border-emerald-500/20",
   "Giới thiệu": "bg-amber-500/10 text-amber-400 border-amber-500/20",
   "An toàn lao động": "bg-red-500/10 text-red-400 border-red-500/20",
   "Sinh hoạt": "bg-violet-500/10 text-violet-400 border-violet-500/20",
@@ -49,7 +49,7 @@ const difficultyLabel: Record<string, string> = {
 };
 
 const difficultyColor: Record<string, string> = {
-  easy: "text-emerald-400",
+  easy: "text-app-accent-success",
   medium: "text-amber-400",
   hard: "text-red-400",
 };
@@ -240,7 +240,7 @@ export default function EpsSpeakingPage() {
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 90) return "text-emerald-400";
+    if (score >= 90) return "text-app-accent-success";
     if (score >= 70) return "text-amber-400";
     if (score >= 50) return "text-orange-400";
     return "text-red-400";
@@ -264,20 +264,20 @@ export default function EpsSpeakingPage() {
             <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "'Nunito', sans-serif" }}>
               Luyện nói EPS
             </h1>
-            <p className="text-white/40 text-sm mt-0.5">Ghi âm giọng nói và so sánh với phát âm chuẩn tiếng Hàn</p>
+            <p className="text-app-text-secondary text-sm mt-0.5">Ghi âm giọng nói và so sánh với phát âm chuẩn tiếng Hàn</p>
           </div>
           <div className="flex items-center gap-3">
-            <div className="bg-white/5 rounded-xl px-4 py-2 text-center">
-              <p className="text-white/40 text-xs">Đúng</p>
-              <p className="text-emerald-400 font-bold text-lg">{sessionStats.correct}/{sessionStats.total}</p>
+            <div className="bg-app-card/50 rounded-xl px-4 py-2 text-center">
+              <p className="text-app-text-secondary text-xs">Đúng</p>
+              <p className="text-app-accent-success font-bold text-lg">{sessionStats.correct}/{sessionStats.total}</p>
             </div>
-            <div className="bg-white/5 rounded-xl px-4 py-2 text-center">
-              <p className="text-white/40 text-xs">XP kiếm được</p>
+            <div className="bg-app-card/50 rounded-xl px-4 py-2 text-center">
+              <p className="text-app-text-secondary text-xs">XP kiếm được</p>
               <p className="text-amber-400 font-bold text-lg">+{sessionStats.xpEarned}</p>
             </div>
             <button
               onClick={() => setShowStats(!showStats)}
-              className={`flex items-center gap-2 border rounded-xl px-4 py-2 text-sm transition-all cursor-pointer whitespace-nowrap ${showStats ? "bg-violet-500/15 border-violet-500/30 text-violet-400" : "bg-white/5 border-white/10 text-white/50 hover:text-white/80"}`}
+              className={`flex items-center gap-2 border rounded-xl px-4 py-2 text-sm transition-all cursor-pointer whitespace-nowrap ${showStats ? "bg-violet-500/15 border-violet-500/30 text-violet-400" : "bg-app-card/50 border-app-border text-white/50 hover:text-white/80"}`}
             >
               <div className="w-4 h-4 flex items-center justify-center">
                 <i className="ri-bar-chart-line text-sm"></i>
@@ -300,19 +300,19 @@ export default function EpsSpeakingPage() {
           }, {});
 
           return (
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-5">
+            <div className="bg-app-card/50 border border-app-border rounded-2xl p-6 space-y-5">
               <h3 className="text-white font-semibold">Thống kê phát âm</h3>
 
               {/* Summary */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {[
-                  { label: "Điểm TB (30 lần gần nhất)", value: `${avgScore}%`, color: avgScore >= 70 ? "text-emerald-400" : "text-amber-400" },
+                  { label: "Điểm TB (30 lần gần nhất)", value: `${avgScore}%`, color: avgScore >= 70 ? "text-app-accent-success" : "text-amber-400" },
                   { label: "Điểm cao nhất", value: `${best}%`, color: "text-amber-400" },
                   { label: "Tổng lần luyện", value: pronHistory.length.toString(), color: "text-sky-400" },
                 ].map(stat => (
-                  <div key={stat.label} className="bg-white/5 rounded-xl p-3 text-center">
+                  <div key={stat.label} className="bg-app-card/50 rounded-xl p-3 text-center">
                     <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
-                    <p className="text-white/30 text-xs mt-1">{stat.label}</p>
+                    <p className="text-app-text-muted text-xs mt-1">{stat.label}</p>
                   </div>
                 ))}
               </div>
@@ -320,7 +320,7 @@ export default function EpsSpeakingPage() {
               {/* Score chart (last 10) */}
               {last30.length > 0 && (
                 <div>
-                  <p className="text-white/40 text-xs mb-3">Điểm 10 lần gần nhất</p>
+                  <p className="text-app-text-secondary text-xs mb-3">Điểm 10 lần gần nhất</p>
                   <div className="flex items-end gap-1.5 h-16">
                     {last30.slice(0, 10).reverse().map((r, i) => (
                       <div key={i} className="flex-1 flex flex-col items-center gap-1">
@@ -328,7 +328,7 @@ export default function EpsSpeakingPage() {
                           className={`w-full rounded-sm transition-all ${r.score >= 90 ? "bg-emerald-500" : r.score >= 70 ? "bg-amber-500" : r.score >= 50 ? "bg-orange-500" : "bg-red-500"}`}
                           style={{ height: `${Math.max(4, r.score * 0.6)}px` }}
                         />
-                        <span className="text-white/20 text-[9px]">{r.score}%</span>
+                        <span className="text-app-text-muted text-[9px]">{r.score}%</span>
                       </div>
                     ))}
                   </div>
@@ -338,7 +338,7 @@ export default function EpsSpeakingPage() {
               {/* Topic breakdown */}
               {Object.keys(topicStats).length > 0 && (
                 <div>
-                  <p className="text-white/40 text-xs mb-3">Điểm theo chủ đề</p>
+                  <p className="text-app-text-secondary text-xs mb-3">Điểm theo chủ đề</p>
                   <div className="space-y-2">
                     {Object.entries(topicStats).map(([topic, stat]) => {
                       const avg = Math.round(stat.sum / stat.total);
@@ -348,8 +348,8 @@ export default function EpsSpeakingPage() {
                           <div className="flex-1 h-1.5 bg-white/8 rounded-full overflow-hidden">
                             <div className={`h-full rounded-full ${avg >= 70 ? "bg-emerald-500" : "bg-amber-500"}`} style={{ width: `${avg}%` }} />
                           </div>
-                          <span className={`text-xs font-medium w-10 text-right ${avg >= 70 ? "text-emerald-400" : "text-amber-400"}`}>{avg}%</span>
-                          <span className="text-white/25 text-xs w-12 text-right">{stat.total} lần</span>
+                          <span className={`text-xs font-medium w-10 text-right ${avg >= 70 ? "text-app-accent-success" : "text-amber-400"}`}>{avg}%</span>
+                          <span className="text-app-text-muted text-xs w-12 text-right">{stat.total} lần</span>
                         </div>
                       );
                     })}
@@ -360,14 +360,14 @@ export default function EpsSpeakingPage() {
               {/* Recent history */}
               {pronHistory.length > 0 && (
                 <div>
-                  <p className="text-white/40 text-xs mb-3">Lịch sử gần đây</p>
+                  <p className="text-app-text-secondary text-xs mb-3">Lịch sử gần đây</p>
                   <div className="space-y-1.5 max-h-40 overflow-y-auto">
                     {pronHistory.slice(0, 15).map((r, i) => (
-                      <div key={i} className="flex items-center gap-3 py-1.5 border-b border-white/5 last:border-0">
+                      <div key={i} className="flex items-center gap-3 py-1.5 border-b border-app-border last:border-0">
                         <span className="text-white/60 text-xs font-medium flex-1" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{r.korean}</span>
-                        <span className="text-white/30 text-xs">{r.topic}</span>
-                        <span className={`text-xs font-bold w-10 text-right ${r.score >= 90 ? "text-emerald-400" : r.score >= 70 ? "text-amber-400" : "text-red-400"}`}>{r.score}%</span>
-                        <span className="text-white/20 text-[10px] w-16 text-right">{new Date(r.date).toLocaleDateString("vi-VN")}</span>
+                        <span className="text-app-text-muted text-xs">{r.topic}</span>
+                        <span className={`text-xs font-bold w-10 text-right ${r.score >= 90 ? "text-app-accent-success" : r.score >= 70 ? "text-amber-400" : "text-red-400"}`}>{r.score}%</span>
+                        <span className="text-app-text-muted text-[10px] w-16 text-right">{new Date(r.date).toLocaleDateString("vi-VN")}</span>
                       </div>
                     ))}
                   </div>
@@ -375,7 +375,7 @@ export default function EpsSpeakingPage() {
               )}
 
               {pronHistory.length === 0 && (
-                <p className="text-white/30 text-sm text-center py-4">Chưa có lịch sử luyện nói. Hãy bắt đầu luyện tập!</p>
+                <p className="text-app-text-muted text-sm text-center py-4">Chưa có lịch sử luyện nói. Hãy bắt đầu luyện tập!</p>
               )}
             </div>
           );
@@ -389,7 +389,7 @@ export default function EpsSpeakingPage() {
                 key={t}
                 onClick={() => setFilterTopic(t)}
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
-                  filterTopic === t ? "bg-amber-500/20 text-amber-400 border border-amber-500/30" : "bg-white/5 text-white/40 hover:text-white/70 border border-transparent"
+                  filterTopic === t ? "bg-amber-500/20 text-amber-400 border border-amber-500/30" : "bg-app-card/50 text-app-text-secondary hover:text-white/70 border border-transparent"
                 }`}
               >
                 {t}
@@ -402,7 +402,7 @@ export default function EpsSpeakingPage() {
                 key={val}
                 onClick={() => setFilterDiff(val)}
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
-                  filterDiff === val ? "bg-white/15 text-white border border-white/20" : "bg-white/5 text-white/40 hover:text-white/70 border border-transparent"
+                  filterDiff === val ? "bg-white/15 text-white border border-white/20" : "bg-app-card/50 text-app-text-secondary hover:text-white/70 border border-transparent"
                 }`}
               >
                 {label}
@@ -412,9 +412,9 @@ export default function EpsSpeakingPage() {
         </div>
 
         {/* Main Card */}
-        <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+        <div className="bg-app-card/50 border border-app-border rounded-2xl overflow-hidden">
           {/* Progress bar */}
-          <div className="h-1 bg-white/5">
+          <div className="h-1 bg-app-card/50">
             <div
               className="h-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-300"
               style={{ width: `${((currentIndex + 1) / filtered.length) * 100}%` }}
@@ -424,13 +424,13 @@ export default function EpsSpeakingPage() {
           <div className="p-8">
             {/* Meta */}
             <div className="flex items-center gap-2 mb-6">
-              <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${topicColors[current.topic] || "bg-white/10 text-white/60 border-white/10"}`}>
+              <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${topicColors[current.topic] || "bg-app-card/70 text-white/60 border-app-border"}`}>
                 {current.topic}
               </span>
               <span className={`text-xs font-medium ${difficultyColor[current.difficulty]}`}>
                 {difficultyLabel[current.difficulty]}
               </span>
-              <span className="text-white/20 text-xs ml-auto">{currentIndex + 1} / {filtered.length}</span>
+              <span className="text-app-text-muted text-xs ml-auto">{currentIndex + 1} / {filtered.length}</span>
             </div>
 
             {/* Korean text */}
@@ -451,7 +451,7 @@ export default function EpsSpeakingPage() {
             <div className="flex items-center justify-center gap-3 mb-6">
               <button
                 onClick={speakKorean}
-                className="flex items-center gap-2 bg-white/8 hover:bg-white/12 border border-white/10 rounded-xl px-4 py-2.5 text-white/70 text-sm transition-all cursor-pointer whitespace-nowrap"
+                className="flex items-center gap-2 bg-white/8 hover:bg-white/12 border border-app-border rounded-xl px-4 py-2.5 text-white/70 text-sm transition-all cursor-pointer whitespace-nowrap"
               >
                 <div className="w-4 h-4 flex items-center justify-center">
                   <i className="ri-volume-up-line text-sm"></i>
@@ -460,7 +460,7 @@ export default function EpsSpeakingPage() {
               </button>
               <button
                 onClick={speakSlow}
-                className="flex items-center gap-2 bg-white/8 hover:bg-white/12 border border-white/10 rounded-xl px-4 py-2.5 text-white/70 text-sm transition-all cursor-pointer whitespace-nowrap"
+                className="flex items-center gap-2 bg-white/8 hover:bg-white/12 border border-app-border rounded-xl px-4 py-2.5 text-white/70 text-sm transition-all cursor-pointer whitespace-nowrap"
               >
                 <div className="w-4 h-4 flex items-center justify-center">
                   <i className="ri-speed-line text-sm"></i>
@@ -470,7 +470,7 @@ export default function EpsSpeakingPage() {
               <button
                 onClick={() => setShowRomanization(!showRomanization)}
                 className={`flex items-center gap-2 border rounded-xl px-4 py-2.5 text-sm transition-all cursor-pointer whitespace-nowrap ${
-                  showRomanization ? "bg-amber-500/15 border-amber-500/30 text-amber-400" : "bg-white/8 hover:bg-white/12 border-white/10 text-white/70"
+                  showRomanization ? "bg-amber-500/15 border-amber-500/30 text-amber-400" : "bg-white/8 hover:bg-white/12 border-app-border text-white/70"
                 }`}
               >
                 <div className="w-4 h-4 flex items-center justify-center">
@@ -481,7 +481,7 @@ export default function EpsSpeakingPage() {
               <button
                 onClick={() => setShowTips(!showTips)}
                 className={`flex items-center gap-2 border rounded-xl px-4 py-2.5 text-sm transition-all cursor-pointer whitespace-nowrap ${
-                  showTips ? "bg-sky-500/15 border-sky-500/30 text-sky-400" : "bg-white/8 hover:bg-white/12 border-white/10 text-white/70"
+                  showTips ? "bg-sky-500/15 border-sky-500/30 text-sky-400" : "bg-white/8 hover:bg-white/12 border-app-border text-white/70"
                 }`}
               >
                 <div className="w-4 h-4 flex items-center justify-center">
@@ -524,14 +524,14 @@ export default function EpsSpeakingPage() {
                   </div>
                 </button>
               ) : (
-                <div className="w-20 h-20 rounded-full bg-white/10 flex items-center justify-center">
+                <div className="w-20 h-20 rounded-full bg-app-card/70 flex items-center justify-center">
                   <div className="w-6 h-6 flex items-center justify-center">
                     <i className="ri-loader-4-line text-white/50 text-xl animate-spin"></i>
                   </div>
                 </div>
               )}
 
-              <p className="text-white/40 text-sm">
+              <p className="text-app-text-secondary text-sm">
                 {recognitionState === "idle" && "Nhấn để bắt đầu ghi âm"}
                 {recognitionState === "listening" && "Đang nghe... Nói tiếng Hàn"}
                 {recognitionState === "processing" && "Đang phân tích..."}
@@ -541,8 +541,8 @@ export default function EpsSpeakingPage() {
 
             {/* Transcript */}
             {transcript && (
-              <div className="mt-6 bg-white/5 border border-white/10 rounded-xl p-4">
-                <p className="text-white/40 text-xs mb-1">Bạn đã nói:</p>
+              <div className="mt-6 bg-app-card/50 border border-app-border rounded-xl p-4">
+                <p className="text-app-text-secondary text-xs mb-1">Bạn đã nói:</p>
                 <p className="text-white text-lg font-medium" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{transcript}</p>
               </div>
             )}
@@ -557,12 +557,12 @@ export default function EpsSpeakingPage() {
                   </div>
                   <div className="text-right">
                     <p className={`text-sm font-medium ${getScoreColor(scoreResult.score)}`}>{scoreResult.feedback}</p>
-                    <p className="text-white/40 text-xs mt-1">+{scoreResult.score >= 70 ? 20 : 5} XP</p>
+                    <p className="text-app-text-secondary text-xs mt-1">+{scoreResult.score >= 70 ? 20 : 5} XP</p>
                   </div>
                 </div>
 
                 {/* Score bar */}
-                <div className="h-2 bg-white/10 rounded-full overflow-hidden mb-4">
+                <div className="h-2 bg-app-card/70 rounded-full overflow-hidden mb-4">
                   <div
                     className={`h-full rounded-full transition-all duration-700 ${
                       scoreResult.score >= 90 ? "bg-emerald-500" : scoreResult.score >= 70 ? "bg-amber-500" : scoreResult.score >= 50 ? "bg-orange-500" : "bg-red-500"
@@ -573,7 +573,7 @@ export default function EpsSpeakingPage() {
 
                 {scoreResult.missedWords.length > 0 && (
                   <div>
-                    <p className="text-white/40 text-xs mb-2">Từ cần luyện thêm:</p>
+                    <p className="text-app-text-secondary text-xs mb-2">Từ cần luyện thêm:</p>
                     <div className="flex flex-wrap gap-1.5">
                       {scoreResult.missedWords.map((w, i) => (
                         <span key={i} className="bg-red-500/15 border border-red-500/20 text-red-400 text-xs px-2 py-0.5 rounded-full">
@@ -592,7 +592,7 @@ export default function EpsSpeakingPage() {
         <div className="flex items-center justify-between">
           <button
             onClick={prevQuestion}
-            className="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl px-4 py-2.5 text-white/60 text-sm transition-all cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 border border-app-border rounded-xl px-4 py-2.5 text-white/60 text-sm transition-all cursor-pointer whitespace-nowrap"
           >
             <div className="w-4 h-4 flex items-center justify-center">
               <i className="ri-arrow-left-line text-sm"></i>
@@ -607,7 +607,7 @@ export default function EpsSpeakingPage() {
                 <button
                   key={idx}
                   onClick={() => { setCurrentIndex(idx); setScoreResult(null); setTranscript(""); setRecognitionState("idle"); }}
-                  className={`w-2 h-2 rounded-full transition-all cursor-pointer ${idx === currentIndex ? "bg-amber-400 w-6" : "bg-white/20 hover:bg-white/40"}`}
+                  className={`w-2 h-2 rounded-full transition-all cursor-pointer ${idx === currentIndex ? "bg-amber-400 w-6" : "bg-app-border/200 hover:bg-white/40"}`}
                 />
               );
             })}
@@ -625,7 +625,7 @@ export default function EpsSpeakingPage() {
         </div>
 
         {/* Tips box */}
-        <div className="bg-white/3 border border-white/8 rounded-xl p-4">
+        <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
           <div className="flex items-start gap-3">
             <div className="w-8 h-8 flex items-center justify-center bg-amber-500/10 rounded-lg flex-shrink-0">
               <i className="ri-information-line text-amber-400 text-sm"></i>

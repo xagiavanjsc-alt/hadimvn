@@ -120,7 +120,7 @@ interface Comment {
 }
 
 const CATEGORY_CONFIG: Record<string, { label: string; icon: string; color: string }> = {
-  all: { label: "Tất cả", icon: "ri-apps-line", color: "#e8c84a" },
+  all: { label: "Tất cả", icon: "ri-apps-line", color: "app-accent-primary" },
   question: { label: "Hỏi đáp", icon: "ri-question-answer-line", color: "#60a5fa" },
   share: { label: "Chia sẻ", icon: "ri-share-line", color: "#34d399" },
   result: { label: "Kết quả thi", icon: "ri-trophy-line", color: "#FFD700" },
@@ -148,23 +148,23 @@ function CommentItem({
   currentUser: { id: string; name: string } | null;
 }) {
   return (
-    <div className={`${depth > 0 ? "ml-8 border-l border-white/5 pl-4" : ""}`}>
+    <div className={`${depth > 0 ? "ml-8 border-l border-app-border pl-4" : ""}`}>
       <div className="flex gap-2.5 py-3">
-        <div className="w-7 h-7 rounded-full bg-[#e8c84a]/15 flex items-center justify-center flex-shrink-0">
-          <i className="ri-user-line text-[#e8c84a] text-xs"></i>
+        <div className="w-7 h-7 rounded-full bg-app-accent-primary/15 flex items-center justify-center flex-shrink-0">
+          <i className="ri-user-line text-app-accent-primary text-xs"></i>
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-white/80 text-xs font-semibold">{comment.author_name}</span>
-            <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/5 text-white/30">{comment.author_level}</span>
-            <span className="text-[10px] text-white/20">{timeAgo(comment.created_at)}</span>
+            <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-app-card/50 text-app-text-muted">{comment.author_level}</span>
+            <span className="text-[10px] text-app-text-muted">{timeAgo(comment.created_at)}</span>
           </div>
           <p className="text-white/60 text-xs leading-relaxed">{comment.content}</p>
           <div className="flex items-center gap-3 mt-1.5">
             {currentUser && depth < 2 && (
               <button
                 onClick={() => onReply(comment.id, comment.author_name)}
-                className="text-[10px] text-white/30 hover:text-[#e8c84a]/70 transition-colors cursor-pointer whitespace-nowrap"
+                className="text-[10px] text-app-text-muted hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap"
               >
                 <i className="ri-reply-line mr-1"></i>Trả lời
               </button>
@@ -249,51 +249,51 @@ function AISuggestionPanel({ post, onClose }: { post: Post; onClose: () => void 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
       <div
-        className="bg-[#0f1117] border border-white/10 rounded-t-2xl w-full max-w-2xl max-h-[70vh] flex flex-col"
+        className="bg-app-bg border border-app-border rounded-t-2xl w-full max-w-2xl max-h-[70vh] flex flex-col"
         onClick={e => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-5 py-4 border-b border-white/5 flex-shrink-0">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-app-border flex-shrink-0">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#e8c84a]/15">
-              <i className="ri-robot-line text-[#e8c84a] text-sm"></i>
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-accent-primary/15">
+              <i className="ri-robot-line text-app-accent-primary text-sm"></i>
             </div>
             <div>
               <h3 className="text-white font-bold text-sm">AI Gợi ý câu trả lời</h3>
-              <p className="text-white/30 text-[10px]">Dựa trên nội dung bài đăng</p>
+              <p className="text-app-text-muted text-[10px]">Dựa trên nội dung bài đăng</p>
             </div>
           </div>
-          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 text-white/40 hover:text-white/70 cursor-pointer">
+          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white/70 cursor-pointer">
             <i className="ri-close-line text-sm"></i>
           </button>
         </div>
 
         <div className="flex-1 overflow-y-auto px-5 py-4 space-y-3">
           {/* Post preview */}
-          <div className="bg-white/3 border border-white/5 rounded-xl p-3 mb-4">
-            <p className="text-white/40 text-[10px] tracking-normal mb-1">Bài đăng</p>
+          <div className="bg-app-surface/50 border border-app-border rounded-xl p-3 mb-4">
+            <p className="text-app-text-secondary text-[10px] tracking-normal mb-1">Bài đăng</p>
             <p className="text-white/70 text-xs font-medium line-clamp-2">{post.title}</p>
           </div>
 
           {loading ? (
             <div className="flex flex-col items-center justify-center py-10 gap-3">
-              <div className="w-8 h-8 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>
-              <p className="text-white/30 text-xs">AI đang phân tích và tạo gợi ý...</p>
+              <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
+              <p className="text-app-text-muted text-xs">AI đang phân tích và tạo gợi ý...</p>
             </div>
           ) : (
             <>
-              <p className="text-white/30 text-xs mb-3">Chọn một gợi ý để copy và dùng làm bình luận:</p>
+              <p className="text-app-text-muted text-xs mb-3">Chọn một gợi ý để copy và dùng làm bình luận:</p>
               {suggestions.map((s, i) => (
-                <div key={i} className="bg-white/3 border border-white/8 rounded-xl p-4 hover:border-white/15 transition-all group">
+                <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 hover:border-white/15 transition-all group">
                   <div className="flex items-start gap-3">
-                    <div className="w-6 h-6 flex items-center justify-center rounded-full bg-[#e8c84a]/10 flex-shrink-0 mt-0.5">
-                      <span className="text-[#e8c84a] text-[10px] font-bold">{i + 1}</span>
+                    <div className="w-6 h-6 flex items-center justify-center rounded-full bg-app-accent-primary/10 flex-shrink-0 mt-0.5">
+                      <span className="text-app-accent-primary text-[10px] font-bold">{i + 1}</span>
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-white/70 text-xs leading-relaxed whitespace-pre-line">{s}</p>
                     </div>
                     <button
                       onClick={() => copyText(s, i)}
-                      className={`flex-shrink-0 flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[10px] font-medium transition-all cursor-pointer whitespace-nowrap ${copied === i ? "bg-emerald-500/20 text-emerald-400" : "bg-white/5 text-white/40 hover:bg-white/10 hover:text-white/70"}`}
+                      className={`flex-shrink-0 flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[10px] font-medium transition-all cursor-pointer whitespace-nowrap ${copied === i ? "bg-emerald-500/20 text-app-accent-success" : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70 hover:text-white/70"}`}
                     >
                       <i className={`${copied === i ? "ri-check-line" : "ri-file-copy-line"} text-xs`}></i>
                       {copied === i ? "Đã copy" : "Copy"}
@@ -301,7 +301,7 @@ function AISuggestionPanel({ post, onClose }: { post: Post; onClose: () => void 
                   </div>
                 </div>
               ))}
-              <p className="text-white/20 text-[10px] text-center pt-2">
+              <p className="text-app-text-muted text-[10px] text-center pt-2">
                 <i className="ri-information-line mr-1"></i>
                 Gợi ý được tạo tự động — hãy chỉnh sửa cho phù hợp trước khi đăng
               </p>
@@ -382,15 +382,15 @@ function CommentsPanel({
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
       <div
-        className="bg-[#0f1117] border border-white/10 rounded-t-2xl w-full max-w-2xl max-h-[80vh] flex flex-col"
+        className="bg-app-bg border border-app-border rounded-t-2xl w-full max-w-2xl max-h-[80vh] flex flex-col"
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-white/5 flex-shrink-0">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-app-border flex-shrink-0">
           <h3 className="text-white font-bold text-sm">
-            Bình luận <span className="text-white/30 font-normal">({totalCount})</span>
+            Bình luận <span className="text-app-text-muted font-normal">({totalCount})</span>
           </h3>
-          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 text-white/40 hover:text-white/70 cursor-pointer">
+          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white/70 cursor-pointer">
             <i className="ri-close-line text-sm"></i>
           </button>
         </div>
@@ -399,13 +399,13 @@ function CommentsPanel({
         <div className="flex-1 overflow-y-auto px-5 divide-y divide-white/3">
           {loading ? (
             <div className="flex items-center justify-center py-10">
-              <div className="w-5 h-5 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>
+              <div className="w-5 h-5 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
             </div>
           ) : comments.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-10 text-center">
               <i className="ri-chat-3-line text-white/10 text-3xl mb-2"></i>
-              <p className="text-white/30 text-sm">Chưa có bình luận nào</p>
-              <p className="text-white/20 text-xs mt-1">Hãy là người đầu tiên bình luận!</p>
+              <p className="text-app-text-muted text-sm">Chưa có bình luận nào</p>
+              <p className="text-app-text-muted text-xs mt-1">Hãy là người đầu tiên bình luận!</p>
             </div>
           ) : (
             comments.map(c => (
@@ -421,12 +421,12 @@ function CommentsPanel({
         </div>
 
         {/* Input */}
-        <div className="px-5 py-4 border-t border-white/5 flex-shrink-0">
+        <div className="px-5 py-4 border-t border-app-border flex-shrink-0">
           {replyTo && (
-            <div className="flex items-center gap-2 mb-2 px-3 py-1.5 bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-lg">
-              <i className="ri-reply-line text-[#e8c84a] text-xs"></i>
-              <span className="text-[#e8c84a]/70 text-xs">Đang trả lời <strong>{replyTo.author}</strong></span>
-              <button onClick={() => setReplyTo(null)} className="ml-auto text-white/30 hover:text-white/60 cursor-pointer">
+            <div className="flex items-center gap-2 mb-2 px-3 py-1.5 bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-lg">
+              <i className="ri-reply-line text-app-accent-primary text-xs"></i>
+              <span className="text-app-accent-primary/70 text-xs">Đang trả lời <strong>{replyTo.author}</strong></span>
+              <button onClick={() => setReplyTo(null)} className="ml-auto text-app-text-muted hover:text-white/60 cursor-pointer">
                 <i className="ri-close-line text-xs"></i>
               </button>
             </div>
@@ -438,19 +438,19 @@ function CommentsPanel({
                 onChange={e => setText(e.target.value.slice(0, 500))}
                 onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSubmit(); } }}
                 placeholder={replyTo ? `Trả lời ${replyTo.author}...` : "Viết bình luận..."}
-                className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#e8c84a]/30 placeholder-white/20"
+                className="flex-1 bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-app-accent-primary/30 placeholder-white/20"
               />
               <button
                 onClick={handleSubmit}
                 disabled={!text.trim() || submitting}
-                className="px-4 py-2.5 bg-[#e8c84a] hover:bg-[#d4b43a] disabled:opacity-40 text-[#0f1117] font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors"
+                className="px-4 py-2.5 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 text-app-bg font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors"
               >
                 {submitting ? <i className="ri-loader-4-line animate-spin"></i> : <i className="ri-send-plane-fill"></i>}
               </button>
             </div>
           ) : (
             <div className="text-center py-2">
-              <p className="text-white/30 text-xs">Đăng nhập để bình luận</p>
+              <p className="text-app-text-muted text-xs">Đăng nhập để bình luận</p>
             </div>
           )}
         </div>
@@ -481,28 +481,28 @@ function PostCard({
   const cat = CATEGORY_CONFIG[post.category] || CATEGORY_CONFIG.share;
 
   return (
-    <div className={`bg-[#0f1117] border rounded-2xl p-5 transition-all hover:border-white/10 ${post.is_pinned ? "border-[#e8c84a]/20" : "border-white/5"}`}>
+    <div className={`bg-app-bg border rounded-2xl p-5 transition-all hover:border-app-border ${post.is_pinned ? "border-app-accent-primary/20" : "border-app-border"}`}>
       {post.is_pinned && (
-        <div className="flex items-center gap-1.5 text-[#e8c84a]/60 text-[10px] font-semibold mb-3">
+        <div className="flex items-center gap-1.5 text-app-accent-primary/60 text-[10px] font-semibold mb-3">
           <i className="ri-pushpin-fill text-xs"></i>Ghim
         </div>
       )}
       <div className="flex items-start gap-3 mb-3">
-        <div className="w-9 h-9 rounded-full bg-[#e8c84a]/15 flex items-center justify-center flex-shrink-0">
-          <i className="ri-user-line text-[#e8c84a] text-sm"></i>
+        <div className="w-9 h-9 rounded-full bg-app-accent-primary/15 flex items-center justify-center flex-shrink-0">
+          <i className="ri-user-line text-app-accent-primary text-sm"></i>
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-white/80 text-sm font-semibold">{post.author_name}</span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-white/40">{post.author_level}</span>
-            <span className="text-[10px] text-white/25">{timeAgo(post.created_at)}</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-card/50 text-app-text-secondary">{post.author_level}</span>
+            <span className="text-[10px] text-app-text-muted">{timeAgo(post.created_at)}</span>
           </div>
           <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${cat.color}15`, color: cat.color }}>
               <i className={`${cat.icon} mr-1`}></i>{cat.label}
             </span>
             {post.exam_score && (
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400">
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-app-accent-success">
                 <i className="ri-trophy-line mr-1"></i>{post.exam_score}%
               </span>
             )}
@@ -516,32 +516,32 @@ function PostCard({
       </div>
 
       <button onClick={() => onOpenDetail(post.id)} className="text-left w-full cursor-pointer group">
-        <h3 className="text-white font-semibold text-sm mb-2 leading-snug group-hover:text-[#e8c84a]/90 transition-colors">{post.title}</h3>
+        <h3 className="text-white font-semibold text-sm mb-2 leading-snug group-hover:text-app-accent-primary/90 transition-colors">{post.title}</h3>
       </button>
       <p className={`text-white/50 text-xs leading-relaxed ${!expanded && "line-clamp-3"}`}>{post.content}</p>
       {post.content.length > 150 && (
-        <button onClick={() => setExpanded(v => !v)} className="text-[#e8c84a]/60 text-[10px] mt-1 cursor-pointer hover:text-[#e8c84a] whitespace-nowrap">
+        <button onClick={() => setExpanded(v => !v)} className="text-app-accent-primary/60 text-[10px] mt-1 cursor-pointer hover:text-app-accent-primary whitespace-nowrap">
           {expanded ? "Thu gọn" : "Xem thêm"}
         </button>
       )}
 
       <div className="flex flex-wrap gap-1.5 mt-3">
         {post.tags.map(tag => (
-          <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-white/3 text-white/30 border border-white/5">#{tag}</span>
+          <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-app-surface/50 text-app-text-muted border border-app-border">#{tag}</span>
         ))}
       </div>
 
-      <div className="flex items-center gap-4 mt-4 pt-3 border-t border-white/5">
+      <div className="flex items-center gap-4 mt-4 pt-3 border-t border-app-border">
         <button
           onClick={() => onLike(post.id)}
-          className={`flex items-center gap-1.5 text-xs transition-colors cursor-pointer whitespace-nowrap ${liked ? "text-[#e8c84a]" : "text-white/30 hover:text-white/60"}`}
+          className={`flex items-center gap-1.5 text-xs transition-colors cursor-pointer whitespace-nowrap ${liked ? "text-app-accent-primary" : "text-app-text-muted hover:text-white/60"}`}
         >
           <i className={liked ? "ri-heart-fill" : "ri-heart-line"}></i>
           {post.likes + (liked ? 1 : 0)}
         </button>
         <button
           onClick={() => onOpenComments(post.id)}
-          className="flex items-center gap-1.5 text-xs text-white/30 hover:text-[#e8c84a]/70 transition-colors cursor-pointer whitespace-nowrap"
+          className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-chat-3-line"></i>
           {post.comments_count} bình luận
@@ -549,20 +549,20 @@ function PostCard({
         {post.user_id && (
           <button
             onClick={(e) => { e.stopPropagation(); onViewProfile(post.user_id!); }}
-            className="flex items-center gap-1.5 text-xs text-white/30 hover:text-[#a78bfa]/70 transition-colors cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-[#a78bfa]/70 transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-user-line"></i>Hồ sơ
           </button>
         )}
         <button
           onClick={() => onAISuggest(post)}
-          className="flex items-center gap-1.5 text-xs text-white/30 hover:text-[#e8c84a]/70 transition-colors cursor-pointer whitespace-nowrap"
+          className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-robot-line"></i>AI gợi ý
         </button>
         <button
           onClick={() => onOpenDetail(post.id)}
-          className="flex items-center gap-1.5 text-xs text-white/30 hover:text-[#e8c84a]/70 transition-colors cursor-pointer whitespace-nowrap ml-auto"
+          className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap ml-auto"
         >
           <i className="ri-external-link-line"></i>Xem chi tiết
         </button>
@@ -582,10 +582,10 @@ function RichTextToolbar({ onFormat }: { onFormat: (tag: string) => void }) {
     { icon: "ri-code-line", tag: "code", title: "Code" },
   ];
   return (
-    <div className="flex items-center gap-1 px-2 py-1.5 bg-white/3 border border-white/8 rounded-t-xl border-b-0">
+    <div className="flex items-center gap-1 px-2 py-1.5 bg-app-surface/50 border border-app-border rounded-t-xl border-b-0">
       {tools.map(t => (
         <button key={t.tag} onClick={() => onFormat(t.tag)} title={t.title}
-          className="w-7 h-7 flex items-center justify-center rounded-md text-white/40 hover:text-white/70 hover:bg-white/8 transition-colors cursor-pointer">
+          className="w-7 h-7 flex items-center justify-center rounded-md text-app-text-secondary hover:text-white/70 hover:bg-white/8 transition-colors cursor-pointer">
           <i className={`${t.icon} text-sm`}></i>
         </button>
       ))}
@@ -640,8 +640,8 @@ function NewPostModal({
     return text
       .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
       .replace(/_(.*?)_/g, "<em>$1</em>")
-      .replace(/`(.*?)`/g, "<code class='bg-white/10 px-1 rounded text-[#e8c84a]'>$1</code>")
-      .replace(/^> (.+)$/gm, "<blockquote class='border-l-2 border-[#e8c84a]/40 pl-3 text-white/50 italic'>$1</blockquote>")
+      .replace(/`(.*?)`/g, "<code class='bg-app-card/70 px-1 rounded text-app-accent-primary'>$1</code>")
+      .replace(/^> (.+)$/gm, "<blockquote class='border-l-2 border-app-accent-primary/40 pl-3 text-white/50 italic'>$1</blockquote>")
       .replace(/^- (.+)$/gm, "<li class='ml-4 list-disc'>$1</li>")
       .replace(/\n/g, "<br/>");
   };
@@ -656,10 +656,10 @@ function NewPostModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-      <div className="bg-[#0f1117] border border-white/10 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/5 sticky top-0 bg-[#0f1117] z-10">
+      <div className="bg-app-bg border border-app-border rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-app-border sticky top-0 bg-app-bg z-10">
           <h3 className="text-white font-bold text-base">Tạo bài đăng mới</h3>
-          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 text-white/40 hover:text-white/70 cursor-pointer">
+          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white/70 cursor-pointer">
             <i className="ri-close-line text-sm"></i>
           </button>
         </div>
@@ -667,13 +667,13 @@ function NewPostModal({
         <div className="p-6 space-y-4">
           {/* Category */}
           <div>
-            <label className="text-white/40 text-xs font-medium block mb-2">Loại bài đăng</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-2">Loại bài đăng</label>
             <div className="flex gap-2 flex-wrap">
               {(["question", "share", "result", "tip"] as const).map(cat => {
                 const c = CATEGORY_CONFIG[cat];
                 return (
                   <button key={cat} onClick={() => setCategory(cat)}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${category === cat ? "border" : "bg-white/3 text-white/40 border border-white/8 hover:text-white/60"}`}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${category === cat ? "border" : "bg-app-surface/50 text-app-text-secondary border border-app-border hover:text-white/60"}`}
                     style={category === cat ? { backgroundColor: `${c.color}15`, color: c.color, borderColor: `${c.color}30` } : {}}>
                     <i className={c.icon}></i>{c.label}
                   </button>
@@ -684,28 +684,28 @@ function NewPostModal({
 
           {/* Title */}
           <div>
-            <label className="text-white/40 text-xs font-medium block mb-1.5">Tiêu đề</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Tiêu đề</label>
             <input value={title} onChange={e => setTitle(e.target.value)} placeholder="Tiêu đề bài đăng..." maxLength={100}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#e8c84a]/40 placeholder-white/20" />
+              className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 placeholder-white/20" />
           </div>
 
           {/* Rich text content */}
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <label className="text-white/40 text-xs font-medium">Nội dung</label>
-              <span className="text-white/20 text-[10px]">Hỗ trợ **đậm**, _nghiêng_, `code`, &gt; trích dẫn</span>
+              <label className="text-app-text-secondary text-xs font-medium">Nội dung</label>
+              <span className="text-app-text-muted text-[10px]">Hỗ trợ **đậm**, _nghiêng_, `code`, &gt; trích dẫn</span>
             </div>
             <RichTextToolbar onFormat={handleFormat} />
             <textarea id="post-content" value={content} onChange={e => setContent(e.target.value.slice(0, 500))}
               placeholder="Chia sẻ kinh nghiệm, đặt câu hỏi hoặc khoe thành tích..." rows={6}
-              className="w-full bg-white/5 border border-white/10 rounded-b-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#e8c84a]/40 placeholder-white/20 resize-none" />
-            <p className="text-white/20 text-[10px] text-right mt-1">{content.length}/500</p>
+              className="w-full bg-app-card/50 border border-app-border rounded-b-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 placeholder-white/20 resize-none" />
+            <p className="text-app-text-muted text-[10px] text-right mt-1">{content.length}/500</p>
           </div>
 
           {/* Preview */}
           {content.trim() && (
-            <div className="bg-white/3 border border-white/8 rounded-xl p-4">
-              <p className="text-white/30 text-[10px] tracking-normal mb-2">Xem trước</p>
+            <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
+              <p className="text-app-text-muted text-[10px] tracking-normal mb-2">Xem trước</p>
               <div className="text-white/70 text-sm leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: sanitizeHtml(renderContent(content)) }} />
             </div>
@@ -714,18 +714,18 @@ function NewPostModal({
           {/* Image */}
           <div>
             <button onClick={() => setShowImageInput(v => !v)}
-              className="flex items-center gap-2 text-white/40 hover:text-white/70 text-xs cursor-pointer whitespace-nowrap transition-colors">
-              <i className={`${showImageInput ? "ri-image-line text-[#e8c84a]" : "ri-image-add-line"} text-sm`}></i>
+              className="flex items-center gap-2 text-app-text-secondary hover:text-white/70 text-xs cursor-pointer whitespace-nowrap transition-colors">
+              <i className={`${showImageInput ? "ri-image-line text-app-accent-primary" : "ri-image-add-line"} text-sm`}></i>
               {showImageInput ? "Ẩn thêm ảnh" : "Thêm ảnh (URL)"}
             </button>
             {showImageInput && (
               <div className="mt-2 space-y-2">
                 <input value={imageUrl} onChange={e => handleImageUrl(e.target.value)}
                   placeholder="Dán URL ảnh vào đây (jpg, png, gif...)"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#e8c84a]/40 placeholder-white/20" />
+                  className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 placeholder-white/20" />
                 {imagePreview && (
                   <div className="relative">
-                    <img src={imagePreview} alt="Preview" className="w-full max-h-48 object-cover rounded-xl border border-white/10" />
+                    <img src={imagePreview} alt="Preview" className="w-full max-h-48 object-cover rounded-xl border border-app-border" />
                     <button onClick={() => { setImageUrl(""); setImagePreview(""); }}
                       className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center rounded-full bg-black/60 text-white/70 hover:text-white cursor-pointer">
                       <i className="ri-close-line text-xs"></i>
@@ -737,9 +737,9 @@ function NewPostModal({
           </div>
 
           <div className="flex gap-3 pt-2">
-            <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-white/5">Hủy</button>
+            <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50">Hủy</button>
             <button onClick={handleSubmit} disabled={!title.trim() || !content.trim() || submitting}
-              className="flex-1 py-2.5 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-[#0f1117] font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
+              className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
               {submitting ? "Đang đăng..." : "Đăng bài"}
             </button>
           </div>
@@ -755,17 +755,17 @@ const POSTS_PER_PAGE = 10;
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border border-white/5 rounded-xl overflow-hidden">
+    <div className="border border-app-border rounded-xl overflow-hidden">
       <button
         onClick={() => setOpen(v => !v)}
-        className="w-full flex items-start gap-2 px-3 py-2.5 text-left hover:bg-white/3 transition-colors cursor-pointer"
+        className="w-full flex items-start gap-2 px-3 py-2.5 text-left hover:bg-app-surface/50 transition-colors cursor-pointer"
       >
-        <i className={`ri-arrow-right-s-line text-[#e8c84a]/60 text-sm mt-0.5 transition-transform flex-shrink-0 ${open ? "rotate-90" : ""}`}></i>
+        <i className={`ri-arrow-right-s-line text-app-accent-primary/60 text-sm mt-0.5 transition-transform flex-shrink-0 ${open ? "rotate-90" : ""}`}></i>
         <span className="text-white/70 text-[11px] leading-snug font-medium">{question}</span>
       </button>
       {open && (
         <div className="px-3 pb-3 pt-0">
-          <p className="text-white/40 text-[10px] leading-relaxed pl-5">{answer}</p>
+          <p className="text-app-text-secondary text-[10px] leading-relaxed pl-5">{answer}</p>
         </div>
       )}
     </div>
@@ -778,28 +778,28 @@ function Pagination({ current, total, onChange }: { current: number; total: numb
   const pages = Array.from({ length: total }, (_, i) => i + 1);
   const visible = pages.filter(p => p === 1 || p === total || Math.abs(p - current) <= 1);
   return (
-    <div className="flex items-center justify-center gap-1.5 pt-4 border-t border-white/5">
+    <div className="flex items-center justify-center gap-1.5 pt-4 border-t border-app-border">
       <button onClick={() => onChange(current - 1)} disabled={current === 1}
-        className="w-8 h-8 flex items-center justify-center rounded-lg border border-white/8 text-white/40 hover:text-white/70 hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer">
+        className="w-8 h-8 flex items-center justify-center rounded-lg border border-app-border text-app-text-secondary hover:text-white/70 hover:bg-app-card/50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer">
         <i className="ri-arrow-left-s-line text-sm"></i>
       </button>
       {visible.map((p, i) => {
         const prev = visible[i - 1];
         return (
           <span key={p} className="flex items-center gap-1.5">
-            {prev && p - prev > 1 && <span className="text-white/20 text-xs">...</span>}
+            {prev && p - prev > 1 && <span className="text-app-text-muted text-xs">...</span>}
             <button onClick={() => onChange(p)}
-              className={`w-8 h-8 flex items-center justify-center rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${p === current ? "bg-[#e8c84a] text-[#0f1117] font-bold" : "border border-white/8 text-white/40 hover:text-white/70 hover:bg-white/5"}`}>
+              className={`w-8 h-8 flex items-center justify-center rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${p === current ? "bg-app-accent-primary text-app-bg font-bold" : "border border-app-border text-app-text-secondary hover:text-white/70 hover:bg-app-card/50"}`}>
               {p}
             </button>
           </span>
         );
       })}
       <button onClick={() => onChange(current + 1)} disabled={current === total}
-        className="w-8 h-8 flex items-center justify-center rounded-lg border border-white/8 text-white/40 hover:text-white/70 hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer">
+        className="w-8 h-8 flex items-center justify-center rounded-lg border border-app-border text-app-text-secondary hover:text-white/70 hover:bg-app-card/50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer">
         <i className="ri-arrow-right-s-line text-sm"></i>
       </button>
-      <span className="text-white/25 text-xs ml-1">{current}/{total}</span>
+      <span className="text-app-text-muted text-xs ml-1">{current}/{total}</span>
     </div>
   );
 }
@@ -925,11 +925,11 @@ export default function CommunityPage() {
       actions={
         user ? (
           <button onClick={() => setShowNewPost(true)}
-            className="flex items-center gap-2 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
+            className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
             <i className="ri-add-line"></i>Đăng bài
           </button>
         ) : (
-          <div className="flex items-center gap-2 text-white/40 text-xs">
+          <div className="flex items-center gap-2 text-app-text-secondary text-xs">
             <i className="ri-lock-line"></i>Đăng nhập để đăng bài
           </div>
         )
@@ -940,20 +940,20 @@ export default function CommunityPage() {
         <div className="space-y-4">
           <div className="flex items-center gap-3">
             <div className="flex-1 relative">
-              <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
+              <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
               <input
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder="Tìm kiếm bài đăng..."
-                className="w-full bg-[#0f1117] border border-white/8 rounded-xl pl-9 pr-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#e8c84a]/30 placeholder-white/20"
+                className="w-full bg-app-bg border border-app-border rounded-xl pl-9 pr-4 py-2.5 text-white text-sm focus:outline-none focus:border-app-accent-primary/30 placeholder-white/20"
               />
             </div>
-            <div className="flex items-center gap-1 bg-white/3 border border-white/8 rounded-lg p-1">
+            <div className="flex items-center gap-1 bg-app-surface/50 border border-app-border rounded-lg p-1">
               {([["latest", "Mới nhất"], ["popular", "Phổ biến"], ["comments", "Bình luận"]] as [SortBy, string][]).map(([s, label]) => (
                 <button
                   key={s}
                   onClick={() => setSortBy(s)}
-                  className={`px-3 py-1 rounded-md text-xs transition-all whitespace-nowrap cursor-pointer ${sortBy === s ? "bg-white/10 text-white" : "text-white/40 hover:text-white/60"}`}
+                  className={`px-3 py-1 rounded-md text-xs transition-all whitespace-nowrap cursor-pointer ${sortBy === s ? "bg-app-card/70 text-white" : "text-app-text-secondary hover:text-white/60"}`}
                 >
                   {label}
                 </button>
@@ -966,27 +966,27 @@ export default function CommunityPage() {
               <button
                 key={cat}
                 onClick={() => setCategory(cat)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${category === cat ? "border" : "bg-white/3 text-white/40 border border-white/8 hover:text-white/60"}`}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${category === cat ? "border" : "bg-app-surface/50 text-app-text-secondary border border-app-border hover:text-white/60"}`}
                 style={category === cat ? { backgroundColor: `${cfg.color}15`, color: cfg.color, borderColor: `${cfg.color}30` } : {}}
               >
                 <i className={cfg.icon}></i>{cfg.label}
               </button>
             ))}
             {filtered.length > 0 && (
-              <span className="ml-auto text-white/25 text-xs self-center">{filtered.length} bài · trang {currentPage}/{totalPages || 1}</span>
+              <span className="ml-auto text-app-text-muted text-xs self-center">{filtered.length} bài · trang {currentPage}/{totalPages || 1}</span>
             )}
           </div>
 
           {loadingPosts ? (
             <div className="flex items-center justify-center py-16">
-              <div className="w-6 h-6 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>
+              <div className="w-6 h-6 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
             </div>
           ) : filtered.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-center">
               <i className="ri-chat-3-line text-white/10 text-4xl mb-3"></i>
-              <p className="text-white/30 text-sm">Chưa có bài đăng nào</p>
+              <p className="text-app-text-muted text-sm">Chưa có bài đăng nào</p>
               {user && (
-                <button onClick={() => setShowNewPost(true)} className="mt-3 text-[#e8c84a] text-xs cursor-pointer whitespace-nowrap">
+                <button onClick={() => setShowNewPost(true)} className="mt-3 text-app-accent-primary text-xs cursor-pointer whitespace-nowrap">
                   Hãy là người đầu tiên đăng bài →
                 </button>
               )}
@@ -1013,12 +1013,12 @@ export default function CommunityPage() {
               </div>
               {/* Guest cutoff banner */}
               {isGuestCutoff && (
-                <div className="mt-4 bg-gradient-to-r from-[#e8c84a]/10 to-[#fb923c]/10 border border-[#e8c84a]/20 rounded-2xl p-5 text-center">
-                  <i className="ri-lock-line text-[#e8c84a] text-2xl mb-2 block"></i>
+                <div className="mt-4 bg-gradient-to-r from-[app-accent-primary]/10 to-[#fb923c]/10 border border-app-accent-primary/20 rounded-2xl p-5 text-center">
+                  <i className="ri-lock-line text-app-accent-primary text-2xl mb-2 block"></i>
                   <p className="text-white font-bold text-sm mb-1">Bạn đã xem {guestViewCount} bài miễn phí</p>
                   <p className="text-white/50 text-xs mb-3">Đăng ký thành viên để xem tất cả bài viết và tham gia thảo luận!</p>
                   <button onClick={() => navigate("/pricing")}
-                    className="inline-flex items-center gap-2 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] text-sm font-bold px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors">
+                    className="inline-flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors">
                     <i className="ri-user-add-line"></i>Đăng ký ngay
                   </button>
                 </div>
@@ -1026,16 +1026,16 @@ export default function CommunityPage() {
               {/* Holiday/maintenance mode banner */}
               {commSettings.access_mode === "holiday" && (
                 <div className="mt-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-4 text-center">
-                  <i className="ri-gift-line text-emerald-400 text-xl mb-1 block"></i>
-                  <p className="text-emerald-400 font-bold text-sm">{commSettings.mode_note || "🎉 Cộng đồng mở cửa tự do!"}</p>
-                  <p className="text-white/40 text-xs mt-1">Đăng bài không giới hạn trong thời gian sự kiện</p>
+                  <i className="ri-gift-line text-app-accent-success text-xl mb-1 block"></i>
+                  <p className="text-app-accent-success font-bold text-sm">{commSettings.mode_note || "🎉 Cộng đồng mở cửa tự do!"}</p>
+                  <p className="text-app-text-secondary text-xs mt-1">Đăng bài không giới hạn trong thời gian sự kiện</p>
                 </div>
               )}
               {commSettings.access_mode === "maintenance" && (
                 <div className="mt-4 bg-rose-500/10 border border-rose-500/20 rounded-2xl p-4 text-center">
                   <i className="ri-tools-line text-rose-400 text-xl mb-1 block"></i>
                   <p className="text-rose-400 font-bold text-sm">Cộng đồng đang bảo trì</p>
-                  <p className="text-white/40 text-xs mt-1">Vui lòng quay lại sau!</p>
+                  <p className="text-app-text-secondary text-xs mt-1">Vui lòng quay lại sau!</p>
                 </div>
               )}
               <Pagination current={currentPage} total={totalPages} onChange={p => { setCurrentPage(p); window.scrollTo({ top: 0, behavior: "smooth" }); }} />
@@ -1045,11 +1045,11 @@ export default function CommunityPage() {
 
         {/* Sidebar */}
         <div className="space-y-4">
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">Cộng đồng Hàn Quốc Ơi!</h3>
             <div className="space-y-3">
               {[
-                { icon: "ri-group-line", label: "Thành viên", value: "10,247", color: "#e8c84a" },
+                { icon: "ri-group-line", label: "Thành viên", value: "10,247", color: "app-accent-primary" },
                 { icon: "ri-article-line", label: "Bài đăng", value: posts.length.toString(), color: "#34d399" },
                 { icon: "ri-fire-line", label: "Streak trung bình", value: "23 ngày", color: "#fb923c" },
                 { icon: "ri-trophy-line", label: "Đậu EPS tháng này", value: "142 người", color: "#FFD700" },
@@ -1059,7 +1059,7 @@ export default function CommunityPage() {
                     <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
                   </div>
                   <div className="flex-1">
-                    <p className="text-white/30 text-[10px]">{s.label}</p>
+                    <p className="text-app-text-muted text-[10px]">{s.label}</p>
                     <p className="text-white font-bold text-sm">{s.value}</p>
                   </div>
                 </div>
@@ -1068,38 +1068,38 @@ export default function CommunityPage() {
           </div>
 
           {!user && (
-            <div className="bg-gradient-to-br from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/15 rounded-2xl p-5">
+            <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-2">
-                <i className="ri-lock-line text-[#e8c84a] text-sm"></i>
+                <i className="ri-lock-line text-app-accent-primary text-sm"></i>
                 <p className="text-white font-semibold text-sm">Tham gia cộng đồng</p>
               </div>
-              <p className="text-white/40 text-xs leading-relaxed mb-3">Đăng nhập để đăng bài, bình luận và tương tác với cộng đồng học tiếng Hàn!</p>
+              <p className="text-app-text-secondary text-xs leading-relaxed mb-3">Đăng nhập để đăng bài, bình luận và tương tác với cộng đồng học tiếng Hàn!</p>
             </div>
           )}
 
-          <div className="bg-gradient-to-br from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/15 rounded-2xl p-5">
+          <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#e8c84a]/15">
-                <i className="ri-fire-line text-[#e8c84a] text-lg"></i>
+              <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-app-accent-primary/15">
+                <i className="ri-fire-line text-app-accent-primary text-lg"></i>
               </div>
               <div>
                 <p className="text-white font-bold text-base">{streak.count} ngày streak</p>
-                <p className="text-white/40 text-xs">Của bạn</p>
+                <p className="text-app-text-secondary text-xs">Của bạn</p>
               </div>
             </div>
-            <p className="text-white/40 text-xs leading-relaxed">
+            <p className="text-app-text-secondary text-xs leading-relaxed">
               {streak.count >= 30 ? "Top 10% cộng đồng! Xuất sắc!" : streak.count >= 7 ? "Đang tiến bộ tốt — tiếp tục nhé!" : "Bắt đầu streak để leo bảng xếp hạng!"}
             </p>
           </div>
 
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-3">Chủ đề hot</h3>
             <div className="flex flex-wrap gap-2">
               {["EPS-TOPIK", "ngữ pháp", "từ vựng", "streak", "K-pop", "Hangul", "mẹo học", "TOPIK II", "kinh nghiệm", "thi thử"].map(tag => (
                 <button
                   key={tag}
                   onClick={() => setSearch(tag)}
-                  className="text-[10px] px-2.5 py-1 rounded-full bg-white/3 text-white/40 border border-white/5 hover:border-[#e8c84a]/20 hover:text-[#e8c84a]/70 transition-colors cursor-pointer whitespace-nowrap"
+                  className="text-[10px] px-2.5 py-1 rounded-full bg-app-surface/50 text-app-text-secondary border border-app-border hover:border-app-accent-primary/20 hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap"
                 >
                   #{tag}
                 </button>
@@ -1111,10 +1111,10 @@ export default function CommunityPage() {
           <OnlineUsersWidget />
 
           {/* FAQ Section — Schema.org FAQPage */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-6 h-6 flex items-center justify-center rounded-lg bg-[#e8c84a]/15">
-                <i className="ri-question-answer-line text-[#e8c84a] text-xs"></i>
+              <div className="w-6 h-6 flex items-center justify-center rounded-lg bg-app-accent-primary/15">
+                <i className="ri-question-answer-line text-app-accent-primary text-xs"></i>
               </div>
               <h3 className="text-white font-semibold text-sm">Câu hỏi thường gặp</h3>
             </div>

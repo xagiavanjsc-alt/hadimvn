@@ -61,7 +61,7 @@ const ALL_PHRASES = buildPhrases();
 const bookColors: Record<string, string> = {
   "1A": "text-amber-400 bg-amber-500/10 border-amber-500/20",
   "1B": "text-orange-400 bg-orange-500/10 border-orange-500/20",
-  "2A": "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+  "2A": "text-app-accent-success bg-emerald-500/10 border-emerald-500/20",
   "2B": "text-teal-400 bg-teal-500/10 border-teal-500/20",
   "3A": "text-violet-400 bg-violet-500/10 border-violet-500/20",
   "3B": "text-pink-400 bg-pink-500/10 border-pink-500/20",
@@ -171,27 +171,27 @@ export default function SeoulPhrasesPage() {
       <DashboardLayout>
         <div className="p-6 max-w-2xl mx-auto space-y-5">
           <div className="flex items-center justify-between">
-            <button onClick={() => setQuizState("idle")} className="flex items-center gap-1.5 text-white/40 hover:text-white/60 text-sm cursor-pointer whitespace-nowrap">
+            <button onClick={() => setQuizState("idle")} className="flex items-center gap-1.5 text-app-text-secondary hover:text-white/60 text-sm cursor-pointer whitespace-nowrap">
               <i className="ri-arrow-left-line text-sm"></i> Thoát
             </button>
-            <span className="text-white/40 text-sm">{quiz.currentIdx + 1}/{quiz.phrases.length}</span>
+            <span className="text-app-text-secondary text-sm">{quiz.currentIdx + 1}/{quiz.phrases.length}</span>
           </div>
           <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
-            <div className="h-full bg-[#e8c84a] rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
+            <div className="h-full bg-app-accent-primary rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
           </div>
 
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
+          <div className="bg-app-card/50 border border-app-border rounded-2xl p-6 space-y-4">
             <div className="flex items-center justify-between">
               <span className={`px-2.5 py-1 rounded-full text-xs border ${bookColors[current.bookId]}`}>{current.bookName} · Bài {current.lessonNumber}</span>
               {current.type === "grammar" && current.grammarPattern && (
-                <span className="text-white/30 text-xs truncate max-w-[200px]">{current.grammarPattern}</span>
+                <span className="text-app-text-muted text-xs truncate max-w-[200px]">{current.grammarPattern}</span>
               )}
             </div>
             <div>
-              <p className="text-white/40 text-xs mb-2">Dịch sang tiếng Hàn:</p>
+              <p className="text-app-text-secondary text-xs mb-2">Dịch sang tiếng Hàn:</p>
               <p className="text-white font-semibold text-xl leading-relaxed">{current.vietnamese}</p>
             </div>
-            <button onClick={() => speakKorean(current.korean)} className="flex items-center gap-1.5 text-white/30 hover:text-white/50 text-xs cursor-pointer whitespace-nowrap">
+            <button onClick={() => speakKorean(current.korean)} className="flex items-center gap-1.5 text-app-text-muted hover:text-white/50 text-xs cursor-pointer whitespace-nowrap">
               <i className="ri-volume-up-line text-xs"></i> Nghe gợi ý
             </button>
             <textarea
@@ -200,14 +200,14 @@ export default function SeoulPhrasesPage() {
               onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submitQuizAnswer(); } }}
               placeholder="Nhập câu tiếng Hàn..."
               rows={3}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-base placeholder-white/20 focus:outline-none focus:border-white/25 resize-none"
+              className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-base placeholder-white/20 focus:outline-none focus:border-white/25 resize-none"
               style={{ fontFamily: "'Noto Sans KR', sans-serif" }}
               autoFocus
             />
             <button
               onClick={submitQuizAnswer}
               disabled={!quiz.userInput.trim()}
-              className="w-full py-3 rounded-xl bg-[#e8c84a]/15 border border-[#e8c84a]/30 text-[#e8c84a] font-medium text-sm hover:bg-[#e8c84a]/25 transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
+              className="w-full py-3 rounded-xl bg-app-accent-primary/15 border border-app-accent-primary/30 text-app-accent-primary font-medium text-sm hover:bg-app-accent-primary/25 transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
             >
               Nộp bài (Enter)
             </button>
@@ -223,44 +223,44 @@ export default function SeoulPhrasesPage() {
     return (
       <DashboardLayout>
         <div className="p-6 max-w-2xl mx-auto space-y-5">
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center space-y-4">
-            <div className="w-16 h-16 flex items-center justify-center bg-[#e8c84a]/10 rounded-full mx-auto">
-              <i className="ri-trophy-line text-[#e8c84a] text-3xl"></i>
+          <div className="bg-app-card/50 border border-app-border rounded-2xl p-8 text-center space-y-4">
+            <div className="w-16 h-16 flex items-center justify-center bg-app-accent-primary/10 rounded-full mx-auto">
+              <i className="ri-trophy-line text-app-accent-primary text-3xl"></i>
             </div>
             <h2 className="text-white font-bold text-2xl">Kết quả kiểm tra</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 text-center">
-                <p className="text-emerald-400 font-bold text-xl">{quiz.score}</p>
-                <p className="text-emerald-400/60 text-xs">Đúng</p>
+                <p className="text-app-accent-success font-bold text-xl">{quiz.score}</p>
+                <p className="text-app-accent-success/60 text-xs">Đúng</p>
               </div>
               <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3 text-center">
                 <p className="text-red-400 font-bold text-xl">{quiz.phrases.length - quiz.score}</p>
-                <p className="text-red-400/60 text-xs">Sai</p>
+                <p className="text-app-accent-error/60 text-xs">Sai</p>
               </div>
-              <div className="bg-[#e8c84a]/10 border border-[#e8c84a]/20 rounded-xl p-3 text-center">
-                <p className="text-[#e8c84a] font-bold text-xl">{quiz.score * 15}</p>
-                <p className="text-[#e8c84a]/60 text-xs">XP</p>
+              <div className="bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-xl p-3 text-center">
+                <p className="text-app-accent-primary font-bold text-xl">{quiz.score * 15}</p>
+                <p className="text-app-accent-primary/60 text-xs">XP</p>
               </div>
             </div>
             <div className="mt-2">
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-white/40 text-xs">Độ chính xác</span>
+                <span className="text-app-text-secondary text-xs">Độ chính xác</span>
                 <span className="text-white font-bold text-sm">{accuracy}%</span>
               </div>
               <div className="h-2 bg-white/8 rounded-full overflow-hidden">
-                <div className="h-full rounded-full transition-all duration-700" style={{ width: `${accuracy}%`, backgroundColor: accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "#e8c84a" : "#f87171" }}></div>
+                <div className="h-full rounded-full transition-all duration-700" style={{ width: `${accuracy}%`, backgroundColor: accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "app-accent-primary" : "#f87171" }}></div>
               </div>
             </div>
           </div>
 
           {/* Review wrong answers */}
           <div className="space-y-2">
-            <p className="text-white/40 text-sm font-medium">Xem lại đáp án</p>
+            <p className="text-app-text-secondary text-sm font-medium">Xem lại đáp án</p>
             {quiz.results.map((r, i) => (
               <div key={i} className={`border rounded-xl p-4 space-y-2 ${r.correct ? "border-emerald-500/20 bg-emerald-500/5" : "border-red-500/20 bg-red-500/5"}`}>
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 flex items-center justify-center">
-                    <i className={`text-sm ${r.correct ? "ri-checkbox-circle-fill text-emerald-400" : "ri-close-circle-fill text-red-400"}`}></i>
+                    <i className={`text-sm ${r.correct ? "ri-checkbox-circle-fill text-app-accent-success" : "ri-close-circle-fill text-red-400"}`}></i>
                   </div>
                   <p className="text-white/60 text-sm">{r.phrase.vietnamese}</p>
                 </div>
@@ -268,15 +268,15 @@ export default function SeoulPhrasesPage() {
                   {r.phrase.korean}
                 </p>
                 {!r.correct && r.userAnswer && (
-                  <p className="text-red-400/60 text-xs pl-6">Bạn viết: {r.userAnswer}</p>
+                  <p className="text-app-accent-error/60 text-xs pl-6">Bạn viết: {r.userAnswer}</p>
                 )}
               </div>
             ))}
           </div>
 
           <div className="flex gap-3">
-            <button onClick={() => setQuizState("idle")} className="flex-1 py-3 rounded-xl border border-white/10 text-white/60 text-sm cursor-pointer whitespace-nowrap">Về danh sách</button>
-            <button onClick={startQuiz} className="flex-1 py-3 rounded-xl bg-[#e8c84a]/15 border border-[#e8c84a]/30 text-[#e8c84a] text-sm font-medium cursor-pointer whitespace-nowrap">Kiểm tra lại</button>
+            <button onClick={() => setQuizState("idle")} className="flex-1 py-3 rounded-xl border border-app-border text-white/60 text-sm cursor-pointer whitespace-nowrap">Về danh sách</button>
+            <button onClick={startQuiz} className="flex-1 py-3 rounded-xl bg-app-accent-primary/15 border border-app-accent-primary/30 text-app-accent-primary text-sm font-medium cursor-pointer whitespace-nowrap">Kiểm tra lại</button>
           </div>
         </div>
       </DashboardLayout>
@@ -293,16 +293,16 @@ export default function SeoulPhrasesPage() {
             <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "'Nunito', sans-serif" }}>
               Bộ sưu tập câu mẫu Seoul
             </h1>
-            <p className="text-white/40 text-sm mt-0.5">Tổng hợp câu mẫu từ hội thoại và ngữ pháp theo từng bài học</p>
+            <p className="text-app-text-secondary text-sm mt-0.5">Tổng hợp câu mẫu từ hội thoại và ngữ pháp theo từng bài học</p>
           </div>
           <div className="flex gap-3">
-            <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-center">
+            <div className="bg-app-card/50 border border-app-border rounded-xl px-4 py-2 text-center">
               <p className="text-white font-bold text-xl">{ALL_PHRASES.length}</p>
-              <p className="text-white/40 text-xs">Tổng câu mẫu</p>
+              <p className="text-app-text-secondary text-xs">Tổng câu mẫu</p>
             </div>
             <button
               onClick={startQuiz}
-              className="flex items-center gap-2 px-4 py-2 bg-[#e8c84a]/15 border border-[#e8c84a]/30 text-[#e8c84a] rounded-xl text-sm font-medium hover:bg-[#e8c84a]/25 transition-all cursor-pointer whitespace-nowrap"
+              className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary/15 border border-app-accent-primary/30 text-app-accent-primary rounded-xl text-sm font-medium hover:bg-app-accent-primary/25 transition-all cursor-pointer whitespace-nowrap"
             >
               <div className="w-4 h-4 flex items-center justify-center">
                 <i className="ri-survey-line text-sm"></i>
@@ -316,7 +316,7 @@ export default function SeoulPhrasesPage() {
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setSelectedBook("all")}
-            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${selectedBook === "all" ? "bg-white/15 text-white border-white/20" : "bg-white/5 text-white/40 hover:text-white/70 border-transparent"}`}
+            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${selectedBook === "all" ? "bg-white/15 text-white border-white/20" : "bg-app-card/50 text-app-text-secondary hover:text-white/70 border-transparent"}`}
           >
             Tất cả ({ALL_PHRASES.length})
           </button>
@@ -324,7 +324,7 @@ export default function SeoulPhrasesPage() {
             <button
               key={book.id}
               onClick={() => setSelectedBook(book.id)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${selectedBook === book.id ? bookColors[book.id] : "bg-white/5 text-white/40 hover:text-white/70 border-transparent"}`}
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${selectedBook === book.id ? bookColors[book.id] : "bg-app-card/50 text-app-text-secondary hover:text-white/70 border-transparent"}`}
             >
               {book.name} ({totalByBook[book.id] || 0})
             </button>
@@ -333,7 +333,7 @@ export default function SeoulPhrasesPage() {
 
         {/* Filters row */}
         <div className="flex flex-wrap gap-3 items-center">
-          <div className="flex gap-1 bg-white/5 border border-white/10 rounded-xl p-1">
+          <div className="flex gap-1 bg-app-card/50 border border-app-border rounded-xl p-1">
             {[
               { id: "all", label: "Tất cả" },
               { id: "dialogue", label: "Hội thoại" },
@@ -342,7 +342,7 @@ export default function SeoulPhrasesPage() {
               <button
                 key={t.id}
                 onClick={() => setSelectedType(t.id as "all" | "dialogue" | "grammar")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedType === t.id ? "bg-white/15 text-white" : "text-white/40 hover:text-white/70"}`}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedType === t.id ? "bg-white/15 text-white" : "text-app-text-secondary hover:text-white/70"}`}
               >
                 {t.label}
               </button>
@@ -351,7 +351,7 @@ export default function SeoulPhrasesPage() {
 
           <button
             onClick={() => setFilterSaved(!filterSaved)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${filterSaved ? "bg-[#e8c84a]/15 border-[#e8c84a]/30 text-[#e8c84a]" : "bg-white/5 border-white/10 text-white/40 hover:text-white/60"}`}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${filterSaved ? "bg-app-accent-primary/15 border-app-accent-primary/30 text-app-accent-primary" : "bg-app-card/50 border-app-border text-app-text-secondary hover:text-white/60"}`}
           >
             <div className="w-3 h-3 flex items-center justify-center">
               <i className="ri-bookmark-fill text-xs"></i>
@@ -361,24 +361,24 @@ export default function SeoulPhrasesPage() {
 
           <div className="flex-1 relative min-w-[200px]">
             <div className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center">
-              <i className="ri-search-line text-white/30 text-sm"></i>
+              <i className="ri-search-line text-app-text-muted text-sm"></i>
             </div>
             <input
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Tìm kiếm câu mẫu..."
-              className="w-full bg-white/5 border border-white/10 rounded-xl pl-9 pr-4 py-2 text-white text-sm placeholder-white/25 focus:outline-none focus:border-white/25"
+              className="w-full bg-app-card/50 border border-app-border rounded-xl pl-9 pr-4 py-2 text-white text-sm placeholder-white/25 focus:outline-none focus:border-white/25"
             />
           </div>
         </div>
 
-        <p className="text-white/30 text-sm">{filtered.length} câu mẫu</p>
+        <p className="text-app-text-muted text-sm">{filtered.length} câu mẫu</p>
 
         {/* Phrase list */}
         {filtered.length === 0 ? (
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-12 text-center">
-            <p className="text-white/40 text-sm">Không tìm thấy câu mẫu phù hợp</p>
+          <div className="bg-app-card/50 border border-app-border rounded-2xl p-12 text-center">
+            <p className="text-app-text-secondary text-sm">Không tìm thấy câu mẫu phù hợp</p>
           </div>
         ) : (
           <div className="space-y-2">
@@ -386,7 +386,7 @@ export default function SeoulPhrasesPage() {
               const isSaved = savedIds.includes(phrase.id);
               const showVi = showVietnamese[phrase.id];
               return (
-                <div key={phrase.id} className="bg-white/5 border border-white/8 hover:border-white/15 rounded-xl p-4 transition-all">
+                <div key={phrase.id} className="bg-app-card/50 border border-app-border hover:border-white/15 rounded-xl p-4 transition-all">
                   <div className="flex items-start gap-3">
                     {/* Type indicator */}
                     <div className={`w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0 ${phrase.type === "dialogue" ? "bg-sky-400" : "bg-violet-400"}`}></div>
@@ -409,14 +409,14 @@ export default function SeoulPhrasesPage() {
                           onClick={() => speakKorean(phrase.korean)}
                           className="w-6 h-6 flex items-center justify-center bg-white/8 hover:bg-white/15 rounded-full transition-all cursor-pointer flex-shrink-0"
                         >
-                          <i className="ri-volume-up-line text-white/40 text-xs"></i>
+                          <i className="ri-volume-up-line text-app-text-secondary text-xs"></i>
                         </button>
                         <button
                           onClick={() => speakKorean(phrase.korean, true)}
-                          className="w-6 h-6 flex items-center justify-center bg-white/5 hover:bg-white/10 rounded-full transition-all cursor-pointer flex-shrink-0"
+                          className="w-6 h-6 flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 rounded-full transition-all cursor-pointer flex-shrink-0"
                           title="Nghe chậm"
                         >
-                          <i className="ri-speed-line text-white/25 text-xs"></i>
+                          <i className="ri-speed-line text-app-text-muted text-xs"></i>
                         </button>
                       </div>
 
@@ -428,7 +428,7 @@ export default function SeoulPhrasesPage() {
                         {showVi ? (
                           <p className="text-white/60 text-sm italic">{phrase.vietnamese}</p>
                         ) : (
-                          <p className="text-white/20 text-xs">Nhấn để xem nghĩa</p>
+                          <p className="text-app-text-muted text-xs">Nhấn để xem nghĩa</p>
                         )}
                       </button>
                     </div>
@@ -437,14 +437,14 @@ export default function SeoulPhrasesPage() {
                     <div className="flex flex-col items-end gap-2 flex-shrink-0">
                       <button
                         onClick={() => toggleSave(phrase.id)}
-                        className={`w-7 h-7 flex items-center justify-center rounded-lg transition-all cursor-pointer ${isSaved ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "bg-white/5 text-white/25 hover:text-white/50"}`}
+                        className={`w-7 h-7 flex items-center justify-center rounded-lg transition-all cursor-pointer ${isSaved ? "bg-app-accent-primary/15 text-app-accent-primary" : "bg-app-card/50 text-app-text-muted hover:text-white/50"}`}
                       >
                         <i className={`${isSaved ? "ri-bookmark-fill" : "ri-bookmark-line"} text-xs`}></i>
                       </button>
                       <span className={`px-2 py-0.5 rounded-full text-[10px] border ${bookColors[phrase.bookId]}`}>
                         {phrase.bookName}
                       </span>
-                      <span className="text-white/20 text-[10px]">Bài {phrase.lessonNumber}</span>
+                      <span className="text-app-text-muted text-[10px]">Bài {phrase.lessonNumber}</span>
                     </div>
                   </div>
                 </div>

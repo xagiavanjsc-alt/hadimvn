@@ -36,7 +36,7 @@ function getLevelConfig(level: TopicAnalysis["level"]) {
   switch (level) {
     case "critical": return { label: "Rất yếu", color: "#f87171", bg: "rgba(248,113,113,0.08)", border: "rgba(248,113,113,0.2)", icon: "ri-alarm-warning-line" };
     case "weak": return { label: "Yếu", color: "#fb923c", bg: "rgba(251,146,60,0.08)", border: "rgba(251,146,60,0.2)", icon: "ri-error-warning-line" };
-    case "average": return { label: "Trung bình", color: "#e8c84a", bg: "rgba(232,200,74,0.08)", border: "rgba(232,200,74,0.2)", icon: "ri-subtract-line" };
+    case "average": return { label: "Trung bình", color: "app-accent-primary", bg: "rgba(232,200,74,0.08)", border: "rgba(232,200,74,0.2)", icon: "ri-subtract-line" };
     case "strong": return { label: "Tốt", color: "#34d399", bg: "rgba(52,211,153,0.08)", border: "rgba(52,211,153,0.2)", icon: "ri-checkbox-circle-line" };
   }
 }
@@ -44,14 +44,14 @@ function getLevelConfig(level: TopicAnalysis["level"]) {
 // ─── Stat Card ────────────────────────────────────────────────────────────
 function StatCard({ icon, label, value, sub, color }: { icon: string; label: string; value: string | number; sub?: string; color: string }) {
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5 flex items-center gap-4">
+    <div className="bg-app-bg border border-app-border rounded-2xl p-5 flex items-center gap-4">
       <div className="w-12 h-12 flex items-center justify-center rounded-2xl flex-shrink-0" style={{ backgroundColor: `${color}15` }}>
         <i className={`${icon} text-xl`} style={{ color }}></i>
       </div>
       <div>
         <p className="text-white font-bold text-2xl leading-none">{value}</p>
         <p className="text-white/50 text-xs mt-1">{label}</p>
-        {sub && <p className="text-white/25 text-[10px] mt-0.5">{sub}</p>}
+        {sub && <p className="text-app-text-muted text-[10px] mt-0.5">{sub}</p>}
       </div>
     </div>
   );
@@ -66,7 +66,7 @@ function TopicBar({ analysis, rank, onClick, isSelected }: {
     <button
       onClick={onClick}
       className={`w-full text-left p-4 rounded-xl border transition-all cursor-pointer ${
-        isSelected ? "border-white/20 bg-white/5" : "border-white/5 bg-[#0f1117] hover:bg-white/3"
+        isSelected ? "border-white/20 bg-app-card/50" : "border-app-border bg-app-bg hover:bg-app-surface/50"
       }`}
     >
       <div className="flex items-center gap-3 mb-2.5">
@@ -82,14 +82,14 @@ function TopicBar({ analysis, rank, onClick, isSelected }: {
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <div className="flex-1 h-2 bg-white/5 rounded-full overflow-hidden">
+        <div className="flex-1 h-2 bg-app-card/50 rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-all duration-700"
             style={{ width: `${analysis.accuracy}%`, backgroundColor: cfg.color }}
           ></div>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0 text-xs">
-          <span className="text-white/30">{analysis.correct}/{analysis.total}</span>
+          <span className="text-app-text-muted">{analysis.correct}/{analysis.total}</span>
           <span className="font-bold" style={{ color: cfg.color }}>{analysis.accuracy}%</span>
         </div>
       </div>
@@ -99,25 +99,25 @@ function TopicBar({ analysis, rank, onClick, isSelected }: {
 
 // ─── Roadmap Card ─────────────────────────────────────────────────────────
 function RoadmapCard({ step }: { step: RoadmapStep }) {
-  const priorityColor = step.priority === "high" ? "#f87171" : step.priority === "medium" ? "#e8c84a" : "#34d399";
+  const priorityColor = step.priority === "high" ? "#f87171" : step.priority === "medium" ? "app-accent-primary" : "#34d399";
   const priorityLabel = step.priority === "high" ? "Ưu tiên cao" : step.priority === "medium" ? "Ưu tiên TB" : "Ưu tiên thấp";
   return (
-    <div className="flex items-start gap-4 p-4 bg-[#0f1117] border border-white/5 rounded-xl">
+    <div className="flex items-start gap-4 p-4 bg-app-bg border border-app-border rounded-xl">
       <div className="w-8 h-8 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${priorityColor}15` }}>
         <i className={`${step.icon} text-sm`} style={{ color: priorityColor }}></i>
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1">
-          <span className="text-white/30 text-[10px] font-bold">Bước {step.order}</span>
+          <span className="text-app-text-muted text-[10px] font-bold">Bước {step.order}</span>
           <span className="text-[9px] px-1.5 py-0.5 rounded-full font-semibold" style={{ backgroundColor: `${priorityColor}15`, color: priorityColor }}>
             {priorityLabel}
           </span>
         </div>
         <p className="text-white/75 text-sm font-medium mb-0.5">{step.topic}</p>
-        <p className="text-white/40 text-xs">{step.action}</p>
+        <p className="text-app-text-secondary text-xs">{step.action}</p>
       </div>
       <div className="flex-shrink-0 text-right">
-        <p className="text-white/30 text-[10px]">{step.duration}</p>
+        <p className="text-app-text-muted text-[10px]">{step.duration}</p>
       </div>
     </div>
   );
@@ -155,20 +155,20 @@ function ShareModal({
     navigate("/community");
   }, [navigate, onClose]);
 
-  const scoreColor = overallAccuracy >= 70 ? "#34d399" : overallAccuracy >= 50 ? "#e8c84a" : "#f87171";
+  const scoreColor = overallAccuracy >= 70 ? "#34d399" : overallAccuracy >= 50 ? "app-accent-primary" : "#f87171";
   const worstTopics = [...topicAnalysis].sort((a, b) => a.accuracy - b.accuracy).slice(0, 3);
   const bestTopics = [...topicAnalysis].sort((a, b) => b.accuracy - a.accuracy).slice(0, 3);
 
   return (
     <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4" onClick={onClose}>
-      <div className="bg-[#0f1117] border border-white/10 rounded-2xl w-full max-w-lg" onClick={e => e.stopPropagation()}>
+      <div className="bg-app-bg border border-app-border rounded-2xl w-full max-w-lg" onClick={e => e.stopPropagation()}>
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-white/5">
+        <div className="flex items-center justify-between p-5 border-b border-app-border">
           <div>
             <p className="text-white font-bold text-base">Chia sẻ kết quả phân tích</p>
             <p className="text-white/35 text-xs mt-0.5">Tạo ảnh tổng kết để chia sẻ lên cộng đồng</p>
           </div>
-          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-white/10 text-white/40 cursor-pointer transition-colors">
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-app-card/70 text-app-text-secondary cursor-pointer transition-colors">
             <i className="ri-close-line text-lg"></i>
           </button>
         </div>
@@ -184,7 +184,7 @@ function ShareModal({
             }}
           >
             {/* Card header */}
-            <div className="px-5 pt-5 pb-4 border-b border-white/5">
+            <div className="px-5 pt-5 pb-4 border-b border-app-border">
               <div className="flex items-center gap-3 mb-3">
                 <img
                   src="https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png"
@@ -197,15 +197,15 @@ function ShareModal({
                 </div>
                 <div className="ml-auto text-right">
                   <p className="font-bold text-2xl" style={{ color: scoreColor }}>{overallAccuracy}%</p>
-                  <p className="text-white/30 text-[9px]">Độ chính xác</p>
+                  <p className="text-app-text-muted text-[9px]">Độ chính xác</p>
                 </div>
               </div>
 
               {/* Overall bar */}
-              <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+              <div className="h-2 bg-app-card/50 rounded-full overflow-hidden">
                 <div className="h-full rounded-full transition-all" style={{ width: `${overallAccuracy}%`, backgroundColor: scoreColor }}></div>
               </div>
-              <div className="flex items-center justify-between mt-1.5 text-[9px] text-white/25">
+              <div className="flex items-center justify-between mt-1.5 text-[9px] text-app-text-muted">
                 <span>{totalAnswered} câu đã làm</span>
                 <span>{topicAnalysis.length} chủ đề</span>
               </div>
@@ -262,8 +262,8 @@ function ShareModal({
 
             {/* Footer */}
             <div className="px-5 pb-4 flex items-center justify-between">
-              <p className="text-white/20 text-[9px]">hanquocoi.com · EPS-TOPIK Analyzer</p>
-              <p className="text-[#e8c84a]/40 text-[9px]">{new Date().toLocaleDateString("vi-VN")}</p>
+              <p className="text-app-text-muted text-[9px]">hanquocoi.com · EPS-TOPIK Analyzer</p>
+              <p className="text-app-accent-primary/40 text-[9px]">{new Date().toLocaleDateString("vi-VN")}</p>
             </div>
           </div>
         </div>
@@ -272,14 +272,14 @@ function ShareModal({
         <div className="px-5 pb-5 space-y-2">
           <button
             onClick={handleShareCommunity}
-            className="w-full py-3 bg-[#e8c84a] text-[#0f1117] font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap flex items-center justify-center gap-2"
+            className="w-full py-3 bg-app-accent-primary text-app-bg font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap flex items-center justify-center gap-2"
           >
             <i className="ri-group-line"></i>
             Chia sẻ lên Cộng đồng
           </button>
           <button
             onClick={handleCopyLink}
-            className="w-full py-3 bg-white/5 hover:bg-white/8 text-white/60 text-sm rounded-xl cursor-pointer whitespace-nowrap flex items-center justify-center gap-2 transition-colors"
+            className="w-full py-3 bg-app-card/50 hover:bg-white/8 text-white/60 text-sm rounded-xl cursor-pointer whitespace-nowrap flex items-center justify-center gap-2 transition-colors"
           >
             <i className={copied ? "ri-check-line text-[#34d399]" : "ri-link"}></i>
             <span className={copied ? "text-[#34d399]" : ""}>{copied ? "Đã sao chép link!" : "Sao chép link trang"}</span>
@@ -440,21 +440,21 @@ export default function EpsWeaknessAnalysisPage() {
       )}
       {/* Stats overview */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        <StatCard icon="ri-question-answer-line" label="Câu đã làm" value={totalAnswered} sub={`/ ${epsQuestions.length} câu`} color="#e8c84a" />
-        <StatCard icon="ri-percent-line" label="Độ chính xác tổng" value={`${overallAccuracy}%`} sub={`${totalCorrect} câu đúng`} color={overallAccuracy >= 70 ? "#34d399" : overallAccuracy >= 50 ? "#e8c84a" : "#f87171"} />
+        <StatCard icon="ri-question-answer-line" label="Câu đã làm" value={totalAnswered} sub={`/ ${epsQuestions.length} câu`} color="app-accent-primary" />
+        <StatCard icon="ri-percent-line" label="Độ chính xác tổng" value={`${overallAccuracy}%`} sub={`${totalCorrect} câu đúng`} color={overallAccuracy >= 70 ? "#34d399" : overallAccuracy >= 50 ? "app-accent-primary" : "#f87171"} />
         <StatCard icon="ri-alarm-warning-line" label="Chủ đề cần ôn" value={criticalTopics.length} sub="yếu + rất yếu" color="#f87171" />
         <StatCard icon="ri-trophy-line" label="Chủ đề tốt" value={strongTopics.length} sub="trên 80% chính xác" color="#34d399" />
       </div>
 
       {/* Tabs + Share button */}
       <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center bg-white/5 rounded-xl p-1 w-fit">
+        <div className="flex items-center bg-app-card/50 rounded-xl p-1 w-fit">
           {(["overview", "roadmap", "detail"] as const).map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`px-5 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${
-                activeTab === tab ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/40 hover:text-white/70"
+                activeTab === tab ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/70"
               }`}
             >
               {tab === "overview" ? "Tổng quan" : tab === "roadmap" ? "Lộ trình ôn tập" : "Chi tiết câu sai"}
@@ -463,7 +463,7 @@ export default function EpsWeaknessAnalysisPage() {
         </div>
         <button
           onClick={() => setShowShare(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 border border-[#e8c84a]/20 text-[#e8c84a] text-sm font-medium rounded-xl cursor-pointer whitespace-nowrap transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 border border-app-accent-primary/20 text-app-accent-primary text-sm font-medium rounded-xl cursor-pointer whitespace-nowrap transition-colors"
         >
           <i className="ri-share-line"></i>
           Chia sẻ kết quả
@@ -479,16 +479,16 @@ export default function EpsWeaknessAnalysisPage() {
             <div className="flex items-center justify-between mb-4">
               <p className="text-white/60 text-sm font-semibold">
                 {topicAnalysis.length} chủ đề
-                {totalAnswered === 0 && <span className="text-white/30 font-normal ml-2">— Hãy làm bài thi EPS để có dữ liệu phân tích</span>}
+                {totalAnswered === 0 && <span className="text-app-text-muted font-normal ml-2">— Hãy làm bài thi EPS để có dữ liệu phân tích</span>}
               </p>
               <div className="flex items-center gap-2">
-                <span className="text-white/30 text-xs">Sắp xếp:</span>
+                <span className="text-app-text-muted text-xs">Sắp xếp:</span>
                 {(["accuracy", "wrong", "total"] as const).map(s => (
                   <button
                     key={s}
                     onClick={() => setSortBy(s)}
                     className={`px-3 py-1.5 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${
-                      sortBy === s ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "text-white/30 hover:text-white/60"
+                      sortBy === s ? "bg-app-accent-primary/15 text-app-accent-primary" : "text-app-text-muted hover:text-white/60"
                     }`}
                   >
                     {s === "accuracy" ? "Độ chính xác" : s === "wrong" ? "Số câu sai" : "Tổng câu"}
@@ -498,13 +498,13 @@ export default function EpsWeaknessAnalysisPage() {
             </div>
 
             {topicAnalysis.length === 0 ? (
-              <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-12 text-center">
+              <div className="bg-app-bg border border-app-border rounded-2xl p-12 text-center">
                 <i className="ri-bar-chart-grouped-line text-white/10 text-5xl mb-4 block"></i>
-                <p className="text-white/40 text-base font-medium mb-2">Chưa có dữ liệu phân tích</p>
-                <p className="text-white/25 text-sm mb-6">Hãy làm bài thi EPS để hệ thống phân tích điểm yếu của bạn</p>
+                <p className="text-app-text-secondary text-base font-medium mb-2">Chưa có dữ liệu phân tích</p>
+                <p className="text-app-text-muted text-sm mb-6">Hãy làm bài thi EPS để hệ thống phân tích điểm yếu của bạn</p>
                 <button
                   onClick={() => navigate("/eps")}
-                  className="px-6 py-3 bg-[#e8c84a] text-[#0f1117] font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap"
+                  className="px-6 py-3 bg-app-accent-primary text-app-bg font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap"
                 >
                   <i className="ri-play-line mr-2"></i>Bắt đầu luyện thi EPS
                 </button>
@@ -527,7 +527,7 @@ export default function EpsWeaknessAnalysisPage() {
           {/* Right: Summary */}
           <div className="space-y-4">
             {/* Level distribution */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <p className="text-white font-semibold text-sm mb-4">Phân bố trình độ</p>
               {(["critical", "weak", "average", "strong"] as const).map(level => {
                 const cfg = getLevelConfig(level);
@@ -542,9 +542,9 @@ export default function EpsWeaknessAnalysisPage() {
                         </div>
                         <span className="text-xs" style={{ color: cfg.color }}>{cfg.label}</span>
                       </div>
-                      <span className="text-white/30 text-xs">{count} chủ đề ({pct}%)</span>
+                      <span className="text-app-text-muted text-xs">{count} chủ đề ({pct}%)</span>
                     </div>
-                    <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                       <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: cfg.color }}></div>
                     </div>
                   </div>
@@ -554,7 +554,7 @@ export default function EpsWeaknessAnalysisPage() {
 
             {/* Worst topics */}
             {criticalTopics.length > 0 && (
-              <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+              <div className="bg-app-bg border border-app-border rounded-2xl p-5">
                 <p className="text-white font-semibold text-sm mb-3">
                   <i className="ri-alarm-warning-line text-[#f87171] mr-1.5"></i>
                   Cần ôn gấp
@@ -566,7 +566,7 @@ export default function EpsWeaknessAnalysisPage() {
                       <button
                         key={t.topic}
                         onClick={() => { setSelectedTopic(t.topic); setActiveTab("detail"); }}
-                        className="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-white/3 transition-colors cursor-pointer text-left"
+                        className="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-app-surface/50 transition-colors cursor-pointer text-left"
                       >
                         <span className="text-white/60 text-xs truncate flex-1">{t.topic}</span>
                         <span className="text-xs font-bold ml-2 flex-shrink-0" style={{ color: cfg.color }}>{t.accuracy}%</span>
@@ -578,43 +578,43 @@ export default function EpsWeaknessAnalysisPage() {
             )}
 
             {/* Quick actions */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <p className="text-white font-semibold text-sm mb-3">Hành động nhanh</p>
               <div className="space-y-2">
                 <button
                   onClick={() => navigate("/eps-spaced-review")}
-                  className="w-full flex items-center gap-2.5 p-3 bg-white/3 hover:bg-white/6 rounded-xl transition-colors cursor-pointer text-left"
+                  className="w-full flex items-center gap-2.5 p-3 bg-app-surface/50 hover:bg-white/6 rounded-xl transition-colors cursor-pointer text-left"
                 >
                   <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#a78bfa]/10 flex-shrink-0">
                     <i className="ri-brain-line text-[#a78bfa] text-sm"></i>
                   </div>
                   <div>
                     <p className="text-white/70 text-xs font-medium">Ôn tập Spaced Repetition</p>
-                    <p className="text-white/30 text-[10px]">Thêm câu sai vào SR queue</p>
+                    <p className="text-app-text-muted text-[10px]">Thêm câu sai vào SR queue</p>
                   </div>
                 </button>
                 <button
                   onClick={() => navigate("/eps-topic-drill")}
-                  className="w-full flex items-center gap-2.5 p-3 bg-white/3 hover:bg-white/6 rounded-xl transition-colors cursor-pointer text-left"
+                  className="w-full flex items-center gap-2.5 p-3 bg-app-surface/50 hover:bg-white/6 rounded-xl transition-colors cursor-pointer text-left"
                 >
-                  <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#e8c84a]/10 flex-shrink-0">
-                    <i className="ri-focus-3-line text-[#e8c84a] text-sm"></i>
+                  <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-accent-primary/10 flex-shrink-0">
+                    <i className="ri-focus-3-line text-app-accent-primary text-sm"></i>
                   </div>
                   <div>
                     <p className="text-white/70 text-xs font-medium">Luyện theo chủ đề</p>
-                    <p className="text-white/30 text-[10px]">Tập trung vào chủ đề yếu</p>
+                    <p className="text-app-text-muted text-[10px]">Tập trung vào chủ đề yếu</p>
                   </div>
                 </button>
                 <button
                   onClick={() => navigate("/eps-exam")}
-                  className="w-full flex items-center gap-2.5 p-3 bg-white/3 hover:bg-white/6 rounded-xl transition-colors cursor-pointer text-left"
+                  className="w-full flex items-center gap-2.5 p-3 bg-app-surface/50 hover:bg-white/6 rounded-xl transition-colors cursor-pointer text-left"
                 >
                   <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#34d399]/10 flex-shrink-0">
                     <i className="ri-timer-line text-[#34d399] text-sm"></i>
                   </div>
                   <div>
                     <p className="text-white/70 text-xs font-medium">Thi thử EPS 40 câu</p>
-                    <p className="text-white/30 text-[10px]">Kiểm tra tiến độ tổng thể</p>
+                    <p className="text-app-text-muted text-[10px]">Kiểm tra tiến độ tổng thể</p>
                   </div>
                 </button>
               </div>
@@ -627,10 +627,10 @@ export default function EpsWeaknessAnalysisPage() {
       {activeTab === "roadmap" && (
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
           <div>
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5 mb-4">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5 mb-4">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-9 h-9 flex items-center justify-center rounded-xl bg-[#e8c84a]/10">
-                  <i className="ri-route-line text-[#e8c84a]"></i>
+                <div className="w-9 h-9 flex items-center justify-center rounded-xl bg-app-accent-primary/10">
+                  <i className="ri-route-line text-app-accent-primary"></i>
                 </div>
                 <div>
                   <p className="text-white font-semibold text-sm">Lộ trình ôn tập cá nhân hóa</p>
@@ -642,7 +642,7 @@ export default function EpsWeaknessAnalysisPage() {
                 <div className="text-center py-8">
                   <i className="ri-route-line text-white/10 text-4xl mb-3 block"></i>
                   <p className="text-white/35 text-sm">Chưa có đủ dữ liệu để tạo lộ trình</p>
-                  <p className="text-white/20 text-xs mt-1">Hãy làm ít nhất 20 câu EPS để nhận lộ trình cá nhân hóa</p>
+                  <p className="text-app-text-muted text-xs mt-1">Hãy làm ít nhất 20 câu EPS để nhận lộ trình cá nhân hóa</p>
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -653,18 +653,18 @@ export default function EpsWeaknessAnalysisPage() {
 
             {/* Estimated time */}
             {roadmap.length > 0 && (
-              <div className="bg-gradient-to-br from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/15 rounded-2xl p-5">
+              <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
                 <div className="flex items-center gap-2 mb-3">
-                  <i className="ri-time-line text-[#e8c84a]"></i>
+                  <i className="ri-time-line text-app-accent-primary"></i>
                   <p className="text-white font-semibold text-sm">Ước tính thời gian hoàn thành</p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
                     { label: "Ôn chủ đề yếu", value: `${criticalTopics.length * 3}–${criticalTopics.length * 5} ngày`, color: "#f87171" },
-                    { label: "Luyện tổng hợp", value: "3–5 ngày", color: "#e8c84a" },
+                    { label: "Luyện tổng hợp", value: "3–5 ngày", color: "app-accent-primary" },
                     { label: "Tổng cộng", value: `${criticalTopics.length * 3 + 3}–${criticalTopics.length * 5 + 5} ngày`, color: "#34d399" },
                   ].map(s => (
-                    <div key={s.label} className="text-center p-3 bg-white/3 rounded-xl">
+                    <div key={s.label} className="text-center p-3 bg-app-surface/50 rounded-xl">
                       <p className="font-bold text-sm mb-1" style={{ color: s.color }}>{s.value}</p>
                       <p className="text-white/35 text-[10px]">{s.label}</p>
                     </div>
@@ -676,11 +676,11 @@ export default function EpsWeaknessAnalysisPage() {
 
           {/* Right: Tips */}
           <div className="space-y-4">
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <p className="text-white font-semibold text-sm mb-3">Mẹo học hiệu quả</p>
               <div className="space-y-3">
                 {[
-                  { icon: "ri-time-line", color: "#e8c84a", tip: "Học 15–20 phút mỗi ngày hiệu quả hơn học 2 tiếng 1 lần/tuần" },
+                  { icon: "ri-time-line", color: "app-accent-primary", tip: "Học 15–20 phút mỗi ngày hiệu quả hơn học 2 tiếng 1 lần/tuần" },
                   { icon: "ri-brain-line", color: "#a78bfa", tip: "Dùng Spaced Repetition để ôn câu sai — não nhớ lâu hơn 5x" },
                   { icon: "ri-focus-3-line", color: "#34d399", tip: "Tập trung vào 1–2 chủ đề yếu nhất trước, đừng học dàn trải" },
                   { icon: "ri-headphone-line", color: "#38bdf8", tip: "Nghe TTS phát âm khi học flashcard để nhớ từ nhanh hơn" },
@@ -696,17 +696,17 @@ export default function EpsWeaknessAnalysisPage() {
               </div>
             </div>
 
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <p className="text-white font-semibold text-sm mb-3">Mục tiêu EPS-TOPIK</p>
               <div className="space-y-2.5">
                 {[
-                  { label: "Điểm đậu tối thiểu", value: "80/200", color: "#e8c84a" },
+                  { label: "Điểm đậu tối thiểu", value: "80/200", color: "app-accent-primary" },
                   { label: "Độ chính xác cần đạt", value: "≥ 70%", color: "#34d399" },
                   { label: "Số câu đúng tối thiểu", value: "32/40 câu", color: "#38bdf8" },
                   { label: "Thời gian làm bài", value: "70 phút", color: "#a78bfa" },
                 ].map(s => (
                   <div key={s.label} className="flex items-center justify-between">
-                    <span className="text-white/40 text-xs">{s.label}</span>
+                    <span className="text-app-text-secondary text-xs">{s.label}</span>
                     <span className="font-bold text-sm" style={{ color: s.color }}>{s.value}</span>
                   </div>
                 ))}
@@ -720,8 +720,8 @@ export default function EpsWeaknessAnalysisPage() {
       {activeTab === "detail" && (
         <div className="grid grid-cols-[260px_1fr] gap-6">
           {/* Left: Topic selector */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4 h-fit">
-            <p className="text-white/40 text-xs font-semibold tracking-normal mb-3">Chọn chủ đề</p>
+          <div className="bg-app-bg border border-app-border rounded-2xl p-4 h-fit">
+            <p className="text-app-text-secondary text-xs font-semibold tracking-normal mb-3">Chọn chủ đề</p>
             <div className="space-y-1">
               {topicAnalysis.map(t => {
                 const cfg = getLevelConfig(t.level);
@@ -730,7 +730,7 @@ export default function EpsWeaknessAnalysisPage() {
                     key={t.topic}
                     onClick={() => setSelectedTopic(t.topic)}
                     className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left transition-all cursor-pointer ${
-                      selectedTopic === t.topic ? "bg-white/8 text-white" : "text-white/45 hover:text-white/70 hover:bg-white/3"
+                      selectedTopic === t.topic ? "bg-white/8 text-white" : "text-white/45 hover:text-white/70 hover:bg-app-surface/50"
                     }`}
                   >
                     <div className="w-3 h-3 flex items-center justify-center flex-shrink-0">
@@ -747,14 +747,14 @@ export default function EpsWeaknessAnalysisPage() {
           {/* Right: Wrong questions */}
           <div>
             {!selectedAnalysis ? (
-              <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-12 text-center">
+              <div className="bg-app-bg border border-app-border rounded-2xl p-12 text-center">
                 <i className="ri-cursor-line text-white/10 text-4xl mb-3 block"></i>
                 <p className="text-white/35 text-sm">Chọn một chủ đề để xem chi tiết câu sai</p>
               </div>
             ) : (
               <div>
                 {/* Topic header */}
-                <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5 mb-4">
+                <div className="bg-app-bg border border-app-border rounded-2xl p-5 mb-4">
                   <div className="flex items-center justify-between mb-3">
                     <div>
                       <h3 className="text-white font-bold text-base">{selectedAnalysis.topic}</h3>
@@ -771,7 +771,7 @@ export default function EpsWeaknessAnalysisPage() {
                       </p>
                     </div>
                   </div>
-                  <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                  <div className="h-2 bg-app-card/50 rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all duration-700"
                       style={{ width: `${selectedAnalysis.accuracy}%`, backgroundColor: getLevelConfig(selectedAnalysis.level).color }}
@@ -781,20 +781,20 @@ export default function EpsWeaknessAnalysisPage() {
 
                 {/* Wrong questions list */}
                 {selectedAnalysis.wrongQuestions.length === 0 ? (
-                  <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-8 text-center">
+                  <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center">
                     <i className="ri-checkbox-circle-line text-[#34d399] text-4xl mb-3 block"></i>
                     <p className="text-white/60 text-sm font-medium">Không có câu sai trong chủ đề này!</p>
-                    <p className="text-white/30 text-xs mt-1">Bạn đang làm rất tốt ở chủ đề này</p>
+                    <p className="text-app-text-muted text-xs mt-1">Bạn đang làm rất tốt ở chủ đề này</p>
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    <p className="text-white/40 text-xs font-semibold tracking-normal">
+                    <p className="text-app-text-secondary text-xs font-semibold tracking-normal">
                       {selectedAnalysis.wrongQuestions.length} câu đã làm sai
                     </p>
                     {selectedAnalysis.wrongQuestions.map((q, i) => {
                       const userAns = epsAnswers[q.id];
                       return (
-                        <div key={q.id} className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+                        <div key={q.id} className="bg-app-bg border border-app-border rounded-2xl p-5">
                           <div className="flex items-start gap-3 mb-3">
                             <div className="w-6 h-6 flex items-center justify-center rounded-lg bg-[#f87171]/10 flex-shrink-0 mt-0.5">
                               <span className="text-[#f87171] text-[10px] font-bold">{i + 1}</span>
@@ -812,13 +812,13 @@ export default function EpsWeaknessAnalysisPage() {
                                   className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs ${
                                     isCorrect ? "bg-[#34d399]/10 border border-[#34d399]/20" :
                                     isUserWrong ? "bg-[#f87171]/10 border border-[#f87171]/20" :
-                                    "bg-white/3 border border-transparent"
+                                    "bg-app-surface/50 border border-transparent"
                                   }`}
                                 >
                                   <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
                                     {isCorrect ? <i className="ri-checkbox-circle-fill text-[#34d399] text-sm"></i> :
                                      isUserWrong ? <i className="ri-close-circle-fill text-[#f87171] text-sm"></i> :
-                                     <span className="text-white/20 text-[10px]">{String.fromCharCode(65 + idx)}</span>}
+                                     <span className="text-app-text-muted text-[10px]">{String.fromCharCode(65 + idx)}</span>}
                                   </div>
                                   <span className={isCorrect ? "text-[#34d399]" : isUserWrong ? "text-[#f87171]" : "text-white/45"}>
                                     {opt}
@@ -831,8 +831,8 @@ export default function EpsWeaknessAnalysisPage() {
                           </div>
 
                           {q.explanation && (
-                            <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/10 rounded-lg px-3 py-2">
-                              <p className="text-[#e8c84a]/70 text-[10px] font-semibold mb-1">Giải thích:</p>
+                            <div className="bg-app-accent-primary/5 border border-app-accent-primary/10 rounded-lg px-3 py-2">
+                              <p className="text-app-accent-primary/70 text-[10px] font-semibold mb-1">Giải thích:</p>
                               <p className="text-white/50 text-xs leading-relaxed">{q.explanation}</p>
                             </div>
                           )}

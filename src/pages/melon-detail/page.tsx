@@ -63,7 +63,7 @@ function RelatedSongs({ song, onNavigate }: RelatedSongsProps) {
             <button
               key={s.rank}
               onClick={() => onNavigate(s.rank)}
-              className="group text-left bg-white/3 hover:bg-white/6 border border-white/5 hover:border-white/10 rounded-2xl overflow-hidden transition-all cursor-pointer"
+              className="group text-left bg-app-surface/50 hover:bg-white/6 border border-app-border hover:border-app-border rounded-2xl overflow-hidden transition-all cursor-pointer"
             >
               <div className="relative w-full aspect-square">
                 <img
@@ -74,7 +74,7 @@ function RelatedSongs({ song, onNavigate }: RelatedSongsProps) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                 <div className="absolute top-2 left-2">
                   {isSameArtist ? (
-                    <span className="text-[9px] bg-[#e8c84a] text-[#0f1117] font-bold px-1.5 py-0.5 rounded-full whitespace-nowrap">
+                    <span className="text-[9px] bg-app-accent-primary text-app-bg font-bold px-1.5 py-0.5 rounded-full whitespace-nowrap">
                       Cùng nghệ sĩ
                     </span>
                   ) : (
@@ -93,7 +93,7 @@ function RelatedSongs({ song, onNavigate }: RelatedSongsProps) {
                 </div>
               </div>
               <div className="px-2.5 py-2">
-                <p className="text-white/40 text-[10px] truncate">{s.artist}</p>
+                <p className="text-app-text-secondary text-[10px] truncate">{s.artist}</p>
                 <p className="text-[#00C73C] text-[10px] font-bold">#{s.rank}</p>
               </div>
             </button>
@@ -192,10 +192,10 @@ export default function MelonDetailPage() {
 
   if (!song) {
     return (
-      <div className="min-h-screen bg-[#0f1117] flex flex-col items-center justify-center text-center px-6">
-        <i className="ri-music-2-line text-white/20 text-5xl mb-4" />
+      <div className="min-h-screen bg-app-bg flex flex-col items-center justify-center text-center px-6">
+        <i className="ri-music-2-line text-app-text-muted text-5xl mb-4" />
         <p className="text-white/50 text-base">Không tìm thấy bài hát</p>
-        <button onClick={() => navigate("/melon")} className="mt-4 text-[#e8c84a] text-sm cursor-pointer">
+        <button onClick={() => navigate("/melon")} className="mt-4 text-app-accent-primary text-sm cursor-pointer">
           ← Quay lại Melon Chart
         </button>
       </div>
@@ -210,12 +210,12 @@ export default function MelonDetailPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0f1117]">
+    <div className="min-h-screen bg-app-bg">
       {/* Top bar */}
-      <header className="sticky top-0 z-30 bg-[#0f1117]/95 backdrop-blur-md border-b border-white/8 h-14 flex items-center px-4 gap-3">
+      <header className="sticky top-0 z-30 bg-app-bg/95 backdrop-blur-md border-b border-app-border h-14 flex items-center px-4 gap-3">
         <button
           onClick={() => navigate(-1)}
-          className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/60 hover:text-white cursor-pointer flex-shrink-0"
+          className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-white/60 hover:text-white cursor-pointer flex-shrink-0"
         >
           <i className="ri-arrow-left-line" />
         </button>
@@ -229,7 +229,7 @@ export default function MelonDetailPage() {
         <p className="flex-1 text-white font-semibold text-sm truncate">{song.title}</p>
         <button
           onClick={() => navigate("/dashboard")}
-          className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/40 hover:text-white/70 cursor-pointer flex-shrink-0 transition-colors"
+          className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white/70 cursor-pointer flex-shrink-0 transition-colors"
           title="Trang chủ"
         >
           <i className="ri-home-4-line" />
@@ -237,7 +237,7 @@ export default function MelonDetailPage() {
         <button
           onClick={togglePlaylist}
           className={`w-8 h-8 flex items-center justify-center rounded-lg cursor-pointer transition-colors flex-shrink-0 ${
-            isInPlaylist ? "bg-red-500/15 text-red-400" : "bg-white/5 text-white/40 hover:text-white/70"
+            isInPlaylist ? "bg-red-500/15 text-red-400" : "bg-app-card/50 text-app-text-secondary hover:text-white/70"
           }`}
         >
           <i className={isInPlaylist ? "ri-heart-3-fill" : "ri-heart-3-line"} />
@@ -261,14 +261,14 @@ export default function MelonDetailPage() {
               {!result && !loading && (
                 <button
                   onClick={handleAnalyze}
-                  className="flex items-center gap-2 bg-[#e8c84a] hover:bg-[#e8c84a]/80 text-[#0f1117] text-sm font-bold px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
+                  className="flex items-center gap-2 bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
                 >
                   <i className="ri-sparkling-2-line" />
                   Phân tích AI
                 </button>
               )}
               {loading && (
-                <div className="flex items-center gap-2 bg-white/5 text-white/50 text-sm px-5 py-2.5 rounded-xl">
+                <div className="flex items-center gap-2 bg-app-card/50 text-white/50 text-sm px-5 py-2.5 rounded-xl">
                   <i className="ri-loader-4-line animate-spin" />
                   Đang phân tích...
                 </div>
@@ -281,14 +281,14 @@ export default function MelonDetailPage() {
                   </span>
                   <button
                     onClick={() => setShowQuiz(true)}
-                    className="flex items-center gap-2 bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 border border-[#e8c84a]/20 text-[#e8c84a] text-sm font-semibold px-4 py-2 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
+                    className="flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 border border-app-accent-primary/20 text-app-accent-primary text-sm font-semibold px-4 py-2 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
                   >
                     <i className="ri-lightbulb-flash-line" />
                     Làm Quiz (5 câu)
                   </button>
                   <button
                     onClick={handleAnalyze}
-                    className="flex items-center gap-2 text-white/30 hover:text-white/60 text-xs px-3 py-2 rounded-xl border border-white/8 hover:border-white/15 cursor-pointer whitespace-nowrap transition-colors"
+                    className="flex items-center gap-2 text-app-text-muted hover:text-white/60 text-xs px-3 py-2 rounded-xl border border-app-border hover:border-white/15 cursor-pointer whitespace-nowrap transition-colors"
                   >
                     <i className="ri-refresh-line" />
                     Tạo lại
@@ -306,9 +306,9 @@ export default function MelonDetailPage() {
 
         {/* API Key input */}
         {showKeyInput && !result && (
-          <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-2xl p-5 mb-6">
+          <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-2xl p-5 mb-6">
             <p className="text-white/60 text-sm mb-3">
-              <i className="ri-key-2-line text-[#e8c84a] mr-1.5" />
+              <i className="ri-key-2-line text-app-accent-primary mr-1.5" />
               Nhập API Key để phân tích AI (chỉ cần nhập 1 lần)
             </p>
             <div className="flex gap-2 mb-3">
@@ -318,8 +318,8 @@ export default function MelonDetailPage() {
                   onClick={() => setProvider(p)}
                   className={`flex-1 text-xs py-2 rounded-lg border transition-all cursor-pointer whitespace-nowrap ${
                     provider === p
-                      ? "border-[#e8c84a] bg-[#e8c84a]/10 text-[#e8c84a]"
-                      : "border-white/10 text-white/30 hover:border-white/20"
+                      ? "border-app-accent-primary bg-app-accent-primary/10 text-app-accent-primary"
+                      : "border-app-border text-app-text-muted hover:border-white/20"
                   }`}
                 >
                   {p === "gemini" ? "Gemini" : p === "openai" ? "OpenAI" : "OpenRouter"}
@@ -332,12 +332,12 @@ export default function MelonDetailPage() {
                 value={apiKey}
                 onChange={(e) => setApiKey(e.target.value)}
                 placeholder={`API Key cho ${provider}...`}
-                className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40"
+                className="flex-1 bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40"
                 onKeyDown={(e) => e.key === "Enter" && handleSaveKey()}
               />
               <button
                 onClick={handleSaveKey}
-                className="bg-[#e8c84a] hover:bg-[#e8c84a]/80 text-[#0f1117] text-sm font-bold px-5 rounded-xl cursor-pointer whitespace-nowrap"
+                className="bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold px-5 rounded-xl cursor-pointer whitespace-nowrap"
               >
                 Lưu &amp; Phân tích
               </button>
@@ -346,7 +346,7 @@ export default function MelonDetailPage() {
         )}
 
         {/* Tab bar */}
-        <div className="flex gap-1 bg-white/5 p-1 rounded-xl mb-6 overflow-x-auto">
+        <div className="flex gap-1 bg-app-card/50 p-1 rounded-xl mb-6 overflow-x-auto">
           {TABS.map((t) => (
             <button
               key={t.key}
@@ -354,10 +354,10 @@ export default function MelonDetailPage() {
               disabled={t.disabled}
               className={`flex items-center gap-1.5 text-sm px-4 py-2 rounded-lg transition-all whitespace-nowrap flex-shrink-0 ${
                 t.disabled
-                  ? "text-white/20 cursor-not-allowed"
+                  ? "text-app-text-muted cursor-not-allowed"
                   : tab === t.key
-                  ? "bg-white/10 text-white font-semibold"
-                  : "text-white/40 hover:text-white/70 cursor-pointer"
+                  ? "bg-app-card/70 text-white font-semibold"
+                  : "text-app-text-secondary hover:text-white/70 cursor-pointer"
               }`}
             >
               <i className={`${t.icon} text-sm`} />
@@ -370,7 +370,7 @@ export default function MelonDetailPage() {
         {/* Tab content */}
         <div className="lg:grid lg:grid-cols-2 lg:gap-6">
           <div className={tab === "lyrics" ? "block" : "hidden lg:block"}>
-            <div className="bg-white/3 rounded-2xl border border-white/5 p-6">
+            <div className="bg-app-surface/50 rounded-2xl border border-app-border p-6">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-6 h-6 flex items-center justify-center">
                   <i className="ri-music-line text-[#00C73C] text-sm" />
@@ -383,28 +383,28 @@ export default function MelonDetailPage() {
 
           <div className={tab !== "lyrics" ? "block" : "hidden lg:block"}>
             {loading && (
-              <div className="bg-white/3 rounded-2xl border border-white/5 p-10 flex flex-col items-center justify-center text-center">
-                <i className="ri-loader-4-line text-[#e8c84a] text-3xl animate-spin mb-3" />
+              <div className="bg-app-surface/50 rounded-2xl border border-app-border p-10 flex flex-col items-center justify-center text-center">
+                <i className="ri-loader-4-line text-app-accent-primary text-3xl animate-spin mb-3" />
                 <p className="text-white/50 text-sm">AI đang phân tích...</p>
               </div>
             )}
             {!result && !loading && (
-              <div className="bg-white/3 rounded-2xl border border-white/5 p-10 flex flex-col items-center justify-center text-center">
-                <div className="w-14 h-14 flex items-center justify-center bg-[#e8c84a]/8 rounded-2xl mb-4">
-                  <i className="ri-sparkling-2-line text-[#e8c84a]/40 text-2xl" />
+              <div className="bg-app-surface/50 rounded-2xl border border-app-border p-10 flex flex-col items-center justify-center text-center">
+                <div className="w-14 h-14 flex items-center justify-center bg-app-accent-primary/8 rounded-2xl mb-4">
+                  <i className="ri-sparkling-2-line text-app-accent-primary/40 text-2xl" />
                 </div>
-                <p className="text-white/30 text-sm">Nhấn &ldquo;Phân tích AI&rdquo; để xem nội dung học tiếng Hàn</p>
+                <p className="text-app-text-muted text-sm">Nhấn &ldquo;Phân tích AI&rdquo; để xem nội dung học tiếng Hàn</p>
               </div>
             )}
             {result && !loading && (
               <div>
-                <div className="flex gap-1 bg-white/5 p-1 rounded-xl mb-4 lg:hidden">
+                <div className="flex gap-1 bg-app-card/50 p-1 rounded-xl mb-4 lg:hidden">
                   {(["story", "vocab", "grammar"] as Tab[]).map((t) => (
                     <button
                       key={t}
                       onClick={() => setTab(t)}
                       className={`flex-1 text-xs py-2 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
-                        tab === t ? "bg-[#e8c84a] text-[#0f1117] font-semibold" : "text-white/40 hover:text-white/60"
+                        tab === t ? "bg-app-accent-primary text-app-bg font-semibold" : "text-app-text-secondary hover:text-white/60"
                       }`}
                     >
                       {t === "story" ? "Truyện Chêm" : t === "vocab" ? "Từ vựng" : "Ngữ pháp"}
@@ -414,31 +414,31 @@ export default function MelonDetailPage() {
 
                 {/* Desktop: all stacked */}
                 <div className="hidden lg:space-y-4 lg:block">
-                  <div className="bg-white/3 rounded-2xl border border-white/5 p-5">
+                  <div className="bg-app-surface/50 rounded-2xl border border-app-border p-5">
                     <div className="flex items-center gap-2 mb-3">
-                      <i className="ri-book-open-line text-[#e8c84a] text-sm" />
+                      <i className="ri-book-open-line text-app-accent-primary text-sm" />
                       <span className="text-white/60 text-xs font-medium tracking-normal">Truyện Chêm</span>
                     </div>
                     <p className="text-white/75 text-sm leading-8 whitespace-pre-line">{result.story}</p>
                   </div>
-                  <div className="bg-white/3 rounded-2xl border border-white/5 p-5">
+                  <div className="bg-app-surface/50 rounded-2xl border border-app-border p-5">
                     <div className="flex items-center gap-2 mb-3">
-                      <i className="ri-translate-2 text-[#e8c84a] text-sm" />
+                      <i className="ri-translate-2 text-app-accent-primary text-sm" />
                       <span className="text-white/60 text-xs font-medium tracking-normal">Từ vựng</span>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       {result.vocabulary.map((v, i) => (
-                        <div key={i} className="bg-white/3 rounded-xl p-3 border border-white/5">
-                          <p className="text-[#e8c84a] text-sm font-semibold mb-0.5">{v.word}</p>
+                        <div key={i} className="bg-app-surface/50 rounded-xl p-3 border border-app-border">
+                          <p className="text-app-accent-primary text-sm font-semibold mb-0.5">{v.word}</p>
                           <p className="text-white/55 text-xs">{v.meaning}</p>
-                          <p className="text-white/30 text-xs italic mt-0.5 leading-relaxed">{v.example}</p>
+                          <p className="text-app-text-muted text-xs italic mt-0.5 leading-relaxed">{v.example}</p>
                         </div>
                       ))}
                     </div>
                   </div>
-                  <div className="bg-white/3 rounded-2xl border border-white/5 p-5">
+                  <div className="bg-app-surface/50 rounded-2xl border border-app-border p-5">
                     <div className="flex items-center gap-2 mb-3">
-                      <i className="ri-graduation-cap-line text-[#e8c84a] text-sm" />
+                      <i className="ri-graduation-cap-line text-app-accent-primary text-sm" />
                       <span className="text-white/60 text-xs font-medium tracking-normal">Phân tích ngữ pháp</span>
                     </div>
                     <p className="text-white/70 text-sm leading-8 whitespace-pre-line">{result.explanation}</p>
@@ -448,15 +448,15 @@ export default function MelonDetailPage() {
                 {/* Mobile tab-based */}
                 <div className="lg:hidden">
                   {tab === "story" && (
-                    <div className="bg-white/3 rounded-2xl p-5 border border-white/5">
+                    <div className="bg-app-surface/50 rounded-2xl p-5 border border-app-border">
                       <p className="text-white/75 text-sm leading-8 whitespace-pre-line">{result.story}</p>
                     </div>
                   )}
                   {tab === "vocab" && (
                     <div className="space-y-2.5">
                       {result.vocabulary.map((v, i) => (
-                        <div key={i} className="bg-white/3 rounded-xl p-4 border border-white/5">
-                          <p className="text-[#e8c84a] text-sm font-semibold mb-0.5">{v.word}</p>
+                        <div key={i} className="bg-app-surface/50 rounded-xl p-4 border border-app-border">
+                          <p className="text-app-accent-primary text-sm font-semibold mb-0.5">{v.word}</p>
                           <p className="text-white/60 text-xs mb-1">{v.meaning}</p>
                           <p className="text-white/35 text-xs italic leading-relaxed">{v.example}</p>
                         </div>
@@ -464,7 +464,7 @@ export default function MelonDetailPage() {
                     </div>
                   )}
                   {tab === "grammar" && (
-                    <div className="bg-white/3 rounded-2xl p-5 border border-white/5">
+                    <div className="bg-app-surface/50 rounded-2xl p-5 border border-app-border">
                       <p className="text-white/70 text-sm leading-8 whitespace-pre-line">{result.explanation}</p>
                     </div>
                   )}

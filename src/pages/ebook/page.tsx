@@ -29,7 +29,7 @@ const DEFAULT_META: EbookMeta = {
   subtitle: "Truyện Chêm & Từ Vựng Thực Tế",
   author: "Hà Dím",
   coverColor: "#0f1117",
-  coverAccent: "#e8c84a",
+  coverAccent: "app-accent-primary",
   description: "Tuyển tập bài học tiếng Hàn được biên soạn từ các bài hát K-pop đang hot, giúp bạn học từ vựng và ngữ pháp một cách tự nhiên và thú vị.",
   foreword: "Chào bạn đọc thân mến!\n\nCuốn ebook này được biên soạn với tình yêu dành cho tiếng Hàn và K-pop. Mỗi bài học là một câu chuyện nhỏ — nơi ngôn ngữ và âm nhạc hòa quyện để giúp bạn học tiếng Hàn một cách tự nhiên nhất.\n\nHãy đọc chậm, cảm nhận từng từ, và đừng quên nghe lại bài hát sau mỗi bài học nhé!\n\nChúc bạn học vui!",
   contactInfo: "Email: contact@hanvietkts.com\nFacebook: fb.com/hanvietkts\nZalo: 0901 234 567",
@@ -186,7 +186,7 @@ export default function EbookPage() {
       actions={
         <div className="flex items-center gap-3">
           {selectedLessons.length > 0 && (
-            <span className="text-white/40 text-xs bg-white/5 px-3 py-1.5 rounded-full">
+            <span className="text-app-text-secondary text-xs bg-app-card/50 px-3 py-1.5 rounded-full">
               {selectedLessons.length} bài đã chọn
             </span>
           )}
@@ -203,15 +203,15 @@ export default function EbookPage() {
             disabled={selectedLessons.length === 0}
           />
           {/* Export counter */}
-          <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-semibold ${canExport ? "border-emerald-500/20 bg-emerald-500/8 text-emerald-400" : "border-red-500/20 bg-red-500/8 text-red-400"}`}>
+          <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-semibold ${canExport ? "border-emerald-500/20 bg-emerald-500/8 text-app-accent-success" : "border-red-500/20 bg-red-500/8 text-red-400"}`}>
             <i className={`ri-file-pdf-2-line text-sm`}></i>
             <span>{remaining}/{limit} lần xuất</span>
-            {isVip && <span className="text-[#e8c84a] text-[10px] font-bold">VIP</span>}
+            {isVip && <span className="text-app-accent-primary text-[10px] font-bold">VIP</span>}
           </div>
           <button
             onClick={handleExportPDF}
             disabled={selectedLessons.length === 0 || exporting}
-            className="flex items-center gap-2 bg-[#e8c84a] hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-[#0f1117] font-bold text-sm px-5 py-2.5 rounded-xl transition-colors whitespace-nowrap cursor-pointer"
+            className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors whitespace-nowrap cursor-pointer"
           >
             {exporting ? (
               <><i className="ri-loader-4-line animate-spin"></i>Đang xuất...</>
@@ -232,36 +232,36 @@ export default function EbookPage() {
       {/* Limit modal */}
       {showLimitModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => setShowLimitModal(false)}>
-          <div className="bg-[#0f1117] border border-white/10 rounded-2xl p-7 max-w-sm w-full mx-4" onClick={e => e.stopPropagation()}>
+          <div className="bg-app-bg border border-app-border rounded-2xl p-7 max-w-sm w-full mx-4" onClick={e => e.stopPropagation()}>
             <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-red-500/10 mx-auto mb-4">
               <i className="ri-file-pdf-2-line text-red-400 text-2xl"></i>
             </div>
             <h3 className="text-white font-bold text-lg text-center mb-2">Đã hết lượt xuất PDF</h3>
-            <p className="text-white/40 text-sm text-center mb-5 leading-relaxed">
+            <p className="text-app-text-secondary text-sm text-center mb-5 leading-relaxed">
               {isVip
                 ? `Gói VIP cho phép xuất ${VIP_LIMIT} lần/tháng. Bạn đã dùng hết lượt tháng này. Lượt mới sẽ được reset vào đầu tháng sau.`
                 : `Gói Free chỉ cho phép xuất ${FREE_LIMIT} lần/tháng. Nâng cấp VIP để xuất ${VIP_LIMIT} lần/tháng!`
               }
             </p>
             <div className="grid grid-cols-2 gap-3 mb-4">
-              <div className="bg-white/3 rounded-xl p-3 text-center">
-                <p className="text-white/40 text-[10px] mb-1">Gói Free</p>
+              <div className="bg-app-surface/50 rounded-xl p-3 text-center">
+                <p className="text-app-text-secondary text-[10px] mb-1">Gói Free</p>
                 <p className="text-white font-bold text-lg">{FREE_LIMIT} lần</p>
-                <p className="text-white/25 text-[10px]">mỗi tháng</p>
+                <p className="text-app-text-muted text-[10px]">mỗi tháng</p>
               </div>
-              <div className="bg-[#e8c84a]/8 border border-[#e8c84a]/20 rounded-xl p-3 text-center">
-                <p className="text-[#e8c84a] text-[10px] mb-1 font-semibold">Gói VIP</p>
-                <p className="text-[#e8c84a] font-bold text-lg">{VIP_LIMIT} lần</p>
-                <p className="text-[#e8c84a]/40 text-[10px]">mỗi tháng</p>
+              <div className="bg-app-accent-primary/8 border border-app-accent-primary/20 rounded-xl p-3 text-center">
+                <p className="text-app-accent-primary text-[10px] mb-1 font-semibold">Gói VIP</p>
+                <p className="text-app-accent-primary font-bold text-lg">{VIP_LIMIT} lần</p>
+                <p className="text-app-accent-primary/40 text-[10px]">mỗi tháng</p>
               </div>
             </div>
             {!isVip && (
-              <a href="/pricing" className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm transition-colors cursor-pointer whitespace-nowrap mb-2">
+              <a href="/pricing" className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm transition-colors cursor-pointer whitespace-nowrap mb-2">
                 <i className="ri-vip-crown-line"></i>
                 Nâng cấp VIP — 79k/tháng
               </a>
             )}
-            <button onClick={() => setShowLimitModal(false)} className="w-full py-2.5 rounded-xl border border-white/10 text-white/50 text-sm hover:bg-white/5 transition-colors cursor-pointer whitespace-nowrap">
+            <button onClick={() => setShowLimitModal(false)} className="w-full py-2.5 rounded-xl border border-app-border text-white/50 text-sm hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">
               Đóng
             </button>
           </div>
@@ -270,14 +270,14 @@ export default function EbookPage() {
 
       {approvedLessons.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-24 text-center">
-          <div className="w-16 h-16 flex items-center justify-center bg-white/5 rounded-2xl mb-5">
-            <i className="ri-book-2-line text-white/20 text-3xl"></i>
+          <div className="w-16 h-16 flex items-center justify-center bg-app-card/50 rounded-2xl mb-5">
+            <i className="ri-book-2-line text-app-text-muted text-3xl"></i>
           </div>
-          <p className="text-white/40 text-sm font-medium">Chưa có bài học nào</p>
-          <p className="text-white/20 text-xs mt-1 mb-5">Duyệt bài học trong trang K-pop Lesson trước</p>
+          <p className="text-app-text-secondary text-sm font-medium">Chưa có bài học nào</p>
+          <p className="text-app-text-muted text-xs mt-1 mb-5">Duyệt bài học trong trang K-pop Lesson trước</p>
           <a
             href="/melon"
-            className="flex items-center gap-2 bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 text-[#e8c84a] text-sm font-medium px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-sm font-medium px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-music-2-line"></i>
             Đến K-pop Lesson
@@ -288,15 +288,15 @@ export default function EbookPage() {
           {/* Left panel */}
           <div className="flex-1 min-w-0">
             {/* Tabs */}
-            <div className="flex items-center gap-1 bg-white/3 rounded-xl p-1 border border-white/5 mb-5">
+            <div className="flex items-center gap-1 bg-app-surface/50 rounded-xl p-1 border border-app-border mb-5">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${
                     activeTab === tab.id
-                      ? "bg-[#e8c84a] text-[#0f1117]"
-                      : "text-white/40 hover:text-white/70"
+                      ? "bg-app-accent-primary text-app-bg"
+                      : "text-app-text-secondary hover:text-white/70"
                   }`}
                 >
                   <i className={tab.icon}></i>
@@ -339,8 +339,8 @@ export default function EbookPage() {
           <div className="w-80 flex-shrink-0">
             <div className="sticky top-5">
               <div className="flex items-center justify-between mb-3">
-                <p className="text-white/40 text-xs tracking-normal">Preview</p>
-                <span className="text-white/20 text-[10px]">A4 layout</span>
+                <p className="text-app-text-secondary text-xs tracking-normal">Preview</p>
+                <span className="text-app-text-muted text-[10px]">A4 layout</span>
               </div>
               <EbookCanvas
                 meta={meta}

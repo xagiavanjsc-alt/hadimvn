@@ -43,34 +43,34 @@ function ShareCard({ profile, stats }: { profile: PublicProfile; stats: PublicSt
   };
 
   return (
-    <div className="bg-gradient-to-br from-[#1a1f2e] to-[#0f1117] rounded-2xl p-6 border border-white/10 mb-6">
+    <div className="bg-gradient-to-br from-[#1a1f2e] to-[#0f1117] rounded-2xl p-6 border border-app-border mb-6">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl overflow-hidden bg-[#e8c84a]/20 flex items-center justify-center flex-shrink-0">
+          <div className="w-12 h-12 rounded-xl overflow-hidden bg-app-accent-primary/20 flex items-center justify-center flex-shrink-0">
             {profile.avatar_url ? (
               <img src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
             ) : (
-              <span className="text-[#e8c84a] text-xl font-bold">{profile.display_name?.[0]?.toUpperCase()}</span>
+              <span className="text-app-accent-primary text-xl font-bold">{profile.display_name?.[0]?.toUpperCase()}</span>
             )}
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h2 className="text-white font-bold text-base">{profile.display_name}</h2>
               {isVipActive(profile) && (
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#e8c84a]/15 text-[#e8c84a] font-bold border border-[#e8c84a]/25">VIP</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary font-bold border border-app-accent-primary/25">VIP</span>
               )}
             </div>
             <div className="flex items-center gap-2 mt-0.5">
               <i className={`${stats.rankIcon} text-xs`} style={{ color: stats.rankColor }}></i>
               <span className="text-xs font-semibold" style={{ color: stats.rankColor }}>{stats.rankName}</span>
-              <span className="text-white/30 text-xs">· {stats.totalXP.toLocaleString()} XP</span>
+              <span className="text-app-text-muted text-xs">· {stats.totalXP.toLocaleString()} XP</span>
             </div>
           </div>
         </div>
         <button
           onClick={handleCopy}
           className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
-            copied ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" : "bg-white/8 text-white/60 border border-white/10 hover:bg-white/12"
+            copied ? "bg-emerald-500/20 text-app-accent-success border border-emerald-500/30" : "bg-white/8 text-white/60 border border-app-border hover:bg-white/12"
           }`}
         >
           <i className={copied ? "ri-check-line" : "ri-link"}></i>
@@ -82,16 +82,16 @@ function ShareCard({ profile, stats }: { profile: PublicProfile; stats: PublicSt
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
           { icon: "ri-fire-line", color: "#fb923c", label: "Streak", value: `${stats.streak} ngày` },
-          { icon: "ri-trophy-line", color: "#e8c84a", label: "Điểm EPS cao nhất", value: `${stats.epsBestScore}%` },
+          { icon: "ri-trophy-line", color: "app-accent-primary", label: "Điểm EPS cao nhất", value: `${stats.epsBestScore}%` },
           { icon: "ri-file-list-3-line", color: "#06b6d4", label: "Lần thi EPS", value: stats.epsExamCount },
           { icon: "ri-medal-line", color: "#a78bfa", label: "Huy hiệu", value: stats.badgeCount },
         ].map((item, i) => (
-          <div key={i} className="bg-white/5 rounded-xl p-3 text-center">
+          <div key={i} className="bg-app-card/50 rounded-xl p-3 text-center">
             <div className="w-7 h-7 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${item.color}15` }}>
               <i className={`${item.icon} text-sm`} style={{ color: item.color }}></i>
             </div>
             <p className="text-white font-bold text-sm">{item.value}</p>
-            <p className="text-white/40 text-[10px] mt-0.5">{item.label}</p>
+            <p className="text-app-text-secondary text-[10px] mt-0.5">{item.label}</p>
           </div>
         ))}
       </div>
@@ -207,7 +207,7 @@ export default function PublicProfilePage() {
       <DashboardLayout title="Hồ sơ học viên">
         <div className="p-8 flex items-center justify-center min-h-64">
           <div className="text-center">
-            <div className="w-10 h-10 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin mx-auto mb-3"></div>
+            <div className="w-10 h-10 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin mx-auto mb-3"></div>
             <p className="text-gray-400 text-sm">Đang tải hồ sơ...</p>
           </div>
         </div>
@@ -226,7 +226,7 @@ export default function PublicProfilePage() {
           <p className="text-gray-400 text-sm mb-6">Hồ sơ này không tồn tại hoặc đã bị xóa</p>
           <button
             onClick={() => navigate("/")}
-            className="px-5 py-2.5 bg-[#e8c84a] text-[#0f1117] rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap"
+            className="px-5 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap"
           >
             Về trang chủ
           </button>
@@ -242,12 +242,12 @@ export default function PublicProfilePage() {
       <div className="p-6 md:p-8 max-w-2xl mx-auto">
         {/* Own profile notice */}
         {isOwnProfile && (
-          <div className="mb-4 flex items-center gap-3 px-4 py-3 bg-[#e8c84a]/10 border border-[#e8c84a]/20 rounded-xl">
-            <i className="ri-information-line text-[#e8c84a]"></i>
-            <p className="text-[#e8c84a] text-sm flex-1">Đây là hồ sơ công khai của bạn — người khác thấy giao diện này khi click link</p>
+          <div className="mb-4 flex items-center gap-3 px-4 py-3 bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-xl">
+            <i className="ri-information-line text-app-accent-primary"></i>
+            <p className="text-app-accent-primary text-sm flex-1">Đây là hồ sơ công khai của bạn — người khác thấy giao diện này khi click link</p>
             <button
               onClick={() => navigate("/profile")}
-              className="text-xs px-3 py-1.5 bg-[#e8c84a] text-[#0f1117] rounded-lg font-bold cursor-pointer whitespace-nowrap"
+              className="text-xs px-3 py-1.5 bg-app-accent-primary text-app-bg rounded-lg font-bold cursor-pointer whitespace-nowrap"
             >
               Chỉnh sửa
             </button>
@@ -260,18 +260,18 @@ export default function PublicProfilePage() {
         {/* Profile details */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-4 shadow-sm">
           <div className="flex items-center gap-4 mb-5">
-            <div className="w-16 h-16 rounded-2xl overflow-hidden bg-[#e8c84a]/15 flex items-center justify-center flex-shrink-0">
+            <div className="w-16 h-16 rounded-2xl overflow-hidden bg-app-accent-primary/15 flex items-center justify-center flex-shrink-0">
               {profile.avatar_url ? (
                 <img src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
               ) : (
-                <span className="text-[#e8c84a] text-2xl font-bold">{profile.display_name?.[0]?.toUpperCase()}</span>
+                <span className="text-app-accent-primary text-2xl font-bold">{profile.display_name?.[0]?.toUpperCase()}</span>
               )}
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <h1 className="text-gray-800 font-bold text-xl">{profile.display_name}</h1>
                 {isVipActive(profile) && (
-                  <span className="flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-[#e8c84a]/15 text-[#e8c84a] font-bold border border-[#e8c84a]/25">
+                  <span className="flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary font-bold border border-app-accent-primary/25">
                     <i className="ri-vip-crown-fill text-[10px]"></i>VIP
                   </span>
                 )}
@@ -291,7 +291,7 @@ export default function PublicProfilePage() {
             <div className="grid grid-cols-2 gap-3">
               {[
                 { icon: "ri-fire-line", color: "#fb923c", bg: "bg-orange-50", label: "Streak hiện tại", value: `${stats.streak} ngày` },
-                { icon: "ri-star-line", color: "#e8c84a", bg: "bg-yellow-50", label: "Tổng XP", value: stats.totalXP.toLocaleString() },
+                { icon: "ri-star-line", color: "app-accent-primary", bg: "bg-yellow-50", label: "Tổng XP", value: stats.totalXP.toLocaleString() },
                 { icon: "ri-trophy-line", color: "#34d399", bg: "bg-emerald-50", label: "Điểm EPS cao nhất", value: `${stats.epsBestScore}%` },
                 { icon: "ri-file-list-3-line", color: "#06b6d4", bg: "bg-cyan-50", label: "Lần thi EPS", value: stats.epsExamCount },
                 { icon: "ri-stack-line", color: "#a78bfa", bg: "bg-purple-50", label: "Từ vựng đã thuộc", value: stats.flashcardKnown },
@@ -317,12 +317,12 @@ export default function PublicProfilePage() {
             onClick={() => navigate("/eps-leaderboard")}
             className="flex items-center justify-center gap-2 py-3 bg-white border border-gray-200 rounded-xl text-gray-600 text-sm font-medium hover:bg-gray-50 transition-colors cursor-pointer whitespace-nowrap shadow-sm"
           >
-            <i className="ri-trophy-line text-[#e8c84a]"></i>
+            <i className="ri-trophy-line text-app-accent-primary"></i>
             Bảng xếp hạng EPS
           </button>
           <button
             onClick={() => navigate("/eps-study-group")}
-            className="flex items-center justify-center gap-2 py-3 bg-[#e8c84a] text-[#0f1117] rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
+            className="flex items-center justify-center gap-2 py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-group-line"></i>
             Nhóm học EPS

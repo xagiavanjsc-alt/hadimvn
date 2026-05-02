@@ -173,7 +173,7 @@ function HighlightedSentence({ sentence, highlights, onWordClick }: {
       {parts.map((p, i) =>
         p.isHighlight ? (
           <button key={i} onClick={() => onWordClick(p.text)}
-            className="text-[#e8c84a] font-bold underline decoration-dotted cursor-pointer hover:text-[#d4b43a] transition-colors">
+            className="text-app-accent-primary font-bold underline decoration-dotted cursor-pointer hover:text-[#d4b43a] transition-colors">
             {p.text}
           </button>
         ) : (
@@ -204,11 +204,11 @@ function WordPopup({ word, targetWords, onClose }: {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4" onClick={onClose}>
-      <div className="w-72 rounded-2xl border border-white/10 bg-[#1a1f2e] p-5" onClick={e => e.stopPropagation()}>
+      <div className="w-72 rounded-2xl border border-app-border bg-[#1a1f2e] p-5" onClick={e => e.stopPropagation()}>
         <div className="flex items-start justify-between mb-3">
           <div>
             <p className="text-white font-bold text-2xl">{word}</p>
-            {info && <p className="text-white/40 text-xs">{info.partOfSpeech}</p>}
+            {info && <p className="text-app-text-secondary text-xs">{info.partOfSpeech}</p>}
           </div>
           <div className="flex gap-2">
             <button onClick={handleTTS} className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/15 text-white/50 cursor-pointer">
@@ -221,8 +221,8 @@ function WordPopup({ word, targetWords, onClose }: {
         </div>
         {info ? (
           <>
-            <p className="text-[#e8c84a] font-semibold text-base mb-1">{info.meaning}</p>
-            <p className="text-white/40 text-sm">[{info.pronunciation}]</p>
+            <p className="text-app-accent-primary font-semibold text-base mb-1">{info.meaning}</p>
+            <p className="text-app-text-secondary text-sm">[{info.pronunciation}]</p>
           </>
         ) : (
           <p className="text-white/50 text-sm">Nhấn vào từ được gạch chân để xem nghĩa</p>
@@ -274,14 +274,14 @@ export default function VocabInContextPage() {
             <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${selectedPassage.levelColor}20`, color: selectedPassage.levelColor }}>
               {selectedPassage.level}
             </span>
-            <span className="text-white/40 text-xs">{selectedPassage.topic}</span>
+            <span className="text-app-text-secondary text-xs">{selectedPassage.topic}</span>
             <div className="flex gap-1 ml-auto">
               <button onClick={() => setQuizMode(false)}
-                className={`px-4 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${!quizMode ? "bg-[#e8c84a] text-[#141720]" : "bg-white/5 text-white/50 hover:bg-white/8"}`}>
+                className={`px-4 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${!quizMode ? "bg-app-accent-primary text-[#141720]" : "bg-app-card/50 text-white/50 hover:bg-white/8"}`}>
                 Đọc
               </button>
               <button onClick={() => setQuizMode(true)}
-                className={`px-4 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${quizMode ? "bg-[#e8c84a] text-[#141720]" : "bg-white/5 text-white/50 hover:bg-white/8"}`}>
+                className={`px-4 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${quizMode ? "bg-app-accent-primary text-[#141720]" : "bg-app-card/50 text-white/50 hover:bg-white/8"}`}>
                 Quiz
               </button>
             </div>
@@ -291,20 +291,20 @@ export default function VocabInContextPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
               {/* Sentences */}
               <div className="lg:col-span-2 space-y-4">
-                <div className="rounded-2xl border border-white/8 bg-white/3 p-5">
+                <div className="rounded-2xl border border-app-border bg-app-surface/50 p-5">
                   <h2 className="text-white font-bold text-lg mb-1">{selectedPassage.title}</h2>
-                  <p className="text-white/40 text-sm mb-5">{selectedPassage.titleVi}</p>
+                  <p className="text-app-text-secondary text-sm mb-5">{selectedPassage.titleVi}</p>
                   <div className="space-y-5">
                     {selectedPassage.sentences.map((s, i) => (
-                      <div key={i} className="border-l-2 border-white/10 pl-4">
+                      <div key={i} className="border-l-2 border-app-border pl-4">
                         <p className="text-white/85 text-base leading-8 mb-1">
                           <HighlightedSentence sentence={s.korean} highlights={s.highlights} onWordClick={setClickedWord} />
                         </p>
-                        <p className="text-white/40 text-sm italic">{s.vietnamese}</p>
+                        <p className="text-app-text-secondary text-sm italic">{s.vietnamese}</p>
                       </div>
                     ))}
                   </div>
-                  <p className="text-white/25 text-xs mt-5">
+                  <p className="text-app-text-muted text-xs mt-5">
                     <i className="ri-information-line mr-1"></i>
                     Nhấn vào từ màu vàng để xem nghĩa
                   </p>
@@ -313,17 +313,17 @@ export default function VocabInContextPage() {
 
               {/* Word list */}
               <div>
-                <div className="rounded-xl border border-white/8 bg-white/3 p-4">
+                <div className="rounded-xl border border-app-border bg-app-surface/50 p-4">
                   <p className="text-white/60 text-xs font-semibold mb-3">Từ vựng trong bài ({selectedPassage.targetWords.length})</p>
                   <div className="space-y-3">
                     {selectedPassage.targetWords.map((w, i) => (
-                      <div key={i} className="pb-3 border-b border-white/5 last:border-0">
+                      <div key={i} className="pb-3 border-b border-app-border last:border-0">
                         <div className="flex items-center justify-between mb-0.5">
                           <span className="text-white font-bold text-sm">{w.word}</span>
-                          <span className="text-white/25 text-[10px]">{w.partOfSpeech}</span>
+                          <span className="text-app-text-muted text-[10px]">{w.partOfSpeech}</span>
                         </div>
-                        <p className="text-[#e8c84a] text-xs">{w.meaning}</p>
-                        <p className="text-white/30 text-xs">[{w.pronunciation}]</p>
+                        <p className="text-app-accent-primary text-xs">{w.meaning}</p>
+                        <p className="text-app-text-muted text-xs">[{w.pronunciation}]</p>
                       </div>
                     ))}
                   </div>
@@ -333,16 +333,16 @@ export default function VocabInContextPage() {
           ) : (
             <div className="max-w-lg mx-auto">
               {!quizDone ? (
-                <div className="rounded-2xl border border-white/8 bg-white/3 p-6">
-                  <p className="text-white/40 text-xs mb-4">Câu {quizIdx + 1}/{selectedPassage.quiz.length}</p>
+                <div className="rounded-2xl border border-app-border bg-app-surface/50 p-6">
+                  <p className="text-app-text-secondary text-xs mb-4">Câu {quizIdx + 1}/{selectedPassage.quiz.length}</p>
                   <p className="text-white font-bold text-base mb-5">{q.question}</p>
                   <div className="space-y-2">
                     {q.options.map((opt, idx) => {
-                      let cls = "border-white/10 bg-white/3 text-white/70 hover:border-white/25";
+                      let cls = "border-app-border bg-app-surface/50 text-white/70 hover:border-white/25";
                       if (quizSelected !== null) {
                         if (idx === q.correct) cls = "border-emerald-500/50 bg-emerald-500/10 text-emerald-300";
                         else if (idx === quizSelected) cls = "border-rose-500/50 bg-rose-500/10 text-rose-300";
-                        else cls = "border-white/5 bg-white/2 text-white/30";
+                        else cls = "border-app-border bg-white/2 text-app-text-muted";
                       }
                       return (
                         <button key={idx} onClick={() => handleQuizAnswer(idx)}
@@ -354,16 +354,16 @@ export default function VocabInContextPage() {
                   </div>
                 </div>
               ) : (
-                <div className="rounded-2xl border border-white/8 bg-white/3 p-6 text-center">
-                  <div className="w-16 h-16 rounded-full bg-emerald-500/15 flex items-center justify-center mx-auto mb-4">
-                    <span className="text-emerald-400 font-bold text-2xl">{quizScore}/{selectedPassage.quiz.length}</span>
+                <div className="rounded-2xl border border-app-border bg-app-surface/50 p-6 text-center">
+                  <div className="w-16 h-16 rounded-full bg-app-accent-success/15 flex items-center justify-center mx-auto mb-4">
+                    <span className="text-app-accent-success font-bold text-2xl">{quizScore}/{selectedPassage.quiz.length}</span>
                   </div>
                   <p className="text-white font-bold text-lg mb-2">Quiz hoàn thành!</p>
                   <p className="text-white/50 text-sm mb-5">
                     {quizScore === selectedPassage.quiz.length ? "Xuất sắc! Bạn hiểu từ vựng rất tốt!" : "Hãy đọc lại bài và thử lại!"}
                   </p>
                   <button onClick={() => { setQuizIdx(0); setQuizSelected(null); setQuizScore(0); setQuizDone(false); }}
-                    className="px-6 py-2.5 rounded-xl bg-[#e8c84a] text-[#141720] font-bold text-sm cursor-pointer whitespace-nowrap">
+                    className="px-6 py-2.5 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm cursor-pointer whitespace-nowrap">
                     Làm lại
                   </button>
                 </div>
@@ -389,7 +389,7 @@ export default function VocabInContextPage() {
         <div className="flex gap-2 flex-wrap mb-6">
           {topics.map(t => (
             <button key={t} onClick={() => setSelectedTopic(t)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold cursor-pointer transition-all whitespace-nowrap ${selectedTopic === t ? "bg-[#e8c84a] text-[#141720]" : "bg-white/5 text-white/50 hover:bg-white/8"}`}>
+              className={`px-4 py-2 rounded-full text-xs font-semibold cursor-pointer transition-all whitespace-nowrap ${selectedTopic === t ? "bg-app-accent-primary text-[#141720]" : "bg-app-card/50 text-white/50 hover:bg-white/8"}`}>
               {t === "all" ? "Tất cả" : t}
             </button>
           ))}
@@ -398,14 +398,14 @@ export default function VocabInContextPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filtered.map(p => (
             <button key={p.id} onClick={() => setSelectedPassage(p)}
-              className="text-left p-5 rounded-2xl border border-white/8 bg-white/3 hover:bg-white/5 hover:border-white/15 transition-all cursor-pointer group">
+              className="text-left p-5 rounded-2xl border border-app-border bg-app-surface/50 hover:bg-app-card/50 hover:border-white/15 transition-all cursor-pointer group">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${p.levelColor}20`, color: p.levelColor }}>{p.level}</span>
-                <span className="text-white/30 text-xs">{p.topic}</span>
+                <span className="text-app-text-muted text-xs">{p.topic}</span>
               </div>
-              <h3 className="text-white font-bold text-base mb-1 group-hover:text-[#e8c84a] transition-colors">{p.title}</h3>
+              <h3 className="text-white font-bold text-base mb-1 group-hover:text-app-accent-primary transition-colors">{p.title}</h3>
               <p className="text-white/50 text-sm mb-3">{p.titleVi}</p>
-              <div className="flex items-center gap-3 text-white/30 text-xs">
+              <div className="flex items-center gap-3 text-app-text-muted text-xs">
                 <span><i className="ri-text-snippet mr-1"></i>{p.sentences.length} câu</span>
                 <span><i className="ri-translate-2 mr-1"></i>{p.targetWords.length} từ vựng</span>
                 <span><i className="ri-question-line mr-1"></i>{p.quiz.length} quiz</span>

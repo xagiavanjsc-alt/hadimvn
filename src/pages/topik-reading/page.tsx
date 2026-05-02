@@ -452,7 +452,7 @@ export default function TopikReadingPage() {
   const levelInfo = LEVELS.find((l) => l.id === selectedLevel);
   const pct = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
   const timerPct = (timeLeft / 45) * 100;
-  const timerColor = timeLeft > 20 ? "#34d399" : timeLeft > 10 ? "#e8c84a" : "#f87171";
+  const timerColor = timeLeft > 20 ? "#34d399" : timeLeft > 10 ? "app-accent-primary" : "#f87171";
 
   // Global question index
   let globalQIdx = 0;
@@ -465,14 +465,14 @@ export default function TopikReadingPage() {
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-white mb-1">Luyện đọc TOPIK</h1>
-          <p className="text-white/40 text-sm">Đọc đoạn văn tiếng Hàn và trả lời câu hỏi trắc nghiệm</p>
+          <p className="text-app-text-secondary text-sm">Đọc đoạn văn tiếng Hàn và trả lời câu hỏi trắc nghiệm</p>
         </div>
 
         {/* SETUP PHASE */}
         {phase === "setup" && (
           <div className="space-y-6">
             {/* Level select */}
-            <div className="bg-white/3 border border-white/8 rounded-2xl p-5">
+            <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
               <p className="text-white/60 text-sm font-medium mb-4">Chọn cấp độ</p>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                 {LEVELS.map((lv) => (
@@ -482,7 +482,7 @@ export default function TopikReadingPage() {
                     className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
                       selectedLevel === lv.id
                         ? "border-opacity-60 bg-opacity-10"
-                        : "border-white/8 bg-white/2 hover:bg-white/5"
+                        : "border-app-border bg-white/2 hover:bg-app-card/50"
                     }`}
                     style={
                       selectedLevel === lv.id
@@ -496,14 +496,14 @@ export default function TopikReadingPage() {
                     >
                       {lv.id}
                     </span>
-                    <p className="text-white/40 text-xs leading-tight">{lv.desc}</p>
+                    <p className="text-app-text-secondary text-xs leading-tight">{lv.desc}</p>
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Topic select */}
-            <div className="bg-white/3 border border-white/8 rounded-2xl p-5">
+            <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
               <p className="text-white/60 text-sm font-medium mb-4">Chọn chủ đề</p>
               <div className="flex flex-wrap gap-2">
                 {TOPICS.map((t) => (
@@ -512,8 +512,8 @@ export default function TopikReadingPage() {
                     onClick={() => setSelectedTopic(t)}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
                       selectedTopic === t
-                        ? "bg-[#e8c84a]/15 text-[#e8c84a] border border-[#e8c84a]/30"
-                        : "bg-white/5 text-white/40 border border-white/8 hover:text-white/70"
+                        ? "bg-app-accent-primary/15 text-app-accent-primary border border-app-accent-primary/30"
+                        : "bg-app-card/50 text-app-text-secondary border border-app-border hover:text-white/70"
                     }`}
                   >
                     {t}
@@ -523,14 +523,14 @@ export default function TopikReadingPage() {
             </div>
 
             {/* Preview */}
-            <div className="bg-white/3 border border-white/8 rounded-2xl p-5">
+            <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
               <p className="text-white/60 text-sm font-medium mb-3">Đoạn văn có sẵn</p>
               <div className="space-y-2">
                 {filteredPassages.length === 0 ? (
-                  <p className="text-white/30 text-sm text-center py-4">Không có đoạn văn phù hợp. Thử chọn chủ đề khác.</p>
+                  <p className="text-app-text-muted text-sm text-center py-4">Không có đoạn văn phù hợp. Thử chọn chủ đề khác.</p>
                 ) : (
                   filteredPassages.map((p) => (
-                    <div key={p.id} className="flex items-center gap-3 p-3 bg-white/3 rounded-xl">
+                    <div key={p.id} className="flex items-center gap-3 p-3 bg-app-surface/50 rounded-xl">
                       <span
                         className="px-2 py-0.5 rounded text-xs font-bold flex-shrink-0"
                         style={{
@@ -542,7 +542,7 @@ export default function TopikReadingPage() {
                       </span>
                       <div className="flex-1 min-w-0">
                         <p className="text-white/70 text-sm font-medium truncate">{p.title}</p>
-                        <p className="text-white/30 text-xs">{p.topic} · {p.wordCount} từ · {p.questions.length} câu hỏi</p>
+                        <p className="text-app-text-muted text-xs">{p.topic} · {p.wordCount} từ · {p.questions.length} câu hỏi</p>
                       </div>
                     </div>
                   ))
@@ -569,11 +569,11 @@ export default function TopikReadingPage() {
             <div className="flex items-center gap-3">
               <div className="flex-1 h-2 bg-white/6 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-[#e8c84a] rounded-full transition-all duration-300"
+                  className="h-full bg-app-accent-primary rounded-full transition-all duration-300"
                   style={{ width: `${((globalQIdx) / totalQuestions) * 100}%` }}
                 ></div>
               </div>
-              <span className="text-white/40 text-xs whitespace-nowrap">{globalQIdx + 1}/{totalQuestions}</span>
+              <span className="text-app-text-secondary text-xs whitespace-nowrap">{globalQIdx + 1}/{totalQuestions}</span>
             </div>
 
             {/* Timer */}
@@ -588,7 +588,7 @@ export default function TopikReadingPage() {
             </div>
 
             {/* Passage card */}
-            <div className="bg-white/3 border border-white/8 rounded-2xl p-5">
+            <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
                   <span
@@ -601,11 +601,11 @@ export default function TopikReadingPage() {
                     {currentPassage.level}
                   </span>
                   <span className="text-white/50 text-sm font-medium">{currentPassage.title}</span>
-                  <span className="text-white/25 text-xs">{currentPassage.topic}</span>
+                  <span className="text-app-text-muted text-xs">{currentPassage.topic}</span>
                 </div>
                 <button
                   onClick={() => setShowVietnamese((v) => !v)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/50 hover:text-white/80 text-xs transition-all cursor-pointer whitespace-nowrap"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-white/50 hover:text-white/80 text-xs transition-all cursor-pointer whitespace-nowrap"
                 >
                   <i className={`${showVietnamese ? "ri-eye-off-line" : "ri-eye-line"} text-xs`}></i>
                   {showVietnamese ? "Ẩn dịch" : "Xem dịch"}
@@ -613,7 +613,7 @@ export default function TopikReadingPage() {
               </div>
 
               {/* Korean text */}
-              <div className="bg-white/3 rounded-xl p-4 mb-3">
+              <div className="bg-app-surface/50 rounded-xl p-4 mb-3">
                 <p className="text-white/85 text-base leading-relaxed font-medium" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>
                   {currentPassage.korean}
                 </p>
@@ -621,25 +621,25 @@ export default function TopikReadingPage() {
 
               {/* Vietnamese translation */}
               {showVietnamese && (
-                <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/10 rounded-xl p-4">
-                  <p className="text-[#e8c84a]/70 text-xs mb-1 font-medium">Bản dịch tiếng Việt</p>
+                <div className="bg-app-accent-primary/5 border border-app-accent-primary/10 rounded-xl p-4">
+                  <p className="text-app-accent-primary/70 text-xs mb-1 font-medium">Bản dịch tiếng Việt</p>
                   <p className="text-white/60 text-sm leading-relaxed">{currentPassage.vietnamese}</p>
                 </div>
               )}
             </div>
 
             {/* Question */}
-            <div className="bg-white/3 border border-white/8 rounded-2xl p-5">
-              <p className="text-white/40 text-xs mb-2">Câu hỏi {currentQuestionIdx + 1}/{currentPassage.questions.length}</p>
+            <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
+              <p className="text-app-text-secondary text-xs mb-2">Câu hỏi {currentQuestionIdx + 1}/{currentPassage.questions.length}</p>
               <p className="text-white/90 text-base font-medium mb-4 leading-relaxed">{currentQuestion.question}</p>
 
               <div className="space-y-2">
                 {currentQuestion.options.map((opt, idx) => {
-                  let cls = "border-white/8 bg-white/3 text-white/70 hover:bg-white/8 hover:border-white/20";
+                  let cls = "border-app-border bg-app-surface/50 text-white/70 hover:bg-white/8 hover:border-white/20";
                   if (selectedAnswer !== null) {
                     if (idx === currentQuestion.answer) cls = "border-[#34d399]/50 bg-[#34d399]/10 text-[#34d399]";
                     else if (idx === selectedAnswer) cls = "border-[#f87171]/50 bg-[#f87171]/10 text-[#f87171]";
-                    else cls = "border-white/5 bg-white/2 text-white/30";
+                    else cls = "border-app-border bg-white/2 text-app-text-muted";
                   }
                   return (
                     <button
@@ -665,8 +665,8 @@ export default function TopikReadingPage() {
 
               {/* Explanation */}
               {showExplanation && (
-                <div className="mt-4 p-4 bg-white/3 rounded-xl border border-white/8">
-                  <p className="text-white/40 text-xs mb-1 font-medium">Giải thích</p>
+                <div className="mt-4 p-4 bg-app-surface/50 rounded-xl border border-app-border">
+                  <p className="text-app-text-secondary text-xs mb-1 font-medium">Giải thích</p>
                   <p className="text-white/70 text-sm leading-relaxed">{currentQuestion.explanation}</p>
                 </div>
               )}
@@ -674,7 +674,7 @@ export default function TopikReadingPage() {
               {selectedAnswer !== null && (
                 <button
                   onClick={handleNextQuestion}
-                  className="w-full mt-4 py-3 rounded-xl font-semibold text-sm bg-[#e8c84a]/15 text-[#e8c84a] hover:bg-[#e8c84a]/25 transition-all cursor-pointer whitespace-nowrap"
+                  className="w-full mt-4 py-3 rounded-xl font-semibold text-sm bg-app-accent-primary/15 text-app-accent-primary hover:bg-app-accent-primary/25 transition-all cursor-pointer whitespace-nowrap"
                 >
                   {globalQIdx + 1 >= totalQuestions ? "Xem kết quả" : "Câu tiếp theo"}
                   <i className="ri-arrow-right-line ml-2"></i>
@@ -688,23 +688,23 @@ export default function TopikReadingPage() {
         {phase === "result" && (
           <div className="space-y-5">
             {/* Score card */}
-            <div className="bg-white/3 border border-white/8 rounded-2xl p-8 text-center">
+            <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8 text-center">
               <div
                 className="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4"
-                style={{ backgroundColor: `${pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171"}20` }}
+                style={{ backgroundColor: `${pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171"}20` }}
               >
-                <p className="text-3xl font-bold" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171" }}>
+                <p className="text-3xl font-bold" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
                   {pct}%
                 </p>
               </div>
               <p className="text-white/80 text-xl font-bold mb-1">
                 {pct >= 80 ? "Xuất sắc!" : pct >= 60 ? "Khá tốt!" : "Cần cố gắng thêm!"}
               </p>
-              <p className="text-white/40 text-sm mb-4">
+              <p className="text-app-text-secondary text-sm mb-4">
                 {score}/{totalQuestions} câu đúng · Cấp độ {selectedLevel}
               </p>
-              {saving && <p className="text-white/30 text-xs">Đang lưu kết quả...</p>}
-              {!user && <p className="text-white/25 text-xs">Đăng nhập để lưu kết quả lên cloud</p>}
+              {saving && <p className="text-app-text-muted text-xs">Đang lưu kết quả...</p>}
+              {!user && <p className="text-app-text-muted text-xs">Đăng nhập để lưu kết quả lên cloud</p>}
             </div>
 
             {/* Stats */}
@@ -712,11 +712,11 @@ export default function TopikReadingPage() {
               {[
                 { label: "Đúng", value: score, color: "#34d399" },
                 { label: "Sai", value: totalQuestions - score, color: "#f87171" },
-                { label: "Đoạn văn", value: passages.length, color: "#e8c84a" },
+                { label: "Đoạn văn", value: passages.length, color: "app-accent-primary" },
               ].map((s) => (
-                <div key={s.label} className="bg-white/3 border border-white/8 rounded-xl p-4 text-center">
+                <div key={s.label} className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
                   <p className="text-2xl font-bold" style={{ color: s.color }}>{s.value}</p>
-                  <p className="text-white/30 text-xs">{s.label}</p>
+                  <p className="text-app-text-muted text-xs">{s.label}</p>
                 </div>
               ))}
             </div>
@@ -730,7 +730,7 @@ export default function TopikReadingPage() {
                     key={f}
                     onClick={() => setResultFilter(f)}
                     className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
-                      resultFilter === f ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "bg-white/5 text-white/40 hover:text-white/70"
+                      resultFilter === f ? "bg-app-accent-primary/15 text-app-accent-primary" : "bg-app-card/50 text-app-text-secondary hover:text-white/70"
                     }`}
                   >
                     {labels[f]}
@@ -753,7 +753,7 @@ export default function TopikReadingPage() {
                   return (
                     <div
                       key={`${pIdx}-${qIdx}`}
-                      className="bg-white/3 border rounded-xl p-4"
+                      className="bg-app-surface/50 border rounded-xl p-4"
                       style={{ borderColor: isCorrect ? "rgba(52,211,153,0.2)" : "rgba(248,113,113,0.2)" }}
                     >
                       <div className="flex items-start gap-3">
@@ -766,7 +766,7 @@ export default function TopikReadingPage() {
                           ></i>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-white/30 text-xs mb-1">{passage.title}</p>
+                          <p className="text-app-text-muted text-xs mb-1">{passage.title}</p>
                           <p className="text-white/70 text-sm mb-2">{q.question}</p>
                           {!isCorrect && (
                             <div className="space-y-1">
@@ -776,7 +776,7 @@ export default function TopikReadingPage() {
                               <p className="text-[#34d399] text-xs">Đáp án đúng: {q.options[q.answer]}</p>
                             </div>
                           )}
-                          <p className="text-white/30 text-xs mt-2 italic">{q.explanation}</p>
+                          <p className="text-app-text-muted text-xs mt-2 italic">{q.explanation}</p>
                         </div>
                       </div>
                     </div>
@@ -789,14 +789,14 @@ export default function TopikReadingPage() {
             <div className="flex gap-3">
               <button
                 onClick={() => setPhase("setup")}
-                className="flex-1 py-3 rounded-xl font-semibold text-sm bg-white/5 text-white/60 hover:bg-white/10 transition-all cursor-pointer whitespace-nowrap"
+                className="flex-1 py-3 rounded-xl font-semibold text-sm bg-app-card/50 text-white/60 hover:bg-app-card/70 transition-all cursor-pointer whitespace-nowrap"
               >
                 <i className="ri-refresh-line mr-2"></i>
                 Làm lại
               </button>
               <button
                 onClick={() => setShowShare(true)}
-                className="flex-1 py-3 rounded-xl font-semibold text-sm bg-white/5 text-white/60 hover:bg-white/10 transition-all cursor-pointer whitespace-nowrap border border-white/8"
+                className="flex-1 py-3 rounded-xl font-semibold text-sm bg-app-card/50 text-white/60 hover:bg-app-card/70 transition-all cursor-pointer whitespace-nowrap border border-app-border"
               >
                 <i className="ri-share-line mr-2"></i>Chia sẻ
               </button>
@@ -811,7 +811,7 @@ export default function TopikReadingPage() {
                   win.print();
                 }}
                 disabled={wrongItems.length === 0}
-                className="flex-1 py-3 rounded-xl font-semibold text-sm bg-[#e8c84a]/10 text-[#e8c84a] hover:bg-[#e8c84a]/20 transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
+                className="flex-1 py-3 rounded-xl font-semibold text-sm bg-app-accent-primary/10 text-app-accent-primary hover:bg-app-accent-primary/20 transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
               >
                 <i className="ri-file-pdf-line mr-2"></i>
                 Xuất câu sai PDF

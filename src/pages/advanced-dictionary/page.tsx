@@ -137,7 +137,7 @@ export default function AdvancedDictionaryPage() {
             <div className="rounded-2xl border p-4" style={{ backgroundColor: "#0f1117", borderColor: "rgba(255,255,255,0.07)" }}>
               <div className="relative">
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center pointer-events-none">
-                  <i className="ri-search-line text-white/30 text-sm"></i>
+                  <i className="ri-search-line text-app-text-muted text-sm"></i>
                 </div>
                 <input
                   ref={inputRef}
@@ -150,7 +150,7 @@ export default function AdvancedDictionaryPage() {
                   style={{ backgroundColor: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.85)", border: "1px solid rgba(255,255,255,0.08)" }}
                 />
                 {query && (
-                  <button onClick={() => { setQuery(""); setResult(null); setShowSuggestions(false); }} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 cursor-pointer">
+                  <button onClick={() => { setQuery(""); setResult(null); setShowSuggestions(false); }} className="absolute right-3 top-1/2 -translate-y-1/2 text-app-text-muted hover:text-white/60 cursor-pointer">
                     <i className="ri-close-line text-sm"></i>
                   </button>
                 )}
@@ -158,7 +158,7 @@ export default function AdvancedDictionaryPage() {
               <button
                 onClick={() => handleSearch(query)}
                 className="w-full mt-2.5 py-2.5 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap transition-all"
-                style={{ backgroundColor: "rgba(232,200,74,0.15)", color: "#e8c84a", border: "1px solid rgba(232,200,74,0.25)" }}
+                style={{ backgroundColor: "rgba(232,200,74,0.15)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.25)" }}
               >
                 <i className="ri-search-line mr-1.5"></i>
                 Tra cứu
@@ -225,7 +225,7 @@ export default function AdvancedDictionaryPage() {
                       }}
                     >
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-sm" style={{ color: isActive ? "#e8c84a" : "rgba(255,255,255,0.75)" }}>{d.word}</span>
+                        <span className="font-bold text-sm" style={{ color: isActive ? "app-accent-primary" : "rgba(255,255,255,0.75)" }}>{d.word}</span>
                         <span className="text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>{d.romanization}</span>
                       </div>
                       <span className="text-[10px] px-1.5 py-0.5 rounded-full font-bold" style={{ backgroundColor: lc.bg, color: lc.text }}>{d.level}</span>
@@ -261,7 +261,7 @@ export default function AdvancedDictionaryPage() {
                           className="w-9 h-9 flex items-center justify-center rounded-xl cursor-pointer transition-all"
                           style={{ backgroundColor: "rgba(232,200,74,0.12)", border: "1px solid rgba(232,200,74,0.20)" }}
                         >
-                          <i className="ri-volume-up-line text-base" style={{ color: "#e8c84a" }}></i>
+                          <i className="ri-volume-up-line text-base" style={{ color: "app-accent-primary" }}></i>
                         </button>
                       </div>
                       <div className="flex items-center gap-2 flex-wrap">
@@ -272,7 +272,7 @@ export default function AdvancedDictionaryPage() {
                           return <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: lc.bg, color: lc.text }}>{result.level}</span>;
                         })()}
                         {result.hanja && (
-                          <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "#e8c84a" }}>{result.hanja}</span>
+                          <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary" }}>{result.hanja}</span>
                         )}
                       </div>
                     </div>
@@ -280,7 +280,7 @@ export default function AdvancedDictionaryPage() {
                   <div className="mt-4 space-y-1.5">
                     {result.meanings.map((m, i) => (
                       <div key={i} className="flex items-start gap-2">
-                        <span className="text-xs font-bold mt-0.5 flex-shrink-0" style={{ color: "#e8c84a" }}>{i + 1}.</span>
+                        <span className="text-xs font-bold mt-0.5 flex-shrink-0" style={{ color: "app-accent-primary" }}>{i + 1}.</span>
                         <p className="text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>{m.meaning}</p>
                       </div>
                     ))}
@@ -296,8 +296,8 @@ export default function AdvancedDictionaryPage() {
                         onClick={() => setActiveTab(tab)}
                         className="flex-1 py-3 text-xs font-semibold cursor-pointer whitespace-nowrap transition-all"
                         style={{
-                          color: activeTab === tab ? "#e8c84a" : "rgba(255,255,255,0.35)",
-                          borderBottom: activeTab === tab ? "2px solid #e8c84a" : "2px solid transparent",
+                          color: activeTab === tab ? "app-accent-primary" : "rgba(255,255,255,0.35)",
+                          borderBottom: activeTab === tab ? "2px solid app-accent-primary" : "2px solid transparent",
                         }}
                       >
                         {tab === "meaning" ? "Nghĩa & Ví dụ" : tab === "examples" ? "Đồng/Trái nghĩa" : "Từ ghép"}
@@ -312,7 +312,7 @@ export default function AdvancedDictionaryPage() {
                         {result.meanings.map((m, i) => (
                           <div key={i}>
                             <div className="flex items-center gap-2 mb-3">
-                              <span className="w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold flex-shrink-0" style={{ backgroundColor: "rgba(232,200,74,0.15)", color: "#e8c84a" }}>{i + 1}</span>
+                              <span className="w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold flex-shrink-0" style={{ backgroundColor: "rgba(232,200,74,0.15)", color: "app-accent-primary" }}>{i + 1}</span>
                               <p className="font-semibold text-sm" style={{ color: "rgba(255,255,255,0.85)" }}>{m.meaning}</p>
                             </div>
                             <div className="space-y-2 pl-8">
@@ -334,7 +334,7 @@ export default function AdvancedDictionaryPage() {
                         ))}
                         {result.note && (
                           <div className="rounded-xl p-4" style={{ backgroundColor: "rgba(232,200,74,0.06)", border: "1px solid rgba(232,200,74,0.15)" }}>
-                            <p className="text-xs font-semibold mb-1" style={{ color: "#e8c84a" }}><i className="ri-lightbulb-line mr-1"></i>Ghi chú</p>
+                            <p className="text-xs font-semibold mb-1" style={{ color: "app-accent-primary" }}><i className="ri-lightbulb-line mr-1"></i>Ghi chú</p>
                             <p className="text-sm" style={{ color: "rgba(232,200,74,0.7)" }}>{result.note}</p>
                           </div>
                         )}
@@ -407,7 +407,7 @@ export default function AdvancedDictionaryPage() {
                                   </div>
                                 </div>
                                 <button onClick={() => { setQuery(c.word); handleSearch(c.word); }}
-                                  className="text-xs cursor-pointer whitespace-nowrap" style={{ color: "#e8c84a" }}>
+                                  className="text-xs cursor-pointer whitespace-nowrap" style={{ color: "app-accent-primary" }}>
                                   Tra cứu
                                 </button>
                               </div>

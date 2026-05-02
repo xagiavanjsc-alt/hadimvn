@@ -120,7 +120,7 @@ function DropZone({
       onDrop={handleDrop}
       onClick={() => inputRef.current?.click()}
       className={`border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all ${
-        dragging ? "border-[#e8c84a]/60 bg-[#e8c84a]/5" : "border-white/15 hover:border-white/30 hover:bg-white/3"
+        dragging ? "border-app-accent-primary/60 bg-app-accent-primary/5" : "border-white/15 hover:border-white/30 hover:bg-app-surface/50"
       }`}
     >
       <input
@@ -130,12 +130,12 @@ function DropZone({
         className="hidden"
         onChange={(e) => { const f = e.target.files?.[0]; if (f) onFile(f); }}
       />
-      <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-[#e8c84a]/10 mx-auto mb-3">
-        <i className="ri-upload-cloud-2-line text-[#e8c84a] text-2xl" />
+      <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-app-accent-primary/10 mx-auto mb-3">
+        <i className="ri-upload-cloud-2-line text-app-accent-primary text-2xl" />
       </div>
       <p className="text-white/70 font-semibold text-sm mb-1">{label}</p>
-      <p className="text-white/30 text-xs">Kéo thả hoặc nhấn để chọn file</p>
-      <p className="text-white/20 text-[10px] mt-1">Hỗ trợ: .csv, .xlsx (UTF-8)</p>
+      <p className="text-app-text-muted text-xs">Kéo thả hoặc nhấn để chọn file</p>
+      <p className="text-app-text-muted text-[10px] mt-1">Hỗ trợ: .csv, .xlsx (UTF-8)</p>
     </div>
   );
 }
@@ -238,9 +238,9 @@ export default function DataUploadPage() {
     <DashboardLayout title="Tải lên dữ liệu" subtitle="Nhập bài học K-pop và câu hỏi Naver từ file CSV">
       <div className="max-w-3xl mx-auto px-4 py-6 space-y-5">
         {/* Type selector */}
-        <div className="flex gap-1 bg-white/5 rounded-xl p-1 w-fit">
+        <div className="flex gap-1 bg-app-card/50 rounded-xl p-1 w-fit">
           {([
-            { id: "melon", icon: "ri-music-2-line", label: "K-pop Lesson", color: "#e8c84a" },
+            { id: "melon", icon: "ri-music-2-line", label: "K-pop Lesson", color: "app-accent-primary" },
             { id: "naver", icon: "ri-question-answer-line", label: "Naver KiN", color: "#38bdf8" },
           ] as const).map((t) => (
             <button
@@ -274,14 +274,14 @@ export default function DataUploadPage() {
             >
               <i
                 className={activeType === "melon" ? "ri-music-2-line text-base" : "ri-question-answer-line text-base"}
-                style={{ color: activeType === "melon" ? "#e8c84a" : "#38bdf8" }}
+                style={{ color: activeType === "melon" ? "app-accent-primary" : "#38bdf8" }}
               />
             </div>
             <div className="flex-1">
               <p className="text-white/80 font-semibold text-sm mb-1">
                 {activeType === "melon" ? "Nhập bài học K-pop" : "Nhập câu hỏi Naver KiN"}
               </p>
-              <p className="text-white/40 text-xs leading-relaxed">
+              <p className="text-app-text-secondary text-xs leading-relaxed">
                 {activeType === "melon"
                   ? "Tải file CSV chứa danh sách bài học K-pop đã xử lý. Mỗi dòng là 1 bài học với từ vựng, câu chuyện và giải thích."
                   : "Tải file CSV chứa danh sách câu hỏi Naver KiN đã dịch và viết lại. Mỗi dòng là 1 câu hỏi với câu trả lời."}
@@ -292,7 +292,7 @@ export default function DataUploadPage() {
               className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap transition-all flex-shrink-0"
               style={{
                 backgroundColor: activeType === "melon" ? "rgba(232,200,74,0.12)" : "rgba(56,189,248,0.12)",
-                color: activeType === "melon" ? "#e8c84a" : "#38bdf8",
+                color: activeType === "melon" ? "app-accent-primary" : "#38bdf8",
               }}
             >
               <i className="ri-download-line" />
@@ -324,13 +324,13 @@ export default function DataUploadPage() {
         {/* Success */}
         {success && (
           <div className="flex items-center gap-3 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-            <i className="ri-checkbox-circle-line text-emerald-400 text-xl flex-shrink-0" />
+            <i className="ri-checkbox-circle-line text-app-accent-success text-xl flex-shrink-0" />
             <div className="flex-1">
-              <p className="text-emerald-400 font-semibold text-sm">{success}</p>
+              <p className="text-app-accent-success font-semibold text-sm">{success}</p>
             </div>
             <button
               onClick={() => navigate(activeType === "melon" ? "/melon" : "/naver")}
-              className="px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer whitespace-nowrap bg-emerald-500/20 text-emerald-400"
+              className="px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer whitespace-nowrap bg-emerald-500/20 text-app-accent-success"
             >
               Xem ngay
             </button>
@@ -345,13 +345,13 @@ export default function DataUploadPage() {
                 <h3 className="text-white font-semibold text-sm">
                   Xem trước — {preview.length} dòng
                 </h3>
-                <p className="text-white/30 text-xs mt-0.5">
+                <p className="text-app-text-muted text-xs mt-0.5">
                   File: {file?.name}
                 </p>
               </div>
               <button
                 onClick={() => { setPreview(null); setFile(null); setError(""); }}
-                className="text-white/30 hover:text-white/60 text-xs cursor-pointer"
+                className="text-app-text-muted hover:text-white/60 text-xs cursor-pointer"
               >
                 <i className="ri-close-line mr-1" />
                 Chọn lại
@@ -359,52 +359,52 @@ export default function DataUploadPage() {
             </div>
 
             {/* Preview table */}
-            <div className="bg-[#0f1117] border border-white/8 rounded-2xl overflow-hidden">
+            <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-xs">
                   <thead>
-                    <tr className="border-b border-white/8">
+                    <tr className="border-b border-app-border">
                       {activeType === "melon" ? (
                         <>
-                          <th className="text-left px-4 py-3 text-white/40 font-semibold">Hạng</th>
-                          <th className="text-left px-4 py-3 text-white/40 font-semibold">Bài hát</th>
-                          <th className="text-left px-4 py-3 text-white/40 font-semibold">Nghệ sĩ</th>
-                          <th className="text-left px-4 py-3 text-white/40 font-semibold">Từ vựng</th>
-                          <th className="text-left px-4 py-3 text-white/40 font-semibold">Sao</th>
+                          <th className="text-left px-4 py-3 text-app-text-secondary font-semibold">Hạng</th>
+                          <th className="text-left px-4 py-3 text-app-text-secondary font-semibold">Bài hát</th>
+                          <th className="text-left px-4 py-3 text-app-text-secondary font-semibold">Nghệ sĩ</th>
+                          <th className="text-left px-4 py-3 text-app-text-secondary font-semibold">Từ vựng</th>
+                          <th className="text-left px-4 py-3 text-app-text-secondary font-semibold">Sao</th>
                         </>
                       ) : (
                         <>
-                          <th className="text-left px-4 py-3 text-white/40 font-semibold">ID</th>
-                          <th className="text-left px-4 py-3 text-white/40 font-semibold">Câu hỏi (Hàn)</th>
-                          <th className="text-left px-4 py-3 text-white/40 font-semibold">Chủ đề</th>
-                          <th className="text-left px-4 py-3 text-white/40 font-semibold">Câu trả lời</th>
+                          <th className="text-left px-4 py-3 text-app-text-secondary font-semibold">ID</th>
+                          <th className="text-left px-4 py-3 text-app-text-secondary font-semibold">Câu hỏi (Hàn)</th>
+                          <th className="text-left px-4 py-3 text-app-text-secondary font-semibold">Chủ đề</th>
+                          <th className="text-left px-4 py-3 text-app-text-secondary font-semibold">Câu trả lời</th>
                         </>
                       )}
                     </tr>
                   </thead>
                   <tbody>
                     {(preview as (MelonRow | NaverRow)[]).slice(0, 10).map((row, i) => (
-                      <tr key={i} className="border-b border-white/5 hover:bg-white/3 transition-colors">
+                      <tr key={i} className="border-b border-app-border hover:bg-app-surface/50 transition-colors">
                         {activeType === "melon" ? (
                           <>
-                            <td className="px-4 py-3 text-[#e8c84a] font-bold">{(row as MelonRow).rank}</td>
+                            <td className="px-4 py-3 text-app-accent-primary font-bold">{(row as MelonRow).rank}</td>
                             <td className="px-4 py-3 text-white/70 max-w-[120px] truncate">{(row as MelonRow).title}</td>
-                            <td className="px-4 py-3 text-white/40 max-w-[100px] truncate">{(row as MelonRow).artist}</td>
-                            <td className="px-4 py-3 text-white/40">{(row as MelonRow).vocabulary.length} từ</td>
+                            <td className="px-4 py-3 text-app-text-secondary max-w-[100px] truncate">{(row as MelonRow).artist}</td>
+                            <td className="px-4 py-3 text-app-text-secondary">{(row as MelonRow).vocabulary.length} từ</td>
                             <td className="px-4 py-3">
-                              <span className="text-[#e8c84a]">{"★".repeat((row as MelonRow).stars)}</span>
+                              <span className="text-app-accent-primary">{"★".repeat((row as MelonRow).stars)}</span>
                             </td>
                           </>
                         ) : (
                           <>
-                            <td className="px-4 py-3 text-white/40 font-mono text-[10px]">{(row as NaverRow).id}</td>
+                            <td className="px-4 py-3 text-app-text-secondary font-mono text-[10px]">{(row as NaverRow).id}</td>
                             <td className="px-4 py-3 text-white/70 max-w-[150px] truncate">{(row as NaverRow).questionKr}</td>
                             <td className="px-4 py-3">
                               <span className="text-[10px] px-2 py-0.5 rounded-full bg-sky-500/15 text-sky-400">
                                 {(row as NaverRow).category}
                               </span>
                             </td>
-                            <td className="px-4 py-3 text-white/40 max-w-[200px] truncate">{(row as NaverRow).rewrittenAnswer}</td>
+                            <td className="px-4 py-3 text-app-text-secondary max-w-[200px] truncate">{(row as NaverRow).rewrittenAnswer}</td>
                           </>
                         )}
                       </tr>
@@ -413,8 +413,8 @@ export default function DataUploadPage() {
                 </table>
               </div>
               {preview.length > 10 && (
-                <div className="px-4 py-2 border-t border-white/5 text-center">
-                  <p className="text-white/25 text-xs">... và {preview.length - 10} dòng nữa</p>
+                <div className="px-4 py-2 border-t border-app-border text-center">
+                  <p className="text-app-text-muted text-xs">... và {preview.length - 10} dòng nữa</p>
                 </div>
               )}
             </div>
@@ -423,7 +423,7 @@ export default function DataUploadPage() {
             <div className="flex gap-3">
               <button
                 onClick={() => { setPreview(null); setFile(null); }}
-                className="flex-1 py-3 rounded-xl bg-white/5 text-white/50 text-sm font-medium cursor-pointer hover:bg-white/8 transition-all border border-white/8 whitespace-nowrap"
+                className="flex-1 py-3 rounded-xl bg-app-card/50 text-white/50 text-sm font-medium cursor-pointer hover:bg-white/8 transition-all border border-app-border whitespace-nowrap"
               >
                 <i className="ri-close-line mr-1.5" />
                 Hủy
@@ -433,7 +433,7 @@ export default function DataUploadPage() {
                 disabled={importing}
                 className="flex-1 py-3 rounded-xl text-sm font-bold cursor-pointer transition-all whitespace-nowrap disabled:opacity-50"
                 style={{
-                  backgroundColor: activeType === "melon" ? "#e8c84a" : "#38bdf8",
+                  backgroundColor: activeType === "melon" ? "app-accent-primary" : "#38bdf8",
                   color: "#0f1117",
                 }}
               >
@@ -448,13 +448,13 @@ export default function DataUploadPage() {
         )}
 
         {/* Format guide */}
-        <div className="bg-[#0f1117] border border-white/6 rounded-2xl p-5">
+        <div className="bg-app-bg border border-white/6 rounded-2xl p-5">
           <h3 className="text-white/70 font-semibold text-sm mb-3 flex items-center gap-2">
-            <i className="ri-information-line text-[#e8c84a]" />
+            <i className="ri-information-line text-app-accent-primary" />
             Hướng dẫn định dạng CSV
           </h3>
           {activeType === "melon" ? (
-            <div className="space-y-2 text-xs text-white/40">
+            <div className="space-y-2 text-xs text-app-text-secondary">
               <p><span className="text-white/60 font-semibold">rank</span> — Số thứ tự bài hát (1, 2, 3...)</p>
               <p><span className="text-white/60 font-semibold">title</span> — Tên bài hát</p>
               <p><span className="text-white/60 font-semibold">artist</span> — Tên nghệ sĩ</p>
@@ -464,7 +464,7 @@ export default function DataUploadPage() {
               <p><span className="text-white/60 font-semibold">stars</span> — Số sao (1-5)</p>
             </div>
           ) : (
-            <div className="space-y-2 text-xs text-white/40">
+            <div className="space-y-2 text-xs text-app-text-secondary">
               <p><span className="text-white/60 font-semibold">id</span> — Mã câu hỏi (duy nhất)</p>
               <p><span className="text-white/60 font-semibold">questionKr</span> — Câu hỏi tiếng Hàn gốc</p>
               <p><span className="text-white/60 font-semibold">category</span> — Chủ đề (học tập, du lịch...)</p>
@@ -476,7 +476,7 @@ export default function DataUploadPage() {
           <button
             onClick={() => downloadTemplate(activeType)}
             className="mt-3 flex items-center gap-1.5 text-xs font-semibold cursor-pointer transition-all"
-            style={{ color: activeType === "melon" ? "#e8c84a" : "#38bdf8" }}
+            style={{ color: activeType === "melon" ? "app-accent-primary" : "#38bdf8" }}
           >
             <i className="ri-download-line" />
             Tải file template mẫu

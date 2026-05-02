@@ -125,48 +125,48 @@ export default function AuthModal({ onClose }: AuthModalProps) {
   if (mode === "verify") {
     return (
       <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" style={{ alignItems: "center", justifyContent: "center" }} onClick={onClose}>
-        <div className="bg-[#1a1d27] border border-white/10 rounded-2xl w-full max-w-sm shadow-2xl" onClick={e => e.stopPropagation()}>
+        <div className="bg-[#1a1d27] border border-app-border rounded-2xl w-full max-w-sm shadow-2xl" onClick={e => e.stopPropagation()}>
           <div className="px-6 py-8 text-center">
-            <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-[#e8c84a]/10 mx-auto mb-4">
-              <i className="ri-mail-check-line text-[#e8c84a] text-3xl"></i>
+            <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-app-accent-primary/10 mx-auto mb-4">
+              <i className="ri-mail-check-line text-app-accent-primary text-3xl"></i>
             </div>
             <h2 className="text-white text-lg font-bold mb-2">Kiểm tra email của bạn!</h2>
             <p className="text-white/50 text-sm leading-relaxed mb-2">
               Chúng tôi đã gửi email xác nhận đến:
             </p>
-            <p className="text-[#e8c84a] font-semibold text-sm mb-4 break-all">{email}</p>
-            <div className="bg-white/3 border border-white/8 rounded-xl p-4 mb-5 text-left space-y-2">
+            <p className="text-app-accent-primary font-semibold text-sm mb-4 break-all">{email}</p>
+            <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 mb-5 text-left space-y-2">
               <div className="flex items-start gap-2">
-                <span className="text-[#e8c84a] font-bold text-sm flex-shrink-0">1.</span>
+                <span className="text-app-accent-primary font-bold text-sm flex-shrink-0">1.</span>
                 <p className="text-white/60 text-xs">Mở email và nhấn vào link xác nhận tài khoản</p>
               </div>
               <div className="flex items-start gap-2">
-                <span className="text-[#e8c84a] font-bold text-sm flex-shrink-0">2.</span>
+                <span className="text-app-accent-primary font-bold text-sm flex-shrink-0">2.</span>
                 <p className="text-white/60 text-xs">Kiểm tra cả thư mục <strong className="text-white/80">Spam / Junk</strong> nếu không thấy</p>
               </div>
               <div className="flex items-start gap-2">
-                <span className="text-[#e8c84a] font-bold text-sm flex-shrink-0">3.</span>
+                <span className="text-app-accent-primary font-bold text-sm flex-shrink-0">3.</span>
                 <p className="text-white/60 text-xs">Sau khi xác nhận, quay lại đây và đăng nhập</p>
               </div>
             </div>
 
-            {success && <p className="text-emerald-400 text-xs bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-3 py-2 mb-3">{success}</p>}
+            {success && <p className="text-app-accent-success text-xs bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-3 py-2 mb-3">{success}</p>}
             {error && <p className="text-red-400 text-xs bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2 mb-3">{error}</p>}
 
             <button
               onClick={handleResendConfirmation}
               disabled={resendLoading || resendCooldown > 0}
-              className="w-full py-2.5 mb-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white/60 text-sm rounded-xl transition-all cursor-pointer whitespace-nowrap disabled:opacity-50"
+              className="w-full py-2.5 mb-3 bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/60 text-sm rounded-xl transition-all cursor-pointer whitespace-nowrap disabled:opacity-50"
             >
               {resendLoading ? "Đang gửi..." : resendCooldown > 0 ? `Gửi lại sau ${resendCooldown}s` : "Gửi lại email xác nhận"}
             </button>
             <button
               onClick={() => { setMode("login"); setError(""); setSuccess(""); }}
-              className="w-full py-2.5 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm rounded-xl transition-all cursor-pointer whitespace-nowrap"
+              className="w-full py-2.5 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm rounded-xl transition-all cursor-pointer whitespace-nowrap"
             >
               Đã xác nhận — Đăng nhập ngay
             </button>
-            <button onClick={onClose} className="mt-3 text-white/30 text-xs hover:text-white/60 cursor-pointer">
+            <button onClick={onClose} className="mt-3 text-app-text-muted text-xs hover:text-white/60 cursor-pointer">
               Đóng
             </button>
           </div>
@@ -182,7 +182,7 @@ export default function AuthModal({ onClose }: AuthModalProps) {
       onClick={onClose}
     >
       <div
-        className="bg-[#1a1d27] border border-white/10 rounded-2xl w-full max-w-sm shadow-2xl flex flex-col"
+        className="bg-[#1a1d27] border border-app-border rounded-2xl w-full max-w-sm shadow-2xl flex flex-col"
         style={{ maxHeight: "min(90vh, 580px)", overflowY: "auto", position: "relative", zIndex: 1 }}
         onClick={e => e.stopPropagation()}
       >
@@ -192,11 +192,11 @@ export default function AuthModal({ onClose }: AuthModalProps) {
             <h2 className="text-white text-lg font-bold">
               {mode === "login" ? "Đăng nhập" : mode === "register" ? "Tạo tài khoản" : "Quên mật khẩu"}
             </h2>
-            <p className="text-white/40 text-xs mt-0.5">
+            <p className="text-app-text-secondary text-xs mt-0.5">
               {mode === "forgot" ? "Nhập email để đặt lại mật khẩu" : "Đồng bộ dữ liệu học tập lên cloud"}
             </p>
           </div>
-          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/40 cursor-pointer">
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary cursor-pointer">
             <i className="ri-close-line"></i>
           </button>
         </div>
@@ -204,8 +204,8 @@ export default function AuthModal({ onClose }: AuthModalProps) {
         <div className="px-6 pb-6 space-y-4">
           {/* Cloud sync benefit */}
           {mode !== "forgot" && (
-            <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-3 flex items-start gap-2.5">
-              <i className="ri-cloud-line text-[#e8c84a] text-sm mt-0.5 flex-shrink-0"></i>
+            <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-3 flex items-start gap-2.5">
+              <i className="ri-cloud-line text-app-accent-primary text-sm mt-0.5 flex-shrink-0"></i>
               <p className="text-white/55 text-xs leading-relaxed">
                 Streak, flashcard, điểm EPS lưu cloud — không mất khi đổi thiết bị!
               </p>
@@ -234,13 +234,13 @@ export default function AuthModal({ onClose }: AuthModalProps) {
               </button>
 
               {/* Google note */}
-              <p className="text-white/25 text-[10px] text-center -mt-2">
+              <p className="text-app-text-muted text-[10px] text-center -mt-2">
                 Nếu Google không hoạt động, hãy dùng email/mật khẩu bên dưới
               </p>
 
               <div className="flex items-center gap-3">
                 <div className="flex-1 h-px bg-white/8"></div>
-                <span className="text-white/25 text-xs">hoặc</span>
+                <span className="text-app-text-muted text-xs">hoặc</span>
                 <div className="flex-1 h-px bg-white/8"></div>
               </div>
             </>
@@ -257,17 +257,17 @@ export default function AuthModal({ onClose }: AuthModalProps) {
                   onChange={e => setEmail(e.target.value)}
                   placeholder="email@example.com"
                   required
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40"
+                  className="w-full bg-app-card/50 border border-app-border rounded-lg px-3 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40"
                 />
               </div>
               {error && <p className="text-red-400 text-xs bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">{error}</p>}
-              {success && <p className="text-emerald-400 text-xs bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-3 py-2">{success}</p>}
+              {success && <p className="text-app-accent-success text-xs bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-3 py-2">{success}</p>}
               <button type="submit" disabled={loading}
-                className="w-full py-2.5 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap disabled:opacity-50">
+                className="w-full py-2.5 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap disabled:opacity-50">
                 {loading ? "Đang gửi..." : "Gửi email đặt lại mật khẩu"}
               </button>
               <button type="button" onClick={() => { setMode("login"); setError(""); setSuccess(""); }}
-                className="w-full text-white/40 text-xs hover:text-white/70 cursor-pointer py-1">
+                className="w-full text-app-text-secondary text-xs hover:text-white/70 cursor-pointer py-1">
                 ← Quay lại đăng nhập
               </button>
             </form>
@@ -279,21 +279,21 @@ export default function AuthModal({ onClose }: AuthModalProps) {
                   <label className="text-white/50 text-xs mb-1.5 block">Tên hiển thị</label>
                   <input type="text" value={displayName} onChange={e => setDisplayName(e.target.value)}
                     placeholder="Nguyễn Văn A"
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40" />
+                    className="w-full bg-app-card/50 border border-app-border rounded-lg px-3 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40" />
                 </div>
               )}
               <div>
                 <label className="text-white/50 text-xs mb-1.5 block">Email</label>
                 <input type="email" name="email" value={email} onChange={e => setEmail(e.target.value)}
                   placeholder="email@example.com" required
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40" />
+                  className="w-full bg-app-card/50 border border-app-border rounded-lg px-3 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40" />
               </div>
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <label className="text-white/50 text-xs">Mật khẩu</label>
                   {mode === "login" && (
                     <button type="button" onClick={() => { setMode("forgot"); setError(""); setSuccess(""); }}
-                      className="text-[#e8c84a]/60 text-[10px] hover:text-[#e8c84a] cursor-pointer whitespace-nowrap">
+                      className="text-app-accent-primary/60 text-[10px] hover:text-app-accent-primary cursor-pointer whitespace-nowrap">
                       Quên mật khẩu?
                     </button>
                   )}
@@ -301,9 +301,9 @@ export default function AuthModal({ onClose }: AuthModalProps) {
                 <div className="relative">
                   <input type={showPassword ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)}
                     placeholder="••••••••" required minLength={6}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 pr-10 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40" />
+                    className="w-full bg-app-card/50 border border-app-border rounded-lg px-3 py-2.5 pr-10 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40" />
                   <button type="button" onClick={() => setShowPassword(v => !v)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 cursor-pointer">
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-app-text-muted hover:text-white/60 cursor-pointer">
                     <i className={`${showPassword ? "ri-eye-off-line" : "ri-eye-line"} text-sm`}></i>
                   </button>
                 </div>
@@ -317,22 +317,22 @@ export default function AuthModal({ onClose }: AuthModalProps) {
                       type="button"
                       onClick={handleResendConfirmation}
                       disabled={resendLoading || resendCooldown > 0}
-                      className="mt-1.5 text-[#e8c84a] text-[10px] hover:underline cursor-pointer whitespace-nowrap disabled:opacity-50"
+                      className="mt-1.5 text-app-accent-primary text-[10px] hover:underline cursor-pointer whitespace-nowrap disabled:opacity-50"
                     >
                       {resendCooldown > 0 ? `Gửi lại sau ${resendCooldown}s` : "Gửi lại email xác nhận →"}
                     </button>
                   )}
                 </div>
               )}
-              {success && <p className="text-emerald-400 text-xs bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-3 py-2">{success}</p>}
+              {success && <p className="text-app-accent-success text-xs bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-3 py-2">{success}</p>}
 
               <button type="submit" disabled={loading}
-                className="w-full py-2.5 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm rounded-xl transition-all cursor-pointer whitespace-nowrap disabled:opacity-50">
+                className="w-full py-2.5 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm rounded-xl transition-all cursor-pointer whitespace-nowrap disabled:opacity-50">
                 {loading ? "Đang xử lý..." : mode === "login" ? "Đăng nhập" : "Tạo tài khoản"}
               </button>
 
               {mode === "register" && (
-                <p className="text-white/25 text-[10px] text-center leading-relaxed">
+                <p className="text-app-text-muted text-[10px] text-center leading-relaxed">
                   Sau khi đăng ký, bạn sẽ nhận email xác nhận. Kiểm tra cả thư mục Spam nhé!
                 </p>
               )}
@@ -343,7 +343,7 @@ export default function AuthModal({ onClose }: AuthModalProps) {
           {mode !== "forgot" && (
             <div className="text-center pt-1">
               <button onClick={() => { setMode(mode === "login" ? "register" : "login"); setError(""); setSuccess(""); }}
-                className="text-white/40 text-xs hover:text-white/70 cursor-pointer">
+                className="text-app-text-secondary text-xs hover:text-white/70 cursor-pointer">
                 {mode === "login" ? "Chưa có tài khoản? Đăng ký ngay" : "Đã có tài khoản? Đăng nhập"}
               </button>
             </div>

@@ -37,11 +37,11 @@ function VirtualSongList({
   if (songs.length === 0) {
     return (
       <div className="flex flex-col items-center py-14 text-center">
-        <div className="w-12 h-12 flex items-center justify-center bg-white/5 rounded-xl mb-3">
-          <i className="ri-search-line text-white/20 text-xl" />
+        <div className="w-12 h-12 flex items-center justify-center bg-app-card/50 rounded-xl mb-3">
+          <i className="ri-search-line text-app-text-muted text-xl" />
         </div>
-        <p className="text-white/40 text-sm">Không tìm thấy bài hát</p>
-        <p className="text-white/20 text-xs mt-1">&ldquo;{search}&rdquo;</p>
+        <p className="text-app-text-secondary text-sm">Không tìm thấy bài hát</p>
+        <p className="text-app-text-muted text-xs mt-1">&ldquo;{search}&rdquo;</p>
       </div>
     );
   }
@@ -66,7 +66,7 @@ function VirtualSongList({
                 <div
                   key={song.rank}
                   style={{ height: `${SONG_ITEM_HEIGHT}px` }}
-                  className="flex items-center bg-white/3 rounded-xl px-2 sm:px-3 border border-white/5 gap-1.5 sm:gap-3 hover:bg-white/5 transition-colors"
+                  className="flex items-center bg-app-surface/50 rounded-xl px-2 sm:px-3 border border-app-border gap-1.5 sm:gap-3 hover:bg-app-card/50 transition-colors"
                 >
                   <span className="text-[11px] sm:text-sm font-bold text-[#00C73C] w-4 sm:w-6 text-center flex-shrink-0">
                     {song.rank}
@@ -96,12 +96,12 @@ function VirtualSongList({
                       )}
                     </div>
                     <p className="text-white/35 text-[10px] sm:text-xs truncate">{song.artist}</p>
-                    <p className="text-white/20 text-[9px] sm:text-[10px] truncate hidden sm:block">{song.genre}</p>
+                    <p className="text-app-text-muted text-[9px] sm:text-[10px] truncate hidden sm:block">{song.genre}</p>
                   </div>
                   <div className="flex items-center gap-1 flex-shrink-0">
                     <button
                       onClick={() => onAnalysis(song)}
-                      className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 text-[#e8c84a] transition-colors cursor-pointer"
+                      className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary transition-colors cursor-pointer"
                       title="Phân tích nhanh"
                     >
                       <i className="ri-sparkling-2-line text-xs" />
@@ -111,7 +111,7 @@ function VirtualSongList({
                       className={`w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg transition-colors cursor-pointer ${
                         saved
                           ? "bg-red-500/15 text-red-400 hover:bg-red-500/25"
-                          : "bg-white/5 text-white/30 hover:text-white/60 hover:bg-white/10"
+                          : "bg-app-card/50 text-app-text-muted hover:text-white/60 hover:bg-app-card/70"
                       }`}
                       title={saved ? "Xóa khỏi playlist" : "Thêm vào playlist"}
                     >
@@ -246,13 +246,13 @@ const MelonPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f1117] pb-24 md:pb-8">
+    <div className="min-h-screen bg-app-bg pb-24 md:pb-8">
 
       {/* Desktop top bar */}
-      <header className="hidden md:flex sticky top-0 z-30 bg-[#0f1117]/95 backdrop-blur-md border-b border-white/8 h-14 items-center px-6 gap-4">
+      <header className="hidden md:flex sticky top-0 z-30 bg-app-bg/95 backdrop-blur-md border-b border-app-border h-14 items-center px-6 gap-4">
         <button
           onClick={() => navigate("/dashboard")}
-          className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/60 hover:text-white cursor-pointer flex-shrink-0"
+          className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-white/60 hover:text-white cursor-pointer flex-shrink-0"
         >
           <i className="ri-arrow-left-line" />
         </button>
@@ -266,14 +266,14 @@ const MelonPage = () => {
         <div className="flex items-center gap-1.5 ml-auto">
           <button
             onClick={() => navigate("/melon-history")}
-            className="flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
+            className="flex items-center gap-1.5 text-xs text-app-text-secondary hover:text-white/70 bg-app-card/50 hover:bg-app-card/70 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
           >
             <i className="ri-history-line" />
             Lịch sử
           </button>
           <button
             onClick={() => navigate("/melon-flashcard")}
-            className="flex items-center gap-1.5 text-xs text-[#e8c84a]/70 hover:text-[#e8c84a] bg-[#e8c84a]/8 hover:bg-[#e8c84a]/15 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
+            className="flex items-center gap-1.5 text-xs text-app-accent-primary/70 hover:text-app-accent-primary bg-app-accent-primary/8 hover:bg-app-accent-primary/15 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
           >
             <i className="ri-stack-line" />
             Flashcard
@@ -287,7 +287,7 @@ const MelonPage = () => {
           </button>
           <button
             onClick={() => navigate("/eps-melon")}
-            className="flex items-center gap-1.5 text-xs text-emerald-400/70 hover:text-emerald-400 bg-emerald-500/8 hover:bg-emerald-500/15 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
+            className="flex items-center gap-1.5 text-xs text-app-accent-success/70 hover:text-app-accent-success bg-emerald-500/8 hover:bg-app-accent-success/15 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
           >
             <i className="ri-book-2-line" />
             EPS + K-pop
@@ -296,7 +296,7 @@ const MelonPage = () => {
             <button
               onClick={() => setShowAdminPanel(true)}
               className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
-              style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "#e8c84a", border: "1px solid rgba(232,200,74,0.20)" }}
+              style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.20)" }}
             >
               <i className="ri-database-2-line" />
               Dữ liệu
@@ -339,11 +339,11 @@ const MelonPage = () => {
 
         {/* Melon Streak Banner */}
         {streak.count > 0 && (
-          <div className="mb-4 bg-gradient-to-r from-orange-500/15 via-[#e8c84a]/10 to-transparent border border-orange-500/20 rounded-2xl px-4 py-3 flex items-center gap-3">
+          <div className="mb-4 bg-gradient-to-r from-orange-500/15 via-[app-accent-primary]/10 to-transparent border border-orange-500/20 rounded-2xl px-4 py-3 flex items-center gap-3">
             <div className="flex-shrink-0 relative">
               <span className="text-2xl">🔥</span>
               {streak.count >= 7 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center bg-[#e8c84a] rounded-full text-[8px] font-bold text-[#0f1117]">
+                <span className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center bg-app-accent-primary rounded-full text-[8px] font-bold text-app-bg">
                   {streak.count >= 30 ? "30" : streak.count >= 14 ? "14" : "7"}
                 </span>
               )}
@@ -354,7 +354,7 @@ const MelonPage = () => {
                   {streak.count} ngày liên tiếp
                 </span>
                 {streak.count >= 7 && (
-                  <span className="text-[10px] bg-[#e8c84a]/15 text-[#e8c84a] px-2 py-0.5 rounded-full font-semibold whitespace-nowrap">
+                  <span className="text-[10px] bg-app-accent-primary/15 text-app-accent-primary px-2 py-0.5 rounded-full font-semibold whitespace-nowrap">
                     {streak.count >= 30
                       ? "🏆 Huyền thoại"
                       : streak.count >= 14
@@ -370,7 +370,7 @@ const MelonPage = () => {
                     <div
                       key={i}
                       className={`h-1.5 flex-1 rounded-full ${
-                        isToday ? "bg-[#e8c84a]" : "bg-orange-500/50"
+                        isToday ? "bg-app-accent-primary" : "bg-orange-500/50"
                       }`}
                     />
                   );
@@ -383,7 +383,7 @@ const MelonPage = () => {
               </div>
             </div>
             <div className="flex-shrink-0 text-right">
-              <p className="text-white/30 text-[10px]">Bài hát đã học</p>
+              <p className="text-app-text-muted text-[10px]">Bài hát đã học</p>
               <p className="text-white font-bold text-lg leading-none">{learnedRanks.length}</p>
             </div>
           </div>
@@ -395,11 +395,11 @@ const MelonPage = () => {
             <button
               onClick={() => setShowAdminPanel(true)}
               className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap transition-all"
-              style={{ backgroundColor: "rgba(232,200,74,0.10)", color: "#e8c84a", border: "1px solid rgba(232,200,74,0.18)" }}
+              style={{ backgroundColor: "rgba(232,200,74,0.10)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.18)" }}
             >
               <i className="ri-database-2-line"></i>
               Quản lý dữ liệu (Admin)
-              <span className="ml-1 text-[9px] px-1.5 py-0.5 rounded-full font-bold" style={{ backgroundColor: "rgba(232,200,74,0.15)", color: "#e8c84a" }}>ADMIN</span>
+              <span className="ml-1 text-[9px] px-1.5 py-0.5 rounded-full font-bold" style={{ backgroundColor: "rgba(232,200,74,0.15)", color: "app-accent-primary" }}>ADMIN</span>
             </button>
           </div>
         )}
@@ -408,14 +408,14 @@ const MelonPage = () => {
         <div className="flex gap-2 mb-4 flex-wrap">
           <button
             onClick={() => navigate("/melon-history")}
-            className="flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 bg-white/5 border border-white/8 px-3 py-2 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
+            className="flex items-center gap-1.5 text-xs text-app-text-secondary hover:text-white/70 bg-app-card/50 border border-app-border px-3 py-2 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
           >
             <i className="ri-history-line" />
             Lịch sử học
           </button>
           <button
             onClick={() => navigate("/melon-flashcard")}
-            className="flex items-center gap-1.5 text-xs text-[#e8c84a]/70 bg-[#e8c84a]/8 border border-[#e8c84a]/15 px-3 py-2 rounded-xl cursor-pointer whitespace-nowrap transition-colors hover:bg-[#e8c84a]/15"
+            className="flex items-center gap-1.5 text-xs text-app-accent-primary/70 bg-app-accent-primary/8 border border-app-accent-primary/15 px-3 py-2 rounded-xl cursor-pointer whitespace-nowrap transition-colors hover:bg-app-accent-primary/15"
           >
             <i className="ri-stack-line" />
             Flashcard từ vựng
@@ -429,7 +429,7 @@ const MelonPage = () => {
           </button>
           <button
             onClick={() => navigate("/eps-melon")}
-            className="flex items-center gap-1.5 text-xs text-emerald-400/70 bg-emerald-500/8 border border-emerald-500/15 px-3 py-2 rounded-xl cursor-pointer whitespace-nowrap transition-colors hover:bg-emerald-500/15"
+            className="flex items-center gap-1.5 text-xs text-app-accent-success/70 bg-emerald-500/8 border border-emerald-500/15 px-3 py-2 rounded-xl cursor-pointer whitespace-nowrap transition-colors hover:bg-app-accent-success/15"
           >
             <i className="ri-book-2-line" />
             EPS + K-pop
@@ -437,10 +437,10 @@ const MelonPage = () => {
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex bg-white/5 rounded-full p-1 mb-4 border border-white/8">
+        <div className="flex bg-app-card/50 rounded-full p-1 mb-4 border border-app-border">
           <button
             className={`flex-1 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${
-              activeTab === "chart" ? "bg-[#00C73C] text-white" : "text-white/40 hover:text-white/60"
+              activeTab === "chart" ? "bg-[#00C73C] text-white" : "text-app-text-secondary hover:text-white/60"
             }`}
             onClick={() => setActiveTab("chart")}
           >
@@ -450,8 +450,8 @@ const MelonPage = () => {
           <button
             className={`flex-1 py-2 rounded-full text-sm font-medium transition-all cursor-pointer relative whitespace-nowrap ${
               activeTab === "playlist"
-                ? "bg-[#e8c84a] text-[#0f1117]"
-                : "text-white/40 hover:text-white/60"
+                ? "bg-app-accent-primary text-app-bg"
+                : "text-app-text-secondary hover:text-white/60"
             }`}
             onClick={() => setActiveTab("playlist")}
           >
@@ -461,8 +461,8 @@ const MelonPage = () => {
               <span
                 className={`ml-1.5 text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
                   activeTab === "playlist"
-                    ? "bg-[#0f1117]/20 text-[#0f1117]"
-                    : "bg-[#e8c84a]/20 text-[#e8c84a]"
+                    ? "bg-app-bg/20 text-app-bg"
+                    : "bg-app-accent-primary/20 text-app-accent-primary"
                 }`}
               >
                 {playlistRanks.length}
@@ -475,7 +475,7 @@ const MelonPage = () => {
         {activeTab === "chart" && (
           <div className="relative mb-4">
             <div className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center pointer-events-none z-10">
-              <i className="ri-search-line text-white/30 text-sm" />
+              <i className="ri-search-line text-app-text-muted text-sm" />
             </div>
             <input
               type="text"
@@ -484,19 +484,19 @@ const MelonPage = () => {
               onFocus={() => setShowSuggestions(true)}
               onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
               placeholder="Tìm nhanh bài hát, nghệ sĩ..."
-              className="w-full bg-white/5 border border-white/8 rounded-xl pl-9 pr-4 py-2.5 text-white/80 text-sm placeholder-white/25 focus:outline-none focus:border-[#00C73C]/40 transition-colors"
+              className="w-full bg-app-card/50 border border-app-border rounded-xl pl-9 pr-4 py-2.5 text-white/80 text-sm placeholder-white/25 focus:outline-none focus:border-[#00C73C]/40 transition-colors"
             />
             {search && (
               <button
                 onClick={() => setSearch("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center text-white/30 hover:text-white/60 cursor-pointer z-10"
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center text-app-text-muted hover:text-white/60 cursor-pointer z-10"
               >
                 <i className="ri-close-line text-sm" />
               </button>
             )}
             {/* Real-time suggestions dropdown */}
             {showSuggestions && search.trim().length >= 1 && suggestions.length > 0 && (
-              <div className="absolute top-full left-0 right-0 mt-1 bg-[#1a1d27] border border-white/10 rounded-xl overflow-hidden z-50 shadow-xl">
+              <div className="absolute top-full left-0 right-0 mt-1 bg-[#1a1d27] border border-app-border rounded-xl overflow-hidden z-50 shadow-xl">
                 {suggestions.map(song => (
                   <button
                     key={song.rank}
@@ -510,12 +510,12 @@ const MelonPage = () => {
                       </p>
                       <p className="text-white/35 text-[10px] truncate">{song.artist} · #{song.rank}</p>
                     </div>
-                    <i className="ri-arrow-right-up-line text-white/20 text-xs flex-shrink-0" />
+                    <i className="ri-arrow-right-up-line text-app-text-muted text-xs flex-shrink-0" />
                   </button>
                 ))}
                 {filteredSongs.length > suggestions.length && (
-                  <div className="px-3 py-2 border-t border-white/5">
-                    <p className="text-white/25 text-[10px] text-center">{filteredSongs.length} kết quả — cuộn xuống để xem thêm</p>
+                  <div className="px-3 py-2 border-t border-app-border">
+                    <p className="text-app-text-muted text-[10px] text-center">{filteredSongs.length} kết quả — cuộn xuống để xem thêm</p>
                   </div>
                 )}
               </div>
@@ -531,7 +531,7 @@ const MelonPage = () => {
               className={`flex-shrink-0 text-xs px-3 py-1.5 rounded-full border transition-colors cursor-pointer whitespace-nowrap ${
                 genreFilter === "all"
                   ? "bg-[#00C73C] text-white border-[#00C73C]"
-                  : "bg-white/5 text-white/40 border-white/10 hover:text-white/70"
+                  : "bg-app-card/50 text-app-text-secondary border-app-border hover:text-white/70"
               }`}
             >
               Tất cả ({mockMelonSongs.length})
@@ -544,8 +544,8 @@ const MelonPage = () => {
                   onClick={() => setGenreFilter(genreFilter === genre ? "all" : genre)}
                   className={`flex-shrink-0 text-xs px-3 py-1.5 rounded-full border transition-colors cursor-pointer whitespace-nowrap ${
                     genreFilter === genre
-                      ? "bg-[#e8c84a] text-[#0f1117] border-[#e8c84a] font-semibold"
-                      : "bg-white/5 text-white/40 border-white/10 hover:text-white/70"
+                      ? "bg-app-accent-primary text-app-bg border-app-accent-primary font-semibold"
+                      : "bg-app-card/50 text-app-text-secondary border-app-border hover:text-white/70"
                   }`}
                 >
                   {genre} ({count})
@@ -570,7 +570,7 @@ const MelonPage = () => {
 
         {/* PLAYLIST TAB */}
         {activeTab === "playlist" && (
-          <Suspense fallback={<div className="flex items-center justify-center py-12 text-white/30 text-sm"><i className="ri-loader-4-line animate-spin mr-2"></i>Đang tải...</div>}>
+          <Suspense fallback={<div className="flex items-center justify-center py-12 text-app-text-muted text-sm"><i className="ri-loader-4-line animate-spin mr-2"></i>Đang tải...</div>}>
             <PlaylistTab
               songs={playlistSongs}
               onOpenAnalysis={setAnalysisTarget}

@@ -11,7 +11,7 @@ const FEATURED_TOPICS = [
   { id: "housing", label: "Nhà ở & Sinh sống", icon: "ri-home-4-line", color: "#84cc16", desc: "Thuê nhà, hóa đơn, hàng xóm, khu phố" },
   { id: "safety", label: "An toàn lao động", icon: "ri-shield-check-line", color: "#fb923c", desc: "Thiết bị bảo hộ, quy trình an toàn" },
   { id: "workplace", label: "Nơi làm việc", icon: "ri-briefcase-line", color: "#38bdf8", desc: "Văn phòng, nhà máy, đồng nghiệp" },
-  { id: "daily", label: "Sinh hoạt hàng ngày", icon: "ri-home-smile-line", color: "#e8c84a", desc: "Mua sắm, ăn uống, giải trí" },
+  { id: "daily", label: "Sinh hoạt hàng ngày", icon: "ri-home-smile-line", color: "app-accent-primary", desc: "Mua sắm, ăn uống, giải trí" },
   { id: "law", label: "Pháp luật lao động", icon: "ri-scales-3-line", color: "#f59e0b", desc: "Hợp đồng, lương, quyền lợi" },
   { id: "greeting", label: "Giao tiếp cơ bản", icon: "ri-chat-smile-2-line", color: "#34d399", desc: "Chào hỏi, xã giao, điện thoại" },
   { id: "culture", label: "Văn hóa Hàn Quốc", icon: "ri-building-2-line", color: "#a78bfa", desc: "Phong tục, lễ hội, ẩm thực" },
@@ -43,9 +43,9 @@ function Flashcard({
       {/* Progress */}
       <div className="w-full flex items-center gap-3">
         <div className="flex-1 h-1.5 bg-white/8 rounded-full overflow-hidden">
-          <div className="h-full bg-[#e8c84a] rounded-full transition-all duration-300" style={{ width: `${(current / total) * 100}%` }}></div>
+          <div className="h-full bg-app-accent-primary rounded-full transition-all duration-300" style={{ width: `${(current / total) * 100}%` }}></div>
         </div>
-        <span className="text-white/30 text-xs whitespace-nowrap">{current}/{total}</span>
+        <span className="text-app-text-muted text-xs whitespace-nowrap">{current}/{total}</span>
       </div>
 
       {/* Card */}
@@ -64,25 +64,25 @@ function Flashcard({
         >
           {/* Front */}
           <div
-            className="absolute inset-0 rounded-2xl border border-white/8 flex flex-col items-center justify-center p-8 bg-[#0f1117]"
+            className="absolute inset-0 rounded-2xl border border-app-border flex flex-col items-center justify-center p-8 bg-app-bg"
             style={{ backfaceVisibility: "hidden" }}
           >
-            <p className="text-white/20 text-xs mb-4 tracking-normal">Tiếng Hàn</p>
+            <p className="text-app-text-muted text-xs mb-4 tracking-normal">Tiếng Hàn</p>
             <p className="text-white text-5xl font-bold mb-3">{item.korean}</p>
-            <p className="text-white/40 text-lg">[{item.reading}]</p>
-            <p className="text-white/20 text-xs mt-6">Nhấn để lật thẻ</p>
+            <p className="text-app-text-secondary text-lg">[{item.reading}]</p>
+            <p className="text-app-text-muted text-xs mt-6">Nhấn để lật thẻ</p>
           </div>
 
           {/* Back */}
           <div
-            className="absolute inset-0 rounded-2xl border border-[#e8c84a]/20 flex flex-col items-center justify-center p-8"
+            className="absolute inset-0 rounded-2xl border border-app-accent-primary/20 flex flex-col items-center justify-center p-8"
             style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)", backgroundColor: "#1a1600" }}
           >
-            <p className="text-[#e8c84a]/40 text-xs mb-4 tracking-normal">Tiếng Việt</p>
+            <p className="text-app-accent-primary/40 text-xs mb-4 tracking-normal">Tiếng Việt</p>
             <p className="text-white text-3xl font-bold mb-4 text-center">{item.vietnamese}</p>
-            <div className="bg-white/5 rounded-xl px-4 py-3 text-center max-w-sm">
+            <div className="bg-app-card/50 rounded-xl px-4 py-3 text-center max-w-sm">
               <p className="text-white/60 text-sm">{item.example}</p>
-              <p className="text-white/30 text-xs mt-1 italic">{item.exampleVi}</p>
+              <p className="text-app-text-muted text-xs mt-1 italic">{item.exampleVi}</p>
             </div>
           </div>
         </div>
@@ -98,7 +98,7 @@ function Flashcard({
         </button>
         <button
           onClick={onKnow}
-          className="flex-1 py-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-sm font-medium cursor-pointer whitespace-nowrap hover:bg-emerald-500/10 transition-colors flex items-center justify-center gap-2"
+          className="flex-1 py-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-app-accent-success text-sm font-medium cursor-pointer whitespace-nowrap hover:bg-emerald-500/10 transition-colors flex items-center justify-center gap-2"
         >
           <i className="ri-check-line text-lg"></i>Đã nhớ
         </button>
@@ -150,21 +150,21 @@ function QuizMode({
   return (
     <div className="flex flex-col gap-6 max-w-lg mx-auto">
       <div className="flex items-center justify-between">
-        <span className="text-white/30 text-sm">{currentIdx + 1}/{items.length}</span>
-        <span className="text-[#e8c84a] text-sm font-bold">{score} đúng</span>
+        <span className="text-app-text-muted text-sm">{currentIdx + 1}/{items.length}</span>
+        <span className="text-app-accent-primary text-sm font-bold">{score} đúng</span>
       </div>
-      <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-8 text-center">
-        <p className="text-white/30 text-xs mb-3">Nghĩa tiếng Việt của từ này là gì?</p>
+      <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center">
+        <p className="text-app-text-muted text-xs mb-3">Nghĩa tiếng Việt của từ này là gì?</p>
         <p className="text-white text-4xl font-bold mb-2">{current.korean}</p>
-        <p className="text-white/40 text-lg">[{current.reading}]</p>
+        <p className="text-app-text-secondary text-lg">[{current.reading}]</p>
       </div>
       <div className="grid grid-cols-2 gap-3">
         {options.map((opt, i) => {
-          let cls = "bg-white/3 border-white/8 text-white/70 hover:bg-white/8";
+          let cls = "bg-app-surface/50 border-app-border text-white/70 hover:bg-white/8";
           if (selected !== null) {
-            if (i === correctIdx) cls = "bg-emerald-500/15 border-emerald-500/30 text-emerald-400";
+            if (i === correctIdx) cls = "bg-app-accent-success/15 border-emerald-500/30 text-app-accent-success";
             else if (i === selected && selected !== correctIdx) cls = "bg-red-500/15 border-red-500/30 text-red-400";
-            else cls = "bg-white/3 border-white/5 text-white/30";
+            else cls = "bg-app-surface/50 border-app-border text-app-text-muted";
           }
           return (
             <button
@@ -200,30 +200,30 @@ function ResultScreen({
   const pct = Math.round((score / total) * 100);
   return (
     <div className="flex flex-col items-center gap-6 py-8 max-w-md mx-auto text-center">
-      <div className="w-20 h-20 rounded-full flex items-center justify-center" style={{ backgroundColor: pct >= 80 ? "#34d39915" : "#e8c84a15" }}>
-        <i className={`text-4xl ${pct >= 80 ? "ri-trophy-fill text-[#34d399]" : "ri-refresh-line text-[#e8c84a]"}`}></i>
+      <div className="w-20 h-20 rounded-full flex items-center justify-center" style={{ backgroundColor: pct >= 80 ? "#34d39915" : "app-accent-primary15" }}>
+        <i className={`text-4xl ${pct >= 80 ? "ri-trophy-fill text-[#34d399]" : "ri-refresh-line text-app-accent-primary"}`}></i>
       </div>
       <div>
         <p className="text-white text-3xl font-bold">{pct}%</p>
-        <p className="text-white/40 text-sm mt-1">{score}/{total} câu đúng</p>
+        <p className="text-app-text-secondary text-sm mt-1">{score}/{total} câu đúng</p>
       </div>
       <div className="grid grid-cols-2 gap-4 w-full">
         <div className="bg-emerald-500/5 border border-emerald-500/15 rounded-xl p-4">
-          <p className="text-emerald-400 text-2xl font-bold">{knownCount}</p>
-          <p className="text-white/40 text-xs mt-1">Đã nhớ</p>
+          <p className="text-app-accent-success text-2xl font-bold">{knownCount}</p>
+          <p className="text-app-text-secondary text-xs mt-1">Đã nhớ</p>
         </div>
         <div className="bg-red-500/5 border border-red-500/15 rounded-xl p-4">
           <p className="text-red-400 text-2xl font-bold">{unknownCount}</p>
-          <p className="text-white/40 text-xs mt-1">Chưa nhớ</p>
+          <p className="text-app-text-secondary text-xs mt-1">Chưa nhớ</p>
         </div>
       </div>
       <div className="flex gap-3 w-full">
         {unknownCount > 0 && (
-          <button onClick={onReviewUnknown} className="flex-1 py-3 rounded-xl border border-[#e8c84a]/20 bg-[#e8c84a]/5 text-[#e8c84a] text-sm font-medium cursor-pointer whitespace-nowrap hover:bg-[#e8c84a]/10 transition-colors">
+          <button onClick={onReviewUnknown} className="flex-1 py-3 rounded-xl border border-app-accent-primary/20 bg-app-accent-primary/5 text-app-accent-primary text-sm font-medium cursor-pointer whitespace-nowrap hover:bg-app-accent-primary/10 transition-colors">
             <i className="ri-refresh-line mr-2"></i>Ôn từ chưa nhớ ({unknownCount})
           </button>
         )}
-        <button onClick={onRestart} className="flex-1 py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] text-sm font-bold cursor-pointer whitespace-nowrap transition-colors">
+        <button onClick={onRestart} className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold cursor-pointer whitespace-nowrap transition-colors">
           <i className="ri-restart-line mr-2"></i>Học lại
         </button>
       </div>
@@ -339,22 +339,22 @@ export default function EpsVocabFlashcardPage() {
                 const topicProgress = progress[topic.id] || 0;
                 const topicInfo = EPS_VOCAB_TOPICS.find(t => t.id === topic.id);
                 return (
-                  <div key={topic.id} className="bg-[#0f1117] border border-white/5 rounded-2xl p-5 hover:border-white/10 transition-all group">
+                  <div key={topic.id} className="bg-app-bg border border-app-border rounded-2xl p-5 hover:border-app-border transition-all group">
                     <div className="flex items-start gap-3 mb-4">
                       <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${topic.color}15` }}>
                         <i className={`${topic.icon} text-xl`} style={{ color: topic.color }}></i>
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-white font-semibold text-sm leading-tight">{topic.label}</p>
-                        <p className="text-white/30 text-[10px] mt-0.5">{items.length} từ vựng</p>
+                        <p className="text-app-text-muted text-[10px] mt-0.5">{items.length} từ vựng</p>
                       </div>
                     </div>
-                    <p className="text-white/40 text-xs mb-4 leading-relaxed">{topic.desc}</p>
+                    <p className="text-app-text-secondary text-xs mb-4 leading-relaxed">{topic.desc}</p>
 
                     {topicProgress > 0 && (
                       <div className="mb-3">
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-white/25 text-[10px]">Tiến độ</span>
+                          <span className="text-app-text-muted text-[10px]">Tiến độ</span>
                           <span className="text-[10px] font-bold" style={{ color: topic.color }}>{topicProgress}%</span>
                         </div>
                         <div className="h-1 bg-white/8 rounded-full overflow-hidden">
@@ -373,7 +373,7 @@ export default function EpsVocabFlashcardPage() {
                       </button>
                       <button
                         onClick={() => handleStartStudy(topic.id, "quiz")}
-                        className="flex-1 py-2 rounded-lg text-xs font-medium cursor-pointer whitespace-nowrap transition-all bg-white/5 text-white/50 border border-white/8 hover:text-white/70"
+                        className="flex-1 py-2 rounded-lg text-xs font-medium cursor-pointer whitespace-nowrap transition-all bg-app-card/50 text-white/50 border border-app-border hover:text-white/70"
                       >
                         <i className="ri-survey-line mr-1"></i>Quiz
                       </button>
@@ -386,38 +386,38 @@ export default function EpsVocabFlashcardPage() {
 
           {/* Sidebar */}
           <div className="space-y-4">
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-bar-chart-line text-[#e8c84a] mr-2"></i>Thống kê học tập</h3>
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
+              <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-bar-chart-line text-app-accent-primary mr-2"></i>Thống kê học tập</h3>
               <div className="space-y-3">
                 {[
-                  { label: "Tổng từ vựng EPS", value: epsVocabulary.length, color: "#e8c84a" },
+                  { label: "Tổng từ vựng EPS", value: epsVocabulary.length, color: "app-accent-primary" },
                   { label: "Chủ đề có sẵn", value: FEATURED_TOPICS.length, color: "#34d399" },
                   { label: "Chủ đề đã học", value: Object.keys(progress).filter(k => progress[k] > 0).length, color: "#60a5fa" },
                 ].map(s => (
                   <div key={s.label} className="flex items-center justify-between">
-                    <span className="text-white/40 text-xs">{s.label}</span>
+                    <span className="text-app-text-secondary text-xs">{s.label}</span>
                     <span className="font-bold text-sm" style={{ color: s.color }}>{s.value}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-lightbulb-line text-[#e8c84a] mr-2"></i>Mẹo học flashcard</h3>
-              <div className="space-y-2.5 text-white/40 text-xs leading-relaxed">
-                <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Nhấn vào thẻ để lật và xem nghĩa</p>
-                <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Chọn "Đã nhớ" hoặc "Chưa nhớ" để phân loại</p>
-                <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Ôn lại từ chưa nhớ sau khi hoàn thành</p>
-                <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Dùng Quiz để kiểm tra sau khi học flashcard</p>
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
+              <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-lightbulb-line text-app-accent-primary mr-2"></i>Mẹo học flashcard</h3>
+              <div className="space-y-2.5 text-app-text-secondary text-xs leading-relaxed">
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nhấn vào thẻ để lật và xem nghĩa</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Chọn "Đã nhớ" hoặc "Chưa nhớ" để phân loại</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Ôn lại từ chưa nhớ sau khi hoàn thành</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Dùng Quiz để kiểm tra sau khi học flashcard</p>
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/15 rounded-2xl p-5">
+            <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-2">
-                <i className="ri-focus-3-line text-[#e8c84a]"></i>
+                <i className="ri-focus-3-line text-app-accent-primary"></i>
                 <p className="text-white font-semibold text-sm">Chủ đề ưu tiên EPS</p>
               </div>
-              <p className="text-white/40 text-xs leading-relaxed">
+              <p className="text-app-text-secondary text-xs leading-relaxed">
                 Tập trung vào <strong className="text-white/60">Y tế</strong>, <strong className="text-white/60">Giao thông</strong> và <strong className="text-white/60">Nhà ở</strong> — 3 chủ đề mới được bổ sung cho kỳ thi EPS-TOPIK gần đây.
               </p>
             </div>
@@ -435,7 +435,7 @@ export default function EpsVocabFlashcardPage() {
       title={topicInfo?.label || "Flashcard"}
       subtitle={`${studyItems.length} từ vựng · ${studyMode === "flashcard" ? "Chế độ Flashcard" : "Chế độ Quiz"}`}
       actions={
-        <button onClick={handleBack} className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-white/5 transition-colors">
+        <button onClick={handleBack} className="flex items-center gap-2 px-4 py-2 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50 transition-colors">
           <i className="ri-arrow-left-line"></i>Chọn chủ đề khác
         </button>
       }

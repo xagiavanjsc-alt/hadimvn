@@ -218,7 +218,7 @@ function generateRoadmap(level: Level, goal: Goal, timeFrame: TimeFrame): Roadma
 }
 
 const LEVEL_COLORS: Record<Level, string> = {
-  A1: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
+  A1: "bg-emerald-500/20 text-app-accent-success border-emerald-500/30",
   A2: "bg-teal-500/20 text-teal-400 border-teal-500/30",
   B1: "bg-amber-500/20 text-amber-400 border-amber-500/30",
   B2: "bg-orange-500/20 text-orange-400 border-orange-500/30",
@@ -264,17 +264,17 @@ export default function PersonalRoadmapAIPage() {
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-[#0f1117] p-6">
+      <div className="min-h-screen bg-app-bg p-6">
         <div className="max-w-5xl mx-auto">
           {/* Header */}
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 flex items-center justify-center bg-[#e8c84a]/10 rounded-xl border border-[#e8c84a]/20">
-                <i className="ri-route-line text-[#e8c84a] text-xl"></i>
+              <div className="w-10 h-10 flex items-center justify-center bg-app-accent-primary/10 rounded-xl border border-app-accent-primary/20">
+                <i className="ri-route-line text-app-accent-primary text-xl"></i>
               </div>
               <div>
                 <h1 className="text-white text-2xl font-bold">Lộ trình học cá nhân AI</h1>
-                <p className="text-white/40 text-sm">AI tạo roadmap tối ưu dựa trên trình độ và mục tiêu của bạn</p>
+                <p className="text-app-text-secondary text-sm">AI tạo roadmap tối ưu dựa trên trình độ và mục tiêu của bạn</p>
               </div>
             </div>
           </div>
@@ -289,13 +289,13 @@ export default function PersonalRoadmapAIPage() {
                   { icon: "ri-translate-2", label: "Từ vựng trong kho", value: vocabCount.toLocaleString() },
                   { icon: "ri-trophy-line", label: "Tỷ lệ đạt mục tiêu", value: "87%" },
                 ].map((s, i) => (
-                  <div key={i} className="bg-white/3 border border-white/8 rounded-xl p-4 flex items-center gap-3">
-                    <div className="w-9 h-9 flex items-center justify-center bg-[#e8c84a]/10 rounded-lg">
-                      <i className={`${s.icon} text-[#e8c84a]`}></i>
+                  <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 flex items-center gap-3">
+                    <div className="w-9 h-9 flex items-center justify-center bg-app-accent-primary/10 rounded-lg">
+                      <i className={`${s.icon} text-app-accent-primary`}></i>
                     </div>
                     <div>
                       <p className="text-white font-bold text-lg">{s.value}</p>
-                      <p className="text-white/40 text-xs">{s.label}</p>
+                      <p className="text-app-text-secondary text-xs">{s.label}</p>
                     </div>
                   </div>
                 ))}
@@ -304,10 +304,10 @@ export default function PersonalRoadmapAIPage() {
               {/* Step 1: Level */}
               <div>
                 <h2 className="text-white font-semibold mb-1 flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-[#e8c84a]/20 text-[#e8c84a] text-xs flex items-center justify-center font-bold">1</span>
+                  <span className="w-6 h-6 rounded-full bg-app-accent-primary/20 text-app-accent-primary text-xs flex items-center justify-center font-bold">1</span>
                   Trình độ hiện tại của bạn
                 </h2>
-                <p className="text-white/40 text-sm mb-4 ml-8">Chọn cấp độ phù hợp nhất với bạn hiện tại</p>
+                <p className="text-app-text-secondary text-sm mb-4 ml-8">Chọn cấp độ phù hợp nhất với bạn hiện tại</p>
                 <div className="grid grid-cols-5 gap-3">
                   {(Object.keys(LEVEL_LABELS) as Level[]).map(level => (
                     <button
@@ -315,8 +315,8 @@ export default function PersonalRoadmapAIPage() {
                       onClick={() => setSelectedLevel(level)}
                       className={`p-4 rounded-xl border text-center transition-all cursor-pointer ${
                         selectedLevel === level
-                          ? "border-[#e8c84a]/50 bg-[#e8c84a]/10"
-                          : "border-white/8 bg-white/3 hover:border-white/20 hover:bg-white/5"
+                          ? "border-app-accent-primary/50 bg-app-accent-primary/10"
+                          : "border-app-border bg-app-surface/50 hover:border-white/20 hover:bg-app-card/50"
                       }`}
                     >
                       <div className={`text-xs font-bold px-2 py-0.5 rounded-full border inline-block mb-2 ${LEVEL_COLORS[level]}`}>
@@ -326,7 +326,7 @@ export default function PersonalRoadmapAIPage() {
                         {LEVEL_LABELS[level].split(" - ")[1]}
                       </p>
                       {selectedLevel === level && (
-                        <div className="mt-2 w-4 h-4 rounded-full bg-[#e8c84a] flex items-center justify-center mx-auto">
+                        <div className="mt-2 w-4 h-4 rounded-full bg-app-accent-primary flex items-center justify-center mx-auto">
                           <i className="ri-check-line text-black text-[10px]"></i>
                         </div>
                       )}
@@ -338,10 +338,10 @@ export default function PersonalRoadmapAIPage() {
               {/* Step 2: Goal */}
               <div>
                 <h2 className="text-white font-semibold mb-1 flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-[#e8c84a]/20 text-[#e8c84a] text-xs flex items-center justify-center font-bold">2</span>
+                  <span className="w-6 h-6 rounded-full bg-app-accent-primary/20 text-app-accent-primary text-xs flex items-center justify-center font-bold">2</span>
                   Mục tiêu học tập
                 </h2>
-                <p className="text-white/40 text-sm mb-4 ml-8">Bạn muốn đạt được điều gì?</p>
+                <p className="text-app-text-secondary text-sm mb-4 ml-8">Bạn muốn đạt được điều gì?</p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {(Object.keys(GOAL_LABELS) as Goal[]).map(goal => {
                     const g = GOAL_LABELS[goal];
@@ -351,19 +351,19 @@ export default function PersonalRoadmapAIPage() {
                         onClick={() => setSelectedGoal(goal)}
                         className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
                           selectedGoal === goal
-                            ? "border-[#e8c84a]/50 bg-[#e8c84a]/10"
-                            : "border-white/8 bg-white/3 hover:border-white/20 hover:bg-white/5"
+                            ? "border-app-accent-primary/50 bg-app-accent-primary/10"
+                            : "border-app-border bg-app-surface/50 hover:border-white/20 hover:bg-app-card/50"
                         }`}
                       >
                         <div className="flex items-center gap-2 mb-2">
-                          <div className="w-8 h-8 flex items-center justify-center bg-white/5 rounded-lg">
+                          <div className="w-8 h-8 flex items-center justify-center bg-app-card/50 rounded-lg">
                             <i className={`${g.icon} text-white/60`}></i>
                           </div>
                           <span className="text-white text-sm font-medium">{g.label}</span>
                         </div>
-                        <p className="text-white/40 text-xs">{g.desc}</p>
+                        <p className="text-app-text-secondary text-xs">{g.desc}</p>
                         {selectedGoal === goal && (
-                          <div className="mt-2 flex items-center gap-1 text-[#e8c84a] text-xs">
+                          <div className="mt-2 flex items-center gap-1 text-app-accent-primary text-xs">
                             <i className="ri-check-line"></i>
                             <span>Đã chọn</span>
                           </div>
@@ -377,10 +377,10 @@ export default function PersonalRoadmapAIPage() {
               {/* Step 3: Time Frame */}
               <div>
                 <h2 className="text-white font-semibold mb-1 flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-[#e8c84a]/20 text-[#e8c84a] text-xs flex items-center justify-center font-bold">3</span>
+                  <span className="w-6 h-6 rounded-full bg-app-accent-primary/20 text-app-accent-primary text-xs flex items-center justify-center font-bold">3</span>
                   Thời gian học
                 </h2>
-                <p className="text-white/40 text-sm mb-4 ml-8">Bạn có bao nhiêu thời gian để đạt mục tiêu?</p>
+                <p className="text-app-text-secondary text-sm mb-4 ml-8">Bạn có bao nhiêu thời gian để đạt mục tiêu?</p>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {(Object.keys(TIMEFRAME_LABELS) as TimeFrame[]).map(tf => (
                     <button
@@ -388,14 +388,14 @@ export default function PersonalRoadmapAIPage() {
                       onClick={() => setSelectedTimeFrame(tf)}
                       className={`p-4 rounded-xl border text-center transition-all cursor-pointer ${
                         selectedTimeFrame === tf
-                          ? "border-[#e8c84a]/50 bg-[#e8c84a]/10"
-                          : "border-white/8 bg-white/3 hover:border-white/20 hover:bg-white/5"
+                          ? "border-app-accent-primary/50 bg-app-accent-primary/10"
+                          : "border-app-border bg-app-surface/50 hover:border-white/20 hover:bg-app-card/50"
                       }`}
                     >
                       <p className="text-white text-sm font-medium">{TIMEFRAME_LABELS[tf].split(" (")[0]}</p>
-                      <p className="text-white/40 text-xs mt-1">{TIMEFRAME_LABELS[tf].split(" (")[1]?.replace(")", "")}</p>
+                      <p className="text-app-text-secondary text-xs mt-1">{TIMEFRAME_LABELS[tf].split(" (")[1]?.replace(")", "")}</p>
                       {selectedTimeFrame === tf && (
-                        <div className="mt-2 w-4 h-4 rounded-full bg-[#e8c84a] flex items-center justify-center mx-auto">
+                        <div className="mt-2 w-4 h-4 rounded-full bg-app-accent-primary flex items-center justify-center mx-auto">
                           <i className="ri-check-line text-black text-[10px]"></i>
                         </div>
                       )}
@@ -410,8 +410,8 @@ export default function PersonalRoadmapAIPage() {
                 disabled={!canGenerate}
                 className={`w-full py-4 rounded-xl font-semibold text-base transition-all cursor-pointer whitespace-nowrap ${
                   canGenerate
-                    ? "bg-[#e8c84a] text-black hover:bg-[#f0d060]"
-                    : "bg-white/5 text-white/20 cursor-not-allowed"
+                    ? "bg-app-accent-primary text-black hover:bg-[#f0d060]"
+                    : "bg-app-card/50 text-app-text-muted cursor-not-allowed"
                 }`}
               >
                 <i className="ri-robot-line mr-2"></i>
@@ -423,21 +423,21 @@ export default function PersonalRoadmapAIPage() {
           {/* Generating */}
           {step === "generating" && (
             <div className="flex flex-col items-center justify-center py-24 space-y-6">
-              <div className="w-20 h-20 rounded-full bg-[#e8c84a]/10 border border-[#e8c84a]/20 flex items-center justify-center">
-                <i className="ri-robot-line text-[#e8c84a] text-4xl animate-pulse"></i>
+              <div className="w-20 h-20 rounded-full bg-app-accent-primary/10 border border-app-accent-primary/20 flex items-center justify-center">
+                <i className="ri-robot-line text-app-accent-primary text-4xl animate-pulse"></i>
               </div>
               <div className="text-center">
                 <h2 className="text-white text-xl font-bold mb-2">AI đang phân tích...</h2>
-                <p className="text-white/40 text-sm">Đang tạo lộ trình học tối ưu cho bạn</p>
+                <p className="text-app-text-secondary text-sm">Đang tạo lộ trình học tối ưu cho bạn</p>
               </div>
               <div className="w-80">
-                <div className="flex justify-between text-xs text-white/40 mb-2">
+                <div className="flex justify-between text-xs text-app-text-secondary mb-2">
                   <span>Đang xử lý</span>
                   <span>{progress}%</span>
                 </div>
                 <div className="h-2 bg-white/8 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-[#e8c84a] rounded-full transition-all duration-100"
+                    className="h-full bg-app-accent-primary rounded-full transition-all duration-100"
                     style={{ width: `${progress}%` }}
                   ></div>
                 </div>
@@ -452,10 +452,10 @@ export default function PersonalRoadmapAIPage() {
                   <div
                     key={i}
                     className={`flex items-center gap-2 text-sm transition-all ${
-                      progress >= item.threshold ? "text-white/60" : "text-white/20"
+                      progress >= item.threshold ? "text-white/60" : "text-app-text-muted"
                     }`}
                   >
-                    <i className={`${progress >= item.threshold ? "ri-check-line text-emerald-400" : "ri-time-line"} text-xs`}></i>
+                    <i className={`${progress >= item.threshold ? "ri-check-line text-app-accent-success" : "ri-time-line"} text-xs`}></i>
                     {item.text}
                   </div>
                 ))}
@@ -467,7 +467,7 @@ export default function PersonalRoadmapAIPage() {
           {step === "result" && roadmap && (
             <div className="space-y-6">
               {/* Summary Card */}
-              <div className="bg-gradient-to-r from-[#e8c84a]/10 to-[#e8c84a]/5 border border-[#e8c84a]/20 rounded-2xl p-6">
+              <div className="bg-gradient-to-r from-[app-accent-primary]/10 to-[app-accent-primary]/5 border border-app-accent-primary/20 rounded-2xl p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <h2 className="text-white text-xl font-bold mb-1">
@@ -488,8 +488,8 @@ export default function PersonalRoadmapAIPage() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-[#e8c84a] text-3xl font-bold">{roadmap.successRate}%</div>
-                    <div className="text-white/40 text-xs">Tỷ lệ thành công</div>
+                    <div className="text-app-accent-primary text-3xl font-bold">{roadmap.successRate}%</div>
+                    <div className="text-app-text-secondary text-xs">Tỷ lệ thành công</div>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -499,12 +499,12 @@ export default function PersonalRoadmapAIPage() {
                     { icon: "ri-book-2-line", label: "Ngữ pháp", value: `${roadmap.grammarTarget} mẫu` },
                     { icon: "ri-time-line", label: "Mỗi tuần", value: roadmap.weeklyGoal },
                   ].map((s, i) => (
-                    <div key={i} className="bg-white/5 rounded-xl p-3 text-center">
-                      <div className="w-8 h-8 flex items-center justify-center bg-[#e8c84a]/10 rounded-lg mx-auto mb-2">
-                        <i className={`${s.icon} text-[#e8c84a] text-sm`}></i>
+                    <div key={i} className="bg-app-card/50 rounded-xl p-3 text-center">
+                      <div className="w-8 h-8 flex items-center justify-center bg-app-accent-primary/10 rounded-lg mx-auto mb-2">
+                        <i className={`${s.icon} text-app-accent-primary text-sm`}></i>
                       </div>
                       <p className="text-white font-bold text-sm">{s.value}</p>
-                      <p className="text-white/40 text-xs">{s.label}</p>
+                      <p className="text-app-text-secondary text-xs">{s.label}</p>
                     </div>
                   ))}
                 </div>
@@ -513,7 +513,7 @@ export default function PersonalRoadmapAIPage() {
               {/* Roadmap Steps */}
               <div>
                 <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
-                  <i className="ri-map-pin-line text-[#e8c84a]"></i>
+                  <i className="ri-map-pin-line text-app-accent-primary"></i>
                   Các giai đoạn học tập
                 </h3>
                 <div className="space-y-4">
@@ -522,21 +522,21 @@ export default function PersonalRoadmapAIPage() {
                       key={idx}
                       className={`border rounded-xl overflow-hidden transition-all cursor-pointer ${
                         activeStep === idx
-                          ? "border-[#e8c84a]/30 bg-[#e8c84a]/5"
-                          : "border-white/8 bg-white/2 hover:border-white/15"
+                          ? "border-app-accent-primary/30 bg-app-accent-primary/5"
+                          : "border-app-border bg-white/2 hover:border-white/15"
                       }`}
                       onClick={() => setActiveStep(activeStep === idx ? -1 : idx)}
                     >
                       <div className="p-4 flex items-center gap-4">
                         <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm ${
-                          activeStep === idx ? "bg-[#e8c84a] text-black" : "bg-white/8 text-white/50"
+                          activeStep === idx ? "bg-app-accent-primary text-black" : "bg-white/8 text-white/50"
                         }`}>
                           {idx + 1}
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-0.5">
                             <h4 className="text-white font-medium text-sm">{s.title}</h4>
-                            <span className="text-white/30 text-xs">Tuần {s.week}</span>
+                            <span className="text-app-text-muted text-xs">Tuần {s.week}</span>
                           </div>
                           <p className="text-white/50 text-xs truncate">{s.description}</p>
                         </div>
@@ -544,22 +544,22 @@ export default function PersonalRoadmapAIPage() {
                           <div className="text-right">
                             <p className="text-white/60 text-xs">{s.estimatedHours}h/tuần</p>
                             {s.milestone && (
-                              <p className="text-[#e8c84a] text-[10px]">
+                              <p className="text-app-accent-primary text-[10px]">
                                 <i className="ri-flag-line mr-0.5"></i>
                                 Milestone
                               </p>
                             )}
                           </div>
-                          <i className={activeStep === idx ? "ri-arrow-up-s-line text-white/30" : "ri-arrow-down-s-line text-white/30"}></i>
+                          <i className={activeStep === idx ? "ri-arrow-up-s-line text-app-text-muted" : "ri-arrow-down-s-line text-app-text-muted"}></i>
                         </div>
                       </div>
 
                       {activeStep === idx && (
-                        <div className="px-4 pb-4 border-t border-white/5 pt-4 space-y-4">
+                        <div className="px-4 pb-4 border-t border-app-border pt-4 space-y-4">
                           {s.milestone && (
-                            <div className="flex items-center gap-2 bg-[#e8c84a]/10 border border-[#e8c84a]/20 rounded-lg px-3 py-2">
-                              <i className="ri-flag-fill text-[#e8c84a] text-sm"></i>
-                              <span className="text-[#e8c84a] text-sm font-medium">Milestone: {s.milestone}</span>
+                            <div className="flex items-center gap-2 bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-lg px-3 py-2">
+                              <i className="ri-flag-fill text-app-accent-primary text-sm"></i>
+                              <span className="text-app-accent-primary text-sm font-medium">Milestone: {s.milestone}</span>
                             </div>
                           )}
                           <div>
@@ -568,7 +568,7 @@ export default function PersonalRoadmapAIPage() {
                               {s.tasks.map((task, ti) => (
                                 <div key={ti} className="flex items-center gap-2 text-white/60 text-sm">
                                   <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
-                                    <i className="ri-checkbox-circle-line text-emerald-400 text-sm"></i>
+                                    <i className="ri-checkbox-circle-line text-app-accent-success text-sm"></i>
                                   </div>
                                   {task}
                                 </div>
@@ -582,9 +582,9 @@ export default function PersonalRoadmapAIPage() {
                                 <button
                                   key={ri}
                                   onClick={(e) => { e.stopPropagation(); navigate(r.path); }}
-                                  className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg px-3 py-1.5 text-white/70 text-xs transition-all cursor-pointer whitespace-nowrap"
+                                  className="flex items-center gap-1.5 bg-app-card/50 hover:bg-app-card/70 border border-app-border rounded-lg px-3 py-1.5 text-white/70 text-xs transition-all cursor-pointer whitespace-nowrap"
                                 >
-                                  <i className={`${r.icon} text-[#e8c84a]`}></i>
+                                  <i className={`${r.icon} text-app-accent-primary`}></i>
                                   {r.label}
                                 </button>
                               ))}
@@ -608,7 +608,7 @@ export default function PersonalRoadmapAIPage() {
                 </button>
                 <button
                   onClick={() => navigate(roadmap.goal === "eps" ? "/eps" : roadmap.goal.startsWith("topik") ? "/topik-test" : "/conversation")}
-                  className="flex-2 flex-1 py-3 rounded-xl bg-[#e8c84a] text-black font-semibold hover:bg-[#f0d060] transition-all cursor-pointer whitespace-nowrap text-sm"
+                  className="flex-2 flex-1 py-3 rounded-xl bg-app-accent-primary text-black font-semibold hover:bg-[#f0d060] transition-all cursor-pointer whitespace-nowrap text-sm"
                 >
                   <i className="ri-play-circle-line mr-2"></i>
                   Bắt đầu học ngay

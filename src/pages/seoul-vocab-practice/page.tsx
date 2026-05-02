@@ -30,8 +30,8 @@ type QuizAnswer = { word: Vocab; choices: string[]; correct: string; userAnswer:
 const BOOKS = [
   { id: "1A", label: "Seoul 1A", color: "#34d399" },
   { id: "1B", label: "Seoul 1B", color: "#34d399" },
-  { id: "2A", label: "Seoul 2A", color: "#e8c84a" },
-  { id: "2B", label: "Seoul 2B", color: "#e8c84a" },
+  { id: "2A", label: "Seoul 2A", color: "app-accent-primary" },
+  { id: "2B", label: "Seoul 2B", color: "app-accent-primary" },
   { id: "3A", label: "Seoul 3A", color: "#f87171" },
   { id: "3B", label: "Seoul 3B", color: "#f87171" },
 ];
@@ -112,7 +112,7 @@ function FlashcardMode({ words, onBack }: { words: Vocab[]; onBack: () => void }
               <p className="text-sm text-gray-400 mb-1">{card.part_of_speech}</p>
               {card.hanja && <p className="text-sm text-yellow-400 mb-3">{card.hanja}</p>}
               {card.example && (
-                <div className="text-center mt-2 px-4 py-2 rounded-xl bg-white/10">
+                <div className="text-center mt-2 px-4 py-2 rounded-xl bg-app-card/70">
                   <p className="text-sm text-white/80">{card.example}</p>
                   <p className="text-xs text-white/50 mt-1">{card.example_vi}</p>
                 </div>
@@ -209,8 +209,8 @@ function QuizMode({ words, onBack }: { words: Vocab[]; onBack: () => void }) {
     const pct = Math.round((score / questions.length) * 100);
     return (
       <div className="max-w-lg mx-auto text-center">
-        <div className="p-8 rounded-3xl border-2 mb-6" style={{ borderColor: pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171" }}>
-          <p className="text-6xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171" }}>{pct}%</p>
+        <div className="p-8 rounded-3xl border-2 mb-6" style={{ borderColor: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
+          <p className="text-6xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>{pct}%</p>
           <p className="text-xl font-bold text-gray-700 mb-1">{score}/{questions.length} câu đúng</p>
           <p className="text-gray-500">{pct >= 80 ? "Xuất sắc! 🎉" : pct >= 60 ? "Khá tốt! 👍" : "Cần ôn thêm 📚"}</p>
         </div>
@@ -592,7 +592,7 @@ export default function SeoulVocabPracticePage() {
                   {[
                     { mode: "flashcard" as Mode, icon: "ri-stack-line", label: "Flashcard", desc: "Lật thẻ học từ", color: "#34d399", minWords: 1 },
                     { mode: "quiz" as Mode, icon: "ri-question-line", label: "Quiz", desc: "Trắc nghiệm 4 đáp án", color: "#a78bfa", minWords: 4 },
-                    { mode: "matching" as Mode, icon: "ri-links-line", label: "Ghép cặp", desc: "Nối từ với nghĩa", color: "#e8c84a", minWords: 4 },
+                    { mode: "matching" as Mode, icon: "ri-links-line", label: "Ghép cặp", desc: "Nối từ với nghĩa", color: "app-accent-primary", minWords: 4 },
                     { mode: "fill" as Mode, icon: "ri-edit-line", label: "Điền từ", desc: "Nhập từ tiếng Hàn", color: "#f87171", minWords: 1 },
                   ].map(m => {
                     const disabled = words.length < m.minWords;

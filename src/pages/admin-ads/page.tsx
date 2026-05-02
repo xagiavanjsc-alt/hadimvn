@@ -29,10 +29,10 @@ const DEFAULT_ADS: AdConfig[] = [
     <span style="font-size:20px;">👑</span>
   </div>
   <div style="flex:1;">
-    <p style="color:#e8c84a;font-weight:700;font-size:13px;margin:0 0 2px;">Nâng cấp VIP — Học không giới hạn</p>
+    <p style="color:app-accent-primary;font-weight:700;font-size:13px;margin:0 0 2px;">Nâng cấp VIP — Học không giới hạn</p>
     <p style="color:rgba(255,255,255,0.45);font-size:11px;margin:0;">Mở khóa 2.691 từ Hán Hàn, AI Gia sư, Spaced Repetition và nhiều hơn nữa</p>
   </div>
-  <a href="/pricing" style="background:#e8c84a;color:#0f1117;font-weight:700;font-size:11px;padding:8px 16px;border-radius:8px;text-decoration:none;white-space:nowrap;flex-shrink:0;">Xem gói VIP</a>
+  <a href="/pricing" style="background:app-accent-primary;color:#0f1117;font-weight:700;font-size:11px;padding:8px 16px;border-radius:8px;text-decoration:none;white-space:nowrap;flex-shrink:0;">Xem gói VIP</a>
 </div>`,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -101,7 +101,7 @@ function AdEditor({
             <button
               onClick={() => setPreviewMode(!previewMode)}
               className="text-xs px-3 py-1.5 rounded-lg cursor-pointer transition-colors"
-              style={{ backgroundColor: previewMode ? "rgba(232,200,74,0.15)" : "var(--admin-hover)", color: previewMode ? "#e8c84a" : "var(--admin-text-muted)", border: "1px solid var(--admin-border)" }}
+              style={{ backgroundColor: previewMode ? "rgba(232,200,74,0.15)" : "var(--admin-hover)", color: previewMode ? "app-accent-primary" : "var(--admin-text-muted)", border: "1px solid var(--admin-border)" }}
             >
               <i className={`${previewMode ? "ri-edit-line" : "ri-eye-line"} mr-1`}></i>
               {previewMode ? "Chỉnh sửa" : "Xem trước"}
@@ -122,8 +122,8 @@ function AdEditor({
                 <img src={form.content} alt="preview" className="w-full rounded-xl" />
               ) : (
                 <div className="rounded-xl p-4" style={{ backgroundColor: form.bgColor || "rgba(232,200,74,0.06)", border: "1px solid rgba(232,200,74,0.15)" }}>
-                  <p className="font-semibold text-sm" style={{ color: form.textColor || "#e8c84a" }}>{form.title}</p>
-                  <p className="text-xs text-white/40 mt-1">{form.description}</p>
+                  <p className="font-semibold text-sm" style={{ color: form.textColor || "app-accent-primary" }}>{form.title}</p>
+                  <p className="text-xs text-app-text-secondary mt-1">{form.description}</p>
                 </div>
               )}
             </div>
@@ -225,7 +225,7 @@ function AdEditor({
                 </div>
                 <button
                   onClick={() => setForm(f => ({ ...f, enabled: !f.enabled }))}
-                  className={`w-11 h-6 rounded-full transition-all cursor-pointer relative ${form.enabled ? "bg-emerald-500" : "bg-white/10"}`}
+                  className={`w-11 h-6 rounded-full transition-all cursor-pointer relative ${form.enabled ? "bg-emerald-500" : "bg-app-card/70"}`}
                 >
                   <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-all ${form.enabled ? "left-5" : "left-0.5"}`}></div>
                 </button>
@@ -239,7 +239,7 @@ function AdEditor({
                     {[
                       {
                         label: "Banner VIP",
-                        html: `<div style="background:linear-gradient(135deg,#1a1600,#0f1117);border:1px solid rgba(232,200,74,0.2);border-radius:12px;padding:16px;display:flex;align-items:center;gap:16px;"><div style="width:40px;height:40px;background:rgba(232,200,74,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:20px;">👑</span></div><div style="flex:1;"><p style="color:#e8c84a;font-weight:700;font-size:13px;margin:0 0 2px;">Nâng cấp VIP</p><p style="color:rgba(255,255,255,0.45);font-size:11px;margin:0;">Học không giới hạn với VIP</p></div><a href="/pricing" style="background:#e8c84a;color:#0f1117;font-weight:700;font-size:11px;padding:8px 16px;border-radius:8px;text-decoration:none;white-space:nowrap;">Xem ngay</a></div>`,
+                        html: `<div style="background:linear-gradient(135deg,#1a1600,#0f1117);border:1px solid rgba(232,200,74,0.2);border-radius:12px;padding:16px;display:flex;align-items:center;gap:16px;"><div style="width:40px;height:40px;background:rgba(232,200,74,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:20px;">👑</span></div><div style="flex:1;"><p style="color:app-accent-primary;font-weight:700;font-size:13px;margin:0 0 2px;">Nâng cấp VIP</p><p style="color:rgba(255,255,255,0.45);font-size:11px;margin:0;">Học không giới hạn với VIP</p></div><a href="/pricing" style="background:app-accent-primary;color:#0f1117;font-weight:700;font-size:11px;padding:8px 16px;border-radius:8px;text-decoration:none;white-space:nowrap;">Xem ngay</a></div>`,
                       },
                       {
                         label: "Banner Google Ads",
@@ -351,7 +351,7 @@ export default function AdminAdsPage() {
         </div>
         <div className="space-y-3">
           {[
-            { key: "melon", icon: "ri-music-2-line", color: "#e8c84a", title: "K-pop Lesson", desc: "Melon Top 100 → AI → Excel", value: melonDraftMode, toggle: () => setMelonDraftMode(!melonDraftMode) },
+            { key: "melon", icon: "ri-music-2-line", color: "app-accent-primary", title: "K-pop Lesson", desc: "Melon Top 100 → AI → Excel", value: melonDraftMode, toggle: () => setMelonDraftMode(!melonDraftMode) },
             { key: "naver", icon: "ri-question-answer-line", color: "#38bdf8", title: "Naver KiN", desc: "Câu hỏi thực tế → AI → Excel", value: naverDraftMode, toggle: () => setNaverDraftMode(!naverDraftMode) },
           ].map((item) => (
             <div key={item.key} className="flex items-center justify-between p-4 rounded-xl" style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>
@@ -365,7 +365,7 @@ export default function AdminAdsPage() {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${item.value ? "bg-amber-500/15 text-amber-400" : "bg-emerald-500/15 text-emerald-400"}`}>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${item.value ? "bg-amber-500/15 text-amber-400" : "bg-app-accent-success/15 text-app-accent-success"}`}>
                   {item.value ? "NHÁP" : "CÔNG KHAI"}
                 </span>
                 <button onClick={item.toggle} className={`w-11 h-6 rounded-full transition-all cursor-pointer relative ${item.value ? "bg-amber-500" : "bg-emerald-500"}`}>
@@ -381,8 +381,8 @@ export default function AdminAdsPage() {
       {/* Global toggle */}
       <div className="rounded-2xl border p-5 mb-6 flex items-center justify-between" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
         <div className="flex items-center gap-3">
-          <div className={`w-10 h-10 flex items-center justify-center rounded-xl ${globalEnabled ? "bg-emerald-500/12" : "bg-white/5"}`}>
-            <i className={`ri-advertisement-line text-lg ${globalEnabled ? "text-emerald-400" : "text-white/30"}`}></i>
+          <div className={`w-10 h-10 flex items-center justify-center rounded-xl ${globalEnabled ? "bg-emerald-500/12" : "bg-app-card/50"}`}>
+            <i className={`ri-advertisement-line text-lg ${globalEnabled ? "text-app-accent-success" : "text-app-text-muted"}`}></i>
           </div>
           <div>
             <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Hệ thống quảng cáo toàn cục</p>
@@ -397,7 +397,7 @@ export default function AdminAdsPage() {
           </span>
           <button
             onClick={() => setGlobalEnabled(!globalEnabled)}
-            className={`w-12 h-6 rounded-full transition-all cursor-pointer relative ${globalEnabled ? "bg-emerald-500" : "bg-white/10"}`}
+            className={`w-12 h-6 rounded-full transition-all cursor-pointer relative ${globalEnabled ? "bg-emerald-500" : "bg-app-card/70"}`}
           >
             <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-all ${globalEnabled ? "left-6" : "left-0.5"}`}></div>
           </button>
@@ -448,7 +448,7 @@ export default function AdminAdsPage() {
                         <p className="text-sm font-medium truncate" style={{ color: "var(--admin-text)" }}>
                           {ad.title || (ad.type === "html" ? "HTML Banner" : ad.type === "image" ? "Image Banner" : "Text Banner")}
                         </p>
-                        <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${ad.enabled && globalEnabled ? "bg-emerald-500/15 text-emerald-400" : "bg-white/5 text-white/25"}`}>
+                        <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${ad.enabled && globalEnabled ? "bg-app-accent-success/15 text-app-accent-success" : "bg-app-card/50 text-app-text-muted"}`}>
                           {ad.enabled && globalEnabled ? "HIỂN THỊ" : "ẨN"}
                         </span>
                       </div>
@@ -464,7 +464,7 @@ export default function AdminAdsPage() {
                     <div className="flex items-center gap-2 flex-shrink-0">
                       <button
                         onClick={() => handleToggle(ad.id)}
-                        className={`w-9 h-5 rounded-full transition-all cursor-pointer relative ${ad.enabled ? "bg-emerald-500" : "bg-white/10"}`}
+                        className={`w-9 h-5 rounded-full transition-all cursor-pointer relative ${ad.enabled ? "bg-emerald-500" : "bg-app-card/70"}`}
                         title={ad.enabled ? "Tắt" : "Bật"}
                       >
                         <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all ${ad.enabled ? "left-4" : "left-0.5"}`}></div>
@@ -497,7 +497,7 @@ export default function AdminAdsPage() {
       {/* Usage guide */}
       <div className="mt-6 rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
         <div className="flex items-center gap-2 mb-3">
-          <i className="ri-information-line text-[#e8c84a]"></i>
+          <i className="ri-information-line text-app-accent-primary"></i>
           <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Hướng dẫn sử dụng</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs" style={{ color: "var(--admin-text-muted)" }}>

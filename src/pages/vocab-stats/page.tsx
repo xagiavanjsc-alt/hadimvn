@@ -23,7 +23,7 @@ interface DayActivity {
 // ─── Heatmap Cell ─────────────────────────────────────────────────────────────
 function HeatmapCell({ day }: { day: DayActivity }) {
   const colors = [
-    "bg-white/5",
+    "bg-app-card/50",
     "bg-emerald-500/20",
     "bg-emerald-500/40",
     "bg-emerald-500/65",
@@ -143,7 +143,7 @@ export default function VocabStatsPage() {
     rating: r,
     count: srsEntries.filter(e => e.lastRating === r).length,
     label: ["Không nhớ", "Khó", "Nhớ được", "Dễ", "Rất dễ"][r - 1],
-    color: ["#f87171", "#fb923c", "#e8c84a", "#34d399", "#a78bfa"][r - 1],
+    color: ["#f87171", "#fb923c", "app-accent-primary", "#34d399", "#a78bfa"][r - 1],
   }));
   const maxRating = Math.max(...ratingDist.map(r => r.count), 1);
 
@@ -161,21 +161,21 @@ export default function VocabStatsPage() {
       {/* Top stats */}
       <div className="grid grid-cols-5 gap-4 mb-6">
         {[
-          { label: "Tổng từ vựng", value: totalVocab, icon: "ri-book-open-line", color: "#e8c84a", sub: "trong database" },
+          { label: "Tổng từ vựng", value: totalVocab, icon: "ri-book-open-line", color: "app-accent-primary", sub: "trong database" },
           { label: "Đã thuộc", value: masteredCount, icon: "ri-check-double-line", color: "#34d399", sub: `${totalVocab > 0 ? Math.round((masteredCount / totalVocab) * 100) : 0}% tổng số` },
           { label: "Đã ôn tập", value: totalReviewed, icon: "ri-refresh-line", color: "#fb923c", sub: "lần với SRS" },
           { label: "Streak hiện tại", value: `${currentStreak} ngày`, icon: "ri-fire-line", color: "#f87171", sub: "liên tiếp" },
           { label: "Interval TB", value: `${avgInterval} ngày`, icon: "ri-calendar-line", color: "#a78bfa", sub: `Ease: ${avgEase}` },
         ].map(s => (
-          <div key={s.label} className="bg-[#0f1117] border border-white/5 rounded-2xl p-4">
+          <div key={s.label} className="bg-app-bg border border-app-border rounded-2xl p-4">
             <div className="flex items-center gap-2 mb-2">
               <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
                 <i className={`${s.icon} text-xs`} style={{ color: s.color }}></i>
               </div>
-              <p className="text-white/40 text-[10px]">{s.label}</p>
+              <p className="text-app-text-secondary text-[10px]">{s.label}</p>
             </div>
             <p className="text-white font-bold text-xl">{loading ? "..." : s.value}</p>
-            <p className="text-white/25 text-[10px] mt-0.5">{s.sub}</p>
+            <p className="text-app-text-muted text-[10px] mt-0.5">{s.sub}</p>
           </div>
         ))}
       </div>
@@ -184,13 +184,13 @@ export default function VocabStatsPage() {
         {/* Left column */}
         <div className="space-y-5">
           {/* Heatmap */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-white font-semibold text-sm">Heatmap ôn tập (52 tuần)</h3>
-              <div className="flex items-center gap-2 text-[10px] text-white/30">
+              <div className="flex items-center gap-2 text-[10px] text-app-text-muted">
                 <span>Ít</span>
                 {[0, 1, 2, 3, 4].map(l => (
-                  <div key={l} className={`w-3 h-3 rounded-sm ${["bg-white/5", "bg-emerald-500/20", "bg-emerald-500/40", "bg-emerald-500/65", "bg-emerald-500"][l]}`}></div>
+                  <div key={l} className={`w-3 h-3 rounded-sm ${["bg-app-card/50", "bg-emerald-500/20", "bg-emerald-500/40", "bg-emerald-500/65", "bg-emerald-500"][l]}`}></div>
                 ))}
                 <span>Nhiều</span>
               </div>
@@ -204,14 +204,14 @@ export default function VocabStatsPage() {
                 </div>
               ))}
             </div>
-            <div className="flex justify-between mt-2 text-[10px] text-white/20">
+            <div className="flex justify-between mt-2 text-[10px] text-app-text-muted">
               <span>52 tuần trước</span>
               <span>Hôm nay</span>
             </div>
           </div>
 
           {/* Weekly bar chart */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">Hoạt động 7 ngày gần nhất</h3>
             <div className="flex items-end gap-3 h-32">
               {weeklyData.map((w, i) => {
@@ -219,17 +219,17 @@ export default function VocabStatsPage() {
                 const isToday = i === 6;
                 return (
                   <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                    <span className="text-white/40 text-[10px]">{w.count}</span>
+                    <span className="text-app-text-secondary text-[10px]">{w.count}</span>
                     <div className="w-full flex items-end" style={{ height: "80px" }}>
                       <div
                         className="w-full rounded-t-lg transition-all duration-500"
                         style={{
                           height: `${Math.max(pct, 4)}%`,
-                          backgroundColor: isToday ? "#e8c84a" : "rgba(255,255,255,0.1)",
+                          backgroundColor: isToday ? "app-accent-primary" : "rgba(255,255,255,0.1)",
                         }}
                       ></div>
                     </div>
-                    <span className={`text-[10px] ${isToday ? "text-[#e8c84a] font-bold" : "text-white/30"}`}>{w.day}</span>
+                    <span className={`text-[10px] ${isToday ? "text-app-accent-primary font-bold" : "text-app-text-muted"}`}>{w.day}</span>
                   </div>
                 );
               })}
@@ -237,17 +237,17 @@ export default function VocabStatsPage() {
           </div>
 
           {/* Category breakdown */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">Từ vựng theo chủ đề</h3>
             {loading ? (
               <div className="space-y-2">
-                {[...Array(5)].map((_, i) => <div key={i} className="h-8 bg-white/5 rounded-lg animate-pulse"></div>)}
+                {[...Array(5)].map((_, i) => <div key={i} className="h-8 bg-app-card/50 rounded-lg animate-pulse"></div>)}
               </div>
             ) : (
               <div className="space-y-2.5">
                 {categoryStats.map((cat, i) => {
                   const pct = totalVocab > 0 ? (cat.count / totalVocab) * 100 : 0;
-                  const colors = ["#e8c84a", "#34d399", "#fb923c", "#f87171", "#a78bfa", "#84cc16", "#06b6d4", "#f472b6"];
+                  const colors = ["app-accent-primary", "#34d399", "#fb923c", "#f87171", "#a78bfa", "#84cc16", "#06b6d4", "#f472b6"];
                   const color = colors[i % colors.length];
                   return (
                     <div key={cat.category}>
@@ -255,7 +255,7 @@ export default function VocabStatsPage() {
                         <span className="text-white/60 text-xs">{cat.category}</span>
                         <span className="text-xs font-bold" style={{ color }}>{cat.count} từ</span>
                       </div>
-                      <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                      <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                         <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, backgroundColor: color }}></div>
                       </div>
                     </div>
@@ -269,28 +269,28 @@ export default function VocabStatsPage() {
         {/* Right column */}
         <div className="space-y-4">
           {/* Prediction card */}
-          <div className="bg-gradient-to-br from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/20 rounded-2xl p-5">
+          <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/20 rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-4">
-              <i className="ri-time-line text-[#e8c84a] text-sm"></i>
+              <i className="ri-time-line text-app-accent-primary text-sm"></i>
               <h3 className="text-white font-semibold text-sm">Dự đoán hoàn thành</h3>
             </div>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-white/40 text-xs">Còn lại</span>
+                <span className="text-app-text-secondary text-xs">Còn lại</span>
                 <span className="text-white font-bold">{remaining} từ</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-white/40 text-xs">Tốc độ TB</span>
-                <span className="text-[#e8c84a] font-bold">{avgWordsPerDay} từ/ngày</span>
+                <span className="text-app-text-secondary text-xs">Tốc độ TB</span>
+                <span className="text-app-accent-primary font-bold">{avgWordsPerDay} từ/ngày</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-white/40 text-xs">Thời gian ước tính</span>
+                <span className="text-app-text-secondary text-xs">Thời gian ước tính</span>
                 <span className="text-white font-bold">{daysToFinish} ngày</span>
               </div>
               <div className="h-px bg-white/8 my-2"></div>
               <div className="text-center">
-                <p className="text-white/30 text-xs mb-1">Dự kiến hoàn thành</p>
-                <p className="text-[#e8c84a] font-bold text-lg">
+                <p className="text-app-text-muted text-xs mb-1">Dự kiến hoàn thành</p>
+                <p className="text-app-accent-primary font-bold text-lg">
                   {finishDate.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })}
                 </p>
               </div>
@@ -302,24 +302,24 @@ export default function VocabStatsPage() {
                   <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="3" />
                   <circle
                     cx="18" cy="18" r="15" fill="none"
-                    stroke="#e8c84a" strokeWidth="3"
+                    stroke="app-accent-primary" strokeWidth="3"
                     strokeDasharray={`${totalVocab > 0 ? (masteredCount / totalVocab) * 94.2 : 0} 94.2`}
                     strokeLinecap="round"
                   />
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-[#e8c84a] font-black text-lg">{totalVocab > 0 ? Math.round((masteredCount / totalVocab) * 100) : 0}%</span>
-                  <span className="text-white/30 text-[9px]">hoàn thành</span>
+                  <span className="text-app-accent-primary font-black text-lg">{totalVocab > 0 ? Math.round((masteredCount / totalVocab) * 100) : 0}%</span>
+                  <span className="text-app-text-muted text-[9px]">hoàn thành</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Rating distribution */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">Phân bố đánh giá SRS</h3>
             {srsEntries.length === 0 ? (
-              <p className="text-white/25 text-xs text-center py-4">Chưa có dữ liệu SRS. Hãy học flashcard!</p>
+              <p className="text-app-text-muted text-xs text-center py-4">Chưa có dữ liệu SRS. Hãy học flashcard!</p>
             ) : (
               <div className="space-y-2.5">
                 {ratingDist.map(r => (
@@ -327,11 +327,11 @@ export default function VocabStatsPage() {
                     <div className="flex items-center justify-between mb-1">
                       <div className="flex items-center gap-1.5">
                         <span className="text-[10px] font-bold w-3" style={{ color: r.color }}>{r.rating}</span>
-                        <span className="text-white/40 text-xs">{r.label}</span>
+                        <span className="text-app-text-secondary text-xs">{r.label}</span>
                       </div>
                       <span className="text-xs font-bold" style={{ color: r.color }}>{r.count}</span>
                     </div>
-                    <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                       <div className="h-full rounded-full" style={{ width: `${(r.count / maxRating) * 100}%`, backgroundColor: r.color }}></div>
                     </div>
                   </div>
@@ -341,25 +341,25 @@ export default function VocabStatsPage() {
           </div>
 
           {/* Study tips */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
-              <i className="ri-robot-line text-[#e8c84a] text-sm"></i>
+              <i className="ri-robot-line text-app-accent-primary text-sm"></i>
               <h3 className="text-white font-semibold text-sm">Phân tích AI</h3>
             </div>
-            <div className="space-y-2 text-xs text-white/40 leading-relaxed">
+            <div className="space-y-2 text-xs text-app-text-secondary leading-relaxed">
               {masteredCount < 50 && (
-                <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Hãy tập trung ôn tập từ cơ bản (A1) trước để xây nền tảng vững chắc.</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Hãy tập trung ôn tập từ cơ bản (A1) trước để xây nền tảng vững chắc.</p>
               )}
               {avgWordsPerDay < 5 && (
-                <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Tăng tốc độ học lên 10 từ/ngày để hoàn thành nhanh hơn.</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Tăng tốc độ học lên 10 từ/ngày để hoàn thành nhanh hơn.</p>
               )}
               {currentStreak < 7 && (
-                <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Duy trì streak 7 ngày liên tiếp để tăng hiệu quả ghi nhớ.</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Duy trì streak 7 ngày liên tiếp để tăng hiệu quả ghi nhớ.</p>
               )}
               {avgInterval > 10 && (
-                <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Interval trung bình cao — bạn đang ghi nhớ tốt! Tiếp tục duy trì.</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Interval trung bình cao — bạn đang ghi nhớ tốt! Tiếp tục duy trì.</p>
               )}
-              <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Học đều đặn mỗi ngày hiệu quả hơn học dồn vào cuối tuần.</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Học đều đặn mỗi ngày hiệu quả hơn học dồn vào cuối tuần.</p>
             </div>
           </div>
         </div>

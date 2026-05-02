@@ -156,7 +156,7 @@ export default function SentencePatternVocabPage() {
             <p className="text-white/50 text-sm">Học từ vựng qua các mẫu câu thông dụng TOPIK — hiểu ngữ cảnh thực tế</p>
           </div>
           <button onClick={() => { setQuizMode(v => !v); setQuizIdx(0); setShowAnswer(false); }}
-            className={`px-4 py-2 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap ${quizMode ? "bg-white/10 text-white/60" : "bg-[#e8c84a] text-[#141720]"}`}>
+            className={`px-4 py-2 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap ${quizMode ? "bg-app-card/70 text-white/60" : "bg-app-accent-primary text-[#141720]"}`}>
             {quizMode ? "Thoát Quiz" : "Chế độ Quiz"}
           </button>
         </div>
@@ -164,42 +164,42 @@ export default function SentencePatternVocabPage() {
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
-            { label: "Mẫu câu", value: patterns.length, color: "#e8c84a" },
+            { label: "Mẫu câu", value: patterns.length, color: "app-accent-primary" },
             { label: "Đã học", value: learnedIds.size, color: "#34d399" },
             { label: "Từ vựng", value: patterns.reduce((s, p) => s + p.keyVocab.length, 0), color: "#a78bfa" },
           ].map(s => (
-            <div key={s.label} className="rounded-xl border border-white/8 bg-white/3 p-4 text-center">
+            <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-4 text-center">
               <p className="font-bold text-xl" style={{ color: s.color }}>{s.value}</p>
-              <p className="text-white/40 text-xs">{s.label}</p>
+              <p className="text-app-text-secondary text-xs">{s.label}</p>
             </div>
           ))}
         </div>
 
         {quizMode ? (
           /* ── Quiz Mode ── */
-          <div className="rounded-2xl border border-white/8 bg-white/3 p-8 text-center">
-            <p className="text-white/40 text-sm mb-6">{quizIdx + 1} / {patterns.length}</p>
+          <div className="rounded-2xl border border-app-border bg-app-surface/50 p-8 text-center">
+            <p className="text-app-text-secondary text-sm mb-6">{quizIdx + 1} / {patterns.length}</p>
             <div className="mb-6">
-              <p className="text-white/40 text-sm mb-3">Mẫu câu này có nghĩa gì?</p>
+              <p className="text-app-text-secondary text-sm mb-3">Mẫu câu này có nghĩa gì?</p>
               <p className="text-white font-bold text-4xl mb-2">{quizPattern.pattern}</p>
-              <p className="text-white/30 text-sm">{quizPattern.category} · {quizPattern.level}</p>
+              <p className="text-app-text-muted text-sm">{quizPattern.category} · {quizPattern.level}</p>
             </div>
             {!showAnswer ? (
               <button onClick={() => setShowAnswer(true)}
-                className="px-8 py-3 rounded-xl bg-[#e8c84a] text-[#141720] font-bold cursor-pointer whitespace-nowrap mb-6">
+                className="px-8 py-3 rounded-xl bg-app-accent-primary text-[#141720] font-bold cursor-pointer whitespace-nowrap mb-6">
                 Xem đáp án
               </button>
             ) : (
               <div className="mb-6">
-                <div className="p-4 rounded-xl bg-[#e8c84a]/5 border border-[#e8c84a]/15 mb-4">
-                  <p className="text-[#e8c84a] font-bold text-xl">{quizPattern.patternVi}</p>
+                <div className="p-4 rounded-xl bg-app-accent-primary/5 border border-app-accent-primary/15 mb-4">
+                  <p className="text-app-accent-primary font-bold text-xl">{quizPattern.patternVi}</p>
                   <p className="text-white/50 text-sm mt-1">{quizPattern.explanation}</p>
                 </div>
                 <div className="space-y-2">
                   {quizPattern.examples.slice(0, 2).map((ex, i) => (
-                    <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/8">
+                    <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-app-card/50 border border-app-border">
                       <p className="text-white text-sm flex-1 text-left">{ex.korean}</p>
-                      <button onClick={() => handleTTS(ex.korean)} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 text-white/40 cursor-pointer flex-shrink-0">
+                      <button onClick={() => handleTTS(ex.korean)} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 text-app-text-secondary cursor-pointer flex-shrink-0">
                         <i className="ri-volume-up-line text-xs"></i>
                       </button>
                     </div>
@@ -214,7 +214,7 @@ export default function SentencePatternVocabPage() {
                 Trước
               </button>
               <button onClick={() => { setQuizIdx(i => i + 1); setShowAnswer(false); }}
-                className="flex-1 py-2.5 rounded-xl bg-[#e8c84a] text-[#141720] font-bold text-sm cursor-pointer whitespace-nowrap">
+                className="flex-1 py-2.5 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm cursor-pointer whitespace-nowrap">
                 Tiếp theo
               </button>
             </div>
@@ -236,15 +236,15 @@ export default function SentencePatternVocabPage() {
               <div className="space-y-2">
                 {filtered.map(p => (
                   <button key={p.id} onClick={() => setSelectedPattern(p)}
-                    className={`w-full flex items-start gap-2 px-3 py-3 rounded-xl border text-left cursor-pointer transition-all ${selectedPattern.id === p.id ? "border-[#e8c84a]/30 bg-[#e8c84a]/5" : "border-white/8 bg-white/3 hover:bg-white/5"}`}>
+                    className={`w-full flex items-start gap-2 px-3 py-3 rounded-xl border text-left cursor-pointer transition-all ${selectedPattern.id === p.id ? "border-app-accent-primary/30 bg-app-accent-primary/5" : "border-app-border bg-app-surface/50 hover:bg-app-card/50"}`}>
                     <div className="flex-1 min-w-0">
                       <p className="text-white text-xs font-bold truncate">{p.pattern}</p>
                       <div className="flex items-center gap-1.5 mt-0.5">
                         <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ backgroundColor: `${p.levelColor}20`, color: p.levelColor }}>{p.level}</span>
-                        <span className="text-white/30 text-[9px]">{p.category}</span>
+                        <span className="text-app-text-muted text-[9px]">{p.category}</span>
                       </div>
                     </div>
-                    {learnedIds.has(p.id) && <i className="ri-checkbox-circle-fill text-emerald-400 text-sm flex-shrink-0 mt-0.5"></i>}
+                    {learnedIds.has(p.id) && <i className="ri-checkbox-circle-fill text-app-accent-success text-sm flex-shrink-0 mt-0.5"></i>}
                   </button>
                 ))}
               </div>
@@ -252,46 +252,46 @@ export default function SentencePatternVocabPage() {
 
             {/* Detail */}
             <div className="flex-1 min-w-0">
-              <div className="rounded-2xl border border-white/8 bg-white/3 p-6">
+              <div className="rounded-2xl border border-app-border bg-app-surface/50 p-6">
                 {/* Pattern header */}
                 <div className="flex items-start justify-between mb-5">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${selectedPattern.levelColor}20`, color: selectedPattern.levelColor }}>{selectedPattern.level}</span>
-                      <span className="text-white/40 text-xs">{selectedPattern.category}</span>
+                      <span className="text-app-text-secondary text-xs">{selectedPattern.category}</span>
                     </div>
                     <p className="text-white font-bold text-2xl mb-1">{selectedPattern.pattern}</p>
-                    <p className="text-[#e8c84a] font-semibold">{selectedPattern.patternVi}</p>
+                    <p className="text-app-accent-primary font-semibold">{selectedPattern.patternVi}</p>
                   </div>
                   <button onClick={() => setLearnedIds(prev => { const n = new Set(prev); n.has(selectedPattern.id) ? n.delete(selectedPattern.id) : n.add(selectedPattern.id); return n; })}
-                    className={`px-3 py-2 rounded-xl text-xs font-bold cursor-pointer whitespace-nowrap ${learnedIds.has(selectedPattern.id) ? "bg-emerald-500/20 text-emerald-400" : "bg-white/8 text-white/50"}`}>
+                    className={`px-3 py-2 rounded-xl text-xs font-bold cursor-pointer whitespace-nowrap ${learnedIds.has(selectedPattern.id) ? "bg-emerald-500/20 text-app-accent-success" : "bg-white/8 text-white/50"}`}>
                     {learnedIds.has(selectedPattern.id) ? "Đã học" : "Đánh dấu"}
                   </button>
                 </div>
 
                 {/* Explanation */}
-                <div className="p-4 rounded-xl bg-white/5 border border-white/8 mb-5">
-                  <p className="text-white/40 text-xs mb-1">Giải thích:</p>
+                <div className="p-4 rounded-xl bg-app-card/50 border border-app-border mb-5">
+                  <p className="text-app-text-secondary text-xs mb-1">Giải thích:</p>
                   <p className="text-white/80 text-sm leading-relaxed">{selectedPattern.explanation}</p>
                 </div>
 
                 {/* Examples */}
                 <div className="mb-5">
-                  <p className="text-white/40 text-xs font-semibold mb-3">Ví dụ ({selectedPattern.examples.length}):</p>
+                  <p className="text-app-text-secondary text-xs font-semibold mb-3">Ví dụ ({selectedPattern.examples.length}):</p>
                   <div className="space-y-3">
                     {selectedPattern.examples.map((ex, i) => (
-                      <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/8">
+                      <div key={i} className="p-4 rounded-xl bg-app-card/50 border border-app-border">
                         <div className="flex items-start justify-between gap-3">
                           <div className="flex-1">
                             <p className="text-white font-medium text-base mb-1">
                               {ex.korean.split(" ").map((word, wi) => (
-                                <span key={wi} className={ex.highlight.some(h => ex.korean.includes(h) && h.includes(word)) ? "text-[#e8c84a]" : ""}>{word} </span>
+                                <span key={wi} className={ex.highlight.some(h => ex.korean.includes(h) && h.includes(word)) ? "text-app-accent-primary" : ""}>{word} </span>
                               ))}
                             </p>
                             <p className="text-white/50 text-sm">{ex.vietnamese}</p>
                           </div>
                           <button onClick={() => handleTTS(ex.korean)}
-                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/15 text-white/40 cursor-pointer flex-shrink-0">
+                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/15 text-app-text-secondary cursor-pointer flex-shrink-0">
                             <i className="ri-volume-up-line text-sm"></i>
                           </button>
                         </div>
@@ -302,18 +302,18 @@ export default function SentencePatternVocabPage() {
 
                 {/* Key vocab */}
                 <div>
-                  <p className="text-white/40 text-xs font-semibold mb-3">Từ vựng chính ({selectedPattern.keyVocab.length}):</p>
+                  <p className="text-app-text-secondary text-xs font-semibold mb-3">Từ vựng chính ({selectedPattern.keyVocab.length}):</p>
                   <div className="grid grid-cols-2 gap-2">
                     {selectedPattern.keyVocab.map((v, i) => (
-                      <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/8">
+                      <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-app-card/50 border border-app-border">
                         <button onClick={() => handleTTS(v.word)}
-                          className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 text-white/40 cursor-pointer flex-shrink-0">
+                          className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 text-app-text-secondary cursor-pointer flex-shrink-0">
                           <i className="ri-volume-up-line text-xs"></i>
                         </button>
                         <div className="min-w-0">
                           <p className="text-white font-bold text-sm">{v.word}</p>
-                          <p className="text-[#e8c84a] text-xs">{v.meaning}</p>
-                          <p className="text-white/25 text-[10px]">{v.pos}</p>
+                          <p className="text-app-accent-primary text-xs">{v.meaning}</p>
+                          <p className="text-app-text-muted text-[10px]">{v.pos}</p>
                         </div>
                       </div>
                     ))}

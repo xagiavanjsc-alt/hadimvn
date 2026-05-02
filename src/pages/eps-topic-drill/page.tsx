@@ -58,7 +58,7 @@ function TopicSelector({
     <div className="max-w-3xl mx-auto space-y-6">
       <div className="text-center">
         <h2 className="text-white font-bold text-xl mb-1">Chọn chủ đề luyện thi</h2>
-        <p className="text-white/40 text-sm">Luyện tập tập trung theo từng chủ đề để cải thiện điểm yếu</p>
+        <p className="text-app-text-secondary text-sm">Luyện tập tập trung theo từng chủ đề để cải thiện điểm yếu</p>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -74,7 +74,7 @@ function TopicSelector({
               className={`p-4 rounded-2xl border text-left transition-all cursor-pointer ${
                 isSelected
                   ? "border-2"
-                  : "bg-[#0f1117] border-white/5 hover:border-white/15"
+                  : "bg-app-bg border-app-border hover:border-white/15"
               }`}
               style={isSelected ? { borderColor: topic.color, backgroundColor: `${topic.color}10` } : {}}
             >
@@ -89,8 +89,8 @@ function TopicSelector({
                   <span
                     className="text-[10px] font-bold px-2 py-0.5 rounded-full"
                     style={{
-                      backgroundColor: acc >= 80 ? "#34d39920" : acc >= 60 ? "#e8c84a20" : "#f8717120",
-                      color: acc >= 80 ? "#34d399" : acc >= 60 ? "#e8c84a" : "#f87171",
+                      backgroundColor: acc >= 80 ? "#34d39920" : acc >= 60 ? "app-accent-primary20" : "#f8717120",
+                      color: acc >= 80 ? "#34d399" : acc >= 60 ? "app-accent-primary" : "#f87171",
                     }}
                   >
                     {acc}%
@@ -98,9 +98,9 @@ function TopicSelector({
                 )}
               </div>
               <p className="text-white/80 text-xs font-semibold leading-snug mb-1">{topic.label}</p>
-              <p className="text-white/30 text-[10px]">{topic.questionCount} câu hỏi</p>
+              <p className="text-app-text-muted text-[10px]">{topic.questionCount} câu hỏi</p>
               {topic.stats && (
-                <p className="text-white/20 text-[10px] mt-0.5">
+                <p className="text-app-text-muted text-[10px] mt-0.5">
                   Đã làm {topic.stats.totalDone} lần
                 </p>
               )}
@@ -110,7 +110,7 @@ function TopicSelector({
       </div>
 
       {selectedTopic && selected && (
-        <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-5 space-y-4">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5 space-y-4">
           <h3 className="text-white font-semibold text-sm flex items-center gap-2">
             <i className={`${selected.icon} text-base`} style={{ color: selected.color }}></i>
             Cài đặt: {selected.label}
@@ -118,7 +118,7 @@ function TopicSelector({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-white/40 text-xs block mb-2">Số câu hỏi</label>
+              <label className="text-app-text-secondary text-xs block mb-2">Số câu hỏi</label>
               <div className="flex items-center gap-2">
                 {[5, 10, 15, 20].filter(n => n <= maxCount).map(n => (
                   <button
@@ -126,8 +126,8 @@ function TopicSelector({
                     onClick={() => setCount(n)}
                     className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
                       count === n
-                        ? "text-[#0f1117] font-bold"
-                        : "bg-white/5 text-white/40 hover:bg-white/10"
+                        ? "text-app-bg font-bold"
+                        : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70"
                     }`}
                     style={count === n ? { backgroundColor: selected.color } : {}}
                   >
@@ -138,7 +138,7 @@ function TopicSelector({
             </div>
 
             <div>
-              <label className="text-white/40 text-xs block mb-2">Độ khó</label>
+              <label className="text-app-text-secondary text-xs block mb-2">Độ khó</label>
               <div className="flex items-center gap-2">
                 {[
                   { v: "all", l: "Tất cả" },
@@ -151,8 +151,8 @@ function TopicSelector({
                     onClick={() => setDifficulty(d.v)}
                     className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
                       difficulty === d.v
-                        ? "bg-[#e8c84a] text-[#0f1117] font-bold"
-                        : "bg-white/5 text-white/40 hover:bg-white/10"
+                        ? "bg-app-accent-primary text-app-bg font-bold"
+                        : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70"
                     }`}
                   >
                     {d.l}
@@ -164,7 +164,7 @@ function TopicSelector({
 
           <button
             onClick={() => onSelect(selectedTopic, count, difficulty)}
-            className="w-full py-3 rounded-xl font-bold text-sm text-[#0f1117] transition-all cursor-pointer whitespace-nowrap hover:opacity-90"
+            className="w-full py-3 rounded-xl font-bold text-sm text-app-bg transition-all cursor-pointer whitespace-nowrap hover:opacity-90"
             style={{ backgroundColor: selected.color }}
           >
             <i className="ri-play-fill mr-2"></i>Bắt đầu luyện thi
@@ -203,22 +203,22 @@ function QuestionCard({
   };
 
   const timerPct = Math.max(0, (timeLeft / 30) * 100);
-  const timerColor = timeLeft > 15 ? "#34d399" : timeLeft > 7 ? "#e8c84a" : "#f87171";
+  const timerColor = timeLeft > 15 ? "#34d399" : timeLeft > 7 ? "app-accent-primary" : "#f87171";
 
   return (
     <div className="max-w-2xl mx-auto space-y-4">
       {/* Progress + Timer */}
       <div className="flex items-center gap-3">
-        <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+        <div className="flex-1 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-all"
-            style={{ width: `${((index) / total) * 100}%`, backgroundColor: topic?.color || "#e8c84a" }}
+            style={{ width: `${((index) / total) * 100}%`, backgroundColor: topic?.color || "app-accent-primary" }}
           />
         </div>
-        <span className="text-white/40 text-xs whitespace-nowrap">{index + 1}/{total}</span>
+        <span className="text-app-text-secondary text-xs whitespace-nowrap">{index + 1}/{total}</span>
         {timerActive && (
           <div className="flex items-center gap-1.5">
-            <div className="w-16 h-1.5 bg-white/5 rounded-full overflow-hidden">
+            <div className="w-16 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
               <div
                 className="h-full rounded-full transition-all"
                 style={{ width: `${timerPct}%`, backgroundColor: timerColor }}
@@ -238,8 +238,8 @@ function QuestionCard({
           <i className={`${topic?.icon} mr-1`}></i>{topic?.label}
         </span>
         <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
-          question.difficulty === "easy" ? "bg-emerald-500/10 text-emerald-400" :
-          question.difficulty === "medium" ? "bg-[#e8c84a]/10 text-[#e8c84a]" :
+          question.difficulty === "easy" ? "bg-emerald-500/10 text-app-accent-success" :
+          question.difficulty === "medium" ? "bg-app-accent-primary/10 text-app-accent-primary" :
           "bg-red-500/10 text-red-400"
         }`}>
           {question.difficulty === "easy" ? "Dễ" : question.difficulty === "medium" ? "Trung bình" : "Khó"}
@@ -248,44 +248,44 @@ function QuestionCard({
 
       {/* Image */}
       {question.imageUrl && (
-        <div className="rounded-xl overflow-hidden border border-white/5">
+        <div className="rounded-xl overflow-hidden border border-app-border">
           <img
             src={question.imageUrl}
             alt={question.imageAlt || ""}
             className="w-full h-44 object-cover object-top"
           />
           {question.imageCaption && (
-            <p className="text-white/30 text-[10px] px-3 py-1.5 bg-white/3">{question.imageCaption}</p>
+            <p className="text-app-text-muted text-[10px] px-3 py-1.5 bg-app-surface/50">{question.imageCaption}</p>
           )}
         </div>
       )}
 
       {/* Question */}
-      <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-5">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-5">
         <p className="text-white font-semibold text-base leading-relaxed mb-1 whitespace-pre-line">{question.question}</p>
-        <p className="text-white/40 text-sm leading-relaxed whitespace-pre-line">{question.questionVi}</p>
+        <p className="text-app-text-secondary text-sm leading-relaxed whitespace-pre-line">{question.questionVi}</p>
       </div>
 
       {/* Options */}
       <div className="space-y-2.5">
         {question.options.map((opt, i) => {
-          let style = "bg-[#0f1117] border-white/8 text-white/70";
+          let style = "bg-app-bg border-app-border text-white/70";
           if (revealed) {
             if (i === question.correctIndex) style = "bg-emerald-500/10 border-emerald-500/40 text-emerald-300";
             else if (i === selected) style = "bg-red-500/10 border-red-500/40 text-red-300";
-            else style = "bg-[#0f1117] border-white/5 text-white/30";
+            else style = "bg-app-bg border-app-border text-app-text-muted";
           }
           return (
             <button
               key={i}
               onClick={() => handleSelect(i)}
               disabled={revealed}
-              className={`w-full flex items-start gap-3 p-4 rounded-xl border text-left transition-all cursor-pointer ${style} ${!revealed ? "hover:border-white/20 hover:bg-white/3" : ""}`}
+              className={`w-full flex items-start gap-3 p-4 rounded-xl border text-left transition-all cursor-pointer ${style} ${!revealed ? "hover:border-white/20 hover:bg-app-surface/50" : ""}`}
             >
               <span className={`w-6 h-6 rounded-full border flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${
                 revealed && i === question.correctIndex ? "bg-emerald-500 border-emerald-500 text-white" :
                 revealed && i === selected && i !== question.correctIndex ? "bg-red-500 border-red-500 text-white" :
-                "border-white/20 text-white/40"
+                "border-white/20 text-app-text-secondary"
               }`}>
                 {revealed && i === question.correctIndex ? <i className="ri-check-line text-xs"></i> :
                  revealed && i === selected && i !== question.correctIndex ? <i className="ri-close-line text-xs"></i> :
@@ -304,8 +304,8 @@ function QuestionCard({
       {revealed && (
         <div className={`p-4 rounded-xl border ${selected === question.correctIndex ? "bg-emerald-500/5 border-emerald-500/20" : "bg-red-500/5 border-red-500/20"}`}>
           <div className="flex items-center gap-2 mb-2">
-            <i className={`${selected === question.correctIndex ? "ri-checkbox-circle-fill text-emerald-400" : "ri-close-circle-fill text-red-400"} text-base`}></i>
-            <span className={`text-xs font-bold ${selected === question.correctIndex ? "text-emerald-400" : "text-red-400"}`}>
+            <i className={`${selected === question.correctIndex ? "ri-checkbox-circle-fill text-app-accent-success" : "ri-close-circle-fill text-red-400"} text-base`}></i>
+            <span className={`text-xs font-bold ${selected === question.correctIndex ? "text-app-accent-success" : "text-red-400"}`}>
               {selected === question.correctIndex ? "Chính xác!" : "Chưa đúng"}
             </span>
           </div>
@@ -343,30 +343,30 @@ function ResultsScreen({
 
   const grade =
     pct >= 90 ? { label: "Xuất sắc!", color: "#34d399", icon: "ri-trophy-fill" } :
-    pct >= 75 ? { label: "Tốt!", color: "#e8c84a", icon: "ri-thumb-up-fill" } :
+    pct >= 75 ? { label: "Tốt!", color: "app-accent-primary", icon: "ri-thumb-up-fill" } :
     pct >= 60 ? { label: "Khá", color: "#fb923c", icon: "ri-emotion-normal-fill" } :
     { label: "Cần ôn thêm", color: "#f87171", icon: "ri-emotion-sad-fill" };
 
   return (
     <div className="max-w-2xl mx-auto space-y-5">
       {/* Score card */}
-      <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-6 text-center">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-6 text-center">
         <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: `${grade.color}20` }}>
           <i className={`${grade.icon} text-2xl`} style={{ color: grade.color }}></i>
         </div>
         <p className="text-white font-bold text-2xl mb-1">{pct}%</p>
         <p className="font-bold text-base mb-1" style={{ color: grade.color }}>{grade.label}</p>
-        <p className="text-white/40 text-sm">{correct}/{total} câu đúng · {topic?.label}</p>
+        <p className="text-app-text-secondary text-sm">{correct}/{total} câu đúng · {topic?.label}</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5">
           {[
             { label: "Đúng", value: correct, color: "#34d399" },
             { label: "Sai", value: total - correct, color: "#f87171" },
-            { label: "Thời gian TB", value: `${avgTime}s`, color: "#e8c84a" },
+            { label: "Thời gian TB", value: `${avgTime}s`, color: "app-accent-primary" },
           ].map(s => (
-            <div key={s.label} className="bg-white/3 rounded-xl p-3">
+            <div key={s.label} className="bg-app-surface/50 rounded-xl p-3">
               <p className="font-bold text-lg" style={{ color: s.color }}>{s.value}</p>
-              <p className="text-white/30 text-[10px]">{s.label}</p>
+              <p className="text-app-text-muted text-[10px]">{s.label}</p>
             </div>
           ))}
         </div>
@@ -374,7 +374,7 @@ function ResultsScreen({
 
       {/* Wrong questions review */}
       {wrongQuestions.length > 0 && (
-        <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-5">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-3 flex items-center gap-2">
             <i className="ri-error-warning-line text-red-400"></i>
             Câu cần ôn lại ({wrongQuestions.length})
@@ -383,11 +383,11 @@ function ResultsScreen({
             {wrongQuestions.map((q, i) => (
               <div key={q.id} className="bg-red-500/5 border border-red-500/10 rounded-xl p-3">
                 <p className="text-white/70 text-xs font-medium mb-1">{i + 1}. {q.questionVi}</p>
-                <p className="text-emerald-400 text-xs">
+                <p className="text-app-accent-success text-xs">
                   <i className="ri-check-line mr-1"></i>
                   {q.optionsVi[q.correctIndex]}
                 </p>
-                <p className="text-white/30 text-[10px] mt-1 leading-relaxed">{q.explanation}</p>
+                <p className="text-app-text-muted text-[10px] mt-1 leading-relaxed">{q.explanation}</p>
               </div>
             ))}
           </div>
@@ -395,13 +395,13 @@ function ResultsScreen({
       )}
 
       <div className="flex gap-3">
-        <button onClick={onBack} className="flex-1 py-3 rounded-xl border border-white/10 text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-white/5">
+        <button onClick={onBack} className="flex-1 py-3 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50">
           <i className="ri-arrow-left-line mr-2"></i>Chọn chủ đề khác
         </button>
         <button
           onClick={onRetry}
-          className="flex-1 py-3 rounded-xl font-bold text-sm text-[#0f1117] cursor-pointer whitespace-nowrap hover:opacity-90"
-          style={{ backgroundColor: topic?.color || "#e8c84a" }}
+          className="flex-1 py-3 rounded-xl font-bold text-sm text-app-bg cursor-pointer whitespace-nowrap hover:opacity-90"
+          style={{ backgroundColor: topic?.color || "app-accent-primary" }}
         >
           <i className="ri-refresh-line mr-2"></i>Luyện lại
         </button>
@@ -496,14 +496,14 @@ export default function EpsTopicDrillPage() {
         phase !== "select" ? (
           <button
             onClick={() => setPhase("select")}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-white/5"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50"
           >
             <i className="ri-arrow-left-line"></i>Chọn lại
           </button>
         ) : (
           <button
             onClick={() => navigate("/eps-exam")}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#e8c84a]/10 border border-[#e8c84a]/20 text-[#e8c84a] text-sm cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-app-accent-primary/10 border border-app-accent-primary/20 text-app-accent-primary text-sm cursor-pointer whitespace-nowrap"
           >
             <i className="ri-timer-line"></i>Thi thử 40 câu
           </button>

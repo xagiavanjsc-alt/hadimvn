@@ -26,7 +26,7 @@ const syllableGroups: SyllableGroup[] = [
     title: "Nguyên âm khó",
     description: "Các nguyên âm dễ nhầm lẫn",
     icon: "ri-sound-module-line",
-    color: "#e8c84a",
+    color: "app-accent-primary",
     syllables: [
       { id: "eu", syllable: "으", romanization: "eu", tip: "Phát âm như 'ư' trong tiếng Việt, môi không tròn", similar: "ư (Việt)", words: [{ korean: "으로", meaning: "bằng/theo hướng" }, { korean: "크다", meaning: "to lớn" }], difficulty: "medium" },
       { id: "oe", syllable: "외", romanization: "oe", tip: "Phát âm như 'oe' — môi tròn, lưỡi ở vị trí 'e'", similar: "oe", words: [{ korean: "외국", meaning: "nước ngoài" }, { korean: "외롭다", meaning: "cô đơn" }], difficulty: "hard" },
@@ -137,7 +137,7 @@ export default function SyllablePronunciationPage() {
             <p className="text-white/50 text-sm">Tập từng âm tiết khó — nguyên âm, phụ âm, batchim</p>
           </div>
           <button onClick={() => { setPracticeMode(v => !v); setPracticeIdx(0); }}
-            className={`px-4 py-2 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap transition-all ${practiceMode ? "bg-white/10 text-white/60" : "bg-[#e8c84a] text-[#141720]"}`}>
+            className={`px-4 py-2 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap transition-all ${practiceMode ? "bg-app-card/70 text-white/60" : "bg-app-accent-primary text-[#141720]"}`}>
             {practiceMode ? "Thoát luyện tập" : "Chế độ luyện tập"}
           </button>
         </div>
@@ -145,53 +145,53 @@ export default function SyllablePronunciationPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
-            { label: "Tổng âm tiết", value: allSyllables.length, color: "#e8c84a" },
+            { label: "Tổng âm tiết", value: allSyllables.length, color: "app-accent-primary" },
             { label: "Đã thành thạo", value: masteredIds.size, color: "#34d399" },
             { label: "Nhóm", value: syllableGroups.length, color: "#a78bfa" },
             { label: "Khó", value: allSyllables.filter(s => s.difficulty === "hard").length, color: "#f87171" },
           ].map(s => (
-            <div key={s.label} className="rounded-xl border border-white/8 bg-white/3 p-3 text-center">
+            <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-3 text-center">
               <p className="font-bold text-xl" style={{ color: s.color }}>{s.value}</p>
-              <p className="text-white/40 text-xs">{s.label}</p>
+              <p className="text-app-text-secondary text-xs">{s.label}</p>
             </div>
           ))}
         </div>
 
         {practiceMode ? (
           /* ── Practice Mode ── */
-          <div className="rounded-2xl border border-white/8 bg-white/3 p-8 text-center">
-            <p className="text-white/40 text-sm mb-2">{practiceIdx + 1} / {allSyllables.length}</p>
+          <div className="rounded-2xl border border-app-border bg-app-surface/50 p-8 text-center">
+            <p className="text-app-text-secondary text-sm mb-2">{practiceIdx + 1} / {allSyllables.length}</p>
             <div className="flex gap-1 justify-center mb-8">
               {allSyllables.map((s, i) => (
-                <div key={s.id} className={`h-1 rounded-full transition-all ${i === practiceIdx ? "w-6 bg-[#e8c84a]" : masteredIds.has(s.id) ? "w-2 bg-emerald-400" : "w-2 bg-white/15"}`} />
+                <div key={s.id} className={`h-1 rounded-full transition-all ${i === practiceIdx ? "w-6 bg-app-accent-primary" : masteredIds.has(s.id) ? "w-2 bg-emerald-400" : "w-2 bg-white/15"}`} />
               ))}
             </div>
 
             <div className="mb-6">
-              <p className="text-white/30 text-sm mb-3">Phát âm âm tiết này:</p>
+              <p className="text-app-text-muted text-sm mb-3">Phát âm âm tiết này:</p>
               <p className="text-white font-bold text-8xl mb-2">{practiceSyllable.syllable}</p>
-              <p className="text-white/40 text-lg">[{practiceSyllable.romanization}]</p>
+              <p className="text-app-text-secondary text-lg">[{practiceSyllable.romanization}]</p>
             </div>
 
             <button onClick={() => handleTTS(practiceSyllable.syllable, practiceSyllable.id)}
-              className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 cursor-pointer transition-all ${isPlaying === practiceSyllable.id ? "bg-[#e8c84a] scale-110" : "bg-white/10 hover:bg-white/15"}`}>
+              className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 cursor-pointer transition-all ${isPlaying === practiceSyllable.id ? "bg-app-accent-primary scale-110" : "bg-app-card/70 hover:bg-white/15"}`}>
               <i className={`ri-volume-up-line text-3xl ${isPlaying === practiceSyllable.id ? "text-[#141720]" : "text-white"}`}></i>
             </button>
 
-            <div className="p-4 rounded-xl bg-white/5 border border-white/8 mb-6 text-left">
-              <p className="text-white/40 text-xs mb-1">Mẹo phát âm:</p>
+            <div className="p-4 rounded-xl bg-app-card/50 border border-app-border mb-6 text-left">
+              <p className="text-app-text-secondary text-xs mb-1">Mẹo phát âm:</p>
               <p className="text-white/80 text-sm">{practiceSyllable.tip}</p>
               {practiceSyllable.similar && (
-                <p className="text-[#e8c84a]/70 text-xs mt-2">Tương tự: {practiceSyllable.similar}</p>
+                <p className="text-app-accent-primary/70 text-xs mt-2">Tương tự: {practiceSyllable.similar}</p>
               )}
             </div>
 
             <div className="flex gap-2 mb-6">
               {practiceSyllable.words.map(w => (
                 <button key={w.korean} onClick={() => handleTTS(w.korean, `word-${w.korean}`)}
-                  className="flex-1 p-3 rounded-xl bg-white/5 border border-white/8 hover:bg-white/8 cursor-pointer text-center">
+                  className="flex-1 p-3 rounded-xl bg-app-card/50 border border-app-border hover:bg-white/8 cursor-pointer text-center">
                   <p className="text-white font-bold text-lg">{w.korean}</p>
-                  <p className="text-white/40 text-xs">{w.meaning}</p>
+                  <p className="text-app-text-secondary text-xs">{w.meaning}</p>
                 </button>
               ))}
             </div>
@@ -203,12 +203,12 @@ export default function SyllablePronunciationPage() {
                 Trước
               </button>
               <button onClick={() => toggleMastered(practiceSyllable.id)}
-                className={`flex-1 py-3 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap transition-colors ${masteredIds.has(practiceSyllable.id) ? "bg-emerald-500/20 text-emerald-400" : "bg-white/8 text-white/60"}`}>
+                className={`flex-1 py-3 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap transition-colors ${masteredIds.has(practiceSyllable.id) ? "bg-emerald-500/20 text-app-accent-success" : "bg-white/8 text-white/60"}`}>
                 {masteredIds.has(practiceSyllable.id) ? "Đã thành thạo" : "Đánh dấu thành thạo"}
               </button>
               <button onClick={() => { setPracticeIdx(i => Math.min(allSyllables.length - 1, i + 1)); }}
                 disabled={practiceIdx >= allSyllables.length - 1}
-                className="flex-1 py-3 rounded-xl bg-[#e8c84a] text-[#141720] font-bold text-sm cursor-pointer disabled:opacity-30 whitespace-nowrap">
+                className="flex-1 py-3 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm cursor-pointer disabled:opacity-30 whitespace-nowrap">
                 Tiếp
               </button>
             </div>
@@ -220,13 +220,13 @@ export default function SyllablePronunciationPage() {
             <div className="w-48 flex-shrink-0 space-y-2">
               {syllableGroups.map(g => (
                 <button key={g.id} onClick={() => { setActiveGroup(g.id); setActiveSyllable(null); }}
-                  className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl border text-left cursor-pointer transition-all ${activeGroup === g.id ? "border-white/15 bg-white/8" : "border-white/5 bg-white/3 hover:bg-white/5"}`}>
+                  className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl border text-left cursor-pointer transition-all ${activeGroup === g.id ? "border-white/15 bg-white/8" : "border-app-border bg-app-surface/50 hover:bg-app-card/50"}`}>
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${g.color}20` }}>
                     <i className={`${g.icon} text-sm`} style={{ color: g.color }}></i>
                   </div>
                   <div className="min-w-0">
                     <p className="text-white text-xs font-semibold truncate">{g.title}</p>
-                    <p className="text-white/30 text-[10px]">{g.syllables.length} âm tiết</p>
+                    <p className="text-app-text-muted text-[10px]">{g.syllables.length} âm tiết</p>
                   </div>
                 </button>
               ))}
@@ -236,30 +236,30 @@ export default function SyllablePronunciationPage() {
             <div className="flex-1 min-w-0">
               <div className="mb-4">
                 <h2 className="text-white font-bold text-lg">{currentGroup.title}</h2>
-                <p className="text-white/40 text-sm">{currentGroup.description}</p>
+                <p className="text-app-text-secondary text-sm">{currentGroup.description}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-3 mb-5">
                 {currentGroup.syllables.map(s => (
                   <button key={s.id} onClick={() => setActiveSyllable(activeSyllable?.id === s.id ? null : s)}
-                    className={`p-4 rounded-xl border text-left cursor-pointer transition-all ${activeSyllable?.id === s.id ? "border-white/20 bg-white/8" : masteredIds.has(s.id) ? "border-emerald-500/20 bg-emerald-500/5" : "border-white/8 bg-white/3 hover:bg-white/5"}`}>
+                    className={`p-4 rounded-xl border text-left cursor-pointer transition-all ${activeSyllable?.id === s.id ? "border-white/20 bg-white/8" : masteredIds.has(s.id) ? "border-emerald-500/20 bg-emerald-500/5" : "border-app-border bg-app-surface/50 hover:bg-app-card/50"}`}>
                     <div className="flex items-start justify-between mb-2">
                       <span className="text-white font-bold text-4xl">{s.syllable}</span>
                       <div className="flex flex-col items-end gap-1">
                         <span className="text-[9px] px-1.5 py-0.5 rounded-full font-bold" style={{ backgroundColor: `${difficultyConfig[s.difficulty].color}20`, color: difficultyConfig[s.difficulty].color }}>
                           {difficultyConfig[s.difficulty].label}
                         </span>
-                        {masteredIds.has(s.id) && <i className="ri-checkbox-circle-fill text-emerald-400 text-sm"></i>}
+                        {masteredIds.has(s.id) && <i className="ri-checkbox-circle-fill text-app-accent-success text-sm"></i>}
                       </div>
                     </div>
-                    <p className="text-white/40 text-xs">[{s.romanization}]</p>
+                    <p className="text-app-text-secondary text-xs">[{s.romanization}]</p>
                   </button>
                 ))}
               </div>
 
               {/* Detail panel */}
               {activeSyllable && (
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <div className="rounded-2xl border border-app-border bg-app-card/50 p-5">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
                       <span className="text-white font-bold text-5xl">{activeSyllable.syllable}</span>
@@ -271,35 +271,35 @@ export default function SyllablePronunciationPage() {
                       </div>
                     </div>
                     <button onClick={() => handleTTS(activeSyllable.syllable, activeSyllable.id)}
-                      className={`w-12 h-12 flex items-center justify-center rounded-xl cursor-pointer transition-all ${isPlaying === activeSyllable.id ? "bg-[#e8c84a] scale-105" : "bg-white/10 hover:bg-white/15"}`}>
+                      className={`w-12 h-12 flex items-center justify-center rounded-xl cursor-pointer transition-all ${isPlaying === activeSyllable.id ? "bg-app-accent-primary scale-105" : "bg-app-card/70 hover:bg-white/15"}`}>
                       <i className={`ri-volume-up-line text-xl ${isPlaying === activeSyllable.id ? "text-[#141720]" : "text-white"}`}></i>
                     </button>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-white/5 border border-white/8 mb-4">
-                    <p className="text-white/40 text-xs mb-1">Mẹo phát âm:</p>
+                  <div className="p-3 rounded-xl bg-app-card/50 border border-app-border mb-4">
+                    <p className="text-app-text-secondary text-xs mb-1">Mẹo phát âm:</p>
                     <p className="text-white/80 text-sm leading-relaxed">{activeSyllable.tip}</p>
                     {activeSyllable.similar && (
-                      <p className="text-[#e8c84a]/70 text-xs mt-2">So sánh với: {activeSyllable.similar}</p>
+                      <p className="text-app-accent-primary/70 text-xs mt-2">So sánh với: {activeSyllable.similar}</p>
                     )}
                   </div>
 
                   <div className="mb-4">
-                    <p className="text-white/40 text-xs mb-2">Từ ví dụ:</p>
+                    <p className="text-app-text-secondary text-xs mb-2">Từ ví dụ:</p>
                     <div className="flex gap-2">
                       {activeSyllable.words.map(w => (
                         <button key={w.korean} onClick={() => handleTTS(w.korean, `word-${w.korean}`)}
-                          className="flex-1 p-3 rounded-xl bg-white/5 border border-white/8 hover:bg-white/8 cursor-pointer text-center">
+                          className="flex-1 p-3 rounded-xl bg-app-card/50 border border-app-border hover:bg-white/8 cursor-pointer text-center">
                           <p className="text-white font-bold text-lg">{w.korean}</p>
-                          <p className="text-white/40 text-xs">{w.meaning}</p>
-                          <i className="ri-volume-up-line text-white/20 text-xs mt-1"></i>
+                          <p className="text-app-text-secondary text-xs">{w.meaning}</p>
+                          <i className="ri-volume-up-line text-app-text-muted text-xs mt-1"></i>
                         </button>
                       ))}
                     </div>
                   </div>
 
                   <button onClick={() => toggleMastered(activeSyllable.id)}
-                    className={`w-full py-2.5 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap transition-colors ${masteredIds.has(activeSyllable.id) ? "bg-emerald-500/20 text-emerald-400" : "bg-[#e8c84a] text-[#141720]"}`}>
+                    className={`w-full py-2.5 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap transition-colors ${masteredIds.has(activeSyllable.id) ? "bg-emerald-500/20 text-app-accent-success" : "bg-app-accent-primary text-[#141720]"}`}>
                     {masteredIds.has(activeSyllable.id) ? "Đã thành thạo — Bỏ đánh dấu" : "Đánh dấu thành thạo"}
                   </button>
                 </div>

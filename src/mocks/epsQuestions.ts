@@ -20,7 +20,7 @@ export const EPS_TOPICS = [
   { id: "safety", label: "An toàn lao động", icon: "ri-shield-check-line", color: "#fb923c" },
   { id: "culture", label: "Văn hóa Hàn Quốc", icon: "ri-building-2-line", color: "#a78bfa" },
   { id: "workplace", label: "Nơi làm việc", icon: "ri-briefcase-line", color: "#38bdf8" },
-  { id: "daily", label: "Sinh hoạt hàng ngày", icon: "ri-home-smile-line", color: "#e8c84a" },
+  { id: "daily", label: "Sinh hoạt hàng ngày", icon: "ri-home-smile-line", color: "app-accent-primary" },
   { id: "emergency", label: "Tình huống khẩn cấp", icon: "ri-alarm-warning-line", color: "#f87171" },
   { id: "listening", label: "Nghe hiểu (Listening)", icon: "ri-headphone-line", color: "#06b6d4" },
   { id: "reading", label: "Đọc hiểu (Reading)", icon: "ri-book-open-line", color: "#ec4899" },

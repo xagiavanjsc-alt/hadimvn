@@ -84,12 +84,12 @@ export default function AIEditor({
 
   if (!song) {
     return (
-      <section className="bg-[#0f1117] border border-white/5 rounded-xl p-10 flex flex-col items-center justify-center text-center min-h-[400px]">
-        <div className="w-14 h-14 flex items-center justify-center bg-white/5 rounded-2xl mb-4">
-          <i className="ri-edit-box-line text-white/20 text-2xl"></i>
+      <section className="bg-app-bg border border-app-border rounded-xl p-10 flex flex-col items-center justify-center text-center min-h-[400px]">
+        <div className="w-14 h-14 flex items-center justify-center bg-app-card/50 rounded-2xl mb-4">
+          <i className="ri-edit-box-line text-app-text-muted text-2xl"></i>
         </div>
-        <p className="text-white/30 text-sm">Chọn một bài hát từ bảng trên</p>
-        <p className="text-white/20 text-xs mt-1">hoặc nhấn "Xử lý AI" để bắt đầu biên tập</p>
+        <p className="text-app-text-muted text-sm">Chọn một bài hát từ bảng trên</p>
+        <p className="text-app-text-muted text-xs mt-1">hoặc nhấn "Xử lý AI" để bắt đầu biên tập</p>
       </section>
     );
   }
@@ -108,16 +108,16 @@ export default function AIEditor({
   };
 
   return (
-    <section className="bg-[#0f1117] border border-white/5 rounded-xl overflow-hidden">
+    <section className="bg-app-bg border border-app-border rounded-xl overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-white/5">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-app-border">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 flex items-center justify-center bg-[#e8c84a]/10 rounded-lg">
-            <i className="ri-sparkling-2-line text-[#e8c84a] text-base"></i>
+          <div className="w-8 h-8 flex items-center justify-center bg-app-accent-primary/10 rounded-lg">
+            <i className="ri-sparkling-2-line text-app-accent-primary text-base"></i>
           </div>
           <div>
             <h2 className="text-white font-semibold text-sm">AI Editor</h2>
-            <p className="text-white/40 text-xs">
+            <p className="text-app-text-secondary text-xs">
               #{song.rank} · {song.title} — {song.artist}
             </p>
           </div>
@@ -137,8 +137,8 @@ export default function AIEditor({
             onClick={saveDraft}
             className={`flex items-center gap-1.5 text-xs font-medium px-3 py-2 rounded-lg transition-all whitespace-nowrap cursor-pointer ${
               draftSaved
-                ? "bg-emerald-500/20 text-emerald-400"
-                : "bg-white/5 hover:bg-white/10 text-white/50 hover:text-white/80"
+                ? "bg-emerald-500/20 text-app-accent-success"
+                : "bg-app-card/50 hover:bg-app-card/70 text-white/50 hover:text-white/80"
             }`}
           >
             <i className={draftSaved ? "ri-checkbox-circle-line" : "ri-save-3-line"}></i>
@@ -147,7 +147,7 @@ export default function AIEditor({
           {hasDraft && (
             <button
               onClick={deleteDraft}
-              className="w-7 h-7 flex items-center justify-center text-white/20 hover:text-red-400 transition-colors cursor-pointer rounded-lg hover:bg-red-400/10"
+              className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-red-400 transition-colors cursor-pointer rounded-lg hover:bg-red-400/10"
               title="Xóa nháp"
             >
               <i className="ri-delete-bin-line text-xs"></i>
@@ -169,11 +169,11 @@ export default function AIEditor({
         <div className="p-6 flex flex-col">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-5 h-5 flex items-center justify-center">
-              <i className="ri-music-line text-white/40 text-sm"></i>
+              <i className="ri-music-line text-app-text-secondary text-sm"></i>
             </div>
             <span className="text-white/50 text-xs font-medium tracking-normal">Lời gốc (Tiếng Hàn)</span>
           </div>
-          <div className="flex-1 bg-white/3 rounded-xl p-5 overflow-auto">
+          <div className="flex-1 bg-app-surface/50 rounded-xl p-5 overflow-auto">
             <pre className="text-white/70 text-sm leading-8 font-sans whitespace-pre-wrap">{song.lyrics}</pre>
           </div>
         </div>
@@ -182,21 +182,21 @@ export default function AIEditor({
         <div className="p-6 flex flex-col">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-5 h-5 flex items-center justify-center">
-              <i className="ri-sparkling-line text-[#e8c84a] text-sm"></i>
+              <i className="ri-sparkling-line text-app-accent-primary text-sm"></i>
             </div>
             <span className="text-white/50 text-xs font-medium tracking-normal">Nội dung chế biến</span>
           </div>
 
           {/* Tabs */}
-          <div className="flex gap-1 bg-white/5 p-1 rounded-lg mb-4">
+          <div className="flex gap-1 bg-app-card/50 p-1 rounded-lg mb-4">
             {(["story", "vocab", "explain"] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`flex-1 text-xs py-1.5 px-2 rounded-md transition-all cursor-pointer whitespace-nowrap ${
                   activeTab === tab
-                    ? "bg-[#e8c84a] text-[#0f1117] font-semibold"
-                    : "text-white/40 hover:text-white/60"
+                    ? "bg-app-accent-primary text-app-bg font-semibold"
+                    : "text-app-text-secondary hover:text-white/60"
                 }`}
               >
                 {tab === "story" ? "Truyện Chêm" : tab === "vocab" ? "Từ vựng" : "Giải thích"}
@@ -211,17 +211,17 @@ export default function AIEditor({
                 value={story}
                 onChange={(e) => onStoryChange(e.target.value)}
                 placeholder="AI sẽ tự động tạo đoạn Truyện Chêm tiếng Việt tại đây..."
-                className="w-full h-full min-h-[340px] bg-white/3 border border-white/8 rounded-xl p-4 text-white/80 text-sm leading-7 placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/30 resize-none transition-colors"
+                className="w-full h-full min-h-[340px] bg-app-surface/50 border border-app-border rounded-xl p-4 text-white/80 text-sm leading-7 placeholder-white/20 focus:outline-none focus:border-app-accent-primary/30 resize-none transition-colors"
               />
             )}
 
             {activeTab === "vocab" && (
               <div className="space-y-3 overflow-auto max-h-[360px] pr-1">
                 {vocabulary.map((v, i) => (
-                  <div key={i} className="bg-white/3 rounded-xl p-4 space-y-2 relative group">
+                  <div key={i} className="bg-app-surface/50 rounded-xl p-4 space-y-2 relative group">
                     <button
                       onClick={() => removeVocab(i)}
-                      className="absolute top-3 right-3 w-5 h-5 flex items-center justify-center text-white/20 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all cursor-pointer"
+                      className="absolute top-3 right-3 w-5 h-5 flex items-center justify-center text-app-text-muted hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all cursor-pointer"
                     >
                       <i className="ri-close-line text-sm"></i>
                     </button>
@@ -229,7 +229,7 @@ export default function AIEditor({
                       value={v.word}
                       onChange={(e) => updateVocab(i, "word", e.target.value)}
                       placeholder="Từ (ví dụ: 우주 (ujju))"
-                      className="w-full bg-transparent border-b border-white/10 pb-1 text-[#e8c84a] text-sm font-medium focus:outline-none focus:border-[#e8c84a]/40 placeholder-white/20"
+                      className="w-full bg-transparent border-b border-app-border pb-1 text-app-accent-primary text-sm font-medium focus:outline-none focus:border-app-accent-primary/40 placeholder-white/20"
                     />
                     <input
                       value={v.meaning}
@@ -241,13 +241,13 @@ export default function AIEditor({
                       value={v.example}
                       onChange={(e) => updateVocab(i, "example", e.target.value)}
                       placeholder="Ví dụ câu"
-                      className="w-full bg-transparent text-white/40 text-xs italic focus:outline-none placeholder-white/20"
+                      className="w-full bg-transparent text-app-text-secondary text-xs italic focus:outline-none placeholder-white/20"
                     />
                   </div>
                 ))}
                 <button
                   onClick={addVocab}
-                  className="w-full flex items-center justify-center gap-2 border border-dashed border-white/10 hover:border-[#e8c84a]/30 text-white/30 hover:text-[#e8c84a]/60 text-xs py-3 rounded-xl transition-colors cursor-pointer"
+                  className="w-full flex items-center justify-center gap-2 border border-dashed border-app-border hover:border-app-accent-primary/30 text-app-text-muted hover:text-app-accent-primary/60 text-xs py-3 rounded-xl transition-colors cursor-pointer"
                 >
                   <i className="ri-add-line"></i>
                   Thêm từ vựng
@@ -260,7 +260,7 @@ export default function AIEditor({
                 value={explanation}
                 onChange={(e) => onExplanationChange(e.target.value)}
                 placeholder="AI sẽ giải thích cách dùng từ và ngữ pháp tại đây..."
-                className="w-full h-full min-h-[340px] bg-white/3 border border-white/8 rounded-xl p-4 text-white/80 text-sm leading-7 placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/30 resize-none transition-colors"
+                className="w-full h-full min-h-[340px] bg-app-surface/50 border border-app-border rounded-xl p-4 text-white/80 text-sm leading-7 placeholder-white/20 focus:outline-none focus:border-app-accent-primary/30 resize-none transition-colors"
               />
             )}
           </div>

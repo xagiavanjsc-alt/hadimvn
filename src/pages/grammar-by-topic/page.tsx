@@ -300,7 +300,7 @@ const grammarTopics: GrammarTopic[] = [
     name: "존댓말과 경어",
     nameVi: "Kính ngữ & Lịch sự",
     icon: "ri-user-star-line",
-    color: "#e8c84a",
+    color: "app-accent-primary",
     description: "Ngữ pháp kính ngữ và cách nói lịch sự",
     points: [
       {
@@ -358,18 +358,18 @@ const levelColors: Record<string, string> = {
 function GrammarCard({ point, onSelect }: { point: GrammarPoint; onSelect: () => void }) {
   return (
     <button onClick={onSelect}
-      className="text-left p-4 rounded-xl border border-white/8 bg-white/3 hover:bg-white/5 hover:border-white/15 transition-all cursor-pointer group w-full">
+      className="text-left p-4 rounded-xl border border-app-border bg-app-surface/50 hover:bg-app-card/50 hover:border-white/15 transition-all cursor-pointer group w-full">
       <div className="flex items-start justify-between mb-2">
-        <span className="text-[#e8c84a] font-bold text-base font-mono">{point.pattern}</span>
+        <span className="text-app-accent-primary font-bold text-base font-mono">{point.pattern}</span>
         <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${levelColors[point.level]}20`, color: levelColors[point.level] }}>
           {point.level}
         </span>
       </div>
       <p className="text-white/80 text-sm font-medium mb-1">{point.meaning}</p>
-      <p className="text-white/40 text-xs line-clamp-2">{point.usage}</p>
-      <div className="mt-3 pt-3 border-t border-white/5">
+      <p className="text-app-text-secondary text-xs line-clamp-2">{point.usage}</p>
+      <div className="mt-3 pt-3 border-t border-app-border">
         <p className="text-white/50 text-xs italic">{point.examples[0].korean}</p>
-        <p className="text-white/30 text-xs">{point.examples[0].vietnamese}</p>
+        <p className="text-app-text-muted text-xs">{point.examples[0].vietnamese}</p>
       </div>
     </button>
   );
@@ -399,28 +399,28 @@ function GrammarDetail({ point, onClose }: { point: GrammarPoint; onClose: () =>
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" onClick={onClose}>
-      <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-white/10 bg-[#1a1f2e]"
+      <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-app-border bg-[#1a1f2e]"
         onClick={e => e.stopPropagation()}>
         {/* Header */}
-        <div className="sticky top-0 bg-[#1a1f2e] border-b border-white/8 px-6 py-4 flex items-start justify-between">
+        <div className="sticky top-0 bg-[#1a1f2e] border-b border-app-border px-6 py-4 flex items-start justify-between">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-[#e8c84a] font-bold text-xl font-mono">{point.pattern}</span>
+              <span className="text-app-accent-primary font-bold text-xl font-mono">{point.pattern}</span>
               <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${levelColors[point.level]}20`, color: levelColors[point.level] }}>
                 {point.level}
               </span>
             </div>
             <p className="text-white/70 text-sm">{point.meaning}</p>
           </div>
-          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/50 cursor-pointer">
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-white/50 cursor-pointer">
             <i className="ri-close-line"></i>
           </button>
         </div>
 
         <div className="p-6">
           {/* Structure */}
-          <div className="p-4 rounded-xl bg-[#e8c84a]/5 border border-[#e8c84a]/15 mb-5">
-            <p className="text-[#e8c84a] text-xs font-semibold mb-1">Cấu trúc</p>
+          <div className="p-4 rounded-xl bg-app-accent-primary/5 border border-app-accent-primary/15 mb-5">
+            <p className="text-app-accent-primary text-xs font-semibold mb-1">Cấu trúc</p>
             <p className="text-white font-mono text-sm">{point.structure}</p>
           </div>
 
@@ -428,10 +428,10 @@ function GrammarDetail({ point, onClose }: { point: GrammarPoint; onClose: () =>
           <p className="text-white/60 text-sm mb-5">{point.usage}</p>
 
           {/* Tabs */}
-          <div className="flex gap-1 p-1 bg-white/5 rounded-xl mb-5 w-fit">
+          <div className="flex gap-1 p-1 bg-app-card/50 rounded-xl mb-5 w-fit">
             {(["examples", "tips", "practice"] as const).map(tab => (
               <button key={tab} onClick={() => setActiveTab(tab)}
-                className={`px-4 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${activeTab === tab ? "bg-[#e8c84a] text-[#141720]" : "text-white/50 hover:text-white/80"}`}>
+                className={`px-4 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${activeTab === tab ? "bg-app-accent-primary text-[#141720]" : "text-white/50 hover:text-white/80"}`}>
                 {tab === "examples" ? "Ví dụ" : tab === "tips" ? "Mẹo" : "Luyện tập"}
               </button>
             ))}
@@ -440,15 +440,15 @@ function GrammarDetail({ point, onClose }: { point: GrammarPoint; onClose: () =>
           {activeTab === "examples" && (
             <div className="space-y-3">
               {point.examples.map((ex, i) => (
-                <div key={i} className="p-4 rounded-xl border border-white/8 bg-white/3">
+                <div key={i} className="p-4 rounded-xl border border-app-border bg-app-surface/50">
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex-1">
                       <p className="text-white font-medium text-base mb-1">{ex.korean}</p>
                       <p className="text-white/50 text-sm">{ex.vietnamese}</p>
-                      {ex.note && <p className="text-[#e8c84a]/70 text-xs mt-1 font-mono">{ex.note}</p>}
+                      {ex.note && <p className="text-app-accent-primary/70 text-xs mt-1 font-mono">{ex.note}</p>}
                     </div>
                     <button onClick={() => handleTTS(ex.korean)}
-                      className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-white/70 cursor-pointer flex-shrink-0">
+                      className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-white/70 cursor-pointer flex-shrink-0">
                       <i className="ri-volume-up-line text-sm"></i>
                     </button>
                   </div>
@@ -461,8 +461,8 @@ function GrammarDetail({ point, onClose }: { point: GrammarPoint; onClose: () =>
             <div className="space-y-3">
               <div className="space-y-2">
                 {point.tips.map((tip, i) => (
-                  <div key={i} className="flex items-start gap-2 p-3 rounded-xl bg-white/3 border border-white/8">
-                    <i className="ri-lightbulb-line text-[#e8c84a] text-sm mt-0.5 flex-shrink-0"></i>
+                  <div key={i} className="flex items-start gap-2 p-3 rounded-xl bg-app-surface/50 border border-app-border">
+                    <i className="ri-lightbulb-line text-app-accent-primary text-sm mt-0.5 flex-shrink-0"></i>
                     <p className="text-white/70 text-sm">{tip}</p>
                   </div>
                 ))}
@@ -482,22 +482,22 @@ function GrammarDetail({ point, onClose }: { point: GrammarPoint; onClose: () =>
 
           {activeTab === "practice" && (
             <div>
-              <p className="text-white/60 text-sm mb-4">Hãy tạo một câu sử dụng cấu trúc <span className="text-[#e8c84a] font-mono">{point.pattern}</span>:</p>
+              <p className="text-white/60 text-sm mb-4">Hãy tạo một câu sử dụng cấu trúc <span className="text-app-accent-primary font-mono">{point.pattern}</span>:</p>
               <textarea value={practiceInput} onChange={e => setPracticeInput(e.target.value)}
                 placeholder="Viết câu của bạn ở đây..."
                 rows={3}
-                className="w-full rounded-xl px-4 py-3 text-sm bg-white/5 border border-white/10 text-white placeholder-white/25 outline-none resize-none focus:border-[#e8c84a]/30 mb-3" />
+                className="w-full rounded-xl px-4 py-3 text-sm bg-app-card/50 border border-app-border text-white placeholder-white/25 outline-none resize-none focus:border-app-accent-primary/30 mb-3" />
               <button onClick={handlePracticeCheck} disabled={!practiceInput.trim()}
-                className="w-full py-2.5 rounded-xl bg-[#e8c84a] text-[#141720] font-bold text-sm disabled:opacity-30 cursor-pointer whitespace-nowrap">
+                className="w-full py-2.5 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm disabled:opacity-30 cursor-pointer whitespace-nowrap">
                 Kiểm tra
               </button>
               {practiceResult && (
                 <div className="mt-3 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-                  <p className="text-emerald-400 text-sm">{practiceResult}</p>
+                  <p className="text-app-accent-success text-sm">{practiceResult}</p>
                 </div>
               )}
-              <div className="mt-4 pt-4 border-t border-white/8">
-                <p className="text-white/40 text-xs mb-2">Ví dụ tham khảo:</p>
+              <div className="mt-4 pt-4 border-t border-app-border">
+                <p className="text-app-text-secondary text-xs mb-2">Ví dụ tham khảo:</p>
                 {point.examples.slice(0, 2).map((ex, i) => (
                   <p key={i} className="text-white/50 text-xs mb-1 font-mono">{ex.korean}</p>
                 ))}
@@ -550,10 +550,10 @@ export default function GrammarByTopicPage() {
 
         {/* Search */}
         <div className="relative mb-6">
-          <i className="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
+          <i className="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
           <input type="text" value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
             placeholder="Tìm cấu trúc ngữ pháp... (VD: -지만, muốn, điều kiện)"
-            className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder-white/25 outline-none focus:border-white/20" />
+            className="w-full pl-10 pr-4 py-3 rounded-xl bg-app-card/50 border border-app-border text-white text-sm placeholder-white/25 outline-none focus:border-white/20" />
         </div>
 
         {/* Search results */}
@@ -573,16 +573,16 @@ export default function GrammarByTopicPage() {
             {/* Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               {[
-                { label: "Chủ đề", value: grammarTopics.length, icon: "ri-apps-line", color: "#e8c84a" },
+                { label: "Chủ đề", value: grammarTopics.length, icon: "ri-apps-line", color: "app-accent-primary" },
                 { label: "Cấu trúc", value: totalPoints, icon: "ri-book-2-line", color: "#34d399" },
                 { label: "Cấp độ", value: "A1–C1", icon: "ri-bar-chart-line", color: "#a78bfa" },
               ].map(s => (
-                <div key={s.label} className="rounded-xl border border-white/8 bg-white/3 p-4 text-center">
+                <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-4 text-center">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${s.color}20` }}>
                     <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
                   </div>
                   <p className="text-white font-bold text-lg">{s.value}</p>
-                  <p className="text-white/40 text-xs">{s.label}</p>
+                  <p className="text-app-text-secondary text-xs">{s.label}</p>
                 </div>
               ))}
             </div>
@@ -592,15 +592,15 @@ export default function GrammarByTopicPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {grammarTopics.map(topic => (
                   <button key={topic.id} onClick={() => setSelectedTopic(topic.id)}
-                    className="text-left p-5 rounded-2xl border border-white/8 bg-white/3 hover:bg-white/5 hover:border-white/15 transition-all cursor-pointer group">
+                    className="text-left p-5 rounded-2xl border border-app-border bg-app-surface/50 hover:bg-app-card/50 hover:border-white/15 transition-all cursor-pointer group">
                     <div className="w-10 h-10 flex items-center justify-center rounded-xl mb-3" style={{ backgroundColor: `${topic.color}20` }}>
                       <i className={`${topic.icon} text-lg`} style={{ color: topic.color }}></i>
                     </div>
-                    <h3 className="text-white font-bold text-base mb-0.5 group-hover:text-[#e8c84a] transition-colors">{topic.name}</h3>
+                    <h3 className="text-white font-bold text-base mb-0.5 group-hover:text-app-accent-primary transition-colors">{topic.name}</h3>
                     <p className="text-white/50 text-sm mb-2">{topic.nameVi}</p>
                     <p className="text-white/35 text-xs mb-3">{topic.description}</p>
                     <div className="flex items-center justify-between">
-                      <span className="text-white/30 text-xs">{topic.points.length} cấu trúc</span>
+                      <span className="text-app-text-muted text-xs">{topic.points.length} cấu trúc</span>
                       <div className="flex gap-1">
                         {[...new Set(topic.points.map(p => p.level))].map(lvl => (
                           <span key={lvl} className="text-[9px] px-1.5 py-0.5 rounded-full font-bold"
@@ -619,7 +619,7 @@ export default function GrammarByTopicPage() {
                     className="flex items-center gap-2 text-white/50 hover:text-white/80 text-sm cursor-pointer transition-colors">
                     <i className="ri-arrow-left-line"></i> Tất cả chủ đề
                   </button>
-                  <span className="text-white/20">/</span>
+                  <span className="text-app-text-muted">/</span>
                   <span className="text-white/70 text-sm font-medium">{currentTopic?.name}</span>
                 </div>
 
@@ -627,7 +627,7 @@ export default function GrammarByTopicPage() {
                 <div className="flex gap-2 flex-wrap mb-5">
                   {["all", "A1", "A2", "B1", "B2", "C1"].map(lvl => (
                     <button key={lvl} onClick={() => setLevelFilter(lvl)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-semibold cursor-pointer transition-all whitespace-nowrap ${levelFilter === lvl ? (lvl === "all" ? "bg-white/15 text-white" : "") : "bg-white/5 text-white/50 hover:bg-white/8"}`}
+                      className={`px-3 py-1.5 rounded-full text-xs font-semibold cursor-pointer transition-all whitespace-nowrap ${levelFilter === lvl ? (lvl === "all" ? "bg-white/15 text-white" : "") : "bg-app-card/50 text-white/50 hover:bg-white/8"}`}
                       style={levelFilter === lvl && lvl !== "all" ? { backgroundColor: `${levelColors[lvl]}25`, color: levelColors[lvl] } : {}}>
                       {lvl === "all" ? "Tất cả" : lvl}
                     </button>

@@ -101,7 +101,7 @@ const TEST_QUESTIONS: TestQuestion[] = [
 // ─── Level config ─────────────────────────────────────────────────────────
 const LEVEL_CONFIG = {
   A1: { label: "Sơ cấp", color: "#34d399", desc: "Mới bắt đầu học tiếng Hàn", icon: "ri-seedling-line" },
-  A2: { label: "Cơ bản", color: "#e8c84a", desc: "Biết giao tiếp cơ bản", icon: "ri-plant-line" },
+  A2: { label: "Cơ bản", color: "app-accent-primary", desc: "Biết giao tiếp cơ bản", icon: "ri-plant-line" },
   B1: { label: "Trung cấp", color: "#fb923c", desc: "Có thể làm việc tại Hàn Quốc", icon: "ri-fire-line" },
   B2: { label: "Khá", color: "#a78bfa", desc: "Hiểu pháp luật và văn hóa sâu", icon: "ri-star-line" },
 };
@@ -188,25 +188,25 @@ function ResultScreen({
   return (
     <div className="space-y-6">
       {/* Level result */}
-      <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-8 text-center">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center">
         <div className="w-20 h-20 flex items-center justify-center rounded-2xl mx-auto mb-4" style={{ backgroundColor: `${levelCfg.color}15` }}>
           <i className={`${levelCfg.icon} text-4xl`} style={{ color: levelCfg.color }}></i>
         </div>
-        <p className="text-white/40 text-sm mb-1">Trình độ của bạn</p>
+        <p className="text-app-text-secondary text-sm mb-1">Trình độ của bạn</p>
         <h2 className="text-white font-bold text-3xl mb-1" style={{ color: levelCfg.color }}>{level} — {levelCfg.label}</h2>
-        <p className="text-white/40 text-sm mb-4">{levelCfg.desc}</p>
+        <p className="text-app-text-secondary text-sm mb-4">{levelCfg.desc}</p>
         <div className="flex items-center justify-center gap-6 mb-5">
           <div className="text-center">
             <p className="text-white font-bold text-2xl">{correct}/{total}</p>
-            <p className="text-white/30 text-xs">Câu đúng</p>
+            <p className="text-app-text-muted text-xs">Câu đúng</p>
           </div>
-          <div className="w-px h-10 bg-white/10"></div>
+          <div className="w-px h-10 bg-app-card/70"></div>
           <div className="text-center">
             <p className="font-bold text-2xl" style={{ color: levelCfg.color }}>{pct}%</p>
-            <p className="text-white/30 text-xs">Điểm số</p>
+            <p className="text-app-text-muted text-xs">Điểm số</p>
           </div>
         </div>
-        <div className="h-2 bg-white/5 rounded-full overflow-hidden max-w-xs mx-auto">
+        <div className="h-2 bg-app-card/50 rounded-full overflow-hidden max-w-xs mx-auto">
           <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: levelCfg.color }} />
         </div>
       </div>
@@ -229,7 +229,7 @@ function ResultScreen({
                 </div>
                 {/* Content */}
                 <div className="flex-1 pb-4">
-                  <div className="bg-[#0f1117] border border-white/5 rounded-xl p-4">
+                  <div className="bg-app-bg border border-app-border rounded-xl p-4">
                     <div className="flex items-start justify-between mb-2">
                       <p className="text-white font-semibold text-sm">{week.title}</p>
                       <span className="text-[10px] px-2 py-0.5 rounded-full ml-2 flex-shrink-0" style={{ backgroundColor: `${levelCfg.color}15`, color: levelCfg.color }}>
@@ -238,7 +238,7 @@ function ResultScreen({
                     </div>
                     <div className="flex flex-wrap gap-1.5 mb-2">
                       {week.topics.map(t => (
-                        <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-white/40">{t}</span>
+                        <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-app-card/50 text-app-text-secondary">{t}</span>
                       ))}
                     </div>
                     <div className="flex items-center gap-1.5">
@@ -255,19 +255,19 @@ function ResultScreen({
         {/* Right: Category breakdown + actions */}
         <div className="space-y-4">
           {/* Category breakdown */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">Phân tích theo chủ đề</h3>
             <div className="space-y-3">
               {catStats.map(({ cat, correct: c, total: t }) => {
                 const p = t > 0 ? Math.round((c / t) * 100) : 0;
-                const color = p >= 80 ? "#34d399" : p >= 60 ? "#e8c84a" : "#f87171";
+                const color = p >= 80 ? "#34d399" : p >= 60 ? "app-accent-primary" : "#f87171";
                 return (
                   <div key={cat}>
                     <div className="flex items-center justify-between mb-1">
                       <p className="text-white/60 text-xs">{cat}</p>
                       <span className="text-xs font-bold" style={{ color }}>{c}/{t}</span>
                     </div>
-                    <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                       <div className="h-full rounded-full" style={{ width: `${p}%`, backgroundColor: color }} />
                     </div>
                   </div>
@@ -277,11 +277,11 @@ function ResultScreen({
           </div>
 
           {/* Recommendations */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-3">Bắt đầu ngay</h3>
             <div className="space-y-2">
               {[
-                { icon: "ri-book-open-line", label: "Học EPS theo chủ đề", path: "/eps-topics", color: "#e8c84a" },
+                { icon: "ri-book-open-line", label: "Học EPS theo chủ đề", path: "/eps-topics", color: "app-accent-primary" },
                 { icon: "ri-stack-line", label: "Flashcard từ vựng", path: "/flashcard", color: "#34d399" },
                 { icon: "ri-mic-line", label: "Luyện phát âm", path: "/pronunciation", color: "#06b6d4" },
                 { icon: "ri-timer-line", label: "Thi thử EPS 40 câu", path: "/eps-exam", color: "#f87171" },
@@ -289,13 +289,13 @@ function ResultScreen({
                 <button
                   key={item.path}
                   onClick={() => navigate(item.path)}
-                  className="w-full flex items-center gap-3 p-3 rounded-xl border border-white/5 hover:border-white/10 hover:bg-white/3 transition-all cursor-pointer"
+                  className="w-full flex items-center gap-3 p-3 rounded-xl border border-app-border hover:border-app-border hover:bg-app-surface/50 transition-all cursor-pointer"
                 >
                   <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${item.color}15` }}>
                     <i className={`${item.icon} text-xs`} style={{ color: item.color }}></i>
                   </div>
                   <p className="text-white/60 text-xs">{item.label}</p>
-                  <i className="ri-arrow-right-line text-white/20 ml-auto text-xs"></i>
+                  <i className="ri-arrow-right-line text-app-text-muted ml-auto text-xs"></i>
                 </button>
               ))}
             </div>
@@ -303,7 +303,7 @@ function ResultScreen({
 
           <button
             onClick={onRetake}
-            className="w-full py-3 rounded-xl border border-white/10 text-white/50 text-sm hover:bg-white/5 transition-colors cursor-pointer whitespace-nowrap"
+            className="w-full py-3 rounded-xl border border-app-border text-white/50 text-sm hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"
           >
             Làm lại bài kiểm tra
           </button>
@@ -374,12 +374,12 @@ export default function PlacementTestPage() {
         <div className="max-w-2xl mx-auto">
           {/* Previous result */}
           {storedResult && (
-            <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4 mb-6 flex items-center gap-4">
-              <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#e8c84a]/10 flex-shrink-0">
-                <i className="ri-history-line text-[#e8c84a]"></i>
+            <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4 mb-6 flex items-center gap-4">
+              <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-app-accent-primary/10 flex-shrink-0">
+                <i className="ri-history-line text-app-accent-primary"></i>
               </div>
               <div className="flex-1">
-                <p className="text-[#e8c84a]/80 text-xs font-semibold">Kết quả lần trước</p>
+                <p className="text-app-accent-primary/80 text-xs font-semibold">Kết quả lần trước</p>
                 <p className="text-white/50 text-xs">
                   Trình độ <strong className="text-white/70">{storedResult.level}</strong> — {storedResult.score}% —{" "}
                   {new Date(storedResult.date).toLocaleDateString("vi-VN")}
@@ -388,27 +388,27 @@ export default function PlacementTestPage() {
             </div>
           )}
 
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-8 text-center mb-6">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center mb-6">
             <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-[#a78bfa]/10 mx-auto mb-4">
               <i className="ri-brain-line text-[#a78bfa] text-3xl"></i>
             </div>
             <h2 className="text-white font-bold text-xl mb-2">Kiểm tra trình độ tiếng Hàn</h2>
-            <p className="text-white/40 text-sm leading-relaxed mb-6">
+            <p className="text-app-text-secondary text-sm leading-relaxed mb-6">
               Làm 10 câu hỏi trong 5 phút. AI sẽ phân tích trình độ của bạn và tạo lộ trình học cá nhân phù hợp nhất.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
               {[
-                { icon: "ri-survey-line", label: "10 câu hỏi", desc: "Từ A1 đến B2", color: "#e8c84a" },
+                { icon: "ri-survey-line", label: "10 câu hỏi", desc: "Từ A1 đến B2", color: "app-accent-primary" },
                 { icon: "ri-timer-line", label: "5 phút", desc: "Không cần vội", color: "#34d399" },
                 { icon: "ri-route-line", label: "Lộ trình AI", desc: "Cá nhân hóa", color: "#a78bfa" },
               ].map(item => (
-                <div key={item.label} className="bg-white/3 rounded-xl p-4">
+                <div key={item.label} className="bg-app-surface/50 rounded-xl p-4">
                   <div className="w-10 h-10 flex items-center justify-center rounded-xl mx-auto mb-2" style={{ backgroundColor: `${item.color}15` }}>
                     <i className={`${item.icon} text-lg`} style={{ color: item.color }}></i>
                   </div>
                   <p className="text-white font-semibold text-sm">{item.label}</p>
-                  <p className="text-white/30 text-xs">{item.desc}</p>
+                  <p className="text-app-text-muted text-xs">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -424,13 +424,13 @@ export default function PlacementTestPage() {
           {/* Level descriptions */}
           <div className="grid grid-cols-2 gap-3">
             {Object.entries(LEVEL_CONFIG).map(([key, cfg]) => (
-              <div key={key} className="bg-[#0f1117] border border-white/5 rounded-xl p-4 flex items-center gap-3">
+              <div key={key} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
                 <div className="w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${cfg.color}15` }}>
                   <i className={`${cfg.icon} text-base`} style={{ color: cfg.color }}></i>
                 </div>
                 <div>
                   <p className="text-white font-semibold text-sm">{key} — {cfg.label}</p>
-                  <p className="text-white/30 text-xs">{cfg.desc}</p>
+                  <p className="text-app-text-muted text-xs">{cfg.desc}</p>
                 </div>
               </div>
             ))}
@@ -445,13 +445,13 @@ export default function PlacementTestPage() {
           <div className="flex items-center gap-4 mb-6">
             <div className="flex-1">
               <div className="flex items-center justify-between mb-1.5">
-                <p className="text-white/40 text-xs">Câu {currentIdx + 1} / {TEST_QUESTIONS.length}</p>
+                <p className="text-app-text-secondary text-xs">Câu {currentIdx + 1} / {TEST_QUESTIONS.length}</p>
                 <div className="flex items-center gap-1.5">
                   <i className="ri-timer-line text-xs" style={{ color: timeColor }}></i>
                   <span className="text-sm font-bold font-mono" style={{ color: timeColor }}>{formatTime(timeLeft)}</span>
                 </div>
               </div>
-              <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+              <div className="h-2 bg-app-card/50 rounded-full overflow-hidden">
                 <div
                   className="h-full rounded-full bg-[#a78bfa] transition-all"
                   style={{ width: `${progress}%` }}
@@ -461,7 +461,7 @@ export default function PlacementTestPage() {
           </div>
 
           {/* Question card */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-6 mb-4">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-6 mb-4">
             {/* Level badge */}
             <div className="flex items-center gap-2 mb-4">
               <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{
@@ -470,12 +470,12 @@ export default function PlacementTestPage() {
               }}>
                 {currentQ.level} — {LEVEL_CONFIG[currentQ.level].label}
               </span>
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-white/30">{currentQ.category}</span>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-card/50 text-app-text-muted">{currentQ.category}</span>
             </div>
 
             {/* Question */}
             <p className="text-white font-semibold text-base leading-relaxed mb-1">{currentQ.question}</p>
-            <p className="text-white/40 text-sm italic mb-5">{currentQ.questionVi}</p>
+            <p className="text-app-text-secondary text-sm italic mb-5">{currentQ.questionVi}</p>
 
             {/* Options */}
             <div className="space-y-2.5">
@@ -486,17 +486,17 @@ export default function PlacementTestPage() {
                   className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all text-left cursor-pointer ${
                     selectedOption === i
                       ? "border-[#a78bfa]/50 bg-[#a78bfa]/10"
-                      : "border-white/8 bg-white/3 hover:border-white/15 hover:bg-white/5"
+                      : "border-app-border bg-app-surface/50 hover:border-white/15 hover:bg-app-card/50"
                   }`}
                 >
                   <span className={`w-7 h-7 flex items-center justify-center rounded-lg text-xs font-bold flex-shrink-0 ${
-                    selectedOption === i ? "bg-[#a78bfa]/20 text-[#a78bfa]" : "bg-white/5 text-white/30"
+                    selectedOption === i ? "bg-[#a78bfa]/20 text-[#a78bfa]" : "bg-app-card/50 text-app-text-muted"
                   }`}>
                     {["A", "B", "C", "D"][i]}
                   </span>
                   <div>
                     <p className={`text-sm font-medium ${selectedOption === i ? "text-[#a78bfa]" : "text-white/70"}`}>{opt}</p>
-                    <p className="text-white/30 text-xs">{currentQ.optionsVi[i]}</p>
+                    <p className="text-app-text-muted text-xs">{currentQ.optionsVi[i]}</p>
                   </div>
                   {selectedOption === i && (
                     <i className="ri-checkbox-circle-fill text-[#a78bfa] ml-auto"></i>
@@ -512,7 +512,7 @@ export default function PlacementTestPage() {
             className={`w-full py-3.5 rounded-xl font-bold text-sm transition-colors cursor-pointer whitespace-nowrap ${
               selectedOption !== null
                 ? "bg-[#a78bfa] hover:bg-[#9370e8] text-white"
-                : "bg-white/5 text-white/20 cursor-not-allowed"
+                : "bg-app-card/50 text-app-text-muted cursor-not-allowed"
             }`}
           >
             {currentIdx + 1 >= TEST_QUESTIONS.length ? "Xem kết quả" : "Câu tiếp theo"}

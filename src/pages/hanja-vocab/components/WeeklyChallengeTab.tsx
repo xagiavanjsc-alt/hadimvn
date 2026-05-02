@@ -364,13 +364,13 @@ export default function WeeklyChallengeTab() {
     <div className="max-w-2xl mx-auto">
       {/* Header banner */}
       <div className="bg-gradient-to-r from-rose-500 to-orange-400 rounded-2xl p-6 mb-6 text-white relative overflow-hidden">
-        <div className="absolute right-0 top-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute right-10 bottom-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2"></div>
+        <div className="absolute right-0 top-0 w-40 h-40 bg-app-card/70 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute right-10 bottom-0 w-24 h-24 bg-app-card/50 rounded-full translate-y-1/2"></div>
         <div className="relative">
           <div className="flex items-center gap-2 mb-2">
             <i className="ri-sword-line text-white/80 text-lg"></i>
             <span className="text-white/80 text-sm font-medium">Thách thức hàng tuần</span>
-            <span className="bg-white/20 text-white text-xs font-bold px-2 py-0.5 rounded-full">{weekId}</span>
+            <span className="bg-app-border/200 text-white text-xs font-bold px-2 py-0.5 rounded-full">{weekId}</span>
           </div>
           <h2 className="text-2xl font-bold mb-1">Học 50 từ Hán-Hàn</h2>
           <p className="text-white/70 text-sm">Hoàn thành quiz đạt 70%+ để nhận XP bonus</p>

@@ -22,7 +22,7 @@ interface ScoreRecord {
 
 // ─── Data ─────────────────────────────────────────────────────────────────
 const CATEGORIES = [
-  { id: "all", label: "Tất cả", icon: "ri-apps-line", color: "#e8c84a" },
+  { id: "all", label: "Tất cả", icon: "ri-apps-line", color: "app-accent-primary" },
   { id: "greeting", label: "Chào hỏi", icon: "ri-chat-smile-2-line", color: "#34d399" },
   { id: "safety", label: "An toàn", icon: "ri-shield-check-line", color: "#fb923c" },
   { id: "workplace", label: "Công sở", icon: "ri-briefcase-line", color: "#38bdf8" },
@@ -59,7 +59,7 @@ const PRONUNCIATION_ITEMS: PronunciationItem[] = [
 // ─── Score color helper ───────────────────────────────────────────────────
 function getScoreColor(score: number) {
   if (score >= 85) return "#34d399";
-  if (score >= 70) return "#e8c84a";
+  if (score >= 70) return "app-accent-primary";
   if (score >= 55) return "#fb923c";
   return "#f87171";
 }
@@ -159,11 +159,11 @@ function PronunciationCard({
     setRecordState("idle");
   }, [audioUrl]);
 
-  const diffColor = item.difficulty === "easy" ? "#34d399" : item.difficulty === "medium" ? "#e8c84a" : "#f87171";
+  const diffColor = item.difficulty === "easy" ? "#34d399" : item.difficulty === "medium" ? "app-accent-primary" : "#f87171";
   const diffLabel = item.difficulty === "easy" ? "Dễ" : item.difficulty === "medium" ? "Trung bình" : "Khó";
 
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+    <div className="bg-app-bg border border-app-border rounded-2xl p-5">
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-2 flex-wrap">
@@ -178,7 +178,7 @@ function PronunciationCard({
         </div>
         <button
           onClick={speakKorean}
-          className="flex items-center gap-1.5 text-[10px] text-white/30 hover:text-white/60 cursor-pointer transition-colors bg-white/5 hover:bg-white/10 px-2.5 py-1 rounded-lg whitespace-nowrap"
+          className="flex items-center gap-1.5 text-[10px] text-app-text-muted hover:text-white/60 cursor-pointer transition-colors bg-app-card/50 hover:bg-app-card/70 px-2.5 py-1 rounded-lg whitespace-nowrap"
         >
           <i className="ri-volume-up-line text-xs"></i>
           Nghe mẫu
@@ -188,14 +188,14 @@ function PronunciationCard({
       {/* Korean text */}
       <div className="text-center mb-3">
         <p className="text-white font-bold text-2xl mb-1 tracking-wide">{item.korean}</p>
-        <p className="text-white/40 text-sm mb-0.5">{item.vietnamese}</p>
-        <p className="text-white/20 text-xs font-mono">[{item.romanization}]</p>
+        <p className="text-app-text-secondary text-sm mb-0.5">{item.vietnamese}</p>
+        <p className="text-app-text-muted text-xs font-mono">[{item.romanization}]</p>
       </div>
 
       {/* Tip */}
-      <div className="flex items-start gap-2 bg-white/3 rounded-xl p-3 mb-4">
-        <i className="ri-lightbulb-line text-[#e8c84a] text-xs flex-shrink-0 mt-0.5"></i>
-        <p className="text-white/40 text-[10px] leading-relaxed">{item.tips}</p>
+      <div className="flex items-start gap-2 bg-app-surface/50 rounded-xl p-3 mb-4">
+        <i className="ri-lightbulb-line text-app-accent-primary text-xs flex-shrink-0 mt-0.5"></i>
+        <p className="text-app-text-secondary text-[10px] leading-relaxed">{item.tips}</p>
       </div>
 
       {/* Controls */}
@@ -219,7 +219,7 @@ function PronunciationCard({
           </button>
         )}
         {recordState === "analyzing" && (
-          <div className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/5 text-white/30 text-xs">
+          <div className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-app-card/50 text-app-text-muted text-xs">
             <i className="ri-loader-4-line animate-spin"></i>
             AI đang phân tích...
           </div>
@@ -227,7 +227,7 @@ function PronunciationCard({
         {recordState === "done" && (
           <button
             onClick={reset}
-            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/5 hover:bg-white/8 text-white/50 text-xs transition-colors cursor-pointer whitespace-nowrap"
+            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-app-card/50 hover:bg-white/8 text-white/50 text-xs transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-refresh-line"></i>
             Ghi lại
@@ -244,12 +244,12 @@ function PronunciationCard({
 
       {/* Score */}
       {score !== null && recordState === "done" && (
-        <div className="bg-white/3 rounded-xl p-3">
+        <div className="bg-app-surface/50 rounded-xl p-3">
           <div className="flex items-center justify-between mb-2">
-            <p className="text-white/40 text-[10px]">Điểm phát âm</p>
+            <p className="text-app-text-secondary text-[10px]">Điểm phát âm</p>
             <span className="font-bold text-lg" style={{ color: getScoreColor(score) }}>{score}/100</span>
           </div>
-          <div className="h-1.5 bg-white/5 rounded-full overflow-hidden mb-2">
+          <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden mb-2">
             <div className="h-full rounded-full transition-all duration-700" style={{ width: `${score}%`, backgroundColor: getScoreColor(score) }} />
           </div>
           <p className="text-[10px]" style={{ color: getScoreColor(score) }}>{getScoreLabel(score)}</p>
@@ -301,18 +301,18 @@ export default function PronunciationPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng từ/câu", value: PRONUNCIATION_ITEMS.length, icon: "ri-translate-2", color: "#e8c84a" },
+          { label: "Tổng từ/câu", value: PRONUNCIATION_ITEMS.length, icon: "ri-translate-2", color: "app-accent-primary" },
           { label: "Đã luyện", value: practicedCount, icon: "ri-mic-line", color: "#34d399" },
           { label: "Điểm TB", value: avgScore > 0 ? `${avgScore}/100` : "—", icon: "ri-bar-chart-line", color: "#a78bfa" },
           { label: "Lần ghi âm", value: totalAttempts, icon: "ri-repeat-line", color: "#fb923c" },
         ].map(stat => (
-          <div key={stat.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-4 flex items-center gap-3">
+          <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
               <i className={`${stat.icon} text-lg`} style={{ color: stat.color }}></i>
             </div>
             <div>
               <p className="text-white font-bold text-xl leading-none">{stat.value}</p>
-              <p className="text-white/40 text-xs mt-0.5">{stat.label}</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">{stat.label}</p>
             </div>
           </div>
         ))}
@@ -321,13 +321,13 @@ export default function PronunciationPage() {
       {/* Filters */}
       <div className="flex items-center gap-3 mb-5 flex-wrap">
         {/* Category tabs */}
-        <div className="flex items-center gap-1 bg-white/5 rounded-xl p-1 flex-wrap">
+        <div className="flex items-center gap-1 bg-app-card/50 rounded-xl p-1 flex-wrap">
           {CATEGORIES.map(cat => (
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
-                selectedCategory === cat.id ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/40 hover:text-white/60"
+                selectedCategory === cat.id ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"
               }`}
             >
               <i className={`${cat.icon} text-xs`}></i>
@@ -337,8 +337,8 @@ export default function PronunciationPage() {
         </div>
 
         {/* Search */}
-        <div className="flex items-center gap-2 bg-white/5 border border-white/8 rounded-xl px-3 py-2 flex-1 min-w-[200px]">
-          <i className="ri-search-line text-white/30 text-sm"></i>
+        <div className="flex items-center gap-2 bg-app-card/50 border border-app-border rounded-xl px-3 py-2 flex-1 min-w-[200px]">
+          <i className="ri-search-line text-app-text-muted text-sm"></i>
           <input
             type="text"
             placeholder="Tìm từ hoặc câu..."
@@ -376,10 +376,10 @@ export default function PronunciationPage() {
         </div>
       ) : (
         <div className="text-center py-16">
-          <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white/5 mx-auto mb-3">
-            <i className="ri-search-line text-white/20 text-2xl"></i>
+          <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-app-card/50 mx-auto mb-3">
+            <i className="ri-search-line text-app-text-muted text-2xl"></i>
           </div>
-          <p className="text-white/30 text-sm">Không tìm thấy kết quả</p>
+          <p className="text-app-text-muted text-sm">Không tìm thấy kết quả</p>
         </div>
       )}
     </DashboardLayout>

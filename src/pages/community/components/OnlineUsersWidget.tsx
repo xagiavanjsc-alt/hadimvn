@@ -19,7 +19,7 @@ interface ActivityItem {
   color: string;
 }
 
-const COLORS = ["#e8c84a", "#34d399", "#60a5fa", "#f472b6", "#fb923c", "#a78bfa"];
+const COLORS = ["app-accent-primary", "#34d399", "#60a5fa", "#f472b6", "#fb923c", "#a78bfa"];
 
 function timeAgoShort(seconds: number) {
   if (seconds < 60) return `${seconds}s`;
@@ -121,7 +121,7 @@ export default function OnlineUsersWidget() {
           detail: `${row.exam_type.toUpperCase()} - ${pct}%`,
           time: Math.max(0, Math.floor((now - new Date(row.created_at).getTime()) / 1000)),
           icon: "ri-trophy-line",
-          color: pct >= 80 ? "#34d399" : "#e8c84a",
+          color: pct >= 80 ? "#34d399" : "app-accent-primary",
         });
       });
 
@@ -158,7 +158,7 @@ export default function OnlineUsersWidget() {
   return (
     <div className="space-y-4">
       {/* Users Top Learners */}
-      <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-5">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
@@ -170,9 +170,9 @@ export default function OnlineUsersWidget() {
         </div>
 
         {loading && displayedUsers.length === 0 ? (
-          <div className="py-6 text-center text-white/30 text-xs">Đang tải...</div>
+          <div className="py-6 text-center text-app-text-muted text-xs">Đang tải...</div>
         ) : displayedUsers.length === 0 ? (
-          <div className="py-6 text-center text-white/30 text-xs">Chưa có dữ liệu</div>
+          <div className="py-6 text-center text-app-text-muted text-xs">Chưa có dữ liệu</div>
         ) : (
           <div className="space-y-2">
             {displayedUsers.map(user => (
@@ -191,7 +191,7 @@ export default function OnlineUsersWidget() {
                 </div>
                 <div className="flex items-center gap-0.5 flex-shrink-0">
                   <i className="ri-fire-line text-[#fb923c] text-[10px]"></i>
-                  <span className="text-[10px] text-white/30">{user.streak}</span>
+                  <span className="text-[10px] text-app-text-muted">{user.streak}</span>
                 </div>
               </div>
             ))}
@@ -201,7 +201,7 @@ export default function OnlineUsersWidget() {
         {users.length > 6 && (
           <button
             onClick={() => setShowAll(v => !v)}
-            className="w-full mt-3 py-1.5 text-[10px] text-white/30 hover:text-white/60 transition-colors cursor-pointer whitespace-nowrap"
+            className="w-full mt-3 py-1.5 text-[10px] text-app-text-muted hover:text-white/60 transition-colors cursor-pointer whitespace-nowrap"
           >
             {showAll ? "Thu gọn" : `Xem thêm ${users.length - 6} người`}
           </button>
@@ -209,16 +209,16 @@ export default function OnlineUsersWidget() {
       </div>
 
       {/* Activity Feed */}
-      <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-5">
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-2 h-2 rounded-full bg-[#e8c84a] animate-pulse"></div>
+          <div className="w-2 h-2 rounded-full bg-app-accent-primary animate-pulse"></div>
           <h3 className="text-white font-semibold text-sm">Hoạt động gần đây</h3>
         </div>
 
         {loading && activities.length === 0 ? (
-          <div className="py-6 text-center text-white/30 text-xs">Đang tải...</div>
+          <div className="py-6 text-center text-app-text-muted text-xs">Đang tải...</div>
         ) : activities.length === 0 ? (
-          <div className="py-6 text-center text-white/30 text-xs">Chưa có hoạt động</div>
+          <div className="py-6 text-center text-app-text-muted text-xs">Chưa có hoạt động</div>
         ) : (
           <div className="space-y-2.5 max-h-72 overflow-y-auto">
             {activities.map((item, i) => (

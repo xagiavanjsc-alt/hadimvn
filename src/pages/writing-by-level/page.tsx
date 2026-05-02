@@ -323,21 +323,21 @@ function WritingEditor({ prompt, onBack }: { prompt: WritingPrompt; onBack: () =
       </button>
 
       {/* Header */}
-      <div className="rounded-2xl border border-white/8 bg-white/3 p-5 mb-5">
+      <div className="rounded-2xl border border-app-border bg-app-surface/50 p-5 mb-5">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${cfg.color}20`, color: cfg.color }}>{cfg.label}</span>
-              <span className="text-white/30 text-xs">{prompt.topic}</span>
+              <span className="text-app-text-muted text-xs">{prompt.topic}</span>
             </div>
             <h2 className="text-white font-bold text-xl">{prompt.title}</h2>
             <p className="text-white/50 text-sm">{prompt.titleVi}</p>
           </div>
-          <div className="text-right text-xs text-white/40">
+          <div className="text-right text-xs text-app-text-secondary">
             <p>{prompt.minWords}–{prompt.maxWords} từ</p>
           </div>
         </div>
-        <div className="mt-4 p-3 rounded-xl bg-white/5 border border-white/8">
+        <div className="mt-4 p-3 rounded-xl bg-app-card/50 border border-app-border">
           <p className="text-white/70 text-sm leading-relaxed">{prompt.instruction}</p>
         </div>
       </div>
@@ -346,10 +346,10 @@ function WritingEditor({ prompt, onBack }: { prompt: WritingPrompt; onBack: () =
         {/* Editor */}
         <div className="lg:col-span-2">
           {!submitted ? (
-            <div className="rounded-2xl border border-white/8 bg-white/3 p-5">
+            <div className="rounded-2xl border border-app-border bg-app-surface/50 p-5">
               <div className="flex items-center justify-between mb-3">
                 <p className="text-white/60 text-sm font-medium">Bài viết của bạn</p>
-                <span className={`text-xs font-bold ${isEnough ? "text-emerald-400" : "text-white/40"}`}>
+                <span className={`text-xs font-bold ${isEnough ? "text-app-accent-success" : "text-app-text-secondary"}`}>
                   {wordCount} / {prompt.minWords}–{prompt.maxWords} từ
                 </span>
               </div>
@@ -361,23 +361,23 @@ function WritingEditor({ prompt, onBack }: { prompt: WritingPrompt; onBack: () =
                 rows={12}
                 className="w-full bg-transparent text-white text-sm leading-8 outline-none resize-none placeholder-white/20"
               />
-              <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/8">
+              <div className="flex items-center justify-between mt-4 pt-4 border-t border-app-border">
                 <div className="h-1.5 flex-1 mr-4 bg-white/8 rounded-full overflow-hidden">
                   <div className="h-full rounded-full transition-all duration-300"
                     style={{ width: `${Math.min(100, (wordCount / prompt.minWords) * 100)}%`, backgroundColor: isEnough ? "#34d399" : cfg.color }} />
                 </div>
                 <button onClick={handleSubmit} disabled={wordCount < 5}
-                  className="px-6 py-2.5 rounded-xl bg-[#e8c84a] text-[#141720] font-bold text-sm disabled:opacity-30 cursor-pointer whitespace-nowrap">
+                  className="px-6 py-2.5 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm disabled:opacity-30 cursor-pointer whitespace-nowrap">
                   Nộp bài
                 </button>
               </div>
             </div>
           ) : (
-            <div className="rounded-2xl border border-white/8 bg-white/3 p-5">
+            <div className="rounded-2xl border border-app-border bg-app-surface/50 p-5">
               <div className="flex items-center justify-between mb-4">
                 <p className="text-white font-bold text-base">Kết quả chấm điểm</p>
-                <div className={`w-16 h-16 rounded-full flex items-center justify-center ${result && result.total >= 80 ? "bg-emerald-500/15" : result && result.total >= 60 ? "bg-amber-500/15" : "bg-rose-500/15"}`}>
-                  <span className={`text-xl font-bold ${result && result.total >= 80 ? "text-emerald-400" : result && result.total >= 60 ? "text-amber-400" : "text-rose-400"}`}>
+                <div className={`w-16 h-16 rounded-full flex items-center justify-center ${result && result.total >= 80 ? "bg-app-accent-success/15" : result && result.total >= 60 ? "bg-amber-500/15" : "bg-rose-500/15"}`}>
+                  <span className={`text-xl font-bold ${result && result.total >= 80 ? "text-app-accent-success" : result && result.total >= 60 ? "text-amber-400" : "text-rose-400"}`}>
                     {result?.total}
                   </span>
                 </div>
@@ -391,14 +391,14 @@ function WritingEditor({ prompt, onBack }: { prompt: WritingPrompt; onBack: () =
                         <span className="text-white/60 text-xs">{b.score}/{b.max}</span>
                       </div>
                       <div className="h-1.5 bg-white/8 rounded-full overflow-hidden mb-1">
-                        <div className="h-full rounded-full bg-[#e8c84a]" style={{ width: `${(b.score / b.max) * 100}%` }} />
+                        <div className="h-full rounded-full bg-app-accent-primary" style={{ width: `${(b.score / b.max) * 100}%` }} />
                       </div>
                       <p className="text-white/35 text-xs">{b.feedback}</p>
                     </div>
                   ))}
                 </div>
               )}
-              <div className="p-3 rounded-xl bg-white/5 border border-white/8 mb-4">
+              <div className="p-3 rounded-xl bg-app-card/50 border border-app-border mb-4">
                 <p className="text-white/50 text-xs mb-2">Bài viết của bạn:</p>
                 <p className="text-white/70 text-sm leading-7 whitespace-pre-wrap">{text}</p>
               </div>
@@ -413,30 +413,30 @@ function WritingEditor({ prompt, onBack }: { prompt: WritingPrompt; onBack: () =
         {/* Sidebar */}
         <div className="space-y-4">
           {/* Key vocab */}
-          <div className="rounded-xl border border-white/8 bg-white/3 p-4">
+          <div className="rounded-xl border border-app-border bg-app-surface/50 p-4">
             <p className="text-white/60 text-xs font-semibold mb-3">Từ vựng gợi ý</p>
             <div className="space-y-2">
               {prompt.keyVocab.map((v, i) => (
                 <div key={i} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <button onClick={() => handleTTS(v.word)} className="w-5 h-5 flex items-center justify-center text-white/25 hover:text-white/60 cursor-pointer">
+                    <button onClick={() => handleTTS(v.word)} className="w-5 h-5 flex items-center justify-center text-app-text-muted hover:text-white/60 cursor-pointer">
                       <i className="ri-volume-up-line text-xs"></i>
                     </button>
                     <span className="text-white/80 text-sm font-medium">{v.word}</span>
                   </div>
-                  <span className="text-white/40 text-xs">{v.meaning}</span>
+                  <span className="text-app-text-secondary text-xs">{v.meaning}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Grammar points */}
-          <div className="rounded-xl border border-white/8 bg-white/3 p-4">
+          <div className="rounded-xl border border-app-border bg-app-surface/50 p-4">
             <p className="text-white/60 text-xs font-semibold mb-3">Ngữ pháp cần dùng</p>
             <div className="space-y-1.5">
               {prompt.grammarPoints.map((g, i) => (
                 <div key={i} className="flex items-start gap-2">
-                  <i className="ri-checkbox-circle-line text-[#e8c84a] text-xs mt-0.5 flex-shrink-0"></i>
+                  <i className="ri-checkbox-circle-line text-app-accent-primary text-xs mt-0.5 flex-shrink-0"></i>
                   <span className="text-white/60 text-xs font-mono">{g}</span>
                 </div>
               ))}
@@ -445,14 +445,14 @@ function WritingEditor({ prompt, onBack }: { prompt: WritingPrompt; onBack: () =
 
           {/* Hints toggle */}
           <button onClick={() => setShowHints(v => !v)}
-            className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-white/5 hover:bg-white/8 text-white/60 text-sm cursor-pointer transition-colors">
-            <span><i className="ri-lightbulb-line mr-2 text-[#e8c84a]"></i>Gợi ý câu mẫu</span>
+            className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-app-card/50 hover:bg-white/8 text-white/60 text-sm cursor-pointer transition-colors">
+            <span><i className="ri-lightbulb-line mr-2 text-app-accent-primary"></i>Gợi ý câu mẫu</span>
             <i className={showHints ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}></i>
           </button>
           {showHints && (
             <div className="space-y-2">
               {prompt.hints.map((h, i) => (
-                <div key={i} className="p-3 rounded-xl bg-white/3 border border-white/8">
+                <div key={i} className="p-3 rounded-xl bg-app-surface/50 border border-app-border">
                   <p className="text-white/70 text-xs">{h}</p>
                 </div>
               ))}
@@ -461,15 +461,15 @@ function WritingEditor({ prompt, onBack }: { prompt: WritingPrompt; onBack: () =
 
           {/* Sample answer toggle */}
           <button onClick={() => setShowSample(v => !v)}
-            className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-[#e8c84a]/5 hover:bg-[#e8c84a]/10 border border-[#e8c84a]/15 text-[#e8c84a] text-sm cursor-pointer transition-colors">
+            className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-app-accent-primary/5 hover:bg-app-accent-primary/10 border border-app-accent-primary/15 text-app-accent-primary text-sm cursor-pointer transition-colors">
             <span><i className="ri-file-text-line mr-2"></i>Bài mẫu tham khảo</span>
             <i className={showSample ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}></i>
           </button>
           {showSample && (
-            <div className="p-4 rounded-xl bg-white/3 border border-white/8">
+            <div className="p-4 rounded-xl bg-app-surface/50 border border-app-border">
               <div className="flex items-center justify-between mb-2">
                 <p className="text-white/50 text-xs font-semibold">Bài mẫu</p>
-                <button onClick={() => handleTTS(prompt.sampleAnswer)} className="text-white/30 hover:text-white/60 cursor-pointer">
+                <button onClick={() => handleTTS(prompt.sampleAnswer)} className="text-app-text-muted hover:text-white/60 cursor-pointer">
                   <i className="ri-volume-up-line text-sm"></i>
                 </button>
               </div>
@@ -511,23 +511,23 @@ export default function WritingByLevelPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
-            { label: "Bài viết", value: prompts.length, icon: "ri-quill-pen-line", color: "#e8c84a" },
+            { label: "Bài viết", value: prompts.length, icon: "ri-quill-pen-line", color: "app-accent-primary" },
             { label: "Đã hoàn thành", value: completedIds.size, icon: "ri-checkbox-circle-line", color: "#34d399" },
             { label: "Cấp độ", value: "A1–C2", icon: "ri-bar-chart-line", color: "#a78bfa" },
           ].map(s => (
-            <div key={s.label} className="rounded-xl border border-white/8 bg-white/3 p-4 text-center">
+            <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-4 text-center">
               <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${s.color}20` }}>
                 <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
               </div>
               <p className="text-white font-bold text-lg">{s.value}</p>
-              <p className="text-white/40 text-xs">{s.label}</p>
+              <p className="text-app-text-secondary text-xs">{s.label}</p>
             </div>
           ))}
         </div>
 
         <div className="flex gap-2 flex-wrap mb-6">
           <button onClick={() => setSelectedLevel("all")}
-            className={`px-4 py-2 rounded-full text-xs font-semibold cursor-pointer transition-all whitespace-nowrap ${selectedLevel === "all" ? "bg-white/15 text-white" : "bg-white/5 text-white/50 hover:bg-white/8"}`}>
+            className={`px-4 py-2 rounded-full text-xs font-semibold cursor-pointer transition-all whitespace-nowrap ${selectedLevel === "all" ? "bg-white/15 text-white" : "bg-app-card/50 text-white/50 hover:bg-white/8"}`}>
             Tất cả
           </button>
           {Object.entries(levelConfig).map(([lvl, cfg]) => (
@@ -544,15 +544,15 @@ export default function WritingByLevelPage() {
             const cfg = levelConfig[p.level];
             return (
               <button key={p.id} onClick={() => setSelectedPrompt(p)}
-                className="text-left p-5 rounded-2xl border border-white/8 bg-white/3 hover:bg-white/5 hover:border-white/15 transition-all cursor-pointer group">
+                className="text-left p-5 rounded-2xl border border-app-border bg-app-surface/50 hover:bg-app-card/50 hover:border-white/15 transition-all cursor-pointer group">
                 <div className="flex items-start justify-between mb-3">
                   <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${cfg.color}20`, color: cfg.color }}>{cfg.label}</span>
-                  <span className="text-white/30 text-xs">{p.minWords}–{p.maxWords} từ</span>
+                  <span className="text-app-text-muted text-xs">{p.minWords}–{p.maxWords} từ</span>
                 </div>
-                <h3 className="text-white font-bold text-base mb-1 group-hover:text-[#e8c84a] transition-colors">{p.title}</h3>
+                <h3 className="text-white font-bold text-base mb-1 group-hover:text-app-accent-primary transition-colors">{p.title}</h3>
                 <p className="text-white/50 text-sm mb-3">{p.titleVi}</p>
                 <p className="text-white/35 text-xs line-clamp-2 mb-3">{p.instruction}</p>
-                <div className="flex items-center gap-3 text-white/30 text-xs">
+                <div className="flex items-center gap-3 text-app-text-muted text-xs">
                   <span><i className="ri-price-tag-3-line mr-1"></i>{p.topic}</span>
                   <span><i className="ri-lightbulb-line mr-1"></i>{p.hints.length} gợi ý</span>
                   <span><i className="ri-book-2-line mr-1"></i>{p.grammarPoints.length} ngữ pháp</span>

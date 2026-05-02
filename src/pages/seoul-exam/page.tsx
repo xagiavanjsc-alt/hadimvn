@@ -32,7 +32,7 @@ const seoulExams: SeoulBook[] = [
     name: "Seoul 1A",
     level: "Sơ cấp",
     cefr: "A1",
-    color: "text-emerald-400",
+    color: "text-app-accent-success",
     bgColor: "bg-emerald-500/10 border-emerald-500/20",
     questions: [
       { id: "1a-v1", type: "vocabulary", question: "다음 중 '학교'의 뜻은?", questionVi: "Nghĩa của '학교' là gì?", options: ["병원", "학교", "은행", "시장"], optionsVi: ["Bệnh viện", "Trường học", "Ngân hàng", "Chợ"], correctIndex: 1, explanation: "학교 = trường học. 병원 = bệnh viện, 은행 = ngân hàng, 시장 = chợ.", points: 2 },
@@ -213,21 +213,21 @@ export default function SeoulExamPage() {
           <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "'Nunito', sans-serif" }}>
             Bài thi thử Seoul
           </h1>
-          <p className="text-white/40 text-sm mt-0.5">Đề thi tổng hợp theo từng cuốn — ngữ pháp + từ vựng + đọc hiểu</p>
+          <p className="text-app-text-secondary text-sm mt-0.5">Đề thi tổng hợp theo từng cuốn — ngữ pháp + từ vựng + đọc hiểu</p>
         </div>
 
         {examState === "select" && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {seoulExams.map(book => (
-              <div key={book.id} className={`bg-white/5 border rounded-2xl p-6 hover:bg-white/8 transition-all cursor-pointer group ${book.bgColor}`} onClick={() => startExam(book)}>
+              <div key={book.id} className={`bg-app-card/50 border rounded-2xl p-6 hover:bg-white/8 transition-all cursor-pointer group ${book.bgColor}`} onClick={() => startExam(book)}>
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <h3 className={`text-xl font-bold ${book.color}`}>{book.name}</h3>
                     <p className="text-white/50 text-sm">{book.level} · CEFR {book.cefr}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-white/30 text-xs">{book.questions.length} câu hỏi</p>
-                    <p className="text-white/30 text-xs">{book.questions.length * 90 / 60} phút</p>
+                    <p className="text-app-text-muted text-xs">{book.questions.length} câu hỏi</p>
+                    <p className="text-app-text-muted text-xs">{book.questions.length * 90 / 60} phút</p>
                   </div>
                 </div>
 
@@ -244,7 +244,7 @@ export default function SeoulExamPage() {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <p className="text-white/30 text-xs">
+                  <p className="text-app-text-muted text-xs">
                     Tổng điểm: {book.questions.reduce((s, q) => s + q.points, 0)} điểm
                   </p>
                   <div className={`flex items-center gap-1 text-sm font-medium ${book.color} group-hover:gap-2 transition-all`}>
@@ -262,12 +262,12 @@ export default function SeoulExamPage() {
         {examState === "exam" && selectedBook && (
           <>
             {/* Exam header */}
-            <div className="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-5 py-3">
+            <div className="flex items-center justify-between bg-app-card/50 border border-app-border rounded-xl px-5 py-3">
               <div className="flex items-center gap-3">
                 <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${selectedBook.bgColor} ${selectedBook.color}`}>
                   {selectedBook.name}
                 </span>
-                <span className="text-white/40 text-sm">{currentQ + 1} / {selectedBook.questions.length}</span>
+                <span className="text-app-text-secondary text-sm">{currentQ + 1} / {selectedBook.questions.length}</span>
               </div>
               <div className={`flex items-center gap-2 font-mono text-lg font-bold ${timeLeft < 60 ? "text-red-400" : "text-white/70"}`}>
                 <div className="w-5 h-5 flex items-center justify-center">
@@ -290,33 +290,33 @@ export default function SeoulExamPage() {
               const q = selectedBook.questions[currentQ];
               const userAnswer = answers[currentQ];
               return (
-                <div className="bg-white/5 border border-white/10 rounded-2xl p-8 space-y-6">
+                <div className="bg-app-card/50 border border-app-border rounded-2xl p-8 space-y-6">
                   <div className="flex items-center gap-2">
                     <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${typeColor[q.type]}`}>
                       {typeLabel[q.type]}
                     </span>
-                    <span className="text-white/30 text-xs">{q.points} điểm</span>
+                    <span className="text-app-text-muted text-xs">{q.points} điểm</span>
                   </div>
 
                   {q.passage && (
-                    <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                    <div className="bg-app-card/50 border border-app-border rounded-xl p-4">
                       <p className="text-white/80 text-sm leading-relaxed" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{q.passage}</p>
-                      <p className="text-white/40 text-xs mt-2 italic">{q.passageVi}</p>
+                      <p className="text-app-text-secondary text-xs mt-2 italic">{q.passageVi}</p>
                     </div>
                   )}
 
                   <div>
                     <p className="text-white font-semibold text-lg mb-1" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{q.question}</p>
-                    <p className="text-white/40 text-sm">{q.questionVi}</p>
+                    <p className="text-app-text-secondary text-sm">{q.questionVi}</p>
                   </div>
 
                   <div className="space-y-2.5">
                     {q.options.map((opt, i) => {
-                      let btnClass = "bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:border-white/20";
+                      let btnClass = "bg-app-card/50 border-app-border text-white/70 hover:bg-app-card/70 hover:border-white/20";
                       if (userAnswer !== null) {
-                        if (i === q.correctIndex) btnClass = "bg-emerald-500/15 border-emerald-500/30 text-emerald-400";
+                        if (i === q.correctIndex) btnClass = "bg-app-accent-success/15 border-emerald-500/30 text-app-accent-success";
                         else if (i === userAnswer && userAnswer !== q.correctIndex) btnClass = "bg-red-500/15 border-red-500/30 text-red-400";
-                        else btnClass = "bg-white/3 border-white/5 text-white/30";
+                        else btnClass = "bg-app-surface/50 border-app-border text-app-text-muted";
                       }
                       return (
                         <button
@@ -325,7 +325,7 @@ export default function SeoulExamPage() {
                           disabled={userAnswer !== null}
                           className={`w-full flex items-center gap-3 border rounded-xl px-4 py-3 text-left transition-all ${userAnswer === null ? "cursor-pointer" : "cursor-default"} ${btnClass}`}
                         >
-                          <span className="w-6 h-6 flex items-center justify-center rounded-full bg-white/10 text-xs font-bold flex-shrink-0">
+                          <span className="w-6 h-6 flex items-center justify-center rounded-full bg-app-card/70 text-xs font-bold flex-shrink-0">
                             {["①", "②", "③", "④"][i]}
                           </span>
                           <div>
@@ -334,7 +334,7 @@ export default function SeoulExamPage() {
                           </div>
                           {userAnswer !== null && i === q.correctIndex && (
                             <div className="ml-auto w-5 h-5 flex items-center justify-center">
-                              <i className="ri-checkbox-circle-fill text-emerald-400 text-lg"></i>
+                              <i className="ri-checkbox-circle-fill text-app-accent-success text-lg"></i>
                             </div>
                           )}
                           {userAnswer !== null && i === userAnswer && userAnswer !== q.correctIndex && (
@@ -384,25 +384,25 @@ export default function SeoulExamPage() {
 
           return (
             <div className="space-y-6">
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-10 text-center">
+              <div className="bg-app-card/50 border border-app-border rounded-2xl p-10 text-center">
                 <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4 ${passed ? "bg-emerald-500/10" : "bg-red-500/10"}`}>
-                  <i className={`text-4xl ${passed ? "ri-trophy-line text-emerald-400" : "ri-emotion-sad-line text-red-400"}`}></i>
+                  <i className={`text-4xl ${passed ? "ri-trophy-line text-app-accent-success" : "ri-emotion-sad-line text-red-400"}`}></i>
                 </div>
                 <h3 className="text-white font-bold text-2xl mb-1">{passed ? "Xuất sắc! Đạt yêu cầu!" : "Cần ôn tập thêm!"}</h3>
-                <p className="text-white/40 text-sm mb-6">{selectedBook.name} · {selectedBook.level}</p>
+                <p className="text-app-text-secondary text-sm mb-6">{selectedBook.name} · {selectedBook.level}</p>
 
                 <div className="flex justify-center gap-8 mb-6">
                   <div>
-                    <p className={`text-4xl font-bold ${passed ? "text-emerald-400" : "text-red-400"}`}>{pct}%</p>
-                    <p className="text-white/40 text-xs mt-1">Tỷ lệ đúng</p>
+                    <p className={`text-4xl font-bold ${passed ? "text-app-accent-success" : "text-red-400"}`}>{pct}%</p>
+                    <p className="text-app-text-secondary text-xs mt-1">Tỷ lệ đúng</p>
                   </div>
                   <div>
                     <p className="text-4xl font-bold text-white">{score}/{total}</p>
-                    <p className="text-white/40 text-xs mt-1">Điểm số</p>
+                    <p className="text-app-text-secondary text-xs mt-1">Điểm số</p>
                   </div>
                   <div>
                     <p className="text-4xl font-bold text-amber-400">+{xp}</p>
-                    <p className="text-white/40 text-xs mt-1">XP nhận được</p>
+                    <p className="text-app-text-secondary text-xs mt-1">XP nhận được</p>
                   </div>
                 </div>
 
@@ -422,7 +422,7 @@ export default function SeoulExamPage() {
                   </button>
                   <button
                     onClick={() => setExamState("select")}
-                    className="bg-white/8 hover:bg-white/12 border border-white/10 text-white/60 rounded-xl px-6 py-2.5 text-sm font-medium transition-all cursor-pointer whitespace-nowrap"
+                    className="bg-white/8 hover:bg-white/12 border border-app-border text-white/60 rounded-xl px-6 py-2.5 text-sm font-medium transition-all cursor-pointer whitespace-nowrap"
                   >
                     Chọn đề khác
                   </button>
@@ -430,7 +430,7 @@ export default function SeoulExamPage() {
               </div>
 
               {/* Review answers */}
-              <div className="bg-white/5 border border-white/8 rounded-xl p-5">
+              <div className="bg-app-card/50 border border-app-border rounded-xl p-5">
                 <h3 className="text-white font-semibold mb-4">Xem lại đáp án</h3>
                 <div className="space-y-3">
                   {selectedBook.questions.map((q, i) => {
@@ -438,18 +438,18 @@ export default function SeoulExamPage() {
                     return (
                       <div key={q.id} className={`flex items-start gap-3 p-3 rounded-xl border ${isCorrect ? "bg-emerald-500/5 border-emerald-500/15" : "bg-red-500/5 border-red-500/15"}`}>
                         <div className={`w-6 h-6 flex items-center justify-center rounded-full flex-shrink-0 mt-0.5 ${isCorrect ? "bg-emerald-500/20" : "bg-red-500/20"}`}>
-                          <i className={`text-sm ${isCorrect ? "ri-check-line text-emerald-400" : "ri-close-line text-red-400"}`}></i>
+                          <i className={`text-sm ${isCorrect ? "ri-check-line text-app-accent-success" : "ri-close-line text-red-400"}`}></i>
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-white/70 text-sm" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{q.question}</p>
-                          <p className="text-white/40 text-xs mt-0.5">{q.questionVi}</p>
+                          <p className="text-app-text-secondary text-xs mt-0.5">{q.questionVi}</p>
                           {!isCorrect && (
-                            <p className="text-emerald-400 text-xs mt-1">
+                            <p className="text-app-accent-success text-xs mt-1">
                               Đáp án đúng: {q.options[q.correctIndex]} ({q.optionsVi[q.correctIndex]})
                             </p>
                           )}
                         </div>
-                        <span className={`text-xs font-medium flex-shrink-0 ${isCorrect ? "text-emerald-400" : "text-red-400"}`}>
+                        <span className={`text-xs font-medium flex-shrink-0 ${isCorrect ? "text-app-accent-success" : "text-red-400"}`}>
                           {isCorrect ? `+${q.points}đ` : "0đ"}
                         </span>
                       </div>

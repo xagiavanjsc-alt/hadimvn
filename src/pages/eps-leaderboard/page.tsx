@@ -31,7 +31,7 @@ const EXAM_TYPE_LABELS: Record<string, string> = {
 };
 
 const AVATAR_COLORS = [
-  "#e8c84a", "#34d399", "#06b6d4", "#a78bfa", "#f87171",
+  "app-accent-primary", "#34d399", "#06b6d4", "#a78bfa", "#f87171",
   "#fb923c", "#ec4899", "#84cc16", "#22d3ee", "#f59e0b",
 ];
 
@@ -48,7 +48,7 @@ function RankBadge({ rank }: { rank: number }) {
 }
 
 function ScoreBar({ score }: { score: number }) {
-  const color = score >= 80 ? "#34d399" : score >= 60 ? "#e8c84a" : "#f87171";
+  const color = score >= 80 ? "#34d399" : score >= 60 ? "app-accent-primary" : "#f87171";
   return (
     <div className="flex items-center gap-2">
       <div className="w-16 h-1.5 bg-white/8 rounded-full overflow-hidden">
@@ -67,15 +67,15 @@ function MyScoreCard() {
   const lastScore = history.length > 0 ? history[0].score : null;
 
   return (
-    <div className="bg-[#e8c84a]/8 border border-[#e8c84a]/20 rounded-2xl p-5 mb-6">
+    <div className="bg-app-accent-primary/8 border border-app-accent-primary/20 rounded-2xl p-5 mb-6">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-[#e8c84a] font-semibold text-sm flex items-center gap-2">
+        <h3 className="text-app-accent-primary font-semibold text-sm flex items-center gap-2">
           <i className="ri-user-star-line"></i>
           Điểm của bạn
         </h3>
         <button
           onClick={() => navigate("/eps-mock-exam")}
-          className="text-xs px-3 py-1.5 bg-[#e8c84a] text-[#0f1117] rounded-lg font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
+          className="text-xs px-3 py-1.5 bg-app-accent-primary text-app-bg rounded-lg font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
         >
           Thi ngay
         </button>
@@ -83,22 +83,22 @@ function MyScoreCard() {
       {bestScore !== null ? (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div className="text-center">
-            <p className="text-xl font-bold text-[#e8c84a]">{bestScore}</p>
-            <p className="text-white/40 text-xs">Điểm cao nhất</p>
+            <p className="text-xl font-bold text-app-accent-primary">{bestScore}</p>
+            <p className="text-app-text-secondary text-xs">Điểm cao nhất</p>
           </div>
           <div className="text-center">
             <p className="text-xl font-bold text-white">{lastScore}</p>
-            <p className="text-white/40 text-xs">Lần thi gần nhất</p>
+            <p className="text-app-text-secondary text-xs">Lần thi gần nhất</p>
           </div>
           <div className="text-center">
             <p className="text-xl font-bold text-white">{history.length}</p>
-            <p className="text-white/40 text-xs">Lần đã thi</p>
+            <p className="text-app-text-secondary text-xs">Lần đã thi</p>
           </div>
         </div>
       ) : (
         <div className="text-center py-3">
-          <p className="text-white/40 text-sm">Bạn chưa thi lần nào</p>
-          <p className="text-white/25 text-xs mt-1">Thi thử để xem điểm của bạn trên BXH</p>
+          <p className="text-app-text-secondary text-sm">Bạn chưa thi lần nào</p>
+          <p className="text-app-text-muted text-xs mt-1">Thi thử để xem điểm của bạn trên BXH</p>
         </div>
       )}
     </div>
@@ -225,12 +225,12 @@ export default function EpsLeaderboardPage() {
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#e8c84a]/15">
-              <i className="ri-trophy-line text-[#e8c84a] text-xl"></i>
+            <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-app-accent-primary/15">
+              <i className="ri-trophy-line text-app-accent-primary text-xl"></i>
             </div>
             <div>
               <h1 className="text-xl font-bold text-white">Bảng xếp hạng EPS</h1>
-              <p className="text-white/40 text-sm">So sánh điểm thi thử với cộng đồng</p>
+              <p className="text-app-text-secondary text-sm">So sánh điểm thi thử với cộng đồng</p>
             </div>
           </div>
         </div>
@@ -240,13 +240,13 @@ export default function EpsLeaderboardPage() {
 
         {/* Filters */}
         <div className="flex items-center gap-3 mb-5 flex-wrap">
-          <div className="flex items-center gap-1 bg-white/5 border border-white/8 rounded-xl p-1">
+          <div className="flex items-center gap-1 bg-app-card/50 border border-app-border rounded-xl p-1">
             {(["week", "month", "alltime"] as Period[]).map(p => (
               <button
                 key={p}
                 onClick={() => setPeriod(p)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
-                  period === p ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/50 hover:text-white/80"
+                  period === p ? "bg-app-accent-primary text-app-bg" : "text-white/50 hover:text-white/80"
                 }`}
               >
                 {periodLabels[p]}
@@ -256,7 +256,7 @@ export default function EpsLeaderboardPage() {
           <select
             value={examType}
             onChange={e => setExamType(e.target.value as ExamType)}
-            className="bg-white/5 border border-white/8 rounded-xl px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
+            className="bg-app-card/50 border border-app-border rounded-xl px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
           >
             <option value="all">Tất cả loại thi</option>
             <option value="mock">Thi mô phỏng thật</option>
@@ -270,7 +270,7 @@ export default function EpsLeaderboardPage() {
           {[entries[1], entries[0], entries[2]].map((entry, podiumIdx) => {
             if (!entry) return <div key={podiumIdx} />;
             const heights = ["h-24", "h-32", "h-20"];
-            const colors = ["#9ca3af", "#e8c84a", "#cd7f32"];
+            const colors = ["#9ca3af", "app-accent-primary", "#cd7f32"];
             const labels = ["2nd", "1st", "3rd"];
             const avatarColor = AVATAR_COLORS[entry.rank % AVATAR_COLORS.length];
             return (
@@ -292,18 +292,18 @@ export default function EpsLeaderboardPage() {
         </div>
 
         {/* Full leaderboard */}
-        <div className="bg-white/3 border border-white/8 rounded-2xl overflow-hidden">
-          <div className="px-4 py-3 border-b border-white/5 flex items-center justify-between">
+        <div className="bg-app-surface/50 border border-app-border rounded-2xl overflow-hidden">
+          <div className="px-4 py-3 border-b border-app-border flex items-center justify-between">
             <h3 className="text-white font-semibold text-sm">Top 10 điểm cao nhất</h3>
-            <span className="text-white/30 text-xs">{periodLabels[period]}</span>
+            <span className="text-app-text-muted text-xs">{periodLabels[period]}</span>
           </div>
           {loading ? (
-            <div className="py-10 text-center text-white/30 text-sm">Đang tải bảng xếp hạng...</div>
+            <div className="py-10 text-center text-app-text-muted text-sm">Đang tải bảng xếp hạng...</div>
           ) : entries.length === 0 ? (
             <div className="py-10 text-center">
-              <i className="ri-trophy-line text-white/20 text-4xl mb-2 block"></i>
-              <p className="text-white/40 text-sm">Chưa có ai thi EPS trong {periodLabels[period].toLowerCase()}</p>
-              <p className="text-white/25 text-xs mt-1">Hãy là người đầu tiên!</p>
+              <i className="ri-trophy-line text-app-text-muted text-4xl mb-2 block"></i>
+              <p className="text-app-text-secondary text-sm">Chưa có ai thi EPS trong {periodLabels[period].toLowerCase()}</p>
+              <p className="text-app-text-muted text-xs mt-1">Hãy là người đầu tiên!</p>
             </div>
           ) : (
           <div className="divide-y divide-white/5">
@@ -313,7 +313,7 @@ export default function EpsLeaderboardPage() {
               return (
                 <div
                   key={entry.userId}
-                  className={`flex items-center gap-3 px-4 py-3 transition-colors ${isMe ? "bg-[#e8c84a]/5" : "hover:bg-white/3"}`}
+                  className={`flex items-center gap-3 px-4 py-3 transition-colors ${isMe ? "bg-app-accent-primary/5" : "hover:bg-app-surface/50"}`}
                 >
                   <div className="w-8 flex items-center justify-center flex-shrink-0">
                     <RankBadge rank={entry.rank} />
@@ -326,12 +326,12 @@ export default function EpsLeaderboardPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <p className={`text-sm font-semibold truncate ${isMe ? "text-[#e8c84a]" : "text-white"}`}>
+                      <p className={`text-sm font-semibold truncate ${isMe ? "text-app-accent-primary" : "text-white"}`}>
                         {entry.name}
-                        {isMe && <span className="ml-1 text-[10px] text-[#e8c84a]/60">(Bạn)</span>}
+                        {isMe && <span className="ml-1 text-[10px] text-app-accent-primary/60">(Bạn)</span>}
                       </p>
                     </div>
-                    <p className="text-white/30 text-xs">{entry.examType} • {entry.correct}/{entry.total} câu đúng</p>
+                    <p className="text-app-text-muted text-xs">{entry.examType} • {entry.correct}/{entry.total} câu đúng</p>
                   </div>
                   <div className="flex-shrink-0">
                     <ScoreBar score={entry.score} />
@@ -345,14 +345,14 @@ export default function EpsLeaderboardPage() {
 
         {/* My rank if not in top 10 */}
         {myRank && myRank > 10 && (
-          <div className="mt-3 bg-[#e8c84a]/8 border border-[#e8c84a]/20 rounded-xl px-4 py-3 flex items-center gap-3">
-            <div className="w-7 h-7 flex items-center justify-center rounded-full bg-[#e8c84a]/20">
-              <span className="text-[#e8c84a] text-xs font-bold">{myRank}</span>
+          <div className="mt-3 bg-app-accent-primary/8 border border-app-accent-primary/20 rounded-xl px-4 py-3 flex items-center gap-3">
+            <div className="w-7 h-7 flex items-center justify-center rounded-full bg-app-accent-primary/20">
+              <span className="text-app-accent-primary text-xs font-bold">{myRank}</span>
             </div>
-            <p className="text-[#e8c84a] text-sm">Xếp hạng của bạn: #{myRank}</p>
+            <p className="text-app-accent-primary text-sm">Xếp hạng của bạn: #{myRank}</p>
             <button
               onClick={() => navigate("/eps-mock-exam")}
-              className="ml-auto text-xs px-3 py-1.5 bg-[#e8c84a] text-[#0f1117] rounded-lg font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
+              className="ml-auto text-xs px-3 py-1.5 bg-app-accent-primary text-app-bg rounded-lg font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
             >
               Cải thiện điểm
             </button>
@@ -363,14 +363,14 @@ export default function EpsLeaderboardPage() {
         <div className="mt-6 grid grid-cols-2 gap-3">
           <button
             onClick={() => navigate("/eps-mock-exam")}
-            className="flex items-center justify-center gap-2 py-3 bg-[#e8c84a] text-[#0f1117] rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
+            className="flex items-center justify-center gap-2 py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-play-fill"></i>
             Thi thử ngay
           </button>
           <button
             onClick={() => navigate("/eps-exam-history")}
-            className="flex items-center justify-center gap-2 py-3 bg-white/5 border border-white/10 rounded-xl text-white/70 text-sm font-medium hover:bg-white/8 transition-colors cursor-pointer whitespace-nowrap"
+            className="flex items-center justify-center gap-2 py-3 bg-app-card/50 border border-app-border rounded-xl text-white/70 text-sm font-medium hover:bg-white/8 transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-history-line"></i>
             Lịch sử thi

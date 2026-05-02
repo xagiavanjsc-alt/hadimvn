@@ -15,7 +15,7 @@ interface VocabEntry {
 
 const DIFFICULTY_LABELS: Record<number, { label: string; color: string }> = {
   1: { label: "Cơ bản", color: "#34d399" },
-  2: { label: "Trung cấp", color: "#e8c84a" },
+  2: { label: "Trung cấp", color: "app-accent-primary" },
   3: { label: "Nâng cao", color: "#f87171" },
 };
 
@@ -35,7 +35,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   "Địa điểm": "#60a5fa",
   "Đời sống & Cá nhân": "#f472b6",
   "Ngoại hình & Cơ thể": "#a78bfa",
-  "Học thuật & Xin việc": "#e8c84a",
+  "Học thuật & Xin việc": "app-accent-primary",
   "TOPIK I - Cơ bản": "#38bdf8",
 };
 
@@ -43,7 +43,7 @@ function VocabCard({ entry, onFlip }: { entry: VocabEntry; onFlip?: () => void }
   const [flipped, setFlipped] = useState(false);
   const [learned, setLearned] = useState(false);
   const diff = DIFFICULTY_LABELS[entry.difficulty] || DIFFICULTY_LABELS[1];
-  const color = CATEGORY_COLORS[entry.category] || "#e8c84a";
+  const color = CATEGORY_COLORS[entry.category] || "app-accent-primary";
 
   const speak = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -68,7 +68,7 @@ function VocabCard({ entry, onFlip }: { entry: VocabEntry; onFlip?: () => void }
       {/* Learned badge */}
       {learned && (
         <div className="absolute top-2 right-2 z-10 w-5 h-5 flex items-center justify-center rounded-full bg-emerald-500/20">
-          <i className="ri-check-line text-emerald-400 text-[10px]"></i>
+          <i className="ri-check-line text-app-accent-success text-[10px]"></i>
         </div>
       )}
 
@@ -78,7 +78,7 @@ function VocabCard({ entry, onFlip }: { entry: VocabEntry; onFlip?: () => void }
             <div className="flex items-start justify-between mb-2">
               <div>
                 <p className="text-white font-bold text-xl leading-tight">{entry.korean}</p>
-                {entry.hanja && <p className="text-white/30 text-xs mt-0.5">{entry.hanja}</p>}
+                {entry.hanja && <p className="text-app-text-muted text-xs mt-0.5">{entry.hanja}</p>}
               </div>
               <div className="flex items-center gap-1.5 flex-shrink-0">
                 <button
@@ -90,12 +90,12 @@ function VocabCard({ entry, onFlip }: { entry: VocabEntry; onFlip?: () => void }
                 </button>
               </div>
             </div>
-            <p className="text-white/40 text-xs font-mono">{entry.pronunciation}</p>
+            <p className="text-app-text-secondary text-xs font-mono">{entry.pronunciation}</p>
             <div className="flex items-center justify-between mt-3">
               <span className="text-[10px] px-2 py-0.5 rounded-full font-medium" style={{ backgroundColor: `${diff.color}15`, color: diff.color }}>
                 {diff.label}
               </span>
-              <span className="text-white/20 text-[10px]">Nhấn để xem nghĩa</span>
+              <span className="text-app-text-muted text-[10px]">Nhấn để xem nghĩa</span>
             </div>
           </>
         ) : (
@@ -105,7 +105,7 @@ function VocabCard({ entry, onFlip }: { entry: VocabEntry; onFlip?: () => void }
             {entry.examples?.[0] && (
               <div className="rounded-xl p-3 mb-3" style={{ backgroundColor: `${color}08`, border: `1px solid ${color}15` }}>
                 <p className="text-white/70 text-xs mb-1">{entry.examples[0].korean}</p>
-                <p className="text-white/40 text-[11px]">{entry.examples[0].vietnamese}</p>
+                <p className="text-app-text-secondary text-[11px]">{entry.examples[0].vietnamese}</p>
               </div>
             )}
             <button
@@ -192,18 +192,18 @@ export default function VocabByTopicPage() {
           onClick={() => setSelectedCategory("all")}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${
             selectedCategory === "all"
-              ? "bg-[#e8c84a] text-[#0f1117]"
-              : "bg-white/5 text-white/50 hover:text-white/80 hover:bg-white/8"
+              ? "bg-app-accent-primary text-app-bg"
+              : "bg-app-card/50 text-white/50 hover:text-white/80 hover:bg-white/8"
           }`}
         >
           <i className="ri-apps-line text-sm"></i>
           Tất cả
-          <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${selectedCategory === "all" ? "bg-[#0f1117]/20 text-[#0f1117]" : "bg-white/10 text-white/40"}`}>
+          <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${selectedCategory === "all" ? "bg-app-bg/20 text-app-bg" : "bg-app-card/70 text-app-text-secondary"}`}>
             {totalCount}
           </span>
         </button>
         {categories.map(cat => {
-          const color = CATEGORY_COLORS[cat] || "#e8c84a";
+          const color = CATEGORY_COLORS[cat] || "app-accent-primary";
           const icon = CATEGORY_ICONS[cat] || "ri-book-line";
           const isActive = selectedCategory === cat;
           return (
@@ -229,8 +229,8 @@ export default function VocabByTopicPage() {
 
       {/* Filters + Search */}
       <div className="flex items-center gap-3 mb-5 flex-wrap">
-        <div className="flex-1 min-w-[200px] flex items-center gap-2 bg-white/4 border border-white/8 rounded-xl px-4 py-2.5">
-          <i className="ri-search-line text-white/30 text-sm"></i>
+        <div className="flex-1 min-w-[200px] flex items-center gap-2 bg-white/4 border border-app-border rounded-xl px-4 py-2.5">
+          <i className="ri-search-line text-app-text-muted text-sm"></i>
           <input
             value={search}
             onChange={e => setSearch(e.target.value)}
@@ -239,13 +239,13 @@ export default function VocabByTopicPage() {
           />
           {search && (
             <button onClick={() => setSearch("")} className="cursor-pointer">
-              <i className="ri-close-line text-white/30 text-sm"></i>
+              <i className="ri-close-line text-app-text-muted text-sm"></i>
             </button>
           )}
         </div>
 
         {/* Difficulty filter */}
-        <div className="flex items-center gap-1 bg-white/4 border border-white/8 rounded-xl p-1">
+        <div className="flex items-center gap-1 bg-white/4 border border-app-border rounded-xl p-1">
           {[
             { val: 0, label: "Tất cả" },
             { val: 1, label: "Cơ bản" },
@@ -256,7 +256,7 @@ export default function VocabByTopicPage() {
               key={d.val}
               onClick={() => setSelectedDifficulty(d.val)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
-                selectedDifficulty === d.val ? "bg-white/10 text-white/80" : "text-white/35 hover:text-white/60"
+                selectedDifficulty === d.val ? "bg-app-card/70 text-white/80" : "text-white/35 hover:text-white/60"
               }`}
             >
               {d.label}
@@ -268,7 +268,7 @@ export default function VocabByTopicPage() {
         <select
           value={sortBy}
           onChange={e => setSortBy(e.target.value as "default" | "difficulty" | "alpha")}
-          className="bg-white/4 border border-white/8 rounded-xl px-3 py-2.5 text-white/60 text-sm outline-none cursor-pointer"
+          className="bg-white/4 border border-app-border rounded-xl px-3 py-2.5 text-white/60 text-sm outline-none cursor-pointer"
         >
           <option value="default">Mặc định</option>
           <option value="difficulty">Theo độ khó</option>
@@ -276,38 +276,38 @@ export default function VocabByTopicPage() {
         </select>
 
         {/* View mode */}
-        <div className="flex items-center gap-1 bg-white/4 border border-white/8 rounded-xl p-1">
+        <div className="flex items-center gap-1 bg-white/4 border border-app-border rounded-xl p-1">
           <button
             onClick={() => setViewMode("grid")}
-            className={`w-8 h-8 flex items-center justify-center rounded-lg transition-all cursor-pointer ${viewMode === "grid" ? "bg-white/10 text-white/80" : "text-white/30"}`}
+            className={`w-8 h-8 flex items-center justify-center rounded-lg transition-all cursor-pointer ${viewMode === "grid" ? "bg-app-card/70 text-white/80" : "text-app-text-muted"}`}
           >
             <i className="ri-grid-line text-sm"></i>
           </button>
           <button
             onClick={() => setViewMode("list")}
-            className={`w-8 h-8 flex items-center justify-center rounded-lg transition-all cursor-pointer ${viewMode === "list" ? "bg-white/10 text-white/80" : "text-white/30"}`}
+            className={`w-8 h-8 flex items-center justify-center rounded-lg transition-all cursor-pointer ${viewMode === "list" ? "bg-app-card/70 text-white/80" : "text-app-text-muted"}`}
           >
             <i className="ri-list-check text-sm"></i>
           </button>
         </div>
 
-        <span className="text-white/30 text-sm whitespace-nowrap">{sorted.length} từ</span>
+        <span className="text-app-text-muted text-sm whitespace-nowrap">{sorted.length} từ</span>
       </div>
 
       {/* Content */}
       {loading ? (
         <div className="flex items-center justify-center py-20">
           <div className="flex flex-col items-center gap-3">
-            <div className="w-8 h-8 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>
-            <p className="text-white/30 text-sm">Đang tải từ vựng...</p>
+            <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
+            <p className="text-app-text-muted text-sm">Đang tải từ vựng...</p>
           </div>
         </div>
       ) : sorted.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 gap-3">
           <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-white/4">
-            <i className="ri-search-line text-2xl text-white/20"></i>
+            <i className="ri-search-line text-2xl text-app-text-muted"></i>
           </div>
-          <p className="text-white/40 text-sm">Không tìm thấy từ vựng nào</p>
+          <p className="text-app-text-secondary text-sm">Không tìm thấy từ vựng nào</p>
         </div>
       ) : viewMode === "grid" ? (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -318,12 +318,12 @@ export default function VocabByTopicPage() {
       ) : (
         <div className="space-y-2">
           {sorted.map(entry => {
-            const color = CATEGORY_COLORS[entry.category] || "#e8c84a";
+            const color = CATEGORY_COLORS[entry.category] || "app-accent-primary";
             const diff = DIFFICULTY_LABELS[entry.difficulty] || DIFFICULTY_LABELS[1];
             return (
               <div
                 key={entry.id}
-                className="flex items-center gap-4 p-4 rounded-xl border transition-all hover:border-white/10"
+                className="flex items-center gap-4 p-4 rounded-xl border transition-all hover:border-app-border"
                 style={{ backgroundColor: "rgba(255,255,255,0.02)", borderColor: "rgba(255,255,255,0.06)" }}
               >
                 <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${color}15` }}>
@@ -332,7 +332,7 @@ export default function VocabByTopicPage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
                     <span className="text-white font-bold text-base">{entry.korean}</span>
-                    {entry.hanja && <span className="text-white/25 text-xs">{entry.hanja}</span>}
+                    {entry.hanja && <span className="text-app-text-muted text-xs">{entry.hanja}</span>}
                     <span className="text-white/35 text-xs font-mono">{entry.pronunciation}</span>
                   </div>
                   <p className="text-white/60 text-sm">{entry.vietnamese}</p>
@@ -349,7 +349,7 @@ export default function VocabByTopicPage() {
                     }}
                     className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer transition-colors hover:bg-white/8"
                   >
-                    <i className="ri-volume-up-line text-white/30 text-sm"></i>
+                    <i className="ri-volume-up-line text-app-text-muted text-sm"></i>
                   </button>
                 </div>
               </div>

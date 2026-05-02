@@ -98,7 +98,7 @@ export default function SeoulHanjaPage() {
     >
       <div className="max-w-6xl mx-auto">
         {/* Tabs */}
-        <div className="flex gap-1 bg-white/5 rounded-xl p-1 mb-6 w-fit">
+        <div className="flex gap-1 bg-app-card/50 rounded-xl p-1 mb-6 w-fit">
           {[
             { key: "words", label: "Từ vựng", icon: "ri-book-2-line" },
             { key: "radicals", label: "Bộ thủ", icon: "ri-font-size" },
@@ -109,8 +109,8 @@ export default function SeoulHanjaPage() {
               onClick={() => setActiveTab(tab.key as typeof activeTab)}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${
                 activeTab === tab.key
-                  ? "bg-[#e8c84a] text-[#0f1117] font-semibold"
-                  : "text-white/40 hover:text-white/60"
+                  ? "bg-app-accent-primary text-app-bg font-semibold"
+                  : "text-app-text-secondary hover:text-white/60"
               }`}
             >
               <i className={tab.icon}></i>
@@ -125,13 +125,13 @@ export default function SeoulHanjaPage() {
             {/* Filters */}
             <div className="flex flex-col sm:flex-row gap-3 mb-5">
               <div className="relative flex-1">
-                <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
+                <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
                 <input
                   type="text"
                   placeholder="Tìm từ Hàn, Hán tự, nghĩa..."
                   value={searchTerm}
                   onChange={e => setSearchTerm(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2.5 bg-white/5 border border-white/8 rounded-xl text-sm text-white/70 placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40 transition-colors"
+                  className="w-full pl-9 pr-4 py-2.5 bg-app-card/50 border border-app-border rounded-xl text-sm text-white/70 placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
                 />
               </div>
               <div className="flex gap-2 flex-wrap">
@@ -141,8 +141,8 @@ export default function SeoulHanjaPage() {
                     onClick={() => setSelectedBook(b)}
                     className={`px-3 py-2 rounded-lg text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${
                       selectedBook === b
-                        ? "bg-[#e8c84a] text-[#0f1117] font-semibold"
-                        : "bg-white/5 text-white/40 hover:text-white/60 border border-white/8"
+                        ? "bg-app-accent-primary text-app-bg font-semibold"
+                        : "bg-app-card/50 text-app-text-secondary hover:text-white/60 border border-app-border"
                     }`}
                   >
                     {b === "all" ? "Tất cả" : b}
@@ -153,47 +153,47 @@ export default function SeoulHanjaPage() {
 
             {loading ? (
               <div className="text-center py-16">
-                <i className="ri-loader-4-line text-3xl text-white/20 animate-spin block mb-3"></i>
-                <p className="text-white/30 text-sm">Đang tải dữ liệu...</p>
+                <i className="ri-loader-4-line text-3xl text-app-text-muted animate-spin block mb-3"></i>
+                <p className="text-app-text-muted text-sm">Đang tải dữ liệu...</p>
               </div>
             ) : filtered.length === 0 ? (
-              <div className="text-center py-16 bg-white/2 border border-white/5 rounded-2xl">
+              <div className="text-center py-16 bg-white/2 border border-app-border rounded-2xl">
                 <i className="ri-search-line text-3xl text-white/15 block mb-3"></i>
-                <p className="text-white/30 text-sm">Không tìm thấy từ nào</p>
+                <p className="text-app-text-muted text-sm">Không tìm thấy từ nào</p>
               </div>
             ) : (
               <>
-                <p className="text-white/30 text-xs mb-4">{filtered.length} từ có Hán tự</p>
+                <p className="text-app-text-muted text-xs mb-4">{filtered.length} từ có Hán tự</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {filtered.map(word => (
                     <div
                       key={word.id}
                       onClick={() => toggleCard(word.id)}
-                      className={`bg-[#0f1117] border rounded-xl p-4 cursor-pointer transition-all hover:border-[#e8c84a]/25 ${
-                        flippedCards.has(word.id) ? "border-[#e8c84a]/20" : "border-white/6"
+                      className={`bg-app-bg border rounded-xl p-4 cursor-pointer transition-all hover:border-app-accent-primary/25 ${
+                        flippedCards.has(word.id) ? "border-app-accent-primary/20" : "border-white/6"
                       }`}
                     >
                       <div className="flex items-start justify-between mb-2">
                         <div>
                           <span className="text-xl font-bold text-white">{word.korean}</span>
-                          <span className="text-xs text-white/30 ml-2">{word.pronunciation}</span>
+                          <span className="text-xs text-app-text-muted ml-2">{word.pronunciation}</span>
                         </div>
-                        <span className="text-2xl font-bold text-[#e8c84a]">{word.hanja}</span>
+                        <span className="text-2xl font-bold text-app-accent-primary">{word.hanja}</span>
                       </div>
                       <p className="text-sm text-white/55 mb-2">{word.vietnamese}</p>
                       {flippedCards.has(word.id) && (
                         <div className="mt-3 pt-3 border-t border-white/6">
-                          <p className="text-xs text-[#e8c84a]/70 font-medium mb-1.5 flex items-center gap-1">
+                          <p className="text-xs text-app-accent-primary/70 font-medium mb-1.5 flex items-center gap-1">
                             <i className="ri-information-line"></i>
                             {word.hanja_meaning}
                           </p>
-                          <p className="text-xs text-white/40 italic leading-relaxed">{word.example}</p>
-                          <p className="text-xs text-white/25 mt-0.5">{word.example_vi}</p>
+                          <p className="text-xs text-app-text-secondary italic leading-relaxed">{word.example}</p>
+                          <p className="text-xs text-app-text-muted mt-0.5">{word.example_vi}</p>
                         </div>
                       )}
                       <div className="flex items-center justify-between mt-3">
-                        <span className="text-[10px] bg-[#e8c84a]/10 text-[#e8c84a]/70 px-2 py-0.5 rounded-full font-medium">{word.book_id}</span>
-                        <span className="text-[10px] text-white/25">{flippedCards.has(word.id) ? "Thu gọn ▲" : "Chi tiết ▼"}</span>
+                        <span className="text-[10px] bg-app-accent-primary/10 text-app-accent-primary/70 px-2 py-0.5 rounded-full font-medium">{word.book_id}</span>
+                        <span className="text-[10px] text-app-text-muted">{flippedCards.has(word.id) ? "Thu gọn ▲" : "Chi tiết ▼"}</span>
                       </div>
                     </div>
                   ))}
@@ -206,24 +206,24 @@ export default function SeoulHanjaPage() {
         {/* Radicals Tab */}
         {activeTab === "radicals" && (
           <div>
-            <p className="text-sm text-white/40 mb-5">Học các bộ thủ Hán tự phổ biến trong tiếng Hàn. Hiểu bộ thủ giúp đoán nghĩa từ mới dễ dàng hơn.</p>
+            <p className="text-sm text-app-text-secondary mb-5">Học các bộ thủ Hán tự phổ biến trong tiếng Hàn. Hiểu bộ thủ giúp đoán nghĩa từ mới dễ dàng hơn.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
               {HANJA_RADICALS.map((r, i) => (
-                <div key={i} className="bg-[#0f1117] border border-white/6 rounded-xl p-5 hover:border-[#e8c84a]/20 transition-all">
-                  <div className="text-5xl font-bold text-[#e8c84a] mb-2 text-center">{r.char}</div>
+                <div key={i} className="bg-app-bg border border-white/6 rounded-xl p-5 hover:border-app-accent-primary/20 transition-all">
+                  <div className="text-5xl font-bold text-app-accent-primary mb-2 text-center">{r.char}</div>
                   <p className="text-center text-sm font-semibold text-white/70 mb-3">{r.meaning}</p>
                   <div className="space-y-1.5">
                     {r.examples.map((ex, j) => (
-                      <p key={j} className="text-xs text-white/40 bg-white/3 rounded-lg px-2.5 py-1.5">{ex}</p>
+                      <p key={j} className="text-xs text-app-text-secondary bg-app-surface/50 rounded-lg px-2.5 py-1.5">{ex}</p>
                     ))}
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-2xl p-5">
+            <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-2xl p-5">
               <h3 className="font-semibold text-white/80 mb-4 flex items-center gap-2">
-                <i className="ri-lightbulb-line text-[#e8c84a]"></i>
+                <i className="ri-lightbulb-line text-app-accent-primary"></i>
                 Tại sao nên học Hán-Hàn?
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -232,9 +232,9 @@ export default function SeoulHanjaPage() {
                   { icon: "ri-brain-line", title: "Học nhanh hơn", desc: "Người biết Hán tự học từ mới dễ hơn 3x" },
                   { icon: "ri-link-m", title: "Liên kết từ đồng gốc", desc: "학교, 학생, 학습 cùng gốc 學" },
                 ].map((item, i) => (
-                  <div key={i} className="bg-white/3 border border-white/5 rounded-xl p-4">
-                    <div className="w-8 h-8 flex items-center justify-center bg-[#e8c84a]/10 rounded-lg mb-2">
-                      <i className={`${item.icon} text-[#e8c84a]`}></i>
+                  <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4">
+                    <div className="w-8 h-8 flex items-center justify-center bg-app-accent-primary/10 rounded-lg mb-2">
+                      <i className={`${item.icon} text-app-accent-primary`}></i>
                     </div>
                     <p className="text-sm font-semibold text-white/70">{item.title}</p>
                     <p className="text-xs text-white/35 mt-1">{item.desc}</p>
@@ -249,22 +249,22 @@ export default function SeoulHanjaPage() {
         {activeTab === "quiz" && (
           <div className="max-w-lg mx-auto">
             <div className="flex items-center justify-between mb-6">
-              <p className="text-sm text-white/40">Nhìn từ Hàn, nhập Hán tự tương ứng</p>
-              <div className="flex items-center gap-2 bg-[#e8c84a]/10 border border-[#e8c84a]/20 px-3 py-1.5 rounded-xl">
-                <i className="ri-trophy-line text-[#e8c84a] text-sm"></i>
-                <span className="text-sm font-semibold text-[#e8c84a]">{score} điểm</span>
+              <p className="text-sm text-app-text-secondary">Nhìn từ Hàn, nhập Hán tự tương ứng</p>
+              <div className="flex items-center gap-2 bg-app-accent-primary/10 border border-app-accent-primary/20 px-3 py-1.5 rounded-xl">
+                <i className="ri-trophy-line text-app-accent-primary text-sm"></i>
+                <span className="text-sm font-semibold text-app-accent-primary">{score} điểm</span>
               </div>
             </div>
 
             {quizWords.length === 0 ? (
-              <div className="text-center py-16 bg-white/2 border border-white/5 rounded-2xl">
+              <div className="text-center py-16 bg-white/2 border border-app-border rounded-2xl">
                 <i className="ri-question-line text-4xl text-white/15 block mb-3"></i>
-                <p className="text-white/30 text-sm">Chưa có từ Hanja để luyện tập</p>
+                <p className="text-app-text-muted text-sm">Chưa có từ Hanja để luyện tập</p>
               </div>
             ) : currentQuiz ? (
-              <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-8 text-center">
+              <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center">
                 <div className="text-5xl font-bold text-white mb-2">{currentQuiz.korean}</div>
-                <p className="text-white/30 text-sm mb-1">{currentQuiz.pronunciation}</p>
+                <p className="text-app-text-muted text-sm mb-1">{currentQuiz.pronunciation}</p>
                 <p className="text-white/55 mb-6">{currentQuiz.vietnamese}</p>
 
                 <div className="mb-4">
@@ -275,16 +275,16 @@ export default function SeoulHanjaPage() {
                     onChange={e => setQuizAnswer(e.target.value)}
                     onKeyDown={e => e.key === "Enter" && handleQuizSubmit()}
                     placeholder="Ví dụ: 學生"
-                    className={`w-full text-center text-2xl py-3 bg-white/5 border-2 rounded-xl focus:outline-none transition-all text-white ${
+                    className={`w-full text-center text-2xl py-3 bg-app-card/50 border-2 rounded-xl focus:outline-none transition-all text-white ${
                       quizResult === "correct" ? "border-emerald-500/50 bg-emerald-500/8" :
                       quizResult === "wrong" ? "border-red-500/50 bg-red-500/8" :
-                      "border-white/10 focus:border-[#e8c84a]/40"
+                      "border-app-border focus:border-app-accent-primary/40"
                     }`}
                   />
                 </div>
 
                 {quizResult && (
-                  <div className={`text-sm font-medium mb-4 ${quizResult === "correct" ? "text-emerald-400" : "text-red-400"}`}>
+                  <div className={`text-sm font-medium mb-4 ${quizResult === "correct" ? "text-app-accent-success" : "text-red-400"}`}>
                     {quizResult === "correct" ? "✓ Chính xác!" : `✗ Đáp án đúng: ${currentQuiz.hanja} (${currentQuiz.hanja_meaning})`}
                   </div>
                 )}
@@ -292,14 +292,14 @@ export default function SeoulHanjaPage() {
                 <button
                   onClick={handleQuizSubmit}
                   disabled={!quizAnswer.trim() || !!quizResult}
-                  className="w-full py-3 bg-[#e8c84a] text-[#0f1117] rounded-xl font-semibold hover:bg-[#e8c84a]/80 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer whitespace-nowrap"
+                  className="w-full py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold hover:bg-app-accent-primary/80 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer whitespace-nowrap"
                 >
                   Kiểm tra
                 </button>
 
                 <button
                   onClick={() => { setQuizIndex(i => i + 1); setQuizAnswer(""); setQuizResult(null); }}
-                  className="w-full mt-2 py-2 text-white/30 text-sm hover:text-white/50 cursor-pointer"
+                  className="w-full mt-2 py-2 text-app-text-muted text-sm hover:text-white/50 cursor-pointer"
                 >
                   Bỏ qua →
                 </button>

@@ -77,7 +77,7 @@ function AttemptCard({ attempt, isSelected, onClick }: {
   onClick: () => void;
 }) {
   const pct = Math.round((attempt.score / attempt.total) * 100);
-  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : pct >= 40 ? "#fb923c" : "#f87171";
+  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : pct >= 40 ? "#fb923c" : "#f87171";
   const label = pct >= 80 ? "Xuất sắc" : pct >= 60 ? "Tốt" : pct >= 40 ? "Trung bình" : "Cần cố gắng";
   const date = new Date(attempt.date);
   const dateStr = date.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
@@ -87,21 +87,21 @@ function AttemptCard({ attempt, isSelected, onClick }: {
     <button
       onClick={onClick}
       className={`w-full text-left p-4 rounded-2xl border transition-all cursor-pointer ${
-        isSelected ? "border-white/20 bg-white/5" : "border-white/5 bg-[#0f1117] hover:border-white/10"
+        isSelected ? "border-white/20 bg-app-card/50" : "border-app-border bg-app-bg hover:border-app-border"
       }`}
     >
       <div className="flex items-center justify-between gap-3">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-white/60 text-xs font-medium">{attempt.modeLabel}</span>
-            <span className="text-white/20 text-[10px]">·</span>
-            <span className="text-white/30 text-[10px]">{dateStr} {timeStr}</span>
+            <span className="text-app-text-muted text-[10px]">·</span>
+            <span className="text-app-text-muted text-[10px]">{dateStr} {timeStr}</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-white font-bold text-lg">{attempt.score}/{attempt.total}</span>
             <span className="text-xs font-semibold" style={{ color }}>{label}</span>
           </div>
-          <div className="flex items-center gap-2 mt-1 text-white/25 text-[10px]">
+          <div className="flex items-center gap-2 mt-1 text-app-text-muted text-[10px]">
             <span><i className="ri-time-line mr-0.5"></i>{attempt.timeSec}s</span>
             <span><i className="ri-close-circle-line mr-0.5 text-red-400/50"></i>{attempt.total - attempt.score} sai</span>
           </div>
@@ -128,29 +128,29 @@ function QuestionDetail({ q, index }: { q: QuizQuestionRecord; index: number }) 
         onClick={() => setExpanded(v => !v)}
         className="w-full flex items-center gap-3 p-4 text-left cursor-pointer hover:bg-white/2 transition-colors"
       >
-        <div className={`w-7 h-7 flex items-center justify-center rounded-full flex-shrink-0 ${q.isCorrect ? "bg-emerald-500/15" : "bg-red-500/15"}`}>
-          <i className={`${q.isCorrect ? "ri-check-line text-emerald-400" : "ri-close-line text-red-400"} text-sm`}></i>
+        <div className={`w-7 h-7 flex items-center justify-center rounded-full flex-shrink-0 ${q.isCorrect ? "bg-app-accent-success/15" : "bg-red-500/15"}`}>
+          <i className={`${q.isCorrect ? "ri-check-line text-app-accent-success" : "ri-close-line text-red-400"} text-sm`}></i>
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-white/70 text-sm">{index + 1}. {q.question}</p>
-          {q.korean && <p className="text-white/30 text-xs mt-0.5">{q.korean} · {q.category}</p>}
+          {q.korean && <p className="text-app-text-muted text-xs mt-0.5">{q.korean} · {q.category}</p>}
         </div>
-        <i className={`${expanded ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"} text-white/25 text-lg flex-shrink-0`}></i>
+        <i className={`${expanded ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"} text-app-text-muted text-lg flex-shrink-0`}></i>
       </button>
       {expanded && (
-        <div className="px-4 pb-4 border-t border-white/5 pt-3 space-y-2">
+        <div className="px-4 pb-4 border-t border-app-border pt-3 space-y-2">
           <div className="flex items-start gap-2">
-            <span className="text-white/30 text-xs w-20 flex-shrink-0">Bạn chọn:</span>
-            <span className={`text-xs font-medium ${q.isCorrect ? "text-emerald-400" : "text-red-400"}`}>{q.userAnswer}</span>
+            <span className="text-app-text-muted text-xs w-20 flex-shrink-0">Bạn chọn:</span>
+            <span className={`text-xs font-medium ${q.isCorrect ? "text-app-accent-success" : "text-red-400"}`}>{q.userAnswer}</span>
           </div>
           {!q.isCorrect && (
             <div className="flex items-start gap-2">
-              <span className="text-white/30 text-xs w-20 flex-shrink-0">Đáp án đúng:</span>
-              <span className="text-emerald-400 text-xs font-medium">{q.correctAnswer}</span>
+              <span className="text-app-text-muted text-xs w-20 flex-shrink-0">Đáp án đúng:</span>
+              <span className="text-app-accent-success text-xs font-medium">{q.correctAnswer}</span>
             </div>
           )}
           <div className="flex items-start gap-2">
-            <span className="text-white/30 text-xs w-20 flex-shrink-0">Giải thích:</span>
+            <span className="text-app-text-muted text-xs w-20 flex-shrink-0">Giải thích:</span>
             <span className="text-white/50 text-xs leading-relaxed">{q.explanation}</span>
           </div>
         </div>
@@ -198,17 +198,17 @@ export default function QuizHistoryDetailPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng lần làm", value: totalAttempts, icon: "ri-history-line", color: "#e8c84a" },
+          { label: "Tổng lần làm", value: totalAttempts, icon: "ri-history-line", color: "app-accent-primary" },
           { label: "Điểm trung bình", value: `${avgScore}%`, icon: "ri-bar-chart-line", color: "#34d399" },
           { label: "Điểm cao nhất", value: `${bestScore}%`, icon: "ri-trophy-line", color: "#fb923c" },
           { label: "Tổng câu sai", value: totalWrong, icon: "ri-close-circle-line", color: "#f87171" },
         ].map(s => (
-          <div key={s.label} className="bg-[#0f1117] border border-white/5 rounded-2xl p-4">
+          <div key={s.label} className="bg-app-bg border border-app-border rounded-2xl p-4">
             <div className="flex items-center gap-2 mb-2">
               <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
                 <i className={`${s.icon} text-xs`} style={{ color: s.color }}></i>
               </div>
-              <p className="text-white/40 text-xs">{s.label}</p>
+              <p className="text-app-text-secondary text-xs">{s.label}</p>
             </div>
             <p className="text-white font-bold text-2xl">{s.value}</p>
           </div>
@@ -225,7 +225,7 @@ export default function QuizHistoryDetailPage() {
                 key={mode}
                 onClick={() => setFilterMode(mode)}
                 className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold cursor-pointer transition-all whitespace-nowrap ${
-                  filterMode === mode ? "bg-[#e8c84a]/15 text-[#e8c84a] border border-[#e8c84a]/25" : "bg-white/3 text-white/35 border border-white/8 hover:text-white/55"
+                  filterMode === mode ? "bg-app-accent-primary/15 text-app-accent-primary border border-app-accent-primary/25" : "bg-app-surface/50 text-white/35 border border-app-border hover:text-white/55"
                 }`}
               >
                 {modeLabels[mode] || mode}
@@ -249,18 +249,18 @@ export default function QuizHistoryDetailPage() {
           {selectedAttempt ? (
             <>
               {/* Attempt header */}
-              <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5 mb-4">
+              <div className="bg-app-bg border border-app-border rounded-2xl p-5 mb-4">
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <h3 className="text-white font-bold text-lg">{selectedAttempt.modeLabel}</h3>
-                    <p className="text-white/30 text-xs mt-0.5">
+                    <p className="text-app-text-muted text-xs mt-0.5">
                       {new Date(selectedAttempt.date).toLocaleDateString("vi-VN", { weekday: "long", day: "2-digit", month: "2-digit", year: "numeric" })}
                       {" · "}{selectedAttempt.timeSec}s
                     </p>
                   </div>
                   <div className="text-right">
                     <p className="text-white font-bold text-3xl">{selectedAttempt.score}/{selectedAttempt.total}</p>
-                    <p className="text-white/40 text-xs">{Math.round((selectedAttempt.score / selectedAttempt.total) * 100)}% chính xác</p>
+                    <p className="text-app-text-secondary text-xs">{Math.round((selectedAttempt.score / selectedAttempt.total) * 100)}% chính xác</p>
                   </div>
                 </div>
                 {/* Mini bar */}
@@ -278,11 +278,11 @@ export default function QuizHistoryDetailPage() {
 
               {/* Filter toggle */}
               <div className="flex items-center justify-between mb-3">
-                <p className="text-white/40 text-xs">{displayedQuestions.length} câu hỏi</p>
+                <p className="text-app-text-secondary text-xs">{displayedQuestions.length} câu hỏi</p>
                 <button
                   onClick={() => setShowOnlyWrong(v => !v)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all ${
-                    showOnlyWrong ? "bg-red-500/15 text-red-400 border border-red-500/25" : "bg-white/5 text-white/40 border border-white/8 hover:text-white/60"
+                    showOnlyWrong ? "bg-red-500/15 text-red-400 border border-red-500/25" : "bg-app-card/50 text-app-text-secondary border border-app-border hover:text-white/60"
                   }`}
                 >
                   <i className="ri-filter-line text-xs"></i>
@@ -294,9 +294,9 @@ export default function QuizHistoryDetailPage() {
               {/* Questions */}
               <div className="space-y-2 max-h-[500px] overflow-y-auto pr-1">
                 {displayedQuestions.length === 0 ? (
-                  <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-10 text-center">
-                    <i className="ri-check-double-line text-emerald-400/30 text-4xl mb-3"></i>
-                    <p className="text-white/30 text-sm">Không có câu sai nào!</p>
+                  <div className="bg-app-bg border border-app-border rounded-2xl p-10 text-center">
+                    <i className="ri-check-double-line text-app-accent-success/30 text-4xl mb-3"></i>
+                    <p className="text-app-text-muted text-sm">Không có câu sai nào!</p>
                   </div>
                 ) : (
                   displayedQuestions.map((q, i) => (
@@ -307,7 +307,7 @@ export default function QuizHistoryDetailPage() {
             </>
           ) : (
             <div className="flex items-center justify-center h-64">
-              <p className="text-white/30 text-sm">Chọn một lần làm quiz để xem chi tiết</p>
+              <p className="text-app-text-muted text-sm">Chọn một lần làm quiz để xem chi tiết</p>
             </div>
           )}
         </div>
@@ -315,11 +315,11 @@ export default function QuizHistoryDetailPage() {
 
       {/* Most wrong words */}
       {topWrong.length > 0 && (
-        <div className="mt-6 bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+        <div className="mt-6 bg-app-bg border border-app-border rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <i className="ri-error-warning-line text-red-400 text-sm"></i>
             <h3 className="text-white font-semibold text-sm">Từ hay sai nhất</h3>
-            <span className="text-white/25 text-xs">— Cần ôn tập ưu tiên</span>
+            <span className="text-app-text-muted text-xs">— Cần ôn tập ưu tiên</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {topWrong.map(([word, count]) => (

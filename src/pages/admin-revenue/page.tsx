@@ -410,7 +410,7 @@ function QuarterlyYearlyTab({ monthlyData, users }: { monthlyData: MonthlyData[]
                   <div className="space-y-3">
                     {[
                       { label: "Tổng doanh thu", value: formatVND(y.mrr), color: "#34d399" },
-                      { label: "ARR ước tính", value: formatVND(y.arr), color: "#e8c84a" },
+                      { label: "ARR ước tính", value: formatVND(y.arr), color: "app-accent-primary" },
                       { label: "VIP mới", value: `+${y.newVip}`, color: "#a78bfa" },
                       { label: "Tổng VIP cuối kỳ", value: y.totalVip, color: "#fb923c" },
                       { label: "Churn", value: y.churn, color: "#f87171" },
@@ -590,7 +590,7 @@ export default function AdminRevenuePage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
         {[
           { label: "MRR", value: formatVND(mrr), sub: `${mrrGrowth >= 0 ? "+" : ""}${mrrGrowth.toFixed(1)}% so với tháng trước`, icon: "ri-money-dollar-circle-line", color: "#34d399", positive: mrrGrowth >= 0 },
-          { label: "ARR (ước tính)", value: formatVND(arr), sub: "Doanh thu năm dự kiến", icon: "ri-bar-chart-grouped-line", color: "#e8c84a", positive: true },
+          { label: "ARR (ước tính)", value: formatVND(arr), sub: "Doanh thu năm dự kiến", icon: "ri-bar-chart-grouped-line", color: "app-accent-primary", positive: true },
           { label: "Churn Rate", value: `${churnRate.toFixed(1)}%`, sub: `${churnRisk.length} VIP sắp hết hạn 30 ngày`, icon: "ri-user-unfollow-line", color: churnRate > 20 ? "#f87171" : "#fb923c", positive: churnRate < 10 },
           { label: "ARPU", value: formatVND(arpu), sub: `LTV ước tính: ${formatVND(ltv)}`, icon: "ri-user-star-line", color: "#a78bfa", positive: true },
         ].map(s => (
@@ -634,7 +634,7 @@ export default function AdminRevenuePage() {
                 <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Xu hướng MRR</p>
                 <p className="text-xs mt-0.5" style={{ color: "var(--admin-text-muted)" }}>{period === "6m" ? "6 tháng" : "12 tháng"} gần nhất</p>
               </div>
-              <span className={`text-xs font-bold px-2 py-1 rounded-full ${mrrGrowth >= 0 ? "bg-emerald-500/15 text-emerald-400" : "bg-rose-500/15 text-rose-400"}`}>
+              <span className={`text-xs font-bold px-2 py-1 rounded-full ${mrrGrowth >= 0 ? "bg-app-accent-success/15 text-app-accent-success" : "bg-rose-500/15 text-rose-400"}`}>
                 {mrrGrowth >= 0 ? "+" : ""}{mrrGrowth.toFixed(1)}%
               </span>
             </div>
@@ -666,7 +666,7 @@ export default function AdminRevenuePage() {
             <div className="space-y-3">
               {[
                 { label: "VIP Tháng", count: vipMonthUsers.length, revenue: vipMonthUsers.length * MONTH_PRICE, color: "#34d399", pct: mrr > 0 ? (vipMonthUsers.length * MONTH_PRICE / mrr * 100) : 0 },
-                { label: "VIP Năm", count: vipYearUsers.length, revenue: vipYearUsers.length * YEAR_PRICE_MONTHLY, color: "#e8c84a", pct: mrr > 0 ? (vipYearUsers.length * YEAR_PRICE_MONTHLY / mrr * 100) : 0 },
+                { label: "VIP Năm", count: vipYearUsers.length, revenue: vipYearUsers.length * YEAR_PRICE_MONTHLY, color: "app-accent-primary", pct: mrr > 0 ? (vipYearUsers.length * YEAR_PRICE_MONTHLY / mrr * 100) : 0 },
               ].map(row => (
                 <div key={row.label}>
                   <div className="flex items-center justify-between mb-1.5">
@@ -700,7 +700,7 @@ export default function AdminRevenuePage() {
               {[
                 { label: "Tổng thành viên", count: users.length, color: "#6b7280", pct: 100 },
                 { label: "Đã từng VIP", count: vipMonthUsers.length + vipYearUsers.length, color: "#a78bfa", pct: users.length > 0 ? (vipMonthUsers.length + vipYearUsers.length) / users.length * 100 : 0 },
-                { label: "VIP Năm (cao nhất)", count: vipYearUsers.length, color: "#e8c84a", pct: users.length > 0 ? vipYearUsers.length / users.length * 100 : 0 },
+                { label: "VIP Năm (cao nhất)", count: vipYearUsers.length, color: "app-accent-primary", pct: users.length > 0 ? vipYearUsers.length / users.length * 100 : 0 },
               ].map((row, i) => (
                 <div key={row.label} className="flex items-center gap-3">
                   <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 text-[10px] font-bold text-white" style={{ backgroundColor: row.color }}>
@@ -750,7 +750,7 @@ export default function AdminRevenuePage() {
             </div>
             <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
               <p className="font-semibold text-sm mb-4" style={{ color: "var(--admin-text)" }}>MRR từ VIP Năm</p>
-              <LineChart data={monthlyData} valueKey="mrrYear" color="#e8c84a" height={80} />
+              <LineChart data={monthlyData} valueKey="mrrYear" color="app-accent-primary" height={80} />
             </div>
           </div>
 
@@ -827,7 +827,7 @@ export default function AdminRevenuePage() {
             </div>
             {churnRisk.length === 0 ? (
               <div className="text-center py-12">
-                <i className="ri-checkbox-circle-line text-3xl mb-2 block text-emerald-400"></i>
+                <i className="ri-checkbox-circle-line text-3xl mb-2 block text-app-accent-success"></i>
                 <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Không có VIP nào sắp hết hạn trong 30 ngày!</p>
               </div>
             ) : (
@@ -871,7 +871,7 @@ export default function AdminRevenuePage() {
                 {[
                   { label: "Free", count: freeUsers.length, color: "#6b7280" },
                   { label: "VIP Tháng", count: vipMonthUsers.length, color: "#34d399" },
-                  { label: "VIP Năm", count: vipYearUsers.length, color: "#e8c84a" },
+                  { label: "VIP Năm", count: vipYearUsers.length, color: "app-accent-primary" },
                 ].map(row => (
                   <div key={row.label}>
                     <div className="flex items-center justify-between mb-1">
@@ -902,7 +902,7 @@ export default function AdminRevenuePage() {
                 {[
                   { label: "Tỷ lệ chuyển đổi", value: `${conversionRate.toFixed(1)}%`, desc: "Free → VIP", color: "#a78bfa" },
                   { label: "ARPU (trung bình/user VIP)", value: formatVND(arpu), desc: "Doanh thu trung bình mỗi VIP", color: "#34d399" },
-                  { label: "LTV ước tính", value: formatVND(ltv), desc: "Giá trị vòng đời (8 tháng)", color: "#e8c84a" },
+                  { label: "LTV ước tính", value: formatVND(ltv), desc: "Giá trị vòng đời (8 tháng)", color: "app-accent-primary" },
                   { label: "Tỷ lệ VIP Năm", value: `${totalVipCount > 0 ? (vipYearUsers.length / totalVipCount * 100).toFixed(1) : 0}%`, desc: "Trong tổng số VIP", color: "#fb923c" },
                   { label: "Churn Rate (30 ngày)", value: `${churnRate.toFixed(1)}%`, desc: `${churnRisk.length} người sắp hết hạn`, color: churnRate > 20 ? "#f87171" : "#fb923c" },
                 ].map(m => (

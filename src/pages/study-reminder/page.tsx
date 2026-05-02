@@ -29,7 +29,7 @@ const PRESET_MESSAGES = [
 ];
 
 const REMINDER_TYPES = [
-  { id: "study", label: "Học tập chung", icon: "ri-book-open-line", color: "#e8c84a", desc: "Nhắc nhở học bài hàng ngày" },
+  { id: "study", label: "Học tập chung", icon: "ri-book-open-line", color: "app-accent-primary", desc: "Nhắc nhở học bài hàng ngày" },
   { id: "streak", label: "Duy trì Streak", icon: "ri-fire-line", color: "#fb923c", desc: "Nhắc trước khi mất streak" },
   { id: "challenge", label: "Thử thách tuần", icon: "ri-trophy-line", color: "#34d399", desc: "Nhắc hoàn thành thử thách" },
   { id: "custom", label: "Tùy chỉnh", icon: "ri-settings-3-line", color: "#a78bfa", desc: "Tự đặt nội dung nhắc nhở" },
@@ -116,7 +116,7 @@ function ReminderCard({
   };
 
   return (
-    <div className={`bg-[#0f1117] border rounded-2xl overflow-hidden transition-all ${reminder.enabled ? "border-white/8" : "border-white/3 opacity-60"}`}>
+    <div className={`bg-app-bg border rounded-2xl overflow-hidden transition-all ${reminder.enabled ? "border-app-border" : "border-white/3 opacity-60"}`}>
       {/* Header */}
       <div className="flex items-center gap-4 p-5">
         <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${typeInfo.color}15` }}>
@@ -129,7 +129,7 @@ function ReminderCard({
               {reminder.time}
             </span>
           </div>
-          <p className="text-white/30 text-xs truncate">{reminder.message}</p>
+          <p className="text-app-text-muted text-xs truncate">{reminder.message}</p>
           <div className="flex items-center gap-1 mt-1">
             {DAY_LABELS.map((d, i) => (
               <span key={i} className={`text-[9px] font-bold w-5 h-5 flex items-center justify-center rounded-full ${reminder.days.includes(i) ? "" : "opacity-20"}`}
@@ -142,21 +142,21 @@ function ReminderCard({
         <div className="flex items-center gap-2 flex-shrink-0">
           <button
             onClick={() => onTest(reminder.message)}
-            className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-white/70 cursor-pointer transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-white/70 cursor-pointer transition-colors"
             title="Gửi thử"
           >
             <i className="ri-send-plane-line text-xs"></i>
           </button>
           <button
             onClick={() => setExpanded(v => !v)}
-            className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-white/70 cursor-pointer transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-white/70 cursor-pointer transition-colors"
           >
             <i className={`${expanded ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"} text-sm`}></i>
           </button>
           {/* Toggle switch */}
           <button
             onClick={() => onChange(index, { ...reminder, enabled: !reminder.enabled })}
-            className={`relative w-10 h-5 rounded-full transition-all cursor-pointer flex-shrink-0 ${reminder.enabled ? "" : "bg-white/10"}`}
+            className={`relative w-10 h-5 rounded-full transition-all cursor-pointer flex-shrink-0 ${reminder.enabled ? "" : "bg-app-card/70"}`}
             style={{ backgroundColor: reminder.enabled ? typeInfo.color : undefined }}
           >
             <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-all ${reminder.enabled ? "left-5" : "left-0.5"}`}></div>
@@ -166,27 +166,27 @@ function ReminderCard({
 
       {/* Expanded settings */}
       {expanded && (
-        <div className="px-5 pb-5 border-t border-white/5 pt-4 space-y-4">
+        <div className="px-5 pb-5 border-t border-app-border pt-4 space-y-4">
           {/* Time */}
           <div>
-            <label className="text-white/40 text-xs mb-2 block">Giờ nhắc nhở</label>
+            <label className="text-app-text-secondary text-xs mb-2 block">Giờ nhắc nhở</label>
             <input
               type="time"
               value={reminder.time}
               onChange={e => onChange(index, { ...reminder, time: e.target.value })}
-              className="bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm outline-none focus:border-white/25"
+              className="bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white text-sm outline-none focus:border-white/25"
             />
           </div>
 
           {/* Days */}
           <div>
-            <label className="text-white/40 text-xs mb-2 block">Ngày trong tuần</label>
+            <label className="text-app-text-secondary text-xs mb-2 block">Ngày trong tuần</label>
             <div className="flex gap-2">
               {DAY_LABELS.map((d, i) => (
                 <button
                   key={i}
                   onClick={() => toggleDay(i)}
-                  className={`w-9 h-9 flex items-center justify-center rounded-xl text-xs font-bold cursor-pointer transition-all ${reminder.days.includes(i) ? "" : "bg-white/5 text-white/30 border border-white/8"}`}
+                  className={`w-9 h-9 flex items-center justify-center rounded-xl text-xs font-bold cursor-pointer transition-all ${reminder.days.includes(i) ? "" : "bg-app-card/50 text-app-text-muted border border-app-border"}`}
                   style={reminder.days.includes(i) ? { backgroundColor: `${typeInfo.color}20`, color: typeInfo.color, border: `1px solid ${typeInfo.color}30` } : {}}
                 >
                   {d}
@@ -197,20 +197,20 @@ function ReminderCard({
 
           {/* Message */}
           <div>
-            <label className="text-white/40 text-xs mb-2 block">Nội dung thông báo</label>
+            <label className="text-app-text-secondary text-xs mb-2 block">Nội dung thông báo</label>
             <textarea
               value={reminder.message}
               onChange={e => onChange(index, { ...reminder, message: e.target.value })}
               rows={2}
               maxLength={200}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white/70 text-sm outline-none focus:border-white/25 resize-none"
+              className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white/70 text-sm outline-none focus:border-white/25 resize-none"
             />
             <div className="flex gap-2 mt-2 flex-wrap">
               {PRESET_MESSAGES.slice(0, 3).map((msg, i) => (
                 <button
                   key={i}
                   onClick={() => onChange(index, { ...reminder, message: msg })}
-                  className="text-[10px] px-2 py-1 rounded-lg bg-white/5 text-white/30 hover:text-white/60 cursor-pointer whitespace-nowrap transition-colors border border-white/8"
+                  className="text-[10px] px-2 py-1 rounded-lg bg-app-card/50 text-app-text-muted hover:text-white/60 cursor-pointer whitespace-nowrap transition-colors border border-app-border"
                 >
                   Mẫu {i + 1}
                 </button>
@@ -220,13 +220,13 @@ function ReminderCard({
 
           {/* Type */}
           <div>
-            <label className="text-white/40 text-xs mb-2 block">Loại nhắc nhở</label>
+            <label className="text-app-text-secondary text-xs mb-2 block">Loại nhắc nhở</label>
             <div className="grid grid-cols-2 gap-2">
               {REMINDER_TYPES.map(t => (
                 <button
                   key={t.id}
                   onClick={() => onChange(index, { ...reminder, type: t.id as ReminderConfig["type"] })}
-                  className={`flex items-center gap-2 p-2.5 rounded-xl border text-left cursor-pointer transition-all ${reminder.type === t.id ? "" : "border-white/5 bg-white/2 hover:bg-white/5"}`}
+                  className={`flex items-center gap-2 p-2.5 rounded-xl border text-left cursor-pointer transition-all ${reminder.type === t.id ? "" : "border-app-border bg-white/2 hover:bg-app-card/50"}`}
                   style={reminder.type === t.id ? { backgroundColor: `${t.color}10`, borderColor: `${t.color}25` } : {}}
                 >
                   <i className={`${t.icon} text-sm`} style={{ color: t.color }}></i>
@@ -239,7 +239,7 @@ function ReminderCard({
           {/* Delete */}
           <button
             onClick={() => onDelete(index)}
-            className="flex items-center gap-2 text-red-400/60 hover:text-red-400 text-xs cursor-pointer whitespace-nowrap transition-colors"
+            className="flex items-center gap-2 text-app-accent-error/60 hover:text-red-400 text-xs cursor-pointer whitespace-nowrap transition-colors"
           >
             <i className="ri-delete-bin-line"></i>Xóa nhắc nhở này
           </button>
@@ -325,13 +325,13 @@ export default function StudyReminderPage() {
         <div className="space-y-5">
           {/* Permission banner */}
           {permission !== "granted" && (
-            <div className="p-5 bg-[#e8c84a]/8 border border-[#e8c84a]/20 rounded-2xl flex items-center gap-4">
-              <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-[#e8c84a]/15 flex-shrink-0">
-                <i className="ri-notification-3-line text-[#e8c84a] text-2xl"></i>
+            <div className="p-5 bg-app-accent-primary/8 border border-app-accent-primary/20 rounded-2xl flex items-center gap-4">
+              <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-app-accent-primary/15 flex-shrink-0">
+                <i className="ri-notification-3-line text-app-accent-primary text-2xl"></i>
               </div>
               <div className="flex-1">
                 <p className="text-white font-semibold text-sm mb-0.5">Cho phép thông báo trình duyệt</p>
-                <p className="text-white/40 text-xs">
+                <p className="text-app-text-secondary text-xs">
                   {permission === "denied"
                     ? "Thông báo bị chặn. Vào cài đặt trình duyệt → Site Settings → Notifications để bật lại."
                     : "Cần cấp quyền để nhận nhắc nhở học tập hàng ngày."}
@@ -340,7 +340,7 @@ export default function StudyReminderPage() {
               {permission !== "denied" && (
                 <button
                   onClick={handleRequestPermission}
-                  className="flex items-center gap-2 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm px-4 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
+                  className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-4 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
                 >
                   <i className="ri-notification-3-line"></i>Cho phép
                 </button>
@@ -351,14 +351,14 @@ export default function StudyReminderPage() {
           {permission === "granted" && (
             <div className="p-4 bg-emerald-500/8 border border-emerald-500/20 rounded-xl">
               <div className="flex items-center gap-3 mb-2">
-                <i className="ri-checkbox-circle-fill text-emerald-400 text-lg"></i>
-                <p className="text-emerald-400 text-sm font-medium">Thông báo trình duyệt đã được bật!</p>
-                {testSent && <span className="ml-auto text-emerald-400/70 text-xs">Đã gửi thử ✓</span>}
+                <i className="ri-checkbox-circle-fill text-app-accent-success text-lg"></i>
+                <p className="text-app-accent-success text-sm font-medium">Thông báo trình duyệt đã được bật!</p>
+                {testSent && <span className="ml-auto text-app-accent-success/70 text-xs">Đã gửi thử ✓</span>}
               </div>
               {nextReminder && (
                 <div className="flex items-center gap-2 mt-1 pl-7">
-                  <i className="ri-time-line text-emerald-400/50 text-xs"></i>
-                  <p className="text-emerald-400/60 text-xs">
+                  <i className="ri-time-line text-app-accent-success/50 text-xs"></i>
+                  <p className="text-app-accent-success/60 text-xs">
                     Thông báo tiếp theo: <span className="font-semibold">{nextReminder.label}</span>
                     {" "}(tab phải mở)
                   </p>
@@ -384,7 +384,7 @@ export default function StudyReminderPage() {
           {/* Add button */}
           <button
             onClick={handleAdd}
-            className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl border border-dashed border-white/15 text-white/40 hover:text-white/60 hover:border-white/25 text-sm cursor-pointer whitespace-nowrap transition-all"
+            className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl border border-dashed border-white/15 text-app-text-secondary hover:text-white/60 hover:border-white/25 text-sm cursor-pointer whitespace-nowrap transition-all"
           >
             <i className="ri-add-line text-lg"></i>Thêm nhắc nhở mới
           </button>
@@ -393,17 +393,17 @@ export default function StudyReminderPage() {
         {/* Right sidebar */}
         <div className="space-y-4">
           {/* Status */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">Trạng thái</h3>
             <div className="space-y-3">
               {[
-                { label: "Tổng nhắc nhở", value: reminders.length, color: "#e8c84a" },
+                { label: "Tổng nhắc nhở", value: reminders.length, color: "app-accent-primary" },
                 { label: "Đang bật", value: enabledCount, color: "#34d399" },
                 { label: "Đang tắt", value: reminders.length - enabledCount, color: "#f87171" },
                 { label: "Quyền thông báo", value: permission === "granted" ? "Đã bật" : "Chưa bật", color: permission === "granted" ? "#34d399" : "#fb923c" },
               ].map(s => (
                 <div key={s.label} className="flex items-center justify-between">
-                  <span className="text-white/40 text-xs">{s.label}</span>
+                  <span className="text-app-text-secondary text-xs">{s.label}</span>
                   <span className="font-bold text-sm" style={{ color: s.color }}>{s.value}</span>
                 </div>
               ))}
@@ -411,15 +411,15 @@ export default function StudyReminderPage() {
           </div>
 
           {/* Schedule preview */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">Lịch nhắc nhở tuần này</h3>
             <div className="space-y-2">
               {DAY_FULL.map((day, dayIdx) => {
                 const dayReminders = reminders.filter(r => r.enabled && r.days.includes(dayIdx));
                 const isToday = new Date().getDay() === dayIdx;
                 return (
-                  <div key={dayIdx} className={`flex items-center gap-3 p-2 rounded-lg ${isToday ? "bg-[#e8c84a]/8 border border-[#e8c84a]/15" : ""}`}>
-                    <span className={`text-xs w-16 ${isToday ? "text-[#e8c84a] font-bold" : "text-white/30"}`}>{day}</span>
+                  <div key={dayIdx} className={`flex items-center gap-3 p-2 rounded-lg ${isToday ? "bg-app-accent-primary/8 border border-app-accent-primary/15" : ""}`}>
+                    <span className={`text-xs w-16 ${isToday ? "text-app-accent-primary font-bold" : "text-app-text-muted"}`}>{day}</span>
                     <div className="flex-1 flex gap-1.5 flex-wrap">
                       {dayReminders.length === 0 ? (
                         <span className="text-white/15 text-[10px]">Không có</span>
@@ -441,16 +441,16 @@ export default function StudyReminderPage() {
           </div>
 
           {/* Tips */}
-          <div className="bg-gradient-to-br from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/15 rounded-2xl p-5">
+          <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
-              <i className="ri-lightbulb-line text-[#e8c84a] text-sm"></i>
+              <i className="ri-lightbulb-line text-app-accent-primary text-sm"></i>
               <h3 className="text-white font-semibold text-sm">Mẹo đặt nhắc nhở</h3>
             </div>
-            <div className="space-y-2 text-white/40 text-xs leading-relaxed">
-              <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Đặt nhắc nhở buổi sáng (7–9h) hiệu quả nhất</p>
-              <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Nhắc nhở tối (20–22h) để ôn lại trước khi ngủ</p>
-              <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Bật nhắc nhở Streak để không bao giờ mất chuỗi</p>
-              <p><i className="ri-arrow-right-s-line text-[#e8c84a] mr-1"></i>Dùng nút "Gửi thử" để kiểm tra thông báo</p>
+            <div className="space-y-2 text-app-text-secondary text-xs leading-relaxed">
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Đặt nhắc nhở buổi sáng (7–9h) hiệu quả nhất</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nhắc nhở tối (20–22h) để ôn lại trước khi ngủ</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Bật nhắc nhở Streak để không bao giờ mất chuỗi</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Dùng nút "Gửi thử" để kiểm tra thông báo</p>
             </div>
           </div>
         </div>

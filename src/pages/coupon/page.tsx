@@ -61,13 +61,13 @@ function CouponForm({ initial, series, onSave, onCancel }: {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-      <div className="bg-[#0f1117] border border-white/10 rounded-2xl w-full max-w-md">
-        <div className="flex items-center justify-between p-5 border-b border-white/5">
+      <div className="bg-app-bg border border-app-border rounded-2xl w-full max-w-md">
+        <div className="flex items-center justify-between p-5 border-b border-app-border">
           <div className="flex items-center gap-2">
-            <i className="ri-coupon-3-line text-[#e8c84a] text-sm"></i>
+            <i className="ri-coupon-3-line text-app-accent-primary text-sm"></i>
             <p className="text-white font-semibold text-sm">{initial ? "Chỉnh sửa coupon" : "Tạo coupon mới"}</p>
           </div>
-          <button onClick={onCancel} className="w-7 h-7 flex items-center justify-center text-white/30 hover:text-white/70 cursor-pointer">
+          <button onClick={onCancel} className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-white/70 cursor-pointer">
             <i className="ri-close-line"></i>
           </button>
         </div>
@@ -75,18 +75,18 @@ function CouponForm({ initial, series, onSave, onCancel }: {
         <div className="p-5 space-y-4">
           {/* Code */}
           <div>
-            <label className="text-white/40 text-xs font-medium block mb-1.5">Mã coupon *</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Mã coupon *</label>
             <div className="flex gap-2">
               <input
                 type="text"
                 value={code}
                 onChange={e => setCode(e.target.value.toUpperCase())}
                 placeholder="VD: ZALO20"
-                className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40 transition-colors font-mono tracking-widest"
+                className="flex-1 bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors font-mono tracking-widest"
               />
               <button
                 onClick={generateCode}
-                className="px-3 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-white/50 text-xs transition-colors cursor-pointer whitespace-nowrap"
+                className="px-3 py-2.5 bg-app-card/50 hover:bg-app-card/70 border border-app-border rounded-lg text-white/50 text-xs transition-colors cursor-pointer whitespace-nowrap"
               >
                 <i className="ri-refresh-line"></i>
               </button>
@@ -95,25 +95,25 @@ function CouponForm({ initial, series, onSave, onCancel }: {
 
           {/* Discount */}
           <div>
-            <label className="text-white/40 text-xs font-medium block mb-1.5">Giảm giá *</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Giảm giá *</label>
             <div className="flex gap-2">
               <input
                 type="number"
                 value={discount}
                 onChange={e => setDiscount(e.target.value)}
                 placeholder="20"
-                className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40 transition-colors"
+                className="flex-1 bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
               />
-              <div className="flex bg-white/5 border border-white/10 rounded-lg overflow-hidden">
+              <div className="flex bg-app-card/50 border border-app-border rounded-lg overflow-hidden">
                 <button
                   onClick={() => setDiscountType("percent")}
-                  className={`px-4 py-2.5 text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${discountType === "percent" ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/40 hover:text-white/70"}`}
+                  className={`px-4 py-2.5 text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${discountType === "percent" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/70"}`}
                 >
                   %
                 </button>
                 <button
                   onClick={() => setDiscountType("fixed")}
-                  className={`px-4 py-2.5 text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${discountType === "fixed" ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/40 hover:text-white/70"}`}
+                  className={`px-4 py-2.5 text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${discountType === "fixed" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/70"}`}
                 >
                   VNĐ
                 </button>
@@ -123,29 +123,29 @@ function CouponForm({ initial, series, onSave, onCancel }: {
 
           {/* Channel */}
           <div>
-            <label className="text-white/40 text-xs font-medium block mb-1.5">Kênh bán hàng</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Kênh bán hàng</label>
             <select
               value={channel}
               onChange={e => setChannel(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#e8c84a]/40 transition-colors cursor-pointer"
+              className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 transition-colors cursor-pointer"
             >
               {CHANNEL_OPTIONS.map(c => (
-                <option key={c} value={c} className="bg-[#0f1117]">{c}</option>
+                <option key={c} value={c} className="bg-app-bg">{c}</option>
               ))}
             </select>
           </div>
 
           {/* Series */}
           <div>
-            <label className="text-white/40 text-xs font-medium block mb-1.5">Áp dụng cho</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Áp dụng cho</label>
             <select
               value={seriesId}
               onChange={e => setSeriesId(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#e8c84a]/40 transition-colors cursor-pointer"
+              className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 transition-colors cursor-pointer"
             >
-              <option value="all" className="bg-[#0f1117]">Tất cả series</option>
+              <option value="all" className="bg-app-bg">Tất cả series</option>
               {series.map(s => (
-                <option key={s.id} value={s.id} className="bg-[#0f1117]">{s.name}</option>
+                <option key={s.id} value={s.id} className="bg-app-bg">{s.name}</option>
               ))}
             </select>
           </div>
@@ -153,34 +153,34 @@ function CouponForm({ initial, series, onSave, onCancel }: {
           {/* Max usage + note */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-white/40 text-xs font-medium block mb-1.5">Giới hạn dùng (để trống = không giới hạn)</label>
+              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Giới hạn dùng (để trống = không giới hạn)</label>
               <input
                 type="number"
                 value={maxUsage}
                 onChange={e => setMaxUsage(e.target.value)}
                 placeholder="Không giới hạn"
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40 transition-colors"
+                className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
               />
             </div>
             <div>
-              <label className="text-white/40 text-xs font-medium block mb-1.5">Ghi chú</label>
+              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Ghi chú</label>
               <input
                 type="text"
                 value={note}
                 onChange={e => setNote(e.target.value)}
                 placeholder="Chiến dịch tháng 4..."
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#e8c84a]/40 transition-colors"
+                className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
               />
             </div>
           </div>
         </div>
 
-        <div className="flex gap-3 p-5 border-t border-white/5">
-          <button onClick={onCancel} className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm font-medium hover:bg-white/5 transition-colors cursor-pointer whitespace-nowrap">Hủy</button>
+        <div className="flex gap-3 p-5 border-t border-app-border">
+          <button onClick={onCancel} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">Hủy</button>
           <button
             onClick={handleSave}
             disabled={!code.trim() || !discount}
-            className="flex-1 py-2.5 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-[#0f1117] text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
+            className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
           >
             {initial ? "Lưu thay đổi" : "Tạo coupon"}
           </button>
@@ -198,33 +198,33 @@ function RecordUsageModal({ coupon, onClose, onRecord }: {
   const [times, setTimes] = useState(1);
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-      <div className="bg-[#0f1117] border border-white/10 rounded-2xl w-full max-w-sm">
-        <div className="flex items-center justify-between p-5 border-b border-white/5">
+      <div className="bg-app-bg border border-app-border rounded-2xl w-full max-w-sm">
+        <div className="flex items-center justify-between p-5 border-b border-app-border">
           <p className="text-white font-semibold text-sm">Ghi nhận sử dụng</p>
-          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center text-white/30 hover:text-white/70 cursor-pointer">
+          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-white/70 cursor-pointer">
             <i className="ri-close-line"></i>
           </button>
         </div>
         <div className="p-5">
           <p className="text-white/50 text-xs mb-4">
-            Mã: <span className="text-[#e8c84a] font-mono font-bold">{coupon.code}</span> · Đã dùng: {coupon.usageCount} lần
+            Mã: <span className="text-app-accent-primary font-mono font-bold">{coupon.code}</span> · Đã dùng: {coupon.usageCount} lần
           </p>
           <div>
-            <label className="text-white/40 text-xs font-medium block mb-1.5">Số lần sử dụng thêm</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Số lần sử dụng thêm</label>
             <input
               type="number"
               min={1}
               value={times}
               onChange={e => setTimes(Math.max(1, parseInt(e.target.value) || 1))}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#e8c84a]/40 transition-colors"
+              className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 transition-colors"
             />
           </div>
         </div>
-        <div className="flex gap-3 p-5 border-t border-white/5">
-          <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm font-medium hover:bg-white/5 transition-colors cursor-pointer whitespace-nowrap">Hủy</button>
+        <div className="flex gap-3 p-5 border-t border-app-border">
+          <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">Hủy</button>
           <button
             onClick={() => { onRecord(coupon.id, times); onClose(); }}
-            className="flex-1 py-2.5 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
+            className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
           >
             Ghi nhận
           </button>
@@ -310,7 +310,7 @@ export default function CouponPage() {
       actions={
         <button
           onClick={() => { setEditingCoupon(null); setShowForm(true); }}
-          className="flex items-center gap-2 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
+          className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-add-line"></i>
           Tạo coupon mới
@@ -327,18 +327,18 @@ export default function CouponPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng coupon", value: coupons.length, icon: "ri-coupon-3-line", color: "#e8c84a" },
+          { label: "Tổng coupon", value: coupons.length, icon: "ri-coupon-3-line", color: "app-accent-primary" },
           { label: "Đang hoạt động", value: coupons.filter(c => c.active).length, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Tổng lượt dùng", value: totalUsage, icon: "ri-user-received-line", color: "#fb923c" },
           { label: "Kênh đang dùng", value: channelStats.length, icon: "ri-broadcast-line", color: "#a78bfa" },
         ].map(stat => (
-          <div key={stat.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-4 flex items-center gap-3">
+          <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
               <i className={`${stat.icon} text-lg`} style={{ color: stat.color }}></i>
             </div>
             <div>
               <p className="text-white font-bold text-xl leading-none">{stat.value}</p>
-              <p className="text-white/40 text-xs mt-0.5">{stat.label}</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">{stat.label}</p>
             </div>
           </div>
         ))}
@@ -346,19 +346,19 @@ export default function CouponPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-5">
         {/* Channel ranking */}
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-1">Kênh hiệu quả nhất</h3>
-          <p className="text-white/30 text-xs mb-4">Theo số lần dùng coupon</p>
+          <p className="text-app-text-muted text-xs mb-4">Theo số lần dùng coupon</p>
           {channelStats.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-8 text-center">
               <i className="ri-bar-chart-line text-white/10 text-3xl mb-2"></i>
-              <p className="text-white/20 text-xs">Chưa có dữ liệu</p>
+              <p className="text-app-text-muted text-xs">Chưa có dữ liệu</p>
             </div>
           ) : (
             <div className="space-y-3">
               {channelStats.map(([ch, data], i) => {
                 const pct = totalUsage > 0 ? Math.round((data.usage / totalUsage) * 100) : 0;
-                const colors = ["#e8c84a", "#34d399", "#fb923c", "#a78bfa", "#38bdf8"];
+                const colors = ["app-accent-primary", "#34d399", "#fb923c", "#a78bfa", "#38bdf8"];
                 const color = colors[i % colors.length];
                 return (
                   <div key={ch}>
@@ -368,11 +368,11 @@ export default function CouponPage() {
                         <span className="text-white/60 text-xs font-medium">{ch}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-white/30 text-[10px]">{data.usage} lần</span>
+                        <span className="text-app-text-muted text-[10px]">{data.usage} lần</span>
                         <span className="text-xs font-bold" style={{ color }}>{pct}%</span>
                       </div>
                     </div>
-                    <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                       <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: color }} />
                     </div>
                   </div>
@@ -383,19 +383,19 @@ export default function CouponPage() {
         </div>
 
         {/* Coupon list */}
-        <div className="col-span-2 bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+        <div className="col-span-2 bg-app-bg border border-app-border rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-white font-semibold text-sm">Danh sách coupon</h3>
-              <p className="text-white/30 text-xs mt-0.5">{filtered.length} coupon</p>
+              <p className="text-app-text-muted text-xs mt-0.5">{filtered.length} coupon</p>
             </div>
             <select
               value={filterChannel}
               onChange={e => setFilterChannel(e.target.value)}
-              className="bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-white/60 text-xs focus:outline-none cursor-pointer"
+              className="bg-app-card/50 border border-app-border rounded-lg px-3 py-1.5 text-white/60 text-xs focus:outline-none cursor-pointer"
             >
               {channels.map(c => (
-                <option key={c} value={c} className="bg-[#0f1117]">{c === "all" ? "Tất cả kênh" : c}</option>
+                <option key={c} value={c} className="bg-app-bg">{c === "all" ? "Tất cả kênh" : c}</option>
               ))}
             </select>
           </div>
@@ -403,10 +403,10 @@ export default function CouponPage() {
           {filtered.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <i className="ri-coupon-3-line text-white/10 text-3xl mb-3"></i>
-              <p className="text-white/25 text-sm mb-1">Chưa có coupon nào</p>
+              <p className="text-app-text-muted text-sm mb-1">Chưa có coupon nào</p>
               <button
                 onClick={() => { setEditingCoupon(null); setShowForm(true); }}
-                className="mt-3 flex items-center gap-2 bg-[#e8c84a]/10 hover:bg-[#e8c84a]/20 text-[#e8c84a] text-xs font-medium px-4 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
+                className="mt-3 flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-xs font-medium px-4 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
               >
                 <i className="ri-add-line"></i>
                 Tạo coupon đầu tiên
@@ -421,7 +421,7 @@ export default function CouponPage() {
                   <div
                     key={coupon.id}
                     className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-colors group ${
-                      coupon.active ? "bg-white/3 border-white/5 hover:border-white/8" : "bg-white/1 border-white/3 opacity-50"
+                      coupon.active ? "bg-app-surface/50 border-app-border hover:border-app-border" : "bg-white/1 border-white/3 opacity-50"
                     }`}
                   >
                     {/* Code */}
@@ -430,22 +430,22 @@ export default function CouponPage() {
                       className="flex items-center gap-1.5 cursor-pointer"
                       title="Click để copy"
                     >
-                      <span className="font-mono font-bold text-sm text-[#e8c84a] tracking-widest">
+                      <span className="font-mono font-bold text-sm text-app-accent-primary tracking-widest">
                         {coupon.code}
                       </span>
-                      <i className={`text-[10px] ${copiedCode === coupon.code ? "ri-check-line text-emerald-400" : "ri-clipboard-line text-white/20"}`}></i>
+                      <i className={`text-[10px] ${copiedCode === coupon.code ? "ri-check-line text-app-accent-success" : "ri-clipboard-line text-app-text-muted"}`}></i>
                     </button>
 
                     {/* Discount badge */}
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#e8c84a]/10 text-[#e8c84a] whitespace-nowrap">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-app-accent-primary/10 text-app-accent-primary whitespace-nowrap">
                       -{coupon.discount}{coupon.discountType === "percent" ? "%" : "k"}
                     </span>
 
                     {/* Channel */}
-                    <span className="text-white/40 text-[10px] flex-1 truncate">{coupon.channel}</span>
+                    <span className="text-app-text-secondary text-[10px] flex-1 truncate">{coupon.channel}</span>
 
                     {/* Series */}
-                    <span className="text-white/25 text-[10px] truncate max-w-[80px]">
+                    <span className="text-app-text-muted text-[10px] truncate max-w-[80px]">
                       {coupon.seriesId === "all" ? "Tất cả" : (s?.name ?? "?")}
                     </span>
 
@@ -455,8 +455,8 @@ export default function CouponPage() {
                         {coupon.usageCount}{coupon.maxUsage ? `/${coupon.maxUsage}` : ""} lần
                       </p>
                       {usagePct !== null && (
-                        <div className="w-16 h-1 bg-white/5 rounded-full overflow-hidden mt-1">
-                          <div className="h-full rounded-full bg-[#e8c84a]" style={{ width: `${Math.min(usagePct, 100)}%` }} />
+                        <div className="w-16 h-1 bg-app-card/50 rounded-full overflow-hidden mt-1">
+                          <div className="h-full rounded-full bg-app-accent-primary" style={{ width: `${Math.min(usagePct, 100)}%` }} />
                         </div>
                       )}
                     </div>
@@ -465,23 +465,23 @@ export default function CouponPage() {
                     <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
                         onClick={() => setRecordingCoupon(coupon)}
-                        className="w-6 h-6 flex items-center justify-center bg-white/5 hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
+                        className="w-6 h-6 flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 rounded-lg transition-colors cursor-pointer"
                         title="Ghi nhận sử dụng"
                       >
-                        <i className="ri-add-line text-white/40 text-[10px]"></i>
+                        <i className="ri-add-line text-app-text-secondary text-[10px]"></i>
                       </button>
                       <button
                         onClick={() => handleToggle(coupon.id)}
-                        className="w-6 h-6 flex items-center justify-center bg-white/5 hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
+                        className="w-6 h-6 flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 rounded-lg transition-colors cursor-pointer"
                         title={coupon.active ? "Tắt coupon" : "Bật coupon"}
                       >
-                        <i className={`text-[10px] ${coupon.active ? "ri-pause-line text-white/40" : "ri-play-line text-emerald-400"}`}></i>
+                        <i className={`text-[10px] ${coupon.active ? "ri-pause-line text-app-text-secondary" : "ri-play-line text-app-accent-success"}`}></i>
                       </button>
                       <button
                         onClick={() => { setEditingCoupon(coupon); setShowForm(true); }}
-                        className="w-6 h-6 flex items-center justify-center bg-white/5 hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
+                        className="w-6 h-6 flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 rounded-lg transition-colors cursor-pointer"
                       >
-                        <i className="ri-edit-line text-white/40 text-[10px]"></i>
+                        <i className="ri-edit-line text-app-text-secondary text-[10px]"></i>
                       </button>
                       <button
                         onClick={() => handleDelete(coupon.id)}
@@ -499,11 +499,11 @@ export default function CouponPage() {
       </div>
 
       {/* Tips */}
-      <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4 flex items-start gap-3">
-        <i className="ri-lightbulb-line text-[#e8c84a] text-sm mt-0.5 flex-shrink-0"></i>
+      <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4 flex items-start gap-3">
+        <i className="ri-lightbulb-line text-app-accent-primary text-sm mt-0.5 flex-shrink-0"></i>
         <div>
-          <p className="text-[#e8c84a]/80 text-xs font-semibold mb-1">Cách dùng coupon để theo dõi kênh</p>
-          <p className="text-white/40 text-xs leading-relaxed">
+          <p className="text-app-accent-primary/80 text-xs font-semibold mb-1">Cách dùng coupon để theo dõi kênh</p>
+          <p className="text-app-text-secondary text-xs leading-relaxed">
             Tạo mã riêng cho từng kênh: <strong className="text-white/60">ZALO20</strong> cho Zalo, <strong className="text-white/60">FB15</strong> cho Facebook, <strong className="text-white/60">TT10</strong> cho TikTok.
             Khi khách dùng mã → ghi nhận thủ công → biểu đồ tự cập nhật → biết ngay kênh nào hiệu quả nhất!
           </p>

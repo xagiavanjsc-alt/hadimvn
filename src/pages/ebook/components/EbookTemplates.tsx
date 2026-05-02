@@ -21,7 +21,7 @@ export const TEMPLATES: TemplateConfig[] = [
     name: "Classic",
     description: "1 cột, nền trắng, chữ đen — dễ đọc nhất",
     icon: "ri-file-text-line",
-    preview: { bg: "#ffffff", text: "#1a1a1a", accent: "#e8c84a", secondary: "#f5f5f5" },
+    preview: { bg: "#ffffff", text: "#1a1a1a", accent: "app-accent-primary", secondary: "#f5f5f5" },
   },
   {
     id: "minimal",
@@ -59,7 +59,7 @@ export const TEMPLATES: TemplateConfig[] = [
     name: "Dark Mode",
     description: "Nền tối, chữ sáng — phong cách hiện đại",
     icon: "ri-moon-line",
-    preview: { bg: "#0f1117", text: "#e8e8e8", accent: "#e8c84a", secondary: "#1a1d27" },
+    preview: { bg: "#0f1117", text: "#e8e8e8", accent: "app-accent-primary", secondary: "#1a1d27" },
   },
   {
     id: "album",
@@ -190,14 +190,14 @@ function MiniPreview({ tpl }: { tpl: TemplateConfig }) {
 
 export default function EbookTemplates({ selected, onChange }: Props) {
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-xl p-5">
+    <div className="bg-app-bg border border-app-border rounded-xl p-5">
       <div className="flex items-center gap-3 mb-4">
-        <div className="w-8 h-8 flex items-center justify-center bg-[#e8c84a]/10 rounded-lg">
-          <i className="ri-layout-2-line text-[#e8c84a] text-base"></i>
+        <div className="w-8 h-8 flex items-center justify-center bg-app-accent-primary/10 rounded-lg">
+          <i className="ri-layout-2-line text-app-accent-primary text-base"></i>
         </div>
         <div>
           <h3 className="text-white font-semibold text-sm">Template layout</h3>
-          <p className="text-white/40 text-xs">7 mẫu — chọn kiểu trình bày trước khi xuất PDF</p>
+          <p className="text-app-text-secondary text-xs">7 mẫu — chọn kiểu trình bày trước khi xuất PDF</p>
         </div>
       </div>
 
@@ -208,17 +208,17 @@ export default function EbookTemplates({ selected, onChange }: Props) {
             onClick={() => onChange(tpl.id)}
             className={`relative flex flex-col gap-3 p-3.5 rounded-xl border transition-all cursor-pointer text-left ${
               selected === tpl.id
-                ? "border-[#e8c84a]/40 bg-[#e8c84a]/5"
-                : "border-white/8 bg-white/3 hover:border-white/15 hover:bg-white/5"
+                ? "border-app-accent-primary/40 bg-app-accent-primary/5"
+                : "border-app-border bg-app-surface/50 hover:border-white/15 hover:bg-app-card/50"
             }`}
           >
             {selected === tpl.id && (
-              <div className="absolute top-2.5 right-2.5 w-5 h-5 flex items-center justify-center bg-[#e8c84a] rounded-full">
-                <i className="ri-check-line text-[#0f1117] text-[10px]"></i>
+              <div className="absolute top-2.5 right-2.5 w-5 h-5 flex items-center justify-center bg-app-accent-primary rounded-full">
+                <i className="ri-check-line text-app-bg text-[10px]"></i>
               </div>
             )}
             {tpl.badge && selected !== tpl.id && (
-              <div className="absolute top-2.5 right-2.5 px-1.5 py-0.5 bg-emerald-500/20 text-emerald-400 text-[8px] font-bold rounded-full">
+              <div className="absolute top-2.5 right-2.5 px-1.5 py-0.5 bg-emerald-500/20 text-app-accent-success text-[8px] font-bold rounded-full">
                 {tpl.badge}
               </div>
             )}
@@ -233,19 +233,19 @@ export default function EbookTemplates({ selected, onChange }: Props) {
 
             <div>
               <div className="flex items-center gap-1.5 mb-0.5">
-                <i className={`${tpl.icon} text-[11px] ${selected === tpl.id ? "text-[#e8c84a]" : "text-white/40"}`}></i>
-                <p className={`text-xs font-semibold ${selected === tpl.id ? "text-[#e8c84a]" : "text-white/70"}`}>{tpl.name}</p>
+                <i className={`${tpl.icon} text-[11px] ${selected === tpl.id ? "text-app-accent-primary" : "text-app-text-secondary"}`}></i>
+                <p className={`text-xs font-semibold ${selected === tpl.id ? "text-app-accent-primary" : "text-white/70"}`}>{tpl.name}</p>
               </div>
-              <p className="text-white/30 text-[10px] leading-relaxed">{tpl.description}</p>
+              <p className="text-app-text-muted text-[10px] leading-relaxed">{tpl.description}</p>
             </div>
           </button>
         ))}
       </div>
 
-      <div className="mt-4 flex items-start gap-2 bg-white/3 rounded-lg px-3 py-2.5">
-        <i className="ri-palette-line text-white/20 text-sm mt-0.5 flex-shrink-0"></i>
-        <p className="text-white/25 text-[10px] leading-relaxed">
-          Màu nhấn trong tab <strong className="text-white/40">Bìa ebook</strong> sẽ áp dụng cho tất cả template. Thử kết hợp template + màu nhấn để tạo phong cách riêng.
+      <div className="mt-4 flex items-start gap-2 bg-app-surface/50 rounded-lg px-3 py-2.5">
+        <i className="ri-palette-line text-app-text-muted text-sm mt-0.5 flex-shrink-0"></i>
+        <p className="text-app-text-muted text-[10px] leading-relaxed">
+          Màu nhấn trong tab <strong className="text-app-text-secondary">Bìa ebook</strong> sẽ áp dụng cho tất cả template. Thử kết hợp template + màu nhấn để tạo phong cách riêng.
         </p>
       </div>
     </div>

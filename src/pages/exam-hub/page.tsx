@@ -65,13 +65,13 @@ function ExamCard({ exam, onSelect }: { exam: ExamOption; onSelect: () => void }
         </div>
         <div className="flex-1">
           <h3 className="text-white font-bold">{exam.title}</h3>
-          <p className="text-white/40 text-xs">{exam.subtitle}</p>
+          <p className="text-app-text-secondary text-xs">{exam.subtitle}</p>
         </div>
         <div className="w-5 h-5 flex items-center justify-center">
           <i className="ri-arrow-right-line text-sm" style={{ color: exam.color }}></i>
         </div>
       </div>
-      <div className="flex items-center gap-4 text-xs text-white/40">
+      <div className="flex items-center gap-4 text-xs text-app-text-secondary">
         <span>{exam.totalQuestions} câu hỏi</span>
         <span>·</span>
         <span>{Math.floor(exam.timeLimit / 60)} phút</span>
@@ -150,7 +150,7 @@ export default function ExamHubPage() {
                 </div>
                 <button
                   onClick={() => navigate("/learning-hub")}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs bg-white/3 text-white/40 border border-white/8 hover:text-white/60 transition-all"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs bg-app-surface/50 text-app-text-secondary border border-app-border hover:text-white/60 transition-all"
                 >
                   <i className="ri-dashboard-line"></i>
                   Learning Hub
@@ -169,9 +169,9 @@ export default function ExamHubPage() {
                 </p>
                 <div className="flex gap-4 text-sm">
                   <div className="text-green-400">{examResult.score} đúng</div>
-                  <div className="text-white/30">{examResult.total - examResult.score} sai</div>
+                  <div className="text-app-text-muted">{examResult.total - examResult.score} sai</div>
                 </div>
-                <button onClick={handleBack} className="mt-6 px-6 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-white text-sm transition-colors">
+                <button onClick={handleBack} className="mt-6 px-6 py-2 bg-app-card/50 hover:bg-app-card/70 rounded-lg text-white text-sm transition-colors">
                   Quay lại hub
                 </button>
               </div>
@@ -192,7 +192,7 @@ export default function ExamHubPage() {
               <p className="text-white/60 text-sm">Hệ thống thi thử thống nhất với timer và lịch sử thi</p>
             </div>
 
-            <p className="text-white/40 text-xs mb-3">Tất cả đề thi</p>
+            <p className="text-app-text-secondary text-xs mb-3">Tất cả đề thi</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {EXAM_OPTIONS.map(exam => (
                 <ExamCard key={exam.id} exam={exam} onSelect={() => handleExamSelect(exam)} />

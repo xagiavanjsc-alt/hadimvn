@@ -28,7 +28,7 @@ export default function StreakGuardBanner() {
               Học ngay để bắt đầu streak mới
             </button>
           </div>
-          <button onClick={() => setDismissed(true)} className="text-white/20 hover:text-white/50 cursor-pointer flex-shrink-0">
+          <button onClick={() => setDismissed(true)} className="text-app-text-muted hover:text-white/50 cursor-pointer flex-shrink-0">
             <i className="ri-close-line text-sm"></i>
           </button>
         </div>
@@ -61,14 +61,14 @@ export default function StreakGuardBanner() {
               </button>
               <button
                 onClick={() => { navigate("/eps"); setDismissed(true); }}
-                className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 text-white/50 text-xs px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
+                className="flex items-center gap-1.5 bg-app-card/50 hover:bg-app-card/70 text-white/50 text-xs px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
               >
                 <i className="ri-file-list-3-line"></i>
                 Luyện EPS
               </button>
             </div>
           </div>
-          <button onClick={() => setDismissed(true)} className="text-white/20 hover:text-white/50 cursor-pointer flex-shrink-0">
+          <button onClick={() => setDismissed(true)} className="text-app-text-muted hover:text-white/50 cursor-pointer flex-shrink-0">
             <i className="ri-close-line text-sm"></i>
           </button>
         </div>

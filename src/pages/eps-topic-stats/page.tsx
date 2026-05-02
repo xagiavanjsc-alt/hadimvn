@@ -131,18 +131,18 @@ export default function EpsTopicStatsPage() {
       {/* Overall summary */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         {[
-          { label: "Bài đã học", value: `${overallStats.completedCount}/${overallStats.totalLessons}`, icon: "ri-book-open-line", color: "#e8c84a" },
+          { label: "Bài đã học", value: `${overallStats.completedCount}/${overallStats.totalLessons}`, icon: "ri-book-open-line", color: "app-accent-primary" },
           { label: "Từ đã học", value: `${overallStats.studiedVocab}`, icon: "ri-translate-2", color: "#34d399" },
           { label: "Tỷ lệ đúng", value: overallStats.overallAccuracy !== null ? `${overallStats.overallAccuracy}%` : "—", icon: "ri-pie-chart-2-line", color: "#a78bfa" },
           { label: "Thời gian học", value: formatMinutes(overallStats.totalMinutes), icon: "ri-time-line", color: "#fb923c" },
         ].map(s => (
-          <div key={s.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-3 md:p-4 flex items-center gap-3">
+          <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-3 md:p-4 flex items-center gap-3">
             <div className="w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
               <i className={`${s.icon} text-base`} style={{ color: s.color }}></i>
             </div>
             <div>
               <p className="text-white font-bold text-lg leading-none">{s.value}</p>
-              <p className="text-white/40 text-xs mt-0.5">{s.label}</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">{s.label}</p>
             </div>
           </div>
         ))}
@@ -159,8 +159,8 @@ export default function EpsTopicStatsPage() {
                 onClick={() => setSelectedTopic(selectedTopic === topic.id ? null : topic.id)}
                 className={`w-full text-left p-4 rounded-xl border transition-all cursor-pointer ${
                   selectedTopic === topic.id
-                    ? "border-[#e8c84a]/40 bg-[#e8c84a]/5"
-                    : "border-white/8 bg-white/2 hover:border-white/15 hover:bg-white/4"
+                    ? "border-app-accent-primary/40 bg-app-accent-primary/5"
+                    : "border-app-border bg-white/2 hover:border-white/15 hover:bg-white/4"
                 }`}
               >
                 {/* Topic header */}
@@ -181,7 +181,7 @@ export default function EpsTopicStatsPage() {
                 </div>
 
                 {/* Progress bar */}
-                <div className="h-1.5 bg-white/5 rounded-full overflow-hidden mb-3">
+                <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden mb-3">
                   <div
                     className="h-full rounded-full transition-all duration-500"
                     style={{ width: `${topic.completionRate}%`, backgroundColor: topic.color }}
@@ -192,30 +192,30 @@ export default function EpsTopicStatsPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   <div className="text-center">
                     <p className="text-white/70 text-sm font-bold">{topic.studiedVocab}</p>
-                    <p className="text-white/30 text-[10px]">Từ đã học</p>
+                    <p className="text-app-text-muted text-[10px]">Từ đã học</p>
                   </div>
-                  <div className="text-center border-x border-white/5">
-                    <p className={`text-sm font-bold ${topic.accuracy !== null ? (topic.accuracy >= 80 ? "text-emerald-400" : topic.accuracy >= 60 ? "text-[#e8c84a]" : "text-red-400") : "text-white/30"}`}>
+                  <div className="text-center border-x border-app-border">
+                    <p className={`text-sm font-bold ${topic.accuracy !== null ? (topic.accuracy >= 80 ? "text-app-accent-success" : topic.accuracy >= 60 ? "text-app-accent-primary" : "text-red-400") : "text-app-text-muted"}`}>
                       {topic.accuracy !== null ? `${topic.accuracy}%` : "—"}
                     </p>
-                    <p className="text-white/30 text-[10px]">Tỷ lệ đúng</p>
+                    <p className="text-app-text-muted text-[10px]">Tỷ lệ đúng</p>
                   </div>
                   <div className="text-center">
-                    <p className={`text-sm font-bold ${topic.totalWrong > 0 ? "text-red-400" : "text-white/30"}`}>
+                    <p className={`text-sm font-bold ${topic.totalWrong > 0 ? "text-red-400" : "text-app-text-muted"}`}>
                       {topic.totalWrong > 0 ? topic.totalWrong : "—"}
                     </p>
-                    <p className="text-white/30 text-[10px]">Từ sai</p>
+                    <p className="text-app-text-muted text-[10px]">Từ sai</p>
                   </div>
                 </div>
 
                 {/* Time + last studied */}
-                <div className="flex items-center justify-between mt-3 pt-2 border-t border-white/5">
-                  <span className="text-white/30 text-[10px] flex items-center gap-1">
+                <div className="flex items-center justify-between mt-3 pt-2 border-t border-app-border">
+                  <span className="text-app-text-muted text-[10px] flex items-center gap-1">
                     <i className="ri-time-line"></i>
                     {topic.totalMinutes > 0 ? formatMinutes(topic.totalMinutes) : "Chưa học"}
                   </span>
                   {topic.lastStudied && (
-                    <span className="text-white/25 text-[10px]">
+                    <span className="text-app-text-muted text-[10px]">
                       {formatDate(topic.lastStudied)}
                     </span>
                   )}
@@ -230,14 +230,14 @@ export default function EpsTopicStatsPage() {
           {selectedTopicData ? (
             <>
               {/* Topic detail header */}
-              <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-5">
+              <div className="bg-app-bg border border-app-border rounded-2xl p-5">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${selectedTopicData.color}20` }}>
                     <i className={`${selectedTopicData.icon} text-xl`} style={{ color: selectedTopicData.color }}></i>
                   </div>
                   <div>
                     <p className="text-white font-bold">{selectedTopicData.label}</p>
-                    <p className="text-white/40 text-xs">{selectedTopicData.totalLessons} bài học · {selectedTopicData.totalVocab} từ vựng</p>
+                    <p className="text-app-text-secondary text-xs">{selectedTopicData.totalLessons} bài học · {selectedTopicData.totalVocab} từ vựng</p>
                   </div>
                 </div>
 
@@ -245,18 +245,18 @@ export default function EpsTopicStatsPage() {
                 <div className="space-y-3">
                   {[
                     { label: "Bài đã hoàn thành", value: `${selectedTopicData.completedLessons}/${selectedTopicData.totalLessons}`, icon: "ri-checkbox-circle-line", color: "#34d399" },
-                    { label: "Từ vựng đã học", value: `${selectedTopicData.studiedVocab}/${selectedTopicData.totalVocab}`, icon: "ri-translate-2", color: "#e8c84a" },
+                    { label: "Từ vựng đã học", value: `${selectedTopicData.studiedVocab}/${selectedTopicData.totalVocab}`, icon: "ri-translate-2", color: "app-accent-primary" },
                     { label: "Tỷ lệ đúng bài tập", value: selectedTopicData.accuracy !== null ? `${selectedTopicData.accuracy}%` : "Chưa có dữ liệu", icon: "ri-pie-chart-2-line", color: "#a78bfa" },
                     { label: "Từ cần ôn lại", value: selectedTopicData.totalWrong > 0 ? `${selectedTopicData.totalWrong} từ (${selectedTopicData.totalWrongCount} lần sai)` : "Không có", icon: "ri-error-warning-line", color: "#f87171" },
                     { label: "Thời gian đã học", value: selectedTopicData.totalMinutes > 0 ? formatMinutes(selectedTopicData.totalMinutes) : "Chưa học", icon: "ri-time-line", color: "#fb923c" },
                     { label: "Học lần cuối", value: selectedTopicData.lastStudied ? formatDate(selectedTopicData.lastStudied) : "Chưa học", icon: "ri-calendar-line", color: "#38bdf8" },
                   ].map(stat => (
-                    <div key={stat.label} className="flex items-center gap-3 p-3 rounded-lg bg-white/3">
+                    <div key={stat.label} className="flex items-center gap-3 p-3 rounded-lg bg-app-surface/50">
                       <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
                         <i className={`${stat.icon} text-xs`} style={{ color: stat.color }}></i>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-white/40 text-xs">{stat.label}</p>
+                        <p className="text-app-text-secondary text-xs">{stat.label}</p>
                         <p className="text-white/80 text-sm font-semibold">{stat.value}</p>
                       </div>
                     </div>
@@ -267,7 +267,7 @@ export default function EpsTopicStatsPage() {
                 <div className="flex gap-2 mt-4">
                   <button
                     onClick={() => navigate("/eps-lessons")}
-                    className="flex-1 py-2.5 rounded-xl border border-white/10 bg-white/3 text-white/60 text-xs font-semibold hover:bg-white/6 transition-colors cursor-pointer whitespace-nowrap"
+                    className="flex-1 py-2.5 rounded-xl border border-app-border bg-app-surface/50 text-white/60 text-xs font-semibold hover:bg-white/6 transition-colors cursor-pointer whitespace-nowrap"
                   >
                     <i className="ri-book-open-line mr-1"></i>Học bài
                   </button>
@@ -283,7 +283,7 @@ export default function EpsTopicStatsPage() {
               </div>
 
               {/* Lesson list in topic */}
-              <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-4">
+              <div className="bg-app-bg border border-app-border rounded-2xl p-4">
                 <p className="text-white/50 text-xs font-semibold mb-3">Danh sách bài học</p>
                 <div className="space-y-1.5 max-h-64 overflow-y-auto">
                   {selectedTopicData.lessons.map(lesson => {
@@ -293,7 +293,7 @@ export default function EpsTopicStatsPage() {
                         key={lesson.id}
                         className={`flex items-center gap-3 p-2.5 rounded-lg ${prog ? "bg-emerald-500/5" : "bg-white/2"}`}
                       >
-                        <div className={`w-6 h-6 flex items-center justify-center rounded-md flex-shrink-0 text-xs font-bold ${prog ? "bg-emerald-500/15 text-emerald-400" : "bg-white/5 text-white/25"}`}>
+                        <div className={`w-6 h-6 flex items-center justify-center rounded-md flex-shrink-0 text-xs font-bold ${prog ? "bg-app-accent-success/15 text-app-accent-success" : "bg-app-card/50 text-app-text-muted"}`}>
                           {prog ? <i className="ri-check-line text-xs"></i> : lesson.id}
                         </div>
                         <div className="flex-1 min-w-0">
@@ -301,12 +301,12 @@ export default function EpsTopicStatsPage() {
                             Bài {lesson.id}: {lesson.titleVi.replace(/^Bài\s+\d+[:\s]+/i, "")}
                           </p>
                           {prog && (
-                            <p className="text-emerald-400/60 text-[10px]">
+                            <p className="text-app-accent-success/60 text-[10px]">
                               {prog.score}/{lesson.exercises.length} đúng
                             </p>
                           )}
                         </div>
-                        <span className="text-white/20 text-[10px] flex-shrink-0">{lesson.estimatedMinutes}p</span>
+                        <span className="text-app-text-muted text-[10px] flex-shrink-0">{lesson.estimatedMinutes}p</span>
                       </div>
                     );
                   })}
@@ -315,7 +315,7 @@ export default function EpsTopicStatsPage() {
             </>
           ) : (
             /* Default: overall chart */
-            <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <p className="text-white/50 text-xs font-semibold mb-4">Tổng quan tất cả chủ đề</p>
 
               {/* Completion chart */}
@@ -331,14 +331,14 @@ export default function EpsTopicStatsPage() {
                       </div>
                       <div className="flex items-center gap-2">
                         {topic.accuracy !== null && (
-                          <span className={`text-[10px] font-bold ${topic.accuracy >= 80 ? "text-emerald-400" : topic.accuracy >= 60 ? "text-[#e8c84a]" : "text-red-400"}`}>
+                          <span className={`text-[10px] font-bold ${topic.accuracy >= 80 ? "text-app-accent-success" : topic.accuracy >= 60 ? "text-app-accent-primary" : "text-red-400"}`}>
                             {topic.accuracy}%
                           </span>
                         )}
-                        <span className="text-white/30 text-[10px]">{topic.completedLessons}/{topic.totalLessons}</span>
+                        <span className="text-app-text-muted text-[10px]">{topic.completedLessons}/{topic.totalLessons}</span>
                       </div>
                     </div>
-                    <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all duration-500"
                         style={{ width: `${topic.completionRate}%`, backgroundColor: topic.color }}
@@ -348,13 +348,13 @@ export default function EpsTopicStatsPage() {
                 ))}
               </div>
 
-              <p className="text-white/25 text-xs text-center mt-4">Nhấn vào chủ đề bên trái để xem chi tiết</p>
+              <p className="text-app-text-muted text-xs text-center mt-4">Nhấn vào chủ đề bên trái để xem chi tiết</p>
             </div>
           )}
 
           {/* Quick actions */}
-          <div className="bg-white/3 border border-white/8 rounded-xl p-4 space-y-2">
-            <p className="text-white/40 text-xs mb-2">Hành động nhanh</p>
+          <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 space-y-2">
+            <p className="text-app-text-secondary text-xs mb-2">Hành động nhanh</p>
             {[
               { icon: "ri-book-open-line", label: "60 Bài học EPS", path: "/eps-lessons" },
               { icon: "ri-bookmark-3-line", label: "Học theo chủ đề", path: "/eps-topic-study" },

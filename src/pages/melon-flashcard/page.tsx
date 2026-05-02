@@ -217,20 +217,20 @@ export default function MelonFlashcardPage() {
 
   if (allCards.length === 0) {
     return (
-      <div className="min-h-screen bg-[#0f1117] flex flex-col">
-        <header className="h-14 flex items-center px-4 gap-3 border-b border-white/8">
-          <button onClick={() => navigate("/melon")} className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/60 hover:text-white cursor-pointer">
+      <div className="min-h-screen bg-app-bg flex flex-col">
+        <header className="h-14 flex items-center px-4 gap-3 border-b border-app-border">
+          <button onClick={() => navigate("/melon")} className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-white/60 hover:text-white cursor-pointer">
             <i className="ri-arrow-left-line" />
           </button>
           <p className="text-white font-bold text-sm">Flashcard K-pop</p>
         </header>
         <div className="flex-1 flex flex-col items-center justify-center text-center px-6">
-          <div className="w-16 h-16 flex items-center justify-center bg-white/5 rounded-2xl mb-4">
-            <i className="ri-stack-line text-white/20 text-2xl" />
+          <div className="w-16 h-16 flex items-center justify-center bg-app-card/50 rounded-2xl mb-4">
+            <i className="ri-stack-line text-app-text-muted text-2xl" />
           </div>
-          <p className="text-white/40 text-sm font-medium mb-1">Chưa có từ vựng nào</p>
-          <p className="text-white/20 text-xs mb-5">Phân tích AI bài hát Melon hoặc nhấn nút<br />"Lưu" trong tab Từ vựng để tạo flashcard</p>
-          <button onClick={() => navigate("/melon")} className="bg-[#e8c84a] hover:bg-[#e8c84a]/80 text-[#0f1117] text-sm font-bold px-6 py-2.5 rounded-xl cursor-pointer whitespace-nowrap">
+          <p className="text-app-text-secondary text-sm font-medium mb-1">Chưa có từ vựng nào</p>
+          <p className="text-app-text-muted text-xs mb-5">Phân tích AI bài hát Melon hoặc nhấn nút<br />"Lưu" trong tab Từ vựng để tạo flashcard</p>
+          <button onClick={() => navigate("/melon")} className="bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold px-6 py-2.5 rounded-xl cursor-pointer whitespace-nowrap">
             Đến Melon Chart
           </button>
         </div>
@@ -239,7 +239,7 @@ export default function MelonFlashcardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0f1117] flex flex-col">
+    <div className="min-h-screen bg-app-bg flex flex-col">
       <VipUpgradeModal open={modalOpen} onClose={closeModal} reason={modalReason ?? "not_vip_year"} featureName="Xuất Flashcard K-pop" />
       {showShareModal && (
         <ShareFlashcardModal
@@ -249,18 +249,18 @@ export default function MelonFlashcardPage() {
       )}
 
       {/* Header */}
-      <header className="sticky top-0 z-30 bg-[#0f1117]/95 backdrop-blur-md border-b border-white/8 h-14 flex items-center px-4 md:px-6 gap-3 flex-shrink-0">
-        <button onClick={() => navigate("/melon")} className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/60 hover:text-white cursor-pointer flex-shrink-0">
+      <header className="sticky top-0 z-30 bg-app-bg/95 backdrop-blur-md border-b border-app-border h-14 flex items-center px-4 md:px-6 gap-3 flex-shrink-0">
+        <button onClick={() => navigate("/melon")} className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-white/60 hover:text-white cursor-pointer flex-shrink-0">
           <i className="ri-arrow-left-line" />
         </button>
         <div className="flex-1 min-w-0">
           <p className="text-white font-bold text-sm">Flashcard K-pop</p>
-          <p className="text-white/30 text-xs flex items-center gap-1.5 flex-wrap">
+          <p className="text-app-text-muted text-xs flex items-center gap-1.5 flex-wrap">
             <span>{allCards.length} từ</span>
             <span className="text-white/15">·</span>
-            <span className="text-[#e8c84a]/70">{analysisCount} AI</span>
+            <span className="text-app-accent-primary/70">{analysisCount} AI</span>
             <span className="text-white/15">·</span>
-            <span className="text-emerald-400/70">{savedCount} đã lưu</span>
+            <span className="text-app-accent-success/70">{savedCount} đã lưu</span>
             <span className="text-white/15">·</span>
             <span>{masteredCount} thuộc</span>
             {user && isSupabaseConfigured && (
@@ -276,15 +276,15 @@ export default function MelonFlashcardPage() {
               onClick={() => (isVipYear || isVipMonth) ? setShowExportMenu(v => !v) : checkAndRun(() => {})}
               className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors border ${
                 isVipYear || isVipMonth
-                  ? "text-emerald-400/70 hover:text-emerald-400 bg-emerald-500/8 hover:bg-emerald-500/15 border-emerald-500/15"
-                  : "text-white/30 bg-white/5 border-white/10"
+                  ? "text-app-accent-success/70 hover:text-app-accent-success bg-emerald-500/8 hover:bg-app-accent-success/15 border-emerald-500/15"
+                  : "text-app-text-muted bg-app-card/50 border-app-border"
               }`}
             >
               <i className={isVipYear || isVipMonth ? "ri-download-2-line" : "ri-lock-line"} />
               <span className="hidden sm:inline">{isVipYear ? "Xuất file" : isVipMonth ? "Xuất (50)" : "VIP"}</span>
             </button>
             {showExportMenu && (
-              <div className="absolute right-0 top-full mt-1.5 w-52 bg-[#1a1d27] border border-white/10 rounded-xl shadow-xl z-50 overflow-hidden">
+              <div className="absolute right-0 top-full mt-1.5 w-52 bg-[#1a1d27] border border-app-border rounded-xl shadow-xl z-50 overflow-hidden">
                 <button
                   onClick={() => {
                     if (isVipYear) { exportToCSV(allCards); }
@@ -301,26 +301,26 @@ export default function MelonFlashcardPage() {
                     }
                     setShowExportMenu(false);
                   }}
-                  className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 cursor-pointer transition-colors text-left"
+                  className="w-full flex items-center gap-3 px-4 py-3 hover:bg-app-card/50 cursor-pointer transition-colors text-left"
                 >
-                  <div className="w-7 h-7 flex items-center justify-center bg-emerald-500/15 rounded-lg">
-                    <i className="ri-file-excel-2-line text-emerald-400 text-sm" />
+                  <div className="w-7 h-7 flex items-center justify-center bg-app-accent-success/15 rounded-lg">
+                    <i className="ri-file-excel-2-line text-app-accent-success text-sm" />
                   </div>
                   <div>
                     <p className="text-white/80 text-xs font-semibold">Xuất CSV (Excel)</p>
-                    <p className="text-white/30 text-[10px]">{isVipYear ? "Toàn bộ" : "50 từ (VIP Tháng)"}</p>
+                    <p className="text-app-text-muted text-[10px]">{isVipYear ? "Toàn bộ" : "50 từ (VIP Tháng)"}</p>
                   </div>
                 </button>
                 <button
                   onClick={() => { if (isVipYear) { exportToAnkiTSV(allCards); } else { checkAndRun(() => {}); } setShowExportMenu(false); }}
-                  className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 cursor-pointer transition-colors text-left"
+                  className="w-full flex items-center gap-3 px-4 py-3 hover:bg-app-card/50 cursor-pointer transition-colors text-left"
                 >
                   <div className="w-7 h-7 flex items-center justify-center bg-sky-500/15 rounded-lg">
                     <i className="ri-file-text-line text-sky-400 text-sm" />
                   </div>
                   <div>
                     <p className="text-white/80 text-xs font-semibold">Xuất Anki (.txt)</p>
-                    <p className="text-white/30 text-[10px]">{isVipYear ? "Toàn bộ" : "Chỉ VIP Năm"}</p>
+                    <p className="text-app-text-muted text-[10px]">{isVipYear ? "Toàn bộ" : "Chỉ VIP Năm"}</p>
                   </div>
                 </button>
               </div>
@@ -328,13 +328,13 @@ export default function MelonFlashcardPage() {
           </div>
           <button
             onClick={() => setShowShareModal(true)}
-            className="flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors border border-white/8"
+            className="flex items-center gap-1.5 text-xs text-app-text-secondary hover:text-white/70 bg-app-card/50 hover:bg-app-card/70 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors border border-app-border"
           >
             <i className="ri-share-line" />
             <span className="hidden sm:inline">Chia sẻ</span>
           </button>
           {!studyMode && (
-            <button onClick={resetMastered} className="text-xs text-white/30 hover:text-white/60 cursor-pointer whitespace-nowrap hidden sm:block">
+            <button onClick={resetMastered} className="text-xs text-app-text-muted hover:text-white/60 cursor-pointer whitespace-nowrap hidden sm:block">
               Đặt lại
             </button>
           )}
@@ -344,11 +344,11 @@ export default function MelonFlashcardPage() {
       {!studyMode ? (
         <div className="max-w-lg mx-auto w-full px-4 py-5 flex flex-col gap-4">
           {/* Tab: Flashcard / Danh sách */}
-          <div className="flex bg-white/5 rounded-xl p-1">
-            <button onClick={() => setActiveTab("flashcard")} className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap ${activeTab === "flashcard" ? "bg-[#e8c84a] text-[#0f1117] font-semibold" : "text-white/40"}`}>
+          <div className="flex bg-app-card/50 rounded-xl p-1">
+            <button onClick={() => setActiveTab("flashcard")} className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap ${activeTab === "flashcard" ? "bg-app-accent-primary text-app-bg font-semibold" : "text-app-text-secondary"}`}>
               <i className="ri-stack-line mr-1.5" />Ôn tập
             </button>
-            <button onClick={() => setActiveTab("list")} className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap ${activeTab === "list" ? "bg-[#e8c84a] text-[#0f1117] font-semibold" : "text-white/40"}`}>
+            <button onClick={() => setActiveTab("list")} className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap ${activeTab === "list" ? "bg-app-accent-primary text-app-bg font-semibold" : "text-app-text-secondary"}`}>
               <i className="ri-list-check mr-1.5" />Danh sách ({allCards.length})
             </button>
           </div>
@@ -356,11 +356,11 @@ export default function MelonFlashcardPage() {
           {activeTab === "flashcard" ? (
             <>
               {/* Progress ring */}
-              <div className="bg-white/3 border border-white/5 rounded-2xl p-5 text-center">
+              <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5 text-center">
                 <div className="relative w-24 h-24 mx-auto mb-3">
                   <svg className="w-full h-full -rotate-90" viewBox="0 0 96 96">
                     <circle cx="48" cy="48" r="40" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="8" />
-                    <circle cx="48" cy="48" r="40" fill="none" stroke="#e8c84a" strokeWidth="8" strokeLinecap="round"
+                    <circle cx="48" cy="48" r="40" fill="none" stroke="app-accent-primary" strokeWidth="8" strokeLinecap="round"
                       strokeDasharray={`${2 * Math.PI * 40}`}
                       strokeDashoffset={`${2 * Math.PI * 40 * (1 - masteredCount / allCards.length)}`}
                       className="transition-all duration-700"
@@ -368,15 +368,15 @@ export default function MelonFlashcardPage() {
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                     <p className="text-white font-bold text-xl">{masteredCount}</p>
-                    <p className="text-white/30 text-[10px]">/ {allCards.length}</p>
+                    <p className="text-app-text-muted text-[10px]">/ {allCards.length}</p>
                   </div>
                 </div>
                 <p className="text-white/70 text-sm font-medium">Đã thuộc</p>
-                <p className="text-white/30 text-xs mt-0.5">{allCards.length - masteredCount} từ chưa thuộc</p>
+                <p className="text-app-text-muted text-xs mt-0.5">{allCards.length - masteredCount} từ chưa thuộc</p>
               </div>
 
               {/* Source filter */}
-              <div className="flex bg-white/5 rounded-xl p-1">
+              <div className="flex bg-app-card/50 rounded-xl p-1">
                 {([["all", "Tất cả"], ["analysis", "Phân tích AI"], ["saved", "Đã lưu"]] as [SourceFilter, string][]).map(([val, label]) => (
                   <button key={val} onClick={() => setSourceFilter(val)}
                     className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer whitespace-nowrap ${sourceFilter === val ? "bg-white/15 text-white font-semibold" : "text-white/35"}`}>
@@ -386,19 +386,19 @@ export default function MelonFlashcardPage() {
               </div>
 
               {/* Mastered filter */}
-              <div className="flex bg-white/5 rounded-xl p-1">
-                <button onClick={() => setFilter("all")} className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap ${filter === "all" ? "bg-[#e8c84a] text-[#0f1117] font-semibold" : "text-white/40"}`}>
+              <div className="flex bg-app-card/50 rounded-xl p-1">
+                <button onClick={() => setFilter("all")} className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap ${filter === "all" ? "bg-app-accent-primary text-app-bg font-semibold" : "text-app-text-secondary"}`}>
                   Tất cả ({allCards.length})
                 </button>
-                <button onClick={() => setFilter("unmastered")} className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap ${filter === "unmastered" ? "bg-[#e8c84a] text-[#0f1117] font-semibold" : "text-white/40"}`}>
+                <button onClick={() => setFilter("unmastered")} className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap ${filter === "unmastered" ? "bg-app-accent-primary text-app-bg font-semibold" : "text-app-text-secondary"}`}>
                   Chưa thuộc ({allCards.length - masteredCount})
                 </button>
               </div>
 
               {/* Song breakdown */}
               {analysisCount > 0 && (
-                <div className="bg-white/3 border border-white/5 rounded-2xl p-4">
-                  <p className="text-white/40 text-xs tracking-normal mb-3">Từ theo bài hát (AI)</p>
+                <div className="bg-app-surface/50 border border-app-border rounded-2xl p-4">
+                  <p className="text-app-text-secondary text-xs tracking-normal mb-3">Từ theo bài hát (AI)</p>
                   <div className="space-y-2">
                     {Array.from(new Set(analysisCards.map(c => c.songRank))).map((rank) => {
                       const songCards = analysisCards.filter(c => c.songRank === rank);
@@ -411,9 +411,9 @@ export default function MelonFlashcardPage() {
                             <p className="text-white/70 text-xs truncate">{song?.title}</p>
                             <div className="flex items-center gap-2 mt-0.5">
                               <div className="flex-1 h-1 bg-white/8 rounded-full overflow-hidden">
-                                <div className="h-full bg-[#e8c84a] rounded-full transition-all" style={{ width: `${(done / songCards.length) * 100}%` }} />
+                                <div className="h-full bg-app-accent-primary rounded-full transition-all" style={{ width: `${(done / songCards.length) * 100}%` }} />
                               </div>
-                              <span className="text-[10px] text-white/30 whitespace-nowrap">{done}/{songCards.length}</span>
+                              <span className="text-[10px] text-app-text-muted whitespace-nowrap">{done}/{songCards.length}</span>
                             </div>
                           </div>
                         </div>
@@ -427,7 +427,7 @@ export default function MelonFlashcardPage() {
                 onClick={() => { setCurrentIdx(0); setFlipped(false); setFinished(false); setStudyMode(true); }}
                 disabled={filteredCards.length === 0}
                 className={`w-full py-4 rounded-2xl text-sm font-bold cursor-pointer transition-colors whitespace-nowrap ${
-                  filteredCards.length === 0 ? "bg-white/5 text-white/20 cursor-not-allowed" : "bg-[#e8c84a] hover:bg-[#e8c84a]/80 text-[#0f1117]"
+                  filteredCards.length === 0 ? "bg-app-card/50 text-app-text-muted cursor-not-allowed" : "bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg"
                 }`}
               >
                 <i className="ri-play-circle-line mr-2" />
@@ -438,22 +438,22 @@ export default function MelonFlashcardPage() {
             /* List view */
             <div className="space-y-2">
               {allCards.map((c) => (
-                <div key={c.id} className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${masteredIds.has(c.id) ? "border-emerald-500/15 bg-emerald-500/5" : "border-white/5 bg-white/2"}`}>
+                <div key={c.id} className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${masteredIds.has(c.id) ? "border-emerald-500/15 bg-emerald-500/5" : "border-app-border bg-white/2"}`}>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-[#e8c84a] font-bold text-sm">{c.word}</span>
-                      <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${c.source === "analysis" ? "bg-[#e8c84a]/15 text-[#e8c84a]/70" : "bg-emerald-500/15 text-emerald-400/70"}`}>
+                      <span className="text-app-accent-primary font-bold text-sm">{c.word}</span>
+                      <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${c.source === "analysis" ? "bg-app-accent-primary/15 text-app-accent-primary/70" : "bg-app-accent-success/15 text-app-accent-success/70"}`}>
                         {c.source === "analysis" ? "AI" : "Lưu"}
                       </span>
-                      {masteredIds.has(c.id) && <span className="text-[9px] text-emerald-400/70">✓ Thuộc</span>}
+                      {masteredIds.has(c.id) && <span className="text-[9px] text-app-accent-success/70">✓ Thuộc</span>}
                     </div>
                     <p className="text-white/50 text-xs truncate">{c.meaning}</p>
-                    <p className="text-white/25 text-[10px] truncate">{c.songTitle}</p>
+                    <p className="text-app-text-muted text-[10px] truncate">{c.songTitle}</p>
                   </div>
                   {c.source === "saved" && (
                     <button
                       onClick={() => removeCard(c.id.replace("saved-", ""))}
-                      className="w-7 h-7 flex items-center justify-center text-white/20 hover:text-red-400 cursor-pointer flex-shrink-0 transition-colors"
+                      className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-red-400 cursor-pointer flex-shrink-0 transition-colors"
                     >
                       <i className="ri-delete-bin-line text-sm" />
                     </button>
@@ -466,7 +466,7 @@ export default function MelonFlashcardPage() {
       ) : finished ? (
         /* Finish screen */
         <div className="flex-1 flex flex-col items-center justify-center text-center px-6 max-w-md mx-auto w-full">
-          <div className="w-20 h-20 flex items-center justify-center bg-[#e8c84a]/10 rounded-3xl mb-5">
+          <div className="w-20 h-20 flex items-center justify-center bg-app-accent-primary/10 rounded-3xl mb-5">
             <span className="text-4xl">🎉</span>
           </div>
           <p className="text-white font-bold text-2xl mb-1">Xong rồi!</p>
@@ -474,10 +474,10 @@ export default function MelonFlashcardPage() {
             Bạn đã học qua <span className="text-white font-bold">{filteredCards.length}</span> thẻ trong buổi này
           </p>
           <div className="flex gap-3 w-full">
-            <button onClick={handleRestart} className="flex-1 py-3 bg-white/5 hover:bg-white/10 text-white/60 text-sm font-medium rounded-xl cursor-pointer whitespace-nowrap">
+            <button onClick={handleRestart} className="flex-1 py-3 bg-app-card/50 hover:bg-app-card/70 text-white/60 text-sm font-medium rounded-xl cursor-pointer whitespace-nowrap">
               <i className="ri-restart-line mr-1.5" />Học lại
             </button>
-            <button onClick={() => setStudyMode(false)} className="flex-1 py-3 bg-[#e8c84a] hover:bg-[#e8c84a]/80 text-[#0f1117] text-sm font-bold rounded-xl cursor-pointer whitespace-nowrap">
+            <button onClick={() => setStudyMode(false)} className="flex-1 py-3 bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold rounded-xl cursor-pointer whitespace-nowrap">
               Xem thống kê
             </button>
           </div>
@@ -486,19 +486,19 @@ export default function MelonFlashcardPage() {
         /* Study mode */
         <div className="flex-1 flex flex-col max-w-md mx-auto w-full px-4 py-4">
           <div className="flex items-center gap-3 mb-4 flex-shrink-0">
-            <button onClick={() => setStudyMode(false)} className="w-7 h-7 flex items-center justify-center text-white/30 hover:text-white cursor-pointer flex-shrink-0">
+            <button onClick={() => setStudyMode(false)} className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-white cursor-pointer flex-shrink-0">
               <i className="ri-close-line" />
             </button>
             <div className="flex-1 h-2 bg-white/8 rounded-full overflow-hidden">
-              <div className="h-full bg-[#e8c84a] rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
+              <div className="h-full bg-app-accent-primary rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
             </div>
-            <span className="text-white/30 text-xs whitespace-nowrap flex-shrink-0">{currentIdx}/{filteredCards.length}</span>
+            <span className="text-app-text-muted text-xs whitespace-nowrap flex-shrink-0">{currentIdx}/{filteredCards.length}</span>
           </div>
 
           <div className="flex items-center justify-center gap-2 mb-3 flex-shrink-0">
-            <i className="ri-music-2-line text-white/20 text-xs" />
-            <p className="text-white/25 text-xs truncate">{card?.songTitle}</p>
-            {card?.source === "saved" && <span className="text-[9px] bg-emerald-500/15 text-emerald-400/70 px-1.5 py-0.5 rounded-full font-bold flex-shrink-0">Lưu</span>}
+            <i className="ri-music-2-line text-app-text-muted text-xs" />
+            <p className="text-app-text-muted text-xs truncate">{card?.songTitle}</p>
+            {card?.source === "saved" && <span className="text-[9px] bg-app-accent-success/15 text-app-accent-success/70 px-1.5 py-0.5 rounded-full font-bold flex-shrink-0">Lưu</span>}
           </div>
 
           {/* Flashcard */}
@@ -512,30 +512,30 @@ export default function MelonFlashcardPage() {
             >
               {!flipped ? (
                 <>
-                  <p className="text-[#e8c84a] text-3xl font-bold mb-3">{card?.word}</p>
-                  <p className="text-white/20 text-xs">Nhấn để xem nghĩa</p>
+                  <p className="text-app-accent-primary text-3xl font-bold mb-3">{card?.word}</p>
+                  <p className="text-app-text-muted text-xs">Nhấn để xem nghĩa</p>
                 </>
               ) : (
                 <>
-                  <p className="text-[#e8c84a] text-xl font-bold mb-2">{card?.word}</p>
+                  <p className="text-app-accent-primary text-xl font-bold mb-2">{card?.word}</p>
                   <p className="text-white/85 text-lg font-medium mb-3">{card?.meaning}</p>
                   <div className="w-8 h-px bg-white/15 mb-3" />
-                  <p className="text-white/40 text-sm italic leading-relaxed">{card?.example}</p>
+                  <p className="text-app-text-secondary text-sm italic leading-relaxed">{card?.example}</p>
                 </>
               )}
             </div>
           </div>
 
           {!flipped ? (
-            <button onClick={() => setFlipped(true)} className="w-full py-3.5 bg-white/5 hover:bg-white/10 text-white/60 text-sm font-medium rounded-2xl cursor-pointer transition-colors whitespace-nowrap flex-shrink-0">
+            <button onClick={() => setFlipped(true)} className="w-full py-3.5 bg-app-card/50 hover:bg-app-card/70 text-white/60 text-sm font-medium rounded-2xl cursor-pointer transition-colors whitespace-nowrap flex-shrink-0">
               Xem nghĩa <i className="ri-arrow-down-s-line ml-1" />
             </button>
           ) : (
             <div className="flex gap-3 flex-shrink-0">
-              <button onClick={markAgain} className="flex-1 py-3.5 bg-white/5 hover:bg-white/10 border border-white/8 text-white/50 text-sm font-medium rounded-2xl cursor-pointer transition-colors whitespace-nowrap">
+              <button onClick={markAgain} className="flex-1 py-3.5 bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/50 text-sm font-medium rounded-2xl cursor-pointer transition-colors whitespace-nowrap">
                 <i className="ri-refresh-line mr-1.5" />Học lại
               </button>
-              <button onClick={markMastered} className="flex-1 py-3.5 bg-[#e8c84a] hover:bg-[#e8c84a]/80 text-[#0f1117] text-sm font-bold rounded-2xl cursor-pointer transition-colors whitespace-nowrap">
+              <button onClick={markMastered} className="flex-1 py-3.5 bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold rounded-2xl cursor-pointer transition-colors whitespace-nowrap">
                 <i className="ri-checkbox-circle-line mr-1.5" />Đã thuộc!
               </button>
             </div>

@@ -44,15 +44,15 @@ const RANK_ICONS = ["ri-trophy-fill", "ri-medal-fill", "ri-award-fill"];
 
 function AvatarCell({ player, size = 36 }: { player: LeaderboardPlayer; size?: number }) {
   const isActiveVip = player.is_vip && (!player.vip_expires_at || new Date(player.vip_expires_at).getTime() > Date.now());
-  const ringClass = isActiveVip ? "ring-2 ring-[#e8c84a]/60" : "";
+  const ringClass = isActiveVip ? "ring-2 ring-[app-accent-primary]/60" : "";
   
   if (player.isCurrentUser) {
     return (
       <div
-        className={`rounded-full bg-[#e8c84a]/15 border border-[#e8c84a]/30 flex items-center justify-center flex-shrink-0 ${ringClass}`}
+        className={`rounded-full bg-app-accent-primary/15 border border-app-accent-primary/30 flex items-center justify-center flex-shrink-0 ${ringClass}`}
         style={{ width: size, height: size }}
       >
-        <i className="ri-user-3-line text-[#e8c84a] text-sm"></i>
+        <i className="ri-user-3-line text-app-accent-primary text-sm"></i>
       </div>
     );
   }
@@ -67,11 +67,11 @@ function AvatarCell({ player, size = 36 }: { player: LeaderboardPlayer; size?: n
     );
   }
   const initials = player.display_name.slice(0, 2).toUpperCase();
-  const colors = ["#e8c84a", "#34d399", "#fb923c", "#a78bfa", "#06b6d4", "#f87171"];
+  const colors = ["app-accent-primary", "#34d399", "#fb923c", "#a78bfa", "#06b6d4", "#f87171"];
   const colorIdx = player.display_name.charCodeAt(0) % colors.length;
   return (
     <div
-      className={`rounded-full flex items-center justify-center flex-shrink-0 font-bold text-[#0f1117] text-xs ${ringClass}`}
+      className={`rounded-full flex items-center justify-center flex-shrink-0 font-bold text-app-bg text-xs ${ringClass}`}
       style={{ width: size, height: size, backgroundColor: colors[colorIdx] }}
     >
       {initials}
@@ -210,19 +210,19 @@ export default function LeaderboardPage() {
       <div className="space-y-6">
 
         {/* My Rank Banner */}
-        <div className="bg-gradient-to-r from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/15 rounded-2xl p-5">
+        <div className="bg-gradient-to-r from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
           <div className="flex items-center gap-5">
             <div className="relative">
-              <div className="w-14 h-14 rounded-2xl bg-[#e8c84a]/15 flex items-center justify-center">
+              <div className="w-14 h-14 rounded-2xl bg-app-accent-primary/15 flex items-center justify-center">
                 {user && profile?.avatar_url ? (
                   <img src={profile.avatar_url} alt="" className="w-14 h-14 rounded-2xl object-cover" />
                 ) : (
-                  <i className="ri-user-3-line text-[#e8c84a] text-2xl"></i>
+                  <i className="ri-user-3-line text-app-accent-primary text-2xl"></i>
                 )}
               </div>
               {myRank > 0 && (
-                <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#0f1117] border border-[#e8c84a]/30 flex items-center justify-center">
-                  <span className="text-[#e8c84a] text-[10px] font-bold">#{myRank}</span>
+                <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-app-bg border border-app-accent-primary/30 flex items-center justify-center">
+                  <span className="text-app-accent-primary text-[10px] font-bold">#{myRank}</span>
                 </div>
               )}
             </div>
@@ -232,12 +232,12 @@ export default function LeaderboardPage() {
                   {user ? (profile?.display_name || "Bạn") : "Xếp hạng của bạn"}
                 </p>
                 {myRank > 0 && (
-                  <span className="bg-[#e8c84a]/10 text-[#e8c84a] text-xs px-2 py-0.5 rounded-full font-medium">
+                  <span className="bg-app-accent-primary/10 text-app-accent-primary text-xs px-2 py-0.5 rounded-full font-medium">
                     #{myRank} / {sortedPlayers.length}
                   </span>
                 )}
                 {!user && (
-                  <span className="bg-white/5 text-white/40 text-xs px-2 py-0.5 rounded-full">
+                  <span className="bg-app-card/50 text-app-text-secondary text-xs px-2 py-0.5 rounded-full">
                     Chưa đăng nhập
                   </span>
                 )}
@@ -258,14 +258,14 @@ export default function LeaderboardPage() {
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
               {[
-                { label: "XP", value: myXp.toLocaleString(), color: "#e8c84a" },
+                { label: "XP", value: myXp.toLocaleString(), color: "app-accent-primary" },
                 { label: "Streak", value: `${streak.count}d`, color: "#fb923c" },
                 { label: "EPS cao nhất", value: myBestScore > 0 ? `${myBestScore}%` : "—", color: "#4ade80" },
                 { label: "Từ đã học", value: myWordsLearned, color: "#a78bfa" },
               ].map((s) => (
                 <div key={s.label}>
                   <p className="font-bold text-lg" style={{ color: s.color }}>{s.value}</p>
-                  <p className="text-white/40 text-[10px]">{s.label}</p>
+                  <p className="text-app-text-secondary text-[10px]">{s.label}</p>
                 </div>
               ))}
             </div>
@@ -274,7 +274,7 @@ export default function LeaderboardPage() {
 
         {/* Top 3 Podium */}
         {!loading && top3.length >= 3 && (
-          <div className="bg-white/2 border border-white/5 rounded-2xl p-6">
+          <div className="bg-white/2 border border-app-border rounded-2xl p-6">
             <h2 className="text-white font-semibold text-sm mb-6 text-center">Top 3 học viên xuất sắc</h2>
             <div className="flex items-end justify-center gap-4">
               {/* 2nd */}
@@ -282,11 +282,11 @@ export default function LeaderboardPage() {
                 <div className="relative">
                   <AvatarCell player={top3[1]} size={56} />
                   <div className="absolute -top-2 -right-1 w-6 h-6 rounded-full bg-[#C0C0C0] flex items-center justify-center">
-                    <span className="text-[#0f1117] text-[10px] font-bold">2</span>
+                    <span className="text-app-bg text-[10px] font-bold">2</span>
                   </div>
                 </div>
                 <p className="text-white/70 text-xs font-medium text-center max-w-[80px] truncate">{top3[1]?.display_name}</p>
-                <p className="text-white/40 text-[10px]">{top3[1]?.[sortKey].toLocaleString()}</p>
+                <p className="text-app-text-secondary text-[10px]">{top3[1]?.[sortKey].toLocaleString()}</p>
                 <div className="w-20 bg-[#C0C0C0]/20 border border-[#C0C0C0]/30 rounded-t-lg flex items-center justify-center" style={{ height: "60px" }}>
                   <i className="ri-medal-fill text-[#C0C0C0] text-xl"></i>
                 </div>
@@ -300,7 +300,7 @@ export default function LeaderboardPage() {
                 <div className="relative">
                   <AvatarCell player={top3[0]} size={72} />
                   <div className="absolute -top-2 -right-1 w-7 h-7 rounded-full bg-[#FFD700] flex items-center justify-center">
-                    <span className="text-[#0f1117] text-xs font-bold">1</span>
+                    <span className="text-app-bg text-xs font-bold">1</span>
                   </div>
                 </div>
                 <p className="text-white font-semibold text-sm text-center max-w-[90px] truncate">{top3[0]?.display_name}</p>
@@ -315,11 +315,11 @@ export default function LeaderboardPage() {
                 <div className="relative">
                   <AvatarCell player={top3[2]} size={56} />
                   <div className="absolute -top-2 -right-1 w-6 h-6 rounded-full bg-[#CD7F32] flex items-center justify-center">
-                    <span className="text-[#0f1117] text-[10px] font-bold">3</span>
+                    <span className="text-app-bg text-[10px] font-bold">3</span>
                   </div>
                 </div>
                 <p className="text-white/70 text-xs font-medium text-center max-w-[80px] truncate">{top3[2]?.display_name}</p>
-                <p className="text-white/40 text-[10px]">{top3[2]?.[sortKey].toLocaleString()}</p>
+                <p className="text-app-text-secondary text-[10px]">{top3[2]?.[sortKey].toLocaleString()}</p>
                 <div className="w-20 bg-[#CD7F32]/20 border border-[#CD7F32]/30 rounded-t-lg flex items-center justify-center" style={{ height: "45px" }}>
                   <i className="ri-award-fill text-[#CD7F32] text-xl"></i>
                 </div>
@@ -337,8 +337,8 @@ export default function LeaderboardPage() {
                 onClick={() => setSortKey(opt.key)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap cursor-pointer ${
                   sortKey === opt.key
-                    ? "bg-[#e8c84a]/15 text-[#e8c84a] border border-[#e8c84a]/25"
-                    : "bg-white/3 text-white/50 border border-white/8 hover:text-white/70"
+                    ? "bg-app-accent-primary/15 text-app-accent-primary border border-app-accent-primary/25"
+                    : "bg-app-surface/50 text-white/50 border border-app-border hover:text-white/70"
                 }`}
               >
                 <i className={opt.icon}></i>
@@ -348,25 +348,25 @@ export default function LeaderboardPage() {
           </div>
           <div className="flex items-center gap-3">
             {lastRefresh && (
-              <span className="text-white/20 text-[10px]">
+              <span className="text-app-text-muted text-[10px]">
                 Cập nhật {lastRefresh.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" })}
               </span>
             )}
             <button
               onClick={fetchLeaderboard}
               disabled={loading}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs bg-white/3 text-white/40 border border-white/8 hover:text-white/60 transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs bg-app-surface/50 text-app-text-secondary border border-app-border hover:text-white/60 transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
             >
               <i className={`ri-refresh-line ${loading ? "animate-spin" : ""}`}></i>
               Làm mới
             </button>
-            <div className="flex items-center gap-1 bg-white/3 border border-white/8 rounded-lg p-1">
+            <div className="flex items-center gap-1 bg-app-surface/50 border border-app-border rounded-lg p-1">
               {(["week", "month", "all"] as Period[]).map((p) => (
                 <button
                   key={p}
                   onClick={() => setPeriod(p)}
                   className={`px-3 py-1 rounded-md text-xs transition-all whitespace-nowrap cursor-pointer ${
-                    period === p ? "bg-white/10 text-white" : "text-white/40 hover:text-white/60"
+                    period === p ? "bg-app-card/70 text-white" : "text-app-text-secondary hover:text-white/60"
                   }`}
                 >
                   {p === "week" ? "Tuần" : p === "month" ? "Tháng" : "Tất cả"}
@@ -377,29 +377,29 @@ export default function LeaderboardPage() {
         </div>
 
         {/* Full Leaderboard Table */}
-        <div className="bg-white/2 border border-white/5 rounded-2xl overflow-hidden">
+        <div className="bg-white/2 border border-app-border rounded-2xl overflow-hidden">
           {/* Desktop Table - only show on sm and up */}
           <div className="hidden sm:block overflow-x-auto">
-            <div className="grid grid-cols-[48px_1fr_120px_100px_100px_100px_100px] gap-0 px-5 py-3 border-b border-white/5 min-w-[600px]">
-              <span className="text-white/25 text-[10px] tracking-normal">#</span>
-              <span className="text-white/25 text-[10px] tracking-normal">Học viên</span>
-              <span className="text-white/25 text-[10px] tracking-normal text-right">XP</span>
-              <span className="text-white/25 text-[10px] tracking-normal text-right">Streak</span>
-              <span className="text-white/25 text-[10px] tracking-normal text-right">EPS cao nhất</span>
-              <span className="text-white/25 text-[10px] tracking-normal text-right">Từ đã học</span>
-              <span className="text-white/25 text-[10px] tracking-normal text-right">Cấp độ</span>
+            <div className="grid grid-cols-[48px_1fr_120px_100px_100px_100px_100px] gap-0 px-5 py-3 border-b border-app-border min-w-[600px]">
+              <span className="text-app-text-muted text-[10px] tracking-normal">#</span>
+              <span className="text-app-text-muted text-[10px] tracking-normal">Học viên</span>
+              <span className="text-app-text-muted text-[10px] tracking-normal text-right">XP</span>
+              <span className="text-app-text-muted text-[10px] tracking-normal text-right">Streak</span>
+              <span className="text-app-text-muted text-[10px] tracking-normal text-right">EPS cao nhất</span>
+              <span className="text-app-text-muted text-[10px] tracking-normal text-right">Từ đã học</span>
+              <span className="text-app-text-muted text-[10px] tracking-normal text-right">Cấp độ</span>
             </div>
 
             {loading ? (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
-                <div className="w-8 h-8 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>
-                <p className="text-white/30 text-sm">Đang tải bảng xếp hạng...</p>
+                <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
+                <p className="text-app-text-muted text-sm">Đang tải bảng xếp hạng...</p>
               </div>
             ) : sortedPlayers.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
                 <i className="ri-trophy-line text-white/10 text-4xl"></i>
-                <p className="text-white/30 text-sm">Chưa có học viên nào</p>
-                <p className="text-white/20 text-xs">Hãy là người đầu tiên lên bảng xếp hạng!</p>
+                <p className="text-app-text-muted text-sm">Chưa có học viên nào</p>
+                <p className="text-app-text-muted text-xs">Hãy là người đầu tiên lên bảng xếp hạng!</p>
               </div>
             ) : (
               sortedPlayers.map((player, idx) => {
@@ -412,7 +412,7 @@ export default function LeaderboardPage() {
                     key={player.id}
                     className={`grid grid-cols-[48px_1fr_120px_100px_100px_100px_100px] gap-0 px-5 py-3.5 border-b border-white/3 transition-colors min-w-[600px] ${
                       isMe
-                        ? "bg-[#e8c84a]/5 border-l-2 border-l-[#e8c84a]/40"
+                        ? "bg-app-accent-primary/5 border-l-2 border-l-[app-accent-primary]/40"
                         : "hover:bg-white/2"
                     }`}
                   >
@@ -423,7 +423,7 @@ export default function LeaderboardPage() {
                           <i className={`${RANK_ICONS[rank - 1]} text-sm`} style={{ color: RANK_COLORS[rank - 1] }}></i>
                         </div>
                       ) : (
-                        <span className={`text-sm font-bold ${isMe ? "text-[#e8c84a]" : "text-white/30"}`}>
+                        <span className={`text-sm font-bold ${isMe ? "text-app-accent-primary" : "text-app-text-muted"}`}>
                           {rank}
                         </span>
                       )}
@@ -442,13 +442,13 @@ export default function LeaderboardPage() {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => !isMe && navigate(`/member/${player.user_id}`)}
-                            className={`text-sm font-medium transition-colors ${isMe ? "text-[#e8c84a] cursor-default" : "text-white/80 hover:text-[#e8c84a]/80 cursor-pointer"}`}
+                            className={`text-sm font-medium transition-colors ${isMe ? "text-app-accent-primary cursor-default" : "text-white/80 hover:text-app-accent-primary/80 cursor-pointer"}`}
                           >
                             {player.display_name}
-                            {isMe && <span className="ml-1 text-[10px] text-[#e8c84a]/60">(Bạn)</span>}
+                            {isMe && <span className="ml-1 text-[10px] text-app-accent-primary/60">(Bạn)</span>}
                           </button>
                           {player.is_vip && (!player.vip_expires_at || new Date(player.vip_expires_at).getTime() > Date.now()) && (
-                            <span className="flex items-center gap-0.5 bg-[#e8c84a]/15 text-[#e8c84a] text-[9px] font-bold px-1.5 py-0.5 rounded-full border border-[#e8c84a]/25" title="Thành viên VIP">
+                            <span className="flex items-center gap-0.5 bg-app-accent-primary/15 text-app-accent-primary text-[9px] font-bold px-1.5 py-0.5 rounded-full border border-app-accent-primary/25" title="Thành viên VIP">
                               <i className="ri-vip-crown-fill text-[10px]"></i>
                               VIP
                             </span>
@@ -456,20 +456,20 @@ export default function LeaderboardPage() {
                           {!isMe && (
                             <button
                               onClick={() => navigate(`/member/${player.user_id}`)}
-                              className="text-white/20 hover:text-[#a78bfa]/70 transition-colors cursor-pointer"
+                              className="text-app-text-muted hover:text-[#a78bfa]/70 transition-colors cursor-pointer"
                               title="Xem hồ sơ"
                             >
                               <i className="ri-user-line text-[10px]"></i>
                             </button>
                           )}
                         </div>
-                        <p className="text-white/30 text-[10px] mt-0.5">{player.level}</p>
+                        <p className="text-app-text-muted text-[10px] mt-0.5">{player.level}</p>
                       </div>
                     </div>
 
                     {/* XP */}
                     <div className="flex items-center justify-end">
-                      <span className={`text-sm font-bold ${sortKey === "xp" ? "text-[#e8c84a]" : "text-white/60"}`}>
+                      <span className={`text-sm font-bold ${sortKey === "xp" ? "text-app-accent-primary" : "text-white/60"}`}>
                         {player.xp.toLocaleString()}
                       </span>
                     </div>
@@ -500,10 +500,10 @@ export default function LeaderboardPage() {
                     <div className="flex items-center justify-end">
                       <span className={`text-xs px-2 py-0.5 rounded-full ${
                         player.level === "TOPIK II"
-                          ? "bg-[#e8c84a]/10 text-[#e8c84a]"
+                          ? "bg-app-accent-primary/10 text-app-accent-primary"
                           : player.level === "TOPIK I"
                           ? "bg-[#4ade80]/10 text-[#4ade80]"
-                          : "bg-white/5 text-white/40"
+                          : "bg-app-card/50 text-app-text-secondary"
                       }`}>
                         {player.level}
                       </span>
@@ -517,14 +517,14 @@ export default function LeaderboardPage() {
           <div className="sm:hidden p-4 space-y-3">
             {loading ? (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
-                <div className="w-8 h-8 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>
-                <p className="text-white/30 text-sm">Đang tải bảng xếp hạng...</p>
+                <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
+                <p className="text-app-text-muted text-sm">Đang tải bảng xếp hạng...</p>
               </div>
             ) : sortedPlayers.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
                 <i className="ri-trophy-line text-white/10 text-4xl"></i>
-                <p className="text-white/30 text-sm">Chưa có học viên nào</p>
-                <p className="text-white/20 text-xs">Hãy là người đầu tiên lên bảng xếp hạng!</p>
+                <p className="text-app-text-muted text-sm">Chưa có học viên nào</p>
+                <p className="text-app-text-muted text-xs">Hãy là người đầu tiên lên bảng xếp hạng!</p>
               </div>
             ) : (
               sortedPlayers.map((player, idx) => {
@@ -535,10 +535,10 @@ export default function LeaderboardPage() {
                 return (
                   <div
                     key={player.id}
-                    className={`bg-white/3 border rounded-xl p-4 transition-colors ${
+                    className={`bg-app-surface/50 border rounded-xl p-4 transition-colors ${
                       isMe
-                        ? "bg-[#e8c84a]/5 border-[#e8c84a]/30"
-                        : "border-white/5 hover:bg-white/5"
+                        ? "bg-app-accent-primary/5 border-app-accent-primary/30"
+                        : "border-app-border hover:bg-app-card/50"
                     }`}
                   >
                     <div className="flex items-center gap-3 mb-3">
@@ -549,7 +549,7 @@ export default function LeaderboardPage() {
                             <i className={`${RANK_ICONS[rank - 1]} text-sm`} style={{ color: RANK_COLORS[rank - 1] }}></i>
                           </div>
                         ) : (
-                          <span className={`text-sm font-bold w-8 h-8 flex items-center justify-center rounded-full bg-white/5 ${isMe ? "text-[#e8c84a]" : "text-white/30"}`}>
+                          <span className={`text-sm font-bold w-8 h-8 flex items-center justify-center rounded-full bg-app-card/50 ${isMe ? "text-app-accent-primary" : "text-app-text-muted"}`}>
                             {rank}
                           </span>
                         )}
@@ -567,15 +567,15 @@ export default function LeaderboardPage() {
                           <div className="min-w-0 flex-1">
                             <button
                               onClick={() => !isMe && navigate(`/member/${player.user_id}`)}
-                              className={`text-sm font-medium truncate transition-colors ${isMe ? "text-[#e8c84a] cursor-default" : "text-white/80 hover:text-[#e8c84a]/80 cursor-pointer"}`}
+                              className={`text-sm font-medium truncate transition-colors ${isMe ? "text-app-accent-primary cursor-default" : "text-white/80 hover:text-app-accent-primary/80 cursor-pointer"}`}
                             >
                               {player.display_name}
-                              {isMe && <span className="ml-1 text-[10px] text-[#e8c84a]/60">(Bạn)</span>}
+                              {isMe && <span className="ml-1 text-[10px] text-app-accent-primary/60">(Bạn)</span>}
                               {player.is_vip && (!player.vip_expires_at || new Date(player.vip_expires_at).getTime() > Date.now()) && (
-                                <i className="ri-vip-crown-fill text-[#e8c84a] text-[11px] ml-1" title="VIP"></i>
+                                <i className="ri-vip-crown-fill text-app-accent-primary text-[11px] ml-1" title="VIP"></i>
                               )}
                             </button>
-                            <p className="text-white/30 text-[10px] mt-0.5 truncate">{player.level}</p>
+                            <p className="text-app-text-muted text-[10px] mt-0.5 truncate">{player.level}</p>
                           </div>
                         </div>
                       </div>
@@ -583,20 +583,20 @@ export default function LeaderboardPage() {
 
                     {/* Stats Grid */}
                     <div className="grid grid-cols-3 gap-2">
-                      <div className="bg-white/3 rounded-lg p-2 text-center">
-                        <p className="text-[10px] text-white/30 mb-0.5">XP</p>
-                        <p className={`text-sm font-bold ${sortKey === "xp" ? "text-[#e8c84a]" : "text-white/60"}`}>
+                      <div className="bg-app-surface/50 rounded-lg p-2 text-center">
+                        <p className="text-[10px] text-app-text-muted mb-0.5">XP</p>
+                        <p className={`text-sm font-bold ${sortKey === "xp" ? "text-app-accent-primary" : "text-white/60"}`}>
                           {player.xp.toLocaleString()}
                         </p>
                       </div>
-                      <div className="bg-white/3 rounded-lg p-2 text-center">
-                        <p className="text-[10px] text-white/30 mb-0.5">Streak</p>
+                      <div className="bg-app-surface/50 rounded-lg p-2 text-center">
+                        <p className="text-[10px] text-app-text-muted mb-0.5">Streak</p>
                         <p className={`text-sm font-bold ${sortKey === "streak" ? "text-[#fb923c]" : "text-white/60"}`}>
                           {player.streak}
                         </p>
                       </div>
-                      <div className="bg-white/3 rounded-lg p-2 text-center">
-                        <p className="text-[10px] text-white/30 mb-0.5">EPS</p>
+                      <div className="bg-app-surface/50 rounded-lg p-2 text-center">
+                        <p className="text-[10px] text-app-text-muted mb-0.5">EPS</p>
                         <p className={`text-sm font-bold ${sortKey === "best_score" ? "text-[#4ade80]" : "text-white/60"}`}>
                           {player.best_score > 0 ? `${player.best_score}%` : "—" }
                         </p>
@@ -611,9 +611,9 @@ export default function LeaderboardPage() {
 
         {/* Login CTA if not logged in */}
         {!user && (
-          <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-2xl p-5 flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[#e8c84a]/10 flex items-center justify-center flex-shrink-0">
-              <i className="ri-user-add-line text-[#e8c84a] text-lg"></i>
+          <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-2xl p-5 flex items-start gap-4">
+            <div className="w-10 h-10 rounded-xl bg-app-accent-primary/10 flex items-center justify-center flex-shrink-0">
+              <i className="ri-user-add-line text-app-accent-primary text-lg"></i>
             </div>
             <div className="flex-1">
               <p className="text-white font-semibold text-sm mb-1">Đăng nhập để lên bảng xếp hạng</p>
@@ -625,9 +625,9 @@ export default function LeaderboardPage() {
         )}
 
         {/* Motivational note */}
-        <div className="bg-white/2 border border-white/5 rounded-2xl p-5 flex items-start gap-4">
-          <div className="w-10 h-10 rounded-xl bg-[#e8c84a]/10 flex items-center justify-center flex-shrink-0">
-            <i className="ri-lightbulb-line text-[#e8c84a] text-lg"></i>
+        <div className="bg-white/2 border border-app-border rounded-2xl p-5 flex items-start gap-4">
+          <div className="w-10 h-10 rounded-xl bg-app-accent-primary/10 flex items-center justify-center flex-shrink-0">
+            <i className="ri-lightbulb-line text-app-accent-primary text-lg"></i>
           </div>
           <div>
             <p className="text-white font-semibold text-sm mb-1">Cách tăng hạng nhanh nhất</p>
@@ -635,11 +635,11 @@ export default function LeaderboardPage() {
               Duy trì streak mỗi ngày (+50 XP/ngày), làm bài thi thử EPS (+10 XP/%), học flashcard (+5 XP/từ). Chỉ cần học 20 phút/ngày là đủ để leo hạng đều đặn!
             </p>
             <div className="flex items-center gap-3 mt-3">
-              <button onClick={() => navigate("/daily-plan")} className="flex items-center gap-1.5 bg-[#e8c84a]/10 text-[#e8c84a] text-xs px-3 py-1.5 rounded-lg hover:bg-[#e8c84a]/20 transition-colors whitespace-nowrap cursor-pointer">
+              <button onClick={() => navigate("/daily-plan")} className="flex items-center gap-1.5 bg-app-accent-primary/10 text-app-accent-primary text-xs px-3 py-1.5 rounded-lg hover:bg-app-accent-primary/20 transition-colors whitespace-nowrap cursor-pointer">
                 <i className="ri-route-line"></i>
                 Lộ trình hôm nay
               </button>
-              <button onClick={() => navigate("/eps-exam")} className="flex items-center gap-1.5 bg-white/5 text-white/60 text-xs px-3 py-1.5 rounded-lg hover:bg-white/8 transition-colors whitespace-nowrap cursor-pointer">
+              <button onClick={() => navigate("/eps-exam")} className="flex items-center gap-1.5 bg-app-card/50 text-white/60 text-xs px-3 py-1.5 rounded-lg hover:bg-white/8 transition-colors whitespace-nowrap cursor-pointer">
                 <i className="ri-timer-line"></i>
                 Thi thử EPS
               </button>

@@ -15,14 +15,14 @@ const DailyVocabWidget = lazy(() => import("@/pages/home/components/DailyVocabWi
 
 function WidgetSkeleton({ className = "" }: { className?: string }) {
   return (
-    <div className={`bg-[#0f1117] border border-white/5 rounded-2xl p-4 animate-pulse ${className}`}>
+    <div className={`bg-app-bg border border-app-border rounded-2xl p-4 animate-pulse ${className}`}>
       <div className="flex items-center gap-2 mb-3">
-        <div className="w-7 h-7 rounded-lg bg-white/5" />
-        <div className="w-24 h-3 rounded bg-white/5" />
+        <div className="w-7 h-7 rounded-lg bg-app-card/50" />
+        <div className="w-24 h-3 rounded bg-app-card/50" />
       </div>
       <div className="space-y-2">
-        <div className="h-8 rounded-lg bg-white/3" />
-        <div className="h-8 rounded-lg bg-white/3" />
+        <div className="h-8 rounded-lg bg-app-surface/50" />
+        <div className="h-8 rounded-lg bg-app-surface/50" />
       </div>
     </div>
   );
@@ -94,7 +94,7 @@ function QuickCard({
         <p className="text-white/80 text-xs sm:text-sm font-semibold group-hover:text-white transition-colors">
           {label}
         </p>
-        <p className="text-white/30 text-[10px] sm:text-[11px] mt-0.5 leading-relaxed hidden sm:block">{desc}</p>
+        <p className="text-app-text-muted text-[10px] sm:text-[11px] mt-0.5 leading-relaxed hidden sm:block">{desc}</p>
       </div>
     </button>
   );
@@ -116,7 +116,7 @@ function StatCard({
 }) {
   return (
     <div
-      className="rounded-2xl p-3 sm:p-4 border border-white/5"
+      className="rounded-2xl p-3 sm:p-4 border border-app-border"
       style={{ backgroundColor: "#0f1117" }}
     >
       <div
@@ -126,8 +126,8 @@ function StatCard({
         <i className={`${icon} text-xs sm:text-sm`} style={{ color }} />
       </div>
       <p className="text-lg sm:text-xl font-bold text-white">{value}</p>
-      <p className="text-white/40 text-[11px] sm:text-xs mt-0.5">{label}</p>
-      <p className="text-white/20 text-[10px] mt-0.5 hidden sm:block">{sub}</p>
+      <p className="text-app-text-secondary text-[11px] sm:text-xs mt-0.5">{label}</p>
+      <p className="text-app-text-muted text-[10px] mt-0.5 hidden sm:block">{sub}</p>
     </div>
   );
 }
@@ -154,7 +154,7 @@ function ToolRow({
   return (
     <div
       onClick={() => navigate(path)}
-      className="flex items-center gap-4 p-4 rounded-xl border cursor-pointer hover:bg-white/3 transition-all group"
+      className="flex items-center gap-4 p-4 rounded-xl border cursor-pointer hover:bg-app-surface/50 transition-all group"
       style={{ borderColor: `${color}18` }}
     >
       <div
@@ -172,7 +172,7 @@ function ToolRow({
             </span>
           )}
         </div>
-        <p className="text-white/30 text-xs">{desc}</p>
+        <p className="text-app-text-muted text-xs">{desc}</p>
       </div>
       <div className="flex items-center gap-2 flex-shrink-0">
         <span
@@ -275,7 +275,7 @@ export default function Home() {
       });
     suggestions.push({
       icon: "ri-sun-line",
-      color: "#e8c84a",
+      color: "app-accent-primary",
       label: "Học từ mới hôm nay",
       path: "/daily-words",
       desc: `${todayLearned.length}/8 từ đã học`,
@@ -332,7 +332,7 @@ export default function Home() {
           />
           <StatCard
             icon="ri-book-open-line"
-            color="#e8c84a"
+            color="app-accent-primary"
             label="Từ đã học"
             value={totalDailyWords}
             sub={`${todayLearned.length}/8 hôm nay`}
@@ -361,7 +361,7 @@ export default function Home() {
             </h2>
             <button
               onClick={() => navigate("/learning-roadmap")}
-              className="text-[#e8c84a] text-xs hover:text-[#d4b43a] cursor-pointer whitespace-nowrap flex items-center gap-1"
+              className="text-app-accent-primary text-xs hover:text-[#d4b43a] cursor-pointer whitespace-nowrap flex items-center gap-1"
             >
               Lộ trình <i className="ri-arrow-right-line" />
             </button>
@@ -369,7 +369,7 @@ export default function Home() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
             <QuickCard
               icon="ri-sun-line"
-              color="#e8c84a"
+              color="app-accent-primary"
               label="Từ mới hôm nay"
               desc={`${todayLearned.length}/8 từ đã học`}
               path="/daily-words"
@@ -403,8 +403,8 @@ export default function Home() {
         {/* ── Today suggestions + Quick start ── */}
         <div className="flex flex-col md:flex-row gap-3">
           {/* Suggestions */}
-          <div className="flex-1 bg-[#0f1117] border border-white/5 rounded-2xl p-3 sm:p-4">
-            <p className="text-white/40 text-xs font-semibold tracking-normal mb-2 sm:mb-3">
+          <div className="flex-1 bg-app-bg border border-app-border rounded-2xl p-3 sm:p-4">
+            <p className="text-app-text-secondary text-xs font-semibold tracking-normal mb-2 sm:mb-3">
               Gợi ý cho bạn hôm nay
             </p>
             <div className="space-y-2">
@@ -412,7 +412,7 @@ export default function Home() {
                 <button
                   key={s.path}
                   onClick={() => navigate(s.path)}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-white/3 hover:bg-white/6 transition-colors cursor-pointer text-left"
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-app-surface/50 hover:bg-white/6 transition-colors cursor-pointer text-left"
                 >
                   <div
                     className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0"
@@ -422,9 +422,9 @@ export default function Home() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-white/70 text-xs font-medium truncate">{s.label}</p>
-                    <p className="text-white/30 text-[10px] truncate">{s.desc}</p>
+                    <p className="text-app-text-muted text-[10px] truncate">{s.desc}</p>
                   </div>
-                  <i className="ri-arrow-right-line text-white/20 text-xs flex-shrink-0" />
+                  <i className="ri-arrow-right-line text-app-text-muted text-xs flex-shrink-0" />
                 </button>
               ))}
             </div>
@@ -447,15 +447,15 @@ export default function Home() {
             </h2>
             <button
               onClick={() => navigate("/study-stats")}
-              className="text-white/30 text-xs hover:text-white/50 cursor-pointer whitespace-nowrap flex items-center gap-1"
+              className="text-app-text-muted text-xs hover:text-white/50 cursor-pointer whitespace-nowrap flex items-center gap-1"
             >
               Xem thống kê <i className="ri-arrow-right-line" />
             </button>
           </div>
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl overflow-hidden divide-y divide-white/5">
+          <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden divide-y divide-white/5">
             <ToolRow
               icon="ri-music-2-line"
-              color="#e8c84a"
+              color="app-accent-primary"
               title="K-pop Lesson"
               desc="Melon Top 100 → AI → Excel"
               stat={`${melonStats.total} bài · TB ${melonStats.avgVocab} từ/bài`}
@@ -533,7 +533,7 @@ export default function Home() {
               },
               {
                 icon: "ri-character-recognition-line",
-                color: "#e8c84a",
+                color: "app-accent-primary",
                 label: "Hán Hàn VIP",
                 desc: "2.691 từ Hán Hàn",
                 path: "/hanja-detail",
@@ -543,7 +543,7 @@ export default function Home() {
               <button
                 key={p.path}
                 onClick={() => navigate(p.path)}
-                className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-2xl border cursor-pointer hover:bg-white/3 transition-all text-left group"
+                className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-2xl border cursor-pointer hover:bg-app-surface/50 transition-all text-left group"
                 style={{ borderColor: `${p.color}20`, backgroundColor: `${p.color}06` }}
               >
                 <div
@@ -556,7 +556,7 @@ export default function Home() {
                   <p className="text-white/80 text-xs sm:text-sm font-semibold group-hover:text-white transition-colors">
                     {p.label}
                   </p>
-                  <p className="text-white/30 text-[10px] sm:text-[11px] hidden sm:block">{p.desc}</p>
+                  <p className="text-app-text-muted text-[10px] sm:text-[11px] hidden sm:block">{p.desc}</p>
                   <p className="text-[9px] sm:text-[10px] mt-0.5 font-medium" style={{ color: `${p.color}80` }}>
                     {p.sub}
                   </p>

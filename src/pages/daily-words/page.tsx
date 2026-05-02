@@ -57,7 +57,7 @@ function buildQuiz(words: DailyWord[]): QuizQuestion[] {
 
 const DIFF_COLORS = {
   easy: { bg: "rgba(74,222,128,0.12)", text: "#4ade80", label: "Dễ" },
-  medium: { bg: "rgba(232,200,74,0.12)", text: "#e8c84a", label: "TB" },
+  medium: { bg: "rgba(232,200,74,0.12)", text: "app-accent-primary", label: "TB" },
   hard: { bg: "rgba(248,113,113,0.12)", text: "#f87171", label: "Khó" },
 };
 
@@ -113,7 +113,7 @@ function FlipCard({
         >
           {isLearned && (
             <div className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center rounded-full bg-emerald-500/20">
-              <i className="ri-check-line text-emerald-400 text-xs" />
+              <i className="ri-check-line text-app-accent-success text-xs" />
             </div>
           )}
           <span
@@ -123,8 +123,8 @@ function FlipCard({
             {diff.label}
           </span>
           <p className="text-3xl font-bold text-white mb-1">{word.korean}</p>
-          {word.hanja && <p className="text-white/30 text-sm">{word.hanja}</p>}
-          <p className="text-white/20 text-[10px] mt-3 flex items-center gap-1">
+          {word.hanja && <p className="text-app-text-muted text-sm">{word.hanja}</p>}
+          <p className="text-app-text-muted text-[10px] mt-3 flex items-center gap-1">
             <i className="ri-refresh-line" />
             Nhấn để xem nghĩa
           </p>
@@ -142,13 +142,13 @@ function FlipCard({
         >
           <p className="text-xl font-bold text-white mb-1 text-center">{word.vietnamese}</p>
           {word.pronunciation && (
-            <p className="text-white/40 text-xs mb-2">[{word.pronunciation}]</p>
+            <p className="text-app-text-secondary text-xs mb-2">[{word.pronunciation}]</p>
           )}
           {word.example && (
             <div className="mt-2 text-center">
               <p className="text-white/50 text-xs italic">{word.example}</p>
               {word.exampleMeaning && (
-                <p className="text-white/30 text-[10px] mt-0.5">{word.exampleMeaning}</p>
+                <p className="text-app-text-muted text-[10px] mt-0.5">{word.exampleMeaning}</p>
               )}
             </div>
           )}
@@ -156,8 +156,8 @@ function FlipCard({
             onClick={handleLearn}
             className={`mt-3 flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
               isLearned
-                ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                : "bg-[#e8c84a] text-[#0f1117]"
+                ? "bg-emerald-500/20 text-app-accent-success border border-emerald-500/30"
+                : "bg-app-accent-primary text-app-bg"
             }`}
           >
             <i className="ri-check-line text-xs" />
@@ -186,11 +186,11 @@ function PronounceButton({ text }: { text: string }) {
     <button
       onClick={speak}
       disabled={speaking}
-      className={`w-8 h-8 flex items-center justify-center rounded-xl cursor-pointer transition-all ${speaking ? "bg-[#e8c84a]/20" : "bg-white/5 hover:bg-white/10"}`}
+      className={`w-8 h-8 flex items-center justify-center rounded-xl cursor-pointer transition-all ${speaking ? "bg-app-accent-primary/20" : "bg-app-card/50 hover:bg-app-card/70"}`}
       title="Nghe phát âm"
     >
       <i
-        className={`${speaking ? "ri-volume-up-fill text-[#e8c84a]" : "ri-volume-up-line text-white/40"} text-sm`}
+        className={`${speaking ? "ri-volume-up-fill text-app-accent-primary" : "ri-volume-up-line text-app-text-secondary"} text-sm`}
       />
     </button>
   );
@@ -232,21 +232,21 @@ function QuizMode({
   return (
     <div className="max-w-md mx-auto">
       <div className="flex items-center gap-3 mb-6">
-        <div className="flex-1 h-2 bg-white/5 rounded-full overflow-hidden">
+        <div className="flex-1 h-2 bg-app-card/50 rounded-full overflow-hidden">
           <div
-            className="h-full bg-[#e8c84a] rounded-full transition-all duration-500"
+            className="h-full bg-app-accent-primary rounded-full transition-all duration-500"
             style={{ width: `${progress}%` }}
           />
         </div>
-        <span className="text-white/40 text-xs whitespace-nowrap">
+        <span className="text-app-text-secondary text-xs whitespace-nowrap">
           {qIdx + 1}/{questions.length}
         </span>
       </div>
 
-      <div className="bg-[#0f1117] border border-white/8 rounded-2xl p-6 mb-4 text-center">
-        <p className="text-white/40 text-xs mb-3">Nghĩa của từ này là gì?</p>
+      <div className="bg-app-bg border border-app-border rounded-2xl p-6 mb-4 text-center">
+        <p className="text-app-text-secondary text-xs mb-3">Nghĩa của từ này là gì?</p>
         <p className="text-4xl font-bold text-white mb-2">{q.word.korean}</p>
-        {q.word.hanja && <p className="text-[#e8c84a]/50 text-lg">{q.word.hanja}</p>}
+        {q.word.hanja && <p className="text-app-accent-primary/50 text-lg">{q.word.hanja}</p>}
         <div className="flex items-center justify-center mt-3">
           <PronounceButton text={q.word.korean} />
         </div>
@@ -254,14 +254,14 @@ function QuizMode({
 
       <div className="grid grid-cols-2 gap-3 mb-4">
         {q.choices.map((choice, idx) => {
-          let style = "bg-white/5 border-white/10 text-white/70 hover:bg-white/8";
+          let style = "bg-app-card/50 border-app-border text-white/70 hover:bg-white/8";
           if (answered) {
             if (idx === q.correctIdx) {
-              style = "bg-emerald-500/20 border-emerald-500/40 text-emerald-400";
+              style = "bg-emerald-500/20 border-emerald-500/40 text-app-accent-success";
             } else if (idx === selected && idx !== q.correctIdx) {
               style = "bg-rose-500/20 border-rose-500/40 text-rose-400";
             } else {
-              style = "bg-white/3 border-white/5 text-white/30";
+              style = "bg-app-surface/50 border-app-border text-app-text-muted";
             }
           }
           return (
@@ -283,7 +283,7 @@ function QuizMode({
       {answered && (
         <button
           onClick={handleNext}
-          className="w-full py-3 rounded-xl bg-[#e8c84a] text-[#0f1117] font-bold text-sm cursor-pointer transition-all hover:bg-[#d4b43a] whitespace-nowrap"
+          className="w-full py-3 rounded-xl bg-app-accent-primary text-app-bg font-bold text-sm cursor-pointer transition-all hover:bg-[#d4b43a] whitespace-nowrap"
         >
           {qIdx < questions.length - 1 ? "Câu tiếp theo →" : "Xem kết quả"}
         </button>
@@ -304,7 +304,7 @@ function QuizResult({
   onDone: () => void;
 }) {
   const pct = Math.round((score / total) * 100);
-  const color = pct >= 80 ? "#4ade80" : pct >= 60 ? "#e8c84a" : "#f87171";
+  const color = pct >= 80 ? "#4ade80" : pct >= 60 ? "app-accent-primary" : "#f87171";
   const msg =
     pct >= 80
       ? "Xuất sắc! Bạn đã ghi nhớ rất tốt 🎉"
@@ -323,7 +323,7 @@ function QuizResult({
         </span>
       </div>
       <p className="text-white font-bold text-lg mb-1">{score}/{total} câu đúng</p>
-      <p className="text-white/40 text-sm mb-6">{msg}</p>
+      <p className="text-app-text-secondary text-sm mb-6">{msg}</p>
       <div className="flex gap-3">
         <button
           onClick={onRetry}
@@ -334,7 +334,7 @@ function QuizResult({
         </button>
         <button
           onClick={onDone}
-          className="flex-1 py-3 rounded-xl bg-[#e8c84a] text-[#0f1117] text-sm font-bold cursor-pointer hover:bg-[#d4b43a] transition-all whitespace-nowrap"
+          className="flex-1 py-3 rounded-xl bg-app-accent-primary text-app-bg text-sm font-bold cursor-pointer hover:bg-[#d4b43a] transition-all whitespace-nowrap"
         >
           Hoàn thành ✓
         </button>
@@ -435,10 +435,10 @@ export default function DailyWordsPage() {
                 <div
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                     isActive
-                      ? "bg-[#e8c84a]/15 text-[#e8c84a]"
+                      ? "bg-app-accent-primary/15 text-app-accent-primary"
                       : isDone
-                      ? "bg-emerald-500/10 text-emerald-400"
-                      : "bg-white/5 text-white/25"
+                      ? "bg-emerald-500/10 text-app-accent-success"
+                      : "bg-app-card/50 text-app-text-muted"
                   }`}
                 >
                   <i className={`${isDone ? "ri-check-line" : icons[p]} text-xs`} />
@@ -458,27 +458,27 @@ export default function DailyWordsPage() {
         {phase === "learn" && (
           <>
             <div className="flex items-center gap-4 mb-6">
-              <div className="flex-1 h-2 rounded-full overflow-hidden bg-white/5">
+              <div className="flex-1 h-2 rounded-full overflow-hidden bg-app-card/50">
                 <div
                   ref={progressRef}
                   className="h-full rounded-full transition-all duration-700"
                   style={{
                     width: `${(learnedCount / words.length) * 100}%`,
-                    backgroundColor: allDone ? "#4ade80" : "#e8c84a",
+                    backgroundColor: allDone ? "#4ade80" : "app-accent-primary",
                   }}
                 />
               </div>
               <span
                 className="text-sm font-bold whitespace-nowrap"
-                style={{ color: allDone ? "#4ade80" : "#e8c84a" }}
+                style={{ color: allDone ? "#4ade80" : "app-accent-primary" }}
               >
                 {learnedCount}/{words.length}
               </span>
-              <div className="flex items-center gap-1 bg-white/5 p-1 rounded-xl">
+              <div className="flex items-center gap-1 bg-app-card/50 p-1 rounded-xl">
                 <button
                   onClick={() => setMode("grid")}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${
-                    mode === "grid" ? "bg-white/10 text-white" : "text-white/40"
+                    mode === "grid" ? "bg-app-card/70 text-white" : "text-app-text-secondary"
                   }`}
                 >
                   <i className="ri-grid-line mr-1" />
@@ -487,7 +487,7 @@ export default function DailyWordsPage() {
                 <button
                   onClick={() => setMode("focus")}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${
-                    mode === "focus" ? "bg-white/10 text-white" : "text-white/40"
+                    mode === "focus" ? "bg-app-card/70 text-white" : "text-app-text-secondary"
                   }`}
                 >
                   <i className="ri-focus-3-line mr-1" />
@@ -499,13 +499,13 @@ export default function DailyWordsPage() {
             {allDone && (
               <div className="mb-6 p-4 rounded-2xl border border-emerald-500/30 bg-emerald-500/8 flex items-center gap-4">
                 <div className="w-10 h-10 flex items-center justify-center rounded-2xl bg-emerald-500/20 flex-shrink-0">
-                  <i className="ri-trophy-line text-emerald-400 text-xl" />
+                  <i className="ri-trophy-line text-app-accent-success text-xl" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-emerald-400 font-bold text-sm">
+                  <p className="text-app-accent-success font-bold text-sm">
                     Học xong! Đang chuyển sang kiểm tra...
                   </p>
-                  <p className="text-white/40 text-xs mt-0.5">
+                  <p className="text-app-text-secondary text-xs mt-0.5">
                     Ôn tập thông minh sẽ bắt đầu ngay
                   </p>
                 </div>
@@ -514,7 +514,7 @@ export default function DailyWordsPage() {
                     setQuizQuestions(buildQuiz(words));
                     setPhase("quiz");
                   }}
-                  className="px-4 py-2 rounded-xl bg-emerald-500/20 text-emerald-400 text-xs font-bold cursor-pointer whitespace-nowrap border border-emerald-500/30"
+                  className="px-4 py-2 rounded-xl bg-emerald-500/20 text-app-accent-success text-xs font-bold cursor-pointer whitespace-nowrap border border-emerald-500/30"
                 >
                   Kiểm tra ngay
                 </button>
@@ -534,12 +534,12 @@ export default function DailyWordsPage() {
                     <div className="flex items-center justify-between mt-2 px-1">
                       <div className="flex items-center gap-1.5">
                         <PronounceButton text={word.korean} />
-                        <span className="text-white/30 text-xs">{word.korean}</span>
+                        <span className="text-app-text-muted text-xs">{word.korean}</span>
                       </div>
                       {todayLearned.includes(word.id) && (
                         <button
                           onClick={() => handleUnlearn(word.id)}
-                          className="text-[10px] text-white/20 hover:text-white/40 cursor-pointer"
+                          className="text-[10px] text-app-text-muted hover:text-app-text-secondary cursor-pointer"
                         >
                           Bỏ đánh dấu
                         </button>
@@ -567,7 +567,7 @@ export default function DailyWordsPage() {
                 </div>
                 <div className="flex items-center gap-3 mb-6">
                   <PronounceButton text={currentWord.korean} />
-                  <span className="text-white/40 text-sm">
+                  <span className="text-app-text-secondary text-sm">
                     {currentWord.korean} — {currentWord.vietnamese}
                   </span>
                 </div>
@@ -575,7 +575,7 @@ export default function DailyWordsPage() {
                   <button
                     onClick={() => setCurrentIdx((i) => Math.max(0, i - 1))}
                     disabled={currentIdx === 0}
-                    className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 text-white/40 disabled:opacity-30 cursor-pointer hover:bg-white/10 transition-all"
+                    className="w-10 h-10 flex items-center justify-center rounded-xl bg-app-card/50 text-app-text-secondary disabled:opacity-30 cursor-pointer hover:bg-app-card/70 transition-all"
                   >
                     <i className="ri-arrow-left-line" />
                   </button>
@@ -586,7 +586,7 @@ export default function DailyWordsPage() {
                         onClick={() => setCurrentIdx(i)}
                         className={`rounded-full transition-all cursor-pointer ${
                           i === currentIdx
-                            ? "w-5 h-2 bg-[#e8c84a]"
+                            ? "w-5 h-2 bg-app-accent-primary"
                             : todayLearned.includes(w.id)
                             ? "w-2 h-2 bg-emerald-400/60"
                             : "w-2 h-2 bg-white/15"
@@ -597,7 +597,7 @@ export default function DailyWordsPage() {
                   <button
                     onClick={() => setCurrentIdx((i) => Math.min(words.length - 1, i + 1))}
                     disabled={currentIdx === words.length - 1}
-                    className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 text-white/40 disabled:opacity-30 cursor-pointer hover:bg-white/10 transition-all"
+                    className="w-10 h-10 flex items-center justify-center rounded-xl bg-app-card/50 text-app-text-secondary disabled:opacity-30 cursor-pointer hover:bg-app-card/70 transition-all"
                   >
                     <i className="ri-arrow-right-line" />
                   </button>
@@ -609,10 +609,10 @@ export default function DailyWordsPage() {
                       onClick={() => setCurrentIdx(i)}
                       className={`py-2 px-3 rounded-xl text-xs font-medium cursor-pointer transition-all text-center ${
                         i === currentIdx
-                          ? "bg-[#e8c84a]/15 text-[#e8c84a] border border-[#e8c84a]/30"
+                          ? "bg-app-accent-primary/15 text-app-accent-primary border border-app-accent-primary/30"
                           : todayLearned.includes(w.id)
-                          ? "bg-emerald-500/10 text-emerald-400/70 border border-emerald-500/20"
-                          : "bg-white/3 text-white/40 border border-white/5"
+                          ? "bg-emerald-500/10 text-app-accent-success/70 border border-emerald-500/20"
+                          : "bg-app-surface/50 text-app-text-secondary border border-app-border"
                       }`}
                     >
                       {w.korean}
@@ -625,7 +625,7 @@ export default function DailyWordsPage() {
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
               <button
                 onClick={() => navigate("/hanja-tree")}
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 text-white/60 text-sm font-medium cursor-pointer hover:bg-white/8 transition-all border border-white/8 whitespace-nowrap"
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-app-card/50 text-white/60 text-sm font-medium cursor-pointer hover:bg-white/8 transition-all border border-app-border whitespace-nowrap"
               >
                 <i className="ri-git-merge-line" />
                 Xem hình cây từ vựng
@@ -636,7 +636,7 @@ export default function DailyWordsPage() {
                     setQuizQuestions(buildQuiz(words));
                     setPhase("quiz");
                   }}
-                  className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-[#e8c84a]/10 text-[#e8c84a] text-sm font-bold cursor-pointer hover:bg-[#e8c84a]/15 transition-all border border-[#e8c84a]/20 whitespace-nowrap"
+                  className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-app-accent-primary/10 text-app-accent-primary text-sm font-bold cursor-pointer hover:bg-app-accent-primary/15 transition-all border border-app-accent-primary/20 whitespace-nowrap"
                 >
                   <i className="ri-question-line" />
                   Kiểm tra ngay ({learnedCount} từ)
@@ -651,7 +651,7 @@ export default function DailyWordsPage() {
           <div>
             <div className="text-center mb-6">
               <h2 className="text-white font-bold text-lg">Ôn tập thông minh</h2>
-              <p className="text-white/40 text-sm mt-1">
+              <p className="text-app-text-secondary text-sm mt-1">
                 Kiểm tra xem bạn đã nhớ được bao nhiêu từ hôm nay
               </p>
             </div>

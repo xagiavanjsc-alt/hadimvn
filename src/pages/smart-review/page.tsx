@@ -89,7 +89,7 @@ function getDaysUntilReview(nextReview: string): number {
 
 const sourceColors: Record<string, string> = {
   eps: "bg-amber-500/10 text-amber-400 border-amber-500/20",
-  seoul: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+  seoul: "bg-emerald-500/10 text-app-accent-success border-emerald-500/20",
   topik: "bg-violet-500/10 text-violet-400 border-violet-500/20",
 };
 
@@ -169,18 +169,18 @@ export default function SmartReviewPage() {
             <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "'Nunito', sans-serif" }}>
               Ôn tập thông minh
             </h1>
-            <p className="text-white/40 text-sm mt-0.5">Spaced Repetition — hệ thống nhắc lại từ vựng sắp quên</p>
+            <p className="text-app-text-secondary text-sm mt-0.5">Spaced Repetition — hệ thống nhắc lại từ vựng sắp quên</p>
           </div>
-          <div className="flex gap-1 bg-white/5 rounded-xl p-1">
+          <div className="flex gap-1 bg-app-card/50 rounded-xl p-1">
             <button
               onClick={() => setViewMode("review")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${viewMode === "review" ? "bg-amber-500/20 text-amber-400" : "text-white/40 hover:text-white/70"}`}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${viewMode === "review" ? "bg-amber-500/20 text-amber-400" : "text-app-text-secondary hover:text-white/70"}`}
             >
               Ôn tập
             </button>
             <button
               onClick={() => setViewMode("overview")}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${viewMode === "overview" ? "bg-amber-500/20 text-amber-400" : "text-white/40 hover:text-white/70"}`}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${viewMode === "overview" ? "bg-amber-500/20 text-amber-400" : "text-app-text-secondary hover:text-white/70"}`}
             >
               Tổng quan
             </button>
@@ -191,16 +191,16 @@ export default function SmartReviewPage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
             { label: "Cần ôn hôm nay", value: dueToday, color: "text-red-400", icon: "ri-alarm-warning-line" },
-            { label: "Đã thuộc", value: masteredCards, color: "text-emerald-400", icon: "ri-checkbox-circle-line" },
+            { label: "Đã thuộc", value: masteredCards, color: "text-app-accent-success", icon: "ri-checkbox-circle-line" },
             { label: "Đang học", value: learningCards, color: "text-amber-400", icon: "ri-refresh-line" },
             { label: "Từ mới", value: newCards, color: "text-sky-400", icon: "ri-add-circle-line" },
           ].map(stat => (
-            <div key={stat.label} className="bg-white/5 border border-white/8 rounded-xl p-4">
+            <div key={stat.label} className="bg-app-card/50 border border-app-border rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-4 h-4 flex items-center justify-center">
                   <i className={`${stat.icon} ${stat.color} text-sm`}></i>
                 </div>
-                <p className="text-white/40 text-xs">{stat.label}</p>
+                <p className="text-app-text-secondary text-xs">{stat.label}</p>
               </div>
               <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
             </div>
@@ -216,26 +216,26 @@ export default function SmartReviewPage() {
                   key={val}
                   onClick={() => { setFilterSource(val); resetSession(); }}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
-                    filterSource === val ? "bg-amber-500/20 text-amber-400 border border-amber-500/30" : "bg-white/5 text-white/40 hover:text-white/70 border border-transparent"
+                    filterSource === val ? "bg-amber-500/20 text-amber-400 border border-amber-500/30" : "bg-app-card/50 text-app-text-secondary hover:text-white/70 border border-transparent"
                   }`}
                 >
                   {label}
                 </button>
               ))}
-              <span className="ml-auto text-white/30 text-xs self-center">{dueCards.length} từ cần ôn</span>
+              <span className="ml-auto text-app-text-muted text-xs self-center">{dueCards.length} từ cần ôn</span>
             </div>
 
             {/* Review card */}
             {dueCards.length === 0 ? (
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-12 text-center">
+              <div className="bg-app-card/50 border border-app-border rounded-2xl p-12 text-center">
                 <div className="w-16 h-16 flex items-center justify-center bg-emerald-500/10 rounded-full mx-auto mb-4">
-                  <i className="ri-checkbox-circle-line text-emerald-400 text-3xl"></i>
+                  <i className="ri-checkbox-circle-line text-app-accent-success text-3xl"></i>
                 </div>
                 <h3 className="text-white font-semibold text-lg mb-2">Tuyệt vời! Không có từ nào cần ôn hôm nay</h3>
-                <p className="text-white/40 text-sm">Hệ thống sẽ nhắc bạn khi có từ sắp quên. Hãy quay lại ngày mai!</p>
+                <p className="text-app-text-secondary text-sm">Hệ thống sẽ nhắc bạn khi có từ sắp quên. Hãy quay lại ngày mai!</p>
               </div>
             ) : sessionDone ? (
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-10 text-center">
+              <div className="bg-app-card/50 border border-app-border rounded-2xl p-10 text-center">
                 <div className="w-16 h-16 flex items-center justify-center bg-amber-500/10 rounded-full mx-auto mb-4">
                   <i className="ri-trophy-line text-amber-400 text-3xl"></i>
                 </div>
@@ -243,15 +243,15 @@ export default function SmartReviewPage() {
                 <div className="flex justify-center gap-6 my-6">
                   <div className="text-center">
                     <p className="text-3xl font-bold text-white">{sessionStats.reviewed}</p>
-                    <p className="text-white/40 text-xs">Đã ôn</p>
+                    <p className="text-app-text-secondary text-xs">Đã ôn</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-3xl font-bold text-emerald-400">{sessionStats.correct}</p>
-                    <p className="text-white/40 text-xs">Đúng</p>
+                    <p className="text-3xl font-bold text-app-accent-success">{sessionStats.correct}</p>
+                    <p className="text-app-text-secondary text-xs">Đúng</p>
                   </div>
                   <div className="text-center">
                     <p className="text-3xl font-bold text-amber-400">+{sessionStats.xpEarned}</p>
-                    <p className="text-white/40 text-xs">XP</p>
+                    <p className="text-app-text-secondary text-xs">XP</p>
                   </div>
                 </div>
                 <button
@@ -271,11 +271,11 @@ export default function SmartReviewPage() {
                       style={{ width: `${(currentCardIndex / dueCards.length) * 100}%` }}
                     />
                   </div>
-                  <span className="text-white/30 text-xs whitespace-nowrap">{currentCardIndex + 1}/{dueCards.length}</span>
+                  <span className="text-app-text-muted text-xs whitespace-nowrap">{currentCardIndex + 1}/{dueCards.length}</span>
                 </div>
 
                 {/* Card */}
-                <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+                <div className="bg-app-card/50 border border-app-border rounded-2xl overflow-hidden">
                   <div className="p-8">
                     {/* Source badge */}
                     <div className="flex items-center gap-2 mb-6">
@@ -283,9 +283,9 @@ export default function SmartReviewPage() {
                         {currentCard.sourceLabel}
                       </span>
                       {currentCard.repetitions > 0 && (
-                        <span className="text-white/30 text-xs">Đã ôn {currentCard.totalReviews} lần</span>
+                        <span className="text-app-text-muted text-xs">Đã ôn {currentCard.totalReviews} lần</span>
                       )}
-                      <span className="ml-auto text-white/20 text-xs">
+                      <span className="ml-auto text-app-text-muted text-xs">
                         {currentCard.repetitions === 0 ? "Từ mới" : `Lần ${currentCard.repetitions + 1}`}
                       </span>
                     </div>
@@ -315,7 +315,7 @@ export default function SmartReviewPage() {
                         <div className="mt-4 space-y-3">
                           <p className="text-white/80 text-2xl font-medium">{currentCard.vietnamese}</p>
                           {currentCard.example && (
-                            <div className="bg-white/5 rounded-xl px-4 py-3 inline-block">
+                            <div className="bg-app-card/50 rounded-xl px-4 py-3 inline-block">
                               <p className="text-white/50 text-sm" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{currentCard.example}</p>
                             </div>
                           )}
@@ -326,13 +326,13 @@ export default function SmartReviewPage() {
                     {/* Rating buttons */}
                     {showAnswer && (
                       <div>
-                        <p className="text-white/30 text-xs text-center mb-3">Bạn nhớ từ này như thế nào?</p>
+                        <p className="text-app-text-muted text-xs text-center mb-3">Bạn nhớ từ này như thế nào?</p>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                           {[
                             { quality: 0 as const, label: "Không nhớ", sub: "Ôn lại ngay", color: "bg-red-500/15 border-red-500/30 text-red-400 hover:bg-red-500/25" },
                             { quality: 2 as const, label: "Khó nhớ", sub: "Ôn lại sớm", color: "bg-orange-500/15 border-orange-500/30 text-orange-400 hover:bg-orange-500/25" },
                             { quality: 3 as const, label: "Nhớ được", sub: `${Math.round(sm2Update(currentCard, 3).interval)} ngày`, color: "bg-amber-500/15 border-amber-500/30 text-amber-400 hover:bg-amber-500/25" },
-                            { quality: 5 as const, label: "Thuộc lòng", sub: `${Math.round(sm2Update(currentCard, 5).interval)} ngày`, color: "bg-emerald-500/15 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/25" },
+                            { quality: 5 as const, label: "Thuộc lòng", sub: `${Math.round(sm2Update(currentCard, 5).interval)} ngày`, color: "bg-app-accent-success/15 border-emerald-500/30 text-app-accent-success hover:bg-emerald-500/25" },
                           ].map(btn => (
                             <button
                               key={btn.quality}
@@ -354,26 +354,26 @@ export default function SmartReviewPage() {
         ) : (
           /* Overview mode */
           <div className="space-y-4">
-            <div className="bg-white/5 border border-white/8 rounded-xl p-5">
+            <div className="bg-app-card/50 border border-app-border rounded-xl p-5">
               <h3 className="text-white font-semibold mb-4">Tất cả từ vựng ({totalCards} từ)</h3>
               <div className="space-y-2">
                 {cards.map(card => {
                   const daysUntil = getDaysUntilReview(card.nextReview);
                   const accuracy = card.totalReviews > 0 ? Math.round((card.correctReviews / card.totalReviews) * 100) : 0;
                   return (
-                    <div key={card.id} className="flex items-center gap-4 py-2.5 border-b border-white/5 last:border-0">
+                    <div key={card.id} className="flex items-center gap-4 py-2.5 border-b border-app-border last:border-0">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
                           <span className="text-white font-medium text-sm" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{card.korean}</span>
                           <span className={`px-1.5 py-0.5 rounded text-[10px] border ${sourceColors[card.source]}`}>{card.sourceLabel}</span>
                         </div>
-                        <p className="text-white/40 text-xs mt-0.5">{card.vietnamese}</p>
+                        <p className="text-app-text-secondary text-xs mt-0.5">{card.vietnamese}</p>
                       </div>
                       <div className="text-right flex-shrink-0">
-                        <p className={`text-xs font-medium ${daysUntil <= 0 ? "text-red-400" : daysUntil <= 3 ? "text-amber-400" : "text-emerald-400"}`}>
+                        <p className={`text-xs font-medium ${daysUntil <= 0 ? "text-red-400" : daysUntil <= 3 ? "text-amber-400" : "text-app-accent-success"}`}>
                           {daysUntil <= 0 ? "Cần ôn ngay" : `${daysUntil} ngày nữa`}
                         </p>
-                        <p className="text-white/25 text-[10px]">
+                        <p className="text-app-text-muted text-[10px]">
                           {card.totalReviews > 0 ? `${accuracy}% đúng · ${card.totalReviews} lần` : "Chưa ôn"}
                         </p>
                       </div>
@@ -384,7 +384,7 @@ export default function SmartReviewPage() {
             </div>
 
             {/* Algorithm explanation */}
-            <div className="bg-white/3 border border-white/8 rounded-xl p-4">
+            <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 flex items-center justify-center bg-violet-500/10 rounded-lg flex-shrink-0">
                   <i className="ri-brain-line text-violet-400 text-sm"></i>

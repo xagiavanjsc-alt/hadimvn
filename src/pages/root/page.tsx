@@ -14,7 +14,7 @@ export default function RootPage() {
         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center animate-pulse">
           <i className="ri-leaf-line text-white text-lg"></i>
         </div>
-        <p className="text-white/40 text-sm">Đang tải...</p>
+        <p className="text-app-text-secondary text-sm">Đang tải...</p>
       </div>
     </div>
   );

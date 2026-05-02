@@ -19,14 +19,14 @@ export default function TopicProgressPanel({ completedLessons, filterTopic, onFi
 
   return (
     <div className="space-y-4">
-      <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4 md:p-5">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-4 md:p-5">
         <h3 className="text-white font-semibold text-sm mb-4">Tiến độ theo chủ đề</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-2 lg:gap-0 lg:space-y-3">
           {topicStats.map(t => (
             <button
               key={t.id}
               onClick={() => onFilterTopic(filterTopic === t.id ? "all" : t.id)}
-              className={`w-full text-left transition-all cursor-pointer rounded-lg p-2 ${filterTopic === t.id ? "bg-white/5" : "hover:bg-white/3"}`}
+              className={`w-full text-left transition-all cursor-pointer rounded-lg p-2 ${filterTopic === t.id ? "bg-app-card/50" : "hover:bg-app-surface/50"}`}
             >
               <div className="flex items-center gap-2 mb-1.5">
                 <div className="w-6 h-6 flex items-center justify-center rounded-md flex-shrink-0" style={{ backgroundColor: `${t.color}15` }}>
@@ -35,7 +35,7 @@ export default function TopicProgressPanel({ completedLessons, filterTopic, onFi
                 <p className="text-white/60 text-xs flex-1 truncate">{t.label}</p>
                 <span className="text-xs font-bold" style={{ color: t.color }}>{t.done}/{t.total}</span>
               </div>
-              <div className="h-1.5 bg-white/5 rounded-full overflow-hidden ml-8">
+              <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden ml-8">
                 <div className="h-full rounded-full transition-all" style={{ width: `${t.total > 0 ? (t.done / t.total) * 100 : 0}%`, backgroundColor: t.color }} />
               </div>
             </button>
@@ -43,12 +43,12 @@ export default function TopicProgressPanel({ completedLessons, filterTopic, onFi
         </div>
       </div>
 
-      <div className="hidden md:block bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4">
-        <p className="text-[#e8c84a] text-xs font-semibold mb-2">Mẹo học hiệu quả</p>
+      <div className="hidden md:block bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
+        <p className="text-app-accent-primary text-xs font-semibold mb-2">Mẹo học hiệu quả</p>
         <ul className="space-y-1.5">
           {["Học từ vựng trước, ngữ pháp sau", "Nghe và lặp lại từng câu ví dụ", "Làm bài tập ngay sau khi học", "Ôn lại bài cũ mỗi 3 ngày"].map((tip, i) => (
-            <li key={i} className="flex items-start gap-2 text-white/40 text-xs">
-              <i className="ri-check-line text-[#e8c84a] flex-shrink-0 mt-0.5"></i>
+            <li key={i} className="flex items-start gap-2 text-app-text-secondary text-xs">
+              <i className="ri-check-line text-app-accent-primary flex-shrink-0 mt-0.5"></i>
               {tip}
             </li>
           ))}
@@ -65,7 +65,7 @@ export default function TopicProgressPanel({ completedLessons, filterTopic, onFi
             { label: "Hoàn thành 60 bài", xp: "+1000 XP" },
           ].map((r, i) => (
             <div key={i} className="flex justify-between text-xs">
-              <span className="text-white/40">{r.label}</span>
+              <span className="text-app-text-secondary">{r.label}</span>
               <span className="text-[#a78bfa] font-bold">{r.xp}</span>
             </div>
           ))}

@@ -69,7 +69,7 @@ const adminNavGroups = [
   },
   {
     label: "Hệ thống",
-    color: "#e8c84a",
+    color: "app-accent-primary",
     items: [
       { path: "/admin/control", icon: "ri-settings-4-line", label: "Cài đặt admin" },
       { path: "/admin/xp-config", icon: "ri-scales-3-line", label: "Cấu hình XP & Anti-cheat" },
@@ -262,7 +262,7 @@ function QuickSearch({ onClose }: { onClose: () => void }) {
           <button
             key={item.path}
             onClick={() => handleSelect(item.path)}
-            className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer text-left hover:bg-white/5"
+            className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer text-left hover:bg-app-card/50"
             style={{ color: "var(--admin-text-muted)" }}
           >
             <div className="w-6 h-6 flex items-center justify-center rounded-md flex-shrink-0" style={{ backgroundColor: `${item.color}15` }}>
@@ -331,7 +331,7 @@ function NavGroup({
     <div>
       <button
         onClick={() => setOpen(v => !v)}
-        className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all cursor-pointer group hover:bg-white/3"
+        className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all cursor-pointer group hover:bg-app-surface/50"
       >
         <div
           className="w-1.5 h-1.5 rounded-full flex-shrink-0"

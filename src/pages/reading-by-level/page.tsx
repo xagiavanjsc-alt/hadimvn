@@ -303,8 +303,8 @@ function QuizSection({ questions, onComplete }: { questions: Question[]; onCompl
     const pct = Math.round((score / questions.length) * 100);
     return (
       <div className="text-center py-8">
-        <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 ${pct >= 75 ? "bg-emerald-500/15" : pct >= 50 ? "bg-amber-500/15" : "bg-rose-500/15"}`}>
-          <span className={`text-2xl font-bold ${pct >= 75 ? "text-emerald-400" : pct >= 50 ? "text-amber-400" : "text-rose-400"}`}>{pct}%</span>
+        <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 ${pct >= 75 ? "bg-app-accent-success/15" : pct >= 50 ? "bg-amber-500/15" : "bg-rose-500/15"}`}>
+          <span className={`text-2xl font-bold ${pct >= 75 ? "text-app-accent-success" : pct >= 50 ? "text-amber-400" : "text-rose-400"}`}>{pct}%</span>
         </div>
         <p className="text-white font-bold text-lg mb-1">{score}/{questions.length} câu đúng</p>
         <p className="text-white/50 text-sm mb-6">
@@ -314,10 +314,10 @@ function QuizSection({ questions, onComplete }: { questions: Question[]; onCompl
           {questions.map((q, i) => (
             <div key={q.id} className={`p-3 rounded-xl border ${answers[i] === q.correct ? "border-emerald-500/30 bg-emerald-500/5" : "border-rose-500/30 bg-rose-500/5"}`}>
               <p className="text-white/80 text-sm font-medium mb-1">{i + 1}. {q.question}</p>
-              <p className={`text-xs ${answers[i] === q.correct ? "text-emerald-400" : "text-rose-400"}`}>
+              <p className={`text-xs ${answers[i] === q.correct ? "text-app-accent-success" : "text-rose-400"}`}>
                 {answers[i] === q.correct ? "✓ Đúng" : `✗ Sai — Đáp án: ${q.options[q.correct]}`}
               </p>
-              <p className="text-white/40 text-xs mt-1">{q.explanation}</p>
+              <p className="text-app-text-secondary text-xs mt-1">{q.explanation}</p>
             </div>
           ))}
         </div>
@@ -331,20 +331,20 @@ function QuizSection({ questions, onComplete }: { questions: Question[]; onCompl
         <span className="text-white/50 text-sm">Câu {current + 1}/{questions.length}</span>
         <div className="flex gap-1">
           {questions.map((_, i) => (
-            <div key={i} className={`w-2 h-2 rounded-full transition-colors ${i === current ? "bg-[#e8c84a]" : answers[i] !== null ? (answers[i] === questions[i].correct ? "bg-emerald-400" : "bg-rose-400") : "bg-white/15"}`} />
+            <div key={i} className={`w-2 h-2 rounded-full transition-colors ${i === current ? "bg-app-accent-primary" : answers[i] !== null ? (answers[i] === questions[i].correct ? "bg-emerald-400" : "bg-rose-400") : "bg-white/15"}`} />
           ))}
         </div>
       </div>
       <p className="text-white font-semibold text-base mb-5">{q.question}</p>
       <div className="space-y-2 mb-6">
         {q.options.map((opt, idx) => {
-          let cls = "border-white/10 bg-white/3 text-white/70 hover:border-white/25 hover:bg-white/6";
+          let cls = "border-app-border bg-app-surface/50 text-white/70 hover:border-white/25 hover:bg-white/6";
           if (isAnswered) {
             if (idx === q.correct) cls = "border-emerald-500/50 bg-emerald-500/10 text-emerald-300";
             else if (idx === selected) cls = "border-rose-500/50 bg-rose-500/10 text-rose-300";
-            else cls = "border-white/5 bg-white/2 text-white/30";
+            else cls = "border-app-border bg-white/2 text-app-text-muted";
           } else if (selected === idx) {
-            cls = "border-[#e8c84a]/50 bg-[#e8c84a]/10 text-[#e8c84a]";
+            cls = "border-app-accent-primary/50 bg-app-accent-primary/10 text-app-accent-primary";
           }
           return (
             <button key={idx} onClick={() => handleSelect(idx)}
@@ -355,12 +355,12 @@ function QuizSection({ questions, onComplete }: { questions: Question[]; onCompl
         })}
       </div>
       {isAnswered && (
-        <div className="mb-4 p-3 rounded-xl bg-white/5 border border-white/10">
+        <div className="mb-4 p-3 rounded-xl bg-app-card/50 border border-app-border">
           <p className="text-white/60 text-xs"><i className="ri-information-line mr-1"></i>{q.explanation}</p>
         </div>
       )}
       <button onClick={handleNext} disabled={!isAnswered}
-        className="w-full py-3 rounded-xl bg-[#e8c84a] text-[#141720] font-bold text-sm disabled:opacity-30 cursor-pointer whitespace-nowrap transition-opacity">
+        className="w-full py-3 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm disabled:opacity-30 cursor-pointer whitespace-nowrap transition-opacity">
         {current < questions.length - 1 ? "Câu tiếp theo" : "Xem kết quả"}
       </button>
     </div>
@@ -412,24 +412,24 @@ export default function ReadingByLevelPage() {
           </button>
 
           {/* Header */}
-          <div className="rounded-2xl border border-white/8 bg-white/3 p-5 mb-5">
+          <div className="rounded-2xl border border-app-border bg-app-surface/50 p-5 mb-5">
             <div className="flex items-start justify-between gap-4 flex-wrap">
               <div>
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${cfg.color}20`, color: cfg.color }}>{cfg.label}</span>
-                  <span className="text-white/30 text-xs">{selectedPassage.topic}</span>
-                  <span className="text-white/30 text-xs">· {selectedPassage.wordCount} từ · {selectedPassage.readingTime} phút</span>
+                  <span className="text-app-text-muted text-xs">{selectedPassage.topic}</span>
+                  <span className="text-app-text-muted text-xs">· {selectedPassage.wordCount} từ · {selectedPassage.readingTime} phút</span>
                 </div>
                 <h1 className="text-white font-bold text-xl">{selectedPassage.title}</h1>
                 <p className="text-white/50 text-sm">{selectedPassage.titleVi}</p>
               </div>
               <div className="flex gap-2">
                 <button onClick={() => handleTTS(selectedPassage.text)}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/60 hover:text-white text-xs cursor-pointer transition-colors whitespace-nowrap">
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-white/60 hover:text-white text-xs cursor-pointer transition-colors whitespace-nowrap">
                   <i className="ri-volume-up-line"></i> Nghe
                 </button>
                 <button onClick={() => setShowTranslation(v => !v)}
-                  className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs cursor-pointer transition-colors whitespace-nowrap ${showTranslation ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "bg-white/5 hover:bg-white/10 text-white/60 hover:text-white"}`}>
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs cursor-pointer transition-colors whitespace-nowrap ${showTranslation ? "bg-app-accent-primary/15 text-app-accent-primary" : "bg-app-card/50 hover:bg-app-card/70 text-white/60 hover:text-white"}`}>
                   <i className="ri-translate-2"></i> Dịch
                 </button>
               </div>
@@ -437,10 +437,10 @@ export default function ReadingByLevelPage() {
           </div>
 
           {/* Tabs */}
-          <div className="flex gap-1 p-1 bg-white/5 rounded-xl mb-5 w-fit">
+          <div className="flex gap-1 p-1 bg-app-card/50 rounded-xl mb-5 w-fit">
             {(["read", "quiz"] as const).map(tab => (
               <button key={tab} onClick={() => setActiveTab(tab)}
-                className={`px-5 py-2 rounded-lg text-sm font-medium cursor-pointer transition-all whitespace-nowrap ${activeTab === tab ? "bg-[#e8c84a] text-[#141720]" : "text-white/50 hover:text-white/80"}`}>
+                className={`px-5 py-2 rounded-lg text-sm font-medium cursor-pointer transition-all whitespace-nowrap ${activeTab === tab ? "bg-app-accent-primary text-[#141720]" : "text-white/50 hover:text-white/80"}`}>
                 {tab === "read" ? "Đọc bài" : `Câu hỏi (${selectedPassage.questions.length})`}
               </button>
             ))}
@@ -450,15 +450,15 @@ export default function ReadingByLevelPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
               {/* Text */}
               <div className="lg:col-span-2 space-y-4">
-                <div className="rounded-2xl border border-white/8 bg-white/3 p-6">
+                <div className="rounded-2xl border border-app-border bg-app-surface/50 p-6">
                   <div className="prose prose-invert max-w-none">
                     {selectedPassage.text.split("\n\n").map((para, i) => (
                       <p key={i} className="text-white/85 leading-8 text-base mb-4 last:mb-0">{para}</p>
                     ))}
                   </div>
                   {showTranslation && (
-                    <div className="mt-5 pt-5 border-t border-white/8">
-                      <p className="text-[#e8c84a] text-xs font-semibold mb-3 flex items-center gap-1.5">
+                    <div className="mt-5 pt-5 border-t border-app-border">
+                      <p className="text-app-accent-primary text-xs font-semibold mb-3 flex items-center gap-1.5">
                         <i className="ri-translate-2"></i> Bản dịch tiếng Việt
                       </p>
                       {selectedPassage.textVi.split("\n\n").map((para, i) => (
@@ -468,7 +468,7 @@ export default function ReadingByLevelPage() {
                   )}
                 </div>
                 <button onClick={() => setActiveTab("quiz")}
-                  className="w-full py-3 rounded-xl bg-[#e8c84a] text-[#141720] font-bold text-sm cursor-pointer whitespace-nowrap">
+                  className="w-full py-3 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm cursor-pointer whitespace-nowrap">
                   Làm bài kiểm tra comprehension <i className="ri-arrow-right-line ml-1"></i>
                 </button>
               </div>
@@ -476,22 +476,22 @@ export default function ReadingByLevelPage() {
               {/* Vocab sidebar */}
               <div>
                 <button onClick={() => setShowVocab(v => !v)}
-                  className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-white/5 hover:bg-white/8 text-white/70 text-sm font-medium cursor-pointer transition-colors mb-3">
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-app-card/50 hover:bg-white/8 text-white/70 text-sm font-medium cursor-pointer transition-colors mb-3">
                   <span><i className="ri-book-open-line mr-2"></i>Từ vựng ({selectedPassage.vocabulary.length})</span>
                   <i className={showVocab ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}></i>
                 </button>
                 {showVocab && (
                   <div className="space-y-2">
                     {selectedPassage.vocabulary.map((v, i) => (
-                      <div key={i} className="p-3 rounded-xl border border-white/8 bg-white/3">
+                      <div key={i} className="p-3 rounded-xl border border-app-border bg-app-surface/50">
                         <div className="flex items-center justify-between mb-1">
                           <span className="text-white font-bold text-sm">{v.word}</span>
-                          <button onClick={() => handleTTS(v.word)} className="w-6 h-6 flex items-center justify-center text-white/30 hover:text-white/60 cursor-pointer">
+                          <button onClick={() => handleTTS(v.word)} className="w-6 h-6 flex items-center justify-center text-app-text-muted hover:text-white/60 cursor-pointer">
                             <i className="ri-volume-up-line text-xs"></i>
                           </button>
                         </div>
-                        <p className="text-[#e8c84a] text-xs">{v.meaning}</p>
-                        <p className="text-white/30 text-xs">[{v.pronunciation}]</p>
+                        <p className="text-app-accent-primary text-xs">{v.meaning}</p>
+                        <p className="text-app-text-muted text-xs">[{v.pronunciation}]</p>
                       </div>
                     ))}
                   </div>
@@ -500,9 +500,9 @@ export default function ReadingByLevelPage() {
             </div>
           ) : (
             <div className="max-w-2xl">
-              <div className="rounded-2xl border border-white/8 bg-white/3 p-6">
+              <div className="rounded-2xl border border-app-border bg-app-surface/50 p-6">
                 <h3 className="text-white font-bold text-base mb-5">
-                  <i className="ri-question-line mr-2 text-[#e8c84a]"></i>
+                  <i className="ri-question-line mr-2 text-app-accent-primary"></i>
                   Câu hỏi comprehension
                 </h3>
                 <QuizSection questions={selectedPassage.questions} onComplete={handleQuizComplete} />
@@ -526,16 +526,16 @@ export default function ReadingByLevelPage() {
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
-            { label: "Bài đọc", value: passages.length, icon: "ri-article-line", color: "#e8c84a" },
+            { label: "Bài đọc", value: passages.length, icon: "ri-article-line", color: "app-accent-primary" },
             { label: "Đã hoàn thành", value: completedIds.size, icon: "ri-checkbox-circle-line", color: "#34d399" },
             { label: "Cấp độ", value: "A1–C2", icon: "ri-bar-chart-grouped-line", color: "#a78bfa" },
           ].map(s => (
-            <div key={s.label} className="rounded-xl border border-white/8 bg-white/3 p-4 text-center">
+            <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-4 text-center">
               <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${s.color}20` }}>
                 <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
               </div>
               <p className="text-white font-bold text-lg">{s.value}</p>
-              <p className="text-white/40 text-xs">{s.label}</p>
+              <p className="text-app-text-secondary text-xs">{s.label}</p>
             </div>
           ))}
         </div>
@@ -543,7 +543,7 @@ export default function ReadingByLevelPage() {
         {/* Level filter */}
         <div className="flex gap-2 flex-wrap mb-6">
           <button onClick={() => setSelectedLevel("all")}
-            className={`px-4 py-2 rounded-full text-xs font-semibold cursor-pointer transition-all whitespace-nowrap ${selectedLevel === "all" ? "bg-white/15 text-white" : "bg-white/5 text-white/50 hover:bg-white/8"}`}>
+            className={`px-4 py-2 rounded-full text-xs font-semibold cursor-pointer transition-all whitespace-nowrap ${selectedLevel === "all" ? "bg-white/15 text-white" : "bg-app-card/50 text-white/50 hover:bg-white/8"}`}>
             Tất cả
           </button>
           {Object.entries(levelConfig).map(([lvl, cfg]) => (
@@ -562,17 +562,17 @@ export default function ReadingByLevelPage() {
             const isDone = completedIds.has(p.id);
             return (
               <button key={p.id} onClick={() => { setSelectedPassage(p); setActiveTab("read"); setQuizScore(null); setShowTranslation(false); setShowVocab(false); }}
-                className="text-left p-5 rounded-2xl border border-white/8 bg-white/3 hover:bg-white/5 hover:border-white/15 transition-all cursor-pointer group">
+                className="text-left p-5 rounded-2xl border border-app-border bg-app-surface/50 hover:bg-app-card/50 hover:border-white/15 transition-all cursor-pointer group">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${cfg.color}20`, color: cfg.color }}>{p.level}</span>
-                    {isDone && <span className="text-xs text-emerald-400 flex items-center gap-1"><i className="ri-checkbox-circle-fill"></i>Hoàn thành</span>}
+                    {isDone && <span className="text-xs text-app-accent-success flex items-center gap-1"><i className="ri-checkbox-circle-fill"></i>Hoàn thành</span>}
                   </div>
-                  <span className="text-white/30 text-xs">{p.readingTime} phút</span>
+                  <span className="text-app-text-muted text-xs">{p.readingTime} phút</span>
                 </div>
-                <h3 className="text-white font-bold text-base mb-1 group-hover:text-[#e8c84a] transition-colors">{p.title}</h3>
+                <h3 className="text-white font-bold text-base mb-1 group-hover:text-app-accent-primary transition-colors">{p.title}</h3>
                 <p className="text-white/50 text-sm mb-3">{p.titleVi}</p>
-                <div className="flex items-center gap-3 text-white/30 text-xs">
+                <div className="flex items-center gap-3 text-app-text-muted text-xs">
                   <span><i className="ri-book-open-line mr-1"></i>{p.wordCount} từ</span>
                   <span><i className="ri-question-line mr-1"></i>{p.questions.length} câu hỏi</span>
                   <span><i className="ri-price-tag-3-line mr-1"></i>{p.topic}</span>

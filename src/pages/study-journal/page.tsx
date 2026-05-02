@@ -66,7 +66,7 @@ function ShareJournalModal({ entry, onClose }: { entry: JournalEntry; onClose: (
     great: "#34d399", good: "#60a5fa", okay: "#fbbf24", tired: "#f87171", hard: "#a78bfa",
   };
 
-  const accent = moodAccent[entry.mood] || "#e8c84a";
+  const accent = moodAccent[entry.mood] || "app-accent-primary";
   const bg = moodBg[entry.mood] || moodBg.okay;
 
   const handleDownload = useCallback(async () => {
@@ -111,7 +111,7 @@ function ShareJournalModal({ entry, onClose }: { entry: JournalEntry; onClose: (
         {/* Modal header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
           <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-            <i className="ri-share-line text-[#e8c84a]"></i>
+            <i className="ri-share-line text-app-accent-primary"></i>
             Chia sẻ nhật ký
           </h3>
           <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 cursor-pointer">
@@ -138,7 +138,7 @@ function ShareJournalModal({ entry, onClose }: { entry: JournalEntry; onClose: (
                 </div>
                 <span className="text-white/70 text-xs font-semibold">Nhật ký học tiếng Hàn</span>
               </div>
-              <span className="text-white/40 text-[10px]">Hàn Quốc Ơi!</span>
+              <span className="text-app-text-secondary text-[10px]">Hàn Quốc Ơi!</span>
             </div>
 
             {/* Date & mood */}
@@ -153,11 +153,11 @@ function ShareJournalModal({ entry, onClose }: { entry: JournalEntry; onClose: (
             {/* Stats */}
             <div className="flex gap-4 mb-4 relative z-10">
               <div className="flex items-center gap-1.5">
-                <i className="ri-time-line text-white/40 text-xs"></i>
+                <i className="ri-time-line text-app-text-secondary text-xs"></i>
                 <span className="text-white/70 text-xs font-medium">{entry.studyMinutes} phút</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <i className="ri-translate-2 text-white/40 text-xs"></i>
+                <i className="ri-translate-2 text-app-text-secondary text-xs"></i>
                 <span className="text-white/70 text-xs font-medium">{entry.wordsLearned} từ mới</span>
               </div>
             </div>
@@ -183,11 +183,11 @@ function ShareJournalModal({ entry, onClose }: { entry: JournalEntry; onClose: (
             )}
 
             {/* Bottom bar */}
-            <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between relative z-10">
-              <span className="text-white/30 text-[10px]">hanquocoi.app</span>
+            <div className="mt-4 pt-3 border-t border-app-border flex items-center justify-between relative z-10">
+              <span className="text-app-text-muted text-[10px]">hanquocoi.app</span>
               <div className="flex items-center gap-1">
-                <i className="ri-global-line text-white/30 text-xs"></i>
-                <span className="text-white/30 text-[10px]">학습 일기</span>
+                <i className="ri-global-line text-app-text-muted text-xs"></i>
+                <span className="text-app-text-muted text-[10px]">학습 일기</span>
               </div>
             </div>
           </div>
@@ -204,7 +204,7 @@ function ShareJournalModal({ entry, onClose }: { entry: JournalEntry; onClose: (
             <button
               onClick={handleDownload}
               disabled={downloading}
-              className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#e8c84a] text-white text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors disabled:opacity-60"
+              className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-app-accent-primary text-white text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors disabled:opacity-60"
             >
               <i className={`${downloading ? "ri-loader-4-line animate-spin" : "ri-download-line"} text-sm`}></i>
               {downloading ? "Đang tạo..." : "Tải ảnh"}
@@ -225,7 +225,7 @@ function EntryCard({ entry, onEdit, onDelete, onShare }: { entry: JournalEntry; 
   const [showConfirm, setShowConfirm] = useState(false);
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 p-5 hover:border-[#e8c84a]/20 transition-all">
+    <div className="bg-white rounded-xl border border-gray-100 p-5 hover:border-app-accent-primary/20 transition-all">
       <div className="flex items-start justify-between gap-3 mb-3">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${mood.color}15` }}>
@@ -237,7 +237,7 @@ function EntryCard({ entry, onEdit, onDelete, onShare }: { entry: JournalEntry; 
           </div>
         </div>
         <div className="flex items-center gap-1">
-          <button onClick={onShare} className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-300 hover:text-[#e8c84a] hover:bg-[#e8c84a]/10 cursor-pointer transition-colors" title="Chia sẻ">
+          <button onClick={onShare} className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-300 hover:text-app-accent-primary hover:bg-app-accent-primary/10 cursor-pointer transition-colors" title="Chia sẻ">
             <i className="ri-share-line text-sm"></i>
           </button>
           <button onClick={onEdit} className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-300 hover:text-gray-600 hover:bg-gray-50 cursor-pointer transition-colors">
@@ -277,7 +277,7 @@ function EntryCard({ entry, onEdit, onDelete, onShare }: { entry: JournalEntry; 
       {entry.tags.length > 0 && (
         <div className="flex flex-wrap gap-1.5">
           {entry.tags.map(tag => (
-            <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-[#e8c84a]/8 text-[#e8c84a] border border-[#e8c84a]/15 font-medium">
+            <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-app-accent-primary/8 text-app-accent-primary border border-app-accent-primary/15 font-medium">
               #{tag}
             </span>
           ))}
@@ -332,7 +332,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
   return (
     <div className="bg-white rounded-xl border border-gray-100 p-6">
       <h3 className="font-semibold text-gray-900 mb-5 flex items-center gap-2">
-        <i className="ri-edit-2-line text-[#e8c84a]"></i>
+        <i className="ri-edit-2-line text-app-accent-primary"></i>
         {initial ? "Chỉnh sửa nhật ký" : "Ghi nhật ký hôm nay"}
       </h3>
 
@@ -344,7 +344,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
           value={date}
           onChange={e => setDate(e.target.value)}
           max={today}
-          className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#e8c84a]/50"
+          className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-app-accent-primary/50"
         />
       </div>
 
@@ -380,7 +380,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
             onChange={e => setStudyMinutes(Math.max(0, parseInt(e.target.value) || 0))}
             min={0}
             max={480}
-            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#e8c84a]/50"
+            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-app-accent-primary/50"
           />
         </div>
         <div>
@@ -390,7 +390,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
             value={wordsLearned}
             onChange={e => setWordsLearned(Math.max(0, parseInt(e.target.value) || 0))}
             min={0}
-            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#e8c84a]/50"
+            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-app-accent-primary/50"
           />
         </div>
       </div>
@@ -406,7 +406,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
           onChange={e => setContent(e.target.value.slice(0, 500))}
           placeholder="Hôm nay tôi đã học được gì? Điều gì khó? Điều gì thú vị?..."
           rows={4}
-          className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#e8c84a]/50 resize-none"
+          className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-app-accent-primary/50 resize-none"
         />
       </div>
 
@@ -420,7 +420,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
               onClick={() => toggleTag(tag)}
               className={`text-xs px-2.5 py-1 rounded-full border transition-all cursor-pointer whitespace-nowrap ${
                 tags.includes(tag)
-                  ? "bg-[#e8c84a]/10 border-[#e8c84a]/30 text-[#e8c84a] font-medium"
+                  ? "bg-app-accent-primary/10 border-app-accent-primary/30 text-app-accent-primary font-medium"
                   : "border-gray-200 text-gray-500 hover:border-gray-300"
               }`}
             >
@@ -435,7 +435,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
             onChange={e => setCustomTag(e.target.value)}
             onKeyDown={e => e.key === "Enter" && addCustomTag()}
             placeholder="Thêm tag tùy chỉnh..."
-            className="flex-1 px-3 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-[#e8c84a]/50"
+            className="flex-1 px-3 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-app-accent-primary/50"
           />
           <button
             onClick={addCustomTag}
@@ -456,7 +456,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
         </button>
         <button
           onClick={handleSubmit}
-          className="flex-1 py-2.5 rounded-lg bg-[#e8c84a] text-white text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors"
+          className="flex-1 py-2.5 rounded-lg bg-app-accent-primary text-white text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors"
         >
           {initial ? "Lưu thay đổi" : "Lưu nhật ký"}
         </button>
@@ -522,7 +522,7 @@ function WeeklyMoodChart({ entries }: { entries: JournalEntry[] }) {
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="font-semibold text-gray-900 text-sm flex items-center gap-2">
-            <i className="ri-emotion-line text-[#e8c84a]"></i>
+            <i className="ri-emotion-line text-app-accent-primary"></i>
             Biểu đồ cảm xúc theo tuần
           </h3>
           <p className="text-xs text-gray-400 mt-0.5">4 tuần gần nhất</p>
@@ -728,7 +728,7 @@ export default function StudyJournalPage() {
           <div className="max-w-5xl mx-auto flex items-center justify-between flex-wrap gap-4">
             <div>
               <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                <i className="ri-draft-line text-[#e8c84a]"></i>
+                <i className="ri-draft-line text-app-accent-primary"></i>
                 Nhật ký học tập
               </h1>
               <p className="text-sm text-gray-500 mt-0.5">Ghi lại hành trình học tiếng Hàn của bạn</p>
@@ -736,7 +736,7 @@ export default function StudyJournalPage() {
             {!showForm && (
               <button
                 onClick={() => { setEditEntry(null); setShowForm(true); }}
-                className="flex items-center gap-2 px-4 py-2 bg-[#e8c84a] text-white rounded-lg text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-white rounded-lg text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors"
               >
                 <i className="ri-add-line"></i>
                 {hasToday ? "Thêm ghi chú" : "Ghi hôm nay"}
@@ -749,7 +749,7 @@ export default function StudyJournalPage() {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
             {[
-              { icon: "ri-calendar-check-line", label: "Tổng ngày ghi", value: entries.length, color: "#e8c84a", unit: "ngày" },
+              { icon: "ri-calendar-check-line", label: "Tổng ngày ghi", value: entries.length, color: "app-accent-primary", unit: "ngày" },
               { icon: "ri-time-line", label: "Tổng thời gian", value: Math.round(totalMinutes / 60), color: "#34d399", unit: "giờ" },
               { icon: "ri-translate-2", label: "Tổng từ học", value: totalWords, color: "#60a5fa", unit: "từ" },
               { icon: "ri-fire-line", label: "Streak hiện tại", value: streak, color: "#f87171", unit: "ngày" },
@@ -791,7 +791,7 @@ export default function StudyJournalPage() {
                   value={search}
                   onChange={e => setSearch(e.target.value)}
                   placeholder="Tìm trong nhật ký..."
-                  className="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#e8c84a]/50 bg-white"
+                  className="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-app-accent-primary/50 bg-white"
                 />
               </div>
               <select
@@ -825,14 +825,14 @@ export default function StudyJournalPage() {
           {/* Entries */}
           {entries.length === 0 ? (
             <div className="text-center py-20 bg-white rounded-xl border border-gray-100">
-              <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-[#e8c84a]/10 mx-auto mb-4">
-                <i className="ri-draft-line text-3xl text-[#e8c84a]"></i>
+              <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-app-accent-primary/10 mx-auto mb-4">
+                <i className="ri-draft-line text-3xl text-app-accent-primary"></i>
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Chưa có nhật ký nào</h3>
               <p className="text-sm text-gray-400 mb-5">Bắt đầu ghi lại hành trình học tiếng Hàn của bạn!</p>
               <button
                 onClick={() => setShowForm(true)}
-                className="px-5 py-2.5 bg-[#e8c84a] text-white rounded-lg text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors"
+                className="px-5 py-2.5 bg-app-accent-primary text-white rounded-lg text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors"
               >
                 Viết nhật ký đầu tiên
               </button>

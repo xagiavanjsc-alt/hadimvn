@@ -92,24 +92,24 @@ function GoalBanner({
   const done = songsThisWeek >= goal.songsPerWeek;
 
   return (
-    <div className={`rounded-2xl p-4 border mb-5 ${done ? "bg-[#22c55e]/8 border-[#22c55e]/25" : "bg-white/3 border-white/8"}`}>
+    <div className={`rounded-2xl p-4 border mb-5 ${done ? "bg-[#22c55e]/8 border-[#22c55e]/25" : "bg-app-surface/50 border-app-border"}`}>
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <div className={`w-8 h-8 flex items-center justify-center rounded-xl ${done ? "bg-[#22c55e]/20" : "bg-white/5"}`}>
-            <i className={`${done ? "ri-trophy-fill text-[#22c55e]" : "ri-focus-3-line text-white/40"} text-sm`} />
+          <div className={`w-8 h-8 flex items-center justify-center rounded-xl ${done ? "bg-[#22c55e]/20" : "bg-app-card/50"}`}>
+            <i className={`${done ? "ri-trophy-fill text-[#22c55e]" : "ri-focus-3-line text-app-text-secondary"} text-sm`} />
           </div>
           <div>
             <p className="text-white/80 text-xs font-semibold">
               {done ? "Đạt mục tiêu tuần này!" : "Mục tiêu tuần này"}
             </p>
-            <p className="text-white/30 text-[10px]">
+            <p className="text-app-text-muted text-[10px]">
               {songsThisWeek}/{goal.songsPerWeek} bài · {done ? "Hoàn thành!" : `Còn ${goal.songsPerWeek - songsThisWeek} bài nữa`}
             </p>
           </div>
         </div>
         <button
           onClick={onEdit}
-          className="text-[10px] text-white/25 hover:text-white/50 cursor-pointer whitespace-nowrap flex items-center gap-1"
+          className="text-[10px] text-app-text-muted hover:text-white/50 cursor-pointer whitespace-nowrap flex items-center gap-1"
         >
           <i className="ri-edit-line" />
           Sửa
@@ -120,14 +120,14 @@ function GoalBanner({
           className="h-full rounded-full transition-all duration-700"
           style={{
             width: `${pct}%`,
-            backgroundColor: done ? "#22c55e" : "#e8c84a",
+            backgroundColor: done ? "#22c55e" : "app-accent-primary",
           }}
         />
       </div>
       <div className="flex justify-between mt-1.5">
-        <span className="text-[10px] text-white/20">0</span>
-        <span className="text-[10px]" style={{ color: done ? "#22c55e" : "#e8c84a" }}>{pct}%</span>
-        <span className="text-[10px] text-white/20">{goal.songsPerWeek} bài</span>
+        <span className="text-[10px] text-app-text-muted">0</span>
+        <span className="text-[10px]" style={{ color: done ? "#22c55e" : "app-accent-primary" }}>{pct}%</span>
+        <span className="text-[10px] text-app-text-muted">{goal.songsPerWeek} bài</span>
       </div>
     </div>
   );
@@ -141,14 +141,14 @@ function GoalModal({ goal, onSave, onClose }: { goal: WeeklyGoal; onSave: (g: We
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center px-4 pb-4 sm:pb-0">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-[#1a1d26] border border-white/10 rounded-2xl p-6 w-full max-w-sm z-10">
+      <div className="relative bg-[#1a1d26] border border-app-border rounded-2xl p-6 w-full max-w-sm z-10">
         <div className="flex items-center justify-between mb-5">
           <p className="text-white font-bold text-base">Đặt mục tiêu học Melon</p>
-          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 text-white/40 cursor-pointer">
+          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary cursor-pointer">
             <i className="ri-close-line text-sm" />
           </button>
         </div>
-        <p className="text-white/40 text-xs mb-4">Chọn số bài hát muốn học mỗi tuần:</p>
+        <p className="text-app-text-secondary text-xs mb-4">Chọn số bài hát muốn học mỗi tuần:</p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
           {OPTIONS.map(n => (
             <button
@@ -157,14 +157,14 @@ function GoalModal({ goal, onSave, onClose }: { goal: WeeklyGoal; onSave: (g: We
               className={`py-3 rounded-xl text-sm font-bold transition-all cursor-pointer ${
                 val === n
                   ? "bg-[#22c55e] text-white"
-                  : "bg-white/5 text-white/40 hover:bg-white/10"
+                  : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70"
               }`}
             >
               {n}
             </button>
           ))}
         </div>
-        <p className="text-white/25 text-xs text-center mb-5">
+        <p className="text-app-text-muted text-xs text-center mb-5">
           {val} bài/tuần = ~{Math.round(val / 7 * 10) / 10} bài/ngày
         </p>
         <button
@@ -245,12 +245,12 @@ export default function MelonHistoryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f1117]">
+    <div className="min-h-screen bg-app-bg">
       {/* Header */}
-      <header className="sticky top-0 z-30 bg-[#0f1117]/95 backdrop-blur-md border-b border-white/8 h-14 flex items-center px-4 md:px-6 gap-3">
+      <header className="sticky top-0 z-30 bg-app-bg/95 backdrop-blur-md border-b border-app-border h-14 flex items-center px-4 md:px-6 gap-3">
         <button
           onClick={() => navigate("/melon")}
-          className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/60 hover:text-white cursor-pointer flex-shrink-0"
+          className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-white/60 hover:text-white cursor-pointer flex-shrink-0"
         >
           <i className="ri-arrow-left-line" />
         </button>
@@ -264,21 +264,21 @@ export default function MelonHistoryPage() {
         </div>
         <button
           onClick={() => navigate("/melon-stats")}
-          className="flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 cursor-pointer whitespace-nowrap mr-1"
+          className="flex items-center gap-1.5 text-xs text-app-text-secondary hover:text-white/70 cursor-pointer whitespace-nowrap mr-1"
         >
           <i className="ri-bar-chart-grouped-line" />
           Thống kê
         </button>
-        <div className="flex gap-1 bg-white/5 p-0.5 rounded-lg">
+        <div className="flex gap-1 bg-app-card/50 p-0.5 rounded-lg">
           <button
             onClick={() => setViewMode("timeline")}
-            className={`w-7 h-7 flex items-center justify-center rounded-md text-xs cursor-pointer transition-colors ${viewMode === "timeline" ? "bg-white/10 text-white" : "text-white/30"}`}
+            className={`w-7 h-7 flex items-center justify-center rounded-md text-xs cursor-pointer transition-colors ${viewMode === "timeline" ? "bg-app-card/70 text-white" : "text-app-text-muted"}`}
           >
             <i className="ri-timeline-view" />
           </button>
           <button
             onClick={() => setViewMode("grid")}
-            className={`w-7 h-7 flex items-center justify-center rounded-md text-xs cursor-pointer transition-colors ${viewMode === "grid" ? "bg-white/10 text-white" : "text-white/30"}`}
+            className={`w-7 h-7 flex items-center justify-center rounded-md text-xs cursor-pointer transition-colors ${viewMode === "grid" ? "bg-app-card/70 text-white" : "text-app-text-muted"}`}
           >
             <i className="ri-grid-line" />
           </button>
@@ -289,13 +289,13 @@ export default function MelonHistoryPage() {
 
         {/* Login prompt */}
         {!user && isSupabaseConfigured && (
-          <div className="mb-5 bg-[#e8c84a]/8 border border-[#e8c84a]/20 rounded-2xl p-4 flex items-start gap-3">
-            <div className="w-8 h-8 flex items-center justify-center bg-[#e8c84a]/15 rounded-xl flex-shrink-0">
-              <i className="ri-cloud-off-line text-[#e8c84a] text-sm" />
+          <div className="mb-5 bg-app-accent-primary/8 border border-app-accent-primary/20 rounded-2xl p-4 flex items-start gap-3">
+            <div className="w-8 h-8 flex items-center justify-center bg-app-accent-primary/15 rounded-xl flex-shrink-0">
+              <i className="ri-cloud-off-line text-app-accent-primary text-sm" />
             </div>
             <div className="flex-1">
               <p className="text-white/80 text-xs font-semibold">Đăng nhập để đồng bộ đa thiết bị</p>
-              <p className="text-white/40 text-[11px] mt-0.5">Hiện đang dùng bộ nhớ cục bộ. Đăng nhập để lưu lịch sử lên cloud.</p>
+              <p className="text-app-text-secondary text-[11px] mt-0.5">Hiện đang dùng bộ nhớ cục bộ. Đăng nhập để lưu lịch sử lên cloud.</p>
             </div>
           </div>
         )}
@@ -304,7 +304,7 @@ export default function MelonHistoryPage() {
         {loading && learnedSongs.length === 0 && (
           <div className="space-y-3">
             {[1, 2, 3].map(i => (
-              <div key={i} className="h-20 bg-white/3 rounded-2xl animate-pulse" />
+              <div key={i} className="h-20 bg-app-surface/50 rounded-2xl animate-pulse" />
             ))}
           </div>
         )}
@@ -322,11 +322,11 @@ export default function MelonHistoryPage() {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-7">
               {[
                 { icon: "ri-music-2-line", val: learnedSongs.length, label: "Bài đã học", color: "text-[#22c55e]" },
-                { icon: "ri-translate-2", val: totalVocab, label: "Từ vựng", color: "text-[#e8c84a]" },
+                { icon: "ri-translate-2", val: totalVocab, label: "Từ vựng", color: "text-app-accent-primary" },
                 { icon: "ri-lightbulb-flash-line", val: totalQuizDone, label: "Quiz xong", color: "text-orange-400" },
                 { icon: "ri-percent-line", val: totalQuizDone > 0 ? `${avgScore}%` : "—", label: "Điểm TB", color: "text-green-400" },
               ].map(s => (
-                <div key={s.label} className="bg-white/3 border border-white/5 rounded-2xl p-3 text-center">
+                <div key={s.label} className="bg-app-surface/50 border border-app-border rounded-2xl p-3 text-center">
                   <div className="w-8 h-8 flex items-center justify-center mx-auto mb-1">
                     <i className={`${s.icon} ${s.color} text-lg`} />
                   </div>
@@ -338,13 +338,13 @@ export default function MelonHistoryPage() {
 
             {/* Genre breakdown */}
             {genreCounts.length > 0 && (
-              <div className="bg-white/3 border border-white/5 rounded-2xl p-4 mb-6">
-                <p className="text-white/40 text-xs tracking-normal mb-3">Thể loại đã học</p>
+              <div className="bg-app-surface/50 border border-app-border rounded-2xl p-4 mb-6">
+                <p className="text-app-text-secondary text-xs tracking-normal mb-3">Thể loại đã học</p>
                 <div className="flex flex-wrap gap-2">
                   {genreCounts.map(([genre, count]) => (
-                    <span key={genre} className="flex items-center gap-1.5 bg-white/5 border border-white/8 text-white/60 text-xs px-3 py-1.5 rounded-full">
+                    <span key={genre} className="flex items-center gap-1.5 bg-app-card/50 border border-app-border text-white/60 text-xs px-3 py-1.5 rounded-full">
                       {genre}
-                      <span className="bg-[#e8c84a]/20 text-[#e8c84a] text-[10px] font-bold px-1.5 py-0.5 rounded-full">{count}</span>
+                      <span className="bg-app-accent-primary/20 text-app-accent-primary text-[10px] font-bold px-1.5 py-0.5 rounded-full">{count}</span>
                     </span>
                   ))}
                 </div>
@@ -354,14 +354,14 @@ export default function MelonHistoryPage() {
             {/* Empty state */}
             {learnedSongs.length === 0 && (
               <div className="flex flex-col items-center justify-center py-20 text-center">
-                <div className="w-16 h-16 flex items-center justify-center bg-white/5 rounded-2xl mb-4">
-                  <i className="ri-history-line text-white/20 text-2xl" />
+                <div className="w-16 h-16 flex items-center justify-center bg-app-card/50 rounded-2xl mb-4">
+                  <i className="ri-history-line text-app-text-muted text-2xl" />
                 </div>
-                <p className="text-white/40 text-sm font-medium mb-1">Chưa có lịch sử học</p>
-                <p className="text-white/20 text-xs mb-5">Mở phân tích AI của bất kỳ bài hát nào<br />để bắt đầu ghi lịch sử</p>
+                <p className="text-app-text-secondary text-sm font-medium mb-1">Chưa có lịch sử học</p>
+                <p className="text-app-text-muted text-xs mb-5">Mở phân tích AI của bất kỳ bài hát nào<br />để bắt đầu ghi lịch sử</p>
                 <button
                   onClick={() => navigate("/melon")}
-                  className="bg-[#e8c84a] hover:bg-[#e8c84a]/80 text-[#0f1117] text-sm font-bold px-6 py-2.5 rounded-xl cursor-pointer whitespace-nowrap"
+                  className="bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold px-6 py-2.5 rounded-xl cursor-pointer whitespace-nowrap"
                 >
                   Đến Melon Chart
                 </button>
@@ -375,20 +375,20 @@ export default function MelonHistoryPage() {
                 <div className="space-y-4">
                   {learnedSongs.map(({ song, analysis, quizScore, studiedAt }, idx) => (
                     <div key={song.rank} className="flex gap-4 items-start relative">
-                      <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-[#0f1117] border-2 border-[#e8c84a]/40 z-10">
-                        <span className="text-[#e8c84a] text-xs font-bold">{idx + 1}</span>
+                      <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-app-bg border-2 border-app-accent-primary/40 z-10">
+                        <span className="text-app-accent-primary text-xs font-bold">{idx + 1}</span>
                       </div>
                       <div
-                        className="flex-1 bg-white/3 border border-white/5 rounded-2xl p-4 cursor-pointer hover:bg-white/5 transition-colors"
+                        className="flex-1 bg-app-surface/50 border border-app-border rounded-2xl p-4 cursor-pointer hover:bg-app-card/50 transition-colors"
                         onClick={() => navigate(`/melon/${song.rank}`)}
                       >
                         <div className="flex items-start gap-3">
                           <img src={song.albumArt} alt={song.title} className="w-12 h-12 rounded-xl object-cover object-top flex-shrink-0" />
                           <div className="flex-1 min-w-0">
                             <p className="text-white/85 text-sm font-semibold truncate">{song.title}</p>
-                            <p className="text-white/40 text-xs">{song.artist} · #{song.rank}</p>
+                            <p className="text-app-text-secondary text-xs">{song.artist} · #{song.rank}</p>
                             {studiedAt && (
-                              <p className="text-white/20 text-[10px] mt-0.5">
+                              <p className="text-app-text-muted text-[10px] mt-0.5">
                                 {new Date(studiedAt).toLocaleDateString("vi-VN")}
                               </p>
                             )}
@@ -400,27 +400,27 @@ export default function MelonHistoryPage() {
                                 </span>
                               )}
                               {quizScore && (
-                                <span className={`inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full ${quizScore.score >= quizScore.total * 0.8 ? "text-[#e8c84a] bg-[#e8c84a]/10" : "text-orange-400 bg-orange-500/10"}`}>
+                                <span className={`inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full ${quizScore.score >= quizScore.total * 0.8 ? "text-app-accent-primary bg-app-accent-primary/10" : "text-orange-400 bg-orange-500/10"}`}>
                                   <i className="ri-lightbulb-flash-line" />
                                   Quiz {quizScore.score}/{quizScore.total}
                                 </span>
                               )}
                               {!analysis && (
-                                <span className="text-[10px] text-white/20 bg-white/5 px-2 py-0.5 rounded-full">Chưa phân tích AI</span>
+                                <span className="text-[10px] text-app-text-muted bg-app-card/50 px-2 py-0.5 rounded-full">Chưa phân tích AI</span>
                               )}
                             </div>
                           </div>
-                          <i className="ri-arrow-right-s-line text-white/20 flex-shrink-0 mt-1" />
+                          <i className="ri-arrow-right-s-line text-app-text-muted flex-shrink-0 mt-1" />
                         </div>
                         {analysis && (
-                          <div className="mt-3 pt-3 border-t border-white/5 flex gap-2 flex-wrap">
+                          <div className="mt-3 pt-3 border-t border-app-border flex gap-2 flex-wrap">
                             {analysis.vocabulary.slice(0, 3).map((v, i) => (
-                              <span key={i} className="text-[11px] text-[#e8c84a]/70 bg-[#e8c84a]/8 px-2 py-0.5 rounded-full">
+                              <span key={i} className="text-[11px] text-app-accent-primary/70 bg-app-accent-primary/8 px-2 py-0.5 rounded-full">
                                 {v.word.split("(")[0].trim()}
                               </span>
                             ))}
                             {analysis.vocabulary.length > 3 && (
-                              <span className="text-[11px] text-white/25 px-2 py-0.5">+{analysis.vocabulary.length - 3} từ</span>
+                              <span className="text-[11px] text-app-text-muted px-2 py-0.5">+{analysis.vocabulary.length - 3} từ</span>
                             )}
                           </div>
                         )}
@@ -437,7 +437,7 @@ export default function MelonHistoryPage() {
                 {learnedSongs.map(({ song, analysis, quizScore }) => (
                   <div
                     key={song.rank}
-                    className="bg-white/3 border border-white/5 rounded-2xl overflow-hidden cursor-pointer hover:bg-white/5 transition-colors"
+                    className="bg-app-surface/50 border border-app-border rounded-2xl overflow-hidden cursor-pointer hover:bg-app-card/50 transition-colors"
                     onClick={() => navigate(`/melon/${song.rank}`)}
                   >
                     <div className="relative w-full aspect-square">
@@ -448,17 +448,17 @@ export default function MelonHistoryPage() {
                         <p className="text-white/50 text-[10px] truncate">{song.artist}</p>
                       </div>
                       {quizScore && (
-                        <div className="absolute top-2 right-2 bg-[#e8c84a] text-[#0f1117] text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                        <div className="absolute top-2 right-2 bg-app-accent-primary text-app-bg text-[10px] font-bold px-1.5 py-0.5 rounded-full">
                           {quizScore.score}/{quizScore.total}
                         </div>
                       )}
                     </div>
                     <div className="px-3 py-2 flex items-center justify-between">
-                      <span className="text-[10px] text-white/30">#{song.rank}</span>
+                      <span className="text-[10px] text-app-text-muted">#{song.rank}</span>
                       {analysis ? (
                         <span className="text-[10px] text-green-400">{analysis.vocabulary.length} từ</span>
                       ) : (
-                        <span className="text-[10px] text-white/20">Chưa AI</span>
+                        <span className="text-[10px] text-app-text-muted">Chưa AI</span>
                       )}
                     </div>
                   </div>
@@ -469,18 +469,18 @@ export default function MelonHistoryPage() {
             {/* Flashcard CTA */}
             {learnedSongs.some(s => s.analysis) && (
               <div
-                className="mt-6 bg-gradient-to-r from-[#e8c84a]/10 to-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-2xl p-5 cursor-pointer hover:border-[#e8c84a]/30 transition-colors"
+                className="mt-6 bg-gradient-to-r from-[app-accent-primary]/10 to-[app-accent-primary]/5 border border-app-accent-primary/15 rounded-2xl p-5 cursor-pointer hover:border-app-accent-primary/30 transition-colors"
                 onClick={() => navigate("/melon-flashcard")}
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 flex items-center justify-center bg-[#e8c84a]/15 rounded-xl flex-shrink-0">
-                    <i className="ri-stack-line text-[#e8c84a] text-lg" />
+                  <div className="w-10 h-10 flex items-center justify-center bg-app-accent-primary/15 rounded-xl flex-shrink-0">
+                    <i className="ri-stack-line text-app-accent-primary text-lg" />
                   </div>
                   <div className="flex-1">
                     <p className="text-white/85 text-sm font-semibold">Flashcard từ vựng K-pop</p>
                     <p className="text-white/35 text-xs">{totalVocab} từ từ {learnedSongs.filter(s => s.analysis).length} bài hát đã học</p>
                   </div>
-                  <i className="ri-arrow-right-s-line text-[#e8c84a]/50" />
+                  <i className="ri-arrow-right-s-line text-app-accent-primary/50" />
                 </div>
               </div>
             )}

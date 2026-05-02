@@ -43,9 +43,9 @@ export default function ImageWithFallback({
 
   if (status === "error" && showPlaceholder) {
     return (
-      <div className={`flex flex-col items-center justify-center bg-white/3 border border-white/8 rounded-xl ${className}`} style={style}>
-        <i className="ri-image-line text-white/20 text-3xl mb-2"></i>
-        <p className="text-white/25 text-xs text-center px-3">
+      <div className={`flex flex-col items-center justify-center bg-app-surface/50 border border-app-border rounded-xl ${className}`} style={style}>
+        <i className="ri-image-line text-app-text-muted text-3xl mb-2"></i>
+        <p className="text-app-text-muted text-xs text-center px-3">
           {placeholderText || "Ảnh minh họa chưa có"}
         </p>
         {caption && <p className="text-white/15 text-[10px] mt-1 italic">{caption}</p>}
@@ -57,7 +57,7 @@ export default function ImageWithFallback({
     <div className="relative">
       {/* Skeleton loading */}
       {status === "loading" && (
-        <div className={`absolute inset-0 bg-white/5 animate-pulse rounded-xl ${className}`} style={style} />
+        <div className={`absolute inset-0 bg-app-card/50 animate-pulse rounded-xl ${className}`} style={style} />
       )}
       <img
         src={currentSrc}
@@ -69,8 +69,8 @@ export default function ImageWithFallback({
         onError={handleError}
       />
       {caption && status === "loaded" && (
-        <div className="px-3 py-1.5 bg-white/3 border-t border-white/5 rounded-b-xl">
-          <p className="text-white/30 text-[10px] italic">{caption}</p>
+        <div className="px-3 py-1.5 bg-app-surface/50 border-t border-app-border rounded-b-xl">
+          <p className="text-app-text-muted text-[10px] italic">{caption}</p>
         </div>
       )}
     </div>

@@ -58,11 +58,11 @@ function CoverPage({ meta, totalLessons }: { meta: EbookMeta; totalLessons: numb
       <div className="flex-1 flex flex-col justify-center">
         <h1 className="text-2xl font-bold leading-tight mb-2" style={{ color: meta.coverAccent }}>{meta.title || "Tiêu đề ebook"}</h1>
         <p className="text-white/50 text-sm mb-5">{meta.subtitle}</p>
-        <p className="text-white/25 text-xs leading-relaxed max-w-xs">{meta.description}</p>
+        <p className="text-app-text-muted text-xs leading-relaxed max-w-xs">{meta.description}</p>
       </div>
       <div className="flex items-center justify-between">
         <div className="text-[10px] font-semibold px-3 py-1.5 rounded-full" style={{ backgroundColor: `${meta.coverAccent}20`, color: meta.coverAccent }}>{totalLessons} bài học</div>
-        <p className="text-white/20 text-[10px]">{new Date().getFullYear()}</p>
+        <p className="text-app-text-muted text-[10px]">{new Date().getFullYear()}</p>
       </div>
     </div>
   );
@@ -125,11 +125,11 @@ function ClosingPage({ meta }: { meta: EbookMeta }) {
     <div className="w-full h-full flex flex-col items-center justify-center p-8 overflow-hidden relative" style={{ backgroundColor: meta.coverColor }}>
       <div className="w-8 h-0.5 mb-5" style={{ backgroundColor: meta.coverAccent }} />
       <h2 className="text-lg font-bold mb-2" style={{ color: meta.coverAccent }}>Cảm ơn bạn đã đọc!</h2>
-      <p className="text-white/40 text-[10px] text-center leading-5 mb-6 max-w-[200px]">Hy vọng ebook này giúp bạn tiến bộ tiếng Hàn mỗi ngày.</p>
+      <p className="text-app-text-secondary text-[10px] text-center leading-5 mb-6 max-w-[200px]">Hy vọng ebook này giúp bạn tiến bộ tiếng Hàn mỗi ngày.</p>
       {(meta.contactInfo || meta.website) && (
         <div className="rounded-xl p-4 text-center w-full max-w-[220px]" style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}>
           <p className="text-[8px] font-bold tracking-normal mb-2" style={{ color: meta.coverAccent }}>Liên hệ</p>
-          {meta.contactInfo && <p className="text-white/40 text-[8px] leading-4 whitespace-pre-wrap mb-2">{meta.contactInfo}</p>}
+          {meta.contactInfo && <p className="text-app-text-secondary text-[8px] leading-4 whitespace-pre-wrap mb-2">{meta.contactInfo}</p>}
           {meta.website && <p className="text-[9px] font-semibold" style={{ color: meta.coverAccent }}>{meta.website}</p>}
         </div>
       )}
@@ -146,7 +146,7 @@ function VocabCard({ v, dark = false }: { v: { word: string; meaning: string; ex
     <div className="rounded p-1.5" style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}>
       <p className="font-black text-[10px]" style={{ color: "#e8e8e8", fontFamily: "'Noto Sans KR', sans-serif" }}>{parsed.korean}</p>
       {parsed.romanization && <p className="text-[7px] italic" style={{ color: "rgba(255,255,255,0.3)" }}>{parsed.romanization}</p>}
-      <p className="text-[9px] font-bold mt-0.5" style={{ color: "#e8c84a" }}>{parsed.meaning}</p>
+      <p className="text-[9px] font-bold mt-0.5" style={{ color: "app-accent-primary" }}>{parsed.meaning}</p>
     </div>
   );
   return (
@@ -282,7 +282,7 @@ function LessonPageAlbum({ meta, lesson, idx, pageNum }: { meta: EbookMeta; less
           <p className="text-[9px] font-bold tracking-normal text-white/60 mb-1">Bài {idx + 1}</p>
           <h2 className="text-base font-bold text-white leading-tight">{lesson.song.title}</h2>
           <p className="text-white/60 text-[10px] mt-0.5">{lesson.song.artist}</p>
-          {lesson.song.genre && <span className="mt-2 self-start text-[8px] bg-white/20 text-white px-2 py-0.5 rounded-full">{toViGenre(lesson.song.genre)}</span>}
+          {lesson.song.genre && <span className="mt-2 self-start text-[8px] bg-app-border/200 text-white px-2 py-0.5 rounded-full">{toViGenre(lesson.song.genre)}</span>}
         </div>
       </div>
       <div className="flex-1 p-5 overflow-hidden flex flex-col">
@@ -330,7 +330,7 @@ function LessonPageGradient({ meta, lesson, idx, pageNum }: { meta: EbookMeta; l
           <p className="text-white/60 text-[10px] mt-0.5">{lesson.song.artist}</p>
         </div>
         {lesson.song.genre && (
-          <span className="absolute top-3 right-4 text-[8px] bg-white/20 text-white px-2 py-0.5 rounded-full">{toViGenre(lesson.song.genre)}</span>
+          <span className="absolute top-3 right-4 text-[8px] bg-app-border/200 text-white px-2 py-0.5 rounded-full">{toViGenre(lesson.song.genre)}</span>
         )}
       </div>
       {/* Content */}
@@ -501,9 +501,9 @@ export default function EbookPageCarousel({ meta, lessons, template = "classic" 
 
   if (lessons.length === 0) {
     return (
-      <div className="bg-[#0f1117] border border-white/5 rounded-xl p-8 text-center">
+      <div className="bg-app-bg border border-app-border rounded-xl p-8 text-center">
         <i className="ri-book-2-line text-white/15 text-3xl block mb-3"></i>
-        <p className="text-white/25 text-sm">Chọn bài học để xem trước layout</p>
+        <p className="text-app-text-muted text-sm">Chọn bài học để xem trước layout</p>
       </div>
     );
   }
@@ -524,26 +524,26 @@ export default function EbookPageCarousel({ meta, lessons, template = "classic" 
   };
 
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-xl p-5">
+    <div className="bg-app-bg border border-app-border rounded-xl p-5">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 flex items-center justify-center bg-[#e8c84a]/10 rounded-lg">
-            <i className="ri-eye-line text-[#e8c84a] text-sm"></i>
+          <div className="w-7 h-7 flex items-center justify-center bg-app-accent-primary/10 rounded-lg">
+            <i className="ri-eye-line text-app-accent-primary text-sm"></i>
           </div>
           <p className="text-white font-semibold text-sm">Xem trước từng trang</p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-[#e8c84a]/60 text-[10px] bg-[#e8c84a]/8 px-2 py-0.5 rounded-full border border-[#e8c84a]/15">{templateLabels[template]}</span>
-          <span className="text-white/30 text-xs">{currentPage + 1} / {totalPages}</span>
+          <span className="text-app-accent-primary/60 text-[10px] bg-app-accent-primary/8 px-2 py-0.5 rounded-full border border-app-accent-primary/15">{templateLabels[template]}</span>
+          <span className="text-app-text-muted text-xs">{currentPage + 1} / {totalPages}</span>
         </div>
       </div>
 
       <div className="flex items-center gap-2 mb-3">
         <span className={`text-[10px] font-medium px-2.5 py-1 rounded-full ${
-          page.type === "cover" ? "bg-[#e8c84a]/15 text-[#e8c84a]" :
+          page.type === "cover" ? "bg-app-accent-primary/15 text-app-accent-primary" :
           page.type === "foreword" ? "bg-violet-500/15 text-violet-400" :
           page.type === "toc" ? "bg-sky-500/15 text-sky-400" :
-          page.type === "closing" ? "bg-emerald-500/15 text-emerald-400" :
+          page.type === "closing" ? "bg-app-accent-success/15 text-app-accent-success" :
           "bg-white/8 text-white/50"
         }`}>
           {page.type === "cover" ? "Trang bìa" :
@@ -555,7 +555,7 @@ export default function EbookPageCarousel({ meta, lessons, template = "classic" 
       </div>
 
       <div
-        className="relative mx-auto overflow-hidden rounded-lg border border-white/10"
+        className="relative mx-auto overflow-hidden rounded-lg border border-app-border"
         style={{ width: "100%", aspectRatio: "210/297", fontFamily }}
       >
         {page.type === "cover" && <CoverPage meta={meta} totalLessons={lessons.length} />}
@@ -567,27 +567,27 @@ export default function EbookPageCarousel({ meta, lessons, template = "classic" 
 
       <div className="flex items-center justify-between mt-4">
         <button onClick={() => setCurrentPage(p => Math.max(0, p - 1))} disabled={currentPage === 0}
-          className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed text-white/60 text-xs font-medium px-4 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap">
+          className="flex items-center gap-1.5 bg-app-card/50 hover:bg-app-card/70 disabled:opacity-30 disabled:cursor-not-allowed text-white/60 text-xs font-medium px-4 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap">
           <i className="ri-arrow-left-s-line"></i>Trang trước
         </button>
         <div className="flex items-center gap-1">
           {totalPages <= 7 ? pages.map((_, i) => (
             <button key={i} onClick={() => setCurrentPage(i)}
-              className={`rounded-full transition-all cursor-pointer ${i === currentPage ? "w-4 h-1.5 bg-[#e8c84a]" : "w-1.5 h-1.5 bg-white/15 hover:bg-white/30"}`} />
-          )) : <span className="text-white/30 text-xs">{currentPage + 1}/{totalPages}</span>}
+              className={`rounded-full transition-all cursor-pointer ${i === currentPage ? "w-4 h-1.5 bg-app-accent-primary" : "w-1.5 h-1.5 bg-white/15 hover:bg-app-surface/500"}`} />
+          )) : <span className="text-app-text-muted text-xs">{currentPage + 1}/{totalPages}</span>}
         </div>
         <button onClick={() => setCurrentPage(p => Math.min(totalPages - 1, p + 1))} disabled={currentPage === totalPages - 1}
-          className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed text-white/60 text-xs font-medium px-4 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap">
+          className="flex items-center gap-1.5 bg-app-card/50 hover:bg-app-card/70 disabled:opacity-30 disabled:cursor-not-allowed text-white/60 text-xs font-medium px-4 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap">
           Trang sau<i className="ri-arrow-right-s-line"></i>
         </button>
       </div>
 
       {lessons.length > 3 && (
-        <div className="mt-3 pt-3 border-t border-white/5">
+        <div className="mt-3 pt-3 border-t border-app-border">
           <select value={currentPage} onChange={e => setCurrentPage(Number(e.target.value))}
-            className="w-full bg-white/5 border border-white/8 rounded-lg px-3 py-2 text-white/60 text-xs focus:outline-none focus:border-[#e8c84a]/30 cursor-pointer">
+            className="w-full bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white/60 text-xs focus:outline-none focus:border-app-accent-primary/30 cursor-pointer">
             {pages.map((p, i) => (
-              <option key={i} value={i} className="bg-[#0f1117]">
+              <option key={i} value={i} className="bg-app-bg">
                 {p.type === "cover" ? "Trang bìa" : p.type === "foreword" ? "Lời mở đầu" :
                  p.type === "toc" ? "Mục lục" : p.type === "closing" ? "Trang kết" :
                  `Bài ${(p.lessonIdx ?? 0) + 1}: ${lessons[p.lessonIdx ?? 0]?.song.title}`}

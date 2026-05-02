@@ -37,7 +37,7 @@ const PRACTICE_ITEMS: PracticeItem[] = [
   { id: "p18", korean: "인공지능 기술이 빠르게 발전하고 있습니다", vietnamese: "Công nghệ AI đang phát triển nhanh chóng", romanization: "in-gong-ji-neung gi-su-ri ppa-reu-ge bal-jeon-ha-go it-seum-ni-da", level: "B2", category: "Công nghệ", tips: "Câu dài — chia nhịp: 인공지능 기술이 / 빠르게 / 발전하고 있습니다" },
 ];
 
-const LEVEL_COLORS: Record<string, string> = { A1: "#34d399", A2: "#e8c84a", B1: "#fb923c", B2: "#f87171" };
+const LEVEL_COLORS: Record<string, string> = { A1: "#34d399", A2: "app-accent-primary", B1: "#fb923c", B2: "#f87171" };
 
 // ─── Speech Recognition Hook ──────────────────────────────────────────────
 function useSpeechRecognition() {
@@ -135,16 +135,16 @@ function PracticeCard({
     }
   };
 
-  const getScoreColor = (s: number) => s >= 80 ? "#34d399" : s >= 55 ? "#e8c84a" : "#f87171";
+  const getScoreColor = (s: number) => s >= 80 ? "#34d399" : s >= 55 ? "app-accent-primary" : "#f87171";
   const getScoreLabel = (s: number) => s >= 80 ? "Xuất sắc!" : s >= 55 ? "Khá tốt!" : "Thử lại nhé!";
 
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5 hover:border-white/10 transition-all">
+    <div className="bg-app-bg border border-app-border rounded-2xl p-5 hover:border-app-border transition-all">
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-2 flex-wrap">
           <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${LEVEL_COLORS[item.level]}15`, color: LEVEL_COLORS[item.level] }}>{item.level}</span>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-white/30">{item.category}</span>
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-card/50 text-app-text-muted">{item.category}</span>
         </div>
         {bestScore > 0 && (
           <span className="text-[10px] font-bold" style={{ color: getScoreColor(bestScore) }}>Tốt nhất: {bestScore}</span>
@@ -154,23 +154,23 @@ function PracticeCard({
       {/* Korean text */}
       <div className="flex items-center gap-3 mb-1">
         <p className="text-white text-2xl font-bold flex-1">{item.korean}</p>
-        <button onClick={speakExample} className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 cursor-pointer transition-colors flex-shrink-0">
+        <button onClick={speakExample} className="w-9 h-9 flex items-center justify-center rounded-xl bg-app-card/50 hover:bg-app-card/70 cursor-pointer transition-colors flex-shrink-0">
           <i className="ri-volume-up-line text-white/50 text-base"></i>
         </button>
       </div>
-      <p className="text-white/25 text-xs font-mono mb-1">[{item.romanization}]</p>
-      <p className="text-white/40 text-sm mb-3">{item.vietnamese}</p>
+      <p className="text-app-text-muted text-xs font-mono mb-1">[{item.romanization}]</p>
+      <p className="text-app-text-secondary text-sm mb-3">{item.vietnamese}</p>
 
       {/* Tips */}
-      <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/10 rounded-xl px-3 py-2 mb-4">
-        <p className="text-[#e8c84a]/60 text-[10px] tracking-normal mb-0.5">Mẹo phát âm</p>
-        <p className="text-white/40 text-xs">{item.tips}</p>
+      <div className="bg-app-accent-primary/5 border border-app-accent-primary/10 rounded-xl px-3 py-2 mb-4">
+        <p className="text-app-accent-primary/60 text-[10px] tracking-normal mb-0.5">Mẹo phát âm</p>
+        <p className="text-app-text-secondary text-xs">{item.tips}</p>
       </div>
 
       {/* Recording area */}
       <div className="space-y-3">
         {/* Transcript display */}
-        <div className={`min-h-[44px] flex items-center px-3 py-2.5 rounded-xl border transition-all ${isListening ? "border-red-500/30 bg-red-500/5" : transcript ? "border-white/10 bg-white/3" : "border-white/5 bg-white/2"}`}>
+        <div className={`min-h-[44px] flex items-center px-3 py-2.5 rounded-xl border transition-all ${isListening ? "border-red-500/30 bg-red-500/5" : transcript ? "border-app-border bg-app-surface/50" : "border-app-border bg-white/2"}`}>
           {isListening ? (
             <div className="flex items-center gap-2 w-full">
               <div className="flex gap-0.5">
@@ -183,7 +183,7 @@ function PracticeCard({
           ) : transcript ? (
             <p className="text-white/60 text-sm">{transcript}</p>
           ) : (
-            <p className="text-white/20 text-xs">Nhấn mic để bắt đầu nói...</p>
+            <p className="text-app-text-muted text-xs">Nhấn mic để bắt đầu nói...</p>
           )}
         </div>
 
@@ -201,7 +201,7 @@ function PracticeCard({
             </button>
           )}
           {attempts > 0 && (
-            <button onClick={() => { setLastScore(null); }} className="px-3 py-2.5 rounded-xl bg-white/5 border border-white/8 text-white/30 text-xs hover:bg-white/8 cursor-pointer whitespace-nowrap transition-colors">
+            <button onClick={() => { setLastScore(null); }} className="px-3 py-2.5 rounded-xl bg-app-card/50 border border-app-border text-app-text-muted text-xs hover:bg-white/8 cursor-pointer whitespace-nowrap transition-colors">
               <i className="ri-refresh-line"></i>
             </button>
           )}
@@ -212,13 +212,13 @@ function PracticeCard({
 
         {/* Score */}
         {lastScore !== null && !isListening && (
-          <div className={`flex items-center gap-3 px-4 py-3 rounded-xl border ${lastScore >= 80 ? "border-emerald-500/25 bg-emerald-500/5" : lastScore >= 55 ? "border-[#e8c84a]/20 bg-[#e8c84a]/5" : "border-red-500/20 bg-red-500/5"}`}>
+          <div className={`flex items-center gap-3 px-4 py-3 rounded-xl border ${lastScore >= 80 ? "border-emerald-500/25 bg-emerald-500/5" : lastScore >= 55 ? "border-app-accent-primary/20 bg-app-accent-primary/5" : "border-red-500/20 bg-red-500/5"}`}>
             <div className="text-2xl font-bold" style={{ color: getScoreColor(lastScore) }}>{lastScore}</div>
             <div>
               <p className="text-sm font-bold" style={{ color: getScoreColor(lastScore) }}>{getScoreLabel(lastScore)}</p>
-              <p className="text-white/25 text-[10px]">Lần thử #{attempts}</p>
+              <p className="text-app-text-muted text-[10px]">Lần thử #{attempts}</p>
             </div>
-            {lastScore >= 80 && <i className="ri-checkbox-circle-fill text-emerald-400 text-xl ml-auto"></i>}
+            {lastScore >= 80 && <i className="ri-checkbox-circle-fill text-app-accent-success text-xl ml-auto"></i>}
           </div>
         )}
       </div>
@@ -264,8 +264,8 @@ export default function ListenPracticePage() {
     >
       {/* Browser warning */}
       {!isSpeechSupported && (
-        <div className="bg-[#e8c84a]/8 border border-[#e8c84a]/20 rounded-xl px-4 py-3 mb-5 flex items-center gap-3">
-          <i className="ri-information-line text-[#e8c84a] text-lg flex-shrink-0"></i>
+        <div className="bg-app-accent-primary/8 border border-app-accent-primary/20 rounded-xl px-4 py-3 mb-5 flex items-center gap-3">
+          <i className="ri-information-line text-app-accent-primary text-lg flex-shrink-0"></i>
           <p className="text-white/50 text-sm">Tính năng nhận diện giọng nói yêu cầu <strong className="text-white/70">Google Chrome</strong>. Hãy mở trang này bằng Chrome để sử dụng.</p>
         </div>
       )}
@@ -273,25 +273,25 @@ export default function ListenPracticePage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng câu", value: PRACTICE_ITEMS.length, icon: "ri-mic-2-line", color: "#e8c84a" },
+          { label: "Tổng câu", value: PRACTICE_ITEMS.length, icon: "ri-mic-2-line", color: "app-accent-primary" },
           { label: "Đã luyện", value: totalPracticed, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Điểm TB", value: avgScore > 0 ? `${avgScore}` : "—", icon: "ri-bar-chart-line", color: "#38bdf8" },
           { label: "Thành thạo", value: mastered, icon: "ri-trophy-line", color: "#fb923c" },
         ].map(stat => (
-          <div key={stat.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-4 flex items-center gap-3">
+          <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
               <i className={`${stat.icon} text-lg`} style={{ color: stat.color }}></i>
             </div>
             <div>
               <p className="text-white font-bold text-xl leading-none">{stat.value}</p>
-              <p className="text-white/40 text-xs mt-0.5">{stat.label}</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">{stat.label}</p>
             </div>
           </div>
         ))}
       </div>
 
       {/* How it works */}
-      <div className="bg-white/3 border border-white/5 rounded-xl px-4 py-3 mb-5 flex items-center gap-4 flex-wrap">
+      <div className="bg-app-surface/50 border border-app-border rounded-xl px-4 py-3 mb-5 flex items-center gap-4 flex-wrap">
         {[
           { icon: "ri-volume-up-line", text: "Nghe mẫu phát âm" },
           { icon: "ri-mic-line", text: "Nhấn mic và nói" },
@@ -299,10 +299,10 @@ export default function ListenPracticePage() {
           { icon: "ri-bar-chart-line", text: "Nhận điểm & phản hồi" },
         ].map((step, i) => (
           <div key={i} className="flex items-center gap-2">
-            <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#e8c84a]/10">
-              <i className={`${step.icon} text-[#e8c84a] text-sm`}></i>
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-accent-primary/10">
+              <i className={`${step.icon} text-app-accent-primary text-sm`}></i>
             </div>
-            <p className="text-white/40 text-xs">{step.text}</p>
+            <p className="text-app-text-secondary text-xs">{step.text}</p>
             {i < 3 && <i className="ri-arrow-right-line text-white/15 text-xs"></i>}
           </div>
         ))}
@@ -310,23 +310,23 @@ export default function ListenPracticePage() {
 
       {/* Filters */}
       <div className="flex items-center gap-3 mb-5 flex-wrap">
-        <div className="flex items-center bg-white/5 rounded-xl p-1">
-          <button onClick={() => setSelectedLevel("all")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === "all" ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/40 hover:text-white/60"}`}>Tất cả</button>
+        <div className="flex items-center bg-app-card/50 rounded-xl p-1">
+          <button onClick={() => setSelectedLevel("all")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>Tất cả</button>
           {["A1","A2","B1","B2"].map(lv => (
-            <button key={lv} onClick={() => setSelectedLevel(lv)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === lv ? "text-[#0f1117] font-bold" : "text-white/40 hover:text-white/60"}`} style={selectedLevel === lv ? { backgroundColor: LEVEL_COLORS[lv] } : {}}>{lv}</button>
+            <button key={lv} onClick={() => setSelectedLevel(lv)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === lv ? "text-app-bg font-bold" : "text-app-text-secondary hover:text-white/60"}`} style={selectedLevel === lv ? { backgroundColor: LEVEL_COLORS[lv] } : {}}>{lv}</button>
           ))}
         </div>
-        <div className="flex items-center bg-white/5 rounded-xl p-1 flex-wrap gap-0.5">
-          <button onClick={() => setSelectedCategory("all")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedCategory === "all" ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/40 hover:text-white/60"}`}>Tất cả</button>
+        <div className="flex items-center bg-app-card/50 rounded-xl p-1 flex-wrap gap-0.5">
+          <button onClick={() => setSelectedCategory("all")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedCategory === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>Tất cả</button>
           {categories.map(cat => (
-            <button key={cat} onClick={() => setSelectedCategory(cat)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedCategory === cat ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/40 hover:text-white/60"}`}>{cat}</button>
+            <button key={cat} onClick={() => setSelectedCategory(cat)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedCategory === cat ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>{cat}</button>
           ))}
         </div>
-        <div className="flex items-center gap-2 bg-white/5 border border-white/8 rounded-xl px-3 py-2 flex-1 min-w-[160px]">
-          <i className="ri-search-line text-white/30 text-sm"></i>
+        <div className="flex items-center gap-2 bg-app-card/50 border border-app-border rounded-xl px-3 py-2 flex-1 min-w-[160px]">
+          <i className="ri-search-line text-app-text-muted text-sm"></i>
           <input type="text" placeholder="Tìm câu..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder-white/20" />
         </div>
-        <p className="text-white/30 text-xs whitespace-nowrap">{filtered.length} câu</p>
+        <p className="text-app-text-muted text-xs whitespace-nowrap">{filtered.length} câu</p>
       </div>
 
       {/* Grid */}

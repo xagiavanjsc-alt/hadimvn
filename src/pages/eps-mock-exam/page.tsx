@@ -120,11 +120,11 @@ function AudioPlayer({ text, autoPlay = false }: { text: string; autoPlay?: bool
             </div>
           )}
         </div>
-        <p className="text-white/30 text-[10px] mt-1">Nhấn để nghe • Tiếng Hàn chuẩn</p>
+        <p className="text-app-text-muted text-[10px] mt-1">Nhấn để nghe • Tiếng Hàn chuẩn</p>
       </div>
       <button
         onClick={playAudio}
-        className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/40 hover:text-white/70 hover:bg-white/8 transition-colors cursor-pointer"
+        className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white/70 hover:bg-white/8 transition-colors cursor-pointer"
         title="Nghe lại"
       >
         <i className="ri-repeat-line text-sm"></i>
@@ -151,11 +151,11 @@ function QuestionCard({ question, index, total, selected, onSelect, showResult }
     <div className="space-y-4">
       {/* Question header */}
       <div className="flex items-center gap-3 mb-2">
-        <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#e8c84a]/15 flex-shrink-0">
-          <span className="text-[#e8c84a] text-sm font-bold">{index + 1}</span>
+        <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-accent-primary/15 flex-shrink-0">
+          <span className="text-app-accent-primary text-sm font-bold">{index + 1}</span>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-white/40 font-medium">
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-app-text-secondary font-medium">
             {question.topicVi}
           </span>
           {question.imageUrl && (
@@ -174,20 +174,20 @@ function QuestionCard({ question, index, total, selected, onSelect, showResult }
             </span>
           )}
           <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
-            question.difficulty === "easy" ? "bg-emerald-500/15 text-emerald-400" :
+            question.difficulty === "easy" ? "bg-app-accent-success/15 text-app-accent-success" :
             question.difficulty === "medium" ? "bg-amber-500/15 text-amber-400" :
             "bg-rose-500/15 text-rose-400"
           }`}>
             {question.difficulty === "easy" ? "Dễ" : question.difficulty === "medium" ? "Trung bình" : "Khó"}
           </span>
         </div>
-        <span className="ml-auto text-white/20 text-xs">{index + 1}/{total}</span>
+        <span className="ml-auto text-app-text-muted text-xs">{index + 1}/{total}</span>
       </div>
 
       {/* Image */}
       {question.imageUrl && (
-        <div className="rounded-xl overflow-hidden border border-white/8">
-          <div className="w-full h-48 bg-white/5">
+        <div className="rounded-xl overflow-hidden border border-app-border">
+          <div className="w-full h-48 bg-app-card/50">
             <img
               src={question.imageUrl}
               alt={question.imageAlt || "Hình minh họa"}
@@ -196,8 +196,8 @@ function QuestionCard({ question, index, total, selected, onSelect, showResult }
             />
           </div>
           {question.imageCaption && (
-            <div className="px-3 py-2 bg-white/3 border-t border-white/5">
-              <p className="text-white/40 text-xs italic">{question.imageCaption}</p>
+            <div className="px-3 py-2 bg-app-surface/50 border-t border-app-border">
+              <p className="text-app-text-secondary text-xs italic">{question.imageCaption}</p>
             </div>
           )}
         </div>
@@ -209,7 +209,7 @@ function QuestionCard({ question, index, total, selected, onSelect, showResult }
       )}
 
       {/* Question text */}
-      <div className="bg-white/3 rounded-xl p-4 border border-white/5">
+      <div className="bg-app-surface/50 rounded-xl p-4 border border-app-border">
         {question.question.includes("\n") ? (
           <div className="space-y-2">
             {question.question.split("\n").map((line, i) => (
@@ -221,23 +221,23 @@ function QuestionCard({ question, index, total, selected, onSelect, showResult }
         ) : (
           <p className="text-white font-medium text-sm leading-relaxed">{question.question}</p>
         )}
-        <p className="text-white/40 text-xs mt-2 leading-relaxed">{question.questionVi}</p>
+        <p className="text-app-text-secondary text-xs mt-2 leading-relaxed">{question.questionVi}</p>
       </div>
 
       {/* Options */}
       <div className="space-y-2">
         {question.options.map((opt, i) => {
-          let style = "bg-white/3 border-white/8 text-white/70 hover:bg-white/6 hover:border-white/15";
+          let style = "bg-app-surface/50 border-app-border text-white/70 hover:bg-white/6 hover:border-white/15";
           if (selected === i) {
             if (showResult) {
               style = i === question.correctIndex
-                ? "bg-emerald-500/15 border-emerald-500/40 text-emerald-300"
+                ? "bg-app-accent-success/15 border-emerald-500/40 text-emerald-300"
                 : "bg-rose-500/15 border-rose-500/40 text-rose-300";
             } else {
-              style = "bg-[#e8c84a]/12 border-[#e8c84a]/40 text-[#e8c84a]";
+              style = "bg-app-accent-primary/12 border-app-accent-primary/40 text-app-accent-primary";
             }
           } else if (showResult && i === question.correctIndex) {
-            style = "bg-emerald-500/10 border-emerald-500/30 text-emerald-400";
+            style = "bg-emerald-500/10 border-emerald-500/30 text-app-accent-success";
           }
 
           return (
@@ -248,10 +248,10 @@ function QuestionCard({ question, index, total, selected, onSelect, showResult }
               className={`w-full flex items-start gap-3 px-4 py-3 rounded-xl border transition-all text-left cursor-pointer ${style} ${showResult ? "cursor-default" : ""}`}
             >
               <span className={`w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold flex-shrink-0 mt-0.5 ${
-                selected === i && !showResult ? "bg-[#e8c84a]/20 text-[#e8c84a]" :
-                showResult && i === question.correctIndex ? "bg-emerald-500/20 text-emerald-400" :
+                selected === i && !showResult ? "bg-app-accent-primary/20 text-app-accent-primary" :
+                showResult && i === question.correctIndex ? "bg-emerald-500/20 text-app-accent-success" :
                 showResult && selected === i ? "bg-rose-500/20 text-rose-400" :
-                "bg-white/8 text-white/40"
+                "bg-white/8 text-app-text-secondary"
               }`}>
                 {["①", "②", "③", "④"][i]}
               </span>
@@ -260,7 +260,7 @@ function QuestionCard({ question, index, total, selected, onSelect, showResult }
                 <p className="text-xs opacity-60 mt-0.5">{question.optionsVi[i]}</p>
               </div>
               {showResult && i === question.correctIndex && (
-                <i className="ri-check-line text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                <i className="ri-check-line text-app-accent-success flex-shrink-0 mt-0.5"></i>
               )}
               {showResult && selected === i && i !== question.correctIndex && (
                 <i className="ri-close-line text-rose-400 flex-shrink-0 mt-0.5"></i>
@@ -272,10 +272,10 @@ function QuestionCard({ question, index, total, selected, onSelect, showResult }
 
       {/* Explanation (show result mode) */}
       {showResult && (
-        <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4">
+        <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
           <div className="flex items-center gap-2 mb-2">
-            <i className="ri-lightbulb-line text-[#e8c84a] text-sm"></i>
-            <span className="text-[#e8c84a] text-xs font-semibold">Giải thích</span>
+            <i className="ri-lightbulb-line text-app-accent-primary text-sm"></i>
+            <span className="text-app-accent-primary text-xs font-semibold">Giải thích</span>
           </div>
           <p className="text-white/60 text-xs leading-relaxed">{question.explanation}</p>
         </div>
@@ -289,8 +289,8 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="text-center mb-8">
-        <div className="w-20 h-20 flex items-center justify-center rounded-2xl bg-[#e8c84a]/15 border border-[#e8c84a]/20 mx-auto mb-4">
-          <i className="ri-file-list-3-line text-[#e8c84a] text-4xl"></i>
+        <div className="w-20 h-20 flex items-center justify-center rounded-2xl bg-app-accent-primary/15 border border-app-accent-primary/20 mx-auto mb-4">
+          <i className="ri-file-list-3-line text-app-accent-primary text-4xl"></i>
         </div>
         <h1 className="text-2xl font-bold text-white mb-2">Thi thử EPS mô phỏng thật</h1>
         <p className="text-white/50 text-sm">Đề thi giống format EPS-TOPIK chính thức nhất</p>
@@ -299,17 +299,17 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
       {/* Exam info */}
       <div className="grid grid-cols-2 gap-4 mb-6">
         {[
-          { icon: "ri-file-list-3-line", label: "Số câu hỏi", value: "40 câu", color: "#e8c84a" },
+          { icon: "ri-file-list-3-line", label: "Số câu hỏi", value: "40 câu", color: "app-accent-primary" },
           { icon: "ri-timer-line", label: "Thời gian", value: "40 phút", color: "#34d399" },
           { icon: "ri-image-line", label: "Câu có ảnh", value: "~10 câu", color: "#a78bfa" },
           { icon: "ri-headphone-line", label: "Câu nghe hiểu", value: "~15 câu", color: "#06b6d4" },
         ].map((item, i) => (
-          <div key={i} className="bg-white/3 border border-white/8 rounded-xl p-4 flex items-center gap-3">
+          <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${item.color}15` }}>
               <i className={`${item.icon} text-lg`} style={{ color: item.color }}></i>
             </div>
             <div>
-              <p className="text-white/40 text-xs">{item.label}</p>
+              <p className="text-app-text-secondary text-xs">{item.label}</p>
               <p className="text-white font-bold text-sm">{item.value}</p>
             </div>
           </div>
@@ -317,9 +317,9 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
       </div>
 
       {/* Format info */}
-      <div className="bg-white/3 border border-white/8 rounded-xl p-5 mb-6 space-y-3">
+      <div className="bg-app-surface/50 border border-app-border rounded-xl p-5 mb-6 space-y-3">
         <h3 className="text-white font-semibold text-sm mb-3 flex items-center gap-2">
-          <i className="ri-information-line text-[#e8c84a]"></i>
+          <i className="ri-information-line text-app-accent-primary"></i>
           Thông tin đề thi
         </h3>
         {[
@@ -339,18 +339,18 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
       </div>
 
       {/* Scoring */}
-      <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4 mb-6">
+      <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4 mb-6">
         <div className="flex items-center gap-2 mb-3">
-          <i className="ri-trophy-line text-[#e8c84a]"></i>
-          <span className="text-[#e8c84a] font-semibold text-sm">Thang điểm</span>
+          <i className="ri-trophy-line text-app-accent-primary"></i>
+          <span className="text-app-accent-primary font-semibold text-sm">Thang điểm</span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {[
             { label: "Đậu", score: "≥ 80 điểm", color: "#34d399" },
-            { label: "Trung bình", score: "60-79 điểm", color: "#e8c84a" },
+            { label: "Trung bình", score: "60-79 điểm", color: "app-accent-primary" },
             { label: "Chưa đậu", score: "< 60 điểm", color: "#f87171" },
           ].map((item, i) => (
-            <div key={i} className="text-center p-2 rounded-lg bg-white/3">
+            <div key={i} className="text-center p-2 rounded-lg bg-app-surface/50">
               <p className="text-xs font-bold mb-1" style={{ color: item.color }}>{item.label}</p>
               <p className="text-white/50 text-[10px]">{item.score}</p>
             </div>
@@ -360,7 +360,7 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
 
       <button
         onClick={onStart}
-        className="w-full py-4 bg-[#e8c84a] text-[#0f1117] font-bold text-base rounded-xl hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap flex items-center justify-center gap-2"
+        className="w-full py-4 bg-app-accent-primary text-app-bg font-bold text-base rounded-xl hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap flex items-center justify-center gap-2"
       >
         <i className="ri-play-fill text-lg"></i>
         Bắt đầu thi ngay
@@ -436,10 +436,10 @@ function ResultScreen({ questions, results, timeUsed, onReview, onRetry }: Resul
     <div className="max-w-2xl mx-auto space-y-6">
       {/* Score card */}
       <div className={`rounded-2xl p-6 text-center border ${passed ? "bg-emerald-500/8 border-emerald-500/20" : "bg-rose-500/8 border-rose-500/20"}`}>
-        <div className={`w-24 h-24 flex items-center justify-center rounded-full mx-auto mb-4 ${passed ? "bg-emerald-500/15" : "bg-rose-500/15"}`}>
-          <span className={`text-4xl font-black ${passed ? "text-emerald-400" : "text-rose-400"}`}>{score}</span>
+        <div className={`w-24 h-24 flex items-center justify-center rounded-full mx-auto mb-4 ${passed ? "bg-app-accent-success/15" : "bg-rose-500/15"}`}>
+          <span className={`text-4xl font-black ${passed ? "text-app-accent-success" : "text-rose-400"}`}>{score}</span>
         </div>
-        <h2 className={`text-xl font-bold mb-1 ${passed ? "text-emerald-400" : "text-rose-400"}`}>
+        <h2 className={`text-xl font-bold mb-1 ${passed ? "text-app-accent-success" : "text-rose-400"}`}>
           {passed ? "ĐẬU! Xuất sắc!" : "Chưa đậu — Cố lên!"}
         </h2>
         <p className="text-white/50 text-sm">{correct}/{questions.length} câu đúng • {formatTime(timeUsed)} đã dùng</p>
@@ -450,28 +450,28 @@ function ResultScreen({ questions, results, timeUsed, onReview, onRetry }: Resul
         {[
           { label: "Câu đúng", value: correct, color: "#34d399", icon: "ri-check-line" },
           { label: "Câu sai", value: questions.length - correct, color: "#f87171", icon: "ri-close-line" },
-          { label: "Điểm số", value: `${score}/100`, color: "#e8c84a", icon: "ri-trophy-line" },
+          { label: "Điểm số", value: `${score}/100`, color: "app-accent-primary", icon: "ri-trophy-line" },
         ].map((item, i) => (
-          <div key={i} className="bg-white/3 border border-white/8 rounded-xl p-4 text-center">
+          <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
             <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${item.color}15` }}>
               <i className={`${item.icon} text-sm`} style={{ color: item.color }}></i>
             </div>
             <p className="text-white font-bold text-lg">{item.value}</p>
-            <p className="text-white/40 text-xs">{item.label}</p>
+            <p className="text-app-text-secondary text-xs">{item.label}</p>
           </div>
         ))}
       </div>
 
       {/* Topic breakdown */}
-      <div className="bg-white/3 border border-white/8 rounded-xl p-5">
+      <div className="bg-app-surface/50 border border-app-border rounded-xl p-5">
         <h3 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
-          <i className="ri-bar-chart-2-line text-[#e8c84a]"></i>
+          <i className="ri-bar-chart-2-line text-app-accent-primary"></i>
           Kết quả theo chủ đề
         </h3>
         <div className="space-y-3">
           {Object.entries(topicStats).map(([topic, stat]) => {
             const pct = Math.round((stat.correct / stat.total) * 100);
-            const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
+            const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
             return (
               <div key={topic}>
                 <div className="flex items-center justify-between mb-1">
@@ -491,14 +491,14 @@ function ResultScreen({ questions, results, timeUsed, onReview, onRetry }: Resul
       <div className="grid grid-cols-2 gap-3">
         <button
           onClick={onReview}
-          className="flex items-center justify-center gap-2 py-3 bg-white/5 border border-white/10 rounded-xl text-white/70 text-sm font-medium hover:bg-white/8 transition-colors cursor-pointer whitespace-nowrap"
+          className="flex items-center justify-center gap-2 py-3 bg-app-card/50 border border-app-border rounded-xl text-white/70 text-sm font-medium hover:bg-white/8 transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-eye-line"></i>
           Xem lại đáp án
         </button>
         <button
           onClick={onRetry}
-          className="flex items-center justify-center gap-2 py-3 bg-[#e8c84a] text-[#0f1117] rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
+          className="flex items-center justify-center gap-2 py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-refresh-line"></i>
           Thi lại
@@ -625,7 +625,7 @@ export default function EpsMockExamPage() {
                 <button
                   onClick={() => setReviewIndex(prev => Math.max(0, prev - 1))}
                   disabled={reviewIndex === 0}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/40 hover:bg-white/8 disabled:opacity-30 cursor-pointer"
+                  className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:bg-white/8 disabled:opacity-30 cursor-pointer"
                 >
                   <i className="ri-arrow-left-s-line"></i>
                 </button>
@@ -633,13 +633,13 @@ export default function EpsMockExamPage() {
                 <button
                   onClick={() => setReviewIndex(prev => Math.min(questions.length - 1, prev + 1))}
                   disabled={reviewIndex === questions.length - 1}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/40 hover:bg-white/8 disabled:opacity-30 cursor-pointer"
+                  className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:bg-white/8 disabled:opacity-30 cursor-pointer"
                 >
                   <i className="ri-arrow-right-s-line"></i>
                 </button>
               </div>
             </div>
-            <div className={`mb-4 px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-2 ${r.isCorrect ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"}`}>
+            <div className={`mb-4 px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-2 ${r.isCorrect ? "bg-emerald-500/10 text-app-accent-success" : "bg-rose-500/10 text-rose-400"}`}>
               <i className={r.isCorrect ? "ri-check-line" : "ri-close-line"}></i>
               {r.isCorrect ? "Trả lời đúng" : "Trả lời sai"}
             </div>
@@ -677,9 +677,9 @@ export default function EpsMockExamPage() {
     <DashboardLayout>
       <div className="flex flex-col h-screen overflow-hidden">
         {/* Top bar */}
-        <div className="flex-shrink-0 bg-[#0f1117] border-b border-white/8 px-4 py-3 flex items-center gap-4">
+        <div className="flex-shrink-0 bg-app-bg border-b border-app-border px-4 py-3 flex items-center gap-4">
           {/* Timer */}
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/8">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-app-card/50 border border-app-border">
             <i className="ri-timer-line text-sm" style={{ color: timerColor }}></i>
             <span className="font-mono font-bold text-sm" style={{ color: timerColor }}>{formatTime(timeLeft)}</span>
           </div>
@@ -687,12 +687,12 @@ export default function EpsMockExamPage() {
           {/* Progress */}
           <div className="flex-1">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-white/40 text-xs">Câu {currentIndex + 1}/{questions.length}</span>
-              <span className="text-white/40 text-xs">{answered}/{questions.length} đã trả lời</span>
+              <span className="text-app-text-secondary text-xs">Câu {currentIndex + 1}/{questions.length}</span>
+              <span className="text-app-text-secondary text-xs">{answered}/{questions.length} đã trả lời</span>
             </div>
             <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
               <div
-                className="h-full bg-[#e8c84a] rounded-full transition-all duration-300"
+                className="h-full bg-app-accent-primary rounded-full transition-all duration-300"
                 style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
               />
             </div>
@@ -701,7 +701,7 @@ export default function EpsMockExamPage() {
           {/* Submit */}
           <button
             onClick={submitExam}
-            className="px-4 py-1.5 bg-[#e8c84a] text-[#0f1117] rounded-lg text-xs font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
+            className="px-4 py-1.5 bg-app-accent-primary text-app-bg rounded-lg text-xs font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
           >
             Nộp bài
           </button>
@@ -721,12 +721,12 @@ export default function EpsMockExamPage() {
         </div>
 
         {/* Bottom navigation */}
-        <div className="flex-shrink-0 bg-[#0f1117] border-t border-white/8 px-4 py-3">
+        <div className="flex-shrink-0 bg-app-bg border-t border-app-border px-4 py-3">
           <div className="max-w-2xl mx-auto flex items-center gap-3">
             <button
               onClick={goPrev}
               disabled={currentIndex === 0}
-              className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/8 rounded-xl text-white/60 text-sm hover:bg-white/8 disabled:opacity-30 transition-colors cursor-pointer whitespace-nowrap"
+              className="flex items-center gap-2 px-4 py-2.5 bg-app-card/50 border border-app-border rounded-xl text-white/60 text-sm hover:bg-white/8 disabled:opacity-30 transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-arrow-left-line"></i>
               Câu trước
@@ -740,10 +740,10 @@ export default function EpsMockExamPage() {
                   onClick={() => setCurrentIndex(i)}
                   className={`w-6 h-6 flex-shrink-0 rounded-md text-[10px] font-bold transition-all cursor-pointer ${
                     i === currentIndex
-                      ? "bg-[#e8c84a] text-[#0f1117]"
+                      ? "bg-app-accent-primary text-app-bg"
                       : answers[i] !== null
-                      ? "bg-[#e8c84a]/20 text-[#e8c84a]"
-                      : "bg-white/8 text-white/30"
+                      ? "bg-app-accent-primary/20 text-app-accent-primary"
+                      : "bg-white/8 text-app-text-muted"
                   }`}
                 >
                   {i + 1}
@@ -753,7 +753,7 @@ export default function EpsMockExamPage() {
 
             <button
               onClick={currentIndex === questions.length - 1 ? submitExam : goNext}
-              className="flex items-center gap-2 px-4 py-2.5 bg-[#e8c84a] text-[#0f1117] rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
+              className="flex items-center gap-2 px-4 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
             >
               {currentIndex === questions.length - 1 ? "Nộp bài" : "Câu tiếp"}
               <i className={currentIndex === questions.length - 1 ? "ri-check-line" : "ri-arrow-right-line"}></i>

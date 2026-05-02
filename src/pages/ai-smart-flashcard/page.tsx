@@ -164,53 +164,53 @@ function FlashCard({ card, onRate, cardIndex, total }: {
   const ratings: { label: string; value: Rating; color: string; desc: string }[] = [
     { label: "Lại", value: 1, color: "bg-rose-500/15 border-rose-500/30 text-rose-400 hover:bg-rose-500/25", desc: "Không nhớ" },
     { label: "Khó", value: 2, color: "bg-amber-500/15 border-amber-500/30 text-amber-400 hover:bg-amber-500/25", desc: "Nhớ mờ" },
-    { label: "Tốt", value: 3, color: "bg-emerald-500/15 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/25", desc: "Nhớ được" },
-    { label: "Dễ", value: 4, color: "bg-[#e8c84a]/15 border-[#e8c84a]/30 text-[#e8c84a] hover:bg-[#e8c84a]/25", desc: "Rất dễ" },
+    { label: "Tốt", value: 3, color: "bg-app-accent-success/15 border-emerald-500/30 text-app-accent-success hover:bg-emerald-500/25", desc: "Nhớ được" },
+    { label: "Dễ", value: 4, color: "bg-app-accent-primary/15 border-app-accent-primary/30 text-app-accent-primary hover:bg-app-accent-primary/25", desc: "Rất dễ" },
   ];
 
   return (
     <div className={`transition-opacity duration-200 ${animating ? "opacity-0" : "opacity-100"}`}>
       {/* Progress */}
       <div className="flex items-center justify-between mb-4">
-        <span className="text-white/40 text-sm">{cardIndex + 1} / {total}</span>
+        <span className="text-app-text-secondary text-sm">{cardIndex + 1} / {total}</span>
         <div className="flex-1 mx-4 h-1.5 bg-white/8 rounded-full overflow-hidden">
-          <div className="h-full bg-[#e8c84a] rounded-full transition-all duration-300"
+          <div className="h-full bg-app-accent-primary rounded-full transition-all duration-300"
             style={{ width: `${((cardIndex) / total) * 100}%` }} />
         </div>
-        <span className="text-white/40 text-sm">{Math.round((cardIndex / total) * 100)}%</span>
+        <span className="text-app-text-secondary text-sm">{Math.round((cardIndex / total) * 100)}%</span>
       </div>
 
       {/* Card */}
       <div onClick={handleFlip}
-        className="relative w-full rounded-2xl border border-white/10 bg-white/3 cursor-pointer select-none transition-all hover:border-white/20 mb-5"
+        className="relative w-full rounded-2xl border border-app-border bg-app-surface/50 cursor-pointer select-none transition-all hover:border-white/20 mb-5"
         style={{ minHeight: "260px" }}>
         <div className="absolute top-3 right-3 flex gap-2">
           {card.level && (
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-white/40 font-bold">{card.level}</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-app-text-secondary font-bold">{card.level}</span>
           )}
           {card.topic && (
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-white/40">{card.topic}</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-app-text-secondary">{card.topic}</span>
           )}
         </div>
 
         <div className="flex flex-col items-center justify-center p-8 min-h-[260px]">
           {!flipped ? (
             <div className="text-center">
-              <p className="text-white/30 text-xs mb-4 tracking-normal">Tiếng Hàn</p>
+              <p className="text-app-text-muted text-xs mb-4 tracking-normal">Tiếng Hàn</p>
               <p className="text-white font-bold text-4xl mb-3">{card.korean}</p>
               <button onClick={e => handleTTS(e, card.korean)}
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white/8 hover:bg-white/15 text-white/50 hover:text-white/80 transition-colors mx-auto">
                 <i className="ri-volume-up-line text-lg"></i>
               </button>
-              <p className="text-white/25 text-xs mt-6">Nhấn để lật thẻ</p>
+              <p className="text-app-text-muted text-xs mt-6">Nhấn để lật thẻ</p>
             </div>
           ) : (
             <div className="text-center w-full">
-              <p className="text-white/30 text-xs mb-4 tracking-normal">Tiếng Việt</p>
-              <p className="text-[#e8c84a] font-bold text-3xl mb-3">{card.vietnamese}</p>
+              <p className="text-app-text-muted text-xs mb-4 tracking-normal">Tiếng Việt</p>
+              <p className="text-app-accent-primary font-bold text-3xl mb-3">{card.vietnamese}</p>
               <p className="text-white font-medium text-xl mb-4">{card.korean}</p>
               {card.example && (
-                <div className="mt-4 pt-4 border-t border-white/8 w-full">
+                <div className="mt-4 pt-4 border-t border-app-border w-full">
                   <p className="text-white/50 text-sm italic mb-1">{card.example}</p>
                 </div>
               )}
@@ -256,12 +256,12 @@ function StatsPanel({ memories, vocab }: { memories: Record<string, CardMemory>;
     <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
       {[
         { label: "Cần ôn hôm nay", value: dueCount, color: "#f87171", icon: "ri-alarm-line" },
-        { label: "Từ mới", value: newCount, color: "#e8c84a", icon: "ri-add-circle-line" },
+        { label: "Từ mới", value: newCount, color: "app-accent-primary", icon: "ri-add-circle-line" },
         { label: "Đã thuộc", value: learnedCount, color: "#34d399", icon: "ri-checkbox-circle-line" },
         { label: "Tổng lần ôn", value: totalReviews, color: "#a78bfa", icon: "ri-repeat-line" },
         { label: "Độ chính xác", value: `${Math.round(avgAccuracy * 100)}%`, color: "#fbbf24", icon: "ri-percent-line" },
       ].map(s => (
-        <div key={s.label} className="rounded-xl border border-white/8 bg-white/3 p-3 text-center">
+        <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-3 text-center">
           <div className="w-7 h-7 flex items-center justify-center rounded-lg mx-auto mb-1.5" style={{ backgroundColor: `${s.color}20` }}>
             <i className={`${s.icon} text-xs`} style={{ color: s.color }}></i>
           </div>
@@ -280,14 +280,14 @@ function AIInsightPanel({ suggestions }: { suggestions: ReturnType<typeof getAIS
   const streakCards = suggestions.filter(s => s.memory.streak >= 3).slice(0, 3);
 
   return (
-    <div className="rounded-2xl border border-[#e8c84a]/15 bg-[#e8c84a]/3 p-5 mb-6">
+    <div className="rounded-2xl border border-app-accent-primary/15 bg-app-accent-primary/3 p-5 mb-6">
       <div className="flex items-center gap-2 mb-4">
-        <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#e8c84a]/15">
-          <i className="ri-robot-2-line text-[#e8c84a] text-sm"></i>
+        <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-accent-primary/15">
+          <i className="ri-robot-2-line text-app-accent-primary text-sm"></i>
         </div>
         <div>
-          <p className="text-[#e8c84a] font-bold text-sm">AI Phân tích học tập</p>
-          <p className="text-white/40 text-xs">Dựa trên thuật toán SM-2 và lịch sử ôn tập của bạn</p>
+          <p className="text-app-accent-primary font-bold text-sm">AI Phân tích học tập</p>
+          <p className="text-app-text-secondary text-xs">Dựa trên thuật toán SM-2 và lịch sử ôn tập của bạn</p>
         </div>
       </div>
 
@@ -302,7 +302,7 @@ function AIInsightPanel({ suggestions }: { suggestions: ReturnType<typeof getAIS
               <span className="text-white/70 text-sm font-medium">{s.vocab.korean}</span>
               <span className="text-rose-400 text-xs">{Math.round(s.accuracy * 100)}% đúng</span>
             </div>
-          )) : <p className="text-white/30 text-xs">Chưa có dữ liệu</p>}
+          )) : <p className="text-app-text-muted text-xs">Chưa có dữ liệu</p>}
         </div>
 
         {/* Due cards */}
@@ -315,20 +315,20 @@ function AIInsightPanel({ suggestions }: { suggestions: ReturnType<typeof getAIS
               <span className="text-white/70 text-sm font-medium">{s.vocab.korean}</span>
               <span className="text-amber-400 text-xs">{s.memory.interval}d interval</span>
             </div>
-          )) : <p className="text-white/30 text-xs">Không có từ đến hạn</p>}
+          )) : <p className="text-app-text-muted text-xs">Không có từ đến hạn</p>}
         </div>
 
         {/* Streak cards */}
         <div>
-          <p className="text-emerald-400 text-xs font-semibold mb-2 flex items-center gap-1">
+          <p className="text-app-accent-success text-xs font-semibold mb-2 flex items-center gap-1">
             <i className="ri-fire-line"></i> Đang streak ({streakCards.length})
           </p>
           {streakCards.length > 0 ? streakCards.map(s => (
             <div key={s.vocab.id} className="flex items-center justify-between py-1.5">
               <span className="text-white/70 text-sm font-medium">{s.vocab.korean}</span>
-              <span className="text-emerald-400 text-xs">{s.memory.streak}x streak</span>
+              <span className="text-app-accent-success text-xs">{s.memory.streak}x streak</span>
             </div>
-          )) : <p className="text-white/30 text-xs">Chưa có streak</p>}
+          )) : <p className="text-app-text-muted text-xs">Chưa có streak</p>}
         </div>
       </div>
     </div>
@@ -345,8 +345,8 @@ function SessionComplete({ results, onRestart }: {
 
   return (
     <div className="text-center py-10">
-      <div className={`w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-5 ${pct >= 75 ? "bg-emerald-500/15" : pct >= 50 ? "bg-amber-500/15" : "bg-rose-500/15"}`}>
-        <i className={`text-4xl ${pct >= 75 ? "ri-trophy-line text-emerald-400" : pct >= 50 ? "ri-thumb-up-line text-amber-400" : "ri-refresh-line text-rose-400"}`}></i>
+      <div className={`w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-5 ${pct >= 75 ? "bg-app-accent-success/15" : pct >= 50 ? "bg-amber-500/15" : "bg-rose-500/15"}`}>
+        <i className={`text-4xl ${pct >= 75 ? "ri-trophy-line text-app-accent-success" : pct >= 50 ? "ri-thumb-up-line text-amber-400" : "ri-refresh-line text-rose-400"}`}></i>
       </div>
       <h2 className="text-white font-bold text-2xl mb-2">Phiên học hoàn thành!</h2>
       <p className="text-white/50 text-sm mb-6">
@@ -358,21 +358,21 @@ function SessionComplete({ results, onRestart }: {
           { label: "Lại", count: results.filter(r => r.rating === 1).length, color: "#f87171" },
           { label: "Khó", count: results.filter(r => r.rating === 2).length, color: "#fbbf24" },
           { label: "Tốt", count: results.filter(r => r.rating === 3).length, color: "#34d399" },
-          { label: "Dễ", count: results.filter(r => r.rating === 4).length, color: "#e8c84a" },
+          { label: "Dễ", count: results.filter(r => r.rating === 4).length, color: "app-accent-primary" },
         ].map(s => (
-          <div key={s.label} className="rounded-xl p-3 border border-white/8 bg-white/3">
+          <div key={s.label} className="rounded-xl p-3 border border-app-border bg-app-surface/50">
             <p className="font-bold text-xl" style={{ color: s.color }}>{s.count}</p>
-            <p className="text-white/40 text-xs">{s.label}</p>
+            <p className="text-app-text-secondary text-xs">{s.label}</p>
           </div>
         ))}
       </div>
 
-      <p className="text-white/40 text-sm mb-6">
+      <p className="text-app-text-secondary text-sm mb-6">
         AI đã cập nhật lịch ôn tập cho {results.length} từ. Từ khó sẽ xuất hiện sớm hơn!
       </p>
 
       <button onClick={onRestart}
-        className="px-8 py-3 rounded-xl bg-[#e8c84a] text-[#141720] font-bold text-sm cursor-pointer whitespace-nowrap">
+        className="px-8 py-3 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm cursor-pointer whitespace-nowrap">
         <i className="ri-refresh-line mr-2"></i>Học tiếp
       </button>
     </div>
@@ -468,7 +468,7 @@ export default function AISmartFlashcardPage() {
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-1">
             <h1 className="text-white font-bold text-2xl">Flashcard thông minh AI</h1>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-[#e8c84a]/15 text-[#e8c84a] font-bold">SM-2</span>
+            <span className="text-xs px-2.5 py-1 rounded-full bg-app-accent-primary/15 text-app-accent-primary font-bold">SM-2</span>
           </div>
           <p className="text-white/50 text-sm">AI gợi ý từ cần ôn dựa trên đường cong quên lãng — học đúng lúc, nhớ lâu hơn</p>
         </div>
@@ -479,7 +479,7 @@ export default function AISmartFlashcardPage() {
             <AIInsightPanel suggestions={suggestions} />
 
             {/* Session config */}
-            <div className="rounded-2xl border border-white/8 bg-white/3 p-5 mb-5">
+            <div className="rounded-2xl border border-app-border bg-app-surface/50 p-5 mb-5">
               <h3 className="text-white font-bold text-base mb-4">Bắt đầu phiên học</h3>
 
               {/* Filter mode */}
@@ -488,12 +488,12 @@ export default function AISmartFlashcardPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                   {[
                     { value: "due", label: "Đến hạn ôn", icon: "ri-alarm-line", color: "#f87171", count: dueCount },
-                    { value: "new", label: "Từ mới", icon: "ri-add-circle-line", color: "#e8c84a", count: vocab.filter(v => !memories[v.id] || memories[v.id].totalReviews === 0).length },
+                    { value: "new", label: "Từ mới", icon: "ri-add-circle-line", color: "app-accent-primary", count: vocab.filter(v => !memories[v.id] || memories[v.id].totalReviews === 0).length },
                     { value: "weak", label: "Từ yếu", icon: "ri-error-warning-line", color: "#fbbf24", count: suggestions.filter(s => s.accuracy < 0.6 && s.memory.totalReviews > 0).length },
                     { value: "all", label: "Tất cả", icon: "ri-apps-line", color: "#a78bfa", count: vocab.length },
                   ].map(opt => (
                     <button key={opt.value} onClick={() => setFilterMode(opt.value as typeof filterMode)}
-                      className={`flex flex-col items-center py-3 rounded-xl border transition-all cursor-pointer ${filterMode === opt.value ? "border-opacity-50" : "border-white/8 bg-white/3 hover:bg-white/5"}`}
+                      className={`flex flex-col items-center py-3 rounded-xl border transition-all cursor-pointer ${filterMode === opt.value ? "border-opacity-50" : "border-app-border bg-app-surface/50 hover:bg-app-card/50"}`}
                       style={filterMode === opt.value ? { backgroundColor: `${opt.color}15`, borderColor: `${opt.color}40` } : {}}>
                       <i className={`${opt.icon} text-lg mb-1`} style={{ color: filterMode === opt.value ? opt.color : "rgba(255,255,255,0.3)" }}></i>
                       <span className="text-xs font-semibold" style={{ color: filterMode === opt.value ? opt.color : "rgba(255,255,255,0.5)" }}>{opt.label}</span>
@@ -507,38 +507,38 @@ export default function AISmartFlashcardPage() {
               <div className="mb-5">
                 <p className="text-white/50 text-xs mb-2">Số thẻ mỗi phiên: <span className="text-white font-bold">{sessionSize}</span></p>
                 <input type="range" min={5} max={30} step={5} value={sessionSize} onChange={e => setSessionSize(Number(e.target.value))}
-                  className="w-full accent-[#e8c84a]" />
-                <div className="flex justify-between text-white/25 text-xs mt-1">
+                  className="w-full accent-[app-accent-primary]" />
+                <div className="flex justify-between text-app-text-muted text-xs mt-1">
                   <span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>30</span>
                 </div>
               </div>
 
               <button onClick={startSession}
-                className="w-full py-3.5 rounded-xl bg-[#e8c84a] text-[#141720] font-bold text-sm cursor-pointer whitespace-nowrap transition-opacity hover:opacity-90">
+                className="w-full py-3.5 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm cursor-pointer whitespace-nowrap transition-opacity hover:opacity-90">
                 <i className="ri-play-circle-line mr-2"></i>
                 Bắt đầu học ({Math.min(sessionSize, vocab.length)} thẻ)
               </button>
             </div>
 
             {/* Card list preview */}
-            <div className="rounded-2xl border border-white/8 bg-white/3 p-5">
+            <div className="rounded-2xl border border-app-border bg-app-surface/50 p-5">
               <h3 className="text-white font-bold text-sm mb-4">
-                <i className="ri-list-check mr-2 text-white/40"></i>
+                <i className="ri-list-check mr-2 text-app-text-secondary"></i>
                 Danh sách từ ưu tiên hôm nay
               </h3>
               <div className="space-y-2 max-h-64 overflow-y-auto">
                 {suggestions.slice(0, 15).map((s, i) => (
-                  <div key={s.vocab.id} className="flex items-center gap-3 py-2 border-b border-white/5 last:border-0">
-                    <span className="text-white/25 text-xs w-5 text-center">{i + 1}</span>
+                  <div key={s.vocab.id} className="flex items-center gap-3 py-2 border-b border-app-border last:border-0">
+                    <span className="text-app-text-muted text-xs w-5 text-center">{i + 1}</span>
                     <div className="flex-1">
                       <span className="text-white/80 text-sm font-medium">{s.vocab.korean}</span>
-                      <span className="text-white/40 text-xs ml-2">{s.vocab.vietnamese}</span>
+                      <span className="text-app-text-secondary text-xs ml-2">{s.vocab.vietnamese}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      {s.isNew && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-[#e8c84a]/15 text-[#e8c84a] font-bold">MỚI</span>}
+                      {s.isNew && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary font-bold">MỚI</span>}
                       {s.isDue && !s.isNew && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-rose-500/15 text-rose-400 font-bold">ĐẾN HẠN</span>}
                       {s.memory.totalReviews > 0 && (
-                        <span className="text-white/25 text-xs">{Math.round(s.accuracy * 100)}%</span>
+                        <span className="text-app-text-muted text-xs">{Math.round(s.accuracy * 100)}%</span>
                       )}
                     </div>
                   </div>
@@ -555,8 +555,8 @@ export default function AISmartFlashcardPage() {
                 className="flex items-center gap-2 text-white/50 hover:text-white/80 text-sm cursor-pointer transition-colors">
                 <i className="ri-arrow-left-line"></i> Dừng phiên
               </button>
-              <span className="text-white/40 text-xs">
-                <i className="ri-robot-2-line mr-1 text-[#e8c84a]"></i>
+              <span className="text-app-text-secondary text-xs">
+                <i className="ri-robot-2-line mr-1 text-app-accent-primary"></i>
                 AI đang theo dõi tiến độ
               </span>
             </div>

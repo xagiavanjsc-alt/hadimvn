@@ -153,15 +153,15 @@ export default function EpsQuickReviewPage() {
   if (showModeSelect) {
     return (
       <DashboardLayout>
-        <div className="min-h-screen bg-[#0f1117] text-white">
-          <div className="bg-[#1a1d2e] border-b border-white/5 px-6 py-4">
+        <div className="min-h-screen bg-app-bg text-white">
+          <div className="bg-[#1a1d2e] border-b border-app-border px-6 py-4">
             <div className="flex items-center gap-3">
-              <button onClick={() => navigate(-1)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+              <button onClick={() => navigate(-1)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-app-card/70 transition-colors cursor-pointer">
                 <i className="ri-arrow-left-line text-white/60"></i>
               </button>
               <div>
                 <h1 className="text-lg font-bold text-white">Ôn tập nhanh</h1>
-                <p className="text-white/40 text-xs">Chọn chế độ ôn tập</p>
+                <p className="text-app-text-secondary text-xs">Chọn chế độ ôn tập</p>
               </div>
             </div>
           </div>
@@ -169,13 +169,13 @@ export default function EpsQuickReviewPage() {
           <div className="max-w-lg mx-auto px-4 py-10 space-y-4">
             {/* Stats summary */}
             <div className="grid grid-cols-2 gap-3 mb-6">
-              <div className="bg-white/3 border border-white/8 rounded-xl p-4 text-center">
-                <p className="text-2xl font-bold text-[#e8c84a]">{studiedLessonIds.length}</p>
-                <p className="text-white/40 text-xs mt-1">Bài đã học</p>
+              <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
+                <p className="text-2xl font-bold text-app-accent-primary">{studiedLessonIds.length}</p>
+                <p className="text-app-text-secondary text-xs mt-1">Bài đã học</p>
               </div>
               <div className="bg-red-500/8 border border-red-500/20 rounded-xl p-4 text-center">
                 <p className="text-2xl font-bold text-red-400">{wrongCount}</p>
-                <p className="text-white/40 text-xs mt-1">Từ cần ôn lại</p>
+                <p className="text-app-text-secondary text-xs mt-1">Từ cần ôn lại</p>
               </div>
             </div>
 
@@ -184,22 +184,22 @@ export default function EpsQuickReviewPage() {
             {/* Mode: Random */}
             <button
               onClick={() => { setMode("random"); initCards("random"); }}
-              className="w-full bg-white/3 hover:bg-[#e8c84a]/10 border border-white/8 hover:border-[#e8c84a]/30 rounded-2xl p-5 text-left transition-all cursor-pointer group"
+              className="w-full bg-app-surface/50 hover:bg-app-accent-primary/10 border border-app-border hover:border-app-accent-primary/30 rounded-2xl p-5 text-left transition-all cursor-pointer group"
             >
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-[#e8c84a]/10 border border-[#e8c84a]/20 flex-shrink-0">
-                  <i className="ri-shuffle-line text-[#e8c84a] text-xl"></i>
+                <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-app-accent-primary/10 border border-app-accent-primary/20 flex-shrink-0">
+                  <i className="ri-shuffle-line text-app-accent-primary text-xl"></i>
                 </div>
                 <div className="flex-1">
                   <h3 className="text-white font-semibold mb-1">Ôn tập ngẫu nhiên</h3>
-                  <p className="text-white/40 text-sm leading-relaxed">10 từ ngẫu nhiên từ các bài đã học. Luyện tập đa dạng để ghi nhớ lâu hơn.</p>
+                  <p className="text-app-text-secondary text-sm leading-relaxed">10 từ ngẫu nhiên từ các bài đã học. Luyện tập đa dạng để ghi nhớ lâu hơn.</p>
                   <div className="mt-3 flex items-center gap-2">
-                    <span className="text-[#e8c84a] text-xs font-medium bg-[#e8c84a]/10 px-2 py-0.5 rounded-full">10 từ</span>
-                    <span className="text-white/30 text-xs">Từ {studiedLessonIds.length > 0 ? studiedLessonIds.length : "tất cả"} bài</span>
+                    <span className="text-app-accent-primary text-xs font-medium bg-app-accent-primary/10 px-2 py-0.5 rounded-full">10 từ</span>
+                    <span className="text-app-text-muted text-xs">Từ {studiedLessonIds.length > 0 ? studiedLessonIds.length : "tất cả"} bài</span>
                   </div>
                 </div>
                 <div className="w-6 h-6 flex items-center justify-center">
-                  <i className="ri-arrow-right-line text-white/20 group-hover:text-[#e8c84a] transition-colors"></i>
+                  <i className="ri-arrow-right-line text-app-text-muted group-hover:text-app-accent-primary transition-colors"></i>
                 </div>
               </div>
             </button>
@@ -214,8 +214,8 @@ export default function EpsQuickReviewPage() {
               disabled={wrongCount === 0}
               className={`w-full border rounded-2xl p-5 text-left transition-all group ${
                 wrongCount > 0
-                  ? "bg-white/3 hover:bg-red-500/10 border-white/8 hover:border-red-500/30 cursor-pointer"
-                  : "bg-white/2 border-white/5 cursor-not-allowed opacity-50"
+                  ? "bg-app-surface/50 hover:bg-red-500/10 border-app-border hover:border-red-500/30 cursor-pointer"
+                  : "bg-white/2 border-app-border cursor-not-allowed opacity-50"
               }`}
             >
               <div className="flex items-start gap-4">
@@ -224,7 +224,7 @@ export default function EpsQuickReviewPage() {
                 </div>
                 <div className="flex-1">
                   <h3 className="text-white font-semibold mb-1">Ôn từ sai</h3>
-                  <p className="text-white/40 text-sm leading-relaxed">
+                  <p className="text-app-text-secondary text-sm leading-relaxed">
                     {wrongCount > 0
                       ? `Ôn lại ${wrongCount} từ bạn đã trả lời sai trước đó. Tập trung vào điểm yếu.`
                       : "Chưa có từ nào bị sai. Hãy ôn tập ngẫu nhiên trước!"}
@@ -232,18 +232,18 @@ export default function EpsQuickReviewPage() {
                   {wrongCount > 0 && (
                     <div className="mt-3 flex items-center gap-2">
                       <span className="text-red-400 text-xs font-medium bg-red-500/10 px-2 py-0.5 rounded-full">{Math.min(wrongCount, 10)} từ</span>
-                      <span className="text-white/30 text-xs">Ưu tiên từ sai nhiều nhất</span>
+                      <span className="text-app-text-muted text-xs">Ưu tiên từ sai nhiều nhất</span>
                     </div>
                   )}
                 </div>
                 <div className="w-6 h-6 flex items-center justify-center">
-                  <i className={`ri-arrow-right-line text-white/20 ${wrongCount > 0 ? "group-hover:text-red-400" : ""} transition-colors`}></i>
+                  <i className={`ri-arrow-right-line text-app-text-muted ${wrongCount > 0 ? "group-hover:text-red-400" : ""} transition-colors`}></i>
                 </div>
               </div>
             </button>
 
             {wrongCount === 0 && (
-              <p className="text-center text-white/30 text-xs">
+              <p className="text-center text-app-text-muted text-xs">
                 Ôn tập ngẫu nhiên trước để tích lũy từ sai, sau đó dùng chế độ "Ôn từ sai"
               </p>
             )}
@@ -256,10 +256,10 @@ export default function EpsQuickReviewPage() {
   if (cards.length === 0 && !showModeSelect) {
     return (
       <DashboardLayout>
-        <div className="min-h-screen bg-[#0f1117] flex items-center justify-center">
+        <div className="min-h-screen bg-app-bg flex items-center justify-center">
           <div className="text-center">
-            <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 rounded-2xl bg-[#e8c84a]/10">
-              <i className="ri-loader-4-line text-[#e8c84a] text-2xl animate-spin"></i>
+            <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 rounded-2xl bg-app-accent-primary/10">
+              <i className="ri-loader-4-line text-app-accent-primary text-2xl animate-spin"></i>
             </div>
             <p className="text-white/50">Đang tải từ vựng...</p>
           </div>
@@ -270,19 +270,19 @@ export default function EpsQuickReviewPage() {
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-[#0f1117] text-white">
+      <div className="min-h-screen bg-app-bg text-white">
         {/* Header */}
-        <div className="bg-[#1a1d2e] border-b border-white/5 px-6 py-4">
+        <div className="bg-[#1a1d2e] border-b border-app-border px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <button onClick={() => setShowModeSelect(true)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+              <button onClick={() => setShowModeSelect(true)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-app-card/70 transition-colors cursor-pointer">
                 <i className="ri-arrow-left-line text-white/60"></i>
               </button>
               <div>
                 <h1 className="text-lg font-bold text-white">
                   {mode === "wrong_only" ? "Ôn từ sai" : "Ôn tập nhanh"}
                 </h1>
-                <p className="text-white/40 text-xs">
+                <p className="text-app-text-secondary text-xs">
                   {mode === "wrong_only" ? "Tập trung vào từ đã sai" : "10 từ ngẫu nhiên từ các bài đã học"}
                 </p>
               </div>
@@ -301,7 +301,7 @@ export default function EpsQuickReviewPage() {
                     <span className="text-red-400 text-xs font-medium">Từ sai</span>
                   </div>
                 )}
-                <div className="text-white/40 text-sm">
+                <div className="text-app-text-secondary text-sm">
                   {currentIndex + 1} / {cards.length}
                 </div>
               </div>
@@ -318,14 +318,14 @@ export default function EpsQuickReviewPage() {
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-1">
                       <div className="w-3 h-3 rounded-full bg-emerald-400"></div>
-                      <span className="text-emerald-400 text-sm font-medium">{results.correct}</span>
+                      <span className="text-app-accent-success text-sm font-medium">{results.correct}</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <div className="w-3 h-3 rounded-full bg-red-400"></div>
                       <span className="text-red-400 text-sm font-medium">{results.wrong}</span>
                     </div>
                   </div>
-                  <span className="text-white/30 text-xs">{accuracy}% chính xác</span>
+                  <span className="text-app-text-muted text-xs">{accuracy}% chính xác</span>
                 </div>
                 <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
                   <div
@@ -334,7 +334,7 @@ export default function EpsQuickReviewPage() {
                       width: `${((currentIndex) / cards.length) * 100}%`,
                       background: mode === "wrong_only"
                         ? "linear-gradient(90deg, #ef4444, #f59e0b)"
-                        : "linear-gradient(90deg, #e8c84a, #34d399)",
+                        : "linear-gradient(90deg, app-accent-primary, #34d399)",
                     }}
                   ></div>
                 </div>
@@ -348,12 +348,12 @@ export default function EpsQuickReviewPage() {
                       ? "border-emerald-500/50 bg-emerald-500/10"
                       : cardState === "wrong"
                       ? "border-red-500/50 bg-red-500/10"
-                      : "border-white/10 bg-white/3"
+                      : "border-app-border bg-app-surface/50"
                   }`}
                 >
                   {/* Lesson badge */}
-                  <div className="inline-flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full px-3 py-1 mb-6">
-                    <i className="ri-book-open-line text-[#e8c84a] text-xs"></i>
+                  <div className="inline-flex items-center gap-1.5 bg-app-card/50 border border-app-border rounded-full px-3 py-1 mb-6">
+                    <i className="ri-book-open-line text-app-accent-primary text-xs"></i>
                     <span className="text-white/50 text-xs">{currentCard.lessonTitle}</span>
                     {mode === "wrong_only" && (() => {
                       const key = `${currentCard.lessonId}_${currentCard.vocab.korean}`;
@@ -367,7 +367,7 @@ export default function EpsQuickReviewPage() {
                   {/* Korean word */}
                   <div className="mb-2">
                     <p className="text-4xl font-bold text-white mb-1">{currentCard.vocab.korean}</p>
-                    <p className="text-white/30 text-sm">[{currentCard.vocab.pronunciation}]</p>
+                    <p className="text-app-text-muted text-sm">[{currentCard.vocab.pronunciation}]</p>
                   </div>
 
                   {/* Answer reveal */}
@@ -378,32 +378,32 @@ export default function EpsQuickReviewPage() {
                         className={`w-full py-3.5 border rounded-xl font-semibold transition-all cursor-pointer ${
                           mode === "wrong_only"
                             ? "bg-red-500/15 hover:bg-red-500/25 border-red-500/30 text-red-300"
-                            : "bg-[#e8c84a]/15 hover:bg-[#e8c84a]/25 border-[#e8c84a]/30 text-[#e8c84a]"
+                            : "bg-app-accent-primary/15 hover:bg-app-accent-primary/25 border-app-accent-primary/30 text-app-accent-primary"
                         }`}
                       >
                         Xem nghĩa
                       </button>
                       <button
                         onClick={() => setShowExample(!showExample)}
-                        className="w-full py-2.5 bg-white/5 hover:bg-white/8 border border-white/10 rounded-xl text-white/40 text-sm transition-all cursor-pointer"
+                        className="w-full py-2.5 bg-app-card/50 hover:bg-white/8 border border-app-border rounded-xl text-app-text-secondary text-sm transition-all cursor-pointer"
                       >
                         {showExample ? "Ẩn ví dụ" : "Xem ví dụ"}
                       </button>
                       {showExample && (
-                        <div className="bg-white/5 rounded-xl p-3 text-left">
+                        <div className="bg-app-card/50 rounded-xl p-3 text-left">
                           <p className="text-white/70 text-sm">{currentCard.vocab.example}</p>
-                          <p className="text-white/40 text-xs mt-1">{currentCard.vocab.exampleVi}</p>
+                          <p className="text-app-text-secondary text-xs mt-1">{currentCard.vocab.exampleVi}</p>
                         </div>
                       )}
                     </div>
                   ) : cardState === "answer" ? (
                     <div className="mt-6 space-y-4">
-                      <div className="bg-white/5 rounded-xl p-4">
-                        <p className="text-2xl font-bold text-[#e8c84a] mb-1">{currentCard.vocab.vietnamese}</p>
-                        <p className="text-white/40 text-sm">{currentCard.vocab.example}</p>
-                        <p className="text-white/30 text-xs mt-0.5">{currentCard.vocab.exampleVi}</p>
+                      <div className="bg-app-card/50 rounded-xl p-4">
+                        <p className="text-2xl font-bold text-app-accent-primary mb-1">{currentCard.vocab.vietnamese}</p>
+                        <p className="text-app-text-secondary text-sm">{currentCard.vocab.example}</p>
+                        <p className="text-app-text-muted text-xs mt-0.5">{currentCard.vocab.exampleVi}</p>
                       </div>
-                      <p className="text-white/40 text-sm">Bạn có nhớ không?</p>
+                      <p className="text-app-text-secondary text-sm">Bạn có nhớ không?</p>
                       <div className="grid grid-cols-2 gap-3">
                         <button
                           onClick={() => handleResult(false)}
@@ -414,7 +414,7 @@ export default function EpsQuickReviewPage() {
                         </button>
                         <button
                           onClick={() => handleResult(true)}
-                          className="py-3 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 rounded-xl text-emerald-400 font-semibold transition-all cursor-pointer"
+                          className="py-3 bg-app-accent-success/15 hover:bg-emerald-500/25 border border-emerald-500/30 rounded-xl text-app-accent-success font-semibold transition-all cursor-pointer"
                         >
                           <i className="ri-check-line mr-1"></i>
                           Đã nhớ
@@ -424,7 +424,7 @@ export default function EpsQuickReviewPage() {
                   ) : (
                     <div className="mt-8">
                       {cardState === "correct" ? (
-                        <div className="flex items-center justify-center gap-2 text-emerald-400">
+                        <div className="flex items-center justify-center gap-2 text-app-accent-success">
                           <i className="ri-checkbox-circle-fill text-2xl"></i>
                           <span className="text-lg font-bold">Chính xác!</span>
                         </div>
@@ -448,10 +448,10 @@ export default function EpsQuickReviewPage() {
                       i < currentIndex
                         ? results.wrongCards.some(w => w.vocab.korean === cards[i]?.vocab.korean)
                           ? "bg-red-500/30 text-red-400 border border-red-500/40"
-                          : "bg-emerald-500/30 text-emerald-400 border border-emerald-500/40"
+                          : "bg-emerald-500/30 text-app-accent-success border border-emerald-500/40"
                         : i === currentIndex
-                        ? "bg-[#e8c84a]/20 text-[#e8c84a] border border-[#e8c84a]/40"
-                        : "bg-white/5 text-white/20 border border-white/10"
+                        ? "bg-app-accent-primary/20 text-app-accent-primary border border-app-accent-primary/40"
+                        : "bg-app-card/50 text-app-text-muted border border-app-border"
                     }`}
                   >
                     {i + 1}
@@ -465,14 +465,14 @@ export default function EpsQuickReviewPage() {
               <div className={`w-20 h-20 flex items-center justify-center mx-auto rounded-2xl border ${
                 mode === "wrong_only"
                   ? "bg-red-500/10 border-red-500/20"
-                  : "bg-[#e8c84a]/10 border-[#e8c84a]/20"
+                  : "bg-app-accent-primary/10 border-app-accent-primary/20"
               }`}>
-                <i className={`text-3xl ${mode === "wrong_only" ? "ri-shield-check-line text-red-400" : "ri-trophy-line text-[#e8c84a]"}`}></i>
+                <i className={`text-3xl ${mode === "wrong_only" ? "ri-shield-check-line text-red-400" : "ri-trophy-line text-app-accent-primary"}`}></i>
               </div>
 
               <div>
                 <h2 className="text-2xl font-bold text-white mb-1">Hoàn thành!</h2>
-                <p className="text-white/40">
+                <p className="text-app-text-secondary">
                   {mode === "wrong_only" ? "Bạn đã ôn lại các từ sai" : `Bạn đã ôn tập ${cards.length} từ vựng`}
                 </p>
               </div>
@@ -480,18 +480,18 @@ export default function EpsQuickReviewPage() {
               {/* Score */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4">
-                  <p className="text-3xl font-bold text-emerald-400">{results.correct}</p>
-                  <p className="text-emerald-400/60 text-xs mt-1">Đúng</p>
+                  <p className="text-3xl font-bold text-app-accent-success">{results.correct}</p>
+                  <p className="text-app-accent-success/60 text-xs mt-1">Đúng</p>
                 </div>
                 <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
                   <p className="text-3xl font-bold text-red-400">{results.wrong}</p>
-                  <p className="text-red-400/60 text-xs mt-1">Sai</p>
+                  <p className="text-app-accent-error/60 text-xs mt-1">Sai</p>
                 </div>
-                <div className={`border rounded-xl p-4 ${mode === "wrong_only" ? "bg-red-500/10 border-red-500/20" : "bg-[#e8c84a]/10 border-[#e8c84a]/20"}`}>
-                  <p className={`text-3xl font-bold ${mode === "wrong_only" ? "text-red-400" : "text-[#e8c84a]"}`}>
+                <div className={`border rounded-xl p-4 ${mode === "wrong_only" ? "bg-red-500/10 border-red-500/20" : "bg-app-accent-primary/10 border-app-accent-primary/20"}`}>
+                  <p className={`text-3xl font-bold ${mode === "wrong_only" ? "text-red-400" : "text-app-accent-primary"}`}>
                     {Math.round((results.correct / cards.length) * 100)}%
                   </p>
-                  <p className={`text-xs mt-1 ${mode === "wrong_only" ? "text-red-400/60" : "text-[#e8c84a]/60"}`}>Chính xác</p>
+                  <p className={`text-xs mt-1 ${mode === "wrong_only" ? "text-app-accent-error/60" : "text-app-accent-primary/60"}`}>Chính xác</p>
                 </div>
               </div>
 
@@ -504,7 +504,7 @@ export default function EpsQuickReviewPage() {
                   </h3>
                   <div className="space-y-2 max-h-40 overflow-y-auto">
                     {results.wrongCards.map((card, i) => (
-                      <div key={i} className="flex items-center justify-between py-1.5 border-b border-white/5 last:border-0">
+                      <div key={i} className="flex items-center justify-between py-1.5 border-b border-app-border last:border-0">
                         <span className="text-white font-medium text-sm">{card.vocab.korean}</span>
                         <span className="text-white/50 text-xs">{card.vocab.vietnamese}</span>
                       </div>
@@ -514,7 +514,7 @@ export default function EpsQuickReviewPage() {
               )}
 
               {/* Feedback */}
-              <div className="bg-white/3 border border-white/8 rounded-xl p-4">
+              <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
                 <p className="text-white/70 text-sm">
                   {results.correct === cards.length
                     ? mode === "wrong_only" ? "Tuyệt vời! Bạn đã nhớ lại tất cả các từ sai!" : "Xuất sắc! Bạn nhớ tất cả các từ!"
@@ -539,14 +539,14 @@ export default function EpsQuickReviewPage() {
                 )}
                 <button
                   onClick={() => setShowModeSelect(true)}
-                  className="w-full py-3.5 bg-[#e8c84a]/15 hover:bg-[#e8c84a]/25 border border-[#e8c84a]/30 rounded-xl text-[#e8c84a] font-semibold transition-all cursor-pointer"
+                  className="w-full py-3.5 bg-app-accent-primary/15 hover:bg-app-accent-primary/25 border border-app-accent-primary/30 rounded-xl text-app-accent-primary font-semibold transition-all cursor-pointer"
                 >
                   <i className="ri-refresh-line mr-2"></i>
                   Ôn tập lại
                 </button>
                 <button
                   onClick={() => navigate("/eps-lessons")}
-                  className="w-full py-3 bg-white/5 hover:bg-white/8 border border-white/10 rounded-xl text-white/60 transition-all cursor-pointer"
+                  className="w-full py-3 bg-app-card/50 hover:bg-white/8 border border-app-border rounded-xl text-white/60 transition-all cursor-pointer"
                 >
                   Đến trang bài học
                 </button>

@@ -295,7 +295,7 @@ function speakKorean(text: string, rate = 0.75) {
   window.speechSynthesis.speak(u);
 }
 
-const LEVEL_COLORS = { easy: "#34d399", medium: "#e8c84a", hard: "#f87171" };
+const LEVEL_COLORS = { easy: "#34d399", medium: "app-accent-primary", hard: "#f87171" };
 const LEVEL_LABELS = { easy: "Dễ", medium: "Trung bình", hard: "Khó" };
 
 // ─── Question Card ────────────────────────────────────────────────────────
@@ -325,9 +325,9 @@ function ListeningCard({
   }, [q.audioText]);
 
   return (
-    <div className="bg-[#0f1117] border border-white/8 rounded-2xl overflow-hidden">
+    <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden">
       {/* Topic + level badges */}
-      <div className="flex items-center gap-2 px-5 pt-4 pb-3 border-b border-white/5">
+      <div className="flex items-center gap-2 px-5 pt-4 pb-3 border-b border-app-border">
         {topicInfo && (
           <span className="text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${topicInfo.color}15`, color: topicInfo.color }}>
             <i className={`${topicInfo.icon} mr-1`}></i>{topicInfo.label}
@@ -337,18 +337,18 @@ function ListeningCard({
           {LEVEL_LABELS[q.level]}
         </span>
         {playCount > 0 && (
-          <span className="text-[10px] text-white/30 ml-auto">Đã nghe {playCount} lần</span>
+          <span className="text-[10px] text-app-text-muted ml-auto">Đã nghe {playCount} lần</span>
         )}
       </div>
 
       {/* Audio player */}
-      <div className="px-5 py-4 bg-white/2 border-b border-white/5">
-        <p className="text-white/40 text-xs mb-3">Nghe đoạn hội thoại và trả lời câu hỏi:</p>
+      <div className="px-5 py-4 bg-white/2 border-b border-app-border">
+        <p className="text-app-text-secondary text-xs mb-3">Nghe đoạn hội thoại và trả lời câu hỏi:</p>
         <div className="flex items-center gap-3">
           <button
             onClick={() => handlePlay(0.75)}
             disabled={isPlaying}
-            className={`flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm transition-all cursor-pointer whitespace-nowrap ${isPlaying ? "bg-[#e8c84a]/20 text-[#e8c84a]" : "bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117]"}`}
+            className={`flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm transition-all cursor-pointer whitespace-nowrap ${isPlaying ? "bg-app-accent-primary/20 text-app-accent-primary" : "bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg"}`}
           >
             <i className={isPlaying ? "ri-pause-fill" : "ri-play-fill"}></i>
             {isPlaying ? "Đang phát..." : "Nghe (bình thường)"}
@@ -356,14 +356,14 @@ function ListeningCard({
           <button
             onClick={() => handlePlay(0.5)}
             disabled={isPlaying}
-            className="flex items-center gap-2 px-4 py-3 rounded-xl border border-white/10 text-white/50 hover:text-white/70 hover:bg-white/5 text-sm transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
+            className="flex items-center gap-2 px-4 py-3 rounded-xl border border-app-border text-white/50 hover:text-white/70 hover:bg-app-card/50 text-sm transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
           >
             <i className="ri-speed-line"></i>
             Chậm hơn
           </button>
           <button
             onClick={onToggleScript}
-            className={`flex items-center gap-2 px-4 py-3 rounded-xl border text-sm transition-all cursor-pointer whitespace-nowrap ml-auto ${showScript ? "border-[#06b6d4]/30 bg-[#06b6d4]/10 text-[#06b6d4]" : "border-white/10 text-white/40 hover:text-white/60"}`}
+            className={`flex items-center gap-2 px-4 py-3 rounded-xl border text-sm transition-all cursor-pointer whitespace-nowrap ml-auto ${showScript ? "border-[#06b6d4]/30 bg-[#06b6d4]/10 text-[#06b6d4]" : "border-app-border text-app-text-secondary hover:text-white/60"}`}
           >
             <i className={showScript ? "ri-eye-off-line" : "ri-eye-line"}></i>
             {showScript ? "Ẩn script" : "Xem script"}
@@ -374,7 +374,7 @@ function ListeningCard({
         {showScript && (
           <div className="mt-3 p-3 rounded-xl bg-[#06b6d4]/5 border border-[#06b6d4]/15">
             <p className="text-[#06b6d4] text-sm font-medium leading-relaxed">{q.audioText}</p>
-            <p className="text-white/40 text-xs mt-1.5 italic leading-relaxed">{q.audioTextVi}</p>
+            <p className="text-app-text-secondary text-xs mt-1.5 italic leading-relaxed">{q.audioTextVi}</p>
           </div>
         )}
       </div>
@@ -382,15 +382,15 @@ function ListeningCard({
       {/* Question */}
       <div className="px-5 py-4">
         <p className="text-white font-semibold text-sm mb-1">{q.question}</p>
-        <p className="text-white/40 text-xs italic mb-4">{q.questionVi}</p>
+        <p className="text-app-text-secondary text-xs italic mb-4">{q.questionVi}</p>
 
         <div className="space-y-2">
           {q.options.map((opt, i) => {
-            let cls = "border-white/8 bg-white/3 hover:border-white/15 hover:bg-white/5 cursor-pointer";
+            let cls = "border-app-border bg-app-surface/50 hover:border-white/15 hover:bg-app-card/50 cursor-pointer";
             if (answered !== null) {
               if (i === q.correctIndex) cls = "border-emerald-500/40 bg-emerald-500/8 cursor-default";
               else if (i === answered) cls = "border-red-500/40 bg-red-500/8 cursor-default";
-              else cls = "border-white/5 opacity-40 cursor-default";
+              else cls = "border-app-border opacity-40 cursor-default";
             }
             return (
               <button
@@ -399,14 +399,14 @@ function ListeningCard({
                 disabled={answered !== null}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-left ${cls}`}
               >
-                <span className={`w-6 h-6 flex items-center justify-center rounded-lg text-[10px] font-bold flex-shrink-0 ${answered !== null && i === q.correctIndex ? "bg-emerald-500/20 text-emerald-400" : answered !== null && i === answered ? "bg-red-500/20 text-red-400" : "bg-white/5 text-white/30"}`}>
+                <span className={`w-6 h-6 flex items-center justify-center rounded-lg text-[10px] font-bold flex-shrink-0 ${answered !== null && i === q.correctIndex ? "bg-emerald-500/20 text-app-accent-success" : answered !== null && i === answered ? "bg-red-500/20 text-red-400" : "bg-app-card/50 text-app-text-muted"}`}>
                   {["A","B","C","D"][i]}
                 </span>
                 <div>
-                  <p className={`text-sm font-medium ${answered !== null && i === q.correctIndex ? "text-emerald-400" : answered !== null && i === answered ? "text-red-400" : "text-white/70"}`}>{opt}</p>
-                  <p className="text-white/30 text-xs">{q.optionsVi[i]}</p>
+                  <p className={`text-sm font-medium ${answered !== null && i === q.correctIndex ? "text-app-accent-success" : answered !== null && i === answered ? "text-red-400" : "text-white/70"}`}>{opt}</p>
+                  <p className="text-app-text-muted text-xs">{q.optionsVi[i]}</p>
                 </div>
-                {answered !== null && i === q.correctIndex && <i className="ri-checkbox-circle-fill text-emerald-400 ml-auto"></i>}
+                {answered !== null && i === q.correctIndex && <i className="ri-checkbox-circle-fill text-app-accent-success ml-auto"></i>}
                 {answered !== null && i === answered && i !== q.correctIndex && <i className="ri-close-circle-fill text-red-400 ml-auto"></i>}
               </button>
             );
@@ -414,7 +414,7 @@ function ListeningCard({
         </div>
 
         {answered !== null && (
-          <div className={`mt-4 p-3 rounded-xl border text-xs leading-relaxed ${answered === q.correctIndex ? "border-emerald-500/20 bg-emerald-500/5 text-emerald-400/80" : "border-orange-500/20 bg-orange-500/5 text-orange-400/80"}`}>
+          <div className={`mt-4 p-3 rounded-xl border text-xs leading-relaxed ${answered === q.correctIndex ? "border-emerald-500/20 bg-emerald-500/5 text-app-accent-success/80" : "border-orange-500/20 bg-orange-500/5 text-orange-400/80"}`}>
             <div className="flex items-start gap-2">
               <i className="ri-lightbulb-line text-sm flex-shrink-0 mt-0.5"></i>
               <p>{q.explanation}</p>
@@ -490,18 +490,18 @@ export default function EpsListeningPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng câu nghe", value: LISTENING_QUESTIONS.length, icon: "ri-headphone-line", color: "#e8c84a" },
+          { label: "Tổng câu nghe", value: LISTENING_QUESTIONS.length, icon: "ri-headphone-line", color: "app-accent-primary" },
           { label: "Đã luyện", value: totalAnswered, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Trả lời đúng", value: totalCorrect, icon: "ri-trophy-line", color: "#a78bfa" },
           { label: "Độ chính xác", value: `${accuracy}%`, icon: "ri-bar-chart-line", color: "#fb923c" },
         ].map(s => (
-          <div key={s.label} className="bg-[#0f1117] border border-white/5 rounded-xl p-4 flex items-center gap-3">
+          <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
               <i className={`${s.icon} text-lg`} style={{ color: s.color }}></i>
             </div>
             <div>
               <p className="text-white font-bold text-xl leading-none">{s.value}</p>
-              <p className="text-white/40 text-xs mt-0.5">{s.label}</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">{s.label}</p>
             </div>
           </div>
         ))}
@@ -509,12 +509,12 @@ export default function EpsListeningPage() {
 
       {/* Mode tabs */}
       <div className="flex items-center gap-3 mb-5">
-        <div className="flex rounded-xl border border-white/8 overflow-hidden">
+        <div className="flex rounded-xl border border-app-border overflow-hidden">
           {(["browse", "exam"] as const).map(m => (
             <button
               key={m}
               onClick={() => { setMode(m); setExamIdx(0); setExamAnswers({}); setExamDone(false); }}
-              className={`px-5 py-2.5 text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap ${mode === m ? "bg-[#e8c84a]/15 text-[#e8c84a]" : "text-white/40 hover:text-white/60"}`}
+              className={`px-5 py-2.5 text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap ${mode === m ? "bg-app-accent-primary/15 text-app-accent-primary" : "text-app-text-secondary hover:text-white/60"}`}
             >
               {m === "browse" ? "Luyện tập tự do" : "Thi thử (10 câu)"}
             </button>
@@ -526,7 +526,7 @@ export default function EpsListeningPage() {
             <select
               value={filterTopic}
               onChange={e => setFilterTopic(e.target.value)}
-              className="bg-white/5 border border-white/8 rounded-lg px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
+              className="bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
             >
               <option value="all">Tất cả chủ đề</option>
               {EPS_LESSON_TOPICS.map(t => (
@@ -536,7 +536,7 @@ export default function EpsListeningPage() {
             <select
               value={filterLevel}
               onChange={e => setFilterLevel(e.target.value)}
-              className="bg-white/5 border border-white/8 rounded-lg px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
+              className="bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
             >
               <option value="all">Tất cả cấp độ</option>
               <option value="easy">Dễ</option>
@@ -551,7 +551,7 @@ export default function EpsListeningPage() {
       {mode === "browse" && (
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6">
           <div className="space-y-4">
-            <p className="text-white/30 text-xs">{filteredQuestions.length} câu hỏi</p>
+            <p className="text-app-text-muted text-xs">{filteredQuestions.length} câu hỏi</p>
             {filteredQuestions.map(q => (
               <ListeningCard
                 key={q.id}
@@ -566,7 +566,7 @@ export default function EpsListeningPage() {
 
           {/* Tips sidebar */}
           <div className="space-y-4">
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <h3 className="text-white font-semibold text-sm mb-3">Mẹo luyện nghe EPS</h3>
               <div className="space-y-3">
                 {[
@@ -577,32 +577,32 @@ export default function EpsListeningPage() {
                   { icon: "ri-focus-3-line", tip: "Chú ý từ khóa: số, địa điểm, thời gian" },
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-2">
-                    <div className="w-6 h-6 flex items-center justify-center rounded-md bg-[#e8c84a]/10 flex-shrink-0">
-                      <i className={`${item.icon} text-[#e8c84a] text-xs`}></i>
+                    <div className="w-6 h-6 flex items-center justify-center rounded-md bg-app-accent-primary/10 flex-shrink-0">
+                      <i className={`${item.icon} text-app-accent-primary text-xs`}></i>
                     </div>
-                    <p className="text-white/40 text-xs leading-relaxed">{item.tip}</p>
+                    <p className="text-app-text-secondary text-xs leading-relaxed">{item.tip}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-4">
-              <p className="text-[#e8c84a] text-xs font-semibold mb-2">Phần thưởng XP</p>
+            <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
+              <p className="text-app-accent-primary text-xs font-semibold mb-2">Phần thưởng XP</p>
               <div className="space-y-1.5">
                 <div className="flex justify-between text-xs">
-                  <span className="text-white/40">Trả lời đúng</span>
-                  <span className="text-[#e8c84a] font-bold">+15 XP</span>
+                  <span className="text-app-text-secondary">Trả lời đúng</span>
+                  <span className="text-app-accent-primary font-bold">+15 XP</span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-white/40">Hoàn thành thi thử</span>
-                  <span className="text-[#e8c84a] font-bold">+20 XP/câu đúng</span>
+                  <span className="text-app-text-secondary">Hoàn thành thi thử</span>
+                  <span className="text-app-accent-primary font-bold">+20 XP/câu đúng</span>
                 </div>
               </div>
             </div>
 
             {/* Progress by topic */}
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4">
-              <p className="text-white/40 text-xs font-medium mb-3">Tiến độ theo chủ đề</p>
+            <div className="bg-app-bg border border-app-border rounded-2xl p-4">
+              <p className="text-app-text-secondary text-xs font-medium mb-3">Tiến độ theo chủ đề</p>
               {EPS_LESSON_TOPICS.map(t => {
                 const topicQs = LISTENING_QUESTIONS.filter(q => q.topic === t.id);
                 const done = topicQs.filter(q => answeredMap[q.id] !== undefined).length;
@@ -610,10 +610,10 @@ export default function EpsListeningPage() {
                 return (
                   <div key={t.id} className="mb-2">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-white/40 text-[10px]">{t.label}</span>
+                      <span className="text-app-text-secondary text-[10px]">{t.label}</span>
                       <span className="text-[10px] font-bold" style={{ color: t.color }}>{done}/{topicQs.length}</span>
                     </div>
-                    <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-1 bg-app-card/50 rounded-full overflow-hidden">
                       <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: t.color }} />
                     </div>
                   </div>
@@ -629,11 +629,11 @@ export default function EpsListeningPage() {
         <div className="max-w-2xl mx-auto">
           {/* Progress */}
           <div className="flex items-center gap-3 mb-5">
-            <p className="text-white/40 text-xs whitespace-nowrap">{examIdx + 1} / {examQuestions.length}</p>
-            <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
-              <div className="h-full rounded-full bg-[#e8c84a] transition-all" style={{ width: `${(examIdx / examQuestions.length) * 100}%` }} />
+            <p className="text-app-text-secondary text-xs whitespace-nowrap">{examIdx + 1} / {examQuestions.length}</p>
+            <div className="flex-1 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
+              <div className="h-full rounded-full bg-app-accent-primary transition-all" style={{ width: `${(examIdx / examQuestions.length) * 100}%` }} />
             </div>
-            <p className="text-emerald-400 text-xs font-bold whitespace-nowrap">
+            <p className="text-app-accent-success text-xs font-bold whitespace-nowrap">
               {Object.values(examAnswers).filter((v, i) => v === examQuestions[i]?.correctIndex).length} đúng
             </p>
           </div>
@@ -649,7 +649,7 @@ export default function EpsListeningPage() {
           {examAnswers[examQuestions[examIdx].id] !== undefined && (
             <button
               onClick={handleExamNext}
-              className="w-full mt-4 py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
+              className="w-full mt-4 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
             >
               {examIdx + 1 >= examQuestions.length ? "Xem kết quả" : "Câu tiếp theo"}
               <i className="ri-arrow-right-line ml-2"></i>
@@ -660,11 +660,11 @@ export default function EpsListeningPage() {
 
       {/* Exam result */}
       {mode === "exam" && examDone && (
-        <div className="max-w-md mx-auto bg-[#0f1117] border border-white/8 rounded-2xl p-8 text-center">
+        <div className="max-w-md mx-auto bg-app-bg border border-app-border rounded-2xl p-8 text-center">
           {(() => {
             const pct = Math.round((examScore / examQuestions.length) * 100);
             const grade = pct >= 80 ? { label: "Xuất sắc!", color: "#34d399", icon: "ri-trophy-line" }
-              : pct >= 60 ? { label: "Khá tốt!", color: "#e8c84a", icon: "ri-medal-line" }
+              : pct >= 60 ? { label: "Khá tốt!", color: "app-accent-primary", icon: "ri-medal-line" }
               : { label: "Cần luyện thêm!", color: "#fb923c", icon: "ri-refresh-line" };
             return (
               <>
@@ -672,23 +672,23 @@ export default function EpsListeningPage() {
                   <i className={`${grade.icon} text-3xl`} style={{ color: grade.color }}></i>
                 </div>
                 <h2 className="text-white font-bold text-xl mb-2">{grade.label}</h2>
-                <p className="text-white/40 text-sm mb-5">
+                <p className="text-app-text-secondary text-sm mb-5">
                   Đúng <span className="font-bold" style={{ color: grade.color }}>{examScore}/{examQuestions.length}</span> câu ({pct}%)
                 </p>
-                <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden mb-6">
+                <div className="w-full h-2 bg-app-card/50 rounded-full overflow-hidden mb-6">
                   <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: grade.color }} />
                 </div>
-                <p className="text-[#e8c84a] text-sm font-bold mb-5">+{examScore * 20} XP đã nhận!</p>
+                <p className="text-app-accent-primary text-sm font-bold mb-5">+{examScore * 20} XP đã nhận!</p>
                 <div className="flex gap-3">
                   <button
                     onClick={() => { setExamIdx(0); setExamAnswers({}); setExamDone(false); }}
-                    className="flex-1 py-3 rounded-xl border border-white/10 text-white/60 text-sm font-medium hover:bg-white/5 transition-colors cursor-pointer whitespace-nowrap"
+                    className="flex-1 py-3 rounded-xl border border-app-border text-white/60 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"
                   >
                     Thi lại
                   </button>
                   <button
                     onClick={() => setMode("browse")}
-                    className="flex-1 py-3 rounded-xl bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
+                    className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
                   >
                     Luyện tập
                   </button>

@@ -68,7 +68,7 @@ function RankCard({ rank, isCurrentRank, userXP }: { rank: typeof RANKS[0]; isCu
           <i className={`${rank.icon} text-2xl`} style={{ color: rank.color }}></i>
           {!isUnlocked && (
             <div className="absolute inset-0 rounded-2xl bg-black/60 flex items-center justify-center">
-              <i className="ri-lock-line text-white/40 text-sm"></i>
+              <i className="ri-lock-line text-app-text-secondary text-sm"></i>
             </div>
           )}
         </div>
@@ -76,19 +76,19 @@ function RankCard({ rank, isCurrentRank, userXP }: { rank: typeof RANKS[0]; isCu
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-white font-bold text-base">{rank.name}</span>
             <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ backgroundColor: rank.bgColor, color: rank.color }}>{rank.nameKo}</span>
-            {isCurrentRank && <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/60 font-medium">Cấp hiện tại</span>}
+            {isCurrentRank && <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-card/70 text-white/60 font-medium">Cấp hiện tại</span>}
           </div>
-          <p className="text-white/40 text-xs mt-0.5">{rank.description}</p>
-          <p className="text-white/25 text-[10px] mt-1">
+          <p className="text-app-text-secondary text-xs mt-0.5">{rank.description}</p>
+          <p className="text-app-text-muted text-[10px] mt-1">
             {rank.maxXP === Infinity ? `Từ ${rank.minXP.toLocaleString()} XP` : `${rank.minXP.toLocaleString()} – ${rank.maxXP.toLocaleString()} XP`}
           </p>
         </div>
-        <i className={`ri-arrow-down-s-line text-white/30 transition-transform flex-shrink-0 ${expanded ? "rotate-180" : ""}`}></i>
+        <i className={`ri-arrow-down-s-line text-app-text-muted transition-transform flex-shrink-0 ${expanded ? "rotate-180" : ""}`}></i>
       </div>
 
       {expanded && (
-        <div className="px-4 pb-4 border-t border-white/5 pt-3">
-          <p className="text-white/40 text-xs font-medium mb-2">Quyền lợi cấp bậc:</p>
+        <div className="px-4 pb-4 border-t border-app-border pt-3">
+          <p className="text-app-text-secondary text-xs font-medium mb-2">Quyền lợi cấp bậc:</p>
           <div className="space-y-1.5">
             {rank.perks.map((perk, i) => (
               <div key={i} className="flex items-center gap-2">
@@ -108,7 +108,7 @@ function RankCard({ rank, isCurrentRank, userXP }: { rank: typeof RANKS[0]; isCu
 // ─── Badge Card ───────────────────────────────────────────────────────────────
 function BadgeCard({ badge, earned }: { badge: typeof BADGES[0]; earned: boolean }) {
   return (
-    <div className={`rounded-xl border p-3 transition-all ${earned ? "border-white/10" : "border-white/5 opacity-50"}`}
+    <div className={`rounded-xl border p-3 transition-all ${earned ? "border-app-border" : "border-app-border opacity-50"}`}
       style={{ backgroundColor: earned ? `${badge.color}08` : "rgba(255,255,255,0.02)" }}>
       <div className="flex flex-col items-center text-center gap-2">
         <div
@@ -118,19 +118,19 @@ function BadgeCard({ badge, earned }: { badge: typeof BADGES[0]; earned: boolean
           <i className={`${badge.icon} text-xl`} style={{ color: earned ? badge.color : "#ffffff30" }}></i>
           {!earned && (
             <div className="absolute inset-0 rounded-xl bg-black/50 flex items-center justify-center">
-              <i className="ri-lock-line text-white/30 text-xs"></i>
+              <i className="ri-lock-line text-app-text-muted text-xs"></i>
             </div>
           )}
         </div>
         <div>
           <p className="text-white/70 text-xs font-semibold leading-tight">{badge.name}</p>
-          <p className="text-white/30 text-[10px] mt-0.5">{badge.nameKo}</p>
+          <p className="text-app-text-muted text-[10px] mt-0.5">{badge.nameKo}</p>
         </div>
         <div className="flex items-center gap-1">
-          <i className="ri-star-line text-[#e8c84a] text-[10px]"></i>
-          <span className="text-[#e8c84a] text-[10px] font-bold">+{badge.xpReward} XP</span>
+          <i className="ri-star-line text-app-accent-primary text-[10px]"></i>
+          <span className="text-app-accent-primary text-[10px] font-bold">+{badge.xpReward} XP</span>
         </div>
-        <p className="text-white/25 text-[9px] leading-relaxed">{badge.condition}</p>
+        <p className="text-app-text-muted text-[9px] leading-relaxed">{badge.condition}</p>
       </div>
     </div>
   );
@@ -143,13 +143,13 @@ function LeaderboardRow({ entry, isMe }: { entry: typeof MOCK_LEADERBOARD[0]; is
   const medalColors = ["#FFD700", "#C0C0C0", "#CD7F32"];
 
   return (
-    <div className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isMe ? "border" : "hover:bg-white/3"}`}
-      style={isMe ? { backgroundColor: "#e8c84a08", borderColor: "#e8c84a25" } : {}}>
+    <div className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isMe ? "border" : "hover:bg-app-surface/50"}`}
+      style={isMe ? { backgroundColor: "app-accent-primary08", borderColor: "app-accent-primary25" } : {}}>
       <div className="w-8 flex items-center justify-center flex-shrink-0">
         {entry.rank <= 3 ? (
           <i className={`${medals[entry.rank - 1]} text-lg`} style={{ color: medalColors[entry.rank - 1] }}></i>
         ) : (
-          <span className="text-white/30 text-sm font-bold">{entry.rank}</span>
+          <span className="text-app-text-muted text-sm font-bold">{entry.rank}</span>
         )}
       </div>
       <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: rank.bgColor, border: `1.5px solid ${rank.borderColor}` }}>
@@ -157,25 +157,25 @@ function LeaderboardRow({ entry, isMe }: { entry: typeof MOCK_LEADERBOARD[0]; is
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
-          <span className={`text-sm font-semibold ${isMe ? "text-[#e8c84a]" : "text-white/80"}`}>{entry.name}</span>
-          {isMe && <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[#e8c84a]/15 text-[#e8c84a]">Bạn</span>}
+          <span className={`text-sm font-semibold ${isMe ? "text-app-accent-primary" : "text-white/80"}`}>{entry.name}</span>
+          {isMe && <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary">Bạn</span>}
           <span className="text-[10px] px-1.5 py-0.5 rounded-full font-medium" style={{ backgroundColor: rank.bgColor, color: rank.color }}>{rank.name}</span>
         </div>
         <div className="flex items-center gap-3 mt-0.5">
-          <span className="text-white/30 text-[10px]"><i className="ri-fire-line text-[#fb923c] mr-0.5"></i>{entry.streak} ngày</span>
+          <span className="text-app-text-muted text-[10px]"><i className="ri-fire-line text-[#fb923c] mr-0.5"></i>{entry.streak} ngày</span>
           <div className="flex gap-1">
             {entry.badges.slice(0, 3).map(bid => {
               const b = getBadgeById(bid);
               if (!b) return null;
               return <i key={bid} className={`${b.icon} text-xs`} style={{ color: b.color }} title={b.name}></i>;
             })}
-            {entry.badges.length > 3 && <span className="text-white/20 text-[10px]">+{entry.badges.length - 3}</span>}
+            {entry.badges.length > 3 && <span className="text-app-text-muted text-[10px]">+{entry.badges.length - 3}</span>}
           </div>
         </div>
       </div>
       <div className="text-right flex-shrink-0">
         <p className="text-white font-bold text-sm">{entry.xp.toLocaleString()}</p>
-        <p className="text-white/30 text-[10px]">XP</p>
+        <p className="text-app-text-muted text-[10px]">XP</p>
       </div>
     </div>
   );
@@ -221,7 +221,7 @@ export default function CommunityRanksPage() {
         {/* Main content */}
         <div>
           {/* User rank card */}
-          <div className="rounded-2xl border border-white/8 p-5 mb-6 relative overflow-hidden"
+          <div className="rounded-2xl border border-app-border p-5 mb-6 relative overflow-hidden"
             style={{ background: `linear-gradient(135deg, ${currentRank.bgColor}, rgba(15,17,23,0.8))` }}>
             <div className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-5"
               style={{ background: currentRank.color, transform: "translate(30%, -30%)" }}></div>
@@ -238,15 +238,15 @@ export default function CommunityRanksPage() {
                   </span>
                 </div>
                 <div className="flex items-center gap-4 text-sm">
-                  <span className="text-white/60"><i className="ri-star-line text-[#e8c84a] mr-1"></i>{userXP.toLocaleString()} XP</span>
-                  <span className="text-white/40"><i className="ri-fire-line text-[#fb923c] mr-1"></i>{streak.count} ngày streak</span>
-                  <span className="text-white/40"><i className="ri-medal-line text-[#a78bfa] mr-1"></i>{earnedBadgeIds.length} huy hiệu</span>
+                  <span className="text-white/60"><i className="ri-star-line text-app-accent-primary mr-1"></i>{userXP.toLocaleString()} XP</span>
+                  <span className="text-app-text-secondary"><i className="ri-fire-line text-[#fb923c] mr-1"></i>{streak.count} ngày streak</span>
+                  <span className="text-app-text-secondary"><i className="ri-medal-line text-[#a78bfa] mr-1"></i>{earnedBadgeIds.length} huy hiệu</span>
                 </div>
                 {nextRank && (
                   <div className="mt-3">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-white/30 text-[10px]">Tiến độ lên {nextRank.name}</span>
-                      <span className="text-white/40 text-[10px]">Còn {xpToNext.toLocaleString()} XP</span>
+                      <span className="text-app-text-muted text-[10px]">Tiến độ lên {nextRank.name}</span>
+                      <span className="text-app-text-secondary text-[10px]">Còn {xpToNext.toLocaleString()} XP</span>
                     </div>
                     <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
                       <div className="h-full rounded-full transition-all duration-500"
@@ -259,10 +259,10 @@ export default function CommunityRanksPage() {
           </div>
 
           {/* Tabs */}
-          <div className="flex items-center gap-1 bg-white/5 rounded-xl p-1 mb-5 w-fit max-w-full overflow-x-auto">
+          <div className="flex items-center gap-1 bg-app-card/50 rounded-xl p-1 mb-5 w-fit max-w-full overflow-x-auto">
             {tabs.map(tab => (
               <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${activeTab === tab.id ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/40 hover:text-white/60"}`}>
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${activeTab === tab.id ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>
                 <i className={`${tab.icon} text-sm`}></i>{tab.label}
               </button>
             ))}
@@ -283,7 +283,7 @@ export default function CommunityRanksPage() {
               <div className="flex gap-2 flex-wrap mb-4">
                 {BADGE_CATEGORIES.map(cat => (
                   <button key={cat.id} onClick={() => setBadgeCategory(cat.id)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${badgeCategory === cat.id ? "bg-[#e8c84a] text-[#0f1117]" : "bg-white/5 text-white/40 hover:text-white/60 border border-white/8"}`}>
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${badgeCategory === cat.id ? "bg-app-accent-primary text-app-bg" : "bg-app-card/50 text-app-text-secondary hover:text-white/60 border border-app-border"}`}>
                     {cat.label}
                   </button>
                 ))}
@@ -298,13 +298,13 @@ export default function CommunityRanksPage() {
 
           {/* Leaderboard tab */}
           {activeTab === "leaderboard" && (
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl overflow-hidden">
-              <div className="px-4 py-3 border-b border-white/5 flex items-center justify-between">
+            <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden">
+              <div className="px-4 py-3 border-b border-app-border flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <i className="ri-trophy-fill text-[#e8c84a]"></i>
+                  <i className="ri-trophy-fill text-app-accent-primary"></i>
                   <span className="text-white font-semibold text-sm">Bảng phong thần tháng này</span>
                 </div>
-                <span className="text-white/30 text-xs">Top 10 XP</span>
+                <span className="text-app-text-muted text-xs">Top 10 XP</span>
               </div>
               <div className="divide-y divide-white/3">
                 {MOCK_LEADERBOARD.map(entry => (
@@ -318,8 +318,8 @@ export default function CommunityRanksPage() {
         {/* Sidebar */}
         <div className="space-y-4">
           {/* How to earn XP */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-star-line text-[#e8c84a] mr-2"></i>Cách kiếm XP</h3>
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
+            <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-star-line text-app-accent-primary mr-2"></i>Cách kiếm XP</h3>
             <div className="space-y-2.5">
               {[
                 { action: "Học flashcard", xp: "+5 XP/từ", icon: "ri-stack-line", color: "#34d399" },
@@ -328,7 +328,7 @@ export default function CommunityRanksPage() {
                 { action: "Đăng bài cộng đồng", xp: "+15 XP/bài", icon: "ri-article-line", color: "#a78bfa" },
                 { action: "Nhận lượt thích", xp: "+2 XP/like", icon: "ri-heart-line", color: "#f43f5e" },
                 { action: "Hoàn thành quiz", xp: "+10 XP/quiz", icon: "ri-survey-line", color: "#22d3ee" },
-                { action: "Streak 7 ngày", xp: "+50 XP bonus", icon: "ri-gift-line", color: "#e8c84a" },
+                { action: "Streak 7 ngày", xp: "+50 XP bonus", icon: "ri-gift-line", color: "app-accent-primary" },
               ].map(item => (
                 <div key={item.action} className="flex items-center gap-3">
                   <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${item.color}15` }}>
@@ -342,8 +342,8 @@ export default function CommunityRanksPage() {
           </div>
 
           {/* Rank overview */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-vip-crown-line text-[#e8c84a] mr-2"></i>Tổng quan cấp bậc</h3>
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
+            <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-vip-crown-line text-app-accent-primary mr-2"></i>Tổng quan cấp bậc</h3>
             <div className="space-y-2">
               {RANKS.map(rank => (
                 <div key={rank.id} className="flex items-center gap-2.5">
@@ -352,12 +352,12 @@ export default function CommunityRanksPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-white/70 text-xs font-medium">{rank.name}</p>
-                    <p className="text-white/25 text-[10px]">
+                    <p className="text-app-text-muted text-[10px]">
                       {rank.maxXP === Infinity ? `${rank.minXP.toLocaleString()}+ XP` : `${rank.minXP.toLocaleString()}–${rank.maxXP.toLocaleString()} XP`}
                     </p>
                   </div>
                   {rank.id === currentRank.id && (
-                    <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/8 text-white/40">Bạn</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/8 text-app-text-secondary">Bạn</span>
                   )}
                 </div>
               ))}
@@ -365,8 +365,8 @@ export default function CommunityRanksPage() {
           </div>
 
           {/* Recent badges */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-medal-line text-[#e8c84a] mr-2"></i>Huy hiệu của bạn</h3>
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
+            <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-medal-line text-app-accent-primary mr-2"></i>Huy hiệu của bạn</h3>
             {earnedBadgeIds.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {earnedBadgeIds.map(id => {
@@ -383,8 +383,8 @@ export default function CommunityRanksPage() {
             ) : (
               <div className="text-center py-4">
                 <i className="ri-medal-line text-white/10 text-3xl mb-2 block"></i>
-                <p className="text-white/30 text-xs">Chưa có huy hiệu nào</p>
-                <p className="text-white/20 text-[10px] mt-1">Duy trì streak 7 ngày để nhận huy hiệu đầu tiên!</p>
+                <p className="text-app-text-muted text-xs">Chưa có huy hiệu nào</p>
+                <p className="text-app-text-muted text-[10px] mt-1">Duy trì streak 7 ngày để nhận huy hiệu đầu tiên!</p>
               </div>
             )}
           </div>

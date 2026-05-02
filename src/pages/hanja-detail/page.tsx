@@ -46,7 +46,7 @@ const HANJA_CHARS: HanjaCharInfo[] = [
 ];
 
 const DIFFICULTY_LABELS: Record<number, string> = { 1: "Dễ", 2: "Trung bình", 3: "Khó" };
-const DIFFICULTY_COLORS: Record<number, string> = { 1: "text-emerald-400 bg-emerald-500/15", 2: "text-amber-400 bg-amber-500/15", 3: "text-rose-400 bg-rose-500/15" };
+const DIFFICULTY_COLORS: Record<number, string> = { 1: "text-app-accent-success bg-app-accent-success/15", 2: "text-amber-400 bg-amber-500/15", 3: "text-rose-400 bg-rose-500/15" };
 
 export default function HanjaDetailPage() {
   const [entries, setEntries] = useState<HanjaEntry[]>([]);
@@ -124,16 +124,16 @@ export default function HanjaDetailPage() {
             <h1 className="text-2xl font-bold text-white">Hán Hàn Chi Tiết</h1>
             <p className="text-white/50 text-sm mt-1">Từ điển Hán Hàn với chữ Hán, ví dụ và từ liên quan</p>
           </div>
-          <div className="text-white/30 text-sm"><i className="ri-character-recognition-line mr-1"></i>{entries.filter(e => e.hanja).length} từ Hán Hàn</div>
+          <div className="text-app-text-muted text-sm"><i className="ri-character-recognition-line mr-1"></i>{entries.filter(e => e.hanja).length} từ Hán Hàn</div>
         </div>
 
         {/* Ad banner */}
         <AdBanner position="between-content" />
 
         {/* Tabs */}
-        <div className="flex gap-1 bg-white/5 rounded-lg p-1 w-fit">
+        <div className="flex gap-1 bg-app-card/50 rounded-lg p-1 w-fit">
           {[{ id: "vocab", label: "Từ vựng Hán Hàn", icon: "ri-translate-2" }, { id: "chars", label: "Chữ Hán cơ bản", icon: "ri-character-recognition-line" }].map(tab => (
-            <button key={tab.id} onClick={() => setActiveTab(tab.id as "vocab" | "chars")} className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm transition-all cursor-pointer whitespace-nowrap ${activeTab === tab.id ? "bg-[#e8c84a]/20 text-[#e8c84a] font-semibold" : "text-white/40 hover:text-white/60"}`}>
+            <button key={tab.id} onClick={() => setActiveTab(tab.id as "vocab" | "chars")} className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm transition-all cursor-pointer whitespace-nowrap ${activeTab === tab.id ? "bg-app-accent-primary/20 text-app-accent-primary font-semibold" : "text-app-text-secondary hover:text-white/60"}`}>
               <i className={tab.icon}></i>{tab.label}
             </button>
           ))}
@@ -142,23 +142,23 @@ export default function HanjaDetailPage() {
         {activeTab === "vocab" ? (
           <div className="space-y-4">
             {/* Filters */}
-            <div className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8 space-y-3">
+            <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border space-y-3">
               <div className="relative">
-                <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
-                <input type="text" placeholder="Tìm từ Hàn, chữ Hán, nghĩa tiếng Việt..." value={search} onChange={e => { setSearch(e.target.value); setPage(1); }} className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#e8c84a]/40" />
+                <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
+                <input type="text" placeholder="Tìm từ Hàn, chữ Hán, nghĩa tiếng Việt..." value={search} onChange={e => { setSearch(e.target.value); setPage(1); }} className="w-full bg-app-card/50 border border-app-border rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-app-accent-primary/40" />
               </div>
               <div className="flex flex-wrap gap-2">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-white/30 text-xs">Độ khó:</span>
+                  <span className="text-app-text-muted text-xs">Độ khó:</span>
                   {[{ v: 0, l: "Tất cả" }, { v: 1, l: "Dễ" }, { v: 2, l: "TB" }, { v: 3, l: "Khó" }].map(d => (
-                    <button key={d.v} onClick={() => { setFilterDiff(d.v); setPage(1); }} className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${filterDiff === d.v ? "bg-[#e8c84a]/20 text-[#e8c84a] font-semibold" : "bg-white/5 text-white/40 hover:bg-white/10"}`}>{d.l}</button>
+                    <button key={d.v} onClick={() => { setFilterDiff(d.v); setPage(1); }} className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${filterDiff === d.v ? "bg-app-accent-primary/20 text-app-accent-primary font-semibold" : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70"}`}>{d.l}</button>
                   ))}
                 </div>
               </div>
               <div className="flex flex-wrap gap-1.5">
-                <span className="text-white/30 text-xs self-center">Chủ đề:</span>
+                <span className="text-app-text-muted text-xs self-center">Chủ đề:</span>
                 {categories.slice(0, 10).map(c => (
-                  <button key={c} onClick={() => { setFilterCat(c); setPage(1); }} className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${filterCat === c ? "bg-[#e8c84a]/20 text-[#e8c84a] font-semibold" : "bg-white/5 text-white/40 hover:bg-white/10"}`}>{c}</button>
+                  <button key={c} onClick={() => { setFilterCat(c); setPage(1); }} className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap ${filterCat === c ? "bg-app-accent-primary/20 text-app-accent-primary font-semibold" : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70"}`}>{c}</button>
                 ))}
               </div>
             </div>
@@ -166,21 +166,21 @@ export default function HanjaDetailPage() {
             {loading ? (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 {Array.from({ length: 12 }).map((_, i) => (
-                  <div key={i} className="bg-[#1a1f2e] rounded-xl p-4 border border-white/5 animate-pulse h-28"></div>
+                  <div key={i} className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border animate-pulse h-28"></div>
                 ))}
               </div>
             ) : (
               <>
-                <p className="text-white/30 text-xs">{filtered.length} từ</p>
+                <p className="text-app-text-muted text-xs">{filtered.length} từ</p>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                   {paginated.map(entry => (
-                    <div key={entry.id} onClick={() => setSelectedEntry(entry)} className="bg-[#1a1f2e] rounded-xl p-4 border border-white/8 hover:border-[#e8c84a]/30 transition-all cursor-pointer group">
+                    <div key={entry.id} onClick={() => setSelectedEntry(entry)} className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border hover:border-app-accent-primary/30 transition-all cursor-pointer group">
                       <div className="flex items-start justify-between mb-2">
                         <div>
-                          <p className="text-white font-bold text-base group-hover:text-[#e8c84a] transition-colors">{entry.korean}</p>
-                          {entry.hanja && <p className="text-[#e8c84a]/60 text-sm font-medium">{entry.hanja}</p>}
+                          <p className="text-white font-bold text-base group-hover:text-app-accent-primary transition-colors">{entry.korean}</p>
+                          {entry.hanja && <p className="text-app-accent-primary/60 text-sm font-medium">{entry.hanja}</p>}
                         </div>
-                        <button onClick={e => { e.stopPropagation(); playTTS(entry.korean); }} className="text-white/20 hover:text-white/50 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button onClick={e => { e.stopPropagation(); playTTS(entry.korean); }} className="text-app-text-muted hover:text-white/50 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity">
                           <i className="ri-volume-up-line text-sm"></i>
                         </button>
                       </div>
@@ -196,16 +196,16 @@ export default function HanjaDetailPage() {
                 {/* Pagination */}
                 {totalPages > 1 && (
                   <div className="flex items-center justify-center gap-2">
-                    <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="px-3 py-1.5 rounded-lg bg-white/5 text-white/50 text-sm disabled:opacity-30 cursor-pointer hover:bg-white/10 transition-all whitespace-nowrap">
+                    <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="px-3 py-1.5 rounded-lg bg-app-card/50 text-white/50 text-sm disabled:opacity-30 cursor-pointer hover:bg-app-card/70 transition-all whitespace-nowrap">
                       <i className="ri-arrow-left-s-line"></i>
                     </button>
                     {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
                       const p = Math.max(1, Math.min(totalPages - 4, page - 2)) + i;
                       return (
-                        <button key={p} onClick={() => setPage(p)} className={`w-8 h-8 rounded-lg text-sm transition-all cursor-pointer ${page === p ? "bg-[#e8c84a]/20 text-[#e8c84a] font-bold" : "bg-white/5 text-white/40 hover:bg-white/10"}`}>{p}</button>
+                        <button key={p} onClick={() => setPage(p)} className={`w-8 h-8 rounded-lg text-sm transition-all cursor-pointer ${page === p ? "bg-app-accent-primary/20 text-app-accent-primary font-bold" : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70"}`}>{p}</button>
                       );
                     })}
-                    <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="px-3 py-1.5 rounded-lg bg-white/5 text-white/50 text-sm disabled:opacity-30 cursor-pointer hover:bg-white/10 transition-all whitespace-nowrap">
+                    <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="px-3 py-1.5 rounded-lg bg-app-card/50 text-white/50 text-sm disabled:opacity-30 cursor-pointer hover:bg-app-card/70 transition-all whitespace-nowrap">
                       <i className="ri-arrow-right-s-line"></i>
                     </button>
                   </div>
@@ -216,10 +216,10 @@ export default function HanjaDetailPage() {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {HANJA_CHARS.map(char => (
-              <div key={char.char} onClick={() => setSelectedChar(char)} className="bg-[#1a1f2e] rounded-xl p-5 border border-white/8 hover:border-[#e8c84a]/30 transition-all cursor-pointer group text-center">
-                <div className="text-5xl font-bold text-[#e8c84a]/80 group-hover:text-[#e8c84a] transition-colors mb-2">{char.char}</div>
+              <div key={char.char} onClick={() => setSelectedChar(char)} className="bg-[#1a1f2e] rounded-xl p-5 border border-app-border hover:border-app-accent-primary/30 transition-all cursor-pointer group text-center">
+                <div className="text-5xl font-bold text-app-accent-primary/80 group-hover:text-app-accent-primary transition-colors mb-2">{char.char}</div>
                 <p className="text-white/70 text-sm font-medium">{char.meaning}</p>
-                <div className="flex items-center justify-center gap-3 mt-2 text-white/30 text-xs">
+                <div className="flex items-center justify-center gap-3 mt-2 text-app-text-muted text-xs">
                   <span><i className="ri-pencil-line mr-0.5"></i>{char.strokes} nét</span>
                   <span>Bộ: {char.radical}</span>
                 </div>
@@ -241,7 +241,7 @@ export default function HanjaDetailPage() {
                 <div>
                   <div className="flex items-center gap-3">
                     <h2 className="text-white text-3xl font-bold">{selectedEntry.korean}</h2>
-                    {selectedEntry.hanja && <span className="text-[#e8c84a] text-2xl font-medium">{selectedEntry.hanja}</span>}
+                    {selectedEntry.hanja && <span className="text-app-accent-primary text-2xl font-medium">{selectedEntry.hanja}</span>}
                   </div>
                   <p className="text-white/50 text-sm mt-0.5">{selectedEntry.pronunciation}</p>
                 </div>
@@ -256,24 +256,24 @@ export default function HanjaDetailPage() {
               </div>
 
               <div className="space-y-4">
-                <div className="bg-white/5 rounded-xl p-3">
-                  <p className="text-white/40 text-xs mb-1">Nghĩa tiếng Việt</p>
+                <div className="bg-app-card/50 rounded-xl p-3">
+                  <p className="text-app-text-secondary text-xs mb-1">Nghĩa tiếng Việt</p>
                   <p className="text-white font-semibold">{selectedEntry.vietnamese}</p>
                 </div>
 
                 {selectedEntry.examples && selectedEntry.examples.length > 0 && (
                   <div>
-                    <p className="text-white/40 text-xs mb-2">Ví dụ</p>
+                    <p className="text-app-text-secondary text-xs mb-2">Ví dụ</p>
                     <div className="space-y-2">
                       {selectedEntry.examples.map((ex, i) => (
-                        <div key={i} className="bg-white/5 rounded-lg p-3">
+                        <div key={i} className="bg-app-card/50 rounded-lg p-3">
                           <div className="flex items-start gap-2">
                             <p className="text-white/80 text-sm flex-1">{ex.korean}</p>
-                            <button onClick={() => playTTS(ex.korean)} className="text-white/20 hover:text-white/50 cursor-pointer flex-shrink-0">
+                            <button onClick={() => playTTS(ex.korean)} className="text-app-text-muted hover:text-white/50 cursor-pointer flex-shrink-0">
                               <i className="ri-volume-up-line text-xs"></i>
                             </button>
                           </div>
-                          <p className="text-white/40 text-xs mt-0.5 italic">{ex.vietnamese}</p>
+                          <p className="text-app-text-secondary text-xs mt-0.5 italic">{ex.vietnamese}</p>
                         </div>
                       ))}
                     </div>
@@ -281,15 +281,15 @@ export default function HanjaDetailPage() {
                 )}
 
                 {selectedEntry.memory_tip && (
-                  <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/15 rounded-xl p-3">
-                    <p className="text-[#e8c84a] text-xs font-semibold mb-1"><i className="ri-lightbulb-line mr-1"></i>Mẹo ghi nhớ</p>
+                  <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-3">
+                    <p className="text-app-accent-primary text-xs font-semibold mb-1"><i className="ri-lightbulb-line mr-1"></i>Mẹo ghi nhớ</p>
                     <p className="text-white/60 text-sm">{selectedEntry.memory_tip}</p>
                   </div>
                 )}
 
                 {selectedEntry.related_words && selectedEntry.related_words.length > 0 && (
                   <div>
-                    <p className="text-white/40 text-xs mb-2">Từ liên quan</p>
+                    <p className="text-app-text-secondary text-xs mb-2">Từ liên quan</p>
                     <div className="flex flex-wrap gap-2">
                       {selectedEntry.related_words.map((rw, i) => (
                         <span key={i} className="px-3 py-1.5 rounded-lg bg-white/8 text-white/60 text-xs">{rw.word}: {rw.meaning}</span>
@@ -313,10 +313,10 @@ export default function HanjaDetailPage() {
             <div className="bg-[#1a1f2e] rounded-2xl p-6 max-w-lg w-full border border-white/12" onClick={e => e.stopPropagation()}>
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-4">
-                  <div className="text-6xl font-bold text-[#e8c84a]">{selectedChar.char}</div>
+                  <div className="text-6xl font-bold text-app-accent-primary">{selectedChar.char}</div>
                   <div>
                     <h2 className="text-white text-xl font-bold">{selectedChar.meaning}</h2>
-                    <p className="text-white/40 text-sm">{selectedChar.strokes} nét · Bộ: {selectedChar.radical}</p>
+                    <p className="text-app-text-secondary text-sm">{selectedChar.strokes} nét · Bộ: {selectedChar.radical}</p>
                   </div>
                 </div>
                 <button onClick={() => setSelectedChar(null)} className="w-9 h-9 rounded-xl bg-white/8 flex items-center justify-center text-white/60 hover:bg-white/12 cursor-pointer transition-all">
@@ -326,13 +326,13 @@ export default function HanjaDetailPage() {
 
               <div className="space-y-4">
                 <div>
-                  <p className="text-white/40 text-xs mb-2">Từ ghép phổ biến</p>
+                  <p className="text-app-text-secondary text-xs mb-2">Từ ghép phổ biến</p>
                   <div className="space-y-2">
                     {selectedChar.compounds.map(c => (
-                      <div key={c.word} className="flex items-center justify-between bg-white/5 rounded-lg px-3 py-2">
+                      <div key={c.word} className="flex items-center justify-between bg-app-card/50 rounded-lg px-3 py-2">
                         <div>
                           <span className="text-white font-semibold text-sm">{c.word}</span>
-                          <span className="text-white/40 text-xs ml-2">{c.pronunciation}</span>
+                          <span className="text-app-text-secondary text-xs ml-2">{c.pronunciation}</span>
                         </div>
                         <span className="text-white/60 text-xs">{c.meaning}</span>
                       </div>
@@ -340,10 +340,10 @@ export default function HanjaDetailPage() {
                   </div>
                 </div>
                 <div>
-                  <p className="text-white/40 text-xs mb-2">Ví dụ chữ Hán</p>
+                  <p className="text-app-text-secondary text-xs mb-2">Ví dụ chữ Hán</p>
                   <div className="flex flex-wrap gap-2">
                     {selectedChar.examples.map(ex => (
-                      <span key={ex} className="px-3 py-1.5 rounded-lg bg-[#e8c84a]/10 text-[#e8c84a] text-sm font-medium">{ex}</span>
+                      <span key={ex} className="px-3 py-1.5 rounded-lg bg-app-accent-primary/10 text-app-accent-primary text-sm font-medium">{ex}</span>
                     ))}
                   </div>
                 </div>

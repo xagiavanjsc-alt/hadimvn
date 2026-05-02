@@ -9,7 +9,7 @@ interface ShareLessonModalProps {
 }
 
 const THEMES = [
-  { id: "dark", label: "Tối", bg: "#0f1117", accent: "#e8c84a", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
+  { id: "dark", label: "Tối", bg: "#0f1117", accent: "app-accent-primary", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
   { id: "green", label: "K-pop", bg: "#0a1a10", accent: "#00C73C", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
   { id: "rose", label: "Hồng", bg: "#1a0a10", accent: "#f472b6", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
   { id: "slate", label: "Xanh", bg: "#0d1523", accent: "#60a5fa", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
@@ -225,17 +225,17 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
   return (
     <div className="fixed inset-0 z-[70] flex items-end sm:items-center justify-center p-0 sm:p-4">
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full sm:max-w-xl bg-[#0f1117] sm:rounded-2xl rounded-t-2xl border border-white/8 flex flex-col max-h-[95vh] overflow-hidden">
+      <div className="relative w-full sm:max-w-xl bg-app-bg sm:rounded-2xl rounded-t-2xl border border-app-border flex flex-col max-h-[95vh] overflow-hidden">
 
         {/* Header */}
-        <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-white/8 flex-shrink-0">
+        <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-app-border flex-shrink-0">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 flex items-center justify-center bg-[#e8c84a]/10 rounded-lg">
-              <i className="ri-share-line text-[#e8c84a] text-sm" />
+            <div className="w-7 h-7 flex items-center justify-center bg-app-accent-primary/10 rounded-lg">
+              <i className="ri-share-line text-app-accent-primary text-sm" />
             </div>
             <p className="text-white font-semibold text-sm">Chia sẻ bài học</p>
           </div>
-          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-white/40 hover:text-white cursor-pointer">
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white cursor-pointer">
             <i className="ri-close-line" />
           </button>
         </div>
@@ -245,14 +245,14 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
           <div className="flex justify-center mb-5">
             <canvas
               ref={canvasRef}
-              className="rounded-xl border border-white/8 w-full max-w-xs"
+              className="rounded-xl border border-app-border w-full max-w-xs"
               style={{ imageRendering: "auto" }}
             />
           </div>
 
           {/* Theme selector */}
           <div className="mb-5">
-            <p className="text-white/40 text-xs tracking-normal mb-2">Chủ đề màu sắc</p>
+            <p className="text-app-text-secondary text-xs tracking-normal mb-2">Chủ đề màu sắc</p>
             <div className="flex gap-2">
               {THEMES.map((t) => (
                 <button
@@ -260,8 +260,8 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
                   onClick={() => setThemeId(t.id)}
                   className={`flex-1 py-2 text-xs rounded-xl border transition-all cursor-pointer whitespace-nowrap ${
                     themeId === t.id
-                      ? "border-[#e8c84a] bg-[#e8c84a]/10 text-[#e8c84a]"
-                      : "border-white/10 text-white/40 hover:border-white/20"
+                      ? "border-app-accent-primary bg-app-accent-primary/10 text-app-accent-primary"
+                      : "border-app-border text-app-text-secondary hover:border-white/20"
                   }`}
                   style={{ borderColor: themeId === t.id ? t.accent : undefined }}
                 >
@@ -275,14 +275,14 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
           <div className="grid grid-cols-2 gap-2 mb-3">
             <button
               onClick={handleDownload}
-              className="flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 text-sm font-medium py-3 rounded-xl cursor-pointer transition-colors whitespace-nowrap"
+              className="flex items-center justify-center gap-2 bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/70 text-sm font-medium py-3 rounded-xl cursor-pointer transition-colors whitespace-nowrap"
             >
               <i className={downloading ? "ri-loader-4-line animate-spin" : "ri-download-2-line"} />
               Tải ảnh
             </button>
             <button
               onClick={handleCopyText}
-              className="flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 text-sm font-medium py-3 rounded-xl cursor-pointer transition-colors whitespace-nowrap"
+              className="flex items-center justify-center gap-2 bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/70 text-sm font-medium py-3 rounded-xl cursor-pointer transition-colors whitespace-nowrap"
             >
               <i className={copied ? "ri-checkbox-circle-line text-green-400" : "ri-clipboard-line"} />
               {copied ? "Đã sao chép!" : "Sao chép văn bản"}
@@ -291,14 +291,14 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
 
           <button
             onClick={handleShare}
-            className="w-full flex items-center justify-center gap-2 bg-[#e8c84a] hover:bg-[#e8c84a]/80 text-[#0f1117] text-sm font-bold py-3.5 rounded-xl cursor-pointer transition-colors whitespace-nowrap"
+            className="w-full flex items-center justify-center gap-2 bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold py-3.5 rounded-xl cursor-pointer transition-colors whitespace-nowrap"
           >
             <i className={shareSuccess ? "ri-checkbox-circle-line" : "ri-share-forward-line"} />
             {shareSuccess ? "Đã chia sẻ!" : "Chia sẻ ngay"}
           </button>
 
           {/* Social hints */}
-          <div className="mt-4 flex items-center justify-center gap-4 text-white/20 text-xs">
+          <div className="mt-4 flex items-center justify-center gap-4 text-app-text-muted text-xs">
             <span className="flex items-center gap-1"><i className="ri-facebook-circle-line text-base" />Facebook</span>
             <span className="flex items-center gap-1"><i className="ri-instagram-line text-base" />Instagram</span>
             <span className="flex items-center gap-1"><i className="ri-tiktok-line text-base" />TikTok</span>

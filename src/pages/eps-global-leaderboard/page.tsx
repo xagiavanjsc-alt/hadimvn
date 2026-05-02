@@ -173,22 +173,22 @@ export default function EpsGlobalLeaderboardPage() {
   const rest = entries.slice(3);
 
   return (
-    <div className="min-h-screen bg-[#0f1117] text-white">
+    <div className="min-h-screen bg-app-bg text-white">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#1a1d27] to-[#13151c] border-b border-white/8 px-6 py-5">
+      <div className="bg-gradient-to-r from-[#1a1d27] to-[#13151c] border-b border-app-border px-6 py-5">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <button onClick={() => navigate(-1)} className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 cursor-pointer transition-colors">
+            <button onClick={() => navigate(-1)} className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 cursor-pointer transition-colors">
               <i className="ri-arrow-left-line text-white/60 text-sm"></i>
             </button>
             <div>
               <h1 className="text-white font-bold text-lg">Bảng xếp hạng toàn cầu EPS</h1>
-              <p className="text-white/40 text-xs">Top học viên điểm cao nhất · Cập nhật real-time</p>
+              <p className="text-app-text-secondary text-xs">Top học viên điểm cao nhất · Cập nhật real-time</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
-            <span className="text-emerald-400 text-xs font-medium">Live</span>
+            <span className="text-app-accent-success text-xs font-medium">Live</span>
           </div>
         </div>
       </div>
@@ -196,7 +196,7 @@ export default function EpsGlobalLeaderboardPage() {
       <div className="max-w-4xl mx-auto px-6 py-6 space-y-6">
         {/* Live Activity Feed */}
         {liveActivity.length > 0 && (
-          <div className="bg-[#1a1d27] border border-white/8 rounded-xl p-3 space-y-1.5">
+          <div className="bg-[#1a1d27] border border-app-border rounded-xl p-3 space-y-1.5">
             {liveActivity.map((act, i) => (
               <div key={i} className="flex items-center gap-2 text-xs text-white/50">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></div>
@@ -207,12 +207,12 @@ export default function EpsGlobalLeaderboardPage() {
         )}
 
         {/* Period Tabs */}
-        <div className="flex items-center gap-2 bg-[#1a1d27] border border-white/8 rounded-xl p-1">
+        <div className="flex items-center gap-2 bg-[#1a1d27] border border-app-border rounded-xl p-1">
           {(["week", "month", "alltime"] as Period[]).map(p => (
             <button
               key={p}
               onClick={() => setPeriod(p)}
-              className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${period === p ? "bg-[#e8c84a] text-[#0f1117]" : "text-white/50 hover:text-white/80"}`}
+              className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${period === p ? "bg-app-accent-primary text-app-bg" : "text-white/50 hover:text-white/80"}`}
             >
               <i className={`${PERIOD_ICONS[p]} text-sm`}></i>
               {PERIOD_LABELS[p]}
@@ -222,12 +222,12 @@ export default function EpsGlobalLeaderboardPage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>
+            <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
           </div>
         ) : (
           <>
             {/* Top 3 Podium */}
-            <div className="bg-[#1a1d27] border border-white/8 rounded-2xl p-6">
+            <div className="bg-[#1a1d27] border border-app-border rounded-2xl p-6">
               <h2 className="text-white/60 text-xs font-medium tracking-normal mb-6 text-center">Top 3 xuất sắc nhất</h2>
               <div className="flex items-end justify-center gap-4">
                 {/* 2nd */}
@@ -252,16 +252,16 @@ export default function EpsGlobalLeaderboardPage() {
                   <div className="flex flex-col items-center gap-2 flex-1">
                     <div className="relative">
                       <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-xl">👑</div>
-                      <img src={top3[0].avatar} alt={top3[0].displayName} className="w-18 h-18 rounded-full object-cover border-2 border-[#e8c84a] w-[72px] h-[72px]" />
-                      <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#e8c84a] flex items-center justify-center text-xs font-bold text-[#0f1117]">1</div>
+                      <img src={top3[0].avatar} alt={top3[0].displayName} className="w-18 h-18 rounded-full object-cover border-2 border-app-accent-primary w-[72px] h-[72px]" />
+                      <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-app-accent-primary flex items-center justify-center text-xs font-bold text-app-bg">1</div>
                     </div>
                     <div className="text-center">
                       <p className="text-white text-xs font-bold truncate max-w-[90px]">{top3[0].displayName}</p>
-                      <p className="text-white/40 text-[10px]">{top3[0].region}</p>
+                      <p className="text-app-text-secondary text-[10px]">{top3[0].region}</p>
                     </div>
-                    <div className="w-full bg-[#e8c84a]/15 rounded-t-lg flex flex-col items-center py-3" style={{ height: "110px" }}>
+                    <div className="w-full bg-app-accent-primary/15 rounded-t-lg flex flex-col items-center py-3" style={{ height: "110px" }}>
                       <span className="text-2xl">🏆</span>
-                      <span className="text-[#e8c84a] font-bold text-lg">{top3[0].score}</span>
+                      <span className="text-app-accent-primary font-bold text-lg">{top3[0].score}</span>
                       <div className="flex items-center gap-1 mt-1">
                         <i className="ri-fire-line text-orange-400 text-xs"></i>
                         <span className="text-orange-400 text-[10px]">{top3[0].streak} ngày</span>
@@ -278,7 +278,7 @@ export default function EpsGlobalLeaderboardPage() {
                     </div>
                     <div className="text-center">
                       <p className="text-white text-xs font-semibold truncate max-w-[80px]">{top3[2].displayName}</p>
-                      <p className="text-white/40 text-[10px]">{top3[2].region}</p>
+                      <p className="text-app-text-secondary text-[10px]">{top3[2].region}</p>
                     </div>
                     <div className="w-full bg-amber-700/20 rounded-t-lg flex flex-col items-center py-3" style={{ height: "60px" }}>
                       <span className="text-2xl">🥉</span>
@@ -291,37 +291,37 @@ export default function EpsGlobalLeaderboardPage() {
 
             {/* My Rank Card */}
             {user && myRank && (
-              <div className="bg-[#e8c84a]/10 border border-[#e8c84a]/30 rounded-xl p-4 flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#e8c84a]/20 flex items-center justify-center flex-shrink-0">
-                  <span className="text-[#e8c84a] font-bold text-sm">#{myRank.rank}</span>
+              <div className="bg-app-accent-primary/10 border border-app-accent-primary/30 rounded-xl p-4 flex items-center gap-4">
+                <div className="w-10 h-10 rounded-full bg-app-accent-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-app-accent-primary font-bold text-sm">#{myRank.rank}</span>
                 </div>
                 <img src={myRank.avatar} alt="me" className="w-10 h-10 rounded-full object-cover" />
                 <div className="flex-1 min-w-0">
                   <p className="text-white font-semibold text-sm">Bạn · {myRank.displayName}</p>
-                  <p className="text-white/40 text-xs">{myRank.region}</p>
+                  <p className="text-app-text-secondary text-xs">{myRank.region}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-[#e8c84a] font-bold text-lg">{myRank.score}</p>
-                  <p className="text-white/40 text-xs">điểm TB</p>
+                  <p className="text-app-accent-primary font-bold text-lg">{myRank.score}</p>
+                  <p className="text-app-text-secondary text-xs">điểm TB</p>
                 </div>
               </div>
             )}
 
             {/* Rest of leaderboard */}
-            <div className="bg-[#1a1d27] border border-white/8 rounded-2xl overflow-hidden">
-              <div className="px-4 py-3 border-b border-white/8 flex items-center justify-between">
+            <div className="bg-[#1a1d27] border border-app-border rounded-2xl overflow-hidden">
+              <div className="px-4 py-3 border-b border-app-border flex items-center justify-between">
                 <span className="text-white/60 text-xs font-medium">Xếp hạng 4-{entries.length}</span>
-                <span className="text-white/30 text-xs">{entries.length} học viên</span>
+                <span className="text-app-text-muted text-xs">{entries.length} học viên</span>
               </div>
               <div className="divide-y divide-white/5">
                 {rest.map((entry) => (
                   <div
                     key={entry.userId}
-                    className={`flex items-center gap-4 px-4 py-3 hover:bg-white/3 transition-colors ${entry.isCurrentUser ? "bg-[#e8c84a]/5" : ""}`}
+                    className={`flex items-center gap-4 px-4 py-3 hover:bg-app-surface/50 transition-colors ${entry.isCurrentUser ? "bg-app-accent-primary/5" : ""}`}
                   >
                     {/* Rank */}
                     <div className="w-8 text-center flex-shrink-0">
-                      <span className={`text-sm font-bold ${entry.rank <= 10 ? "text-[#e8c84a]" : "text-white/30"}`}>#{entry.rank}</span>
+                      <span className={`text-sm font-bold ${entry.rank <= 10 ? "text-app-accent-primary" : "text-app-text-muted"}`}>#{entry.rank}</span>
                     </div>
                     {/* Avatar */}
                     <div className="relative flex-shrink-0">
@@ -335,25 +335,25 @@ export default function EpsGlobalLeaderboardPage() {
                     {/* Info */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <p className={`text-sm font-medium truncate ${entry.isCurrentUser ? "text-[#e8c84a]" : "text-white"}`}>{entry.displayName}</p>
-                        {entry.isCurrentUser && <span className="text-[10px] bg-[#e8c84a]/20 text-[#e8c84a] px-1.5 py-0.5 rounded-full whitespace-nowrap">Bạn</span>}
+                        <p className={`text-sm font-medium truncate ${entry.isCurrentUser ? "text-app-accent-primary" : "text-white"}`}>{entry.displayName}</p>
+                        {entry.isCurrentUser && <span className="text-[10px] bg-app-accent-primary/20 text-app-accent-primary px-1.5 py-0.5 rounded-full whitespace-nowrap">Bạn</span>}
                       </div>
                       <div className="flex items-center gap-3 mt-0.5">
-                        <span className="text-white/30 text-[10px]">{entry.region}</span>
+                        <span className="text-app-text-muted text-[10px]">{entry.region}</span>
                         <div className="flex items-center gap-1">
                           <i className="ri-fire-line text-orange-400 text-[10px]"></i>
                           <span className="text-orange-400 text-[10px]">{entry.streak} ngày</span>
                         </div>
                         <div className="flex items-center gap-1">
-                          <i className="ri-file-list-3-line text-white/30 text-[10px]"></i>
-                          <span className="text-white/30 text-[10px]">{entry.totalExams} bài</span>
+                          <i className="ri-file-list-3-line text-app-text-muted text-[10px]"></i>
+                          <span className="text-app-text-muted text-[10px]">{entry.totalExams} bài</span>
                         </div>
                       </div>
                     </div>
                     {/* Score */}
                     <div className="text-right flex-shrink-0">
                       <p className="text-white font-bold text-base">{entry.score}</p>
-                      <p className="text-white/30 text-[10px]">điểm TB</p>
+                      <p className="text-app-text-muted text-[10px]">điểm TB</p>
                     </div>
                   </div>
                 ))}
@@ -362,10 +362,10 @@ export default function EpsGlobalLeaderboardPage() {
 
             {/* CTA to join */}
             {!user && (
-              <div className="bg-[#1a1d27] border border-[#e8c84a]/20 rounded-xl p-5 text-center">
+              <div className="bg-[#1a1d27] border border-app-accent-primary/20 rounded-xl p-5 text-center">
                 <p className="text-white font-semibold text-sm mb-1">Bạn muốn xuất hiện trên bảng xếp hạng?</p>
-                <p className="text-white/40 text-xs mb-4">Đăng nhập và bắt đầu thi EPS để được xếp hạng toàn cầu!</p>
-                <button onClick={() => navigate("/")} className="bg-[#e8c84a] text-[#0f1117] font-bold px-6 py-2.5 rounded-lg text-sm hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer">
+                <p className="text-app-text-secondary text-xs mb-4">Đăng nhập và bắt đầu thi EPS để được xếp hạng toàn cầu!</p>
+                <button onClick={() => navigate("/")} className="bg-app-accent-primary text-app-bg font-bold px-6 py-2.5 rounded-lg text-sm hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer">
                   Tham gia ngay
                 </button>
               </div>
@@ -374,16 +374,16 @@ export default function EpsGlobalLeaderboardPage() {
             {/* Stats summary */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { label: "Học viên tham gia", value: "10,247", icon: "ri-group-line", color: "#e8c84a" },
+                { label: "Học viên tham gia", value: "10,247", icon: "ri-group-line", color: "app-accent-primary" },
                 { label: "Bài thi tuần này", value: "3,891", icon: "ri-file-list-3-line", color: "#10b981" },
                 { label: "Điểm TB toàn cầu", value: "74.2", icon: "ri-bar-chart-line", color: "#f59e0b" },
               ].map(s => (
-                <div key={s.label} className="bg-[#1a1d27] border border-white/8 rounded-xl p-4 text-center">
+                <div key={s.label} className="bg-[#1a1d27] border border-app-border rounded-xl p-4 text-center">
                   <div className="w-8 h-8 flex items-center justify-center mx-auto mb-2">
                     <i className={`${s.icon} text-lg`} style={{ color: s.color }}></i>
                   </div>
                   <p className="text-white font-bold text-lg">{s.value}</p>
-                  <p className="text-white/40 text-[10px] mt-0.5">{s.label}</p>
+                  <p className="text-app-text-secondary text-[10px] mt-0.5">{s.label}</p>
                 </div>
               ))}
             </div>

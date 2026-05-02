@@ -53,7 +53,7 @@ export default function DashboardLayout({ children, title, subtitle, actions }: 
                 <button
                   onClick={() => setShowAuth(true)}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap transition-all"
-                  style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "#e8c84a", border: "1px solid rgba(232,200,74,0.25)" }}
+                  style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.25)" }}
                 >
                   <i className="ri-user-line text-xs"></i>
                   Đăng nhập
@@ -62,11 +62,11 @@ export default function DashboardLayout({ children, title, subtitle, actions }: 
               {!loading && user && (
                 <button
                   onClick={() => navigate("/profile")}
-                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl cursor-pointer whitespace-nowrap transition-all hover:bg-white/5"
+                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl cursor-pointer whitespace-nowrap transition-all hover:bg-app-card/50"
                   style={{ border: "1px solid var(--dash-border)" }}
                 >
-                  <div className="w-5 h-5 rounded-full bg-[#e8c84a]/20 flex items-center justify-center flex-shrink-0">
-                    <i className="ri-user-line text-[#e8c84a] text-[10px]"></i>
+                  <div className="w-5 h-5 rounded-full bg-app-accent-primary/20 flex items-center justify-center flex-shrink-0">
+                    <i className="ri-user-line text-app-accent-primary text-[10px]"></i>
                   </div>
                   <span className="text-xs max-w-[80px] truncate" style={{ color: "var(--dash-text-muted)" }}>{profile?.display_name || "Tôi"}</span>
                 </button>

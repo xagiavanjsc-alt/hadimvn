@@ -88,7 +88,7 @@ const ACTION_LABELS: Record<string, { label: string; color: string; icon: string
 
 const VIP_TYPE_LABELS: Record<string, { label: string; price: number; color: string }> = {
   month: { label: "VIP Tháng", price: 79000, color: "#34d399" },
-  year: { label: "VIP Năm", price: 708000, color: "#e8c84a" },
+  year: { label: "VIP Năm", price: 708000, color: "app-accent-primary" },
 };
 
 // ─── Transaction Row ──────────────────────────────────────────────────────────
@@ -353,19 +353,19 @@ export default function AdminVipTransactionsPage() {
                 >
                   <button
                     onClick={() => { exportToCSV(filtered); setShowExportMenu(false); }}
-                    className="w-full flex items-center gap-2.5 px-4 py-3 text-xs cursor-pointer whitespace-nowrap hover:bg-white/5 transition-colors text-left"
+                    className="w-full flex items-center gap-2.5 px-4 py-3 text-xs cursor-pointer whitespace-nowrap hover:bg-app-card/50 transition-colors text-left"
                     style={{ color: "var(--admin-text-muted)" }}
                   >
-                    <i className="ri-file-text-line text-emerald-400"></i>
+                    <i className="ri-file-text-line text-app-accent-success"></i>
                     Xuất CSV
                     <span className="ml-auto text-[10px]" style={{ color: "var(--admin-text-faint)" }}>{filtered.length} dòng</span>
                   </button>
                   <button
                     onClick={() => { exportToExcel(filtered); setShowExportMenu(false); }}
-                    className="w-full flex items-center gap-2.5 px-4 py-3 text-xs cursor-pointer whitespace-nowrap hover:bg-white/5 transition-colors text-left border-t"
+                    className="w-full flex items-center gap-2.5 px-4 py-3 text-xs cursor-pointer whitespace-nowrap hover:bg-app-card/50 transition-colors text-left border-t"
                     style={{ color: "var(--admin-text-muted)", borderColor: "var(--admin-border)" }}
                   >
-                    <i className="ri-file-excel-2-line text-emerald-400"></i>
+                    <i className="ri-file-excel-2-line text-app-accent-success"></i>
                     Xuất Excel (.xls)
                     <span className="ml-auto text-[10px]" style={{ color: "var(--admin-text-faint)" }}>{filtered.length} dòng</span>
                   </button>
@@ -397,7 +397,7 @@ export default function AdminVipTransactionsPage() {
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
         {[
           { label: "Tổng doanh thu VIP", value: formatVND(totalRevenue), icon: "ri-money-dollar-circle-line", color: "#34d399" },
-          { label: "Tổng giao dịch", value: transactions.length, icon: "ri-exchange-line", color: "#e8c84a" },
+          { label: "Tổng giao dịch", value: transactions.length, icon: "ri-exchange-line", color: "app-accent-primary" },
           { label: "Lần cấp VIP", value: totalGrants, icon: "ri-vip-crown-line", color: "#a78bfa" },
           { label: "Tự động gia hạn", value: totalAutoRenew, icon: "ri-refresh-line", color: "#fb923c" },
           { label: "VIP đang hoạt động", value: vipUsers, icon: "ri-user-star-line", color: "#f87171" },
@@ -600,7 +600,7 @@ export default function AdminVipTransactionsPage() {
                 {
                   label: "Số giao dịch",
                   value: transactions.filter(t => t.user_id === selectedUser.id).length,
-                  color: "#e8c84a",
+                  color: "app-accent-primary",
                 },
               ].map(row => (
                 <div key={row.label} className="flex items-center justify-between px-3 py-2 rounded-xl" style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>

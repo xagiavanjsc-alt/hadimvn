@@ -26,17 +26,17 @@ const REASONS = {
     desc: "Nâng cấp tài khoản VIP để mở khóa tính năng xuất file và nhiều tính năng cao cấp khác.",
     cta: "Nâng cấp VIP",
     ctaHref: "/pricing",
-    ctaStyle: "bg-[#e8c84a] hover:bg-[#d4b43a] text-black",
+    ctaStyle: "bg-app-accent-primary hover:bg-[#d4b43a] text-black",
   },
   not_vip_year: {
     icon: "ri-vip-diamond-line",
-    iconBg: "bg-[#e8c84a]/10",
-    iconColor: "text-[#e8c84a]",
+    iconBg: "bg-app-accent-primary/10",
+    iconColor: "text-app-accent-primary",
     title: "Chỉ dành cho VIP Năm",
     desc: "Tính năng xuất file đầy đủ chỉ dành cho gói VIP Năm. Gói VIP Tháng được xuất tối đa 50 từ có watermark.",
     cta: "Xem gói VIP Năm",
     ctaHref: "/pricing",
-    ctaStyle: "bg-[#e8c84a] hover:bg-[#d4b43a] text-black",
+    ctaStyle: "bg-app-accent-primary hover:bg-[#d4b43a] text-black",
   },
 };
 
@@ -50,9 +50,9 @@ const PLAN_COMPARE = [
 ];
 
 function PlanCell({ value }: { value: boolean | string }) {
-  if (value === true) return <i className="ri-checkbox-circle-fill text-emerald-400 text-base"></i>;
-  if (value === false) return <i className="ri-close-circle-line text-white/20 text-base"></i>;
-  return <span className="text-[#e8c84a] text-xs font-semibold">{value}</span>;
+  if (value === true) return <i className="ri-checkbox-circle-fill text-app-accent-success text-base"></i>;
+  if (value === false) return <i className="ri-close-circle-line text-app-text-muted text-base"></i>;
+  return <span className="text-app-accent-primary text-xs font-semibold">{value}</span>;
 }
 
 export default function VipUpgradeModal({ open, onClose, reason, featureName }: VipUpgradeModalProps) {
@@ -80,7 +80,7 @@ export default function VipUpgradeModal({ open, onClose, reason, featureName }: 
           {/* Close */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 w-7 h-7 flex items-center justify-center rounded-lg text-white/30 hover:text-white/70 hover:bg-white/10 cursor-pointer transition-colors"
+            className="absolute top-4 right-4 w-7 h-7 flex items-center justify-center rounded-lg text-app-text-muted hover:text-white/70 hover:bg-app-card/70 cursor-pointer transition-colors"
           >
             <i className="ri-close-line text-sm"></i>
           </button>
@@ -92,7 +92,7 @@ export default function VipUpgradeModal({ open, onClose, reason, featureName }: 
 
           <h3 className="text-white font-bold text-lg mb-1.5">{info.title}</h3>
           {featureName && (
-            <p className="text-white/40 text-xs mb-2">
+            <p className="text-app-text-secondary text-xs mb-2">
               Tính năng: <span className="text-white/60 font-medium">{featureName}</span>
             </p>
           )}
@@ -110,7 +110,7 @@ export default function VipUpgradeModal({ open, onClose, reason, featureName }: 
                     <th className="text-left text-gray-400 font-medium pb-2 pr-3">Tính năng</th>
                     <th className="text-center text-gray-400 font-medium pb-2 px-2">Free</th>
                     <th className="text-center text-gray-400 font-medium pb-2 px-2">VIP Tháng</th>
-                    <th className="text-center text-[#e8c84a] font-bold pb-2 px-2">VIP Năm ⭐</th>
+                    <th className="text-center text-app-accent-primary font-bold pb-2 px-2">VIP Năm ⭐</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -119,7 +119,7 @@ export default function VipUpgradeModal({ open, onClose, reason, featureName }: 
                       <td className="py-2 pr-3 text-gray-600 whitespace-nowrap">{row.label}</td>
                       <td className="py-2 px-2 text-center"><PlanCell value={row.free} /></td>
                       <td className="py-2 px-2 text-center"><PlanCell value={row.month} /></td>
-                      <td className="py-2 px-2 text-center bg-[#e8c84a]/5 rounded"><PlanCell value={row.year} /></td>
+                      <td className="py-2 px-2 text-center bg-app-accent-primary/5 rounded"><PlanCell value={row.year} /></td>
                     </tr>
                   ))}
                 </tbody>

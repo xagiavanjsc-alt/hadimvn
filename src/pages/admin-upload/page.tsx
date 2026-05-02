@@ -35,14 +35,14 @@ function DropZone({ onFiles }: { onFiles: (files: File[]) => void }) {
   return (
     <div onDragOver={e => { e.preventDefault(); setDragging(true); }} onDragLeave={() => setDragging(false)} onDrop={handleDrop}
       onClick={() => inputRef.current?.click()}
-      className={`border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer transition-all ${dragging ? "border-rose-500/60 bg-rose-500/5" : "border-white/10 hover:border-white/20 hover:bg-white/2"}`}>
+      className={`border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer transition-all ${dragging ? "border-rose-500/60 bg-rose-500/5" : "border-app-border hover:border-white/20 hover:bg-white/2"}`}>
       <input ref={inputRef} type="file" accept="image/*" multiple className="hidden"
         onChange={e => { const files = Array.from(e.target.files || []); if (files.length) onFiles(files); e.target.value = ""; }} />
-      <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white/5 mx-auto mb-4">
-        <i className={`ri-upload-cloud-2-line text-3xl ${dragging ? "text-rose-400" : "text-white/30"}`}></i>
+      <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-app-card/50 mx-auto mb-4">
+        <i className={`ri-upload-cloud-2-line text-3xl ${dragging ? "text-rose-400" : "text-app-text-muted"}`}></i>
       </div>
       <p className="text-white/60 font-semibold text-sm mb-1">{dragging ? "Thả ảnh vào đây!" : "Kéo thả ảnh hoặc click để chọn"}</p>
-      <p className="text-white/25 text-xs">Hỗ trợ JPG, PNG, WebP · Nhiều file cùng lúc</p>
+      <p className="text-app-text-muted text-xs">Hỗ trợ JPG, PNG, WebP · Nhiều file cùng lúc</p>
     </div>
   );
 }
@@ -55,32 +55,32 @@ function UploadCard({ item, questions, onAssign, onRemove, onUpload }: {
 }) {
   const assignedQ = questions.find(q => q.id === item.questionId);
   return (
-    <div className={`bg-[#0f1117] border rounded-xl p-4 transition-all ${item.status === "done" ? "border-emerald-500/20" : item.status === "error" ? "border-red-500/20" : "border-white/5"}`}>
-      <div className="w-full h-36 rounded-lg overflow-hidden bg-white/3 mb-3 relative">
+    <div className={`bg-app-bg border rounded-xl p-4 transition-all ${item.status === "done" ? "border-emerald-500/20" : item.status === "error" ? "border-red-500/20" : "border-app-border"}`}>
+      <div className="w-full h-36 rounded-lg overflow-hidden bg-app-surface/50 mb-3 relative">
         <img src={item.preview} alt={item.file.name} className="w-full h-full object-cover" />
-        {item.status === "done" && <div className="absolute inset-0 bg-emerald-500/20 flex items-center justify-center"><i className="ri-checkbox-circle-fill text-emerald-400 text-3xl"></i></div>}
+        {item.status === "done" && <div className="absolute inset-0 bg-emerald-500/20 flex items-center justify-center"><i className="ri-checkbox-circle-fill text-app-accent-success text-3xl"></i></div>}
         {item.status === "uploading" && <div className="absolute inset-0 bg-black/50 flex items-center justify-center"><div className="w-6 h-6 border-2 border-rose-400/30 border-t-rose-400 rounded-full animate-spin"></div></div>}
         <button onClick={() => onRemove(item.id)} className="absolute top-1.5 right-1.5 w-6 h-6 flex items-center justify-center rounded-full bg-black/60 text-white/60 hover:text-white cursor-pointer transition-colors"><i className="ri-close-line text-xs"></i></button>
       </div>
-      <p className="text-white/40 text-[10px] truncate mb-2">{item.file.name}</p>
+      <p className="text-app-text-secondary text-[10px] truncate mb-2">{item.file.name}</p>
       <div className="mb-3">
-        <label className="text-white/30 text-[10px] block mb-1">Gán vào câu hỏi EPS</label>
+        <label className="text-app-text-muted text-[10px] block mb-1">Gán vào câu hỏi EPS</label>
         <select value={item.questionId} onChange={e => onAssign(item.id, e.target.value)}
-          className="w-full bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5 text-white/70 text-xs focus:outline-none focus:border-rose-400/30 cursor-pointer">
+          className="w-full bg-app-card/50 border border-app-border rounded-lg px-2.5 py-1.5 text-white/70 text-xs focus:outline-none focus:border-rose-400/30 cursor-pointer">
           <option value="">-- Chọn câu hỏi --</option>
           {questions.map(q => <option key={q.id} value={q.id}>[{q.id}] {q.questionVi.slice(0, 40)}...</option>)}
         </select>
       </div>
       {assignedQ && (
-        <div className="bg-white/3 rounded-lg px-2.5 py-2 mb-3">
-          <p className="text-white/25 text-[9px] mb-0.5">URL đích:</p>
+        <div className="bg-app-surface/50 rounded-lg px-2.5 py-2 mb-3">
+          <p className="text-app-text-muted text-[9px] mb-0.5">URL đích:</p>
           <p className="text-rose-400/60 text-[9px] font-mono break-all">{VPS_IMAGE_BASE}/{assignedQ.topic}/{item.file.name}</p>
         </div>
       )}
       {item.status === "error" && <p className="text-red-400 text-[10px] mb-2">{item.errorMsg}</p>}
-      {item.status === "done" && <p className="text-emerald-400 text-[10px] mb-2">Upload thành công!</p>}
+      {item.status === "done" && <p className="text-app-accent-success text-[10px] mb-2">Upload thành công!</p>}
       <button onClick={() => onUpload(item.id)} disabled={!item.questionId || item.status === "uploading" || item.status === "done"}
-        className={`w-full py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${item.status === "done" ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" : !item.questionId ? "bg-white/3 text-white/20 cursor-not-allowed" : "bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20"}`}>
+        className={`w-full py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${item.status === "done" ? "bg-emerald-500/10 text-app-accent-success border border-emerald-500/20" : !item.questionId ? "bg-app-surface/50 text-app-text-muted cursor-not-allowed" : "bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20"}`}>
         {item.status === "uploading" ? "Đang upload..." : item.status === "done" ? "Đã upload" : !item.questionId ? "Chọn câu hỏi trước" : "Upload lên VPS"}
       </button>
     </div>
@@ -109,19 +109,19 @@ function AudioGenerator() {
   };
 
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+    <div className="bg-app-bg border border-app-border rounded-2xl p-5">
       <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-volume-up-line text-rose-400 mr-2"></i>Tạo âm thanh TTS</h3>
       <div className="flex gap-2 mb-3">
         <input value={word} onChange={e => setWord(e.target.value)} placeholder="Nhập từ tiếng Hàn..."
-          className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-rose-400/30 placeholder-white/20" />
+          className="flex-1 bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-rose-400/30 placeholder-white/20" />
         <button onClick={handleGenerate} disabled={!word.trim() || status === "generating"}
           className="px-4 py-2.5 bg-rose-500 hover:bg-rose-400 disabled:opacity-40 text-white font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors">
           {status === "generating" ? <i className="ri-loader-4-line animate-spin"></i> : "Tạo TTS"}
         </button>
       </div>
       {romanized && (
-        <div className="bg-white/3 rounded-lg px-3 py-2 mb-3">
-          <p className="text-white/30 text-[10px] mb-0.5">Tên file trên VPS:</p>
+        <div className="bg-app-surface/50 rounded-lg px-3 py-2 mb-3">
+          <p className="text-app-text-muted text-[10px] mb-0.5">Tên file trên VPS:</p>
           <p className="text-rose-400/70 text-xs font-mono">{VPS_AUDIO_BASE}/{romanized}.mp3</p>
         </div>
       )}
@@ -129,7 +129,7 @@ function AudioGenerator() {
         <div className="space-y-2">
           <audio controls src={audioUrl} className="w-full h-8" />
           <a href={audioUrl} download={`${romanized}.mp3`}
-            className="flex items-center justify-center gap-2 w-full py-2 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-lg cursor-pointer whitespace-nowrap transition-colors">
+            className="flex items-center justify-center gap-2 w-full py-2 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 text-app-accent-success text-xs font-semibold rounded-lg cursor-pointer whitespace-nowrap transition-colors">
             <i className="ri-download-line"></i>Tải về {romanized}.mp3
           </a>
         </div>
@@ -205,15 +205,15 @@ function PhoneticGenerator() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-5">
       <div className="space-y-4">
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-list-unordered text-rose-400 mr-2"></i>Nhập danh sách từ vựng</h3>
-          <p className="text-white/30 text-xs mb-3">Mỗi dòng một từ. Định dạng: <code className="bg-white/5 px-1 rounded text-rose-400">tiếng_hàn,nghĩa_việt</code></p>
+          <p className="text-app-text-muted text-xs mb-3">Mỗi dòng một từ. Định dạng: <code className="bg-app-card/50 px-1 rounded text-rose-400">tiếng_hàn,nghĩa_việt</code></p>
           <textarea value={bulkInput} onChange={e => setBulkInput(e.target.value)}
             placeholder={"안전모,mũ bảo hộ\n비상구,lối thoát hiểm\n작업복,đồng phục lao động"}
-            rows={8} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-rose-400/30 placeholder-white/20 resize-none font-mono" />
+            rows={8} className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-rose-400/30 placeholder-white/20 resize-none font-mono" />
           <div className="flex gap-2 mt-3">
             <button onClick={parseBulkInput} disabled={!bulkInput.trim()}
-              className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/8 border border-white/10 text-white/60 text-sm rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 transition-colors">
+              className="flex items-center gap-2 px-4 py-2 bg-app-card/50 hover:bg-white/8 border border-app-border text-white/60 text-sm rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 transition-colors">
               <i className="ri-list-check-2"></i>Phân tích
             </button>
             {items.length > 0 && (
@@ -232,12 +232,12 @@ function PhoneticGenerator() {
           </div>
         </div>
         {items.length > 0 && (
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl overflow-hidden">
-            <div className="flex items-center justify-between px-5 py-3 border-b border-white/5">
+          <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-3 border-b border-app-border">
               <span className="text-white font-semibold text-sm">Kết quả — {doneCount} xong</span>
               {doneCount > 0 && (
                 <button onClick={exportResult}
-                  className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors ${copied ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" : "bg-white/5 text-white/50 border border-white/10 hover:text-white/70"}`}>
+                  className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors ${copied ? "bg-emerald-500/10 text-app-accent-success border border-emerald-500/20" : "bg-app-card/50 text-white/50 border border-app-border hover:text-white/70"}`}>
                   <i className={copied ? "ri-check-line" : "ri-clipboard-line"}></i>{copied ? "Đã copy!" : "Copy kết quả"}
                 </button>
               )}
@@ -249,12 +249,12 @@ function PhoneticGenerator() {
                   <span className="text-white/50 text-xs">{item.meaning}</span>
                   <div>
                     {item.status === "done" && <span className="text-rose-400 text-sm font-medium">{item.phonetic}</span>}
-                    {item.status === "generating" && <span className="flex items-center gap-1.5 text-white/30 text-xs"><i className="ri-loader-4-line animate-spin text-rose-400"></i>Đang tạo...</span>}
-                    {item.status === "pending" && <span className="text-white/20 text-xs">Chờ xử lý</span>}
+                    {item.status === "generating" && <span className="flex items-center gap-1.5 text-app-text-muted text-xs"><i className="ri-loader-4-line animate-spin text-rose-400"></i>Đang tạo...</span>}
+                    {item.status === "pending" && <span className="text-app-text-muted text-xs">Chờ xử lý</span>}
                     {item.status === "error" && <span className="text-red-400 text-xs">Lỗi</span>}
                   </div>
                   <div className="flex items-center justify-center">
-                    {item.status === "done" && <i className="ri-checkbox-circle-fill text-emerald-400 text-sm"></i>}
+                    {item.status === "done" && <i className="ri-checkbox-circle-fill text-app-accent-success text-sm"></i>}
                     {item.status === "error" && <i className="ri-error-warning-fill text-red-400 text-sm"></i>}
                     {item.status === "generating" && <div className="w-3 h-3 border border-rose-400/30 border-t-rose-400 rounded-full animate-spin"></div>}
                   </div>
@@ -265,30 +265,30 @@ function PhoneticGenerator() {
         )}
       </div>
       <div className="space-y-4">
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-1"><i className="ri-key-2-line text-rose-400 mr-2"></i>OpenRouter API Key</h3>
-          <p className="text-white/30 text-[10px] mb-3 leading-relaxed">
+          <p className="text-app-text-muted text-[10px] mb-3 leading-relaxed">
             Lấy key miễn phí tại{" "}
             <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer" className="text-rose-400/70 hover:underline">openrouter.ai/keys</a>
           </p>
           <div className="relative mb-3">
             <input type={showKey ? "text" : "password"} value={apiKey} onChange={e => setApiKey(e.target.value)} placeholder="sk-or-v1-..."
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-rose-400/30 placeholder-white/20 pr-10 font-mono" />
-            <button onClick={() => setShowKey(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 cursor-pointer">
+              className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-rose-400/30 placeholder-white/20 pr-10 font-mono" />
+            <button onClick={() => setShowKey(v => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-app-text-muted hover:text-white/60 cursor-pointer">
               <i className={showKey ? "ri-eye-off-line" : "ri-eye-line"}></i>
             </button>
           </div>
         </div>
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-robot-line text-rose-400 mr-2"></i>Chọn model AI</h3>
           <div className="space-y-2">
             {OPENROUTER_MODELS.map(m => (
               <button key={m.id} onClick={() => setModel(m.id)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-left transition-all cursor-pointer ${model === m.id ? "border-rose-500/30 bg-rose-500/5" : "border-white/5 hover:border-white/10 hover:bg-white/3"}`}>
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl border text-left transition-all cursor-pointer ${model === m.id ? "border-rose-500/30 bg-rose-500/5" : "border-app-border hover:border-app-border hover:bg-app-surface/50"}`}>
                 <div className={`w-3 h-3 rounded-full border-2 flex-shrink-0 ${model === m.id ? "border-rose-400 bg-rose-400" : "border-white/20"}`}></div>
                 <div>
                   <p className={`text-xs font-medium ${model === m.id ? "text-rose-400" : "text-white/60"}`}>{m.label}</p>
-                  <p className="text-white/20 text-[9px] font-mono">{m.id}</p>
+                  <p className="text-app-text-muted text-[9px] font-mono">{m.id}</p>
                 </div>
               </button>
             ))}
@@ -349,7 +349,7 @@ export default function AdminUploadPage() {
       actions={
         activeTab === "upload" && uploads.length > 0 ? (
           <div className="flex items-center gap-3">
-            <span className="text-white/40 text-xs">{doneCount}/{uploads.length} đã upload</span>
+            <span className="text-app-text-secondary text-xs">{doneCount}/{uploads.length} đã upload</span>
             <button onClick={handleUploadAll} disabled={pendingCount === 0 || uploadAll}
               className="flex items-center gap-2 bg-rose-500 hover:bg-rose-400 disabled:opacity-40 text-white font-bold text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
               <i className={uploadAll ? "ri-loader-4-line animate-spin" : "ri-upload-cloud-2-line"}></i>
@@ -359,10 +359,10 @@ export default function AdminUploadPage() {
         ) : null
       }
     >
-      <div className="flex items-center gap-1 bg-white/3 border border-white/8 rounded-xl p-1 mb-6 w-fit">
+      <div className="flex items-center gap-1 bg-app-surface/50 border border-app-border rounded-xl p-1 mb-6 w-fit">
         {tabs.map(tab => (
           <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${activeTab === tab.id ? "bg-rose-500 text-white" : "text-white/40 hover:text-white/70"}`}>
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${activeTab === tab.id ? "bg-rose-500 text-white" : "text-app-text-secondary hover:text-white/70"}`}>
             <i className={tab.icon}></i>{tab.label}
             {tab.id === "phonetic" && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-bold">AI</span>}
           </button>
@@ -373,20 +373,20 @@ export default function AdminUploadPage() {
         <div className="space-y-5">
           <DropZone onFiles={handleFiles} />
           {uploads.length > 0 && (
-            <div className="flex items-center gap-4 px-4 py-3 bg-[#0f1117] border border-white/5 rounded-xl">
+            <div className="flex items-center gap-4 px-4 py-3 bg-app-bg border border-app-border rounded-xl">
               {[
-                { label: "Tổng file", value: uploads.length, color: "#e8c84a" },
+                { label: "Tổng file", value: uploads.length, color: "app-accent-primary" },
                 { label: "Chờ upload", value: pendingCount, color: "#fb923c" },
                 { label: "Đã upload", value: doneCount, color: "#34d399" },
                 { label: "Lỗi", value: uploads.filter(u => u.status === "error").length, color: "#f87171" },
               ].map(s => (
                 <div key={s.label} className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full" style={{ backgroundColor: s.color }}></div>
-                  <span className="text-white/40 text-xs">{s.label}:</span>
+                  <span className="text-app-text-secondary text-xs">{s.label}:</span>
                   <span className="font-bold text-sm" style={{ color: s.color }}>{s.value}</span>
                 </div>
               ))}
-              <button onClick={() => setUploads([])} className="ml-auto text-white/25 hover:text-white/50 text-xs cursor-pointer whitespace-nowrap transition-colors">
+              <button onClick={() => setUploads([])} className="ml-auto text-app-text-muted hover:text-white/50 text-xs cursor-pointer whitespace-nowrap transition-colors">
                 <i className="ri-delete-bin-line mr-1"></i>Xóa tất cả
               </button>
             </div>
@@ -396,7 +396,7 @@ export default function AdminUploadPage() {
               {uploads.map(item => <UploadCard key={item.id} item={item} questions={epsQuestions} onAssign={handleAssign} onRemove={handleRemove} onUpload={simulateUpload} />)}
             </div>
           ) : (
-            <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-8">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-8">
               <h3 className="text-white font-semibold text-sm mb-4">Hướng dẫn upload ảnh EPS</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
@@ -404,12 +404,12 @@ export default function AdminUploadPage() {
                   { step: "2", icon: "ri-link-m", title: "Gán câu hỏi", desc: "Chọn câu hỏi EPS tương ứng cho từng ảnh" },
                   { step: "3", icon: "ri-upload-cloud-2-line", title: "Upload VPS", desc: "Click Upload hoặc Upload tất cả để đẩy lên server" },
                 ].map(s => (
-                  <div key={s.step} className="bg-white/3 rounded-xl p-4 text-center">
+                  <div key={s.step} className="bg-app-surface/50 rounded-xl p-4 text-center">
                     <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-rose-500/10 mx-auto mb-3">
                       <i className={`${s.icon} text-rose-400 text-lg`}></i>
                     </div>
                     <p className="text-white/70 text-xs font-semibold mb-1">Bước {s.step}: {s.title}</p>
-                    <p className="text-white/30 text-[10px] leading-relaxed">{s.desc}</p>
+                    <p className="text-app-text-muted text-[10px] leading-relaxed">{s.desc}</p>
                   </div>
                 ))}
               </div>
@@ -423,16 +423,16 @@ export default function AdminUploadPage() {
       {activeTab === "audio" && (
         <div className="grid grid-cols-2 gap-5">
           <AudioGenerator />
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-information-line text-rose-400 mr-2"></i>Quy trình âm thanh TTS</h3>
             <div className="space-y-3">
               {[
-                { icon: "ri-translate-2", color: "#e8c84a", title: "Phiên âm latinh", desc: "안전모 → anjeonmo.mp3 (tên file an toàn cho mọi VPS)" },
+                { icon: "ri-translate-2", color: "app-accent-primary", title: "Phiên âm latinh", desc: "안전모 → anjeonmo.mp3 (tên file an toàn cho mọi VPS)" },
                 { icon: "ri-google-line", color: "#34d399", title: "Google TTS miễn phí", desc: "Tạo MP3 chất lượng tốt, không cần API key" },
                 { icon: "ri-save-line", color: "#fb923c", title: "Cache vĩnh viễn", desc: "Lần đầu nghe → cache browser. Lần sau phát từ cache" },
                 { icon: "ri-server-line", color: "#a78bfa", title: "Upload VPS", desc: "Tải file MP3 về → upload lên audio.hadim.vn/tts/" },
               ].map(s => (
-                <div key={s.title} className="flex items-start gap-3 p-3 bg-white/3 rounded-xl">
+                <div key={s.title} className="flex items-start gap-3 p-3 bg-app-surface/50 rounded-xl">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
                     <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
                   </div>

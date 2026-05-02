@@ -93,7 +93,7 @@ export default function EpsWeeklyProgressPage() {
 
   const getScoreColor = (score: number) => {
     if (score >= 80) return "#34d399";
-    if (score >= 60) return "#e8c84a";
+    if (score >= 60) return "app-accent-primary";
     return "#f87171";
   };
 
@@ -109,16 +109,16 @@ export default function EpsWeeklyProgressPage() {
         {/* Top summary cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {/* This week avg */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4">
-            <p className="text-white/40 text-xs mb-2">Tuần này (TB)</p>
+          <div className="bg-app-bg border border-app-border rounded-2xl p-4">
+            <p className="text-app-text-secondary text-xs mb-2">Tuần này (TB)</p>
             <p className="text-3xl font-extrabold" style={{ color: getScoreColor(currentWeek?.avgScore ?? 0) }}>
               {currentWeek?.avgScore ?? "—"}%
             </p>
             <div className="flex items-center gap-1 mt-1">
               {weekDiff !== 0 && (
                 <>
-                  <i className={`text-xs ${weekDiff > 0 ? "ri-arrow-up-line text-emerald-400" : "ri-arrow-down-line text-red-400"}`}></i>
-                  <span className={`text-xs font-semibold ${weekDiff > 0 ? "text-emerald-400" : "text-red-400"}`}>
+                  <i className={`text-xs ${weekDiff > 0 ? "ri-arrow-up-line text-app-accent-success" : "ri-arrow-down-line text-red-400"}`}></i>
+                  <span className={`text-xs font-semibold ${weekDiff > 0 ? "text-app-accent-success" : "text-red-400"}`}>
                     {weekDiff > 0 ? "+" : ""}{weekDiff}% so với tuần trước
                   </span>
                 </>
@@ -127,41 +127,41 @@ export default function EpsWeeklyProgressPage() {
           </div>
 
           {/* Best score */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4">
-            <p className="text-white/40 text-xs mb-2">Điểm cao nhất</p>
-            <p className="text-3xl font-extrabold text-[#e8c84a]">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-4">
+            <p className="text-app-text-secondary text-xs mb-2">Điểm cao nhất</p>
+            <p className="text-3xl font-extrabold text-app-accent-primary">
               {currentWeek?.maxScore ?? Math.max(...results.map(r => Math.round((r.score / r.total) * 100)))}%
             </p>
-            <p className="text-white/30 text-xs mt-1">Tuần này</p>
+            <p className="text-app-text-muted text-xs mt-1">Tuần này</p>
           </div>
 
           {/* Exams count */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4">
-            <p className="text-white/40 text-xs mb-2">Số lần thi</p>
+          <div className="bg-app-bg border border-app-border rounded-2xl p-4">
+            <p className="text-app-text-secondary text-xs mb-2">Số lần thi</p>
             <p className="text-3xl font-extrabold text-white">{results.length}</p>
-            <p className="text-white/30 text-xs mt-1">Tổng cộng · {currentWeek?.count ?? 0} tuần này</p>
+            <p className="text-app-text-muted text-xs mt-1">Tổng cộng · {currentWeek?.count ?? 0} tuần này</p>
           </div>
 
           {/* Prediction */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4">
-            <p className="text-white/40 text-xs mb-2">Dự đoán tuần tới</p>
+          <div className="bg-app-bg border border-app-border rounded-2xl p-4">
+            <p className="text-app-text-secondary text-xs mb-2">Dự đoán tuần tới</p>
             <p className="text-3xl font-extrabold" style={{ color: getScoreColor(predictedScore?.nextWeek ?? 0) }}>
               {predictedScore?.nextWeek ?? "—"}%
             </p>
-            <p className="text-white/30 text-xs mt-1">
+            <p className="text-app-text-muted text-xs mt-1">
               {predictedScore?.slope && predictedScore.slope > 0 ? `+${predictedScore.slope.toFixed(1)}%/tuần` : "Xu hướng ổn định"}
             </p>
           </div>
         </div>
 
         {/* Bar chart */}
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-white font-semibold text-sm">Biểu đồ điểm trung bình theo tuần</h2>
-            <div className="flex items-center gap-3 text-[10px] text-white/30">
-              <div className="flex items-center gap-1"><div className="w-3 h-3 rounded bg-[#e8c84a]/30"></div>Điểm TB</div>
+            <div className="flex items-center gap-3 text-[10px] text-app-text-muted">
+              <div className="flex items-center gap-1"><div className="w-3 h-3 rounded bg-app-accent-primary/30"></div>Điểm TB</div>
               <div className="flex items-center gap-1"><div className="w-3 h-3 rounded bg-emerald-500/30"></div>Điểm cao nhất</div>
-              <div className="flex items-center gap-1 border-l border-white/10 pl-3"><div className="w-6 h-0.5 bg-red-400/50 border-dashed border-t border-red-400/50"></div>Ngưỡng đậu 80%</div>
+              <div className="flex items-center gap-1 border-l border-app-border pl-3"><div className="w-6 h-0.5 bg-red-400/50 border-dashed border-t border-red-400/50"></div>Ngưỡng đậu 80%</div>
             </div>
           </div>
 
@@ -171,7 +171,7 @@ export default function EpsWeeklyProgressPage() {
               className="absolute left-0 right-0 border-t border-dashed border-red-400/30 z-10 flex items-center"
               style={{ bottom: `${(80 / maxBar) * 180}px` }}
             >
-              <span className="text-red-400/50 text-[9px] ml-1 bg-[#0f1117] px-1">80%</span>
+              <span className="text-red-400/50 text-[9px] ml-1 bg-app-bg px-1">80%</span>
             </div>
 
             <div className="flex items-end gap-2 h-48 pt-4">
@@ -183,9 +183,9 @@ export default function EpsWeeklyProgressPage() {
                 return (
                   <div key={week.weekKey} className="flex-1 flex flex-col items-center gap-1 group relative">
                     {/* Tooltip */}
-                    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-[#1a1d27] border border-white/10 rounded-xl px-3 py-2 text-[10px] text-white/70 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-20 pointer-events-none">
+                    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-[#1a1d27] border border-app-border rounded-xl px-3 py-2 text-[10px] text-white/70 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-20 pointer-events-none">
                       <p className="font-bold" style={{ color: avgColor }}>{week.avgScore}% TB · {week.maxScore}% max</p>
-                      <p className="text-white/40">{week.count} lần thi · {week.label}</p>
+                      <p className="text-app-text-secondary">{week.count} lần thi · {week.label}</p>
                     </div>
 
                     <div className="w-full flex items-end gap-0.5 justify-center" style={{ height: "180px" }}>
@@ -200,8 +200,8 @@ export default function EpsWeeklyProgressPage() {
                         style={{ height: `${avgH}px`, backgroundColor: isLast ? avgColor : `${avgColor}70` }}
                       />
                     </div>
-                    <p className="text-white/30 text-[9px] text-center leading-tight">{week.label.split("–")[0]}</p>
-                    {isLast && <span className="text-[8px] text-[#e8c84a] font-bold">Tuần này</span>}
+                    <p className="text-app-text-muted text-[9px] text-center leading-tight">{week.label.split("–")[0]}</p>
+                    {isLast && <span className="text-[8px] text-app-accent-primary font-bold">Tuần này</span>}
                   </div>
                 );
               })}
@@ -212,7 +212,7 @@ export default function EpsWeeklyProgressPage() {
         {/* Week comparison */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* This week vs last week */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">So sánh tuần này vs tuần trước</h3>
             {currentWeek && prevWeek ? (
               <div className="space-y-4">
@@ -222,14 +222,14 @@ export default function EpsWeeklyProgressPage() {
                   { label: "Số lần thi", curr: currentWeek.count, prev: prevWeek.count, unit: " lần" },
                 ].map(item => {
                   const diff = item.curr - item.prev;
-                  const color = diff > 0 ? "#34d399" : diff < 0 ? "#f87171" : "#e8c84a";
+                  const color = diff > 0 ? "#34d399" : diff < 0 ? "#f87171" : "app-accent-primary";
                   return (
                     <div key={item.label}>
                       <div className="flex items-center justify-between mb-1.5">
                         <span className="text-white/50 text-xs">{item.label}</span>
                         <div className="flex items-center gap-2">
-                          <span className="text-white/30 text-xs">{item.prev}{item.unit}</span>
-                          <i className="ri-arrow-right-line text-white/20 text-xs"></i>
+                          <span className="text-app-text-muted text-xs">{item.prev}{item.unit}</span>
+                          <i className="ri-arrow-right-line text-app-text-muted text-xs"></i>
                           <span className="text-white text-xs font-bold">{item.curr}{item.unit}</span>
                           {diff !== 0 && (
                             <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full" style={{ backgroundColor: `${color}15`, color }}>
@@ -238,7 +238,7 @@ export default function EpsWeeklyProgressPage() {
                           )}
                         </div>
                       </div>
-                      <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                      <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                         <div className="h-full rounded-full transition-all" style={{ width: `${Math.min(100, (item.curr / Math.max(item.curr, item.prev, 1)) * 100)}%`, backgroundColor: color }} />
                       </div>
                     </div>
@@ -246,21 +246,21 @@ export default function EpsWeeklyProgressPage() {
                 })}
               </div>
             ) : (
-              <p className="text-white/30 text-sm text-center py-4">Cần ít nhất 2 tuần dữ liệu</p>
+              <p className="text-app-text-muted text-sm text-center py-4">Cần ít nhất 2 tuần dữ liệu</p>
             )}
           </div>
 
           {/* Prediction */}
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">Dự đoán & Mục tiêu</h3>
             {predictedScore ? (
               <div className="space-y-4">
-                <div className="bg-white/3 rounded-xl p-4 text-center">
-                  <p className="text-white/40 text-xs mb-1">Dự đoán điểm thi thật</p>
+                <div className="bg-app-surface/50 rounded-xl p-4 text-center">
+                  <p className="text-app-text-secondary text-xs mb-1">Dự đoán điểm thi thật</p>
                   <p className="text-4xl font-extrabold" style={{ color: getScoreColor(predictedScore.nextWeek) }}>
                     {predictedScore.nextWeek}%
                   </p>
-                  <p className="text-white/30 text-xs mt-1">
+                  <p className="text-app-text-muted text-xs mt-1">
                     Dựa trên xu hướng {weekStats.length} tuần gần nhất
                   </p>
                 </div>
@@ -268,16 +268,16 @@ export default function EpsWeeklyProgressPage() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-white/50 text-xs">Tốc độ cải thiện</span>
-                    <span className={`text-xs font-bold ${predictedScore.slope > 0 ? "text-emerald-400" : "text-red-400"}`}>
+                    <span className={`text-xs font-bold ${predictedScore.slope > 0 ? "text-app-accent-success" : "text-red-400"}`}>
                       {predictedScore.slope > 0 ? "+" : ""}{predictedScore.slope.toFixed(1)}%/tuần
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-white/50 text-xs">Ngưỡng đậu EPS (80%)</span>
                     {currentWeek?.avgScore >= 80 ? (
-                      <span className="text-emerald-400 text-xs font-bold">✅ Đã đạt!</span>
+                      <span className="text-app-accent-success text-xs font-bold">✅ Đã đạt!</span>
                     ) : predictedScore.weeksTo80 && predictedScore.weeksTo80 > 0 ? (
-                      <span className="text-[#e8c84a] text-xs font-bold">~{predictedScore.weeksTo80} tuần nữa</span>
+                      <span className="text-app-accent-primary text-xs font-bold">~{predictedScore.weeksTo80} tuần nữa</span>
                     ) : (
                       <span className="text-red-400 text-xs">Cần tăng tốc độ học</span>
                     )}
@@ -293,10 +293,10 @@ export default function EpsWeeklyProgressPage() {
                 {/* Progress to 80% */}
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-white/40 text-xs">Tiến độ đến ngưỡng đậu</span>
-                    <span className="text-white/40 text-xs">{currentWeek?.avgScore ?? 0}% / 80%</span>
+                    <span className="text-app-text-secondary text-xs">Tiến độ đến ngưỡng đậu</span>
+                    <span className="text-app-text-secondary text-xs">{currentWeek?.avgScore ?? 0}% / 80%</span>
                   </div>
-                  <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                  <div className="h-2 bg-app-card/50 rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all duration-700"
                       style={{
@@ -308,14 +308,14 @@ export default function EpsWeeklyProgressPage() {
                 </div>
               </div>
             ) : (
-              <p className="text-white/30 text-sm text-center py-4">Cần ít nhất 3 tuần dữ liệu để dự đoán</p>
+              <p className="text-app-text-muted text-sm text-center py-4">Cần ít nhất 3 tuần dữ liệu để dự đoán</p>
             )}
           </div>
         </div>
 
         {/* Trend mini chart */}
         {trend.length >= 3 && (
-          <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">Xu hướng 4 tuần gần nhất</h3>
             <div className="flex items-end gap-4 h-20">
               {trend.map((score, i) => {
@@ -326,15 +326,15 @@ export default function EpsWeeklyProgressPage() {
                   <div key={i} className="flex-1 flex flex-col items-center gap-1">
                     <span className="text-xs font-bold" style={{ color }}>{score}%</span>
                     <div className="w-full rounded-t-lg" style={{ height: `${h}px`, backgroundColor: isLast ? color : `${color}50` }} />
-                    <span className="text-white/25 text-[9px]">T-{trend.length - 1 - i === 0 ? "0 (nay)" : trend.length - 1 - i}</span>
+                    <span className="text-app-text-muted text-[9px]">T-{trend.length - 1 - i === 0 ? "0 (nay)" : trend.length - 1 - i}</span>
                   </div>
                 );
               })}
               {predictedScore && (
                 <>
-                  <div className="w-px h-16 bg-white/10 self-end mb-4"></div>
+                  <div className="w-px h-16 bg-app-card/70 self-end mb-4"></div>
                   <div className="flex-1 flex flex-col items-center gap-1">
-                    <span className="text-xs font-bold text-white/40">{predictedScore.nextWeek}%</span>
+                    <span className="text-xs font-bold text-app-text-secondary">{predictedScore.nextWeek}%</span>
                     <div
                       className="w-full rounded-t-lg border-2 border-dashed"
                       style={{
@@ -343,7 +343,7 @@ export default function EpsWeeklyProgressPage() {
                         backgroundColor: `${getScoreColor(predictedScore.nextWeek)}15`,
                       }}
                     />
-                    <span className="text-white/25 text-[9px]">Dự đoán</span>
+                    <span className="text-app-text-muted text-[9px]">Dự đoán</span>
                   </div>
                 </>
               )}
@@ -352,7 +352,7 @@ export default function EpsWeeklyProgressPage() {
         )}
 
         {/* Recent exams table */}
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-4">10 lần thi gần nhất</h3>
           <div className="space-y-2">
             {allResults.map((r, i) => {
@@ -361,20 +361,20 @@ export default function EpsWeeklyProgressPage() {
               const weekKey = getWeekKey(r.date);
               const isThisWeek = currentWeek?.weekKey === weekKey;
               return (
-                <div key={r.id} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl ${isThisWeek ? "bg-[#e8c84a]/5 border border-[#e8c84a]/10" : "bg-white/3"}`}>
-                  <span className="text-white/25 text-xs w-5 text-right flex-shrink-0">{i + 1}</span>
+                <div key={r.id} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl ${isThisWeek ? "bg-app-accent-primary/5 border border-app-accent-primary/10" : "bg-app-surface/50"}`}>
+                  <span className="text-app-text-muted text-xs w-5 text-right flex-shrink-0">{i + 1}</span>
                   <div className="w-12 h-12 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${color}15` }}>
                     <span className="text-sm font-extrabold" style={{ color }}>{pct}%</span>
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-white/70 text-xs font-medium">{r.score}/{r.total} câu đúng</p>
-                    <p className="text-white/25 text-[10px]">
+                    <p className="text-app-text-muted text-[10px]">
                       {new Date(r.date).toLocaleDateString("vi-VN", { weekday: "short", day: "2-digit", month: "2-digit" })}
                       {" · "}{Math.floor(r.timeUsed / 60)} phút {r.timeUsed % 60}s
-                      {isThisWeek && <span className="ml-1 text-[#e8c84a]/60 font-semibold">· Tuần này</span>}
+                      {isThisWeek && <span className="ml-1 text-app-accent-primary/60 font-semibold">· Tuần này</span>}
                     </p>
                   </div>
-                  <div className="w-24 h-1.5 bg-white/5 rounded-full overflow-hidden flex-shrink-0">
+                  <div className="w-24 h-1.5 bg-app-card/50 rounded-full overflow-hidden flex-shrink-0">
                     <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: color }} />
                   </div>
                 </div>
@@ -384,9 +384,9 @@ export default function EpsWeeklyProgressPage() {
         </div>
 
         {/* Recommendations */}
-        <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
-            <i className="ri-lightbulb-line text-[#e8c84a]"></i>
+            <i className="ri-lightbulb-line text-app-accent-primary"></i>
             Gợi ý cải thiện
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -400,7 +400,7 @@ export default function EpsWeeklyProgressPage() {
               },
               {
                 icon: "ri-focus-3-line",
-                color: "#e8c84a",
+                color: "app-accent-primary",
                 title: "Thi theo chủ đề yếu",
                 desc: "Xác định chủ đề điểm thấp nhất và thi thử tập trung vào đó",
                 path: "/eps-topic-exam",
@@ -416,7 +416,7 @@ export default function EpsWeeklyProgressPage() {
               <a
                 key={item.title}
                 href={item.path}
-                className="flex items-start gap-3 p-4 bg-white/3 rounded-xl hover:bg-white/5 transition-colors cursor-pointer"
+                className="flex items-start gap-3 p-4 bg-app-surface/50 rounded-xl hover:bg-app-card/50 transition-colors cursor-pointer"
               >
                 <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${item.color}15` }}>
                   <i className={`${item.icon} text-base`} style={{ color: item.color }}></i>

@@ -178,7 +178,7 @@ const EXAMPLE_WORDS: ExampleWord[] = [
 ];
 
 const LEVEL_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-  TOPIK1: { bg: "bg-emerald-500/10", text: "text-emerald-400", border: "border-emerald-500/20" },
+  TOPIK1: { bg: "bg-emerald-500/10", text: "text-app-accent-success", border: "border-emerald-500/20" },
   TOPIK2: { bg: "bg-sky-500/10", text: "text-sky-400", border: "border-sky-500/20" },
   TOPIK3: { bg: "bg-amber-500/10", text: "text-amber-400", border: "border-amber-500/20" },
   TOPIK4: { bg: "bg-orange-500/10", text: "text-orange-400", border: "border-orange-500/20" },
@@ -263,17 +263,17 @@ export default function ExampleSentenceTab() {
 
       {/* Study mode */}
       {studyMode && (
-        <div className="bg-[#0f1117] border border-amber-500/20 rounded-2xl p-6">
+        <div className="bg-app-bg border border-amber-500/20 rounded-2xl p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-white font-semibold text-sm flex items-center gap-2">
               <i className="ri-book-open-line text-amber-400"></i>Chế độ học theo câu ví dụ
             </h3>
-            <span className="text-white/30 text-xs">{(studyIdx % studyPool.length) + 1}/{studyPool.length}</span>
+            <span className="text-app-text-muted text-xs">{(studyIdx % studyPool.length) + 1}/{studyPool.length}</span>
           </div>
 
           <div className="max-w-2xl mx-auto">
             {/* Word card */}
-            <div className="bg-white/3 rounded-2xl p-5 mb-4 text-center">
+            <div className="bg-app-surface/50 rounded-2xl p-5 mb-4 text-center">
               <div className="flex items-center justify-center gap-3 mb-3">
                 <span className="text-3xl font-bold text-white">{currentStudy.korean}</span>
                 <span className="text-2xl font-bold text-rose-400">{currentStudy.hanja}</span>
@@ -292,7 +292,7 @@ export default function ExampleSentenceTab() {
                 <div>
                   <p className="text-amber-400 font-bold text-lg mb-1">{currentStudy.vietnamese}</p>
                   {currentStudy.tip && (
-                    <p className="text-white/40 text-xs italic mb-3">{currentStudy.tip}</p>
+                    <p className="text-app-text-secondary text-xs italic mb-3">{currentStudy.tip}</p>
                   )}
                 </div>
               )}
@@ -302,7 +302,7 @@ export default function ExampleSentenceTab() {
             {studyRevealed && (
               <div className="space-y-3 mb-4">
                 {currentStudy.sentences.map((s, i) => (
-                  <div key={i} className="bg-white/3 rounded-xl p-4">
+                  <div key={i} className="bg-app-surface/50 rounded-xl p-4">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-[10px] px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: `${SOURCE_COLORS[s.source]}15`, color: SOURCE_COLORS[s.source] }}>
                         {s.source}
@@ -311,7 +311,7 @@ export default function ExampleSentenceTab() {
                     <p className="text-white/80 text-sm font-medium mb-1.5 leading-relaxed">
                       {highlightWord(s.korean, s.highlight)}
                     </p>
-                    <p className="text-white/40 text-xs leading-relaxed">{s.vietnamese}</p>
+                    <p className="text-app-text-secondary text-xs leading-relaxed">{s.vietnamese}</p>
                   </div>
                 ))}
               </div>
@@ -336,35 +336,35 @@ export default function ExampleSentenceTab() {
         <>
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
-              <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
+              <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
               <input
                 type="text"
                 placeholder="Tìm từ hoặc câu ví dụ..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400/30 placeholder-white/20"
+                className="w-full pl-9 pr-4 py-2 bg-app-card/50 border border-app-border rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400/30 placeholder-white/20"
               />
             </div>
           </div>
 
           <div className="flex flex-wrap gap-2">
-            <div className="flex gap-1 bg-white/3 p-1 rounded-xl">
+            <div className="flex gap-1 bg-app-surface/50 p-1 rounded-xl">
               {levels.map(l => (
                 <button
                   key={l}
                   onClick={() => setSelectedLevel(l)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedLevel === l ? (l === "all" ? "bg-white/10 text-white" : `${LEVEL_COLORS[l]?.bg} ${LEVEL_COLORS[l]?.text}`) : "text-white/30 hover:text-white/50"}`}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedLevel === l ? (l === "all" ? "bg-app-card/70 text-white" : `${LEVEL_COLORS[l]?.bg} ${LEVEL_COLORS[l]?.text}`) : "text-app-text-muted hover:text-white/50"}`}
                 >
                   {l === "all" ? "Tất cả" : l}
                 </button>
               ))}
             </div>
-            <div className="flex gap-1 bg-white/3 p-1 rounded-xl">
+            <div className="flex gap-1 bg-app-surface/50 p-1 rounded-xl">
               {sources.map(s => (
                 <button
                   key={s}
                   onClick={() => setSelectedSource(s)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedSource === s ? "bg-white/10 text-white" : "text-white/30 hover:text-white/50"}`}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedSource === s ? "bg-app-card/70 text-white" : "text-app-text-muted hover:text-white/50"}`}
                 >
                   {s === "all" ? "Tất cả nguồn" : s}
                 </button>
@@ -378,7 +378,7 @@ export default function ExampleSentenceTab() {
               const isExpanded = expandedWord === word.korean;
               const lvlCfg = LEVEL_COLORS[word.level];
               return (
-                <div key={i} className="bg-[#0f1117] border border-white/5 rounded-2xl overflow-hidden">
+                <div key={i} className="bg-app-bg border border-app-border rounded-2xl overflow-hidden">
                   <button
                     onClick={() => setExpandedWord(isExpanded ? null : word.korean)}
                     className="w-full flex items-center gap-4 px-5 py-4 hover:bg-white/2 transition-colors cursor-pointer text-left"
@@ -390,22 +390,22 @@ export default function ExampleSentenceTab() {
                         <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold border ${lvlCfg.bg} ${lvlCfg.text} ${lvlCfg.border}`}>
                           {word.level}
                         </span>
-                        <span className="text-white/40 text-sm">{word.vietnamese}</span>
+                        <span className="text-app-text-secondary text-sm">{word.vietnamese}</span>
                       </div>
                       {word.tip && (
                         <p className="text-amber-400/60 text-xs mt-1 italic">{word.tip}</p>
                       )}
                     </div>
                     <div className="flex items-center gap-3 flex-shrink-0">
-                      <span className="text-white/20 text-xs">{word.sentences.length} câu</span>
-                      <i className={`text-white/30 text-sm transition-transform ${isExpanded ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
+                      <span className="text-app-text-muted text-xs">{word.sentences.length} câu</span>
+                      <i className={`text-app-text-muted text-sm transition-transform ${isExpanded ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
                     </div>
                   </button>
 
                   {isExpanded && (
-                    <div className="px-5 pb-5 border-t border-white/5 pt-4 space-y-3">
+                    <div className="px-5 pb-5 border-t border-app-border pt-4 space-y-3">
                       {word.sentences.map((s, j) => (
-                        <div key={j} className="bg-white/3 rounded-xl p-4">
+                        <div key={j} className="bg-app-surface/50 rounded-xl p-4">
                           <div className="flex items-center gap-2 mb-2">
                             <span
                               className="text-[10px] px-2 py-0.5 rounded-full font-bold"
@@ -417,7 +417,7 @@ export default function ExampleSentenceTab() {
                           <p className="text-white/80 text-sm font-medium mb-2 leading-relaxed">
                             {highlightWord(s.korean, s.highlight)}
                           </p>
-                          <p className="text-white/40 text-xs leading-relaxed border-t border-white/5 pt-2">{s.vietnamese}</p>
+                          <p className="text-app-text-secondary text-xs leading-relaxed border-t border-app-border pt-2">{s.vietnamese}</p>
                         </div>
                       ))}
                     </div>
@@ -428,7 +428,7 @@ export default function ExampleSentenceTab() {
           </div>
 
           {filtered.length === 0 && (
-            <div className="text-center py-12 text-white/20">
+            <div className="text-center py-12 text-app-text-muted">
               <i className="ri-search-line text-3xl mb-2 block"></i>
               <p className="text-sm">Không tìm thấy kết quả</p>
             </div>
@@ -437,15 +437,15 @@ export default function ExampleSentenceTab() {
       )}
 
       {/* Tip */}
-      <div className="bg-white/3 border border-white/5 rounded-xl p-4">
-        <p className="text-white/40 text-xs font-semibold mb-1 flex items-center gap-1.5">
-          <i className="ri-information-line text-white/30"></i>Về nguồn câu ví dụ
+      <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
+        <p className="text-app-text-secondary text-xs font-semibold mb-1 flex items-center gap-1.5">
+          <i className="ri-information-line text-app-text-muted"></i>Về nguồn câu ví dụ
         </p>
         <div className="flex flex-wrap gap-3">
           {Object.entries(SOURCE_COLORS).map(([src, color]) => (
             <div key={src} className="flex items-center gap-1.5">
               <div className="w-2 h-2 rounded-full" style={{ backgroundColor: color }}></div>
-              <span className="text-white/30 text-xs">{src}</span>
+              <span className="text-app-text-muted text-xs">{src}</span>
             </div>
           ))}
         </div>
