@@ -18,11 +18,18 @@ function QuillEditor({ value, onChange, placeholder }: {
 }) {
   const editorRef = useRef<HTMLDivElement>(null);
   const quillRef = useRef<any>(null);
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
+  const [quillReady, setQuillReady] = useState(false);
 
+  // Try to init Quill, retry if CDN not loaded yet
   useEffect(() => {
-    if (typeof window !== "undefined" && (window as any).Quill && editorRef.current && !quillRef.current) {
+    if (!editorRef.current) return;
+
+    const tryInit = () => {
       const Quill = (window as any).Quill;
-      
+      if (!Quill || quillRef.current) return false;
+
       quillRef.current = new Quill(editorRef.current, {
         theme: "snow",
         placeholder: placeholder || "Viết nội dung bài đăng...",
@@ -45,28 +52,57 @@ function QuillEditor({ value, onChange, placeholder }: {
       });
 
       quillRef.current.on('text-change', () => {
-        onChange(quillRef.current.root.innerHTML);
+        const html = quillRef.current.root.innerHTML;
+        onChangeRef.current(html);
       });
-    }
+
+      setQuillReady(true);
+      return true;
+    };
+
+    if (tryInit()) return;
+
+    // CDN might not be loaded yet, retry every 300ms
+    const interval = setInterval(() => {
+      if (tryInit()) clearInterval(interval);
+    }, 300);
 
     return () => {
+      clearInterval(interval);
       if (quillRef.current) {
+        quillRef.current.off('text-change');
         quillRef.current = null;
       }
     };
-  }, [placeholder, onChange]);
+  }, []);
 
+  // Sync value from outside (only when Quill is ready and value differs)
   useEffect(() => {
-    if (quillRef.current && value !== quillRef.current.root.innerHTML) {
+    if (quillRef.current && value && value !== quillRef.current.root.innerHTML) {
       quillRef.current.root.innerHTML = value;
     }
   }, [value]);
 
+  if (!quillReady) {
+    return (
+      <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+        <div className="text-white/30 text-xs">Đang tải trình soạn thảo...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
       <div ref={editorRef} className="min-h-[200px] text-white/80" />
-    </div  >
+    </div>
   );
+}
+
+/** Check if Quill HTML content is effectively empty */
+function isQuillEmpty(html: string): boolean {
+  if (!html) return true;
+  const text = html.replace(/<[^>]*>/g, '').trim();
+  return text.length === 0;
 }
 
 // ─── Schema.org FAQPage structured data ─────────────────────────────────────
@@ -740,9 +776,13 @@ function NewPostModal({
   };
 
   const handleSubmit = async () => {
-    if (!title.trim() || !content.trim()) return;
+    if (!title.trim() || isQuillEmpty(content)) return;
     setSubmitting(true);
-    await onSubmit({ title, content, category, imageUrl: imageUrl || undefined });
+    try {
+      await onSubmit({ title, content, category, imageUrl: imageUrl || undefined });
+    } catch (err) {
+      console.error('Submit error:', err);
+    }
     setSubmitting(false);
     onClose();
   };
@@ -822,7 +862,7 @@ function NewPostModal({
 
           <div className="flex gap-3 pt-2">
             <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50">Hủy</button>
-            <button onClick={handleSubmit} disabled={!title.trim() || !content.trim() || submitting}
+            <button onClick={handleSubmit} disabled={!title.trim() || isQuillEmpty(content) || submitting}
               className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
               {submitting ? "Đang đăng..." : "Đăng bài"}
             </button>
