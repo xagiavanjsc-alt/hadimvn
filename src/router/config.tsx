@@ -216,6 +216,7 @@ const StudyStatsDetailPage = lazyPage(() => import("../pages/study-stats-detail/
 const ProgressPage = lazyPage(() => import("../pages/progress/page"));
 const XpStatsPage = lazyPage(() => import("../pages/xp-stats/page"));
 const LearningHubPage = lazyPage(() => import("../pages/learning-hub/page"));
+const ExamHubPage = lazyPage(() => import("../pages/exam-hub/page"));
 
 // ─── Study tools ─────────────────────────────────────────────────────────────
 const FlashcardPage = lazyPage(() => import("../pages/flashcard/page"));
@@ -492,6 +493,7 @@ const routes: RouteObject[] = [
   { path: "/progress", element: <ProgressPage /> },
   { path: "/xp-stats", element: <XpStatsPage /> },
   { path: "/learning-hub", element: <RequireAuth title="Learning Hub"><LearningHubPage /></RequireAuth> },
+  { path: "/exam-hub", element: <RequireAuth title="Exam Hub"><ExamHubPage /></RequireAuth> },
 
   // Study tools
   { path: "/flashcard", element: <FlashcardPage /> },

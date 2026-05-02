@@ -78,6 +78,7 @@ const navGroups = [
     color: "#e8c84a",
     items: [
       { path: "/learning-hub", icon: "ri-dashboard-line", label: "Learning Hub" },
+      { path: "/exam-hub", icon: "ri-file-list-3-line", label: "Exam Hub" },
       { path: "/leaderboard", icon: "ri-trophy-line", label: "Bảng xếp hạng" },
     ],
   },
