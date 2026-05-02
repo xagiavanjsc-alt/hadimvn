@@ -14,6 +14,7 @@ export interface AdminUser {
   vip_type: "none" | "month" | "year";
   vip_expires_at?: string;
   is_admin: boolean;
+  user_role?: "super_admin" | "smod" | "moderator" | "member" | string;
   created_at: string;
   updated_at: string;
   // From leaderboard
@@ -115,6 +116,7 @@ export function useAdminUsers(): UseAdminUsersReturn {
         vip_type: vipType,
         vip_expires_at: p.vip_expires_at ?? undefined,
         is_admin: p.is_admin ?? false,
+        user_role: p.user_role,
         created_at: p.created_at,
         updated_at: p.updated_at,
         xp_total: lb?.xp ?? 0,

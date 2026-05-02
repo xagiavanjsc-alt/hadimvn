@@ -492,7 +492,16 @@ function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVi
             ) : (
               <span className="text-xs px-3 py-1 rounded-full" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)", border: "1px solid var(--admin-border)" }}>Free</span>
             )}
-            {user.is_admin && <span className="text-xs px-3 py-1 rounded-full font-medium bg-rose-500/12 text-rose-400 border border-rose-500/20"><i className="ri-shield-keyhole-line mr-1"></i>Admin</span>}
+            {user.is_admin && (() => {
+              const role = user.user_role || "super_admin";
+              const map: Record<string, { label: string; color: string }> = {
+                super_admin: { label: "Super Admin", color: "#f43f5e" },
+                smod: { label: "SMod", color: "#a855f7" },
+                moderator: { label: "Moderator", color: "#3b82f6" },
+              };
+              const r = map[role] || map.super_admin;
+              return <span className="text-xs px-3 py-1 rounded-full font-medium border" style={{ backgroundColor: `${r.color}20`, color: r.color, borderColor: `${r.color}40` }}><i className="ri-shield-keyhole-line mr-1"></i>{r.label}</span>;
+            })()}
             <span className="text-xs px-3 py-1 rounded-full" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)", border: "1px solid var(--admin-border)" }}>
               <i className="ri-calendar-line mr-1"></i>{new Date(user.created_at).toLocaleDateString("vi-VN")}
             </span>
@@ -604,7 +613,16 @@ function UserRow({ user, selected, onSelect, onToggleVip, onToggleAdmin, onViewD
       <div className="flex-1 min-w-0 cursor-pointer" onClick={() => onViewDetail(user)}>
         <div className="flex items-center gap-2 flex-wrap">
           <p className="text-xs font-semibold truncate" style={{ color: "var(--admin-text)" }}>{user.display_name}</p>
-          {user.is_admin && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-rose-500/15 text-rose-400 font-bold">ADMIN</span>}
+          {user.is_admin && (() => {
+            const role = user.user_role || "super_admin";
+            const map: Record<string, { label: string; color: string }> = {
+              super_admin: { label: "SUPER", color: "#f43f5e" },
+              smod: { label: "SMOD", color: "#a855f7" },
+              moderator: { label: "MOD", color: "#3b82f6" },
+            };
+            const r = map[role] || map.super_admin;
+            return <span className="text-[9px] px-1.5 py-0.5 rounded-full font-bold" style={{ backgroundColor: `${r.color}25`, color: r.color }}>{r.label}</span>;
+          })()}
           {user.is_vip && (
             <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${vipType === "year" ? "bg-app-accent-primary/15 text-app-accent-primary" : "bg-app-accent-success/15 text-app-accent-success"}`}>
               VIP {vipType === "year" ? "Năm" : "Tháng"}
