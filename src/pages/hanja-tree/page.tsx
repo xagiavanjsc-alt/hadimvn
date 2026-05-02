@@ -2,6 +2,8 @@
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
+import RootAnalysis from "./components/RootAnalysis";
+import MnemonicStory from "./components/MnemonicStory";
 
 // ─── Tree Quiz Modal ──────────────────────────────────────────────────────────
 function TreeQuizModal({ nodes, learnedSet, rootChar, rootMeaning, onClose }: {
@@ -208,6 +210,13 @@ interface HanjaTreeNode {
   level: number;
   category: string;
   difficulty: number;
+  // Additional fields for detailed components
+  rootAnalysis?: {
+    char1: { hanja: string; sinoViet: string; meaning: string };
+    char2: { hanja: string; sinoViet: string; meaning: string };
+    explanation: string;
+  };
+  mnemonicStory?: string;
 }
 
 interface TreeGroup {
@@ -302,7 +311,7 @@ function NodeDetailPanel({
       <div className="flex overflow-x-auto h-full" style={{ maxHeight: "290px" }}>
         <div className="flex-shrink-0 w-56 p-4 border-r border-app-border overflow-y-auto">
           <p className="text-[10px] text-app-text-muted font-semibold tracking-normal mb-2">Nghĩa</p>
-          <p className="text-sm font-semibold text-white/80 mb-2">{node.vietnamese}</p>
+          <p className="text-sm font-semibold text-app-text-primary mb-2">{node.vietnamese}</p>
           {node.meaning_detail && <p className="text-xs text-app-text-secondary leading-relaxed">{node.meaning_detail}</p>}
           {node.hanja_chars?.length > 0 && (
             <div className="mt-3">
@@ -335,7 +344,7 @@ function NodeDetailPanel({
                     <span className="text-[10px] text-app-text-muted font-bold mt-0.5 flex-shrink-0">{i + 1}</span>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start gap-1">
-                        <p className="text-xs text-white/80 font-medium flex-1">{ex.korean}</p>
+                        <p className="text-xs text-app-text-primary font-medium flex-1">{ex.korean}</p>
                         <button onClick={() => speakKorean(ex.korean)} className="text-app-text-muted hover:text-rose-400 cursor-pointer flex-shrink-0">
                           <i className="ri-volume-up-line text-xs"></i>
                         </button>
@@ -346,6 +355,29 @@ function NodeDetailPanel({
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {node.rootAnalysis && (
+          <div className="flex-shrink-0 w-64 p-4 border-r border-app-border overflow-y-auto">
+            <p className="text-[10px] text-app-text-muted font-semibold tracking-normal mb-2">Phân tích gốc</p>
+            <div className="bg-app-card/50 rounded-lg p-3">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-lg font-bold text-app-accent-primary">{node.rootAnalysis.char1.hanja}</span>
+                <span className="text-xs text-app-text-muted">+</span>
+                <span className="text-lg font-bold text-app-accent-secondary">{node.rootAnalysis.char2.hanja}</span>
+              </div>
+              <p className="text-[10px] text-app-text-secondary leading-relaxed">{node.rootAnalysis.explanation}</p>
+            </div>
+          </div>
+        )}
+
+        {node.mnemonicStory && (
+          <div className="flex-shrink-0 w-64 p-4 overflow-y-auto">
+            <p className="text-[10px] text-app-text-muted font-semibold tracking-normal mb-2">Truyện chêm</p>
+            <div className="bg-app-card/50 rounded-lg p-3">
+              <p className="text-[10px] text-app-text-secondary leading-relaxed italic">{node.mnemonicStory}</p>
             </div>
           </div>
         )}
