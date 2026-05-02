@@ -1244,7 +1244,7 @@ export default function AdminContentPage() {
       <div className="flex items-center gap-1 p-1 rounded-xl w-fit mb-6"
         style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>
         {([
-          { id: "community", label: "Bài viết cộng đồng", icon: "ri-community-line" },
+          { id: "community", label: "Bài viết cộng đồng", icon: "ri-team-line" },
           { id: "lessons", label: "Bài học gửi lên", icon: "ri-book-open-line" },
           { id: "reports", label: `Báo cáo vi phạm${pendingReports > 0 ? ` (${pendingReports})` : ""}`, icon: "ri-flag-line" },
         ] as const).map(tab => (
