@@ -504,6 +504,7 @@ export default function HanjaTreePage() {
   const [viewMode, setViewMode] = useState<"tree" | "list">("tree");
   const [showQuiz, setShowQuiz] = useState(false);
   const [showAdvFilter, setShowAdvFilter] = useState(false);
+  const [flashcardToast, setFlashcardToast] = useState<{ word: string; hanja: string; exists: boolean; show: boolean } | null>(null);
 
   useEffect(() => {
     const fetchNodes = async () => {
@@ -602,7 +603,8 @@ export default function HanjaTreePage() {
     
     // Check if word already exists
     if (existingFlashcards.some((f: any) => f.word === node.korean)) {
-      alert('Từ này đã có trong flashcard!');
+      setFlashcardToast({ word: node.korean, hanja: node.hanja, exists: true, show: true });
+      setTimeout(() => setFlashcardToast(null), 2000);
       return;
     }
     
@@ -620,7 +622,8 @@ export default function HanjaTreePage() {
     };
     
     localStorage.setItem(flashcardsKey, JSON.stringify([...existingFlashcards, newFlashcard]));
-    alert(`Đã thêm "${node.korean}" vào flashcard!`);
+    setFlashcardToast({ word: node.korean, hanja: node.hanja, exists: false, show: true });
+    setTimeout(() => setFlashcardToast(null), 2000);
   }, []);
 
   // Stats for current group
@@ -1034,6 +1037,30 @@ export default function HanjaTreePage() {
             awardXP({ type: "hanja_quiz_completed", amount: Math.round((correct / total) * 15) });
           }}
         />
+      )}
+
+      {/* Flashcard Toast Modal */}
+      {flashcardToast && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+          <div className="bg-[#1a1d27] border border-white/10 rounded-2xl p-6 max-w-sm w-full shadow-2xl animate-in zoom-in duration-200">
+            <div className="flex items-center gap-4">
+              <div className={`w-14 h-14 flex items-center justify-center rounded-xl flex-shrink-0 ${
+                flashcardToast.exists ? "bg-amber-500/20" : "bg-emerald-500/20"
+              }`}>
+                <i className={`text-2xl ${flashcardToast.exists ? "ri-information-line text-amber-400" : "ri-checkbox-circle-line text-emerald-400"}`}></i>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className={`text-sm font-bold mb-1 ${flashcardToast.exists ? "text-amber-400" : "text-emerald-400"}`}>
+                  {flashcardToast.exists ? "Đã có trong flashcard" : "Đã thêm vào flashcard"}
+                </p>
+                <div className="flex items-center gap-2">
+                  <span className="text-lg font-bold text-white/90">{flashcardToast.word}</span>
+                  <span className="text-base text-rose-400">{flashcardToast.hanja}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </DashboardLayout>
   );
