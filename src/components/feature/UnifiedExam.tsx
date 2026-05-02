@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { indexedDB, ExamHistoryData } from "@/lib/indexedDB";
+import { computeXP, deriveLevel } from "@/lib/xp";
 
 interface UnifiedExamProps {
   examType: string; // 'eps', 'seoul', 'topik'
@@ -109,6 +110,54 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
         correct_ids: examData.correct_ids,
         taken_at: examData.taken_at,
       });
+
+      // Update local storage with latest exam result (so other pages see it)
+      const localKey = "kts_eps_exam_results";
+      const existingResults = JSON.parse(localStorage.getItem(localKey) || "[]");
+      existingResults.push({
+        date: examData.taken_at,
+        score: examData.score,
+        total: examData.total,
+        correctIds: examData.correct_ids,
+      });
+      localStorage.setItem(localKey, JSON.stringify(existingResults));
+
+      // Trigger leaderboard sync by upserting to user_progress
+      // Recompute stats from all exam results + flashcard data
+      const allResults = existingResults as Array<{ score: number; total: number; correctIds?: string[] }>;
+      const flashcardKnown = JSON.parse(localStorage.getItem("kts_flashcard_known") || "{}");
+      const streak = JSON.parse(localStorage.getItem("kts_streak") || '{"count":0}');
+      
+      const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length;
+      const bestScore = allResults.length > 0
+        ? Math.max(...allResults.map(r => Math.round((r.score / r.total) * 100)))
+        : 0;
+      const avgScore = allResults.length > 0
+        ? Math.round(allResults.reduce((sum, r) => sum + (r.score / r.total) * 100, 0) / allResults.length)
+        : 0;
+      const totalCorrect = allResults.reduce((sum, r) => sum + (r.correctIds?.length ?? r.score ?? 0), 0);
+
+      const xp = computeXP({
+        streakDays: streak.count || 0,
+        bestScorePct: bestScore,
+        averageScorePct: avgScore,
+        wordsLearned,
+        totalCorrectAnswers: totalCorrect,
+        validExamsCount: allResults.length,
+      });
+      const level = deriveLevel(bestScore);
+
+      await supabase.from("user_progress").upsert({
+        user_id: userId,
+        xp,
+        level,
+        streak_count: streak.count || 0,
+        streak_last_date: streak.lastDate || null,
+        best_score: bestScore,
+        words_learned: wordsLearned,
+        last_active_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      }, { onConflict: "user_id" });
     } catch (err) {
       console.error("Failed to save exam result:", err);
     }

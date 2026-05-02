@@ -24,6 +24,8 @@ interface LeaderboardPlayer {
   words_learned: number;
   xp: number;
   updated_at: string;
+  is_vip?: boolean;
+  vip_expires_at?: string | null;
   isCurrentUser?: boolean;
 }
 
@@ -41,10 +43,13 @@ const RANK_COLORS = ["#FFD700", "#C0C0C0", "#CD7F32"];
 const RANK_ICONS = ["ri-trophy-fill", "ri-medal-fill", "ri-award-fill"];
 
 function AvatarCell({ player, size = 36 }: { player: LeaderboardPlayer; size?: number }) {
+  const isActiveVip = player.is_vip && (!player.vip_expires_at || new Date(player.vip_expires_at).getTime() > Date.now());
+  const ringClass = isActiveVip ? "ring-2 ring-[#e8c84a]/60" : "";
+  
   if (player.isCurrentUser) {
     return (
       <div
-        className="rounded-full bg-[#e8c84a]/15 border border-[#e8c84a]/30 flex items-center justify-center flex-shrink-0"
+        className={`rounded-full bg-[#e8c84a]/15 border border-[#e8c84a]/30 flex items-center justify-center flex-shrink-0 ${ringClass}`}
         style={{ width: size, height: size }}
       >
         <i className="ri-user-3-line text-[#e8c84a] text-sm"></i>
@@ -56,7 +61,7 @@ function AvatarCell({ player, size = 36 }: { player: LeaderboardPlayer; size?: n
       <img
         src={player.avatar_url}
         alt={player.display_name}
-        className="rounded-full object-cover flex-shrink-0"
+        className={`rounded-full object-cover flex-shrink-0 ${ringClass}`}
         style={{ width: size, height: size }}
       />
     );
@@ -66,7 +71,7 @@ function AvatarCell({ player, size = 36 }: { player: LeaderboardPlayer; size?: n
   const colorIdx = player.display_name.charCodeAt(0) % colors.length;
   return (
     <div
-      className="rounded-full flex items-center justify-center flex-shrink-0 font-bold text-[#0f1117] text-xs"
+      className={`rounded-full flex items-center justify-center flex-shrink-0 font-bold text-[#0f1117] text-xs ${ringClass}`}
       style={{ width: size, height: size, backgroundColor: colors[colorIdx] }}
     >
       {initials}
@@ -127,6 +132,8 @@ export default function LeaderboardPage() {
         words_learned: row.words_learned || 0,
         xp: row.xp || 0,
         updated_at: row.updated_at,
+        is_vip: row.is_vip || false,
+        vip_expires_at: row.vip_expires_at || null,
         isCurrentUser: user ? row.user_id === user.id : false,
       }));
 
@@ -145,6 +152,8 @@ export default function LeaderboardPage() {
             words_learned: myWordsLearned,
             xp: myXp,
             updated_at: new Date().toISOString(),
+            is_vip: profile?.is_vip || false,
+            vip_expires_at: profile?.vip_expires_at || null,
             isCurrentUser: true,
           };
           mapped.push(myEntry);
@@ -168,6 +177,8 @@ export default function LeaderboardPage() {
           words_learned: myWordsLearned,
           xp: myXp,
           updated_at: new Date().toISOString(),
+          is_vip: profile?.is_vip || false,
+          vip_expires_at: profile?.vip_expires_at || null,
           isCurrentUser: true,
         };
         // Giữ data cũ + thêm user entry
@@ -436,6 +447,12 @@ export default function LeaderboardPage() {
                             {player.display_name}
                             {isMe && <span className="ml-1 text-[10px] text-[#e8c84a]/60">(Bạn)</span>}
                           </button>
+                          {player.is_vip && (!player.vip_expires_at || new Date(player.vip_expires_at).getTime() > Date.now()) && (
+                            <span className="flex items-center gap-0.5 bg-[#e8c84a]/15 text-[#e8c84a] text-[9px] font-bold px-1.5 py-0.5 rounded-full border border-[#e8c84a]/25" title="Thành viên VIP">
+                              <i className="ri-vip-crown-fill text-[10px]"></i>
+                              VIP
+                            </span>
+                          )}
                           {!isMe && (
                             <button
                               onClick={() => navigate(`/member/${player.user_id}`)}
@@ -554,6 +571,9 @@ export default function LeaderboardPage() {
                             >
                               {player.display_name}
                               {isMe && <span className="ml-1 text-[10px] text-[#e8c84a]/60">(Bạn)</span>}
+                              {player.is_vip && (!player.vip_expires_at || new Date(player.vip_expires_at).getTime() > Date.now()) && (
+                                <i className="ri-vip-crown-fill text-[#e8c84a] text-[11px] ml-1" title="VIP"></i>
+                              )}
                             </button>
                             <p className="text-white/30 text-[10px] mt-0.5 truncate">{player.level}</p>
                           </div>
