@@ -20,7 +20,7 @@ LANGUAGE plpgsql
 SECURITY DEFINER
 AS $$
 DECLARE
-  result RECORD;
+  v_id UUID;
 BEGIN
   INSERT INTO public.hanja_vocab_entries (
     korean, hanja, vietnamese, pronunciation, category, difficulty, topik_level,
@@ -40,11 +40,11 @@ BEGIN
     memory_tip = COALESCE(EXCLUDED.memory_tip, hanja_vocab_entries.memory_tip),
     related_words = COALESCE(EXCLUDED.related_words, hanja_vocab_entries.related_words),
     updated_at = NOW()
-  RETURNING id INTO result.id;
+  RETURNING id INTO v_id;
 
   RETURN jsonb_build_object(
     'success', true,
-    'id', result.id
+    'id', v_id
   );
 EXCEPTION WHEN OTHERS THEN
   RETURN jsonb_build_object(
