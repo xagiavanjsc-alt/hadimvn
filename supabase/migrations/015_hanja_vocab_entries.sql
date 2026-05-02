@@ -5,7 +5,7 @@
 -- Allows admin editing via UI and future AI enrichment
 -- =================================================================
 
--- Create hanja_vocab_entries table
+-- Create hanja_vocab_entries table if not exists
 CREATE TABLE IF NOT EXISTS public.hanja_vocab_entries (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   korean TEXT NOT NULL,
@@ -22,7 +22,16 @@ CREATE TABLE IF NOT EXISTS public.hanja_vocab_entries (
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Unique constraint on korean+hanja combination
+-- Deduplicate existing rows (keep the one with latest updated_at)
+DELETE FROM public.hanja_vocab_entries d1
+WHERE EXISTS (
+  SELECT 1 FROM public.hanja_vocab_entries d2
+  WHERE d2.korean = d1.korean
+    AND d2.hanja = d1.hanja
+    AND d2.id < d1.id
+);
+
+-- Unique constraint on korean+hanja combination (now safe after deduplication)
 CREATE UNIQUE INDEX IF NOT EXISTS hanja_vocab_korean_hanja_idx 
   ON public.hanja_vocab_entries (korean, hanja);
 
