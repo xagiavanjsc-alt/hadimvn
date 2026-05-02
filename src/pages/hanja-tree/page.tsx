@@ -626,34 +626,47 @@ export default function HanjaTreePage() {
     setSelectedNode(prev => prev?.id === node.id ? null : node);
   }, []);
 
-  const handleAddToFlashcard = useCallback((node: HanjaTreeNode) => {
-    // Get existing flashcards from localStorage
-    const flashcardsKey = 'kts_hanja_flashcards';
-    const existingFlashcards = JSON.parse(localStorage.getItem(flashcardsKey) || '[]');
-    
-    // Check if word already exists
-    if (existingFlashcards.some((f: any) => f.word === node.korean)) {
-      setFlashcardToast({ word: node.korean, hanja: node.hanja, exists: true, show: true });
+  const handleAddToFlashcard = useCallback(async (node: HanjaTreeNode) => {
+    try {
+      // Check if word already exists in database
+      const { data: existing } = await supabase
+        .from('hanja_flashcards')
+        .select('id')
+        .eq('word', node.korean)
+        .eq('user_id', (await supabase.auth.getUser()).data.user?.id)
+        .single();
+      
+      if (existing) {
+        setFlashcardToast({ word: node.korean, hanja: node.hanja, exists: true, show: true });
+        setTimeout(() => setFlashcardToast(null), 2000);
+        return;
+      }
+      
+      // Add new flashcard to database
+      const { error } = await supabase
+        .from('hanja_flashcards')
+        .insert({
+          word: node.korean,
+          hanja: node.hanja,
+          reading: node.pronunciation,
+          meaning: node.vietnamese,
+          example: node.examples?.[0]?.korean,
+          category: node.category,
+          mastered: false,
+          review_count: 0,
+        });
+      
+      if (error) {
+        console.error('Error adding flashcard:', error);
+        setFlashcardToast({ word: node.korean, hanja: node.hanja, exists: true, show: true });
+      } else {
+        setFlashcardToast({ word: node.korean, hanja: node.hanja, exists: false, show: true });
+      }
+      
       setTimeout(() => setFlashcardToast(null), 2000);
-      return;
+    } catch (error) {
+      console.error('Error in handleAddToFlashcard:', error);
     }
-    
-    // Add new flashcard
-    const newFlashcard = {
-      id: Date.now().toString(),
-      word: node.korean,
-      reading: node.pronunciation,
-      meaning: node.vietnamese,
-      hanja: node.hanja,
-      example: node.examples?.[0]?.korean,
-      category: node.category,
-      mastered: false,
-      reviewCount: 0,
-    };
-    
-    localStorage.setItem(flashcardsKey, JSON.stringify([...existingFlashcards, newFlashcard]));
-    setFlashcardToast({ word: node.korean, hanja: node.hanja, exists: false, show: true });
-    setTimeout(() => setFlashcardToast(null), 2000);
   }, []);
 
   // Stats for current group
