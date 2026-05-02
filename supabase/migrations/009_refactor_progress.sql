@@ -119,16 +119,16 @@ ON CONFLICT (user_id, module_id) DO NOTHING;
 
 -- Migrate flashcard data to flashcard_data (from flashcard_known)
 INSERT INTO public.flashcard_data (user_id, card_id, module_id, status, created_at, updated_at)
-SELECT 
+SELECT
     user_id,
     key as card_id,
     'hanja', -- default to hanja for now
-    CASE WHEN value THEN 'mastered' ELSE 'new' END,
+    CASE WHEN value = 'true' OR value::text::boolean = true THEN 'mastered' ELSE 'new' END,
     updated_at,
     updated_at
 FROM public.study_progress,
     jsonb_each_text(flashcard_known)
-WHERE flashcard_known IS NOT NULL
+WHERE flashcard_known IS NOT NULL AND jsonb_typeof(flashcard_known) = 'object'
 ON CONFLICT (user_id, card_id) DO NOTHING;
 
 -- ─── 5. Update leaderboard to use user_progress.xp ───────────────────────────────────
