@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
@@ -261,6 +261,36 @@ function saveLearned(set: Set<string>) {
 // ─── Stroke Order Component ───────────────────────────────────────────────────────
 function StrokeOrderPanel({ hanja }: { hanja: string }) {
   const [showAnimation, setShowAnimation] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const writerRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (showAnimation && containerRef.current && (window as any).HanziWriter) {
+      // Clear previous writer
+      if (writerRef.current) {
+        writerRef.current = null;
+      }
+      
+      // Create new HanziWriter instance
+      const writer = (window as any).HanziWriter.create(containerRef.current, hanja, {
+        width: 100,
+        height: 100,
+        padding: 5,
+        showOutline: true,
+        strokeAnimationSpeed: 1,
+        delayBetweenStrokes: 200,
+      });
+      
+      writer.animateCharacter();
+      writerRef.current = writer;
+    }
+
+    return () => {
+      if (writerRef.current) {
+        writerRef.current = null;
+      }
+    };
+  }, [showAnimation, hanja]);
   
   return (
     <div className="bg-white/5 border border-white/8 rounded-lg p-3">
@@ -275,7 +305,7 @@ function StrokeOrderPanel({ hanja }: { hanja: string }) {
       </div>
       {showAnimation && (
         <div className="flex items-center justify-center bg-white/5 rounded-lg p-4">
-          <div className="text-6xl font-bold text-white/90 animate-pulse">{hanja}</div>
+          <div ref={containerRef} className="w-[100px] h-[100px]" />
         </div>
       )}
       {!showAnimation && (
