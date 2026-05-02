@@ -88,16 +88,35 @@ export default function AdminRolesPage() {
     try {
       const isAdmin = role === "super_admin" || role === "smod";
       console.log("[handleSave]", { userId, role, isAdmin, permissions });
-      // Save both is_admin (for backward compat) and user_role (for granular roles)
-      const { error } = await supabase.from("user_profiles").update({
+
+      // Try SECURITY DEFINER RPC first (bypasses RLS safely)
+      const rpcRes = await supabase.rpc("admin_set_user_role", {
+        target_user_id: userId,
+        new_role: role,
+      });
+      console.log("[handleSave] RPC response:", rpcRes);
+
+      if (!rpcRes.error && rpcRes.data?.success) {
+        setRoleUsers(prev => prev.map(u => u.id === userId ? { ...u, role, permissions, is_admin: isAdmin } : u));
+        setEditUser(null);
+        showToast(`Đã cập nhật quyền cho ${roleUsers.find(u => u.id === userId)?.display_name}`);
+        return;
+      }
+
+      // RPC failed or doesn't exist → fallback to direct UPDATE
+      const { data, error } = await supabase.from("user_profiles").update({
         is_admin: isAdmin,
         user_role: role,
         updated_at: new Date().toISOString()
-      }).eq("id", userId);
-      console.log("[handleSave] Supabase response:", { error, data: "update called" });
+      }).eq("id", userId).select();
+      console.log("[handleSave] Direct update response:", { error, data });
+      
       if (error) {
-        console.error("[handleSave] Error:", error);
         showToast(`Lỗi: ${error.message || "Không thể cập nhật quyền"}`);
+        return;
+      }
+      if (!data || data.length === 0) {
+        showToast("Lỗi: RLS chặn cập nhật. Vui lòng chạy migration 014_admin_set_role.sql trên Supabase");
         return;
       }
       setRoleUsers(prev => prev.map(u => u.id === userId ? { ...u, role, permissions, is_admin: isAdmin } : u));
@@ -105,7 +124,8 @@ export default function AdminRolesPage() {
       showToast(`Đã cập nhật quyền cho ${roleUsers.find(u => u.id === userId)?.display_name}`);
     } catch (err) {
       console.error("[handleSave] Exception:", err);
-      showToast("Lỗi cập nhật quyền");
+      const msg = err instanceof Error ? err.message : "Lỗi cập nhật quyền";
+      showToast(`Lỗi: ${msg}`);
     } finally {
       setSaving(false);
     }
