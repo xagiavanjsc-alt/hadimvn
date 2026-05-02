@@ -10,91 +10,116 @@ import { communitySlug } from "@/lib/slugify";
 import { useCommunitySettings } from "@/hooks/useCommunitySettings";
 import OnlineUsersWidget from "./components/OnlineUsersWidget";
 
-// ─── Quill Editor Component ───────────────────────────────────────────────────────
-function QuillEditor({ value, onChange, placeholder }: {
+// ─── Rich Text Editor Component (no external deps) ────────────────────────────
+function RichEditor({ value, onChange, placeholder }: {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
 }) {
   const editorRef = useRef<HTMLDivElement>(null);
-  const quillRef = useRef<any>(null);
   const onChangeRef = useRef(onChange);
   onChangeRef.current = onChange;
-  const [quillReady, setQuillReady] = useState(false);
+  const [focused, setFocused] = useState(false);
 
-  // Try to init Quill, retry if CDN not loaded yet
+  const exec = (cmd: string, val?: string) => {
+    editorRef.current?.focus();
+    document.execCommand(cmd, false, val || undefined);
+    handleChange();
+  };
+
+  const handleChange = () => {
+    if (editorRef.current) {
+      onChangeRef.current(editorRef.current.innerHTML);
+    }
+  };
+
+  // Set initial content
   useEffect(() => {
-    if (!editorRef.current) return;
-
-    const tryInit = () => {
-      const Quill = (window as any).Quill;
-      if (!Quill || quillRef.current) return false;
-
-      quillRef.current = new Quill(editorRef.current, {
-        theme: "snow",
-        placeholder: placeholder || "Viết nội dung bài đăng...",
-        modules: {
-          toolbar: [
-            [{ 'header': [1, 2, 3, false] }],
-            ['bold', 'italic', 'underline', 'strike'],
-            ['blockquote', 'code-block'],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            [{ 'align': [] }],
-            ['link', 'image'],
-            ['clean']
-          ]
-        },
-        formats: [
-          'header', 'bold', 'italic', 'underline', 'strike',
-          'blockquote', 'code-block', 'list', 'bullet',
-          'align', 'link', 'image'
-        ]
-      });
-
-      quillRef.current.on('text-change', () => {
-        const html = quillRef.current.root.innerHTML;
-        onChangeRef.current(html);
-      });
-
-      setQuillReady(true);
-      return true;
-    };
-
-    if (tryInit()) return;
-
-    // CDN might not be loaded yet, retry every 300ms
-    const interval = setInterval(() => {
-      if (tryInit()) clearInterval(interval);
-    }, 300);
-
-    return () => {
-      clearInterval(interval);
-      if (quillRef.current) {
-        quillRef.current.off('text-change');
-        quillRef.current = null;
-      }
-    };
+    if (editorRef.current && value && !editorRef.current.innerHTML) {
+      editorRef.current.innerHTML = value;
+    }
   }, []);
 
-  // Sync value from outside (only when Quill is ready and value differs)
-  useEffect(() => {
-    if (quillRef.current && value && value !== quillRef.current.root.innerHTML) {
-      quillRef.current.root.innerHTML = value;
+  const TOOLBAR = [
+    { group: [
+      { cmd: 'formatBlock', val: 'H2', icon: 'ri-h-2', tip: 'Tiêu đề 2' },
+      { cmd: 'formatBlock', val: 'H3', icon: 'ri-h-3', tip: 'Tiêu đề 3' },
+      { cmd: 'formatBlock', val: 'P', icon: 'ri-text', tip: 'Văn bản thường' },
+    ]},
+    { group: [
+      { cmd: 'bold', icon: 'ri-bold', tip: 'In đậm (Ctrl+B)' },
+      { cmd: 'italic', icon: 'ri-italic', tip: 'In nghiêng (Ctrl+I)' },
+      { cmd: 'underline', icon: 'ri-underline', tip: 'Gạch chân (Ctrl+U)' },
+      { cmd: 'strikeThrough', icon: 'ri-strikethrough', tip: 'Gạch ngang' },
+    ]},
+    { group: [
+      { cmd: 'insertUnorderedList', icon: 'ri-list-unordered', tip: 'Danh sách' },
+      { cmd: 'insertOrderedList', icon: 'ri-list-ordered', tip: 'Danh sách số' },
+      { cmd: 'blockquote', icon: 'ri-double-quotes-l', tip: 'Trích dẫn' },
+    ]},
+    { group: [
+      { cmd: 'justifyLeft', icon: 'ri-align-left', tip: 'Căn trái' },
+      { cmd: 'justifyCenter', icon: 'ri-align-center', tip: 'Căn giữa' },
+      { cmd: 'justifyRight', icon: 'ri-align-right', tip: 'Căn phải' },
+    ]},
+    { group: [
+      { cmd: 'createLink', icon: 'ri-link', tip: 'Chèn link' },
+      { cmd: 'removeFormat', icon: 'ri-format-clear', tip: 'Xóa định dạng' },
+    ]},
+  ];
+
+  const handleToolbar = (item: { cmd: string; val?: string }) => {
+    if (item.cmd === 'blockquote') {
+      exec('formatBlock', 'BLOCKQUOTE');
+    } else if (item.cmd === 'createLink') {
+      const url = prompt('Nhập URL:');
+      if (url) exec('createLink', url);
+    } else {
+      exec(item.cmd, item.val);
     }
-  }, [value]);
+  };
+
+  const isEmpty = !value || value === '<br>' || value.replace(/<[^>]*>/g, '').trim().length === 0;
 
   return (
-    <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
-      {!quillReady && (
-        <div className="p-4 text-white/30 text-xs">Đang tải trình soạn thảo...</div>
-      )}
-      <div ref={editorRef} className="min-h-[300px] text-white/80" style={{ minHeight: '300px' }} />
+    <div className={`bg-app-card/30 border rounded-xl overflow-hidden transition-colors ${focused ? 'border-app-accent-primary/40' : 'border-app-border'}`}>
+      {/* Toolbar */}
+      <div className="flex items-center gap-0.5 px-2 py-1.5 border-b border-app-border bg-app-card/50 flex-wrap">
+        {TOOLBAR.map((section, si) => (
+          <div key={si} className="flex items-center gap-0.5">
+            {si > 0 && <div className="w-px h-5 bg-app-border mx-1" />}
+            {section.group.map(item => (
+              <button
+                key={item.cmd + (item.val || '')}
+                type="button"
+                onClick={() => handleToolbar(item)}
+                title={item.tip}
+                className="w-7 h-7 flex items-center justify-center rounded-md text-white/50 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                <i className={`${item.icon} text-sm`}></i>
+              </button>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      {/* Editable area */}
+      <div
+        ref={editorRef}
+        contentEditable
+        onInput={handleChange}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        data-placeholder={placeholder || "Viết nội dung bài đăng..."}
+        className={`min-h-[300px] p-4 text-white/80 text-sm leading-relaxed outline-none [&:empty]:before:content-[attr(data-placeholder)] [&:empty]:before:text-white/20 [&:empty]:before:cursor-text`}
+        style={{ wordBreak: 'break-word' }}
+      />
     </div>
   );
 }
 
-/** Check if Quill HTML content is effectively empty */
-function isQuillEmpty(html: string): boolean {
+/** Check if rich text content is effectively empty */
+function isRichEmpty(html: string): boolean {
   if (!html) return true;
   const text = html.replace(/<[^>]*>/g, '').trim();
   return text.length === 0;
@@ -771,7 +796,7 @@ function NewPostModal({
   };
 
   const handleSubmit = async () => {
-    if (!title.trim() || isQuillEmpty(content)) return;
+    if (!title.trim() || isRichEmpty(content)) return;
     setSubmitting(true);
     try {
       await onSubmit({ title, content, category, imageUrl: imageUrl || undefined });
@@ -820,18 +845,10 @@ function NewPostModal({
           {/* Rich text content */}
           <div>
             <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Nội dung</label>
-            <QuillEditor
+            <RichEditor
               value={content}
               onChange={setContent}
               placeholder="Chia sẻ kinh nghiệm, đặt câu hỏi hoặc khoe thành tích..."
-            />
-            {/* Fallback textarea if Quill fails */}
-            <textarea
-              value={content}
-              onChange={e => setContent(e.target.value)}
-              placeholder="Hoặc viết trực tiếp..."
-              className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 placeholder-white/20 mt-2 min-h-[100px]"
-              style={{ display: 'none' }}
             />
           </div>
 
@@ -865,7 +882,7 @@ function NewPostModal({
 
           <div className="flex gap-3 pt-2">
             <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50">Hủy</button>
-            <button onClick={handleSubmit} disabled={!title.trim() || isQuillEmpty(content) || submitting}
+            <button onClick={handleSubmit} disabled={!title.trim() || isRichEmpty(content) || submitting}
               className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
               {submitting ? "Đang đăng..." : "Đăng bài"}
             </button>
