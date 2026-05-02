@@ -26,7 +26,9 @@ export type UserProfile = {
 export function isVipActive(profile: { is_vip?: boolean; vip_expires_at?: string | null } | null | undefined): boolean {
   if (!profile?.is_vip) return false;
   if (!profile.vip_expires_at) return true; // không có ngày hết hạn → coi như còn VIP
-  return new Date(profile.vip_expires_at).getTime() > Date.now();
+  const active = new Date(profile.vip_expires_at).getTime() > Date.now();
+  console.log("[isVipActive]", { is_vip: profile.is_vip, vip_expires_at: profile.vip_expires_at, active });
+  return active;
 }
 
 export type StudyProgress = {

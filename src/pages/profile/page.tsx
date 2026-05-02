@@ -69,7 +69,7 @@ export default function ProfilePage() {
   // Refresh profile on mount to ensure VIP status is current
   useEffect(() => {
     if (user) refreshProfile();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [streak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
@@ -256,7 +256,7 @@ export default function ProfilePage() {
               </button>
             </>
           )}
-          {!authLoading && !isVip && (
+          {profile && !isVip && (
             <button
               onClick={() => navigate("/pricing")}
               className="flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white/60 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap border border-white/8"

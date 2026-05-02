@@ -155,7 +155,7 @@ export default function LeaderboardPage() {
       setPlayers(mapped);
       setLastRefresh(new Date());
     } catch {
-      // fallback: show only current user if logged in, or empty for guests
+      // fallback: giữ data cũ nếu có, chỉ thay thế cho user logged in
       if (user) {
         const myEntry: LeaderboardPlayer = {
           id: "me-local",
@@ -170,11 +170,13 @@ export default function LeaderboardPage() {
           updated_at: new Date().toISOString(),
           isCurrentUser: true,
         };
-        setPlayers([myEntry]);
-      } else {
-        // Guests: ensure players is set (not stale) so UI shows proper empty state
-        setPlayers([]);
+        // Giữ data cũ + thêm user entry
+        setPlayers(prev => {
+          const filtered = prev.filter(p => !p.isCurrentUser);
+          return [...filtered, myEntry];
+        });
       }
+      // Guests: giữ data cũ, không set rỗng
     } finally {
       setLoading(false);
     }
