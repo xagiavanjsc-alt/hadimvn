@@ -711,7 +711,7 @@ export default function SeoulTextbookPage() {
           </div>
 
           {/* Books grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-5 md:mb-6" style={{ contentVisibility: "auto", containIntrinsicSize: "0 800px" }}>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4 mb-5 md:mb-6" style={{ contentVisibility: "auto", containIntrinsicSize: "0 800px" }}>
             {filteredBooks.map(book => (
               <BookCard
                 key={book.id}
