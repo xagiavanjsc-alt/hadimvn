@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
-import { supabase } from "@/lib/supabase";
+import { supabase, resolveStoragePaths } from "@/lib/supabase";
 
 // ─── SEO Component ─────────────────────────────────────────────────────────────
 function PostSEO({ post }: { post: Post }) {
@@ -326,7 +326,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
 
               {/* Title + content */}
               <h1 className="text-white font-bold text-xl mb-4 leading-snug">{post.title}</h1>
-              <p className="text-white/65 text-sm leading-relaxed whitespace-pre-wrap">{post.content}</p>
+              <p className="text-white/65 text-sm leading-relaxed whitespace-pre-wrap">{resolveStoragePaths(post.content)}</p>
 
               {/* Tags */}
               {post.tags.length > 0 && (

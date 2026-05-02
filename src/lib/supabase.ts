@@ -26,6 +26,16 @@ export function getStorageUrl(relativePath: string | null | undefined): string {
   return `${STORAGE_BASE}/${relativePath}`;
 }
 
+/**
+ * Replace all {{storage:path}} placeholders in content with full URLs.
+ * Store relative paths in DB, convert to full URLs only when rendering.
+ * When migrating to VPS, just change VITE_STORAGE_BASE env var.
+ */
+export function resolveStoragePaths(content: string): string {
+  if (!content) return content;
+  return content.replace(/\{\{storage:([^}]+)\}\}/g, (_match, path) => getStorageUrl(path));
+}
+
 export type UserProfile = {
   id: string;
   display_name: string;

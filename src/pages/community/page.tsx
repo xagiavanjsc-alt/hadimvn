@@ -4,7 +4,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { sanitizeHtml } from "@/lib/sanitize";
-import { supabase, getStorageUrl } from "@/lib/supabase";
+import { supabase, getStorageUrl, resolveStoragePaths } from "@/lib/supabase";
 import { isVipActive } from "@/lib/supabase";
 import { communitySlug } from "@/lib/slugify";
 import { useCommunitySettings } from "@/hooks/useCommunitySettings";
@@ -577,7 +577,7 @@ function PostCard({
       <button onClick={() => onOpenDetail(post.id)} className="text-left w-full cursor-pointer group">
         <h3 className="text-white font-semibold text-sm mb-2 leading-snug group-hover:text-app-accent-primary/90 transition-colors">{post.title}</h3>
       </button>
-      <p className={`text-white/50 text-xs leading-relaxed ${!expanded && "line-clamp-3"}`}>{post.content}</p>
+      <p className={`text-white/50 text-xs leading-relaxed ${!expanded && "line-clamp-3"}`}>{resolveStoragePaths(post.content)}</p>
       {post.content.length > 150 && (
         <button onClick={() => setExpanded(v => !v)} className="text-app-accent-primary/60 text-[10px] mt-1 cursor-pointer hover:text-app-accent-primary whitespace-nowrap">
           {expanded ? "Thu gọn" : "Xem thêm"}
@@ -984,8 +984,10 @@ export default function CommunityPage() {
       }
     }
 
+    // Store relative path in DB (not full URL) for VPS migration later
+    // Format: {{storage:community-images/xxx.webp}} — converted to full URL on render
     const contentWithImage = data.imageUrl
-      ? `${data.content}\n\n![ảnh](${getStorageUrl(data.imageUrl)})`
+      ? `${data.content}\n\n<img src="{{storage:${data.imageUrl}}}" alt="ảnh" style="max-width:100%;border-radius:12px" />`
       : data.content;
     const { error } = await supabase.from("community_posts").insert({
       user_id: user.id,
