@@ -51,13 +51,13 @@ function StatCard({ icon, color, bg, label, value, sub }: {
   icon: string; color: string; bg: string; label: string; value: string | number; sub?: string;
 }) {
   return (
-    <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
-      <div className={`w-10 h-10 flex items-center justify-center ${bg} rounded-xl mb-3`}>
-        <i className={`${icon} ${color} text-lg`}></i>
+    <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4 sm:p-5">
+      <div className={`w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center ${bg} rounded-xl mb-2 sm:mb-3`}>
+        <i className={`${icon} ${color} text-base sm:text-lg`}></i>
       </div>
-      <p className="text-white font-bold text-xl leading-none">{value}</p>
-      <p className="text-white/40 text-xs mt-1">{label}</p>
-      {sub && <p className="text-white/25 text-[10px] mt-1">{sub}</p>}
+      <p className="text-white font-bold text-lg sm:text-xl leading-none">{value}</p>
+      <p className="text-white/40 text-[10px] sm:text-xs mt-1">{label}</p>
+      {sub && <p className="text-white/25 text-[9px] sm:text-[10px] mt-1">{sub}</p>}
     </div>
   );
 }
@@ -269,19 +269,19 @@ export default function ProfilePage() {
       }
     >
       {/* Profile header */}
-      <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-6 mb-6">
-        <div className="flex items-center gap-5">
+      <div className="bg-[#0f1117] border border-white/5 rounded-2xl p-4 sm:p-6 mb-6">
+        <div className="flex items-start sm:items-center gap-3 sm:gap-5">
           {/* Avatar */}
           <div className="relative flex-shrink-0">
             <div
-              className="w-16 h-16 rounded-2xl overflow-hidden cursor-pointer group"
+              className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden cursor-pointer group"
               onClick={() => user && setShowAvatarPicker(true)}
             >
               {profile?.avatar_url ? (
                 <img src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-[#e8c84a]/30 to-[#fb923c]/30 flex items-center justify-center">
-                  <i className="ri-user-3-line text-[#e8c84a] text-2xl"></i>
+                  <i className="ri-user-3-line text-[#e8c84a] text-xl sm:text-2xl"></i>
                 </div>
               )}
               {user && (
@@ -489,7 +489,7 @@ export default function ProfilePage() {
       {/* Overview tab */}
       {activeTab === "overview" && (
         <div className="space-y-5">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             <StatCard icon="ri-file-list-3-line" color="text-[#e8c84a]" bg="bg-[#e8c84a]/10" label="Câu EPS đã làm" value={epsDone} sub={`${epsAccuracy}% chính xác`} />
             <StatCard icon="ri-stack-line" color="text-[#a78bfa]" bg="bg-[#a78bfa]/10" label="Từ vựng đã thuộc" value={flashcardKnown} sub="qua Flashcard" />
             <StatCard icon="ri-font-size" color="text-emerald-400" bg="bg-emerald-500/10" label="Hangul đã học" value={`${hangulKnown}/40`} sub="ký tự cơ bản" />
