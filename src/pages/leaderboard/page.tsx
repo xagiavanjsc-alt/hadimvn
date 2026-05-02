@@ -366,133 +366,227 @@ export default function LeaderboardPage() {
         </div>
 
         {/* Full Leaderboard Table */}
-        <div className="bg-white/2 border border-white/5 rounded-2xl overflow-x-auto">
-          <div className="grid grid-cols-[48px_1fr_120px_100px_100px_100px_100px] gap-0 px-5 py-3 border-b border-white/5 min-w-[600px]">
-            <span className="text-white/25 text-[10px] tracking-normal">#</span>
-            <span className="text-white/25 text-[10px] tracking-normal">Học viên</span>
-            <span className="text-white/25 text-[10px] tracking-normal text-right">XP</span>
-            <span className="text-white/25 text-[10px] tracking-normal text-right">Streak</span>
-            <span className="text-white/25 text-[10px] tracking-normal text-right">EPS cao nhất</span>
-            <span className="text-white/25 text-[10px] tracking-normal text-right">Từ đã học</span>
-            <span className="text-white/25 text-[10px] tracking-normal text-right">Cấp độ</span>
-          </div>
-
-          {loading ? (
-            <div className="flex flex-col items-center justify-center py-16 gap-3">
-              <div className="w-8 h-8 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>
-              <p className="text-white/30 text-sm">Đang tải bảng xếp hạng...</p>
+        <div className="bg-white/2 border border-white/5 rounded-2xl overflow-hidden">
+          {/* Desktop Table - only show on sm and up */}
+          <div className="hidden sm:block overflow-x-auto">
+            <div className="grid grid-cols-[48px_1fr_120px_100px_100px_100px_100px] gap-0 px-5 py-3 border-b border-white/5 min-w-[600px]">
+              <span className="text-white/25 text-[10px] tracking-normal">#</span>
+              <span className="text-white/25 text-[10px] tracking-normal">Học viên</span>
+              <span className="text-white/25 text-[10px] tracking-normal text-right">XP</span>
+              <span className="text-white/25 text-[10px] tracking-normal text-right">Streak</span>
+              <span className="text-white/25 text-[10px] tracking-normal text-right">EPS cao nhất</span>
+              <span className="text-white/25 text-[10px] tracking-normal text-right">Từ đã học</span>
+              <span className="text-white/25 text-[10px] tracking-normal text-right">Cấp độ</span>
             </div>
-          ) : sortedPlayers.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-16 gap-3">
-              <i className="ri-trophy-line text-white/10 text-4xl"></i>
-              <p className="text-white/30 text-sm">Chưa có học viên nào</p>
-              <p className="text-white/20 text-xs">Hãy là người đầu tiên lên bảng xếp hạng!</p>
-            </div>
-          ) : (
-            sortedPlayers.map((player, idx) => {
-              const rank = idx + 1;
-              const isMe = player.isCurrentUser;
-              const isTop3 = rank <= 3;
 
-              return (
-                <div
-                  key={player.id}
-                  className={`grid grid-cols-[48px_1fr_120px_100px_100px_100px_100px] gap-0 px-5 py-3.5 border-b border-white/3 transition-colors min-w-[600px] ${
-                    isMe
-                      ? "bg-[#e8c84a]/5 border-l-2 border-l-[#e8c84a]/40"
-                      : "hover:bg-white/2"
-                  }`}
-                >
-                  {/* Rank */}
-                  <div className="flex items-center">
-                    {isTop3 ? (
-                      <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{ backgroundColor: `${RANK_COLORS[rank - 1]}18` }}>
-                        <i className={`${RANK_ICONS[rank - 1]} text-sm`} style={{ color: RANK_COLORS[rank - 1] }}></i>
-                      </div>
-                    ) : (
-                      <span className={`text-sm font-bold ${isMe ? "text-[#e8c84a]" : "text-white/30"}`}>
-                        {rank}
-                      </span>
-                    )}
-                  </div>
+            {loading ? (
+              <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <div className="w-8 h-8 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>
+                <p className="text-white/30 text-sm">Đang tải bảng xếp hạng...</p>
+              </div>
+            ) : sortedPlayers.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <i className="ri-trophy-line text-white/10 text-4xl"></i>
+                <p className="text-white/30 text-sm">Chưa có học viên nào</p>
+                <p className="text-white/20 text-xs">Hãy là người đầu tiên lên bảng xếp hạng!</p>
+              </div>
+            ) : (
+              sortedPlayers.map((player, idx) => {
+                const rank = idx + 1;
+                const isMe = player.isCurrentUser;
+                const isTop3 = rank <= 3;
 
-                  {/* Player */}
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => !isMe && navigate(`/member/${player.user_id}`)}
-                      className={`flex-shrink-0 ${!isMe ? "cursor-pointer hover:opacity-80 transition-opacity" : "cursor-default"}`}
-                      title={!isMe ? `Xem hồ sơ ${player.display_name}` : ""}
-                    >
-                      <AvatarCell player={player} size={36} />
-                    </button>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => !isMe && navigate(`/member/${player.user_id}`)}
-                          className={`text-sm font-medium transition-colors ${isMe ? "text-[#e8c84a] cursor-default" : "text-white/80 hover:text-[#e8c84a]/80 cursor-pointer"}`}
-                        >
-                          {player.display_name}
-                          {isMe && <span className="ml-1 text-[10px] text-[#e8c84a]/60">(Bạn)</span>}
-                        </button>
-                        {!isMe && (
+                return (
+                  <div
+                    key={player.id}
+                    className={`grid grid-cols-[48px_1fr_120px_100px_100px_100px_100px] gap-0 px-5 py-3.5 border-b border-white/3 transition-colors min-w-[600px] ${
+                      isMe
+                        ? "bg-[#e8c84a]/5 border-l-2 border-l-[#e8c84a]/40"
+                        : "hover:bg-white/2"
+                    }`}
+                  >
+                    {/* Rank */}
+                    <div className="flex items-center">
+                      {isTop3 ? (
+                        <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{ backgroundColor: `${RANK_COLORS[rank - 1]}18` }}>
+                          <i className={`${RANK_ICONS[rank - 1]} text-sm`} style={{ color: RANK_COLORS[rank - 1] }}></i>
+                        </div>
+                      ) : (
+                        <span className={`text-sm font-bold ${isMe ? "text-[#e8c84a]" : "text-white/30"}`}>
+                          {rank}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Player */}
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => !isMe && navigate(`/member/${player.user_id}`)}
+                        className={`flex-shrink-0 ${!isMe ? "cursor-pointer hover:opacity-80 transition-opacity" : "cursor-default"}`}
+                        title={!isMe ? `Xem hồ sơ ${player.display_name}` : ""}
+                      >
+                        <AvatarCell player={player} size={36} />
+                      </button>
+                      <div>
+                        <div className="flex items-center gap-2">
                           <button
-                            onClick={() => navigate(`/member/${player.user_id}`)}
-                            className="text-white/20 hover:text-[#a78bfa]/70 transition-colors cursor-pointer"
-                            title="Xem hồ sơ"
+                            onClick={() => !isMe && navigate(`/member/${player.user_id}`)}
+                            className={`text-sm font-medium transition-colors ${isMe ? "text-[#e8c84a] cursor-default" : "text-white/80 hover:text-[#e8c84a]/80 cursor-pointer"}`}
                           >
-                            <i className="ri-user-line text-[10px]"></i>
+                            {player.display_name}
+                            {isMe && <span className="ml-1 text-[10px] text-[#e8c84a]/60">(Bạn)</span>}
                           </button>
-                        )}
+                          {!isMe && (
+                            <button
+                              onClick={() => navigate(`/member/${player.user_id}`)}
+                              className="text-white/20 hover:text-[#a78bfa]/70 transition-colors cursor-pointer"
+                              title="Xem hồ sơ"
+                            >
+                              <i className="ri-user-line text-[10px]"></i>
+                            </button>
+                          )}
+                        </div>
+                        <p className="text-white/30 text-[10px] mt-0.5">{player.level}</p>
                       </div>
-                      <p className="text-white/30 text-[10px] mt-0.5">{player.level}</p>
+                    </div>
+
+                    {/* XP */}
+                    <div className="flex items-center justify-end">
+                      <span className={`text-sm font-bold ${sortKey === "xp" ? "text-[#e8c84a]" : "text-white/60"}`}>
+                        {player.xp.toLocaleString()}
+                      </span>
+                    </div>
+
+                    {/* Streak */}
+                    <div className="flex items-center justify-end gap-1">
+                      <i className="ri-fire-line text-[#fb923c] text-xs"></i>
+                      <span className={`text-sm ${sortKey === "streak" ? "text-[#fb923c] font-bold" : "text-white/60"}`}>
+                        {player.streak}
+                      </span>
+                    </div>
+
+                    {/* Best Score */}
+                    <div className="flex items-center justify-end">
+                      <span className={`text-sm ${sortKey === "best_score" ? "text-[#4ade80] font-bold" : "text-white/60"}`}>
+                        {player.best_score > 0 ? `${player.best_score}%` : "—"}
+                      </span>
+                    </div>
+
+                    {/* Words */}
+                    <div className="flex items-center justify-end">
+                      <span className={`text-sm ${sortKey === "words_learned" ? "text-[#a78bfa] font-bold" : "text-white/60"}`}>
+                        {player.words_learned.toLocaleString()}
+                      </span>
+                    </div>
+
+                    {/* Level */}
+                    <div className="flex items-center justify-end">
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${
+                        player.level === "TOPIK II"
+                          ? "bg-[#e8c84a]/10 text-[#e8c84a]"
+                          : player.level === "TOPIK I"
+                          ? "bg-[#4ade80]/10 text-[#4ade80]"
+                          : "bg-white/5 text-white/40"
+                      }`}>
+                        {player.level}
+                      </span>
                     </div>
                   </div>
+                );
+              })
+            )}
+          </div>
+          {/* Mobile Card Layout - only show on mobile */}
+          <div className="sm:hidden p-4 space-y-3">
+            {loading ? (
+              <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <div className="w-8 h-8 border-2 border-[#e8c84a]/30 border-t-[#e8c84a] rounded-full animate-spin"></div>
+                <p className="text-white/30 text-sm">Đang tải bảng xếp hạng...</p>
+              </div>
+            ) : sortedPlayers.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <i className="ri-trophy-line text-white/10 text-4xl"></i>
+                <p className="text-white/30 text-sm">Chưa có học viên nào</p>
+                <p className="text-white/20 text-xs">Hãy là người đầu tiên lên bảng xếp hạng!</p>
+              </div>
+            ) : (
+              sortedPlayers.map((player, idx) => {
+                const rank = idx + 1;
+                const isMe = player.isCurrentUser;
+                const isTop3 = rank <= 3;
 
-                  {/* XP */}
-                  <div className="flex items-center justify-end">
-                    <span className={`text-sm font-bold ${sortKey === "xp" ? "text-[#e8c84a]" : "text-white/60"}`}>
-                      {player.xp.toLocaleString()}
-                    </span>
-                  </div>
+                return (
+                  <div
+                    key={player.id}
+                    className={`bg-white/3 border rounded-xl p-4 transition-colors ${
+                      isMe
+                        ? "bg-[#e8c84a]/5 border-[#e8c84a]/30"
+                        : "border-white/5 hover:bg-white/5"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      {/* Rank */}
+                      <div className="flex-shrink-0">
+                        {isTop3 ? (
+                          <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: `${RANK_COLORS[rank - 1]}18` }}>
+                            <i className={`${RANK_ICONS[rank - 1]} text-sm`} style={{ color: RANK_COLORS[rank - 1] }}></i>
+                          </div>
+                        ) : (
+                          <span className={`text-sm font-bold w-8 h-8 flex items-center justify-center rounded-full bg-white/5 ${isMe ? "text-[#e8c84a]" : "text-white/30"}`}>
+                            {rank}
+                          </span>
+                        )}
+                      </div>
 
-                  {/* Streak */}
-                  <div className="flex items-center justify-end gap-1">
-                    <i className="ri-fire-line text-[#fb923c] text-xs"></i>
-                    <span className={`text-sm ${sortKey === "streak" ? "text-[#fb923c] font-bold" : "text-white/60"}`}>
-                      {player.streak}
-                    </span>
-                  </div>
+                      {/* Player */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => !isMe && navigate(`/member/${player.user_id}`)}
+                            className="flex-shrink-0"
+                          >
+                            <AvatarCell player={player} size={32} />
+                          </button>
+                          <div className="min-w-0 flex-1">
+                            <button
+                              onClick={() => !isMe && navigate(`/member/${player.user_id}`)}
+                              className={`text-sm font-medium truncate transition-colors ${isMe ? "text-[#e8c84a] cursor-default" : "text-white/80 hover:text-[#e8c84a]/80 cursor-pointer"}`}
+                            >
+                              {player.display_name}
+                              {isMe && <span className="ml-1 text-[10px] text-[#e8c84a]/60">(Bạn)</span>}
+                            </button>
+                            <p className="text-white/30 text-[10px] mt-0.5 truncate">{player.level}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-                  {/* Best Score */}
-                  <div className="flex items-center justify-end">
-                    <span className={`text-sm ${sortKey === "best_score" ? "text-[#4ade80] font-bold" : "text-white/60"}`}>
-                      {player.best_score > 0 ? `${player.best_score}%` : "—"}
-                    </span>
+                    {/* Stats Grid */}
+                    <div className="grid grid-cols-3 gap-2">
+                      <div className="bg-white/3 rounded-lg p-2 text-center">
+                        <p className="text-[10px] text-white/30 mb-0.5">XP</p>
+                        <p className={`text-sm font-bold ${sortKey === "xp" ? "text-[#e8c84a]" : "text-white/60"}`}>
+                          {player.xp.toLocaleString()}
+                        </p>
+                      </div>
+                      <div className="bg-white/3 rounded-lg p-2 text-center">
+                        <p className="text-[10px] text-white/30 mb-0.5">Streak</p>
+                        <p className={`text-sm font-bold ${sortKey === "streak" ? "text-[#fb923c]" : "text-white/60"}`}>
+                          {player.streak}
+                        </p>
+                      </div>
+                      <div className="bg-white/3 rounded-lg p-2 text-center">
+                        <p className="text-[10px] text-white/30 mb-0.5">EPS</p>
+                        <p className={`text-sm font-bold ${sortKey === "best_score" ? "text-[#4ade80]" : "text-white/60"}`}>
+                          {player.best_score > 0 ? `${player.best_score}%` : "—" }
+                        </p>
+                      </div>
+                    </div>
                   </div>
-
-                  {/* Words */}
-                  <div className="flex items-center justify-end">
-                    <span className={`text-sm ${sortKey === "words_learned" ? "text-[#a78bfa] font-bold" : "text-white/60"}`}>
-                      {player.words_learned.toLocaleString()}
-                    </span>
-                  </div>
-
-                  {/* Level */}
-                  <div className="flex items-center justify-end">
-                    <span className={`text-xs px-2 py-0.5 rounded-full ${
-                      player.level === "TOPIK II"
-                        ? "bg-[#e8c84a]/10 text-[#e8c84a]"
-                        : player.level === "TOPIK I"
-                        ? "bg-[#4ade80]/10 text-[#4ade80]"
-                        : "bg-white/5 text-white/40"
-                    }`}>
-                      {player.level}
-                    </span>
-                  </div>
-                </div>
-              );
-            })
-          )}
+                );
+              })
+            )}
+          </div>
         </div>
 
         {/* Login CTA if not logged in */}
