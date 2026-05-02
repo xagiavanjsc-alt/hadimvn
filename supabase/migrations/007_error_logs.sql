@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS public.error_logs (
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE INDEX idx_error_logs_type ON public.error_logs(error_type, created_at DESC);
-CREATE INDEX idx_error_logs_resolved ON public.error_logs(is_resolved, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_error_logs_type ON public.error_logs(error_type, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_error_logs_resolved ON public.error_logs(is_resolved, created_at DESC);
 
 ALTER TABLE public.error_logs ENABLE ROW LEVEL SECURITY;
 
