@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useEffect, useCallback } from "react";
+﻿import { useState, useMemo, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -9,6 +9,65 @@ import { isVipActive } from "@/lib/supabase";
 import { communitySlug } from "@/lib/slugify";
 import { useCommunitySettings } from "@/hooks/useCommunitySettings";
 import OnlineUsersWidget from "./components/OnlineUsersWidget";
+
+// ─── Quill Editor Component ───────────────────────────────────────────────────────
+function QuillEditor({ value, onChange, placeholder }: {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+}) {
+  const editorRef = useRef<HTMLDivElement>(null);
+  const quillRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && (window as any).Quill && editorRef.current && !quillRef.current) {
+      const Quill = (window as any).Quill;
+      
+      quillRef.current = new Quill(editorRef.current, {
+        theme: "snow",
+        placeholder: placeholder || "Viết nội dung bài đăng...",
+        modules: {
+          toolbar: [
+            [{ 'header': [1, 2, 3, false] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'code-block'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'align': [] }],
+            ['link', 'image'],
+            ['clean']
+          ]
+        },
+        formats: [
+          'header', 'bold', 'italic', 'underline', 'strike',
+          'blockquote', 'code-block', 'list', 'bullet',
+          'align', 'link', 'image'
+        ]
+      });
+
+      quillRef.current.on('text-change', () => {
+        onChange(quillRef.current.root.innerHTML);
+      });
+    }
+
+    return () => {
+      if (quillRef.current) {
+        quillRef.current = null;
+      }
+    };
+  }, [placeholder, onChange]);
+
+  useEffect(() => {
+    if (quillRef.current && value !== quillRef.current.root.innerHTML) {
+      quillRef.current.root.innerHTML = value;
+    }
+  }, [value]);
+
+  return (
+    <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
+      <div ref={editorRef} className="min-h-[200px] text-white/80" />
+    </div  >
+  );
+}
 
 // ─── Schema.org FAQPage structured data ─────────────────────────────────────
 const FAQ_SCHEMA = {
@@ -605,45 +664,82 @@ function NewPostModal({
   const [category, setCategory] = useState("share");
   const [submitting, setSubmitting] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
-  const [showImageInput, setShowImageInput] = useState(false);
   const [imagePreview, setImagePreview] = useState("");
-  const textareaRef = useState<HTMLTextAreaElement | null>(null);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFormat = (tag: string) => {
-    const textarea = document.getElementById("post-content") as HTMLTextAreaElement;
-    if (!textarea) return;
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const selected = content.slice(start, end);
-    let newText = content;
-    switch (tag) {
-      case "bold": newText = content.slice(0, start) + `**${selected || "văn bản"}**` + content.slice(end); break;
-      case "italic": newText = content.slice(0, start) + `_${selected || "văn bản"}_` + content.slice(end); break;
-      case "list": newText = content.slice(0, start) + `\n- ${selected || "mục"}` + content.slice(end); break;
-      case "quote": newText = content.slice(0, start) + `\n> ${selected || "trích dẫn"}` + content.slice(end); break;
-      case "code": newText = content.slice(0, start) + `\`${selected || "code"}\`` + content.slice(end); break;
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+    try {
+      // Convert to WebP and resize
+      const webpData = await convertToWebP(file, 800);
+      
+      // Upload to Supabase storage
+      const fileName = `${Date.now()}_${file.name.split('.')[0]}.webp`;
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('community-images')
+        .upload(fileName, webpData, {
+          contentType: 'image/webp',
+          upsert: false
+        });
+
+      if (uploadError) throw uploadError;
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('community-images')
+        .getPublicUrl(fileName);
+
+      setImageUrl(publicUrl);
+      setImagePreview(publicUrl);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      alert('Lỗi khi upload ảnh');
+    } finally {
+      setUploadingImage(false);
     }
-    setContent(newText.slice(0, 500));
   };
 
-  const handleImageUrl = (url: string) => {
-    setImageUrl(url);
-    if (url.match(/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp)/i)) {
-      setImagePreview(url);
-    } else {
-      setImagePreview("");
-    }
-  };
+  const convertToWebP = (file: File, maxWidth: number): Promise<Blob> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        if (!ctx) {
+          reject(new Error('Canvas context not available'));
+          return;
+        }
 
-  // Render markdown preview
-  const renderContent = (text: string) => {
-    return text
-      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      .replace(/_(.*?)_/g, "<em>$1</em>")
-      .replace(/`(.*?)`/g, "<code class='bg-app-card/70 px-1 rounded text-app-accent-primary'>$1</code>")
-      .replace(/^> (.+)$/gm, "<blockquote class='border-l-2 border-app-accent-primary/40 pl-3 text-white/50 italic'>$1</blockquote>")
-      .replace(/^- (.+)$/gm, "<li class='ml-4 list-disc'>$1</li>")
-      .replace(/\n/g, "<br/>");
+        // Calculate dimensions maintaining aspect ratio
+        let width = img.width;
+        let height = img.height;
+        
+        if (width > maxWidth) {
+          height = (height * maxWidth) / width;
+          width = maxWidth;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        ctx.drawImage(img, 0, 0, width, height);
+
+        canvas.toBlob((blob) => {
+          if (blob) {
+            resolve(blob);
+          } else {
+            reject(new Error('Canvas toBlob failed'));
+          }
+        }, 'image/webp', 0.8);
+      };
+      img.onerror = reject;
+      img.src = URL.createObjectURL(file);
+    });
   };
 
   const handleSubmit = async () => {
@@ -691,47 +787,38 @@ function NewPostModal({
 
           {/* Rich text content */}
           <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <label className="text-app-text-secondary text-xs font-medium">Nội dung</label>
-              <span className="text-app-text-muted text-[10px]">Hỗ trợ **đậm**, _nghiêng_, `code`, &gt; trích dẫn</span>
-            </div>
-            <RichTextToolbar onFormat={handleFormat} />
-            <textarea id="post-content" value={content} onChange={e => setContent(e.target.value.slice(0, 500))}
-              placeholder="Chia sẻ kinh nghiệm, đặt câu hỏi hoặc khoe thành tích..." rows={6}
-              className="w-full bg-app-card/50 border border-app-border rounded-b-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 placeholder-white/20 resize-none" />
-            <p className="text-app-text-muted text-[10px] text-right mt-1">{content.length}/500</p>
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Nội dung</label>
+            <QuillEditor
+              value={content}
+              onChange={setContent}
+              placeholder="Chia sẻ kinh nghiệm, đặt câu hỏi hoặc khoe thành tích..."
+            />
           </div>
 
-          {/* Preview */}
-          {content.trim() && (
-            <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
-              <p className="text-app-text-muted text-[10px] tracking-normal mb-2">Xem trước</p>
-              <div className="text-white/70 text-sm leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: sanitizeHtml(renderContent(content)) }} />
-            </div>
-          )}
-
-          {/* Image */}
+          {/* Image upload */}
           <div>
-            <button onClick={() => setShowImageInput(v => !v)}
+            <button onClick={() => fileInputRef.current?.click()}
               className="flex items-center gap-2 text-app-text-secondary hover:text-white/70 text-xs cursor-pointer whitespace-nowrap transition-colors">
-              <i className={`${showImageInput ? "ri-image-line text-app-accent-primary" : "ri-image-add-line"} text-sm`}></i>
-              {showImageInput ? "Ẩn thêm ảnh" : "Thêm ảnh (URL)"}
+              <i className="ri-image-add-line text-sm"></i>
+              Thêm ảnh (tự động chuyển WebP, resize về 800px)
             </button>
-            {showImageInput && (
-              <div className="mt-2 space-y-2">
-                <input value={imageUrl} onChange={e => handleImageUrl(e.target.value)}
-                  placeholder="Dán URL ảnh vào đây (jpg, png, gif...)"
-                  className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 placeholder-white/20" />
-                {imagePreview && (
-                  <div className="relative">
-                    <img src={imagePreview} alt="Preview" className="w-full max-h-48 object-cover rounded-xl border border-app-border" />
-                    <button onClick={() => { setImageUrl(""); setImagePreview(""); }}
-                      className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center rounded-full bg-black/60 text-white/70 hover:text-white cursor-pointer">
-                      <i className="ri-close-line text-xs"></i>
-                    </button>
-                  </div>
-                )}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
+            {uploadingImage && (
+              <div className="mt-2 text-app-text-muted text-xs">Đang upload ảnh...</div>
+            )}
+            {imagePreview && (
+              <div className="mt-2 relative">
+                <img src={imagePreview} alt="Preview" className="w-full max-h-48 object-cover rounded-xl border border-app-border" />
+                <button onClick={() => { setImageUrl(""); setImagePreview(""); }}
+                  className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center rounded-full bg-black/60 text-white/70 hover:text-white cursor-pointer">
+                  <i className="ri-close-line text-xs"></i>
+                </button>
               </div>
             )}
           </div>
