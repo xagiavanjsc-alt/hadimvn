@@ -1,6 +1,9 @@
 ﻿import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useAuth } from "@/hooks/useAuth";
+import { UnifiedFlashcard } from "@/components/feature/UnifiedFlashcard";
 
 interface DeckOption {
   id: string;
@@ -162,74 +165,117 @@ function DeckCard({ deck, onSelect }: { deck: DeckOption; onSelect: () => void }
 }
 
 export default function FlashcardHubPage() {
+  const { user } = useAuth();
+  const [activeDeck, setActiveDeck] = useState<DeckOption | null>(null);
+  const [sessionStats, setSessionStats] = useState<{ correct: number; total: number } | null>(null);
+
+  const handleDeckSelect = (deck: DeckOption) => {
+    setActiveDeck(deck);
+    setSessionStats(null);
+  };
+
+  const handleComplete = (stats: { correct: number; total: number }) => {
+    setSessionStats(stats);
+  };
+
+  const handleBack = () => {
+    setActiveDeck(null);
+    setSessionStats(null);
+  };
+
   const navigate = useNavigate();
   const [recentDeck, setRecentDeck] = useLocalStorage<string>("kts_recent_flashcard_deck", "");
 
-  const handleSelect = (deck: DeckOption) => {
+  const handleNavigate = (deck: DeckOption) => {
     setRecentDeck(deck.id);
     navigate(deck.path);
   };
 
   const recentDeckData = DECK_OPTIONS.find(d => d.id === recentDeck);
 
+  // Mock card data for demo - will be replaced with real data fetch
+  const getMockCards = (moduleId: string) => {
+    const cards: Array<{ id: string; front: string; back: string; extra?: string }> = [];
+    for (let i = 1; i <= 10; i++) {
+      cards.push({
+        id: `${moduleId}_card_${i}`,
+        front: `Card ${i} Front`,
+        back: `Card ${i} Back`,
+        extra: `Extra info for card ${i}`,
+      });
+    }
+    return cards;
+  };
+
   return (
-    <DashboardLayout title="Thẻ ghi nhớ" subtitle="Chọn bộ thẻ để bắt đầu học">
-      <div className="max-w-4xl mx-auto px-6 py-8">
+    <DashboardLayout>
+      <div className="max-w-6xl mx-auto p-6">
+        {activeDeck ? (
+          <>
+            <div className="mb-6">
+              <button onClick={handleBack} className="flex items-center gap-2 text-white/60 hover:text-white text-sm mb-4">
+                <i className="ri-arrow-left-line"></i>
+                Quay lại
+              </button>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 flex items-center justify-center rounded-xl" style={{ backgroundColor: activeDeck.bgColor }}>
+                  <i className={`${activeDeck.icon} text-lg`} style={{ color: activeDeck.color }}></i>
+                </div>
+                <div>
+                  <h1 className="text-white font-semibold">{activeDeck.title}</h1>
+                  <p className="text-white/60 text-sm">{activeDeck.subtitle}</p>
+                </div>
+              </div>
+            </div>
 
-        {/* Recent deck shortcut */}
-        {recentDeckData && (
-          <div className="mb-8">
-            <p className="text-white/30 text-xs tracking-normal font-semibold mb-3">Tiếp tục học</p>
-            <button
-              onClick={() => handleSelect(recentDeckData)}
-              className="w-full flex items-center gap-4 p-4 rounded-2xl border cursor-pointer hover:scale-[1.01] transition-all"
-              style={{ backgroundColor: recentDeckData.bgColor, borderColor: recentDeckData.color + "30" }}
-            >
-              <div
-                className="w-12 h-12 flex items-center justify-center rounded-xl flex-shrink-0"
-                style={{ backgroundColor: recentDeckData.color + "20" }}
-              >
-                <i className={`${recentDeckData.icon} text-2xl`} style={{ color: recentDeckData.color }}></i>
+            {sessionStats ? (
+              <div className="flex flex-col items-center justify-center py-20 text-center">
+                <div className="w-16 h-16 flex items-center justify-center bg-green-500/10 rounded-full mb-4">
+                  <i className="ri-check-line text-green-400 text-3xl"></i>
+                </div>
+                <h2 className="text-white text-xl font-semibold mb-2">Hoàn thành!</h2>
+                <p className="text-white/60 text-sm mb-4">
+                  Bạn đã học 10 thẻ flashcard
+                </p>
+                <div className="flex gap-4 text-sm">
+                  <div className="text-green-400">{sessionStats.correct} đúng</div>
+                  <div className="text-white/30">{sessionStats.total - sessionStats.correct} sai</div>
+                </div>
+                <button onClick={handleBack} className="mt-6 px-6 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-white text-sm transition-colors">
+                  Quay lại hub
+                </button>
               </div>
-              <div className="flex-1 text-left">
-                <p className="text-white font-bold">{recentDeckData.title}</p>
-                <p className="text-white/40 text-xs">{recentDeckData.subtitle} · {recentDeckData.totalCards.toLocaleString()} thẻ</p>
+            ) : (
+              <UnifiedFlashcard
+                moduleId={activeDeck.id}
+                userId={user?.id || ""}
+                cards={getMockCards(activeDeck.id)}
+                onComplete={handleComplete}
+              />
+            )}
+          </>
+        ) : (
+          <>
+            <div className="mb-8">
+              <h1 className="text-2xl font-bold text-white mb-2">Flashcard Hub</h1>
+              <p className="text-white/60 text-sm">Hệ thống thẻ ghi nhớ thống nhất với Spaced Repetition</p>
+            </div>
+
+            {recentDeckData && (
+              <div className="mb-6">
+                <p className="text-white/40 text-xs mb-3">Gần đây</p>
+                <DeckCard deck={recentDeckData} onSelect={() => handleNavigate(recentDeckData)} />
               </div>
-              <div
-                className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap"
-                style={{ backgroundColor: recentDeckData.color, color: "#0f1117" }}
-              >
-                <i className="ri-play-fill text-sm"></i>
-                Tiếp tục
-              </div>
-            </button>
-          </div>
+            )}
+
+            <p className="text-white/40 text-xs mb-3">Tất cả decks</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {DECK_OPTIONS.map(deck => (
+                <DeckCard key={deck.id} deck={deck} onSelect={() => handleDeckSelect(deck)} />
+              ))}
+            </div>
+          </>
         )}
-
-        {/* All decks */}
-        <div>
-          <p className="text-white/30 text-xs tracking-normal font-semibold mb-4">Tất cả bộ thẻ</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {DECK_OPTIONS.map(deck => (
-              <DeckCard key={deck.id} deck={deck} onSelect={() => handleSelect(deck)} />
-            ))}
-          </div>
-        </div>
-
-        {/* Tips */}
-        <div className="mt-10 p-5 rounded-2xl border border-white/6 bg-white/2">
-          <div className="flex items-start gap-3">
-            <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#e8c84a]/10 flex-shrink-0">
-              <i className="ri-lightbulb-line text-[#e8c84a] text-sm"></i>
-            </div>
-            <div>
-              <p className="text-white/70 text-sm font-semibold mb-1">Mẹo học hiệu quả</p>
-              <p className="text-white/40 text-xs leading-relaxed">
-                Học đều đặn mỗi ngày 15-20 phút hiệu quả hơn học dồn 2 tiếng một lần. Bộ thẻ <strong className="text-white/60">AI Thông minh</strong> sẽ tự động nhắc bạn ôn lại đúng lúc trước khi quên.
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
     </DashboardLayout>
   );
