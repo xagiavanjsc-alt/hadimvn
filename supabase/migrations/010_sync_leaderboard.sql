@@ -5,15 +5,16 @@
 INSERT INTO public.leaderboard (user_id, display_name, avatar_url, xp, streak, best_score, words_learned, level, updated_at)
 SELECT 
     up.user_id,
-    COALESCE(up.display_name, up.email, 'Học viên') as display_name,
-    up.avatar_url,
+    COALESCE(upro.display_name, upro.email, 'Học viên') as display_name,
+    upro.avatar_url,
     up.xp,
     up.streak_count as streak,
     0 as best_score, -- default 0 if not set
     0 as words_learned, -- default 0 if not set
-    'Cơ bản' as level, -- default level
+    up.level,
     up.updated_at
 FROM public.user_progress up
+LEFT JOIN public.user_profiles upro ON up.user_id = upro.id
 ON CONFLICT (user_id) 
 DO UPDATE SET
     display_name = EXCLUDED.display_name,
