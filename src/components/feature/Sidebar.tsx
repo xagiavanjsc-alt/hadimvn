@@ -2,6 +2,7 @@
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { isVipActive } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase";
 import { useStudySync } from "@/hooks/useStudySync";
 import { useIsAdmin, markAdminVerified } from "@/hooks/useIsAdmin";
 import { useEffect, useState, useMemo, memo } from "react";
@@ -13,8 +14,17 @@ function getRankForXP(xp: number) {
 }
 
 function StreakBadge() {
+  const { user, profile } = useAuth();
   const [streak, setStreak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
-  const [xpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
+  const [xpFromDB, setXpFromDB] = useState(0);
+
+  // Fetch XP from user_progress (unified source of truth)
+  useEffect(() => {
+    if (!user) return;
+    supabase.from("user_progress").select("xp").eq("user_id", user.id).maybeSingle().then(({ data }) => {
+      if (data) setXpFromDB(data.xp);
+    });
+  }, [user]);
 
   useEffect(() => {
     const today = new Date().toISOString().split("T")[0];
@@ -27,7 +37,7 @@ function StreakBadge() {
     }
   }, []);
 
-  const totalXP = xpData.total || 0;
+  const totalXP = xpFromDB || 0;
   const rank = getRankForXP(totalXP);
   const nextRank = RANKS[RANKS.indexOf(rank) + 1];
   const progress = nextRank
