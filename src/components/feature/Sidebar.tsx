@@ -79,7 +79,19 @@ const navGroups = [
     items: [
       { path: "/learning-hub", icon: "ri-dashboard-line", label: "Learning Hub" },
       { path: "/exam-hub", icon: "ri-file-list-3-line", label: "Exam Hub" },
+      { path: "/flashcard-hub", icon: "ri-stack-line", label: "Flashcard Hub" },
       { path: "/leaderboard", icon: "ri-trophy-line", label: "Bảng xếp hạng" },
+    ],
+  },
+  {
+    label: "Học tập",
+    icon: "ri-book-open-line",
+    color: "#4ade80",
+    items: [
+      { path: "/eps-lessons", icon: "ri-file-list-3-line", label: "EPS (Lao động)" },
+      { path: "/seoul-textbook", icon: "ri-book-3-line", label: "Seoul (Du học)" },
+      { path: "/topik-test", icon: "ri-survey-line", label: "TOPIK (Chứng chỉ)" },
+      { path: "/hanja-detail", icon: "ri-character-recognition-line", label: "Hán Hàn", badge: "VIP" },
     ],
   },
   {
@@ -88,43 +100,9 @@ const navGroups = [
     badge: "VIP",
     color: "#e8c84a",
     items: [
-      { path: "/hanja-detail", icon: "ri-character-recognition-line", label: "Hán Hàn chi tiết" },
       { path: "/hanja-tree", icon: "ri-git-merge-line", label: "Hình cây từ vựng" },
       { path: "/hanja-dashboard", icon: "ri-bar-chart-2-line", label: "Tiến độ & Streak" },
       { path: "/advanced-dictionary", icon: "ri-search-2-line", label: "Tra cứu Hán Hàn" },
-      { path: "/flashcard-hub", icon: "ri-stack-line", label: "Thẻ ghi nhớ" },
-    ],
-  },
-  {
-    label: "Eps (Lao động)",
-    icon: "ri-file-list-3-line",
-    color: "#4ade80",
-    items: [
-      { path: "/eps-lessons", icon: "ri-book-open-line", label: "60 bài học" },
-      { path: "/eps-exam", icon: "ri-timer-line", label: "Luyện thi" },
-      { path: "/eps-smart-wrong", icon: "ri-error-warning-line", label: "Ôn tập & Sổ tay" },
-      { path: "/eps-listening", icon: "ri-headphone-line", label: "Nghe & Nói" },
-    ],
-  },
-  {
-    label: "Seoul (Du học)",
-    icon: "ri-book-3-line",
-    color: "#60a5fa",
-    items: [
-      { path: "/seoul-textbook", icon: "ri-book-3-line", label: "Giáo trình 1A–4B" },
-      { path: "/seoul-practice", icon: "ri-sword-line", label: "Luyện tập" },
-      { path: "/seoul-exam", icon: "ri-file-list-2-line", label: "Phòng thi" },
-    ],
-  },
-  {
-    label: "Topik (Chứng chỉ)",
-    icon: "ri-survey-line",
-    color: "#f472b6",
-    items: [
-      { path: "/topik-test", icon: "ri-file-list-2-line", label: "Đề thi thử" },
-      { path: "/topik-dictionary", icon: "ri-search-2-line", label: "Từ vựng TOPIK" },
-      { path: "/grammar", icon: "ri-book-2-line", label: "Ngữ pháp tiếng Hàn" },
-      { path: "/flashcard-hub", icon: "ri-stack-line", label: "Thẻ ghi nhớ TOPIK" },
     ],
   },
   {
@@ -145,7 +123,6 @@ const navGroups = [
     color: "#fb923c",
     items: [
       { path: "/community", icon: "ri-group-line", label: "Hỏi đáp" },
-      { path: "/leaderboard", icon: "ri-trophy-line", label: "Bảng xếp hạng" },
       { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ cá nhân" },
     ],
   },
@@ -155,10 +132,8 @@ const navGroups = [
 
 const DEFAULT_OPEN: Record<string, boolean> = {
   "Tổng quan": true,
+  "Học tập": true,
   "Hán Hàn Vip": false,
-  "Eps (Lao động)": false,
-  "Seoul (Du học)": false,
-  "Topik (Chứng chỉ)": false,
   "Ai & Kỹ năng": false,
   "Cộng đồng": false,
 };
