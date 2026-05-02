@@ -310,6 +310,7 @@ const KoreanNewsPage = lazyPage(() => import("../pages/korean-news/page"));
 const HanjaDetailPage = lazyPage(() => import("../pages/hanja-detail/page"));
 const HanjaTreePage = lazyPage(() => import("../pages/hanja-tree/page"));
 const HanjaDashboardPage = lazyPage(() => import("../pages/hanja-dashboard/page"));
+const HanjaAnalyticsPage = lazyPage(() => import("../pages/hanja-analytics/page"));
 const FlashcardHubPage = lazyPage(() => import("../pages/flashcard-hub/page"), "flashcard");
 const SpeakingLevelPage = lazyPage(() => import("../pages/speaking-level/page"));
 const HangulWritingPage = lazyPage(() => import("../pages/hangul-writing/page"));
@@ -630,6 +631,7 @@ const routes: RouteObject[] = [
   { path: "/hanja-detail", element: <HanjaDetailPage /> },
   { path: "/hanja-tree", element: <HanjaTreePage /> },
   { path: "/hanja-dashboard", element: <HanjaDashboardPage /> },
+  { path: "/hanja-analytics", element: <HanjaAnalyticsPage /> },
   { path: "/flashcard-hub", element: <FlashcardHubPage /> },
   { path: "/speaking-level", element: <SpeakingLevelPage /> },
   { path: "/hangul-writing", element: <HangulWritingPage /> },
