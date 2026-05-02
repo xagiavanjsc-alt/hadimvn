@@ -163,33 +163,27 @@ async function syncToDB() {
     
     for (const entry of batch) {
       try {
-        const { data, error } = await supabase
-          .from('hanja_vocab_entries')
-          .upsert({
-            korean: entry.korean,
-            hanja: entry.hanja,
-            vietnamese: entry.vietnamese,
-            pronunciation: entry.pronunciation,
-            category: entry.category,
-            difficulty: entry.difficulty,
-            topik_level: entry.topik_level,
-            examples: entry.examples,
-            memory_tip: entry.memory_tip,
-            related_words: entry.related_words,
-          }, {
-            onConflict: 'korean,hanja',
-            ignoreDuplicates: false,
-          })
-          .select('id')
-          .maybeSingle();
+        const { data, error } = await supabase.rpc('upsert_hanja_entry', {
+          p_korean: entry.korean,
+          p_hanja: entry.hanja,
+          p_vietnamese: entry.vietnamese,
+          p_pronunciation: entry.pronunciation,
+          p_category: entry.category,
+          p_difficulty: entry.difficulty,
+          p_topik_level: entry.topik_level,
+          p_examples: entry.examples,
+          p_memory_tip: entry.memory_tip,
+          p_related_words: entry.related_words,
+        });
 
         if (error) {
           console.error(`❌ Error syncing ${entry.korean}:`, error.message);
           errors++;
-        } else if (data) {
+        } else if (data?.success) {
           created++;
         } else {
-          updated++;
+          console.error(`❌ RPC returned false for ${entry.korean}:`, data?.error);
+          errors++;
         }
       } catch (err) {
         console.error(`❌ Exception syncing ${entry.korean}:`, err.message);
@@ -201,8 +195,7 @@ async function syncToDB() {
   }
 
   console.log('\n✅ Sync complete!');
-  console.log(`   Created: ${created}`);
-  console.log(`   Updated: ${updated}`);
+  console.log(`   Created/Updated: ${created}`);
   console.log(`   Errors: ${errors}`);
 }
 
