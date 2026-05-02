@@ -110,59 +110,29 @@ export default function AdminRolesPage() {
   const handleSave = async (userId: string, role: Role, permissions: string[]) => {
     setSaving(true);
     try {
-      const isAdmin = role === "super_admin" || role === "smod" || role === "moderator";
-      console.log("[handleSave]", { userId, role, isAdmin, permissions });
+      console.log("[handleSave]", { userId, role, permissions });
 
-      // Try SECURITY DEFINER RPC first (bypasses RLS safely)
+      // ONLY use RPC - direct UPDATE would bypass hierarchy check
       const rpcRes = await supabase.rpc("admin_set_user_role", {
         target_user_id: userId,
         new_role: role,
       });
       console.log("[handleSave] RPC response:", rpcRes);
 
-      let savedViaRpc = false;
-      if (!rpcRes.error && rpcRes.data?.success) {
-        savedViaRpc = true;
-      } else if (!rpcRes.error && rpcRes.data?.error) {
-        showToast(`RPC error: ${rpcRes.data.error}`);
+      if (rpcRes.error) {
+        showToast(`Lỗi: ${rpcRes.error.message}`);
+        return;
+      }
+      if (rpcRes.data?.error) {
+        showToast(`❌ ${rpcRes.data.error}`);
+        return;
+      }
+      if (!rpcRes.data?.success) {
+        showToast("❌ Cập nhật thất bại - kiểm tra quyền");
         return;
       }
 
-      if (!savedViaRpc) {
-        // Fallback: direct UPDATE
-        const { data, error } = await supabase.from("user_profiles").update({
-          is_admin: isAdmin,
-          user_role: role,
-          updated_at: new Date().toISOString()
-        }).eq("id", userId).select();
-        console.log("[handleSave] Direct update response:", { error, data });
-
-        if (error) {
-          showToast(`Lỗi: ${error.message || "Không thể cập nhật quyền"}`);
-          return;
-        }
-        if (!data || data.length === 0) {
-          showToast("Lỗi: RLS chặn. Chạy migration 014_admin_set_role.sql trên Supabase");
-          return;
-        }
-      }
-
-      // Verify by reloading from DB (ensures persistence)
-      const { data: verifyData } = await supabase
-        .from("user_profiles")
-        .select("id, user_role, is_admin")
-        .eq("id", userId)
-        .maybeSingle();
-      console.log("[handleSave] Verify after save:", verifyData);
-
-      if (verifyData && verifyData.user_role !== role) {
-        showToast(`⚠️ DB trả về ${verifyData.user_role} thay vì ${role}. Có thể trigger hoặc RLS đã ghi đè.`);
-        await loadRoles();
-        setEditUser(null);
-        return;
-      }
-
-      // Refresh full list to reflect truth
+      // Refresh full list
       await loadRoles();
       setEditUser(null);
       showToast(`✅ Đã cập nhật quyền → ${ROLE_PRESETS[role].label}`);
