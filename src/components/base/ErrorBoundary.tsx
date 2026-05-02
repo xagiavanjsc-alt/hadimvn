@@ -22,6 +22,37 @@ export class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     console.error("[ErrorBoundary] Caught error:", error, info.componentStack);
+
+    // Auto-recover from stale chunk errors after Vercel redeploy
+    // Browser has cached old index.html → tries to fetch old chunk hash → fails
+    const msg = error?.message || "";
+    const isStaleChunkError =
+      msg.includes("Failed to fetch dynamically imported module") ||
+      msg.includes("Importing a module script failed") ||
+      msg.includes("error loading dynamically imported module") ||
+      /Loading chunk .+ failed/.test(msg);
+
+    if (isStaleChunkError) {
+      // Prevent infinite reload loop
+      const RELOAD_KEY = "kts_chunk_reload_at";
+      const lastReload = Number(sessionStorage.getItem(RELOAD_KEY) || 0);
+      if (Date.now() - lastReload > 10000) {
+        sessionStorage.setItem(RELOAD_KEY, String(Date.now()));
+        console.log("[ErrorBoundary] Stale chunk detected — clearing cache & reloading");
+        // Clear service worker cache + hard reload
+        if ("caches" in window) {
+          caches.keys().then(names => {
+            names.forEach(name => caches.delete(name));
+          });
+        }
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.getRegistrations().then(regs => {
+            regs.forEach(r => r.unregister());
+          });
+        }
+        setTimeout(() => window.location.reload(), 100);
+      }
+    }
   }
 
   handleReset = () => {

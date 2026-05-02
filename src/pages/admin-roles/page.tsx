@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useEffect } from "react";
+﻿import { useState, useMemo, useEffect, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useAdminUsers, type AdminUser } from "@/hooks/useAdminUsers";
 import { supabase } from "@/lib/supabase";
@@ -59,29 +59,29 @@ export default function AdminRolesPage() {
   const [toast, setToast] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
-  useEffect(() => {
-    if (users.length > 0) {
-      // Load roles from DB: check user_role field first, fallback to is_admin
-      const loadRoles = async () => {
-        const { data: profiles } = await supabase
-          .from("user_profiles")
-          .select("id, user_role, is_admin")
-          .in("id", users.map(u => u.id));
-        const roleMap = new Map((profiles ?? []).map(p => [p.id, (p.user_role || (p.is_admin ? "super_admin" : "member")) as Role]));
-        setRoleUsers(users.map(u => {
-          const role: Role = roleMap.get(u.id) || (u.is_admin ? "super_admin" : "member");
-          return {
-            ...u,
-            role,
-            permissions: ROLE_PRESETS[role]?.permissions ?? [],
-          };
-        }));
+  const loadRoles = useCallback(async () => {
+    if (users.length === 0) return;
+    const { data: profiles, error } = await supabase
+      .from("user_profiles")
+      .select("id, user_role, is_admin")
+      .in("id", users.map(u => u.id));
+    if (error) console.error("[loadRoles] error:", error);
+    const roleMap = new Map((profiles ?? []).map(p => [p.id, (p.user_role || (p.is_admin ? "super_admin" : "member")) as Role]));
+    setRoleUsers(users.map(u => {
+      const role: Role = roleMap.get(u.id) || (u.is_admin ? "super_admin" : "member");
+      return {
+        ...u,
+        role,
+        permissions: ROLE_PRESETS[role]?.permissions ?? [],
       };
-      loadRoles();
-    }
+    }));
   }, [users]);
 
-  const showToast = (msg: string) => { setToast(msg); setTimeout(() => setToast(null), 3000); };
+  useEffect(() => {
+    loadRoles();
+  }, [loadRoles]);
+
+  const showToast = (msg: string) => { setToast(msg); setTimeout(() => setToast(null), 4000); };
 
   const handleSave = async (userId: string, role: Role, permissions: string[]) => {
     setSaving(true);
@@ -96,32 +96,52 @@ export default function AdminRolesPage() {
       });
       console.log("[handleSave] RPC response:", rpcRes);
 
+      let savedViaRpc = false;
       if (!rpcRes.error && rpcRes.data?.success) {
-        setRoleUsers(prev => prev.map(u => u.id === userId ? { ...u, role, permissions, is_admin: isAdmin } : u));
-        setEditUser(null);
-        showToast(`Đã cập nhật quyền cho ${roleUsers.find(u => u.id === userId)?.display_name}`);
+        savedViaRpc = true;
+      } else if (!rpcRes.error && rpcRes.data?.error) {
+        showToast(`RPC error: ${rpcRes.data.error}`);
         return;
       }
 
-      // RPC failed or doesn't exist → fallback to direct UPDATE
-      const { data, error } = await supabase.from("user_profiles").update({
-        is_admin: isAdmin,
-        user_role: role,
-        updated_at: new Date().toISOString()
-      }).eq("id", userId).select();
-      console.log("[handleSave] Direct update response:", { error, data });
-      
-      if (error) {
-        showToast(`Lỗi: ${error.message || "Không thể cập nhật quyền"}`);
+      if (!savedViaRpc) {
+        // Fallback: direct UPDATE
+        const { data, error } = await supabase.from("user_profiles").update({
+          is_admin: isAdmin,
+          user_role: role,
+          updated_at: new Date().toISOString()
+        }).eq("id", userId).select();
+        console.log("[handleSave] Direct update response:", { error, data });
+
+        if (error) {
+          showToast(`Lỗi: ${error.message || "Không thể cập nhật quyền"}`);
+          return;
+        }
+        if (!data || data.length === 0) {
+          showToast("Lỗi: RLS chặn. Chạy migration 014_admin_set_role.sql trên Supabase");
+          return;
+        }
+      }
+
+      // Verify by reloading from DB (ensures persistence)
+      const { data: verifyData } = await supabase
+        .from("user_profiles")
+        .select("id, user_role, is_admin")
+        .eq("id", userId)
+        .maybeSingle();
+      console.log("[handleSave] Verify after save:", verifyData);
+
+      if (verifyData && verifyData.user_role !== role) {
+        showToast(`⚠️ DB trả về ${verifyData.user_role} thay vì ${role}. Có thể trigger hoặc RLS đã ghi đè.`);
+        await loadRoles();
+        setEditUser(null);
         return;
       }
-      if (!data || data.length === 0) {
-        showToast("Lỗi: RLS chặn cập nhật. Vui lòng chạy migration 014_admin_set_role.sql trên Supabase");
-        return;
-      }
-      setRoleUsers(prev => prev.map(u => u.id === userId ? { ...u, role, permissions, is_admin: isAdmin } : u));
+
+      // Refresh full list to reflect truth
+      await loadRoles();
       setEditUser(null);
-      showToast(`Đã cập nhật quyền cho ${roleUsers.find(u => u.id === userId)?.display_name}`);
+      showToast(`✅ Đã cập nhật quyền → ${ROLE_PRESETS[role].label}`);
     } catch (err) {
       console.error("[handleSave] Exception:", err);
       const msg = err instanceof Error ? err.message : "Lỗi cập nhật quyền";
