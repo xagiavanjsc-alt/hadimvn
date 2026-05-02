@@ -1,5 +1,5 @@
 // ─── Service Worker — Hàn Quốc Ơi! (Full Offline PWA) ────────────────────────
-const CACHE_VERSION = "v4";
+const CACHE_VERSION = "v5";
 const CACHE_NAME = `hanquocoi-${CACHE_VERSION}`;
 const FONT_CACHE = `hanquocoi-fonts-${CACHE_VERSION}`;
 const IMAGE_CACHE = `hanquocoi-images-${CACHE_VERSION}`;
