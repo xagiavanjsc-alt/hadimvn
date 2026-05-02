@@ -5,7 +5,9 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { sanitizeHtml } from "@/lib/sanitize";
 import { supabase } from "@/lib/supabase";
+import { isVipActive } from "@/lib/supabase";
 import { communitySlug } from "@/lib/slugify";
+import { useCommunitySettings } from "@/hooks/useCommunitySettings";
 import OnlineUsersWidget from "./components/OnlineUsersWidget";
 
 // ─── Schema.org FAQPage structured data ─────────────────────────────────────
@@ -817,6 +819,7 @@ export default function CommunityPage() {
   const [streak] = useLocalStorage<{ count: number }>("kts_streak", { count: 0 });
   const [currentPage, setCurrentPage] = useState(1);
   const { user, profile } = useAuth();
+  const { settings: commSettings } = useCommunitySettings();
 
   // Reset page khi filter thay đổi
   useEffect(() => { setCurrentPage(1); }, [category, sortBy, search]);
@@ -850,6 +853,12 @@ export default function CommunityPage() {
   const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE);
   const pagedPosts = filtered.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);
 
+  // Guest view limit: chỉ hiện số bài theo cấu hình
+  const isGuestLimited = !user && commSettings.access_control_enabled && commSettings.access_mode === "normal";
+  const guestViewCount = isGuestLimited ? commSettings.guest_view_limit : Infinity;
+  const displayPosts = isGuestLimited ? pagedPosts.slice(0, guestViewCount) : pagedPosts;
+  const isGuestCutoff = isGuestLimited && pagedPosts.length > guestViewCount;
+
   const handleLike = async (id: string) => {
     const alreadyLiked = likedPosts.includes(id);
     setLikedPosts(prev => alreadyLiked ? prev.filter(x => x !== id) : [...prev, id]);
@@ -867,6 +876,28 @@ export default function CommunityPage() {
 
   const handleNewPost = async (data: { title: string; content: string; category: string; imageUrl?: string }) => {
     if (!user || !profile) return;
+
+    // Kiểm tra chế độ bảo trì
+    if (commSettings.access_mode === "maintenance") {
+      alert("Cộng đồng đang bảo trì, vui lòng quay lại sau!");
+      return;
+    }
+
+    // Kiểm tra giới hạn đăng bài/ngày
+    const limit = isVipActive(profile) ? commSettings.vip_daily_post_limit : commSettings.member_daily_post_limit;
+    if (limit > 0 && commSettings.access_control_enabled && commSettings.access_mode === "normal") {
+      const today = new Date().toISOString().slice(0, 10);
+      const { count } = await supabase
+        .from("community_posts")
+        .select("*", { count: "exact", head: true })
+        .eq("user_id", user.id)
+        .gte("created_at", today);
+      if (count !== null && count >= limit) {
+        alert(`Bạn chỉ có thể đăng tối đa ${limit} bài/ngày. Nâng cấp VIP để không giới hạn!`);
+        return;
+      }
+    }
+
     const contentWithImage = data.imageUrl
       ? `${data.content}\n\n![ảnh](${data.imageUrl})`
       : data.content;
@@ -961,7 +992,7 @@ export default function CommunityPage() {
           ) : (
             <>
               <div className="space-y-3">
-                {pagedPosts.map(post => (
+                {displayPosts.map(post => (
                   <PostCard
                     key={post.id}
                     post={post}
@@ -978,6 +1009,33 @@ export default function CommunityPage() {
                   />
                 ))}
               </div>
+              {/* Guest cutoff banner */}
+              {isGuestCutoff && (
+                <div className="mt-4 bg-gradient-to-r from-[#e8c84a]/10 to-[#fb923c]/10 border border-[#e8c84a]/20 rounded-2xl p-5 text-center">
+                  <i className="ri-lock-line text-[#e8c84a] text-2xl mb-2 block"></i>
+                  <p className="text-white font-bold text-sm mb-1">Bạn đã xem {guestViewCount} bài miễn phí</p>
+                  <p className="text-white/50 text-xs mb-3">Đăng ký thành viên để xem tất cả bài viết và tham gia thảo luận!</p>
+                  <button onClick={() => navigate("/pricing")}
+                    className="inline-flex items-center gap-2 bg-[#e8c84a] hover:bg-[#d4b43a] text-[#0f1117] text-sm font-bold px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors">
+                    <i className="ri-user-add-line"></i>Đăng ký ngay
+                  </button>
+                </div>
+              )}
+              {/* Holiday/maintenance mode banner */}
+              {commSettings.access_mode === "holiday" && (
+                <div className="mt-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-4 text-center">
+                  <i className="ri-gift-line text-emerald-400 text-xl mb-1 block"></i>
+                  <p className="text-emerald-400 font-bold text-sm">{commSettings.mode_note || "🎉 Cộng đồng mở cửa tự do!"}</p>
+                  <p className="text-white/40 text-xs mt-1">Đăng bài không giới hạn trong thời gian sự kiện</p>
+                </div>
+              )}
+              {commSettings.access_mode === "maintenance" && (
+                <div className="mt-4 bg-rose-500/10 border border-rose-500/20 rounded-2xl p-4 text-center">
+                  <i className="ri-tools-line text-rose-400 text-xl mb-1 block"></i>
+                  <p className="text-rose-400 font-bold text-sm">Cộng đồng đang bảo trì</p>
+                  <p className="text-white/40 text-xs mt-1">Vui lòng quay lại sau!</p>
+                </div>
+              )}
               <Pagination current={currentPage} total={totalPages} onChange={p => { setCurrentPage(p); window.scrollTo({ top: 0, behavior: "smooth" }); }} />
             </>
           )}

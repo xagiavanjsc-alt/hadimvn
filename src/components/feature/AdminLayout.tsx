@@ -32,6 +32,7 @@ const adminNavGroups = [
     color: "#a78bfa",
     items: [
       { path: "/admin/content", icon: "ri-article-line", label: "Duyệt nội dung" },
+      { path: "/admin/community-settings", icon: "ri-community-line", label: "Cấu hình cộng đồng" },
       { path: "/admin/content-learn", icon: "ri-book-open-line", label: "Quản lý nội dung học" },
       { path: "/admin/series", icon: "ri-stack-line", label: "Series & Ebook" },
       { path: "/admin/eps", icon: "ri-image-edit-line", label: "Quản lý EPS" },
