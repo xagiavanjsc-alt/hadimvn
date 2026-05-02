@@ -5,6 +5,11 @@ ON CONFLICT (id) DO UPDATE SET
   public = true,
   name = 'community-images';
 
+-- Drop existing policies if exists (for idempotency)
+DROP POLICY IF EXISTS "Public read access for community-images" ON storage.objects;
+DROP POLICY IF EXISTS "Authenticated users can upload to community-images" ON storage.objects;
+DROP POLICY IF EXISTS "Users can delete their own community-images" ON storage.objects;
+
 -- Enable public access for reading
 CREATE POLICY "Public read access for community-images"
   ON storage.objects FOR SELECT
