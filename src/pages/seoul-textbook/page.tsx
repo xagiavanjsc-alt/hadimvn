@@ -66,7 +66,20 @@ function BookCard({
 
       <p className="text-white/40 text-xs leading-relaxed mb-3 line-clamp-2 hidden md:block">{book.description}</p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 md:gap-2 mb-3">
+      <div className="flex items-center justify-between gap-2 mb-3 bg-white/3 rounded-lg p-2 md:hidden">
+        {[
+          { label: "Bài", value: book.totalLessons },
+          { label: "Từ", value: book.totalVocab },
+          { label: "NP", value: book.totalGrammar },
+        ].map(s => (
+          <div key={s.label} className="text-center flex-1">
+            <p className="text-white font-bold text-xs">{s.value}</p>
+            <p className="text-white/30 text-[9px]">{s.label}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 md:gap-2 mb-3 hidden sm:grid">
         {[
           { label: "Bài", value: book.totalLessons },
           { label: "Từ", value: book.totalVocab },
