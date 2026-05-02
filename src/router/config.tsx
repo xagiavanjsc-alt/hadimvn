@@ -356,7 +356,7 @@ const AdminSecurityPage = lazyPage(() => import("../pages/admin-security/page"))
 const AdminRevenuePage = lazyPage(() => import("../pages/admin-revenue/page"));
 const AdminAdsPage = lazyPage(() => import("../pages/admin-ads/page"));
 const AdminHanjaPage = lazyPage(() => import("../pages/admin-hanja/page"));
-const AdminHanjaUploadPage = lazyPage(() => import("../pages/admin-hanja-upload/page"));
+const AdminHanjaExcelPage = lazyPage(() => import("../pages/admin-hanja-excel/page"));
 const AdminControlPage = lazyPage(() => import("../pages/admin-control/page"));
 const AdminErrorLogsPage = lazyPage(() => import("../pages/admin-error-logs/page"));
 const AdminCommunitySettingsPage = lazyPage(() => import("../pages/admin-community-settings/page"));
@@ -581,7 +581,7 @@ const routes: RouteObject[] = [
   { path: "/admin/revenue", element: <AdminRevenuePage /> },
   { path: "/admin/ads", element: <AdminAdsPage /> },
   { path: "/admin/hanja", element: <AdminGuard><AdminHanjaPage /></AdminGuard> },
-  { path: "/admin/hanja-upload", element: <AdminGuard><AdminHanjaUploadPage /></AdminGuard> },
+  { path: "/admin/hanja-excel", element: <AdminGuard><AdminHanjaExcelPage /></AdminGuard> },
   { path: "/admin/control", element: <AdminGuard><AdminControlPage /></AdminGuard> },
   { path: "/admin/bugs", element: <AdminBugsPage /> },
   { path: "/admin/vip-transactions", element: <AdminVipTransactionsPage /> },

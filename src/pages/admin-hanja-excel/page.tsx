@@ -5,8 +5,10 @@ import { supabase } from "@/lib/supabase";
 export default function AdminHanjaUploadPage() {
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
-  const [result, setResult] = useState<{ created: number; errors: number; total: number } | null>(null);
+  const [result, setResult] = useState<{ created: number; errors: number; total: number; duplicates: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [checkDuplicates, setCheckDuplicates] = useState(true);
+  const [duplicateList, setDuplicateList] = useState<Array<{ korean: string; hanja: string }>>([]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.files?.[0];
@@ -23,6 +25,7 @@ export default function AdminHanjaUploadPage() {
     setUploading(true);
     setError(null);
     setResult(null);
+    setDuplicateList([]);
 
     try {
       // Read Excel file
@@ -48,8 +51,27 @@ export default function AdminHanjaUploadPage() {
         }
       }
 
+      // Check duplicates in DB if enabled
+      let duplicates: Array<{ korean: string; hanja: string }> = [];
+      if (checkDuplicates) {
+        for (const entry of entries) {
+          const { data: existing } = await supabase
+            .from('hanja_vocab_entries')
+            .select('korean, hanja')
+            .eq('korean', entry.korean)
+            .eq('hanja', entry.hanja)
+            .maybeSingle();
+
+          if (existing) {
+            duplicates.push({ korean: entry.korean, hanja: entry.hanja });
+          }
+        }
+        setDuplicateList(duplicates);
+      }
+
       // Sync to Supabase via RPC
       let created = 0;
+      let updated = 0;
       let errors = 0;
 
       for (const entry of entries) {
@@ -73,7 +95,7 @@ export default function AdminHanjaUploadPage() {
         }
       }
 
-      setResult({ created, errors, total: entries.length });
+      setResult({ created, errors, total: entries.length, duplicates: duplicates.length });
     } catch (err: any) {
       setError(err.message || 'Lỗi khi xử lý file');
     } finally {
@@ -102,6 +124,18 @@ export default function AdminHanjaUploadPage() {
             Định dạng: Cột A = Tiếng Hàn, Cột B = Hán tự, Cột C = Nội dung
           </p>
 
+          <div className="flex items-center gap-3 mb-4">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={checkDuplicates}
+                onChange={(e) => setCheckDuplicates(e.target.checked)}
+                className="w-4 h-4 rounded border-app-border bg-app-card text-app-accent-primary focus:ring-app-accent-primary/50 cursor-pointer"
+              />
+              <span className="text-app-text-secondary text-sm">Kiểm tra trùng lặp trước khi upload</span>
+            </label>
+          </div>
+
           {file && (
             <div className="bg-app-card rounded-lg p-3 mb-4">
               <p className="text-app-text-secondary text-sm">{file.name}</p>
@@ -129,9 +163,9 @@ export default function AdminHanjaUploadPage() {
         )}
 
         {result && (
-          <div className="bg-app-accent-success/10 border border-app-accent-success/20 rounded-xl p-6">
+          <div className="bg-app-accent-success/10 border border-app-accent-success/20 rounded-xl p-6 mb-6">
             <h3 className="text-app-text-primary font-semibold mb-3">Kết quả</h3>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-4 gap-4 mb-4">
               <div className="text-center">
                 <p className="text-2xl font-bold text-app-accent-success">{result.created}</p>
                 <p className="text-app-text-muted text-xs">Thành công</p>
@@ -141,10 +175,27 @@ export default function AdminHanjaUploadPage() {
                 <p className="text-app-text-muted text-xs">Lỗi</p>
               </div>
               <div className="text-center">
+                <p className="text-2xl font-bold text-app-accent-primary">{result.duplicates}</p>
+                <p className="text-app-text-muted text-xs">Trùng lặp</p>
+              </div>
+              <div className="text-center">
                 <p className="text-2xl font-bold text-app-text-primary">{result.total}</p>
                 <p className="text-app-text-muted text-xs">Tổng</p>
               </div>
             </div>
+            {duplicateList.length > 0 && (
+              <div className="mt-4">
+                <h4 className="text-app-text-secondary text-sm font-semibold mb-2">Danh sách trùng lặp:</h4>
+                <div className="max-h-48 overflow-y-auto bg-app-card rounded-lg p-3">
+                  {duplicateList.map((dup, idx) => (
+                    <div key={idx} className="flex gap-2 text-xs py-1 border-b border-app-border last:border-0">
+                      <span className="text-app-text-primary">{dup.korean}</span>
+                      <span className="text-app-text-muted">{dup.hanja}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
