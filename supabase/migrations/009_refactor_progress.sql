@@ -107,14 +107,14 @@ ON CONFLICT (user_id) DO NOTHING;
 
 -- Migrate EPS progress to module_progress
 INSERT INTO public.module_progress (user_id, module_id, lessons_completed, last_studied_at, updated_at)
-SELECT 
+SELECT
     user_id,
     'eps',
     (SELECT COUNT(*) FROM jsonb_object_keys(eps_answers)) as lessons_completed,
     updated_at,
     updated_at
 FROM public.study_progress
-WHERE jsonb_object_keys(eps_answers) IS NOT NULL
+WHERE eps_answers IS NOT NULL AND jsonb_typeof(eps_answers) = 'object'
 ON CONFLICT (user_id, module_id) DO NOTHING;
 
 -- Migrate flashcard data to flashcard_data (from flashcard_known)
