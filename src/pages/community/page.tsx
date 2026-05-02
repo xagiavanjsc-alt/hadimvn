@@ -4,7 +4,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { sanitizeHtml } from "@/lib/sanitize";
-import { supabase } from "@/lib/supabase";
+import { supabase, getStorageUrl } from "@/lib/supabase";
 import { isVipActive } from "@/lib/supabase";
 import { communitySlug } from "@/lib/slugify";
 import { useCommunitySettings } from "@/hooks/useCommunitySettings";
@@ -688,13 +688,10 @@ function NewPostModal({
 
       if (uploadError) throw uploadError;
 
-      // Get public URL
-      const { data: { publicUrl } } = supabase.storage
-        .from('community-images')
-        .getPublicUrl(fileName);
-
-      setImageUrl(publicUrl);
-      setImagePreview(publicUrl);
+      // Store relative path (not full URL) for easy VPS migration later
+      const relativePath = `community-images/${fileName}`;
+      setImageUrl(relativePath);
+      setImagePreview(getStorageUrl(relativePath));
     } catch (error) {
       console.error('Error uploading image:', error);
       alert('Lỗi khi upload ảnh');
@@ -745,7 +742,7 @@ function NewPostModal({
   const handleSubmit = async () => {
     if (!title.trim() || !content.trim()) return;
     setSubmitting(true);
-    await onSubmit({ title, content, category, imageUrl: imagePreview || undefined });
+    await onSubmit({ title, content, category, imageUrl: imageUrl || undefined });
     setSubmitting(false);
     onClose();
   };
@@ -988,7 +985,7 @@ export default function CommunityPage() {
     }
 
     const contentWithImage = data.imageUrl
-      ? `${data.content}\n\n![ảnh](${data.imageUrl})`
+      ? `${data.content}\n\n![ảnh](${getStorageUrl(data.imageUrl)})`
       : data.content;
     const { error } = await supabase.from("community_posts").insert({
       user_id: user.id,

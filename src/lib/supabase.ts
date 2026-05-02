@@ -9,6 +9,23 @@ export const isSupabaseConfigured =
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+// ─── Storage URL helper ───────────────────────────────────────────────────────
+// Store ONLY relative paths in DB (e.g. "community-images/filename.webp")
+// When migrating to VPS, just change this function
+const STORAGE_BASE = import.meta.env.VITE_STORAGE_BASE || `${supabaseUrl}/storage/v1/object/public`;
+
+/**
+ * Get full URL for a storage path.
+ * @param relativePath - e.g. "community-images/123_photo.webp"
+ * When migrating to VPS, set VITE_STORAGE_BASE to your new domain.
+ */
+export function getStorageUrl(relativePath: string | null | undefined): string {
+  if (!relativePath) return "";
+  // Already a full URL? Return as-is
+  if (relativePath.startsWith("http")) return relativePath;
+  return `${STORAGE_BASE}/${relativePath}`;
+}
+
 export type UserProfile = {
   id: string;
   display_name: string;
