@@ -235,16 +235,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const updateProfile = useCallback(async (updates: Partial<Pick<UserProfile, "display_name" | "avatar_url">>) => {
     if (!state.user) return null;
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("user_profiles")
       .update({ ...updates, updated_at: new Date().toISOString() })
       .eq("id", state.user.id)
       .select()
       .maybeSingle();
-    if (data) {
-      setState(prev => ({ ...prev, profile: data as UserProfile }));
+    if (error) {
+      console.error("[updateProfile] error:", error);
+      alert("Lỗi cập nhật: " + error.message);
+      return null;
     }
-    return data as UserProfile | null;
+    if (!data) {
+      console.warn("[updateProfile] no data returned (RLS may have blocked update)");
+      alert("Cập nhật không thành công - kiểm tra quyền truy cập");
+      return null;
+    }
+    setState(prev => ({ ...prev, profile: data as UserProfile }));
+    return data as UserProfile;
   }, [state.user]);
 
   return (
