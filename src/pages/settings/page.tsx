@@ -931,6 +931,61 @@ export default function SettingsPage() {
             </p>
           </div>
         </section>
+
+        {/* Cache Management */}
+        <section className="bg-[#0f1117] border border-white/5 rounded-xl p-6">
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-9 h-9 flex items-center justify-center bg-rose-500/10 rounded-xl">
+              <i className="ri-delete-bin-2-line text-rose-400 text-lg"></i>
+            </div>
+            <div>
+              <p className="text-white font-semibold text-sm">Xóa cache & Làm mới</p>
+              <p className="text-white/40 text-xs">Fix lỗi khi trang không tải được hoặc icon hiển thị sai</p>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <button
+              onClick={async () => {
+                if (!confirm("Xóa cache và làm mới trang?\n\nĐiều này sẽ:\n- Xóa Service Worker cache\n- Xóa browser cache\n- Tải lại trang\n\nTiếp tục?")) return;
+
+                try {
+                  // Unregister service worker
+                  if ("serviceWorker" in navigator) {
+                    const registration = await navigator.serviceWorker.getRegistration();
+                    if (registration) {
+                      await registration.unregister();
+                    }
+                  }
+
+                  // Clear all caches
+                  if ("caches" in window) {
+                    const cacheNames = await caches.keys();
+                    await Promise.all(cacheNames.map(name => caches.delete(name)));
+                  }
+
+                  // Reload page
+                  window.location.reload();
+                } catch (err) {
+                  alert("Lỗi khi xóa cache: " + (err instanceof Error ? err.message : String(err)));
+                }
+              }}
+              className="w-full flex items-center justify-center gap-2 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 py-3 rounded-xl text-sm font-medium transition-colors cursor-pointer"
+            >
+              <i className="ri-refresh-line"></i>
+              Xóa cache & Làm mới trang
+            </button>
+
+            <div className="flex items-start gap-2 bg-white/3 rounded-lg px-4 py-3">
+              <div className="w-4 h-4 flex items-center justify-center mt-0.5">
+                <i className="ri-information-line text-white/25 text-sm"></i>
+              </div>
+              <p className="text-white/25 text-xs leading-relaxed">
+                <strong className="text-white/40">Khi nào cần dùng:</strong> Trang không tải được, icon hiển thị ô vuông, hoặc một số máy vào được một số máy không. Nút này thay thế phím F5 trên máy tính.
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
     </DashboardLayout>
   );
