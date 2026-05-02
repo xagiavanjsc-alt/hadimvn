@@ -42,7 +42,7 @@ DROP POLICY IF EXISTS "Only admins can update community settings" ON public.comm
 CREATE POLICY "Only admins can update community settings"
   ON public.community_settings FOR UPDATE
   USING (
-    EXISTS (SELECT 1 FROM public.user_profiles WHERE id = auth.uid() AND is_admin = TRUE)
+    EXISTS (SELECT 1 FROM public.user_profiles WHERE id = auth.uid() AND (is_admin = TRUE OR user_role = 'smod'))
   );
 
 -- Auto-update updated_at

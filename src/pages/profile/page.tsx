@@ -64,7 +64,7 @@ function StatCard({ icon, color, bg, label, value, sub }: {
 
 export default function ProfilePage() {
   const navigate = useNavigate();
-  const { user, profile, updateProfile, signOut, refreshProfile } = useAuth();
+  const { user, profile, updateProfile, signOut, refreshProfile, loading: authLoading } = useAuth();
 
   // Refresh profile on mount to ensure VIP status is current
   useEffect(() => {
@@ -256,7 +256,7 @@ export default function ProfilePage() {
               </button>
             </>
           )}
-          {!isVip && (
+          {!authLoading && !isVip && (
             <button
               onClick={() => navigate("/pricing")}
               className="flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white/60 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap border border-white/8"

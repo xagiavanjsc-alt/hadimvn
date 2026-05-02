@@ -184,8 +184,8 @@ export default function AdminCommunitySettingsPage() {
             {accessControlEnabled && accessMode === "normal" && (
               <>
                 <p>• Khách: xem <strong style={{ color: "var(--admin-text)" }}>{guestViewLimit}</strong> bài rồi phải đăng ký</p>
-                <p>• Thành viên: đăng tối đa <strong style={{ color: "var(--admin-text)" }}>{memberDailyPostLimit === 0 ? "∞" : memberDailyPostLimit}</strong> bài/ngày</p>
-                <p>• VIP: đăng tối đa <strong style={{ color: "var(--admin-text)" }}>{vipDailyPostLimit === 0 ? "∞" : vipDailyPostLimit}</strong> bài/ngày</p>
+                <p>• Thành viên: <strong style={{ color: "#34d399" }}>xem full</strong>, đăng tối đa <strong style={{ color: "var(--admin-text)" }}>{memberDailyPostLimit === 0 ? "∞" : memberDailyPostLimit}</strong> bài/ngày</p>
+                <p>• VIP: <strong style={{ color: "#34d399" }}>xem full</strong>, đăng tối đa <strong style={{ color: "var(--admin-text)" }}>{vipDailyPostLimit === 0 ? "∞" : vipDailyPostLimit}</strong> bài/ngày</p>
               </>
             )}
             {accessMode === "holiday" && (

@@ -24,24 +24,24 @@ CREATE POLICY "Anyone can insert errors"
     ON public.error_logs FOR INSERT
     WITH CHECK (TRUE);
 
--- Chỉ admin xem được
+-- Chỉ admin/smod xem được
 DROP POLICY IF EXISTS "Admins can view error logs" ON public.error_logs;
 CREATE POLICY "Admins can view error logs"
     ON public.error_logs FOR SELECT
     USING (
         EXISTS (
             SELECT 1 FROM public.user_profiles
-            WHERE id = auth.uid() AND is_admin = TRUE
+            WHERE id = auth.uid() AND (is_admin = TRUE OR user_role = 'smod')
         )
     );
 
--- Admin có thể đánh dấu đã xử lý
+-- Admin/smod có thể đánh dấu đã xử lý
 DROP POLICY IF EXISTS "Admins can update error logs" ON public.error_logs;
 CREATE POLICY "Admins can update error logs"
     ON public.error_logs FOR UPDATE
     USING (
         EXISTS (
             SELECT 1 FROM public.user_profiles
-            WHERE id = auth.uid() AND is_admin = TRUE
+            WHERE id = auth.uid() AND (is_admin = TRUE OR user_role = 'smod')
         )
     );

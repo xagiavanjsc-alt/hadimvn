@@ -17,6 +17,7 @@ export type UserProfile = {
   vip_type: "none" | "month" | "year";
   vip_expires_at: string | null;
   is_admin: boolean;
+  user_role: "super_admin" | "smod" | "moderator" | "member";
   created_at: string;
   updated_at: string;
 };

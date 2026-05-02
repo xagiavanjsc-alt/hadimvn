@@ -21,7 +21,7 @@ ALTER TABLE public.user_profiles
 DROP CONSTRAINT IF EXISTS valid_user_role;
 ALTER TABLE public.user_profiles
 ADD CONSTRAINT valid_user_role
-CHECK (user_role IN ('super_admin', 'moderator', 'member'));
+CHECK (user_role IN ('super_admin', 'smod', 'moderator', 'member'));
 
 -- Admin can update any user's role (needed for admin roles page)
 DROP POLICY IF EXISTS "Admins can update all profiles" ON public.user_profiles;

@@ -3,7 +3,7 @@ import AdminLayout from "@/components/feature/AdminLayout";
 import { useAdminUsers, type AdminUser } from "@/hooks/useAdminUsers";
 import { supabase } from "@/lib/supabase";
 
-type Role = "super_admin" | "moderator" | "member";
+type Role = "super_admin" | "smod" | "moderator" | "member";
 
 interface RoleUser extends AdminUser {
   role: Role;
@@ -32,6 +32,11 @@ const ROLE_PRESETS: Record<Role, { label: string; color: string; bg: string; ico
     label: "Super Admin", color: "#f87171", bg: "rgba(248,113,113,0.12)",
     icon: "ri-shield-star-line", desc: "Toàn quyền truy cập và quản lý hệ thống",
     permissions: ALL_PERMISSIONS.map(p => p.id),
+  },
+  smod: {
+    label: "SMod", color: "#a78bfa", bg: "rgba(167,139,250,0.12)",
+    icon: "ri-shield-keyhole-line", desc: "Quản lý cộng đồng, duyệt nội dung, xử lý báo cáo, quản lý thành viên",
+    permissions: ["content.view", "content.approve", "reports.view", "reports.resolve", "users.view", "users.ban", "stats.view", "eps.edit", "community.settings"],
   },
   moderator: {
     label: "Moderator", color: "#e8c84a", bg: "rgba(232,200,74,0.12)",
@@ -62,7 +67,7 @@ export default function AdminRolesPage() {
           .from("user_profiles")
           .select("id, user_role, is_admin")
           .in("id", users.map(u => u.id));
-        const roleMap = new Map((profiles ?? []).map(p => [p.id, p.user_role as Role || (p.is_admin ? "super_admin" : "member")]));
+        const roleMap = new Map((profiles ?? []).map(p => [p.id, (p.user_role || (p.is_admin ? "super_admin" : "member")) as Role]));
         setRoleUsers(users.map(u => {
           const role: Role = roleMap.get(u.id) || (u.is_admin ? "super_admin" : "member");
           return {
@@ -81,7 +86,7 @@ export default function AdminRolesPage() {
   const handleSave = async (userId: string, role: Role, permissions: string[]) => {
     setSaving(true);
     try {
-      const isAdmin = role === "super_admin";
+      const isAdmin = role === "super_admin" || role === "smod";
       // Save both is_admin (for backward compat) and user_role (for granular roles)
       const { error } = await supabase.from("user_profiles").update({
         is_admin: isAdmin,
@@ -114,6 +119,7 @@ export default function AdminRolesPage() {
 
   const stats = {
     superAdmin: roleUsers.filter(u => u.role === "super_admin").length,
+    smod: roleUsers.filter(u => u.role === "smod").length,
     moderator: roleUsers.filter(u => u.role === "moderator").length,
     member: roleUsers.filter(u => u.role === "member").length,
   };
@@ -127,9 +133,10 @@ export default function AdminRolesPage() {
       )}
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {([
           { key: "superAdmin", role: "super_admin" as Role },
+          { key: "smod", role: "smod" as Role },
           { key: "moderator", role: "moderator" as Role },
           { key: "member", role: "member" as Role },
         ] as const).map(({ key, role }) => {
@@ -167,7 +174,7 @@ export default function AdminRolesPage() {
             style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
         </div>
         <div className="flex items-center gap-1 p-1 rounded-lg" style={{ backgroundColor: "var(--admin-card2)" }}>
-          {(["all", "super_admin", "moderator", "member"] as const).map(r => (
+          {(["all", "super_admin", "smod", "moderator", "member"] as const).map(r => (
             <button key={r} onClick={() => setFilterRole(r)}
               className="px-3 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap"
               style={{

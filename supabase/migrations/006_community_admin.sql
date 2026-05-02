@@ -69,36 +69,36 @@ BEGIN
   END IF;
 END $$;
 
--- ─── RLS: Admin có thể quản lý community_posts ──────────────────────────────
+-- ─── RLS: Admin/SMod có thể quản lý community_posts ──────────────────────────
 DROP POLICY IF EXISTS "Admins can manage community posts" ON public.community_posts;
 CREATE POLICY "Admins can manage community posts"
   ON public.community_posts FOR ALL
   USING (
     EXISTS (
       SELECT 1 FROM public.user_profiles
-      WHERE id = auth.uid() AND is_admin = TRUE
+      WHERE id = auth.uid() AND (is_admin = TRUE OR user_role IN ('smod', 'moderator'))
     )
   );
 
--- ─── RLS: Admin có thể quản lý comments ──────────────────────────────────────
+-- ─── RLS: Admin/SMod có thể quản lý comments ──────────────────────────────────
 DROP POLICY IF EXISTS "Admins can manage comments" ON public.comments;
 CREATE POLICY "Admins can manage comments"
   ON public.comments FOR ALL
   USING (
     EXISTS (
       SELECT 1 FROM public.user_profiles
-      WHERE id = auth.uid() AND is_admin = TRUE
+      WHERE id = auth.uid() AND (is_admin = TRUE OR user_role IN ('smod', 'moderator'))
     )
   );
 
--- ─── RLS: Admin có thể xem app_feedback ──────────────────────────────────────
+-- ─── RLS: Admin/SMod có thể xem app_feedback ──────────────────────────────────
 DROP POLICY IF EXISTS "Admins can view feedback" ON public.app_feedback;
 CREATE POLICY "Admins can view feedback"
   ON public.app_feedback FOR ALL
   USING (
     EXISTS (
       SELECT 1 FROM public.user_profiles
-      WHERE id = auth.uid() AND is_admin = TRUE
+      WHERE id = auth.uid() AND (is_admin = TRUE OR user_role IN ('smod'))
     )
   );
 

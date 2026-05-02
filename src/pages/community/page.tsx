@@ -853,7 +853,7 @@ export default function CommunityPage() {
   const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE);
   const pagedPosts = filtered.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);
 
-  // Guest view limit: chỉ hiện số bài theo cấu hình
+  // Guest view limit: chỉ giới hạn khách, thành viên đăng nhập xem full
   const isGuestLimited = !user && commSettings.access_control_enabled && commSettings.access_mode === "normal";
   const guestViewCount = isGuestLimited ? commSettings.guest_view_limit : Infinity;
   const displayPosts = isGuestLimited ? pagedPosts.slice(0, guestViewCount) : pagedPosts;
@@ -883,18 +883,20 @@ export default function CommunityPage() {
       return;
     }
 
-    // Kiểm tra giới hạn đăng bài/ngày
-    const limit = isVipActive(profile) ? commSettings.vip_daily_post_limit : commSettings.member_daily_post_limit;
-    if (limit > 0 && commSettings.access_control_enabled && commSettings.access_mode === "normal") {
-      const today = new Date().toISOString().slice(0, 10);
-      const { count } = await supabase
-        .from("community_posts")
-        .select("*", { count: "exact", head: true })
-        .eq("user_id", user.id)
-        .gte("created_at", today);
-      if (count !== null && count >= limit) {
-        alert(`Bạn chỉ có thể đăng tối đa ${limit} bài/ngày. Nâng cấp VIP để không giới hạn!`);
-        return;
+    // Kiểm tra giới hạn đăng bài/ngày (chỉ áp dụng ở chế độ normal)
+    if (commSettings.access_control_enabled && commSettings.access_mode === "normal") {
+      const limit = isVipActive(profile) ? commSettings.vip_daily_post_limit : commSettings.member_daily_post_limit;
+      if (limit > 0) {
+        const today = new Date().toISOString().slice(0, 10);
+        const { count } = await supabase
+          .from("community_posts")
+          .select("*", { count: "exact", head: true })
+          .eq("user_id", user.id)
+          .gte("created_at", today);
+        if (count !== null && count >= limit) {
+          alert(`Bạn chỉ có thể đăng tối đa ${limit} bài/ngày. Nâng cấp VIP để không giới hạn!`);
+          return;
+        }
       }
     }
 
