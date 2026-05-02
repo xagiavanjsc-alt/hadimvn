@@ -4,6 +4,113 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 import { useXPSystem } from "@/hooks/useXPSystem";
 
+// ─── Review Modal for Spaced Repetition ───────────────────────────────────────────
+function ReviewModal({ flashcards, onClose, onRate }: {
+  flashcards: any[];
+  onClose: () => void;
+  onRate: (flashcardId: string, quality: number) => void;
+}) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [rated, setRated] = useState(false);
+
+  const currentCard = flashcards[currentIndex];
+  const progress = ((currentIndex + 1) / flashcards.length) * 100;
+
+  const handleRate = (quality: number) => {
+    onRate(currentCard.id, quality);
+    setRated(true);
+    setTimeout(() => {
+      if (currentIndex + 1 < flashcards.length) {
+        setCurrentIndex(i => i + 1);
+        setShowAnswer(false);
+        setRated(false);
+      } else {
+        onClose();
+      }
+    }, 500);
+  };
+
+  if (!currentCard) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" onClick={onClose}>
+      <div className="bg-[#1a1d27] border border-white/10 rounded-2xl w-full max-w-md" onClick={e => e.stopPropagation()}>
+        <div className="flex items-center justify-between px-5 pt-5 pb-3 border-b border-white/8">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 flex items-center justify-center bg-blue-500/20 rounded-xl text-base font-bold text-blue-400">{currentCard.hanja}</div>
+            <div>
+              <p className="text-sm font-bold text-white/80">Ôn tập Flashcard</p>
+              <p className="text-xs text-white/40">{currentIndex + 1}/{flashcards.length} từ</p>
+            </div>
+          </div>
+          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/12 text-white/40 cursor-pointer">
+            <i className="ri-close-line text-sm"></i>
+          </button>
+        </div>
+
+        <div className="p-5">
+          <div className="h-1.5 bg-white/8 rounded-full overflow-hidden mb-4">
+            <div className="h-full bg-blue-400 rounded-full transition-all" style={{ width: `${progress}%` }} />
+          </div>
+
+          {!showAnswer ? (
+            <div className="text-center py-8">
+              <div className="text-4xl font-bold text-white/90 mb-2">{currentCard.word}</div>
+              <div className="text-lg text-rose-400 mb-4">{currentCard.hanja}</div>
+              <button onClick={() => setShowAnswer(true)} className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg cursor-pointer transition-all">
+                Hiện đáp án
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              <div className="text-center">
+                <div className="text-4xl font-bold text-white/90 mb-2">{currentCard.word}</div>
+                <div className="text-lg text-rose-400 mb-2">{currentCard.hanja}</div>
+                <p className="text-sm text-white/70 mb-1">{currentCard.reading}</p>
+                <p className="text-base text-white/80">{currentCard.meaning}</p>
+              </div>
+              {currentCard.example && (
+                <div className="bg-white/5 rounded-lg p-3">
+                  <p className="text-xs text-white/40 mb-1">Ví dụ</p>
+                  <p className="text-sm text-white/70">{currentCard.example}</p>
+                </div>
+              )}
+              {!rated && (
+                <div className="pt-3">
+                  <p className="text-xs text-white/40 text-center mb-3">Đánh giá nhớ của bạn (0=quên, 5=nhóm)</p>
+                  <div className="flex justify-center gap-2">
+                    {[0, 1, 2, 3, 4, 5].map(quality => (
+                      <button
+                        key={quality}
+                        onClick={() => handleRate(quality)}
+                        className={`w-10 h-10 rounded-lg font-bold cursor-pointer transition-all ${
+                          quality < 3 
+                            ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30' 
+                            : quality === 5 
+                            ? 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30'
+                            : 'bg-amber-500/20 text-amber-400 hover:bg-amber-500/30'
+                        }`}
+                      >
+                        {quality}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {rated && (
+                <div className="text-center py-3 text-xs text-white/40">
+                  Đang chuyển sang từ tiếp theo...
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Tree Quiz Modal ──────────────────────────────────────────────────────────
 function TreeQuizModal({ nodes, learnedSet, rootChar, rootMeaning, onClose, onQuizComplete }: {
   nodes: HanjaTreeNode[];
@@ -565,6 +672,8 @@ export default function HanjaTreePage() {
   const [showQuiz, setShowQuiz] = useState(false);
   const [showAdvFilter, setShowAdvFilter] = useState(false);
   const [flashcardToast, setFlashcardToast] = useState<{ word: string; hanja: string; exists: boolean; show: boolean } | null>(null);
+  const [showReview, setShowReview] = useState(false);
+  const [dueFlashcards, setDueFlashcards] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchNodes = async () => {
@@ -699,6 +808,42 @@ export default function HanjaTreePage() {
     }
   }, []);
 
+  const handleFetchDueFlashcards = useCallback(async () => {
+    try {
+      const { data, error } = await supabase
+        .from('hanja_flashcards')
+        .select('*')
+        .lte('next_review_at', new Date().toISOString())
+        .order('next_review_at', { ascending: true })
+        .limit(10);
+      
+      if (error) {
+        console.error('Error fetching due flashcards:', error);
+        return;
+      }
+      
+      setDueFlashcards(data || []);
+      setShowReview(data && data.length > 0);
+    } catch (error) {
+      console.error('Error in handleFetchDueFlashcards:', error);
+    }
+  }, []);
+
+  const handleRateFlashcard = useCallback(async (flashcardId: string, quality: number) => {
+    try {
+      const { error } = await supabase.rpc('update_flashcard_review', {
+        p_flashcard_id: flashcardId,
+        p_quality: quality
+      });
+      
+      if (error) {
+        console.error('Error updating flashcard review:', error);
+      }
+    } catch (error) {
+      console.error('Error in handleRateFlashcard:', error);
+    }
+  }, []);
+
   // Stats for current group
   const groupLearnedCount = useMemo(() =>
     (currentGroup?.nodes || []).filter(n => learnedSet.has(n.korean)).length,
@@ -774,6 +919,17 @@ export default function HanjaTreePage() {
                 className="w-full pl-8 pr-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-xs text-white/70 placeholder-white/25 focus:outline-none focus:ring-1 focus:ring-rose-500/40"
               />
             </div>
+          </div>
+
+          {/* Spaced Repetition Review */}
+          <div className="p-3 border-b border-white/8">
+            <button
+              onClick={handleFetchDueFlashcards}
+              className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold cursor-pointer whitespace-nowrap transition-all bg-blue-500/15 text-blue-400 border border-blue-500/30 hover:bg-blue-500/25"
+            >
+              <i className="ri-brain-line text-sm"></i>
+              <span>Ôn tập Flashcard</span>
+            </button>
           </div>
 
           {/* Tree list */}
@@ -1134,6 +1290,15 @@ export default function HanjaTreePage() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Spaced Repetition Review Modal */}
+      {showReview && dueFlashcards.length > 0 && (
+        <ReviewModal
+          flashcards={dueFlashcards}
+          onClose={() => setShowReview(false)}
+          onRate={handleRateFlashcard}
+        />
       )}
     </DashboardLayout>
   );
