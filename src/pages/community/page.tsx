@@ -10,22 +10,18 @@ import { communitySlug } from "@/lib/slugify";
 import { useCommunitySettings } from "@/hooks/useCommunitySettings";
 import OnlineUsersWidget from "./components/OnlineUsersWidget";
 
-// ─── Rich Text Editor Component (no external deps) ────────────────────────────
-function RichEditor({ value, onChange, placeholder }: {
+// ─── Rich Text Editor Component (WordPress-like, no external deps) ────────────
+function RichEditor({ value, onChange, placeholder, onImageUpload }: {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  onImageUpload?: (file: File) => Promise<string>; // returns URL
 }) {
   const editorRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const onChangeRef = useRef(onChange);
   onChangeRef.current = onChange;
   const [focused, setFocused] = useState(false);
-
-  const exec = (cmd: string, val?: string) => {
-    editorRef.current?.focus();
-    document.execCommand(cmd, false, val || undefined);
-    handleChange();
-  };
 
   const handleChange = () => {
     if (editorRef.current) {
@@ -33,18 +29,54 @@ function RichEditor({ value, onChange, placeholder }: {
     }
   };
 
-  // Set initial content
+  const exec = (cmd: string, val?: string) => {
+    editorRef.current?.focus();
+    document.execCommand(cmd, false, val || undefined);
+    handleChange();
+  };
+
+  // Set initial content once
   useEffect(() => {
     if (editorRef.current && value && !editorRef.current.innerHTML) {
       editorRef.current.innerHTML = value;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Handle paste - allow plain text + basic formatting, strip dangerous HTML
+  const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const text = e.clipboardData.getData('text/html') || e.clipboardData.getData('text/plain');
+    if (!text) return;
+    // Use execCommand to insert (keeps it in undo stack)
+    document.execCommand('insertHTML', false, text);
+    handleChange();
+  };
+
+  const handleInsertImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !onImageUpload) return;
+    try {
+      const url = await onImageUpload(file);
+      editorRef.current?.focus();
+      document.execCommand('insertHTML', false, `<img src="${url}" alt="" style="max-width:100%;border-radius:8px;margin:8px 0" /><br/>`);
+      handleChange();
+    } catch (err) {
+      console.error('Image insert error:', err);
+      alert('Lỗi chèn ảnh');
+    }
+    e.target.value = ''; // reset to allow same file again
+  };
 
   const TOOLBAR = [
     { group: [
-      { cmd: 'formatBlock', val: 'H2', icon: 'ri-h-2', tip: 'Tiêu đề 2' },
-      { cmd: 'formatBlock', val: 'H3', icon: 'ri-h-3', tip: 'Tiêu đề 3' },
-      { cmd: 'formatBlock', val: 'P', icon: 'ri-text', tip: 'Văn bản thường' },
+      { type: 'select', key: 'heading', options: [
+        { label: 'Văn bản', cmd: 'formatBlock', val: 'P' },
+        { label: 'Tiêu đề 1', cmd: 'formatBlock', val: 'H1' },
+        { label: 'Tiêu đề 2', cmd: 'formatBlock', val: 'H2' },
+        { label: 'Tiêu đề 3', cmd: 'formatBlock', val: 'H3' },
+        { label: 'Trích dẫn', cmd: 'formatBlock', val: 'BLOCKQUOTE' },
+      ]},
     ]},
     { group: [
       { cmd: 'bold', icon: 'ri-bold', tip: 'In đậm (Ctrl+B)' },
@@ -53,33 +85,41 @@ function RichEditor({ value, onChange, placeholder }: {
       { cmd: 'strikeThrough', icon: 'ri-strikethrough', tip: 'Gạch ngang' },
     ]},
     { group: [
+      { type: 'color', cmd: 'foreColor', icon: 'ri-font-color', tip: 'Màu chữ' },
+      { type: 'color', cmd: 'hiliteColor', icon: 'ri-mark-pen-line', tip: 'Màu nền' },
+    ]},
+    { group: [
       { cmd: 'insertUnorderedList', icon: 'ri-list-unordered', tip: 'Danh sách' },
       { cmd: 'insertOrderedList', icon: 'ri-list-ordered', tip: 'Danh sách số' },
-      { cmd: 'blockquote', icon: 'ri-double-quotes-l', tip: 'Trích dẫn' },
     ]},
     { group: [
       { cmd: 'justifyLeft', icon: 'ri-align-left', tip: 'Căn trái' },
       { cmd: 'justifyCenter', icon: 'ri-align-center', tip: 'Căn giữa' },
       { cmd: 'justifyRight', icon: 'ri-align-right', tip: 'Căn phải' },
+      { cmd: 'justifyFull', icon: 'ri-align-justify', tip: 'Căn đều' },
     ]},
     { group: [
       { cmd: 'createLink', icon: 'ri-link', tip: 'Chèn link' },
+      { cmd: 'unlink', icon: 'ri-link-unlink', tip: 'Xóa link' },
+      { cmd: 'insertImage', icon: 'ri-image-add-line', tip: 'Chèn ảnh' },
+    ]},
+    { group: [
+      { cmd: 'undo', icon: 'ri-arrow-go-back-line', tip: 'Hoàn tác (Ctrl+Z)' },
+      { cmd: 'redo', icon: 'ri-arrow-go-forward-line', tip: 'Làm lại (Ctrl+Y)' },
       { cmd: 'removeFormat', icon: 'ri-format-clear', tip: 'Xóa định dạng' },
     ]},
-  ];
+  ] as const;
 
-  const handleToolbar = (item: { cmd: string; val?: string }) => {
-    if (item.cmd === 'blockquote') {
-      exec('formatBlock', 'BLOCKQUOTE');
-    } else if (item.cmd === 'createLink') {
+  const handleToolbar = (item: any) => {
+    if (item.cmd === 'createLink') {
       const url = prompt('Nhập URL:');
       if (url) exec('createLink', url);
+    } else if (item.cmd === 'insertImage') {
+      fileInputRef.current?.click();
     } else {
       exec(item.cmd, item.val);
     }
   };
-
-  const isEmpty = !value || value === '<br>' || value.replace(/<[^>]*>/g, '').trim().length === 0;
 
   return (
     <div className={`bg-app-card/30 border rounded-xl overflow-hidden transition-colors ${focused ? 'border-app-accent-primary/40' : 'border-app-border'}`}>
@@ -88,32 +128,96 @@ function RichEditor({ value, onChange, placeholder }: {
         {TOOLBAR.map((section, si) => (
           <div key={si} className="flex items-center gap-0.5">
             {si > 0 && <div className="w-px h-5 bg-app-border mx-1" />}
-            {section.group.map(item => (
-              <button
-                key={item.cmd + (item.val || '')}
-                type="button"
-                onClick={() => handleToolbar(item)}
-                title={item.tip}
-                className="w-7 h-7 flex items-center justify-center rounded-md text-white/50 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
-              >
-                <i className={`${item.icon} text-sm`}></i>
-              </button>
-            ))}
+            {section.group.map((item: any, ii) => {
+              if (item.type === 'select') {
+                return (
+                  <select
+                    key={ii}
+                    onChange={(e) => {
+                      const opt = item.options.find((o: any) => o.label === e.target.value);
+                      if (opt) exec(opt.cmd, opt.val);
+                      e.target.value = '';
+                    }}
+                    className="bg-app-card border border-app-border rounded-md px-2 py-1 text-white/70 text-xs cursor-pointer outline-none hover:border-white/20"
+                    defaultValue=""
+                  >
+                    <option value="" disabled>Định dạng</option>
+                    {item.options.map((o: any) => (
+                      <option key={o.label} value={o.label} className="bg-app-bg">{o.label}</option>
+                    ))}
+                  </select>
+                );
+              }
+              if (item.type === 'color') {
+                return (
+                  <label
+                    key={ii}
+                    title={item.tip}
+                    className="w-7 h-7 flex items-center justify-center rounded-md text-white/50 hover:text-white hover:bg-white/10 transition-colors cursor-pointer relative"
+                  >
+                    <i className={`${item.icon} text-sm`}></i>
+                    <input
+                      type="color"
+                      onChange={(e) => exec(item.cmd, e.target.value)}
+                      className="absolute inset-0 opacity-0 cursor-pointer"
+                    />
+                  </label>
+                );
+              }
+              return (
+                <button
+                  key={ii}
+                  type="button"
+                  onClick={() => handleToolbar(item)}
+                  title={item.tip}
+                  className="w-7 h-7 flex items-center justify-center rounded-md text-white/50 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                >
+                  <i className={`${item.icon} text-sm`}></i>
+                </button>
+              );
+            })}
           </div>
         ))}
       </div>
+
+      {/* Hidden file input for image */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        onChange={handleInsertImage}
+        className="hidden"
+      />
 
       {/* Editable area */}
       <div
         ref={editorRef}
         contentEditable
+        suppressContentEditableWarning
         onInput={handleChange}
+        onKeyUp={handleChange}
+        onBlur={() => { setFocused(false); handleChange(); }}
         onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
+        onPaste={handlePaste}
         data-placeholder={placeholder || "Viết nội dung bài đăng..."}
-        className={`min-h-[300px] p-4 text-white/80 text-sm leading-relaxed outline-none [&:empty]:before:content-[attr(data-placeholder)] [&:empty]:before:text-white/20 [&:empty]:before:cursor-text`}
+        className="rich-editor-content min-h-[300px] p-4 text-white/85 text-sm leading-relaxed outline-none"
         style={{ wordBreak: 'break-word' }}
       />
+      <style>{`
+        .rich-editor-content:empty:before {
+          content: attr(data-placeholder);
+          color: rgba(255,255,255,0.2);
+          pointer-events: none;
+        }
+        .rich-editor-content h1 { font-size: 1.5rem; font-weight: 700; margin: 0.5em 0; color: #fff; }
+        .rich-editor-content h2 { font-size: 1.25rem; font-weight: 700; margin: 0.5em 0; color: #fff; }
+        .rich-editor-content h3 { font-size: 1.1rem; font-weight: 600; margin: 0.5em 0; color: #fff; }
+        .rich-editor-content blockquote { border-left: 3px solid #d4b43a; padding-left: 12px; margin: 8px 0; color: rgba(255,255,255,0.6); font-style: italic; }
+        .rich-editor-content ul, .rich-editor-content ol { padding-left: 24px; margin: 8px 0; }
+        .rich-editor-content li { margin: 4px 0; }
+        .rich-editor-content a { color: #d4b43a; text-decoration: underline; }
+        .rich-editor-content img { max-width: 100%; border-radius: 8px; margin: 8px 0; }
+      `}</style>
     </div>
   );
 }
@@ -796,15 +900,25 @@ function NewPostModal({
   };
 
   const handleSubmit = async () => {
-    if (!title.trim() || isRichEmpty(content)) return;
+    console.log('[NewPost] handleSubmit called', { title, contentLen: content.length, isEmpty: isRichEmpty(content) });
+    if (!title.trim()) {
+      alert('Vui lòng nhập tiêu đề');
+      return;
+    }
+    if (isRichEmpty(content)) {
+      alert('Vui lòng nhập nội dung');
+      return;
+    }
     setSubmitting(true);
     try {
       await onSubmit({ title, content, category, imageUrl: imageUrl || undefined });
+      onClose();
     } catch (err) {
       console.error('Submit error:', err);
+      alert('Lỗi đăng bài: ' + (err instanceof Error ? err.message : 'unknown'));
+    } finally {
+      setSubmitting(false);
     }
-    setSubmitting(false);
-    onClose();
   };
 
   return (
@@ -882,7 +996,7 @@ function NewPostModal({
 
           <div className="flex gap-3 pt-2">
             <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50">Hủy</button>
-            <button onClick={handleSubmit} disabled={!title.trim() || isRichEmpty(content) || submitting}
+            <button onClick={handleSubmit} disabled={submitting}
               className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
               {submitting ? "Đang đăng..." : "Đăng bài"}
             </button>
