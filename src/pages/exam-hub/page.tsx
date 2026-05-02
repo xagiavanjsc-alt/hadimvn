@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { UnifiedExam } from "@/components/feature/UnifiedExam";
 import DashboardLayout from "@/components/feature/DashboardLayout";
@@ -81,6 +82,7 @@ function ExamCard({ exam, onSelect }: { exam: ExamOption; onSelect: () => void }
 
 export default function ExamHubPage() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [activeExam, setActiveExam] = useState<ExamOption | null>(null);
   const [examResult, setExamResult] = useState<{ score: number; total: number; timeUsed: number } | null>(null);
 
@@ -136,14 +138,23 @@ export default function ExamHubPage() {
                 <i className="ri-arrow-left-line"></i>
                 Quay lại
               </button>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 flex items-center justify-center rounded-xl" style={{ backgroundColor: activeExam.bgColor }}>
-                  <i className={`${activeExam.icon} text-lg`} style={{ color: activeExam.color }}></i>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 flex items-center justify-center rounded-xl" style={{ backgroundColor: activeExam.bgColor }}>
+                    <i className={`${activeExam.icon} text-lg`} style={{ color: activeExam.color }}></i>
+                  </div>
+                  <div>
+                    <h1 className="text-white font-semibold">{activeExam.title}</h1>
+                    <p className="text-white/60 text-sm">{activeExam.subtitle}</p>
+                  </div>
                 </div>
-                <div>
-                  <h1 className="text-white font-semibold">{activeExam.title}</h1>
-                  <p className="text-white/60 text-sm">{activeExam.subtitle}</p>
-                </div>
+                <button
+                  onClick={() => navigate("/learning-hub")}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs bg-white/3 text-white/40 border border-white/8 hover:text-white/60 transition-all"
+                >
+                  <i className="ri-dashboard-line"></i>
+                  Learning Hub
+                </button>
               </div>
             </div>
 
