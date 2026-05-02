@@ -4,6 +4,75 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 
+// ─── SEO Component ─────────────────────────────────────────────────────────────
+function PostSEO({ post }: { post: Post }) {
+  useEffect(() => {
+    // Update document title
+    document.title = `${post.title} - Cộng đồng Hàn Quốc Ơi!`;
+
+    // Update meta description
+    const plainText = post.content.replace(/<[^>]*>/g, '').slice(0, 160);
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', plainText);
+    }
+
+    // Add Open Graph tags
+    updateMetaTag('og:title', post.title);
+    updateMetaTag('og:description', plainText);
+    updateMetaTag('og:type', 'article');
+    updateMetaTag('og:url', window.location.href);
+
+    // Add Twitter Card tags
+    updateMetaTag('twitter:title', post.title);
+    updateMetaTag('twitter:description', plainText);
+    updateMetaTag('twitter:card', 'summary_large_image');
+
+    // Add structured data (Article)
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": post.title,
+      "description": plainText,
+      "author": {
+        "@type": "Person",
+        "name": post.author_name
+      },
+      "datePublished": post.created_at,
+      "dateModified": post.created_at,
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": window.location.href
+      }
+    };
+
+    const existingSchema = document.getElementById('post-schema');
+    if (existingSchema) existingSchema.remove();
+
+    const script = document.createElement('script');
+    script.id = 'post-schema';
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(schema);
+    document.head.appendChild(script);
+
+    return () => {
+      if (existingSchema) existingSchema.remove();
+    };
+  }, [post]);
+
+  return null;
+}
+
+function updateMetaTag(property: string, content: string) {
+  let tag = document.querySelector(`meta[property="${property}"]`) || document.querySelector(`meta[name="${property}"]`);
+  if (!tag) {
+    tag = document.createElement('meta');
+    tag.setAttribute(property.startsWith('twitter:') ? 'name' : 'property', property);
+    document.head.appendChild(tag);
+  }
+  tag.setAttribute('content', content);
+}
+
 interface Post {
   id: string;
   user_id: string | null;
@@ -197,15 +266,17 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
   const cat = post ? (CATEGORY_CONFIG[post.category] || CATEGORY_CONFIG.share) : null;
 
   return (
-    <DashboardLayout
-      title="Chi tiết bài đăng"
-      subtitle="Cộng đồng Hàn Quốc Ơi!"
-      actions={
-        <button onClick={() => navigate("/community")} className="flex items-center gap-2 text-white/50 hover:text-white text-sm cursor-pointer whitespace-nowrap transition-colors">
-          <i className="ri-arrow-left-line"></i>Quay lại
-        </button>
-      }
-    >
+    <>
+      {post && <PostSEO post={post} />}
+      <DashboardLayout
+        title="Chi tiết bài đăng"
+        subtitle="Cộng đồng Hàn Quốc Ơi!"
+        actions={
+          <button onClick={() => navigate("/community")} className="flex items-center gap-2 text-white/50 hover:text-white text-sm cursor-pointer whitespace-nowrap transition-colors">
+            <i className="ri-arrow-left-line"></i>Quay lại
+          </button>
+        }
+      >
       {loading ? (
         <div className="flex items-center justify-center py-24">
           <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
@@ -402,6 +473,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
         </div>
       )}
     </DashboardLayout>
+    </>
   );
 }
 
