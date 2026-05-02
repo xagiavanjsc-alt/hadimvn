@@ -27,6 +27,15 @@ export interface AppSettings {
   aiApiKey: string;
   aiModel: string;
   storyPrompt?: StoryPromptSettings;
+  bankAccount?: BankAccountConfig;
+}
+
+export interface BankAccountConfig {
+  bankName: string;
+  accountNumber: string;
+  accountName: string;
+  branch: string;
+  qrCodeUrl?: string;
 }
 
 const DEFAULT_STORY_PROMPT: StoryPromptSettings = {
@@ -147,6 +156,7 @@ export default function AdminSettingsPage() {
   const [showAI, setShowAI] = useState(false);
   const [showPrompt, setShowPrompt] = useState(false);
   const [showCost, setShowCost] = useState(false);
+  const [showBank, setShowBank] = useState(false);
   const [showApifyToken, setShowApifyToken] = useState(false);
   const [showAIKey, setShowAIKey] = useState(false);
   const [toast, setToast] = useState<{ msg: string; type: "success" | "error" } | null>(null);
@@ -638,6 +648,161 @@ export default function AdminSettingsPage() {
                     <i className="ri-delete-bin-line"></i>Xóa lịch sử thống kê
                   </button>
                 </>
+              )}
+            </div>
+          )}
+        </section>
+
+        {/* Bank Account Configuration */}
+        <section className="bg-[#0f1117] border border-white/5 rounded-xl overflow-hidden">
+          <button onClick={() => setShowBank(!showBank)} className="w-full flex items-center justify-between px-6 py-5 cursor-pointer hover:bg-white/2 transition-colors">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 flex items-center justify-center bg-emerald-500/10 rounded-xl">
+                <i className="ri-bank-line text-emerald-400 text-lg"></i>
+              </div>
+              <div className="text-left">
+                <p className="text-white font-semibold text-sm">Cấu hình tài khoản ngân hàng</p>
+                <p className="text-white/40 text-xs">Thanh toán VIP qua chuyển khoản ATM</p>
+              </div>
+              {form.bankAccount?.accountNumber ? (
+                <span className="ml-2 flex items-center gap-1 text-emerald-400 text-xs bg-emerald-400/10 px-2.5 py-1 rounded-full">
+                  <i className="ri-checkbox-circle-fill text-[10px]"></i>Đã cấu hình
+                </span>
+              ) : (
+                <span className="ml-2 flex items-center gap-1 text-amber-400/70 text-xs bg-amber-400/10 px-2.5 py-1 rounded-full">
+                  <i className="ri-error-warning-line text-[10px]"></i>Chưa cấu hình
+                </span>
+              )}
+            </div>
+            <i className={`text-white/30 text-sm transition-transform ${showBank ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
+          </button>
+          {showBank && (
+            <div className="px-6 pb-6 border-t border-white/5 pt-5 space-y-4">
+              <div>
+                <label className="text-white/50 text-xs font-medium block mb-2">Tên ngân hàng</label>
+                <select
+                  value={form.bankAccount?.bankName || ""}
+                  onChange={e => setForm(prev => ({ ...prev, bankAccount: { ...(prev.bankAccount || { accountNumber: "", accountName: "", branch: "" }), bankName: e.target.value } }))}
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-emerald-400/40 transition-colors"
+                >
+                  <option value="">Chọn ngân hàng</option>
+                  <option value="Vietcombank">Vietcombank</option>
+                  <option value="BIDV">BIDV</option>
+                  <option value="Techcombank">Techcombank</option>
+                  <option value="MB Bank">MB Bank</option>
+                  <option value="ACB">ACB</option>
+                  <option value="Sacombank">Sacombank</option>
+                  <option value="VPBank">VPBank</option>
+                  <option value="TPBank">TPBank</option>
+                  <option value="VIB">VIB</option>
+                  <option value="OCB">OCB</option>
+                </select>
+              </div>
+              <div>
+                <label className="text-white/50 text-xs font-medium block mb-2">Số tài khoản</label>
+                <input
+                  type="text"
+                  value={form.bankAccount?.accountNumber || ""}
+                  onChange={e => setForm(prev => ({ ...prev, bankAccount: { ...(prev.bankAccount || { bankName: "", accountName: "", branch: "" }), accountNumber: e.target.value } }))}
+                  placeholder="VD: 123456789"
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-emerald-400/40 transition-colors"
+                />
+              </div>
+              <div>
+                <label className="text-white/50 text-xs font-medium block mb-2">Tên chủ tài khoản</label>
+                <input
+                  type="text"
+                  value={form.bankAccount?.accountName || ""}
+                  onChange={e => setForm(prev => ({ ...prev, bankAccount: { ...(prev.bankAccount || { bankName: "", accountNumber: "", branch: "" }), accountName: e.target.value } }))}
+                  placeholder="VD: NGUYEN VAN A"
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-emerald-400/40 transition-colors"
+                />
+              </div>
+              <div>
+                <label className="text-white/50 text-xs font-medium block mb-2">Chi nhánh (tùy chọn)</label>
+                <input
+                  type="text"
+                  value={form.bankAccount?.branch || ""}
+                  onChange={e => setForm(prev => ({ ...prev, bankAccount: { ...(prev.bankAccount || { bankName: "", accountNumber: "", accountName: "" }), branch: e.target.value } }))}
+                  placeholder="VD: Chi nhánh Hà Nội"
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-emerald-400/40 transition-colors"
+                />
+              </div>
+              <div className="flex items-center gap-2 text-emerald-400/60 text-xs bg-emerald-400/5 px-3 py-2 rounded-lg">
+                <i className="ri-information-line"></i>
+                Thông tin này sẽ hiển thị trên trang pricing để người dùng chuyển khoản
+              </div>
+              
+              {/* QR Code Preview */}
+              {form.bankAccount?.bankName && form.bankAccount?.accountNumber && (
+                <div className="mt-4 pt-4 border-t border-white/5">
+                  <label className="text-white/50 text-xs font-medium block mb-3">QR Code chuyển khoản</label>
+                  <div className="flex items-start gap-4">
+                    <div className="w-32 h-32 bg-white rounded-xl flex items-center justify-center flex-shrink-0">
+                      {form.bankAccount.qrCodeUrl ? (
+                        <img src={form.bankAccount.qrCodeUrl} alt="QR Code" className="w-28 h-28" />
+                      ) : (
+                        <div className="text-center">
+                          <i className="ri-qr-code-line text-4xl text-gray-300"></i>
+                          <p className="text-gray-400 text-xs mt-1">Chưa tạo</p>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex-1 space-y-2">
+                      <button
+                        onClick={() => {
+                          // Generate VietQR code URL
+                          const bankBinMap: Record<string, string> = {
+                            "Vietcombank": "970436",
+                            "BIDV": "970418",
+                            "Techcombank": "970436",
+                            "MB Bank": "970422",
+                            "ACB": "970419",
+                            "Sacombank": "970403",
+                            "VPBank": "970432",
+                            "TPBank": "970423",
+                            "VIB": "970441",
+                            "OCB": "970448",
+                          };
+                          const bin = bankBinMap[form.bankAccount?.bankName || ""] || "";
+                          const account = form.bankAccount?.accountNumber || "";
+                          const amount = ""; // Leave empty for flexible amount
+                          const qrData = `00020101021238${bin}${account}520458025303VN5405${amount}5802VN6304`;
+                          const qrUrl = `https://img.vietqr.io/image/${bin}-${account}-2qrcode.png?amount=${amount}&addInfo=THANH_TOAN_VIP&accountName=${encodeURIComponent(form.bankAccount?.accountName || "")}`;
+                          setForm(prev => ({ 
+                            ...prev, 
+                            bankAccount: { 
+                              bankName: prev.bankAccount?.bankName || "",
+                              accountNumber: prev.bankAccount?.accountNumber || "",
+                              accountName: prev.bankAccount?.accountName || "",
+                              branch: prev.bankAccount?.branch || "",
+                              qrCodeUrl: qrUrl 
+                            } 
+                          }));
+                          showToastMsg("Đã tạo QR Code!");
+                        }}
+                        className="flex items-center gap-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 text-xs font-medium px-3 py-2 rounded-lg transition-colors cursor-pointer border border-emerald-500/20"
+                      >
+                        <i className="ri-qr-code-line"></i>Tạo QR Code
+                      </button>
+                      <button
+                        onClick={() => setForm(prev => ({ 
+                          ...prev, 
+                          bankAccount: { 
+                            bankName: prev.bankAccount?.bankName || "",
+                            accountNumber: prev.bankAccount?.accountNumber || "",
+                            accountName: prev.bankAccount?.accountName || "",
+                            branch: prev.bankAccount?.branch || "",
+                            qrCodeUrl: undefined 
+                          } 
+                        }))}
+                        className="flex items-center gap-2 text-red-400/60 hover:text-red-400 text-xs transition-colors cursor-pointer"
+                      >
+                        <i className="ri-delete-bin-line"></i>Xóa QR Code
+                      </button>
+                    </div>
+                  </div>
+                </div>
               )}
             </div>
           )}
