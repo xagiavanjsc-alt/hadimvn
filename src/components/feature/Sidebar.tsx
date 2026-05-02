@@ -77,10 +77,10 @@ const navGroups = [
     icon: "ri-dashboard-line",
     color: "#e8c84a",
     items: [
-      { path: "/learning-hub", label: "Learning Hub" },
-      { path: "/exam-hub", label: "Exam Hub" },
-      { path: "/flashcard-hub", label: "Flashcard Hub" },
-      { path: "/leaderboard", label: "Bảng xếp hạng" },
+      { path: "/learning-hub", icon: "ri-dashboard-line", label: "Learning Hub" },
+      { path: "/exam-hub", icon: "ri-file-list-3-line", label: "Exam Hub" },
+      { path: "/flashcard-hub", icon: "ri-stack-line", label: "Flashcard Hub" },
+      { path: "/leaderboard", icon: "ri-trophy-line", label: "Bảng xếp hạng" },
     ],
   },
   {
@@ -88,10 +88,10 @@ const navGroups = [
     icon: "ri-book-open-line",
     color: "#4ade80",
     items: [
-      { path: "/eps-lessons", label: "EPS (Lao động)" },
-      { path: "/seoul-textbook", label: "Seoul (Du học)" },
-      { path: "/topik-test", label: "TOPIK (Chứng chỉ)" },
-      { path: "/hanja-detail", label: "Hán Hàn", badge: "VIP" },
+      { path: "/eps-lessons", icon: "ri-file-list-3-line", label: "EPS (Lao động)" },
+      { path: "/seoul-textbook", icon: "ri-book-3-line", label: "Seoul (Du học)" },
+      { path: "/topik-test", icon: "ri-survey-line", label: "TOPIK (Chứng chỉ)" },
+      { path: "/hanja-detail", icon: "ri-character-recognition-line", label: "Hán Hàn", badge: "VIP" },
     ],
   },
   {
@@ -100,9 +100,9 @@ const navGroups = [
     badge: "VIP",
     color: "#e8c84a",
     items: [
-      { path: "/hanja-tree", label: "Hình cây từ vựng" },
-      { path: "/hanja-dashboard", label: "Tiến độ & Streak" },
-      { path: "/advanced-dictionary", label: "Tra cứu Hán Hàn" },
+      { path: "/hanja-tree", icon: "ri-git-merge-line", label: "Hình cây từ vựng" },
+      { path: "/hanja-dashboard", icon: "ri-bar-chart-2-line", label: "Tiến độ & Streak" },
+      { path: "/advanced-dictionary", icon: "ri-search-2-line", label: "Tra cứu Hán Hàn" },
     ],
   },
   {
@@ -110,11 +110,11 @@ const navGroups = [
     icon: "ri-robot-2-line",
     color: "#a78bfa",
     items: [
-      { path: "/ai-chatbot", label: "Gia sư AI" },
-      { path: "/ai-pronunciation", label: "Phát âm & Giao tiếp" },
-      { path: "/ai-writing", label: "Viết & Dịch" },
-      { path: "/kdrama-learn", label: "Học qua phim & K-pop" },
-      { path: "/kpop-flashcard", label: "Flashcard K-pop cá nhân" },
+      { path: "/ai-chatbot", icon: "ri-robot-2-line", label: "Gia sư AI" },
+      { path: "/ai-pronunciation", icon: "ri-mic-line", label: "Phát âm & Giao tiếp" },
+      { path: "/ai-writing", icon: "ri-quill-pen-line", label: "Viết & Dịch" },
+      { path: "/kdrama-learn", icon: "ri-film-line", label: "Học qua phim & K-pop" },
+      { path: "/kpop-flashcard", icon: "ri-music-2-line", label: "Flashcard K-pop cá nhân" },
     ],
   },
   {
@@ -122,8 +122,8 @@ const navGroups = [
     icon: "ri-group-line",
     color: "#fb923c",
     items: [
-      { path: "/community", label: "Hỏi đáp" },
-      { path: "/profile", label: "Hồ sơ cá nhân" },
+      { path: "/community", icon: "ri-group-line", label: "Hỏi đáp" },
+      { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ cá nhân" },
     ],
   },
 ];
@@ -163,6 +163,9 @@ function PinnedSection({ pinnedPaths, onUnpin, onNavigate, currentPath }: {
                   isActive ? "bg-[#e8c84a]/10 text-[#e8c84a] font-medium" : "text-white/55 hover:text-white/85 hover:bg-white/6"
                 }`}
               >
+                <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
+                  <i className={`${item.icon} text-sm`}></i>
+                </div>
                 <span className="flex-1 truncate">{item.label}</span>
               </button>
               <button
@@ -447,6 +450,9 @@ function SidebarInner() {
                   hasActive ? "bg-white/3" : "hover:bg-white/3"
                 }`}
               >
+                <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
+                  <i className={`${group.icon} text-sm`} style={{ color: hasActive ? grpColor : "rgba(255,255,255,0.3)" }}></i>
+                </div>
                 <p className="flex-1 text-left text-xs font-semibold transition-colors"
                   style={{ color: hasActive ? grpColor + "99" : "rgba(255,255,255,0.35)" }}>
                   {group.label}
@@ -481,6 +487,9 @@ function SidebarInner() {
                               : "text-white/50 hover:text-white/80 hover:bg-white/6"
                           }`}
                         >
+                          <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
+                            <i className={`${item.icon} text-sm`}></i>
+                          </div>
                           <span className="flex-1 truncate">{item.label}</span>
                         </button>
                         <button
