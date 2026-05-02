@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 import DashboardLayout from "@/components/feature/DashboardLayout";
@@ -29,6 +30,7 @@ const MODULE_CONFIG = {
 
 export default function LearningHubPage() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [userProgress, setUserProgress] = useState<UserProgress | null>(null);
   const [moduleProgress, setModuleProgress] = useState<ModuleProgress[]>([]);
   const [loading, setLoading] = useState(true);
@@ -79,8 +81,37 @@ export default function LearningHubPage() {
     : 0;
 
   return (
-    <DashboardLayout>
-      <div className="max-w-6xl mx-auto p-6">
+    <DashboardLayout title="Learning Hub" subtitle="Tổng quan tiến độ học tập">
+      <div className="max-w-6xl mx-auto p-6 space-y-6">
+        {/* Quick Actions */}
+        <div className="grid grid-cols-2 gap-4">
+          <button
+            onClick={() => navigate("/flashcard-hub")}
+            className="p-4 rounded-xl border border-white/5 bg-white/2 hover:bg-white/5 hover:border-white/10 transition-all text-left"
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#4ade80]/15">
+                <i className="ri-stack-line text-[#4ade80] text-xl"></i>
+              </div>
+              <span className="text-white font-semibold">Flashcard Hub</span>
+            </div>
+            <p className="text-white/40 text-xs">Học thẻ ghi nhớ với Spaced Repetition</p>
+          </button>
+          <button
+            onClick={() => navigate("/exam-hub")}
+            className="p-4 rounded-xl border border-white/5 bg-white/2 hover:bg-white/5 hover:border-white/10 transition-all text-left"
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#f472b6]/15">
+                <i className="ri-file-list-3-line text-[#f472b6] text-xl"></i>
+              </div>
+              <span className="text-white font-semibold">Exam Hub</span>
+            </div>
+            <p className="text-white/40 text-xs">Luyện thi với timer và lịch sử</p>
+          </button>
+        </div>
+
+        {/* Overview Cards */}
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-white mb-2">Learning Hub</h1>
           <p className="text-white/60 text-sm">Tổng quan tiến độ học tập của bạn</p>
