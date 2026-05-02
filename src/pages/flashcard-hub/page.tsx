@@ -217,14 +217,23 @@ export default function FlashcardHubPage() {
                 <i className="ri-arrow-left-line"></i>
                 Quay lại
               </button>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 flex items-center justify-center rounded-xl" style={{ backgroundColor: activeDeck.bgColor }}>
-                  <i className={`${activeDeck.icon} text-lg`} style={{ color: activeDeck.color }}></i>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 flex items-center justify-center rounded-xl" style={{ backgroundColor: activeDeck.bgColor }}>
+                    <i className={`${activeDeck.icon} text-lg`} style={{ color: activeDeck.color }}></i>
+                  </div>
+                  <div>
+                    <h1 className="text-white font-semibold">{activeDeck.title}</h1>
+                    <p className="text-white/60 text-sm">{activeDeck.subtitle}</p>
+                  </div>
                 </div>
-                <div>
-                  <h1 className="text-white font-semibold">{activeDeck.title}</h1>
-                  <p className="text-white/60 text-sm">{activeDeck.subtitle}</p>
-                </div>
+                <button
+                  onClick={() => navigate("/learning-hub")}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs bg-white/3 text-white/40 border border-white/8 hover:text-white/60 transition-all"
+                >
+                  <i className="ri-dashboard-line"></i>
+                  Learning Hub
+                </button>
               </div>
             </div>
 
