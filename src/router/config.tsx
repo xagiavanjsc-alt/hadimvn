@@ -91,11 +91,11 @@ export function PreloadCommonRoutes() {
     const id = requestIdleCallback
       ? requestIdleCallback(doPreload, { timeout: 2000 })
       : setTimeout(doPreload, 1500);
-      
+
     return () => {
       mounted.current = false;
       if (typeof id === "number") clearTimeout(id);
-      else if (typeof cancelIdleCallback !== "undefined") cancelIdleCallback(id as number);
+      else if (typeof cancelIdleCallback !== "undefined") cancelIdleCallback(id as unknown as number);
     };
   }, []);
   return null;
@@ -215,6 +215,7 @@ const StudyAnalyticsPage = lazyPage(() => import("../pages/study-analytics/page"
 const StudyStatsDetailPage = lazyPage(() => import("../pages/study-stats-detail/page"));
 const ProgressPage = lazyPage(() => import("../pages/progress/page"));
 const XpStatsPage = lazyPage(() => import("../pages/xp-stats/page"));
+const LearningHubPage = lazyPage(() => import("../pages/learning-hub/page"));
 
 // ─── Study tools ─────────────────────────────────────────────────────────────
 const FlashcardPage = lazyPage(() => import("../pages/flashcard/page"));
@@ -490,6 +491,7 @@ const routes: RouteObject[] = [
   { path: "/study-stats-detail", element: <StudyStatsDetailPage /> },
   { path: "/progress", element: <ProgressPage /> },
   { path: "/xp-stats", element: <XpStatsPage /> },
+  { path: "/learning-hub", element: <RequireAuth title="Learning Hub"><LearningHubPage /></RequireAuth> },
 
   // Study tools
   { path: "/flashcard", element: <FlashcardPage /> },

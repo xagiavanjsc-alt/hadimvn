@@ -73,6 +73,15 @@ function StreakBadge() {
 // ─── Nav groups — Tối ưu gọn nhất ───────────────────────────────────────────
 const navGroups = [
   {
+    label: "Tổng quan",
+    icon: "ri-dashboard-line",
+    color: "#e8c84a",
+    items: [
+      { path: "/learning-hub", icon: "ri-dashboard-line", label: "Learning Hub" },
+      { path: "/leaderboard", icon: "ri-trophy-line", label: "Bảng xếp hạng" },
+    ],
+  },
+  {
     label: "Hán Hàn Vip",
     icon: "ri-character-recognition-line",
     badge: "VIP",
@@ -144,7 +153,8 @@ const navGroups = [
 // Admin group removed from user sidebar — admin has its own dedicated panel at /admin
 
 const DEFAULT_OPEN: Record<string, boolean> = {
-  "Hán Hàn Vip": true,
+  "Tổng quan": true,
+  "Hán Hàn Vip": false,
   "Eps (Lao động)": false,
   "Seoul (Du học)": false,
   "Topik (Chứng chỉ)": false,
