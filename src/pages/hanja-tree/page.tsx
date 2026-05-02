@@ -264,11 +264,13 @@ function NodeDetailPanel({
   isLearned,
   onToggleLearned,
   onClose,
+  onAddToFlashcard,
 }: {
   node: HanjaTreeNode;
   isLearned: boolean;
   onToggleLearned: () => void;
   onClose: () => void;
+  onAddToFlashcard: () => void;
 }) {
   const diff = DIFF_CONFIG[node.difficulty as keyof typeof DIFF_CONFIG] ?? DIFF_CONFIG[1];
   return (
@@ -287,6 +289,14 @@ function NodeDetailPanel({
           <span className="text-xs px-2 py-0.5 rounded-full bg-white/8 text-white/40">{node.category}</span>
         </div>
         <div className="flex items-center gap-2">
+          <button
+            onClick={onAddToFlashcard}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer whitespace-nowrap transition-all bg-white/8 text-white/50 border border-white/10 hover:bg-blue-500/15 hover:text-blue-400 hover:border-blue-500/30"
+            title="Thêm vào Flashcard"
+          >
+            <i className="ri-flashcard-line text-sm"></i>
+            Flashcard
+          </button>
           <button
             onClick={onToggleLearned}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer whitespace-nowrap transition-all ${
@@ -583,6 +593,34 @@ export default function HanjaTreePage() {
 
   const handleSelectNode = useCallback((node: HanjaTreeNode) => {
     setSelectedNode(prev => prev?.id === node.id ? null : node);
+  }, []);
+
+  const handleAddToFlashcard = useCallback((node: HanjaTreeNode) => {
+    // Get existing flashcards from localStorage
+    const flashcardsKey = 'kts_hanja_flashcards';
+    const existingFlashcards = JSON.parse(localStorage.getItem(flashcardsKey) || '[]');
+    
+    // Check if word already exists
+    if (existingFlashcards.some((f: any) => f.word === node.korean)) {
+      alert('Từ này đã có trong flashcard!');
+      return;
+    }
+    
+    // Add new flashcard
+    const newFlashcard = {
+      id: Date.now().toString(),
+      word: node.korean,
+      reading: node.pronunciation,
+      meaning: node.vietnamese,
+      hanja: node.hanja,
+      example: node.examples?.[0]?.korean,
+      category: node.category,
+      mastered: false,
+      reviewCount: 0,
+    };
+    
+    localStorage.setItem(flashcardsKey, JSON.stringify([...existingFlashcards, newFlashcard]));
+    alert(`Đã thêm "${node.korean}" vào flashcard!`);
   }, []);
 
   // Stats for current group
@@ -977,6 +1015,7 @@ export default function HanjaTreePage() {
               node={selectedNode}
               isLearned={learnedSet.has(selectedNode.korean)}
               onToggleLearned={() => toggleLearned(selectedNode.korean)}
+              onAddToFlashcard={() => handleAddToFlashcard(selectedNode)}
               onClose={() => setSelectedNode(null)}
             />
           )}
