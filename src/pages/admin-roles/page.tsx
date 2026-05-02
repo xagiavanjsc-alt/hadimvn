@@ -61,20 +61,44 @@ export default function AdminRolesPage() {
 
   const loadRoles = useCallback(async () => {
     if (users.length === 0) return;
-    const { data: profiles, error } = await supabase
-      .from("user_profiles")
-      .select("id, user_role, is_admin")
-      .in("id", users.map(u => u.id));
-    if (error) console.error("[loadRoles] error:", error);
-    const roleMap = new Map((profiles ?? []).map(p => [p.id, (p.user_role || (p.is_admin ? "super_admin" : "member")) as Role]));
-    setRoleUsers(users.map(u => {
-      const role: Role = roleMap.get(u.id) || (u.is_admin ? "super_admin" : "member");
-      return {
-        ...u,
-        role,
-        permissions: ROLE_PRESETS[role]?.permissions ?? [],
-      };
-    }));
+    try {
+      // Use RPC to bypass RLS and get user_role for all users
+      const { data: profiles, error } = await supabase
+        .rpc("admin_get_users");
+      if (error) {
+        console.error("[loadRoles] RPC error:", error);
+        // Fallback: try direct SELECT (may be limited by RLS)
+        const { data: fallback } = await supabase
+          .from("user_profiles")
+          .select("id, user_role, is_admin")
+          .in("id", users.map(u => u.id));
+        const roleMap = new Map((fallback ?? []).map(p => [p.id, (p.user_role || (p.is_admin ? "super_admin" : "member")) as Role]));
+        setRoleUsers(users.map(u => {
+          const role: Role = roleMap.get(u.id) || (u.is_admin ? "super_admin" : "member");
+          return { ...u, role, permissions: ROLE_PRESETS[role]?.permissions ?? [] };
+        }));
+        return;
+      }
+      // Build role map from RPC data (includes user_role)
+      const roleMap = new Map(
+        (profiles ?? []).map((p: { id: string; user_role?: string; is_admin: boolean }) => [
+          p.id,
+          (p.user_role || (p.is_admin ? "super_admin" : "member")) as Role
+        ])
+      );
+      setRoleUsers(users.map(u => {
+        const rawRole: string = (roleMap.get(u.id) as string) || (u.is_admin ? "super_admin" : "member");
+        const role: Role = (["super_admin", "smod", "moderator", "member"] as string[]).includes(rawRole) ? rawRole as Role : (u.is_admin ? "super_admin" : "member");
+        return { ...u, role, permissions: ROLE_PRESETS[role]?.permissions ?? [] };
+      }));
+    } catch (err) {
+      console.error("[loadRoles] Exception:", err);
+      // Final fallback
+      setRoleUsers(users.map(u => {
+        const role: Role = u.is_admin ? "super_admin" : "member";
+        return { ...u, role, permissions: ROLE_PRESETS[role]?.permissions ?? [] };
+      }));
+    }
   }, [users]);
 
   useEffect(() => {
