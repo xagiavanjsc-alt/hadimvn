@@ -95,17 +95,6 @@ const navGroups = [
     ],
   },
   {
-    label: "Seoul (Giáo trình)",
-    icon: "ri-book-3-line",
-    color: "#60a5fa",
-    items: [
-      { path: "/seoul-textbook", icon: "ri-book-3-line", label: "Seoul 1 (1A + 1B)" },
-      { path: "/seoul-practice", icon: "ri-sword-line", label: "Seoul 2 (2A + 2B)" },
-      { path: "/seoul-exam", icon: "ri-file-list-2-line", label: "Seoul 3 (3A + 3B)" },
-      { path: "/seoul-progress", icon: "ri-bar-chart-line", label: "Seoul 4 (4A + 4B)" },
-    ],
-  },
-  {
     label: "Hán Hàn Vip",
     icon: "ri-character-recognition-line",
     badge: "VIP",
@@ -144,7 +133,6 @@ const navGroups = [
 const DEFAULT_OPEN: Record<string, boolean> = {
   "Tổng quan": true,
   "Học tập": true,
-  "Seoul (Giáo trình)": false,
   "Hán Hàn Vip": false,
   "Ai & Kỹ năng": false,
   "Cộng đồng": false,
