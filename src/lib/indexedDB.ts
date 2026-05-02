@@ -4,7 +4,7 @@
 const DB_NAME = "hanquocoi_db";
 const DB_VERSION = 1;
 
-interface FlashcardData {
+export interface FlashcardData {
   card_id: string;
   module_id: string;
   status: "new" | "learning" | "review" | "mastered";
@@ -15,7 +15,7 @@ interface FlashcardData {
   last_reviewed_at: string;
 }
 
-interface ExamHistoryData {
+export interface ExamHistoryData {
   id: string;
   exam_type: string;
   score: number;
