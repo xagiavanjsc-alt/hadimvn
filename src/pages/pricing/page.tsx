@@ -50,6 +50,27 @@ const testimonials = [
     text: "Lộ trình học cá nhân hóa theo cấp độ TOPIK rất hay. Mình biết chính xác cần học gì tiếp theo, không bị lạc hướng nữa.",
     rating: 5,
   },
+  {
+    name: "Lê Quốc Bảo",
+    avatar: "https://readdy.ai/api/search-image?query=young%20Vietnamese%20man%20student%20glasses%20smiling%20portrait%20photo%20clean%20background&width=80&height=80&seq=t4&orientation=squarish",
+    role: "Lao động, đã qua EPS-TOPIK",
+    text: "Thi thử EPS trên web rất giống đề thi thật. Mình luyện 1 tháng trước khi đi thi, kết quả đạt 85/100. Cảm ơn Hàn Quốc Ơi!",
+    rating: 5,
+  },
+  {
+    name: "Hoàng Thị Mai",
+    avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20woman%20young%20professional%20smiling%20portrait%20photo%20modern%20background&width=80&height=80&seq=t5&orientation=squarish",
+    role: "Nhân viên văn phòng",
+    text: "Flashcard với Spaced Repetition giúp mình nhớ từ vựng lâu hơn. Trước đây học 100 từ quên 80, giờ nhớ 90%",
+    rating: 5,
+  },
+  {
+    name: "Đỗ Minh Tuấn",
+    avatar: "https://readdy.ai/api/search-image?query=young%20Vietnamese%20man%20casual%20smiling%20portrait%20photo%20friendly%20background&width=80&height=80&seq=t6&orientation=squarish",
+    role: "Sinh viên đại học",
+    text: "Tính năng học qua tin tức Naver giúp mình vừa học tiếng Hàn vừa cập nhật tin tức Hàn. Rất thực tế và hữu ích!",
+    rating: 5,
+  },
 ];
 
 const faqs = [
@@ -477,7 +498,7 @@ export default function PricingPage() {
       {/* Testimonials */}
       <div className="mb-10">
         <h3 className="text-white font-bold text-lg mb-5 text-center">Học viên nói gì về Hàn Việt KTS?</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {testimonials.map(t => (
             <div key={t.name} className="bg-[#0f1117] border border-white/5 rounded-2xl p-5">
               <StarRating count={t.rating} />
