@@ -258,6 +258,35 @@ function saveLearned(set: Set<string>) {
   localStorage.setItem(LEARNED_KEY, JSON.stringify(Array.from(set)));
 }
 
+// ─── Stroke Order Component ───────────────────────────────────────────────────────
+function StrokeOrderPanel({ hanja }: { hanja: string }) {
+  const [showAnimation, setShowAnimation] = useState(false);
+  
+  return (
+    <div className="bg-white/5 border border-white/8 rounded-lg p-3">
+      <div className="flex items-center justify-between mb-2">
+        <p className="text-[10px] text-white/30 font-semibold uppercase tracking-wider">Thứ tự nét</p>
+        <button
+          onClick={() => setShowAnimation(v => !v)}
+          className="text-[9px] px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-400 hover:bg-rose-500/25 cursor-pointer"
+        >
+          {showAnimation ? "Ẩn" : "Hiện"}
+        </button>
+      </div>
+      {showAnimation && (
+        <div className="flex items-center justify-center bg-white/5 rounded-lg p-4">
+          <div className="text-6xl font-bold text-white/90 animate-pulse">{hanja}</div>
+        </div>
+      )}
+      {!showAnimation && (
+        <div className="text-center text-xs text-white/30 py-2">
+          Click "Hiện" để xem thứ tự nét
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── Node Detail Panel (bottom horizontal) ───────────────────────────────────
 function NodeDetailPanel({
   node,
@@ -338,6 +367,7 @@ function NodeDetailPanel({
               <p className="text-xs text-amber-400/70 leading-relaxed">{node.memory_tip}</p>
             </div>
           )}
+          <StrokeOrderPanel hanja={node.hanja} />
         </div>
 
         {node.examples?.length > 0 && (
