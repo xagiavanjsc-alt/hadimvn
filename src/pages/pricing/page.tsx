@@ -310,13 +310,17 @@ function AutoRenewSection({ isVip, vipExpiresAt }: { isVip: boolean; vipExpiresA
 
 export default function PricingPage() {
   const navigate = useNavigate();
-  const { profile } = useAuth();
+  const { profile, user } = useAuth();
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showViolationModal, setShowViolationModal] = useState(false);
   const [bankAccount, setBankAccount] = useState<any>(null);
   const [loadingBankInfo, setLoadingBankInfo] = useState(true);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [paymentProof, setPaymentProof] = useState<File | null>(null);
+  const [paymentNote, setPaymentNote] = useState("");
+  const [submittingPayment, setSubmittingPayment] = useState(false);
 
   const monthlyPrice = 79000;
   const yearlyPrice = 59000;
@@ -324,8 +328,51 @@ export default function PricingPage() {
   const yearSaving = (monthlyPrice - yearlyPrice) * 12;
 
   const handleRegister = () => {
-    setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 4000);
+    setShowPaymentModal(true);
+  };
+
+  const handleSubmitPayment = async () => {
+    if (!profile || !paymentProof) return;
+    
+    setSubmittingPayment(true);
+    try {
+      // Upload payment proof to Supabase storage
+      const fileName = `payment_${profile.id}_${Date.now()}.png`;
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from("payment-proofs")
+        .upload(fileName, paymentProof);
+      
+      if (uploadError) throw uploadError;
+      
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from("payment-proofs")
+        .getPublicUrl(fileName);
+      
+      // Submit payment request
+      const { error: insertError } = await supabase.from("vip_payment_requests").insert({
+        user_id: profile.id,
+        email: user?.email || "",
+        amount: billing === "monthly" ? monthlyPrice : yearlyPrice * 12,
+        billing_cycle: billing,
+        proof_url: publicUrl,
+        note: paymentNote,
+        status: "pending",
+      });
+      
+      if (insertError) throw insertError;
+      
+      setShowPaymentModal(false);
+      setPaymentProof(null);
+      setPaymentNote("");
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 5000);
+    } catch (err) {
+      console.error("Payment submission error:", err);
+      alert("Có lỗi xảy ra. Vui lòng thử lại.");
+    } finally {
+      setSubmittingPayment(false);
+    }
   };
 
   // Load bank account settings from admin settings
@@ -363,7 +410,108 @@ export default function PricingPage() {
       {showSuccess && (
         <div className="fixed top-6 right-6 z-50 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-5 py-3.5 rounded-xl text-sm font-medium flex items-center gap-2.5 shadow-lg">
           <i className="ri-checkbox-circle-fill text-lg"></i>
-          Đăng ký thành công! Chúng tôi sẽ liên hệ qua Zalo trong 30 phút.
+          Đã gửi yêu cầu thanh toán! Chúng tôi sẽ xác nhận và kích hoạt VIP trong vòng 30 phút.
+        </div>
+      )}
+
+      {/* Payment Submission Modal */}
+      {showPaymentModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="bg-[#0f1117] border border-white/10 rounded-2xl w-full max-w-md p-6">
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 flex items-center justify-center bg-emerald-500/10 rounded-xl">
+                  <i className="ri-bank-line text-emerald-400 text-lg"></i>
+                </div>
+                <div>
+                  <p className="text-white font-semibold text-sm">Gửi minh chứng thanh toán</p>
+                  <p className="text-white/40 text-xs">Chụp màn hình giao dịch chuyển khoản</p>
+                </div>
+              </div>
+              <button onClick={() => setShowPaymentModal(false)} className="text-white/30 hover:text-white/60 cursor-pointer">
+                <i className="ri-close-line text-xl"></i>
+              </button>
+            </div>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="text-white/50 text-xs font-medium block mb-2">Ảnh minh chứng</label>
+                <div className="relative">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={e => setPaymentProof(e.target.files?.[0] || null)}
+                    className="hidden"
+                    id="payment-proof"
+                  />
+                  <label
+                    htmlFor="payment-proof"
+                    className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-white/10 rounded-xl cursor-pointer hover:border-white/20 transition-colors bg-white/3"
+                  >
+                    {paymentProof ? (
+                      <div className="text-center">
+                        <i className="ri-image-line text-2xl text-emerald-400"></i>
+                        <p className="text-white/60 text-xs mt-2">{paymentProof.name}</p>
+                      </div>
+                    ) : (
+                      <div className="text-center">
+                        <i className="ri-upload-cloud-line text-2xl text-white/30"></i>
+                        <p className="text-white/40 text-xs mt-2">Click để chọn ảnh</p>
+                      </div>
+                    )}
+                  </label>
+                </div>
+              </div>
+              
+              <div>
+                <label className="text-white/50 text-xs font-medium block mb-2">Ghi chú (tùy chọn)</label>
+                <textarea
+                  value={paymentNote}
+                  onChange={e => setPaymentNote(e.target.value)}
+                  placeholder="VD: Đã chuyển 790.000đ cho gói VIP tháng"
+                  rows={3}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-emerald-400/40 transition-colors resize-none"
+                />
+              </div>
+              
+              <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-3">
+                <div className="flex items-start gap-2">
+                  <i className="ri-information-line text-emerald-400 text-xs mt-0.5 flex-shrink-0"></i>
+                  <p className="text-emerald-400/70 text-xs leading-relaxed">
+                    Số tiền cần chuyển: <span className="text-emerald-400 font-semibold">{new Intl.NumberFormat("vi-VN").format(billing === "monthly" ? monthlyPrice : yearlyPrice * 12)}đ</span>
+                    <br />
+                    Nội dung chuyển khoản: <span className="text-emerald-400 font-semibold">VIP_{user?.email?.split("@")[0] || "EMAIL"}</span>
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex gap-3 pt-2">
+                <button
+                  onClick={() => setShowPaymentModal(false)}
+                  className="flex-1 py-3 rounded-xl border border-white/10 text-white/50 text-sm font-medium hover:bg-white/5 transition-colors cursor-pointer"
+                >
+                  Hủy
+                </button>
+                <button
+                  onClick={handleSubmitPayment}
+                  disabled={!paymentProof || submittingPayment}
+                  className="flex-1 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-bold transition-colors cursor-pointer flex items-center justify-center gap-2"
+                >
+                  {submittingPayment ? (
+                    <>
+                      <i className="ri-loader-4-line animate-spin"></i>
+                      Đang gửi...
+                    </>
+                  ) : (
+                    <>
+                      <i className="ri-send-plane-line"></i>
+                      Gửi yêu cầu
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
