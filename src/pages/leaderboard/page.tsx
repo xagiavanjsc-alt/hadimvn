@@ -74,6 +74,74 @@ function AvatarCell({ player, size = 36 }: { player: LeaderboardPlayer; size?: n
   );
 }
 
+const MOCK_PLAYERS: LeaderboardPlayer[] = [
+  {
+    id: "mock-1",
+    user_id: "mock-1",
+    display_name: "Minh Anh",
+    avatar_url: null,
+    level: "Trung cấp",
+    streak: 15,
+    best_score: 95,
+    words_learned: 2500,
+    xp: 12500,
+    updated_at: new Date().toISOString(),
+    isCurrentUser: false,
+  },
+  {
+    id: "mock-2",
+    user_id: "mock-2",
+    display_name: "Hoàng Nam",
+    avatar_url: null,
+    level: "Sơ cấp",
+    streak: 30,
+    best_score: 88,
+    words_learned: 1800,
+    xp: 9800,
+    updated_at: new Date().toISOString(),
+    isCurrentUser: false,
+  },
+  {
+    id: "mock-3",
+    user_id: "mock-3",
+    display_name: "Thị Lan",
+    avatar_url: null,
+    level: "Sơ-Trung cấp",
+    streak: 7,
+    best_score: 92,
+    words_learned: 1500,
+    xp: 8500,
+    updated_at: new Date().toISOString(),
+    isCurrentUser: false,
+  },
+  {
+    id: "mock-4",
+    user_id: "mock-4",
+    display_name: "Quốc Bảo",
+    avatar_url: null,
+    level: "Cơ bản",
+    streak: 45,
+    best_score: 85,
+    words_learned: 3200,
+    xp: 15000,
+    updated_at: new Date().toISOString(),
+    isCurrentUser: false,
+  },
+  {
+    id: "mock-5",
+    user_id: "mock-5",
+    display_name: "Ngọc Hà",
+    avatar_url: null,
+    level: "Trung cấp",
+    streak: 12,
+    best_score: 90,
+    words_learned: 2100,
+    xp: 11000,
+    updated_at: new Date().toISOString(),
+    isCurrentUser: false,
+  },
+];
+
 export default function LeaderboardPage() {
   const navigate = useNavigate();
   const { user, profile } = useAuth();
@@ -187,16 +255,34 @@ export default function LeaderboardPage() {
   }, [fetchLeaderboard]);
 
   const sortedPlayers = useMemo(() => {
+    // If no real players, show mock data
+    if (players.length === 0) {
+      return [...MOCK_PLAYERS].sort((a, b) => b[sortKey] - a[sortKey]);
+    }
     return [...players].sort((a, b) => b[sortKey] - a[sortKey]);
   }, [players, sortKey]);
 
   const myRank = sortedPlayers.findIndex((p) => p.isCurrentUser) + 1;
   const myEntry = sortedPlayers.find((p) => p.isCurrentUser);
   const top3 = sortedPlayers.slice(0, 3);
+  const isUsingMockData = players.length === 0;
 
   return (
     <DashboardLayout title="Bảng xếp hạng" subtitle="So sánh tiến độ với học viên khác">
       <div className="space-y-6">
+
+        {/* Mock Data Indicator */}
+        {isUsingMockData && (
+          <div className="bg-[#e8c84a]/5 border border-[#e8c84a]/20 rounded-xl p-4 flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-[#e8c84a]/10 flex items-center justify-center flex-shrink-0">
+              <i className="ri-information-line text-[#e8c84a] text-lg"></i>
+            </div>
+            <div className="flex-1">
+              <p className="text-white/80 text-sm font-medium mb-1">Dữ liệu mẫu</p>
+              <p className="text-white/40 text-xs">Hãy học và thi để xuất hiện trên bảng xếp hạng thật!</p>
+            </div>
+          </div>
+        )}
 
         {/* My Rank Banner */}
         <div className="bg-gradient-to-r from-[#1a1600] to-[#0f1117] border border-[#e8c84a]/15 rounded-2xl p-5">
