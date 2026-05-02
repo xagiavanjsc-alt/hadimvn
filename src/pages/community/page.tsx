@@ -1173,7 +1173,11 @@ export default function CommunityPage() {
       content: contentWithImage,
       tags: [],
     });
-    if (!error) await fetchPosts();
+    if (error) {
+      console.error('[handleNewPost] Insert error:', error);
+      throw new Error(error.message);
+    }
+    await fetchPosts();
   };
 
   return (
