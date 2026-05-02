@@ -59,22 +59,36 @@ export function useAdminUsers(): UseAdminUsersReturn {
         .rpc("admin_get_users");
 
       if (profileErr) {
-        // Fallback: try direct query
+        console.warn("[useAdminUsers] RPC failed, trying fallback:", profileErr.message);
+        // Fallback: try direct query with RLS
         const { data: fallback, error: fallbackErr } = await supabase
           .from("user_profiles")
-          .select("id, display_name, email, avatar_url, is_vip, vip_type, vip_expires_at, is_admin, created_at, updated_at")
+          .select("id, display_name, email, avatar_url, is_vip, vip_type, vip_expires_at, is_admin, user_role, created_at, updated_at")
           .order("created_at", { ascending: false })
           .limit(500);
-        if (fallbackErr) throw fallbackErr;
-        if (!fallback) { setUsers([]); return; }
+        if (fallbackErr) {
+          console.error("[useAdminUsers] Fallback also failed:", fallbackErr.message);
+          throw fallbackErr;
+        }
+        if (!fallback || fallback.length === 0) {
+          console.warn("[useAdminUsers] No users returned from fallback (RLS may be blocking)");
+          setUsers([]);
+          return;
+        }
         await mergeWithLeaderboard(fallback);
         return;
       }
 
-      if (!profiles) { setUsers([]); return; }
+      if (!profiles || profiles.length === 0) {
+        console.warn("[useAdminUsers] RPC returned empty");
+        setUsers([]);
+        return;
+      }
+      console.log("[useAdminUsers] RPC returned", profiles.length, "users");
       await mergeWithLeaderboard(profiles);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Lỗi tải dữ liệu";
+      console.error("[useAdminUsers] Error:", msg);
       setError(msg);
     } finally {
       setLoading(false);

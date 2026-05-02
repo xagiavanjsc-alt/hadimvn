@@ -83,17 +83,12 @@ function QuillEditor({ value, onChange, placeholder }: {
     }
   }, [value]);
 
-  if (!quillReady) {
-    return (
-      <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-        <div className="text-white/30 text-xs">Đang tải trình soạn thảo...</div>
-      </div>
-    );
-  }
-
   return (
     <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
-      <div ref={editorRef} className="min-h-[200px] text-white/80" />
+      {!quillReady && (
+        <div className="p-4 text-white/30 text-xs">Đang tải trình soạn thảo...</div>
+      )}
+      <div ref={editorRef} className="min-h-[300px] text-white/80" style={{ minHeight: '300px' }} />
     </div>
   );
 }
@@ -829,6 +824,14 @@ function NewPostModal({
               value={content}
               onChange={setContent}
               placeholder="Chia sẻ kinh nghiệm, đặt câu hỏi hoặc khoe thành tích..."
+            />
+            {/* Fallback textarea if Quill fails */}
+            <textarea
+              value={content}
+              onChange={e => setContent(e.target.value)}
+              placeholder="Hoặc viết trực tiếp..."
+              className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 placeholder-white/20 mt-2 min-h-[100px]"
+              style={{ display: 'none' }}
             />
           </div>
 
