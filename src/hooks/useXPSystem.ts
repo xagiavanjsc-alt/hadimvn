@@ -15,7 +15,10 @@ export interface XPEvent {
     | "community_like_received"
     | "quiz_completed"
     | "topik_exam_completed"
-    | "topic_drill_completed";
+    | "topic_drill_completed"
+    | "hanja_word_learned"
+    | "hanja_tree_completed"
+    | "hanja_quiz_completed";
   amount?: number; // override default XP
   meta?: Record<string, unknown>;
 }
@@ -44,6 +47,9 @@ const XP_REWARDS: Record<XPEvent["type"], number> = {
   quiz_completed: 10,
   topik_exam_completed: 25,
   topic_drill_completed: 15,
+  hanja_word_learned: 3,
+  hanja_tree_completed: 30,
+  hanja_quiz_completed: 15,
 };
 
 function getRankForXP(xp: number) {

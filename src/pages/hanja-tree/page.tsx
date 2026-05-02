@@ -2,14 +2,16 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
+import { useXPSystem } from "@/hooks/useXPSystem";
 
 // ─── Tree Quiz Modal ──────────────────────────────────────────────────────────
-function TreeQuizModal({ nodes, learnedSet, rootChar, rootMeaning, onClose }: {
+function TreeQuizModal({ nodes, learnedSet, rootChar, rootMeaning, onClose, onQuizComplete }: {
   nodes: HanjaTreeNode[];
   learnedSet: Set<string>;
   rootChar: string;
   rootMeaning: string;
   onClose: () => void;
+  onQuizComplete?: (correct: number, total: number) => void;
 }) {
   const [quizMode, setQuizMode] = useState<"kr-to-vi" | "vi-to-kr">("kr-to-vi");
   const [quizType, setQuizType] = useState<"all" | "learned" | "unlearned">("all");
@@ -62,7 +64,10 @@ function TreeQuizModal({ nodes, learnedSet, rootChar, rootMeaning, onClose }: {
     const isCorrect = option === correctAnswer;
     setScore(s => ({ correct: s.correct + (isCorrect ? 1 : 0), wrong: s.wrong + (isCorrect ? 0 : 1) }));
     setTimeout(() => {
-      if (currentIdx + 1 >= cards.length) setFinished(true);
+      if (currentIdx + 1 >= cards.length) {
+        setFinished(true);
+        onQuizComplete?.(score.correct + (isCorrect ? 1 : 0), cards.length);
+      }
       else setCurrentIdx(i => i + 1);
     }, 900);
   };
@@ -476,6 +481,7 @@ function ImportGuidePanel() {
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function HanjaTreePage() {
   const navigate = useNavigate();
+  const { awardXP, totalXP, currentRank } = useXPSystem();
   const [nodes, setNodes] = useState<HanjaTreeNode[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedRoot, setSelectedRoot] = useState<string>("人");
@@ -562,11 +568,18 @@ export default function HanjaTreePage() {
   const toggleLearned = useCallback((korean: string) => {
     setLearnedSet(prev => {
       const next = new Set(prev);
+      const isNewLearn = !next.has(korean);
       next.has(korean) ? next.delete(korean) : next.add(korean);
       saveLearned(next);
+      
+      // Award XP for learning new word
+      if (isNewLearn) {
+        awardXP({ type: "hanja_word_learned", meta: { word: korean } });
+      }
+      
       return next;
     });
-  }, []);
+  }, [awardXP]);
 
   const handleSelectNode = useCallback((node: HanjaTreeNode) => {
     setSelectedNode(prev => prev?.id === node.id ? null : node);
@@ -581,6 +594,20 @@ export default function HanjaTreePage() {
     nodes.filter(n => learnedSet.has(n.korean)).length,
     [nodes, learnedSet]
   );
+
+  // Check if tree is completed and award XP
+  useEffect(() => {
+    if (currentGroup && groupLearnedCount === currentGroup.count && currentGroup.count > 0) {
+      // Tree completed - award XP (only once per session)
+      const completedTreesKey = 'kts_hanja_completed_trees';
+      const completedTrees = new Set(JSON.parse(localStorage.getItem(completedTreesKey) || '[]'));
+      if (!completedTrees.has(selectedRoot)) {
+        completedTrees.add(selectedRoot);
+        localStorage.setItem(completedTreesKey, JSON.stringify([...completedTrees]));
+        awardXP({ type: "hanja_tree_completed", meta: { root: selectedRoot } });
+      }
+    }
+  }, [groupLearnedCount, currentGroup, selectedRoot, awardXP]);
 
   return (
     <DashboardLayout>
@@ -606,7 +633,11 @@ export default function HanjaTreePage() {
               </button>
             </div>
             {/* Overall progress */}
-            <div className="bg-white/5 rounded-lg p-2">
+            <div className="bg-white/5 rounded-lg p-2 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] text-white/40">XP</span>
+                <span className="text-[10px] font-bold text-rose-400">{totalXP}</span>
+              </div>
               <div className="flex items-center justify-between mb-1">
                 <span className="text-[10px] text-white/40">Tổng tiến độ</span>
                 <span className="text-[10px] font-bold text-emerald-400">{totalLearned}/{nodes.length}</span>
@@ -960,6 +991,9 @@ export default function HanjaTreePage() {
           rootChar={selectedRoot}
           rootMeaning={ROOT_MEANINGS[selectedRoot] || selectedRoot}
           onClose={() => setShowQuiz(false)}
+          onQuizComplete={(correct, total) => {
+            awardXP({ type: "hanja_quiz_completed", amount: Math.round((correct / total) * 15) });
+          }}
         />
       )}
     </DashboardLayout>
