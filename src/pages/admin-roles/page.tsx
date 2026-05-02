@@ -86,7 +86,7 @@ export default function AdminRolesPage() {
   const handleSave = async (userId: string, role: Role, permissions: string[]) => {
     setSaving(true);
     try {
-      const isAdmin = role === "super_admin" || role === "smod";
+      const isAdmin = role === "super_admin" || role === "smod" || role === "moderator";
       console.log("[handleSave]", { userId, role, isAdmin, permissions });
 
       // Try SECURITY DEFINER RPC first (bypasses RLS safely)

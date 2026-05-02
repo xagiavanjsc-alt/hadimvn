@@ -63,7 +63,7 @@ BEGIN
     UPDATE public.user_profiles
     SET 
         user_role = new_role,
-        is_admin = (new_role IN ('super_admin', 'smod')),
+        is_admin = (new_role IN ('super_admin', 'smod', 'moderator')),
         updated_at = NOW()
     WHERE id = target_user_id
     RETURNING * INTO result_row;
