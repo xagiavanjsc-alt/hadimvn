@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import AdBanner from "@/components/feature/AdBanner";
 import { supabase } from "@/lib/supabase";
+import { HANJA_DATA } from "@/mocks/data/hanja-data";
 
 interface HanjaEntry {
   id: string;
@@ -62,12 +63,33 @@ export default function HanjaDetailPage() {
   useEffect(() => {
     const fetchEntries = async () => {
       setLoading(true);
+      // Fetch rich entries from DB (with examples, memory tips, related words)
       const { data } = await supabase
         .from("hanja_vocab_entries")
         .select("*")
         .not("hanja", "eq", "")
         .order("difficulty", { ascending: true });
-      if (data) setEntries(data as HanjaEntry[]);
+
+      const dbEntries = (data ?? []) as HanjaEntry[];
+      const dbKeys = new Set(dbEntries.map(e => `${e.korean}|${e.hanja}`));
+
+      // Merge local HANJA_DATA for any words not in DB
+      const localEntries: HanjaEntry[] = HANJA_DATA
+        .filter(w => w.hanja && !dbKeys.has(`${w.korean}|${w.hanja}`))
+        .map((w, i) => ({
+          id: `local_${i}`,
+          korean: w.korean,
+          hanja: w.hanja,
+          vietnamese: w.vietnamese,
+          pronunciation: "",
+          examples: [],
+          memory_tip: "",
+          related_words: [],
+          category: "",
+          difficulty: 2,
+        }));
+
+      setEntries([...dbEntries, ...localEntries]);
       setLoading(false);
     };
     fetchEntries();
