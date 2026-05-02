@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
-import { isVipActive } from "@/lib/supabase";
+import { isVipActive, supabase } from "@/lib/supabase";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import ShareResultCard from "@/components/feature/ShareResultCard";
@@ -38,13 +38,20 @@ const BADGES = [
   { id: "sr_review", icon: "ri-brain-line", label: "SR Master", desc: "Ôn tập SR 5 lần", color: "#818cf8" },
 ];
 
+// DiceBear avatars - free, no API key, reliable SVG service
 const AVATAR_PRESETS = [
-  "https://readdy.ai/api/search-image?query=cute%20cartoon%20Korean%20student%20girl%20smiling%20simple%20flat%20illustration%20pastel%20background&width=80&height=80&seq=av1&orientation=squarish",
-  "https://readdy.ai/api/search-image?query=cute%20cartoon%20Korean%20student%20boy%20smiling%20simple%20flat%20illustration%20pastel%20background&width=80&height=80&seq=av2&orientation=squarish",
-  "https://readdy.ai/api/search-image?query=cute%20cartoon%20panda%20studying%20books%20simple%20flat%20illustration%20pastel%20background&width=80&height=80&seq=av3&orientation=squarish",
-  "https://readdy.ai/api/search-image?query=cute%20cartoon%20fox%20with%20graduation%20cap%20simple%20flat%20illustration%20pastel%20background&width=80&height=80&seq=av4&orientation=squarish",
-  "https://readdy.ai/api/search-image?query=cute%20cartoon%20rabbit%20reading%20book%20simple%20flat%20illustration%20pastel%20background&width=80&height=80&seq=av5&orientation=squarish",
-  "https://readdy.ai/api/search-image?query=cute%20cartoon%20cat%20with%20Korean%20flag%20simple%20flat%20illustration%20pastel%20background&width=80&height=80&seq=av6&orientation=squarish",
+  "https://api.dicebear.com/7.x/adventurer/svg?seed=Han1&backgroundColor=ffd5dc",
+  "https://api.dicebear.com/7.x/adventurer/svg?seed=Han2&backgroundColor=c0aede",
+  "https://api.dicebear.com/7.x/adventurer/svg?seed=Han3&backgroundColor=b6e3f4",
+  "https://api.dicebear.com/7.x/adventurer/svg?seed=Han4&backgroundColor=ffdfbf",
+  "https://api.dicebear.com/7.x/adventurer/svg?seed=Han5&backgroundColor=d1d4f9",
+  "https://api.dicebear.com/7.x/adventurer/svg?seed=Han6&backgroundColor=c0e8a4",
+  "https://api.dicebear.com/7.x/fun-emoji/svg?seed=Korea1&backgroundColor=ffd5dc",
+  "https://api.dicebear.com/7.x/fun-emoji/svg?seed=Korea2&backgroundColor=c0aede",
+  "https://api.dicebear.com/7.x/fun-emoji/svg?seed=Korea3&backgroundColor=b6e3f4",
+  "https://api.dicebear.com/7.x/bottts/svg?seed=Hanja1&backgroundColor=ffdfbf",
+  "https://api.dicebear.com/7.x/bottts/svg?seed=Hanja2&backgroundColor=d1d4f9",
+  "https://api.dicebear.com/7.x/bottts/svg?seed=Hanja3&backgroundColor=c0e8a4",
 ];
 
 function StatCard({ icon, color, bg, label, value, sub }: {
@@ -129,6 +136,65 @@ export default function ProfilePage() {
     setSavingAvatar(false);
     showSuccess("Đã cập nhật avatar!");
   }, [updateProfile, showSuccess]);
+
+  const handleUploadAvatar = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !user) return;
+    e.target.value = ''; // reset
+
+    if (!file.type.startsWith('image/')) {
+      alert('Chỉ chấp nhận file ảnh');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Ảnh không được vượt quá 5MB');
+      return;
+    }
+
+    setSavingAvatar(true);
+    setShowAvatarPicker(false);
+    try {
+      // Resize + convert to WebP (256x256 square crop)
+      const blob = await new Promise<Blob>((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          const SIZE = 256;
+          const canvas = document.createElement('canvas');
+          canvas.width = SIZE;
+          canvas.height = SIZE;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) return reject(new Error('Canvas not supported'));
+          // Center crop
+          const minDim = Math.min(img.width, img.height);
+          const sx = (img.width - minDim) / 2;
+          const sy = (img.height - minDim) / 2;
+          ctx.drawImage(img, sx, sy, minDim, minDim, 0, 0, SIZE, SIZE);
+          canvas.toBlob(b => b ? resolve(b) : reject(new Error('toBlob failed')), 'image/webp', 0.85);
+        };
+        img.onerror = () => reject(new Error('Image load failed'));
+        img.src = URL.createObjectURL(file);
+      });
+
+      const fileName = `${user.id}/avatar-${Date.now()}.webp`;
+      const { error: uploadErr } = await supabase.storage
+        .from('community-images')
+        .upload(fileName, blob, { contentType: 'image/webp', upsert: true });
+
+      if (uploadErr) throw uploadErr;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('community-images')
+        .getPublicUrl(fileName);
+
+      await updateProfile({ avatar_url: publicUrl });
+      showSuccess("Đã cập nhật avatar!");
+    } catch (err) {
+      console.error('[uploadAvatar] error:', err);
+      alert('Lỗi upload avatar: ' + (err instanceof Error ? err.message : 'unknown'));
+    } finally {
+      setSavingAvatar(false);
+    }
+  }, [user, updateProfile, showSuccess]);
 
   // Computed stats
   const epsTotal = epsQuestions.length;
@@ -444,22 +510,33 @@ export default function ProfilePage() {
 
       {/* Avatar picker modal */}
       {showAvatarPicker && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={() => setShowAvatarPicker(false)}>
-          <div className="bg-app-bg border border-app-border rounded-2xl p-6 w-[420px]" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={() => setShowAvatarPicker(false)}>
+          <div className="bg-app-bg border border-app-border rounded-2xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-white font-bold text-base">Chọn avatar</h3>
               <button onClick={() => setShowAvatarPicker(false)} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white/70 cursor-pointer">
                 <i className="ri-close-line text-sm"></i>
               </button>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+
+            {/* Upload from device */}
+            <label className="block mb-4 cursor-pointer">
+              <input type="file" accept="image/*" onChange={handleUploadAvatar} className="hidden" />
+              <div className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-app-accent-primary/10 hover:bg-app-accent-primary/20 border border-app-accent-primary/30 text-app-accent-primary text-sm font-semibold transition-colors">
+                <i className="ri-upload-cloud-line text-lg"></i>
+                Tải ảnh từ máy (tự crop vuông, max 5MB)
+              </div>
+            </label>
+
+            <div className="text-app-text-muted text-xs mb-2">Hoặc chọn avatar có sẵn:</div>
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
               {AVATAR_PRESETS.map((url, i) => (
                 <button
                   key={i}
                   onClick={() => handleSelectAvatar(url)}
                   className={`relative rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${profile?.avatar_url === url ? "border-app-accent-primary" : "border-app-border hover:border-white/30"}`}
                 >
-                  <img src={url} alt={`Avatar ${i + 1}`} className="w-full aspect-square object-cover" />
+                  <img src={url} alt={`Avatar ${i + 1}`} className="w-full aspect-square object-cover bg-white/5" />
                   {profile?.avatar_url === url && (
                     <div className="absolute inset-0 bg-app-accent-primary/20 flex items-center justify-center">
                       <i className="ri-checkbox-circle-fill text-app-accent-primary text-xl"></i>
