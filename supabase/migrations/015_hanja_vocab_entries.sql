@@ -22,6 +22,38 @@ CREATE TABLE IF NOT EXISTS public.hanja_vocab_entries (
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- Add missing columns if they don't exist (for existing tables)
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'hanja_vocab_entries' AND column_name = 'pronunciation') THEN
+    ALTER TABLE public.hanja_vocab_entries ADD COLUMN pronunciation TEXT;
+  END IF;
+  
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'hanja_vocab_entries' AND column_name = 'category') THEN
+    ALTER TABLE public.hanja_vocab_entries ADD COLUMN category TEXT DEFAULT 'Khác';
+  END IF;
+  
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'hanja_vocab_entries' AND column_name = 'difficulty') THEN
+    ALTER TABLE public.hanja_vocab_entries ADD COLUMN difficulty INTEGER DEFAULT 2;
+  END IF;
+  
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'hanja_vocab_entries' AND column_name = 'topik_level') THEN
+    ALTER TABLE public.hanja_vocab_entries ADD COLUMN topik_level INTEGER;
+  END IF;
+  
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'hanja_vocab_entries' AND column_name = 'examples') THEN
+    ALTER TABLE public.hanja_vocab_entries ADD COLUMN examples JSONB DEFAULT '[]'::jsonb;
+  END IF;
+  
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'hanja_vocab_entries' AND column_name = 'memory_tip') THEN
+    ALTER TABLE public.hanja_vocab_entries ADD COLUMN memory_tip TEXT;
+  END IF;
+  
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'hanja_vocab_entries' AND column_name = 'related_words') THEN
+    ALTER TABLE public.hanja_vocab_entries ADD COLUMN related_words JSONB DEFAULT '[]'::jsonb;
+  END IF;
+END $$;
+
 -- Deduplicate existing rows (keep the one with latest updated_at)
 DELETE FROM public.hanja_vocab_entries d1
 WHERE EXISTS (
