@@ -81,12 +81,12 @@ export default function HanjaDetailPage() {
           korean: w.korean,
           hanja: w.hanja,
           vietnamese: w.vietnamese,
-          pronunciation: "",
+          pronunciation: w.pronunciation || "",
           examples: [],
           memory_tip: "",
           related_words: [],
-          category: "",
-          difficulty: 2,
+          category: w.category || "Khác",
+          difficulty: w.difficulty || 2,
         }));
 
       setEntries([...dbEntries, ...localEntries]);
