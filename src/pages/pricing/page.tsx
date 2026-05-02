@@ -315,6 +315,8 @@ export default function PricingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showViolationModal, setShowViolationModal] = useState(false);
+  const [bankAccount, setBankAccount] = useState<any>(null);
+  const [loadingBankInfo, setLoadingBankInfo] = useState(true);
 
   const monthlyPrice = 79000;
   const yearlyPrice = 59000;
@@ -325,6 +327,32 @@ export default function PricingPage() {
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 4000);
   };
+
+  // Load bank account settings from admin settings
+  useEffect(() => {
+    const loadBankSettings = async () => {
+      try {
+        const res = await supabase.functions.invoke("admin-grant-vip", {
+          body: { action: "get_settings" },
+        });
+        if (res.data?.data?.bank_account) {
+          setBankAccount(res.data.data.bank_account);
+        }
+      } catch {
+        // Fallback to localStorage
+        const localSettings = localStorage.getItem("kts_settings");
+        if (localSettings) {
+          const parsed = JSON.parse(localSettings);
+          if (parsed.bankAccount) {
+            setBankAccount(parsed.bankAccount);
+          }
+        }
+      } finally {
+        setLoadingBankInfo(false);
+      }
+    };
+    loadBankSettings();
+  }, []);
 
   return (
     <DashboardLayout
@@ -494,6 +522,65 @@ export default function PricingPage() {
           </div>
         </div>
       </div>
+
+      {/* Payment Information */}
+      {bankAccount && bankAccount.bankName && bankAccount.accountNumber && (
+        <div className="bg-[#0f1117] border border-emerald-500/20 rounded-2xl p-6 mb-10">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 flex items-center justify-center bg-emerald-500/10 rounded-xl">
+              <i className="ri-bank-line text-emerald-400 text-lg"></i>
+            </div>
+            <div>
+              <p className="text-white font-semibold text-sm">Thông tin thanh toán</p>
+              <p className="text-white/40 text-xs">Chuyển khoản ngân hàng hoặc quét QR Code</p>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Bank Account Info */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between py-2 border-b border-white/5">
+                <span className="text-white/40 text-xs">Ngân hàng</span>
+                <span className="text-white text-sm font-medium">{bankAccount.bankName}</span>
+              </div>
+              <div className="flex items-center justify-between py-2 border-b border-white/5">
+                <span className="text-white/40 text-xs">Số tài khoản</span>
+                <span className="text-white text-sm font-medium font-mono">{bankAccount.accountNumber}</span>
+              </div>
+              <div className="flex items-center justify-between py-2 border-b border-white/5">
+                <span className="text-white/40 text-xs">Chủ tài khoản</span>
+                <span className="text-white text-sm font-medium">{bankAccount.accountName}</span>
+              </div>
+              {bankAccount.branch && (
+                <div className="flex items-center justify-between py-2 border-b border-white/5">
+                  <span className="text-white/40 text-xs">Chi nhánh</span>
+                  <span className="text-white text-sm font-medium">{bankAccount.branch}</span>
+                </div>
+              )}
+              <div className="flex items-center justify-between py-2">
+                <span className="text-white/40 text-xs">Nội dung chuyển khoản</span>
+                <span className="text-emerald-400 text-sm font-medium">VIP_[EMAIL_CUA_BAN]</span>
+              </div>
+            </div>
+            
+            {/* QR Code */}
+            {bankAccount.qrCodeUrl && (
+              <div className="flex flex-col items-center justify-center p-4 bg-white/5 rounded-xl">
+                <p className="text-white/40 text-xs mb-3">Quét mã QR để chuyển khoản</p>
+                <img src={bankAccount.qrCodeUrl} alt="QR Code" className="w-48 h-48 rounded-lg" />
+                <p className="text-white/30 text-[10px] mt-3 text-center">Sử dụng app ngân hàng để quét mã</p>
+              </div>
+            )}
+          </div>
+          
+          <div className="mt-4 pt-4 border-t border-white/5">
+            <div className="flex items-start gap-2 text-emerald-400/60 text-xs bg-emerald-400/5 px-3 py-2 rounded-lg">
+              <i className="ri-information-line mt-0.5 flex-shrink-0"></i>
+              <p>Sau khi chuyển khoản, vui lòng chụp màn hình giao dịch và gửi qua Zalo để admin kích hoạt VIP trong vòng 30 phút.</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Testimonials */}
       <div className="mb-10">
