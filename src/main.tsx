@@ -4,6 +4,21 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 
+// ─── Polyfill requestIdleCallback for Safari ───────────────────────────────────────
+// Safari doesn't support requestIdleCallback, so polyfill with setTimeout
+if (!('requestIdleCallback' in window)) {
+  (window as any).requestIdleCallback = (cb: IdleRequestCallback, options?: IdleRequestOptions) => {
+    const start = Date.now();
+    return setTimeout(() => {
+      cb({
+        didTimeout: false,
+        timeRemaining: () => Math.max(0, 50 - (Date.now() - start))
+      });
+    }, 1);
+  };
+  (window as any).cancelIdleCallback = (id: number) => clearTimeout(id);
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
