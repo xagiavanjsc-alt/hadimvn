@@ -43,56 +43,28 @@ function BookCard({
   return (
     <button
       onClick={onClick}
-      className={`w-full text-left p-4 md:p-5 rounded-2xl border transition-all cursor-pointer group ${isSelected ? "border-white/25 bg-white/5" : "border-white/8 bg-white/2 hover:border-white/15 hover:bg-white/4"}`}
+      className={`w-full text-left p-3 rounded-xl border transition-all cursor-pointer group ${isSelected ? "border-white/20 bg-white/5" : "border-white/5 bg-white/2 hover:border-white/10 hover:bg-white/3"}`}
     >
-      <div className="h-1.5 rounded-full mb-3 md:mb-4" style={{ background: `linear-gradient(to right, ${book.color}60, ${book.color}20)` }} />
-
-      <div className="flex items-start justify-between mb-2 md:mb-3">
-        <div className="flex-1 min-w-0 pr-2">
-          <div className="flex items-center gap-1.5 mb-1 flex-wrap">
-            <span className="text-xs font-bold px-2 py-0.5 rounded-full whitespace-nowrap" style={{ backgroundColor: `${book.color}20`, color: book.color }}>
-              {book.level}
-            </span>
-            <span className="text-[10px] text-white/30">{book.cefrLevel}</span>
-          </div>
-          <p className="text-white font-bold text-sm md:text-base truncate">{book.name}</p>
-          <p className="text-white/30 text-[10px] md:text-xs mt-0.5">{LEVEL_GROUP_LABELS[book.levelGroup]}</p>
+      <div className="flex items-center gap-3 mb-2">
+        <div className="w-10 h-10 flex-shrink-0 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${book.color}15` }}>
+          <span className="text-sm font-bold" style={{ color: book.color }}>{book.level}</span>
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-white font-semibold text-sm truncate">{book.name}</p>
+          <p className="text-white/30 text-[10px]">{LEVEL_GROUP_LABELS[book.levelGroup]}</p>
         </div>
         <div className="text-right flex-shrink-0">
-          <p className="text-base md:text-lg font-bold" style={{ color: book.color }}>{progress}%</p>
-          <p className="text-white/30 text-[10px]">{completedCount}/{book.totalLessons}</p>
+          <p className="text-base font-bold" style={{ color: book.color }}>{progress}%</p>
         </div>
       </div>
 
-      <p className="text-white/40 text-xs leading-relaxed mb-3 line-clamp-2 hidden md:block">{book.description}</p>
-
-      <div className="flex items-center justify-between gap-2 mb-3 bg-white/3 rounded-lg p-2 md:hidden">
-        {[
-          { label: "Bài", value: book.totalLessons },
-          { label: "Từ", value: book.totalVocab },
-          { label: "NP", value: book.totalGrammar },
-        ].map(s => (
-          <div key={s.label} className="text-center flex-1">
-            <p className="text-white font-bold text-xs">{s.value}</p>
-            <p className="text-white/30 text-[9px]">{s.label}</p>
-          </div>
-        ))}
+      <div className="flex items-center justify-between gap-2 text-[10px] text-white/40">
+        <span>{completedCount}/{book.totalLessons} bài</span>
+        <span>{book.totalVocab} từ</span>
+        <span>{book.totalGrammar} ngữ pháp</span>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 md:gap-2 mb-3 hidden sm:grid">
-        {[
-          { label: "Bài", value: book.totalLessons },
-          { label: "Từ", value: book.totalVocab },
-          { label: "NP", value: book.totalGrammar },
-        ].map(s => (
-          <div key={s.label} className="bg-white/3 rounded-lg p-1.5 md:p-2 text-center">
-            <p className="text-white font-bold text-xs md:text-sm">{s.value}</p>
-            <p className="text-white/30 text-[9px]">{s.label}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+      <div className="mt-2 h-1.5 bg-white/5 rounded-full overflow-hidden">
         <div className="h-full rounded-full transition-all duration-700" style={{ width: `${progress}%`, backgroundColor: book.color }} />
       </div>
     </button>
