@@ -50,7 +50,10 @@ ALTER TABLE public.user_profiles ENABLE ROW LEVEL SECURITY;
 
 -- ─── RPC: admin_get_users ─────────────────────────────────────────────────────
 -- Security definer function so admin can read all user profiles bypassing RLS
-CREATE OR REPLACE FUNCTION public.admin_get_users()
+-- Drop first because return type changed (added user_role column)
+DROP FUNCTION IF EXISTS public.admin_get_users();
+
+CREATE FUNCTION public.admin_get_users()
 RETURNS TABLE (
   id UUID,
   display_name TEXT,
