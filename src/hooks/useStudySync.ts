@@ -5,39 +5,71 @@ import { computeXP, deriveLevel } from "@/lib/xp";
 export function useStudySync() {
   const syncToCloud = useCallback(async (userId: string) => {
     try {
-      const epsAnswers = JSON.parse(localStorage.getItem("kts_eps_answers") || "{}");
+      const streak = JSON.parse(localStorage.getItem("kts_streak") || '{"count":0,"lastDate":""}');
       const flashcardKnown = JSON.parse(localStorage.getItem("kts_flashcard_known") || "{}");
       const hangulKnown = JSON.parse(localStorage.getItem("kts_hangul_known") || "{}");
-      const quizHistory = JSON.parse(localStorage.getItem("kts_quiz_history") || "[]");
-      const newsLessons = JSON.parse(localStorage.getItem("kts_news_lessons") || "[]");
-      const streak = JSON.parse(localStorage.getItem("kts_streak") || '{"count":0,"lastDate":""}');
-      const pdfCount = parseInt(localStorage.getItem("kts_pdf_exports_count") || "0");
-      const pdfMonth = localStorage.getItem("kts_pdf_exports_month") || null;
-      const vocabFavorites = JSON.parse(localStorage.getItem("kts_vocab_favorites") || "[]");
-      const vocabKnown = JSON.parse(localStorage.getItem("kts_vocab_mastered") || "[]");
-      const grammarProgress = JSON.parse(localStorage.getItem("kts_grammar_progress") || "{}");
-      const dailyReviewHistory = JSON.parse(localStorage.getItem("kts_review_history") || "[]");
+      const examResults = JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]");
 
-      await supabase.from("study_progress").upsert({
+      // Sync to user_progress (unified XP/streak)
+      const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length + Object.values(hangulKnown).filter(Boolean).length;
+      const validExams = examResults as { score: number; total: number; correctIds?: string[] }[];
+      const bestScore = validExams.length > 0
+        ? Math.max(...validExams.map(r => Math.round((r.score / r.total) * 100)))
+        : 0;
+      const avgScore = validExams.length > 0
+        ? Math.round(validExams.reduce((sum, r) => sum + (r.score / r.total) * 100, 0) / validExams.length)
+        : 0;
+      const totalCorrect = validExams.reduce((sum, r) => sum + (r.correctIds?.length ?? r.score ?? 0), 0);
+
+      const xp = computeXP({
+        streakDays: streak.count || 0,
+        bestScorePct: bestScore,
+        averageScorePct: avgScore,
+        wordsLearned,
+        totalCorrectAnswers: totalCorrect,
+        validExamsCount: validExams.length,
+      });
+      const level = deriveLevel(bestScore);
+
+      await supabase.from("user_progress").upsert({
         user_id: userId,
+        xp,
+        level,
         streak_count: streak.count || 0,
         streak_last_date: streak.lastDate || null,
-        eps_answers: epsAnswers,
-        flashcard_known: flashcardKnown,
-        hangul_known: hangulKnown,
-        quiz_history: quizHistory,
-        news_lessons: newsLessons,
-        pdf_exports_count: pdfCount,
-        pdf_exports_month: pdfMonth,
-        vocab_favorites: vocabFavorites,
-        vocab_known: vocabKnown,
-        grammar_progress: grammarProgress,
-        daily_review_history: dailyReviewHistory,
+        last_active_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       }, { onConflict: "user_id" });
 
-      // Sync exam results
-      const examResults = JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]");
+      // Sync EPS progress to module_progress
+      const epsAnswers = JSON.parse(localStorage.getItem("kts_eps_answers") || "{}");
+      const epsLessonsCompleted = Object.keys(epsAnswers).length;
+      if (epsLessonsCompleted > 0) {
+        await supabase.from("module_progress").upsert({
+          user_id: userId,
+          module_id: "eps",
+          lessons_completed: epsLessonsCompleted,
+          total_lessons: 60, // EPS has 60 lessons
+          progress_percent: Math.min(100, (epsLessonsCompleted / 60) * 100),
+          last_studied_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        }, { onConflict: "user_id,module_id" });
+      }
+
+      // Sync flashcard data to flashcard_data
+      for (const [cardId, known] of Object.entries(flashcardKnown)) {
+        await supabase.from("flashcard_data").upsert({
+          user_id: userId,
+          card_id: cardId,
+          module_id: "hanja", // default for now, will be refined
+          status: known ? "mastered" : "new",
+          success_count: known ? 1 : 0,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        }, { onConflict: "user_id,card_id" });
+      }
+
+      // Sync exam results to exam_results
       if (examResults.length > 0) {
         const { data: existing } = await supabase
           .from("exam_results")
@@ -46,6 +78,7 @@ export function useStudySync() {
         if (!existing || existing.length === 0) {
           const rows = examResults.map((r: { id?: string; date?: string; score: number; total: number; timeUsed?: number; correctIds?: string[] }) => ({
             user_id: userId,
+            exam_type: "eps", // default for now
             score: r.score,
             total: r.total,
             time_used: r.timeUsed || 0,
@@ -62,49 +95,53 @@ export function useStudySync() {
 
   const loadFromCloud = useCallback(async (userId: string) => {
     try {
-      const { data: progress } = await supabase
-        .from("study_progress")
+      // Load user_progress
+      const { data: userProgress } = await supabase
+        .from("user_progress")
         .select("*")
         .eq("user_id", userId)
         .maybeSingle();
 
-      if (progress) {
-        if (progress.streak_count > 0) {
-          localStorage.setItem("kts_streak", JSON.stringify({ count: progress.streak_count, lastDate: progress.streak_last_date || "" }));
+      if (userProgress) {
+        if (userProgress.streak_count > 0) {
+          localStorage.setItem("kts_streak", JSON.stringify({ count: userProgress.streak_count, lastDate: userProgress.streak_last_date || "" }));
         }
-        if (Object.keys(progress.eps_answers || {}).length > 0) {
-          localStorage.setItem("kts_eps_answers", JSON.stringify(progress.eps_answers));
-        }
-        if (Object.keys(progress.flashcard_known || {}).length > 0) {
-          localStorage.setItem("kts_flashcard_known", JSON.stringify(progress.flashcard_known));
-        }
-        if (Object.keys(progress.hangul_known || {}).length > 0) {
-          localStorage.setItem("kts_hangul_known", JSON.stringify(progress.hangul_known));
-        }
-        if ((progress.quiz_history || []).length > 0) {
-          localStorage.setItem("kts_quiz_history", JSON.stringify(progress.quiz_history));
-        }
-        if ((progress.news_lessons || []).length > 0) {
-          localStorage.setItem("kts_news_lessons", JSON.stringify(progress.news_lessons));
-        }
-        localStorage.setItem("kts_pdf_exports_count", String(progress.pdf_exports_count || 0));
-        if (progress.pdf_exports_month) {
-          localStorage.setItem("kts_pdf_exports_month", progress.pdf_exports_month);
-        }
-        if ((progress.vocab_favorites || []).length > 0) {
-          localStorage.setItem("kts_vocab_favorites", JSON.stringify(progress.vocab_favorites));
-        }
-        if ((progress.vocab_known || []).length > 0) {
-          localStorage.setItem("kts_vocab_mastered", JSON.stringify(progress.vocab_known));
-        }
-        if (Object.keys(progress.grammar_progress || {}).length > 0) {
-          localStorage.setItem("kts_grammar_progress", JSON.stringify(progress.grammar_progress));
-        }
-        if ((progress.daily_review_history || []).length > 0) {
-          localStorage.setItem("kts_review_history", JSON.stringify(progress.daily_review_history));
+        localStorage.setItem("kts_xp_total", JSON.stringify({ total: userProgress.xp }));
+      }
+
+      // Load module_progress
+      const { data: moduleProgress } = await supabase
+        .from("module_progress")
+        .select("*")
+        .eq("user_id", userId);
+
+      if (moduleProgress) {
+        const epsModule = moduleProgress.find(m => m.module_id === "eps");
+        if (epsModule && epsModule.lessons_completed > 0) {
+          // Reconstruct eps_answers from module progress (simplified)
+          const epsAnswers: Record<string, any> = {};
+          for (let i = 1; i <= epsModule.lessons_completed; i++) {
+            epsAnswers[`lesson_${i}`] = { completed: true, score: 100 };
+          }
+          localStorage.setItem("kts_eps_answers", JSON.stringify(epsAnswers));
         }
       }
 
+      // Load flashcard_data
+      const { data: flashcardData } = await supabase
+        .from("flashcard_data")
+        .select("*")
+        .eq("user_id", userId);
+
+      if (flashcardData) {
+        const flashcardKnown: Record<string, boolean> = {};
+        flashcardData.forEach(card => {
+          flashcardKnown[card.card_id] = card.status === "mastered";
+        });
+        localStorage.setItem("kts_flashcard_known", JSON.stringify(flashcardKnown));
+      }
+
+      // Load exam_results
       const { data: exams } = await supabase
         .from("exam_results")
         .select("*")
@@ -143,8 +180,6 @@ export function useStudySync() {
         : 0;
       const totalCorrect = validExams.reduce((sum, r) => sum + (r.correctIds?.length ?? r.score ?? 0), 0);
 
-      // NOTE: XP tính ở client chỉ là HIỂN THỊ TẠM THỜI. Server-side trigger
-      // (002_anticheat.sql + 003_xp_formula.sql) sẽ tính lại XP THẬT và ghi đè.
       const xp = computeXP({
         streakDays: streak.count || 0,
         bestScorePct: bestScore,
@@ -155,15 +190,14 @@ export function useStudySync() {
       });
       const level = deriveLevel(bestScore);
 
-      // Client chỉ upsert các field "raw stats"; server trigger sẽ chuẩn hoá xp.
-      await supabase.from("leaderboard").upsert({
+      // Update user_progress (will trigger leaderboard sync via trigger)
+      await supabase.from("user_progress").upsert({
         user_id: userId,
-        display_name: displayName,
         xp,
+        level,
         streak: streak.count || 0,
         best_score: bestScore,
         words_learned: wordsLearned,
-        level,
         updated_at: new Date().toISOString(),
       }, { onConflict: "user_id" });
     } catch {
