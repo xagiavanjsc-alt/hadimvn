@@ -8,10 +8,20 @@ export interface ApprovedLesson {
     albumArt?: string;
   };
   story: string;
-  vocabulary: { korean: string; pronunciation: string; meaning: string }[];
-  vocab?: { korean: string; pronunciation: string; meaning: string }[]; // Alias for backward compatibility
+  vocabulary: VocabularyItem[];
+  vocab?: VocabularyItem[]; // Alias for backward compatibility
   grammar?: string; // Optional grammar notes
   explanation?: string;
   stars?: number;
   publishedAt?: string; // Optional publish date
+}
+
+// Vocabulary item with backward compatibility aliases
+export interface VocabularyItem {
+  korean: string;
+  word: string; // Alias for korean (required for backward compatibility)
+  pronunciation: string;
+  reading?: string; // Alias for pronunciation
+  meaning: string;
+  example?: string; // Optional example
 }

@@ -33,8 +33,8 @@ interface ScoreResult {
 
 declare global {
   interface Window {
-    SpeechRecognition: typeof SpeechRecognition;
-    webkitSpeechRecognition: typeof SpeechRecognition;
+    SpeechRecognition: any;
+    webkitSpeechRecognition: any;
   }
 }
 
@@ -49,7 +49,7 @@ export default function AIPronunciationPage() {
   const [transcript, setTranscript] = useState("");
   const [supported, setSupported] = useState(true);
   const [countdown, setCountdown] = useState(0);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const recognitionRef = useRef<any>(null);
   const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const filtered = selectedDifficulty === 0
