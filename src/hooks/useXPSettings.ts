@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
+/**
+ * XP settings configuration for the application
+ * Controls how XP is calculated and anti-cheat thresholds
+ */
 export interface XPSettings {
   streak_weight: number;
   best_score_weight: number;
@@ -14,6 +18,9 @@ export interface XPSettings {
   max_exams_per_day: number;
 }
 
+/**
+ * Default XP settings if database fetch fails
+ */
 export const DEFAULT_XP_SETTINGS: XPSettings = {
   streak_weight: 30,
   best_score_weight: 8,
@@ -35,6 +42,10 @@ interface CacheEntry {
   expiresAt: number;
 }
 
+/**
+ * Read cached XP settings from localStorage
+ * @returns XP settings if cache is valid and not expired, null otherwise
+ */
 function readCache(): XPSettings | null {
   try {
     const raw = localStorage.getItem(CACHE_KEY);
@@ -47,6 +58,10 @@ function readCache(): XPSettings | null {
   }
 }
 
+/**
+ * Write XP settings to localStorage cache
+ * @param data - XP settings to cache
+ */
 function writeCache(data: XPSettings): void {
   try {
     localStorage.setItem(
@@ -56,7 +71,12 @@ function writeCache(data: XPSettings): void {
   } catch { /* ignore quota */ }
 }
 
-/** Fetch XP settings từ Supabase (cache 5 phút). Fallback to defaults nếu lỗi. */
+/**
+ * Fetch XP settings from Supabase with 5-minute cache
+ * Falls back to default settings if fetch fails
+ * 
+ * @returns XP settings from cache or database
+ */
 export function useXPSettings(): XPSettings {
   const [settings, setSettings] = useState<XPSettings>(
     () => readCache() ?? DEFAULT_XP_SETTINGS
@@ -92,7 +112,10 @@ export function useXPSettings(): XPSettings {
   return settings;
 }
 
-/** Force refresh (gọi sau khi admin save). */
+/**
+ * Force refresh of XP settings cache
+ * Call this after admin saves new settings
+ */
 export function clearXPSettingsCache(): void {
   try { localStorage.removeItem(CACHE_KEY); } catch { /* ignore */ }
 }
