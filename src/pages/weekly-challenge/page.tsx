@@ -211,31 +211,18 @@ function ChallengeCard({
       {completed ? (
         <button
           onClick={() => onClaim(challenge.id)}
-          className="w-full py-2.5 rounded-xl bg-app-accent-success/15 border border-emerald-500/25 text-app-accent-success text-sm font-semibold cursor-pointer whitespace-nowrap hover:bg-emerald-500/25 transition-colors flex items-center justify-center gap-2"
+          disabled
+          title="Tính năng đang được nâng cấp - XP sẽ được cộng tự động từ hoạt động học thực tế"
+          className="w-full py-2.5 rounded-xl bg-app-accent-success/15 border border-emerald-500/25 text-app-accent-success text-sm font-semibold cursor-not-allowed opacity-70 whitespace-nowrap transition-colors flex items-center justify-center gap-2"
         >
           <i className="ri-gift-2-line"></i>Nhận thưởng {challenge.xpReward} XP
         </button>
       ) : (
-        <div className="flex gap-2">
-          <input
-            type="number"
-            min="1"
-            max={challenge.target}
-            value={inputVal}
-            onChange={e => setInputVal(e.target.value)}
-            placeholder="Nhập số..."
-            className="flex-1 bg-app-card/50 border border-app-border rounded-xl px-3 py-2 text-white/70 text-sm outline-none focus:border-white/20 placeholder-white/20"
-          />
-          <button
-            onClick={() => {
-              const v = parseInt(inputVal);
-              if (v > 0) { onAddProgress(challenge.id, v); setInputVal(""); }
-            }}
-            className="px-4 py-2 rounded-xl text-sm font-semibold cursor-pointer whitespace-nowrap transition-colors"
-            style={{ backgroundColor: `${challenge.color}15`, color: challenge.color, border: `1px solid ${challenge.color}25` }}
-          >
-            Cập nhật
-          </button>
+        <div className="bg-app-card/30 border border-app-border rounded-xl px-3 py-2.5 text-center">
+          <p className="text-app-text-muted text-[11px]">
+            <i className="ri-information-line mr-1"></i>
+            Tiến độ tự động cập nhật khi bạn hoàn thành hoạt động học thực tế
+          </p>
         </div>
       )}
     </div>

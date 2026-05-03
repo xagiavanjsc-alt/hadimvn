@@ -5,6 +5,39 @@
 -- APPLY: paste vào Supabase SQL Editor → Run (idempotent)
 -- ────────────────────────────────────────────────────────────────────────────
 
+-- ─── 0. Đảm bảo xp_settings tồn tại và có đầy đủ columns cũ ────────────────────
+CREATE TABLE IF NOT EXISTS public.xp_settings (
+  id TEXT PRIMARY KEY DEFAULT 'global',
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+INSERT INTO public.xp_settings (id) VALUES ('global') ON CONFLICT (id) DO NOTHING;
+
+DO $$
+BEGIN
+  -- Legacy columns (từ migration 004)
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'xp_settings' AND column_name = 'streak_weight') THEN
+    ALTER TABLE public.xp_settings ADD COLUMN streak_weight INT NOT NULL DEFAULT 30;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'xp_settings' AND column_name = 'best_score_weight') THEN
+    ALTER TABLE public.xp_settings ADD COLUMN best_score_weight INT NOT NULL DEFAULT 8;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'xp_settings' AND column_name = 'average_score_weight') THEN
+    ALTER TABLE public.xp_settings ADD COLUMN average_score_weight INT NOT NULL DEFAULT 5;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'xp_settings' AND column_name = 'correct_answer_weight') THEN
+    ALTER TABLE public.xp_settings ADD COLUMN correct_answer_weight INT NOT NULL DEFAULT 3;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'xp_settings' AND column_name = 'flashcard_weight') THEN
+    ALTER TABLE public.xp_settings ADD COLUMN flashcard_weight INT NOT NULL DEFAULT 4;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'xp_settings' AND column_name = 'exam_completed_bonus') THEN
+    ALTER TABLE public.xp_settings ADD COLUMN exam_completed_bonus INT NOT NULL DEFAULT 10;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'xp_settings' AND column_name = 'flashcard_xp_cap') THEN
+    ALTER TABLE public.xp_settings ADD COLUMN flashcard_xp_cap INT NOT NULL DEFAULT 500;
+  END IF;
+END $$;
+
 -- ─── 1. Thêm XP weights cho community vào xp_settings ───────────────────────────
 DO $$
 BEGIN
@@ -207,25 +240,125 @@ CREATE TRIGGER trg_xp_community_ratings
   AFTER INSERT OR UPDATE OF status ON public.community_ratings
   FOR EACH ROW EXECUTE FUNCTION public.update_user_xp_on_community_activity();
 
--- ─── 4. Recalculate XP cho tất cả users (run once) ───────────────────────────
+-- ─── 4. Recalculate XP + stats cho tất cả users (run once) ───────────────────
 -- Chạy thủ công nếu cần: SELECT public.recalculate_all_xp();
 CREATE OR REPLACE FUNCTION public.recalculate_all_xp()
 RETURNS VOID AS $$
+DECLARE
+  r RECORD;
+  v_best_score INT;
+  v_words_learned INT;
+  v_streak INT;
+  v_xp INT;
 BEGIN
-  -- Cập nhật XP cho tất cả users
-  UPDATE public.user_progress up
-  SET xp = public.compute_user_xp(up.user_id),
-      updated_at = NOW();
+  FOR r IN SELECT DISTINCT up.user_id FROM public.user_progress up LOOP
+    -- Best score
+    SELECT COALESCE(MAX(ROUND((score::FLOAT / NULLIF(total,0)) * 100))::INT, 0)
+    INTO v_best_score
+    FROM public.exam_results
+    WHERE user_id = r.user_id AND is_valid = true AND total > 0;
 
-  -- Sync với leaderboard
-  INSERT INTO public.leaderboard (user_id, xp, updated_at)
-  SELECT up.user_id, public.compute_user_xp(up.user_id), NOW()
-  FROM public.user_progress up
-  ON CONFLICT (user_id) DO UPDATE SET
-    xp = EXCLUDED.xp,
-    updated_at = EXCLUDED.updated_at;
+    -- Words learned từ flashcard_known
+    SELECT COALESCE(
+      (SELECT COUNT(*) FROM jsonb_each(flashcard_known) WHERE value = 'true'::jsonb),
+      0
+    )
+    INTO v_words_learned
+    FROM public.user_progress WHERE user_id = r.user_id;
+
+    -- Streak
+    SELECT COALESCE(streak_count, 0) INTO v_streak
+    FROM public.user_progress WHERE user_id = r.user_id;
+
+    -- Compute XP
+    v_xp := public.compute_user_xp(r.user_id);
+
+    -- Update user_progress
+    UPDATE public.user_progress
+    SET xp = v_xp,
+        best_score = v_best_score,
+        words_learned = v_words_learned,
+        updated_at = NOW()
+    WHERE user_id = r.user_id;
+
+    -- Sync leaderboard
+    INSERT INTO public.leaderboard (user_id, xp, streak, best_score, words_learned, level, updated_at)
+    VALUES (
+      r.user_id,
+      v_xp,
+      v_streak,
+      v_best_score,
+      v_words_learned,
+      CASE
+        WHEN v_best_score >= 80 THEN 'TOPIK II'
+        WHEN v_best_score >= 60 THEN 'TOPIK I'
+        ELSE 'Cơ bản'
+      END,
+      NOW()
+    )
+    ON CONFLICT (user_id) DO UPDATE SET
+      xp = EXCLUDED.xp,
+      streak = EXCLUDED.streak,
+      best_score = EXCLUDED.best_score,
+      words_learned = EXCLUDED.words_learned,
+      level = EXCLUDED.level,
+      updated_at = EXCLUDED.updated_at;
+  END LOOP;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- ─── 6. Đảm bảo user_progress có columns best_score & words_learned ──────────
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'user_progress' AND column_name = 'best_score') THEN
+    ALTER TABLE public.user_progress ADD COLUMN best_score INT DEFAULT 0;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'user_progress' AND column_name = 'words_learned') THEN
+    ALTER TABLE public.user_progress ADD COLUMN words_learned INT DEFAULT 0;
+  END IF;
+END $$;
+
+-- ─── 7. Trigger auto-sync best_score khi có exam mới ─────────────────────────
+CREATE OR REPLACE FUNCTION public.sync_best_score_on_exam()
+RETURNS TRIGGER AS $$
+DECLARE
+  v_best INT;
+  v_xp INT;
+BEGIN
+  IF NEW.is_valid = true AND NEW.total > 0 THEN
+    SELECT COALESCE(MAX(ROUND((score::FLOAT / NULLIF(total,0)) * 100))::INT, 0)
+    INTO v_best
+    FROM public.exam_results
+    WHERE user_id = NEW.user_id AND is_valid = true AND total > 0;
+
+    v_xp := public.compute_user_xp(NEW.user_id);
+
+    UPDATE public.user_progress
+    SET best_score = v_best,
+        xp = v_xp,
+        updated_at = NOW()
+    WHERE user_id = NEW.user_id;
+
+    INSERT INTO public.leaderboard (user_id, xp, best_score, level, updated_at)
+    VALUES (
+      NEW.user_id, v_xp, v_best,
+      CASE WHEN v_best >= 80 THEN 'TOPIK II' WHEN v_best >= 60 THEN 'TOPIK I' ELSE 'Cơ bản' END,
+      NOW()
+    )
+    ON CONFLICT (user_id) DO UPDATE SET
+      xp = EXCLUDED.xp,
+      best_score = EXCLUDED.best_score,
+      level = EXCLUDED.level,
+      updated_at = EXCLUDED.updated_at;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+DROP TRIGGER IF EXISTS trg_sync_best_score ON public.exam_results;
+CREATE TRIGGER trg_sync_best_score
+  AFTER INSERT OR UPDATE ON public.exam_results
+  FOR EACH ROW EXECUTE FUNCTION public.sync_best_score_on_exam();
 
 -- ─── 5. Lệnh recalculate trực tiếp (không cần function) ───────────────────────
 -- Chạy lệnh này trong SQL Editor để cập nhật XP cho tất cả users
