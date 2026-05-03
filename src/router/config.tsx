@@ -349,6 +349,9 @@ const AdminPricingPage = lazyPage(() => import("../pages/admin-pricing/page"));
 const AdminSeriesPage = lazyPage(() => import("../pages/admin-series/page"));
 const AdminStatsPage = lazyPage(() => import("../pages/admin-stats/page"));
 const AdminSettingsPage = lazyPage(() => import("../pages/admin-settings/page"));
+const AdminSEOPage = lazyPage(() => import("../pages/admin-seo/page"));
+const AdminCategorySEOPage = lazyPage(() => import("../pages/admin-category-seo/page"));
+const AdminPaymentPage = lazyPage(() => import("../pages/admin-payment/page"));
 const AdminLearnStatsPage = lazyPage(() => import("../pages/admin-learn-stats/page"));
 const AdminEpsNewPage = lazyPage(() => import("../pages/admin-eps-new/page"));
 const AdminUploadPage = lazyPage(() => import("../pages/admin-upload/page"));
@@ -573,6 +576,9 @@ const routes: RouteObject[] = [
   { path: "/admin/series", element: <AdminSeriesPage /> },
   { path: "/admin/stats", element: <AdminStatsPage /> },
   { path: "/admin/settings", element: <RequirePermission permission="system.settings"><AdminSettingsPage /></RequirePermission> },
+  { path: "/admin/seo", element: <RequirePermission permission="system.settings"><AdminSEOPage /></RequirePermission> },
+  { path: "/admin/category-seo", element: <RequirePermission permission="system.settings"><AdminCategorySEOPage /></RequirePermission> },
+  { path: "/admin/payment", element: <RequirePermission permission="users.vip"><AdminPaymentPage /></RequirePermission> },
   { path: "/admin/learn-stats", element: <AdminLearnStatsPage /> },
   { path: "/admin/eps", element: <AdminEpsNewPage /> },
   { path: "/admin/eps-new", element: <AdminEpsNewPage /> },

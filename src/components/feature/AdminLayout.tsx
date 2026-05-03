@@ -73,7 +73,10 @@ const adminNavGroups = [
     items: [
       { path: "/admin/control", icon: "ri-settings-4-line", label: "Cài đặt admin", permission: "system.settings" as Permission },
       { path: "/admin/xp-config", icon: "ri-scales-3-line", label: "Cấu hình XP & Anti-cheat", permission: "system.settings" as Permission },
+      { path: "/admin/pricing", icon: "ri-vip-crown-line", label: "Gói VIP & Giá", permission: "system.settings" as Permission },
       { path: "/admin/settings", icon: "ri-settings-3-line", label: "Cài đặt API & Keys", permission: "system.settings" as Permission },
+      { path: "/admin/seo", icon: "ri-search-eye-line", label: "Cài đặt SEO", permission: "system.settings" as Permission },
+      { path: "/admin/category-seo", icon: "ri-file-list-3-line", label: "SEO Danh mục", permission: "system.settings" as Permission },
       { path: "/admin/backup", icon: "ri-save-line", label: "Backup & Restore", permission: "system.settings" as Permission },
       { path: "/admin/audit", icon: "ri-history-line", label: "Audit Log", permission: "system.settings" as Permission },
       { path: "/admin/security", icon: "ri-shield-keyhole-line", label: "Bảo mật hệ thống", permission: "system.settings" as Permission },
