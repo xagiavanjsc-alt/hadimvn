@@ -6,6 +6,7 @@ import { useAdminNotifications } from "@/hooks/useAdminNotifications";
 import { relativeTime } from "@/utils/exportUtils";
 import { AdminToastProvider } from "@/contexts/AdminToastContext";
 import AdminGuard from "@/components/feature/AdminGuard";
+import { getRole, hasPermission, type Permission } from "@/lib/permissions";
 
 // ─── Full Admin Nav Groups ────────────────────────────────────────────────────
 const adminNavGroups = [
@@ -14,69 +15,69 @@ const adminNavGroups = [
     color: "#f87171",
     items: [
       { path: "/admin", icon: "ri-dashboard-line", label: "Dashboard" },
-      { path: "/admin/stats", icon: "ri-bar-chart-line", label: "Thống kê hệ thống" },
-      { path: "/admin/learn-stats", icon: "ri-graduation-cap-line", label: "Thống kê học tập" },
+      { path: "/admin/stats", icon: "ri-bar-chart-line", label: "Thống kê hệ thống", permission: "stats.view" as Permission },
+      { path: "/admin/learn-stats", icon: "ri-graduation-cap-line", label: "Thống kê học tập", permission: "stats.view" as Permission },
     ],
   },
   {
     label: "Người dùng",
     color: "#34d399",
     items: [
-      { path: "/admin/users", icon: "ri-user-settings-line", label: "Quản lý thành viên" },
-      { path: "/admin/roles", icon: "ri-shield-keyhole-line", label: "Phân quyền Admin" },
-      { path: "/admin/coupon", icon: "ri-coupon-3-line", label: "Coupon & Mã giảm giá" },
+      { path: "/admin/users", icon: "ri-user-settings-line", label: "Quản lý thành viên", permission: "users.view" as Permission },
+      { path: "/admin/roles", icon: "ri-shield-keyhole-line", label: "Phân quyền Admin", permission: "system.roles" as Permission },
+      { path: "/admin/coupon", icon: "ri-coupon-3-line", label: "Coupon & Mã giảm giá", permission: "users.vip" as Permission },
     ],
   },
   {
     label: "Nội dung học",
     color: "#a78bfa",
     items: [
-      { path: "/admin/content", icon: "ri-article-line", label: "Duyệt nội dung" },
-      { path: "/admin/community-settings", icon: "ri-team-line", label: "Cấu hình cộng đồng" },
-      { path: "/admin/content-learn", icon: "ri-book-open-line", label: "Quản lý nội dung học" },
-      { path: "/admin/series", icon: "ri-stack-line", label: "Series & Ebook" },
-      { path: "/admin/eps", icon: "ri-image-edit-line", label: "Quản lý EPS" },
-      { path: "/admin/eps-new", icon: "ri-add-circle-line", label: "Thêm bài EPS mới" },
-      { path: "/admin/eps-upload", icon: "ri-upload-cloud-2-line", label: "Upload ảnh EPS" },
-      { path: "/admin/upload", icon: "ri-upload-cloud-2-line", label: "Upload & AI tổng hợp" },
+      { path: "/admin/content", icon: "ri-article-line", label: "Duyệt nội dung", permission: "content.view" as Permission },
+      { path: "/admin/community-settings", icon: "ri-team-line", label: "Cấu hình cộng đồng", permission: "content.view" as Permission },
+      { path: "/admin/content-learn", icon: "ri-book-open-line", label: "Quản lý nội dung học", permission: "eps.edit" as Permission },
+      { path: "/admin/series", icon: "ri-stack-line", label: "Series & Ebook", permission: "eps.edit" as Permission },
+      { path: "/admin/eps", icon: "ri-image-edit-line", label: "Quản lý EPS", permission: "eps.edit" as Permission },
+      { path: "/admin/eps-new", icon: "ri-add-circle-line", label: "Thêm bài EPS mới", permission: "eps.edit" as Permission },
+      { path: "/admin/eps-upload", icon: "ri-upload-cloud-2-line", label: "Upload ảnh EPS", permission: "eps.upload" as Permission },
+      { path: "/admin/upload", icon: "ri-upload-cloud-2-line", label: "Upload & AI tổng hợp", permission: "eps.upload" as Permission },
     ],
   },
   {
     label: "Doanh thu",
     color: "#34d399",
     items: [
-      { path: "/admin/revenue", icon: "ri-line-chart-line", label: "Phân tích doanh thu" },
-      { path: "/admin/vip-transactions", icon: "ri-exchange-line", label: "Lịch sử giao dịch VIP" },
-      { path: "/admin/pricing", icon: "ri-vip-crown-line", label: "Gói VIP & Giá" },
+      { path: "/admin/revenue", icon: "ri-line-chart-line", label: "Phân tích doanh thu", permission: "users.vip" as Permission },
+      { path: "/admin/vip-transactions", icon: "ri-exchange-line", label: "Lịch sử giao dịch VIP", permission: "users.vip" as Permission },
+      { path: "/admin/pricing", icon: "ri-vip-crown-line", label: "Gói VIP & Giá", permission: "system.settings" as Permission },
     ],
   },
   {
     label: "Truyền thông",
     color: "#fb923c",
     items: [
-      { path: "/admin/broadcast", icon: "ri-broadcast-line", label: "Broadcast email" },
-      { path: "/admin/zalo-reminder", icon: "ri-chat-1-line", label: "Nhắc nhở Zalo OA" },
+      { path: "/admin/broadcast", icon: "ri-broadcast-line", label: "Broadcast email", permission: "system.broadcast" as Permission },
+      { path: "/admin/zalo-reminder", icon: "ri-chat-1-line", label: "Nhắc nhở Zalo OA", permission: "system.broadcast" as Permission },
     ],
   },
   {
     label: "Hỗ trợ & Báo cáo",
     color: "#f87171",
     items: [
-      { path: "/admin/bugs", icon: "ri-bug-line", label: "Báo cáo lỗi & Vi phạm" },
-      { path: "/admin/feedback", icon: "ri-chat-smile-2-line", label: "Góp ý & Đánh giá" },
-      { path: "/admin/error-logs", icon: "ri-error-warning-line", label: "Lỗi hệ thống" },
+      { path: "/admin/bugs", icon: "ri-bug-line", label: "Báo cáo lỗi & Vi phạm", permission: "reports.view" as Permission },
+      { path: "/admin/feedback", icon: "ri-chat-smile-2-line", label: "Góp ý & Đánh giá", permission: "reports.view" as Permission },
+      { path: "/admin/error-logs", icon: "ri-error-warning-line", label: "Lỗi hệ thống", permission: "system.settings" as Permission },
     ],
   },
   {
     label: "Hệ thống",
     color: "app-accent-primary",
     items: [
-      { path: "/admin/control", icon: "ri-settings-4-line", label: "Cài đặt admin" },
-      { path: "/admin/xp-config", icon: "ri-scales-3-line", label: "Cấu hình XP & Anti-cheat" },
-      { path: "/admin/settings", icon: "ri-settings-3-line", label: "Cài đặt API & Keys" },
-      { path: "/admin/backup", icon: "ri-save-line", label: "Backup & Restore" },
-      { path: "/admin/audit", icon: "ri-history-line", label: "Audit Log" },
-      { path: "/admin/security", icon: "ri-shield-keyhole-line", label: "Bảo mật hệ thống" },
+      { path: "/admin/control", icon: "ri-settings-4-line", label: "Cài đặt admin", permission: "system.settings" as Permission },
+      { path: "/admin/xp-config", icon: "ri-scales-3-line", label: "Cấu hình XP & Anti-cheat", permission: "system.settings" as Permission },
+      { path: "/admin/settings", icon: "ri-settings-3-line", label: "Cài đặt API & Keys", permission: "system.settings" as Permission },
+      { path: "/admin/backup", icon: "ri-save-line", label: "Backup & Restore", permission: "system.settings" as Permission },
+      { path: "/admin/audit", icon: "ri-history-line", label: "Audit Log", permission: "system.settings" as Permission },
+      { path: "/admin/security", icon: "ri-shield-keyhole-line", label: "Bảo mật hệ thống", permission: "system.settings" as Permission },
     ],
   },
 ];
@@ -384,6 +385,17 @@ export default function AdminLayout({
   const [showNotif, setShowNotif] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
+  // Filter nav by current user's role permissions
+  const visibleNavGroups = useMemo(() => {
+    const role = getRole(profile);
+    return adminNavGroups
+      .map(g => ({
+        ...g,
+        items: g.items.filter(item => !item.permission || hasPermission(role, item.permission)),
+      }))
+      .filter(g => g.items.length > 0);
+  }, [profile]);
+
   useEffect(() => {
     const vars = adminThemeVars[theme];
     const root = document.documentElement;
@@ -437,7 +449,7 @@ export default function AdminLayout({
                 {/* Quick search toggle */}
                 <QuickSearchToggle />
 
-                {adminNavGroups.map((group, i) => (
+                {visibleNavGroups.map((group, i) => (
                   <NavGroup key={group.label} group={group} defaultOpen={i === 0} />
                 ))}
 
@@ -461,7 +473,7 @@ export default function AdminLayout({
             ) : (
               /* Collapsed: chỉ hiện icons */
               <div className="space-y-1">
-                {adminNavGroups.flatMap(g => g.items).map(item => {
+                {visibleNavGroups.flatMap(g => g.items).map(item => {
                   const isActive = location.pathname === item.path;
                   return (
                     <NavLink

@@ -3,6 +3,7 @@ import type { RouteObject } from "react-router-dom";
 import PageSkeleton from "@/components/base/PageSkeleton";
 import RequireAuth from "@/components/feature/RequireAuth";
 import AdminGuard from "@/components/feature/AdminGuard";
+import RequirePermission from "@/components/feature/RequirePermission";
 
 // ─── Eager (critical path) ────────────────────────────────────────────────────
 import RootPage from "../pages/root/page";
@@ -310,6 +311,7 @@ const KoreanNewsPage = lazyPage(() => import("../pages/korean-news/page"));
 const HanjaDetailPage = lazyPage(() => import("../pages/hanja-detail/page"));
 const HanjaTreePage = lazyPage(() => import("../pages/hanja-tree/page"));
 const HanjaDashboardPage = lazyPage(() => import("../pages/hanja-dashboard/page"));
+const HanjaProPage = lazyPage(() => import("../pages/hanja-pro/page"));
 const HanjaAnalyticsPage = lazyPage(() => import("../pages/hanja-analytics/page"));
 const FlashcardHubPage = lazyPage(() => import("../pages/flashcard-hub/page"), "flashcard");
 const SpeakingLevelPage = lazyPage(() => import("../pages/speaking-level/page"));
@@ -563,32 +565,32 @@ const routes: RouteObject[] = [
   // Admin
   { path: "/admin", element: <AdminDashboardPage /> },
   { path: "/admin/users", element: <AdminUsersPage /> },
-  { path: "/admin/coupon", element: <AdminCouponPage /> },
-  { path: "/admin/xp-config", element: <AdminXPConfigPage /> },
-  { path: "/admin/pricing", element: <AdminPricingPage /> },
+  { path: "/admin/coupon", element: <RequirePermission permission="users.vip"><AdminCouponPage /></RequirePermission> },
+  { path: "/admin/xp-config", element: <RequirePermission permission="system.settings"><AdminXPConfigPage /></RequirePermission> },
+  { path: "/admin/pricing", element: <RequirePermission permission="system.settings"><AdminPricingPage /></RequirePermission> },
   { path: "/admin/series", element: <AdminSeriesPage /> },
   { path: "/admin/stats", element: <AdminStatsPage /> },
-  { path: "/admin/settings", element: <AdminSettingsPage /> },
+  { path: "/admin/settings", element: <RequirePermission permission="system.settings"><AdminSettingsPage /></RequirePermission> },
   { path: "/admin/learn-stats", element: <AdminLearnStatsPage /> },
   { path: "/admin/eps", element: <AdminEpsNewPage /> },
   { path: "/admin/eps-new", element: <AdminEpsNewPage /> },
-  { path: "/admin/upload", element: <AdminUploadPage /> },
+  { path: "/admin/upload", element: <RequirePermission permission="eps.upload"><AdminUploadPage /></RequirePermission> },
   { path: "/admin/content", element: <AdminContentPage /> },
-  { path: "/admin/backup", element: <AdminBackupPage /> },
-  { path: "/admin/roles", element: <AdminRolesPage /> },
-  { path: "/admin/audit", element: <AdminAuditPage /> },
-  { path: "/admin/broadcast", element: <AdminBroadcastPage /> },
-  { path: "/admin/security", element: <AdminSecurityPage /> },
-  { path: "/admin/revenue", element: <AdminRevenuePage /> },
-  { path: "/admin/ads", element: <AdminAdsPage /> },
+  { path: "/admin/backup", element: <RequirePermission permission="system.settings"><AdminBackupPage /></RequirePermission> },
+  { path: "/admin/roles", element: <RequirePermission permission="system.roles"><AdminRolesPage /></RequirePermission> },
+  { path: "/admin/audit", element: <RequirePermission permission="system.settings"><AdminAuditPage /></RequirePermission> },
+  { path: "/admin/broadcast", element: <RequirePermission permission="system.broadcast"><AdminBroadcastPage /></RequirePermission> },
+  { path: "/admin/security", element: <RequirePermission permission="system.settings"><AdminSecurityPage /></RequirePermission> },
+  { path: "/admin/revenue", element: <RequirePermission permission="users.vip"><AdminRevenuePage /></RequirePermission> },
+  { path: "/admin/ads", element: <RequirePermission permission="system.settings"><AdminAdsPage /></RequirePermission> },
   { path: "/admin/hanja", element: <AdminGuard><AdminHanjaPage /></AdminGuard> },
-  { path: "/admin/hanja-excel", element: <AdminGuard><AdminHanjaExcelPage /></AdminGuard> },
-  { path: "/admin/control", element: <AdminGuard><AdminControlPage /></AdminGuard> },
+  { path: "/admin/hanja-excel", element: <RequirePermission permission="eps.upload"><AdminHanjaExcelPage /></RequirePermission> },
+  { path: "/admin/control", element: <RequirePermission permission="system.settings"><AdminControlPage /></RequirePermission> },
   { path: "/admin/bugs", element: <AdminBugsPage /> },
-  { path: "/admin/vip-transactions", element: <AdminVipTransactionsPage /> },
-  { path: "/admin/zalo-reminder", element: <AdminZaloReminderPage /> },
+  { path: "/admin/vip-transactions", element: <RequirePermission permission="users.vip"><AdminVipTransactionsPage /></RequirePermission> },
+  { path: "/admin/zalo-reminder", element: <RequirePermission permission="system.broadcast"><AdminZaloReminderPage /></RequirePermission> },
   { path: "/admin/feedback", element: <AdminFeedbackPage /> },
-  { path: "/admin/error-logs", element: <AdminErrorLogsPage /> },
+  { path: "/admin/error-logs", element: <RequirePermission permission="system.settings"><AdminErrorLogsPage /></RequirePermission> },
   { path: "/admin/community-settings", element: <AdminCommunitySettingsPage /> },
   { path: "/feedback", element: <FeedbackPage /> },
   { path: "/report-bug", element: <ReportBugPage /> },
@@ -631,6 +633,7 @@ const routes: RouteObject[] = [
   { path: "/hanja-detail", element: <HanjaDetailPage /> },
   { path: "/hanja-tree", element: <HanjaTreePage /> },
   { path: "/hanja-dashboard", element: <HanjaDashboardPage /> },
+  { path: "/hanja-pro", element: <HanjaProPage /> },
   { path: "/hanja-analytics", element: <HanjaAnalyticsPage /> },
   { path: "/flashcard-hub", element: <FlashcardHubPage /> },
   { path: "/speaking-level", element: <SpeakingLevelPage /> },
