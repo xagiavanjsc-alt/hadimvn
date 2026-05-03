@@ -761,6 +761,7 @@ function PostCard({
   onViewProfile,
   onAISuggest,
   onEdit,
+  onDelete,
   currentUser,
 }: {
   post: Post;
@@ -771,6 +772,7 @@ function PostCard({
   onViewProfile: (userId: string) => void;
   onAISuggest: (post: Post) => void;
   onEdit: (post: Post) => void;
+  onDelete: (post: Post) => void;
   currentUser: { id: string } | null;
 }) {
   const [expanded, setExpanded] = useState(false);
@@ -877,12 +879,20 @@ function PostCard({
           <i className="ri-robot-line"></i>AI gợi ý
         </button>
         {isAuthor && (
-          <button
-            onClick={(e) => { e.stopPropagation(); onEdit(post); }}
-            className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap"
-          >
-            <i className="ri-edit-line"></i>Sửa
-          </button>
+          <>
+            <button
+              onClick={(e) => { e.stopPropagation(); onEdit(post); }}
+              className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap"
+            >
+              <i className="ri-edit-line"></i>Sửa
+            </button>
+            <button
+              onClick={(e) => { e.stopPropagation(); onDelete(post); }}
+              className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-red-400/70 transition-colors cursor-pointer whitespace-nowrap"
+            >
+              <i className="ri-delete-bin-line"></i>Xóa
+            </button>
+          </>
         )}
         <button
           onClick={() => onOpenDetail(post.id)}
@@ -1332,6 +1342,24 @@ export default function CommunityPage() {
   const displayPosts = isGuestLimited ? pagedPosts.slice(0, guestViewCount) : pagedPosts;
   const isGuestCutoff = isGuestLimited && pagedPosts.length > guestViewCount;
 
+  const handleDeletePost = async (post: Post) => {
+    if (!user) return;
+    if (!confirm(`Xác nhận xóa bài viết "${post.title}"? Hành động này không thể hoàn tác.`)) return;
+
+    const { error } = await supabase
+      .from("community_posts")
+      .delete()
+      .eq("id", post.id)
+      .eq("user_id", user.id); // RLS double-check: chỉ tác giả được xóa
+
+    if (error) {
+      showToast(`Lỗi xóa bài: ${error.message}`, "error");
+    } else {
+      setPosts(prev => prev.filter(p => p.id !== post.id));
+      showToast("Đã xóa bài viết.", "success");
+    }
+  };
+
   const handleLike = async (id: string) => {
     const alreadyLiked = likedPosts.includes(id);
     setLikedPosts(prev => alreadyLiked ? prev.filter(x => x !== id) : [...prev, id]);
@@ -1498,6 +1526,7 @@ export default function CommunityPage() {
                     onViewProfile={(userId) => navigate(`/member/${userId}`)}
                     onAISuggest={setAiSuggestPost}
                     onEdit={(post) => setEditingPost(post)}
+                    onDelete={handleDeletePost}
                     currentUser={user ? { id: user.id } : null}
                   />
                 ))}

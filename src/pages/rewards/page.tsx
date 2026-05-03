@@ -486,6 +486,11 @@ const XP_SOURCES = [
   { icon: "ri-trophy-line", label: "Top 3 bảng xếp hạng tuần", xp: "+1000 XP", color: "#FFD700", desc: "Phần thưởng cuối tuần" },
   { icon: "ri-mic-line", label: "Ghi âm phát âm đúng", xp: "+5 XP/từ", color: "#34d399", desc: "Mỗi từ phát âm đạt chuẩn" },
   { icon: "ri-file-paper-2-line", label: "Thi thử TOPIK Hán Hàn", xp: "+20 XP/%", color: "#f43f5e", desc: "Theo tỷ lệ đúng × 20" },
+  // ─── Community XP sources ───────────────────────────────────────────
+  { icon: "ri-article-line", label: "Đăng bài cộng đồng (duyệt)", xp: "+50 XP", color: "#60a5fa", desc: "Mỗi bài được admin duyệt, tối đa 5 bài/ngày" },
+  { icon: "ri-chat-3-line", label: "Bình luận cộng đồng (duyệt)", xp: "+20 XP", color: "#22d3ee", desc: "Mỗi comment được duyệt, tối đa 20/ngày" },
+  { icon: "ri-heart-3-line", label: "Nhận lượt thích", xp: "+5 XP", color: "#f87171", desc: "Mỗi lượt thích bài viết của bạn" },
+  { icon: "ri-star-line", label: "Đánh giá sao (duyệt)", xp: "+10 XP", color: "#FFD700", desc: "Mỗi đánh giá được admin duyệt" },
 ];
 
 const XP_PENALTIES = [
