@@ -222,7 +222,7 @@ function PhoneticGenerator() {
     const lines = bulkInput.trim().split("\n").filter(l => l.trim());
     const parsed: VocabItem[] = lines.map((line, i) => {
       const parts = line.split(/\t|,/).map(p => p.trim());
-      return { id: `item-${i}-${Date.now()}`, korean: parts[0] || "", meaning: parts[1] || "", phonetic: "", status: "pending" };
+      return { id: `item-${i}-${Date.now()}`, korean: parts[0] || "", meaning: parts[1] || "", phonetic: "", status: "pending" as const };
     }).filter(v => v.korean);
     setItems(parsed);
   };
