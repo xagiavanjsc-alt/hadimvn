@@ -227,6 +227,44 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
+-- ─── 5. Lệnh recalculate trực tiếp (không cần function) ───────────────────────
+-- Chạy lệnh này trong SQL Editor để cập nhật XP cho tất cả users
+-- (dùng nếu function không hoạt động)
+-- UPDATE public.user_progress up
+-- SET xp = (
+--   -- Streak
+--   (SELECT COALESCE(streak_count, 0) FROM public.user_progress WHERE user_id = up.user_id) * 30
+--   -- Best Score
+--   + (SELECT COALESCE(MAX(ROUND((score::FLOAT / NULLIF(total,0)) * 100))::INT, 0)
+--      FROM public.exam_results WHERE user_id = up.user_id AND is_valid = true AND total > 0) * 8
+--   -- Average Score
+--   + (SELECT COALESCE(ROUND(AVG((score::FLOAT / NULLIF(total,0)) * 100))::INT, 0)
+--      FROM public.exam_results WHERE user_id = up.user_id AND is_valid = true AND total > 0) * 5
+--   -- Total Correct (JSONB array)
+--   + (SELECT COALESCE(SUM(jsonb_array_length(correct_ids)), 0)
+--      FROM public.exam_results WHERE user_id = up.user_id AND is_valid = true AND total > 0) * 3
+--   -- Words Mastered (cap 500)
+--   + LEAST(
+--       COALESCE((SELECT COUNT(*) FROM jsonb_each(flashcard_known) WHERE value = 'true'::jsonb), 0),
+--       500
+--     ) * 4
+--   -- Valid Exams
+--   + (SELECT COUNT(*) FROM public.exam_results WHERE user_id = up.user_id AND is_valid = true AND total > 0) * 10
+--   -- Community Posts (approved, cap 5/day)
+--   + (SELECT COALESCE(COUNT(*), 0) FROM public.community_posts
+--      WHERE user_id = up.user_id AND status = 'approved' AND created_at >= CURRENT_DATE LIMIT 5) * 50
+--   -- Community Comments (approved, cap 20/day)
+--   + (SELECT COALESCE(COUNT(*), 0) FROM public.community_comments
+--      WHERE user_id = up.user_id AND status = 'approved' AND created_at >= CURRENT_DATE LIMIT 20) * 20
+--   -- Likes Received (total)
+--   + (SELECT COALESCE(SUM(likes), 0) FROM public.community_posts
+--      WHERE user_id = up.user_id AND status = 'approved') * 5
+--   -- Ratings Given (approved)
+--   + (SELECT COALESCE(COUNT(*), 0) FROM public.community_ratings
+--      WHERE user_id = up.user_id AND status = 'approved') * 10
+-- ),
+-- updated_at = NOW();
+
 -- ─── DONE ─────────────────────────────────────────────────────────────────
 -- Test:
 --   SELECT compute_user_xp('your-uuid');
