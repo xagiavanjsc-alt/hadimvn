@@ -233,6 +233,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
   const [resolvedPostId, setResolvedPostId] = useState(postId);
   const [userRating, setUserRating] = useState<number | null>(null);
   const [ratingSubmitting, setRatingSubmitting] = useState(false);
+  const [ratingToast, setRatingToast] = useState<{ stars: number } | null>(null);
 
   const fetchData = useCallback(async () => {
     let actualId = resolvedPostId;
@@ -343,7 +344,9 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
       alert(`Lỗi đánh giá: ${error.message}`);
     } else {
       setUserRating(finalRating);
-      alert(`Đã đánh giá ${finalRating} sao - đang chờ quản trị viên duyệt.`);
+      setRatingToast({ stars: finalRating });
+      // Auto hide sau 2.8s
+      setTimeout(() => setRatingToast(null), 2800);
     }
   };
 
@@ -608,6 +611,46 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
         </div>
       )}
     </DashboardLayout>
+
+    {/* Rating success toast - centered popup */}
+    {ratingToast && (
+      <div
+        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm animate-[fadeIn_0.2s_ease-out]"
+        onClick={() => setRatingToast(null)}
+      >
+        <div
+          className="bg-gradient-to-br from-app-bg to-app-card border border-app-accent-primary/30 rounded-2xl px-8 py-6 shadow-2xl max-w-xs mx-4 animate-[scaleIn_0.25s_ease-out] text-center"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex justify-center gap-1 mb-3">
+            {[1, 2, 3, 4, 5].map((s) => (
+              <i
+                key={s}
+                className={`ri-star-fill text-2xl ${s <= ratingToast.stars ? "text-[#FFD700]" : "text-white/15"}`}
+                style={s <= ratingToast.stars ? { animation: `starPop 0.4s ease-out ${s * 0.08}s both` } : {}}
+              />
+            ))}
+          </div>
+          <p className="text-white font-bold text-base mb-1">
+            Cảm ơn bạn đã đánh giá {ratingToast.stars} sao!
+          </p>
+          <p className="text-white/55 text-xs leading-relaxed">
+            Đánh giá của bạn đang chờ quản trị viên duyệt trước khi hiển thị công khai.
+          </p>
+          <button
+            onClick={() => setRatingToast(null)}
+            className="mt-4 px-5 py-2 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-xs font-bold cursor-pointer transition-colors"
+          >
+            Đã hiểu
+          </button>
+        </div>
+        <style>{`
+          @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+          @keyframes scaleIn { from { transform: scale(0.85); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+          @keyframes starPop { 0% { transform: scale(0); opacity: 0 } 60% { transform: scale(1.3) } 100% { transform: scale(1); opacity: 1 } }
+        `}</style>
+      </div>
+    )}
     </>
   );
 }

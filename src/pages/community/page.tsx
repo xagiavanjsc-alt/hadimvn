@@ -111,6 +111,8 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
   const onChangeRef = useRef(onChange);
   onChangeRef.current = onChange;
   const [focused, setFocused] = useState(false);
+  const [htmlMode, setHtmlMode] = useState(false);
+  const [htmlDraft, setHtmlDraft] = useState("");
 
   const handleChange = () => {
     if (editorRef.current) {
@@ -235,6 +237,20 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
     }
   };
 
+  // Toggle giữa WYSIWYG <-> HTML source
+  const toggleHtmlMode = () => {
+    if (!htmlMode) {
+      // Chuyển WYSIWYG → HTML: lấy innerHTML hiện tại
+      setHtmlDraft(editorRef.current?.innerHTML || value || "");
+      setHtmlMode(true);
+    } else {
+      // Chuyển HTML → WYSIWYG: ghi HTML vào editor
+      if (editorRef.current) editorRef.current.innerHTML = htmlDraft;
+      onChangeRef.current(htmlDraft);
+      setHtmlMode(false);
+    }
+  };
+
   return (
     <div className={`bg-app-card/30 border rounded-xl overflow-hidden transition-colors ${focused ? 'border-app-accent-primary/40' : 'border-app-border'}`}>
       {/* Toolbar */}
@@ -292,6 +308,19 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
             })}
           </div>
         ))}
+        {/* HTML source toggle - end of toolbar */}
+        <div className="flex items-center gap-0.5 ml-auto">
+          <div className="w-px h-5 bg-app-border mx-1" />
+          <button
+            type="button"
+            onClick={toggleHtmlMode}
+            title={htmlMode ? "Quay lại chế độ soạn thảo" : "Xem/sửa mã HTML (như WordPress)"}
+            className={`h-7 px-2 flex items-center gap-1 rounded-md text-xs font-mono transition-colors cursor-pointer ${htmlMode ? "bg-app-accent-primary/15 text-app-accent-primary border border-app-accent-primary/30" : "text-white/50 hover:text-white hover:bg-white/10"}`}
+          >
+            <i className="ri-code-s-slash-line text-sm"></i>
+            <span>HTML</span>
+          </button>
+        </div>
       </div>
 
       {/* Hidden file input for image */}
@@ -303,7 +332,7 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
         className="hidden"
       />
 
-      {/* Editable area */}
+      {/* Editable area - WYSIWYG mode */}
       <div
         ref={editorRef}
         contentEditable
@@ -314,9 +343,25 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
         onFocus={() => setFocused(true)}
         onPaste={handlePaste}
         data-placeholder={placeholder || "Viết nội dung bài đăng..."}
-        className="rich-editor-content min-h-[300px] p-4 text-white/85 text-sm leading-relaxed outline-none"
+        className={`rich-editor-content min-h-[300px] p-4 text-white/85 text-sm leading-relaxed outline-none ${htmlMode ? "hidden" : ""}`}
         style={{ wordBreak: 'break-word' }}
       />
+
+      {/* HTML source mode */}
+      {htmlMode && (
+        <textarea
+          value={htmlDraft}
+          onChange={(e) => {
+            setHtmlDraft(e.target.value);
+            onChangeRef.current(e.target.value);
+          }}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          placeholder='Dán hoặc chỉnh sửa mã HTML, ví dụ: <h2>Tiêu đề</h2><p>Nội dung <strong>đậm</strong></p>'
+          className="w-full min-h-[300px] p-4 bg-transparent text-emerald-300/90 text-[13px] font-mono leading-relaxed outline-none resize-y"
+          spellCheck={false}
+        />
+      )}
       <style>{`
         .rich-editor-content:empty:before {
           content: attr(data-placeholder);
