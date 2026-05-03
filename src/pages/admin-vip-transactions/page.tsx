@@ -65,6 +65,11 @@ interface VipTransaction {
   note: string;
   created_at: string;
   vip_expires_at: string | null;
+  // Additional properties from revenue log
+  user_name?: string;
+  granted_by?: string;
+  granted_at?: string;
+  expires_at?: string;
 }
 
 interface UserProfile {
@@ -201,6 +206,10 @@ export default function AdminVipTransactionsPage() {
     note: string;
     created_at: string;
     vip_expires_at: string | null;
+    user_name?: string;
+    granted_by?: string;
+    granted_at?: string;
+    expires_at?: string;
   }>>([]);
 
   useEffect(() => {
