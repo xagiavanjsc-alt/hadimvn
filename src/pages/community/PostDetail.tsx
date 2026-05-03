@@ -88,6 +88,9 @@ interface Post {
   exam_score: number | null;
   streak_days: number | null;
   created_at: string;
+  rating_average?: number;
+  rating_count?: number;
+  status?: "pending" | "approved" | "rejected" | null;
 }
 
 interface Comment {

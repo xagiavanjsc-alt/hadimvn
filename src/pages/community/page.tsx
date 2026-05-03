@@ -312,10 +312,9 @@ interface Post {
   user_id: string | null;
   author_name: string;
   author_level: string;
-  author_xp: number;
-  category: string;
   title: string;
   content: string;
+  category: string;
   tags: string[];
   likes: number;
   comments_count: number;
@@ -324,6 +323,8 @@ interface Post {
   streak_days: number | null;
   created_at: string;
   status?: "pending" | "approved" | "rejected" | null;
+  rating_average?: number;
+  rating_count?: number;
 }
 
 interface Comment {
@@ -704,6 +705,8 @@ function PostCard({
   onOpenDetail,
   onViewProfile,
   onAISuggest,
+  onEdit,
+  currentUser,
 }: {
   post: Post;
   onLike: (id: string) => void;
@@ -712,9 +715,12 @@ function PostCard({
   onOpenDetail: (id: string) => void;
   onViewProfile: (userId: string) => void;
   onAISuggest: (post: Post) => void;
+  onEdit: (post: Post) => void;
+  currentUser: { id: string } | null;
 }) {
   const [expanded, setExpanded] = useState(false);
   const cat = CATEGORY_CONFIG[post.category] || CATEGORY_CONFIG.share;
+  const isAuthor = currentUser && post.user_id === currentUser.id;
 
   return (
     <div className={`bg-app-bg border rounded-2xl p-5 transition-all hover:border-app-border ${post.is_pinned ? "border-app-accent-primary/20" : post.status === "pending" ? "border-amber-500/30" : "border-app-border"}`}>
@@ -794,6 +800,13 @@ function PostCard({
           <i className="ri-chat-3-line"></i>
           {post.comments_count} bình luận
         </button>
+        {post.rating_count > 0 && (
+          <div className="flex items-center gap-1.5 text-xs text-app-text-muted">
+            <i className="ri-star-fill text-[#FFD700]"></i>
+            <span>{post.rating_average?.toFixed(1) || "0.0"}</span>
+            <span className="text-[10px]">({post.rating_count})</span>
+          </div>
+        )}
         {post.user_id && (
           <button
             onClick={(e) => { e.stopPropagation(); onViewProfile(post.user_id!); }}
@@ -808,6 +821,14 @@ function PostCard({
         >
           <i className="ri-robot-line"></i>AI gợi ý
         </button>
+        {isAuthor && (
+          <button
+            onClick={(e) => { e.stopPropagation(); onEdit(post); }}
+            className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap"
+          >
+            <i className="ri-edit-line"></i>Sửa
+          </button>
+        )}
         <button
           onClick={() => onOpenDetail(post.id)}
           className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap ml-auto"
@@ -837,6 +858,110 @@ function RichTextToolbar({ onFormat }: { onFormat: (tag: string) => void }) {
           <i className={`${t.icon} text-sm`}></i>
         </button>
       ))}
+    </div>
+  );
+}
+
+function EditPostModal({ post, onClose, user }: { post: Post; onClose: () => void; user: { id: string } }) {
+  const [title, setTitle] = useState(post.title);
+  const [content, setContent] = useState(post.content);
+  const [category, setCategory] = useState(post.category);
+  const [tags, setTags] = useState(post.tags.join(", "));
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
+    if (!title.trim() || !content.trim() || submitting) return;
+    setSubmitting(true);
+
+    const { error } = await supabase
+      .from("community_posts")
+      .update({
+        title: title.trim(),
+        content: content.trim(),
+        category,
+        tags: tags.split(",").map(t => t.trim()).filter(Boolean),
+        status: "pending", // Set lại status pending để admin kiểm duyệt lại
+      })
+      .eq("id", post.id);
+
+    setSubmitting(false);
+    if (error) {
+      alert(`Lỗi cập nhật bài viết: ${error.message}`);
+    } else {
+      alert("Bài viết đã cập nhật - đang chờ quản trị viên duyệt lại.");
+      onClose();
+      window.location.reload();
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
+      <div className="bg-app-bg border border-app-border rounded-t-2xl w-full max-w-2xl max-h-[90vh] flex flex-col" onClick={e => e.stopPropagation()}>
+        <div className="flex items-center justify-between px-5 py-4 border-b border-app-border flex-shrink-0">
+          <h3 className="text-white font-bold text-sm">Chỉnh sửa bài viết</h3>
+          <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white/70 cursor-pointer">
+            <i className="ri-close-line text-sm"></i>
+          </button>
+        </div>
+        <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4">
+          <div>
+            <label className="text-white/70 text-xs font-semibold mb-2 block">Tiêu đề</label>
+            <input
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+              className="w-full px-4 py-2.5 bg-app-card/50 border border-app-border rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-app-accent-primary/30"
+              placeholder="Nhập tiêu đề..."
+            />
+          </div>
+          <div>
+            <label className="text-white/70 text-xs font-semibold mb-2 block">Danh mục</label>
+            <div className="flex gap-2 flex-wrap">
+              {["question", "share", "result", "tip"].map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => setCategory(cat)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer whitespace-nowrap ${category === cat ? "bg-app-accent-primary text-app-bg" : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70"}`}
+                >
+                  {cat === "question" ? "Hỏi đáp" : cat === "share" ? "Chia sẻ" : cat === "result" ? "Kết quả thi" : "Mẹo học"}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <label className="text-white/70 text-xs font-semibold mb-2 block">Nội dung</label>
+            <textarea
+              value={content}
+              onChange={e => setContent(e.target.value)}
+              className="w-full px-4 py-2.5 bg-app-card/50 border border-app-border rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-app-accent-primary/30 min-h-[200px]"
+              placeholder="Nhập nội dung..."
+            />
+          </div>
+          <div>
+            <label className="text-white/70 text-xs font-semibold mb-2 block">Tags (ngăn cách bằng dấu phẩy)</label>
+            <input
+              value={tags}
+              onChange={e => setTags(e.target.value)}
+              className="w-full px-4 py-2.5 bg-app-card/50 border border-app-border rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-app-accent-primary/30"
+              placeholder="ví dụ: eps, topik, ngữ pháp"
+            />
+          </div>
+        </div>
+        <div className="flex gap-3 px-5 py-4 border-t border-app-border flex-shrink-0">
+          <button
+            onClick={onClose}
+            className="flex-1 py-2.5 rounded-xl bg-app-card/50 text-white/70 text-sm font-medium cursor-pointer hover:bg-app-card/70 transition-colors"
+          >
+            Hủy
+          </button>
+          <button
+            onClick={handleSubmit}
+            disabled={submitting || !title.trim() || !content.trim()}
+            className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold cursor-pointer whitespace-nowrap transition-colors disabled:opacity-50"
+          >
+            {submitting ? "Đang lưu..." : "Lưu thay đổi"}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
@@ -1101,6 +1226,7 @@ export default function CommunityPage() {
   const [showNewPost, setShowNewPost] = useState(false);
   const [openCommentsPostId, setOpenCommentsPostId] = useState<string | null>(null);
   const [aiSuggestPost, setAiSuggestPost] = useState<Post | null>(null);
+  const [editingPost, setEditingPost] = useState<Post | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [streak] = useLocalStorage<{ count: number }>("kts_streak", { count: 0 });
@@ -1304,6 +1430,8 @@ export default function CommunityPage() {
                     }}
                     onViewProfile={(userId) => navigate(`/member/${userId}`)}
                     onAISuggest={setAiSuggestPost}
+                    onEdit={(post) => setEditingPost(post)}
+                    currentUser={user ? { id: user.id } : null}
                   />
                 ))}
               </div>
@@ -1425,6 +1553,10 @@ export default function CommunityPage() {
 
       {showNewPost && user && (
         <NewPostModal onClose={() => setShowNewPost(false)} onSubmit={handleNewPost} />
+      )}
+
+      {editingPost && user && (
+        <EditPostModal post={editingPost} onClose={() => setEditingPost(null)} user={user} />
       )}
 
       {openCommentsPostId && (
