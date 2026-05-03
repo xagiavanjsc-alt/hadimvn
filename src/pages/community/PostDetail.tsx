@@ -209,6 +209,8 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
   const [submitting, setSubmitting] = useState(false);
   const [copied, setCopied] = useState(false);
   const [resolvedPostId, setResolvedPostId] = useState(postId);
+  const [userRating, setUserRating] = useState<number | null>(null);
+  const [ratingSubmitting, setRatingSubmitting] = useState(false);
 
   const fetchData = useCallback(async () => {
     let actualId = resolvedPostId;
@@ -280,6 +282,35 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
+  };
+
+  const handleRating = async (rating: number) => {
+    if (!user || !post || ratingSubmitting) return;
+
+    // Chỉ cho phép đánh giá 4-5 sao, nếu đánh giá thấp hơn thì random 4-5
+    let finalRating = rating;
+    if (rating < 4) {
+      // Random 4 hoặc 5 sao nếu user cố đánh giá thấp
+      finalRating = Math.random() > 0.5 ? 5 : 4;
+    }
+
+    setRatingSubmitting(true);
+
+    const { error } = await supabase.from("community_ratings").insert({
+      user_id: user.id,
+      post_id: resolvedPostId,
+      rating: finalRating,
+      status: "pending", // Đợi admin duyệt
+    });
+
+    setRatingSubmitting(false);
+
+    if (error) {
+      alert(`Lỗi đánh giá: ${error.message}`);
+    } else {
+      setUserRating(finalRating);
+      alert(`Đã đánh giá ${finalRating} sao - đang chờ quản trị viên duyệt.`);
+    }
   };
 
   const totalComments = comments.reduce((acc, c) => acc + 1 + (c.replies?.length || 0), 0);
@@ -367,9 +398,39 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
                   <i className="ri-chat-3-line"></i>
                   <span>{totalComments} bình luận</span>
                 </div>
+                {post.rating_count > 0 && (
+                  <div className="flex items-center gap-1.5 text-sm text-app-text-secondary">
+                    <i className="ri-star-fill text-[#FFD700]"></i>
+                    <span>{post.rating_average?.toFixed(1) || "0.0"}</span>
+                    <span className="text-xs">({post.rating_count})</span>
+                  </div>
+                )}
+                {user && !userRating && (
+                  <div className="flex items-center gap-1 ml-auto">
+                    <span className="text-xs text-app-text-muted mr-2">Đánh giá:</span>
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        onClick={() => handleRating(star)}
+                        disabled={ratingSubmitting}
+                        className="text-lg cursor-pointer hover:scale-110 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
+                        style={{ color: star <= 3 ? "#666" : "#FFD700" }}
+                        title={star <= 3 ? "Chỉ được đánh giá 4-5 sao" : `${star} sao`}
+                      >
+                        <i className={star <= 3 ? "ri-star-line" : "ri-star-fill"}></i>
+                      </button>
+                    ))}
+                  </div>
+                )}
+                {userRating && (
+                  <div className="flex items-center gap-1 ml-auto text-sm text-app-accent-primary">
+                    <i className="ri-star-fill"></i>
+                    <span>Đã đánh giá {userRating} sao</span>
+                  </div>
+                )}
                 <button
                   onClick={handleShare}
-                  className="ml-auto flex items-center gap-1.5 text-sm text-app-text-secondary hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap"
+                  className="flex items-center gap-1.5 text-sm text-app-text-secondary hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap"
                 >
                   <i className={copied ? "ri-check-line" : "ri-share-line"}></i>
                   {copied ? "Đã sao chép!" : "Chia sẻ link"}

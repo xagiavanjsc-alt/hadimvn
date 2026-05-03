@@ -1,14 +1,13 @@
-﻿import { useState, useMemo, useEffect, useCallback, useRef } from "react";
+﻿import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
-import { sanitizeHtml } from "@/lib/sanitize";
-import { supabase, getStorageUrl, resolveStoragePaths } from "@/lib/supabase";
-import { isVipActive } from "@/lib/supabase";
-import { communitySlug } from "@/lib/slugify";
 import { useCommunitySettings } from "@/hooks/useCommunitySettings";
+import { supabase, resolveStoragePaths, getStorageUrl, isVipActive } from "@/lib/supabase";
 import OnlineUsersWidget from "./components/OnlineUsersWidget";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useToast, ToastContainer } from "@/components/common/ToastNotification";
+import { communitySlug } from "@/lib/slugify";
 
 // ─── Rich Text Editor Component (WordPress-like, no external deps) ────────────
 function RichEditor({ value, onChange, placeholder, onImageUpload }: {
@@ -551,11 +550,13 @@ function CommentsPanel({
   onClose,
   currentUser,
   profile,
+  showToast,
 }: {
   postId: string;
   onClose: () => void;
   currentUser: { id: string } | null;
   profile: { display_name: string } | null;
+  showToast: (message: string, type?: "success" | "error" | "info") => void;
 }) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
@@ -607,9 +608,9 @@ function CommentsPanel({
       setText("");
       setReplyTo(null);
       await fetchComments();
-      alert("Bình luận của bạn đã gửi — đang chờ quản trị viên duyệt.");
+      showToast("Bình luận đã gửi — đang chờ quản trị viên duyệt.", "success");
     } else {
-      alert(`Lỗi gửi bình luận: ${error.message}`);
+      showToast(`Lỗi gửi bình luận: ${error.message}`, "error");
     }
     setSubmitting(false);
   };
@@ -862,7 +863,7 @@ function RichTextToolbar({ onFormat }: { onFormat: (tag: string) => void }) {
   );
 }
 
-function EditPostModal({ post, onClose, user }: { post: Post; onClose: () => void; user: { id: string } }) {
+function EditPostModal({ post, onClose, user, showToast }: { post: Post; onClose: () => void; user: { id: string }; showToast: (message: string, type?: "success" | "error" | "info") => void }) {
   const [title, setTitle] = useState(post.title);
   const [content, setContent] = useState(post.content);
   const [category, setCategory] = useState(post.category);
@@ -886,9 +887,9 @@ function EditPostModal({ post, onClose, user }: { post: Post; onClose: () => voi
 
     setSubmitting(false);
     if (error) {
-      alert(`Lỗi cập nhật bài viết: ${error.message}`);
+      showToast(`Lỗi cập nhật bài viết: ${error.message}`, "error");
     } else {
-      alert("Bài viết đã cập nhật - đang chờ quản trị viên duyệt lại.");
+      showToast("Bài viết đã cập nhật - đang chờ quản trị viên duyệt lại.", "success");
       onClose();
       window.location.reload();
     }
@@ -969,9 +970,11 @@ function EditPostModal({ post, onClose, user }: { post: Post; onClose: () => voi
 function NewPostModal({
   onClose,
   onSubmit,
+  showToast,
 }: {
   onClose: () => void;
   onSubmit: (data: { title: string; content: string; category: string; imageUrl?: string }) => Promise<void>;
+  showToast: (message: string, type?: "success" | "error" | "info") => void;
 }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -1056,11 +1059,11 @@ function NewPostModal({
   const handleSubmit = async () => {
     console.log('[NewPost] handleSubmit called', { title, contentLen: content.length, isEmpty: isRichEmpty(content) });
     if (!title.trim()) {
-      alert('Vui lòng nhập tiêu đề');
+      showToast('Vui lòng nhập tiêu đề', 'error');
       return;
     }
     if (isRichEmpty(content)) {
-      alert('Vui lòng nhập nội dung');
+      showToast('Vui lòng nhập nội dung', 'error');
       return;
     }
     setSubmitting(true);
@@ -1069,7 +1072,7 @@ function NewPostModal({
       onClose();
     } catch (err) {
       console.error('Submit error:', err);
-      alert('Lỗi đăng bài: ' + (err instanceof Error ? err.message : 'unknown'));
+      showToast('Lỗi đăng bài: ' + (err instanceof Error ? err.message : 'unknown'), 'error');
     } finally {
       setSubmitting(false);
     }
@@ -1233,6 +1236,7 @@ export default function CommunityPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const { user, profile } = useAuth();
   const { settings: commSettings } = useCommunitySettings();
+  const { showToast, toasts, removeToast } = useToast();
 
   // Reset page khi filter thay đổi
   useEffect(() => { setCurrentPage(1); }, [category, sortBy, search]);
@@ -1293,7 +1297,7 @@ export default function CommunityPage() {
 
     // Kiểm tra chế độ bảo trì
     if (commSettings.access_mode === "maintenance") {
-      alert("Cộng đồng đang bảo trì, vui lòng quay lại sau!");
+      showToast("Cộng đồng đang bảo trì, vui lòng quay lại sau!", "error");
       return;
     }
 
@@ -1308,7 +1312,7 @@ export default function CommunityPage() {
           .eq("user_id", user.id)
           .gte("created_at", today);
         if (count !== null && count >= limit) {
-          alert(`Bạn chỉ có thể đăng tối đa ${limit} bài/ngày. Nâng cấp VIP để không giới hạn!`);
+          showToast(`Bạn chỉ có thể đăng tối đa ${limit} bài/ngày. Nâng cấp VIP để không giới hạn!`, "error");
           return;
         }
       }
@@ -1319,41 +1323,48 @@ export default function CommunityPage() {
     const contentWithImage = data.imageUrl
       ? `${data.content}\n\n<img src="{{storage:${data.imageUrl}}}" alt="ảnh" style="max-width:100%;border-radius:12px" />`
       : data.content;
+
     const { error } = await supabase.from("community_posts").insert({
       user_id: user.id,
       author_name: profile.display_name || "Học viên",
       author_level: "Học viên",
-      author_xp: 0,
-      category: data.category,
       title: data.title,
       content: contentWithImage,
+      category: data.category,
       tags: [],
       status: "pending",
     });
+
     if (error) {
       console.error('[handleNewPost] Insert error:', error);
       throw new Error(error.message);
     }
     await fetchPosts();
-    alert("Bài đăng đã gửi — đang chờ quản trị viên duyệt. Bạn có thể xem bài của mình ở mục “Đang chờ duyệt”.");
+    showToast("Bài đăng đã gửi — đang chờ quản trị viên duyệt. Bạn có thể xem bài của mình ở mục \"Đang chờ duyệt\".", "success");
   };
 
   return (
     <>
     <CommunityFAQSchema />
+    <ToastContainer toasts={toasts} removeToast={removeToast} />
     <DashboardLayout
       title="Cộng đồng Hàn Quốc Ơi!"
       subtitle="Hỏi đáp, chia sẻ kinh nghiệm và cùng nhau tiến bộ"
       actions={
         user ? (
-          <button onClick={() => setShowNewPost(true)}
-            className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
-            <i className="ri-add-line"></i>Đăng bài
+          <button
+            onClick={() => setShowNewPost(true)}
+            className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
+          >
+            <i className="ri-add-line"></i>Đăng bài mới
           </button>
         ) : (
-          <div className="flex items-center gap-2 text-app-text-secondary text-xs">
-            <i className="ri-lock-line"></i>Đăng nhập để đăng bài
-          </div>
+          <button
+            onClick={() => navigate("/login")}
+            className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
+          >
+            <i className="ri-user-add-line"></i>Đăng nhập
+          </button>
         )
       }
     >
@@ -1552,11 +1563,11 @@ export default function CommunityPage() {
       </div>
 
       {showNewPost && user && (
-        <NewPostModal onClose={() => setShowNewPost(false)} onSubmit={handleNewPost} />
+        <NewPostModal onClose={() => setShowNewPost(false)} onSubmit={handleNewPost} showToast={showToast} />
       )}
 
       {editingPost && user && (
-        <EditPostModal post={editingPost} onClose={() => setEditingPost(null)} user={user} />
+        <EditPostModal post={editingPost} onClose={() => setEditingPost(null)} user={user} showToast={showToast} />
       )}
 
       {openCommentsPostId && (
@@ -1565,6 +1576,7 @@ export default function CommunityPage() {
           onClose={() => setOpenCommentsPostId(null)}
           currentUser={user ? { id: user.id } : null}
           profile={profile}
+          showToast={showToast}
         />
       )}
 

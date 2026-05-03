@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS public.community_ratings (
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   post_id UUID NOT NULL REFERENCES public.community_posts(id) ON DELETE CASCADE,
   rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
+  status VARCHAR(20) DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
   UNIQUE(user_id, post_id)
 );
@@ -41,19 +42,20 @@ CREATE TABLE IF NOT EXISTS public.community_ratings (
 -- Indexes
 CREATE INDEX IF NOT EXISTS idx_community_ratings_user_id ON public.community_ratings(user_id);
 CREATE INDEX IF NOT EXISTS idx_community_ratings_post_id ON public.community_ratings(post_id);
+CREATE INDEX IF NOT EXISTS idx_community_ratings_status ON public.community_ratings(status);
 
 -- Enable RLS
 ALTER TABLE public.community_ratings ENABLE ROW LEVEL SECURITY;
 
 -- RLS Policies
--- Users can view ratings
-CREATE POLICY "Users can view ratings" ON public.community_ratings FOR SELECT
+-- Users can view approved ratings
+CREATE POLICY "Users can view approved ratings" ON public.community_ratings FOR SELECT
   TO PUBLIC
-  USING (true);
+  USING (status = 'approved');
 
--- Users can insert their own ratings
+-- Users can insert their own ratings (pending status)
 CREATE POLICY "Users can insert own ratings" ON public.community_ratings FOR INSERT
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK (auth.uid() = user_id AND status = 'pending');
 
 -- Users can update their own ratings
 CREATE POLICY "Users can update own ratings" ON public.community_ratings FOR UPDATE
@@ -82,7 +84,7 @@ CREATE TRIGGER trg_update_post_likes_count
   AFTER INSERT OR DELETE ON public.community_likes
   FOR EACH ROW EXECUTE FUNCTION update_post_likes_count();
 
--- ─── Trigger to update post rating average ───────────────────────────────────────────
+-- ─── Trigger to update post rating average (only from approved ratings) ───────────────
 CREATE OR REPLACE FUNCTION update_post_rating()
 RETURNS TRIGGER AS $$
 DECLARE
@@ -92,8 +94,8 @@ BEGIN
   IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
     SELECT AVG(rating)::DECIMAL(3,2), COUNT(*) INTO avg_rating, rating_count
     FROM public.community_ratings
-    WHERE post_id = NEW.post_id;
-    
+    WHERE post_id = NEW.post_id AND status = 'approved';
+
     UPDATE public.community_posts
     SET rating_average = COALESCE(avg_rating, 0),
         rating_count = COALESCE(rating_count, 0)
@@ -101,8 +103,8 @@ BEGIN
   ELSIF TG_OP = 'DELETE' THEN
     SELECT AVG(rating)::DECIMAL(3,2), COUNT(*) INTO avg_rating, rating_count
     FROM public.community_ratings
-    WHERE post_id = OLD.post_id;
-    
+    WHERE post_id = OLD.post_id AND status = 'approved';
+
     UPDATE public.community_posts
     SET rating_average = COALESCE(avg_rating, 0),
         rating_count = COALESCE(rating_count, 0)
@@ -116,3 +118,29 @@ DROP TRIGGER IF EXISTS trg_update_post_rating ON public.community_ratings;
 CREATE TRIGGER trg_update_post_rating
   AFTER INSERT OR UPDATE OR DELETE ON public.community_ratings
   FOR EACH ROW EXECUTE FUNCTION update_post_rating();
+
+-- ─── Trigger to update rating when status changes ───────────────────────────────────
+CREATE OR REPLACE FUNCTION update_post_rating_on_status()
+RETURNS TRIGGER AS $$
+DECLARE
+  avg_rating DECIMAL(3,2);
+  rating_count INTEGER;
+BEGIN
+  IF TG_OP = 'UPDATE' AND OLD.status != NEW.status THEN
+    SELECT AVG(rating)::DECIMAL(3,2), COUNT(*) INTO avg_rating, rating_count
+    FROM public.community_ratings
+    WHERE post_id = NEW.post_id AND status = 'approved';
+
+    UPDATE public.community_posts
+    SET rating_average = COALESCE(avg_rating, 0),
+        rating_count = COALESCE(rating_count, 0)
+    WHERE id = NEW.post_id;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trg_update_post_rating_on_status ON public.community_ratings;
+CREATE TRIGGER trg_update_post_rating_on_status
+  AFTER UPDATE OF status ON public.community_ratings
+  FOR EACH ROW EXECUTE FUNCTION update_post_rating_on_status();
