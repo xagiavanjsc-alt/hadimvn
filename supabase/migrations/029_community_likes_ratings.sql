@@ -16,15 +16,18 @@ ALTER TABLE public.community_likes ENABLE ROW LEVEL SECURITY;
 
 -- RLS Policies
 -- Users can view likes
+DROP POLICY IF EXISTS "Users can view likes" ON public.community_likes;
 CREATE POLICY "Users can view likes" ON public.community_likes FOR SELECT
   TO PUBLIC
   USING (true);
 
 -- Users can insert their own likes
+DROP POLICY IF EXISTS "Users can insert own likes" ON public.community_likes;
 CREATE POLICY "Users can insert own likes" ON public.community_likes FOR INSERT
   WITH CHECK (auth.uid() = user_id);
 
 -- Users can delete their own likes
+DROP POLICY IF EXISTS "Users can delete own likes" ON public.community_likes;
 CREATE POLICY "Users can delete own likes" ON public.community_likes FOR DELETE
   USING (auth.uid() = user_id);
 
@@ -49,15 +52,18 @@ ALTER TABLE public.community_ratings ENABLE ROW LEVEL SECURITY;
 
 -- RLS Policies
 -- Users can view approved ratings
+DROP POLICY IF EXISTS "Users can view approved ratings" ON public.community_ratings;
 CREATE POLICY "Users can view approved ratings" ON public.community_ratings FOR SELECT
   TO PUBLIC
   USING (status = 'approved');
 
 -- Users can insert their own ratings (pending status)
+DROP POLICY IF EXISTS "Users can insert own ratings" ON public.community_ratings;
 CREATE POLICY "Users can insert own ratings" ON public.community_ratings FOR INSERT
   WITH CHECK (auth.uid() = user_id AND status = 'pending');
 
 -- Users can update their own ratings
+DROP POLICY IF EXISTS "Users can update own ratings" ON public.community_ratings;
 CREATE POLICY "Users can update own ratings" ON public.community_ratings FOR UPDATE
   USING (auth.uid() = user_id);
 
