@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStreakGuard } from "@/hooks/useStreakGuard";
 
-export default function StreakGuardBanner() {
+// This component doesn't take props, but wrap with memo for performance
+const StreakGuardBanner = memo(function StreakGuardBanner() {
   const navigate = useNavigate();
   const { status } = useStreakGuard();
   const [dismissed, setDismissed] = useState(false);
@@ -77,4 +78,6 @@ export default function StreakGuardBanner() {
   }
 
   return null;
-}
+});
+
+export default StreakGuardBanner;

@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+﻿import { useEffect, useState, memo } from "react";
 import { useXPSystem, XPNotification } from "@/hooks/useXPSystem";
 import { RANKS, BADGES } from "@/data/ranks";
 
@@ -157,7 +157,10 @@ function Toast({
   );
 }
 
-// ─── Toast Container ──────────────────────────────────────────────────────────
+// Wrap Toast with memo for performance optimization
+const MemoizedToast = memo(Toast);
+
+// ─── Main Component ───────────────────────────────────────────────────────────
 export default function XPNotificationToast() {
   const { notifications, dismissNotification } = useXPSystem();
 
@@ -178,19 +181,13 @@ export default function XPNotificationToast() {
           to { width: 0%; }
         }
       `}</style>
-      <div
-        className="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none"
-        style={{ pointerEvents: "none" }}
-      >
-        {visible.map((notif) => (
-          <div key={notif.id} style={{ pointerEvents: "auto" }}>
-            <Toast
-              notif={notif}
-              onDismiss={() => dismissNotification(notif.id)}
-            />
-          </div>
-        ))}
-      </div>
+      {visible.map((notif) => (
+        <MemoizedToast
+          key={notif.id}
+          notif={notif}
+          onDismiss={() => dismissNotification(notif.id)}
+        />
+      ))}
     </>
   );
 }

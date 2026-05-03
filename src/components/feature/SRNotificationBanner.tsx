@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -17,7 +17,7 @@ interface BannerDismiss {
   count: number;
 }
 
-export default function SRNotificationBanner() {
+const SRNotificationBanner = memo(function SRNotificationBanner() {
   const navigate = useNavigate();
   const [srCards] = useLocalStorage<SRCard[]>("kts_sr_cards", []);
   const [dismissed, setDismissed] = useLocalStorage<BannerDismiss>("kts_sr_banner_dismissed", { date: "", count: 0 });
@@ -164,4 +164,6 @@ export default function SRNotificationBanner() {
       </div>
     </div>
   );
-}
+});
+
+export default SRNotificationBanner;
