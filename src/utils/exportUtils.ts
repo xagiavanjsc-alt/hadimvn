@@ -3,7 +3,12 @@
  * No external dependencies needed.
  */
 
-/** Convert array of objects to CSV string */
+/**
+ * Convert array of objects to CSV string
+ * @param headers - CSV header row
+ * @param rows - Data rows as 2D array of strings
+ * @returns CSV formatted string with proper escaping
+ */
 function toCSV(headers: string[], rows: string[][]): string {
   const escape = (v: string) => `"${v.replace(/"/g, '""')}"`;
   const lines = [
@@ -13,7 +18,12 @@ function toCSV(headers: string[], rows: string[][]): string {
   return lines.join("\r\n");
 }
 
-/** Trigger browser download */
+/**
+ * Trigger browser download
+ * @param filename - Name of the file to download
+ * @param content - File content as string
+ * @param mimeType - MIME type of the file
+ */
 function download(filename: string, content: string, mimeType: string) {
   const bom = mimeType.includes("csv") ? "\uFEFF" : ""; // BOM for Excel UTF-8
   const blob = new Blob([bom + content], { type: mimeType });
@@ -65,6 +75,10 @@ export interface ExportRevenue {
 
 // ─── Export functions ─────────────────────────────────────────────────────────
 
+/**
+ * Export users to CSV file
+ * @param users - Array of user data to export
+ */
 export function exportUsersCSV(users: ExportUser[]) {
   const headers = ["ID", "Tên hiển thị", "Email", "VIP", "Admin", "XP", "Streak (ngày)", "Ngày đăng ký", "Hoạt động cuối"];
   const rows = users.map(u => [
@@ -83,6 +97,10 @@ export function exportUsersCSV(users: ExportUser[]) {
   download(`users_${date}.csv`, csv, "text/csv;charset=utf-8");
 }
 
+/**
+ * Export coupons to CSV file
+ * @param coupons - Array of coupon data to export
+ */
 export function exportCouponsCSV(coupons: ExportCoupon[]) {
   const headers = ["Mã coupon", "Giảm giá", "Loại", "Kênh", "Series", "Đã dùng", "Giới hạn", "Trạng thái", "Ghi chú", "Ngày tạo"];
   const rows = coupons.map(c => [
@@ -102,6 +120,10 @@ export function exportCouponsCSV(coupons: ExportCoupon[]) {
   download(`coupons_${date}.csv`, csv, "text/csv;charset=utf-8");
 }
 
+/**
+ * Export revenue data to CSV file
+ * @param revenues - Array of revenue data to export
+ */
 export function exportRevenueCSV(revenues: ExportRevenue[]) {
   const headers = ["ID", "Series", "Người mua", "Số tiền (VNĐ)", "Ngày"];
   const rows = revenues.map(r => [
@@ -116,7 +138,13 @@ export function exportRevenueCSV(revenues: ExportRevenue[]) {
   download(`revenue_${date}.csv`, csv, "text/csv;charset=utf-8");
 }
 
-/** Export all three as a single multi-sheet "Excel" (actually 3 CSV files zipped via naming) */
+/**
+ * Export all admin data as separate CSV files
+ * Downloads users, coupons, and revenue CSVs with staggered delays
+ * @param users - Array of user data to export
+ * @param coupons - Array of coupon data to export
+ * @param revenues - Array of revenue data to export
+ */
 export function exportAllAdminData(
   users: ExportUser[],
   coupons: ExportCoupon[],
@@ -127,7 +155,11 @@ export function exportAllAdminData(
   setTimeout(() => exportRevenueCSV(revenues), 600);
 }
 
-/** Format relative time */
+/**
+ * Format relative time string from ISO date string
+ * @param isoString - ISO 8601 date string
+ * @returns Human-readable relative time (e.g., "5 phút trước", "2 giờ trước")
+ */
 export function relativeTime(isoString: string): string {
   const diff = Date.now() - new Date(isoString).getTime();
   const mins = Math.floor(diff / 60000);
