@@ -1324,6 +1324,20 @@ function CommunityRatingsTab() {
     setRatings((prev) => prev.filter((r) => r.id !== id));
   };
 
+  const handleEdit = async (id: string, newRating: number) => {
+    if (newRating < 4.5 || newRating > 5) {
+      showToast({ type: "error", title: "Lỗi", message: "Rating phải từ 4.5 đến 5 sao" });
+      return;
+    }
+    const { error } = await supabase.from("community_ratings").update({ rating: newRating }).eq("id", id);
+    if (error) {
+      showToast({ type: "error", title: "Lỗi sửa", message: error.message });
+      return;
+    }
+    showToast({ type: "success", title: "Đã sửa đánh giá" });
+    setRatings((prev) => prev.map((r) => (r.id === id ? { ...r, rating: newRating } : r)));
+  };
+
   const pendingCount = ratings.filter((r) => r.status === "pending").length;
 
   return (
@@ -1409,6 +1423,18 @@ function CommunityRatingsTab() {
                     </button>
                   </>
                 )}
+                <button
+                  onClick={() => {
+                    const newRating = prompt(`Sửa đánh giá (4.5 - 5 sao):`, r.rating.toFixed(1));
+                    if (newRating) {
+                      handleEdit(r.id, parseFloat(newRating));
+                    }
+                  }}
+                  className="px-3 py-1.5 rounded-md text-xs font-medium cursor-pointer transition-all"
+                  style={{ backgroundColor: "#fb923c", color: "#fff" }}
+                >
+                  Sửa
+                </button>
                 <button
                   onClick={() => handleDelete(r.id)}
                   className="px-3 py-1.5 rounded-md text-xs font-medium cursor-pointer transition-all"

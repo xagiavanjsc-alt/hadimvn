@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
@@ -132,6 +132,212 @@ const CATEGORY_CONFIG: Record<string, { label: string; icon: string; color: stri
   result: { label: "Kết quả thi", icon: "ri-trophy-line", color: "#FFD700" },
   tip: { label: "Mẹo học", icon: "ri-lightbulb-line", color: "#fb923c" },
 };
+
+// ─── Quiz Card (trong trang chi tiết) ────────────────────────────────────────────
+function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { id: string } | null; profile: { display_name?: string } | null }) {
+  const quiz = post.quiz;
+  const [selected, setSelected] = useState<number | null>(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [totalAnswers, setTotalAnswers] = useState(post.quiz_total_answers || 0);
+  const [correctAnswers, setCorrectAnswers] = useState(post.quiz_correct_answers || 0);
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  const isAuthor = currentUser && post.user_id === currentUser.id;
+  const correctOption = quiz?.options?.find(o => o.is_correct);
+
+  // Fetch existing answer
+  useEffect(() => {
+    if (!currentUser || !quiz) { setLoading(false); return; }
+    (async () => {
+      const { data } = await supabase
+        .from("community_quiz_answers")
+        .select("selected_option, is_correct")
+        .eq("post_id", post.id)
+        .eq("user_id", currentUser.id)
+        .maybeSingle();
+      if (data) {
+        setSelected(data.selected_option);
+        setSubmitted(true);
+      }
+      setLoading(false);
+    })();
+  }, [post.id, currentUser?.id, quiz]);
+
+  if (!quiz) return null;
+
+  const handleSelect = async (optionId: number) => {
+    if (!currentUser) {
+      setError("Vui lòng đăng nhập để trả lời");
+      return;
+    }
+    if (isAuthor) {
+      setError("Bạn không thể trả lời câu hỏi của chính mình");
+      return;
+    }
+    if (submitted || submitting) return;
+
+    setSubmitting(true);
+    setError(null);
+
+    const option = quiz.options.find(o => o.id === optionId);
+    const isCorrect = option?.is_correct || false;
+
+    const { error: insertError } = await supabase
+      .from("community_quiz_answers")
+      .insert({
+        post_id: post.id,
+        user_id: currentUser.id,
+        selected_option: optionId,
+        is_correct: isCorrect,
+      });
+
+    if (insertError) {
+      setError("Lỗi: " + insertError.message);
+      setSubmitting(false);
+      return;
+    }
+
+    setSelected(optionId);
+    setSubmitted(true);
+    setTotalAnswers(v => v + 1);
+    if (isCorrect) setCorrectAnswers(v => v + 1);
+
+    // Auto-post comment: tăng engagement + SEO cho bài viết
+    const letter = String.fromCharCode(65 + (quiz.options.findIndex(o => o.id === optionId)));
+    const correct = quiz.options.find(o => o.is_correct);
+    const commentText = isCorrect
+      ? `✅ Mình chọn <strong>${letter}. ${option?.text}</strong> và đã trả lời đúng! 🎉`
+      : `❌ Mình chọn <strong>${letter}. ${option?.text}</strong>, đáp án đúng là <strong>${correct?.text}</strong>.`;
+
+    await supabase.from("community_comments").insert({
+      post_id: post.id,
+      parent_id: null,
+      user_id: currentUser.id,
+      author_name: profile?.display_name || "Học viên",
+      author_level: "Học viên",
+      content: commentText,
+      status: "approved", // auto-approve quiz answer comments
+    });
+
+    setSubmitting(false);
+  };
+
+  const correctPct = totalAnswers > 0 ? Math.round((correctAnswers / totalAnswers) * 100) : 0;
+  const selectedOption = quiz.options.find(o => o.id === selected);
+  const isSelectedCorrect = selectedOption?.is_correct || false;
+
+  return (
+    <div className="mt-4 bg-gradient-to-br from-app-accent-primary/5 to-[#60a5fa]/5 border border-app-accent-primary/20 rounded-xl p-4">
+      <div className="flex items-center gap-2 mb-3">
+        <i className="ri-question-line text-app-accent-primary"></i>
+        <span className="text-app-accent-primary text-xs font-bold uppercase tracking-wide">Câu hỏi trắc nghiệm</span>
+        {totalAnswers > 0 && (
+          <span className="ml-auto text-app-text-muted text-[10px]">
+            <i className="ri-group-line mr-0.5"></i>
+            {correctAnswers}/{totalAnswers} đúng ({correctPct}%)
+          </span>
+        )}
+      </div>
+
+      {quiz.image_url && (
+        <img src={quiz.image_url} alt="" className="w-full max-h-64 object-contain rounded-lg mb-3 border border-app-border" />
+      )}
+
+      {loading ? (
+        <p className="text-app-text-muted text-xs">Đang tải...</p>
+      ) : (
+        <div className="space-y-2">
+          {quiz.options.map((opt, idx) => {
+            const letter = String.fromCharCode(65 + idx);
+            const isSelected = selected === opt.id;
+            const showCorrect = (submitted && showAnswer) && opt.is_correct;
+            const showWrong = (submitted && showAnswer) && isSelected && !opt.is_correct;
+
+            return (
+              <button
+                key={opt.id}
+                onClick={(e) => { e.stopPropagation(); handleSelect(opt.id); }}
+                disabled={submitted || submitting || isAuthor || !currentUser}
+                className={`w-full text-left px-3 py-2.5 rounded-lg border transition-all flex items-center gap-3 ${
+                  showCorrect
+                    ? "bg-emerald-500/15 border-emerald-500/40 text-emerald-300"
+                    : showWrong
+                    ? "bg-red-500/15 border-red-500/40 text-red-300"
+                    : isSelected
+                    ? "bg-app-accent-primary/15 border-app-accent-primary/40 text-white"
+                    : "bg-app-card/30 border-app-border text-white/70 hover:border-white/20 cursor-pointer"
+                } ${submitted || submitting || isAuthor || !currentUser ? "cursor-not-allowed" : ""}`}
+              >
+                <span className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold ${
+                  showCorrect ? "bg-emerald-500/30 text-emerald-200" :
+                  showWrong ? "bg-red-500/30 text-red-200" :
+                  "bg-app-card/50 text-app-text-secondary"
+                }`}>
+                  {showCorrect ? <i className="ri-check-line"></i> : showWrong ? <i className="ri-close-line"></i> : letter}
+                </span>
+                <span className="text-sm flex-1">{opt.text}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {error && (
+        <p className="text-red-400 text-xs mt-2"><i className="ri-error-warning-line mr-1"></i>{error}</p>
+      )}
+
+      {submitted && !showAnswer && (
+        <button
+          onClick={() => setShowAnswer(true)}
+          className="mt-3 text-xs text-app-accent-primary hover:underline cursor-pointer"
+        >
+          <i className="ri-eye-line mr-1"></i>Xem đáp án
+        </button>
+      )}
+
+      {submitted && showAnswer && (
+        <div className={`mt-3 p-3 rounded-lg border ${
+          isSelectedCorrect
+            ? "bg-emerald-500/10 border-emerald-500/30"
+            : "bg-red-500/10 border-red-500/30"
+        }`}>
+          {isSelectedCorrect ? (
+            <p className="text-emerald-400 text-sm font-semibold">
+              <i className="ri-trophy-line mr-1"></i>Chính xác! Bạn được +1 XP 🎉
+            </p>
+          ) : (
+            <p className="text-red-400 text-sm font-semibold mb-1">
+              <i className="ri-close-circle-line mr-1"></i>Sai rồi. Đáp án đúng: <strong>{correctOption?.text}</strong>
+            </p>
+          )}
+          {quiz.explanation && (
+            <div className="text-white/70 text-xs mt-2 leading-relaxed post-content-preview">
+              <div className="flex items-center gap-1 mb-1 text-[#FFD700]">
+                <i className="ri-lightbulb-line"></i>
+                <span className="font-semibold">Giải thích:</span>
+              </div>
+              <div dangerouslySetInnerHTML={{ __html: resolveStoragePaths(quiz.explanation) }} />
+            </div>
+          )}
+        </div>
+      )}
+
+      {!currentUser && (
+        <p className="text-app-text-muted text-[11px] mt-2 text-center">
+          <i className="ri-lock-line mr-1"></i>Đăng nhập để tham gia trả lời
+        </p>
+      )}
+      {isAuthor && (
+        <p className="text-app-text-muted text-[11px] mt-2 text-center">
+          <i className="ri-information-line mr-1"></i>Bạn là tác giả — không thể tự trả lời
+        </p>
+      )}
+    </div>
+  );
+}
 
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -446,6 +652,9 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
                   ))}
                 </div>
               )}
+
+              {/* Quiz (nếu post là câu hỏi trắc nghiệm) */}
+              {post.quiz && <QuizCard post={post} currentUser={user} profile={profile} />}
 
               {/* Actions */}
               <div className="flex items-center gap-5 mt-6 pt-5 border-t border-app-border">
