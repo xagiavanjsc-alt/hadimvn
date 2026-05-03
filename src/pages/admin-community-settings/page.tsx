@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import AdminLayout from "@/components/feature/AdminLayout";
 import { supabase } from "@/lib/supabase";
 import { useAdminToast } from "@/contexts/AdminToastContext";
 import { invalidateCommunitySettingsCache } from "@/hooks/useCommunitySettings";
@@ -57,7 +58,8 @@ export default function AdminCommunitySettingsPage() {
   const currentMode = MODE_CONFIG[accessMode];
 
   return (
-    <div className="max-w-2xl space-y-6">
+    <AdminLayout title="Cấu hình cộng đồng" subtitle="Kiểm soát truy cập và giới hạn đăng bài">
+      <div className="max-w-2xl space-y-6">
 
         {/* Access Mode — Quick Toggle */}
         <div className="rounded-xl p-5 border" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
@@ -202,6 +204,6 @@ export default function AdminCommunitySettingsPage() {
           Lưu cấu hình
         </button>
       </div>
-    </div>
+    </AdminLayout>
   );
 }
