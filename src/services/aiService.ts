@@ -22,6 +22,7 @@ export interface MelonLessonResult {
   story: string;
   vocabulary: { word: string; meaning: string; example: string }[];
   explanation: string;
+  grammar?: string; // Optional grammar notes
 }
 
 // Fallback random context pool (used when no custom prompt is set)
