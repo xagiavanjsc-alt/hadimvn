@@ -96,13 +96,38 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Handle paste - allow plain text + basic formatting, strip dangerous HTML
+  // Handle paste - strip inline styles & spans để tránh lỗi H2 bị wrap span/style
   const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
     e.preventDefault();
-    const text = e.clipboardData.getData('text/html') || e.clipboardData.getData('text/plain');
-    if (!text) return;
-    // Use execCommand to insert (keeps it in undo stack)
-    document.execCommand('insertHTML', false, text);
+    const html = e.clipboardData.getData('text/html');
+    const plain = e.clipboardData.getData('text/plain');
+    if (html) {
+      // Strip: style attrs, class attrs, <span>, <font>, <meta>, fragments
+      let cleaned = html
+        .replace(/<!--[\s\S]*?-->/g, '')
+        .replace(/<meta[^>]*>/gi, '')
+        .replace(/<style[\s\S]*?<\/style>/gi, '')
+        .replace(/<script[\s\S]*?<\/script>/gi, '')
+        .replace(/<(\w+)([^>]*)>/gi, (_m, tag, attrs) => {
+          // Chỉ giữ href cho <a> và src/alt cho <img>
+          if (tag.toLowerCase() === 'a') {
+            const href = attrs.match(/href\s*=\s*"([^"]*)"/i);
+            return `<a${href ? ` href="${href[1]}"` : ''}>`;
+          }
+          if (tag.toLowerCase() === 'img') {
+            const src = attrs.match(/src\s*=\s*"([^"]*)"/i);
+            const alt = attrs.match(/alt\s*=\s*"([^"]*)"/i);
+            return `<img${src ? ` src="${src[1]}"` : ''}${alt ? ` alt="${alt[1]}"` : ''}/>`;
+          }
+          return `<${tag}>`;
+        })
+        // Bỏ <span> </span> wrap (vô nghĩa sau khi strip attrs)
+        .replace(/<\/?span>/gi, '')
+        .replace(/<\/?font>/gi, '');
+      document.execCommand('insertHTML', false, cleaned);
+    } else if (plain) {
+      document.execCommand('insertText', false, plain);
+    }
     handleChange();
   };
 
@@ -768,7 +793,7 @@ function CommentsPanel({
 }
 
 // ─── Quiz Card (trong post) ─────────────────────────────────────────────────
-function QuizCard({ post, currentUser }: { post: Post; currentUser: { id: string } | null }) {
+function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { id: string } | null; profile: { display_name?: string } | null }) {
   const quiz = post.quiz;
   const [selected, setSelected] = useState<number | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -837,6 +862,24 @@ function QuizCard({ post, currentUser }: { post: Post; currentUser: { id: string
     setSubmitted(true);
     setTotalAnswers(v => v + 1);
     if (isCorrect) setCorrectAnswers(v => v + 1);
+
+    // Auto-post comment: tăng engagement + SEO cho bài viết
+    const letter = String.fromCharCode(65 + (quiz.options.findIndex(o => o.id === optionId)));
+    const correct = quiz.options.find(o => o.is_correct);
+    const commentText = isCorrect
+      ? `✅ Mình chọn <strong>${letter}. ${option?.text}</strong> và đã trả lời đúng! 🎉`
+      : `❌ Mình chọn <strong>${letter}. ${option?.text}</strong>, đáp án đúng là <strong>${correct?.text}</strong>.`;
+
+    await supabase.from("community_comments").insert({
+      post_id: post.id,
+      parent_id: null,
+      user_id: currentUser.id,
+      author_name: profile?.display_name || "Học viên",
+      author_level: "Học viên",
+      content: commentText,
+      status: "approved", // auto-approve quiz answer comments
+    });
+
     setSubmitting(false);
   };
 
@@ -919,10 +962,13 @@ function QuizCard({ post, currentUser }: { post: Post; currentUser: { id: string
             </p>
           )}
           {quiz.explanation && (
-            <p className="text-white/70 text-xs mt-2 leading-relaxed">
-              <i className="ri-lightbulb-line mr-1 text-[#FFD700]"></i>
-              {quiz.explanation}
-            </p>
+            <div className="text-white/70 text-xs mt-2 leading-relaxed post-content-preview">
+              <div className="flex items-center gap-1 mb-1 text-[#FFD700]">
+                <i className="ri-lightbulb-line"></i>
+                <span className="font-semibold">Giải thích:</span>
+              </div>
+              <div dangerouslySetInnerHTML={{ __html: resolveStoragePaths(quiz.explanation) }} />
+            </div>
           )}
         </div>
       )}
@@ -953,6 +999,7 @@ function PostCard({
   onEdit,
   onDelete,
   currentUser,
+  currentProfile,
 }: {
   post: Post;
   onLike: (id: string) => void;
@@ -964,6 +1011,7 @@ function PostCard({
   onEdit: (post: Post) => void;
   onDelete: (post: Post) => void;
   currentUser: { id: string } | null;
+  currentProfile: { display_name?: string } | null;
 }) {
   const [expanded, setExpanded] = useState(false);
   const cat = CATEGORY_CONFIG[post.category] || CATEGORY_CONFIG.share;
@@ -1019,7 +1067,20 @@ function PostCard({
       <button onClick={() => onOpenDetail(post.id)} className="text-left w-full cursor-pointer group">
         <h3 className="text-white font-semibold text-sm mb-2 leading-snug group-hover:text-app-accent-primary/90 transition-colors">{post.title}</h3>
       </button>
-      <p className={`text-white/50 text-xs leading-relaxed ${!expanded && "line-clamp-3"}`}>{resolveStoragePaths(post.content)}</p>
+      <div
+        className={`post-content-preview text-white/55 text-xs leading-relaxed ${!expanded ? "max-h-[4.5rem] overflow-hidden" : ""}`}
+        dangerouslySetInnerHTML={{ __html: resolveStoragePaths(post.content) }}
+      />
+      <style>{`
+        .post-content-preview img { max-width: 100%; height: auto; border-radius: 8px; margin: 6px 0; display: block; }
+        .post-content-preview h1, .post-content-preview h2, .post-content-preview h3 { font-weight: 700; color: rgba(255,255,255,0.85); margin: 0.3em 0; }
+        .post-content-preview h1 { font-size: 1rem; }
+        .post-content-preview h2 { font-size: 0.95rem; }
+        .post-content-preview h3 { font-size: 0.9rem; }
+        .post-content-preview p { margin: 0.3em 0; }
+        .post-content-preview strong, .post-content-preview b { color: rgba(255,255,255,0.85); font-weight: 700; }
+        .post-content-preview a { color: #d4b43a; }
+      `}</style>
       {post.content.length > 150 && (
         <button onClick={() => setExpanded(v => !v)} className="text-app-accent-primary/60 text-[10px] mt-1 cursor-pointer hover:text-app-accent-primary whitespace-nowrap">
           {expanded ? "Thu gọn" : "Xem thêm"}
@@ -1033,7 +1094,7 @@ function PostCard({
       </div>
 
       {/* Quiz (nếu post là câu hỏi trắc nghiệm) */}
-      {post.quiz && <QuizCard post={post} currentUser={currentUser} />}
+      {post.quiz && <QuizCard post={post} currentUser={currentUser} profile={currentProfile} />}
 
       <div className="flex items-center gap-4 mt-4 pt-3 border-t border-app-border">
         <button
@@ -1406,6 +1467,15 @@ function NewPostModal({
               value={content}
               onChange={setContent}
               placeholder="Chia sẻ kinh nghiệm, đặt câu hỏi hoặc khoe thành tích..."
+              onImageUpload={async (file) => {
+                const webpData = await convertToWebP(file, 800);
+                const fileName = `${Date.now()}_${file.name.split('.')[0]}.webp`;
+                const { error } = await supabase.storage
+                  .from('community-images')
+                  .upload(fileName, webpData, { contentType: 'image/webp', upsert: false });
+                if (error) throw error;
+                return getStorageUrl(`community-images/${fileName}`);
+              }}
             />
           </div>
 
@@ -1504,13 +1574,19 @@ function NewPostModal({
 
                 <div>
                   <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Giải thích đáp án đúng (tùy chọn)</label>
-                  <textarea
+                  <RichEditor
                     value={quizExplanation}
-                    onChange={e => setQuizExplanation(e.target.value)}
-                    placeholder="Giải thích ngắn gọn để thành viên hiểu tại sao đáp án này đúng..."
-                    rows={2}
-                    maxLength={500}
-                    className="w-full bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 placeholder-white/20 resize-none"
+                    onChange={setQuizExplanation}
+                    placeholder="Giải thích chi tiết: in đậm, màu chữ, ảnh, link, HTML... đều được"
+                    onImageUpload={async (file) => {
+                      const webpData = await convertToWebP(file, 800);
+                      const fileName = `${Date.now()}_${file.name.split('.')[0]}.webp`;
+                      const { error } = await supabase.storage
+                        .from('community-images')
+                        .upload(fileName, webpData, { contentType: 'image/webp', upsert: false });
+                      if (error) throw error;
+                      return getStorageUrl(`community-images/${fileName}`);
+                    }}
                   />
                 </div>
               </div>
@@ -1621,6 +1697,18 @@ export default function CommunityPage() {
 
   useEffect(() => { fetchPosts(); }, [fetchPosts]);
 
+  // Sync likes từ DB cho user đã đăng nhập (tránh conflict với localStorage)
+  useEffect(() => {
+    if (!user) return;
+    (async () => {
+      const { data } = await supabase
+        .from("community_likes")
+        .select("post_id")
+        .eq("user_id", user.id);
+      if (data) setLikedPosts(data.map((r: { post_id: string }) => r.post_id));
+    })();
+  }, [user?.id, setLikedPosts]);
+
   const filtered = useMemo(() => {
     let list = [...posts];
     if (category !== "all") list = list.filter(p => p.category === category);
@@ -1662,16 +1750,31 @@ export default function CommunityPage() {
   };
 
   const handleLike = async (id: string) => {
+    if (!user) {
+      showToast("Vui lòng đăng nhập để thích bài viết", "error");
+      return;
+    }
     const alreadyLiked = likedPosts.includes(id);
+    // Optimistic update
     setLikedPosts(prev => alreadyLiked ? prev.filter(x => x !== id) : [...prev, id]);
-    setPosts(prev => prev.map(p => p.id === id ? { ...p, likes: p.likes + (alreadyLiked ? -1 : 1) } : p));
-    if (user) {
-      if (alreadyLiked) {
-        await supabase.from("community_likes").delete().eq("user_id", user.id).eq("post_id", id);
-        await supabase.from("community_posts").update({ likes: posts.find(p => p.id === id)!.likes - 1 }).eq("id", id);
-      } else {
-        await supabase.from("community_likes").insert({ user_id: user.id, post_id: id });
-        await supabase.from("community_posts").update({ likes: posts.find(p => p.id === id)!.likes + 1 }).eq("id", id);
+    setPosts(prev => prev.map(p => p.id === id ? { ...p, likes: Math.max(0, p.likes + (alreadyLiked ? -1 : 1)) } : p));
+
+    // Trigger `trg_update_post_likes_count` sẽ tự cập nhật community_posts.likes
+    if (alreadyLiked) {
+      const { error } = await supabase.from("community_likes").delete().eq("user_id", user.id).eq("post_id", id);
+      if (error) {
+        // Rollback on error
+        setLikedPosts(prev => [...prev, id]);
+        setPosts(prev => prev.map(p => p.id === id ? { ...p, likes: p.likes + 1 } : p));
+        showToast("Lỗi bỏ thích: " + error.message, "error");
+      }
+    } else {
+      const { error } = await supabase.from("community_likes").insert({ user_id: user.id, post_id: id });
+      if (error && !error.message.includes("duplicate")) {
+        // Rollback
+        setLikedPosts(prev => prev.filter(x => x !== id));
+        setPosts(prev => prev.map(p => p.id === id ? { ...p, likes: Math.max(0, p.likes - 1) } : p));
+        showToast("Lỗi thích: " + error.message, "error");
       }
     }
   };
@@ -1830,6 +1933,7 @@ export default function CommunityPage() {
                     onEdit={(post) => setEditingPost(post)}
                     onDelete={handleDeletePost}
                     currentUser={user ? { id: user.id } : null}
+                    currentProfile={profile}
                   />
                 ))}
               </div>

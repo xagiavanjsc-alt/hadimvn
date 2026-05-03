@@ -28,62 +28,23 @@ function PostSEO({ post }: { post: Post }) {
     updateMetaTag('twitter:description', plainText);
     updateMetaTag('twitter:card', 'summary_large_image');
 
-    // Add structured data: Quiz if quiz exists, else Article
-    const schema: Record<string, unknown> = post.quiz
-      ? {
-          "@context": "https://schema.org",
-          "@type": "Quiz",
-          "name": post.title,
-          "about": {
-            "@type": "Thing",
-            "name": "Tiếng Hàn - Cộng đồng Hàn Quốc Ơi!"
-          },
-          "author": {
-            "@type": "Person",
-            "name": post.author_name
-          },
-          "datePublished": post.created_at,
-          "hasPart": [
-            {
-              "@type": "Question",
-              "name": post.quiz.question || post.title,
-              "text": post.quiz.question || post.title,
-              "suggestedAnswer": (post.quiz.options || []).map((o) => ({
-                "@type": "Answer",
-                "text": o.text,
-                "position": o.id
-              })),
-              "acceptedAnswer": post.quiz.options
-                ? (() => {
-                    const correct = post.quiz.options.find((o) => o.is_correct);
-                    return correct
-                      ? {
-                          "@type": "Answer",
-                          "text": correct.text,
-                          ...(post.quiz.explanation ? { "encodingFormat": "text/plain", "comment": post.quiz.explanation } : {})
-                        }
-                      : undefined;
-                  })()
-                : undefined
-            }
-          ]
-        }
-      : {
-          "@context": "https://schema.org",
-          "@type": "Article",
-          "headline": post.title,
-          "description": plainText,
-          "author": {
-            "@type": "Person",
-            "name": post.author_name
-          },
-          "datePublished": post.created_at,
-          "dateModified": post.created_at,
-          "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": window.location.href
-          }
-        };
+    // Add structured data (Article) - index theo tiêu đề bài viết
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": post.title,
+      "description": plainText,
+      "author": {
+        "@type": "Person",
+        "name": post.author_name
+      },
+      "datePublished": post.created_at,
+      "dateModified": post.created_at,
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": window.location.href
+      }
+    };
 
     const existingSchema = document.getElementById('post-schema');
     if (existingSchema) existingSchema.remove();
@@ -286,6 +247,17 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
 
     if (postRes.data) setPost(postRes.data as Post);
 
+    // Fetch existing rating của user
+    if (user && actualId) {
+      const { data: ratingRow } = await supabase
+        .from("community_ratings")
+        .select("rating")
+        .eq("post_id", actualId)
+        .eq("user_id", user.id)
+        .maybeSingle();
+      if (ratingRow) setUserRating(ratingRow.rating);
+    }
+
     if (commentsRes.data) {
       const map: Record<string, Comment> = {};
       const roots: Comment[] = [];
@@ -343,12 +315,13 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
 
     setRatingSubmitting(true);
 
-    const { error } = await supabase.from("community_ratings").insert({
+    // Upsert để handle cả trường hợp user đã đánh giá trước đó
+    const { error } = await supabase.from("community_ratings").upsert({
       user_id: user.id,
       post_id: resolvedPostId,
       rating: finalRating,
       status: "pending", // Đợi admin duyệt
-    });
+    }, { onConflict: "user_id,post_id" });
 
     setRatingSubmitting(false);
 
@@ -424,7 +397,29 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
 
               {/* Title + content */}
               <h1 className="text-white font-bold text-xl mb-4 leading-snug">{post.title}</h1>
-              <p className="text-white/65 text-sm leading-relaxed whitespace-pre-wrap">{resolveStoragePaths(post.content)}</p>
+              <div
+                className="post-content text-white/75 text-sm leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: resolveStoragePaths(post.content) }}
+              />
+              <style>{`
+                .post-content h1 { font-size: 1.5rem; font-weight: 700; margin: 0.8em 0 0.4em; color: #fff; }
+                .post-content h2 { font-size: 1.25rem; font-weight: 700; margin: 0.8em 0 0.4em; color: #fff; }
+                .post-content h3 { font-size: 1.1rem; font-weight: 600; margin: 0.6em 0 0.3em; color: #fff; }
+                .post-content p { margin: 0.5em 0; }
+                .post-content ul, .post-content ol { padding-left: 24px; margin: 8px 0; }
+                .post-content li { margin: 4px 0; }
+                .post-content a { color: #d4b43a; text-decoration: underline; }
+                .post-content blockquote { border-left: 3px solid #d4b43a; padding-left: 12px; margin: 8px 0; color: rgba(255,255,255,0.6); font-style: italic; }
+                .post-content img { max-width: 100%; height: auto; border-radius: 12px; margin: 8px 0; display: block; }
+                .post-content strong, .post-content b { font-weight: 700; color: #fff; }
+                .post-content em, .post-content i { font-style: italic; }
+                /* Override inline styles from pasted content (Word/Google Docs) */
+                .post-content h1 span, .post-content h2 span, .post-content h3 span {
+                  font-size: inherit !important;
+                  font-weight: inherit !important;
+                  color: inherit !important;
+                }
+              `}</style>
 
               {/* Tags */}
               {post.tags.length > 0 && (
