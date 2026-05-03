@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useRef, useMemo } from "react";
+﻿import { useState, useEffect, useRef, useMemo, memo } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
 
@@ -23,7 +23,7 @@ function timeAgo(ts: number): string {
   return `${days} ngày trước`;
 }
 
-export default function NotificationBell() {
+function NotificationBell() {
   const [open, setOpen] = useState(false);
   const [streak] = useLocalStorage<{ count: number }>("kts_streak", { count: 0 });
   const [readIds, setReadIds] = useLocalStorage<string[]>("kts_notif_read_v2", []);
@@ -226,3 +226,6 @@ export default function NotificationBell() {
     </div>
   );
 }
+
+const MemoizedNotificationBell = memo(NotificationBell);
+export default MemoizedNotificationBell;

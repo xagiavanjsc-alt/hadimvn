@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface StreakData {
@@ -36,7 +36,7 @@ export function useStudyTimeTracker() {
   }, []);
 }
 
-export default function StreakReminderModal() {
+function StreakReminderModal() {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [streakCount, setStreakCount] = useState(0);
@@ -169,3 +169,6 @@ export default function StreakReminderModal() {
     </div>
   );
 }
+
+const MemoizedStreakReminderModal = memo(StreakReminderModal);
+export default MemoizedStreakReminderModal;
