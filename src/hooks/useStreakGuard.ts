@@ -1,11 +1,17 @@
 import { useEffect, useState, useCallback } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
+/**
+ * Streak data stored in localStorage
+ */
 interface StreakData {
   count: number;
   lastDate: string;
 }
 
+/**
+ * Streak status for UI display
+ */
 interface StreakStatus {
   count: number;
   studiedToday: boolean;
@@ -15,6 +21,14 @@ interface StreakStatus {
   wasReset: boolean; // streak was just reset (missed yesterday)
 }
 
+/**
+ * Hook for managing user study streak
+ * Automatically tracks streak, detects resets, and warns when streak is at risk
+ * 
+ * @returns Object containing:
+ * - status: Current streak status
+ * - markStudiedToday: Function to mark today as studied
+ */
 export function useStreakGuard() {
   const [streak, setStreak] = useLocalStorage<StreakData>("kts_streak", { count: 0, lastDate: "" });
   const [status, setStatus] = useState<StreakStatus>({
@@ -26,6 +40,10 @@ export function useStreakGuard() {
     wasReset: false,
   });
 
+  /**
+   * Compute streak status based on current date and last study date
+   * Handles auto-reset for missed days and at-risk detection
+   */
   const computeStatus = useCallback(() => {
     const now = new Date();
     const today = now.toISOString().split("T")[0];
@@ -64,7 +82,10 @@ export function useStreakGuard() {
     });
   }, [streak, setStreak]);
 
-  // Mark today as studied
+  /**
+   * Mark today as studied and increment streak
+   * If studied yesterday, increment count. Otherwise, start new streak from 1.
+   */
   const markStudiedToday = useCallback(() => {
     const today = new Date().toISOString().split("T")[0];
     if (streak.lastDate === today) return; // already marked
