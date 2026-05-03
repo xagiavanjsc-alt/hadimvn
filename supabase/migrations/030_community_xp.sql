@@ -211,16 +211,28 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 -- ─── 3. Trigger để cập nhật XP ngay khi có hoạt động community ────────────────
 CREATE OR REPLACE FUNCTION public.update_user_xp_on_community_activity()
 RETURNS TRIGGER AS $$
+DECLARE
+  v_uid UUID;
+  v_xp INT;
+  v_name TEXT;
+  v_avatar TEXT;
 BEGIN
+  v_uid := COALESCE(NEW.user_id, OLD.user_id);
+  v_xp := public.compute_user_xp(v_uid);
+
   -- Cập nhật XP trong user_progress
   UPDATE public.user_progress
-  SET xp = public.compute_user_xp(NEW.user_id),
-      updated_at = NOW()
-  WHERE user_id = NEW.user_id;
+  SET xp = v_xp, updated_at = NOW()
+  WHERE user_id = v_uid;
 
-  -- Cập nhật leaderboard
-  INSERT INTO public.leaderboard (user_id, xp, updated_at)
-  VALUES (NEW.user_id, public.compute_user_xp(NEW.user_id), NOW())
+  -- Lấy display_name từ user_profiles
+  SELECT COALESCE(display_name, 'Học viên'), avatar_url
+  INTO v_name, v_avatar
+  FROM public.user_profiles WHERE id = v_uid;
+
+  -- Cập nhật leaderboard (kèm display_name để tránh NOT NULL lỗi)
+  INSERT INTO public.leaderboard (user_id, display_name, avatar_url, xp, updated_at)
+  VALUES (v_uid, COALESCE(v_name, 'Học viên'), v_avatar, v_xp, NOW())
   ON CONFLICT (user_id) DO UPDATE SET
     xp = EXCLUDED.xp,
     updated_at = EXCLUDED.updated_at;
@@ -263,8 +275,19 @@ DECLARE
   v_words_learned INT;
   v_streak INT;
   v_xp INT;
+  v_display_name TEXT;
+  v_avatar_url TEXT;
+  v_is_vip BOOLEAN;
+  v_vip_expires TIMESTAMPTZ;
 BEGIN
   FOR r IN SELECT DISTINCT up.user_id FROM public.user_progress up LOOP
+    -- Lấy thông tin user_profiles
+    SELECT display_name, avatar_url, is_vip, vip_expires_at
+    INTO v_display_name, v_avatar_url, v_is_vip, v_vip_expires
+    FROM public.user_profiles WHERE id = r.user_id;
+
+    -- Fallback nếu display_name null
+    v_display_name := COALESCE(v_display_name, 'Học viên');
     -- Best score
     SELECT COALESCE(MAX(ROUND((score::FLOAT / NULLIF(total,0)) * 100))::INT, 0)
     INTO v_best_score
@@ -310,9 +333,11 @@ BEGIN
     WHERE user_id = r.user_id;
 
     -- Sync leaderboard
-    INSERT INTO public.leaderboard (user_id, xp, streak, best_score, words_learned, level, updated_at)
+    INSERT INTO public.leaderboard (user_id, display_name, avatar_url, xp, streak, best_score, words_learned, level, is_vip, vip_expires_at, updated_at)
     VALUES (
       r.user_id,
+      v_display_name,
+      v_avatar_url,
       v_xp,
       v_streak,
       v_best_score,
@@ -322,14 +347,20 @@ BEGIN
         WHEN v_best_score >= 60 THEN 'TOPIK I'
         ELSE 'Cơ bản'
       END,
+      COALESCE(v_is_vip, FALSE),
+      v_vip_expires,
       NOW()
     )
     ON CONFLICT (user_id) DO UPDATE SET
+      display_name = COALESCE(EXCLUDED.display_name, public.leaderboard.display_name),
+      avatar_url = COALESCE(EXCLUDED.avatar_url, public.leaderboard.avatar_url),
       xp = EXCLUDED.xp,
       streak = EXCLUDED.streak,
       best_score = EXCLUDED.best_score,
       words_learned = EXCLUDED.words_learned,
       level = EXCLUDED.level,
+      is_vip = EXCLUDED.is_vip,
+      vip_expires_at = EXCLUDED.vip_expires_at,
       updated_at = EXCLUDED.updated_at;
   END LOOP;
 END;
@@ -352,6 +383,8 @@ RETURNS TRIGGER AS $$
 DECLARE
   v_best INT;
   v_xp INT;
+  v_name TEXT;
+  v_avatar TEXT;
 BEGIN
   IF NEW.is_valid = true AND NEW.total > 0 THEN
     SELECT COALESCE(MAX(ROUND((score::FLOAT / NULLIF(total,0)) * 100))::INT, 0)
@@ -361,15 +394,19 @@ BEGIN
 
     v_xp := public.compute_user_xp(NEW.user_id);
 
+    SELECT COALESCE(display_name, 'Học viên'), avatar_url
+    INTO v_name, v_avatar
+    FROM public.user_profiles WHERE id = NEW.user_id;
+
     UPDATE public.user_progress
     SET best_score = v_best,
         xp = v_xp,
         updated_at = NOW()
     WHERE user_id = NEW.user_id;
 
-    INSERT INTO public.leaderboard (user_id, xp, best_score, level, updated_at)
+    INSERT INTO public.leaderboard (user_id, display_name, avatar_url, xp, best_score, level, updated_at)
     VALUES (
-      NEW.user_id, v_xp, v_best,
+      NEW.user_id, COALESCE(v_name, 'Học viên'), v_avatar, v_xp, v_best,
       CASE WHEN v_best >= 80 THEN 'TOPIK II' WHEN v_best >= 60 THEN 'TOPIK I' ELSE 'Cơ bản' END,
       NOW()
     )
