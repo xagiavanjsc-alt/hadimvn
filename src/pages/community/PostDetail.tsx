@@ -28,23 +28,62 @@ function PostSEO({ post }: { post: Post }) {
     updateMetaTag('twitter:description', plainText);
     updateMetaTag('twitter:card', 'summary_large_image');
 
-    // Add structured data (Article)
-    const schema = {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": post.title,
-      "description": plainText,
-      "author": {
-        "@type": "Person",
-        "name": post.author_name
-      },
-      "datePublished": post.created_at,
-      "dateModified": post.created_at,
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": window.location.href
-      }
-    };
+    // Add structured data: Quiz if quiz exists, else Article
+    const schema: Record<string, unknown> = post.quiz
+      ? {
+          "@context": "https://schema.org",
+          "@type": "Quiz",
+          "name": post.title,
+          "about": {
+            "@type": "Thing",
+            "name": "Tiếng Hàn - Cộng đồng Hàn Quốc Ơi!"
+          },
+          "author": {
+            "@type": "Person",
+            "name": post.author_name
+          },
+          "datePublished": post.created_at,
+          "hasPart": [
+            {
+              "@type": "Question",
+              "name": post.quiz.question || post.title,
+              "text": post.quiz.question || post.title,
+              "suggestedAnswer": (post.quiz.options || []).map((o) => ({
+                "@type": "Answer",
+                "text": o.text,
+                "position": o.id
+              })),
+              "acceptedAnswer": post.quiz.options
+                ? (() => {
+                    const correct = post.quiz.options.find((o) => o.is_correct);
+                    return correct
+                      ? {
+                          "@type": "Answer",
+                          "text": correct.text,
+                          ...(post.quiz.explanation ? { "encodingFormat": "text/plain", "comment": post.quiz.explanation } : {})
+                        }
+                      : undefined;
+                  })()
+                : undefined
+            }
+          ]
+        }
+      : {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": post.title,
+          "description": plainText,
+          "author": {
+            "@type": "Person",
+            "name": post.author_name
+          },
+          "datePublished": post.created_at,
+          "dateModified": post.created_at,
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": window.location.href
+          }
+        };
 
     const existingSchema = document.getElementById('post-schema');
     if (existingSchema) existingSchema.remove();
@@ -91,6 +130,14 @@ interface Post {
   rating_average?: number;
   rating_count?: number;
   status?: "pending" | "approved" | "rejected" | null;
+  quiz?: {
+    question: string;
+    image_url?: string;
+    options: { id: number; text: string; is_correct: boolean }[];
+    explanation?: string;
+  } | null;
+  quiz_total_answers?: number;
+  quiz_correct_answers?: number;
 }
 
 interface Comment {

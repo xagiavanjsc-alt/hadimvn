@@ -378,6 +378,22 @@ interface Post {
   status?: "pending" | "approved" | "rejected" | null;
   rating_average?: number;
   rating_count?: number;
+  quiz?: QuizData | null;
+  quiz_total_answers?: number;
+  quiz_correct_answers?: number;
+}
+
+export interface QuizOption {
+  id: number;
+  text: string;
+  is_correct: boolean;
+}
+
+export interface QuizData {
+  question: string;
+  image_url?: string;
+  options: QuizOption[];
+  explanation?: string;
 }
 
 interface Comment {
@@ -751,6 +767,180 @@ function CommentsPanel({
   );
 }
 
+// ─── Quiz Card (trong post) ─────────────────────────────────────────────────
+function QuizCard({ post, currentUser }: { post: Post; currentUser: { id: string } | null }) {
+  const quiz = post.quiz;
+  const [selected, setSelected] = useState<number | null>(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [totalAnswers, setTotalAnswers] = useState(post.quiz_total_answers || 0);
+  const [correctAnswers, setCorrectAnswers] = useState(post.quiz_correct_answers || 0);
+
+  const isAuthor = currentUser && post.user_id === currentUser.id;
+  const correctOption = quiz?.options?.find(o => o.is_correct);
+
+  // Fetch existing answer
+  useEffect(() => {
+    if (!currentUser || !quiz) { setLoading(false); return; }
+    (async () => {
+      const { data } = await supabase
+        .from("community_quiz_answers")
+        .select("selected_option, is_correct")
+        .eq("post_id", post.id)
+        .eq("user_id", currentUser.id)
+        .maybeSingle();
+      if (data) {
+        setSelected(data.selected_option);
+        setSubmitted(true);
+      }
+      setLoading(false);
+    })();
+  }, [post.id, currentUser?.id, quiz]);
+
+  if (!quiz) return null;
+
+  const handleSelect = async (optionId: number) => {
+    if (!currentUser) {
+      setError("Vui lòng đăng nhập để trả lời");
+      return;
+    }
+    if (isAuthor) {
+      setError("Bạn không thể trả lời câu hỏi của chính mình");
+      return;
+    }
+    if (submitted || submitting) return;
+
+    setSubmitting(true);
+    setError(null);
+
+    const option = quiz.options.find(o => o.id === optionId);
+    const isCorrect = option?.is_correct || false;
+
+    const { error: insertError } = await supabase
+      .from("community_quiz_answers")
+      .insert({
+        post_id: post.id,
+        user_id: currentUser.id,
+        selected_option: optionId,
+        is_correct: isCorrect,
+      });
+
+    if (insertError) {
+      setError("Lỗi: " + insertError.message);
+      setSubmitting(false);
+      return;
+    }
+
+    setSelected(optionId);
+    setSubmitted(true);
+    setTotalAnswers(v => v + 1);
+    if (isCorrect) setCorrectAnswers(v => v + 1);
+    setSubmitting(false);
+  };
+
+  const correctPct = totalAnswers > 0 ? Math.round((correctAnswers / totalAnswers) * 100) : 0;
+  const selectedOption = quiz.options.find(o => o.id === selected);
+  const isSelectedCorrect = selectedOption?.is_correct || false;
+
+  return (
+    <div className="mt-4 bg-gradient-to-br from-app-accent-primary/5 to-[#60a5fa]/5 border border-app-accent-primary/20 rounded-xl p-4">
+      <div className="flex items-center gap-2 mb-3">
+        <i className="ri-question-line text-app-accent-primary"></i>
+        <span className="text-app-accent-primary text-xs font-bold uppercase tracking-wide">Câu hỏi trắc nghiệm</span>
+        {totalAnswers > 0 && (
+          <span className="ml-auto text-app-text-muted text-[10px]">
+            {totalAnswers} lượt trả lời · {correctPct}% đúng
+          </span>
+        )}
+      </div>
+
+      {quiz.image_url && (
+        <img src={quiz.image_url} alt="" className="w-full max-h-64 object-contain rounded-lg mb-3 border border-app-border" />
+      )}
+
+      {loading ? (
+        <p className="text-app-text-muted text-xs">Đang tải...</p>
+      ) : (
+        <div className="space-y-2">
+          {quiz.options.map((opt, idx) => {
+            const letter = String.fromCharCode(65 + idx);
+            const isSelected = selected === opt.id;
+            const showCorrect = submitted && opt.is_correct;
+            const showWrong = submitted && isSelected && !opt.is_correct;
+
+            return (
+              <button
+                key={opt.id}
+                onClick={(e) => { e.stopPropagation(); handleSelect(opt.id); }}
+                disabled={submitted || submitting || isAuthor || !currentUser}
+                className={`w-full text-left px-3 py-2.5 rounded-lg border transition-all flex items-center gap-3 ${
+                  showCorrect
+                    ? "bg-emerald-500/15 border-emerald-500/40 text-emerald-300"
+                    : showWrong
+                    ? "bg-red-500/15 border-red-500/40 text-red-300"
+                    : isSelected
+                    ? "bg-app-accent-primary/15 border-app-accent-primary/40 text-white"
+                    : "bg-app-card/30 border-app-border text-white/70 hover:border-white/20 cursor-pointer"
+                } ${submitted || submitting || isAuthor || !currentUser ? "cursor-not-allowed" : ""}`}
+              >
+                <span className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold ${
+                  showCorrect ? "bg-emerald-500/30 text-emerald-200" :
+                  showWrong ? "bg-red-500/30 text-red-200" :
+                  "bg-app-card/50 text-app-text-secondary"
+                }`}>
+                  {showCorrect ? <i className="ri-check-line"></i> : showWrong ? <i className="ri-close-line"></i> : letter}
+                </span>
+                <span className="text-sm flex-1">{opt.text}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {error && (
+        <p className="text-red-400 text-xs mt-2"><i className="ri-error-warning-line mr-1"></i>{error}</p>
+      )}
+
+      {submitted && (
+        <div className={`mt-3 p-3 rounded-lg border ${
+          isSelectedCorrect
+            ? "bg-emerald-500/10 border-emerald-500/30"
+            : "bg-red-500/10 border-red-500/30"
+        }`}>
+          {isSelectedCorrect ? (
+            <p className="text-emerald-400 text-sm font-semibold">
+              <i className="ri-trophy-line mr-1"></i>Chính xác! Bạn được +1 XP 🎉
+            </p>
+          ) : (
+            <p className="text-red-400 text-sm font-semibold mb-1">
+              <i className="ri-close-circle-line mr-1"></i>Sai rồi. Đáp án đúng: <strong>{correctOption?.text}</strong>
+            </p>
+          )}
+          {quiz.explanation && (
+            <p className="text-white/70 text-xs mt-2 leading-relaxed">
+              <i className="ri-lightbulb-line mr-1 text-[#FFD700]"></i>
+              {quiz.explanation}
+            </p>
+          )}
+        </div>
+      )}
+
+      {!currentUser && (
+        <p className="text-app-text-muted text-[11px] mt-2 text-center">
+          <i className="ri-lock-line mr-1"></i>Đăng nhập để tham gia trả lời
+        </p>
+      )}
+      {isAuthor && (
+        <p className="text-app-text-muted text-[11px] mt-2 text-center">
+          <i className="ri-information-line mr-1"></i>Bạn là tác giả — không thể tự trả lời
+        </p>
+      )}
+    </div>
+  );
+}
+
 // ─── Post Card ───────────────────────────────────────────────────────────────
 function PostCard({
   post,
@@ -841,6 +1031,9 @@ function PostCard({
           <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-app-surface/50 text-app-text-muted border border-app-border">#{tag}</span>
         ))}
       </div>
+
+      {/* Quiz (nếu post là câu hỏi trắc nghiệm) */}
+      {post.quiz && <QuizCard post={post} currentUser={currentUser} />}
 
       <div className="flex items-center gap-4 mt-4 pt-3 border-t border-app-border">
         <button
@@ -1038,7 +1231,7 @@ function NewPostModal({
   showToast,
 }: {
   onClose: () => void;
-  onSubmit: (data: { title: string; content: string; category: string; imageUrl?: string }) => Promise<void>;
+  onSubmit: (data: { title: string; content: string; category: string; imageUrl?: string; quiz?: QuizData | null }) => Promise<void>;
   showToast: (message: string, type?: "success" | "error" | "info") => void;
 }) {
   const [title, setTitle] = useState("");
@@ -1049,6 +1242,13 @@ function NewPostModal({
   const [imagePreview, setImagePreview] = useState("");
   const [uploadingImage, setUploadingImage] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  // Quiz state
+  const [isQuiz, setIsQuiz] = useState(false);
+  const [quizOptions, setQuizOptions] = useState<QuizOption[]>([
+    { id: 1, text: "", is_correct: true },
+    { id: 2, text: "", is_correct: false },
+  ]);
+  const [quizExplanation, setQuizExplanation] = useState("");
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -1127,13 +1327,34 @@ function NewPostModal({
       showToast('Vui lòng nhập tiêu đề', 'error');
       return;
     }
-    if (isRichEmpty(content)) {
+    if (!isQuiz && isRichEmpty(content)) {
       showToast('Vui lòng nhập nội dung', 'error');
       return;
     }
+
+    // Validate quiz nếu bật chế độ trắc nghiệm
+    let quizData: QuizData | null = null;
+    if (isQuiz) {
+      const filledOptions = quizOptions.filter(o => o.text.trim());
+      if (filledOptions.length < 2) {
+        showToast('Trắc nghiệm cần ít nhất 2 đáp án', 'error');
+        return;
+      }
+      if (!filledOptions.some(o => o.is_correct)) {
+        showToast('Cần chọn ít nhất 1 đáp án đúng', 'error');
+        return;
+      }
+      quizData = {
+        question: title,
+        image_url: imageUrl ? undefined : undefined,
+        options: filledOptions.map((o, idx) => ({ ...o, id: idx + 1 })),
+        explanation: quizExplanation.trim() || undefined,
+      };
+    }
+
     setSubmitting(true);
     try {
-      await onSubmit({ title, content, category, imageUrl: imageUrl || undefined });
+      await onSubmit({ title, content, category, imageUrl: imageUrl || undefined, quiz: quizData });
       onClose();
     } catch (err) {
       console.error('Submit error:', err);
@@ -1212,6 +1433,86 @@ function NewPostModal({
                   className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center rounded-full bg-black/60 text-white/70 hover:text-white cursor-pointer">
                   <i className="ri-close-line text-xs"></i>
                 </button>
+              </div>
+            )}
+          </div>
+
+          {/* Quiz toggle */}
+          <div className="border border-app-border rounded-xl p-4 bg-app-card/20">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={isQuiz}
+                onChange={e => setIsQuiz(e.target.checked)}
+                className="w-4 h-4 accent-app-accent-primary cursor-pointer"
+              />
+              <span className="text-white text-sm font-medium">
+                <i className="ri-question-line mr-1 text-app-accent-primary"></i>
+                Biến bài viết này thành câu hỏi trắc nghiệm
+              </span>
+            </label>
+            <p className="text-app-text-muted text-[11px] mt-1 ml-6">
+              Thành viên trả lời đúng sẽ được +1 XP. Mỗi người chỉ được trả lời 1 lần.
+            </p>
+
+            {isQuiz && (
+              <div className="mt-4 space-y-3">
+                <p className="text-app-text-secondary text-xs">
+                  <i className="ri-information-line mr-1"></i>
+                  Tiêu đề bài viết sẽ là câu hỏi. Nhập các đáp án dưới đây:
+                </p>
+
+                {quizOptions.map((opt, idx) => (
+                  <div key={idx} className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setQuizOptions(opts => opts.map((o, i) => ({ ...o, is_correct: i === idx })))}
+                      title="Chọn đây là đáp án đúng"
+                      className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 cursor-pointer transition-colors ${opt.is_correct ? "bg-emerald-500/20 border border-emerald-500/40 text-emerald-400" : "bg-app-card/50 border border-app-border text-app-text-muted hover:text-white/60"}`}
+                    >
+                      <i className={opt.is_correct ? "ri-check-line" : "ri-circle-line"}></i>
+                    </button>
+                    <input
+                      type="text"
+                      value={opt.text}
+                      onChange={e => setQuizOptions(opts => opts.map((o, i) => i === idx ? { ...o, text: e.target.value } : o))}
+                      placeholder={`Đáp án ${String.fromCharCode(65 + idx)}...`}
+                      maxLength={200}
+                      className="flex-1 bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 placeholder-white/20"
+                    />
+                    {quizOptions.length > 2 && (
+                      <button
+                        type="button"
+                        onClick={() => setQuizOptions(opts => opts.filter((_, i) => i !== idx))}
+                        className="w-8 h-8 flex items-center justify-center rounded-lg text-app-text-muted hover:text-red-400 cursor-pointer"
+                      >
+                        <i className="ri-close-line"></i>
+                      </button>
+                    )}
+                  </div>
+                ))}
+
+                {quizOptions.length < 4 && (
+                  <button
+                    type="button"
+                    onClick={() => setQuizOptions(opts => [...opts, { id: opts.length + 1, text: "", is_correct: false }])}
+                    className="w-full py-2 rounded-lg border border-dashed border-app-border text-app-text-secondary text-xs hover:text-white/60 hover:border-white/20 cursor-pointer"
+                  >
+                    <i className="ri-add-line mr-1"></i>Thêm đáp án (tối đa 4)
+                  </button>
+                )}
+
+                <div>
+                  <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Giải thích đáp án đúng (tùy chọn)</label>
+                  <textarea
+                    value={quizExplanation}
+                    onChange={e => setQuizExplanation(e.target.value)}
+                    placeholder="Giải thích ngắn gọn để thành viên hiểu tại sao đáp án này đúng..."
+                    rows={2}
+                    maxLength={500}
+                    className="w-full bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 placeholder-white/20 resize-none"
+                  />
+                </div>
               </div>
             )}
           </div>
@@ -1375,7 +1676,7 @@ export default function CommunityPage() {
     }
   };
 
-  const handleNewPost = async (data: { title: string; content: string; category: string; imageUrl?: string }) => {
+  const handleNewPost = async (data: { title: string; content: string; category: string; imageUrl?: string; quiz?: QuizData | null }) => {
     if (!user || !profile) return;
 
     // Kiểm tra chế độ bảo trì
@@ -1416,6 +1717,7 @@ export default function CommunityPage() {
       category: data.category,
       tags: [],
       status: "pending",
+      quiz: data.quiz || null,
     });
 
     if (error) {
