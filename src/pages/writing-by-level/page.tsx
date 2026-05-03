@@ -288,7 +288,12 @@ function calculateScore(text: string, prompt: WritingPrompt): { total: number; b
 }
 
 // ─── Writing Editor ───────────────────────────────────────────────────────────
-function WritingEditor({ prompt, onBack }: { prompt: WritingPrompt; onBack: () => void }) {
+interface WritingEditorProps {
+  prompt: WritingPrompt;
+  onBack: () => void;
+}
+
+function WritingEditor({ prompt, onBack }: WritingEditorProps) {
   const [text, setText] = useState("");
   const [showHints, setShowHints] = useState(false);
   const [showSample, setShowSample] = useState(false);

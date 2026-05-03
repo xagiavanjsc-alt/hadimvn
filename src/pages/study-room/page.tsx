@@ -156,7 +156,12 @@ function RoomLeaderboard() {
 }
 
 // ─── Room Card ────────────────────────────────────────────────────────────────
-function RoomCard({ room, onJoin }: { room: StudyRoom; onJoin: (r: StudyRoom) => void }) {
+interface RoomCardProps {
+  room: StudyRoom;
+  onJoin: (r: StudyRoom) => void;
+}
+
+function RoomCard({ room, onJoin }: RoomCardProps) {
   const pct = Math.round((room.memberCount / room.maxMembers) * 100);
   return (
     <div className="bg-app-bg border border-app-border rounded-2xl p-5 hover:border-app-border transition-all group">
@@ -205,7 +210,13 @@ function RoomCard({ room, onJoin }: { room: StudyRoom; onJoin: (r: StudyRoom) =>
 }
 
 // ─── Study Room Chat ──────────────────────────────────────────────────────────
-function StudyRoomChat({ room, onLeave, profile }: { room: StudyRoom; onLeave: () => void; profile: { display_name: string } | null }) {
+interface StudyRoomChatProps {
+  room: StudyRoom;
+  onLeave: () => void;
+  profile: { display_name: string } | null;
+}
+
+function StudyRoomChat({ room, onLeave, profile }: StudyRoomChatProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [members] = useState<RoomMember[]>(profile ? [{ id: "me", name: profile.display_name, level: "", color: "app-accent-primary", joinedAt: Date.now(), activity: "Đang học", streak: 0, isHost: true }] : []);
   const [inputText, setInputText] = useState("");

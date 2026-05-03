@@ -45,7 +45,13 @@ const LEVELS = [
   { id: "B2", label: "B2 - Trung cấp 2", color: "#f87171", desc: "Văn bản phức tạp, trừu tượng" },
 ];
 
-function RadialProgress({ value, color, size = 80 }: { value: number; color: string; size?: number }) {
+interface RadialProgressProps {
+  value: number;
+  color: string;
+  size?: number;
+}
+
+function RadialProgress({ value, color, size = 80 }: RadialProgressProps) {
   const r = (size - 12) / 2;
   const circ = 2 * Math.PI * r;
   const offset = circ - (value / 100) * circ;

@@ -28,7 +28,14 @@ function useTimer(active: boolean, onExpire: () => void) {
 }
 
 // ─── MC4 Image Question ───────────────────────────────────────────────────
-function MC4ImageQuestion({ q, selected, onAnswer, showResult }: { q: T2Question; selected: number | null; onAnswer: (i: number) => void; showResult: boolean }) {
+interface MC4ImageQuestionProps {
+  q: T2Question;
+  selected: number | null;
+  onAnswer: (i: number) => void;
+  showResult: boolean;
+}
+
+function MC4ImageQuestion({ q, selected, onAnswer, showResult }: MC4ImageQuestionProps) {
   return (
     <div className="grid grid-cols-2 gap-3 mt-3">
       {(q.options || []).map((opt, i) => {
@@ -53,7 +60,14 @@ function MC4ImageQuestion({ q, selected, onAnswer, showResult }: { q: T2Question
 }
 
 // ─── MC4 Text Question ────────────────────────────────────────────────────
-function MC4TextQuestion({ q, selected, onAnswer, showResult }: { q: T2Question; selected: number | null; onAnswer: (i: number) => void; showResult: boolean }) {
+interface MC4TextQuestionProps {
+  q: T2Question;
+  selected: number | null;
+  onAnswer: (i: number) => void;
+  showResult: boolean;
+}
+
+function MC4TextQuestion({ q, selected, onAnswer, showResult }: MC4TextQuestionProps) {
   return (
     <div className="space-y-2 mt-3">
       {(q.options || []).map((opt, i) => {
@@ -120,7 +134,14 @@ function FillBlankQuestion({ q, value, value2, onChange, onChange2, showResult }
 }
 
 // ─── Writing Question ─────────────────────────────────────────────────────
-function WritingQuestion({ q, value, onChange, showResult }: { q: T2Question; value: string; onChange: (v: string) => void; showResult: boolean }) {
+interface WritingQuestionProps {
+  q: T2Question;
+  value: string;
+  onChange: (v: string) => void;
+  showResult: boolean;
+}
+
+function WritingQuestion({ q, value, onChange, showResult }: WritingQuestionProps) {
   const charCount = value.length;
   const minChars = q.number === 54 ? 600 : 200;
   const maxChars = q.number === 54 ? 700 : 300;

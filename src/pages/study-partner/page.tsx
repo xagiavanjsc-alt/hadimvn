@@ -57,7 +57,12 @@ const LEVEL_COLORS: Record<string, string> = {
 };
 
 // ─── Partner Card ─────────────────────────────────────────────────────────────
-function PartnerCard({ partner, onConnect }: { partner: Partner; onConnect: () => void }) {
+interface PartnerCardProps {
+  partner: Partner;
+  onConnect: () => void;
+}
+
+function PartnerCard({ partner, onConnect }: PartnerCardProps) {
   const statusCfg = STATUS_CONFIG[partner.status];
   const levelColor = LEVEL_COLORS[partner.level] || "app-accent-primary";
 
@@ -114,7 +119,12 @@ function PartnerCard({ partner, onConnect }: { partner: Partner; onConnect: () =
 }
 
 // ─── Chat Session ─────────────────────────────────────────────────────────────
-function ChatSession({ partner, onClose }: { partner: Partner; onClose: () => void }) {
+interface ChatSessionProps {
+  partner: Partner;
+  onClose: () => void;
+}
+
+function ChatSession({ partner, onClose }: ChatSessionProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",

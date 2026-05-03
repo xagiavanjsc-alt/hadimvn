@@ -34,7 +34,12 @@ function getDayOfWeek() {
 }
 
 // ─── Feed Card ────────────────────────────────────────────────────────────────
-function FeedCard({ item, onDismiss }: { item: FeedItem; onDismiss?: (id: string) => void }) {
+interface FeedCardProps {
+  item: FeedItem;
+  onDismiss?: (id: string) => void;
+}
+
+function FeedCard({ item, onDismiss }: FeedCardProps) {
   const navigate = useNavigate();
   return (
     <div className={`bg-app-bg border rounded-2xl p-5 transition-all hover:border-app-border ${item.pinned ? "border-app-accent-primary/20" : "border-app-border"}`}>

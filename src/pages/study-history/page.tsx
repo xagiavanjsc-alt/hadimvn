@@ -338,7 +338,12 @@ function useWrongItems() {
 }
 
 // ─── Review Card ──────────────────────────────────────────────────────────────
-function ReviewCard({ item, onMarkReviewed }: { item: WrongItem; onMarkReviewed: (id: string) => void }) {
+interface ReviewCardProps {
+  item: WrongItem;
+  onMarkReviewed: (id: string) => void;
+}
+
+function ReviewCard({ item, onMarkReviewed }: ReviewCardProps) {
   const [expanded, setExpanded] = useState(false);
   const isDue = isDueForReview(item.nextReview);
   const srLevel = Math.min(item.reviewCount, SR_INTERVALS.length - 1);

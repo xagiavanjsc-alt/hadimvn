@@ -48,7 +48,12 @@ function getMoodInfo(value: string) {
 }
 
 // ── Share Journal Modal ────────────────────────────────────────────────────
-function ShareJournalModal({ entry, onClose }: { entry: JournalEntry; onClose: () => void }) {
+interface ShareJournalModalProps {
+  entry: JournalEntry;
+  onClose: () => void;
+}
+
+function ShareJournalModal({ entry, onClose }: ShareJournalModalProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);
   const [downloading, setDownloading] = useState(false);
@@ -220,7 +225,14 @@ function ShareJournalModal({ entry, onClose }: { entry: JournalEntry; onClose: (
   );
 }
 
-function EntryCard({ entry, onEdit, onDelete, onShare }: { entry: JournalEntry; onEdit: () => void; onDelete: () => void; onShare: () => void }) {
+interface EntryCardProps {
+  entry: JournalEntry;
+  onEdit: () => void;
+  onDelete: () => void;
+  onShare: () => void;
+}
+
+function EntryCard({ entry, onEdit, onDelete, onShare }: EntryCardProps) {
   const mood = getMoodInfo(entry.mood);
   const [showConfirm, setShowConfirm] = useState(false);
 

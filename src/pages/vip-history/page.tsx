@@ -43,7 +43,11 @@ function StatusBadge({ expiresAt }: { expiresAt: string }) {
   );
 }
 
-function EmptyState({ onUpgrade }: { onUpgrade: () => void }) {
+interface EmptyStateProps {
+  onUpgrade: () => void;
+}
+
+function EmptyState({ onUpgrade }: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-20 text-center">
       <div className="w-20 h-20 flex items-center justify-center rounded-2xl bg-app-accent-primary/8 border border-app-accent-primary/15 mb-5">

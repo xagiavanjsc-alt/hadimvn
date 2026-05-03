@@ -281,7 +281,12 @@ function EmailDeliveryModal({ series, lessons, onClose }: {
 }
 
 // ─── Watermark Modal ──────────────────────────────────────────────────────
-function WatermarkModal({ onClose, onApply }: { onClose: () => void; onApply: (name: string, note: string) => void }) {
+interface WatermarkModalProps {
+  onClose: () => void;
+  onApply: (name: string, note: string) => void;
+}
+
+function WatermarkModal({ onClose, onApply }: WatermarkModalProps) {
   const [buyerName, setBuyerName] = useState("");
   const [note, setNote] = useState("");
   return (

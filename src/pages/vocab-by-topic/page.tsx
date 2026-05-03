@@ -39,7 +39,12 @@ const CATEGORY_COLORS: Record<string, string> = {
   "TOPIK I - Cơ bản": "#38bdf8",
 };
 
-function VocabCard({ entry, onFlip }: { entry: VocabEntry; onFlip?: () => void }) {
+interface VocabCardProps {
+  entry: VocabEntry;
+  onFlip?: () => void;
+}
+
+function VocabCard({ entry, onFlip }: VocabCardProps) {
   const [flipped, setFlipped] = useState(false);
   const [learned, setLearned] = useState(false);
   const diff = DIFFICULTY_LABELS[entry.difficulty] || DIFFICULTY_LABELS[1];

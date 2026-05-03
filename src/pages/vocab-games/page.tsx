@@ -40,7 +40,12 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 // ─── Game 1: Đoán từ (Multiple choice) ───────────────────────────────────────
-function GuessGame({ vocab, onBack }: { vocab: VocabWord[]; onBack: () => void }) {
+interface GuessGameProps {
+  vocab: VocabWord[];
+  onBack: () => void;
+}
+
+function GuessGame({ vocab, onBack }: GuessGameProps) {
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
@@ -194,7 +199,12 @@ function GuessGame({ vocab, onBack }: { vocab: VocabWord[]; onBack: () => void }
 }
 
 // ─── Game 2: Nối từ (Matching) ────────────────────────────────────────────────
-function MatchGame({ vocab, onBack }: { vocab: VocabWord[]; onBack: () => void }) {
+interface MatchGameProps {
+  vocab: VocabWord[];
+  onBack: () => void;
+}
+
+function MatchGame({ vocab, onBack }: MatchGameProps) {
   const pairs = shuffle(vocab).slice(0, 8);
   const [leftItems] = useState(shuffle(pairs));
   const [rightItems] = useState(shuffle(pairs));
@@ -322,7 +332,12 @@ function MatchGame({ vocab, onBack }: { vocab: VocabWord[]; onBack: () => void }
 }
 
 // ─── Game 3: Điền chữ trống ───────────────────────────────────────────────────
-function FillGame({ vocab, onBack }: { vocab: VocabWord[]; onBack: () => void }) {
+interface FillGameProps {
+  vocab: VocabWord[];
+  onBack: () => void;
+}
+
+function FillGame({ vocab, onBack }: FillGameProps) {
   const questions = shuffle(vocab).slice(0, 12);
   const [index, setIndex] = useState(0);
   const [input, setInput] = useState("");

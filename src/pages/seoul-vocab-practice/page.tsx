@@ -46,7 +46,12 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 // ─── Flashcard Mode ───────────────────────────────────────────────────────────
-function FlashcardMode({ words, onBack }: { words: Vocab[]; onBack: () => void }) {
+interface FlashcardModeProps {
+  words: Vocab[];
+  onBack: () => void;
+}
+
+function FlashcardMode({ words, onBack }: FlashcardModeProps) {
   const [idx, setIdx] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [known, setKnown] = useState<Set<number>>(new Set());
@@ -169,7 +174,12 @@ function FlashcardMode({ words, onBack }: { words: Vocab[]; onBack: () => void }
 }
 
 // ─── Quiz Mode ────────────────────────────────────────────────────────────────
-function QuizMode({ words, onBack }: { words: Vocab[]; onBack: () => void }) {
+interface QuizModeProps {
+  words: Vocab[];
+  onBack: () => void;
+}
+
+function QuizMode({ words, onBack }: QuizModeProps) {
   const [qIdx, setQIdx] = useState(0);
   const [score, setScore] = useState(0);
   const [answers, setAnswers] = useState<QuizAnswer[]>([]);
@@ -279,7 +289,12 @@ function QuizMode({ words, onBack }: { words: Vocab[]; onBack: () => void }) {
 }
 
 // ─── Matching Mode ────────────────────────────────────────────────────────────
-function MatchingMode({ words, onBack }: { words: Vocab[]; onBack: () => void }) {
+interface MatchingModeProps {
+  words: Vocab[];
+  onBack: () => void;
+}
+
+function MatchingMode({ words, onBack }: MatchingModeProps) {
   const pairs = useMemo(() => shuffle(words).slice(0, 8), [words]);
   const koreans = useMemo(() => shuffle(pairs.map(p => p.korean)), [pairs]);
   const vietnameses = useMemo(() => shuffle(pairs.map(p => p.vietnamese)), [pairs]);
@@ -372,7 +387,12 @@ function MatchingMode({ words, onBack }: { words: Vocab[]; onBack: () => void })
 }
 
 // ─── Fill in the Blank Mode ───────────────────────────────────────────────────
-function FillMode({ words, onBack }: { words: Vocab[]; onBack: () => void }) {
+interface FillModeProps {
+  words: Vocab[];
+  onBack: () => void;
+}
+
+function FillMode({ words, onBack }: FillModeProps) {
   const questions = useMemo(() => shuffle(words).slice(0, Math.min(10, words.length)), [words]);
   const [qIdx, setQIdx] = useState(0);
   const [input, setInput] = useState("");
