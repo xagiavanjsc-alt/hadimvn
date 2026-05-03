@@ -279,12 +279,12 @@ export default function ShareProgressPage() {
       subtitle="Tạo thẻ đẹp để chia sẻ lên Facebook, Zalo, Instagram"
     >
       <div className="max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Left: Card preview */}
-          <div className="space-y-4">
-            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <p className="text-white/50 text-xs font-semibold tracking-normal mb-4">Xem trước thẻ</p>
-              <div className="flex items-center justify-center overflow-hidden rounded-xl bg-app-surface/50 p-4" style={{ minHeight: 300 }}>
+          <div className="space-y-3 sm:space-y-4">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-4 sm:p-5">
+              <p className="text-white/50 text-xs font-semibold tracking-normal mb-3 sm:mb-4">Xem trước thẻ</p>
+              <div className="flex items-center justify-center overflow-hidden rounded-xl bg-app-surface/50 p-2 sm:p-4" style={{ minHeight: 280, maxHeight: 400 }}>
                 <ProgressCard
                   theme={theme}
                   layout={layout}
@@ -296,147 +296,147 @@ export default function ShareProgressPage() {
             </div>
 
             {/* Download & Share buttons */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3">
               <button
                 onClick={handleDownload}
                 disabled={downloading}
-                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-50 text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
+                className="flex items-center justify-center gap-2 py-2.5 sm:py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-50 text-app-bg font-bold text-xs sm:text-sm cursor-pointer whitespace-nowrap transition-colors"
               >
                 {downloading ? (
                   <><i className="ri-loader-4-line animate-spin" />Đang tải...</>
                 ) : (
-                  <><i className="ri-download-line" />Tải ảnh PNG</>
+                  <><i className="ri-download-line" />Tải ảnh</>
                 )}
               </button>
               <button
                 onClick={handleCopyLink}
-                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/70 text-sm font-medium cursor-pointer whitespace-nowrap transition-colors"
+                className="flex items-center justify-center gap-2 py-2.5 sm:py-3 rounded-xl bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/70 text-xs sm:text-sm font-medium cursor-pointer whitespace-nowrap transition-colors"
               >
                 <i className={copied ? "ri-check-line text-app-accent-success" : "ri-link"} />
-                {copied ? "Đã copy!" : "Copy link hồ sơ"}
+                {copied ? "Đã copy!" : "Copy link"}
               </button>
             </div>
 
             {/* Share text */}
-            <div className="bg-app-bg border border-app-border rounded-2xl p-4">
-              <div className="flex items-center justify-between mb-3">
-                <p className="text-white/50 text-xs font-semibold tracking-normal">Caption chia sẻ</p>
+            <div className="bg-app-bg border border-app-border rounded-2xl p-3 sm:p-4">
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <p className="text-white/50 text-[10px] sm:text-xs font-semibold tracking-normal">Caption chia sẻ</p>
                 <button
                   onClick={() => setShareTextIdx(i => (i + 1) % shareTexts.length)}
-                  className="text-[10px] text-app-text-muted hover:text-white/60 cursor-pointer whitespace-nowrap transition-colors"
+                  className="text-[9px] sm:text-[10px] text-app-text-muted hover:text-white/60 cursor-pointer whitespace-nowrap transition-colors"
                 >
-                  <i className="ri-refresh-line mr-1" />Đổi caption
+                  <i className="ri-refresh-line mr-1" />Đổi
                 </button>
               </div>
-              <div className="bg-app-surface/50 rounded-xl p-3 mb-3">
-                <p className="text-white/60 text-xs leading-relaxed">{shareTexts[shareTextIdx]}</p>
+              <div className="bg-app-surface/50 rounded-xl p-2.5 sm:p-3 mb-2 sm:mb-3">
+                <p className="text-white/60 text-[11px] sm:text-xs leading-relaxed line-clamp-2 sm:line-clamp-none">{shareTexts[shareTextIdx]}</p>
               </div>
               <button
                 onClick={() => { navigator.clipboard.writeText(shareTexts[shareTextIdx]); }}
-                className="flex items-center gap-1.5 text-xs text-app-accent-primary hover:text-[#d4b43a] cursor-pointer whitespace-nowrap transition-colors"
+                className="flex items-center gap-1.5 text-[10px] sm:text-xs text-app-accent-primary hover:text-[#d4b43a] cursor-pointer whitespace-nowrap transition-colors"
               >
                 <i className="ri-clipboard-line" />Copy caption
               </button>
             </div>
 
             {/* Social share buttons */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
               {[
                 { label: "Facebook", icon: "ri-facebook-fill", color: "#1877f2", bg: "rgba(24,119,242,0.12)", url: `https://www.facebook.com/sharer/sharer.php?u=https://hadim.vn` },
                 { label: "Zalo", icon: "ri-chat-1-line", color: "#0068ff", bg: "rgba(0,104,255,0.12)", url: `https://zalo.me/share?url=https://hadim.vn` },
-                { label: "Twitter/X", icon: "ri-twitter-x-line", color: "#ffffff", bg: "rgba(255,255,255,0.08)", url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTexts[shareTextIdx])}` },
+                { label: "Twitter", icon: "ri-twitter-x-line", color: "#ffffff", bg: "rgba(255,255,255,0.08)", url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTexts[shareTextIdx])}` },
               ].map(s => (
                 <a
                   key={s.label}
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex flex-col items-center gap-1.5 py-3 rounded-xl border border-app-border cursor-pointer transition-all hover:scale-[1.02]"
+                  className="flex flex-col items-center gap-1 py-2 sm:py-3 rounded-xl border border-app-border cursor-pointer transition-all hover:scale-[1.02]"
                   style={{ backgroundColor: s.bg }}
                 >
-                  <i className={`${s.icon} text-lg`} style={{ color: s.color }} />
-                  <span className="text-[10px] font-medium" style={{ color: s.color }}>{s.label}</span>
+                  <i className={`${s.icon} text-sm sm:text-lg`} style={{ color: s.color }} />
+                  <span className="text-[9px] sm:text-[10px] font-medium" style={{ color: s.color }}>{s.label}</span>
                 </a>
               ))}
             </div>
           </div>
 
           {/* Right: Customization */}
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {/* Theme selector */}
-            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Chủ đề màu sắc</p>
-              <div className="grid grid-cols-2 gap-2">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-3 sm:p-5">
+              <p className="text-white/50 text-[10px] sm:text-xs font-semibold tracking-normal mb-2 sm:mb-3">Chủ đề màu sắc</p>
+              <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
                 {THEMES.map(t => (
                   <button
                     key={t.id}
                     onClick={() => setTheme(t.id)}
-                    className="flex items-center gap-3 px-3 py-3 rounded-xl border cursor-pointer transition-all"
+                    className="flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2 sm:py-3 rounded-xl border cursor-pointer transition-all"
                     style={{
                       background: t.bg,
                       borderColor: theme === t.id ? t.accent : "rgba(255,255,255,0.08)",
                       boxShadow: theme === t.id ? `0 0 0 1px ${t.accent}40` : "none",
                     }}
                   >
-                    <div className="w-4 h-4 rounded-full flex-shrink-0" style={{ backgroundColor: t.accent }} />
-                    <span className="text-xs font-medium" style={{ color: t.text }}>{t.label}</span>
-                    {theme === t.id && <i className="ri-check-line ml-auto text-xs" style={{ color: t.accent }} />}
+                    <div className="w-3 sm:w-4 h-3 sm:h-4 rounded-full flex-shrink-0" style={{ backgroundColor: t.accent }} />
+                    <span className="text-[10px] sm:text-xs font-medium" style={{ color: t.text }}>{t.label}</span>
+                    {theme === t.id && <i className="ri-check-line ml-auto text-[10px] sm:text-xs" style={{ color: t.accent }} />}
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Layout selector */}
-            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Kích thước thẻ</p>
-              <div className="space-y-2">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-3 sm:p-5">
+              <p className="text-white/50 text-[10px] sm:text-xs font-semibold tracking-normal mb-2 sm:mb-3">Kích thước thẻ</p>
+              <div className="space-y-1.5 sm:space-y-2">
                 {LAYOUTS.map(l => (
                   <button
                     key={l.id}
                     onClick={() => setLayout(l.id)}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border cursor-pointer transition-all"
+                    className="w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-xl border cursor-pointer transition-all"
                     style={{
                       backgroundColor: layout === l.id ? "rgba(232,200,74,0.08)" : "rgba(255,255,255,0.03)",
                       borderColor: layout === l.id ? "rgba(232,200,74,0.25)" : "rgba(255,255,255,0.06)",
                     }}
                   >
-                    <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: layout === l.id ? "rgba(232,200,74,0.15)" : "rgba(255,255,255,0.05)" }}>
-                      <i className={`${l.icon} text-sm`} style={{ color: layout === l.id ? "app-accent-primary" : "rgba(255,255,255,0.3)" }} />
+                    <div className="w-6 sm:w-8 h-6 sm:h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: layout === l.id ? "rgba(232,200,74,0.15)" : "rgba(255,255,255,0.05)" }}>
+                      <i className={`${l.icon} text-xs sm:text-sm`} style={{ color: layout === l.id ? "app-accent-primary" : "rgba(255,255,255,0.3)" }} />
                     </div>
                     <div className="flex-1 text-left">
-                      <p className="text-sm font-medium" style={{ color: layout === l.id ? "app-accent-primary" : "rgba(255,255,255,0.6)" }}>{l.label}</p>
-                      <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>{l.w} × {l.h}px</p>
+                      <p className="text-[11px] sm:text-sm font-medium" style={{ color: layout === l.id ? "app-accent-primary" : "rgba(255,255,255,0.6)" }}>{l.label}</p>
+                      <p className="text-[9px] sm:text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>{l.w} × {l.h}px</p>
                     </div>
-                    {layout === l.id && <i className="ri-check-line text-app-accent-primary text-sm" />}
+                    {layout === l.id && <i className="ri-check-line text-app-accent-primary text-[10px] sm:text-sm" />}
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Stats summary */}
-            <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Thống kê của bạn</p>
-              <div className="grid grid-cols-2 gap-2">
+            <div className="bg-app-bg border border-app-border rounded-2xl p-3 sm:p-5">
+              <p className="text-white/50 text-[10px] sm:text-xs font-semibold tracking-normal mb-2 sm:mb-3">Thống kê của bạn</p>
+              <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
                 {[
                   { label: "Streak", value: `${progressData.streak} ngày`, icon: "ri-fire-line", color: "#fb923c" },
                   { label: "XP tổng", value: progressData.xp.toLocaleString(), icon: "ri-flashlight-line", color: "app-accent-primary" },
                   { label: "Từ đã học", value: progressData.wordsLearned.toLocaleString(), icon: "ri-book-open-line", color: "#34d399" },
                   { label: "Cấp độ", value: progressData.level, icon: "ri-medal-line", color: "#a78bfa" },
                 ].map(s => (
-                  <div key={s.label} className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-app-surface/50">
-                    <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
-                      <i className={`${s.icon} text-sm`} style={{ color: s.color }} />
+                  <div key={s.label} className="flex items-center gap-2 px-2.5 sm:px-3 py-2 sm:py-2.5 rounded-xl bg-app-surface/50">
+                    <div className="w-6 sm:w-7 h-6 sm:h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
+                      <i className={`${s.icon} text-xs sm:text-sm`} style={{ color: s.color }} />
                     </div>
                     <div>
-                      <p className="text-white/70 text-xs font-semibold">{s.value}</p>
-                      <p className="text-app-text-muted text-[10px]">{s.label}</p>
+                      <p className="text-white/70 text-[10px] sm:text-xs font-semibold">{s.value}</p>
+                      <p className="text-app-text-muted text-[9px] sm:text-[10px]">{s.label}</p>
                     </div>
                   </div>
                 ))}
               </div>
               <button
                 onClick={() => navigate("/personal-stats")}
-                className="w-full mt-3 flex items-center justify-center gap-2 py-2 rounded-xl border border-app-border text-app-text-secondary text-xs hover:bg-app-card/50 cursor-pointer whitespace-nowrap transition-colors"
+                className="w-full mt-2 sm:mt-3 flex items-center justify-center gap-2 py-1.5 sm:py-2 rounded-xl border border-app-border text-app-text-secondary text-[10px] sm:text-xs hover:bg-app-card/50 cursor-pointer whitespace-nowrap transition-colors"
               >
                 <i className="ri-bar-chart-line" />
                 Xem thống kê chi tiết

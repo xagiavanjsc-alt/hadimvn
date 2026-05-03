@@ -736,20 +736,32 @@ export default function RewardsPage() {
             </div>
           </div>
 
-          <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Tất cả cách kiếm XP</h3>
-            <div className="space-y-3">
-              {XP_SOURCES.map(s => (
-                <div key={s.label} className="flex items-center gap-4 px-4 py-3 bg-app-surface/50 rounded-xl">
-                  <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
-                    <i className={`${s.icon} text-lg`} style={{ color: s.color }}></i>
+          <div className="bg-white/2 border border-app-border rounded-2xl overflow-hidden">
+            <div className="px-5 py-3 border-b border-app-border bg-app-surface/30">
+              <h3 className="text-white font-semibold text-sm">Tất cả cách kiếm XP</h3>
+            </div>
+            <div className="overflow-x-auto">
+              <div className="grid grid-cols-[48px_1fr_120px_120px] gap-0 px-5 py-3 border-b border-white/3 min-w-[400px]">
+                <span className="text-app-text-muted text-[10px] tracking-normal"></span>
+                <span className="text-app-text-muted text-[10px] tracking-normal">Hoạt động</span>
+                <span className="text-app-text-muted text-[10px] tracking-normal text-right">XP</span>
+                <span className="text-app-text-muted text-[10px] tracking-normal text-right">Ghi chú</span>
+              </div>
+              {XP_SOURCES.map((s, idx) => (
+                <div key={s.label} className="grid grid-cols-[48px_1fr_120px_120px] gap-0 px-5 py-3.5 border-b border-white/3 min-w-[400px] hover:bg-white/2 transition-colors">
+                  <div className="flex items-center">
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
+                      <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
+                    </div>
                   </div>
-                  <div className="flex-1">
+                  <div className="flex items-center">
                     <p className="text-white/80 text-sm font-medium">{s.label}</p>
-                    <p className="text-app-text-muted text-xs">{s.desc}</p>
                   </div>
-                  <div className="text-right">
+                  <div className="flex items-center justify-end">
                     <p className="font-bold text-sm" style={{ color: s.color }}>{s.xp}</p>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <p className="text-app-text-muted text-[10px] text-right">{s.desc}</p>
                   </div>
                 </div>
               ))}
@@ -757,23 +769,34 @@ export default function RewardsPage() {
           </div>
 
           {/* XP Penalties */}
-          <div className="bg-app-bg border border-red-500/15 rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-1 flex items-center gap-2">
-              <i className="ri-error-warning-line text-red-400"></i>Phạt XP — Tránh những điều này
-            </h3>
-            <p className="text-app-text-muted text-xs mb-4">Hệ thống phạt nhẹ để tạo động lực duy trì thói quen học</p>
-            <div className="space-y-3">
+          <div className="bg-white/2 border border-red-500/15 rounded-2xl overflow-hidden">
+            <div className="px-5 py-3 border-b border-red-500/20 bg-red-500/5">
+              <h3 className="text-white font-semibold text-sm flex items-center gap-2">
+                <i className="ri-error-warning-line text-red-400"></i>Phạt XP — Tránh những điều này
+              </h3>
+            </div>
+            <div className="overflow-x-auto">
+              <div className="grid grid-cols-[48px_1fr_120px_120px] gap-0 px-5 py-3 border-b border-red-500/10 min-w-[400px]">
+                <span className="text-app-text-muted text-[10px] tracking-normal"></span>
+                <span className="text-app-text-muted text-[10px] tracking-normal">Vi phạm</span>
+                <span className="text-app-text-muted text-[10px] tracking-normal text-right">Phạt</span>
+                <span className="text-app-text-muted text-[10px] tracking-normal text-right">Ghi chú</span>
+              </div>
               {XP_PENALTIES.map(s => (
-                <div key={s.label} className="flex items-center gap-4 px-4 py-3 bg-red-500/5 border border-red-500/10 rounded-xl">
-                  <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0 bg-red-500/10">
-                    <i className={`${s.icon} text-lg`} style={{ color: s.color }}></i>
+                <div key={s.label} className="grid grid-cols-[48px_1fr_120px_120px] gap-0 px-5 py-3.5 border-b border-red-500/10 min-w-[400px] hover:bg-red-500/5 transition-colors">
+                  <div className="flex items-center">
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 bg-red-500/10">
+                      <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
+                    </div>
                   </div>
-                  <div className="flex-1">
+                  <div className="flex items-center">
                     <p className="text-white/80 text-sm font-medium" dangerouslySetInnerHTML={{ __html: sanitizeHtml(s.label) }}></p>
-                    <p className="text-app-text-muted text-xs">{s.desc}</p>
                   </div>
-                  <div className="text-right">
+                  <div className="flex items-center justify-end">
                     <p className="font-bold text-sm text-red-400">{s.xp}</p>
+                  </div>
+                  <div className="flex items-center justify-end">
+                    <p className="text-app-text-muted text-[10px] text-right">{s.desc}</p>
                   </div>
                 </div>
               ))}
