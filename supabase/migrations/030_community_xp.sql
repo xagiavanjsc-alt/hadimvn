@@ -135,25 +135,38 @@ BEGIN
   SELECT COALESCE(streak_count, 0) INTO v_streak
   FROM public.user_progress WHERE user_id = p_user_id;
 
-  -- Aggregate exam_results hợp lệ
+  -- Aggregate exam_results hợp lệ (không đếm correct_ids vì schema có thể khác nhau)
   SELECT
     COALESCE(MAX(ROUND((score::FLOAT / NULLIF(total,0)) * 100))::INT, 0),
     COALESCE(ROUND(AVG((score::FLOAT / NULLIF(total,0)) * 100))::INT, 0),
-    COALESCE(SUM(COALESCE(array_length(correct_ids, 1), 0)), 0),
+    COALESCE(SUM(score), 0),
     COUNT(*)
   INTO v_best_score, v_avg_score, v_total_correct, v_valid_exams
   FROM public.exam_results
   WHERE user_id = p_user_id AND is_valid = true AND total > 0;
 
-  -- Words mastered (cap)
-  SELECT LEAST(
-    COALESCE(
-      (SELECT COUNT(*) FROM jsonb_each(flashcard_known) WHERE value = 'true'::jsonb),
-      0
-    ),
-    s_flashcard_cap
-  ) INTO v_words_mastered
-  FROM public.user_progress WHERE user_id = p_user_id;
+  -- Words mastered (cap) - thử từ flashcard_data trước, fallback study_progress
+  v_words_mastered := 0;
+  BEGIN
+    SELECT LEAST(COUNT(*), s_flashcard_cap) INTO v_words_mastered
+    FROM public.flashcard_data
+    WHERE user_id = p_user_id AND status IN ('review', 'mastered');
+  EXCEPTION WHEN undefined_table OR undefined_column THEN
+    v_words_mastered := 0;
+  END;
+
+  -- Nếu flashcard_data rỗng, thử study_progress.flashcard_known
+  IF v_words_mastered = 0 THEN
+    BEGIN
+      SELECT LEAST(
+        COALESCE((SELECT COUNT(*) FROM jsonb_each(flashcard_known) WHERE value = 'true'::jsonb), 0),
+        s_flashcard_cap
+      ) INTO v_words_mastered
+      FROM public.study_progress WHERE user_id = p_user_id;
+    EXCEPTION WHEN undefined_table OR undefined_column THEN
+      v_words_mastered := 0;
+    END;
+  END IF;
 
   -- Community XP - Posts (approved, cap daily)
   SELECT COALESCE(COUNT(*), 0) INTO v_posts_count
@@ -258,13 +271,28 @@ BEGIN
     FROM public.exam_results
     WHERE user_id = r.user_id AND is_valid = true AND total > 0;
 
-    -- Words learned từ flashcard_known
-    SELECT COALESCE(
-      (SELECT COUNT(*) FROM jsonb_each(flashcard_known) WHERE value = 'true'::jsonb),
-      0
-    )
-    INTO v_words_learned
-    FROM public.user_progress WHERE user_id = r.user_id;
+    -- Words learned - thử flashcard_data, fallback study_progress
+    v_words_learned := 0;
+    BEGIN
+      SELECT COUNT(*) INTO v_words_learned
+      FROM public.flashcard_data
+      WHERE user_id = r.user_id AND status IN ('review', 'mastered');
+    EXCEPTION WHEN undefined_table OR undefined_column THEN
+      v_words_learned := 0;
+    END;
+
+    IF v_words_learned = 0 THEN
+      BEGIN
+        SELECT COALESCE(
+          (SELECT COUNT(*) FROM jsonb_each(flashcard_known) WHERE value = 'true'::jsonb),
+          0
+        )
+        INTO v_words_learned
+        FROM public.study_progress WHERE user_id = r.user_id;
+      EXCEPTION WHEN undefined_table OR undefined_column THEN
+        v_words_learned := 0;
+      END;
+    END IF;
 
     -- Streak
     SELECT COALESCE(streak_count, 0) INTO v_streak
