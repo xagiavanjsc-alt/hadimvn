@@ -399,6 +399,7 @@ export function useXPSystem() {
     earnedBadgeIds,
     notifications,
     awardXP,
+    addXP: awardXP, // Alias for backward compatibility
     dismissNotification,
     clearAllNotifications,
   };
