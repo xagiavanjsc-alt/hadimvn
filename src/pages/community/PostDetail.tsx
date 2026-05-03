@@ -29,7 +29,7 @@ function PostSEO({ post }: { post: Post }) {
     updateMetaTag('twitter:card', 'summary_large_image');
 
     // Add structured data (Article) - index theo tiêu đề bài viết
-    const schema = {
+    const schema: Record<string, unknown> = {
       "@context": "https://schema.org",
       "@type": "Article",
       "headline": post.title,
@@ -45,6 +45,17 @@ function PostSEO({ post }: { post: Post }) {
         "@id": window.location.href
       }
     };
+
+    // AggregateRating: hiện sao trên Google search results khi có ≥1 rating approved
+    if (post.rating_count && post.rating_count > 0 && post.rating_average) {
+      schema.aggregateRating = {
+        "@type": "AggregateRating",
+        "ratingValue": post.rating_average.toFixed(1),
+        "ratingCount": post.rating_count,
+        "bestRating": "5",
+        "worstRating": "1"
+      };
+    }
 
     const existingSchema = document.getElementById('post-schema');
     if (existingSchema) existingSchema.remove();
@@ -175,7 +186,10 @@ function CommentThread({
               </span>
             )}
           </div>
-          <p className="text-white/65 text-sm leading-relaxed">{comment.content}</p>
+          <div
+            className="text-white/65 text-sm leading-relaxed comment-content"
+            dangerouslySetInnerHTML={{ __html: resolveStoragePaths(comment.content) }}
+          />
           <div className="flex items-center gap-4 mt-2">
             <button
               onClick={() => toggleLike(comment.id)}
@@ -440,13 +454,11 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
                   <i className="ri-chat-3-line"></i>
                   <span>{totalComments} bình luận</span>
                 </div>
-                {post.rating_count > 0 && (
-                  <div className="flex items-center gap-1.5 text-sm text-app-text-secondary">
-                    <i className="ri-star-fill text-[#FFD700]"></i>
-                    <span>{post.rating_average?.toFixed(1) || "0.0"}</span>
-                    <span className="text-xs">({post.rating_count})</span>
-                  </div>
-                )}
+                <div className="flex items-center gap-1.5 text-sm text-app-text-secondary">
+                  <i className="ri-star-fill text-[#FFD700]"></i>
+                  <span className="font-semibold">{post.rating_average?.toFixed(1) || "0.0"}</span>
+                  <span className="text-xs">({post.rating_count || 0} đánh giá)</span>
+                </div>
                 {user && !userRating && (
                   <div className="flex items-center gap-1 ml-auto">
                     <span className="text-xs text-app-text-muted mr-2">Đánh giá:</span>

@@ -63,6 +63,42 @@ function updateMetaTag(property: string, content: string) {
   tag.setAttribute('content', content);
 }
 
+// ─── Shared image utilities ───────────────────────────────────────────────────
+function convertToWebP(file: File, maxWidth: number): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) { reject(new Error('Canvas context not available')); return; }
+      let width = img.width;
+      let height = img.height;
+      if (width > maxWidth) {
+        height = (height * maxWidth) / width;
+        width = maxWidth;
+      }
+      canvas.width = width;
+      canvas.height = height;
+      ctx.drawImage(img, 0, 0, width, height);
+      canvas.toBlob((blob) => {
+        if (blob) resolve(blob); else reject(new Error('Canvas toBlob failed'));
+      }, 'image/webp', 0.8);
+    };
+    img.onerror = reject;
+    img.src = URL.createObjectURL(file);
+  });
+}
+
+async function uploadImageToCommunityStorage(file: File): Promise<string> {
+  const webpData = await convertToWebP(file, 800);
+  const fileName = `${Date.now()}_${file.name.split('.')[0]}.webp`;
+  const { error } = await supabase.storage
+    .from('community-images')
+    .upload(fileName, webpData, { contentType: 'image/webp', upsert: false });
+  if (error) throw error;
+  return getStorageUrl(`community-images/${fileName}`);
+}
+
 // ─── Rich Text Editor Component (WordPress-like, no external deps) ────────────
 function RichEditor({ value, onChange, placeholder, onImageUpload }: {
   value: string;
@@ -485,7 +521,10 @@ function CommentItem({
               </span>
             )}
           </div>
-          <p className="text-white/60 text-xs leading-relaxed">{comment.content}</p>
+          <div
+            className="text-white/60 text-xs leading-relaxed comment-content"
+            dangerouslySetInnerHTML={{ __html: resolveStoragePaths(comment.content) }}
+          />
           <div className="flex items-center gap-3 mt-1.5">
             {currentUser && depth < 2 && (
               <button
@@ -894,7 +933,8 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
         <span className="text-app-accent-primary text-xs font-bold uppercase tracking-wide">Câu hỏi trắc nghiệm</span>
         {totalAnswers > 0 && (
           <span className="ml-auto text-app-text-muted text-[10px]">
-            {totalAnswers} lượt trả lời · {correctPct}% đúng
+            <i className="ri-group-line mr-0.5"></i>
+            {correctAnswers}/{totalAnswers} đúng ({correctPct}%)
           </span>
         )}
       </div>
@@ -1181,15 +1221,48 @@ function RichTextToolbar({ onFormat }: { onFormat: (tag: string) => void }) {
   );
 }
 
-function EditPostModal({ post, onClose, user, showToast }: { post: Post; onClose: () => void; user: { id: string }; showToast: (message: string, type?: "success" | "error" | "info") => void }) {
+function EditPostModal({ post, onClose, showToast }: { post: Post; onClose: () => void; user: { id: string }; showToast: (message: string, type?: "success" | "error" | "info") => void }) {
   const [title, setTitle] = useState(post.title);
   const [content, setContent] = useState(post.content);
   const [category, setCategory] = useState(post.category);
   const [tags, setTags] = useState(post.tags.join(", "));
   const [submitting, setSubmitting] = useState(false);
+  // Quiz state - load from existing post.quiz
+  const [isQuiz, setIsQuiz] = useState<boolean>(!!post.quiz);
+  const [quizOptions, setQuizOptions] = useState<QuizOption[]>(
+    post.quiz?.options || [
+      { id: 1, text: "", is_correct: true },
+      { id: 2, text: "", is_correct: false },
+    ]
+  );
+  const [quizExplanation, setQuizExplanation] = useState<string>(post.quiz?.explanation || "");
 
   const handleSubmit = async () => {
-    if (!title.trim() || !content.trim() || submitting) return;
+    if (!title.trim() || submitting) return;
+    if (!isQuiz && isRichEmpty(content)) {
+      showToast("Vui lòng nhập nội dung", "error");
+      return;
+    }
+
+    // Validate quiz
+    let quizData: QuizData | null = null;
+    if (isQuiz) {
+      const filled = quizOptions.filter(o => o.text.trim());
+      if (filled.length < 2) {
+        showToast("Trắc nghiệm cần ít nhất 2 đáp án", "error");
+        return;
+      }
+      if (!filled.some(o => o.is_correct)) {
+        showToast("Cần chọn ít nhất 1 đáp án đúng", "error");
+        return;
+      }
+      quizData = {
+        question: title,
+        options: filled.map((o, idx) => ({ ...o, id: idx + 1 })),
+        explanation: quizExplanation.trim() || undefined,
+      };
+    }
+
     setSubmitting(true);
 
     const { error } = await supabase
@@ -1199,6 +1272,7 @@ function EditPostModal({ post, onClose, user, showToast }: { post: Post; onClose
         content: content.trim(),
         category,
         tags: tags.split(",").map(t => t.trim()).filter(Boolean),
+        quiz: quizData,
         status: "pending", // Set lại status pending để admin kiểm duyệt lại
       })
       .eq("id", post.id);
@@ -1212,8 +1286,6 @@ function EditPostModal({ post, onClose, user, showToast }: { post: Post; onClose
       window.location.reload();
     }
   };
-
-  const isRichEmpty = (html: string) => !html || html.trim() === '' || html.trim() === '<p><br></p>';
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
@@ -1254,6 +1326,7 @@ function EditPostModal({ post, onClose, user, showToast }: { post: Post; onClose
               value={content}
               onChange={setContent}
               placeholder="Chỉnh sửa nội dung bài viết..."
+              onImageUpload={uploadImageToCommunityStorage}
             />
           </div>
           <div>
@@ -1265,6 +1338,84 @@ function EditPostModal({ post, onClose, user, showToast }: { post: Post; onClose
               placeholder="ví dụ: eps, topik, ngữ pháp"
             />
           </div>
+
+          {/* Quiz section */}
+          <div className="border border-app-border rounded-xl p-4 bg-app-card/20">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={isQuiz}
+                onChange={e => setIsQuiz(e.target.checked)}
+                className="w-4 h-4 accent-app-accent-primary cursor-pointer"
+              />
+              <span className="text-white text-sm font-medium">
+                <i className="ri-question-line mr-1 text-app-accent-primary"></i>
+                Bài trắc nghiệm
+              </span>
+            </label>
+            <p className="text-app-text-muted text-[11px] mt-1 ml-6">
+              Lưu ý: nếu sửa đáp án, lượt trả lời cũ vẫn giữ. Nếu admin từ chối bài đã sửa, XP của bạn và người trả lời đúng sẽ bị trừ tự động.
+            </p>
+
+            {isQuiz && (
+              <div className="mt-4 space-y-3">
+                <p className="text-app-text-secondary text-xs">
+                  <i className="ri-information-line mr-1"></i>
+                  Tiêu đề bài viết = câu hỏi.
+                </p>
+
+                {quizOptions.map((opt, idx) => (
+                  <div key={idx} className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setQuizOptions(opts => opts.map((o, i) => ({ ...o, is_correct: i === idx })))}
+                      title="Chọn đây là đáp án đúng"
+                      className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 cursor-pointer transition-colors ${opt.is_correct ? "bg-emerald-500/20 border border-emerald-500/40 text-emerald-400" : "bg-app-card/50 border border-app-border text-app-text-muted hover:text-white/60"}`}
+                    >
+                      <i className={opt.is_correct ? "ri-check-line" : "ri-circle-line"}></i>
+                    </button>
+                    <input
+                      type="text"
+                      value={opt.text}
+                      onChange={e => setQuizOptions(opts => opts.map((o, i) => i === idx ? { ...o, text: e.target.value } : o))}
+                      placeholder={`Đáp án ${String.fromCharCode(65 + idx)}...`}
+                      maxLength={200}
+                      className="flex-1 bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 placeholder-white/20"
+                    />
+                    {quizOptions.length > 2 && (
+                      <button
+                        type="button"
+                        onClick={() => setQuizOptions(opts => opts.filter((_, i) => i !== idx))}
+                        className="w-8 h-8 flex items-center justify-center rounded-lg text-app-text-muted hover:text-red-400 cursor-pointer"
+                      >
+                        <i className="ri-close-line"></i>
+                      </button>
+                    )}
+                  </div>
+                ))}
+
+                {quizOptions.length < 4 && (
+                  <button
+                    type="button"
+                    onClick={() => setQuizOptions(opts => [...opts, { id: opts.length + 1, text: "", is_correct: false }])}
+                    className="w-full py-2 rounded-lg border border-dashed border-app-border text-app-text-secondary text-xs hover:text-white/60 hover:border-white/20 cursor-pointer"
+                  >
+                    <i className="ri-add-line mr-1"></i>Thêm đáp án (tối đa 4)
+                  </button>
+                )}
+
+                <div>
+                  <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Giải thích đáp án đúng (tùy chọn)</label>
+                  <RichEditor
+                    value={quizExplanation}
+                    onChange={setQuizExplanation}
+                    placeholder="Giải thích chi tiết: in đậm, màu chữ, ảnh, link, dán HTML... đều được"
+                    onImageUpload={uploadImageToCommunityStorage}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
         </div>
         <div className="flex gap-3 px-5 py-4 border-t border-app-border flex-shrink-0">
           <button
@@ -1275,7 +1426,7 @@ function EditPostModal({ post, onClose, user, showToast }: { post: Post; onClose
           </button>
           <button
             onClick={handleSubmit}
-            disabled={submitting || !title.trim() || !content.trim()}
+            disabled={submitting || !title.trim()}
             className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold cursor-pointer whitespace-nowrap transition-colors disabled:opacity-50"
           >
             {submitting ? "Đang lưu..." : "Lưu thay đổi"}
@@ -1341,45 +1492,6 @@ function NewPostModal({
     } finally {
       setUploadingImage(false);
     }
-  };
-
-  const convertToWebP = (file: File, maxWidth: number): Promise<Blob> => {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        
-        if (!ctx) {
-          reject(new Error('Canvas context not available'));
-          return;
-        }
-
-        // Calculate dimensions maintaining aspect ratio
-        let width = img.width;
-        let height = img.height;
-        
-        if (width > maxWidth) {
-          height = (height * maxWidth) / width;
-          width = maxWidth;
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-
-        ctx.drawImage(img, 0, 0, width, height);
-
-        canvas.toBlob((blob) => {
-          if (blob) {
-            resolve(blob);
-          } else {
-            reject(new Error('Canvas toBlob failed'));
-          }
-        }, 'image/webp', 0.8);
-      };
-      img.onerror = reject;
-      img.src = URL.createObjectURL(file);
-    });
   };
 
   const handleSubmit = async () => {
@@ -1467,15 +1579,7 @@ function NewPostModal({
               value={content}
               onChange={setContent}
               placeholder="Chia sẻ kinh nghiệm, đặt câu hỏi hoặc khoe thành tích..."
-              onImageUpload={async (file) => {
-                const webpData = await convertToWebP(file, 800);
-                const fileName = `${Date.now()}_${file.name.split('.')[0]}.webp`;
-                const { error } = await supabase.storage
-                  .from('community-images')
-                  .upload(fileName, webpData, { contentType: 'image/webp', upsert: false });
-                if (error) throw error;
-                return getStorageUrl(`community-images/${fileName}`);
-              }}
+              onImageUpload={uploadImageToCommunityStorage}
             />
           </div>
 
@@ -1578,15 +1682,7 @@ function NewPostModal({
                     value={quizExplanation}
                     onChange={setQuizExplanation}
                     placeholder="Giải thích chi tiết: in đậm, màu chữ, ảnh, link, HTML... đều được"
-                    onImageUpload={async (file) => {
-                      const webpData = await convertToWebP(file, 800);
-                      const fileName = `${Date.now()}_${file.name.split('.')[0]}.webp`;
-                      const { error } = await supabase.storage
-                        .from('community-images')
-                        .upload(fileName, webpData, { contentType: 'image/webp', upsert: false });
-                      if (error) throw error;
-                      return getStorageUrl(`community-images/${fileName}`);
-                    }}
+                    onImageUpload={uploadImageToCommunityStorage}
                   />
                 </div>
               </div>
