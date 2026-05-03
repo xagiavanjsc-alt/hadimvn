@@ -291,7 +291,7 @@ export default function ProfilePage() {
       title="Hồ sơ học viên"
       subtitle="Theo dõi tiến độ và thành tích học tiếng Hàn của bạn"
       actions={
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {saveMsg && (
             <span className="flex items-center gap-1.5 text-app-accent-success text-xs font-medium px-3 py-1.5 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
               <i className="ri-checkbox-circle-fill"></i>
@@ -308,27 +308,30 @@ export default function ProfilePage() {
             <>
               <button
                 onClick={() => setShowShareCard(true)}
-                className="flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap border border-app-accent-primary/20"
+                className="flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap border border-app-accent-primary/20"
               >
                 <i className="ri-share-line"></i>
-                Chia sẻ streak
+                <span className="hidden sm:inline">Chia sẻ streak</span>
+                <span className="sm:hidden">Chia sẻ</span>
               </button>
               <button
                 onClick={handleCopyProfileLink}
-                className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/60 hover:text-white/80 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap border border-app-border"
+                className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/60 hover:text-white/80 text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap border border-app-border"
               >
                 <i className="ri-link"></i>
-                Copy link
+                <span className="hidden sm:inline">Copy link</span>
+                <span className="sm:hidden">Link</span>
               </button>
             </>
           )}
           {profile && !isVip && (
             <button
               onClick={() => navigate("/pricing")}
-              className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/60 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap border border-app-border"
+              className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/60 text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap border border-app-border"
             >
               <i className="ri-vip-crown-line"></i>
-              Nâng cấp VIP
+              <span className="hidden sm:inline">Nâng cấp VIP</span>
+              <span className="sm:hidden">VIP</span>
             </button>
           )}
         </div>
@@ -336,7 +339,7 @@ export default function ProfilePage() {
     >
       {/* Profile header */}
       <div className="bg-app-bg border border-app-border rounded-2xl p-4 sm:p-6 mb-6">
-        <div className="flex items-start sm:items-center gap-3 sm:gap-5">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5">
           {/* Avatar */}
           <div className="relative flex-shrink-0">
             <div
@@ -460,7 +463,7 @@ export default function ProfilePage() {
           </div>
 
           {/* TOPIK progress */}
-          <div className="w-48">
+          <div className="w-full sm:w-48">
             <div className="flex items-center justify-between mb-1.5">
               <span className="text-app-text-secondary text-xs">Tiến độ TOPIK</span>
               <span className="text-xs font-bold" style={{ color: topikLevel.color }}>{topikProgress}%</span>
@@ -551,12 +554,12 @@ export default function ProfilePage() {
       )}
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-app-surface/50 p-1 rounded-xl mb-6 w-fit">
+      <div className="flex gap-1 bg-app-surface/50 p-1 rounded-xl mb-6 overflow-x-auto w-full sm:w-fit">
         {(["overview", "eps", "hanja", "badges", "history"] as const).map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${activeTab === tab ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap flex-shrink-0 ${activeTab === tab ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}
           >
             {tab === "overview" ? "Tổng quan" : tab === "eps" ? "EPS-TOPIK" : tab === "hanja" ? "Hán Hàn" : tab === "badges" ? "Huy hiệu" : "Lịch sử"}
           </button>

@@ -31,13 +31,13 @@ const MENU_GROUPS = [
       { path: "/seoul-textbook", icon: "ri-book-3-line", label: "Seoul (Du học)" },
       { path: "/topik-test", icon: "ri-survey-line", label: "TOPIK (Chứng chỉ)" },
       { path: "/hanja-detail", icon: "ri-character-recognition-line", label: "Hán Hàn" },
+      { path: "/hanja-pro", icon: "ri-character-recognition-line", label: "Hán Hàn Chuyên Sâu" },
     ],
   },
   {
     label: "Hán Hàn VIP",
     items: [
       { path: "/hanja-tree", icon: "ri-git-merge-line", label: "Hình cây từ vựng" },
-      { path: "/hanja-pro", icon: "ri-character-recognition-line", label: "Hán Hàn Chuyên Sâu" },
       { path: "/hanja-dashboard", icon: "ri-bar-chart-2-line", label: "Tiến độ & Streak" },
       { path: "/advanced-dictionary", icon: "ri-search-2-line", label: "Tra cứu Hán Hàn" },
     ],
