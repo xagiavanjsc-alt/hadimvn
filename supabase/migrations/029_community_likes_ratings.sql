@@ -83,6 +83,17 @@ ALTER TABLE public.community_posts
   ADD COLUMN IF NOT EXISTS rating_average DECIMAL(3,2) DEFAULT 0,
   ADD COLUMN IF NOT EXISTS rating_count INTEGER DEFAULT 0;
 
+-- ─── Add updated_at column if not exists (for triggers that need it) ──────────────────
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'community_posts' AND column_name = 'updated_at'
+  ) THEN
+    ALTER TABLE public.community_posts ADD COLUMN updated_at TIMESTAMPTZ DEFAULT NOW();
+  END IF;
+END $$;
+
 -- ─── Trigger to update post likes count ───────────────────────────────────────────────
 CREATE OR REPLACE FUNCTION update_post_likes_count()
 RETURNS TRIGGER AS $$

@@ -895,6 +895,8 @@ function EditPostModal({ post, onClose, user, showToast }: { post: Post; onClose
     }
   };
 
+  const isRichEmpty = (html: string) => !html || html.trim() === '' || html.trim() === '<p><br></p>';
+
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
       <div className="bg-app-bg border border-app-border rounded-t-2xl w-full max-w-2xl max-h-[90vh] flex flex-col" onClick={e => e.stopPropagation()}>
@@ -930,11 +932,10 @@ function EditPostModal({ post, onClose, user, showToast }: { post: Post; onClose
           </div>
           <div>
             <label className="text-white/70 text-xs font-semibold mb-2 block">Nội dung</label>
-            <textarea
+            <RichEditor
               value={content}
-              onChange={e => setContent(e.target.value)}
-              className="w-full px-4 py-2.5 bg-app-card/50 border border-app-border rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-app-accent-primary/30 min-h-[200px]"
-              placeholder="Nhập nội dung..."
+              onChange={setContent}
+              placeholder="Chỉnh sửa nội dung bài viết..."
             />
           </div>
           <div>
