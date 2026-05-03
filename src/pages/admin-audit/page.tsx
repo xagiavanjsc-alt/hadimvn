@@ -27,7 +27,7 @@ interface SystemEvent {
   timestamp: string;
   color: string;
   icon: string;
-  source: "admin_log" | "user_joined" | "exam" | "post";
+  source: "admin_log" | "user_joined" | "exam" | "post" | "system";
   ip?: string;
 }
 
