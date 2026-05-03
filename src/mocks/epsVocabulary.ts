@@ -10,6 +10,9 @@ export interface EpsVocabItem {
   exampleVi: string;
   topicId: string;
   level: "basic" | "intermediate" | "advanced";
+  topic?: string; // Alias for backward compatibility
+  difficulty?: string; // Optional difficulty level
+  pronunciation?: string; // Optional pronunciation field
 }
 
 export interface EpsVocabTopic {
