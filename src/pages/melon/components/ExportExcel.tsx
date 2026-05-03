@@ -6,6 +6,7 @@ export interface ApprovedLesson {
     artist: string;
     genre?: string;
     albumArt?: string;
+    lyrics?: string; // Optional lyrics field
   };
   story: string;
   vocabulary: VocabularyItem[];
@@ -23,5 +24,5 @@ export interface VocabularyItem {
   pronunciation: string;
   reading?: string; // Alias for pronunciation
   meaning: string;
-  example?: string; // Optional example
+  example: string; // Required for VocabItem compatibility
 }
