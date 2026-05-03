@@ -624,26 +624,108 @@ export default function LeaderboardPage() {
           </div>
         )}
 
-        {/* Motivational note */}
-        <div className="bg-white/2 border border-app-border rounded-2xl p-5 flex items-start gap-4">
-          <div className="w-10 h-10 rounded-xl bg-app-accent-primary/10 flex items-center justify-center flex-shrink-0">
-            <i className="ri-lightbulb-line text-app-accent-primary text-lg"></i>
-          </div>
-          <div>
-            <p className="text-white font-semibold text-sm mb-1">Cách tăng hạng nhanh nhất</p>
-            <p className="text-white/50 text-xs leading-relaxed">
-              Duy trì streak mỗi ngày (+50 XP/ngày), làm bài thi thử EPS (+10 XP/%), học flashcard (+5 XP/từ). Chỉ cần học 20 phút/ngày là đủ để leo hạng đều đặn!
-            </p>
-            <div className="flex items-center gap-3 mt-3">
-              <button onClick={() => navigate("/daily-plan")} className="flex items-center gap-1.5 bg-app-accent-primary/10 text-app-accent-primary text-xs px-3 py-1.5 rounded-lg hover:bg-app-accent-primary/20 transition-colors whitespace-nowrap cursor-pointer">
-                <i className="ri-route-line"></i>
-                Lộ trình hôm nay
-              </button>
-              <button onClick={() => navigate("/eps-exam")} className="flex items-center gap-1.5 bg-app-card/50 text-white/60 text-xs px-3 py-1.5 rounded-lg hover:bg-white/8 transition-colors whitespace-nowrap cursor-pointer">
-                <i className="ri-timer-line"></i>
-                Thi thử EPS
-              </button>
+        {/* ─── XP Rules: how to earn / lose XP ───────────────────────── */}
+        <div className="bg-white/2 border border-app-border rounded-2xl p-5">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-xl bg-app-accent-primary/10 flex items-center justify-center flex-shrink-0">
+              <i className="ri-medal-line text-app-accent-primary text-lg"></i>
             </div>
+            <div>
+              <h2 className="text-white font-bold text-base">Cách tính điểm XP</h2>
+              <p className="text-app-text-muted text-xs">Minh bạch — học đúng cách để leo top nhanh</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Cách kiếm XP */}
+            <div>
+              <h3 className="flex items-center gap-1.5 text-emerald-400 font-semibold text-xs uppercase tracking-wide mb-3">
+                <i className="ri-arrow-up-line"></i>Cách kiếm XP
+              </h3>
+              <ul className="space-y-2">
+                {[
+                  { icon: "ri-login-circle-line", label: "Đăng nhập hàng ngày", xp: "+1 đến +5 XP", note: "Random mỗi ngày" },
+                  { icon: "ri-fire-line", label: "Streak 7 / 14 / 30 ngày", xp: "+200 XP", note: "Bonus mốc dài hạn" },
+                  { icon: "ri-timer-line", label: "Thi thử EPS-TOPIK", xp: "+15 XP / 1%", note: "Theo % câu đúng" },
+                  { icon: "ri-stack-line", label: "Flashcard đạt Mastered", xp: "+10 XP / từ", note: "Chỉ tính lần đầu" },
+                  { icon: "ri-translate-2", label: "Học từ vựng mới", xp: "+2 XP / từ", note: "Daily Words" },
+                  { icon: "ri-mic-line", label: "Luyện phát âm chuẩn", xp: "+5 XP / lần", note: "Score ≥ 80%" },
+                  { icon: "ri-trophy-line", label: "Hoàn thành thách thức tuần", xp: "+70 đến +200 XP", note: "Tùy nhiệm vụ" },
+                  { icon: "ri-share-line", label: "Chia sẻ tiến độ", xp: "+10 XP / ngày", note: "Tối đa 1 lần/ngày" },
+                ].map(r => (
+                  <li key={r.label} className="flex items-start gap-2.5 bg-app-surface/40 rounded-lg p-2.5 border border-app-border">
+                    <i className={`${r.icon} text-emerald-400 text-base mt-0.5 flex-shrink-0`}></i>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2 flex-wrap">
+                        <p className="text-white text-sm font-medium">{r.label}</p>
+                        <span className="text-emerald-400 text-xs font-bold whitespace-nowrap">{r.xp}</span>
+                      </div>
+                      <p className="text-app-text-muted text-[11px] mt-0.5">{r.note}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Phạt / mất XP */}
+            <div>
+              <h3 className="flex items-center gap-1.5 text-rose-400 font-semibold text-xs uppercase tracking-wide mb-3">
+                <i className="ri-arrow-down-line"></i>Mất / phạt XP
+              </h3>
+              <ul className="space-y-2">
+                {[
+                  { icon: "ri-fire-line", label: "Mất streak", xp: "-50 XP", note: "Bỏ học quá 24h" },
+                  { icon: "ri-time-line", label: "Bỏ thách thức tuần giữa chừng", xp: "-30 XP", note: "Đã bắt đầu nên hoàn thành" },
+                  { icon: "ri-spam-2-line", label: "Spam / vi phạm cộng đồng", xp: "-100 XP", note: "Mod xác nhận" },
+                  { icon: "ri-error-warning-line", label: "Bị báo cáo gian lận thi", xp: "-200 XP", note: "Reset bài thi đó" },
+                  { icon: "ri-flag-line", label: "Bị banned tạm thời", xp: "Reset XP tuần", note: "Khôi phục sau 7 ngày" },
+                ].map(r => (
+                  <li key={r.label} className="flex items-start gap-2.5 bg-app-surface/40 rounded-lg p-2.5 border border-app-border">
+                    <i className={`${r.icon} text-rose-400 text-base mt-0.5 flex-shrink-0`}></i>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2 flex-wrap">
+                        <p className="text-white text-sm font-medium">{r.label}</p>
+                        <span className="text-rose-400 text-xs font-bold whitespace-nowrap">{r.xp}</span>
+                      </div>
+                      <p className="text-app-text-muted text-[11px] mt-0.5">{r.note}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Bonus / Rank thưởng */}
+              <h3 className="flex items-center gap-1.5 text-amber-400 font-semibold text-xs uppercase tracking-wide mt-5 mb-3">
+                <i className="ri-vip-crown-line"></i>Phần thưởng theo hạng
+              </h3>
+              <ul className="space-y-2">
+                {[
+                  { rank: "Top 1", reward: "Huy hiệu Vàng + 1 tháng VIP miễn phí", color: "#FFD700" },
+                  { rank: "Top 2-3", reward: "Huy hiệu Bạc/Đồng + 200 XP bonus tuần", color: "#C0C0C0" },
+                  { rank: "Top 10", reward: "Frame avatar đặc biệt + ưu tiên vào nhóm VIP", color: "#a78bfa" },
+                  { rank: "Top 50", reward: "Badge tuần + 50 XP bonus", color: "#34d399" },
+                ].map(r => (
+                  <li key={r.rank} className="flex items-start gap-2.5 bg-app-surface/40 rounded-lg p-2.5 border border-app-border">
+                    <span className="text-xs font-bold px-2 py-0.5 rounded-md flex-shrink-0" style={{ backgroundColor: `${r.color}20`, color: r.color }}>{r.rank}</span>
+                    <p className="text-white/85 text-xs flex-1">{r.reward}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-4 flex items-center gap-2 flex-wrap">
+            <button onClick={() => navigate("/rewards")} className="flex items-center gap-1.5 bg-app-accent-primary/15 text-app-accent-primary text-xs px-3 py-2 rounded-lg hover:bg-app-accent-primary/25 transition-colors whitespace-nowrap cursor-pointer font-medium">
+              <i className="ri-gift-2-line"></i>Đổi XP lấy quà
+            </button>
+            <button onClick={() => navigate("/daily-plan")} className="flex items-center gap-1.5 bg-app-card/50 text-white/70 text-xs px-3 py-2 rounded-lg hover:bg-app-card/70 transition-colors whitespace-nowrap cursor-pointer font-medium">
+              <i className="ri-route-line"></i>Lộ trình hôm nay
+            </button>
+            <button onClick={() => navigate("/eps-exam")} className="flex items-center gap-1.5 bg-app-card/50 text-white/70 text-xs px-3 py-2 rounded-lg hover:bg-app-card/70 transition-colors whitespace-nowrap cursor-pointer font-medium">
+              <i className="ri-timer-line"></i>Thi thử EPS
+            </button>
+            <button onClick={() => navigate("/weekly-challenge")} className="flex items-center gap-1.5 bg-app-card/50 text-white/70 text-xs px-3 py-2 rounded-lg hover:bg-app-card/70 transition-colors whitespace-nowrap cursor-pointer font-medium">
+              <i className="ri-calendar-check-line"></i>Thách thức tuần
+            </button>
           </div>
         </div>
 

@@ -1,8 +1,9 @@
 import { useEffect, useMemo } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate, Navigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import hanjaData from "@/data/hanja_phan1.json";
+import { toSlug } from "@/lib/romanize";
 
 interface HanjaEntry {
   id: number;
@@ -19,6 +20,26 @@ interface HanjaEntry {
 const ENTRIES: HanjaEntry[] = (hanjaData as HanjaEntry[]).filter(
   e => e.examples.length > 0 || e.mnemonic
 );
+
+// Build slug → entry map (handles collisions by appending suffix)
+const SLUG_MAP: Record<string, HanjaEntry> = {};
+const ENTRY_TO_SLUG: Record<number, string> = {};
+{
+  const counts: Record<string, number> = {};
+  for (const e of ENTRIES) {
+    let s = toSlug(e.hangul);
+    if (counts[s]) {
+      s = `${s}-${counts[s] + 1}`;
+    }
+    counts[toSlug(e.hangul)] = (counts[toSlug(e.hangul)] || 0) + 1;
+    SLUG_MAP[s] = e;
+    ENTRY_TO_SLUG[e.id] = s;
+  }
+}
+
+export function getEntrySlug(entry: HanjaEntry): string {
+  return ENTRY_TO_SLUG[entry.id] || toSlug(entry.hangul);
+}
 
 function playTTS(text: string, lang = "ko-KR") {
   if (!("speechSynthesis" in window)) return;
@@ -60,8 +81,15 @@ export default function HanjaProDetailPage() {
 
   const entry = useMemo(() => {
     if (!decoded) return null;
+    // Try slug first (lowercase), then fall back to hangul match (legacy URLs)
+    const bySlug = SLUG_MAP[decoded.toLowerCase()];
+    if (bySlug) return bySlug;
     return ENTRIES.find(e => e.hangul === decoded) || null;
   }, [decoded]);
+
+  // SEO canonical: if user accessed via hangul, redirect to slug URL
+  const isLegacyHangulUrl = entry && decoded === entry.hangul;
+  const canonicalSlug = entry ? getEntrySlug(entry) : null;
 
   const idx = useMemo(() => entry ? ENTRIES.findIndex(e => e.id === entry.id) : -1, [entry]);
   const prev = idx > 0 ? ENTRIES[idx - 1] : null;
@@ -120,6 +148,11 @@ export default function HanjaProDetailPage() {
         </div>
       </DashboardLayout>
     );
+  }
+
+  // Redirect legacy hangul URLs to slug URL (preserves SEO + sharable links)
+  if (isLegacyHangulUrl && canonicalSlug && canonicalSlug !== decoded.toLowerCase()) {
+    return <Navigate to={`/hanja-pro/${canonicalSlug}`} replace />;
   }
 
   const meaning = getShortMeaning(entry);
@@ -267,7 +300,7 @@ export default function HanjaProDetailPage() {
                 return linkTarget ? (
                   <Link
                     key={i}
-                    to={`/hanja-pro/${encodeURIComponent(w.word)}`}
+                    to={`/hanja-pro/${getEntrySlug(linkTarget)}`}
                     className="bg-app-card/30 hover:bg-app-card/50 rounded-xl p-3 border border-app-border hover:border-app-accent-primary/40 transition-colors"
                   >
                     {inner}
@@ -299,7 +332,7 @@ export default function HanjaProDetailPage() {
         <nav className="flex items-stretch gap-3 mt-8" aria-label="Navigation">
           {prev ? (
             <Link
-              to={`/hanja-pro/${encodeURIComponent(prev.hangul)}`}
+              to={`/hanja-pro/${getEntrySlug(prev)}`}
               className="flex-1 bg-app-card/30 hover:bg-app-card/50 border border-app-border hover:border-app-accent-primary/40 rounded-xl p-4 transition-colors group"
             >
               <p className="text-app-text-muted text-xs mb-1 flex items-center gap-1">
@@ -310,7 +343,7 @@ export default function HanjaProDetailPage() {
           ) : <div className="flex-1" />}
           {next ? (
             <Link
-              to={`/hanja-pro/${encodeURIComponent(next.hangul)}`}
+              to={`/hanja-pro/${getEntrySlug(next)}`}
               className="flex-1 bg-app-card/30 hover:bg-app-card/50 border border-app-border hover:border-app-accent-primary/40 rounded-xl p-4 transition-colors text-right"
             >
               <p className="text-app-text-muted text-xs mb-1 flex items-center justify-end gap-1">

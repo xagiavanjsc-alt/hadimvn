@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import hanjaData from "@/data/hanja_phan1.json";
+import { toSlug } from "@/lib/romanize";
 
 interface HanjaEntry {
   id: number;
@@ -66,7 +67,7 @@ export default function HanjaProPage() {
   }), [known, favorites]);
 
   const openDetail = useCallback((entry: HanjaEntry) => {
-    navigate(`/hanja-pro/${encodeURIComponent(entry.hangul)}`);
+    navigate(`/hanja-pro/${toSlug(entry.hangul)}`);
   }, [navigate]);
 
   // Quiz logic
