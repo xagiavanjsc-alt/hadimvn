@@ -887,6 +887,7 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
   const [error, setError] = useState<string | null>(null);
   const [totalAnswers, setTotalAnswers] = useState(post.quiz_total_answers || 0);
   const [correctAnswers, setCorrectAnswers] = useState(post.quiz_correct_answers || 0);
+  const [showAnswer, setShowAnswer] = useState(false);
 
   const isAuthor = currentUser && post.user_id === currentUser.id;
   const correctOption = quiz?.options?.find(o => o.is_correct);
@@ -996,8 +997,8 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
           {quiz.options.map((opt, idx) => {
             const letter = String.fromCharCode(65 + idx);
             const isSelected = selected === opt.id;
-            const showCorrect = submitted && opt.is_correct;
-            const showWrong = submitted && isSelected && !opt.is_correct;
+            const showCorrect = submitted && showAnswer && opt.is_correct;
+            const showWrong = submitted && showAnswer && isSelected && !opt.is_correct;
 
             return (
               <button
@@ -1032,31 +1033,48 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
         <p className="text-red-400 text-xs mt-2"><i className="ri-error-warning-line mr-1"></i>{error}</p>
       )}
 
-      {submitted && (
-        <div className={`mt-3 p-3 rounded-lg border ${
-          isSelectedCorrect
-            ? "bg-emerald-500/10 border-emerald-500/30"
-            : "bg-red-500/10 border-red-500/30"
-        }`}>
-          {isSelectedCorrect ? (
-            <p className="text-emerald-400 text-sm font-semibold">
-              <i className="ri-trophy-line mr-1"></i>Chính xác! Bạn được +1 XP 🎉
-            </p>
-          ) : (
-            <p className="text-red-400 text-sm font-semibold mb-1">
-              <i className="ri-close-circle-line mr-1"></i>Sai rồi. Đáp án đúng: <strong>{correctOption?.text}</strong>
-            </p>
-          )}
-          {quiz.explanation && (
-            <div className="text-white/70 text-xs mt-2 leading-relaxed post-content-preview">
-              <div className="flex items-center gap-1 mb-1 text-[#FFD700]">
-                <i className="ri-lightbulb-line"></i>
-                <span className="font-semibold">Giải thích:</span>
+      {submitted && !showAnswer && (
+        <button
+          onClick={() => setShowAnswer(true)}
+          className="mt-3 text-xs text-app-accent-primary hover:underline cursor-pointer"
+        >
+          <i className="ri-eye-line mr-1"></i>Xem đáp án
+        </button>
+      )}
+
+      {submitted && showAnswer && (
+        <>
+          <div className={`mt-3 p-3 rounded-lg border ${
+            isSelectedCorrect
+              ? "bg-emerald-500/10 border-emerald-500/30"
+              : "bg-red-500/10 border-red-500/30"
+          }`}>
+            {isSelectedCorrect ? (
+              <p className="text-emerald-400 text-sm font-semibold">
+                <i className="ri-trophy-line mr-1"></i>Chính xác! Bạn được +1 XP 🎉
+              </p>
+            ) : (
+              <p className="text-red-400 text-sm font-semibold mb-1">
+                <i className="ri-close-circle-line mr-1"></i>Sai rồi. Đáp án đúng: <strong>{correctOption?.text}</strong>
+              </p>
+            )}
+            {quiz.explanation && (
+              <div className="text-white/70 text-xs mt-2 leading-relaxed post-content-preview">
+                <div className="flex items-center gap-1 mb-1 text-[#FFD700]">
+                  <i className="ri-lightbulb-line"></i>
+                  <span className="font-semibold">Giải thích:</span>
+                </div>
+                <div dangerouslySetInnerHTML={{ __html: resolveStoragePaths(quiz.explanation) }} />
               </div>
-              <div dangerouslySetInnerHTML={{ __html: resolveStoragePaths(quiz.explanation) }} />
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+          <button
+            onClick={() => setShowAnswer(false)}
+            className="mt-2 text-xs text-app-text-muted hover:text-white cursor-pointer"
+          >
+            <i className="ri-arrow-up-line mr-1"></i>Thu gọn
+          </button>
+        </>
       )}
 
       {!currentUser && (
