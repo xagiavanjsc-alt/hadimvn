@@ -8,6 +8,12 @@ export interface MelonSongRaw {
   albumArt?: string;
 }
 
+/**
+ * Fetch Melon Top 100 chart from Apify
+ * @param apifyToken - Apify API token for authentication
+ * @returns Array of Melon song data with rank, title, artist, genre, lyrics
+ * @throws Error if API token is invalid, actor not found, rate limit exceeded, or connection fails
+ */
 export async function fetchMelonTop100(apifyToken: string): Promise<MelonSongRaw[]> {
   const ACTOR_ID = "oxygenated_quagmire~melon-chart-scraper";
 
@@ -125,6 +131,11 @@ async function pollRunUntilFinished(
   );
 }
 
+/**
+ * Normalize Melon API response items to consistent format
+ * @param items - Raw items from Apify Melon scraper
+ * @returns Normalized array of MelonSongRaw with rank, title, artist, genre, lyrics
+ */
 function normalizeMelonItems(items: Record<string, unknown>[]): MelonSongRaw[] {
   return items.map((item, idx) => ({
     rank: (item.rank as number) ?? idx + 1,
@@ -152,12 +163,21 @@ export interface NaverKiNRaw {
 }
 
 /**
- * Naver KiN scraper — hỗ trợ 2 mode:
- * 1. keyword: tìm kiếm theo từ khóa (mặc định)
- * 2. url: crawl trực tiếp từ URL Naver KiN
- *
+ * Naver KiN scraper — supports 2 modes:
+ * 1. keyword: search by keyword (default)
+ * 2. url: crawl directly from Naver KiN URL
+ * 
  * Actor: oxygenated_quagmire/naver-kin-scraper
  * Ref: https://dev.to/sessionzero_ai/naver-kin-scraper-korean-qa-data-how-to-extract-insights-from-koreas-yahoo-answers-2in0
+ * 
+ * @param apifyToken - Apify API token for authentication
+ * @param options - Configuration options for the scraper
+ * @param options.mode - Scrape mode: 'keyword' or 'url'
+ * @param options.keyword - Search keyword (required if mode is 'keyword')
+ * @param options.url - Direct Naver KiN URL (required if mode is 'url')
+ * @param options.maxResults - Maximum number of results to fetch (default: 50)
+ * @returns Array of Naver KiN Q&A data
+ * @throws Error if API token is invalid, parameters missing, or connection fails
  */
 export async function fetchNaverKiN(
   apifyToken: string,
@@ -245,6 +265,11 @@ export async function fetchNaverKiN(
   return normalizeNaverItems(items);
 }
 
+/**
+ * Normalize Naver KiN API response items to consistent format
+ * @param items - Raw items from Apify Naver KiN scraper
+ * @returns Normalized array of NaverKiNRaw with id, question, category, views, answers, date, originalAnswer
+ */
 function normalizeNaverItems(items: Record<string, unknown>[]): NaverKiNRaw[] {
   return items.map((item, idx) => ({
     id:
@@ -288,6 +313,11 @@ function normalizeNaverItems(items: Record<string, unknown>[]): NaverKiNRaw[] {
   }));
 }
 
+/**
+ * Sleep for specified milliseconds
+ * @param ms - Milliseconds to sleep
+ * @returns Promise that resolves after the specified time
+ */
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
