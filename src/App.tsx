@@ -6,6 +6,8 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import ErrorBoundary from "@/components/base/ErrorBoundary";
 import { PreloadCommonRoutes } from "./router/config";
 import PageTransition from "@/components/base/PageTransition";
+import XPNotificationToast from "@/components/feature/XPNotificationToast";
+import { DailyLoginBonusGate } from "@/hooks/useDailyLoginBonus";
 
 function App() {
   return (
@@ -14,9 +16,11 @@ function App() {
         <BrowserRouter basename={__BASE_PATH__}>
           <ErrorBoundary>
             <PreloadCommonRoutes />
+            <DailyLoginBonusGate />
             <PageTransition>
               <AppRoutes />
             </PageTransition>
+            <XPNotificationToast />
           </ErrorBoundary>
         </BrowserRouter>
       </AuthProvider>

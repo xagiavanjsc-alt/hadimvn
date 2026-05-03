@@ -5,7 +5,7 @@ import { useAdminToast } from "@/contexts/AdminToastContext";
 import { logError } from "@/lib/logError";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
-type ContentTab = "community" | "lessons" | "reports";
+type ContentTab = "community" | "comments" | "lessons" | "reports";
 type PostStatus = "pending" | "approved" | "rejected";
 type ReportStatus = "pending" | "resolved" | "dismissed";
 type ReportReason = "spam" | "offensive" | "misinformation" | "harassment" | "other";
@@ -1231,6 +1231,191 @@ function ReportsTab() {
   );
 }
 
+// ─── Community Comments Moderation ────────────────────────────────────────────
+interface CommunityCommentRow {
+  id: string;
+  post_id: string;
+  user_id: string;
+  author_name: string;
+  author_level: string;
+  content: string;
+  status: PostStatus;
+  created_at: string;
+  post_title?: string;
+}
+
+function CommunityCommentsTab() {
+  const { showToast } = useAdminToast();
+  const [comments, setComments] = useState<CommunityCommentRow[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [filter, setFilter] = useState<"pending" | "all">("pending");
+
+  const fetchComments = useCallback(async () => {
+    setLoading(true);
+    const query = supabase
+      .from("community_comments")
+      .select("id,post_id,user_id,author_name,author_level,content,status,created_at")
+      .order("created_at", { ascending: false })
+      .limit(200);
+    if (filter === "pending") query.eq("status", "pending");
+    const { data, error } = await query;
+    if (error) {
+      showToast({ type: "error", title: "Lỗi tải bình luận", message: error.message });
+      logError("database", `Fetch comments failed: ${error.message}`, { pageUrl: "/admin/content" });
+    } else if (data) {
+      // Fetch post titles for context
+      const postIds = Array.from(new Set(data.map((c) => c.post_id)));
+      const { data: postsData } = await supabase
+        .from("community_posts")
+        .select("id,title")
+        .in("id", postIds);
+      const titleMap = new Map((postsData || []).map((p) => [p.id, p.title]));
+      setComments(
+        data.map((c) => ({ ...(c as CommunityCommentRow), post_title: titleMap.get(c.post_id) || "(bài đã xoá)" }))
+      );
+    }
+    setLoading(false);
+  }, [filter, showToast]);
+
+  useEffect(() => {
+    fetchComments();
+  }, [fetchComments]);
+
+  const handleApprove = async (id: string) => {
+    const { error } = await supabase.from("community_comments").update({ status: "approved" }).eq("id", id);
+    if (error) {
+      showToast({ type: "error", title: "Lỗi duyệt", message: error.message });
+      return;
+    }
+    showToast({ type: "success", title: "Đã duyệt bình luận" });
+    setComments((prev) => prev.map((c) => (c.id === id ? { ...c, status: "approved" } : c)));
+    if (filter === "pending") setComments((prev) => prev.filter((c) => c.id !== id));
+  };
+
+  const handleReject = async (id: string) => {
+    const { error } = await supabase.from("community_comments").update({ status: "rejected" }).eq("id", id);
+    if (error) {
+      showToast({ type: "error", title: "Lỗi từ chối", message: error.message });
+      return;
+    }
+    showToast({ type: "success", title: "Đã từ chối bình luận" });
+    setComments((prev) => prev.map((c) => (c.id === id ? { ...c, status: "rejected" } : c)));
+    if (filter === "pending") setComments((prev) => prev.filter((c) => c.id !== id));
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Xoá vĩnh viễn bình luận này?")) return;
+    const { error } = await supabase.from("community_comments").delete().eq("id", id);
+    if (error) {
+      showToast({ type: "error", title: "Lỗi xoá", message: error.message });
+      return;
+    }
+    showToast({ type: "success", title: "Đã xoá bình luận" });
+    setComments((prev) => prev.filter((c) => c.id !== id));
+  };
+
+  const pendingCount = comments.filter((c) => c.status === "pending").length;
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center gap-3 flex-wrap">
+        <div className="flex gap-1 p-1 rounded-lg" style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>
+          {(["pending", "all"] as const).map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className="px-3 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap"
+              style={{
+                backgroundColor: filter === f ? "var(--admin-card)" : "transparent",
+                color: filter === f ? "var(--admin-text)" : "var(--admin-text-faint)",
+              }}
+            >
+              {f === "pending" ? `Đang chờ (${pendingCount})` : "Tất cả"}
+            </button>
+          ))}
+        </div>
+        <button
+          onClick={fetchComments}
+          className="px-3 py-1.5 rounded-md text-xs font-medium cursor-pointer whitespace-nowrap"
+          style={{ backgroundColor: "var(--admin-card)", color: "var(--admin-text)", border: "1px solid var(--admin-border)" }}
+        >
+          <i className="ri-refresh-line mr-1"></i>Tải lại
+        </button>
+      </div>
+
+      {loading ? (
+        <div className="text-center py-8" style={{ color: "var(--admin-text-faint)" }}>Đang tải…</div>
+      ) : comments.length === 0 ? (
+        <div className="text-center py-12 rounded-xl" style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text-faint)", border: "1px dashed var(--admin-border)" }}>
+          <i className="ri-chat-check-line text-3xl mb-2 block"></i>
+          Không có bình luận nào {filter === "pending" ? "đang chờ duyệt" : ""}.
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {comments.map((c) => (
+            <div
+              key={c.id}
+              className="rounded-xl p-4"
+              style={{ backgroundColor: "var(--admin-card)", border: "1px solid var(--admin-border)" }}
+            >
+              <div className="flex items-start justify-between gap-3 mb-2 flex-wrap">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap mb-1">
+                    <span className="text-sm font-semibold" style={{ color: "var(--admin-text)" }}>{c.author_name}</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded-full"
+                      style={{
+                        backgroundColor: c.status === "pending" ? "rgba(251,191,36,0.12)" : c.status === "rejected" ? "rgba(248,113,113,0.12)" : "rgba(52,211,153,0.12)",
+                        color: c.status === "pending" ? "#fbbf24" : c.status === "rejected" ? "#f87171" : "#34d399",
+                      }}
+                    >
+                      {c.status === "pending" ? "Đang chờ" : c.status === "rejected" ? "Từ chối" : "Đã duyệt"}
+                    </span>
+                    <span className="text-[11px]" style={{ color: "var(--admin-text-faint)" }}>
+                      {new Date(c.created_at).toLocaleString("vi-VN")}
+                    </span>
+                  </div>
+                  <p className="text-[11px] mb-2" style={{ color: "var(--admin-text-faint)" }}>
+                    <i className="ri-article-line mr-1"></i>
+                    Bài viết: <span style={{ color: "var(--admin-text)" }}>{c.post_title}</span>
+                  </p>
+                  <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: "var(--admin-text)" }}>{c.content}</p>
+                </div>
+                <div className="flex gap-2 flex-shrink-0">
+                  {c.status !== "approved" && (
+                    <button
+                      onClick={() => handleApprove(c.id)}
+                      className="px-3 py-1.5 rounded-md text-xs font-medium cursor-pointer whitespace-nowrap"
+                      style={{ backgroundColor: "rgba(52,211,153,0.12)", color: "#34d399", border: "1px solid rgba(52,211,153,0.25)" }}
+                    >
+                      <i className="ri-check-line mr-1"></i>Duyệt
+                    </button>
+                  )}
+                  {c.status !== "rejected" && (
+                    <button
+                      onClick={() => handleReject(c.id)}
+                      className="px-3 py-1.5 rounded-md text-xs font-medium cursor-pointer whitespace-nowrap"
+                      style={{ backgroundColor: "rgba(248,113,113,0.12)", color: "#f87171", border: "1px solid rgba(248,113,113,0.25)" }}
+                    >
+                      <i className="ri-close-line mr-1"></i>Từ chối
+                    </button>
+                  )}
+                  <button
+                    onClick={() => handleDelete(c.id)}
+                    className="px-3 py-1.5 rounded-md text-xs font-medium cursor-pointer whitespace-nowrap"
+                    style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text-faint)", border: "1px solid var(--admin-border)" }}
+                  >
+                    <i className="ri-delete-bin-line"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function AdminContentPage() {
   const [activeTab, setActiveTab] = useState<ContentTab>("community");
@@ -1245,6 +1430,7 @@ export default function AdminContentPage() {
         style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>
         {([
           { id: "community", label: "Bài viết cộng đồng", icon: "ri-team-line" },
+          { id: "comments", label: "Bình luận", icon: "ri-chat-3-line" },
           { id: "lessons", label: "Bài học gửi lên", icon: "ri-book-open-line" },
           { id: "reports", label: `Báo cáo vi phạm${pendingReports > 0 ? ` (${pendingReports})` : ""}`, icon: "ri-flag-line" },
         ] as const).map(tab => (
@@ -1263,6 +1449,7 @@ export default function AdminContentPage() {
       </div>
 
       {activeTab === "community" && <CommunityPostsTab />}
+      {activeTab === "comments" && <CommunityCommentsTab />}
       {activeTab === "lessons" && <LessonsTab />}
       {activeTab === "reports" && <ReportsTab />}
     </AdminLayout>

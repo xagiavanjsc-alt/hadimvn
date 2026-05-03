@@ -223,8 +223,8 @@ export default function HanjaProPage() {
         </div>
       </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+      {/* Grid — 1 col mobile cho dễ đọc, tăng dần ở desktop */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
         {filtered.map(entry => {
           const isKnown = known[entry.id];
           const isFav = favorites[entry.id];

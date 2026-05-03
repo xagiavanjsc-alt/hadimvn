@@ -323,6 +323,7 @@ interface Post {
   exam_score: number | null;
   streak_days: number | null;
   created_at: string;
+  status?: "pending" | "approved" | "rejected" | null;
 }
 
 interface Comment {
@@ -335,6 +336,7 @@ interface Comment {
   content: string;
   likes: number;
   created_at: string;
+  status?: "pending" | "approved" | "rejected" | null;
   replies?: Comment[];
 }
 
@@ -373,10 +375,20 @@ function CommentItem({
           <i className="ri-user-line text-app-accent-primary text-xs"></i>
         </div>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
+          <div className="flex items-center gap-2 mb-1 flex-wrap">
             <span className="text-white/80 text-xs font-semibold">{comment.author_name}</span>
             <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-app-card/50 text-app-text-muted">{comment.author_level}</span>
             <span className="text-[10px] text-app-text-muted">{timeAgo(comment.created_at)}</span>
+            {comment.status === "pending" && (
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/25">
+                <i className="ri-time-line mr-0.5"></i>Đang chờ duyệt
+              </span>
+            )}
+            {comment.status === "rejected" && (
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/25">
+                <i className="ri-close-circle-line mr-0.5"></i>Bị từ chối
+              </span>
+            )}
           </div>
           <p className="text-white/60 text-xs leading-relaxed">{comment.content}</p>
           <div className="flex items-center gap-3 mt-1.5">
@@ -551,6 +563,8 @@ function CommentsPanel({
   const [submitting, setSubmitting] = useState(false);
 
   const fetchComments = useCallback(async () => {
+    // RLS policy tự động lọc: approved + of-author + admin. Query all fields để
+    // hiển thị badge "Đang chờ duyệt" cho comment của chính mình.
     const { data } = await supabase
       .from("community_comments")
       .select("*")
@@ -578,6 +592,7 @@ function CommentsPanel({
   const handleSubmit = async () => {
     if (!text.trim() || !currentUser || submitting) return;
     setSubmitting(true);
+    // Insert với status='pending' (trigger auto-approve nếu admin/mod)
     const { error } = await supabase.from("community_comments").insert({
       post_id: postId,
       parent_id: replyTo?.id || null,
@@ -585,13 +600,15 @@ function CommentsPanel({
       author_name: profile?.display_name || "Học viên",
       author_level: "Học viên",
       content: text.trim(),
+      status: "pending",
     });
     if (!error) {
-      // Update comments_count
-      await supabase.rpc("increment_comments_count" as never, { post_id: postId } as never).maybeSingle();
       setText("");
       setReplyTo(null);
       await fetchComments();
+      alert("Bình luận của bạn đã gửi — đang chờ quản trị viên duyệt.");
+    } else {
+      alert(`Lỗi gửi bình luận: ${error.message}`);
     }
     setSubmitting(false);
   };
@@ -700,7 +717,19 @@ function PostCard({
   const cat = CATEGORY_CONFIG[post.category] || CATEGORY_CONFIG.share;
 
   return (
-    <div className={`bg-app-bg border rounded-2xl p-5 transition-all hover:border-app-border ${post.is_pinned ? "border-app-accent-primary/20" : "border-app-border"}`}>
+    <div className={`bg-app-bg border rounded-2xl p-5 transition-all hover:border-app-border ${post.is_pinned ? "border-app-accent-primary/20" : post.status === "pending" ? "border-amber-500/30" : "border-app-border"}`}>
+      {post.status === "pending" && (
+        <div className="flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/25 text-amber-400 text-[11px] font-semibold mb-3 px-2.5 py-1.5 rounded-lg">
+          <i className="ri-time-line"></i>
+          Bài của bạn đang chờ quản trị viên duyệt — chỉ bạn nhìn thấy.
+        </div>
+      )}
+      {post.status === "rejected" && (
+        <div className="flex items-center gap-1.5 bg-red-500/10 border border-red-500/25 text-red-400 text-[11px] font-semibold mb-3 px-2.5 py-1.5 rounded-lg">
+          <i className="ri-close-circle-line"></i>
+          Bài này đã bị từ chối.
+        </div>
+      )}
       {post.is_pinned && (
         <div className="flex items-center gap-1.5 text-app-accent-primary/60 text-[10px] font-semibold mb-3">
           <i className="ri-pushpin-fill text-xs"></i>Ghim
@@ -1084,10 +1113,11 @@ export default function CommunityPage() {
 
   const fetchPosts = useCallback(async () => {
     setLoadingPosts(true);
+    // RLS policy đã lọc: approved + own-pending + admin-all. Không cần
+    // client-side filter nữa — chỉ cần SELECT *.
     const { data } = await supabase
       .from("community_posts")
       .select("*")
-      .or("status.eq.approved,status.is.null")
       .order("created_at", { ascending: false });
     if (data) setPosts(data as Post[]);
     setLoadingPosts(false);
@@ -1172,12 +1202,14 @@ export default function CommunityPage() {
       title: data.title,
       content: contentWithImage,
       tags: [],
+      status: "pending",
     });
     if (error) {
       console.error('[handleNewPost] Insert error:', error);
       throw new Error(error.message);
     }
     await fetchPosts();
+    alert("Bài đăng đã gửi — đang chờ quản trị viên duyệt. Bạn có thể xem bài của mình ở mục “Đang chờ duyệt”.");
   };
 
   return (

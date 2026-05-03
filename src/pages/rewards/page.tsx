@@ -496,48 +496,15 @@ const XP_PENALTIES = [
 ];
 
 function DailyLoginBonus() {
-  const [lastLoginDate, setLastLoginDate] = useLocalStorage<string>("kts_last_login_date", "");
-  const [lastLoginXp, setLastLoginXp] = useLocalStorage<number>("kts_last_login_xp", 0);
-  const [totalXp, setTotalXp] = useLocalStorage<number>("kts_total_xp", 0);
-  const [showBonus, setShowBonus] = useState(false);
-  const [bonusXp, setBonusXp] = useState(0);
-
-  useEffect(() => {
-    const today = new Date().toISOString().split("T")[0];
-    if (lastLoginDate !== today) {
-      const xp = Math.floor(Math.random() * 5) + 1; // 1-5 XP
-      setBonusXp(xp);
-      setLastLoginDate(today);
-      setLastLoginXp(xp);
-      setTotalXp(prev => prev + xp);
-      setShowBonus(true);
-    }
-  }, []);
-
-  if (!showBonus) return null;
-
+  // Daily login bonus is handled globally by `DailyLoginBonusGate` in App.tsx
+  // (uses `useXPSystem.awardXP` → toast + Supabase sync). No-op here.
+  return null;
+  // The original UI block below is intentionally unused.
+  // eslint-disable-next-line no-unreachable
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
       <div className="bg-app-bg border border-app-accent-primary/30 rounded-2xl p-8 text-center max-w-sm w-full mx-4 animate-in zoom-in-95">
-        <div className="w-20 h-20 rounded-full bg-app-accent-primary/15 flex items-center justify-center mx-auto mb-4 relative">
-          <i className="ri-gift-line text-app-accent-primary text-4xl"></i>
-          <div className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-app-accent-primary flex items-center justify-center">
-            <span className="text-app-bg text-xs font-bold">+{bonusXp}</span>
-          </div>
-        </div>
-        <h3 className="text-white font-bold text-xl mb-1">Phần thưởng đăng nhập!</h3>
-        <p className="text-white/50 text-sm mb-4">Bạn nhận được <span className="text-app-accent-primary font-bold">+{bonusXp} XP</span> hôm nay</p>
-        <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-3 mb-5">
-          <p className="text-app-accent-primary/70 text-xs">
-            {bonusXp === 5 ? "May mắn tối đa! Hôm nay là ngày đặc biệt!" : bonusXp >= 4 ? "Vận may tốt! Tiếp tục học nhé!" : "Đăng nhập mỗi ngày để nhận XP ngẫu nhiên 1-5!"}
-          </p>
-        </div>
-        <button
-          onClick={() => setShowBonus(false)}
-          className="w-full py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
-        >
-          Nhận thưởng!
-        </button>
+        <div />
       </div>
     </div>
   );

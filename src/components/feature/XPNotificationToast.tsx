@@ -41,10 +41,11 @@ function Toast({
   const rank = isLevelUp && notif.rankId ? getRankById(notif.rankId) : null;
   const badge = isBadge && notif.badgeId ? getBadgeById(notif.badgeId) : null;
 
-  const accentColor = rank?.color || badge?.color || "app-accent-primary";
-  const bgColor = rank?.bgColor || (badge ? `${badge.color}10` : "app-accent-primary10");
+  const BRAND = "#e8c84a";
+  const accentColor = rank?.color || badge?.color || BRAND;
+  const bgColor = rank?.bgColor || (badge ? `${badge.color}10` : `${BRAND}15`);
   const borderColor =
-    rank?.borderColor || (badge ? `${badge.color}25` : "app-accent-primary25");
+    rank?.borderColor || (badge ? `${badge.color}25` : `${BRAND}33`);
   const icon = rank?.icon || badge?.icon || "ri-star-fill";
 
   return (

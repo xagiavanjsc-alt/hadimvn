@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { RANKS, BADGES } from "@/data/ranks";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/lib/supabase";
+import { computeXP, deriveLevel } from "@/lib/xp";
 
 export interface XPEvent {
   type:
@@ -52,6 +55,56 @@ const XP_REWARDS: Record<XPEvent["type"], number> = {
   hanja_quiz_completed: 15,
 };
 
+// ─── Anti-cheat: max XP events per type per day ─────────────────────────────
+// Hard cap to prevent farming via spam clicking. Server-side `compute_user_xp`
+// trigger (003_xp_formula.sql) is the source of truth for leaderboard rank.
+const DAILY_EVENT_CAPS: Partial<Record<XPEvent["type"], number>> = {
+  flashcard_learned: 100,        // 500 XP/day max
+  eps_question_correct: 200,     // 600 XP/day
+  eps_exam_completed: 5,         // 5 exams/day
+  topik_exam_completed: 5,
+  topic_drill_completed: 10,
+  community_post: 5,
+  community_like_received: 100,
+  quiz_completed: 10,
+  hanja_word_learned: 100,
+  hanja_quiz_completed: 10,
+  hanja_tree_completed: 5,
+  streak_day: 1,                 // exactly once/day for daily login bonus
+};
+
+/** Per-day counts for anti-cheat. Resets when day changes. */
+interface DailyCounts {
+  date: string;
+  counts: Partial<Record<string, number>>;
+}
+
+function todayKey(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+const EVENT_LABELS: Record<XPEvent["type"], string> = {
+  flashcard_learned: "Học từ vựng mới",
+  eps_question_correct: "Trả lời đúng câu EPS",
+  eps_exam_completed: "Hoàn thành thi thử EPS",
+  streak_day: "Đăng nhập hằng ngày",
+  streak_bonus_7: "Streak 7 ngày liên tiếp!",
+  streak_bonus_30: "Streak 30 ngày — kỷ lục!",
+  streak_bonus_100: "Streak 100 ngày — huyền thoại!",
+  community_post: "Đăng bài cộng đồng",
+  community_like_received: "Bài viết được yêu thích",
+  quiz_completed: "Hoàn thành quiz",
+  topik_exam_completed: "Hoàn thành thi TOPIK",
+  topic_drill_completed: "Hoàn thành luyện tập theo chủ đề",
+  hanja_word_learned: "Học từ Hán Hàn mới",
+  hanja_tree_completed: "Hoàn thành cây Hán",
+  hanja_quiz_completed: "Hoàn thành quiz Hán",
+};
+
+function getEventLabel(type: XPEvent["type"]): string {
+  return EVENT_LABELS[type] || "Hoạt động học";
+}
+
 function getRankForXP(xp: number) {
   return (
     [...RANKS].reverse().find((r) => xp >= r.minXP) || RANKS[0]
@@ -93,8 +146,60 @@ export function useXPSystem() {
     count: 0,
   });
 
+  const [dailyCounts, setDailyCounts] = useLocalStorage<DailyCounts>(
+    "kts_xp_daily_counts",
+    { date: todayKey(), counts: {} }
+  );
+
+  const { user, profile } = useAuth();
+  const syncTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   // Track previous rank to detect level-up
   const prevRankRef = useRef<string>(getRankForXP(xpData.total).id);
+
+  /** Debounced sync to Supabase user_progress (drives leaderboard). */
+  const scheduleServerSync = useCallback(() => {
+    if (!user) return;
+    if (syncTimerRef.current) clearTimeout(syncTimerRef.current);
+    syncTimerRef.current = setTimeout(async () => {
+      try {
+        const flashcardKnown = JSON.parse(localStorage.getItem("kts_flashcard_known") || "{}");
+        const examResults = JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]");
+        const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length;
+        const validExams = examResults as { score: number; total: number; correctIds?: string[] }[];
+        const bestScore = validExams.length > 0
+          ? Math.max(...validExams.map(r => Math.round((r.score / r.total) * 100)))
+          : 0;
+        const avgScore = validExams.length > 0
+          ? Math.round(validExams.reduce((sum, r) => sum + (r.score / r.total) * 100, 0) / validExams.length)
+          : 0;
+        const totalCorrect = validExams.reduce((sum, r) => sum + (r.correctIds?.length ?? r.score ?? 0), 0);
+
+        const computedXP = computeXP({
+          streakDays: streak.count || 0,
+          bestScorePct: bestScore,
+          averageScorePct: avgScore,
+          wordsLearned,
+          totalCorrectAnswers: totalCorrect,
+          validExamsCount: validExams.length,
+        });
+        const level = deriveLevel(bestScore);
+
+        await supabase.from("user_progress").upsert({
+          user_id: user.id,
+          xp: computedXP,
+          level,
+          streak_count: streak.count || 0,
+          words_learned: wordsLearned,
+          best_score: bestScore,
+          last_active_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        }, { onConflict: "user_id" });
+      } catch {
+        // silent fail; will retry on next award
+      }
+    }, 1500);
+  }, [user, streak.count]);
 
   const addNotification = useCallback(
     (notif: Omit<XPNotification, "id" | "timestamp">) => {
@@ -113,12 +218,34 @@ export function useXPSystem() {
       const amount = event.amount ?? XP_REWARDS[event.type];
       if (!amount) return;
 
+      // ─── Anti-cheat: daily cap per event type ──────────────────────────
+      const today = todayKey();
+      const cap = DAILY_EVENT_CAPS[event.type];
+      const currentDay = dailyCounts.date === today ? dailyCounts : { date: today, counts: {} as Record<string, number> };
+      const used = currentDay.counts[event.type] || 0;
+      if (cap !== undefined && used >= cap) {
+        // Silently reject — don't spam toast for repeat clicks
+        return;
+      }
+      setDailyCounts({
+        date: today,
+        counts: { ...currentDay.counts, [event.type]: used + 1 },
+      });
+
       setXPData((prev) => {
         const newTotal = prev.total + amount;
         const oldRank = getRankForXP(prev.total);
         const newRank = getRankForXP(newTotal);
 
-        // Level up notification
+        // Always notify XP gain (small toast, auto-dismiss)
+        addNotification({
+          type: "xp_gained",
+          title: `+${amount} XP`,
+          message: getEventLabel(event.type),
+          xpAmount: amount,
+        });
+
+        // Level up notification (additional)
         if (newRank.id !== oldRank.id) {
           addNotification({
             type: "level_up",
@@ -137,6 +264,9 @@ export function useXPSystem() {
           ],
         };
       });
+
+      // Sync to Supabase so leaderboard / profile stats reflect latest XP
+      scheduleServerSync();
 
       // Check new badges
       const newBadges = checkBadges(
@@ -180,6 +310,9 @@ export function useXPSystem() {
       setXPData,
       setEarnedBadgeIds,
       addNotification,
+      dailyCounts,
+      setDailyCounts,
+      scheduleServerSync,
     ]
   );
 
@@ -210,6 +343,16 @@ export function useXPSystem() {
   useEffect(() => {
     prevRankRef.current = currentRank.id;
   }, [currentRank.id]);
+
+  // Cleanup pending sync on unmount
+  useEffect(() => {
+    return () => {
+      if (syncTimerRef.current) clearTimeout(syncTimerRef.current);
+    };
+  }, []);
+
+  // Reference profile so it updates after auth state changes (avoid stale closure)
+  void profile;
 
   return {
     totalXP: xpData.total,

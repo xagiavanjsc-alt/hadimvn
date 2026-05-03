@@ -1,84 +1,73 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import { isVipActive } from "@/lib/supabase";
+import { useIsAdmin, markAdminVerified } from "@/hooks/useIsAdmin";
 import AuthModal from "./AuthModal";
 
+// ─── Bottom bar (5 mục cốt lõi) ──────────────────────────────────────────────
 const BOTTOM_NAV = [
-  { path: "/", icon: "ri-dashboard-line", label: "Tổng quan", exact: true },
-  { path: "/topik-topic-quiz", icon: "ri-survey-line", label: "Quiz" },
-  { path: "/topik-flashcard", icon: "ri-stack-line", label: "Flashcard" },
-  { path: "/eps-exam", icon: "ri-timer-line", label: "EPS" },
-  { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ" },
+  { path: "/", icon: "ri-home-4-line", label: "Trang chủ", exact: true },
+  { path: "/learning-hub", icon: "ri-book-open-line", label: "Học" },
+  { path: "/exam-hub", icon: "ri-survey-line", label: "Thi" },
+  { path: "/community", icon: "ri-group-line", label: "Cộng đồng" },
 ];
 
+// ─── Slide-up menu — mirror desktop Sidebar (đã tối ưu gọn) ─────────────────
 const MENU_GROUPS = [
   {
-    label: "TOPIK",
+    label: "Tổng quan",
     items: [
-      { path: "/topik-dictionary", icon: "ri-search-2-line", label: "Từ điển TOPIK" },
-      { path: "/topik-topic-quiz", icon: "ri-survey-line", label: "Quiz theo chủ đề" },
-      { path: "/topik-flashcard", icon: "ri-stack-line", label: "Flashcard TOPIK" },
-      { path: "/topik-listening", icon: "ri-headphone-line", label: "Luyện nghe" },
-      { path: "/topik-reading", icon: "ri-book-read-line", label: "Luyện đọc" },
-      { path: "/topik-stats", icon: "ri-bar-chart-grouped-line", label: "Thống kê TOPIK" },
-      { path: "/topik-test", icon: "ri-file-list-2-line", label: "Thi thử TOPIK I" },
-      { path: "/topik2-test", icon: "ri-file-list-3-line", label: "Thi thử TOPIK II" },
-    ],
-  },
-  {
-    label: "EPS",
-    items: [
-      { path: "/eps", icon: "ri-file-list-3-line", label: "Luyện thi EPS" },
-      { path: "/eps-exam", icon: "ri-timer-line", label: "Thi thử EPS (40 câu)" },
-      { path: "/eps-lessons", icon: "ri-book-open-line", label: "60 Bài Học EPS" },
-      { path: "/eps-listening", icon: "ri-headphone-line", label: "Luyện nghe EPS" },
-      { path: "/eps-vocabulary", icon: "ri-translate-2", label: "Từ vựng EPS" },
-      { path: "/eps-flashcard", icon: "ri-stack-line", label: "Flashcard EPS" },
-      { path: "/eps-stats", icon: "ri-bar-chart-grouped-line", label: "Thống kê EPS" },
-    ],
-  },
-  {
-    label: "Học tiếng Hàn",
-    items: [
-      { path: "/hangul", icon: "ri-font-size", label: "Bảng chữ Hangul" },
-      { path: "/hangul-write", icon: "ri-edit-2-line", label: "Luyện viết Hangul" },
-      { path: "/vocabulary", icon: "ri-translate-2", label: "Từ vựng tổng hợp" },
-      { path: "/grammar", icon: "ri-book-2-line", label: "Ngữ pháp" },
-      { path: "/flashcard", icon: "ri-stack-line", label: "Flashcard" },
-      { path: "/daily-review", icon: "ri-sun-line", label: "Ôn tập hàng ngày" },
-      { path: "/placement-test", icon: "ri-brain-line", label: "Kiểm tra đầu vào" },
-      { path: "/smart-review", icon: "ri-brain-line", label: "Ôn tập thông minh" },
-    ],
-  },
-  {
-    label: "Seoul",
-    items: [
-      { path: "/seoul-textbook", icon: "ri-book-3-line", label: "Giáo Trình Seoul" },
-      { path: "/seoul-flashcard", icon: "ri-stack-line", label: "Flashcard Seoul" },
-      { path: "/seoul-exam", icon: "ri-file-list-2-line", label: "Bài thi thử Seoul" },
-      { path: "/seoul-dictionary", icon: "ri-search-2-line", label: "Từ điển Seoul" },
-    ],
-  },
-  {
-    label: "Cộng đồng",
-    items: [
-      { path: "/community", icon: "ri-group-line", label: "Cộng đồng" },
+      { path: "/learning-hub", icon: "ri-dashboard-line", label: "Learning Hub" },
+      { path: "/exam-hub", icon: "ri-file-list-3-line", label: "Exam Hub" },
+      { path: "/flashcard-hub", icon: "ri-stack-line", label: "Flashcard Hub" },
       { path: "/leaderboard", icon: "ri-trophy-line", label: "Bảng xếp hạng" },
-      { path: "/friend-streak", icon: "ri-fire-line", label: "Streak bạn bè" },
-      { path: "/weekly-challenge", icon: "ri-trophy-line", label: "Thử thách tuần" },
-      { path: "/achievements", icon: "ri-medal-line", label: "Huy hiệu" },
+    ],
+  },
+  {
+    label: "Học tập",
+    items: [
+      { path: "/eps-lessons", icon: "ri-file-list-3-line", label: "EPS (Lao động)" },
+      { path: "/seoul-textbook", icon: "ri-book-3-line", label: "Seoul (Du học)" },
+      { path: "/topik-test", icon: "ri-survey-line", label: "TOPIK (Chứng chỉ)" },
+      { path: "/hanja-detail", icon: "ri-character-recognition-line", label: "Hán Hàn" },
+    ],
+  },
+  {
+    label: "Hán Hàn VIP",
+    items: [
+      { path: "/hanja-tree", icon: "ri-git-merge-line", label: "Hình cây từ vựng" },
+      { path: "/hanja-pro", icon: "ri-character-recognition-line", label: "Hán Hàn Chuyên Sâu" },
+      { path: "/hanja-dashboard", icon: "ri-bar-chart-2-line", label: "Tiến độ & Streak" },
+      { path: "/advanced-dictionary", icon: "ri-search-2-line", label: "Tra cứu Hán Hàn" },
+    ],
+  },
+  {
+    label: "AI & Kỹ năng",
+    items: [
+      { path: "/ai-chatbot", icon: "ri-robot-2-line", label: "Gia sư AI" },
+      { path: "/ai-pronunciation", icon: "ri-mic-line", label: "Phát âm" },
+      { path: "/ai-writing", icon: "ri-quill-pen-line", label: "Viết & Dịch" },
+      { path: "/kdrama-learn", icon: "ri-film-line", label: "Phim & K-pop" },
+    ],
+  },
+  {
+    label: "Cá nhân",
+    items: [
+      { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ" },
+      { path: "/study-stats", icon: "ri-bar-chart-2-line", label: "Thống kê học tập" },
+      { path: "/daily-words", icon: "ri-sun-line", label: "Từ mới hôm nay" },
+      { path: "/learning-roadmap", icon: "ri-route-line", label: "Lộ trình học" },
+      { path: "/share-progress", icon: "ri-share-line", label: "Chia sẻ tiến độ" },
       { path: "/rewards", icon: "ri-gift-line", label: "Phần thưởng & XP" },
     ],
   },
   {
-    label: "Công cụ học tập",
+    label: "Khác",
     items: [
-      { path: "/phrase-dictionary", icon: "ri-chat-3-line", label: "Từ điển giao tiếp" },
-      { path: "/eps-topic-dictionary", icon: "ri-book-open-line", label: "Từ điển EPS chủ đề" },
-      { path: "/eps-wrong-topic", icon: "ri-error-warning-line", label: "Ôn tập sai EPS" },
-      { path: "/study-journal", icon: "ri-draft-line", label: "Nhật ký học tập" },
-      { path: "/study-history", icon: "ri-bar-chart-line", label: "Lịch sử học tập" },
-      { path: "/conversation", icon: "ri-message-3-line", label: "Tiếng Hàn giao tiếp" },
+      { path: "/pricing", icon: "ri-vip-crown-line", label: "Gói VIP" },
+      { path: "/feedback", icon: "ri-chat-smile-2-line", label: "Góp ý" },
+      { path: "/report-bug", icon: "ri-bug-line", label: "Báo lỗi" },
     ],
   },
 ];
@@ -87,11 +76,17 @@ export default function MobileNav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   const { user, profile, signOut } = useAuth();
+  const isAdminDetected = useIsAdmin();
   const navigate = useNavigate();
+
+  // Filter Hán Hàn VIP group nếu chưa VIP
+  const groups = MENU_GROUPS.filter(g =>
+    g.label !== "Hán Hàn VIP" || (user && isVipActive(profile))
+  );
 
   return (
     <>
-      {/* Bottom Navigation Bar */}
+      {/* Bottom Navigation Bar — 5 mục cốt lõi + nút Thêm */}
       <nav className="fixed bottom-0 left-0 right-0 z-40 bg-app-bg border-t border-app-border flex md:hidden">
         {BOTTOM_NAV.map((item) => (
           <NavLink
@@ -110,7 +105,6 @@ export default function MobileNav() {
             <span className="text-[10px] font-medium">{item.label}</span>
           </NavLink>
         ))}
-        {/* More button */}
         <button
           onClick={() => setMenuOpen(true)}
           className="flex-1 flex flex-col items-center justify-center py-2.5 gap-0.5 text-white/35 hover:text-white/60 cursor-pointer"
@@ -125,19 +119,15 @@ export default function MobileNav() {
       {/* Full-screen slide-up menu */}
       {menuOpen && (
         <div className="fixed inset-0 z-50 md:hidden">
-          {/* Backdrop */}
           <div
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={() => setMenuOpen(false)}
           />
-          {/* Panel */}
           <div className="absolute bottom-0 left-0 right-0 bg-app-bg rounded-t-2xl max-h-[85vh] flex flex-col">
-            {/* Handle */}
             <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
               <div className="w-10 h-1 rounded-full bg-white/15"></div>
             </div>
 
-            {/* Header */}
             <div className="flex items-center justify-between px-5 py-3 border-b border-app-border flex-shrink-0">
               <div className="flex items-center gap-3">
                 <img
@@ -155,7 +145,6 @@ export default function MobileNav() {
               </button>
             </div>
 
-            {/* User info */}
             <div className="px-5 py-3 border-b border-app-border flex-shrink-0">
               {user ? (
                 <div className="flex items-center justify-between">
@@ -165,7 +154,9 @@ export default function MobileNav() {
                     </div>
                     <div>
                       <p className="text-white/80 text-sm font-medium">{profile?.display_name || "Học viên"}</p>
-                      <p className="text-app-text-muted text-xs">Đã đăng nhập</p>
+                      <p className="text-app-text-muted text-xs">
+                        {isVipActive(profile) ? "VIP" : "Đã đăng nhập"}
+                      </p>
                     </div>
                   </div>
                   <button
@@ -189,11 +180,23 @@ export default function MobileNav() {
               )}
             </div>
 
-            {/* Scrollable nav list */}
             <div className="overflow-y-auto flex-1 px-4 py-3 pb-6 space-y-4">
-              {MENU_GROUPS.map((group) => (
+              {/* Admin shortcut */}
+              {user && isAdminDetected && (
+                <button
+                  onClick={() => { markAdminVerified(); navigate("/admin"); setMenuOpen(false); }}
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl"
+                  style={{ backgroundColor: "rgba(244,63,94,0.08)", border: "1px solid rgba(244,63,94,0.20)" }}
+                >
+                  <i className="ri-shield-keyhole-line text-rose-400 text-base"></i>
+                  <span className="text-xs font-semibold text-rose-400 flex-1 text-left">Trang quản lý admin</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
+                </button>
+              )}
+
+              {groups.map((group) => (
                 <div key={group.label}>
-                  <p className="text-app-text-muted text-[10px] tracking-normal px-2 mb-2">{group.label}</p>
+                  <p className="text-app-text-muted text-[10px] tracking-normal px-2 mb-2 uppercase">{group.label}</p>
                   <div className="grid grid-cols-2 gap-1.5">
                     {group.items.map((item) => (
                       <NavLink
@@ -217,51 +220,6 @@ export default function MobileNav() {
                   </div>
                 </div>
               ))}
-
-              {/* Landing page link */}
-              <div>
-                <p className="text-app-text-muted text-[10px] tracking-normal px-2 mb-2">Khác</p>
-                <div className="grid grid-cols-2 gap-1.5">
-                  <NavLink
-                    to="/landing"
-                    onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs text-white/50 hover:text-white/80 hover:bg-app-card/50"
-                  >
-                    <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
-                      <i className="ri-global-line text-sm"></i>
-                    </div>
-                    <span>Landing Page</span>
-                  </NavLink>
-                  <NavLink
-                    to="/pricing"
-                    onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs text-white/50 hover:text-white/80 hover:bg-app-card/50"
-                  >
-                    <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
-                      <i className="ri-vip-crown-line text-sm"></i>
-                    </div>
-                    <span>Gói VIP</span>
-                  </NavLink>
-                  <NavLink
-                    to="/feedback"
-                    onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs text-white/50 hover:text-white/80 hover:bg-app-card/50"
-                  >
-                    <i className="ri-chat-smile-2-line text-sm"></i>
-                    Góp ý &amp; Đánh giá
-                  </NavLink>
-                  <NavLink
-                    to="/report-bug"
-                    onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs text-white/50 hover:text-white/80 hover:bg-app-card/50"
-                  >
-                    <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
-                      <i className="ri-bug-line text-sm"></i>
-                    </div>
-                    <span>Báo cáo lỗi</span>
-                  </NavLink>
-                </div>
-              </div>
             </div>
           </div>
         </div>

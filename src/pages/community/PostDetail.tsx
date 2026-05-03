@@ -100,6 +100,7 @@ interface Comment {
   content: string;
   likes: number;
   created_at: string;
+  status?: "pending" | "approved" | "rejected" | null;
   replies?: Comment[];
 }
 
@@ -152,6 +153,16 @@ function CommentThread({
             <span className="text-white/90 text-sm font-semibold">{comment.author_name}</span>
             <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-app-card/50 text-app-text-muted">{comment.author_level}</span>
             <span className="text-[10px] text-app-text-muted">{timeAgo(comment.created_at)}</span>
+            {comment.status === "pending" && (
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/25">
+                <i className="ri-time-line mr-0.5"></i>Đang chờ duyệt
+              </span>
+            )}
+            {comment.status === "rejected" && (
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/25">
+                <i className="ri-close-circle-line mr-0.5"></i>Bị từ chối
+              </span>
+            )}
           </div>
           <p className="text-white/65 text-sm leading-relaxed">{comment.content}</p>
           <div className="flex items-center gap-4 mt-2">
@@ -241,17 +252,23 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
   const handleSubmitComment = async () => {
     if (!commentText.trim() || !user || submitting) return;
     setSubmitting(true);
-    await supabase.from("community_comments").insert({
+    const { error } = await supabase.from("community_comments").insert({
       post_id: postId,
       parent_id: replyTo?.id || null,
       user_id: user.id,
       author_name: profile?.display_name || "Học viên",
       author_level: "Học viên",
       content: commentText.trim(),
+      status: "pending",
     });
-    setCommentText("");
-    setReplyTo(null);
-    await fetchData();
+    if (error) {
+      alert(`Lỗi gửi bình luận: ${error.message}`);
+    } else {
+      setCommentText("");
+      setReplyTo(null);
+      await fetchData();
+      alert("Bình luận đã gửi — đang chờ quản trị viên duyệt.");
+    }
     setSubmitting(false);
   };
 
