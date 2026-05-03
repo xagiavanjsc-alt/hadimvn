@@ -9,6 +9,60 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useToast, ToastContainer } from "@/components/common/ToastNotification";
 import { communitySlug } from "@/lib/slugify";
 
+// ─── SEO Component for Community Page ───────────────────────────────────────────────
+function CommunitySEO({ category, search }: { category: Category; search: string }) {
+  useEffect(() => {
+    const catConfig = CATEGORY_CONFIG[category];
+    let title = "Cộng đồng Hàn Quốc Ơi!";
+    let description = "Hỏi đáp, chia sẻ kinh nghiệm và cùng nhau tiến bộ";
+
+    if (category !== "all") {
+      title = `${catConfig.label} - ${title}`;
+      description = `Xem tất cả bài viết ${catConfig.label} trong cộng đồng Hàn Quốc Ơi!`;
+    }
+
+    if (search.trim()) {
+      title = `Kết quả tìm kiếm: "${search}" - ${title}`;
+      description = `Tìm kiếm "${search}" trong cộng đồng Hàn Quốc Ơi!`;
+    }
+
+    document.title = title;
+
+    // Update meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', description);
+    }
+
+    // Update Open Graph tags
+    updateMetaTag('og:title', title);
+    updateMetaTag('og:description', description);
+    updateMetaTag('og:type', 'website');
+    updateMetaTag('og:url', window.location.href);
+
+    // Update Twitter Card tags
+    updateMetaTag('twitter:title', title);
+    updateMetaTag('twitter:description', description);
+    updateMetaTag('twitter:card', 'summary');
+
+    return () => {
+      // Cleanup if needed
+    };
+  }, [category, search]);
+
+  return null;
+}
+
+function updateMetaTag(property: string, content: string) {
+  let tag = document.querySelector(`meta[property="${property}"]`) || document.querySelector(`meta[name="${property}"]`);
+  if (!tag) {
+    tag = document.createElement('meta');
+    tag.setAttribute(property.startsWith('twitter:') ? 'name' : 'property', property);
+    document.head.appendChild(tag);
+  }
+  tag.setAttribute('content', content);
+}
+
 // ─── Rich Text Editor Component (WordPress-like, no external deps) ────────────
 function RichEditor({ value, onChange, placeholder, onImageUpload }: {
   value: string;
@@ -1346,6 +1400,7 @@ export default function CommunityPage() {
 
   return (
     <>
+    <CommunitySEO category={category} search={search} />
     <CommunityFAQSchema />
     <ToastContainer toasts={toasts} removeToast={removeToast} />
     <DashboardLayout
