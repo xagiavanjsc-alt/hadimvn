@@ -112,7 +112,7 @@ export default function EpsSpeakingPage() {
   const [sessionStats, setSessionStats] = useState({ correct: 0, total: 0, xpEarned: 0 });
   const [pronHistory, setPronHistory] = useLocalStorage<PronunciationRecord[]>("kts_pron_history", []);
   const [showStats, setShowStats] = useState(false);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const recognitionRef = useRef<any>(null);
   const synthRef = useRef<SpeechSynthesis | null>(null);
 
   const topics = ["Tất cả", ...Array.from(new Set(speakingQuestions.map(q => q.topic)))];

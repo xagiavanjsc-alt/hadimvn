@@ -69,6 +69,7 @@ interface VipTransaction {
 
 interface UserProfile {
   id: string;
+  email?: string;
   display_name: string;
   is_vip: boolean;
   vip_expires_at: string | null;

@@ -8,6 +8,7 @@ export type QuestionType =
   | "listen_choose_answer"    // Nghe hội thoại → chọn câu trả lời đúng
   | "listen_choose_topic"     // Nghe → chọn chủ đề
   | "listen_choose_feeling"   // Nghe → chọn cảm xúc nhân vật
+  | "listen_choose_detail"    // Nghe → chọn chi tiết
   | "read_choose_word"        // Đọc → chọn từ điền vào chỗ trống
   | "read_choose_meaning"     // Đọc → chọn nghĩa của từ/câu
   | "read_choose_same"        // Đọc → chọn câu có nghĩa tương đương
@@ -22,6 +23,7 @@ export interface TopikQuestion {
   passage?: string;       // đoạn văn/hội thoại
   passageVi?: string;     // dịch nghĩa
   question: string;
+  questionKr?: string;   // Alias for backward compatibility
   questionVi: string;
   options: string[];
   optionsVi: string[];

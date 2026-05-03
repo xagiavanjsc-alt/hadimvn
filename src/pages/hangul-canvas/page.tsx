@@ -89,7 +89,7 @@ export default function HangulCanvasPage() {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const guideCanvasRef = useRef<HTMLCanvasElement>(null);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const recognitionRef = useRef<any>(null);
   const [speechRecords, setSpeechRecords] = useLocalStorage<SpeechRecord[]>("hangul_speech_records", []);
   const [isListening, setIsListening] = useState(false);
   const [speechResult, setSpeechResult] = useState<{ recognized: string; correct: boolean; xp: number } | null>(null);
@@ -257,8 +257,7 @@ export default function HangulCanvasPage() {
     : 0;
 
   const startSpeechRecognition = () => {
-    const SpeechRecognitionAPI = (window as unknown as { SpeechRecognition?: typeof SpeechRecognition; webkitSpeechRecognition?: typeof SpeechRecognition }).SpeechRecognition
-      || (window as unknown as { SpeechRecognition?: typeof SpeechRecognition; webkitSpeechRecognition?: typeof SpeechRecognition }).webkitSpeechRecognition;
+    const SpeechRecognitionAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
     if (!SpeechRecognitionAPI) {
       setSpeechError("Trình duyệt không hỗ trợ nhận dạng giọng nói. Hãy dùng Chrome.");
@@ -275,7 +274,7 @@ export default function HangulCanvasPage() {
     recognition.interimResults = false;
     recognition.maxAlternatives = 5;
 
-    recognition.onresult = (event: SpeechRecognitionEvent) => {
+    recognition.onresult = (event: any) => {
       setIsListening(false);
       const results = Array.from(event.results[0]).map((r: { transcript: string }) => r.transcript.trim());
       const recognized = results[0] || "";

@@ -44,10 +44,10 @@ function useSpeechRecognition() {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const recognitionRef = useRef<any>(null);
 
   const startListening = useCallback(() => {
-    const SpeechRecognitionAPI = (window as unknown as { SpeechRecognition?: typeof SpeechRecognition; webkitSpeechRecognition?: typeof SpeechRecognition }).SpeechRecognition || (window as unknown as { webkitSpeechRecognition?: typeof SpeechRecognition }).webkitSpeechRecognition;
+    const SpeechRecognitionAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognitionAPI) {
       setError("Trình duyệt không hỗ trợ nhận diện giọng nói. Hãy dùng Chrome.");
       return;
@@ -59,11 +59,11 @@ function useSpeechRecognition() {
     recognition.maxAlternatives = 3;
 
     recognition.onstart = () => { setIsListening(true); setTranscript(""); setError(null); };
-    recognition.onresult = (e: SpeechRecognitionEvent) => {
+    recognition.onresult = (e: any) => {
       const result = Array.from(e.results).map(r => r[0].transcript).join("");
       setTranscript(result);
     };
-    recognition.onerror = (e: SpeechRecognitionErrorEvent) => {
+    recognition.onerror = (e: any) => {
       setError(`Lỗi: ${e.error === "no-speech" ? "Không nghe thấy giọng nói" : e.error}`);
       setIsListening(false);
     };
