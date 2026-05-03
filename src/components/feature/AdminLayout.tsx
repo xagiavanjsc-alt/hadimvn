@@ -4,7 +4,6 @@ import { useAuth } from "@/hooks/useAuth";
 import { useAdminTheme, adminThemeVars } from "@/hooks/useAdminTheme";
 import { useAdminNotifications } from "@/hooks/useAdminNotifications";
 import { relativeTime } from "@/utils/exportUtils";
-import { AdminToastProvider } from "@/contexts/AdminToastContext";
 import AdminGuard from "@/components/feature/AdminGuard";
 import { getRole, hasPermission, type Permission } from "@/lib/permissions";
 
@@ -407,7 +406,6 @@ export default function AdminLayout({
 
   return (
     <AdminGuard>
-    <AdminToastProvider>
       <div className="flex min-h-screen" style={{ backgroundColor: "var(--admin-bg)" }}>
 
         {/* ── Sidebar ── */}
@@ -622,7 +620,6 @@ export default function AdminLayout({
           </main>
         </div>
       </div>
-    </AdminToastProvider>
     </AdminGuard>
   );
 }

@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Không cho index các trang cá nhân / admin
+Disallow: /admin
+Disallow: /admin/
+Disallow: /account-settings
+Disallow: /settings
+Disallow: /profile
+Disallow: /notification-settings
+Disallow: /onboarding
+
+# Cho phép Googlebot crawl ảnh
+User-agent: Googlebot-Image
+Allow: /
+
+Sitemap: https://hadim.vn/sitemap.xml

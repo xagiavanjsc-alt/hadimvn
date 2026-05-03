@@ -3,85 +3,58 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase, resolveStoragePaths } from "@/lib/supabase";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
-// ─── SEO Component ─────────────────────────────────────────────────────────────
-function PostSEO({ post }: { post: Post }) {
-  useEffect(() => {
-    // Update document title
-    document.title = `${post.title} - Cộng đồng Hàn Quốc Ơi!`;
+// ─── SEO Component (uses usePageSEO) ──────────────────────────────────────────
+function PostSEO({ post, slug }: { post: Post; slug: string }) {
+  const plainText = post.content.replace(/<[^>]*>/g, '').slice(0, 300);
+  const imageMatch = post.content.match(/<img[^>]+src=["']([^"']+)["']/);
+  const firstImage = imageMatch?.[1];
 
-    // Update meta description
-    const plainText = post.content.replace(/<[^>]*>/g, '').slice(0, 160);
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', plainText);
-    }
-
-    // Add Open Graph tags
-    updateMetaTag('og:title', post.title);
-    updateMetaTag('og:description', plainText);
-    updateMetaTag('og:type', 'article');
-    updateMetaTag('og:url', window.location.href);
-
-    // Add Twitter Card tags
-    updateMetaTag('twitter:title', post.title);
-    updateMetaTag('twitter:description', plainText);
-    updateMetaTag('twitter:card', 'summary_large_image');
-
-    // Add structured data (Article) - index theo tiêu đề bài viết
-    const schema: Record<string, unknown> = {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": post.title,
-      "description": plainText,
-      "author": {
-        "@type": "Person",
-        "name": post.author_name
+  const schema: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "description": plainText.slice(0, 160),
+    "author": { "@type": "Person", "name": post.author_name },
+    "datePublished": post.created_at,
+    "dateModified": post.created_at,
+    "image": firstImage || undefined,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://hadim.vn/community/${slug}`,
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Hàn Quốc Ơi!",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png",
       },
-      "datePublished": post.created_at,
-      "dateModified": post.created_at,
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": window.location.href
-      }
+    },
+  };
+
+  if (post.rating_count && post.rating_count > 0 && post.rating_average) {
+    schema.aggregateRating = {
+      "@type": "AggregateRating",
+      "ratingValue": post.rating_average.toFixed(1),
+      "ratingCount": post.rating_count,
+      "bestRating": "5",
+      "worstRating": "1",
     };
+  }
 
-    // AggregateRating: hiện sao trên Google search results khi có ≥1 rating approved
-    if (post.rating_count && post.rating_count > 0 && post.rating_average) {
-      schema.aggregateRating = {
-        "@type": "AggregateRating",
-        "ratingValue": post.rating_average.toFixed(1),
-        "ratingCount": post.rating_count,
-        "bestRating": "5",
-        "worstRating": "1"
-      };
-    }
-
-    const existingSchema = document.getElementById('post-schema');
-    if (existingSchema) existingSchema.remove();
-
-    const script = document.createElement('script');
-    script.id = 'post-schema';
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(schema);
-    document.head.appendChild(script);
-
-    return () => {
-      if (existingSchema) existingSchema.remove();
-    };
-  }, [post]);
+  usePageSEO({
+    title: `${post.title} - Cộng đồng Hàn Quốc Ơi!`,
+    description: plainText.slice(0, 160),
+    path: `/community/${slug}`,
+    image: firstImage,
+    ogType: "article",
+    keywords: post.tags?.join(", "),
+    jsonLd: schema,
+  });
 
   return null;
-}
-
-function updateMetaTag(property: string, content: string) {
-  let tag = document.querySelector(`meta[property="${property}"]`) || document.querySelector(`meta[name="${property}"]`);
-  if (!tag) {
-    tag = document.createElement('meta');
-    tag.setAttribute(property.startsWith('twitter:') ? 'name' : 'property', property);
-    document.head.appendChild(tag);
-  }
-  tag.setAttribute('content', content);
 }
 
 interface Post {
@@ -569,7 +542,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
 
   return (
     <>
-      {post && <PostSEO post={post} />}
+      {post && <PostSEO post={post} slug={titleSlug || resolvedPostId} />}
       <DashboardLayout
         title="Chi tiết bài đăng"
         subtitle="Cộng đồng Hàn Quốc Ơi!"
