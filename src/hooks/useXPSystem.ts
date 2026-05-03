@@ -5,6 +5,9 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 import { computeXP, deriveLevel } from "@/lib/xp";
 
+/**
+ * XP event types for tracking user achievements
+ */
 export interface XPEvent {
   type:
     | "flashcard_learned"
@@ -26,6 +29,9 @@ export interface XPEvent {
   meta?: Record<string, unknown>;
 }
 
+/**
+ * XP notification for displaying to user
+ */
 export interface XPNotification {
   id: string;
   type: "level_up" | "badge_earned" | "xp_gained";
@@ -36,6 +42,10 @@ export interface XPNotification {
   badgeId?: string;
   timestamp: number;
 }
+
+/**
+ * XP rewards configuration for each event type
+ */
 
 const XP_REWARDS: Record<XPEvent["type"], number> = {
   flashcard_learned: 5,
@@ -105,12 +115,24 @@ function getEventLabel(type: XPEvent["type"]): string {
   return EVENT_LABELS[type] || "Hoạt động học";
 }
 
+/**
+ * Get rank for given XP amount
+ * @param xp - Total XP points
+ * @returns Rank object with minimum XP threshold
+ */
 function getRankForXP(xp: number) {
   return (
     [...RANKS].reverse().find((r) => xp >= r.minXP) || RANKS[0]
   );
 }
 
+/**
+ * Check if user has earned new badges based on XP and streak
+ * @param xp - Total XP points
+ * @param streak - Current streak count
+ * @param earnedBadgeIds - IDs of badges already earned
+ * @returns Array of newly earned badge IDs
+ */
 function checkBadges(
   xp: number,
   streak: number,
@@ -126,6 +148,19 @@ function checkBadges(
   return newBadges;
 }
 
+/**
+ * Main hook for XP system - tracks user XP, ranks, badges, and notifications
+ * Provides functions to add XP events, dismiss notifications, and clear notifications
+ * 
+ * @returns Object containing:
+ * - xp: Total XP points
+ * - rank: Current rank object
+ * - badges: Earned badges
+ * - notifications: XP notifications to display
+ * - addXPEvent: Function to add an XP event
+ * - dismissNotification: Function to dismiss a notification
+ * - clearAllNotifications: Function to clear all notifications
+ */
 export function useXPSystem() {
   const [xpData, setXPData] = useLocalStorage<{
     total: number;
