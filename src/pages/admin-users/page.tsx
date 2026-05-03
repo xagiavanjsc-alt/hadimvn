@@ -799,7 +799,7 @@ function LoginSessionsPanel() {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function AdminUsersPage() {
-  const { users, loading, error, refetch, updateVip, updateAdmin } = useAdminUsers();
+  const { users, loading, error, refetch, updateAdmin } = useAdminUsers();
   const [search, setSearch] = useState("");
   const [filterRole, setFilterRole] = useState<"all" | "vip" | "admin" | "free">("all");
   const [sortBy, setSortBy] = useState<"newest" | "xp" | "streak" | "active" | "vip_expiry">("newest");
@@ -855,20 +855,19 @@ export default function AdminUsersPage() {
 
   const handleToggleVip = useCallback(async (id: string, cur: boolean) => {
     try {
-      if (cur) {
-        // Revoke VIP via edge function
-        const res = await supabase.functions.invoke("admin-grant-vip", {
-          body: { action: "revoke_vip", userId: id },
-        });
-        if (res.error || res.data?.error) throw new Error(res.error?.message || res.data?.error || "Lỗi");
-      } else {
-        await updateVip(id, true);
+      const action = cur ? "revoke_vip" : "grant_vip";
+      const body: Record<string, unknown> = { action, userId: id };
+      if (!cur) {
+        body.vipType = "month";
+        body.expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
       }
+      const res = await supabase.functions.invoke("admin-grant-vip", { body });
+      if (res.error || res.data?.error) throw new Error(res.error?.message || res.data?.error || "Lỗi");
       showMsg(!cur ? "Đã cấp VIP" : "Đã hủy VIP");
       setSelectedUser(prev => prev?.id === id ? { ...prev, is_vip: !cur } : prev);
       refetch();
     } catch { showMsg("Lỗi cập nhật VIP", "err"); }
-  }, [updateVip, refetch]);
+  }, [refetch]);
 
   const handleToggleAdmin = useCallback(async (id: string, cur: boolean) => {
     try {
