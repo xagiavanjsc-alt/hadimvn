@@ -1,6 +1,7 @@
-import { ReactNode } from "react";
+import { ReactNode, memo } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import AdminGuard from "./AdminGuard";
 import { getRole, hasPermission, type Permission } from "@/lib/permissions";
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
   redirectTo?: string;
 }
 
-export default function RequirePermission({ permission, children, redirectTo = "/admin" }: Props) {
+function RequirePermission({ permission, children, redirectTo = "/admin" }: Props) {
   const { profile, loading } = useAuth();
 
   if (loading) {
@@ -42,3 +43,6 @@ export default function RequirePermission({ permission, children, redirectTo = "
 
   return <>{children}</>;
 }
+
+const MemoizedRequirePermission = memo(RequirePermission);
+export default MemoizedRequirePermission;

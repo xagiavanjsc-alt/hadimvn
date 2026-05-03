@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, memo } from "react";
+import html2canvas from "html2canvas";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 interface ShareResultModalProps {
   score: number;
@@ -8,7 +10,7 @@ interface ShareResultModalProps {
   onClose: () => void;
 }
 
-export default function ShareResultModal({ score, total, level, quizType, onClose }: ShareResultModalProps) {
+function ShareResultModal({ score, total, level, quizType, onClose }: ShareResultModalProps) {
   const [copied, setCopied] = useState(false);
   const pct = Math.round((score / total) * 100);
   const emoji = pct >= 80 ? "🏆" : pct >= 60 ? "⭐" : "💪";
@@ -138,3 +140,6 @@ export default function ShareResultModal({ score, total, level, quizType, onClos
     </div>
   );
 }
+
+const MemoizedShareResultModal = memo(ShareResultModal);
+export default MemoizedShareResultModal;

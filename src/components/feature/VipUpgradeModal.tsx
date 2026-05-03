@@ -1,4 +1,5 @@
 ﻿import { useNavigate } from "react-router-dom";
+import { memo } from "react";
 
 interface VipUpgradeModalProps {
   open: boolean;
@@ -55,7 +56,7 @@ function PlanCell({ value }: { value: boolean | string }) {
   return <span className="text-app-accent-primary text-xs font-semibold">{value}</span>;
 }
 
-export default function VipUpgradeModal({ open, onClose, reason, featureName }: VipUpgradeModalProps) {
+function VipUpgradeModal({ open, onClose, reason, featureName }: VipUpgradeModalProps) {
   const navigate = useNavigate();
   if (!open) return null;
 
@@ -148,3 +149,6 @@ export default function VipUpgradeModal({ open, onClose, reason, featureName }: 
     </div>
   );
 }
+
+const MemoizedVipUpgradeModal = memo(VipUpgradeModal);
+export default MemoizedVipUpgradeModal;

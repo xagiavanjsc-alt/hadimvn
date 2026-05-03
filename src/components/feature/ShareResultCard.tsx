@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect, memo } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 interface ShareHistoryItem {
@@ -21,7 +21,7 @@ interface ShareResultCardProps {
   onClose: () => void;
 }
 
-export default function ShareResultCard({
+function ShareResultCard({
   type,
   score = 0,
   total = 0,
@@ -320,3 +320,6 @@ export default function ShareResultCard({
     </div>
   );
 }
+
+const MemoizedShareResultCard = memo(ShareResultCard);
+export default MemoizedShareResultCard;

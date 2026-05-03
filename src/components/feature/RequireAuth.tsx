@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, memo } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "./AuthModal";
 import DashboardLayout from "./DashboardLayout";
@@ -14,7 +14,7 @@ interface RequireAuthProps {
  * Guest sẽ thấy placeholder + nút đăng nhập, không render children.
  * Có AuthModal tích hợp sẵn.
  */
-export default function RequireAuth({
+function RequireAuth({
   children,
   title = "Cần đăng nhập",
   message = "Tính năng này chỉ dành cho thành viên đã đăng nhập.",
@@ -57,3 +57,6 @@ export default function RequireAuth({
 
   return <>{children}</>;
 }
+
+const MemoizedRequireAuth = memo(RequireAuth);
+export default MemoizedRequireAuth;
