@@ -1,13 +1,17 @@
 // ─── Service Worker — Hàn Quốc Ơi! (Full Offline PWA) ────────────────────────
-const CACHE_VERSION = "v7";
+// IMPORTANT: bump CACHE_VERSION on every breaking change so old caches are
+// dropped on activate. Stale HTML referencing old hashed chunks is the #1
+// cause of "black screen after login" on phones/macbooks.
+const CACHE_VERSION = "v8";
 const CACHE_NAME = `hanquocoi-${CACHE_VERSION}`;
 const FONT_CACHE = `hanquocoi-fonts-${CACHE_VERSION}`;
 const IMAGE_CACHE = `hanquocoi-images-${CACHE_VERSION}`;
 const VOCAB_CACHE = `hanquocoi-vocab-${CACHE_VERSION}`;
 
-// Assets to pre-cache on install
+// Assets to pre-cache on install. DO NOT include "/" - caching index.html
+// causes the SW to serve stale HTML referencing old chunk hashes after a
+// deploy, leading to broken pages (black screen).
 const PRECACHE_URLS = [
-  "/",
   "/offline.html",
 ];
 
@@ -207,16 +211,18 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // HTML navigation — Network First with offline fallback
+  // HTML navigation — Network ONLY with offline page fallback.
+  // Critical: never serve stale cached HTML. After a deploy, a cached
+  // index.html references chunk hashes that no longer exist on the server,
+  // resulting in a black screen. Always go to network; on failure, show the
+  // offline page (which is static and doesn't reference hashed chunks).
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request).catch(() =>
-        caches.match(request).then(cached =>
-          cached || caches.match("/").then(root =>
-            root || new Response(
-              `<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hàn Quốc Ơi! - Offline</title><style>body{font-family:sans-serif;background:#0f1117;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;text-align:center}h1{font-size:2rem;margin-bottom:1rem}p{color:rgba(255,255,255,.5)}button{margin-top:1.5rem;padding:.75rem 2rem;background:#e8c84a;color:#000;border:none;border-radius:.5rem;font-weight:700;cursor:pointer;font-size:1rem}</style></head><body><div><h1>📚 Hàn Quốc Ơi!</h1><p>Bạn đang offline. Một số tính năng cần kết nối internet.</p><button onclick="location.reload()">Thử lại</button></div></body></html>`,
-              { headers: { "Content-Type": "text/html" } }
-            )
+        caches.match("/offline.html").then(off =>
+          off || new Response(
+            `<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hàn Quốc Ơi! - Offline</title><style>body{font-family:sans-serif;background:#0f1117;color:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;text-align:center}h1{font-size:2rem;margin-bottom:1rem}p{color:rgba(255,255,255,.5)}button{margin-top:1.5rem;padding:.75rem 2rem;background:#e8c84a;color:#000;border:none;border-radius:.5rem;font-weight:700;cursor:pointer;font-size:1rem}</style></head><body><div><h1>📚 Hàn Quốc Ơi!</h1><p>Bạn đang offline. Một số tính năng cần kết nối internet.</p><button onclick="location.reload()">Thử lại</button></div></body></html>`,
+            { headers: { "Content-Type": "text/html" } }
           )
         )
       )

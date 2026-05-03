@@ -112,5 +112,55 @@
   <body style="background-color:#0f1117;margin:0;padding:0;">
     <div id="root" style="background-color:#0f1117;"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <!-- ─── Boot watchdog ─────────────────────────────────────────────────
+         If React fails to mount within 6 seconds (typically because the
+         service worker served a stale index.html referencing chunk hashes
+         that no longer exist), unregister the SW, clear caches, and force
+         a hard reload. This rescues users from the "black screen after
+         login" issue on phones / MacBooks. -->
+    <script>
+      (function () {
+        var BOOT_TIMEOUT_MS = 6000;
+        var RECOVERY_KEY = 'kts_boot_recovery_at';
+        function recover() {
+          var root = document.getElementById('root');
+          if (root && root.children.length > 0) return; // React mounted, OK
+          var last = Number(sessionStorage.getItem(RECOVERY_KEY) || 0);
+          if (Date.now() - last < 30000) return;
+          sessionStorage.setItem(RECOVERY_KEY, String(Date.now()));
+          console.warn('[BootWatchdog] React did not mount — clearing SW/cache and reloading');
+          var done = function () {
+            try { window.location.reload(); } catch (e) {}
+          };
+          var pending = 0;
+          var allDone = function () { pending--; if (pending <= 0) done(); };
+          if ('caches' in window) {
+            pending++;
+            caches.keys().then(function (keys) {
+              return Promise.all(keys.map(function (k) { return caches.delete(k); }));
+            }).then(allDone).catch(allDone);
+          }
+          if ('serviceWorker' in navigator) {
+            pending++;
+            navigator.serviceWorker.getRegistrations().then(function (regs) {
+              return Promise.all(regs.map(function (r) { return r.unregister(); }));
+            }).then(allDone).catch(allDone);
+          }
+          if (pending === 0) done();
+        }
+        var t = setTimeout(recover, BOOT_TIMEOUT_MS);
+        window.addEventListener('error', function (e) {
+          var msg = (e && e.message) || '';
+          if (
+            msg.indexOf('Failed to fetch dynamically imported module') !== -1 ||
+            msg.indexOf('Importing a module script failed') !== -1 ||
+            /Loading chunk .+ failed/.test(msg)
+          ) {
+            clearTimeout(t);
+            t = setTimeout(recover, 0);
+          }
+        }, true);
+      })();
+    </script>
   </body>
 </html>
