@@ -32,15 +32,26 @@ CREATE POLICY "Users can delete own likes" ON public.community_likes FOR DELETE
   USING (auth.uid() = user_id);
 
 -- ─── Community Ratings Table (Đánh giá sao) ─────────────────────────────────────────
+-- Tạo bảng nếu chưa tồn tại
 CREATE TABLE IF NOT EXISTS public.community_ratings (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   post_id UUID NOT NULL REFERENCES public.community_posts(id) ON DELETE CASCADE,
   rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
-  status VARCHAR(20) DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
   UNIQUE(user_id, post_id)
 );
+
+-- Thêm column status nếu chưa có (để hỗ trợ admin duyệt)
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'community_ratings' AND column_name = 'status'
+  ) THEN
+    ALTER TABLE public.community_ratings ADD COLUMN status VARCHAR(20) DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected'));
+  END IF;
+END $$;
 
 -- Indexes
 CREATE INDEX IF NOT EXISTS idx_community_ratings_user_id ON public.community_ratings(user_id);
