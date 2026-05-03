@@ -545,12 +545,26 @@ Hãy trả về JSON (KHÔNG có markdown, chỉ JSON thuần):
 }
 
 // ─── Core AI caller ────────────────────────────────────────────────────────
+/**
+ * Core AI caller that routes to the appropriate provider
+ * @param config - AI configuration with provider and API key
+ * @param prompt - Prompt to send to the AI
+ * @returns AI response as string
+ * @throws Error if API call fails
+ */
 async function callAI(config: AIConfig, prompt: string): Promise<string> {
   if (config.provider === "openai") return callOpenAI(config, prompt);
   if (config.provider === "openrouter") return callOpenRouter(config, prompt);
   return callGemini(config, prompt);
 }
 
+/**
+ * Call OpenAI API for AI completion
+ * @param config - AI configuration with provider and API key
+ * @param prompt - Prompt to send to OpenAI
+ * @returns AI response as string
+ * @throws Error if API key is invalid, rate limit exceeded, or connection fails
+ */
 async function callOpenAI(config: AIConfig, prompt: string): Promise<string> {
   const model = config.model ?? "gpt-4o-mini";
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -580,6 +594,13 @@ async function callOpenAI(config: AIConfig, prompt: string): Promise<string> {
   return data?.choices?.[0]?.message?.content ?? "";
 }
 
+/**
+ * Call OpenRouter API for AI completion
+ * @param config - AI configuration with provider and API key
+ * @param prompt - Prompt to send to OpenRouter
+ * @returns AI response as string
+ * @throws Error if API key is invalid, rate limit exceeded, or connection fails
+ */
 async function callOpenRouter(config: AIConfig, prompt: string): Promise<string> {
   const model = config.model ?? "openai/gpt-4o-mini";
   const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -612,6 +633,13 @@ async function callOpenRouter(config: AIConfig, prompt: string): Promise<string>
   return data?.choices?.[0]?.message?.content ?? "";
 }
 
+/**
+ * Call Google Gemini API for AI completion
+ * @param config - AI configuration with provider and API key
+ * @param prompt - Prompt to send to Gemini
+ * @returns AI response as string
+ * @throws Error if API key is invalid, rate limit exceeded, or connection fails
+ */
 async function callGemini(config: AIConfig, prompt: string): Promise<string> {
   const model = config.model ?? "gemini-1.5-flash";
   const res = await fetch(
@@ -642,6 +670,12 @@ async function callGemini(config: AIConfig, prompt: string): Promise<string> {
   return data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
 }
 
+/**
+ * Parse JSON from AI response, handling markdown code fences
+ * @param raw - Raw string from AI response
+ * @returns Parsed JSON object of type T
+ * @throws Error if JSON is invalid
+ */
 function parseJSON<T>(raw: string): T {
   // Strip markdown code fences if present
   const cleaned = raw
@@ -656,6 +690,11 @@ function parseJSON<T>(raw: string): T {
   }
 }
 
+/**
+ * Get default model name for a given AI provider
+ * @param provider - AI provider name
+ * @returns Default model name for the provider
+ */
 function getDefaultModel(provider: AIProvider): string {
   if (provider === "openai") return "gpt-4o-mini";
   if (provider === "openrouter") return "openai/gpt-4o-mini";
