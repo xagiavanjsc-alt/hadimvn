@@ -592,7 +592,7 @@ const routes: RouteObject[] = [
   { path: "/admin/zalo-reminder", element: <RequirePermission permission="system.broadcast"><AdminZaloReminderPage /></RequirePermission> },
   { path: "/admin/feedback", element: <AdminFeedbackPage /> },
   { path: "/admin/error-logs", element: <RequirePermission permission="system.settings"><AdminErrorLogsPage /></RequirePermission> },
-  { path: "/admin/community-settings", element: <AdminCommunitySettingsPage /> },
+  { path: "/admin/community-settings", element: <RequirePermission permission="content.view"><AdminCommunitySettingsPage /></RequirePermission> },
   { path: "/feedback", element: <FeedbackPage /> },
   { path: "/report-bug", element: <ReportBugPage /> },
   { path: "/vip-history", element: <RequireAuth title="Lịch sử VIP"><VipHistoryPage /></RequireAuth> },

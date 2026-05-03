@@ -594,7 +594,7 @@ function CommentsPanel({
     setSubmitting(true);
     // Insert với status='pending' (trigger auto-approve nếu admin/mod)
     const { error } = await supabase.from("community_comments").insert({
-      post_id: postId,
+      post_id: postId, // postId ở đây là UUID từ post.id (không phải slug)
       parent_id: replyTo?.id || null,
       user_id: currentUser.id,
       author_name: profile?.display_name || "Học viên",

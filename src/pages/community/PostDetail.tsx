@@ -253,7 +253,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
     if (!commentText.trim() || !user || submitting) return;
     setSubmitting(true);
     const { error } = await supabase.from("community_comments").insert({
-      post_id: postId,
+      post_id: resolvedPostId,
       parent_id: replyTo?.id || null,
       user_id: user.id,
       author_name: profile?.display_name || "Học viên",
