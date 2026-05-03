@@ -1,0 +1,233 @@
+-- ─── 030_community_xp.sql ─────────────────────────────────────────────────────
+-- Thêm XP cho hoạt động cộng đồng (đăng bài, comment, like, rating)
+-- Giải quyết vấn đề cập nhật XP chậm cho community activities
+--
+-- APPLY: paste vào Supabase SQL Editor → Run (idempotent)
+-- ────────────────────────────────────────────────────────────────────────────
+
+-- ─── 1. Thêm XP weights cho community vào xp_settings ───────────────────────────
+DO $$
+BEGIN
+  -- Kiểm tra xem các column đã tồn tại chưa
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'xp_settings' AND column_name = 'post_weight'
+  ) THEN
+    ALTER TABLE public.xp_settings ADD COLUMN post_weight INT NOT NULL DEFAULT 50;
+  END IF;
+
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'xp_settings' AND column_name = 'comment_weight'
+  ) THEN
+    ALTER TABLE public.xp_settings ADD COLUMN comment_weight INT NOT NULL DEFAULT 20;
+  END IF;
+
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'xp_settings' AND column_name = 'like_received_weight'
+  ) THEN
+    ALTER TABLE public.xp_settings ADD COLUMN like_received_weight INT NOT NULL DEFAULT 5;
+  END IF;
+
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'xp_settings' AND column_name = 'rating_given_weight'
+  ) THEN
+    ALTER TABLE public.xp_settings ADD COLUMN rating_given_weight INT NOT NULL DEFAULT 10;
+  END IF;
+
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'xp_settings' AND column_name = 'daily_post_cap'
+  ) THEN
+    ALTER TABLE public.xp_settings ADD COLUMN daily_post_cap INT NOT NULL DEFAULT 5;
+  END IF;
+
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'xp_settings' AND column_name = 'daily_comment_cap'
+  ) THEN
+    ALTER TABLE public.xp_settings ADD COLUMN daily_comment_cap INT NOT NULL DEFAULT 20;
+  END IF;
+END $$;
+
+-- ─── 2. Cập nhật compute_user_xp để tính cả community XP ─────────────────────
+CREATE OR REPLACE FUNCTION public.compute_user_xp(p_user_id UUID)
+RETURNS INT AS $$
+DECLARE
+  v_streak INT := 0;
+  v_best_score INT := 0;
+  v_avg_score INT := 0;
+  v_total_correct INT := 0;
+  v_words_mastered INT := 0;
+  v_valid_exams INT := 0;
+  -- Community XP
+  v_posts_count INT := 0;
+  v_comments_count INT := 0;
+  v_likes_received INT := 0;
+  v_ratings_given INT := 0;
+  -- Settings
+  s_streak INT := 30;
+  s_best INT := 8;
+  s_avg INT := 5;
+  s_correct INT := 3;
+  s_flashcard INT := 4;
+  s_exam_bonus INT := 10;
+  s_flashcard_cap INT := 500;
+  s_post INT := 50;
+  s_comment INT := 20;
+  s_like_received INT := 5;
+  s_rating_given INT := 10;
+  s_post_cap INT := 5;
+  s_comment_cap INT := 20;
+BEGIN
+  -- Đọc settings (fallback default nếu chưa có row)
+  SELECT
+    streak_weight, best_score_weight, average_score_weight,
+    correct_answer_weight, flashcard_weight, exam_completed_bonus,
+    flashcard_xp_cap,
+    COALESCE(post_weight, 50),
+    COALESCE(comment_weight, 20),
+    COALESCE(like_received_weight, 5),
+    COALESCE(rating_given_weight, 10),
+    COALESCE(daily_post_cap, 5),
+    COALESCE(daily_comment_cap, 20)
+  INTO
+    s_streak, s_best, s_avg, s_correct, s_flashcard, s_exam_bonus, s_flashcard_cap,
+    s_post, s_comment, s_like_received, s_rating_given, s_post_cap, s_comment_cap
+  FROM public.xp_settings WHERE id = 'global';
+
+  -- Streak
+  SELECT COALESCE(streak_count, 0) INTO v_streak
+  FROM public.user_progress WHERE user_id = p_user_id;
+
+  -- Aggregate exam_results hợp lệ
+  SELECT
+    COALESCE(MAX(ROUND((score::FLOAT / NULLIF(total,0)) * 100))::INT, 0),
+    COALESCE(ROUND(AVG((score::FLOAT / NULLIF(total,0)) * 100))::INT, 0),
+    COALESCE(SUM(COALESCE(array_length(correct_ids, 1), 0)), 0),
+    COUNT(*)
+  INTO v_best_score, v_avg_score, v_total_correct, v_valid_exams
+  FROM public.exam_results
+  WHERE user_id = p_user_id AND is_valid = true AND total > 0;
+
+  -- Words mastered (cap)
+  SELECT LEAST(
+    COALESCE(
+      (SELECT COUNT(*) FROM jsonb_each(flashcard_known) WHERE value = 'true'::jsonb),
+      0
+    ),
+    s_flashcard_cap
+  ) INTO v_words_mastered
+  FROM public.user_progress WHERE user_id = p_user_id;
+
+  -- Community XP - Posts (approved, cap daily)
+  SELECT COALESCE(COUNT(*), 0) INTO v_posts_count
+  FROM public.community_posts
+  WHERE user_id = p_user_id
+    AND status = 'approved'
+    AND created_at >= CURRENT_DATE
+  LIMIT s_post_cap;
+
+  -- Community XP - Comments (approved, cap daily)
+  SELECT COALESCE(COUNT(*), 0) INTO v_comments_count
+  FROM public.community_comments
+  WHERE user_id = p_user_id
+    AND status = 'approved'
+    AND created_at >= CURRENT_DATE
+  LIMIT s_comment_cap;
+
+  -- Community XP - Likes received (total, no cap)
+  SELECT COALESCE(SUM(likes), 0) INTO v_likes_received
+  FROM public.community_posts
+  WHERE user_id = p_user_id AND status = 'approved';
+
+  -- Community XP - Ratings given (approved, no cap)
+  SELECT COALESCE(COUNT(*), 0) INTO v_ratings_given
+  FROM public.community_ratings
+  WHERE user_id = p_user_id AND status = 'approved';
+
+  RETURN
+    v_streak * s_streak
+    + v_best_score * s_best
+    + v_avg_score * s_avg
+    + v_total_correct * s_correct
+    + v_words_mastered * s_flashcard
+    + v_valid_exams * s_exam_bonus
+    + v_posts_count * s_post
+    + v_comments_count * s_comment
+    + v_likes_received * s_like_received
+    + v_ratings_given * s_rating_given;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- ─── 3. Trigger để cập nhật XP ngay khi có hoạt động community ────────────────
+CREATE OR REPLACE FUNCTION public.update_user_xp_on_community_activity()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Cập nhật XP trong user_progress
+  UPDATE public.user_progress
+  SET xp = public.compute_user_xp(NEW.user_id),
+      updated_at = NOW()
+  WHERE user_id = NEW.user_id;
+
+  -- Cập nhật leaderboard
+  INSERT INTO public.leaderboard (user_id, xp, updated_at)
+  VALUES (NEW.user_id, public.compute_user_xp(NEW.user_id), NOW())
+  ON CONFLICT (user_id) DO UPDATE SET
+    xp = EXCLUDED.xp,
+    updated_at = EXCLUDED.updated_at;
+
+  RETURN COALESCE(NEW, OLD);
+END;
+$$ LANGUAGE plpgsql;
+
+-- Trigger cho community_posts (INSERT/UPDATE khi status thay đổi)
+DROP TRIGGER IF EXISTS trg_xp_community_posts ON public.community_posts;
+CREATE TRIGGER trg_xp_community_posts
+  AFTER INSERT OR UPDATE OF status ON public.community_posts
+  FOR EACH ROW EXECUTE FUNCTION public.update_user_xp_on_community_activity();
+
+-- Trigger cho community_comments (INSERT/UPDATE khi status thay đổi)
+DROP TRIGGER IF EXISTS trg_xp_community_comments ON public.community_comments;
+CREATE TRIGGER trg_xp_community_comments
+  AFTER INSERT OR UPDATE OF status ON public.community_comments
+  FOR EACH ROW EXECUTE FUNCTION public.update_user_xp_on_community_activity();
+
+-- Trigger cho community_likes (INSERT/DELETE - cập nhật XP cho người nhận like)
+DROP TRIGGER IF EXISTS trg_xp_community_likes ON public.community_likes;
+CREATE TRIGGER trg_xp_community_likes
+  AFTER INSERT OR DELETE ON public.community_likes
+  FOR EACH ROW EXECUTE FUNCTION public.update_user_xp_on_community_activity();
+
+-- Trigger cho community_ratings (INSERT/UPDATE khi status thay đổi)
+DROP TRIGGER IF EXISTS trg_xp_community_ratings ON public.community_ratings;
+CREATE TRIGGER trg_xp_community_ratings
+  AFTER INSERT OR UPDATE OF status ON public.community_ratings
+  FOR EACH ROW EXECUTE FUNCTION public.update_user_xp_on_community_activity();
+
+-- ─── 4. Recalculate XP cho tất cả users (run once) ───────────────────────────
+-- Chạy thủ công nếu cần: SELECT public.recalculate_all_xp();
+CREATE OR REPLACE FUNCTION public.recalculate_all_xp()
+RETURNS VOID AS $$
+BEGIN
+  -- Cập nhật XP cho tất cả users
+  UPDATE public.user_progress up
+  SET xp = public.compute_user_xp(up.user_id),
+      updated_at = NOW();
+
+  -- Sync với leaderboard
+  INSERT INTO public.leaderboard (user_id, xp, updated_at)
+  SELECT up.user_id, public.compute_user_xp(up.user_id), NOW()
+  FROM public.user_progress up
+  ON CONFLICT (user_id) DO UPDATE SET
+    xp = EXCLUDED.xp,
+    updated_at = EXCLUDED.updated_at;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- ─── DONE ─────────────────────────────────────────────────────────────────
+-- Test:
+--   SELECT compute_user_xp('your-uuid');
+--   SELECT public.recalculate_all_xp();
