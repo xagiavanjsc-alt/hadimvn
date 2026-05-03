@@ -8,6 +8,7 @@ import OnlineUsersWidget from "./components/OnlineUsersWidget";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useToast, ToastContainer } from "@/components/common/ToastNotification";
 import { communitySlug } from "@/lib/slugify";
+import AuthModal from "@/components/feature/AuthModal";
 
 // ─── SEO Component for Community Page ───────────────────────────────────────────────
 function CommunitySEO({ category, search }: { category: Category; search: string }) {
@@ -1817,6 +1818,7 @@ export default function CommunityPage() {
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [streak] = useLocalStorage<{ count: number }>("kts_streak", { count: 0 });
   const [currentPage, setCurrentPage] = useState(1);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
   const { user, profile } = useAuth();
   const { settings: commSettings } = useCommunitySettings();
   const { showToast, toasts, removeToast } = useToast();
@@ -1990,10 +1992,10 @@ export default function CommunityPage() {
           </button>
         ) : (
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => setAuthModalOpen(true)}
             className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
           >
-            <i className="ri-user-add-line"></i>Đăng nhập
+            <i className="ri-user-add-line"></i>Đăng ký/Đăng nhập
           </button>
         )
       }
@@ -2084,7 +2086,7 @@ export default function CommunityPage() {
                   <i className="ri-lock-line text-app-accent-primary text-2xl mb-2 block"></i>
                   <p className="text-white font-bold text-sm mb-1">Bạn đã xem {guestViewCount} bài miễn phí</p>
                   <p className="text-white/50 text-xs mb-3">Đăng ký thành viên để xem tất cả bài viết và tham gia thảo luận!</p>
-                  <button onClick={() => navigate("/pricing")}
+                  <button onClick={() => setAuthModalOpen(true)}
                     className="inline-flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors">
                     <i className="ri-user-add-line"></i>Đăng ký ngay
                   </button>
@@ -2214,6 +2216,10 @@ export default function CommunityPage() {
 
       {aiSuggestPost && (
         <AISuggestionPanel post={aiSuggestPost} onClose={() => setAiSuggestPost(null)} />
+      )}
+
+      {authModalOpen && (
+        <AuthModal onClose={() => setAuthModalOpen(false)} />
       )}
     </DashboardLayout>
     </>

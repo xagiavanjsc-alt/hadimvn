@@ -5,7 +5,7 @@ import { useAdminToast } from "@/contexts/AdminToastContext";
 import { logError } from "@/lib/logError";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
-type ContentTab = "community" | "comments" | "lessons" | "reports";
+type ContentTab = "community" | "comments" | "ratings" | "lessons" | "reports";
 type PostStatus = "pending" | "approved" | "rejected";
 type ReportStatus = "pending" | "resolved" | "dismissed";
 type ReportReason = "spam" | "offensive" | "misinformation" | "harassment" | "other";
@@ -1231,6 +1231,200 @@ function ReportsTab() {
   );
 }
 
+// ─── Community Ratings Moderation ────────────────────────────────────────────
+interface RatingRow {
+  id: string;
+  post_id: string;
+  user_id: string;
+  rating: number;
+  status: PostStatus;
+  created_at: string;
+  user_display_name?: string;
+  post_title?: string;
+}
+
+function CommunityRatingsTab() {
+  const { showToast } = useAdminToast();
+  const [ratings, setRatings] = useState<RatingRow[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [filter, setFilter] = useState<"pending" | "all">("pending");
+
+  const fetchRatings = useCallback(async () => {
+    setLoading(true);
+    const query = supabase
+      .from("community_ratings")
+      .select("id,post_id,user_id,rating,status,created_at")
+      .order("created_at", { ascending: false })
+      .limit(200);
+    if (filter === "pending") query.eq("status", "pending");
+    const { data, error } = await query;
+    if (error) {
+      showToast({ type: "error", title: "Lỗi tải đánh giá", message: error.message });
+      logError("database", `Fetch ratings failed: ${error.message}`, { pageUrl: "/admin/content" });
+    } else if (data) {
+      // Fetch user display names
+      const userIds = Array.from(new Set(data.map((r) => r.user_id)));
+      const { data: usersData } = await supabase
+        .from("user_profiles")
+        .select("id,display_name")
+        .in("id", userIds);
+      const userMap = new Map((usersData || []).map((u) => [u.id, u.display_name || "Học viên"]));
+      // Fetch post titles
+      const postIds = Array.from(new Set(data.map((r) => r.post_id)));
+      const { data: postsData } = await supabase
+        .from("community_posts")
+        .select("id,title")
+        .in("id", postIds);
+      const postMap = new Map((postsData || []).map((p) => [p.id, p.title]));
+      setRatings(
+        data.map((r) => ({
+          ...(r as RatingRow),
+          user_display_name: userMap.get(r.user_id),
+          post_title: postMap.get(r.post_id) || "(bài đã xoá)",
+        }))
+      );
+    }
+    setLoading(false);
+  }, [filter, showToast]);
+
+  useEffect(() => {
+    fetchRatings();
+  }, [fetchRatings]);
+
+  const handleApprove = async (id: string) => {
+    const { error } = await supabase.from("community_ratings").update({ status: "approved" }).eq("id", id);
+    if (error) {
+      showToast({ type: "error", title: "Lỗi duyệt", message: error.message });
+      return;
+    }
+    showToast({ type: "success", title: "Đã duyệt đánh giá" });
+    setRatings((prev) => prev.map((r) => (r.id === id ? { ...r, status: "approved" } : r)));
+    if (filter === "pending") setRatings((prev) => prev.filter((r) => r.id !== id));
+  };
+
+  const handleReject = async (id: string) => {
+    const { error } = await supabase.from("community_ratings").update({ status: "rejected" }).eq("id", id);
+    if (error) {
+      showToast({ type: "error", title: "Lỗi từ chối", message: error.message });
+      return;
+    }
+    showToast({ type: "success", title: "Đã từ chối đánh giá" });
+    setRatings((prev) => prev.map((r) => (r.id === id ? { ...r, status: "rejected" } : r)));
+    if (filter === "pending") setRatings((prev) => prev.filter((r) => r.id !== id));
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Xoá vĩnh viễn đánh giá này?")) return;
+    const { error } = await supabase.from("community_ratings").delete().eq("id", id);
+    if (error) {
+      showToast({ type: "error", title: "Lỗi xoá", message: error.message });
+      return;
+    }
+    showToast({ type: "success", title: "Đã xoá đánh giá" });
+    setRatings((prev) => prev.filter((r) => r.id !== id));
+  };
+
+  const pendingCount = ratings.filter((r) => r.status === "pending").length;
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center gap-3 flex-wrap">
+        <div className="flex gap-1 p-1 rounded-lg" style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>
+          {(["pending", "all"] as const).map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className="px-3 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap"
+              style={{
+                backgroundColor: filter === f ? "var(--admin-card)" : "transparent",
+                color: filter === f ? "var(--admin-text)" : "var(--admin-text-faint)",
+                border: filter === f ? "1px solid var(--admin-border)" : "1px solid transparent",
+              }}
+            >
+              {f === "pending" ? `Chờ duyệt (${pendingCount})` : "Tất cả"}
+            </button>
+          ))}
+        </div>
+      </div>
+      {loading ? (
+        <div className="text-center py-8" style={{ color: "var(--admin-text-faint)" }}>Đang tải...</div>
+      ) : ratings.length === 0 ? (
+        <div className="text-center py-8" style={{ color: "var(--admin-text-faint)" }}>Không có đánh giá nào.</div>
+      ) : (
+        <div className="space-y-2">
+          {ratings.map((r) => (
+            <div
+              key={r.id}
+              className="p-4 rounded-lg flex items-start gap-4 transition-all"
+              style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}
+            >
+              <div className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: "var(--admin-card)" }}>
+                <span className="text-xl font-bold" style={{ color: r.rating >= 4 ? "#34d399" : r.rating >= 3 ? "#fb923c" : "#f87171" }}>
+                  {r.rating}⭐
+                </span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                  <span className="text-sm font-medium" style={{ color: "var(--admin-text)" }}>
+                    {r.user_display_name}
+                  </span>
+                  <span className="text-xs" style={{ color: "var(--admin-text-faint)" }}>
+                    • {new Date(r.created_at).toLocaleString("vi-VN")}
+                  </span>
+                  <span
+                    className="text-xs px-2 py-0.5 rounded-full"
+                    style={{
+                      backgroundColor:
+                        r.status === "approved"
+                          ? "rgba(52,211,153,0.12)"
+                          : r.status === "rejected"
+                          ? "rgba(248,113,113,0.12)"
+                          : "rgba(232,200,74,0.12)",
+                      color: r.status === "approved" ? "#34d399" : r.status === "rejected" ? "#f87171" : "#e8c84a",
+                    }}
+                  >
+                    {r.status === "approved" ? "Đã duyệt" : r.status === "rejected" ? "Đã từ chối" : "Chờ duyệt"}
+                  </span>
+                </div>
+                <div className="text-sm mb-1" style={{ color: "var(--admin-text-faint)" }}>
+                  Bài: <span className="font-medium" style={{ color: "var(--admin-text)" }}>{r.post_title}</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                {r.status === "pending" && (
+                  <>
+                    <button
+                      onClick={() => handleApprove(r.id)}
+                      className="px-3 py-1.5 rounded-md text-xs font-medium cursor-pointer transition-all"
+                      style={{ backgroundColor: "#34d399", color: "#fff" }}
+                    >
+                      Duyệt
+                    </button>
+                    <button
+                      onClick={() => handleReject(r.id)}
+                      className="px-3 py-1.5 rounded-md text-xs font-medium cursor-pointer transition-all"
+                      style={{ backgroundColor: "#f87171", color: "#fff" }}
+                    >
+                      Từ chối
+                    </button>
+                  </>
+                )}
+                <button
+                  onClick={() => handleDelete(r.id)}
+                  className="px-3 py-1.5 rounded-md text-xs font-medium cursor-pointer transition-all"
+                  style={{ backgroundColor: "var(--admin-card)", border: "1px solid var(--admin-border)", color: "var(--admin-text)" }}
+                >
+                  Xoá
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── Community Comments Moderation ────────────────────────────────────────────
 interface CommunityCommentRow {
   id: string;
@@ -1419,7 +1613,20 @@ function CommunityCommentsTab() {
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function AdminContentPage() {
   const [activeTab, setActiveTab] = useState<ContentTab>("community");
+  const [pendingRatings, setPendingRatings] = useState(0);
   const pendingReports = mockReports.filter(r => r.status === "pending").length;
+
+  // Fetch pending ratings count
+  useEffect(() => {
+    const fetchPendingRatings = async () => {
+      const { count } = await supabase
+        .from("community_ratings")
+        .select("*", { count: "exact", head: true })
+        .eq("status", "pending");
+      if (count !== null) setPendingRatings(count);
+    };
+    fetchPendingRatings();
+  }, []);
 
   return (
     <AdminLayout
@@ -1431,6 +1638,7 @@ export default function AdminContentPage() {
         {([
           { id: "community", label: "Bài viết cộng đồng", icon: "ri-team-line" },
           { id: "comments", label: "Bình luận", icon: "ri-chat-3-line" },
+          { id: "ratings", label: `Đánh giá${pendingRatings > 0 ? ` (${pendingRatings})` : ""}`, icon: "ri-star-line" },
           { id: "lessons", label: "Bài học gửi lên", icon: "ri-book-open-line" },
           { id: "reports", label: `Báo cáo vi phạm${pendingReports > 0 ? ` (${pendingReports})` : ""}`, icon: "ri-flag-line" },
         ] as const).map(tab => (
@@ -1450,6 +1658,7 @@ export default function AdminContentPage() {
 
       {activeTab === "community" && <CommunityPostsTab />}
       {activeTab === "comments" && <CommunityCommentsTab />}
+      {activeTab === "ratings" && <CommunityRatingsTab />}
       {activeTab === "lessons" && <LessonsTab />}
       {activeTab === "reports" && <ReportsTab />}
     </AdminLayout>

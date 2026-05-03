@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from "react";
-import AdminLayout from "@/components/feature/AdminLayout";
 import { supabase } from "@/lib/supabase";
 import { useAdminToast } from "@/contexts/AdminToastContext";
 import { invalidateCommunitySettingsCache } from "@/hooks/useCommunitySettings";
@@ -16,7 +15,7 @@ export default function AdminCommunitySettingsPage() {
   const { showToast } = useAdminToast();
   const [saving, setSaving] = useState(false);
   const [accessControlEnabled, setAccessControlEnabled] = useState(true);
-  const [guestViewLimit, setGuestViewLimit] = useState(3);
+  const [guestViewLimit, setGuestViewLimit] = useState(15);
   const [memberDailyPostLimit, setMemberDailyPostLimit] = useState(5);
   const [vipDailyPostLimit, setVipDailyPostLimit] = useState(0);
   const [accessMode, setAccessMode] = useState<AccessMode>("normal");
@@ -58,8 +57,7 @@ export default function AdminCommunitySettingsPage() {
   const currentMode = MODE_CONFIG[accessMode];
 
   return (
-    <AdminLayout title="Cấu hình cộng đồng" subtitle="Kiểm soát truy cập và giới hạn đăng bài">
-      <div className="max-w-2xl space-y-6">
+    <div className="max-w-2xl space-y-6">
 
         {/* Access Mode — Quick Toggle */}
         <div className="rounded-xl p-5 border" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
@@ -204,6 +202,6 @@ export default function AdminCommunitySettingsPage() {
           Lưu cấu hình
         </button>
       </div>
-    </AdminLayout>
+    </div>
   );
 }

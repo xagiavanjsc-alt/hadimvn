@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS public.community_settings (
   access_control_enabled BOOLEAN DEFAULT TRUE,
 
   -- Số bài khách được xem trước khi yêu cầu đăng nhập (0 = không cho xem)
-  guest_view_limit INT NOT NULL DEFAULT 3,
+  guest_view_limit INT NOT NULL DEFAULT 15,
 
   -- Số bài thành viên đăng/ngày (0 = không giới hạn)
   member_daily_post_limit INT NOT NULL DEFAULT 5,
