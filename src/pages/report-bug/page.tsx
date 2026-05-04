@@ -35,7 +35,7 @@ export default function ReportBugPage() {
       const { error: err } = await supabase.from("bug_reports").insert({
         user_id: user?.id || null,
         user_name: profile?.display_name || "Khách",
-        user_email: profile?.email || user?.email || "",
+        user_email: (profile as any)?.email || user?.email || "",
         page_url: pageUrl,
         category,
         title: title.trim(),
