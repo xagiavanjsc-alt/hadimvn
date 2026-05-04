@@ -71,30 +71,30 @@ function QuickCard({
   return (
     <button
       onClick={() => navigate(path)}
-      className="flex flex-col gap-2 p-3 sm:p-4 rounded-2xl border cursor-pointer transition-all hover:scale-[1.02] text-left group"
+      className="flex items-center gap-3 p-3 sm:p-4 rounded-2xl border cursor-pointer transition-all hover:scale-[1.02] text-left group"
       style={{ backgroundColor: `${color}08`, borderColor: `${color}20` }}
     >
-      <div className="flex items-center justify-between">
-        <div
-          className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-xl"
-          style={{ backgroundColor: `${color}18` }}
-        >
-          <i className={`${icon} text-sm sm:text-base`} style={{ color }} />
-        </div>
-        {badge && (
-          <span
-            className="text-[9px] font-bold px-2 py-0.5 rounded-full"
-            style={{ backgroundColor: `${color}20`, color }}
-          >
-            {badge}
-          </span>
-        )}
+      <div
+        className="w-10 h-10 sm:w-9 sm:h-9 flex items-center justify-center rounded-xl flex-shrink-0"
+        style={{ backgroundColor: `${color}18` }}
+      >
+        <i className={`${icon} text-base sm:text-base`} style={{ color }} />
       </div>
-      <div>
-        <p className="text-white/80 text-xs sm:text-sm font-semibold group-hover:text-white transition-colors">
-          {label}
-        </p>
-        <p className="text-app-text-muted text-[10px] sm:text-[11px] mt-0.5 leading-relaxed hidden sm:block">{desc}</p>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center justify-between gap-2">
+          <p className="text-white/80 text-xs sm:text-sm font-semibold group-hover:text-white transition-colors">
+            {label}
+          </p>
+          {badge && (
+            <span
+              className="text-[9px] font-bold px-1.5 py-0.5 rounded-full flex-shrink-0"
+              style={{ backgroundColor: `${color}20`, color }}
+            >
+              {badge}
+            </span>
+          )}
+        </div>
+        <p className="text-app-text-muted text-[10px] sm:text-[11px] mt-0.5 leading-relaxed line-clamp-1">{desc}</p>
       </div>
     </button>
   );
