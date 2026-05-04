@@ -521,6 +521,7 @@ export default function EbookPageCarousel({ meta, lessons, template = "classic" 
 
   const templateLabels: Record<EbookTemplate, string> = {
     classic: "Classic", "two-col": "2 Cột", dark: "Dark Mode", album: "Album Art",
+    gradient: "Gradient", magazine: "Magazine", minimal: "Minimal",
   };
 
   return (
