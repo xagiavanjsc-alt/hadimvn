@@ -86,10 +86,16 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
           lyrics: `Chủ đề: ${topic}`,
         },
         story: res.story,
-        vocabulary: res.vocabulary,
+        vocabulary: res.vocabulary.map(v => ({
+          korean: v.word,
+          word: v.word,
+          pronunciation: "",
+          meaning: v.meaning,
+          example: v.example,
+        })),
         explanation: res.explanation,
         stars: 5,
-        approvedAt: new Date().toISOString(),
+        publishedAt: new Date().toISOString(),
       };
 
       setResult(lesson);
