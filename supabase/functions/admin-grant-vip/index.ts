@@ -41,10 +41,10 @@ serve(async (req) => {
     // Use service role client to bypass RLS
     const adminClient = createClient(supabaseUrl, serviceRoleKey);
 
-    // Check if caller is admin
+    // Check if caller is admin and get role
     const { data: callerProfile } = await adminClient
       .from("user_profiles")
-      .select("is_admin, display_name")
+      .select("is_admin, user_role, display_name")
       .eq("id", user.id)
       .maybeSingle();
 
@@ -125,6 +125,23 @@ serve(async (req) => {
 
     if (action === "toggle_admin") {
       const { userId, isAdmin } = body;
+      
+      // Only super_admin can toggle admin rights
+      if (callerProfile.user_role !== "super_admin") {
+        return new Response(JSON.stringify({ error: "Only Super Admin can modify admin rights" }), {
+          status: 403,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      
+      // Prevent modifying own admin status
+      if (userId === user.id) {
+        return new Response(JSON.stringify({ error: "Cannot modify your own admin status" }), {
+          status: 403,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      
       const { error } = await adminClient
         .from("user_profiles")
         .update({

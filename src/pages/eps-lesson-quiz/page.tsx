@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useCallback } from "react";
+﻿import { useState, useMemo, useCallback, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -232,8 +232,17 @@ function QuizScreen({
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [showAnswer, setShowAnswer] = useState(false);
   const [startTime] = useState(Date.now());
-  const [timeLeft, setTimeLeft] = useState(30);
+  const [questionStartTime, setQuestionStartTime] = useState(Date.now());
   const [timerActive, setTimerActive] = useState(true);
+  const [timeLeft, setTimeLeft] = useState(30);
+
+  // Reset question timer when moving to next question
+  useEffect(() => {
+    setQuestionStartTime(Date.now());
+    setShowAnswer(false);
+    setTimerActive(true);
+    setTimeLeft(30);
+  }, [currentIdx]);
 
   const current = questions[currentIdx];
   const progress = Math.round(((currentIdx) / questions.length) * 100);
@@ -260,6 +269,14 @@ function QuizScreen({
 
   const handleAnswer = (optionIdx: number) => {
     if (showAnswer) return;
+    
+    // Validate minimum time per question (2 seconds)
+    const timeSpent = Date.now() - questionStartTime;
+    if (timeSpent < 2000) {
+      alert("Vui lòng đọc kỹ câu hỏi trước khi trả lời (tối thiểu 2 giây).");
+      return;
+    }
+    
     setAnswers(prev => ({ ...prev, [currentIdx]: optionIdx }));
     setShowAnswer(true);
     setTimerActive(false);

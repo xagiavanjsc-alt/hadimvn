@@ -1,7 +1,8 @@
-﻿import { useState, useEffect, useMemo } from "react";
+﻿import { useState, useEffect, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useAuth } from "@/hooks/useAuth";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { supabase } from "@/lib/supabase";
 import { HANJA_DATA } from "@/mocks/hanjaData";
@@ -21,7 +22,7 @@ function AdminPanel() {
   const [srData] = useState<Record<string, { interval: number; totalReviews: number; correctStreak?: number; dueDate?: number }>>(() => {
     try { return JSON.parse(localStorage.getItem("hanja_sr_data") || "{}"); } catch { return {}; }
   });
-  const [adminSubTab, setAdminSubTab] = useState<"overview" | "chart" | "quiz" | "groups" | "content" | "grant_xp">("overview");
+  const [adminSubTab, setAdminSubTab] = useState<"overview" | "chart" | "quiz" | "groups" | "content" | "grant_xp" | "redemptions">("overview");
 
   const ALPHA_GROUPS = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
 
@@ -72,11 +73,12 @@ function AdminPanel() {
 
   const subTabs = [
     { key: "overview" as const, label: "Tổng quan", icon: "ri-dashboard-line" },
-    { key: "chart" as const, label: "Biểu đồ học", icon: "ri-bar-chart-2-line" },
-    { key: "quiz" as const, label: "Từ khó nhất", icon: "ri-error-warning-line" },
-    { key: "groups" as const, label: "Theo nhóm", icon: "ri-list-check" },
-    { key: "content" as const, label: "Quản lý nội dung", icon: "ri-settings-3-line" },
-    { key: "grant_xp" as const, label: "Trao XP thủ công", icon: "ri-gift-2-line" },
+    { key: "chart" as const, label: "Biểu đồ", icon: "ri-bar-chart-2-line" },
+    { key: "quiz" as const, label: "Quiz khó", icon: "ri-error-warning-line" },
+    { key: "groups" as const, label: "Nhóm từ", icon: "ri-group-line" },
+    { key: "content" as const, label: "Nội dung", icon: "ri-file-list-3-line" },
+    { key: "grant_xp" as const, label: "Trao XP", icon: "ri-gift-line" },
+    { key: "redemptions" as const, label: "Duyệt VIP", icon: "ri-vip-crown-line" },
   ];
 
   // Content management data
@@ -456,6 +458,181 @@ function AdminPanel() {
 
       {/* Manual grant XP */}
       {adminSubTab === "grant_xp" && <GrantXPPanel />}
+
+      {/* Redemption requests management */}
+      {adminSubTab === "redemptions" && <RedemptionRequestsPanel />}
+    </div>
+  );
+}
+
+// ─── Admin: Redemption Requests Panel ───────────────────────────────────────
+// Manages VIP redemption requests - approve or deny pending requests
+function RedemptionRequestsPanel() {
+  const [requests, setRequests] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState<"all" | "pending" | "approved" | "rejected">("pending");
+
+  const loadRequests = useCallback(async () => {
+    setLoading(true);
+    try {
+      let query = supabase.from("reward_redemptions").select("*");
+      if (filter !== "all") {
+        query = query.eq("status", filter);
+      }
+      query = query.order("created_at", { ascending: false }).limit(50);
+      const { data, error } = await query;
+      if (error) throw error;
+      setRequests(data || []);
+    } catch (e) {
+      console.error("Failed to load redemption requests:", e);
+    } finally {
+      setLoading(false);
+    }
+  }, [filter]);
+
+  useEffect(() => {
+    loadRequests();
+  }, [loadRequests]);
+
+  const handleApprove = async (id: string) => {
+    if (!confirm("Duyệt yêu cầu đổi VIP này?")) return;
+    try {
+      // Get redemption request details
+      const { data: redemption, error: fetchError } = await supabase
+        .from("reward_redemptions")
+        .select("*")
+        .eq("id", id)
+        .single();
+      if (fetchError) throw fetchError;
+
+      // Update redemption status
+      const { error: updateError } = await supabase
+        .from("reward_redemptions")
+        .update({ status: "approved" })
+        .eq("id", id);
+      if (updateError) throw updateError;
+
+      // Activate VIP based on reward type
+      const rewardTitle = redemption.reward_title;
+      let vipDuration = 0;
+      if (rewardTitle.includes("7 ngày")) {
+        vipDuration = 7;
+      } else if (rewardTitle.includes("30 ngày")) {
+        vipDuration = 30;
+      }
+
+      if (vipDuration > 0) {
+        // Calculate new VIP end date
+        const { data: profile } = await supabase
+          .from("user_profiles")
+          .select("vip_end_date")
+          .eq("id", redemption.user_id)
+          .single();
+        
+        const currentEndDate = profile?.vip_end_date ? new Date(profile.vip_end_date) : new Date();
+        const newEndDate = currentEndDate > new Date() 
+          ? new Date(currentEndDate.getTime() + vipDuration * 24 * 60 * 60 * 1000)
+          : new Date(Date.now() + vipDuration * 24 * 60 * 60 * 1000);
+
+        await supabase
+          .from("user_profiles")
+          .update({ vip_end_date: newEndDate.toISOString() })
+          .eq("id", redemption.user_id);
+      }
+
+      loadRequests();
+    } catch (e) {
+      alert("Lỗi khi duyệt: " + (e instanceof Error ? e.message : "Unknown error"));
+    }
+  };
+
+  const handleReject = async (id: string) => {
+    const note = prompt("Lý do từ chối (tùy chọn):");
+    try {
+      const { error } = await supabase
+        .from("reward_redemptions")
+        .update({ status: "rejected", admin_note: note || null })
+        .eq("id", id);
+      if (error) throw error;
+      loadRequests();
+    } catch (e) {
+      alert("Lỗi khi từ chối: " + (e instanceof Error ? e.message : "Unknown error"));
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-5">
+        <h3 className="text-white font-semibold text-sm mb-1 flex items-center gap-2">
+          <i className="ri-vip-crown-line text-amber-400"></i>Quản lý yêu cầu đổi VIP
+        </h3>
+        <p className="text-app-text-muted text-xs mb-4">
+          Duyệt hoặc từ chối yêu cầu đổi VIP từ người dùng
+        </p>
+
+        {/* Filter */}
+        <div className="flex gap-2 mb-4">
+          {(["all", "pending", "approved", "rejected"] as const).map(f => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className={`px-4 py-2 rounded-lg text-xs font-medium cursor-pointer transition-colors ${filter === f ? "bg-amber-500 text-white" : "bg-app-surface/50 text-app-text-secondary hover:text-white/60"}`}
+            >
+              {f === "all" ? "Tất cả" : f === "pending" ? "Chờ duyệt" : f === "approved" ? "Đã duyệt" : "Đã từ chối"}
+            </button>
+          ))}
+        </div>
+
+        {loading ? (
+          <div className="text-center py-8 text-app-text-muted text-sm">Đang tải...</div>
+        ) : requests.length === 0 ? (
+          <div className="text-center py-8 text-app-text-muted text-sm">Không có yêu cầu nào</div>
+        ) : (
+          <div className="space-y-3 max-h-96 overflow-y-auto">
+            {requests.map(r => (
+              <div key={r.id} className="flex items-center gap-4 p-4 bg-app-surface/50 border border-app-border rounded-xl">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className="text-white font-bold text-sm">{r.reward_title}</p>
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                      r.status === "pending" ? "bg-amber-500/20 text-amber-400" :
+                      r.status === "approved" ? "bg-emerald-500/20 text-emerald-400" :
+                      "bg-red-500/20 text-red-400"
+                    }`}>
+                      {r.status === "pending" ? "Chờ duyệt" : r.status === "approved" ? "Đã duyệt" : "Đã từ chối"}
+                    </span>
+                  </div>
+                  <p className="text-app-text-secondary text-xs mb-1">
+                    User ID: {r.user_id} · {r.xp_cost.toLocaleString()} XP
+                  </p>
+                  <p className="text-app-text-muted text-[10px]">
+                    {new Date(r.created_at).toLocaleString("vi-VN")}
+                  </p>
+                  {r.admin_note && (
+                    <p className="text-rose-400 text-xs mt-1">Ghi chú: {r.admin_note}</p>
+                  )}
+                </div>
+                {r.status === "pending" && (
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleApprove(r.id)}
+                      className="px-3 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg text-xs font-semibold cursor-pointer transition-colors"
+                    >
+                      Duyệt
+                    </button>
+                    <button
+                      onClick={() => handleReject(r.id)}
+                      className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg text-xs font-semibold cursor-pointer transition-colors"
+                    >
+                      Từ chối
+                    </button>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -745,6 +922,7 @@ function DailyLoginBonus() {
 
 export default function RewardsPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [streak] = useLocalStorage<{ count: number }>("kts_streak", { count: 0 });
   const [redeemedRewards, setRedeemedRewards] = useLocalStorage<string[]>("kts_redeemed_rewards", []);
   const [redeemMsg, setRedeemMsg] = useState<{ id: string; msg: string } | null>(null);
@@ -764,15 +942,41 @@ export default function RewardsPage() {
   // Available XP after redemptions. NEVER display a negative number.
   const displayXp = Math.max(0, totalXP - redeemSpent);
 
-  const handleRedeem = (reward: RewardItem) => {
+  const handleRedeem = async (reward: RewardItem) => {
     if (displayXp < reward.xpCost) return;
     if (redeemedRewards.includes(reward.id) && reward.type !== "badge") return;
-    // Track redemptions via a separate "spent" counter instead of mutating totalXP
-    // (which would break the never-decrease rule on server sync).
-    setRedeemSpent(prev => prev + reward.xpCost);
-    setRedeemedRewards(prev => [...prev, reward.id]);
-    setRedeemMsg({ id: reward.id, msg: `Đã đổi thành công: ${reward.title}!` });
-    setTimeout(() => setRedeemMsg(null), 3000);
+    
+    // VIP rewards require admin approval
+    if (reward.type === "vip") {
+      if (!user) {
+        alert("Vui lòng đăng nhập để đổi VIP");
+        return;
+      }
+      
+      // Save redemption request to database
+      const { error } = await supabase.from("reward_redemptions").insert({
+        user_id: user.id,
+        reward_id: reward.id,
+        reward_title: reward.title,
+        reward_type: reward.type,
+        xp_cost: reward.xpCost,
+        status: "pending",
+      });
+      
+      if (error) {
+        alert("Lỗi khi gửi yêu cầu đổi VIP: " + error.message);
+        return;
+      }
+      
+      setRedeemMsg({ id: reward.id, msg: `Đã gửi yêu cầu đổi ${reward.title} - chờ admin duyệt!` });
+    } else {
+      // Non-VIP rewards are automatic
+      setRedeemSpent(prev => prev + reward.xpCost);
+      setRedeemedRewards(prev => [...prev, reward.id]);
+      setRedeemMsg({ id: reward.id, msg: `Đã đổi thành công: ${reward.title}!` });
+    }
+    
+    setTimeout(() => setRedeemMsg(null), 5000);
   };
 
   const xpToNextReward = useMemo(() => {

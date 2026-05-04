@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useCallback, useRef } from "react";
+﻿import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -34,6 +34,34 @@ function FlipCard({ card, onKnow, onDontKnow }: {
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
   const [swipeHint, setSwipeHint] = useState<"left" | "right" | null>(null);
+  const [audioPlayed, setAudioPlayed] = useState(false);
+  const [flipStartTime, setFlipStartTime] = useState<number | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const MIN_READ_TIME_MS = 1500; // Minimum 1.5 seconds to read before marking as known
+
+  // Play audio when card is shown (for Korean words)
+  useEffect(() => {
+    if (!flipped && card.word) {
+      setAudioPlayed(false);
+      // Use Web Speech API for Korean pronunciation
+      if ("speechSynthesis" in window) {
+        const utterance = new SpeechSynthesisUtterance(card.word);
+        utterance.lang = "ko-KR";
+        utterance.rate = 0.8;
+        utterance.onend = () => setAudioPlayed(true);
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+  }, [card.word, flipped]);
+
+  // Track time when card is flipped
+  useEffect(() => {
+    if (flipped) {
+      setFlipStartTime(Date.now());
+    } else {
+      setFlipStartTime(null);
+    }
+  }, [flipped]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -66,12 +94,35 @@ function FlipCard({ card, onKnow, onDontKnow }: {
         return;
       }
       if (dx > 0) {
-        onKnow();
-        setFlipped(false);
+        handleKnowWithValidation();
       } else {
         onDontKnow();
         setFlipped(false);
       }
+    }
+  };
+
+  const handleKnowWithValidation = () => {
+    // Check if user spent enough time reading the answer
+    if (flipStartTime) {
+      const timeSpent = Date.now() - flipStartTime;
+      if (timeSpent < MIN_READ_TIME_MS) {
+        alert("Vui lòng đọc kỹ đáp án trước khi đánh dấu đã thuộc (tối thiểu 1.5 giây).");
+        return;
+      }
+    }
+    onKnow();
+    setFlipped(false);
+  };
+
+  const playAudio = () => {
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(card.word);
+      utterance.lang = "ko-KR";
+      utterance.rate = 0.8;
+      utterance.onend = () => setAudioPlayed(true);
+      window.speechSynthesis.speak(utterance);
     }
   };
 
@@ -123,7 +174,14 @@ function FlipCard({ card, onKnow, onDontKnow }: {
             </div>
             <p className="text-4xl font-bold text-white mb-3">{card.word}</p>
             <p className="text-app-text-muted text-sm">{card.reading}</p>
-            <div className="mt-6 flex items-center gap-1.5 text-app-text-muted text-xs">
+            <button
+              onClick={(e) => { e.stopPropagation(); playAudio(); }}
+              className="mt-4 flex items-center gap-1.5 text-app-accent-primary text-xs hover:text-app-accent-primary/80 transition-colors cursor-pointer"
+            >
+              <i className={audioPlayed ? "ri-volume-up-fill" : "ri-volume-up-line"}></i>
+              {audioPlayed ? "Đã nghe" : "Nghe phát âm"}
+            </button>
+            <div className="mt-4 flex items-center gap-1.5 text-app-text-muted text-xs">
               <i className="ri-hand-coin-line text-xs"></i>
               Nhấn để lật thẻ
             </div>
@@ -164,7 +222,7 @@ function FlipCard({ card, onKnow, onDontKnow }: {
             Chưa thuộc
           </button>
           <button
-            onClick={(e) => { e.stopPropagation(); onKnow(); setFlipped(false); }}
+            onClick={(e) => { e.stopPropagation(); handleKnowWithValidation(); }}
             className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-app-accent-success font-semibold text-sm transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-check-line text-lg"></i>
@@ -318,14 +376,17 @@ export default function FlashcardPage() {
     setSessionKnown(prev => [...prev, card.id]);
     setMasteredIds(prev => prev.includes(card.id) ? prev : [...prev, card.id]);
     setSessions(prev => [...prev, { cardId: card.id, result: "know", date: new Date().toISOString() }]);
-    awardXP({ type: "flashcard_learned", amount: 5 });
+    // Award XP only if this is the first time mastering this card
+    if (!masteredIds.includes(card.id)) {
+      awardXP({ type: "flashcard_learned", amount: 5 });
+    }
     if (currentIdx + 1 >= studyQueue.length) {
       setMode("done");
       triggerCloudSync();
     } else {
       setCurrentIdx(i => i + 1);
     }
-  }, [studyQueue, currentIdx, setMasteredIds, setSessions, triggerCloudSync]);
+  }, [studyQueue, currentIdx, setMasteredIds, setSessions, triggerCloudSync, masteredIds, awardXP]);
 
   const handleDontKnow = useCallback(() => {
     const card = studyQueue[currentIdx];

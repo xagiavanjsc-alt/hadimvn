@@ -775,17 +775,17 @@ export default function HanjaDashboardPage() {
               )}
             </div>
 
-            <div className="bg-app-card/50 border border-app-border rounded-2xl p-5">
-              <h3 className="text-sm font-bold text-white/80 mb-4">Phân bổ theo độ khó</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="bg-app-card/50 border border-app-border rounded-2xl p-4 sm:p-5">
+              <h3 className="text-sm font-bold text-white/80 mb-3 sm:mb-4">Phân bổ theo độ khó</h3>
+              <div className="flex overflow-x-auto sm:grid sm:grid-cols-3 gap-3 pb-2 sm:pb-0 -mx-1 px-1 sm:mx-0 sm:px-0 scrollbar-hide">
                 {diffStats.map(d => (
-                  <div key={d.label} className="text-center p-4 rounded-xl border border-app-border bg-app-surface/50">
-                    <p className="text-2xl font-bold mb-1" style={{ color: d.color }}>{d.learned}</p>
-                    <p className="text-xs text-white/50 mb-2">{d.label}</p>
+                  <div key={d.label} className="flex-shrink-0 w-28 sm:w-auto text-center p-3 sm:p-4 rounded-xl border border-app-border bg-app-surface/50">
+                    <p className="text-xl sm:text-2xl font-bold mb-1" style={{ color: d.color }}>{d.learned}</p>
+                    <p className="text-[10px] sm:text-xs text-white/50 mb-2">{d.label}</p>
                     <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
                       <div className="h-full rounded-full" style={{ width: `${d.total > 0 ? (d.learned / d.total) * 100 : 0}%`, backgroundColor: d.color }} />
                     </div>
-                    <p className="text-[10px] text-app-text-muted mt-1">{d.learned}/{d.total}</p>
+                    <p className="text-[9px] sm:text-[10px] text-app-text-muted mt-1">{d.learned}/{d.total}</p>
                   </div>
                 ))}
               </div>

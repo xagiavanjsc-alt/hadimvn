@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useXPSystem } from "@/hooks/useXPSystem";
 import { EPS_TOPICS } from "@/mocks/epsQuestions";
 
 interface ExamResult {
@@ -74,7 +75,7 @@ function generateDailyPlan(
       title: "Ôn lại Hangul cơ bản",
       desc: "5 phút ôn bảng chữ cái — khởi động nhẹ nhàng",
       duration: 5,
-      xp: 20,
+      xp: 10,
       icon: "ri-font-size",
       color: "app-accent-primary",
       path: "/hangul",
@@ -89,7 +90,7 @@ function generateDailyPlan(
       title: "Ôn Flashcard hàng ngày",
       desc: "20 thẻ từ vựng — duy trì streak " + streak + " ngày",
       duration: 10,
-      xp: 30,
+      xp: 25,
       icon: "ri-stack-line",
       color: "#4ade80",
       path: "/flashcard",
@@ -108,7 +109,7 @@ function generateDailyPlan(
       title: `Luyện EPS: ${weakest.label}`,
       desc: `Điểm yếu nhất của bạn (${weakest.score}%) — tập trung ôn chủ đề này`,
       duration: 15,
-      xp: 50,
+      xp: 30,
       icon: "ri-file-list-3-line",
       color: "#f87171",
       path: "/quiz",
@@ -123,7 +124,7 @@ function generateDailyPlan(
       title: "Luyện thi EPS hôm nay",
       desc: "10 câu EPS ngẫu nhiên — kiểm tra kiến thức tổng hợp",
       duration: 15,
-      xp: 40,
+      xp: 30,
       icon: "ri-file-list-3-line",
       color: "#60a5fa",
       path: "/eps",
@@ -140,7 +141,7 @@ function generateDailyPlan(
     title: "Đọc tin tức tiếng Hàn",
     desc: "1 bài báo + học từ vựng inline — học trong ngữ cảnh thật",
     duration: 20,
-    xp: 45,
+    xp: 20,
     icon: "ri-newspaper-line",
     color: "#a78bfa",
     path: "/news",
@@ -157,7 +158,7 @@ function generateDailyPlan(
       title: "Thi thử EPS đầy đủ",
       desc: "40 câu · 50 phút — đo lường tiến độ thực tế",
       duration: 50,
-      xp: 100,
+      xp: 20,
       icon: "ri-timer-line",
       color: "#fb923c",
       path: "/eps-exam",
@@ -178,7 +179,7 @@ function generateDailyPlan(
       title: `Ôn lại: ${second.label}`,
       desc: `Điểm ${second.score}% — cần cải thiện thêm`,
       duration: 10,
-      xp: 35,
+      xp: 15,
       icon: "ri-refresh-line",
       color: "#f59e0b",
       path: "/quiz",
@@ -199,6 +200,7 @@ const PRIORITY_LABELS: Record<string, { label: string; color: string }> = {
 
 export default function DailyPlanPage() {
   const navigate = useNavigate();
+  const { addXP } = useXPSystem();
   const [examResults] = useLocalStorage<ExamResult[]>("kts_exam_results", []);
   const [streak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
   const [completedToday, setCompletedToday] = useLocalStorage<string[]>("kts_daily_completed", []);
@@ -232,6 +234,34 @@ export default function DailyPlanPage() {
 
   const handleMarkDone = (taskId: string) => {
     if (!completedToday.includes(taskId)) {
+      const task = tasks.find(t => t.id === taskId);
+      if (task) {
+        // Award XP based on task type
+        let xpEvent: { type: string; amount?: number } | null = null;
+        switch (task.type) {
+          case "flashcard":
+            xpEvent = { type: "flashcard_learned", amount: task.xp };
+            break;
+          case "eps":
+          case "review":
+            xpEvent = { type: "eps_question_correct", amount: task.xp };
+            break;
+          case "quiz":
+            xpEvent = { type: "eps_exam_completed", amount: task.xp };
+            break;
+          case "news":
+            xpEvent = { type: "manual_bonus", amount: task.xp };
+            break;
+          case "hangul":
+            xpEvent = { type: "manual_bonus", amount: task.xp };
+            break;
+          default:
+            xpEvent = { type: "manual_bonus", amount: task.xp };
+        }
+        if (xpEvent) {
+          addXP(xpEvent.amount, xpEvent.type);
+        }
+      }
       setCompletedToday([...completedToday, taskId]);
     }
     setSelectedTask(null);

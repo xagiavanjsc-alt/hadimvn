@@ -154,35 +154,35 @@ function ToolRow({
   return (
     <div
       onClick={() => navigate(path)}
-      className="flex items-center gap-4 p-4 rounded-xl border cursor-pointer hover:bg-app-surface/50 transition-all group"
+      className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl border cursor-pointer hover:bg-app-surface/50 transition-all group"
       style={{ borderColor: `${color}18` }}
     >
       <div
-        className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0"
+        className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl flex-shrink-0"
         style={{ backgroundColor: `${color}15` }}
       >
-        <i className={`${icon} text-lg`} style={{ color }} />
+        <i className={`${icon} text-base sm:text-lg`} style={{ color }} />
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <h3 className="text-white font-semibold text-sm">{title}</h3>
+          <h3 className="text-white font-semibold text-xs sm:text-sm">{title}</h3>
           {draftMode && (
-            <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-400 font-bold">
+            <span className="text-[8px] sm:text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-400 font-bold">
               Chế độ nháp
             </span>
           )}
         </div>
-        <p className="text-app-text-muted text-xs">{desc}</p>
+        <p className="text-app-text-muted text-[10px] sm:text-xs line-clamp-1">{desc}</p>
       </div>
       <div className="flex items-center gap-2 flex-shrink-0">
         <span
-          className="text-[10px] px-2.5 py-1 rounded-full font-medium whitespace-nowrap hidden sm:inline-flex"
+          className="text-[9px] sm:text-[10px] px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full font-medium whitespace-nowrap"
           style={{ backgroundColor: `${color}12`, color }}
         >
           {stat}
         </span>
         <i
-          className="ri-arrow-right-line text-sm group-hover:translate-x-0.5 transition-transform"
+          className="ri-arrow-right-line text-xs sm:text-sm group-hover:translate-x-0.5 transition-transform"
           style={{ color: `${color}80` }}
         />
       </div>
@@ -322,7 +322,7 @@ export default function Home() {
         <AdBanner position="top" />
 
         {/* ── Stats row ── */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3">
           <StatCard
             icon="ri-fire-line"
             color="#fb923c"
@@ -366,7 +366,7 @@ export default function Home() {
               Lộ trình <i className="ri-arrow-right-line" />
             </button>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+          <div className="grid grid-cols-2 gap-2 sm:gap-3">
             <QuickCard
               icon="ri-sun-line"
               color="app-accent-primary"
@@ -407,24 +407,24 @@ export default function Home() {
             <p className="text-app-text-secondary text-xs font-semibold tracking-normal mb-2 sm:mb-3">
               Gợi ý cho bạn hôm nay
             </p>
-            <div className="space-y-2">
+            <div className="space-y-1.5 sm:space-y-2">
               {todaySuggestions.map((s) => (
                 <button
                   key={s.path}
                   onClick={() => navigate(s.path)}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-app-surface/50 hover:bg-white/6 transition-colors cursor-pointer text-left"
+                  className="w-full flex items-center gap-2 sm:gap-3 px-2.5 sm:px-3 py-2 sm:py-2.5 rounded-xl bg-app-surface/50 hover:bg-white/6 transition-colors cursor-pointer text-left"
                 >
                   <div
-                    className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0"
+                    className="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-lg flex-shrink-0"
                     style={{ backgroundColor: `${s.color}15` }}
                   >
-                    <i className={`${s.icon} text-sm`} style={{ color: s.color }} />
+                    <i className={`${s.icon} text-xs sm:text-sm`} style={{ color: s.color }} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-white/70 text-xs font-medium truncate">{s.label}</p>
-                    <p className="text-app-text-muted text-[10px] truncate">{s.desc}</p>
+                    <p className="text-white/70 text-[11px] sm:text-xs font-medium truncate">{s.label}</p>
+                    <p className="text-app-text-muted text-[9px] sm:text-[10px] truncate">{s.desc}</p>
                   </div>
-                  <i className="ri-arrow-right-line text-app-text-muted text-xs flex-shrink-0" />
+                  <i className="ri-arrow-right-line text-app-text-muted text-[10px] sm:text-xs flex-shrink-0" />
                 </button>
               ))}
             </div>

@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useCallback } from "react";
+﻿import { useState, useMemo, useCallback, useEffect } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useAdminUsers, useLoginSessions, type AdminUser, type LoginSession } from "@/hooks/useAdminUsers";
 import VirtualList from "@/components/base/VirtualList";
@@ -429,11 +429,12 @@ function AdvancedFilterPanel({ filters, onChange, onReset, resultCount }: {
 }
 
 // ─── User Detail Drawer ───────────────────────────────────────────────────────
-function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVip }: {
+function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVip, currentUserRole }: {
   user: AdminUser; onClose: () => void;
   onToggleVip: (id: string, cur: boolean) => void;
   onToggleAdmin: (id: string, cur: boolean) => void;
   onGrantVip: (user: AdminUser) => void;
+  currentUserRole: "super_admin" | "smod" | "moderator" | "member";
 }) {
   const vipType = getVipType(user);
   const daysLeft = getVipDaysLeft(user);
@@ -569,11 +570,13 @@ function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVi
                   <i className="ri-close-circle-line"></i>Hủy VIP
                 </button>
               )}
-              <button onClick={() => onToggleAdmin(user.id, user.is_admin)}
-                className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap"
-                style={{ backgroundColor: user.is_admin ? "rgba(244,63,94,0.10)" : "var(--admin-hover)", color: user.is_admin ? "#f87171" : "var(--admin-text-muted)", border: `1px solid ${user.is_admin ? "rgba(244,63,94,0.20)" : "var(--admin-border)"}` }}>
-                <i className="ri-shield-keyhole-line"></i>{user.is_admin ? "Hủy Admin" : "Cấp Admin"}
-              </button>
+              {currentUserRole === "super_admin" && (
+                <button onClick={() => onToggleAdmin(user.id, user.is_admin)}
+                  className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap"
+                  style={{ backgroundColor: user.is_admin ? "rgba(244,63,94,0.10)" : "var(--admin-hover)", color: user.is_admin ? "#f87171" : "var(--admin-text-muted)", border: `1px solid ${user.is_admin ? "rgba(244,63,94,0.20)" : "var(--admin-border)"}` }}>
+                  <i className="ri-shield-keyhole-line"></i>{user.is_admin ? "Hủy Admin" : "Cấp Admin"}
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -583,13 +586,14 @@ function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVi
 }
 
 // ─── User Row ─────────────────────────────────────────────────────────────────
-function UserRow({ user, selected, onSelect, onToggleVip, onToggleAdmin, onViewDetail, onGrantVip }: {
+function UserRow({ user, selected, onSelect, onToggleVip, onToggleAdmin, onViewDetail, onGrantVip, currentUserRole }: {
   user: AdminUser; selected: boolean;
   onSelect: (id: string) => void;
   onToggleVip: (id: string, cur: boolean) => void;
   onToggleAdmin: (id: string, cur: boolean) => void;
   onViewDetail: (u: AdminUser) => void;
   onGrantVip: (u: AdminUser) => void;
+  currentUserRole: "super_admin" | "smod" | "moderator" | "member";
 }) {
   const vipType = getVipType(user);
   const daysLeft = getVipDaysLeft(user);
@@ -661,10 +665,12 @@ function UserRow({ user, selected, onSelect, onToggleVip, onToggleAdmin, onViewD
         <button onClick={() => onGrantVip(user)} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary" }}>
           <i className="ri-vip-crown-line text-xs"></i>
         </button>
-        <button onClick={() => onToggleAdmin(user.id, user.is_admin)} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer"
-          style={{ backgroundColor: user.is_admin ? "rgba(244,63,94,0.12)" : "var(--admin-hover)", color: user.is_admin ? "#f87171" : "var(--admin-text-faint)" }}>
-          <i className="ri-shield-keyhole-line text-xs"></i>
-        </button>
+        {currentUserRole === "super_admin" && (
+          <button onClick={() => onToggleAdmin(user.id, user.is_admin)} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer"
+            style={{ backgroundColor: user.is_admin ? "rgba(244,63,94,0.12)" : "var(--admin-hover)", color: user.is_admin ? "#f87171" : "var(--admin-text-faint)" }}>
+            <i className="ri-shield-keyhole-line text-xs"></i>
+          </button>
+        )}
         <button onClick={() => onViewDetail(user)} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>
           <i className="ri-eye-line text-xs"></i>
         </button>
@@ -800,6 +806,7 @@ function LoginSessionsPanel() {
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function AdminUsersPage() {
   const { users, loading, error, refetch, updateAdmin } = useAdminUsers();
+  const [currentUserRole, setCurrentUserRole] = useState<"super_admin" | "smod" | "moderator" | "member">("member");
   const [search, setSearch] = useState("");
   const [filterRole, setFilterRole] = useState<"all" | "vip" | "admin" | "free">("all");
   const [sortBy, setSortBy] = useState<"newest" | "xp" | "streak" | "active" | "vip_expiry">("newest");
@@ -816,6 +823,30 @@ export default function AdminUsersPage() {
     setActionMsg({ msg, type });
     setTimeout(() => setActionMsg(null), 2500);
   };
+
+  // Fetch current user's role
+  useEffect(() => {
+    const fetchCurrentUserRole = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+
+        const { data: profile } = await supabase
+          .from("user_profiles")
+          .select("user_role")
+          .eq("id", user.id)
+          .maybeSingle();
+
+        if (profile?.user_role) {
+          setCurrentUserRole(profile.user_role as "super_admin" | "smod" | "moderator" | "member");
+        }
+      } catch (err) {
+        console.error("Error fetching user role:", err);
+      }
+    };
+
+    fetchCurrentUserRole();
+  }, []);
 
   const filtered = useMemo(() => {
     let list = [...users];
@@ -1117,6 +1148,7 @@ export default function AdminUsersPage() {
               onToggleAdmin={handleToggleAdmin}
               onViewDetail={setSelectedUser}
               onGrantVip={setGrantVipUser}
+              currentUserRole={currentUserRole}
             />
           )}
           emptyState={
@@ -1130,7 +1162,7 @@ export default function AdminUsersPage() {
 
       {selectedUser && (
         <UserDetailDrawer user={selectedUser} onClose={() => setSelectedUser(null)}
-          onToggleVip={handleToggleVip} onToggleAdmin={handleToggleAdmin} onGrantVip={setGrantVipUser} />
+          onToggleVip={handleToggleVip} onToggleAdmin={handleToggleAdmin} onGrantVip={setGrantVipUser} currentUserRole={currentUserRole} />
       )}
       {grantVipUser && (
         <VipGrantModal user={grantVipUser} onClose={() => setGrantVipUser(null)} onGrant={handleGrantVip} />

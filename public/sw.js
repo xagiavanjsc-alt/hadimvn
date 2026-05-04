@@ -2,7 +2,7 @@
 // IMPORTANT: bump CACHE_VERSION on every breaking change so old caches are
 // dropped on activate. Stale HTML referencing old hashed chunks is the #1
 // cause of "black screen after login" on phones/macbooks.
-const CACHE_VERSION = "v8";
+const CACHE_VERSION = "v9";
 const CACHE_NAME = `hanquocoi-${CACHE_VERSION}`;
 const FONT_CACHE = `hanquocoi-fonts-${CACHE_VERSION}`;
 const IMAGE_CACHE = `hanquocoi-images-${CACHE_VERSION}`;

@@ -1,0 +1,49 @@
+{
+  "name": "Hàn Quốc Ơi! - Học tiếng Hàn hiệu quả",
+  "short_name": "Hàn Quốc Ơi!",
+  "description": "Học tiếng Hàn hiệu quả với từ vựng Hán Hàn, flashcard, EPS-TOPIK và nhiều công cụ học tập khác",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f1117",
+  "theme_color": "#f59e0b",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "productivity"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Từ mới hôm nay",
+      "short_name": "Từ mới",
+      "description": "Học 8 từ mới mỗi ngày",
+      "url": "/daily-words",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Flashcard",
+      "short_name": "Flashcard",
+      "description": "Ôn tập với flashcard",
+      "url": "/flashcard-hub",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "EPS-TOPIK",
+      "short_name": "EPS",
+      "description": "Luyện thi EPS-TOPIK",
+      "url": "/eps",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
