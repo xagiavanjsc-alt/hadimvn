@@ -319,7 +319,7 @@ export default function EpsFlashcardPage() {
             <i className="ri-play-line"></i>
             Học ngay ({filteredCards.length} thẻ)
           </button>
-        ) : mode !== "browse" ? (
+        ) : mode === "study" || mode === "done" ? (
           <button
             onClick={() => setMode("browse")}
             className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/60 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
