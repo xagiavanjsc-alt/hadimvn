@@ -52,12 +52,12 @@ ALTER TABLE public.hanja_story_progress ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.hanja_story_quiz ENABLE ROW LEVEL SECURITY;
 
 -- RLS policies for hanja_stories (read-only for all authenticated users)
-CREATE POLICY "Hanja stories are viewable by all authenticated users"
+CREATE OR REPLACE POLICY "Hanja stories are viewable by all authenticated users"
 ON public.hanja_stories FOR SELECT
 TO authenticated
 USING (true);
 
-CREATE POLICY "Admins can create hanja stories"
+CREATE OR REPLACE POLICY "Admins can create hanja stories"
 ON public.hanja_stories FOR INSERT
 TO authenticated
 WITH CHECK (
@@ -65,7 +65,7 @@ WITH CHECK (
   created_by = 'ai'
 );
 
-CREATE POLICY "Admins can update hanja stories"
+CREATE OR REPLACE POLICY "Admins can update hanja stories"
 ON public.hanja_stories FOR UPDATE
 TO authenticated
 USING (
@@ -74,23 +74,23 @@ USING (
 );
 
 -- RLS policies for hanja_story_progress
-CREATE POLICY "Users can view their own story progress"
+CREATE OR REPLACE POLICY "Users can view their own story progress"
 ON public.hanja_story_progress FOR SELECT
 TO authenticated
 USING (auth.uid() = user_id);
 
-CREATE POLICY "Users can insert their own story progress"
+CREATE OR REPLACE POLICY "Users can insert their own story progress"
 ON public.hanja_story_progress FOR INSERT
 TO authenticated
 WITH CHECK (auth.uid() = user_id);
 
-CREATE POLICY "Users can update their own story progress"
+CREATE OR REPLACE POLICY "Users can update their own story progress"
 ON public.hanja_story_progress FOR UPDATE
 TO authenticated
 USING (auth.uid() = user_id);
 
 -- RLS policies for hanja_story_quiz (read-only for all authenticated users)
-CREATE POLICY "Hanja story quizzes are viewable by all authenticated users"
+CREATE OR REPLACE POLICY "Hanja story quizzes are viewable by all authenticated users"
 ON public.hanja_story_quiz FOR SELECT
 TO authenticated
 USING (true);
