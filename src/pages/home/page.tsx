@@ -126,8 +126,7 @@ function StatCard({
         <i className={`${icon} text-base sm:text-base`} style={{ color }} />
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-lg sm:text-xl font-bold text-white">{value}</p>
-        <p className="text-app-text-secondary text-[11px] sm:text-xs">{label}</p>
+        <p className="text-base sm:text-lg font-bold text-white">{value} <span className="font-semibold text-app-text-secondary">{label}</span></p>
         <p className="text-app-text-muted text-[10px] line-clamp-1">{sub}</p>
       </div>
     </div>
