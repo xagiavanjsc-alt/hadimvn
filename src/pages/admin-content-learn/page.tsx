@@ -242,7 +242,7 @@ function TopikVocabTab() {
               ].map(f => (
                 <div key={f.key}>
                   <label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>{f.label}</label>
-                  <input value={(editEntry as Record<string, string>)[f.key] || ""} onChange={e => setEditEntry(prev => prev ? { ...prev, [f.key]: e.target.value } : null)} className={inputCls} style={inputStyle} />
+                  <input value={(editEntry as unknown as Record<string, string>)[f.key] || ""} onChange={e => setEditEntry(prev => prev ? { ...prev, [f.key]: e.target.value } : null)} className={inputCls} style={inputStyle} />
                 </div>
               ))}
               <div>
@@ -403,7 +403,7 @@ function SeoulVocabTab() {
               ].map(f => (
                 <div key={f.key}>
                   <label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>{f.label}</label>
-                  <input value={(editEntry as Record<string, string>)[f.key] || ""} onChange={e => setEditEntry(prev => prev ? { ...prev, [f.key]: e.target.value } : null)} className={inputCls} style={inputStyle} />
+                  <input value={(editEntry as unknown as Record<string, string>)[f.key] || ""} onChange={e => setEditEntry(prev => prev ? { ...prev, [f.key]: e.target.value } : null)} className={inputCls} style={inputStyle} />
                 </div>
               ))}
             </div>
@@ -543,7 +543,7 @@ function HanjaTab() {
               ].map(f => (
                 <div key={f.key}>
                   <label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>{f.label}</label>
-                  <input value={(editEntry as Record<string, string>)[f.key] || ""} onChange={e => setEditEntry(prev => prev ? { ...prev, [f.key]: e.target.value } : null)} className={inputCls} style={inputStyle} />
+                  <input value={(editEntry as unknown as Record<string, string>)[f.key] || ""} onChange={e => setEditEntry(prev => prev ? { ...prev, [f.key]: e.target.value } : null)} className={inputCls} style={inputStyle} />
                 </div>
               ))}
               <div>
