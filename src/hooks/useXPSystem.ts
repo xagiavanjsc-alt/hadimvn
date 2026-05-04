@@ -399,13 +399,17 @@ export function useXPSystem() {
     earnedBadgeIds,
     notifications,
     awardXP,
-    // Legacy-compatible addXP: accepts either (XPEvent) or (amount, reason)
-    addXP: ((arg1: XPEvent | number, arg2?: string) => {
+    // Legacy-compatible addXP alias.
+    // Historically, many callers invoked addXP(amount, reason) with a numeric amount,
+    // but awardXP expects an XPEvent. To avoid overwriting server XP with a lower
+    // re-computed value (see scheduleServerSync), we no-op on legacy numeric calls
+    // and only forward valid XPEvent objects.
+    addXP: ((arg1: XPEvent | number, _arg2?: string) => {
       if (typeof arg1 === "number") {
-        awardXP({ type: "other" as any, amount: arg1, meta: { reason: arg2 } });
-      } else {
-        awardXP(arg1);
+        // Legacy call path — intentionally ignored to preserve server XP.
+        return;
       }
+      awardXP(arg1);
     }) as (arg1: XPEvent | number, arg2?: string) => void,
     dismissNotification,
     clearAllNotifications,
