@@ -404,7 +404,7 @@ export default function QuizPage() {
         aiConfig,
         lesson.song.title,
         lesson.vocab ?? [],
-        lesson.grammar ?? "",
+        lesson.grammar?.map(g => `${g.pattern}: ${g.explanation}`).join("\n") ?? "",
         questionCount
       );
       setQuestions(result.questions);

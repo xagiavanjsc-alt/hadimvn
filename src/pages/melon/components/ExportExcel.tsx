@@ -11,10 +11,17 @@ export interface ApprovedLesson {
   story: string;
   vocabulary: VocabularyItem[];
   vocab?: VocabularyItem[]; // Alias for backward compatibility
-  grammar?: string; // Optional grammar notes
+  grammar?: GrammarItem[]; // Optional grammar notes as array
   explanation?: string;
   stars?: number;
   publishedAt?: string; // Optional publish date
+}
+
+// Grammar item type
+export interface GrammarItem {
+  pattern: string;
+  explanation: string;
+  example?: string;
 }
 
 // Vocabulary item with backward compatibility aliases
