@@ -54,10 +54,10 @@ function QuestionEditor({
             type="text"
             value={imageUrl}
             onChange={e => { setImageUrl(e.target.value); setPreviewError(false); }}
-            placeholder="https://img.hadim.vn/eps/safety/helmet-01.jpg"
+            placeholder="https://img.hanquocoi.vn/eps/safety/helmet-01.jpg"
             className="w-full bg-app-card/50 border border-app-border rounded-xl px-3 py-2.5 text-white/70 text-sm outline-none focus:border-app-accent-primary/40 placeholder-white/20"
           />
-          <p className="text-app-text-muted text-[10px] mt-1">Hỗ trợ: img.hadim.vn, readdy.ai, hoặc bất kỳ URL ảnh nào</p>
+          <p className="text-app-text-muted text-[10px] mt-1">Hỗ trợ: img.hanquocoi.vn, readdy.ai, hoặc bất kỳ URL ảnh nào</p>
         </div>
         <div>
           <label className="text-app-text-secondary text-xs mb-1 block">Alt text (mô tả ảnh)</label>
@@ -259,10 +259,10 @@ function VpsGuide() {
     setTimeout(() => setCopied(null), 2000);
   };
 
-  const nginxConfig = `# /etc/nginx/sites-available/img.hadim.vn
+  const nginxConfig = `# /etc/nginx/sites-available/img.hanquocoi.vn
 server {
     listen 80;
-    server_name img.hadim.vn;
+    server_name img.hanquocoi.vn;
     
     # Ảnh EPS câu hỏi
     location /eps/ {
@@ -281,10 +281,10 @@ server {
     }
 }
 
-# /etc/nginx/sites-available/audio.hadim.vn
+# /etc/nginx/sites-available/audio.hanquocoi.vn
 server {
     listen 80;
-    server_name audio.hadim.vn;
+    server_name audio.hanquocoi.vn;
     
     # File âm thanh TTS (cache vĩnh viễn)
     location /tts/ {
@@ -336,7 +336,7 @@ VPS_HOST="your-vps-ip"
 VPS_PATH="/var/www/hanquocoi/media"
 
 scp "$LOCAL_FILE" "$VPS_USER@$VPS_HOST:$VPS_PATH/$CATEGORY/$FILENAME"
-echo "✅ Uploaded: https://img.hadim.vn/$CATEGORY/$FILENAME"`;
+echo "✅ Uploaded: https://img.hanquocoi.vn/$CATEGORY/$FILENAME"`;
 
   return (
     <div className="space-y-5">
@@ -353,7 +353,7 @@ echo "✅ Uploaded: https://img.hadim.vn/$CATEGORY/$FILENAME"`;
 
       <div className="bg-app-bg border border-app-border rounded-2xl p-5">
         <h3 className="text-white font-semibold text-sm mb-1"><i className="ri-settings-3-line text-app-accent-primary mr-2"></i>Nginx config</h3>
-        <p className="text-app-text-secondary text-xs mb-3">Cấu hình Nginx cho img.hadim.vn và audio.hadim.vn</p>
+        <p className="text-app-text-secondary text-xs mb-3">Cấu hình Nginx cho img.hanquocoi.vn và audio.hanquocoi.vn</p>
         <div className="relative">
           <pre className="bg-black/40 rounded-xl p-4 text-[#38bdf8] text-[10px] font-mono leading-relaxed overflow-x-auto">{nginxConfig}</pre>
           <button onClick={() => copy(nginxConfig, "nginx")} className="absolute top-2 right-2 text-[10px] text-app-text-muted hover:text-white/60 bg-app-card/50 px-2 py-1 rounded cursor-pointer whitespace-nowrap">
@@ -376,10 +376,10 @@ echo "✅ Uploaded: https://img.hadim.vn/$CATEGORY/$FILENAME"`;
       <div className="bg-app-accent-primary/5 border border-app-accent-primary/20 rounded-xl p-4">
         <p className="text-app-accent-primary text-sm font-semibold mb-2"><i className="ri-lightbulb-line mr-2"></i>Chiến lược cache âm thanh TTS</p>
         <div className="space-y-2 text-white/50 text-xs leading-relaxed">
-          <p>1. <strong className="text-white/70">Lần đầu nghe:</strong> App gọi API TTS → nhận file MP3 → lưu vào <code className="text-app-accent-primary/70">audio.hadim.vn/tts/[từ].mp3</code></p>
+          <p>1. <strong className="text-white/70">Lần đầu nghe:</strong> App gọi API TTS → nhận file MP3 → lưu vào <code className="text-app-accent-primary/70">audio.hanquocoi.vn/tts/[từ].mp3</code></p>
           <p>2. <strong className="text-white/70">Lần sau:</strong> App kiểm tra Cache Storage → nếu có thì phát ngay, không tốn API</p>
           <p>3. <strong className="text-white/70">Vĩnh viễn:</strong> File MP3 lưu trên VPS không bao giờ xóa → không cần tạo lại</p>
-          <p>4. <strong className="text-white/70">SEO:</strong> URL <code className="text-app-accent-primary/70">audio.hadim.vn</code> giúp Google index âm thanh gắn với domain của bạn</p>
+          <p>4. <strong className="text-white/70">SEO:</strong> URL <code className="text-app-accent-primary/70">audio.hanquocoi.vn</code> giúp Google index âm thanh gắn với domain của bạn</p>
         </div>
       </div>
     </div>

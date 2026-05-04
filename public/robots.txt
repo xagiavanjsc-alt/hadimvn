@@ -14,4 +14,4 @@ Disallow: /onboarding
 User-agent: Googlebot-Image
 Allow: /
 
-Sitemap: https://hadim.vn/sitemap.xml
+Sitemap: https://hanquocoi.vn/sitemap.xml

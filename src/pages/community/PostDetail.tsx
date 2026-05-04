@@ -22,7 +22,7 @@ function PostSEO({ post, slug }: { post: Post; slug: string }) {
     "image": firstImage || undefined,
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://hadim.vn/community/${slug}`,
+      "@id": `https://hanquocoi.vn/community/${slug}`,
     },
     "publisher": {
       "@type": "Organization",

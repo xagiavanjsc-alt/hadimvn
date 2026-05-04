@@ -58,9 +58,9 @@ Supabase Dashboard → **Edge Functions** → **Settings** → thêm:
 | Key | Value |
 |-----|-------|
 | `RESEND_API_KEY` | `re_xxxxxxxxxxxxx` (từ Resend) |
-| `SENDER_EMAIL` | `noreply@hadim.vn` |
+| `SENDER_EMAIL` | `noreply@hanquocoi.vn` |
 | `SENDER_NAME` | `Hàn Quốc Ơi!` |
-| `SITE_URL` | `https://hadim.vn` |
+| `SITE_URL` | `https://hanquocoi.vn` |
 | `INTERNAL_API_SECRET` | (tự tạo 32 ký tự ngẫu nhiên, dùng để bảo vệ function) |
 
 Tạo secret random:

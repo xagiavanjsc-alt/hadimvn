@@ -7,21 +7,21 @@ App web có thể cài đặt như app thường, dùng được khi offline.
 ## Cách cài đặt
 
 **iPhone/iPad:**
-1. Mở Safari vào hadim.vn
+1. Mở Safari vào hanquocoi.vn
 2. Nhấn Share (mũi tên lên)
 3. Chọn "Add to Home Screen"
 4. Nhấn Add
 5. App xuất hiện trên màn hình
 
 **Android:**
-1. Mở Chrome vào hadim.vn
+1. Mở Chrome vào hanquocoi.vn
 2. Nhấn menu (3 chấm)
 3. Chọn "Install App" hoặc "Add to Home Screen"
 4. Nhấn Install/Add
 5. App xuất hiện trên màn hình
 
 **Máy tính:**
-1. Mở Chrome/Edge vào hadim.vn
+1. Mở Chrome/Edge vào hanquocoi.vn
 2. Nhấn icon Install ở thanh địa chỉ (hình dấu cộng)
 3. Nhấn Install
 
