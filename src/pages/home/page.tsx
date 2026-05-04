@@ -18,11 +18,37 @@ function WidgetSkeleton({ className = "" }: { className?: string }) {
     <div className={`bg-app-bg border border-app-border rounded-2xl p-4 animate-pulse ${className}`}>
       <div className="flex items-center gap-2 mb-3">
         <div className="w-7 h-7 rounded-lg bg-app-card/50" />
-        <div className="w-24 h-3 rounded bg-app-card/50" />
+        <div className="flex-1 h-4 rounded bg-app-card/50" />
       </div>
       <div className="space-y-2">
-        <div className="h-8 rounded-lg bg-app-surface/50" />
-        <div className="h-8 rounded-lg bg-app-surface/50" />
+        <div className="h-3 rounded bg-app-card/30 w-3/4" />
+        <div className="h-3 rounded bg-app-card/30 w-1/2" />
+      </div>
+    </div>
+  );
+}
+
+// ─── Quick Card Skeleton ───────────────────────────────────────────────────────
+function QuickCardSkeleton() {
+  return (
+    <div className="flex items-center gap-3 p-3 sm:p-4 rounded-2xl border border-app-border animate-pulse">
+      <div className="w-10 h-10 sm:w-9 sm:h-9 rounded-xl bg-app-card/30 flex-shrink-0" />
+      <div className="flex-1 min-w-0 space-y-2">
+        <div className="h-4 rounded bg-app-card/30 w-2/3" />
+        <div className="h-3 rounded bg-app-card/30 w-1/2" />
+      </div>
+    </div>
+  );
+}
+
+// ─── Stat Card Skeleton ───────────────────────────────────────────────────────
+function StatCardSkeleton() {
+  return (
+    <div className="flex items-center gap-3 p-3 sm:p-4 rounded-2xl border border-app-border animate-pulse">
+      <div className="w-10 h-10 sm:w-9 sm:h-9 rounded-xl bg-app-card/30 flex-shrink-0" />
+      <div className="flex-1 min-w-0 space-y-2">
+        <div className="h-5 rounded bg-app-card/30 w-3/4" />
+        <div className="h-3 rounded bg-app-card/30 w-1/3" />
       </div>
     </div>
   );

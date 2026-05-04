@@ -5,6 +5,7 @@ import './index.css'
 import 'remixicon/fonts/remixicon.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import App from './App.tsx'
+import { ErrorBoundary } from './components/common/ErrorBoundary'
 
 // ─── Polyfill requestIdleCallback for Safari ───────────────────────────────────────
 // Safari doesn't support requestIdleCallback, so polyfill with setTimeout
@@ -23,7 +24,9 @@ if (!('requestIdleCallback' in window)) {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </StrictMode>,
 )
 
