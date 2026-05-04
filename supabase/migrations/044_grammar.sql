@@ -87,44 +87,44 @@ USING (true);
 -- Insert sample grammar patterns
 INSERT INTO public.grammar_patterns (pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags) VALUES
 -- Beginner patterns
-('입니다', 'imnida', 'là (động từ trang trọng)', 'beginner', 'copula', 'Động từ trang trọng dùng để kết thúc câu, tương đương với "là" hoặc "đó là".', 'Dùng ở cuối câu để thể hiện sự trang trọng.', 
+('입니다', 'imnida', 'là (động từ trang trọng)', 'beginner', 'copula', 'Động từ trang trọng dùng để kết thúc câu, tương đương với "là" hoặc "đó là".', 'Dùng ở cuối câu để thể hiện sự trang trọng.',
   '[{"korean": "저는 학생입니다.", "vietnamese": "Tôi là sinh viên."}, {"korean": "이것은 책입니다.", "vietnamese": "Đây là sách."}]',
-  ['입니다', '입니다까'], ['honorifics', 'copula']),
+  ARRAY['입니다', '입니다까']::TEXT[], ARRAY['honorifics', 'copula']::TEXT[]),
 
 ('입니다까', 'imnikka', 'phải không là (trang trọng)', 'beginner', 'copula', 'Dạng câu hỏi của 입니다, dùng để hỏi xác nhận.', 'Dùng ở cuối câu hỏi để hỏi xác nhận một cách trang trọng.',
   '[{"korean": "학생입니까?", "vietnamese": "Bạn là sinh viên phải không?"}, {"korean": "한국 사람입니까?", "vietnamese": "Bạn là người Hàn Quốc phải không?"}]',
-  ['입니다', '까'], ['honorifics', 'question']),
+  ARRAY['입니다', '까']::TEXT[], ARRAY['honorifics', 'question']::TEXT[]),
 
 ('있습니다', 'isseumnida', 'có (trang trọng)', 'beginner', 'existence', 'Dạng trang trọng của 있다 (có/tồn tại).', 'Dùng để nói về sự tồn tại của vật hoặc người một cách trang trọng.',
   '[{"korean": "책이 있습니다.", "vietnamese": "Có sách."}, {"korean": "시간이 있습니다.", "vietnamese": "Có thời gian."}]',
-  ['있다', '없습니다'], ['existence', 'honorifics']),
+  ARRAY['있다', '없습니다']::TEXT[], ARRAY['existence', 'honorifics']::TEXT[]),
 
 ('없습니다', 'eopseumnida', 'không có (trang trọng)', 'beginner', 'existence', 'Dạng phủ định trang trọng của 있다 (có).', 'Dùng để nói về sự không tồn tại một cách trang trọng.',
   '[{"korean": "돈이 없습니다.", "vietnamese": "Không có tiền."}, {"korean": "시간이 없습니다.", "vietnamese": "Không có thời gian."}]',
-  ['있다', '있습니다'], ['existence', 'honorifics', 'negative']),
+  ARRAY['있다', '있습니다']::TEXT[], ARRAY['existence', 'honorifics', 'negative']::TEXT[]),
 
 -- Intermediate patterns
 ('-(으)려고 하다', '-(euryeo hada', 'đ định, muốn làm', 'intermediate', 'intention', 'Dùng để diễn tả ý định hoặc kế hoạch làm gì đó trong tương lai gần.', 'Thêm -(으)려고 vào động từ, sau đó là 하다.',
   '[{"korean": "저는 한국어를 공부하려고 해요.", "vietnamese": "Tôi định học tiếng Hàn."}, {"korean": "내일 서울에 가려고 해요.", "vietnamese": "Ngày mai tôi định đi Seoul."}]',
-  ['-(으)ㄹ 거예요', '-(으)ㄹ래요'], ['intention', 'future']),
+  ARRAY['-(으)ㄹ 거예요', '-(으)ㄹ래요']::TEXT[], ARRAY['intention', 'future']::TEXT[]),
 
 ('-(으)ㄹ 수 있다', '-(eul su itda', 'có thể làm được', 'intermediate', 'possibility', 'Dùng để diễn tả khả năng hoặc khả thi của hành động.', 'Thêm -(으)ㄹ 수 있다 vào động từ.',
   '[{"korean": "한국어를 할 수 있어요.", "vietnamese": "Tôi có thể nói tiếng Hàn."}, {"korean": "이 문제를 풀 수 있어요.", "vietnamese": "Tôi có thể giải được bài toán này."}]',
-  ['-(으)ㄹ 수 없다', '할 수 있다'], ['possibility', 'ability']),
+  ARRAY['-(으)ㄹ 수 없다', '할 수 있다']::TEXT[], ARRAY['possibility', 'ability']::TEXT[]),
 
 ('아/어/여 보다', 'a/eo/yeo boda', 'đã thử làm', 'intermediate', 'experience', 'Dùng để diễn tả đã thử làm một việc gì đó.', 'Thêm 아/어/여 vào động từ, sau đó là 보다.',
   '[{"korean": "한국 음식을 먹어 봤어요.", "vietnamese": "Tôi đã thử ăn đồ Hàn."}, {"korean": "서울에 가 봤어요.", "vietnamese": "Tôi đã thử đi Seoul."}]',
-  ['아/어/여 있다', '보다'], ['experience', 'past']),
+  ARRAY['아/어/여 있다', '보다']::TEXT[], ARRAY['experience', 'past']::TEXT[]),
 
 -- Advanced patterns
 ('-(으)ㄹ 뿐만 아니라', '-(eul ppunmani anira', 'không chỉ... mà còn', 'advanced', 'conjunction', 'Dùng để kết hợp hai ý, nói về không chỉ A mà còn cả B.', 'Thêm -(으)ㄹ 뿐만 아니라 vào danh từ hoặc động từ.',
   '[{"korean": "그는 똑똑할 뿐만 아니라 친절해요.", "vietnamese": "Anh ấy không chỉ thông minh mà còn thân thiện."}, {"korean": "한국어뿐만 아니라 영어도 할 수 있어요.", "vietnamese": "Tôi không chỉ nói tiếng Hàn mà còn nói tiếng Anh."}]',
-  ['뿐만 아니라', '뿐더러'], ['conjunction', 'emphasis']),
+  ARRAY['뿐만 아니라', '뿐더러']::TEXT[], ARRAY['conjunction', 'emphasis']::TEXT[]),
 
 ('-(으)ㄹ 수밖에 없다', '-(eul subakke eopda', 'chỉ có thể làm, buộc phải làm', 'advanced', 'necessity', 'Dùng để diễn tả không còn lựa chọn nào khác ngoài việc đó.', 'Thêm -(으)ㄹ 수밖에 없다 vào động từ.',
   '[{"korean": "가야 할 수밖에 없어요.", "vietnamese": "Tôi buộc phải đi."}, {"korean": "이 일을 해야 할 수밖에 없어요.", "vietnamese": "Tôi buộc phải làm việc này."}]',
-  ['-(으)ㄹ 수 있다', '-(으)려면'], ['necessity', 'no choice']),
+  ARRAY['-(으)ㄹ 수 있다', '-(으)려면']::TEXT[], ARRAY['necessity', 'no choice']::TEXT[]),
 
 ('다면', 'damyeon', 'nếu', 'advanced', 'conditional', 'Dùng để tạo câu điều kiện, tương đương với "nếu".', 'Thêm 다면 vào cuối mệnh đề điều kiện.',
   '[{"korean": "비가 오면 안 가요.", "vietnamese": "Nếu trời mưa thì tôi không đi."}, {"korean": "시간이 있으면 도와줄게요.", "vietnamese": "Nếu có thời gian thì tôi sẽ giúp."}]',
-  ['-(으)면', '거든'], ['conditional', 'if']);
+  ARRAY['-(으)면', '거든']::TEXT[], ARRAY['conditional', 'if']::TEXT[]);
