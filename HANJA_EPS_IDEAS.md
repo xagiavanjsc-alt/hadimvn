@@ -184,6 +184,63 @@ Từ code analysis, hệ thống đã có:
 
 ---
 
+### 8. Truyện Chêm - Mnemonic Stories (Priority: Cao)
+
+**Ý tưởng:** Tạo truyện từ bộ Hanja để giúp ghi nhớ từ vựng tốt hơn.
+
+#### a. Truyện Chêm Generator
+- Input: 7-10 từ Hanja có liên quan
+- Output: Một truyện kết nối các từ này
+- Ví dụ: 學( học) + 校( trường) + 友( bạn) + 師( thầy) → Truyện về trường học
+- Với 6000 từ → có thể tạo vài trăm truyện
+
+#### b. Truyện Chêm Database
+- Table: `hanja_stories`
+  - story_id, title, content
+  - hanja_words (JSON array)
+  - difficulty_level
+  - topic (education, family, work, etc.)
+  - created_by (AI hoặc admin)
+
+#### c. Truyện Chèm Learning Flow
+1. User chọn chủ đề (ví dụ: giáo dục)
+2. Hệ thống hiển thị 7-10 từ Hanja liên quan
+3. User đọc truyện chêm kết nối các từ
+4. Quiz: "Truyện này dùng từ Hanja nào?"
+5. Flashcard: Hiện truyện → user nhớ từ
+
+#### d. AI-powered Story Generation
+- Dùng AI để tạo truyện chêm tự động
+- Input: danh sách Hanja
+- Output: truyện có nghĩa, kết nối logic
+- Language: tiếng Việt với Hanja lồng ghép
+- Ví dụ: "Ngày xưa có một **學生**(sinh viên) đến **學校**(trường học), gặp **朋友**(bạn) và **老師**(thầy giáo)..."
+
+#### e. Truyện Chèm Categories
+- Truyện theo chủ đề EPS-TOPIK:
+  - Công việc: 工作, 事業, 職業, 會社, 事務
+  - Gia đình: 家族, 父母, 子女, 兄弟, 姉妹
+  - Thời gian: 時間, 週間, 年間, 今日, 明日
+  - Địa điểm: 學校, 會社, 銀行, 病院, 郵便局
+
+#### f. Truyện Chèm Gamification
+- "Đọc 10 truyện chêm" → Achievement
+- "Tạo truyện chêm của riêng bạn" → Feature cho user
+- Leaderboard: "Ai đọc nhiều truyện nhất?"
+- Quiz: "Đoán từ Hanja trong truyện"
+
+#### g. Truyện Chèm Offline
+- Download truyện để đọc offline
+- Pack 100 truyện phổ biến nhất
+- Audio cho truyện (TTS)
+
+#### h. Truyện Chèm & EPS-TOPIK
+- Truyện dùng từ vựng EPS-TOPIK
+- Sau khi đọc truyện → quiz EPS
+- "Truyện này có 5 từ xuất hiện trong EPS-TOPIK"
+
+---
+
 ## So sánh tên miền
 
 ### hadim.vn
@@ -239,16 +296,23 @@ Từ code analysis, hệ thống đã có:
 ### Về phát triển Hán Hàn & EPS-TOPIK
 
 **Priority 1 (Ngay lập tức):**
-1. Hán Hàn trong đề EPS-TOPIK (highlight, quiz)
-2. Từ vựng EPS theo bộ thủ
-3. Hán Việt ↔ EPS-TOPIK quiz
-4. Đoán nghĩa từ mới với Hán Hàn
+1. **Truyện Chêm - Mnemonic Stories** (feature mới, priority cao nhất)
+   - Database schema cho hanja_stories
+   - AI-powered story generator
+   - Truyện theo chủ đề EPS-TOPIK
+   - Quiz từ truyện chêm
+2. Hán Hàn trong đề EPS-TOPIK (highlight, quiz)
+3. Từ vựng EPS theo bộ thủ
+4. Hán Việt ↔ EPS-TOPIK quiz
+5. Đoán nghĩa từ mới với Hán Hàn
 
 **Priority 2 (1-2 tháng):**
-1. Đề thi thử chuyên Hán Hàn
-2. Weakness Analysis cho Hán Hàn
-3. Hanja Achievements
-4. AI giải thích Hán Hàn
+1. Truyện Chèm Gamification (achievements, leaderboard)
+2. Truyện Chèm Offline (download pack)
+3. Đề thi thử chuyên Hán Hàn
+4. Weakness Analysis cho Hán Hàn
+5. Hanja Achievements
+6. AI giải thích Hán Hàn
 
 **Priority 3 (3-6 tháng):**
 1. Cây gia đình chữ Hán
