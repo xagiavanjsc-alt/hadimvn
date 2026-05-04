@@ -24,7 +24,8 @@ export interface XPEvent {
     | "topic_drill_completed"
     | "hanja_word_learned"
     | "hanja_tree_completed"
-    | "hanja_quiz_completed";
+    | "hanja_quiz_completed"
+    | "manual_bonus"; // Generic bonus awarded via addXP(amount, reason)
   amount?: number; // override default XP
   meta?: Record<string, unknown>;
 }
@@ -63,6 +64,7 @@ const XP_REWARDS: Record<XPEvent["type"], number> = {
   hanja_word_learned: 3,
   hanja_tree_completed: 30,
   hanja_quiz_completed: 15,
+  manual_bonus: 0, // Amount must be explicitly provided
 };
 
 // ─── Anti-cheat: max XP events per type per day ─────────────────────────────
@@ -81,6 +83,7 @@ const DAILY_EVENT_CAPS: Partial<Record<XPEvent["type"], number>> = {
   hanja_quiz_completed: 10,
   hanja_tree_completed: 5,
   streak_day: 1,                 // exactly once/day for daily login bonus
+  // manual_bonus intentionally uncapped — callers must validate legitimacy
 };
 
 /** Per-day counts for anti-cheat. Resets when day changes. */
@@ -109,6 +112,7 @@ const EVENT_LABELS: Record<XPEvent["type"], string> = {
   hanja_word_learned: "Học từ Hán Hàn mới",
   hanja_tree_completed: "Hoàn thành cây Hán",
   hanja_quiz_completed: "Hoàn thành quiz Hán",
+  manual_bonus: "Phần thưởng XP",
 };
 
 function getEventLabel(type: XPEvent["type"]): string {
@@ -192,7 +196,23 @@ export function useXPSystem() {
   // Track previous rank to detect level-up
   const prevRankRef = useRef<string>(getRankForXP(xpData.total).id);
 
-  /** Debounced sync to Supabase user_progress (drives leaderboard). */
+  // Always-current total XP — used by the debounced server sync so it reads the
+  // freshest value at the moment of upload rather than a stale closure value.
+  const xpTotalRef = useRef<number>(xpData.total);
+  useEffect(() => {
+    xpTotalRef.current = xpData.total;
+  }, [xpData.total]);
+
+  /**
+   * Debounced sync to Supabase user_progress (drives leaderboard).
+   *
+   * XP RULE (applies site-wide):
+   *   server_xp = max(computed_formula_xp, local_total_xp)
+   * This guarantees XP NEVER decreases on sync. `computedXP` is the baseline
+   * derived from flashcards/exams; `local_total_xp` includes every granular
+   * bonus awarded via `awardXP` / `addXP` (e.g. lesson completion, correct
+   * answers, streak bonuses, manual rewards).
+   */
   const scheduleServerSync = useCallback(() => {
     if (!user) return;
     if (syncTimerRef.current) clearTimeout(syncTimerRef.current);
@@ -220,9 +240,12 @@ export function useXPSystem() {
         });
         const level = deriveLevel(bestScore);
 
+        // NEVER decrease: upload the greater of (formula baseline, local total).
+        const finalXP = Math.max(computedXP, xpTotalRef.current);
+
         await supabase.from("user_progress").upsert({
           user_id: user.id,
-          xp: computedXP,
+          xp: finalXP,
           level,
           streak_count: streak.count || 0,
           words_learned: wordsLearned,
@@ -399,17 +422,28 @@ export function useXPSystem() {
     earnedBadgeIds,
     notifications,
     awardXP,
-    // Legacy-compatible addXP alias.
-    // Historically, many callers invoked addXP(amount, reason) with a numeric amount,
-    // but awardXP expects an XPEvent. To avoid overwriting server XP with a lower
-    // re-computed value (see scheduleServerSync), we no-op on legacy numeric calls
-    // and only forward valid XPEvent objects.
-    addXP: ((arg1: XPEvent | number, _arg2?: string) => {
+    /**
+     * Dual-signature XP awarder used site-wide:
+     *   addXP(event: XPEvent)           — typed event (preferred)
+     *   addXP(amount: number, reason?)  — generic manual bonus
+     *
+     * Both paths:
+     *   • increment local total (persisted in localStorage)
+     *   • push a notification
+     *   • debounce-sync to Supabase using the max(formula_xp, local_total) rule
+     *     so XP on the server never decreases.
+     */
+    addXP: ((arg1: XPEvent | number, arg2?: string) => {
       if (typeof arg1 === "number") {
-        // Legacy call path — intentionally ignored to preserve server XP.
-        return;
+        if (!Number.isFinite(arg1) || arg1 <= 0) return;
+        awardXP({
+          type: "manual_bonus",
+          amount: Math.floor(arg1),
+          meta: { reason: arg2 },
+        });
+      } else {
+        awardXP(arg1);
       }
-      awardXP(arg1);
     }) as (arg1: XPEvent | number, arg2?: string) => void,
     dismissNotification,
     clearAllNotifications,
