@@ -116,18 +116,20 @@ function StatCard({
 }) {
   return (
     <div
-      className="rounded-2xl p-3 sm:p-4 border border-app-border"
+      className="flex items-center gap-3 p-3 sm:p-4 rounded-2xl border border-app-border"
       style={{ backgroundColor: "#0f1117" }}
     >
       <div
-        className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-xl mb-2 sm:mb-3"
+        className="w-10 h-10 sm:w-9 sm:h-9 flex items-center justify-center rounded-xl flex-shrink-0"
         style={{ backgroundColor: `${color}15` }}
       >
-        <i className={`${icon} text-xs sm:text-sm`} style={{ color }} />
+        <i className={`${icon} text-base sm:text-base`} style={{ color }} />
       </div>
-      <p className="text-lg sm:text-xl font-bold text-white">{value}</p>
-      <p className="text-app-text-secondary text-[11px] sm:text-xs mt-0.5">{label}</p>
-      <p className="text-app-text-muted text-[10px] mt-0.5 hidden sm:block">{sub}</p>
+      <div className="flex-1 min-w-0">
+        <p className="text-lg sm:text-xl font-bold text-white">{value}</p>
+        <p className="text-app-text-secondary text-[11px] sm:text-xs">{label}</p>
+        <p className="text-app-text-muted text-[10px] line-clamp-1">{sub}</p>
+      </div>
     </div>
   );
 }
@@ -322,7 +324,7 @@ export default function Home() {
         <AdBanner position="top" />
 
         {/* ── Stats row ── */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
           <StatCard
             icon="ri-fire-line"
             color="#fb923c"
