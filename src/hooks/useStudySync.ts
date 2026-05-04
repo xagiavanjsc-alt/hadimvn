@@ -173,11 +173,15 @@ export function useStudySync() {
     }
   }, []);
 
-  const updateLeaderboard = useCallback(async (userId: string, displayName: string) => {
+  const updateLeaderboard = useCallback(async (userId: string, _displayName: string) => {
     try {
       const streak = JSON.parse(localStorage.getItem("kts_streak") || '{"count":0}');
       const flashcardKnown = JSON.parse(localStorage.getItem("kts_flashcard_known") || "{}");
       const examResults = JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]");
+      // Local granular XP total (from every awardXP/addXP call) — source of truth
+      // for bonuses that the formula can't see (lesson completions, manual rewards).
+      const xpTotalState = JSON.parse(localStorage.getItem("kts_xp_total") || '{"total":0}');
+      const localTotalXP = Number(xpTotalState?.total) || 0;
 
       const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length;
       const validExams = examResults as { score: number; total: number; correctIds?: string[] }[];
@@ -189,7 +193,7 @@ export function useStudySync() {
         : 0;
       const totalCorrect = validExams.reduce((sum, r) => sum + (r.correctIds?.length ?? r.score ?? 0), 0);
 
-      const xp = computeXP({
+      const computedXP = computeXP({
         streakDays: streak.count || 0,
         bestScorePct: bestScore,
         averageScorePct: avgScore,
@@ -199,10 +203,14 @@ export function useStudySync() {
       });
       const level = deriveLevel(bestScore);
 
+      // XP RULE (site-wide): server_xp = max(formula_xp, local_total_xp).
+      // Never decrease server XP — matches useXPSystem.scheduleServerSync.
+      const finalXP = Math.max(computedXP, localTotalXP);
+
       // Update user_progress (will trigger leaderboard sync via trigger)
       await supabase.from("user_progress").upsert({
         user_id: userId,
-        xp,
+        xp: finalXP,
         level,
         streak_count: streak.count || 0,
         streak_last_date: streak.lastDate || null,

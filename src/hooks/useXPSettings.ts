@@ -6,12 +6,21 @@ import { supabase } from "@/lib/supabase";
  * Controls how XP is calculated and anti-cheat thresholds
  */
 export interface XPSettings {
+  // ─── XP formula weights (dùng bởi compute_user_xp + client lib/xp.ts) ──
   streak_weight: number;
   best_score_weight: number;
   average_score_weight: number;
   correct_answer_weight: number;
   flashcard_weight: number;
   exam_completed_bonus: number;
+  // ─── Community weights (từ migration 030) ─────────────────────────────
+  post_weight: number;
+  comment_weight: number;
+  like_received_weight: number;
+  rating_given_weight: number;
+  daily_post_cap: number;
+  daily_comment_cap: number;
+  // ─── Anti-cheat ────────────────────────────────────────────────────────
   flashcard_xp_cap: number;
   min_sec_per_question: number;
   exam_cooldown_sec: number;
@@ -28,6 +37,12 @@ export const DEFAULT_XP_SETTINGS: XPSettings = {
   correct_answer_weight: 3,
   flashcard_weight: 4,
   exam_completed_bonus: 10,
+  post_weight: 50,
+  comment_weight: 20,
+  like_received_weight: 5,
+  rating_given_weight: 10,
+  daily_post_cap: 5,
+  daily_comment_cap: 20,
   flashcard_xp_cap: 500,
   min_sec_per_question: 3,
   exam_cooldown_sec: 30,
@@ -98,6 +113,12 @@ export function useXPSettings(): XPSettings {
         correct_answer_weight: data.correct_answer_weight,
         flashcard_weight: data.flashcard_weight,
         exam_completed_bonus: data.exam_completed_bonus,
+        post_weight: data.post_weight ?? DEFAULT_XP_SETTINGS.post_weight,
+        comment_weight: data.comment_weight ?? DEFAULT_XP_SETTINGS.comment_weight,
+        like_received_weight: data.like_received_weight ?? DEFAULT_XP_SETTINGS.like_received_weight,
+        rating_given_weight: data.rating_given_weight ?? DEFAULT_XP_SETTINGS.rating_given_weight,
+        daily_post_cap: data.daily_post_cap ?? DEFAULT_XP_SETTINGS.daily_post_cap,
+        daily_comment_cap: data.daily_comment_cap ?? DEFAULT_XP_SETTINGS.daily_comment_cap,
         flashcard_xp_cap: data.flashcard_xp_cap,
         min_sec_per_question: data.min_sec_per_question,
         exam_cooldown_sec: data.exam_cooldown_sec,

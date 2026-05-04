@@ -7,21 +7,28 @@ interface FieldDef {
   key: keyof XPSettings;
   label: string;
   desc: string;
-  group: "weights" | "anticheat";
+  group: "weights" | "community" | "anticheat";
   min: number;
   max: number;
   unit?: string;
 }
 
 const FIELDS: FieldDef[] = [
-  // ─── Trọng số XP ─────────────────────────────────────────────────
+  // ─── Trọng số XP học tập ─────────────────────────────
   { key: "streak_weight", label: "Streak", desc: "XP cho mỗi ngày streak liên tục", group: "weights", min: 0, max: 100, unit: "XP/ngày" },
   { key: "best_score_weight", label: "Best Score", desc: "XP cho mỗi % điểm cao nhất từng đạt", group: "weights", min: 0, max: 50, unit: "XP/%" },
   { key: "average_score_weight", label: "Average Score", desc: "XP cho mỗi % điểm trung bình", group: "weights", min: 0, max: 50, unit: "XP/%" },
   { key: "correct_answer_weight", label: "Correct Answer", desc: "XP cho mỗi câu đúng (chỉ tính exam hợp lệ)", group: "weights", min: 0, max: 20, unit: "XP/câu" },
   { key: "flashcard_weight", label: "Flashcard", desc: "XP cho mỗi từ đã thuộc", group: "weights", min: 0, max: 20, unit: "XP/từ" },
   { key: "exam_completed_bonus", label: "Exam Bonus", desc: "Bonus mỗi exam hợp lệ", group: "weights", min: 0, max: 100, unit: "XP/lần" },
-  // ─── Anti-cheat ──────────────────────────────────────────────────
+  // ─── Trọng số XP cộng đồng (migration 030) ─────────────────
+  { key: "post_weight", label: "Bài viết (được duyệt)", desc: "XP cho mỗi bài đã được admin duyệt", group: "community", min: 0, max: 500, unit: "XP/bài" },
+  { key: "comment_weight", label: "Bình luận (được duyệt)", desc: "XP cho mỗi comment được duyệt", group: "community", min: 0, max: 100, unit: "XP/comment" },
+  { key: "like_received_weight", label: "Like nhận được", desc: "XP cho mỗi lượt thiệt bài của bạn", group: "community", min: 0, max: 50, unit: "XP/like" },
+  { key: "rating_given_weight", label: "Đánh giá (được duyệt)", desc: "XP cho mỗi rating được admin duyệt", group: "community", min: 0, max: 100, unit: "XP/rating" },
+  { key: "daily_post_cap", label: "Cap bài/ngày", desc: "Số bài tối đa tính XP mỗi ngày", group: "community", min: 0, max: 50, unit: "bài" },
+  { key: "daily_comment_cap", label: "Cap comment/ngày", desc: "Số comment tối đa tính XP mỗi ngày", group: "community", min: 0, max: 200, unit: "comment" },
+  // ─── Anti-cheat ──────────────────────────────────
   { key: "flashcard_xp_cap", label: "Flashcard Cap", desc: "Tối đa từ flashcard tính XP (chống cheat)", group: "anticheat", min: 0, max: 5000, unit: "từ" },
   { key: "min_sec_per_question", label: "Min Time/Câu", desc: "Thời gian tối thiểu mỗi câu (giây)", group: "anticheat", min: 1, max: 60, unit: "giây" },
   { key: "exam_cooldown_sec", label: "Exam Cooldown", desc: "Thời gian chờ giữa 2 exam", group: "anticheat", min: 0, max: 600, unit: "giây" },
@@ -82,6 +89,12 @@ export default function AdminXPConfigPage() {
         correct_answer_weight: data.correct_answer_weight,
         flashcard_weight: data.flashcard_weight,
         exam_completed_bonus: data.exam_completed_bonus,
+        post_weight: data.post_weight ?? DEFAULT_XP_SETTINGS.post_weight,
+        comment_weight: data.comment_weight ?? DEFAULT_XP_SETTINGS.comment_weight,
+        like_received_weight: data.like_received_weight ?? DEFAULT_XP_SETTINGS.like_received_weight,
+        rating_given_weight: data.rating_given_weight ?? DEFAULT_XP_SETTINGS.rating_given_weight,
+        daily_post_cap: data.daily_post_cap ?? DEFAULT_XP_SETTINGS.daily_post_cap,
+        daily_comment_cap: data.daily_comment_cap ?? DEFAULT_XP_SETTINGS.daily_comment_cap,
         flashcard_xp_cap: data.flashcard_xp_cap,
         min_sec_per_question: data.min_sec_per_question,
         exam_cooldown_sec: data.exam_cooldown_sec,
@@ -140,6 +153,7 @@ export default function AdminXPConfigPage() {
   }
 
   const weightFields = FIELDS.filter(f => f.group === "weights");
+  const communityFields = FIELDS.filter(f => f.group === "community");
   const anticheatFields = FIELDS.filter(f => f.group === "anticheat");
 
   return (
@@ -169,14 +183,36 @@ export default function AdminXPConfigPage() {
           </div>
         </div>
 
-        {/* Trọng số XP */}
+        {/* Trọng số XP học tập */}
         <div className="rounded-2xl p-5 border" style={{ borderColor: "var(--admin-border)", background: "var(--admin-card-bg)" }}>
           <h3 className="text-sm font-bold mb-4 flex items-center gap-2" style={{ color: "var(--admin-text)" }}>
             <i className="ri-scales-3-line text-app-accent-primary"></i>
-            Trọng số XP
+            Trọng số XP — Học tập
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {weightFields.map(f => (
+              <NumberField
+                key={f.key}
+                field={f}
+                value={settings[f.key]}
+                defaultValue={DEFAULT_XP_SETTINGS[f.key]}
+                onChange={v => updateField(f.key, v)}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Trọng số XP cộng đồng */}
+        <div className="rounded-2xl p-5 border" style={{ borderColor: "var(--admin-border)", background: "var(--admin-card-bg)" }}>
+          <h3 className="text-sm font-bold mb-4 flex items-center gap-2" style={{ color: "var(--admin-text)" }}>
+            <i className="ri-group-line" style={{ color: "#60a5fa" }}></i>
+            Trọng số XP — Cộng đồng
+          </h3>
+          <p className="text-xs mb-3" style={{ color: "var(--admin-text-muted)" }}>
+            XP tổng động khi admin duyệt bài viết / bình luận / đánh giá, hoặc khi bài của user nhận được like. Trigger SQL trong <code>compute_user_xp()</code>.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {communityFields.map(f => (
               <NumberField
                 key={f.key}
                 field={f}

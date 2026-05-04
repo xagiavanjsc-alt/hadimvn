@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useXPSystem } from "@/hooks/useXPSystem";
 import { HANJA_DATA } from "@/mocks/hanjaData";
 import { sanitizeHtml } from "@/lib/sanitize";
 
@@ -475,29 +476,39 @@ const REWARDS: RewardItem[] = [
   { id: "r5", title: "VIP 30 ngày miễn phí", desc: "1 tháng VIP hoàn toàn miễn phí — phần thưởng cao nhất", xpCost: 15000, type: "vip", icon: "ri-vip-diamond-line", color: "#fb923c", stock: 5 },
 ];
 
+// ─── XP SOURCES ─────────────────────────────────────────────────────────────
+// Sync EXACTLY with XP_REWARDS + DAILY_EVENT_CAPS in @/src/hooks/useXPSystem.ts.
+// When you edit values there, edit them here too to keep the UI honest.
 const XP_SOURCES = [
-  { icon: "ri-login-circle-line", label: "Đăng nhập hàng ngày", xp: "5–20 XP", color: "app-accent-primary", desc: "Random mỗi ngày, tăng theo streak" },
-  { icon: "ri-fire-line", label: "Duy trì streak 7 ngày", xp: "+200 XP", color: "#fb923c", desc: "Bonus khi đạt mốc 7, 14, 30 ngày" },
-  { icon: "ri-timer-line", label: "Hoàn thành thi thử EPS", xp: "+15 XP/%", color: "#34d399", desc: "Theo tỷ lệ đúng × 15" },
-  { icon: "ri-stack-line", label: "Học Flashcard (Spaced Rep)", xp: "+10 XP/từ", color: "#a78bfa", desc: "Mỗi từ đạt mức Mastered" },
-  { icon: "ri-file-list-3-line", label: "Luyện EPS", xp: "+3 XP/câu", color: "#06b6d4", desc: "Mỗi câu đúng" },
-  { icon: "ri-survey-line", label: "Hoàn thành Quiz 100%", xp: "+100 XP", color: "#f472b6", desc: "Bonus khi đạt điểm tuyệt đối" },
-  { icon: "ri-group-line", label: "Mời bạn bè tham gia", xp: "+500 XP", color: "#34d399", desc: "Mỗi người bạn giới thiệu" },
-  { icon: "ri-trophy-line", label: "Top 3 bảng xếp hạng tuần", xp: "+1000 XP", color: "#FFD700", desc: "Phần thưởng cuối tuần" },
-  { icon: "ri-mic-line", label: "Ghi âm phát âm đúng", xp: "+5 XP/từ", color: "#34d399", desc: "Mỗi từ phát âm đạt chuẩn" },
-  { icon: "ri-file-paper-2-line", label: "Thi thử TOPIK Hán Hàn", xp: "+20 XP/%", color: "#f43f5e", desc: "Theo tỷ lệ đúng × 20" },
-  // ─── Community XP sources ───────────────────────────────────────────
-  { icon: "ri-article-line", label: "Đăng bài cộng đồng (duyệt)", xp: "+50 XP", color: "#60a5fa", desc: "Mỗi bài được admin duyệt, tối đa 5 bài/ngày" },
-  { icon: "ri-chat-3-line", label: "Bình luận cộng đồng (duyệt)", xp: "+20 XP", color: "#22d3ee", desc: "Mỗi comment được duyệt, tối đa 20/ngày" },
-  { icon: "ri-heart-3-line", label: "Nhận lượt thích", xp: "+5 XP", color: "#f87171", desc: "Mỗi lượt thích bài viết của bạn" },
-  { icon: "ri-star-line", label: "Đánh giá sao (duyệt)", xp: "+10 XP", color: "#FFD700", desc: "Mỗi đánh giá được admin duyệt" },
+  // ── Học tập ─────────────────────────────────────────────────────────
+  { icon: "ri-login-circle-line", label: "Đăng nhập hằng ngày", xp: "+10 XP", color: "app-accent-primary", desc: "1 lần/ngày — giữ streak để nhận bonus" },
+  { icon: "ri-fire-line", label: "Streak 7 ngày liên tiếp", xp: "+50 XP", color: "#fb923c", desc: "Bonus 1 lần khi đạt mốc 7 ngày" },
+  { icon: "ri-fire-line", label: "Streak 30 ngày liên tiếp", xp: "+200 XP", color: "#fb923c", desc: "Bonus 1 lần khi đạt mốc 30 ngày" },
+  { icon: "ri-fire-fill", label: "Streak 100 ngày liên tiếp", xp: "+500 XP", color: "#f59e0b", desc: "Bonus 1 lần khi đạt mốc 100 ngày" },
+  { icon: "ri-stack-line", label: "Học Flashcard mới", xp: "+5 XP/từ", color: "#a78bfa", desc: "Tối đa 100 từ/ngày (500 XP)" },
+  { icon: "ri-file-list-3-line", label: "EPS trả lời đúng", xp: "+3 XP/câu", color: "#06b6d4", desc: "Tối đa 200 câu/ngày (600 XP)" },
+  { icon: "ri-timer-line", label: "Hoàn thành thi thử EPS", xp: "+20 XP", color: "#34d399", desc: "Tối đa 5 bài/ngày" },
+  { icon: "ri-file-paper-2-line", label: "Hoàn thành thi TOPIK", xp: "+25 XP", color: "#f43f5e", desc: "Tối đa 5 bài/ngày" },
+  { icon: "ri-book-2-line", label: "Hoàn thành luyện chủ đề", xp: "+15 XP", color: "#22d3ee", desc: "Tối đa 10 bài/ngày" },
+  { icon: "ri-survey-line", label: "Hoàn thành quiz", xp: "+10 XP", color: "#f472b6", desc: "Tối đa 10 quiz/ngày" },
+  // ── Hán Hàn ─────────────────────────────────────────────────────────
+  { icon: "ri-translate-2", label: "Học từ Hán Hàn mới", xp: "+3 XP/từ", color: "#a78bfa", desc: "Tối đa 100 từ/ngày" },
+  { icon: "ri-plant-line", label: "Hoàn thành cây Hán", xp: "+30 XP", color: "#34d399", desc: "Tối đa 5 cây/ngày" },
+  { icon: "ri-question-answer-line", label: "Hoàn thành quiz Hán", xp: "+15 XP", color: "#60a5fa", desc: "Tối đa 10 quiz/ngày" },
+  // ── Cộng đồng ───────────────────────────────────────────────────────
+  { icon: "ri-article-line", label: "Đăng bài (được duyệt)", xp: "+15 XP", color: "#60a5fa", desc: "Tối đa 5 bài/ngày" },
+  { icon: "ri-heart-3-line", label: "Bài viết nhận lượt thích", xp: "+2 XP", color: "#f87171", desc: "Tối đa 100 lượt/ngày" },
 ];
 
-const XP_PENALTIES = [
-  { icon: "ri-calendar-close-line", label: "Bỏ học 1 ngày (streak &gt; 3)", xp: "-10 XP", color: "#ef4444", desc: "Mất streak sẽ bị trừ XP nhẹ" },
-  { icon: "ri-close-circle-line", label: "Bỏ học 3 ngày liên tiếp", xp: "-50 XP", color: "#ef4444", desc: "Streak reset + trừ XP đáng kể" },
-  { icon: "ri-spam-line", label: "Quiz sai &gt;80% (dưới 20%)", xp: "-5 XP", color: "#fb923c", desc: "Khuyến khích ôn kỹ trước khi quiz" },
-  { icon: "ri-time-line", label: "Bỏ thách thức tuần giữa chừng", xp: "-30 XP", color: "#fb923c", desc: "Đã bắt đầu thì nên hoàn thành" },
+// Phần thưởng khác (ngoài XP_REWARDS): dùng `addXP(amount, reason)` — tự do
+const XP_MANUAL_REWARDS = [
+  { icon: "ri-gift-line", label: "Phần thưởng admin trao", xp: "Tuỳ", color: "#a78bfa", desc: "Admin có thể cấp bonus thủ công" },
+  { icon: "ri-trophy-line", label: "Hoàn thành bài/lesson", xp: "+5 → +50 XP", color: "#FFD700", desc: "Tuỳ loại bài: Seoul, EPS, luyện tập..." },
+];
+
+const XP_NOTES = [
+  { icon: "ri-shield-check-line", label: "Anti-cheat", desc: "Hệ thống có giới hạn XP mỗi ngày theo loại hoạt động để chống spam. Một số hoạt động (bonus streak, hoàn thành bài) chỉ cộng 1 lần duy nhất.", color: "#34d399" },
+  { icon: "ri-refresh-line", label: "Đồng bộ server", desc: "XP chỉ tăng, không giảm. Leaderboard cập nhật theo max(công thức, tổng local) để bảo vệ điểm của bạn.", color: "#60a5fa" },
 ];
 
 function DailyLoginBonus() {
@@ -518,10 +529,6 @@ function DailyLoginBonus() {
 export default function RewardsPage() {
   const navigate = useNavigate();
   const [streak] = useLocalStorage<{ count: number }>("kts_streak", { count: 0 });
-  const [examResults] = useLocalStorage<{ score: number; total: number }[]>("kts_eps_exam_results", []);
-  const [flashcardKnown] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
-  const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
-  const [totalXp, setTotalXp] = useLocalStorage<number>("kts_total_xp", 0);
   const [redeemedRewards, setRedeemedRewards] = useLocalStorage<string[]>("kts_redeemed_rewards", []);
   const [redeemMsg, setRedeemMsg] = useState<{ id: string; msg: string } | null>(null);
   const [activeTab, setActiveTab] = useState<"rewards" | "history" | "earn" | "admin">("rewards");
@@ -530,22 +537,22 @@ export default function RewardsPage() {
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [, setAdminMode] = useLocalStorage<boolean>(ADMIN_KEY, false);
 
-  // Compute XP from activities
-  const computedXp = useMemo(() => {
-    const myBestScore = examResults.length > 0
-      ? Math.max(...examResults.map(r => Math.round((r.score / r.total) * 100))) : 0;
-    const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length;
-    const epsDone = Object.keys(answeredMap).length;
-    return streak.count * 50 + myBestScore * 10 + wordsLearned * 5 + epsDone * 2;
-  }, [streak, examResults, flashcardKnown, answeredMap]);
+  // ─── UNIFIED XP SOURCE ────────────────────────────────────────────────────
+  // Single source of truth site-wide = useXPSystem().totalXP (persisted in
+  // `kts_xp_total` localStorage, synced to Supabase user_progress via the
+  // max(formula, local_total) rule). This page only spends/redeems locally.
+  const { totalXP, currentRank, awardXP } = useXPSystem();
+  const [redeemSpent, setRedeemSpent] = useLocalStorage<number>("kts_xp_redeem_spent", 0);
 
-  // Use max of computed or stored
-  const displayXp = Math.max(computedXp, totalXp);
+  // Available XP after redemptions. NEVER display a negative number.
+  const displayXp = Math.max(0, totalXP - redeemSpent);
 
   const handleRedeem = (reward: RewardItem) => {
     if (displayXp < reward.xpCost) return;
     if (redeemedRewards.includes(reward.id) && reward.type !== "badge") return;
-    setTotalXp(prev => Math.max(0, prev - reward.xpCost));
+    // Track redemptions via a separate "spent" counter instead of mutating totalXP
+    // (which would break the never-decrease rule on server sync).
+    setRedeemSpent(prev => prev + reward.xpCost);
     setRedeemedRewards(prev => [...prev, reward.id]);
     setRedeemMsg({ id: reward.id, msg: `Đã đổi thành công: ${reward.title}!` });
     setTimeout(() => setRedeemMsg(null), 3000);
@@ -557,16 +564,19 @@ export default function RewardsPage() {
     return { affordable: affordable.length, next };
   }, [displayXp]);
 
-  // XP level
-  const xpLevel = displayXp >= 5000 ? { label: "Huyền thoại", color: "#fb923c", icon: "ri-vip-diamond-line" }
-    : displayXp >= 2000 ? { label: "Sử thi", color: "#a78bfa", icon: "ri-vip-crown-line" }
-    : displayXp >= 1000 ? { label: "Hiếm", color: "#34d399", icon: "ri-medal-line" }
-    : displayXp >= 300 ? { label: "Phổ thông", color: "app-accent-primary", icon: "ri-star-line" }
-    : { label: "Mới bắt đầu", color: "#ffffff60", icon: "ri-seedling-line" };
+  // XP level (uses rank from useXPSystem for consistency with other pages)
+  const xpLevel = {
+    label: currentRank.name,
+    color: currentRank.color || "app-accent-primary",
+    icon: "ri-vip-crown-line",
+  };
 
   const nextLevelXp = displayXp >= 5000 ? 5000 : displayXp >= 2000 ? 5000 : displayXp >= 1000 ? 2000 : displayXp >= 300 ? 1000 : 300;
   const prevLevelXp = displayXp >= 5000 ? 2000 : displayXp >= 2000 ? 1000 : displayXp >= 1000 ? 300 : 0;
   const levelProgress = Math.min(100, Math.round(((displayXp - prevLevelXp) / (nextLevelXp - prevLevelXp)) * 100));
+
+  // Keep awardXP referenced for admin manual-grant flow below
+  void awardXP;
 
   return (
     <DashboardLayout
@@ -773,32 +783,32 @@ export default function RewardsPage() {
             </div>
           </div>
 
-          {/* XP Penalties */}
-          <div className="bg-white/2 border border-red-500/15 rounded-2xl overflow-hidden">
-            <div className="px-5 py-3 border-b border-red-500/20 bg-red-500/5">
+          {/* Manual/Bonus XP sources */}
+          <div className="bg-white/2 border border-[#a78bfa]/15 rounded-2xl overflow-hidden">
+            <div className="px-5 py-3 border-b border-[#a78bfa]/20 bg-[#a78bfa]/5">
               <h3 className="text-white font-semibold text-sm flex items-center gap-2">
-                <i className="ri-error-warning-line text-red-400"></i>Phạt XP — Tránh những điều này
+                <i className="ri-gift-line text-[#a78bfa]"></i>Phần thưởng bonus — Ngoài công thức cố định
               </h3>
             </div>
             <div className="overflow-x-auto">
-              <div className="grid grid-cols-[48px_1fr_120px_120px] gap-0 px-5 py-3 border-b border-red-500/10 min-w-[400px]">
+              <div className="grid grid-cols-[48px_1fr_140px_140px] gap-0 px-5 py-3 border-b border-[#a78bfa]/10 min-w-[400px]">
                 <span className="text-app-text-muted text-[10px] tracking-normal"></span>
-                <span className="text-app-text-muted text-[10px] tracking-normal">Vi phạm</span>
-                <span className="text-app-text-muted text-[10px] tracking-normal text-right">Phạt</span>
+                <span className="text-app-text-muted text-[10px] tracking-normal">Nguồn</span>
+                <span className="text-app-text-muted text-[10px] tracking-normal text-right">XP</span>
                 <span className="text-app-text-muted text-[10px] tracking-normal text-right">Ghi chú</span>
               </div>
-              {XP_PENALTIES.map(s => (
-                <div key={s.label} className="grid grid-cols-[48px_1fr_120px_120px] gap-0 px-5 py-3.5 border-b border-red-500/10 min-w-[400px] hover:bg-red-500/5 transition-colors">
+              {XP_MANUAL_REWARDS.map(s => (
+                <div key={s.label} className="grid grid-cols-[48px_1fr_140px_140px] gap-0 px-5 py-3.5 border-b border-[#a78bfa]/10 min-w-[400px] hover:bg-[#a78bfa]/5 transition-colors">
                   <div className="flex items-center">
-                    <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 bg-red-500/10">
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
                       <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
                     </div>
                   </div>
                   <div className="flex items-center">
-                    <p className="text-white/80 text-sm font-medium" dangerouslySetInnerHTML={{ __html: sanitizeHtml(s.label) }}></p>
+                    <p className="text-white/80 text-sm font-medium">{s.label}</p>
                   </div>
                   <div className="flex items-center justify-end">
-                    <p className="font-bold text-sm text-red-400">{s.xp}</p>
+                    <p className="font-bold text-sm" style={{ color: s.color }}>{s.xp}</p>
                   </div>
                   <div className="flex items-center justify-end">
                     <p className="text-app-text-muted text-[10px] text-right">{s.desc}</p>
@@ -808,10 +818,27 @@ export default function RewardsPage() {
             </div>
           </div>
 
+          {/* XP Rules notes */}
+          <div className="grid sm:grid-cols-2 gap-3">
+            {XP_NOTES.map(n => (
+              <div key={n.label} className="rounded-xl p-4 border" style={{ borderColor: `${n.color}25`, backgroundColor: `${n.color}08` }}>
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${n.color}15` }}>
+                    <i className={`${n.icon} text-sm`} style={{ color: n.color }}></i>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm mb-1" style={{ color: n.color }}>{n.label}</p>
+                    <p className="text-app-text-secondary text-xs leading-relaxed">{n.desc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
           <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
             <p className="text-app-accent-primary/80 text-xs font-semibold mb-1">Mẹo tích XP nhanh nhất</p>
             <p className="text-app-text-secondary text-xs leading-relaxed">
-              Duy trì streak mỗi ngày là cách kiếm XP hiệu quả nhất. Kết hợp thi thử EPS điểm cao, học flashcard Hán Hàn và ghi âm phát âm để leo hạng nhanh. Tránh bỏ học nhiều ngày liên tiếp vì sẽ bị phạt XP!
+              Duy trì streak mỗi ngày là cách kiếm XP hiệu quả nhất. Kết hợp học flashcard, luyện EPS/TOPIK, quiz Hán Hàn và đóng góp bài cộng đồng để leo hạng. XP chỉ tăng — không bao giờ giảm!
             </p>
             <button onClick={() => navigate("/daily-plan")} className="mt-2 flex items-center gap-1.5 text-app-accent-primary text-xs font-semibold cursor-pointer whitespace-nowrap hover:text-app-accent-primary/80">
               <i className="ri-route-line"></i>Xem lộ trình hôm nay →
