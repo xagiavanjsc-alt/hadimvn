@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+﻿import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { epsQuestions, EpsQuestion } from "@/mocks/epsQuestions";
 
-// --- Types -------------------------------------------------------------------
+// ─── Types ───────────────────────────────────────────────────────────────────
 interface ExamResult {
   questionId: string;
   selectedIndex: number;
@@ -13,11 +13,11 @@ interface ExamResult {
 
 type ExamPhase = "intro" | "exam" | "result";
 
-// --- Constants ---------------------------------------------------------------
+// ─── Constants ───────────────────────────────────────────────────────────────
 const TOTAL_QUESTIONS = 40;
-const EXAM_DURATION = 40 * 60; // 40 ph�t t�nh b?ng gi�y
+const EXAM_DURATION = 40 * 60; // 40 phút tính bằng giây
 
-// --- Helpers -----------------------------------------------------------------
+// ─── Helpers ─────────────────────────────────────────────────────────────────
 function shuffleArray<T>(arr: T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -28,17 +28,17 @@ function shuffleArray<T>(arr: T[]): T[] {
 }
 
 function selectExamQuestions(): EpsQuestion[] {
-  // Uu ti�n c�u c� ?nh v� audio, sau d� fill d? 40 c�u
+  // Ưu tiên câu có ảnh và audio, sau đó fill đủ 40 câu
   const withImage = epsQuestions.filter(q => q.imageUrl);
   const withAudio = epsQuestions.filter(q => q.audioText && !q.imageUrl);
   const rest = epsQuestions.filter(q => !q.imageUrl && !q.audioText);
 
   const selected: EpsQuestion[] = [];
-  // L?y t?i da 10 c�u c� ?nh
+  // Lấy tối đa 10 câu có ảnh
   selected.push(...shuffleArray(withImage).slice(0, 10));
-  // L?y t?i da 15 c�u c� audio
+  // Lấy tối đa 15 câu có audio
   selected.push(...shuffleArray(withAudio).slice(0, 15));
-  // Fill ph?n c�n l?i
+  // Fill phần còn lại
   const needed = TOTAL_QUESTIONS - selected.length;
   selected.push(...shuffleArray(rest).slice(0, needed));
 
@@ -51,7 +51,7 @@ function formatTime(seconds: number): string {
   return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 }
 
-// --- Audio Player Component ---------------------------------------------------
+// ─── Audio Player Component ───────────────────────────────────────────────────
 function AudioPlayer({ text, autoPlay = false }: { text: string; autoPlay?: boolean }) {
   const [playing, setPlaying] = useState(false);
   const [supported, setSupported] = useState(true);
@@ -104,7 +104,7 @@ function AudioPlayer({ text, autoPlay = false }: { text: string; autoPlay?: bool
         <i className={`text-xl ${playing ? "ri-stop-fill" : "ri-play-fill"}`}></i>
       </button>
       <div className="flex-1">
-        <p className="text-[#06b6d4] text-xs font-semibold mb-1">C�u nghe hi?u</p>
+        <p className="text-[#06b6d4] text-xs font-semibold mb-1">Câu nghe hiểu</p>
         <div className="flex items-center gap-1">
           {playing ? (
             Array.from({ length: 5 }).map((_, i) => (
@@ -120,12 +120,12 @@ function AudioPlayer({ text, autoPlay = false }: { text: string; autoPlay?: bool
             </div>
           )}
         </div>
-        <p className="text-app-text-muted text-[10px] mt-1">Nh?n d? nghe � Ti?ng H�n chu?n</p>
+        <p className="text-app-text-muted text-[10px] mt-1">Nhấn để nghe • Tiếng Hàn chuẩn</p>
       </div>
       <button
         onClick={playAudio}
         className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white/70 hover:bg-white/8 transition-colors cursor-pointer"
-        title="Nghe l?i"
+        title="Nghe lại"
       >
         <i className="ri-repeat-line text-sm"></i>
       </button>
@@ -133,7 +133,7 @@ function AudioPlayer({ text, autoPlay = false }: { text: string; autoPlay?: bool
   );
 }
 
-// --- Question Card ------------------------------------------------------------
+// ─── Question Card ────────────────────────────────────────────────────────────
 interface QuestionCardProps {
   question: EpsQuestion;
   index: number;
@@ -160,17 +160,17 @@ function QuestionCard({ question, index, total, selected, onSelect, showResult }
           </span>
           {question.imageUrl && (
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#a78bfa]/15 text-[#a78bfa] font-medium flex items-center gap-1">
-              <i className="ri-image-line text-[10px]"></i> C� ?nh
+              <i className="ri-image-line text-[10px]"></i> Có ảnh
             </span>
           )}
           {isListening && (
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#06b6d4]/15 text-[#06b6d4] font-medium flex items-center gap-1">
-              <i className="ri-headphone-line text-[10px]"></i> Nghe hi?u
+              <i className="ri-headphone-line text-[10px]"></i> Nghe hiểu
             </span>
           )}
           {isReading && (
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#ec4899]/15 text-[#ec4899] font-medium flex items-center gap-1">
-              <i className="ri-book-open-line text-[10px]"></i> �?c hi?u
+              <i className="ri-book-open-line text-[10px]"></i> Đọc hiểu
             </span>
           )}
           <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
@@ -178,7 +178,7 @@ function QuestionCard({ question, index, total, selected, onSelect, showResult }
             question.difficulty === "medium" ? "bg-amber-500/15 text-amber-400" :
             "bg-rose-500/15 text-rose-400"
           }`}>
-            {question.difficulty === "easy" ? "D?" : question.difficulty === "medium" ? "Trung b�nh" : "Kh�"}
+            {question.difficulty === "easy" ? "Dễ" : question.difficulty === "medium" ? "Trung bình" : "Khó"}
           </span>
         </div>
         <span className="ml-auto text-app-text-muted text-xs">{index + 1}/{total}</span>
@@ -190,7 +190,7 @@ function QuestionCard({ question, index, total, selected, onSelect, showResult }
           <div className="w-full h-48 bg-app-card/50">
             <img
               src={question.imageUrl}
-              alt={question.imageAlt || "H�nh minh h?a"}
+              alt={question.imageAlt || "Hình minh họa"}
               className="w-full h-full object-cover"
               loading="lazy"
             />
@@ -253,7 +253,7 @@ function QuestionCard({ question, index, total, selected, onSelect, showResult }
                 showResult && selected === i ? "bg-rose-500/20 text-rose-400" :
                 "bg-white/8 text-app-text-secondary"
               }`}>
-                {["?", "?", "?", "?"][i]}
+                {["①", "②", "③", "④"][i]}
               </span>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium">{opt}</p>
@@ -275,7 +275,7 @@ function QuestionCard({ question, index, total, selected, onSelect, showResult }
         <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
           <div className="flex items-center gap-2 mb-2">
             <i className="ri-lightbulb-line text-app-accent-primary text-sm"></i>
-            <span className="text-app-accent-primary text-xs font-semibold">Gi?i th�ch</span>
+            <span className="text-app-accent-primary text-xs font-semibold">Giải thích</span>
           </div>
           <p className="text-white/60 text-xs leading-relaxed">{question.explanation}</p>
         </div>
@@ -284,7 +284,7 @@ function QuestionCard({ question, index, total, selected, onSelect, showResult }
   );
 }
 
-// --- Intro Screen -------------------------------------------------------------
+// ─── Intro Screen ─────────────────────────────────────────────────────────────
 function IntroScreen({ onStart }: { onStart: () => void }) {
   return (
     <div className="max-w-2xl mx-auto">
@@ -292,17 +292,17 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
         <div className="w-20 h-20 flex items-center justify-center rounded-2xl bg-app-accent-primary/15 border border-app-accent-primary/20 mx-auto mb-4">
           <i className="ri-file-list-3-line text-app-accent-primary text-4xl"></i>
         </div>
-        <h1 className="text-2xl font-bold text-white mb-2">Thi th? EPS m� ph?ng th?t</h1>
-        <p className="text-white/50 text-sm">�? thi gi?ng format EPS-TOPIK ch�nh th?c nh?t</p>
+        <h1 className="text-2xl font-bold text-white mb-2">Thi thử EPS mô phỏng thật</h1>
+        <p className="text-white/50 text-sm">Đề thi giống format EPS-TOPIK chính thức nhất</p>
       </div>
 
       {/* Exam info */}
       <div className="grid grid-cols-2 gap-4 mb-6">
         {[
-          { icon: "ri-file-list-3-line", label: "S? c�u h?i", value: "40 c�u", color: "app-accent-primary" },
-          { icon: "ri-timer-line", label: "Th?i gian", value: "40 ph�t", color: "#34d399" },
-          { icon: "ri-image-line", label: "C�u c� ?nh", value: "~10 c�u", color: "#a78bfa" },
-          { icon: "ri-headphone-line", label: "C�u nghe hi?u", value: "~15 c�u", color: "#06b6d4" },
+          { icon: "ri-file-list-3-line", label: "Số câu hỏi", value: "40 câu", color: "app-accent-primary" },
+          { icon: "ri-timer-line", label: "Thời gian", value: "40 phút", color: "#34d399" },
+          { icon: "ri-image-line", label: "Câu có ảnh", value: "~10 câu", color: "#a78bfa" },
+          { icon: "ri-headphone-line", label: "Câu nghe hiểu", value: "~15 câu", color: "#06b6d4" },
         ].map((item, i) => (
           <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${item.color}15` }}>
@@ -320,14 +320,14 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
       <div className="bg-app-surface/50 border border-app-border rounded-xl p-5 mb-6 space-y-3">
         <h3 className="text-white font-semibold text-sm mb-3 flex items-center gap-2">
           <i className="ri-information-line text-app-accent-primary"></i>
-          Th�ng tin d? thi
+          Thông tin đề thi
         </h3>
         {[
-          { icon: "ri-image-2-line", text: "C�u h?i c� ?nh minh h?a � nh�n h�nh ch?n d�p �n d�ng", color: "#a78bfa" },
-          { icon: "ri-volume-up-line", text: "C�u nghe hi?u � nh?n n�t ph�t d? nghe ti?ng H�n chu?n", color: "#06b6d4" },
-          { icon: "ri-book-open-line", text: "C�u d?c hi?u � d?c do?n van v� ch?n d�p �n", color: "#ec4899" },
-          { icon: "ri-chat-smile-2-line", text: "C�u giao ti?p � t�nh hu?ng th?c t? t?i noi l�m vi?c", color: "#34d399" },
-          { icon: "ri-scales-3-line", text: "C�u ph�p lu?t � quy?n l?i v� nghia v? ngu?i lao d?ng", color: "#f59e0b" },
+          { icon: "ri-image-2-line", text: "Câu hỏi có ảnh minh họa — nhìn hình chọn đáp án đúng", color: "#a78bfa" },
+          { icon: "ri-volume-up-line", text: "Câu nghe hiểu — nhấn nút phát để nghe tiếng Hàn chuẩn", color: "#06b6d4" },
+          { icon: "ri-book-open-line", text: "Câu đọc hiểu — đọc đoạn văn và chọn đáp án", color: "#ec4899" },
+          { icon: "ri-chat-smile-2-line", text: "Câu giao tiếp — tình huống thực tế tại nơi làm việc", color: "#34d399" },
+          { icon: "ri-scales-3-line", text: "Câu pháp luật — quyền lợi và nghĩa vụ người lao động", color: "#f59e0b" },
         ].map((item, i) => (
           <div key={i} className="flex items-start gap-3">
             <div className="w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -342,13 +342,13 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
       <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4 mb-6">
         <div className="flex items-center gap-2 mb-3">
           <i className="ri-trophy-line text-app-accent-primary"></i>
-          <span className="text-app-accent-primary font-semibold text-sm">Thang di?m</span>
+          <span className="text-app-accent-primary font-semibold text-sm">Thang điểm</span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {[
-            { label: "�?u", score: "= 80 di?m", color: "#34d399" },
-            { label: "Trung b�nh", score: "60-79 di?m", color: "app-accent-primary" },
-            { label: "Chua d?u", score: "< 60 di?m", color: "#f87171" },
+            { label: "Đậu", score: "≥ 80 điểm", color: "#34d399" },
+            { label: "Trung bình", score: "60-79 điểm", color: "app-accent-primary" },
+            { label: "Chưa đậu", score: "< 60 điểm", color: "#f87171" },
           ].map((item, i) => (
             <div key={i} className="text-center p-2 rounded-lg bg-app-surface/50">
               <p className="text-xs font-bold mb-1" style={{ color: item.color }}>{item.label}</p>
@@ -363,13 +363,13 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
         className="w-full py-4 bg-app-accent-primary text-app-bg font-bold text-base rounded-xl hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap flex items-center justify-center gap-2"
       >
         <i className="ri-play-fill text-lg"></i>
-        B?t d?u thi ngay
+        Bắt đầu thi ngay
       </button>
     </div>
   );
 }
 
-// --- Result Screen ------------------------------------------------------------
+// ─── Result Screen ────────────────────────────────────────────────────────────
 interface ResultScreenProps {
   questions: EpsQuestion[];
   results: ExamResult[];
@@ -399,7 +399,7 @@ function ResultScreen({ questions, results, timeUsed, onReview, onRetry }: Resul
       id: Date.now().toString(),
       date: new Date().toISOString(),
       type: "mock",
-      typeLabel: "Thi m� ph?ng th?t",
+      typeLabel: "Thi mô phỏng thật",
       score,
       correct,
       total: questions.length,
@@ -440,17 +440,17 @@ function ResultScreen({ questions, results, timeUsed, onReview, onRetry }: Resul
           <span className={`text-4xl font-black ${passed ? "text-app-accent-success" : "text-rose-400"}`}>{score}</span>
         </div>
         <h2 className={`text-xl font-bold mb-1 ${passed ? "text-app-accent-success" : "text-rose-400"}`}>
-          {passed ? "�?U! Xu?t s?c!" : "Chua d?u � C? l�n!"}
+          {passed ? "ĐẬU! Xuất sắc!" : "Chưa đậu — Cố lên!"}
         </h2>
-        <p className="text-white/50 text-sm">{correct}/{questions.length} c�u d�ng � {formatTime(timeUsed)} d� d�ng</p>
+        <p className="text-white/50 text-sm">{correct}/{questions.length} câu đúng • {formatTime(timeUsed)} đã dùng</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {[
-          { label: "C�u d�ng", value: correct, color: "#34d399", icon: "ri-check-line" },
-          { label: "C�u sai", value: questions.length - correct, color: "#f87171", icon: "ri-close-line" },
-          { label: "�i?m s?", value: `${score}/100`, color: "app-accent-primary", icon: "ri-trophy-line" },
+          { label: "Câu đúng", value: correct, color: "#34d399", icon: "ri-check-line" },
+          { label: "Câu sai", value: questions.length - correct, color: "#f87171", icon: "ri-close-line" },
+          { label: "Điểm số", value: `${score}/100`, color: "app-accent-primary", icon: "ri-trophy-line" },
         ].map((item, i) => (
           <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
             <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${item.color}15` }}>
@@ -466,7 +466,7 @@ function ResultScreen({ questions, results, timeUsed, onReview, onRetry }: Resul
       <div className="bg-app-surface/50 border border-app-border rounded-xl p-5">
         <h3 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
           <i className="ri-bar-chart-2-line text-app-accent-primary"></i>
-          K?t qu? theo ch? d?
+          Kết quả theo chủ đề
         </h3>
         <div className="space-y-3">
           {Object.entries(topicStats).map(([topic, stat]) => {
@@ -494,14 +494,14 @@ function ResultScreen({ questions, results, timeUsed, onReview, onRetry }: Resul
           className="flex items-center justify-center gap-2 py-3 bg-app-card/50 border border-app-border rounded-xl text-white/70 text-sm font-medium hover:bg-white/8 transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-eye-line"></i>
-          Xem l?i d�p �n
+          Xem lại đáp án
         </button>
         <button
           onClick={onRetry}
           className="flex items-center justify-center gap-2 py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-refresh-line"></i>
-          Thi l?i
+          Thi lại
         </button>
       </div>
       <button
@@ -509,13 +509,13 @@ function ResultScreen({ questions, results, timeUsed, onReview, onRetry }: Resul
         className="w-full flex items-center justify-center gap-2 py-3 bg-rose-500/10 border border-rose-500/20 rounded-xl text-rose-400 text-sm font-medium hover:bg-rose-500/15 transition-colors cursor-pointer whitespace-nowrap"
       >
         <i className="ri-error-warning-line"></i>
-        �n t?p c�u sai th�ng minh
+        Ôn tập câu sai thông minh
       </button>
     </div>
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function EpsMockExamPage() {
   const [phase, setPhase] = useState<ExamPhase>("intro");
   const [questions, setQuestions] = useState<EpsQuestion[]>([]);
@@ -619,7 +619,7 @@ export default function EpsMockExamPage() {
                 className="flex items-center gap-2 text-white/50 hover:text-white/80 transition-colors cursor-pointer text-sm"
               >
                 <i className="ri-arrow-left-line"></i>
-                V? k?t qu?
+                Về kết quả
               </button>
               <div className="flex items-center gap-2">
                 <button
@@ -641,7 +641,7 @@ export default function EpsMockExamPage() {
             </div>
             <div className={`mb-4 px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-2 ${r.isCorrect ? "bg-emerald-500/10 text-app-accent-success" : "bg-rose-500/10 text-rose-400"}`}>
               <i className={r.isCorrect ? "ri-check-line" : "ri-close-line"}></i>
-              {r.isCorrect ? "Tr? l?i d�ng" : "Tr? l?i sai"}
+              {r.isCorrect ? "Trả lời đúng" : "Trả lời sai"}
             </div>
             <QuestionCard
               question={q}
@@ -687,8 +687,8 @@ export default function EpsMockExamPage() {
           {/* Progress */}
           <div className="flex-1">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-app-text-secondary text-xs">C�u {currentIndex + 1}/{questions.length}</span>
-              <span className="text-app-text-secondary text-xs">{answered}/{questions.length} d� tr? l?i</span>
+              <span className="text-app-text-secondary text-xs">Câu {currentIndex + 1}/{questions.length}</span>
+              <span className="text-app-text-secondary text-xs">{answered}/{questions.length} đã trả lời</span>
             </div>
             <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
               <div
@@ -703,7 +703,7 @@ export default function EpsMockExamPage() {
             onClick={submitExam}
             className="px-4 py-1.5 bg-app-accent-primary text-app-bg rounded-lg text-xs font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
           >
-            N?p b�i
+            Nộp bài
           </button>
         </div>
 
@@ -729,7 +729,7 @@ export default function EpsMockExamPage() {
               className="flex items-center gap-2 px-4 py-2.5 bg-app-card/50 border border-app-border rounded-xl text-white/60 text-sm hover:bg-white/8 disabled:opacity-30 transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-arrow-left-line"></i>
-              C�u tru?c
+              Câu trước
             </button>
 
             {/* Question dots */}
@@ -755,7 +755,7 @@ export default function EpsMockExamPage() {
               onClick={currentIndex === questions.length - 1 ? submitExam : goNext}
               className="flex items-center gap-2 px-4 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
             >
-              {currentIndex === questions.length - 1 ? "N?p b�i" : "C�u ti?p"}
+              {currentIndex === questions.length - 1 ? "Nộp bài" : "Câu tiếp"}
               <i className={currentIndex === questions.length - 1 ? "ri-check-line" : "ri-arrow-right-line"}></i>
             </button>
           </div>

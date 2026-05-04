@@ -1,4 +1,4 @@
-import { ReactNode, useState, useRef, useEffect, useMemo } from "react";
+﻿import { ReactNode, useState, useRef, useEffect, useMemo } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useAdminTheme, adminThemeVars } from "@/hooks/useAdminTheme";
@@ -7,89 +7,89 @@ import { relativeTime } from "@/utils/exportUtils";
 import AdminGuard from "@/components/feature/AdminGuard";
 import { getRole, hasPermission, type Permission } from "@/lib/permissions";
 
-// --- Full Admin Nav Groups ----------------------------------------------------
+// ─── Full Admin Nav Groups ────────────────────────────────────────────────────
 const adminNavGroups = [
   {
-    label: "T?ng quan",
+    label: "Tổng quan",
     color: "#f87171",
     items: [
       { path: "/admin", icon: "ri-dashboard-line", label: "Dashboard" },
-      { path: "/admin/stats", icon: "ri-bar-chart-line", label: "Th?ng k� h? th?ng", permission: "stats.view" as Permission },
-      { path: "/admin/learn-stats", icon: "ri-graduation-cap-line", label: "Th?ng k� h?c t?p", permission: "stats.view" as Permission },
+      { path: "/admin/stats", icon: "ri-bar-chart-line", label: "Thống kê hệ thống", permission: "stats.view" as Permission },
+      { path: "/admin/learn-stats", icon: "ri-graduation-cap-line", label: "Thống kê học tập", permission: "stats.view" as Permission },
     ],
   },
   {
-    label: "Ngu?i d�ng",
+    label: "Người dùng",
     color: "#34d399",
     items: [
-      { path: "/admin/users", icon: "ri-user-settings-line", label: "Qu?n l� th�nh vi�n", permission: "users.view" as Permission },
-      { path: "/admin/roles", icon: "ri-shield-keyhole-line", label: "Ph�n quy?n Admin", permission: "system.roles" as Permission },
-      { path: "/admin/coupon", icon: "ri-coupon-3-line", label: "Coupon & M� gi?m gi�", permission: "users.vip" as Permission },
+      { path: "/admin/users", icon: "ri-user-settings-line", label: "Quản lý thành viên", permission: "users.view" as Permission },
+      { path: "/admin/roles", icon: "ri-shield-keyhole-line", label: "Phân quyền Admin", permission: "system.roles" as Permission },
+      { path: "/admin/coupon", icon: "ri-coupon-3-line", label: "Coupon & Mã giảm giá", permission: "users.vip" as Permission },
     ],
   },
   {
-    label: "N?i dung h?c",
+    label: "Nội dung học",
     color: "#a78bfa",
     items: [
-      { path: "/admin/content", icon: "ri-article-line", label: "Duy?t n?i dung", permission: "content.view" as Permission },
-      { path: "/admin/community-settings", icon: "ri-team-line", label: "C?u h�nh c?ng d?ng", permission: "content.view" as Permission },
-      { path: "/admin/content-learn", icon: "ri-book-open-line", label: "Qu?n l� n?i dung h?c", permission: "eps.edit" as Permission },
+      { path: "/admin/content", icon: "ri-article-line", label: "Duyệt nội dung", permission: "content.view" as Permission },
+      { path: "/admin/community-settings", icon: "ri-team-line", label: "Cấu hình cộng đồng", permission: "content.view" as Permission },
+      { path: "/admin/content-learn", icon: "ri-book-open-line", label: "Quản lý nội dung học", permission: "eps.edit" as Permission },
       { path: "/admin/series", icon: "ri-stack-line", label: "Series & Ebook", permission: "eps.edit" as Permission },
-      { path: "/admin/eps", icon: "ri-image-edit-line", label: "Qu?n l� EPS", permission: "eps.edit" as Permission },
-      { path: "/admin/eps-new", icon: "ri-add-circle-line", label: "Th�m b�i EPS m?i", permission: "eps.edit" as Permission },
-      { path: "/admin/eps-upload", icon: "ri-upload-cloud-2-line", label: "Upload ?nh EPS", permission: "eps.upload" as Permission },
-      { path: "/admin/upload", icon: "ri-upload-cloud-2-line", label: "Upload & AI t?ng h?p", permission: "eps.upload" as Permission },
+      { path: "/admin/eps", icon: "ri-image-edit-line", label: "Quản lý EPS", permission: "eps.edit" as Permission },
+      { path: "/admin/eps-new", icon: "ri-add-circle-line", label: "Thêm bài EPS mới", permission: "eps.edit" as Permission },
+      { path: "/admin/eps-upload", icon: "ri-upload-cloud-2-line", label: "Upload ảnh EPS", permission: "eps.upload" as Permission },
+      { path: "/admin/upload", icon: "ri-upload-cloud-2-line", label: "Upload & AI tổng hợp", permission: "eps.upload" as Permission },
     ],
   },
   {
     label: "Doanh thu",
     color: "#34d399",
     items: [
-      { path: "/admin/revenue", icon: "ri-line-chart-line", label: "Ph�n t�ch doanh thu", permission: "users.vip" as Permission },
-      { path: "/admin/vip-transactions", icon: "ri-exchange-line", label: "L?ch s? giao d?ch VIP", permission: "users.vip" as Permission },
-      { path: "/admin/pricing", icon: "ri-vip-crown-line", label: "G�i VIP & Gi�", permission: "system.settings" as Permission },
+      { path: "/admin/revenue", icon: "ri-line-chart-line", label: "Phân tích doanh thu", permission: "users.vip" as Permission },
+      { path: "/admin/vip-transactions", icon: "ri-exchange-line", label: "Lịch sử giao dịch VIP", permission: "users.vip" as Permission },
+      { path: "/admin/pricing", icon: "ri-vip-crown-line", label: "Gói VIP & Giá", permission: "system.settings" as Permission },
     ],
   },
   {
-    label: "Truy?n th�ng",
+    label: "Truyền thông",
     color: "#fb923c",
     items: [
       { path: "/admin/broadcast", icon: "ri-broadcast-line", label: "Broadcast email", permission: "system.broadcast" as Permission },
-      { path: "/admin/zalo-reminder", icon: "ri-chat-1-line", label: "Nh?c nh? Zalo OA", permission: "system.broadcast" as Permission },
+      { path: "/admin/zalo-reminder", icon: "ri-chat-1-line", label: "Nhắc nhở Zalo OA", permission: "system.broadcast" as Permission },
     ],
   },
   {
-    label: "H? tr? & B�o c�o",
+    label: "Hỗ trợ & Báo cáo",
     color: "#f87171",
     items: [
-      { path: "/admin/bugs", icon: "ri-bug-line", label: "B�o c�o l?i & Vi ph?m", permission: "reports.view" as Permission },
-      { path: "/admin/feedback", icon: "ri-chat-smile-2-line", label: "G�p � & ��nh gi�", permission: "reports.view" as Permission },
-      { path: "/admin/error-logs", icon: "ri-error-warning-line", label: "L?i h? th?ng", permission: "system.settings" as Permission },
+      { path: "/admin/bugs", icon: "ri-bug-line", label: "Báo cáo lỗi & Vi phạm", permission: "reports.view" as Permission },
+      { path: "/admin/feedback", icon: "ri-chat-smile-2-line", label: "Góp ý & Đánh giá", permission: "reports.view" as Permission },
+      { path: "/admin/error-logs", icon: "ri-error-warning-line", label: "Lỗi hệ thống", permission: "system.settings" as Permission },
     ],
   },
   {
-    label: "H? th?ng",
+    label: "Hệ thống",
     color: "app-accent-primary",
     items: [
-      { path: "/admin/control", icon: "ri-settings-4-line", label: "C�i d?t admin", permission: "system.settings" as Permission },
-      { path: "/admin/xp-config", icon: "ri-scales-3-line", label: "C?u h�nh XP & Anti-cheat", permission: "system.settings" as Permission },
-      { path: "/admin/pricing", icon: "ri-vip-crown-line", label: "G�i VIP & Gi�", permission: "system.settings" as Permission },
-      { path: "/admin/settings", icon: "ri-settings-3-line", label: "C�i d?t API & Keys", permission: "system.settings" as Permission },
-      { path: "/admin/seo", icon: "ri-search-eye-line", label: "C�i d?t SEO", permission: "system.settings" as Permission },
-      { path: "/admin/category-seo", icon: "ri-file-list-3-line", label: "SEO Danh m?c", permission: "system.settings" as Permission },
+      { path: "/admin/control", icon: "ri-settings-4-line", label: "Cài đặt admin", permission: "system.settings" as Permission },
+      { path: "/admin/xp-config", icon: "ri-scales-3-line", label: "Cấu hình XP & Anti-cheat", permission: "system.settings" as Permission },
+      { path: "/admin/pricing", icon: "ri-vip-crown-line", label: "Gói VIP & Giá", permission: "system.settings" as Permission },
+      { path: "/admin/settings", icon: "ri-settings-3-line", label: "Cài đặt API & Keys", permission: "system.settings" as Permission },
+      { path: "/admin/seo", icon: "ri-search-eye-line", label: "Cài đặt SEO", permission: "system.settings" as Permission },
+      { path: "/admin/category-seo", icon: "ri-file-list-3-line", label: "SEO Danh mục", permission: "system.settings" as Permission },
       { path: "/admin/backup", icon: "ri-save-line", label: "Backup & Restore", permission: "system.settings" as Permission },
       { path: "/admin/audit", icon: "ri-history-line", label: "Audit Log", permission: "system.settings" as Permission },
-      { path: "/admin/security", icon: "ri-shield-keyhole-line", label: "B?o m?t h? th?ng", permission: "system.settings" as Permission },
+      { path: "/admin/security", icon: "ri-shield-keyhole-line", label: "Bảo mật hệ thống", permission: "system.settings" as Permission },
     ],
   },
 ];
 
-// --- All searchable items (flatten all nav items) ----------------------------
+// ─── All searchable items (flatten all nav items) ────────────────────────────
 const ALL_NAV_ITEMS = adminNavGroups.flatMap(g =>
   g.items.map(item => ({ ...item, group: g.label, color: g.color }))
 );
 
-// --- Notification Panel -------------------------------------------------------
+// ─── Notification Panel ───────────────────────────────────────────────────────
 function NotificationPanel({ onClose }: { onClose: () => void }) {
   const { notifications, unreadCount, markRead, markAllRead, dismiss } = useAdminNotifications();
   const panelRef = useRef<HTMLDivElement>(null);
@@ -121,7 +121,7 @@ function NotificationPanel({ onClose }: { onClose: () => void }) {
         <div className="flex items-center gap-2">
           <i className="ri-notification-3-line text-rose-400 text-sm"></i>
           <span className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>
-            Th�ng b�o
+            Thông báo
           </span>
           {unreadCount > 0 && (
             <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-rose-500 text-white">
@@ -135,7 +135,7 @@ function NotificationPanel({ onClose }: { onClose: () => void }) {
             className="text-xs cursor-pointer whitespace-nowrap transition-colors"
             style={{ color: "var(--admin-text-muted)" }}
           >
-            �?c t?t c?
+            Đọc tất cả
           </button>
         )}
       </div>
@@ -144,7 +144,7 @@ function NotificationPanel({ onClose }: { onClose: () => void }) {
         {notifications.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12 text-center">
             <i className="ri-notification-off-line text-3xl mb-2" style={{ color: "var(--admin-text-faint)" }}></i>
-            <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Kh�ng c� th�ng b�o</p>
+            <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Không có thông báo</p>
           </div>
         ) : (
           notifications.map(n => (
@@ -194,7 +194,7 @@ function NotificationPanel({ onClose }: { onClose: () => void }) {
   );
 }
 
-// --- Sidebar Nav Item ---------------------------------------------------------
+// ─── Sidebar Nav Item ─────────────────────────────────────────────────────────
 function SidebarNavItem({ item, isActive }: { item: { path: string; icon: string; label: string }; isActive: boolean }) {
   return (
     <NavLink
@@ -216,7 +216,7 @@ function SidebarNavItem({ item, isActive }: { item: { path: string; icon: string
   );
 }
 
-// --- Quick Search -------------------------------------------------------------
+// ─── Quick Search ─────────────────────────────────────────────────────────────
 function QuickSearch({ onClose }: { onClose: () => void }) {
   const [q, setQ] = useState("");
   const navigate = useNavigate();
@@ -250,7 +250,7 @@ function QuickSearch({ onClose }: { onClose: () => void }) {
           type="text"
           value={q}
           onChange={e => setQ(e.target.value)}
-          placeholder="T�m t�c v?..."
+          placeholder="Tìm tác vụ..."
           className="flex-1 bg-transparent text-xs outline-none"
           style={{ color: "var(--admin-text)" }}
         />
@@ -278,14 +278,14 @@ function QuickSearch({ onClose }: { onClose: () => void }) {
           </button>
         ))}
         {results.length === 0 && (
-          <p className="text-center py-4 text-xs" style={{ color: "var(--admin-text-faint)" }}>Kh�ng t�m th?y</p>
+          <p className="text-center py-4 text-xs" style={{ color: "var(--admin-text-faint)" }}>Không tìm thấy</p>
         )}
       </div>
     </div>
   );
 }
 
-// --- Quick Search Toggle Button --------------------------------------------------
+// ─── Quick Search Toggle Button ──────────────────────────────────────────────────
 function QuickSearchToggle() {
   const [open, setOpen] = useState(false);
   return (
@@ -300,7 +300,7 @@ function QuickSearchToggle() {
         }}
       >
         <i className="ri-search-line text-xs flex-shrink-0"></i>
-        <span className="flex-1 text-left">T�m t�c v? nhanh...</span>
+        <span className="flex-1 text-left">Tìm tác vụ nhanh...</span>
         <kbd className="text-[9px] px-1.5 py-0.5 rounded" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-faint)" }}>Ctrl+K</kbd>
       </button>
       {open && (
@@ -312,7 +312,7 @@ function QuickSearchToggle() {
   );
 }
 
-// --- Collapsible Nav Group ----------------------------------------------------
+// ─── Collapsible Nav Group ────────────────────────────────────────────────────
 function NavGroup({
   group,
   defaultOpen = false,
@@ -368,7 +368,7 @@ function NavGroup({
   );
 }
 
-// --- AdminLayout --------------------------------------------------------------
+// ─── AdminLayout ──────────────────────────────────────────────────────────────
 export default function AdminLayout({
   children,
   title,
@@ -411,7 +411,7 @@ export default function AdminLayout({
     <AdminGuard>
       <div className="flex min-h-screen" style={{ backgroundColor: "var(--admin-bg)" }}>
 
-        {/* -- Sidebar -- */}
+        {/* ── Sidebar ── */}
         <aside
           className="min-h-screen flex flex-col border-r flex-shrink-0 transition-all duration-200"
           style={{
@@ -431,7 +431,7 @@ export default function AdminLayout({
             {!sidebarCollapsed && (
               <div className="flex-1 min-w-0">
                 <p className="font-bold text-sm leading-tight" style={{ color: "var(--admin-text)" }}>Admin Panel</p>
-                <p className="text-[9px]" style={{ color: "var(--admin-text-faint)" }}>H�n Qu?c Oi!</p>
+                <p className="text-[9px]" style={{ color: "var(--admin-text-faint)" }}>Hàn Quốc Ơi!</p>
               </div>
             )}
             <button
@@ -457,7 +457,7 @@ export default function AdminLayout({
                 {/* Divider */}
                 <div className="border-t pt-2" style={{ borderColor: "var(--admin-border)" }}>
                   <p className="text-[11px] tracking-wide font-semibold px-3 pb-1.5" style={{ color: "var(--admin-text-faint)" }}>
-                    �i?u hu?ng
+                    Điều hướng
                   </p>
                   <NavLink
                     to="/dashboard"
@@ -467,12 +467,12 @@ export default function AdminLayout({
                     <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
                       <i className="ri-arrow-left-line text-sm"></i>
                     </div>
-                    V? trang h?c vi�n
+                    Về trang học viên
                   </NavLink>
                 </div>
               </>
             ) : (
-              /* Collapsed: ch? hi?n icons */
+              /* Collapsed: chỉ hiện icons */
               <div className="space-y-1">
                 {visibleNavGroups.flatMap(g => g.items).map(item => {
                   const isActive = location.pathname === item.path;
@@ -509,7 +509,7 @@ export default function AdminLayout({
                 <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
                   <i className={isDark ? "ri-sun-line text-sm" : "ri-moon-line text-sm"}></i>
                 </div>
-                {isDark ? "Ch? d? s�ng" : "Ch? d? t?i"}
+                {isDark ? "Chế độ sáng" : "Chế độ tối"}
               </button>
 
               <div
@@ -532,7 +532,7 @@ export default function AdminLayout({
           )}
         </aside>
 
-        {/* -- Main -- */}
+        {/* ── Main ── */}
         <div className="flex-1 flex flex-col min-w-0">
           {/* Header */}
           <header

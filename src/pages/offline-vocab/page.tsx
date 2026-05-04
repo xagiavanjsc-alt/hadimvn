@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 
@@ -16,18 +16,18 @@ interface VocabPack {
 }
 
 const VOCAB_PACKS: VocabPack[] = [
-  { id: "pack-a1", name: "G�i A1 - Co b?n", description: "101 t? v?ng TOPIK I co b?n nh?t, thi?t y?u cho ngu?i m?i b?t d?u", category: "TOPIK I - Co b?n", level: "A1", wordCount: 101, size: "~45 KB", icon: "ri-seedling-line", color: "emerald", tags: ["TOPIK", "co b?n", "A1"] },
-  { id: "pack-family", name: "Gia d�nh & Sinh ho?t", description: "91 t? v? ph�ng ?c, d? d�ng, sinh ho?t h�ng ng�y v� vi?c nh�", category: "Gia d�nh & Sinh ho?t", level: "A2", wordCount: 91, size: "~40 KB", icon: "ri-home-heart-line", color: "teal", tags: ["gia d�nh", "sinh ho?t", "nh� c?a"] },
-  { id: "pack-emotion", name: "T�nh c�ch & C?m x�c", description: "47 t? m� t? t�nh c�ch, c?m x�c v� tr?ng th�i t�m l�", category: "T�nh c�ch & C?m x�c", level: "A2", wordCount: 47, size: "~22 KB", icon: "ri-emotion-line", color: "pink", tags: ["c?m x�c", "t�nh c�ch"] },
-  { id: "pack-time", name: "Th?i gian & M�u s?c", description: "45 t? v? th?i gian, ng�y th�ng, tu?n, m�u s?c", category: "Th?i gian & M�u s?c", level: "A1", wordCount: 45, size: "~20 KB", icon: "ri-time-line", color: "amber", tags: ["th?i gian", "m�u s?c"] },
-  { id: "pack-weather", name: "Th?i ti?t", description: "41 t? v? th?i ti?t, hi?n tu?ng t? nhi�n, thi�n tai", category: "Th?i ti?t", level: "A2", wordCount: 41, size: "~18 KB", icon: "ri-cloud-line", color: "sky", tags: ["th?i ti?t", "thi�n nhi�n"] },
-  { id: "pack-food", name: "Mua s?m & ?m th?c", description: "40 t? v? mua s?m, d? u?ng, v? gi�c v� an u?ng", category: "Mua s?m & ?m th?c", level: "A2", wordCount: 40, size: "~18 KB", icon: "ri-restaurant-line", color: "orange", tags: ["?m th?c", "mua s?m"] },
-  { id: "pack-jobs", name: "Ngh? nghi?p", description: "39 t? v? c�c ngh? nghi?p ph? bi?n trong x� h?i H�n Qu?c", category: "??", level: "B1", wordCount: 39, size: "~17 KB", icon: "ri-briefcase-line", color: "violet", tags: ["ngh? nghi?p", "c�ng vi?c"] },
-  { id: "pack-health", name: "S?c kh?e & Y t?", description: "35 t? v? b?nh t?t, tri?u ch?ng, b?nh vi?n v� di?u tr?", category: "S?c kh?e", level: "B1", wordCount: 35, size: "~16 KB", icon: "ri-heart-pulse-line", color: "rose", tags: ["s?c kh?e", "y t?"] },
-  { id: "pack-transport", name: "Giao th�ng", description: "31 t? v? phuong ti?n, du?ng s�, bi?n b�o giao th�ng", category: "Giao th�ng", level: "A2", wordCount: 31, size: "~14 KB", icon: "ri-bus-line", color: "blue", tags: ["giao th�ng", "phuong ti?n"] },
-  { id: "pack-verbs", name: "�?ng t? co b?n", description: "C�c d?ng t? thi?t y?u nh?t trong ti?ng H�n h�ng ng�y", category: "�?ng t?", level: "A1", wordCount: 36, size: "~16 KB", icon: "ri-run-line", color: "green", tags: ["d?ng t?", "co b?n"] },
-  { id: "pack-adj", name: "T�nh t? & Tr?ng t?", description: "T�nh t? m� t? v� tr?ng t? thu?ng d�ng trong giao ti?p", category: "T�nh t?", level: "A2", wordCount: 65, size: "~28 KB", icon: "ri-palette-line", color: "purple", tags: ["t�nh t?", "tr?ng t?"] },
-  { id: "pack-all", name: "To�n b? t? v?ng", description: "T?i to�n b? 811 t? v?ng d? h?c offline ho�n to�n", category: "all", level: "A1-C1", wordCount: 811, size: "~360 KB", icon: "ri-database-2-line", color: "yellow", tags: ["t?t c?", "d?y d?"] },
+  { id: "pack-a1", name: "Gói A1 - Cơ bản", description: "101 từ vựng TOPIK I cơ bản nhất, thiết yếu cho người mới bắt đầu", category: "TOPIK I - Cơ bản", level: "A1", wordCount: 101, size: "~45 KB", icon: "ri-seedling-line", color: "emerald", tags: ["TOPIK", "cơ bản", "A1"] },
+  { id: "pack-family", name: "Gia đình & Sinh hoạt", description: "91 từ về phòng ốc, đồ dùng, sinh hoạt hàng ngày và việc nhà", category: "Gia đình & Sinh hoạt", level: "A2", wordCount: 91, size: "~40 KB", icon: "ri-home-heart-line", color: "teal", tags: ["gia đình", "sinh hoạt", "nhà cửa"] },
+  { id: "pack-emotion", name: "Tính cách & Cảm xúc", description: "47 từ mô tả tính cách, cảm xúc và trạng thái tâm lý", category: "Tính cách & Cảm xúc", level: "A2", wordCount: 47, size: "~22 KB", icon: "ri-emotion-line", color: "pink", tags: ["cảm xúc", "tính cách"] },
+  { id: "pack-time", name: "Thời gian & Màu sắc", description: "45 từ về thời gian, ngày tháng, tuần, màu sắc", category: "Thời gian & Màu sắc", level: "A1", wordCount: 45, size: "~20 KB", icon: "ri-time-line", color: "amber", tags: ["thời gian", "màu sắc"] },
+  { id: "pack-weather", name: "Thời tiết", description: "41 từ về thời tiết, hiện tượng tự nhiên, thiên tai", category: "Thời tiết", level: "A2", wordCount: 41, size: "~18 KB", icon: "ri-cloud-line", color: "sky", tags: ["thời tiết", "thiên nhiên"] },
+  { id: "pack-food", name: "Mua sắm & Ẩm thực", description: "40 từ về mua sắm, đồ uống, vị giác và ăn uống", category: "Mua sắm & Ẩm thực", level: "A2", wordCount: 40, size: "~18 KB", icon: "ri-restaurant-line", color: "orange", tags: ["ẩm thực", "mua sắm"] },
+  { id: "pack-jobs", name: "Nghề nghiệp", description: "39 từ về các nghề nghiệp phổ biến trong xã hội Hàn Quốc", category: "직업", level: "B1", wordCount: 39, size: "~17 KB", icon: "ri-briefcase-line", color: "violet", tags: ["nghề nghiệp", "công việc"] },
+  { id: "pack-health", name: "Sức khỏe & Y tế", description: "35 từ về bệnh tật, triệu chứng, bệnh viện và điều trị", category: "Sức khỏe", level: "B1", wordCount: 35, size: "~16 KB", icon: "ri-heart-pulse-line", color: "rose", tags: ["sức khỏe", "y tế"] },
+  { id: "pack-transport", name: "Giao thông", description: "31 từ về phương tiện, đường sá, biển báo giao thông", category: "Giao thông", level: "A2", wordCount: 31, size: "~14 KB", icon: "ri-bus-line", color: "blue", tags: ["giao thông", "phương tiện"] },
+  { id: "pack-verbs", name: "Động từ cơ bản", description: "Các động từ thiết yếu nhất trong tiếng Hàn hàng ngày", category: "Động từ", level: "A1", wordCount: 36, size: "~16 KB", icon: "ri-run-line", color: "green", tags: ["động từ", "cơ bản"] },
+  { id: "pack-adj", name: "Tính từ & Trạng từ", description: "Tính từ mô tả và trạng từ thường dùng trong giao tiếp", category: "Tính từ", level: "A2", wordCount: 65, size: "~28 KB", icon: "ri-palette-line", color: "purple", tags: ["tính từ", "trạng từ"] },
+  { id: "pack-all", name: "Toàn bộ từ vựng", description: "Tải toàn bộ 811 từ vựng để học offline hoàn toàn", category: "all", level: "A1-C1", wordCount: 811, size: "~360 KB", icon: "ri-database-2-line", color: "yellow", tags: ["tất cả", "đầy đủ"] },
 ];
 
 interface DownloadState {
@@ -180,8 +180,8 @@ export default function OfflineVocabPage() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-white">G�i T? V?ng Offline</h1>
-            <p className="text-white/50 text-sm mt-1">T?i t? v?ng d? h?c kh�ng c?n k?t n?i internet</p>
+            <h1 className="text-2xl font-bold text-white">Gói Từ Vựng Offline</h1>
+            <p className="text-white/50 text-sm mt-1">Tải từ vựng để học không cần kết nối internet</p>
           </div>
           <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold ${isOnline ? "bg-app-accent-success/15 text-app-accent-success" : "bg-rose-500/15 text-rose-400"}`}>
             <div className={`w-1.5 h-1.5 rounded-full ${isOnline ? "bg-emerald-400" : "bg-rose-400"} animate-pulse`}></div>
@@ -193,15 +193,15 @@ export default function OfflineVocabPage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border text-center">
             <p className="text-2xl font-bold text-app-accent-primary">{cachedPacks.size}</p>
-            <p className="text-app-text-secondary text-xs mt-0.5">G�i d� t?i</p>
+            <p className="text-app-text-secondary text-xs mt-0.5">Gói đã tải</p>
           </div>
           <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border text-center">
             <p className="text-2xl font-bold text-app-accent-success">{totalCached}</p>
-            <p className="text-app-text-secondary text-xs mt-0.5">T? offline</p>
+            <p className="text-app-text-secondary text-xs mt-0.5">Từ offline</p>
           </div>
           <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border text-center">
             <p className="text-2xl font-bold text-white/70">{storageUsed}</p>
-            <p className="text-app-text-secondary text-xs mt-0.5">Dung lu?ng</p>
+            <p className="text-app-text-secondary text-xs mt-0.5">Dung lượng</p>
           </div>
         </div>
 
@@ -209,8 +209,8 @@ export default function OfflineVocabPage() {
           <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 flex items-start gap-3">
             <i className="ri-wifi-off-line text-amber-400 text-lg mt-0.5"></i>
             <div>
-              <p className="text-amber-400 font-semibold text-sm">�ang offline</p>
-              <p className="text-white/50 text-xs mt-0.5">B?n ch? c� th? h?c c�c g�i d� t?i. K?t n?i internet d? t?i th�m g�i m?i.</p>
+              <p className="text-amber-400 font-semibold text-sm">Đang offline</p>
+              <p className="text-white/50 text-xs mt-0.5">Bạn chỉ có thể học các gói đã tải. Kết nối internet để tải thêm gói mới.</p>
             </div>
           </div>
         )}
@@ -239,12 +239,12 @@ export default function OfflineVocabPage() {
                     <p className="text-app-text-secondary text-xs mb-2 line-clamp-2">{pack.description}</p>
                     <div className="flex items-center gap-3 text-xs text-app-text-muted">
                       <span className={`font-semibold ${levelColor[pack.level] || "text-white/50"}`}>{pack.level}</span>
-                      <span><i className="ri-translate-2 mr-0.5"></i>{pack.wordCount} t?</span>
+                      <span><i className="ri-translate-2 mr-0.5"></i>{pack.wordCount} từ</span>
                       <span><i className="ri-hard-drive-2-line mr-0.5"></i>{pack.size}</span>
                     </div>
                     {meta && (
                       <p className="text-app-text-muted text-[10px] mt-1">
-                        �� t?i: {new Date(meta.downloadedAt).toLocaleDateString("vi-VN")} � {meta.count} t?
+                        Đã tải: {new Date(meta.downloadedAt).toLocaleDateString("vi-VN")} · {meta.count} từ
                       </p>
                     )}
                   </div>
@@ -256,7 +256,7 @@ export default function OfflineVocabPage() {
                     <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
                       <div className={`h-full ${colors.progress} rounded-full transition-all duration-300`} style={{ width: `${dl.progress}%` }}></div>
                     </div>
-                    <p className="text-app-text-muted text-xs mt-1">�ang t?i... {dl.progress}%</p>
+                    <p className="text-app-text-muted text-xs mt-1">Đang tải... {dl.progress}%</p>
                   </div>
                 )}
 
@@ -266,7 +266,7 @@ export default function OfflineVocabPage() {
                     className="px-3 py-1.5 rounded-lg bg-app-card/50 text-app-text-secondary text-xs hover:bg-app-card/70 transition-all cursor-pointer whitespace-nowrap"
                   >
                     <i className="ri-eye-line mr-1"></i>
-                    Xem tru?c
+                    Xem trước
                   </button>
                   {isCached ? (
                     <>
@@ -276,14 +276,14 @@ export default function OfflineVocabPage() {
                         className="flex-1 py-1.5 rounded-lg bg-app-card/50 text-app-text-secondary text-xs hover:bg-app-card/70 transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
                       >
                         <i className="ri-refresh-line mr-1"></i>
-                        C?p nh?t
+                        Cập nhật
                       </button>
                       <button
                         onClick={() => deletePack(pack)}
                         className="px-3 py-1.5 rounded-lg bg-rose-500/10 text-rose-400 text-xs hover:bg-rose-500/20 transition-all cursor-pointer whitespace-nowrap"
                       >
                         <i className="ri-delete-bin-line mr-1"></i>
-                        X�a
+                        Xóa
                       </button>
                     </>
                   ) : (
@@ -293,16 +293,16 @@ export default function OfflineVocabPage() {
                       className={`flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap disabled:opacity-40 ${colors.bg} ${colors.text} hover:opacity-80`}
                     >
                       {dl?.status === "downloading" ? (
-                        <><div className="w-3 h-3 border border-current border-t-transparent rounded-full animate-spin inline-block mr-1"></div>�ang t?i...</>
+                        <><div className="w-3 h-3 border border-current border-t-transparent rounded-full animate-spin inline-block mr-1"></div>Đang tải...</>
                       ) : (
-                        <><i className="ri-download-line mr-1"></i>T?i xu?ng</>
+                        <><i className="ri-download-line mr-1"></i>Tải xuống</>
                       )}
                     </button>
                   )}
                 </div>
 
                 {dl?.status === "error" && (
-                  <p className="text-rose-400 text-xs mt-2"><i className="ri-error-warning-line mr-1"></i>L?i t?i. Th? l?i.</p>
+                  <p className="text-rose-400 text-xs mt-2"><i className="ri-error-warning-line mr-1"></i>Lỗi tải. Thử lại.</p>
                 )}
               </div>
             );
@@ -317,7 +317,7 @@ export default function OfflineVocabPage() {
                 <h3 className="text-white font-bold">{previewPack.name}</h3>
                 <button onClick={() => setPreviewPack(null)} className="text-app-text-secondary hover:text-white/70 cursor-pointer"><i className="ri-close-line text-lg"></i></button>
               </div>
-              <p className="text-app-text-secondary text-xs mb-4">10 t? d?u ti�n trong g�i:</p>
+              <p className="text-app-text-secondary text-xs mb-4">10 từ đầu tiên trong gói:</p>
               <div className="space-y-2 max-h-64 overflow-y-auto">
                 {previewWords.map((w, i) => (
                   <div key={i} className="flex items-center justify-between py-1.5 border-b border-app-border">
@@ -325,17 +325,17 @@ export default function OfflineVocabPage() {
                     <span className="text-white/50 text-xs">{w.vietnamese}</span>
                   </div>
                 ))}
-                {previewWords.length === 0 && <p className="text-app-text-muted text-sm text-center py-4">�ang t?i...</p>}
+                {previewWords.length === 0 && <p className="text-app-text-muted text-sm text-center py-4">Đang tải...</p>}
               </div>
               <div className="flex gap-2 mt-4">
-                <button onClick={() => setPreviewPack(null)} className="flex-1 py-2 rounded-lg bg-white/8 text-white/50 text-sm cursor-pointer whitespace-nowrap">��ng</button>
+                <button onClick={() => setPreviewPack(null)} className="flex-1 py-2 rounded-lg bg-white/8 text-white/50 text-sm cursor-pointer whitespace-nowrap">Đóng</button>
                 {!cachedPacks.has(previewPack.id) && (
                   <button
                     onClick={() => { downloadPack(previewPack); setPreviewPack(null); }}
                     disabled={!isOnline}
                     className="flex-1 py-2 rounded-lg bg-app-accent-primary text-black text-sm font-bold cursor-pointer whitespace-nowrap disabled:opacity-40"
                   >
-                    <i className="ri-download-line mr-1.5"></i>T?i xu?ng
+                    <i className="ri-download-line mr-1.5"></i>Tải xuống
                   </button>
                 )}
               </div>
@@ -347,13 +347,13 @@ export default function OfflineVocabPage() {
         <div className="bg-[#1a1f2e] rounded-xl p-5 border border-app-border">
           <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
             <i className="ri-information-line text-app-accent-primary"></i>
-            C�ch ho?t d?ng
+            Cách hoạt động
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
-              { icon: "ri-download-cloud-line", title: "1. T?i g�i", desc: "Ch?n g�i t? v?ng v� t?i v? thi?t b? khi c� m?ng" },
-              { icon: "ri-wifi-off-line", title: "2. H?c offline", desc: "M? app kh�ng c?n m?ng, t? v?ng d� luu s?n trong thi?t b?" },
-              { icon: "ri-refresh-line", title: "3. �?ng b?", desc: "Khi c� m?ng tr? l?i, ti?n d? h?c t? d?ng d?ng b? l�n cloud" },
+              { icon: "ri-download-cloud-line", title: "1. Tải gói", desc: "Chọn gói từ vựng và tải về thiết bị khi có mạng" },
+              { icon: "ri-wifi-off-line", title: "2. Học offline", desc: "Mở app không cần mạng, từ vựng đã lưu sẵn trong thiết bị" },
+              { icon: "ri-refresh-line", title: "3. Đồng bộ", desc: "Khi có mạng trở lại, tiến độ học tự động đồng bộ lên cloud" },
             ].map(item => (
               <div key={item.title} className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-lg bg-app-accent-primary/10 flex items-center justify-center flex-shrink-0">

@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+﻿import { useState, useMemo, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -33,10 +33,10 @@ type SortKey = "xp" | "streak" | "best_score" | "words_learned";
 type Period = "all" | "month" | "week";
 
 const SORT_OPTIONS: { key: SortKey; label: string; icon: string }[] = [
-  { key: "xp", label: "�i?m XP", icon: "ri-star-line" },
+  { key: "xp", label: "Điểm XP", icon: "ri-star-line" },
   { key: "streak", label: "Streak", icon: "ri-fire-line" },
-  { key: "best_score", label: "�i?m EPS cao nh?t", icon: "ri-trophy-line" },
-  { key: "words_learned", label: "T? d� h?c", icon: "ri-book-open-line" },
+  { key: "best_score", label: "Điểm EPS cao nhất", icon: "ri-trophy-line" },
+  { key: "words_learned", label: "Từ đã học", icon: "ri-book-open-line" },
 ];
 
 const RANK_COLORS = ["#FFD700", "#C0C0C0", "#CD7F32"];
@@ -124,9 +124,9 @@ export default function LeaderboardPage() {
       const mapped: LeaderboardPlayer[] = (data || []).map((row) => ({
         id: row.id,
         user_id: row.user_id,
-        display_name: row.display_name || "H?c vi�n",
+        display_name: row.display_name || "Học viên",
         avatar_url: row.avatar_url,
-        level: row.level || "Co b?n",
+        level: row.level || "Cơ bản",
         streak: row.streak || 0,
         best_score: row.best_score || 0,
         words_learned: row.words_learned || 0,
@@ -144,7 +144,7 @@ export default function LeaderboardPage() {
           const myEntry: LeaderboardPlayer = {
             id: "me-local",
             user_id: user.id,
-            display_name: profile?.display_name || "B?n",
+            display_name: profile?.display_name || "Bạn",
             avatar_url: profile?.avatar_url || null,
             level: deriveLevel(myBestScore),
             streak: streak.count,
@@ -164,12 +164,12 @@ export default function LeaderboardPage() {
       setPlayers(mapped);
       setLastRefresh(new Date());
     } catch {
-      // fallback: gi? data cu n?u c�, ch? thay th? cho user logged in
+      // fallback: giữ data cũ nếu có, chỉ thay thế cho user logged in
       if (user) {
         const myEntry: LeaderboardPlayer = {
           id: "me-local",
           user_id: user.id,
-          display_name: profile?.display_name || "B?n",
+          display_name: profile?.display_name || "Bạn",
           avatar_url: profile?.avatar_url || null,
           level: deriveLevel(myBestScore),
           streak: streak.count,
@@ -181,13 +181,13 @@ export default function LeaderboardPage() {
           vip_expires_at: profile?.vip_expires_at || null,
           isCurrentUser: true,
         };
-        // Gi? data cu + th�m user entry
+        // Giữ data cũ + thêm user entry
         setPlayers(prev => {
           const filtered = prev.filter(p => !p.isCurrentUser);
           return [...filtered, myEntry];
         });
       }
-      // Guests: gi? data cu, kh�ng set r?ng
+      // Guests: giữ data cũ, không set rỗng
     } finally {
       setLoading(false);
     }
@@ -206,7 +206,7 @@ export default function LeaderboardPage() {
   const top3 = sortedPlayers.slice(0, 3);
 
   return (
-    <DashboardLayout title="B?ng x?p h?ng" subtitle="So s�nh ti?n d? v?i h?c vi�n kh�c">
+    <DashboardLayout title="Bảng xếp hạng" subtitle="So sánh tiến độ với học viên khác">
       <div className="space-y-6">
 
         {/* My Rank Banner */}
@@ -229,7 +229,7 @@ export default function LeaderboardPage() {
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <p className="text-white font-bold text-base">
-                  {user ? (profile?.display_name || "B?n") : "X?p h?ng c?a b?n"}
+                  {user ? (profile?.display_name || "Bạn") : "Xếp hạng của bạn"}
                 </p>
                 {myRank > 0 && (
                   <span className="bg-app-accent-primary/10 text-app-accent-primary text-xs px-2 py-0.5 rounded-full font-medium">
@@ -238,30 +238,30 @@ export default function LeaderboardPage() {
                 )}
                 {!user && (
                   <span className="bg-app-card/50 text-app-text-secondary text-xs px-2 py-0.5 rounded-full">
-                    Chua dang nh?p
+                    Chưa đăng nhập
                   </span>
                 )}
               </div>
               <p className="text-white/50 text-sm">
                 {!user
-                  ? "�ang nh?p d? xu?t hi?n tr�n b?ng x?p h?ng"
+                  ? "Đăng nhập để xuất hiện trên bảng xếp hạng"
                   : myRank <= 0
-                  ? "Ho�n th�nh b�i h?c d? l�n b?ng x?p h?ng"
+                  ? "Hoàn thành bài học để lên bảng xếp hạng"
                   : myRank <= 3
-                  ? "Top 3! Xu?t s?c l?m!"
+                  ? "Top 3! Xuất sắc lắm!"
                   : myRank <= 5
-                  ? "G?n top 3 r?i � c? l�n!"
+                  ? "Gần top 3 rồi — cố lên!"
                   : myEntry && sortedPlayers[myRank - 2]
-                  ? `C?n th�m ${(sortedPlayers[myRank - 2][sortKey] - myEntry[sortKey]).toLocaleString()} di?m d? vu?t h?ng`
-                  : "Ti?p t?c h?c d? leo h?ng!"}
+                  ? `Cần thêm ${(sortedPlayers[myRank - 2][sortKey] - myEntry[sortKey]).toLocaleString()} điểm để vượt hạng`
+                  : "Tiếp tục học để leo hạng!"}
               </p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
               {[
                 { label: "XP", value: myXp.toLocaleString(), color: "app-accent-primary" },
                 { label: "Streak", value: `${streak.count}d`, color: "#fb923c" },
-                { label: "EPS cao nh?t", value: myBestScore > 0 ? `${myBestScore}%` : "�", color: "#4ade80" },
-                { label: "T? d� h?c", value: myWordsLearned, color: "#a78bfa" },
+                { label: "EPS cao nhất", value: myBestScore > 0 ? `${myBestScore}%` : "—", color: "#4ade80" },
+                { label: "Từ đã học", value: myWordsLearned, color: "#a78bfa" },
               ].map((s) => (
                 <div key={s.label}>
                   <p className="font-bold text-lg" style={{ color: s.color }}>{s.value}</p>
@@ -275,7 +275,7 @@ export default function LeaderboardPage() {
         {/* Top 3 Podium */}
         {!loading && top3.length >= 3 && (
           <div className="bg-white/2 border border-app-border rounded-2xl p-6">
-            <h2 className="text-white font-semibold text-sm mb-6 text-center">Top 3 h?c vi�n xu?t s?c</h2>
+            <h2 className="text-white font-semibold text-sm mb-6 text-center">Top 3 học viên xuất sắc</h2>
             <div className="flex items-end justify-center gap-4">
               {/* 2nd */}
               <div className="flex flex-col items-center gap-2">
@@ -349,7 +349,7 @@ export default function LeaderboardPage() {
           <div className="flex items-center gap-3">
             {lastRefresh && (
               <span className="text-app-text-muted text-[10px]">
-                C?p nh?t {lastRefresh.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" })}
+                Cập nhật {lastRefresh.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" })}
               </span>
             )}
             <button
@@ -358,7 +358,7 @@ export default function LeaderboardPage() {
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs bg-app-surface/50 text-app-text-secondary border border-app-border hover:text-white/60 transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
             >
               <i className={`ri-refresh-line ${loading ? "animate-spin" : ""}`}></i>
-              L�m m?i
+              Làm mới
             </button>
             <div className="flex items-center gap-1 bg-app-surface/50 border border-app-border rounded-lg p-1">
               {(["week", "month", "all"] as Period[]).map((p) => (
@@ -369,7 +369,7 @@ export default function LeaderboardPage() {
                     period === p ? "bg-app-card/70 text-white" : "text-app-text-secondary hover:text-white/60"
                   }`}
                 >
-                  {p === "week" ? "Tu?n" : p === "month" ? "Th�ng" : "T?t c?"}
+                  {p === "week" ? "Tuần" : p === "month" ? "Tháng" : "Tất cả"}
                 </button>
               ))}
             </div>
@@ -382,24 +382,24 @@ export default function LeaderboardPage() {
           <div className="hidden sm:block overflow-x-auto">
             <div className="grid grid-cols-[48px_1fr_120px_100px_100px_100px_100px] gap-0 px-5 py-3 border-b border-app-border min-w-[600px]">
               <span className="text-app-text-muted text-[10px] tracking-normal">#</span>
-              <span className="text-app-text-muted text-[10px] tracking-normal">H?c vi�n</span>
+              <span className="text-app-text-muted text-[10px] tracking-normal">Học viên</span>
               <span className="text-app-text-muted text-[10px] tracking-normal text-right">XP</span>
               <span className="text-app-text-muted text-[10px] tracking-normal text-right">Streak</span>
-              <span className="text-app-text-muted text-[10px] tracking-normal text-right">EPS cao nh?t</span>
-              <span className="text-app-text-muted text-[10px] tracking-normal text-right">T? d� h?c</span>
-              <span className="text-app-text-muted text-[10px] tracking-normal text-right">C?p d?</span>
+              <span className="text-app-text-muted text-[10px] tracking-normal text-right">EPS cao nhất</span>
+              <span className="text-app-text-muted text-[10px] tracking-normal text-right">Từ đã học</span>
+              <span className="text-app-text-muted text-[10px] tracking-normal text-right">Cấp độ</span>
             </div>
 
             {loading ? (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
                 <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
-                <p className="text-app-text-muted text-sm">�ang t?i b?ng x?p h?ng...</p>
+                <p className="text-app-text-muted text-sm">Đang tải bảng xếp hạng...</p>
               </div>
             ) : sortedPlayers.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
                 <i className="ri-trophy-line text-white/10 text-4xl"></i>
-                <p className="text-app-text-muted text-sm">Chua c� h?c vi�n n�o</p>
-                <p className="text-app-text-muted text-xs">H�y l� ngu?i d?u ti�n l�n b?ng x?p h?ng!</p>
+                <p className="text-app-text-muted text-sm">Chưa có học viên nào</p>
+                <p className="text-app-text-muted text-xs">Hãy là người đầu tiên lên bảng xếp hạng!</p>
               </div>
             ) : (
               sortedPlayers.map((player, idx) => {
@@ -434,7 +434,7 @@ export default function LeaderboardPage() {
                       <button
                         onClick={() => !isMe && navigate(`/member/${player.user_id}`)}
                         className={`flex-shrink-0 ${!isMe ? "cursor-pointer hover:opacity-80 transition-opacity" : "cursor-default"}`}
-                        title={!isMe ? `Xem h? so ${player.display_name}` : ""}
+                        title={!isMe ? `Xem hồ sơ ${player.display_name}` : ""}
                       >
                         <AvatarCell player={player} size={36} />
                       </button>
@@ -445,10 +445,10 @@ export default function LeaderboardPage() {
                             className={`text-sm font-medium transition-colors ${isMe ? "text-app-accent-primary cursor-default" : "text-white/80 hover:text-app-accent-primary/80 cursor-pointer"}`}
                           >
                             {player.display_name}
-                            {isMe && <span className="ml-1 text-[10px] text-app-accent-primary/60">(B?n)</span>}
+                            {isMe && <span className="ml-1 text-[10px] text-app-accent-primary/60">(Bạn)</span>}
                           </button>
                           {player.is_vip && (!player.vip_expires_at || new Date(player.vip_expires_at).getTime() > Date.now()) && (
-                            <span className="flex items-center gap-0.5 bg-app-accent-primary/15 text-app-accent-primary text-[9px] font-bold px-1.5 py-0.5 rounded-full border border-app-accent-primary/25" title="Th�nh vi�n VIP">
+                            <span className="flex items-center gap-0.5 bg-app-accent-primary/15 text-app-accent-primary text-[9px] font-bold px-1.5 py-0.5 rounded-full border border-app-accent-primary/25" title="Thành viên VIP">
                               <i className="ri-vip-crown-fill text-[10px]"></i>
                               VIP
                             </span>
@@ -457,7 +457,7 @@ export default function LeaderboardPage() {
                             <button
                               onClick={() => navigate(`/member/${player.user_id}`)}
                               className="text-app-text-muted hover:text-[#a78bfa]/70 transition-colors cursor-pointer"
-                              title="Xem h? so"
+                              title="Xem hồ sơ"
                             >
                               <i className="ri-user-line text-[10px]"></i>
                             </button>
@@ -485,7 +485,7 @@ export default function LeaderboardPage() {
                     {/* Best Score */}
                     <div className="flex items-center justify-end">
                       <span className={`text-sm ${sortKey === "best_score" ? "text-[#4ade80] font-bold" : "text-white/60"}`}>
-                        {player.best_score > 0 ? `${player.best_score}%` : "�"}
+                        {player.best_score > 0 ? `${player.best_score}%` : "—"}
                       </span>
                     </div>
 
@@ -518,13 +518,13 @@ export default function LeaderboardPage() {
             {loading ? (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
                 <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
-                <p className="text-app-text-muted text-sm">�ang t?i b?ng x?p h?ng...</p>
+                <p className="text-app-text-muted text-sm">Đang tải bảng xếp hạng...</p>
               </div>
             ) : sortedPlayers.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
                 <i className="ri-trophy-line text-white/10 text-4xl"></i>
-                <p className="text-app-text-muted text-sm">Chua c� h?c vi�n n�o</p>
-                <p className="text-app-text-muted text-xs">H�y l� ngu?i d?u ti�n l�n b?ng x?p h?ng!</p>
+                <p className="text-app-text-muted text-sm">Chưa có học viên nào</p>
+                <p className="text-app-text-muted text-xs">Hãy là người đầu tiên lên bảng xếp hạng!</p>
               </div>
             ) : (
               sortedPlayers.map((player, idx) => {
@@ -570,7 +570,7 @@ export default function LeaderboardPage() {
                               className={`text-sm font-medium truncate transition-colors ${isMe ? "text-app-accent-primary cursor-default" : "text-white/80 hover:text-app-accent-primary/80 cursor-pointer"}`}
                             >
                               {player.display_name}
-                              {isMe && <span className="ml-1 text-[10px] text-app-accent-primary/60">(B?n)</span>}
+                              {isMe && <span className="ml-1 text-[10px] text-app-accent-primary/60">(Bạn)</span>}
                               {player.is_vip && (!player.vip_expires_at || new Date(player.vip_expires_at).getTime() > Date.now()) && (
                                 <i className="ri-vip-crown-fill text-app-accent-primary text-[11px] ml-1" title="VIP"></i>
                               )}
@@ -598,7 +598,7 @@ export default function LeaderboardPage() {
                       <div className="bg-app-surface/50 rounded-lg p-2 text-center">
                         <p className="text-[10px] text-app-text-muted mb-0.5">EPS</p>
                         <p className={`text-sm font-bold ${sortKey === "best_score" ? "text-[#4ade80]" : "text-white/60"}`}>
-                          {player.best_score > 0 ? `${player.best_score}%` : "�" }
+                          {player.best_score > 0 ? `${player.best_score}%` : "—" }
                         </p>
                       </div>
                     </div>
@@ -616,42 +616,42 @@ export default function LeaderboardPage() {
               <i className="ri-user-add-line text-app-accent-primary text-lg"></i>
             </div>
             <div className="flex-1">
-              <p className="text-white font-semibold text-sm mb-1">�ang nh?p d? l�n b?ng x?p h?ng</p>
+              <p className="text-white font-semibold text-sm mb-1">Đăng nhập để lên bảng xếp hạng</p>
               <p className="text-white/50 text-xs leading-relaxed">
-                T?o t�i kho?n mi?n ph� d? luu ti?n d? l�n cloud v� c?nh tranh v?i h?c vi�n KTS tr�n to�n qu?c!
+                Tạo tài khoản miễn phí để lưu tiến độ lên cloud và cạnh tranh với học viên KTS trên toàn quốc!
               </p>
             </div>
           </div>
         )}
 
-        {/* --- XP Rules: how to earn / lose XP ------------------------- */}
+        {/* ─── XP Rules: how to earn / lose XP ───────────────────────── */}
         <div className="bg-white/2 border border-app-border rounded-2xl p-5">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-xl bg-app-accent-primary/10 flex items-center justify-center flex-shrink-0">
               <i className="ri-medal-line text-app-accent-primary text-lg"></i>
             </div>
             <div>
-              <h2 className="text-white font-bold text-base">C�ch t�nh di?m XP</h2>
-              <p className="text-app-text-muted text-xs">Minh b?ch � h?c d�ng c�ch d? leo top nhanh</p>
+              <h2 className="text-white font-bold text-base">Cách tính điểm XP</h2>
+              <p className="text-app-text-muted text-xs">Minh bạch — học đúng cách để leo top nhanh</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* C�ch ki?m XP */}
+            {/* Cách kiếm XP */}
             <div>
               <h3 className="flex items-center gap-1.5 text-emerald-400 font-semibold text-xs uppercase tracking-wide mb-3">
-                <i className="ri-arrow-up-line"></i>C�ch ki?m XP
+                <i className="ri-arrow-up-line"></i>Cách kiếm XP
               </h3>
               <ul className="space-y-2">
                 {[
-                  { icon: "ri-login-circle-line", label: "�ang nh?p h�ng ng�y", xp: "+1 d?n +5 XP", note: "Random m?i ng�y" },
-                  { icon: "ri-fire-line", label: "Streak 7 / 14 / 30 ng�y", xp: "+200 XP", note: "Bonus m?c d�i h?n" },
-                  { icon: "ri-timer-line", label: "Thi th? EPS-TOPIK", xp: "+15 XP / 1%", note: "Theo % c�u d�ng" },
-                  { icon: "ri-stack-line", label: "Flashcard d?t Mastered", xp: "+10 XP / t?", note: "Ch? t�nh l?n d?u" },
-                  { icon: "ri-translate-2", label: "H?c t? v?ng m?i", xp: "+2 XP / t?", note: "Daily Words" },
-                  { icon: "ri-mic-line", label: "Luy?n ph�t �m chu?n", xp: "+5 XP / l?n", note: "Score = 80%" },
-                  { icon: "ri-trophy-line", label: "Ho�n th�nh th�ch th?c tu?n", xp: "+70 d?n +200 XP", note: "T�y nhi?m v?" },
-                  { icon: "ri-share-line", label: "Chia s? ti?n d?", xp: "+10 XP / ng�y", note: "T?i da 1 l?n/ng�y" },
+                  { icon: "ri-login-circle-line", label: "Đăng nhập hàng ngày", xp: "+1 đến +5 XP", note: "Random mỗi ngày" },
+                  { icon: "ri-fire-line", label: "Streak 7 / 14 / 30 ngày", xp: "+200 XP", note: "Bonus mốc dài hạn" },
+                  { icon: "ri-timer-line", label: "Thi thử EPS-TOPIK", xp: "+15 XP / 1%", note: "Theo % câu đúng" },
+                  { icon: "ri-stack-line", label: "Flashcard đạt Mastered", xp: "+10 XP / từ", note: "Chỉ tính lần đầu" },
+                  { icon: "ri-translate-2", label: "Học từ vựng mới", xp: "+2 XP / từ", note: "Daily Words" },
+                  { icon: "ri-mic-line", label: "Luyện phát âm chuẩn", xp: "+5 XP / lần", note: "Score ≥ 80%" },
+                  { icon: "ri-trophy-line", label: "Hoàn thành thách thức tuần", xp: "+70 đến +200 XP", note: "Tùy nhiệm vụ" },
+                  { icon: "ri-share-line", label: "Chia sẻ tiến độ", xp: "+10 XP / ngày", note: "Tối đa 1 lần/ngày" },
                 ].map(r => (
                   <li key={r.label} className="flex items-start gap-2.5 bg-app-surface/40 rounded-lg p-2.5 border border-app-border">
                     <i className={`${r.icon} text-emerald-400 text-base mt-0.5 flex-shrink-0`}></i>
@@ -667,18 +667,18 @@ export default function LeaderboardPage() {
               </ul>
             </div>
 
-            {/* Ph?t / m?t XP */}
+            {/* Phạt / mất XP */}
             <div>
               <h3 className="flex items-center gap-1.5 text-rose-400 font-semibold text-xs uppercase tracking-wide mb-3">
-                <i className="ri-arrow-down-line"></i>M?t / ph?t XP
+                <i className="ri-arrow-down-line"></i>Mất / phạt XP
               </h3>
               <ul className="space-y-2">
                 {[
-                  { icon: "ri-fire-line", label: "M?t streak", xp: "-50 XP", note: "B? h?c qu� 24h" },
-                  { icon: "ri-time-line", label: "B? th�ch th?c tu?n gi?a ch?ng", xp: "-30 XP", note: "�� b?t d?u n�n ho�n th�nh" },
-                  { icon: "ri-spam-2-line", label: "Spam / vi ph?m c?ng d?ng", xp: "-100 XP", note: "Mod x�c nh?n" },
-                  { icon: "ri-error-warning-line", label: "B? b�o c�o gian l?n thi", xp: "-200 XP", note: "Reset b�i thi d�" },
-                  { icon: "ri-flag-line", label: "B? banned t?m th?i", xp: "Reset XP tu?n", note: "Kh�i ph?c sau 7 ng�y" },
+                  { icon: "ri-fire-line", label: "Mất streak", xp: "-50 XP", note: "Bỏ học quá 24h" },
+                  { icon: "ri-time-line", label: "Bỏ thách thức tuần giữa chừng", xp: "-30 XP", note: "Đã bắt đầu nên hoàn thành" },
+                  { icon: "ri-spam-2-line", label: "Spam / vi phạm cộng đồng", xp: "-100 XP", note: "Mod xác nhận" },
+                  { icon: "ri-error-warning-line", label: "Bị báo cáo gian lận thi", xp: "-200 XP", note: "Reset bài thi đó" },
+                  { icon: "ri-flag-line", label: "Bị banned tạm thời", xp: "Reset XP tuần", note: "Khôi phục sau 7 ngày" },
                 ].map(r => (
                   <li key={r.label} className="flex items-start gap-2.5 bg-app-surface/40 rounded-lg p-2.5 border border-app-border">
                     <i className={`${r.icon} text-rose-400 text-base mt-0.5 flex-shrink-0`}></i>
@@ -693,16 +693,16 @@ export default function LeaderboardPage() {
                 ))}
               </ul>
 
-              {/* Bonus / Rank thu?ng */}
+              {/* Bonus / Rank thưởng */}
               <h3 className="flex items-center gap-1.5 text-amber-400 font-semibold text-xs uppercase tracking-wide mt-5 mb-3">
-                <i className="ri-vip-crown-line"></i>Ph?n thu?ng theo h?ng
+                <i className="ri-vip-crown-line"></i>Phần thưởng theo hạng
               </h3>
               <ul className="space-y-2">
                 {[
-                  { rank: "Top 1", reward: "Huy hi?u V�ng + 1 th�ng VIP mi?n ph�", color: "#FFD700" },
-                  { rank: "Top 2-3", reward: "Huy hi?u B?c/�?ng + 200 XP bonus tu?n", color: "#C0C0C0" },
-                  { rank: "Top 10", reward: "Frame avatar d?c bi?t + uu ti�n v�o nh�m VIP", color: "#a78bfa" },
-                  { rank: "Top 50", reward: "Badge tu?n + 50 XP bonus", color: "#34d399" },
+                  { rank: "Top 1", reward: "Huy hiệu Vàng + 1 tháng VIP miễn phí", color: "#FFD700" },
+                  { rank: "Top 2-3", reward: "Huy hiệu Bạc/Đồng + 200 XP bonus tuần", color: "#C0C0C0" },
+                  { rank: "Top 10", reward: "Frame avatar đặc biệt + ưu tiên vào nhóm VIP", color: "#a78bfa" },
+                  { rank: "Top 50", reward: "Badge tuần + 50 XP bonus", color: "#34d399" },
                 ].map(r => (
                   <li key={r.rank} className="flex items-start gap-2.5 bg-app-surface/40 rounded-lg p-2.5 border border-app-border">
                     <span className="text-xs font-bold px-2 py-0.5 rounded-md flex-shrink-0" style={{ backgroundColor: `${r.color}20`, color: r.color }}>{r.rank}</span>
@@ -715,16 +715,16 @@ export default function LeaderboardPage() {
 
           <div className="mt-4 flex items-center gap-2 flex-wrap">
             <button onClick={() => navigate("/rewards")} className="flex items-center gap-1.5 bg-app-accent-primary/15 text-app-accent-primary text-xs px-3 py-2 rounded-lg hover:bg-app-accent-primary/25 transition-colors whitespace-nowrap cursor-pointer font-medium">
-              <i className="ri-gift-2-line"></i>�?i XP l?y qu�
+              <i className="ri-gift-2-line"></i>Đổi XP lấy quà
             </button>
             <button onClick={() => navigate("/daily-plan")} className="flex items-center gap-1.5 bg-app-card/50 text-white/70 text-xs px-3 py-2 rounded-lg hover:bg-app-card/70 transition-colors whitespace-nowrap cursor-pointer font-medium">
-              <i className="ri-route-line"></i>L? tr�nh h�m nay
+              <i className="ri-route-line"></i>Lộ trình hôm nay
             </button>
             <button onClick={() => navigate("/eps-exam")} className="flex items-center gap-1.5 bg-app-card/50 text-white/70 text-xs px-3 py-2 rounded-lg hover:bg-app-card/70 transition-colors whitespace-nowrap cursor-pointer font-medium">
-              <i className="ri-timer-line"></i>Thi th? EPS
+              <i className="ri-timer-line"></i>Thi thử EPS
             </button>
             <button onClick={() => navigate("/weekly-challenge")} className="flex items-center gap-1.5 bg-app-card/50 text-white/70 text-xs px-3 py-2 rounded-lg hover:bg-app-card/70 transition-colors whitespace-nowrap cursor-pointer font-medium">
-              <i className="ri-calendar-check-line"></i>Th�ch th?c tu?n
+              <i className="ri-calendar-check-line"></i>Thách thức tuần
             </button>
           </div>
         </div>

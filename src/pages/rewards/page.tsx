@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+﻿import { useState, useEffect, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -12,10 +12,10 @@ const ADMIN_KEY = "kts_admin_mode";
 
 function getInitial(korean: string): string {
   const code = korean.charCodeAt(0) - 0xAC00;
-  if (code < 0 || code > 11171) return "??";
+  if (code < 0 || code > 11171) return "기타";
   const idx = Math.floor(code / 588);
-  const initials = ["?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?"];
-  return initials[idx] || "??";
+  const initials = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+  return initials[idx] || "기타";
 }
 
 function AdminPanel() {
@@ -24,7 +24,7 @@ function AdminPanel() {
   });
   const [adminSubTab, setAdminSubTab] = useState<"overview" | "chart" | "quiz" | "groups" | "content" | "grant_xp" | "redemptions">("overview");
 
-  const ALPHA_GROUPS = ["?","?","?","?","?","?","?","?","?","?","?","?","?","?"];
+  const ALPHA_GROUPS = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
 
   const groupStats = useMemo(() => {
     return ALPHA_GROUPS.map(alpha => {
@@ -55,7 +55,7 @@ function AdminPanel() {
   }, []);
   const maxActivity = Math.max(...activityData.map(d => d.count), 1);
 
-  // Words reviewed most (hardest words � low correctStreak, high totalReviews)
+  // Words reviewed most (hardest words — low correctStreak, high totalReviews)
   const hardestWords = useMemo(() => {
     return Object.entries(srData)
       .filter(([, c]) => c.totalReviews >= 2)
@@ -72,13 +72,13 @@ function AdminPanel() {
   const streakData = useMemo(() => { try { return JSON.parse(localStorage.getItem("hanja_streak") || "{}"); } catch { return {}; } }, []);
 
   const subTabs = [
-    { key: "overview" as const, label: "T?ng quan", icon: "ri-dashboard-line" },
-    { key: "chart" as const, label: "Bi?u d?", icon: "ri-bar-chart-2-line" },
-    { key: "quiz" as const, label: "Quiz kh�", icon: "ri-error-warning-line" },
-    { key: "groups" as const, label: "Nh�m t?", icon: "ri-group-line" },
-    { key: "content" as const, label: "N?i dung", icon: "ri-file-list-3-line" },
+    { key: "overview" as const, label: "Tổng quan", icon: "ri-dashboard-line" },
+    { key: "chart" as const, label: "Biểu đồ", icon: "ri-bar-chart-2-line" },
+    { key: "quiz" as const, label: "Quiz khó", icon: "ri-error-warning-line" },
+    { key: "groups" as const, label: "Nhóm từ", icon: "ri-group-line" },
+    { key: "content" as const, label: "Nội dung", icon: "ri-file-list-3-line" },
     { key: "grant_xp" as const, label: "Trao XP", icon: "ri-gift-line" },
-    { key: "redemptions" as const, label: "Duy?t VIP", icon: "ri-vip-crown-line" },
+    { key: "redemptions" as const, label: "Duyệt VIP", icon: "ri-vip-crown-line" },
   ];
 
   // Content management data
@@ -104,7 +104,7 @@ function AdminPanel() {
       {/* Admin warning */}
       <div className="flex items-center gap-3 bg-amber-500/10 border border-amber-500/20 rounded-xl px-4 py-3">
         <i className="ri-shield-keyhole-line text-amber-500"></i>
-        <p className="text-amber-600 text-sm font-medium">Ch? d? Admin � Ch? hi?n th? cho qu?n tr? vi�n</p>
+        <p className="text-amber-600 text-sm font-medium">Chế độ Admin — Chỉ hiển thị cho quản trị viên</p>
       </div>
 
       {/* Sub-tabs */}
@@ -122,10 +122,10 @@ function AdminPanel() {
         <>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { label: "T?ng t? H�n H�n", value: totalWords.toLocaleString(), icon: "ri-translate-2", color: "app-accent-primary" },
-              { label: "�� thu?c", value: totalMastered, icon: "ri-check-double-line", color: "#34d399" },
-              { label: "�ang h?c", value: totalLearning, icon: "ri-book-open-line", color: "#fb923c" },
-              { label: "T?ng l?n �n", value: totalReviews.toLocaleString(), icon: "ri-refresh-line", color: "#a78bfa" },
+              { label: "Tổng từ Hán Hàn", value: totalWords.toLocaleString(), icon: "ri-translate-2", color: "app-accent-primary" },
+              { label: "Đã thuộc", value: totalMastered, icon: "ri-check-double-line", color: "#34d399" },
+              { label: "Đang học", value: totalLearning, icon: "ri-book-open-line", color: "#fb923c" },
+              { label: "Tổng lần ôn", value: totalReviews.toLocaleString(), icon: "ri-refresh-line", color: "#a78bfa" },
             ].map(s => (
               <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4">
                 <div className="w-7 h-7 flex items-center justify-center rounded-lg mb-2" style={{ backgroundColor: `${s.color}15` }}>
@@ -139,13 +139,13 @@ function AdminPanel() {
 
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
-              <i className="ri-user-line text-app-text-secondary"></i>Ho?t d?ng ngu?i d�ng
+              <i className="ri-user-line text-app-text-secondary"></i>Hoạt động người dùng
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
-                { label: "XP t�ch luy", value: xpData.toLocaleString() + " XP", color: "app-accent-primary" },
-                { label: "Streak hi?n t?i", value: (streakData?.currentStreak || 0) + " ng�y", color: "#fb923c" },
-                { label: "% ho�n th�nh", value: totalWords > 0 ? Math.round((totalMastered / totalWords) * 100) + "%" : "0%", color: "#34d399" },
+                { label: "XP tích lũy", value: xpData.toLocaleString() + " XP", color: "app-accent-primary" },
+                { label: "Streak hiện tại", value: (streakData?.currentStreak || 0) + " ngày", color: "#fb923c" },
+                { label: "% hoàn thành", value: totalWords > 0 ? Math.round((totalMastered / totalWords) * 100) + "%" : "0%", color: "#34d399" },
               ].map(s => (
                 <div key={s.label} className="text-center bg-app-surface/50 rounded-xl p-3">
                   <p className="text-xl font-bold" style={{ color: s.color }}>{s.value}</p>
@@ -157,14 +157,14 @@ function AdminPanel() {
 
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
-              <i className="ri-settings-3-line text-app-text-secondary"></i>Qu?n l� nhanh
+              <i className="ri-settings-3-line text-app-text-secondary"></i>Quản lý nhanh
             </h3>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { label: "Reset d? li?u h?c H�n H�n", icon: "ri-delete-bin-line", color: "#ef4444", action: () => { if (confirm("Reset to�n b? d? li?u h?c H�n H�n?")) { localStorage.removeItem("hanja_sr_data"); window.location.reload(); } } },
-                { label: "Reset XP & Streak", icon: "ri-refresh-line", color: "#fb923c", action: () => { if (confirm("Reset XP v� streak?")) { localStorage.removeItem("kts_total_xp"); localStorage.removeItem("kts_streak"); window.location.reload(); } } },
-                { label: "Xem d? li?u SR (JSON)", icon: "ri-code-line", color: "#a78bfa", action: () => { const d = localStorage.getItem("hanja_sr_data"); alert(d ? `${Object.keys(JSON.parse(d)).length} t? d� h?c` : "Chua c� d? li?u"); } },
-                { label: "Xu?t b�o c�o JSON", icon: "ri-download-line", color: "#34d399", action: () => { const data = { totalWords, totalMastered, totalLearning, totalReviews, groupStats }; const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "hanja-report.json"; a.click(); } },
+                { label: "Reset dữ liệu học Hán Hàn", icon: "ri-delete-bin-line", color: "#ef4444", action: () => { if (confirm("Reset toàn bộ dữ liệu học Hán Hàn?")) { localStorage.removeItem("hanja_sr_data"); window.location.reload(); } } },
+                { label: "Reset XP & Streak", icon: "ri-refresh-line", color: "#fb923c", action: () => { if (confirm("Reset XP và streak?")) { localStorage.removeItem("kts_total_xp"); localStorage.removeItem("kts_streak"); window.location.reload(); } } },
+                { label: "Xem dữ liệu SR (JSON)", icon: "ri-code-line", color: "#a78bfa", action: () => { const d = localStorage.getItem("hanja_sr_data"); alert(d ? `${Object.keys(JSON.parse(d)).length} từ đã học` : "Chưa có dữ liệu"); } },
+                { label: "Xuất báo cáo JSON", icon: "ri-download-line", color: "#34d399", action: () => { const data = { totalWords, totalMastered, totalLearning, totalReviews, groupStats }; const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "hanja-report.json"; a.click(); } },
               ].map(btn => (
                 <button key={btn.label} onClick={btn.action}
                   className="flex items-center gap-3 px-4 py-3 bg-app-surface/50 hover:bg-app-card/50 border border-app-border rounded-xl cursor-pointer transition-colors text-left">
@@ -183,15 +183,15 @@ function AdminPanel() {
       {adminSubTab === "chart" && (
         <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-1 flex items-center gap-2">
-            <i className="ri-bar-chart-2-line text-app-text-secondary"></i>Ho?t d?ng h?c 30 ng�y qua
+            <i className="ri-bar-chart-2-line text-app-text-secondary"></i>Hoạt động học 30 ngày qua
           </h3>
-          <p className="text-app-text-muted text-xs mb-5">S? t? �n t?p m?i ng�y (t? d? li?u Spaced Repetition)</p>
+          <p className="text-app-text-muted text-xs mb-5">Số từ ôn tập mỗi ngày (từ dữ liệu Spaced Repetition)</p>
 
           {activityData.every(d => d.count === 0) ? (
             <div className="text-center py-12">
               <i className="ri-bar-chart-2-line text-white/10 text-4xl mb-3 block"></i>
-              <p className="text-app-text-muted text-sm">Chua c� d? li?u h?c t?p</p>
-              <p className="text-app-text-muted text-xs mt-1">B?t d?u �n t?p Spaced Repetition d? xem bi?u d?</p>
+              <p className="text-app-text-muted text-sm">Chưa có dữ liệu học tập</p>
+              <p className="text-app-text-muted text-xs mt-1">Bắt đầu ôn tập Spaced Repetition để xem biểu đồ</p>
             </div>
           ) : (
             <>
@@ -211,7 +211,7 @@ function AdminPanel() {
                     {/* Tooltip */}
                     {d.count > 0 && (
                       <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 bg-white text-gray-800 text-xs px-2 py-1 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 shadow-lg">
-                        {d.date}: {d.count} t?
+                        {d.date}: {d.count} từ
                       </div>
                     )}
                   </div>
@@ -229,9 +229,9 @@ function AdminPanel() {
               {/* Summary */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5">
                 {[
-                  { label: "T?ng t? �n (30 ng�y)", value: activityData.reduce((s, d) => s + d.count, 0), color: "#f43f5e" },
-                  { label: "Ng�y h?c nhi?u nh?t", value: Math.max(...activityData.map(d => d.count)), color: "#fb923c" },
-                  { label: "Ng�y c� h?c", value: activityData.filter(d => d.count > 0).length, color: "#34d399" },
+                  { label: "Tổng từ ôn (30 ngày)", value: activityData.reduce((s, d) => s + d.count, 0), color: "#f43f5e" },
+                  { label: "Ngày học nhiều nhất", value: Math.max(...activityData.map(d => d.count)), color: "#fb923c" },
+                  { label: "Ngày có học", value: activityData.filter(d => d.count > 0).length, color: "#34d399" },
                 ].map(s => (
                   <div key={s.label} className="bg-app-surface/50 rounded-xl p-3 text-center">
                     <p className="text-xl font-bold" style={{ color: s.color }}>{s.value}</p>
@@ -249,16 +249,16 @@ function AdminPanel() {
         <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden">
           <div className="px-5 py-4 border-b border-app-border">
             <h3 className="text-white font-semibold text-sm flex items-center gap-2">
-              <i className="ri-error-warning-line text-amber-400"></i>T? du?c �n nhi?u nh?t (kh� nh?t)
+              <i className="ri-error-warning-line text-amber-400"></i>Từ được ôn nhiều nhất (khó nhất)
             </h3>
-            <p className="text-app-text-muted text-xs mt-0.5">S?p x?p theo s? l?n �n t?p � t? c?n �n nhi?u nh?t</p>
+            <p className="text-app-text-muted text-xs mt-0.5">Sắp xếp theo số lần ôn tập — từ cần ôn nhiều nhất</p>
           </div>
 
           {hardestWords.length === 0 ? (
             <div className="text-center py-12">
               <i className="ri-emotion-happy-line text-white/10 text-4xl mb-3 block"></i>
-              <p className="text-app-text-muted text-sm">Chua c� d? li?u quiz</p>
-              <p className="text-app-text-muted text-xs mt-1">L�m quiz v� Spaced Repetition d? xem th?ng k�</p>
+              <p className="text-app-text-muted text-sm">Chưa có dữ liệu quiz</p>
+              <p className="text-app-text-muted text-xs mt-1">Làm quiz và Spaced Repetition để xem thống kê</p>
             </div>
           ) : (
             <div className="divide-y divide-white/3">
@@ -275,7 +275,7 @@ function AdminPanel() {
                   <div className="flex items-center gap-4 flex-shrink-0">
                     <div className="text-center">
                       <p className="text-amber-400 font-bold text-sm">{w.totalReviews}</p>
-                      <p className="text-app-text-muted text-xs">l?n �n</p>
+                      <p className="text-app-text-muted text-xs">lần ôn</p>
                     </div>
                     <div className="text-center">
                       <p className="text-green-400 font-bold text-sm">{w.correctStreak}</p>
@@ -283,7 +283,7 @@ function AdminPanel() {
                     </div>
                     <div className="w-16">
                       <div className="flex justify-between text-xs mb-1">
-                        <span className="text-app-text-muted">Kh�</span>
+                        <span className="text-app-text-muted">Khó</span>
                         <span className="text-app-text-secondary">{w.failRate}%</span>
                       </div>
                       <div className="w-full bg-app-card/50 rounded-full h-1.5">
@@ -304,8 +304,8 @@ function AdminPanel() {
       {adminSubTab === "groups" && (
         <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden">
           <div className="px-5 py-4 border-b border-app-border">
-            <h3 className="text-white font-semibold text-sm">Th?ng k� theo nh�m ch? c�i</h3>
-            <p className="text-app-text-muted text-xs mt-0.5">T?ng {totalWords} t? � {totalMastered} d� thu?c ({totalWords > 0 ? Math.round((totalMastered / totalWords) * 100) : 0}%)</p>
+            <h3 className="text-white font-semibold text-sm">Thống kê theo nhóm chữ cái</h3>
+            <p className="text-app-text-muted text-xs mt-0.5">Tổng {totalWords} từ · {totalMastered} đã thuộc ({totalWords > 0 ? Math.round((totalMastered / totalWords) * 100) : 0}%)</p>
           </div>
           <div className="divide-y divide-white/3">
             {groupStats.map(g => (
@@ -315,11 +315,11 @@ function AdminPanel() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-white/70 text-sm font-medium">{g.total} t?</span>
+                    <span className="text-white/70 text-sm font-medium">{g.total} từ</span>
                     <div className="flex items-center gap-3 text-xs">
-                      <span className="text-green-400">{g.mastered} thu?c</span>
-                      <span className="text-amber-400">{g.learning} h?c</span>
-                      <span className="text-app-text-muted">{g.unlearned} m?i</span>
+                      <span className="text-green-400">{g.mastered} thuộc</span>
+                      <span className="text-amber-400">{g.learning} học</span>
+                      <span className="text-app-text-muted">{g.unlearned} mới</span>
                       <span className="text-white/50 font-bold">{g.pct}%</span>
                     </div>
                   </div>
@@ -339,12 +339,12 @@ function AdminPanel() {
           {/* Content stats */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {[
-              { label: "T? y�u th�ch", value: contentStats.favCount, icon: "ri-heart-line", color: "#f43f5e" },
-              { label: "Ghi ch�", value: contentStats.noteCount, icon: "ri-sticky-note-line", color: "app-accent-primary" },
-              { label: "L?n thi TOPIK", value: contentStats.topikExams, icon: "ri-file-paper-2-line", color: "#a78bfa" },
-              { label: "L?n luy?n ph�t �m", value: contentStats.pronunciationSessions, icon: "ri-mic-line", color: "#34d399" },
-              { label: "Th�ch th?c tu?n", value: contentStats.hasWeeklyChallenge ? "�ang c�" : "Chua c�", icon: "ri-sword-line", color: "#fb923c" },
-              { label: "T?ng t? v?ng", value: totalWords.toLocaleString(), icon: "ri-translate-2", color: "#06b6d4" },
+              { label: "Từ yêu thích", value: contentStats.favCount, icon: "ri-heart-line", color: "#f43f5e" },
+              { label: "Ghi chú", value: contentStats.noteCount, icon: "ri-sticky-note-line", color: "app-accent-primary" },
+              { label: "Lần thi TOPIK", value: contentStats.topikExams, icon: "ri-file-paper-2-line", color: "#a78bfa" },
+              { label: "Lần luyện phát âm", value: contentStats.pronunciationSessions, icon: "ri-mic-line", color: "#34d399" },
+              { label: "Thách thức tuần", value: contentStats.hasWeeklyChallenge ? "Đang có" : "Chưa có", icon: "ri-sword-line", color: "#fb923c" },
+              { label: "Tổng từ vựng", value: totalWords.toLocaleString(), icon: "ri-translate-2", color: "#06b6d4" },
             ].map(s => (
               <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4">
                 <div className="w-7 h-7 flex items-center justify-center rounded-lg mb-2" style={{ backgroundColor: `${s.color}15` }}>
@@ -359,16 +359,16 @@ function AdminPanel() {
           {/* Quick navigation */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
-              <i className="ri-navigation-line text-app-text-secondary"></i>�i?u hu?ng nhanh d?n c�c t�nh nang
+              <i className="ri-navigation-line text-app-text-secondary"></i>Điều hướng nhanh đến các tính năng
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {[
-                { label: "T? v?ng H�n H�n", icon: "ri-translate-2", color: "#f43f5e", path: "/hanja-vocab" },
+                { label: "Từ vựng Hán Hàn", icon: "ri-translate-2", color: "#f43f5e", path: "/hanja-vocab" },
                 { label: "Spaced Repetition", icon: "ri-brain-line", color: "#a78bfa", path: "/hanja-vocab" },
-                { label: "Thi th? TOPIK", icon: "ri-file-paper-2-line", color: "app-accent-primary", path: "/hanja-vocab" },
-                { label: "Luy?n ph�t �m", icon: "ri-mic-line", color: "#34d399", path: "/hanja-vocab" },
-                { label: "So s�nh H�n Vi?t", icon: "ri-translate-2", color: "#06b6d4", path: "/hanja-vocab" },
-                { label: "C�u v� d? th?c t?", icon: "ri-newspaper-line", color: "#fb923c", path: "/hanja-vocab" },
+                { label: "Thi thử TOPIK", icon: "ri-file-paper-2-line", color: "app-accent-primary", path: "/hanja-vocab" },
+                { label: "Luyện phát âm", icon: "ri-mic-line", color: "#34d399", path: "/hanja-vocab" },
+                { label: "So sánh Hán Việt", icon: "ri-translate-2", color: "#06b6d4", path: "/hanja-vocab" },
+                { label: "Câu ví dụ thực tế", icon: "ri-newspaper-line", color: "#fb923c", path: "/hanja-vocab" },
               ].map(item => (
                 <button
                   key={item.label}
@@ -388,12 +388,12 @@ function AdminPanel() {
           {/* Data management */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
-              <i className="ri-database-2-line text-app-text-secondary"></i>Qu?n l� d? li?u ngu?i d�ng
+              <i className="ri-database-2-line text-app-text-secondary"></i>Quản lý dữ liệu người dùng
             </h3>
             <div className="space-y-2">
               {[
                 {
-                  label: "Xu?t to�n b? d? li?u h?c",
+                  label: "Xuất toàn bộ dữ liệu học",
                   desc: "SR data, favorites, notes, streak",
                   icon: "ri-download-cloud-line",
                   color: "#34d399",
@@ -415,25 +415,25 @@ function AdminPanel() {
                   }
                 },
                 {
-                  label: "Reset d? li?u y�u th�ch",
-                  desc: "X�a t?t c? t? d� luu y�u th�ch",
+                  label: "Reset dữ liệu yêu thích",
+                  desc: "Xóa tất cả từ đã lưu yêu thích",
                   icon: "ri-heart-3-line",
                   color: "#f43f5e",
-                  action: () => { if (confirm("X�a t?t c? t? y�u th�ch?")) { localStorage.removeItem("hanja_favorites"); window.location.reload(); } }
+                  action: () => { if (confirm("Xóa tất cả từ yêu thích?")) { localStorage.removeItem("hanja_favorites"); window.location.reload(); } }
                 },
                 {
-                  label: "Reset ghi ch�",
-                  desc: "X�a t?t c? ghi ch� t? v?ng",
+                  label: "Reset ghi chú",
+                  desc: "Xóa tất cả ghi chú từ vựng",
                   icon: "ri-sticky-note-2-line",
                   color: "app-accent-primary",
-                  action: () => { if (confirm("X�a t?t c? ghi ch�?")) { localStorage.removeItem("hanja_notes"); window.location.reload(); } }
+                  action: () => { if (confirm("Xóa tất cả ghi chú?")) { localStorage.removeItem("hanja_notes"); window.location.reload(); } }
                 },
                 {
-                  label: "Reset l?ch s? thi TOPIK",
-                  desc: "X�a k?t qu? thi th? TOPIK H�n H�n",
+                  label: "Reset lịch sử thi TOPIK",
+                  desc: "Xóa kết quả thi thử TOPIK Hán Hàn",
                   icon: "ri-file-paper-2-line",
                   color: "#a78bfa",
-                  action: () => { if (confirm("X�a l?ch s? thi TOPIK?")) { localStorage.removeItem("hanja_topik_history"); window.location.reload(); } }
+                  action: () => { if (confirm("Xóa lịch sử thi TOPIK?")) { localStorage.removeItem("hanja_topik_history"); window.location.reload(); } }
                 },
               ].map(btn => (
                 <button
@@ -465,7 +465,7 @@ function AdminPanel() {
   );
 }
 
-// --- Admin: Redemption Requests Panel ---------------------------------------
+// ─── Admin: Redemption Requests Panel ───────────────────────────────────────
 // Manages VIP redemption requests - approve or deny pending requests
 function RedemptionRequestsPanel() {
   const [requests, setRequests] = useState<any[]>([]);
@@ -495,7 +495,7 @@ function RedemptionRequestsPanel() {
   }, [loadRequests]);
 
   const handleApprove = async (id: string) => {
-    if (!confirm("Duy?t y�u c?u d?i VIP n�y?")) return;
+    if (!confirm("Duyệt yêu cầu đổi VIP này?")) return;
     try {
       // Get redemption request details
       const { data: redemption, error: fetchError } = await supabase
@@ -515,9 +515,9 @@ function RedemptionRequestsPanel() {
       // Activate VIP based on reward type
       const rewardTitle = redemption.reward_title;
       let vipDuration = 0;
-      if (rewardTitle.includes("7 ng�y")) {
+      if (rewardTitle.includes("7 ngày")) {
         vipDuration = 7;
-      } else if (rewardTitle.includes("30 ng�y")) {
+      } else if (rewardTitle.includes("30 ngày")) {
         vipDuration = 30;
       }
 
@@ -542,12 +542,12 @@ function RedemptionRequestsPanel() {
 
       loadRequests();
     } catch (e) {
-      alert("L?i khi duy?t: " + (e instanceof Error ? e.message : "Unknown error"));
+      alert("Lỗi khi duyệt: " + (e instanceof Error ? e.message : "Unknown error"));
     }
   };
 
   const handleReject = async (id: string) => {
-    const note = prompt("L� do t? ch?i (t�y ch?n):");
+    const note = prompt("Lý do từ chối (tùy chọn):");
     try {
       const { error } = await supabase
         .from("reward_redemptions")
@@ -556,7 +556,7 @@ function RedemptionRequestsPanel() {
       if (error) throw error;
       loadRequests();
     } catch (e) {
-      alert("L?i khi t? ch?i: " + (e instanceof Error ? e.message : "Unknown error"));
+      alert("Lỗi khi từ chối: " + (e instanceof Error ? e.message : "Unknown error"));
     }
   };
 
@@ -564,10 +564,10 @@ function RedemptionRequestsPanel() {
     <div className="space-y-4">
       <div className="bg-app-bg border border-app-border rounded-2xl p-5">
         <h3 className="text-white font-semibold text-sm mb-1 flex items-center gap-2">
-          <i className="ri-vip-crown-line text-amber-400"></i>Qu?n l� y�u c?u d?i VIP
+          <i className="ri-vip-crown-line text-amber-400"></i>Quản lý yêu cầu đổi VIP
         </h3>
         <p className="text-app-text-muted text-xs mb-4">
-          Duy?t ho?c t? ch?i y�u c?u d?i VIP t? ngu?i d�ng
+          Duyệt hoặc từ chối yêu cầu đổi VIP từ người dùng
         </p>
 
         {/* Filter */}
@@ -578,15 +578,15 @@ function RedemptionRequestsPanel() {
               onClick={() => setFilter(f)}
               className={`px-4 py-2 rounded-lg text-xs font-medium cursor-pointer transition-colors ${filter === f ? "bg-amber-500 text-white" : "bg-app-surface/50 text-app-text-secondary hover:text-white/60"}`}
             >
-              {f === "all" ? "T?t c?" : f === "pending" ? "Ch? duy?t" : f === "approved" ? "�� duy?t" : "�� t? ch?i"}
+              {f === "all" ? "Tất cả" : f === "pending" ? "Chờ duyệt" : f === "approved" ? "Đã duyệt" : "Đã từ chối"}
             </button>
           ))}
         </div>
 
         {loading ? (
-          <div className="text-center py-8 text-app-text-muted text-sm">�ang t?i...</div>
+          <div className="text-center py-8 text-app-text-muted text-sm">Đang tải...</div>
         ) : requests.length === 0 ? (
-          <div className="text-center py-8 text-app-text-muted text-sm">Kh�ng c� y�u c?u n�o</div>
+          <div className="text-center py-8 text-app-text-muted text-sm">Không có yêu cầu nào</div>
         ) : (
           <div className="space-y-3 max-h-96 overflow-y-auto">
             {requests.map(r => (
@@ -599,17 +599,17 @@ function RedemptionRequestsPanel() {
                       r.status === "approved" ? "bg-emerald-500/20 text-emerald-400" :
                       "bg-red-500/20 text-red-400"
                     }`}>
-                      {r.status === "pending" ? "Ch? duy?t" : r.status === "approved" ? "�� duy?t" : "�� t? ch?i"}
+                      {r.status === "pending" ? "Chờ duyệt" : r.status === "approved" ? "Đã duyệt" : "Đã từ chối"}
                     </span>
                   </div>
                   <p className="text-app-text-secondary text-xs mb-1">
-                    User ID: {r.user_id} � {r.xp_cost.toLocaleString()} XP
+                    User ID: {r.user_id} · {r.xp_cost.toLocaleString()} XP
                   </p>
                   <p className="text-app-text-muted text-[10px]">
                     {new Date(r.created_at).toLocaleString("vi-VN")}
                   </p>
                   {r.admin_note && (
-                    <p className="text-rose-400 text-xs mt-1">Ghi ch�: {r.admin_note}</p>
+                    <p className="text-rose-400 text-xs mt-1">Ghi chú: {r.admin_note}</p>
                   )}
                 </div>
                 {r.status === "pending" && (
@@ -618,13 +618,13 @@ function RedemptionRequestsPanel() {
                       onClick={() => handleApprove(r.id)}
                       className="px-3 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg text-xs font-semibold cursor-pointer transition-colors"
                     >
-                      Duy?t
+                      Duyệt
                     </button>
                     <button
                       onClick={() => handleReject(r.id)}
                       className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg text-xs font-semibold cursor-pointer transition-colors"
                     >
-                      T? ch?i
+                      Từ chối
                     </button>
                   </div>
                 )}
@@ -637,9 +637,9 @@ function RedemptionRequestsPanel() {
   );
 }
 
-// --- Admin: Manual Grant XP Panel ----------------------------------------
+// ─── Admin: Manual Grant XP Panel ────────────────────────────────────────
 // Calls Supabase RPC `grant_xp(user_id, amount, reason)` (migration 038).
-// Search target user by display_name ? list candidates ? confirm ? grant.
+// Search target user by display_name → list candidates → confirm → grant.
 function GrantXPPanel() {
   const [search, setSearch] = useState("");
   const [users, setUsers] = useState<{ id: string; display_name: string; avatar_url: string | null; xp: number }[]>([]);
@@ -673,12 +673,12 @@ function GrantXPPanel() {
       const xpMap = new Map((progress || []).map(p => [p.user_id, p.xp || 0]));
       setUsers((data || []).map(u => ({
         id: u.id,
-        display_name: u.display_name || "H?c vi�n",
+        display_name: u.display_name || "Học viên",
         avatar_url: u.avatar_url,
         xp: xpMap.get(u.id) || 0,
       })));
     } catch (e) {
-      setResult({ ok: false, msg: e instanceof Error ? e.message : "T�m ki?m th?t b?i" });
+      setResult({ ok: false, msg: e instanceof Error ? e.message : "Tìm kiếm thất bại" });
     } finally {
       setLoading(false);
     }
@@ -686,7 +686,7 @@ function GrantXPPanel() {
 
   const handleGrant = async () => {
     if (!selected || !amount || amount === 0) return;
-    if (amount < 0 && !confirm(`Tr? ${Math.abs(amount)} XP c?a ${selected.display_name}?`)) return;
+    if (amount < 0 && !confirm(`Trừ ${Math.abs(amount)} XP của ${selected.display_name}?`)) return;
     setSubmitting(true);
     setResult(null);
     try {
@@ -697,7 +697,7 @@ function GrantXPPanel() {
       });
       if (error) throw error;
       const newXP = Number(data) || 0;
-      setResult({ ok: true, msg: `�� ${amount > 0 ? "trao" : "tr?"} ${Math.abs(amount)} XP cho ${selected.display_name}. XP m?i: ${newXP}` });
+      setResult({ ok: true, msg: `Đã ${amount > 0 ? "trao" : "trừ"} ${Math.abs(amount)} XP cho ${selected.display_name}. XP mới: ${newXP}` });
       // Update local history
       const next = [{ user_id: selected.id, amount, reason, ts: Date.now() }, ...history].slice(0, 20);
       setHistory(next);
@@ -707,7 +707,7 @@ function GrantXPPanel() {
       setUsers(prev => prev.map(u => u.id === selected.id ? { ...u, xp: newXP } : u));
       setReason("");
     } catch (e) {
-      setResult({ ok: false, msg: e instanceof Error ? e.message : "Trao XP th?t b?i � ki?m tra quy?n admin" });
+      setResult({ ok: false, msg: e instanceof Error ? e.message : "Trao XP thất bại — kiểm tra quyền admin" });
     } finally {
       setSubmitting(false);
     }
@@ -717,10 +717,10 @@ function GrantXPPanel() {
     <div className="space-y-4">
       <div className="bg-app-bg border border-app-border rounded-2xl p-5">
         <h3 className="text-white font-semibold text-sm mb-1 flex items-center gap-2">
-          <i className="ri-gift-2-line text-amber-400"></i>Trao XP th? c�ng cho h?c vi�n
+          <i className="ri-gift-2-line text-amber-400"></i>Trao XP thủ công cho học viên
         </h3>
         <p className="text-app-text-muted text-xs mb-4">
-          T�m h?c vi�n theo t�n hi?n th?, sau d� trao bonus XP (positive) ho?c tr? XP (negative). M?i thay d?i tu�n th? rule never-decrease ? client; mu?n tr? XP h�y nh?p s? �m.
+          Tìm học viên theo tên hiển thị, sau đó trao bonus XP (positive) hoặc trừ XP (negative). Mọi thay đổi tuân thủ rule never-decrease ở client; muốn trừ XP hãy nhập số âm.
         </p>
 
         {/* Search */}
@@ -730,7 +730,7 @@ function GrantXPPanel() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             onKeyDown={e => { if (e.key === "Enter") handleSearch(); }}
-            placeholder="T�m theo t�n hi?n th?..."
+            placeholder="Tìm theo tên hiển thị..."
             className="flex-1 px-4 py-2.5 bg-app-card/50 border border-app-border rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400/30"
           />
           <button
@@ -738,7 +738,7 @@ function GrantXPPanel() {
             disabled={loading || !search.trim()}
             className="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white rounded-xl text-sm font-semibold cursor-pointer whitespace-nowrap transition-colors"
           >
-            {loading ? "�ang t�m..." : "T�m"}
+            {loading ? "Đang tìm..." : "Tìm"}
           </button>
         </div>
 
@@ -777,11 +777,11 @@ function GrantXPPanel() {
               <i className="ri-arrow-right-line text-amber-400"></i>
               <span className="text-white/70">Trao XP cho:</span>
               <span className="text-white font-semibold">{selected.display_name}</span>
-              <span className="text-app-text-muted text-xs">(hi?n: {selected.xp.toLocaleString()} XP)</span>
+              <span className="text-app-text-muted text-xs">(hiện: {selected.xp.toLocaleString()} XP)</span>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-app-text-muted text-xs mb-1 block">S? XP (�m = tr?)</label>
+                <label className="text-app-text-muted text-xs mb-1 block">Số XP (âm = trừ)</label>
                 <input
                   type="number"
                   value={amount}
@@ -790,12 +790,12 @@ function GrantXPPanel() {
                 />
               </div>
               <div>
-                <label className="text-app-text-muted text-xs mb-1 block">L� do (tu? ch?n)</label>
+                <label className="text-app-text-muted text-xs mb-1 block">Lý do (tuỳ chọn)</label>
                 <input
                   type="text"
                   value={reason}
                   onChange={e => setReason(e.target.value)}
-                  placeholder="VD: Bonus event, fix l?i..."
+                  placeholder="VD: Bonus event, fix lỗi..."
                   className="w-full px-3 py-2 bg-app-card/50 border border-app-border rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400/30"
                 />
               </div>
@@ -805,14 +805,14 @@ function GrantXPPanel() {
                 onClick={() => setSelected(null)}
                 className="px-4 py-2 border border-app-border text-white/50 rounded-lg text-sm cursor-pointer hover:bg-app-card/50 transition-colors"
               >
-                Hu?
+                Huỷ
               </button>
               <button
                 onClick={handleGrant}
                 disabled={submitting || !amount}
                 className="flex-1 px-4 py-2 bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white rounded-lg text-sm font-bold cursor-pointer whitespace-nowrap transition-colors"
               >
-                {submitting ? "�ang x? l�..." : `${amount > 0 ? "+" : ""}${amount} XP � X�c nh?n`}
+                {submitting ? "Đang xử lý..." : `${amount > 0 ? "+" : ""}${amount} XP — Xác nhận`}
               </button>
             </div>
           </div>
@@ -831,14 +831,14 @@ function GrantXPPanel() {
       {history.length > 0 && (
         <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h4 className="text-white font-semibold text-sm mb-3 flex items-center gap-2">
-            <i className="ri-history-line text-app-text-muted"></i>L?ch s? trao XP g?n d�y
+            <i className="ri-history-line text-app-text-muted"></i>Lịch sử trao XP gần đây
           </h4>
           <div className="space-y-2">
             {history.slice(0, 10).map((h, i) => (
               <div key={i} className="flex items-center gap-3 text-xs py-2 border-b border-app-border last:border-0">
                 <span className={`font-bold ${h.amount > 0 ? "text-amber-400" : "text-red-400"}`}>{h.amount > 0 ? "+" : ""}{h.amount} XP</span>
                 <span className="text-app-text-muted font-mono">{h.user_id.slice(0, 8)}</span>
-                {h.reason && <span className="text-white/50 truncate">� {h.reason}</span>}
+                {h.reason && <span className="text-white/50 truncate">— {h.reason}</span>}
                 <span className="text-app-text-muted ml-auto whitespace-nowrap">{new Date(h.ts).toLocaleString("vi-VN")}</span>
               </div>
             ))}
@@ -862,52 +862,52 @@ interface RewardItem {
 }
 
 const REWARDS: RewardItem[] = [
-  { id: "r4", title: "Huy hi?u H?c vi�n T�ch c?c", desc: "Huy hi?u d?c bi?t hi?n th? tr�n h? so v� b?ng x?p h?ng", xpCost: 500, type: "badge", icon: "ri-medal-2-line", color: "#a78bfa", stock: 999 },
-  { id: "r6", title: "M? kh�a giao di?n t?i", desc: "Dark mode d?c bi?t � ch? d�nh cho h?c vi�n t�ch c?c", xpCost: 1500, type: "feature", icon: "ri-moon-line", color: "#06b6d4", stock: 999 },
-  { id: "r1", title: "Gi?m 20% VIP th�ng d?u", desc: "�p d?ng khi dang k� g�i VIP l?n d?u ti�n", xpCost: 2500, type: "discount", icon: "ri-coupon-3-line", color: "app-accent-primary", stock: 50, popular: true },
-  { id: "r2", title: "VIP 7 ng�y mi?n ph�", desc: "Tr?i nghi?m to�n b? t�nh nang VIP trong 1 tu?n", xpCost: 5000, type: "vip", icon: "ri-vip-crown-line", color: "#FFD700", stock: 20, popular: true },
-  { id: "r3", title: "Gi?m 50% VIP th�ng d?u", desc: "Uu d�i l?n cho h?c vi�n c?c k? t�ch c?c", xpCost: 8000, type: "discount", icon: "ri-percent-line", color: "#34d399", stock: 10 },
-  { id: "r5", title: "VIP 30 ng�y mi?n ph�", desc: "1 th�ng VIP ho�n to�n mi?n ph� � ph?n thu?ng cao nh?t", xpCost: 15000, type: "vip", icon: "ri-vip-diamond-line", color: "#fb923c", stock: 5 },
+  { id: "r4", title: "Huy hiệu Học viên Tích cực", desc: "Huy hiệu đặc biệt hiển thị trên hồ sơ và bảng xếp hạng", xpCost: 500, type: "badge", icon: "ri-medal-2-line", color: "#a78bfa", stock: 999 },
+  { id: "r6", title: "Mở khóa giao diện tối", desc: "Dark mode đặc biệt — chỉ dành cho học viên tích cực", xpCost: 1500, type: "feature", icon: "ri-moon-line", color: "#06b6d4", stock: 999 },
+  { id: "r1", title: "Giảm 20% VIP tháng đầu", desc: "Áp dụng khi đăng ký gói VIP lần đầu tiên", xpCost: 2500, type: "discount", icon: "ri-coupon-3-line", color: "app-accent-primary", stock: 50, popular: true },
+  { id: "r2", title: "VIP 7 ngày miễn phí", desc: "Trải nghiệm toàn bộ tính năng VIP trong 1 tuần", xpCost: 5000, type: "vip", icon: "ri-vip-crown-line", color: "#FFD700", stock: 20, popular: true },
+  { id: "r3", title: "Giảm 50% VIP tháng đầu", desc: "Ưu đãi lớn cho học viên cực kỳ tích cực", xpCost: 8000, type: "discount", icon: "ri-percent-line", color: "#34d399", stock: 10 },
+  { id: "r5", title: "VIP 30 ngày miễn phí", desc: "1 tháng VIP hoàn toàn miễn phí — phần thưởng cao nhất", xpCost: 15000, type: "vip", icon: "ri-vip-diamond-line", color: "#fb923c", stock: 5 },
 ];
 
-// --- XP SOURCES -------------------------------------------------------------
+// ─── XP SOURCES ─────────────────────────────────────────────────────────────
 // Sync EXACTLY with XP_REWARDS + DAILY_EVENT_CAPS in @/src/hooks/useXPSystem.ts.
 // When you edit values there, edit them here too to keep the UI honest.
 const XP_SOURCES = [
-  // -- H?c t?p ---------------------------------------------------------
-  { icon: "ri-login-circle-line", label: "�ang nh?p h?ng ng�y", xp: "+10 XP", color: "app-accent-primary", desc: "1 l?n/ng�y � gi? streak d? nh?n bonus" },
-  { icon: "ri-fire-line", label: "Streak 7 ng�y li�n ti?p", xp: "+50 XP", color: "#fb923c", desc: "Bonus 1 l?n khi d?t m?c 7 ng�y" },
-  { icon: "ri-fire-line", label: "Streak 30 ng�y li�n ti?p", xp: "+200 XP", color: "#fb923c", desc: "Bonus 1 l?n khi d?t m?c 30 ng�y" },
-  { icon: "ri-fire-fill", label: "Streak 100 ng�y li�n ti?p", xp: "+500 XP", color: "#f59e0b", desc: "Bonus 1 l?n khi d?t m?c 100 ng�y" },
-  { icon: "ri-stack-line", label: "H?c Flashcard m?i", xp: "+5 XP/t?", color: "#a78bfa", desc: "T?i da 100 t?/ng�y (500 XP)" },
-  { icon: "ri-file-list-3-line", label: "EPS tr? l?i d�ng", xp: "+3 XP/c�u", color: "#06b6d4", desc: "T?i da 200 c�u/ng�y (600 XP)" },
-  { icon: "ri-timer-line", label: "Ho�n th�nh thi th? EPS", xp: "+20 XP", color: "#34d399", desc: "T?i da 5 b�i/ng�y" },
-  { icon: "ri-file-paper-2-line", label: "Ho�n th�nh thi TOPIK", xp: "+25 XP", color: "#f43f5e", desc: "T?i da 5 b�i/ng�y" },
-  { icon: "ri-book-2-line", label: "Ho�n th�nh luy?n ch? d?", xp: "+15 XP", color: "#22d3ee", desc: "T?i da 10 b�i/ng�y" },
-  { icon: "ri-survey-line", label: "Ho�n th�nh quiz", xp: "+10 XP", color: "#f472b6", desc: "T?i da 10 quiz/ng�y" },
-  // -- H�n H�n ---------------------------------------------------------
-  { icon: "ri-translate-2", label: "H?c t? H�n H�n m?i", xp: "+3 XP/t?", color: "#a78bfa", desc: "T?i da 100 t?/ng�y" },
-  { icon: "ri-plant-line", label: "Ho�n th�nh c�y H�n", xp: "+30 XP", color: "#34d399", desc: "T?i da 5 c�y/ng�y" },
-  { icon: "ri-question-answer-line", label: "Ho�n th�nh quiz H�n", xp: "+15 XP", color: "#60a5fa", desc: "T?i da 10 quiz/ng�y" },
-  // -- C?ng d?ng -------------------------------------------------------
-  { icon: "ri-article-line", label: "�ang b�i (du?c duy?t)", xp: "+15 XP", color: "#60a5fa", desc: "T?i da 5 b�i/ng�y" },
-  { icon: "ri-heart-3-line", label: "B�i vi?t nh?n lu?t th�ch", xp: "+2 XP", color: "#f87171", desc: "T?i da 100 lu?t/ng�y" },
+  // ── Học tập ─────────────────────────────────────────────────────────
+  { icon: "ri-login-circle-line", label: "Đăng nhập hằng ngày", xp: "+10 XP", color: "app-accent-primary", desc: "1 lần/ngày — giữ streak để nhận bonus" },
+  { icon: "ri-fire-line", label: "Streak 7 ngày liên tiếp", xp: "+50 XP", color: "#fb923c", desc: "Bonus 1 lần khi đạt mốc 7 ngày" },
+  { icon: "ri-fire-line", label: "Streak 30 ngày liên tiếp", xp: "+200 XP", color: "#fb923c", desc: "Bonus 1 lần khi đạt mốc 30 ngày" },
+  { icon: "ri-fire-fill", label: "Streak 100 ngày liên tiếp", xp: "+500 XP", color: "#f59e0b", desc: "Bonus 1 lần khi đạt mốc 100 ngày" },
+  { icon: "ri-stack-line", label: "Học Flashcard mới", xp: "+5 XP/từ", color: "#a78bfa", desc: "Tối đa 100 từ/ngày (500 XP)" },
+  { icon: "ri-file-list-3-line", label: "EPS trả lời đúng", xp: "+3 XP/câu", color: "#06b6d4", desc: "Tối đa 200 câu/ngày (600 XP)" },
+  { icon: "ri-timer-line", label: "Hoàn thành thi thử EPS", xp: "+20 XP", color: "#34d399", desc: "Tối đa 5 bài/ngày" },
+  { icon: "ri-file-paper-2-line", label: "Hoàn thành thi TOPIK", xp: "+25 XP", color: "#f43f5e", desc: "Tối đa 5 bài/ngày" },
+  { icon: "ri-book-2-line", label: "Hoàn thành luyện chủ đề", xp: "+15 XP", color: "#22d3ee", desc: "Tối đa 10 bài/ngày" },
+  { icon: "ri-survey-line", label: "Hoàn thành quiz", xp: "+10 XP", color: "#f472b6", desc: "Tối đa 10 quiz/ngày" },
+  // ── Hán Hàn ─────────────────────────────────────────────────────────
+  { icon: "ri-translate-2", label: "Học từ Hán Hàn mới", xp: "+3 XP/từ", color: "#a78bfa", desc: "Tối đa 100 từ/ngày" },
+  { icon: "ri-plant-line", label: "Hoàn thành cây Hán", xp: "+30 XP", color: "#34d399", desc: "Tối đa 5 cây/ngày" },
+  { icon: "ri-question-answer-line", label: "Hoàn thành quiz Hán", xp: "+15 XP", color: "#60a5fa", desc: "Tối đa 10 quiz/ngày" },
+  // ── Cộng đồng ───────────────────────────────────────────────────────
+  { icon: "ri-article-line", label: "Đăng bài (được duyệt)", xp: "+15 XP", color: "#60a5fa", desc: "Tối đa 5 bài/ngày" },
+  { icon: "ri-heart-3-line", label: "Bài viết nhận lượt thích", xp: "+2 XP", color: "#f87171", desc: "Tối đa 100 lượt/ngày" },
 ];
 
-// Ph?n thu?ng kh�c (ngo�i XP_REWARDS): d�ng `addXP(amount, reason)` � t? do
+// Phần thưởng khác (ngoài XP_REWARDS): dùng `addXP(amount, reason)` — tự do
 const XP_MANUAL_REWARDS = [
-  { icon: "ri-gift-line", label: "Ph?n thu?ng admin trao", xp: "Tu?", color: "#a78bfa", desc: "Admin c� th? c?p bonus th? c�ng" },
-  { icon: "ri-trophy-line", label: "Ho�n th�nh b�i/lesson", xp: "+5 ? +50 XP", color: "#FFD700", desc: "Tu? lo?i b�i: Seoul, EPS, luy?n t?p..." },
+  { icon: "ri-gift-line", label: "Phần thưởng admin trao", xp: "Tuỳ", color: "#a78bfa", desc: "Admin có thể cấp bonus thủ công" },
+  { icon: "ri-trophy-line", label: "Hoàn thành bài/lesson", xp: "+5 → +50 XP", color: "#FFD700", desc: "Tuỳ loại bài: Seoul, EPS, luyện tập..." },
 ];
 
 const XP_NOTES = [
-  { icon: "ri-shield-check-line", label: "Anti-cheat", desc: "H? th?ng c� gi?i h?n XP m?i ng�y theo lo?i ho?t d?ng d? ch?ng spam. M?t s? ho?t d?ng (bonus streak, ho�n th�nh b�i) ch? c?ng 1 l?n duy nh?t.", color: "#34d399" },
-  { icon: "ri-refresh-line", label: "�?ng b? server", desc: "XP ch? tang, kh�ng gi?m. Leaderboard c?p nh?t theo max(c�ng th?c, t?ng local) d? b?o v? di?m c?a b?n.", color: "#60a5fa" },
+  { icon: "ri-shield-check-line", label: "Anti-cheat", desc: "Hệ thống có giới hạn XP mỗi ngày theo loại hoạt động để chống spam. Một số hoạt động (bonus streak, hoàn thành bài) chỉ cộng 1 lần duy nhất.", color: "#34d399" },
+  { icon: "ri-refresh-line", label: "Đồng bộ server", desc: "XP chỉ tăng, không giảm. Leaderboard cập nhật theo max(công thức, tổng local) để bảo vệ điểm của bạn.", color: "#60a5fa" },
 ];
 
 function DailyLoginBonus() {
   // Daily login bonus is handled globally by `DailyLoginBonusGate` in App.tsx
-  // (uses `useXPSystem.awardXP` ? toast + Supabase sync). No-op here.
+  // (uses `useXPSystem.awardXP` → toast + Supabase sync). No-op here.
   return null;
   // The original UI block below is intentionally unused.
   // eslint-disable-next-line no-unreachable
@@ -932,7 +932,7 @@ export default function RewardsPage() {
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [, setAdminMode] = useLocalStorage<boolean>(ADMIN_KEY, false);
 
-  // --- UNIFIED XP SOURCE ----------------------------------------------------
+  // ─── UNIFIED XP SOURCE ────────────────────────────────────────────────────
   // Single source of truth site-wide = useXPSystem().totalXP (persisted in
   // `kts_xp_total` localStorage, synced to Supabase user_progress via the
   // max(formula, local_total) rule). This page only spends/redeems locally.
@@ -949,7 +949,7 @@ export default function RewardsPage() {
     // VIP rewards require admin approval
     if (reward.type === "vip") {
       if (!user) {
-        alert("Vui l�ng dang nh?p d? d?i VIP");
+        alert("Vui lòng đăng nhập để đổi VIP");
         return;
       }
       
@@ -964,16 +964,16 @@ export default function RewardsPage() {
       });
       
       if (error) {
-        alert("L?i khi g?i y�u c?u d?i VIP: " + error.message);
+        alert("Lỗi khi gửi yêu cầu đổi VIP: " + error.message);
         return;
       }
       
-      setRedeemMsg({ id: reward.id, msg: `�� g?i y�u c?u d?i ${reward.title} - ch? admin duy?t!` });
+      setRedeemMsg({ id: reward.id, msg: `Đã gửi yêu cầu đổi ${reward.title} - chờ admin duyệt!` });
     } else {
       // Non-VIP rewards are automatic
       setRedeemSpent(prev => prev + reward.xpCost);
       setRedeemedRewards(prev => [...prev, reward.id]);
-      setRedeemMsg({ id: reward.id, msg: `�� d?i th�nh c�ng: ${reward.title}!` });
+      setRedeemMsg({ id: reward.id, msg: `Đã đổi thành công: ${reward.title}!` });
     }
     
     setTimeout(() => setRedeemMsg(null), 5000);
@@ -1001,8 +1001,8 @@ export default function RewardsPage() {
 
   return (
     <DashboardLayout
-      title="Ph?n thu?ng & XP"
-      subtitle="T�ch luy XP t? vi?c h?c, d?i l?y uu d�i VIP v� huy hi?u"
+      title="Phần thưởng & XP"
+      subtitle="Tích lũy XP từ việc học, đổi lấy ưu đãi VIP và huy hiệu"
     >
       <DailyLoginBonus />
 
@@ -1029,8 +1029,8 @@ export default function RewardsPage() {
               </span>
             </div>
             <p className="text-app-text-secondary text-sm mb-3">
-              {xpToNextReward.affordable > 0 ? `C� th? d?i ${xpToNextReward.affordable} ph?n thu?ng ngay!` : "Ti?p t?c h?c d? t�ch luy XP"}
-              {xpToNextReward.next && ` � C?n th�m ${(xpToNextReward.next.xpCost - displayXp).toLocaleString()} XP cho ph?n thu?ng ti?p theo`}
+              {xpToNextReward.affordable > 0 ? `Có thể đổi ${xpToNextReward.affordable} phần thưởng ngay!` : "Tiếp tục học để tích lũy XP"}
+              {xpToNextReward.next && ` · Cần thêm ${(xpToNextReward.next.xpCost - displayXp).toLocaleString()} XP cho phần thưởng tiếp theo`}
             </p>
             <div className="flex items-center gap-3">
               <div className="flex-1 h-2 bg-app-card/50 rounded-full overflow-hidden">
@@ -1042,7 +1042,7 @@ export default function RewardsPage() {
           <div className="grid grid-cols-2 gap-4 text-center">
             {[
               { label: "Streak", value: `${streak.count}d`, color: "#fb923c" },
-              { label: "�� d?i", value: redeemedRewards.length, color: "#34d399" },
+              { label: "Đã đổi", value: redeemedRewards.length, color: "#34d399" },
             ].map(s => (
               <div key={s.label}>
                 <p className="font-bold text-lg" style={{ color: s.color }}>{s.value}</p>
@@ -1055,7 +1055,7 @@ export default function RewardsPage() {
 
       {/* Tabs */}
       <div className="flex flex-wrap gap-1 bg-app-surface/50 p-1 rounded-xl mb-6 w-fit">
-        {([["rewards", "ri-gift-line", "�?i thu?ng"], ["earn", "ri-add-circle-line", "C�ch ki?m XP"], ["history", "ri-history-line", "L?ch s?"]] as const).map(([tab, icon, label]) => (
+        {([["rewards", "ri-gift-line", "Đổi thưởng"], ["earn", "ri-add-circle-line", "Cách kiếm XP"], ["history", "ri-history-line", "Lịch sử"]] as const).map(([tab, icon, label]) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -1081,12 +1081,12 @@ export default function RewardsPage() {
       {showAdminLogin && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" onClick={() => setShowAdminLogin(false)}>
           <div className="bg-app-bg border border-app-border rounded-2xl p-6 w-full max-w-sm" onClick={e => e.stopPropagation()}>
-            <h3 className="text-white font-bold mb-4 flex items-center gap-2"><i className="ri-shield-keyhole-line text-amber-400"></i>X�c th?c Admin</h3>
+            <h3 className="text-white font-bold mb-4 flex items-center gap-2"><i className="ri-shield-keyhole-line text-amber-400"></i>Xác thực Admin</h3>
             <input type="password" value={adminCode} onChange={e => setAdminCode(e.target.value)}
-              placeholder="Nh?p m� admin..."
+              placeholder="Nhập mã admin..."
               className="w-full px-4 py-2.5 bg-app-card/50 border border-app-border rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400/30 mb-3" />
             <div className="flex gap-3">
-              <button onClick={() => setShowAdminLogin(false)} className="flex-1 py-2.5 border border-app-border text-white/50 rounded-xl text-sm cursor-pointer hover:bg-app-card/50 transition-colors">H?y</button>
+              <button onClick={() => setShowAdminLogin(false)} className="flex-1 py-2.5 border border-app-border text-white/50 rounded-xl text-sm cursor-pointer hover:bg-app-card/50 transition-colors">Hủy</button>
               <button onClick={() => {
                 if (adminCode === "admin2024" || adminCode === "hankquoc") {
                   setAdminMode(true);
@@ -1096,7 +1096,7 @@ export default function RewardsPage() {
                 } else {
                   setAdminCode("");
                 }
-              }} className="flex-1 py-2.5 bg-amber-500 text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-amber-600 transition-colors">X�c nh?n</button>
+              }} className="flex-1 py-2.5 bg-amber-500 text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-amber-600 transition-colors">Xác nhận</button>
             </div>
           </div>
         </div>
@@ -1115,7 +1115,7 @@ export default function RewardsPage() {
               >
                 {reward.popular && (
                   <div className="absolute -top-2.5 left-4">
-                    <span className="bg-app-accent-primary text-app-bg text-[10px] font-bold px-2.5 py-0.5 rounded-full whitespace-nowrap">Ph? bi?n</span>
+                    <span className="bg-app-accent-primary text-app-bg text-[10px] font-bold px-2.5 py-0.5 rounded-full whitespace-nowrap">Phổ biến</span>
                   </div>
                 )}
                 <div className="w-12 h-12 flex items-center justify-center rounded-2xl mb-4" style={{ backgroundColor: `${reward.color}15` }}>
@@ -1128,11 +1128,11 @@ export default function RewardsPage() {
                     <i className="ri-star-fill text-app-accent-primary text-xs"></i>
                     <span className="text-app-accent-primary font-bold text-sm">{reward.xpCost.toLocaleString()} XP</span>
                   </div>
-                  <span className="text-app-text-muted text-[10px]">C�n {reward.stock}</span>
+                  <span className="text-app-text-muted text-[10px]">Còn {reward.stock}</span>
                 </div>
                 {redeemed ? (
                   <div className="w-full py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-app-accent-success text-xs font-bold text-center">
-                    <i className="ri-checkbox-circle-fill mr-1"></i>�� d?i
+                    <i className="ri-checkbox-circle-fill mr-1"></i>Đã đổi
                   </div>
                 ) : (
                   <button
@@ -1140,7 +1140,7 @@ export default function RewardsPage() {
                     disabled={!canAfford}
                     className={`w-full py-2.5 rounded-xl text-sm font-bold transition-colors cursor-pointer whitespace-nowrap ${canAfford ? "bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg" : "bg-app-card/50 text-app-text-muted cursor-not-allowed"}`}
                   >
-                    {canAfford ? "�?i ngay" : `Thi?u ${(reward.xpCost - displayXp).toLocaleString()} XP`}
+                    {canAfford ? "Đổi ngay" : `Thiếu ${(reward.xpCost - displayXp).toLocaleString()} XP`}
                   </button>
                 )}
               </div>
@@ -1160,28 +1160,28 @@ export default function RewardsPage() {
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <p className="text-white font-bold text-base">�ang nh?p h�ng ng�y</p>
-                  <span className="bg-app-accent-primary/15 text-app-accent-primary text-[10px] font-bold px-2 py-0.5 rounded-full">M?i!</span>
+                  <p className="text-white font-bold text-base">Đăng nhập hàng ngày</p>
+                  <span className="bg-app-accent-primary/15 text-app-accent-primary text-[10px] font-bold px-2 py-0.5 rounded-full">Mới!</span>
                 </div>
-                <p className="text-white/50 text-sm">Nh?n <span className="text-app-accent-primary font-bold">1�5 XP ng?u nhi�n</span> m?i ng�y khi m? app. H�m nay b?n d� nh?n r?i!</p>
+                <p className="text-white/50 text-sm">Nhận <span className="text-app-accent-primary font-bold">1–5 XP ngẫu nhiên</span> mỗi ngày khi mở app. Hôm nay bạn đã nhận rồi!</p>
               </div>
               <div className="text-center">
-                <p className="text-app-accent-primary font-bold text-2xl">1�5</p>
-                <p className="text-app-text-muted text-xs">XP/ng�y</p>
+                <p className="text-app-accent-primary font-bold text-2xl">1–5</p>
+                <p className="text-app-text-muted text-xs">XP/ngày</p>
               </div>
             </div>
           </div>
 
           <div className="bg-white/2 border border-app-border rounded-2xl overflow-hidden">
             <div className="px-5 py-3 border-b border-app-border bg-app-surface/30">
-              <h3 className="text-white font-semibold text-sm">T?t c? c�ch ki?m XP</h3>
+              <h3 className="text-white font-semibold text-sm">Tất cả cách kiếm XP</h3>
             </div>
             <div className="overflow-x-auto">
               <div className="grid grid-cols-[48px_1fr_120px_120px] gap-0 px-5 py-3 border-b border-white/3 min-w-[400px]">
                 <span className="text-app-text-muted text-[10px] tracking-normal"></span>
-                <span className="text-app-text-muted text-[10px] tracking-normal">Ho?t d?ng</span>
+                <span className="text-app-text-muted text-[10px] tracking-normal">Hoạt động</span>
                 <span className="text-app-text-muted text-[10px] tracking-normal text-right">XP</span>
-                <span className="text-app-text-muted text-[10px] tracking-normal text-right">Ghi ch�</span>
+                <span className="text-app-text-muted text-[10px] tracking-normal text-right">Ghi chú</span>
               </div>
               {XP_SOURCES.map((s, idx) => (
                 <div key={s.label} className="grid grid-cols-[48px_1fr_120px_120px] gap-0 px-5 py-3.5 border-b border-white/3 min-w-[400px] hover:bg-white/2 transition-colors">
@@ -1208,15 +1208,15 @@ export default function RewardsPage() {
           <div className="bg-white/2 border border-[#a78bfa]/15 rounded-2xl overflow-hidden">
             <div className="px-5 py-3 border-b border-[#a78bfa]/20 bg-[#a78bfa]/5">
               <h3 className="text-white font-semibold text-sm flex items-center gap-2">
-                <i className="ri-gift-line text-[#a78bfa]"></i>Ph?n thu?ng bonus � Ngo�i c�ng th?c c? d?nh
+                <i className="ri-gift-line text-[#a78bfa]"></i>Phần thưởng bonus — Ngoài công thức cố định
               </h3>
             </div>
             <div className="overflow-x-auto">
               <div className="grid grid-cols-[48px_1fr_140px_140px] gap-0 px-5 py-3 border-b border-[#a78bfa]/10 min-w-[400px]">
                 <span className="text-app-text-muted text-[10px] tracking-normal"></span>
-                <span className="text-app-text-muted text-[10px] tracking-normal">Ngu?n</span>
+                <span className="text-app-text-muted text-[10px] tracking-normal">Nguồn</span>
                 <span className="text-app-text-muted text-[10px] tracking-normal text-right">XP</span>
-                <span className="text-app-text-muted text-[10px] tracking-normal text-right">Ghi ch�</span>
+                <span className="text-app-text-muted text-[10px] tracking-normal text-right">Ghi chú</span>
               </div>
               {XP_MANUAL_REWARDS.map(s => (
                 <div key={s.label} className="grid grid-cols-[48px_1fr_140px_140px] gap-0 px-5 py-3.5 border-b border-[#a78bfa]/10 min-w-[400px] hover:bg-[#a78bfa]/5 transition-colors">
@@ -1257,12 +1257,12 @@ export default function RewardsPage() {
           </div>
 
           <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
-            <p className="text-app-accent-primary/80 text-xs font-semibold mb-1">M?o t�ch XP nhanh nh?t</p>
+            <p className="text-app-accent-primary/80 text-xs font-semibold mb-1">Mẹo tích XP nhanh nhất</p>
             <p className="text-app-text-secondary text-xs leading-relaxed">
-              Duy tr� streak m?i ng�y l� c�ch ki?m XP hi?u qu? nh?t. K?t h?p h?c flashcard, luy?n EPS/TOPIK, quiz H�n H�n v� d�ng g�p b�i c?ng d?ng d? leo h?ng. XP ch? tang � kh�ng bao gi? gi?m!
+              Duy trì streak mỗi ngày là cách kiếm XP hiệu quả nhất. Kết hợp học flashcard, luyện EPS/TOPIK, quiz Hán Hàn và đóng góp bài cộng đồng để leo hạng. XP chỉ tăng — không bao giờ giảm!
             </p>
             <button onClick={() => navigate("/daily-plan")} className="mt-2 flex items-center gap-1.5 text-app-accent-primary text-xs font-semibold cursor-pointer whitespace-nowrap hover:text-app-accent-primary/80">
-              <i className="ri-route-line"></i>Xem l? tr�nh h�m nay ?
+              <i className="ri-route-line"></i>Xem lộ trình hôm nay →
             </button>
           </div>
         </div>
@@ -1277,9 +1277,9 @@ export default function RewardsPage() {
           {redeemedRewards.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <i className="ri-history-line text-white/10 text-4xl mb-3"></i>
-              <p className="text-app-text-muted text-sm">Chua d?i ph?n thu?ng n�o</p>
+              <p className="text-app-text-muted text-sm">Chưa đổi phần thưởng nào</p>
               <button onClick={() => setActiveTab("rewards")} className="mt-3 text-app-accent-primary text-xs cursor-pointer whitespace-nowrap">
-                Xem ph?n thu?ng c� th? d?i ?
+                Xem phần thưởng có thể đổi →
               </button>
             </div>
           ) : (
@@ -1300,7 +1300,7 @@ export default function RewardsPage() {
                       <p className="text-red-400 text-sm font-bold">-{reward.xpCost.toLocaleString()} XP</p>
                       <div className="flex items-center gap-1 justify-end mt-0.5">
                         <i className="ri-checkbox-circle-fill text-app-accent-success text-xs"></i>
-                        <span className="text-app-accent-success text-[10px]">�� d?i</span>
+                        <span className="text-app-accent-success text-[10px]">Đã đổi</span>
                       </div>
                     </div>
                   </div>

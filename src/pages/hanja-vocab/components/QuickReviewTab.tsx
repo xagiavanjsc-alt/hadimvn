@@ -1,7 +1,7 @@
-import { useState, useMemo, useCallback, useRef } from "react";
+﻿import { useState, useMemo, useCallback, useRef } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 
-const ALPHABET_GROUPS = ["?","?","?","?","?","?","?","?","?","?","?","?","?","?"];
+const ALPHABET_GROUPS = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
 const SR_KEY = "hanja_sr_data";
 
 interface SRCard {
@@ -17,7 +17,7 @@ function getInitial(char: string): string {
   const code = char.charCodeAt(0) - 0xAC00;
   if (code < 0 || code > 11171) return char[0];
   const idx = Math.floor(code / 588);
-  const initials = ["?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?"];
+  const initials = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
   return initials[idx] || char[0];
 }
 
@@ -36,7 +36,7 @@ interface SessionResult {
   total: number;
 }
 
-// --- Swipe Card ---------------------------------------------------------------
+// ─── Swipe Card ───────────────────────────────────────────────────────────────
 function SwipeCard({
   entry,
   onKnow,
@@ -94,10 +94,10 @@ function SwipeCard({
       {/* Hint labels */}
       <div className="flex justify-between w-full max-w-sm mb-3 px-2">
         <div className="flex items-center gap-1 text-sm font-semibold text-red-400" style={{ opacity: dontKnowOpacity }}>
-          <i className="ri-close-circle-line text-lg"></i>Chua bi?t
+          <i className="ri-close-circle-line text-lg"></i>Chưa biết
         </div>
         <div className="flex items-center gap-1 text-sm font-semibold text-green-500" style={{ opacity: knowOpacity }}>
-          �� bi?t<i className="ri-checkbox-circle-line text-lg"></i>
+          Đã biết<i className="ri-checkbox-circle-line text-lg"></i>
         </div>
       </div>
 
@@ -125,7 +125,7 @@ function SwipeCard({
             borderColor: dragX > 40 ? "#22c55e" : dragX < -40 ? "#ef4444" : "#f3f4f6",
           }}
         >
-          <p className="text-xs text-gray-400 tracking-normal mb-3">Ti?ng H�n</p>
+          <p className="text-xs text-gray-400 tracking-normal mb-3">Tiếng Hàn</p>
           <p className="text-5xl font-bold text-gray-900 mb-2">{entry.korean}</p>
           <p className="text-2xl text-rose-400 font-bold mb-4">{entry.hanja}</p>
 
@@ -134,7 +134,7 @@ function SwipeCard({
               onClick={() => { setRevealed(true); speakKorean(entry.korean); }}
               className="px-6 py-2 bg-gray-100 text-gray-600 rounded-lg text-sm cursor-pointer hover:bg-gray-200 transition-colors"
             >
-              Hi?n nghia
+              Hiện nghĩa
             </button>
           ) : (
             <div className="border-t border-gray-100 pt-4">
@@ -151,23 +151,23 @@ function SwipeCard({
             onClick={() => triggerExit("left")}
             className="flex items-center gap-2 px-6 py-3 bg-red-50 border-2 border-red-200 text-red-600 rounded-xl font-semibold cursor-pointer hover:bg-red-100 transition-all"
           >
-            <i className="ri-close-line text-lg"></i>Chua bi?t
+            <i className="ri-close-line text-lg"></i>Chưa biết
           </button>
           <button
             onClick={() => triggerExit("right")}
             className="flex items-center gap-2 px-6 py-3 bg-green-50 border-2 border-green-200 text-green-600 rounded-xl font-semibold cursor-pointer hover:bg-green-100 transition-all"
           >
-            �� bi?t<i className="ri-check-line text-lg"></i>
+            Đã biết<i className="ri-check-line text-lg"></i>
           </button>
         </div>
       )}
 
-      <p className="text-xs text-gray-400 mt-3">K�o sang ph?i = �� bi?t � K�o sang tr�i = Chua bi?t</p>
+      <p className="text-xs text-gray-400 mt-3">Kéo sang phải = Đã biết · Kéo sang trái = Chưa biết</p>
     </div>
   );
 }
 
-// --- Main QuickReviewTab ------------------------------------------------------
+// ─── Main QuickReviewTab ──────────────────────────────────────────────────────
 export default function QuickReviewTab({ favs }: { favs: Set<string> }) {
   const [selectedInitial, setSelectedInitial] = useState<string | null>(null);
   const [onlyFavs, setOnlyFavs] = useState(false);
@@ -257,28 +257,28 @@ export default function QuickReviewTab({ favs }: { favs: Set<string> }) {
               <i className="ri-flashlight-line text-rose-600 text-2xl"></i>
             </div>
             <h2 className="text-xl font-bold text-gray-900 mb-1">Quick Review</h2>
-            <p className="text-sm text-gray-500">�n nhanh � k�o ph?i n?u bi?t, k�o tr�i n?u chua bi?t</p>
+            <p className="text-sm text-gray-500">Ôn nhanh — kéo phải nếu biết, kéo trái nếu chưa biết</p>
           </div>
 
           {/* Filters */}
           <div className="flex flex-wrap gap-2 mb-5">
             <button onClick={() => setOnlyFavs(f => !f)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${onlyFavs ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600"}`}>
-              <i className="ri-heart-line"></i>Y�u th�ch ({favs.size})
+              <i className="ri-heart-line"></i>Yêu thích ({favs.size})
             </button>
             <button onClick={() => setOnlyNew(f => !f)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${onlyNew ? "bg-gray-700 text-white" : "bg-gray-100 text-gray-600"}`}>
-              <i className="ri-seedling-line"></i>Ch? t? m?i
+              <i className="ri-seedling-line"></i>Chỉ từ mới
             </button>
           </div>
 
           {/* Group filter */}
           <div className="mb-5">
-            <p className="text-xs text-gray-500 mb-2">L?c theo nh�m ch? c�i</p>
+            <p className="text-xs text-gray-500 mb-2">Lọc theo nhóm chữ cái</p>
             <div className="flex flex-wrap gap-1.5">
               <button onClick={() => setSelectedInitial(null)}
                 className={`px-2.5 py-1 rounded-full text-xs cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600"}`}>
-                T?t c? ({HANJA_DATA.length})
+                Tất cả ({HANJA_DATA.length})
               </button>
               {ALPHABET_GROUPS.map(g => {
                 const cnt = HANJA_DATA.filter(d => getInitial(d.korean[0]) === g).length;
@@ -295,7 +295,7 @@ export default function QuickReviewTab({ favs }: { favs: Set<string> }) {
 
           <button onClick={startSession} disabled={pool.length === 0}
             className="w-full py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-            B?t d?u ({Math.min(30, pool.length)} t?)
+            Bắt đầu ({Math.min(30, pool.length)} từ)
           </button>
         </div>
       </div>
@@ -311,19 +311,19 @@ export default function QuickReviewTab({ favs }: { favs: Set<string> }) {
             <i className={`text-3xl ${pct >= 80 ? "ri-trophy-line text-green-600" : pct >= 50 ? "ri-emotion-normal-line text-amber-600" : "ri-emotion-sad-line text-red-500"}`}></i>
           </div>
           <p className="text-3xl font-bold text-gray-900 mb-1">{pct}%</p>
-          <p className="text-gray-500 mb-1">�� bi?t {result.known} / {result.total} t?</p>
+          <p className="text-gray-500 mb-1">Đã biết {result.known} / {result.total} từ</p>
           <p className="text-sm text-gray-400 mb-2">
-            {pct >= 80 ? "Xu?t s?c! B?n nh? r?t t?t!" : pct >= 50 ? "Kh� t?t! Ti?p t?c �n nh�!" : "C?n �n th�m! �?ng n?n l�ng!"}
+            {pct >= 80 ? "Xuất sắc! Bạn nhớ rất tốt!" : pct >= 50 ? "Khá tốt! Tiếp tục ôn nhé!" : "Cần ôn thêm! Đừng nản lòng!"}
           </p>
-          <p className="text-xs text-green-600 mb-6">C�c t? b?n bi?t d� du?c d�nh d?u &ldquo;�� thu?c&rdquo; t? d?ng</p>
+          <p className="text-xs text-green-600 mb-6">Các từ bạn biết đã được đánh dấu &ldquo;Đã thuộc&rdquo; tự động</p>
           <div className="flex gap-3">
             <button onClick={startSession}
               className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">
-              �n l?i
+              Ôn lại
             </button>
             <button onClick={() => { setResult(null); setStarted(false); }}
               className="flex-1 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">
-              �?i b? l?c
+              Đổi bộ lọc
             </button>
           </div>
         </div>
@@ -337,12 +337,12 @@ export default function QuickReviewTab({ favs }: { favs: Set<string> }) {
       <div className="flex items-center justify-between mb-3">
         <button onClick={() => { setStarted(false); setResult(null); }}
           className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
-          <i className="ri-arrow-left-line"></i>D?ng
+          <i className="ri-arrow-left-line"></i>Dừng
         </button>
         <span className="text-sm text-gray-500">{idx + 1} / {queue.length}</span>
         <div className="flex items-center gap-3 text-xs">
-          <span className="text-green-600 font-semibold">? {knownSet.size}</span>
-          <span className="text-red-400 font-semibold">? {unknownSet.size}</span>
+          <span className="text-green-600 font-semibold">✓ {knownSet.size}</span>
+          <span className="text-red-400 font-semibold">✗ {unknownSet.size}</span>
         </div>
       </div>
       <div className="w-full bg-gray-100 rounded-full h-1.5 mb-6">

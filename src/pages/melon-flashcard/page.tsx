@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+﻿import { useState, useMemo, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ShareFlashcardModal from "./ShareFlashcardModal";
 import { mockMelonSongs } from "@/mocks/melonSongs";
@@ -10,7 +10,7 @@ import { useVipYearGuard, addCsvWatermark } from "@/hooks/useVipYearGuard";
 import { useKpopFlashcard, KpopFlashcard } from "@/hooks/useKpopFlashcard";
 import VipUpgradeModal from "@/components/feature/VipUpgradeModal";
 
-// --- Types --------------------------------------------------------------------
+// ─── Types ────────────────────────────────────────────────────────────────────
 interface AnalysisCard {
   id: string;
   word: string;
@@ -35,7 +35,7 @@ interface SavedCard {
 
 type FlashCard = AnalysisCard | SavedCard;
 
-// --- Load cards from AI analysis (LEARNED_KEY) -------------------------------
+// ─── Load cards from AI analysis (LEARNED_KEY) ───────────────────────────────
 const LEARNED_KEY = "melon_learned_ranks";
 const LOCAL_MASTERED_KEY = "melon_fc_mastered";
 
@@ -69,15 +69,15 @@ function loadAnalysisCards(): AnalysisCard[] {
   } catch { return []; }
 }
 
-// --- CSV Export ---------------------------------------------------------------
+// ─── CSV Export ───────────────────────────────────────────────────────────────
 function exportToCSV(cards: FlashCard[]) {
-  const headers = ["T?", "Nghia", "V� d?", "B�i h�t", "Ngu?n"];
+  const headers = ["Từ", "Nghĩa", "Ví dụ", "Bài hát", "Nguồn"];
   const rows = cards.map((c) => [
     `"${c.word.replace(/"/g, '""')}"`,
     `"${c.meaning.replace(/"/g, '""')}"`,
     `"${c.example.replace(/"/g, '""')}"`,
     `"${c.songTitle.replace(/"/g, '""')}"`,
-    `"${c.source === "analysis" ? "Ph�n t�ch AI" : "Luu th? c�ng"}"`,
+    `"${c.source === "analysis" ? "Phân tích AI" : "Lưu thủ công"}"`,
   ]);
   const csv = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
   const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
@@ -103,7 +103,7 @@ function exportToAnkiTSV(cards: FlashCard[]) {
 type FilterMode = "all" | "unmastered";
 type SourceFilter = "all" | "analysis" | "saved";
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function MelonFlashcardPage() {
   const navigate = useNavigate();
   const { user } = useAuthContext();
@@ -148,7 +148,7 @@ export default function MelonFlashcardPage() {
   const [showShareModal, setShowShareModal] = useState(false);
   const [activeTab, setActiveTab] = useState<"flashcard" | "list">("flashcard");
 
-  /* -- Load progress from Supabase on mount ----------------------------------- */
+  /* ── Load progress from Supabase on mount ─────────────────────────────────── */
   useEffect(() => {
     if (!user || !isSupabaseConfigured || cloudSyncDone) return;
     let mounted = true;
@@ -228,10 +228,10 @@ export default function MelonFlashcardPage() {
           <div className="w-16 h-16 flex items-center justify-center bg-app-card/50 rounded-2xl mb-4">
             <i className="ri-stack-line text-app-text-muted text-2xl" />
           </div>
-          <p className="text-app-text-secondary text-sm font-medium mb-1">Chua c� t? v?ng n�o</p>
-          <p className="text-app-text-muted text-xs mb-5">Ph�n t�ch AI b�i h�t Melon ho?c nh?n n�t<br />"Luu" trong tab T? v?ng d? t?o flashcard</p>
+          <p className="text-app-text-secondary text-sm font-medium mb-1">Chưa có từ vựng nào</p>
+          <p className="text-app-text-muted text-xs mb-5">Phân tích AI bài hát Melon hoặc nhấn nút<br />"Lưu" trong tab Từ vựng để tạo flashcard</p>
           <button onClick={() => navigate("/melon")} className="bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold px-6 py-2.5 rounded-xl cursor-pointer whitespace-nowrap">
-            �?n Melon Chart
+            Đến Melon Chart
           </button>
         </div>
       </div>
@@ -240,7 +240,7 @@ export default function MelonFlashcardPage() {
 
   return (
     <div className="min-h-screen bg-app-bg flex flex-col">
-      <VipUpgradeModal open={modalOpen} onClose={closeModal} reason={modalReason ?? "not_vip_year"} featureName="Xu?t Flashcard K-pop" />
+      <VipUpgradeModal open={modalOpen} onClose={closeModal} reason={modalReason ?? "not_vip_year"} featureName="Xuất Flashcard K-pop" />
       {showShareModal && (
         <ShareFlashcardModal
           cards={allCards.map(c => ({ word: c.word, meaning: c.meaning, example: c.example, songTitle: c.songTitle }))}
@@ -256,13 +256,13 @@ export default function MelonFlashcardPage() {
         <div className="flex-1 min-w-0">
           <p className="text-white font-bold text-sm">Flashcard K-pop</p>
           <p className="text-app-text-muted text-xs flex items-center gap-1.5 flex-wrap">
-            <span>{allCards.length} t?</span>
-            <span className="text-white/15">�</span>
+            <span>{allCards.length} từ</span>
+            <span className="text-white/15">·</span>
             <span className="text-app-accent-primary/70">{analysisCount} AI</span>
-            <span className="text-white/15">�</span>
-            <span className="text-app-accent-success/70">{savedCount} d� luu</span>
-            <span className="text-white/15">�</span>
-            <span>{masteredCount} thu?c</span>
+            <span className="text-white/15">·</span>
+            <span className="text-app-accent-success/70">{savedCount} đã lưu</span>
+            <span className="text-white/15">·</span>
+            <span>{masteredCount} thuộc</span>
             {user && isSupabaseConfigured && (
               <span className="text-[#00C73C] text-[10px] flex items-center gap-0.5">
                 <i className="ri-cloud-line" /> Sync
@@ -281,7 +281,7 @@ export default function MelonFlashcardPage() {
               }`}
             >
               <i className={isVipYear || isVipMonth ? "ri-download-2-line" : "ri-lock-line"} />
-              <span className="hidden sm:inline">{isVipYear ? "Xu?t file" : isVipMonth ? "Xu?t (50)" : "VIP"}</span>
+              <span className="hidden sm:inline">{isVipYear ? "Xuất file" : isVipMonth ? "Xuất (50)" : "VIP"}</span>
             </button>
             {showExportMenu && (
               <div className="absolute right-0 top-full mt-1.5 w-52 bg-[#1a1d27] border border-app-border rounded-xl shadow-xl z-50 overflow-hidden">
@@ -290,7 +290,7 @@ export default function MelonFlashcardPage() {
                     if (isVipYear) { exportToCSV(allCards); }
                     else if (isVipMonth) {
                       const limited = allCards.slice(0, 50);
-                      const headers = ["T?", "Nghia", "V� d?", "B�i h�t"];
+                      const headers = ["Từ", "Nghĩa", "Ví dụ", "Bài hát"];
                       const rows = limited.map(c => [`"${c.word}"`, `"${c.meaning}"`, `"${c.example}"`, `"${c.songTitle}"`]);
                       let csv = [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
                       csv = addCsvWatermark(csv, 50);
@@ -307,8 +307,8 @@ export default function MelonFlashcardPage() {
                     <i className="ri-file-excel-2-line text-app-accent-success text-sm" />
                   </div>
                   <div>
-                    <p className="text-white/80 text-xs font-semibold">Xu?t CSV (Excel)</p>
-                    <p className="text-app-text-muted text-[10px]">{isVipYear ? "To�n b?" : "50 t? (VIP Th�ng)"}</p>
+                    <p className="text-white/80 text-xs font-semibold">Xuất CSV (Excel)</p>
+                    <p className="text-app-text-muted text-[10px]">{isVipYear ? "Toàn bộ" : "50 từ (VIP Tháng)"}</p>
                   </div>
                 </button>
                 <button
@@ -319,8 +319,8 @@ export default function MelonFlashcardPage() {
                     <i className="ri-file-text-line text-sky-400 text-sm" />
                   </div>
                   <div>
-                    <p className="text-white/80 text-xs font-semibold">Xu?t Anki (.txt)</p>
-                    <p className="text-app-text-muted text-[10px]">{isVipYear ? "To�n b?" : "Ch? VIP Nam"}</p>
+                    <p className="text-white/80 text-xs font-semibold">Xuất Anki (.txt)</p>
+                    <p className="text-app-text-muted text-[10px]">{isVipYear ? "Toàn bộ" : "Chỉ VIP Năm"}</p>
                   </div>
                 </button>
               </div>
@@ -331,11 +331,11 @@ export default function MelonFlashcardPage() {
             className="flex items-center gap-1.5 text-xs text-app-text-secondary hover:text-white/70 bg-app-card/50 hover:bg-app-card/70 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors border border-app-border"
           >
             <i className="ri-share-line" />
-            <span className="hidden sm:inline">Chia s?</span>
+            <span className="hidden sm:inline">Chia sẻ</span>
           </button>
           {!studyMode && (
             <button onClick={resetMastered} className="text-xs text-app-text-muted hover:text-white/60 cursor-pointer whitespace-nowrap hidden sm:block">
-              �?t l?i
+              Đặt lại
             </button>
           )}
         </div>
@@ -343,13 +343,13 @@ export default function MelonFlashcardPage() {
 
       {!studyMode ? (
         <div className="max-w-lg mx-auto w-full px-4 py-5 flex flex-col gap-4">
-          {/* Tab: Flashcard / Danh s�ch */}
+          {/* Tab: Flashcard / Danh sách */}
           <div className="flex bg-app-card/50 rounded-xl p-1">
             <button onClick={() => setActiveTab("flashcard")} className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap ${activeTab === "flashcard" ? "bg-app-accent-primary text-app-bg font-semibold" : "text-app-text-secondary"}`}>
-              <i className="ri-stack-line mr-1.5" />�n t?p
+              <i className="ri-stack-line mr-1.5" />Ôn tập
             </button>
             <button onClick={() => setActiveTab("list")} className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap ${activeTab === "list" ? "bg-app-accent-primary text-app-bg font-semibold" : "text-app-text-secondary"}`}>
-              <i className="ri-list-check mr-1.5" />Danh s�ch ({allCards.length})
+              <i className="ri-list-check mr-1.5" />Danh sách ({allCards.length})
             </button>
           </div>
 
@@ -371,13 +371,13 @@ export default function MelonFlashcardPage() {
                     <p className="text-app-text-muted text-[10px]">/ {allCards.length}</p>
                   </div>
                 </div>
-                <p className="text-white/70 text-sm font-medium">�� thu?c</p>
-                <p className="text-app-text-muted text-xs mt-0.5">{allCards.length - masteredCount} t? chua thu?c</p>
+                <p className="text-white/70 text-sm font-medium">Đã thuộc</p>
+                <p className="text-app-text-muted text-xs mt-0.5">{allCards.length - masteredCount} từ chưa thuộc</p>
               </div>
 
               {/* Source filter */}
               <div className="flex bg-app-card/50 rounded-xl p-1">
-                {([["all", "T?t c?"], ["analysis", "Ph�n t�ch AI"], ["saved", "�� luu"]] as [SourceFilter, string][]).map(([val, label]) => (
+                {([["all", "Tất cả"], ["analysis", "Phân tích AI"], ["saved", "Đã lưu"]] as [SourceFilter, string][]).map(([val, label]) => (
                   <button key={val} onClick={() => setSourceFilter(val)}
                     className={`flex-1 py-1.5 text-xs rounded-lg transition-all cursor-pointer whitespace-nowrap ${sourceFilter === val ? "bg-white/15 text-white font-semibold" : "text-white/35"}`}>
                     {label}
@@ -388,17 +388,17 @@ export default function MelonFlashcardPage() {
               {/* Mastered filter */}
               <div className="flex bg-app-card/50 rounded-xl p-1">
                 <button onClick={() => setFilter("all")} className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap ${filter === "all" ? "bg-app-accent-primary text-app-bg font-semibold" : "text-app-text-secondary"}`}>
-                  T?t c? ({allCards.length})
+                  Tất cả ({allCards.length})
                 </button>
                 <button onClick={() => setFilter("unmastered")} className={`flex-1 py-2 text-sm rounded-lg transition-all cursor-pointer whitespace-nowrap ${filter === "unmastered" ? "bg-app-accent-primary text-app-bg font-semibold" : "text-app-text-secondary"}`}>
-                  Chua thu?c ({allCards.length - masteredCount})
+                  Chưa thuộc ({allCards.length - masteredCount})
                 </button>
               </div>
 
               {/* Song breakdown */}
               {analysisCount > 0 && (
                 <div className="bg-app-surface/50 border border-app-border rounded-2xl p-4">
-                  <p className="text-app-text-secondary text-xs tracking-normal mb-3">T? theo b�i h�t (AI)</p>
+                  <p className="text-app-text-secondary text-xs tracking-normal mb-3">Từ theo bài hát (AI)</p>
                   <div className="space-y-2">
                     {Array.from(new Set(analysisCards.map(c => c.songRank))).map((rank) => {
                       const songCards = analysisCards.filter(c => c.songRank === rank);
@@ -431,7 +431,7 @@ export default function MelonFlashcardPage() {
                 }`}
               >
                 <i className="ri-play-circle-line mr-2" />
-                {filter === "unmastered" && filteredCards.length === 0 ? "�� thu?c h?t! ??" : `H?c ${filteredCards.length} th?`}
+                {filter === "unmastered" && filteredCards.length === 0 ? "Đã thuộc hết! 🎉" : `Học ${filteredCards.length} thẻ`}
               </button>
             </>
           ) : (
@@ -443,9 +443,9 @@ export default function MelonFlashcardPage() {
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="text-app-accent-primary font-bold text-sm">{c.word}</span>
                       <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${c.source === "analysis" ? "bg-app-accent-primary/15 text-app-accent-primary/70" : "bg-app-accent-success/15 text-app-accent-success/70"}`}>
-                        {c.source === "analysis" ? "AI" : "Luu"}
+                        {c.source === "analysis" ? "AI" : "Lưu"}
                       </span>
-                      {masteredIds.has(c.id) && <span className="text-[9px] text-app-accent-success/70">? Thu?c</span>}
+                      {masteredIds.has(c.id) && <span className="text-[9px] text-app-accent-success/70">✓ Thuộc</span>}
                     </div>
                     <p className="text-white/50 text-xs truncate">{c.meaning}</p>
                     <p className="text-app-text-muted text-[10px] truncate">{c.songTitle}</p>
@@ -467,18 +467,18 @@ export default function MelonFlashcardPage() {
         /* Finish screen */
         <div className="flex-1 flex flex-col items-center justify-center text-center px-6 max-w-md mx-auto w-full">
           <div className="w-20 h-20 flex items-center justify-center bg-app-accent-primary/10 rounded-3xl mb-5">
-            <span className="text-4xl">??</span>
+            <span className="text-4xl">🎉</span>
           </div>
-          <p className="text-white font-bold text-2xl mb-1">Xong r?i!</p>
+          <p className="text-white font-bold text-2xl mb-1">Xong rồi!</p>
           <p className="text-white/50 text-sm mb-6">
-            B?n d� h?c qua <span className="text-white font-bold">{filteredCards.length}</span> th? trong bu?i n�y
+            Bạn đã học qua <span className="text-white font-bold">{filteredCards.length}</span> thẻ trong buổi này
           </p>
           <div className="flex gap-3 w-full">
             <button onClick={handleRestart} className="flex-1 py-3 bg-app-card/50 hover:bg-app-card/70 text-white/60 text-sm font-medium rounded-xl cursor-pointer whitespace-nowrap">
-              <i className="ri-restart-line mr-1.5" />H?c l?i
+              <i className="ri-restart-line mr-1.5" />Học lại
             </button>
             <button onClick={() => setStudyMode(false)} className="flex-1 py-3 bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold rounded-xl cursor-pointer whitespace-nowrap">
-              Xem th?ng k�
+              Xem thống kê
             </button>
           </div>
         </div>
@@ -498,7 +498,7 @@ export default function MelonFlashcardPage() {
           <div className="flex items-center justify-center gap-2 mb-3 flex-shrink-0">
             <i className="ri-music-2-line text-app-text-muted text-xs" />
             <p className="text-app-text-muted text-xs truncate">{card?.songTitle}</p>
-            {card?.source === "saved" && <span className="text-[9px] bg-app-accent-success/15 text-app-accent-success/70 px-1.5 py-0.5 rounded-full font-bold flex-shrink-0">Luu</span>}
+            {card?.source === "saved" && <span className="text-[9px] bg-app-accent-success/15 text-app-accent-success/70 px-1.5 py-0.5 rounded-full font-bold flex-shrink-0">Lưu</span>}
           </div>
 
           {/* Flashcard */}
@@ -513,7 +513,7 @@ export default function MelonFlashcardPage() {
               {!flipped ? (
                 <>
                   <p className="text-app-accent-primary text-3xl font-bold mb-3">{card?.word}</p>
-                  <p className="text-app-text-muted text-xs">Nh?n d? xem nghia</p>
+                  <p className="text-app-text-muted text-xs">Nhấn để xem nghĩa</p>
                 </>
               ) : (
                 <>
@@ -528,15 +528,15 @@ export default function MelonFlashcardPage() {
 
           {!flipped ? (
             <button onClick={() => setFlipped(true)} className="w-full py-3.5 bg-app-card/50 hover:bg-app-card/70 text-white/60 text-sm font-medium rounded-2xl cursor-pointer transition-colors whitespace-nowrap flex-shrink-0">
-              Xem nghia <i className="ri-arrow-down-s-line ml-1" />
+              Xem nghĩa <i className="ri-arrow-down-s-line ml-1" />
             </button>
           ) : (
             <div className="flex gap-3 flex-shrink-0">
               <button onClick={markAgain} className="flex-1 py-3.5 bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/50 text-sm font-medium rounded-2xl cursor-pointer transition-colors whitespace-nowrap">
-                <i className="ri-refresh-line mr-1.5" />H?c l?i
+                <i className="ri-refresh-line mr-1.5" />Học lại
               </button>
               <button onClick={markMastered} className="flex-1 py-3.5 bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold rounded-2xl cursor-pointer transition-colors whitespace-nowrap">
-                <i className="ri-checkbox-circle-line mr-1.5" />�� thu?c!
+                <i className="ri-checkbox-circle-line mr-1.5" />Đã thuộc!
               </button>
             </div>
           )}

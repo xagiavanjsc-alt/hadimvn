@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -63,7 +63,7 @@ function AddRevenueModal({ series, onClose, onAdd }: {
         <div className="flex items-center justify-between p-5 border-b border-app-border">
           <div className="flex items-center gap-2">
             <i className="ri-money-dollar-circle-line text-app-accent-success text-sm"></i>
-            <p className="text-white font-semibold text-sm">Ghi nh?n doanh thu</p>
+            <p className="text-white font-semibold text-sm">Ghi nhận doanh thu</p>
           </div>
           <button onClick={onClose} className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-white/70 cursor-pointer">
             <i className="ri-close-line"></i>
@@ -80,22 +80,22 @@ function AddRevenueModal({ series, onClose, onAdd }: {
               {series.map(s => (
                 <option key={s.id} value={s.id} className="bg-app-bg">{s.name}</option>
               ))}
-              <option value="" className="bg-app-bg">Kh�c (kh�ng thu?c series)</option>
+              <option value="" className="bg-app-bg">Khác (không thuộc series)</option>
             </select>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">T�n ngu?i mua *</label>
+              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Tên người mua *</label>
               <input
                 type="text"
                 value={buyerName}
                 onChange={e => setBuyerName(e.target.value)}
-                placeholder="Nguy?n Van A"
+                placeholder="Nguyễn Văn A"
                 className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-emerald-400/40 transition-colors"
               />
             </div>
             <div>
-              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">S? ti?n (VN�) *</label>
+              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Số tiền (VNĐ) *</label>
               <input
                 type="number"
                 value={amount}
@@ -107,7 +107,7 @@ function AddRevenueModal({ series, onClose, onAdd }: {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Ng�y b�n</label>
+              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Ngày bán</label>
               <input
                 type="date"
                 value={date}
@@ -116,25 +116,25 @@ function AddRevenueModal({ series, onClose, onAdd }: {
               />
             </div>
             <div>
-              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Ghi ch�</label>
+              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Ghi chú</label>
               <input
                 type="text"
                 value={note}
                 onChange={e => setNote(e.target.value)}
-                placeholder="Zalo, chuy?n kho?n..."
+                placeholder="Zalo, chuyển khoản..."
                 className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-emerald-400/40 transition-colors"
               />
             </div>
           </div>
         </div>
         <div className="flex gap-3 p-5 border-t border-app-border">
-          <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">H?y</button>
+          <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">Hủy</button>
           <button
             onClick={handleAdd}
             disabled={!buyerName.trim() || !amount}
             className="flex-1 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
           >
-            Ghi nh?n
+            Ghi nhận
           </button>
         </div>
       </div>
@@ -161,13 +161,13 @@ export default function StatsPage() {
     const bySeriesMap: Record<string, { name: string; count: number; revenue: number }> = {};
     revenues.forEach(r => {
       const s = seriesList.find(s => s.id === r.seriesId);
-      const name = s?.name ?? "Kh�c";
+      const name = s?.name ?? "Khác";
       if (!bySeriesMap[r.seriesId]) bySeriesMap[r.seriesId] = { name, count: 0, revenue: 0 };
       bySeriesMap[r.seriesId].count += 1;
       bySeriesMap[r.seriesId].revenue += r.amount;
     });
 
-    // Monthly chart � last 6 months
+    // Monthly chart — last 6 months
     const monthlyChart: { label: string; value: number }[] = [];
     for (let i = 5; i >= 0; i--) {
       const d = new Date();
@@ -192,29 +192,29 @@ export default function StatsPage() {
     return sorted.filter(r => r.seriesId === filterSeries);
   }, [revenues, filterSeries]);
 
-  const formatVND = (n: number) => n.toLocaleString("vi-VN") + "d";
+  const formatVND = (n: number) => n.toLocaleString("vi-VN") + "đ";
   const maxChart = Math.max(...stats.monthlyChart.map(m => m.value), 1);
 
   return (
     <DashboardLayout
-      title="Th?ng k� & Doanh thu"
-      subtitle="Theo d�i hi?u qu? kinh doanh ebook"
+      title="Thống kê & Doanh thu"
+      subtitle="Theo dõi hiệu quả kinh doanh ebook"
       actions={
         <button
           onClick={() => setShowAddRevenue(true)}
           className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-add-line"></i>
-          Ghi nh?n doanh thu
+          Ghi nhận doanh thu
         </button>
       }
     >
       {/* Top stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        <StatCard icon="ri-money-dollar-circle-line" label="T?ng doanh thu" value={formatVND(stats.totalRevenue)} sub={`${revenues.length} don h�ng`} color="#34d399" />
-        <StatCard icon="ri-calendar-line" label="Th�ng n�y" value={formatVND(stats.monthRevenue)} sub={`D? ki?n: ${formatVND(stats.projectedMonthly)}`} color="app-accent-primary" />
-        <StatCard icon="ri-stack-line" label="T?ng series" value={seriesList.length} sub="ebook dang b�n" color="#fb923c" onClick={() => navigate("/series")} />
-        <StatCard icon="ri-book-open-line" label="B�i h?c s?n s�ng" value={approvedLessons.filter(l => (l.stars ?? 0) >= 4).length} sub="4-5 sao" color="#a78bfa" onClick={() => navigate("/ebook")} />
+        <StatCard icon="ri-money-dollar-circle-line" label="Tổng doanh thu" value={formatVND(stats.totalRevenue)} sub={`${revenues.length} đơn hàng`} color="#34d399" />
+        <StatCard icon="ri-calendar-line" label="Tháng này" value={formatVND(stats.monthRevenue)} sub={`Dự kiến: ${formatVND(stats.projectedMonthly)}`} color="app-accent-primary" />
+        <StatCard icon="ri-stack-line" label="Tổng series" value={seriesList.length} sub="ebook đang bán" color="#fb923c" onClick={() => navigate("/series")} />
+        <StatCard icon="ri-book-open-line" label="Bài học sẵn sàng" value={approvedLessons.filter(l => (l.stars ?? 0) >= 4).length} sub="4-5 sao" color="#a78bfa" onClick={() => navigate("/ebook")} />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-5">
@@ -222,18 +222,18 @@ export default function StatsPage() {
         <div className="col-span-2 bg-app-bg border border-app-border rounded-2xl p-5">
           <div className="flex items-center justify-between mb-5">
             <div>
-              <h3 className="text-white font-semibold text-sm">Doanh thu 6 th�ng</h3>
-              <p className="text-app-text-muted text-xs mt-0.5">Theo th�ng (VN�)</p>
+              <h3 className="text-white font-semibold text-sm">Doanh thu 6 tháng</h3>
+              <p className="text-app-text-muted text-xs mt-0.5">Theo tháng (VNĐ)</p>
             </div>
             <span className="text-app-accent-success text-xs font-bold bg-emerald-500/10 px-3 py-1 rounded-full">
-              TB/don: {formatVND(stats.avgPerSale)}
+              TB/đơn: {formatVND(stats.avgPerSale)}
             </span>
           </div>
           {revenues.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <i className="ri-bar-chart-2-line text-white/10 text-4xl mb-3"></i>
-              <p className="text-app-text-muted text-sm mb-1">Chua c� doanh thu n�o</p>
-              <p className="text-white/15 text-xs">Nh?n "Ghi nh?n doanh thu" d? b?t d?u theo d�i</p>
+              <p className="text-app-text-muted text-sm mb-1">Chưa có doanh thu nào</p>
+              <p className="text-white/15 text-xs">Nhấn "Ghi nhận doanh thu" để bắt đầu theo dõi</p>
             </div>
           ) : (
             <>
@@ -269,11 +269,11 @@ export default function StatsPage() {
         {/* By series */}
         <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-1">Theo series</h3>
-          <p className="text-app-text-muted text-xs mb-4">Doanh thu t?ng ebook</p>
+          <p className="text-app-text-muted text-xs mb-4">Doanh thu từng ebook</p>
           {Object.keys(stats.bySeriesMap).length === 0 ? (
             <div className="flex flex-col items-center justify-center py-8 text-center">
               <i className="ri-pie-chart-line text-white/10 text-3xl mb-2"></i>
-              <p className="text-app-text-muted text-xs">Chua c� d? li?u</p>
+              <p className="text-app-text-muted text-xs">Chưa có dữ liệu</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -287,7 +287,7 @@ export default function StatsPage() {
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-white/60 text-xs font-medium truncate max-w-[120px]">{data.name}</span>
                         <div className="flex items-center gap-2">
-                          <span className="text-app-text-muted text-[10px]">{data.count} don</span>
+                          <span className="text-app-text-muted text-[10px]">{data.count} đơn</span>
                           <span className="text-app-accent-success text-xs font-bold">{pct}%</span>
                         </div>
                       </div>
@@ -307,15 +307,15 @@ export default function StatsPage() {
       <div className="bg-app-bg border border-app-border rounded-2xl p-5">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-white font-semibold text-sm">L?ch s? giao d?ch</h3>
-            <p className="text-app-text-muted text-xs mt-0.5">{revenues.length} don h�ng</p>
+            <h3 className="text-white font-semibold text-sm">Lịch sử giao dịch</h3>
+            <p className="text-app-text-muted text-xs mt-0.5">{revenues.length} đơn hàng</p>
           </div>
           <select
             value={filterSeries}
             onChange={e => setFilterSeries(e.target.value)}
             className="bg-app-card/50 border border-app-border rounded-lg px-3 py-1.5 text-white/60 text-xs focus:outline-none focus:border-white/20 cursor-pointer"
           >
-            <option value="all" className="bg-app-bg">T?t c? series</option>
+            <option value="all" className="bg-app-bg">Tất cả series</option>
             {seriesList.map(s => (
               <option key={s.id} value={s.id} className="bg-app-bg">{s.name}</option>
             ))}
@@ -325,13 +325,13 @@ export default function StatsPage() {
         {filteredRevenues.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12 text-center">
             <i className="ri-receipt-line text-white/10 text-3xl mb-3"></i>
-            <p className="text-app-text-muted text-sm">Chua c� giao d?ch n�o</p>
+            <p className="text-app-text-muted text-sm">Chưa có giao dịch nào</p>
             <button
               onClick={() => setShowAddRevenue(true)}
               className="mt-4 flex items-center gap-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-app-accent-success text-xs font-medium px-4 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-add-line"></i>
-              Ghi nh?n don d?u ti�n
+              Ghi nhận đơn đầu tiên
             </button>
           </div>
         ) : (
@@ -345,7 +345,7 @@ export default function StatsPage() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-white/80 text-xs font-semibold">{r.buyerName}</p>
-                    <p className="text-app-text-muted text-[10px]">{s?.name ?? "Kh�c"}{r.note ? ` � ${r.note}` : ""}</p>
+                    <p className="text-app-text-muted text-[10px]">{s?.name ?? "Khác"}{r.note ? ` · ${r.note}` : ""}</p>
                   </div>
                   <div className="text-right flex-shrink-0">
                     <p className="text-app-accent-success text-sm font-bold">{formatVND(r.amount)}</p>
@@ -368,12 +368,12 @@ export default function StatsPage() {
       <div className="mt-5 bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4 flex items-start gap-3">
         <i className="ri-lightbulb-line text-app-accent-primary text-sm mt-0.5 flex-shrink-0"></i>
         <div>
-          <p className="text-app-accent-primary/80 text-xs font-semibold mb-1">Chi?n lu?c b�n ebook hi?u qu?</p>
+          <p className="text-app-accent-primary/80 text-xs font-semibold mb-1">Chiến lược bán ebook hiệu quả</p>
           <p className="text-app-text-secondary text-xs leading-relaxed">
-            B�n qua <strong className="text-white/60">Zalo OA</strong> (mi?n ph�, ti?p c?n h?c vi�n cu) � 
-            <strong className="text-white/60"> Gumroad</strong> (thanh to�n qu?c t?, t? d?ng giao file) � 
-            <strong className="text-white/60"> Facebook Group</strong> (viral trong c?ng d?ng K-pop). 
-            Gi� l� tu?ng: 29.000d�79.000d/ebook, bundle 3 ebook gi?m 20%.
+            Bán qua <strong className="text-white/60">Zalo OA</strong> (miễn phí, tiếp cận học viên cũ) · 
+            <strong className="text-white/60"> Gumroad</strong> (thanh toán quốc tế, tự động giao file) · 
+            <strong className="text-white/60"> Facebook Group</strong> (viral trong cộng đồng K-pop). 
+            Giá lý tưởng: 29.000đ–79.000đ/ebook, bundle 3 ebook giảm 20%.
           </p>
         </div>
       </div>

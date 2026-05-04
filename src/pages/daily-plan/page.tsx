@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
@@ -72,30 +72,30 @@ function generateDailyPlan(
     tasks.push({
       id: "hangul-warmup",
       type: "hangul",
-      title: "�n l?i Hangul co b?n",
-      desc: "5 ph�t �n b?ng ch? c�i � kh?i d?ng nh? nh�ng",
+      title: "Ôn lại Hangul cơ bản",
+      desc: "5 phút ôn bảng chữ cái — khởi động nhẹ nhàng",
       duration: 5,
       xp: 10,
       icon: "ri-font-size",
       color: "app-accent-primary",
       path: "/hangul",
       priority: "medium",
-      reason: "Streak m?i b?t d?u � x�y d?ng th�i quen h?c m?i ng�y",
+      reason: "Streak mới bắt đầu — xây dựng thói quen học mỗi ngày",
       completed: completedToday.includes("hangul-warmup"),
     });
   } else {
     tasks.push({
       id: "flashcard-review",
       type: "flashcard",
-      title: "�n Flashcard h�ng ng�y",
-      desc: "20 th? t? v?ng � duy tr� streak " + streak + " ng�y",
+      title: "Ôn Flashcard hàng ngày",
+      desc: "20 thẻ từ vựng — duy trì streak " + streak + " ngày",
       duration: 10,
       xp: 25,
       icon: "ri-stack-line",
       color: "#4ade80",
       path: "/flashcard",
       priority: "medium",
-      reason: `Streak ${streak} ng�y � ti?p t?c duy tr� d� h?c t?t!`,
+      reason: `Streak ${streak} ngày — tiếp tục duy trì đà học tốt!`,
       completed: completedToday.includes("flashcard-review"),
     });
   }
@@ -106,30 +106,30 @@ function generateDailyPlan(
     tasks.push({
       id: `eps-weak-${weakest.id}`,
       type: "eps",
-      title: `Luy?n EPS: ${weakest.label}`,
-      desc: `�i?m y?u nh?t c?a b?n (${weakest.score}%) � t?p trung �n ch? d? n�y`,
+      title: `Luyện EPS: ${weakest.label}`,
+      desc: `Điểm yếu nhất của bạn (${weakest.score}%) — tập trung ôn chủ đề này`,
       duration: 15,
       xp: 30,
       icon: "ri-file-list-3-line",
       color: "#f87171",
       path: "/quiz",
       priority: "high",
-      reason: `AI ph�t hi?n b?n ch? d?t ${weakest.score}% ? ch? d? n�y � c?n �n g?p!`,
+      reason: `AI phát hiện bạn chỉ đạt ${weakest.score}% ở chủ đề này — cần ôn gấp!`,
       completed: completedToday.includes(`eps-weak-${weakest.id}`),
     });
   } else {
     tasks.push({
       id: "eps-practice",
       type: "eps",
-      title: "Luy?n thi EPS h�m nay",
-      desc: "10 c�u EPS ng?u nhi�n � ki?m tra ki?n th?c t?ng h?p",
+      title: "Luyện thi EPS hôm nay",
+      desc: "10 câu EPS ngẫu nhiên — kiểm tra kiến thức tổng hợp",
       duration: 15,
       xp: 30,
       icon: "ri-file-list-3-line",
       color: "#60a5fa",
       path: "/eps",
       priority: "medium",
-      reason: "Chua c� l?ch s? thi � b?t d?u luy?n d? AI ph�n t�ch di?m y?u",
+      reason: "Chưa có lịch sử thi — bắt đầu luyện để AI phân tích điểm yếu",
       completed: completedToday.includes("eps-practice"),
     });
   }
@@ -138,15 +138,15 @@ function generateDailyPlan(
   tasks.push({
     id: "news-reading",
     type: "news",
-    title: "�?c tin t?c ti?ng H�n",
-    desc: "1 b�i b�o + h?c t? v?ng inline � h?c trong ng? c?nh th?t",
+    title: "Đọc tin tức tiếng Hàn",
+    desc: "1 bài báo + học từ vựng inline — học trong ngữ cảnh thật",
     duration: 20,
     xp: 20,
     icon: "ri-newspaper-line",
     color: "#a78bfa",
     path: "/news",
     priority: "medium",
-    reason: "H?c t? v?ng qua tin t?c th?t gi�p nh? l�u hon 3x so v?i h?c thu?c l�ng",
+    reason: "Học từ vựng qua tin tức thật giúp nhớ lâu hơn 3x so với học thuộc lòng",
     completed: completedToday.includes("news-reading"),
   });
 
@@ -155,8 +155,8 @@ function generateDailyPlan(
     tasks.push({
       id: "eps-exam",
       type: "quiz",
-      title: "Thi th? EPS d?y d?",
-      desc: "40 c�u � 50 ph�t � do lu?ng ti?n d? th?c t?",
+      title: "Thi thử EPS đầy đủ",
+      desc: "40 câu · 50 phút — đo lường tiến độ thực tế",
       duration: 50,
       xp: 20,
       icon: "ri-timer-line",
@@ -164,8 +164,8 @@ function generateDailyPlan(
       path: "/eps-exam",
       priority: hasExamHistory ? "medium" : "high",
       reason: hasExamHistory
-        ? `�� ${daysSinceExam} ng�y chua thi � c?n c?p nh?t ph�n t�ch di?m y?u`
-        : "Chua c� l?ch s? thi � l�m b�i d?u ti�n d? AI l?p l? tr�nh cho b?n!",
+        ? `Đã ${daysSinceExam} ngày chưa thi — cần cập nhật phân tích điểm yếu`
+        : "Chưa có lịch sử thi — làm bài đầu tiên để AI lập lộ trình cho bạn!",
       completed: completedToday.includes("eps-exam"),
     });
   }
@@ -176,15 +176,15 @@ function generateDailyPlan(
     tasks.push({
       id: `eps-weak2-${second.id}`,
       type: "review",
-      title: `�n l?i: ${second.label}`,
-      desc: `�i?m ${second.score}% � c?n c?i thi?n th�m`,
+      title: `Ôn lại: ${second.label}`,
+      desc: `Điểm ${second.score}% — cần cải thiện thêm`,
       duration: 10,
       xp: 15,
       icon: "ri-refresh-line",
       color: "#f59e0b",
       path: "/quiz",
       priority: "low",
-      reason: `Ch? d? y?u th? 2 � �n th�m d? c�n b?ng di?m s?`,
+      reason: `Chủ đề yếu thứ 2 — ôn thêm để cân bằng điểm số`,
       completed: completedToday.includes(`eps-weak2-${second.id}`),
     });
   }
@@ -193,9 +193,9 @@ function generateDailyPlan(
 }
 
 const PRIORITY_LABELS: Record<string, { label: string; color: string }> = {
-  high: { label: "Uu ti�n cao", color: "text-red-400 bg-red-400/10" },
-  medium: { label: "N�n l�m", color: "text-app-accent-primary bg-app-accent-primary/10" },
-  low: { label: "T�y ch?n", color: "text-app-text-secondary bg-app-card/50" },
+  high: { label: "Ưu tiên cao", color: "text-red-400 bg-red-400/10" },
+  medium: { label: "Nên làm", color: "text-app-accent-primary bg-app-accent-primary/10" },
+  low: { label: "Tùy chọn", color: "text-app-text-secondary bg-app-card/50" },
 };
 
 export default function DailyPlanPage() {
@@ -289,8 +289,8 @@ export default function DailyPlanPage() {
             <i className="ri-calendar-line"></i>
             <span>{dateStr}</span>
           </div>
-          <h1 className="text-2xl font-bold text-white mb-1">L? tr�nh h?c h�m nay</h1>
-          <p className="text-white/50 text-sm">AI d� ph�n t�ch k?t qu? c?a b?n v� t?o k? ho?ch t?i uu</p>
+          <h1 className="text-2xl font-bold text-white mb-1">Lộ trình học hôm nay</h1>
+          <p className="text-white/50 text-sm">AI đã phân tích kết quả của bạn và tạo kế hoạch tối ưu</p>
         </div>
 
         {/* Progress Overview */}
@@ -299,14 +299,14 @@ export default function DailyPlanPage() {
           <div className="md:col-span-2 bg-app-surface/50 border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <p className="text-white/50 text-xs mb-1">Ti?n d? h�m nay</p>
+                <p className="text-white/50 text-xs mb-1">Tiến độ hôm nay</p>
                 <p className="text-white font-bold text-xl">
-                  {completedCount}/{tasks.length} nhi?m v?
+                  {completedCount}/{tasks.length} nhiệm vụ
                 </p>
               </div>
               <div className="text-right">
                 <p className="text-app-accent-primary font-bold text-xl">+{xpGained} XP</p>
-                <p className="text-app-text-secondary text-xs">/{totalXp} XP t?ng</p>
+                <p className="text-app-text-secondary text-xs">/{totalXp} XP tổng</p>
               </div>
             </div>
             <div className="w-full bg-white/8 rounded-full h-2.5 mb-3">
@@ -316,8 +316,8 @@ export default function DailyPlanPage() {
               />
             </div>
             <div className="flex items-center justify-between text-xs text-app-text-secondary">
-              <span>{Math.round(progress)}% ho�n th�nh</span>
-              <span>C�n {remainingMinutes} ph�t</span>
+              <span>{Math.round(progress)}% hoàn thành</span>
+              <span>Còn {remainingMinutes} phút</span>
             </div>
           </div>
 
@@ -329,20 +329,20 @@ export default function DailyPlanPage() {
               </div>
               <div>
                 <p className="text-white font-bold text-xl">{streak.count}</p>
-                <p className="text-app-text-secondary text-xs">ng�y li�n ti?p</p>
+                <p className="text-app-text-secondary text-xs">ngày liên tiếp</p>
               </div>
             </div>
             <div className="space-y-2">
               <div className="flex justify-between text-xs">
-                <span className="text-app-text-secondary">T?ng th?i gian</span>
-                <span className="text-white">{totalMinutes} ph�t</span>
+                <span className="text-app-text-secondary">Tổng thời gian</span>
+                <span className="text-white">{totalMinutes} phút</span>
               </div>
               <div className="flex justify-between text-xs">
-                <span className="text-app-text-secondary">L?n thi g?n nh?t</span>
+                <span className="text-app-text-secondary">Lần thi gần nhất</span>
                 <span className="text-white">
                   {examResults.length > 0
                     ? `${examResults[examResults.length - 1].score}/${examResults[examResults.length - 1].total}`
-                    : "Chua thi"}
+                    : "Chưa thi"}
                 </span>
               </div>
             </div>
@@ -357,16 +357,16 @@ export default function DailyPlanPage() {
                 <i className="ri-robot-line text-app-accent-primary text-sm"></i>
               </div>
               <div>
-                <p className="text-app-accent-primary font-semibold text-sm mb-1">Ph�n t�ch AI</p>
+                <p className="text-app-accent-primary font-semibold text-sm mb-1">Phân tích AI</p>
                 <p className="text-white/60 text-xs leading-relaxed">
-                  D?a tr�n {examResults.length} l?n thi g?n d�y, AI ph�t hi?n b?n c?n c?i thi?n:{" "}
+                  Dựa trên {examResults.length} lần thi gần đây, AI phát hiện bạn cần cải thiện:{" "}
                   {weakTopics.map((t, i) => (
                     <span key={t.id}>
                       <strong className="text-white">{t.label}</strong> ({t.score}%)
                       {i < weakTopics.length - 1 ? ", " : ""}
                     </span>
                   ))}
-                  . L? tr�nh h�m nay du?c t?i uu d? t?p trung v�o c�c ch? d? n�y.
+                  . Lộ trình hôm nay được tối ưu để tập trung vào các chủ đề này.
                 </p>
               </div>
             </div>
@@ -380,9 +380,9 @@ export default function DailyPlanPage() {
                 <i className="ri-information-line text-[#60a5fa] text-sm"></i>
               </div>
               <div>
-                <p className="text-[#60a5fa] font-semibold text-sm mb-1">Chua c� d? li?u ph�n t�ch</p>
+                <p className="text-[#60a5fa] font-semibold text-sm mb-1">Chưa có dữ liệu phân tích</p>
                 <p className="text-white/60 text-xs leading-relaxed">
-                  L�m b�i thi th? EPS d?u ti�n d? AI ph�n t�ch di?m y?u v� t?o l? tr�nh c� nh�n h�a cho b?n. L? tr�nh hi?n t?i l� m?c d?nh cho ngu?i m?i b?t d?u.
+                  Làm bài thi thử EPS đầu tiên để AI phân tích điểm yếu và tạo lộ trình cá nhân hóa cho bạn. Lộ trình hiện tại là mặc định cho người mới bắt đầu.
                 </p>
               </div>
             </div>
@@ -391,7 +391,7 @@ export default function DailyPlanPage() {
 
         {/* Task List */}
         <div className="space-y-3 mb-8">
-          <h2 className="text-white font-semibold text-base mb-4">Nhi?m v? h�m nay</h2>
+          <h2 className="text-white font-semibold text-base mb-4">Nhiệm vụ hôm nay</h2>
           {tasks.map((task, idx) => (
             <div
               key={task.id}
@@ -432,7 +432,7 @@ export default function DailyPlanPage() {
                   <div className="flex items-center gap-3 text-xs text-white/35">
                     <span className="flex items-center gap-1">
                       <i className="ri-time-line"></i>
-                      {task.duration} ph�t
+                      {task.duration} phút
                     </span>
                     <span className="flex items-center gap-1">
                       <i className="ri-star-line text-app-accent-primary"></i>
@@ -456,28 +456,28 @@ export default function DailyPlanPage() {
             <div className="w-14 h-14 rounded-full bg-app-accent-primary/15 flex items-center justify-center mx-auto mb-3">
               <i className="ri-trophy-line text-app-accent-primary text-2xl"></i>
             </div>
-            <h3 className="text-white font-bold text-lg mb-1">Ho�n th�nh l? tr�nh h�m nay!</h3>
+            <h3 className="text-white font-bold text-lg mb-1">Hoàn thành lộ trình hôm nay!</h3>
             <p className="text-white/50 text-sm mb-3">
-              B?n d� ki?m du?c <strong className="text-app-accent-primary">+{xpGained} XP</strong> h�m nay. Tuy?t v?i!
+              Bạn đã kiếm được <strong className="text-app-accent-primary">+{xpGained} XP</strong> hôm nay. Tuyệt vời!
             </p>
             <button
               onClick={() => navigate("/profile")}
               className="bg-app-accent-primary text-[#0a0c10] font-semibold px-5 py-2 rounded-lg text-sm hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer"
             >
-              Xem h? so h?c vi�n
+              Xem hồ sơ học viên
             </button>
           </div>
         )}
 
         {/* Quick Links */}
         <div className="bg-white/2 border border-app-border rounded-2xl p-5">
-          <p className="text-app-text-secondary text-xs tracking-normal mb-4">Truy c?p nhanh</p>
+          <p className="text-app-text-secondary text-xs tracking-normal mb-4">Truy cập nhanh</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              { label: "Thi th? EPS", icon: "ri-timer-line", path: "/eps-exam", color: "#fb923c" },
-              { label: "So s�nh ti?n d?", icon: "ri-radar-line", path: "/progress", color: "#a78bfa" },
-              { label: "Th?ng k�", icon: "ri-bar-chart-box-line", path: "/learn-stats", color: "#4ade80" },
-              { label: "H? so", icon: "ri-user-3-line", path: "/profile", color: "app-accent-primary" },
+              { label: "Thi thử EPS", icon: "ri-timer-line", path: "/eps-exam", color: "#fb923c" },
+              { label: "So sánh tiến độ", icon: "ri-radar-line", path: "/progress", color: "#a78bfa" },
+              { label: "Thống kê", icon: "ri-bar-chart-box-line", path: "/learn-stats", color: "#4ade80" },
+              { label: "Hồ sơ", icon: "ri-user-3-line", path: "/profile", color: "app-accent-primary" },
             ].map((link) => (
               <button
                 key={link.path}
@@ -525,7 +525,7 @@ export default function DailyPlanPage() {
             <div className="flex items-center gap-4 mb-5 text-sm">
               <div className="flex items-center gap-1.5 text-white/50">
                 <i className="ri-time-line"></i>
-                <span>{selectedTask.duration} ph�t</span>
+                <span>{selectedTask.duration} phút</span>
               </div>
               <div className="flex items-center gap-1.5 text-app-accent-primary">
                 <i className="ri-star-line"></i>
@@ -539,7 +539,7 @@ export default function DailyPlanPage() {
             {selectedTask.completed ? (
               <div className="flex items-center justify-center gap-2 py-3 bg-app-card/50 rounded-xl text-app-text-secondary text-sm">
                 <i className="ri-check-double-line text-[#4ade80]"></i>
-                �� ho�n th�nh h�m nay
+                Đã hoàn thành hôm nay
               </div>
             ) : (
               <>
@@ -547,11 +547,11 @@ export default function DailyPlanPage() {
                   onClick={() => handleStartTask(selectedTask)}
                   className="w-full bg-app-accent-primary text-[#0a0c10] font-bold py-3 rounded-xl text-sm hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer"
                 >
-                  B?t d?u ngay
+                  Bắt đầu ngay
                 </button>
                 <p className="text-center text-app-text-muted text-[11px] mt-3">
                   <i className="ri-information-line mr-1"></i>
-                  XP du?c c?ng t? d?ng khi b?n ho�n th�nh b�i h?c th?c t? (thi, flashcard, dang b�i...)
+                  XP được cộng tự động khi bạn hoàn thành bài học thực tế (thi, flashcard, đăng bài...)
                 </p>
               </>
             )}

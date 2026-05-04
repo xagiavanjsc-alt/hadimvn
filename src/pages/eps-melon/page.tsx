@@ -1,9 +1,9 @@
-import { useState, useMemo, useCallback } from "react";
+﻿import { useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { mockMelonSongs, MelonSong } from "@/mocks/melonSongs";
 import { epsVocabulary } from "@/mocks/epsVocabulary";
 
-// --- Types ---------------------------------------------------------------------
+// ─── Types ─────────────────────────────────────────────────────────────────────
 interface EpsWord {
   id: string;
   korean: string;
@@ -23,54 +23,54 @@ interface SongEpsMatch {
   matches: MatchedWord[];
 }
 
-// --- EPS Vocab normalization ---------------------------------------------------
+// ─── EPS Vocab normalization ───────────────────────────────────────────────────
 function buildEpsWords(): EpsWord[] {
-  // Use epsVocabulary mock � may have different shape
+  // Use epsVocabulary mock — may have different shape
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (epsVocabulary as any[]).slice(0, 200).map((v: any, i: number) => ({
     id: String(i),
     korean: v.korean ?? v.word ?? v.kr ?? "",
     vietnamese: v.vietnamese ?? v.meaning ?? v.vi ?? "",
-    category: v.category ?? v.topic ?? "T? v?ng",
+    category: v.category ?? v.topic ?? "Từ vựng",
     example: v.example ?? v.sentence ?? "",
   })).filter((w: EpsWord) => w.korean.length > 1);
 }
 
 // Fallback built-in EPS words (common, realistic) in case mock has different fields
 const BUILTIN_EPS_WORDS: EpsWord[] = [
-  { id: "b1", korean: "??", vietnamese: "T�nh y�u", category: "C?m x�c", example: "???? - T�i y�u b?n" },
-  { id: "b2", korean: "??", vietnamese: "T�m tr?ng / l�ng", category: "C?m x�c", example: "??? ??? - L�ng t�i dau" },
-  { id: "b3", korean: "?", vietnamese: "M?t / tuy?t", category: "Co th?", example: "?? ??? - M?t d?p qu�" },
-  { id: "b4", korean: "?", vietnamese: "B�n tay", category: "Co th?", example: "?? ??? - N?m tay" },
-  { id: "b5", korean: "??", vietnamese: "B?u tr?i", category: "Thi�n nhi�n", example: "??? ??? - Tr?i trong xanh" },
-  { id: "b6", korean: "?", vietnamese: "Gi?c mo", category: "Cu?c s?ng", example: "?? ?? - Mo u?c" },
-  { id: "b7", korean: "??", vietnamese: "Th?i gian", category: "Th?i gian", example: "??? ??? - Th?i gian tr�i nhanh" },
-  { id: "b8", korean: "??", vietnamese: "Th? gi?i", category: "�?a di?m", example: "???? ?? - Nh?t th? gi?i" },
-  { id: "b9", korean: "?", vietnamese: "Ng�i sao", category: "Thi�n nhi�n", example: "?? ??? - Sao s�ng" },
-  { id: "b10", korean: "?", vietnamese: "�nh s�ng", category: "Thi�n nhi�n", example: "?? ?? - To? s�ng" },
-  { id: "b11", korean: "?", vietnamese: "Con du?ng", category: "�?a di?m", example: "?? ??? - �i b? tr�n du?ng" },
-  { id: "b12", korean: "?", vietnamese: "L?i n�i", category: "Giao ti?p", example: "?? ?? - N�i chuy?n" },
-  { id: "b13", korean: "??", vietnamese: "K� ?c", category: "Tu duy", example: "??? ?? - Nh? ra r?i" },
-  { id: "b14", korean: "??", vietnamese: "L?n d?u ti�n", category: "Th?i gian", example: "?? ??? - G?p l?n d?u" },
-  { id: "b15", korean: "??", vietnamese: "C?m gi�c", category: "C?m x�c", example: "??? ??? - C?m gi�c t?t" },
-  { id: "b16", korean: "???", vietnamese: "Gi?ng n�i", category: "Giao ti?p", example: "???? ??? - Gi?ng d?p" },
-  { id: "b17", korean: "??", vietnamese: "T�n", category: "Giao ti?p", example: "??? ???? - T�n l� g�?" },
-  { id: "b18", korean: "??", vietnamese: "N? cu?i", category: "C?m x�c", example: "??? ??? - N? cu?i d?p" },
-  { id: "b19", korean: "?", vietnamese: "��m", category: "Th?i gian", example: "?? ??? - ��m khuya r?i" },
-  { id: "b20", korean: "??", vietnamese: "Ch�ng ta", category: "�?i t?", example: "?? ?? ?? - Ch�ng ta c�ng di" },
-  { id: "b21", korean: "??", vietnamese: "H?nh ph�c", category: "C?m x�c", example: "???? - H?nh ph�c l?m" },
-  { id: "b22", korean: "??", vietnamese: "N? cu?i/m?m cu?i", category: "C?m x�c", example: "??? ??? - M?m cu?i" },
-  { id: "b23", korean: "??", vietnamese: "B�i h�t / h�t", category: "�m nh?c", example: "??? ??? - H�t b�i h�t" },
-  { id: "b24", korean: "?", vietnamese: "�i?u nh?y", category: "�m nh?c", example: "?? ?? - Nh?y m�a" },
-  { id: "b25", korean: "??", vietnamese: "�m nh?c", category: "�m nh?c", example: "??? ??? - Th�ch �m nh?c" },
-  { id: "b26", korean: "??", vietnamese: "Ng?c / tr�i tim", category: "Co th?", example: "??? ??? - Tim d?p r?n" },
-  { id: "b27", korean: "?", vietnamese: "Hoi th?", category: "Co th?", example: "?? ??? - Ngh?t th?" },
-  { id: "b28", korean: "?", vietnamese: "T�i / M�nh", category: "�?i t?", example: "?? ????? - T�i l� h?c sinh" },
-  { id: "b29", korean: "?", vietnamese: "B?n / C?u", category: "�?i t?", example: "?? ??? - T�i th�ch c?u" },
-  { id: "b30", korean: "??", vietnamese: "M?t m�nh", category: "Tr?ng th�i", example: "?? ??? - ? m?t m�nh" },
+  { id: "b1", korean: "사랑", vietnamese: "Tình yêu", category: "Cảm xúc", example: "사랑해요 - Tôi yêu bạn" },
+  { id: "b2", korean: "마음", vietnamese: "Tâm trồng / lòng", category: "Cảm xúc", example: "마음이 아파요 - Lòng tôi đau" },
+  { id: "b3", korean: "눈", vietnamese: "Mắt / tuyết", category: "Cơ thể", example: "눈이 예뻐요 - Mắt đẹp quá" },
+  { id: "b4", korean: "손", vietnamese: "Bàn tay", category: "Cơ thể", example: "손을 잡아요 - Nắm tay" },
+  { id: "b5", korean: "하늘", vietnamese: "Bầu trời", category: "Thiên nhiên", example: "하늘이 맑아요 - Trời trong xanh" },
+  { id: "b6", korean: "꿈", vietnamese: "Giấc mơ", category: "Cuộc sống", example: "꿈을 꿔요 - Mơ ước" },
+  { id: "b7", korean: "시간", vietnamese: "Thời gian", category: "Thời gian", example: "시간이 빨라요 - Thời gian trôi nhanh" },
+  { id: "b8", korean: "세상", vietnamese: "Thế giới", category: "Địa điểm", example: "세상에서 제일 - Nhất thế giới" },
+  { id: "b9", korean: "별", vietnamese: "Ngôi sao", category: "Thiên nhiên", example: "별이 빛나요 - Sao sáng" },
+  { id: "b10", korean: "빛", vietnamese: "Ánh sáng", category: "Thiên nhiên", example: "빛이 나요 - Toả sáng" },
+  { id: "b11", korean: "길", vietnamese: "Con đường", category: "Địa điểm", example: "길을 걸어요 - Đi bộ trên đường" },
+  { id: "b12", korean: "말", vietnamese: "Lời nói", category: "Giao tiếp", example: "말을 해요 - Nói chuyện" },
+  { id: "b13", korean: "기억", vietnamese: "Ký ức", category: "Tư duy", example: "기억이 나요 - Nhớ ra rồi" },
+  { id: "b14", korean: "처음", vietnamese: "Lần đầu tiên", category: "Thời gian", example: "처음 봤어요 - Gặp lần đầu" },
+  { id: "b15", korean: "느낌", vietnamese: "Cảm giác", category: "Cảm xúc", example: "느낌이 좋아요 - Cảm giác tốt" },
+  { id: "b16", korean: "목소리", vietnamese: "Giọng nói", category: "Giao tiếp", example: "목소리가 예뻐요 - Giọng đẹp" },
+  { id: "b17", korean: "이름", vietnamese: "Tên", category: "Giao tiếp", example: "이름이 뭐예요? - Tên là gì?" },
+  { id: "b18", korean: "웃음", vietnamese: "Nụ cười", category: "Cảm xúc", example: "웃음이 예뻐요 - Nụ cười đẹp" },
+  { id: "b19", korean: "밤", vietnamese: "Đêm", category: "Thời gian", example: "밤이 깊어요 - Đêm khuya rồi" },
+  { id: "b20", korean: "우리", vietnamese: "Chúng ta", category: "Đại từ", example: "우리 같이 가요 - Chúng ta cùng đi" },
+  { id: "b21", korean: "행복", vietnamese: "Hạnh phúc", category: "Cảm xúc", example: "행복해요 - Hạnh phúc lắm" },
+  { id: "b22", korean: "미소", vietnamese: "Nụ cười/mỉm cười", category: "Cảm xúc", example: "미소를 지어요 - Mỉm cười" },
+  { id: "b23", korean: "노래", vietnamese: "Bài hát / hát", category: "Âm nhạc", example: "노래를 불러요 - Hát bài hát" },
+  { id: "b24", korean: "춤", vietnamese: "Điệu nhảy", category: "Âm nhạc", example: "춤을 춰요 - Nhảy múa" },
+  { id: "b25", korean: "음악", vietnamese: "Âm nhạc", category: "Âm nhạc", example: "음악이 좋아요 - Thích âm nhạc" },
+  { id: "b26", korean: "가슴", vietnamese: "Ngực / trái tim", category: "Cơ thể", example: "가슴이 뛰어요 - Tim đập rộn" },
+  { id: "b27", korean: "숨", vietnamese: "Hơi thở", category: "Cơ thể", example: "숨이 막혀요 - Nghẹt thở" },
+  { id: "b28", korean: "나", vietnamese: "Tôi / Mình", category: "Đại từ", example: "나는 학생이에요 - Tôi là học sinh" },
+  { id: "b29", korean: "너", vietnamese: "Bạn / Cậu", category: "Đại từ", example: "너를 좋아해 - Tôi thích cậu" },
+  { id: "b30", korean: "혼자", vietnamese: "Một mình", category: "Trạng thái", example: "혼자 있어요 - Ở một mình" },
 ];
 
-// --- Match engine --------------------------------------------------------------
+// ─── Match engine ──────────────────────────────────────────────────────────────
 function matchEpsToLyrics(song: MelonSong, epsWords: EpsWord[]): MatchedWord[] {
   const lines = song.lyrics.split("\n").filter((l) => l.trim().length > 0);
   const matches: MatchedWord[] = [];
@@ -94,13 +94,13 @@ function matchEpsToLyrics(song: MelonSong, epsWords: EpsWord[]): MatchedWord[] {
   return matches;
 }
 
-// --- Main Page -----------------------------------------------------------------
-const CATEGORIES = ["T?t c?", "C?m x�c", "Thi�n nhi�n", "Giao ti?p", "Th?i gian", "�?i t?", "Co th?", "�m nh?c"];
+// ─── Main Page ─────────────────────────────────────────────────────────────────
+const CATEGORIES = ["Tất cả", "Cảm xúc", "Thiên nhiên", "Giao tiếp", "Thời gian", "Đại từ", "Cơ thể", "Âm nhạc"];
 
 export default function EpsMelonPage() {
   const navigate = useNavigate();
   const [selectedSong, setSelectedSong] = useState<MelonSong | null>(null);
-  const [categoryFilter, setCategoryFilter] = useState("T?t c?");
+  const [categoryFilter, setCategoryFilter] = useState("Tất cả");
   const [learnedIds, setLearnedIds] = useState<Set<string>>(() => {
     try {
       const raw = localStorage.getItem("eps_melon_learned");
@@ -127,7 +127,7 @@ export default function EpsMelonPage() {
       ? matchEpsToLyrics(selectedSong, epsWords)
       : epsWords.map((w) => ({ epsWord: w, matchedIn: "", context: "" }));
 
-    const filtered = categoryFilter === "T?t c?"
+    const filtered = categoryFilter === "Tất cả"
       ? base
       : base.filter((m) => m.epsWord.category === categoryFilter);
 
@@ -179,12 +179,12 @@ export default function EpsMelonPage() {
           </div>
           <div className="min-w-0">
             <p className="text-white font-bold text-sm leading-tight">EPS + Melon</p>
-            <p className="text-app-text-muted text-[10px] hidden sm:block">H?c t? v?ng EPS-TOPIK qua l?i b�i h�t K-pop</p>
+            <p className="text-app-text-muted text-[10px] hidden sm:block">Học từ vựng EPS-TOPIK qua lời bài hát K-pop</p>
           </div>
         </div>
         <div className="flex-shrink-0 flex items-center gap-1.5 text-xs text-app-accent-success/70">
           <i className="ri-checkbox-circle-line" />
-          <span className="hidden sm:inline">{learnedCount}/{totalVocab} d� h?c</span>
+          <span className="hidden sm:inline">{learnedCount}/{totalVocab} đã học</span>
           <span className="sm:hidden">{learnedCount}/{totalVocab}</span>
         </div>
       </header>
@@ -200,9 +200,9 @@ export default function EpsMelonPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/70 via-black/40 to-transparent" />
           <div className="absolute inset-0 flex flex-col justify-center px-6">
-            <h1 className="text-white text-xl font-bold mb-1">EPS � K-pop Learning</h1>
+            <h1 className="text-white text-xl font-bold mb-1">EPS × K-pop Learning</h1>
             <p className="text-white/60 text-xs max-w-md leading-relaxed">
-              T? v?ng EPS-TOPIK xu?t hi?n trong l?i b�i h�t � h?c v?a th?c t?, v?a vui!
+              Từ vựng EPS-TOPIK xuất hiện trong lời bài hát — học vừa thực tế, vừa vui!
             </p>
           </div>
         </div>
@@ -210,14 +210,14 @@ export default function EpsMelonPage() {
         {/* Stats row */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
-            { icon: "ri-book-2-line", color: "text-app-accent-success", val: totalVocab, label: "T?ng t? EPS" },
-            { icon: "ri-music-2-line", color: "text-app-accent-primary", val: songMatches.length, label: "B�i c� t? EPS" },
-            { icon: "ri-checkbox-circle-line", color: "text-green-400", val: learnedCount, label: "�� h?c" },
+            { icon: "ri-book-2-line", color: "text-app-accent-success", val: totalVocab, label: "Tổng từ EPS" },
+            { icon: "ri-music-2-line", color: "text-app-accent-primary", val: songMatches.length, label: "Bài có từ EPS" },
+            { icon: "ri-checkbox-circle-line", color: "text-green-400", val: learnedCount, label: "Đã học" },
             {
               icon: "ri-percent-line",
               color: "text-orange-400",
               val: totalVocab > 0 ? `${Math.round((learnedCount / totalVocab) * 100)}%` : "0%",
-              label: "Ti?n d?",
+              label: "Tiến độ",
             },
           ].map((s) => (
             <div key={s.label} className="bg-app-surface/50 border border-app-border rounded-2xl p-3 text-center">
@@ -235,7 +235,7 @@ export default function EpsMelonPage() {
           <div className="w-full lg:w-64 flex-shrink-0">
             <div className="bg-app-surface/50 border border-app-border rounded-2xl overflow-hidden">
               <div className="px-4 py-3 border-b border-app-border">
-                <p className="text-white/60 text-xs font-semibold tracking-normal">B�i h�t</p>
+                <p className="text-white/60 text-xs font-semibold tracking-normal">Bài hát</p>
               </div>
 
               {/* All words option */}
@@ -249,8 +249,8 @@ export default function EpsMelonPage() {
                   <i className="ri-list-check text-app-accent-success text-sm" />
                 </div>
                 <div className="flex-1 text-left min-w-0">
-                  <p className="text-sm font-medium truncate">T?t c? t? EPS</p>
-                  <p className="text-[10px] text-app-text-muted">{epsWords.length} t?</p>
+                  <p className="text-sm font-medium truncate">Tất cả từ EPS</p>
+                  <p className="text-[10px] text-app-text-muted">{epsWords.length} từ</p>
                 </div>
                 {!selectedSong && <i className="ri-arrow-right-s-line text-app-accent-success flex-shrink-0" />}
               </button>
@@ -292,13 +292,13 @@ export default function EpsMelonPage() {
             <div className="mt-3 bg-emerald-500/5 border border-emerald-500/15 rounded-2xl p-4">
               <div className="flex items-center gap-2 mb-2">
                 <i className="ri-information-line text-app-accent-success text-sm" />
-                <p className="text-app-accent-success/80 text-xs font-semibold">C�ch h?c hi?u qu?</p>
+                <p className="text-app-accent-success/80 text-xs font-semibold">Cách học hiệu quả</p>
               </div>
               <ol className="text-app-text-secondary text-[10px] leading-relaxed space-y-1 list-decimal list-inside">
-                <li>Ch?n b�i h�t y�u th�ch</li>
-                <li>Xem t? EPS xu?t hi?n trong l?i</li>
-                <li>Nh?n th? d? xem nghia & v� d?</li>
-                <li>Nh?n ? khi d� nh?</li>
+                <li>Chọn bài hát yêu thích</li>
+                <li>Xem từ EPS xuất hiện trong lời</li>
+                <li>Nhấn thẻ để xem nghĩa & ví dụ</li>
+                <li>Nhấn ✓ khi đã nhớ</li>
               </ol>
             </div>
           </div>
@@ -320,7 +320,7 @@ export default function EpsMelonPage() {
                 </div>
                 <div className="text-right flex-shrink-0">
                   <p className="text-app-accent-primary font-bold text-lg">{activeMatches.length}</p>
-                  <p className="text-app-text-muted text-[10px]">t? EPS</p>
+                  <p className="text-app-text-muted text-[10px]">từ EPS</p>
                 </div>
               </div>
             )}
@@ -334,7 +334,7 @@ export default function EpsMelonPage() {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="T�m t? v?ng..."
+                  placeholder="Tìm từ vựng..."
                   className="w-full bg-app-card/50 border border-app-border rounded-xl pl-9 pr-4 py-2 text-white/80 text-sm placeholder-white/25 focus:outline-none focus:border-white/20 transition-colors"
                 />
               </div>
@@ -362,11 +362,11 @@ export default function EpsMelonPage() {
                 <div className="w-14 h-14 flex items-center justify-center bg-app-card/50 rounded-2xl mb-3">
                   <i className="ri-search-line text-app-text-muted text-xl" />
                 </div>
-                <p className="text-app-text-secondary text-sm">Kh�ng t�m th?y t? v?ng n�o</p>
+                <p className="text-app-text-secondary text-sm">Không tìm thấy từ vựng nào</p>
                 <p className="text-app-text-muted text-xs mt-1">
                   {selectedSong
-                    ? "B�i h�t n�y chua c� t? EPS ph� h?p"
-                    : "Th? thay d?i b? l?c"}
+                    ? "Bài hát này chưa có từ EPS phù hợp"
+                    : "Thử thay đổi bộ lọc"}
                 </p>
               </div>
             ) : (
@@ -399,14 +399,14 @@ export default function EpsMelonPage() {
                           {epsWord.category}
                         </span>
 
-                        {/* Korean word � always shown */}
+                        {/* Korean word — always shown */}
                         <p className={`text-xl font-bold mb-1 ${isLearned ? "text-emerald-300" : "text-app-accent-primary"}`}>
                           {epsWord.korean}
                         </p>
 
-                        {/* Meaning & example � revealed on flip */}
+                        {/* Meaning & example — revealed on flip */}
                         {!isFlipped && !isLearned ? (
-                          <p className="text-app-text-muted text-xs italic">Nh?n d? xem nghia</p>
+                          <p className="text-app-text-muted text-xs italic">Nhấn để xem nghĩa</p>
                         ) : (
                           <>
                             <p className="text-white/75 text-sm font-medium mb-2">{epsWord.vietnamese}</p>
@@ -419,9 +419,9 @@ export default function EpsMelonPage() {
                         {/* Context from lyrics */}
                         {context && (isFlipped || isLearned) && (
                           <div className="mt-2 pt-2 border-t border-app-border">
-                            <p className="text-app-text-muted text-[10px] mb-1 tracking-wide">Trong l?i b�i h�t</p>
+                            <p className="text-app-text-muted text-[10px] mb-1 tracking-wide">Trong lời bài hát</p>
                             <p className="text-white/50 text-xs leading-relaxed italic">
-                              {context.length > 60 ? context.slice(0, 60) + "�" : context}
+                              {context.length > 60 ? context.slice(0, 60) + "…" : context}
                             </p>
                           </div>
                         )}
@@ -438,9 +438,9 @@ export default function EpsMelonPage() {
                           }`}
                         >
                           {isLearned ? (
-                            <><i className="ri-close-line mr-1" />B? d�nh d?u</>
+                            <><i className="ri-close-line mr-1" />Bỏ đánh dấu</>
                           ) : (
-                            <><i className="ri-checkbox-circle-line mr-1" />�� h?c r?i!</>
+                            <><i className="ri-checkbox-circle-line mr-1" />Đã học rồi!</>
                           )}
                         </button>
                       )}
@@ -454,9 +454,9 @@ export default function EpsMelonPage() {
             {activeMatches.length > 0 && (
               <div className="mt-6 bg-app-surface/50 border border-app-border rounded-2xl p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-white/50 text-xs">Ti?n d? h?c EPS qua K-pop</span>
+                  <span className="text-white/50 text-xs">Tiến độ học EPS qua K-pop</span>
                   <span className="text-app-accent-success text-xs font-bold">
-                    {learnedCount}/{totalVocab} t?
+                    {learnedCount}/{totalVocab} từ
                   </span>
                 </div>
                 <div className="h-2 bg-white/8 rounded-full overflow-hidden">
@@ -467,7 +467,7 @@ export default function EpsMelonPage() {
                 </div>
                 {learnedCount > 0 && (
                   <p className="text-app-text-muted text-[10px] mt-2 text-center">
-                    ?? B?n d� h?c du?c {learnedCount} t? EPS t? K-pop. Ti?p t?c ph�t huy!
+                    🎉 Bạn đã học được {learnedCount} từ EPS từ K-pop. Tiếp tục phát huy!
                   </p>
                 )}
               </div>

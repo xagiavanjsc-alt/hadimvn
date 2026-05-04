@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+﻿import { useState, useMemo, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -9,10 +9,10 @@ import { vocabularyData, VOCAB_CATEGORIES, type VocabItem } from "@/mocks/vocabu
 const LEVELS = ["A1", "A2", "B1", "B2"] as const;
 const LEVEL_COLORS: Record<string, string> = { A1: "#34d399", A2: "app-accent-primary", B1: "#fb923c", B2: "#f87171" };
 const POS_LABELS: Record<string, string> = {
-  noun: "Danh t?", verb: "�?ng t?", adjective: "T�nh t?", adverb: "Tr?ng t?", expression: "Bi?u d?t",
+  noun: "Danh từ", verb: "Động từ", adjective: "Tính từ", adverb: "Trạng từ", expression: "Biểu đạt",
 };
 
-// --- Mini Flashcard Modal -------------------------------------------------
+// ─── Mini Flashcard Modal ─────────────────────────────────────────────────
 function FlashcardModal({
   items, startIdx, onClose, masteredIds, onMaster,
 }: {
@@ -46,7 +46,7 @@ function FlashcardModal({
               <p className="text-4xl font-bold text-white mb-2">{card.korean}</p>
               <p className="text-app-text-muted text-sm font-mono">[{card.reading}]</p>
               <button onClick={e => { e.stopPropagation(); speakKorean(); }} className="mt-3 text-[10px] text-app-text-muted hover:text-white/50 cursor-pointer bg-app-card/50 px-2.5 py-1 rounded-lg whitespace-nowrap"><i className="ri-volume-up-line mr-1"></i>Nghe</button>
-              <p className="mt-4 text-white/15 text-[10px]">Nh?n d? xem nghia</p>
+              <p className="mt-4 text-white/15 text-[10px]">Nhấn để xem nghĩa</p>
             </div>
             <div className="absolute inset-0 rounded-xl border border-app-accent-primary/20 bg-[#13161e] flex flex-col items-center justify-center p-6 text-center" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
               <p className="text-2xl font-bold text-app-accent-primary mb-3">{card.vietnamese}</p>
@@ -56,7 +56,7 @@ function FlashcardModal({
         </div>
         <div className="flex gap-2 mb-3">
           <button onClick={() => { if (idx > 0) setIdx(i => i - 1); }} disabled={idx === 0} className="flex-1 py-2.5 rounded-xl border border-app-border text-app-text-secondary text-sm disabled:opacity-30 hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"><i className="ri-arrow-left-line"></i></button>
-          <button onClick={() => onMaster(card.id)} className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap ${masteredIds.includes(card.id) ? "bg-app-accent-success/15 text-app-accent-success border border-emerald-500/25" : "bg-app-card/50 text-white/50 border border-app-border hover:bg-white/8"}`}>{masteredIds.includes(card.id) ? "? �� thu?c" : "��nh d?u thu?c"}</button>
+          <button onClick={() => onMaster(card.id)} className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap ${masteredIds.includes(card.id) ? "bg-app-accent-success/15 text-app-accent-success border border-emerald-500/25" : "bg-app-card/50 text-white/50 border border-app-border hover:bg-white/8"}`}>{masteredIds.includes(card.id) ? "✓ Đã thuộc" : "Đánh dấu thuộc"}</button>
           <button onClick={() => { if (idx < items.length - 1) setIdx(i => i + 1); }} disabled={idx === items.length - 1} className="flex-1 py-2.5 rounded-xl border border-app-border text-app-text-secondary text-sm disabled:opacity-30 hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"><i className="ri-arrow-right-line"></i></button>
         </div>
       </div>
@@ -64,7 +64,7 @@ function FlashcardModal({
   );
 }
 
-// --- Vocab Card -----------------------------------------------------------
+// ─── Vocab Card ───────────────────────────────────────────────────────────
 function VocabCard({
   item, isMastered, isFavorite, onMaster, onFavorite, onFlashcard,
 }: {
@@ -97,7 +97,7 @@ function VocabCard({
           <button onClick={speakKorean} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 cursor-pointer transition-colors"><i className="ri-volume-up-line text-app-text-secondary text-xs"></i></button>
           <button onClick={onFlashcard} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 cursor-pointer transition-colors"><i className="ri-stack-line text-app-text-secondary text-xs"></i></button>
           {/* Favorite button */}
-          <button onClick={() => onFavorite(item.id)} title={isFavorite ? "B? y�u th�ch" : "Luu t? kh�"} className={`w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer transition-colors ${isFavorite ? "bg-app-accent-primary/15" : "bg-app-card/50 hover:bg-app-card/70"}`}>
+          <button onClick={() => onFavorite(item.id)} title={isFavorite ? "Bỏ yêu thích" : "Lưu từ khó"} className={`w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer transition-colors ${isFavorite ? "bg-app-accent-primary/15" : "bg-app-card/50 hover:bg-app-card/70"}`}>
             <i className={`${isFavorite ? "ri-bookmark-fill text-app-accent-primary" : "ri-bookmark-line text-app-text-muted"} text-xs`}></i>
           </button>
           <button onClick={() => onMaster(item.id)} className={`w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer transition-colors ${isMastered ? "bg-app-accent-success/15" : "bg-app-card/50 hover:bg-app-card/70"}`}>
@@ -113,7 +113,7 @@ function VocabCard({
         </div>
       )}
       <button onClick={() => setShowExample(s => !s)} className="text-[10px] text-app-text-muted hover:text-white/50 cursor-pointer transition-colors whitespace-nowrap">
-        {showExample ? "?n v� d?" : "Xem v� d?"}
+        {showExample ? "Ẩn ví dụ" : "Xem ví dụ"}
         {showExample ? <i className="ri-arrow-up-s-line ml-1"></i> : <i className="ri-arrow-down-s-line ml-1"></i>}
       </button>
       {showExample && (
@@ -126,7 +126,7 @@ function VocabCard({
   );
 }
 
-// --- Main Page ------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────
 export default function VocabularyPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -206,23 +206,23 @@ export default function VocabularyPage() {
 
   return (
     <DashboardLayout
-      title="T? v?ng t?ng h?p"
-      subtitle="Ph�n lo?i theo ch? d? v� c?p d? TOPIK � h?c flashcard ngay t?i ch?"
+      title="Từ vựng tổng hợp"
+      subtitle="Phân loại theo chủ đề và cấp độ TOPIK — học flashcard ngay tại chỗ"
       actions={
         <div className="flex items-center gap-3">
           {user && syncStatus !== "idle" && (
             <span className={`text-xs flex items-center gap-1 ${syncStatus === "saving" ? "text-app-text-secondary" : "text-app-accent-success"}`}>
               <i className={`${syncStatus === "saving" ? "ri-loader-4-line animate-spin" : "ri-cloud-line"} text-sm`}></i>
-              {syncStatus === "saving" ? "�ang luu..." : "�� luu cloud"}
+              {syncStatus === "saving" ? "Đang lưu..." : "Đã lưu cloud"}
             </span>
           )}
-          {!user && <span className="text-app-text-muted text-xs"><i className="ri-cloud-off-line mr-1"></i>�ang nh?p d? luu cloud</span>}
+          {!user && <span className="text-app-text-muted text-xs"><i className="ri-cloud-off-line mr-1"></i>Đăng nhập để lưu cloud</span>}
           {totalFavorites > 0 && (
             <button
               onClick={() => navigate("/vocab-favorites")}
               className="flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 border border-app-accent-primary/30 text-app-accent-primary font-bold text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
             >
-              <i className="ri-bookmark-fill"></i>�n t? y�u th�ch ({totalFavorites})
+              <i className="ri-bookmark-fill"></i>Ôn từ yêu thích ({totalFavorites})
             </button>
           )}
           <button
@@ -230,7 +230,7 @@ export default function VocabularyPage() {
             disabled={filteredItems.length === 0}
             className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
-            <i className="ri-play-line"></i>H?c Flashcard ({filteredItems.length})
+            <i className="ri-play-line"></i>Học Flashcard ({filteredItems.length})
           </button>
         </div>
       }
@@ -238,10 +238,10 @@ export default function VocabularyPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "T?ng t? v?ng", value: vocabularyData.length, icon: "ri-translate-2", color: "app-accent-primary" },
-          { label: "�� thu?c", value: totalMastered, icon: "ri-checkbox-circle-line", color: "#34d399" },
-          { label: "T? y�u th�ch", value: totalFavorites, icon: "ri-bookmark-fill", color: "#f472b6" },
-          { label: "Ti?n d?", value: `${overallPct}%`, icon: "ri-pie-chart-line", color: "#a78bfa" },
+          { label: "Tổng từ vựng", value: vocabularyData.length, icon: "ri-translate-2", color: "app-accent-primary" },
+          { label: "Đã thuộc", value: totalMastered, icon: "ri-checkbox-circle-line", color: "#34d399" },
+          { label: "Từ yêu thích", value: totalFavorites, icon: "ri-bookmark-fill", color: "#f472b6" },
+          { label: "Tiến độ", value: `${overallPct}%`, icon: "ri-pie-chart-line", color: "#a78bfa" },
         ].map(stat => (
           <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
@@ -258,27 +258,27 @@ export default function VocabularyPage() {
       {/* Filters */}
       <div className="flex items-center gap-3 mb-5 flex-wrap">
         <div className="flex items-center bg-app-card/50 rounded-xl p-1">
-          <button onClick={() => setSelectedLevel("all")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>T?t c?</button>
+          <button onClick={() => setSelectedLevel("all")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>Tất cả</button>
           {LEVELS.map(lv => (
             <button key={lv} onClick={() => setSelectedLevel(lv)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === lv ? "text-app-bg font-bold" : "text-app-text-secondary hover:text-white/60"}`} style={selectedLevel === lv ? { backgroundColor: LEVEL_COLORS[lv] } : {}}>{lv}</button>
           ))}
         </div>
         <div className="flex items-center bg-app-card/50 rounded-xl p-1">
-          {([["all", "T?t c?"], ["unmastered", "Chua thu?c"], ["favorites", `Y�u th�ch (${totalFavorites})`]] as [string, string][]).map(([f, label]) => (
+          {([["all", "Tất cả"], ["unmastered", "Chưa thuộc"], ["favorites", `Yêu thích (${totalFavorites})`]] as [string, string][]).map(([f, label]) => (
             <button key={f} onClick={() => setFilterMode(f as "all" | "unmastered" | "favorites")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${filterMode === f ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>{label}</button>
           ))}
         </div>
         <div className="flex items-center gap-2 bg-app-card/50 border border-app-border rounded-xl px-3 py-2 flex-1 min-w-[180px]">
           <i className="ri-search-line text-app-text-muted text-sm"></i>
-          <input type="text" placeholder="T�m t? v?ng..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder-white/20" />
+          <input type="text" placeholder="Tìm từ vựng..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder-white/20" />
         </div>
-        <p className="text-app-text-muted text-xs whitespace-nowrap">{filteredItems.length} t?</p>
+        <p className="text-app-text-muted text-xs whitespace-nowrap">{filteredItems.length} từ</p>
       </div>
 
       {/* Category tabs */}
       <div className="flex items-center gap-2 mb-5 flex-wrap">
         <button onClick={() => setSelectedCategory("all")} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedCategory === "all" ? "bg-app-accent-primary text-app-bg" : "bg-app-card/50 text-app-text-secondary hover:text-white/60"}`}>
-          <i className="ri-apps-line text-xs"></i>T?t c?
+          <i className="ri-apps-line text-xs"></i>Tất cả
         </button>
         {VOCAB_CATEGORIES.map(cat => (
           <button key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedCategory === cat.id ? "text-app-bg" : "bg-app-card/50 text-app-text-secondary hover:text-white/60"}`} style={selectedCategory === cat.id ? { backgroundColor: cat.color } : {}}>
@@ -291,8 +291,8 @@ export default function VocabularyPage() {
       {filterMode === "favorites" && filteredItems.length === 0 && (
         <div className="text-center py-16 bg-app-bg border border-app-border rounded-2xl">
           <i className="ri-bookmark-line text-app-text-muted text-3xl mb-3 block"></i>
-          <p className="text-app-text-muted text-sm">Chua c� t? y�u th�ch n�o</p>
-          <p className="text-app-text-muted text-xs mt-1">Nh?n n�t <i className="ri-bookmark-line"></i> tr�n th? t? d? luu t? kh�</p>
+          <p className="text-app-text-muted text-sm">Chưa có từ yêu thích nào</p>
+          <p className="text-app-text-muted text-xs mt-1">Nhấn nút <i className="ri-bookmark-line"></i> trên thẻ từ để lưu từ khó</p>
         </div>
       )}
 
@@ -314,7 +314,7 @@ export default function VocabularyPage() {
       ) : filterMode !== "favorites" ? (
         <div className="text-center py-16 bg-app-bg border border-app-border rounded-2xl">
           <i className="ri-search-line text-app-text-muted text-3xl mb-3 block"></i>
-          <p className="text-app-text-muted text-sm">Kh�ng t�m th?y t? v?ng n�o</p>
+          <p className="text-app-text-muted text-sm">Không tìm thấy từ vựng nào</p>
         </div>
       ) : null}
 

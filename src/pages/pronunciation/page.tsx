@@ -1,8 +1,8 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+﻿import { useState, useRef, useCallback, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
-// --- Types ----------------------------------------------------------------
+// ─── Types ────────────────────────────────────────────────────────────────
 interface PronunciationItem {
   id: string;
   korean: string;
@@ -20,43 +20,43 @@ interface ScoreRecord {
   date: string;
 }
 
-// --- Data -----------------------------------------------------------------
+// ─── Data ─────────────────────────────────────────────────────────────────
 const CATEGORIES = [
-  { id: "all", label: "T?t c?", icon: "ri-apps-line", color: "app-accent-primary" },
-  { id: "greeting", label: "Ch�o h?i", icon: "ri-chat-smile-2-line", color: "#34d399" },
-  { id: "safety", label: "An to�n", icon: "ri-shield-check-line", color: "#fb923c" },
-  { id: "workplace", label: "C�ng s?", icon: "ri-briefcase-line", color: "#38bdf8" },
-  { id: "daily", label: "H�ng ng�y", icon: "ri-home-smile-line", color: "#a78bfa" },
-  { id: "numbers", label: "S? d?m", icon: "ri-hashtag", color: "#ec4899" },
+  { id: "all", label: "Tất cả", icon: "ri-apps-line", color: "app-accent-primary" },
+  { id: "greeting", label: "Chào hỏi", icon: "ri-chat-smile-2-line", color: "#34d399" },
+  { id: "safety", label: "An toàn", icon: "ri-shield-check-line", color: "#fb923c" },
+  { id: "workplace", label: "Công sở", icon: "ri-briefcase-line", color: "#38bdf8" },
+  { id: "daily", label: "Hàng ngày", icon: "ri-home-smile-line", color: "#a78bfa" },
+  { id: "numbers", label: "Số đếm", icon: "ri-hashtag", color: "#ec4899" },
 ];
 
 const PRONUNCIATION_ITEMS: PronunciationItem[] = [
-  // Ch�o h?i
-  { id: "p1", korean: "?????", vietnamese: "Xin ch�o", romanization: "an-nyeong-ha-se-yo", category: "greeting", difficulty: "easy", tips: "Nh?n m?nh �m ti?t d?u ? (an). �m ? d?c nh? hon.", audioHint: "an-nyeong-ha-se-yo" },
-  { id: "p2", korean: "?????", vietnamese: "C?m on", romanization: "gam-sa-ham-ni-da", category: "greeting", difficulty: "easy", tips: "Ch� � ??? d?c l� 'ham-ni-da', kh�ng ph?i 'hap-ni-da'.", audioHint: "gam-sa-ham-ni-da" },
-  { id: "p3", korean: "?????", vietnamese: "Xin l?i", romanization: "joe-song-ham-ni-da", category: "greeting", difficulty: "medium", tips: "? d?c l� 'joe' (gi?ng 'choe'). ��y l� l?i xin l?i trang tr?ng.", audioHint: "joe-song-ham-ni-da" },
-  { id: "p4", korean: "?? ?????", vietnamese: "R?t vui du?c g?p b?n", romanization: "cheo-eum bwep-get-seum-ni-da", category: "greeting", difficulty: "hard", tips: "????? l� d?ng k�nh ng? c?a ??. �?c ch?m t?ng �m ti?t.", audioHint: "cheo-eum bwep-get-seum-ni-da" },
-  { id: "p5", korean: "???????", vietnamese: "B?n d� v?t v? r?i", romanization: "su-go-ha-syeot-seum-ni-da", category: "greeting", difficulty: "hard", tips: "????? l� qu� kh? k�nh ng?. �m ? d?c l� 'syeot'.", audioHint: "su-go-ha-syeot-seum-ni-da" },
-  // An to�n
-  { id: "p6", korean: "???? ?????", vietnamese: "H�y d?i mu b?o h?", romanization: "an-jeon-mo-reul cha-gyong-ha-se-yo", category: "safety", difficulty: "medium", tips: "?? d?c l� 'cha-gyong'. Ch� � li�n �m gi?a ??.", audioHint: "an-jeon-mo-reul cha-gyong-ha-se-yo" },
-  { id: "p7", korean: "?????", vietnamese: "Nguy hi?m", romanization: "wi-heom-ham-ni-da", category: "safety", difficulty: "easy", tips: "? d?c l� 'wi' (gi?ng 'uy'). ? d?c l� 'heom'.", audioHint: "wi-heom-ham-ni-da" },
-  { id: "p8", korean: "119? ?????", vietnamese: "H�y b�o 119", romanization: "il-il-gu-e sin-go-ha-se-yo", category: "safety", difficulty: "easy", tips: "119 d?c l� ??? (il-il-gu). ?? = b�o c�o.", audioHint: "il-il-gu-e sin-go-ha-se-yo" },
-  { id: "p9", korean: "????? ?????", vietnamese: "H�y th?t d�y an to�n", romanization: "an-jeon-bel-teu-reul cha-gyong-ha-se-yo", category: "safety", difficulty: "medium", tips: "?? l� t? mu?n ti?ng Anh 'belt'. �?c t? nhi�n nhu ti?ng H�n.", audioHint: "an-jeon-bel-teu-reul cha-gyong-ha-se-yo" },
-  // C�ng s?
-  { id: "p10", korean: "? ??????", vietnamese: "Nh? b?n gi�p d?", romanization: "jal bu-tak-deu-rim-ni-da", category: "workplace", difficulty: "medium", tips: "?????? l� d?ng k�nh ng? c?a ????. D�ng khi b?t d?u l�m vi?c.", audioHint: "jal bu-tak-deu-rim-ni-da" },
-  { id: "p11", korean: "?????. ?????", vietnamese: "Xin l?i, t�i d?n tr?", romanization: "joe-song-ham-ni-da. neu-jeot-seum-ni-da", category: "workplace", difficulty: "medium", tips: "????? = d� tr?. ? d?c l� 'neut', ? d?c l� 'eot'.", audioHint: "joe-song-ham-ni-da. neu-jeot-seum-ni-da" },
-  { id: "p12", korean: "???? ??????", vietnamese: "T�i d� n?p b�o c�o", romanization: "bo-go-seo-reul je-chul-haet-seum-ni-da", category: "workplace", difficulty: "hard", tips: "?? d?c l� 'je-chul'. ???? l� qu� kh? c?a ??.", audioHint: "bo-go-seo-reul je-chul-haet-seum-ni-da" },
-  // H�ng ng�y
-  { id: "p13", korean: "?????", vietnamese: "Bao nhi�u ti?n?", romanization: "eol-ma-ye-yo", category: "daily", difficulty: "easy", tips: "?? d?c l� 'eol-ma'. ?? l� du�i c�u h?i th�n m?t.", audioHint: "eol-ma-ye-yo" },
-  { id: "p14", korean: "??? ????", vietnamese: "? d�u v?y?", romanization: "eo-di-e i-sseo-yo", category: "daily", difficulty: "easy", tips: "??? d?c l� 'i-sseo-yo'. Ch� � �m d�i ?.", audioHint: "eo-di-e i-sseo-yo" },
-  { id: "p15", korean: "???? ?????", vietnamese: "Nh� v? sinh ? d�u?", romanization: "hwa-jang-si-ri eo-di-ye-yo", category: "daily", difficulty: "medium", tips: "??? d?c l� 'hwa-jang-sil'. Li�n �m: ?? ? 'si-ri'.", audioHint: "hwa-jang-si-ri eo-di-ye-yo" },
-  // S? d?m
-  { id: "p16", korean: "??, ?, ?, ?, ??", vietnamese: "M?t, hai, ba, b?n, nam", romanization: "ha-na, dul, set, net, da-seot", category: "numbers", difficulty: "easy", tips: "��y l� s? d?m thu?n H�n. D�ng khi d?m d? v?t, ngu?i.", audioHint: "ha-na dul set net da-seot" },
-  { id: "p17", korean: "?, ?, ?, ?, ?", vietnamese: "M?t, hai, ba, b?n, nam (H�n-H�n)", romanization: "il, i, sam, sa, o", category: "numbers", difficulty: "easy", tips: "��y l� s? d?m H�n-H�n. D�ng cho ti?n, th?i gian, t?ng l?u.", audioHint: "il i sam sa o" },
-  { id: "p18", korean: "? ????", vietnamese: "Mu?i ngh�n won", romanization: "man wo-nim-ni-da", category: "numbers", difficulty: "medium", tips: "? = 10.000. ? = won. ??? = l�. Li�n �m: ???? ? 'wo-nim-ni-da'.", audioHint: "man wo-nim-ni-da" },
+  // Chào hỏi
+  { id: "p1", korean: "안녕하세요", vietnamese: "Xin chào", romanization: "an-nyeong-ha-se-yo", category: "greeting", difficulty: "easy", tips: "Nhấn mạnh âm tiết đầu 안 (an). Âm 녕 đọc nhẹ hơn.", audioHint: "an-nyeong-ha-se-yo" },
+  { id: "p2", korean: "감사합니다", vietnamese: "Cảm ơn", romanization: "gam-sa-ham-ni-da", category: "greeting", difficulty: "easy", tips: "Chú ý 합니다 đọc là 'ham-ni-da', không phải 'hap-ni-da'.", audioHint: "gam-sa-ham-ni-da" },
+  { id: "p3", korean: "죄송합니다", vietnamese: "Xin lỗi", romanization: "joe-song-ham-ni-da", category: "greeting", difficulty: "medium", tips: "죄 đọc là 'joe' (giống 'choe'). Đây là lời xin lỗi trang trọng.", audioHint: "joe-song-ham-ni-da" },
+  { id: "p4", korean: "처음 뵙겠습니다", vietnamese: "Rất vui được gặp bạn", romanization: "cheo-eum bwep-get-seum-ni-da", category: "greeting", difficulty: "hard", tips: "뵙겠습니다 là dạng kính ngữ của 보다. Đọc chậm từng âm tiết.", audioHint: "cheo-eum bwep-get-seum-ni-da" },
+  { id: "p5", korean: "수고하셨습니다", vietnamese: "Bạn đã vất vả rồi", romanization: "su-go-ha-syeot-seum-ni-da", category: "greeting", difficulty: "hard", tips: "하셨습니다 là quá khứ kính ngữ. Âm 셨 đọc là 'syeot'.", audioHint: "su-go-ha-syeot-seum-ni-da" },
+  // An toàn
+  { id: "p6", korean: "안전모를 착용하세요", vietnamese: "Hãy đội mũ bảo hộ", romanization: "an-jeon-mo-reul cha-gyong-ha-se-yo", category: "safety", difficulty: "medium", tips: "착용 đọc là 'cha-gyong'. Chú ý liên âm giữa 모를.", audioHint: "an-jeon-mo-reul cha-gyong-ha-se-yo" },
+  { id: "p7", korean: "위험합니다", vietnamese: "Nguy hiểm", romanization: "wi-heom-ham-ni-da", category: "safety", difficulty: "easy", tips: "위 đọc là 'wi' (giống 'uy'). 험 đọc là 'heom'.", audioHint: "wi-heom-ham-ni-da" },
+  { id: "p8", korean: "119에 신고하세요", vietnamese: "Hãy báo 119", romanization: "il-il-gu-e sin-go-ha-se-yo", category: "safety", difficulty: "easy", tips: "119 đọc là 일일구 (il-il-gu). 신고 = báo cáo.", audioHint: "il-il-gu-e sin-go-ha-se-yo" },
+  { id: "p9", korean: "안전벨트를 착용하세요", vietnamese: "Hãy thắt dây an toàn", romanization: "an-jeon-bel-teu-reul cha-gyong-ha-se-yo", category: "safety", difficulty: "medium", tips: "벨트 là từ mượn tiếng Anh 'belt'. Đọc tự nhiên như tiếng Hàn.", audioHint: "an-jeon-bel-teu-reul cha-gyong-ha-se-yo" },
+  // Công sở
+  { id: "p10", korean: "잘 부탁드립니다", vietnamese: "Nhờ bạn giúp đỡ", romanization: "jal bu-tak-deu-rim-ni-da", category: "workplace", difficulty: "medium", tips: "부탁드립니다 là dạng kính ngữ của 부탁하다. Dùng khi bắt đầu làm việc.", audioHint: "jal bu-tak-deu-rim-ni-da" },
+  { id: "p11", korean: "죄송합니다. 늦었습니다", vietnamese: "Xin lỗi, tôi đến trễ", romanization: "joe-song-ham-ni-da. neu-jeot-seum-ni-da", category: "workplace", difficulty: "medium", tips: "늦었습니다 = đã trễ. 늦 đọc là 'neut', 었 đọc là 'eot'.", audioHint: "joe-song-ham-ni-da. neu-jeot-seum-ni-da" },
+  { id: "p12", korean: "보고서를 제출했습니다", vietnamese: "Tôi đã nộp báo cáo", romanization: "bo-go-seo-reul je-chul-haet-seum-ni-da", category: "workplace", difficulty: "hard", tips: "제출 đọc là 'je-chul'. 했습니다 là quá khứ của 하다.", audioHint: "bo-go-seo-reul je-chul-haet-seum-ni-da" },
+  // Hàng ngày
+  { id: "p13", korean: "얼마예요?", vietnamese: "Bao nhiêu tiền?", romanization: "eol-ma-ye-yo", category: "daily", difficulty: "easy", tips: "얼마 đọc là 'eol-ma'. 예요 là đuôi câu hỏi thân mật.", audioHint: "eol-ma-ye-yo" },
+  { id: "p14", korean: "어디에 있어요?", vietnamese: "Ở đâu vậy?", romanization: "eo-di-e i-sseo-yo", category: "daily", difficulty: "easy", tips: "있어요 đọc là 'i-sseo-yo'. Chú ý âm đôi 있.", audioHint: "eo-di-e i-sseo-yo" },
+  { id: "p15", korean: "화장실이 어디예요?", vietnamese: "Nhà vệ sinh ở đâu?", romanization: "hwa-jang-si-ri eo-di-ye-yo", category: "daily", difficulty: "medium", tips: "화장실 đọc là 'hwa-jang-sil'. Liên âm: 실이 → 'si-ri'.", audioHint: "hwa-jang-si-ri eo-di-ye-yo" },
+  // Số đếm
+  { id: "p16", korean: "하나, 둘, 셋, 넷, 다섯", vietnamese: "Một, hai, ba, bốn, năm", romanization: "ha-na, dul, set, net, da-seot", category: "numbers", difficulty: "easy", tips: "Đây là số đếm thuần Hàn. Dùng khi đếm đồ vật, người.", audioHint: "ha-na dul set net da-seot" },
+  { id: "p17", korean: "일, 이, 삼, 사, 오", vietnamese: "Một, hai, ba, bốn, năm (Hán-Hàn)", romanization: "il, i, sam, sa, o", category: "numbers", difficulty: "easy", tips: "Đây là số đếm Hán-Hàn. Dùng cho tiền, thời gian, tầng lầu.", audioHint: "il i sam sa o" },
+  { id: "p18", korean: "만 원입니다", vietnamese: "Mười nghìn won", romanization: "man wo-nim-ni-da", category: "numbers", difficulty: "medium", tips: "만 = 10.000. 원 = won. 입니다 = là. Liên âm: 원입니다 → 'wo-nim-ni-da'.", audioHint: "man wo-nim-ni-da" },
 ];
 
-// --- Score color helper ---------------------------------------------------
+// ─── Score color helper ───────────────────────────────────────────────────
 function getScoreColor(score: number) {
   if (score >= 85) return "#34d399";
   if (score >= 70) return "app-accent-primary";
@@ -65,13 +65,13 @@ function getScoreColor(score: number) {
 }
 
 function getScoreLabel(score: number) {
-  if (score >= 85) return "Xu?t s?c!";
-  if (score >= 70) return "Kh� t?t!";
-  if (score >= 55) return "C?n luy?n th�m";
-  return "H�y nghe m?u nhi?u hon";
+  if (score >= 85) return "Xuất sắc!";
+  if (score >= 70) return "Khá tốt!";
+  if (score >= 55) return "Cần luyện thêm";
+  return "Hãy nghe mẫu nhiều hơn";
 }
 
-// --- Recorder Component ---------------------------------------------------
+// ─── Recorder Component ───────────────────────────────────────────────────
 function PronunciationCard({
   item,
   bestScore,
@@ -160,7 +160,7 @@ function PronunciationCard({
   }, [audioUrl]);
 
   const diffColor = item.difficulty === "easy" ? "#34d399" : item.difficulty === "medium" ? "app-accent-primary" : "#f87171";
-  const diffLabel = item.difficulty === "easy" ? "D?" : item.difficulty === "medium" ? "Trung b�nh" : "Kh�";
+  const diffLabel = item.difficulty === "easy" ? "Dễ" : item.difficulty === "medium" ? "Trung bình" : "Khó";
 
   return (
     <div className="bg-app-bg border border-app-border rounded-2xl p-5">
@@ -172,7 +172,7 @@ function PronunciationCard({
           </span>
           {bestScore !== null && (
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${getScoreColor(bestScore)}15`, color: getScoreColor(bestScore) }}>
-              T?t nh?t: {bestScore}/100
+              Tốt nhất: {bestScore}/100
             </span>
           )}
         </div>
@@ -181,7 +181,7 @@ function PronunciationCard({
           className="flex items-center gap-1.5 text-[10px] text-app-text-muted hover:text-white/60 cursor-pointer transition-colors bg-app-card/50 hover:bg-app-card/70 px-2.5 py-1 rounded-lg whitespace-nowrap"
         >
           <i className="ri-volume-up-line text-xs"></i>
-          Nghe m?u
+          Nghe mẫu
         </button>
       </div>
 
@@ -206,7 +206,7 @@ function PronunciationCard({
             className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#06b6d4]/10 hover:bg-[#06b6d4]/20 text-[#06b6d4] text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-mic-line"></i>
-            Ghi �m
+            Ghi âm
           </button>
         )}
         {recordState === "recording" && (
@@ -215,13 +215,13 @@ function PronunciationCard({
             className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap"
           >
             <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span>
-            D?ng ({countdown}s)
+            Dừng ({countdown}s)
           </button>
         )}
         {recordState === "analyzing" && (
           <div className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-app-card/50 text-app-text-muted text-xs">
             <i className="ri-loader-4-line animate-spin"></i>
-            AI dang ph�n t�ch...
+            AI đang phân tích...
           </div>
         )}
         {recordState === "done" && (
@@ -230,7 +230,7 @@ function PronunciationCard({
             className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-app-card/50 hover:bg-white/8 text-white/50 text-xs transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-refresh-line"></i>
-            Ghi l?i
+            Ghi lại
           </button>
         )}
       </div>
@@ -246,7 +246,7 @@ function PronunciationCard({
       {score !== null && recordState === "done" && (
         <div className="bg-app-surface/50 rounded-xl p-3">
           <div className="flex items-center justify-between mb-2">
-            <p className="text-app-text-secondary text-[10px]">�i?m ph�t �m</p>
+            <p className="text-app-text-secondary text-[10px]">Điểm phát âm</p>
             <span className="font-bold text-lg" style={{ color: getScoreColor(score) }}>{score}/100</span>
           </div>
           <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden mb-2">
@@ -259,7 +259,7 @@ function PronunciationCard({
   );
 }
 
-// --- Main Page ------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────
 export default function PronunciationPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [scores, setScores] = useLocalStorage<Record<string, ScoreRecord[]>>("kts_pronunciation_scores", {});
@@ -295,16 +295,16 @@ export default function PronunciationPage() {
 
   return (
     <DashboardLayout
-      title="Luy?n ph�t �m ti?ng H�n"
-      subtitle="Ghi �m gi?ng n�i � AI ch?m di?m v� ph�n t�ch ph�t �m c?a b?n"
+      title="Luyện phát âm tiếng Hàn"
+      subtitle="Ghi âm giọng nói — AI chấm điểm và phân tích phát âm của bạn"
     >
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "T?ng t?/c�u", value: PRONUNCIATION_ITEMS.length, icon: "ri-translate-2", color: "app-accent-primary" },
-          { label: "�� luy?n", value: practicedCount, icon: "ri-mic-line", color: "#34d399" },
-          { label: "�i?m TB", value: avgScore > 0 ? `${avgScore}/100` : "�", icon: "ri-bar-chart-line", color: "#a78bfa" },
-          { label: "L?n ghi �m", value: totalAttempts, icon: "ri-repeat-line", color: "#fb923c" },
+          { label: "Tổng từ/câu", value: PRONUNCIATION_ITEMS.length, icon: "ri-translate-2", color: "app-accent-primary" },
+          { label: "Đã luyện", value: practicedCount, icon: "ri-mic-line", color: "#34d399" },
+          { label: "Điểm TB", value: avgScore > 0 ? `${avgScore}/100` : "—", icon: "ri-bar-chart-line", color: "#a78bfa" },
+          { label: "Lần ghi âm", value: totalAttempts, icon: "ri-repeat-line", color: "#fb923c" },
         ].map(stat => (
           <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
@@ -341,7 +341,7 @@ export default function PronunciationPage() {
           <i className="ri-search-line text-app-text-muted text-sm"></i>
           <input
             type="text"
-            placeholder="T�m t? ho?c c�u..."
+            placeholder="Tìm từ hoặc câu..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder-white/20"
@@ -355,9 +355,9 @@ export default function PronunciationPage() {
           <i className="ri-information-line text-[#06b6d4] text-sm"></i>
         </div>
         <div>
-          <p className="text-[#06b6d4]/80 text-xs font-semibold mb-1">C�ch luy?n hi?u qu?</p>
+          <p className="text-[#06b6d4]/80 text-xs font-semibold mb-1">Cách luyện hiệu quả</p>
           <p className="text-white/35 text-xs leading-relaxed">
-            1. Nh?n <strong className="text-white/50">Nghe m?u</strong> d? nghe ph�t �m chu?n ? 2. Nh?n <strong className="text-white/50">Ghi �m</strong> v� d?c to ? 3. Nghe l?i v� so s�nh ? 4. Luy?n d?n khi d?t 80+ di?m
+            1. Nhấn <strong className="text-white/50">Nghe mẫu</strong> để nghe phát âm chuẩn → 2. Nhấn <strong className="text-white/50">Ghi âm</strong> và đọc to → 3. Nghe lại và so sánh → 4. Luyện đến khi đạt 80+ điểm
           </p>
         </div>
       </div>
@@ -379,7 +379,7 @@ export default function PronunciationPage() {
           <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-app-card/50 mx-auto mb-3">
             <i className="ri-search-line text-app-text-muted text-2xl"></i>
           </div>
-          <p className="text-app-text-muted text-sm">Kh�ng t�m th?y k?t qu?</p>
+          <p className="text-app-text-muted text-sm">Không tìm thấy kết quả</p>
         </div>
       )}
     </DashboardLayout>

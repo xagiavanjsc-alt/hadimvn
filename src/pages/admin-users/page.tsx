@@ -1,11 +1,11 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+﻿import { useState, useMemo, useCallback, useEffect } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useAdminUsers, useLoginSessions, type AdminUser, type LoginSession } from "@/hooks/useAdminUsers";
 import VirtualList from "@/components/base/VirtualList";
 import { exportUsersCSV } from "@/utils/exportUtils";
 import { supabase } from "@/lib/supabase";
 
-// --- VIP helpers --------------------------------------------------------------
+// ─── VIP helpers ──────────────────────────────────────────────────────────────
 function getVipType(user: AdminUser): "none" | "month" | "year" {
   if (!user.is_vip || !user.vip_expires_at) return "none";
   const daysLeft = Math.floor((new Date(user.vip_expires_at).getTime() - Date.now()) / 86400000);
@@ -16,14 +16,14 @@ function getVipDaysLeft(user: AdminUser): number | null {
   return Math.floor((new Date(user.vip_expires_at).getTime() - Date.now()) / 86400000);
 }
 
-// --- Send email via edge function --------------------------------------------
+// ─── Send email via edge function ────────────────────────────────────────────
 async function sendEmail(payload: Record<string, unknown>) {
   const { data: { session } } = await supabase.auth.getSession();
   const res = await supabase.functions.invoke("send-email-resend", { body: payload });
   return res;
 }
 
-// --- Bulk Action Modal --------------------------------------------------------
+// ─── Bulk Action Modal ────────────────────────────────────────────────────────
 function BulkActionModal({
   selectedUsers,
   onClose,
@@ -80,10 +80,10 @@ function BulkActionModal({
   };
 
   const actions = [
-    { id: "vip_grant" as const, icon: "ri-vip-crown-line", label: "C?p VIP h�ng lo?t", color: "app-accent-primary", desc: `C?p VIP cho ${selectedUsers.length} th�nh vi�n` },
-    { id: "vip_revoke" as const, icon: "ri-close-circle-line", label: "H?y VIP h�ng lo?t", color: "#f87171", desc: `H?y VIP c?a ${selectedUsers.length} th�nh vi�n` },
-    { id: "email_expiry" as const, icon: "ri-mail-send-line", label: "G?i email nh?c gia h?n", color: "#fb923c", desc: "G?i email nh?c gia h?n VIP" },
-    { id: "email_bulk" as const, icon: "ri-broadcast-line", label: "G?i email th�ng b�o", color: "#a78bfa", desc: "G?i email t�y ch?nh" },
+    { id: "vip_grant" as const, icon: "ri-vip-crown-line", label: "Cấp VIP hàng loạt", color: "app-accent-primary", desc: `Cấp VIP cho ${selectedUsers.length} thành viên` },
+    { id: "vip_revoke" as const, icon: "ri-close-circle-line", label: "Hủy VIP hàng loạt", color: "#f87171", desc: `Hủy VIP của ${selectedUsers.length} thành viên` },
+    { id: "email_expiry" as const, icon: "ri-mail-send-line", label: "Gửi email nhắc gia hạn", color: "#fb923c", desc: "Gửi email nhắc gia hạn VIP" },
+    { id: "email_bulk" as const, icon: "ri-broadcast-line", label: "Gửi email thông báo", color: "#a78bfa", desc: "Gửi email tùy chỉnh" },
   ];
 
   return (
@@ -97,7 +97,7 @@ function BulkActionModal({
             </div>
             <div>
               <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>Bulk Actions</p>
-              <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>{selectedUsers.length} th�nh vi�n du?c ch?n</p>
+              <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>{selectedUsers.length} thành viên được chọn</p>
             </div>
           </div>
           <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ color: "var(--admin-text-muted)" }}>
@@ -110,12 +110,12 @@ function BulkActionModal({
             <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-emerald-500/12 mx-auto mb-4">
               <i className="ri-checkbox-circle-line text-app-accent-success text-3xl"></i>
             </div>
-            <p className="font-bold text-base mb-1" style={{ color: "var(--admin-text)" }}>Ho�n th�nh!</p>
+            <p className="font-bold text-base mb-1" style={{ color: "var(--admin-text)" }}>Hoàn thành!</p>
             <p className="text-sm mb-6" style={{ color: "var(--admin-text-muted)" }}>
-              �� th?c hi?n th�nh c�ng cho {selectedUsers.length} th�nh vi�n
+              Đã thực hiện thành công cho {selectedUsers.length} thành viên
             </p>
             <button onClick={onClose} className="w-full py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 text-white font-bold text-sm cursor-pointer whitespace-nowrap">
-              ��ng
+              Đóng
             </button>
           </div>
         ) : (
@@ -129,14 +129,14 @@ function BulkActionModal({
               ))}
               {selectedUsers.length > 5 && (
                 <span className="text-[10px] px-2 py-1 rounded-full" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-faint)" }}>
-                  +{selectedUsers.length - 5} kh�c
+                  +{selectedUsers.length - 5} khác
                 </span>
               )}
             </div>
 
             {/* Action selector */}
             <div>
-              <p className="text-xs font-semibold mb-2" style={{ color: "var(--admin-text-muted)" }}>Ch?n h�nh d?ng</p>
+              <p className="text-xs font-semibold mb-2" style={{ color: "var(--admin-text-muted)" }}>Chọn hành động</p>
               <div className="grid grid-cols-2 gap-2">
                 {actions.map(a => (
                   <button key={a.id} onClick={() => setAction(a.id)}
@@ -160,11 +160,11 @@ function BulkActionModal({
             {/* VIP grant options */}
             {action === "vip_grant" && (
               <div>
-                <p className="text-xs font-semibold mb-2" style={{ color: "var(--admin-text-muted)" }}>Lo?i VIP</p>
+                <p className="text-xs font-semibold mb-2" style={{ color: "var(--admin-text-muted)" }}>Loại VIP</p>
                 <div className="grid grid-cols-2 gap-2">
                   {([
-                    { type: "month" as const, label: "VIP Th�ng", sub: "30 ng�y", color: "#34d399" },
-                    { type: "year" as const, label: "VIP Nam", sub: "365 ng�y", color: "app-accent-primary" },
+                    { type: "month" as const, label: "VIP Tháng", sub: "30 ngày", color: "#34d399" },
+                    { type: "year" as const, label: "VIP Năm", sub: "365 ngày", color: "app-accent-primary" },
                   ]).map(opt => (
                     <button key={opt.type} onClick={() => setVipType(opt.type)}
                       className="flex items-center gap-2 px-3 py-2.5 rounded-xl border transition-all cursor-pointer"
@@ -184,15 +184,15 @@ function BulkActionModal({
             {action === "email_bulk" && (
               <div className="space-y-3">
                 <div>
-                  <label className="text-xs font-semibold mb-1.5 block" style={{ color: "var(--admin-text-muted)" }}>Ti�u d? email</label>
-                  <input value={bulkTitle} onChange={e => setBulkTitle(e.target.value)} placeholder="VD: T�nh nang m?i d� ra m?t!"
+                  <label className="text-xs font-semibold mb-1.5 block" style={{ color: "var(--admin-text-muted)" }}>Tiêu đề email</label>
+                  <input value={bulkTitle} onChange={e => setBulkTitle(e.target.value)} placeholder="VD: Tính năng mới đã ra mắt!"
                     className="w-full rounded-xl px-3 py-2 text-sm outline-none border"
                     style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
                 </div>
                 <div>
-                  <label className="text-xs font-semibold mb-1.5 block" style={{ color: "var(--admin-text-muted)" }}>N?i dung</label>
+                  <label className="text-xs font-semibold mb-1.5 block" style={{ color: "var(--admin-text-muted)" }}>Nội dung</label>
                   <textarea value={bulkBody} onChange={e => setBulkBody(e.target.value)} rows={4} maxLength={500}
-                    placeholder="N?i dung email..."
+                    placeholder="Nội dung email..."
                     className="w-full rounded-xl px-3 py-2 text-sm outline-none border resize-none"
                     style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
                   <p className="text-[10px] mt-1 text-right" style={{ color: "var(--admin-text-faint)" }}>{bulkBody.length}/500</p>
@@ -204,7 +204,7 @@ function BulkActionModal({
             {saving && (
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>�ang x? l�...</p>
+                  <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>Đang xử lý...</p>
                   <p className="text-xs font-bold" style={{ color: "#34d399" }}>{progress}%</p>
                 </div>
                 <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: "var(--admin-hover)" }}>
@@ -215,10 +215,10 @@ function BulkActionModal({
 
             <div className="flex gap-3 pt-1">
               <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap"
-                style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>H?y</button>
+                style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>Hủy</button>
               <button onClick={handleExecute} disabled={!action || saving || (action === "email_bulk" && (!bulkTitle.trim() || !bulkBody.trim()))}
                 className="flex-1 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 disabled:opacity-40 text-white font-bold text-sm cursor-pointer whitespace-nowrap">
-                {saving ? "�ang x? l�..." : `Th?c hi?n (${selectedUsers.length} ngu?i)`}
+                {saving ? "Đang xử lý..." : `Thực hiện (${selectedUsers.length} người)`}
               </button>
             </div>
           </div>
@@ -228,7 +228,7 @@ function BulkActionModal({
   );
 }
 
-// --- VIP Grant Modal ----------------------------------------------------------
+// ─── VIP Grant Modal ──────────────────────────────────────────────────────────
 function VipGrantModal({ user, onClose, onGrant }: {
   user: AdminUser;
   onClose: () => void;
@@ -263,12 +263,12 @@ function VipGrantModal({ user, onClose, onGrant }: {
           },
         });
         if (emailErr) {
-          console.warn("Email g?i kh�ng th�nh c�ng:", emailErr);
+          console.warn("Email gửi không thành công:", emailErr);
         }
       }
       onClose();
     } catch (err) {
-      console.error("L?i c?p VIP:", err);
+      console.error("Lỗi cấp VIP:", err);
     } finally {
       setSaving(false);
     }
@@ -287,7 +287,7 @@ function VipGrantModal({ user, onClose, onGrant }: {
               <i className="ri-vip-crown-line text-app-accent-primary text-sm"></i>
             </div>
             <div>
-              <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>C?p VIP</p>
+              <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>Cấp VIP</p>
               <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>{user.display_name}</p>
             </div>
           </div>
@@ -298,8 +298,8 @@ function VipGrantModal({ user, onClose, onGrant }: {
         <div className="p-5 space-y-4">
           <div className="grid grid-cols-2 gap-3">
             {([
-              { type: "month" as const, label: "VIP Th�ng", sub: "30 ng�y", color: "#34d399" },
-              { type: "year" as const, label: "VIP Nam", sub: "365 ng�y", color: "app-accent-primary" },
+              { type: "month" as const, label: "VIP Tháng", sub: "30 ngày", color: "#34d399" },
+              { type: "year" as const, label: "VIP Năm", sub: "365 ngày", color: "app-accent-primary" },
             ]).map(opt => (
               <button key={opt.type} onClick={() => setVipType(opt.type)}
                 className="flex flex-col items-center gap-2 py-4 rounded-xl border transition-all cursor-pointer"
@@ -313,7 +313,7 @@ function VipGrantModal({ user, onClose, onGrant }: {
             ))}
           </div>
           <div>
-            <p className="text-xs font-semibold mb-1.5" style={{ color: "var(--admin-text-muted)" }}>Ng�y h?t h?n t�y ch?nh <span style={{ color: "var(--admin-text-faint)" }}>(d? tr?ng = t? d?ng)</span></p>
+            <p className="text-xs font-semibold mb-1.5" style={{ color: "var(--admin-text-muted)" }}>Ngày hết hạn tùy chỉnh <span style={{ color: "var(--admin-text-faint)" }}>(để trống = tự động)</span></p>
             <input type="date" value={customDate} onChange={e => setCustomDate(e.target.value)}
               min={new Date().toISOString().slice(0, 10)}
               className="w-full rounded-xl px-3 py-2 text-sm outline-none border"
@@ -321,19 +321,19 @@ function VipGrantModal({ user, onClose, onGrant }: {
           </div>
           <div className="px-4 py-3 rounded-xl" style={{ backgroundColor: "rgba(232,200,74,0.06)", border: "1px solid rgba(232,200,74,0.15)" }}>
             <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>
-              <span className="font-bold" style={{ color: "var(--admin-text)" }}>{user.display_name}</span> ? VIP {vipType === "month" ? "Th�ng" : "Nam"} d?n{" "}
-              <span className="font-bold" style={{ color: "app-accent-primary" }}>{new Date(expiresAt).toLocaleDateString("vi-VN")}</span> ({daysLeft} ng�y)
+              <span className="font-bold" style={{ color: "var(--admin-text)" }}>{user.display_name}</span> → VIP {vipType === "month" ? "Tháng" : "Năm"} đến{" "}
+              <span className="font-bold" style={{ color: "app-accent-primary" }}>{new Date(expiresAt).toLocaleDateString("vi-VN")}</span> ({daysLeft} ngày)
             </p>
           </div>
           <label className="flex items-center gap-2 cursor-pointer">
             <input type="checkbox" checked={sendEmail} onChange={e => setSendEmail(e.target.checked)} className="w-4 h-4 rounded accent-rose-500" />
-            <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>G?i email th�ng b�o VIP cho th�nh vi�n</span>
+            <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>Gửi email thông báo VIP cho thành viên</span>
           </label>
           <div className="flex gap-3">
-            <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap" style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>H?y</button>
+            <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap" style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>Hủy</button>
             <button onClick={handleGrant} disabled={saving}
               className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-50 text-black font-bold text-sm cursor-pointer whitespace-nowrap">
-              {saving ? "�ang c?p..." : "C?p VIP ngay"}
+              {saving ? "Đang cấp..." : "Cấp VIP ngay"}
             </button>
           </div>
         </div>
@@ -342,7 +342,7 @@ function VipGrantModal({ user, onClose, onGrant }: {
   );
 }
 
-// --- Advanced Filter ----------------------------------------------------------
+// ─── Advanced Filter ──────────────────────────────────────────────────────────
 interface AdvancedFilters {
   dateFrom: string; dateTo: string; xpMin: string; xpMax: string;
   streakMin: string; streakMax: string; activeWithin: "all" | "1d" | "7d" | "30d" | "inactive";
@@ -364,58 +364,58 @@ function AdvancedFilterPanel({ filters, onChange, onReset, resultCount }: {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <i className="ri-filter-3-line text-rose-400 text-sm"></i>
-          <span className="text-sm font-semibold" style={{ color: "var(--admin-text)" }}>B? l?c n�ng cao</span>
-          {hasActiveFilters(filters) && <span className="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-400 font-bold">�ang l?c � {resultCount} k?t qu?</span>}
+          <span className="text-sm font-semibold" style={{ color: "var(--admin-text)" }}>Bộ lọc nâng cao</span>
+          {hasActiveFilters(filters) && <span className="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-400 font-bold">Đang lọc · {resultCount} kết quả</span>}
         </div>
-        {hasActiveFilters(filters) && <button onClick={onReset} className="text-xs cursor-pointer whitespace-nowrap" style={{ color: "var(--admin-text-muted)" }}><i className="ri-refresh-line mr-1"></i>X�a b? l?c</button>}
+        {hasActiveFilters(filters) && <button onClick={onReset} className="text-xs cursor-pointer whitespace-nowrap" style={{ color: "var(--admin-text-muted)" }}><i className="ri-refresh-line mr-1"></i>Xóa bộ lọc</button>}
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div>
-          <p className="text-[10px] font-semibold mb-2 tracking-normal" style={{ color: "var(--admin-text-faint)" }}>Ng�y dang k�</p>
+          <p className="text-[10px] font-semibold mb-2 tracking-normal" style={{ color: "var(--admin-text-faint)" }}>Ngày đăng ký</p>
           <div className="space-y-2">
             <input type="date" value={filters.dateFrom} onChange={e => set("dateFrom", e.target.value)} className={inputCls} style={inputStyle} />
             <input type="date" value={filters.dateTo} onChange={e => set("dateTo", e.target.value)} className={inputCls} style={inputStyle} />
           </div>
         </div>
         <div>
-          <p className="text-[10px] font-semibold mb-2 tracking-normal" style={{ color: "var(--admin-text-faint)" }}>XP t�ch luy</p>
+          <p className="text-[10px] font-semibold mb-2 tracking-normal" style={{ color: "var(--admin-text-faint)" }}>XP tích lũy</p>
           <div className="space-y-2">
-            <input type="number" min={0} placeholder="XP t?i thi?u" value={filters.xpMin} onChange={e => set("xpMin", e.target.value)} className={inputCls} style={inputStyle} />
-            <input type="number" min={0} placeholder="XP t?i da" value={filters.xpMax} onChange={e => set("xpMax", e.target.value)} className={inputCls} style={inputStyle} />
+            <input type="number" min={0} placeholder="XP tối thiểu" value={filters.xpMin} onChange={e => set("xpMin", e.target.value)} className={inputCls} style={inputStyle} />
+            <input type="number" min={0} placeholder="XP tối đa" value={filters.xpMax} onChange={e => set("xpMax", e.target.value)} className={inputCls} style={inputStyle} />
           </div>
         </div>
         <div>
-          <p className="text-[10px] font-semibold mb-2 tracking-normal" style={{ color: "var(--admin-text-faint)" }}>Streak & Ho?t d?ng</p>
+          <p className="text-[10px] font-semibold mb-2 tracking-normal" style={{ color: "var(--admin-text-faint)" }}>Streak & Hoạt động</p>
           <div className="space-y-2">
             <div className="grid grid-cols-2 gap-1">
               <input type="number" min={0} placeholder="Min" value={filters.streakMin} onChange={e => set("streakMin", e.target.value)} className={inputCls} style={inputStyle} />
               <input type="number" min={0} placeholder="Max" value={filters.streakMax} onChange={e => set("streakMax", e.target.value)} className={inputCls} style={inputStyle} />
             </div>
             <select value={filters.activeWithin} onChange={e => set("activeWithin", e.target.value)} className={inputCls + " cursor-pointer"} style={inputStyle}>
-              <option value="all">T?t c?</option>
-              <option value="1d">24 gi? qua</option>
-              <option value="7d">7 ng�y qua</option>
-              <option value="30d">30 ng�y qua</option>
-              <option value="inactive">Kh�ng ho?t d?ng &gt;30 ng�y</option>
+              <option value="all">Tất cả</option>
+              <option value="1d">24 giờ qua</option>
+              <option value="7d">7 ngày qua</option>
+              <option value="30d">30 ngày qua</option>
+              <option value="inactive">Không hoạt động &gt;30 ngày</option>
             </select>
           </div>
         </div>
         <div>
-          <p className="text-[10px] font-semibold mb-2 tracking-normal" style={{ color: "var(--admin-text-faint)" }}>Lo?i VIP</p>
+          <p className="text-[10px] font-semibold mb-2 tracking-normal" style={{ color: "var(--admin-text-faint)" }}>Loại VIP</p>
           <select value={filters.vipType} onChange={e => set("vipType", e.target.value)} className={inputCls + " cursor-pointer"} style={inputStyle}>
-            <option value="all">T?t c?</option>
-            <option value="none">Chua c� VIP</option>
-            <option value="month">VIP Th�ng</option>
-            <option value="year">VIP Nam</option>
+            <option value="all">Tất cả</option>
+            <option value="none">Chưa có VIP</option>
+            <option value="month">VIP Tháng</option>
+            <option value="year">VIP Năm</option>
           </select>
         </div>
       </div>
       <div className="flex items-center gap-2 flex-wrap pt-1 border-t" style={{ borderColor: "var(--admin-border)" }}>
         <span className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>Nhanh:</span>
         {[
-          { label: "VIP s?p h?t h?n", action: () => onChange({ ...filters, vipType: "month" }) },
-          { label: "VIP Nam", action: () => onChange({ ...filters, vipType: "year" }) },
-          { label: "Kh�ng ho?t d?ng", action: () => onChange({ ...filters, activeWithin: "inactive" }) },
+          { label: "VIP sắp hết hạn", action: () => onChange({ ...filters, vipType: "month" }) },
+          { label: "VIP Năm", action: () => onChange({ ...filters, vipType: "year" }) },
+          { label: "Không hoạt động", action: () => onChange({ ...filters, activeWithin: "inactive" }) },
           { label: "XP cao (>10k)", action: () => onChange({ ...filters, xpMin: "10000" }) },
         ].map(p => (
           <button key={p.label} onClick={p.action} className="text-[10px] px-2.5 py-1 rounded-full cursor-pointer whitespace-nowrap"
@@ -428,7 +428,7 @@ function AdvancedFilterPanel({ filters, onChange, onReset, resultCount }: {
   );
 }
 
-// --- User Detail Drawer -------------------------------------------------------
+// ─── User Detail Drawer ───────────────────────────────────────────────────────
 function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVip, currentUserRole }: {
   user: AdminUser; onClose: () => void;
   onToggleVip: (id: string, cur: boolean) => void;
@@ -488,7 +488,7 @@ function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVi
             {user.is_vip ? (
               <span className="text-xs px-3 py-1 rounded-full font-medium"
                 style={{ backgroundColor: vipType === "year" ? "rgba(232,200,74,0.12)" : "rgba(52,211,153,0.10)", color: vipType === "year" ? "app-accent-primary" : "#34d399", border: `1px solid ${vipType === "year" ? "rgba(232,200,74,0.25)" : "rgba(52,211,153,0.20)"}` }}>
-                <i className="ri-vip-crown-line mr-1"></i>VIP {vipType === "year" ? "Nam" : "Th�ng"}
+                <i className="ri-vip-crown-line mr-1"></i>VIP {vipType === "year" ? "Năm" : "Tháng"}
               </span>
             ) : (
               <span className="text-xs px-3 py-1 rounded-full" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)", border: "1px solid var(--admin-border)" }}>Free</span>
@@ -513,18 +513,18 @@ function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVi
             <div className="px-4 py-3 rounded-xl space-y-2"
               style={{ backgroundColor: vipType === "year" ? "rgba(232,200,74,0.06)" : "rgba(52,211,153,0.06)", border: `1px solid ${vipType === "year" ? "rgba(232,200,74,0.15)" : "rgba(52,211,153,0.15)"}` }}>
               <div className="flex items-center justify-between">
-                <p className="text-xs font-semibold" style={{ color: vipType === "year" ? "app-accent-primary" : "#34d399" }}>VIP {vipType === "year" ? "Nam" : "Th�ng"}</p>
+                <p className="text-xs font-semibold" style={{ color: vipType === "year" ? "app-accent-primary" : "#34d399" }}>VIP {vipType === "year" ? "Năm" : "Tháng"}</p>
                 <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${daysLeft !== null && daysLeft <= 7 ? "bg-rose-500/15 text-rose-400" : "bg-app-accent-success/15 text-app-accent-success"}`}>
-                  {daysLeft !== null ? (daysLeft <= 0 ? "�� h?t h?n" : `C�n ${daysLeft} ng�y`) : ""}
+                  {daysLeft !== null ? (daysLeft <= 0 ? "Đã hết hạn" : `Còn ${daysLeft} ngày`) : ""}
                 </span>
               </div>
-              <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>H?t h?n: <span className="font-semibold">{new Date(user.vip_expires_at).toLocaleDateString("vi-VN")}</span></p>
+              <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>Hết hạn: <span className="font-semibold">{new Date(user.vip_expires_at).toLocaleDateString("vi-VN")}</span></p>
               {daysLeft !== null && daysLeft <= 7 && daysLeft > 0 && (
                 <button onClick={handleSendExpiryEmail} disabled={sendingEmail || emailSent}
                   className="w-full flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-semibold cursor-pointer whitespace-nowrap transition-colors"
                   style={{ backgroundColor: emailSent ? "rgba(52,211,153,0.10)" : "rgba(251,146,60,0.10)", color: emailSent ? "#34d399" : "#fb923c", border: `1px solid ${emailSent ? "rgba(52,211,153,0.20)" : "rgba(251,146,60,0.20)"}` }}>
                   <i className={emailSent ? "ri-checkbox-circle-line" : "ri-mail-send-line"}></i>
-                  {emailSent ? "�� g?i email nh?c gia h?n" : sendingEmail ? "�ang g?i..." : "G?i email nh?c gia h?n"}
+                  {emailSent ? "Đã gửi email nhắc gia hạn" : sendingEmail ? "Đang gửi..." : "Gửi email nhắc gia hạn"}
                 </button>
               )}
             </div>
@@ -532,13 +532,13 @@ function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVi
 
           {/* Stats */}
           <div>
-            <p className="text-xs font-semibold mb-3" style={{ color: "var(--admin-text-muted)" }}>Th?ng k� h?c t?p</p>
+            <p className="text-xs font-semibold mb-3" style={{ color: "var(--admin-text-muted)" }}>Thống kê học tập</p>
             <div className="grid grid-cols-2 gap-2">
               {[
-                { label: "XP t?ng", value: (user.xp_total || 0).toLocaleString(), icon: "ri-star-line", color: "app-accent-primary" },
-                { label: "Streak", value: `${user.streak_count || 0} ng�y`, icon: "ri-fire-line", color: "#fb923c" },
-                { label: "T? d� h?c", value: (user.words_learned || 0).toLocaleString(), icon: "ri-book-open-line", color: "#34d399" },
-                { label: "C?p d?", value: user.level || "A1", icon: "ri-bar-chart-line", color: "#a78bfa" },
+                { label: "XP tổng", value: (user.xp_total || 0).toLocaleString(), icon: "ri-star-line", color: "app-accent-primary" },
+                { label: "Streak", value: `${user.streak_count || 0} ngày`, icon: "ri-fire-line", color: "#fb923c" },
+                { label: "Từ đã học", value: (user.words_learned || 0).toLocaleString(), icon: "ri-book-open-line", color: "#34d399" },
+                { label: "Cấp độ", value: user.level || "A1", icon: "ri-bar-chart-line", color: "#a78bfa" },
               ].map(s => (
                 <div key={s.label} className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl"
                   style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>
@@ -556,25 +556,25 @@ function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVi
 
           {/* Actions */}
           <div className="space-y-2 pt-2 border-t" style={{ borderColor: "var(--admin-border)" }}>
-            <p className="text-xs font-semibold" style={{ color: "var(--admin-text-muted)" }}>Qu?n l� quy?n</p>
+            <p className="text-xs font-semibold" style={{ color: "var(--admin-text-muted)" }}>Quản lý quyền</p>
             <div className="grid grid-cols-2 gap-2">
               <button onClick={() => onGrantVip(user)}
                 className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap"
                 style={{ backgroundColor: "rgba(232,200,74,0.10)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.20)" }}>
-                <i className="ri-vip-crown-line"></i>C?p / Gia h?n VIP
+                <i className="ri-vip-crown-line"></i>Cấp / Gia hạn VIP
               </button>
               {user.is_vip && (
                 <button onClick={() => onToggleVip(user.id, user.is_vip)}
                   className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap"
                   style={{ backgroundColor: "rgba(244,63,94,0.08)", color: "#f87171", border: "1px solid rgba(244,63,94,0.15)" }}>
-                  <i className="ri-close-circle-line"></i>H?y VIP
+                  <i className="ri-close-circle-line"></i>Hủy VIP
                 </button>
               )}
               {currentUserRole === "super_admin" && (
                 <button onClick={() => onToggleAdmin(user.id, user.is_admin)}
                   className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap"
                   style={{ backgroundColor: user.is_admin ? "rgba(244,63,94,0.10)" : "var(--admin-hover)", color: user.is_admin ? "#f87171" : "var(--admin-text-muted)", border: `1px solid ${user.is_admin ? "rgba(244,63,94,0.20)" : "var(--admin-border)"}` }}>
-                  <i className="ri-shield-keyhole-line"></i>{user.is_admin ? "H?y Admin" : "C?p Admin"}
+                  <i className="ri-shield-keyhole-line"></i>{user.is_admin ? "Hủy Admin" : "Cấp Admin"}
                 </button>
               )}
             </div>
@@ -585,7 +585,7 @@ function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVi
   );
 }
 
-// --- User Row -----------------------------------------------------------------
+// ─── User Row ─────────────────────────────────────────────────────────────────
 function UserRow({ user, selected, onSelect, onToggleVip, onToggleAdmin, onViewDetail, onGrantVip, currentUserRole }: {
   user: AdminUser; selected: boolean;
   onSelect: (id: string) => void;
@@ -629,12 +629,12 @@ function UserRow({ user, selected, onSelect, onToggleVip, onToggleAdmin, onViewD
           })()}
           {user.is_vip && (
             <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${vipType === "year" ? "bg-app-accent-primary/15 text-app-accent-primary" : "bg-app-accent-success/15 text-app-accent-success"}`}>
-              VIP {vipType === "year" ? "Nam" : "Th�ng"}
+              VIP {vipType === "year" ? "Năm" : "Tháng"}
             </span>
           )}
         </div>
         <p className="text-[10px] truncate" style={{ color: "var(--admin-text-faint)" }}>
-          {user.email ? user.email : `${user.level || "A1"} � ${new Date(user.created_at).toLocaleDateString("vi-VN")}`}
+          {user.email ? user.email : `${user.level || "A1"} · ${new Date(user.created_at).toLocaleDateString("vi-VN")}`}
         </p>
       </div>
 
@@ -649,14 +649,14 @@ function UserRow({ user, selected, onSelect, onToggleVip, onToggleAdmin, onViewD
         </div>
         {user.is_vip && daysLeft !== null && (
           <div className="text-center">
-            <p className="text-[10px]" style={{ color: "var(--admin-text-muted)" }}>VIP c�n</p>
+            <p className="text-[10px]" style={{ color: "var(--admin-text-muted)" }}>VIP còn</p>
             <p className={`text-xs font-bold ${daysLeft <= 7 ? "text-rose-400" : "text-app-accent-success"}`}>{daysLeft}d</p>
           </div>
         )}
         <div className="text-center">
-          <p className="text-[10px]" style={{ color: "var(--admin-text-muted)" }}>Ho?t d?ng</p>
+          <p className="text-[10px]" style={{ color: "var(--admin-text-muted)" }}>Hoạt động</p>
           <p className="text-xs" style={{ color: daysSinceActive !== null && daysSinceActive <= 1 ? "#34d399" : daysSinceActive !== null && daysSinceActive <= 7 ? "app-accent-primary" : "var(--admin-text-faint)" }}>
-            {daysSinceActive === null ? "�" : daysSinceActive === 0 ? "H�m nay" : `${daysSinceActive}d`}
+            {daysSinceActive === null ? "—" : daysSinceActive === 0 ? "Hôm nay" : `${daysSinceActive}d`}
           </p>
         </div>
       </div>
@@ -679,7 +679,7 @@ function UserRow({ user, selected, onSelect, onToggleVip, onToggleAdmin, onViewD
   );
 }
 
-// --- Login Sessions Panel ----------------------------------------------------
+// ─── Login Sessions Panel ────────────────────────────────────────────────────
 function LoginSessionsPanel() {
   const { sessions, loading, refetch } = useLoginSessions();
   const suspicious = sessions.filter(s => s.is_suspicious);
@@ -695,9 +695,9 @@ function LoginSessionsPanel() {
       {/* Summary */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {[
-          { label: "T?ng phi�n", value: sessions.length, icon: "ri-login-circle-line", color: "#34d399" },
-          { label: "B?t thu?ng", value: suspicious.length, icon: "ri-alarm-warning-line", color: "#f87171" },
-          { label: "H�m nay", value: sessions.filter(s => s.created_at.startsWith(new Date().toISOString().split("T")[0])).length, icon: "ri-calendar-check-line", color: "app-accent-primary" },
+          { label: "Tổng phiên", value: sessions.length, icon: "ri-login-circle-line", color: "#34d399" },
+          { label: "Bất thường", value: suspicious.length, icon: "ri-alarm-warning-line", color: "#f87171" },
+          { label: "Hôm nay", value: sessions.filter(s => s.created_at.startsWith(new Date().toISOString().split("T")[0])).length, icon: "ri-calendar-check-line", color: "app-accent-primary" },
         ].map(s => (
           <div key={s.label} className="flex items-center gap-3 px-4 py-3 rounded-xl border"
             style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
@@ -718,8 +718,8 @@ function LoginSessionsPanel() {
           style={{ backgroundColor: "rgba(248,113,113,0.08)", border: "1px solid rgba(248,113,113,0.20)", color: "#f87171" }}>
           <i className="ri-shield-cross-line flex-shrink-0 mt-0.5"></i>
           <div>
-            <p className="font-bold mb-1">{suspicious.length} phi�n dang nh?p b?t thu?ng</p>
-            <p className="text-rose-300/70">C� th? l� dang nh?p t? nhi?u thi?t b? c�ng l�c ho?c nhi?u l?n trong th?i gian ng?n. Ki?m tra ngay.</p>
+            <p className="font-bold mb-1">{suspicious.length} phiên đăng nhập bất thường</p>
+            <p className="text-rose-300/70">Có thể là đăng nhập từ nhiều thiết bị cùng lúc hoặc nhiều lần trong thời gian ngắn. Kiểm tra ngay.</p>
           </div>
         </div>
       )}
@@ -727,9 +727,9 @@ function LoginSessionsPanel() {
       {/* Sessions list */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <p className="text-xs font-semibold" style={{ color: "var(--admin-text-muted)" }}>L?ch s? dang nh?p g?n d�y</p>
+          <p className="text-xs font-semibold" style={{ color: "var(--admin-text-muted)" }}>Lịch sử đăng nhập gần đây</p>
           <button onClick={refetch} className="text-xs cursor-pointer" style={{ color: "var(--admin-text-faint)" }}>
-            <i className="ri-refresh-line mr-1"></i>L�m m?i
+            <i className="ri-refresh-line mr-1"></i>Làm mới
           </button>
         </div>
         {loading ? (
@@ -739,8 +739,8 @@ function LoginSessionsPanel() {
         ) : sessions.length === 0 ? (
           <div className="text-center py-10">
             <i className="ri-login-circle-line text-2xl mb-2" style={{ color: "var(--admin-text-faint)" }}></i>
-            <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Chua c� d? li?u dang nh?p</p>
-            <p className="text-xs mt-1" style={{ color: "var(--admin-text-faint)" }}>D? li?u s? du?c ghi l?i khi th�nh vi�n dang nh?p</p>
+            <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Chưa có dữ liệu đăng nhập</p>
+            <p className="text-xs mt-1" style={{ color: "var(--admin-text-faint)" }}>Dữ liệu sẽ được ghi lại khi thành viên đăng nhập</p>
           </div>
         ) : (
           sessions.slice(0, 50).map((s: LoginSession) => (
@@ -757,16 +757,16 @@ function LoginSessionsPanel() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
                   <p className="text-xs font-semibold" style={{ color: "var(--admin-text)" }}>
-                    {s.device_type === "mobile" ? "�i?n tho?i" : s.device_type === "tablet" ? "M�y t�nh b?ng" : "M�y t�nh"}
+                    {s.device_type === "mobile" ? "Điện thoại" : s.device_type === "tablet" ? "Máy tính bảng" : "Máy tính"}
                   </p>
                   {s.is_suspicious && (
                     <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-rose-500/15 text-rose-400 font-bold">
-                      B?T THU?NG
+                      BẤT THƯỜNG
                     </span>
                   )}
                 </div>
                 <p className="text-[10px] truncate" style={{ color: "var(--admin-text-faint)" }}>
-                  {s.suspicious_reason || s.user_agent?.slice(0, 60) || "�"}
+                  {s.suspicious_reason || s.user_agent?.slice(0, 60) || "—"}
                 </p>
               </div>
               <div className="text-right flex-shrink-0">
@@ -784,13 +784,13 @@ function LoginSessionsPanel() {
 
       {/* Security tips */}
       <div className="rounded-xl p-4 space-y-2" style={{ backgroundColor: "rgba(232,200,74,0.05)", border: "1px solid rgba(232,200,74,0.12)" }}>
-        <p className="text-xs font-bold" style={{ color: "app-accent-primary" }}><i className="ri-shield-check-line mr-1.5"></i>G?i � b?o m?t</p>
+        <p className="text-xs font-bold" style={{ color: "app-accent-primary" }}><i className="ri-shield-check-line mr-1.5"></i>Gợi ý bảo mật</p>
         <ul className="space-y-1.5">
           {[
-            "N?u th?y dang nh?p b?t thu?ng, li�n h? th�nh vi�n d? x�c nh?n",
-            "T�i kho?n VIP kh�ng n�n chia s? � 1 t�i kho?n ch? d�ng cho 1 ngu?i",
-            "�ang nh?p t? nhi?u IP kh�c nhau trong th?i gian ng?n = d?u hi?u chia s? t�i kho?n",
-            "C� th? h?y VIP n?u ph�t hi?n vi ph?m di?u kho?n s? d?ng",
+            "Nếu thấy đăng nhập bất thường, liên hệ thành viên để xác nhận",
+            "Tài khoản VIP không nên chia sẻ — 1 tài khoản chỉ dùng cho 1 người",
+            "Đăng nhập từ nhiều IP khác nhau trong thời gian ngắn = dấu hiệu chia sẻ tài khoản",
+            "Có thể hủy VIP nếu phát hiện vi phạm điều khoản sử dụng",
           ].map((tip, i) => (
             <li key={i} className="flex items-start gap-2 text-[11px]" style={{ color: "var(--admin-text-muted)" }}>
               <i className="ri-checkbox-circle-line text-app-accent-primary/60 flex-shrink-0 mt-0.5"></i>
@@ -803,7 +803,7 @@ function LoginSessionsPanel() {
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function AdminUsersPage() {
   const { users, loading, error, refetch, updateAdmin } = useAdminUsers();
   const [currentUserRole, setCurrentUserRole] = useState<"super_admin" | "smod" | "moderator" | "member">("member");
@@ -893,11 +893,11 @@ export default function AdminUsersPage() {
         body.expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
       }
       const res = await supabase.functions.invoke("admin-grant-vip", { body });
-      if (res.error || res.data?.error) throw new Error(res.error?.message || res.data?.error || "L?i");
-      showMsg(!cur ? "�� c?p VIP" : "�� h?y VIP");
+      if (res.error || res.data?.error) throw new Error(res.error?.message || res.data?.error || "Lỗi");
+      showMsg(!cur ? "Đã cấp VIP" : "Đã hủy VIP");
       setSelectedUser(prev => prev?.id === id ? { ...prev, is_vip: !cur } : prev);
       refetch();
-    } catch { showMsg("L?i c?p nh?t VIP", "err"); }
+    } catch { showMsg("Lỗi cập nhật VIP", "err"); }
   }, [refetch]);
 
   const handleToggleAdmin = useCallback(async (id: string, cur: boolean) => {
@@ -905,11 +905,11 @@ export default function AdminUsersPage() {
       const res = await supabase.functions.invoke("admin-grant-vip", {
         body: { action: "toggle_admin", userId: id, isAdmin: !cur },
       });
-      if (res.error || res.data?.error) throw new Error(res.error?.message || res.data?.error || "L?i");
-      showMsg(!cur ? "�� c?p Admin" : "�� h?y Admin");
+      if (res.error || res.data?.error) throw new Error(res.error?.message || res.data?.error || "Lỗi");
+      showMsg(!cur ? "Đã cấp Admin" : "Đã hủy Admin");
       setSelectedUser(prev => prev?.id === id ? { ...prev, is_admin: !cur } : prev);
       refetch();
-    } catch { showMsg("L?i c?p nh?t Admin", "err"); }
+    } catch { showMsg("Lỗi cập nhật Admin", "err"); }
   }, [refetch]);
 
   const handleGrantVip = useCallback(async (userId: string, type: "month" | "year", expiresAt: string) => {
@@ -917,9 +917,9 @@ export default function AdminUsersPage() {
     const res = await supabase.functions.invoke("admin-grant-vip", {
       body: { action: "grant_vip", userId, vipType: type, expiresAt },
     });
-    if (res.error) throw new Error(res.error.message || "L?i c?p VIP");
+    if (res.error) throw new Error(res.error.message || "Lỗi cấp VIP");
     if (res.data?.error) throw new Error(res.data.error);
-    showMsg("�� c?p VIP th�nh c�ng!");
+    showMsg("Đã cấp VIP thành công!");
     refetch();
   }, [refetch]);
 
@@ -931,7 +931,7 @@ export default function AdminUsersPage() {
       });
       if (!res.error && !res.data?.error) granted++;
     }
-    showMsg(`�� c?p VIP cho ${granted}/${userIds.length} th�nh vi�n!`);
+    showMsg(`Đã cấp VIP cho ${granted}/${userIds.length} thành viên!`);
     refetch();
     setSelectedIds(new Set());
   }, [refetch]);
@@ -951,7 +951,7 @@ export default function AdminUsersPage() {
         },
       });
     }
-    showMsg(`�� g?i email cho ${targetUsers.length} th�nh vi�n!`);
+    showMsg(`Đã gửi email cho ${targetUsers.length} thành viên!`);
     setSelectedIds(new Set());
   }, []);
 
@@ -979,8 +979,8 @@ export default function AdminUsersPage() {
 
   return (
     <AdminLayout
-      title="Qu?n l� Th�nh vi�n"
-      subtitle={`${users.length} th�nh vi�n � ${vipCount} VIP (${vipYearCount} nam, ${vipMonthCount} th�ng) � ${adminCount} admin`}
+      title="Quản lý Thành viên"
+      subtitle={`${users.length} thành viên · ${vipCount} VIP (${vipYearCount} năm, ${vipMonthCount} tháng) · ${adminCount} admin`}
       actions={
         <div className="flex items-center gap-2">
           {selectedIds.size > 0 && (
@@ -991,12 +991,12 @@ export default function AdminUsersPage() {
           )}
           <button onClick={refetch} className="flex items-center gap-2 text-xs font-medium px-3 py-2 rounded-lg cursor-pointer whitespace-nowrap"
             style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)", border: "1px solid var(--admin-border)" }}>
-            <i className="ri-refresh-line"></i>L�m m?i
+            <i className="ri-refresh-line"></i>Làm mới
           </button>
           <button onClick={() => setShowAdvanced(v => !v)}
             className="flex items-center gap-2 text-xs font-medium px-3 py-2 rounded-lg cursor-pointer whitespace-nowrap"
             style={{ backgroundColor: showAdvanced || hasActiveFilters(advFilters) ? "rgba(244,63,94,0.12)" : "var(--admin-hover)", color: showAdvanced || hasActiveFilters(advFilters) ? "#f87171" : "var(--admin-text-muted)", border: `1px solid ${showAdvanced || hasActiveFilters(advFilters) ? "rgba(244,63,94,0.25)" : "var(--admin-border)"}` }}>
-            <i className="ri-filter-3-line"></i>B? l?c
+            <i className="ri-filter-3-line"></i>Bộ lọc
           </button>
           <button onClick={() => exportUsersCSV(users)}
             className="flex items-center gap-2 text-xs font-medium px-3 py-2 rounded-lg cursor-pointer whitespace-nowrap"
@@ -1020,7 +1020,7 @@ export default function AdminUsersPage() {
             activeMainTab === "members" ? "bg-rose-500 text-white" : "text-app-text-secondary hover:text-white/60"
           }`}
         >
-          <i className="ri-user-line mr-1.5"></i>Th�nh vi�n ({users.length})
+          <i className="ri-user-line mr-1.5"></i>Thành viên ({users.length})
         </button>
         <button
           onClick={() => setActiveMainTab("sessions")}
@@ -1028,7 +1028,7 @@ export default function AdminUsersPage() {
             activeMainTab === "sessions" ? "bg-rose-500 text-white" : "text-app-text-secondary hover:text-white/60"
           }`}
         >
-          <i className="ri-shield-keyhole-line mr-1.5"></i>�ang nh?p & B?o m?t
+          <i className="ri-shield-keyhole-line mr-1.5"></i>Đăng nhập & Bảo mật
         </button>
       </div>
 
@@ -1038,12 +1038,12 @@ export default function AdminUsersPage() {
       {/* Summary cards */}
       <div className="grid grid-cols-3 lg:grid-cols-6 gap-3 mb-5">
         {[
-          { label: "T?ng th�nh vi�n", value: users.length, icon: "ri-user-line", color: "#f87171" },
-          { label: "VIP Nam", value: vipYearCount, icon: "ri-vip-crown-2-line", color: "app-accent-primary" },
-          { label: "VIP Th�ng", value: vipMonthCount, icon: "ri-vip-crown-line", color: "#34d399" },
+          { label: "Tổng thành viên", value: users.length, icon: "ri-user-line", color: "#f87171" },
+          { label: "VIP Năm", value: vipYearCount, icon: "ri-vip-crown-2-line", color: "app-accent-primary" },
+          { label: "VIP Tháng", value: vipMonthCount, icon: "ri-vip-crown-line", color: "#34d399" },
           { label: "Admin", value: adminCount, icon: "ri-shield-keyhole-line", color: "#a78bfa" },
-          { label: "Ho?t d?ng h�m nay", value: activeToday, icon: "ri-pulse-line", color: "#34d399" },
-          { label: "VIP s?p h?t h?n", value: vipExpiringSoon, icon: "ri-alarm-warning-line", color: "#fb923c" },
+          { label: "Hoạt động hôm nay", value: activeToday, icon: "ri-pulse-line", color: "#34d399" },
+          { label: "VIP sắp hết hạn", value: vipExpiringSoon, icon: "ri-alarm-warning-line", color: "#fb923c" },
         ].map(s => (
           <div key={s.label} className="flex items-center gap-3 px-4 py-3 rounded-xl border"
             style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
@@ -1063,14 +1063,14 @@ export default function AdminUsersPage() {
         <div className="flex items-center gap-3 px-4 py-3 rounded-xl mb-4 text-xs"
           style={{ backgroundColor: "rgba(251,146,60,0.08)", border: "1px solid rgba(251,146,60,0.20)", color: "#fb923c" }}>
           <i className="ri-alarm-warning-line flex-shrink-0"></i>
-          <span><strong>{vipExpiringSoon} th�nh vi�n VIP</strong> s?p h?t h?n trong 7 ng�y. G?i email nh?c gia h?n h�ng lo?t?</span>
+          <span><strong>{vipExpiringSoon} thành viên VIP</strong> sắp hết hạn trong 7 ngày. Gửi email nhắc gia hạn hàng loạt?</span>
           <button onClick={() => {
             setAdvFilters(f => ({ ...f, vipType: "month" }));
             const expiring = users.filter(u => { const d = getVipDaysLeft(u); return d !== null && d <= 7 && d > 0; });
             setSelectedIds(new Set(expiring.map(u => u.id)));
             setShowBulkModal(true);
           }} className="ml-auto text-xs font-bold cursor-pointer whitespace-nowrap underline">
-            G?i email ngay ({vipExpiringSoon})
+            Gửi email ngay ({vipExpiringSoon})
           </button>
         </div>
       )}
@@ -1083,32 +1083,32 @@ export default function AdminUsersPage() {
             onClick={toggleSelectAll}>
             {selectedIds.size === filtered.length && filtered.length > 0 && <i className="ri-check-line text-white text-[10px]"></i>}
           </div>
-          {selectedIds.size > 0 && <span className="text-xs font-semibold" style={{ color: "#f87171" }}>{selectedIds.size} d� ch?n</span>}
+          {selectedIds.size > 0 && <span className="text-xs font-semibold" style={{ color: "#f87171" }}>{selectedIds.size} đã chọn</span>}
         </div>
 
         <div className="flex items-center gap-2 rounded-xl px-3 py-2 flex-1 min-w-[200px] border"
           style={{ backgroundColor: "var(--admin-card2)", borderColor: "var(--admin-border)" }}>
           <i className="ri-search-line text-sm" style={{ color: "var(--admin-text-faint)" }}></i>
-          <input type="text" value={search} onChange={e => setSearch(e.target.value)} placeholder="T�m theo t�n ho?c ID..."
+          <input type="text" value={search} onChange={e => setSearch(e.target.value)} placeholder="Tìm theo tên hoặc ID..."
             className="flex-1 bg-transparent text-sm outline-none" style={{ color: "var(--admin-text)" }} />
           {search && <button onClick={() => setSearch("")} className="cursor-pointer" style={{ color: "var(--admin-text-faint)" }}><i className="ri-close-line text-sm"></i></button>}
         </div>
         <select value={filterRole} onChange={e => setFilterRole(e.target.value as typeof filterRole)}
           className="rounded-lg px-3 py-2 text-xs outline-none cursor-pointer border"
           style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text-muted)", borderColor: "var(--admin-border)" }}>
-          <option value="all">T?t c?</option>
-          <option value="vip">Ch? VIP</option>
-          <option value="admin">Ch? Admin</option>
-          <option value="free">Ch? Free</option>
+          <option value="all">Tất cả</option>
+          <option value="vip">Chỉ VIP</option>
+          <option value="admin">Chỉ Admin</option>
+          <option value="free">Chỉ Free</option>
         </select>
         <select value={sortBy} onChange={e => setSortBy(e.target.value as typeof sortBy)}
           className="rounded-lg px-3 py-2 text-xs outline-none cursor-pointer border"
           style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text-muted)", borderColor: "var(--admin-border)" }}>
-          <option value="newest">M?i nh?t</option>
-          <option value="xp">XP cao nh?t</option>
-          <option value="streak">Streak cao nh?t</option>
-          <option value="active">Ho?t d?ng g?n d�y</option>
-          <option value="vip_expiry">VIP s?p h?t h?n</option>
+          <option value="newest">Mới nhất</option>
+          <option value="xp">XP cao nhất</option>
+          <option value="streak">Streak cao nhất</option>
+          <option value="active">Hoạt động gần đây</option>
+          <option value="vip_expiry">VIP sắp hết hạn</option>
         </select>
         <span className="text-xs ml-auto" style={{ color: "var(--admin-text-faint)" }}>{filtered.length}/{users.length}</span>
       </div>
@@ -1122,16 +1122,16 @@ export default function AdminUsersPage() {
         <div className="flex items-center justify-center py-20">
           <div className="flex flex-col items-center gap-3">
             <div className="w-8 h-8 border-2 border-rose-500/30 border-t-rose-500 rounded-full animate-spin"></div>
-            <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>�ang t?i t? Supabase...</p>
+            <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Đang tải từ Supabase...</p>
           </div>
         </div>
       ) : error ? (
         <div className="flex flex-col items-center justify-center py-16 text-center">
           <i className="ri-error-warning-line text-rose-400 text-3xl mb-3"></i>
-          <p className="text-sm font-medium mb-1" style={{ color: "var(--admin-text)" }}>L?i t?i d? li?u</p>
+          <p className="text-sm font-medium mb-1" style={{ color: "var(--admin-text)" }}>Lỗi tải dữ liệu</p>
           <p className="text-xs mb-4" style={{ color: "var(--admin-text-muted)" }}>{error}</p>
           <button onClick={refetch} className="px-4 py-2 rounded-xl bg-rose-500/15 text-rose-400 text-xs cursor-pointer whitespace-nowrap">
-            <i className="ri-refresh-line mr-1"></i>Th? l?i
+            <i className="ri-refresh-line mr-1"></i>Thử lại
           </button>
         </div>
       ) : (
@@ -1154,7 +1154,7 @@ export default function AdminUsersPage() {
           emptyState={
             <div className="text-center py-16">
               <i className="ri-user-search-line text-3xl mb-3" style={{ color: "var(--admin-text-faint)" }}></i>
-              <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Kh�ng t�m th?y th�nh vi�n n�o</p>
+              <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Không tìm thấy thành viên nào</p>
             </div>
           }
         />

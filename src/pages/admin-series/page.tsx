@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+Ôªøimport { useState, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { EbookSeries } from "@/pages/series/page";
@@ -33,7 +33,7 @@ export default function AdminSeriesPage() {
   const handleDelete = (id: string) => {
     setSeriesList(prev => prev.filter(s => s.id !== id));
     setConfirmDelete(null);
-    showToast("–„ xÛa series", "error");
+    showToast("ƒê√£ x√≥a series", "error");
   };
 
   const filtered = seriesList.filter(s =>
@@ -45,15 +45,15 @@ export default function AdminSeriesPage() {
 
   return (
     <AdminLayout
-      title="Qu?n l˝ Series Ebook"
-      subtitle="Xem v‡ qu?n l˝ t?t c? series ebook d„ t?o"
+      title="Qu·∫£n l√Ω Series Ebook"
+      subtitle="Xem v√† qu·∫£n l√Ω t·∫•t c·∫£ series ebook ƒë√£ t·∫°o"
       actions={
         <a
           href="/series"
           className="flex items-center gap-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-medium px-4 py-2 rounded-lg border border-rose-500/20 transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-external-link-line"></i>
-          M? trang Series
+          M·ªü trang Series
         </a>
       }
     >
@@ -66,10 +66,10 @@ export default function AdminSeriesPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        <StatCard icon="ri-stack-line" label="T?ng series" value={seriesList.length} color="app-accent-primary" />
-        <StatCard icon="ri-book-open-line" label="T?ng b‡i h?c" value={totalLessons} color="#34d399" />
-        <StatCard icon="ri-checkbox-circle-line" label="B‡i d„ duy?t" value={approvedLessons.length} color="#fb923c" />
-        <StatCard icon="ri-price-tag-3-line" label="Series cÛ gi·" value={withPrice} color="#a78bfa" />
+        <StatCard icon="ri-stack-line" label="T·ªïng series" value={seriesList.length} color="app-accent-primary" />
+        <StatCard icon="ri-book-open-line" label="T·ªïng b√†i h·ªçc" value={totalLessons} color="#34d399" />
+        <StatCard icon="ri-checkbox-circle-line" label="B√†i ƒë√£ duy·ªát" value={approvedLessons.length} color="#fb923c" />
+        <StatCard icon="ri-price-tag-3-line" label="Series c√≥ gi√°" value={withPrice} color="#a78bfa" />
       </div>
 
       {/* Search */}
@@ -80,7 +80,7 @@ export default function AdminSeriesPage() {
             type="text"
             value={search}
             onChange={e => setSearch(e.target.value)}
-            placeholder="TÏm series theo tÍn, mÙ t?..."
+            placeholder="T√¨m series theo t√™n, m√¥ t·∫£..."
             className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder-white/20"
           />
           {search && (
@@ -99,10 +99,10 @@ export default function AdminSeriesPage() {
             <i className="ri-stack-line text-app-text-muted text-3xl"></i>
           </div>
           <p className="text-app-text-secondary text-sm font-medium mb-1">
-            {search ? "KhÙng tÏm th?y series n‡o" : "Chua cÛ series n‡o"}
+            {search ? "Kh√¥ng t√¨m th·∫•y series n√†o" : "Ch∆∞a c√≥ series n√†o"}
           </p>
           <p className="text-app-text-muted text-xs mb-5">
-            {search ? "Th? t? khÛa kh·c" : "T?o series t? trang Series d? qu?n l˝ ebook"}
+            {search ? "Th·ª≠ t·ª´ kh√≥a kh√°c" : "T·∫°o series t·ª´ trang Series ƒë·ªÉ qu·∫£n l√Ω ebook"}
           </p>
           {!search && (
             <a
@@ -110,19 +110,19 @@ export default function AdminSeriesPage() {
               className="flex items-center gap-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-sm font-medium px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap border border-rose-500/20"
             >
               <i className="ri-external-link-line"></i>
-              –?n trang Series
+              ƒê·∫øn trang Series
             </a>
           )}
         </div>
       ) : (
         <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden">
           <div className="grid grid-cols-[auto_1fr_auto_auto_auto_auto] gap-0 text-[10px] text-app-text-muted tracking-normal font-bold px-5 py-3 border-b border-app-border">
-            <span className="w-8">BÏa</span>
-            <span className="pl-3">TÍn series</span>
-            <span className="w-20 text-center">B‡i h?c</span>
-            <span className="w-24 text-center">Gi·</span>
-            <span className="w-24 text-center">Ng‡y t?o</span>
-            <span className="w-16 text-center">Thao t·c</span>
+            <span className="w-8">B√¨a</span>
+            <span className="pl-3">T√™n series</span>
+            <span className="w-20 text-center">B√†i h·ªçc</span>
+            <span className="w-24 text-center">Gi√°</span>
+            <span className="w-24 text-center">Ng√†y t·∫°o</span>
+            <span className="w-16 text-center">Thao t√°c</span>
           </div>
           <div className="divide-y divide-white/3">
             {filtered.map(series => {
@@ -160,7 +160,7 @@ export default function AdminSeriesPage() {
                   {/* Lesson count */}
                   <div className="w-20 text-center">
                     <span className="text-white/60 text-sm font-bold">{lessonCount}</span>
-                    <p className="text-app-text-muted text-[10px]">b‡i</p>
+                    <p className="text-app-text-muted text-[10px]">b√†i</p>
                   </div>
 
                   {/* Price */}
@@ -168,7 +168,7 @@ export default function AdminSeriesPage() {
                     {series.price ? (
                       <span className="text-app-accent-success text-xs font-semibold">{series.price}</span>
                     ) : (
-                      <span className="text-app-text-muted text-xs">ó</span>
+                      <span className="text-app-text-muted text-xs">‚Äî</span>
                     )}
                   </div>
 
@@ -184,14 +184,14 @@ export default function AdminSeriesPage() {
                     <a
                       href="/series"
                       className="w-7 h-7 flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 rounded-lg transition-colors cursor-pointer"
-                      title="Ch?nh s?a"
+                      title="Ch·ªânh s·ª≠a"
                     >
                       <i className="ri-edit-line text-app-text-secondary text-xs"></i>
                     </a>
                     <button
                       onClick={() => setConfirmDelete(series.id)}
                       className="w-7 h-7 flex items-center justify-center bg-red-500/10 hover:bg-red-500/20 rounded-lg transition-colors cursor-pointer"
-                      title="XÛa"
+                      title="X√≥a"
                     >
                       <i className="ri-delete-bin-line text-red-400 text-xs"></i>
                     </button>
@@ -207,10 +207,10 @@ export default function AdminSeriesPage() {
       <div className="mt-6 bg-rose-500/5 border border-rose-500/15 rounded-xl p-4 flex items-start gap-3">
         <i className="ri-information-line text-rose-400 text-sm mt-0.5 flex-shrink-0"></i>
         <div>
-          <p className="text-rose-400/80 text-xs font-semibold mb-1">Luu ˝ qu?n l˝ Series</p>
+          <p className="text-rose-400/80 text-xs font-semibold mb-1">L∆∞u √Ω qu·∫£n l√Ω Series</p>
           <p className="text-app-text-secondary text-xs leading-relaxed">
-            –? t?o ho?c ch?nh s?a series, v‡o trang <strong className="text-white/60">Series</strong> trong menu chÌnh.
-            Trang n‡y ch? hi?n th? t?ng quan v‡ cho phÈp xÛa series khÙng c?n thi?t.
+            ƒê·ªÉ t·∫°o ho·∫∑c ch·ªânh s·ª≠a series, v√†o trang <strong className="text-white/60">Series</strong> trong menu ch√≠nh.
+            Trang n√†y ch·ªâ hi·ªÉn th·ªã t·ªïng quan v√† cho ph√©p x√≥a series kh√¥ng c·∫ßn thi·∫øt.
           </p>
         </div>
       </div>
@@ -222,20 +222,20 @@ export default function AdminSeriesPage() {
             <div className="w-12 h-12 flex items-center justify-center bg-red-500/10 rounded-2xl mx-auto mb-4">
               <i className="ri-delete-bin-line text-red-400 text-2xl"></i>
             </div>
-            <p className="text-white font-bold text-base mb-2">XÛa series n‡y?</p>
-            <p className="text-app-text-secondary text-sm mb-6">H‡nh d?ng n‡y khÙng th? ho‡n t·c. Series v‡ t?t c? c?u hÏnh s? b? xÛa vinh vi?n.</p>
+            <p className="text-white font-bold text-base mb-2">X√≥a series n√†y?</p>
+            <p className="text-app-text-secondary text-sm mb-6">H√†nh ƒë·ªông n√†y kh√¥ng th·ªÉ ho√†n t√°c. Series v√† t·∫•t c·∫£ c·∫•u h√¨nh s·∫Ω b·ªã x√≥a vƒ©nh vi·ªÖn.</p>
             <div className="flex gap-3">
               <button
                 onClick={() => setConfirmDelete(null)}
                 className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"
               >
-                H?y
+                H·ªßy
               </button>
               <button
                 onClick={() => handleDelete(confirmDelete)}
                 className="flex-1 py-2.5 rounded-xl bg-red-500 hover:bg-red-400 text-white text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
               >
-                XÛa series
+                X√≥a series
               </button>
             </div>
           </div>

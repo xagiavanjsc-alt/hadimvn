@@ -1,10 +1,10 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { seoulBooks, type SeoulBook, type SeoulLesson } from "@/mocks/seoulTextbook";
 
-// --- Types --------------------------------------------------------------------
+// ─── Types ────────────────────────────────────────────────────────────────────
 interface PathStep {
   book: SeoulBook;
   lesson: SeoulLesson;
@@ -14,7 +14,7 @@ interface PathStep {
   stepIndex: number;
 }
 
-// --- Helpers ------------------------------------------------------------------
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 function getRecommendedPath(completedMap: Record<string, boolean>): PathStep[] {
   const steps: PathStep[] = [];
   let foundNext = false;
@@ -38,7 +38,7 @@ function getRecommendedPath(completedMap: Record<string, boolean>): PathStep[] {
   return steps;
 }
 
-// --- Step Card ----------------------------------------------------------------
+// ─── Step Card ────────────────────────────────────────────────────────────────
 function StepCard({
   step,
   onClick,
@@ -95,7 +95,7 @@ function StepCard({
           </span>
           {isNext && (
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#a78bfa]/20 text-[#a78bfa] animate-pulse">
-              Ti?p theo
+              Tiếp theo
             </span>
           )}
         </div>
@@ -109,7 +109,7 @@ function StepCard({
         <p className="text-app-text-muted text-[10px] truncate">{lesson.title}</p>
         <div className="flex items-center gap-2 mt-1">
           <span className="text-[9px] text-app-text-muted flex items-center gap-0.5">
-            <i className="ri-translate-2 text-xs"></i>{lesson.vocabulary.length} t?
+            <i className="ri-translate-2 text-xs"></i>{lesson.vocabulary.length} từ
           </span>
           <span className="text-[9px] text-app-text-muted flex items-center gap-0.5">
             <i className="ri-book-2-line text-xs"></i>{lesson.grammarPoints.length} NP
@@ -129,7 +129,7 @@ function StepCard({
   );
 }
 
-// --- Book Section -------------------------------------------------------------
+// ─── Book Section ─────────────────────────────────────────────────────────────
 function BookSection({
   book,
   steps,
@@ -173,12 +173,12 @@ function BookSection({
             <p className="text-white font-bold text-sm">{book.name}</p>
             {hasNext && (
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#a78bfa]/20 text-[#a78bfa] font-semibold">
-                �ang h?c
+                Đang học
               </span>
             )}
             {completedCount === steps.length && steps.length > 0 && (
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success font-semibold">
-                <i className="ri-checkbox-circle-fill mr-0.5"></i>Ho�n th�nh
+                <i className="ri-checkbox-circle-fill mr-0.5"></i>Hoàn thành
               </span>
             )}
           </div>
@@ -189,7 +189,7 @@ function BookSection({
                 style={{ width: `${progress}%`, backgroundColor: book.color }}
               />
             </div>
-            <span className="text-app-text-muted text-[10px]">{completedCount}/{steps.length} b�i</span>
+            <span className="text-app-text-muted text-[10px]">{completedCount}/{steps.length} bài</span>
           </div>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
@@ -210,7 +210,7 @@ function BookSection({
   );
 }
 
-// --- Stats Overview -----------------------------------------------------------
+// ─── Stats Overview ───────────────────────────────────────────────────────────
 function StatsOverview({ completedMap }: { completedMap: Record<string, boolean> }) {
   const navigate = useNavigate();
   const totalLessons = seoulBooks.reduce((sum, b) => sum + b.totalLessons, 0);
@@ -237,27 +237,27 @@ function StatsOverview({ completedMap }: { completedMap: Record<string, boolean>
           <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#a78bfa]/15">
             <i className="ri-route-line text-[#a78bfa] text-sm"></i>
           </div>
-          <span className="text-app-text-secondary text-xs">Ti?n d?</span>
+          <span className="text-app-text-secondary text-xs">Tiến độ</span>
         </div>
         <p className="text-[#a78bfa] text-xl font-bold">{overallPct}%</p>
-        <p className="text-app-text-muted text-[10px] mt-0.5">{totalCompleted}/{totalLessons} b�i</p>
+        <p className="text-app-text-muted text-[10px] mt-0.5">{totalCompleted}/{totalLessons} bài</p>
       </div>
       <div className="bg-app-bg border border-app-border rounded-xl p-3 md:p-4">
         <div className="flex items-center gap-2 mb-2">
           <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-accent-success/15">
             <i className="ri-checkbox-circle-line text-app-accent-success text-sm"></i>
           </div>
-          <span className="text-app-text-secondary text-xs">�� h?c</span>
+          <span className="text-app-text-secondary text-xs">Đã học</span>
         </div>
         <p className="text-app-accent-success text-xl font-bold">{totalCompleted}</p>
-        <p className="text-app-text-muted text-[10px] mt-0.5">b�i ho�n th�nh</p>
+        <p className="text-app-text-muted text-[10px] mt-0.5">bài hoàn thành</p>
       </div>
       <div className="bg-app-bg border border-app-border rounded-xl p-3 md:p-4">
         <div className="flex items-center gap-2 mb-2">
           <div className="w-7 h-7 flex items-center justify-center rounded-lg" style={{ backgroundColor: `${currentBook.color}15` }}>
             <i className="ri-book-3-line text-sm" style={{ color: currentBook.color }}></i>
           </div>
-          <span className="text-app-text-secondary text-xs">�ang h?c</span>
+          <span className="text-app-text-secondary text-xs">Đang học</span>
         </div>
         <p className="text-white font-black text-lg">{currentBook.level}</p>
         <p className="text-app-text-muted text-[10px] mt-0.5">{currentBook.cefrLevel}</p>
@@ -267,16 +267,16 @@ function StatsOverview({ completedMap }: { completedMap: Record<string, boolean>
           <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-accent-primary/15">
             <i className="ri-time-line text-app-accent-primary text-sm"></i>
           </div>
-          <span className="text-app-text-secondary text-xs">C�n l?i</span>
+          <span className="text-app-text-secondary text-xs">Còn lại</span>
         </div>
         <p className="text-app-accent-primary text-xl font-bold">{estimatedHours}h</p>
-        <p className="text-app-text-muted text-[10px] mt-0.5">{remainingLessons} b�i � ~30 ph�t/b�i</p>
+        <p className="text-app-text-muted text-[10px] mt-0.5">{remainingLessons} bài · ~30 phút/bài</p>
       </div>
     </div>
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function SeoulLearningPathPage() {
   const navigate = useNavigate();
   const [completedMap] = useLocalStorage<Record<string, boolean>>("kts_seoul_progress", {});
@@ -340,15 +340,15 @@ export default function SeoulLearningPathPage() {
 
   return (
     <DashboardLayout
-      title="H?c theo l? tr�nh"
-      subtitle="G?i � b�i h?c ti?p theo d?a tr�n ti?n d? c?a b?n"
+      title="Học theo lộ trình"
+      subtitle="Gợi ý bài học tiếp theo dựa trên tiến độ của bạn"
       actions={
         <div className="flex items-center gap-2">
           <button
             onClick={() => navigate("/seoul-textbook")}
             className="flex items-center gap-2 bg-[#a78bfa]/10 hover:bg-[#a78bfa]/20 text-[#a78bfa] text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
-            <i className="ri-book-3-line"></i>Gi�o tr�nh
+            <i className="ri-book-3-line"></i>Giáo trình
           </button>
           <button
             onClick={() => navigate("/seoul-streak")}
@@ -388,20 +388,20 @@ export default function SeoulLearningPathPage() {
                     {nextStep.book.level}
                   </span>
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#a78bfa]/20 text-[#a78bfa]">
-                    B�i ti?p theo c?a b?n
+                    Bài tiếp theo của bạn
                   </span>
                 </div>
                 <p className="text-white font-bold text-sm md:text-base">{nextStep.lesson.titleVi}</p>
                 <p className="text-app-text-secondary text-xs mt-0.5">{nextStep.lesson.title}</p>
                 <div className="flex items-center gap-3 mt-2">
                   <span className="text-[10px] text-app-text-muted flex items-center gap-1">
-                    <i className="ri-translate-2 text-xs"></i>{nextStep.lesson.vocabulary.length} t? v?ng
+                    <i className="ri-translate-2 text-xs"></i>{nextStep.lesson.vocabulary.length} từ vựng
                   </span>
                   <span className="text-[10px] text-app-text-muted flex items-center gap-1">
-                    <i className="ri-book-2-line text-xs"></i>{nextStep.lesson.grammarPoints.length} ng? ph�p
+                    <i className="ri-book-2-line text-xs"></i>{nextStep.lesson.grammarPoints.length} ngữ pháp
                   </span>
                   <span className="text-[10px] text-app-text-muted flex items-center gap-1">
-                    <i className="ri-time-line text-xs"></i>~30 ph�t
+                    <i className="ri-time-line text-xs"></i>~30 phút
                   </span>
                 </div>
               </div>
@@ -410,7 +410,7 @@ export default function SeoulLearningPathPage() {
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all cursor-pointer whitespace-nowrap flex-shrink-0 text-app-bg hover:opacity-90 active:scale-95"
                 style={{ backgroundColor: nextStep.book.color }}
               >
-                <i className="ri-play-fill"></i>H?c ngay
+                <i className="ri-play-fill"></i>Học ngay
               </button>
             </div>
 
@@ -429,10 +429,10 @@ export default function SeoulLearningPathPage() {
         <div className="flex items-center justify-between gap-3 flex-wrap">
           <div className="flex items-center gap-1.5 flex-wrap">
             {[
-              { id: "all", label: "T?t c?" },
-              { id: "inprogress", label: "�ang h?c" },
-              { id: "completed", label: "Ho�n th�nh" },
-              { id: "upcoming", label: "S?p t?i" },
+              { id: "all", label: "Tất cả" },
+              { id: "inprogress", label: "Đang học" },
+              { id: "completed", label: "Hoàn thành" },
+              { id: "upcoming", label: "Sắp tới" },
             ].map(f => (
               <button
                 key={f.id}
@@ -449,11 +449,11 @@ export default function SeoulLearningPathPage() {
           </div>
           <div className="flex items-center gap-2">
             <button onClick={expandAll} className="text-app-text-muted hover:text-white/60 text-xs cursor-pointer whitespace-nowrap transition-colors">
-              M? t?t c?
+              Mở tất cả
             </button>
-            <span className="text-white/15">�</span>
+            <span className="text-white/15">·</span>
             <button onClick={collapseAll} className="text-app-text-muted hover:text-white/60 text-xs cursor-pointer whitespace-nowrap transition-colors">
-              Thu g?n
+              Thu gọn
             </button>
           </div>
         </div>
@@ -479,9 +479,9 @@ export default function SeoulLearningPathPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[
             { icon: "ri-stack-line", color: "app-accent-primary", label: "Flashcard Seoul", path: "/seoul-flashcard" },
-            { icon: "ri-file-list-3-line", color: "#34d399", label: "Thi th? b�i", path: "/seoul-lesson-quiz" },
-            { icon: "ri-headphone-line", color: "#06b6d4", label: "Nghe & nh?n bi?t", path: "/seoul-listening-quiz" },
-            { icon: "ri-error-warning-line", color: "#f87171", label: "�n t? sai", path: "/seoul-wrong-review" },
+            { icon: "ri-file-list-3-line", color: "#34d399", label: "Thi thử bài", path: "/seoul-lesson-quiz" },
+            { icon: "ri-headphone-line", color: "#06b6d4", label: "Nghe & nhận biết", path: "/seoul-listening-quiz" },
+            { icon: "ri-error-warning-line", color: "#f87171", label: "Ôn từ sai", path: "/seoul-wrong-review" },
           ].map(a => (
             <button
               key={a.path}
@@ -506,12 +506,12 @@ export default function SeoulLearningPathPage() {
               <i className="ri-lightbulb-line text-[#a78bfa] text-sm"></i>
             </div>
             <div>
-              <p className="text-white/70 text-xs font-semibold mb-1">M?o h?c theo l? tr�nh</p>
+              <p className="text-white/70 text-xs font-semibold mb-1">Mẹo học theo lộ trình</p>
               <ul className="text-app-text-secondary text-xs leading-relaxed space-y-1">
-                <li>� H?c theo th? t? t? 1A d?n 4B d? d?m b?o n?n t?ng v?ng ch?c</li>
-                <li>� M?i b�i h?c kho?ng 30 ph�t � h?c 1 b�i/ng�y d? duy tr� streak</li>
-                <li>� Sau m?i b�i, l�m quiz d? c?ng c? v� nh?n XP</li>
-                <li>� �n l?i t? sai thu?ng xuy�n d? kh�ng qu�n ki?n th?c cu</li>
+                <li>• Học theo thứ tự từ 1A đến 4B để đảm bảo nền tảng vững chắc</li>
+                <li>• Mỗi bài học khoảng 30 phút — học 1 bài/ngày để duy trì streak</li>
+                <li>• Sau mỗi bài, làm quiz để củng cố và nhận XP</li>
+                <li>• Ôn lại từ sai thường xuyên để không quên kiến thức cũ</li>
               </ul>
             </div>
           </div>

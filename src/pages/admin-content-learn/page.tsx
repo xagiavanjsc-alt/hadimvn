@@ -1,8 +1,8 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { supabase } from "@/lib/supabase";
 
-// --- Types --------------------------------------------------------------------
+// ─── Types ────────────────────────────────────────────────────────────────────
 interface TopikVocab {
   id: string; korean: string; reading: string; vietnamese: string;
   example: string; example_vi: string; category: string;
@@ -27,12 +27,12 @@ interface GrammarEntry {
 
 type Tab = "topik" | "seoul" | "hanja" | "grammar";
 
-// --- Shared helpers -----------------------------------------------------------
+// ─── Shared helpers ───────────────────────────────────────────────────────────
 const inputCls = "w-full rounded-xl px-3 py-2 text-sm outline-none border";
 const inputStyle = { backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" };
 const PAGE_SIZE = 50;
 
-// --- Toast --------------------------------------------------------------------
+// ─── Toast ────────────────────────────────────────────────────────────────────
 function Toast({ msg, type }: { msg: string; type: "ok" | "err" }) {
   return (
     <div className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-xl text-sm font-medium text-white ${type === "ok" ? "bg-emerald-600" : "bg-rose-600"}`}>
@@ -41,7 +41,7 @@ function Toast({ msg, type }: { msg: string; type: "ok" | "err" }) {
   );
 }
 
-// --- TOPIK Vocab Tab ----------------------------------------------------------
+// ─── TOPIK Vocab Tab ──────────────────────────────────────────────────────────
 function TopikVocabTab() {
   const [vocab, setVocab] = useState<TopikVocab[]>([]);
   const [loading, setLoading] = useState(true);
@@ -51,7 +51,7 @@ function TopikVocabTab() {
   const [toast, setToast] = useState<{ msg: string; type: "ok" | "err" } | null>(null);
   const [page, setPage] = useState(0);
   const [showAdd, setShowAdd] = useState(false);
-  const [form, setForm] = useState({ korean: "", reading: "", vietnamese: "", example: "", example_vi: "", category: "", topik_level: "I", part_of_speech: "Danh t?" });
+  const [form, setForm] = useState({ korean: "", reading: "", vietnamese: "", example: "", example_vi: "", category: "", topik_level: "I", part_of_speech: "Danh từ" });
   const [saving, setSaving] = useState(false);
 
   const showToast = (msg: string, type: "ok" | "err" = "ok") => {
@@ -87,32 +87,32 @@ function TopikVocabTab() {
       if (error) throw error;
       setVocab(prev => prev.map(v => v.id === editEntry.id ? editEntry : v));
       setEditEntry(null);
-      showToast("�� c?p nh?t t? v?ng TOPIK");
-    } catch { showToast("L?i c?p nh?t", "err"); }
+      showToast("Đã cập nhật từ vựng TOPIK");
+    } catch { showToast("Lỗi cập nhật", "err"); }
     finally { setSaving(false); }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("X�a t? v?ng n�y?")) return;
+    if (!confirm("Xóa từ vựng này?")) return;
     try {
       const { error } = await supabase.from("topik_vocabulary").delete().eq("id", id);
       if (error) throw error;
       setVocab(prev => prev.filter(v => v.id !== id));
-      showToast("�� x�a t? v?ng");
-    } catch { showToast("L?i x�a", "err"); }
+      showToast("Đã xóa từ vựng");
+    } catch { showToast("Lỗi xóa", "err"); }
   };
 
   const handleAdd = async () => {
-    if (!form.korean.trim() || !form.vietnamese.trim()) { showToast("Nh?p ti?ng H�n v� nghia", "err"); return; }
+    if (!form.korean.trim() || !form.vietnamese.trim()) { showToast("Nhập tiếng Hàn và nghĩa", "err"); return; }
     setSaving(true);
     try {
       const { error } = await supabase.from("topik_vocabulary").insert({ id: `tv-${Date.now()}`, ...form });
       if (error) throw error;
-      showToast("�� th�m t? v?ng TOPIK m?i");
-      setForm({ korean: "", reading: "", vietnamese: "", example: "", example_vi: "", category: "", topik_level: "I", part_of_speech: "Danh t?" });
+      showToast("Đã thêm từ vựng TOPIK mới");
+      setForm({ korean: "", reading: "", vietnamese: "", example: "", example_vi: "", category: "", topik_level: "I", part_of_speech: "Danh từ" });
       setShowAdd(false);
       fetchVocab();
-    } catch { showToast("L?i th�m t?", "err"); }
+    } catch { showToast("Lỗi thêm từ", "err"); }
     finally { setSaving(false); }
   };
 
@@ -122,7 +122,7 @@ function TopikVocabTab() {
       <div className="flex items-center gap-3 mb-4 flex-wrap">
         <div className="relative flex-1 min-w-52">
           <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-sm" style={{ color: "var(--admin-text-faint)" }}></i>
-          <input value={search} onChange={e => { setSearch(e.target.value); setPage(0); }} placeholder="T�m t? ti?ng H�n ho?c nghia..."
+          <input value={search} onChange={e => { setSearch(e.target.value); setPage(0); }} placeholder="Tìm từ tiếng Hàn hoặc nghĩa..."
             className="w-full rounded-xl pl-9 pr-4 py-2 text-sm outline-none border"
             style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
         </div>
@@ -131,14 +131,14 @@ function TopikVocabTab() {
             <button key={l} onClick={() => { setLevelFilter(l); setPage(0); }}
               className="px-3 py-1.5 rounded-md text-xs font-medium cursor-pointer whitespace-nowrap"
               style={{ backgroundColor: levelFilter === l ? "var(--admin-hover)" : "transparent", color: levelFilter === l ? "var(--admin-text)" : "var(--admin-text-faint)" }}>
-              {l === "all" ? "T?t c?" : `TOPIK ${l}`}
+              {l === "all" ? "Tất cả" : `TOPIK ${l}`}
             </button>
           ))}
         </div>
         <button onClick={() => setShowAdd(v => !v)}
           className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap"
           style={{ backgroundColor: "rgba(52,211,153,0.10)", color: "#34d399", border: "1px solid rgba(52,211,153,0.20)" }}>
-          <i className="ri-add-line"></i>Th�m t? m?i
+          <i className="ri-add-line"></i>Thêm từ mới
         </button>
         <button onClick={fetchVocab} className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs cursor-pointer whitespace-nowrap"
           style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)", border: "1px solid var(--admin-border)" }}>
@@ -148,31 +148,31 @@ function TopikVocabTab() {
 
       {showAdd && (
         <div className="rounded-2xl border p-5 mb-4" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border2)" }}>
-          <p className="font-bold text-sm mb-4" style={{ color: "var(--admin-text)" }}>Th�m t? v?ng TOPIK m?i</p>
+          <p className="font-bold text-sm mb-4" style={{ color: "var(--admin-text)" }}>Thêm từ vựng TOPIK mới</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
-            <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Ti?ng H�n *</label><input value={form.korean} onChange={e => setForm(f => ({ ...f, korean: e.target.value }))} placeholder="??" className={inputCls} style={inputStyle} /></div>
-            <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Phi�n �m</label><input value={form.reading} onChange={e => setForm(f => ({ ...f, reading: e.target.value }))} placeholder="hak-gyo" className={inputCls} style={inputStyle} /></div>
-            <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Nghia *</label><input value={form.vietnamese} onChange={e => setForm(f => ({ ...f, vietnamese: e.target.value }))} placeholder="tru?ng h?c" className={inputCls} style={inputStyle} /></div>
-            <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>V� d? HQ</label><input value={form.example} onChange={e => setForm(f => ({ ...f, example: e.target.value }))} className={inputCls} style={inputStyle} /></div>
-            <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>V� d? VN</label><input value={form.example_vi} onChange={e => setForm(f => ({ ...f, example_vi: e.target.value }))} className={inputCls} style={inputStyle} /></div>
-            <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Ch? d?</label><input value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} className={inputCls} style={inputStyle} /></div>
+            <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Tiếng Hàn *</label><input value={form.korean} onChange={e => setForm(f => ({ ...f, korean: e.target.value }))} placeholder="학교" className={inputCls} style={inputStyle} /></div>
+            <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Phiên âm</label><input value={form.reading} onChange={e => setForm(f => ({ ...f, reading: e.target.value }))} placeholder="hak-gyo" className={inputCls} style={inputStyle} /></div>
+            <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Nghĩa *</label><input value={form.vietnamese} onChange={e => setForm(f => ({ ...f, vietnamese: e.target.value }))} placeholder="trường học" className={inputCls} style={inputStyle} /></div>
+            <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Ví dụ HQ</label><input value={form.example} onChange={e => setForm(f => ({ ...f, example: e.target.value }))} className={inputCls} style={inputStyle} /></div>
+            <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Ví dụ VN</label><input value={form.example_vi} onChange={e => setForm(f => ({ ...f, example_vi: e.target.value }))} className={inputCls} style={inputStyle} /></div>
+            <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Chủ đề</label><input value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} className={inputCls} style={inputStyle} /></div>
             <div>
-              <label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>C?p d?</label>
+              <label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Cấp độ</label>
               <select value={form.topik_level} onChange={e => setForm(f => ({ ...f, topik_level: e.target.value }))} className={inputCls + " cursor-pointer"} style={inputStyle}>
                 <option value="I">TOPIK I</option><option value="II">TOPIK II</option>
               </select>
             </div>
             <div>
-              <label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Lo?i t?</label>
+              <label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Loại từ</label>
               <select value={form.part_of_speech} onChange={e => setForm(f => ({ ...f, part_of_speech: e.target.value }))} className={inputCls + " cursor-pointer"} style={inputStyle}>
-                {["Danh t?", "�?ng t?", "T�nh t?", "Tr?ng t?", "Tr? t?", "Li�n t?"].map(p => <option key={p} value={p}>{p}</option>)}
+                {["Danh từ", "Động từ", "Tính từ", "Trạng từ", "Trợ từ", "Liên từ"].map(p => <option key={p} value={p}>{p}</option>)}
               </select>
             </div>
           </div>
           <div className="flex gap-3">
-            <button onClick={() => setShowAdd(false)} className="px-4 py-2 rounded-xl border text-sm cursor-pointer whitespace-nowrap" style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>H?y</button>
+            <button onClick={() => setShowAdd(false)} className="px-4 py-2 rounded-xl border text-sm cursor-pointer whitespace-nowrap" style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>Hủy</button>
             <button onClick={handleAdd} disabled={saving} className="px-6 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-white font-bold text-sm cursor-pointer whitespace-nowrap">
-              {saving ? "�ang th�m..." : "Th�m v�o Supabase"}
+              {saving ? "Đang thêm..." : "Thêm vào Supabase"}
             </button>
           </div>
         </div>
@@ -185,12 +185,12 @@ function TopikVocabTab() {
           <div className="rounded-xl border overflow-hidden mb-4" style={{ borderColor: "var(--admin-border)" }}>
             <div className="grid grid-cols-[2fr_1fr_2fr_1fr_1fr_auto] px-4 py-2.5 text-[10px] font-bold tracking-normal"
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text-faint)", borderBottom: "1px solid var(--admin-border)" }}>
-              <span>Ti?ng H�n</span><span>Phi�n �m</span><span>Nghia</span><span>C?p d?</span><span>Lo?i t?</span><span></span>
+              <span>Tiếng Hàn</span><span>Phiên âm</span><span>Nghĩa</span><span>Cấp độ</span><span>Loại từ</span><span></span>
             </div>
             <div className="divide-y" style={{ borderColor: "var(--admin-border)" }}>
               {vocab.length === 0 ? (
                 <div className="text-center py-12" style={{ color: "var(--admin-text-faint)" }}>
-                  <i className="ri-book-open-line text-3xl mb-2 block"></i>Kh�ng t�m th?y t? v?ng
+                  <i className="ri-book-open-line text-3xl mb-2 block"></i>Không tìm thấy từ vựng
                 </div>
               ) : vocab.map(v => (
                 <div key={v.id} className="grid grid-cols-[2fr_1fr_2fr_1fr_1fr_auto] px-4 py-3 items-center group"
@@ -218,10 +218,10 @@ function TopikVocabTab() {
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <p className="text-xs" style={{ color: "var(--admin-text-faint)" }}>Trang {page + 1} � {vocab.length} t?</p>
+            <p className="text-xs" style={{ color: "var(--admin-text-faint)" }}>Trang {page + 1} · {vocab.length} từ</p>
             <div className="flex gap-2">
-              <button onClick={() => setPage(p => Math.max(0, p - 1))} disabled={page === 0} className="px-3 py-1.5 rounded-lg text-xs cursor-pointer disabled:opacity-30 whitespace-nowrap" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>Tru?c</button>
-              <button onClick={() => setPage(p => p + 1)} disabled={vocab.length < PAGE_SIZE} className="px-3 py-1.5 rounded-lg text-xs cursor-pointer disabled:opacity-30 whitespace-nowrap" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>Ti?p</button>
+              <button onClick={() => setPage(p => Math.max(0, p - 1))} disabled={page === 0} className="px-3 py-1.5 rounded-lg text-xs cursor-pointer disabled:opacity-30 whitespace-nowrap" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>Trước</button>
+              <button onClick={() => setPage(p => p + 1)} disabled={vocab.length < PAGE_SIZE} className="px-3 py-1.5 rounded-lg text-xs cursor-pointer disabled:opacity-30 whitespace-nowrap" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>Tiếp</button>
             </div>
           </div>
         </>
@@ -231,14 +231,14 @@ function TopikVocabTab() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <div className="w-full max-w-lg rounded-2xl border overflow-hidden" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border2)" }}>
             <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: "var(--admin-border)" }}>
-              <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>S?a t? TOPIK: {editEntry.korean}</p>
+              <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>Sửa từ TOPIK: {editEntry.korean}</p>
               <button onClick={() => setEditEntry(null)} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ color: "var(--admin-text-muted)" }}><i className="ri-close-line"></i></button>
             </div>
             <div className="p-5 grid grid-cols-2 gap-3">
               {[
-                { key: "korean", label: "Ti?ng H�n" }, { key: "reading", label: "Phi�n �m" },
-                { key: "vietnamese", label: "Nghia" }, { key: "category", label: "Ch? d?" },
-                { key: "example", label: "V� d? HQ" }, { key: "example_vi", label: "V� d? VN" },
+                { key: "korean", label: "Tiếng Hàn" }, { key: "reading", label: "Phiên âm" },
+                { key: "vietnamese", label: "Nghĩa" }, { key: "category", label: "Chủ đề" },
+                { key: "example", label: "Ví dụ HQ" }, { key: "example_vi", label: "Ví dụ VN" },
               ].map(f => (
                 <div key={f.key}>
                   <label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>{f.label}</label>
@@ -246,22 +246,22 @@ function TopikVocabTab() {
                 </div>
               ))}
               <div>
-                <label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>C?p d?</label>
+                <label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Cấp độ</label>
                 <select value={editEntry.topik_level} onChange={e => setEditEntry(prev => prev ? { ...prev, topik_level: e.target.value } : null)} className={inputCls + " cursor-pointer"} style={inputStyle}>
                   <option value="I">TOPIK I</option><option value="II">TOPIK II</option>
                 </select>
               </div>
               <div>
-                <label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Lo?i t?</label>
+                <label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Loại từ</label>
                 <select value={editEntry.part_of_speech} onChange={e => setEditEntry(prev => prev ? { ...prev, part_of_speech: e.target.value } : null)} className={inputCls + " cursor-pointer"} style={inputStyle}>
-                  {["Danh t?", "�?ng t?", "T�nh t?", "Tr?ng t?", "Tr? t?", "Li�n t?"].map(p => <option key={p} value={p}>{p}</option>)}
+                  {["Danh từ", "Động từ", "Tính từ", "Trạng từ", "Trợ từ", "Liên từ"].map(p => <option key={p} value={p}>{p}</option>)}
                 </select>
               </div>
             </div>
             <div className="px-5 py-4 border-t flex gap-3" style={{ borderColor: "var(--admin-border)" }}>
-              <button onClick={() => setEditEntry(null)} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap" style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>H?y</button>
+              <button onClick={() => setEditEntry(null)} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap" style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>Hủy</button>
               <button onClick={handleSaveEdit} disabled={saving} className="flex-1 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 disabled:opacity-50 text-white font-bold text-sm cursor-pointer whitespace-nowrap">
-                {saving ? "�ang luu..." : "Luu thay d?i"}
+                {saving ? "Đang lưu..." : "Lưu thay đổi"}
               </button>
             </div>
           </div>
@@ -271,7 +271,7 @@ function TopikVocabTab() {
   );
 }
 
-// --- Seoul Vocab Tab ----------------------------------------------------------
+// ─── Seoul Vocab Tab ──────────────────────────────────────────────────────────
 function SeoulVocabTab() {
   const [vocab, setVocab] = useState<SeoulVocab[]>([]);
   const [loading, setLoading] = useState(true);
@@ -315,8 +315,8 @@ function SeoulVocabTab() {
       if (error) throw error;
       setVocab(prev => prev.map(v => v.id === editEntry.id ? editEntry : v));
       setEditEntry(null);
-      showToast("�� c?p nh?t t? v?ng Seoul");
-    } catch { showToast("L?i c?p nh?t", "err"); }
+      showToast("Đã cập nhật từ vựng Seoul");
+    } catch { showToast("Lỗi cập nhật", "err"); }
     finally { setSaving(false); }
   };
 
@@ -328,15 +328,15 @@ function SeoulVocabTab() {
       <div className="flex items-center gap-3 mb-4 flex-wrap">
         <div className="relative flex-1 min-w-52">
           <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-sm" style={{ color: "var(--admin-text-faint)" }}></i>
-          <input value={search} onChange={e => { setSearch(e.target.value); setPage(0); }} placeholder="T�m t? ti?ng H�n ho?c nghia..."
+          <input value={search} onChange={e => { setSearch(e.target.value); setPage(0); }} placeholder="Tìm từ tiếng Hàn hoặc nghĩa..."
             className="w-full rounded-xl pl-9 pr-4 py-2 text-sm outline-none border"
             style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
         </div>
         <select value={bookFilter} onChange={e => { setBookFilter(e.target.value); setPage(0); }}
           className="rounded-lg px-3 py-2 text-xs outline-none cursor-pointer border"
           style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text-muted)", borderColor: "var(--admin-border)" }}>
-          <option value="all">T?t c? gi�o tr�nh</option>
-          {books.map(b => <option key={b} value={b}>Gi�o tr�nh {b}</option>)}
+          <option value="all">Tất cả giáo trình</option>
+          {books.map(b => <option key={b} value={b}>Giáo trình {b}</option>)}
         </select>
         <button onClick={fetchVocab} className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs cursor-pointer whitespace-nowrap"
           style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)", border: "1px solid var(--admin-border)" }}>
@@ -351,12 +351,12 @@ function SeoulVocabTab() {
           <div className="rounded-xl border overflow-hidden mb-4" style={{ borderColor: "var(--admin-border)" }}>
             <div className="grid grid-cols-[2fr_1fr_2fr_1fr_1fr_auto] px-4 py-2.5 text-[10px] font-bold tracking-normal"
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text-faint)", borderBottom: "1px solid var(--admin-border)" }}>
-              <span>Ti?ng H�n</span><span>Phi�n �m</span><span>Nghia</span><span>Gi�o tr�nh</span><span>B�i</span><span></span>
+              <span>Tiếng Hàn</span><span>Phiên âm</span><span>Nghĩa</span><span>Giáo trình</span><span>Bài</span><span></span>
             </div>
             <div className="divide-y" style={{ borderColor: "var(--admin-border)" }}>
               {vocab.length === 0 ? (
                 <div className="text-center py-12" style={{ color: "var(--admin-text-faint)" }}>
-                  <i className="ri-book-3-line text-3xl mb-2 block"></i>Kh�ng t�m th?y t? v?ng Seoul
+                  <i className="ri-book-3-line text-3xl mb-2 block"></i>Không tìm thấy từ vựng Seoul
                 </div>
               ) : vocab.map(v => (
                 <div key={v.id} className="grid grid-cols-[2fr_1fr_2fr_1fr_1fr_auto] px-4 py-3 items-center group"
@@ -379,10 +379,10 @@ function SeoulVocabTab() {
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <p className="text-xs" style={{ color: "var(--admin-text-faint)" }}>Trang {page + 1} � {vocab.length} t?</p>
+            <p className="text-xs" style={{ color: "var(--admin-text-faint)" }}>Trang {page + 1} · {vocab.length} từ</p>
             <div className="flex gap-2">
-              <button onClick={() => setPage(p => Math.max(0, p - 1))} disabled={page === 0} className="px-3 py-1.5 rounded-lg text-xs cursor-pointer disabled:opacity-30 whitespace-nowrap" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>Tru?c</button>
-              <button onClick={() => setPage(p => p + 1)} disabled={vocab.length < PAGE_SIZE} className="px-3 py-1.5 rounded-lg text-xs cursor-pointer disabled:opacity-30 whitespace-nowrap" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>Ti?p</button>
+              <button onClick={() => setPage(p => Math.max(0, p - 1))} disabled={page === 0} className="px-3 py-1.5 rounded-lg text-xs cursor-pointer disabled:opacity-30 whitespace-nowrap" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>Trước</button>
+              <button onClick={() => setPage(p => p + 1)} disabled={vocab.length < PAGE_SIZE} className="px-3 py-1.5 rounded-lg text-xs cursor-pointer disabled:opacity-30 whitespace-nowrap" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>Tiếp</button>
             </div>
           </div>
         </>
@@ -392,14 +392,14 @@ function SeoulVocabTab() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <div className="w-full max-w-lg rounded-2xl border overflow-hidden" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border2)" }}>
             <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: "var(--admin-border)" }}>
-              <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>S?a t? Seoul: {editEntry.korean}</p>
+              <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>Sửa từ Seoul: {editEntry.korean}</p>
               <button onClick={() => setEditEntry(null)} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ color: "var(--admin-text-muted)" }}><i className="ri-close-line"></i></button>
             </div>
             <div className="p-5 grid grid-cols-2 gap-3">
               {[
-                { key: "korean", label: "Ti?ng H�n" }, { key: "pronunciation", label: "Phi�n �m" },
-                { key: "vietnamese", label: "Nghia" }, { key: "part_of_speech", label: "Lo?i t?" },
-                { key: "example", label: "V� d? HQ" }, { key: "example_vi", label: "V� d? VN" },
+                { key: "korean", label: "Tiếng Hàn" }, { key: "pronunciation", label: "Phiên âm" },
+                { key: "vietnamese", label: "Nghĩa" }, { key: "part_of_speech", label: "Loại từ" },
+                { key: "example", label: "Ví dụ HQ" }, { key: "example_vi", label: "Ví dụ VN" },
               ].map(f => (
                 <div key={f.key}>
                   <label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>{f.label}</label>
@@ -408,9 +408,9 @@ function SeoulVocabTab() {
               ))}
             </div>
             <div className="px-5 py-4 border-t flex gap-3" style={{ borderColor: "var(--admin-border)" }}>
-              <button onClick={() => setEditEntry(null)} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap" style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>H?y</button>
+              <button onClick={() => setEditEntry(null)} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap" style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>Hủy</button>
               <button onClick={handleSaveEdit} disabled={saving} className="flex-1 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 disabled:opacity-50 text-white font-bold text-sm cursor-pointer whitespace-nowrap">
-                {saving ? "�ang luu..." : "Luu thay d?i"}
+                {saving ? "Đang lưu..." : "Lưu thay đổi"}
               </button>
             </div>
           </div>
@@ -420,7 +420,7 @@ function SeoulVocabTab() {
   );
 }
 
-// --- Hanja Tab ----------------------------------------------------------------
+// ─── Hanja Tab ────────────────────────────────────────────────────────────────
 function HanjaTab() {
   const [entries, setEntries] = useState<HanjaEntry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -462,8 +462,8 @@ function HanjaTab() {
       if (error) throw error;
       setEntries(prev => prev.map(e => e.id === editEntry.id ? editEntry : e));
       setEditEntry(null);
-      showToast("�� c?p nh?t t? H�n H�n");
-    } catch { showToast("L?i c?p nh?t", "err"); }
+      showToast("Đã cập nhật từ Hán Hàn");
+    } catch { showToast("Lỗi cập nhật", "err"); }
     finally { setSaving(false); }
   };
 
@@ -473,7 +473,7 @@ function HanjaTab() {
       <div className="flex items-center gap-3 mb-4">
         <div className="relative flex-1 min-w-52">
           <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-sm" style={{ color: "var(--admin-text-faint)" }}></i>
-          <input value={search} onChange={e => { setSearch(e.target.value); setPage(0); }} placeholder="T�m t? H�n H�n..."
+          <input value={search} onChange={e => { setSearch(e.target.value); setPage(0); }} placeholder="Tìm từ Hán Hàn..."
             className="w-full rounded-xl pl-9 pr-4 py-2 text-sm outline-none border"
             style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
         </div>
@@ -490,12 +490,12 @@ function HanjaTab() {
           <div className="rounded-xl border overflow-hidden mb-4" style={{ borderColor: "var(--admin-border)" }}>
             <div className="grid grid-cols-[2fr_1fr_2fr_1fr_1fr_auto] px-4 py-2.5 text-[10px] font-bold tracking-normal"
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text-faint)", borderBottom: "1px solid var(--admin-border)" }}>
-              <span>Ti?ng H�n</span><span>H�n t?</span><span>Nghia</span><span>Ch? d?</span><span>�? kh�</span><span></span>
+              <span>Tiếng Hàn</span><span>Hán tự</span><span>Nghĩa</span><span>Chủ đề</span><span>Độ khó</span><span></span>
             </div>
             <div className="divide-y" style={{ borderColor: "var(--admin-border)" }}>
               {entries.length === 0 ? (
                 <div className="text-center py-12" style={{ color: "var(--admin-text-faint)" }}>
-                  <i className="ri-character-recognition-line text-3xl mb-2 block"></i>Kh�ng t�m th?y t? H�n H�n
+                  <i className="ri-character-recognition-line text-3xl mb-2 block"></i>Không tìm thấy từ Hán Hàn
                 </div>
               ) : entries.map(e => (
                 <div key={e.id} className="grid grid-cols-[2fr_1fr_2fr_1fr_1fr_auto] px-4 py-3 items-center group"
@@ -519,10 +519,10 @@ function HanjaTab() {
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <p className="text-xs" style={{ color: "var(--admin-text-faint)" }}>Trang {page + 1} � {entries.length} t?</p>
+            <p className="text-xs" style={{ color: "var(--admin-text-faint)" }}>Trang {page + 1} · {entries.length} từ</p>
             <div className="flex gap-2">
-              <button onClick={() => setPage(p => Math.max(0, p - 1))} disabled={page === 0} className="px-3 py-1.5 rounded-lg text-xs cursor-pointer disabled:opacity-30 whitespace-nowrap" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>Tru?c</button>
-              <button onClick={() => setPage(p => p + 1)} disabled={entries.length < PAGE_SIZE} className="px-3 py-1.5 rounded-lg text-xs cursor-pointer disabled:opacity-30 whitespace-nowrap" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>Ti?p</button>
+              <button onClick={() => setPage(p => Math.max(0, p - 1))} disabled={page === 0} className="px-3 py-1.5 rounded-lg text-xs cursor-pointer disabled:opacity-30 whitespace-nowrap" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>Trước</button>
+              <button onClick={() => setPage(p => p + 1)} disabled={entries.length < PAGE_SIZE} className="px-3 py-1.5 rounded-lg text-xs cursor-pointer disabled:opacity-30 whitespace-nowrap" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>Tiếp</button>
             </div>
           </div>
         </>
@@ -532,14 +532,14 @@ function HanjaTab() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <div className="w-full max-w-lg rounded-2xl border overflow-hidden" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border2)" }}>
             <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: "var(--admin-border)" }}>
-              <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>S?a t? H�n H�n: {editEntry.korean}</p>
+              <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>Sửa từ Hán Hàn: {editEntry.korean}</p>
               <button onClick={() => setEditEntry(null)} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ color: "var(--admin-text-muted)" }}><i className="ri-close-line"></i></button>
             </div>
             <div className="p-5 grid grid-cols-2 gap-3">
               {[
-                { key: "korean", label: "Ti?ng H�n" }, { key: "hanja", label: "H�n t?" },
-                { key: "vietnamese", label: "Nghia" }, { key: "pronunciation", label: "Phi�n �m" },
-                { key: "category", label: "Ch? d?" }, { key: "memory_tip", label: "M?o nh?" },
+                { key: "korean", label: "Tiếng Hàn" }, { key: "hanja", label: "Hán tự" },
+                { key: "vietnamese", label: "Nghĩa" }, { key: "pronunciation", label: "Phiên âm" },
+                { key: "category", label: "Chủ đề" }, { key: "memory_tip", label: "Mẹo nhớ" },
               ].map(f => (
                 <div key={f.key}>
                   <label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>{f.label}</label>
@@ -547,14 +547,14 @@ function HanjaTab() {
                 </div>
               ))}
               <div>
-                <label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>�? kh� (1-5)</label>
+                <label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Độ khó (1-5)</label>
                 <input type="number" min={1} max={5} value={editEntry.difficulty || 1} onChange={e => setEditEntry(prev => prev ? { ...prev, difficulty: parseInt(e.target.value) } : null)} className={inputCls} style={inputStyle} />
               </div>
             </div>
             <div className="px-5 py-4 border-t flex gap-3" style={{ borderColor: "var(--admin-border)" }}>
-              <button onClick={() => setEditEntry(null)} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap" style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>H?y</button>
+              <button onClick={() => setEditEntry(null)} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap" style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>Hủy</button>
               <button onClick={handleSaveEdit} disabled={saving} className="flex-1 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 disabled:opacity-50 text-white font-bold text-sm cursor-pointer whitespace-nowrap">
-                {saving ? "�ang luu..." : "Luu thay d?i"}
+                {saving ? "Đang lưu..." : "Lưu thay đổi"}
               </button>
             </div>
           </div>
@@ -564,7 +564,7 @@ function HanjaTab() {
   );
 }
 
-// --- Grammar Tab --------------------------------------------------------------
+// ─── Grammar Tab ──────────────────────────────────────────────────────────────
 function GrammarTab() {
   const [entries, setEntries] = useState<GrammarEntry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -605,8 +605,8 @@ function GrammarTab() {
       if (error) throw error;
       setEntries(prev => prev.map(e => e.id === editEntry.id ? editEntry : e));
       setEditEntry(null);
-      showToast("�� c?p nh?t ng? ph�p");
-    } catch { showToast("L?i c?p nh?t", "err"); }
+      showToast("Đã cập nhật ngữ pháp");
+    } catch { showToast("Lỗi cập nhật", "err"); }
     finally { setSaving(false); }
   };
 
@@ -616,7 +616,7 @@ function GrammarTab() {
       <div className="flex items-center gap-3 mb-4">
         <div className="relative flex-1 min-w-52">
           <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-sm" style={{ color: "var(--admin-text-faint)" }}></i>
-          <input value={search} onChange={e => { setSearch(e.target.value); setPage(0); }} placeholder="T�m c?u tr�c ng? ph�p..."
+          <input value={search} onChange={e => { setSearch(e.target.value); setPage(0); }} placeholder="Tìm cấu trúc ngữ pháp..."
             className="w-full rounded-xl pl-9 pr-4 py-2 text-sm outline-none border"
             style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
         </div>
@@ -633,12 +633,12 @@ function GrammarTab() {
           <div className="rounded-xl border overflow-hidden mb-4" style={{ borderColor: "var(--admin-border)" }}>
             <div className="grid grid-cols-[2fr_3fr_1fr_1fr_auto] px-4 py-2.5 text-[10px] font-bold tracking-normal"
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text-faint)", borderBottom: "1px solid var(--admin-border)" }}>
-              <span>C?u tr�c</span><span>Gi?i th�ch</span><span>C?p d?</span><span>Gi�o tr�nh</span><span></span>
+              <span>Cấu trúc</span><span>Giải thích</span><span>Cấp độ</span><span>Giáo trình</span><span></span>
             </div>
             <div className="divide-y" style={{ borderColor: "var(--admin-border)" }}>
               {entries.length === 0 ? (
                 <div className="text-center py-12" style={{ color: "var(--admin-text-faint)" }}>
-                  <i className="ri-book-2-line text-3xl mb-2 block"></i>Kh�ng t�m th?y ng? ph�p
+                  <i className="ri-book-2-line text-3xl mb-2 block"></i>Không tìm thấy ngữ pháp
                 </div>
               ) : entries.map(e => (
                 <div key={e.id} className="grid grid-cols-[2fr_3fr_1fr_1fr_auto] px-4 py-3 items-start group"
@@ -657,10 +657,10 @@ function GrammarTab() {
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <p className="text-xs" style={{ color: "var(--admin-text-faint)" }}>Trang {page + 1} � {entries.length} m?c</p>
+            <p className="text-xs" style={{ color: "var(--admin-text-faint)" }}>Trang {page + 1} · {entries.length} mục</p>
             <div className="flex gap-2">
-              <button onClick={() => setPage(p => Math.max(0, p - 1))} disabled={page === 0} className="px-3 py-1.5 rounded-lg text-xs cursor-pointer disabled:opacity-30 whitespace-nowrap" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>Tru?c</button>
-              <button onClick={() => setPage(p => p + 1)} disabled={entries.length < PAGE_SIZE} className="px-3 py-1.5 rounded-lg text-xs cursor-pointer disabled:opacity-30 whitespace-nowrap" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>Ti?p</button>
+              <button onClick={() => setPage(p => Math.max(0, p - 1))} disabled={page === 0} className="px-3 py-1.5 rounded-lg text-xs cursor-pointer disabled:opacity-30 whitespace-nowrap" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>Trước</button>
+              <button onClick={() => setPage(p => p + 1)} disabled={entries.length < PAGE_SIZE} className="px-3 py-1.5 rounded-lg text-xs cursor-pointer disabled:opacity-30 whitespace-nowrap" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>Tiếp</button>
             </div>
           </div>
         </>
@@ -670,19 +670,19 @@ function GrammarTab() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <div className="w-full max-w-lg rounded-2xl border overflow-hidden" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border2)" }}>
             <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: "var(--admin-border)" }}>
-              <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>S?a ng? ph�p: {editEntry.pattern}</p>
+              <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>Sửa ngữ pháp: {editEntry.pattern}</p>
               <button onClick={() => setEditEntry(null)} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ color: "var(--admin-text-muted)" }}><i className="ri-close-line"></i></button>
             </div>
             <div className="p-5 space-y-3">
-              <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>C?u tr�c</label><input value={editEntry.pattern} onChange={e => setEditEntry(prev => prev ? { ...prev, pattern: e.target.value } : null)} className={inputCls} style={inputStyle} /></div>
-              <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>C?p d?</label><input value={editEntry.level} onChange={e => setEditEntry(prev => prev ? { ...prev, level: e.target.value } : null)} className={inputCls} style={inputStyle} /></div>
-              <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Gi?i th�ch</label><textarea value={editEntry.explanation} onChange={e => setEditEntry(prev => prev ? { ...prev, explanation: e.target.value } : null)} rows={3} className={inputCls + " resize-none"} style={inputStyle} /></div>
-              <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Ghi ch�</label><textarea value={editEntry.notes || ""} onChange={e => setEditEntry(prev => prev ? { ...prev, notes: e.target.value } : null)} rows={2} className={inputCls + " resize-none"} style={inputStyle} /></div>
+              <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Cấu trúc</label><input value={editEntry.pattern} onChange={e => setEditEntry(prev => prev ? { ...prev, pattern: e.target.value } : null)} className={inputCls} style={inputStyle} /></div>
+              <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Cấp độ</label><input value={editEntry.level} onChange={e => setEditEntry(prev => prev ? { ...prev, level: e.target.value } : null)} className={inputCls} style={inputStyle} /></div>
+              <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Giải thích</label><textarea value={editEntry.explanation} onChange={e => setEditEntry(prev => prev ? { ...prev, explanation: e.target.value } : null)} rows={3} className={inputCls + " resize-none"} style={inputStyle} /></div>
+              <div><label className="text-xs mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Ghi chú</label><textarea value={editEntry.notes || ""} onChange={e => setEditEntry(prev => prev ? { ...prev, notes: e.target.value } : null)} rows={2} className={inputCls + " resize-none"} style={inputStyle} /></div>
             </div>
             <div className="px-5 py-4 border-t flex gap-3" style={{ borderColor: "var(--admin-border)" }}>
-              <button onClick={() => setEditEntry(null)} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap" style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>H?y</button>
+              <button onClick={() => setEditEntry(null)} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap" style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>Hủy</button>
               <button onClick={handleSaveEdit} disabled={saving} className="flex-1 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 disabled:opacity-50 text-white font-bold text-sm cursor-pointer whitespace-nowrap">
-                {saving ? "�ang luu..." : "Luu thay d?i"}
+                {saving ? "Đang lưu..." : "Lưu thay đổi"}
               </button>
             </div>
           </div>
@@ -692,21 +692,21 @@ function GrammarTab() {
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function AdminContentLearnPage() {
   const [tab, setTab] = useState<Tab>("topik");
 
   const tabs = [
-    { id: "topik" as Tab, label: "T? v?ng TOPIK", icon: "ri-book-open-line", color: "#34d399" },
-    { id: "seoul" as Tab, label: "T? v?ng Seoul", icon: "ri-book-3-line", color: "#a78bfa" },
-    { id: "hanja" as Tab, label: "H�n H�n", icon: "ri-character-recognition-line", color: "app-accent-primary" },
-    { id: "grammar" as Tab, label: "Ng? ph�p Seoul", icon: "ri-book-2-line", color: "#fb923c" },
+    { id: "topik" as Tab, label: "Từ vựng TOPIK", icon: "ri-book-open-line", color: "#34d399" },
+    { id: "seoul" as Tab, label: "Từ vựng Seoul", icon: "ri-book-3-line", color: "#a78bfa" },
+    { id: "hanja" as Tab, label: "Hán Hàn", icon: "ri-character-recognition-line", color: "app-accent-primary" },
+    { id: "grammar" as Tab, label: "Ngữ pháp Seoul", icon: "ri-book-2-line", color: "#fb923c" },
   ];
 
   return (
     <AdminLayout
-      title="Qu?n l� N?i dung H?c t?p"
-      subtitle="CRUD tr?c ti?p t? Supabase � TOPIK vocab, Seoul vocab, H�n H�n, Ng? ph�p"
+      title="Quản lý Nội dung Học tập"
+      subtitle="CRUD trực tiếp từ Supabase — TOPIK vocab, Seoul vocab, Hán Hàn, Ngữ pháp"
     >
       {/* Tab bar */}
       <div className="flex gap-1 p-1 rounded-xl mb-6 w-fit" style={{ backgroundColor: "var(--admin-card2)" }}>

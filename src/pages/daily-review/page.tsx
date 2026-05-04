@@ -1,10 +1,10 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+﻿import { useState, useEffect, useCallback, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { grammarPatterns } from "@/mocks/grammarData";
 import { vocabularyData } from "@/mocks/vocabularyData";
 
-// --- Types --------------------------------------------------------------------
+// ─── Types ────────────────────────────────────────────────────────────────────
 type QuestionType = "vocab_meaning" | "vocab_korean" | "grammar_choose" | "grammar_fill";
 
 interface ReviewQuestion {
@@ -27,7 +27,7 @@ interface DailySession {
   score: number;
 }
 
-// --- Helpers ------------------------------------------------------------------
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 function getTodayKey() {
   return new Date().toISOString().slice(0, 10);
 }
@@ -44,7 +44,7 @@ function shuffle<T>(arr: T[]): T[] {
 function generateDailyQuestions(): ReviewQuestion[] {
   const questions: ReviewQuestion[] = [];
 
-  // 4 vocab meaning questions (Korean ? Vietnamese)
+  // 4 vocab meaning questions (Korean → Vietnamese)
   const vocabPool = shuffle(vocabularyData).slice(0, 20);
   for (let i = 0; i < 4; i++) {
     const item = vocabPool[i];
@@ -59,13 +59,13 @@ function generateDailyQuestions(): ReviewQuestion[] {
       questionSub: item.reading,
       options: opts,
       answer: item.vietnamese,
-      explanation: `${item.korean} (${item.reading}) = ${item.vietnamese}\nV� d?: ${item.example}\n? ${item.exampleVi}`,
-      source: "T? v?ng",
+      explanation: `${item.korean} (${item.reading}) = ${item.vietnamese}\nVí dụ: ${item.example}\n→ ${item.exampleVi}`,
+      source: "Từ vựng",
       level: item.topikLevel,
     });
   }
 
-  // 3 vocab Korean questions (Vietnamese ? Korean)
+  // 3 vocab Korean questions (Vietnamese → Korean)
   for (let i = 4; i < 7; i++) {
     const item = vocabPool[i];
     const wrongOptions = shuffle(vocabularyData.filter(v => v.id !== item.id))
@@ -76,11 +76,11 @@ function generateDailyQuestions(): ReviewQuestion[] {
       id: `vk_${item.id}`,
       type: "vocab_korean",
       question: item.vietnamese,
-      questionSub: `Ch?n t? ti?ng H�n d�ng`,
+      questionSub: `Chọn từ tiếng Hàn đúng`,
       options: opts,
       answer: item.korean,
-      explanation: `${item.vietnamese} = ${item.korean} (${item.reading})\nV� d?: ${item.example}\n? ${item.exampleVi}`,
-      source: "T? v?ng",
+      explanation: `${item.vietnamese} = ${item.korean} (${item.reading})\nVí dụ: ${item.example}\n→ ${item.exampleVi}`,
+      source: "Từ vựng",
       level: item.topikLevel,
     });
   }
@@ -100,7 +100,7 @@ function generateDailyQuestions(): ReviewQuestion[] {
       options: ex.options,
       answer: ex.answer,
       explanation: `${pattern.pattern}: ${pattern.meaning}\n${ex.explanation}`,
-      source: "Ng? ph�p",
+      source: "Ngữ pháp",
       level: pattern.level,
     });
     grammarCount++;
@@ -109,7 +109,7 @@ function generateDailyQuestions(): ReviewQuestion[] {
   return shuffle(questions.slice(0, 10));
 }
 
-// --- Progress Ring ------------------------------------------------------------
+// ─── Progress Ring ────────────────────────────────────────────────────────────
 function ProgressRing({ value, max, size = 80, color = "app-accent-primary" }: { value: number; max: number; size?: number; color?: string }) {
   const r = (size - 8) / 2;
   const circ = 2 * Math.PI * r;
@@ -128,7 +128,7 @@ function ProgressRing({ value, max, size = 80, color = "app-accent-primary" }: {
   );
 }
 
-// --- Question Card ------------------------------------------------------------
+// ─── Question Card ────────────────────────────────────────────────────────────
 function QuestionCard({
   question,
   index,
@@ -147,10 +147,10 @@ function QuestionCard({
   const isCorrect = selectedAnswer === question.answer;
 
   const typeLabel: Record<QuestionType, string> = {
-    vocab_meaning: "Nghia t? v?ng",
-    vocab_korean: "T? ti?ng H�n",
-    grammar_choose: "Ng? ph�p",
-    grammar_fill: "�i?n v�o ch? tr?ng",
+    vocab_meaning: "Nghĩa từ vựng",
+    vocab_korean: "Từ tiếng Hàn",
+    grammar_choose: "Ngữ pháp",
+    grammar_fill: "Điền vào chỗ trống",
   };
 
   const typeColor: Record<QuestionType, string> = {
@@ -221,7 +221,7 @@ function QuestionCard({
           <div className="flex items-center gap-2 mb-2">
             <i className={`${isCorrect ? "ri-check-double-line text-app-accent-success" : "ri-information-line text-red-400"} text-sm`}></i>
             <span className={`text-xs font-bold ${isCorrect ? "text-app-accent-success" : "text-red-400"}`}>
-              {isCorrect ? "Ch�nh x�c!" : "Chua d�ng"}
+              {isCorrect ? "Chính xác!" : "Chưa đúng"}
             </span>
           </div>
           <p className="text-white/50 text-xs leading-relaxed whitespace-pre-line">{question.explanation}</p>
@@ -231,7 +231,7 @@ function QuestionCard({
   );
 }
 
-// --- Result Screen ------------------------------------------------------------
+// ─── Result Screen ────────────────────────────────────────────────────────────
 function ResultScreen({
   questions,
   answers,
@@ -261,22 +261,22 @@ function ResultScreen({
           <ProgressRing value={correct} max={questions.length} size={100} color={pct >= 70 ? "#34d399" : pct >= 50 ? "app-accent-primary" : "#f87171"} />
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <span className="text-white font-bold text-xl">{correct}/{questions.length}</span>
-            <span className="text-app-text-secondary text-[10px]">d�ng</span>
+            <span className="text-app-text-secondary text-[10px]">đúng</span>
           </div>
         </div>
         <h2 className="text-white font-bold text-xl mb-1">
-          {pct >= 80 ? "Xu?t s?c!" : pct >= 60 ? "T?t l?m!" : "C? g?ng hon nh�!"}
+          {pct >= 80 ? "Xuất sắc!" : pct >= 60 ? "Tốt lắm!" : "Cố gắng hơn nhé!"}
         </h2>
-        <p className="text-app-text-secondary text-sm mb-4">B?n d?t {pct}% h�m nay</p>
+        <p className="text-app-text-secondary text-sm mb-4">Bạn đạt {pct}% hôm nay</p>
         <div className="flex items-center justify-center gap-2 text-[#fb923c]">
           <i className="ri-fire-line text-lg"></i>
-          <span className="font-bold text-base">{streak} ng�y streak</span>
+          <span className="font-bold text-base">{streak} ngày streak</span>
         </div>
       </div>
 
       {/* By source */}
       <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-        <h3 className="text-white font-semibold text-sm mb-4">K?t qu? theo module</h3>
+        <h3 className="text-white font-semibold text-sm mb-4">Kết quả theo module</h3>
         <div className="space-y-3">
           {Object.entries(bySource).map(([src, stat]) => (
             <div key={src} className="flex items-center gap-3">
@@ -301,18 +301,18 @@ function ResultScreen({
         <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-4">
             <i className="ri-error-warning-line text-app-accent-primary mr-2"></i>
-            C�u c?n �n l?i ({questions.filter(q => answers[q.id] !== q.answer).length})
+            Câu cần ôn lại ({questions.filter(q => answers[q.id] !== q.answer).length})
           </h3>
           <div className="space-y-3">
             {questions.filter(q => answers[q.id] !== q.answer).map(q => (
               <div key={q.id} className="p-3 bg-red-400/5 border border-red-400/10 rounded-xl">
                 <p className="text-white/70 text-sm font-medium mb-1">{q.question}</p>
                 <p className="text-app-accent-success text-xs">
-                  <i className="ri-check-line mr-1"></i>��p �n d�ng: <strong>{q.answer}</strong>
+                  <i className="ri-check-line mr-1"></i>Đáp án đúng: <strong>{q.answer}</strong>
                 </p>
                 {answers[q.id] && (
                   <p className="text-red-400/70 text-xs mt-0.5">
-                    <i className="ri-close-line mr-1"></i>B?n ch?n: {answers[q.id]}
+                    <i className="ri-close-line mr-1"></i>Bạn chọn: {answers[q.id]}
                   </p>
                 )}
               </div>
@@ -325,13 +325,13 @@ function ResultScreen({
         onClick={onRestart}
         className="w-full py-3 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold rounded-xl cursor-pointer whitespace-nowrap transition-colors"
       >
-        <i className="ri-refresh-line mr-2"></i>�n t?p l?i
+        <i className="ri-refresh-line mr-2"></i>Ôn tập lại
       </button>
     </div>
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function DailyReviewPage() {
   const [session, setSession] = useLocalStorage<DailySession | null>("kts_daily_review_session", null);
   const [streak, setStreak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
@@ -436,8 +436,8 @@ export default function DailyReviewPage() {
 
   return (
     <DashboardLayout
-      title="�n t?p h�ng ng�y"
-      subtitle="10 c�u m?i ng�y � duy tr� streak v� c?ng c? ki?n th?c"
+      title="Ôn tập hàng ngày"
+      subtitle="10 câu mỗi ngày — duy trì streak và củng cố kiến thức"
     >
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6">
         {/* Main content */}
@@ -507,9 +507,9 @@ export default function DailyReviewPage() {
                     className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold px-8 py-3 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
                   >
                     {isLastQuestion ? (
-                      <><i className="ri-flag-line"></i>Xem k?t qu?</>
+                      <><i className="ri-flag-line"></i>Xem kết quả</>
                     ) : (
-                      <><i className="ri-arrow-right-line"></i>C�u ti?p theo</>
+                      <><i className="ri-arrow-right-line"></i>Câu tiếp theo</>
                     )}
                   </button>
                 </div>
@@ -527,22 +527,22 @@ export default function DailyReviewPage() {
                 <i className="ri-fire-line text-[#fb923c] text-xl"></i>
               </div>
               <div>
-                <p className="text-white font-bold text-xl">{streak.count} ng�y</p>
-                <p className="text-app-text-secondary text-xs">Streak hi?n t?i</p>
+                <p className="text-white font-bold text-xl">{streak.count} ngày</p>
+                <p className="text-app-text-secondary text-xs">Streak hiện tại</p>
               </div>
             </div>
             <p className="text-app-text-secondary text-xs leading-relaxed">
               {streak.count >= 30
-                ? "Top 5% c?ng d?ng! B?n th?t xu?t s?c!"
+                ? "Top 5% cộng đồng! Bạn thật xuất sắc!"
                 : streak.count >= 7
-                  ? "�ang ti?n b? t?t � ti?p t?c nh�!"
-                  : "H?c m?i ng�y d? duy tr� streak!"}
+                  ? "Đang tiến bộ tốt — tiếp tục nhé!"
+                  : "Học mỗi ngày để duy trì streak!"}
             </p>
           </div>
 
           {/* Today's progress */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">H�m nay</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">Hôm nay</h3>
             <div className="flex items-center gap-4">
               <div className="relative">
                 <ProgressRing value={answeredCount} max={questions.length || 10} size={64} />
@@ -552,10 +552,10 @@ export default function DailyReviewPage() {
               </div>
               <div>
                 <p className="text-white font-bold text-base">{answeredCount}/{questions.length || 10}</p>
-                <p className="text-app-text-secondary text-xs">c�u d� l�m</p>
+                <p className="text-app-text-secondary text-xs">câu đã làm</p>
                 {showResult && session && (
                   <p className="text-app-accent-success text-xs mt-1 font-semibold">
-                    <i className="ri-check-double-line mr-1"></i>Ho�n th�nh!
+                    <i className="ri-check-double-line mr-1"></i>Hoàn thành!
                   </p>
                 )}
               </div>
@@ -564,7 +564,7 @@ export default function DailyReviewPage() {
 
           {/* Heatmap */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-3">14 ng�y g?n d�y</h3>
+            <h3 className="text-white font-semibold text-sm mb-3">14 ngày gần đây</h3>
             <div className="grid grid-cols-7 gap-1.5">
               {heatmapDays.map(day => (
                 <div
@@ -593,7 +593,7 @@ export default function DailyReviewPage() {
           {/* History */}
           {history.length > 0 && (
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-3">L?ch s? g?n d�y</h3>
+              <h3 className="text-white font-semibold text-sm mb-3">Lịch sử gần đây</h3>
               <div className="space-y-2">
                 {history.slice(0, 5).map(h => {
                   const pct = Math.round((h.score / h.total) * 100);
@@ -620,12 +620,12 @@ export default function DailyReviewPage() {
           {/* Tips */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-3">
-              <i className="ri-lightbulb-line text-app-accent-primary mr-2"></i>M?o h?c
+              <i className="ri-lightbulb-line text-app-accent-primary mr-2"></i>Mẹo học
             </h3>
             <ul className="space-y-2 text-app-text-secondary text-xs leading-relaxed">
-              <li className="flex gap-2"><span className="text-app-accent-primary flex-shrink-0">�</span>H?c 10 c�u m?i ng�y hi?u qu? hon h?c 100 c�u m?t l?n</li>
-              <li className="flex gap-2"><span className="text-app-accent-primary flex-shrink-0">�</span>C�u sai h�m nay s? xu?t hi?n l?i ng�y mai</li>
-              <li className="flex gap-2"><span className="text-app-accent-primary flex-shrink-0">�</span>Streak 21 ng�y gi�p h�nh th�nh th�i quen h?c t?p</li>
+              <li className="flex gap-2"><span className="text-app-accent-primary flex-shrink-0">•</span>Học 10 câu mỗi ngày hiệu quả hơn học 100 câu một lần</li>
+              <li className="flex gap-2"><span className="text-app-accent-primary flex-shrink-0">•</span>Câu sai hôm nay sẽ xuất hiện lại ngày mai</li>
+              <li className="flex gap-2"><span className="text-app-accent-primary flex-shrink-0">•</span>Streak 21 ngày giúp hình thành thói quen học tập</li>
             </ul>
           </div>
         </div>

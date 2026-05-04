@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { epsLessons, EpsVocabItem } from "@/mocks/epsLessons";
@@ -160,8 +160,8 @@ export default function EpsQuickReviewPage() {
                 <i className="ri-arrow-left-line text-white/60"></i>
               </button>
               <div>
-                <h1 className="text-lg font-bold text-white">�n t?p nhanh</h1>
-                <p className="text-app-text-secondary text-xs">Ch?n ch? d? �n t?p</p>
+                <h1 className="text-lg font-bold text-white">Ôn tập nhanh</h1>
+                <p className="text-app-text-secondary text-xs">Chọn chế độ ôn tập</p>
               </div>
             </div>
           </div>
@@ -171,15 +171,15 @@ export default function EpsQuickReviewPage() {
             <div className="grid grid-cols-2 gap-3 mb-6">
               <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
                 <p className="text-2xl font-bold text-app-accent-primary">{studiedLessonIds.length}</p>
-                <p className="text-app-text-secondary text-xs mt-1">B�i d� h?c</p>
+                <p className="text-app-text-secondary text-xs mt-1">Bài đã học</p>
               </div>
               <div className="bg-red-500/8 border border-red-500/20 rounded-xl p-4 text-center">
                 <p className="text-2xl font-bold text-red-400">{wrongCount}</p>
-                <p className="text-app-text-secondary text-xs mt-1">T? c?n �n l?i</p>
+                <p className="text-app-text-secondary text-xs mt-1">Từ cần ôn lại</p>
               </div>
             </div>
 
-            <h2 className="text-white/70 text-sm font-medium mb-3">Ch?n ch? d? �n t?p:</h2>
+            <h2 className="text-white/70 text-sm font-medium mb-3">Chọn chế độ ôn tập:</h2>
 
             {/* Mode: Random */}
             <button
@@ -191,11 +191,11 @@ export default function EpsQuickReviewPage() {
                   <i className="ri-shuffle-line text-app-accent-primary text-xl"></i>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-white font-semibold mb-1">�n t?p ng?u nhi�n</h3>
-                  <p className="text-app-text-secondary text-sm leading-relaxed">10 t? ng?u nhi�n t? c�c b�i d� h?c. Luy?n t?p da d?ng d? ghi nh? l�u hon.</p>
+                  <h3 className="text-white font-semibold mb-1">Ôn tập ngẫu nhiên</h3>
+                  <p className="text-app-text-secondary text-sm leading-relaxed">10 từ ngẫu nhiên từ các bài đã học. Luyện tập đa dạng để ghi nhớ lâu hơn.</p>
                   <div className="mt-3 flex items-center gap-2">
-                    <span className="text-app-accent-primary text-xs font-medium bg-app-accent-primary/10 px-2 py-0.5 rounded-full">10 t?</span>
-                    <span className="text-app-text-muted text-xs">T? {studiedLessonIds.length > 0 ? studiedLessonIds.length : "t?t c?"} b�i</span>
+                    <span className="text-app-accent-primary text-xs font-medium bg-app-accent-primary/10 px-2 py-0.5 rounded-full">10 từ</span>
+                    <span className="text-app-text-muted text-xs">Từ {studiedLessonIds.length > 0 ? studiedLessonIds.length : "tất cả"} bài</span>
                   </div>
                 </div>
                 <div className="w-6 h-6 flex items-center justify-center">
@@ -223,16 +223,16 @@ export default function EpsQuickReviewPage() {
                   <i className="ri-error-warning-line text-red-400 text-xl"></i>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-white font-semibold mb-1">�n t? sai</h3>
+                  <h3 className="text-white font-semibold mb-1">Ôn từ sai</h3>
                   <p className="text-app-text-secondary text-sm leading-relaxed">
                     {wrongCount > 0
-                      ? `�n l?i ${wrongCount} t? b?n d� tr? l?i sai tru?c d�. T?p trung v�o di?m y?u.`
-                      : "Chua c� t? n�o b? sai. H�y �n t?p ng?u nhi�n tru?c!"}
+                      ? `Ôn lại ${wrongCount} từ bạn đã trả lời sai trước đó. Tập trung vào điểm yếu.`
+                      : "Chưa có từ nào bị sai. Hãy ôn tập ngẫu nhiên trước!"}
                   </p>
                   {wrongCount > 0 && (
                     <div className="mt-3 flex items-center gap-2">
-                      <span className="text-red-400 text-xs font-medium bg-red-500/10 px-2 py-0.5 rounded-full">{Math.min(wrongCount, 10)} t?</span>
-                      <span className="text-app-text-muted text-xs">Uu ti�n t? sai nhi?u nh?t</span>
+                      <span className="text-red-400 text-xs font-medium bg-red-500/10 px-2 py-0.5 rounded-full">{Math.min(wrongCount, 10)} từ</span>
+                      <span className="text-app-text-muted text-xs">Ưu tiên từ sai nhiều nhất</span>
                     </div>
                   )}
                 </div>
@@ -244,7 +244,7 @@ export default function EpsQuickReviewPage() {
 
             {wrongCount === 0 && (
               <p className="text-center text-app-text-muted text-xs">
-                �n t?p ng?u nhi�n tru?c d? t�ch luy t? sai, sau d� d�ng ch? d? "�n t? sai"
+                Ôn tập ngẫu nhiên trước để tích lũy từ sai, sau đó dùng chế độ "Ôn từ sai"
               </p>
             )}
           </div>
@@ -261,7 +261,7 @@ export default function EpsQuickReviewPage() {
             <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 rounded-2xl bg-app-accent-primary/10">
               <i className="ri-loader-4-line text-app-accent-primary text-2xl animate-spin"></i>
             </div>
-            <p className="text-white/50">�ang t?i t? v?ng...</p>
+            <p className="text-white/50">Đang tải từ vựng...</p>
           </div>
         </div>
       </DashboardLayout>
@@ -280,10 +280,10 @@ export default function EpsQuickReviewPage() {
               </button>
               <div>
                 <h1 className="text-lg font-bold text-white">
-                  {mode === "wrong_only" ? "�n t? sai" : "�n t?p nhanh"}
+                  {mode === "wrong_only" ? "Ôn từ sai" : "Ôn tập nhanh"}
                 </h1>
                 <p className="text-app-text-secondary text-xs">
-                  {mode === "wrong_only" ? "T?p trung v�o t? d� sai" : "10 t? ng?u nhi�n t? c�c b�i d� h?c"}
+                  {mode === "wrong_only" ? "Tập trung vào từ đã sai" : "10 từ ngẫu nhiên từ các bài đã học"}
                 </p>
               </div>
             </div>
@@ -292,13 +292,13 @@ export default function EpsQuickReviewPage() {
                 {streak >= 3 && (
                   <div className="flex items-center gap-1 bg-orange-500/20 border border-orange-500/30 rounded-full px-2.5 py-1">
                     <i className="ri-fire-line text-orange-400 text-xs"></i>
-                    <span className="text-orange-400 text-xs font-bold">{streak} li�n ti?p!</span>
+                    <span className="text-orange-400 text-xs font-bold">{streak} liên tiếp!</span>
                   </div>
                 )}
                 {mode === "wrong_only" && (
                   <div className="flex items-center gap-1 bg-red-500/15 border border-red-500/20 rounded-full px-2.5 py-1">
                     <i className="ri-error-warning-line text-red-400 text-xs"></i>
-                    <span className="text-red-400 text-xs font-medium">T? sai</span>
+                    <span className="text-red-400 text-xs font-medium">Từ sai</span>
                   </div>
                 )}
                 <div className="text-app-text-secondary text-sm">
@@ -325,7 +325,7 @@ export default function EpsQuickReviewPage() {
                       <span className="text-red-400 text-sm font-medium">{results.wrong}</span>
                     </div>
                   </div>
-                  <span className="text-app-text-muted text-xs">{accuracy}% ch�nh x�c</span>
+                  <span className="text-app-text-muted text-xs">{accuracy}% chính xác</span>
                 </div>
                 <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
                   <div
@@ -359,7 +359,7 @@ export default function EpsQuickReviewPage() {
                       const key = `${currentCard.lessonId}_${currentCard.vocab.korean}`;
                       const hist = vocabHistory[key];
                       return hist?.wrong > 0 ? (
-                        <span className="text-red-400 text-xs ml-1">� Sai {hist.wrong}x</span>
+                        <span className="text-red-400 text-xs ml-1">• Sai {hist.wrong}x</span>
                       ) : null;
                     })()}
                   </div>
@@ -381,13 +381,13 @@ export default function EpsQuickReviewPage() {
                             : "bg-app-accent-primary/15 hover:bg-app-accent-primary/25 border-app-accent-primary/30 text-app-accent-primary"
                         }`}
                       >
-                        Xem nghia
+                        Xem nghĩa
                       </button>
                       <button
                         onClick={() => setShowExample(!showExample)}
                         className="w-full py-2.5 bg-app-card/50 hover:bg-white/8 border border-app-border rounded-xl text-app-text-secondary text-sm transition-all cursor-pointer"
                       >
-                        {showExample ? "?n v� d?" : "Xem v� d?"}
+                        {showExample ? "Ẩn ví dụ" : "Xem ví dụ"}
                       </button>
                       {showExample && (
                         <div className="bg-app-card/50 rounded-xl p-3 text-left">
@@ -403,21 +403,21 @@ export default function EpsQuickReviewPage() {
                         <p className="text-app-text-secondary text-sm">{currentCard.vocab.example}</p>
                         <p className="text-app-text-muted text-xs mt-0.5">{currentCard.vocab.exampleVi}</p>
                       </div>
-                      <p className="text-app-text-secondary text-sm">B?n c� nh? kh�ng?</p>
+                      <p className="text-app-text-secondary text-sm">Bạn có nhớ không?</p>
                       <div className="grid grid-cols-2 gap-3">
                         <button
                           onClick={() => handleResult(false)}
                           className="py-3 bg-red-500/15 hover:bg-red-500/25 border border-red-500/30 rounded-xl text-red-400 font-semibold transition-all cursor-pointer"
                         >
                           <i className="ri-close-line mr-1"></i>
-                          Chua nh?
+                          Chưa nhớ
                         </button>
                         <button
                           onClick={() => handleResult(true)}
                           className="py-3 bg-app-accent-success/15 hover:bg-emerald-500/25 border border-emerald-500/30 rounded-xl text-app-accent-success font-semibold transition-all cursor-pointer"
                         >
                           <i className="ri-check-line mr-1"></i>
-                          �� nh?
+                          Đã nhớ
                         </button>
                       </div>
                     </div>
@@ -426,12 +426,12 @@ export default function EpsQuickReviewPage() {
                       {cardState === "correct" ? (
                         <div className="flex items-center justify-center gap-2 text-app-accent-success">
                           <i className="ri-checkbox-circle-fill text-2xl"></i>
-                          <span className="text-lg font-bold">Ch�nh x�c!</span>
+                          <span className="text-lg font-bold">Chính xác!</span>
                         </div>
                       ) : (
                         <div className="flex items-center justify-center gap-2 text-red-400">
                           <i className="ri-close-circle-fill text-2xl"></i>
-                          <span className="text-lg font-bold">C?n �n th�m</span>
+                          <span className="text-lg font-bold">Cần ôn thêm</span>
                         </div>
                       )}
                     </div>
@@ -471,9 +471,9 @@ export default function EpsQuickReviewPage() {
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold text-white mb-1">Ho�n th�nh!</h2>
+                <h2 className="text-2xl font-bold text-white mb-1">Hoàn thành!</h2>
                 <p className="text-app-text-secondary">
-                  {mode === "wrong_only" ? "B?n d� �n l?i c�c t? sai" : `B?n d� �n t?p ${cards.length} t? v?ng`}
+                  {mode === "wrong_only" ? "Bạn đã ôn lại các từ sai" : `Bạn đã ôn tập ${cards.length} từ vựng`}
                 </p>
               </div>
 
@@ -481,7 +481,7 @@ export default function EpsQuickReviewPage() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4">
                   <p className="text-3xl font-bold text-app-accent-success">{results.correct}</p>
-                  <p className="text-app-accent-success/60 text-xs mt-1">��ng</p>
+                  <p className="text-app-accent-success/60 text-xs mt-1">Đúng</p>
                 </div>
                 <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
                   <p className="text-3xl font-bold text-red-400">{results.wrong}</p>
@@ -491,7 +491,7 @@ export default function EpsQuickReviewPage() {
                   <p className={`text-3xl font-bold ${mode === "wrong_only" ? "text-red-400" : "text-app-accent-primary"}`}>
                     {Math.round((results.correct / cards.length) * 100)}%
                   </p>
-                  <p className={`text-xs mt-1 ${mode === "wrong_only" ? "text-app-accent-error/60" : "text-app-accent-primary/60"}`}>Ch�nh x�c</p>
+                  <p className={`text-xs mt-1 ${mode === "wrong_only" ? "text-app-accent-error/60" : "text-app-accent-primary/60"}`}>Chính xác</p>
                 </div>
               </div>
 
@@ -500,7 +500,7 @@ export default function EpsQuickReviewPage() {
                 <div className="bg-red-500/5 border border-red-500/15 rounded-xl p-4 text-left">
                   <h3 className="text-red-400 text-sm font-semibold mb-3 flex items-center gap-2">
                     <i className="ri-error-warning-line"></i>
-                    T? c?n �n th�m ({results.wrongCards.length})
+                    Từ cần ôn thêm ({results.wrongCards.length})
                   </h3>
                   <div className="space-y-2 max-h-40 overflow-y-auto">
                     {results.wrongCards.map((card, i) => (
@@ -517,12 +517,12 @@ export default function EpsQuickReviewPage() {
               <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
                 <p className="text-white/70 text-sm">
                   {results.correct === cards.length
-                    ? mode === "wrong_only" ? "Tuy?t v?i! B?n d� nh? l?i t?t c? c�c t? sai!" : "Xu?t s?c! B?n nh? t?t c? c�c t?!"
+                    ? mode === "wrong_only" ? "Tuyệt vời! Bạn đã nhớ lại tất cả các từ sai!" : "Xuất sắc! Bạn nhớ tất cả các từ!"
                     : results.correct >= cards.length * 0.8
-                    ? "R?t t?t! Ti?p t?c �n t?p d? ghi nh? l�u hon."
+                    ? "Rất tốt! Tiếp tục ôn tập để ghi nhớ lâu hơn."
                     : results.correct >= cards.length * 0.5
-                    ? "Kh� t?t! H�y �n l?i nh?ng t? chua nh?."
-                    : "C?n �n t?p th�m. �?ng n?n l�ng, h�y th? l?i!"}
+                    ? "Khá tốt! Hãy ôn lại những từ chưa nhớ."
+                    : "Cần ôn tập thêm. Đừng nản lòng, hãy thử lại!"}
                 </p>
               </div>
 
@@ -534,7 +534,7 @@ export default function EpsQuickReviewPage() {
                     className="w-full py-3.5 bg-red-500/15 hover:bg-red-500/25 border border-red-500/30 rounded-xl text-red-400 font-semibold transition-all cursor-pointer"
                   >
                     <i className="ri-error-warning-line mr-2"></i>
-                    �n l?i t? sai ({results.wrongCards.length} t?)
+                    Ôn lại từ sai ({results.wrongCards.length} từ)
                   </button>
                 )}
                 <button
@@ -542,13 +542,13 @@ export default function EpsQuickReviewPage() {
                   className="w-full py-3.5 bg-app-accent-primary/15 hover:bg-app-accent-primary/25 border border-app-accent-primary/30 rounded-xl text-app-accent-primary font-semibold transition-all cursor-pointer"
                 >
                   <i className="ri-refresh-line mr-2"></i>
-                  �n t?p l?i
+                  Ôn tập lại
                 </button>
                 <button
                   onClick={() => navigate("/eps-lessons")}
                   className="w-full py-3 bg-app-card/50 hover:bg-white/8 border border-app-border rounded-xl text-white/60 transition-all cursor-pointer"
                 >
-                  �?n trang b�i h?c
+                  Đến trang bài học
                 </button>
               </div>
             </div>

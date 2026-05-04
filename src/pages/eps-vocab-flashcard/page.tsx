@@ -1,26 +1,26 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+﻿import { useState, useMemo, useCallback, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsVocabulary, EPS_VOCAB_TOPICS, type EpsVocabItem } from "@/mocks/epsVocabulary";
 import { useXPSystem } from "@/hooks/useXPSystem";
 
-// --- Topic filter for new topics ---------------------------------------------
+// ─── Topic filter for new topics ─────────────────────────────────────────────
 const FEATURED_TOPICS = [
-  { id: "health", label: "Y t? & S?c kh?e", icon: "ri-heart-pulse-line", color: "#f43f5e", desc: "T? v?ng kh�m b?nh, thu?c, tri?u ch?ng" },
-  { id: "transport", label: "Giao th�ng & Di chuy?n", icon: "ri-bus-line", color: "#22d3ee", desc: "T�u di?n ng?m, xe bu�t, taxi, du?ng ph?" },
-  { id: "housing", label: "Nh� ? & Sinh s?ng", icon: "ri-home-4-line", color: "#84cc16", desc: "Thu� nh�, h�a don, h�ng x�m, khu ph?" },
-  { id: "safety", label: "An to�n lao d?ng", icon: "ri-shield-check-line", color: "#fb923c", desc: "Thi?t b? b?o h?, quy tr�nh an to�n" },
-  { id: "workplace", label: "Noi l�m vi?c", icon: "ri-briefcase-line", color: "#38bdf8", desc: "Van ph�ng, nh� m�y, d?ng nghi?p" },
-  { id: "daily", label: "Sinh ho?t h�ng ng�y", icon: "ri-home-smile-line", color: "app-accent-primary", desc: "Mua s?m, an u?ng, gi?i tr�" },
-  { id: "law", label: "Ph�p lu?t lao d?ng", icon: "ri-scales-3-line", color: "#f59e0b", desc: "H?p d?ng, luong, quy?n l?i" },
-  { id: "greeting", label: "Giao ti?p co b?n", icon: "ri-chat-smile-2-line", color: "#34d399", desc: "Ch�o h?i, x� giao, di?n tho?i" },
-  { id: "culture", label: "Van h�a H�n Qu?c", icon: "ri-building-2-line", color: "#a78bfa", desc: "Phong t?c, l? h?i, ?m th?c" },
+  { id: "health", label: "Y tế & Sức khỏe", icon: "ri-heart-pulse-line", color: "#f43f5e", desc: "Từ vựng khám bệnh, thuốc, triệu chứng" },
+  { id: "transport", label: "Giao thông & Di chuyển", icon: "ri-bus-line", color: "#22d3ee", desc: "Tàu điện ngầm, xe buýt, taxi, đường phố" },
+  { id: "housing", label: "Nhà ở & Sinh sống", icon: "ri-home-4-line", color: "#84cc16", desc: "Thuê nhà, hóa đơn, hàng xóm, khu phố" },
+  { id: "safety", label: "An toàn lao động", icon: "ri-shield-check-line", color: "#fb923c", desc: "Thiết bị bảo hộ, quy trình an toàn" },
+  { id: "workplace", label: "Nơi làm việc", icon: "ri-briefcase-line", color: "#38bdf8", desc: "Văn phòng, nhà máy, đồng nghiệp" },
+  { id: "daily", label: "Sinh hoạt hàng ngày", icon: "ri-home-smile-line", color: "app-accent-primary", desc: "Mua sắm, ăn uống, giải trí" },
+  { id: "law", label: "Pháp luật lao động", icon: "ri-scales-3-line", color: "#f59e0b", desc: "Hợp đồng, lương, quyền lợi" },
+  { id: "greeting", label: "Giao tiếp cơ bản", icon: "ri-chat-smile-2-line", color: "#34d399", desc: "Chào hỏi, xã giao, điện thoại" },
+  { id: "culture", label: "Văn hóa Hàn Quốc", icon: "ri-building-2-line", color: "#a78bfa", desc: "Phong tục, lễ hội, ẩm thực" },
 ];
 
 type FlashcardMode = "front" | "back";
 type StudyMode = "flashcard" | "quiz" | "match";
 
-// --- Flashcard Component ------------------------------------------------------
+// ─── Flashcard Component ──────────────────────────────────────────────────────
 function Flashcard({
   item,
   flipped,
@@ -67,10 +67,10 @@ function Flashcard({
             className="absolute inset-0 rounded-2xl border border-app-border flex flex-col items-center justify-center p-8 bg-app-bg"
             style={{ backfaceVisibility: "hidden" }}
           >
-            <p className="text-app-text-muted text-xs mb-4 tracking-normal">Ti?ng H�n</p>
+            <p className="text-app-text-muted text-xs mb-4 tracking-normal">Tiếng Hàn</p>
             <p className="text-white text-5xl font-bold mb-3">{item.korean}</p>
             <p className="text-app-text-secondary text-lg">[{item.reading}]</p>
-            <p className="text-app-text-muted text-xs mt-6">Nh?n d? l?t th?</p>
+            <p className="text-app-text-muted text-xs mt-6">Nhấn để lật thẻ</p>
           </div>
 
           {/* Back */}
@@ -78,7 +78,7 @@ function Flashcard({
             className="absolute inset-0 rounded-2xl border border-app-accent-primary/20 flex flex-col items-center justify-center p-8"
             style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)", backgroundColor: "#1a1600" }}
           >
-            <p className="text-app-accent-primary/40 text-xs mb-4 tracking-normal">Ti?ng Vi?t</p>
+            <p className="text-app-accent-primary/40 text-xs mb-4 tracking-normal">Tiếng Việt</p>
             <p className="text-white text-3xl font-bold mb-4 text-center">{item.vietnamese}</p>
             <div className="bg-app-card/50 rounded-xl px-4 py-3 text-center max-w-sm">
               <p className="text-white/60 text-sm">{item.example}</p>
@@ -94,20 +94,20 @@ function Flashcard({
           onClick={onDontKnow}
           className="flex-1 py-3 rounded-xl border border-red-500/20 bg-red-500/5 text-red-400 text-sm font-medium cursor-pointer whitespace-nowrap hover:bg-red-500/10 transition-colors flex items-center justify-center gap-2"
         >
-          <i className="ri-close-line text-lg"></i>Chua nh?
+          <i className="ri-close-line text-lg"></i>Chưa nhớ
         </button>
         <button
           onClick={onKnow}
           className="flex-1 py-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-app-accent-success text-sm font-medium cursor-pointer whitespace-nowrap hover:bg-emerald-500/10 transition-colors flex items-center justify-center gap-2"
         >
-          <i className="ri-check-line text-lg"></i>�� nh?
+          <i className="ri-check-line text-lg"></i>Đã nhớ
         </button>
       </div>
     </div>
   );
 }
 
-// --- Quiz Mode ----------------------------------------------------------------
+// ─── Quiz Mode ────────────────────────────────────────────────────────────────
 function QuizMode({
   items,
   onFinish,
@@ -151,10 +151,10 @@ function QuizMode({
     <div className="flex flex-col gap-6 max-w-lg mx-auto">
       <div className="flex items-center justify-between">
         <span className="text-app-text-muted text-sm">{currentIdx + 1}/{items.length}</span>
-        <span className="text-app-accent-primary text-sm font-bold">{score} d�ng</span>
+        <span className="text-app-accent-primary text-sm font-bold">{score} đúng</span>
       </div>
       <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center">
-        <p className="text-app-text-muted text-xs mb-3">Nghia ti?ng Vi?t c?a t? n�y l� g�?</p>
+        <p className="text-app-text-muted text-xs mb-3">Nghĩa tiếng Việt của từ này là gì?</p>
         <p className="text-white text-4xl font-bold mb-2">{current.korean}</p>
         <p className="text-app-text-secondary text-lg">[{current.reading}]</p>
       </div>
@@ -181,7 +181,7 @@ function QuizMode({
   );
 }
 
-// --- Result Screen ------------------------------------------------------------
+// ─── Result Screen ────────────────────────────────────────────────────────────
 function ResultScreen({
   score,
   total,
@@ -205,33 +205,33 @@ function ResultScreen({
       </div>
       <div>
         <p className="text-white text-3xl font-bold">{pct}%</p>
-        <p className="text-app-text-secondary text-sm mt-1">{score}/{total} c�u d�ng</p>
+        <p className="text-app-text-secondary text-sm mt-1">{score}/{total} câu đúng</p>
       </div>
       <div className="grid grid-cols-2 gap-4 w-full">
         <div className="bg-emerald-500/5 border border-emerald-500/15 rounded-xl p-4">
           <p className="text-app-accent-success text-2xl font-bold">{knownCount}</p>
-          <p className="text-app-text-secondary text-xs mt-1">�� nh?</p>
+          <p className="text-app-text-secondary text-xs mt-1">Đã nhớ</p>
         </div>
         <div className="bg-red-500/5 border border-red-500/15 rounded-xl p-4">
           <p className="text-red-400 text-2xl font-bold">{unknownCount}</p>
-          <p className="text-app-text-secondary text-xs mt-1">Chua nh?</p>
+          <p className="text-app-text-secondary text-xs mt-1">Chưa nhớ</p>
         </div>
       </div>
       <div className="flex gap-3 w-full">
         {unknownCount > 0 && (
           <button onClick={onReviewUnknown} className="flex-1 py-3 rounded-xl border border-app-accent-primary/20 bg-app-accent-primary/5 text-app-accent-primary text-sm font-medium cursor-pointer whitespace-nowrap hover:bg-app-accent-primary/10 transition-colors">
-            <i className="ri-refresh-line mr-2"></i>�n t? chua nh? ({unknownCount})
+            <i className="ri-refresh-line mr-2"></i>Ôn từ chưa nhớ ({unknownCount})
           </button>
         )}
         <button onClick={onRestart} className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold cursor-pointer whitespace-nowrap transition-colors">
-          <i className="ri-restart-line mr-2"></i>H?c l?i
+          <i className="ri-restart-line mr-2"></i>Học lại
         </button>
       </div>
     </div>
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function EpsVocabFlashcardPage() {
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [studyMode, setStudyMode] = useState<StudyMode>("flashcard");
@@ -328,8 +328,8 @@ export default function EpsVocabFlashcardPage() {
   if (!isStudying) {
     return (
       <DashboardLayout
-        title="Flashcard t? v?ng EPS theo ch? d?"
-        subtitle="H?c t? v?ng theo t?ng ch? d? v?i flashcard l?t th? v� quiz"
+        title="Flashcard từ vựng EPS theo chủ đề"
+        subtitle="Học từ vựng theo từng chủ đề với flashcard lật thẻ và quiz"
       >
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
           <div>
@@ -346,7 +346,7 @@ export default function EpsVocabFlashcardPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-white font-semibold text-sm leading-tight">{topic.label}</p>
-                        <p className="text-app-text-muted text-[10px] mt-0.5">{items.length} t? v?ng</p>
+                        <p className="text-app-text-muted text-[10px] mt-0.5">{items.length} từ vựng</p>
                       </div>
                     </div>
                     <p className="text-app-text-secondary text-xs mb-4 leading-relaxed">{topic.desc}</p>
@@ -354,7 +354,7 @@ export default function EpsVocabFlashcardPage() {
                     {topicProgress > 0 && (
                       <div className="mb-3">
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-app-text-muted text-[10px]">Ti?n d?</span>
+                          <span className="text-app-text-muted text-[10px]">Tiến độ</span>
                           <span className="text-[10px] font-bold" style={{ color: topic.color }}>{topicProgress}%</span>
                         </div>
                         <div className="h-1 bg-white/8 rounded-full overflow-hidden">
@@ -387,12 +387,12 @@ export default function EpsVocabFlashcardPage() {
           {/* Sidebar */}
           <div className="space-y-4">
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-bar-chart-line text-app-accent-primary mr-2"></i>Th?ng k� h?c t?p</h3>
+              <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-bar-chart-line text-app-accent-primary mr-2"></i>Thống kê học tập</h3>
               <div className="space-y-3">
                 {[
-                  { label: "T?ng t? v?ng EPS", value: epsVocabulary.length, color: "app-accent-primary" },
-                  { label: "Ch? d? c� s?n", value: FEATURED_TOPICS.length, color: "#34d399" },
-                  { label: "Ch? d? d� h?c", value: Object.keys(progress).filter(k => progress[k] > 0).length, color: "#60a5fa" },
+                  { label: "Tổng từ vựng EPS", value: epsVocabulary.length, color: "app-accent-primary" },
+                  { label: "Chủ đề có sẵn", value: FEATURED_TOPICS.length, color: "#34d399" },
+                  { label: "Chủ đề đã học", value: Object.keys(progress).filter(k => progress[k] > 0).length, color: "#60a5fa" },
                 ].map(s => (
                   <div key={s.label} className="flex items-center justify-between">
                     <span className="text-app-text-secondary text-xs">{s.label}</span>
@@ -403,22 +403,22 @@ export default function EpsVocabFlashcardPage() {
             </div>
 
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-lightbulb-line text-app-accent-primary mr-2"></i>M?o h?c flashcard</h3>
+              <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-lightbulb-line text-app-accent-primary mr-2"></i>Mẹo học flashcard</h3>
               <div className="space-y-2.5 text-app-text-secondary text-xs leading-relaxed">
-                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nh?n v�o th? d? l?t v� xem nghia</p>
-                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Ch?n "�� nh?" ho?c "Chua nh?" d? ph�n lo?i</p>
-                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>�n l?i t? chua nh? sau khi ho�n th�nh</p>
-                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>D�ng Quiz d? ki?m tra sau khi h?c flashcard</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nhấn vào thẻ để lật và xem nghĩa</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Chọn "Đã nhớ" hoặc "Chưa nhớ" để phân loại</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Ôn lại từ chưa nhớ sau khi hoàn thành</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Dùng Quiz để kiểm tra sau khi học flashcard</p>
               </div>
             </div>
 
             <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-2">
                 <i className="ri-focus-3-line text-app-accent-primary"></i>
-                <p className="text-white font-semibold text-sm">Ch? d? uu ti�n EPS</p>
+                <p className="text-white font-semibold text-sm">Chủ đề ưu tiên EPS</p>
               </div>
               <p className="text-app-text-secondary text-xs leading-relaxed">
-                T?p trung v�o <strong className="text-white/60">Y t?</strong>, <strong className="text-white/60">Giao th�ng</strong> v� <strong className="text-white/60">Nh� ?</strong> � 3 ch? d? m?i du?c b? sung cho k? thi EPS-TOPIK g?n d�y.
+                Tập trung vào <strong className="text-white/60">Y tế</strong>, <strong className="text-white/60">Giao thông</strong> và <strong className="text-white/60">Nhà ở</strong> — 3 chủ đề mới được bổ sung cho kỳ thi EPS-TOPIK gần đây.
               </p>
             </div>
           </div>
@@ -433,10 +433,10 @@ export default function EpsVocabFlashcardPage() {
   return (
     <DashboardLayout
       title={topicInfo?.label || "Flashcard"}
-      subtitle={`${studyItems.length} t? v?ng � ${studyMode === "flashcard" ? "Ch? d? Flashcard" : "Ch? d? Quiz"}`}
+      subtitle={`${studyItems.length} từ vựng · ${studyMode === "flashcard" ? "Chế độ Flashcard" : "Chế độ Quiz"}`}
       actions={
         <button onClick={handleBack} className="flex items-center gap-2 px-4 py-2 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50 transition-colors">
-          <i className="ri-arrow-left-line"></i>Ch?n ch? d? kh�c
+          <i className="ri-arrow-left-line"></i>Chọn chủ đề khác
         </button>
       }
     >

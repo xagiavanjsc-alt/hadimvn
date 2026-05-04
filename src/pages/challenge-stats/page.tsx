@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
@@ -19,9 +19,9 @@ interface ChallengeSession {
 }
 
 const TOPIC_LABELS: Record<string, string> = {
-  all: "T?t c?", greeting: "Ch�o h?i", workplace: "Noi l�m vi?c",
-  safety: "An to�n", law: "Ph�p lu?t", daily: "Sinh ho?t",
-  culture: "Van h�a", emergency: "Kh?n c?p", listening: "Nghe hi?u", reading: "�?c hi?u",
+  all: "Tất cả", greeting: "Chào hỏi", workplace: "Nơi làm việc",
+  safety: "An toàn", law: "Pháp luật", daily: "Sinh hoạt",
+  culture: "Văn hóa", emergency: "Khẩn cấp", listening: "Nghe hiểu", reading: "Đọc hiểu",
 };
 
 const TOPIC_COLORS: Record<string, string> = {
@@ -32,13 +32,13 @@ const TOPIC_COLORS: Record<string, string> = {
 
 // Mock data for demo
 const MOCK_CHALLENGES: ChallengeSession[] = [
-  { id: "1", createdAt: "2026-04-14T10:00:00Z", creatorName: "B?n", topic: "workplace", questionCount: 10, questions: [], myScore: 9, myTime: 145, opponentScore: 7, opponentName: "Nguy?n Lan", opponentTime: 180, status: "completed" },
-  { id: "2", createdAt: "2026-04-13T15:30:00Z", creatorName: "B?n", topic: "safety", questionCount: 10, questions: [], myScore: 6, myTime: 200, opponentScore: 8, opponentName: "Tr?n Minh", opponentTime: 160, status: "completed" },
-  { id: "3", createdAt: "2026-04-12T09:00:00Z", creatorName: "B?n", topic: "greeting", questionCount: 5, questions: [], myScore: 5, myTime: 90, opponentScore: 5, opponentName: "L� Hoa", opponentTime: 95, status: "completed" },
-  { id: "4", createdAt: "2026-04-11T14:00:00Z", creatorName: "B?n", topic: "law", questionCount: 15, questions: [], myScore: 12, myTime: 280, opponentScore: 10, opponentName: "Ph?m B?o", opponentTime: 310, status: "completed" },
-  { id: "5", createdAt: "2026-04-10T11:00:00Z", creatorName: "B?n", topic: "daily", questionCount: 10, questions: [], myScore: 7, myTime: 170, opponentScore: 9, opponentName: "Ho�ng Mai", opponentTime: 155, status: "completed" },
-  { id: "6", createdAt: "2026-04-09T16:00:00Z", creatorName: "B?n", topic: "workplace", questionCount: 10, questions: [], myScore: 10, myTime: 130, opponentScore: 8, opponentName: "Vu Th�nh", opponentTime: 175, status: "completed" },
-  { id: "7", createdAt: "2026-04-08T10:30:00Z", creatorName: "B?n", topic: "safety", questionCount: 10, questions: [], myScore: 8, myTime: 160, opponentScore: 6, opponentName: "�?ng Linh", opponentTime: 190, status: "completed" },
+  { id: "1", createdAt: "2026-04-14T10:00:00Z", creatorName: "Bạn", topic: "workplace", questionCount: 10, questions: [], myScore: 9, myTime: 145, opponentScore: 7, opponentName: "Nguyễn Lan", opponentTime: 180, status: "completed" },
+  { id: "2", createdAt: "2026-04-13T15:30:00Z", creatorName: "Bạn", topic: "safety", questionCount: 10, questions: [], myScore: 6, myTime: 200, opponentScore: 8, opponentName: "Trần Minh", opponentTime: 160, status: "completed" },
+  { id: "3", createdAt: "2026-04-12T09:00:00Z", creatorName: "Bạn", topic: "greeting", questionCount: 5, questions: [], myScore: 5, myTime: 90, opponentScore: 5, opponentName: "Lê Hoa", opponentTime: 95, status: "completed" },
+  { id: "4", createdAt: "2026-04-11T14:00:00Z", creatorName: "Bạn", topic: "law", questionCount: 15, questions: [], myScore: 12, myTime: 280, opponentScore: 10, opponentName: "Phạm Bảo", opponentTime: 310, status: "completed" },
+  { id: "5", createdAt: "2026-04-10T11:00:00Z", creatorName: "Bạn", topic: "daily", questionCount: 10, questions: [], myScore: 7, myTime: 170, opponentScore: 9, opponentName: "Hoàng Mai", opponentTime: 155, status: "completed" },
+  { id: "6", createdAt: "2026-04-09T16:00:00Z", creatorName: "Bạn", topic: "workplace", questionCount: 10, questions: [], myScore: 10, myTime: 130, opponentScore: 8, opponentName: "Vũ Thành", opponentTime: 175, status: "completed" },
+  { id: "7", createdAt: "2026-04-08T10:30:00Z", creatorName: "Bạn", topic: "safety", questionCount: 10, questions: [], myScore: 8, myTime: 160, opponentScore: 6, opponentName: "Đặng Linh", opponentTime: 190, status: "completed" },
 ];
 
 function WeeklyChart({ data }: { data: { week: string; wins: number; losses: number; draws: number }[] }) {
@@ -166,24 +166,24 @@ export default function ChallengeStatsPage() {
 
   return (
     <DashboardLayout
-      title="Th?ng k� th�ch d?u c� nh�n"
-      subtitle="Ph�n t�ch chi ti?t k?t qu? th�ch d?u � ch? d? m?nh/y?u, xu hu?ng theo tu?n"
+      title="Thống kê thách đấu cá nhân"
+      subtitle="Phân tích chi tiết kết quả thách đấu — chủ đề mạnh/yếu, xu hướng theo tuần"
       actions={
         <button
           onClick={() => navigate("/friend-challenge")}
           className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
         >
-          <i className="ri-sword-line"></i>T?o th�ch d?u m?i
+          <i className="ri-sword-line"></i>Tạo thách đấu mới
         </button>
       }
     >
       {/* Summary cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "T?ng tr?n", value: stats.total, icon: "ri-gamepad-line", color: "app-accent-primary" },
-          { label: "T? l? th?ng", value: `${stats.total > 0 ? Math.round((stats.wins / stats.total) * 100) : 0}%`, icon: "ri-trophy-line", color: "#34d399" },
-          { label: "�i?m TB", value: `${stats.avgScore}%`, icon: "ri-bar-chart-line", color: "#a78bfa" },
-          { label: "Streak hi?n t?i", value: stats.currentStreak, icon: "ri-fire-line", color: "#fb923c" },
+          { label: "Tổng trận", value: stats.total, icon: "ri-gamepad-line", color: "app-accent-primary" },
+          { label: "Tỷ lệ thắng", value: `${stats.total > 0 ? Math.round((stats.wins / stats.total) * 100) : 0}%`, icon: "ri-trophy-line", color: "#34d399" },
+          { label: "Điểm TB", value: `${stats.avgScore}%`, icon: "ri-bar-chart-line", color: "#a78bfa" },
+          { label: "Streak hiện tại", value: stats.currentStreak, icon: "ri-fire-line", color: "#fb923c" },
         ].map(s => (
           <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -205,7 +205,7 @@ export default function ChallengeStatsPage() {
             onClick={() => setActiveTab(tab)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${activeTab === tab ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}
           >
-            {tab === "overview" ? "T?ng quan" : tab === "topics" ? "Theo ch? d?" : "L?ch s?"}
+            {tab === "overview" ? "Tổng quan" : tab === "topics" ? "Theo chủ đề" : "Lịch sử"}
           </button>
         ))}
       </div>
@@ -216,7 +216,7 @@ export default function ChallengeStatsPage() {
           <div className="space-y-5">
             {/* Win/Loss/Draw donut */}
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <p className="text-white font-semibold text-sm mb-5">K?t qu? t?ng h?p</p>
+              <p className="text-white font-semibold text-sm mb-5">Kết quả tổng hợp</p>
               <div className="flex items-center gap-8">
                 {/* Visual bar */}
                 <div className="flex-1">
@@ -234,30 +234,30 @@ export default function ChallengeStatsPage() {
                         </div>
                       </>
                     ) : (
-                      <div className="flex-1 bg-app-card/50 flex items-center justify-center text-app-text-muted text-xs">Chua c� tr?n n�o</div>
+                      <div className="flex-1 bg-app-card/50 flex items-center justify-center text-app-text-muted text-xs">Chưa có trận nào</div>
                     )}
                   </div>
                   <div className="flex items-center gap-4 mt-3">
-                    <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-emerald-500/60"></div><span className="text-white/50 text-xs">Th?ng ({stats.wins})</span></div>
-                    <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-app-accent-primary/60"></div><span className="text-white/50 text-xs">H�a ({stats.draws})</span></div>
+                    <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-emerald-500/60"></div><span className="text-white/50 text-xs">Thắng ({stats.wins})</span></div>
+                    <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-app-accent-primary/60"></div><span className="text-white/50 text-xs">Hòa ({stats.draws})</span></div>
                     <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-full bg-red-500/40"></div><span className="text-white/50 text-xs">Thua ({stats.losses})</span></div>
                   </div>
                 </div>
                 {/* Big number */}
                 <div className="text-center flex-shrink-0">
                   <p className="text-app-accent-success font-bold text-4xl">{stats.total > 0 ? Math.round((stats.wins / stats.total) * 100) : 0}%</p>
-                  <p className="text-app-text-muted text-xs mt-1">T? l? th?ng</p>
+                  <p className="text-app-text-muted text-xs mt-1">Tỷ lệ thắng</p>
                 </div>
               </div>
             </div>
 
             {/* Weekly chart */}
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <p className="text-white font-semibold text-sm mb-4">Th?ng/Thua theo tu?n (8 tu?n g?n nh?t)</p>
+              <p className="text-white font-semibold text-sm mb-4">Thắng/Thua theo tuần (8 tuần gần nhất)</p>
               <WeeklyChart data={weeklyData} />
               <div className="flex items-center gap-4 mt-3">
-                <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-sm bg-emerald-500/60"></div><span className="text-app-text-secondary text-xs">Th?ng</span></div>
-                <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-sm bg-app-accent-primary/60"></div><span className="text-app-text-secondary text-xs">H�a</span></div>
+                <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-sm bg-emerald-500/60"></div><span className="text-app-text-secondary text-xs">Thắng</span></div>
+                <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-sm bg-app-accent-primary/60"></div><span className="text-app-text-secondary text-xs">Hòa</span></div>
                 <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 rounded-sm bg-red-500/40"></div><span className="text-app-text-secondary text-xs">Thua</span></div>
               </div>
             </div>
@@ -267,13 +267,13 @@ export default function ChallengeStatsPage() {
           <div className="space-y-4">
             {/* Personal records */}
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <p className="text-white font-semibold text-sm mb-4">K? l?c c� nh�n</p>
+              <p className="text-white font-semibold text-sm mb-4">Kỷ lục cá nhân</p>
               <div className="space-y-3">
                 {[
-                  { label: "�i?m cao nh?t", value: `${stats.bestScore}%`, icon: "ri-trophy-line", color: "app-accent-primary" },
-                  { label: "Streak th?ng d�i nh?t", value: `${stats.maxStreak} tr?n`, icon: "ri-fire-fill", color: "#fb923c" },
-                  { label: "Th?i gian TB", value: `${Math.floor(stats.avgTime / 60)}:${String(stats.avgTime % 60).padStart(2, "0")}`, icon: "ri-time-line", color: "#38bdf8" },
-                  { label: "T?ng tr?n d� choi", value: stats.total, icon: "ri-gamepad-line", color: "#a78bfa" },
+                  { label: "Điểm cao nhất", value: `${stats.bestScore}%`, icon: "ri-trophy-line", color: "app-accent-primary" },
+                  { label: "Streak thắng dài nhất", value: `${stats.maxStreak} trận`, icon: "ri-fire-fill", color: "#fb923c" },
+                  { label: "Thời gian TB", value: `${Math.floor(stats.avgTime / 60)}:${String(stats.avgTime % 60).padStart(2, "0")}`, icon: "ri-time-line", color: "#38bdf8" },
+                  { label: "Tổng trận đã chơi", value: stats.total, icon: "ri-gamepad-line", color: "#a78bfa" },
                 ].map(item => (
                   <div key={item.label} className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -291,21 +291,21 @@ export default function ChallengeStatsPage() {
             {/* Strong/Weak topics */}
             {strongestTopic && (
               <div className="bg-emerald-500/5 border border-emerald-500/15 rounded-xl p-4">
-                <p className="text-app-accent-success text-xs font-semibold mb-2">Ch? d? m?nh nh?t</p>
+                <p className="text-app-accent-success text-xs font-semibold mb-2">Chủ đề mạnh nhất</p>
                 <p className="text-white font-bold text-base">{strongestTopic.label}</p>
-                <p className="text-app-text-secondary text-xs mt-1">{strongestTopic.winRate}% t? l? th?ng � {strongestTopic.total} tr?n</p>
+                <p className="text-app-text-secondary text-xs mt-1">{strongestTopic.winRate}% tỷ lệ thắng · {strongestTopic.total} trận</p>
               </div>
             )}
             {weakestTopic && weakestTopic.topic !== strongestTopic?.topic && (
               <div className="bg-red-500/5 border border-red-500/15 rounded-xl p-4">
-                <p className="text-red-400 text-xs font-semibold mb-2">Ch? d? c?n c?i thi?n</p>
+                <p className="text-red-400 text-xs font-semibold mb-2">Chủ đề cần cải thiện</p>
                 <p className="text-white font-bold text-base">{weakestTopic.label}</p>
-                <p className="text-app-text-secondary text-xs mt-1">{weakestTopic.winRate}% t? l? th?ng � {weakestTopic.total} tr?n</p>
+                <p className="text-app-text-secondary text-xs mt-1">{weakestTopic.winRate}% tỷ lệ thắng · {weakestTopic.total} trận</p>
                 <button
                   onClick={() => navigate("/eps-topic-drill")}
                   className="mt-2 text-[10px] text-red-400 hover:text-red-300 cursor-pointer whitespace-nowrap"
                 >
-                  Luy?n t?p ch? d? n�y ?
+                  Luyện tập chủ đề này →
                 </button>
               </div>
             )}
@@ -317,17 +317,17 @@ export default function ChallengeStatsPage() {
       {activeTab === "topics" && (
         <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden">
           <div className="px-5 py-3 border-b border-app-border flex items-center gap-4 text-[10px] text-app-text-muted font-semibold tracking-normal">
-            <span className="flex-1">Ch? d?</span>
-            <span className="w-16 text-center">Tr?n</span>
-            <span className="w-16 text-center">Th?ng</span>
+            <span className="flex-1">Chủ đề</span>
+            <span className="w-16 text-center">Trận</span>
+            <span className="w-16 text-center">Thắng</span>
             <span className="w-16 text-center">Thua</span>
-            <span className="w-20 text-center">T? l? th?ng</span>
-            <span className="w-20 text-center">�i?m TB</span>
+            <span className="w-20 text-center">Tỷ lệ thắng</span>
+            <span className="w-20 text-center">Điểm TB</span>
           </div>
           {topicStats.length === 0 ? (
             <div className="text-center py-12">
               <i className="ri-bar-chart-line text-white/10 text-3xl mb-2 block"></i>
-              <p className="text-app-text-muted text-sm">Chua c� d? li?u th�ch d?u</p>
+              <p className="text-app-text-muted text-sm">Chưa có dữ liệu thách đấu</p>
             </div>
           ) : (
             <div className="divide-y divide-white/3">
@@ -340,8 +340,8 @@ export default function ChallengeStatsPage() {
                     <div>
                       <p className="text-white/70 text-sm font-semibold">{t.label}</p>
                       <div className="flex items-center gap-1 mt-0.5">
-                        {t.winRate >= 70 && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success font-bold">M?nh</span>}
-                        {t.winRate < 40 && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-red-500/15 text-red-400 font-bold">C?n c?i thi?n</span>}
+                        {t.winRate >= 70 && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success font-bold">Mạnh</span>}
+                        {t.winRate < 40 && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-red-500/15 text-red-400 font-bold">Cần cải thiện</span>}
                       </div>
                     </div>
                   </div>
@@ -370,8 +370,8 @@ export default function ChallengeStatsPage() {
           {completed.length === 0 ? (
             <div className="text-center py-16 bg-app-bg border border-app-border rounded-2xl">
               <i className="ri-history-line text-white/10 text-3xl mb-2 block"></i>
-              <p className="text-app-text-muted text-sm">Chua c� l?ch s? th�ch d?u</p>
-              <button onClick={() => navigate("/friend-challenge")} className="mt-3 text-app-accent-primary text-xs cursor-pointer">T?o th�ch d?u ngay ?</button>
+              <p className="text-app-text-muted text-sm">Chưa có lịch sử thách đấu</p>
+              <button onClick={() => navigate("/friend-challenge")} className="mt-3 text-app-accent-primary text-xs cursor-pointer">Tạo thách đấu ngay →</button>
             </div>
           ) : (
             completed.map((c, i) => {
@@ -379,7 +379,7 @@ export default function ChallengeStatsPage() {
               const oppPct = Math.round((c.opponentScore! / c.questionCount) * 100);
               const result = c.myScore! > c.opponentScore! ? "win" : c.myScore! < c.opponentScore! ? "loss" : "draw";
               const resultColor = result === "win" ? "#34d399" : result === "loss" ? "#f87171" : "app-accent-primary";
-              const resultLabel = result === "win" ? "Th?ng" : result === "loss" ? "Thua" : "H�a";
+              const resultLabel = result === "win" ? "Thắng" : result === "loss" ? "Thua" : "Hòa";
               const topicColor = TOPIC_COLORS[c.topic] || "app-accent-primary";
 
               return (
@@ -393,15 +393,15 @@ export default function ChallengeStatsPage() {
                       <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: `${topicColor}10`, color: topicColor }}>
                         {TOPIC_LABELS[c.topic] || c.topic}
                       </span>
-                      <span className="text-app-text-muted text-[10px]">{c.questionCount} c�u</span>
+                      <span className="text-app-text-muted text-[10px]">{c.questionCount} câu</span>
                     </div>
-                    <p className="text-white/50 text-xs">vs. {c.opponentName || "�?i th?"}</p>
+                    <p className="text-white/50 text-xs">vs. {c.opponentName || "Đối thủ"}</p>
                     <p className="text-app-text-muted text-[10px] mt-0.5">{new Date(c.createdAt).toLocaleDateString("vi-VN")}</p>
                   </div>
                   <div className="text-right flex-shrink-0">
                     <p className="text-white font-bold text-sm">{myPct}% <span className="text-app-text-muted">vs</span> {oppPct}%</p>
-                    <p className="text-app-text-muted text-[10px]">{c.myScore}/{c.questionCount} d�ng</p>
-                    {c.myTime && <p className="text-app-text-muted text-[10px]">{Math.floor(c.myTime / 60)}:{String(c.myTime % 60).padStart(2, "0")} ph�t</p>}
+                    <p className="text-app-text-muted text-[10px]">{c.myScore}/{c.questionCount} đúng</p>
+                    {c.myTime && <p className="text-app-text-muted text-[10px]">{Math.floor(c.myTime / 60)}:{String(c.myTime % 60).padStart(2, "0")} phút</p>}
                   </div>
                 </div>
               );

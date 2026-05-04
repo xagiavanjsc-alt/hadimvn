@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+﻿import { useState, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
@@ -25,15 +25,15 @@ interface FriendData {
   levelIcon: string;
 }
 
-// Friend data gi? du?c fetch th?t t? Supabase (kh�ng c�n mock)
+// Friend data giờ được fetch thật từ Supabase (không còn mock)
 
 const COMPARE_METRICS = [
-  { key: "xp", label: "T?ng XP", icon: "ri-star-line", color: "app-accent-primary", format: (v: number) => v.toLocaleString() },
-  { key: "streak", label: "Streak hi?n t?i", icon: "ri-fire-line", color: "#fb923c", format: (v: number) => `${v} ng�y` },
-  { key: "epsAccuracy", label: "�? ch�nh x�c EPS", icon: "ri-percent-line", color: "#34d399", format: (v: number) => `${v}%` },
-  { key: "epsDone", label: "C�u EPS d� l�m", icon: "ri-file-list-3-line", color: "#06b6d4", format: (v: number) => `${v} c�u` },
-  { key: "flashcardKnown", label: "T? v?ng d� thu?c", icon: "ri-translate-2", color: "#a78bfa", format: (v: number) => `${v} t?` },
-  { key: "badges", label: "Huy hi?u d?t du?c", icon: "ri-medal-line", color: "#f472b6", format: (v: number) => `${v} huy hi?u` },
+  { key: "xp", label: "Tổng XP", icon: "ri-star-line", color: "app-accent-primary", format: (v: number) => v.toLocaleString() },
+  { key: "streak", label: "Streak hiện tại", icon: "ri-fire-line", color: "#fb923c", format: (v: number) => `${v} ngày` },
+  { key: "epsAccuracy", label: "Độ chính xác EPS", icon: "ri-percent-line", color: "#34d399", format: (v: number) => `${v}%` },
+  { key: "epsDone", label: "Câu EPS đã làm", icon: "ri-file-list-3-line", color: "#06b6d4", format: (v: number) => `${v} câu` },
+  { key: "flashcardKnown", label: "Từ vựng đã thuộc", icon: "ri-translate-2", color: "#a78bfa", format: (v: number) => `${v} từ` },
+  { key: "badges", label: "Huy hiệu đạt được", icon: "ri-medal-line", color: "#f472b6", format: (v: number) => `${v} huy hiệu` },
 ];
 
 function StatBar({ label, myVal, friendVal, color, format }: {
@@ -50,7 +50,7 @@ function StatBar({ label, myVal, friendVal, color, format }: {
       <div className="space-y-2">
         {/* My bar */}
         <div className="flex items-center gap-3">
-          <span className="text-[10px] text-white/50 w-12 text-right whitespace-nowrap">B?n</span>
+          <span className="text-[10px] text-white/50 w-12 text-right whitespace-nowrap">Bạn</span>
           <div className="flex-1 h-2 bg-app-card/50 rounded-full overflow-hidden">
             <div className="h-full rounded-full transition-all duration-700" style={{ width: `${myPct}%`, backgroundColor: color }}></div>
           </div>
@@ -60,7 +60,7 @@ function StatBar({ label, myVal, friendVal, color, format }: {
         </div>
         {/* Friend bar */}
         <div className="flex items-center gap-3">
-          <span className="text-[10px] text-white/50 w-12 text-right whitespace-nowrap">B?n b�</span>
+          <span className="text-[10px] text-white/50 w-12 text-right whitespace-nowrap">Bạn bè</span>
           <div className="flex-1 h-2 bg-app-card/50 rounded-full overflow-hidden">
             <div className="h-full rounded-full transition-all duration-700" style={{ width: `${friendPct}%`, backgroundColor: "rgba(255,255,255,0.2)" }}></div>
           </div>
@@ -93,7 +93,7 @@ export default function CompareFriendsPage() {
 
   const myData: FriendData = {
     id: "me",
-    name: "B?n",
+    name: "Bạn",
     xp: totalXP,
     streak: streak.count,
     epsAccuracy,
@@ -110,10 +110,10 @@ export default function CompareFriendsPage() {
     setLoading(true);
     setLoadError("");
     try {
-      // H? tr? c? /member/:id (legacy) v� /public-profile/:id
+      // Hỗ trợ cả /member/:id (legacy) và /public-profile/:id
       const match = linkInput.match(/\/(?:member|public-profile)\/([a-zA-Z0-9-]+)/);
       if (!match) {
-        setLoadError("Link kh�ng h?p l?. D�ng link d?ng /public-profile/... ho?c /member/...");
+        setLoadError("Link không hợp lệ. Dùng link dạng /public-profile/... hoặc /member/...");
         setLoading(false);
         return;
       }
@@ -128,7 +128,7 @@ export default function CompareFriendsPage() {
       ]);
 
       if (!profile) {
-        setLoadError("Kh�ng t�m th?y h? so ngu?i d�ng n�y.");
+        setLoadError("Không tìm thấy hồ sơ người dùng này.");
         setLoading(false);
         return;
       }
@@ -155,7 +155,7 @@ export default function CompareFriendsPage() {
       const streak = lb?.streak || 0;
       const rank = getRankForXP(xp);
 
-      // Badges: c�ng c�ng th?c v?i public-profile d? nh?t qu�n
+      // Badges: cùng công thức với public-profile để nhất quán
       const badges =
         (streak >= 7 ? 1 : 0) + (streak >= 30 ? 1 : 0) + (streak >= 100 ? 1 : 0) +
         (xp >= 1000 ? 1 : 0) + (xp >= 5000 ? 1 : 0) + (xp >= 10000 ? 1 : 0) +
@@ -164,7 +164,7 @@ export default function CompareFriendsPage() {
 
       const friend: FriendData = {
         id: userId,
-        name: profile.display_name || "H?c vi�n",
+        name: profile.display_name || "Học viên",
         avatar: profile.avatar_url,
         xp,
         streak,
@@ -184,7 +184,7 @@ export default function CompareFriendsPage() {
       });
       setLinkInput("");
     } catch (e) {
-      setLoadError("L?i khi t?i d? li?u. Th? l?i sau.");
+      setLoadError("Lỗi khi tải dữ liệu. Thử lại sau.");
     } finally {
       setLoading(false);
     }
@@ -196,15 +196,15 @@ export default function CompareFriendsPage() {
 
   return (
     <DashboardLayout
-      title="So s�nh ti?n d? b?n b�"
-      subtitle="Nh?p link h? so c�ng khai d? so s�nh c?p b?c, streak v� di?m EPS"
+      title="So sánh tiến độ bạn bè"
+      subtitle="Nhập link hồ sơ công khai để so sánh cấp bậc, streak và điểm EPS"
     >
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         {/* Main */}
         <div className="space-y-6">
           {/* Input */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-3">Nh?p link h? so b?n b�</h3>
+            <h3 className="text-white font-semibold text-sm mb-3">Nhập link hồ sơ bạn bè</h3>
             <div className="flex gap-3">
               <div className="flex-1 flex items-center gap-2 bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5">
                 <i className="ri-link text-app-text-muted text-sm"></i>
@@ -223,13 +223,13 @@ export default function CompareFriendsPage() {
                 className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
               >
                 {loading ? <i className="ri-loader-4-line animate-spin"></i> : <i className="ri-search-line"></i>}
-                So s�nh
+                So sánh
               </button>
             </div>
             {loadError && <p className="text-red-400 text-xs mt-2"><i className="ri-error-warning-line mr-1"></i>{loadError}</p>}
             <p className="text-app-text-muted text-xs mt-2">
               <i className="ri-information-line mr-1"></i>
-              L?y link h? so c�ng khai t? trang Profile ? n�t "Chia s? h? so"
+              Lấy link hồ sơ công khai từ trang Profile → nút "Chia sẻ hồ sơ"
             </p>
           </div>
 
@@ -244,7 +244,7 @@ export default function CompareFriendsPage() {
                     <div className="w-16 h-16 rounded-2xl mx-auto mb-3 flex items-center justify-center" style={{ backgroundColor: `${myData.levelColor}15` }}>
                       <i className={`${myData.levelIcon} text-3xl`} style={{ color: myData.levelColor }}></i>
                     </div>
-                    <p className="text-white font-bold text-base">B?n</p>
+                    <p className="text-white font-bold text-base">Bạn</p>
                     <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${myData.levelColor}15`, color: myData.levelColor }}>
                       {myData.level}
                     </span>
@@ -258,7 +258,7 @@ export default function CompareFriendsPage() {
                     </div>
                     <div className="text-center">
                       <p className="text-app-accent-primary font-bold text-lg">{winsCount}/{COMPARE_METRICS.length}</p>
-                      <p className="text-app-text-muted text-[10px]">ch? s? th?ng</p>
+                      <p className="text-app-text-muted text-[10px]">chỉ số thắng</p>
                     </div>
                   </div>
 
@@ -278,10 +278,10 @@ export default function CompareFriendsPage() {
                 {/* Result banner */}
                 <div className={`mt-4 p-3 rounded-xl text-center ${winsCount > COMPARE_METRICS.length / 2 ? "bg-emerald-500/10 border border-emerald-500/20" : winsCount === COMPARE_METRICS.length / 2 ? "bg-app-accent-primary/10 border border-app-accent-primary/20" : "bg-red-500/10 border border-red-500/20"}`}>
                   <p className="font-bold text-sm" style={{ color: winsCount > COMPARE_METRICS.length / 2 ? "#34d399" : winsCount === COMPARE_METRICS.length / 2 ? "app-accent-primary" : "#f87171" }}>
-                    {winsCount > COMPARE_METRICS.length / 2 ? "?? B?n dang d?n tru?c!" : winsCount === COMPARE_METRICS.length / 2 ? "?? Ngang nhau!" : "?? C?n c? g?ng th�m!"}
+                    {winsCount > COMPARE_METRICS.length / 2 ? "🏆 Bạn đang dẫn trước!" : winsCount === COMPARE_METRICS.length / 2 ? "🤝 Ngang nhau!" : "💪 Cần cố gắng thêm!"}
                   </p>
                   <p className="text-app-text-muted text-xs mt-0.5">
-                    {winsCount > COMPARE_METRICS.length / 2 ? "Ti?p t?c duy tr� phong d? t?t!" : "H�y h?c th�m d? vu?t qua b?n b�!"}
+                    {winsCount > COMPARE_METRICS.length / 2 ? "Tiếp tục duy trì phong độ tốt!" : "Hãy học thêm để vượt qua bạn bè!"}
                   </p>
                 </div>
               </div>
@@ -305,8 +305,8 @@ export default function CompareFriendsPage() {
               <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-app-card/50 mx-auto mb-4">
                 <i className="ri-group-line text-app-text-muted text-3xl"></i>
               </div>
-              <p className="text-app-text-secondary text-base font-medium mb-2">Chua c� b?n b� d? so s�nh</p>
-              <p className="text-app-text-muted text-sm">Nh?p link h? so c�ng khai c?a b?n b� ? tr�n d? b?t d?u so s�nh</p>
+              <p className="text-app-text-secondary text-base font-medium mb-2">Chưa có bạn bè để so sánh</p>
+              <p className="text-app-text-muted text-sm">Nhập link hồ sơ công khai của bạn bè ở trên để bắt đầu so sánh</p>
 
             </div>
           )}
@@ -316,7 +316,7 @@ export default function CompareFriendsPage() {
         <div className="space-y-4">
           {/* My stats summary */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Ch? s? c?a b?n</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">Chỉ số của bạn</h3>
             <div className="space-y-3">
               {COMPARE_METRICS.map(m => (
                 <div key={m.key} className="flex items-center gap-3">
@@ -335,7 +335,7 @@ export default function CompareFriendsPage() {
           {/* Saved friends */}
           {savedFriends.length > 0 && (
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-3">B?n b� d� so s�nh</h3>
+              <h3 className="text-white font-semibold text-sm mb-3">Bạn bè đã so sánh</h3>
               <div className="space-y-2">
                 {savedFriends.map(f => (
                   <button
@@ -348,7 +348,7 @@ export default function CompareFriendsPage() {
                     </div>
                     <div className="flex-1 text-left min-w-0">
                       <p className="text-white/70 text-xs font-medium truncate">{f.name}</p>
-                      <p className="text-app-text-muted text-[10px]">{f.level} � {f.xp.toLocaleString()} XP</p>
+                      <p className="text-app-text-muted text-[10px]">{f.level} · {f.xp.toLocaleString()} XP</p>
                     </div>
                     {selectedFriend?.id === f.id && <i className="ri-arrow-right-s-line text-app-accent-primary text-sm"></i>}
                   </button>
@@ -361,13 +361,13 @@ export default function CompareFriendsPage() {
           <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
               <i className="ri-lightbulb-line text-app-accent-primary text-sm"></i>
-              <h3 className="text-white font-semibold text-sm">C�ch chia s? h? so</h3>
+              <h3 className="text-white font-semibold text-sm">Cách chia sẻ hồ sơ</h3>
             </div>
             <div className="space-y-2 text-app-text-secondary text-xs leading-relaxed">
-              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>V�o trang <strong className="text-white/60">H? so</strong></p>
-              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nh?n n�t <strong className="text-white/60">"Chia s? h? so"</strong></p>
-              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>G?i link cho b?n b�</p>
-              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>B?n b� d�n link v�o d�y d? so s�nh</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Vào trang <strong className="text-white/60">Hồ sơ</strong></p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nhấn nút <strong className="text-white/60">"Chia sẻ hồ sơ"</strong></p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Gửi link cho bạn bè</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Bạn bè dán link vào đây để so sánh</p>
             </div>
           </div>
         </div>

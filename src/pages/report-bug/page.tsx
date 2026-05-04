@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MobileNav from "@/components/feature/MobileNav";
 import MobileHeader from "@/components/feature/MobileHeader";
@@ -6,12 +6,12 @@ import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 
 const CATEGORIES = [
-  { id: "bug", label: "L?i k? thu?t", icon: "ri-bug-line", color: "#f87171" },
-  { id: "ui", label: "Giao di?n l?i", icon: "ri-layout-line", color: "#fb923c" },
-  { id: "content", label: "N?i dung sai", icon: "ri-file-warning-line", color: "app-accent-primary" },
-  { id: "feature", label: "T�nh nang kh�ng ho?t d?ng", icon: "ri-settings-line", color: "#a78bfa" },
-  { id: "payment", label: "V?n d? thanh to�n/VIP", icon: "ri-vip-crown-line", color: "#34d399" },
-  { id: "other", label: "Kh�c", icon: "ri-question-line", color: "#94a3b8" },
+  { id: "bug", label: "Lỗi kỹ thuật", icon: "ri-bug-line", color: "#f87171" },
+  { id: "ui", label: "Giao diện lỗi", icon: "ri-layout-line", color: "#fb923c" },
+  { id: "content", label: "Nội dung sai", icon: "ri-file-warning-line", color: "app-accent-primary" },
+  { id: "feature", label: "Tính năng không hoạt động", icon: "ri-settings-line", color: "#a78bfa" },
+  { id: "payment", label: "Vấn đề thanh toán/VIP", icon: "ri-vip-crown-line", color: "#34d399" },
+  { id: "other", label: "Khác", icon: "ri-question-line", color: "#94a3b8" },
 ];
 
 export default function ReportBugPage() {
@@ -34,7 +34,7 @@ export default function ReportBugPage() {
       const deviceInfo = `${navigator.userAgent.slice(0, 150)} | ${window.innerWidth}x${window.innerHeight}`;
       const { error: err } = await supabase.from("bug_reports").insert({
         user_id: user?.id || null,
-        user_name: profile?.display_name || "Kh�ch",
+        user_name: profile?.display_name || "Khách",
         user_email: (profile as any)?.email || user?.email || "",
         page_url: pageUrl,
         category,
@@ -46,7 +46,7 @@ export default function ReportBugPage() {
       if (err) throw err;
       setSubmitted(true);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "G?i b�o c�o th?t b?i");
+      setError(err instanceof Error ? err.message : "Gửi báo cáo thất bại");
     } finally {
       setSubmitting(false);
     }
@@ -59,17 +59,17 @@ export default function ReportBugPage() {
           <div className="w-20 h-20 flex items-center justify-center bg-emerald-500/10 rounded-3xl mx-auto mb-5">
             <i className="ri-checkbox-circle-line text-app-accent-success text-4xl" />
           </div>
-          <h2 className="text-white font-bold text-xl mb-2">�� g?i b�o c�o!</h2>
-          <p className="text-app-text-secondary text-sm mb-2">C?m on b?n d� ph?n h?i. �?i ngu k? thu?t s? xem x�t v� x? l� s?m nh?t c� th?.</p>
-          <p className="text-app-text-muted text-xs mb-8">Thu?ng trong v�ng 24�48 gi? l�m vi?c</p>
+          <h2 className="text-white font-bold text-xl mb-2">Đã gửi báo cáo!</h2>
+          <p className="text-app-text-secondary text-sm mb-2">Cảm ơn bạn đã phản hồi. Đội ngũ kỹ thuật sẽ xem xét và xử lý sớm nhất có thể.</p>
+          <p className="text-app-text-muted text-xs mb-8">Thường trong vòng 24–48 giờ làm việc</p>
           <div className="flex gap-3">
             <button onClick={() => navigate(-1)}
               className="flex-1 py-3 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50 transition-colors">
-              Quay l?i
+              Quay lại
             </button>
             <button onClick={() => { setSubmitted(false); setTitle(""); setDescription(""); }}
               className="flex-1 py-3 rounded-xl bg-app-accent-primary text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap">
-              B�o c�o th�m
+              Báo cáo thêm
             </button>
           </div>
         </div>
@@ -80,7 +80,7 @@ export default function ReportBugPage() {
 
   return (
     <div className="min-h-screen bg-app-bg pb-24 md:pb-8">
-      <MobileHeader title="B�o c�o l?i" showBack />
+      <MobileHeader title="Báo cáo lỗi" showBack />
 
       {/* Desktop header */}
       <header className="hidden md:flex sticky top-0 z-30 bg-app-bg/95 backdrop-blur-md border-b border-app-border h-14 items-center px-6 gap-4">
@@ -92,9 +92,9 @@ export default function ReportBugPage() {
           <div className="w-6 h-6 flex items-center justify-center bg-rose-500/20 rounded-md">
             <i className="ri-bug-line text-rose-400 text-sm" />
           </div>
-          <span className="text-white font-bold text-sm">B�o c�o l?i</span>
+          <span className="text-white font-bold text-sm">Báo cáo lỗi</span>
         </div>
-        <p className="text-white/35 text-xs">Gi�p ch�ng t�i c?i thi?n ?ng d?ng</p>
+        <p className="text-white/35 text-xs">Giúp chúng tôi cải thiện ứng dụng</p>
       </header>
 
       <div className="max-w-lg mx-auto pt-16 md:pt-6 px-4 py-5">
@@ -105,9 +105,9 @@ export default function ReportBugPage() {
               <i className="ri-bug-line text-rose-400 text-xl" />
             </div>
             <div>
-              <h1 className="text-white font-bold text-base mb-1">Ph�t hi?n l?i? H�y cho ch�ng t�i bi?t!</h1>
+              <h1 className="text-white font-bold text-base mb-1">Phát hiện lỗi? Hãy cho chúng tôi biết!</h1>
               <p className="text-app-text-secondary text-xs leading-relaxed">
-                M?i b�o c�o c?a b?n gi�p ch�ng t�i c?i thi?n ?ng d?ng t?t hon. �?i ngu k? thu?t s? xem x�t v� ph?n h?i s?m nh?t.
+                Mỗi báo cáo của bạn giúp chúng tôi cải thiện ứng dụng tốt hơn. Đội ngũ kỹ thuật sẽ xem xét và phản hồi sớm nhất.
               </p>
             </div>
           </div>
@@ -116,7 +116,7 @@ export default function ReportBugPage() {
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Category */}
           <div>
-            <label className="text-xs font-semibold text-white/50 mb-3 block tracking-normal">Lo?i v?n d?</label>
+            <label className="text-xs font-semibold text-white/50 mb-3 block tracking-normal">Loại vấn đề</label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {CATEGORIES.map(cat => (
                 <button
@@ -144,13 +144,13 @@ export default function ReportBugPage() {
           {/* Title */}
           <div>
             <label className="text-xs font-semibold text-white/50 mb-1.5 block">
-              Ti�u d? ng?n g?n <span className="text-rose-400">*</span>
+              Tiêu đề ngắn gọn <span className="text-rose-400">*</span>
             </label>
             <input
               type="text"
               value={title}
               onChange={e => setTitle(e.target.value.slice(0, 100))}
-              placeholder="VD: Kh�ng th? ph�t �m b�i h�t, trang b? tr?ng..."
+              placeholder="VD: Không thể phát âm bài hát, trang bị trắng..."
               className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40 transition-colors"
               required
             />
@@ -160,12 +160,12 @@ export default function ReportBugPage() {
           {/* Description */}
           <div>
             <label className="text-xs font-semibold text-white/50 mb-1.5 block">
-              M� t? chi ti?t <span className="text-rose-400">*</span>
+              Mô tả chi tiết <span className="text-rose-400">*</span>
             </label>
             <textarea
               value={description}
               onChange={e => setDescription(e.target.value.slice(0, 500))}
-              placeholder="M� t? l?i x?y ra nhu th? n�o, c�c bu?c d? t�i hi?n l?i, k?t qu? mong d?i vs th?c t?..."
+              placeholder="Mô tả lỗi xảy ra như thế nào, các bước để tái hiện lỗi, kết quả mong đợi vs thực tế..."
               rows={5}
               maxLength={500}
               className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40 transition-colors resize-none"
@@ -176,7 +176,7 @@ export default function ReportBugPage() {
 
           {/* Page URL */}
           <div>
-            <label className="text-xs font-semibold text-white/50 mb-1.5 block">Trang x?y ra l?i</label>
+            <label className="text-xs font-semibold text-white/50 mb-1.5 block">Trang xảy ra lỗi</label>
             <input
               type="text"
               value={pageUrl}
@@ -191,7 +191,7 @@ export default function ReportBugPage() {
             <div className="flex items-start gap-3 px-4 py-3 bg-app-accent-primary/5 border border-app-accent-primary/10 rounded-xl">
               <i className="ri-information-line text-app-accent-primary/60 text-sm flex-shrink-0 mt-0.5" />
               <p className="text-app-text-secondary text-xs leading-relaxed">
-                �ang nh?p d? ch�ng t�i c� th? li�n h? ph?n h?i k?t qu? x? l� l?i cho b?n.
+                Đăng nhập để chúng tôi có thể liên hệ phản hồi kết quả xử lý lỗi cho bạn.
               </p>
             </div>
           )}
@@ -209,9 +209,9 @@ export default function ReportBugPage() {
             className="w-full py-3.5 rounded-xl bg-rose-500 hover:bg-rose-400 disabled:opacity-40 text-white font-bold text-sm cursor-pointer whitespace-nowrap transition-colors flex items-center justify-center gap-2"
           >
             {submitting ? (
-              <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />�ang g?i...</>
+              <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Đang gửi...</>
             ) : (
-              <><i className="ri-send-plane-line" />G?i b�o c�o</>
+              <><i className="ri-send-plane-line" />Gửi báo cáo</>
             )}
           </button>
         </form>
@@ -219,10 +219,10 @@ export default function ReportBugPage() {
         {/* Recent reports by user */}
         <div className="mt-8 pt-6 border-t border-app-border">
           <p className="text-app-text-muted text-xs text-center">
-            C?n h? tr? kh?n c?p? Li�n h? qua{" "}
+            Cần hỗ trợ khẩn cấp? Liên hệ qua{" "}
             <a href="https://zalo.me" target="_blank" rel="nofollow noopener noreferrer"
               className="text-app-accent-primary/60 hover:text-app-accent-primary underline">Zalo</a>
-            {" "}ho?c email h? tr?.
+            {" "}hoặc email hỗ trợ.
           </p>
         </div>
       </div>

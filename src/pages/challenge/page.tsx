@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+﻿import { useState, useMemo, useCallback } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -17,7 +17,7 @@ interface ChallengeRecord {
   completedAt?: string;
 }
 
-// --- Challenge Quiz -------------------------------------------------------
+// ─── Challenge Quiz ───────────────────────────────────────────────────────
 function ChallengeQuiz({ challenge, onComplete }: {
   challenge: ChallengeRecord;
   onComplete: (score: number) => void;
@@ -64,8 +64,8 @@ function ChallengeQuiz({ challenge, onComplete }: {
             <i className="ri-sword-line text-[#fb923c] text-base"></i>
           </div>
           <div>
-            <p className="text-white font-bold text-sm">Th? th�ch t? {challenge.creatorName}</p>
-            <p className="text-app-text-secondary text-xs">�i?m c?n vu?t: <span className="text-[#fb923c] font-bold">{challenge.creatorScore}/{challenge.creatorTotal}</span> ({Math.round((challenge.creatorScore / challenge.creatorTotal) * 100)}%)</p>
+            <p className="text-white font-bold text-sm">Thử thách từ {challenge.creatorName}</p>
+            <p className="text-app-text-secondary text-xs">Điểm cần vượt: <span className="text-[#fb923c] font-bold">{challenge.creatorScore}/{challenge.creatorTotal}</span> ({Math.round((challenge.creatorScore / challenge.creatorTotal) * 100)}%)</p>
           </div>
         </div>
       </div>
@@ -114,7 +114,7 @@ function ChallengeQuiz({ challenge, onComplete }: {
   );
 }
 
-// --- Create Challenge -----------------------------------------------------
+// ─── Create Challenge ─────────────────────────────────────────────────────
 function CreateChallenge({ onCreated }: { onCreated: (c: ChallengeRecord) => void }) {
   const [selectedTopic, setSelectedTopic] = useState(EPS_TOPICS[0].id);
   const [questionCount, setQuestionCount] = useState(5);
@@ -156,19 +156,19 @@ function CreateChallenge({ onCreated }: { onCreated: (c: ChallengeRecord) => voi
           <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#fb923c]/15 mx-auto mb-3">
             <i className="ri-sword-line text-[#fb923c] text-2xl"></i>
           </div>
-          <h2 className="text-white font-bold text-lg">T?o th? th�ch m?i</h2>
-          <p className="text-app-text-secondary text-sm mt-1">L�m quiz tru?c, r?i g?i link cho b?n b� th�ch d?u!</p>
+          <h2 className="text-white font-bold text-lg">Tạo thử thách mới</h2>
+          <p className="text-app-text-secondary text-sm mt-1">Làm quiz trước, rồi gửi link cho bạn bè thách đấu!</p>
         </div>
 
         <div>
-          <label className="text-app-text-secondary text-xs font-medium block mb-2">T�n c?a b?n</label>
+          <label className="text-app-text-secondary text-xs font-medium block mb-2">Tên của bạn</label>
           <input value={creatorName} onChange={e => setCreatorName(e.target.value)}
-            placeholder="Nh?p t�n d? b?n b� bi?t ai th�ch d?u..."
+            placeholder="Nhập tên để bạn bè biết ai thách đấu..."
             className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#fb923c]/40 placeholder-white/20" />
         </div>
 
         <div>
-          <label className="text-app-text-secondary text-xs font-medium block mb-2">Ch? d? EPS</label>
+          <label className="text-app-text-secondary text-xs font-medium block mb-2">Chủ đề EPS</label>
           <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto">
             {EPS_TOPICS.map(t => (
               <button key={t.id} onClick={() => setSelectedTopic(t.id)}
@@ -182,12 +182,12 @@ function CreateChallenge({ onCreated }: { onCreated: (c: ChallengeRecord) => voi
         </div>
 
         <div>
-          <label className="text-app-text-secondary text-xs font-medium block mb-2">S? c�u h?i</label>
+          <label className="text-app-text-secondary text-xs font-medium block mb-2">Số câu hỏi</label>
           <div className="flex gap-2">
             {[5, 10, 15].map(n => (
               <button key={n} onClick={() => setQuestionCount(n)}
                 className={`flex-1 py-2.5 rounded-xl border text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${questionCount === n ? "border-[#fb923c]/40 bg-[#fb923c]/10 text-[#fb923c]" : "border-app-border bg-app-surface/50 text-app-text-secondary hover:border-white/15"}`}>
-                {n} c�u
+                {n} câu
               </button>
             ))}
           </div>
@@ -196,20 +196,20 @@ function CreateChallenge({ onCreated }: { onCreated: (c: ChallengeRecord) => voi
         {topic && (
           <div className="flex items-center gap-2 p-3 rounded-xl border" style={{ backgroundColor: `${topic.color}08`, borderColor: `${topic.color}20` }}>
             <i className={`${topic.icon} text-sm`} style={{ color: topic.color }}></i>
-            <span className="text-white/60 text-xs">Ch? d?: <strong style={{ color: topic.color }}>{topic.label}</strong> � {questionCount} c�u</span>
+            <span className="text-white/60 text-xs">Chủ đề: <strong style={{ color: topic.color }}>{topic.label}</strong> · {questionCount} câu</span>
           </div>
         )}
 
         <button onClick={handleStartQuiz} disabled={!creatorName.trim()}
           className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#fb923c] hover:bg-[#ea7c1e] disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-sm transition-colors cursor-pointer whitespace-nowrap">
-          <i className="ri-play-line"></i>B?t d?u l�m quiz
+          <i className="ri-play-line"></i>Bắt đầu làm quiz
         </button>
       </div>
     </div>
   );
 }
 
-// --- Challenge Result & Share ---------------------------------------------
+// ─── Challenge Result & Share ─────────────────────────────────────────────
 function ChallengeResult({ challenge, onNew }: { challenge: ChallengeRecord; onNew: () => void }) {
   const [copied, setCopied] = useState(false);
   const pct = Math.round((challenge.creatorScore / challenge.creatorTotal) * 100);
@@ -218,7 +218,7 @@ function ChallengeResult({ challenge, onNew }: { challenge: ChallengeRecord; onN
   const challengeUrl = `${window.location.origin}/challenge?id=${challenge.id}`;
 
   const handleCopy = async () => {
-    const text = `?? ${challenge.creatorName} th�ch d?u b?n!\n\nM�nh v?a d?t ${pct}% (${challenge.creatorScore}/${challenge.creatorTotal} c�u) trong quiz EPS-TOPIK.\nB?n c� th? vu?t qua kh�ng?\n\n?? ${challengeUrl}\n\n#H�nQu?cOi #EPSTopik #Th?Th�ch`;
+    const text = `🔥 ${challenge.creatorName} thách đấu bạn!\n\nMình vừa đạt ${pct}% (${challenge.creatorScore}/${challenge.creatorTotal} câu) trong quiz EPS-TOPIK.\nBạn có thể vượt qua không?\n\n👉 ${challengeUrl}\n\n#HànQuốcƠi #EPSTopik #ThửThách`;
     await navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
@@ -238,17 +238,17 @@ function ChallengeResult({ challenge, onNew }: { challenge: ChallengeRecord; onN
         <div className="w-16 h-16 flex items-center justify-center rounded-2xl mx-auto mb-4" style={{ backgroundColor: `${color}15` }}>
           <i className={`${pct >= 80 ? "ri-trophy-line" : "ri-sword-line"} text-3xl`} style={{ color }}></i>
         </div>
-        <h2 className="text-white font-bold text-2xl mb-1">�i?m c?a b?n</h2>
+        <h2 className="text-white font-bold text-2xl mb-1">Điểm của bạn</h2>
         <p className="text-5xl font-black mb-2" style={{ color }}>{pct}%</p>
-        <p className="text-app-text-secondary text-sm mb-4">{challenge.creatorScore}/{challenge.creatorTotal} c�u d�ng</p>
+        <p className="text-app-text-secondary text-sm mb-4">{challenge.creatorScore}/{challenge.creatorTotal} câu đúng</p>
         <div className="w-full max-w-xs mx-auto h-2 bg-app-card/50 rounded-full overflow-hidden mb-6">
           <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: color }} />
         </div>
-        <p className="text-white/50 text-sm">Th? th�ch d� du?c t?o! G?i link cho b?n b� d? h? th�ch d?u.</p>
+        <p className="text-white/50 text-sm">Thử thách đã được tạo! Gửi link cho bạn bè để họ thách đấu.</p>
       </div>
 
       <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-        <h3 className="text-white font-bold text-sm mb-3">Chia s? th? th�ch</h3>
+        <h3 className="text-white font-bold text-sm mb-3">Chia sẻ thử thách</h3>
         <div className="bg-app-surface/50 border border-app-border rounded-xl p-3 mb-4">
           <p className="text-white/50 text-xs break-all">{challengeUrl}</p>
         </div>
@@ -265,19 +265,19 @@ function ChallengeResult({ challenge, onNew }: { challenge: ChallengeRecord; onN
         <button onClick={handleCopy}
           className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border text-sm font-medium cursor-pointer transition-all whitespace-nowrap ${copied ? "bg-[#34d399]/10 border-[#34d399]/20 text-[#34d399]" : "bg-app-card/50 border-app-border text-white/60 hover:bg-app-card/70"}`}>
           <i className={`${copied ? "ri-check-line" : "ri-file-copy-line"} text-base`}></i>
-          {copied ? "�� sao ch�p!" : "Sao ch�p link + n?i dung"}
+          {copied ? "Đã sao chép!" : "Sao chép link + nội dung"}
         </button>
       </div>
 
       <button onClick={onNew}
         className="w-full py-3 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50 transition-colors">
-        T?o th? th�ch m?i
+        Tạo thử thách mới
       </button>
     </div>
   );
 }
 
-// --- Accept Challenge -----------------------------------------------------
+// ─── Accept Challenge ─────────────────────────────────────────────────────
 function AcceptChallenge({ challengeId, challenges }: { challengeId: string; challenges: ChallengeRecord[] }) {
   const challenge = challenges.find(c => c.id === challengeId);
   const [phase, setPhase] = useState<"intro" | "quiz" | "result">("intro");
@@ -288,8 +288,8 @@ function AcceptChallenge({ challengeId, challenges }: { challengeId: string; cha
     return (
       <div className="max-w-lg mx-auto text-center py-16">
         <i className="ri-error-warning-line text-app-text-muted text-5xl mb-4"></i>
-        <p className="text-app-text-secondary text-sm">Kh�ng t�m th?y th? th�ch n�y</p>
-        <p className="text-app-text-muted text-xs mt-2">Link c� th? d� h?t h?n ho?c kh�ng h?p l?</p>
+        <p className="text-app-text-secondary text-sm">Không tìm thấy thử thách này</p>
+        <p className="text-app-text-muted text-xs mt-2">Link có thể đã hết hạn hoặc không hợp lệ</p>
       </div>
     );
   }
@@ -301,21 +301,21 @@ function AcceptChallenge({ challengeId, challenges }: { challengeId: string; cha
     return (
       <div className="max-w-lg mx-auto">
         <div className="bg-gradient-to-br from-[#1a0800] to-[#0f1117] border border-[#fb923c]/20 rounded-2xl p-8 text-center mb-4">
-          <div className="text-4xl mb-4">??</div>
-          <h2 className="text-white font-black text-2xl mb-2">{challenge.creatorName} th�ch d?u b?n!</h2>
-          <p className="text-white/50 text-sm mb-5">H? d� d?t <span className="text-[#fb923c] font-bold">{creatorPct}%</span> ({challenge.creatorScore}/{challenge.creatorTotal} c�u). B?n c� th? vu?t qua kh�ng?</p>
+          <div className="text-4xl mb-4">⚔️</div>
+          <h2 className="text-white font-black text-2xl mb-2">{challenge.creatorName} thách đấu bạn!</h2>
+          <p className="text-white/50 text-sm mb-5">Họ đã đạt <span className="text-[#fb923c] font-bold">{creatorPct}%</span> ({challenge.creatorScore}/{challenge.creatorTotal} câu). Bạn có thể vượt qua không?</p>
           {topic && (
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border mb-5" style={{ backgroundColor: `${topic.color}10`, borderColor: `${topic.color}25` }}>
               <i className={`${topic.icon} text-sm`} style={{ color: topic.color }}></i>
-              <span className="text-white/70 text-sm">{topic.label} � {challenge.questionCount} c�u</span>
+              <span className="text-white/70 text-sm">{topic.label} · {challenge.questionCount} câu</span>
             </div>
           )}
           <input value={myName} onChange={e => setMyName(e.target.value)}
-            placeholder="Nh?p t�n c?a b?n..."
+            placeholder="Nhập tên của bạn..."
             className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#fb923c]/40 placeholder-white/20 mb-4" />
           <button onClick={() => setPhase("quiz")} disabled={!myName.trim()}
             className="w-full py-3.5 rounded-xl bg-[#fb923c] hover:bg-[#ea7c1e] disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-base transition-colors cursor-pointer whitespace-nowrap">
-            <i className="ri-sword-line mr-2"></i>Ch?p nh?n th? th�ch!
+            <i className="ri-sword-line mr-2"></i>Chấp nhận thử thách!
           </button>
         </div>
       </div>
@@ -335,31 +335,31 @@ function AcceptChallenge({ challengeId, challenges }: { challengeId: string; cha
   return (
     <div className="max-w-lg mx-auto space-y-4">
       <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center">
-        <div className="text-5xl mb-4">{won ? "??" : tied ? "??" : "??"}</div>
+        <div className="text-5xl mb-4">{won ? "🏆" : tied ? "🤝" : "💪"}</div>
         <h2 className="text-white font-black text-2xl mb-4" style={{ color: resultColor }}>
-          {won ? "B?n th?ng!" : tied ? "H�a nhau!" : "Thua r?i!"}
+          {won ? "Bạn thắng!" : tied ? "Hòa nhau!" : "Thua rồi!"}
         </h2>
         <div className="grid grid-cols-2 gap-4 mb-6">
           <div className="bg-app-surface/50 rounded-xl p-4">
             <p className="text-app-text-secondary text-xs mb-1">{myName}</p>
             <p className="font-black text-3xl" style={{ color: resultColor }}>{myPct}%</p>
-            <p className="text-app-text-muted text-xs">{myScore}/{challenge.questionCount} c�u</p>
+            <p className="text-app-text-muted text-xs">{myScore}/{challenge.questionCount} câu</p>
           </div>
           <div className="bg-app-surface/50 rounded-xl p-4">
             <p className="text-app-text-secondary text-xs mb-1">{challenge.creatorName}</p>
             <p className="font-black text-3xl text-white/60">{creatorPct}%</p>
-            <p className="text-app-text-muted text-xs">{challenge.creatorScore}/{challenge.creatorTotal} c�u</p>
+            <p className="text-app-text-muted text-xs">{challenge.creatorScore}/{challenge.creatorTotal} câu</p>
           </div>
         </div>
         <p className="text-app-text-secondary text-sm">
-          {won ? `Xu?t s?c! B?n vu?t qua ${challenge.creatorName} r?i!` : tied ? "Hai b�n ngang t�i ngang s?c!" : `C? l�n! Luy?n th�m d? vu?t qua ${challenge.creatorName}!`}
+          {won ? `Xuất sắc! Bạn vượt qua ${challenge.creatorName} rồi!` : tied ? "Hai bên ngang tài ngang sức!" : `Cố lên! Luyện thêm để vượt qua ${challenge.creatorName}!`}
         </p>
       </div>
     </div>
   );
 }
 
-// --- Main Page ------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────
 export default function ChallengePage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -374,10 +374,10 @@ export default function ChallengePage() {
     setPhase("result");
   };
 
-  // If URL has challenge ID ? accept mode
+  // If URL has challenge ID → accept mode
   if (challengeId) {
     return (
-      <DashboardLayout title="Th? th�ch b?n b�" subtitle="Ai s? d?t di?m cao hon?">
+      <DashboardLayout title="Thử thách bạn bè" subtitle="Ai sẽ đạt điểm cao hơn?">
         <AcceptChallenge challengeId={challengeId} challenges={challenges} />
       </DashboardLayout>
     );
@@ -385,13 +385,13 @@ export default function ChallengePage() {
 
   return (
     <DashboardLayout
-      title="Th? th�ch b?n b�"
-      subtitle="T?o quiz th�ch d?u � g?i link cho b?n b� so s�nh di?m"
+      title="Thử thách bạn bè"
+      subtitle="Tạo quiz thách đấu — gửi link cho bạn bè so sánh điểm"
       actions={
         phase === "list" ? (
           <button onClick={() => setPhase("create")}
             className="flex items-center gap-2 bg-[#fb923c] hover:bg-[#ea7c1e] text-white font-bold text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
-            <i className="ri-add-line"></i>T?o th? th�ch
+            <i className="ri-add-line"></i>Tạo thử thách
           </button>
         ) : undefined
       }
@@ -399,7 +399,7 @@ export default function ChallengePage() {
       {phase === "create" && (
         <div>
           <button onClick={() => setPhase("list")} className="flex items-center gap-2 text-white/50 hover:text-white text-sm cursor-pointer whitespace-nowrap mb-5 transition-colors">
-            <i className="ri-arrow-left-line"></i>Quay l?i
+            <i className="ri-arrow-left-line"></i>Quay lại
           </button>
           <CreateChallenge onCreated={handleCreated} />
         </div>
@@ -420,15 +420,15 @@ export default function ChallengePage() {
                 <i className="ri-sword-line text-[#fb923c] text-2xl"></i>
               </div>
               <div>
-                <h2 className="text-white font-bold text-lg">Th? th�ch b?n b�</h2>
-                <p className="text-app-text-secondary text-sm">L�m quiz EPS-TOPIK ? g?i link ? so s�nh di?m</p>
+                <h2 className="text-white font-bold text-lg">Thử thách bạn bè</h2>
+                <p className="text-app-text-secondary text-sm">Làm quiz EPS-TOPIK → gửi link → so sánh điểm</p>
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { icon: "ri-play-circle-line", color: "#fb923c", label: "Bu?c 1", desc: "L�m quiz tru?c" },
-                { icon: "ri-share-line", color: "app-accent-primary", label: "Bu?c 2", desc: "G?i link cho b?n" },
-                { icon: "ri-trophy-line", color: "#34d399", label: "Bu?c 3", desc: "So s�nh di?m s?" },
+                { icon: "ri-play-circle-line", color: "#fb923c", label: "Bước 1", desc: "Làm quiz trước" },
+                { icon: "ri-share-line", color: "app-accent-primary", label: "Bước 2", desc: "Gửi link cho bạn" },
+                { icon: "ri-trophy-line", color: "#34d399", label: "Bước 3", desc: "So sánh điểm số" },
               ].map(s => (
                 <div key={s.label} className="bg-app-surface/50 rounded-xl p-3 text-center">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${s.color}15` }}>
@@ -441,14 +441,14 @@ export default function ChallengePage() {
             </div>
             <button onClick={() => setPhase("create")}
               className="mt-4 w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#fb923c] hover:bg-[#ea7c1e] text-white font-bold text-sm transition-colors cursor-pointer whitespace-nowrap">
-              <i className="ri-sword-line"></i>T?o th? th�ch ngay
+              <i className="ri-sword-line"></i>Tạo thử thách ngay
             </button>
           </div>
 
           {/* History */}
           {challenges.length > 0 && (
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-4">L?ch s? th? th�ch ({challenges.length})</h3>
+              <h3 className="text-white font-semibold text-sm mb-4">Lịch sử thử thách ({challenges.length})</h3>
               <div className="space-y-3">
                 {challenges.slice(0, 10).map(c => {
                   const pct = Math.round((c.creatorScore / c.creatorTotal) * 100);
@@ -461,7 +461,7 @@ export default function ChallengePage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-white/70 text-sm font-medium truncate">{topic?.label || c.topicId}</p>
-                        <p className="text-app-text-muted text-xs">{c.creatorScore}/{c.creatorTotal} c�u � {new Date(c.createdAt).toLocaleDateString("vi-VN")}</p>
+                        <p className="text-app-text-muted text-xs">{c.creatorScore}/{c.creatorTotal} câu · {new Date(c.createdAt).toLocaleDateString("vi-VN")}</p>
                       </div>
                       <button
                         onClick={async () => {
@@ -481,8 +481,8 @@ export default function ChallengePage() {
           {challenges.length === 0 && (
             <div className="flex flex-col items-center justify-center py-16 text-center">
               <i className="ri-sword-line text-white/10 text-5xl mb-4"></i>
-              <p className="text-app-text-muted text-sm">Chua c� th? th�ch n�o</p>
-              <p className="text-app-text-muted text-xs mt-1">T?o th? th�ch d?u ti�n v� g?i cho b?n b�!</p>
+              <p className="text-app-text-muted text-sm">Chưa có thử thách nào</p>
+              <p className="text-app-text-muted text-xs mt-1">Tạo thử thách đầu tiên và gửi cho bạn bè!</p>
             </div>
           )}
         </div>

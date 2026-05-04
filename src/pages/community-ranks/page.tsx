@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -8,26 +8,26 @@ import { RANKS, BADGES } from "@/data/ranks";
 export { RANKS, BADGES };
 
 const BADGE_CATEGORIES = [
-  { id: "all", label: "T?t c?" },
+  { id: "all", label: "Tất cả" },
   { id: "streak", label: "Streak" },
-  { id: "achievement", label: "Th�nh t�ch thi" },
-  { id: "community", label: "C?ng d?ng" },
-  { id: "learning", label: "H?c t?p" },
-  { id: "special", label: "�?c bi?t" },
+  { id: "achievement", label: "Thành tích thi" },
+  { id: "community", label: "Cộng đồng" },
+  { id: "learning", label: "Học tập" },
+  { id: "special", label: "Đặc biệt" },
 ];
 
-// --- Mock leaderboard data ----------------------------------------------------
+// ─── Mock leaderboard data ────────────────────────────────────────────────────
 const MOCK_LEADERBOARD = [
-  { rank: 1, name: "Nguy?n Van H�ng", xp: 8420, streak: 142, badges: ["streak100", "eps_pass", "top10", "perfect_score"], rankId: "legend" },
-  { rank: 2, name: "Tr?n Th? Mai", xp: 6850, streak: 98, badges: ["streak100", "topik2_pass", "helpful"], rankId: "legend" },
-  { rank: 3, name: "L� Minh Tu?n", xp: 5200, streak: 67, badges: ["streak30", "eps_pass", "vocab200"], rankId: "legend" },
-  { rank: 4, name: "Ph?m Thu H�", xp: 3800, streak: 45, badges: ["streak30", "topik1_pass", "first_post"], rankId: "master" },
-  { rank: 5, name: "Ho�ng �?c Nam", xp: 2900, streak: 38, badges: ["streak30", "helpful", "hangul_master"], rankId: "master" },
-  { rank: 6, name: "Vu Th? Lan", xp: 2100, streak: 29, badges: ["streak7", "vocab200", "first_post"], rankId: "master" },
-  { rank: 7, name: "�?ng Qu?c B?o", xp: 1650, streak: 22, badges: ["streak7", "eps_pass"], rankId: "master" },
-  { rank: 8, name: "B�i Th? Hoa", xp: 1200, streak: 18, badges: ["streak7", "first_post"], rankId: "warrior" },
-  { rank: 9, name: "Ng� Van Th?ng", xp: 980, streak: 15, badges: ["streak7", "hangul_master"], rankId: "warrior" },
-  { rank: 10, name: "�inh Th? Y?n", xp: 750, streak: 12, badges: ["first_post", "vocab200"], rankId: "warrior" },
+  { rank: 1, name: "Nguyễn Văn Hùng", xp: 8420, streak: 142, badges: ["streak100", "eps_pass", "top10", "perfect_score"], rankId: "legend" },
+  { rank: 2, name: "Trần Thị Mai", xp: 6850, streak: 98, badges: ["streak100", "topik2_pass", "helpful"], rankId: "legend" },
+  { rank: 3, name: "Lê Minh Tuấn", xp: 5200, streak: 67, badges: ["streak30", "eps_pass", "vocab200"], rankId: "legend" },
+  { rank: 4, name: "Phạm Thu Hà", xp: 3800, streak: 45, badges: ["streak30", "topik1_pass", "first_post"], rankId: "master" },
+  { rank: 5, name: "Hoàng Đức Nam", xp: 2900, streak: 38, badges: ["streak30", "helpful", "hangul_master"], rankId: "master" },
+  { rank: 6, name: "Vũ Thị Lan", xp: 2100, streak: 29, badges: ["streak7", "vocab200", "first_post"], rankId: "master" },
+  { rank: 7, name: "Đặng Quốc Bảo", xp: 1650, streak: 22, badges: ["streak7", "eps_pass"], rankId: "master" },
+  { rank: 8, name: "Bùi Thị Hoa", xp: 1200, streak: 18, badges: ["streak7", "first_post"], rankId: "warrior" },
+  { rank: 9, name: "Ngô Văn Thắng", xp: 980, streak: 15, badges: ["streak7", "hangul_master"], rankId: "warrior" },
+  { rank: 10, name: "Đinh Thị Yến", xp: 750, streak: 12, badges: ["first_post", "vocab200"], rankId: "warrior" },
 ];
 
 function getRankById(id: string) {
@@ -46,7 +46,7 @@ function getXPProgress(xp: number) {
   return { rank, nextRank, progress: Math.min(progress, 100), xpToNext: nextRank.minXP - xp };
 }
 
-// --- Rank Card ----------------------------------------------------------------
+// ─── Rank Card ────────────────────────────────────────────────────────────────
 function RankCard({ rank, isCurrentRank, userXP }: { rank: typeof RANKS[0]; isCurrentRank: boolean; userXP: number }) {
   const [expanded, setExpanded] = useState(false);
   const isUnlocked = userXP >= rank.minXP;
@@ -76,11 +76,11 @@ function RankCard({ rank, isCurrentRank, userXP }: { rank: typeof RANKS[0]; isCu
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-white font-bold text-base">{rank.name}</span>
             <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ backgroundColor: rank.bgColor, color: rank.color }}>{rank.nameKo}</span>
-            {isCurrentRank && <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-card/70 text-white/60 font-medium">C?p hi?n t?i</span>}
+            {isCurrentRank && <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-card/70 text-white/60 font-medium">Cấp hiện tại</span>}
           </div>
           <p className="text-app-text-secondary text-xs mt-0.5">{rank.description}</p>
           <p className="text-app-text-muted text-[10px] mt-1">
-            {rank.maxXP === Infinity ? `T? ${rank.minXP.toLocaleString()} XP` : `${rank.minXP.toLocaleString()} � ${rank.maxXP.toLocaleString()} XP`}
+            {rank.maxXP === Infinity ? `Từ ${rank.minXP.toLocaleString()} XP` : `${rank.minXP.toLocaleString()} – ${rank.maxXP.toLocaleString()} XP`}
           </p>
         </div>
         <i className={`ri-arrow-down-s-line text-app-text-muted transition-transform flex-shrink-0 ${expanded ? "rotate-180" : ""}`}></i>
@@ -88,7 +88,7 @@ function RankCard({ rank, isCurrentRank, userXP }: { rank: typeof RANKS[0]; isCu
 
       {expanded && (
         <div className="px-4 pb-4 border-t border-app-border pt-3">
-          <p className="text-app-text-secondary text-xs font-medium mb-2">Quy?n l?i c?p b?c:</p>
+          <p className="text-app-text-secondary text-xs font-medium mb-2">Quyền lợi cấp bậc:</p>
           <div className="space-y-1.5">
             {rank.perks.map((perk, i) => (
               <div key={i} className="flex items-center gap-2">
@@ -105,7 +105,7 @@ function RankCard({ rank, isCurrentRank, userXP }: { rank: typeof RANKS[0]; isCu
   );
 }
 
-// --- Badge Card ---------------------------------------------------------------
+// ─── Badge Card ───────────────────────────────────────────────────────────────
 function BadgeCard({ badge, earned }: { badge: typeof BADGES[0]; earned: boolean }) {
   return (
     <div className={`rounded-xl border p-3 transition-all ${earned ? "border-app-border" : "border-app-border opacity-50"}`}
@@ -136,7 +136,7 @@ function BadgeCard({ badge, earned }: { badge: typeof BADGES[0]; earned: boolean
   );
 }
 
-// --- Leaderboard Row ----------------------------------------------------------
+// ─── Leaderboard Row ──────────────────────────────────────────────────────────
 function LeaderboardRow({ entry, isMe }: { entry: typeof MOCK_LEADERBOARD[0]; isMe: boolean }) {
   const rank = getRankById(entry.rankId);
   const medals = ["ri-medal-fill", "ri-medal-fill", "ri-medal-fill"];
@@ -158,11 +158,11 @@ function LeaderboardRow({ entry, isMe }: { entry: typeof MOCK_LEADERBOARD[0]; is
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
           <span className={`text-sm font-semibold ${isMe ? "text-app-accent-primary" : "text-white/80"}`}>{entry.name}</span>
-          {isMe && <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary">B?n</span>}
+          {isMe && <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary">Bạn</span>}
           <span className="text-[10px] px-1.5 py-0.5 rounded-full font-medium" style={{ backgroundColor: rank.bgColor, color: rank.color }}>{rank.name}</span>
         </div>
         <div className="flex items-center gap-3 mt-0.5">
-          <span className="text-app-text-muted text-[10px]"><i className="ri-fire-line text-[#fb923c] mr-0.5"></i>{entry.streak} ng�y</span>
+          <span className="text-app-text-muted text-[10px]"><i className="ri-fire-line text-[#fb923c] mr-0.5"></i>{entry.streak} ngày</span>
           <div className="flex gap-1">
             {entry.badges.slice(0, 3).map(bid => {
               const b = getBadgeById(bid);
@@ -181,7 +181,7 @@ function LeaderboardRow({ entry, isMe }: { entry: typeof MOCK_LEADERBOARD[0]; is
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function CommunityRanksPage() {
   const [activeTab, setActiveTab] = useState<"ranks" | "badges" | "leaderboard">("ranks");
   const [badgeCategory, setBadgeCategory] = useState("all");
@@ -207,15 +207,15 @@ export default function CommunityRanksPage() {
   }, [badgeCategory]);
 
   const tabs = [
-    { id: "ranks" as const, label: "C?p b?c", icon: "ri-vip-crown-line" },
-    { id: "badges" as const, label: "Huy hi?u", icon: "ri-medal-line" },
-    { id: "leaderboard" as const, label: "B?ng phong th?n", icon: "ri-trophy-line" },
+    { id: "ranks" as const, label: "Cấp bậc", icon: "ri-vip-crown-line" },
+    { id: "badges" as const, label: "Huy hiệu", icon: "ri-medal-line" },
+    { id: "leaderboard" as const, label: "Bảng phong thần", icon: "ri-trophy-line" },
   ];
 
   return (
     <DashboardLayout
-      title="C?p b?c & Huy hi?u"
-      subtitle="H? th?ng gamification � leo h?ng v� suu t?m huy hi?u th�nh t�ch"
+      title="Cấp bậc & Huy hiệu"
+      subtitle="Hệ thống gamification — leo hạng và sưu tầm huy hiệu thành tích"
     >
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         {/* Main content */}
@@ -232,21 +232,21 @@ export default function CommunityRanksPage() {
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-white font-bold text-lg">{user ? (profile?.display_name || "H?c vi�n") : "Kh�ch"}</span>
+                  <span className="text-white font-bold text-lg">{user ? (profile?.display_name || "Học viên") : "Khách"}</span>
                   <span className="text-sm px-2.5 py-0.5 rounded-full font-bold" style={{ backgroundColor: currentRank.bgColor, color: currentRank.color, border: `1px solid ${currentRank.borderColor}` }}>
                     <i className={`${currentRank.icon} mr-1`}></i>{currentRank.name}
                   </span>
                 </div>
                 <div className="flex items-center gap-4 text-sm">
                   <span className="text-white/60"><i className="ri-star-line text-app-accent-primary mr-1"></i>{userXP.toLocaleString()} XP</span>
-                  <span className="text-app-text-secondary"><i className="ri-fire-line text-[#fb923c] mr-1"></i>{streak.count} ng�y streak</span>
-                  <span className="text-app-text-secondary"><i className="ri-medal-line text-[#a78bfa] mr-1"></i>{earnedBadgeIds.length} huy hi?u</span>
+                  <span className="text-app-text-secondary"><i className="ri-fire-line text-[#fb923c] mr-1"></i>{streak.count} ngày streak</span>
+                  <span className="text-app-text-secondary"><i className="ri-medal-line text-[#a78bfa] mr-1"></i>{earnedBadgeIds.length} huy hiệu</span>
                 </div>
                 {nextRank && (
                   <div className="mt-3">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-app-text-muted text-[10px]">Ti?n d? l�n {nextRank.name}</span>
-                      <span className="text-app-text-secondary text-[10px]">C�n {xpToNext.toLocaleString()} XP</span>
+                      <span className="text-app-text-muted text-[10px]">Tiến độ lên {nextRank.name}</span>
+                      <span className="text-app-text-secondary text-[10px]">Còn {xpToNext.toLocaleString()} XP</span>
                     </div>
                     <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
                       <div className="h-full rounded-full transition-all duration-500"
@@ -302,7 +302,7 @@ export default function CommunityRanksPage() {
               <div className="px-4 py-3 border-b border-app-border flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <i className="ri-trophy-fill text-app-accent-primary"></i>
-                  <span className="text-white font-semibold text-sm">B?ng phong th?n th�ng n�y</span>
+                  <span className="text-white font-semibold text-sm">Bảng phong thần tháng này</span>
                 </div>
                 <span className="text-app-text-muted text-xs">Top 10 XP</span>
               </div>
@@ -319,16 +319,16 @@ export default function CommunityRanksPage() {
         <div className="space-y-4">
           {/* How to earn XP */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-star-line text-app-accent-primary mr-2"></i>C�ch ki?m XP</h3>
+            <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-star-line text-app-accent-primary mr-2"></i>Cách kiếm XP</h3>
             <div className="space-y-2.5">
               {[
-                { action: "H?c flashcard", xp: "+5 XP/t?", icon: "ri-stack-line", color: "#34d399" },
-                { action: "L�m b�i thi EPS", xp: "+20 XP/b�i", icon: "ri-file-list-3-line", color: "#fb923c" },
-                { action: "Duy tr� streak", xp: "+10 XP/ng�y", icon: "ri-fire-line", color: "#ef4444" },
-                { action: "�ang b�i c?ng d?ng", xp: "+15 XP/b�i", icon: "ri-article-line", color: "#a78bfa" },
-                { action: "Nh?n lu?t th�ch", xp: "+2 XP/like", icon: "ri-heart-line", color: "#f43f5e" },
-                { action: "Ho�n th�nh quiz", xp: "+10 XP/quiz", icon: "ri-survey-line", color: "#22d3ee" },
-                { action: "Streak 7 ng�y", xp: "+50 XP bonus", icon: "ri-gift-line", color: "app-accent-primary" },
+                { action: "Học flashcard", xp: "+5 XP/từ", icon: "ri-stack-line", color: "#34d399" },
+                { action: "Làm bài thi EPS", xp: "+20 XP/bài", icon: "ri-file-list-3-line", color: "#fb923c" },
+                { action: "Duy trì streak", xp: "+10 XP/ngày", icon: "ri-fire-line", color: "#ef4444" },
+                { action: "Đăng bài cộng đồng", xp: "+15 XP/bài", icon: "ri-article-line", color: "#a78bfa" },
+                { action: "Nhận lượt thích", xp: "+2 XP/like", icon: "ri-heart-line", color: "#f43f5e" },
+                { action: "Hoàn thành quiz", xp: "+10 XP/quiz", icon: "ri-survey-line", color: "#22d3ee" },
+                { action: "Streak 7 ngày", xp: "+50 XP bonus", icon: "ri-gift-line", color: "app-accent-primary" },
               ].map(item => (
                 <div key={item.action} className="flex items-center gap-3">
                   <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${item.color}15` }}>
@@ -343,7 +343,7 @@ export default function CommunityRanksPage() {
 
           {/* Rank overview */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-vip-crown-line text-app-accent-primary mr-2"></i>T?ng quan c?p b?c</h3>
+            <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-vip-crown-line text-app-accent-primary mr-2"></i>Tổng quan cấp bậc</h3>
             <div className="space-y-2">
               {RANKS.map(rank => (
                 <div key={rank.id} className="flex items-center gap-2.5">
@@ -353,11 +353,11 @@ export default function CommunityRanksPage() {
                   <div className="flex-1 min-w-0">
                     <p className="text-white/70 text-xs font-medium">{rank.name}</p>
                     <p className="text-app-text-muted text-[10px]">
-                      {rank.maxXP === Infinity ? `${rank.minXP.toLocaleString()}+ XP` : `${rank.minXP.toLocaleString()}�${rank.maxXP.toLocaleString()} XP`}
+                      {rank.maxXP === Infinity ? `${rank.minXP.toLocaleString()}+ XP` : `${rank.minXP.toLocaleString()}–${rank.maxXP.toLocaleString()} XP`}
                     </p>
                   </div>
                   {rank.id === currentRank.id && (
-                    <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/8 text-app-text-secondary">B?n</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/8 text-app-text-secondary">Bạn</span>
                   )}
                 </div>
               ))}
@@ -366,7 +366,7 @@ export default function CommunityRanksPage() {
 
           {/* Recent badges */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-medal-line text-app-accent-primary mr-2"></i>Huy hi?u c?a b?n</h3>
+            <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-medal-line text-app-accent-primary mr-2"></i>Huy hiệu của bạn</h3>
             {earnedBadgeIds.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {earnedBadgeIds.map(id => {
@@ -383,8 +383,8 @@ export default function CommunityRanksPage() {
             ) : (
               <div className="text-center py-4">
                 <i className="ri-medal-line text-white/10 text-3xl mb-2 block"></i>
-                <p className="text-app-text-muted text-xs">Chua c� huy hi?u n�o</p>
-                <p className="text-app-text-muted text-[10px] mt-1">Duy tr� streak 7 ng�y d? nh?n huy hi?u d?u ti�n!</p>
+                <p className="text-app-text-muted text-xs">Chưa có huy hiệu nào</p>
+                <p className="text-app-text-muted text-[10px] mt-1">Duy trì streak 7 ngày để nhận huy hiệu đầu tiên!</p>
               </div>
             )}
           </div>

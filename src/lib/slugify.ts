@@ -1,50 +1,50 @@
-/**
- * slugify.ts � T?o SEO-friendly slug t? ti?ng Vi?t, ti?ng H�n, ho?c b?t k? ng�n ng? n�o
+﻿/**
+ * slugify.ts — Tạo SEO-friendly slug từ tiếng Việt, tiếng Hàn, hoặc bất kỳ ngôn ngữ nào
  *
- * Quy t?c:
- * - Ti?ng H�n ? phi�n �m latinh (romanization)
- * - Ti?ng Vi?t ? b? d?u, chuy?n th�nh ASCII
- * - Kho?ng tr?ng ? d?u g?ch ngang
- * - K� t? d?c bi?t ? b?
- * - Ch? thu?ng to�n b?
+ * Quy tắc:
+ * - Tiếng Hàn → phiên âm latinh (romanization)
+ * - Tiếng Việt → bỏ dấu, chuyển thành ASCII
+ * - Khoảng trắng → dấu gạch ngang
+ * - Ký tự đặc biệt → bỏ
+ * - Chữ thường toàn bộ
  *
- * V� d?:
- * "M?o h?c ti?ng H�n ???" ? "meo-hoc-tieng-han-anjeonmo"
- * "EPS-TOPIK 2024" ? "eps-topik-2024"
+ * Ví dụ:
+ * "Mẹo học tiếng Hàn 안전모" → "meo-hoc-tieng-han-anjeonmo"
+ * "EPS-TOPIK 2024" → "eps-topik-2024"
  */
 
-// --- Vietnamese diacritics removal -------------------------------------------
+// ─── Vietnamese diacritics removal ───────────────────────────────────────────
 const VI_MAP: Record<string, string> = {
-  �: "a", �: "a", ?: "a", �: "a", ?: "a",
-  a: "a", ?: "a", ?: "a", ?: "a", ?: "a", ?: "a",
-  �: "a", ?: "a", ?: "a", ?: "a", ?: "a", ?: "a",
-  �: "e", �: "e", ?: "e", ?: "e", ?: "e",
-  �: "e", ?: "e", ?: "e", ?: "e", ?: "e", ?: "e",
-  �: "i", �: "i", ?: "i", i: "i", ?: "i",
-  �: "o", �: "o", ?: "o", �: "o", ?: "o",
-  �: "o", ?: "o", ?: "o", ?: "o", ?: "o", ?: "o",
-  o: "o", ?: "o", ?: "o", ?: "o", ?: "o", ?: "o",
-  �: "u", �: "u", ?: "u", u: "u", ?: "u",
-  u: "u", ?: "u", ?: "u", ?: "u", ?: "u", ?: "u",
-  ?: "y", �: "y", ?: "y", ?: "y", ?: "y",
-  d: "d",
+  à: "a", á: "a", ả: "a", ã: "a", ạ: "a",
+  ă: "a", ắ: "a", ặ: "a", ằ: "a", ẳ: "a", ẵ: "a",
+  â: "a", ấ: "a", ầ: "a", ẩ: "a", ẫ: "a", ậ: "a",
+  è: "e", é: "e", ẻ: "e", ẽ: "e", ẹ: "e",
+  ê: "e", ế: "e", ề: "e", ể: "e", ễ: "e", ệ: "e",
+  ì: "i", í: "i", ỉ: "i", ĩ: "i", ị: "i",
+  ò: "o", ó: "o", ỏ: "o", õ: "o", ọ: "o",
+  ô: "o", ố: "o", ồ: "o", ổ: "o", ỗ: "o", ộ: "o",
+  ơ: "o", ớ: "o", ờ: "o", ở: "o", ỡ: "o", ợ: "o",
+  ù: "u", ú: "u", ủ: "u", ũ: "u", ụ: "u",
+  ư: "u", ứ: "u", ừ: "u", ử: "u", ữ: "u", ự: "u",
+  ỳ: "y", ý: "y", ỷ: "y", ỹ: "y", ỵ: "y",
+  đ: "d",
   // 
-  �: "a", �: "a", ?: "a", �: "a", ?: "a",
-  A: "a", ?: "a", ?: "a", ?: "a", ?: "a", ?: "a",
-  �: "a", ?: "a", ?: "a", ?: "a", ?: "a", ?: "a",
-  �: "e", �: "e", ?: "e", ?: "e", ?: "e",
-  �: "e", ?: "e", ?: "e", ?: "e", ?: "e", ?: "e",
-  �: "i", �: "i", ?: "i", I: "i", ?: "i",
-  �: "o", �: "o", ?: "o", �: "o", ?: "o",
-  �: "o", ?: "o", ?: "o", ?: "o", ?: "o", ?: "o",
-  O: "o", ?: "o", ?: "o", ?: "o", ?: "o", ?: "o",
-  �: "u", �: "u", ?: "u", U: "u", ?: "u",
-  U: "u", ?: "u", ?: "u", ?: "u", ?: "u", ?: "u",
-  ?: "y", �: "y", ?: "y", ?: "y", ?: "y",
-  �: "d",
+  À: "a", Á: "a", Ả: "a", Ã: "a", Ạ: "a",
+  Ă: "a", Ắ: "a", Ặ: "a", Ằ: "a", Ẳ: "a", Ẵ: "a",
+  Â: "a", Ấ: "a", Ầ: "a", Ẩ: "a", Ẫ: "a", Ậ: "a",
+  È: "e", É: "e", Ẻ: "e", Ẽ: "e", Ẹ: "e",
+  Ê: "e", Ế: "e", Ề: "e", Ể: "e", Ễ: "e", Ệ: "e",
+  Ì: "i", Í: "i", Ỉ: "i", Ĩ: "i", Ị: "i",
+  Ò: "o", Ó: "o", Ỏ: "o", Õ: "o", Ọ: "o",
+  Ô: "o", Ố: "o", Ồ: "o", Ổ: "o", Ỗ: "o", Ộ: "o",
+  Ơ: "o", Ớ: "o", Ờ: "o", Ở: "o", Ỡ: "o", Ợ: "o",
+  Ù: "u", Ú: "u", Ủ: "u", Ũ: "u", Ụ: "u",
+  Ư: "u", Ứ: "u", Ừ: "u", Ử: "u", Ữ: "u", Ự: "u",
+  Ỳ: "y", Ý: "y", Ỷ: "y", Ỹ: "y", Ỵ: "y",
+  Đ: "d",
 };
 
-// --- Korean Romanization ------------------------------------------------------
+// ─── Korean Romanization ──────────────────────────────────────────────────────
 const CHOSEONG = ["g","kk","n","d","tt","r","m","b","pp","s","ss","","j","jj","ch","k","t","p","h"];
 const JUNGSEONG = ["a","ae","ya","yae","eo","e","yeo","ye","o","wa","wae","oe","yo","u","wo","we","wi","yu","eu","ui","i"];
 const JONGSEONG = ["","g","kk","gs","n","nj","nh","d","l","lg","lm","lb","ls","lt","lp","lh","m","b","bs","s","ss","ng","j","ch","k","t","p","h"];
@@ -62,67 +62,67 @@ function koreanToRoman(char: string): string {
 }
 
 /**
- * T?o SEO slug t? b?t k? chu?i n�o
- * @param text - Chu?i d?u v�o (ti?ng Vi?t, H�n, Anh...)
- * @param maxLength - �? d�i t?i da (m?c d?nh 80)
+ * Tạo SEO slug từ bất kỳ chuỗi nào
+ * @param text - Chuỗi đầu vào (tiếng Việt, Hàn, Anh...)
+ * @param maxLength - Độ dài tối đa (mặc định 80)
  */
 export function slugify(text: string, maxLength = 80): string {
   let result = "";
 
   for (const char of text) {
-    // Ti?ng H�n
+    // Tiếng Hàn
     const code = char.charCodeAt(0);
     if (code >= 0xAC00 && code <= 0xD7A3) {
       result += koreanToRoman(char);
       continue;
     }
-    // Ti?ng Vi?t c� d?u
+    // Tiếng Việt có dấu
     if (VI_MAP[char]) {
       result += VI_MAP[char];
       continue;
     }
-    // ASCII thu?ng
+    // ASCII thường
     if (/[a-zA-Z0-9]/.test(char)) {
       result += char.toLowerCase();
       continue;
     }
-    // Kho?ng tr?ng v� d?u g?ch ngang ? d?u g?ch ngang
+    // Khoảng trắng và dấu gạch ngang → dấu gạch ngang
     if (/[\s\-_]/.test(char)) {
       result += "-";
       continue;
     }
-    // B? qua k� t? kh�c
+    // Bỏ qua ký tự khác
   }
 
   return result
-    .replace(/-+/g, "-")       // Nhi?u d?u g?ch ngang ? m?t
-    .replace(/^-|-$/g, "")     // B? d?u g?ch ngang d?u/cu?i
-    .slice(0, maxLength)       // Gi?i h?n d? d�i
+    .replace(/-+/g, "-")       // Nhiều dấu gạch ngang → một
+    .replace(/^-|-$/g, "")     // Bỏ dấu gạch ngang đầu/cuối
+    .slice(0, maxLength)       // Giới hạn độ dài
     || "post";                 // Fallback
 }
 
 /**
- * T?o slug cho b�i dang c?ng d?ng: ch? d�ng slug t? title (SEO-friendly)
- * Luu mapping id <-> slug trong localStorage d? tra c?u
+ * Tạo slug cho bài đăng cộng đồng: chỉ dùng slug từ title (SEO-friendly)
+ * Lưu mapping id <-> slug trong localStorage để tra cứu
  */
 export function communitySlug(id: string, title: string): string {
   return slugify(title, 80);
 }
 
 /**
- * L?y ID t? community slug
- * Slug format m?i: ch? l� title slug (kh�ng c� UUID)
- * Slug format cu: {uuid}-{title-slug}
+ * Lấy ID từ community slug
+ * Slug format mới: chỉ là title slug (không có UUID)
+ * Slug format cũ: {uuid}-{title-slug}
  */
 export function extractIdFromSlug(slug: string): string {
-  // UUID format cu: 8-4-4-4-12
+  // UUID format cũ: 8-4-4-4-12
   const uuidMatch = slug.match(/^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i);
   if (uuidMatch) return uuidMatch[1];
 
-  // Timestamp ID (s?)
+  // Timestamp ID (số)
   const numMatch = slug.match(/^(\d+)/);
   if (numMatch) return numMatch[1];
 
-  // Slug m?i: c?n tra c?u t? Supabase theo title slug
+  // Slug mới: cần tra cứu từ Supabase theo title slug
   return slug;
 }

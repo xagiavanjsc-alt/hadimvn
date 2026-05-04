@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+﻿import { useState, useMemo, useCallback } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 
 const SR_KEY = "hanja_sr_data";
@@ -73,11 +73,11 @@ export default function SmartReviewTab() {
       if (seen.has(entry.korean)) return;
       const card = srData[entry.korean];
       if (!card) {
-        pool.push({ entry, reason: "T? m?i chua h?c", priority: 3 });
+        pool.push({ entry, reason: "Từ mới chưa học", priority: 3 });
         seen.add(entry.korean);
       } else if (card.dueDate <= now) {
         const overdue = Math.floor((now - card.dueDate) / 86400000);
-        pool.push({ entry, reason: overdue > 0 ? `Qu� h?n ${overdue} ng�y` : "�?n h?n �n h�m nay", priority: overdue > 3 ? 10 : 8 });
+        pool.push({ entry, reason: overdue > 0 ? `Quá hạn ${overdue} ngày` : "Đến hạn ôn hôm nay", priority: overdue > 3 ? 10 : 8 });
         seen.add(entry.korean);
       }
     });
@@ -90,7 +90,7 @@ export default function SmartReviewTab() {
         if (seen.has(rec.korean)) return;
         const entry = HANJA_DATA.find(e => e.korean === rec.korean);
         if (!entry) return;
-        pool.push({ entry, reason: `Sai ${rec.wrongCount} l?n trong quiz`, priority: Math.min(rec.wrongCount * 2, 9) });
+        pool.push({ entry, reason: `Sai ${rec.wrongCount} lần trong quiz`, priority: Math.min(rec.wrongCount * 2, 9) });
         seen.add(rec.korean);
       });
 
@@ -103,7 +103,7 @@ export default function SmartReviewTab() {
         if (seen.has(card.korean)) return;
         const entry = HANJA_DATA.find(e => e.korean === card.korean);
         if (!entry) return;
-        pool.push({ entry, reason: `T? kh� (ease: ${card.easeFactor.toFixed(1)})`, priority: 6 });
+        pool.push({ entry, reason: `Từ khó (ease: ${card.easeFactor.toFixed(1)})`, priority: 6 });
         seen.add(card.korean);
       });
 
@@ -113,10 +113,10 @@ export default function SmartReviewTab() {
 
   // Stats
   const stats = useMemo(() => {
-    const dueToday = smartPool.filter(c => c.reason.includes("h�m nay") || c.reason.includes("Qu� h?n")).length;
-    const hardWords = smartPool.filter(c => c.reason.includes("T? kh�")).length;
+    const dueToday = smartPool.filter(c => c.reason.includes("hôm nay") || c.reason.includes("Quá hạn")).length;
+    const hardWords = smartPool.filter(c => c.reason.includes("Từ khó")).length;
     const quizWrong = smartPool.filter(c => c.reason.includes("Sai")).length;
-    const newWords = smartPool.filter(c => c.reason.includes("m?i")).length;
+    const newWords = smartPool.filter(c => c.reason.includes("mới")).length;
     return { dueToday, hardWords, quizWrong, newWords, total: smartPool.length };
   }, [smartPool]);
 
@@ -166,22 +166,22 @@ export default function SmartReviewTab() {
     setRevealed(false);
   };
 
-  // -- Overview --------------------------------------------------------------
+  // ── Overview ──────────────────────────────────────────────────────────────
   if (mode === "overview") {
     return (
       <div className="max-w-2xl mx-auto">
         <div className="mb-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-1">�n t?p th�ng minh</h2>
-          <p className="text-sm text-gray-500">H? th?ng t? d?ng ch?n t? c?n �n nh?t d?a tr�n l?ch s? h?c t?p c?a b?n</p>
+          <h2 className="text-lg font-bold text-gray-900 mb-1">Ôn tập thông minh</h2>
+          <p className="text-sm text-gray-500">Hệ thống tự động chọn từ cần ôn nhất dựa trên lịch sử học tập của bạn</p>
         </div>
 
         {/* Stats cards */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
-            { label: "�?n h?n h�m nay", value: stats.dueToday, icon: "ri-calendar-check-line", color: "text-rose-600", bg: "bg-rose-50" },
-            { label: "T? sai nhi?u nh?t", value: stats.quizWrong, icon: "ri-close-circle-line", color: "text-red-600", bg: "bg-red-50" },
-            { label: "T? kh� (SR)", value: stats.hardWords, icon: "ri-fire-line", color: "text-orange-600", bg: "bg-orange-50" },
-            { label: "T? m?i chua h?c", value: stats.newWords, icon: "ri-seedling-line", color: "text-green-600", bg: "bg-green-50" },
+            { label: "Đến hạn hôm nay", value: stats.dueToday, icon: "ri-calendar-check-line", color: "text-rose-600", bg: "bg-rose-50" },
+            { label: "Từ sai nhiều nhất", value: stats.quizWrong, icon: "ri-close-circle-line", color: "text-red-600", bg: "bg-red-50" },
+            { label: "Từ khó (SR)", value: stats.hardWords, icon: "ri-fire-line", color: "text-orange-600", bg: "bg-orange-50" },
+            { label: "Từ mới chưa học", value: stats.newWords, icon: "ri-seedling-line", color: "text-green-600", bg: "bg-green-50" },
           ].map(s => (
             <div key={s.label} className={`${s.bg} rounded-xl p-4 text-center`}>
               <i className={`${s.icon} ${s.color} text-2xl block mb-1`}></i>
@@ -193,12 +193,12 @@ export default function SmartReviewTab() {
 
         {/* Start buttons */}
         <div className="bg-white border border-gray-100 rounded-2xl p-5 mb-5">
-          <h3 className="font-semibold text-gray-900 mb-3">B?t d?u �n t?p</h3>
+          <h3 className="font-semibold text-gray-900 mb-3">Bắt đầu ôn tập</h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
             {[
-              { count: 10, label: "Nhanh", sub: "10 t? � ~5 ph�t", color: "border-green-300 bg-green-50 text-green-700" },
-              { count: 20, label: "Ti�u chu?n", sub: "20 t? � ~10 ph�t", color: "border-amber-300 bg-amber-50 text-amber-700" },
-              { count: Math.min(40, smartPool.length), label: "To�n b?", sub: `${Math.min(40, smartPool.length)} t? � ~20 ph�t`, color: "border-rose-300 bg-rose-50 text-rose-700" },
+              { count: 10, label: "Nhanh", sub: "10 từ · ~5 phút", color: "border-green-300 bg-green-50 text-green-700" },
+              { count: 20, label: "Tiêu chuẩn", sub: "20 từ · ~10 phút", color: "border-amber-300 bg-amber-50 text-amber-700" },
+              { count: Math.min(40, smartPool.length), label: "Toàn bộ", sub: `${Math.min(40, smartPool.length)} từ · ~20 phút`, color: "border-rose-300 bg-rose-50 text-rose-700" },
             ].map(opt => (
               <button
                 key={opt.count}
@@ -213,7 +213,7 @@ export default function SmartReviewTab() {
           </div>
           {smartPool.length === 0 && (
             <p className="text-center text-sm text-green-600 py-2">
-              <i className="ri-check-double-line mr-1"></i>Tuy?t v?i! Kh�ng c� t? n�o c?n �n h�m nay.
+              <i className="ri-check-double-line mr-1"></i>Tuyệt vời! Không có từ nào cần ôn hôm nay.
             </p>
           )}
         </div>
@@ -222,8 +222,8 @@ export default function SmartReviewTab() {
         {smartPool.length > 0 && (
           <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden">
             <div className="px-5 py-3 border-b border-gray-100 flex items-center justify-between">
-              <p className="text-sm font-semibold text-gray-700">Danh s�ch t? c?n �n ({smartPool.length})</p>
-              <span className="text-xs text-gray-400">S?p x?p theo d? uu ti�n</span>
+              <p className="text-sm font-semibold text-gray-700">Danh sách từ cần ôn ({smartPool.length})</p>
+              <span className="text-xs text-gray-400">Sắp xếp theo độ ưu tiên</span>
             </div>
             <div className="divide-y divide-gray-50 max-h-80 overflow-y-auto">
               {smartPool.slice(0, 30).map((item, i) => {
@@ -244,7 +244,7 @@ export default function SmartReviewTab() {
               })}
               {smartPool.length > 30 && (
                 <div className="px-5 py-3 text-center text-xs text-gray-400">
-                  +{smartPool.length - 30} t? n?a...
+                  +{smartPool.length - 30} từ nữa...
                 </div>
               )}
             </div>
@@ -254,7 +254,7 @@ export default function SmartReviewTab() {
     );
   }
 
-  // -- Done ------------------------------------------------------------------
+  // ── Done ──────────────────────────────────────────────────────────────────
   if (mode === "done") {
     const pct = Math.round((results.correct / sessionCards.length) * 100);
     return (
@@ -264,15 +264,15 @@ export default function SmartReviewTab() {
             <i className={`text-3xl ${pct >= 80 ? "ri-trophy-line text-green-600" : pct >= 50 ? "ri-emotion-normal-line text-amber-600" : "ri-emotion-sad-line text-red-500"}`}></i>
           </div>
           <p className="text-3xl font-bold text-gray-900 mb-1">{pct}%</p>
-          <p className="text-gray-500 mb-2">��ng {results.correct} / {sessionCards.length} t?</p>
+          <p className="text-gray-500 mb-2">Đúng {results.correct} / {sessionCards.length} từ</p>
           <p className="text-sm text-gray-400 mb-5">
-            {pct >= 80 ? "Xu?t s?c! B?n dang ti?n b? r?t t?t!" : pct >= 50 ? "Kh� t?t! Ti?p t?c luy?n t?p nh�!" : "C?n �n th�m! Nh?ng t? sai d� du?c ghi nh?n."}
+            {pct >= 80 ? "Xuất sắc! Bạn đang tiến bộ rất tốt!" : pct >= 50 ? "Khá tốt! Tiếp tục luyện tập nhé!" : "Cần ôn thêm! Những từ sai đã được ghi nhận."}
           </p>
 
           {wrongInSession.length > 0 && (
             <div className="bg-red-50 border border-red-100 rounded-xl p-4 mb-5 text-left">
               <p className="text-xs font-semibold text-red-700 mb-2">
-                <i className="ri-close-circle-line mr-1"></i>T? sai trong phi�n n�y ({wrongInSession.length})
+                <i className="ri-close-circle-line mr-1"></i>Từ sai trong phiên này ({wrongInSession.length})
               </p>
               <div className="flex flex-wrap gap-1.5">
                 {wrongInSession.map(k => {
@@ -288,15 +288,15 @@ export default function SmartReviewTab() {
           )}
 
           <div className="flex gap-3">
-            <button onClick={() => startSession(sessionCards.length)} className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">�n l?i</button>
-            <button onClick={() => setMode("overview")} className="flex-1 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">Xem t?ng quan</button>
+            <button onClick={() => startSession(sessionCards.length)} className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">Ôn lại</button>
+            <button onClick={() => setMode("overview")} className="flex-1 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">Xem tổng quan</button>
           </div>
         </div>
       </div>
     );
   }
 
-  // -- Session ---------------------------------------------------------------
+  // ── Session ───────────────────────────────────────────────────────────────
   const current = sessionCards[idx];
   if (!current) return null;
 
@@ -304,12 +304,12 @@ export default function SmartReviewTab() {
     <div className="max-w-lg mx-auto">
       <div className="flex items-center justify-between mb-4">
         <button onClick={() => setMode("overview")} className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
-          <i className="ri-arrow-left-line"></i> D?ng
+          <i className="ri-arrow-left-line"></i> Dừng
         </button>
         <div className="flex items-center gap-3">
           <span className="text-sm text-gray-500">{idx + 1}/{sessionCards.length}</span>
-          <span className="text-xs text-green-600 font-medium">? {results.correct}</span>
-          <span className="text-xs text-red-500 font-medium">? {results.wrong}</span>
+          <span className="text-xs text-green-600 font-medium">✓ {results.correct}</span>
+          <span className="text-xs text-red-500 font-medium">✗ {results.wrong}</span>
         </div>
       </div>
 
@@ -336,11 +336,11 @@ export default function SmartReviewTab() {
           onClick={() => speakKorean(current.entry.korean)}
           className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 text-gray-500 rounded-full text-xs cursor-pointer hover:bg-rose-50 hover:text-rose-500 transition-colors mx-auto mb-4"
         >
-          <i className="ri-volume-up-line"></i>Nghe ph�t �m
+          <i className="ri-volume-up-line"></i>Nghe phát âm
         </button>
         {!revealed ? (
           <button onClick={() => setRevealed(true)} className="px-6 py-2 bg-gray-100 text-gray-600 rounded-lg text-sm cursor-pointer hover:bg-gray-200 transition-colors">
-            Hi?n nghia
+            Hiện nghĩa
           </button>
         ) : (
           <div className="border-t border-gray-100 pt-4">
@@ -356,16 +356,16 @@ export default function SmartReviewTab() {
             className="p-4 rounded-xl border-2 border-red-300 bg-red-50 text-red-700 cursor-pointer hover:bg-red-100 transition-all text-center"
           >
             <i className="ri-close-line text-xl block mb-1"></i>
-            <p className="font-bold">Chua nh?</p>
-            <p className="text-xs opacity-70">�n l?i s?m hon</p>
+            <p className="font-bold">Chưa nhớ</p>
+            <p className="text-xs opacity-70">Ôn lại sớm hơn</p>
           </button>
           <button
             onClick={() => handleRate(true)}
             className="p-4 rounded-xl border-2 border-green-300 bg-green-50 text-green-700 cursor-pointer hover:bg-green-100 transition-all text-center"
           >
             <i className="ri-check-line text-xl block mb-1"></i>
-            <p className="font-bold">�� nh?</p>
-            <p className="text-xs opacity-70">Kho?ng c�ch tang</p>
+            <p className="font-bold">Đã nhớ</p>
+            <p className="text-xs opacity-70">Khoảng cách tăng</p>
           </button>
         </div>
       )}

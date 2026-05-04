@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 import { useVipYearGuard, getExportBtnLabel, getExportBtnIcon, addCsvWatermark } from "@/hooks/useVipYearGuard";
 import VipUpgradeModal from "@/components/feature/VipUpgradeModal";
@@ -73,7 +73,7 @@ function exportPDFHtml(entries: HanjaEntry[]) {
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>H�n H�n Flashcard Export</title>
+<title>Hán Hàn Flashcard Export</title>
 <style>
   body { font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 20px; background: #fff; }
   h1 { font-size: 22px; color: #111; margin-bottom: 4px; }
@@ -84,14 +84,14 @@ function exportPDFHtml(entries: HanjaEntry[]) {
 </style>
 </head>
 <body>
-<h1>T? v?ng H�n H�n</h1>
-<p>T?ng c?ng ${entries.length} t? � Xu?t l�c ${new Date().toLocaleString("vi-VN")}</p>
+<h1>Từ vựng Hán Hàn</h1>
+<p>Tổng cộng ${entries.length} từ — Xuất lúc ${new Date().toLocaleString("vi-VN")}</p>
 <table>
   <thead>
     <tr>
-      <th>Ti?ng H�n</th>
-      <th>H�n t?</th>
-      <th>Ti?ng Vi?t</th>
+      <th>Tiếng Hàn</th>
+      <th>Hán tự</th>
+      <th>Tiếng Việt</th>
     </tr>
   </thead>
   <tbody>${rows}</tbody>
@@ -109,21 +109,21 @@ function exportPDFHtml(entries: HanjaEntry[]) {
 }
 
 const FILTER_OPTIONS: { value: FilterMode; label: string; icon: string; color: string }[] = [
-  { value: "all", label: "T?t c? t?", icon: "ri-list-check", color: "text-gray-600" },
-  { value: "unlearned", label: "Chua h?c", icon: "ri-time-line", color: "text-gray-500" },
-  { value: "learned", label: "�ang h?c", icon: "ri-book-open-line", color: "text-amber-600" },
-  { value: "mastered", label: "�� thu?c", icon: "ri-check-double-line", color: "text-green-600" },
-  { value: "due", label: "C?n �n h�m nay", icon: "ri-alarm-line", color: "text-rose-600" },
+  { value: "all", label: "Tất cả từ", icon: "ri-list-check", color: "text-gray-600" },
+  { value: "unlearned", label: "Chưa học", icon: "ri-time-line", color: "text-gray-500" },
+  { value: "learned", label: "Đang học", icon: "ri-book-open-line", color: "text-amber-600" },
+  { value: "mastered", label: "Đã thuộc", icon: "ri-check-double-line", color: "text-green-600" },
+  { value: "due", label: "Cần ôn hôm nay", icon: "ri-alarm-line", color: "text-rose-600" },
 ];
 
-const ALPHABET_GROUPS = ["?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?"];
+const ALPHABET_GROUPS = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
 
 function getInitial(korean: string): string {
   const code = korean.charCodeAt(0) - 0xAC00;
-  if (code < 0 || code > 11171) return "??";
+  if (code < 0 || code > 11171) return "기타";
   const initIdx = Math.floor(code / 588);
-  const initials = ["?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?"];
-  return initials[initIdx] || "??";
+  const initials = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+  return initials[initIdx] || "기타";
 }
 
 export default function FlashcardExportTab() {
@@ -186,7 +186,7 @@ export default function FlashcardExportTab() {
         setTimeout(() => setExportSuccess(false), 3000);
       },
       (limit) => {
-        // VIP th�ng: ch? xu?t CSV gi?i h?n
+        // VIP tháng: chỉ xuất CSV giới hạn
         const timestamp = new Date().toISOString().slice(0, 10);
         exportCSV(filteredEntries, `hanja-${limit}tu-${timestamp}.csv`, limit);
         setExportSuccess(true);
@@ -210,19 +210,19 @@ export default function FlashcardExportTab() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
         <div className="bg-gray-50 rounded-xl p-4 text-center">
           <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
-          <p className="text-xs text-gray-500 mt-1">T?ng t?</p>
+          <p className="text-xs text-gray-500 mt-1">Tổng từ</p>
         </div>
         <div className="bg-green-50 rounded-xl p-4 text-center">
           <p className="text-2xl font-bold text-green-600">{stats.mastered}</p>
-          <p className="text-xs text-gray-500 mt-1">�� thu?c</p>
+          <p className="text-xs text-gray-500 mt-1">Đã thuộc</p>
         </div>
         <div className="bg-amber-50 rounded-xl p-4 text-center">
           <p className="text-2xl font-bold text-amber-600">{stats.learning}</p>
-          <p className="text-xs text-gray-500 mt-1">�ang h?c</p>
+          <p className="text-xs text-gray-500 mt-1">Đang học</p>
         </div>
         <div className="bg-rose-50 rounded-xl p-4 text-center">
           <p className="text-2xl font-bold text-rose-600">{stats.due}</p>
-          <p className="text-xs text-gray-500 mt-1">C?n �n h�m nay</p>
+          <p className="text-xs text-gray-500 mt-1">Cần ôn hôm nay</p>
         </div>
       </div>
 
@@ -231,7 +231,7 @@ export default function FlashcardExportTab() {
         <div className="lg:col-span-1 space-y-4">
           {/* Filter by mastery */}
           <div className="bg-white border border-gray-100 rounded-2xl p-4">
-            <p className="text-sm font-semibold text-gray-700 mb-3">L?c theo tr?ng th�i</p>
+            <p className="text-sm font-semibold text-gray-700 mb-3">Lọc theo trạng thái</p>
             <div className="space-y-2">
               {FILTER_OPTIONS.map(opt => (
                 <button key={opt.value} onClick={() => setFilterMode(opt.value)}
@@ -254,11 +254,11 @@ export default function FlashcardExportTab() {
 
           {/* Filter by alphabet */}
           <div className="bg-white border border-gray-100 rounded-2xl p-4">
-            <p className="text-sm font-semibold text-gray-700 mb-3">L?c theo ch? c�i</p>
+            <p className="text-sm font-semibold text-gray-700 mb-3">Lọc theo chữ cái</p>
             <div className="flex flex-wrap gap-1.5">
               <button onClick={() => setSelectedAlpha(null)}
                 className={`px-2.5 py-1 rounded-lg text-xs font-medium cursor-pointer transition-all ${!selectedAlpha ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
-                T?t c?
+                Tất cả
               </button>
               {ALPHABET_GROUPS.map(alpha => (
                 <button key={alpha} onClick={() => setSelectedAlpha(selectedAlpha === alpha ? null : alpha)}
@@ -272,12 +272,12 @@ export default function FlashcardExportTab() {
 
           {/* Export format */}
           <div className="bg-white border border-gray-100 rounded-2xl p-4">
-            <p className="text-sm font-semibold text-gray-700 mb-3">�?nh d?ng xu?t</p>
+            <p className="text-sm font-semibold text-gray-700 mb-3">Định dạng xuất</p>
             <div className="space-y-2">
               {([
-                { value: "csv", label: "CSV (Excel, Google Sheets)", icon: "ri-file-excel-2-line", desc: "M? b?ng Excel ho?c Google Sheets" },
-                { value: "anki", label: "Anki (TXT)", icon: "ri-flashlight-line", desc: "Import v�o ?ng d?ng Anki" },
-                { value: "pdf", label: "In / PDF", icon: "ri-printer-line", desc: "In ra gi?y ho?c luu PDF" },
+                { value: "csv", label: "CSV (Excel, Google Sheets)", icon: "ri-file-excel-2-line", desc: "Mở bằng Excel hoặc Google Sheets" },
+                { value: "anki", label: "Anki (TXT)", icon: "ri-flashlight-line", desc: "Import vào ứng dụng Anki" },
+                { value: "pdf", label: "In / PDF", icon: "ri-printer-line", desc: "In ra giấy hoặc lưu PDF" },
               ] as { value: ExportFormat; label: string; icon: string; desc: string }[]).map(fmt => (
                 <button key={fmt.value} onClick={() => setExportFormat(fmt.value)}
                   className={`w-full flex items-start gap-3 px-3 py-2.5 rounded-xl text-sm cursor-pointer transition-all ${exportFormat === fmt.value ? "bg-rose-50 border border-rose-200" : "hover:bg-gray-50 border border-transparent"}`}>
@@ -295,15 +295,15 @@ export default function FlashcardExportTab() {
             {!isVipYear && (
               <div className="mt-3 px-3 py-2 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-700 flex items-center gap-2">
                 <i className="ri-vip-crown-line flex-shrink-0"></i>
-                <span>{!isLoggedIn ? "�ang nh?p d? xu?t" : !isVip ? "N�ng c?p VIP d? xu?t" : "Ch? VIP Nam m?i xu?t du?c"}</span>
+                <span>{!isLoggedIn ? "Đăng nhập để xuất" : !isVip ? "Nâng cấp VIP để xuất" : "Chỉ VIP Năm mới xuất được"}</span>
               </div>
             )}
             <button onClick={handleExport}
               className={`w-full mt-4 py-3 rounded-xl font-semibold text-sm cursor-pointer transition-all flex items-center justify-center gap-2 ${!isVipYear ? "bg-gray-200 text-gray-400" : exportSuccess ? "bg-green-500 text-white" : "bg-rose-500 hover:bg-rose-600 text-white"}`}>
               {exportSuccess ? (
-                <><i className="ri-check-line"></i>�� xu?t th�nh c�ng!</>
+                <><i className="ri-check-line"></i>Đã xuất thành công!</>
               ) : (
-                <><i className={getExportBtnIcon(isLoggedIn, isVip, isVipYear)}></i>{getExportBtnLabel(isLoggedIn, isVip, isVipYear, `Xu?t ${filteredEntries.length} t?`)}</>
+                <><i className={getExportBtnIcon(isLoggedIn, isVip, isVipYear)}></i>{getExportBtnLabel(isLoggedIn, isVip, isVipYear, `Xuất ${filteredEntries.length} từ`)}</>
               )}
             </button>
           </div>
@@ -314,12 +314,12 @@ export default function FlashcardExportTab() {
           <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden">
             <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
               <div className="flex items-center gap-2">
-                <p className="text-sm font-semibold text-gray-700">Xem tru?c</p>
-                <span className="px-2 py-0.5 bg-rose-100 text-rose-600 text-xs font-medium rounded-full">{filteredEntries.length} t?</span>
+                <p className="text-sm font-semibold text-gray-700">Xem trước</p>
+                <span className="px-2 py-0.5 bg-rose-100 text-rose-600 text-xs font-medium rounded-full">{filteredEntries.length} từ</span>
               </div>
               <div className="relative">
                 <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
-                <input type="text" placeholder="T�m t?..." value={search} onChange={e => setSearch(e.target.value)}
+                <input type="text" placeholder="Tìm từ..." value={search} onChange={e => setSearch(e.target.value)}
                   className="pl-8 pr-3 py-1.5 border border-gray-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-rose-300 w-40" />
               </div>
             </div>
@@ -327,17 +327,17 @@ export default function FlashcardExportTab() {
             {filteredEntries.length === 0 ? (
               <div className="text-center py-16 text-gray-400">
                 <i className="ri-inbox-line text-4xl"></i>
-                <p className="mt-2 text-sm">Kh�ng c� t? n�o ph� h?p</p>
+                <p className="mt-2 text-sm">Không có từ nào phù hợp</p>
               </div>
             ) : (
               <div className="overflow-y-auto max-h-[520px]">
                 <table className="w-full text-sm">
                   <thead className="sticky top-0 bg-gray-50 border-b border-gray-100">
                     <tr>
-                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-500 tracking-wide">Ti?ng H�n</th>
-                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-500 tracking-wide">H�n t?</th>
-                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-500 tracking-wide">Ti?ng Vi?t</th>
-                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-500 tracking-wide">Tr?ng th�i</th>
+                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-500 tracking-wide">Tiếng Hàn</th>
+                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-500 tracking-wide">Hán tự</th>
+                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-500 tracking-wide">Tiếng Việt</th>
+                      <th className="text-left px-4 py-2.5 text-xs font-semibold text-gray-500 tracking-wide">Trạng thái</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -351,13 +351,13 @@ export default function FlashcardExportTab() {
                           <td className="px-4 py-2.5 text-gray-600 text-xs">{entry.vietnamese}</td>
                           <td className="px-4 py-2.5">
                             {mastery === "mastered" ? (
-                              <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full font-medium">Thu?c</span>
+                              <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full font-medium">Thuộc</span>
                             ) : mastery === "learning" ? (
                               <span className={`px-2 py-0.5 text-xs rounded-full font-medium ${due ? "bg-rose-100 text-rose-700" : "bg-amber-100 text-amber-700"}`}>
-                                {due ? "C?n �n" : "H?c"}
+                                {due ? "Cần ôn" : "Học"}
                               </span>
                             ) : (
-                              <span className="px-2 py-0.5 bg-gray-100 text-gray-500 text-xs rounded-full font-medium">M?i</span>
+                              <span className="px-2 py-0.5 bg-gray-100 text-gray-500 text-xs rounded-full font-medium">Mới</span>
                             )}
                           </td>
                         </tr>
@@ -366,7 +366,7 @@ export default function FlashcardExportTab() {
                     {filteredEntries.length > 200 && (
                       <tr>
                         <td colSpan={4} className="px-4 py-3 text-center text-xs text-gray-400">
-                          Hi?n th? 200/{filteredEntries.length} t?. Xu?t file d? xem t?t c?.
+                          Hiển thị 200/{filteredEntries.length} từ. Xuất file để xem tất cả.
                         </td>
                       </tr>
                     )}
@@ -381,17 +381,17 @@ export default function FlashcardExportTab() {
             open={modalOpen}
             onClose={closeModal}
             reason={modalReason ?? "not_vip_year"}
-            featureName="Xu?t Flashcard H�n-H�n"
+            featureName="Xuất Flashcard Hán-Hàn"
           />
 
           {/* Tips */}
           <div className="mt-4 bg-amber-50 border border-amber-100 rounded-xl p-4">
-            <p className="text-xs font-semibold text-amber-700 mb-1.5">Hu?ng d?n s? d?ng</p>
+            <p className="text-xs font-semibold text-amber-700 mb-1.5">Hướng dẫn sử dụng</p>
             <ul className="text-xs text-amber-700/80 space-y-1">
-              <li>� <strong>CSV</strong>: M? b?ng Excel ? t?o b?ng �n t?p, in ra gi?y</li>
-              <li>� <strong>Anki TXT</strong>: Import v�o Anki ? h?c v?i thu?t to�n spaced repetition</li>
-              <li>� <strong>In/PDF</strong>: M? c?a s? in ? ch?n "Save as PDF" ho?c in tr?c ti?p</li>
-              <li>� L?c "Chua h?c" d? t?p trung v�o t? m?i, "C?n �n h�m nay" d? �n d�ng l?ch</li>
+              <li>• <strong>CSV</strong>: Mở bằng Excel → tạo bảng ôn tập, in ra giấy</li>
+              <li>• <strong>Anki TXT</strong>: Import vào Anki → học với thuật toán spaced repetition</li>
+              <li>• <strong>In/PDF</strong>: Mở cửa sổ in → chọn "Save as PDF" hoặc in trực tiếp</li>
+              <li>• Lọc "Chưa học" để tập trung vào từ mới, "Cần ôn hôm nay" để ôn đúng lịch</li>
             </ul>
           </div>
         </div>

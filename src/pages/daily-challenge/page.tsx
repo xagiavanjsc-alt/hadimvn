@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+﻿import { useState, useEffect, useRef, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { supabase } from "@/lib/supabase";
 
-// --- Types --------------------------------------------------------------------
+// ─── Types ────────────────────────────────────────────────────────────────────
 type ChallengeType = "quiz" | "listen" | "write";
 
 interface Challenge {
@@ -34,7 +34,7 @@ interface DailyRecord {
   streak: number;
 }
 
-// --- Helpers ------------------------------------------------------------------
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 function todayStr() {
   return new Date().toISOString().split("T")[0];
 }
@@ -47,7 +47,7 @@ function seededRandom(seed: number) {
   };
 }
 
-// --- XP Toast -----------------------------------------------------------------
+// ─── XP Toast ─────────────────────────────────────────────────────────────────
 function XPToast({ xp, onDone }: { xp: number; onDone: () => void }) {
   useEffect(() => {
     const t = setTimeout(onDone, 2500);
@@ -59,13 +59,13 @@ function XPToast({ xp, onDone }: { xp: number; onDone: () => void }) {
       <i className="ri-star-fill text-xl"></i>
       <div>
         <p className="font-black text-lg">+{xp} XP</p>
-        <p className="text-[11px] font-medium opacity-70">Th? th�ch ho�n th�nh!</p>
+        <p className="text-[11px] font-medium opacity-70">Thử thách hoàn thành!</p>
       </div>
     </div>
   );
 }
 
-// --- Quiz Challenge ------------------------------------------------------------
+// ─── Quiz Challenge ────────────────────────────────────────────────────────────
 function QuizChallenge({ challenge, onComplete }: { challenge: Challenge; onComplete: (score: number) => void }) {
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
@@ -117,7 +117,7 @@ function QuizChallenge({ challenge, onComplete }: { challenge: Challenge; onComp
         </div>
         <div className="text-center">
           <p className="text-white font-black text-3xl mb-1">{pct}%</p>
-          <p className="text-white/50 text-sm">{score}/{totalQ} c�u d�ng</p>
+          <p className="text-white/50 text-sm">{score}/{totalQ} câu đúng</p>
         </div>
         <div className="flex items-center gap-2 px-6 py-3 rounded-2xl" style={{ backgroundColor: `${challenge.color}15`, border: `1px solid ${challenge.color}30` }}>
           <i className="ri-star-fill" style={{ color: challenge.color }}></i>
@@ -128,7 +128,7 @@ function QuizChallenge({ challenge, onComplete }: { challenge: Challenge; onComp
           className="px-8 py-3 rounded-xl font-bold text-sm cursor-pointer whitespace-nowrap transition-all"
           style={{ backgroundColor: challenge.color, color: "#0f1117" }}
         >
-          Nh?n thu?ng
+          Nhận thưởng
         </button>
       </div>
     );
@@ -159,7 +159,7 @@ function QuizChallenge({ challenge, onComplete }: { challenge: Challenge; onComp
 
       {/* Question */}
       <div className="rounded-2xl p-6 mb-5 text-center" style={{ backgroundColor: `${challenge.color}08`, border: `1px solid ${challenge.color}15` }}>
-        <p className="text-app-text-secondary text-xs mb-2">C�u {current + 1}/{totalQ} � Ch?n nghia d�ng</p>
+        <p className="text-app-text-secondary text-xs mb-2">Câu {current + 1}/{totalQ} — Chọn nghĩa đúng</p>
         <p className="text-white font-black text-4xl mb-2">{q.korean}</p>
         <p className="text-app-text-secondary text-sm font-mono">{q.pronunciation}</p>
       </div>
@@ -193,7 +193,7 @@ function QuizChallenge({ challenge, onComplete }: { challenge: Challenge; onComp
   );
 }
 
-// --- Write Challenge -----------------------------------------------------------
+// ─── Write Challenge ───────────────────────────────────────────────────────────
 function WriteChallenge({ challenge, onComplete }: { challenge: Challenge; onComplete: (score: number) => void }) {
   const [current, setCurrent] = useState(0);
   const [input, setInput] = useState("");
@@ -241,14 +241,14 @@ function WriteChallenge({ challenge, onComplete }: { challenge: Challenge; onCom
         </div>
         <div className="text-center">
           <p className="text-white font-black text-3xl mb-1">{pct}%</p>
-          <p className="text-white/50 text-sm">{score}/{challenge.questions.length} c�u d�ng</p>
+          <p className="text-white/50 text-sm">{score}/{challenge.questions.length} câu đúng</p>
         </div>
         <div className="flex items-center gap-2 px-6 py-3 rounded-2xl" style={{ backgroundColor: `${challenge.color}15`, border: `1px solid ${challenge.color}30` }}>
           <i className="ri-star-fill" style={{ color: challenge.color }}></i>
           <span className="font-black text-xl" style={{ color: challenge.color }}>+{earned} XP</span>
         </div>
         <button onClick={() => onComplete(earned)} className="px-8 py-3 rounded-xl font-bold text-sm cursor-pointer whitespace-nowrap" style={{ backgroundColor: challenge.color, color: "#0f1117" }}>
-          Nh?n thu?ng
+          Nhận thưởng
         </button>
       </div>
     );
@@ -257,11 +257,11 @@ function WriteChallenge({ challenge, onComplete }: { challenge: Challenge; onCom
   return (
     <div className="max-w-lg mx-auto">
       <div className="flex items-center justify-between mb-4">
-        <span className="text-app-text-secondary text-sm">C�u {current + 1}/{challenge.questions.length}</span>
+        <span className="text-app-text-secondary text-sm">Câu {current + 1}/{challenge.questions.length}</span>
         <span className="text-sm font-mono font-bold" style={{ color: timeLeft > 30 ? "#34d399" : "#f87171" }}>{timeLeft}s</span>
       </div>
       <div className="rounded-2xl p-6 mb-5 text-center" style={{ backgroundColor: `${challenge.color}08`, border: `1px solid ${challenge.color}15` }}>
-        <p className="text-app-text-secondary text-xs mb-2">Vi?t nghia ti?ng Vi?t c?a t? sau</p>
+        <p className="text-app-text-secondary text-xs mb-2">Viết nghĩa tiếng Việt của từ sau</p>
         <p className="text-white font-black text-4xl mb-2">{q.korean}</p>
         <p className="text-app-text-secondary text-sm font-mono">{q.pronunciation}</p>
       </div>
@@ -270,7 +270,7 @@ function WriteChallenge({ challenge, onComplete }: { challenge: Challenge; onCom
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => { if (e.key === "Enter") handleSubmit(); }}
-          placeholder="Nh?p nghia ti?ng Vi?t..."
+          placeholder="Nhập nghĩa tiếng Việt..."
           disabled={result !== null}
           className="flex-1 rounded-xl px-4 py-3 text-sm focus:outline-none"
           style={{
@@ -285,17 +285,17 @@ function WriteChallenge({ challenge, onComplete }: { challenge: Challenge; onCom
           className="px-5 py-3 rounded-xl font-bold text-sm cursor-pointer whitespace-nowrap disabled:opacity-40"
           style={{ backgroundColor: challenge.color, color: "#0f1117" }}
         >
-          Ki?m tra
+          Kiểm tra
         </button>
       </div>
       {result === "wrong" && (
-        <p className="text-app-text-secondary text-xs mt-2 text-center">��p �n d�ng: <span className="text-[#34d399] font-bold">{q.correctAnswer}</span></p>
+        <p className="text-app-text-secondary text-xs mt-2 text-center">Đáp án đúng: <span className="text-[#34d399] font-bold">{q.correctAnswer}</span></p>
       )}
     </div>
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function DailyChallengePageComponent() {
   const [dailyRecord, setDailyRecord] = useLocalStorage<DailyRecord>("kts_daily_challenge", {
     date: "",
@@ -354,7 +354,7 @@ export default function DailyChallengePageComponent() {
           id: w.id, korean: w.korean, vietnamese: w.vietnamese, pronunciation: w.pronunciation, correctAnswer: w.vietnamese,
         }));
 
-        // Build listen challenge (5 questions � same as quiz but listen-themed)
+        // Build listen challenge (5 questions — same as quiz but listen-themed)
         const listenWords = shuffled.slice(10, 15);
         const listenQuestions: ChallengeQuestion[] = listenWords.map(w => {
           const wrongs = allVietnamese.filter(v => v !== w.vietnamese).sort(() => rng() - 0.5).slice(0, 3);
@@ -366,8 +366,8 @@ export default function DailyChallengePageComponent() {
           {
             id: "quiz",
             type: "quiz",
-            title: "Quiz T? V?ng",
-            description: "5 c�u h?i tr?c nghi?m � ch?n nghia d�ng c?a t? ti?ng H�n",
+            title: "Quiz Từ Vựng",
+            description: "5 câu hỏi trắc nghiệm — chọn nghĩa đúng của từ tiếng Hàn",
             xpReward: 50,
             timeLimit: 90,
             icon: "ri-question-answer-line",
@@ -377,8 +377,8 @@ export default function DailyChallengePageComponent() {
           {
             id: "listen",
             type: "listen",
-            title: "Nghe & Nh?n Bi?t",
-            description: "Nghe ph�t �m v� ch?n t? d�ng � luy?n tai nghe ti?ng H�n",
+            title: "Nghe & Nhận Biết",
+            description: "Nghe phát âm và chọn từ đúng — luyện tai nghe tiếng Hàn",
             xpReward: 60,
             timeLimit: 120,
             icon: "ri-headphone-line",
@@ -388,8 +388,8 @@ export default function DailyChallengePageComponent() {
           {
             id: "write",
             type: "write",
-            title: "Vi?t Nghia",
-            description: "Nh�n t? ti?ng H�n v� vi?t nghia ti?ng Vi?t � ki?m tra tr� nh?",
+            title: "Viết Nghĩa",
+            description: "Nhìn từ tiếng Hàn và viết nghĩa tiếng Việt — kiểm tra trí nhớ",
             xpReward: 80,
             timeLimit: 150,
             icon: "ri-edit-line",
@@ -432,7 +432,7 @@ export default function DailyChallengePageComponent() {
             onClick={() => setActiveChallenge(null)}
             className="mt-4 flex items-center gap-2 text-app-text-muted hover:text-white/60 text-sm cursor-pointer transition-colors"
           >
-            <i className="ri-arrow-left-line"></i>Quay l?i
+            <i className="ri-arrow-left-line"></i>Quay lại
           </button>
         </div>
       </DashboardLayout>
@@ -441,18 +441,18 @@ export default function DailyChallengePageComponent() {
 
   return (
     <DashboardLayout
-      title="Th? th�ch h�ng ng�y"
-      subtitle="M?i ng�y 3 th? th�ch m?i � ho�n th�nh d? nh?n XP"
+      title="Thử thách hàng ngày"
+      subtitle="Mỗi ngày 3 thử thách mới — hoàn thành để nhận XP"
     >
       {showXPToast && <XPToast xp={earnedXP} onDone={() => setShowXPToast(false)} />}
 
       {/* Header stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Streak h�m nay", value: `${dailyRecord.streak} ng�y`, icon: "ri-fire-line", color: "#fb923c" },
-          { label: "XP h�m nay", value: `+${isToday ? dailyRecord.totalXP : 0}`, icon: "ri-star-line", color: "app-accent-primary" },
-          { label: "�� ho�n th�nh", value: `${isToday ? dailyRecord.completed.length : 0}/3`, icon: "ri-checkbox-circle-line", color: "#34d399" },
-          { label: "Th? th�ch c�n l?i", value: `${challenges.filter(c => !dailyRecord.completed.includes(c.id)).length}`, icon: "ri-timer-line", color: "#a78bfa" },
+          { label: "Streak hôm nay", value: `${dailyRecord.streak} ngày`, icon: "ri-fire-line", color: "#fb923c" },
+          { label: "XP hôm nay", value: `+${isToday ? dailyRecord.totalXP : 0}`, icon: "ri-star-line", color: "app-accent-primary" },
+          { label: "Đã hoàn thành", value: `${isToday ? dailyRecord.completed.length : 0}/3`, icon: "ri-checkbox-circle-line", color: "#34d399" },
+          { label: "Thử thách còn lại", value: `${challenges.filter(c => !dailyRecord.completed.includes(c.id)).length}`, icon: "ri-timer-line", color: "#a78bfa" },
         ].map(s => (
           <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -473,8 +473,8 @@ export default function DailyChallengePageComponent() {
             <i className="ri-trophy-fill text-2xl text-app-accent-primary"></i>
           </div>
           <div>
-            <p className="text-white font-bold text-base">Xu?t s?c! B?n d� ho�n th�nh t?t c? th? th�ch h�m nay ??</p>
-            <p className="text-white/50 text-sm">T?ng XP nh?n du?c h�m nay: <span className="text-app-accent-primary font-bold">+{dailyRecord.totalXP} XP</span></p>
+            <p className="text-white font-bold text-base">Xuất sắc! Bạn đã hoàn thành tất cả thử thách hôm nay 🎉</p>
+            <p className="text-white/50 text-sm">Tổng XP nhận được hôm nay: <span className="text-app-accent-primary font-bold">+{dailyRecord.totalXP} XP</span></p>
           </div>
         </div>
       )}
@@ -483,7 +483,7 @@ export default function DailyChallengePageComponent() {
       {challenges.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 gap-3">
           <div className="w-10 h-10 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
-          <p className="text-app-text-muted text-sm">�ang t?o th? th�ch h�m nay...</p>
+          <p className="text-app-text-muted text-sm">Đang tạo thử thách hôm nay...</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
@@ -511,7 +511,7 @@ export default function DailyChallengePageComponent() {
                       <i className={`${c.icon} text-xl`} style={{ color: c.color }}></i>
                     </div>
                     <div>
-                      <p className="text-app-text-muted text-[10px] tracking-normal">Th? th�ch {idx + 1}</p>
+                      <p className="text-app-text-muted text-[10px] tracking-normal">Thử thách {idx + 1}</p>
                       <p className="text-white font-bold text-sm">{c.title}</p>
                     </div>
                   </div>
@@ -526,7 +526,7 @@ export default function DailyChallengePageComponent() {
                     </div>
                     <div className="flex items-center gap-1.5">
                       <i className="ri-question-line text-app-text-muted text-xs"></i>
-                      <span className="text-app-text-secondary text-xs">{c.questions.length} c�u</span>
+                      <span className="text-app-text-secondary text-xs">{c.questions.length} câu</span>
                     </div>
                     <div className="flex items-center gap-1.5">
                       <i className="ri-star-line text-xs" style={{ color: c.color }}></i>
@@ -544,7 +544,7 @@ export default function DailyChallengePageComponent() {
                       border: `1px solid ${isDone ? "rgba(52,211,153,0.25)" : `${c.color}30`}`,
                     }}
                   >
-                    {isDone ? "? �� ho�n th�nh" : "B?t d?u th? th�ch"}
+                    {isDone ? "✓ Đã hoàn thành" : "Bắt đầu thử thách"}
                   </button>
                 </div>
               </div>
@@ -558,8 +558,8 @@ export default function DailyChallengePageComponent() {
         <div className="flex items-center gap-3">
           <i className="ri-information-line text-app-text-muted text-lg"></i>
           <div>
-            <p className="text-white/50 text-sm">Th? th�ch du?c t?o m?i m?i ng�y l�c 00:00</p>
-            <p className="text-app-text-muted text-xs">Ho�n th�nh c? 3 th? th�ch d? nh?n t?i da <span className="text-app-accent-primary">190 XP</span> m?i ng�y</p>
+            <p className="text-white/50 text-sm">Thử thách được tạo mới mỗi ngày lúc 00:00</p>
+            <p className="text-app-text-muted text-xs">Hoàn thành cả 3 thử thách để nhận tối đa <span className="text-app-accent-primary">190 XP</span> mỗi ngày</p>
           </div>
         </div>
       </div>

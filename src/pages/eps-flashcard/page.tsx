@@ -1,10 +1,10 @@
-import { useState, useMemo, useCallback, useEffect, useRef } from "react";
+﻿import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsVocabulary, EPS_VOCAB_TOPICS, type EpsVocabItem } from "@/mocks/epsVocabulary";
 import { useXPSystem } from "@/hooks/useXPSystem";
 
-// --- Flip Card ------------------------------------------------------------
+// ─── Flip Card ────────────────────────────────────────────────────────────
 function EpsFlipCard({
   card,
   onKnow,
@@ -81,7 +81,7 @@ function EpsFlipCard({
       {swipeHint && (
         <div className="fixed inset-0 pointer-events-none z-10 flex items-center justify-center">
           <div className={`px-6 py-3 rounded-2xl text-white font-bold text-lg ${swipeHint === "right" ? "bg-emerald-500/80" : "bg-red-500/80"}`}>
-            {swipeHint === "right" ? <><i className="ri-check-line mr-2"></i>�� thu?c</> : <><i className="ri-close-line mr-2"></i>Chua thu?c</>}
+            {swipeHint === "right" ? <><i className="ri-check-line mr-2"></i>Đã thuộc</> : <><i className="ri-close-line mr-2"></i>Chưa thuộc</>}
           </div>
         </div>
       )}
@@ -96,8 +96,8 @@ function EpsFlipCard({
 
       {/* Mobile swipe hint */}
       <div className="flex items-center gap-4 text-xs text-app-text-muted md:hidden">
-        <span><i className="ri-arrow-left-line mr-1"></i>Vu?t tr�i = Chua thu?c</span>
-        <span>Vu?t ph?i = �� thu?c<i className="ri-arrow-right-line ml-1"></i></span>
+        <span><i className="ri-arrow-left-line mr-1"></i>Vuốt trái = Chưa thuộc</span>
+        <span>Vuốt phải = Đã thuộc<i className="ri-arrow-right-line ml-1"></i></span>
       </div>
 
       {/* Card */}
@@ -126,7 +126,7 @@ function EpsFlipCard({
                 </span>
               )}
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${diffColor}15`, color: diffColor }}>
-                {card.difficulty === "easy" ? "D?" : card.difficulty === "medium" ? "TB" : "Kh�"}
+                {card.difficulty === "easy" ? "Dễ" : card.difficulty === "medium" ? "TB" : "Khó"}
               </span>
             </div>
             <p className="text-5xl font-bold text-white mb-3 tracking-wide">{card.korean}</p>
@@ -135,9 +135,9 @@ function EpsFlipCard({
               onClick={e => { e.stopPropagation(); speakKorean(); }}
               className="mt-4 flex items-center gap-1.5 text-[10px] text-app-text-muted hover:text-white/50 cursor-pointer transition-colors bg-app-card/50 hover:bg-white/8 px-3 py-1.5 rounded-lg whitespace-nowrap"
             >
-              <i className="ri-volume-up-line text-xs"></i>Nghe ph�t �m
+              <i className="ri-volume-up-line text-xs"></i>Nghe phát âm
             </button>
-            <p className="mt-5 text-white/15 text-xs">Nh?n d? xem nghia</p>
+            <p className="mt-5 text-white/15 text-xs">Nhấn để xem nghĩa</p>
           </div>
 
           {/* Back */}
@@ -145,7 +145,7 @@ function EpsFlipCard({
             className="absolute inset-0 rounded-2xl border border-app-accent-primary/20 flex flex-col items-center justify-center p-8 text-center bg-app-bg"
             style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
           >
-            <p className="text-app-text-muted text-xs tracking-normal mb-3">Nghia ti?ng Vi?t</p>
+            <p className="text-app-text-muted text-xs tracking-normal mb-3">Nghĩa tiếng Việt</p>
             <p className="text-3xl font-bold text-app-accent-primary mb-5">{card.vietnamese}</p>
             <div className="bg-app-surface/50 border border-app-border rounded-xl px-5 py-3 max-w-sm w-full">
               <p className="text-white/60 text-sm leading-relaxed mb-1">{card.example}</p>
@@ -162,21 +162,21 @@ function EpsFlipCard({
           className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl border border-red-500/25 bg-red-500/8 hover:bg-red-500/15 text-red-400 font-semibold text-sm transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-close-line text-lg"></i>
-          Chua thu?c
+          Chưa thuộc
         </button>
         <button
           onClick={onKnow}
           className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl border border-emerald-500/25 bg-emerald-500/8 hover:bg-app-accent-success/15 text-app-accent-success font-semibold text-sm transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-check-line text-lg"></i>
-          �� thu?c
+          Đã thuộc
         </button>
       </div>
     </div>
   );
 }
 
-// --- Session Result -------------------------------------------------------
+// ─── Session Result ───────────────────────────────────────────────────────
 function SessionResult({
   known,
   total,
@@ -192,7 +192,7 @@ function SessionResult({
 }) {
   const pct = total > 0 ? Math.round((known / total) * 100) : 0;
   const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#fb923c";
-  const label = pct >= 80 ? "Xu?t s?c!" : pct >= 60 ? "Kh� t?t!" : "C?n �n th�m!";
+  const label = pct >= 80 ? "Xuất sắc!" : pct >= 60 ? "Khá tốt!" : "Cần ôn thêm!";
 
   return (
     <div className="flex flex-col items-center justify-center py-12 text-center max-w-sm mx-auto">
@@ -201,7 +201,7 @@ function SessionResult({
       </div>
       <h2 className="text-white font-bold text-2xl mb-2">{label}</h2>
       <p className="text-app-text-secondary text-sm mb-5">
-        �� thu?c <span className="font-bold" style={{ color }}>{known}/{total}</span> t? ({pct}%)
+        Đã thuộc <span className="font-bold" style={{ color }}>{known}/{total}</span> từ ({pct}%)
       </p>
       <div className="w-full h-2 bg-app-card/50 rounded-full overflow-hidden mb-8">
         <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: color }} />
@@ -212,21 +212,21 @@ function SessionResult({
             onClick={onReviewWrong}
             className="flex-1 py-3 rounded-xl border border-app-border text-white/60 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"
           >
-            �n l?i chua thu?c
+            Ôn lại chưa thuộc
           </button>
         )}
         <button
           onClick={onRestart}
           className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
         >
-          H?c l?i
+          Học lại
         </button>
       </div>
     </div>
   );
 }
 
-// --- Main Page ------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────
 export default function EpsFlashcardPage() {
   const [masteredIds, setMasteredIds] = useLocalStorage<string[]>("kts_eps_vocab_mastered", []);
   const [selectedTopic, setSelectedTopic] = useState<string>("all");
@@ -307,8 +307,8 @@ export default function EpsFlashcardPage() {
 
   return (
     <DashboardLayout
-      title="Flashcard EPS theo Ch? d?"
-      subtitle="H?c t? v?ng EPS c� h? th?ng � an to�n, ph�p lu?t, giao ti?p"
+      title="Flashcard EPS theo Chủ đề"
+      subtitle="Học từ vựng EPS có hệ thống — an toàn, pháp luật, giao tiếp"
       actions={
         mode === "browse" ? (
           <button
@@ -317,7 +317,7 @@ export default function EpsFlashcardPage() {
             className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-play-line"></i>
-            H?c ngay ({filteredCards.length} th?)
+            Học ngay ({filteredCards.length} thẻ)
           </button>
         ) : mode === "study" || mode === "done" ? (
           <button
@@ -325,7 +325,7 @@ export default function EpsFlashcardPage() {
             className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/60 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-arrow-left-line"></i>
-            V? danh s�ch
+            Về danh sách
           </button>
         ) : undefined
       }
@@ -333,10 +333,10 @@ export default function EpsFlashcardPage() {
       {/* Overall stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
         {[
-          { label: "T?ng t? v?ng", value: epsVocabulary.length, icon: "ri-translate-2", color: "app-accent-primary" },
-          { label: "�� thu?c", value: totalMastered, icon: "ri-checkbox-circle-line", color: "#34d399" },
-          { label: "Chua thu?c", value: epsVocabulary.length - totalMastered, icon: "ri-time-line", color: "#fb923c" },
-          { label: "Ti?n d?", value: `${overallPct}%`, icon: "ri-pie-chart-line", color: "#a78bfa" },
+          { label: "Tổng từ vựng", value: epsVocabulary.length, icon: "ri-translate-2", color: "app-accent-primary" },
+          { label: "Đã thuộc", value: totalMastered, icon: "ri-checkbox-circle-line", color: "#34d399" },
+          { label: "Chưa thuộc", value: epsVocabulary.length - totalMastered, icon: "ri-time-line", color: "#fb923c" },
+          { label: "Tiến độ", value: `${overallPct}%`, icon: "ri-pie-chart-line", color: "#a78bfa" },
         ].map(stat => (
           <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
@@ -355,8 +355,8 @@ export default function EpsFlashcardPage() {
         <div className="bg-app-bg border border-app-border rounded-2xl p-8">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <span className="text-app-accent-success text-xs font-bold">{sessionKnown.length} thu?c</span>
-              <span className="text-red-400 text-xs font-bold">{sessionWrong.length} chua</span>
+              <span className="text-app-accent-success text-xs font-bold">{sessionKnown.length} thuộc</span>
+              <span className="text-red-400 text-xs font-bold">{sessionWrong.length} chưa</span>
             </div>
           </div>
           <EpsFlipCard
@@ -396,7 +396,7 @@ export default function EpsFlashcardPage() {
                     onClick={() => setFilterMode(f)}
                     className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${filterMode === f ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}
                   >
-                    {f === "unmastered" ? "Chua thu?c" : "T?t c?"}
+                    {f === "unmastered" ? "Chưa thuộc" : "Tất cả"}
                   </button>
                 ))}
               </div>
@@ -404,13 +404,13 @@ export default function EpsFlashcardPage() {
                 <i className="ri-search-line text-app-text-muted text-sm"></i>
                 <input
                   type="text"
-                  placeholder="T�m t? v?ng..."
+                  placeholder="Tìm từ vựng..."
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
                   className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder-white/20"
                 />
               </div>
-              <p className="text-app-text-muted text-xs whitespace-nowrap">{filteredCards.length} t?</p>
+              <p className="text-app-text-muted text-xs whitespace-nowrap">{filteredCards.length} từ</p>
             </div>
 
             {/* Card grid */}
@@ -419,8 +419,8 @@ export default function EpsFlashcardPage() {
                 <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-app-card/50 mx-auto mb-3">
                   <i className="ri-checkbox-circle-line text-app-accent-success text-2xl"></i>
                 </div>
-                <p className="text-app-text-secondary text-sm font-medium mb-1">B?n d� thu?c h?t r?i!</p>
-                <button onClick={() => setFilterMode("all")} className="text-app-accent-primary text-xs cursor-pointer hover:underline whitespace-nowrap">Xem t?t c? t? v?ng</button>
+                <p className="text-app-text-secondary text-sm font-medium mb-1">Bạn đã thuộc hết rồi!</p>
+                <button onClick={() => setFilterMode("all")} className="text-app-accent-primary text-xs cursor-pointer hover:underline whitespace-nowrap">Xem tất cả từ vựng</button>
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -441,7 +441,7 @@ export default function EpsFlashcardPage() {
                           </button>
                         ) : (
                           <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full flex-shrink-0" style={{ backgroundColor: `${diffColor}15`, color: diffColor }}>
-                            {card.difficulty === "easy" ? "D?" : card.difficulty === "medium" ? "TB" : "Kh�"}
+                            {card.difficulty === "easy" ? "Dễ" : card.difficulty === "medium" ? "TB" : "Khó"}
                           </span>
                         )}
                       </div>
@@ -463,7 +463,7 @@ export default function EpsFlashcardPage() {
 
           {/* Right: topic selector */}
           <div className="space-y-3">
-            <h3 className="text-white font-semibold text-sm mb-3">Ch?n ch? d?</h3>
+            <h3 className="text-white font-semibold text-sm mb-3">Chọn chủ đề</h3>
             <button
               onClick={() => setSelectedTopic("all")}
               className={`w-full text-left p-3 rounded-xl border transition-all cursor-pointer ${selectedTopic === "all" ? "border-white/15 bg-app-card/50" : "border-app-border hover:border-app-border"}`}
@@ -473,8 +473,8 @@ export default function EpsFlashcardPage() {
                   <i className="ri-apps-line text-app-accent-primary text-sm"></i>
                 </div>
                 <div className="flex-1">
-                  <p className={`text-xs font-semibold ${selectedTopic === "all" ? "text-white" : "text-white/60"}`}>T?t c? ch? d?</p>
-                  <p className="text-app-text-muted text-[10px]">{epsVocabulary.length} t? v?ng</p>
+                  <p className={`text-xs font-semibold ${selectedTopic === "all" ? "text-white" : "text-white/60"}`}>Tất cả chủ đề</p>
+                  <p className="text-app-text-muted text-[10px]">{epsVocabulary.length} từ vựng</p>
                 </div>
                 <span className="text-[10px] font-bold text-app-accent-primary">{overallPct}%</span>
               </div>
@@ -496,7 +496,7 @@ export default function EpsFlashcardPage() {
                     </div>
                     <div className="flex-1">
                       <p className={`text-xs font-semibold ${isSelected ? "text-white" : "text-white/60"}`}>{topic.label}</p>
-                      <p className="text-app-text-muted text-[10px]">{stats.total} t? � {stats.mastered} thu?c</p>
+                      <p className="text-app-text-muted text-[10px]">{stats.total} từ · {stats.mastered} thuộc</p>
                     </div>
                     <span className="text-[10px] font-bold" style={{ color: topic.color }}>{pct}%</span>
                   </div>

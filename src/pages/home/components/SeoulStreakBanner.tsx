@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+Ôªøimport { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { seoulBooks } from "@/mocks/seoulTextbook";
@@ -77,12 +77,12 @@ export default function SeoulStreakBanner() {
               {isActiveToday && (
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success font-semibold">
                   <i className="ri-check-line mr-0.5" />
-                  HÙm nay d„ h?c
+                  H√¥m nay ƒë√£ h·ªçc
                 </span>
               )}
               {!isActiveToday && isStreakAlive && (
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#f97316]/15 text-[#f97316] font-semibold animate-pulse">
-                  Chua h?c hÙm nay!
+                  Ch∆∞a h·ªçc h√¥m nay!
                 </span>
               )}
             </div>
@@ -90,9 +90,9 @@ export default function SeoulStreakBanner() {
               <span className="text-2xl font-bold" style={{ color: streakColor }}>
                 {seoulStreak.count}
               </span>
-              <span className="text-app-text-secondary text-sm">ng‡y liÍn ti?p</span>
-              <span className="text-app-text-muted text-xs">∑</span>
-              <span className="text-app-text-secondary text-xs">{overallPct}% ho‡n th‡nh</span>
+              <span className="text-app-text-secondary text-sm">ng√†y li√™n ti·∫øp</span>
+              <span className="text-app-text-muted text-xs">¬∑</span>
+              <span className="text-app-text-secondary text-xs">{overallPct}% ho√†n th√†nh</span>
             </div>
             <div className="mt-2 h-1.5 bg-app-card/50 rounded-full overflow-hidden w-full max-w-xs">
               <div
@@ -114,10 +114,10 @@ export default function SeoulStreakBanner() {
                 <i className="ri-book-3-line text-[#a78bfa] text-sm" />
               </div>
               <div className="min-w-0">
-                <p className="text-[#a78bfa] text-xs font-semibold whitespace-nowrap">Ti?p theo</p>
+                <p className="text-[#a78bfa] text-xs font-semibold whitespace-nowrap">Ti·∫øp theo</p>
                 <p className="text-white/50 text-[10px] truncate max-w-[140px]">
-                  {nextLesson.book.level} ∑{" "}
-                  {nextLesson.lesson.titleVi.replace("B‡i ", "").split(":")[0]}
+                  {nextLesson.book.level} ¬∑{" "}
+                  {nextLesson.lesson.titleVi.replace("B√†i ", "").split(":")[0]}
                 </p>
               </div>
               <i className="ri-arrow-right-line text-[#a78bfa]/50 text-xs group-hover:translate-x-0.5 transition-transform flex-shrink-0" />
@@ -135,7 +135,7 @@ export default function SeoulStreakBanner() {
             className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-app-border bg-app-surface/50 hover:bg-white/6 transition-all cursor-pointer whitespace-nowrap"
           >
             <i className="ri-route-line text-white/50 text-sm" />
-            <span className="text-white/50 text-xs font-semibold">L? trÏnh</span>
+            <span className="text-white/50 text-xs font-semibold">L·ªô tr√¨nh</span>
           </button>
         </div>
       </div>

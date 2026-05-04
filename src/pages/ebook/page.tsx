@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useMemo } from "react";
+﻿import { useState, useCallback, useRef, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
@@ -18,20 +18,20 @@ export interface EbookMeta {
   coverColor: string;
   coverAccent: string;
   description: string;
-  foreword?: string;   // L?i m? d?u
-  contactInfo?: string; // Th�ng tin li�n h? trang k?t
-  website?: string;    // Website trang k?t
-  fontFamily?: "sans" | "serif"; // Font ch? ebook
+  foreword?: string;   // Lời mở đầu
+  contactInfo?: string; // Thông tin liên hệ trang kết
+  website?: string;    // Website trang kết
+  fontFamily?: "sans" | "serif"; // Font chữ ebook
 }
 
 const DEFAULT_META: EbookMeta = {
-  title: "H?c Ti?ng H�n Qua K-pop",
-  subtitle: "Truy?n Ch�m & T? V?ng Th?c T?",
-  author: "H� D�m",
+  title: "Học Tiếng Hàn Qua K-pop",
+  subtitle: "Truyện Chêm & Từ Vựng Thực Tế",
+  author: "Hà Dím",
   coverColor: "#0f1117",
   coverAccent: "app-accent-primary",
-  description: "Tuy?n t?p b�i h?c ti?ng H�n du?c bi�n so?n t? c�c b�i h�t K-pop dang hot, gi�p b?n h?c t? v?ng v� ng? ph�p m?t c�ch t? nhi�n v� th� v?.",
-  foreword: "Ch�o b?n d?c th�n m?n!\n\nCu?n ebook n�y du?c bi�n so?n v?i t�nh y�u d�nh cho ti?ng H�n v� K-pop. M?i b�i h?c l� m?t c�u chuy?n nh? � noi ng�n ng? v� �m nh?c h�a quy?n d? gi�p b?n h?c ti?ng H�n m?t c�ch t? nhi�n nh?t.\n\nH�y d?c ch?m, c?m nh?n t?ng t?, v� d?ng qu�n nghe l?i b�i h�t sau m?i b�i h?c nh�!\n\nCh�c b?n h?c vui!",
+  description: "Tuyển tập bài học tiếng Hàn được biên soạn từ các bài hát K-pop đang hot, giúp bạn học từ vựng và ngữ pháp một cách tự nhiên và thú vị.",
+  foreword: "Chào bạn đọc thân mến!\n\nCuốn ebook này được biên soạn với tình yêu dành cho tiếng Hàn và K-pop. Mỗi bài học là một câu chuyện nhỏ — nơi ngôn ngữ và âm nhạc hòa quyện để giúp bạn học tiếng Hàn một cách tự nhiên nhất.\n\nHãy đọc chậm, cảm nhận từng từ, và đừng quên nghe lại bài hát sau mỗi bài học nhé!\n\nChúc bạn học vui!",
   contactInfo: "Email: contact@hanvietkts.com\nFacebook: fb.com/hanvietkts\nZalo: 0901 234 567",
   website: "www.hanvietkts.com",
   fontFamily: "sans",
@@ -39,7 +39,7 @@ const DEFAULT_META: EbookMeta = {
 
 export type EbookTab = "cover" | "lessons" | "template" | "preview" | "create";
 
-// --- PDF Export Limits ----------------------------------------------------
+// ─── PDF Export Limits ────────────────────────────────────────────────────
 const FREE_LIMIT = 1;
 const VIP_LIMIT = 10;
 
@@ -99,7 +99,7 @@ export default function EbookPage() {
       .filter((l) => (l.stars ?? 0) >= 4)
       .map((l) => l.song.rank);
     setSelectedRanks(highRanks);
-    showToast(`�� ch?n ${highRanks.length} b�i 4-5 sao`);
+    showToast(`Đã chọn ${highRanks.length} bài 4-5 sao`);
   };
 
   const handleClearAll = () => {
@@ -128,7 +128,7 @@ export default function EbookPage() {
 
   const handleExportPDF = useCallback(async () => {
     if (selectedLessons.length === 0) {
-      showToast("Ch?n �t nh?t 1 b�i h?c d? xu?t PDF", "error");
+      showToast("Chọn ít nhất 1 bài học để xuất PDF", "error");
       return;
     }
     if (!canExport) {
@@ -137,7 +137,7 @@ export default function EbookPage() {
     }
     setExporting(true);
     consume();
-    showToast("�ang chu?n b? xu?t PDF... Tr�nh duy?t s? m? h?p tho?i in");
+    showToast("Đang chuẩn bị xuất PDF... Trình duyệt sẽ mở hộp thoại in");
     setTimeout(() => {
       window.print();
       setExporting(false);
@@ -146,7 +146,7 @@ export default function EbookPage() {
 
   const handleBatchExportGroup = useCallback((groupLessons: ApprovedLesson[], groupName: string) => {
     // Build HTML and trigger download for each group
-    const groupMeta = { ...meta, title: `${meta.title} � ${groupName}`, subtitle: `${groupLessons.length} b�i h?c` };
+    const groupMeta = { ...meta, title: `${meta.title} — ${groupName}`, subtitle: `${groupLessons.length} bài học` };
     // Dynamically import to avoid circular deps
     import("./components/EbookPDFPreview").then(({ default: _ }) => {
       // We'll use the same buildHtmlContent logic via a custom event
@@ -155,7 +155,7 @@ export default function EbookPage() {
       });
       window.dispatchEvent(event);
     });
-    showToast(`�ang xu?t ebook: ${groupName}`);
+    showToast(`Đang xuất ebook: ${groupName}`);
   }, [meta, template, showToast]);
 
   const handleAddFreeLesson = useCallback((lesson: ApprovedLesson) => {
@@ -165,29 +165,29 @@ export default function EbookPage() {
     localStorage.setItem("kts_melon_lessons", JSON.stringify(updated));
     // Auto-select the new lesson
     setSelectedRanks((prev) => [...prev, lesson.song.rank]);
-    showToast(`�� th�m "${lesson.song.title}" v�o ebook!`);
+    showToast(`Đã thêm "${lesson.song.title}" vào ebook!`);
     setActiveTab("lessons");
     // Force re-render by reloading
     window.location.reload();
   }, [showToast]);
 
   const tabs: { id: EbookTab; label: string; icon: string }[] = [
-    { id: "create", label: "T?o truy?n m?i", icon: "ri-magic-line" },
-    { id: "lessons", label: "Ch?n b�i h?c", icon: "ri-list-check-2" },
+    { id: "create", label: "Tạo truyện mới", icon: "ri-magic-line" },
+    { id: "lessons", label: "Chọn bài học", icon: "ri-list-check-2" },
     { id: "template", label: "Template", icon: "ri-layout-2-line" },
-    { id: "cover", label: "B�a ebook", icon: "ri-book-2-line" },
-    { id: "preview", label: "Xem tru?c", icon: "ri-eye-line" },
+    { id: "cover", label: "Bìa ebook", icon: "ri-book-2-line" },
+    { id: "preview", label: "Xem trước", icon: "ri-eye-line" },
   ];
 
   return (
     <DashboardLayout
       title="Ebook Builder"
-      subtitle="Gom b�i, s?p x?p, xu?t PDF"
+      subtitle="Gom bài, sắp xếp, xuất PDF"
       actions={
         <div className="flex items-center gap-3">
           {selectedLessons.length > 0 && (
             <span className="text-app-text-secondary text-xs bg-app-card/50 px-3 py-1.5 rounded-full">
-              {selectedLessons.length} b�i d� ch?n
+              {selectedLessons.length} bài đã chọn
             </span>
           )}
           <EbookBatchExport
@@ -205,7 +205,7 @@ export default function EbookPage() {
           {/* Export counter */}
           <div className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-semibold ${canExport ? "border-emerald-500/20 bg-emerald-500/8 text-app-accent-success" : "border-red-500/20 bg-red-500/8 text-red-400"}`}>
             <i className={`ri-file-pdf-2-line text-sm`}></i>
-            <span>{remaining}/{limit} l?n xu?t</span>
+            <span>{remaining}/{limit} lần xuất</span>
             {isVip && <span className="text-app-accent-primary text-[10px] font-bold">VIP</span>}
           </div>
           <button
@@ -214,9 +214,9 @@ export default function EbookPage() {
             className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors whitespace-nowrap cursor-pointer"
           >
             {exporting ? (
-              <><i className="ri-loader-4-line animate-spin"></i>�ang xu?t...</>
+              <><i className="ri-loader-4-line animate-spin"></i>Đang xuất...</>
             ) : (
-              <><i className="ri-file-pdf-2-line"></i>Xu?t PDF</>
+              <><i className="ri-file-pdf-2-line"></i>Xuất PDF</>
             )}
           </button>
         </div>
@@ -236,33 +236,33 @@ export default function EbookPage() {
             <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-red-500/10 mx-auto mb-4">
               <i className="ri-file-pdf-2-line text-red-400 text-2xl"></i>
             </div>
-            <h3 className="text-white font-bold text-lg text-center mb-2">�� h?t lu?t xu?t PDF</h3>
+            <h3 className="text-white font-bold text-lg text-center mb-2">Đã hết lượt xuất PDF</h3>
             <p className="text-app-text-secondary text-sm text-center mb-5 leading-relaxed">
               {isVip
-                ? `G�i VIP cho ph�p xu?t ${VIP_LIMIT} l?n/th�ng. B?n d� d�ng h?t lu?t th�ng n�y. Lu?t m?i s? du?c reset v�o d?u th�ng sau.`
-                : `G�i Free ch? cho ph�p xu?t ${FREE_LIMIT} l?n/th�ng. N�ng c?p VIP d? xu?t ${VIP_LIMIT} l?n/th�ng!`
+                ? `Gói VIP cho phép xuất ${VIP_LIMIT} lần/tháng. Bạn đã dùng hết lượt tháng này. Lượt mới sẽ được reset vào đầu tháng sau.`
+                : `Gói Free chỉ cho phép xuất ${FREE_LIMIT} lần/tháng. Nâng cấp VIP để xuất ${VIP_LIMIT} lần/tháng!`
               }
             </p>
             <div className="grid grid-cols-2 gap-3 mb-4">
               <div className="bg-app-surface/50 rounded-xl p-3 text-center">
-                <p className="text-app-text-secondary text-[10px] mb-1">G�i Free</p>
-                <p className="text-white font-bold text-lg">{FREE_LIMIT} l?n</p>
-                <p className="text-app-text-muted text-[10px]">m?i th�ng</p>
+                <p className="text-app-text-secondary text-[10px] mb-1">Gói Free</p>
+                <p className="text-white font-bold text-lg">{FREE_LIMIT} lần</p>
+                <p className="text-app-text-muted text-[10px]">mỗi tháng</p>
               </div>
               <div className="bg-app-accent-primary/8 border border-app-accent-primary/20 rounded-xl p-3 text-center">
-                <p className="text-app-accent-primary text-[10px] mb-1 font-semibold">G�i VIP</p>
-                <p className="text-app-accent-primary font-bold text-lg">{VIP_LIMIT} l?n</p>
-                <p className="text-app-accent-primary/40 text-[10px]">m?i th�ng</p>
+                <p className="text-app-accent-primary text-[10px] mb-1 font-semibold">Gói VIP</p>
+                <p className="text-app-accent-primary font-bold text-lg">{VIP_LIMIT} lần</p>
+                <p className="text-app-accent-primary/40 text-[10px]">mỗi tháng</p>
               </div>
             </div>
             {!isVip && (
               <a href="/pricing" className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm transition-colors cursor-pointer whitespace-nowrap mb-2">
                 <i className="ri-vip-crown-line"></i>
-                N�ng c?p VIP � 79k/th�ng
+                Nâng cấp VIP — 79k/tháng
               </a>
             )}
             <button onClick={() => setShowLimitModal(false)} className="w-full py-2.5 rounded-xl border border-app-border text-white/50 text-sm hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">
-              ��ng
+              Đóng
             </button>
           </div>
         </div>
@@ -273,14 +273,14 @@ export default function EbookPage() {
           <div className="w-16 h-16 flex items-center justify-center bg-app-card/50 rounded-2xl mb-5">
             <i className="ri-book-2-line text-app-text-muted text-3xl"></i>
           </div>
-          <p className="text-app-text-secondary text-sm font-medium">Chua c� b�i h?c n�o</p>
-          <p className="text-app-text-muted text-xs mt-1 mb-5">Duy?t b�i h?c trong trang K-pop Lesson tru?c</p>
+          <p className="text-app-text-secondary text-sm font-medium">Chưa có bài học nào</p>
+          <p className="text-app-text-muted text-xs mt-1 mb-5">Duyệt bài học trong trang K-pop Lesson trước</p>
           <a
             href="/melon"
             className="flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-sm font-medium px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-music-2-line"></i>
-            �?n K-pop Lesson
+            Đến K-pop Lesson
           </a>
         </div>
       ) : (

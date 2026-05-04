@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef, useEffect } from "react";
+﻿import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -24,7 +24,7 @@ interface StudySession {
   date: string;
 }
 
-// --- Flip Card ------------------------------------------------------------
+// ─── Flip Card ────────────────────────────────────────────────────────────
 function FlipCard({ card, onKnow, onDontKnow }: {
   card: FlashcardItem;
   onKnow: () => void;
@@ -107,7 +107,7 @@ function FlipCard({ card, onKnow, onDontKnow }: {
     if (flipStartTime) {
       const timeSpent = Date.now() - flipStartTime;
       if (timeSpent < MIN_READ_TIME_MS) {
-        alert("Vui l�ng d?c k? d�p �n tru?c khi d�nh d?u d� thu?c (t?i thi?u 1.5 gi�y).");
+        alert("Vui lòng đọc kỹ đáp án trước khi đánh dấu đã thuộc (tối thiểu 1.5 giây).");
         return;
       }
     }
@@ -133,9 +133,9 @@ function FlipCard({ card, onKnow, onDontKnow }: {
         <div className={`fixed inset-0 pointer-events-none z-10 flex items-center justify-center transition-opacity ${swipeHint ? "opacity-100" : "opacity-0"}`}>
           <div className={`px-6 py-3 rounded-2xl text-white font-bold text-lg ${swipeHint === "right" ? "bg-emerald-500/80" : "bg-red-500/80"}`}>
             {swipeHint === "right" ? (
-              <><i className="ri-check-line mr-2"></i>�� thu?c</>
+              <><i className="ri-check-line mr-2"></i>Đã thuộc</>
             ) : (
-              <><i className="ri-close-line mr-2"></i>Chua thu?c</>
+              <><i className="ri-close-line mr-2"></i>Chưa thuộc</>
             )}
           </div>
         </div>
@@ -143,8 +143,8 @@ function FlipCard({ card, onKnow, onDontKnow }: {
 
       {/* Mobile swipe hint */}
       <div className="flex items-center gap-4 text-xs text-app-text-muted md:hidden">
-        <span><i className="ri-arrow-left-line mr-1"></i>Vu?t tr�i = Chua thu?c</span>
-        <span>Vu?t ph?i = �� thu?c<i className="ri-arrow-right-line ml-1"></i></span>
+        <span><i className="ri-arrow-left-line mr-1"></i>Vuốt trái = Chưa thuộc</span>
+        <span>Vuốt phải = Đã thuộc<i className="ri-arrow-right-line ml-1"></i></span>
       </div>
 
       {/* Card */}
@@ -179,11 +179,11 @@ function FlipCard({ card, onKnow, onDontKnow }: {
               className="mt-4 flex items-center gap-1.5 text-app-accent-primary text-xs hover:text-app-accent-primary/80 transition-colors cursor-pointer"
             >
               <i className={audioPlayed ? "ri-volume-up-fill" : "ri-volume-up-line"}></i>
-              {audioPlayed ? "�� nghe" : "Nghe ph�t �m"}
+              {audioPlayed ? "Đã nghe" : "Nghe phát âm"}
             </button>
             <div className="mt-4 flex items-center gap-1.5 text-app-text-muted text-xs">
               <i className="ri-hand-coin-line text-xs"></i>
-              Nh?n d? l?t th?
+              Nhấn để lật thẻ
             </div>
           </div>
 
@@ -196,7 +196,7 @@ function FlipCard({ card, onKnow, onDontKnow }: {
               backgroundColor: "#0f1117",
             }}
           >
-            <p className="text-app-text-secondary text-xs tracking-normal font-semibold mb-3">Nghia</p>
+            <p className="text-app-text-secondary text-xs tracking-normal font-semibold mb-3">Nghĩa</p>
             <p className="text-2xl font-bold text-app-accent-primary mb-4">{card.meaning}</p>
             {card.example && (
               <div className="bg-app-surface/50 border border-app-border rounded-xl px-4 py-3 max-w-sm">
@@ -205,7 +205,7 @@ function FlipCard({ card, onKnow, onDontKnow }: {
             )}
             <div className="mt-4 flex items-center gap-1.5 text-app-text-muted text-xs">
               <i className="ri-music-2-line text-xs"></i>
-              {card.lessonTitle} � {card.artist}
+              {card.lessonTitle} — {card.artist}
             </div>
           </div>
         </div>
@@ -219,14 +219,14 @@ function FlipCard({ card, onKnow, onDontKnow }: {
             className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl border border-red-500/30 bg-red-500/10 hover:bg-red-500/20 text-red-400 font-semibold text-sm transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-close-line text-lg"></i>
-            Chua thu?c
+            Chưa thuộc
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); handleKnowWithValidation(); }}
             className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-app-accent-success font-semibold text-sm transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-check-line text-lg"></i>
-            �� thu?c
+            Đã thuộc
           </button>
         </div>
       )}
@@ -238,13 +238,13 @@ function FlipCard({ card, onKnow, onDontKnow }: {
             className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl border border-app-border bg-app-surface/50 hover:bg-app-card/50 text-app-text-muted font-medium text-sm transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-arrow-left-line"></i>
-            B? qua
+            Bỏ qua
           </button>
           <button
             onClick={() => setFlipped(true)}
             className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
           >
-            L?t th?
+            Lật thẻ
             <i className="ri-refresh-line"></i>
           </button>
         </div>
@@ -253,7 +253,7 @@ function FlipCard({ card, onKnow, onDontKnow }: {
   );
 }
 
-// --- Session Complete -----------------------------------------------------
+// ─── Session Complete ─────────────────────────────────────────────────────
 function SessionComplete({ known, total, onRestart, onReview }: {
   known: number; total: number; onRestart: () => void; onReview: () => void;
 }) {
@@ -264,10 +264,10 @@ function SessionComplete({ known, total, onRestart, onReview }: {
         <i className={`text-4xl ${pct >= 70 ? "ri-trophy-line text-app-accent-success" : "ri-refresh-line text-orange-400"}`}></i>
       </div>
       <h2 className="text-white font-bold text-2xl mb-2">
-        {pct >= 70 ? "Xu?t s?c!" : pct >= 40 ? "Kh� t?t!" : "C?n �n th�m!"}
+        {pct >= 70 ? "Xuất sắc!" : pct >= 40 ? "Khá tốt!" : "Cần ôn thêm!"}
       </h2>
       <p className="text-app-text-secondary text-sm mb-6">
-        B?n d� thu?c <span className="text-app-accent-primary font-bold">{known}/{total}</span> t? ({pct}%)
+        Bạn đã thuộc <span className="text-app-accent-primary font-bold">{known}/{total}</span> từ ({pct}%)
       </p>
       <div className="w-full bg-app-card/50 rounded-full h-2 mb-8">
         <div
@@ -281,21 +281,21 @@ function SessionComplete({ known, total, onRestart, onReview }: {
             onClick={onReview}
             className="flex-1 py-3 rounded-xl border border-app-border text-white/60 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"
           >
-            �n l?i chua thu?c
+            Ôn lại chưa thuộc
           </button>
         )}
         <button
           onClick={onRestart}
           className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
         >
-          H?c l?i t? d?u
+          Học lại từ đầu
         </button>
       </div>
     </div>
   );
 }
 
-// --- Main Page ------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────
 export default function FlashcardPage() {
   const { user, profile } = useAuth();
   const { syncToCloud, updateLeaderboard } = useStudySync();
@@ -362,7 +362,7 @@ export default function FlashcardPage() {
 
   const triggerCloudSync = useCallback(() => {
     if (!user) return;
-    const displayName = profile?.display_name || user.email?.split("@")[0] || "H?c vi�n";
+    const displayName = profile?.display_name || user.email?.split("@")[0] || "Học viên";
     setCloudSynced(false);
     Promise.all([
       syncToCloud(user.id),
@@ -420,7 +420,7 @@ export default function FlashcardPage() {
   return (
     <DashboardLayout
       title="Flashcard"
-      subtitle="H?c t? v?ng t? truy?n ch�m � l?t th?, d�nh d?u d� thu?c"
+      subtitle="Học từ vựng từ truyện chêm — lật thẻ, đánh dấu đã thuộc"
       actions={
         mode === "browse" ? (
           <button
@@ -429,7 +429,7 @@ export default function FlashcardPage() {
             className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-play-line"></i>
-            B?t d?u h?c ({filteredCards.length} th?)
+            Bắt đầu học ({filteredCards.length} thẻ)
           </button>
         ) : mode === "study" ? (
           <button
@@ -437,7 +437,7 @@ export default function FlashcardPage() {
             className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/60 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-stop-line"></i>
-            D?ng h?c
+            Dừng học
           </button>
         ) : null
       }
@@ -445,10 +445,10 @@ export default function FlashcardPage() {
       {/* Stats bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "T?ng t? v?ng", value: allCards.length, icon: "ri-translate-2", color: "app-accent-primary" },
-          { label: "�� thu?c", value: masteredCount, icon: "ri-checkbox-circle-line", color: "#34d399" },
-          { label: "Chua thu?c", value: allCards.length - masteredCount, icon: "ri-time-line", color: "#fb923c" },
-          { label: "L?n �n t?p", value: sessions.length, icon: "ri-refresh-line", color: "#a78bfa" },
+          { label: "Tổng từ vựng", value: allCards.length, icon: "ri-translate-2", color: "app-accent-primary" },
+          { label: "Đã thuộc", value: masteredCount, icon: "ri-checkbox-circle-line", color: "#34d399" },
+          { label: "Chưa thuộc", value: allCards.length - masteredCount, icon: "ri-time-line", color: "#fb923c" },
+          { label: "Lần ôn tập", value: sessions.length, icon: "ri-refresh-line", color: "#a78bfa" },
         ].map(stat => (
           <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
@@ -466,7 +466,7 @@ export default function FlashcardPage() {
       {allCards.length > 0 && (
         <div className="bg-app-bg border border-app-border rounded-xl p-4 mb-6">
           <div className="flex items-center justify-between mb-2">
-            <p className="text-white/60 text-xs font-medium">Ti?n d? t?ng th?</p>
+            <p className="text-white/60 text-xs font-medium">Tiến độ tổng thể</p>
             <p className="text-app-accent-primary text-xs font-bold">{Math.round((masteredCount / allCards.length) * 100)}%</p>
           </div>
           <div className="h-2 bg-app-card/50 rounded-full overflow-hidden">
@@ -488,8 +488,8 @@ export default function FlashcardPage() {
               <div className="h-full rounded-full bg-app-accent-primary transition-all" style={{ width: `${progress}%` }} />
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-app-accent-success text-xs font-bold">{sessionKnown.length} thu?c</span>
-              <span className="text-red-400 text-xs font-bold">{sessionDontKnow.length} chua</span>
+              <span className="text-app-accent-success text-xs font-bold">{sessionKnown.length} thuộc</span>
+              <span className="text-red-400 text-xs font-bold">{sessionDontKnow.length} chưa</span>
             </div>
           </div>
           <FlipCard card={currentCard} onKnow={handleKnow} onDontKnow={handleDontKnow} />
@@ -508,7 +508,7 @@ export default function FlashcardPage() {
           {user && (
             <div className={`mt-4 flex items-center gap-2 justify-center text-xs ${cloudSynced ? "text-app-accent-success/70" : "text-app-accent-primary/50"}`}>
               <i className={`${cloudSynced ? "ri-cloud-line" : "ri-loader-4-line animate-spin"} text-sm`}></i>
-              {cloudSynced ? "Ti?n d? d� d?ng b? l�n cloud & c?p nh?t b?ng x?p h?ng!" : "�ang d?ng b? l�n cloud..."}
+              {cloudSynced ? "Tiến độ đã đồng bộ lên cloud & cập nhật bảng xếp hạng!" : "Đang đồng bộ lên cloud..."}
             </div>
           )}
         </div>
@@ -528,7 +528,7 @@ export default function FlashcardPage() {
                     filterLesson === f ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/70"
                   }`}
                 >
-                  {f === "unmastered" ? "Chua thu?c" : "T?t c?"}
+                  {f === "unmastered" ? "Chưa thuộc" : "Tất cả"}
                 </button>
               ))}
             </div>
@@ -537,14 +537,14 @@ export default function FlashcardPage() {
               onChange={e => setSelectedLessonRank(e.target.value === "all" ? "all" : parseInt(e.target.value))}
               className="bg-app-card/50 border border-app-border rounded-lg px-3 py-1.5 text-white/60 text-xs focus:outline-none cursor-pointer"
             >
-              <option value="all" className="bg-app-bg">T?t c? b�i h?c</option>
+              <option value="all" className="bg-app-bg">Tất cả bài học</option>
               {approvedLessons.map(l => (
                 <option key={l.song.rank} value={l.song.rank} className="bg-app-bg">
                   {l.song.title}
                 </option>
               ))}
             </select>
-            <p className="text-app-text-muted text-xs ml-auto">{filteredCards.length} th?</p>
+            <p className="text-app-text-muted text-xs ml-auto">{filteredCards.length} thẻ</p>
           </div>
 
           {/* Card grid */}
@@ -555,15 +555,15 @@ export default function FlashcardPage() {
               </div>
               {allCards.length === 0 ? (
                 <>
-                  <p className="text-app-text-secondary text-sm font-medium mb-1">Chua c� t? v?ng n�o</p>
-                  <p className="text-app-text-muted text-xs">T?o b�i h?c trong K-pop Lesson d? c� flashcard</p>
+                  <p className="text-app-text-secondary text-sm font-medium mb-1">Chưa có từ vựng nào</p>
+                  <p className="text-app-text-muted text-xs">Tạo bài học trong K-pop Lesson để có flashcard</p>
                 </>
               ) : (
                 <>
-                  <p className="text-app-text-secondary text-sm font-medium mb-1">B?n d� thu?c h?t r?i!</p>
-                  <p className="text-app-text-muted text-xs mb-4">Chuy?n sang "T?t c?" d? �n l?i</p>
+                  <p className="text-app-text-secondary text-sm font-medium mb-1">Bạn đã thuộc hết rồi!</p>
+                  <p className="text-app-text-muted text-xs mb-4">Chuyển sang "Tất cả" để ôn lại</p>
                   <button onClick={() => setFilterLesson("all")} className="text-app-accent-primary text-xs font-medium cursor-pointer hover:underline whitespace-nowrap">
-                    Xem t?t c? t? v?ng
+                    Xem tất cả từ vựng
                   </button>
                 </>
               )}
@@ -585,7 +585,7 @@ export default function FlashcardPage() {
                       <button
                         onClick={() => handleUnmaster(card.id)}
                         className="w-5 h-5 flex items-center justify-center cursor-pointer"
-                        title="B? d�nh d?u thu?c"
+                        title="Bỏ đánh dấu thuộc"
                       >
                         <i className="ri-checkbox-circle-fill text-app-accent-success text-sm"></i>
                       </button>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+﻿import { useState, useEffect, useMemo, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { supabase } from "@/lib/supabase";
@@ -15,7 +15,7 @@ interface VocabEntry {
   hanja?: string;
 }
 
-// --- Seeded random (same 5 words per day) ------------------------------------
+// ─── Seeded random (same 5 words per day) ────────────────────────────────────
 function seededRandom(seed: number) {
   let s = seed;
   return () => {
@@ -33,12 +33,12 @@ function getDailyWords(all: VocabEntry[], count = 5): VocabEntry[] {
   return shuffled.slice(0, count);
 }
 
-// --- Difficulty badge ---------------------------------------------------------
+// ─── Difficulty badge ─────────────────────────────────────────────────────────
 function DiffBadge({ d }: { d: number }) {
   const map = [
-    { label: "Co b?n", color: "#34d399" },
-    { label: "Trung c?p", color: "app-accent-primary" },
-    { label: "N�ng cao", color: "#f87171" },
+    { label: "Cơ bản", color: "#34d399" },
+    { label: "Trung cấp", color: "app-accent-primary" },
+    { label: "Nâng cao", color: "#f87171" },
   ];
   const info = map[Math.min(d - 1, 2)] || map[0];
   return (
@@ -48,7 +48,7 @@ function DiffBadge({ d }: { d: number }) {
   );
 }
 
-// --- Vocab Card ---------------------------------------------------------------
+// ─── Vocab Card ───────────────────────────────────────────────────────────────
 function DailyVocabCard({
   word, index, isRevealed, onReveal, isLearned, onLearn,
 }: {
@@ -87,14 +87,14 @@ function DailyVocabCard({
         <p className="text-app-text-muted text-sm font-mono">[{word.pronunciation}]</p>
       </div>
 
-      {/* Meaning � reveal on click */}
+      {/* Meaning — reveal on click */}
       {isRevealed ? (
         <div>
           <p className="text-app-accent-primary text-lg font-bold mb-2">{word.vietnamese}</p>
           {word.examples && word.examples.length > 0 && (
             <div>
               <button onClick={() => setShowExample(v => !v)} className="text-[10px] text-app-text-muted hover:text-white/50 cursor-pointer whitespace-nowrap transition-colors">
-                {showExample ? "?n v� d?" : "Xem v� d?"} <i className={`${showExample ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
+                {showExample ? "Ẩn ví dụ" : "Xem ví dụ"} <i className={`${showExample ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
               </button>
               {showExample && (
                 <div className="mt-2 bg-app-surface/50 rounded-xl p-3">
@@ -111,14 +111,14 @@ function DailyVocabCard({
           className="w-full py-2.5 rounded-xl text-sm font-medium cursor-pointer whitespace-nowrap transition-all"
           style={{ backgroundColor: "rgba(232,200,74,0.08)", color: "rgba(232,200,74,0.6)", border: "1px solid rgba(232,200,74,0.15)" }}
         >
-          <i className="ri-eye-line mr-2"></i>Xem nghia
+          <i className="ri-eye-line mr-2"></i>Xem nghĩa
         </button>
       )}
     </div>
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function DailyVocabPage() {
   const [allVocab, setAllVocab] = useState<VocabEntry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -177,8 +177,8 @@ export default function DailyVocabPage() {
         const perm = await Notification.requestPermission();
         if (perm === "granted") {
           setNotifEnabled(true);
-          new Notification("H�n Qu?c Oi! ????", {
-            body: "B?t nh?c nh? th�nh c�ng! B?n s? nh?n th�ng b�o h?c t? v?ng m?i ng�y l�c 8:00 s�ng.",
+          new Notification("Hàn Quốc Ơi! 🇰🇷", {
+            body: "Bật nhắc nhở thành công! Bạn sẽ nhận thông báo học từ vựng mỗi ngày lúc 8:00 sáng.",
             icon: "/favicon.ico",
           });
         }
@@ -192,15 +192,15 @@ export default function DailyVocabPage() {
 
   return (
     <DashboardLayout
-      title="T? v?ng theo ng�y"
-      subtitle={`${todayStr} � 5 t? m?i m?i ng�y t? Supabase`}
+      title="Từ vựng theo ngày"
+      subtitle={`${todayStr} — 5 từ mới mỗi ngày từ Supabase`}
       actions={
         <button
           onClick={handleNotif}
           className={`flex items-center gap-2 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap font-medium ${notifEnabled ? "bg-app-accent-primary/15 text-app-accent-primary border border-app-accent-primary/25" : "bg-app-card/50 text-white/50 border border-app-border hover:bg-white/8"}`}
         >
           <i className={`${notifEnabled ? "ri-notification-fill" : "ri-notification-line"} text-sm`}></i>
-          {notifEnabled ? "�ang nh?c nh?" : "B?t nh?c nh?"}
+          {notifEnabled ? "Đang nhắc nhở" : "Bật nhắc nhở"}
         </button>
       }
     >
@@ -212,17 +212,17 @@ export default function DailyVocabPage() {
               <i className="ri-sun-line text-app-accent-primary text-2xl"></i>
             </div>
             <div>
-              <h2 className="text-white font-bold text-base">T? v?ng h�m nay</h2>
-              <p className="text-app-text-secondary text-xs">{learnedCount}/{dailyWords.length} t? d� thu?c � Streak: {streak.count} ng�y</p>
+              <h2 className="text-white font-bold text-base">Từ vựng hôm nay</h2>
+              <p className="text-app-text-secondary text-xs">{learnedCount}/{dailyWords.length} từ đã thuộc · Streak: {streak.count} ngày</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <div className="text-right">
               <p className="text-app-accent-primary font-bold text-2xl">{progress}%</p>
-              <p className="text-app-text-muted text-xs">ho�n th�nh</p>
+              <p className="text-app-text-muted text-xs">hoàn thành</p>
             </div>
             <button onClick={handleRevealAll} className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs cursor-pointer whitespace-nowrap transition-colors" style={{ backgroundColor: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.08)" }}>
-              <i className="ri-eye-line"></i>L?t t?t c?
+              <i className="ri-eye-line"></i>Lật tất cả
             </button>
           </div>
         </div>
@@ -232,7 +232,7 @@ export default function DailyVocabPage() {
         {progress === 100 && (
           <div className="mt-3 flex items-center gap-2 text-app-accent-success text-sm">
             <i className="ri-checkbox-circle-fill"></i>
-            <span className="font-semibold">Xu?t s?c! B?n d� h?c xong 5 t? h�m nay! ??</span>
+            <span className="font-semibold">Xuất sắc! Bạn đã học xong 5 từ hôm nay! 🎉</span>
           </div>
         )}
       </div>
@@ -240,10 +240,10 @@ export default function DailyVocabPage() {
       {/* Stats row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "T? h�m nay", value: dailyWords.length, icon: "ri-book-open-line", color: "app-accent-primary" },
-          { label: "�� xem nghia", value: revealedCount, icon: "ri-eye-line", color: "#60a5fa" },
-          { label: "�� thu?c", value: learnedCount, icon: "ri-checkbox-circle-line", color: "#34d399" },
-          { label: "Streak", value: `${streak.count} ng�y`, icon: "ri-fire-line", color: "#fb923c" },
+          { label: "Từ hôm nay", value: dailyWords.length, icon: "ri-book-open-line", color: "app-accent-primary" },
+          { label: "Đã xem nghĩa", value: revealedCount, icon: "ri-eye-line", color: "#60a5fa" },
+          { label: "Đã thuộc", value: learnedCount, icon: "ri-checkbox-circle-line", color: "#34d399" },
+          { label: "Streak", value: `${streak.count} ngày`, icon: "ri-fire-line", color: "#fb923c" },
         ].map(s => (
           <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -265,7 +265,7 @@ export default function DailyVocabPage() {
       ) : dailyWords.length === 0 ? (
         <div className="text-center py-16 bg-app-bg border border-app-border rounded-2xl">
           <i className="ri-database-line text-app-text-muted text-4xl mb-3 block"></i>
-          <p className="text-app-text-muted text-sm">Chua c� t? v?ng trong database</p>
+          <p className="text-app-text-muted text-sm">Chưa có từ vựng trong database</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-4">
@@ -287,20 +287,20 @@ export default function DailyVocabPage() {
       <div className="mt-6 bg-app-bg border border-app-border rounded-2xl p-5">
         <div className="flex items-center gap-2 mb-3">
           <i className="ri-information-line text-app-text-muted text-sm"></i>
-          <h4 className="text-white/50 text-sm font-medium">V? t�nh nang n�y</h4>
+          <h4 className="text-white/50 text-sm font-medium">Về tính năng này</h4>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-white/35">
           <div className="flex items-start gap-2">
             <i className="ri-database-2-line text-app-accent-primary mt-0.5 flex-shrink-0"></i>
-            <span>T? v?ng du?c l?y tr?c ti?p t? Supabase � d? li?u th?t, kh�ng m?t khi reload</span>
+            <span>Từ vựng được lấy trực tiếp từ Supabase — dữ liệu thật, không mất khi reload</span>
           </div>
           <div className="flex items-start gap-2">
             <i className="ri-calendar-line text-[#34d399] mt-0.5 flex-shrink-0"></i>
-            <span>5 t? m?i m?i ng�y � thay d?i l�c 0:00 theo thu?t to�n seeded random</span>
+            <span>5 từ mới mỗi ngày — thay đổi lúc 0:00 theo thuật toán seeded random</span>
           </div>
           <div className="flex items-start gap-2">
             <i className="ri-notification-line text-[#60a5fa] mt-0.5 flex-shrink-0"></i>
-            <span>B?t nh?c nh? d? nh?n push notification h?c t? v?ng m?i s�ng 8:00</span>
+            <span>Bật nhắc nhở để nhận push notification học từ vựng mỗi sáng 8:00</span>
           </div>
         </div>
       </div>

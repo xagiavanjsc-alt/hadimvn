@@ -1,8 +1,8 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
-// --- Types --------------------------------------------------------------------
+// ─── Types ────────────────────────────────────────────────────────────────────
 interface QuizAttempt {
   id: string;
   date: string;
@@ -24,26 +24,26 @@ interface QuizQuestionRecord {
   category?: string;
 }
 
-// --- Mock history generator ---------------------------------------------------
+// ─── Mock history generator ───────────────────────────────────────────────────
 function generateMockHistory(): QuizAttempt[] {
   const modes = [
-    { mode: "eps_vocab", label: "T? v?ng EPS" },
+    { mode: "eps_vocab", label: "Từ vựng EPS" },
     { mode: "topik1", label: "TOPIK I" },
-    { mode: "mixed", label: "T?ng h?p" },
-    { mode: "daily_challenge", label: "Th? th�ch h�ng ng�y" },
+    { mode: "mixed", label: "Tổng hợp" },
+    { mode: "daily_challenge", label: "Thử thách hàng ngày" },
   ];
 
   const sampleQuestions: QuizQuestionRecord[] = [
-    { question: "\"????\" c� nghia l� g�?", userAnswer: "Vui v?", correctAnswer: "H?nh ph�c", isCorrect: false, explanation: "???? = H?nh ph�c. Vui v? l� ???.", korean: "????", category: "T�nh c�ch & C?m x�c" },
-    { question: "\"????\" c� nghia l� g�?", userAnswer: "�i l�m", correctAnswer: "�i l�m", isCorrect: true, explanation: "???? = �i l�m (d?n noi l�m vi?c).", korean: "????", category: "Gia d�nh & Sinh ho?t" },
-    { question: "\"???\" l� g�?", userAnswer: "M�y gi?t", correctAnswer: "T? l?nh", isCorrect: false, explanation: "??? = T? l?nh. M�y gi?t l� ???.", korean: "???", category: "Gia d�nh & Sinh ho?t" },
-    { question: "\"????\" c� nghia l� g�?", userAnswer: "Th�n thi?n/T? t?", correctAnswer: "Th�n thi?n/T? t?", isCorrect: true, explanation: "???? = Th�n thi?n, t? t?.", korean: "????", category: "T�nh c�ch & C?m x�c" },
-    { question: "\"????\" l� g�?", userAnswer: "��n giao th�ng", correctAnswer: "V?ch k? du?ng cho ngu?i di b?", isCorrect: false, explanation: "???? = V?ch k? du?ng. ��n giao th�ng l� ???.", korean: "????", category: "Giao th�ng" },
-    { question: "\"????\" c� nghia l� g�?", userAnswer: "Cham ch?/C?n c�", correctAnswer: "Cham ch?/C?n c�", isCorrect: true, explanation: "???? = Cham ch?, c?n c�, si�ng nang.", korean: "????", category: "T�nh c�ch & C?m x�c" },
-    { question: "\"????\" c� nghia l� g�?", userAnswer: "Xu?ng xe", correctAnswer: "Chuy?n tuy?n/�?i xe", isCorrect: false, explanation: "???? = Chuy?n tuy?n. Xu?ng xe l� ???.", korean: "????", category: "Giao th�ng" },
-    { question: "\"???\" l� g�?", userAnswer: "Ch�nh l?ch nhi?t d? trong ng�y", correctAnswer: "Ch�nh l?ch nhi?t d? trong ng�y", isCorrect: true, explanation: "??? = S? ch�nh l?ch nhi?t d? gi?a ng�y v� d�m.", korean: "???", category: "Th?i ti?t" },
-    { question: "\"????\" c� nghia l� g�?", userAnswer: "V?i v�ng", correctAnswer: "C?n th?n/T? m?", isCorrect: false, explanation: "???? = C?n th?n, t? m?. V?i v�ng l� ???.", korean: "????", category: "T�nh c�ch & C?m x�c" },
-    { question: "\"?????\" c� nghia l� g�?", userAnswer: "R?a b�t", correctAnswer: "R?a b�t", isCorrect: true, explanation: "????? = R?a b�t dia sau b?a an.", korean: "?????", category: "Gia d�nh & Sinh ho?t" },
+    { question: "\"행복하다\" có nghĩa là gì?", userAnswer: "Vui vẻ", correctAnswer: "Hạnh phúc", isCorrect: false, explanation: "행복하다 = Hạnh phúc. Vui vẻ là 기쁘다.", korean: "행복하다", category: "Tính cách & Cảm xúc" },
+    { question: "\"출근하다\" có nghĩa là gì?", userAnswer: "Đi làm", correctAnswer: "Đi làm", isCorrect: true, explanation: "출근하다 = Đi làm (đến nơi làm việc).", korean: "출근하다", category: "Gia đình & Sinh hoạt" },
+    { question: "\"냉장고\" là gì?", userAnswer: "Máy giặt", correctAnswer: "Tủ lạnh", isCorrect: false, explanation: "냉장고 = Tủ lạnh. Máy giặt là 세탁기.", korean: "냉장고", category: "Gia đình & Sinh hoạt" },
+    { question: "\"친절하다\" có nghĩa là gì?", userAnswer: "Thân thiện/Tử tế", correctAnswer: "Thân thiện/Tử tế", isCorrect: true, explanation: "친절하다 = Thân thiện, tử tế.", korean: "친절하다", category: "Tính cách & Cảm xúc" },
+    { question: "\"횡단보도\" là gì?", userAnswer: "Đèn giao thông", correctAnswer: "Vạch kẻ đường cho người đi bộ", isCorrect: false, explanation: "횡단보도 = Vạch kẻ đường. Đèn giao thông là 신호등.", korean: "횡단보도", category: "Giao thông" },
+    { question: "\"성실하다\" có nghĩa là gì?", userAnswer: "Chăm chỉ/Cần cù", correctAnswer: "Chăm chỉ/Cần cù", isCorrect: true, explanation: "성실하다 = Chăm chỉ, cần cù, siêng năng.", korean: "성실하다", category: "Tính cách & Cảm xúc" },
+    { question: "\"갈아타다\" có nghĩa là gì?", userAnswer: "Xuống xe", correctAnswer: "Chuyển tuyến/Đổi xe", isCorrect: false, explanation: "갈아타다 = Chuyển tuyến. Xuống xe là 내리다.", korean: "갈아타다", category: "Giao thông" },
+    { question: "\"일교차\" là gì?", userAnswer: "Chênh lệch nhiệt độ trong ngày", correctAnswer: "Chênh lệch nhiệt độ trong ngày", isCorrect: true, explanation: "일교차 = Sự chênh lệch nhiệt độ giữa ngày và đêm.", korean: "일교차", category: "Thời tiết" },
+    { question: "\"꼼꼼하다\" có nghĩa là gì?", userAnswer: "Vội vàng", correctAnswer: "Cẩn thận/Tỉ mỉ", isCorrect: false, explanation: "꼼꼼하다 = Cẩn thận, tỉ mỉ. Vội vàng là 급하다.", korean: "꼼꼼하다", category: "Tính cách & Cảm xúc" },
+    { question: "\"설거지하다\" có nghĩa là gì?", userAnswer: "Rửa bát", correctAnswer: "Rửa bát", isCorrect: true, explanation: "설거지하다 = Rửa bát đĩa sau bữa ăn.", korean: "설거지하다", category: "Gia đình & Sinh hoạt" },
   ];
 
   const attempts: QuizAttempt[] = [];
@@ -70,7 +70,7 @@ function generateMockHistory(): QuizAttempt[] {
   return attempts;
 }
 
-// --- Attempt Card -------------------------------------------------------------
+// ─── Attempt Card ─────────────────────────────────────────────────────────────
 function AttemptCard({ attempt, isSelected, onClick }: {
   attempt: QuizAttempt;
   isSelected: boolean;
@@ -78,7 +78,7 @@ function AttemptCard({ attempt, isSelected, onClick }: {
 }) {
   const pct = Math.round((attempt.score / attempt.total) * 100);
   const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : pct >= 40 ? "#fb923c" : "#f87171";
-  const label = pct >= 80 ? "Xu?t s?c" : pct >= 60 ? "T?t" : pct >= 40 ? "Trung b�nh" : "C?n c? g?ng";
+  const label = pct >= 80 ? "Xuất sắc" : pct >= 60 ? "Tốt" : pct >= 40 ? "Trung bình" : "Cần cố gắng";
   const date = new Date(attempt.date);
   const dateStr = date.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
   const timeStr = date.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" });
@@ -94,7 +94,7 @@ function AttemptCard({ attempt, isSelected, onClick }: {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-white/60 text-xs font-medium">{attempt.modeLabel}</span>
-            <span className="text-app-text-muted text-[10px]">�</span>
+            <span className="text-app-text-muted text-[10px]">·</span>
             <span className="text-app-text-muted text-[10px]">{dateStr} {timeStr}</span>
           </div>
           <div className="flex items-center gap-2">
@@ -119,7 +119,7 @@ function AttemptCard({ attempt, isSelected, onClick }: {
   );
 }
 
-// --- Question Detail ----------------------------------------------------------
+// ─── Question Detail ──────────────────────────────────────────────────────────
 function QuestionDetail({ q, index }: { q: QuizQuestionRecord; index: number }) {
   const [expanded, setExpanded] = useState(false);
   return (
@@ -133,24 +133,24 @@ function QuestionDetail({ q, index }: { q: QuizQuestionRecord; index: number }) 
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-white/70 text-sm">{index + 1}. {q.question}</p>
-          {q.korean && <p className="text-app-text-muted text-xs mt-0.5">{q.korean} � {q.category}</p>}
+          {q.korean && <p className="text-app-text-muted text-xs mt-0.5">{q.korean} · {q.category}</p>}
         </div>
         <i className={`${expanded ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"} text-app-text-muted text-lg flex-shrink-0`}></i>
       </button>
       {expanded && (
         <div className="px-4 pb-4 border-t border-app-border pt-3 space-y-2">
           <div className="flex items-start gap-2">
-            <span className="text-app-text-muted text-xs w-20 flex-shrink-0">B?n ch?n:</span>
+            <span className="text-app-text-muted text-xs w-20 flex-shrink-0">Bạn chọn:</span>
             <span className={`text-xs font-medium ${q.isCorrect ? "text-app-accent-success" : "text-red-400"}`}>{q.userAnswer}</span>
           </div>
           {!q.isCorrect && (
             <div className="flex items-start gap-2">
-              <span className="text-app-text-muted text-xs w-20 flex-shrink-0">��p �n d�ng:</span>
+              <span className="text-app-text-muted text-xs w-20 flex-shrink-0">Đáp án đúng:</span>
               <span className="text-app-accent-success text-xs font-medium">{q.correctAnswer}</span>
             </div>
           )}
           <div className="flex items-start gap-2">
-            <span className="text-app-text-muted text-xs w-20 flex-shrink-0">Gi?i th�ch:</span>
+            <span className="text-app-text-muted text-xs w-20 flex-shrink-0">Giải thích:</span>
             <span className="text-white/50 text-xs leading-relaxed">{q.explanation}</span>
           </div>
         </div>
@@ -159,7 +159,7 @@ function QuestionDetail({ q, index }: { q: QuizQuestionRecord; index: number }) 
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function QuizHistoryDetailPage() {
   const history = useMemo(() => generateMockHistory(), []);
   const [selectedId, setSelectedId] = useState<string>(history[0]?.id || "");
@@ -169,7 +169,7 @@ export default function QuizHistoryDetailPage() {
   const selectedAttempt = history.find(a => a.id === selectedId) || null;
 
   const modes = ["all", ...Array.from(new Set(history.map(a => a.mode)))];
-  const modeLabels: Record<string, string> = { all: "T?t c?", eps_vocab: "EPS", topik1: "TOPIK I", mixed: "T?ng h?p", daily_challenge: "Th? th�ch" };
+  const modeLabels: Record<string, string> = { all: "Tất cả", eps_vocab: "EPS", topik1: "TOPIK I", mixed: "Tổng hợp", daily_challenge: "Thử thách" };
 
   const filteredHistory = filterMode === "all" ? history : history.filter(a => a.mode === filterMode);
 
@@ -192,16 +192,16 @@ export default function QuizHistoryDetailPage() {
 
   return (
     <DashboardLayout
-      title="L?ch s? quiz chi ti?t"
-      subtitle="Xem l?i t?ng c�u d� l�m, d�p �n d�ng/sai v� gi?i th�ch"
+      title="Lịch sử quiz chi tiết"
+      subtitle="Xem lại từng câu đã làm, đáp án đúng/sai và giải thích"
     >
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "T?ng l?n l�m", value: totalAttempts, icon: "ri-history-line", color: "app-accent-primary" },
-          { label: "�i?m trung b�nh", value: `${avgScore}%`, icon: "ri-bar-chart-line", color: "#34d399" },
-          { label: "�i?m cao nh?t", value: `${bestScore}%`, icon: "ri-trophy-line", color: "#fb923c" },
-          { label: "T?ng c�u sai", value: totalWrong, icon: "ri-close-circle-line", color: "#f87171" },
+          { label: "Tổng lần làm", value: totalAttempts, icon: "ri-history-line", color: "app-accent-primary" },
+          { label: "Điểm trung bình", value: `${avgScore}%`, icon: "ri-bar-chart-line", color: "#34d399" },
+          { label: "Điểm cao nhất", value: `${bestScore}%`, icon: "ri-trophy-line", color: "#fb923c" },
+          { label: "Tổng câu sai", value: totalWrong, icon: "ri-close-circle-line", color: "#f87171" },
         ].map(s => (
           <div key={s.label} className="bg-app-bg border border-app-border rounded-2xl p-4">
             <div className="flex items-center gap-2 mb-2">
@@ -255,12 +255,12 @@ export default function QuizHistoryDetailPage() {
                     <h3 className="text-white font-bold text-lg">{selectedAttempt.modeLabel}</h3>
                     <p className="text-app-text-muted text-xs mt-0.5">
                       {new Date(selectedAttempt.date).toLocaleDateString("vi-VN", { weekday: "long", day: "2-digit", month: "2-digit", year: "numeric" })}
-                      {" � "}{selectedAttempt.timeSec}s
+                      {" · "}{selectedAttempt.timeSec}s
                     </p>
                   </div>
                   <div className="text-right">
                     <p className="text-white font-bold text-3xl">{selectedAttempt.score}/{selectedAttempt.total}</p>
-                    <p className="text-app-text-secondary text-xs">{Math.round((selectedAttempt.score / selectedAttempt.total) * 100)}% ch�nh x�c</p>
+                    <p className="text-app-text-secondary text-xs">{Math.round((selectedAttempt.score / selectedAttempt.total) * 100)}% chính xác</p>
                   </div>
                 </div>
                 {/* Mini bar */}
@@ -270,7 +270,7 @@ export default function QuizHistoryDetailPage() {
                       key={i}
                       className="flex-1 h-2 rounded-full"
                       style={{ backgroundColor: q.isCorrect ? "#34d399" : "#f87171" }}
-                      title={q.isCorrect ? "��ng" : "Sai"}
+                      title={q.isCorrect ? "Đúng" : "Sai"}
                     ></div>
                   ))}
                 </div>
@@ -278,7 +278,7 @@ export default function QuizHistoryDetailPage() {
 
               {/* Filter toggle */}
               <div className="flex items-center justify-between mb-3">
-                <p className="text-app-text-secondary text-xs">{displayedQuestions.length} c�u h?i</p>
+                <p className="text-app-text-secondary text-xs">{displayedQuestions.length} câu hỏi</p>
                 <button
                   onClick={() => setShowOnlyWrong(v => !v)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all ${
@@ -286,7 +286,7 @@ export default function QuizHistoryDetailPage() {
                   }`}
                 >
                   <i className="ri-filter-line text-xs"></i>
-                  {showOnlyWrong ? "�ang l?c c�u sai" : "Ch? xem c�u sai"}
+                  {showOnlyWrong ? "Đang lọc câu sai" : "Chỉ xem câu sai"}
                   {showOnlyWrong && <span className="ml-1 px-1.5 py-0.5 bg-red-500/20 rounded-full text-[9px] font-bold">{selectedAttempt.questions.filter(q => !q.isCorrect).length}</span>}
                 </button>
               </div>
@@ -296,7 +296,7 @@ export default function QuizHistoryDetailPage() {
                 {displayedQuestions.length === 0 ? (
                   <div className="bg-app-bg border border-app-border rounded-2xl p-10 text-center">
                     <i className="ri-check-double-line text-app-accent-success/30 text-4xl mb-3"></i>
-                    <p className="text-app-text-muted text-sm">Kh�ng c� c�u sai n�o!</p>
+                    <p className="text-app-text-muted text-sm">Không có câu sai nào!</p>
                   </div>
                 ) : (
                   displayedQuestions.map((q, i) => (
@@ -307,7 +307,7 @@ export default function QuizHistoryDetailPage() {
             </>
           ) : (
             <div className="flex items-center justify-center h-64">
-              <p className="text-app-text-muted text-sm">Ch?n m?t l?n l�m quiz d? xem chi ti?t</p>
+              <p className="text-app-text-muted text-sm">Chọn một lần làm quiz để xem chi tiết</p>
             </div>
           )}
         </div>
@@ -318,8 +318,8 @@ export default function QuizHistoryDetailPage() {
         <div className="mt-6 bg-app-bg border border-app-border rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <i className="ri-error-warning-line text-red-400 text-sm"></i>
-            <h3 className="text-white font-semibold text-sm">T? hay sai nh?t</h3>
-            <span className="text-app-text-muted text-xs">� C?n �n t?p uu ti�n</span>
+            <h3 className="text-white font-semibold text-sm">Từ hay sai nhất</h3>
+            <span className="text-app-text-muted text-xs">— Cần ôn tập ưu tiên</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {topWrong.map(([word, count]) => (

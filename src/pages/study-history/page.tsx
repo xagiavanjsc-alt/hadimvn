@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+﻿import { useState, useMemo, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -7,7 +7,7 @@ import { supabase } from "@/lib/supabase";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import { epsVocabulary } from "@/mocks/epsVocabulary";
 
-// --- Types --------------------------------------------------------------------
+// ─── Types ────────────────────────────────────────────────────────────────────
 interface WrongItem {
   id: string;
   type: "eps_question" | "eps_vocab";
@@ -45,7 +45,7 @@ function isDueForReview(nextReview: string): boolean {
   return new Date(nextReview) <= new Date();
 }
 
-// --- Empty activity data (placeholder khi chua c� data th?t) ----------------
+// ─── Empty activity data (placeholder khi chưa có data thật) ────────────────
 function emptyActivityData(days: number): DayActivity[] {
   const result: DayActivity[] = [];
   for (let i = days - 1; i >= 0; i--) {
@@ -60,7 +60,7 @@ function emptyActivityData(days: number): DayActivity[] {
   return result;
 }
 
-// --- Bar Chart ----------------------------------------------------------------
+// ─── Bar Chart ────────────────────────────────────────────────────────────────
 function BarChart({ data, metric, color }: { data: DayActivity[]; metric: keyof DayActivity; color: string }) {
   const values = data.map(d => d[metric] as number);
   const max = Math.max(...values, 1);
@@ -93,7 +93,7 @@ function BarChart({ data, metric, color }: { data: DayActivity[]; metric: keyof 
   );
 }
 
-// --- Heatmap ------------------------------------------------------------------
+// ─── Heatmap ──────────────────────────────────────────────────────────────────
 function ActivityHeatmap({ data }: { data: DayActivity[] }) {
   const maxXP = Math.max(...data.map(d => d.xp), 1);
   return (
@@ -110,7 +110,7 @@ function ActivityHeatmap({ data }: { data: DayActivity[] }) {
   );
 }
 
-// --- Trend Heatmap (gi? x ng�y trong tu?n) -----------------------------------
+// ─── Trend Heatmap (giờ x ngày trong tuần) ───────────────────────────────────
 const HOURS = Array.from({ length: 24 }, (_, i) => i);
 const DAYS_OF_WEEK = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
 
@@ -122,8 +122,8 @@ interface HourlyCell {
 }
 
 function generateHourlyData(activityData: DayActivity[]): HourlyCell[] {
-  // Grid 7�24. Schema kh�ng luu hour-level data ? ph�n b? d?u XP ng�y theo peak hours h?p l�.
-  // Kh�ng d�ng Math.random � ph�n b? deterministic.
+  // Grid 7×24. Schema không lưu hour-level data → phân bổ đều XP ngày theo peak hours hợp lý.
+  // Không dùng Math.random — phân bổ deterministic.
   const grid: HourlyCell[] = [];
   // Compute daily totals theo weekday
   const byWeekday: Record<number, { xp: number; sessions: number }> = {};
@@ -134,7 +134,7 @@ function generateHourlyData(activityData: DayActivity[]): HourlyCell[] {
     byWeekday[weekday].xp += d.xp;
     byWeekday[weekday].sessions += d.sessions;
   }
-  // Ph�n b? theo peak hours (morning 7-9, evening 20-22) � ch? d�ng khi c� activity
+  // Phân bổ theo peak hours (morning 7-9, evening 20-22) — chỉ dùng khi có activity
   const HOUR_WEIGHTS: Record<number, number> = {};
   for (let h = 0; h < 24; h++) HOUR_WEIGHTS[h] = 0.01;
   [7, 8, 9, 20, 21, 22].forEach(h => (HOUR_WEIGHTS[h] = 0.15));
@@ -191,8 +191,8 @@ function TrendHeatmap({ activityData }: { activityData: DayActivity[] }) {
     <div className="bg-app-bg border border-app-border rounded-2xl p-5">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-white font-semibold text-sm">Xu hu?ng h?c theo gi? &amp; ng�y</h3>
-          <p className="text-app-text-muted text-[10px] mt-0.5">Gi? n�o, ng�y n�o b?n h?c hi?u qu? nh?t</p>
+          <h3 className="text-white font-semibold text-sm">Xu hướng học theo giờ &amp; ngày</h3>
+          <p className="text-app-text-muted text-[10px] mt-0.5">Giờ nào, ngày nào bạn học hiệu quả nhất</p>
         </div>
         <div className="flex items-center gap-1 bg-app-surface/50 p-1 rounded-lg">
           {(["xp", "sessions"] as const).map(m => (
@@ -200,7 +200,7 @@ function TrendHeatmap({ activityData }: { activityData: DayActivity[] }) {
               className={`px-2.5 py-1 rounded-md text-[10px] font-medium transition-all cursor-pointer whitespace-nowrap ${
                 metric === m ? "bg-app-card/70 text-white" : "text-app-text-secondary hover:text-white/60"
               }`}>
-              {m === "xp" ? "XP" : "Phuong"}
+              {m === "xp" ? "XP" : "Phương"}
             </button>
           ))}
         </div>
@@ -210,11 +210,11 @@ function TrendHeatmap({ activityData }: { activityData: DayActivity[] }) {
       <div className="flex items-center gap-3 mb-4">
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-app-accent-primary/8 border border-app-accent-primary/15">
           <i className="ri-time-line text-app-accent-primary text-xs"></i>
-          <span className="text-[10px] text-white/60">Gi? d?nh: <strong className="text-app-accent-primary">{peakHour}:00 - {peakHour+1}:00</strong></span>
+          <span className="text-[10px] text-white/60">Giờ đỉnh: <strong className="text-app-accent-primary">{peakHour}:00 - {peakHour+1}:00</strong></span>
         </div>
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#34d399]/8 border border-[#34d399]/15">
           <i className="ri-calendar-line text-[#34d399] text-xs"></i>
-          <span className="text-[10px] text-white/60">Ng�y d?nh: <strong className="text-[#34d399]">{DAYS_OF_WEEK[peakDay]}</strong></span>
+          <span className="text-[10px] text-white/60">Ngày đỉnh: <strong className="text-[#34d399]">{DAYS_OF_WEEK[peakDay]}</strong></span>
         </div>
       </div>
 
@@ -251,7 +251,7 @@ function TrendHeatmap({ activityData }: { activityData: DayActivity[] }) {
                       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 z-20 pointer-events-none">
                         <div className="bg-[#1a1d27] border border-app-border rounded-lg px-2 py-1 text-center whitespace-nowrap">
                           <p className="text-[9px] font-bold text-app-accent-primary">
-                            {metric === "xp" ? `${val} XP` : `${val} phi�n`}
+                            {metric === "xp" ? `${val} XP` : `${val} phiên`}
                           </p>
                           <p className="text-[8px] text-app-text-secondary">{dayLabel} {hour}:00</p>
                         </div>
@@ -265,7 +265,7 @@ function TrendHeatmap({ activityData }: { activityData: DayActivity[] }) {
 
           {/* Legend */}
           <div className="flex items-center gap-2 mt-3 justify-end">
-            <span className="text-[9px] text-app-text-muted">Th?p</span>
+            <span className="text-[9px] text-app-text-muted">Thấp</span>
             {[0.04, 0.18, 0.4, 0.7, 1].map((intensity, i) => (
               <div key={i} className="w-3 h-3 rounded-sm"
                 style={{ backgroundColor: intensity === 0.04 ? "rgba(255,255,255,0.04)" : `rgba(232,200,74,${intensity})` }}
@@ -279,7 +279,7 @@ function TrendHeatmap({ activityData }: { activityData: DayActivity[] }) {
   );
 }
 
-// --- Wrong Items hook ---------------------------------------------------------
+// ─── Wrong Items hook ─────────────────────────────────────────────────────────
 function useWrongItems() {
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
   const [masteredVocab] = useLocalStorage<string[]>("kts_eps_vocab_mastered", []);
@@ -337,7 +337,7 @@ function useWrongItems() {
   return { wrongQuestions, wrongVocab, markReviewed, srData };
 }
 
-// --- Review Card --------------------------------------------------------------
+// ─── Review Card ──────────────────────────────────────────────────────────────
 interface ReviewCardProps {
   item: WrongItem;
   onMarkReviewed: (id: string) => void;
@@ -360,14 +360,14 @@ function ReviewCard({ item, onMarkReviewed }: ReviewCardProps) {
             {item.type === "eps_question" ? item.questionVi : item.korean}
           </p>
           {item.type === "eps_question" && item.correctAnswer && (
-            <p className="text-app-accent-success/60 text-[10px] truncate">? {item.correctAnswer}</p>
+            <p className="text-app-accent-success/60 text-[10px] truncate">✓ {item.correctAnswer}</p>
           )}
           {item.type === "eps_vocab" && item.question && (
             <p className="text-app-accent-primary/60 text-[10px]">{item.question}</p>
           )}
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
-          {isDue && <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary">�n ngay</span>}
+          {isDue && <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary">Ôn ngay</span>}
           <div className="flex gap-0.5">
             {SR_INTERVALS.map((_, i) => (
               <div key={i} className={`w-1.5 h-1.5 rounded-full ${i <= srLevel ? "bg-app-accent-primary" : "bg-app-card/70"}`}></div>
@@ -381,16 +381,16 @@ function ReviewCard({ item, onMarkReviewed }: ReviewCardProps) {
           {item.type === "eps_question" && (
             <div className="space-y-2 mb-3">
               <p className="text-white/50 text-xs">{item.question}</p>
-              {item.answer && <div className="flex items-center gap-2"><span className="text-[10px] text-red-400/70">B?n ch?n:</span><span className="text-red-400 text-xs">{item.answer}</span></div>}
-              {item.correctAnswer && <div className="flex items-center gap-2"><span className="text-[10px] text-app-accent-success/70">��p �n d�ng:</span><span className="text-app-accent-success text-xs font-semibold">{item.correctAnswer}</span></div>}
+              {item.answer && <div className="flex items-center gap-2"><span className="text-[10px] text-red-400/70">Bạn chọn:</span><span className="text-red-400 text-xs">{item.answer}</span></div>}
+              {item.correctAnswer && <div className="flex items-center gap-2"><span className="text-[10px] text-app-accent-success/70">Đáp án đúng:</span><span className="text-app-accent-success text-xs font-semibold">{item.correctAnswer}</span></div>}
             </div>
           )}
-          {item.type === "eps_vocab" && <div className="mb-3"><p className="text-app-text-secondary text-xs">T? chua thu?c � h�y �n l?i trong Flashcard EPS</p></div>}
+          {item.type === "eps_vocab" && <div className="mb-3"><p className="text-app-text-secondary text-xs">Từ chưa thuộc — hãy ôn lại trong Flashcard EPS</p></div>}
           <div className="flex items-center justify-between">
-            <span className="text-[10px] text-app-text-muted">L?n �n ti?p: {isDue ? "H�m nay" : `${nextDays} ng�y n?a`}</span>
+            <span className="text-[10px] text-app-text-muted">Lần ôn tiếp: {isDue ? "Hôm nay" : `${nextDays} ngày nữa`}</span>
             <button onClick={() => onMarkReviewed(item.id)}
               className="flex items-center gap-1.5 text-[10px] font-semibold px-3 py-1.5 rounded-lg bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary transition-colors cursor-pointer whitespace-nowrap">
-              <i className="ri-check-line text-xs"></i>�� �n xong
+              <i className="ri-check-line text-xs"></i>Đã ôn xong
             </button>
           </div>
         </div>
@@ -399,7 +399,7 @@ function ReviewCard({ item, onMarkReviewed }: ReviewCardProps) {
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function StudyHistoryPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -420,7 +420,7 @@ export default function StudyHistoryPage() {
       since.setDate(since.getDate() - 30);
       const sinceStr = since.toISOString().split("T")[0];
 
-      // Query b?ng study_history (schema th?t: study_date, study_time, vocab_count, grammar_count)
+      // Query bảng study_history (schema thật: study_date, study_time, vocab_count, grammar_count)
       const { data: historyData } = await supabase
         .from("study_history")
         .select("study_date, study_time, vocab_count, grammar_count")
@@ -428,21 +428,21 @@ export default function StudyHistoryPage() {
         .gte("study_date", sinceStr)
         .order("study_date", { ascending: true });
 
-      // �?m s? quiz th?t t? topik_quiz_history
+      // Đếm số quiz thật từ topik_quiz_history
       const { data: quizData } = await supabase
         .from("topik_quiz_history")
         .select("created_at")
         .eq("user_id", user.id)
         .gte("created_at", since.toISOString());
 
-      // G?p quiz theo ng�y
+      // Gộp quiz theo ngày
       const quizByDate: Record<string, number> = {};
       (quizData || []).forEach((row: { created_at: string }) => {
         const date = row.created_at.split("T")[0];
         quizByDate[date] = (quizByDate[date] || 0) + 1;
       });
 
-      // G?p activity theo ng�y (m?i row l� 1 session)
+      // Gộp activity theo ngày (mỗi row là 1 session)
       const byDate: Record<string, DayActivity> = {};
       (historyData || []).forEach((row: { study_date: string; study_time?: number; vocab_count?: number; grammar_count?: number }) => {
         const date = row.study_date;
@@ -456,11 +456,11 @@ export default function StudyHistoryPage() {
         }
         byDate[date].sessions += 1;
         byDate[date].words += row.vocab_count || 0;
-        // XP approx = vocab * 5 + grammar * 10 (v� schema kh�ng luu xp per day)
+        // XP approx = vocab * 5 + grammar * 10 (vì schema không lưu xp per day)
         byDate[date].xp += (row.vocab_count || 0) * 5 + (row.grammar_count || 0) * 10;
       });
 
-      // Fill d? 30 ng�y v?i data th?t
+      // Fill đủ 30 ngày với data thật
       const result: DayActivity[] = [];
       for (let i = 29; i >= 0; i--) {
         const d = new Date();
@@ -500,8 +500,8 @@ export default function StudyHistoryPage() {
 
   const metricConfig = {
     xp: { label: "XP", color: "app-accent-primary", icon: "ri-star-line" },
-    words: { label: "T? h?c", color: "#34d399", icon: "ri-translate-2" },
-    sessions: { label: "Phi�n h?c", color: "#fb923c", icon: "ri-time-line" },
+    words: { label: "Từ học", color: "#34d399", icon: "ri-translate-2" },
+    sessions: { label: "Phiên học", color: "#fb923c", icon: "ri-time-line" },
     quizzes: { label: "Quiz", color: "#a78bfa", icon: "ri-survey-line" },
   };
 
@@ -510,21 +510,21 @@ export default function StudyHistoryPage() {
     d.setDate(d.getDate() + offset);
     const dateStr = d.toISOString().split("T")[0];
     const count = allItems.filter(item => item.nextReview.startsWith(dateStr)).length;
-    return { label: offset === 0 ? "H�m nay" : offset === 1 ? "Ng�y mai" : `+${offset} ng�y`, count };
+    return { label: offset === 0 ? "Hôm nay" : offset === 1 ? "Ngày mai" : `+${offset} ngày`, count };
   });
 
   return (
     <DashboardLayout
-      title="L?ch s? h?c t?p"
-      subtitle="Bi?u d? ti?n d? theo ng�y/tu?n � Spaced Repetition th�ng minh"
+      title="Lịch sử học tập"
+      subtitle="Biểu đồ tiến độ theo ngày/tuần — Spaced Repetition thông minh"
     >
       {/* Summary stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {[
-          { label: `T?ng XP (${chartRange} ng�y)`, value: totalXP.toLocaleString(), icon: "ri-star-line", color: "app-accent-primary", sub: xpChange !== 0 ? `${xpChange > 0 ? "+" : ""}${xpChange}% so v?i k? tru?c` : undefined },
-          { label: "Ng�y h?c t�ch c?c", value: `${activeDays}/${chartRange}`, icon: "ri-calendar-check-line", color: "#34d399", sub: `${Math.round((activeDays / chartRange) * 100)}% t? l?` },
-          { label: "T? d� h?c", value: totalWords.toLocaleString(), icon: "ri-translate-2", color: "#fb923c", sub: `TB ${Math.round(totalWords / Math.max(activeDays, 1))}/ng�y` },
-          { label: "C?n �n ngay", value: dueItems.length, icon: "ri-alarm-line", color: dueItems.length > 0 ? "#f87171" : "#34d399", sub: dueItems.length > 0 ? "H�y �n ngay!" : "T?t c? d� �n" },
+          { label: `Tổng XP (${chartRange} ngày)`, value: totalXP.toLocaleString(), icon: "ri-star-line", color: "app-accent-primary", sub: xpChange !== 0 ? `${xpChange > 0 ? "+" : ""}${xpChange}% so với kỳ trước` : undefined },
+          { label: "Ngày học tích cực", value: `${activeDays}/${chartRange}`, icon: "ri-calendar-check-line", color: "#34d399", sub: `${Math.round((activeDays / chartRange) * 100)}% tỷ lệ` },
+          { label: "Từ đã học", value: totalWords.toLocaleString(), icon: "ri-translate-2", color: "#fb923c", sub: `TB ${Math.round(totalWords / Math.max(activeDays, 1))}/ngày` },
+          { label: "Cần ôn ngay", value: dueItems.length, icon: "ri-alarm-line", color: dueItems.length > 0 ? "#f87171" : "#34d399", sub: dueItems.length > 0 ? "Hãy ôn ngay!" : "Tất cả đã ôn" },
         ].map(stat => (
           <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4">
             <div className="flex items-center gap-2 mb-2">
@@ -542,10 +542,10 @@ export default function StudyHistoryPage() {
       {/* Tabs */}
       <div className="flex items-center gap-1 bg-app-card/50 rounded-xl p-1 mb-5 w-fit max-w-full overflow-x-auto">
         {([
-          { id: "chart", label: "Bi?u d?", icon: "ri-bar-chart-line" },
-          { id: "due", label: `�n t?p (${dueItems.length})`, icon: "ri-alarm-line" },
-          { id: "questions", label: `C�u sai (${wrongQuestions.length})`, icon: "ri-close-circle-line" },
-          { id: "vocab", label: `T? v?ng (${wrongVocab.length})`, icon: "ri-translate-2" },
+          { id: "chart", label: "Biểu đồ", icon: "ri-bar-chart-line" },
+          { id: "due", label: `Ôn tập (${dueItems.length})`, icon: "ri-alarm-line" },
+          { id: "questions", label: `Câu sai (${wrongQuestions.length})`, icon: "ri-close-circle-line" },
+          { id: "vocab", label: `Từ vựng (${wrongVocab.length})`, icon: "ri-translate-2" },
         ] as const).map(tab => (
           <button key={tab.id} onClick={() => setActiveTab(tab.id)}
             className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${activeTab === tab.id ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>
@@ -564,7 +564,7 @@ export default function StudyHistoryPage() {
                 {([7, 14, 30] as const).map(r => (
                   <button key={r} onClick={() => setChartRange(r)}
                     className={`px-3 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${chartRange === r ? "bg-app-card/70 text-white" : "text-app-text-secondary hover:text-white/60"}`}>
-                    {r} ng�y
+                    {r} ngày
                   </button>
                 ))}
               </div>
@@ -582,9 +582,9 @@ export default function StudyHistoryPage() {
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h3 className="text-white font-semibold text-sm">{metricConfig[chartMetric].label} theo ng�y</h3>
-                  {user && supabaseActivity && <p className="text-app-accent-success/60 text-[10px] mt-0.5"><i className="ri-cloud-line mr-1"></i>D? li?u th?t t? cloud</p>}
-                  {!user && <p className="text-app-text-muted text-[10px] mt-0.5">�ang nh?p d? xem d? li?u th?t</p>}
+                  <h3 className="text-white font-semibold text-sm">{metricConfig[chartMetric].label} theo ngày</h3>
+                  {user && supabaseActivity && <p className="text-app-accent-success/60 text-[10px] mt-0.5"><i className="ri-cloud-line mr-1"></i>Dữ liệu thật từ cloud</p>}
+                  {!user && <p className="text-app-text-muted text-[10px] mt-0.5">Đăng nhập để xem dữ liệu thật</p>}
                 </div>
                 {loadingActivity && <div className="w-4 h-4 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>}
               </div>
@@ -601,20 +601,20 @@ export default function StudyHistoryPage() {
               </div>
             </div>
 
-            {/* Trend heatmap gi? x ng�y */}
+            {/* Trend heatmap giờ x ngày */}
             <TrendHeatmap activityData={activityData} />
 
             {/* Activity heatmap */}
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-white font-semibold text-sm">B?n d? ho?t d?ng (30 ng�y)</h3>
+                <h3 className="text-white font-semibold text-sm">Bản đồ hoạt động (30 ngày)</h3>
                 <div className="flex items-center gap-1.5 text-[10px] text-app-text-muted">
                   <div className="w-2.5 h-2.5 rounded-sm bg-app-card/50"></div>
-                  <span>Kh�ng h?c</span>
+                  <span>Không học</span>
                   <div className="w-2.5 h-2.5 rounded-sm bg-app-accent-primary/25"></div>
                   <div className="w-2.5 h-2.5 rounded-sm bg-app-accent-primary/60"></div>
                   <div className="w-2.5 h-2.5 rounded-sm bg-app-accent-primary"></div>
-                  <span>Nhi?u</span>
+                  <span>Nhiều</span>
                 </div>
               </div>
               <ActivityHeatmap data={supabaseActivity || localActivity} />
@@ -622,12 +622,12 @@ export default function StudyHistoryPage() {
 
             {/* Weekly comparison */}
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-4">So s�nh tu?n n�y vs tu?n tru?c</h3>
+              <h3 className="text-white font-semibold text-sm mb-4">So sánh tuần này vs tuần trước</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
-                  { label: "XP ki?m du?c", thisWeek: activityData.slice(-7).reduce((s, d) => s + d.xp, 0), lastWeek: activityData.slice(-14, -7).reduce((s, d) => s + d.xp, 0), color: "app-accent-primary" },
-                  { label: "T? d� h?c", thisWeek: activityData.slice(-7).reduce((s, d) => s + d.words, 0), lastWeek: activityData.slice(-14, -7).reduce((s, d) => s + d.words, 0), color: "#34d399" },
-                  { label: "Ng�y h?c", thisWeek: activityData.slice(-7).filter(d => d.sessions > 0).length, lastWeek: activityData.slice(-14, -7).filter(d => d.sessions > 0).length, color: "#fb923c" },
+                  { label: "XP kiếm được", thisWeek: activityData.slice(-7).reduce((s, d) => s + d.xp, 0), lastWeek: activityData.slice(-14, -7).reduce((s, d) => s + d.xp, 0), color: "app-accent-primary" },
+                  { label: "Từ đã học", thisWeek: activityData.slice(-7).reduce((s, d) => s + d.words, 0), lastWeek: activityData.slice(-14, -7).reduce((s, d) => s + d.words, 0), color: "#34d399" },
+                  { label: "Ngày học", thisWeek: activityData.slice(-7).filter(d => d.sessions > 0).length, lastWeek: activityData.slice(-14, -7).filter(d => d.sessions > 0).length, color: "#fb923c" },
                 ].map(item => {
                   const diff = item.lastWeek > 0 ? Math.round(((item.thisWeek - item.lastWeek) / item.lastWeek) * 100) : 0;
                   const isUp = diff >= 0;
@@ -652,7 +652,7 @@ export default function StudyHistoryPage() {
           {/* Sidebar */}
           <div className="space-y-4">
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-4">L?ch �n t?p s?p t?i</h3>
+              <h3 className="text-white font-semibold text-sm mb-4">Lịch ôn tập sắp tới</h3>
               <div className="space-y-3">
                 {upcomingDays.map(({ label, count }) => (
                   <div key={label} className="flex items-center justify-between">
@@ -670,7 +670,7 @@ export default function StudyHistoryPage() {
             </div>
 
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-3">C?p d? SR</h3>
+              <h3 className="text-white font-semibold text-sm mb-3">Cấp độ SR</h3>
               <div className="space-y-2">
                 {SR_INTERVALS.map((days, i) => (
                   <div key={i} className="flex items-center gap-3">
@@ -679,18 +679,18 @@ export default function StudyHistoryPage() {
                         <div key={j} className={`w-1.5 h-1.5 rounded-full ${j <= i ? "bg-app-accent-primary" : "bg-app-card/70"}`}></div>
                       ))}
                     </div>
-                    <p className="text-app-text-secondary text-[10px]">C?p {i + 1} � {days} ng�y</p>
+                    <p className="text-app-text-secondary text-[10px]">Cấp {i + 1} — {days} ngày</p>
                   </div>
                 ))}
               </div>
             </div>
 
             <div className="space-y-2">
-              <h3 className="text-white font-semibold text-sm mb-2">�n t?p ngay</h3>
+              <h3 className="text-white font-semibold text-sm mb-2">Ôn tập ngay</h3>
               {[
-                { icon: "ri-file-list-3-line", label: "Luy?n thi EPS", path: "/eps", color: "app-accent-primary" },
+                { icon: "ri-file-list-3-line", label: "Luyện thi EPS", path: "/eps", color: "app-accent-primary" },
                 { icon: "ri-stack-line", label: "Flashcard EPS", path: "/eps-flashcard", color: "#34d399" },
-                { icon: "ri-brain-line", label: "Ki?m tra d?u v�o", path: "/placement-test", color: "#a78bfa" },
+                { icon: "ri-brain-line", label: "Kiểm tra đầu vào", path: "/placement-test", color: "#a78bfa" },
               ].map(item => (
                 <button key={item.path} onClick={() => navigate(item.path)}
                   className="w-full flex items-center gap-3 p-3 rounded-xl border border-app-border hover:border-app-border hover:bg-app-surface/50 transition-all cursor-pointer">
@@ -713,7 +713,7 @@ export default function StudyHistoryPage() {
               <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-3 mb-4 flex items-start gap-2">
                 <i className="ri-brain-line text-app-accent-primary text-sm flex-shrink-0 mt-0.5"></i>
                 <p className="text-app-text-secondary text-xs leading-relaxed">
-                  <strong className="text-app-accent-primary/80">Spaced Repetition:</strong> �n d�ng l�c gi�p nh? l�u g?p 5 l?n. H�y �n {dueItems.length} m?c h�m nay!
+                  <strong className="text-app-accent-primary/80">Spaced Repetition:</strong> Ôn đúng lúc giúp nhớ lâu gấp 5 lần. Hãy ôn {dueItems.length} mục hôm nay!
                 </p>
               </div>
             )}
@@ -722,8 +722,8 @@ export default function StudyHistoryPage() {
               return items.length === 0 ? (
                 <div className="text-center py-16 bg-app-bg border border-app-border rounded-2xl">
                   <i className="ri-checkbox-circle-line text-app-accent-success text-3xl mb-3 block"></i>
-                  <p className="text-app-text-secondary text-sm">Kh�ng c� g� c?n �n!</p>
-                  <p className="text-app-text-muted text-xs mt-1">L�m th�m b�i t?p d? xem l?ch s?</p>
+                  <p className="text-app-text-secondary text-sm">Không có gì cần ôn!</p>
+                  <p className="text-app-text-muted text-xs mt-1">Làm thêm bài tập để xem lịch sử</p>
                 </div>
               ) : (
                 <div className="space-y-2">
@@ -734,7 +734,7 @@ export default function StudyHistoryPage() {
           </div>
           <div className="space-y-4">
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-4">L?ch �n t?p s?p t?i</h3>
+              <h3 className="text-white font-semibold text-sm mb-4">Lịch ôn tập sắp tới</h3>
               <div className="space-y-3">
                 {upcomingDays.map(({ label, count }) => (
                   <div key={label} className="flex items-center justify-between">

@@ -1,9 +1,9 @@
-import { useState, useMemo, useRef, useEffect } from "react";
+﻿import { useState, useMemo, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { epsLessons, EPS_LESSON_TOPICS, EpsVocabItem } from "@/mocks/epsLessons";
 
-// -- Types ------------------------------------------------------------------
+// ── Types ──────────────────────────────────────────────────────────────────
 interface VocabCard {
   korean: string;
   vietnamese: string;
@@ -16,7 +16,7 @@ interface VocabCard {
 
 type StudyMode = "browse" | "flashcard" | "quiz" | "listen" | "fill";
 
-// -- Helpers ----------------------------------------------------------------
+// ── Helpers ────────────────────────────────────────────────────────────────
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -35,7 +35,7 @@ function speakKorean(text: string) {
   window.speechSynthesis.speak(u);
 }
 
-// -- Sub-components ---------------------------------------------------------
+// ── Sub-components ─────────────────────────────────────────────────────────
 function TopicCard({
   topic,
   count,
@@ -67,7 +67,7 @@ function TopicCard({
           <p className={`text-sm font-semibold truncate ${isSelected ? "text-app-accent-primary" : "text-white/80"}`}>
             {topic.label}
           </p>
-          <p className="text-app-text-secondary text-xs">{count} t? v?ng</p>
+          <p className="text-app-text-secondary text-xs">{count} từ vựng</p>
         </div>
         {isSelected && (
           <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
@@ -103,7 +103,7 @@ function BrowseMode({ vocab }: { vocab: VocabCard[] }) {
           </div>
           <input
             type="text"
-            placeholder="T�m t? v?ng..."
+            placeholder="Tìm từ vựng..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full bg-app-card/50 border border-app-border rounded-lg pl-9 pr-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-app-accent-primary/40"
@@ -115,11 +115,11 @@ function BrowseMode({ vocab }: { vocab: VocabCard[] }) {
             showVi ? "bg-app-accent-primary/10 text-app-accent-primary border border-app-accent-primary/30" : "bg-app-card/50 text-white/50 border border-app-border"
           }`}
         >
-          {showVi ? "?n nghia" : "Hi?n nghia"}
+          {showVi ? "Ẩn nghĩa" : "Hiện nghĩa"}
         </button>
       </div>
 
-      <p className="text-app-text-muted text-xs">{filtered.length} t?</p>
+      <p className="text-app-text-muted text-xs">{filtered.length} từ</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         {filtered.map((v, i) => (
@@ -141,7 +141,7 @@ function BrowseMode({ vocab }: { vocab: VocabCard[] }) {
                 <p className="text-white/35 text-xs mt-0.5">{v.pronunciation}</p>
               </div>
               <span className="text-[10px] text-app-text-muted bg-app-card/50 px-2 py-0.5 rounded-full whitespace-nowrap flex-shrink-0">
-                B�i {v.lessonId}
+                Bài {v.lessonId}
               </span>
             </div>
             {showVi && (
@@ -164,7 +164,7 @@ function BrowseMode({ vocab }: { vocab: VocabCard[] }) {
           <div className="w-12 h-12 flex items-center justify-center mx-auto mb-3">
             <i className="ri-search-line text-3xl"></i>
           </div>
-          <p>Kh�ng t�m th?y t? n�o</p>
+          <p>Không tìm thấy từ nào</p>
         </div>
       )}
     </div>
@@ -199,16 +199,16 @@ function FlashcardMode({ vocab }: { vocab: VocabCard[] }) {
         <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 bg-app-accent-primary/10 rounded-full">
           <i className="ri-trophy-line text-app-accent-primary text-3xl"></i>
         </div>
-        <h3 className="text-white text-xl font-bold mb-2">Ho�n th�nh!</h3>
+        <h3 className="text-white text-xl font-bold mb-2">Hoàn thành!</h3>
         <p className="text-white/50 text-sm mb-6">
-          Bi?t: <span className="text-app-accent-success font-bold">{known.size}</span> t? &nbsp;|&nbsp;
-          Chua bi?t: <span className="text-red-400 font-bold">{unknown.size}</span> t?
+          Biết: <span className="text-app-accent-success font-bold">{known.size}</span> từ &nbsp;|&nbsp;
+          Chưa biết: <span className="text-red-400 font-bold">{unknown.size}</span> từ
         </p>
         <button
           onClick={() => { setIdx(0); setFlipped(false); setKnown(new Set()); setUnknown(new Set()); }}
           className="px-6 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
         >
-          H?c l?i t? d?u
+          Học lại từ đầu
         </button>
       </div>
     );
@@ -227,8 +227,8 @@ function FlashcardMode({ vocab }: { vocab: VocabCard[] }) {
       </div>
 
       <div className="flex gap-4 justify-center text-sm">
-        <span className="text-app-accent-success">? {known.size} bi?t</span>
-        <span className="text-red-400">? {unknown.size} chua bi?t</span>
+        <span className="text-app-accent-success">✓ {known.size} biết</span>
+        <span className="text-red-400">✗ {unknown.size} chưa biết</span>
       </div>
 
       <div
@@ -245,7 +245,7 @@ function FlashcardMode({ vocab }: { vocab: VocabCard[] }) {
             >
               <i className="ri-volume-up-line text-app-accent-primary"></i>
             </button>
-            <p className="text-app-text-muted text-xs mt-3">Nh?n d? xem nghia</p>
+            <p className="text-app-text-muted text-xs mt-3">Nhấn để xem nghĩa</p>
           </>
         ) : (
           <>
@@ -265,13 +265,13 @@ function FlashcardMode({ vocab }: { vocab: VocabCard[] }) {
           onClick={handleUnknow}
           className="flex-1 py-3 bg-red-500/10 border border-red-500/20 text-red-400 rounded-xl font-medium cursor-pointer whitespace-nowrap hover:bg-red-500/20 transition-all"
         >
-          <i className="ri-close-line mr-1"></i> Chua bi?t
+          <i className="ri-close-line mr-1"></i> Chưa biết
         </button>
         <button
           onClick={handleKnow}
           className="flex-1 py-3 bg-emerald-500/10 border border-emerald-500/20 text-app-accent-success rounded-xl font-medium cursor-pointer whitespace-nowrap hover:bg-emerald-500/20 transition-all"
         >
-          <i className="ri-check-line mr-1"></i> �� bi?t
+          <i className="ri-check-line mr-1"></i> Đã biết
         </button>
       </div>
     </div>
@@ -316,18 +316,18 @@ function QuizMode({ vocab }: { vocab: VocabCard[] }) {
         <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-app-accent-primary/10 rounded-full">
           <i className="ri-trophy-line text-app-accent-primary text-4xl"></i>
         </div>
-        <h3 className="text-white text-2xl font-bold mb-2">K?t qu?</h3>
+        <h3 className="text-white text-2xl font-bold mb-2">Kết quả</h3>
         <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
           {pct}%
         </p>
         <p className="text-white/50 text-sm mb-6">
-          {score}/{questions.length} c�u d�ng
+          {score}/{questions.length} câu đúng
         </p>
         <button
           onClick={() => { setCurrent(0); setSelected(null); setScore(0); setFinished(false); }}
           className="px-6 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
         >
-          L�m l?i
+          Làm lại
         </button>
       </div>
     );
@@ -346,7 +346,7 @@ function QuizMode({ vocab }: { vocab: VocabCard[] }) {
       </div>
 
       <div className="bg-app-card/50 border border-app-border rounded-2xl p-8 text-center">
-        <p className="text-app-text-secondary text-xs mb-3">Nghia c?a t? n�y l� g�?</p>
+        <p className="text-app-text-secondary text-xs mb-3">Nghĩa của từ này là gì?</p>
         <p className="text-white text-4xl font-bold mb-2">{q.question.korean}</p>
         <p className="text-white/35 text-sm">{q.question.pronunciation}</p>
         <button
@@ -380,7 +380,7 @@ function QuizMode({ vocab }: { vocab: VocabCard[] }) {
   );
 }
 
-// -- Listen Mode (Nghe ph�t �m + di?n t?) ----------------------------------
+// ── Listen Mode (Nghe phát âm + điền từ) ──────────────────────────────────
 function ListenMode({ vocab }: { vocab: VocabCard[] }) {
   const [cards] = useState(() => shuffle(vocab).slice(0, Math.min(20, vocab.length)));
   const [idx, setIdx] = useState(0);
@@ -431,16 +431,16 @@ function ListenMode({ vocab }: { vocab: VocabCard[] }) {
         <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-app-accent-primary/10 rounded-full">
           <i className="ri-trophy-line text-app-accent-primary text-4xl"></i>
         </div>
-        <h3 className="text-white text-2xl font-bold mb-2">K?t qu? nghe</h3>
+        <h3 className="text-white text-2xl font-bold mb-2">Kết quả nghe</h3>
         <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
           {pct}%
         </p>
-        <p className="text-white/50 text-sm mb-6">{score}/{cards.length} c�u d�ng</p>
+        <p className="text-white/50 text-sm mb-6">{score}/{cards.length} câu đúng</p>
         <button
           onClick={() => { setIdx(0); setInput(""); setSubmitted(false); setScore(0); setFinished(false); setShowHint(false); }}
           className="px-6 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
         >
-          L�m l?i
+          Làm lại
         </button>
       </div>
     );
@@ -456,13 +456,13 @@ function ListenMode({ vocab }: { vocab: VocabCard[] }) {
       </div>
 
       <div className="flex gap-4 justify-center text-sm">
-        <span className="text-app-accent-success">? {score} d�ng</span>
-        <span className="text-red-400">? {idx - score} sai</span>
+        <span className="text-app-accent-success">✓ {score} đúng</span>
+        <span className="text-red-400">✗ {idx - score} sai</span>
       </div>
 
       {/* Audio card */}
       <div className="bg-app-card/50 border border-app-border rounded-2xl p-8 text-center space-y-4">
-        <p className="text-app-text-secondary text-xs">Nghe v� di?n t? ti?ng H�n</p>
+        <p className="text-app-text-secondary text-xs">Nghe và điền từ tiếng Hàn</p>
 
         {/* Big play button */}
         <button
@@ -488,7 +488,7 @@ function ListenMode({ vocab }: { vocab: VocabCard[] }) {
           </div>
         )}
 
-        <p className="text-app-text-muted text-xs">Nh?n d? nghe ph�t �m</p>
+        <p className="text-app-text-muted text-xs">Nhấn để nghe phát âm</p>
 
         {/* Hint: Vietnamese meaning */}
         <div className="border-t border-app-border pt-3">
@@ -499,7 +499,7 @@ function ListenMode({ vocab }: { vocab: VocabCard[] }) {
               onClick={() => setShowHint(true)}
               className="text-app-text-muted text-xs hover:text-white/50 cursor-pointer whitespace-nowrap"
             >
-              <i className="ri-eye-line mr-1"></i>Xem g?i � nghia
+              <i className="ri-eye-line mr-1"></i>Xem gợi ý nghĩa
             </button>
           )}
         </div>
@@ -514,7 +514,7 @@ function ListenMode({ vocab }: { vocab: VocabCard[] }) {
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => { if (e.key === "Enter" && !submitted) handleSubmit(); }}
           disabled={submitted}
-          placeholder="�i?n t? ti?ng H�n b?n nghe du?c..."
+          placeholder="Điền từ tiếng Hàn bạn nghe được..."
           className={`w-full rounded-xl px-5 py-4 text-lg font-bold text-center border transition-all focus:outline-none ${
             submitted
               ? isCorrect
@@ -527,11 +527,11 @@ function ListenMode({ vocab }: { vocab: VocabCard[] }) {
         {submitted && (
           <div className={`p-4 rounded-xl border text-center ${isCorrect ? "bg-emerald-500/8 border-emerald-500/20" : "bg-red-500/8 border-red-500/20"}`}>
             {isCorrect ? (
-              <p className="text-app-accent-success font-bold">Ch�nh x�c!</p>
+              <p className="text-app-accent-success font-bold">Chính xác!</p>
             ) : (
               <>
-                <p className="text-red-400 font-bold mb-1">Sai r?i!</p>
-                <p className="text-white/60 text-sm">��p �n d�ng: <span className="text-white font-bold">{card.korean}</span></p>
+                <p className="text-red-400 font-bold mb-1">Sai rồi!</p>
+                <p className="text-white/60 text-sm">Đáp án đúng: <span className="text-white font-bold">{card.korean}</span></p>
                 <p className="text-white/35 text-xs mt-1">[{card.pronunciation}]</p>
               </>
             )}
@@ -544,14 +544,14 @@ function ListenMode({ vocab }: { vocab: VocabCard[] }) {
             disabled={!input.trim()}
             className="w-full py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed hover:bg-app-accent-primary/90 transition-all"
           >
-            Ki?m tra
+            Kiểm tra
           </button>
         ) : (
           <button
             onClick={handleNext}
             className="w-full py-3 bg-app-card/70 text-white font-bold rounded-xl cursor-pointer whitespace-nowrap hover:bg-white/15 transition-all"
           >
-            T? ti?p theo <i className="ri-arrow-right-line ml-1"></i>
+            Từ tiếp theo <i className="ri-arrow-right-line ml-1"></i>
           </button>
         )}
       </div>
@@ -559,7 +559,7 @@ function ListenMode({ vocab }: { vocab: VocabCard[] }) {
   );
 }
 
-// -- Fill Mode (Xem nghia + di?n t? ti?ng H�n) -----------------------------
+// ── Fill Mode (Xem nghĩa + điền từ tiếng Hàn) ─────────────────────────────
 function FillMode({ vocab }: { vocab: VocabCard[] }) {
   const [cards] = useState(() => shuffle(vocab).slice(0, Math.min(20, vocab.length)));
   const [idx, setIdx] = useState(0);
@@ -599,16 +599,16 @@ function FillMode({ vocab }: { vocab: VocabCard[] }) {
         <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-app-accent-primary/10 rounded-full">
           <i className="ri-trophy-line text-app-accent-primary text-4xl"></i>
         </div>
-        <h3 className="text-white text-2xl font-bold mb-2">K?t qu? di?n t?</h3>
+        <h3 className="text-white text-2xl font-bold mb-2">Kết quả điền từ</h3>
         <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
           {pct}%
         </p>
-        <p className="text-white/50 text-sm mb-6">{score}/{cards.length} c�u d�ng</p>
+        <p className="text-white/50 text-sm mb-6">{score}/{cards.length} câu đúng</p>
         <button
           onClick={() => { setIdx(0); setInput(""); setSubmitted(false); setScore(0); setFinished(false); }}
           className="px-6 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
         >
-          L�m l?i
+          Làm lại
         </button>
       </div>
     );
@@ -624,12 +624,12 @@ function FillMode({ vocab }: { vocab: VocabCard[] }) {
       </div>
 
       <div className="flex gap-4 justify-center text-sm">
-        <span className="text-app-accent-success">? {score} d�ng</span>
-        <span className="text-red-400">? {idx - score} sai</span>
+        <span className="text-app-accent-success">✓ {score} đúng</span>
+        <span className="text-red-400">✗ {idx - score} sai</span>
       </div>
 
       <div className="bg-app-card/50 border border-app-border rounded-2xl p-8 text-center space-y-3">
-        <p className="text-app-text-secondary text-xs">�i?n t? ti?ng H�n c� nghia:</p>
+        <p className="text-app-text-secondary text-xs">Điền từ tiếng Hàn có nghĩa:</p>
         <p className="text-app-accent-primary text-2xl font-bold">{card.vietnamese}</p>
         {card.example && (
           <p className="text-app-text-muted text-xs italic">{card.exampleVi}</p>
@@ -650,7 +650,7 @@ function FillMode({ vocab }: { vocab: VocabCard[] }) {
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => { if (e.key === "Enter" && !submitted) handleSubmit(); }}
           disabled={submitted}
-          placeholder="Nh?p t? ti?ng H�n..."
+          placeholder="Nhập từ tiếng Hàn..."
           className={`w-full rounded-xl px-5 py-4 text-lg font-bold text-center border transition-all focus:outline-none ${
             submitted
               ? isCorrect
@@ -663,11 +663,11 @@ function FillMode({ vocab }: { vocab: VocabCard[] }) {
         {submitted && (
           <div className={`p-4 rounded-xl border text-center ${isCorrect ? "bg-emerald-500/8 border-emerald-500/20" : "bg-red-500/8 border-red-500/20"}`}>
             {isCorrect ? (
-              <p className="text-app-accent-success font-bold">Ch�nh x�c!</p>
+              <p className="text-app-accent-success font-bold">Chính xác!</p>
             ) : (
               <>
-                <p className="text-red-400 font-bold mb-1">Sai r?i!</p>
-                <p className="text-white/60 text-sm">��p �n d�ng: <span className="text-white font-bold">{card.korean}</span></p>
+                <p className="text-red-400 font-bold mb-1">Sai rồi!</p>
+                <p className="text-white/60 text-sm">Đáp án đúng: <span className="text-white font-bold">{card.korean}</span></p>
                 <p className="text-white/35 text-xs mt-1">[{card.pronunciation}]</p>
               </>
             )}
@@ -680,14 +680,14 @@ function FillMode({ vocab }: { vocab: VocabCard[] }) {
             disabled={!input.trim()}
             className="w-full py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed hover:bg-app-accent-primary/90 transition-all"
           >
-            Ki?m tra
+            Kiểm tra
           </button>
         ) : (
           <button
             onClick={handleNext}
             className="w-full py-3 bg-app-card/70 text-white font-bold rounded-xl cursor-pointer whitespace-nowrap hover:bg-white/15 transition-all"
           >
-            T? ti?p theo <i className="ri-arrow-right-line ml-1"></i>
+            Từ tiếp theo <i className="ri-arrow-right-line ml-1"></i>
           </button>
         )}
       </div>
@@ -695,7 +695,7 @@ function FillMode({ vocab }: { vocab: VocabCard[] }) {
   );
 }
 
-// -- Main Page --------------------------------------------------------------
+// ── Main Page ──────────────────────────────────────────────────────────────
 export default function EpsTopicStudyPage() {
   const navigate = useNavigate();
   const [selectedTopics, setSelectedTopics] = useState<Set<string>>(new Set());
@@ -751,11 +751,11 @@ export default function EpsTopicStudyPage() {
   };
 
   const MODES = [
-    { id: "browse" as const, icon: "ri-list-check-2", label: "Duy?t t? v?ng", desc: "Xem v� t�m ki?m t?" },
-    { id: "flashcard" as const, icon: "ri-stack-line", label: "Flashcard", desc: "L?t th? h?c t?" },
-    { id: "quiz" as const, icon: "ri-survey-line", label: "Tr?c nghi?m", desc: "Ki?m tra ki?n th?c" },
-    { id: "listen" as const, icon: "ri-headphone-line", label: "Nghe & �i?n", desc: "Nghe ph�t �m r?i di?n" },
-    { id: "fill" as const, icon: "ri-edit-line", label: "�i?n t?", desc: "Xem nghia, di?n ti?ng H�n" },
+    { id: "browse" as const, icon: "ri-list-check-2", label: "Duyệt từ vựng", desc: "Xem và tìm kiếm từ" },
+    { id: "flashcard" as const, icon: "ri-stack-line", label: "Flashcard", desc: "Lật thẻ học từ" },
+    { id: "quiz" as const, icon: "ri-survey-line", label: "Trắc nghiệm", desc: "Kiểm tra kiến thức" },
+    { id: "listen" as const, icon: "ri-headphone-line", label: "Nghe & Điền", desc: "Nghe phát âm rồi điền" },
+    { id: "fill" as const, icon: "ri-edit-line", label: "Điền từ", desc: "Xem nghĩa, điền tiếng Hàn" },
   ];
 
   return (
@@ -770,8 +770,8 @@ export default function EpsTopicStudyPage() {
             <i className="ri-arrow-left-line text-white/60"></i>
           </button>
           <div>
-            <h1 className="text-white text-xl font-bold">H?c theo ch? d?</h1>
-            <p className="text-app-text-secondary text-sm">L?c v� h?c t? v?ng theo nh�m ch? d? EPS</p>
+            <h1 className="text-white text-xl font-bold">Học theo chủ đề</h1>
+            <p className="text-app-text-secondary text-sm">Lọc và học từ vựng theo nhóm chủ đề EPS</p>
           </div>
         </div>
 
@@ -780,11 +780,11 @@ export default function EpsTopicStudyPage() {
             {/* Left: topic picker */}
             <div className="lg:col-span-2 space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="text-white font-semibold">Ch?n ch? d?</h2>
+                <h2 className="text-white font-semibold">Chọn chủ đề</h2>
                 <div className="flex gap-2">
-                  <button onClick={selectAll} className="text-xs text-app-accent-primary hover:underline cursor-pointer whitespace-nowrap">Ch?n t?t c?</button>
+                  <button onClick={selectAll} className="text-xs text-app-accent-primary hover:underline cursor-pointer whitespace-nowrap">Chọn tất cả</button>
                   <span className="text-app-text-muted">|</span>
-                  <button onClick={clearAll} className="text-xs text-app-text-secondary hover:text-white/60 cursor-pointer whitespace-nowrap">B? ch?n</button>
+                  <button onClick={clearAll} className="text-xs text-app-text-secondary hover:text-white/60 cursor-pointer whitespace-nowrap">Bỏ chọn</button>
                 </div>
               </div>
 
@@ -805,16 +805,16 @@ export default function EpsTopicStudyPage() {
             <div className="space-y-4">
               {/* Summary */}
               <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
-                <p className="text-white/50 text-xs mb-1">T? v?ng d� ch?n</p>
+                <p className="text-white/50 text-xs mb-1">Từ vựng đã chọn</p>
                 <p className="text-white text-2xl font-bold">{allVocab.length}</p>
                 <p className="text-app-text-muted text-xs mt-1">
-                  t? t? {selectedTopics.size > 0 ? selectedTopics.size : EPS_LESSON_TOPICS.length} ch? d?
+                  từ từ {selectedTopics.size > 0 ? selectedTopics.size : EPS_LESSON_TOPICS.length} chủ đề
                 </p>
               </div>
 
               {/* Mode picker */}
               <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 space-y-2">
-                <p className="text-white/50 text-xs mb-3">Ch? d? h?c</p>
+                <p className="text-white/50 text-xs mb-3">Chế độ học</p>
                 {MODES.map((m) => (
                   <button
                     key={m.id}
@@ -848,38 +848,38 @@ export default function EpsTopicStudyPage() {
                 className="w-full py-4 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed hover:bg-app-accent-primary/90 transition-all text-sm"
               >
                 <i className="ri-play-fill mr-2"></i>
-                B?t d?u h?c ({allVocab.length} t?)
+                Bắt đầu học ({allVocab.length} từ)
               </button>
 
               {/* Quick links */}
               <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 space-y-2">
-                <p className="text-app-text-secondary text-xs mb-2">H?c th�m</p>
+                <p className="text-app-text-secondary text-xs mb-2">Học thêm</p>
                 <button
                   onClick={() => navigate("/eps-lessons")}
                   className="w-full flex items-center gap-2 text-white/50 hover:text-white/80 text-xs py-1.5 cursor-pointer whitespace-nowrap"
                 >
                   <i className="ri-book-open-line text-sm"></i>
-                  60 B�i h?c EPS
+                  60 Bài học EPS
                 </button>
                 <button
                   onClick={() => navigate("/eps-quick-review")}
                   className="w-full flex items-center gap-2 text-white/50 hover:text-white/80 text-xs py-1.5 cursor-pointer whitespace-nowrap"
                 >
                   <i className="ri-flashlight-line text-sm"></i>
-                  �n t?p nhanh
+                  Ôn tập nhanh
                 </button>
                 <button
                   onClick={() => navigate("/eps-wrong-topic")}
                   className="w-full flex items-center gap-2 text-white/50 hover:text-white/80 text-xs py-1.5 cursor-pointer whitespace-nowrap"
                 >
                   <i className="ri-error-warning-line text-sm"></i>
-                  �n t?p sai theo ch? d?
+                  Ôn tập sai theo chủ đề
                 </button>
               </div>
             </div>
           </div>
         ) : (
-          /* -- Study screen -- */
+          /* ── Study screen ── */
           <div className="space-y-4">
             {/* Mode tabs */}
             <div className="flex items-center gap-1 bg-app-surface/50 border border-app-border rounded-xl p-1 flex-wrap">
@@ -907,10 +907,10 @@ export default function EpsTopicStudyPage() {
                       .map((id) => EPS_LESSON_TOPICS.find((t) => t.id === id)?.label)
                       .filter(Boolean)
                       .join(", ")
-                  : "T?t c? ch? d?"}
+                  : "Tất cả chủ đề"}
               </span>
-              <span>�</span>
-              <span>{allVocab.length} t?</span>
+              <span>•</span>
+              <span>{allVocab.length} từ</span>
             </div>
 
             {/* Study content */}

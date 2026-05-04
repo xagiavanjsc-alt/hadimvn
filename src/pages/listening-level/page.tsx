@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+﻿import { useState, useRef, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 
-// --- Types --------------------------------------------------------------------
+// ─── Types ────────────────────────────────────────────────────────────────────
 interface TranscriptLine {
   line: string;
   translation: string;
@@ -37,14 +37,14 @@ interface ListeningTrack {
 }
 
 const LEVEL_CONFIG: Record<string, { color: string; bg: string; border: string; label: string; desc: string }> = {
-  A1: { color: "#34d399", bg: "bg-emerald-500/10", border: "border-emerald-500/20", label: "So c?p 1", desc: "Ngu?i m?i b?t d?u" },
-  A2: { color: "#84cc16", bg: "bg-lime-500/10", border: "border-lime-500/20", label: "So c?p 2", desc: "Co b?n" },
-  B1: { color: "app-accent-primary", bg: "bg-yellow-500/10", border: "border-yellow-500/20", label: "Trung c?p 1", desc: "Trung b�nh" },
-  B2: { color: "#fb923c", bg: "bg-orange-500/10", border: "border-orange-500/20", label: "Trung c?p 2", desc: "Tr�n trung b�nh" },
-  C1: { color: "#f87171", bg: "bg-red-500/10", border: "border-red-500/20", label: "Cao c?p", desc: "N�ng cao" },
+  A1: { color: "#34d399", bg: "bg-emerald-500/10", border: "border-emerald-500/20", label: "Sơ cấp 1", desc: "Người mới bắt đầu" },
+  A2: { color: "#84cc16", bg: "bg-lime-500/10", border: "border-lime-500/20", label: "Sơ cấp 2", desc: "Cơ bản" },
+  B1: { color: "app-accent-primary", bg: "bg-yellow-500/10", border: "border-yellow-500/20", label: "Trung cấp 1", desc: "Trung bình" },
+  B2: { color: "#fb923c", bg: "bg-orange-500/10", border: "border-orange-500/20", label: "Trung cấp 2", desc: "Trên trung bình" },
+  C1: { color: "#f87171", bg: "bg-red-500/10", border: "border-red-500/20", label: "Cao cấp", desc: "Nâng cao" },
 };
 
-// --- Audio Player Modal -------------------------------------------------------
+// ─── Audio Player Modal ───────────────────────────────────────────────────────
 function AudioPlayer({ track, onClose }: { track: ListeningTrack; onClose: () => void }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -99,7 +99,7 @@ function AudioPlayer({ track, onClose }: { track: ListeningTrack; onClose: () =>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2 flex-wrap">
                 <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${cfg.bg} border ${cfg.border}`} style={{ color: cfg.color }}>
-                  {track.level} � {cfg.label}
+                  {track.level} · {cfg.label}
                 </span>
                 <span className="text-app-text-muted text-xs">{track.topic}</span>
                 {track.is_premium && (
@@ -120,7 +120,7 @@ function AudioPlayer({ track, onClose }: { track: ListeningTrack; onClose: () =>
           {!track.audio_url && (
             <div className="flex items-center gap-2 p-3 rounded-xl bg-app-accent-primary/8 border border-app-accent-primary/15 mb-4">
               <i className="ri-information-line text-app-accent-primary text-sm flex-shrink-0"></i>
-              <p className="text-app-accent-primary/80 text-xs">Audio th?t s? du?c t�ch h?p cho th�nh vi�n VIP. Hi?n t?i b?n c� th? d?c transcript v� d�ng TTS.</p>
+              <p className="text-app-accent-primary/80 text-xs">Audio thật sẽ được tích hợp cho thành viên VIP. Hiện tại bạn có thể đọc transcript và dùng TTS.</p>
             </div>
           )}
 
@@ -162,7 +162,7 @@ function AudioPlayer({ track, onClose }: { track: ListeningTrack; onClose: () =>
           {/* Tabs */}
           <div className="flex gap-2 mb-4">
             {(["transcript", "vocab", "quiz"] as const).map(tab => {
-              const labels = { transcript: "Transcript", vocab: "T? v?ng", quiz: "Ki?m tra" };
+              const labels = { transcript: "Transcript", vocab: "Từ vựng", quiz: "Kiểm tra" };
               const icons = { transcript: "ri-file-text-line", vocab: "ri-translate-2", quiz: "ri-survey-line" };
               return (
                 <button
@@ -184,7 +184,7 @@ function AudioPlayer({ track, onClose }: { track: ListeningTrack; onClose: () =>
                 className={`ml-auto flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs cursor-pointer transition-all ${showTranslation ? "bg-app-card/70 text-white/60" : "text-app-text-muted hover:text-app-text-secondary"}`}
               >
                 <i className="ri-translate-2 text-xs"></i>
-                {showTranslation ? "?n d?ch" : "Hi?n d?ch"}
+                {showTranslation ? "Ẩn dịch" : "Hiện dịch"}
               </button>
             )}
           </div>
@@ -271,13 +271,13 @@ function AudioPlayer({ track, onClose }: { track: ListeningTrack; onClose: () =>
                   className="w-full py-3 rounded-xl font-semibold text-sm text-[#141720] cursor-pointer disabled:opacity-40 transition-opacity"
                   style={{ backgroundColor: cfg.color }}
                 >
-                  N?p b�i
+                  Nộp bài
                 </button>
               ) : (
                 <div className="p-4 rounded-2xl text-center" style={{ backgroundColor: `${cfg.color}10`, border: `1px solid ${cfg.color}25` }}>
                   <p className="text-white font-bold text-2xl mb-1">{score}/{track.questions.length}</p>
                   <p className="text-sm" style={{ color: cfg.color }}>
-                    {score === track.questions.length ? "Xu?t s?c! B?n hi?u b�i r?t t?t!" : "H�y nghe l?i v� th? l?n n?a!"}
+                    {score === track.questions.length ? "Xuất sắc! Bạn hiểu bài rất tốt!" : "Hãy nghe lại và thử lần nữa!"}
                   </p>
                 </div>
               )}
@@ -289,7 +289,7 @@ function AudioPlayer({ track, onClose }: { track: ListeningTrack; onClose: () =>
   );
 }
 
-// --- Track Card ---------------------------------------------------------------
+// ─── Track Card ───────────────────────────────────────────────────────────────
 function TrackCard({ track, onPlay }: { track: ListeningTrack; onPlay: () => void }) {
   const cfg = LEVEL_CONFIG[track.level] || LEVEL_CONFIG.A1;
   const formatTime = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
@@ -324,9 +324,9 @@ function TrackCard({ track, onPlay }: { track: ListeningTrack; onPlay: () => voi
 
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3 text-app-text-muted text-xs">
-          <span className="flex items-center gap-1"><i className="ri-file-text-line"></i>{track.transcript.length} d�ng</span>
-          <span className="flex items-center gap-1"><i className="ri-translate-2"></i>{track.vocabulary.length} t?</span>
-          <span className="flex items-center gap-1"><i className="ri-survey-line"></i>{track.questions.length} c�u</span>
+          <span className="flex items-center gap-1"><i className="ri-file-text-line"></i>{track.transcript.length} dòng</span>
+          <span className="flex items-center gap-1"><i className="ri-translate-2"></i>{track.vocabulary.length} từ</span>
+          <span className="flex items-center gap-1"><i className="ri-survey-line"></i>{track.questions.length} câu</span>
           {track.play_count > 0 && <span className="flex items-center gap-1"><i className="ri-play-line"></i>{track.play_count}</span>}
         </div>
         {track.is_premium ? (
@@ -352,7 +352,7 @@ function TrackCard({ track, onPlay }: { track: ListeningTrack; onPlay: () => voi
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function ListeningLevelPage() {
   const [tracks, setTracks] = useState<ListeningTrack[]>([]);
   const [loading, setLoading] = useState(true);
@@ -391,8 +391,8 @@ export default function ListeningLevelPage() {
 
   return (
     <DashboardLayout
-      title="Luy?n nghe theo c?p d?"
-      subtitle="B�i nghe t? A1 d?n C1 v?i transcript, t? v?ng v� b�i ki?m tra � d? li?u t? Supabase"
+      title="Luyện nghe theo cấp độ"
+      subtitle="Bài nghe từ A1 đến C1 với transcript, từ vựng và bài kiểm tra — dữ liệu từ Supabase"
     >
       {/* Level cards */}
       <div className="grid grid-cols-5 gap-3 mb-6">
@@ -424,7 +424,7 @@ export default function ListeningLevelPage() {
           <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
           <input
             type="text"
-            placeholder="T�m b�i nghe theo t�n, ch? d?, tag..."
+            placeholder="Tìm bài nghe theo tên, chủ đề, tag..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             className="w-full bg-app-bg border border-app-border rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder-white/25 outline-none focus:border-white/20"
@@ -439,7 +439,7 @@ export default function ListeningLevelPage() {
                 selectedLevel === level ? "bg-app-card/70 text-white" : "text-app-text-muted hover:text-white/50"
               }`}
             >
-              {level === "all" ? "T?t c?" : level}
+              {level === "all" ? "Tất cả" : level}
               <span className="ml-1 text-[9px] opacity-60">({countByLevel(level)})</span>
             </button>
           ))}
@@ -460,7 +460,7 @@ export default function ListeningLevelPage() {
       ) : filtered.length === 0 ? (
         <div className="bg-app-bg border border-app-border rounded-2xl p-16 text-center">
           <i className="ri-headphone-line text-white/10 text-5xl mb-4"></i>
-          <p className="text-app-text-muted text-sm">Kh�ng t�m th?y b�i nghe ph� h?p</p>
+          <p className="text-app-text-muted text-sm">Không tìm thấy bài nghe phù hợp</p>
         </div>
       ) : (
         <div className="grid grid-cols-2 gap-4">
@@ -474,12 +474,12 @@ export default function ListeningLevelPage() {
       <div className="mt-6 bg-app-bg border border-app-border rounded-2xl p-5">
         <div className="flex items-center gap-2 mb-3">
           <i className="ri-lightbulb-line text-app-accent-primary text-sm"></i>
-          <h3 className="text-white font-semibold text-sm">M?o luy?n nghe hi?u qu?</h3>
+          <h3 className="text-white font-semibold text-sm">Mẹo luyện nghe hiệu quả</h3>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-app-text-secondary leading-relaxed">
-          <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nghe l?n d?u kh�ng xem transcript d? ki?m tra kh? nang nghe hi?u</p>
-          <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nghe l?n 2 v?i transcript d? hi?u r� t?ng c�u v� t? v?ng m?i</p>
-          <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>L�m b�i ki?m tra sau khi nghe d? c?ng c? ki?n th?c</p>
+          <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nghe lần đầu không xem transcript để kiểm tra khả năng nghe hiểu</p>
+          <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nghe lần 2 với transcript để hiểu rõ từng câu và từ vựng mới</p>
+          <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Làm bài kiểm tra sau khi nghe để củng cố kiến thức</p>
         </div>
       </div>
 

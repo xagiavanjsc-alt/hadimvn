@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+﻿import { useState, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -39,117 +39,117 @@ export default function LearningCertificatePage() {
   const CERTIFICATES: Certificate[] = [
     {
       id: "streak_7",
-      title: "H?c vi�n ki�n tr�",
-      subtitle: "7 ng�y li�n ti?p",
-      description: "Duy tr� streak h?c t?p 7 ng�y li�n ti?p kh�ng ngh?",
+      title: "Học viên kiên trì",
+      subtitle: "7 ngày liên tiếp",
+      description: "Duy trì streak học tập 7 ngày liên tiếp không nghỉ",
       icon: "ri-fire-fill",
       color: "#ea580c",
       bgColor: "#fff7ed",
-      requirement: `Streak hi?n t?i: ${streakCount}/7 ng�y`,
+      requirement: `Streak hiện tại: ${streakCount}/7 ngày`,
       unlocked: streakCount >= 7,
       unlockedDate: streakCount >= 7 ? "2026-04-10" : undefined,
-      shareText: "T�i d� duy tr� streak h?c ti?ng H�n 7 ng�y li�n ti?p tr�n H�n Qu?c Oi! ??",
+      shareText: "Tôi đã duy trì streak học tiếng Hàn 7 ngày liên tiếp trên Hàn Quốc Ơi! 🔥",
     },
     {
       id: "streak_30",
-      title: "Chi?n binh th�ng",
-      subtitle: "30 ng�y li�n ti?p",
-      description: "Duy tr� streak h?c t?p 30 ng�y li�n ti?p � kh�ng b? ng�y n�o!",
+      title: "Chiến binh tháng",
+      subtitle: "30 ngày liên tiếp",
+      description: "Duy trì streak học tập 30 ngày liên tiếp — không bỏ ngày nào!",
       icon: "ri-fire-fill",
       color: "#dc2626",
       bgColor: "#fef2f2",
-      requirement: `Streak hi?n t?i: ${streakCount}/30 ng�y`,
+      requirement: `Streak hiện tại: ${streakCount}/30 ngày`,
       unlocked: streakCount >= 30,
       unlockedDate: streakCount >= 30 ? "2026-03-15" : undefined,
-      shareText: "T�i d� h?c ti?ng H�n 30 ng�y li�n ti?p kh�ng ngh? tr�n H�n Qu?c Oi! ??",
+      shareText: "Tôi đã học tiếng Hàn 30 ngày liên tiếp không nghỉ trên Hàn Quốc Ơi! 💪",
     },
     {
       id: "streak_100",
-      title: "Huy?n tho?i 100 ng�y",
-      subtitle: "100 ng�y li�n ti?p",
-      description: "Th�nh t�ch hi?m c� � 100 ng�y h?c ti?ng H�n kh�ng gi�n do?n",
+      title: "Huyền thoại 100 ngày",
+      subtitle: "100 ngày liên tiếp",
+      description: "Thành tích hiếm có — 100 ngày học tiếng Hàn không gián đoạn",
       icon: "ri-award-fill",
       color: "#d97706",
       bgColor: "#fffbeb",
-      requirement: `Streak hi?n t?i: ${streakCount}/100 ng�y`,
+      requirement: `Streak hiện tại: ${streakCount}/100 ngày`,
       unlocked: streakCount >= 100,
-      shareText: "T�i d� chinh ph?c 100 ng�y h?c ti?ng H�n li�n ti?p tr�n H�n Qu?c Oi! ??",
+      shareText: "Tôi đã chinh phục 100 ngày học tiếng Hàn liên tiếp trên Hàn Quốc Ơi! 🏆",
     },
     {
       id: "eps_60",
-      title: "Vu?t ngu?ng EPS",
-      subtitle: "�i?m EPS = 60%",
-      description: "�?t di?m thi th? EPS-TOPIK t? 60% tr? l�n",
+      title: "Vượt ngưỡng EPS",
+      subtitle: "Điểm EPS ≥ 60%",
+      description: "Đạt điểm thi thử EPS-TOPIK từ 60% trở lên",
       icon: "ri-medal-fill",
       color: "#059669",
       bgColor: "#f0fdf4",
-      requirement: `�i?m cao nh?t: ${bestEpsScore}%/60%`,
+      requirement: `Điểm cao nhất: ${bestEpsScore}%/60%`,
       unlocked: bestEpsScore >= 60,
       unlockedDate: bestEpsScore >= 60 ? "2026-04-05" : undefined,
-      shareText: `T�i d� d?t ${bestEpsScore}% trong b�i thi th? EPS-TOPIK tr�n H�n Qu?c Oi! ??`,
+      shareText: `Tôi đã đạt ${bestEpsScore}% trong bài thi thử EPS-TOPIK trên Hàn Quốc Ơi! 📚`,
     },
     {
       id: "eps_80",
-      title: "Xu?t s?c EPS",
-      subtitle: "�i?m EPS = 80%",
-      description: "�?t di?m thi th? EPS-TOPIK t? 80% tr? l�n � s?n s�ng thi th?t!",
+      title: "Xuất sắc EPS",
+      subtitle: "Điểm EPS ≥ 80%",
+      description: "Đạt điểm thi thử EPS-TOPIK từ 80% trở lên — sẵn sàng thi thật!",
       icon: "ri-trophy-fill",
       color: "#7c3aed",
       bgColor: "#f5f3ff",
-      requirement: `�i?m cao nh?t: ${bestEpsScore}%/80%`,
+      requirement: `Điểm cao nhất: ${bestEpsScore}%/80%`,
       unlocked: bestEpsScore >= 80,
       unlockedDate: bestEpsScore >= 80 ? "2026-04-12" : undefined,
-      shareText: `T�i d� d?t ${bestEpsScore}% trong b�i thi th? EPS-TOPIK � s?n s�ng thi th?t! ??`,
+      shareText: `Tôi đã đạt ${bestEpsScore}% trong bài thi thử EPS-TOPIK — sẵn sàng thi thật! 🎯`,
     },
     {
       id: "vocab_100",
-      title: "T? v?ng co b?n",
-      subtitle: "100 t? v?ng",
-      description: "H?c thu?c 100 t? v?ng ti?ng H�n d?u ti�n",
+      title: "Từ vựng cơ bản",
+      subtitle: "100 từ vựng",
+      description: "Học thuộc 100 từ vựng tiếng Hàn đầu tiên",
       icon: "ri-book-fill",
       color: "#0891b2",
       bgColor: "#ecfeff",
-      requirement: `T? d� thu?c: ${knownVocab}/100`,
+      requirement: `Từ đã thuộc: ${knownVocab}/100`,
       unlocked: knownVocab >= 100,
       unlockedDate: knownVocab >= 100 ? "2026-03-20" : undefined,
-      shareText: "T�i d� h?c thu?c 100 t? v?ng ti?ng H�n tr�n H�n Qu?c Oi! ??",
+      shareText: "Tôi đã học thuộc 100 từ vựng tiếng Hàn trên Hàn Quốc Ơi! 📖",
     },
     {
       id: "vocab_500",
-      title: "T? v?ng n�ng cao",
-      subtitle: "500 t? v?ng",
-      description: "H?c thu?c 500 t? v?ng � d? d? giao ti?p co b?n v?i ngu?i H�n",
+      title: "Từ vựng nâng cao",
+      subtitle: "500 từ vựng",
+      description: "Học thuộc 500 từ vựng — đủ để giao tiếp cơ bản với người Hàn",
       icon: "ri-book-3-fill",
       color: "#ec4899",
       bgColor: "#fdf2f8",
-      requirement: `T? d� thu?c: ${knownVocab}/500`,
+      requirement: `Từ đã thuộc: ${knownVocab}/500`,
       unlocked: knownVocab >= 500,
-      shareText: "T�i d� h?c thu?c 500 t? v?ng ti?ng H�n tr�n H�n Qu?c Oi! ??",
+      shareText: "Tôi đã học thuộc 500 từ vựng tiếng Hàn trên Hàn Quốc Ơi! 🌟",
     },
     {
       id: "xp_1000",
-      title: "H?c vi�n t�ch c?c",
+      title: "Học viên tích cực",
       subtitle: "1,000 XP",
-      description: "T�ch luy 1,000 XP t? c�c ho?t d?ng h?c t?p",
+      description: "Tích lũy 1,000 XP từ các hoạt động học tập",
       icon: "ri-star-fill",
       color: "#f59e0b",
       bgColor: "#fffbeb",
-      requirement: `XP hi?n t?i: ${totalXP.toLocaleString()}/1,000`,
+      requirement: `XP hiện tại: ${totalXP.toLocaleString()}/1,000`,
       unlocked: totalXP >= 1000,
       unlockedDate: totalXP >= 1000 ? "2026-03-25" : undefined,
-      shareText: `T�i d� t�ch luy ${totalXP.toLocaleString()} XP tr�n H�n Qu?c Oi! ?`,
+      shareText: `Tôi đã tích lũy ${totalXP.toLocaleString()} XP trên Hàn Quốc Ơi! ⭐`,
     },
     {
       id: "xp_5000",
-      title: "H?c vi�n xu?t s?c",
+      title: "Học viên xuất sắc",
       subtitle: "5,000 XP",
-      description: "T�ch luy 5,000 XP � ch?ng minh s? n? l?c kh�ng ng?ng",
+      description: "Tích lũy 5,000 XP — chứng minh sự nỗ lực không ngừng",
       icon: "ri-vip-crown-fill",
       color: "#d97706",
       bgColor: "#fffbeb",
-      requirement: `XP hi?n t?i: ${totalXP.toLocaleString()}/5,000`,
+      requirement: `XP hiện tại: ${totalXP.toLocaleString()}/5,000`,
       unlocked: totalXP >= 5000,
-      shareText: `T�i d� t�ch luy ${totalXP.toLocaleString()} XP tr�n H�n Qu?c Oi! ??`,
+      shareText: `Tôi đã tích lũy ${totalXP.toLocaleString()} XP trên Hàn Quốc Ơi! 👑`,
     },
   ];
 
@@ -157,7 +157,7 @@ export default function LearningCertificatePage() {
   const lockedCerts = CERTIFICATES.filter(c => !c.unlocked);
 
   const handleShare = (cert: Certificate) => {
-    const text = `${cert.shareText}\n\nH?c ti?ng H�n c�ng t?i m�nh t?i H�n Qu?c Oi! ??`;
+    const text = `${cert.shareText}\n\nHọc tiếng Hàn cùng tụi mình tại Hàn Quốc Ơi! 🍃`;
     if (navigator.share) {
       navigator.share({ title: cert.title, text });
     } else {
@@ -172,17 +172,17 @@ export default function LearningCertificatePage() {
       <div className="max-w-5xl mx-auto px-4 py-6 space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Ch?ng ch? h?c t?p</h1>
-          <p className="text-gray-500 text-sm mt-1">M? kh�a ch?ng ch? khi d?t c�c m?c h?c t?p � chia s? th�nh t�ch v?i b?n b�!</p>
+          <h1 className="text-2xl font-bold text-gray-800">Chứng chỉ học tập</h1>
+          <p className="text-gray-500 text-sm mt-1">Mở khóa chứng chỉ khi đạt các mốc học tập — chia sẻ thành tích với bạn bè!</p>
         </div>
 
         {/* Progress summary */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { label: "�� m? kh�a", value: `${unlockedCerts.length}/${CERTIFICATES.length}`, icon: "ri-award-line", color: "#d97706" },
-            { label: "Streak hi?n t?i", value: `${streakCount} ng�y`, icon: "ri-fire-line", color: "#ea580c" },
-            { label: "�i?m EPS cao nh?t", value: `${bestEpsScore}%`, icon: "ri-trophy-line", color: "#7c3aed" },
-            { label: "T?ng XP", value: totalXP.toLocaleString(), icon: "ri-star-line", color: "#f59e0b" },
+            { label: "Đã mở khóa", value: `${unlockedCerts.length}/${CERTIFICATES.length}`, icon: "ri-award-line", color: "#d97706" },
+            { label: "Streak hiện tại", value: `${streakCount} ngày`, icon: "ri-fire-line", color: "#ea580c" },
+            { label: "Điểm EPS cao nhất", value: `${bestEpsScore}%`, icon: "ri-trophy-line", color: "#7c3aed" },
+            { label: "Tổng XP", value: totalXP.toLocaleString(), icon: "ri-star-line", color: "#f59e0b" },
           ].map(stat => (
             <div key={stat.label} className="bg-white border border-gray-200 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
@@ -201,7 +201,7 @@ export default function LearningCertificatePage() {
           <div>
             <h2 className="text-gray-700 font-bold text-base mb-4 flex items-center gap-2">
               <i className="ri-award-fill text-amber-500"></i>
-              Ch?ng ch? d� m? kh�a ({unlockedCerts.length})
+              Chứng chỉ đã mở khóa ({unlockedCerts.length})
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {unlockedCerts.map(cert => (
@@ -216,14 +216,14 @@ export default function LearningCertificatePage() {
                       <i className={`${cert.icon} text-2xl`} style={{ color: cert.color }}></i>
                     </div>
                     <span className="text-xs font-semibold px-2 py-1 rounded-full" style={{ backgroundColor: cert.color + "15", color: cert.color }}>
-                      �� m? kh�a ?
+                      Đã mở khóa ✓
                     </span>
                   </div>
                   <h3 className="text-gray-800 font-bold text-base mb-0.5">{cert.title}</h3>
                   <p className="text-sm font-medium mb-2" style={{ color: cert.color }}>{cert.subtitle}</p>
                   <p className="text-gray-500 text-xs leading-relaxed mb-3">{cert.description}</p>
                   {cert.unlockedDate && (
-                    <p className="text-gray-400 text-xs">�?t du?c: {new Date(cert.unlockedDate).toLocaleDateString("vi-VN")}</p>
+                    <p className="text-gray-400 text-xs">Đạt được: {new Date(cert.unlockedDate).toLocaleDateString("vi-VN")}</p>
                   )}
                   <button
                     onClick={(e) => { e.stopPropagation(); handleShare(cert); }}
@@ -231,7 +231,7 @@ export default function LearningCertificatePage() {
                     style={{ backgroundColor: cert.color + "15", color: cert.color }}
                   >
                     <i className="ri-share-line"></i>
-                    Chia s? th�nh t�ch
+                    Chia sẻ thành tích
                   </button>
                 </div>
               ))}
@@ -243,7 +243,7 @@ export default function LearningCertificatePage() {
         <div>
           <h2 className="text-gray-700 font-bold text-base mb-4 flex items-center gap-2">
             <i className="ri-lock-line text-gray-400"></i>
-            Ch?ng ch? chua m? kh�a ({lockedCerts.length})
+            Chứng chỉ chưa mở khóa ({lockedCerts.length})
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {lockedCerts.map(cert => (
@@ -252,7 +252,7 @@ export default function LearningCertificatePage() {
                   <div className="w-12 h-12 rounded-2xl bg-gray-200 flex items-center justify-center">
                     <i className="ri-lock-line text-gray-400 text-xl"></i>
                   </div>
-                  <span className="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-1 rounded-full">Chua m?</span>
+                  <span className="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-1 rounded-full">Chưa mở</span>
                 </div>
                 <h3 className="text-gray-600 font-bold text-base mb-0.5">{cert.title}</h3>
                 <p className="text-gray-400 text-sm font-medium mb-2">{cert.subtitle}</p>
@@ -282,7 +282,7 @@ export default function LearningCertificatePage() {
             <div ref={certRef} className="p-8 text-center" style={{ backgroundColor: selectedCert.bgColor }}>
               <div className="flex items-center justify-center gap-2 mb-6">
                 <div className="h-px flex-1" style={{ backgroundColor: selectedCert.color + "40" }}></div>
-                <span className="text-xs font-bold tracking-normal" style={{ color: selectedCert.color }}>H�n Qu?c Oi!</span>
+                <span className="text-xs font-bold tracking-normal" style={{ color: selectedCert.color }}>Hàn Quốc Ơi!</span>
                 <div className="h-px flex-1" style={{ backgroundColor: selectedCert.color + "40" }}></div>
               </div>
 
@@ -290,13 +290,13 @@ export default function LearningCertificatePage() {
                 <i className={`${selectedCert.icon} text-4xl`} style={{ color: selectedCert.color }}></i>
               </div>
 
-              <p className="text-gray-500 text-sm mb-1">Ch?ng nh?n</p>
+              <p className="text-gray-500 text-sm mb-1">Chứng nhận</p>
               <h2 className="text-gray-900 font-extrabold text-2xl mb-1">{selectedCert.title}</h2>
               <p className="font-bold text-lg mb-3" style={{ color: selectedCert.color }}>{selectedCert.subtitle}</p>
               <p className="text-gray-500 text-sm leading-relaxed mb-4">{selectedCert.description}</p>
 
               {selectedCert.unlockedDate && (
-                <p className="text-gray-400 text-xs">�?t du?c ng�y {new Date(selectedCert.unlockedDate).toLocaleDateString("vi-VN")}</p>
+                <p className="text-gray-400 text-xs">Đạt được ngày {new Date(selectedCert.unlockedDate).toLocaleDateString("vi-VN")}</p>
               )}
 
               <div className="flex items-center justify-center gap-2 mt-6">
@@ -314,13 +314,13 @@ export default function LearningCertificatePage() {
                 style={{ backgroundColor: selectedCert.color }}
               >
                 <i className="ri-share-line"></i>
-                {copied ? "�� copy link!" : "Chia s? th�nh t�ch"}
+                {copied ? "Đã copy link!" : "Chia sẻ thành tích"}
               </button>
               <button
                 onClick={() => setSelectedCert(null)}
                 className="w-full py-3 rounded-xl font-medium text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors whitespace-nowrap cursor-pointer"
               >
-                ��ng
+                Đóng
               </button>
             </div>
           </div>
@@ -330,7 +330,7 @@ export default function LearningCertificatePage() {
       {copied && (
         <div className="fixed bottom-6 right-6 z-50 bg-gray-900 text-white text-sm px-4 py-3 rounded-xl flex items-center gap-2">
           <i className="ri-check-line text-app-accent-success"></i>
-          �� copy v�o clipboard!
+          Đã copy vào clipboard!
         </div>
       )}
     </DashboardLayout>

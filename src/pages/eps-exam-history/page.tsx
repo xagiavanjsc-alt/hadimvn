@@ -1,9 +1,9 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
 
-// --- Types ----------------------------------------------------------------
+// ─── Types ────────────────────────────────────────────────────────────────
 interface ExamRecord {
   id: string;
   date: string;
@@ -15,7 +15,7 @@ interface ExamRecord {
   topic?: string;
 }
 
-// --- Mock data ------------------------------------------------------------
+// ─── Mock data ────────────────────────────────────────────────────────────
 const MOCK_HISTORY: ExamRecord[] = [
   { id: "e1", date: "2026-04-15", score: 165, total: 40, correct: 33, duration: 2580, mode: "full" },
   { id: "e2", date: "2026-04-13", score: 150, total: 40, correct: 30, duration: 2820, mode: "full" },
@@ -27,12 +27,12 @@ const MOCK_HISTORY: ExamRecord[] = [
   { id: "e8", date: "2026-04-02", score: 90, total: 40, correct: 18, duration: 4100, mode: "full" },
   { id: "e9", date: "2026-03-30", score: 85, total: 40, correct: 17, duration: 4200, mode: "full" },
   { id: "e10", date: "2026-03-28", score: 75, total: 40, correct: 15, duration: 4500, mode: "full" },
-  { id: "e11", date: "2026-04-14", score: 80, total: 20, correct: 16, duration: 1200, mode: "topic", topic: "Lao d?ng" },
-  { id: "e12", date: "2026-04-12", score: 70, total: 20, correct: 14, duration: 1400, mode: "topic", topic: "An to�n lao d?ng" },
-  { id: "e13", date: "2026-04-09", score: 90, total: 20, correct: 18, duration: 1100, mode: "topic", topic: "B?o hi?m" },
+  { id: "e11", date: "2026-04-14", score: 80, total: 20, correct: 16, duration: 1200, mode: "topic", topic: "Lao động" },
+  { id: "e12", date: "2026-04-12", score: 70, total: 20, correct: 14, duration: 1400, mode: "topic", topic: "An toàn lao động" },
+  { id: "e13", date: "2026-04-09", score: 90, total: 20, correct: 18, duration: 1100, mode: "topic", topic: "Bảo hiểm" },
 ];
 
-// --- Helpers --------------------------------------------------------------
+// ─── Helpers ──────────────────────────────────────────────────────────────
 function formatDuration(seconds: number): string {
   const m = Math.floor(seconds / 60);
   const s = seconds % 60;
@@ -54,13 +54,13 @@ function getScoreColor(score: number, total: number): string {
 
 function getScoreLabel(score: number, total: number): string {
   const pct = (score / (total * 5)) * 100;
-  if (pct >= 80) return "Xu?t s?c";
-  if (pct >= 60) return "�?t";
-  if (pct >= 40) return "C?n c? g?ng";
-  return "Chua d?t";
+  if (pct >= 80) return "Xuất sắc";
+  if (pct >= 60) return "Đạt";
+  if (pct >= 40) return "Cần cố gắng";
+  return "Chưa đạt";
 }
 
-// --- Mini bar chart -------------------------------------------------------
+// ─── Mini bar chart ───────────────────────────────────────────────────────
 function ProgressChart({ records }: { records: ExamRecord[] }) {
   const fullExams = records.filter(r => r.mode === "full").slice(0, 10).reverse();
   if (fullExams.length < 2) return null;
@@ -72,17 +72,17 @@ function ProgressChart({ records }: { records: ExamRecord[] }) {
     <div className="bg-app-bg border border-app-border rounded-2xl p-5">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <p className="text-white font-semibold text-sm">Bi?u d? ti?n b?</p>
-          <p className="text-white/35 text-xs mt-0.5">{fullExams.length} l?n thi th? g?n nh?t</p>
+          <p className="text-white font-semibold text-sm">Biểu đồ tiến bộ</p>
+          <p className="text-white/35 text-xs mt-0.5">{fullExams.length} lần thi thử gần nhất</p>
         </div>
         <div className="flex items-center gap-3 text-xs">
           <div className="flex items-center gap-1.5">
             <div className="w-3 h-0.5 bg-app-accent-primary/50 border-dashed border-t border-app-accent-primary/50"></div>
-            <span className="text-app-text-muted">�i?m d?u (80)</span>
+            <span className="text-app-text-muted">Điểm đậu (80)</span>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="w-3 h-2 rounded-sm bg-app-accent-primary/60"></div>
-            <span className="text-app-text-muted">�i?m thi</span>
+            <span className="text-app-text-muted">Điểm thi</span>
           </div>
         </div>
       </div>
@@ -110,7 +110,7 @@ function ProgressChart({ records }: { records: ExamRecord[] }) {
                 >
                   {/* Tooltip */}
                   <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#1a1d27] border border-app-border rounded-lg px-2 py-1 text-[10px] text-white/70 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-20 pointer-events-none">
-                    {exam.score}/200 � {formatDate(exam.date)}
+                    {exam.score}/200 · {formatDate(exam.date)}
                   </div>
                 </div>
                 <span className="text-app-text-muted text-[8px]">{formatDate(exam.date).slice(0, 5)}</span>
@@ -131,11 +131,11 @@ function ProgressChart({ records }: { records: ExamRecord[] }) {
               <i className={`${diff >= 0 ? "ri-arrow-up-line text-[#34d399]" : "ri-arrow-down-line text-[#f87171]"} text-xs`}></i>
             </div>
             <p className="text-app-text-secondary text-xs">
-              T? l?n d?u d?n nay:{" "}
+              Từ lần đầu đến nay:{" "}
               <span className={`font-bold ${diff >= 0 ? "text-[#34d399]" : "text-[#f87171]"}`}>
-                {diff >= 0 ? "+" : ""}{diff} di?m
+                {diff >= 0 ? "+" : ""}{diff} điểm
               </span>
-              {" "}({first} ? {last})
+              {" "}({first} → {last})
             </p>
           </div>
         );
@@ -144,7 +144,7 @@ function ProgressChart({ records }: { records: ExamRecord[] }) {
   );
 }
 
-// --- Stat Card ------------------------------------------------------------
+// ─── Stat Card ────────────────────────────────────────────────────────────
 function StatCard({ icon, label, value, sub, color }: { icon: string; label: string; value: string | number; sub?: string; color: string }) {
   return (
     <div className="bg-app-bg border border-app-border rounded-2xl p-5 flex items-center gap-4">
@@ -160,7 +160,7 @@ function StatCard({ icon, label, value, sub, color }: { icon: string; label: str
   );
 }
 
-// --- Exam Row -------------------------------------------------------------
+// ─── Exam Row ─────────────────────────────────────────────────────────────
 function ExamRow({ exam, index, isSelected, onClick }: {
   exam: ExamRecord; index: number; isSelected: boolean; onClick: () => void;
 }) {
@@ -190,11 +190,11 @@ function ExamRow({ exam, index, isSelected, onClick }: {
               exam.mode === "topic" ? "bg-[#a78bfa]/10 text-[#a78bfa]" :
               "bg-[#38bdf8]/10 text-[#38bdf8]"
             }`}>
-              {exam.mode === "full" ? "Thi th? 40 c�u" : exam.mode === "topic" ? `Ch? d?: ${exam.topic}` : "�n nhanh"}
+              {exam.mode === "full" ? "Thi thử 40 câu" : exam.mode === "topic" ? `Chủ đề: ${exam.topic}` : "Ôn nhanh"}
             </span>
           </div>
           <div className="flex items-center gap-3 text-xs text-app-text-muted">
-            <span><i className="ri-checkbox-circle-line mr-1"></i>{exam.correct}/{exam.total} c�u d�ng</span>
+            <span><i className="ri-checkbox-circle-line mr-1"></i>{exam.correct}/{exam.total} câu đúng</span>
             <span><i className="ri-time-line mr-1"></i>{formatDuration(exam.duration)}</span>
           </div>
         </div>
@@ -202,7 +202,7 @@ function ExamRow({ exam, index, isSelected, onClick }: {
         {/* Score */}
         <div className="text-right flex-shrink-0">
           <p className="font-bold text-xl leading-none" style={{ color }}>{exam.score}</p>
-          <p className="text-app-text-muted text-[10px] mt-0.5">/200 di?m</p>
+          <p className="text-app-text-muted text-[10px] mt-0.5">/200 điểm</p>
         </div>
 
         {/* Accuracy bar */}
@@ -220,7 +220,7 @@ function ExamRow({ exam, index, isSelected, onClick }: {
   );
 }
 
-// --- Detail Panel ---------------------------------------------------------
+// ─── Detail Panel ─────────────────────────────────────────────────────────
 function ExamDetail({ exam, allExams }: { exam: ExamRecord; allExams: ExamRecord[] }) {
   const color = getScoreColor(exam.score, exam.total);
   const accuracy = Math.round((exam.correct / exam.total) * 100);
@@ -238,22 +238,22 @@ function ExamDetail({ exam, allExams }: { exam: ExamRecord; allExams: ExamRecord
         <div>
           <p className="text-white font-bold text-base">{formatDate(exam.date)}</p>
           <p className="text-white/35 text-xs mt-0.5">
-            {exam.mode === "full" ? "Thi th? 40 c�u" : exam.mode === "topic" ? `Ch? d?: ${exam.topic}` : "�n nhanh"}
+            {exam.mode === "full" ? "Thi thử 40 câu" : exam.mode === "topic" ? `Chủ đề: ${exam.topic}` : "Ôn nhanh"}
           </p>
         </div>
         <div className="text-right">
           <p className="font-bold text-3xl" style={{ color }}>{exam.score}</p>
-          <p className="text-app-text-muted text-xs">/200 di?m</p>
+          <p className="text-app-text-muted text-xs">/200 điểm</p>
         </div>
       </div>
 
       {/* Stats grid */}
       <div className="grid grid-cols-2 gap-3">
         {[
-          { icon: "ri-checkbox-circle-line", label: "C�u d�ng", value: exam.correct, color: "#34d399" },
-          { icon: "ri-close-circle-line", label: "C�u sai", value: wrong, color: "#f87171" },
-          { icon: "ri-percent-line", label: "�? ch�nh x�c", value: `${accuracy}%`, color },
-          { icon: "ri-time-line", label: "Th?i gian", value: formatDuration(exam.duration), color: "#38bdf8" },
+          { icon: "ri-checkbox-circle-line", label: "Câu đúng", value: exam.correct, color: "#34d399" },
+          { icon: "ri-close-circle-line", label: "Câu sai", value: wrong, color: "#f87171" },
+          { icon: "ri-percent-line", label: "Độ chính xác", value: `${accuracy}%`, color },
+          { icon: "ri-time-line", label: "Thời gian", value: formatDuration(exam.duration), color: "#38bdf8" },
         ].map(s => (
           <div key={s.label} className="bg-app-surface/50 rounded-xl p-3 flex items-center gap-2.5">
             <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -275,11 +275,11 @@ function ExamDetail({ exam, allExams }: { exam: ExamRecord; allExams: ExamRecord
               <i className={`${scoreDiff >= 0 ? "ri-arrow-up-line text-[#34d399]" : "ri-arrow-down-line text-[#f87171]"} text-sm`}></i>
             </div>
             <p className="text-white/50 text-xs">
-              So v?i l?n tru?c ({formatDate(prevExam.date)}):
+              So với lần trước ({formatDate(prevExam.date)}):
               <span className={`font-bold ml-1 ${scoreDiff >= 0 ? "text-[#34d399]" : "text-[#f87171]"}`}>
-                {scoreDiff >= 0 ? "+" : ""}{scoreDiff} di?m
+                {scoreDiff >= 0 ? "+" : ""}{scoreDiff} điểm
               </span>
-              <span className="text-app-text-muted ml-1">({prevExam.score} ? {exam.score})</span>
+              <span className="text-app-text-muted ml-1">({prevExam.score} → {exam.score})</span>
             </p>
           </div>
         </div>
@@ -292,12 +292,12 @@ function ExamDetail({ exam, allExams }: { exam: ExamRecord; allExams: ExamRecord
         </div>
         <div>
           <p className={`font-bold text-sm ${exam.score >= 80 ? "text-[#34d399]" : "text-[#f87171]"}`}>
-            {exam.score >= 80 ? "�?T � �? di?m thi EPS-TOPIK" : "CHUA �?T � C?n �t nh?t 80 di?m"}
+            {exam.score >= 80 ? "ĐẠT — Đủ điểm thi EPS-TOPIK" : "CHƯA ĐẠT — Cần ít nhất 80 điểm"}
           </p>
           <p className="text-app-text-muted text-xs mt-0.5">
             {exam.score >= 80
-              ? `Vu?t ngu?ng d?u ${exam.score - 80} di?m`
-              : `C�n thi?u ${80 - exam.score} di?m d? d?t ngu?ng d?u`}
+              ? `Vượt ngưỡng đậu ${exam.score - 80} điểm`
+              : `Còn thiếu ${80 - exam.score} điểm để đạt ngưỡng đậu`}
           </p>
         </div>
       </div>
@@ -305,7 +305,7 @@ function ExamDetail({ exam, allExams }: { exam: ExamRecord; allExams: ExamRecord
   );
 }
 
-// --- Main Page ------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────
 export default function EpsExamHistoryPage() {
   const navigate = useNavigate();
   const [savedHistory] = useLocalStorage<ExamRecord[]>("kts_eps_exam_history", []);
@@ -346,15 +346,15 @@ export default function EpsExamHistoryPage() {
 
   return (
     <DashboardLayout
-      title="L?ch s? thi th? EPS"
-      subtitle="Xem l?i t?ng l?n thi, so s�nh di?m qua c�c l?n v� theo d�i ti?n b?"
+      title="Lịch sử thi thử EPS"
+      subtitle="Xem lại từng lần thi, so sánh điểm qua các lần và theo dõi tiến bộ"
     >
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        <StatCard icon="ri-file-list-3-line" label="T?ng l?n thi" value={allHistory.length} sub={`${fullExams.length} l?n thi th? 40 c�u`} color="app-accent-primary" />
-        <StatCard icon="ri-trophy-line" label="�i?m cao nh?t" value={bestScore} sub="tr�n 200 di?m" color="#34d399" />
-        <StatCard icon="ri-bar-chart-line" label="�i?m trung b�nh" value={avgScore} sub="thi th? 40 c�u" color="#38bdf8" />
-        <StatCard icon="ri-checkbox-circle-line" label="L?n d?t di?m d?u" value={passCount} sub={`/ ${fullExams.length} l?n thi`} color="#a78bfa" />
+        <StatCard icon="ri-file-list-3-line" label="Tổng lần thi" value={allHistory.length} sub={`${fullExams.length} lần thi thử 40 câu`} color="app-accent-primary" />
+        <StatCard icon="ri-trophy-line" label="Điểm cao nhất" value={bestScore} sub="trên 200 điểm" color="#34d399" />
+        <StatCard icon="ri-bar-chart-line" label="Điểm trung bình" value={avgScore} sub="thi thử 40 câu" color="#38bdf8" />
+        <StatCard icon="ri-checkbox-circle-line" label="Lần đạt điểm đậu" value={passCount} sub={`/ ${fullExams.length} lần thi`} color="#a78bfa" />
       </div>
 
       {/* Progress chart */}
@@ -373,13 +373,13 @@ export default function EpsExamHistoryPage() {
                 filterMode === mode ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/70"
               }`}
             >
-              {mode === "all" ? "T?t c?" : mode === "full" ? "Thi th? 40 c�u" : mode === "topic" ? "Theo ch? d?" : "�n nhanh"}
+              {mode === "all" ? "Tất cả" : mode === "full" ? "Thi thử 40 câu" : mode === "topic" ? "Theo chủ đề" : "Ôn nhanh"}
             </button>
           ))}
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-app-text-muted text-xs">S?p x?p:</span>
+          <span className="text-app-text-muted text-xs">Sắp xếp:</span>
           {(["newest", "oldest", "highest", "lowest"] as const).map(s => (
             <button
               key={s}
@@ -388,7 +388,7 @@ export default function EpsExamHistoryPage() {
                 sortOrder === s ? "bg-app-accent-primary/15 text-app-accent-primary" : "text-app-text-muted hover:text-white/60"
               }`}
             >
-              {s === "newest" ? "M?i nh?t" : s === "oldest" ? "Cu nh?t" : s === "highest" ? "�i?m cao" : "�i?m th?p"}
+              {s === "newest" ? "Mới nhất" : s === "oldest" ? "Cũ nhất" : s === "highest" ? "Điểm cao" : "Điểm thấp"}
             </button>
           ))}
         </div>
@@ -401,13 +401,13 @@ export default function EpsExamHistoryPage() {
           {filtered.length === 0 ? (
             <div className="bg-app-bg border border-app-border rounded-2xl p-12 text-center">
               <i className="ri-file-list-3-line text-white/10 text-5xl mb-4 block"></i>
-              <p className="text-app-text-secondary text-base font-medium mb-2">Chua c� l?ch s? thi</p>
-              <p className="text-app-text-muted text-sm mb-6">H�y l�m b�i thi th? EPS d? luu l?ch s?</p>
+              <p className="text-app-text-secondary text-base font-medium mb-2">Chưa có lịch sử thi</p>
+              <p className="text-app-text-muted text-sm mb-6">Hãy làm bài thi thử EPS để lưu lịch sử</p>
               <button
                 onClick={() => navigate("/eps-exam")}
                 className="px-6 py-3 bg-app-accent-primary text-app-bg font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap"
               >
-                <i className="ri-timer-line mr-2"></i>Thi th? EPS ngay
+                <i className="ri-timer-line mr-2"></i>Thi thử EPS ngay
               </button>
             </div>
           ) : (
@@ -429,7 +429,7 @@ export default function EpsExamHistoryPage() {
         {selectedExam && (
           <div className="sticky top-4 h-fit">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-white/50 text-xs font-semibold tracking-normal">Chi ti?t l?n thi</p>
+              <p className="text-white/50 text-xs font-semibold tracking-normal">Chi tiết lần thi</p>
               <button
                 onClick={() => setSelectedId(null)}
                 className="w-6 h-6 flex items-center justify-center rounded-lg hover:bg-app-card/70 text-app-text-muted hover:text-white/60 transition-colors cursor-pointer"
@@ -445,13 +445,13 @@ export default function EpsExamHistoryPage() {
                 onClick={() => navigate("/eps-exam")}
                 className="w-full py-3 bg-app-accent-primary text-app-bg font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap"
               >
-                <i className="ri-refresh-line mr-2"></i>Thi l?i ngay
+                <i className="ri-refresh-line mr-2"></i>Thi lại ngay
               </button>
               <button
                 onClick={() => navigate("/eps-weakness-analysis")}
                 className="w-full py-3 bg-app-card/50 hover:bg-white/8 text-white/60 text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors"
               >
-                <i className="ri-bar-chart-2-line mr-2"></i>Ph�n t�ch di?m y?u
+                <i className="ri-bar-chart-2-line mr-2"></i>Phân tích điểm yếu
               </button>
             </div>
           </div>
@@ -467,15 +467,15 @@ export default function EpsExamHistoryPage() {
                 <i className="ri-star-line text-app-accent-primary text-lg"></i>
               </div>
               <div>
-                <p className="text-white font-semibold text-sm">�i?m thi g?n nh?t</p>
+                <p className="text-white font-semibold text-sm">Điểm thi gần nhất</p>
                 <p className="text-white/35 text-xs mt-0.5">
-                  {latestScore >= 80 ? "B?n d� d?t di?m d?u EPS-TOPIK!" : `C�n thi?u ${80 - latestScore} di?m d? d?t ngu?ng d?u`}
+                  {latestScore >= 80 ? "Bạn đã đạt điểm đậu EPS-TOPIK!" : `Còn thiếu ${80 - latestScore} điểm để đạt ngưỡng đậu`}
                 </p>
               </div>
             </div>
             <div className="text-right">
               <p className="font-bold text-3xl" style={{ color: getScoreColor(latestScore, 40) }}>{latestScore}</p>
-              <p className="text-app-text-muted text-xs">/200 di?m</p>
+              <p className="text-app-text-muted text-xs">/200 điểm</p>
             </div>
           </div>
         </div>

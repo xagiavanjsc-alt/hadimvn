@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase, isVipActive } from "@/lib/supabase";
 import { RANKS } from "@/data/ranks";
 
-// --- Types -------------------------------------------------------------------
+// ─── Types ───────────────────────────────────────────────────────────────────
 interface PublicProfile {
   id: string;
   display_name: string;
@@ -27,12 +27,12 @@ interface PublicStats {
   rankIcon: string;
 }
 
-// --- Helpers -----------------------------------------------------------------
+// ─── Helpers ─────────────────────────────────────────────────────────────────
 function getRankForXP(xp: number) {
   return [...RANKS].reverse().find(r => xp >= r.minXP) || RANKS[0];
 }
 
-// --- Share Card ---------------------------------------------------------------
+// ─── Share Card ───────────────────────────────────────────────────────────────
 function ShareCard({ profile, stats }: { profile: PublicProfile; stats: PublicStats }) {
   const [copied, setCopied] = useState(false);
 
@@ -63,7 +63,7 @@ function ShareCard({ profile, stats }: { profile: PublicProfile; stats: PublicSt
             <div className="flex items-center gap-2 mt-0.5">
               <i className={`${stats.rankIcon} text-xs`} style={{ color: stats.rankColor }}></i>
               <span className="text-xs font-semibold" style={{ color: stats.rankColor }}>{stats.rankName}</span>
-              <span className="text-app-text-muted text-xs">� {stats.totalXP.toLocaleString()} XP</span>
+              <span className="text-app-text-muted text-xs">· {stats.totalXP.toLocaleString()} XP</span>
             </div>
           </div>
         </div>
@@ -74,17 +74,17 @@ function ShareCard({ profile, stats }: { profile: PublicProfile; stats: PublicSt
           }`}
         >
           <i className={copied ? "ri-check-line" : "ri-link"}></i>
-          {copied ? "�� copy!" : "Copy link"}
+          {copied ? "Đã copy!" : "Copy link"}
         </button>
       </div>
 
       {/* Stats grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { icon: "ri-fire-line", color: "#fb923c", label: "Streak", value: `${stats.streak} ng�y` },
-          { icon: "ri-trophy-line", color: "app-accent-primary", label: "�i?m EPS cao nh?t", value: `${stats.epsBestScore}%` },
-          { icon: "ri-file-list-3-line", color: "#06b6d4", label: "L?n thi EPS", value: stats.epsExamCount },
-          { icon: "ri-medal-line", color: "#a78bfa", label: "Huy hi?u", value: stats.badgeCount },
+          { icon: "ri-fire-line", color: "#fb923c", label: "Streak", value: `${stats.streak} ngày` },
+          { icon: "ri-trophy-line", color: "app-accent-primary", label: "Điểm EPS cao nhất", value: `${stats.epsBestScore}%` },
+          { icon: "ri-file-list-3-line", color: "#06b6d4", label: "Lần thi EPS", value: stats.epsExamCount },
+          { icon: "ri-medal-line", color: "#a78bfa", label: "Huy hiệu", value: stats.badgeCount },
         ].map((item, i) => (
           <div key={i} className="bg-app-card/50 rounded-xl p-3 text-center">
             <div className="w-7 h-7 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${item.color}15` }}>
@@ -99,7 +99,7 @@ function ShareCard({ profile, stats }: { profile: PublicProfile; stats: PublicSt
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function PublicProfilePage() {
   const { userId } = useParams<{ userId: string }>();
   const navigate = useNavigate();
@@ -131,7 +131,7 @@ export default function PublicProfilePage() {
 
       setProfile(data);
 
-      // Load leaderboard stats (c?t d�ng: xp, streak � theo schema leaderboard)
+      // Load leaderboard stats (cột đúng: xp, streak — theo schema leaderboard)
       const { data: lbData } = await supabase
         .from("leaderboard")
         .select("xp, streak, words_learned, best_score")
@@ -142,7 +142,7 @@ export default function PublicProfilePage() {
       const streak = lbData?.streak || 0;
       const rank = getRankForXP(totalXP);
 
-      // EPS exam stats th?t t? b?ng exam_results
+      // EPS exam stats thật từ bảng exam_results
       const { data: epsData } = await supabase
         .from("exam_results")
         .select("score, total, exam_type")
@@ -160,7 +160,7 @@ export default function PublicProfilePage() {
         }
       }
 
-      // Flashcard d� bi?t � d?m t? study_progress.flashcard_known (jsonb)
+      // Flashcard đã biết — đếm từ study_progress.flashcard_known (jsonb)
       const { data: spData } = await supabase
         .from("study_progress")
         .select("flashcard_known, vocab_known")
@@ -171,7 +171,7 @@ export default function PublicProfilePage() {
         (Array.isArray(spData?.flashcard_known) ? spData.flashcard_known.length : 0) +
         (Array.isArray(spData?.vocab_known) ? spData.vocab_known.length : 0);
 
-      // Huy hi?u � t?m t�nh d?a tr�n c�c milestone streak + XP + words_learned
+      // Huy hiệu — tạm tính dựa trên các milestone streak + XP + words_learned
       const badgeCount =
         (streak >= 7 ? 1 : 0) +
         (streak >= 30 ? 1 : 0) +
@@ -204,11 +204,11 @@ export default function PublicProfilePage() {
 
   if (loading) {
     return (
-      <DashboardLayout title="H? so h?c vi�n">
+      <DashboardLayout title="Hồ sơ học viên">
         <div className="p-8 flex items-center justify-center min-h-64">
           <div className="text-center">
             <div className="w-10 h-10 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin mx-auto mb-3"></div>
-            <p className="text-gray-400 text-sm">�ang t?i h? so...</p>
+            <p className="text-gray-400 text-sm">Đang tải hồ sơ...</p>
           </div>
         </div>
       </DashboardLayout>
@@ -217,18 +217,18 @@ export default function PublicProfilePage() {
 
   if (notFound || !profile) {
     return (
-      <DashboardLayout title="H? so h?c vi�n">
+      <DashboardLayout title="Hồ sơ học viên">
         <div className="p-8 text-center">
           <div className="w-20 h-20 flex items-center justify-center rounded-2xl bg-gray-100 mx-auto mb-4">
             <i className="ri-user-unfollow-line text-gray-400 text-4xl"></i>
           </div>
-          <h3 className="text-gray-700 font-bold text-lg mb-2">Kh�ng t�m th?y h? so</h3>
-          <p className="text-gray-400 text-sm mb-6">H? so n�y kh�ng t?n t?i ho?c d� b? x�a</p>
+          <h3 className="text-gray-700 font-bold text-lg mb-2">Không tìm thấy hồ sơ</h3>
+          <p className="text-gray-400 text-sm mb-6">Hồ sơ này không tồn tại hoặc đã bị xóa</p>
           <button
             onClick={() => navigate("/")}
             className="px-5 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap"
           >
-            V? trang ch?
+            Về trang chủ
           </button>
         </div>
       </DashboardLayout>
@@ -238,18 +238,18 @@ export default function PublicProfilePage() {
   const joinDate = new Date(profile.created_at).toLocaleDateString("vi-VN", { month: "long", year: "numeric" });
 
   return (
-    <DashboardLayout title="H? so h?c vi�n c�ng khai">
+    <DashboardLayout title="Hồ sơ học viên công khai">
       <div className="p-6 md:p-8 max-w-2xl mx-auto">
         {/* Own profile notice */}
         {isOwnProfile && (
           <div className="mb-4 flex items-center gap-3 px-4 py-3 bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-xl">
             <i className="ri-information-line text-app-accent-primary"></i>
-            <p className="text-app-accent-primary text-sm flex-1">��y l� h? so c�ng khai c?a b?n � ngu?i kh�c th?y giao di?n n�y khi click link</p>
+            <p className="text-app-accent-primary text-sm flex-1">Đây là hồ sơ công khai của bạn — người khác thấy giao diện này khi click link</p>
             <button
               onClick={() => navigate("/profile")}
               className="text-xs px-3 py-1.5 bg-app-accent-primary text-app-bg rounded-lg font-bold cursor-pointer whitespace-nowrap"
             >
-              Ch?nh s?a
+              Chỉnh sửa
             </button>
           </div>
         )}
@@ -276,7 +276,7 @@ export default function PublicProfilePage() {
                   </span>
                 )}
               </div>
-              <p className="text-gray-400 text-sm">Tham gia t? {joinDate}</p>
+              <p className="text-gray-400 text-sm">Tham gia từ {joinDate}</p>
               {stats && (
                 <div className="flex items-center gap-2 mt-1.5">
                   <i className={`${stats.rankIcon} text-sm`} style={{ color: stats.rankColor }}></i>
@@ -290,12 +290,12 @@ export default function PublicProfilePage() {
           {stats && (
             <div className="grid grid-cols-2 gap-3">
               {[
-                { icon: "ri-fire-line", color: "#fb923c", bg: "bg-orange-50", label: "Streak hi?n t?i", value: `${stats.streak} ng�y` },
-                { icon: "ri-star-line", color: "app-accent-primary", bg: "bg-yellow-50", label: "T?ng XP", value: stats.totalXP.toLocaleString() },
-                { icon: "ri-trophy-line", color: "#34d399", bg: "bg-emerald-50", label: "�i?m EPS cao nh?t", value: `${stats.epsBestScore}%` },
-                { icon: "ri-file-list-3-line", color: "#06b6d4", bg: "bg-cyan-50", label: "L?n thi EPS", value: stats.epsExamCount },
-                { icon: "ri-stack-line", color: "#a78bfa", bg: "bg-purple-50", label: "T? v?ng d� thu?c", value: stats.flashcardKnown },
-                { icon: "ri-medal-line", color: "#f97316", bg: "bg-orange-50", label: "Huy hi?u d?t du?c", value: stats.badgeCount },
+                { icon: "ri-fire-line", color: "#fb923c", bg: "bg-orange-50", label: "Streak hiện tại", value: `${stats.streak} ngày` },
+                { icon: "ri-star-line", color: "app-accent-primary", bg: "bg-yellow-50", label: "Tổng XP", value: stats.totalXP.toLocaleString() },
+                { icon: "ri-trophy-line", color: "#34d399", bg: "bg-emerald-50", label: "Điểm EPS cao nhất", value: `${stats.epsBestScore}%` },
+                { icon: "ri-file-list-3-line", color: "#06b6d4", bg: "bg-cyan-50", label: "Lần thi EPS", value: stats.epsExamCount },
+                { icon: "ri-stack-line", color: "#a78bfa", bg: "bg-purple-50", label: "Từ vựng đã thuộc", value: stats.flashcardKnown },
+                { icon: "ri-medal-line", color: "#f97316", bg: "bg-orange-50", label: "Huy hiệu đạt được", value: stats.badgeCount },
               ].map((item, i) => (
                 <div key={i} className={`flex items-center gap-3 p-3 ${item.bg} rounded-xl`}>
                   <div className="w-9 h-9 flex items-center justify-center rounded-lg bg-white flex-shrink-0 shadow-sm">
@@ -318,14 +318,14 @@ export default function PublicProfilePage() {
             className="flex items-center justify-center gap-2 py-3 bg-white border border-gray-200 rounded-xl text-gray-600 text-sm font-medium hover:bg-gray-50 transition-colors cursor-pointer whitespace-nowrap shadow-sm"
           >
             <i className="ri-trophy-line text-app-accent-primary"></i>
-            B?ng x?p h?ng EPS
+            Bảng xếp hạng EPS
           </button>
           <button
             onClick={() => navigate("/eps-study-group")}
             className="flex items-center justify-center gap-2 py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-group-line"></i>
-            Nh�m h?c EPS
+            Nhóm học EPS
           </button>
         </div>
       </div>

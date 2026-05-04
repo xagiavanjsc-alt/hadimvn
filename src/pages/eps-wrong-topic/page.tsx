@@ -1,10 +1,10 @@
-import { useState, useMemo, useCallback, useRef } from "react";
+﻿import { useState, useMemo, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsLessons, EPS_LESSON_TOPICS, type EpsVocabItem } from "@/mocks/epsLessons";
 
-// -- Types ------------------------------------------------------------------
+// ── Types ──────────────────────────────────────────────────────────────────
 interface WrongItem {
   korean: string;
   vietnamese: string;
@@ -42,7 +42,7 @@ function speakKorean(text: string, rate = 0.75): Promise<void> {
   });
 }
 
-// -- Toast ------------------------------------------------------------------
+// ── Toast ──────────────────────────────────────────────────────────────────
 function Toast({ message, onDone }: { message: string; onDone: () => void }) {
   return (
     <div
@@ -56,7 +56,7 @@ function Toast({ message, onDone }: { message: string; onDone: () => void }) {
   );
 }
 
-// -- Flashcard Review -------------------------------------------------------
+// ── Flashcard Review ───────────────────────────────────────────────────────
 function FlashcardReview({
   items,
   onMastered,
@@ -95,16 +95,16 @@ function FlashcardReview({
         <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 bg-app-accent-primary/10 rounded-full">
           <i className="ri-trophy-line text-app-accent-primary text-3xl"></i>
         </div>
-        <h3 className="text-white text-xl font-bold mb-2">Ho�n th�nh!</h3>
+        <h3 className="text-white text-xl font-bold mb-2">Hoàn thành!</h3>
         <p className="text-white/50 text-sm mb-6">
-          �� nh?: <span className="text-app-accent-success font-bold">{masteredSet.size}</span> t? &nbsp;|&nbsp;
-          V?n sai: <span className="text-red-400 font-bold">{stillWrong.size}</span> t?
+          Đã nhớ: <span className="text-app-accent-success font-bold">{masteredSet.size}</span> từ &nbsp;|&nbsp;
+          Vẫn sai: <span className="text-red-400 font-bold">{stillWrong.size}</span> từ
         </p>
         <button
           onClick={() => { setIdx(0); setFlipped(false); setMasteredSet(new Set()); setStillWrong(new Set()); }}
           className="px-6 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
         >
-          �n l?i t? d?u
+          Ôn lại từ đầu
         </button>
       </div>
     );
@@ -120,13 +120,13 @@ function FlashcardReview({
       </div>
 
       <div className="flex gap-4 justify-center text-sm">
-        <span className="text-app-accent-success">? {masteredSet.size} d� nh?</span>
-        <span className="text-red-400">? {stillWrong.size} v?n sai</span>
+        <span className="text-app-accent-success">✓ {masteredSet.size} đã nhớ</span>
+        <span className="text-red-400">✗ {stillWrong.size} vẫn sai</span>
       </div>
 
       <div className="flex justify-center">
         <span className="text-xs px-3 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
-          �� sai {card.wrongCount} l?n
+          Đã sai {card.wrongCount} lần
         </span>
       </div>
 
@@ -138,7 +138,7 @@ function FlashcardReview({
           <>
             <p className="text-white text-4xl font-bold mb-3">{card.korean}</p>
             <p className="text-white/35 text-sm">{card.pronunciation}</p>
-            <p className="text-app-text-muted text-xs mt-4">Nh?n d? xem nghia</p>
+            <p className="text-app-text-muted text-xs mt-4">Nhấn để xem nghĩa</p>
           </>
         ) : (
           <>
@@ -158,20 +158,20 @@ function FlashcardReview({
           onClick={handleStillWrong}
           className="flex-1 py-3 bg-red-500/10 border border-red-500/20 text-red-400 rounded-xl font-medium cursor-pointer whitespace-nowrap hover:bg-red-500/20 transition-all"
         >
-          <i className="ri-close-line mr-1"></i> V?n chua nh?
+          <i className="ri-close-line mr-1"></i> Vẫn chưa nhớ
         </button>
         <button
           onClick={handleMastered}
           className="flex-1 py-3 bg-emerald-500/10 border border-emerald-500/20 text-app-accent-success rounded-xl font-medium cursor-pointer whitespace-nowrap hover:bg-emerald-500/20 transition-all"
         >
-          <i className="ri-check-line mr-1"></i> �� nh? r?i!
+          <i className="ri-check-line mr-1"></i> Đã nhớ rồi!
         </button>
       </div>
     </div>
   );
 }
 
-// -- Quiz Review ------------------------------------------------------------
+// ── Quiz Review ────────────────────────────────────────────────────────────
 function QuizReview({ items, allItems }: { items: WrongItem[]; allItems: WrongItem[] }) {
   const [questions] = useState(() => {
     const shuffled = shuffle(items).slice(0, Math.min(20, items.length));
@@ -211,14 +211,14 @@ function QuizReview({ items, allItems }: { items: WrongItem[]; allItems: WrongIt
         <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-app-accent-primary/10 rounded-full">
           <i className="ri-trophy-line text-app-accent-primary text-4xl"></i>
         </div>
-        <h3 className="text-white text-2xl font-bold mb-2">K?t qu?</h3>
+        <h3 className="text-white text-2xl font-bold mb-2">Kết quả</h3>
         <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
           {pct}%
         </p>
-        <p className="text-white/50 text-sm mb-6">{score}/{questions.length} c�u d�ng</p>
+        <p className="text-white/50 text-sm mb-6">{score}/{questions.length} câu đúng</p>
         {wrongAnswers.length > 0 && (
           <div className="bg-red-500/5 border border-red-500/15 rounded-xl p-4 mb-6 text-left">
-            <p className="text-red-400 text-xs font-semibold mb-2">T? v?n sai ({wrongAnswers.length}):</p>
+            <p className="text-red-400 text-xs font-semibold mb-2">Từ vẫn sai ({wrongAnswers.length}):</p>
             <div className="flex flex-wrap gap-2">
               {wrongAnswers.map((w, i) => (
                 <span key={i} className="text-xs px-2 py-1 bg-red-500/10 text-red-300 rounded-lg">{w.korean}</span>
@@ -230,7 +230,7 @@ function QuizReview({ items, allItems }: { items: WrongItem[]; allItems: WrongIt
           onClick={() => { setCurrent(0); setSelected(null); setScore(0); setFinished(false); setWrongAnswers([]); }}
           className="px-6 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
         >
-          L�m l?i
+          Làm lại
         </button>
       </div>
     );
@@ -248,10 +248,10 @@ function QuizReview({ items, allItems }: { items: WrongItem[]; allItems: WrongIt
       <div className="bg-app-card/50 border border-app-border rounded-2xl p-8 text-center">
         <div className="flex justify-center mb-3">
           <span className="text-xs px-3 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
-            �� sai {q.question.wrongCount} l?n
+            Đã sai {q.question.wrongCount} lần
           </span>
         </div>
-        <p className="text-app-text-secondary text-xs mb-3">Nghia c?a t? n�y l� g�?</p>
+        <p className="text-app-text-secondary text-xs mb-3">Nghĩa của từ này là gì?</p>
         <p className="text-white text-4xl font-bold mb-2">{q.question.korean}</p>
         <p className="text-white/35 text-sm">{q.question.pronunciation}</p>
       </div>
@@ -279,7 +279,7 @@ function QuizReview({ items, allItems }: { items: WrongItem[]; allItems: WrongIt
   );
 }
 
-// -- Fill Blank Review ------------------------------------------------------
+// ── Fill Blank Review ──────────────────────────────────────────────────────
 function FillReview({ items }: { items: WrongItem[] }) {
   const [cards] = useState(() => shuffle(items));
   const [idx, setIdx] = useState(0);
@@ -313,16 +313,16 @@ function FillReview({ items }: { items: WrongItem[] }) {
         <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-app-accent-primary/10 rounded-full">
           <i className="ri-trophy-line text-app-accent-primary text-4xl"></i>
         </div>
-        <h3 className="text-white text-2xl font-bold mb-2">K?t qu? di?n t?</h3>
+        <h3 className="text-white text-2xl font-bold mb-2">Kết quả điền từ</h3>
         <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
           {pct}%
         </p>
-        <p className="text-white/50 text-sm mb-6">{score}/{cards.length} c�u d�ng</p>
+        <p className="text-white/50 text-sm mb-6">{score}/{cards.length} câu đúng</p>
         <button
           onClick={() => { setIdx(0); setInput(""); setSubmitted(false); setScore(0); setFinished(false); }}
           className="px-6 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
         >
-          L�m l?i
+          Làm lại
         </button>
       </div>
     );
@@ -340,10 +340,10 @@ function FillReview({ items }: { items: WrongItem[] }) {
       <div className="bg-app-card/50 border border-app-border rounded-2xl p-8 text-center space-y-3">
         <div className="flex justify-center">
           <span className="text-xs px-3 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
-            �� sai {card.wrongCount} l?n
+            Đã sai {card.wrongCount} lần
           </span>
         </div>
-        <p className="text-app-text-secondary text-xs">�i?n t? ti?ng H�n c� nghia:</p>
+        <p className="text-app-text-secondary text-xs">Điền từ tiếng Hàn có nghĩa:</p>
         <p className="text-app-accent-primary text-2xl font-bold">{card.vietnamese}</p>
         {card.example && (
           <p className="text-app-text-muted text-xs italic">{card.exampleVi}</p>
@@ -357,7 +357,7 @@ function FillReview({ items }: { items: WrongItem[] }) {
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => { if (e.key === "Enter" && !submitted) handleSubmit(); }}
           disabled={submitted}
-          placeholder="Nh?p t? ti?ng H�n..."
+          placeholder="Nhập từ tiếng Hàn..."
           className={`w-full rounded-xl px-5 py-4 text-lg font-bold text-center border transition-all focus:outline-none ${
             submitted
               ? isCorrect
@@ -370,11 +370,11 @@ function FillReview({ items }: { items: WrongItem[] }) {
         {submitted && (
           <div className={`p-4 rounded-xl border text-center ${isCorrect ? "bg-emerald-500/8 border-emerald-500/20" : "bg-red-500/8 border-red-500/20"}`}>
             {isCorrect ? (
-              <p className="text-app-accent-success font-bold">Ch�nh x�c!</p>
+              <p className="text-app-accent-success font-bold">Chính xác!</p>
             ) : (
               <>
-                <p className="text-red-400 font-bold mb-1">Sai r?i!</p>
-                <p className="text-white/60 text-sm">��p �n d�ng: <span className="text-white font-bold">{card.korean}</span></p>
+                <p className="text-red-400 font-bold mb-1">Sai rồi!</p>
+                <p className="text-white/60 text-sm">Đáp án đúng: <span className="text-white font-bold">{card.korean}</span></p>
                 <p className="text-white/35 text-xs mt-1">[{card.pronunciation}]</p>
               </>
             )}
@@ -387,14 +387,14 @@ function FillReview({ items }: { items: WrongItem[] }) {
             disabled={!input.trim()}
             className="w-full py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed hover:bg-app-accent-primary/90 transition-all"
           >
-            Ki?m tra
+            Kiểm tra
           </button>
         ) : (
           <button
             onClick={handleNext}
             className="w-full py-3 bg-app-card/70 text-white font-bold rounded-xl cursor-pointer whitespace-nowrap hover:bg-white/15 transition-all"
           >
-            T? ti?p theo <i className="ri-arrow-right-line ml-1"></i>
+            Từ tiếp theo <i className="ri-arrow-right-line ml-1"></i>
           </button>
         )}
       </div>
@@ -402,7 +402,7 @@ function FillReview({ items }: { items: WrongItem[] }) {
   );
 }
 
-// -- Listen & Fill Review ---------------------------------------------------
+// ── Listen & Fill Review ───────────────────────────────────────────────────
 function ListenFillReview({ items }: { items: WrongItem[] }) {
   const [cards] = useState(() => shuffle(items));
   const [idx, setIdx] = useState(0);
@@ -451,16 +451,16 @@ function ListenFillReview({ items }: { items: WrongItem[] }) {
         <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-app-accent-primary/10 rounded-full">
           <i className="ri-trophy-line text-app-accent-primary text-4xl"></i>
         </div>
-        <h3 className="text-white text-2xl font-bold mb-2">K?t qu? Nghe & �i?n</h3>
+        <h3 className="text-white text-2xl font-bold mb-2">Kết quả Nghe & Điền</h3>
         <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
           {pct}%
         </p>
-        <p className="text-white/50 text-sm mb-6">{score}/{cards.length} c�u d�ng</p>
+        <p className="text-white/50 text-sm mb-6">{score}/{cards.length} câu đúng</p>
         <button
           onClick={() => { setIdx(0); setInput(""); setSubmitted(false); setScore(0); setFinished(false); setPlayCount(0); setShowHint(false); }}
           className="px-6 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
         >
-          L�m l?i
+          Làm lại
         </button>
       </div>
     );
@@ -482,20 +482,20 @@ function ListenFillReview({ items }: { items: WrongItem[] }) {
       </div>
 
       <div className="flex gap-4 justify-center text-sm">
-        <span className="text-app-accent-success">? {score} d�ng</span>
-        <span className="text-red-400">? {idx - score} sai</span>
+        <span className="text-app-accent-success">✓ {score} đúng</span>
+        <span className="text-red-400">✗ {idx - score} sai</span>
       </div>
 
       {/* Wrong count badge */}
       <div className="flex justify-center">
         <span className="text-xs px-3 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
-          �� sai {card.wrongCount} l?n
+          Đã sai {card.wrongCount} lần
         </span>
       </div>
 
       {/* Listen card */}
       <div className="bg-app-card/50 border border-app-border rounded-2xl p-8 text-center space-y-5">
-        <p className="text-white/50 text-sm">Nghe ph�t �m r?i di?n t? ti?ng H�n</p>
+        <p className="text-white/50 text-sm">Nghe phát âm rồi điền từ tiếng Hàn</p>
 
         {/* Big play button */}
         <button
@@ -513,15 +513,15 @@ function ListenFillReview({ items }: { items: WrongItem[] }) {
         </button>
 
         {playCount > 0 && !submitted && (
-          <p className="text-app-text-muted text-xs">�� nghe {playCount} l?n � nh?n l?i d? nghe th�m</p>
+          <p className="text-app-text-muted text-xs">Đã nghe {playCount} lần — nhấn lại để nghe thêm</p>
         )}
         {playCount === 0 && (
-          <p className="text-app-text-muted text-xs">Nh?n n�t loa d? nghe ph�t �m</p>
+          <p className="text-app-text-muted text-xs">Nhấn nút loa để nghe phát âm</p>
         )}
 
         {/* Meaning hint */}
         <div className="border-t border-app-border pt-4">
-          <p className="text-app-text-muted text-xs mb-1">Nghia ti?ng Vi?t:</p>
+          <p className="text-app-text-muted text-xs mb-1">Nghĩa tiếng Việt:</p>
           <p className="text-app-accent-primary text-lg font-bold">{card.vietnamese}</p>
         </div>
 
@@ -532,7 +532,7 @@ function ListenFillReview({ items }: { items: WrongItem[] }) {
             className="text-xs text-app-text-muted hover:text-white/60 cursor-pointer whitespace-nowrap transition-colors"
           >
             <i className="ri-lightbulb-line mr-1"></i>
-            {showHint ? "?n g?i �" : "Xem g?i � (ch? c�i d?u)"}
+            {showHint ? "Ẩn gợi ý" : "Xem gợi ý (chữ cái đầu)"}
           </button>
         )}
         {showHint && !submitted && (
@@ -549,7 +549,7 @@ function ListenFillReview({ items }: { items: WrongItem[] }) {
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => { if (e.key === "Enter" && !submitted) handleSubmit(); }}
           disabled={submitted}
-          placeholder="�i?n t? ti?ng H�n b?n v?a nghe..."
+          placeholder="Điền từ tiếng Hàn bạn vừa nghe..."
           className={`w-full rounded-xl px-5 py-4 text-lg font-bold text-center border transition-all focus:outline-none ${
             submitted
               ? isCorrect
@@ -563,13 +563,13 @@ function ListenFillReview({ items }: { items: WrongItem[] }) {
           <div className={`p-4 rounded-xl border text-center ${isCorrect ? "bg-emerald-500/8 border-emerald-500/20" : "bg-red-500/8 border-red-500/20"}`}>
             {isCorrect ? (
               <div>
-                <p className="text-app-accent-success font-bold text-lg mb-1">Ch�nh x�c!</p>
+                <p className="text-app-accent-success font-bold text-lg mb-1">Chính xác!</p>
                 <p className="text-app-text-secondary text-xs">[{card.pronunciation}]</p>
               </div>
             ) : (
               <>
-                <p className="text-red-400 font-bold mb-1">Sai r?i!</p>
-                <p className="text-white/60 text-sm">��p �n d�ng: <span className="text-white font-bold text-xl">{card.korean}</span></p>
+                <p className="text-red-400 font-bold mb-1">Sai rồi!</p>
+                <p className="text-white/60 text-sm">Đáp án đúng: <span className="text-white font-bold text-xl">{card.korean}</span></p>
                 <p className="text-white/35 text-xs mt-1">[{card.pronunciation}]</p>
                 {card.example && (
                   <p className="text-app-text-muted text-xs mt-2 italic">{card.example}</p>
@@ -585,14 +585,14 @@ function ListenFillReview({ items }: { items: WrongItem[] }) {
             disabled={!input.trim() || playCount === 0}
             className="w-full py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed hover:bg-app-accent-primary/90 transition-all"
           >
-            {playCount === 0 ? "Nghe tru?c r?i di?n" : "Ki?m tra"}
+            {playCount === 0 ? "Nghe trước rồi điền" : "Kiểm tra"}
           </button>
         ) : (
           <button
             onClick={handleNext}
             className="w-full py-3 bg-app-card/70 text-white font-bold rounded-xl cursor-pointer whitespace-nowrap hover:bg-white/15 transition-all"
           >
-            T? ti?p theo <i className="ri-arrow-right-line ml-1"></i>
+            Từ tiếp theo <i className="ri-arrow-right-line ml-1"></i>
           </button>
         )}
       </div>
@@ -600,7 +600,7 @@ function ListenFillReview({ items }: { items: WrongItem[] }) {
   );
 }
 
-// -- Export Modal -----------------------------------------------------------
+// ── Export Modal ───────────────────────────────────────────────────────────
 function ExportModal({ items, onClose }: { items: WrongItem[]; onClose: () => void }) {
   const [format, setFormat] = useState<"csv" | "txt" | "anki">("csv");
   const [includeExample, setIncludeExample] = useState(true);
@@ -608,7 +608,7 @@ function ExportModal({ items, onClose }: { items: WrongItem[]; onClose: () => vo
 
   const generateContent = () => {
     if (format === "csv") {
-      const header = ["Ti?ng H�n", "Ti?ng Vi?t", includePronunciation ? "Ph�t �m" : null, includeExample ? "V� d?" : null, includeExample ? "D?ch v� d?" : null, "S? l?n sai", "Ch? d?"]
+      const header = ["Tiếng Hàn", "Tiếng Việt", includePronunciation ? "Phát âm" : null, includeExample ? "Ví dụ" : null, includeExample ? "Dịch ví dụ" : null, "Số lần sai", "Chủ đề"]
         .filter(Boolean).join(",");
       const rows = items.map(item => {
         const cols = [
@@ -628,11 +628,11 @@ function ExportModal({ items, onClose }: { items: WrongItem[]; onClose: () => vo
     if (format === "txt") {
       return items.map((item, i) => {
         const lines = [
-          `${i + 1}. ${item.korean} � ${item.vietnamese}`,
-          includePronunciation ? `   Ph�t �m: [${item.pronunciation}]` : null,
-          includeExample && item.example ? `   V� d?: ${item.example}` : null,
-          includeExample && item.exampleVi ? `   D?ch: ${item.exampleVi}` : null,
-          `   Sai: ${item.wrongCount} l?n | Ch? d?: ${item.topic}`,
+          `${i + 1}. ${item.korean} — ${item.vietnamese}`,
+          includePronunciation ? `   Phát âm: [${item.pronunciation}]` : null,
+          includeExample && item.example ? `   Ví dụ: ${item.example}` : null,
+          includeExample && item.exampleVi ? `   Dịch: ${item.exampleVi}` : null,
+          `   Sai: ${item.wrongCount} lần | Chủ đề: ${item.topic}`,
         ].filter(Boolean);
         return lines.join("\n");
       }).join("\n\n");
@@ -669,8 +669,8 @@ function ExportModal({ items, onClose }: { items: WrongItem[]; onClose: () => vo
       <div className="bg-app-bg border border-app-border rounded-2xl w-full max-w-md">
         <div className="flex items-center justify-between p-5 border-b border-app-border">
           <div>
-            <h3 className="text-white font-bold">Xu?t danh s�ch t? sai</h3>
-            <p className="text-app-text-secondary text-xs mt-0.5">{items.length} t? c?n �n l?i</p>
+            <h3 className="text-white font-bold">Xuất danh sách từ sai</h3>
+            <p className="text-app-text-secondary text-xs mt-0.5">{items.length} từ cần ôn lại</p>
           </div>
           <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/8 text-app-text-secondary cursor-pointer">
             <i className="ri-close-line"></i>
@@ -680,11 +680,11 @@ function ExportModal({ items, onClose }: { items: WrongItem[]; onClose: () => vo
         <div className="p-5 space-y-5">
           {/* Format */}
           <div>
-            <p className="text-white/50 text-xs font-semibold mb-3">�?nh d?ng xu?t</p>
+            <p className="text-white/50 text-xs font-semibold mb-3">Định dạng xuất</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {([
                 { id: "csv", icon: "ri-file-excel-line", label: "CSV", desc: "Excel/Sheets" },
-                { id: "txt", icon: "ri-file-text-line", label: "TXT", desc: "Van b?n thu?n" },
+                { id: "txt", icon: "ri-file-text-line", label: "TXT", desc: "Văn bản thuần" },
                 { id: "anki", icon: "ri-stack-line", label: "Anki", desc: "Flashcard app" },
               ] as const).map(f => (
                 <button
@@ -708,11 +708,11 @@ function ExportModal({ items, onClose }: { items: WrongItem[]; onClose: () => vo
 
           {/* Options */}
           <div>
-            <p className="text-white/50 text-xs font-semibold mb-3">T�y ch?n n?i dung</p>
+            <p className="text-white/50 text-xs font-semibold mb-3">Tùy chọn nội dung</p>
             <div className="space-y-2">
               {[
-                { label: "Bao g?m ph�t �m", value: includePronunciation, setter: setIncludePronunciation },
-                { label: "Bao g?m c�u v� d?", value: includeExample, setter: setIncludeExample },
+                { label: "Bao gồm phát âm", value: includePronunciation, setter: setIncludePronunciation },
+                { label: "Bao gồm câu ví dụ", value: includeExample, setter: setIncludeExample },
               ].map(opt => (
                 <button
                   key={opt.label}
@@ -730,7 +730,7 @@ function ExportModal({ items, onClose }: { items: WrongItem[]; onClose: () => vo
 
           {/* Preview */}
           <div className="bg-app-surface/50 border border-app-border rounded-xl p-3 max-h-32 overflow-y-auto">
-            <p className="text-app-text-muted text-[10px] font-semibold mb-2 ">Xem tru?c</p>
+            <p className="text-app-text-muted text-[10px] font-semibold mb-2 ">Xem trước</p>
             <pre className="text-white/50 text-[10px] font-mono whitespace-pre-wrap leading-relaxed">
               {generateContent().slice(0, 300)}{generateContent().length > 300 ? "..." : ""}
             </pre>
@@ -742,13 +742,13 @@ function ExportModal({ items, onClose }: { items: WrongItem[]; onClose: () => vo
               onClick={handleCopy}
               className="flex-1 py-3 bg-white/8 border border-app-border text-white/70 rounded-xl font-medium cursor-pointer whitespace-nowrap hover:bg-white/12 transition-all text-sm"
             >
-              <i className="ri-clipboard-line mr-2"></i>Sao ch�p
+              <i className="ri-clipboard-line mr-2"></i>Sao chép
             </button>
             <button
               onClick={handleDownload}
               className="flex-1 py-3 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap hover:bg-app-accent-primary/90 transition-all text-sm"
             >
-              <i className="ri-download-line mr-2"></i>T?i xu?ng
+              <i className="ri-download-line mr-2"></i>Tải xuống
             </button>
           </div>
         </div>
@@ -757,7 +757,7 @@ function ExportModal({ items, onClose }: { items: WrongItem[]; onClose: () => vo
   );
 }
 
-// -- Main Page --------------------------------------------------------------
+// ── Main Page ──────────────────────────────────────────────────────────────
 export default function EpsWrongTopicPage() {
   const navigate = useNavigate();
   const [wrongHistory] = useLocalStorage<Record<string, { count: number; lastWrong: string }>>(
@@ -843,8 +843,8 @@ export default function EpsWrongTopicPage() {
               <i className="ri-arrow-left-line text-white/60"></i>
             </button>
             <div>
-              <h1 className="text-white text-xl font-bold">�n t?p sai theo ch? d?</h1>
-              <p className="text-app-text-secondary text-sm">L?c v� �n l?i t? v?ng d� sai theo nh�m ch? d?</p>
+              <h1 className="text-white text-xl font-bold">Ôn tập sai theo chủ đề</h1>
+              <p className="text-app-text-secondary text-sm">Lọc và ôn lại từ vựng đã sai theo nhóm chủ đề</p>
             </div>
           </div>
 
@@ -852,22 +852,22 @@ export default function EpsWrongTopicPage() {
             <div className="w-20 h-20 flex items-center justify-center mx-auto mb-4 bg-emerald-500/10 rounded-full">
               <i className="ri-checkbox-circle-line text-app-accent-success text-4xl"></i>
             </div>
-            <h3 className="text-white text-xl font-bold mb-2">Chua c� t? sai n�o!</h3>
+            <h3 className="text-white text-xl font-bold mb-2">Chưa có từ sai nào!</h3>
             <p className="text-white/50 text-sm mb-6 max-w-sm mx-auto">
-              H�y l�m b�i t?p trong c�c b�i h?c EPS d? h? th?ng ghi l?i t? b?n tr? l?i sai.
+              Hãy làm bài tập trong các bài học EPS để hệ thống ghi lại từ bạn trả lời sai.
             </p>
             <div className="flex gap-3 justify-center flex-wrap">
               <button
                 onClick={() => navigate("/eps-lessons")}
                 className="px-5 py-2.5 bg-app-accent-primary text-black font-bold rounded-xl cursor-pointer whitespace-nowrap"
               >
-                <i className="ri-book-open-line mr-2"></i>�?n 60 B�i H?c EPS
+                <i className="ri-book-open-line mr-2"></i>Đến 60 Bài Học EPS
               </button>
               <button
                 onClick={() => navigate("/eps-topic-study")}
                 className="px-5 py-2.5 bg-white/8 text-white/70 rounded-xl cursor-pointer whitespace-nowrap border border-app-border"
               >
-                <i className="ri-bookmark-3-line mr-2"></i>H?c theo ch? d?
+                <i className="ri-bookmark-3-line mr-2"></i>Học theo chủ đề
               </button>
             </div>
           </div>
@@ -888,9 +888,9 @@ export default function EpsWrongTopicPage() {
             <i className="ri-arrow-left-line text-white/60"></i>
           </button>
           <div>
-            <h1 className="text-white text-xl font-bold">�n t?p sai theo ch? d?</h1>
+            <h1 className="text-white text-xl font-bold">Ôn tập sai theo chủ đề</h1>
             <p className="text-app-text-secondary text-sm">
-              {totalWrong} t? c?n �n l?i � {masteredWords.length} t? d� nh?
+              {totalWrong} từ cần ôn lại · {masteredWords.length} từ đã nhớ
             </p>
           </div>
           <div className="ml-auto flex items-center gap-2">
@@ -901,7 +901,7 @@ export default function EpsWrongTopicPage() {
                 className="flex items-center gap-2 px-4 py-2 bg-app-card/50 border border-app-border text-white/60 rounded-xl text-sm font-medium cursor-pointer whitespace-nowrap hover:bg-app-card/70 hover:text-white/80 transition-all"
               >
                 <i className="ri-download-line text-sm"></i>
-                Xu?t file
+                Xuất file
               </button>
             )}
             {masteredWords.length > 0 && !started && (
@@ -909,7 +909,7 @@ export default function EpsWrongTopicPage() {
                 onClick={handleClearMastered}
                 className="text-xs text-app-text-muted hover:text-white/60 cursor-pointer whitespace-nowrap"
               >
-                <i className="ri-refresh-line mr-1"></i>Reset d� nh?
+                <i className="ri-refresh-line mr-1"></i>Reset đã nhớ
               </button>
             )}
           </div>
@@ -920,20 +920,20 @@ export default function EpsWrongTopicPage() {
             {/* Left: Topic picker */}
             <div className="lg:col-span-2 space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="text-white font-semibold">Ch?n ch? d? d? �n</h2>
+                <h2 className="text-white font-semibold">Chọn chủ đề để ôn</h2>
                 <div className="flex gap-2">
                   <button
                     onClick={() => setSelectedTopics(new Set(EPS_LESSON_TOPICS.map(t => t.id)))}
                     className="text-xs text-app-accent-primary hover:underline cursor-pointer whitespace-nowrap"
                   >
-                    Ch?n t?t c?
+                    Chọn tất cả
                   </button>
                   <span className="text-app-text-muted">|</span>
                   <button
                     onClick={() => setSelectedTopics(new Set())}
                     className="text-xs text-app-text-secondary hover:text-white/60 cursor-pointer whitespace-nowrap"
                   >
-                    B? ch?n
+                    Bỏ chọn
                   </button>
                 </div>
               </div>
@@ -965,7 +965,7 @@ export default function EpsWrongTopicPage() {
                             {topic.label}
                           </p>
                           <p className="text-app-text-secondary text-xs">
-                            {count > 0 ? `${count} t? c?n �n` : "Kh�ng c� t? sai"}
+                            {count > 0 ? `${count} từ cần ôn` : "Không có từ sai"}
                           </p>
                         </div>
                         {isSelected && count > 0 && (
@@ -993,16 +993,16 @@ export default function EpsWrongTopicPage() {
               {/* Top wrong words preview */}
               {filteredWrongItems.length > 0 && (
                 <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
-                  <p className="text-white/50 text-xs font-semibold mb-3">T? sai nhi?u nh?t</p>
+                  <p className="text-white/50 text-xs font-semibold mb-3">Từ sai nhiều nhất</p>
                   <div className="flex flex-wrap gap-2">
                     {filteredWrongItems.slice(0, 10).map((item, i) => (
                       <div key={i} className="flex items-center gap-1.5 px-3 py-1.5 bg-red-500/8 border border-red-500/15 rounded-lg">
                         <span className="text-white/70 text-xs font-medium">{item.korean}</span>
-                        <span className="text-red-400 text-[10px] font-bold">�{item.wrongCount}</span>
+                        <span className="text-red-400 text-[10px] font-bold">×{item.wrongCount}</span>
                       </div>
                     ))}
                     {filteredWrongItems.length > 10 && (
-                      <span className="text-app-text-muted text-xs px-2 py-1.5">+{filteredWrongItems.length - 10} t? n?a</span>
+                      <span className="text-app-text-muted text-xs px-2 py-1.5">+{filteredWrongItems.length - 10} từ nữa</span>
                     )}
                   </div>
                 </div>
@@ -1013,22 +1013,22 @@ export default function EpsWrongTopicPage() {
             <div className="space-y-4">
               {/* Summary */}
               <div className="bg-red-500/5 border border-red-500/15 rounded-xl p-4">
-                <p className="text-white/50 text-xs mb-1">T? c?n �n l?i</p>
+                <p className="text-white/50 text-xs mb-1">Từ cần ôn lại</p>
                 <p className="text-red-400 text-2xl font-bold">{filteredWrongItems.length}</p>
                 <p className="text-app-text-muted text-xs mt-1">
-                  t? {selectedTopics.size > 0 ? selectedTopics.size : EPS_LESSON_TOPICS.length} ch? d?
+                  từ {selectedTopics.size > 0 ? selectedTopics.size : EPS_LESSON_TOPICS.length} chủ đề
                 </p>
               </div>
 
               {/* Mode picker */}
               <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 space-y-2">
-                <p className="text-white/50 text-xs mb-3">Ch? d? �n t?p</p>
+                <p className="text-white/50 text-xs mb-3">Chế độ ôn tập</p>
                 {(
                   [
-                    { id: "flashcard", icon: "ri-stack-line", label: "Flashcard", desc: "L?t th? � nh?/chua nh?" },
-                    { id: "quiz", icon: "ri-survey-line", label: "Tr?c nghi?m", desc: "Ch?n d�p �n d�ng" },
-                    { id: "fill", icon: "ri-edit-line", label: "�i?n t?", desc: "G� t? ti?ng H�n" },
-                    { id: "listen", icon: "ri-headphone-line", label: "Nghe & �i?n", desc: "Nghe ph�t �m r?i di?n" },
+                    { id: "flashcard", icon: "ri-stack-line", label: "Flashcard", desc: "Lật thẻ — nhớ/chưa nhớ" },
+                    { id: "quiz", icon: "ri-survey-line", label: "Trắc nghiệm", desc: "Chọn đáp án đúng" },
+                    { id: "fill", icon: "ri-edit-line", label: "Điền từ", desc: "Gõ từ tiếng Hàn" },
+                    { id: "listen", icon: "ri-headphone-line", label: "Nghe & Điền", desc: "Nghe phát âm rồi điền" },
                   ] as const
                 ).map(m => (
                   <button
@@ -1063,38 +1063,38 @@ export default function EpsWrongTopicPage() {
                 className="w-full py-4 bg-red-500 text-white font-bold rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed hover:bg-red-500/90 transition-all text-sm"
               >
                 <i className="ri-refresh-line mr-2"></i>
-                B?t d?u �n ({filteredWrongItems.length} t?)
+                Bắt đầu ôn ({filteredWrongItems.length} từ)
               </button>
 
               {/* Quick links */}
               <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 space-y-2">
-                <p className="text-app-text-secondary text-xs mb-2">Li�n k?t nhanh</p>
+                <p className="text-app-text-secondary text-xs mb-2">Liên kết nhanh</p>
                 <button
                   onClick={() => navigate("/eps-lessons")}
                   className="w-full flex items-center gap-2 text-white/50 hover:text-white/80 text-xs py-1.5 cursor-pointer whitespace-nowrap"
                 >
                   <i className="ri-book-open-line text-sm"></i>
-                  60 B�i h?c EPS
+                  60 Bài học EPS
                 </button>
                 <button
                   onClick={() => navigate("/eps-topic-study")}
                   className="w-full flex items-center gap-2 text-white/50 hover:text-white/80 text-xs py-1.5 cursor-pointer whitespace-nowrap"
                 >
                   <i className="ri-bookmark-3-line text-sm"></i>
-                  H?c theo ch? d?
+                  Học theo chủ đề
                 </button>
                 <button
                   onClick={() => navigate("/wrong-review")}
                   className="w-full flex items-center gap-2 text-white/50 hover:text-white/80 text-xs py-1.5 cursor-pointer whitespace-nowrap"
                 >
                   <i className="ri-error-warning-line text-sm"></i>
-                  �n t?p sai (t?ng h?p)
+                  Ôn tập sai (tổng hợp)
                 </button>
               </div>
             </div>
           </div>
         ) : (
-          /* -- Review screen -- */
+          /* ── Review screen ── */
           <div className="space-y-4">
             {/* Mode tabs */}
             <div className="flex items-center gap-1 bg-app-surface/50 border border-app-border rounded-xl p-1 w-fit flex-wrap">
@@ -1102,8 +1102,8 @@ export default function EpsWrongTopicPage() {
                 [
                   { id: "flashcard", icon: "ri-stack-line", label: "Flashcard" },
                   { id: "quiz", icon: "ri-survey-line", label: "Quiz" },
-                  { id: "fill", icon: "ri-edit-line", label: "�i?n t?" },
-                  { id: "listen", icon: "ri-headphone-line", label: "Nghe & �i?n" },
+                  { id: "fill", icon: "ri-edit-line", label: "Điền từ" },
+                  { id: "listen", icon: "ri-headphone-line", label: "Nghe & Điền" },
                 ] as const
               ).map(m => (
                 <button
@@ -1129,10 +1129,10 @@ export default function EpsWrongTopicPage() {
                       .map(id => EPS_LESSON_TOPICS.find(t => t.id === id)?.label)
                       .filter(Boolean)
                       .join(", ")
-                  : "T?t c? ch? d?"}
+                  : "Tất cả chủ đề"}
               </span>
-              <span>�</span>
-              <span>{filteredWrongItems.length} t? c?n �n</span>
+              <span>•</span>
+              <span>{filteredWrongItems.length} từ cần ôn</span>
             </div>
 
             {/* Review content */}

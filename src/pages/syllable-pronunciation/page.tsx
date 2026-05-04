@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+﻿import { useState, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface SyllableGroup {
@@ -23,75 +23,75 @@ interface SyllableItem {
 const syllableGroups: SyllableGroup[] = [
   {
     id: "vowels",
-    title: "Nguy�n �m kh�",
-    description: "C�c nguy�n �m d? nh?m l?n",
+    title: "Nguyên âm khó",
+    description: "Các nguyên âm dễ nhầm lẫn",
     icon: "ri-sound-module-line",
     color: "app-accent-primary",
     syllables: [
-      { id: "eu", syllable: "?", romanization: "eu", tip: "Ph�t �m nhu 'u' trong ti?ng Vi?t, m�i kh�ng tr�n", similar: "u (Vi?t)", words: [{ korean: "??", meaning: "b?ng/theo hu?ng" }, { korean: "??", meaning: "to l?n" }], difficulty: "medium" },
-      { id: "oe", syllable: "?", romanization: "oe", tip: "Ph�t �m nhu 'oe' � m�i tr�n, lu?i ? v? tr� 'e'", similar: "oe", words: [{ korean: "??", meaning: "nu?c ngo�i" }, { korean: "???", meaning: "c� don" }], difficulty: "hard" },
-      { id: "wi", syllable: "?", romanization: "wi", tip: "Ph�t �m nhanh 'u+i' th�nh m?t �m ti?t", similar: "wi", words: [{ korean: "?", meaning: "tr�n/d? d�y" }, { korean: "??", meaning: "nguy hi?m" }], difficulty: "medium" },
-      { id: "ui", syllable: "?", romanization: "ui/i/e", tip: "�?c '?' l� 'ui' khi d?ng d?u, 'i' khi l� tr? t? s? h?u, 'e' trong c�c tru?ng h?p kh�c", words: [{ korean: "??", meaning: "b�c si" }, { korean: "??", meaning: "c?a t�i" }], difficulty: "hard" },
+      { id: "eu", syllable: "으", romanization: "eu", tip: "Phát âm như 'ư' trong tiếng Việt, môi không tròn", similar: "ư (Việt)", words: [{ korean: "으로", meaning: "bằng/theo hướng" }, { korean: "크다", meaning: "to lớn" }], difficulty: "medium" },
+      { id: "oe", syllable: "외", romanization: "oe", tip: "Phát âm như 'oe' — môi tròn, lưỡi ở vị trí 'e'", similar: "oe", words: [{ korean: "외국", meaning: "nước ngoài" }, { korean: "외롭다", meaning: "cô đơn" }], difficulty: "hard" },
+      { id: "wi", syllable: "위", romanization: "wi", tip: "Phát âm nhanh 'u+i' thành một âm tiết", similar: "wi", words: [{ korean: "위", meaning: "trên/dạ dày" }, { korean: "위험", meaning: "nguy hiểm" }], difficulty: "medium" },
+      { id: "ui", syllable: "의", romanization: "ui/i/e", tip: "Đọc '의' là 'ui' khi đứng đầu, 'i' khi là trợ từ sở hữu, 'e' trong các trường hợp khác", words: [{ korean: "의사", meaning: "bác sĩ" }, { korean: "나의", meaning: "của tôi" }], difficulty: "hard" },
     ],
   },
   {
     id: "consonants",
-    title: "Ph? �m kh�",
-    description: "Ph? �m d? ph�t �m sai",
+    title: "Phụ âm khó",
+    description: "Phụ âm dễ phát âm sai",
     icon: "ri-mic-line",
     color: "#f87171",
     syllables: [
-      { id: "r-l", syllable: "?", romanization: "r/l", tip: "�?u t?: g?n nhu 'r' nh?. Cu?i t?: 'l'. Gi?a nguy�n �m: 'r' rung nh?", words: [{ korean: "??", meaning: "m� ramen" }, { korean: "?", meaning: "ng?a/l?i n�i" }], difficulty: "hard" },
-      { id: "ng", syllable: "?", romanization: "ng/silent", tip: "�?u �m ti?t: c�m (kh�ng ph�t �m). Cu?i �m ti?t: 'ng' nhu trong 'kh�ng'", words: [{ korean: "??", meaning: "d?a tr?" }, { korean: "?", meaning: "s�ng" }], difficulty: "medium" },
-      { id: "b-p", syllable: "?", romanization: "b/p", tip: "�?u t?: 'b' nh?. Cu?i t?: 'p' kh�ng b?t hoi (�m t?c)", words: [{ korean: "??", meaning: "bi?n" }, { korean: "?", meaning: "com" }], difficulty: "medium" },
-      { id: "d-t", syllable: "?", romanization: "d/t", tip: "�?u t?: 'd' nh?. Cu?i t?: 't' kh�ng b?t hoi (�m t?c)", words: [{ korean: "??", meaning: "c?u/ch�n" }, { korean: "?", meaning: "c?/tru?ng" }], difficulty: "medium" },
+      { id: "r-l", syllable: "ㄹ", romanization: "r/l", tip: "Đầu từ: gần như 'r' nhẹ. Cuối từ: 'l'. Giữa nguyên âm: 'r' rung nhẹ", words: [{ korean: "라면", meaning: "mì ramen" }, { korean: "말", meaning: "ngựa/lời nói" }], difficulty: "hard" },
+      { id: "ng", syllable: "ㅇ", romanization: "ng/silent", tip: "Đầu âm tiết: câm (không phát âm). Cuối âm tiết: 'ng' như trong 'không'", words: [{ korean: "아이", meaning: "đứa trẻ" }, { korean: "강", meaning: "sông" }], difficulty: "medium" },
+      { id: "b-p", syllable: "ㅂ", romanization: "b/p", tip: "Đầu từ: 'b' nhẹ. Cuối từ: 'p' không bật hơi (âm tắc)", words: [{ korean: "바다", meaning: "biển" }, { korean: "밥", meaning: "cơm" }], difficulty: "medium" },
+      { id: "d-t", syllable: "ㄷ", romanization: "d/t", tip: "Đầu từ: 'd' nhẹ. Cuối từ: 't' không bật hơi (âm tắc)", words: [{ korean: "다리", meaning: "cầu/chân" }, { korean: "맏", meaning: "cả/trưởng" }], difficulty: "medium" },
     ],
   },
   {
     id: "tense",
-    title: "Ph? �m cang (Tense)",
-    description: "Ph? �m d�i � ph�t �m m?nh hon",
+    title: "Phụ âm căng (Tense)",
+    description: "Phụ âm đôi — phát âm mạnh hơn",
     icon: "ri-flashlight-line",
     color: "#a78bfa",
     syllables: [
-      { id: "kk", syllable: "?", romanization: "kk", tip: "Cang c? h?ng, ph�t �m 'k' m?nh hon ?, kh�ng b?t hoi", similar: "? (nh? hon)", words: [{ korean: "?", meaning: "hoa" }, { korean: "?", meaning: "gi?c mo" }], difficulty: "hard" },
-      { id: "tt", syllable: "?", romanization: "tt", tip: "Cang c? h?ng, ph�t �m 't' m?nh hon ?, kh�ng b?t hoi", similar: "? (nh? hon)", words: [{ korean: "?", meaning: "con g�i" }, { korean: "?", meaning: "l�c/khi" }], difficulty: "hard" },
-      { id: "pp", syllable: "?", romanization: "pp", tip: "Cang c? h?ng, ph�t �m 'p' m?nh hon ?, kh�ng b?t hoi", similar: "? (nh? hon)", words: [{ korean: "??", meaning: "nhanh" }, { korean: "??", meaning: "h�n" }], difficulty: "hard" },
-      { id: "ss", syllable: "?", romanization: "ss", tip: "Cang c? h?ng, ph�t �m 's' m?nh hon ?, s?c hon", similar: "? (nh? hon)", words: [{ korean: "?", meaning: "h?t/�ng/b�" }, { korean: "??", meaning: "vi?t/d?ng" }], difficulty: "hard" },
+      { id: "kk", syllable: "ㄲ", romanization: "kk", tip: "Căng cổ họng, phát âm 'k' mạnh hơn ㄱ, không bật hơi", similar: "ㄱ (nhẹ hơn)", words: [{ korean: "꽃", meaning: "hoa" }, { korean: "꿈", meaning: "giấc mơ" }], difficulty: "hard" },
+      { id: "tt", syllable: "ㄸ", romanization: "tt", tip: "Căng cổ họng, phát âm 't' mạnh hơn ㄷ, không bật hơi", similar: "ㄷ (nhẹ hơn)", words: [{ korean: "딸", meaning: "con gái" }, { korean: "때", meaning: "lúc/khi" }], difficulty: "hard" },
+      { id: "pp", syllable: "ㅃ", romanization: "pp", tip: "Căng cổ họng, phát âm 'p' mạnh hơn ㅂ, không bật hơi", similar: "ㅂ (nhẹ hơn)", words: [{ korean: "빨리", meaning: "nhanh" }, { korean: "뽀뽀", meaning: "hôn" }], difficulty: "hard" },
+      { id: "ss", syllable: "ㅆ", romanization: "ss", tip: "Căng cổ họng, phát âm 's' mạnh hơn ㅅ, sắc hơn", similar: "ㅅ (nhẹ hơn)", words: [{ korean: "씨", meaning: "hạt/ông/bà" }, { korean: "쓰다", meaning: "viết/đắng" }], difficulty: "hard" },
     ],
   },
   {
     id: "aspirated",
-    title: "Ph? �m b?t hoi",
-    description: "Ph? �m c� lu?ng hoi m?nh",
+    title: "Phụ âm bật hơi",
+    description: "Phụ âm có luồng hơi mạnh",
     icon: "ri-lungs-line",
     color: "#34d399",
     syllables: [
-      { id: "kh", syllable: "?", romanization: "kh", tip: "Ph�t �m 'k' v?i lu?ng hoi m?nh � th?i tay s? c?m nh?n du?c", similar: "? (kh�ng b?t hoi)", words: [{ korean: "??", meaning: "c� ph�" }, { korean: "??", meaning: "to l?n" }], difficulty: "easy" },
-      { id: "th", syllable: "?", romanization: "th", tip: "Ph�t �m 't' v?i lu?ng hoi m?nh", similar: "? (kh�ng b?t hoi)", words: [{ korean: "??", meaning: "cu?i/d?t" }, { korean: "???", meaning: "c� chua" }], difficulty: "easy" },
-      { id: "ph", syllable: "?", romanization: "ph", tip: "Ph�t �m 'p' v?i lu?ng hoi m?nh", similar: "? (kh�ng b?t hoi)", words: [{ korean: "??", meaning: "d�o" }, { korean: "??", meaning: "pizza" }], difficulty: "easy" },
-      { id: "ch", syllable: "?", romanization: "ch", tip: "Ph�t �m 'ch' v?i lu?ng hoi m?nh", similar: "? (kh�ng b?t hoi)", words: [{ korean: "?", meaning: "xe/tr�" }, { korean: "??", meaning: "b?n b�" }], difficulty: "easy" },
+      { id: "kh", syllable: "ㅋ", romanization: "kh", tip: "Phát âm 'k' với luồng hơi mạnh — thổi tay sẽ cảm nhận được", similar: "ㄱ (không bật hơi)", words: [{ korean: "커피", meaning: "cà phê" }, { korean: "크다", meaning: "to lớn" }], difficulty: "easy" },
+      { id: "th", syllable: "ㅌ", romanization: "th", tip: "Phát âm 't' với luồng hơi mạnh", similar: "ㄷ (không bật hơi)", words: [{ korean: "타다", meaning: "cưỡi/đốt" }, { korean: "토마토", meaning: "cà chua" }], difficulty: "easy" },
+      { id: "ph", syllable: "ㅍ", romanization: "ph", tip: "Phát âm 'p' với luồng hơi mạnh", similar: "ㅂ (không bật hơi)", words: [{ korean: "파다", meaning: "đào" }, { korean: "피자", meaning: "pizza" }], difficulty: "easy" },
+      { id: "ch", syllable: "ㅊ", romanization: "ch", tip: "Phát âm 'ch' với luồng hơi mạnh", similar: "ㅈ (không bật hơi)", words: [{ korean: "차", meaning: "xe/trà" }, { korean: "친구", meaning: "bạn bè" }], difficulty: "easy" },
     ],
   },
   {
     id: "batchim",
-    title: "Batchim (??)",
-    description: "Ph? �m cu?i �m ti?t",
+    title: "Batchim (받침)",
+    description: "Phụ âm cuối âm tiết",
     icon: "ri-corner-down-left-line",
     color: "#fbbf24",
     syllables: [
-      { id: "k-final", syllable: "???", romanization: "k (t?c)", tip: "Cu?i �m ti?t: �m t?c 'k' � kh�ng b?t hoi, ch? d�ng c? h?ng", words: [{ korean: "??", meaning: "tru?ng h?c" }, { korean: "??", meaning: "an" }], difficulty: "medium" },
-      { id: "n-final", syllable: "???", romanization: "n", tip: "Cu?i �m ti?t: �m 'n' � lu?i ch?m v�m mi?ng", words: [{ korean: "??", meaning: "H�n Qu?c" }, { korean: "??", meaning: "ch�o h?i" }], difficulty: "easy" },
-      { id: "m-final", syllable: "???", romanization: "m", tip: "Cu?i �m ti?t: �m 'm' � m�i kh�p l?i", words: [{ korean: "??", meaning: "t�n" }, { korean: "??", meaning: "t�m h?n" }], difficulty: "easy" },
-      { id: "ng-final", syllable: "???", romanization: "ng", tip: "Cu?i �m ti?t: �m 'ng' nhu trong 'kh�ng' � c? h?ng rung", words: [{ korean: "?", meaning: "s�ng" }, { korean: "??", meaning: "ti?ng Anh" }], difficulty: "medium" },
+      { id: "k-final", syllable: "ㄱ받침", romanization: "k (tắc)", tip: "Cuối âm tiết: âm tắc 'k' — không bật hơi, chỉ đóng cổ họng", words: [{ korean: "학교", meaning: "trường học" }, { korean: "먹다", meaning: "ăn" }], difficulty: "medium" },
+      { id: "n-final", syllable: "ㄴ받침", romanization: "n", tip: "Cuối âm tiết: âm 'n' — lưỡi chạm vòm miệng", words: [{ korean: "한국", meaning: "Hàn Quốc" }, { korean: "인사", meaning: "chào hỏi" }], difficulty: "easy" },
+      { id: "m-final", syllable: "ㅁ받침", romanization: "m", tip: "Cuối âm tiết: âm 'm' — môi khép lại", words: [{ korean: "이름", meaning: "tên" }, { korean: "마음", meaning: "tâm hồn" }], difficulty: "easy" },
+      { id: "ng-final", syllable: "ㅇ받침", romanization: "ng", tip: "Cuối âm tiết: âm 'ng' như trong 'không' — cổ họng rung", words: [{ korean: "강", meaning: "sông" }, { korean: "영어", meaning: "tiếng Anh" }], difficulty: "medium" },
     ],
   },
 ];
 
 const difficultyConfig = {
-  easy: { label: "D?", color: "#34d399" },
-  medium: { label: "Trung b�nh", color: "#fbbf24" },
-  hard: { label: "Kh�", color: "#f87171" },
+  easy: { label: "Dễ", color: "#34d399" },
+  medium: { label: "Trung bình", color: "#fbbf24" },
+  hard: { label: "Khó", color: "#f87171" },
 };
 
 export default function SyllablePronunciationPage() {
@@ -133,22 +133,22 @@ export default function SyllablePronunciationPage() {
         {/* Header */}
         <div className="flex items-start justify-between mb-6">
           <div>
-            <h1 className="text-white font-bold text-2xl mb-1">Luy?n ph�t �m theo �m ti?t</h1>
-            <p className="text-white/50 text-sm">T?p t?ng �m ti?t kh� � nguy�n �m, ph? �m, batchim</p>
+            <h1 className="text-white font-bold text-2xl mb-1">Luyện phát âm theo âm tiết</h1>
+            <p className="text-white/50 text-sm">Tập từng âm tiết khó — nguyên âm, phụ âm, batchim</p>
           </div>
           <button onClick={() => { setPracticeMode(v => !v); setPracticeIdx(0); }}
             className={`px-4 py-2 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap transition-all ${practiceMode ? "bg-app-card/70 text-white/60" : "bg-app-accent-primary text-[#141720]"}`}>
-            {practiceMode ? "Tho�t luy?n t?p" : "Ch? d? luy?n t?p"}
+            {practiceMode ? "Thoát luyện tập" : "Chế độ luyện tập"}
           </button>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
-            { label: "T?ng �m ti?t", value: allSyllables.length, color: "app-accent-primary" },
-            { label: "�� th�nh th?o", value: masteredIds.size, color: "#34d399" },
-            { label: "Nh�m", value: syllableGroups.length, color: "#a78bfa" },
-            { label: "Kh�", value: allSyllables.filter(s => s.difficulty === "hard").length, color: "#f87171" },
+            { label: "Tổng âm tiết", value: allSyllables.length, color: "app-accent-primary" },
+            { label: "Đã thành thạo", value: masteredIds.size, color: "#34d399" },
+            { label: "Nhóm", value: syllableGroups.length, color: "#a78bfa" },
+            { label: "Khó", value: allSyllables.filter(s => s.difficulty === "hard").length, color: "#f87171" },
           ].map(s => (
             <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-3 text-center">
               <p className="font-bold text-xl" style={{ color: s.color }}>{s.value}</p>
@@ -158,7 +158,7 @@ export default function SyllablePronunciationPage() {
         </div>
 
         {practiceMode ? (
-          /* -- Practice Mode -- */
+          /* ── Practice Mode ── */
           <div className="rounded-2xl border border-app-border bg-app-surface/50 p-8 text-center">
             <p className="text-app-text-secondary text-sm mb-2">{practiceIdx + 1} / {allSyllables.length}</p>
             <div className="flex gap-1 justify-center mb-8">
@@ -168,7 +168,7 @@ export default function SyllablePronunciationPage() {
             </div>
 
             <div className="mb-6">
-              <p className="text-app-text-muted text-sm mb-3">Ph�t �m �m ti?t n�y:</p>
+              <p className="text-app-text-muted text-sm mb-3">Phát âm âm tiết này:</p>
               <p className="text-white font-bold text-8xl mb-2">{practiceSyllable.syllable}</p>
               <p className="text-app-text-secondary text-lg">[{practiceSyllable.romanization}]</p>
             </div>
@@ -179,10 +179,10 @@ export default function SyllablePronunciationPage() {
             </button>
 
             <div className="p-4 rounded-xl bg-app-card/50 border border-app-border mb-6 text-left">
-              <p className="text-app-text-secondary text-xs mb-1">M?o ph�t �m:</p>
+              <p className="text-app-text-secondary text-xs mb-1">Mẹo phát âm:</p>
               <p className="text-white/80 text-sm">{practiceSyllable.tip}</p>
               {practiceSyllable.similar && (
-                <p className="text-app-accent-primary/70 text-xs mt-2">Tuong t?: {practiceSyllable.similar}</p>
+                <p className="text-app-accent-primary/70 text-xs mt-2">Tương tự: {practiceSyllable.similar}</p>
               )}
             </div>
 
@@ -200,21 +200,21 @@ export default function SyllablePronunciationPage() {
               <button onClick={() => { setPracticeIdx(i => Math.max(0, i - 1)); }}
                 disabled={practiceIdx === 0}
                 className="flex-1 py-3 rounded-xl bg-white/8 text-white/60 text-sm cursor-pointer disabled:opacity-30 whitespace-nowrap">
-                Tru?c
+                Trước
               </button>
               <button onClick={() => toggleMastered(practiceSyllable.id)}
                 className={`flex-1 py-3 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap transition-colors ${masteredIds.has(practiceSyllable.id) ? "bg-emerald-500/20 text-app-accent-success" : "bg-white/8 text-white/60"}`}>
-                {masteredIds.has(practiceSyllable.id) ? "�� th�nh th?o" : "��nh d?u th�nh th?o"}
+                {masteredIds.has(practiceSyllable.id) ? "Đã thành thạo" : "Đánh dấu thành thạo"}
               </button>
               <button onClick={() => { setPracticeIdx(i => Math.min(allSyllables.length - 1, i + 1)); }}
                 disabled={practiceIdx >= allSyllables.length - 1}
                 className="flex-1 py-3 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm cursor-pointer disabled:opacity-30 whitespace-nowrap">
-                Ti?p
+                Tiếp
               </button>
             </div>
           </div>
         ) : (
-          /* -- Browse Mode -- */
+          /* ── Browse Mode ── */
           <div className="flex gap-5">
             {/* Group sidebar */}
             <div className="w-48 flex-shrink-0 space-y-2">
@@ -226,7 +226,7 @@ export default function SyllablePronunciationPage() {
                   </div>
                   <div className="min-w-0">
                     <p className="text-white text-xs font-semibold truncate">{g.title}</p>
-                    <p className="text-app-text-muted text-[10px]">{g.syllables.length} �m ti?t</p>
+                    <p className="text-app-text-muted text-[10px]">{g.syllables.length} âm tiết</p>
                   </div>
                 </button>
               ))}
@@ -277,15 +277,15 @@ export default function SyllablePronunciationPage() {
                   </div>
 
                   <div className="p-3 rounded-xl bg-app-card/50 border border-app-border mb-4">
-                    <p className="text-app-text-secondary text-xs mb-1">M?o ph�t �m:</p>
+                    <p className="text-app-text-secondary text-xs mb-1">Mẹo phát âm:</p>
                     <p className="text-white/80 text-sm leading-relaxed">{activeSyllable.tip}</p>
                     {activeSyllable.similar && (
-                      <p className="text-app-accent-primary/70 text-xs mt-2">So s�nh v?i: {activeSyllable.similar}</p>
+                      <p className="text-app-accent-primary/70 text-xs mt-2">So sánh với: {activeSyllable.similar}</p>
                     )}
                   </div>
 
                   <div className="mb-4">
-                    <p className="text-app-text-secondary text-xs mb-2">T? v� d?:</p>
+                    <p className="text-app-text-secondary text-xs mb-2">Từ ví dụ:</p>
                     <div className="flex gap-2">
                       {activeSyllable.words.map(w => (
                         <button key={w.korean} onClick={() => handleTTS(w.korean, `word-${w.korean}`)}
@@ -300,7 +300,7 @@ export default function SyllablePronunciationPage() {
 
                   <button onClick={() => toggleMastered(activeSyllable.id)}
                     className={`w-full py-2.5 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap transition-colors ${masteredIds.has(activeSyllable.id) ? "bg-emerald-500/20 text-app-accent-success" : "bg-app-accent-primary text-[#141720]"}`}>
-                    {masteredIds.has(activeSyllable.id) ? "�� th�nh th?o � B? d�nh d?u" : "��nh d?u th�nh th?o"}
+                    {masteredIds.has(activeSyllable.id) ? "Đã thành thạo — Bỏ đánh dấu" : "Đánh dấu thành thạo"}
                   </button>
                 </div>
               )}

@@ -1,9 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { epsQuestions, EpsQuestion } from "@/mocks/epsQuestions";
 
-// --- Types -------------------------------------------------------------------
+// ─── Types ───────────────────────────────────────────────────────────────────
 interface WrongAnswer {
   questionId: string;
   question: EpsQuestion;
@@ -21,7 +21,7 @@ interface ReviewSession {
   currentIndex: number;
 }
 
-// --- Helpers -----------------------------------------------------------------
+// ─── Helpers ─────────────────────────────────────────────────────────────────
 function getWrongAnswers(): WrongAnswer[] {
   try {
     return JSON.parse(localStorage.getItem("kts_eps_wrong_answers") || "[]");
@@ -38,12 +38,12 @@ function timeAgo(dateStr: string): string {
   const diff = Date.now() - new Date(dateStr).getTime();
   const hours = Math.floor(diff / 3600000);
   const days = Math.floor(diff / 86400000);
-  if (days > 0) return `${days} ng�y tru?c`;
-  if (hours > 0) return `${hours} gi? tru?c`;
-  return "V?a xong";
+  if (days > 0) return `${days} ngày trước`;
+  if (hours > 0) return `${hours} giờ trước`;
+  return "Vừa xong";
 }
 
-// --- Empty State --------------------------------------------------------------
+// ─── Empty State ──────────────────────────────────────────────────────────────
 function EmptyState() {
   const navigate = useNavigate();
   return (
@@ -51,29 +51,29 @@ function EmptyState() {
       <div className="w-20 h-20 flex items-center justify-center rounded-2xl bg-emerald-500/10 border border-emerald-500/20 mx-auto mb-4">
         <i className="ri-check-double-line text-app-accent-success text-4xl"></i>
       </div>
-      <h3 className="text-white font-bold text-lg mb-2">Chua c� c�u sai n�o!</h3>
+      <h3 className="text-white font-bold text-lg mb-2">Chưa có câu sai nào!</h3>
       <p className="text-app-text-secondary text-sm mb-6 max-w-xs mx-auto">
-        L�m b�i thi EPS d? h? th?ng t? d?ng ghi l?i c�u sai v� t?o d? �n t?p c� nh�n h�a cho b?n.
+        Làm bài thi EPS để hệ thống tự động ghi lại câu sai và tạo đề ôn tập cá nhân hóa cho bạn.
       </p>
       <div className="flex items-center justify-center gap-3 flex-wrap">
         <button
           onClick={() => navigate("/eps-mock-exam")}
           className="px-5 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
         >
-          Thi m� ph?ng th?t
+          Thi mô phỏng thật
         </button>
         <button
           onClick={() => navigate("/eps-exam")}
           className="px-5 py-2.5 bg-app-card/50 border border-app-border rounded-xl text-white/60 text-sm hover:bg-white/8 transition-colors cursor-pointer whitespace-nowrap"
         >
-          Thi th? 40 c�u
+          Thi thử 40 câu
         </button>
       </div>
     </div>
   );
 }
 
-// --- Wrong Answer Card --------------------------------------------------------
+// ─── Wrong Answer Card ────────────────────────────────────────────────────────
 interface WrongCardProps {
   item: WrongAnswer;
   onRemove: (id: string) => void;
@@ -106,7 +106,7 @@ function WrongCard({ item, onRemove }: WrongCardProps) {
               q.difficulty === "medium" ? "bg-amber-500/15 text-amber-400" :
               "bg-rose-500/15 text-rose-400"
             }`}>
-              {q.difficulty === "easy" ? "D?" : q.difficulty === "medium" ? "TB" : "Kh�"}
+              {q.difficulty === "easy" ? "Dễ" : q.difficulty === "medium" ? "TB" : "Khó"}
             </span>
             <span className="text-app-text-muted text-[10px]">{timeAgo(item.lastWrong)}</span>
           </div>
@@ -146,7 +146,7 @@ function WrongCard({ item, onRemove }: WrongCardProps) {
                     "bg-app-surface/50 text-app-text-secondary"
                   }`}
                 >
-                  <span className="flex-shrink-0 font-bold">{["?", "?", "?", "?"][i]}</span>
+                  <span className="flex-shrink-0 font-bold">{["①", "②", "③", "④"][i]}</span>
                   <div className="flex-1">
                     <p>{opt}</p>
                     <p className="opacity-60 mt-0.5">{q.optionsVi[i]}</p>
@@ -161,7 +161,7 @@ function WrongCard({ item, onRemove }: WrongCardProps) {
           {/* Explanation */}
           <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-lg p-3">
             <p className="text-app-accent-primary text-[10px] font-semibold mb-1 flex items-center gap-1">
-              <i className="ri-lightbulb-line"></i> Gi?i th�ch
+              <i className="ri-lightbulb-line"></i> Giải thích
             </p>
             <p className="text-white/50 text-xs leading-relaxed">{q.explanation}</p>
           </div>
@@ -171,7 +171,7 @@ function WrongCard({ item, onRemove }: WrongCardProps) {
   );
 }
 
-// --- Review Quiz --------------------------------------------------------------
+// ─── Review Quiz ──────────────────────────────────────────────────────────────
 interface ReviewQuizProps {
   session: ReviewSession;
   onAnswer: (idx: number) => void;
@@ -195,14 +195,14 @@ function ReviewQuiz({ session, onAnswer, onNext, onFinish }: ReviewQuizProps) {
           <span className={`text-2xl font-bold ${score >= 80 ? "text-app-accent-success" : "text-rose-400"}`}>{score}</span>
         </div>
         <h3 className={`text-lg font-bold mb-1 ${score >= 80 ? "text-app-accent-success" : "text-rose-400"}`}>
-          {score >= 80 ? "Xu?t s?c! �� n?m v?ng!" : "C?n �n th�m!"}
+          {score >= 80 ? "Xuất sắc! Đã nắm vững!" : "Cần ôn thêm!"}
         </h3>
-        <p className="text-white/50 text-sm mb-6">{correct}/{questions.length} c�u d�ng</p>
+        <p className="text-white/50 text-sm mb-6">{correct}/{questions.length} câu đúng</p>
         <button
           onClick={onFinish}
           className="px-6 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
         >
-          Ho�n th�nh
+          Hoàn thành
         </button>
       </div>
     );
@@ -212,7 +212,7 @@ function ReviewQuiz({ session, onAnswer, onNext, onFinish }: ReviewQuizProps) {
     <div className="space-y-4">
       {/* Progress */}
       <div className="flex items-center justify-between mb-2">
-        <span className="text-app-text-secondary text-xs">C�u {currentIndex + 1}/{questions.length}</span>
+        <span className="text-app-text-secondary text-xs">Câu {currentIndex + 1}/{questions.length}</span>
         <div className="h-1.5 flex-1 mx-3 bg-white/8 rounded-full overflow-hidden">
           <div className="h-full bg-app-accent-primary rounded-full transition-all" style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }} />
         </div>
@@ -244,7 +244,7 @@ function ReviewQuiz({ session, onAnswer, onNext, onFinish }: ReviewQuizProps) {
               className={`w-full flex items-start gap-3 px-4 py-3 rounded-xl border transition-all text-left cursor-pointer ${style}`}
             >
               <span className="w-5 h-5 flex items-center justify-center rounded-full text-xs font-bold flex-shrink-0 bg-white/8 mt-0.5">
-                {["?", "?", "?", "?"][i]}
+                {["①", "②", "③", "④"][i]}
               </span>
               <div className="flex-1">
                 <p className="text-sm">{opt}</p>
@@ -259,7 +259,7 @@ function ReviewQuiz({ session, onAnswer, onNext, onFinish }: ReviewQuizProps) {
       {answered !== null && (
         <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
           <p className="text-app-accent-primary text-xs font-semibold mb-1 flex items-center gap-1">
-            <i className="ri-lightbulb-line"></i> Gi?i th�ch
+            <i className="ri-lightbulb-line"></i> Giải thích
           </p>
           <p className="text-white/50 text-xs leading-relaxed">{q.explanation}</p>
         </div>
@@ -270,14 +270,14 @@ function ReviewQuiz({ session, onAnswer, onNext, onFinish }: ReviewQuizProps) {
           onClick={isLast ? onFinish : onNext}
           className="w-full py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
         >
-          {isLast ? "Xem k?t qu?" : "C�u ti?p theo"}
+          {isLast ? "Xem kết quả" : "Câu tiếp theo"}
         </button>
       )}
     </div>
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function EpsSmartWrongPage() {
   const navigate = useNavigate();
   const [wrongAnswers, setWrongAnswers] = useState<WrongAnswer[]>([]);
@@ -386,9 +386,9 @@ export default function EpsSmartWrongPage() {
               className="flex items-center gap-2 text-white/50 hover:text-white/80 transition-colors cursor-pointer text-sm"
             >
               <i className="ri-arrow-left-line"></i>
-              Tho�t �n t?p
+              Thoát ôn tập
             </button>
-            <h2 className="text-white font-semibold text-sm">�n t?p c�u sai th�ng minh</h2>
+            <h2 className="text-white font-semibold text-sm">Ôn tập câu sai thông minh</h2>
           </div>
           <ReviewQuiz
             session={session}
@@ -411,8 +411,8 @@ export default function EpsSmartWrongPage() {
               <i className="ri-error-warning-line text-rose-400 text-xl"></i>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white">�n t?p c�u sai th�ng minh</h1>
-              <p className="text-app-text-secondary text-sm">T?ng h?p c�u sai t? m?i b�i thi</p>
+              <h1 className="text-xl font-bold text-white">Ôn tập câu sai thông minh</h1>
+              <p className="text-app-text-secondary text-sm">Tổng hợp câu sai từ mọi bài thi</p>
             </div>
           </div>
           {wrongAnswers.length > 0 && (
@@ -420,7 +420,7 @@ export default function EpsSmartWrongPage() {
               onClick={handleClearAll}
               className="text-xs text-app-text-muted hover:text-rose-400 transition-colors cursor-pointer whitespace-nowrap"
             >
-              X�a t?t c?
+              Xóa tất cả
             </button>
           )}
         </div>
@@ -432,9 +432,9 @@ export default function EpsSmartWrongPage() {
             {/* Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
               {[
-                { label: "T?ng c�u sai", value: totalWrong, color: "#f87171", icon: "ri-close-circle-line" },
-                { label: "Sai =3 l?n", value: frequentWrong, color: "#fb923c", icon: "ri-alarm-warning-line" },
-                { label: "Sai tu?n n�y", value: recentWrong, color: "app-accent-primary", icon: "ri-calendar-line" },
+                { label: "Tổng câu sai", value: totalWrong, color: "#f87171", icon: "ri-close-circle-line" },
+                { label: "Sai ≥3 lần", value: frequentWrong, color: "#fb923c", icon: "ri-alarm-warning-line" },
+                { label: "Sai tuần này", value: recentWrong, color: "app-accent-primary", icon: "ri-calendar-line" },
               ].map((item, i) => (
                 <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${item.color}15` }}>
@@ -450,15 +450,15 @@ export default function EpsSmartWrongPage() {
             <div className="bg-rose-500/8 border border-rose-500/20 rounded-2xl p-5 mb-6">
               <div className="flex items-center justify-between mb-3">
                 <div>
-                  <h3 className="text-white font-semibold text-sm">B?t d?u �n t?p ngay</h3>
-                  <p className="text-app-text-secondary text-xs mt-0.5">H? th?ng t? t?o d? �n t?p c� nh�n h�a t? c�u sai c?a b?n</p>
+                  <h3 className="text-white font-semibold text-sm">Bắt đầu ôn tập ngay</h3>
+                  <p className="text-app-text-secondary text-xs mt-0.5">Hệ thống tự tạo đề ôn tập cá nhân hóa từ câu sai của bạn</p>
                 </div>
               </div>
               <div className="flex items-center gap-2 flex-wrap">
                 {[
-                  { label: "�n 10 c�u", count: 10 },
-                  { label: "�n 20 c�u", count: 20 },
-                  { label: "�n t?t c?", count: filtered.length },
+                  { label: "Ôn 10 câu", count: 10 },
+                  { label: "Ôn 20 câu", count: 20 },
+                  { label: "Ôn tất cả", count: filtered.length },
                 ].map(item => (
                   <button
                     key={item.count}
@@ -476,9 +476,9 @@ export default function EpsSmartWrongPage() {
             <div className="flex items-center gap-3 mb-4 flex-wrap">
               <div className="flex items-center gap-1 bg-app-card/50 border border-app-border rounded-xl p-1">
                 {[
-                  { key: "all", label: "T?t c?" },
-                  { key: "frequent", label: "Sai nhi?u nh?t" },
-                  { key: "recent", label: "G?n d�y" },
+                  { key: "all", label: "Tất cả" },
+                  { key: "frequent", label: "Sai nhiều nhất" },
+                  { key: "recent", label: "Gần đây" },
                 ].map(f => (
                   <button
                     key={f.key}
@@ -497,7 +497,7 @@ export default function EpsSmartWrongPage() {
                   onChange={e => setTopicFilter(e.target.value)}
                   className="bg-app-card/50 border border-app-border rounded-xl px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
                 >
-                  <option value="all">T?t c? ch? d?</option>
+                  <option value="all">Tất cả chủ đề</option>
                   {topics.map(t => (
                     <option key={t} value={t}>{topicLabels[t]}</option>
                   ))}
@@ -508,7 +508,7 @@ export default function EpsSmartWrongPage() {
             {/* Wrong answer list */}
             <div className="space-y-3">
               {filtered.length === 0 ? (
-                <div className="text-center py-8 text-app-text-muted text-sm">Kh�ng c� c�u sai n�o ph� h?p b? l?c</div>
+                <div className="text-center py-8 text-app-text-muted text-sm">Không có câu sai nào phù hợp bộ lọc</div>
               ) : (
                 filtered.map(item => (
                   <WrongCard key={item.questionId} item={item} onRemove={handleRemove} />

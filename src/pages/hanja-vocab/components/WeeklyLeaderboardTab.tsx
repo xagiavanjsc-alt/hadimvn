@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+﻿import { useState, useMemo, useEffect } from "react";
 import { HANJA_DATA } from "@/mocks/hanjaData";
 
 interface LeaderboardEntry {
@@ -38,14 +38,14 @@ function getDaysLeftInWeek(): number {
 
 // Mock friends data (simulated)
 const MOCK_FRIENDS: LeaderboardEntry[] = [
-  { id: "f1", name: "Minh Tu?n", avatar: "MT", wordsLearned: 48, quizScore: 92, streak: 12, xp: 1240 },
-  { id: "f2", name: "Thu Huong", avatar: "TH", wordsLearned: 35, quizScore: 88, streak: 7, xp: 980 },
+  { id: "f1", name: "Minh Tuấn", avatar: "MT", wordsLearned: 48, quizScore: 92, streak: 12, xp: 1240 },
+  { id: "f2", name: "Thu Hương", avatar: "TH", wordsLearned: 35, quizScore: 88, streak: 7, xp: 980 },
   { id: "f3", name: "Quang Huy", avatar: "QH", wordsLearned: 52, quizScore: 76, streak: 5, xp: 1100 },
   { id: "f4", name: "Lan Anh", avatar: "LA", wordsLearned: 29, quizScore: 95, streak: 14, xp: 1380 },
-  { id: "f5", name: "�?c Th�nh", avatar: "�T", wordsLearned: 41, quizScore: 83, streak: 9, xp: 1050 },
-  { id: "f6", name: "Phuong Linh", avatar: "PL", wordsLearned: 22, quizScore: 71, streak: 3, xp: 620 },
-  { id: "f7", name: "Van Khoa", avatar: "VK", wordsLearned: 60, quizScore: 89, streak: 18, xp: 1560 },
-  { id: "f8", name: "B?o Ch�u", avatar: "BC", wordsLearned: 17, quizScore: 65, streak: 2, xp: 410 },
+  { id: "f5", name: "Đức Thành", avatar: "ĐT", wordsLearned: 41, quizScore: 83, streak: 9, xp: 1050 },
+  { id: "f6", name: "Phương Linh", avatar: "PL", wordsLearned: 22, quizScore: 71, streak: 3, xp: 620 },
+  { id: "f7", name: "Văn Khoa", avatar: "VK", wordsLearned: 60, quizScore: 89, streak: 18, xp: 1560 },
+  { id: "f8", name: "Bảo Châu", avatar: "BC", wordsLearned: 17, quizScore: 65, streak: 2, xp: 410 },
 ];
 
 function loadMyProgress(): WeeklyProgress {
@@ -97,7 +97,7 @@ export default function WeeklyLeaderboardTab() {
 
   const meEntry: LeaderboardEntry = {
     id: "me",
-    name: "B?n",
+    name: "Bạn",
     avatar: "BN",
     wordsLearned: myProgress.wordsLearned,
     quizScore: myProgress.quizScore,
@@ -118,7 +118,7 @@ export default function WeeklyLeaderboardTab() {
   const rest = allEntries.slice(3);
 
   const handleShare = () => {
-    const text = `Tu?n ${weekId}: T�i d� h?c ${myProgress.wordsLearned} t? H�n-H�n, d?t ${myProgress.xp} XP! X?p h?ng #${myRank} trong nh�m b?n b�. ??`;
+    const text = `Tuần ${weekId}: Tôi đã học ${myProgress.wordsLearned} từ Hán-Hàn, đạt ${myProgress.xp} XP! Xếp hạng #${myRank} trong nhóm bạn bè. 🎯`;
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -135,14 +135,14 @@ export default function WeeklyLeaderboardTab() {
       <div className="bg-gradient-to-r from-rose-50 to-orange-50 border border-rose-100 rounded-2xl p-5 mb-5">
         <div className="flex items-center justify-between mb-3">
           <div>
-            <h2 className="text-lg font-bold text-gray-900">B?ng x?p h?ng tu?n</h2>
-            <p className="text-sm text-gray-500">Tu?n {weekId} � C�n {daysLeft} ng�y</p>
+            <h2 className="text-lg font-bold text-gray-900">Bảng xếp hạng tuần</h2>
+            <p className="text-sm text-gray-500">Tuần {weekId} · Còn {daysLeft} ngày</p>
           </div>
           <button
             onClick={() => setShowShareModal(true)}
             className="flex items-center gap-1.5 px-3 py-2 bg-rose-500 text-white rounded-xl text-sm font-medium cursor-pointer hover:bg-rose-600 transition-colors whitespace-nowrap"
           >
-            <i className="ri-share-line"></i>Chia s?
+            <i className="ri-share-line"></i>Chia sẻ
           </button>
         </div>
 
@@ -153,8 +153,8 @@ export default function WeeklyLeaderboardTab() {
               BN
             </div>
             <div className="flex-1">
-              <p className="font-bold text-gray-900 text-sm">B?n � H?ng #{myRank}</p>
-              <p className="text-xs text-gray-500">Tu?n n�y</p>
+              <p className="font-bold text-gray-900 text-sm">Bạn · Hạng #{myRank}</p>
+              <p className="text-xs text-gray-500">Tuần này</p>
             </div>
             <div className="flex items-center gap-1.5 px-2.5 py-1 bg-rose-100 rounded-full">
               <i className="ri-star-fill text-rose-500 text-xs"></i>
@@ -163,8 +163,8 @@ export default function WeeklyLeaderboardTab() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
-              { label: "T? d� h?c", value: myProgress.wordsLearned, icon: "ri-book-open-line", color: "#e11d48" },
-              { label: "Quiz t?t nh?t", value: `${myProgress.quizScore}%`, icon: "ri-gamepad-line", color: "#f97316" },
+              { label: "Từ đã học", value: myProgress.wordsLearned, icon: "ri-book-open-line", color: "#e11d48" },
+              { label: "Quiz tốt nhất", value: `${myProgress.quizScore}%`, icon: "ri-gamepad-line", color: "#f97316" },
               { label: "Streak", value: `${myProgress.streak}d`, icon: "ri-fire-line", color: "#f59e0b" },
             ].map(s => (
               <div key={s.label} className="text-center">
@@ -181,10 +181,10 @@ export default function WeeklyLeaderboardTab() {
 
       {/* Sort controls */}
       <div className="flex gap-2 mb-4 flex-wrap">
-        <span className="text-xs text-gray-500 self-center">S?p x?p theo:</span>
+        <span className="text-xs text-gray-500 self-center">Sắp xếp theo:</span>
         {([
           { key: "xp" as SortKey, label: "XP" },
-          { key: "wordsLearned" as SortKey, label: "T? h?c" },
+          { key: "wordsLearned" as SortKey, label: "Từ học" },
           { key: "quizScore" as SortKey, label: "Quiz" },
           { key: "streak" as SortKey, label: "Streak" },
         ]).map(opt => (
@@ -211,7 +211,7 @@ export default function WeeklyLeaderboardTab() {
                 {entry.avatar}
               </div>
               <p className="text-xs font-semibold text-gray-700 mb-1 text-center leading-tight">{entry.name}</p>
-              <p className="text-xs text-gray-500 mb-2">{entry[sortBy].toLocaleString()}{sortBy === "quizScore" ? "%" : sortBy === "streak" ? "d" : sortBy === "xp" ? " XP" : " t?"}</p>
+              <p className="text-xs text-gray-500 mb-2">{entry[sortBy].toLocaleString()}{sortBy === "quizScore" ? "%" : sortBy === "streak" ? "d" : sortBy === "xp" ? " XP" : " từ"}</p>
               <div className={`w-full ${h} rounded-t-xl flex items-start justify-center pt-2`} style={{ backgroundColor: `${rankColors[rank - 1]}20`, border: `2px solid ${rankColors[rank - 1]}40` }}>
                 <i className={`${rankIcons[rank - 1]} text-xl`} style={{ color: rankColors[rank - 1] }}></i>
               </div>
@@ -224,8 +224,8 @@ export default function WeeklyLeaderboardTab() {
       <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden">
         <div className="grid grid-cols-[40px_1fr_80px_80px_80px_80px] bg-gray-50 px-4 py-2.5 text-xs font-semibold text-gray-500 border-b border-gray-100">
           <span>#</span>
-          <span>Ngu?i h?c</span>
-          <span className="text-center">T? h?c</span>
+          <span>Người học</span>
+          <span className="text-center">Từ học</span>
           <span className="text-center">Quiz</span>
           <span className="text-center">Streak</span>
           <span className="text-center">XP</span>
@@ -253,7 +253,7 @@ export default function WeeklyLeaderboardTab() {
                   <div>
                     <p className={`text-sm font-semibold ${entry.isMe ? "text-rose-600" : "text-gray-800"}`}>
                       {entry.name}
-                      {entry.isMe && <span className="ml-1.5 text-xs bg-rose-100 text-rose-500 px-1.5 py-0.5 rounded-full">B?n</span>}
+                      {entry.isMe && <span className="ml-1.5 text-xs bg-rose-100 text-rose-500 px-1.5 py-0.5 rounded-full">Bạn</span>}
                     </p>
                   </div>
                 </div>
@@ -279,7 +279,7 @@ export default function WeeklyLeaderboardTab() {
       <div className="mt-4 bg-amber-50 border border-amber-100 rounded-xl p-3">
         <p className="text-xs text-amber-700 flex items-start gap-2">
           <i className="ri-information-line flex-shrink-0 mt-0.5"></i>
-          <span>D? li?u b?n b� l� m� ph?ng. K?t n?i Supabase d? so s�nh ti?n d? th?t v?i b?n b� trong th?i gian th?c.</span>
+          <span>Dữ liệu bạn bè là mô phỏng. Kết nối Supabase để so sánh tiến độ thật với bạn bè trong thời gian thực.</span>
         </p>
       </div>
 
@@ -288,15 +288,15 @@ export default function WeeklyLeaderboardTab() {
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={() => setShowShareModal(false)}>
           <div className="bg-white rounded-2xl p-6 max-w-sm w-full" onClick={e => e.stopPropagation()}>
             <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-              <i className="ri-share-line text-rose-500"></i>Chia s? ti?n d?
+              <i className="ri-share-line text-rose-500"></i>Chia sẻ tiến độ
             </h3>
             <div className="bg-gray-50 rounded-xl p-4 mb-4 text-sm text-gray-700 leading-relaxed">
-              Tu?n {weekId}: T�i d� h?c <strong>{myProgress.wordsLearned} t?</strong> H�n-H�n, d?t <strong>{myProgress.xp} XP</strong>! X?p h?ng <strong>#{myRank}</strong> trong nh�m b?n b�. ??
+              Tuần {weekId}: Tôi đã học <strong>{myProgress.wordsLearned} từ</strong> Hán-Hàn, đạt <strong>{myProgress.xp} XP</strong>! Xếp hạng <strong>#{myRank}</strong> trong nhóm bạn bè. 🎯
             </div>
             <div className="flex gap-3">
-              <button onClick={() => setShowShareModal(false)} className="flex-1 py-2.5 border border-gray-200 text-gray-600 rounded-xl text-sm cursor-pointer hover:bg-gray-50 transition-colors">H?y</button>
+              <button onClick={() => setShowShareModal(false)} className="flex-1 py-2.5 border border-gray-200 text-gray-600 rounded-xl text-sm cursor-pointer hover:bg-gray-50 transition-colors">Hủy</button>
               <button onClick={handleShare} className="flex-1 py-2.5 bg-rose-500 text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-rose-600 transition-colors">
-                {copied ? <><i className="ri-check-line mr-1"></i>�� sao ch�p!</> : <><i className="ri-clipboard-line mr-1"></i>Sao ch�p</>}
+                {copied ? <><i className="ri-check-line mr-1"></i>Đã sao chép!</> : <><i className="ri-clipboard-line mr-1"></i>Sao chép</>}
               </button>
             </div>
           </div>

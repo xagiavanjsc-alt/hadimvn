@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { EbookSeries } from "@/pages/series/page";
@@ -18,7 +18,7 @@ export interface Coupon {
 }
 
 const CHANNEL_OPTIONS = [
-  "Zalo OA", "Facebook Group", "TikTok", "Instagram", "YouTube", "Gumroad", "B?n b� gi?i thi?u", "Kh�c"
+  "Zalo OA", "Facebook Group", "TikTok", "Instagram", "YouTube", "Gumroad", "Bạn bè giới thiệu", "Khác"
 ];
 
 function CouponForm({ initial, series, onSave, onCancel }: {
@@ -65,7 +65,7 @@ function CouponForm({ initial, series, onSave, onCancel }: {
         <div className="flex items-center justify-between p-5 border-b border-app-border">
           <div className="flex items-center gap-2">
             <i className="ri-coupon-3-line text-app-accent-primary text-sm"></i>
-            <p className="text-white font-semibold text-sm">{initial ? "Ch?nh s?a coupon" : "T?o coupon m?i"}</p>
+            <p className="text-white font-semibold text-sm">{initial ? "Chỉnh sửa coupon" : "Tạo coupon mới"}</p>
           </div>
           <button onClick={onCancel} className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-white/70 cursor-pointer">
             <i className="ri-close-line"></i>
@@ -75,7 +75,7 @@ function CouponForm({ initial, series, onSave, onCancel }: {
         <div className="p-5 space-y-4">
           {/* Code */}
           <div>
-            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">M� coupon *</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Mã coupon *</label>
             <div className="flex gap-2">
               <input
                 type="text"
@@ -95,7 +95,7 @@ function CouponForm({ initial, series, onSave, onCancel }: {
 
           {/* Discount */}
           <div>
-            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Gi?m gi� *</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Giảm giá *</label>
             <div className="flex gap-2">
               <input
                 type="number"
@@ -115,7 +115,7 @@ function CouponForm({ initial, series, onSave, onCancel }: {
                   onClick={() => setDiscountType("fixed")}
                   className={`px-4 py-2.5 text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${discountType === "fixed" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/70"}`}
                 >
-                  VN�
+                  VNĐ
                 </button>
               </div>
             </div>
@@ -123,7 +123,7 @@ function CouponForm({ initial, series, onSave, onCancel }: {
 
           {/* Channel */}
           <div>
-            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">K�nh b�n h�ng</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Kênh bán hàng</label>
             <select
               value={channel}
               onChange={e => setChannel(e.target.value)}
@@ -137,13 +137,13 @@ function CouponForm({ initial, series, onSave, onCancel }: {
 
           {/* Series */}
           <div>
-            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">�p d?ng cho</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Áp dụng cho</label>
             <select
               value={seriesId}
               onChange={e => setSeriesId(e.target.value)}
               className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 transition-colors cursor-pointer"
             >
-              <option value="all" className="bg-app-bg">T?t c? series</option>
+              <option value="all" className="bg-app-bg">Tất cả series</option>
               {series.map(s => (
                 <option key={s.id} value={s.id} className="bg-app-bg">{s.name}</option>
               ))}
@@ -153,22 +153,22 @@ function CouponForm({ initial, series, onSave, onCancel }: {
           {/* Max usage + note */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Gi?i h?n d�ng (d? tr?ng = kh�ng gi?i h?n)</label>
+              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Giới hạn dùng (để trống = không giới hạn)</label>
               <input
                 type="number"
                 value={maxUsage}
                 onChange={e => setMaxUsage(e.target.value)}
-                placeholder="Kh�ng gi?i h?n"
+                placeholder="Không giới hạn"
                 className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
               />
             </div>
             <div>
-              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Ghi ch�</label>
+              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Ghi chú</label>
               <input
                 type="text"
                 value={note}
                 onChange={e => setNote(e.target.value)}
-                placeholder="Chi?n d?ch th�ng 4..."
+                placeholder="Chiến dịch tháng 4..."
                 className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
               />
             </div>
@@ -176,13 +176,13 @@ function CouponForm({ initial, series, onSave, onCancel }: {
         </div>
 
         <div className="flex gap-3 p-5 border-t border-app-border">
-          <button onClick={onCancel} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">H?y</button>
+          <button onClick={onCancel} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">Hủy</button>
           <button
             onClick={handleSave}
             disabled={!code.trim() || !discount}
             className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
           >
-            {initial ? "Luu thay d?i" : "T?o coupon"}
+            {initial ? "Lưu thay đổi" : "Tạo coupon"}
           </button>
         </div>
       </div>
@@ -200,17 +200,17 @@ function RecordUsageModal({ coupon, onClose, onRecord }: {
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
       <div className="bg-app-bg border border-app-border rounded-2xl w-full max-w-sm">
         <div className="flex items-center justify-between p-5 border-b border-app-border">
-          <p className="text-white font-semibold text-sm">Ghi nh?n s? d?ng</p>
+          <p className="text-white font-semibold text-sm">Ghi nhận sử dụng</p>
           <button onClick={onClose} className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-white/70 cursor-pointer">
             <i className="ri-close-line"></i>
           </button>
         </div>
         <div className="p-5">
           <p className="text-white/50 text-xs mb-4">
-            M�: <span className="text-app-accent-primary font-mono font-bold">{coupon.code}</span> � �� d�ng: {coupon.usageCount} l?n
+            Mã: <span className="text-app-accent-primary font-mono font-bold">{coupon.code}</span> · Đã dùng: {coupon.usageCount} lần
           </p>
           <div>
-            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">S? l?n s? d?ng th�m</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Số lần sử dụng thêm</label>
             <input
               type="number"
               min={1}
@@ -221,12 +221,12 @@ function RecordUsageModal({ coupon, onClose, onRecord }: {
           </div>
         </div>
         <div className="flex gap-3 p-5 border-t border-app-border">
-          <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">H?y</button>
+          <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">Hủy</button>
           <button
             onClick={() => { onRecord(coupon.id, times); onClose(); }}
             className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
           >
-            Ghi nh?n
+            Ghi nhận
           </button>
         </div>
       </div>
@@ -257,7 +257,7 @@ export default function CouponPage() {
     });
     setShowForm(false);
     setEditingCoupon(null);
-    showToast(editingCoupon ? "�� c?p nh?t coupon!" : "�� t?o coupon m?i!");
+    showToast(editingCoupon ? "Đã cập nhật coupon!" : "Đã tạo coupon mới!");
   };
 
   const handleToggle = (id: string) => {
@@ -266,12 +266,12 @@ export default function CouponPage() {
 
   const handleDelete = (id: string) => {
     setCoupons(prev => prev.filter(c => c.id !== id));
-    showToast("�� x�a coupon");
+    showToast("Đã xóa coupon");
   };
 
   const handleRecordUsage = (id: string, times: number) => {
     setCoupons(prev => prev.map(c => c.id === id ? { ...c, usageCount: c.usageCount + times } : c));
-    showToast(`�� ghi nh?n +${times} l?n s? d?ng`);
+    showToast(`Đã ghi nhận +${times} lần sử dụng`);
   };
 
   const handleCopyCode = (code: string) => {
@@ -305,15 +305,15 @@ export default function CouponPage() {
 
   return (
     <DashboardLayout
-      title="Coupon & M� gi?m gi�"
-      subtitle="Theo d�i k�nh b�n h�ng hi?u qu? nh?t qua m� coupon"
+      title="Coupon & Mã giảm giá"
+      subtitle="Theo dõi kênh bán hàng hiệu quả nhất qua mã coupon"
       actions={
         <button
           onClick={() => { setEditingCoupon(null); setShowForm(true); }}
           className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-add-line"></i>
-          T?o coupon m?i
+          Tạo coupon mới
         </button>
       }
     >
@@ -327,10 +327,10 @@ export default function CouponPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "T?ng coupon", value: coupons.length, icon: "ri-coupon-3-line", color: "app-accent-primary" },
-          { label: "�ang ho?t d?ng", value: coupons.filter(c => c.active).length, icon: "ri-checkbox-circle-line", color: "#34d399" },
-          { label: "T?ng lu?t d�ng", value: totalUsage, icon: "ri-user-received-line", color: "#fb923c" },
-          { label: "K�nh dang d�ng", value: channelStats.length, icon: "ri-broadcast-line", color: "#a78bfa" },
+          { label: "Tổng coupon", value: coupons.length, icon: "ri-coupon-3-line", color: "app-accent-primary" },
+          { label: "Đang hoạt động", value: coupons.filter(c => c.active).length, icon: "ri-checkbox-circle-line", color: "#34d399" },
+          { label: "Tổng lượt dùng", value: totalUsage, icon: "ri-user-received-line", color: "#fb923c" },
+          { label: "Kênh đang dùng", value: channelStats.length, icon: "ri-broadcast-line", color: "#a78bfa" },
         ].map(stat => (
           <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
@@ -347,12 +347,12 @@ export default function CouponPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-5">
         {/* Channel ranking */}
         <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-          <h3 className="text-white font-semibold text-sm mb-1">K�nh hi?u qu? nh?t</h3>
-          <p className="text-app-text-muted text-xs mb-4">Theo s? l?n d�ng coupon</p>
+          <h3 className="text-white font-semibold text-sm mb-1">Kênh hiệu quả nhất</h3>
+          <p className="text-app-text-muted text-xs mb-4">Theo số lần dùng coupon</p>
           {channelStats.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-8 text-center">
               <i className="ri-bar-chart-line text-white/10 text-3xl mb-2"></i>
-              <p className="text-app-text-muted text-xs">Chua c� d? li?u</p>
+              <p className="text-app-text-muted text-xs">Chưa có dữ liệu</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -368,7 +368,7 @@ export default function CouponPage() {
                         <span className="text-white/60 text-xs font-medium">{ch}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-app-text-muted text-[10px]">{data.usage} l?n</span>
+                        <span className="text-app-text-muted text-[10px]">{data.usage} lần</span>
                         <span className="text-xs font-bold" style={{ color }}>{pct}%</span>
                       </div>
                     </div>
@@ -386,7 +386,7 @@ export default function CouponPage() {
         <div className="col-span-2 bg-app-bg border border-app-border rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-white font-semibold text-sm">Danh s�ch coupon</h3>
+              <h3 className="text-white font-semibold text-sm">Danh sách coupon</h3>
               <p className="text-app-text-muted text-xs mt-0.5">{filtered.length} coupon</p>
             </div>
             <select
@@ -395,7 +395,7 @@ export default function CouponPage() {
               className="bg-app-card/50 border border-app-border rounded-lg px-3 py-1.5 text-white/60 text-xs focus:outline-none cursor-pointer"
             >
               {channels.map(c => (
-                <option key={c} value={c} className="bg-app-bg">{c === "all" ? "T?t c? k�nh" : c}</option>
+                <option key={c} value={c} className="bg-app-bg">{c === "all" ? "Tất cả kênh" : c}</option>
               ))}
             </select>
           </div>
@@ -403,13 +403,13 @@ export default function CouponPage() {
           {filtered.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <i className="ri-coupon-3-line text-white/10 text-3xl mb-3"></i>
-              <p className="text-app-text-muted text-sm mb-1">Chua c� coupon n�o</p>
+              <p className="text-app-text-muted text-sm mb-1">Chưa có coupon nào</p>
               <button
                 onClick={() => { setEditingCoupon(null); setShowForm(true); }}
                 className="mt-3 flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-xs font-medium px-4 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
               >
                 <i className="ri-add-line"></i>
-                T?o coupon d?u ti�n
+                Tạo coupon đầu tiên
               </button>
             </div>
           ) : (
@@ -428,7 +428,7 @@ export default function CouponPage() {
                     <button
                       onClick={() => handleCopyCode(coupon.code)}
                       className="flex items-center gap-1.5 cursor-pointer"
-                      title="Click d? copy"
+                      title="Click để copy"
                     >
                       <span className="font-mono font-bold text-sm text-app-accent-primary tracking-widest">
                         {coupon.code}
@@ -446,13 +446,13 @@ export default function CouponPage() {
 
                     {/* Series */}
                     <span className="text-app-text-muted text-[10px] truncate max-w-[80px]">
-                      {coupon.seriesId === "all" ? "T?t c?" : (s?.name ?? "?")}
+                      {coupon.seriesId === "all" ? "Tất cả" : (s?.name ?? "?")}
                     </span>
 
                     {/* Usage */}
                     <div className="text-right flex-shrink-0">
                       <p className="text-white/60 text-xs font-semibold">
-                        {coupon.usageCount}{coupon.maxUsage ? `/${coupon.maxUsage}` : ""} l?n
+                        {coupon.usageCount}{coupon.maxUsage ? `/${coupon.maxUsage}` : ""} lần
                       </p>
                       {usagePct !== null && (
                         <div className="w-16 h-1 bg-app-card/50 rounded-full overflow-hidden mt-1">
@@ -466,14 +466,14 @@ export default function CouponPage() {
                       <button
                         onClick={() => setRecordingCoupon(coupon)}
                         className="w-6 h-6 flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 rounded-lg transition-colors cursor-pointer"
-                        title="Ghi nh?n s? d?ng"
+                        title="Ghi nhận sử dụng"
                       >
                         <i className="ri-add-line text-app-text-secondary text-[10px]"></i>
                       </button>
                       <button
                         onClick={() => handleToggle(coupon.id)}
                         className="w-6 h-6 flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 rounded-lg transition-colors cursor-pointer"
-                        title={coupon.active ? "T?t coupon" : "B?t coupon"}
+                        title={coupon.active ? "Tắt coupon" : "Bật coupon"}
                       >
                         <i className={`text-[10px] ${coupon.active ? "ri-pause-line text-app-text-secondary" : "ri-play-line text-app-accent-success"}`}></i>
                       </button>
@@ -502,10 +502,10 @@ export default function CouponPage() {
       <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4 flex items-start gap-3">
         <i className="ri-lightbulb-line text-app-accent-primary text-sm mt-0.5 flex-shrink-0"></i>
         <div>
-          <p className="text-app-accent-primary/80 text-xs font-semibold mb-1">C�ch d�ng coupon d? theo d�i k�nh</p>
+          <p className="text-app-accent-primary/80 text-xs font-semibold mb-1">Cách dùng coupon để theo dõi kênh</p>
           <p className="text-app-text-secondary text-xs leading-relaxed">
-            T?o m� ri�ng cho t?ng k�nh: <strong className="text-white/60">ZALO20</strong> cho Zalo, <strong className="text-white/60">FB15</strong> cho Facebook, <strong className="text-white/60">TT10</strong> cho TikTok.
-            Khi kh�ch d�ng m� ? ghi nh?n th? c�ng ? bi?u d? t? c?p nh?t ? bi?t ngay k�nh n�o hi?u qu? nh?t!
+            Tạo mã riêng cho từng kênh: <strong className="text-white/60">ZALO20</strong> cho Zalo, <strong className="text-white/60">FB15</strong> cho Facebook, <strong className="text-white/60">TT10</strong> cho TikTok.
+            Khi khách dùng mã → ghi nhận thủ công → biểu đồ tự cập nhật → biết ngay kênh nào hiệu quả nhất!
           </p>
         </div>
       </div>

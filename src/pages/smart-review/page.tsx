@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -22,29 +22,29 @@ interface SRCard {
 
 const INITIAL_CARDS: SRCard[] = [
   // EPS cards
-  { id: "e1", korean: "???", vietnamese: "Noi l�m vi?c", example: "????? ??? ??? ???", source: "eps", sourceLabel: "EPS", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "e2", korean: "???", vietnamese: "Mu b?o h?", example: "???? ? ?? ???", source: "eps", sourceLabel: "EPS", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "e3", korean: "???", vietnamese: "H?p d?ng", example: "???? ??? ???", source: "eps", sourceLabel: "EPS", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "e4", korean: "??", vietnamese: "Luong th�ng", example: "??? ?????", source: "eps", sourceLabel: "EPS", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "e5", korean: "??", vietnamese: "Tan ca / V? nh�", example: "?? ? ?? ?????", source: "eps", sourceLabel: "EPS", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "e6", korean: "??", vietnamese: "�i l�m", example: "?? 8?? ????", source: "eps", sourceLabel: "EPS", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "e7", korean: "??", vietnamese: "L�m th�m gi?", example: "?? ??? ???", source: "eps", sourceLabel: "EPS", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "e8", korean: "??", vietnamese: "Ngh? ph�p", example: "?? ?? ??? ? ???", source: "eps", sourceLabel: "EPS", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "e1", korean: "작업장", vietnamese: "Nơi làm việc", example: "작업장에서 안전을 지켜야 합니다", source: "eps", sourceLabel: "EPS", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "e2", korean: "안전모", vietnamese: "Mũ bảo hộ", example: "안전모를 꼭 써야 합니다", source: "eps", sourceLabel: "EPS", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "e3", korean: "계약서", vietnamese: "Hợp đồng", example: "계약서에 서명해 주세요", source: "eps", sourceLabel: "EPS", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "e4", korean: "월급", vietnamese: "Lương tháng", example: "월급이 얼마예요?", source: "eps", sourceLabel: "EPS", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "e5", korean: "퇴근", vietnamese: "Tan ca / Về nhà", example: "오늘 몇 시에 퇴근해요?", source: "eps", sourceLabel: "EPS", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "e6", korean: "출근", vietnamese: "Đi làm", example: "매일 8시에 출근해요", source: "eps", sourceLabel: "EPS", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "e7", korean: "야근", vietnamese: "Làm thêm giờ", example: "오늘 야근이 있어요", source: "eps", sourceLabel: "EPS", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "e8", korean: "휴가", vietnamese: "Nghỉ phép", example: "다음 주에 휴가를 쓸 거예요", source: "eps", sourceLabel: "EPS", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
   // Seoul cards
-  { id: "s1", korean: "??", vietnamese: "Gia d�nh", example: "?? ??? 4????", source: "seoul", sourceLabel: "Seoul 1A", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "s2", korean: "??", vietnamese: "Tru?ng h?c", example: "??? ??", source: "seoul", sourceLabel: "Seoul 1A", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "s3", korean: "??", vietnamese: "B?n b�", example: "??? ?? ????", source: "seoul", sourceLabel: "Seoul 1B", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "s4", korean: "??", vietnamese: "�? an / Th?c an", example: "?? ??? ????", source: "seoul", sourceLabel: "Seoul 1B", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "s5", korean: "??", vietnamese: "Du l?ch", example: "???? ??? ???", source: "seoul", sourceLabel: "Seoul 2A", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "s6", korean: "??", vietnamese: "Th?i ti?t", example: "?? ??? ???", source: "seoul", sourceLabel: "Seoul 2A", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "s7", korean: "??", vietnamese: "Kinh nghi?m", example: "?? ??????", source: "seoul", sourceLabel: "Seoul 3A", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "s8", korean: "??", vietnamese: "Van h�a", example: "?? ??? ??? ???", source: "seoul", sourceLabel: "Seoul 3B", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "s1", korean: "가족", vietnamese: "Gia đình", example: "우리 가족은 4명이에요", source: "seoul", sourceLabel: "Seoul 1A", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "s2", korean: "학교", vietnamese: "Trường học", example: "학교에 가요", source: "seoul", sourceLabel: "Seoul 1A", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "s3", korean: "친구", vietnamese: "Bạn bè", example: "친구와 같이 공부해요", source: "seoul", sourceLabel: "Seoul 1B", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "s4", korean: "음식", vietnamese: "Đồ ăn / Thức ăn", example: "한국 음식이 맛있어요", source: "seoul", sourceLabel: "Seoul 1B", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "s5", korean: "여행", vietnamese: "Du lịch", example: "제주도로 여행을 갔어요", source: "seoul", sourceLabel: "Seoul 2A", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "s6", korean: "날씨", vietnamese: "Thời tiết", example: "오늘 날씨가 좋아요", source: "seoul", sourceLabel: "Seoul 2A", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "s7", korean: "경험", vietnamese: "Kinh nghiệm", example: "좋은 경험이었어요", source: "seoul", sourceLabel: "Seoul 3A", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "s8", korean: "문화", vietnamese: "Văn hóa", example: "한국 문화를 배우고 싶어요", source: "seoul", sourceLabel: "Seoul 3B", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
   // TOPIK cards
-  { id: "t1", korean: "????", vietnamese: "H?c t?p", example: "??? ????", source: "topik", sourceLabel: "TOPIK I", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "t2", korean: "????", vietnamese: "Hi?u", example: "? ?????", source: "topik", sourceLabel: "TOPIK I", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "t3", korean: "????", vietnamese: "Suy nghi", example: "??? ?????", source: "topik", sourceLabel: "TOPIK I", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "t4", korean: "????", vietnamese: "Chu?n b?", example: "??? ????", source: "topik", sourceLabel: "TOPIK I", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
-  { id: "t5", korean: "????", vietnamese: "Gi?i th�ch", example: "???? ????", source: "topik", sourceLabel: "TOPIK II", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "t1", korean: "공부하다", vietnamese: "Học tập", example: "열심히 공부해요", source: "topik", sourceLabel: "TOPIK I", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "t2", korean: "이해하다", vietnamese: "Hiểu", example: "잘 이해했어요", source: "topik", sourceLabel: "TOPIK I", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "t3", korean: "생각하다", vietnamese: "Suy nghĩ", example: "어떻게 생각해요?", source: "topik", sourceLabel: "TOPIK I", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "t4", korean: "준비하다", vietnamese: "Chuẩn bị", example: "시험을 준비해요", source: "topik", sourceLabel: "TOPIK I", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
+  { id: "t5", korean: "설명하다", vietnamese: "Giải thích", example: "선생님이 설명해요", source: "topik", sourceLabel: "TOPIK II", interval: 1, repetitions: 0, easeFactor: 2.5, nextReview: new Date().toISOString().split("T")[0], totalReviews: 0, correctReviews: 0 },
 ];
 
 // SM-2 algorithm
@@ -167,22 +167,22 @@ export default function SmartReviewPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "'Nunito', sans-serif" }}>
-              �n t?p th�ng minh
+              Ôn tập thông minh
             </h1>
-            <p className="text-app-text-secondary text-sm mt-0.5">Spaced Repetition � h? th?ng nh?c l?i t? v?ng s?p qu�n</p>
+            <p className="text-app-text-secondary text-sm mt-0.5">Spaced Repetition — hệ thống nhắc lại từ vựng sắp quên</p>
           </div>
           <div className="flex gap-1 bg-app-card/50 rounded-xl p-1">
             <button
               onClick={() => setViewMode("review")}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${viewMode === "review" ? "bg-amber-500/20 text-amber-400" : "text-app-text-secondary hover:text-white/70"}`}
             >
-              �n t?p
+              Ôn tập
             </button>
             <button
               onClick={() => setViewMode("overview")}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${viewMode === "overview" ? "bg-amber-500/20 text-amber-400" : "text-app-text-secondary hover:text-white/70"}`}
             >
-              T?ng quan
+              Tổng quan
             </button>
           </div>
         </div>
@@ -190,10 +190,10 @@ export default function SmartReviewPage() {
         {/* Stats row */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { label: "C?n �n h�m nay", value: dueToday, color: "text-red-400", icon: "ri-alarm-warning-line" },
-            { label: "�� thu?c", value: masteredCards, color: "text-app-accent-success", icon: "ri-checkbox-circle-line" },
-            { label: "�ang h?c", value: learningCards, color: "text-amber-400", icon: "ri-refresh-line" },
-            { label: "T? m?i", value: newCards, color: "text-sky-400", icon: "ri-add-circle-line" },
+            { label: "Cần ôn hôm nay", value: dueToday, color: "text-red-400", icon: "ri-alarm-warning-line" },
+            { label: "Đã thuộc", value: masteredCards, color: "text-app-accent-success", icon: "ri-checkbox-circle-line" },
+            { label: "Đang học", value: learningCards, color: "text-amber-400", icon: "ri-refresh-line" },
+            { label: "Từ mới", value: newCards, color: "text-sky-400", icon: "ri-add-circle-line" },
           ].map(stat => (
             <div key={stat.label} className="bg-app-card/50 border border-app-border rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
@@ -211,7 +211,7 @@ export default function SmartReviewPage() {
           <>
             {/* Filter */}
             <div className="flex gap-2">
-              {[["all", "T?t c?"], ["eps", "EPS"], ["seoul", "Seoul"], ["topik", "TOPIK"]].map(([val, label]) => (
+              {[["all", "Tất cả"], ["eps", "EPS"], ["seoul", "Seoul"], ["topik", "TOPIK"]].map(([val, label]) => (
                 <button
                   key={val}
                   onClick={() => { setFilterSource(val); resetSession(); }}
@@ -222,7 +222,7 @@ export default function SmartReviewPage() {
                   {label}
                 </button>
               ))}
-              <span className="ml-auto text-app-text-muted text-xs self-center">{dueCards.length} t? c?n �n</span>
+              <span className="ml-auto text-app-text-muted text-xs self-center">{dueCards.length} từ cần ôn</span>
             </div>
 
             {/* Review card */}
@@ -231,23 +231,23 @@ export default function SmartReviewPage() {
                 <div className="w-16 h-16 flex items-center justify-center bg-emerald-500/10 rounded-full mx-auto mb-4">
                   <i className="ri-checkbox-circle-line text-app-accent-success text-3xl"></i>
                 </div>
-                <h3 className="text-white font-semibold text-lg mb-2">Tuy?t v?i! Kh�ng c� t? n�o c?n �n h�m nay</h3>
-                <p className="text-app-text-secondary text-sm">H? th?ng s? nh?c b?n khi c� t? s?p qu�n. H�y quay l?i ng�y mai!</p>
+                <h3 className="text-white font-semibold text-lg mb-2">Tuyệt vời! Không có từ nào cần ôn hôm nay</h3>
+                <p className="text-app-text-secondary text-sm">Hệ thống sẽ nhắc bạn khi có từ sắp quên. Hãy quay lại ngày mai!</p>
               </div>
             ) : sessionDone ? (
               <div className="bg-app-card/50 border border-app-border rounded-2xl p-10 text-center">
                 <div className="w-16 h-16 flex items-center justify-center bg-amber-500/10 rounded-full mx-auto mb-4">
                   <i className="ri-trophy-line text-amber-400 text-3xl"></i>
                 </div>
-                <h3 className="text-white font-semibold text-xl mb-2">Phi�n �n t?p ho�n th�nh!</h3>
+                <h3 className="text-white font-semibold text-xl mb-2">Phiên ôn tập hoàn thành!</h3>
                 <div className="flex justify-center gap-6 my-6">
                   <div className="text-center">
                     <p className="text-3xl font-bold text-white">{sessionStats.reviewed}</p>
-                    <p className="text-app-text-secondary text-xs">�� �n</p>
+                    <p className="text-app-text-secondary text-xs">Đã ôn</p>
                   </div>
                   <div className="text-center">
                     <p className="text-3xl font-bold text-app-accent-success">{sessionStats.correct}</p>
-                    <p className="text-app-text-secondary text-xs">��ng</p>
+                    <p className="text-app-text-secondary text-xs">Đúng</p>
                   </div>
                   <div className="text-center">
                     <p className="text-3xl font-bold text-amber-400">+{sessionStats.xpEarned}</p>
@@ -258,7 +258,7 @@ export default function SmartReviewPage() {
                   onClick={resetSession}
                   className="bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 text-amber-400 rounded-xl px-6 py-2.5 text-sm font-medium transition-all cursor-pointer whitespace-nowrap"
                 >
-                  �n l?i t? d?u
+                  Ôn lại từ đầu
                 </button>
               </div>
             ) : currentCard ? (
@@ -283,10 +283,10 @@ export default function SmartReviewPage() {
                         {currentCard.sourceLabel}
                       </span>
                       {currentCard.repetitions > 0 && (
-                        <span className="text-app-text-muted text-xs">�� �n {currentCard.totalReviews} l?n</span>
+                        <span className="text-app-text-muted text-xs">Đã ôn {currentCard.totalReviews} lần</span>
                       )}
                       <span className="ml-auto text-app-text-muted text-xs">
-                        {currentCard.repetitions === 0 ? "T? m?i" : `L?n ${currentCard.repetitions + 1}`}
+                        {currentCard.repetitions === 0 ? "Từ mới" : `Lần ${currentCard.repetitions + 1}`}
                       </span>
                     </div>
 
@@ -309,7 +309,7 @@ export default function SmartReviewPage() {
                           onClick={() => setShowAnswer(true)}
                           className="mt-4 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-400 rounded-xl px-8 py-3 text-sm font-medium transition-all cursor-pointer whitespace-nowrap"
                         >
-                          Xem nghia
+                          Xem nghĩa
                         </button>
                       ) : (
                         <div className="mt-4 space-y-3">
@@ -326,13 +326,13 @@ export default function SmartReviewPage() {
                     {/* Rating buttons */}
                     {showAnswer && (
                       <div>
-                        <p className="text-app-text-muted text-xs text-center mb-3">B?n nh? t? n�y nhu th? n�o?</p>
+                        <p className="text-app-text-muted text-xs text-center mb-3">Bạn nhớ từ này như thế nào?</p>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                           {[
-                            { quality: 0 as const, label: "Kh�ng nh?", sub: "�n l?i ngay", color: "bg-red-500/15 border-red-500/30 text-red-400 hover:bg-red-500/25" },
-                            { quality: 2 as const, label: "Kh� nh?", sub: "�n l?i s?m", color: "bg-orange-500/15 border-orange-500/30 text-orange-400 hover:bg-orange-500/25" },
-                            { quality: 3 as const, label: "Nh? du?c", sub: `${Math.round(sm2Update(currentCard, 3).interval)} ng�y`, color: "bg-amber-500/15 border-amber-500/30 text-amber-400 hover:bg-amber-500/25" },
-                            { quality: 5 as const, label: "Thu?c l�ng", sub: `${Math.round(sm2Update(currentCard, 5).interval)} ng�y`, color: "bg-app-accent-success/15 border-emerald-500/30 text-app-accent-success hover:bg-emerald-500/25" },
+                            { quality: 0 as const, label: "Không nhớ", sub: "Ôn lại ngay", color: "bg-red-500/15 border-red-500/30 text-red-400 hover:bg-red-500/25" },
+                            { quality: 2 as const, label: "Khó nhớ", sub: "Ôn lại sớm", color: "bg-orange-500/15 border-orange-500/30 text-orange-400 hover:bg-orange-500/25" },
+                            { quality: 3 as const, label: "Nhớ được", sub: `${Math.round(sm2Update(currentCard, 3).interval)} ngày`, color: "bg-amber-500/15 border-amber-500/30 text-amber-400 hover:bg-amber-500/25" },
+                            { quality: 5 as const, label: "Thuộc lòng", sub: `${Math.round(sm2Update(currentCard, 5).interval)} ngày`, color: "bg-app-accent-success/15 border-emerald-500/30 text-app-accent-success hover:bg-emerald-500/25" },
                           ].map(btn => (
                             <button
                               key={btn.quality}
@@ -355,7 +355,7 @@ export default function SmartReviewPage() {
           /* Overview mode */
           <div className="space-y-4">
             <div className="bg-app-card/50 border border-app-border rounded-xl p-5">
-              <h3 className="text-white font-semibold mb-4">T?t c? t? v?ng ({totalCards} t?)</h3>
+              <h3 className="text-white font-semibold mb-4">Tất cả từ vựng ({totalCards} từ)</h3>
               <div className="space-y-2">
                 {cards.map(card => {
                   const daysUntil = getDaysUntilReview(card.nextReview);
@@ -371,10 +371,10 @@ export default function SmartReviewPage() {
                       </div>
                       <div className="text-right flex-shrink-0">
                         <p className={`text-xs font-medium ${daysUntil <= 0 ? "text-red-400" : daysUntil <= 3 ? "text-amber-400" : "text-app-accent-success"}`}>
-                          {daysUntil <= 0 ? "C?n �n ngay" : `${daysUntil} ng�y n?a`}
+                          {daysUntil <= 0 ? "Cần ôn ngay" : `${daysUntil} ngày nữa`}
                         </p>
                         <p className="text-app-text-muted text-[10px]">
-                          {card.totalReviews > 0 ? `${accuracy}% d�ng � ${card.totalReviews} l?n` : "Chua �n"}
+                          {card.totalReviews > 0 ? `${accuracy}% đúng · ${card.totalReviews} lần` : "Chưa ôn"}
                         </p>
                       </div>
                     </div>
@@ -390,9 +390,9 @@ export default function SmartReviewPage() {
                   <i className="ri-brain-line text-violet-400 text-sm"></i>
                 </div>
                 <div>
-                  <p className="text-white/60 text-sm font-medium mb-1">Thu?t to�n SM-2 (Spaced Repetition)</p>
+                  <p className="text-white/60 text-sm font-medium mb-1">Thuật toán SM-2 (Spaced Repetition)</p>
                   <p className="text-white/35 text-xs leading-relaxed">
-                    H? th?ng t? d?ng t�nh to�n kho?ng th?i gian �n t?p t?i uu d?a tr�n m?c d? ghi nh? c?a b?n. T? b?n nh? t?t s? du?c nh?c l?i sau nhi?u ng�y hon, t? kh� s? du?c nh?c l?i s?m hon � gi�p b?n ghi nh? l�u d�i v?i �t th?i gian nh?t.
+                    Hệ thống tự động tính toán khoảng thời gian ôn tập tối ưu dựa trên mức độ ghi nhớ của bạn. Từ bạn nhớ tốt sẽ được nhắc lại sau nhiều ngày hơn, từ khó sẽ được nhắc lại sớm hơn — giúp bạn ghi nhớ lâu dài với ít thời gian nhất.
                   </p>
                 </div>
               </div>

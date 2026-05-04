@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+﻿import { useState, useRef, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { epsQuestions, type EpsQuestion } from "@/mocks/epsQuestions";
 import { koreanToRomanization } from "@/hooks/useAudioCache";
@@ -14,14 +14,14 @@ interface UploadItem {
   targetUrl?: string;
 }
 
-const VPS_IMAGE_BASE = "https://img.hanquocoi.vn/eps";
-const VPS_AUDIO_BASE = "https://audio.hanquocoi.vn/tts";
+const VPS_IMAGE_BASE = "https://img.hadim.vn/eps";
+const VPS_AUDIO_BASE = "https://audio.hadim.vn/tts";
 
 const OPENROUTER_MODELS = [
-  { id: "google/gemma-3-12b-it:free", label: "Gemma 3 12B (Mi?n ph�)" },
+  { id: "google/gemma-3-12b-it:free", label: "Gemma 3 12B (Miễn phí)" },
   { id: "anthropic/claude-3-haiku", label: "Claude 3 Haiku (Nhanh)" },
   { id: "openai/gpt-4o-mini", label: "GPT-4o Mini" },
-  { id: "meta-llama/llama-3.1-8b-instruct:free", label: "Llama 3.1 8B (Mi?n ph�)" },
+  { id: "meta-llama/llama-3.1-8b-instruct:free", label: "Llama 3.1 8B (Miễn phí)" },
 ];
 
 function DropZone({ onFiles }: { onFiles: (files: File[]) => void }) {
@@ -41,8 +41,8 @@ function DropZone({ onFiles }: { onFiles: (files: File[]) => void }) {
       <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-app-card/50 mx-auto mb-4">
         <i className={`ri-upload-cloud-2-line text-3xl ${dragging ? "text-rose-400" : "text-app-text-muted"}`}></i>
       </div>
-      <p className="text-white/60 font-semibold text-sm mb-1">{dragging ? "Th? ?nh v�o d�y!" : "K�o th? ?nh ho?c click d? ch?n"}</p>
-      <p className="text-app-text-muted text-xs">H? tr? JPG, PNG, WebP � Nhi?u file c�ng l�c</p>
+      <p className="text-white/60 font-semibold text-sm mb-1">{dragging ? "Thả ảnh vào đây!" : "Kéo thả ảnh hoặc click để chọn"}</p>
+      <p className="text-app-text-muted text-xs">Hỗ trợ JPG, PNG, WebP · Nhiều file cùng lúc</p>
     </div>
   );
 }
@@ -64,24 +64,24 @@ function UploadCard({ item, questions, onAssign, onRemove, onUpload }: {
       </div>
       <p className="text-app-text-secondary text-[10px] truncate mb-2">{item.file.name}</p>
       <div className="mb-3">
-        <label className="text-app-text-muted text-[10px] block mb-1">G�n v�o c�u h?i EPS</label>
+        <label className="text-app-text-muted text-[10px] block mb-1">Gán vào câu hỏi EPS</label>
         <select value={item.questionId} onChange={e => onAssign(item.id, e.target.value)}
           className="w-full bg-app-card/50 border border-app-border rounded-lg px-2.5 py-1.5 text-white/70 text-xs focus:outline-none focus:border-rose-400/30 cursor-pointer">
-          <option value="">-- Ch?n c�u h?i --</option>
+          <option value="">-- Chọn câu hỏi --</option>
           {questions.map(q => <option key={q.id} value={q.id}>[{q.id}] {q.questionVi.slice(0, 40)}...</option>)}
         </select>
       </div>
       {assignedQ && (
         <div className="bg-app-surface/50 rounded-lg px-2.5 py-2 mb-3">
-          <p className="text-app-text-muted text-[9px] mb-0.5">URL d�ch:</p>
+          <p className="text-app-text-muted text-[9px] mb-0.5">URL đích:</p>
           <p className="text-rose-400/60 text-[9px] font-mono break-all">{VPS_IMAGE_BASE}/{assignedQ.topic}/{item.file.name}</p>
         </div>
       )}
       {item.status === "error" && <p className="text-red-400 text-[10px] mb-2">{item.errorMsg}</p>}
-      {item.status === "done" && <p className="text-app-accent-success text-[10px] mb-2">Upload th�nh c�ng!</p>}
+      {item.status === "done" && <p className="text-app-accent-success text-[10px] mb-2">Upload thành công!</p>}
       <button onClick={() => onUpload(item.id)} disabled={!item.questionId || item.status === "uploading" || item.status === "done"}
         className={`w-full py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${item.status === "done" ? "bg-emerald-500/10 text-app-accent-success border border-emerald-500/20" : !item.questionId ? "bg-app-surface/50 text-app-text-muted cursor-not-allowed" : "bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20"}`}>
-        {item.status === "uploading" ? "�ang upload..." : item.status === "done" ? "�� upload" : !item.questionId ? "Ch?n c�u h?i tru?c" : "Upload l�n VPS"}
+        {item.status === "uploading" ? "Đang upload..." : item.status === "done" ? "Đã upload" : !item.questionId ? "Chọn câu hỏi trước" : "Upload lên VPS"}
       </button>
     </div>
   );
@@ -110,18 +110,18 @@ function AudioGenerator() {
 
   return (
     <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-      <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-volume-up-line text-rose-400 mr-2"></i>T?o �m thanh TTS</h3>
+      <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-volume-up-line text-rose-400 mr-2"></i>Tạo âm thanh TTS</h3>
       <div className="flex gap-2 mb-3">
-        <input value={word} onChange={e => setWord(e.target.value)} placeholder="Nh?p t? ti?ng H�n..."
+        <input value={word} onChange={e => setWord(e.target.value)} placeholder="Nhập từ tiếng Hàn..."
           className="flex-1 bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-rose-400/30 placeholder-white/20" />
         <button onClick={handleGenerate} disabled={!word.trim() || status === "generating"}
           className="px-4 py-2.5 bg-rose-500 hover:bg-rose-400 disabled:opacity-40 text-white font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors">
-          {status === "generating" ? <i className="ri-loader-4-line animate-spin"></i> : "T?o TTS"}
+          {status === "generating" ? <i className="ri-loader-4-line animate-spin"></i> : "Tạo TTS"}
         </button>
       </div>
       {romanized && (
         <div className="bg-app-surface/50 rounded-lg px-3 py-2 mb-3">
-          <p className="text-app-text-muted text-[10px] mb-0.5">T�n file tr�n VPS:</p>
+          <p className="text-app-text-muted text-[10px] mb-0.5">Tên file trên VPS:</p>
           <p className="text-rose-400/70 text-xs font-mono">{VPS_AUDIO_BASE}/{romanized}.mp3</p>
         </div>
       )}
@@ -130,11 +130,11 @@ function AudioGenerator() {
           <audio controls src={audioUrl} className="w-full h-8" />
           <a href={audioUrl} download={`${romanized}.mp3`}
             className="flex items-center justify-center gap-2 w-full py-2 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 text-app-accent-success text-xs font-semibold rounded-lg cursor-pointer whitespace-nowrap transition-colors">
-            <i className="ri-download-line"></i>T?i v? {romanized}.mp3
+            <i className="ri-download-line"></i>Tải về {romanized}.mp3
           </a>
         </div>
       )}
-      {status === "error" && <p className="text-red-400 text-xs">L?i t?o TTS. Th? l?i sau.</p>}
+      {status === "error" && <p className="text-red-400 text-xs">Lỗi tạo TTS. Thử lại sau.</p>}
     </div>
   );
 }
@@ -145,10 +145,10 @@ interface VocabItem {
 }
 
 async function generatePhonetic(korean: string, meaning: string, apiKey: string, model: string): Promise<string> {
-  const prompt = `B?n l� chuy�n gia ti?ng H�n. T?o phi�n �m ti?ng Vi?t cho t?: ${korean} (nghia: ${meaning}). Ch? tr? v? phi�n �m, kh�ng gi?i th�ch.`;
+  const prompt = `Bạn là chuyên gia tiếng Hàn. Tạo phiên âm tiếng Việt cho từ: ${korean} (nghĩa: ${meaning}). Chỉ trả về phiên âm, không giải thích.`;
   const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
-    headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json", "HTTP-Referer": "https://hanquocoi.vn", "X-Title": "H�n Qu?c Oi! Admin" },
+    headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json", "HTTP-Referer": "https://hanquocoi.vn", "X-Title": "Hàn Quốc Ơi! Admin" },
     body: JSON.stringify({ model, messages: [{ role: "user", content: prompt }], max_tokens: 100, temperature: 0.3 }),
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -187,7 +187,7 @@ function PhoneticGenerator() {
         const phonetic = await generatePhonetic(item.korean, item.meaning, apiKey, model);
         setItems(prev => prev.map((v, idx) => idx === i ? { ...v, phonetic, status: "done" } : v));
       } catch (err) {
-        const msg = err instanceof Error ? err.message : "L?i kh�ng x�c d?nh";
+        const msg = err instanceof Error ? err.message : "Lỗi không xác định";
         setItems(prev => prev.map((v, idx) => idx === i ? { ...v, status: "error", error: msg } : v));
       }
       await new Promise(r => setTimeout(r, 300));
@@ -197,7 +197,7 @@ function PhoneticGenerator() {
 
   const exportResult = () => {
     const lines = items.filter(v => v.status === "done").map(v => `${v.korean}\t${v.meaning}\t${v.phonetic}`).join("\n");
-    navigator.clipboard.writeText(`Ti?ng H�n\tNghia ti?ng Vi?t\tPhi�n �m\n${lines}`).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); });
+    navigator.clipboard.writeText(`Tiếng Hàn\tNghĩa tiếng Việt\tPhiên âm\n${lines}`).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); });
   };
 
   const doneCount = items.filter(v => v.status === "done").length;
@@ -206,27 +206,27 @@ function PhoneticGenerator() {
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-5">
       <div className="space-y-4">
         <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-          <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-list-unordered text-rose-400 mr-2"></i>Nh?p danh s�ch t? v?ng</h3>
-          <p className="text-app-text-muted text-xs mb-3">M?i d�ng m?t t?. �?nh d?ng: <code className="bg-app-card/50 px-1 rounded text-rose-400">ti?ng_h�n,nghia_vi?t</code></p>
+          <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-list-unordered text-rose-400 mr-2"></i>Nhập danh sách từ vựng</h3>
+          <p className="text-app-text-muted text-xs mb-3">Mỗi dòng một từ. Định dạng: <code className="bg-app-card/50 px-1 rounded text-rose-400">tiếng_hàn,nghĩa_việt</code></p>
           <textarea value={bulkInput} onChange={e => setBulkInput(e.target.value)}
-            placeholder={"???,mu b?o h?\n???,l?i tho�t hi?m\n???,d?ng ph?c lao d?ng"}
+            placeholder={"안전모,mũ bảo hộ\n비상구,lối thoát hiểm\n작업복,đồng phục lao động"}
             rows={8} className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-rose-400/30 placeholder-white/20 resize-none font-mono" />
           <div className="flex gap-2 mt-3">
             <button onClick={parseBulkInput} disabled={!bulkInput.trim()}
               className="flex items-center gap-2 px-4 py-2 bg-app-card/50 hover:bg-white/8 border border-app-border text-white/60 text-sm rounded-xl cursor-pointer whitespace-nowrap disabled:opacity-40 transition-colors">
-              <i className="ri-list-check-2"></i>Ph�n t�ch
+              <i className="ri-list-check-2"></i>Phân tích
             </button>
             {items.length > 0 && (
               <button onClick={runGeneration} disabled={running || !apiKey.trim()}
                 className="flex items-center gap-2 px-4 py-2 bg-rose-500 hover:bg-rose-400 disabled:opacity-40 text-white font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors">
                 <i className={running ? "ri-loader-4-line animate-spin" : "ri-magic-line"}></i>
-                {running ? `�ang t?o... (${doneCount}/${items.length})` : `T?o phi�n �m (${items.length} t?)`}
+                {running ? `Đang tạo... (${doneCount}/${items.length})` : `Tạo phiên âm (${items.length} từ)`}
               </button>
             )}
             {running && (
               <button onClick={() => { abortRef.current = true; setRunning(false); }}
                 className="flex items-center gap-2 px-4 py-2 bg-red-500/10 border border-red-500/20 text-red-400 text-sm rounded-xl cursor-pointer whitespace-nowrap">
-                <i className="ri-stop-line"></i>D?ng
+                <i className="ri-stop-line"></i>Dừng
               </button>
             )}
           </div>
@@ -234,11 +234,11 @@ function PhoneticGenerator() {
         {items.length > 0 && (
           <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden">
             <div className="flex items-center justify-between px-5 py-3 border-b border-app-border">
-              <span className="text-white font-semibold text-sm">K?t qu? � {doneCount} xong</span>
+              <span className="text-white font-semibold text-sm">Kết quả — {doneCount} xong</span>
               {doneCount > 0 && (
                 <button onClick={exportResult}
                   className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors ${copied ? "bg-emerald-500/10 text-app-accent-success border border-emerald-500/20" : "bg-app-card/50 text-white/50 border border-app-border hover:text-white/70"}`}>
-                  <i className={copied ? "ri-check-line" : "ri-clipboard-line"}></i>{copied ? "�� copy!" : "Copy k?t qu?"}
+                  <i className={copied ? "ri-check-line" : "ri-clipboard-line"}></i>{copied ? "Đã copy!" : "Copy kết quả"}
                 </button>
               )}
             </div>
@@ -249,9 +249,9 @@ function PhoneticGenerator() {
                   <span className="text-white/50 text-xs">{item.meaning}</span>
                   <div>
                     {item.status === "done" && <span className="text-rose-400 text-sm font-medium">{item.phonetic}</span>}
-                    {item.status === "generating" && <span className="flex items-center gap-1.5 text-app-text-muted text-xs"><i className="ri-loader-4-line animate-spin text-rose-400"></i>�ang t?o...</span>}
-                    {item.status === "pending" && <span className="text-app-text-muted text-xs">Ch? x? l�</span>}
-                    {item.status === "error" && <span className="text-red-400 text-xs">L?i</span>}
+                    {item.status === "generating" && <span className="flex items-center gap-1.5 text-app-text-muted text-xs"><i className="ri-loader-4-line animate-spin text-rose-400"></i>Đang tạo...</span>}
+                    {item.status === "pending" && <span className="text-app-text-muted text-xs">Chờ xử lý</span>}
+                    {item.status === "error" && <span className="text-red-400 text-xs">Lỗi</span>}
                   </div>
                   <div className="flex items-center justify-center">
                     {item.status === "done" && <i className="ri-checkbox-circle-fill text-app-accent-success text-sm"></i>}
@@ -268,7 +268,7 @@ function PhoneticGenerator() {
         <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-1"><i className="ri-key-2-line text-rose-400 mr-2"></i>OpenRouter API Key</h3>
           <p className="text-app-text-muted text-[10px] mb-3 leading-relaxed">
-            L?y key mi?n ph� t?i{" "}
+            Lấy key miễn phí tại{" "}
             <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer" className="text-rose-400/70 hover:underline">openrouter.ai/keys</a>
           </p>
           <div className="relative mb-3">
@@ -280,7 +280,7 @@ function PhoneticGenerator() {
           </div>
         </div>
         <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-          <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-robot-line text-rose-400 mr-2"></i>Ch?n model AI</h3>
+          <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-robot-line text-rose-400 mr-2"></i>Chọn model AI</h3>
           <div className="space-y-2">
             {OPENROUTER_MODELS.map(m => (
               <button key={m.id} onClick={() => setModel(m.id)}
@@ -337,23 +337,23 @@ export default function AdminUploadPage() {
   const doneCount = uploads.filter(u => u.status === "done").length;
 
   const tabs = [
-    { id: "upload", label: "Upload ?nh", icon: "ri-image-add-line" },
-    { id: "phonetic", label: "Phi�n �m AI", icon: "ri-translate-2" },
-    { id: "audio", label: "T?o �m thanh", icon: "ri-volume-up-line" },
+    { id: "upload", label: "Upload ảnh", icon: "ri-image-add-line" },
+    { id: "phonetic", label: "Phiên âm AI", icon: "ri-translate-2" },
+    { id: "audio", label: "Tạo âm thanh", icon: "ri-volume-up-line" },
   ] as const;
 
   return (
     <AdminLayout
-      title="Upload ?nh EPS"
-      subtitle="Upload ?nh, t?o phi�n �m AI v� �m thanh TTS cho c�u h?i EPS"
+      title="Upload ảnh EPS"
+      subtitle="Upload ảnh, tạo phiên âm AI và âm thanh TTS cho câu hỏi EPS"
       actions={
         activeTab === "upload" && uploads.length > 0 ? (
           <div className="flex items-center gap-3">
-            <span className="text-app-text-secondary text-xs">{doneCount}/{uploads.length} d� upload</span>
+            <span className="text-app-text-secondary text-xs">{doneCount}/{uploads.length} đã upload</span>
             <button onClick={handleUploadAll} disabled={pendingCount === 0 || uploadAll}
               className="flex items-center gap-2 bg-rose-500 hover:bg-rose-400 disabled:opacity-40 text-white font-bold text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
               <i className={uploadAll ? "ri-loader-4-line animate-spin" : "ri-upload-cloud-2-line"}></i>
-              {uploadAll ? "�ang upload..." : `Upload t?t c? (${pendingCount})`}
+              {uploadAll ? "Đang upload..." : `Upload tất cả (${pendingCount})`}
             </button>
           </div>
         ) : null
@@ -375,10 +375,10 @@ export default function AdminUploadPage() {
           {uploads.length > 0 && (
             <div className="flex items-center gap-4 px-4 py-3 bg-app-bg border border-app-border rounded-xl">
               {[
-                { label: "T?ng file", value: uploads.length, color: "app-accent-primary" },
-                { label: "Ch? upload", value: pendingCount, color: "#fb923c" },
-                { label: "�� upload", value: doneCount, color: "#34d399" },
-                { label: "L?i", value: uploads.filter(u => u.status === "error").length, color: "#f87171" },
+                { label: "Tổng file", value: uploads.length, color: "app-accent-primary" },
+                { label: "Chờ upload", value: pendingCount, color: "#fb923c" },
+                { label: "Đã upload", value: doneCount, color: "#34d399" },
+                { label: "Lỗi", value: uploads.filter(u => u.status === "error").length, color: "#f87171" },
               ].map(s => (
                 <div key={s.label} className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full" style={{ backgroundColor: s.color }}></div>
@@ -387,7 +387,7 @@ export default function AdminUploadPage() {
                 </div>
               ))}
               <button onClick={() => setUploads([])} className="ml-auto text-app-text-muted hover:text-white/50 text-xs cursor-pointer whitespace-nowrap transition-colors">
-                <i className="ri-delete-bin-line mr-1"></i>X�a t?t c?
+                <i className="ri-delete-bin-line mr-1"></i>Xóa tất cả
               </button>
             </div>
           )}
@@ -397,18 +397,18 @@ export default function AdminUploadPage() {
             </div>
           ) : (
             <div className="bg-app-bg border border-app-border rounded-2xl p-8">
-              <h3 className="text-white font-semibold text-sm mb-4">Hu?ng d?n upload ?nh EPS</h3>
+              <h3 className="text-white font-semibold text-sm mb-4">Hướng dẫn upload ảnh EPS</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
-                  { step: "1", icon: "ri-drag-drop-line", title: "K�o th? ?nh", desc: "K�o nhi?u ?nh c�ng l�c v�o v�ng upload ph�a tr�n" },
-                  { step: "2", icon: "ri-link-m", title: "G�n c�u h?i", desc: "Ch?n c�u h?i EPS tuong ?ng cho t?ng ?nh" },
-                  { step: "3", icon: "ri-upload-cloud-2-line", title: "Upload VPS", desc: "Click Upload ho?c Upload t?t c? d? d?y l�n server" },
+                  { step: "1", icon: "ri-drag-drop-line", title: "Kéo thả ảnh", desc: "Kéo nhiều ảnh cùng lúc vào vùng upload phía trên" },
+                  { step: "2", icon: "ri-link-m", title: "Gán câu hỏi", desc: "Chọn câu hỏi EPS tương ứng cho từng ảnh" },
+                  { step: "3", icon: "ri-upload-cloud-2-line", title: "Upload VPS", desc: "Click Upload hoặc Upload tất cả để đẩy lên server" },
                 ].map(s => (
                   <div key={s.step} className="bg-app-surface/50 rounded-xl p-4 text-center">
                     <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-rose-500/10 mx-auto mb-3">
                       <i className={`${s.icon} text-rose-400 text-lg`}></i>
                     </div>
-                    <p className="text-white/70 text-xs font-semibold mb-1">Bu?c {s.step}: {s.title}</p>
+                    <p className="text-white/70 text-xs font-semibold mb-1">Bước {s.step}: {s.title}</p>
                     <p className="text-app-text-muted text-[10px] leading-relaxed">{s.desc}</p>
                   </div>
                 ))}
@@ -424,13 +424,13 @@ export default function AdminUploadPage() {
         <div className="grid grid-cols-2 gap-5">
           <AudioGenerator />
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-information-line text-rose-400 mr-2"></i>Quy tr�nh �m thanh TTS</h3>
+            <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-information-line text-rose-400 mr-2"></i>Quy trình âm thanh TTS</h3>
             <div className="space-y-3">
               {[
-                { icon: "ri-translate-2", color: "app-accent-primary", title: "Phi�n �m latinh", desc: "??? ? anjeonmo.mp3 (t�n file an to�n cho m?i VPS)" },
-                { icon: "ri-google-line", color: "#34d399", title: "Google TTS mi?n ph�", desc: "T?o MP3 ch?t lu?ng t?t, kh�ng c?n API key" },
-                { icon: "ri-save-line", color: "#fb923c", title: "Cache vinh vi?n", desc: "L?n d?u nghe ? cache browser. L?n sau ph�t t? cache" },
-                { icon: "ri-server-line", color: "#a78bfa", title: "Upload VPS", desc: "T?i file MP3 v? ? upload l�n audio.hanquocoi.vn/tts/" },
+                { icon: "ri-translate-2", color: "app-accent-primary", title: "Phiên âm latinh", desc: "안전모 → anjeonmo.mp3 (tên file an toàn cho mọi VPS)" },
+                { icon: "ri-google-line", color: "#34d399", title: "Google TTS miễn phí", desc: "Tạo MP3 chất lượng tốt, không cần API key" },
+                { icon: "ri-save-line", color: "#fb923c", title: "Cache vĩnh viễn", desc: "Lần đầu nghe → cache browser. Lần sau phát từ cache" },
+                { icon: "ri-server-line", color: "#a78bfa", title: "Upload VPS", desc: "Tải file MP3 về → upload lên audio.hadim.vn/tts/" },
               ].map(s => (
                 <div key={s.title} className="flex items-start gap-3 p-3 bg-app-surface/50 rounded-xl">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>

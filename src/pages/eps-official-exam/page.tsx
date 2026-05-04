@@ -1,8 +1,8 @@
-import { useState, useRef, useCallback } from "react";
+﻿import { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
-// --- Types -------------------------------------------------------------------
+// ─── Types ───────────────────────────────────────────────────────────────────
 interface ParsedQuestion {
   id: string;
   number: number;
@@ -23,41 +23,41 @@ interface UploadedExam {
 
 type Phase = "upload" | "exam" | "result";
 
-// --- Official Exam Library (built-in sample sets) -----------------------------
+// ─── Official Exam Library (built-in sample sets) ─────────────────────────────
 const OFFICIAL_EXAM_SAMPLES: UploadedExam[] = [
   {
     id: "eps2023",
-    name: "�? thi EPS-TOPIK 2023 (M?u)",
+    name: "Đề thi EPS-TOPIK 2023 (Mẫu)",
     year: "2023",
-    source: "B? Lao d?ng H�n Qu?c",
+    source: "Bộ Lao động Hàn Quốc",
     uploadedAt: new Date().toISOString(),
     questions: Array.from({ length: 40 }, (_, i) => ({
       id: `q${i + 1}`,
       number: i + 1,
-      text: `C�u ${i + 1}: [�? thi EPS-TOPIK 2023] Ch?n d�p �n d�ng nh?t cho c�u h?i sau v? ${["giao ti?p co b?n", "an to�n lao d?ng", "van h�a H�n Qu?c", "ph�p lu?t lao d?ng"][i % 4]}.`,
-      options: ["��p �n A", "��p �n B", "��p �n C", "��p �n D"],
+      text: `Câu ${i + 1}: [Đề thi EPS-TOPIK 2023] Chọn đáp án đúng nhất cho câu hỏi sau về ${["giao tiếp cơ bản", "an toàn lao động", "văn hóa Hàn Quốc", "pháp luật lao động"][i % 4]}.`,
+      options: ["Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D"],
       correctIndex: Math.floor(Math.random() * 4),
       userAnswer: null,
     })),
   },
   {
     id: "eps2022",
-    name: "�? thi EPS-TOPIK 2022 (M?u)",
+    name: "Đề thi EPS-TOPIK 2022 (Mẫu)",
     year: "2022",
-    source: "B? Lao d?ng H�n Qu?c",
+    source: "Bộ Lao động Hàn Quốc",
     uploadedAt: new Date().toISOString(),
     questions: Array.from({ length: 40 }, (_, i) => ({
       id: `q${i + 1}`,
       number: i + 1,
-      text: `C�u ${i + 1}: [�? thi EPS-TOPIK 2022] C�u h?i v? ${["nghe hi?u", "d?c hi?u", "sinh ho?t h�ng ng�y", "noi l�m vi?c"][i % 4]}.`,
-      options: ["��p �n A", "��p �n B", "��p �n C", "��p �n D"],
+      text: `Câu ${i + 1}: [Đề thi EPS-TOPIK 2022] Câu hỏi về ${["nghe hiểu", "đọc hiểu", "sinh hoạt hàng ngày", "nơi làm việc"][i % 4]}.`,
+      options: ["Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D"],
       correctIndex: Math.floor(Math.random() * 4),
       userAnswer: null,
     })),
   },
 ];
 
-// --- Upload Zone --------------------------------------------------------------
+// ─── Upload Zone ──────────────────────────────────────────────────────────────
 interface UploadZoneProps {
   onFileSelect: (file: File) => void;
   processing: boolean;
@@ -94,8 +94,8 @@ function UploadZone({ onFileSelect, processing }: UploadZoneProps) {
       {processing ? (
         <div className="space-y-3">
           <div className="w-12 h-12 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin mx-auto"></div>
-          <p className="text-gray-600 font-medium">�ang x? l� file...</p>
-          <p className="text-gray-400 text-sm">H? th?ng dang ph�n t�ch d? thi</p>
+          <p className="text-gray-600 font-medium">Đang xử lý file...</p>
+          <p className="text-gray-400 text-sm">Hệ thống đang phân tích đề thi</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -103,8 +103,8 @@ function UploadZone({ onFileSelect, processing }: UploadZoneProps) {
             <i className="ri-upload-cloud-2-line text-app-accent-primary text-3xl"></i>
           </div>
           <div>
-            <p className="text-gray-700 font-semibold text-base">K�o th? ho?c click d? upload d? thi</p>
-            <p className="text-gray-400 text-sm mt-1">H? tr?: PDF, Word (.doc/.docx), TXT</p>
+            <p className="text-gray-700 font-semibold text-base">Kéo thả hoặc click để upload đề thi</p>
+            <p className="text-gray-400 text-sm mt-1">Hỗ trợ: PDF, Word (.doc/.docx), TXT</p>
           </div>
           <div className="flex items-center justify-center gap-4 text-xs text-gray-400">
             <span className="flex items-center gap-1"><i className="ri-file-pdf-line text-rose-400"></i> PDF</span>
@@ -117,7 +117,7 @@ function UploadZone({ onFileSelect, processing }: UploadZoneProps) {
   );
 }
 
-// --- Exam Session -------------------------------------------------------------
+// ─── Exam Session ─────────────────────────────────────────────────────────────
 interface ExamSessionProps {
   exam: UploadedExam;
   onFinish: (answers: (number | null)[]) => void;
@@ -149,7 +149,7 @@ function ExamSession({ exam, onFinish, onBack }: ExamSessionProps) {
       <div className="flex-shrink-0 bg-white border-b border-gray-200 px-4 py-3 flex items-center gap-4 shadow-sm">
         <button onClick={onBack} className="flex items-center gap-1 text-gray-500 hover:text-gray-700 text-sm cursor-pointer whitespace-nowrap">
           <i className="ri-arrow-left-line"></i>
-          Tho�t
+          Thoát
         </button>
         <div className="flex-1 min-w-0">
           <p className="text-gray-700 font-semibold text-sm truncate">{exam.name}</p>
@@ -166,7 +166,7 @@ function ExamSession({ exam, onFinish, onBack }: ExamSessionProps) {
           onClick={() => onFinish(answers)}
           className="px-4 py-1.5 bg-app-accent-primary text-app-bg rounded-lg text-xs font-bold cursor-pointer whitespace-nowrap"
         >
-          N?p b�i
+          Nộp bài
         </button>
       </div>
 
@@ -176,7 +176,7 @@ function ExamSession({ exam, onFinish, onBack }: ExamSessionProps) {
           <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <span className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-accent-primary/15 text-app-accent-primary text-xs font-bold">{q.number}</span>
-              <span className="text-gray-400 text-xs">C�u {currentIndex + 1}/{exam.questions.length}</span>
+              <span className="text-gray-400 text-xs">Câu {currentIndex + 1}/{exam.questions.length}</span>
             </div>
             <p className="text-gray-700 font-medium text-sm leading-relaxed">{q.text}</p>
           </div>
@@ -195,7 +195,7 @@ function ExamSession({ exam, onFinish, onBack }: ExamSessionProps) {
                 <span className={`w-7 h-7 flex items-center justify-center rounded-full text-xs font-bold flex-shrink-0 ${
                   answers[currentIndex] === i ? "bg-app-accent-primary text-app-bg" : "bg-gray-100 text-gray-500"
                 }`}>
-                  {["?", "?", "?", "?"][i]}
+                  {["①", "②", "③", "④"][i]}
                 </span>
                 <span className="text-sm">{opt}</span>
               </button>
@@ -213,7 +213,7 @@ function ExamSession({ exam, onFinish, onBack }: ExamSessionProps) {
             className="flex items-center gap-2 px-4 py-2.5 bg-gray-100 rounded-xl text-gray-600 text-sm disabled:opacity-40 cursor-pointer whitespace-nowrap"
           >
             <i className="ri-arrow-left-line"></i>
-            Tru?c
+            Trước
           </button>
           <div className="flex-1 flex gap-1 overflow-x-auto">
             {exam.questions.map((_, i) => (
@@ -234,7 +234,7 @@ function ExamSession({ exam, onFinish, onBack }: ExamSessionProps) {
             onClick={() => currentIndex === exam.questions.length - 1 ? onFinish(answers) : setCurrentIndex(prev => prev + 1)}
             className="flex items-center gap-2 px-4 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap"
           >
-            {currentIndex === exam.questions.length - 1 ? "N?p b�i" : "Ti?p"}
+            {currentIndex === exam.questions.length - 1 ? "Nộp bài" : "Tiếp"}
             <i className="ri-arrow-right-line"></i>
           </button>
         </div>
@@ -243,7 +243,7 @@ function ExamSession({ exam, onFinish, onBack }: ExamSessionProps) {
   );
 }
 
-// --- Result Screen ------------------------------------------------------------
+// ─── Result Screen ────────────────────────────────────────────────────────────
 function ResultScreen({ exam, answers, onRetry, onBack }: { exam: UploadedExam; answers: (number | null)[]; onRetry: () => void; onBack: () => void }) {
   const correct = exam.questions.filter((q, i) => q.correctIndex !== null && answers[i] === q.correctIndex).length;
   const answered = answers.filter(a => a !== null).length;
@@ -257,16 +257,16 @@ function ResultScreen({ exam, answers, onRetry, onBack }: { exam: UploadedExam; 
           <span className={`text-2xl font-bold ${passed ? "text-emerald-600" : "text-rose-500"}`}>{score}</span>
         </div>
         <h2 className={`text-xl font-bold mb-1 ${passed ? "text-emerald-700" : "text-rose-600"}`}>
-          {passed ? "�?U! Xu?t s?c!" : "Chua d?u � C? l�n!"}
+          {passed ? "ĐẬU! Xuất sắc!" : "Chưa đậu — Cố lên!"}
         </h2>
-        <p className="text-gray-500 text-sm">{correct}/{exam.questions.length} c�u d�ng � {answered} c�u d� tr? l?i</p>
+        <p className="text-gray-500 text-sm">{correct}/{exam.questions.length} câu đúng • {answered} câu đã trả lời</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
         {[
-          { label: "C�u d�ng", value: correct, color: "text-emerald-600", bg: "bg-emerald-50" },
-          { label: "C�u sai", value: answered - correct, color: "text-rose-500", bg: "bg-rose-50" },
-          { label: "Chua tr? l?i", value: exam.questions.length - answered, color: "text-gray-500", bg: "bg-gray-50" },
+          { label: "Câu đúng", value: correct, color: "text-emerald-600", bg: "bg-emerald-50" },
+          { label: "Câu sai", value: answered - correct, color: "text-rose-500", bg: "bg-rose-50" },
+          { label: "Chưa trả lời", value: exam.questions.length - answered, color: "text-gray-500", bg: "bg-gray-50" },
         ].map((item, i) => (
           <div key={i} className={`${item.bg} rounded-xl p-4 text-center border border-gray-200`}>
             <p className={`text-2xl font-bold ${item.color}`}>{item.value}</p>
@@ -277,17 +277,17 @@ function ResultScreen({ exam, answers, onRetry, onBack }: { exam: UploadedExam; 
 
       <div className="flex gap-3">
         <button onClick={onBack} className="flex-1 py-3 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium cursor-pointer whitespace-nowrap">
-          V? thu vi?n d?
+          Về thư viện đề
         </button>
         <button onClick={onRetry} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap">
-          Thi l?i
+          Thi lại
         </button>
       </div>
     </div>
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function EpsOfficialExamPage() {
   const navigate = useNavigate();
   const [phase, setPhase] = useState<Phase>("upload");
@@ -306,7 +306,7 @@ export default function EpsOfficialExamPage() {
 
     const ext = file.name.split(".").pop()?.toLowerCase();
     if (!["pdf", "doc", "docx", "txt"].includes(ext || "")) {
-      setUploadMsg("�?nh d?ng file kh�ng du?c h? tr?. Vui l�ng d�ng PDF, Word ho?c TXT.");
+      setUploadMsg("Định dạng file không được hỗ trợ. Vui lòng dùng PDF, Word hoặc TXT.");
       setProcessing(false);
       return;
     }
@@ -316,17 +316,17 @@ export default function EpsOfficialExamPage() {
       id: `upload_${Date.now()}`,
       name: file.name.replace(/\.[^.]+$/, ""),
       year: new Date().getFullYear().toString(),
-      source: "Upload t? ngu?i d�ng",
+      source: "Upload từ người dùng",
       uploadedAt: new Date().toISOString(),
       questions: Array.from({ length: 40 }, (_, i) => ({
         id: `uq${i + 1}`,
         number: i + 1,
-        text: `C�u ${i + 1}: [${file.name}] C�u h?i du?c tr�ch xu?t t? file d? thi. Trong phi�n b?n d?y d?, h? th?ng AI s? t? d?ng ph�n t�ch v� tr�ch xu?t c�u h?i t? file PDF/Word c?a b?n.`,
+        text: `Câu ${i + 1}: [${file.name}] Câu hỏi được trích xuất từ file đề thi. Trong phiên bản đầy đủ, hệ thống AI sẽ tự động phân tích và trích xuất câu hỏi từ file PDF/Word của bạn.`,
         options: [
-          "��p �n A � �u?c tr�ch xu?t t? file",
-          "��p �n B � �u?c tr�ch xu?t t? file",
-          "��p �n C � �u?c tr�ch xu?t t? file",
-          "��p �n D � �u?c tr�ch xu?t t? file",
+          "Đáp án A — Được trích xuất từ file",
+          "Đáp án B — Được trích xuất từ file",
+          "Đáp án C — Được trích xuất từ file",
+          "Đáp án D — Được trích xuất từ file",
         ],
         correctIndex: null, // Unknown from upload
         userAnswer: null,
@@ -334,7 +334,7 @@ export default function EpsOfficialExamPage() {
     };
 
     setExams(prev => [newExam, ...prev]);
-    setUploadMsg(`�� upload th�nh c�ng "${file.name}" � ${newExam.questions.length} c�u h?i`);
+    setUploadMsg(`Đã upload thành công "${file.name}" — ${newExam.questions.length} câu hỏi`);
     setProcessing(false);
   }, []);
 
@@ -361,7 +361,7 @@ export default function EpsOfficialExamPage() {
 
   if (phase === "result" && selectedExam) {
     return (
-      <DashboardLayout title="K?t qu? thi th?">
+      <DashboardLayout title="Kết quả thi thử">
         <ResultScreen
           exam={selectedExam}
           answers={answers}
@@ -373,16 +373,16 @@ export default function EpsOfficialExamPage() {
   }
 
   return (
-    <DashboardLayout title="Thi th? EPS b? d? ch�nh th?c" subtitle="Upload d? thi PDF/Word t? B? Lao d?ng H�n Qu?c">
+    <DashboardLayout title="Thi thử EPS bộ đề chính thức" subtitle="Upload đề thi PDF/Word từ Bộ Lao động Hàn Quốc">
       <div className="p-6 md:p-8 max-w-3xl mx-auto">
         {/* Info banner */}
         <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 mb-6 flex items-start gap-3">
           <i className="ri-information-line text-blue-500 text-lg flex-shrink-0 mt-0.5"></i>
           <div>
-            <p className="text-blue-700 font-semibold text-sm">C�ch s? d?ng</p>
+            <p className="text-blue-700 font-semibold text-sm">Cách sử dụng</p>
             <p className="text-blue-600 text-xs mt-1 leading-relaxed">
-              Upload file d? thi EPS-TOPIK ch�nh th?c t? website B? Lao d?ng H�n Qu?c (eps.hrdkorea.or.kr) ho?c c�c ngu?n uy t�n. 
-              H? th?ng s? t? d?ng ph�n t�ch v� t?o b�i thi tuong t�c. Ho?c ch?n d? m?u c� s?n b�n du?i d? luy?n t?p ngay.
+              Upload file đề thi EPS-TOPIK chính thức từ website Bộ Lao động Hàn Quốc (eps.hrdkorea.or.kr) hoặc các nguồn uy tín. 
+              Hệ thống sẽ tự động phân tích và tạo bài thi tương tác. Hoặc chọn đề mẫu có sẵn bên dưới để luyện tập ngay.
             </p>
           </div>
         </div>
@@ -391,14 +391,14 @@ export default function EpsOfficialExamPage() {
         <div className="mb-6">
           <h2 className="text-gray-700 font-semibold text-sm mb-3 flex items-center gap-2">
             <i className="ri-upload-cloud-2-line text-app-accent-primary"></i>
-            Upload d? thi c?a b?n
+            Upload đề thi của bạn
           </h2>
           <UploadZone onFileSelect={handleFileUpload} processing={processing} />
           {uploadMsg && (
             <div className={`mt-3 flex items-center gap-2 px-4 py-3 rounded-xl text-sm ${
-              uploadMsg.includes("th�nh c�ng") ? "bg-emerald-50 border border-emerald-200 text-emerald-700" : "bg-rose-50 border border-rose-200 text-rose-600"
+              uploadMsg.includes("thành công") ? "bg-emerald-50 border border-emerald-200 text-emerald-700" : "bg-rose-50 border border-rose-200 text-rose-600"
             }`}>
-              <i className={uploadMsg.includes("th�nh c�ng") ? "ri-checkbox-circle-line" : "ri-error-warning-line"}></i>
+              <i className={uploadMsg.includes("thành công") ? "ri-checkbox-circle-line" : "ri-error-warning-line"}></i>
               {uploadMsg}
             </div>
           )}
@@ -408,7 +408,7 @@ export default function EpsOfficialExamPage() {
         <div>
           <h2 className="text-gray-700 font-semibold text-sm mb-3 flex items-center gap-2">
             <i className="ri-book-shelf-line text-app-accent-primary"></i>
-            Thu vi?n d? thi ({exams.length} b? d?)
+            Thư viện đề thi ({exams.length} bộ đề)
           </h2>
           <div className="space-y-3">
             {exams.map(exam => (
@@ -425,14 +425,14 @@ export default function EpsOfficialExamPage() {
                     </span>
                     <span className="text-gray-400 text-xs flex items-center gap-1">
                       <i className="ri-file-list-line text-[10px]"></i>
-                      {exam.questions.length} c�u
+                      {exam.questions.length} câu
                     </span>
                     <span className="text-gray-400 text-xs flex items-center gap-1">
                       <i className="ri-government-line text-[10px]"></i>
                       {exam.source}
                     </span>
                     {exam.id.startsWith("upload_") && (
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-600 font-medium">�� upload</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-600 font-medium">Đã upload</span>
                     )}
                   </div>
                 </div>
@@ -452,14 +452,14 @@ export default function EpsOfficialExamPage() {
         <div className="mt-6 bg-gray-50 border border-gray-200 rounded-2xl p-5">
           <h3 className="text-gray-700 font-semibold text-sm mb-3 flex items-center gap-2">
             <i className="ri-lightbulb-line text-app-accent-primary"></i>
-            M?o luy?n thi hi?u qu?
+            Mẹo luyện thi hiệu quả
           </h3>
           <div className="space-y-2">
             {[
-              "T?i d? thi ch�nh th?c t? eps.hrdkorea.or.kr (website ch�nh th?c c?a B? Lao d?ng H�n Qu?c)",
-              "Luy?n t?p v?i d? thi t? 3-5 nam g?n nh?t d? n?m format c�u h?i",
-              "K?t h?p v?i t�nh nang �n t?p c�u sai th�ng minh d? t?p trung v�o di?m y?u",
-              "M?c ti�u d?t 80%+ trong 3 l?n thi li�n ti?p tru?c khi thi th?t",
+              "Tải đề thi chính thức từ eps.hrdkorea.or.kr (website chính thức của Bộ Lao động Hàn Quốc)",
+              "Luyện tập với đề thi từ 3-5 năm gần nhất để nắm format câu hỏi",
+              "Kết hợp với tính năng Ôn tập câu sai thông minh để tập trung vào điểm yếu",
+              "Mục tiêu đạt 80%+ trong 3 lần thi liên tiếp trước khi thi thật",
             ].map((tip, i) => (
               <div key={i} className="flex items-start gap-2">
                 <div className="w-5 h-5 flex items-center justify-center rounded-full bg-app-accent-primary/15 flex-shrink-0 mt-0.5">

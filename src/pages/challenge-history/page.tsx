@@ -1,8 +1,8 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
-// --- Types --------------------------------------------------------------------
+// ─── Types ────────────────────────────────────────────────────────────────────
 interface WeekRecord {
   weekKey: string;
   weekLabel: string;
@@ -13,14 +13,14 @@ interface WeekRecord {
   completedIds: string[];
 }
 
-// --- Challenge metadata (same as weekly-challenge page) -----------------------
+// ─── Challenge metadata (same as weekly-challenge page) ───────────────────────
 const CHALLENGE_META: Record<string, { title: string; icon: string; color: string; xpReward: number }> = {
   flash_50:    { title: "Flashcard Marathon",    icon: "ri-stack-line",      color: "app-accent-primary", xpReward: 100 },
-  exam_3:      { title: "Chi?n binh EPS",        icon: "ri-timer-line",      color: "#34d399", xpReward: 150 },
-  streak_7:    { title: "Kh�ng b? ng�y n�o",     icon: "ri-fire-line",       color: "#fb923c", xpReward: 200 },
-  drill_5:     { title: "Luy?n ch? d? EPS",      icon: "ri-focus-3-line",    color: "#06b6d4", xpReward: 120 },
-  community_3: { title: "Chia s? ki?n th?c",     icon: "ri-group-line",      color: "#f472b6", xpReward: 90  },
-  vocab_topic: { title: "T? v?ng theo ch? d?",   icon: "ri-translate-2",     color: "#a78bfa", xpReward: 80  },
+  exam_3:      { title: "Chiến binh EPS",        icon: "ri-timer-line",      color: "#34d399", xpReward: 150 },
+  streak_7:    { title: "Không bỏ ngày nào",     icon: "ri-fire-line",       color: "#fb923c", xpReward: 200 },
+  drill_5:     { title: "Luyện chủ đề EPS",      icon: "ri-focus-3-line",    color: "#06b6d4", xpReward: 120 },
+  community_3: { title: "Chia sẻ kiến thức",     icon: "ri-group-line",      color: "#f472b6", xpReward: 90  },
+  vocab_topic: { title: "Từ vựng theo chủ đề",   icon: "ri-translate-2",     color: "#a78bfa", xpReward: 80  },
   quiz_10:     { title: "Quiz Master",            icon: "ri-survey-line",     color: "#84cc16", xpReward: 70  },
 };
 
@@ -29,7 +29,7 @@ const MAX_XP_PER_WEEK = Object.values(CHALLENGE_META).reduce((s, c) => s + c.xpR
 
 // History loaded from localStorage kts_challenge_history (saved by weekly-challenge page)
 
-// --- Streak calculator --------------------------------------------------------
+// ─── Streak calculator ────────────────────────────────────────────────────────
 function calcChallengeStreak(records: WeekRecord[]): number {
   let streak = 0;
   for (const r of records) {
@@ -39,7 +39,7 @@ function calcChallengeStreak(records: WeekRecord[]): number {
   return streak;
 }
 
-// --- Week Card ----------------------------------------------------------------
+// ─── Week Card ────────────────────────────────────────────────────────────────
 function WeekCard({ record, isExpanded, onToggle }: {
   record: WeekRecord;
   isExpanded: boolean;
@@ -48,7 +48,7 @@ function WeekCard({ record, isExpanded, onToggle }: {
   const pct = Math.round((record.completedCount / record.totalCount) * 100);
   const isFullComplete = record.completedCount === record.totalCount;
   const color = isFullComplete ? "#34d399" : pct >= 70 ? "app-accent-primary" : pct >= 40 ? "#fb923c" : "#f87171";
-  const label = isFullComplete ? "Ho�n h?o!" : pct >= 70 ? "T?t" : pct >= 40 ? "Trung b�nh" : "C?n c? g?ng";
+  const label = isFullComplete ? "Hoàn hảo!" : pct >= 70 ? "Tốt" : pct >= 40 ? "Trung bình" : "Cần cố gắng";
 
   return (
     <div className={`bg-app-bg border rounded-2xl overflow-hidden transition-all ${isFullComplete ? "border-emerald-500/20" : "border-app-border"}`}>
@@ -63,13 +63,13 @@ function WeekCard({ record, isExpanded, onToggle }: {
             <p className="text-white font-semibold text-sm">{record.weekLabel}</p>
             {isFullComplete && (
               <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success">
-                <i className="ri-vip-crown-fill"></i>Ho�n h?o
+                <i className="ri-vip-crown-fill"></i>Hoàn hảo
               </span>
             )}
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-app-text-secondary text-xs">{record.completedCount}/{record.totalCount} th? th�ch</span>
-            <span className="text-app-text-muted">�</span>
+            <span className="text-app-text-secondary text-xs">{record.completedCount}/{record.totalCount} thử thách</span>
+            <span className="text-app-text-muted">·</span>
             <span className="text-xs font-semibold" style={{ color }}>{label}</span>
           </div>
         </div>
@@ -78,7 +78,7 @@ function WeekCard({ record, isExpanded, onToggle }: {
         <div className="flex items-center gap-4">
           <div className="text-right">
             <p className="text-white font-bold text-lg">{record.xpEarned}</p>
-            <p className="text-app-text-muted text-[10px]">XP nh?n du?c</p>
+            <p className="text-app-text-muted text-[10px]">XP nhận được</p>
           </div>
           <div className="w-12 h-12 relative flex-shrink-0">
             <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
@@ -99,7 +99,7 @@ function WeekCard({ record, isExpanded, onToggle }: {
       {/* Expanded detail */}
       {isExpanded && (
         <div className="px-5 pb-5 border-t border-app-border pt-4">
-          <p className="text-app-text-muted text-xs mb-3">Th? th�ch d� ho�n th�nh:</p>
+          <p className="text-app-text-muted text-xs mb-3">Thử thách đã hoàn thành:</p>
           <div className="grid grid-cols-2 gap-2">
             {Object.entries(CHALLENGE_META).map(([id, meta]) => {
               const done = record.completedIds.includes(id);
@@ -114,7 +114,7 @@ function WeekCard({ record, isExpanded, onToggle }: {
                   <div className="flex-1 min-w-0">
                     <p className={`text-xs font-medium truncate ${done ? "text-white/70" : "text-app-text-muted"}`}>{meta.title}</p>
                     <p className="text-[10px]" style={{ color: done ? meta.color : "rgba(255,255,255,0.2)" }}>
-                      {done ? `+${meta.xpReward} XP` : "Chua ho�n th�nh"}
+                      {done ? `+${meta.xpReward} XP` : "Chưa hoàn thành"}
                     </p>
                   </div>
                 </div>
@@ -124,7 +124,7 @@ function WeekCard({ record, isExpanded, onToggle }: {
           {record.bonusClaimed && (
             <div className="mt-3 flex items-center gap-2 p-2.5 rounded-xl bg-app-accent-primary/8 border border-app-accent-primary/15">
               <i className="ri-vip-crown-fill text-app-accent-primary text-sm"></i>
-              <p className="text-app-accent-primary text-xs font-semibold">Bonus ho�n th�nh t?t c?: +300 XP</p>
+              <p className="text-app-accent-primary text-xs font-semibold">Bonus hoàn thành tất cả: +300 XP</p>
             </div>
           )}
         </div>
@@ -133,7 +133,7 @@ function WeekCard({ record, isExpanded, onToggle }: {
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function ChallengeHistoryPage() {
   const [claimedIds] = useLocalStorage<string[]>("kts_weekly_claimed", []);
   const [expandedWeek, setExpandedWeek] = useState<string | null>(null);
@@ -167,16 +167,16 @@ export default function ChallengeHistoryPage() {
 
   return (
     <DashboardLayout
-      title="L?ch s? th? th�ch"
-      subtitle="Xem l?i k?t qu? c�c tu?n tru?c v� streak th? th�ch c?a b?n"
+      title="Lịch sử thử thách"
+      subtitle="Xem lại kết quả các tuần trước và streak thử thách của bạn"
     >
       {/* Summary stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Streak th? th�ch", value: `${challengeStreak} tu?n`, icon: "ri-fire-line", color: "#fb923c", sub: "Li�n ti?p =50% th? th�ch" },
-          { label: "Tu?n ho�n h?o", value: perfectWeeks, icon: "ri-vip-crown-line", color: "app-accent-primary", sub: `/${history.length} tu?n d� ghi nh?n` },
-          { label: "T?ng XP t? th? th�ch", value: totalXPFromChallenges.toLocaleString(), icon: "ri-star-line", color: "#34d399", sub: "T�ch luy t? t?t c? tu?n" },
-          { label: "T? l? ho�n th�nh TB", value: `${avgCompletion}%`, icon: "ri-bar-chart-line", color: "#a78bfa", sub: "Trung b�nh m?i tu?n" },
+          { label: "Streak thử thách", value: `${challengeStreak} tuần`, icon: "ri-fire-line", color: "#fb923c", sub: "Liên tiếp ≥50% thử thách" },
+          { label: "Tuần hoàn hảo", value: perfectWeeks, icon: "ri-vip-crown-line", color: "app-accent-primary", sub: `/${history.length} tuần đã ghi nhận` },
+          { label: "Tổng XP từ thử thách", value: totalXPFromChallenges.toLocaleString(), icon: "ri-star-line", color: "#34d399", sub: "Tích lũy từ tất cả tuần" },
+          { label: "Tỷ lệ hoàn thành TB", value: `${avgCompletion}%`, icon: "ri-bar-chart-line", color: "#a78bfa", sub: "Trung bình mỗi tuần" },
         ].map(s => (
           <div key={s.label} className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
@@ -196,7 +196,7 @@ export default function ChallengeHistoryPage() {
         <div>
           {/* Filter */}
           <div className="flex items-center gap-2 mb-4">
-            {([["all", "T?t c?"], ["perfect", "Ho�n h?o"], ["incomplete", "Chua ho�n th�nh"]] as const).map(([key, label]) => (
+            {([["all", "Tất cả"], ["perfect", "Hoàn hảo"], ["incomplete", "Chưa hoàn thành"]] as const).map(([key, label]) => (
               <button
                 key={key}
                 onClick={() => setFilterView(key)}
@@ -215,7 +215,7 @@ export default function ChallengeHistoryPage() {
             {filteredHistory.length === 0 ? (
               <div className="bg-app-bg border border-app-border rounded-2xl p-12 text-center">
                 <i className="ri-calendar-line text-white/10 text-4xl mb-3"></i>
-                <p className="text-app-text-muted text-sm">Kh�ng c� tu?n n�o ph� h?p</p>
+                <p className="text-app-text-muted text-sm">Không có tuần nào phù hợp</p>
               </div>
             ) : (
               filteredHistory.map(record => (
@@ -234,14 +234,14 @@ export default function ChallengeHistoryPage() {
         <div className="space-y-4">
           {/* Streak visual */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Streak th? th�ch</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">Streak thử thách</h3>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#fb923c]/15 flex-shrink-0">
                 <i className="ri-fire-fill text-[#fb923c] text-3xl"></i>
               </div>
               <div>
                 <p className="text-[#fb923c] font-bold text-3xl">{challengeStreak}</p>
-                <p className="text-app-text-secondary text-xs">tu?n li�n ti?p</p>
+                <p className="text-app-text-secondary text-xs">tuần liên tiếp</p>
               </div>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
@@ -259,21 +259,21 @@ export default function ChallengeHistoryPage() {
                     }}
                     title={r.weekLabel}
                   >
-                    {isPerfect ? "?" : isGood ? "?" : "�"}
+                    {isPerfect ? "★" : isGood ? "✓" : "·"}
                   </div>
                 );
               })}
             </div>
             <div className="flex items-center gap-3 mt-3 text-[10px] text-app-text-muted">
-              <span className="flex items-center gap-1"><span className="text-app-accent-primary">?</span> Ho�n h?o</span>
-              <span className="flex items-center gap-1"><span className="text-[#fb923c]">?</span> T?t</span>
-              <span className="flex items-center gap-1"><span>�</span> Chua d?t</span>
+              <span className="flex items-center gap-1"><span className="text-app-accent-primary">★</span> Hoàn hảo</span>
+              <span className="flex items-center gap-1"><span className="text-[#fb923c]">✓</span> Tốt</span>
+              <span className="flex items-center gap-1"><span>·</span> Chưa đạt</span>
             </div>
           </div>
 
           {/* XP by challenge type */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">XP theo lo?i th? th�ch</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">XP theo loại thử thách</h3>
             <div className="space-y-2.5">
               {xpByChallenge.map(([id, xp]) => {
                 const meta = CHALLENGE_META[id];
@@ -302,13 +302,13 @@ export default function ChallengeHistoryPage() {
           <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
               <i className="ri-lightbulb-line text-app-accent-primary text-sm"></i>
-              <h3 className="text-white font-semibold text-sm">M?o duy tr� streak</h3>
+              <h3 className="text-white font-semibold text-sm">Mẹo duy trì streak</h3>
             </div>
             <div className="space-y-2 text-app-text-secondary text-xs leading-relaxed">
-              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Uu ti�n th? th�ch Streak 7 ng�y tru?c</p>
-              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Flashcard Marathon d? ho�n th�nh nh?t</p>
-              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>C?p nh?t ti?n d? m?i ng�y d? kh�ng qu�n</p>
-              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Ho�n th�nh 4+ th? th�ch d? gi? streak</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Ưu tiên thử thách Streak 7 ngày trước</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Flashcard Marathon dễ hoàn thành nhất</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Cập nhật tiến độ mỗi ngày để không quên</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Hoàn thành 4+ thử thách để giữ streak</p>
             </div>
           </div>
         </div>

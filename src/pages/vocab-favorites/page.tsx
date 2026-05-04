@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -11,7 +11,7 @@ type SessionState = "idle" | "studying" | "result";
 
 interface CardResult { id: string; correct: boolean; attempts: number }
 
-// --- Flashcard ------------------------------------------------------------
+// ─── Flashcard ────────────────────────────────────────────────────────────
 function Flashcard({
   item,
   mode,
@@ -72,10 +72,10 @@ function Flashcard({
             <p className="text-4xl font-bold text-white mb-3">{front}</p>
             {frontSub && <p className="text-app-text-muted text-base font-mono">{frontSub}</p>}
             <button onClick={speakKorean} className="mt-4 flex items-center gap-1.5 text-xs text-app-text-muted hover:text-white/50 bg-app-card/50 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors">
-              <i className="ri-volume-up-line"></i>Nghe ph�t �m
+              <i className="ri-volume-up-line"></i>Nghe phát âm
             </button>
             {!revealed && (
-              <p className="mt-6 text-white/15 text-xs">Nh?n d? xem nghia</p>
+              <p className="mt-6 text-white/15 text-xs">Nhấn để xem nghĩa</p>
             )}
           </div>
           {/* Back */}
@@ -86,20 +86,20 @@ function Flashcard({
         </div>
       </div>
 
-      {/* Action buttons � only show after reveal */}
+      {/* Action buttons — only show after reveal */}
       {revealed ? (
         <div className="flex gap-4 w-full">
           <button
             onClick={onWrong}
             className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl border-2 border-red-400/30 bg-red-400/8 text-red-400 font-bold text-sm cursor-pointer whitespace-nowrap hover:bg-red-400/15 transition-colors"
           >
-            <i className="ri-close-line text-lg"></i>Chua nh?
+            <i className="ri-close-line text-lg"></i>Chưa nhớ
           </button>
           <button
             onClick={onCorrect}
             className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl border-2 border-emerald-400/30 bg-emerald-400/8 text-app-accent-success font-bold text-sm cursor-pointer whitespace-nowrap hover:bg-emerald-400/15 transition-colors"
           >
-            <i className="ri-check-line text-lg"></i>�� nh?
+            <i className="ri-check-line text-lg"></i>Đã nhớ
           </button>
         </div>
       ) : (
@@ -107,14 +107,14 @@ function Flashcard({
           onClick={handleReveal}
           className="w-full py-3.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
         >
-          <i className="ri-eye-line mr-2"></i>Xem nghia
+          <i className="ri-eye-line mr-2"></i>Xem nghĩa
         </button>
       )}
     </div>
   );
 }
 
-// --- Result Screen --------------------------------------------------------
+// ─── Result Screen ────────────────────────────────────────────────────────
 function ResultScreen({
   results,
   items,
@@ -133,9 +133,9 @@ function ResultScreen({
   return (
     <div className="max-w-lg mx-auto space-y-5">
       <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/20 rounded-2xl p-8 text-center">
-        <div className="text-5xl mb-4">{pct >= 80 ? "??" : pct >= 60 ? "??" : "??"}</div>
-        <h2 className="text-white font-bold text-2xl mb-1">{correct}/{results.length} t? d� nh?</h2>
-        <p className="text-app-text-secondary text-sm mb-4">�?t {pct}%</p>
+        <div className="text-5xl mb-4">{pct >= 80 ? "🎉" : pct >= 60 ? "👍" : "💪"}</div>
+        <h2 className="text-white font-bold text-2xl mb-1">{correct}/{results.length} từ đã nhớ</h2>
+        <p className="text-app-text-secondary text-sm mb-4">Đạt {pct}%</p>
         <div className="w-full h-3 bg-app-card/50 rounded-full overflow-hidden">
           <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }} />
         </div>
@@ -145,7 +145,7 @@ function ResultScreen({
         <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-3">
             <i className="ri-refresh-line text-app-accent-primary mr-2"></i>
-            C?n �n l?i ({wrongItems.length} t?)
+            Cần ôn lại ({wrongItems.length} từ)
           </h3>
           <div className="space-y-2 max-h-48 overflow-y-auto">
             {wrongItems.map(item => (
@@ -162,18 +162,18 @@ function ResultScreen({
       <div className="flex gap-3">
         {wrongItems.length > 0 && (
           <button onClick={() => onRestartWrong(wrongItems)} className="flex-1 py-3 rounded-xl bg-red-400/10 border border-red-400/20 text-red-400 font-bold text-sm cursor-pointer whitespace-nowrap hover:bg-red-400/15 transition-colors">
-            <i className="ri-refresh-line mr-2"></i>�n t? chua nh? ({wrongItems.length})
+            <i className="ri-refresh-line mr-2"></i>Ôn từ chưa nhớ ({wrongItems.length})
           </button>
         )}
         <button onClick={onRestart} className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
-          <i className="ri-play-line mr-2"></i>H?c l?i t?t c?
+          <i className="ri-play-line mr-2"></i>Học lại tất cả
         </button>
       </div>
     </div>
   );
 }
 
-// --- Main Page ------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────
 export default function VocabFavoritesPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -234,11 +234,11 @@ export default function VocabFavoritesPage() {
 
   return (
     <DashboardLayout
-      title="�n t?p t? y�u th�ch"
-      subtitle="Flashcard ri�ng cho c�c t? d� bookmark � luy?n d?n khi thu?c h?t"
+      title="Ôn tập từ yêu thích"
+      subtitle="Flashcard riêng cho các từ đã bookmark — luyện đến khi thuộc hết"
       actions={
         <button onClick={() => navigate("/vocabulary")} className="flex items-center gap-2 bg-app-card/50 border border-app-border hover:bg-white/8 text-white/60 text-sm px-4 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors">
-          <i className="ri-bookmark-line"></i>Qu?n l� t? y�u th�ch
+          <i className="ri-bookmark-line"></i>Quản lý từ yêu thích
         </button>
       }
     >
@@ -248,12 +248,12 @@ export default function VocabFavoritesPage() {
           <div className="w-20 h-20 flex items-center justify-center rounded-2xl bg-app-accent-primary/10 mb-5">
             <i className="ri-bookmark-line text-app-accent-primary text-4xl"></i>
           </div>
-          <h2 className="text-white font-bold text-xl mb-2">Chua c� t? y�u th�ch</h2>
+          <h2 className="text-white font-bold text-xl mb-2">Chưa có từ yêu thích</h2>
           <p className="text-app-text-secondary text-sm mb-6 max-w-sm leading-relaxed">
-            Nh?n n�t bookmark <i className="ri-bookmark-line text-app-accent-primary"></i> tr�n trang T? v?ng d? luu c�c t? kh� v�o d�y
+            Nhấn nút bookmark <i className="ri-bookmark-line text-app-accent-primary"></i> trên trang Từ vựng để lưu các từ khó vào đây
           </p>
           <button onClick={() => navigate("/vocabulary")} className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold px-6 py-3 rounded-xl cursor-pointer whitespace-nowrap transition-colors">
-            <i className="ri-translate-2"></i>�?n trang T? v?ng
+            <i className="ri-translate-2"></i>Đến trang Từ vựng
           </button>
         </div>
       ) : sessionState === "idle" ? (
@@ -262,7 +262,7 @@ export default function VocabFavoritesPage() {
           {/* Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { label: "T? y�u th�ch", value: favoriteItems.length, icon: "ri-bookmark-fill", color: "app-accent-primary" },
+              { label: "Từ yêu thích", value: favoriteItems.length, icon: "ri-bookmark-fill", color: "app-accent-primary" },
               { label: "A1/A2", value: favoriteItems.filter(v => ["A1","A2"].includes(v.topikLevel)).length, icon: "ri-seedling-line", color: "#34d399" },
               { label: "B1/B2", value: favoriteItems.filter(v => ["B1","B2"].includes(v.topikLevel)).length, icon: "ri-fire-line", color: "#fb923c" },
             ].map(s => (
@@ -278,9 +278,9 @@ export default function VocabFavoritesPage() {
 
           {/* Mode selector */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <p className="text-app-text-secondary text-xs font-medium mb-3">Ch? d? h?c</p>
+            <p className="text-app-text-secondary text-xs font-medium mb-3">Chế độ học</p>
             <div className="grid grid-cols-2 gap-3">
-              {([["korean_to_vi", "ri-translate-2", "H�n ? Vi?t", "Xem ti?ng H�n, do�n nghia"], ["vi_to_korean", "ri-font-size", "Vi?t ? H�n", "Xem ti?ng Vi?t, do�n ti?ng H�n"]] as [CardMode, string, string, string][]).map(([m, icon, label, desc]) => (
+              {([["korean_to_vi", "ri-translate-2", "Hàn → Việt", "Xem tiếng Hàn, đoán nghĩa"], ["vi_to_korean", "ri-font-size", "Việt → Hàn", "Xem tiếng Việt, đoán tiếng Hàn"]] as [CardMode, string, string, string][]).map(([m, icon, label, desc]) => (
                 <button
                   key={m}
                   onClick={() => setMode(m)}
@@ -301,14 +301,14 @@ export default function VocabFavoritesPage() {
             onClick={() => startSession(favoriteItems)}
             className="w-full py-4 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-base rounded-xl cursor-pointer whitespace-nowrap transition-colors"
           >
-            <i className="ri-play-fill mr-2"></i>B?t d?u �n t?p ({favoriteItems.length} t?)
+            <i className="ri-play-fill mr-2"></i>Bắt đầu ôn tập ({favoriteItems.length} từ)
           </button>
 
           {/* Word list */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-white font-semibold text-sm">Danh s�ch t? y�u th�ch</h3>
-              <span className="text-app-text-muted text-xs">{favoriteItems.length} t?</span>
+              <h3 className="text-white font-semibold text-sm">Danh sách từ yêu thích</h3>
+              <span className="text-app-text-muted text-xs">{favoriteItems.length} từ</span>
             </div>
             <div className="space-y-2 max-h-64 overflow-y-auto">
               {favoriteItems.map(item => (

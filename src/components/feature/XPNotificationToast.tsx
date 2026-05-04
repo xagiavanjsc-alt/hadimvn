@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from "react";
+﻿import { useEffect, useState, memo } from "react";
 import { useXPSystem, XPNotification } from "@/hooks/useXPSystem";
 import { RANKS, BADGES } from "@/data/ranks";
 
@@ -10,7 +10,7 @@ function getBadgeById(id: string) {
   return BADGES.find((b) => b.id === id);
 }
 
-// --- Single Toast -------------------------------------------------------------
+// ─── Single Toast ─────────────────────────────────────────────────────────────
 function Toast({
   notif,
   onDismiss,
@@ -108,7 +108,7 @@ function Toast({
                 className="text-[9px] font-bold px-1.5 py-0.5 rounded-full tracking-wide"
                 style={{ backgroundColor: `${accentColor}20`, color: accentColor }}
               >
-                L�n c?p!
+                Lên cấp!
               </span>
             )}
             {isBadge && (
@@ -116,7 +116,7 @@ function Toast({
                 className="text-[9px] font-bold px-1.5 py-0.5 rounded-full tracking-wide"
                 style={{ backgroundColor: `${accentColor}20`, color: accentColor }}
               >
-                Huy hi?u
+                Huy hiệu
               </span>
             )}
           </div>
@@ -160,7 +160,7 @@ function Toast({
 // Wrap Toast with memo for performance optimization
 const MemoizedToast = memo(Toast);
 
-// --- Main Component -----------------------------------------------------------
+// ─── Main Component ───────────────────────────────────────────────────────────
 export default function XPNotificationToast() {
   const { notifications, dismissNotification } = useXPSystem();
 

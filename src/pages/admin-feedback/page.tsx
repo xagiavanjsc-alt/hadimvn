@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+Ôªøimport { useState, useEffect, useCallback, useMemo } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { supabase } from "@/lib/supabase";
 
@@ -19,15 +19,15 @@ interface Feedback {
 }
 
 const STATUS_CONFIG = {
-  new: { label: "M?i", color: "app-accent-primary", bg: "rgba(232,200,74,0.12)", icon: "ri-mail-unread-line" },
-  reviewed: { label: "–„ xem", color: "#38bdf8", bg: "rgba(56,189,248,0.12)", icon: "ri-eye-line" },
-  resolved: { label: "–„ x? l˝", color: "#34d399", bg: "rgba(52,211,153,0.12)", icon: "ri-checkbox-circle-line" },
-  dismissed: { label: "B? qua", color: "#6b7280", bg: "rgba(107,114,128,0.12)", icon: "ri-close-circle-line" },
+  new: { label: "M·ªõi", color: "app-accent-primary", bg: "rgba(232,200,74,0.12)", icon: "ri-mail-unread-line" },
+  reviewed: { label: "ƒê√£ xem", color: "#38bdf8", bg: "rgba(56,189,248,0.12)", icon: "ri-eye-line" },
+  resolved: { label: "ƒê√£ x·ª≠ l√Ω", color: "#34d399", bg: "rgba(52,211,153,0.12)", icon: "ri-checkbox-circle-line" },
+  dismissed: { label: "B·ªè qua", color: "#6b7280", bg: "rgba(107,114,128,0.12)", icon: "ri-close-circle-line" },
 };
 
 const CATEGORY_LABELS: Record<string, string> = {
-  general: "T?ng quan", feature: "TÌnh nang", content: "N?i dung h?c",
-  ui: "Giao di?n", performance: "Hi?u su?t", suggestion: "–? xu?t",
+  general: "T·ªïng quan", feature: "T√≠nh nƒÉng", content: "N·ªôi dung h·ªçc",
+  ui: "Giao di·ªán", performance: "Hi·ªáu su·∫•t", suggestion: "ƒê·ªÅ xu·∫•t",
 };
 
 function StarDisplay({ rating }: { rating: number }) {
@@ -62,9 +62,9 @@ function FeedbackDetailModal({ feedback, onClose, onUpdate }: {
         style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border2)" }}>
         <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: "var(--admin-border)" }}>
           <div>
-            <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>Chi ti?t gÛp ˝</p>
+            <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>Chi ti·∫øt g√≥p √Ω</p>
             <p className="text-[10px]" style={{ color: "var(--admin-text-muted)" }}>
-              {feedback.user_name || "?n danh"} ∑ {new Date(feedback.created_at).toLocaleDateString("vi-VN")}
+              {feedback.user_name || "·∫®n danh"} ¬∑ {new Date(feedback.created_at).toLocaleDateString("vi-VN")}
             </p>
           </div>
           <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer"
@@ -94,8 +94,8 @@ function FeedbackDetailModal({ feedback, onClose, onUpdate }: {
           {/* User info */}
           <div className="px-3 py-2.5 rounded-xl text-xs space-y-1" style={{ backgroundColor: "var(--admin-card2)" }}>
             <p style={{ color: "var(--admin-text-muted)" }}>
-              <span style={{ color: "var(--admin-text-faint)" }}>Ngu?i d˘ng: </span>
-              {feedback.user_name || "?n danh"}
+              <span style={{ color: "var(--admin-text-faint)" }}>Ng∆∞·ªùi d√πng: </span>
+              {feedback.user_name || "·∫®n danh"}
             </p>
             {feedback.user_email && (
               <p style={{ color: "var(--admin-text-muted)" }}>
@@ -113,7 +113,7 @@ function FeedbackDetailModal({ feedback, onClose, onUpdate }: {
 
           {/* Status update */}
           <div>
-            <label className="text-xs font-semibold mb-2 block" style={{ color: "var(--admin-text-muted)" }}>C?p nh?t tr?ng th·i</label>
+            <label className="text-xs font-semibold mb-2 block" style={{ color: "var(--admin-text-muted)" }}>C·∫≠p nh·∫≠t tr·∫°ng th√°i</label>
             <div className="grid grid-cols-2 gap-2">
               {(Object.entries(STATUS_CONFIG) as [Feedback["status"], typeof STATUS_CONFIG[keyof typeof STATUS_CONFIG]][]).map(([s, cfg]) => (
                 <button key={s} onClick={() => setStatus(s)}
@@ -133,9 +133,9 @@ function FeedbackDetailModal({ feedback, onClose, onUpdate }: {
 
           {/* Admin note */}
           <div>
-            <label className="text-xs font-semibold mb-1.5 block" style={{ color: "var(--admin-text-muted)" }}>Ghi ch˙ admin</label>
+            <label className="text-xs font-semibold mb-1.5 block" style={{ color: "var(--admin-text-muted)" }}>Ghi ch√∫ admin</label>
             <textarea value={note} onChange={e => setNote(e.target.value.slice(0, 300))} rows={3} maxLength={300}
-              placeholder="Ghi ch˙ n?i b? v? gÛp ˝ n‡y..."
+              placeholder="Ghi ch√∫ n·ªôi b·ªô v·ªÅ g√≥p √Ω n√†y..."
               className="w-full rounded-xl px-4 py-2.5 text-xs outline-none border resize-none"
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
           </div>
@@ -145,11 +145,11 @@ function FeedbackDetailModal({ feedback, onClose, onUpdate }: {
           <button onClick={onClose}
             className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap"
             style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>
-            H?y
+            H·ªßy
           </button>
           <button onClick={handleSave} disabled={saving}
             className="flex-1 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 disabled:opacity-50 text-white font-bold text-sm cursor-pointer whitespace-nowrap">
-            {saving ? "–ang luu..." : "Luu thay d?i"}
+            {saving ? "ƒêang l∆∞u..." : "L∆∞u thay ƒë·ªïi"}
           </button>
         </div>
       </div>
@@ -187,7 +187,7 @@ export default function AdminFeedbackPage() {
       .eq("id", id);
     if (!error) {
       setFeedbacks(prev => prev.map(f => f.id === id ? { ...f, status, admin_note: note } : f));
-      showToast("–„ c?p nh?t gÛp ˝!");
+      showToast("ƒê√£ c·∫≠p nh·∫≠t g√≥p √Ω!");
     }
   };
 
@@ -218,12 +218,12 @@ export default function AdminFeedbackPage() {
 
   return (
     <AdminLayout
-      title="GÛp ˝ & –·nh gi·"
-      subtitle="Qu?n l˝ ph?n h?i t? th‡nh viÍn"
+      title="G√≥p √Ω & ƒê√°nh gi√°"
+      subtitle="Qu·∫£n l√Ω ph·∫£n h·ªìi t·ª´ th√†nh vi√™n"
       actions={
         <button onClick={fetchFeedbacks}
           className="flex items-center gap-2 text-xs font-medium px-3 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap bg-app-card/50 text-white/50 border border-app-border hover:bg-app-card/70">
-          <i className="ri-refresh-line" />L‡m m?i
+          <i className="ri-refresh-line" />L√†m m·ªõi
         </button>
       }
     >
@@ -236,11 +236,11 @@ export default function AdminFeedbackPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
         {[
-          { label: "T?ng gÛp ˝", value: feedbacks.length, color: "app-accent-primary", icon: "ri-chat-smile-2-line" },
-          { label: "M?i chua xem", value: feedbacks.filter(f => f.status === "new").length, color: "#f87171", icon: "ri-mail-unread-line" },
-          { label: "–„ x? l˝", value: feedbacks.filter(f => f.status === "resolved").length, color: "#34d399", icon: "ri-checkbox-circle-line" },
-          { label: "–·nh gi· TB", value: avgRating, color: "#fb923c", icon: "ri-star-line" },
-          { label: "T? VIP", value: feedbacks.filter(f => f.is_vip).length, color: "#a78bfa", icon: "ri-vip-crown-line" },
+          { label: "T·ªïng g√≥p √Ω", value: feedbacks.length, color: "app-accent-primary", icon: "ri-chat-smile-2-line" },
+          { label: "M·ªõi ch∆∞a xem", value: feedbacks.filter(f => f.status === "new").length, color: "#f87171", icon: "ri-mail-unread-line" },
+          { label: "ƒê√£ x·ª≠ l√Ω", value: feedbacks.filter(f => f.status === "resolved").length, color: "#34d399", icon: "ri-checkbox-circle-line" },
+          { label: "ƒê√°nh gi√° TB", value: avgRating, color: "#fb923c", icon: "ri-star-line" },
+          { label: "T·ª´ VIP", value: feedbacks.filter(f => f.is_vip).length, color: "#a78bfa", icon: "ri-vip-crown-line" },
         ].map(s => (
           <div key={s.label} className="rounded-xl p-4 flex items-center gap-3 border"
             style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
@@ -258,7 +258,7 @@ export default function AdminFeedbackPage() {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 mb-5">
         {/* Rating distribution */}
         <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-          <p className="font-semibold text-sm mb-1" style={{ color: "var(--admin-text)" }}>Ph‚n b? d·nh gi·</p>
+          <p className="font-semibold text-sm mb-1" style={{ color: "var(--admin-text)" }}>Ph√¢n b·ªë ƒë√°nh gi√°</p>
           <div className="flex items-center gap-2 mb-4">
             <span className="text-2xl font-bold" style={{ color: "app-accent-primary" }}>{avgRating}</span>
             <div>
@@ -267,7 +267,7 @@ export default function AdminFeedbackPage() {
                   <i key={s} className={`text-xs ${parseFloat(avgRating) >= s ? "ri-star-fill text-app-accent-primary" : "ri-star-line text-white/15"}`} />
                 ))}
               </div>
-              <p className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>{feedbacks.length} d·nh gi·</p>
+              <p className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>{feedbacks.length} ƒë√°nh gi√°</p>
             </div>
           </div>
           <div className="space-y-2">
@@ -290,14 +290,14 @@ export default function AdminFeedbackPage() {
           <div className="flex items-center gap-3 px-5 py-3 border-b flex-wrap" style={{ borderColor: "var(--admin-border)" }}>
             <div className="relative flex-1 min-w-40">
               <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-xs" style={{ color: "var(--admin-text-faint)" }}></i>
-              <input value={search} onChange={e => setSearch(e.target.value)} placeholder="TÏm gÛp ˝..."
+              <input value={search} onChange={e => setSearch(e.target.value)} placeholder="T√¨m g√≥p √Ω..."
                 className="w-full rounded-lg pl-8 pr-4 py-1.5 text-xs outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
             </div>
             <select value={filterStatus} onChange={e => setFilterStatus(e.target.value as typeof filterStatus)}
               className="rounded-lg px-3 py-1.5 text-xs outline-none border cursor-pointer"
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }}>
-              <option value="all">T?t c? tr?ng th·i</option>
+              <option value="all">T·∫•t c·∫£ tr·∫°ng th√°i</option>
               {Object.entries(STATUS_CONFIG).map(([s, cfg]) => (
                 <option key={s} value={s}>{cfg.label}</option>
               ))}
@@ -305,7 +305,7 @@ export default function AdminFeedbackPage() {
             <select value={filterRating} onChange={e => setFilterRating(parseInt(e.target.value))}
               className="rounded-lg px-3 py-1.5 text-xs outline-none border cursor-pointer"
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }}>
-              <option value={0}>T?t c? sao</option>
+              <option value={0}>T·∫•t c·∫£ sao</option>
               {[5,4,3,2,1].map(r => <option key={r} value={r}>{r} sao</option>)}
             </select>
           </div>
@@ -317,7 +317,7 @@ export default function AdminFeedbackPage() {
           ) : filtered.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <i className="ri-chat-smile-2-line text-3xl mb-2" style={{ color: "var(--admin-text-faint)" }}></i>
-              <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Chua cÛ gÛp ˝ n‡o</p>
+              <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Ch∆∞a c√≥ g√≥p √Ω n√†o</p>
             </div>
           ) : (
             <div className="divide-y max-h-[480px] overflow-y-auto" style={{ borderColor: "var(--admin-border)" }}>
@@ -342,7 +342,7 @@ export default function AdminFeedbackPage() {
                       <div className="flex items-center gap-3">
                         <StarDisplay rating={fb.rating} />
                         <span className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>
-                          {fb.user_name || "?n danh"} ∑ {new Date(fb.created_at).toLocaleDateString("vi-VN")}
+                          {fb.user_name || "·∫®n danh"} ¬∑ {new Date(fb.created_at).toLocaleDateString("vi-VN")}
                         </span>
                       </div>
                     </div>

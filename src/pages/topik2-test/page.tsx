@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+﻿import { useState, useEffect, useRef, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { topik2Questions, type T2Question } from "@/mocks/topik2Questions";
@@ -7,7 +7,7 @@ const TOTAL_TIME = 180 * 60;
 type Phase = "intro" | "exam" | "result";
 type Section = "listening" | "reading" | "writing";
 
-// --- Timer hook -----------------------------------------------------------
+// ─── Timer hook ───────────────────────────────────────────────────────────
 function useTimer(active: boolean, onExpire: () => void) {
   const [remaining, setRemaining] = useState(TOTAL_TIME);
   const ref = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -27,7 +27,7 @@ function useTimer(active: boolean, onExpire: () => void) {
   return { minutes, seconds, pct, isWarning: remaining < 900, isDanger: remaining < 300 };
 }
 
-// --- MC4 Image Question ---------------------------------------------------
+// ─── MC4 Image Question ───────────────────────────────────────────────────
 interface MC4ImageQuestionProps {
   q: T2Question;
   selected: number | null;
@@ -59,7 +59,7 @@ function MC4ImageQuestion({ q, selected, onAnswer, showResult }: MC4ImageQuestio
   );
 }
 
-// --- MC4 Text Question ----------------------------------------------------
+// ─── MC4 Text Question ────────────────────────────────────────────────────
 interface MC4TextQuestionProps {
   q: T2Question;
   selected: number | null;
@@ -81,7 +81,7 @@ function MC4TextQuestion({ q, selected, onAnswer, showResult }: MC4TextQuestionP
           <button key={i} onClick={() => !showResult && onAnswer(i)} disabled={showResult}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border text-left transition-all ${cls}`}>
             <span className={`w-6 h-6 flex items-center justify-center rounded-full text-[11px] font-bold flex-shrink-0 ${showResult && i === q.correctIndex ? "bg-emerald-500/20 text-app-accent-success" : showResult && i === selected ? "bg-red-500/20 text-red-400" : selected === i ? "bg-app-accent-primary/20 text-app-accent-primary" : "bg-app-card/50 text-app-text-muted"}`}>
-              {["?","?","?","?"][i]}
+              {["①","②","③","④"][i]}
             </span>
             <div className="flex-1 min-w-0">
               <p className={`text-sm ${showResult && i === q.correctIndex ? "text-app-accent-success font-medium" : showResult && i === selected && i !== q.correctIndex ? "text-red-400" : selected === i ? "text-app-accent-primary" : "text-white/60"}`}>{opt}</p>
@@ -96,7 +96,7 @@ function MC4TextQuestion({ q, selected, onAnswer, showResult }: MC4TextQuestionP
   );
 }
 
-// --- Fill Blank Question --------------------------------------------------
+// ─── Fill Blank Question ──────────────────────────────────────────────────
 function FillBlankQuestion({ q, value, value2, onChange, onChange2, showResult }: {
   q: T2Question; value: string; value2?: string;
   onChange: (v: string) => void; onChange2?: (v: string) => void; showResult: boolean;
@@ -107,24 +107,24 @@ function FillBlankQuestion({ q, value, value2, onChange, onChange2, showResult }
   return (
     <div className="mt-3 space-y-3">
       <div>
-        <label className="text-app-text-muted text-[10px] tracking-normal mb-1.5 block">? Ch? tr?ng th? nh?t</label>
+        <label className="text-app-text-muted text-[10px] tracking-normal mb-1.5 block">① Chỗ trống thứ nhất</label>
         <input type="text" value={value} onChange={e => onChange(e.target.value)} disabled={showResult}
-          placeholder="�i?n v�o d�y..."
+          placeholder="Điền vào đây..."
           className={`w-full bg-app-card/50 border rounded-xl px-4 py-3 text-sm outline-none transition-all ${showResult ? (isCorrect1 ? "border-emerald-500/40 text-app-accent-success" : "border-red-500/30 text-red-400") : "border-app-border text-white/70 focus:border-app-accent-primary/30"}`} />
-        {showResult && <p className="text-app-text-muted text-xs mt-1">G?i �: {q.correctAnswer}</p>}
+        {showResult && <p className="text-app-text-muted text-xs mt-1">Gợi ý: {q.correctAnswer}</p>}
       </div>
       {q.type === "fill_blank2" && (
         <div>
-          <label className="text-app-text-muted text-[10px] tracking-normal mb-1.5 block">? Ch? tr?ng th? hai</label>
+          <label className="text-app-text-muted text-[10px] tracking-normal mb-1.5 block">② Chỗ trống thứ hai</label>
           <input type="text" value={value2 || ""} onChange={e => onChange2?.(e.target.value)} disabled={showResult}
-            placeholder="�i?n v�o d�y..."
+            placeholder="Điền vào đây..."
             className={`w-full bg-app-card/50 border rounded-xl px-4 py-3 text-sm outline-none transition-all ${showResult ? (isCorrect2 ? "border-emerald-500/40 text-app-accent-success" : "border-red-500/30 text-red-400") : "border-app-border text-white/70 focus:border-app-accent-primary/30"}`} />
-          {showResult && <p className="text-app-text-muted text-xs mt-1">G?i �: {q.correctAnswer2}</p>}
+          {showResult && <p className="text-app-text-muted text-xs mt-1">Gợi ý: {q.correctAnswer2}</p>}
         </div>
       )}
       {showResult && q.sampleAnswer && (
         <div className="bg-emerald-500/5 border border-emerald-500/15 rounded-xl p-3">
-          <p className="text-app-accent-success/70 text-[10px] tracking-normal mb-1">��p �n m?u</p>
+          <p className="text-app-accent-success/70 text-[10px] tracking-normal mb-1">Đáp án mẫu</p>
           <p className="text-white/50 text-xs whitespace-pre-line">{q.sampleAnswer}</p>
           {q.sampleAnswerVi && <p className="text-app-text-muted text-[10px] italic mt-1">{q.sampleAnswerVi}</p>}
         </div>
@@ -133,7 +133,7 @@ function FillBlankQuestion({ q, value, value2, onChange, onChange2, showResult }
   );
 }
 
-// --- Writing Question -----------------------------------------------------
+// ─── Writing Question ─────────────────────────────────────────────────────
 interface WritingQuestionProps {
   q: T2Question;
   value: string;
@@ -151,7 +151,7 @@ function WritingQuestion({ q, value, onChange, showResult }: WritingQuestionProp
     <div className="mt-3 space-y-3">
       {q.writingGuide && (
         <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-3">
-          <p className="text-app-accent-primary/70 text-[10px] tracking-normal mb-1.5">Hu?ng d?n vi?t</p>
+          <p className="text-app-accent-primary/70 text-[10px] tracking-normal mb-1.5">Hướng dẫn viết</p>
           <p className="text-app-text-secondary text-xs whitespace-pre-line leading-relaxed">{q.writingGuide}</p>
         </div>
       )}
@@ -160,21 +160,21 @@ function WritingQuestion({ q, value, onChange, showResult }: WritingQuestionProp
           value={value}
           onChange={e => onChange(e.target.value)}
           disabled={showResult}
-          placeholder={`Vi?t b�i c?a b?n ? d�y... (${minChars}-${maxChars} ch?)`}
+          placeholder={`Viết bài của bạn ở đây... (${minChars}-${maxChars} chữ)`}
           rows={q.number === 54 ? 14 : 8}
           className={`w-full bg-app-card/50 border rounded-xl px-4 py-3 text-sm outline-none resize-none transition-all leading-relaxed ${showResult ? "border-app-border text-white/50 cursor-default" : "border-app-border text-white/70 focus:border-app-accent-primary/30"}`}
         />
         <div className="flex items-center justify-between mt-1.5">
           <p className={`text-xs ${isInRange ? "text-app-accent-success" : charCount > maxChars ? "text-red-400" : "text-app-text-muted"}`}>
-            {charCount} / {minChars}-{maxChars} ch?
-            {isInRange && " ?"}
+            {charCount} / {minChars}-{maxChars} chữ
+            {isInRange && " ✓"}
           </p>
-          {!showResult && <p className="text-app-text-muted text-[10px]">Nh?n Tab d? th?t d?u d�ng</p>}
+          {!showResult && <p className="text-app-text-muted text-[10px]">Nhấn Tab để thụt đầu dòng</p>}
         </div>
       </div>
       {showResult && q.sampleAnswer && (
         <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
-          <p className="text-app-text-muted text-[10px] tracking-normal mb-2">B�i m?u tham kh?o</p>
+          <p className="text-app-text-muted text-[10px] tracking-normal mb-2">Bài mẫu tham khảo</p>
           <p className="text-white/50 text-sm leading-relaxed whitespace-pre-line">{q.sampleAnswer}</p>
         </div>
       )}
@@ -182,7 +182,7 @@ function WritingQuestion({ q, value, onChange, showResult }: WritingQuestionProp
   );
 }
 
-// --- Question Card --------------------------------------------------------
+// ─── Question Card ────────────────────────────────────────────────────────
 function QuestionCard({
   q, mcAnswer, fillValue, fillValue2, writeValue,
   onMC, onFill, onFill2, onWrite, showResult,
@@ -195,11 +195,11 @@ function QuestionCard({
   showResult: boolean;
 }) {
   const sectionColors: Record<string, string> = { listening: "#38bdf8", reading: "#a78bfa", writing: "#34d399" };
-  const sectionLabels: Record<string, string> = { listening: "Nghe", reading: "�?c", writing: "Vi?t" };
+  const sectionLabels: Record<string, string> = { listening: "Nghe", reading: "Đọc", writing: "Viết" };
   const typeLabels: Record<string, string> = {
-    mc4: "Tr?c nghi?m", mc4_image: "Ch?n h�nh", mc4_audio: "Nghe ? Ch?n",
-    fill_blank: "�i?n t?", fill_blank2: "�i?n 2 t?",
-    write_short: "Vi?t ng?n", write_long: "Vi?t d�i", order_sentence: "S?p x?p",
+    mc4: "Trắc nghiệm", mc4_image: "Chọn hình", mc4_audio: "Nghe → Chọn",
+    fill_blank: "Điền từ", fill_blank2: "Điền 2 từ",
+    write_short: "Viết ngắn", write_long: "Viết dài", order_sentence: "Sắp xếp",
   };
   const col = sectionColors[q.section];
 
@@ -210,7 +210,7 @@ function QuestionCard({
         <span className="w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold flex-shrink-0" style={{ backgroundColor: `${col}15`, color: col }}>{q.number}</span>
         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${col}15`, color: col }}>{sectionLabels[q.section]}</span>
         <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-card/50 text-app-text-muted">{typeLabels[q.type] || q.type}</span>
-        <span className="text-[10px] text-app-text-muted ml-auto">{q.points}d</span>
+        <span className="text-[10px] text-app-text-muted ml-auto">{q.points}đ</span>
       </div>
 
       {/* Audio script */}
@@ -220,7 +220,7 @@ function QuestionCard({
             <div className="w-6 h-6 flex items-center justify-center rounded-full bg-[#38bdf8]/15">
               <i className="ri-volume-up-line text-[#38bdf8] text-xs"></i>
             </div>
-            <p className="text-[#38bdf8]/70 text-[10px] tracking-normal">�o?n h?i tho?i / �m thanh</p>
+            <p className="text-[#38bdf8]/70 text-[10px] tracking-normal">Đoạn hội thoại / Âm thanh</p>
           </div>
           <p className="text-white/60 text-sm whitespace-pre-line leading-relaxed">{q.audioScript}</p>
           {q.audioScriptVi && <p className="text-app-text-muted text-xs italic mt-1.5 whitespace-pre-line">{q.audioScriptVi}</p>}
@@ -267,7 +267,7 @@ function QuestionCard({
   );
 }
 
-// --- Result Screen --------------------------------------------------------
+// ─── Result Screen ────────────────────────────────────────────────────────
 function ResultScreen({ mcAnswers, fillAnswers, writeAnswers, onRetry }: {
   mcAnswers: Record<string, number>;
   fillAnswers: Record<string, string>;
@@ -290,11 +290,11 @@ function ResultScreen({ mcAnswers, fillAnswers, writeAnswers, onRetry }: {
   const pct = Math.round((totalScore / maxTotal) * 100);
 
   const getLevel = () => {
-    if (totalScore >= 230) return { label: "TOPIK II � C?p 6", color: "app-accent-primary" };
-    if (totalScore >= 190) return { label: "TOPIK II � C?p 5", color: "#34d399" };
-    if (totalScore >= 150) return { label: "TOPIK II � C?p 4", color: "#38bdf8" };
-    if (totalScore >= 120) return { label: "TOPIK II � C?p 3", color: "#a78bfa" };
-    return { label: "Chua d?t", color: "#f87171" };
+    if (totalScore >= 230) return { label: "TOPIK II — Cấp 6", color: "app-accent-primary" };
+    if (totalScore >= 190) return { label: "TOPIK II — Cấp 5", color: "#34d399" };
+    if (totalScore >= 150) return { label: "TOPIK II — Cấp 4", color: "#38bdf8" };
+    if (totalScore >= 120) return { label: "TOPIK II — Cấp 3", color: "#a78bfa" };
+    return { label: "Chưa đạt", color: "#f87171" };
   };
   const level = getLevel();
 
@@ -306,19 +306,19 @@ function ResultScreen({ mcAnswers, fillAnswers, writeAnswers, onRetry }: {
           <i className="ri-trophy-fill"></i>{level.label}
         </div>
         <div className="text-7xl font-black mb-2" style={{ color: level.color }}>{totalScore}</div>
-        <p className="text-app-text-muted text-sm mb-1">/ {maxTotal} di?m</p>
+        <p className="text-app-text-muted text-sm mb-1">/ {maxTotal} điểm</p>
         <div className="mt-5 bg-app-card/50 rounded-full h-3 overflow-hidden">
           <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${pct}%`, backgroundColor: level.color }}></div>
         </div>
-        <p className="text-app-text-muted text-xs mt-2">{pct}% t?ng di?m</p>
+        <p className="text-app-text-muted text-xs mt-2">{pct}% tổng điểm</p>
       </div>
 
       {/* Section breakdown */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
-          { label: "?? (Nghe)", score: listeningScore, max: listeningQs.reduce((s,q)=>s+q.points,0), color: "#38bdf8", icon: "ri-headphone-line" },
-          { label: "?? (�?c)", score: readingScore, max: readingQs.reduce((s,q)=>s+q.points,0), color: "#a78bfa", icon: "ri-book-open-line" },
-          { label: "?? (Vi?t)", score: writingScore, max: writingQs.reduce((s,q)=>s+q.points,0), color: "#34d399", icon: "ri-edit-line" },
+          { label: "듣기 (Nghe)", score: listeningScore, max: listeningQs.reduce((s,q)=>s+q.points,0), color: "#38bdf8", icon: "ri-headphone-line" },
+          { label: "읽기 (Đọc)", score: readingScore, max: readingQs.reduce((s,q)=>s+q.points,0), color: "#a78bfa", icon: "ri-book-open-line" },
+          { label: "쓰기 (Viết)", score: writingScore, max: writingQs.reduce((s,q)=>s+q.points,0), color: "#34d399", icon: "ri-edit-line" },
         ].map(sec => (
           <div key={sec.label} className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
@@ -328,7 +328,7 @@ function ResultScreen({ mcAnswers, fillAnswers, writeAnswers, onRetry }: {
               <p className="text-white/60 text-xs font-medium">{sec.label}</p>
             </div>
             <div className="text-xl font-bold mb-1" style={{ color: sec.color }}>{sec.score}</div>
-            <p className="text-app-text-muted text-[10px] mb-2">/ {sec.max} di?m</p>
+            <p className="text-app-text-muted text-[10px] mb-2">/ {sec.max} điểm</p>
             <div className="bg-app-card/50 rounded-full h-1.5 overflow-hidden">
               <div className="h-full rounded-full" style={{ width: `${sec.max > 0 ? (sec.score/sec.max)*100 : 0}%`, backgroundColor: sec.color }}></div>
             </div>
@@ -338,7 +338,7 @@ function ResultScreen({ mcAnswers, fillAnswers, writeAnswers, onRetry }: {
 
       {/* Review */}
       <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-        <p className="text-white/50 text-sm font-semibold mb-4">Xem l?i chi ti?t t?ng c�u</p>
+        <p className="text-white/50 text-sm font-semibold mb-4">Xem lại chi tiết từng câu</p>
         <div className="space-y-4">
           {topik2Questions.map(q => (
             <QuestionCard
@@ -355,13 +355,13 @@ function ResultScreen({ mcAnswers, fillAnswers, writeAnswers, onRetry }: {
       </div>
 
       <button onClick={onRetry} className="w-full py-4 rounded-2xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-base transition-colors cursor-pointer whitespace-nowrap">
-        <i className="ri-refresh-line mr-2"></i>Thi l?i
+        <i className="ri-refresh-line mr-2"></i>Thi lại
       </button>
     </div>
   );
 }
 
-// --- Main Page ------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────
 export default function Topik2TestPage() {
   const [phase, setPhase] = useState<Phase>("intro");
   const [currentSection, setCurrentSection] = useState<Section>("listening");
@@ -382,27 +382,27 @@ export default function Topik2TestPage() {
   const answeredCount = Object.keys(mcAnswers).length + Object.keys(fillAnswers).filter(k => !k.endsWith("_2") && fillAnswers[k]).length + Object.keys(writeAnswers).filter(k => writeAnswers[k]).length;
 
   const sectionTabs: { key: Section; label: string; icon: string; color: string }[] = [
-    { key: "listening", label: "?? Nghe", icon: "ri-headphone-line", color: "#38bdf8" },
-    { key: "reading", label: "?? �?c", icon: "ri-book-open-line", color: "#a78bfa" },
-    { key: "writing", label: "?? Vi?t", icon: "ri-edit-line", color: "#34d399" },
+    { key: "listening", label: "듣기 Nghe", icon: "ri-headphone-line", color: "#38bdf8" },
+    { key: "reading", label: "읽기 Đọc", icon: "ri-book-open-line", color: "#a78bfa" },
+    { key: "writing", label: "쓰기 Viết", icon: "ri-edit-line", color: "#34d399" },
   ];
 
-  // -- Intro --
+  // ── Intro ──
   if (phase === "intro") {
     return (
-      <DashboardLayout title="Thi th? TOPIK II" subtitle="Format n�ng cao � Nghe + �?c + Vi?t, 180 ph�t, da d?ng d?ng c�u h?i">
+      <DashboardLayout title="Thi thử TOPIK II" subtitle="Format nâng cao — Nghe + Đọc + Viết, 180 phút, đa dạng dạng câu hỏi">
         <div className="max-w-2xl mx-auto space-y-5">
           <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center">
             <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-app-accent-primary/10 mx-auto mb-4">
               <i className="ri-file-list-3-line text-app-accent-primary text-3xl"></i>
             </div>
             <h2 className="text-white text-xl font-bold mb-2">TOPIK II</h2>
-            <p className="text-app-text-secondary text-sm mb-4">??????? ?�?? � Trung c?p & Cao c?p</p>
+            <p className="text-app-text-secondary text-sm mb-4">한국어능력시험 중·고급 — Trung cấp & Cao cấp</p>
             {bestScore > 0 && (
               <div className="inline-flex items-center gap-2 bg-app-accent-primary/8 border border-app-accent-primary/15 rounded-xl px-4 py-2">
                 <i className="ri-trophy-line text-app-accent-primary text-sm"></i>
-                <span className="text-app-accent-primary text-sm font-semibold">�i?m cao nh?t: {bestScore}</span>
-                <span className="text-app-text-muted text-xs">({attempts} l?n)</span>
+                <span className="text-app-accent-primary text-sm font-semibold">Điểm cao nhất: {bestScore}</span>
+                <span className="text-app-text-muted text-xs">({attempts} lần)</span>
               </div>
             )}
           </div>
@@ -410,9 +410,9 @@ export default function Topik2TestPage() {
           {/* Format info */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
-              { icon: "ri-headphone-line", label: "Ph?n Nghe", value: "50 c�u � 60 ph�t", color: "#38bdf8" },
-              { icon: "ri-book-open-line", label: "Ph?n �?c", value: "50 c�u � 70 ph�t", color: "#a78bfa" },
-              { icon: "ri-edit-line", label: "Ph?n Vi?t", value: "4 c�u � 50 ph�t", color: "#34d399" },
+              { icon: "ri-headphone-line", label: "Phần Nghe", value: "50 câu · 60 phút", color: "#38bdf8" },
+              { icon: "ri-book-open-line", label: "Phần Đọc", value: "50 câu · 70 phút", color: "#a78bfa" },
+              { icon: "ri-edit-line", label: "Phần Viết", value: "4 câu · 50 phút", color: "#34d399" },
             ].map(s => (
               <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4 text-center">
                 <div className="w-10 h-10 flex items-center justify-center rounded-xl mx-auto mb-2" style={{ backgroundColor: `${s.color}15` }}>
@@ -426,17 +426,17 @@ export default function Topik2TestPage() {
 
           {/* Question types */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <p className="text-white/50 text-sm font-semibold mb-3">D?ng c�u h?i da d?ng</p>
+            <p className="text-white/50 text-sm font-semibold mb-3">Dạng câu hỏi đa dạng</p>
             <div className="grid grid-cols-2 gap-2">
               {[
-                { icon: "???", label: "Ch?n h�nh ph� h?p" },
-                { icon: "??", label: "Nghe h?i tho?i ? Ch?n d�p �n" },
-                { icon: "??", label: "Tr?c nghi?m 4 l?a ch?n" },
-                { icon: "??", label: "�i?n t? v�o ch? tr?ng" },
-                { icon: "??", label: "S?p x?p c�u" },
-                { icon: "??", label: "M� t? bi?u d? (vi?t)" },
-                { icon: "??", label: "Vi?t do?n van ng?n" },
-                { icon: "??", label: "Vi?t lu?n 600-700 ch?" },
+                { icon: "🖼️", label: "Chọn hình phù hợp" },
+                { icon: "🎧", label: "Nghe hội thoại → Chọn đáp án" },
+                { icon: "📝", label: "Trắc nghiệm 4 lựa chọn" },
+                { icon: "✏️", label: "Điền từ vào chỗ trống" },
+                { icon: "🔀", label: "Sắp xếp câu" },
+                { icon: "📊", label: "Mô tả biểu đồ (viết)" },
+                { icon: "💬", label: "Viết đoạn văn ngắn" },
+                { icon: "📄", label: "Viết luận 600-700 chữ" },
               ].map(t => (
                 <div key={t.label} className="flex items-center gap-2 bg-app-surface/50 rounded-lg px-3 py-2">
                   <span className="text-base">{t.icon}</span>
@@ -448,13 +448,13 @@ export default function Topik2TestPage() {
 
           {/* Level guide */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <p className="text-white/50 text-sm font-semibold mb-3">Thang di?m TOPIK II</p>
+            <p className="text-white/50 text-sm font-semibold mb-3">Thang điểm TOPIK II</p>
             <div className="space-y-2">
               {[
-                { level: "C?p 3", range: "120-149 di?m", color: "#a78bfa" },
-                { level: "C?p 4", range: "150-189 di?m", color: "#38bdf8" },
-                { level: "C?p 5", range: "190-229 di?m", color: "#34d399" },
-                { level: "C?p 6", range: "230-300 di?m", color: "app-accent-primary" },
+                { level: "Cấp 3", range: "120-149 điểm", color: "#a78bfa" },
+                { level: "Cấp 4", range: "150-189 điểm", color: "#38bdf8" },
+                { level: "Cấp 5", range: "190-229 điểm", color: "#34d399" },
+                { level: "Cấp 6", range: "230-300 điểm", color: "app-accent-primary" },
               ].map(l => (
                 <div key={l.level} className="flex items-center justify-between px-3 py-2 rounded-lg bg-app-surface/50">
                   <span className="text-xs font-bold" style={{ color: l.color }}>{l.level}</span>
@@ -465,30 +465,30 @@ export default function Topik2TestPage() {
           </div>
 
           <button onClick={handleStart} className="w-full py-4 rounded-2xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-black text-lg transition-colors cursor-pointer whitespace-nowrap">
-            <i className="ri-play-fill mr-2"></i>B?t d?u thi TOPIK II
+            <i className="ri-play-fill mr-2"></i>Bắt đầu thi TOPIK II
           </button>
         </div>
       </DashboardLayout>
     );
   }
 
-  // -- Result --
+  // ── Result ──
   if (phase === "result") {
     return (
-      <DashboardLayout title="K?t qu? TOPIK II" subtitle="Ph�n t�ch chi ti?t 3 ph?n thi">
+      <DashboardLayout title="Kết quả TOPIK II" subtitle="Phân tích chi tiết 3 phần thi">
         <ResultScreen mcAnswers={mcAnswers} fillAnswers={fillAnswers} writeAnswers={writeAnswers} onRetry={handleRetry} />
       </DashboardLayout>
     );
   }
 
-  // -- Exam --
+  // ── Exam ──
   return (
     <DashboardLayout
-      title="Thi th? TOPIK II"
-      subtitle={`${answeredCount} c�u d� tr? l?i`}
+      title="Thi thử TOPIK II"
+      subtitle={`${answeredCount} câu đã trả lời`}
       actions={
         <button onClick={handleSubmit} className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
-          <i className="ri-send-plane-fill"></i>N?p b�i
+          <i className="ri-send-plane-fill"></i>Nộp bài
         </button>
       }
     >
@@ -504,7 +504,7 @@ export default function Topik2TestPage() {
               <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: isDanger ? "#f87171" : isWarning ? "app-accent-primary" : "#34d399" }}></div>
             </div>
           </div>
-          <span className="text-app-text-muted text-xs whitespace-nowrap">180 ph�t</span>
+          <span className="text-app-text-muted text-xs whitespace-nowrap">180 phút</span>
         </div>
       </div>
 
@@ -552,7 +552,7 @@ export default function Topik2TestPage() {
 
       <div className="mt-8 flex justify-center">
         <button onClick={handleSubmit} className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-base px-10 py-4 rounded-2xl transition-colors cursor-pointer whitespace-nowrap">
-          <i className="ri-send-plane-fill"></i>N?p b�i
+          <i className="ri-send-plane-fill"></i>Nộp bài
         </button>
       </div>
     </DashboardLayout>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
@@ -27,9 +27,9 @@ type Mode = "browse" | "quiz";
 type LevelFilter = "all" | "beginner" | "intermediate" | "advanced";
 
 const LEVEL_LABELS: Record<string, string> = {
-  beginner: "So c?p",
-  intermediate: "Trung c?p",
-  advanced: "N�ng cao",
+  beginner: "Sơ cấp",
+  intermediate: "Trung cấp",
+  advanced: "Nâng cao",
 };
 
 const LEVEL_COLORS: Record<string, string> = {
@@ -200,7 +200,7 @@ export default function EpsGrammarPage() {
 
   const getLessonTitle = (lessonId: number) => {
     const g = grammars.find(x => x.lesson_id === lessonId);
-    return g ? `B�i ${lessonId}: ${g.lesson_title_vi || g.lesson_title}` : `B�i ${lessonId}`;
+    return g ? `Bài ${lessonId}: ${g.lesson_title_vi || g.lesson_title}` : `Bài ${lessonId}`;
   };
 
   if (loading) {
@@ -209,7 +209,7 @@ export default function EpsGrammarPage() {
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <div className="w-10 h-10 border-2 border-amber-400/30 border-t-amber-400 rounded-full animate-spin mx-auto mb-3"></div>
-            <p className="text-app-text-secondary text-sm">�ang t?i ng? ph�p EPS...</p>
+            <p className="text-app-text-secondary text-sm">Đang tải ngữ pháp EPS...</p>
           </div>
         </div>
       </DashboardLayout>
@@ -226,8 +226,8 @@ export default function EpsGrammarPage() {
               <i className="ri-book-2-line text-amber-400 text-xl"></i>
             </div>
             <div>
-              <h1 className="text-white font-bold text-xl">Ng? ph�p EPS-TOPIK</h1>
-              <p className="text-app-text-secondary text-sm">100 di?m ng? ph�p t? 60 b�i h?c EPS</p>
+              <h1 className="text-white font-bold text-xl">Ngữ pháp EPS-TOPIK</h1>
+              <p className="text-app-text-secondary text-sm">100 điểm ngữ pháp từ 60 bài học EPS</p>
             </div>
           </div>
 
@@ -235,15 +235,15 @@ export default function EpsGrammarPage() {
           <div className="flex items-center gap-4 mt-3 flex-wrap">
             <div className="flex items-center gap-1.5 text-xs text-app-text-secondary">
               <i className="ri-book-open-line text-amber-400"></i>
-              <span>{grammars.length} di?m ng? ph�p</span>
+              <span>{grammars.length} điểm ngữ pháp</span>
             </div>
             <div className="flex items-center gap-1.5 text-xs text-app-text-secondary">
               <i className="ri-heart-line text-rose-400"></i>
-              <span>{favorites.size} y�u th�ch</span>
+              <span>{favorites.size} yêu thích</span>
             </div>
             <div className="flex items-center gap-1.5 text-xs text-app-text-secondary">
               <i className="ri-list-check-2 text-app-accent-success"></i>
-              <span>{filtered.length} dang hi?n th?</span>
+              <span>{filtered.length} đang hiển thị</span>
             </div>
           </div>
         </div>
@@ -256,7 +256,7 @@ export default function EpsGrammarPage() {
               mode === "browse" ? "bg-amber-500/20 text-amber-400" : "text-app-text-secondary hover:text-white/70"
             }`}
           >
-            <i className="ri-book-open-line mr-1.5"></i>H?c ng? ph�p
+            <i className="ri-book-open-line mr-1.5"></i>Học ngữ pháp
           </button>
           <button
             onClick={() => startQuiz()}
@@ -264,11 +264,11 @@ export default function EpsGrammarPage() {
               mode === "quiz" ? "bg-amber-500/20 text-amber-400" : "text-app-text-secondary hover:text-white/70"
             }`}
           >
-            <i className="ri-question-line mr-1.5"></i>Quiz ng? ph�p
+            <i className="ri-question-line mr-1.5"></i>Quiz ngữ pháp
           </button>
         </div>
 
-        {/* --- BROWSE MODE --- */}
+        {/* ─── BROWSE MODE ─── */}
         {mode === "browse" && (
           <>
             {/* Filters */}
@@ -278,7 +278,7 @@ export default function EpsGrammarPage() {
                 <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
                 <input
                   type="text"
-                  placeholder="T�m c?u tr�c ng? ph�p..."
+                  placeholder="Tìm cấu trúc ngữ pháp..."
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
                   className="w-full bg-app-card/50 border border-app-border rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-white/25 focus:outline-none focus:border-amber-500/40 text-sm"
@@ -291,10 +291,10 @@ export default function EpsGrammarPage() {
                 onChange={e => setLevelFilter(e.target.value as LevelFilter)}
                 className="bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-sm text-white/70 focus:outline-none focus:border-amber-500/40 cursor-pointer"
               >
-                <option value="all">T?t c? c?p d?</option>
-                <option value="beginner">So c?p</option>
-                <option value="intermediate">Trung c?p</option>
-                <option value="advanced">N�ng cao</option>
+                <option value="all">Tất cả cấp độ</option>
+                <option value="beginner">Sơ cấp</option>
+                <option value="intermediate">Trung cấp</option>
+                <option value="advanced">Nâng cao</option>
               </select>
 
               {/* Lesson filter */}
@@ -303,9 +303,9 @@ export default function EpsGrammarPage() {
                 onChange={e => setLessonFilter(e.target.value ? Number(e.target.value) : null)}
                 className="bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-sm text-white/70 focus:outline-none focus:border-amber-500/40 cursor-pointer"
               >
-                <option value="">T?t c? b�i h?c</option>
+                <option value="">Tất cả bài học</option>
                 {lessons.map(l => (
-                  <option key={l} value={l}>B�i {l}</option>
+                  <option key={l} value={l}>Bài {l}</option>
                 ))}
               </select>
 
@@ -320,7 +320,7 @@ export default function EpsGrammarPage() {
                   }`}
                 >
                   <i className={showFavoritesOnly ? "ri-heart-fill" : "ri-heart-line"}></i>
-                  Y�u th�ch
+                  Yêu thích
                 </button>
               )}
 
@@ -340,7 +340,7 @@ export default function EpsGrammarPage() {
             {filtered.length === 0 ? (
               <div className="text-center py-16 text-app-text-muted">
                 <i className="ri-search-line text-4xl mb-3 block"></i>
-                <p>Kh�ng t�m th?y ng? ph�p ph� h?p</p>
+                <p>Không tìm thấy ngữ pháp phù hợp</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -362,7 +362,7 @@ export default function EpsGrammarPage() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 flex-wrap mb-1">
-                            <span className="text-app-text-muted text-xs">B�i {g.lesson_id}</span>
+                            <span className="text-app-text-muted text-xs">Bài {g.lesson_id}</span>
                             <span className={`text-[10px] px-2 py-0.5 rounded-full border ${LEVEL_COLORS[g.level] || "bg-app-card/70 text-app-text-secondary border-app-border"}`}>
                               {LEVEL_LABELS[g.level] || g.level}
                             </span>
@@ -385,7 +385,7 @@ export default function EpsGrammarPage() {
                           <button
                             onClick={e => { e.stopPropagation(); startQuiz([g]); }}
                             className="w-7 h-7 flex items-center justify-center rounded-lg text-app-text-muted hover:text-amber-400 hover:bg-amber-500/10 transition-all cursor-pointer"
-                            title="Quiz b�i n�y"
+                            title="Quiz bài này"
                           >
                             <i className="ri-question-line text-sm"></i>
                           </button>
@@ -398,14 +398,14 @@ export default function EpsGrammarPage() {
                         <div className="border-t border-white/6 px-4 pb-4 pt-3 space-y-3">
                           {/* Full explanation */}
                           <div className="bg-amber-500/5 border border-amber-500/10 rounded-lg p-3">
-                            <p className="text-amber-400/70 text-xs font-semibold mb-1 tracking-wide">Gi?i th�ch</p>
+                            <p className="text-amber-400/70 text-xs font-semibold mb-1 tracking-wide">Giải thích</p>
                             <p className="text-white/70 text-sm leading-relaxed">{g.explanation}</p>
                           </div>
 
                           {/* Notes */}
                           {g.notes && (
                             <div className="bg-app-surface/50 rounded-lg p-3">
-                              <p className="text-app-text-muted text-xs font-semibold mb-1 tracking-wide">Ghi ch�</p>
+                              <p className="text-app-text-muted text-xs font-semibold mb-1 tracking-wide">Ghi chú</p>
                               <p className="text-white/55 text-sm leading-relaxed">{g.notes}</p>
                             </div>
                           )}
@@ -413,7 +413,7 @@ export default function EpsGrammarPage() {
                           {/* Examples */}
                           {g.examples.length > 0 && (
                             <div>
-                              <p className="text-app-text-muted text-xs font-semibold mb-2 tracking-wide">V� d?</p>
+                              <p className="text-app-text-muted text-xs font-semibold mb-2 tracking-wide">Ví dụ</p>
                               <div className="space-y-2">
                                 {g.examples.map(ex => (
                                   <div key={ex.id} className="bg-app-surface/50 rounded-lg p-3">
@@ -434,7 +434,7 @@ export default function EpsGrammarPage() {
           </>
         )}
 
-        {/* --- QUIZ MODE --- */}
+        {/* ─── QUIZ MODE ─── */}
         {mode === "quiz" && (
           <div className="max-w-2xl mx-auto">
             {quizDone ? (
@@ -443,22 +443,22 @@ export default function EpsGrammarPage() {
                 <div className="w-20 h-20 flex items-center justify-center bg-amber-500/15 rounded-full mx-auto mb-4 border border-amber-500/20">
                   <i className="ri-trophy-line text-amber-400 text-3xl"></i>
                 </div>
-                <h2 className="text-white font-bold text-2xl mb-2">Ho�n th�nh!</h2>
+                <h2 className="text-white font-bold text-2xl mb-2">Hoàn thành!</h2>
                 <p className="text-white/50 text-sm mb-6">
-                  B?n tr? l?i d�ng <span className="text-amber-400 font-bold">{quizScore}/{quizQuestions.length}</span> c�u
+                  Bạn trả lời đúng <span className="text-amber-400 font-bold">{quizScore}/{quizQuestions.length}</span> câu
                 </p>
                 <div className="flex items-center justify-center gap-3">
                   <button
                     onClick={() => startQuiz()}
                     className="px-5 py-2.5 bg-amber-500/20 border border-amber-500/30 text-amber-400 rounded-lg text-sm font-medium hover:bg-amber-500/30 transition-all cursor-pointer whitespace-nowrap"
                   >
-                    <i className="ri-refresh-line mr-1.5"></i>L�m l?i
+                    <i className="ri-refresh-line mr-1.5"></i>Làm lại
                   </button>
                   <button
                     onClick={() => setMode("browse")}
                     className="px-5 py-2.5 bg-app-card/50 border border-app-border text-white/60 rounded-lg text-sm font-medium hover:bg-app-card/70 transition-all cursor-pointer whitespace-nowrap"
                   >
-                    <i className="ri-book-open-line mr-1.5"></i>Xem ng? ph�p
+                    <i className="ri-book-open-line mr-1.5"></i>Xem ngữ pháp
                   </button>
                 </div>
               </div>
@@ -467,8 +467,8 @@ export default function EpsGrammarPage() {
               <div>
                 {/* Progress */}
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-app-text-secondary text-sm">C�u {quizIndex + 1}/{quizQuestions.length}</span>
-                  <span className="text-amber-400 text-sm font-medium">{quizScore} di?m</span>
+                  <span className="text-app-text-secondary text-sm">Câu {quizIndex + 1}/{quizQuestions.length}</span>
+                  <span className="text-amber-400 text-sm font-medium">{quizScore} điểm</span>
                 </div>
                 <div className="h-1.5 bg-white/8 rounded-full mb-6 overflow-hidden">
                   <div
@@ -479,11 +479,11 @@ export default function EpsGrammarPage() {
 
                 {/* Question */}
                 <div className="bg-white/4 border border-app-border rounded-xl p-5 mb-5">
-                  <p className="text-app-text-secondary text-xs mb-2 tracking-wide">C?u tr�c ng? ph�p l� g�?</p>
+                  <p className="text-app-text-secondary text-xs mb-2 tracking-wide">Cấu trúc ngữ pháp là gì?</p>
                   <p className="text-white font-bold text-lg leading-snug">{quizQuestions[quizIndex].grammar.pattern}</p>
                   {quizQuestions[quizIndex].grammar.examples.length > 0 && (
                     <div className="mt-3 pt-3 border-t border-white/6">
-                      <p className="text-app-text-muted text-xs mb-1">V� d?:</p>
+                      <p className="text-app-text-muted text-xs mb-1">Ví dụ:</p>
                       <p className="text-white/60 text-sm italic">{quizQuestions[quizIndex].grammar.examples[0].korean}</p>
                     </div>
                   )}
@@ -521,7 +521,7 @@ export default function EpsGrammarPage() {
                     onClick={nextQuestion}
                     className="w-full py-3 bg-amber-500/20 border border-amber-500/30 text-amber-400 rounded-xl text-sm font-medium hover:bg-amber-500/30 transition-all cursor-pointer whitespace-nowrap"
                   >
-                    {quizIndex + 1 >= quizQuestions.length ? "Xem k?t qu?" : "C�u ti?p theo"}
+                    {quizIndex + 1 >= quizQuestions.length ? "Xem kết quả" : "Câu tiếp theo"}
                     <i className="ri-arrow-right-line ml-1.5"></i>
                   </button>
                 )}
@@ -529,12 +529,12 @@ export default function EpsGrammarPage() {
             ) : (
               <div className="text-center py-12 text-app-text-muted">
                 <i className="ri-error-warning-line text-4xl mb-3 block"></i>
-                <p>C?n �t nh?t 4 di?m ng? ph�p d? b?t d?u quiz</p>
+                <p>Cần ít nhất 4 điểm ngữ pháp để bắt đầu quiz</p>
                 <button
                   onClick={() => setMode("browse")}
                   className="mt-4 px-4 py-2 bg-app-card/50 rounded-lg text-sm text-white/50 hover:bg-app-card/70 cursor-pointer whitespace-nowrap"
                 >
-                  Quay l?i
+                  Quay lại
                 </button>
               </div>
             )}

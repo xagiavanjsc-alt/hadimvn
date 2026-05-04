@@ -1,10 +1,10 @@
-import { useState, useMemo, useRef, useCallback } from "react";
+﻿import { useState, useMemo, useRef, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import { useNavigate } from "react-router-dom";
 
-// --- Types ----------------------------------------------------------------
+// ─── Types ────────────────────────────────────────────────────────────────
 interface TopicAnalysis {
   topic: string;
   total: number;
@@ -24,7 +24,7 @@ interface RoadmapStep {
   icon: string;
 }
 
-// --- Helpers --------------------------------------------------------------
+// ─── Helpers ──────────────────────────────────────────────────────────────
 function getLevel(accuracy: number): TopicAnalysis["level"] {
   if (accuracy < 40) return "critical";
   if (accuracy < 60) return "weak";
@@ -34,14 +34,14 @@ function getLevel(accuracy: number): TopicAnalysis["level"] {
 
 function getLevelConfig(level: TopicAnalysis["level"]) {
   switch (level) {
-    case "critical": return { label: "R?t y?u", color: "#f87171", bg: "rgba(248,113,113,0.08)", border: "rgba(248,113,113,0.2)", icon: "ri-alarm-warning-line" };
-    case "weak": return { label: "Y?u", color: "#fb923c", bg: "rgba(251,146,60,0.08)", border: "rgba(251,146,60,0.2)", icon: "ri-error-warning-line" };
-    case "average": return { label: "Trung b�nh", color: "app-accent-primary", bg: "rgba(232,200,74,0.08)", border: "rgba(232,200,74,0.2)", icon: "ri-subtract-line" };
-    case "strong": return { label: "T?t", color: "#34d399", bg: "rgba(52,211,153,0.08)", border: "rgba(52,211,153,0.2)", icon: "ri-checkbox-circle-line" };
+    case "critical": return { label: "Rất yếu", color: "#f87171", bg: "rgba(248,113,113,0.08)", border: "rgba(248,113,113,0.2)", icon: "ri-alarm-warning-line" };
+    case "weak": return { label: "Yếu", color: "#fb923c", bg: "rgba(251,146,60,0.08)", border: "rgba(251,146,60,0.2)", icon: "ri-error-warning-line" };
+    case "average": return { label: "Trung bình", color: "app-accent-primary", bg: "rgba(232,200,74,0.08)", border: "rgba(232,200,74,0.2)", icon: "ri-subtract-line" };
+    case "strong": return { label: "Tốt", color: "#34d399", bg: "rgba(52,211,153,0.08)", border: "rgba(52,211,153,0.2)", icon: "ri-checkbox-circle-line" };
   }
 }
 
-// --- Stat Card ------------------------------------------------------------
+// ─── Stat Card ────────────────────────────────────────────────────────────
 function StatCard({ icon, label, value, sub, color }: { icon: string; label: string; value: string | number; sub?: string; color: string }) {
   return (
     <div className="bg-app-bg border border-app-border rounded-2xl p-5 flex items-center gap-4">
@@ -57,7 +57,7 @@ function StatCard({ icon, label, value, sub, color }: { icon: string; label: str
   );
 }
 
-// --- Topic Bar ------------------------------------------------------------
+// ─── Topic Bar ────────────────────────────────────────────────────────────
 function TopicBar({ analysis, rank, onClick, isSelected }: {
   analysis: TopicAnalysis; rank: number; onClick: () => void; isSelected: boolean;
 }) {
@@ -97,10 +97,10 @@ function TopicBar({ analysis, rank, onClick, isSelected }: {
   );
 }
 
-// --- Roadmap Card ---------------------------------------------------------
+// ─── Roadmap Card ─────────────────────────────────────────────────────────
 function RoadmapCard({ step }: { step: RoadmapStep }) {
   const priorityColor = step.priority === "high" ? "#f87171" : step.priority === "medium" ? "app-accent-primary" : "#34d399";
-  const priorityLabel = step.priority === "high" ? "Uu ti�n cao" : step.priority === "medium" ? "Uu ti�n TB" : "Uu ti�n th?p";
+  const priorityLabel = step.priority === "high" ? "Ưu tiên cao" : step.priority === "medium" ? "Ưu tiên TB" : "Ưu tiên thấp";
   return (
     <div className="flex items-start gap-4 p-4 bg-app-bg border border-app-border rounded-xl">
       <div className="w-8 h-8 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${priorityColor}15` }}>
@@ -108,7 +108,7 @@ function RoadmapCard({ step }: { step: RoadmapStep }) {
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1">
-          <span className="text-app-text-muted text-[10px] font-bold">Bu?c {step.order}</span>
+          <span className="text-app-text-muted text-[10px] font-bold">Bước {step.order}</span>
           <span className="text-[9px] px-1.5 py-0.5 rounded-full font-semibold" style={{ backgroundColor: `${priorityColor}15`, color: priorityColor }}>
             {priorityLabel}
           </span>
@@ -123,7 +123,7 @@ function RoadmapCard({ step }: { step: RoadmapStep }) {
   );
 }
 
-// --- Share Modal ----------------------------------------------------------
+// ─── Share Modal ──────────────────────────────────────────────────────────
 function ShareModal({
   onClose,
   topicAnalysis,
@@ -165,8 +165,8 @@ function ShareModal({
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-app-border">
           <div>
-            <p className="text-white font-bold text-base">Chia s? k?t qu? ph�n t�ch</p>
-            <p className="text-white/35 text-xs mt-0.5">T?o ?nh t?ng k?t d? chia s? l�n c?ng d?ng</p>
+            <p className="text-white font-bold text-base">Chia sẻ kết quả phân tích</p>
+            <p className="text-white/35 text-xs mt-0.5">Tạo ảnh tổng kết để chia sẻ lên cộng đồng</p>
           </div>
           <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-app-card/70 text-app-text-secondary cursor-pointer transition-colors">
             <i className="ri-close-line text-lg"></i>
@@ -192,12 +192,12 @@ function ShareModal({
                   className="w-8 h-8 rounded-lg object-cover"
                 />
                 <div>
-                  <p className="text-white font-bold text-sm">H�n Qu?c Oi!</p>
-                  <p className="text-white/35 text-[10px]">Ph�n t�ch di?m y?u EPS-TOPIK</p>
+                  <p className="text-white font-bold text-sm">Hàn Quốc Ơi!</p>
+                  <p className="text-white/35 text-[10px]">Phân tích điểm yếu EPS-TOPIK</p>
                 </div>
                 <div className="ml-auto text-right">
                   <p className="font-bold text-2xl" style={{ color: scoreColor }}>{overallAccuracy}%</p>
-                  <p className="text-app-text-muted text-[9px]">�? ch�nh x�c</p>
+                  <p className="text-app-text-muted text-[9px]">Độ chính xác</p>
                 </div>
               </div>
 
@@ -206,8 +206,8 @@ function ShareModal({
                 <div className="h-full rounded-full transition-all" style={{ width: `${overallAccuracy}%`, backgroundColor: scoreColor }}></div>
               </div>
               <div className="flex items-center justify-between mt-1.5 text-[9px] text-app-text-muted">
-                <span>{totalAnswered} c�u d� l�m</span>
-                <span>{topicAnalysis.length} ch? d?</span>
+                <span>{totalAnswered} câu đã làm</span>
+                <span>{topicAnalysis.length} chủ đề</span>
               </div>
             </div>
 
@@ -216,7 +216,7 @@ function ShareModal({
               <div className="grid grid-cols-2 gap-3 mb-4">
                 <div>
                   <p className="text-[#f87171] text-[10px] font-semibold mb-2 flex items-center gap-1">
-                    <i className="ri-alarm-warning-line"></i> C?n �n g?p ({criticalTopics.length})
+                    <i className="ri-alarm-warning-line"></i> Cần ôn gấp ({criticalTopics.length})
                   </p>
                   <div className="space-y-1.5">
                     {worstTopics.map(t => (
@@ -229,7 +229,7 @@ function ShareModal({
                 </div>
                 <div>
                   <p className="text-[#34d399] text-[10px] font-semibold mb-2 flex items-center gap-1">
-                    <i className="ri-checkbox-circle-line"></i> Ch? d? m?nh ({strongTopics.length})
+                    <i className="ri-checkbox-circle-line"></i> Chủ đề mạnh ({strongTopics.length})
                   </p>
                   <div className="space-y-1.5">
                     {bestTopics.map(t => (
@@ -262,7 +262,7 @@ function ShareModal({
 
             {/* Footer */}
             <div className="px-5 pb-4 flex items-center justify-between">
-              <p className="text-app-text-muted text-[9px]">hanquocoi.com � EPS-TOPIK Analyzer</p>
+              <p className="text-app-text-muted text-[9px]">hanquocoi.com · EPS-TOPIK Analyzer</p>
               <p className="text-app-accent-primary/40 text-[9px]">{new Date().toLocaleDateString("vi-VN")}</p>
             </div>
           </div>
@@ -275,14 +275,14 @@ function ShareModal({
             className="w-full py-3 bg-app-accent-primary text-app-bg font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap flex items-center justify-center gap-2"
           >
             <i className="ri-group-line"></i>
-            Chia s? l�n C?ng d?ng
+            Chia sẻ lên Cộng đồng
           </button>
           <button
             onClick={handleCopyLink}
             className="w-full py-3 bg-app-card/50 hover:bg-white/8 text-white/60 text-sm rounded-xl cursor-pointer whitespace-nowrap flex items-center justify-center gap-2 transition-colors"
           >
             <i className={copied ? "ri-check-line text-[#34d399]" : "ri-link"}></i>
-            <span className={copied ? "text-[#34d399]" : ""}>{copied ? "�� sao ch�p link!" : "Sao ch�p link trang"}</span>
+            <span className={copied ? "text-[#34d399]" : ""}>{copied ? "Đã sao chép link!" : "Sao chép link trang"}</span>
           </button>
         </div>
       </div>
@@ -290,7 +290,7 @@ function ShareModal({
   );
 }
 
-// --- Main Page ------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────
 export default function EpsWeaknessAnalysisPage() {
   const navigate = useNavigate();
   const [epsAnswers] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
@@ -299,12 +299,12 @@ export default function EpsWeaknessAnalysisPage() {
   const [sortBy, setSortBy] = useState<"accuracy" | "wrong" | "total">("accuracy");
   const [showShare, setShowShare] = useState(false);
 
-  // --- Ph�n t�ch theo ch? d? ---------------------------------------------
+  // ─── Phân tích theo chủ đề ─────────────────────────────────────────────
   const topicAnalysis = useMemo((): TopicAnalysis[] => {
     const topicMap: Record<string, { total: number; wrong: number; correct: number; wrongQs: typeof epsQuestions }> = {};
 
     epsQuestions.forEach(q => {
-      const topic = q.topic || "Chua ph�n lo?i";
+      const topic = q.topic || "Chưa phân loại";
       if (!topicMap[topic]) topicMap[topic] = { total: 0, wrong: 0, correct: 0, wrongQs: [] };
       topicMap[topic].total++;
 
@@ -341,7 +341,7 @@ export default function EpsWeaknessAnalysisPage() {
       });
   }, [epsAnswers, sortBy]);
 
-  // --- T?ng quan --------------------------------------------------------
+  // ─── Tổng quan ────────────────────────────────────────────────────────
   const totalAnswered = useMemo(() => Object.keys(epsAnswers).length, [epsAnswers]);
   const totalCorrect = useMemo(() => {
     return Object.entries(epsAnswers).filter(([id, ans]) => {
@@ -353,66 +353,66 @@ export default function EpsWeaknessAnalysisPage() {
   const criticalTopics = topicAnalysis.filter(t => t.level === "critical" || t.level === "weak");
   const strongTopics = topicAnalysis.filter(t => t.level === "strong");
 
-  // --- L? tr�nh c� nh�n h�a ---------------------------------------------
+  // ─── Lộ trình cá nhân hóa ─────────────────────────────────────────────
   const roadmap = useMemo((): RoadmapStep[] => {
     const steps: RoadmapStep[] = [];
     let order = 1;
 
-    // Uu ti�n ch? d? r?t y?u
+    // Ưu tiên chủ đề rất yếu
     criticalTopics.slice(0, 3).forEach(t => {
       steps.push({
         order: order++,
         topic: t.topic,
         action: t.level === "critical"
-          ? `�n l?i to�n b? t? v?ng v� ${t.wrong} c�u sai � b?t d?u t? flashcard co b?n`
-          : `Luy?n l?i ${t.wrong} c�u sai, t?p trung v�o t? kh�a quan tr?ng`,
-        duration: t.level === "critical" ? "3�5 ng�y" : "2�3 ng�y",
+          ? `Ôn lại toàn bộ từ vựng và ${t.wrong} câu sai — bắt đầu từ flashcard cơ bản`
+          : `Luyện lại ${t.wrong} câu sai, tập trung vào từ khóa quan trọng`,
+        duration: t.level === "critical" ? "3–5 ngày" : "2–3 ngày",
         priority: t.level === "critical" ? "high" : "medium",
         icon: t.level === "critical" ? "ri-alarm-warning-line" : "ri-error-warning-line",
       });
     });
 
-    // Th�m bu?c �n SR
+    // Thêm bước ôn SR
     if (criticalTopics.length > 0) {
       steps.push({
         order: order++,
         topic: "Spaced Repetition",
-        action: "Th�m t?t c? c�u sai v�o h�ng d?i SR d? �n l?i theo thu?t to�n SM-2",
-        duration: "H�ng ng�y",
+        action: "Thêm tất cả câu sai vào hàng đợi SR để ôn lại theo thuật toán SM-2",
+        duration: "Hàng ngày",
         priority: "high",
         icon: "ri-brain-line",
       });
     }
 
-    // Ch? d? trung b�nh
+    // Chủ đề trung bình
     topicAnalysis.filter(t => t.level === "average").slice(0, 2).forEach(t => {
       steps.push({
         order: order++,
         topic: t.topic,
-        action: `L�m th�m b�i t?p ch? d? n�y, m?c ti�u d?t 80%+ d? ch�nh x�c`,
-        duration: "1�2 ng�y",
+        action: `Làm thêm bài tập chủ đề này, mục tiêu đạt 80%+ độ chính xác`,
+        duration: "1–2 ngày",
         priority: "medium",
         icon: "ri-focus-3-line",
       });
     });
 
-    // Thi th?
+    // Thi thử
     steps.push({
       order: order++,
-      topic: "Thi th? EPS t?ng h?p",
-      action: "L�m b�i thi th? 40 c�u d? ki?m tra ti?n d? sau khi �n t?p",
-      duration: "1 ng�y",
+      topic: "Thi thử EPS tổng hợp",
+      action: "Làm bài thi thử 40 câu để kiểm tra tiến độ sau khi ôn tập",
+      duration: "1 ngày",
       priority: "medium",
       icon: "ri-file-list-3-line",
     });
 
-    // Duy tr� ch? d? m?nh
+    // Duy trì chủ đề mạnh
     if (strongTopics.length > 0) {
       steps.push({
         order: order++,
-        topic: "Duy tr� ch? d? m?nh",
-        action: `${strongTopics.map(t => t.topic).slice(0, 3).join(", ")} � �n nh? 1 l?n/tu?n d? kh�ng qu�n`,
-        duration: "1 l?n/tu?n",
+        topic: "Duy trì chủ đề mạnh",
+        action: `${strongTopics.map(t => t.topic).slice(0, 3).join(", ")} — ôn nhẹ 1 lần/tuần để không quên`,
+        duration: "1 lần/tuần",
         priority: "low",
         icon: "ri-checkbox-circle-line",
       });
@@ -425,8 +425,8 @@ export default function EpsWeaknessAnalysisPage() {
 
   return (
     <DashboardLayout
-      title="Ph�n t�ch di?m y?u EPS"
-      subtitle="Ph�n t�ch ch? d? c� t? l? sai cao v� d? xu?t l? tr�nh �n t?p c� nh�n h�a"
+      title="Phân tích điểm yếu EPS"
+      subtitle="Phân tích chủ đề có tỷ lệ sai cao và đề xuất lộ trình ôn tập cá nhân hóa"
     >
       {showShare && (
         <ShareModal
@@ -440,10 +440,10 @@ export default function EpsWeaknessAnalysisPage() {
       )}
       {/* Stats overview */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        <StatCard icon="ri-question-answer-line" label="C�u d� l�m" value={totalAnswered} sub={`/ ${epsQuestions.length} c�u`} color="app-accent-primary" />
-        <StatCard icon="ri-percent-line" label="�? ch�nh x�c t?ng" value={`${overallAccuracy}%`} sub={`${totalCorrect} c�u d�ng`} color={overallAccuracy >= 70 ? "#34d399" : overallAccuracy >= 50 ? "app-accent-primary" : "#f87171"} />
-        <StatCard icon="ri-alarm-warning-line" label="Ch? d? c?n �n" value={criticalTopics.length} sub="y?u + r?t y?u" color="#f87171" />
-        <StatCard icon="ri-trophy-line" label="Ch? d? t?t" value={strongTopics.length} sub="tr�n 80% ch�nh x�c" color="#34d399" />
+        <StatCard icon="ri-question-answer-line" label="Câu đã làm" value={totalAnswered} sub={`/ ${epsQuestions.length} câu`} color="app-accent-primary" />
+        <StatCard icon="ri-percent-line" label="Độ chính xác tổng" value={`${overallAccuracy}%`} sub={`${totalCorrect} câu đúng`} color={overallAccuracy >= 70 ? "#34d399" : overallAccuracy >= 50 ? "app-accent-primary" : "#f87171"} />
+        <StatCard icon="ri-alarm-warning-line" label="Chủ đề cần ôn" value={criticalTopics.length} sub="yếu + rất yếu" color="#f87171" />
+        <StatCard icon="ri-trophy-line" label="Chủ đề tốt" value={strongTopics.length} sub="trên 80% chính xác" color="#34d399" />
       </div>
 
       {/* Tabs + Share button */}
@@ -457,7 +457,7 @@ export default function EpsWeaknessAnalysisPage() {
                 activeTab === tab ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/70"
               }`}
             >
-              {tab === "overview" ? "T?ng quan" : tab === "roadmap" ? "L? tr�nh �n t?p" : "Chi ti?t c�u sai"}
+              {tab === "overview" ? "Tổng quan" : tab === "roadmap" ? "Lộ trình ôn tập" : "Chi tiết câu sai"}
             </button>
           ))}
         </div>
@@ -466,11 +466,11 @@ export default function EpsWeaknessAnalysisPage() {
           className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 border border-app-accent-primary/20 text-app-accent-primary text-sm font-medium rounded-xl cursor-pointer whitespace-nowrap transition-colors"
         >
           <i className="ri-share-line"></i>
-          Chia s? k?t qu?
+          Chia sẻ kết quả
         </button>
       </div>
 
-      {/* -- Tab: T?ng quan -- */}
+      {/* ── Tab: Tổng quan ── */}
       {activeTab === "overview" && (
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
           {/* Left: Topic list */}
@@ -478,11 +478,11 @@ export default function EpsWeaknessAnalysisPage() {
             {/* Sort controls */}
             <div className="flex items-center justify-between mb-4">
               <p className="text-white/60 text-sm font-semibold">
-                {topicAnalysis.length} ch? d?
-                {totalAnswered === 0 && <span className="text-app-text-muted font-normal ml-2">� H�y l�m b�i thi EPS d? c� d? li?u ph�n t�ch</span>}
+                {topicAnalysis.length} chủ đề
+                {totalAnswered === 0 && <span className="text-app-text-muted font-normal ml-2">— Hãy làm bài thi EPS để có dữ liệu phân tích</span>}
               </p>
               <div className="flex items-center gap-2">
-                <span className="text-app-text-muted text-xs">S?p x?p:</span>
+                <span className="text-app-text-muted text-xs">Sắp xếp:</span>
                 {(["accuracy", "wrong", "total"] as const).map(s => (
                   <button
                     key={s}
@@ -491,7 +491,7 @@ export default function EpsWeaknessAnalysisPage() {
                       sortBy === s ? "bg-app-accent-primary/15 text-app-accent-primary" : "text-app-text-muted hover:text-white/60"
                     }`}
                   >
-                    {s === "accuracy" ? "�? ch�nh x�c" : s === "wrong" ? "S? c�u sai" : "T?ng c�u"}
+                    {s === "accuracy" ? "Độ chính xác" : s === "wrong" ? "Số câu sai" : "Tổng câu"}
                   </button>
                 ))}
               </div>
@@ -500,13 +500,13 @@ export default function EpsWeaknessAnalysisPage() {
             {topicAnalysis.length === 0 ? (
               <div className="bg-app-bg border border-app-border rounded-2xl p-12 text-center">
                 <i className="ri-bar-chart-grouped-line text-white/10 text-5xl mb-4 block"></i>
-                <p className="text-app-text-secondary text-base font-medium mb-2">Chua c� d? li?u ph�n t�ch</p>
-                <p className="text-app-text-muted text-sm mb-6">H�y l�m b�i thi EPS d? h? th?ng ph�n t�ch di?m y?u c?a b?n</p>
+                <p className="text-app-text-secondary text-base font-medium mb-2">Chưa có dữ liệu phân tích</p>
+                <p className="text-app-text-muted text-sm mb-6">Hãy làm bài thi EPS để hệ thống phân tích điểm yếu của bạn</p>
                 <button
                   onClick={() => navigate("/eps")}
                   className="px-6 py-3 bg-app-accent-primary text-app-bg font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap"
                 >
-                  <i className="ri-play-line mr-2"></i>B?t d?u luy?n thi EPS
+                  <i className="ri-play-line mr-2"></i>Bắt đầu luyện thi EPS
                 </button>
               </div>
             ) : (
@@ -528,7 +528,7 @@ export default function EpsWeaknessAnalysisPage() {
           <div className="space-y-4">
             {/* Level distribution */}
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <p className="text-white font-semibold text-sm mb-4">Ph�n b? tr�nh d?</p>
+              <p className="text-white font-semibold text-sm mb-4">Phân bố trình độ</p>
               {(["critical", "weak", "average", "strong"] as const).map(level => {
                 const cfg = getLevelConfig(level);
                 const count = topicAnalysis.filter(t => t.level === level).length;
@@ -542,7 +542,7 @@ export default function EpsWeaknessAnalysisPage() {
                         </div>
                         <span className="text-xs" style={{ color: cfg.color }}>{cfg.label}</span>
                       </div>
-                      <span className="text-app-text-muted text-xs">{count} ch? d? ({pct}%)</span>
+                      <span className="text-app-text-muted text-xs">{count} chủ đề ({pct}%)</span>
                     </div>
                     <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                       <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: cfg.color }}></div>
@@ -557,7 +557,7 @@ export default function EpsWeaknessAnalysisPage() {
               <div className="bg-app-bg border border-app-border rounded-2xl p-5">
                 <p className="text-white font-semibold text-sm mb-3">
                   <i className="ri-alarm-warning-line text-[#f87171] mr-1.5"></i>
-                  C?n �n g?p
+                  Cần ôn gấp
                 </p>
                 <div className="space-y-2">
                   {criticalTopics.slice(0, 5).map(t => {
@@ -579,7 +579,7 @@ export default function EpsWeaknessAnalysisPage() {
 
             {/* Quick actions */}
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <p className="text-white font-semibold text-sm mb-3">H�nh d?ng nhanh</p>
+              <p className="text-white font-semibold text-sm mb-3">Hành động nhanh</p>
               <div className="space-y-2">
                 <button
                   onClick={() => navigate("/eps-spaced-review")}
@@ -589,8 +589,8 @@ export default function EpsWeaknessAnalysisPage() {
                     <i className="ri-brain-line text-[#a78bfa] text-sm"></i>
                   </div>
                   <div>
-                    <p className="text-white/70 text-xs font-medium">�n t?p Spaced Repetition</p>
-                    <p className="text-app-text-muted text-[10px]">Th�m c�u sai v�o SR queue</p>
+                    <p className="text-white/70 text-xs font-medium">Ôn tập Spaced Repetition</p>
+                    <p className="text-app-text-muted text-[10px]">Thêm câu sai vào SR queue</p>
                   </div>
                 </button>
                 <button
@@ -601,8 +601,8 @@ export default function EpsWeaknessAnalysisPage() {
                     <i className="ri-focus-3-line text-app-accent-primary text-sm"></i>
                   </div>
                   <div>
-                    <p className="text-white/70 text-xs font-medium">Luy?n theo ch? d?</p>
-                    <p className="text-app-text-muted text-[10px]">T?p trung v�o ch? d? y?u</p>
+                    <p className="text-white/70 text-xs font-medium">Luyện theo chủ đề</p>
+                    <p className="text-app-text-muted text-[10px]">Tập trung vào chủ đề yếu</p>
                   </div>
                 </button>
                 <button
@@ -613,8 +613,8 @@ export default function EpsWeaknessAnalysisPage() {
                     <i className="ri-timer-line text-[#34d399] text-sm"></i>
                   </div>
                   <div>
-                    <p className="text-white/70 text-xs font-medium">Thi th? EPS 40 c�u</p>
-                    <p className="text-app-text-muted text-[10px]">Ki?m tra ti?n d? t?ng th?</p>
+                    <p className="text-white/70 text-xs font-medium">Thi thử EPS 40 câu</p>
+                    <p className="text-app-text-muted text-[10px]">Kiểm tra tiến độ tổng thể</p>
                   </div>
                 </button>
               </div>
@@ -623,7 +623,7 @@ export default function EpsWeaknessAnalysisPage() {
         </div>
       )}
 
-      {/* -- Tab: L? tr�nh -- */}
+      {/* ── Tab: Lộ trình ── */}
       {activeTab === "roadmap" && (
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
           <div>
@@ -633,16 +633,16 @@ export default function EpsWeaknessAnalysisPage() {
                   <i className="ri-route-line text-app-accent-primary"></i>
                 </div>
                 <div>
-                  <p className="text-white font-semibold text-sm">L? tr�nh �n t?p c� nh�n h�a</p>
-                  <p className="text-white/35 text-xs">D?a tr�n ph�n t�ch {totalAnswered} c�u d� l�m c?a b?n</p>
+                  <p className="text-white font-semibold text-sm">Lộ trình ôn tập cá nhân hóa</p>
+                  <p className="text-white/35 text-xs">Dựa trên phân tích {totalAnswered} câu đã làm của bạn</p>
                 </div>
               </div>
 
               {roadmap.length === 0 ? (
                 <div className="text-center py-8">
                   <i className="ri-route-line text-white/10 text-4xl mb-3 block"></i>
-                  <p className="text-white/35 text-sm">Chua c� d? d? li?u d? t?o l? tr�nh</p>
-                  <p className="text-app-text-muted text-xs mt-1">H�y l�m �t nh?t 20 c�u EPS d? nh?n l? tr�nh c� nh�n h�a</p>
+                  <p className="text-white/35 text-sm">Chưa có đủ dữ liệu để tạo lộ trình</p>
+                  <p className="text-app-text-muted text-xs mt-1">Hãy làm ít nhất 20 câu EPS để nhận lộ trình cá nhân hóa</p>
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -656,13 +656,13 @@ export default function EpsWeaknessAnalysisPage() {
               <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <i className="ri-time-line text-app-accent-primary"></i>
-                  <p className="text-white font-semibold text-sm">U?c t�nh th?i gian ho�n th�nh</p>
+                  <p className="text-white font-semibold text-sm">Ước tính thời gian hoàn thành</p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
-                    { label: "�n ch? d? y?u", value: `${criticalTopics.length * 3}�${criticalTopics.length * 5} ng�y`, color: "#f87171" },
-                    { label: "Luy?n t?ng h?p", value: "3�5 ng�y", color: "app-accent-primary" },
-                    { label: "T?ng c?ng", value: `${criticalTopics.length * 3 + 3}�${criticalTopics.length * 5 + 5} ng�y`, color: "#34d399" },
+                    { label: "Ôn chủ đề yếu", value: `${criticalTopics.length * 3}–${criticalTopics.length * 5} ngày`, color: "#f87171" },
+                    { label: "Luyện tổng hợp", value: "3–5 ngày", color: "app-accent-primary" },
+                    { label: "Tổng cộng", value: `${criticalTopics.length * 3 + 3}–${criticalTopics.length * 5 + 5} ngày`, color: "#34d399" },
                   ].map(s => (
                     <div key={s.label} className="text-center p-3 bg-app-surface/50 rounded-xl">
                       <p className="font-bold text-sm mb-1" style={{ color: s.color }}>{s.value}</p>
@@ -677,14 +677,14 @@ export default function EpsWeaknessAnalysisPage() {
           {/* Right: Tips */}
           <div className="space-y-4">
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <p className="text-white font-semibold text-sm mb-3">M?o h?c hi?u qu?</p>
+              <p className="text-white font-semibold text-sm mb-3">Mẹo học hiệu quả</p>
               <div className="space-y-3">
                 {[
-                  { icon: "ri-time-line", color: "app-accent-primary", tip: "H?c 15�20 ph�t m?i ng�y hi?u qu? hon h?c 2 ti?ng 1 l?n/tu?n" },
-                  { icon: "ri-brain-line", color: "#a78bfa", tip: "D�ng Spaced Repetition d? �n c�u sai � n�o nh? l�u hon 5x" },
-                  { icon: "ri-focus-3-line", color: "#34d399", tip: "T?p trung v�o 1�2 ch? d? y?u nh?t tru?c, d?ng h?c d�n tr?i" },
-                  { icon: "ri-headphone-line", color: "#38bdf8", tip: "Nghe TTS ph�t �m khi h?c flashcard d? nh? t? nhanh hon" },
-                  { icon: "ri-repeat-line", color: "#fb923c", tip: "�n l?i c�u sai ngay sau khi l�m b�i � d?ng d? qua ng�y h�m sau" },
+                  { icon: "ri-time-line", color: "app-accent-primary", tip: "Học 15–20 phút mỗi ngày hiệu quả hơn học 2 tiếng 1 lần/tuần" },
+                  { icon: "ri-brain-line", color: "#a78bfa", tip: "Dùng Spaced Repetition để ôn câu sai — não nhớ lâu hơn 5x" },
+                  { icon: "ri-focus-3-line", color: "#34d399", tip: "Tập trung vào 1–2 chủ đề yếu nhất trước, đừng học dàn trải" },
+                  { icon: "ri-headphone-line", color: "#38bdf8", tip: "Nghe TTS phát âm khi học flashcard để nhớ từ nhanh hơn" },
+                  { icon: "ri-repeat-line", color: "#fb923c", tip: "Ôn lại câu sai ngay sau khi làm bài — đừng để qua ngày hôm sau" },
                 ].map((t, i) => (
                   <div key={i} className="flex items-start gap-2.5">
                     <div className="w-5 h-5 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -697,13 +697,13 @@ export default function EpsWeaknessAnalysisPage() {
             </div>
 
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <p className="text-white font-semibold text-sm mb-3">M?c ti�u EPS-TOPIK</p>
+              <p className="text-white font-semibold text-sm mb-3">Mục tiêu EPS-TOPIK</p>
               <div className="space-y-2.5">
                 {[
-                  { label: "�i?m d?u t?i thi?u", value: "80/200", color: "app-accent-primary" },
-                  { label: "�? ch�nh x�c c?n d?t", value: "= 70%", color: "#34d399" },
-                  { label: "S? c�u d�ng t?i thi?u", value: "32/40 c�u", color: "#38bdf8" },
-                  { label: "Th?i gian l�m b�i", value: "70 ph�t", color: "#a78bfa" },
+                  { label: "Điểm đậu tối thiểu", value: "80/200", color: "app-accent-primary" },
+                  { label: "Độ chính xác cần đạt", value: "≥ 70%", color: "#34d399" },
+                  { label: "Số câu đúng tối thiểu", value: "32/40 câu", color: "#38bdf8" },
+                  { label: "Thời gian làm bài", value: "70 phút", color: "#a78bfa" },
                 ].map(s => (
                   <div key={s.label} className="flex items-center justify-between">
                     <span className="text-app-text-secondary text-xs">{s.label}</span>
@@ -716,12 +716,12 @@ export default function EpsWeaknessAnalysisPage() {
         </div>
       )}
 
-      {/* -- Tab: Chi ti?t c�u sai -- */}
+      {/* ── Tab: Chi tiết câu sai ── */}
       {activeTab === "detail" && (
         <div className="grid grid-cols-[260px_1fr] gap-6">
           {/* Left: Topic selector */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-4 h-fit">
-            <p className="text-app-text-secondary text-xs font-semibold tracking-normal mb-3">Ch?n ch? d?</p>
+            <p className="text-app-text-secondary text-xs font-semibold tracking-normal mb-3">Chọn chủ đề</p>
             <div className="space-y-1">
               {topicAnalysis.map(t => {
                 const cfg = getLevelConfig(t.level);
@@ -749,7 +749,7 @@ export default function EpsWeaknessAnalysisPage() {
             {!selectedAnalysis ? (
               <div className="bg-app-bg border border-app-border rounded-2xl p-12 text-center">
                 <i className="ri-cursor-line text-white/10 text-4xl mb-3 block"></i>
-                <p className="text-white/35 text-sm">Ch?n m?t ch? d? d? xem chi ti?t c�u sai</p>
+                <p className="text-white/35 text-sm">Chọn một chủ đề để xem chi tiết câu sai</p>
               </div>
             ) : (
               <div>
@@ -759,7 +759,7 @@ export default function EpsWeaknessAnalysisPage() {
                     <div>
                       <h3 className="text-white font-bold text-base">{selectedAnalysis.topic}</h3>
                       <p className="text-white/35 text-xs mt-0.5">
-                        {selectedAnalysis.correct} d�ng / {selectedAnalysis.wrong} sai / {selectedAnalysis.total} c�u trong ng�n h�ng
+                        {selectedAnalysis.correct} đúng / {selectedAnalysis.wrong} sai / {selectedAnalysis.total} câu trong ngân hàng
                       </p>
                     </div>
                     <div className="text-right">
@@ -783,13 +783,13 @@ export default function EpsWeaknessAnalysisPage() {
                 {selectedAnalysis.wrongQuestions.length === 0 ? (
                   <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center">
                     <i className="ri-checkbox-circle-line text-[#34d399] text-4xl mb-3 block"></i>
-                    <p className="text-white/60 text-sm font-medium">Kh�ng c� c�u sai trong ch? d? n�y!</p>
-                    <p className="text-app-text-muted text-xs mt-1">B?n dang l�m r?t t?t ? ch? d? n�y</p>
+                    <p className="text-white/60 text-sm font-medium">Không có câu sai trong chủ đề này!</p>
+                    <p className="text-app-text-muted text-xs mt-1">Bạn đang làm rất tốt ở chủ đề này</p>
                   </div>
                 ) : (
                   <div className="space-y-3">
                     <p className="text-app-text-secondary text-xs font-semibold tracking-normal">
-                      {selectedAnalysis.wrongQuestions.length} c�u d� l�m sai
+                      {selectedAnalysis.wrongQuestions.length} câu đã làm sai
                     </p>
                     {selectedAnalysis.wrongQuestions.map((q, i) => {
                       const userAns = epsAnswers[q.id];
@@ -823,8 +823,8 @@ export default function EpsWeaknessAnalysisPage() {
                                   <span className={isCorrect ? "text-[#34d399]" : isUserWrong ? "text-[#f87171]" : "text-white/45"}>
                                     {opt}
                                   </span>
-                                  {isCorrect && <span className="ml-auto text-[#34d399] text-[10px] font-semibold">��p �n d�ng</span>}
-                                  {isUserWrong && <span className="ml-auto text-[#f87171] text-[10px] font-semibold">B?n ch?n</span>}
+                                  {isCorrect && <span className="ml-auto text-[#34d399] text-[10px] font-semibold">Đáp án đúng</span>}
+                                  {isUserWrong && <span className="ml-auto text-[#f87171] text-[10px] font-semibold">Bạn chọn</span>}
                                 </div>
                               );
                             })}
@@ -832,7 +832,7 @@ export default function EpsWeaknessAnalysisPage() {
 
                           {q.explanation && (
                             <div className="bg-app-accent-primary/5 border border-app-accent-primary/10 rounded-lg px-3 py-2">
-                              <p className="text-app-accent-primary/70 text-[10px] font-semibold mb-1">Gi?i th�ch:</p>
+                              <p className="text-app-accent-primary/70 text-[10px] font-semibold mb-1">Giải thích:</p>
                               <p className="text-white/50 text-xs leading-relaxed">{q.explanation}</p>
                             </div>
                           )}

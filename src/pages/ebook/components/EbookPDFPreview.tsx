@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+﻿import { useState, useCallback } from "react";
 import type { EbookMeta } from "@/pages/ebook/page";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
 import type { EbookTemplate } from "./EbookTemplates";
@@ -10,11 +10,11 @@ interface Props {
   disabled?: boolean;
 }
 
-// --- Helpers ----------------------------------------------------------------
+// ─── Helpers ────────────────────────────────────────────────────────────────
 
 function removeRomanization(text: string): string {
   return text
-    .replace(/([?-?]+)\s*\(([a-zA-Z\s\-']+)\)/g, "$1")
+    .replace(/([가-힣]+)\s*\(([a-zA-Z\s\-']+)\)/g, "$1")
     .replace(/\*([a-zA-Z\s\-']+)\*/g, "")
     .replace(/\[([a-zA-Z\s\-']+)\]/g, "")
     .replace(/\s{2,}/g, " ")
@@ -36,9 +36,9 @@ interface VocabParsed {
 }
 
 function parseVocab(v: { word: string; meaning: string; example?: string }): VocabParsed {
-  const matchKorRom = v.word.match(/^([?-?\s]+)\s*\(([^)]+)\)$/);
+  const matchKorRom = v.word.match(/^([가-힣\s]+)\s*\(([^)]+)\)$/);
   if (matchKorRom) return { korean: matchKorRom[1].trim(), romanization: matchKorRom[2].trim(), meaning: v.meaning, example: v.example };
-  const matchRomKor = v.word.match(/^\(([^)]+)\)\s*([?-?\s]+)$/);
+  const matchRomKor = v.word.match(/^\(([^)]+)\)\s*([가-힣\s]+)$/);
   if (matchRomKor) return { korean: matchRomKor[2].trim(), romanization: matchRomKor[1].trim(), meaning: v.meaning, example: v.example };
   return { korean: v.word, romanization: null, meaning: v.meaning, example: v.example };
 }
@@ -51,20 +51,20 @@ function parseGrammar(raw: string): GrammarPoint[] {
   let current: GrammarPoint | null = null;
 
   for (const line of lines) {
-    // Detect example lines: starts with "?:" / "??:" / "VD:" / "V� d?:" / "Ex:"
-    const isExample = /^(?\s*[::]|??\s*[::]|VD\s*[::]|V� d?\s*[::]|Ex\s*[::])/i.test(line);
-    const isHeader = !isExample && /^(\d+[\.\)]\s|[�\-\*]\s|[?-?].{0,20}[:\-�])/.test(line);
+    // Detect example lines: starts with "예:" / "예시:" / "VD:" / "Ví dụ:" / "Ex:"
+    const isExample = /^(예\s*[:：]|예시\s*[:：]|VD\s*[:：]|Ví dụ\s*[:：]|Ex\s*[:：])/i.test(line);
+    const isHeader = !isExample && /^(\d+[\.\)]\s|[•\-\*]\s|[가-힣].{0,20}[:\-–])/.test(line);
 
     if (isHeader) {
       if (current) points.push(current);
-      const splitMatch = line.match(/^(?:\d+[\.\)]\s*|[�\-\*]\s*)?(.*?)\s*[:\-�]\s*(.+)$/);
+      const splitMatch = line.match(/^(?:\d+[\.\)]\s*|[•\-\*]\s*)?(.*?)\s*[:\-–]\s*(.+)$/);
       if (splitMatch) {
         current = { pattern: splitMatch[1].trim(), explain: splitMatch[2].trim() };
       } else {
-        current = { pattern: line.replace(/^[\d\.\)\-\*�]+\s*/, ""), explain: "" };
+        current = { pattern: line.replace(/^[\d\.\)\-\*•]+\s*/, ""), explain: "" };
       }
     } else if (isExample && current) {
-      current.example = line.replace(/^(?\s*[::]|??\s*[::]|VD\s*[::]|V� d?\s*[::]|Ex\s*[::])\s*/i, "").trim();
+      current.example = line.replace(/^(예\s*[:：]|예시\s*[:：]|VD\s*[:：]|Ví dụ\s*[:：]|Ex\s*[:：])\s*/i, "").trim();
     } else {
       if (current) {
         current.explain += (current.explain ? "\n" : "") + line;
@@ -77,7 +77,7 @@ function parseGrammar(raw: string): GrammarPoint[] {
   return points;
 }
 
-/** T�nh s? trang th?c c?a m?i b�i */
+/** Tính số trang thực của mỗi bài */
 function calcLessonPageCount(lesson: ApprovedLesson): number {
   const storyLen = lesson.story?.length ?? 0;
   const vocabCount = lesson.vocabulary?.length ?? 0;
@@ -86,9 +86,9 @@ function calcLessonPageCount(lesson: ApprovedLesson): number {
   return 1;
 }
 
-/** T�nh page offset cho t?ng b�i � kh?p v?i EbookCanvas */
+/** Tính page offset cho từng bài — khớp với EbookCanvas */
 function calcPageOffsets(lessons: ApprovedLesson[], hasForeword: boolean): number[] {
-  // Cover=1, Foreword=2(n?u c�), TOC=ti?p theo, b�i h?c b?t d?u sau TOC
+  // Cover=1, Foreword=2(nếu có), TOC=tiếp theo, bài học bắt đầu sau TOC
   let page = 2 + (hasForeword ? 1 : 0) + 1;
   return lessons.map(lesson => {
     const start = page;
@@ -97,7 +97,7 @@ function calcPageOffsets(lessons: ApprovedLesson[], hasForeword: boolean): numbe
   });
 }
 
-// --- HTML Builder ------------------------------------------------------------
+// ─── HTML Builder ────────────────────────────────────────────────────────────
 
 const FONT_FAMILY_MAP: Record<string, string> = {
   sans: "'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif",
@@ -111,7 +111,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
   const pageOffsets = calcPageOffsets(lessons, hasForeword);
   const fontFamily = FONT_FAMILY_MAP[meta.fontFamily ?? "sans"];
 
-  // -- Vocab card HTML --
+  // ── Vocab card HTML ──
   function vocabCardHtml(v: { word: string; meaning: string; example?: string }, darkMode = false): string {
     const p = parseVocab(v);
     if (darkMode) {
@@ -132,7 +132,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
       </div>`;
   }
 
-  // -- Grammar HTML --
+  // ── Grammar HTML ──
   function grammarHtml(points: GrammarPoint[], darkMode = false): string {
     if (points.length === 0) return "";
     const textColor = darkMode ? "rgba(255,255,255,0.85)" : "#333";
@@ -153,13 +153,13 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
           </div>` : ""}
         ${gp.example ? `
           <div style="background:${darkMode ? "rgba(255,255,255,0.04)" : "#f9f6ee"};border-left:3px solid ${accent};border-radius:0 6px 6px 0;padding:8px 12px;margin-top:6px;">
-            <div style="font-size:8pt;font-weight:700;text-transform:;letter-spacing:0.08em;color:${subColor};margin-bottom:4px;">V� d?</div>
+            <div style="font-size:8pt;font-weight:700;text-transform:;letter-spacing:0.08em;color:${subColor};margin-bottom:4px;">Ví dụ</div>
             <div style="font-size:10pt;color:${exColor};font-style:italic;line-height:1.7;">${highlightKorean(gp.example)}</div>
           </div>` : ""}
       </div>`).join("");
   }
 
-  // -- Section label HTML --
+  // ── Section label HTML ──
   function sectionLabel(title: string, barColor: string, darkMode = false): string {
     const titleColor = darkMode ? "#e8e8e8" : "#1a1a1a";
     return `
@@ -169,7 +169,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
       </div>`;
   }
 
-  // -- Footer HTML --
+  // ── Footer HTML ──
   function footerHtml(pageNum: number, darkMode = false): string {
     const color = darkMode ? "rgba(255,255,255,0.2)" : "#ccc";
     const border = darkMode ? "rgba(255,255,255,0.06)" : "#eee";
@@ -180,7 +180,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
       </div>`;
   }
 
-  // -- Lesson pages HTML --
+  // ── Lesson pages HTML ──
   const lessonPagesHtml = lessons.map((lesson, idx) => {
     const cleanStory = removeRomanization(lesson.story);
     const storyHtml = highlightKorean(cleanStory);
@@ -195,7 +195,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
       <div class="page" style="background:#0f1117;color:#e8e8e8;">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
           <div>
-            <div style="font-size:8pt;font-weight:700;text-transform:;letter-spacing:0.12em;margin-bottom:5px;color:${accent};">B�i ${idx + 1}</div>
+            <div style="font-size:8pt;font-weight:700;text-transform:;letter-spacing:0.12em;margin-bottom:5px;color:${accent};">Bài ${idx + 1}</div>
             <h2 style="font-size:19pt;font-weight:700;color:#e8e8e8;margin-bottom:3px;line-height:1.2;">${lesson.song.title}</h2>
             <div style="color:rgba(255,255,255,0.4);font-size:10.5pt;">${lesson.song.artist}</div>
           </div>
@@ -206,19 +206,19 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
           <div style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></div>
         </div>
         <div style="margin-bottom:20px;">
-          ${sectionLabel("Truy?n Ch�m", accent, true)}
+          ${sectionLabel("Truyện Chêm", accent, true)}
           <div style="color:rgba(255,255,255,0.75);font-size:11.5pt;line-height:2.1;white-space:pre-wrap;">${storyHtml}</div>
         </div>
         ${vocabPage1.length > 0 ? `
         <div style="margin-bottom:${lessonPageCount === 1 ? "20px" : "0"};">
-          ${sectionLabel("T? v?ng c?t l�i", "#e05555", true)}
+          ${sectionLabel("Từ vựng cốt lõi", "#e05555", true)}
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
             ${vocabPage1.map(v => vocabCardHtml(v, true)).join("")}
           </div>
         </div>` : ""}
         ${lessonPageCount === 1 && grammarPoints.length > 0 ? `
         <div style="margin-bottom:20px;">
-          ${sectionLabel("�i?m ng? ph�p", "#d4a017", true)}
+          ${sectionLabel("Điểm ngữ pháp", "#d4a017", true)}
           <div style="background:rgba(212,160,23,0.08);border:1.5px solid rgba(212,160,23,0.2);border-radius:10px;padding:16px 18px;">
             ${grammarHtml(grammarPoints, true)}
           </div>
@@ -229,20 +229,20 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
       const page2 = lessonPageCount === 2 ? `
       <div class="page" style="background:#0f1117;color:#e8e8e8;">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
-          <span style="font-size:8pt;font-weight:700;text-transform:;letter-spacing:0.12em;color:${accent};">B�i ${idx + 1} � ti?p theo</span>
+          <span style="font-size:8pt;font-weight:700;text-transform:;letter-spacing:0.12em;color:${accent};">Bài ${idx + 1} — tiếp theo</span>
           <div style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></div>
           <span style="font-size:8pt;color:rgba(255,255,255,0.2);">${lesson.song.title}</span>
         </div>
         ${vocabPage2.length > 0 ? `
         <div style="margin-bottom:22px;">
-          ${sectionLabel("T? v?ng c?t l�i (ti?p)", "#e05555", true)}
+          ${sectionLabel("Từ vựng cốt lõi (tiếp)", "#e05555", true)}
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
             ${vocabPage2.map(v => vocabCardHtml(v, true)).join("")}
           </div>
         </div>` : ""}
         ${grammarPoints.length > 0 ? `
         <div style="margin-bottom:20px;">
-          ${sectionLabel("�i?m ng? ph�p", "#d4a017", true)}
+          ${sectionLabel("Điểm ngữ pháp", "#d4a017", true)}
           <div style="background:rgba(212,160,23,0.08);border:1.5px solid rgba(212,160,23,0.2);border-radius:10px;padding:16px 18px;">
             ${grammarHtml(grammarPoints, true)}
           </div>
@@ -258,7 +258,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
     <div class="page">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
         <div>
-          <div style="font-size:8pt;font-weight:700;text-transform:;letter-spacing:0.14em;margin-bottom:5px;color:${accent};">B�i ${idx + 1}</div>
+          <div style="font-size:8pt;font-weight:700;text-transform:;letter-spacing:0.14em;margin-bottom:5px;color:${accent};">Bài ${idx + 1}</div>
           <h2 style="font-size:19pt;font-weight:700;color:#111;margin-bottom:3px;line-height:1.2;">${lesson.song.title}</h2>
           <div style="color:#888;font-size:10.5pt;">${lesson.song.artist}</div>
         </div>
@@ -269,19 +269,19 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
         <div style="flex:1;height:1px;background:#f0f0f0;"></div>
       </div>
       <div style="margin-bottom:20px;">
-        ${sectionLabel("Truy?n Ch�m", accent)}
+        ${sectionLabel("Truyện Chêm", accent)}
         <div style="font-size:11.5pt;line-height:2.1;color:#2c2c2c;white-space:pre-wrap;">${storyHtml}</div>
       </div>
       ${vocabPage1.length > 0 ? `
       <div style="margin-bottom:${lessonPageCount === 1 ? "20px" : "0"};">
-        ${sectionLabel("T? v?ng c?t l�i", "#2c7a4b")}
+        ${sectionLabel("Từ vựng cốt lõi", "#2c7a4b")}
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
           ${vocabPage1.map(v => vocabCardHtml(v)).join("")}
         </div>
       </div>` : ""}
       ${lessonPageCount === 1 && grammarPoints.length > 0 ? `
       <div style="margin-bottom:20px;">
-        ${sectionLabel("�i?m ng? ph�p", "#d4a017")}
+        ${sectionLabel("Điểm ngữ pháp", "#d4a017")}
         <div style="background:#fffbf0;border:1.5px solid #f0d060;border-radius:10px;padding:16px 18px;">
           ${grammarHtml(grammarPoints)}
         </div>
@@ -292,20 +292,20 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
     const page2 = lessonPageCount === 2 ? `
     <div class="page">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
-        <span style="font-size:8pt;font-weight:700;text-transform:;letter-spacing:0.14em;color:${accent};">B�i ${idx + 1} � ti?p theo</span>
+        <span style="font-size:8pt;font-weight:700;text-transform:;letter-spacing:0.14em;color:${accent};">Bài ${idx + 1} — tiếp theo</span>
         <div style="flex:1;height:1px;background:#f0f0f0;"></div>
         <span style="font-size:8pt;color:#ccc;">${lesson.song.title}</span>
       </div>
       ${vocabPage2.length > 0 ? `
       <div style="margin-bottom:22px;">
-        ${sectionLabel("T? v?ng c?t l�i (ti?p)", "#2c7a4b")}
+        ${sectionLabel("Từ vựng cốt lõi (tiếp)", "#2c7a4b")}
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
           ${vocabPage2.map(v => vocabCardHtml(v)).join("")}
         </div>
       </div>` : ""}
       ${grammarPoints.length > 0 ? `
       <div style="margin-bottom:20px;">
-        ${sectionLabel("�i?m ng? ph�p", "#d4a017")}
+        ${sectionLabel("Điểm ngữ pháp", "#d4a017")}
         <div style="background:#fffbf0;border:1.5px solid #f0d060;border-radius:10px;padding:16px 18px;">
           ${grammarHtml(grammarPoints)}
         </div>
@@ -316,49 +316,49 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
     return page1 + page2;
   }).join("\n");
 
-  // -- Foreword page --
+  // ── Foreword page ──
   const forewordPageHtml = hasForeword ? `
   <div class="page" style="display:flex;flex-direction:column;justify-content:center;align-items:center;">
     <div style="max-width:420px;width:100%;">
       <div style="width:32px;height:3px;background:${accent};margin-bottom:28px;"></div>
-      <h2 style="font-size:20pt;font-weight:700;color:#111;margin-bottom:20px;">L?i m? d?u</h2>
+      <h2 style="font-size:20pt;font-weight:700;color:#111;margin-bottom:20px;">Lời mở đầu</h2>
       <div style="color:#444;font-size:11pt;line-height:2;white-space:pre-wrap;">${meta.foreword}</div>
       <div style="margin-top:32px;padding-top:16px;border-top:1px solid #eee;">
-        <div style="color:#999;font-size:10pt;font-style:italic;">� ${meta.author}</div>
+        <div style="color:#999;font-size:10pt;font-style:italic;">— ${meta.author}</div>
       </div>
     </div>
   </div>` : "";
 
-  // -- TOC page --
+  // ── TOC page ──
   const tocPageHtml = `
   <div class="page">
-    <h2 style="font-size:22pt;font-weight:700;color:#111;margin-bottom:8px;">M?c l?c</h2>
+    <h2 style="font-size:22pt;font-weight:700;color:#111;margin-bottom:8px;">Mục lục</h2>
     <div style="width:40px;height:3px;background:${accent};margin-bottom:28px;"></div>
     ${lessons.map((l, i) => `
     <div style="display:flex;align-items:center;gap:16px;padding:8px 0;border-bottom:1px solid #f0f0f0;">
       <span style="font-size:12pt;font-weight:700;width:28px;text-align:right;flex-shrink:0;color:${accent};">${i + 1}</span>
       <div style="flex:1;">
         <div style="color:#222;font-weight:600;font-size:11pt;">${l.song.title}</div>
-        <div style="color:#999;font-size:9pt;">${l.song.artist}${l.song.genre ? ` � ${l.song.genre}` : ""}</div>
+        <div style="color:#999;font-size:9pt;">${l.song.artist}${l.song.genre ? ` · ${l.song.genre}` : ""}</div>
       </div>
       <span style="color:#ccc;font-size:9pt;flex-shrink:0;">Trang ${pageOffsets[i]}</span>
     </div>`).join("")}
   </div>`;
 
-  // -- Closing page --
+  // ── Closing page ──
   const closingPageHtml = `
   <div class="page" style="background:${meta.coverColor};display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;">
     <div style="width:48px;height:3px;background:${accent};margin-bottom:32px;"></div>
-    <h2 style="font-size:24pt;font-weight:700;color:${accent};margin-bottom:12px;">C?m on b?n d� d?c!</h2>
-    <p style="color:rgba(255,255,255,0.5);font-size:12pt;margin-bottom:40px;max-width:320px;line-height:1.8;">Hy v?ng ebook n�y gi�p b?n ti?n b? ti?ng H�n m?i ng�y.</p>
+    <h2 style="font-size:24pt;font-weight:700;color:${accent};margin-bottom:12px;">Cảm ơn bạn đã đọc!</h2>
+    <p style="color:rgba(255,255,255,0.5);font-size:12pt;margin-bottom:40px;max-width:320px;line-height:1.8;">Hy vọng ebook này giúp bạn tiến bộ tiếng Hàn mỗi ngày.</p>
     ${(meta.contactInfo || meta.website) ? `
     <div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:24px 32px;border:1px solid rgba(255,255,255,0.08);max-width:360px;width:100%;">
-      <div style="color:${accent};font-size:9pt;font-weight:700;text-transform:;letter-spacing:0.12em;margin-bottom:14px;">Li�n h? & Theo d�i</div>
+      <div style="color:${accent};font-size:9pt;font-weight:700;text-transform:;letter-spacing:0.12em;margin-bottom:14px;">Liên hệ & Theo dõi</div>
       ${meta.contactInfo ? `<div style="color:rgba(255,255,255,0.5);font-size:10pt;line-height:2;white-space:pre-wrap;margin-bottom:12px;">${meta.contactInfo}</div>` : ""}
       ${meta.website ? `<div style="color:${accent};font-size:11pt;font-weight:600;">${meta.website}</div>` : ""}
     </div>` : ""}
     <div style="position:absolute;bottom:20mm;left:18mm;right:18mm;text-align:center;">
-      <span style="color:rgba(255,255,255,0.15);font-size:8pt;">${meta.author} � ${new Date().getFullYear()}</span>
+      <span style="color:rgba(255,255,255,0.15);font-size:8pt;">${meta.author} · ${new Date().getFullYear()}</span>
     </div>
   </div>`;
 
@@ -367,7 +367,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${meta.title} � ${meta.author}</title>
+<title>${meta.title} — ${meta.author}</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -412,9 +412,9 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
 <div class="toolbar no-print">
   <div>
     <div class="toolbar-title">${meta.title}</div>
-    <div class="toolbar-sub">${meta.author} � ${lessons.length} b�i h?c</div>
+    <div class="toolbar-sub">${meta.author} · ${lessons.length} bài học</div>
   </div>
-  <button class="btn-print" onclick="window.print()">??? In / Luu PDF</button>
+  <button class="btn-print" onclick="window.print()">🖨️ In / Lưu PDF</button>
 </div>
 <div class="content">
   <!-- COVER -->
@@ -427,7 +427,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
       <div style="color:rgba(255,255,255,0.35);font-size:10pt;line-height:1.8;max-width:380px;">${meta.description}</div>
     </div>
     <div style="display:flex;justify-content:space-between;align-items:center;">
-      <span style="color:rgba(255,255,255,0.2);font-size:9pt;">${lessons.length} b�i h?c</span>
+      <span style="color:rgba(255,255,255,0.2);font-size:9pt;">${lessons.length} bài học</span>
       <span style="color:rgba(255,255,255,0.2);font-size:9pt;">${new Date().getFullYear()}</span>
     </div>
   </div>
@@ -441,7 +441,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
 </html>`;
 }
 
-// --- Component ---------------------------------------------------------------
+// ─── Component ───────────────────────────────────────────────────────────────
 
 export default function EbookPDFPreview({ meta, lessons, template = "classic", disabled }: Props) {
   const [open, setOpen] = useState(false);
@@ -475,7 +475,7 @@ export default function EbookPDFPreview({ meta, lessons, template = "classic", d
           className="flex items-center gap-2 bg-sky-500/10 hover:bg-sky-500/20 disabled:opacity-40 disabled:cursor-not-allowed text-sky-400 font-bold text-sm px-4 py-2.5 rounded-xl transition-colors whitespace-nowrap cursor-pointer border border-sky-500/20"
         >
           <i className="ri-eye-line"></i>
-          Xem tru?c
+          Xem trước
         </button>
         <button
           onClick={handleExportHTML}
@@ -483,7 +483,7 @@ export default function EbookPDFPreview({ meta, lessons, template = "classic", d
           className="flex items-center gap-2 bg-violet-500/10 hover:bg-violet-500/20 disabled:opacity-40 disabled:cursor-not-allowed text-violet-400 font-bold text-sm px-4 py-2.5 rounded-xl transition-colors whitespace-nowrap cursor-pointer border border-violet-500/20"
         >
           <i className="ri-html5-line"></i>
-          Xu?t HTML
+          Xuất HTML
         </button>
       </div>
 
@@ -497,7 +497,7 @@ export default function EbookPDFPreview({ meta, lessons, template = "classic", d
               </div>
               <div>
                 <p className="text-white font-semibold text-sm">{meta.title}</p>
-                <p className="text-app-text-secondary text-xs">{lessons.length} b�i h?c � Xem tru?c tru?c khi in</p>
+                <p className="text-app-text-secondary text-xs">{lessons.length} bài học · Xem trước trước khi in</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -506,7 +506,7 @@ export default function EbookPDFPreview({ meta, lessons, template = "classic", d
                 className="flex items-center gap-2 bg-violet-500/10 hover:bg-violet-500/20 text-violet-400 text-xs font-semibold px-4 py-2 rounded-lg transition-colors whitespace-nowrap cursor-pointer border border-violet-500/20"
               >
                 <i className="ri-html5-line"></i>
-                T?i file HTML
+                Tải file HTML
               </button>
               <button
                 onClick={() => {
@@ -516,7 +516,7 @@ export default function EbookPDFPreview({ meta, lessons, template = "classic", d
                 className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-xs font-bold px-5 py-2 rounded-lg transition-colors whitespace-nowrap cursor-pointer"
               >
                 <i className="ri-printer-line"></i>
-                In / Luu PDF
+                In / Lưu PDF
               </button>
               <button
                 onClick={() => setOpen(false)}
@@ -531,7 +531,7 @@ export default function EbookPDFPreview({ meta, lessons, template = "classic", d
           <div className="flex items-center gap-3 px-6 py-2.5 bg-sky-500/5 border-b border-sky-500/10 flex-shrink-0">
             <i className="ri-information-line text-sky-400 text-sm"></i>
             <p className="text-sky-400/70 text-xs">
-              ��y l� b?n xem tru?c d?y d?. Nh?n <strong className="text-sky-400">In / Luu PDF</strong> d? in ho?c luu th�nh file PDF. Nh?n <strong className="text-sky-400">T?i file HTML</strong> d? chia s? online.
+              Đây là bản xem trước đầy đủ. Nhấn <strong className="text-sky-400">In / Lưu PDF</strong> để in hoặc lưu thành file PDF. Nhấn <strong className="text-sky-400">Tải file HTML</strong> để chia sẻ online.
             </p>
           </div>
 

@@ -13,7 +13,7 @@ interface ImageWithFallbackProps {
 
 /**
  * ImageWithFallback — Hiển thị ảnh với fallback tự động
- * - Nếu ảnh từ VPS (img.hanquocoi.vn) lỗi → fallback về placeholder
+ * - Nếu ảnh từ VPS (img.hadim.vn) lỗi → fallback về placeholder
  * - Hỗ trợ lazy loading
  * - Hiển thị skeleton khi đang tải
  */

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+﻿import { useState, useRef, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -11,48 +11,48 @@ interface HangulChar {
 }
 
 const HANGUL_CHARS: HangulChar[] = [
-  // Nguy�n �m co b?n
-  { char: "?", romanization: "a", type: "vowel", strokeOrder: ["N�t d?c t? tr�n xu?ng", "N�t ngang sang ph?i"], tips: "Gi?ng ch? 'a' � n�t d?c + n�t ngang ng?n sang ph?i" },
-  { char: "?", romanization: "eo", type: "vowel", strokeOrder: ["N�t d?c t? tr�n xu?ng", "N�t ngang sang tr�i"], tips: "Ngu?c v?i ? � n�t ngang sang tr�i" },
-  { char: "?", romanization: "o", type: "vowel", strokeOrder: ["N�t ngang d�i", "N�t d?c ng?n l�n tr�n"], tips: "N�t ngang + n�t d?c ng?n ? gi?a hu?ng l�n" },
-  { char: "?", romanization: "u", type: "vowel", strokeOrder: ["N�t ngang d�i", "N�t d?c ng?n xu?ng du?i"], tips: "Ngu?c v?i ? � n�t d?c hu?ng xu?ng" },
-  { char: "?", romanization: "eu", type: "vowel", strokeOrder: ["N�t ngang d�i t? tr�i sang ph?i"], tips: "Ch? m?t n�t ngang d�i" },
-  { char: "?", romanization: "i", type: "vowel", strokeOrder: ["N�t d?c t? tr�n xu?ng"], tips: "Ch? m?t n�t d?c th?ng" },
-  { char: "?", romanization: "ae", type: "vowel", strokeOrder: ["N�t d?c", "N�t ngang ng?n", "N�t d?c ng?n"], tips: "? + th�m n�t d?c b�n ph?i" },
-  { char: "?", romanization: "e", type: "vowel", strokeOrder: ["N�t d?c", "N�t ngang ng?n", "N�t d?c ng?n"], tips: "? + th�m n�t d?c b�n ph?i" },
-  // Ph? �m co b?n
-  { char: "?", romanization: "g/k", type: "consonant", strokeOrder: ["N�t ngang t? tr�i sang ph?i", "N�t d?c xu?ng du?i"], tips: "Gi?ng g�c vu�ng � n�t ngang + n�t d?c" },
-  { char: "?", romanization: "n", type: "consonant", strokeOrder: ["N�t d?c t? tr�n xu?ng", "N�t ngang sang ph?i"], tips: "Gi?ng ch? L ngu?c � d?c r?i ngang" },
-  { char: "?", romanization: "d/t", type: "consonant", strokeOrder: ["N�t ngang tr�n", "N�t d?c", "N�t ngang du?i"], tips: "Gi?ng ch? C vu�ng � 3 n�t" },
-  { char: "?", romanization: "r/l", type: "consonant", strokeOrder: ["N�t ngang tr�n", "N�t cong", "N�t ngang du?i"], tips: "Ph?c t?p nh?t � luy?n nhi?u l?n" },
-  { char: "?", romanization: "m", type: "consonant", strokeOrder: ["N�t tr�i", "N�t tr�n", "N�t ph?i", "N�t du?i"], tips: "H�nh vu�ng � vi?t theo chi?u kim d?ng h?" },
-  { char: "?", romanization: "b/p", type: "consonant", strokeOrder: ["N�t tr�i", "N�t ph?i", "N�t ngang tr�n", "N�t ngang du?i"], tips: "Gi?ng ? nhung c� 2 n�t ngang" },
-  { char: "?", romanization: "s", type: "consonant", strokeOrder: ["N�t ch�o tr�i", "N�t ch�o ph?i"], tips: "Gi?ng ch? V � 2 n�t ch�o g?p nhau ? d?nh" },
-  { char: "?", romanization: "ng/silent", type: "consonant", strokeOrder: ["V�ng tr�n theo chi?u kim d?ng h?"], tips: "V�ng tr�n � d?u c�u kh�ng ph�t �m, cu?i c�u l� 'ng'" },
-  { char: "?", romanization: "j", type: "consonant", strokeOrder: ["N�t ngang", "N�t ch�o tr�i", "N�t ch�o ph?i"], tips: "? + n�t ngang ? tr�n" },
-  { char: "?", romanization: "h", type: "consonant", strokeOrder: ["N�t ngang tr�n", "V�ng tr�n du?i"], tips: "N�t ngang + v�ng tr�n b�n du?i" },
-  // �m ti?t ph? bi?n
-  { char: "?", romanization: "ga", type: "syllable", strokeOrder: ["Vi?t ? b�n tr�i", "Vi?t ? b�n ph?i"], tips: "? + ? = ?. Ph? �m b�n tr�i, nguy�n �m b�n ph?i" },
-  { char: "?", romanization: "na", type: "syllable", strokeOrder: ["Vi?t ? b�n tr�i", "Vi?t ? b�n ph?i"], tips: "? + ? = ?. C?u tr�c tr�i-ph?i" },
-  { char: "?", romanization: "da", type: "syllable", strokeOrder: ["Vi?t ? b�n tr�i", "Vi?t ? b�n ph?i"], tips: "? + ? = ?" },
-  { char: "?", romanization: "ma", type: "syllable", strokeOrder: ["Vi?t ? b�n tr�i", "Vi?t ? b�n ph?i"], tips: "? + ? = ?" },
-  { char: "?", romanization: "ba", type: "syllable", strokeOrder: ["Vi?t ? b�n tr�i", "Vi?t ? b�n ph?i"], tips: "? + ? = ?" },
-  { char: "?", romanization: "sa", type: "syllable", strokeOrder: ["Vi?t ? b�n tr�i", "Vi?t ? b�n ph?i"], tips: "? + ? = ?" },
-  { char: "?", romanization: "a", type: "syllable", strokeOrder: ["Vi?t ? b�n tr�i (c�m)", "Vi?t ? b�n ph?i"], tips: "? + ? = ?. ? d?u c�u kh�ng ph�t �m" },
-  { char: "?", romanization: "ja", type: "syllable", strokeOrder: ["Vi?t ? b�n tr�i", "Vi?t ? b�n ph?i"], tips: "? + ? = ?" },
-  { char: "?", romanization: "ha", type: "syllable", strokeOrder: ["Vi?t ? b�n tr�i", "Vi?t ? b�n ph?i"], tips: "? + ? = ?" },
-  { char: "?", romanization: "han", type: "syllable", strokeOrder: ["Vi?t ? tr�n tr�i", "Vi?t ? b�n ph?i", "Vi?t ? b�n du?i (??)"], tips: "? + ? + ? = ?. C� ?? (ph? �m cu?i)" },
-  { char: "?", romanization: "guk", type: "syllable", strokeOrder: ["Vi?t ? tr�n tr�i", "Vi?t ? b�n du?i", "Vi?t ? cu?i (??)"], tips: "? + ? + ? = ?. C?u tr�c tr�n-du?i + ??" },
+  // Nguyên âm cơ bản
+  { char: "ㅏ", romanization: "a", type: "vowel", strokeOrder: ["Nét dọc từ trên xuống", "Nét ngang sang phải"], tips: "Giống chữ 'a' — nét dọc + nét ngang ngắn sang phải" },
+  { char: "ㅓ", romanization: "eo", type: "vowel", strokeOrder: ["Nét dọc từ trên xuống", "Nét ngang sang trái"], tips: "Ngược với ㅏ — nét ngang sang trái" },
+  { char: "ㅗ", romanization: "o", type: "vowel", strokeOrder: ["Nét ngang dài", "Nét dọc ngắn lên trên"], tips: "Nét ngang + nét dọc ngắn ở giữa hướng lên" },
+  { char: "ㅜ", romanization: "u", type: "vowel", strokeOrder: ["Nét ngang dài", "Nét dọc ngắn xuống dưới"], tips: "Ngược với ㅗ — nét dọc hướng xuống" },
+  { char: "ㅡ", romanization: "eu", type: "vowel", strokeOrder: ["Nét ngang dài từ trái sang phải"], tips: "Chỉ một nét ngang dài" },
+  { char: "ㅣ", romanization: "i", type: "vowel", strokeOrder: ["Nét dọc từ trên xuống"], tips: "Chỉ một nét dọc thẳng" },
+  { char: "ㅐ", romanization: "ae", type: "vowel", strokeOrder: ["Nét dọc", "Nét ngang ngắn", "Nét dọc ngắn"], tips: "ㅏ + thêm nét dọc bên phải" },
+  { char: "ㅔ", romanization: "e", type: "vowel", strokeOrder: ["Nét dọc", "Nét ngang ngắn", "Nét dọc ngắn"], tips: "ㅓ + thêm nét dọc bên phải" },
+  // Phụ âm cơ bản
+  { char: "ㄱ", romanization: "g/k", type: "consonant", strokeOrder: ["Nét ngang từ trái sang phải", "Nét dọc xuống dưới"], tips: "Giống góc vuông — nét ngang + nét dọc" },
+  { char: "ㄴ", romanization: "n", type: "consonant", strokeOrder: ["Nét dọc từ trên xuống", "Nét ngang sang phải"], tips: "Giống chữ L ngược — dọc rồi ngang" },
+  { char: "ㄷ", romanization: "d/t", type: "consonant", strokeOrder: ["Nét ngang trên", "Nét dọc", "Nét ngang dưới"], tips: "Giống chữ C vuông — 3 nét" },
+  { char: "ㄹ", romanization: "r/l", type: "consonant", strokeOrder: ["Nét ngang trên", "Nét cong", "Nét ngang dưới"], tips: "Phức tạp nhất — luyện nhiều lần" },
+  { char: "ㅁ", romanization: "m", type: "consonant", strokeOrder: ["Nét trái", "Nét trên", "Nét phải", "Nét dưới"], tips: "Hình vuông — viết theo chiều kim đồng hồ" },
+  { char: "ㅂ", romanization: "b/p", type: "consonant", strokeOrder: ["Nét trái", "Nét phải", "Nét ngang trên", "Nét ngang dưới"], tips: "Giống ㅁ nhưng có 2 nét ngang" },
+  { char: "ㅅ", romanization: "s", type: "consonant", strokeOrder: ["Nét chéo trái", "Nét chéo phải"], tips: "Giống chữ V — 2 nét chéo gặp nhau ở đỉnh" },
+  { char: "ㅇ", romanization: "ng/silent", type: "consonant", strokeOrder: ["Vòng tròn theo chiều kim đồng hồ"], tips: "Vòng tròn — đầu câu không phát âm, cuối câu là 'ng'" },
+  { char: "ㅈ", romanization: "j", type: "consonant", strokeOrder: ["Nét ngang", "Nét chéo trái", "Nét chéo phải"], tips: "ㅅ + nét ngang ở trên" },
+  { char: "ㅎ", romanization: "h", type: "consonant", strokeOrder: ["Nét ngang trên", "Vòng tròn dưới"], tips: "Nét ngang + vòng tròn bên dưới" },
+  // Âm tiết phổ biến
+  { char: "가", romanization: "ga", type: "syllable", strokeOrder: ["Viết ㄱ bên trái", "Viết ㅏ bên phải"], tips: "ㄱ + ㅏ = 가. Phụ âm bên trái, nguyên âm bên phải" },
+  { char: "나", romanization: "na", type: "syllable", strokeOrder: ["Viết ㄴ bên trái", "Viết ㅏ bên phải"], tips: "ㄴ + ㅏ = 나. Cấu trúc trái-phải" },
+  { char: "다", romanization: "da", type: "syllable", strokeOrder: ["Viết ㄷ bên trái", "Viết ㅏ bên phải"], tips: "ㄷ + ㅏ = 다" },
+  { char: "마", romanization: "ma", type: "syllable", strokeOrder: ["Viết ㅁ bên trái", "Viết ㅏ bên phải"], tips: "ㅁ + ㅏ = 마" },
+  { char: "바", romanization: "ba", type: "syllable", strokeOrder: ["Viết ㅂ bên trái", "Viết ㅏ bên phải"], tips: "ㅂ + ㅏ = 바" },
+  { char: "사", romanization: "sa", type: "syllable", strokeOrder: ["Viết ㅅ bên trái", "Viết ㅏ bên phải"], tips: "ㅅ + ㅏ = 사" },
+  { char: "아", romanization: "a", type: "syllable", strokeOrder: ["Viết ㅇ bên trái (câm)", "Viết ㅏ bên phải"], tips: "ㅇ + ㅏ = 아. ㅇ đầu câu không phát âm" },
+  { char: "자", romanization: "ja", type: "syllable", strokeOrder: ["Viết ㅈ bên trái", "Viết ㅏ bên phải"], tips: "ㅈ + ㅏ = 자" },
+  { char: "하", romanization: "ha", type: "syllable", strokeOrder: ["Viết ㅎ bên trái", "Viết ㅏ bên phải"], tips: "ㅎ + ㅏ = 하" },
+  { char: "한", romanization: "han", type: "syllable", strokeOrder: ["Viết ㅎ trên trái", "Viết ㅏ bên phải", "Viết ㄴ bên dưới (받침)"], tips: "ㅎ + ㅏ + ㄴ = 한. Có 받침 (phụ âm cuối)" },
+  { char: "국", romanization: "guk", type: "syllable", strokeOrder: ["Viết ㄱ trên trái", "Viết ㅜ bên dưới", "Viết ㄱ cuối (받침)"], tips: "ㄱ + ㅜ + ㄱ = 국. Cấu trúc trên-dưới + 받침" },
 ];
 
 const CATEGORIES = [
-  { id: "all", label: "T?t c?" },
-  { id: "vowel", label: "Nguy�n �m" },
-  { id: "consonant", label: "Ph? �m" },
-  { id: "syllable", label: "�m ti?t" },
+  { id: "all", label: "Tất cả" },
+  { id: "vowel", label: "Nguyên âm" },
+  { id: "consonant", label: "Phụ âm" },
+  { id: "syllable", label: "Âm tiết" },
 ];
 
-// --- Canvas Drawing -------------------------------------------------------
+// ─── Canvas Drawing ───────────────────────────────────────────────────────
 function DrawingCanvas({ targetChar, onScore }: { targetChar: HangulChar; onScore: (score: number) => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
@@ -152,18 +152,18 @@ function DrawingCanvas({ targetChar, onScore }: { targetChar: HangulChar; onScor
       />
       <div className="flex gap-2">
         <button onClick={clearCanvas} className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-app-card/50 border border-app-border text-app-text-secondary text-xs hover:bg-white/8 cursor-pointer whitespace-nowrap transition-colors">
-          <i className="ri-eraser-line"></i>X�a
+          <i className="ri-eraser-line"></i>Xóa
         </button>
         <button onClick={checkScore} disabled={!hasDrawn}
           className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-app-accent-primary text-app-bg text-xs font-bold disabled:opacity-40 cursor-pointer whitespace-nowrap transition-colors hover:bg-[#d4b43a]">
-          <i className="ri-check-line"></i>Ch?m di?m
+          <i className="ri-check-line"></i>Chấm điểm
         </button>
       </div>
     </div>
   );
 }
 
-// --- Char Card ------------------------------------------------------------
+// ─── Char Card ────────────────────────────────────────────────────────────
 function CharCard({ char, isSelected, isMastered, onSelect }: { char: HangulChar; isSelected: boolean; isMastered: boolean; onSelect: () => void }) {
   const typeColors = { vowel: "#38bdf8", consonant: "#a78bfa", syllable: "#34d399" };
   const col = typeColors[char.type];
@@ -177,7 +177,7 @@ function CharCard({ char, isSelected, isMastered, onSelect }: { char: HangulChar
   );
 }
 
-// --- Main Page ------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────
 export default function HangulWritePage() {
   const [selectedChar, setSelectedChar] = useState<HangulChar>(HANGUL_CHARS[0]);
   const [category, setCategory] = useState("all");
@@ -210,15 +210,15 @@ export default function HangulWritePage() {
     : null;
 
   const getScoreColor = (s: number) => s >= 80 ? "#34d399" : s >= 60 ? "app-accent-primary" : "#f87171";
-  const getScoreLabel = (s: number) => s >= 80 ? "Xu?t s?c!" : s >= 60 ? "Kh� t?t!" : "C?n luy?n th�m";
+  const getScoreLabel = (s: number) => s >= 80 ? "Xuất sắc!" : s >= 60 ? "Khá tốt!" : "Cần luyện thêm";
 
   const typeColors: Record<string, string> = { vowel: "#38bdf8", consonant: "#a78bfa", syllable: "#34d399" };
-  const typeLabels: Record<string, string> = { vowel: "Nguy�n �m", consonant: "Ph? �m", syllable: "�m ti?t" };
+  const typeLabels: Record<string, string> = { vowel: "Nguyên âm", consonant: "Phụ âm", syllable: "Âm tiết" };
 
   return (
     <DashboardLayout
-      title="Luy?n vi?t Hangul"
-      subtitle="V? k� t? tr?c ti?p � ch?m di?m d? ch�nh x�c t?ng n�t"
+      title="Luyện viết Hangul"
+      subtitle="Vẽ ký tự trực tiếp — chấm điểm độ chính xác từng nét"
     >
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         {/* Left: Char list */}
@@ -227,11 +227,11 @@ export default function HangulWritePage() {
           <div className="grid grid-cols-2 gap-2 mb-4">
             <div className="bg-app-bg border border-app-border rounded-xl p-3 text-center">
               <p className="text-white font-bold text-xl">{masteredChars.length}</p>
-              <p className="text-app-text-muted text-[10px]">�� th�nh th?o</p>
+              <p className="text-app-text-muted text-[10px]">Đã thành thạo</p>
             </div>
             <div className="bg-app-bg border border-app-border rounded-xl p-3 text-center">
               <p className="text-white font-bold text-xl">{HANGUL_CHARS.length - masteredChars.length}</p>
-              <p className="text-app-text-muted text-[10px]">C?n luy?n</p>
+              <p className="text-app-text-muted text-[10px]">Cần luyện</p>
             </div>
           </div>
 
@@ -274,7 +274,7 @@ export default function HangulWritePage() {
                 <p className="text-white/50 text-sm mb-3">{selectedChar.tips}</p>
                 {/* Stroke order */}
                 <div>
-                  <p className="text-app-text-muted text-[10px] tracking-normal mb-1.5">Th? t? n�t vi?t</p>
+                  <p className="text-app-text-muted text-[10px] tracking-normal mb-1.5">Thứ tự nét viết</p>
                   <div className="flex flex-wrap gap-1.5">
                     {selectedChar.strokeOrder.map((stroke, i) => (
                       <div key={i} className="flex items-center gap-1.5 bg-app-surface/50 rounded-lg px-2.5 py-1">
@@ -287,7 +287,7 @@ export default function HangulWritePage() {
                 {/* Score history */}
                 {scoreHistory[selectedChar.char]?.length > 0 && (
                   <div className="mt-3 flex items-center gap-3">
-                    <p className="text-app-text-muted text-[10px]">L?ch s?:</p>
+                    <p className="text-app-text-muted text-[10px]">Lịch sử:</p>
                     <div className="flex gap-1">
                       {scoreHistory[selectedChar.char].map((s, i) => (
                         <span key={i} className="text-[10px] font-bold px-1.5 py-0.5 rounded" style={{ backgroundColor: `${getScoreColor(s)}15`, color: getScoreColor(s) }}>{s}</span>
@@ -304,13 +304,13 @@ export default function HangulWritePage() {
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <p className="text-white/60 text-sm font-semibold">V�ng luy?n vi?t</p>
-                <p className="text-app-text-muted text-xs">V? k� t? theo hu?ng d?n � k� t? m? l� g?i �</p>
+                <p className="text-white/60 text-sm font-semibold">Vùng luyện viết</p>
+                <p className="text-app-text-muted text-xs">Vẽ ký tự theo hướng dẫn — ký tự mờ là gợi ý</p>
               </div>
               {masteredChars.includes(selectedChar.char) && (
                 <div className="flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-3 py-1.5">
                   <i className="ri-checkbox-circle-fill text-app-accent-success text-sm"></i>
-                  <span className="text-app-accent-success text-xs font-semibold">�� th�nh th?o</span>
+                  <span className="text-app-accent-success text-xs font-semibold">Đã thành thạo</span>
                 </div>
               )}
             </div>
@@ -324,28 +324,28 @@ export default function HangulWritePage() {
                   <div className="text-center py-6 bg-app-surface/50 rounded-2xl border border-app-border">
                     <div className="text-6xl font-black mb-2" style={{ color: getScoreColor(score) }}>{score}</div>
                     <p className="text-sm font-bold mb-1" style={{ color: getScoreColor(score) }}>{getScoreLabel(score)}</p>
-                    <p className="text-app-text-muted text-xs">/ 100 di?m</p>
+                    <p className="text-app-text-muted text-xs">/ 100 điểm</p>
                     {score >= 70 && (
                       <div className="mt-3 flex items-center justify-center gap-1.5 text-app-accent-success text-xs">
                         <i className="ri-checkbox-circle-fill"></i>
-                        <span>�� d�nh d?u th�nh th?o!</span>
+                        <span>Đã đánh dấu thành thạo!</span>
                       </div>
                     )}
                     <button onClick={() => { setScore(null); setCanvasKey(k => k + 1); }}
                       className="mt-4 px-4 py-2 rounded-xl bg-app-card/50 border border-app-border text-app-text-secondary text-xs hover:bg-white/8 cursor-pointer whitespace-nowrap transition-colors">
-                      <i className="ri-refresh-line mr-1"></i>Th? l?i
+                      <i className="ri-refresh-line mr-1"></i>Thử lại
                     </button>
                   </div>
                 ) : (
                   <div className="space-y-2">
                     <div className="bg-app-surface/50 rounded-xl p-3">
-                      <p className="text-app-text-muted text-[10px] tracking-normal mb-2">Hu?ng d?n</p>
+                      <p className="text-app-text-muted text-[10px] tracking-normal mb-2">Hướng dẫn</p>
                       <ul className="space-y-1.5">
                         {[
-                          "V? theo th? t? n�t d� hu?ng d?n",
-                          "K� t? m? v�ng l� g?i � tham kh?o",
-                          "Nh?n 'Ch?m di?m' sau khi v? xong",
-                          "�?t 70+ di?m d? d�nh d?u th�nh th?o",
+                          "Vẽ theo thứ tự nét đã hướng dẫn",
+                          "Ký tự mờ vàng là gợi ý tham khảo",
+                          "Nhấn 'Chấm điểm' sau khi vẽ xong",
+                          "Đạt 70+ điểm để đánh dấu thành thạo",
                         ].map((tip, i) => (
                           <li key={i} className="flex items-start gap-2 text-white/35 text-[10px]">
                             <i className="ri-checkbox-blank-circle-fill text-app-accent-primary/30 text-[6px] mt-1 flex-shrink-0"></i>
@@ -357,7 +357,7 @@ export default function HangulWritePage() {
 
                     {/* Next char suggestion */}
                     <div className="bg-app-surface/50 rounded-xl p-3">
-                      <p className="text-app-text-muted text-[10px] tracking-normal mb-2">K� t? ti?p theo</p>
+                      <p className="text-app-text-muted text-[10px] tracking-normal mb-2">Ký tự tiếp theo</p>
                       <div className="flex gap-2">
                         {HANGUL_CHARS.filter(c => !masteredChars.includes(c.char) && c.char !== selectedChar.char).slice(0, 3).map(c => (
                           <button key={c.char} onClick={() => handleSelectChar(c)}
@@ -377,8 +377,8 @@ export default function HangulWritePage() {
           {/* Progress bar */}
           <div className="bg-app-bg border border-app-border rounded-xl p-4">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-app-text-secondary text-xs">Ti?n d? t?ng th?</p>
-              <p className="text-app-text-secondary text-xs">{masteredChars.length}/{HANGUL_CHARS.length} k� t?</p>
+              <p className="text-app-text-secondary text-xs">Tiến độ tổng thể</p>
+              <p className="text-app-text-secondary text-xs">{masteredChars.length}/{HANGUL_CHARS.length} ký tự</p>
             </div>
             <div className="bg-app-card/50 rounded-full h-2 overflow-hidden">
               <div className="h-full rounded-full bg-app-accent-primary transition-all duration-500" style={{ width: `${(masteredChars.length / HANGUL_CHARS.length) * 100}%` }}></div>

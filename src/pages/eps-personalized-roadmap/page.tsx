@@ -1,10 +1,10 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsLessons, EPS_LESSON_TOPICS } from "@/mocks/epsLessons";
 import { epsQuestions, EPS_TOPICS } from "@/mocks/epsQuestions";
 
-// --- Types ----------------------------------------------------------------
+// ─── Types ────────────────────────────────────────────────────────────────
 interface PlacementResult {
   topicScores: Record<string, number>; // topic -> % correct
   level: "beginner" | "intermediate" | "advanced";
@@ -32,12 +32,12 @@ const LEVEL_COLORS = {
 };
 
 const LEVEL_LABELS = {
-  beginner: "Ngu?i m?i b?t d?u",
-  intermediate: "Trung c?p",
-  advanced: "N�ng cao",
+  beginner: "Người mới bắt đầu",
+  intermediate: "Trung cấp",
+  advanced: "Nâng cao",
 };
 
-// --- Placement Quiz -------------------------------------------------------
+// ─── Placement Quiz ───────────────────────────────────────────────────────
 function PlacementQuiz({ onComplete }: { onComplete: (result: PlacementResult) => void }) {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
@@ -86,16 +86,16 @@ function PlacementQuiz({ onComplete }: { onComplete: (result: PlacementResult) =
         <div className="w-20 h-20 flex items-center justify-center rounded-full bg-app-accent-primary/15 mx-auto mb-6">
           <i className="ri-brain-line text-app-accent-primary text-3xl"></i>
         </div>
-        <h2 className="text-white font-bold text-xl mb-3">Ki?m tra tr�nh d? EPS</h2>
+        <h2 className="text-white font-bold text-xl mb-3">Kiểm tra trình độ EPS</h2>
         <p className="text-white/50 text-sm mb-2 leading-relaxed">
-          L�m 20 c�u h?i ng?n d? AI ph�n t�ch di?m m?nh/y?u v� t?o l? tr�nh h?c ph� h?p nh?t v?i b?n.
+          Làm 20 câu hỏi ngắn để AI phân tích điểm mạnh/yếu và tạo lộ trình học phù hợp nhất với bạn.
         </p>
-        <p className="text-app-text-muted text-xs mb-8">Th?i gian: ~5-10 ph�t � Kh�ng gi?i h?n th?i gian</p>
+        <p className="text-app-text-muted text-xs mb-8">Thời gian: ~5-10 phút · Không giới hạn thời gian</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
           {[
-            { icon: "ri-survey-line", label: "20 c�u h?i", color: "app-accent-primary" },
-            { icon: "ri-folder-line", label: "9 ch? d?", color: "#34d399" },
-            { icon: "ri-route-line", label: "L? tr�nh c� nh�n", color: "#a78bfa" },
+            { icon: "ri-survey-line", label: "20 câu hỏi", color: "app-accent-primary" },
+            { icon: "ri-folder-line", label: "9 chủ đề", color: "#34d399" },
+            { icon: "ri-route-line", label: "Lộ trình cá nhân", color: "#a78bfa" },
           ].map(s => (
             <div key={s.label} className="bg-app-surface/50 border border-app-border rounded-xl p-3 text-center">
               <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${s.color}15` }}>
@@ -109,7 +109,7 @@ function PlacementQuiz({ onComplete }: { onComplete: (result: PlacementResult) =
           onClick={() => setStarted(true)}
           className="px-8 py-3.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
         >
-          B?t d?u ki?m tra
+          Bắt đầu kiểm tra
         </button>
       </div>
     );
@@ -172,7 +172,7 @@ function PlacementQuiz({ onComplete }: { onComplete: (result: PlacementResult) =
   );
 }
 
-// --- Roadmap Step Card ----------------------------------------------------
+// ─── Roadmap Step Card ────────────────────────────────────────────────────
 function StepCard({
   step,
   index,
@@ -183,7 +183,7 @@ function StepCard({
   onStart: (step: RoadmapStep) => void;
 }) {
   const priorityColor = step.priority === "high" ? "#f87171" : step.priority === "medium" ? "app-accent-primary" : "#34d399";
-  const priorityLabel = step.priority === "high" ? "Uu ti�n cao" : step.priority === "medium" ? "Trung b�nh" : "B? sung";
+  const priorityLabel = step.priority === "high" ? "Ưu tiên cao" : step.priority === "medium" ? "Trung bình" : "Bổ sung";
 
   const typeIcon = step.type === "lesson" ? "ri-book-open-line" : step.type === "quiz" ? "ri-survey-line" : step.type === "review" ? "ri-refresh-line" : "ri-trophy-line";
   const typeColor = step.type === "lesson" ? "app-accent-primary" : step.type === "quiz" ? "#a78bfa" : step.type === "review" ? "#34d399" : "#fb923c";
@@ -212,7 +212,7 @@ function StepCard({
                 {priorityLabel}
               </span>
               <span className="text-[9px] text-app-text-muted flex items-center gap-0.5">
-                <i className="ri-time-line"></i>{step.estimatedMinutes} ph�t
+                <i className="ri-time-line"></i>{step.estimatedMinutes} phút
               </span>
               <span className="text-[9px] text-[#a78bfa]/70 font-bold">+{step.xpReward} XP</span>
             </div>
@@ -225,7 +225,7 @@ function StepCard({
               className="flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer whitespace-nowrap transition-all"
               style={{ backgroundColor: `${typeColor}15`, color: typeColor, border: `1px solid ${typeColor}25` }}
             >
-              B?t d?u
+              Bắt đầu
             </button>
           )}
         </div>
@@ -234,7 +234,7 @@ function StepCard({
   );
 }
 
-// --- Main Page ------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────
 export default function EpsPersonalizedRoadmapPage() {
   const [placementResult, setPlacementResult] = useLocalStorage<PlacementResult | null>("kts_eps_placement_result", null);
   const [completedLessons] = useLocalStorage<Record<number, { score: number }>>("kts_eps_lessons_progress", {});
@@ -274,8 +274,8 @@ export default function EpsPersonalizedRoadmapPage() {
           type: "lesson",
           lessonId: lesson.id,
           topicId,
-          title: `B�i ${lesson.id}: ${lesson.titleVi.replace(/^B�i\s+\d+[:\s]+/i, "")}`,
-          desc: `H?c t? v?ng v� ng? ph�p ch? d? ${topicInfo?.label || topicId} � di?m y?u c?n c?i thi?n`,
+          title: `Bài ${lesson.id}: ${lesson.titleVi.replace(/^Bài\s+\d+[:\s]+/i, "")}`,
+          desc: `Học từ vựng và ngữ pháp chủ đề ${topicInfo?.label || topicId} — điểm yếu cần cải thiện`,
           estimatedMinutes: lesson.estimatedMinutes,
           priority: "high",
           isCompleted: !!completedLessons[lesson.id],
@@ -287,8 +287,8 @@ export default function EpsPersonalizedRoadmapPage() {
         id: `p1_quiz_${topicId}`,
         type: "quiz",
         topicId,
-        title: `Ki?m tra ch? d?: ${topicInfo?.label || topicId}`,
-        desc: "L�m 10 c�u h?i d? ki?m tra m?c d? ti?n b?",
+        title: `Kiểm tra chủ đề: ${topicInfo?.label || topicId}`,
+        desc: "Làm 10 câu hỏi để kiểm tra mức độ tiến bộ",
         estimatedMinutes: 10,
         priority: "high",
         isCompleted: false,
@@ -308,8 +308,8 @@ export default function EpsPersonalizedRoadmapPage() {
           type: "lesson",
           lessonId: lesson.id,
           topicId,
-          title: `B�i ${lesson.id}: ${lesson.titleVi.replace(/^B�i\s+\d+[:\s]+/i, "")}`,
-          desc: `N�ng cao k? nang ch? d? ${topicInfo?.label || topicId}`,
+          title: `Bài ${lesson.id}: ${lesson.titleVi.replace(/^Bài\s+\d+[:\s]+/i, "")}`,
+          desc: `Nâng cao kỹ năng chủ đề ${topicInfo?.label || topicId}`,
           estimatedMinutes: lesson.estimatedMinutes,
           priority: "medium",
           isCompleted: !!completedLessons[lesson.id],
@@ -324,8 +324,8 @@ export default function EpsPersonalizedRoadmapPage() {
       {
         id: "p3_mock1",
         type: "quiz",
-        title: "Thi th? EPS (20 c�u)",
-        desc: "Ki?m tra t?ng h?p t?t c? ch? d? d� h?c",
+        title: "Thi thử EPS (20 câu)",
+        desc: "Kiểm tra tổng hợp tất cả chủ đề đã học",
         estimatedMinutes: 25,
         priority: "high",
         isCompleted: false,
@@ -335,8 +335,8 @@ export default function EpsPersonalizedRoadmapPage() {
       {
         id: "p3_review",
         type: "review",
-        title: "�n t?p c�u sai theo ch? d?",
-        desc: "Xem l?i t?t c? c�u tr? l?i sai v� h?c l?i",
+        title: "Ôn tập câu sai theo chủ đề",
+        desc: "Xem lại tất cả câu trả lời sai và học lại",
         estimatedMinutes: 20,
         priority: "medium",
         isCompleted: false,
@@ -346,8 +346,8 @@ export default function EpsPersonalizedRoadmapPage() {
       {
         id: "p3_mock2",
         type: "quiz",
-        title: "Thi th? EPS d?y d? (40 c�u)",
-        desc: "M� ph?ng d? thi th?t � 40 c�u trong 60 ph�t",
+        title: "Thi thử EPS đầy đủ (40 câu)",
+        desc: "Mô phỏng đề thi thật — 40 câu trong 60 phút",
         estimatedMinutes: 60,
         priority: "high",
         isCompleted: false,
@@ -360,8 +360,8 @@ export default function EpsPersonalizedRoadmapPage() {
     const milestone: RoadmapStep = {
       id: "milestone_final",
       type: "milestone",
-      title: "S?n s�ng thi EPS-TOPIK!",
-      desc: "Ho�n th�nh l? tr�nh � b?n d� s?n s�ng cho k? thi th?t",
+      title: "Sẵn sàng thi EPS-TOPIK!",
+      desc: "Hoàn thành lộ trình — bạn đã sẵn sàng cho kỳ thi thật",
       estimatedMinutes: 0,
       priority: "high",
       isCompleted: false,
@@ -370,9 +370,9 @@ export default function EpsPersonalizedRoadmapPage() {
     };
 
     return [
-      { phase: 1, title: "Giai do?n 1: C?ng c? n?n t?ng", color: "#f87171", steps: phase1Steps, desc: `T?p trung v�o ${weakTopics.length} ch? d? di?m y?u` },
-      { phase: 2, title: "Giai do?n 2: N�ng cao k? nang", color: "app-accent-primary", steps: phase2Steps, desc: `C?i thi?n ${mediumTopics.length} ch? d? trung b�nh` },
-      { phase: 3, title: "Giai do?n 3: Luy?n thi t?ng h?p", color: "#34d399", steps: [...phase3Steps, milestone], desc: "Thi th? v� �n t?p to�n di?n" },
+      { phase: 1, title: "Giai đoạn 1: Củng cố nền tảng", color: "#f87171", steps: phase1Steps, desc: `Tập trung vào ${weakTopics.length} chủ đề điểm yếu` },
+      { phase: 2, title: "Giai đoạn 2: Nâng cao kỹ năng", color: "app-accent-primary", steps: phase2Steps, desc: `Cải thiện ${mediumTopics.length} chủ đề trung bình` },
+      { phase: 3, title: "Giai đoạn 3: Luyện thi tổng hợp", color: "#34d399", steps: [...phase3Steps, milestone], desc: "Thi thử và ôn tập toàn diện" },
     ];
   }, [placementResult, completedLessons]);
 
@@ -383,13 +383,13 @@ export default function EpsPersonalizedRoadmapPage() {
   if (view === "placement") {
     return (
       <DashboardLayout
-        title="L? tr�nh EPS c� nh�n h�a"
-        subtitle="Ki?m tra tr�nh d? d? AI t?o l? tr�nh h?c ph� h?p nh?t v?i b?n"
+        title="Lộ trình EPS cá nhân hóa"
+        subtitle="Kiểm tra trình độ để AI tạo lộ trình học phù hợp nhất với bạn"
       >
         {placementResult && (
           <div className="mb-4">
             <button onClick={() => setView("roadmap")} className="flex items-center gap-2 text-app-text-secondary hover:text-white/70 text-sm cursor-pointer whitespace-nowrap transition-colors">
-              <i className="ri-arrow-left-line"></i>Xem l? tr�nh hi?n t?i
+              <i className="ri-arrow-left-line"></i>Xem lộ trình hiện tại
             </button>
           </div>
         )}
@@ -400,8 +400,8 @@ export default function EpsPersonalizedRoadmapPage() {
 
   return (
     <DashboardLayout
-      title="L? tr�nh EPS c� nh�n h�a"
-      subtitle="L? tr�nh h?c du?c t?o d?a tr�n k?t qu? ki?m tra tr�nh d? c?a b?n"
+      title="Lộ trình EPS cá nhân hóa"
+      subtitle="Lộ trình học được tạo dựa trên kết quả kiểm tra trình độ của bạn"
     >
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
         {/* Left: Roadmap */}
@@ -413,21 +413,21 @@ export default function EpsPersonalizedRoadmapPage() {
                 <i className="ri-brain-line text-2xl" style={{ color: LEVEL_COLORS[placementResult.level] }}></i>
               </div>
               <div className="flex-1">
-                <p className="text-app-text-secondary text-xs mb-0.5">Tr�nh d? c?a b?n</p>
+                <p className="text-app-text-secondary text-xs mb-0.5">Trình độ của bạn</p>
                 <p className="text-white font-bold text-lg" style={{ color: LEVEL_COLORS[placementResult.level] }}>
                   {LEVEL_LABELS[placementResult.level]}
                 </p>
-                <p className="text-app-text-muted text-xs">Ki?m tra l�c {new Date(placementResult.completedAt).toLocaleDateString("vi-VN")}</p>
+                <p className="text-app-text-muted text-xs">Kiểm tra lúc {new Date(placementResult.completedAt).toLocaleDateString("vi-VN")}</p>
               </div>
               <div className="text-right">
                 <p className="text-white font-bold text-2xl">{overallProgress}%</p>
-                <p className="text-app-text-muted text-xs">Ho�n th�nh</p>
+                <p className="text-app-text-muted text-xs">Hoàn thành</p>
               </div>
               <button
                 onClick={() => setView("placement")}
                 className="px-3 py-2 rounded-xl border border-app-border text-app-text-secondary text-xs hover:text-white/60 cursor-pointer whitespace-nowrap transition-colors"
               >
-                L�m l?i
+                Làm lại
               </button>
             </div>
           )}
@@ -487,7 +487,7 @@ export default function EpsPersonalizedRoadmapPage() {
           {roadmapPhases.length === 0 && (
             <div className="text-center py-12 text-app-text-muted">
               <i className="ri-route-line text-3xl mb-2 block"></i>
-              <p>L�m b�i ki?m tra d? t?o l? tr�nh</p>
+              <p>Làm bài kiểm tra để tạo lộ trình</p>
             </div>
           )}
         </div>
@@ -497,7 +497,7 @@ export default function EpsPersonalizedRoadmapPage() {
           {/* Topic scores */}
           {placementResult && (
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <p className="text-white font-semibold text-sm mb-4">�i?m theo ch? d?</p>
+              <p className="text-white font-semibold text-sm mb-4">Điểm theo chủ đề</p>
               <div className="space-y-3">
                 {Object.entries(placementResult.topicScores).map(([topicId, score]) => {
                   const topicInfo = EPS_TOPICS.find(t => t.id === topicId);
@@ -520,12 +520,12 @@ export default function EpsPersonalizedRoadmapPage() {
 
           {/* Stats */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <p className="text-white font-semibold text-sm mb-3">Ti?n d? l? tr�nh</p>
+            <p className="text-white font-semibold text-sm mb-3">Tiến độ lộ trình</p>
             <div className="space-y-2">
               {[
-                { label: "T?ng bu?c", value: totalSteps, color: "app-accent-primary" },
-                { label: "�� ho�n th�nh", value: completedSteps, color: "#34d399" },
-                { label: "C�n l?i", value: totalSteps - completedSteps, color: "#f87171" },
+                { label: "Tổng bước", value: totalSteps, color: "app-accent-primary" },
+                { label: "Đã hoàn thành", value: completedSteps, color: "#34d399" },
+                { label: "Còn lại", value: totalSteps - completedSteps, color: "#f87171" },
               ].map(s => (
                 <div key={s.label} className="flex justify-between">
                   <span className="text-app-text-secondary text-xs">{s.label}</span>
@@ -537,12 +537,12 @@ export default function EpsPersonalizedRoadmapPage() {
 
           {/* Tips */}
           <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
-            <p className="text-app-accent-primary text-xs font-semibold mb-2">M?o h?c theo l? tr�nh</p>
+            <p className="text-app-accent-primary text-xs font-semibold mb-2">Mẹo học theo lộ trình</p>
             <div className="space-y-2 text-white/35 text-[10px] leading-relaxed">
-              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Uu ti�n ho�n th�nh Giai do?n 1 tru?c</p>
-              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>H?c d?u d?n 30 ph�t/ng�y</p>
-              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>L�m l?i b�i ki?m tra sau 2 tu?n d? c?p nh?t l? tr�nh</p>
-              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>�n t?p c�u sai ngay sau m?i b�i</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Ưu tiên hoàn thành Giai đoạn 1 trước</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Học đều đặn 30 phút/ngày</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Làm lại bài kiểm tra sau 2 tuần để cập nhật lộ trình</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Ôn tập câu sai ngay sau mỗi bài</p>
             </div>
           </div>
 
@@ -550,7 +550,7 @@ export default function EpsPersonalizedRoadmapPage() {
             onClick={() => setView("placement")}
             className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-app-border text-app-text-secondary text-sm hover:bg-app-surface/50 cursor-pointer whitespace-nowrap transition-colors"
           >
-            <i className="ri-refresh-line"></i>L�m l?i b�i ki?m tra
+            <i className="ri-refresh-line"></i>Làm lại bài kiểm tra
           </button>
         </div>
       </div>

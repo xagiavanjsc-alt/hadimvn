@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+﻿import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -19,8 +19,8 @@ interface DeckOption {
 const DECK_OPTIONS: DeckOption[] = [
   {
     id: "hanja",
-    title: "H�n H�n",
-    subtitle: "H�n t? & T? g?c H�n",
+    title: "Hán Hàn",
+    subtitle: "Hán tự & Từ gốc Hán",
     icon: "ri-character-recognition-line",
     color: "app-accent-primary",
     bgColor: "rgba(232,200,74,0.08)",
@@ -28,47 +28,47 @@ const DECK_OPTIONS: DeckOption[] = [
     totalCards: 3501,
     learnedCards: 0,
     badge: "VIP",
-    description: "3.501 t? H�n H�n v?i H�n t?, ph�t �m, nghia ti?ng Vi?t. H?c theo c�y t? v?ng.",
+    description: "3.501 từ Hán Hàn với Hán tự, phát âm, nghĩa tiếng Việt. Học theo cây từ vựng.",
   },
   {
     id: "eps",
     title: "EPS-TOPIK",
-    subtitle: "Ti?ng H�n lao d?ng",
+    subtitle: "Tiếng Hàn lao động",
     icon: "ri-file-list-3-line",
     color: "#4ade80",
     bgColor: "rgba(74,222,128,0.08)",
     path: "/eps-flashcard",
     totalCards: 1200,
     learnedCards: 0,
-    description: "T? v?ng v� ng? ph�p theo 60 b�i h?c EPS. Luy?n thi ch?ng ch? lao d?ng H�n Qu?c.",
+    description: "Từ vựng và ngữ pháp theo 60 bài học EPS. Luyện thi chứng chỉ lao động Hàn Quốc.",
   },
   {
     id: "seoul",
     title: "Seoul",
-    subtitle: "Gi�o tr�nh du h?c",
+    subtitle: "Giáo trình du học",
     icon: "ri-book-3-line",
     color: "#60a5fa",
     bgColor: "rgba(96,165,250,0.08)",
     path: "/seoul-flashcard",
     totalCards: 3500,
     learnedCards: 0,
-    description: "T? v?ng gi�o tr�nh Seoul 1A d?n 4B. Ph� h?p cho h?c sinh, sinh vi�n du h?c.",
+    description: "Từ vựng giáo trình Seoul 1A đến 4B. Phù hợp cho học sinh, sinh viên du học.",
   },
   {
     id: "topik",
     title: "TOPIK",
-    subtitle: "Ch?ng ch? ti?ng H�n",
+    subtitle: "Chứng chỉ tiếng Hàn",
     icon: "ri-survey-line",
     color: "#f472b6",
     bgColor: "rgba(244,114,182,0.08)",
     path: "/topik-flashcard",
     totalCards: 2000,
     learnedCards: 0,
-    description: "T? v?ng t?n su?t cao trong d? thi TOPIK I v� II. Ph�n lo?i theo c?p d?.",
+    description: "Từ vựng tần suất cao trong đề thi TOPIK I và II. Phân loại theo cấp độ.",
   },
   {
     id: "ai-smart",
-    title: "AI Th�ng minh",
+    title: "AI Thông minh",
     subtitle: "Spaced Repetition",
     icon: "ri-robot-2-line",
     color: "#a78bfa",
@@ -77,19 +77,19 @@ const DECK_OPTIONS: DeckOption[] = [
     totalCards: 500,
     learnedCards: 0,
     badge: "AI",
-    description: "H? th?ng �n t?p th�ng minh t? d?ng ch?n t? c?n �n d?a tr�n l?ch s? h?c c?a b?n.",
+    description: "Hệ thống ôn tập thông minh tự động chọn từ cần ôn dựa trên lịch sử học của bạn.",
   },
   {
     id: "melon",
     title: "K-pop",
-    subtitle: "H?c qua �m nh?c",
+    subtitle: "Học qua âm nhạc",
     icon: "ri-music-2-line",
     color: "#fb923c",
     bgColor: "rgba(251,146,60,0.08)",
     path: "/melon-flashcard",
     totalCards: 800,
     learnedCards: 0,
-    description: "T? v?ng t? l?i b�i h�t K-pop. H?c ti?ng H�n qua �m nh?c th� v? v� d? nh?.",
+    description: "Từ vựng từ lời bài hát K-pop. Học tiếng Hàn qua âm nhạc thú vị và dễ nhớ.",
   },
 ];
 
@@ -134,7 +134,7 @@ function DeckCard({ deck, onSelect }: { deck: DeckOption; onSelect: () => void }
 
         {/* Stats */}
         <div className="flex items-center justify-between mb-2">
-          <span className="text-white/35 text-xs">{deck.totalCards.toLocaleString()} th?</span>
+          <span className="text-white/35 text-xs">{deck.totalCards.toLocaleString()} thẻ</span>
           <span className="text-xs font-semibold" style={{ color: deck.color }}>{progress}%</span>
         </div>
         <div className="h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: "rgba(255,255,255,0.06)" }}>
@@ -150,7 +150,7 @@ function DeckCard({ deck, onSelect }: { deck: DeckOption; onSelect: () => void }
           style={{ backgroundColor: deck.color + "10" }}
         >
           <span className="text-xs font-semibold" style={{ color: deck.color }}>
-            B?t d?u h?c
+            Bắt đầu học
           </span>
           <div className="w-5 h-5 flex items-center justify-center">
             <i className="ri-arrow-right-line text-sm" style={{ color: deck.color }}></i>
@@ -177,17 +177,17 @@ export default function FlashcardHubPage() {
       <div className="max-w-6xl mx-auto p-6">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-white mb-2">Flashcard Hub</h1>
-          <p className="text-white/60 text-sm">H? th?ng th? ghi nh? th?ng nh?t v?i Spaced Repetition</p>
+          <p className="text-white/60 text-sm">Hệ thống thẻ ghi nhớ thống nhất với Spaced Repetition</p>
         </div>
 
         {recentDeckData && (
           <div className="mb-6">
-            <p className="text-app-text-secondary text-xs mb-3">G?n d�y</p>
+            <p className="text-app-text-secondary text-xs mb-3">Gần đây</p>
             <DeckCard deck={recentDeckData} onSelect={() => handleNavigate(recentDeckData)} />
           </div>
         )}
 
-        <p className="text-app-text-secondary text-xs mb-3">T?t c? decks</p>
+        <p className="text-app-text-secondary text-xs mb-3">Tất cả decks</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {DECK_OPTIONS.map(deck => (
             <DeckCard key={deck.id} deck={deck} onSelect={() => handleNavigate(deck)} />

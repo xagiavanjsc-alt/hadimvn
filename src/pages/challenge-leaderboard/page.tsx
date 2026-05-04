@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -38,14 +38,14 @@ interface LeaderboardEntry {
 // Leaderboard built from real local challenge history (no mock)
 
 const PERIOD_OPTIONS = [
-  { id: "week", label: "Tu?n n�y" },
-  { id: "month", label: "Th�ng n�y" },
-  { id: "all", label: "T?t c?" },
+  { id: "week", label: "Tuần này" },
+  { id: "month", label: "Tháng này" },
+  { id: "all", label: "Tất cả" },
 ];
 
 const TOPIC_LABELS: Record<string, string> = {
-  all: "T?t c?", greeting: "Ch�o h?i", workplace: "Noi l�m vi?c",
-  safety: "An to�n", law: "Ph�p lu?t", daily: "Sinh ho?t",
+  all: "Tất cả", greeting: "Chào hỏi", workplace: "Nơi làm việc",
+  safety: "An toàn", law: "Pháp luật", daily: "Sinh hoạt",
 };
 
 function RankBadge({ rank }: { rank: number }) {
@@ -75,11 +75,11 @@ export default function ChallengeLeaderboardPage() {
 
   const leaderboard = useMemo<LeaderboardEntry[]>(() => {
     if (myStats.total === 0) return [];
-    const badge = myStats.wins >= 10 ? "Cao th?" : myStats.wins >= 5 ? "Gi?i" : myStats.wins >= 1 ? "Kh�" : "M?i b?t d?u";
+    const badge = myStats.wins >= 10 ? "Cao thủ" : myStats.wins >= 5 ? "Giỏi" : myStats.wins >= 1 ? "Khá" : "Mới bắt đầu";
     const badgeColor = myStats.wins >= 10 ? "app-accent-primary" : myStats.wins >= 5 ? "#fb923c" : myStats.wins >= 1 ? "#38bdf8" : "#64748b";
     return [{
       rank: 1,
-      name: "B?n",
+      name: "Bạn",
       avatar: "B",
       wins: myStats.wins,
       losses: myStats.losses,
@@ -101,8 +101,8 @@ export default function ChallengeLeaderboardPage() {
 
   return (
     <DashboardLayout
-      title="B?ng x?p h?ng th�ch d?u"
-      subtitle="Top ngu?i th?ng nhi?u nh?t � c?nh tranh v� leo h?ng m?i tu?n"
+      title="Bảng xếp hạng thách đấu"
+      subtitle="Top người thắng nhiều nhất — cạnh tranh và leo hạng mỗi tuần"
     >
       {/* Period selector */}
       <div className="flex items-center gap-3 mb-6">
@@ -124,7 +124,7 @@ export default function ChallengeLeaderboardPage() {
               onClick={() => setActiveTab(t)}
               className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${activeTab === t ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}
             >
-              {t === "overall" ? "T?ng h?p" : t === "topic" ? "Theo ch? d?" : "Streak"}
+              {t === "overall" ? "Tổng hợp" : t === "topic" ? "Theo chủ đề" : "Streak"}
             </button>
           ))}
         </div>
@@ -135,7 +135,7 @@ export default function ChallengeLeaderboardPage() {
         <div className="space-y-5">
           {/* Top 3 podium */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-6">
-            <p className="text-app-text-secondary text-xs font-semibold tracking-normal mb-5">Top 3 tu?n n�y</p>
+            <p className="text-app-text-secondary text-xs font-semibold tracking-normal mb-5">Top 3 tuần này</p>
             <div className="flex items-end justify-center gap-4">
               {/* 2nd */}
               {top3[1] && (
@@ -182,12 +182,12 @@ export default function ChallengeLeaderboardPage() {
           {/* Full leaderboard */}
           <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden">
             <div className="px-5 py-3 border-b border-app-border flex items-center gap-4 text-[10px] text-app-text-muted font-semibold tracking-normal">
-              <span className="w-8">H?ng</span>
-              <span className="flex-1">Ngu?i choi</span>
-              <span className="w-12 text-center">Th?ng</span>
+              <span className="w-8">Hạng</span>
+              <span className="flex-1">Người chơi</span>
+              <span className="w-12 text-center">Thắng</span>
               <span className="w-12 text-center">Thua</span>
-              <span className="w-16 text-center">T? l?</span>
-              <span className="w-16 text-center">TB di?m</span>
+              <span className="w-16 text-center">Tỷ lệ</span>
+              <span className="w-16 text-center">TB điểm</span>
               <span className="w-16 text-center">XP</span>
             </div>
             <div className="divide-y divide-white/3">
@@ -206,7 +206,7 @@ export default function ChallengeLeaderboardPage() {
                     <div className="min-w-0">
                       <p className={`text-sm font-semibold truncate ${entry.isMe ? "text-app-accent-primary" : "text-white/70"}`}>
                         {entry.name}
-                        {entry.isMe && <span className="ml-1.5 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary">B?n</span>}
+                        {entry.isMe && <span className="ml-1.5 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary">Bạn</span>}
                       </p>
                       <div className="flex items-center gap-1.5 mt-0.5">
                         <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ backgroundColor: `${entry.badgeColor}15`, color: entry.badgeColor }}>
@@ -239,19 +239,19 @@ export default function ChallengeLeaderboardPage() {
         <div className="space-y-4">
           {/* My stats */}
           <div className="bg-app-bg border border-app-accent-primary/15 rounded-2xl p-5">
-            <p className="text-white font-semibold text-sm mb-4">Th?ng k� c?a b?n</p>
+            <p className="text-white font-semibold text-sm mb-4">Thống kê của bạn</p>
             {myEntry && (
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-app-text-secondary text-xs">H?ng hi?n t?i</span>
+                  <span className="text-app-text-secondary text-xs">Hạng hiện tại</span>
                   <span className="text-app-accent-primary font-bold text-lg">#{myEntry.rank}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-app-text-secondary text-xs">T?ng tr?n</span>
+                  <span className="text-app-text-secondary text-xs">Tổng trận</span>
                   <span className="text-white font-bold">{myEntry.totalGames}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-app-text-secondary text-xs">Th?ng / Thua / H�a</span>
+                  <span className="text-app-text-secondary text-xs">Thắng / Thua / Hòa</span>
                   <span className="text-sm font-bold">
                     <span className="text-app-accent-success">{myEntry.wins}</span>
                     <span className="text-app-text-muted mx-1">/</span>
@@ -261,38 +261,38 @@ export default function ChallengeLeaderboardPage() {
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-app-text-secondary text-xs">T? l? th?ng</span>
+                  <span className="text-app-text-secondary text-xs">Tỷ lệ thắng</span>
                   <span className={`font-bold ${myEntry.winRate >= 60 ? "text-app-accent-success" : myEntry.winRate >= 40 ? "text-app-accent-primary" : "text-red-400"}`}>
                     {myEntry.winRate}%
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-app-text-secondary text-xs">XP t? th�ch d?u</span>
+                  <span className="text-app-text-secondary text-xs">XP từ thách đấu</span>
                   <span className="text-[#a78bfa] font-bold">+{myEntry.xpEarned}</span>
                 </div>
               </div>
             )}
             <div className="mt-4 pt-4 border-t border-app-border">
               <a href="/friend-challenge" className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
-                <i className="ri-sword-line"></i>T?o th�ch d?u m?i
+                <i className="ri-sword-line"></i>Tạo thách đấu mới
               </a>
             </div>
           </div>
 
           {/* Season info */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <p className="text-white font-semibold text-sm mb-3">M�a gi?i hi?n t?i</p>
+            <p className="text-white font-semibold text-sm mb-3">Mùa giải hiện tại</p>
             <div className="space-y-2 text-xs">
               <div className="flex justify-between">
-                <span className="text-app-text-secondary">M�a</span>
-                <span className="text-white font-bold">M�a 1 � Th�ng 4/2026</span>
+                <span className="text-app-text-secondary">Mùa</span>
+                <span className="text-white font-bold">Mùa 1 · Tháng 4/2026</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-app-text-secondary">K?t th�c</span>
+                <span className="text-app-text-secondary">Kết thúc</span>
                 <span className="text-app-accent-primary font-bold">30/04/2026</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-app-text-secondary">Ph?n thu?ng Top 3</span>
+                <span className="text-app-text-secondary">Phần thưởng Top 3</span>
                 <span className="text-[#a78bfa] font-bold">+500 XP</span>
               </div>
             </div>
@@ -300,13 +300,13 @@ export default function ChallengeLeaderboardPage() {
 
           {/* Rules */}
           <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
-            <p className="text-app-accent-primary text-xs font-semibold mb-2">C�ch t�nh di?m</p>
+            <p className="text-app-accent-primary text-xs font-semibold mb-2">Cách tính điểm</p>
             <div className="space-y-1.5 text-[10px] text-white/35 leading-relaxed">
-              <p><i className="ri-trophy-line text-app-accent-primary mr-1"></i>Th?ng: +3 di?m x?p h?ng</p>
-              <p><i className="ri-scales-3-line text-app-text-muted mr-1"></i>H�a: +1 di?m x?p h?ng</p>
-              <p><i className="ri-close-line text-red-400/50 mr-1"></i>Thua: 0 di?m</p>
-              <p><i className="ri-time-line text-app-text-muted mr-1"></i>Th?ng nhanh hon: +1 di?m bonus</p>
-              <p><i className="ri-fire-line text-[#fb923c] mr-1"></i>Streak 5 tr?n: +5 di?m bonus</p>
+              <p><i className="ri-trophy-line text-app-accent-primary mr-1"></i>Thắng: +3 điểm xếp hạng</p>
+              <p><i className="ri-scales-3-line text-app-text-muted mr-1"></i>Hòa: +1 điểm xếp hạng</p>
+              <p><i className="ri-close-line text-red-400/50 mr-1"></i>Thua: 0 điểm</p>
+              <p><i className="ri-time-line text-app-text-muted mr-1"></i>Thắng nhanh hơn: +1 điểm bonus</p>
+              <p><i className="ri-fire-line text-[#fb923c] mr-1"></i>Streak 5 trận: +5 điểm bonus</p>
             </div>
           </div>
         </div>

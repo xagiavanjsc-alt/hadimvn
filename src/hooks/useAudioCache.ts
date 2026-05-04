@@ -57,9 +57,9 @@ export function koreanToRomanization(korean: string): string {
 
 /**
  * Tạo URL âm thanh từ VPS dùng phiên âm latinh làm tên file
- * Ví dụ: 안전모 → https://audio.hanquocoi.vn/tts/anjeonmo.mp3
+ * Ví dụ: 안전모 → https://audio.hadim.vn/tts/anjeonmo.mp3
  */
-export function getAudioUrl(korean: string, baseUrl = "https://audio.hanquocoi.vn/tts"): string {
+export function getAudioUrl(korean: string, baseUrl = "https://audio.hadim.vn/tts"): string {
   const romanized = koreanToRomanization(korean.trim());
   return `${baseUrl}/${romanized}.mp3`;
 }
@@ -134,13 +134,13 @@ export async function deleteCachedAudio(url: string): Promise<void> {
 // ─── Upload to VPS helper ─────────────────────────────────────────────────────
 /**
  * Upload file âm thanh lên VPS qua API endpoint
- * VPS cần có endpoint: POST https://audio.hanquocoi.vn/upload
+ * VPS cần có endpoint: POST https://audio.hadim.vn/upload
  * Body: FormData { file: Blob, filename: string }
  */
 export async function uploadAudioToVPS(
   blob: Blob,
   filename: string,
-  uploadEndpoint = "https://audio.hanquocoi.vn/upload"
+  uploadEndpoint = "https://audio.hadim.vn/upload"
 ): Promise<boolean> {
   try {
     const formData = new FormData();
@@ -175,7 +175,7 @@ export function useAudioCache() {
     }
   ) => {
     const {
-      vpsBaseUrl = "https://audio.hanquocoi.vn/tts",
+      vpsBaseUrl = "https://audio.hadim.vn/tts",
       uploadEndpoint,
       googleTTS = true,
       rate = 0.8,

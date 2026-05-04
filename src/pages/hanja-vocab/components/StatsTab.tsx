@@ -1,7 +1,7 @@
-import { useMemo } from "react";
+﻿import { useMemo } from "react";
 import { HANJA_DATA } from "@/mocks/hanjaData";
 
-const ALPHABET_GROUPS = ["?","?","?","?","?","?","?","?","?","?","?","?","?","?"];
+const ALPHABET_GROUPS = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
 const SR_KEY = "hanja_sr_data";
 
 interface SRCard {
@@ -17,7 +17,7 @@ function getInitial(char: string): string {
   const code = char.charCodeAt(0) - 0xAC00;
   if (code < 0 || code > 11171) return char[0];
   const idx = Math.floor(code / 588);
-  const initials = ["?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?"];
+  const initials = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
   return initials[idx] || char[0];
 }
 
@@ -68,24 +68,24 @@ export default function StatsTab() {
     <div className="max-w-3xl mx-auto">
       {/* Overall summary */}
       <div className="bg-white border border-gray-100 rounded-2xl p-6 mb-6">
-        <h2 className="text-base font-bold text-gray-800 mb-4">T?ng quan ti?n d?</h2>
+        <h2 className="text-base font-bold text-gray-800 mb-4">Tổng quan tiến độ</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
           <div className="text-center bg-gray-50 rounded-xl p-4">
             <p className="text-2xl font-bold text-gray-500">{overall.new}</p>
-            <p className="text-xs text-gray-400 mt-1">Chua h?c</p>
+            <p className="text-xs text-gray-400 mt-1">Chưa học</p>
           </div>
           <div className="text-center bg-amber-50 rounded-xl p-4">
             <p className="text-2xl font-bold text-amber-600">{overall.learning}</p>
-            <p className="text-xs text-gray-400 mt-1">�ang h?c</p>
+            <p className="text-xs text-gray-400 mt-1">Đang học</p>
           </div>
           <div className="text-center bg-green-50 rounded-xl p-4">
             <p className="text-2xl font-bold text-green-600">{overall.mastered}</p>
-            <p className="text-xs text-gray-400 mt-1">�� thu?c</p>
+            <p className="text-xs text-gray-400 mt-1">Đã thuộc</p>
           </div>
         </div>
         <div className="mb-2 flex justify-between text-xs text-gray-500">
-          <span>Ti?n d? t?ng th?</span>
-          <span className="font-semibold text-green-600">{overallPct}% d� thu?c ({overall.mastered}/{overall.total})</span>
+          <span>Tiến độ tổng thể</span>
+          <span className="font-semibold text-green-600">{overallPct}% đã thuộc ({overall.mastered}/{overall.total})</span>
         </div>
         <div className="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
           <div className="h-3 rounded-full flex">
@@ -94,17 +94,17 @@ export default function StatsTab() {
           </div>
         </div>
         <div className="flex gap-4 mt-2 text-xs text-gray-400">
-          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-green-400 inline-block"></span>�� thu?c</span>
-          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-300 inline-block"></span>�ang h?c</span>
-          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-gray-200 inline-block"></span>Chua h?c</span>
+          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-green-400 inline-block"></span>Đã thuộc</span>
+          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-300 inline-block"></span>Đang học</span>
+          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-gray-200 inline-block"></span>Chưa học</span>
         </div>
       </div>
 
       {/* Per-group breakdown */}
       <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden">
         <div className="px-5 py-4 border-b border-gray-100">
-          <h2 className="text-base font-bold text-gray-800">Ti?n d? theo nh�m ch? c�i</h2>
-          <p className="text-xs text-gray-400 mt-0.5">Nh?n v�o nh�m d? xem chi ti?t</p>
+          <h2 className="text-base font-bold text-gray-800">Tiến độ theo nhóm chữ cái</h2>
+          <p className="text-xs text-gray-400 mt-0.5">Nhấn vào nhóm để xem chi tiết</p>
         </div>
         <div className="divide-y divide-gray-50">
           {groupStats.map(g => (
@@ -118,11 +118,11 @@ export default function StatsTab() {
                 {/* Stats */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-sm font-semibold text-gray-700">{g.total} t?</span>
+                    <span className="text-sm font-semibold text-gray-700">{g.total} từ</span>
                     <div className="flex items-center gap-3 text-xs">
-                      <span className="text-gray-400">{g.new} m?i</span>
-                      <span className="text-amber-500">{g.learning} h?c</span>
-                      <span className="text-green-600 font-semibold">{g.mastered} thu?c</span>
+                      <span className="text-gray-400">{g.new} mới</span>
+                      <span className="text-amber-500">{g.learning} học</span>
+                      <span className="text-green-600 font-semibold">{g.mastered} thuộc</span>
                     </div>
                   </div>
                   {/* Progress bar */}
@@ -139,7 +139,7 @@ export default function StatsTab() {
                   <span className={`text-sm font-bold ${g.masteredPct >= 80 ? "text-green-600" : g.masteredPct >= 40 ? "text-amber-500" : "text-gray-400"}`}>
                     {g.masteredPct}%
                   </span>
-                  <p className="text-xs text-gray-400">thu?c</p>
+                  <p className="text-xs text-gray-400">thuộc</p>
                 </div>
               </div>
             </div>
@@ -150,7 +150,7 @@ export default function StatsTab() {
       {/* Tip */}
       <div className="mt-4 bg-rose-50 rounded-xl p-4 text-xs text-rose-600">
         <i className="ri-lightbulb-line mr-1"></i>
-        M?o: D�ng tab <strong>Quick Review</strong> d? �n nhanh t?ng nh�m, ho?c <strong>Spaced Rep</strong> d? �n th�ng minh theo thu?t to�n SM-2.
+        Mẹo: Dùng tab <strong>Quick Review</strong> để ôn nhanh từng nhóm, hoặc <strong>Spaced Rep</strong> để ôn thông minh theo thuật toán SM-2.
       </div>
     </div>
   );

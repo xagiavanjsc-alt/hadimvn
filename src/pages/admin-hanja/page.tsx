@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useMemo } from "react";
+﻿import { useState, useRef, useCallback, useMemo } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { supabase } from "@/lib/supabase";
@@ -18,9 +18,9 @@ interface HanjaEntry {
 }
 
 const DIFF_COLORS = {
-  easy: { bg: "rgba(74,222,128,0.12)", text: "#4ade80", label: "D?" },
+  easy: { bg: "rgba(74,222,128,0.12)", text: "#4ade80", label: "Dễ" },
   medium: { bg: "rgba(232,200,74,0.12)", text: "app-accent-primary", label: "TB" },
-  hard: { bg: "rgba(248,113,113,0.12)", text: "#f87171", label: "Kh�" },
+  hard: { bg: "rgba(248,113,113,0.12)", text: "#f87171", label: "Khó" },
 };
 
 function parseCSV(text: string): HanjaEntry[] {
@@ -32,15 +32,15 @@ function parseCSV(text: string): HanjaEntry[] {
     const obj: Record<string, string> = {};
     headers.forEach((h, i) => { obj[h] = values[i] || ""; });
     return {
-      korean: obj.korean || obj.word || obj["t?"] || "",
-      hanja: obj.hanja || obj["h�n t?"] || "",
-      vietnamese: obj.vietnamese || obj.meaning || obj["nghia"] || "",
-      pronunciation: obj.pronunciation || obj["ph�t �m"] || "",
-      difficulty: (obj.difficulty || obj["d? kh�"] || "medium") as HanjaEntry["difficulty"],
-      category: obj.category || obj["lo?i t?"] || "",
-      example: obj.example || obj["v� d?"] || "",
-      example_meaning: obj.example_meaning || obj["nghia v� d?"] || "",
-      root_char: obj.root_char || obj["g?c"] || "",
+      korean: obj.korean || obj.word || obj["từ"] || "",
+      hanja: obj.hanja || obj["hán tự"] || "",
+      vietnamese: obj.vietnamese || obj.meaning || obj["nghĩa"] || "",
+      pronunciation: obj.pronunciation || obj["phát âm"] || "",
+      difficulty: (obj.difficulty || obj["độ khó"] || "medium") as HanjaEntry["difficulty"],
+      category: obj.category || obj["loại từ"] || "",
+      example: obj.example || obj["ví dụ"] || "",
+      example_meaning: obj.example_meaning || obj["nghĩa ví dụ"] || "",
+      root_char: obj.root_char || obj["gốc"] || "",
     };
   }).filter(e => e.korean && e.vietnamese);
 }
@@ -73,7 +73,7 @@ function EntryEditor({ entry, onSave, onCancel }: {
       <div className="w-full max-w-lg rounded-2xl border overflow-hidden" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border2)" }}>
         <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: "var(--admin-border)" }}>
           <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>
-            {form.id ? "Ch?nh s?a t?" : "Th�m t? m?i"}
+            {form.id ? "Chỉnh sửa từ" : "Thêm từ mới"}
           </p>
           <button onClick={onCancel} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ color: "var(--admin-text-muted)" }}>
             <i className="ri-close-line"></i>
@@ -82,27 +82,27 @@ function EntryEditor({ entry, onSave, onCancel }: {
         <div className="p-5 space-y-3 max-h-[70vh] overflow-y-auto">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Ti?ng H�n *</label>
+              <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Tiếng Hàn *</label>
               <input value={form.korean || ""} onChange={e => setForm(f => ({ ...f, korean: e.target.value }))}
-                placeholder="?: ??" className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
+                placeholder="예: 학교" className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
             </div>
             <div>
-              <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>H�n t?</label>
+              <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Hán tự</label>
               <input value={form.hanja || ""} onChange={e => setForm(f => ({ ...f, hanja: e.target.value }))}
-                placeholder="?: ??" className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
+                placeholder="예: 學校" className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Nghia ti?ng Vi?t *</label>
+              <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Nghĩa tiếng Việt *</label>
               <input value={form.vietnamese || ""} onChange={e => setForm(f => ({ ...f, vietnamese: e.target.value }))}
-                placeholder="Tru?ng h?c" className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
+                placeholder="Trường học" className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
             </div>
             <div>
-              <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Ph�t �m</label>
+              <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Phát âm</label>
               <input value={form.pronunciation || ""} onChange={e => setForm(f => ({ ...f, pronunciation: e.target.value }))}
                 placeholder="hak-gyo" className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
@@ -110,47 +110,47 @@ function EntryEditor({ entry, onSave, onCancel }: {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>�? kh�</label>
+              <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Độ khó</label>
               <select value={form.difficulty} onChange={e => setForm(f => ({ ...f, difficulty: e.target.value as HanjaEntry["difficulty"] }))}
                 className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }}>
-                <option value="easy">D?</option>
-                <option value="medium">Trung b�nh</option>
-                <option value="hard">Kh�</option>
+                <option value="easy">Dễ</option>
+                <option value="medium">Trung bình</option>
+                <option value="hard">Khó</option>
               </select>
             </div>
             <div>
-              <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Lo?i t?</label>
+              <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Loại từ</label>
               <input value={form.category || ""} onChange={e => setForm(f => ({ ...f, category: e.target.value }))}
-                placeholder="Danh t?, �?ng t?..." className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
+                placeholder="Danh từ, Động từ..." className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
             </div>
           </div>
           <div>
-            <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>V� d?</label>
+            <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Ví dụ</label>
             <input value={form.example || ""} onChange={e => setForm(f => ({ ...f, example: e.target.value }))}
-              placeholder="??? ??." className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
+              placeholder="학교에 가요." className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
           </div>
           <div>
-            <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Nghia v� d?</label>
+            <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Nghĩa ví dụ</label>
             <input value={form.example_meaning || ""} onChange={e => setForm(f => ({ ...f, example_meaning: e.target.value }))}
-              placeholder="T�i di h?c." className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
+              placeholder="Tôi đi học." className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
           </div>
           <div>
-            <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>G?c H�n (root_char)</label>
+            <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Gốc Hán (root_char)</label>
             <input value={form.root_char || ""} onChange={e => setForm(f => ({ ...f, root_char: e.target.value }))}
-              placeholder="?" className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
+              placeholder="學" className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
           </div>
         </div>
         <div className="flex gap-3 px-5 py-4 border-t" style={{ borderColor: "var(--admin-border)" }}>
           <button onClick={onCancel} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap"
-            style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>H?y</button>
+            style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>Hủy</button>
           <button onClick={handleSave} disabled={!form.korean?.trim() || !form.vietnamese?.trim()}
             className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
-            Luu t?
+            Lưu từ
           </button>
         </div>
       </div>
@@ -230,9 +230,9 @@ export default function AdminHanjaPage() {
       }));
       const { error } = await supabase.from("hanja_vocab_entries").upsert(rows, { onConflict: "korean" });
       if (error) throw error;
-      setSyncResult(`? �� d?ng b? ${rows.length} t? l�n Supabase`);
+      setSyncResult(`✓ Đã đồng bộ ${rows.length} từ lên Supabase`);
     } catch (err) {
-      setSyncResult(`? L?i: ${err instanceof Error ? err.message : "Kh�ng th? k?t n?i"}`);
+      setSyncResult(`✗ Lỗi: ${err instanceof Error ? err.message : "Không thể kết nối"}`);
     } finally {
       setSyncing(false);
       setTimeout(() => setSyncResult(null), 5000);
@@ -261,33 +261,33 @@ export default function AdminHanjaPage() {
 
   return (
     <AdminLayout
-      title="Qu?n l� H�n H�n"
-      subtitle="Th�m, s?a, x�a v� import t? v?ng H�n H�n"
+      title="Quản lý Hán Hàn"
+      subtitle="Thêm, sửa, xóa và import từ vựng Hán Hàn"
       actions={
         <div className="flex items-center gap-2">
           <button onClick={() => fileRef.current?.click()} disabled={importing}
             className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
             style={{ backgroundColor: "rgba(74,222,128,0.15)", color: "#4ade80", border: "1px solid rgba(74,222,128,0.25)" }}>
             <i className="ri-upload-cloud-2-line"></i>
-            {importing ? "�ang import..." : "Import CSV"}
+            {importing ? "Đang import..." : "Import CSV"}
           </button>
           <input ref={fileRef} type="file" accept=".csv,.txt" className="hidden" onChange={handleImportCSV} />
           <button onClick={handleExportCSV} disabled={entries.length === 0}
             className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
             style={{ backgroundColor: "rgba(96,165,250,0.15)", color: "#60a5fa", border: "1px solid rgba(96,165,250,0.25)" }}>
             <i className="ri-download-line"></i>
-            Xu?t CSV
+            Xuất CSV
           </button>
           <button onClick={handleSyncToSupabase} disabled={syncing || entries.length === 0}
             className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
             style={{ backgroundColor: "rgba(167,139,250,0.15)", color: "#a78bfa", border: "1px solid rgba(167,139,250,0.25)" }}>
             <i className={`${syncing ? "ri-loader-4-line animate-spin" : "ri-cloud-line"}`}></i>
-            {syncing ? "�ang sync..." : "Sync Supabase"}
+            {syncing ? "Đang sync..." : "Sync Supabase"}
           </button>
           <button onClick={() => setEditingEntry({})}
             className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-lg bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg cursor-pointer whitespace-nowrap transition-colors">
             <i className="ri-add-line"></i>
-            Th�m t?
+            Thêm từ
           </button>
         </div>
       }
@@ -296,22 +296,22 @@ export default function AdminHanjaPage() {
       {importResult && (
         <div className="mb-4 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-2">
           <i className="ri-checkbox-circle-line text-app-accent-success"></i>
-          <p className="text-app-accent-success text-sm">Import th�nh c�ng: +{importResult.added} t? m?i, b? qua {importResult.skipped} t? tr�ng</p>
+          <p className="text-app-accent-success text-sm">Import thành công: +{importResult.added} từ mới, bỏ qua {importResult.skipped} từ trùng</p>
         </div>
       )}
       {syncResult && (
-        <div className={`mb-4 p-3 rounded-xl flex items-center gap-2 ${syncResult.startsWith("?") ? "bg-emerald-500/10 border border-emerald-500/20" : "bg-rose-500/10 border border-rose-500/20"}`}>
-          <p className={`text-sm ${syncResult.startsWith("?") ? "text-app-accent-success" : "text-rose-400"}`}>{syncResult}</p>
+        <div className={`mb-4 p-3 rounded-xl flex items-center gap-2 ${syncResult.startsWith("✓") ? "bg-emerald-500/10 border border-emerald-500/20" : "bg-rose-500/10 border border-rose-500/20"}`}>
+          <p className={`text-sm ${syncResult.startsWith("✓") ? "text-app-accent-success" : "text-rose-400"}`}>{syncResult}</p>
         </div>
       )}
 
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "T?ng t?", value: stats.total, color: "app-accent-primary", icon: "ri-character-recognition-line" },
-          { label: "D?", value: stats.easy, color: "#4ade80", icon: "ri-seedling-line" },
-          { label: "Trung b�nh", value: stats.medium, color: "app-accent-primary", icon: "ri-star-line" },
-          { label: "Kh�", value: stats.hard, color: "#f87171", icon: "ri-fire-line" },
+          { label: "Tổng từ", value: stats.total, color: "app-accent-primary", icon: "ri-character-recognition-line" },
+          { label: "Dễ", value: stats.easy, color: "#4ade80", icon: "ri-seedling-line" },
+          { label: "Trung bình", value: stats.medium, color: "app-accent-primary", icon: "ri-star-line" },
+          { label: "Khó", value: stats.hard, color: "#f87171", icon: "ri-fire-line" },
         ].map(s => (
           <div key={s.label} className="rounded-xl border p-4" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
             <div className="w-8 h-8 flex items-center justify-center rounded-lg mb-2" style={{ backgroundColor: `${s.color}15` }}>
@@ -327,13 +327,13 @@ export default function AdminHanjaPage() {
       <div className="mb-5 p-4 rounded-xl border" style={{ backgroundColor: "var(--admin-card2)", borderColor: "var(--admin-border)" }}>
         <div className="flex items-center gap-2 mb-2">
           <i className="ri-information-line text-app-accent-primary text-sm"></i>
-          <p className="text-xs font-semibold" style={{ color: "var(--admin-text)" }}>�?nh d?ng CSV import</p>
+          <p className="text-xs font-semibold" style={{ color: "var(--admin-text)" }}>Định dạng CSV import</p>
         </div>
         <p className="text-[10px] font-mono" style={{ color: "var(--admin-text-muted)" }}>
           korean,hanja,vietnamese,pronunciation,difficulty,category,example,example_meaning,root_char
         </p>
         <p className="text-[10px] mt-1" style={{ color: "var(--admin-text-faint)" }}>
-          C?t b?t bu?c: korean, vietnamese. C�c c?t kh�c t�y ch?n. Encoding: UTF-8.
+          Cột bắt buộc: korean, vietnamese. Các cột khác tùy chọn. Encoding: UTF-8.
         </p>
       </div>
 
@@ -345,7 +345,7 @@ export default function AdminHanjaPage() {
             type="text"
             value={search}
             onChange={e => setSearch(e.target.value)}
-            placeholder="T�m t? ti?ng H�n, nghia, H�n t?..."
+            placeholder="Tìm từ tiếng Hàn, nghĩa, Hán tự..."
             className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm outline-none border"
             style={{ backgroundColor: "var(--admin-card)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }}
           />
@@ -358,7 +358,7 @@ export default function AdminHanjaPage() {
                 backgroundColor: filterDiff === d ? (d === "all" ? "rgba(232,200,74,0.15)" : DIFF_COLORS[d as keyof typeof DIFF_COLORS]?.bg || "rgba(232,200,74,0.15)") : "transparent",
                 color: filterDiff === d ? (d === "all" ? "app-accent-primary" : DIFF_COLORS[d as keyof typeof DIFF_COLORS]?.text || "app-accent-primary") : "var(--admin-text-muted)",
               }}>
-              {d === "all" ? "T?t c?" : DIFF_COLORS[d as keyof typeof DIFF_COLORS]?.label}
+              {d === "all" ? "Tất cả" : DIFF_COLORS[d as keyof typeof DIFF_COLORS]?.label}
             </button>
           ))}
         </div>
@@ -368,7 +368,7 @@ export default function AdminHanjaPage() {
       <div className="rounded-2xl border overflow-hidden" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
         <div className="flex items-center justify-between px-5 py-3 border-b" style={{ borderColor: "var(--admin-border)" }}>
           <p className="text-sm font-semibold" style={{ color: "var(--admin-text)" }}>
-            {filtered.length} t? {search || filterDiff !== "all" ? `(l?c t? ${entries.length})` : ""}
+            {filtered.length} từ {search || filterDiff !== "all" ? `(lọc từ ${entries.length})` : ""}
           </p>
         </div>
 
@@ -376,7 +376,7 @@ export default function AdminHanjaPage() {
           <div className="flex flex-col items-center justify-center py-16 text-center">
             <i className="ri-character-recognition-line text-4xl mb-3" style={{ color: "var(--admin-text-faint)" }}></i>
             <p className="text-sm mb-1" style={{ color: "var(--admin-text-muted)" }}>
-              {entries.length === 0 ? "Chua c� t? n�o" : "Kh�ng t�m th?y k?t qu?"}
+              {entries.length === 0 ? "Chưa có từ nào" : "Không tìm thấy kết quả"}
             </p>
             {entries.length === 0 && (
               <div className="flex gap-3 mt-4">
@@ -387,7 +387,7 @@ export default function AdminHanjaPage() {
                 </button>
                 <button onClick={() => setEditingEntry({})}
                   className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm cursor-pointer whitespace-nowrap bg-app-accent-primary text-app-bg font-bold">
-                  <i className="ri-add-line"></i>Th�m t? d?u ti�n
+                  <i className="ri-add-line"></i>Thêm từ đầu tiên
                 </button>
               </div>
             )}
@@ -433,7 +433,7 @@ export default function AdminHanjaPage() {
             })}
             {filtered.length > 100 && (
               <div className="px-5 py-3 text-center text-xs" style={{ color: "var(--admin-text-faint)" }}>
-                Hi?n th? 100/{filtered.length} t?. D�ng t�m ki?m d? l?c.
+                Hiển thị 100/{filtered.length} từ. Dùng tìm kiếm để lọc.
               </div>
             )}
           </div>
@@ -451,13 +451,13 @@ export default function AdminHanjaPage() {
               <i className="ri-delete-bin-line text-rose-400 text-xl"></i>
             </div>
             <p className="text-center font-bold text-sm mb-1" style={{ color: "var(--admin-text)" }}>
-              X�a t? &quot;{entries[deleteConfirm]?.korean}&quot;?
+              Xóa từ &quot;{entries[deleteConfirm]?.korean}&quot;?
             </p>
-            <p className="text-center text-xs mb-5" style={{ color: "var(--admin-text-muted)" }}>H�nh d?ng n�y kh�ng th? ho�n t�c</p>
+            <p className="text-center text-xs mb-5" style={{ color: "var(--admin-text-muted)" }}>Hành động này không thể hoàn tác</p>
             <div className="flex gap-3">
               <button onClick={() => setDeleteConfirm(null)} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap"
-                style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>H?y</button>
-              <button onClick={() => handleDelete(deleteConfirm)} className="flex-1 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 text-white font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">X�a</button>
+                style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>Hủy</button>
+              <button onClick={() => handleDelete(deleteConfirm)} className="flex-1 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 text-white font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">Xóa</button>
             </div>
           </div>
         </div>

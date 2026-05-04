@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -7,7 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import { epsVocabulary } from "@/mocks/epsVocabulary";
 
-// --- Types --------------------------------------------------------------------
+// ─── Types ────────────────────────────────────────────────────────────────────
 interface FeedItem {
   id: string;
   type: "progress" | "suggestion" | "community" | "achievement" | "streak" | "challenge";
@@ -21,19 +21,19 @@ interface FeedItem {
   xp?: number;
 }
 
-// --- Helpers ------------------------------------------------------------------
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 function getGreeting() {
   const h = new Date().getHours();
-  if (h < 12) return "Ch�o bu?i s�ng";
-  if (h < 18) return "Ch�o bu?i chi?u";
-  return "Ch�o bu?i t?i";
+  if (h < 12) return "Chào buổi sáng";
+  if (h < 18) return "Chào buổi chiều";
+  return "Chào buổi tối";
 }
 
 function getDayOfWeek() {
-  return ["Ch? nh?t", "Th? hai", "Th? ba", "Th? tu", "Th? nam", "Th? s�u", "Th? b?y"][new Date().getDay()];
+  return ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"][new Date().getDay()];
 }
 
-// --- Feed Card ----------------------------------------------------------------
+// ─── Feed Card ────────────────────────────────────────────────────────────────
 interface FeedCardProps {
   item: FeedItem;
   onDismiss?: (id: string) => void;
@@ -79,7 +79,7 @@ function FeedCard({ item, onDismiss }: FeedCardProps) {
   );
 }
 
-// --- Daily Progress Ring ------------------------------------------------------
+// ─── Daily Progress Ring ──────────────────────────────────────────────────────
 function DailyProgressRing({ value, max, label, color }: { value: number; max: number; label: string; color: string }) {
   const pct = Math.min(100, Math.round((value / max) * 100));
   const r = 28;
@@ -103,7 +103,7 @@ function DailyProgressRing({ value, max, label, color }: { value: number; max: n
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function StudyFeedPage() {
   const navigate = useNavigate();
   const { user, profile } = useAuth();
@@ -115,7 +115,7 @@ export default function StudyFeedPage() {
   const [dismissedIds, setDismissedIds] = useLocalStorage<string[]>("kts_feed_dismissed", []);
   const [filterType, setFilterType] = useState<string>("all");
 
-  const displayName = profile?.display_name || user?.email?.split("@")[0] || "H?c vi�n";
+  const displayName = profile?.display_name || user?.email?.split("@")[0] || "Học viên";
 
   // Daily stats
   const today = new Date().toISOString().split("T")[0];
@@ -129,12 +129,12 @@ export default function StudyFeedPage() {
   // Suggested next lessons based on progress
   const suggestions = useMemo(() => {
     const items: { title: string; desc: string; path: string; icon: string; color: string; reason: string }[] = [];
-    if (epsDone < 50) items.push({ title: "Luy?n thi EPS theo ch? d?", desc: "B?n chua l�m nhi?u c�u EPS. B?t d?u v?i ch? d? An to�n lao d?ng!", path: "/eps-topic-drill", icon: "ri-focus-3-line", color: "#34d399", reason: `M?i l�m ${epsDone} c�u` });
-    if (vocabMastered < 30) items.push({ title: "Flashcard EPS theo ch? d?", desc: "H?c t? v?ng theo ch? d? Y t? v� Giao th�ng � quan tr?ng cho k? thi!", path: "/eps-vocab-flashcard", icon: "ri-stack-line", color: "app-accent-primary", reason: `M?i thu?c ${vocabMastered} t?` });
-    if (streak.count < 7) items.push({ title: "Duy tr� streak h�ng ng�y", desc: `Streak hi?n t?i: ${streak.count} ng�y. H?c th�m h�m nay d? gi? streak!`, path: "/daily-review", icon: "ri-fire-line", color: "#fb923c", reason: "Streak chua d? 7 ng�y" });
-    if (epsAccuracy < 70 && epsDone > 10) items.push({ title: "�n l?i c�u sai EPS", desc: `�? ch�nh x�c ${epsAccuracy}% � c?n �n l?i c�c c�u sai d? c?i thi?n!`, path: "/study-history", icon: "ri-refresh-line", color: "#f472b6", reason: `�? ch�nh x�c ${epsAccuracy}%` });
-    if (flashcardKnown < 20) items.push({ title: "Flashcard t? v?ng t?ng h?p", desc: "H?c t? v?ng qua flashcard � c�ch nhanh nh?t d? m? r?ng v?n t?!", path: "/flashcard", icon: "ri-translate-2", color: "#a78bfa", reason: "Chua h?c nhi?u t? v?ng" });
-    items.push({ title: "Thi th? EPS d?y d? (40 c�u)", desc: "Ki?m tra tr�nh d? th?c t? v?i b�i thi m� ph?ng 40 c�u trong 50 ph�t.", path: "/eps-exam", icon: "ri-timer-line", color: "#06b6d4", reason: "Luy?n thi th?c t?" });
+    if (epsDone < 50) items.push({ title: "Luyện thi EPS theo chủ đề", desc: "Bạn chưa làm nhiều câu EPS. Bắt đầu với chủ đề An toàn lao động!", path: "/eps-topic-drill", icon: "ri-focus-3-line", color: "#34d399", reason: `Mới làm ${epsDone} câu` });
+    if (vocabMastered < 30) items.push({ title: "Flashcard EPS theo chủ đề", desc: "Học từ vựng theo chủ đề Y tế và Giao thông — quan trọng cho kỳ thi!", path: "/eps-vocab-flashcard", icon: "ri-stack-line", color: "app-accent-primary", reason: `Mới thuộc ${vocabMastered} từ` });
+    if (streak.count < 7) items.push({ title: "Duy trì streak hàng ngày", desc: `Streak hiện tại: ${streak.count} ngày. Học thêm hôm nay để giữ streak!`, path: "/daily-review", icon: "ri-fire-line", color: "#fb923c", reason: "Streak chưa đủ 7 ngày" });
+    if (epsAccuracy < 70 && epsDone > 10) items.push({ title: "Ôn lại câu sai EPS", desc: `Độ chính xác ${epsAccuracy}% — cần ôn lại các câu sai để cải thiện!`, path: "/study-history", icon: "ri-refresh-line", color: "#f472b6", reason: `Độ chính xác ${epsAccuracy}%` });
+    if (flashcardKnown < 20) items.push({ title: "Flashcard từ vựng tổng hợp", desc: "Học từ vựng qua flashcard — cách nhanh nhất để mở rộng vốn từ!", path: "/flashcard", icon: "ri-translate-2", color: "#a78bfa", reason: "Chưa học nhiều từ vựng" });
+    items.push({ title: "Thi thử EPS đầy đủ (40 câu)", desc: "Kiểm tra trình độ thực tế với bài thi mô phỏng 40 câu trong 50 phút.", path: "/eps-exam", icon: "ri-timer-line", color: "#06b6d4", reason: "Luyện thi thực tế" });
     return items.slice(0, 4);
   }, [epsDone, vocabMastered, streak.count, epsAccuracy, flashcardKnown]);
 
@@ -147,12 +147,12 @@ export default function StudyFeedPage() {
       items.push({
         id: "streak-status",
         type: "streak",
-        title: `?? Streak ${streak.count} ng�y � �?ng d? m?t!`,
-        body: streak.count >= 7 ? `Tuy?t v?i! B?n dang c� streak ${streak.count} ng�y li�n ti?p. Ti?p t?c h?c h�m nay d? duy tr�!` : `B?n dang c� streak ${streak.count} ng�y. C?n ${7 - streak.count} ng�y n?a d? nh?n bonus 50 XP!`,
+        title: `🔥 Streak ${streak.count} ngày — Đừng để mất!`,
+        body: streak.count >= 7 ? `Tuyệt vời! Bạn đang có streak ${streak.count} ngày liên tiếp. Tiếp tục học hôm nay để duy trì!` : `Bạn đang có streak ${streak.count} ngày. Cần ${7 - streak.count} ngày nữa để nhận bonus 50 XP!`,
         icon: "ri-fire-fill",
         color: "#fb923c",
-        action: { label: "H?c ngay h�m nay", path: "/daily-review" },
-        time: "H�m nay",
+        action: { label: "Học ngay hôm nay", path: "/daily-review" },
+        time: "Hôm nay",
         pinned: true,
         xp: streak.count >= 7 ? 50 : undefined,
       });
@@ -163,12 +163,12 @@ export default function StudyFeedPage() {
       items.push({
         id: "today-xp",
         type: "progress",
-        title: `H�m nay b?n d� ki?m ${todayXP} XP`,
-        body: `Ti?n d? t?t! T?ng XP t�ch luy: ${totalXP.toLocaleString()} XP � C?p ${currentRank.name}.`,
+        title: `Hôm nay bạn đã kiếm ${todayXP} XP`,
+        body: `Tiến độ tốt! Tổng XP tích lũy: ${totalXP.toLocaleString()} XP — Cấp ${currentRank.name}.`,
         icon: "ri-star-fill",
         color: "app-accent-primary",
-        action: { label: "Xem th?ng k� XP", path: "/xp-stats" },
-        time: "H�m nay",
+        action: { label: "Xem thống kê XP", path: "/xp-stats" },
+        time: "Hôm nay",
         xp: todayXP,
       });
     }
@@ -177,12 +177,12 @@ export default function StudyFeedPage() {
     items.push({
       id: "weekly-challenge",
       type: "challenge",
-      title: "Th? th�ch tu?n n�y dang ch? b?n!",
-      body: "7 th? th�ch m?i v?i t?ng 810 XP ph?n thu?ng. Ho�n th�nh t?t c? d? nh?n th�m 300 XP bonus!",
+      title: "Thử thách tuần này đang chờ bạn!",
+      body: "7 thử thách mới với tổng 810 XP phần thưởng. Hoàn thành tất cả để nhận thêm 300 XP bonus!",
       icon: "ri-trophy-line",
       color: "#34d399",
-      action: { label: "Xem th? th�ch", path: "/weekly-challenge" },
-      time: "�?u tu?n",
+      action: { label: "Xem thử thách", path: "/weekly-challenge" },
+      time: "Đầu tuần",
     });
 
     // EPS progress
@@ -190,12 +190,12 @@ export default function StudyFeedPage() {
       items.push({
         id: "eps-progress",
         type: "progress",
-        title: `EPS: ${epsDone} c�u d� l�m � ${epsAccuracy}% ch�nh x�c`,
-        body: epsAccuracy >= 80 ? "Xu?t s?c! B?n dang ? m?c s?n s�ng thi th?t. H�y th? b�i thi d?y d?!" : `C?n c?i thi?n th�m. M?c ti�u: d?t 80%+ d? t? tin thi th?t.`,
+        title: `EPS: ${epsDone} câu đã làm — ${epsAccuracy}% chính xác`,
+        body: epsAccuracy >= 80 ? "Xuất sắc! Bạn đang ở mức sẵn sàng thi thật. Hãy thử bài thi đầy đủ!" : `Cần cải thiện thêm. Mục tiêu: đạt 80%+ để tự tin thi thật.`,
         icon: "ri-file-list-3-line",
         color: epsAccuracy >= 80 ? "#34d399" : "app-accent-primary",
-        action: { label: epsAccuracy >= 80 ? "Thi th? ngay" : "Luy?n th�m", path: epsAccuracy >= 80 ? "/eps-exam" : "/eps-topic-drill" },
-        time: "C?p nh?t",
+        action: { label: epsAccuracy >= 80 ? "Thi thử ngay" : "Luyện thêm", path: epsAccuracy >= 80 ? "/eps-exam" : "/eps-topic-drill" },
+        time: "Cập nhật",
       });
     }
 
@@ -203,48 +203,48 @@ export default function StudyFeedPage() {
     items.push({
       id: "vocab-progress",
       type: "progress",
-      title: `T? v?ng EPS: ${vocabMastered}/${epsVocabulary.length} t? d� thu?c`,
-      body: vocabMastered >= 100 ? "V?n t? v?ng t?t! H�y �n l?i c�c t? kh� d? c?ng c?." : `C�n ${epsVocabulary.length - vocabMastered} t? chua thu?c. H?c th�m m?i ng�y 10 t? d? ti?n b? nhanh!`,
+      title: `Từ vựng EPS: ${vocabMastered}/${epsVocabulary.length} từ đã thuộc`,
+      body: vocabMastered >= 100 ? "Vốn từ vựng tốt! Hãy ôn lại các từ khó để củng cố." : `Còn ${epsVocabulary.length - vocabMastered} từ chưa thuộc. Học thêm mỗi ngày 10 từ để tiến bộ nhanh!`,
       icon: "ri-translate-2",
       color: "#a78bfa",
-      action: { label: "H?c flashcard", path: "/eps-flashcard" },
-      time: "C?p nh?t",
+      action: { label: "Học flashcard", path: "/eps-flashcard" },
+      time: "Cập nhật",
     });
 
     // Community activity
     items.push({
       id: "community-1",
       type: "community",
-      title: "C?ng d?ng: B�i dang m?i t? Minh Tu?n",
-      body: "\"M?o nh? t? v?ng an to�n lao d?ng nhanh � chia s? kinh nghi?m 3 th�ng h?c EPS\" � 24 lu?t th�ch",
+      title: "Cộng đồng: Bài đăng mới từ Minh Tuấn",
+      body: "\"Mẹo nhớ từ vựng an toàn lao động nhanh — chia sẻ kinh nghiệm 3 tháng học EPS\" — 24 lượt thích",
       icon: "ri-group-line",
       color: "#f472b6",
-      action: { label: "Xem c?ng d?ng", path: "/community" },
-      time: "2 gi? tru?c",
+      action: { label: "Xem cộng đồng", path: "/community" },
+      time: "2 giờ trước",
     });
 
     // Rank progress
     items.push({
       id: "rank-progress",
       type: "achievement",
-      title: `C?p b?c: ${currentRank.name} � Ti?p t?c ti?n l�n!`,
-      body: `T?ng XP: ${totalXP.toLocaleString()}. H�y ki?m th�m XP qua flashcard, thi EPS v� duy tr� streak d? l�n c?p ti?p theo!`,
+      title: `Cấp bậc: ${currentRank.name} — Tiếp tục tiến lên!`,
+      body: `Tổng XP: ${totalXP.toLocaleString()}. Hãy kiếm thêm XP qua flashcard, thi EPS và duy trì streak để lên cấp tiếp theo!`,
       icon: currentRank.icon,
       color: currentRank.color,
-      action: { label: "Xem c?p b?c", path: "/community-ranks" },
-      time: "C?p nh?t",
+      action: { label: "Xem cấp bậc", path: "/community-ranks" },
+      time: "Cập nhật",
     });
 
     // Referral nudge
     items.push({
       id: "referral-nudge",
       type: "community",
-      title: "M?i b?n b� � C? hai c�ng nh?n XP!",
-      body: "Chia s? link m?i v?i b?n b� h?c ti?ng H�n. B?n nh?n +100 XP, b?n b� nh?n +50 XP khi dang k�.",
+      title: "Mời bạn bè — Cả hai cùng nhận XP!",
+      body: "Chia sẻ link mời với bạn bè học tiếng Hàn. Bạn nhận +100 XP, bạn bè nhận +50 XP khi đăng ký.",
       icon: "ri-user-add-line",
       color: "#06b6d4",
-      action: { label: "M?i ngay", path: "/referral" },
-      time: "M?i",
+      action: { label: "Mời ngay", path: "/referral" },
+      time: "Mới",
     });
 
     return items.filter(item => !dismissedIds.includes(item.id));
@@ -253,18 +253,18 @@ export default function StudyFeedPage() {
   const filteredFeed = filterType === "all" ? allFeedItems : allFeedItems.filter(i => i.type === filterType);
 
   const FILTER_TABS = [
-    { key: "all", label: "T?t c?", icon: "ri-apps-line" },
-    { key: "progress", label: "Ti?n d?", icon: "ri-bar-chart-line" },
-    { key: "suggestion", label: "G?i �", icon: "ri-lightbulb-line" },
+    { key: "all", label: "Tất cả", icon: "ri-apps-line" },
+    { key: "progress", label: "Tiến độ", icon: "ri-bar-chart-line" },
+    { key: "suggestion", label: "Gợi ý", icon: "ri-lightbulb-line" },
     { key: "streak", label: "Streak", icon: "ri-fire-line" },
-    { key: "challenge", label: "Th? th�ch", icon: "ri-trophy-line" },
-    { key: "community", label: "C?ng d?ng", icon: "ri-group-line" },
+    { key: "challenge", label: "Thử thách", icon: "ri-trophy-line" },
+    { key: "community", label: "Cộng đồng", icon: "ri-group-line" },
   ];
 
   return (
     <DashboardLayout
-      title="B?ng tin h?c t?p"
-      subtitle={`${getDayOfWeek()} � ${new Date().toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })}`}
+      title="Bảng tin học tập"
+      subtitle={`${getDayOfWeek()} · ${new Date().toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })}`}
     >
       {/* Hero greeting */}
       <div className="bg-gradient-to-r from-app-surface via-[#0f1117] to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-6 mb-6">
@@ -273,13 +273,13 @@ export default function StudyFeedPage() {
             <p className="text-app-accent-primary/70 text-xs font-semibold tracking-normal mb-1">{getGreeting()}</p>
             <h2 className="text-white font-bold text-2xl mb-1">{displayName}!</h2>
             <p className="text-app-text-secondary text-sm">
-              C?p <span style={{ color: currentRank.color }} className="font-semibold">{currentRank.name}</span> � {totalXP.toLocaleString()} XP � Streak {streak.count} ng�y
+              Cấp <span style={{ color: currentRank.color }} className="font-semibold">{currentRank.name}</span> · {totalXP.toLocaleString()} XP · Streak {streak.count} ngày
             </p>
           </div>
           <div className="flex items-center gap-6">
-            <DailyProgressRing value={todayXP} max={100} label="XP h�m nay" color="app-accent-primary" />
+            <DailyProgressRing value={todayXP} max={100} label="XP hôm nay" color="app-accent-primary" />
             <DailyProgressRing value={streak.count} max={30} label="Streak" color="#fb923c" />
-            <DailyProgressRing value={epsAccuracy} max={100} label="EPS ch�nh x�c" color="#34d399" />
+            <DailyProgressRing value={epsAccuracy} max={100} label="EPS chính xác" color="#34d399" />
           </div>
         </div>
       </div>
@@ -305,7 +305,7 @@ export default function StudyFeedPage() {
             {filteredFeed.length === 0 ? (
               <div className="bg-app-bg border border-app-border rounded-2xl p-12 text-center">
                 <i className="ri-inbox-line text-white/10 text-4xl mb-3"></i>
-                <p className="text-app-text-muted text-sm">Kh�ng c� th�ng b�o n�o</p>
+                <p className="text-app-text-muted text-sm">Không có thông báo nào</p>
               </div>
             ) : (
               filteredFeed.map(item => (
@@ -325,7 +325,7 @@ export default function StudyFeedPage() {
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-4">
               <i className="ri-lightbulb-line text-app-accent-primary text-sm"></i>
-              <h3 className="text-white font-semibold text-sm">G?i � b�i h?c ti?p theo</h3>
+              <h3 className="text-white font-semibold text-sm">Gợi ý bài học tiếp theo</h3>
             </div>
             <div className="space-y-2.5">
               {suggestions.map((s, i) => (
@@ -349,15 +349,15 @@ export default function StudyFeedPage() {
 
           {/* Quick actions */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Truy c?p nhanh</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">Truy cập nhanh</h3>
             <div className="grid grid-cols-2 gap-2">
               {[
                 { label: "Thi EPS", icon: "ri-timer-line", color: "#34d399", path: "/eps-exam" },
                 { label: "Flashcard", icon: "ri-stack-line", color: "app-accent-primary", path: "/eps-flashcard" },
-                { label: "C?ng d?ng", icon: "ri-group-line", color: "#f472b6", path: "/community" },
-                { label: "Th? th�ch", icon: "ri-trophy-line", color: "#fb923c", path: "/weekly-challenge" },
-                { label: "T? v?ng", icon: "ri-translate-2", color: "#a78bfa", path: "/eps-vocab-flashcard" },
-                { label: "Th?ng k� XP", icon: "ri-bar-chart-line", color: "#06b6d4", path: "/xp-stats" },
+                { label: "Cộng đồng", icon: "ri-group-line", color: "#f472b6", path: "/community" },
+                { label: "Thử thách", icon: "ri-trophy-line", color: "#fb923c", path: "/weekly-challenge" },
+                { label: "Từ vựng", icon: "ri-translate-2", color: "#a78bfa", path: "/eps-vocab-flashcard" },
+                { label: "Thống kê XP", icon: "ri-bar-chart-line", color: "#06b6d4", path: "/xp-stats" },
               ].map(a => (
                 <button
                   key={a.path}
@@ -377,14 +377,14 @@ export default function StudyFeedPage() {
           <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
               <i className="ri-focus-3-line text-app-accent-primary text-sm"></i>
-              <h3 className="text-white font-semibold text-sm">M?c ti�u h�m nay</h3>
+              <h3 className="text-white font-semibold text-sm">Mục tiêu hôm nay</h3>
             </div>
             <div className="space-y-2.5">
               {[
-                { label: "H?c 10 flashcard", done: vocabMastered > 0, icon: "ri-stack-line" },
-                { label: "L�m 20 c�u EPS", done: epsDone >= 20, icon: "ri-file-list-3-line" },
-                { label: "Duy tr� streak", done: streak.lastDate === today, icon: "ri-fire-line" },
-                { label: "Ki?m 50 XP", done: todayXP >= 50, icon: "ri-star-line" },
+                { label: "Học 10 flashcard", done: vocabMastered > 0, icon: "ri-stack-line" },
+                { label: "Làm 20 câu EPS", done: epsDone >= 20, icon: "ri-file-list-3-line" },
+                { label: "Duy trì streak", done: streak.lastDate === today, icon: "ri-fire-line" },
+                { label: "Kiếm 50 XP", done: todayXP >= 50, icon: "ri-star-line" },
               ].map((g, i) => (
                 <div key={i} className="flex items-center gap-2.5">
                   <div className={`w-5 h-5 flex items-center justify-center rounded-full flex-shrink-0 ${g.done ? "bg-emerald-500/20" : "bg-app-card/50"}`}>

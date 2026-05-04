@@ -3,9 +3,9 @@
 // Deploy: supabase functions deploy send-email --no-verify-jwt
 // Env vars (Supabase Dashboard → Edge Functions → Settings):
 //   - RESEND_API_KEY: API key từ Resend (re_xxx)
-//   - SENDER_EMAIL: noreply@hanquocoi.vn
+//   - SENDER_EMAIL: noreply@hadim.vn
 //   - SENDER_NAME: Hàn Quốc Ơi!
-//   - SITE_URL: https://hanquocoi.vn
+//   - SITE_URL: https://hadim.vn
 //   - INTERNAL_API_SECRET: secret để xác thực request (tự tạo, dán vào DB triggers)
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
@@ -76,7 +76,7 @@ serve(async (req: Request) => {
 
     // Default vars
     const allVars = {
-      SITE_URL: Deno.env.get("SITE_URL") ?? "https://hanquocoi.vn",
+      SITE_URL: Deno.env.get("SITE_URL") ?? "https://hadim.vn",
       USER_NAME: "bạn",
       ...variables,
     };
@@ -84,7 +84,7 @@ serve(async (req: Request) => {
     const html = renderTemplate(tmpl.html, allVars);
     const subject = renderTemplate(tmpl.subject, allVars);
 
-    const senderEmail = Deno.env.get("SENDER_EMAIL") ?? "noreply@hanquocoi.vn";
+    const senderEmail = Deno.env.get("SENDER_EMAIL") ?? "noreply@hadim.vn";
     const senderName = Deno.env.get("SENDER_NAME") ?? "Hàn Quốc Ơi!";
     const resendKey = Deno.env.get("RESEND_API_KEY");
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef, useCallback } from "react";
+﻿import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -14,14 +14,14 @@ interface JournalEntry {
 }
 
 const MOODS = [
-  { value: "great", label: "Tuy?t v?i", icon: "ri-emotion-laugh-line", color: "#34d399" },
-  { value: "good", label: "T?t", icon: "ri-emotion-happy-line", color: "#60a5fa" },
-  { value: "okay", label: "B�nh thu?ng", icon: "ri-emotion-normal-line", color: "#fbbf24" },
-  { value: "tired", label: "M?t m?i", icon: "ri-emotion-unhappy-line", color: "#f87171" },
-  { value: "hard", label: "Kh� khan", icon: "ri-emotion-sad-line", color: "#a78bfa" },
+  { value: "great", label: "Tuyệt vời", icon: "ri-emotion-laugh-line", color: "#34d399" },
+  { value: "good", label: "Tốt", icon: "ri-emotion-happy-line", color: "#60a5fa" },
+  { value: "okay", label: "Bình thường", icon: "ri-emotion-normal-line", color: "#fbbf24" },
+  { value: "tired", label: "Mệt mỏi", icon: "ri-emotion-unhappy-line", color: "#f87171" },
+  { value: "hard", label: "Khó khăn", icon: "ri-emotion-sad-line", color: "#a78bfa" },
 ];
 
-const PRESET_TAGS = ["EPS-TOPIK", "Ng? ph�p", "T? v?ng", "Nghe", "N�i", "�?c", "Vi?t", "Flashcard", "Quiz", "Giao ti?p"];
+const PRESET_TAGS = ["EPS-TOPIK", "Ngữ pháp", "Từ vựng", "Nghe", "Nói", "Đọc", "Viết", "Flashcard", "Quiz", "Giao tiếp"];
 
 const STORAGE_KEY = "kts_study_journal_v1";
 
@@ -47,7 +47,7 @@ function getMoodInfo(value: string) {
   return MOODS.find(m => m.value === value) || MOODS[2];
 }
 
-// -- Share Journal Modal ----------------------------------------------------
+// ── Share Journal Modal ────────────────────────────────────────────────────
 interface ShareJournalModalProps {
   entry: JournalEntry;
   onClose: () => void;
@@ -99,11 +99,11 @@ function ShareJournalModal({ entry, onClose }: ShareJournalModalProps) {
 
   const handleCopyText = useCallback(() => {
     const text = [
-      `?? Nh?t k� h?c ti?ng H�n � ${formatDate(entry.date)}`,
-      `${mood.label} | ${entry.studyMinutes} ph�t | ${entry.wordsLearned} t?`,
+      `📚 Nhật ký học tiếng Hàn — ${formatDate(entry.date)}`,
+      `${mood.label} | ${entry.studyMinutes} phút | ${entry.wordsLearned} từ`,
       entry.content ? `\n"${entry.content}"` : "",
       entry.tags.length > 0 ? `\n${entry.tags.map(t => `#${t}`).join(" ")}` : "",
-      "\n� H�n Qu?c Oi! ????",
+      "\n— Hàn Quốc Ơi! 🇰🇷",
     ].filter(Boolean).join("\n");
     navigator.clipboard.writeText(text);
     setCopied(true);
@@ -117,7 +117,7 @@ function ShareJournalModal({ entry, onClose }: ShareJournalModalProps) {
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
           <h3 className="font-semibold text-gray-900 flex items-center gap-2">
             <i className="ri-share-line text-app-accent-primary"></i>
-            Chia s? nh?t k�
+            Chia sẻ nhật ký
           </h3>
           <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 cursor-pointer">
             <i className="ri-close-line text-sm"></i>
@@ -141,9 +141,9 @@ function ShareJournalModal({ entry, onClose }: ShareJournalModalProps) {
                 <div className="w-8 h-8 flex items-center justify-center rounded-xl" style={{ backgroundColor: `${accent}25` }}>
                   <i className="ri-draft-line text-sm" style={{ color: accent }}></i>
                 </div>
-                <span className="text-white/70 text-xs font-semibold">Nh?t k� h?c ti?ng H�n</span>
+                <span className="text-white/70 text-xs font-semibold">Nhật ký học tiếng Hàn</span>
               </div>
-              <span className="text-app-text-secondary text-[10px]">H�n Qu?c Oi!</span>
+              <span className="text-app-text-secondary text-[10px]">Hàn Quốc Ơi!</span>
             </div>
 
             {/* Date & mood */}
@@ -159,11 +159,11 @@ function ShareJournalModal({ entry, onClose }: ShareJournalModalProps) {
             <div className="flex gap-4 mb-4 relative z-10">
               <div className="flex items-center gap-1.5">
                 <i className="ri-time-line text-app-text-secondary text-xs"></i>
-                <span className="text-white/70 text-xs font-medium">{entry.studyMinutes} ph�t</span>
+                <span className="text-white/70 text-xs font-medium">{entry.studyMinutes} phút</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <i className="ri-translate-2 text-app-text-secondary text-xs"></i>
-                <span className="text-white/70 text-xs font-medium">{entry.wordsLearned} t? m?i</span>
+                <span className="text-white/70 text-xs font-medium">{entry.wordsLearned} từ mới</span>
               </div>
             </div>
 
@@ -192,7 +192,7 @@ function ShareJournalModal({ entry, onClose }: ShareJournalModalProps) {
               <span className="text-app-text-muted text-[10px]">hanquocoi.app</span>
               <div className="flex items-center gap-1">
                 <i className="ri-global-line text-app-text-muted text-xs"></i>
-                <span className="text-app-text-muted text-[10px]">?? ??</span>
+                <span className="text-app-text-muted text-[10px]">학습 일기</span>
               </div>
             </div>
           </div>
@@ -204,7 +204,7 @@ function ShareJournalModal({ entry, onClose }: ShareJournalModalProps) {
               className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer whitespace-nowrap transition-colors"
             >
               <i className={`${copied ? "ri-check-line text-emerald-500" : "ri-clipboard-line"} text-sm`}></i>
-              {copied ? "�� sao ch�p!" : "Sao ch�p text"}
+              {copied ? "Đã sao chép!" : "Sao chép text"}
             </button>
             <button
               onClick={handleDownload}
@@ -212,12 +212,12 @@ function ShareJournalModal({ entry, onClose }: ShareJournalModalProps) {
               className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-app-accent-primary text-white text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors disabled:opacity-60"
             >
               <i className={`${downloading ? "ri-loader-4-line animate-spin" : "ri-download-line"} text-sm`}></i>
-              {downloading ? "�ang t?o..." : "T?i ?nh"}
+              {downloading ? "Đang tạo..." : "Tải ảnh"}
             </button>
           </div>
 
           <p className="text-center text-xs text-gray-400 mt-3">
-            Chia s? l�n Facebook, Zalo, Instagram d? truy?n c?m h?ng h?c ti?ng H�n!
+            Chia sẻ lên Facebook, Zalo, Instagram để truyền cảm hứng học tiếng Hàn!
           </p>
         </div>
       </div>
@@ -249,7 +249,7 @@ function EntryCard({ entry, onEdit, onDelete, onShare }: EntryCardProps) {
           </div>
         </div>
         <div className="flex items-center gap-1">
-          <button onClick={onShare} className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-300 hover:text-app-accent-primary hover:bg-app-accent-primary/10 cursor-pointer transition-colors" title="Chia s?">
+          <button onClick={onShare} className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-300 hover:text-app-accent-primary hover:bg-app-accent-primary/10 cursor-pointer transition-colors" title="Chia sẻ">
             <i className="ri-share-line text-sm"></i>
           </button>
           <button onClick={onEdit} className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-300 hover:text-gray-600 hover:bg-gray-50 cursor-pointer transition-colors">
@@ -257,8 +257,8 @@ function EntryCard({ entry, onEdit, onDelete, onShare }: EntryCardProps) {
           </button>
           {showConfirm ? (
             <div className="flex items-center gap-1">
-              <button onClick={() => { onDelete(); setShowConfirm(false); }} className="text-xs text-rose-500 hover:text-rose-600 cursor-pointer px-2 py-1 rounded bg-rose-50 whitespace-nowrap">X�a</button>
-              <button onClick={() => setShowConfirm(false)} className="text-xs text-gray-400 cursor-pointer px-2 py-1 rounded hover:bg-gray-50 whitespace-nowrap">H?y</button>
+              <button onClick={() => { onDelete(); setShowConfirm(false); }} className="text-xs text-rose-500 hover:text-rose-600 cursor-pointer px-2 py-1 rounded bg-rose-50 whitespace-nowrap">Xóa</button>
+              <button onClick={() => setShowConfirm(false)} className="text-xs text-gray-400 cursor-pointer px-2 py-1 rounded hover:bg-gray-50 whitespace-nowrap">Hủy</button>
             </div>
           ) : (
             <button onClick={() => setShowConfirm(true)} className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-300 hover:text-rose-400 hover:bg-rose-50 cursor-pointer transition-colors">
@@ -272,11 +272,11 @@ function EntryCard({ entry, onEdit, onDelete, onShare }: EntryCardProps) {
       <div className="flex items-center gap-4 mb-3 py-2 border-y border-gray-50">
         <div className="flex items-center gap-1.5 text-xs text-gray-500">
           <i className="ri-time-line text-gray-400"></i>
-          <span>{entry.studyMinutes} ph�t</span>
+          <span>{entry.studyMinutes} phút</span>
         </div>
         <div className="flex items-center gap-1.5 text-xs text-gray-500">
           <i className="ri-translate-2 text-gray-400"></i>
-          <span>{entry.wordsLearned} t?</span>
+          <span>{entry.wordsLearned} từ</span>
         </div>
       </div>
 
@@ -345,12 +345,12 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
     <div className="bg-white rounded-xl border border-gray-100 p-6">
       <h3 className="font-semibold text-gray-900 mb-5 flex items-center gap-2">
         <i className="ri-edit-2-line text-app-accent-primary"></i>
-        {initial ? "Ch?nh s?a nh?t k�" : "Ghi nh?t k� h�m nay"}
+        {initial ? "Chỉnh sửa nhật ký" : "Ghi nhật ký hôm nay"}
       </h3>
 
       {/* Date */}
       <div className="mb-4">
-        <label className="block text-xs font-semibold text-gray-500 tracking-normal mb-1.5">Ng�y h?c</label>
+        <label className="block text-xs font-semibold text-gray-500 tracking-normal mb-1.5">Ngày học</label>
         <input
           type="date"
           value={date}
@@ -362,7 +362,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
 
       {/* Mood */}
       <div className="mb-4">
-        <label className="block text-xs font-semibold text-gray-500 tracking-normal mb-1.5">C?m x�c h�m nay</label>
+        <label className="block text-xs font-semibold text-gray-500 tracking-normal mb-1.5">Cảm xúc hôm nay</label>
         <div className="flex gap-2 flex-wrap">
           {MOODS.map(m => (
             <button
@@ -385,7 +385,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
       {/* Stats */}
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div>
-          <label className="block text-xs font-semibold text-gray-500 tracking-normal mb-1.5">Th?i gian h?c (ph�t)</label>
+          <label className="block text-xs font-semibold text-gray-500 tracking-normal mb-1.5">Thời gian học (phút)</label>
           <input
             type="number"
             value={studyMinutes}
@@ -396,7 +396,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
           />
         </div>
         <div>
-          <label className="block text-xs font-semibold text-gray-500 tracking-normal mb-1.5">S? t? d� h?c</label>
+          <label className="block text-xs font-semibold text-gray-500 tracking-normal mb-1.5">Số từ đã học</label>
           <input
             type="number"
             value={wordsLearned}
@@ -410,13 +410,13 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
       {/* Content */}
       <div className="mb-4">
         <label className="block text-xs font-semibold text-gray-500 tracking-normal mb-1.5">
-          Ghi ch� / C?m nh?n
+          Ghi chú / Cảm nhận
           <span className="ml-2 text-gray-300 normal-case font-normal">({content.length}/500)</span>
         </label>
         <textarea
           value={content}
           onChange={e => setContent(e.target.value.slice(0, 500))}
-          placeholder="H�m nay t�i d� h?c du?c g�? �i?u g� kh�? �i?u g� th� v??..."
+          placeholder="Hôm nay tôi đã học được gì? Điều gì khó? Điều gì thú vị?..."
           rows={4}
           className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-app-accent-primary/50 resize-none"
         />
@@ -424,7 +424,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
 
       {/* Tags */}
       <div className="mb-5">
-        <label className="block text-xs font-semibold text-gray-500 tracking-normal mb-1.5">Ch? d? h?c</label>
+        <label className="block text-xs font-semibold text-gray-500 tracking-normal mb-1.5">Chủ đề học</label>
         <div className="flex flex-wrap gap-1.5 mb-2">
           {PRESET_TAGS.map(tag => (
             <button
@@ -446,14 +446,14 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
             value={customTag}
             onChange={e => setCustomTag(e.target.value)}
             onKeyDown={e => e.key === "Enter" && addCustomTag()}
-            placeholder="Th�m tag t�y ch?nh..."
+            placeholder="Thêm tag tùy chỉnh..."
             className="flex-1 px-3 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-app-accent-primary/50"
           />
           <button
             onClick={addCustomTag}
             className="px-3 py-1.5 text-xs bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 cursor-pointer whitespace-nowrap transition-colors"
           >
-            Th�m
+            Thêm
           </button>
         </div>
       </div>
@@ -464,20 +464,20 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
           onClick={onCancel}
           className="flex-1 py-2.5 rounded-lg border border-gray-200 text-sm text-gray-500 hover:bg-gray-50 cursor-pointer whitespace-nowrap transition-colors"
         >
-          H?y
+          Hủy
         </button>
         <button
           onClick={handleSubmit}
           className="flex-1 py-2.5 rounded-lg bg-app-accent-primary text-white text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors"
         >
-          {initial ? "Luu thay d?i" : "Luu nh?t k�"}
+          {initial ? "Lưu thay đổi" : "Lưu nhật ký"}
         </button>
       </div>
     </div>
   );
 }
 
-// -- Weekly Mood Chart ------------------------------------------------------
+// ── Weekly Mood Chart ──────────────────────────────────────────────────────
 function WeeklyMoodChart({ entries }: { entries: JournalEntry[] }) {
   const weeks = useMemo(() => {
     const result: { label: string; days: { date: string; mood: string | null; minutes: number }[] }[] = [];
@@ -535,9 +535,9 @@ function WeeklyMoodChart({ entries }: { entries: JournalEntry[] }) {
         <div>
           <h3 className="font-semibold text-gray-900 text-sm flex items-center gap-2">
             <i className="ri-emotion-line text-app-accent-primary"></i>
-            Bi?u d? c?m x�c theo tu?n
+            Biểu đồ cảm xúc theo tuần
           </h3>
-          <p className="text-xs text-gray-400 mt-0.5">4 tu?n g?n nh?t</p>
+          <p className="text-xs text-gray-400 mt-0.5">4 tuần gần nhất</p>
         </div>
         {/* Legend */}
         <div className="flex flex-wrap gap-2 justify-end">
@@ -568,7 +568,7 @@ function WeeklyMoodChart({ entries }: { entries: JournalEntry[] }) {
                   key={di}
                   className="flex-1 aspect-square rounded-md flex items-center justify-center relative group cursor-default"
                   style={{ backgroundColor: getMoodColor(day.mood), minHeight: "28px" }}
-                  title={day.mood ? `${day.date}: ${mood?.label} (${day.minutes} ph�t)` : day.date}
+                  title={day.mood ? `${day.date}: ${mood?.label} (${day.minutes} phút)` : day.date}
                 >
                   {day.mood && (
                     <i className={`${mood?.icon ?? ""} text-white text-[10px] opacity-80`}></i>
@@ -576,7 +576,7 @@ function WeeklyMoodChart({ entries }: { entries: JournalEntry[] }) {
                   {/* Tooltip */}
                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block z-10 pointer-events-none">
                     <div className="bg-gray-900 text-white text-[10px] px-2 py-1 rounded-lg whitespace-nowrap">
-                      {day.mood ? `${mood?.label} � ${day.minutes}p` : "Kh�ng h?c"}
+                      {day.mood ? `${mood?.label} · ${day.minutes}p` : "Không học"}
                     </div>
                   </div>
                 </div>
@@ -588,7 +588,7 @@ function WeeklyMoodChart({ entries }: { entries: JournalEntry[] }) {
 
       {/* Weekly trend bar chart */}
       <div className="border-t border-gray-50 pt-4">
-        <p className="text-[10px] text-gray-400 font-semibold tracking-normal mb-3">�i?m c?m x�c trung b�nh m?i tu?n</p>
+        <p className="text-[10px] text-gray-400 font-semibold tracking-normal mb-3">Điểm cảm xúc trung bình mỗi tuần</p>
         <div className="flex items-end gap-3 h-16">
           {weeks.map((week, wi) => {
             const avg = weeklyAvg[wi];
@@ -596,7 +596,7 @@ function WeeklyMoodChart({ entries }: { entries: JournalEntry[] }) {
             const moodVal = avg >= 4.5 ? "great" : avg >= 3.5 ? "good" : avg >= 2.5 ? "okay" : avg >= 1.5 ? "tired" : avg > 0 ? "hard" : null;
             return (
               <div key={wi} className="flex-1 flex flex-col items-center gap-1">
-                <span className="text-[10px] text-gray-500 font-medium">{avg > 0 ? avg.toFixed(1) : "�"}</span>
+                <span className="text-[10px] text-gray-500 font-medium">{avg > 0 ? avg.toFixed(1) : "—"}</span>
                 <div className="w-full flex items-end justify-center" style={{ height: "40px" }}>
                   <div
                     className="w-full rounded-t-md transition-all duration-500"
@@ -615,7 +615,7 @@ function WeeklyMoodChart({ entries }: { entries: JournalEntry[] }) {
 
       {/* Mood distribution this month */}
       <div className="border-t border-gray-50 pt-4 mt-2">
-        <p className="text-[10px] text-gray-400 font-semibold tracking-normal mb-3">Ph�n b? c?m x�c (28 ng�y qua)</p>
+        <p className="text-[10px] text-gray-400 font-semibold tracking-normal mb-3">Phân bố cảm xúc (28 ngày qua)</p>
         <div className="flex gap-1 h-3 rounded-full overflow-hidden">
           {(() => {
             const allDays = weeks.flatMap(w => w.days).filter(d => d.mood !== null);
@@ -630,7 +630,7 @@ function WeeklyMoodChart({ entries }: { entries: JournalEntry[] }) {
                   key={m.value}
                   className="h-full transition-all"
                   style={{ width: `${pct}%`, backgroundColor: getMoodColor(m.value) }}
-                  title={`${m.label}: ${count} ng�y (${Math.round(pct)}%)`}
+                  title={`${m.label}: ${count} ngày (${Math.round(pct)}%)`}
                 />
               );
             });
@@ -646,7 +646,7 @@ function WeeklyMoodChart({ entries }: { entries: JournalEntry[] }) {
               return (
                 <div key={m.value} className="flex items-center gap-1.5">
                   <div className="w-2 h-2 rounded-full" style={{ backgroundColor: getMoodColor(m.value) }}></div>
-                  <span className="text-[10px] text-gray-500">{m.label}: <strong>{count}</strong> ng�y ({total > 0 ? Math.round((count / total) * 100) : 0}%)</span>
+                  <span className="text-[10px] text-gray-500">{m.label}: <strong>{count}</strong> ngày ({total > 0 ? Math.round((count / total) * 100) : 0}%)</span>
                 </div>
               );
             });
@@ -741,9 +741,9 @@ export default function StudyJournalPage() {
             <div>
               <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
                 <i className="ri-draft-line text-app-accent-primary"></i>
-                Nh?t k� h?c t?p
+                Nhật ký học tập
               </h1>
-              <p className="text-sm text-gray-500 mt-0.5">Ghi l?i h�nh tr�nh h?c ti?ng H�n c?a b?n</p>
+              <p className="text-sm text-gray-500 mt-0.5">Ghi lại hành trình học tiếng Hàn của bạn</p>
             </div>
             {!showForm && (
               <button
@@ -751,7 +751,7 @@ export default function StudyJournalPage() {
                 className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-white rounded-lg text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors"
               >
                 <i className="ri-add-line"></i>
-                {hasToday ? "Th�m ghi ch�" : "Ghi h�m nay"}
+                {hasToday ? "Thêm ghi chú" : "Ghi hôm nay"}
               </button>
             )}
           </div>
@@ -761,10 +761,10 @@ export default function StudyJournalPage() {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
             {[
-              { icon: "ri-calendar-check-line", label: "T?ng ng�y ghi", value: entries.length, color: "app-accent-primary", unit: "ng�y" },
-              { icon: "ri-time-line", label: "T?ng th?i gian", value: Math.round(totalMinutes / 60), color: "#34d399", unit: "gi?" },
-              { icon: "ri-translate-2", label: "T?ng t? h?c", value: totalWords, color: "#60a5fa", unit: "t?" },
-              { icon: "ri-fire-line", label: "Streak hi?n t?i", value: streak, color: "#f87171", unit: "ng�y" },
+              { icon: "ri-calendar-check-line", label: "Tổng ngày ghi", value: entries.length, color: "app-accent-primary", unit: "ngày" },
+              { icon: "ri-time-line", label: "Tổng thời gian", value: Math.round(totalMinutes / 60), color: "#34d399", unit: "giờ" },
+              { icon: "ri-translate-2", label: "Tổng từ học", value: totalWords, color: "#60a5fa", unit: "từ" },
+              { icon: "ri-fire-line", label: "Streak hiện tại", value: streak, color: "#f87171", unit: "ngày" },
             ].map(stat => (
               <div key={stat.label} className="bg-white rounded-xl border border-gray-100 p-4">
                 <div className="flex items-center gap-2 mb-2">
@@ -779,7 +779,7 @@ export default function StudyJournalPage() {
             ))}
           </div>
 
-          {/* Weekly Mood Chart � show when there are entries */}
+          {/* Weekly Mood Chart — show when there are entries */}
           <WeeklyMoodChart entries={entries} />
 
           {/* Form */}
@@ -802,7 +802,7 @@ export default function StudyJournalPage() {
                   type="text"
                   value={search}
                   onChange={e => setSearch(e.target.value)}
-                  placeholder="T�m trong nh?t k�..."
+                  placeholder="Tìm trong nhật ký..."
                   className="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-app-accent-primary/50 bg-white"
                 />
               </div>
@@ -811,7 +811,7 @@ export default function StudyJournalPage() {
                 onChange={e => setFilterMood(e.target.value)}
                 className="px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none bg-white cursor-pointer"
               >
-                <option value="all">T?t c? c?m x�c</option>
+                <option value="all">Tất cả cảm xúc</option>
                 {MOODS.map(m => <option key={m.value} value={m.value}>{m.label}</option>)}
               </select>
               {allTags.length > 0 && (
@@ -820,7 +820,7 @@ export default function StudyJournalPage() {
                   onChange={e => setFilterTag(e.target.value)}
                   className="px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none bg-white cursor-pointer"
                 >
-                  <option value="all">T?t c? ch? d?</option>
+                  <option value="all">Tất cả chủ đề</option>
                   {allTags.map(t => <option key={t} value={t}>#{t}</option>)}
                 </select>
               )}
@@ -829,7 +829,7 @@ export default function StudyJournalPage() {
                 className="flex items-center gap-1.5 px-3 py-2 text-sm border border-gray-200 rounded-lg bg-white text-gray-500 hover:border-gray-300 cursor-pointer whitespace-nowrap transition-colors"
               >
                 <i className={`${sortDesc ? "ri-sort-desc" : "ri-sort-asc"} text-sm`}></i>
-                {sortDesc ? "M?i nh?t" : "Cu nh?t"}
+                {sortDesc ? "Mới nhất" : "Cũ nhất"}
               </button>
             </div>
           )}
@@ -840,19 +840,19 @@ export default function StudyJournalPage() {
               <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-app-accent-primary/10 mx-auto mb-4">
                 <i className="ri-draft-line text-3xl text-app-accent-primary"></i>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Chua c� nh?t k� n�o</h3>
-              <p className="text-sm text-gray-400 mb-5">B?t d?u ghi l?i h�nh tr�nh h?c ti?ng H�n c?a b?n!</p>
+              <h3 className="font-semibold text-gray-900 mb-2">Chưa có nhật ký nào</h3>
+              <p className="text-sm text-gray-400 mb-5">Bắt đầu ghi lại hành trình học tiếng Hàn của bạn!</p>
               <button
                 onClick={() => setShowForm(true)}
                 className="px-5 py-2.5 bg-app-accent-primary text-white rounded-lg text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors"
               >
-                Vi?t nh?t k� d?u ti�n
+                Viết nhật ký đầu tiên
               </button>
             </div>
           ) : filtered.length === 0 ? (
             <div className="text-center py-12 text-gray-400">
               <i className="ri-search-line text-3xl mb-2 block"></i>
-              <p className="text-sm">Kh�ng t�m th?y nh?t k� ph� h?p</p>
+              <p className="text-sm">Không tìm thấy nhật ký phù hợp</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -871,15 +871,15 @@ export default function StudyJournalPage() {
           {/* Avg stats */}
           {entries.length >= 3 && (
             <div className="mt-6 bg-white rounded-xl border border-gray-100 p-4">
-              <p className="text-xs font-semibold text-gray-500 tracking-normal mb-3">Th?ng k� trung b�nh</p>
+              <p className="text-xs font-semibold text-gray-500 tracking-normal mb-3">Thống kê trung bình</p>
               <div className="flex gap-6 flex-wrap">
                 <div>
-                  <p className="text-lg font-bold text-gray-900">{avgMinutes} ph�t</p>
-                  <p className="text-xs text-gray-400">Trung b�nh m?i bu?i</p>
+                  <p className="text-lg font-bold text-gray-900">{avgMinutes} phút</p>
+                  <p className="text-xs text-gray-400">Trung bình mỗi buổi</p>
                 </div>
                 <div>
-                  <p className="text-lg font-bold text-gray-900">{entries.length > 0 ? Math.round(totalWords / entries.length) : 0} t?</p>
-                  <p className="text-xs text-gray-400">Trung b�nh m?i ng�y</p>
+                  <p className="text-lg font-bold text-gray-900">{entries.length > 0 ? Math.round(totalWords / entries.length) : 0} từ</p>
+                  <p className="text-xs text-gray-400">Trung bình mỗi ngày</p>
                 </div>
                 <div>
                   <p className="text-lg font-bold text-gray-900">
@@ -887,9 +887,9 @@ export default function StudyJournalPage() {
                       const counts: Record<string, number> = {};
                       entries.forEach(e => { counts[e.mood] = (counts[e.mood] || 0) + 1; });
                       return m.value === Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0];
-                    })?.label || "�"}
+                    })?.label || "—"}
                   </p>
-                  <p className="text-xs text-gray-400">C?m x�c ph? bi?n nh?t</p>
+                  <p className="text-xs text-gray-400">Cảm xúc phổ biến nhất</p>
                 </div>
               </div>
             </div>

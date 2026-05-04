@@ -1,9 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { supabase } from "@/lib/supabase";
 
-// --- Types --------------------------------------------------------------------
+// ─── Types ────────────────────────────────────────────────────────────────────
 interface VocabCard {
   id: string;
   korean: string;
@@ -25,7 +25,7 @@ interface SRSData {
   };
 }
 
-// --- SRS Algorithm (SM-2) ----------------------------------------------------
+// ─── SRS Algorithm (SM-2) ────────────────────────────────────────────────────
 function updateSRS(srs: SRSData, cardId: string, rating: number): SRSData {
   const card = srs[cardId] || { interval: 1, easeFactor: 2.5, repetitions: 0, nextReview: new Date().toISOString(), lastRating: 0 };
   let { interval, easeFactor, repetitions } = card;
@@ -52,20 +52,20 @@ function updateSRS(srs: SRSData, cardId: string, rating: number): SRSData {
 }
 
 const LEVEL_MAP: Record<number, { label: string; color: string; bg: string; border: string; koreanLevel: string }> = {
-  1: { label: "A1 � So c?p 1", color: "#34d399", bg: "bg-emerald-500/10", border: "border-emerald-500/20", koreanLevel: "A1" },
-  2: { label: "A2�B1 � Trung c?p", color: "app-accent-primary", bg: "bg-yellow-500/10", border: "border-yellow-500/20", koreanLevel: "A2" },
-  3: { label: "B2�C1 � N�ng cao", color: "#f87171", bg: "bg-red-500/10", border: "border-red-500/20", koreanLevel: "C1" },
+  1: { label: "A1 · Sơ cấp 1", color: "#34d399", bg: "bg-emerald-500/10", border: "border-emerald-500/20", koreanLevel: "A1" },
+  2: { label: "A2–B1 · Trung cấp", color: "app-accent-primary", bg: "bg-yellow-500/10", border: "border-yellow-500/20", koreanLevel: "A2" },
+  3: { label: "B2–C1 · Nâng cao", color: "#f87171", bg: "bg-red-500/10", border: "border-red-500/20", koreanLevel: "C1" },
 };
 
 const RATING_LABELS = [
-  { value: 1, label: "Kh�ng nh?", color: "#f87171", icon: "ri-close-circle-line" },
-  { value: 2, label: "Kh�", color: "#fb923c", icon: "ri-emotion-unhappy-line" },
-  { value: 3, label: "Nh? du?c", color: "app-accent-primary", icon: "ri-emotion-normal-line" },
-  { value: 4, label: "D?", color: "#34d399", icon: "ri-emotion-happy-line" },
-  { value: 5, label: "R?t d?", color: "#a78bfa", icon: "ri-emotion-laugh-line" },
+  { value: 1, label: "Không nhớ", color: "#f87171", icon: "ri-close-circle-line" },
+  { value: 2, label: "Khó", color: "#fb923c", icon: "ri-emotion-unhappy-line" },
+  { value: 3, label: "Nhớ được", color: "app-accent-primary", icon: "ri-emotion-normal-line" },
+  { value: 4, label: "Dễ", color: "#34d399", icon: "ri-emotion-happy-line" },
+  { value: 5, label: "Rất dễ", color: "#a78bfa", icon: "ri-emotion-laugh-line" },
 ];
 
-// --- Flashcard Component ------------------------------------------------------
+// ─── Flashcard Component ──────────────────────────────────────────────────────
 function FlashCard({ card, onRate, srsData }: {
   card: VocabCard;
   onRate: (rating: number) => void;
@@ -102,7 +102,7 @@ function FlashCard({ card, onRate, srsData }: {
           >
             <div className="flex items-center gap-2 mb-4">
               <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${cfg.bg} border ${cfg.border}`} style={{ color: cfg.color }}>
-                {cfg.koreanLevel} � {card.category}
+                {cfg.koreanLevel} · {card.category}
               </span>
             </div>
             <p className="text-white font-black text-5xl mb-2 text-center">{card.korean}</p>
@@ -112,12 +112,12 @@ function FlashCard({ card, onRate, srsData }: {
             <p className="text-app-text-muted text-sm">[{card.pronunciation}]</p>
             <div className="mt-6 flex items-center gap-2 text-app-text-muted text-xs">
               <i className="ri-hand-coin-line"></i>
-              <span>Nh?n d? xem nghia</span>
+              <span>Nhấn để xem nghĩa</span>
             </div>
             {cardSRS && (
               <div className="absolute top-4 right-4 flex items-center gap-1 text-app-text-muted text-[10px]">
                 <i className="ri-repeat-line"></i>
-                <span>{cardSRS.repetitions}x � {cardSRS.interval}d</span>
+                <span>{cardSRS.repetitions}x · {cardSRS.interval}d</span>
               </div>
             )}
           </div>
@@ -140,16 +140,16 @@ function FlashCard({ card, onRate, srsData }: {
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary text-xs cursor-pointer transition-colors"
             >
               <i className="ri-volume-up-line"></i>
-              Ph�t �m
+              Phát âm
             </button>
           </div>
         </div>
       </div>
 
-      {/* Rating buttons � only show when flipped */}
+      {/* Rating buttons — only show when flipped */}
       {flipped && (
         <div className="mt-6 w-full max-w-lg">
-          <p className="text-app-text-muted text-xs text-center mb-3">B?n nh? t? n�y nhu th? n�o?</p>
+          <p className="text-app-text-muted text-xs text-center mb-3">Bạn nhớ từ này như thế nào?</p>
           <div className="flex gap-2">
             {RATING_LABELS.map(r => (
               <button
@@ -169,7 +169,7 @@ function FlashCard({ card, onRate, srsData }: {
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function FlashcardLevelPage() {
   const [allCards, setAllCards] = useState<VocabCard[]>([]);
   const [loading, setLoading] = useState(true);
@@ -247,18 +247,18 @@ export default function FlashcardLevelPage() {
 
   return (
     <DashboardLayout
-      title="Flashcard theo c?p d?"
-      subtitle="L?t th? t? v?ng A1?C1 v?i thu?t to�n SRS (Spaced Repetition)"
+      title="Flashcard theo cấp độ"
+      subtitle="Lật thẻ từ vựng A1→C1 với thuật toán SRS (Spaced Repetition)"
     >
       {!sessionStarted ? (
         <>
           {/* Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
             {[
-              { label: "T?ng t? v?ng", value: allCards.length, icon: "ri-book-open-line", color: "app-accent-primary" },
-              { label: "C?n �n h�m nay", value: dueCards.length, icon: "ri-calendar-check-line", color: "#fb923c" },
-              { label: "�� �n t?p", value: totalReviewed, icon: "ri-refresh-line", color: "#34d399" },
-              { label: "�� thu?c (3+ l?n)", value: masteredCount, icon: "ri-check-double-line", color: "#a78bfa" },
+              { label: "Tổng từ vựng", value: allCards.length, icon: "ri-book-open-line", color: "app-accent-primary" },
+              { label: "Cần ôn hôm nay", value: dueCards.length, icon: "ri-calendar-check-line", color: "#fb923c" },
+              { label: "Đã ôn tập", value: totalReviewed, icon: "ri-refresh-line", color: "#34d399" },
+              { label: "Đã thuộc (3+ lần)", value: masteredCount, icon: "ri-check-double-line", color: "#a78bfa" },
             ].map(s => (
               <div key={s.label} className="bg-app-bg border border-app-border rounded-2xl p-4">
                 <div className="flex items-center gap-2 mb-2">
@@ -274,13 +274,13 @@ export default function FlashcardLevelPage() {
 
           {/* Filters */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5 mb-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Ch?n b? th?</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">Chọn bộ thẻ</h3>
             <div className="grid grid-cols-2 gap-4">
               {/* Difficulty */}
               <div>
-                <p className="text-app-text-muted text-xs mb-2">C?p d?</p>
+                <p className="text-app-text-muted text-xs mb-2">Cấp độ</p>
                 <div className="flex flex-wrap gap-2">
-                  {([["all", "T?t c?", "app-accent-primary"], [1, "A1 � Co b?n", "#34d399"], [2, "A2-B1 � Trung c?p", "app-accent-primary"], [3, "B2-C1 � N�ng cao", "#f87171"]] as const).map(([val, label, color]) => (
+                  {([["all", "Tất cả", "app-accent-primary"], [1, "A1 · Cơ bản", "#34d399"], [2, "A2-B1 · Trung cấp", "app-accent-primary"], [3, "B2-C1 · Nâng cao", "#f87171"]] as const).map(([val, label, color]) => (
                     <button
                       key={String(val)}
                       onClick={() => setSelectedDifficulty(val as number | "all")}
@@ -296,7 +296,7 @@ export default function FlashcardLevelPage() {
               </div>
               {/* Category */}
               <div>
-                <p className="text-app-text-muted text-xs mb-2">Ch? d?</p>
+                <p className="text-app-text-muted text-xs mb-2">Chủ đề</p>
                 <div className="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto">
                   {categories.map(cat => (
                     <button
@@ -306,7 +306,7 @@ export default function FlashcardLevelPage() {
                         selectedCategory === cat ? "bg-app-accent-primary/15 border-app-accent-primary/30 text-app-accent-primary" : "border-app-border text-white/35 hover:text-white/55"
                       }`}
                     >
-                      {cat === "all" ? "T?t c?" : cat}
+                      {cat === "all" ? "Tất cả" : cat}
                     </button>
                   ))}
                 </div>
@@ -314,7 +314,7 @@ export default function FlashcardLevelPage() {
             </div>
             <div className="mt-4 pt-4 border-t border-app-border flex items-center justify-between">
               <p className="text-app-text-secondary text-sm">
-                <span className="text-white font-bold">{filteredCards.length}</span> t? � <span className="text-[#fb923c] font-bold">{dueCards.length}</span> c?n �n h�m nay
+                <span className="text-white font-bold">{filteredCards.length}</span> từ · <span className="text-[#fb923c] font-bold">{dueCards.length}</span> cần ôn hôm nay
               </p>
               <div className="flex gap-2">
                 <button
@@ -323,7 +323,7 @@ export default function FlashcardLevelPage() {
                   className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#fb923c]/15 border border-[#fb923c]/25 text-[#fb923c] text-sm font-semibold cursor-pointer hover:bg-[#fb923c]/25 transition-colors disabled:opacity-40 whitespace-nowrap"
                 >
                   <i className="ri-calendar-check-line"></i>
-                  �n h�m nay ({dueCards.length})
+                  Ôn hôm nay ({dueCards.length})
                 </button>
                 <button
                   onClick={() => startSession(filteredCards)}
@@ -331,7 +331,7 @@ export default function FlashcardLevelPage() {
                   className="flex items-center gap-2 px-4 py-2 rounded-xl bg-app-accent-primary/15 border border-app-accent-primary/25 text-app-accent-primary text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/25 transition-colors disabled:opacity-40 whitespace-nowrap"
                 >
                   <i className="ri-play-fill"></i>
-                  H?c t?t c?
+                  Học tất cả
                 </button>
               </div>
             </div>
@@ -351,19 +351,19 @@ export default function FlashcardLevelPage() {
                 <div key={diff} className={`bg-app-bg border ${cfg.border} rounded-2xl p-5`}>
                   <div className="flex items-center gap-2 mb-3">
                     <span className="text-xl font-bold" style={{ color: cfg.color }}>{cfg.koreanLevel}</span>
-                    <span className="text-app-text-secondary text-xs">{cfg.label.split("�")[1]?.trim()}</span>
+                    <span className="text-app-text-secondary text-xs">{cfg.label.split("·")[1]?.trim()}</span>
                   </div>
                   <div className="space-y-1.5 text-xs">
                     <div className="flex justify-between">
-                      <span className="text-app-text-secondary">T?ng t?</span>
+                      <span className="text-app-text-secondary">Tổng từ</span>
                       <span className="text-white font-bold">{cards.length}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-app-text-secondary">C?n �n h�m nay</span>
+                      <span className="text-app-text-secondary">Cần ôn hôm nay</span>
                       <span className="font-bold" style={{ color: cfg.color }}>{due.length}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-app-text-secondary">�� thu?c</span>
+                      <span className="text-app-text-secondary">Đã thuộc</span>
                       <span className="text-app-accent-success font-bold">{mastered.length}</span>
                     </div>
                   </div>
@@ -375,7 +375,7 @@ export default function FlashcardLevelPage() {
                     className="mt-3 w-full py-2 rounded-xl text-xs font-semibold cursor-pointer transition-colors"
                     style={{ backgroundColor: `${cfg.color}15`, color: cfg.color }}
                   >
-                    H?c ngay
+                    Học ngay
                   </button>
                 </div>
               );
@@ -388,13 +388,13 @@ export default function FlashcardLevelPage() {
           <div className="w-20 h-20 flex items-center justify-center rounded-full bg-app-accent-primary/15 mb-6">
             <i className="ri-trophy-fill text-app-accent-primary text-4xl"></i>
           </div>
-          <h2 className="text-white font-bold text-2xl mb-2">Ho�n th�nh phi�n h?c!</h2>
-          <p className="text-app-text-secondary text-sm mb-8">B?n d� �n t?p {sessionStats.total} t? v?ng</p>
+          <h2 className="text-white font-bold text-2xl mb-2">Hoàn thành phiên học!</h2>
+          <p className="text-app-text-secondary text-sm mb-8">Bạn đã ôn tập {sessionStats.total} từ vựng</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
             {[
-              { label: "Nh? du?c", value: sessionStats.correct, color: "#34d399", icon: "ri-check-line" },
-              { label: "C?n �n th�m", value: sessionStats.hard, color: "#f87171", icon: "ri-close-line" },
-              { label: "T?ng t?", value: sessionStats.total, color: "app-accent-primary", icon: "ri-stack-line" },
+              { label: "Nhớ được", value: sessionStats.correct, color: "#34d399", icon: "ri-check-line" },
+              { label: "Cần ôn thêm", value: sessionStats.hard, color: "#f87171", icon: "ri-close-line" },
+              { label: "Tổng từ", value: sessionStats.total, color: "app-accent-primary", icon: "ri-stack-line" },
             ].map(s => (
               <div key={s.label} className="text-center">
                 <div className="w-14 h-14 flex items-center justify-center rounded-2xl mx-auto mb-2" style={{ backgroundColor: `${s.color}15` }}>
@@ -410,13 +410,13 @@ export default function FlashcardLevelPage() {
               onClick={() => { setSessionStarted(false); setSessionDone(false); }}
               className="px-6 py-3 rounded-xl bg-app-card/50 border border-app-border text-white/60 text-sm font-semibold cursor-pointer hover:bg-app-card/70 transition-colors whitespace-nowrap"
             >
-              V? trang ch?n
+              Về trang chọn
             </button>
             <button
               onClick={() => startSession(sessionCards)}
               className="px-6 py-3 rounded-xl bg-app-accent-primary/15 border border-app-accent-primary/25 text-app-accent-primary text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/25 transition-colors whitespace-nowrap"
             >
-              H?c l?i
+              Học lại
             </button>
           </div>
         </div>
@@ -430,7 +430,7 @@ export default function FlashcardLevelPage() {
               className="flex items-center gap-1.5 text-app-text-muted hover:text-white/60 text-sm cursor-pointer transition-colors"
             >
               <i className="ri-arrow-left-line"></i>
-              Tho�t
+              Thoát
             </button>
             <div className="flex-1 mx-4">
               <div className="h-2 bg-white/8 rounded-full overflow-hidden">

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { useVipYearGuard, addCsvWatermark } from "@/hooks/useVipYearGuard";
 import VipUpgradeModal from "@/components/feature/VipUpgradeModal";
 
@@ -45,10 +45,10 @@ function loadStreakData() {
 }
 
 const MOOD_CONFIG = {
-  great: { icon: "ri-emotion-laugh-line", label: "Tuy?t v?i", color: "text-green-500", bg: "bg-green-50" },
-  good: { icon: "ri-emotion-happy-line", label: "T?t", color: "text-emerald-500", bg: "bg-emerald-50" },
-  okay: { icon: "ri-emotion-normal-line", label: "B�nh thu?ng", color: "text-amber-500", bg: "bg-amber-50" },
-  bad: { icon: "ri-emotion-unhappy-line", label: "Kh� khan", color: "text-red-500", bg: "bg-red-50" },
+  great: { icon: "ri-emotion-laugh-line", label: "Tuyệt vời", color: "text-green-500", bg: "bg-green-50" },
+  good: { icon: "ri-emotion-happy-line", label: "Tốt", color: "text-emerald-500", bg: "bg-emerald-50" },
+  okay: { icon: "ri-emotion-normal-line", label: "Bình thường", color: "text-amber-500", bg: "bg-amber-50" },
+  bad: { icon: "ri-emotion-unhappy-line", label: "Khó khăn", color: "text-red-500", bg: "bg-red-50" },
 };
 
 export default function StudyDiaryTab() {
@@ -70,10 +70,10 @@ export default function StudyDiaryTab() {
   const todayEntry = useMemo(() => diary.find(e => e.date === getToday()), [diary]);
 
   const buildCSVContent = (entries: DiaryEntry[]) => {
-    const header = "Ng�y,T? d� h?c,Quiz d�ng,T?ng c�u,�? ch�nh x�c,SR d� �n,Streak,C?m x�c,Ghi ch�\n";
+    const header = "Ngày,Từ đã học,Quiz đúng,Tổng câu,Độ chính xác,SR đã ôn,Streak,Cảm xúc,Ghi chú\n";
     const rows = entries.map(e => {
       const acc = e.quizTotal > 0 ? Math.round((e.quizScore / e.quizTotal) * 100) : 0;
-      const moodLabel = { great: "Tuy?t v?i", good: "T?t", okay: "B�nh thu?ng", bad: "Kh� khan" }[e.mood ?? "good"];
+      const moodLabel = { great: "Tuyệt vời", good: "Tốt", okay: "Bình thường", bad: "Khó khăn" }[e.mood ?? "good"];
       return [e.date, e.wordsLearned, e.quizScore, e.quizTotal, `${acc}%`, e.srReviewed, e.streakDay, moodLabel, `"${(e.note || "").replace(/"/g, '""')}"`].join(",");
     }).join("\n");
     return header + rows;
@@ -130,7 +130,7 @@ export default function StudyDiaryTab() {
     return { totalWords, avgWords, accuracy, bestDay, last7, totalDays: diary.length };
   }, [diary]);
 
-  // Calendar view � last 30 days
+  // Calendar view — last 30 days
   const calendarDays = useMemo(() => {
     const days = [];
     for (let i = 29; i >= 0; i--) {
@@ -156,8 +156,8 @@ export default function StudyDiaryTab() {
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div>
-          <h2 className="text-lg font-bold text-gray-900">Nh?t k� h?c t?p</h2>
-          <p className="text-sm text-gray-500">{diary.length} ng�y d� ghi � Theo d�i ti?n d? m?i ng�y</p>
+          <h2 className="text-lg font-bold text-gray-900">Nhật ký học tập</h2>
+          <p className="text-sm text-gray-500">{diary.length} ngày đã ghi · Theo dõi tiến độ mỗi ngày</p>
         </div>
         <div className="flex gap-2">
           {diary.length > 0 && (
@@ -168,7 +168,7 @@ export default function StudyDiaryTab() {
               }`}
             >
               <i className={isVipYear || isVipMonth ? "ri-download-line" : "ri-lock-line"}></i>
-              {isVipYear ? "Xu?t CSV" : isVipMonth ? "Xu?t CSV (50 ng�y)" : "VIP Nam"}
+              {isVipYear ? "Xuất CSV" : isVipMonth ? "Xuất CSV (50 ngày)" : "VIP Năm"}
             </button>
           )}
           <button
@@ -176,7 +176,7 @@ export default function StudyDiaryTab() {
             className="flex items-center gap-2 px-4 py-2 bg-rose-500 text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-rose-600 transition-colors whitespace-nowrap"
           >
             <i className="ri-add-line"></i>
-            {todayEntry ? "C?p nh?t h�m nay" : "Ghi h�m nay"}
+            {todayEntry ? "Cập nhật hôm nay" : "Ghi hôm nay"}
           </button>
         </div>
 
@@ -185,7 +185,7 @@ export default function StudyDiaryTab() {
         open={modalOpen}
         onClose={closeModal}
         reason={modalReason ?? "not_vip_year"}
-        featureName="Xu?t CSV nh?t k� h?c t?p"
+        featureName="Xuất CSV nhật ký học tập"
       />
       </div>
 
@@ -194,7 +194,7 @@ export default function StudyDiaryTab() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30">
           <div className="bg-white rounded-2xl p-6 w-full max-w-md">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-bold text-gray-900">Ghi nh?t k� � {formatDateShort(getToday())}</h3>
+              <h3 className="font-bold text-gray-900">Ghi nhật ký — {formatDateShort(getToday())}</h3>
               <button onClick={() => setShowAddForm(false)} className="text-gray-400 hover:text-gray-600 cursor-pointer">
                 <i className="ri-close-line text-xl"></i>
               </button>
@@ -202,7 +202,7 @@ export default function StudyDiaryTab() {
 
             {/* Mood */}
             <div className="mb-4">
-              <p className="text-xs font-semibold text-gray-600 mb-2">C?m gi�c h?c h�m nay?</p>
+              <p className="text-xs font-semibold text-gray-600 mb-2">Cảm giác học hôm nay?</p>
               <div className="flex gap-2">
                 {(Object.entries(MOOD_CONFIG) as [DiaryEntry["mood"], typeof MOOD_CONFIG.great][]).map(([key, cfg]) => (
                   <button
@@ -219,7 +219,7 @@ export default function StudyDiaryTab() {
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
               <div>
-                <label className="text-xs font-semibold text-gray-600 block mb-1">T? d� h?c</label>
+                <label className="text-xs font-semibold text-gray-600 block mb-1">Từ đã học</label>
                 <input
                   type="number" min="0" value={form.wordsLearned}
                   onChange={e => setForm(f => ({ ...f, wordsLearned: e.target.value }))}
@@ -228,7 +228,7 @@ export default function StudyDiaryTab() {
                 />
               </div>
               <div>
-                <label className="text-xs font-semibold text-gray-600 block mb-1">Quiz d�ng</label>
+                <label className="text-xs font-semibold text-gray-600 block mb-1">Quiz đúng</label>
                 <input
                   type="number" min="0" value={form.quizScore}
                   onChange={e => setForm(f => ({ ...f, quizScore: e.target.value }))}
@@ -237,7 +237,7 @@ export default function StudyDiaryTab() {
                 />
               </div>
               <div>
-                <label className="text-xs font-semibold text-gray-600 block mb-1">T?ng c�u</label>
+                <label className="text-xs font-semibold text-gray-600 block mb-1">Tổng câu</label>
                 <input
                   type="number" min="0" value={form.quizTotal}
                   onChange={e => setForm(f => ({ ...f, quizTotal: e.target.value }))}
@@ -248,11 +248,11 @@ export default function StudyDiaryTab() {
             </div>
 
             <div className="mb-4">
-              <label className="text-xs font-semibold text-gray-600 block mb-1">Ghi ch� (t�y ch?n)</label>
+              <label className="text-xs font-semibold text-gray-600 block mb-1">Ghi chú (tùy chọn)</label>
               <textarea
                 value={form.note}
                 onChange={e => setForm(f => ({ ...f, note: e.target.value }))}
-                placeholder="H�m nay h?c du?c g�? Kh� khan g?p ph?i?..."
+                placeholder="Hôm nay học được gì? Khó khăn gặp phải?..."
                 rows={3}
                 maxLength={300}
                 className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-rose-300"
@@ -262,10 +262,10 @@ export default function StudyDiaryTab() {
 
             <div className="flex gap-3">
               <button onClick={addEntry} className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">
-                Luu nh?t k�
+                Lưu nhật ký
               </button>
               <button onClick={() => setShowAddForm(false)} className="flex-1 py-3 border border-gray-200 text-gray-600 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">
-                H?y
+                Hủy
               </button>
             </div>
           </div>
@@ -276,8 +276,8 @@ export default function StudyDiaryTab() {
       <div className="flex gap-1 bg-gray-100 rounded-xl p-1 mb-5 w-fit">
         {([
           { key: "timeline", label: "Timeline", icon: "ri-time-line" },
-          { key: "calendar", label: "L?ch", icon: "ri-calendar-line" },
-          { key: "stats", label: "Th?ng k�", icon: "ri-bar-chart-line" },
+          { key: "calendar", label: "Lịch", icon: "ri-calendar-line" },
+          { key: "stats", label: "Thống kê", icon: "ri-bar-chart-line" },
         ] as { key: typeof viewMode; label: string; icon: string }[]).map(t => (
           <button
             key={t.key}
@@ -295,10 +295,10 @@ export default function StudyDiaryTab() {
           <div className="w-16 h-16 flex items-center justify-center bg-rose-50 rounded-2xl mx-auto mb-4">
             <i className="ri-book-2-line text-rose-300 text-3xl"></i>
           </div>
-          <p className="font-medium text-gray-500 mb-1">Chua c� nh?t k� n�o</p>
-          <p className="text-sm mb-6">Nh?n "Ghi h�m nay" d? b?t d?u theo d�i ti?n d? h?c t?p</p>
+          <p className="font-medium text-gray-500 mb-1">Chưa có nhật ký nào</p>
+          <p className="text-sm mb-6">Nhấn "Ghi hôm nay" để bắt đầu theo dõi tiến độ học tập</p>
           <button onClick={() => setShowAddForm(true)} className="px-6 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">
-            Ghi nh?t k� d?u ti�n
+            Ghi nhật ký đầu tiên
           </button>
         </div>
       )}
@@ -324,13 +324,13 @@ export default function StudyDiaryTab() {
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <p className="font-semibold text-gray-900 text-sm">{formatDate(entry.date)}</p>
-                        {isToday && <span className="text-xs text-rose-500 font-medium">H�m nay</span>}
+                        {isToday && <span className="text-xs text-rose-500 font-medium">Hôm nay</span>}
                       </div>
                       <div className="flex items-center gap-1.5">
                         <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${mood.bg} ${mood.color}`}>{mood.label}</span>
                         {entry.streakDay > 0 && (
                           <span className="text-xs px-2 py-0.5 rounded-full bg-orange-50 text-orange-500 font-medium">
-                            <i className="ri-fire-line mr-0.5"></i>{entry.streakDay} ng�y
+                            <i className="ri-fire-line mr-0.5"></i>{entry.streakDay} ngày
                           </span>
                         )}
                       </div>
@@ -341,7 +341,7 @@ export default function StudyDiaryTab() {
                       {entry.wordsLearned > 0 && (
                         <div className="flex items-center gap-1.5 px-3 py-1.5 bg-rose-50 rounded-lg">
                           <i className="ri-book-open-line text-rose-500 text-xs"></i>
-                          <span className="text-xs font-semibold text-rose-700">{entry.wordsLearned} t?</span>
+                          <span className="text-xs font-semibold text-rose-700">{entry.wordsLearned} từ</span>
                         </div>
                       )}
                       {quizPct !== null && (
@@ -379,7 +379,7 @@ export default function StudyDiaryTab() {
       {viewMode === "calendar" && diary.length > 0 && (
         <div>
           <div className="bg-white border border-gray-100 rounded-2xl p-5 mb-4">
-            <p className="text-sm font-semibold text-gray-700 mb-4">30 ng�y g?n nh?t</p>
+            <p className="text-sm font-semibold text-gray-700 mb-4">30 ngày gần nhất</p>
             <div className="grid grid-cols-7 gap-1.5">
               {["CN", "T2", "T3", "T4", "T5", "T6", "T7"].map(d => (
                 <div key={d} className="text-center text-xs text-gray-400 font-medium py-1">{d}</div>
@@ -402,7 +402,7 @@ export default function StudyDiaryTab() {
                         ? "border-2 border-rose-300 text-rose-400"
                         : "text-gray-300"
                     }`}
-                    title={day.entry ? `${day.entry.wordsLearned} t? � Quiz ${day.entry.quizScore}/${day.entry.quizTotal}` : ""}
+                    title={day.entry ? `${day.entry.wordsLearned} từ · Quiz ${day.entry.quizScore}/${day.entry.quizTotal}` : ""}
                   >
                     <span>{day.label}</span>
                     {day.entry && <i className={`${mood?.icon} text-[8px] mt-0.5`}></i>}
@@ -427,10 +427,10 @@ export default function StudyDiaryTab() {
         <div className="space-y-4">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { label: "T?ng ng�y h?c", value: stats.totalDays, icon: "ri-calendar-check-line", color: "text-rose-600", bg: "bg-rose-50" },
-              { label: "T?ng t? d� h?c", value: stats.totalWords, icon: "ri-book-open-line", color: "text-amber-600", bg: "bg-amber-50" },
-              { label: "TB t?/ng�y", value: stats.avgWords, icon: "ri-bar-chart-line", color: "text-indigo-600", bg: "bg-indigo-50" },
-              { label: "�? ch�nh x�c quiz", value: `${stats.accuracy}%`, icon: "ri-gamepad-line", color: "text-green-600", bg: "bg-green-50" },
+              { label: "Tổng ngày học", value: stats.totalDays, icon: "ri-calendar-check-line", color: "text-rose-600", bg: "bg-rose-50" },
+              { label: "Tổng từ đã học", value: stats.totalWords, icon: "ri-book-open-line", color: "text-amber-600", bg: "bg-amber-50" },
+              { label: "TB từ/ngày", value: stats.avgWords, icon: "ri-bar-chart-line", color: "text-indigo-600", bg: "bg-indigo-50" },
+              { label: "Độ chính xác quiz", value: `${stats.accuracy}%`, icon: "ri-gamepad-line", color: "text-green-600", bg: "bg-green-50" },
             ].map(s => (
               <div key={s.label} className={`${s.bg} rounded-xl p-4 text-center`}>
                 <div className="w-8 h-8 flex items-center justify-center mx-auto mb-2">
@@ -444,7 +444,7 @@ export default function StudyDiaryTab() {
 
           {/* 7-day chart */}
           <div className="bg-white border border-gray-100 rounded-2xl p-5">
-            <p className="text-sm font-semibold text-gray-700 mb-4">T? h?c du?c � 7 ng�y g?n nh?t</p>
+            <p className="text-sm font-semibold text-gray-700 mb-4">Từ học được — 7 ngày gần nhất</p>
             <div className="flex items-end gap-2 h-24">
               {stats.last7.map((entry, i) => {
                 const maxWords = Math.max(...stats.last7.map(e => e.wordsLearned), 1);
@@ -455,7 +455,7 @@ export default function StudyDiaryTab() {
                     <span className="text-xs text-gray-400" style={{ fontSize: "9px" }}>{formatDateShort(entry.date)}</span>
                     {entry.wordsLearned > 0 && (
                       <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-[9px] px-1.5 py-0.5 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
-                        {entry.wordsLearned} t?
+                        {entry.wordsLearned} từ
                       </div>
                     )}
                   </div>
@@ -471,15 +471,15 @@ export default function StudyDiaryTab() {
                 <i className="ri-trophy-line text-amber-600 text-xl"></i>
               </div>
               <div>
-                <p className="font-semibold text-amber-800">Ng�y h?c t?t nh?t</p>
-                <p className="text-sm text-amber-600">{formatDate(stats.bestDay.date)} � {stats.bestDay.wordsLearned} t?</p>
+                <p className="font-semibold text-amber-800">Ngày học tốt nhất</p>
+                <p className="text-sm text-amber-600">{formatDate(stats.bestDay.date)} — {stats.bestDay.wordsLearned} từ</p>
               </div>
             </div>
           )}
 
           {/* Mood distribution */}
           <div className="bg-white border border-gray-100 rounded-2xl p-5">
-            <p className="text-sm font-semibold text-gray-700 mb-4">Ph�n b? c?m x�c h?c t?p</p>
+            <p className="text-sm font-semibold text-gray-700 mb-4">Phân bố cảm xúc học tập</p>
             <div className="space-y-2">
               {(Object.entries(MOOD_CONFIG) as [DiaryEntry["mood"], typeof MOOD_CONFIG.great][]).map(([key, cfg]) => {
                 const count = diary.filter(e => (e.mood ?? "good") === key).length;
@@ -493,7 +493,7 @@ export default function StudyDiaryTab() {
                     <div className="flex-1 bg-gray-100 rounded-full h-2">
                       <div className="h-2 rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: pct > 0 ? "#f43f5e" : "transparent" }}></div>
                     </div>
-                    <span className="text-xs text-gray-500 w-12 text-right">{count} ng�y ({pct}%)</span>
+                    <span className="text-xs text-gray-500 w-12 text-right">{count} ngày ({pct}%)</span>
                   </div>
                 );
               })}

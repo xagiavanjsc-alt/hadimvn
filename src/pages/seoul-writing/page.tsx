@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect } from "react";
+﻿import { useState, useMemo, useRef, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { seoulBooks } from "@/mocks/seoulTextbook";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -31,13 +31,13 @@ function buildWritingQuestions(): WritingQuestion[] {
             lessonNumber: lesson.lessonNumber,
             lessonTitle: lesson.titleVi,
             type: "fill-blank",
-            prompt: `�i?n v�o ch? tr?ng:\n${blank}\n(${vocab.exampleVi})`,
+            prompt: `Điền vào chỗ trống:\n${blank}\n(${vocab.exampleVi})`,
             answer: vocab.korean,
             hint: `[${vocab.pronunciation}] - ${vocab.vietnamese}`,
-            explanation: `��p �n: ${vocab.korean} (${vocab.vietnamese})`,
+            explanation: `Đáp án: ${vocab.korean} (${vocab.vietnamese})`,
           });
         }
-        // Translate Vietnamese ? Korean
+        // Translate Vietnamese → Korean
         if (vi % 3 === 0) {
           questions.push({
             id: `${book.id}-${lesson.lessonNumber}-trvi-${vi}`,
@@ -46,13 +46,13 @@ function buildWritingQuestions(): WritingQuestion[] {
             lessonNumber: lesson.lessonNumber,
             lessonTitle: lesson.titleVi,
             type: "translate-vi",
-            prompt: `D?ch sang ti?ng H�n:\n"${vocab.vietnamese}"`,
+            prompt: `Dịch sang tiếng Hàn:\n"${vocab.vietnamese}"`,
             answer: vocab.korean,
-            hint: `Phi�n �m: [${vocab.pronunciation}]`,
+            hint: `Phiên âm: [${vocab.pronunciation}]`,
             explanation: `${vocab.korean} [${vocab.pronunciation}] = ${vocab.vietnamese}`,
           });
         }
-        // Translate Korean ? Vietnamese
+        // Translate Korean → Vietnamese
         if (vi % 3 === 1) {
           questions.push({
             id: `${book.id}-${lesson.lessonNumber}-trko-${vi}`,
@@ -61,9 +61,9 @@ function buildWritingQuestions(): WritingQuestion[] {
             lessonNumber: lesson.lessonNumber,
             lessonTitle: lesson.titleVi,
             type: "translate-ko",
-            prompt: `D?ch sang ti?ng Vi?t:\n"${vocab.korean}"`,
+            prompt: `Dịch sang tiếng Việt:\n"${vocab.korean}"`,
             answer: vocab.vietnamese,
-            hint: `Phi�n �m: [${vocab.pronunciation}]`,
+            hint: `Phiên âm: [${vocab.pronunciation}]`,
             explanation: `${vocab.korean} = ${vocab.vietnamese}`,
           });
         }
@@ -182,9 +182,9 @@ export default function SeoulWritingPage() {
   };
 
   const typeLabels: Record<string, string> = {
-    "fill-blank": "�i?n v�o ch? tr?ng",
-    "translate-vi": "D?ch Vi?t ? H�n",
-    "translate-ko": "D?ch H�n ? Vi?t",
+    "fill-blank": "Điền vào chỗ trống",
+    "translate-vi": "Dịch Việt → Hàn",
+    "translate-ko": "Dịch Hàn → Việt",
   };
 
   const typeColors: Record<string, string> = {
@@ -200,9 +200,9 @@ export default function SeoulWritingPage() {
   };
 
   const scoreLabels: Record<ScoreResult, string> = {
-    correct: "Ch�nh x�c! +20 XP",
-    partial: "G?n d�ng! +10 XP",
-    wrong: "Chua d�ng",
+    correct: "Chính xác! +20 XP",
+    partial: "Gần đúng! +10 XP",
+    wrong: "Chưa đúng",
   };
 
   const scoreIcons: Record<ScoreResult, string> = {
@@ -218,40 +218,40 @@ export default function SeoulWritingPage() {
         <div className="p-6 max-w-3xl mx-auto space-y-6">
           <div>
             <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "'Nunito', sans-serif" }}>
-              Luy?n vi?t Seoul
+              Luyện viết Seoul
             </h1>
-            <p className="text-app-text-secondary text-sm mt-0.5">Luy?n vi?t c�u theo b�i h?c Seoul v?i ch?m di?m t? d?ng</p>
+            <p className="text-app-text-secondary text-sm mt-0.5">Luyện viết câu theo bài học Seoul với chấm điểm tự động</p>
           </div>
 
           {/* Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-app-card/50 border border-app-border rounded-xl p-4 text-center">
               <p className="text-white font-bold text-2xl">{ALL_QUESTIONS.length}</p>
-              <p className="text-app-text-secondary text-xs mt-0.5">T?ng c�u h?i</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">Tổng câu hỏi</p>
             </div>
             <div className="bg-app-card/50 border border-app-border rounded-xl p-4 text-center">
               <p className="text-white font-bold text-2xl">{seoulBooks.length}</p>
-              <p className="text-app-text-secondary text-xs mt-0.5">Cu?n s�ch</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">Cuốn sách</p>
             </div>
             <div className="bg-app-card/50 border border-app-border rounded-xl p-4 text-center">
               <p className="text-app-accent-primary font-bold text-2xl">3</p>
-              <p className="text-app-text-secondary text-xs mt-0.5">D?ng b�i</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">Dạng bài</p>
             </div>
           </div>
 
           {/* Filters */}
           <div className="bg-app-card/50 border border-app-border rounded-2xl p-5 space-y-4">
-            <h2 className="text-white font-semibold text-sm">T�y ch?nh b�i luy?n</h2>
+            <h2 className="text-white font-semibold text-sm">Tùy chỉnh bài luyện</h2>
 
             {/* Book filter */}
             <div>
-              <p className="text-app-text-secondary text-xs mb-2">Ch?n cu?n s�ch</p>
+              <p className="text-app-text-secondary text-xs mb-2">Chọn cuốn sách</p>
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => setSelectedBook("all")}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${selectedBook === "all" ? "bg-white/15 text-white border-white/20" : "bg-app-card/50 text-app-text-secondary hover:text-white/70 border-transparent"}`}
                 >
-                  T?t c?
+                  Tất cả
                 </button>
                 {seoulBooks.map(book => (
                   <button
@@ -271,13 +271,13 @@ export default function SeoulWritingPage() {
 
             {/* Type filter */}
             <div>
-              <p className="text-app-text-secondary text-xs mb-2">D?ng b�i</p>
+              <p className="text-app-text-secondary text-xs mb-2">Dạng bài</p>
               <div className="flex flex-wrap gap-2">
                 {[
-                  { id: "all", label: "T?t c? d?ng" },
-                  { id: "fill-blank", label: "�i?n v�o ch? tr?ng" },
-                  { id: "translate-vi", label: "D?ch Vi?t ? H�n" },
-                  { id: "translate-ko", label: "D?ch H�n ? Vi?t" },
+                  { id: "all", label: "Tất cả dạng" },
+                  { id: "fill-blank", label: "Điền vào chỗ trống" },
+                  { id: "translate-vi", label: "Dịch Việt → Hàn" },
+                  { id: "translate-ko", label: "Dịch Hàn → Việt" },
                 ].map(t => (
                   <button
                     key={t.id}
@@ -295,16 +295,16 @@ export default function SeoulWritingPage() {
             </div>
 
             <p className="text-app-text-muted text-xs">
-              {filteredQuestions.length} c�u h?i ph� h?p v?i b? l?c
+              {filteredQuestions.length} câu hỏi phù hợp với bộ lọc
             </p>
           </div>
 
           {/* Start buttons */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { count: 10, label: "10 c�u", desc: "Luy?n nhanh", xp: "200 XP" },
-              { count: 20, label: "20 c�u", desc: "Luy?n v?a", xp: "400 XP" },
-              { count: 30, label: "30 c�u", desc: "Luy?n s�u", xp: "600 XP" },
+              { count: 10, label: "10 câu", desc: "Luyện nhanh", xp: "200 XP" },
+              { count: 20, label: "20 câu", desc: "Luyện vừa", xp: "400 XP" },
+              { count: 30, label: "30 câu", desc: "Luyện sâu", xp: "600 XP" },
             ].map(opt => (
               <button
                 key={opt.count}
@@ -314,22 +314,22 @@ export default function SeoulWritingPage() {
               >
                 <p className="text-white font-bold text-xl">{opt.label}</p>
                 <p className="text-app-text-secondary text-xs mt-1">{opt.desc}</p>
-                <p className="text-app-accent-primary text-xs mt-2 font-medium">T?i da {opt.xp}</p>
+                <p className="text-app-accent-primary text-xs mt-2 font-medium">Tối đa {opt.xp}</p>
               </button>
             ))}
           </div>
 
           {/* Type guide */}
           <div className="bg-app-card/50 border border-app-border rounded-2xl p-5 space-y-3">
-            <h2 className="text-white font-semibold text-sm">Hu?ng d?n ch?m di?m</h2>
+            <h2 className="text-white font-semibold text-sm">Hướng dẫn chấm điểm</h2>
             <div className="space-y-2">
               <div className="flex items-center gap-3">
                 <div className="w-6 h-6 flex items-center justify-center">
                   <i className="ri-checkbox-circle-fill text-app-accent-success text-base"></i>
                 </div>
                 <div>
-                  <p className="text-white/70 text-sm font-medium">Ch�nh x�c � +20 XP</p>
-                  <p className="text-app-text-muted text-xs">C�u tr? l?i kh?p ho�n to�n v?i d�p �n</p>
+                  <p className="text-white/70 text-sm font-medium">Chính xác — +20 XP</p>
+                  <p className="text-app-text-muted text-xs">Câu trả lời khớp hoàn toàn với đáp án</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -337,8 +337,8 @@ export default function SeoulWritingPage() {
                   <i className="ri-error-warning-fill text-amber-400 text-base"></i>
                 </div>
                 <div>
-                  <p className="text-white/70 text-sm font-medium">G?n d�ng � +10 XP</p>
-                  <p className="text-app-text-muted text-xs">C�u tr? l?i ch?a �t nh?t 60% t? kh�a d�ng</p>
+                  <p className="text-white/70 text-sm font-medium">Gần đúng — +10 XP</p>
+                  <p className="text-app-text-muted text-xs">Câu trả lời chứa ít nhất 60% từ khóa đúng</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -346,8 +346,8 @@ export default function SeoulWritingPage() {
                   <i className="ri-close-circle-fill text-red-400 text-base"></i>
                 </div>
                 <div>
-                  <p className="text-white/70 text-sm font-medium">Chua d�ng � +0 XP</p>
-                  <p className="text-app-text-muted text-xs">Xem d�p �n v� ghi nh? d? l?n sau l�m d�ng</p>
+                  <p className="text-white/70 text-sm font-medium">Chưa đúng — +0 XP</p>
+                  <p className="text-app-text-muted text-xs">Xem đáp án và ghi nhớ để lần sau làm đúng</p>
                 </div>
               </div>
             </div>
@@ -370,17 +370,17 @@ export default function SeoulWritingPage() {
             <div className="w-16 h-16 flex items-center justify-center bg-app-accent-primary/10 rounded-full mx-auto">
               <i className="ri-trophy-line text-app-accent-primary text-3xl"></i>
             </div>
-            <h2 className="text-white font-bold text-2xl">Ho�n th�nh!</h2>
-            <p className="text-app-text-secondary text-sm">B?n d� luy?n vi?t {sessionStats.total} c�u</p>
+            <h2 className="text-white font-bold text-2xl">Hoàn thành!</h2>
+            <p className="text-app-text-secondary text-sm">Bạn đã luyện viết {sessionStats.total} câu</p>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
               <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 text-center">
                 <p className="text-app-accent-success font-bold text-xl">{sessionStats.correct}</p>
-                <p className="text-app-accent-success/60 text-xs">��ng</p>
+                <p className="text-app-accent-success/60 text-xs">Đúng</p>
               </div>
               <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 text-center">
                 <p className="text-amber-400 font-bold text-xl">{sessionStats.partial}</p>
-                <p className="text-amber-400/60 text-xs">G?n d�ng</p>
+                <p className="text-amber-400/60 text-xs">Gần đúng</p>
               </div>
               <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3 text-center">
                 <p className="text-red-400 font-bold text-xl">{sessionStats.wrong}</p>
@@ -395,7 +395,7 @@ export default function SeoulWritingPage() {
             {/* Accuracy bar */}
             <div className="mt-2">
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-app-text-secondary text-xs">�? ch�nh x�c</span>
+                <span className="text-app-text-secondary text-xs">Độ chính xác</span>
                 <span className="text-white font-bold text-sm">{accuracy}%</span>
               </div>
               <div className="h-2 bg-white/8 rounded-full overflow-hidden">
@@ -414,13 +414,13 @@ export default function SeoulWritingPage() {
                 onClick={() => setMode("setup")}
                 className="flex-1 py-3 rounded-xl border border-app-border text-white/60 text-sm hover:text-white/80 transition-all cursor-pointer whitespace-nowrap"
               >
-                V? trang ch?
+                Về trang chủ
               </button>
               <button
                 onClick={() => startSession(sessionStats.total)}
                 className="flex-1 py-3 rounded-xl bg-app-accent-primary/15 border border-app-accent-primary/30 text-app-accent-primary text-sm font-medium hover:bg-app-accent-primary/25 transition-all cursor-pointer whitespace-nowrap"
               >
-                Luy?n l?i
+                Luyện lại
               </button>
             </div>
           </div>
@@ -446,7 +446,7 @@ export default function SeoulWritingPage() {
             <div className="w-4 h-4 flex items-center justify-center">
               <i className="ri-arrow-left-line text-sm"></i>
             </div>
-            Tho�t
+            Thoát
           </button>
           <div className="flex items-center gap-3">
             <span className="text-app-text-secondary text-sm">{currentIdx + 1}/{sessionQuestions.length}</span>
@@ -474,7 +474,7 @@ export default function SeoulWritingPage() {
             <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${typeColors[currentQ.type]}`}>
               {typeLabels[currentQ.type]}
             </span>
-            <span className="text-app-text-muted text-xs">{currentQ.bookName} � B�i {currentQ.lessonNumber}</span>
+            <span className="text-app-text-muted text-xs">{currentQ.bookName} · Bài {currentQ.lessonNumber}</span>
           </div>
 
           {/* Prompt */}
@@ -499,7 +499,7 @@ export default function SeoulWritingPage() {
               <div className="w-4 h-4 flex items-center justify-center">
                 <i className="ri-volume-up-line text-sm"></i>
               </div>
-              Nghe ph�t �m
+              Nghe phát âm
             </button>
           )}
 
@@ -518,10 +518,10 @@ export default function SeoulWritingPage() {
               disabled={submitted}
               placeholder={
                 currentQ.type === "translate-vi"
-                  ? "Nh?p c�u tr? l?i b?ng ti?ng H�n..."
+                  ? "Nhập câu trả lời bằng tiếng Hàn..."
                   : currentQ.type === "translate-ko"
-                  ? "Nh?p c�u tr? l?i b?ng ti?ng Vi?t..."
-                  : "�i?n t? c�n thi?u..."
+                  ? "Nhập câu trả lời bằng tiếng Việt..."
+                  : "Điền từ còn thiếu..."
               }
               rows={3}
               className={`w-full rounded-xl px-4 py-3 text-white text-base placeholder-white/20 focus:outline-none resize-none transition-all border ${
@@ -531,7 +531,7 @@ export default function SeoulWritingPage() {
               }`}
               style={{ fontFamily: currentQ.type !== "translate-ko" ? "'Noto Sans KR', sans-serif" : "inherit" }}
             />
-            <p className="text-app-text-muted text-xs mt-1">Nh?n Enter d? n?p b�i</p>
+            <p className="text-app-text-muted text-xs mt-1">Nhấn Enter để nộp bài</p>
           </div>
 
           {/* Hint */}
@@ -543,7 +543,7 @@ export default function SeoulWritingPage() {
               <div className="w-3 h-3 flex items-center justify-center">
                 <i className="ri-lightbulb-line text-xs"></i>
               </div>
-              {showHint ? "?n g?i �" : "Xem g?i �"}
+              {showHint ? "Ẩn gợi ý" : "Xem gợi ý"}
             </button>
           )}
           {showHint && !submitted && currentQ.hint && (
@@ -563,7 +563,7 @@ export default function SeoulWritingPage() {
               <p className="text-white font-semibold text-sm">{scoreLabels[scoreResult]}</p>
             </div>
             <div>
-              <p className="text-app-text-secondary text-xs mb-1">��p �n d�ng:</p>
+              <p className="text-app-text-secondary text-xs mb-1">Đáp án đúng:</p>
               <p
                 className="text-white font-medium text-base"
                 style={{ fontFamily: currentQ.type !== "translate-ko" ? "'Noto Sans KR', sans-serif" : "inherit" }}
@@ -585,14 +585,14 @@ export default function SeoulWritingPage() {
               disabled={!userInput.trim()}
               className="flex-1 py-3 rounded-xl bg-app-accent-primary/15 border border-app-accent-primary/30 text-app-accent-primary font-medium text-sm hover:bg-app-accent-primary/25 transition-all cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              N?p b�i
+              Nộp bài
             </button>
           ) : (
             <button
               onClick={handleNext}
               className="flex-1 py-3 rounded-xl bg-app-accent-primary/15 border border-app-accent-primary/30 text-app-accent-primary font-medium text-sm hover:bg-app-accent-primary/25 transition-all cursor-pointer whitespace-nowrap"
             >
-              {currentIdx + 1 >= sessionQuestions.length ? "Xem k?t qu?" : "C�u ti?p theo"}
+              {currentIdx + 1 >= sessionQuestions.length ? "Xem kết quả" : "Câu tiếp theo"}
               <i className="ri-arrow-right-line ml-2"></i>
             </button>
           )}
@@ -602,11 +602,11 @@ export default function SeoulWritingPage() {
         <div className="flex gap-3">
           <div className="flex-1 bg-emerald-500/8 border border-emerald-500/15 rounded-xl p-2.5 text-center">
             <p className="text-app-accent-success font-bold">{sessionStats.correct}</p>
-            <p className="text-app-accent-success/50 text-xs">��ng</p>
+            <p className="text-app-accent-success/50 text-xs">Đúng</p>
           </div>
           <div className="flex-1 bg-amber-500/8 border border-amber-500/15 rounded-xl p-2.5 text-center">
             <p className="text-amber-400 font-bold">{sessionStats.partial}</p>
-            <p className="text-amber-400/50 text-xs">G?n d�ng</p>
+            <p className="text-amber-400/50 text-xs">Gần đúng</p>
           </div>
           <div className="flex-1 bg-red-500/8 border border-red-500/15 rounded-xl p-2.5 text-center">
             <p className="text-red-400 font-bold">{sessionStats.wrong}</p>

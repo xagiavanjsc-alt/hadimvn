@@ -1,9 +1,9 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+﻿import { useState, useEffect, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
-// --- Types --------------------------------------------------------------------
+// ─── Types ────────────────────────────────────────────────────────────────────
 interface Vocab {
   id: number;
   book_id: string;
@@ -45,7 +45,7 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-// --- Flashcard Mode -----------------------------------------------------------
+// ─── Flashcard Mode ───────────────────────────────────────────────────────────
 interface FlashcardModeProps {
   words: Vocab[];
   onBack: () => void;
@@ -79,12 +79,12 @@ function FlashcardMode({ words, onBack }: FlashcardModeProps) {
       {/* Progress */}
       <div className="flex items-center justify-between mb-4">
         <button onClick={onBack} className="flex items-center gap-2 text-sm cursor-pointer" style={{ color: "var(--text-muted, #6b7280)" }}>
-          <i className="ri-arrow-left-line"></i> Quay l?i
+          <i className="ri-arrow-left-line"></i> Quay lại
         </button>
         <div className="flex items-center gap-3">
-          <span className="text-xs font-semibold text-emerald-500">{known.size} bi?t</span>
+          <span className="text-xs font-semibold text-emerald-500">{known.size} biết</span>
           <span className="text-xs" style={{ color: "#6b7280" }}>{idx + 1}/{shuffled.length}</span>
-          <span className="text-xs font-semibold text-rose-500">{unknown.size} chua bi?t</span>
+          <span className="text-xs font-semibold text-rose-500">{unknown.size} chưa biết</span>
         </div>
       </div>
       <div className="h-1.5 rounded-full mb-6 overflow-hidden bg-gray-100">
@@ -109,7 +109,7 @@ function FlashcardMode({ words, onBack }: FlashcardModeProps) {
             <>
               <p className="text-5xl font-black mb-3" style={{ color: "#111827" }}>{card.korean}</p>
               <p className="text-base text-gray-400">[{card.pronunciation}]</p>
-              <p className="text-xs text-gray-300 mt-4">Nh?n d? xem nghia</p>
+              <p className="text-xs text-gray-300 mt-4">Nhấn để xem nghĩa</p>
             </>
           ) : (
             <>
@@ -138,11 +138,11 @@ function FlashcardMode({ words, onBack }: FlashcardModeProps) {
           <>
             <button onClick={() => next("unknown")}
               className="flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-sm cursor-pointer bg-rose-500 text-white">
-              <i className="ri-close-line"></i> Chua bi?t
+              <i className="ri-close-line"></i> Chưa biết
             </button>
             <button onClick={() => next("known")}
               className="flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-sm cursor-pointer bg-emerald-500 text-white">
-              <i className="ri-check-line"></i> �� bi?t
+              <i className="ri-check-line"></i> Đã biết
             </button>
           </>
         )}
@@ -150,7 +150,7 @@ function FlashcardMode({ words, onBack }: FlashcardModeProps) {
           <button onClick={() => setFlipped(true)}
             className="px-8 py-3 rounded-2xl font-bold text-sm cursor-pointer text-white"
             style={{ background: "linear-gradient(135deg, #f87171, #fb923c)" }}>
-            L?t th?
+            Lật thẻ
           </button>
         )}
         <button onClick={() => next()} disabled={idx === shuffled.length - 1}
@@ -162,10 +162,10 @@ function FlashcardMode({ words, onBack }: FlashcardModeProps) {
 
       {done && (
         <div className="mt-6 p-5 rounded-2xl text-center" style={{ background: "linear-gradient(135deg, #ecfdf5, #f0fdf4)" }}>
-          <p className="text-2xl mb-2">??</p>
-          <p className="font-bold text-emerald-700">Ho�n th�nh! {known.size}/{shuffled.length} t? d� bi?t</p>
+          <p className="text-2xl mb-2">🎉</p>
+          <p className="font-bold text-emerald-700">Hoàn thành! {known.size}/{shuffled.length} từ đã biết</p>
           <button onClick={onBack} className="mt-3 px-6 py-2 rounded-xl bg-emerald-500 text-white text-sm font-bold cursor-pointer">
-            Ch?n b�i kh�c
+            Chọn bài khác
           </button>
         </div>
       )}
@@ -173,7 +173,7 @@ function FlashcardMode({ words, onBack }: FlashcardModeProps) {
   );
 }
 
-// --- Quiz Mode ----------------------------------------------------------------
+// ─── Quiz Mode ────────────────────────────────────────────────────────────────
 interface QuizModeProps {
   words: Vocab[];
   onBack: () => void;
@@ -221,8 +221,8 @@ function QuizMode({ words, onBack }: QuizModeProps) {
       <div className="max-w-lg mx-auto text-center">
         <div className="p-8 rounded-3xl border-2 mb-6" style={{ borderColor: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
           <p className="text-6xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>{pct}%</p>
-          <p className="text-xl font-bold text-gray-700 mb-1">{score}/{questions.length} c�u d�ng</p>
-          <p className="text-gray-500">{pct >= 80 ? "Xu?t s?c! ??" : pct >= 60 ? "Kh� t?t! ??" : "C?n �n th�m ??"}</p>
+          <p className="text-xl font-bold text-gray-700 mb-1">{score}/{questions.length} câu đúng</p>
+          <p className="text-gray-500">{pct >= 80 ? "Xuất sắc! 🎉" : pct >= 60 ? "Khá tốt! 👍" : "Cần ôn thêm 📚"}</p>
         </div>
         <div className="space-y-2 mb-6 text-left">
           {answers.map((a, i) => (
@@ -231,7 +231,7 @@ function QuizMode({ words, onBack }: QuizModeProps) {
               <i className={`text-sm ${a.userAnswer === a.correct ? "ri-check-line text-emerald-500" : "ri-close-line text-rose-500"}`}></i>
               <div className="flex-1 min-w-0">
                 <span className="font-bold text-sm text-gray-800">{a.word.korean}</span>
-                <span className="text-xs text-gray-500 ml-2">? {a.correct}</span>
+                <span className="text-xs text-gray-500 ml-2">→ {a.correct}</span>
               </div>
               {a.userAnswer !== a.correct && (
                 <span className="text-xs text-rose-500 line-through">{a.userAnswer}</span>
@@ -241,7 +241,7 @@ function QuizMode({ words, onBack }: QuizModeProps) {
         </div>
         <button onClick={onBack} className="px-8 py-3 rounded-2xl font-bold text-white cursor-pointer"
           style={{ background: "linear-gradient(135deg, #f87171, #fb923c)" }}>
-          Ch?n b�i kh�c
+          Chọn bài khác
         </button>
       </div>
     );
@@ -251,7 +251,7 @@ function QuizMode({ words, onBack }: QuizModeProps) {
     <div className="max-w-lg mx-auto">
       <div className="flex items-center justify-between mb-4">
         <button onClick={onBack} className="flex items-center gap-2 text-sm cursor-pointer text-gray-500">
-          <i className="ri-arrow-left-line"></i> Quay l?i
+          <i className="ri-arrow-left-line"></i> Quay lại
         </button>
         <span className="text-sm font-semibold text-gray-500">{qIdx + 1}/{questions.length}</span>
       </div>
@@ -288,7 +288,7 @@ function QuizMode({ words, onBack }: QuizModeProps) {
   );
 }
 
-// --- Matching Mode ------------------------------------------------------------
+// ─── Matching Mode ────────────────────────────────────────────────────────────
 interface MatchingModeProps {
   words: Vocab[];
   onBack: () => void;
@@ -324,24 +324,24 @@ function MatchingMode({ words, onBack }: MatchingModeProps) {
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <button onClick={onBack} className="flex items-center gap-2 text-sm cursor-pointer text-gray-500">
-          <i className="ri-arrow-left-line"></i> Quay l?i
+          <i className="ri-arrow-left-line"></i> Quay lại
         </button>
-        <span className="text-sm font-semibold text-gray-500">{score}/{pairs.length} c?p</span>
+        <span className="text-sm font-semibold text-gray-500">{score}/{pairs.length} cặp</span>
       </div>
 
       {done ? (
         <div className="text-center p-8 rounded-3xl" style={{ background: "linear-gradient(135deg, #ecfdf5, #f0fdf4)" }}>
-          <p className="text-4xl mb-3">??</p>
-          <p className="text-xl font-bold text-emerald-700 mb-2">Ho�n th�nh!</p>
-          <p className="text-emerald-600 mb-4">B?n d� gh�p d�ng t?t c? {pairs.length} c?p t?!</p>
+          <p className="text-4xl mb-3">🎉</p>
+          <p className="text-xl font-bold text-emerald-700 mb-2">Hoàn thành!</p>
+          <p className="text-emerald-600 mb-4">Bạn đã ghép đúng tất cả {pairs.length} cặp từ!</p>
           <button onClick={onBack} className="px-8 py-3 rounded-2xl bg-emerald-500 text-white font-bold cursor-pointer">
-            Ch?n b�i kh�c
+            Chọn bài khác
           </button>
         </div>
       ) : (
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <p className="text-xs font-bold text-gray-400 tracking-normal mb-3">Ti?ng H�n</p>
+            <p className="text-xs font-bold text-gray-400 tracking-normal mb-3">Tiếng Hàn</p>
             {koreans.map(k => {
               const isMatched = matched.has(k);
               const isSelected = selectedK === k;
@@ -361,7 +361,7 @@ function MatchingMode({ words, onBack }: MatchingModeProps) {
             })}
           </div>
           <div className="space-y-2">
-            <p className="text-xs font-bold text-gray-400 tracking-normal mb-3">Ti?ng Vi?t</p>
+            <p className="text-xs font-bold text-gray-400 tracking-normal mb-3">Tiếng Việt</p>
             {vietnameses.map(v => {
               const isMatched = matched.has(v);
               const isSelected = selectedV === v;
@@ -386,7 +386,7 @@ function MatchingMode({ words, onBack }: MatchingModeProps) {
   );
 }
 
-// --- Fill in the Blank Mode ---------------------------------------------------
+// ─── Fill in the Blank Mode ───────────────────────────────────────────────────
 interface FillModeProps {
   words: Vocab[];
   onBack: () => void;
@@ -423,11 +423,11 @@ function FillMode({ words, onBack }: FillModeProps) {
       <div className="max-w-lg mx-auto text-center">
         <div className="p-8 rounded-3xl border-2 mb-6" style={{ borderColor: pct >= 80 ? "#34d399" : "#f87171" }}>
           <p className="text-6xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : "#f87171" }}>{pct}%</p>
-          <p className="text-xl font-bold text-gray-700">{score}/{questions.length} c�u d�ng</p>
+          <p className="text-xl font-bold text-gray-700">{score}/{questions.length} câu đúng</p>
         </div>
         <button onClick={onBack} className="px-8 py-3 rounded-2xl font-bold text-white cursor-pointer"
           style={{ background: "linear-gradient(135deg, #f87171, #fb923c)" }}>
-          Ch?n b�i kh�c
+          Chọn bài khác
         </button>
       </div>
     );
@@ -437,7 +437,7 @@ function FillMode({ words, onBack }: FillModeProps) {
     <div className="max-w-lg mx-auto">
       <div className="flex items-center justify-between mb-4">
         <button onClick={onBack} className="flex items-center gap-2 text-sm cursor-pointer text-gray-500">
-          <i className="ri-arrow-left-line"></i> Quay l?i
+          <i className="ri-arrow-left-line"></i> Quay lại
         </button>
         <span className="text-sm font-semibold text-gray-500">{qIdx + 1}/{questions.length}</span>
       </div>
@@ -446,7 +446,7 @@ function FillMode({ words, onBack }: FillModeProps) {
       </div>
 
       <div className="text-center mb-6 p-6 rounded-3xl border-2 border-gray-100">
-        <p className="text-sm text-gray-400 mb-2">�i?n t? ti?ng H�n tuong ?ng</p>
+        <p className="text-sm text-gray-400 mb-2">Điền từ tiếng Hàn tương ứng</p>
         <p className="text-xl font-bold text-gray-900 mb-1">{current.vietnamese}</p>
         <p className="text-sm text-gray-400">{current.part_of_speech}</p>
         {current.example_vi && (
@@ -460,7 +460,7 @@ function FillMode({ words, onBack }: FillModeProps) {
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => e.key === "Enter" && input.trim() && !result && check()}
-          placeholder="Nh?p t? ti?ng H�n..."
+          placeholder="Nhập từ tiếng Hàn..."
           className="w-full px-5 py-4 rounded-2xl border-2 text-xl font-bold text-center outline-none transition-all"
           style={{
             borderColor: result === "correct" ? "#34d399" : result === "wrong" ? "#f87171" : "#e5e7eb",
@@ -472,7 +472,7 @@ function FillMode({ words, onBack }: FillModeProps) {
         />
         {result === "wrong" && (
           <p className="text-center text-sm text-emerald-600 mt-2 font-semibold">
-            ��p �n d�ng: <span className="font-black">{current.korean}</span> [{current.pronunciation}]
+            Đáp án đúng: <span className="font-black">{current.korean}</span> [{current.pronunciation}]
           </p>
         )}
       </div>
@@ -480,13 +480,13 @@ function FillMode({ words, onBack }: FillModeProps) {
       <button onClick={check} disabled={!input.trim() || result !== null}
         className="w-full py-4 rounded-2xl font-bold text-white text-base cursor-pointer disabled:opacity-40 transition-all"
         style={{ background: "linear-gradient(135deg, #a78bfa, #f87171)" }}>
-        Ki?m tra
+        Kiểm tra
       </button>
     </div>
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function SeoulVocabPracticePage() {
   const navigate = useNavigate();
   const [lessons, setLessons] = useState<Lesson[]>([]);
@@ -547,8 +547,8 @@ export default function SeoulVocabPracticePage() {
             <i className="ri-arrow-left-line text-gray-500"></i>
           </button>
           <div>
-            <h1 className="text-xl font-bold text-gray-900">Luy?n t? v?ng Seoul</h1>
-            <p className="text-sm text-gray-500">Flashcard � Quiz � Gh�p c?p � �i?n t? theo t?ng b�i h?c</p>
+            <h1 className="text-xl font-bold text-gray-900">Luyện từ vựng Seoul</h1>
+            <p className="text-sm text-gray-500">Flashcard · Quiz · Ghép cặp · Điền từ theo từng bài học</p>
           </div>
         </div>
 
@@ -587,7 +587,7 @@ export default function SeoulVocabPracticePage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-bold text-sm text-gray-900 truncate">{lesson.title}</p>
-                      <p className="text-xs text-gray-400">{count} t? v?ng</p>
+                      <p className="text-xs text-gray-400">{count} từ vựng</p>
                     </div>
                     {isSelected && <i className="ri-checkbox-circle-line text-orange-400 text-lg flex-shrink-0"></i>}
                   </button>
@@ -604,16 +604,16 @@ export default function SeoulVocabPracticePage() {
                   </div>
                   <div>
                     <p className="font-bold text-gray-900">{selectedLessonData?.title}</p>
-                    <p className="text-sm text-gray-500">{words.length} t? v?ng � Ch?n ch? d? luy?n t?p</p>
+                    <p className="text-sm text-gray-500">{words.length} từ vựng · Chọn chế độ luyện tập</p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {[
-                    { mode: "flashcard" as Mode, icon: "ri-stack-line", label: "Flashcard", desc: "L?t th? h?c t?", color: "#34d399", minWords: 1 },
-                    { mode: "quiz" as Mode, icon: "ri-question-line", label: "Quiz", desc: "Tr?c nghi?m 4 d�p �n", color: "#a78bfa", minWords: 4 },
-                    { mode: "matching" as Mode, icon: "ri-links-line", label: "Gh�p c?p", desc: "N?i t? v?i nghia", color: "app-accent-primary", minWords: 4 },
-                    { mode: "fill" as Mode, icon: "ri-edit-line", label: "�i?n t?", desc: "Nh?p t? ti?ng H�n", color: "#f87171", minWords: 1 },
+                    { mode: "flashcard" as Mode, icon: "ri-stack-line", label: "Flashcard", desc: "Lật thẻ học từ", color: "#34d399", minWords: 1 },
+                    { mode: "quiz" as Mode, icon: "ri-question-line", label: "Quiz", desc: "Trắc nghiệm 4 đáp án", color: "#a78bfa", minWords: 4 },
+                    { mode: "matching" as Mode, icon: "ri-links-line", label: "Ghép cặp", desc: "Nối từ với nghĩa", color: "app-accent-primary", minWords: 4 },
+                    { mode: "fill" as Mode, icon: "ri-edit-line", label: "Điền từ", desc: "Nhập từ tiếng Hàn", color: "#f87171", minWords: 1 },
                   ].map(m => {
                     const disabled = words.length < m.minWords;
                     return (
@@ -636,14 +636,14 @@ export default function SeoulVocabPracticePage() {
             {selectedLesson && loading && (
               <div className="text-center py-8">
                 <div className="w-8 h-8 border-2 border-orange-300 border-t-orange-500 rounded-full animate-spin mx-auto mb-2"></div>
-                <p className="text-sm text-gray-500">�ang t?i t? v?ng...</p>
+                <p className="text-sm text-gray-500">Đang tải từ vựng...</p>
               </div>
             )}
 
             {selectedLesson && !loading && words.length === 0 && (
               <div className="text-center py-8 text-gray-400">
                 <i className="ri-book-2-line text-3xl mb-2 block"></i>
-                <p>B�i h?c n�y chua c� t? v?ng</p>
+                <p>Bài học này chưa có từ vựng</p>
               </div>
             )}
           </>

@@ -1,11 +1,11 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+﻿import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase, resolveStoragePaths } from "@/lib/supabase";
 import { usePageSEO } from "@/hooks/usePageSEO";
 
-// --- SEO Component (uses usePageSEO) ------------------------------------------
+// ─── SEO Component (uses usePageSEO) ──────────────────────────────────────────
 function PostSEO({ post, slug }: { post: Post; slug: string }) {
   const plainText = post.content.replace(/<[^>]*>/g, '').slice(0, 300);
   const imageMatch = post.content.match(/<img[^>]+src=["']([^"']+)["']/);
@@ -22,11 +22,11 @@ function PostSEO({ post, slug }: { post: Post; slug: string }) {
     "image": firstImage || undefined,
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://hanquocoi.vn/community/${slug}`,
+      "@id": `https://hadim.vn/community/${slug}`,
     },
     "publisher": {
       "@type": "Organization",
-      "name": "H�n Qu?c Oi!",
+      "name": "Hàn Quốc Ơi!",
       "logo": {
         "@type": "ImageObject",
         "url": "https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png",
@@ -45,7 +45,7 @@ function PostSEO({ post, slug }: { post: Post; slug: string }) {
   }
 
   usePageSEO({
-    title: `${post.title} - C?ng d?ng H�n Qu?c Oi!`,
+    title: `${post.title} - Cộng đồng Hàn Quốc Ơi!`,
     description: plainText.slice(0, 160),
     path: `/community/${slug}`,
     image: firstImage,
@@ -100,13 +100,13 @@ interface Comment {
 }
 
 const CATEGORY_CONFIG: Record<string, { label: string; icon: string; color: string }> = {
-  question: { label: "H?i d�p", icon: "ri-question-answer-line", color: "#60a5fa" },
-  share: { label: "Chia s?", icon: "ri-share-line", color: "#34d399" },
-  result: { label: "K?t qu? thi", icon: "ri-trophy-line", color: "#FFD700" },
-  tip: { label: "M?o h?c", icon: "ri-lightbulb-line", color: "#fb923c" },
+  question: { label: "Hỏi đáp", icon: "ri-question-answer-line", color: "#60a5fa" },
+  share: { label: "Chia sẻ", icon: "ri-share-line", color: "#34d399" },
+  result: { label: "Kết quả thi", icon: "ri-trophy-line", color: "#FFD700" },
+  tip: { label: "Mẹo học", icon: "ri-lightbulb-line", color: "#fb923c" },
 };
 
-// --- Quiz Card (trong trang chi ti?t) --------------------------------------------
+// ─── Quiz Card (trong trang chi tiết) ────────────────────────────────────────────
 function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { id: string } | null; profile: { display_name?: string } | null }) {
   const quiz = post.quiz;
   const [selected, setSelected] = useState<number | null>(null);
@@ -143,11 +143,11 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
 
   const handleSelect = async (optionId: number) => {
     if (!currentUser) {
-      setError("Vui l�ng dang nh?p d? tr? l?i");
+      setError("Vui lòng đăng nhập để trả lời");
       return;
     }
     if (isAuthor) {
-      setError("B?n kh�ng th? tr? l?i c�u h?i c?a ch�nh m�nh");
+      setError("Bạn không thể trả lời câu hỏi của chính mình");
       return;
     }
     if (submitted || submitting) return;
@@ -168,7 +168,7 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
       });
 
     if (insertError) {
-      setError("L?i: " + insertError.message);
+      setError("Lỗi: " + insertError.message);
       setSubmitting(false);
       return;
     }
@@ -178,19 +178,19 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
     setTotalAnswers(v => v + 1);
     if (isCorrect) setCorrectAnswers(v => v + 1);
 
-    // Auto-post comment: tang engagement + SEO cho b�i vi?t
+    // Auto-post comment: tăng engagement + SEO cho bài viết
     const letter = String.fromCharCode(65 + (quiz.options.findIndex(o => o.id === optionId)));
     const correct = quiz.options.find(o => o.is_correct);
     const commentText = isCorrect
-      ? `? M�nh ch?n <strong>${letter}. ${option?.text}</strong> v� d� tr? l?i d�ng! ??`
-      : `? M�nh ch?n <strong>${letter}. ${option?.text}</strong>, d�p �n d�ng l� <strong>${correct?.text}</strong>.`;
+      ? `✅ Mình chọn <strong>${letter}. ${option?.text}</strong> và đã trả lời đúng! 🎉`
+      : `❌ Mình chọn <strong>${letter}. ${option?.text}</strong>, đáp án đúng là <strong>${correct?.text}</strong>.`;
 
     await supabase.from("community_comments").insert({
       post_id: post.id,
       parent_id: null,
       user_id: currentUser.id,
-      author_name: profile?.display_name || "H?c vi�n",
-      author_level: "H?c vi�n",
+      author_name: profile?.display_name || "Học viên",
+      author_level: "Học viên",
       content: commentText,
       status: "approved", // auto-approve quiz answer comments
     });
@@ -206,11 +206,11 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
     <div className="mt-4 bg-gradient-to-br from-app-accent-primary/5 to-[#60a5fa]/5 border border-app-accent-primary/20 rounded-xl p-4">
       <div className="flex items-center gap-2 mb-3">
         <i className="ri-question-line text-app-accent-primary"></i>
-        <span className="text-app-accent-primary text-xs font-bold uppercase tracking-wide">C�u h?i tr?c nghi?m</span>
+        <span className="text-app-accent-primary text-xs font-bold uppercase tracking-wide">Câu hỏi trắc nghiệm</span>
         {totalAnswers > 0 && (
           <span className="ml-auto text-app-text-muted text-[10px]">
             <i className="ri-group-line mr-0.5"></i>
-            {correctAnswers}/{totalAnswers} d�ng ({correctPct}%)
+            {correctAnswers}/{totalAnswers} đúng ({correctPct}%)
           </span>
         )}
       </div>
@@ -220,7 +220,7 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
       )}
 
       {loading ? (
-        <p className="text-app-text-muted text-xs">�ang t?i...</p>
+        <p className="text-app-text-muted text-xs">Đang tải...</p>
       ) : (
         <div className="space-y-2">
           {quiz.options.map((opt, idx) => {
@@ -267,7 +267,7 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
           onClick={() => setShowAnswer(true)}
           className="mt-3 text-xs text-app-accent-primary hover:underline cursor-pointer"
         >
-          <i className="ri-eye-line mr-1"></i>Xem d�p �n
+          <i className="ri-eye-line mr-1"></i>Xem đáp án
         </button>
       )}
 
@@ -280,18 +280,18 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
           }`}>
             {isSelectedCorrect ? (
               <p className="text-emerald-400 text-sm font-semibold">
-                <i className="ri-trophy-line mr-1"></i>Ch�nh x�c! B?n du?c +1 XP ??
+                <i className="ri-trophy-line mr-1"></i>Chính xác! Bạn được +1 XP 🎉
               </p>
             ) : (
               <p className="text-red-400 text-sm font-semibold mb-1">
-                <i className="ri-close-circle-line mr-1"></i>Sai r?i. ��p �n d�ng: <strong>{correctOption?.text}</strong>
+                <i className="ri-close-circle-line mr-1"></i>Sai rồi. Đáp án đúng: <strong>{correctOption?.text}</strong>
               </p>
             )}
             {quiz.explanation && (
               <div className="text-white/70 text-xs mt-2 leading-relaxed post-content-preview">
                 <div className="flex items-center gap-1 mb-1 text-[#FFD700]">
                   <i className="ri-lightbulb-line"></i>
-                  <span className="font-semibold">Gi?i th�ch:</span>
+                  <span className="font-semibold">Giải thích:</span>
                 </div>
                 <div dangerouslySetInnerHTML={{ __html: resolveStoragePaths(quiz.explanation) }} />
               </div>
@@ -301,19 +301,19 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
             onClick={() => setShowAnswer(false)}
             className="mt-2 text-xs text-app-text-muted hover:text-white cursor-pointer"
           >
-            <i className="ri-arrow-up-line mr-1"></i>Thu g?n
+            <i className="ri-arrow-up-line mr-1"></i>Thu gọn
           </button>
         </>
       )}
 
       {!currentUser && (
         <p className="text-app-text-muted text-[11px] mt-2 text-center">
-          <i className="ri-lock-line mr-1"></i>�ang nh?p d? tham gia tr? l?i
+          <i className="ri-lock-line mr-1"></i>Đăng nhập để tham gia trả lời
         </p>
       )}
       {isAuthor && (
         <p className="text-app-text-muted text-[11px] mt-2 text-center">
-          <i className="ri-information-line mr-1"></i>B?n l� t�c gi? � kh�ng th? t? tr? l?i
+          <i className="ri-information-line mr-1"></i>Bạn là tác giả — không thể tự trả lời
         </p>
       )}
     </div>
@@ -323,9 +323,9 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
   const h = Math.floor(diff / 3600000);
-  if (h < 1) return "V?a xong";
-  if (h < 24) return `${h} gi? tru?c`;
-  return `${Math.floor(h / 24)} ng�y tru?c`;
+  if (h < 1) return "Vừa xong";
+  if (h < 24) return `${h} giờ trước`;
+  return `${Math.floor(h / 24)} ngày trước`;
 }
 
 function CommentThread({
@@ -364,12 +364,12 @@ function CommentThread({
             <span className="text-[10px] text-app-text-muted">{timeAgo(comment.created_at)}</span>
             {comment.status === "pending" && (
               <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/25">
-                <i className="ri-time-line mr-0.5"></i>�ang ch? duy?t
+                <i className="ri-time-line mr-0.5"></i>Đang chờ duyệt
               </span>
             )}
             {comment.status === "rejected" && (
               <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/25">
-                <i className="ri-close-circle-line mr-0.5"></i>B? t? ch?i
+                <i className="ri-close-circle-line mr-0.5"></i>Bị từ chối
               </span>
             )}
           </div>
@@ -390,7 +390,7 @@ function CommentThread({
                 onClick={() => onReply(comment.id, comment.author_name)}
                 className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap"
               >
-                <i className="ri-reply-line"></i>Tr? l?i
+                <i className="ri-reply-line"></i>Trả lời
               </button>
             )}
           </div>
@@ -425,9 +425,9 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
   const fetchData = useCallback(async () => {
     let actualId = resolvedPostId;
 
-    // N?u l� slug title m?i (kh�ng ph?i UUID), tra c?u theo slug
+    // Nếu là slug title mới (không phải UUID), tra cứu theo slug
     if (titleSlug && !/^[0-9a-f]{8}-[0-9a-f]{4}/.test(resolvedPostId)) {
-      // L?y t?t c? posts v� t�m theo title slug
+      // Lấy tất cả posts và tìm theo title slug
       const { data: allPosts } = await supabase
         .from("community_posts")
         .select("id, title")
@@ -449,7 +449,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
 
     if (postRes.data) setPost(postRes.data as Post);
 
-    // Fetch existing rating c?a user
+    // Fetch existing rating của user
     if (user && actualId) {
       const { data: ratingRow } = await supabase
         .from("community_ratings")
@@ -482,18 +482,18 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
       post_id: resolvedPostId,
       parent_id: replyTo?.id || null,
       user_id: user.id,
-      author_name: profile?.display_name || "H?c vi�n",
-      author_level: "H?c vi�n",
+      author_name: profile?.display_name || "Học viên",
+      author_level: "Học viên",
       content: commentText.trim(),
       status: "pending",
     });
     if (error) {
-      alert(`L?i g?i b�nh lu?n: ${error.message}`);
+      alert(`Lỗi gửi bình luận: ${error.message}`);
     } else {
       setCommentText("");
       setReplyTo(null);
       await fetchData();
-      alert("B�nh lu?n d� g?i � dang ch? qu?n tr? vi�n duy?t.");
+      alert("Bình luận đã gửi — đang chờ quản trị viên duyệt.");
     }
     setSubmitting(false);
   };
@@ -508,27 +508,27 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
   const handleRating = async (rating: number) => {
     if (!user || !post || ratingSubmitting) return;
 
-    // Ch? cho ph�p d�nh gi� 4-5 sao, n?u d�nh gi� th?p hon th� random 4-5
+    // Chỉ cho phép đánh giá 4-5 sao, nếu đánh giá thấp hơn thì random 4-5
     let finalRating = rating;
     if (rating < 4) {
-      // Random 4 ho?c 5 sao n?u user c? d�nh gi� th?p
+      // Random 4 hoặc 5 sao nếu user cố đánh giá thấp
       finalRating = Math.random() > 0.5 ? 5 : 4;
     }
 
     setRatingSubmitting(true);
 
-    // Upsert d? handle c? tru?ng h?p user d� d�nh gi� tru?c d�
+    // Upsert để handle cả trường hợp user đã đánh giá trước đó
     const { error } = await supabase.from("community_ratings").upsert({
       user_id: user.id,
       post_id: resolvedPostId,
       rating: finalRating,
-      status: "pending", // �?i admin duy?t
+      status: "pending", // Đợi admin duyệt
     }, { onConflict: "user_id,post_id" });
 
     setRatingSubmitting(false);
 
     if (error) {
-      alert(`L?i d�nh gi�: ${error.message}`);
+      alert(`Lỗi đánh giá: ${error.message}`);
     } else {
       setUserRating(finalRating);
       setRatingToast({ stars: finalRating });
@@ -544,11 +544,11 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
     <>
       {post && <PostSEO post={post} slug={titleSlug || resolvedPostId} />}
       <DashboardLayout
-        title="Chi ti?t b�i dang"
-        subtitle="C?ng d?ng H�n Qu?c Oi!"
+        title="Chi tiết bài đăng"
+        subtitle="Cộng đồng Hàn Quốc Ơi!"
         actions={
           <button onClick={() => navigate("/community")} className="flex items-center gap-2 text-white/50 hover:text-white text-sm cursor-pointer whitespace-nowrap transition-colors">
-            <i className="ri-arrow-left-line"></i>Quay l?i
+            <i className="ri-arrow-left-line"></i>Quay lại
           </button>
         }
       >
@@ -559,8 +559,8 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
       ) : !post ? (
         <div className="text-center py-24">
           <i className="ri-file-unknow-line text-white/10 text-5xl mb-4"></i>
-          <p className="text-app-text-muted">B�i dang kh�ng t?n t?i</p>
-          <button onClick={() => navigate("/community")} className="mt-4 text-app-accent-primary text-sm cursor-pointer whitespace-nowrap">? Quay l?i c?ng d?ng</button>
+          <p className="text-app-text-muted">Bài đăng không tồn tại</p>
+          <button onClick={() => navigate("/community")} className="mt-4 text-app-accent-primary text-sm cursor-pointer whitespace-nowrap">← Quay lại cộng đồng</button>
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 max-w-5xl">
@@ -582,7 +582,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
                 )}
                 {post.streak_days && (
                   <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-[#fb923c]/10 text-[#fb923c]">
-                    <i className="ri-fire-line mr-1"></i>{post.streak_days} ng�y streak
+                    <i className="ri-fire-line mr-1"></i>{post.streak_days} ngày streak
                   </span>
                 )}
                 <span className="text-app-text-muted text-xs ml-auto">{timeAgo(post.created_at)}</span>
@@ -634,27 +634,27 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
                 </div>
               )}
 
-              {/* Quiz (n?u post l� c�u h?i tr?c nghi?m) */}
+              {/* Quiz (nếu post là câu hỏi trắc nghiệm) */}
               {post.quiz && <QuizCard post={post} currentUser={user} profile={profile} />}
 
               {/* Actions */}
               <div className="flex items-center gap-5 mt-6 pt-5 border-t border-app-border">
                 <div className="flex items-center gap-1.5 text-sm text-app-text-secondary">
                   <i className="ri-heart-line"></i>
-                  <span>{post.likes} lu?t th�ch</span>
+                  <span>{post.likes} lượt thích</span>
                 </div>
                 <div className="flex items-center gap-1.5 text-sm text-app-text-secondary">
                   <i className="ri-chat-3-line"></i>
-                  <span>{totalComments} b�nh lu?n</span>
+                  <span>{totalComments} bình luận</span>
                 </div>
                 <div className="flex items-center gap-1.5 text-sm text-app-text-secondary">
                   <i className="ri-star-fill text-[#FFD700]"></i>
                   <span className="font-semibold">{post.rating_average?.toFixed(1) || "0.0"}</span>
-                  <span className="text-xs">({post.rating_count || 0} d�nh gi�)</span>
+                  <span className="text-xs">({post.rating_count || 0} đánh giá)</span>
                 </div>
                 {user && !userRating && (
                   <div className="flex items-center gap-1 ml-auto">
-                    <span className="text-xs text-app-text-muted mr-2">��nh gi�:</span>
+                    <span className="text-xs text-app-text-muted mr-2">Đánh giá:</span>
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
                         key={star}
@@ -662,7 +662,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
                         disabled={ratingSubmitting}
                         className="text-lg cursor-pointer hover:scale-110 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
                         style={{ color: star <= 3 ? "#666" : "#FFD700" }}
-                        title={star <= 3 ? "Ch? du?c d�nh gi� 4-5 sao" : `${star} sao`}
+                        title={star <= 3 ? "Chỉ được đánh giá 4-5 sao" : `${star} sao`}
                       >
                         <i className={star <= 3 ? "ri-star-line" : "ri-star-fill"}></i>
                       </button>
@@ -672,7 +672,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
                 {userRating && (
                   <div className="flex items-center gap-1 ml-auto text-sm text-app-accent-primary">
                     <i className="ri-star-fill"></i>
-                    <span>�� d�nh gi� {userRating} sao</span>
+                    <span>Đã đánh giá {userRating} sao</span>
                   </div>
                 )}
                 <button
@@ -680,7 +680,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
                   className="flex items-center gap-1.5 text-sm text-app-text-secondary hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap"
                 >
                   <i className={copied ? "ri-check-line" : "ri-share-line"}></i>
-                  {copied ? "�� sao ch�p!" : "Chia s? link"}
+                  {copied ? "Đã sao chép!" : "Chia sẻ link"}
                 </button>
               </div>
             </div>
@@ -688,7 +688,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
             {/* Comments section */}
             <div className="bg-app-bg border border-app-border rounded-2xl p-6">
               <h2 className="text-white font-bold text-base mb-5">
-                B�nh lu?n <span className="text-app-text-muted font-normal text-sm">({totalComments})</span>
+                Bình luận <span className="text-app-text-muted font-normal text-sm">({totalComments})</span>
               </h2>
 
               {/* Comment input */}
@@ -697,7 +697,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
                   {replyTo && (
                     <div className="flex items-center gap-2 mb-2 px-3 py-1.5 bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-lg">
                       <i className="ri-reply-line text-app-accent-primary text-xs"></i>
-                      <span className="text-app-accent-primary/70 text-xs">�ang tr? l?i <strong>{replyTo.author}</strong></span>
+                      <span className="text-app-accent-primary/70 text-xs">Đang trả lời <strong>{replyTo.author}</strong></span>
                       <button onClick={() => setReplyTo(null)} className="ml-auto text-app-text-muted hover:text-white/60 cursor-pointer">
                         <i className="ri-close-line text-xs"></i>
                       </button>
@@ -711,7 +711,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
                       <textarea
                         value={commentText}
                         onChange={e => setCommentText(e.target.value.slice(0, 500))}
-                        placeholder={replyTo ? `Tr? l?i ${replyTo.author}...` : "Vi?t b�nh lu?n c?a b?n..."}
+                        placeholder={replyTo ? `Trả lời ${replyTo.author}...` : "Viết bình luận của bạn..."}
                         rows={3}
                         className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-app-accent-primary/30 placeholder-white/20 resize-none"
                       />
@@ -723,7 +723,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
                           className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 text-app-bg font-bold text-sm rounded-lg cursor-pointer whitespace-nowrap transition-colors"
                         >
                           {submitting ? <i className="ri-loader-4-line animate-spin"></i> : <i className="ri-send-plane-fill"></i>}
-                          G?i b�nh lu?n
+                          Gửi bình luận
                         </button>
                       </div>
                     </div>
@@ -731,7 +731,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
                 </div>
               ) : (
                 <div className="mb-6 p-4 bg-app-surface/50 border border-app-border rounded-xl text-center">
-                  <p className="text-app-text-secondary text-sm">�ang nh?p d? tham gia b�nh lu?n</p>
+                  <p className="text-app-text-secondary text-sm">Đăng nhập để tham gia bình luận</p>
                 </div>
               )}
 
@@ -739,8 +739,8 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
               {comments.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-10 text-center">
                   <i className="ri-chat-3-line text-white/10 text-4xl mb-3"></i>
-                  <p className="text-app-text-muted text-sm">Chua c� b�nh lu?n n�o</p>
-                  <p className="text-app-text-muted text-xs mt-1">H�y l� ngu?i d?u ti�n b�nh lu?n!</p>
+                  <p className="text-app-text-muted text-sm">Chưa có bình luận nào</p>
+                  <p className="text-app-text-muted text-xs mt-1">Hãy là người đầu tiên bình luận!</p>
                 </div>
               ) : (
                 <div className="divide-y divide-white/3">
@@ -762,13 +762,13 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
           {/* Sidebar */}
           <div className="space-y-4">
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-4">V? b�i dang n�y</h3>
+              <h3 className="text-white font-semibold text-sm mb-4">Về bài đăng này</h3>
               <div className="space-y-3">
                 {[
-                  { icon: "ri-user-line", label: "T�c gi?", value: post.author_name },
-                  { icon: "ri-time-line", label: "�ang l�c", value: new Date(post.created_at).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" }) },
-                  { icon: "ri-heart-line", label: "Lu?t th�ch", value: post.likes.toString() },
-                  { icon: "ri-chat-3-line", label: "B�nh lu?n", value: totalComments.toString() },
+                  { icon: "ri-user-line", label: "Tác giả", value: post.author_name },
+                  { icon: "ri-time-line", label: "Đăng lúc", value: new Date(post.created_at).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" }) },
+                  { icon: "ri-heart-line", label: "Lượt thích", value: post.likes.toString() },
+                  { icon: "ri-chat-3-line", label: "Bình luận", value: totalComments.toString() },
                 ].map(s => (
                   <div key={s.label} className="flex items-center gap-2">
                     <i className={`${s.icon} text-app-text-muted text-sm w-4`}></i>
@@ -780,13 +780,13 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
             </div>
 
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-3">Chia s? b�i dang</h3>
+              <h3 className="text-white font-semibold text-sm mb-3">Chia sẻ bài đăng</h3>
               <button
                 onClick={handleShare}
                 className="w-full flex items-center justify-center gap-2 py-2.5 bg-app-card/50 hover:bg-app-card/70 border border-app-border rounded-xl text-white/60 text-sm transition-colors cursor-pointer whitespace-nowrap"
               >
                 <i className={copied ? "ri-check-line text-app-accent-success" : "ri-link-m"}></i>
-                {copied ? "�� sao ch�p link!" : "Sao ch�p link b�i"}
+                {copied ? "Đã sao chép link!" : "Sao chép link bài"}
               </button>
             </div>
 
@@ -795,7 +795,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
               className="w-full flex items-center justify-center gap-2 py-3 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 border border-app-accent-primary/20 rounded-xl text-app-accent-primary text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-group-line"></i>
-              Xem t?t c? b�i dang
+              Xem tất cả bài đăng
             </button>
           </div>
         </div>
@@ -822,16 +822,16 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
             ))}
           </div>
           <p className="text-white font-bold text-base mb-1">
-            C?m on b?n d� d�nh gi� {ratingToast.stars} sao!
+            Cảm ơn bạn đã đánh giá {ratingToast.stars} sao!
           </p>
           <p className="text-white/55 text-xs leading-relaxed">
-            ��nh gi� c?a b?n dang ch? qu?n tr? vi�n duy?t tru?c khi hi?n th? c�ng khai.
+            Đánh giá của bạn đang chờ quản trị viên duyệt trước khi hiển thị công khai.
           </p>
           <button
             onClick={() => setRatingToast(null)}
             className="mt-4 px-5 py-2 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-xs font-bold cursor-pointer transition-colors"
           >
-            �� hi?u
+            Đã hiểu
           </button>
         </div>
         <style>{`

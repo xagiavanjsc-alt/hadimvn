@@ -1,10 +1,10 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { EbookSeries } from "@/pages/series/page";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
 
-// --- Preview Page ---------------------------------------------------------
+// ─── Preview Page ─────────────────────────────────────────────────────────
 export default function PreviewPage() {
   const { seriesId } = useParams<{ seriesId: string }>();
   const [seriesList] = useLocalStorage<EbookSeries[]>("kts_series_list", []);
@@ -36,14 +36,14 @@ export default function PreviewPage() {
         <div className="w-16 h-16 flex items-center justify-center bg-app-card/50 rounded-2xl mb-5">
           <i className="ri-book-open-line text-app-text-muted text-3xl"></i>
         </div>
-        <h1 className="text-white font-bold text-xl mb-2">Kh�ng t�m th?y ebook</h1>
-        <p className="text-app-text-secondary text-sm mb-6">Link n�y kh�ng c�n h?p l? ho?c ebook d� b? x�a.</p>
+        <h1 className="text-white font-bold text-xl mb-2">Không tìm thấy ebook</h1>
+        <p className="text-app-text-secondary text-sm mb-6">Link này không còn hợp lệ hoặc ebook đã bị xóa.</p>
         <Link
           to="/"
           className="flex items-center gap-2 bg-app-accent-primary text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap"
         >
           <i className="ri-home-line"></i>
-          V? trang ch?
+          Về trang chủ
         </Link>
       </div>
     );
@@ -67,7 +67,7 @@ export default function PreviewPage() {
             </div>
             <div>
               <p className="text-white font-semibold text-sm leading-tight">{series.name}</p>
-              <p className="text-app-text-muted text-[10px]">{lessons.length} b�i h?c � Xem th? mi?n ph�</p>
+              <p className="text-app-text-muted text-[10px]">{lessons.length} bài học · Xem thử miễn phí</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -76,7 +76,7 @@ export default function PreviewPage() {
               className="flex items-center gap-1.5 bg-app-card/50 hover:bg-app-card/70 text-white/50 text-xs font-medium px-3 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className={copied ? "ri-check-line text-app-accent-success" : "ri-link-m text-xs"}></i>
-              {copied ? "�� copy!" : "Copy link"}
+              {copied ? "Đã copy!" : "Copy link"}
             </button>
             {series.price && (
               <div
@@ -84,7 +84,7 @@ export default function PreviewPage() {
                 style={{ backgroundColor: accent, color: bg }}
               >
                 <i className="ri-shopping-cart-line text-xs"></i>
-                Mua � {series.price}
+                Mua — {series.price}
               </div>
             )}
           </div>
@@ -109,7 +109,7 @@ export default function PreviewPage() {
                 style={{ backgroundColor: `${accent}20`, color: accent }}
               >
                 <i className="ri-eye-line text-[10px]"></i>
-                Xem th?
+                Xem thử
               </div>
               <h2 className="font-bold text-base leading-tight mb-2" style={{ color: accent }}>
                 {series.name}
@@ -132,7 +132,7 @@ export default function PreviewPage() {
               )}
               {series.price && (
                 <div className="flex items-center justify-between pt-3 border-t border-app-border">
-                  <span className="text-app-text-secondary text-xs">Gi� ebook</span>
+                  <span className="text-app-text-secondary text-xs">Giá ebook</span>
                   <span className="font-bold text-sm" style={{ color: accent }}>{series.price}</span>
                 </div>
               )}
@@ -141,7 +141,7 @@ export default function PreviewPage() {
             {/* Lesson list */}
             <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden">
               <div className="px-4 py-3 border-b border-app-border">
-                <p className="text-white/60 text-xs font-semibold">Danh s�ch b�i h?c</p>
+                <p className="text-white/60 text-xs font-semibold">Danh sách bài học</p>
               </div>
               <div className="divide-y divide-white/5">
                 {lessons.map((lesson, i) => {
@@ -198,17 +198,17 @@ export default function PreviewPage() {
               >
                 <i className="ri-lock-line text-lg mb-2 block" style={{ color: accent }}></i>
                 <p className="text-xs font-semibold mb-1" style={{ color: accent }}>
-                  {lessons.length - 2} b�i h?c b? kh�a
+                  {lessons.length - 2} bài học bị khóa
                 </p>
                 <p className="text-app-text-muted text-[10px] leading-relaxed mb-3">
-                  Mua ebook d? m? kh�a to�n b? {lessons.length} b�i h?c
+                  Mua ebook để mở khóa toàn bộ {lessons.length} bài học
                 </p>
                 {series.price && (
                   <div
                     className="w-full py-2 rounded-lg text-xs font-bold cursor-pointer whitespace-nowrap"
                     style={{ backgroundColor: accent, color: bg }}
                   >
-                    Mua ngay � {series.price}
+                    Mua ngay — {series.price}
                   </div>
                 )}
               </div>
@@ -227,7 +227,7 @@ export default function PreviewPage() {
                         className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-normal px-2.5 py-1 rounded-full mb-3"
                         style={{ backgroundColor: `${accent}15`, color: accent }}
                       >
-                        B�i {activeLesson + 1} / {lessons.length}
+                        Bài {activeLesson + 1} / {lessons.length}
                       </div>
                       <h2 className="text-white font-bold text-xl leading-tight">
                         {currentLesson.song.title}
@@ -249,7 +249,7 @@ export default function PreviewPage() {
                   {currentLesson.story && (
                     <div>
                       <p className="text-app-text-muted text-[10px] tracking-normal font-semibold mb-3">
-                        Truy?n ch�m
+                        Truyện chêm
                       </p>
                       <div className="bg-app-surface/50 rounded-xl p-4 border border-app-border">
                         <p className="text-white/70 text-sm leading-relaxed whitespace-pre-wrap line-clamp-6">
@@ -257,7 +257,7 @@ export default function PreviewPage() {
                         </p>
                         {currentLesson.story.length > 300 && (
                           <div className="mt-3 pt-3 border-t border-app-border flex items-center justify-between">
-                            <p className="text-app-text-muted text-xs">Xem d?y d? trong ebook</p>
+                            <p className="text-app-text-muted text-xs">Xem đầy đủ trong ebook</p>
                             <i className="ri-lock-line text-app-text-muted text-xs"></i>
                           </div>
                         )}
@@ -270,7 +270,7 @@ export default function PreviewPage() {
                 {currentLesson.vocab && currentLesson.vocab.length > 0 && (
                   <div className="bg-app-bg border border-app-border rounded-2xl p-6">
                     <p className="text-app-text-muted text-[10px] tracking-normal font-semibold mb-4">
-                      T? v?ng c?t l�i ({currentLesson.vocab.length} t?)
+                      Từ vựng cốt lõi ({currentLesson.vocab.length} từ)
                     </p>
                     <div className="grid grid-cols-2 gap-3">
                       {currentLesson.vocab.slice(0, 4).map((v, i) => (
@@ -290,8 +290,8 @@ export default function PreviewPage() {
                       {currentLesson.vocab.length > 4 && (
                         <div className="p-3 rounded-xl border border-dashed border-app-border flex flex-col items-center justify-center text-center">
                           <i className="ri-lock-line text-app-text-muted text-lg mb-1"></i>
-                          <p className="text-app-text-muted text-[10px]">+{currentLesson.vocab.length - 4} t? n?a</p>
-                          <p className="text-white/15 text-[9px]">Trong ebook d?y d?</p>
+                          <p className="text-app-text-muted text-[10px]">+{currentLesson.vocab.length - 4} từ nữa</p>
+                          <p className="text-white/15 text-[9px]">Trong ebook đầy đủ</p>
                         </div>
                       )}
                     </div>
@@ -302,7 +302,7 @@ export default function PreviewPage() {
                 {currentLesson.grammar && currentLesson.grammar.length > 0 && (
                   <div className="bg-app-bg border border-app-border rounded-2xl p-6">
                     <p className="text-app-text-muted text-[10px] tracking-normal font-semibold mb-4">
-                      Ng? ph�p ({currentLesson.grammar.length} di?m)
+                      Ngữ pháp ({currentLesson.grammar.length} điểm)
                     </p>
                     <div className="space-y-3">
                       {currentLesson.grammar.slice(0, 2).map((g, i) => (
@@ -323,7 +323,7 @@ export default function PreviewPage() {
                         <div className="flex items-center gap-2 p-3 rounded-xl border border-dashed border-app-border">
                           <i className="ri-lock-line text-app-text-muted text-sm"></i>
                           <p className="text-app-text-muted text-xs">
-                            +{currentLesson.grammar.length - 2} di?m ng? ph�p n?a trong ebook d?y d?
+                            +{currentLesson.grammar.length - 2} điểm ngữ pháp nữa trong ebook đầy đủ
                           </p>
                         </div>
                       )}
@@ -343,10 +343,10 @@ export default function PreviewPage() {
                     <i className="ri-book-2-line text-xl" style={{ color: accent }}></i>
                   </div>
                   <h3 className="font-bold text-lg mb-2" style={{ color: accent }}>
-                    Th�ch n?i dung n�y?
+                    Thích nội dung này?
                   </h3>
                   <p className="text-app-text-secondary text-sm leading-relaxed mb-5 max-w-md mx-auto">
-                    Mua ebook d?y d? d? nh?n to�n b? {lessons.length} b�i h?c, bao g?m truy?n ch�m ho�n ch?nh, t? v?ng v� ng? ph�p chi ti?t.
+                    Mua ebook đầy đủ để nhận toàn bộ {lessons.length} bài học, bao gồm truyện chêm hoàn chỉnh, từ vựng và ngữ pháp chi tiết.
                   </p>
                   <div className="flex items-center justify-center gap-3">
                     {series.price && (
@@ -355,7 +355,7 @@ export default function PreviewPage() {
                         style={{ backgroundColor: accent, color: bg }}
                       >
                         <i className="ri-shopping-cart-line"></i>
-                        Mua ngay � {series.price}
+                        Mua ngay — {series.price}
                       </div>
                     )}
                     <button
@@ -364,7 +364,7 @@ export default function PreviewPage() {
                       style={{ borderColor: `${accent}30`, color: accent }}
                     >
                       <i className="ri-share-line"></i>
-                      Chia s?
+                      Chia sẻ
                     </button>
                   </div>
                 </div>
@@ -372,7 +372,7 @@ export default function PreviewPage() {
             ) : (
               <div className="bg-app-bg border border-app-border rounded-2xl flex flex-col items-center justify-center py-24 text-center">
                 <i className="ri-book-open-line text-white/10 text-4xl mb-3"></i>
-                <p className="text-app-text-muted text-sm">Series n�y chua c� b�i h?c n�o</p>
+                <p className="text-app-text-muted text-sm">Series này chưa có bài học nào</p>
               </div>
             )}
           </div>
@@ -382,9 +382,9 @@ export default function PreviewPage() {
       {/* Footer */}
       <div className="border-t border-app-border mt-8">
         <div className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
-          <p className="text-app-text-muted text-xs">� 2026 � H�n Vi?t KTS � T?o b?i KTS Ebook Builder</p>
+          <p className="text-app-text-muted text-xs">© 2026 · Hàn Việt KTS · Tạo bởi KTS Ebook Builder</p>
           <div className="flex items-center gap-4">
-            <span className="text-app-text-muted text-xs">Xem th? mi?n ph� � 2 b�i d?u</span>
+            <span className="text-app-text-muted text-xs">Xem thử miễn phí — 2 bài đầu</span>
           </div>
         </div>
       </div>

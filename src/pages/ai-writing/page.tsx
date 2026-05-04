@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+﻿import { useState, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface GrammarError {
@@ -23,26 +23,26 @@ interface WritingResult {
 }
 
 const WRITING_PROMPTS = [
-  { id: "p1", level: "A1", topic: "T? gi?i thi?u", prompt: "????? ? ???. (H�y vi?t b�i t? gi?i thi?u v? b?n th�n)", example: "?????. ?? [??]???. ?? [??]?? ???." },
-  { id: "p2", level: "A2", topic: "Gia d�nh", prompt: "??? ?? ? ???. (H�y vi?t v? gia d�nh b?n)", example: "?? ??? [??]????. ???, ???, ??? ???." },
-  { id: "p3", level: "A2", topic: "S? th�ch", prompt: "??? ?? ? ???. (H�y vi?t v? s? th�ch c?a b?n)", example: "?? [??]?/? ????. ??? ?? ??." },
-  { id: "p4", level: "B1", topic: "Ng�y cu?i tu?n", prompt: "?? ??? ??? ??? ? ???. (H�y vi?t v? nh?ng g� b?n d� l�m cu?i tu?n qua)", example: "?? ??? ?? ??? ?? ??? ???." },
-  { id: "p5", level: "B1", topic: "K? ho?ch tuong lai", prompt: "?? ??? ?? ? ???. (H�y vi?t v? k? ho?ch tuong lai c?a b?n)", example: "?? ??? ???? ? ??? ??? ???." },
-  { id: "p6", level: "B2", topic: "Uu nhu?c di?m", prompt: "????? ???? ?? ? ???. (H�y vi?t v? uu v� nhu?c di?m c?a di?n tho?i th�ng minh)", example: "????? ????? ??? ? ???." },
-  { id: "p7", level: "B2", topic: "M�i tru?ng", prompt: "?? ??? ?? ??? ? ???. (H�y vi?t � ki?n v? b?o v? m�i tru?ng)", example: "?? ??? ?? ??? ????? ????." },
-  { id: "p8", level: "C1", topic: "X� h?i", prompt: "?? ??? ???? ?? ?????. (H�y lu?n v? c�c v?n d? c?a x� h?i hi?n d?i)", example: "?? ????? ??? ???? ???? ????." },
+  { id: "p1", level: "A1", topic: "Tự giới thiệu", prompt: "자기소개를 써 보세요. (Hãy viết bài tự giới thiệu về bản thân)", example: "안녕하세요. 저는 [이름]이에요. 저는 [나라]에서 왔어요." },
+  { id: "p2", level: "A2", topic: "Gia đình", prompt: "가족에 대해 써 보세요. (Hãy viết về gia đình bạn)", example: "우리 가족은 [숫자]명이에요. 아버지, 어머니, 그리고 저예요." },
+  { id: "p3", level: "A2", topic: "Sở thích", prompt: "취미에 대해 써 보세요. (Hãy viết về sở thích của bạn)", example: "저는 [취미]을/를 좋아해요. 주말에 자주 해요." },
+  { id: "p4", level: "B1", topic: "Ngày cuối tuần", prompt: "지난 주말에 무엇을 했는지 써 보세요. (Hãy viết về những gì bạn đã làm cuối tuần qua)", example: "지난 주말에 저는 친구와 함께 영화를 봤어요." },
+  { id: "p5", level: "B1", topic: "Kế hoạch tương lai", prompt: "미래 계획에 대해 써 보세요. (Hãy viết về kế hoạch tương lai của bạn)", example: "저는 앞으로 한국어를 더 열심히 공부할 거예요." },
+  { id: "p6", level: "B2", topic: "Ưu nhược điểm", prompt: "스마트폰의 장단점에 대해 써 보세요. (Hãy viết về ưu và nhược điểm của điện thoại thông minh)", example: "스마트폰은 편리하지만 중독될 수 있어요." },
+  { id: "p7", level: "B2", topic: "Môi trường", prompt: "환경 보호에 대한 의견을 써 보세요. (Hãy viết ý kiến về bảo vệ môi trường)", example: "환경 보호는 우리 모두의 책임이라고 생각해요." },
+  { id: "p8", level: "C1", topic: "Xã hội", prompt: "현대 사회의 문제점에 대해 논술하세요. (Hãy luận về các vấn đề của xã hội hiện đại)", example: "현대 사회에서는 다양한 문제들이 발생하고 있습니다." },
 ];
 
 const SAMPLE_ERRORS: GrammarError[] = [
-  { original: "?? ?????", corrected: "?? ?????", explanation: "C�u d�ng! C?u tr�c ??? d�ng sau ph? �m cu?i.", type: "grammar", position: 0 },
-  { original: "??? ???", corrected: "???? ???", explanation: "Thi?u tr? t? ? sau ??? (k?t th�c b?ng nguy�n �m).", type: "grammar", position: 1 },
-  { original: "?? ?? ???", corrected: "?? ??? ???", explanation: "Thi?u tr? t? ? ch? d?a di?m sau ??.", type: "grammar", position: 2 },
-  { original: "???? ?? ?????", corrected: "???? ?? ?????", explanation: "C�u d�ng! ?? d�ng d? n?i danh t?.", type: "grammar", position: 3 },
+  { original: "저는 학생이에요", corrected: "저는 학생이에요", explanation: "Câu đúng! Cấu trúc 이에요 dùng sau phụ âm cuối.", type: "grammar", position: 0 },
+  { original: "한국어 배워요", corrected: "한국어를 배워요", explanation: "Thiếu trợ từ 를 sau 한국어 (kết thúc bằng nguyên âm).", type: "grammar", position: 1 },
+  { original: "어제 학교 갔어요", corrected: "어제 학교에 갔어요", explanation: "Thiếu trợ từ 에 chỉ địa điểm sau 학교.", type: "grammar", position: 2 },
+  { original: "친구하고 같이 공부했어요", corrected: "친구하고 같이 공부했어요", explanation: "Câu đúng! 하고 dùng để nối danh từ.", type: "grammar", position: 3 },
 ];
 
 function simulateAIGrading(text: string): WritingResult {
   const words = text.trim().split(/\s+/).filter(w => w.length > 0);
-  const sentences = text.split(/[.!??!?]+/).filter(s => s.trim().length > 0);
+  const sentences = text.split(/[.!?。！？]+/).filter(s => s.trim().length > 0);
   const wordCount = words.length;
   const sentenceCount = sentences.length;
 
@@ -53,20 +53,20 @@ function simulateAIGrading(text: string): WritingResult {
   const coherenceScore = Math.min(100, 60 + Math.floor(Math.random() * 30));
   const overallScore = Math.round((grammarScore * 0.4 + vocabScore * 0.3 + coherenceScore * 0.3));
 
-  const hasKorean = /[?-?]/.test(text);
+  const hasKorean = /[가-힣]/.test(text);
   const errors: GrammarError[] = hasKorean ? SAMPLE_ERRORS.slice(0, Math.floor(Math.random() * 3) + 1) : [];
 
   let feedback = "";
-  if (overallScore >= 85) feedback = "Xu?t s?c! B�i vi?t r?t t?t, ng? ph�p chu?n v� t? v?ng phong ph�.";
-  else if (overallScore >= 70) feedback = "T?t! B�i vi?t kh� t?t. C?n ch� � th�m m?t s? di?m ng? ph�p nh?.";
-  else if (overallScore >= 55) feedback = "Kh�! B�i vi?t c� n?i dung nhung c?n c?i thi?n ng? ph�p v� t? v?ng.";
-  else feedback = "C?n c? g?ng th�m. H�y ch� � d?n c?u tr�c c�u v� tr? t? ti?ng H�n.";
+  if (overallScore >= 85) feedback = "Xuất sắc! Bài viết rất tốt, ngữ pháp chuẩn và từ vựng phong phú.";
+  else if (overallScore >= 70) feedback = "Tốt! Bài viết khá tốt. Cần chú ý thêm một số điểm ngữ pháp nhỏ.";
+  else if (overallScore >= 55) feedback = "Khá! Bài viết có nội dung nhưng cần cải thiện ngữ pháp và từ vựng.";
+  else feedback = "Cần cố gắng thêm. Hãy chú ý đến cấu trúc câu và trợ từ tiếng Hàn.";
 
   const suggestions = [
-    "S? d?ng da d?ng c?u tr�c c�u hon (kh�ng ch? d�ng ???/??/??)",
-    "Th�m c�c li�n t? nhu ???, ???, ??? d? b�i vi?t m?ch l?c hon",
-    "D�ng th�m t�nh t? v� tr?ng t? d? b�i vi?t sinh d?ng hon",
-    wordCount < 30 ? "Vi?t d�i hon � �t nh?t 50 t? d? luy?n t?p hi?u qu?" : "�? d�i b�i vi?t t?t!",
+    "Sử dụng đa dạng cấu trúc câu hơn (không chỉ dùng 이에요/아요/어요)",
+    "Thêm các liên từ như 그리고, 그래서, 하지만 để bài viết mạch lạc hơn",
+    "Dùng thêm tính từ và trạng từ để bài viết sinh động hơn",
+    wordCount < 30 ? "Viết dài hơn — ít nhất 50 từ để luyện tập hiệu quả" : "Độ dài bài viết tốt!",
   ].filter(Boolean);
 
   const correctedText = text; // In real app, AI would correct this
@@ -90,10 +90,10 @@ const errorTypeColor: Record<string, string> = {
 };
 
 const errorTypeLabel: Record<string, string> = {
-  grammar: "Ng? ph�p",
-  spelling: "Ch�nh t?",
-  style: "Van phong",
-  vocab: "T? v?ng",
+  grammar: "Ngữ pháp",
+  spelling: "Chính tả",
+  style: "Văn phong",
+  vocab: "Từ vựng",
 };
 
 export default function AIWritingPage() {
@@ -101,12 +101,12 @@ export default function AIWritingPage() {
   const [result, setResult] = useState<WritingResult | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [selectedPrompt, setSelectedPrompt] = useState<typeof WRITING_PROMPTS[0] | null>(null);
-  const [filterLevel, setFilterLevel] = useState("T?t c?");
+  const [filterLevel, setFilterLevel] = useState("Tất cả");
   const [history, setHistory] = useState<{ text: string; score: number; date: string }[]>([]);
   const [activeTab, setActiveTab] = useState<"write" | "result">("write");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const filteredPrompts = filterLevel === "T?t c?"
+  const filteredPrompts = filterLevel === "Tất cả"
     ? WRITING_PROMPTS
     : WRITING_PROMPTS.filter(p => p.level === filterLevel);
 
@@ -151,13 +151,13 @@ export default function AIWritingPage() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-white">AI Ch?m Vi?t</h1>
-            <p className="text-white/50 text-sm mt-1">Vi?t ti?ng H�n v� nh?n d�nh gi� chi ti?t t? AI</p>
+            <h1 className="text-2xl font-bold text-white">AI Chấm Viết</h1>
+            <p className="text-white/50 text-sm mt-1">Viết tiếng Hàn và nhận đánh giá chi tiết từ AI</p>
           </div>
           {history.length > 0 && (
             <div className="text-right">
               <p className={`text-2xl font-bold ${scoreColor(avgScore)}`}>{avgScore}</p>
-              <p className="text-app-text-muted text-xs">�i?m TB</p>
+              <p className="text-app-text-muted text-xs">Điểm TB</p>
             </div>
           )}
         </div>
@@ -175,7 +175,7 @@ export default function AIWritingPage() {
                       <span className="text-app-text-secondary text-xs">{selectedPrompt.topic}</span>
                     </div>
                     <p className="text-white/80 text-sm font-medium">{selectedPrompt.prompt}</p>
-                    <p className="text-app-text-secondary text-xs mt-1">V� d?: {selectedPrompt.example}</p>
+                    <p className="text-app-text-secondary text-xs mt-1">Ví dụ: {selectedPrompt.example}</p>
                   </div>
                   <button onClick={() => setSelectedPrompt(null)} className="text-app-text-muted hover:text-white/60 cursor-pointer">
                     <i className="ri-close-line"></i>
@@ -194,7 +194,7 @@ export default function AIWritingPage() {
                     activeTab === tab ? "bg-app-accent-primary/20 text-app-accent-primary font-semibold" : "text-app-text-secondary hover:text-white/60"
                   }`}
                 >
-                  {tab === "write" ? "Vi?t b�i" : "K?t qu?"}
+                  {tab === "write" ? "Viết bài" : "Kết quả"}
                   {tab === "result" && result && (
                     <span className={`ml-1.5 text-xs font-bold ${scoreColor(result.overallScore)}`}>{result.overallScore}</span>
                   )}
@@ -205,26 +205,26 @@ export default function AIWritingPage() {
             {activeTab === "write" && (
               <div className="bg-[#1a1f2e] rounded-xl border border-app-border overflow-hidden">
                 <div className="flex items-center justify-between px-4 py-2.5 border-b border-app-border">
-                  <span className="text-app-text-secondary text-xs">Vi?t ti?ng H�n b�n du?i</span>
-                  <span className="text-app-text-muted text-xs">{text.trim().split(/\s+/).filter(w => w).length} t?</span>
+                  <span className="text-app-text-secondary text-xs">Viết tiếng Hàn bên dưới</span>
+                  <span className="text-app-text-muted text-xs">{text.trim().split(/\s+/).filter(w => w).length} từ</span>
                 </div>
                 <textarea
                   ref={textareaRef}
                   value={text}
                   onChange={e => setText(e.target.value)}
-                  placeholder="?????. ??... (B?t d?u vi?t ti?ng H�n t?i d�y)"
+                  placeholder="안녕하세요. 저는... (Bắt đầu viết tiếng Hàn tại đây)"
                   className="w-full bg-transparent text-white/80 text-sm p-4 resize-none focus:outline-none placeholder-white/20 leading-relaxed"
                   rows={10}
                   maxLength={2000}
                 />
                 <div className="flex items-center justify-between px-4 py-3 border-t border-app-border">
-                  <span className="text-app-text-muted text-xs">{text.length}/2000 k� t?</span>
+                  <span className="text-app-text-muted text-xs">{text.length}/2000 ký tự</span>
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => { setText(""); setResult(null); }}
                       className="px-3 py-1.5 rounded-lg bg-app-card/50 text-app-text-secondary text-sm hover:bg-app-card/70 transition-all cursor-pointer whitespace-nowrap"
                     >
-                      X�a
+                      Xóa
                     </button>
                     <button
                       onClick={handleAnalyze}
@@ -234,12 +234,12 @@ export default function AIWritingPage() {
                       {isAnalyzing ? (
                         <>
                           <div className="w-3.5 h-3.5 border-2 border-black/30 border-t-black rounded-full animate-spin"></div>
-                          �ang ch?m...
+                          Đang chấm...
                         </>
                       ) : (
                         <>
                           <i className="ri-robot-line"></i>
-                          AI Ch?m b�i
+                          AI Chấm bài
                         </>
                       )}
                     </button>
@@ -253,7 +253,7 @@ export default function AIWritingPage() {
                 {/* Score overview */}
                 <div className="bg-[#1a1f2e] rounded-xl p-5 border border-app-border">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-white font-bold">K?t qu? d�nh gi�</h3>
+                    <h3 className="text-white font-bold">Kết quả đánh giá</h3>
                     <div className={`text-4xl font-bold ${scoreColor(result.overallScore)}`}>{result.overallScore}<span className="text-lg text-app-text-muted">/100</span></div>
                   </div>
                   <div className="h-2 bg-white/8 rounded-full overflow-hidden mb-4">
@@ -262,9 +262,9 @@ export default function AIWritingPage() {
                   <p className="text-white/70 text-sm mb-4">{result.feedback}</p>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {[
-                      { label: "Ng? ph�p", score: result.grammarScore, icon: "ri-book-2-line" },
-                      { label: "T? v?ng", score: result.vocabScore, icon: "ri-translate-2" },
-                      { label: "M?ch l?c", score: result.coherenceScore, icon: "ri-flow-chart" },
+                      { label: "Ngữ pháp", score: result.grammarScore, icon: "ri-book-2-line" },
+                      { label: "Từ vựng", score: result.vocabScore, icon: "ri-translate-2" },
+                      { label: "Mạch lạc", score: result.coherenceScore, icon: "ri-flow-chart" },
                     ].map(item => (
                       <div key={item.label} className="bg-app-card/50 rounded-lg p-3 text-center">
                         <i className={`${item.icon} text-app-text-muted text-lg mb-1 block`}></i>
@@ -274,8 +274,8 @@ export default function AIWritingPage() {
                     ))}
                   </div>
                   <div className="flex items-center gap-4 mt-3 text-app-text-muted text-xs">
-                    <span><i className="ri-text mr-1"></i>{result.wordCount} t?</span>
-                    <span><i className="ri-list-check mr-1"></i>{result.sentenceCount} c�u</span>
+                    <span><i className="ri-text mr-1"></i>{result.wordCount} từ</span>
+                    <span><i className="ri-list-check mr-1"></i>{result.sentenceCount} câu</span>
                   </div>
                 </div>
 
@@ -284,7 +284,7 @@ export default function AIWritingPage() {
                   <div className="bg-[#1a1f2e] rounded-xl p-5 border border-app-border">
                     <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
                       <i className="ri-error-warning-line text-amber-400"></i>
-                      L?i c?n s?a ({result.errors.length})
+                      Lỗi cần sửa ({result.errors.length})
                     </h3>
                     <div className="space-y-3">
                       {result.errors.map((err, i) => (
@@ -308,12 +308,12 @@ export default function AIWritingPage() {
                 <div className="bg-[#1a1f2e] rounded-xl p-5 border border-app-border">
                   <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
                     <i className="ri-lightbulb-line text-app-accent-primary"></i>
-                    G?i � c?i thi?n
+                    Gợi ý cải thiện
                   </h3>
                   <ul className="space-y-2">
                     {result.suggestions.map((s, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-white/60">
-                        <span className="text-app-accent-primary mt-0.5 flex-shrink-0">�</span>
+                        <span className="text-app-accent-primary mt-0.5 flex-shrink-0">•</span>
                         {s}
                       </li>
                     ))}
@@ -325,7 +325,7 @@ export default function AIWritingPage() {
                   className="w-full py-2.5 rounded-xl bg-white/8 text-white/60 text-sm hover:bg-white/12 transition-all cursor-pointer whitespace-nowrap"
                 >
                   <i className="ri-edit-line mr-1.5"></i>
-                  Vi?t l?i
+                  Viết lại
                 </button>
               </div>
             )}
@@ -333,7 +333,7 @@ export default function AIWritingPage() {
             {activeTab === "result" && !result && (
               <div className="bg-[#1a1f2e] rounded-xl p-12 border border-app-border text-center text-app-text-muted">
                 <i className="ri-robot-line text-4xl mb-3 block"></i>
-                <p>Chua c� k?t qu?. H�y vi?t b�i v� nh?n "AI Ch?m b�i"</p>
+                <p>Chưa có kết quả. Hãy viết bài và nhấn "AI Chấm bài"</p>
               </div>
             )}
           </div>
@@ -343,7 +343,7 @@ export default function AIWritingPage() {
             {/* Stats */}
             {history.length > 0 && (
               <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border">
-                <h3 className="text-white/70 text-sm font-semibold mb-3">L?ch s? g?n d�y</h3>
+                <h3 className="text-white/70 text-sm font-semibold mb-3">Lịch sử gần đây</h3>
                 <div className="space-y-2">
                   {history.map((h, i) => (
                     <div key={i} className="flex items-center justify-between gap-2">
@@ -358,10 +358,10 @@ export default function AIWritingPage() {
             {/* Prompt list */}
             <div className="bg-[#1a1f2e] rounded-xl p-4 border border-app-border">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-white/70 text-sm font-semibold">�? b�i g?i �</h3>
+                <h3 className="text-white/70 text-sm font-semibold">Đề bài gợi ý</h3>
               </div>
               <div className="flex gap-1 mb-3 flex-wrap">
-                {["T?t c?", "A1", "A2", "B1", "B2", "C1"].map(l => (
+                {["Tất cả", "A1", "A2", "B1", "B2", "C1"].map(l => (
                   <button
                     key={l}
                     onClick={() => setFilterLevel(l)}
@@ -398,14 +398,14 @@ export default function AIWritingPage() {
             <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
               <h3 className="text-app-accent-primary text-sm font-semibold mb-2">
                 <i className="ri-lightbulb-line mr-1.5"></i>
-                M?o vi?t t?t hon
+                Mẹo viết tốt hơn
               </h3>
               <ul className="space-y-1.5 text-white/50 text-xs">
-                <li>� Ch� � tr? t? ?/?, ?/?, ?/?</li>
-                <li>� D�ng li�n t? d? c�u m?ch l?c hon</li>
-                <li>� Chia d?ng t? d�ng th� (qu� kh?/hi?n t?i)</li>
-                <li>� Vi?t �t nh?t 3-5 c�u m?i l?n</li>
-                <li>� �?c l?i tru?c khi n?p</li>
+                <li>• Chú ý trợ từ 은/는, 이/가, 을/를</li>
+                <li>• Dùng liên từ để câu mạch lạc hơn</li>
+                <li>• Chia động từ đúng thì (quá khứ/hiện tại)</li>
+                <li>• Viết ít nhất 3-5 câu mỗi lần</li>
+                <li>• Đọc lại trước khi nộp</li>
               </ul>
             </div>
           </div>

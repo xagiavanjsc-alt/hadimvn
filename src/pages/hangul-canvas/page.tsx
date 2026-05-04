@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+﻿import { useState, useRef, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -12,49 +12,49 @@ interface HangulChar {
 }
 
 const HANGUL_CHARS: HangulChar[] = [
-  // Ph? �m co b?n
-  { char: "?", romanization: "g/k", type: "consonant", strokes: 2, tips: "Vi?t n�t ngang tru?c, r?i n�t d?c xu?ng", category: "Ph? �m" },
-  { char: "?", romanization: "n", type: "consonant", strokes: 2, tips: "Vi?t n�t d?c xu?ng, r?i n�t ngang sang ph?i", category: "Ph? �m" },
-  { char: "?", romanization: "d/t", type: "consonant", strokes: 3, tips: "Hai n�t ngang, m?t n�t d?c n?i", category: "Ph? �m" },
-  { char: "?", romanization: "r/l", type: "consonant", strokes: 5, tips: "Ph?c t?p nh?t � luy?n t?ng n�t", category: "Ph? �m" },
-  { char: "?", romanization: "m", type: "consonant", strokes: 4, tips: "V? h�nh vu�ng � 4 n�t", category: "Ph? �m" },
-  { char: "?", romanization: "b/p", type: "consonant", strokes: 4, tips: "Hai n�t d?c, hai n�t ngang", category: "Ph? �m" },
-  { char: "?", romanization: "s", type: "consonant", strokes: 2, tips: "Hai n�t ch�o g?p nhau ? d?nh", category: "Ph? �m" },
-  { char: "?", romanization: "ng/silent", type: "consonant", strokes: 1, tips: "V? v�ng tr�n theo chi?u kim d?ng h?", category: "Ph? �m" },
-  { char: "?", romanization: "j", type: "consonant", strokes: 3, tips: "N�t ngang tr�n, hai n�t ch�o xu?ng", category: "Ph? �m" },
-  { char: "?", romanization: "ch", type: "consonant", strokes: 4, tips: "Gi?ng ? nhung th�m n�t ngang nh? tr�n d?nh", category: "Ph? �m" },
-  { char: "?", romanization: "k", type: "consonant", strokes: 3, tips: "Gi?ng ? nhung th�m n�t ngang gi?a", category: "Ph? �m" },
-  { char: "?", romanization: "t", type: "consonant", strokes: 4, tips: "Gi?ng ? nhung th�m n�t ngang gi?a", category: "Ph? �m" },
-  { char: "?", romanization: "p", type: "consonant", strokes: 4, tips: "Hai n�t d?c, hai n�t ngang song song", category: "Ph? �m" },
-  { char: "?", romanization: "h", type: "consonant", strokes: 3, tips: "V�ng tr�n nh? tr�n, n�t ngang, n�t d?c", category: "Ph? �m" },
-  // Nguy�n �m co b?n
-  { char: "?", romanization: "a", type: "vowel", strokes: 2, tips: "N�t d?c d�i, n�t ngang ng?n sang ph?i", category: "Nguy�n �m" },
-  { char: "?", romanization: "ya", type: "vowel", strokes: 3, tips: "N�t d?c d�i, hai n�t ngang ng?n sang ph?i", category: "Nguy�n �m" },
-  { char: "?", romanization: "eo", type: "vowel", strokes: 2, tips: "N�t d?c d�i, n�t ngang ng?n sang tr�i", category: "Nguy�n �m" },
-  { char: "?", romanization: "yeo", type: "vowel", strokes: 3, tips: "N�t d?c d�i, hai n�t ngang ng?n sang tr�i", category: "Nguy�n �m" },
-  { char: "?", romanization: "o", type: "vowel", strokes: 2, tips: "N�t ngang d�i, n�t d?c ng?n l�n tr�n", category: "Nguy�n �m" },
-  { char: "?", romanization: "yo", type: "vowel", strokes: 3, tips: "N�t ngang d�i, hai n�t d?c ng?n l�n tr�n", category: "Nguy�n �m" },
-  { char: "?", romanization: "u", type: "vowel", strokes: 2, tips: "N�t ngang d�i, n�t d?c ng?n xu?ng du?i", category: "Nguy�n �m" },
-  { char: "?", romanization: "yu", type: "vowel", strokes: 3, tips: "N�t ngang d�i, hai n�t d?c ng?n xu?ng du?i", category: "Nguy�n �m" },
-  { char: "?", romanization: "eu", type: "vowel", strokes: 1, tips: "Ch? m?t n�t ngang d�i", category: "Nguy�n �m" },
-  { char: "?", romanization: "i", type: "vowel", strokes: 1, tips: "Ch? m?t n�t d?c d�i", category: "Nguy�n �m" },
-  // �m ti?t co b?n
-  { char: "?", romanization: "ga", type: "syllable", strokes: 4, tips: "? + ? � ph? �m b�n tr�i, nguy�n �m b�n ph?i", category: "�m ti?t" },
-  { char: "?", romanization: "na", type: "syllable", strokes: 4, tips: "? + ? � ph? �m b�n tr�i, nguy�n �m b�n ph?i", category: "�m ti?t" },
-  { char: "?", romanization: "da", type: "syllable", strokes: 5, tips: "? + ? � ph? �m b�n tr�i, nguy�n �m b�n ph?i", category: "�m ti?t" },
-  { char: "?", romanization: "ma", type: "syllable", strokes: 6, tips: "? + ? � ph? �m b�n tr�i, nguy�n �m b�n ph?i", category: "�m ti?t" },
-  { char: "?", romanization: "ba", type: "syllable", strokes: 6, tips: "? + ? � ph? �m b�n tr�i, nguy�n �m b�n ph?i", category: "�m ti?t" },
-  { char: "?", romanization: "sa", type: "syllable", strokes: 4, tips: "? + ? � ph? �m b�n tr�i, nguy�n �m b�n ph?i", category: "�m ti?t" },
-  { char: "?", romanization: "a", type: "syllable", strokes: 3, tips: "? (c�m) + ? � v�ng tr�n b�n tr�i, nguy�n �m b�n ph?i", category: "�m ti?t" },
-  { char: "?", romanization: "ja", type: "syllable", strokes: 5, tips: "? + ? � ph? �m b�n tr�i, nguy�n �m b�n ph?i", category: "�m ti?t" },
-  { char: "?", romanization: "ha", type: "syllable", strokes: 5, tips: "? + ? � ph? �m b�n tr�i, nguy�n �m b�n ph?i", category: "�m ti?t" },
-  { char: "?", romanization: "han", type: "syllable", strokes: 7, tips: "? + ? + ? � c� ph? �m cu?i (??)", category: "�m ti?t" },
-  { char: "?", romanization: "guk", type: "syllable", strokes: 6, tips: "? + ? + ? � c� ph? �m cu?i (??)", category: "�m ti?t" },
-  { char: "?", romanization: "eo", type: "syllable", strokes: 3, tips: "? (c�m) + ? � v�ng tr�n b�n tr�i, nguy�n �m b�n ph?i", category: "�m ti?t" },
-  { char: "?", romanization: "yo", type: "syllable", strokes: 4, tips: "? (c�m) + ? � v�ng tr�n tr�n, nguy�n �m du?i", category: "�m ti?t" },
+  // Phụ âm cơ bản
+  { char: "ㄱ", romanization: "g/k", type: "consonant", strokes: 2, tips: "Viết nét ngang trước, rồi nét dọc xuống", category: "Phụ âm" },
+  { char: "ㄴ", romanization: "n", type: "consonant", strokes: 2, tips: "Viết nét dọc xuống, rồi nét ngang sang phải", category: "Phụ âm" },
+  { char: "ㄷ", romanization: "d/t", type: "consonant", strokes: 3, tips: "Hai nét ngang, một nét dọc nối", category: "Phụ âm" },
+  { char: "ㄹ", romanization: "r/l", type: "consonant", strokes: 5, tips: "Phức tạp nhất — luyện từng nét", category: "Phụ âm" },
+  { char: "ㅁ", romanization: "m", type: "consonant", strokes: 4, tips: "Vẽ hình vuông — 4 nét", category: "Phụ âm" },
+  { char: "ㅂ", romanization: "b/p", type: "consonant", strokes: 4, tips: "Hai nét dọc, hai nét ngang", category: "Phụ âm" },
+  { char: "ㅅ", romanization: "s", type: "consonant", strokes: 2, tips: "Hai nét chéo gặp nhau ở đỉnh", category: "Phụ âm" },
+  { char: "ㅇ", romanization: "ng/silent", type: "consonant", strokes: 1, tips: "Vẽ vòng tròn theo chiều kim đồng hồ", category: "Phụ âm" },
+  { char: "ㅈ", romanization: "j", type: "consonant", strokes: 3, tips: "Nét ngang trên, hai nét chéo xuống", category: "Phụ âm" },
+  { char: "ㅊ", romanization: "ch", type: "consonant", strokes: 4, tips: "Giống ㅈ nhưng thêm nét ngang nhỏ trên đỉnh", category: "Phụ âm" },
+  { char: "ㅋ", romanization: "k", type: "consonant", strokes: 3, tips: "Giống ㄱ nhưng thêm nét ngang giữa", category: "Phụ âm" },
+  { char: "ㅌ", romanization: "t", type: "consonant", strokes: 4, tips: "Giống ㄷ nhưng thêm nét ngang giữa", category: "Phụ âm" },
+  { char: "ㅍ", romanization: "p", type: "consonant", strokes: 4, tips: "Hai nét dọc, hai nét ngang song song", category: "Phụ âm" },
+  { char: "ㅎ", romanization: "h", type: "consonant", strokes: 3, tips: "Vòng tròn nhỏ trên, nét ngang, nét dọc", category: "Phụ âm" },
+  // Nguyên âm cơ bản
+  { char: "ㅏ", romanization: "a", type: "vowel", strokes: 2, tips: "Nét dọc dài, nét ngang ngắn sang phải", category: "Nguyên âm" },
+  { char: "ㅑ", romanization: "ya", type: "vowel", strokes: 3, tips: "Nét dọc dài, hai nét ngang ngắn sang phải", category: "Nguyên âm" },
+  { char: "ㅓ", romanization: "eo", type: "vowel", strokes: 2, tips: "Nét dọc dài, nét ngang ngắn sang trái", category: "Nguyên âm" },
+  { char: "ㅕ", romanization: "yeo", type: "vowel", strokes: 3, tips: "Nét dọc dài, hai nét ngang ngắn sang trái", category: "Nguyên âm" },
+  { char: "ㅗ", romanization: "o", type: "vowel", strokes: 2, tips: "Nét ngang dài, nét dọc ngắn lên trên", category: "Nguyên âm" },
+  { char: "ㅛ", romanization: "yo", type: "vowel", strokes: 3, tips: "Nét ngang dài, hai nét dọc ngắn lên trên", category: "Nguyên âm" },
+  { char: "ㅜ", romanization: "u", type: "vowel", strokes: 2, tips: "Nét ngang dài, nét dọc ngắn xuống dưới", category: "Nguyên âm" },
+  { char: "ㅠ", romanization: "yu", type: "vowel", strokes: 3, tips: "Nét ngang dài, hai nét dọc ngắn xuống dưới", category: "Nguyên âm" },
+  { char: "ㅡ", romanization: "eu", type: "vowel", strokes: 1, tips: "Chỉ một nét ngang dài", category: "Nguyên âm" },
+  { char: "ㅣ", romanization: "i", type: "vowel", strokes: 1, tips: "Chỉ một nét dọc dài", category: "Nguyên âm" },
+  // Âm tiết cơ bản
+  { char: "가", romanization: "ga", type: "syllable", strokes: 4, tips: "ㄱ + ㅏ — phụ âm bên trái, nguyên âm bên phải", category: "Âm tiết" },
+  { char: "나", romanization: "na", type: "syllable", strokes: 4, tips: "ㄴ + ㅏ — phụ âm bên trái, nguyên âm bên phải", category: "Âm tiết" },
+  { char: "다", romanization: "da", type: "syllable", strokes: 5, tips: "ㄷ + ㅏ — phụ âm bên trái, nguyên âm bên phải", category: "Âm tiết" },
+  { char: "마", romanization: "ma", type: "syllable", strokes: 6, tips: "ㅁ + ㅏ — phụ âm bên trái, nguyên âm bên phải", category: "Âm tiết" },
+  { char: "바", romanization: "ba", type: "syllable", strokes: 6, tips: "ㅂ + ㅏ — phụ âm bên trái, nguyên âm bên phải", category: "Âm tiết" },
+  { char: "사", romanization: "sa", type: "syllable", strokes: 4, tips: "ㅅ + ㅏ — phụ âm bên trái, nguyên âm bên phải", category: "Âm tiết" },
+  { char: "아", romanization: "a", type: "syllable", strokes: 3, tips: "ㅇ (câm) + ㅏ — vòng tròn bên trái, nguyên âm bên phải", category: "Âm tiết" },
+  { char: "자", romanization: "ja", type: "syllable", strokes: 5, tips: "ㅈ + ㅏ — phụ âm bên trái, nguyên âm bên phải", category: "Âm tiết" },
+  { char: "하", romanization: "ha", type: "syllable", strokes: 5, tips: "ㅎ + ㅏ — phụ âm bên trái, nguyên âm bên phải", category: "Âm tiết" },
+  { char: "한", romanization: "han", type: "syllable", strokes: 7, tips: "ㅎ + ㅏ + ㄴ — có phụ âm cuối (받침)", category: "Âm tiết" },
+  { char: "국", romanization: "guk", type: "syllable", strokes: 6, tips: "ㄱ + ㅜ + ㄱ — có phụ âm cuối (받침)", category: "Âm tiết" },
+  { char: "어", romanization: "eo", type: "syllable", strokes: 3, tips: "ㅇ (câm) + ㅓ — vòng tròn bên trái, nguyên âm bên phải", category: "Âm tiết" },
+  { char: "요", romanization: "yo", type: "syllable", strokes: 4, tips: "ㅇ (câm) + ㅛ — vòng tròn trên, nguyên âm dưới", category: "Âm tiết" },
 ];
 
-const CATEGORIES = ["T?t c?", "Ph? �m", "Nguy�n �m", "�m ti?t"];
+const CATEGORIES = ["Tất cả", "Phụ âm", "Nguyên âm", "Âm tiết"];
 
 interface DrawPoint { x: number; y: number; }
 interface Stroke { points: DrawPoint[]; }
@@ -73,7 +73,7 @@ interface SpeechRecord {
 }
 
 export default function HangulCanvasPage() {
-  const [selectedCategory, setSelectedCategory] = useState("T?t c?");
+  const [selectedCategory, setSelectedCategory] = useState("Tất cả");
   const [currentIdx, setCurrentIdx] = useState(0);
   const [strokes, setStrokes] = useState<Stroke[]>([]);
   const [currentStroke, setCurrentStroke] = useState<DrawPoint[]>([]);
@@ -96,7 +96,7 @@ export default function HangulCanvasPage() {
   const [speechError, setSpeechError] = useState<string | null>(null);
   const [showSpeechPanel, setShowSpeechPanel] = useState(false);
 
-  const filtered = CATEGORIES[0] === selectedCategory || selectedCategory === "T?t c?"
+  const filtered = CATEGORIES[0] === selectedCategory || selectedCategory === "Tất cả"
     ? HANGUL_CHARS
     : HANGUL_CHARS.filter(c => c.category === selectedCategory);
 
@@ -260,7 +260,7 @@ export default function HangulCanvasPage() {
     const SpeechRecognitionAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
     if (!SpeechRecognitionAPI) {
-      setSpeechError("Tr�nh duy?t kh�ng h? tr? nh?n d?ng gi?ng n�i. H�y d�ng Chrome.");
+      setSpeechError("Trình duyệt không hỗ trợ nhận dạng giọng nói. Hãy dùng Chrome.");
       return;
     }
 
@@ -303,11 +303,11 @@ export default function HangulCanvasPage() {
     recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
       setIsListening(false);
       if (event.error === "no-speech") {
-        setSpeechError("Kh�ng nghe th?y gi?ng n�i. H�y th? l?i.");
+        setSpeechError("Không nghe thấy giọng nói. Hãy thử lại.");
       } else if (event.error === "not-allowed") {
-        setSpeechError("C?n c?p quy?n microphone.");
+        setSpeechError("Cần cấp quyền microphone.");
       } else {
-        setSpeechError(`L?i: ${event.error}`);
+        setSpeechError(`Lỗi: ${event.error}`);
       }
     };
 
@@ -330,26 +330,26 @@ export default function HangulCanvasPage() {
         <div className="flex items-start justify-between flex-wrap gap-4">
           <div>
             <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "'Nunito', sans-serif" }}>
-              Luy?n vi?t Hangul
+              Luyện viết Hangul
             </h1>
-            <p className="text-app-text-secondary text-sm mt-0.5">Luy?n vi?t tay + ki?m tra ph�t �m b?ng AI nh?n d?ng gi?ng n�i</p>
+            <p className="text-app-text-secondary text-sm mt-0.5">Luyện viết tay + kiểm tra phát âm bằng AI nhận dạng giọng nói</p>
           </div>
           <div className="flex gap-3">
             {speechRecords.length > 0 && (
               <div className="bg-app-card/50 border border-app-border rounded-xl px-4 py-2 text-center">
                 <p className={`font-bold text-xl ${speechAccuracy >= 70 ? "text-app-accent-success" : speechAccuracy >= 50 ? "text-amber-400" : "text-red-400"}`}>{speechAccuracy}%</p>
-                <p className="text-app-text-secondary text-xs">Ph�t �m d�ng</p>
+                <p className="text-app-text-secondary text-xs">Phát âm đúng</p>
               </div>
             )}
             {scores.length > 0 && (
               <div className="bg-app-card/50 border border-app-border rounded-xl px-4 py-2 text-center">
                 <p className={`font-bold text-xl ${scoreColor(avgScore)}`}>{avgScore}%</p>
-                <p className="text-app-text-secondary text-xs">�i?m vi?t TB</p>
+                <p className="text-app-text-secondary text-xs">Điểm viết TB</p>
               </div>
             )}
             <div className="bg-app-card/50 border border-app-border rounded-xl px-4 py-2 text-center">
               <p className="text-white font-bold text-xl">{scores.length}</p>
-              <p className="text-app-text-secondary text-xs">L?n luy?n</p>
+              <p className="text-app-text-secondary text-xs">Lần luyện</p>
             </div>
           </div>
         </div>
@@ -361,13 +361,13 @@ export default function HangulCanvasPage() {
               onClick={() => { setMode("practice"); clearCanvas(); setCurrentIdx(0); }}
               className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${mode === "practice" ? "bg-white/15 text-white" : "text-app-text-secondary hover:text-white/70"}`}
             >
-              Luy?n t?p
+              Luyện tập
             </button>
             <button
               onClick={() => { setMode("quiz"); clearCanvas(); setQuizIdx(0); setQuizStreak(0); }}
               className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${mode === "quiz" ? "bg-app-accent-primary/15 text-app-accent-primary" : "text-app-text-secondary hover:text-white/70"}`}
             >
-              Ki?m tra
+              Kiểm tra
             </button>
           </div>
 
@@ -414,7 +414,7 @@ export default function HangulCanvasPage() {
                 <button
                   onClick={() => speakKorean(currentChar.char)}
                   className="w-8 h-8 flex items-center justify-center bg-white/8 hover:bg-white/15 rounded-full transition-all cursor-pointer"
-                  title="Nghe ph�t �m"
+                  title="Nghe phát âm"
                 >
                   <i className="ri-volume-up-line text-white/50 text-sm"></i>
                 </button>
@@ -432,7 +432,7 @@ export default function HangulCanvasPage() {
                   <div className="w-4 h-4 flex items-center justify-center">
                     <i className="ri-pencil-line text-app-text-muted text-xs"></i>
                   </div>
-                  <span className="text-app-text-secondary text-xs">S? n�t: <span className="text-white/70">{currentChar.strokes}</span></span>
+                  <span className="text-app-text-secondary text-xs">Số nét: <span className="text-white/70">{currentChar.strokes}</span></span>
                 </div>
                 <div className="flex items-start gap-2">
                   <div className="w-4 h-4 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -450,14 +450,14 @@ export default function HangulCanvasPage() {
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-white/60 text-xs transition-all cursor-pointer whitespace-nowrap"
                   >
                     <i className="ri-arrow-left-line text-xs"></i>
-                    Tru?c
+                    Trước
                   </button>
                   <span className="text-app-text-muted text-xs">{currentIdx + 1} / {filtered.length}</span>
                   <button
                     onClick={nextChar}
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-white/60 text-xs transition-all cursor-pointer whitespace-nowrap"
                   >
-                    Ti?p
+                    Tiếp
                     <i className="ri-arrow-right-line text-xs"></i>
                   </button>
                 </div>
@@ -471,17 +471,17 @@ export default function HangulCanvasPage() {
                   <div className="w-5 h-5 flex items-center justify-center">
                     <i className="ri-mic-line text-rose-400 text-sm"></i>
                   </div>
-                  <p className="text-white/70 text-sm font-medium">Ki?m tra ph�t �m</p>
+                  <p className="text-white/70 text-sm font-medium">Kiểm tra phát âm</p>
                 </div>
                 <button
                   onClick={() => setShowSpeechPanel(!showSpeechPanel)}
                   className="text-app-text-muted hover:text-white/60 text-xs cursor-pointer whitespace-nowrap"
                 >
-                  {showSpeechPanel ? "Thu g?n" : "M? r?ng"}
+                  {showSpeechPanel ? "Thu gọn" : "Mở rộng"}
                 </button>
               </div>
 
-              <p className="text-app-text-secondary text-xs">Vi?t xong r?i d?c to ch? <span className="text-white font-bold" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{currentChar.char}</span> d? AI ch?m ph�t �m</p>
+              <p className="text-app-text-secondary text-xs">Viết xong rồi đọc to chữ <span className="text-white font-bold" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{currentChar.char}</span> để AI chấm phát âm</p>
 
               {/* Mic button */}
               <div className="flex items-center gap-3">
@@ -496,12 +496,12 @@ export default function HangulCanvasPage() {
                   <div className="w-4 h-4 flex items-center justify-center">
                     <i className={`${isListening ? "ri-stop-circle-line" : "ri-mic-line"} text-sm`}></i>
                   </div>
-                  {isListening ? "�ang nghe..." : "�?c to"}
+                  {isListening ? "Đang nghe..." : "Đọc to"}
                 </button>
 
                 {speechRecords.length > 0 && (
                   <div className="text-xs text-app-text-muted">
-                    {speechRecords.filter(r => r.char === currentChar.char && r.correct).length}/{speechRecords.filter(r => r.char === currentChar.char).length} d�ng
+                    {speechRecords.filter(r => r.char === currentChar.char && r.correct).length}/{speechRecords.filter(r => r.char === currentChar.char).length} đúng
                   </div>
                 )}
               </div>
@@ -514,14 +514,14 @@ export default function HangulCanvasPage() {
                       <i className={`text-sm ${speechResult.correct ? "ri-checkbox-circle-fill text-app-accent-success" : "ri-close-circle-fill text-red-400"}`}></i>
                     </div>
                     <span className={`text-sm font-bold ${speechResult.correct ? "text-app-accent-success" : "text-red-400"}`}>
-                      {speechResult.correct ? `Ch�nh x�c! +${speechResult.xp} XP` : "Chua d�ng"}
+                      {speechResult.correct ? `Chính xác! +${speechResult.xp} XP` : "Chưa đúng"}
                     </span>
                   </div>
                   <p className="text-white/50 text-xs">
-                    AI nghe du?c: <span className="text-white font-medium" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{speechResult.recognized || "(kh�ng r�)"}</span>
+                    AI nghe được: <span className="text-white font-medium" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{speechResult.recognized || "(không rõ)"}</span>
                   </p>
                   {!speechResult.correct && (
-                    <p className="text-app-text-muted text-xs mt-1">H�y nghe m?u r?i th? l?i nh�!</p>
+                    <p className="text-app-text-muted text-xs mt-1">Hãy nghe mẫu rồi thử lại nhé!</p>
                   )}
                 </div>
               )}
@@ -536,13 +536,13 @@ export default function HangulCanvasPage() {
               {/* Speech history (expanded) */}
               {showSpeechPanel && speechRecords.length > 0 && (
                 <div className="space-y-2 pt-1 border-t border-app-border">
-                  <p className="text-app-text-muted text-xs font-medium">L?ch s? ph�t �m g?n d�y</p>
+                  <p className="text-app-text-muted text-xs font-medium">Lịch sử phát âm gần đây</p>
                   <div className="space-y-1.5 max-h-36 overflow-y-auto">
                     {speechRecords.slice(0, 10).map((r, i) => (
                       <div key={i} className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <span className="text-white text-sm font-medium" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{r.char}</span>
-                          <span className="text-app-text-muted text-xs">? {r.recognized || "?"}</span>
+                          <span className="text-app-text-muted text-xs">→ {r.recognized || "?"}</span>
                         </div>
                         <div className="flex items-center gap-1.5">
                           <div className="w-3 h-3 flex items-center justify-center">
@@ -560,7 +560,7 @@ export default function HangulCanvasPage() {
             {/* Recent scores */}
             {scores.length > 0 && (
               <div className="bg-app-card/50 border border-app-border rounded-2xl p-4 space-y-2">
-                <p className="text-app-text-secondary text-xs font-medium">L?ch s? vi?t g?n d�y</p>
+                <p className="text-app-text-secondary text-xs font-medium">Lịch sử viết gần đây</p>
                 <div className="space-y-1.5 max-h-40 overflow-y-auto">
                   {scores.slice(0, 8).map((s, i) => (
                     <div key={i} className="flex items-center justify-between">
@@ -591,7 +591,7 @@ export default function HangulCanvasPage() {
                 <div className="w-3 h-3 flex items-center justify-center">
                   <i className="ri-eye-line text-xs"></i>
                 </div>
-                {showGuide ? "?n m?u" : "Hi?n m?u"}
+                {showGuide ? "Ẩn mẫu" : "Hiện mẫu"}
               </button>
               <button
                 onClick={clearCanvas}
@@ -600,7 +600,7 @@ export default function HangulCanvasPage() {
                 <div className="w-3 h-3 flex items-center justify-center">
                   <i className="ri-delete-bin-line text-xs"></i>
                 </div>
-                X�a
+                Xóa
               </button>
             </div>
 
@@ -629,7 +629,7 @@ export default function HangulCanvasPage() {
               />
               {strokes.length === 0 && !isDrawing && (
                 <div className="absolute inset-0 flex items-end justify-center pb-4 pointer-events-none">
-                  <p className="text-white/15 text-xs">V? ch? v�o d�y</p>
+                  <p className="text-white/15 text-xs">Vẽ chữ vào đây</p>
                 </div>
               )}
               {/* Listening overlay */}
@@ -638,13 +638,13 @@ export default function HangulCanvasPage() {
                   <div className="w-16 h-16 flex items-center justify-center rounded-full bg-rose-500/20 border-2 border-rose-500/50 animate-pulse mb-3">
                     <i className="ri-mic-fill text-rose-400 text-2xl"></i>
                   </div>
-                  <p className="text-white text-sm font-medium">�ang nghe...</p>
-                  <p className="text-white/50 text-xs mt-1">�?c to: <span style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{currentChar.char}</span></p>
+                  <p className="text-white text-sm font-medium">Đang nghe...</p>
+                  <p className="text-white/50 text-xs mt-1">Đọc to: <span style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{currentChar.char}</span></p>
                   <button
                     onClick={stopListening}
                     className="mt-3 px-4 py-1.5 rounded-lg bg-app-card/70 text-white/60 text-xs cursor-pointer whitespace-nowrap"
                   >
-                    D?ng
+                    Dừng
                   </button>
                 </div>
               )}
@@ -653,13 +653,13 @@ export default function HangulCanvasPage() {
             {/* Self-scoring */}
             {strokes.length > 0 && !submitted && (
               <div className="bg-app-card/50 border border-app-border rounded-2xl p-4 space-y-3">
-                <p className="text-white/60 text-sm font-medium text-center">T? d�nh gi� b�i vi?t c?a b?n</p>
+                <p className="text-white/60 text-sm font-medium text-center">Tự đánh giá bài viết của bạn</p>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {[
-                    { score: 90, label: "Xu?t s?c", color: "bg-app-accent-success/15 border-emerald-500/30 text-app-accent-success" },
-                    { score: 75, label: "T?t", color: "bg-sky-500/15 border-sky-500/30 text-sky-400" },
-                    { score: 55, label: "�u?c", color: "bg-amber-500/15 border-amber-500/30 text-amber-400" },
-                    { score: 30, label: "C?n c?i thi?n", color: "bg-red-500/15 border-red-500/30 text-red-400" },
+                    { score: 90, label: "Xuất sắc", color: "bg-app-accent-success/15 border-emerald-500/30 text-app-accent-success" },
+                    { score: 75, label: "Tốt", color: "bg-sky-500/15 border-sky-500/30 text-sky-400" },
+                    { score: 55, label: "Được", color: "bg-amber-500/15 border-amber-500/30 text-amber-400" },
+                    { score: 30, label: "Cần cải thiện", color: "bg-red-500/15 border-red-500/30 text-red-400" },
                   ].map(opt => (
                     <button
                       key={opt.score}
@@ -683,7 +683,7 @@ export default function HangulCanvasPage() {
                     <div className="w-3 h-3 flex items-center justify-center">
                       <i className={`${isListening ? "ri-stop-circle-line" : "ri-mic-line"} text-xs`}></i>
                     </div>
-                    {isListening ? "�ang nghe ph�t �m..." : "�?c to d? AI ch?m ph�t �m"}
+                    {isListening ? "Đang nghe phát âm..." : "Đọc to để AI chấm phát âm"}
                   </button>
                 </div>
               </div>
@@ -702,21 +702,21 @@ export default function HangulCanvasPage() {
                       <i className={`text-lg ${selfScore >= 80 ? "ri-checkbox-circle-fill text-app-accent-success" : selfScore >= 60 ? "ri-error-warning-fill text-amber-400" : "ri-close-circle-fill text-red-400"}`}></i>
                     </div>
                     <span className={`font-bold text-sm ${selfScore >= 80 ? "text-app-accent-success" : selfScore >= 60 ? "text-amber-400" : "text-red-400"}`}>
-                      {selfScore}% � {selfScore >= 80 ? "+15 XP" : selfScore >= 60 ? "+10 XP" : "+5 XP"}
+                      {selfScore}% — {selfScore >= 80 ? "+15 XP" : selfScore >= 60 ? "+10 XP" : "+5 XP"}
                     </span>
                   </div>
                   <button
                     onClick={nextChar}
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-card/70 hover:bg-white/15 text-white/60 text-xs transition-all cursor-pointer whitespace-nowrap"
                   >
-                    Ch? ti?p
+                    Chữ tiếp
                     <i className="ri-arrow-right-line text-xs"></i>
                   </button>
                 </div>
                 <p className="text-white/50 text-xs">
-                  {selfScore >= 80 ? "Tuy?t v?i! N�t ch? r?t d?p v� ch�nh x�c." :
-                   selfScore >= 60 ? "Kh� t?t! Ti?p t?c luy?n t?p d? ho�n thi?n hon." :
-                   "C?n luy?n th�m. H�y xem l?i m?u v� th? l?i."}
+                  {selfScore >= 80 ? "Tuyệt vời! Nét chữ rất đẹp và chính xác." :
+                   selfScore >= 60 ? "Khá tốt! Tiếp tục luyện tập để hoàn thiện hơn." :
+                   "Cần luyện thêm. Hãy xem lại mẫu và thử lại."}
                 </p>
                 {/* Speech check after scoring */}
                 {!speechResult && (
@@ -731,7 +731,7 @@ export default function HangulCanvasPage() {
                     <div className="w-4 h-4 flex items-center justify-center">
                       <i className={`${isListening ? "ri-stop-circle-line" : "ri-mic-line"} text-sm`}></i>
                     </div>
-                    {isListening ? "�ang nghe ph�t �m..." : "�?c to d? AI ch?m ph�t �m"}
+                    {isListening ? "Đang nghe phát âm..." : "Đọc to để AI chấm phát âm"}
                   </button>
                 )}
                 {speechResult && (
@@ -739,7 +739,7 @@ export default function HangulCanvasPage() {
                     <div className="flex items-center gap-1.5">
                       <i className={`text-sm ${speechResult.correct ? "ri-checkbox-circle-fill text-app-accent-success" : "ri-close-circle-fill text-red-400"}`}></i>
                       <span className={`text-xs font-bold ${speechResult.correct ? "text-app-accent-success" : "text-red-400"}`}>
-                        Ph�t �m: {speechResult.correct ? `��ng! +${speechResult.xp} XP` : "Chua d�ng"}
+                        Phát âm: {speechResult.correct ? `Đúng! +${speechResult.xp} XP` : "Chưa đúng"}
                       </span>
                       <span className="text-app-text-muted text-xs ml-auto">AI nghe: {speechResult.recognized || "?"}</span>
                     </div>
@@ -752,7 +752,7 @@ export default function HangulCanvasPage() {
 
         {/* Character grid */}
         <div className="bg-app-card/50 border border-app-border rounded-2xl p-5 space-y-3">
-          <h2 className="text-white font-semibold text-sm">Danh s�ch k� t? ({filtered.length})</h2>
+          <h2 className="text-white font-semibold text-sm">Danh sách ký tự ({filtered.length})</h2>
           <div className="flex flex-wrap gap-2">
             {filtered.map((c, i) => {
               const charScores = scores.filter(s => s.char === c.char);
@@ -790,7 +790,7 @@ export default function HangulCanvasPage() {
               );
             })}
           </div>
-          <p className="text-app-text-muted text-xs">Ch?m d? = d� luy?n ph�t �m d�ng</p>
+          <p className="text-app-text-muted text-xs">Chấm đỏ = đã luyện phát âm đúng</p>
         </div>
       </div>
     </DashboardLayout>

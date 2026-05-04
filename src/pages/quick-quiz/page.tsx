@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+﻿import { useState, useEffect, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -6,7 +6,7 @@ import { supabase } from "@/lib/supabase";
 import { epsVocabulary } from "@/mocks/epsVocabulary";
 import { topikQuestions } from "@/mocks/topikQuestions";
 
-// --- Types --------------------------------------------------------------------
+// ─── Types ────────────────────────────────────────────────────────────────────
 interface QuizQuestion {
   id: string;
   type: "vocab_kr_to_vi" | "vocab_vi_to_kr" | "topik";
@@ -25,7 +25,7 @@ interface QuizResult {
   mode: string;
 }
 
-// --- Question generators ------------------------------------------------------
+// ─── Question generators ──────────────────────────────────────────────────────
 function generateVocabQuestions(count: number): QuizQuestion[] {
   const vocab = [...epsVocabulary].sort(() => Math.random() - 0.5).slice(0, count * 2);
   const questions: QuizQuestion[] = [];
@@ -35,7 +35,7 @@ function generateVocabQuestions(count: number): QuizQuestion[] {
     const isKrToVi = Math.random() > 0.5;
 
     if (isKrToVi) {
-      // Korean ? Vietnamese
+      // Korean → Vietnamese
       const wrongOptions = vocab
         .filter(v => v.id !== item.id)
         .sort(() => Math.random() - 0.5)
@@ -48,11 +48,11 @@ function generateVocabQuestions(count: number): QuizQuestion[] {
         question: item.korean,
         options,
         correctIdx: options.indexOf(item.vietnamese),
-        explanation: `[${item.reading}] � ${item.vietnamese}`,
-        category: "T? v?ng EPS",
+        explanation: `[${item.reading}] — ${item.vietnamese}`,
+        category: "Từ vựng EPS",
       });
     } else {
-      // Vietnamese ? Korean
+      // Vietnamese → Korean
       const wrongOptions = vocab
         .filter(v => v.id !== item.id)
         .sort(() => Math.random() - 0.5)
@@ -66,7 +66,7 @@ function generateVocabQuestions(count: number): QuizQuestion[] {
         options,
         correctIdx: options.indexOf(item.korean),
         explanation: `${item.korean} [${item.reading}]`,
-        category: "T? v?ng EPS",
+        category: "Từ vựng EPS",
       });
     }
   }
@@ -86,14 +86,14 @@ function generateTopikQuestions(count: number): QuizQuestion[] {
   }));
 }
 
-// --- Quiz modes ---------------------------------------------------------------
+// ─── Quiz modes ───────────────────────────────────────────────────────────────
 const QUIZ_MODES = [
-  { id: "vocab_eps", label: "T? v?ng EPS", icon: "ri-translate-2", color: "#fb923c", desc: "H�n ? Vi?t t? v?ng EPS-TOPIK", time: 120 },
-  { id: "topik", label: "TOPIK I", icon: "ri-file-list-2-line", color: "#60a5fa", desc: "C�u h?i thi th? TOPIK I", time: 120 },
-  { id: "mixed", label: "T?ng h?p", icon: "ri-shuffle-line", color: "app-accent-primary", desc: "K?t h?p t? v?ng + TOPIK", time: 120 },
+  { id: "vocab_eps", label: "Từ vựng EPS", icon: "ri-translate-2", color: "#fb923c", desc: "Hàn ↔ Việt từ vựng EPS-TOPIK", time: 120 },
+  { id: "topik", label: "TOPIK I", icon: "ri-file-list-2-line", color: "#60a5fa", desc: "Câu hỏi thi thử TOPIK I", time: 120 },
+  { id: "mixed", label: "Tổng hợp", icon: "ri-shuffle-line", color: "app-accent-primary", desc: "Kết hợp từ vựng + TOPIK", time: 120 },
 ];
 
-// --- Result Screen ------------------------------------------------------------
+// ─── Result Screen ────────────────────────────────────────────────────────────
 function ResultScreen({
   score, total, timeUsed, mode, answers, questions, onRetry, onHome,
 }: {
@@ -102,10 +102,10 @@ function ResultScreen({
   onRetry: () => void; onHome: () => void;
 }) {
   const pct = Math.round((score / total) * 100);
-  const grade = pct >= 90 ? { label: "Xu?t s?c!", color: "#34d399", icon: "ri-trophy-fill" }
-    : pct >= 70 ? { label: "T?t!", color: "app-accent-primary", icon: "ri-thumb-up-fill" }
-    : pct >= 50 ? { label: "Kh�!", color: "#60a5fa", icon: "ri-star-fill" }
-    : { label: "C?n c? g?ng hon", color: "#f87171", icon: "ri-refresh-line" };
+  const grade = pct >= 90 ? { label: "Xuất sắc!", color: "#34d399", icon: "ri-trophy-fill" }
+    : pct >= 70 ? { label: "Tốt!", color: "app-accent-primary", icon: "ri-thumb-up-fill" }
+    : pct >= 50 ? { label: "Khá!", color: "#60a5fa", icon: "ri-star-fill" }
+    : { label: "Cần cố gắng hơn", color: "#f87171", icon: "ri-refresh-line" };
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -115,21 +115,21 @@ function ResultScreen({
           <i className={`${grade.icon} text-4xl`} style={{ color: grade.color }}></i>
         </div>
         <h2 className="text-white font-bold text-2xl mb-1">{grade.label}</h2>
-        <p className="text-app-text-secondary text-sm mb-5">B�i ki?m tra nhanh 2 ph�t � {mode}</p>
+        <p className="text-app-text-secondary text-sm mb-5">Bài kiểm tra nhanh 2 phút — {mode}</p>
         <div className="flex justify-center gap-6 mb-5">
           <div>
             <p className="font-bold text-4xl" style={{ color: grade.color }}>{pct}%</p>
-            <p className="text-app-text-muted text-xs mt-1">�i?m s?</p>
+            <p className="text-app-text-muted text-xs mt-1">Điểm số</p>
           </div>
           <div className="w-px bg-app-card/50"></div>
           <div>
             <p className="text-white font-bold text-4xl">{score}/{total}</p>
-            <p className="text-app-text-muted text-xs mt-1">C�u d�ng</p>
+            <p className="text-app-text-muted text-xs mt-1">Câu đúng</p>
           </div>
           <div className="w-px bg-app-card/50"></div>
           <div>
             <p className="text-white font-bold text-4xl">{timeUsed}s</p>
-            <p className="text-app-text-muted text-xs mt-1">Th?i gian</p>
+            <p className="text-app-text-muted text-xs mt-1">Thời gian</p>
           </div>
         </div>
         <div className="h-3 bg-app-card/50 rounded-full overflow-hidden mb-5">
@@ -137,17 +137,17 @@ function ResultScreen({
         </div>
         <div className="flex gap-3">
           <button onClick={onRetry} className="flex-1 py-3 rounded-xl font-bold text-sm cursor-pointer whitespace-nowrap transition-colors" style={{ backgroundColor: "app-accent-primary", color: "#0f1117" }}>
-            <i className="ri-refresh-line mr-2"></i>L�m l?i
+            <i className="ri-refresh-line mr-2"></i>Làm lại
           </button>
           <button onClick={onHome} className="flex-1 py-3 rounded-xl font-bold text-sm cursor-pointer whitespace-nowrap transition-colors bg-app-card/50 text-white/60 hover:bg-white/8">
-            <i className="ri-home-line mr-2"></i>V? trang ch?
+            <i className="ri-home-line mr-2"></i>Về trang chủ
           </button>
         </div>
       </div>
 
       {/* Review answers */}
       <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-        <h3 className="text-white font-semibold text-sm mb-4">Xem l?i d�p �n</h3>
+        <h3 className="text-white font-semibold text-sm mb-4">Xem lại đáp án</h3>
         <div className="space-y-3">
           {questions.map((q, i) => {
             const userAns = answers[i];
@@ -179,7 +179,7 @@ function ResultScreen({
   );
 }
 
-// --- Main Page ----------------------------------------------------------------
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function QuickQuizPage() {
   const navigate = useNavigate();
   const [phase, setPhase] = useState<"select" | "quiz" | "result">("select");
@@ -265,7 +265,7 @@ export default function QuickQuizPage() {
 
   if (phase === "result") {
     return (
-      <DashboardLayout title="K?t qu? Quiz" subtitle="B�i ki?m tra nhanh 2 ph�t">
+      <DashboardLayout title="Kết quả Quiz" subtitle="Bài kiểm tra nhanh 2 phút">
         <ResultScreen
           score={score}
           total={questions.length}
@@ -282,7 +282,7 @@ export default function QuickQuizPage() {
 
   if (phase === "quiz" && currentQ) {
     return (
-      <DashboardLayout title="Quiz nhanh 2 ph�t" subtitle={`C�u ${currentIdx + 1}/${questions.length} � ${currentQ.category}`}>
+      <DashboardLayout title="Quiz nhanh 2 phút" subtitle={`Câu ${currentIdx + 1}/${questions.length} · ${currentQ.category}`}>
         <div className="max-w-2xl mx-auto">
           {/* Timer bar */}
           <div className="mb-5">
@@ -291,7 +291,7 @@ export default function QuickQuizPage() {
                 <i className="ri-timer-line text-sm" style={{ color: timerColor }}></i>
                 <span className="font-mono font-bold text-sm" style={{ color: timerColor }}>{timeLeft}s</span>
               </div>
-              <span className="text-app-text-muted text-xs">{currentIdx + 1}/{questions.length} c�u � {score} d�ng</span>
+              <span className="text-app-text-muted text-xs">{currentIdx + 1}/{questions.length} câu · {score} đúng</span>
             </div>
             <div className="h-2 bg-app-card/50 rounded-full overflow-hidden">
               <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${timerPct}%`, backgroundColor: timerColor }}></div>
@@ -303,7 +303,7 @@ export default function QuickQuizPage() {
             <div className="flex items-center justify-center gap-2 mb-4">
               <span className="text-[10px] px-2.5 py-1 rounded-full bg-app-card/50 text-white/35">{currentQ.category}</span>
               <span className="text-[10px] px-2.5 py-1 rounded-full" style={{ backgroundColor: currentQ.type === "vocab_kr_to_vi" ? "rgba(251,146,60,0.12)" : "rgba(96,165,250,0.12)", color: currentQ.type === "vocab_kr_to_vi" ? "#fb923c" : "#60a5fa" }}>
-                {currentQ.type === "vocab_kr_to_vi" ? "H�n ? Vi?t" : currentQ.type === "vocab_vi_to_kr" ? "Vi?t ? H�n" : "TOPIK"}
+                {currentQ.type === "vocab_kr_to_vi" ? "Hàn → Việt" : currentQ.type === "vocab_vi_to_kr" ? "Việt → Hàn" : "TOPIK"}
               </span>
             </div>
             <p className="text-white font-bold text-3xl leading-snug">{currentQ.question}</p>
@@ -348,11 +348,11 @@ export default function QuickQuizPage() {
 
   // Select mode screen
   return (
-    <DashboardLayout title="B�i ki?m tra nhanh" subtitle="2 ph�t � 10 c�u � K?t qu? ngay l?p t?c">
+    <DashboardLayout title="Bài kiểm tra nhanh" subtitle="2 phút · 10 câu · Kết quả ngay lập tức">
       <div className="max-w-2xl mx-auto">
         {/* Mode selection */}
         <div className="mb-6">
-          <h3 className="text-white/50 text-xs tracking-normal mb-3">Ch?n ch? d?</h3>
+          <h3 className="text-white/50 text-xs tracking-normal mb-3">Chọn chủ đề</h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {QUIZ_MODES.map(mode => (
               <button
@@ -371,7 +371,7 @@ export default function QuickQuizPage() {
                 <p className="text-white/35 text-xs">{mode.desc}</p>
                 <div className="flex items-center gap-1.5 mt-2">
                   <i className="ri-timer-line text-[10px]" style={{ color: mode.color }}></i>
-                  <span className="text-[10px]" style={{ color: mode.color }}>{mode.time}s � 10 c�u</span>
+                  <span className="text-[10px]" style={{ color: mode.color }}>{mode.time}s · 10 câu</span>
                 </div>
               </button>
             ))}
@@ -386,14 +386,14 @@ export default function QuickQuizPage() {
         >
           <span className="flex items-center justify-center gap-2">
             <i className="ri-play-fill text-lg"></i>
-            B?t d?u Quiz ngay!
+            Bắt đầu Quiz ngay!
           </span>
         </button>
 
         {/* History */}
         {history.length > 0 && (
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">L?ch s? g?n d�y</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">Lịch sử gần đây</h3>
             <div className="space-y-2.5">
               {history.slice(0, 5).map((h, i) => {
                 const pct = Math.round((h.score / h.total) * 100);
@@ -405,7 +405,7 @@ export default function QuickQuizPage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-white/65 text-xs font-medium">{h.mode}</p>
-                      <p className="text-app-text-muted text-[10px]">{h.score}/{h.total} d�ng � {h.timeSeconds}s � {new Date(h.date).toLocaleDateString("vi-VN")}</p>
+                      <p className="text-app-text-muted text-[10px]">{h.score}/{h.total} đúng · {h.timeSeconds}s · {new Date(h.date).toLocaleDateString("vi-VN")}</p>
                     </div>
                     <div className="w-16 h-1.5 bg-app-card/50 rounded-full overflow-hidden flex-shrink-0">
                       <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: color }}></div>

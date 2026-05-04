@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
@@ -17,12 +17,12 @@ interface VocabEntry {
 
 type SortMode = "alpha" | "freq" | "recent";
 
-const ALPHABET = "??????????????".split("");
+const ALPHABET = "ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ".split("");
 
 function getInitialConsonant(char: string): string {
   const code = char.charCodeAt(0) - 0xAC00;
   if (code < 0 || code > 11171) return char[0]?.toUpperCase() ?? "#";
-  const consonants = ["?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?"];
+  const consonants = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
   return consonants[Math.floor(code / 588)] ?? "#";
 }
 
@@ -107,12 +107,12 @@ export default function DictionaryPage() {
 
   const buildAndDownloadCSV = (entries: typeof dictionary, filename: string, watermarkLimit?: number) => {
     const rows = entries.map((v) => ({
-      "T? (Korean)": v.word,
-      "Nghia (Vietnamese)": v.meaning,
-      "V� d?": v.example,
-      "B�i h�t": v.songs.join("; "),
-      "Ngh? si": v.artists.join("; "),
-      "S? l?n xu?t hi?n": v.count,
+      "Từ (Korean)": v.word,
+      "Nghĩa (Vietnamese)": v.meaning,
+      "Ví dụ": v.example,
+      "Bài hát": v.songs.join("; "),
+      "Nghệ sĩ": v.artists.join("; "),
+      "Số lần xuất hiện": v.count,
     }));
     const headers = Object.keys(rows[0]);
     let csvContent = [
@@ -141,11 +141,11 @@ export default function DictionaryPage() {
     checkAndRun(
       () => {
         buildAndDownloadCSV(dictionary, `KTS_Dictionary_${new Date().toISOString().split("T")[0]}.csv`);
-        showExportToast(`�� xu?t ${dictionary.length} t? ra CSV � m? b?ng Excel ho?c Anki!`);
+        showExportToast(`Đã xuất ${dictionary.length} từ ra CSV — mở bằng Excel hoặc Anki!`);
       },
       (limit) => {
         buildAndDownloadCSV(dictionary.slice(0, limit), `KTS_Dictionary_${limit}tu.csv`, limit);
-        showExportToast(`�� xu?t ${limit} t? (VIP Th�ng gi?i h?n). N�ng c?p VIP Nam d? xu?t to�n b?!`);
+        showExportToast(`Đã xuất ${limit} từ (VIP Tháng giới hạn). Nâng cấp VIP Năm để xuất toàn bộ!`);
       }
     );
   };
@@ -159,12 +159,12 @@ export default function DictionaryPage() {
     }
     const exportData = isVipYear ? dictionary : dictionary.slice(0, 50);
     const rows = exportData.map((v) => ({
-      "T? (Korean)": v.word,
-      "Nghia (Vietnamese)": v.meaning,
-      "V� d?": v.example,
-      "B�i h�t": v.songs.join("; "),
-      "Ngh? si": v.artists.join("; "),
-      "S? l?n xu?t hi?n": v.count,
+      "Từ (Korean)": v.word,
+      "Nghĩa (Vietnamese)": v.meaning,
+      "Ví dụ": v.example,
+      "Bài hát": v.songs.join("; "),
+      "Nghệ sĩ": v.artists.join("; "),
+      "Số lần xuất hiện": v.count,
     }));
     const ws = XLSX.utils.json_to_sheet(rows);
     ws["!cols"] = [
@@ -184,8 +184,8 @@ export default function DictionaryPage() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     const msg = isVipYear
-      ? `�� xu?t ${dictionary.length} t? ra Excel!`
-      : `�� xu?t 50 t? (VIP Th�ng gi?i h?n). N�ng c?p VIP Nam d? xu?t to�n b?!`;
+      ? `Đã xuất ${dictionary.length} từ ra Excel!`
+      : `Đã xuất 50 từ (VIP Tháng giới hạn). Nâng cấp VIP Năm để xuất toàn bộ!`;
     showExportToast(msg);
   };
 
@@ -203,7 +203,7 @@ export default function DictionaryPage() {
         const back = [
           v.meaning,
           v.example ? `<i>${v.example}</i>` : "",
-          v.songs.length > 0 ? `<small>?? ${v.songs[0]}</small>` : "",
+          v.songs.length > 0 ? `<small>📀 ${v.songs[0]}</small>` : "",
         ]
           .filter(Boolean)
           .join("<br>");
@@ -219,17 +219,17 @@ export default function DictionaryPage() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showExportToast(`�� xu?t ${dictionary.length} th? Anki � import v�o Anki app l� d�ng du?c!`);
+    showExportToast(`Đã xuất ${dictionary.length} thẻ Anki — import vào Anki app là dùng được!`);
   };
 
   return (
     <DashboardLayout
-      title="T? di?n K-pop"
-      subtitle={`${stats.total} t? v?ng t? ${approvedLessons.length} b�i h?c`}
+      title="Từ điển K-pop"
+      subtitle={`${stats.total} từ vựng từ ${approvedLessons.length} bài học`}
       actions={
         <div className="flex items-center gap-2">
           <span className="text-app-text-muted text-xs bg-app-card/50 px-3 py-1.5 rounded-full">
-            {stats.multiSong} t? xu?t hi?n nhi?u b�i
+            {stats.multiSong} từ xuất hiện nhiều bài
           </span>
           {dictionary.length > 0 && (
             <div className="relative">
@@ -238,7 +238,7 @@ export default function DictionaryPage() {
                 className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-black text-xs font-bold px-4 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
               >
                 <i className="ri-download-2-line"></i>
-                Xu?t t? di?n
+                Xuất từ điển
                 <i className={`ri-arrow-down-s-line transition-transform ${showExportMenu ? "rotate-180" : ""}`}></i>
               </button>
               {showExportMenu && (
@@ -246,7 +246,7 @@ export default function DictionaryPage() {
                   <div className="fixed inset-0 z-40" onClick={() => setShowExportMenu(false)} />
                   <div className="absolute right-0 top-full mt-1.5 z-50 bg-[#1a1d27] border border-app-border rounded-xl overflow-hidden shadow-xl min-w-52">
                     <div className="px-3 py-2 border-b border-app-border">
-                      <p className="text-app-text-muted text-[10px] tracking-normal">Ch?n d?nh d?ng xu?t</p>
+                      <p className="text-app-text-muted text-[10px] tracking-normal">Chọn định dạng xuất</p>
                     </div>
                     <button
                       onClick={handleExportCSV}
@@ -257,7 +257,7 @@ export default function DictionaryPage() {
                       </div>
                       <div>
                         <p className="text-white/80 text-xs font-medium">CSV (UTF-8)</p>
-                        <p className="text-app-text-muted text-[10px]">{isVipYear ? "To�n b?" : isVipMonth ? "50 t? (VIP Th�ng)" : "C?n VIP"}</p>
+                        <p className="text-app-text-muted text-[10px]">{isVipYear ? "Toàn bộ" : isVipMonth ? "50 từ (VIP Tháng)" : "Cần VIP"}</p>
                       </div>
                     </button>
                     <button
@@ -269,7 +269,7 @@ export default function DictionaryPage() {
                       </div>
                       <div>
                         <p className="text-white/80 text-xs font-medium">Excel (.xlsx)</p>
-                        <p className="text-app-text-muted text-[10px]">{isVipYear ? "To�n b?" : isVipMonth ? "50 t? (VIP Th�ng)" : "C?n VIP"}</p>
+                        <p className="text-app-text-muted text-[10px]">{isVipYear ? "Toàn bộ" : isVipMonth ? "50 từ (VIP Tháng)" : "Cần VIP"}</p>
                       </div>
                     </button>
                     <button
@@ -281,7 +281,7 @@ export default function DictionaryPage() {
                       </div>
                       <div>
                         <p className="text-white/80 text-xs font-medium">Anki Deck (.txt)</p>
-                        <p className="text-app-text-muted text-[10px]">{isVipYear ? "To�n b?" : "Ch? VIP Nam"}</p>
+                        <p className="text-app-text-muted text-[10px]">{isVipYear ? "Toàn bộ" : "Chỉ VIP Năm"}</p>
                       </div>
                     </button>
                   </div>
@@ -297,7 +297,7 @@ export default function DictionaryPage() {
         open={modalOpen}
         onClose={closeModal}
         reason={modalReason ?? "not_vip_year"}
-        featureName="Xu?t t? di?n K-pop"
+        featureName="Xuất từ điển K-pop"
       />
 
       {/* Export toast */}
@@ -313,14 +313,14 @@ export default function DictionaryPage() {
           <div className="w-16 h-16 flex items-center justify-center bg-app-card/50 rounded-2xl mb-5">
             <i className="ri-book-open-line text-app-text-muted text-3xl"></i>
           </div>
-          <p className="text-app-text-secondary text-sm font-medium">Chua c� t? v?ng n�o</p>
-          <p className="text-app-text-muted text-xs mt-1 mb-5">Duy?t b�i h?c trong K-pop Lesson d? t�ch luy t? v?ng</p>
+          <p className="text-app-text-secondary text-sm font-medium">Chưa có từ vựng nào</p>
+          <p className="text-app-text-muted text-xs mt-1 mb-5">Duyệt bài học trong K-pop Lesson để tích lũy từ vựng</p>
           <a
             href="/melon"
             className="flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-sm font-medium px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-music-2-line"></i>
-            �?n K-pop Lesson
+            Đến K-pop Lesson
           </a>
         </div>
       ) : (
@@ -329,23 +329,23 @@ export default function DictionaryPage() {
           <div className="w-56 flex-shrink-0 space-y-4">
             {/* Stats */}
             <div className="bg-app-bg border border-app-border rounded-xl p-4 space-y-3">
-              <p className="text-app-text-muted text-[10px] tracking-normal">Th?ng k�</p>
+              <p className="text-app-text-muted text-[10px] tracking-normal">Thống kê</p>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-white/50 text-xs">T?ng t? v?ng</span>
+                  <span className="text-white/50 text-xs">Tổng từ vựng</span>
                   <span className="text-app-accent-primary font-bold text-sm">{stats.total}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-white/50 text-xs">T? duy nh?t</span>
+                  <span className="text-white/50 text-xs">Từ duy nhất</span>
                   <span className="text-white/70 text-sm font-medium">{stats.unique}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-white/50 text-xs">Xu?t hi?n &gt;1 b�i</span>
+                  <span className="text-white/50 text-xs">Xuất hiện &gt;1 bài</span>
                   <span className="text-app-accent-success text-sm font-medium">{stats.multiSong}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-white/50 text-xs">T? b�i h?c</span>
-                  <span className="text-white/50 text-sm">{approvedLessons.length} b�i</span>
+                  <span className="text-white/50 text-xs">Từ bài học</span>
+                  <span className="text-white/50 text-sm">{approvedLessons.length} bài</span>
                 </div>
               </div>
             </div>
@@ -353,7 +353,7 @@ export default function DictionaryPage() {
             {/* Top frequent words */}
             {stats.topWords.length > 0 && (
               <div className="bg-app-bg border border-app-border rounded-xl p-4">
-                <p className="text-app-text-muted text-[10px] tracking-normal mb-3">T? ph? bi?n nh?t</p>
+                <p className="text-app-text-muted text-[10px] tracking-normal mb-3">Từ phổ biến nhất</p>
                 <div className="space-y-2">
                   {stats.topWords.map((w, i) => (
                     <button
@@ -372,7 +372,7 @@ export default function DictionaryPage() {
 
             {/* Alphabet nav */}
             <div className="bg-app-bg border border-app-border rounded-xl p-4">
-              <p className="text-app-text-muted text-[10px] tracking-normal mb-3">Tra theo ch? c�i</p>
+              <p className="text-app-text-muted text-[10px] tracking-normal mb-3">Tra theo chữ cái</p>
               <button
                 onClick={() => setSelectedLetter("all")}
                 className={`w-full text-left px-2 py-1.5 rounded-lg text-xs font-medium mb-1 transition-colors cursor-pointer ${
@@ -381,7 +381,7 @@ export default function DictionaryPage() {
                     : "text-app-text-secondary hover:text-white/70 hover:bg-app-card/50"
                 }`}
               >
-                T?t c? ({dictionary.length})
+                Tất cả ({dictionary.length})
               </button>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-1">
                 {ALPHABET.map((letter) => {
@@ -418,7 +418,7 @@ export default function DictionaryPage() {
                   type="text"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  placeholder="T�m t? v?ng, nghia, v� d?..."
+                  placeholder="Tìm từ vựng, nghĩa, ví dụ..."
                   className="w-full bg-app-bg border border-app-border rounded-xl pl-9 pr-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/30 transition-colors"
                 />
                 {search && (
@@ -431,7 +431,7 @@ export default function DictionaryPage() {
                 )}
               </div>
               <div className="flex items-center gap-1 bg-app-bg border border-app-border rounded-xl p-1">
-                {([["alpha", "A-Z", "ri-sort-asc"], ["freq", "Ph? bi?n", "ri-bar-chart-line"]] as const).map(([mode, label, icon]) => (
+                {([["alpha", "A-Z", "ri-sort-asc"], ["freq", "Phổ biến", "ri-bar-chart-line"]] as const).map(([mode, label, icon]) => (
                   <button
                     key={mode}
                     onClick={() => setSortMode(mode)}
@@ -451,8 +451,8 @@ export default function DictionaryPage() {
             {/* Results count */}
             {(search || selectedLetter !== "all") && (
               <p className="text-app-text-muted text-xs mb-3">
-                T�m th?y <strong className="text-white/60">{filtered.length}</strong> t?
-                {selectedLetter !== "all" && <span> b?t d?u b?ng <strong className="text-app-accent-primary">{selectedLetter}</strong></span>}
+                Tìm thấy <strong className="text-white/60">{filtered.length}</strong> từ
+                {selectedLetter !== "all" && <span> bắt đầu bằng <strong className="text-app-accent-primary">{selectedLetter}</strong></span>}
               </p>
             )}
 
@@ -460,7 +460,7 @@ export default function DictionaryPage() {
             {filtered.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 text-center bg-app-bg border border-app-border rounded-xl">
                 <i className="ri-search-line text-white/15 text-3xl mb-3"></i>
-                <p className="text-app-text-muted text-sm">Kh�ng t�m th?y t? n�o</p>
+                <p className="text-app-text-muted text-sm">Không tìm thấy từ nào</p>
               </div>
             ) : (
               <div className="grid grid-cols-2 xl:grid-cols-3 gap-2">
@@ -474,7 +474,7 @@ export default function DictionaryPage() {
                       <span className="text-white/90 font-bold text-base group-hover:text-app-accent-primary transition-colors">{entry.word}</span>
                       {entry.songs.length > 1 && (
                         <span className="text-[9px] bg-emerald-500/10 text-app-accent-success px-1.5 py-0.5 rounded-full border border-emerald-500/20 flex-shrink-0 ml-2">
-                          {entry.songs.length} b�i
+                          {entry.songs.length} bài
                         </span>
                       )}
                     </div>
@@ -519,14 +519,14 @@ export default function DictionaryPage() {
 
             {selectedWord.example && (
               <div className="bg-app-surface/50 border border-app-border rounded-xl px-4 py-3 mb-4">
-                <p className="text-app-text-muted text-[10px] tracking-normal mb-1.5">V� d?</p>
+                <p className="text-app-text-muted text-[10px] tracking-normal mb-1.5">Ví dụ</p>
                 <p className="text-white/70 text-sm italic leading-relaxed">{selectedWord.example}</p>
               </div>
             )}
 
             <div>
               <p className="text-app-text-muted text-[10px] tracking-normal mb-3">
-                Xu?t hi?n trong {selectedWord.songs.length} b�i h�t
+                Xuất hiện trong {selectedWord.songs.length} bài hát
               </p>
               <div className="space-y-2">
                 {selectedWord.songs.map((song, i) => (
@@ -547,7 +547,7 @@ export default function DictionaryPage() {
               onClick={() => setSelectedWord(null)}
               className="w-full mt-5 bg-app-card/50 hover:bg-app-card/70 text-white/50 text-sm py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
             >
-              ��ng
+              Đóng
             </button>
           </div>
         </div>

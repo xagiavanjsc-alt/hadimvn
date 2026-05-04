@@ -1,4 +1,4 @@
-import { RefObject } from "react";
+﻿import { RefObject } from "react";
 import type { EbookMeta } from "@/pages/ebook/page";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
 import type { EbookTemplate } from "./EbookTemplates";
@@ -13,7 +13,7 @@ interface Props {
 
 function removeRomanization(text: string): string {
   return text
-    .replace(/([?-?]+)\s*\(([a-zA-Z\s\-']+)\)/g, "$1")
+    .replace(/([가-힣]+)\s*\(([a-zA-Z\s\-']+)\)/g, "$1")
     .replace(/\*([a-zA-Z\s\-']+)\*/g, "")
     .replace(/\[([a-zA-Z\s\-']+)\]/g, "")
     .replace(/\s{2,}/g, " ")
@@ -27,7 +27,7 @@ function wrapKorean(text: string): string {
   );
 }
 
-/** Parse vocab word: t�ch ti?ng H�n, phi�n �m, nghia */
+/** Parse vocab word: tách tiếng Hàn, phiên âm, nghĩa */
 interface VocabParsed {
   korean: string;
   romanization: string | null;
@@ -36,13 +36,13 @@ interface VocabParsed {
 }
 
 function parseVocab(v: { word: string; meaning: string; example?: string }): VocabParsed {
-  // Case 1: "?? (annyeong)" � Korean + romanization in parens
-  const matchKorRom = v.word.match(/^([?-?\s]+)\s*\(([^)]+)\)$/);
+  // Case 1: "안녕 (annyeong)" — Korean + romanization in parens
+  const matchKorRom = v.word.match(/^([가-힣\s]+)\s*\(([^)]+)\)$/);
   if (matchKorRom) {
     return { korean: matchKorRom[1].trim(), romanization: matchKorRom[2].trim(), meaning: v.meaning, example: v.example };
   }
-  // Case 2: "(annyeong) ??" � romanization first
-  const matchRomKor = v.word.match(/^\(([^)]+)\)\s*([?-?\s]+)$/);
+  // Case 2: "(annyeong) 안녕" — romanization first
+  const matchRomKor = v.word.match(/^\(([^)]+)\)\s*([가-힣\s]+)$/);
   if (matchRomKor) {
     return { korean: matchRomKor[2].trim(), romanization: matchRomKor[1].trim(), meaning: v.meaning, example: v.example };
   }
@@ -59,14 +59,14 @@ function parseGrammar(raw: string): GrammarPoint[] {
   let current: GrammarPoint | null = null;
 
   for (const line of lines) {
-    const isHeader = /^(\d+[\.\)]\s|[�\-\*]\s|[?-?].{0,20}[:\-�])/.test(line);
+    const isHeader = /^(\d+[\.\)]\s|[•\-\*]\s|[가-힣].{0,20}[:\-–])/.test(line);
     if (isHeader) {
       if (current) points.push(current);
-      const splitMatch = line.match(/^(?:\d+[\.\)]\s*|[�\-\*]\s*)?(.*?)\s*[:\-�]\s*(.+)$/);
+      const splitMatch = line.match(/^(?:\d+[\.\)]\s*|[•\-\*]\s*)?(.*?)\s*[:\-–]\s*(.+)$/);
       if (splitMatch) {
         current = { pattern: splitMatch[1].trim(), explain: splitMatch[2].trim() };
       } else {
-        current = { pattern: line.replace(/^[\d\.\)\-\*�]+\s*/, ""), explain: "" };
+        current = { pattern: line.replace(/^[\d\.\)\-\*•]+\s*/, ""), explain: "" };
       }
     } else {
       if (current) {
@@ -80,17 +80,17 @@ function parseGrammar(raw: string): GrammarPoint[] {
   return points;
 }
 
-/** T�nh s? trang th?c c?a m?i b�i (1 ho?c 2 trang) */
+/** Tính số trang thực của mỗi bài (1 hoặc 2 trang) */
 function calcLessonPageCount(lesson: ApprovedLesson): number {
   const storyLen = lesson.story?.length ?? 0;
   const vocabCount = lesson.vocabulary?.length ?? 0;
   const hasGrammar = !!(lesson.explanation?.trim());
-  // Heuristic: n?u story d�i > 400 k� t? ho?c vocab > 6 t? ho?c c� grammar ? 2 trang
+  // Heuristic: nếu story dài > 400 ký tự hoặc vocab > 6 từ hoặc có grammar → 2 trang
   if (storyLen > 400 || vocabCount > 6 || hasGrammar) return 2;
   return 1;
 }
 
-/** T�nh page offset cho t?ng b�i */
+/** Tính page offset cho từng bài */
 function calcPageOffsets(lessons: ApprovedLesson[], hasForeword: boolean): number[] {
   // Cover=1, Foreword=2(if exists), TOC=next, lessons start after TOC
   let page = 2 + (hasForeword ? 1 : 0) + 1; // first lesson page
@@ -137,17 +137,17 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
           <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "3px", backgroundColor: accent }} />
           <div>
             <div style={{ fontSize: "10px", fontWeight: 700, textTransform: "", letterSpacing: "0.1em", marginBottom: "12px", opacity: 0.7, color: accent }}>{meta.author}</div>
-            <h2 style={{ fontSize: "14px", fontWeight: 700, lineHeight: 1.3, marginBottom: "4px", color: accent }}>{meta.title || "Ti�u d? ebook"}</h2>
+            <h2 style={{ fontSize: "14px", fontWeight: 700, lineHeight: 1.3, marginBottom: "4px", color: accent }}>{meta.title || "Tiêu đề ebook"}</h2>
             <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "10px", lineHeight: 1.5 }}>{meta.subtitle}</p>
           </div>
           <div style={{ marginTop: "16px" }}>
             <p style={{ color: "rgba(255,255,255,0.2)", fontSize: "9px", lineHeight: 1.5 }}>{meta.description}</p>
-            <div style={{ marginTop: "12px", fontSize: "9px", fontWeight: 600, color: accent }}>{lessons.length} b�i h?c</div>
+            <div style={{ marginTop: "12px", fontSize: "9px", fontWeight: 600, color: accent }}>{lessons.length} bài học</div>
           </div>
         </div>
         {lessons.length > 0 && (
           <div style={{ padding: "12px", maxHeight: "256px", overflowY: "auto" }}>
-            <p style={{ color: "rgba(255,255,255,0.25)", fontSize: "9px", textTransform: "", letterSpacing: "0.1em", marginBottom: "8px" }}>M?c l?c</p>
+            <p style={{ color: "rgba(255,255,255,0.25)", fontSize: "9px", textTransform: "", letterSpacing: "0.1em", marginBottom: "8px" }}>Mục lục</p>
             {lessons.map((lesson, idx) => (
               <div key={lesson.song.rank} style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
                 <span style={{ fontSize: "9px", fontWeight: 700, width: "16px", textAlign: "right", flexShrink: 0, color: accent }}>{idx + 1}</span>
@@ -160,7 +160,7 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
           </div>
         )}
         {lessons.length === 0 && (
-          <div style={{ padding: "16px", textAlign: "center", color: "rgba(255,255,255,0.2)", fontSize: "10px" }}>Ch?n b�i h?c d? xem m?c l?c</div>
+          <div style={{ padding: "16px", textAlign: "center", color: "rgba(255,255,255,0.2)", fontSize: "10px" }}>Chọn bài học để xem mục lục</div>
         )}
       </div>
 
@@ -200,7 +200,7 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
             <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "10pt", lineHeight: 1.8, maxWidth: "380px" }}>{meta.description}</p>
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <p style={{ color: "rgba(255,255,255,0.2)", fontSize: "9pt" }}>{lessons.length} b�i h?c</p>
+            <p style={{ color: "rgba(255,255,255,0.2)", fontSize: "9pt" }}>{lessons.length} bài học</p>
             <p style={{ color: "rgba(255,255,255,0.2)", fontSize: "9pt" }}>{new Date().getFullYear()}</p>
           </div>
         </div>
@@ -210,18 +210,18 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
           <div className="ebook-page" style={{ ...PAGE_STYLE, display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <div style={{ maxWidth: "420px", margin: "0 auto", width: "100%" }}>
               <div style={{ width: "32px", height: "3px", backgroundColor: accent, marginBottom: "28px" }} />
-              <h2 style={{ fontSize: "20pt", fontWeight: 700, color: "#111", marginBottom: "20px" }}>L?i m? d?u</h2>
+              <h2 style={{ fontSize: "20pt", fontWeight: 700, color: "#111", marginBottom: "20px" }}>Lời mở đầu</h2>
               <p style={{ color: "#444", fontSize: "11pt", lineHeight: 2, whiteSpace: "pre-wrap" }}>{meta.foreword}</p>
               <div style={{ marginTop: "32px", paddingTop: "16px", borderTop: "1px solid #eee" }}>
-                <p style={{ color: "#999", fontSize: "10pt", fontStyle: "italic" }}>� {meta.author}</p>
+                <p style={{ color: "#999", fontSize: "10pt", fontStyle: "italic" }}>— {meta.author}</p>
               </div>
             </div>
           </div>
         )}
 
-        {/* TABLE OF CONTENTS � t�nh sau khi bi?t page offsets */}
+        {/* TABLE OF CONTENTS — tính sau khi biết page offsets */}
         <div className="ebook-page" style={{ ...PAGE_STYLE }}>
-          <h2 style={{ fontSize: "22pt", fontWeight: 700, color: "#111", marginBottom: "8px" }}>M?c l?c</h2>
+          <h2 style={{ fontSize: "22pt", fontWeight: 700, color: "#111", marginBottom: "8px" }}>Mục lục</h2>
           <div style={{ width: "40px", height: "3px", backgroundColor: accent, marginBottom: "28px" }} />
           {lessons.map((lesson, idx) => (
             <div key={lesson.song.rank} style={{ display: "flex", alignItems: "center", gap: "16px", padding: "9px 0", borderBottom: "1px solid #f0f0f0" }}>
@@ -235,7 +235,7 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
           ))}
         </div>
 
-        {/* LESSON PAGES � m?i b�i c� th? 1 ho?c 2 trang */}
+        {/* LESSON PAGES — mỗi bài có thể 1 hoặc 2 trang */}
         {lessons.map((lesson, idx) => {
           const cleanStory = removeRomanization(lesson.story);
           const storyHtml = wrapKorean(cleanStory);
@@ -243,7 +243,7 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
           const pageNum = pageOffsets[idx];
           const lessonPages = calcLessonPageCount(lesson);
 
-          // Trang 1: Header + Story + Vocab (t?i da 6 t? n?u 2 trang, t?t c? n?u 1 trang)
+          // Trang 1: Header + Story + Vocab (tối đa 6 từ nếu 2 trang, tất cả nếu 1 trang)
           const vocabPage1 = lessonPages === 2 ? lesson.vocabulary.slice(0, 6) : lesson.vocabulary;
           const vocabPage2 = lessonPages === 2 ? lesson.vocabulary.slice(6) : [];
 
@@ -254,7 +254,7 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
                 {/* Lesson header */}
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px" }}>
                   <div>
-                    <p style={{ fontSize: "8pt", fontWeight: 700, textTransform: "", letterSpacing: "0.14em", marginBottom: "5px", color: accent }}>B�i {idx + 1}</p>
+                    <p style={{ fontSize: "8pt", fontWeight: 700, textTransform: "", letterSpacing: "0.14em", marginBottom: "5px", color: accent }}>Bài {idx + 1}</p>
                     <h2 style={{ fontSize: "19pt", fontWeight: 700, color: "#111", marginBottom: "3px", lineHeight: 1.2 }}>{lesson.song.title}</h2>
                     <p style={{ color: "#888", fontSize: "10.5pt" }}>{lesson.song.artist}</p>
                   </div>
@@ -272,7 +272,7 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
                 <div style={{ marginBottom: "20px" }}>
                   <div className="section-label">
                     <div className="section-bar" style={{ backgroundColor: accent }} />
-                    <span className="section-title">Truy?n Ch�m</span>
+                    <span className="section-title">Truyện Chêm</span>
                   </div>
                   <div
                     className="story-text"
@@ -285,7 +285,7 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
                   <div style={{ marginBottom: lessonPages === 1 ? "20px" : "0" }}>
                     <div className="section-label">
                       <div className="section-bar" style={{ backgroundColor: "#2c7a4b" }} />
-                      <span className="section-title">T? v?ng c?t l�i</span>
+                      <span className="section-title">Từ vựng cốt lõi</span>
                     </div>
                     <div className="vocab-grid">
                       {vocabPage1.map((v, i) => {
@@ -305,12 +305,12 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
                   </div>
                 )}
 
-                {/* N?u 1 trang: grammar cung ? d�y */}
+                {/* Nếu 1 trang: grammar cũng ở đây */}
                 {lessonPages === 1 && grammarPoints.length > 0 && (
                   <div style={{ marginBottom: "20px" }}>
                     <div className="section-label">
                       <div className="section-bar" style={{ backgroundColor: "#d4a017" }} />
-                      <span className="section-title">�i?m ng? ph�p</span>
+                      <span className="section-title">Điểm ngữ pháp</span>
                     </div>
                     <div className="grammar-box">
                       {grammarPoints.map((gp, gi) => (
@@ -333,22 +333,22 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
                 </div>
               </div>
 
-              {/* TRANG 2 (n?u c?n) */}
+              {/* TRANG 2 (nếu cần) */}
               {lessonPages === 2 && (
                 <div key={`${lesson.song.rank}-p2`} className="ebook-page" style={{ ...PAGE_STYLE }}>
                   {/* Continuation header */}
                   <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "18px" }}>
-                    <p style={{ fontSize: "8pt", fontWeight: 700, textTransform: "", letterSpacing: "0.14em", color: accent }}>B�i {idx + 1} � ti?p theo</p>
+                    <p style={{ fontSize: "8pt", fontWeight: 700, textTransform: "", letterSpacing: "0.14em", color: accent }}>Bài {idx + 1} — tiếp theo</p>
                     <div style={{ flex: 1, height: "1px", backgroundColor: "#f0f0f0" }} />
                     <p style={{ fontSize: "8pt", color: "#ccc" }}>{lesson.song.title}</p>
                   </div>
 
-                  {/* Vocab trang 2 (n?u c�n) */}
+                  {/* Vocab trang 2 (nếu còn) */}
                   {vocabPage2.length > 0 && (
                     <div style={{ marginBottom: "22px" }}>
                       <div className="section-label">
                         <div className="section-bar" style={{ backgroundColor: "#2c7a4b" }} />
-                        <span className="section-title">T? v?ng c?t l�i (ti?p)</span>
+                        <span className="section-title">Từ vựng cốt lõi (tiếp)</span>
                       </div>
                       <div className="vocab-grid">
                         {vocabPage2.map((v, i) => {
@@ -373,7 +373,7 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
                     <div style={{ marginBottom: "20px" }}>
                       <div className="section-label">
                         <div className="section-bar" style={{ backgroundColor: "#d4a017" }} />
-                        <span className="section-title">�i?m ng? ph�p</span>
+                        <span className="section-title">Điểm ngữ pháp</span>
                       </div>
                       <div className="grammar-box">
                         {grammarPoints.map((gp, gi) => (
@@ -403,19 +403,19 @@ export default function EbookCanvas({ meta, lessons, printRef, template = "class
         {/* CLOSING PAGE */}
         <div className="ebook-page" style={{ ...PAGE_STYLE, backgroundColor: meta.coverColor, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
           <div style={{ width: "48px", height: "3px", backgroundColor: accent, marginBottom: "32px" }} />
-          <h2 style={{ fontSize: "24pt", fontWeight: 700, color: accent, marginBottom: "12px" }}>C?m on b?n d� d?c!</h2>
+          <h2 style={{ fontSize: "24pt", fontWeight: 700, color: accent, marginBottom: "12px" }}>Cảm ơn bạn đã đọc!</h2>
           <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "12pt", marginBottom: "40px", maxWidth: "320px", lineHeight: 1.8 }}>
-            Hy v?ng ebook n�y gi�p b?n ti?n b? ti?ng H�n m?i ng�y. H?n g?p l?i ? t?p ti?p theo!
+            Hy vọng ebook này giúp bạn tiến bộ tiếng Hàn mỗi ngày. Hẹn gặp lại ở tập tiếp theo!
           </p>
           {(meta.contactInfo || meta.website) && (
             <div style={{ backgroundColor: "rgba(255,255,255,0.05)", borderRadius: "12px", padding: "24px 32px", border: "1px solid rgba(255,255,255,0.08)", maxWidth: "360px", width: "100%" }}>
-              <p style={{ color: accent, fontSize: "9pt", fontWeight: 700, textTransform: "", letterSpacing: "0.12em", marginBottom: "14px" }}>Li�n h? & Theo d�i</p>
+              <p style={{ color: accent, fontSize: "9pt", fontWeight: 700, textTransform: "", letterSpacing: "0.12em", marginBottom: "14px" }}>Liên hệ & Theo dõi</p>
               {meta.contactInfo && <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "10pt", lineHeight: 2, whiteSpace: "pre-wrap", marginBottom: "12px" }}>{meta.contactInfo}</p>}
               {meta.website && <p style={{ color: accent, fontSize: "11pt", fontWeight: 600 }}>{meta.website}</p>}
             </div>
           )}
           <div style={{ position: "absolute", bottom: "20mm", left: "18mm", right: "18mm", textAlign: "center" }}>
-            <p style={{ color: "rgba(255,255,255,0.15)", fontSize: "8pt" }}>{meta.author} � {new Date().getFullYear()}</p>
+            <p style={{ color: "rgba(255,255,255,0.15)", fontSize: "8pt" }}>{meta.author} · {new Date().getFullYear()}</p>
           </div>
         </div>
       </div>

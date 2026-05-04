@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 
 interface ShareFlashcardModalProps {
   cards: { word: string; meaning: string; example: string; songTitle: string }[];
@@ -10,7 +10,7 @@ const SHARE_KEY_PREFIX = "kts_shared_fc_";
 export default function ShareFlashcardModal({ cards, onClose }: ShareFlashcardModalProps) {
   const [shareId, setShareId] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
-  const [shareTitle, setShareTitle] = useState("B? flashcard K-pop c?a t�i");
+  const [shareTitle, setShareTitle] = useState("Bộ flashcard K-pop của tôi");
 
   useEffect(() => {
     // Generate a unique share ID
@@ -62,8 +62,8 @@ export default function ShareFlashcardModal({ cards, onClose }: ShareFlashcardMo
               <i className="ri-share-line text-app-accent-primary text-sm" />
             </div>
             <div>
-              <p className="text-white font-bold text-sm">Chia s? Flashcard</p>
-              <p className="text-white/35 text-xs">{cards.length} t? v?ng</p>
+              <p className="text-white font-bold text-sm">Chia sẻ Flashcard</p>
+              <p className="text-white/35 text-xs">{cards.length} từ vựng</p>
             </div>
           </div>
           <button onClick={onClose} className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-white cursor-pointer rounded-lg hover:bg-app-card/50 transition-colors">
@@ -74,37 +74,37 @@ export default function ShareFlashcardModal({ cards, onClose }: ShareFlashcardMo
         <div className="p-5 space-y-4">
           {/* Title input */}
           <div>
-            <label className="text-xs font-semibold text-white/50 mb-1.5 block">T�n b? flashcard</label>
+            <label className="text-xs font-semibold text-white/50 mb-1.5 block">Tên bộ flashcard</label>
             <input
               type="text"
               value={shareTitle}
               onChange={e => setShareTitle(e.target.value)}
               maxLength={60}
               className="w-full bg-app-card/50 border border-app-border rounded-xl px-3 py-2.5 text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
-              placeholder="VD: T? v?ng BTS - Butter"
+              placeholder="VD: Từ vựng BTS - Butter"
             />
           </div>
 
           {/* Preview */}
           <div className="bg-app-surface/50 border border-app-border rounded-xl p-3">
-            <p className="text-app-text-muted text-[10px] tracking-normal mb-2">Xem tru?c ({Math.min(cards.length, 3)} t? d?u)</p>
+            <p className="text-app-text-muted text-[10px] tracking-normal mb-2">Xem trước ({Math.min(cards.length, 3)} từ đầu)</p>
             <div className="space-y-1.5">
               {cards.slice(0, 3).map((c, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <span className="text-app-accent-primary text-xs font-bold w-16 truncate">{c.word}</span>
-                  <span className="text-app-text-secondary text-xs">�</span>
+                  <span className="text-app-text-secondary text-xs">—</span>
                   <span className="text-white/55 text-xs truncate flex-1">{c.meaning}</span>
                 </div>
               ))}
               {cards.length > 3 && (
-                <p className="text-app-text-muted text-[10px]">+{cards.length - 3} t? kh�c...</p>
+                <p className="text-app-text-muted text-[10px]">+{cards.length - 3} từ khác...</p>
               )}
             </div>
           </div>
 
           {/* Share link */}
           <div>
-            <label className="text-xs font-semibold text-white/50 mb-1.5 block">Link chia s?</label>
+            <label className="text-xs font-semibold text-white/50 mb-1.5 block">Link chia sẻ</label>
             <div className="flex gap-2">
               <div className="flex-1 bg-app-card/50 border border-app-border rounded-xl px-3 py-2.5 text-app-text-secondary text-xs truncate">
                 {shareUrl}
@@ -116,7 +116,7 @@ export default function ShareFlashcardModal({ cards, onClose }: ShareFlashcardMo
           <div className="flex items-start gap-2 px-3 py-2.5 bg-app-accent-primary/5 border border-app-accent-primary/10 rounded-xl">
             <i className="ri-information-line text-app-accent-primary/60 text-sm flex-shrink-0 mt-0.5" />
             <p className="text-app-text-secondary text-xs leading-relaxed">
-              Link chia s? cho ph�p b?n b� xem v� h?c b? flashcard n�y. T?i da 100 t? du?c chia s?.
+              Link chia sẻ cho phép bạn bè xem và học bộ flashcard này. Tối đa 100 từ được chia sẻ.
             </p>
           </div>
 
@@ -126,7 +126,7 @@ export default function ShareFlashcardModal({ cards, onClose }: ShareFlashcardMo
               onClick={onClose}
               className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50 transition-colors"
             >
-              H?y
+              Hủy
             </button>
             <button
               onClick={handleCreateLink}
@@ -137,9 +137,9 @@ export default function ShareFlashcardModal({ cards, onClose }: ShareFlashcardMo
               }`}
             >
               {copied ? (
-                <><i className="ri-checkbox-circle-line mr-1.5" />�� sao ch�p!</>
+                <><i className="ri-checkbox-circle-line mr-1.5" />Đã sao chép!</>
               ) : (
-                <><i className="ri-link mr-1.5" />T?o & Sao ch�p link</>
+                <><i className="ri-link mr-1.5" />Tạo & Sao chép link</>
               )}
             </button>
           </div>
@@ -149,7 +149,7 @@ export default function ShareFlashcardModal({ cards, onClose }: ShareFlashcardMo
   );
 }
 
-// --- Shared Flashcard Viewer (public page) ------------------------------------
+// ─── Shared Flashcard Viewer (public page) ────────────────────────────────────
 export function SharedFlashcardViewer({ shareId }: { shareId: string }) {
   const [data, setData] = useState<{
     title: string;
@@ -176,8 +176,8 @@ export function SharedFlashcardViewer({ shareId }: { shareId: string }) {
         <div className="w-16 h-16 flex items-center justify-center bg-app-card/50 rounded-2xl mb-4">
           <i className="ri-link-unlink text-app-text-muted text-2xl" />
         </div>
-        <p className="text-white/50 text-sm font-medium mb-1">Link kh�ng t?n t?i</p>
-        <p className="text-app-text-muted text-xs">Link n�y d� h?t h?n ho?c kh�ng h?p l?</p>
+        <p className="text-white/50 text-sm font-medium mb-1">Link không tồn tại</p>
+        <p className="text-app-text-muted text-xs">Link này đã hết hạn hoặc không hợp lệ</p>
       </div>
     );
   }
@@ -202,13 +202,13 @@ export function SharedFlashcardViewer({ shareId }: { shareId: string }) {
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-white font-bold text-sm truncate">{data.title}</p>
-          <p className="text-app-text-muted text-xs">{data.cards.length} t? � �u?c chia s? t? KTS</p>
+          <p className="text-app-text-muted text-xs">{data.cards.length} từ · Được chia sẻ từ KTS</p>
         </div>
         <a
           href="/melon-flashcard"
           className="text-xs text-app-accent-primary/70 hover:text-app-accent-primary bg-app-accent-primary/8 px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
         >
-          T?o b? c?a t�i
+          Tạo bộ của tôi
         </a>
       </header>
 
@@ -242,7 +242,7 @@ export function SharedFlashcardViewer({ shareId }: { shareId: string }) {
             {!flipped ? (
               <>
                 <p className="text-app-accent-primary text-3xl font-bold mb-3">{card.word}</p>
-                <p className="text-app-text-muted text-xs">Nh?n d? xem nghia</p>
+                <p className="text-app-text-muted text-xs">Nhấn để xem nghĩa</p>
               </>
             ) : (
               <>
@@ -262,14 +262,14 @@ export function SharedFlashcardViewer({ shareId }: { shareId: string }) {
             disabled={currentIdx === 0}
             className="flex-1 py-3 bg-app-card/50 border border-app-border text-app-text-secondary text-sm rounded-2xl cursor-pointer disabled:opacity-30 whitespace-nowrap"
           >
-            <i className="ri-arrow-left-line mr-1.5" />Tru?c
+            <i className="ri-arrow-left-line mr-1.5" />Trước
           </button>
           <button
             onClick={() => { setCurrentIdx(i => Math.min(data.cards.length - 1, i + 1)); setFlipped(false); }}
             disabled={currentIdx === data.cards.length - 1}
             className="flex-1 py-3 bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold rounded-2xl cursor-pointer disabled:opacity-30 whitespace-nowrap"
           >
-            Ti?p <i className="ri-arrow-right-line ml-1.5" />
+            Tiếp <i className="ri-arrow-right-line ml-1.5" />
           </button>
         </div>
       </div>

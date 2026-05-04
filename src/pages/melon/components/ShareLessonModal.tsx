@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import { MelonSong } from "@/mocks/melonSongs";
 import { MelonLessonResult } from "@/services/aiService";
 
@@ -9,9 +9,9 @@ interface ShareLessonModalProps {
 }
 
 const THEMES = [
-  { id: "dark", label: "T?i", bg: "#0f1117", accent: "app-accent-primary", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
+  { id: "dark", label: "Tối", bg: "#0f1117", accent: "app-accent-primary", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
   { id: "green", label: "K-pop", bg: "#0a1a10", accent: "#00C73C", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
-  { id: "rose", label: "H?ng", bg: "#1a0a10", accent: "#f472b6", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
+  { id: "rose", label: "Hồng", bg: "#1a0a10", accent: "#f472b6", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
   { id: "slate", label: "Xanh", bg: "#0d1523", accent: "#60a5fa", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
 ];
 
@@ -65,7 +65,7 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
     ctx.fill();
     ctx.fillStyle = theme.accent;
     ctx.font = "bold 12px system-ui";
-    ctx.fillText("?? H�n Qu?c Oi!", 44, 42);
+    ctx.fillText("🎵 Hàn Quốc Ơi!", 44, 42);
 
     // Song title
     ctx.fillStyle = theme.text;
@@ -75,17 +75,17 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
     // Artist + rank
     ctx.fillStyle = theme.sub;
     ctx.font = "16px system-ui";
-    ctx.fillText(`${song.artist}  �  #${song.rank} Melon`, 30, 134);
+    ctx.fillText(`${song.artist}  ·  #${song.rank} Melon`, 30, 134);
 
     // Divider
     ctx.strokeStyle = theme.accent + "33";
     ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(30, 152); ctx.lineTo(W - 30, 152); ctx.stroke();
 
-    // Section: T? v?ng n?i b?t
+    // Section: Từ vựng nổi bật
     ctx.fillStyle = theme.accent;
     ctx.font = "bold 13px system-ui";
-    ctx.fillText("T? V?NG N?I B?T", 30, 178);
+    ctx.fillText("TỪ VỰNG NỔI BẬT", 30, 178);
 
     // Vocab cards
     topVocab.forEach((v, i) => {
@@ -120,7 +120,7 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
       // Example (clipped)
       ctx.fillStyle = theme.sub;
       ctx.font = "italic 12px system-ui";
-      const exClip = v.example.length > 60 ? v.example.slice(0, 60) + "�" : v.example;
+      const exClip = v.example.length > 60 ? v.example.slice(0, 60) + "…" : v.example;
       ctx.fillText(exClip, x + 18, y + 73);
     });
 
@@ -131,7 +131,7 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
     ctx.fill();
     ctx.fillStyle = theme.accent;
     ctx.font = "bold 13px system-ui";
-    ctx.fillText("H?c ti?ng H�n qua K-pop � hanquocoi.app", 48, bottomY + 25);
+    ctx.fillText("Học tiếng Hàn qua K-pop · hanquocoi.app", 48, bottomY + 25);
   }
 
   function roundRect(
@@ -185,12 +185,12 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
 
   const handleCopyText = async () => {
     const text = [
-      `?? H?c ti?ng H�n qua K-pop � "${song.title}" (${song.artist})`,
+      `🎵 Học tiếng Hàn qua K-pop — "${song.title}" (${song.artist})`,
       "",
-      "?? T? v?ng n?i b?t:",
-      ...topVocab.map((v) => `� ${v.word} = ${v.meaning}`),
+      "📚 Từ vựng nổi bật:",
+      ...topVocab.map((v) => `• ${v.word} = ${v.meaning}`),
       "",
-      "H?c th�m t?i H�n Qu?c Oi! ????",
+      "Học thêm tại Hàn Quốc Ơi! 🇰🇷",
     ].join("\n");
     await navigator.clipboard.writeText(text);
     setCopied(true);
@@ -198,9 +198,9 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
   };
 
   const handleShare = async () => {
-    const text = `?? H?c ti?ng H�n qua "${song.title}" � ${song.artist}\n\n` +
-      topVocab.map((v) => `� ${v.word} = ${v.meaning}`).join("\n") +
-      "\n\n#H�nQu?cOi #KoreanLearning #Kpop";
+    const text = `🎵 Học tiếng Hàn qua "${song.title}" — ${song.artist}\n\n` +
+      topVocab.map((v) => `• ${v.word} = ${v.meaning}`).join("\n") +
+      "\n\n#HànQuốcƠi #KoreanLearning #Kpop";
 
     if (navigator.share) {
       try {
@@ -209,12 +209,12 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
           canvas.toBlob(async (blob) => {
             if (!blob) return;
             const file = new File([blob], "lesson.png", { type: "image/png" });
-            await navigator.share({ title: `H?c t? "${song.title}"`, text, files: [file] });
+            await navigator.share({ title: `Học từ "${song.title}"`, text, files: [file] });
             setShareSuccess(true);
             setTimeout(() => setShareSuccess(false), 2000);
           });
         } else {
-          await navigator.share({ title: `H?c t? "${song.title}"`, text });
+          await navigator.share({ title: `Học từ "${song.title}"`, text });
         }
       } catch { /* user cancelled */ }
     } else {
@@ -233,7 +233,7 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
             <div className="w-7 h-7 flex items-center justify-center bg-app-accent-primary/10 rounded-lg">
               <i className="ri-share-line text-app-accent-primary text-sm" />
             </div>
-            <p className="text-white font-semibold text-sm">Chia s? b�i h?c</p>
+            <p className="text-white font-semibold text-sm">Chia sẻ bài học</p>
           </div>
           <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white cursor-pointer">
             <i className="ri-close-line" />
@@ -252,7 +252,7 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
 
           {/* Theme selector */}
           <div className="mb-5">
-            <p className="text-app-text-secondary text-xs tracking-normal mb-2">Ch? d? m�u s?c</p>
+            <p className="text-app-text-secondary text-xs tracking-normal mb-2">Chủ đề màu sắc</p>
             <div className="flex gap-2">
               {THEMES.map((t) => (
                 <button
@@ -278,14 +278,14 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
               className="flex items-center justify-center gap-2 bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/70 text-sm font-medium py-3 rounded-xl cursor-pointer transition-colors whitespace-nowrap"
             >
               <i className={downloading ? "ri-loader-4-line animate-spin" : "ri-download-2-line"} />
-              T?i ?nh
+              Tải ảnh
             </button>
             <button
               onClick={handleCopyText}
               className="flex items-center justify-center gap-2 bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/70 text-sm font-medium py-3 rounded-xl cursor-pointer transition-colors whitespace-nowrap"
             >
               <i className={copied ? "ri-checkbox-circle-line text-green-400" : "ri-clipboard-line"} />
-              {copied ? "�� sao ch�p!" : "Sao ch�p van b?n"}
+              {copied ? "Đã sao chép!" : "Sao chép văn bản"}
             </button>
           </div>
 
@@ -294,7 +294,7 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
             className="w-full flex items-center justify-center gap-2 bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold py-3.5 rounded-xl cursor-pointer transition-colors whitespace-nowrap"
           >
             <i className={shareSuccess ? "ri-checkbox-circle-line" : "ri-share-forward-line"} />
-            {shareSuccess ? "�� chia s?!" : "Chia s? ngay"}
+            {shareSuccess ? "Đã chia sẻ!" : "Chia sẻ ngay"}
           </button>
 
           {/* Social hints */}

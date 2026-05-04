@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import { MelonSong } from "@/mocks/melonSongs";
 
 interface VocabItem {
@@ -88,8 +88,8 @@ export default function AIEditor({
         <div className="w-14 h-14 flex items-center justify-center bg-app-card/50 rounded-2xl mb-4">
           <i className="ri-edit-box-line text-app-text-muted text-2xl"></i>
         </div>
-        <p className="text-app-text-muted text-sm">Ch?n m?t b�i h�t t? b?ng tr�n</p>
-        <p className="text-app-text-muted text-xs mt-1">ho?c nh?n "X? l� AI" d? b?t d?u bi�n t?p</p>
+        <p className="text-app-text-muted text-sm">Chọn một bài hát từ bảng trên</p>
+        <p className="text-app-text-muted text-xs mt-1">hoặc nhấn "Xử lý AI" để bắt đầu biên tập</p>
       </section>
     );
   }
@@ -118,7 +118,7 @@ export default function AIEditor({
           <div>
             <h2 className="text-white font-semibold text-sm">AI Editor</h2>
             <p className="text-app-text-secondary text-xs">
-              #{song.rank} � {song.title} � {song.artist}
+              #{song.rank} · {song.title} — {song.artist}
             </p>
           </div>
         </div>
@@ -130,7 +130,7 @@ export default function AIEditor({
               className="flex items-center gap-1.5 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 text-xs font-medium px-3 py-2 rounded-lg transition-colors whitespace-nowrap cursor-pointer"
             >
               <i className="ri-draft-line"></i>
-              T?i nh�p
+              Tải nháp
             </button>
           )}
           <button
@@ -142,13 +142,13 @@ export default function AIEditor({
             }`}
           >
             <i className={draftSaved ? "ri-checkbox-circle-line" : "ri-save-3-line"}></i>
-            {draftSaved ? "�� luu nh�p!" : "Luu nh�p"}
+            {draftSaved ? "Đã lưu nháp!" : "Lưu nháp"}
           </button>
           {hasDraft && (
             <button
               onClick={deleteDraft}
               className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-red-400 transition-colors cursor-pointer rounded-lg hover:bg-red-400/10"
-              title="X�a nh�p"
+              title="Xóa nháp"
             >
               <i className="ri-delete-bin-line text-xs"></i>
             </button>
@@ -158,7 +158,7 @@ export default function AIEditor({
             className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors whitespace-nowrap cursor-pointer"
           >
             <i className="ri-check-double-line"></i>
-            Duy?t b�i h?c
+            Duyệt bài học
           </button>
         </div>
       </div>
@@ -171,7 +171,7 @@ export default function AIEditor({
             <div className="w-5 h-5 flex items-center justify-center">
               <i className="ri-music-line text-app-text-secondary text-sm"></i>
             </div>
-            <span className="text-white/50 text-xs font-medium tracking-normal">L?i g?c (Ti?ng H�n)</span>
+            <span className="text-white/50 text-xs font-medium tracking-normal">Lời gốc (Tiếng Hàn)</span>
           </div>
           <div className="flex-1 bg-app-surface/50 rounded-xl p-5 overflow-auto">
             <pre className="text-white/70 text-sm leading-8 font-sans whitespace-pre-wrap">{song.lyrics}</pre>
@@ -184,7 +184,7 @@ export default function AIEditor({
             <div className="w-5 h-5 flex items-center justify-center">
               <i className="ri-sparkling-line text-app-accent-primary text-sm"></i>
             </div>
-            <span className="text-white/50 text-xs font-medium tracking-normal">N?i dung ch? bi?n</span>
+            <span className="text-white/50 text-xs font-medium tracking-normal">Nội dung chế biến</span>
           </div>
 
           {/* Tabs */}
@@ -199,7 +199,7 @@ export default function AIEditor({
                     : "text-app-text-secondary hover:text-white/60"
                 }`}
               >
-                {tab === "story" ? "Truy?n Ch�m" : tab === "vocab" ? "T? v?ng" : "Gi?i th�ch"}
+                {tab === "story" ? "Truyện Chêm" : tab === "vocab" ? "Từ vựng" : "Giải thích"}
               </button>
             ))}
           </div>
@@ -210,7 +210,7 @@ export default function AIEditor({
               <textarea
                 value={story}
                 onChange={(e) => onStoryChange(e.target.value)}
-                placeholder="AI s? t? d?ng t?o do?n Truy?n Ch�m ti?ng Vi?t t?i d�y..."
+                placeholder="AI sẽ tự động tạo đoạn Truyện Chêm tiếng Việt tại đây..."
                 className="w-full h-full min-h-[340px] bg-app-surface/50 border border-app-border rounded-xl p-4 text-white/80 text-sm leading-7 placeholder-white/20 focus:outline-none focus:border-app-accent-primary/30 resize-none transition-colors"
               />
             )}
@@ -228,19 +228,19 @@ export default function AIEditor({
                     <input
                       value={v.word}
                       onChange={(e) => updateVocab(i, "word", e.target.value)}
-                      placeholder="T? (v� d?: ?? (ujju))"
+                      placeholder="Từ (ví dụ: 우주 (ujju))"
                       className="w-full bg-transparent border-b border-app-border pb-1 text-app-accent-primary text-sm font-medium focus:outline-none focus:border-app-accent-primary/40 placeholder-white/20"
                     />
                     <input
                       value={v.meaning}
                       onChange={(e) => updateVocab(i, "meaning", e.target.value)}
-                      placeholder="Nghia ti?ng Vi?t"
+                      placeholder="Nghĩa tiếng Việt"
                       className="w-full bg-transparent text-white/70 text-xs focus:outline-none placeholder-white/20"
                     />
                     <input
                       value={v.example}
                       onChange={(e) => updateVocab(i, "example", e.target.value)}
-                      placeholder="V� d? c�u"
+                      placeholder="Ví dụ câu"
                       className="w-full bg-transparent text-app-text-secondary text-xs italic focus:outline-none placeholder-white/20"
                     />
                   </div>
@@ -250,7 +250,7 @@ export default function AIEditor({
                   className="w-full flex items-center justify-center gap-2 border border-dashed border-app-border hover:border-app-accent-primary/30 text-app-text-muted hover:text-app-accent-primary/60 text-xs py-3 rounded-xl transition-colors cursor-pointer"
                 >
                   <i className="ri-add-line"></i>
-                  Th�m t? v?ng
+                  Thêm từ vựng
                 </button>
               </div>
             )}
@@ -259,7 +259,7 @@ export default function AIEditor({
               <textarea
                 value={explanation}
                 onChange={(e) => onExplanationChange(e.target.value)}
-                placeholder="AI s? gi?i th�ch c�ch d�ng t? v� ng? ph�p t?i d�y..."
+                placeholder="AI sẽ giải thích cách dùng từ và ngữ pháp tại đây..."
                 className="w-full h-full min-h-[340px] bg-app-surface/50 border border-app-border rounded-xl p-4 text-white/80 text-sm leading-7 placeholder-white/20 focus:outline-none focus:border-app-accent-primary/30 resize-none transition-colors"
               />
             )}

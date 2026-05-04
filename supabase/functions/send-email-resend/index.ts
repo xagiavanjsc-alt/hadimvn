@@ -33,7 +33,7 @@ interface EmailPayload {
 }
 
 function getSiteUrl(): string {
-  return "https://hanquocoi.vn";
+  return "https://hadim.vn";
 }
 
 function getCurrentYear(): number {
@@ -45,14 +45,14 @@ function getFromAddress(): string {
   const fromEmail = Deno.env.get("RESEND_FROM_EMAIL");
   if (fromEmail) return fromEmail;
 
-  // Priority 2: RESEND_FROM_DOMAIN (just the domain, e.g. "hanquocoi.vn")
+  // Priority 2: RESEND_FROM_DOMAIN (just the domain, e.g. "hadim.vn")
   const fromDomain = Deno.env.get("RESEND_FROM_DOMAIN");
   if (fromDomain) return `Hàn Quốc Ơi! <noreply@${fromDomain}>`;
 
   // Fallback: onboarding@resend.dev (only works for testing, not production)
   // To fix this: Go to Supabase Dashboard → Edge Functions → Secrets
-  // Add: RESEND_FROM_DOMAIN = hanquocoi.vn (after verifying domain in Resend)
-  // OR: RESEND_FROM_EMAIL = Hàn Quốc Ơi! <noreply@hanquocoi.vn>
+  // Add: RESEND_FROM_DOMAIN = hadim.vn (after verifying domain in Resend)
+  // OR: RESEND_FROM_EMAIL = Hàn Quốc Ơi! <noreply@hadim.vn>
   return "Hàn Quốc Ơi! <onboarding@resend.dev>";
 }
 

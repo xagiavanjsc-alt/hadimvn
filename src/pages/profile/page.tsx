@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef, useCallback, useEffect } from "react";
+﻿import { useMemo, useState, useRef, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -18,24 +18,24 @@ interface ExamResult {
 }
 
 const TOPIK_LEVELS = [
-  { level: "Nh?p m�n", range: "0�200 t?", color: "#34d399", minVocab: 0, maxVocab: 200, icon: "ri-seedling-line" },
-  { level: "TOPIK 1", range: "800�1500 t?", color: "app-accent-primary", minVocab: 201, maxVocab: 1500, icon: "ri-star-line" },
-  { level: "TOPIK 2", range: "1500�3000 t?", color: "#fb923c", minVocab: 1501, maxVocab: 3000, icon: "ri-star-half-line" },
-  { level: "TOPIK 3", range: "3000�5000 t?", color: "#a78bfa", minVocab: 3001, maxVocab: 5000, icon: "ri-star-fill" },
-  { level: "TOPIK 4�6", range: "5000+ t?", color: "#f87171", minVocab: 5001, maxVocab: 99999, icon: "ri-vip-crown-line" },
+  { level: "Nhập môn", range: "0–200 từ", color: "#34d399", minVocab: 0, maxVocab: 200, icon: "ri-seedling-line" },
+  { level: "TOPIK 1", range: "800–1500 từ", color: "app-accent-primary", minVocab: 201, maxVocab: 1500, icon: "ri-star-line" },
+  { level: "TOPIK 2", range: "1500–3000 từ", color: "#fb923c", minVocab: 1501, maxVocab: 3000, icon: "ri-star-half-line" },
+  { level: "TOPIK 3", range: "3000–5000 từ", color: "#a78bfa", minVocab: 3001, maxVocab: 5000, icon: "ri-star-fill" },
+  { level: "TOPIK 4–6", range: "5000+ từ", color: "#f87171", minVocab: 5001, maxVocab: 99999, icon: "ri-vip-crown-line" },
 ];
 
 const BADGES = [
-  { id: "first_eps", icon: "ri-file-list-3-line", label: "EPS Starter", desc: "L�m c�u h?i EPS d?u ti�n", color: "app-accent-primary" },
-  { id: "streak_7", icon: "ri-fire-line", label: "7 ng�y li�n ti?p", desc: "H?c 7 ng�y kh�ng ngh?", color: "#fb923c" },
-  { id: "hangul_done", icon: "ri-font-size", label: "Hangul Master", desc: "Ho�n th�nh b?ng ch? Hangul", color: "#34d399" },
-  { id: "flashcard_50", icon: "ri-stack-line", label: "Flashcard Pro", desc: "Thu?c 50 t? v?ng", color: "#a78bfa" },
-  { id: "eps_80", icon: "ri-trophy-line", label: "EPS Champion", desc: "�?t 80%+ trong thi th? EPS", color: "#06b6d4" },
-  { id: "quiz_10", icon: "ri-survey-line", label: "Quiz Addict", desc: "Ho�n th�nh 10 b�i quiz", color: "#ec4899" },
-  { id: "hanja_10", icon: "ri-character-recognition-line", label: "H�n H�n Starter", desc: "H?c 10 t? H�n H�n", color: "#f97316" },
-  { id: "hanja_50", icon: "ri-character-recognition-line", label: "H�n H�n Pro", desc: "H?c 50 t? H�n H�n qua SR", color: "#e879f9" },
-  { id: "streak_30", icon: "ri-fire-fill", label: "Streak 30 ng�y", desc: "H?c 30 ng�y li�n ti?p", color: "#f87171" },
-  { id: "sr_review", icon: "ri-brain-line", label: "SR Master", desc: "�n t?p SR 5 l?n", color: "#818cf8" },
+  { id: "first_eps", icon: "ri-file-list-3-line", label: "EPS Starter", desc: "Làm câu hỏi EPS đầu tiên", color: "app-accent-primary" },
+  { id: "streak_7", icon: "ri-fire-line", label: "7 ngày liên tiếp", desc: "Học 7 ngày không nghỉ", color: "#fb923c" },
+  { id: "hangul_done", icon: "ri-font-size", label: "Hangul Master", desc: "Hoàn thành bảng chữ Hangul", color: "#34d399" },
+  { id: "flashcard_50", icon: "ri-stack-line", label: "Flashcard Pro", desc: "Thuộc 50 từ vựng", color: "#a78bfa" },
+  { id: "eps_80", icon: "ri-trophy-line", label: "EPS Champion", desc: "Đạt 80%+ trong thi thử EPS", color: "#06b6d4" },
+  { id: "quiz_10", icon: "ri-survey-line", label: "Quiz Addict", desc: "Hoàn thành 10 bài quiz", color: "#ec4899" },
+  { id: "hanja_10", icon: "ri-character-recognition-line", label: "Hán Hàn Starter", desc: "Học 10 từ Hán Hàn", color: "#f97316" },
+  { id: "hanja_50", icon: "ri-character-recognition-line", label: "Hán Hàn Pro", desc: "Học 50 từ Hán Hàn qua SR", color: "#e879f9" },
+  { id: "streak_30", icon: "ri-fire-fill", label: "Streak 30 ngày", desc: "Học 30 ngày liên tiếp", color: "#f87171" },
+  { id: "sr_review", icon: "ri-brain-line", label: "SR Master", desc: "Ôn tập SR 5 lần", color: "#818cf8" },
 ];
 
 // DiceBear avatars - free, no API key, reliable SVG service
@@ -126,7 +126,7 @@ export default function ProfilePage() {
     await updateProfile({ display_name: nameInput.trim() });
     setSavingName(false);
     setEditingName(false);
-    showSuccess("�� c?p nh?t t�n!");
+    showSuccess("Đã cập nhật tên!");
   }, [nameInput, profile, updateProfile, showSuccess]);
 
   const handleSelectAvatar = useCallback(async (url: string) => {
@@ -134,7 +134,7 @@ export default function ProfilePage() {
     setShowAvatarPicker(false);
     await updateProfile({ avatar_url: url });
     setSavingAvatar(false);
-    showSuccess("�� c?p nh?t avatar!");
+    showSuccess("Đã cập nhật avatar!");
   }, [updateProfile, showSuccess]);
 
   const handleUploadAvatar = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -143,11 +143,11 @@ export default function ProfilePage() {
     e.target.value = ''; // reset
 
     if (!file.type.startsWith('image/')) {
-      alert('Ch? ch?p nh?n file ?nh');
+      alert('Chỉ chấp nhận file ảnh');
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
-      alert('?nh kh�ng du?c vu?t qu� 5MB');
+      alert('Ảnh không được vượt quá 5MB');
       return;
     }
 
@@ -187,10 +187,10 @@ export default function ProfilePage() {
         .getPublicUrl(fileName);
 
       await updateProfile({ avatar_url: publicUrl });
-      showSuccess("�� c?p nh?t avatar!");
+      showSuccess("Đã cập nhật avatar!");
     } catch (err) {
       console.error('[uploadAvatar] error:', err);
-      alert('L?i upload avatar: ' + (err instanceof Error ? err.message : 'unknown'));
+      alert('Lỗi upload avatar: ' + (err instanceof Error ? err.message : 'unknown'));
     } finally {
       setSavingAvatar(false);
     }
@@ -268,11 +268,11 @@ export default function ProfilePage() {
   // SR progress by interval bucket
   const srByInterval = useMemo(() => {
     const buckets = [
-      { label: "M?i", min: 0, max: 1, color: "#f87171" },
-      { label: "1-3 ng�y", min: 1, max: 3, color: "#fb923c" },
-      { label: "4-7 ng�y", min: 4, max: 7, color: "app-accent-primary" },
-      { label: "1-2 tu?n", min: 8, max: 14, color: "#34d399" },
-      { label: "Thu?c l�ng", min: 15, max: 9999, color: "#a78bfa" },
+      { label: "Mới", min: 0, max: 1, color: "#f87171" },
+      { label: "1-3 ngày", min: 1, max: 3, color: "#fb923c" },
+      { label: "4-7 ngày", min: 4, max: 7, color: "app-accent-primary" },
+      { label: "1-2 tuần", min: 8, max: 14, color: "#34d399" },
+      { label: "Thuộc lòng", min: 15, max: 9999, color: "#a78bfa" },
     ];
     return buckets.map(b => ({
       ...b,
@@ -280,16 +280,16 @@ export default function ProfilePage() {
     }));
   }, [srCards]);
 
-  const displayName = profile?.display_name || user?.email?.split("@")[0] || "H?c vi�n";
-  // VIP logic d�ng h�m chung: is_vip=true v� chua h?t h?n
+  const displayName = profile?.display_name || user?.email?.split("@")[0] || "Học viên";
+  // VIP logic dùng hàm chung: is_vip=true và chưa hết hạn
   const isVip = isVipActive(profile);
   const vipExpires = isVip && profile?.vip_expires_at ? new Date(profile.vip_expires_at) : null;
   const vipType = profile?.vip_type;
 
   return (
     <DashboardLayout
-      title="H? so h?c vi�n"
-      subtitle="Theo d�i ti?n d? v� th�nh t�ch h?c ti?ng H�n c?a b?n"
+      title="Hồ sơ học viên"
+      subtitle="Theo dõi tiến độ và thành tích học tiếng Hàn của bạn"
       actions={
         <div className="flex flex-wrap items-center gap-2">
           {saveMsg && (
@@ -301,7 +301,7 @@ export default function ProfilePage() {
           {linkCopied && (
             <span className="flex items-center gap-1.5 text-app-accent-primary text-xs font-medium px-3 py-1.5 bg-app-accent-primary/10 rounded-lg border border-app-accent-primary/20">
               <i className="ri-checkbox-circle-fill"></i>
-              �� copy link!
+              Đã copy link!
             </span>
           )}
           {user && (
@@ -311,8 +311,8 @@ export default function ProfilePage() {
                 className="flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap border border-app-accent-primary/20"
               >
                 <i className="ri-share-line"></i>
-                <span className="hidden sm:inline">Chia s? streak</span>
-                <span className="sm:hidden">Chia s?</span>
+                <span className="hidden sm:inline">Chia sẻ streak</span>
+                <span className="sm:hidden">Chia sẻ</span>
               </button>
               <button
                 onClick={handleCopyProfileLink}
@@ -330,7 +330,7 @@ export default function ProfilePage() {
               className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/60 text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap border border-app-border"
             >
               <i className="ri-vip-crown-line"></i>
-              <span className="hidden sm:inline">N�ng c?p VIP</span>
+              <span className="hidden sm:inline">Nâng cấp VIP</span>
               <span className="sm:hidden">VIP</span>
             </button>
           )}
@@ -389,13 +389,13 @@ export default function ProfilePage() {
                     className="flex items-center gap-1 px-3 py-1 bg-app-accent-primary text-app-bg text-xs font-bold rounded-lg cursor-pointer whitespace-nowrap disabled:opacity-50"
                   >
                     {savingName ? <i className="ri-loader-4-line animate-spin"></i> : <i className="ri-check-line"></i>}
-                    Luu
+                    Lưu
                   </button>
                   <button
                     onClick={() => { setEditingName(false); setNameInput(displayName); }}
                     className="px-2 py-1 bg-app-card/50 text-app-text-secondary text-xs rounded-lg cursor-pointer whitespace-nowrap"
                   >
-                    H?y
+                    Hủy
                   </button>
                 </div>
               ) : (
@@ -404,7 +404,7 @@ export default function ProfilePage() {
                   {isVip && (
                     <span className={`flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full border ${vipType === "year" ? "bg-app-accent-primary/15 text-app-accent-primary border-app-accent-primary/25" : "bg-app-accent-success/15 text-app-accent-success border-emerald-500/25"}`}>
                       <i className="ri-vip-crown-fill text-[10px]"></i>
-                      VIP {vipType === "year" ? "Nam" : "Th�ng"}
+                      VIP {vipType === "year" ? "Năm" : "Tháng"}
                     </span>
                   )}
                   {user && (
@@ -420,32 +420,32 @@ export default function ProfilePage() {
             </div>
 
             <p className="text-app-text-secondary text-sm">
-              {user ? user.email : "Chua dang nh?p"} {user ? `� M?c ti�u: ${topikLevel.level}` : ""}
+              {user ? user.email : "Chưa đăng nhập"} {user ? `· Mục tiêu: ${topikLevel.level}` : ""}
             </p>
 
             <div className="flex items-center gap-3 mt-2 flex-wrap">
               <span className="flex items-center gap-1.5 text-[#fb923c] text-xs font-semibold">
                 <i className="ri-fire-line"></i>
-                {streak.count} ng�y streak
+                {streak.count} ngày streak
               </span>
-              <span className="text-app-text-muted">�</span>
+              <span className="text-app-text-muted">·</span>
               <span className="flex items-center gap-1.5 text-xs font-semibold" style={{ color: topikLevel.color }}>
                 <i className={topikLevel.icon}></i>
                 {topikLevel.level}
               </span>
-              <span className="text-app-text-muted">�</span>
+              <span className="text-app-text-muted">·</span>
               <span className="flex items-center gap-1.5 text-xs font-semibold" style={{ color: currentRank.color }}>
                 <i className={currentRank.icon}></i>
-                {currentRank.name} � {totalXP.toLocaleString()} XP
+                {currentRank.name} · {totalXP.toLocaleString()} XP
               </span>
-              <span className="text-app-text-muted">�</span>
-              <span className="text-app-text-secondary text-xs">{earnedBadges.length}/{BADGES.length} huy hi?u</span>
+              <span className="text-app-text-muted">·</span>
+              <span className="text-app-text-secondary text-xs">{earnedBadges.length}/{BADGES.length} huy hiệu</span>
               {srLearned > 0 && (
                 <>
-                  <span className="text-app-text-muted">�</span>
+                  <span className="text-app-text-muted">·</span>
                   <span className="flex items-center gap-1.5 text-[#a78bfa] text-xs font-semibold">
                     <i className="ri-character-recognition-line"></i>
-                    {srLearned} t? H�n H�n
+                    {srLearned} từ Hán Hàn
                   </span>
                 </>
               )}
@@ -456,7 +456,7 @@ export default function ProfilePage() {
               <div className="mt-2 flex items-center gap-2 text-xs">
                 <i className={`ri-vip-crown-fill ${vipType === "year" ? "text-app-accent-primary" : "text-app-accent-success"}`}></i>
                 <span className={vipType === "year" ? "text-app-accent-primary/70" : "text-app-accent-success/70"}>
-                  VIP {vipType === "year" ? "Nam" : "Th�ng"}{vipExpires ? ` d?n ${vipExpires.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })}` : ""}
+                  VIP {vipType === "year" ? "Năm" : "Tháng"}{vipExpires ? ` đến ${vipExpires.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })}` : ""}
                 </span>
               </div>
             )}
@@ -465,7 +465,7 @@ export default function ProfilePage() {
           {/* TOPIK progress */}
           <div className="w-full sm:w-48">
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-app-text-secondary text-xs">Ti?n d? TOPIK</span>
+              <span className="text-app-text-secondary text-xs">Tiến độ TOPIK</span>
               <span className="text-xs font-bold" style={{ color: topikLevel.color }}>{topikProgress}%</span>
             </div>
             <div className="h-2 bg-app-card/50 rounded-full overflow-hidden mb-1.5">
@@ -483,21 +483,21 @@ export default function ProfilePage() {
           <div className="mt-4 pt-4 border-t border-app-border flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-emerald-400"></div>
-              <span className="text-app-text-secondary text-xs">�� dang nh?p � D? li?u d?ng b? cloud</span>
+              <span className="text-app-text-secondary text-xs">Đã đăng nhập · Dữ liệu đồng bộ cloud</span>
             </div>
             <button
               onClick={signOut}
               className="flex items-center gap-1.5 text-app-text-muted hover:text-white/60 text-xs transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-logout-box-line"></i>
-              �ang xu?t
+              Đăng xuất
             </button>
           </div>
         )}
 
         {/* Weekly streak calendar */}
         <div className="mt-5 pt-4 border-t border-app-border">
-          <p className="text-app-text-muted text-xs mb-3">Ho?t d?ng 7 ng�y qua</p>
+          <p className="text-app-text-muted text-xs mb-3">Hoạt động 7 ngày qua</p>
           <div className="flex gap-2">
             {weekActivity.map((d, i) => (
               <div key={i} className="flex-1 flex flex-col items-center gap-1.5">
@@ -516,7 +516,7 @@ export default function ProfilePage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={() => setShowAvatarPicker(false)}>
           <div className="bg-app-bg border border-app-border rounded-2xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white font-bold text-base">Ch?n avatar</h3>
+              <h3 className="text-white font-bold text-base">Chọn avatar</h3>
               <button onClick={() => setShowAvatarPicker(false)} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white/70 cursor-pointer">
                 <i className="ri-close-line text-sm"></i>
               </button>
@@ -527,11 +527,11 @@ export default function ProfilePage() {
               <input type="file" accept="image/*" onChange={handleUploadAvatar} className="hidden" />
               <div className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-app-accent-primary/10 hover:bg-app-accent-primary/20 border border-app-accent-primary/30 text-app-accent-primary text-sm font-semibold transition-colors">
                 <i className="ri-upload-cloud-line text-lg"></i>
-                T?i ?nh t? m�y (t? crop vu�ng, max 5MB)
+                Tải ảnh từ máy (tự crop vuông, max 5MB)
               </div>
             </label>
 
-            <div className="text-app-text-muted text-xs mb-2">Ho?c ch?n avatar c� s?n:</div>
+            <div className="text-app-text-muted text-xs mb-2">Hoặc chọn avatar có sẵn:</div>
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
               {AVATAR_PRESETS.map((url, i) => (
                 <button
@@ -548,7 +548,7 @@ export default function ProfilePage() {
                 </button>
               ))}
             </div>
-            <p className="text-app-text-muted text-xs text-center mt-4">Nh?n v�o avatar d? ch?n</p>
+            <p className="text-app-text-muted text-xs text-center mt-4">Nhấn vào avatar để chọn</p>
           </div>
         </div>
       )}
@@ -561,7 +561,7 @@ export default function ProfilePage() {
             onClick={() => setActiveTab(tab)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap flex-shrink-0 ${activeTab === tab ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}
           >
-            {tab === "overview" ? "T?ng quan" : tab === "eps" ? "EPS-TOPIK" : tab === "hanja" ? "H�n H�n" : tab === "badges" ? "Huy hi?u" : "L?ch s?"}
+            {tab === "overview" ? "Tổng quan" : tab === "eps" ? "EPS-TOPIK" : tab === "hanja" ? "Hán Hàn" : tab === "badges" ? "Huy hiệu" : "Lịch sử"}
           </button>
         ))}
       </div>
@@ -570,16 +570,16 @@ export default function ProfilePage() {
       {activeTab === "overview" && (
         <div className="space-y-5">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-            <StatCard icon="ri-file-list-3-line" color="text-app-accent-primary" bg="bg-app-accent-primary/10" label="C�u EPS d� l�m" value={epsDone} sub={`${epsAccuracy}% ch�nh x�c`} />
-            <StatCard icon="ri-stack-line" color="text-[#a78bfa]" bg="bg-[#a78bfa]/10" label="T? v?ng d� thu?c" value={flashcardKnown} sub="qua Flashcard" />
-            <StatCard icon="ri-font-size" color="text-app-accent-success" bg="bg-emerald-500/10" label="Hangul d� h?c" value={`${hangulKnown}/40`} sub="k� t? co b?n" />
-            <StatCard icon="ri-survey-line" color="text-[#06b6d4]" bg="bg-[#06b6d4]/10" label="B�i quiz ho�n th�nh" value={quizHistory.length} sub={quizHistory.length > 0 ? `TB ${Math.round(quizHistory.reduce((s, q) => s + Math.round(q.score / q.total * 100), 0) / quizHistory.length)}%` : "Chua c�"} />
+            <StatCard icon="ri-file-list-3-line" color="text-app-accent-primary" bg="bg-app-accent-primary/10" label="Câu EPS đã làm" value={epsDone} sub={`${epsAccuracy}% chính xác`} />
+            <StatCard icon="ri-stack-line" color="text-[#a78bfa]" bg="bg-[#a78bfa]/10" label="Từ vựng đã thuộc" value={flashcardKnown} sub="qua Flashcard" />
+            <StatCard icon="ri-font-size" color="text-app-accent-success" bg="bg-emerald-500/10" label="Hangul đã học" value={`${hangulKnown}/40`} sub="ký tự cơ bản" />
+            <StatCard icon="ri-survey-line" color="text-[#06b6d4]" bg="bg-[#06b6d4]/10" label="Bài quiz hoàn thành" value={quizHistory.length} sub={quizHistory.length > 0 ? `TB ${Math.round(quizHistory.reduce((s, q) => s + Math.round(q.score / q.total * 100), 0) / quizHistory.length)}%` : "Chưa có"} />
           </div>
 
           <div className="grid grid-cols-2 gap-5">
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-white font-semibold text-sm">L?ch s? thi th? EPS</h3>
+                <h3 className="text-white font-semibold text-sm">Lịch sử thi thử EPS</h3>
                 <button onClick={() => navigate("/eps-exam")} className="text-app-accent-primary text-xs cursor-pointer whitespace-nowrap hover:text-[#d4b43a]">
                   Thi ngay <i className="ri-arrow-right-line"></i>
                 </button>
@@ -587,9 +587,9 @@ export default function ProfilePage() {
               {examResults.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-8 text-center">
                   <i className="ri-file-list-3-line text-white/10 text-3xl mb-2"></i>
-                  <p className="text-app-text-muted text-sm">Chua c� l?n thi n�o</p>
+                  <p className="text-app-text-muted text-sm">Chưa có lần thi nào</p>
                   <button onClick={() => navigate("/eps-exam")} className="mt-3 text-app-accent-primary text-xs cursor-pointer whitespace-nowrap">
-                    B?t d?u thi th? ?
+                    Bắt đầu thi thử →
                   </button>
                 </div>
               ) : (
@@ -603,8 +603,8 @@ export default function ProfilePage() {
                           <span className="text-xs font-bold" style={{ color }}>{pct}%</span>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-white/70 text-xs font-medium">{r.score}/{r.total} c�u d�ng</p>
-                          <p className="text-app-text-muted text-[10px]">{new Date(r.date).toLocaleDateString("vi-VN")} � {Math.floor(r.timeUsed / 60)}:{String(r.timeUsed % 60).padStart(2, "0")} ph�t</p>
+                          <p className="text-white/70 text-xs font-medium">{r.score}/{r.total} câu đúng</p>
+                          <p className="text-app-text-muted text-[10px]">{new Date(r.date).toLocaleDateString("vi-VN")} · {Math.floor(r.timeUsed / 60)}:{String(r.timeUsed % 60).padStart(2, "0")} phút</p>
                         </div>
                         <div className="w-16 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                           <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: color }} />
@@ -614,7 +614,7 @@ export default function ProfilePage() {
                   })}
                   {bestExam && (
                     <div className="pt-2 border-t border-app-border flex items-center justify-between">
-                      <span className="text-app-text-muted text-xs">�i?m cao nh?t</span>
+                      <span className="text-app-text-muted text-xs">Điểm cao nhất</span>
                       <span className="text-app-accent-success font-bold text-sm">{Math.round((bestExam.score / bestExam.total) * 100)}% ({bestExam.score}/{bestExam.total})</span>
                     </div>
                   )}
@@ -624,9 +624,9 @@ export default function ProfilePage() {
 
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-white font-semibold text-sm">L? tr�nh TOPIK</h3>
+                <h3 className="text-white font-semibold text-sm">Lộ trình TOPIK</h3>
                 <button onClick={() => navigate("/roadmap")} className="text-app-accent-primary text-xs cursor-pointer whitespace-nowrap hover:text-[#d4b43a]">
-                  Chi ti?t <i className="ri-arrow-right-line"></i>
+                  Chi tiết <i className="ri-arrow-right-line"></i>
                 </button>
               </div>
               <div className="space-y-3">
@@ -648,7 +648,7 @@ export default function ProfilePage() {
                       </div>
                       {isCurrent && (
                         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${lvl.color}15`, color: lvl.color }}>
-                          Hi?n t?i
+                          Hiện tại
                         </span>
                       )}
                     </div>
@@ -666,31 +666,31 @@ export default function ProfilePage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-2">
             <div className="bg-app-bg border border-app-border rounded-2xl p-5 text-center">
               <p className="text-app-accent-primary font-bold text-3xl">{epsDone}</p>
-              <p className="text-app-text-secondary text-xs mt-1">C�u d� l�m</p>
-              <p className="text-app-text-muted text-[10px] mt-0.5">/ {epsTotal} t?ng</p>
+              <p className="text-app-text-secondary text-xs mt-1">Câu đã làm</p>
+              <p className="text-app-text-muted text-[10px] mt-0.5">/ {epsTotal} tổng</p>
             </div>
             <div className="bg-app-bg border border-app-border rounded-2xl p-5 text-center">
               <p className="text-app-accent-success font-bold text-3xl">{epsAccuracy}%</p>
-              <p className="text-app-text-secondary text-xs mt-1">T? l? d�ng</p>
-              <p className="text-app-text-muted text-[10px] mt-0.5">{epsCorrect} c�u d�ng</p>
+              <p className="text-app-text-secondary text-xs mt-1">Tỷ lệ đúng</p>
+              <p className="text-app-text-muted text-[10px] mt-0.5">{epsCorrect} câu đúng</p>
             </div>
             <div className="bg-app-bg border border-app-border rounded-2xl p-5 text-center">
               <p className="text-[#06b6d4] font-bold text-3xl">{examResults.length}</p>
-              <p className="text-app-text-secondary text-xs mt-1">L?n thi th?</p>
+              <p className="text-app-text-secondary text-xs mt-1">Lần thi thử</p>
               <p className="text-app-text-muted text-[10px] mt-0.5">TB {avgExamScore}%</p>
             </div>
           </div>
 
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Ti?n d? theo ch? d?</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">Tiến độ theo chủ đề</h3>
             <div className="space-y-3">
               {Object.entries(epsByTopic).map(([topicId, data]) => {
                 const pct = data.total > 0 ? Math.round((data.correct / data.total) * 100) : 0;
                 const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : pct >= 40 ? "#fb923c" : "#f87171";
                 const topicLabels: Record<string, string> = {
-                  greeting: "Giao ti?p co b?n", safety: "An to�n lao d?ng", culture: "Van h�a H�n Qu?c",
-                  workplace: "Noi l�m vi?c", daily: "Sinh ho?t h�ng ng�y", emergency: "T�nh hu?ng kh?n c?p",
-                  listening: "Nghe hi?u", reading: "�?c hi?u", law: "Ph�p lu?t lao d?ng",
+                  greeting: "Giao tiếp cơ bản", safety: "An toàn lao động", culture: "Văn hóa Hàn Quốc",
+                  workplace: "Nơi làm việc", daily: "Sinh hoạt hàng ngày", emergency: "Tình huống khẩn cấp",
+                  listening: "Nghe hiểu", reading: "Đọc hiểu", law: "Pháp luật lao động",
                 };
                 return (
                   <div key={topicId}>
@@ -713,7 +713,7 @@ export default function ProfilePage() {
               className="mt-5 w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-timer-line"></i>
-              Thi th? EPS d?y d? (40 c�u � 50 ph�t)
+              Thi thử EPS đầy đủ (40 câu · 50 phút)
             </button>
           </div>
         </div>
@@ -726,39 +726,39 @@ export default function ProfilePage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="bg-app-bg border border-app-border rounded-2xl p-5 text-center">
               <p className="text-[#f97316] font-bold text-3xl">{srCards.length}</p>
-              <p className="text-app-text-secondary text-xs mt-1">T? trong SR</p>
-              <p className="text-app-text-muted text-[10px] mt-0.5">T?ng c?ng</p>
+              <p className="text-app-text-secondary text-xs mt-1">Từ trong SR</p>
+              <p className="text-app-text-muted text-[10px] mt-0.5">Tổng cộng</p>
             </div>
             <div className="bg-app-bg border border-app-border rounded-2xl p-5 text-center">
               <p className="text-app-accent-primary font-bold text-3xl">{srLearned}</p>
-              <p className="text-app-text-secondary text-xs mt-1">�� h?c</p>
-              <p className="text-app-text-muted text-[10px] mt-0.5">&gt;0 l?n �n</p>
+              <p className="text-app-text-secondary text-xs mt-1">Đã học</p>
+              <p className="text-app-text-muted text-[10px] mt-0.5">&gt;0 lần ôn</p>
             </div>
             <div className="bg-app-bg border border-app-border rounded-2xl p-5 text-center">
               <p className="text-[#a78bfa] font-bold text-3xl">{srMastered}</p>
-              <p className="text-app-text-secondary text-xs mt-1">Thu?c l�ng</p>
-              <p className="text-app-text-muted text-[10px] mt-0.5">=5 l?n �n</p>
+              <p className="text-app-text-secondary text-xs mt-1">Thuộc lòng</p>
+              <p className="text-app-text-muted text-[10px] mt-0.5">≥5 lần ôn</p>
             </div>
             <div className="bg-app-bg border border-app-border rounded-2xl p-5 text-center">
               <p className={`font-bold text-3xl ${srDueToday > 0 ? "text-[#f87171]" : "text-app-accent-success"}`}>{srDueToday}</p>
-              <p className="text-app-text-secondary text-xs mt-1">C?n �n h�m nay</p>
-              <p className="text-app-text-muted text-[10px] mt-0.5">{srDueToday > 0 ? "�n ngay!" : "�� �n xong"}</p>
+              <p className="text-app-text-secondary text-xs mt-1">Cần ôn hôm nay</p>
+              <p className="text-app-text-muted text-[10px] mt-0.5">{srDueToday > 0 ? "Ôn ngay!" : "Đã ôn xong"}</p>
             </div>
           </div>
 
           {/* SR interval distribution */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white font-semibold text-sm">Ph�n b? kho?ng �n t?p</h3>
+              <h3 className="text-white font-semibold text-sm">Phân bố khoảng ôn tập</h3>
               <button onClick={() => navigate("/hanja-vocab")} className="text-[#f97316] text-xs cursor-pointer whitespace-nowrap">
-                �n ngay <i className="ri-arrow-right-line"></i>
+                Ôn ngay <i className="ri-arrow-right-line"></i>
               </button>
             </div>
             {srCards.length === 0 ? (
               <div className="text-center py-8">
                 <i className="ri-character-recognition-line text-white/10 text-3xl mb-2 block"></i>
-                <p className="text-app-text-muted text-sm">Chua c� t? H�n H�n n�o</p>
-                <button onClick={() => navigate("/hanja-vocab")} className="mt-3 text-[#f97316] text-xs cursor-pointer">B?t d?u h?c ?</button>
+                <p className="text-app-text-muted text-sm">Chưa có từ Hán Hàn nào</p>
+                <button onClick={() => navigate("/hanja-vocab")} className="mt-3 text-[#f97316] text-xs cursor-pointer">Bắt đầu học →</button>
               </div>
             ) : (
               <div className="space-y-3">
@@ -771,7 +771,7 @@ export default function ProfilePage() {
                         <span className="text-white/60 text-xs">{bucket.label}</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-app-text-muted text-[10px]">{bucket.count} t?</span>
+                        <span className="text-app-text-muted text-[10px]">{bucket.count} từ</span>
                         <span className="text-xs font-bold" style={{ color: bucket.color }}>{pct}%</span>
                       </div>
                       <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
@@ -791,24 +791,24 @@ export default function ProfilePage() {
                 <div className="w-8 h-8 flex items-center justify-center rounded-xl bg-app-accent-primary/10">
                   <i className="ri-book-open-line text-app-accent-primary text-sm"></i>
                 </div>
-                <h3 className="text-white font-semibold text-sm">Nh?t k� h?c t?p</h3>
+                <h3 className="text-white font-semibold text-sm">Nhật ký học tập</h3>
               </div>
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-app-text-secondary text-xs">Ng�y d� ghi</span>
+                  <span className="text-app-text-secondary text-xs">Ngày đã ghi</span>
                   <span className="text-white font-bold">{totalDiaryDays}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-app-text-secondary text-xs">TB t?/ng�y</span>
+                  <span className="text-app-text-secondary text-xs">TB từ/ngày</span>
                   <span className="text-app-accent-primary font-bold">{avgDiaryWords}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-app-text-secondary text-xs">T? y�u th�ch</span>
+                  <span className="text-app-text-secondary text-xs">Từ yêu thích</span>
                   <span className="text-[#f97316] font-bold">{hanjaFavorites.length}</span>
                 </div>
               </div>
               <button onClick={() => navigate("/hanja-vocab")} className="mt-4 w-full py-2 rounded-xl bg-app-accent-primary/10 text-app-accent-primary text-xs font-medium cursor-pointer hover:bg-app-accent-primary/20 transition-colors whitespace-nowrap">
-                Xem nh?t k�
+                Xem nhật ký
               </button>
             </div>
 
@@ -821,20 +821,20 @@ export default function ProfilePage() {
               </div>
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-app-text-secondary text-xs">Phi�n �n t?p</span>
+                  <span className="text-app-text-secondary text-xs">Phiên ôn tập</span>
                   <span className="text-white font-bold">{totalSRReviews}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-app-text-secondary text-xs">�?n h?n h�m nay</span>
+                  <span className="text-app-text-secondary text-xs">Đến hạn hôm nay</span>
                   <span className={`font-bold ${srDueToday > 0 ? "text-[#f87171]" : "text-app-accent-success"}`}>{srDueToday}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-app-text-secondary text-xs">T? l? thu?c l�ng</span>
+                  <span className="text-app-text-secondary text-xs">Tỷ lệ thuộc lòng</span>
                   <span className="text-[#a78bfa] font-bold">{srCards.length > 0 ? Math.round((srMastered / srCards.length) * 100) : 0}%</span>
                 </div>
               </div>
               <button onClick={() => navigate("/hanja-vocab")} className="mt-4 w-full py-2 rounded-xl bg-[#a78bfa]/10 text-[#a78bfa] text-xs font-medium cursor-pointer hover:bg-[#a78bfa]/20 transition-colors whitespace-nowrap">
-                �n t?p SR
+                Ôn tập SR
               </button>
             </div>
           </div>
@@ -847,8 +847,8 @@ export default function ProfilePage() {
                   <i className="ri-share-line text-[#a78bfa] text-lg"></i>
                 </div>
                 <div>
-                  <p className="text-white font-semibold text-sm">Chia s? th�nh t�ch H�n H�n</p>
-                  <p className="text-app-text-secondary text-xs">�� h?c {srLearned} t? H�n H�n qua Spaced Repetition</p>
+                  <p className="text-white font-semibold text-sm">Chia sẻ thành tích Hán Hàn</p>
+                  <p className="text-app-text-secondary text-xs">Đã học {srLearned} từ Hán Hàn qua Spaced Repetition</p>
                 </div>
               </div>
               <button
@@ -856,7 +856,7 @@ export default function ProfilePage() {
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#a78bfa]/15 border border-[#a78bfa]/25 text-[#a78bfa] text-sm font-medium cursor-pointer hover:bg-[#a78bfa]/25 transition-colors whitespace-nowrap"
               >
                 <i className="ri-share-line"></i>
-                Chia s?
+                Chia sẻ
               </button>
             </div>
           )}
@@ -872,15 +872,15 @@ export default function ProfilePage() {
               <i className="ri-medal-line text-app-accent-primary text-2xl"></i>
             </div>
             <div className="flex-1">
-              <p className="text-white font-bold text-base">{earnedBadges.length}/{BADGES.length} huy hi?u d� d?t</p>
-              <p className="text-app-text-secondary text-sm">Ho�n th�nh th�m th? th�ch d? m? kh�a huy hi?u m?i</p>
+              <p className="text-white font-bold text-base">{earnedBadges.length}/{BADGES.length} huy hiệu đã đạt</p>
+              <p className="text-app-text-secondary text-sm">Hoàn thành thêm thử thách để mở khóa huy hiệu mới</p>
               <div className="mt-2 h-2 bg-app-card/50 rounded-full overflow-hidden">
                 <div className="h-full bg-app-accent-primary rounded-full transition-all" style={{ width: `${Math.round((earnedBadges.length / BADGES.length) * 100)}%` }} />
               </div>
             </div>
             <div className="text-right flex-shrink-0">
               <p className="text-app-accent-primary font-bold text-2xl">{Math.round((earnedBadges.length / BADGES.length) * 100)}%</p>
-              <p className="text-app-text-muted text-xs">ho�n th�nh</p>
+              <p className="text-app-text-muted text-xs">hoàn thành</p>
             </div>
           </div>
 
@@ -902,12 +902,12 @@ export default function ProfilePage() {
                   {earned ? (
                     <div className="mt-2 flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-lg w-fit" style={{ backgroundColor: `${badge.color}15`, color: badge.color }}>
                       <i className="ri-checkbox-circle-fill"></i>
-                      �?t du?c
+                      Đạt được
                     </div>
                   ) : (
                     <div className="mt-2 flex items-center gap-1 text-[10px] text-app-text-muted">
                       <i className="ri-lock-line"></i>
-                      Chua m?
+                      Chưa mở
                     </div>
                   )}
                 </div>
@@ -925,16 +925,16 @@ export default function ProfilePage() {
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-white font-semibold text-sm flex items-center gap-2">
                 <i className="ri-survey-line text-[#a78bfa]"></i>
-                L?ch s? Quiz
+                Lịch sử Quiz
               </h3>
               <button onClick={() => navigate("/quiz")} className="text-app-accent-primary text-xs cursor-pointer whitespace-nowrap">
-                L�m quiz <i className="ri-arrow-right-line"></i>
+                Làm quiz <i className="ri-arrow-right-line"></i>
               </button>
             </div>
             {quizHistory.length === 0 ? (
               <div className="text-center py-6">
                 <i className="ri-survey-line text-white/10 text-3xl mb-2 block"></i>
-                <p className="text-app-text-muted text-sm">Chua c� l?ch s? quiz</p>
+                <p className="text-app-text-muted text-sm">Chưa có lịch sử quiz</p>
               </div>
             ) : (
               <div className="space-y-2">
@@ -947,7 +947,7 @@ export default function ProfilePage() {
                         <span className="text-xs font-bold" style={{ color }}>{pct}%</span>
                       </div>
                       <div className="flex-1">
-                        <p className="text-white/70 text-xs">{q.score}/{q.total} c�u d�ng</p>
+                        <p className="text-white/70 text-xs">{q.score}/{q.total} câu đúng</p>
                       </div>
                       <div className="w-20 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                         <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: color }} />
@@ -956,7 +956,7 @@ export default function ProfilePage() {
                   );
                 })}
                 <div className="pt-2 border-t border-app-border flex items-center justify-between">
-                  <span className="text-app-text-muted text-xs">T?ng {quizHistory.length} l?n</span>
+                  <span className="text-app-text-muted text-xs">Tổng {quizHistory.length} lần</span>
                   <span className="text-[#a78bfa] font-bold text-sm">
                     TB {quizHistory.length > 0 ? Math.round(quizHistory.reduce((s, q) => s + Math.round(q.score / q.total * 100), 0) / quizHistory.length) : 0}%
                   </span>
@@ -970,7 +970,7 @@ export default function ProfilePage() {
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-white font-semibold text-sm flex items-center gap-2">
                 <i className="ri-file-list-3-line text-app-accent-primary"></i>
-                L?ch s? thi th? EPS
+                Lịch sử thi thử EPS
               </h3>
               <button onClick={() => navigate("/eps-exam")} className="text-app-accent-primary text-xs cursor-pointer whitespace-nowrap">
                 Thi ngay <i className="ri-arrow-right-line"></i>
@@ -979,8 +979,8 @@ export default function ProfilePage() {
             {examResults.length === 0 ? (
               <div className="text-center py-6">
                 <i className="ri-file-list-3-line text-white/10 text-3xl mb-2 block"></i>
-                <p className="text-app-text-muted text-sm">Chua c� l?n thi n�o</p>
-                <button onClick={() => navigate("/eps-exam")} className="mt-3 text-app-accent-primary text-xs cursor-pointer">B?t d?u thi th? ?</button>
+                <p className="text-app-text-muted text-sm">Chưa có lần thi nào</p>
+                <button onClick={() => navigate("/eps-exam")} className="mt-3 text-app-accent-primary text-xs cursor-pointer">Bắt đầu thi thử →</button>
               </div>
             ) : (
               <div className="space-y-2">
@@ -993,8 +993,8 @@ export default function ProfilePage() {
                         <span className="text-xs font-bold" style={{ color }}>{pct}%</span>
                       </div>
                       <div className="flex-1">
-                        <p className="text-white/70 text-xs font-medium">{r.score}/{r.total} c�u d�ng</p>
-                        <p className="text-app-text-muted text-[10px]">{new Date(r.date).toLocaleDateString("vi-VN")} � {Math.floor(r.timeUsed / 60)}:{String(r.timeUsed % 60).padStart(2, "0")} ph�t</p>
+                        <p className="text-white/70 text-xs font-medium">{r.score}/{r.total} câu đúng</p>
+                        <p className="text-app-text-muted text-[10px]">{new Date(r.date).toLocaleDateString("vi-VN")} · {Math.floor(r.timeUsed / 60)}:{String(r.timeUsed % 60).padStart(2, "0")} phút</p>
                       </div>
                       <div className="w-16 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                         <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: color }} />
@@ -1004,7 +1004,7 @@ export default function ProfilePage() {
                 })}
                 {bestExam && (
                   <div className="pt-2 border-t border-app-border flex items-center justify-between">
-                    <span className="text-app-text-muted text-xs">�i?m cao nh?t � {examResults.length} l?n thi</span>
+                    <span className="text-app-text-muted text-xs">Điểm cao nhất · {examResults.length} lần thi</span>
                     <span className="text-app-accent-success font-bold text-sm">{Math.round((bestExam.score / bestExam.total) * 100)}%</span>
                   </div>
                 )}
@@ -1015,9 +1015,9 @@ export default function ProfilePage() {
           {/* Quick actions */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
-              { label: "L? tr�nh h?c", icon: "ri-route-line", color: "app-accent-primary", route: "/learning-path" },
-              { label: "Th?ng k� XP", icon: "ri-bar-chart-line", color: "#34d399", route: "/xp-stats" },
-              { label: "Th�nh t�ch", icon: "ri-trophy-line", color: "#fb923c", route: "/achievements" },
+              { label: "Lộ trình học", icon: "ri-route-line", color: "app-accent-primary", route: "/learning-path" },
+              { label: "Thống kê XP", icon: "ri-bar-chart-line", color: "#34d399", route: "/xp-stats" },
+              { label: "Thành tích", icon: "ri-trophy-line", color: "#fb923c", route: "/achievements" },
             ].map((item, i) => (
               <button
                 key={i}
