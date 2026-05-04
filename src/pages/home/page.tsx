@@ -373,7 +373,7 @@ export default function Home() {
               label="Từ mới hôm nay"
               desc={`${todayLearned.length}/8 từ đã học`}
               path="/daily-words"
-              badge={todayLearned.length === 8 ? "Xong!" : "Hôm nay"}
+              badge={todayLearned.length === 8 ? "Xong!" : undefined}
             />
             <QuickCard
               icon="ri-stack-line"
