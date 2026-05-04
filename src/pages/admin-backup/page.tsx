@@ -519,7 +519,7 @@ function ScheduleTab({ onCreateBackup, snapshots: externalSnapshots, setSnapshot
       setSnapshots(kept);
       localStorage.setItem("kts_admin_backups", JSON.stringify(kept));
       showMsg(`Đã xóa ${removed} backup cũ hơn ${cleanupDays} ngày`);
-      showToast(`Auto-cleanup: xóa ${removed} backup cũ`, "success");
+      showToast({ type: "success", title: `Auto-cleanup: xóa ${removed} backup cũ` });
     } else {
       showMsg("Không có backup nào cần xóa");
     }

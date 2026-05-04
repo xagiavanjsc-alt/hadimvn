@@ -399,7 +399,14 @@ export function useXPSystem() {
     earnedBadgeIds,
     notifications,
     awardXP,
-    addXP: awardXP, // Alias for backward compatibility
+    // Legacy-compatible addXP: accepts either (XPEvent) or (amount, reason)
+    addXP: ((arg1: XPEvent | number, arg2?: string) => {
+      if (typeof arg1 === "number") {
+        awardXP({ type: "other" as any, amount: arg1, meta: { reason: arg2 } });
+      } else {
+        awardXP(arg1);
+      }
+    }) as (arg1: XPEvent | number, arg2?: string) => void,
     dismissNotification,
     clearAllNotifications,
   };

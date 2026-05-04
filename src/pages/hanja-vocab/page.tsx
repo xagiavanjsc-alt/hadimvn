@@ -125,11 +125,15 @@ function exportCSV(
   filename: string,
   notes?: Record<string, string>,
   masteryFilter?: MasteryFilter,
-  srData?: Record<string, SRCard>
+  srData?: Record<string, SRCard>,
+  limit?: number
 ) {
   let filtered = entries;
   if (masteryFilter && masteryFilter !== "all" && srData) {
     filtered = entries.filter(e => getMasteryLevel(e.korean, srData) === masteryFilter);
+  }
+  if (limit !== undefined && filtered.length > limit) {
+    filtered = filtered.slice(0, limit);
   }
   const hasNotes = notes && Object.keys(notes).length > 0;
   const hasMastery = masteryFilter && masteryFilter !== "all";

@@ -181,7 +181,7 @@ export default function ListeningByLevelPage() {
     ? TRACKS
     : TRACKS.filter(t => t.level === selectedLevel);
 
-  const currentLine = selectedTrack?.transcript.findLast(l => l.time <= currentTime);
+  const currentLine = selectedTrack?.transcript.slice().reverse().find(l => l.time <= currentTime);
 
   const togglePlay = () => {
     if (!selectedTrack) return;

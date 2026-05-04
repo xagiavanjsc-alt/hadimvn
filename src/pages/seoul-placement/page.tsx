@@ -367,7 +367,7 @@ const LEVEL_DESC: Record<string, string> = {
   "4B": "Tiếng Hàn kinh doanh, chuẩn bị TOPIK cao cấp",
 };
 
-function determineLevel(answers: Record<string, number>): string {
+function determineLevel(answers: Record<string, number>): typeof LEVEL_ORDER[number] {
   // Count correct by level
   const levelScores: Record<string, { correct: number; total: number }> = {};
   PLACEMENT_QUESTIONS.forEach(q => {
@@ -377,7 +377,7 @@ function determineLevel(answers: Record<string, number>): string {
   });
 
   // Find highest level where score >= 50%
-  let recommendedLevel = "1A";
+  let recommendedLevel: typeof LEVEL_ORDER[number] = "1A";
   for (const level of LEVEL_ORDER) {
     const s = levelScores[level];
     if (s && s.correct / s.total >= 0.5) {

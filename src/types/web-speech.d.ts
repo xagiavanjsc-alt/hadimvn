@@ -1,12 +1,12 @@
 // Web Speech API type definitions
 declare global {
   interface Window {
-    SpeechRecognition: SpeechRecognitionConstructor;
-    webkitSpeechRecognition: SpeechRecognitionConstructor;
-  }
-
-  interface SpeechRecognitionConstructor {
-    new (): SpeechRecognition;
+    SpeechRecognition: {
+      new (): SpeechRecognition;
+    };
+    webkitSpeechRecognition: {
+      new (): SpeechRecognition;
+    };
   }
 
   interface SpeechRecognition extends EventTarget {
@@ -53,4 +53,5 @@ declare global {
 }
 
 export {};
+
 
