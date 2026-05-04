@@ -322,7 +322,7 @@ export default function Home() {
         <AdBanner position="top" />
 
         {/* ── Stats row ── */}
-        <div className="grid grid-cols-2 gap-2 sm:gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
           <StatCard
             icon="ri-fire-line"
             color="#fb923c"
@@ -366,7 +366,7 @@ export default function Home() {
               Lộ trình <i className="ri-arrow-right-line" />
             </button>
           </div>
-          <div className="grid grid-cols-2 gap-2 sm:gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
             <QuickCard
               icon="ri-sun-line"
               color="app-accent-primary"

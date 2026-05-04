@@ -1,49 +1,41 @@
-# Hướng dẫn sử dụng PWA - Hàn Quốc Ơi!
+# Hướng dẫn PWA - Cài app lên điện thoại
 
 ## PWA là gì?
 
-PWA (Progressive Web App) là ứng dụng web có thể cài đặt trên điện thoại như một app native, có thể hoạt động offline, và có trải nghiệm người dùng tốt hơn.
+App web có thể cài đặt như app thường, dùng được khi offline.
 
-## Tính năng PWA của Hàn Quốc Ơi!
+## Cách cài đặt
 
-### 1. Cài đặt trên điện thoại
-
-**iOS (iPhone/iPad):**
-1. Mở Safari trên iPhone/iPad
-2. Truy cập https://hadim.vn
-3. Nhấn nút "Share" (biểu tượng mũi tên lên) ở thanh dưới
-4. Chọn "Add to Home Screen" (Thêm vào màn hình chính)
-5. Nhấn "Add" (Thêm)
-6. App sẽ xuất hiện trên màn hình chính với icon
+**iPhone/iPad:**
+1. Mở Safari vào hadim.vn
+2. Nhấn Share (mũi tên lên)
+3. Chọn "Add to Home Screen"
+4. Nhấn Add
+5. App xuất hiện trên màn hình
 
 **Android:**
-1. Mở Chrome trên điện thoại Android
-2. Truy cập https://hadim.vn
-3. Nhấn menu (3 chấm) ở góc trên bên phải
-4. Chọn "Add to Home Screen" (Thêm vào màn hình chính) hoặc "Install App" (Cài đặt ứng dụng)
-5. Nhấn "Add" hoặc "Install"
-6. App sẽ xuất hiện trên màn hình chính
+1. Mở Chrome vào hadim.vn
+2. Nhấn menu (3 chấm)
+3. Chọn "Install App" hoặc "Add to Home Screen"
+4. Nhấn Install/Add
+5. App xuất hiện trên màn hình
 
-**Desktop (Chrome/Edge):**
-1. Mở Chrome/Edge trên desktop
-2. Truy cập https://hadim.vn
-3. Nhấn icon "Install" (biểu tượng dấu cộng trong hình vuông) ở thanh địa chỉ
-4. Nhấn "Install"
-5. App sẽ được cài đặt và mở như một app độc lập
+**Máy tính:**
+1. Mở Chrome/Edge vào hadim.vn
+2. Nhấn icon Install ở thanh địa chỉ (hình dấu cộng)
+3. Nhấn Install
 
-### 2. Tính năng Offline
+## Tính năng
 
-- **Offline page:** Khi mất kết nối, app sẽ hiển thị trang offline thông báo
-- **Cache:** Fonts, icons, images được cache để load nhanh hơn
-- **Service Worker:** Tự động cache các tài nguyên tĩnh
+- **Offline:** Vẫn xem được khi mất mạng
+- **Nhanh hơn:** Fonts, hình ảnh được cache
+- **Như app thường:** Có icon trên màn hình, mở nhanh
 
-### 3. Shortcuts (Phím tắt)
+## Lưu ý
 
-Sau khi cài đặt, bạn có thể:
-- Truy cập nhanh các tính năng từ menu phím tắt (Android)
-- Nhấn icon trên màn hình chính để mở app ngay lập tức
-
-### 4. Push Notifications (Tương lai)
+- iOS phải dùng Safari (không dùng Chrome/Facebook)
+- Android phải dùng Chrome
+- Khi cập nhật code mới, app sẽ tự cập nhật sau khi reload
 
 App có thể gửi thông báo nhắc nhở:
 - Nhắc học hàng ngày
