@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useCallback, useRef } from "react";
+import { useState, useMemo, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -9,7 +9,7 @@ import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
 import { epsQuestions, EPS_TOPICS } from "@/mocks/epsQuestions";
 import ShareResultCard from "@/components/feature/ShareResultCard";
 
-// ─── TTS ──────────────────────────────────────────────────────────────────
+// --- TTS ------------------------------------------------------------------
 function speakKorean(text: string) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
@@ -19,7 +19,7 @@ function speakKorean(text: string) {
   window.speechSynthesis.speak(utter);
 }
 
-// ─── Quiz Question Component ──────────────────────────────────────────────
+// --- Quiz Question Component ----------------------------------------------
 function QuizCard({ q, index, total, onAnswer, answered }: {
   q: QuizQuestion;
   index: number;
@@ -28,7 +28,7 @@ function QuizCard({ q, index, total, onAnswer, answered }: {
   answered: number | null;
 }) {
   const isCorrect = (i: number) => i === q.correctIndex;
-  const typeLabel = q.type === "vocab" ? "Từ vựng" : q.type === "grammar" ? "Ngữ pháp" : "Điền vào chỗ trống";
+  const typeLabel = q.type === "vocab" ? "T? v?ng" : q.type === "grammar" ? "Ng? ph�p" : "�i?n v�o ch? tr?ng";
   const typeColor = q.type === "vocab" ? "app-accent-primary" : q.type === "grammar" ? "#a78bfa" : "#34d399";
 
   const touchStartX = useRef<number | null>(null);
@@ -58,7 +58,7 @@ function QuizCard({ q, index, total, onAnswer, answered }: {
     const dy = Math.abs(e.changedTouches[0].clientY - (touchStartY.current ?? 0));
     touchStartX.current = null;
     touchStartY.current = null;
-    // Swipe right = option A (0), swipe left = option B (1) — just a quick pick shortcut
+    // Swipe right = option A (0), swipe left = option B (1) � just a quick pick shortcut
     if (Math.abs(dx) > 80 && dy < 80) {
       if (dx > 0 && q.options.length > 0) onAnswer(0);
       else if (dx < 0 && q.options.length > 1) onAnswer(1);
@@ -80,7 +80,7 @@ function QuizCard({ q, index, total, onAnswer, answered }: {
       {/* Mobile swipe hint */}
       <div className="flex items-center justify-center gap-2 text-[10px] text-white/15 mb-3 md:hidden">
         <i className="ri-arrow-left-right-line"></i>
-        <span>Vuốt trái/phải để chọn nhanh A/B</span>
+        <span>Vu?t tr�i/ph?i d? ch?n nhanh A/B</span>
       </div>
 
       {/* Header */}
@@ -155,7 +155,7 @@ function QuizCard({ q, index, total, onAnswer, answered }: {
   );
 }
 
-// ─── Result Screen ────────────────────────────────────────────────────────
+// --- Result Screen --------------------------------------------------------
 function QuizResult({ score, total, questions, answers, onRetry, onNew, lessonTitle }: {
   score: number; total: number;
   questions: QuizQuestion[];
@@ -166,9 +166,9 @@ function QuizResult({ score, total, questions, answers, onRetry, onNew, lessonTi
 }) {
   const [showShare, setShowShare] = useState(false);
   const pct = Math.round((score / total) * 100);
-  const grade = pct >= 80 ? { label: "Xuất sắc!", color: "#34d399", icon: "ri-trophy-line" }
-    : pct >= 60 ? { label: "Khá tốt!", color: "app-accent-primary", icon: "ri-medal-line" }
-    : { label: "Cần ôn thêm!", color: "#fb923c", icon: "ri-refresh-line" };
+  const grade = pct >= 80 ? { label: "Xu?t s?c!", color: "#34d399", icon: "ri-trophy-line" }
+    : pct >= 60 ? { label: "Kh� t?t!", color: "app-accent-primary", icon: "ri-medal-line" }
+    : { label: "C?n �n th�m!", color: "#fb923c", icon: "ri-refresh-line" };
 
   return (
     <>
@@ -179,7 +179,7 @@ function QuizResult({ score, total, questions, answers, onRetry, onNew, lessonTi
         </div>
         <h2 className="text-white font-bold text-2xl mb-1">{grade.label}</h2>
         <p className="text-app-text-secondary text-sm mb-4">
-          Bạn trả lời đúng <span className="font-bold" style={{ color: grade.color }}>{score}/{total}</span> câu ({pct}%)
+          B?n tr? l?i d�ng <span className="font-bold" style={{ color: grade.color }}>{score}/{total}</span> c�u ({pct}%)
         </p>
         <div className="w-full max-w-xs mx-auto h-2 bg-app-card/50 rounded-full overflow-hidden">
           <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: grade.color }} />
@@ -196,7 +196,7 @@ function QuizResult({ score, total, questions, answers, onRetry, onNew, lessonTi
               <div className="flex-1 min-w-0">
                 <p className="text-white/60 text-xs leading-relaxed truncate">{q.question}</p>
                 {!correct && (
-                  <p className="text-app-accent-success/70 text-[10px] mt-0.5">Đáp án đúng: {q.options[q.correctIndex]}</p>
+                  <p className="text-app-accent-success/70 text-[10px] mt-0.5">��p �n d�ng: {q.options[q.correctIndex]}</p>
                 )}
               </div>
             </div>
@@ -206,17 +206,17 @@ function QuizResult({ score, total, questions, answers, onRetry, onNew, lessonTi
 
       <div className="flex gap-3 mb-3">
         <button onClick={onRetry} className="flex-1 py-3 rounded-xl border border-app-border text-white/60 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">
-          Làm lại
+          L�m l?i
         </button>
         <button onClick={onNew} className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold transition-colors cursor-pointer whitespace-nowrap">
-          Quiz mới
+          Quiz m?i
         </button>
       </div>
       <button
         onClick={() => setShowShare(true)}
         className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-[#34d399]/20 bg-[#34d399]/8 hover:bg-[#34d399]/15 text-[#34d399] text-sm font-medium transition-colors cursor-pointer whitespace-nowrap"
       >
-        <i className="ri-share-line"></i>Chia sẻ kết quả
+        <i className="ri-share-line"></i>Chia s? k?t qu?
       </button>
     </div>
     {showShare && (
@@ -232,7 +232,7 @@ function QuizResult({ score, total, questions, answers, onRetry, onNew, lessonTi
   );
 }
 
-// ─── EPS Weak Topic Quiz ──────────────────────────────────────────────────
+// --- EPS Weak Topic Quiz --------------------------------------------------
 function EpsWeakQuiz({ weakTopicId, onBack }: { weakTopicId: string; onBack: () => void }) {
   const [answeredMap, setAnsweredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
   const [sessionAnswers, setSessionAnswers] = useState<Record<string, number>>({});
@@ -266,14 +266,14 @@ function EpsWeakQuiz({ weakTopicId, onBack }: { weakTopicId: string; onBack: () 
         <div className="w-14 h-14 flex items-center justify-center rounded-2xl mx-auto mb-4" style={{ backgroundColor: `${color}15` }}>
           <i className={`${pct >= 80 ? "ri-trophy-line" : "ri-refresh-line"} text-2xl`} style={{ color }}></i>
         </div>
-        <p className="text-white font-bold text-xl mb-1">{pct >= 80 ? "Xuất sắc!" : "Cần ôn thêm!"}</p>
-        <p className="text-app-text-secondary text-sm mb-5">{score}/{questions.length} câu đúng ({pct}%)</p>
+        <p className="text-white font-bold text-xl mb-1">{pct >= 80 ? "Xu?t s?c!" : "C?n �n th�m!"}</p>
+        <p className="text-app-text-secondary text-sm mb-5">{score}/{questions.length} c�u d�ng ({pct}%)</p>
         <div className="flex gap-3">
           <button onClick={onBack} className="flex-1 py-3 rounded-xl border border-app-border text-white/60 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50">
-            Chọn chủ đề khác
+            Ch?n ch? d? kh�c
           </button>
           <button onClick={() => { setSessionAnswers({}); setCurrentIdx(0); setDone(false); }} className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap">
-            Làm lại
+            L�m l?i
           </button>
         </div>
       </div>
@@ -341,14 +341,14 @@ function EpsWeakQuiz({ weakTopicId, onBack }: { weakTopicId: string; onBack: () 
       {answered !== null && (
         <button onClick={() => { if (currentIdx + 1 >= questions.length) setDone(true); else setCurrentIdx(i => i + 1); }}
           className="w-full py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap">
-          {currentIdx + 1 >= questions.length ? "Xem kết quả" : "Câu tiếp theo"}
+          {currentIdx + 1 >= questions.length ? "Xem k?t qu?" : "C�u ti?p theo"}
         </button>
       )}
     </div>
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────
+// --- Main Page ------------------------------------------------------------
 export default function QuizPage() {
   const navigate = useNavigate();
   const { user, profile } = useAuth();
@@ -391,11 +391,11 @@ export default function QuizPage() {
 
   const handleStartQuiz = useCallback(async () => {
     if (!aiConfig?.apiKey) {
-      setError("Chưa cấu hình API Key. Vào Cài đặt API để thêm key.");
+      setError("Chua c?u h�nh API Key. V�o C�i d?t API d? th�m key.");
       return;
     }
     const lesson = selectedLesson ?? approvedLessons[Math.floor(Math.random() * approvedLessons.length)];
-    if (!lesson) { setError("Chưa có bài học nào. Tạo bài học trong K-pop Lesson trước!"); return; }
+    if (!lesson) { setError("Chua c� b�i h?c n�o. T?o b�i h?c trong K-pop Lesson tru?c!"); return; }
 
     setLoading(true);
     setError(null);
@@ -412,7 +412,7 @@ export default function QuizPage() {
       setCurrentIdx(0);
       setMode("quiz");
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Lỗi không xác định");
+      setError(e instanceof Error ? e.message : "L?i kh�ng x�c d?nh");
     } finally {
       setLoading(false);
     }
@@ -440,7 +440,7 @@ export default function QuizPage() {
         setMode("result");
         // Auto-sync after quiz completion
         if (user) {
-          const displayName = profile?.display_name || user.email?.split("@")[0] || "Học viên";
+          const displayName = profile?.display_name || user.email?.split("@")[0] || "H?c vi�n";
           Promise.all([syncToCloud(user.id), updateLeaderboard(user.id, displayName)]);
         }
       } else {
@@ -460,12 +460,12 @@ export default function QuizPage() {
 
   return (
     <DashboardLayout
-      title="Quiz & Kiểm tra"
-      subtitle="Trắc nghiệm từ vựng + ngữ pháp — luyện theo chủ đề yếu"
+      title="Quiz & Ki?m tra"
+      subtitle="Tr?c nghi?m t? v?ng + ng? ph�p � luy?n theo ch? d? y?u"
     >
       {/* Mode tabs */}
       <div className="flex gap-1 bg-app-surface/50 p-1 rounded-xl mb-5 w-fit">
-        {([["kpop", "ri-music-2-line", "Quiz K-pop"], ["eps-weak", "ri-focus-3-line", "Luyện chủ đề yếu EPS"]] as const).map(([m, icon, label]) => (
+        {([["kpop", "ri-music-2-line", "Quiz K-pop"], ["eps-weak", "ri-focus-3-line", "Luy?n ch? d? y?u EPS"]] as const).map(([m, icon, label]) => (
           <button key={m} onClick={() => { setQuizMode(m); setSelectedWeakTopic(null); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${quizMode === m ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>
             <i className={icon}></i>{label}
@@ -483,8 +483,8 @@ export default function QuizPage() {
                 <EpsWeakQuiz weakTopicId={selectedWeakTopic} onBack={() => setSelectedWeakTopic(null)} />
               ) : (
                 <div className="bg-app-bg border border-app-border rounded-2xl p-6">
-                  <h3 className="text-white font-bold text-base mb-2">Chọn chủ đề cần ôn</h3>
-                  <p className="text-app-text-secondary text-xs mb-5">Chủ đề được sắp xếp từ yếu nhất — tập trung vào những chủ đề đỏ trước!</p>
+                  <h3 className="text-white font-bold text-base mb-2">Ch?n ch? d? c?n �n</h3>
+                  <p className="text-app-text-secondary text-xs mb-5">Ch? d? du?c s?p x?p t? y?u nh?t � t?p trung v�o nh?ng ch? d? d? tru?c!</p>
                   <div className="space-y-2">
                     {weakTopics.map(t => {
                       const color = t.pct === -1 ? "rgba(255,255,255,0.2)" : t.pct >= 80 ? "#34d399" : t.pct >= 60 ? "app-accent-primary" : "#f87171";
@@ -496,7 +496,7 @@ export default function QuizPage() {
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className="text-white/70 text-sm font-medium">{t.label}</p>
-                            <p className="text-app-text-muted text-[10px]">{t.done > 0 ? `${t.done}/${t.total} câu đã làm` : "Chưa làm câu nào"}</p>
+                            <p className="text-app-text-muted text-[10px]">{t.done > 0 ? `${t.done}/${t.total} c�u d� l�m` : "Chua l�m c�u n�o"}</p>
                           </div>
                           <div className="flex items-center gap-3 flex-shrink-0">
                             {t.done > 0 && (
@@ -505,7 +505,7 @@ export default function QuizPage() {
                               </div>
                             )}
                             <span className="text-sm font-bold w-10 text-right" style={{ color }}>
-                              {t.pct === -1 ? "Mới" : `${t.pct}%`}
+                              {t.pct === -1 ? "M?i" : `${t.pct}%`}
                             </span>
                             <i className="ri-arrow-right-line text-app-text-muted text-xs"></i>
                           </div>
@@ -520,7 +520,7 @@ export default function QuizPage() {
 
           {quizMode === "kpop" && mode === "setup" && (
             <div className="bg-app-bg border border-app-border rounded-2xl p-6">
-              <h3 className="text-white font-bold text-base mb-5">Cài đặt Quiz</h3>
+              <h3 className="text-white font-bold text-base mb-5">C�i d?t Quiz</h3>
 
               {error && (
                 <div className="mb-4 flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3">
@@ -531,16 +531,16 @@ export default function QuizPage() {
 
               {/* Lesson select */}
               <div className="mb-4">
-                <label className="text-app-text-secondary text-xs font-medium block mb-2">Chọn bài học</label>
+                <label className="text-app-text-secondary text-xs font-medium block mb-2">Ch?n b�i h?c</label>
                 <select
                   value={selectedRank === "all" ? "all" : String(selectedRank)}
                   onChange={e => setSelectedRank(e.target.value === "all" ? "all" : parseInt(e.target.value))}
                   className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 transition-colors cursor-pointer"
                 >
-                  <option value="all" className="bg-app-bg">Ngẫu nhiên từ tất cả bài học</option>
+                  <option value="all" className="bg-app-bg">Ng?u nhi�n t? t?t c? b�i h?c</option>
                   {approvedLessons.map(l => (
                     <option key={l.song.rank} value={l.song.rank} className="bg-app-bg">
-                      {l.song.title} — {l.song.artist}
+                      {l.song.title} � {l.song.artist}
                     </option>
                   ))}
                 </select>
@@ -548,7 +548,7 @@ export default function QuizPage() {
 
               {/* Question count */}
               <div className="mb-6">
-                <label className="text-app-text-secondary text-xs font-medium block mb-2">Số câu hỏi</label>
+                <label className="text-app-text-secondary text-xs font-medium block mb-2">S? c�u h?i</label>
                 <div className="flex gap-2">
                   {[5, 8, 10, 15].map(n => (
                     <button
@@ -565,9 +565,9 @@ export default function QuizPage() {
               {/* Question types info */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
                 {[
-                  { type: "Từ vựng", icon: "ri-translate-2", color: "app-accent-primary", desc: "Chọn nghĩa đúng" },
-                  { type: "Ngữ pháp", icon: "ri-graduation-cap-line", color: "#a78bfa", desc: "Chọn cấu trúc đúng" },
-                  { type: "Điền chỗ trống", icon: "ri-edit-line", color: "#34d399", desc: "Hoàn thành câu" },
+                  { type: "T? v?ng", icon: "ri-translate-2", color: "app-accent-primary", desc: "Ch?n nghia d�ng" },
+                  { type: "Ng? ph�p", icon: "ri-graduation-cap-line", color: "#a78bfa", desc: "Ch?n c?u tr�c d�ng" },
+                  { type: "�i?n ch? tr?ng", icon: "ri-edit-line", color: "#34d399", desc: "Ho�n th�nh c�u" },
                 ].map(t => (
                   <div key={t.type} className="p-3 rounded-xl bg-app-surface/50 border border-app-border text-center">
                     <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${t.color}15` }}>
@@ -585,14 +585,14 @@ export default function QuizPage() {
                 className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
               >
                 {loading ? (
-                  <><i className="ri-loader-4-line animate-spin"></i> AI đang tạo câu hỏi...</>
+                  <><i className="ri-loader-4-line animate-spin"></i> AI dang t?o c�u h?i...</>
                 ) : (
-                  <><i className="ri-play-line"></i> Bắt đầu Quiz ({questionCount} câu)</>
+                  <><i className="ri-play-line"></i> B?t d?u Quiz ({questionCount} c�u)</>
                 )}
               </button>
 
               {approvedLessons.length === 0 && (
-                <p className="text-app-text-muted text-xs text-center mt-3">Cần có bài học trong K-pop Lesson trước</p>
+                <p className="text-app-text-muted text-xs text-center mt-3">C?n c� b�i h?c trong K-pop Lesson tru?c</p>
               )}
             </div>
           )}
@@ -611,7 +611,7 @@ export default function QuizPage() {
                   onClick={() => setMode("setup")}
                   className="text-app-text-muted hover:text-white/50 text-xs cursor-pointer transition-colors whitespace-nowrap"
                 >
-                  Thoát
+                  Tho�t
                 </button>
               </div>
               <QuizCard
@@ -645,12 +645,12 @@ export default function QuizPage() {
         <div className="space-y-4">
           {/* Stats */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Thống kê</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">Th?ng k�</h3>
             <div className="space-y-3">
               {[
-                { label: "Lần làm quiz", value: quizHistory.length, icon: "ri-survey-line", color: "app-accent-primary" },
-                { label: "Điểm trung bình", value: `${avgScore}%`, icon: "ri-bar-chart-line", color: "#34d399" },
-                { label: "Bài học có quiz", value: new Set(quizHistory.map(h => h.lesson)).size, icon: "ri-book-2-line", color: "#a78bfa" },
+                { label: "L?n l�m quiz", value: quizHistory.length, icon: "ri-survey-line", color: "app-accent-primary" },
+                { label: "�i?m trung b�nh", value: `${avgScore}%`, icon: "ri-bar-chart-line", color: "#34d399" },
+                { label: "B�i h?c c� quiz", value: new Set(quizHistory.map(h => h.lesson)).size, icon: "ri-book-2-line", color: "#a78bfa" },
               ].map(stat => (
                 <div key={stat.label} className="flex items-center gap-3">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
@@ -668,7 +668,7 @@ export default function QuizPage() {
           {/* History */}
           {quizHistory.length > 0 && (
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-3">Lịch sử</h3>
+              <h3 className="text-white font-semibold text-sm mb-3">L?ch s?</h3>
               <div className="space-y-2 max-h-64 overflow-y-auto">
                 {quizHistory.slice(0, 10).map((h, i) => {
                   const pct = Math.round((h.score / h.total) * 100);
@@ -680,7 +680,7 @@ export default function QuizPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-white/60 text-xs truncate">{h.lesson}</p>
-                        <p className="text-app-text-muted text-[10px]">{h.score}/{h.total} câu đúng</p>
+                        <p className="text-app-text-muted text-[10px]">{h.score}/{h.total} c�u d�ng</p>
                       </div>
                       <p className="text-app-text-muted text-[10px] flex-shrink-0">{new Date(h.date).toLocaleDateString("vi-VN")}</p>
                     </div>
@@ -695,9 +695,9 @@ export default function QuizPage() {
             <div className="flex items-start gap-2">
               <i className="ri-volume-up-line text-app-text-muted text-sm mt-0.5 flex-shrink-0"></i>
               <div>
-                <p className="text-white/50 text-xs font-semibold mb-1">Phát âm tích hợp</p>
+                <p className="text-white/50 text-xs font-semibold mb-1">Ph�t �m t�ch h?p</p>
                 <p className="text-app-text-muted text-[10px] leading-relaxed">
-                  Nhấn vào từ tiếng Hàn trong câu hỏi để nghe phát âm chuẩn trước khi trả lời.
+                  Nh?n v�o t? ti?ng H�n trong c�u h?i d? nghe ph�t �m chu?n tru?c khi tr? l?i.
                 </p>
               </div>
             </div>

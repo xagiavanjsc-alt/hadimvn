@@ -1,13 +1,13 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { mockMelonSongs } from "@/mocks/melonSongs";
 import { MelonLessonResult } from "@/services/aiService";
 
-/* ── Types ─────────────────────────────────────────────────────────────────── */
+/* -- Types ------------------------------------------------------------------- */
 interface QuizScore { rank: number; score: number; total: number; date: string; }
 interface VocabEntry { word: string; meaning: string; rank: number; songTitle: string; reviewCount: number; }
 
-/* ── Local helpers ─────────────────────────────────────────────────────────── */
+/* -- Local helpers ----------------------------------------------------------- */
 function loadLearnedRanks(): number[] {
   try { return JSON.parse(localStorage.getItem("melon_learned_ranks") ?? "[]"); }
   catch { return []; }
@@ -27,7 +27,7 @@ function loadFlashcardProgress(): Record<string, number> {
   catch { return {}; }
 }
 
-/* ── Mini bar chart ─────────────────────────────────────────────────────────── */
+/* -- Mini bar chart ----------------------------------------------------------- */
 function BarChart({ data, color = "#22c55e" }: { data: { label: string; value: number }[]; color?: string }) {
   const max = Math.max(...data.map(d => d.value), 1);
   return (
@@ -46,7 +46,7 @@ function BarChart({ data, color = "#22c55e" }: { data: { label: string; value: n
   );
 }
 
-/* ── Donut chart ─────────────────────────────────────────────────────────────── */
+/* -- Donut chart --------------------------------------------------------------- */
 function DonutChart({ value, total, color, label }: { value: number; total: number; color: string; label: string }) {
   const pct = total > 0 ? Math.round((value / total) * 100) : 0;
   const r = 28;
@@ -75,7 +75,7 @@ export default function MelonStatsPage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<"overview" | "vocab" | "songs" | "quiz">("overview");
 
-  /* ── Aggregate data ─────────────────────────────────────────────────────── */
+  /* -- Aggregate data ------------------------------------------------------- */
   const learnedRanks = useMemo(() => loadLearnedRanks(), []);
   const quizScores = useMemo(() => loadQuizScores(), []);
   const flashProgress = useMemo(() => loadFlashcardProgress(), []);
@@ -90,7 +90,7 @@ export default function MelonStatsPage() {
     [learnedRanks, quizScores]
   );
 
-  /* ── Vocab aggregation ─────────────────────────────────────────────────── */
+  /* -- Vocab aggregation --------------------------------------------------- */
   const allVocab = useMemo<VocabEntry[]>(() => {
     const entries: VocabEntry[] = [];
     learnedSongs.forEach(({ rank, song, analysis }) => {
@@ -114,7 +114,7 @@ export default function MelonStatsPage() {
     [allVocab]
   );
 
-  /* ── Weekly chart (last 7 days) ─────────────────────────────────────────── */
+  /* -- Weekly chart (last 7 days) ------------------------------------------- */
   const weeklyData = useMemo(() => {
     const days = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
     const today = new Date();
@@ -127,7 +127,7 @@ export default function MelonStatsPage() {
     });
   }, [quizScores]);
 
-  /* ── Genre breakdown ─────────────────────────────────────────────────────── */
+  /* -- Genre breakdown ------------------------------------------------------- */
   const genreData = useMemo(() => {
     const map: Record<string, number> = {};
     learnedSongs.forEach(({ song }) => {
@@ -138,14 +138,14 @@ export default function MelonStatsPage() {
     return Object.entries(map).sort((a, b) => b[1] - a[1]).slice(0, 5);
   }, [learnedSongs]);
 
-  /* ── Quiz stats ─────────────────────────────────────────────────────────── */
+  /* -- Quiz stats ----------------------------------------------------------- */
   const quizDone = quizScores.length;
   const avgScore = quizDone > 0
     ? Math.round(quizScores.reduce((a, q) => a + (q.score / q.total) * 100, 0) / quizDone)
     : 0;
   const perfectQuiz = quizScores.filter(q => q.score === q.total).length;
 
-  /* ── Favorite songs (most vocab) ─────────────────────────────────────────── */
+  /* -- Favorite songs (most vocab) ------------------------------------------- */
   const favoriteSongs = useMemo(() =>
     learnedSongs
       .filter(s => s.analysis)
@@ -155,9 +155,9 @@ export default function MelonStatsPage() {
   );
 
   const TABS = [
-    { id: "overview", label: "Tổng quan", icon: "ri-dashboard-line" },
-    { id: "vocab", label: "Từ vựng", icon: "ri-translate-2" },
-    { id: "songs", label: "Bài hát", icon: "ri-music-2-line" },
+    { id: "overview", label: "T?ng quan", icon: "ri-dashboard-line" },
+    { id: "vocab", label: "T? v?ng", icon: "ri-translate-2" },
+    { id: "songs", label: "B�i h�t", icon: "ri-music-2-line" },
     { id: "quiz", label: "Quiz", icon: "ri-lightbulb-flash-line" },
   ] as const;
 
@@ -172,15 +172,15 @@ export default function MelonStatsPage() {
           <i className="ri-arrow-left-line" />
         </button>
         <div className="flex-1">
-          <p className="text-white font-bold text-sm">Thống kê học Melon</p>
-          <p className="text-app-text-muted text-[10px]">{learnedSongs.length} bài đã học · {allVocab.length} từ vựng</p>
+          <p className="text-white font-bold text-sm">Th?ng k� h?c Melon</p>
+          <p className="text-app-text-muted text-[10px]">{learnedSongs.length} b�i d� h?c � {allVocab.length} t? v?ng</p>
         </div>
         <button
           onClick={() => navigate("/melon-history")}
           className="flex items-center gap-1.5 text-xs text-app-text-secondary hover:text-white/70 cursor-pointer whitespace-nowrap"
         >
           <i className="ri-history-line" />
-          Lịch sử
+          L?ch s?
         </button>
       </header>
 
@@ -192,13 +192,13 @@ export default function MelonStatsPage() {
             <div className="w-16 h-16 flex items-center justify-center bg-app-card/50 rounded-2xl mb-4">
               <i className="ri-bar-chart-grouped-line text-app-text-muted text-2xl" />
             </div>
-            <p className="text-app-text-secondary text-sm font-medium mb-1">Chưa có dữ liệu thống kê</p>
-            <p className="text-app-text-muted text-xs mb-5">Học ít nhất 1 bài hát để xem thống kê</p>
+            <p className="text-app-text-secondary text-sm font-medium mb-1">Chua c� d? li?u th?ng k�</p>
+            <p className="text-app-text-muted text-xs mb-5">H?c �t nh?t 1 b�i h�t d? xem th?ng k�</p>
             <button
               onClick={() => navigate("/melon")}
               className="bg-[#22c55e] hover:bg-[#16a34a] text-white text-sm font-bold px-6 py-2.5 rounded-xl cursor-pointer whitespace-nowrap"
             >
-              Đến Melon Chart
+              �?n Melon Chart
             </button>
           </div>
         )}
@@ -221,16 +221,16 @@ export default function MelonStatsPage() {
               ))}
             </div>
 
-            {/* ── OVERVIEW TAB ─────────────────────────────────────────────── */}
+            {/* -- OVERVIEW TAB ----------------------------------------------- */}
             {activeTab === "overview" && (
               <div className="space-y-4">
                 {/* KPI cards */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {[
-                    { icon: "ri-music-2-line", val: learnedSongs.length, label: "Bài đã học", color: "#22c55e" },
-                    { icon: "ri-translate-2", val: allVocab.length, label: "Từ vựng", color: "app-accent-primary" },
-                    { icon: "ri-lightbulb-flash-line", val: quizDone, label: "Quiz hoàn thành", color: "#f97316" },
-                    { icon: "ri-percent-line", val: quizDone > 0 ? `${avgScore}%` : "—", label: "Điểm TB quiz", color: "#ec4899" },
+                    { icon: "ri-music-2-line", val: learnedSongs.length, label: "B�i d� h?c", color: "#22c55e" },
+                    { icon: "ri-translate-2", val: allVocab.length, label: "T? v?ng", color: "app-accent-primary" },
+                    { icon: "ri-lightbulb-flash-line", val: quizDone, label: "Quiz ho�n th�nh", color: "#f97316" },
+                    { icon: "ri-percent-line", val: quizDone > 0 ? `${avgScore}%` : "�", label: "�i?m TB quiz", color: "#ec4899" },
                   ].map(s => (
                     <div key={s.label} className="bg-app-surface/50 border border-app-border rounded-2xl p-4 text-center">
                       <div className="w-9 h-9 flex items-center justify-center mx-auto mb-2 rounded-xl" style={{ backgroundColor: `${s.color}15` }}>
@@ -245,33 +245,33 @@ export default function MelonStatsPage() {
                 {/* Weekly activity chart */}
                 <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
                   <div className="flex items-center justify-between mb-4">
-                    <p className="text-white/70 text-sm font-semibold">Hoạt động 7 ngày qua</p>
-                    <span className="text-[10px] text-app-text-muted">Quiz hoàn thành / ngày</span>
+                    <p className="text-white/70 text-sm font-semibold">Ho?t d?ng 7 ng�y qua</p>
+                    <span className="text-[10px] text-app-text-muted">Quiz ho�n th�nh / ng�y</span>
                   </div>
                   <BarChart data={weeklyData} color="#22c55e" />
                 </div>
 
                 {/* Donut row */}
                 <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
-                  <p className="text-white/70 text-sm font-semibold mb-4">Tỷ lệ hoàn thành</p>
+                  <p className="text-white/70 text-sm font-semibold mb-4">T? l? ho�n th�nh</p>
                   <div className="flex justify-around">
                     <DonutChart
                       value={learnedSongs.filter(s => s.analysis).length}
                       total={learnedSongs.length}
                       color="#22c55e"
-                      label="Đã phân tích AI"
+                      label="�� ph�n t�ch AI"
                     />
                     <DonutChart
                       value={quizDone}
                       total={learnedSongs.length}
                       color="app-accent-primary"
-                      label="Đã làm quiz"
+                      label="�� l�m quiz"
                     />
                     <DonutChart
                       value={perfectQuiz}
                       total={quizDone || 1}
                       color="#ec4899"
-                      label="Quiz hoàn hảo"
+                      label="Quiz ho�n h?o"
                     />
                   </div>
                 </div>
@@ -279,7 +279,7 @@ export default function MelonStatsPage() {
                 {/* Genre breakdown */}
                 {genreData.length > 0 && (
                   <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
-                    <p className="text-white/70 text-sm font-semibold mb-4">Thể loại yêu thích</p>
+                    <p className="text-white/70 text-sm font-semibold mb-4">Th? lo?i y�u th�ch</p>
                     <div className="space-y-2.5">
                       {genreData.map(([genre, count]) => (
                         <div key={genre} className="flex items-center gap-3">
@@ -299,12 +299,12 @@ export default function MelonStatsPage() {
               </div>
             )}
 
-            {/* ── VOCAB TAB ────────────────────────────────────────────────── */}
+            {/* -- VOCAB TAB -------------------------------------------------- */}
             {activeTab === "vocab" && (
               <div className="space-y-4">
                 {/* Vocab chart by song */}
                 <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
-                  <p className="text-white/70 text-sm font-semibold mb-4">Từ vựng theo bài hát (top 7)</p>
+                  <p className="text-white/70 text-sm font-semibold mb-4">T? v?ng theo b�i h�t (top 7)</p>
                   <BarChart
                     data={favoriteSongs.slice(0, 7).map(s => ({
                       label: s.song?.title.slice(0, 6) ?? "",
@@ -317,11 +317,11 @@ export default function MelonStatsPage() {
                 {/* Forgotten vocab */}
                 <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
                   <div className="flex items-center justify-between mb-4">
-                    <p className="text-white/70 text-sm font-semibold">Từ hay quên nhất</p>
-                    <span className="text-[10px] text-app-text-muted">Chưa ôn qua flashcard</span>
+                    <p className="text-white/70 text-sm font-semibold">T? hay qu�n nh?t</p>
+                    <span className="text-[10px] text-app-text-muted">Chua �n qua flashcard</span>
                   </div>
                   {forgottenVocab.length === 0 ? (
-                    <p className="text-app-text-muted text-xs text-center py-4">Tuyệt vời! Bạn đã ôn hết rồi</p>
+                    <p className="text-app-text-muted text-xs text-center py-4">Tuy?t v?i! B?n d� �n h?t r?i</p>
                   ) : (
                     <div className="space-y-2">
                       {forgottenVocab.map((v, i) => (
@@ -344,14 +344,14 @@ export default function MelonStatsPage() {
                       className="mt-3 w-full py-2.5 rounded-xl bg-app-accent-primary/10 border border-app-accent-primary/20 text-app-accent-primary text-xs font-semibold cursor-pointer hover:bg-app-accent-primary/15 transition-colors whitespace-nowrap"
                     >
                       <i className="ri-stack-line mr-1.5" />
-                      Ôn ngay với Flashcard
+                      �n ngay v?i Flashcard
                     </button>
                   )}
                 </div>
 
                 {/* All vocab list */}
                 <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
-                  <p className="text-white/70 text-sm font-semibold mb-3">Tất cả từ vựng ({allVocab.length})</p>
+                  <p className="text-white/70 text-sm font-semibold mb-3">T?t c? t? v?ng ({allVocab.length})</p>
                   <div className="space-y-1.5 max-h-64 overflow-y-auto pr-1">
                     {allVocab.map((v, i) => (
                       <div key={i} className="flex items-center gap-2.5 py-1.5">
@@ -360,11 +360,11 @@ export default function MelonStatsPage() {
                         <span className="text-white/35 text-xs flex-1 truncate">{v.meaning}</span>
                         {v.reviewCount > 0 ? (
                           <span className="text-[10px] text-green-400 bg-green-500/10 px-1.5 py-0.5 rounded-full flex-shrink-0">
-                            ×{v.reviewCount}
+                            �{v.reviewCount}
                           </span>
                         ) : (
                           <span className="text-[10px] text-app-accent-error/60 bg-red-500/8 px-1.5 py-0.5 rounded-full flex-shrink-0">
-                            Chưa ôn
+                            Chua �n
                           </span>
                         )}
                       </div>
@@ -374,11 +374,11 @@ export default function MelonStatsPage() {
               </div>
             )}
 
-            {/* ── SONGS TAB ────────────────────────────────────────────────── */}
+            {/* -- SONGS TAB -------------------------------------------------- */}
             {activeTab === "songs" && (
               <div className="space-y-4">
                 <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
-                  <p className="text-white/70 text-sm font-semibold mb-4">Bài hát yêu thích (nhiều từ vựng nhất)</p>
+                  <p className="text-white/70 text-sm font-semibold mb-4">B�i h�t y�u th�ch (nhi?u t? v?ng nh?t)</p>
                   <div className="space-y-3">
                     {favoriteSongs.map(({ song, analysis, quiz }, i) => (
                       <div
@@ -397,7 +397,7 @@ export default function MelonStatsPage() {
                           <p className="text-white/35 text-xs">{song?.artist}</p>
                         </div>
                         <div className="flex flex-col items-end gap-1 flex-shrink-0">
-                          <span className="text-[10px] text-app-accent-primary font-bold">{analysis?.vocabulary.length ?? 0} từ</span>
+                          <span className="text-[10px] text-app-accent-primary font-bold">{analysis?.vocabulary.length ?? 0} t?</span>
                           {quiz && (
                             <span className="text-[10px] text-green-400">{quiz.score}/{quiz.total}</span>
                           )}
@@ -410,7 +410,7 @@ export default function MelonStatsPage() {
 
                 {/* All learned songs */}
                 <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
-                  <p className="text-white/70 text-sm font-semibold mb-3">Tất cả bài đã học ({learnedSongs.length})</p>
+                  <p className="text-white/70 text-sm font-semibold mb-3">T?t c? b�i d� h?c ({learnedSongs.length})</p>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     {learnedSongs.map(({ song, quiz }) => (
                       <div
@@ -437,15 +437,15 @@ export default function MelonStatsPage() {
               </div>
             )}
 
-            {/* ── QUIZ TAB ─────────────────────────────────────────────────── */}
+            {/* -- QUIZ TAB --------------------------------------------------- */}
             {activeTab === "quiz" && (
               <div className="space-y-4">
                 {/* Quiz KPIs */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
-                    { val: quizDone, label: "Quiz đã làm", color: "#22c55e", icon: "ri-check-double-line" },
-                    { val: `${avgScore}%`, label: "Điểm trung bình", color: "app-accent-primary", icon: "ri-percent-line" },
-                    { val: perfectQuiz, label: "Quiz hoàn hảo", color: "#ec4899", icon: "ri-trophy-line" },
+                    { val: quizDone, label: "Quiz d� l�m", color: "#22c55e", icon: "ri-check-double-line" },
+                    { val: `${avgScore}%`, label: "�i?m trung b�nh", color: "app-accent-primary", icon: "ri-percent-line" },
+                    { val: perfectQuiz, label: "Quiz ho�n h?o", color: "#ec4899", icon: "ri-trophy-line" },
                   ].map(s => (
                     <div key={s.label} className="bg-app-surface/50 border border-app-border rounded-2xl p-4 text-center">
                       <div className="w-8 h-8 flex items-center justify-center mx-auto mb-2 rounded-xl" style={{ backgroundColor: `${s.color}15` }}>
@@ -459,9 +459,9 @@ export default function MelonStatsPage() {
 
                 {/* Quiz score chart */}
                 <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
-                  <p className="text-white/70 text-sm font-semibold mb-4">Điểm quiz theo bài</p>
+                  <p className="text-white/70 text-sm font-semibold mb-4">�i?m quiz theo b�i</p>
                   {quizScores.length === 0 ? (
-                    <p className="text-app-text-muted text-xs text-center py-6">Chưa có dữ liệu quiz</p>
+                    <p className="text-app-text-muted text-xs text-center py-6">Chua c� d? li?u quiz</p>
                   ) : (
                     <BarChart
                       data={quizScores.slice(-7).map(q => {
@@ -478,9 +478,9 @@ export default function MelonStatsPage() {
 
                 {/* Quiz history list */}
                 <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
-                  <p className="text-white/70 text-sm font-semibold mb-3">Lịch sử quiz</p>
+                  <p className="text-white/70 text-sm font-semibold mb-3">L?ch s? quiz</p>
                   {quizScores.length === 0 ? (
-                    <p className="text-app-text-muted text-xs text-center py-4">Chưa làm quiz nào</p>
+                    <p className="text-app-text-muted text-xs text-center py-4">Chua l�m quiz n�o</p>
                   ) : (
                     <div className="space-y-2">
                       {[...quizScores].reverse().map((q, i) => {
@@ -494,7 +494,7 @@ export default function MelonStatsPage() {
                               className="w-9 h-9 rounded-lg object-cover object-top flex-shrink-0"
                             />
                             <div className="flex-1 min-w-0">
-                              <p className="text-white/75 text-xs font-semibold truncate">{song?.title ?? `Bài #${q.rank}`}</p>
+                              <p className="text-white/75 text-xs font-semibold truncate">{song?.title ?? `B�i #${q.rank}`}</p>
                               <p className="text-app-text-muted text-[10px]">{q.date ? new Date(q.date).toLocaleDateString("vi-VN") : ""}</p>
                             </div>
                             <div className="flex items-center gap-2 flex-shrink-0">

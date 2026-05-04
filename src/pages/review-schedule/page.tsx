@@ -1,16 +1,16 @@
-﻿import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsLessons } from "@/mocks/epsLessons";
 
-// ─── Notification Settings ────────────────────────────────────────────────
+// --- Notification Settings ------------------------------------------------
 interface NotificationSettings {
   enabled: boolean;
   permission: "default" | "granted" | "denied";
   reminderTime: string; // HH:MM
   reminderDays: number[]; // 0=CN, 1=T2, ..., 6=T7
-  advanceMinutes: number; // nhắc trước bao nhiêu phút
+  advanceMinutes: number; // nh?c tru?c bao nhi�u ph�t
 }
 
 function NotificationPanel({
@@ -31,8 +31,8 @@ function NotificationPanel({
   const testNotification = async () => {
     if (settings.permission !== "granted") return;
     setTesting(true);
-    new Notification("Nhắc nhở học tập", {
-      body: "Đây là thông báo thử nghiệm từ Hàn Quốc Ơi! Đến giờ ôn bài rồi!",
+    new Notification("Nh?c nh? h?c t?p", {
+      body: "��y l� th�ng b�o th? nghi?m t? H�n Qu?c Oi! �?n gi? �n b�i r?i!",
       icon: "https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png",
     });
     setTimeout(() => setTesting(false), 2000);
@@ -51,25 +51,25 @@ function NotificationPanel({
     <div className="bg-app-bg border border-app-border rounded-2xl p-4 space-y-4">
       <div className="flex items-center gap-2">
         <i className="ri-notification-3-line text-app-accent-primary text-sm"></i>
-        <p className="text-white font-semibold text-sm">Nhắc nhở học tập</p>
+        <p className="text-white font-semibold text-sm">Nh?c nh? h?c t?p</p>
       </div>
 
       {/* Permission status */}
       {settings.permission === "default" && (
         <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-3">
-          <p className="text-app-accent-primary text-xs font-medium mb-2">Bật thông báo để nhận nhắc nhở</p>
+          <p className="text-app-accent-primary text-xs font-medium mb-2">B?t th�ng b�o d? nh?n nh?c nh?</p>
           <button
             onClick={requestPermission}
             className="w-full py-2 rounded-lg bg-app-accent-primary/15 hover:bg-app-accent-primary/25 text-app-accent-primary text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap"
           >
-            Cho phép thông báo
+            Cho ph�p th�ng b�o
           </button>
         </div>
       )}
 
       {settings.permission === "denied" && (
         <div className="bg-red-500/5 border border-red-500/15 rounded-xl p-3">
-          <p className="text-red-400 text-xs">Thông báo bị chặn. Vui lòng bật lại trong cài đặt trình duyệt.</p>
+          <p className="text-red-400 text-xs">Th�ng b�o b? ch?n. Vui l�ng b?t l?i trong c�i d?t tr�nh duy?t.</p>
         </div>
       )}
 
@@ -77,7 +77,7 @@ function NotificationPanel({
         <>
           {/* Toggle */}
           <div className="flex items-center justify-between">
-            <span className="text-white/60 text-xs">Bật nhắc nhở</span>
+            <span className="text-white/60 text-xs">B?t nh?c nh?</span>
             <button
               onClick={() => onUpdate({ ...settings, enabled: !settings.enabled })}
               className={`w-10 h-5 rounded-full transition-all cursor-pointer relative ${settings.enabled ? "bg-app-accent-primary" : "bg-app-card/70"}`}
@@ -90,7 +90,7 @@ function NotificationPanel({
             <>
               {/* Time picker */}
               <div>
-                <p className="text-app-text-secondary text-xs mb-2">Giờ nhắc nhở</p>
+                <p className="text-app-text-secondary text-xs mb-2">Gi? nh?c nh?</p>
                 <input
                   type="time"
                   value={settings.reminderTime}
@@ -101,7 +101,7 @@ function NotificationPanel({
 
               {/* Days picker */}
               <div>
-                <p className="text-app-text-secondary text-xs mb-2">Ngày nhắc nhở</p>
+                <p className="text-app-text-secondary text-xs mb-2">Ng�y nh?c nh?</p>
                 <div className="flex gap-1.5">
                   {DAYS_LABEL.map((label, i) => (
                     <button
@@ -121,7 +121,7 @@ function NotificationPanel({
 
               {/* Advance minutes */}
               <div>
-                <p className="text-app-text-secondary text-xs mb-2">Nhắc trước (phút)</p>
+                <p className="text-app-text-secondary text-xs mb-2">Nh?c tru?c (ph�t)</p>
                 <div className="flex gap-2">
                   {[0, 5, 10, 15, 30].map(min => (
                     <button
@@ -133,7 +133,7 @@ function NotificationPanel({
                           : "bg-app-card/50 text-app-text-muted hover:text-white/50"
                       }`}
                     >
-                      {min === 0 ? "Đúng giờ" : `${min}p`}
+                      {min === 0 ? "��ng gi?" : `${min}p`}
                     </button>
                   ))}
                 </div>
@@ -146,7 +146,7 @@ function NotificationPanel({
                 className="w-full flex items-center justify-center gap-2 py-2 rounded-xl border border-app-border hover:border-white/20 text-white/50 hover:text-white/80 text-xs font-medium transition-all cursor-pointer whitespace-nowrap disabled:opacity-50"
               >
                 <i className={`${testing ? "ri-loader-4-line animate-spin" : "ri-notification-line"}`}></i>
-                {testing ? "Đang gửi..." : "Thử thông báo"}
+                {testing ? "�ang g?i..." : "Th? th�ng b�o"}
               </button>
             </>
           )}
@@ -156,7 +156,7 @@ function NotificationPanel({
   );
 }
 
-// ─── Types ────────────────────────────────────────────────────────────────
+// --- Types ----------------------------------------------------------------
 interface ScheduledLesson {
   lessonId: number;
   scheduledDate: string; // YYYY-MM-DD
@@ -170,7 +170,7 @@ interface DaySchedule {
   lessons: ScheduledLesson[];
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────
+// --- Helpers --------------------------------------------------------------
 function formatDate(date: Date): string {
   return date.toISOString().split("T")[0];
 }
@@ -195,15 +195,15 @@ function getFirstDayOfMonth(year: number, month: number): number {
 }
 
 const WEEKDAYS = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
-const MONTHS_VI = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
+const MONTHS_VI = ["Th�ng 1", "Th�ng 2", "Th�ng 3", "Th�ng 4", "Th�ng 5", "Th�ng 6", "Th�ng 7", "Th�ng 8", "Th�ng 9", "Th�ng 10", "Th�ng 11", "Th�ng 12"];
 
 const REMINDER_COLORS = [
-  { label: "Quan trọng", color: "#f87171", bg: "bg-red-500/10", border: "border-red-500/25", text: "text-red-400" },
-  { label: "Bình thường", color: "app-accent-primary", bg: "bg-app-accent-primary/10", border: "border-app-accent-primary/25", text: "text-app-accent-primary" },
-  { label: "Nhẹ nhàng", color: "#34d399", bg: "bg-emerald-500/10", border: "border-emerald-500/25", text: "text-app-accent-success" },
+  { label: "Quan tr?ng", color: "#f87171", bg: "bg-red-500/10", border: "border-red-500/25", text: "text-red-400" },
+  { label: "B�nh thu?ng", color: "app-accent-primary", bg: "bg-app-accent-primary/10", border: "border-app-accent-primary/25", text: "text-app-accent-primary" },
+  { label: "Nh? nh�ng", color: "#34d399", bg: "bg-emerald-500/10", border: "border-emerald-500/25", text: "text-app-accent-success" },
 ];
 
-// ─── Add Lesson Modal ─────────────────────────────────────────────────────
+// --- Add Lesson Modal -----------------------------------------------------
 function AddLessonModal({
   date,
   onClose,
@@ -246,8 +246,8 @@ function AddLessonModal({
       <div className="bg-app-bg border border-app-border rounded-2xl w-full max-w-md max-h-[80vh] flex flex-col overflow-hidden">
         <div className="flex items-center justify-between p-5 border-b border-app-border">
           <div>
-            <p className="text-white font-bold text-sm">Thêm bài ôn tập</p>
-            <p className="text-app-text-secondary text-xs mt-0.5">Ngày {dateStr}</p>
+            <p className="text-white font-bold text-sm">Th�m b�i �n t?p</p>
+            <p className="text-app-text-secondary text-xs mt-0.5">Ng�y {dateStr}</p>
           </div>
           <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/8 text-app-text-secondary cursor-pointer">
             <i className="ri-close-line"></i>
@@ -261,7 +261,7 @@ function AddLessonModal({
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder="Tìm bài học..."
+              placeholder="T�m b�i h?c..."
               className="w-full bg-app-card/50 border border-app-border rounded-lg pl-9 pr-4 py-2 text-white text-sm placeholder-white/25 focus:outline-none focus:border-white/20"
             />
           </div>
@@ -285,7 +285,7 @@ function AddLessonModal({
             </button>
           ))}
           {filtered.length === 0 && (
-            <p className="text-app-text-muted text-sm text-center py-6">Không tìm thấy bài học</p>
+            <p className="text-app-text-muted text-sm text-center py-6">Kh�ng t�m th?y b�i h?c</p>
           )}
         </div>
 
@@ -294,7 +294,7 @@ function AddLessonModal({
             type="text"
             value={note}
             onChange={e => setNote(e.target.value)}
-            placeholder="Ghi chú (tùy chọn)..."
+            placeholder="Ghi ch� (t�y ch?n)..."
             className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2 text-white text-sm placeholder-white/25 focus:outline-none focus:border-white/20"
           />
           <button
@@ -302,7 +302,7 @@ function AddLessonModal({
             disabled={!selectedLesson}
             className="w-full py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm transition-colors cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            Thêm vào lịch
+            Th�m v�o l?ch
           </button>
         </div>
       </div>
@@ -310,7 +310,7 @@ function AddLessonModal({
   );
 }
 
-// ─── Day Detail Panel ─────────────────────────────────────────────────────
+// --- Day Detail Panel -----------------------------------------------------
 function DayDetailPanel({
   date,
   schedules,
@@ -339,8 +339,8 @@ function DayDetailPanel({
       <div className="flex items-center justify-between">
         <div>
           <p className="text-white font-bold text-sm">{dateStr}</p>
-          {isToday && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary mt-1 inline-block">Hôm nay</span>}
-          {isPast && !isToday && <span className="text-[10px] text-app-text-muted mt-1 inline-block">Đã qua</span>}
+          {isToday && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary mt-1 inline-block">H�m nay</span>}
+          {isPast && !isToday && <span className="text-[10px] text-app-text-muted mt-1 inline-block">�� qua</span>}
         </div>
         <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-white/8 text-app-text-secondary cursor-pointer">
           <i className="ri-close-line text-sm"></i>
@@ -350,7 +350,7 @@ function DayDetailPanel({
       {schedules.length === 0 ? (
         <div className="text-center py-6">
           <i className="ri-calendar-line text-app-text-muted text-2xl block mb-2"></i>
-          <p className="text-app-text-muted text-sm">Chưa có bài ôn tập</p>
+          <p className="text-app-text-muted text-sm">Chua c� b�i �n t?p</p>
         </div>
       ) : (
         <div className="space-y-2">
@@ -368,7 +368,7 @@ function DayDetailPanel({
                   </button>
                   <div className="flex-1 min-w-0">
                     <p className={`text-sm font-medium truncate ${s.completed ? "text-app-text-secondary line-through" : "text-white/80"}`}>
-                      Bài {lesson.id}: {lesson.titleVi}
+                      B�i {lesson.id}: {lesson.titleVi}
                     </p>
                     {s.note && <p className="text-app-text-muted text-xs mt-0.5 italic">{s.note}</p>}
                   </div>
@@ -398,13 +398,13 @@ function DayDetailPanel({
         className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-dashed border-white/15 hover:border-app-accent-primary/30 hover:bg-app-accent-primary/5 text-app-text-muted hover:text-app-accent-primary text-sm font-medium transition-all cursor-pointer whitespace-nowrap"
       >
         <i className="ri-add-line"></i>
-        Thêm bài ôn tập
+        Th�m b�i �n t?p
       </button>
     </div>
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────
+// --- Main Page ------------------------------------------------------------
 export default function ReviewSchedulePage() {
   const today = new Date();
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
@@ -447,8 +447,8 @@ export default function ReviewSchedulePage() {
       const todayStr = formatDate(now);
       const todaySchedules = schedules.filter(s => s.scheduledDate === todayStr && !s.completed);
       if (todaySchedules.length > 0) {
-        new Notification("Nhắc nhở ôn tập EPS", {
-          body: `Bạn có ${todaySchedules.length} bài cần ôn hôm nay. Hãy học ngay!`,
+        new Notification("Nh?c nh? �n t?p EPS", {
+          body: `B?n c� ${todaySchedules.length} b�i c?n �n h�m nay. H�y h?c ngay!`,
           icon: "https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png",
         });
       }
@@ -481,7 +481,7 @@ export default function ReviewSchedulePage() {
             suggestions.push({
               lessonId,
               date: reviewDate,
-              reason: `Ôn lại sau ${days} ngày`,
+              reason: `�n l?i sau ${days} ng�y`,
             });
           }
         }
@@ -553,16 +553,16 @@ export default function ReviewSchedulePage() {
 
   return (
     <DashboardLayout
-      title="Lịch ôn tập"
-      subtitle="Lên lịch ôn bài theo ngày với nhắc nhở thông minh — dựa trên phương pháp lặp lại ngắt quãng"
+      title="L?ch �n t?p"
+      subtitle="L�n l?ch �n b�i theo ng�y v?i nh?c nh? th�ng minh � d?a tr�n phuong ph�p l?p l?i ng?t qu�ng"
     >
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         {[
-          { label: "Tổng lịch ôn", value: totalScheduled, icon: "ri-calendar-line", color: "app-accent-primary" },
-          { label: "Đã hoàn thành", value: totalCompleted, icon: "ri-checkbox-circle-line", color: "#34d399" },
-          { label: "Hôm nay", value: todaySchedules.length, icon: "ri-sun-line", color: "#fb923c" },
-          { label: "Sắp tới", value: upcomingCount, icon: "ri-time-line", color: "#a78bfa" },
+          { label: "T?ng l?ch �n", value: totalScheduled, icon: "ri-calendar-line", color: "app-accent-primary" },
+          { label: "�� ho�n th�nh", value: totalCompleted, icon: "ri-checkbox-circle-line", color: "#34d399" },
+          { label: "H�m nay", value: todaySchedules.length, icon: "ri-sun-line", color: "#fb923c" },
+          { label: "S?p t?i", value: upcomingCount, icon: "ri-time-line", color: "#a78bfa" },
         ].map(s => (
           <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-3 md:p-4 flex items-center gap-3">
             <div className="w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -659,15 +659,15 @@ export default function ReviewSchedulePage() {
             <div className="flex items-center gap-4 mt-4 pt-4 border-t border-app-border">
               <div className="flex items-center gap-1.5 text-xs text-app-text-muted">
                 <div className="w-2 h-2 rounded-full bg-app-accent-primary"></div>
-                Có lịch ôn
+                C� l?ch �n
               </div>
               <div className="flex items-center gap-1.5 text-xs text-app-text-muted">
                 <div className="w-2 h-2 rounded-full bg-emerald-400"></div>
-                Đã hoàn thành
+                �� ho�n th�nh
               </div>
               <div className="flex items-center gap-1.5 text-xs text-app-text-muted">
                 <div className="w-2 h-2 rounded-full border border-app-accent-primary/40"></div>
-                Hôm nay
+                H�m nay
               </div>
             </div>
           </div>
@@ -689,8 +689,8 @@ export default function ReviewSchedulePage() {
             <div className="bg-app-bg border border-app-accent-primary/15 rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-4">
                 <i className="ri-sun-line text-app-accent-primary"></i>
-                <p className="text-white font-semibold text-sm">Lịch ôn hôm nay</p>
-                <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary">{todaySchedules.length} bài</span>
+                <p className="text-white font-semibold text-sm">L?ch �n h�m nay</p>
+                <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary">{todaySchedules.length} b�i</span>
               </div>
               <div className="space-y-2">
                 {todaySchedules.map(s => {
@@ -706,7 +706,7 @@ export default function ReviewSchedulePage() {
                       </button>
                       <div className="flex-1 min-w-0">
                         <p className={`text-sm font-medium truncate ${s.completed ? "text-app-text-secondary line-through" : "text-white/80"}`}>
-                          Bài {lesson.id}: {lesson.titleVi}
+                          B�i {lesson.id}: {lesson.titleVi}
                         </p>
                         {s.note && <p className="text-app-text-muted text-xs">{s.note}</p>}
                       </div>
@@ -723,9 +723,9 @@ export default function ReviewSchedulePage() {
         <div className="space-y-4">
           {/* Quick add */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-4">
-            <p className="text-white font-semibold text-sm mb-3">Thêm lịch ôn nhanh</p>
+            <p className="text-white font-semibold text-sm mb-3">Th�m l?ch �n nhanh</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-3">
-              {["Hôm nay", "Ngày mai", "Tuần sau"].map((label, i) => {
+              {["H�m nay", "Ng�y mai", "Tu?n sau"].map((label, i) => {
                 const d = addDays(today, i === 0 ? 0 : i === 1 ? 1 : 7);
                 const dateStr = formatDate(d);
                 return (
@@ -745,7 +745,7 @@ export default function ReviewSchedulePage() {
                 className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-app-accent-primary/25 bg-app-accent-primary/5 hover:bg-app-accent-primary/10 text-app-accent-primary text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap"
               >
                 <i className="ri-add-line"></i>
-                Thêm vào ngày đã chọn
+                Th�m v�o ng�y d� ch?n
               </button>
             )}
           </div>
@@ -755,20 +755,20 @@ export default function ReviewSchedulePage() {
             <div className="bg-app-bg border border-app-border rounded-2xl p-4">
               <div className="flex items-center gap-2 mb-3">
                 <i className="ri-magic-line text-[#a78bfa] text-sm"></i>
-                <p className="text-white font-semibold text-sm">Gợi ý ôn tập thông minh</p>
+                <p className="text-white font-semibold text-sm">G?i � �n t?p th�ng minh</p>
               </div>
-              <p className="text-app-text-muted text-xs mb-3">Dựa trên lịch sử học — phương pháp lặp lại ngắt quãng</p>
+              <p className="text-app-text-muted text-xs mb-3">D?a tr�n l?ch s? h?c � phuong ph�p l?p l?i ng?t qu�ng</p>
               <div className="space-y-2">
                 {autoSchedule.slice(0, 5).map((s, i) => {
                   const lesson = epsLessons.find(l => l.id === s.lessonId);
                   if (!lesson) return null;
                   const d = parseDate(s.date);
-                  const dateLabel = s.date === todayStr ? "Hôm nay" : s.date === formatDate(addDays(today, 1)) ? "Ngày mai" : `${d.getDate()}/${d.getMonth() + 1}`;
+                  const dateLabel = s.date === todayStr ? "H�m nay" : s.date === formatDate(addDays(today, 1)) ? "Ng�y mai" : `${d.getDate()}/${d.getMonth() + 1}`;
                   return (
                     <div key={i} className="flex items-center gap-3 p-3 rounded-xl border border-app-border bg-white/2">
                       <div className="flex-1 min-w-0">
-                        <p className="text-white/70 text-xs font-medium truncate">Bài {lesson.id}: {lesson.titleVi}</p>
-                        <p className="text-app-text-muted text-[10px] mt-0.5">{s.reason} — {dateLabel}</p>
+                        <p className="text-white/70 text-xs font-medium truncate">B�i {lesson.id}: {lesson.titleVi}</p>
+                        <p className="text-app-text-muted text-[10px] mt-0.5">{s.reason} � {dateLabel}</p>
                       </div>
                       <button
                         onClick={() => handleAddAutoSuggestion(s)}
@@ -785,12 +785,12 @@ export default function ReviewSchedulePage() {
 
           {/* Upcoming schedule */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-4">
-            <p className="text-white font-semibold text-sm mb-3">Lịch ôn sắp tới</p>
+            <p className="text-white font-semibold text-sm mb-3">L?ch �n s?p t?i</p>
             {schedules.filter(s => s.scheduledDate >= todayStr && !s.completed).length === 0 ? (
               <div className="text-center py-6">
                 <i className="ri-calendar-check-line text-app-text-muted text-2xl block mb-2"></i>
-                <p className="text-app-text-muted text-sm">Chưa có lịch ôn sắp tới</p>
-                <p className="text-app-text-muted text-xs mt-1">Thêm bài ôn tập vào lịch</p>
+                <p className="text-app-text-muted text-sm">Chua c� l?ch �n s?p t?i</p>
+                <p className="text-app-text-muted text-xs mt-1">Th�m b�i �n t?p v�o l?ch</p>
               </div>
             ) : (
               <div className="space-y-2">
@@ -804,13 +804,13 @@ export default function ReviewSchedulePage() {
                     const d = parseDate(s.scheduledDate);
                     const isToday = s.scheduledDate === todayStr;
                     const isTomorrow = s.scheduledDate === formatDate(addDays(today, 1));
-                    const dateLabel = isToday ? "Hôm nay" : isTomorrow ? "Ngày mai" : `${d.getDate()}/${d.getMonth() + 1}`;
+                    const dateLabel = isToday ? "H�m nay" : isTomorrow ? "Ng�y mai" : `${d.getDate()}/${d.getMonth() + 1}`;
                     return (
                       <div key={i} className="flex items-center gap-3 p-2.5 rounded-xl border border-app-border bg-white/2">
                         <div className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${isToday ? "bg-app-accent-primary/15 text-app-accent-primary" : "bg-app-card/50 text-app-text-muted"}`}>
                           {dateLabel}
                         </div>
-                        <p className="text-white/60 text-xs flex-1 truncate">Bài {lesson.id}: {lesson.titleVi}</p>
+                        <p className="text-white/60 text-xs flex-1 truncate">B�i {lesson.id}: {lesson.titleVi}</p>
                       </div>
                     );
                   })}
@@ -826,15 +826,15 @@ export default function ReviewSchedulePage() {
 
           {/* Tips */}
           <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
-            <p className="text-app-accent-primary text-xs font-semibold mb-2">Phương pháp lặp lại ngắt quãng</p>
+            <p className="text-app-accent-primary text-xs font-semibold mb-2">Phuong ph�p l?p l?i ng?t qu�ng</p>
             <div className="space-y-1.5">
               {[
-                { day: "Ngày 1", desc: "Học bài mới" },
-                { day: "Ngày 2", desc: "Ôn lại lần 1" },
-                { day: "Ngày 4", desc: "Ôn lại lần 2" },
-                { day: "Ngày 8", desc: "Ôn lại lần 3" },
-                { day: "Ngày 15", desc: "Ôn lại lần 4" },
-                { day: "Ngày 31", desc: "Ôn lại lần 5" },
+                { day: "Ng�y 1", desc: "H?c b�i m?i" },
+                { day: "Ng�y 2", desc: "�n l?i l?n 1" },
+                { day: "Ng�y 4", desc: "�n l?i l?n 2" },
+                { day: "Ng�y 8", desc: "�n l?i l?n 3" },
+                { day: "Ng�y 15", desc: "�n l?i l?n 4" },
+                { day: "Ng�y 31", desc: "�n l?i l?n 5" },
               ].map((t, i) => (
                 <div key={i} className="flex items-center gap-2 text-xs">
                   <span className="text-app-accent-primary font-bold w-14 flex-shrink-0">{t.day}</span>

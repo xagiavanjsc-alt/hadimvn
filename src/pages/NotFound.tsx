@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export default function NotFound() {
@@ -43,12 +43,12 @@ export default function NotFound() {
 
         {/* Title */}
         <h1 className="text-white font-black text-5xl mb-2 tracking-tight">404</h1>
-        <p className="text-white/70 font-semibold text-lg mb-2">Trang không tồn tại</p>
+        <p className="text-white/70 font-semibold text-lg mb-2">Trang kh�ng t?n t?i</p>
         <p className="text-app-text-muted text-sm mb-2 font-mono bg-app-card/50 px-3 py-1.5 rounded-lg border border-app-border max-w-xs truncate">
           {location.pathname}
         </p>
         <p className="text-app-text-muted text-sm mb-8">
-          Trang này chưa được tạo hoặc đường dẫn không đúng
+          Trang n�y chua du?c t?o ho?c du?ng d?n kh�ng d�ng
         </p>
 
         {/* Countdown ring + button */}
@@ -75,7 +75,7 @@ export default function NotFound() {
             </svg>
             <span className="text-app-accent-primary font-bold text-lg relative z-10">{countdown}</span>
           </div>
-          <p className="text-app-text-muted text-xs">Tự động về trang chủ sau {countdown}s</p>
+          <p className="text-app-text-muted text-xs">T? d?ng v? trang ch? sau {countdown}s</p>
 
           {/* Buttons */}
           <div className="flex gap-3 w-full mt-2">
@@ -84,28 +84,28 @@ export default function NotFound() {
               className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-app-border text-white/50 text-sm font-medium cursor-pointer hover:bg-app-card/50 hover:text-white/70 transition-all whitespace-nowrap"
             >
               <i className="ri-arrow-left-line" />
-              Quay lại
+              Quay l?i
             </button>
             <button
               onClick={() => navigate("/")}
               className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold cursor-pointer transition-all whitespace-nowrap"
             >
               <i className="ri-home-4-line" />
-              Trang chủ
+              Trang ch?
             </button>
           </div>
 
           {/* Quick links */}
           <div className="w-full mt-2">
-            <p className="text-app-text-muted text-xs mb-3">Hoặc đến nhanh:</p>
+            <p className="text-app-text-muted text-xs mb-3">Ho?c d?n nhanh:</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {[
                 { label: "Melon Chart", icon: "ri-music-2-line", path: "/melon" },
                 { label: "EPS", icon: "ri-book-open-line", path: "/eps" },
-                { label: "Từ điển", icon: "ri-search-line", path: "/dictionary" },
-                { label: "Ngữ pháp", icon: "ri-file-list-3-line", path: "/grammar" },
+                { label: "T? di?n", icon: "ri-search-line", path: "/dictionary" },
+                { label: "Ng? ph�p", icon: "ri-file-list-3-line", path: "/grammar" },
                 { label: "Flashcard", icon: "ri-stack-line", path: "/flashcard-hub" },
-                { label: "Cộng đồng", icon: "ri-group-line", path: "/community" },
+                { label: "C?ng d?ng", icon: "ri-group-line", path: "/community" },
               ].map((link) => (
                 <button
                   key={link.path}

@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { vocabularyData, VOCAB_CATEGORIES, type VocabItem } from "@/mocks/vocabularyData";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -25,7 +25,7 @@ interface FlashcardSession {
 }
 
 const LEVELS = [
-  { id: "all", label: "Tất cả", color: "app-accent-primary" },
+  { id: "all", label: "T?t c?", color: "app-accent-primary" },
   { id: "A1", label: "A1", color: "#34d399" },
   { id: "A2", label: "A2", color: "#38bdf8" },
   { id: "B1", label: "B1", color: "#fb923c" },
@@ -95,7 +95,7 @@ export default function TopikFlashcardPage() {
   const touchStartY = useRef<number | null>(null);
   const [swipeHint, setSwipeHint] = useState<"left" | "right" | null>(null);
 
-  // ─── Supabase Sync ────────────────────────────────────────────────────────
+  // --- Supabase Sync --------------------------------------------------------
   const syncToSupabase = useCallback(async () => {
     if (!user || spacedData.cards.length === 0) return;
     setSyncStatus("syncing");
@@ -296,7 +296,7 @@ export default function TopikFlashcardPage() {
         <div className="p-6 max-w-3xl mx-auto">
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-white mb-1">Flashcard TOPIK</h1>
-            <p className="text-app-text-secondary text-sm">Luyện từ vựng TOPIK I/II với spaced repetition — hệ thống tự động nhắc lại đúng lúc</p>
+            <p className="text-app-text-secondary text-sm">Luy?n t? v?ng TOPIK I/II v?i spaced repetition � h? th?ng t? d?ng nh?c l?i d�ng l�c</p>
           </div>
 
           {/* Sync status banner */}
@@ -316,14 +316,14 @@ export default function TopikFlashcardPage() {
                 }`}></i>
                 <div>
                   <p className="text-white/60 text-xs font-medium">
-                    {syncStatus === "synced" ? "Đã đồng bộ lên cloud" :
-                     syncStatus === "syncing" ? "Đang đồng bộ..." :
-                     syncStatus === "error" ? "Lỗi đồng bộ" :
-                     "Chưa đồng bộ"}
+                    {syncStatus === "synced" ? "�� d?ng b? l�n cloud" :
+                     syncStatus === "syncing" ? "�ang d?ng b?..." :
+                     syncStatus === "error" ? "L?i d?ng b?" :
+                     "Chua d?ng b?"}
                   </p>
                   {lastSyncTime && (
                     <p className="text-app-text-muted text-[10px]">
-                      Lần cuối: {new Date(lastSyncTime).toLocaleTimeString("vi-VN")}
+                      L?n cu?i: {new Date(lastSyncTime).toLocaleTimeString("vi-VN")}
                     </p>
                   )}
                 </div>
@@ -334,21 +334,21 @@ export default function TopikFlashcardPage() {
                   disabled={syncStatus === "syncing"}
                   className="px-3 py-1 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary text-xs cursor-pointer whitespace-nowrap border border-app-border transition-all"
                 >
-                  <i className="ri-download-cloud-line mr-1"></i>Tải về
+                  <i className="ri-download-cloud-line mr-1"></i>T?i v?
                 </button>
                 <button
                   onClick={syncToSupabase}
                   disabled={syncStatus === "syncing"}
                   className="px-3 py-1 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary text-xs cursor-pointer whitespace-nowrap border border-app-border transition-all"
                 >
-                  <i className="ri-upload-cloud-line mr-1"></i>Lưu lên
+                  <i className="ri-upload-cloud-line mr-1"></i>Luu l�n
                 </button>
               </div>
             </div>
           ) : (
             <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-app-border bg-app-surface/50 mb-5">
               <i className="ri-cloud-off-line text-app-text-muted text-sm"></i>
-              <p className="text-app-text-muted text-xs">Đăng nhập để đồng bộ tiến độ lên cloud — không mất dữ liệu khi đổi thiết bị</p>
+              <p className="text-app-text-muted text-xs">�ang nh?p d? d?ng b? ti?n d? l�n cloud � kh�ng m?t d? li?u khi d?i thi?t b?</p>
             </div>
           )}
 
@@ -356,21 +356,21 @@ export default function TopikFlashcardPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
             <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
               <p className="text-2xl font-bold text-app-accent-primary">{dueCards.length}</p>
-              <p className="text-app-text-secondary text-xs">Cần ôn hôm nay</p>
+              <p className="text-app-text-secondary text-xs">C?n �n h�m nay</p>
             </div>
             <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
               <p className="text-2xl font-bold text-app-accent-success">{masteredCount}</p>
-              <p className="text-app-text-secondary text-xs">Đã thuộc</p>
+              <p className="text-app-text-secondary text-xs">�� thu?c</p>
             </div>
             <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
               <p className="text-2xl font-bold text-white">{filteredWords.length}</p>
-              <p className="text-app-text-secondary text-xs">Tổng từ</p>
+              <p className="text-app-text-secondary text-xs">T?ng t?</p>
             </div>
           </div>
 
           {/* Level */}
           <div className="mb-5">
-            <p className="text-white/60 text-xs tracking-normal mb-3">Cấp độ</p>
+            <p className="text-white/60 text-xs tracking-normal mb-3">C?p d?</p>
             <div className="flex flex-wrap gap-2">
               {LEVELS.map((lv) => (
                 <button
@@ -393,7 +393,7 @@ export default function TopikFlashcardPage() {
 
           {/* Category */}
           <div className="mb-5">
-            <p className="text-white/60 text-xs tracking-normal mb-3">Chủ đề</p>
+            <p className="text-white/60 text-xs tracking-normal mb-3">Ch? d?</p>
             <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2">
               <button
                 onClick={() => setSelectedCategory("all")}
@@ -403,7 +403,7 @@ export default function TopikFlashcardPage() {
                     : "border-app-border text-app-text-secondary hover:text-white/70"
                 }`}
               >
-                Tất cả
+                T?t c?
               </button>
               {VOCAB_CATEGORIES.map((cat) => (
                 <button
@@ -426,7 +426,7 @@ export default function TopikFlashcardPage() {
 
           {/* Session size */}
           <div className="mb-8">
-            <p className="text-white/60 text-xs tracking-normal mb-3">Số thẻ mỗi phiên</p>
+            <p className="text-white/60 text-xs tracking-normal mb-3">S? th? m?i phi�n</p>
             <div className="flex gap-2">
               {[10, 20, 30, 50].map((n) => (
                 <button
@@ -450,7 +450,7 @@ export default function TopikFlashcardPage() {
             className="w-full py-3.5 bg-app-accent-primary hover:bg-app-accent-primary/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
           >
             <i className="ri-stack-line mr-2"></i>
-            Bắt đầu học ({Math.min(sessionSize, dueCards.length + newCards.length)} thẻ)
+            B?t d?u h?c ({Math.min(sessionSize, dueCards.length + newCards.length)} th?)
           </button>
         </div>
       </DashboardLayout>
@@ -478,7 +478,7 @@ export default function TopikFlashcardPage() {
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Từ vựng TOPIK cần ôn tập</title>
+<title>T? v?ng TOPIK c?n �n t?p</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Be+Vietnam+Pro:wght@400;600;700&display=swap');
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -505,13 +505,13 @@ export default function TopikFlashcardPage() {
 </head>
 <body>
 <div class="header">
-  <h1>📚 Từ vựng TOPIK cần ôn tập</h1>
-  <p>Xuất ngày ${new Date().toLocaleDateString("vi-VN")} · Hàn Quốc Ơi!</p>
+  <h1>?? T? v?ng TOPIK c?n �n t?p</h1>
+  <p>Xu?t ng�y ${new Date().toLocaleDateString("vi-VN")} � H�n Qu?c Oi!</p>
 </div>
 <div class="stats">
-  <div class="stat"><div class="stat-num">${exportWords.length}</div><div class="stat-label">Từ cần ôn</div></div>
-  <div class="stat"><div class="stat-num">${exportWords.filter(w => w.topikLevel === "A1" || w.topikLevel === "A2").length}</div><div class="stat-label">Sơ cấp (A1-A2)</div></div>
-  <div class="stat"><div class="stat-num">${exportWords.filter(w => w.topikLevel === "B1" || w.topikLevel === "B2").length}</div><div class="stat-label">Trung cấp (B1-B2)</div></div>
+  <div class="stat"><div class="stat-num">${exportWords.length}</div><div class="stat-label">T? c?n �n</div></div>
+  <div class="stat"><div class="stat-num">${exportWords.filter(w => w.topikLevel === "A1" || w.topikLevel === "A2").length}</div><div class="stat-label">So c?p (A1-A2)</div></div>
+  <div class="stat"><div class="stat-num">${exportWords.filter(w => w.topikLevel === "B1" || w.topikLevel === "B2").length}</div><div class="stat-label">Trung c?p (B1-B2)</div></div>
 </div>
 <div class="grid">
 ${exportWords.map(w => `
@@ -529,7 +529,7 @@ ${exportWords.map(w => `
   </div>
 `).join("")}
 </div>
-<div class="footer">Tạo bởi Hàn Quốc Ơi! · Học tiếng Hàn mỗi ngày</div>
+<div class="footer">T?o b?i H�n Qu?c Oi! � H?c ti?ng H�n m?i ng�y</div>
 </body>
 </html>`;
 
@@ -555,13 +555,13 @@ ${exportWords.map(w => `
           <div className="w-20 h-20 rounded-full bg-app-accent-success/15 border border-emerald-500/30 flex items-center justify-center mx-auto mb-4">
             <i className="ri-check-double-line text-app-accent-success text-3xl"></i>
           </div>
-          <h2 className="text-2xl font-bold text-white mb-2">Phiên học hoàn thành!</h2>
-          <p className="text-app-text-secondary text-sm mb-8">Hệ thống đã lên lịch ôn tập thông minh cho bạn</p>
+          <h2 className="text-2xl font-bold text-white mb-2">Phi�n h?c ho�n th�nh!</h2>
+          <p className="text-app-text-secondary text-sm mb-8">H? th?ng d� l�n l?ch �n t?p th�ng minh cho b?n</p>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
             {(["easy", "medium", "hard", "skip"] as Difficulty[]).map((d) => {
               const colors = { easy: "#34d399", medium: "app-accent-primary", hard: "#fb923c", skip: "#94a3b8" };
-              const labels = { easy: "Dễ", medium: "Ổn", hard: "Khó", skip: "Bỏ qua" };
+              const labels = { easy: "D?", medium: "?n", hard: "Kh�", skip: "B? qua" };
               return (
                 <div key={d} className="bg-app-surface/50 border border-app-border rounded-xl p-3 text-center">
                   <p className="text-xl font-bold" style={{ color: colors[d] }}>{sessionStats[d]}</p>
@@ -582,7 +582,7 @@ ${exportWords.map(w => `
               }`}
             >
               <i className={isVipYear ? "ri-file-pdf-line text-base" : "ri-lock-line text-base"}></i>
-              {isVipYear ? `Xuất ${hardCount} từ khó thành PDF` : "Chỉ VIP Năm"}
+              {isVipYear ? `Xu?t ${hardCount} t? kh� th�nh PDF` : "Ch? VIP Nam"}
             </button>
           )}
 
@@ -595,7 +595,7 @@ ${exportWords.map(w => `
             }`}
           >
             <i className={isVipYear ? "ri-download-line text-sm" : "ri-lock-line text-sm"}></i>
-            {isVipYear ? "Xuất toàn bộ từ cần ôn (PDF)" : "Chỉ VIP Năm mới xuất được"}
+            {isVipYear ? "Xu?t to�n b? t? c?n �n (PDF)" : "Ch? VIP Nam m?i xu?t du?c"}
           </button>
 
           {/* VIP Upgrade Modal */}
@@ -603,19 +603,19 @@ ${exportWords.map(w => `
             open={modalOpen}
             onClose={closeModal}
             reason={modalReason ?? "not_vip_year"}
-            featureName="Xuất PDF từ vựng TOPIK"
+            featureName="Xu?t PDF t? v?ng TOPIK"
           />
 
           <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 mb-6 text-left">
-            <p className="text-white/50 text-xs mb-2">Lịch ôn tập tiếp theo</p>
+            <p className="text-white/50 text-xs mb-2">L?ch �n t?p ti?p theo</p>
             <p className="text-white/70 text-sm">
-              Thẻ "Dễ" → ôn lại sau <span className="text-app-accent-success font-bold">6 ngày</span>
+              Th? "D?" ? �n l?i sau <span className="text-app-accent-success font-bold">6 ng�y</span>
             </p>
             <p className="text-white/70 text-sm">
-              Thẻ "Ổn" → ôn lại sau <span className="text-app-accent-primary font-bold">3 ngày</span>
+              Th? "?n" ? �n l?i sau <span className="text-app-accent-primary font-bold">3 ng�y</span>
             </p>
             <p className="text-white/70 text-sm">
-              Thẻ "Khó" → ôn lại <span className="text-red-400 font-bold">ngày mai</span>
+              Th? "Kh�" ? �n l?i <span className="text-red-400 font-bold">ng�y mai</span>
             </p>
           </div>
 
@@ -624,13 +624,13 @@ ${exportWords.map(w => `
               onClick={() => setPhase("setup")}
               className="flex-1 py-3 bg-app-card/50 hover:bg-app-card/70 text-white/70 font-medium rounded-xl transition-all cursor-pointer whitespace-nowrap border border-app-border"
             >
-              Cài đặt lại
+              C�i d?t l?i
             </button>
             <button
               onClick={startSession}
               className="flex-1 py-3 bg-app-accent-primary hover:bg-app-accent-primary/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap"
             >
-              <i className="ri-refresh-line mr-2"></i>Học tiếp
+              <i className="ri-refresh-line mr-2"></i>H?c ti?p
             </button>
           </div>
         </div>
@@ -638,7 +638,7 @@ ${exportWords.map(w => `
     );
   }
 
-  // Study phase — add touch handlers to the flashcard div
+  // Study phase � add touch handlers to the flashcard div
   return (
     <DashboardLayout>
       <div className="p-6 max-w-xl mx-auto">
@@ -658,7 +658,7 @@ ${exportWords.map(w => `
             className={`w-8 h-8 flex items-center justify-center rounded-lg transition-all cursor-pointer ${
               autoPlay ? "bg-app-accent-primary/20 text-app-accent-primary" : "bg-app-card/50 text-app-text-muted hover:text-white/60"
             }`}
-            title="Tự động lật thẻ"
+            title="T? d?ng l?t th?"
           >
             <i className="ri-play-circle-line text-sm"></i>
           </button>
@@ -685,15 +685,15 @@ ${exportWords.map(w => `
 
         {/* Mobile swipe hint */}
         <div className="flex items-center justify-center gap-4 text-[10px] text-white/15 mb-3 md:hidden">
-          <span><i className="ri-arrow-left-line mr-1"></i>Vuốt trái = Khó</span>
-          <span>Vuốt phải = Dễ<i className="ri-arrow-right-line ml-1"></i></span>
+          <span><i className="ri-arrow-left-line mr-1"></i>Vu?t tr�i = Kh�</span>
+          <span>Vu?t ph?i = D?<i className="ri-arrow-right-line ml-1"></i></span>
         </div>
 
         {/* Swipe hint overlay */}
         {swipeHint && (
           <div className="fixed inset-0 pointer-events-none z-10 flex items-center justify-center">
             <div className={`px-6 py-3 rounded-2xl text-white font-bold text-lg ${swipeHint === "right" ? "bg-emerald-500/80" : "bg-red-500/80"}`}>
-              {swipeHint === "right" ? <><i className="ri-emotion-happy-line mr-2"></i>Dễ</> : <><i className="ri-emotion-unhappy-line mr-2"></i>Khó</>}
+              {swipeHint === "right" ? <><i className="ri-emotion-happy-line mr-2"></i>D?</> : <><i className="ri-emotion-unhappy-line mr-2"></i>Kh�</>}
             </div>
           </div>
         )}
@@ -749,7 +749,7 @@ ${exportWords.map(w => `
               >
                 <i className="ri-volume-up-line text-lg"></i>
               </button>
-              <p className="text-app-text-muted text-xs mt-4">Nhấn để lật thẻ</p>
+              <p className="text-app-text-muted text-xs mt-4">Nh?n d? l?t th?</p>
             </div>
 
             {/* Back */}
@@ -759,22 +759,22 @@ ${exportWords.map(w => `
             >
               <p className="text-app-text-secondary text-sm mb-2">{currentWord?.korean} [{currentWord?.reading}]</p>
               <p className="text-3xl font-bold text-app-accent-primary mb-4 text-center">{currentWord?.vietnamese}</p>
-              <p className="text-app-text-muted text-xs mb-1 tracking-normal">Ví dụ</p>
+              <p className="text-app-text-muted text-xs mb-1 tracking-normal">V� d?</p>
               <p className="text-white/60 text-sm text-center mb-1">{currentWord?.example}</p>
               <p className="text-app-text-muted text-xs text-center italic">{currentWord?.exampleVi}</p>
             </div>
           </div>
         </div>
 
-        {/* Difficulty buttons — only show on back */}
+        {/* Difficulty buttons � only show on back */}
         {cardState === "back" ? (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {(["hard", "medium", "easy", "skip"] as Difficulty[]).map((d) => {
               const config = {
-                hard: { label: "Khó", color: "#fb923c", icon: "ri-emotion-unhappy-line" },
-                medium: { label: "Ổn", color: "app-accent-primary", icon: "ri-emotion-normal-line" },
-                easy: { label: "Dễ", color: "#34d399", icon: "ri-emotion-happy-line" },
-                skip: { label: "Bỏ qua", color: "#94a3b8", icon: "ri-skip-right-line" },
+                hard: { label: "Kh�", color: "#fb923c", icon: "ri-emotion-unhappy-line" },
+                medium: { label: "?n", color: "app-accent-primary", icon: "ri-emotion-normal-line" },
+                easy: { label: "D?", color: "#34d399", icon: "ri-emotion-happy-line" },
+                skip: { label: "B? qua", color: "#94a3b8", icon: "ri-skip-right-line" },
               };
               const c = config[d];
               return (
@@ -795,7 +795,7 @@ ${exportWords.map(w => `
             onClick={flipCard}
             className="w-full py-3 bg-app-card/50 hover:bg-app-card/70 text-white/60 font-medium rounded-xl transition-all cursor-pointer whitespace-nowrap border border-app-border"
           >
-            <i className="ri-refresh-line mr-2"></i>Lật thẻ để xem nghĩa
+            <i className="ri-refresh-line mr-2"></i>L?t th? d? xem nghia
           </button>
         )}
       </div>

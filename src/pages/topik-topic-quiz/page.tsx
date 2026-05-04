@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { vocabularyData, VOCAB_CATEGORIES, type VocabItem } from "@/mocks/vocabularyData";
 import ShareResultModal from "@/components/feature/ShareResultModal";
@@ -19,7 +19,7 @@ type QuizResult = {
 };
 
 const LEVELS = [
-  { id: "all", label: "Tất cả", color: "app-accent-primary" },
+  { id: "all", label: "T?t c?", color: "app-accent-primary" },
   { id: "A1", label: "A1", color: "#34d399" },
   { id: "A2", label: "A2", color: "#38bdf8" },
   { id: "B1", label: "B1", color: "#fb923c" },
@@ -146,13 +146,13 @@ export default function TopikTopicQuizPage() {
       <DashboardLayout>
         <div className="p-6 max-w-4xl mx-auto">
           <div className="mb-8">
-            <h1 className="text-2xl font-bold text-white mb-1">Luyện thi TOPIK theo chủ đề</h1>
-            <p className="text-app-text-secondary text-sm">Chọn chủ đề và cấp độ, làm bài trắc nghiệm với giải thích đáp án chi tiết</p>
+            <h1 className="text-2xl font-bold text-white mb-1">Luy?n thi TOPIK theo ch? d?</h1>
+            <p className="text-app-text-secondary text-sm">Ch?n ch? d? v� c?p d?, l�m b�i tr?c nghi?m v?i gi?i th�ch d�p �n chi ti?t</p>
           </div>
 
           {/* Category */}
           <div className="mb-6">
-            <p className="text-white/60 text-xs tracking-normal mb-3">Chủ đề từ vựng</p>
+            <p className="text-white/60 text-xs tracking-normal mb-3">Ch? d? t? v?ng</p>
             <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2">
               <button
                 onClick={() => setSelectedCategory("all")}
@@ -162,7 +162,7 @@ export default function TopikTopicQuizPage() {
                     : "border-app-border text-app-text-secondary hover:text-white/70 hover:border-white/20"
                 }`}
               >
-                <i className="ri-apps-line mr-1.5"></i>Tất cả
+                <i className="ri-apps-line mr-1.5"></i>T?t c?
               </button>
               {VOCAB_CATEGORIES.map((cat) => (
                 <button
@@ -187,7 +187,7 @@ export default function TopikTopicQuizPage() {
 
           {/* Level */}
           <div className="mb-6">
-            <p className="text-white/60 text-xs tracking-normal mb-3">Cấp độ TOPIK</p>
+            <p className="text-white/60 text-xs tracking-normal mb-3">C?p d? TOPIK</p>
             <div className="flex flex-wrap gap-2">
               {LEVELS.map((lv) => (
                 <button
@@ -212,7 +212,7 @@ export default function TopikTopicQuizPage() {
 
           {/* Question count */}
           <div className="mb-8">
-            <p className="text-white/60 text-xs tracking-normal mb-3">Số câu hỏi</p>
+            <p className="text-white/60 text-xs tracking-normal mb-3">S? c�u h?i</p>
             <div className="flex gap-2">
               {QUESTION_COUNTS.map((n) => (
                 <button
@@ -224,7 +224,7 @@ export default function TopikTopicQuizPage() {
                       : "border-app-border text-app-text-secondary hover:text-white/70"
                   }`}
                 >
-                  {n} câu
+                  {n} c�u
                 </button>
               ))}
             </div>
@@ -234,17 +234,17 @@ export default function TopikTopicQuizPage() {
           <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 mb-6 flex items-center gap-6">
             <div className="text-center">
               <p className="text-2xl font-bold text-app-accent-primary">{filteredWords.length}</p>
-              <p className="text-app-text-secondary text-xs">Từ có sẵn</p>
+              <p className="text-app-text-secondary text-xs">T? c� s?n</p>
             </div>
             <div className="w-px h-10 bg-white/8"></div>
             <div className="text-center">
               <p className="text-2xl font-bold text-white">{Math.min(questionCount, filteredWords.length)}</p>
-              <p className="text-app-text-secondary text-xs">Câu sẽ thi</p>
+              <p className="text-app-text-secondary text-xs">C�u s? thi</p>
             </div>
             <div className="w-px h-10 bg-white/8"></div>
             <div className="text-center">
               <p className="text-2xl font-bold text-app-accent-success">{Math.min(questionCount, filteredWords.length) * 15}</p>
-              <p className="text-app-text-secondary text-xs">XP tối đa</p>
+              <p className="text-app-text-secondary text-xs">XP t?i da</p>
             </div>
           </div>
 
@@ -253,10 +253,10 @@ export default function TopikTopicQuizPage() {
             disabled={filteredWords.length < 4}
             className="w-full py-3.5 bg-app-accent-primary hover:bg-app-accent-primary/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            <i className="ri-play-fill mr-2"></i>Bắt đầu luyện thi
+            <i className="ri-play-fill mr-2"></i>B?t d?u luy?n thi
           </button>
           {filteredWords.length < 4 && (
-            <p className="text-red-400 text-xs text-center mt-2">Cần ít nhất 4 từ để tạo bài thi. Hãy chọn chủ đề khác.</p>
+            <p className="text-red-400 text-xs text-center mt-2">C?n �t nh?t 4 t? d? t?o b�i thi. H�y ch?n ch? d? kh�c.</p>
           )}
         </div>
       </DashboardLayout>
@@ -280,8 +280,8 @@ export default function TopikTopicQuizPage() {
                 <i className="ri-arrow-left-line text-sm"></i>
               </button>
               <div>
-                <p className="text-white font-semibold text-sm">Câu {currentIdx + 1} / {questions.length}</p>
-                <p className="text-app-text-muted text-xs">{correctCount} đúng</p>
+                <p className="text-white font-semibold text-sm">C�u {currentIdx + 1} / {questions.length}</p>
+                <p className="text-app-text-muted text-xs">{correctCount} d�ng</p>
               </div>
             </div>
             <div className="flex items-center gap-2 bg-app-card/50 px-3 py-1.5 rounded-lg">
@@ -301,7 +301,7 @@ export default function TopikTopicQuizPage() {
           {/* Question */}
           <div className="bg-app-surface/50 border border-app-border rounded-2xl p-6 mb-6 text-center">
             <p className="text-app-text-secondary text-xs mb-3 tracking-normal">
-              {q.questionType === "ko2vi" ? "Từ tiếng Hàn → Nghĩa tiếng Việt" : "Nghĩa tiếng Việt → Từ tiếng Hàn"}
+              {q.questionType === "ko2vi" ? "T? ti?ng H�n ? Nghia ti?ng Vi?t" : "Nghia ti?ng Vi?t ? T? ti?ng H�n"}
             </p>
             <p className="text-3xl font-bold text-white mb-2">
               {q.questionType === "ko2vi" ? q.word.korean : q.word.vietnamese}
@@ -358,7 +358,7 @@ export default function TopikTopicQuizPage() {
           {/* Explanation */}
           {showExplanation && (
             <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 mb-4">
-              <p className="text-white/50 text-xs mb-2 tracking-normal">Ví dụ câu</p>
+              <p className="text-white/50 text-xs mb-2 tracking-normal">V� d? c�u</p>
               <p className="text-white/80 text-sm mb-1">{q.word.example}</p>
               <p className="text-app-text-secondary text-xs italic">{q.word.exampleVi}</p>
             </div>
@@ -369,7 +369,7 @@ export default function TopikTopicQuizPage() {
               onClick={nextQuestion}
               className="w-full py-3 bg-app-accent-primary hover:bg-app-accent-primary/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap"
             >
-              {currentIdx + 1 >= questions.length ? "Xem kết quả" : "Câu tiếp theo"}
+              {currentIdx + 1 >= questions.length ? "Xem k?t qu?" : "C�u ti?p theo"}
               <i className="ri-arrow-right-line ml-2"></i>
             </button>
           )}
@@ -395,15 +395,15 @@ export default function TopikTopicQuizPage() {
             </span>
           </div>
           <h2 className="text-xl font-bold text-white mb-1">
-            {accuracy >= 80 ? "Xuất sắc!" : accuracy >= 60 ? "Tốt lắm!" : "Cần cố gắng thêm!"}
+            {accuracy >= 80 ? "Xu?t s?c!" : accuracy >= 60 ? "T?t l?m!" : "C?n c? g?ng th�m!"}
           </h2>
           <p className="text-app-text-secondary text-sm mb-4">
-            {correctCount}/{results.length} câu đúng · {formatTime(totalTime)}
+            {correctCount}/{results.length} c�u d�ng � {formatTime(totalTime)}
           </p>
           <div className="flex items-center justify-center gap-6">
             <div className="text-center">
               <p className="text-2xl font-bold text-app-accent-success">{correctCount}</p>
-              <p className="text-app-text-muted text-xs">Đúng</p>
+              <p className="text-app-text-muted text-xs">��ng</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold text-red-400">{results.length - correctCount}</p>
@@ -428,7 +428,7 @@ export default function TopikTopicQuizPage() {
                   : "border-app-border text-app-text-secondary hover:text-white/70"
               }`}
             >
-              {f === "all" ? `Tất cả (${results.length})` : f === "correct" ? `Đúng (${correctCount})` : `Sai (${results.length - correctCount})`}
+              {f === "all" ? `T?t c? (${results.length})` : f === "correct" ? `��ng (${correctCount})` : `Sai (${results.length - correctCount})`}
             </button>
           ))}
         </div>
@@ -444,7 +444,7 @@ export default function TopikTopicQuizPage() {
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <span className={`text-xs font-bold ${r.isCorrect ? "text-app-accent-success" : "text-red-400"}`}>
-                      {r.isCorrect ? "✓ Đúng" : "✗ Sai"}
+                      {r.isCorrect ? "? ��ng" : "? Sai"}
                     </span>
                     <span className="text-app-text-muted text-xs">{r.question.word.topikLevel}</span>
                   </div>
@@ -452,7 +452,7 @@ export default function TopikTopicQuizPage() {
                   <p className="text-app-text-secondary text-xs">[{r.question.word.reading}]</p>
                   <p className="text-white/60 text-xs mt-1">{r.question.word.vietnamese}</p>
                   {!r.isCorrect && (
-                    <p className="text-red-400/70 text-xs mt-1">Bạn chọn: {r.userAnswer}</p>
+                    <p className="text-red-400/70 text-xs mt-1">B?n ch?n: {r.userAnswer}</p>
                   )}
                 </div>
                 <div className="text-right">
@@ -469,19 +469,19 @@ export default function TopikTopicQuizPage() {
             onClick={() => setPhase("setup")}
             className="flex-1 py-3 bg-app-card/50 hover:bg-app-card/70 text-white/70 font-medium rounded-xl transition-all cursor-pointer whitespace-nowrap border border-app-border"
           >
-            <i className="ri-settings-3-line mr-2"></i>Cài đặt lại
+            <i className="ri-settings-3-line mr-2"></i>C�i d?t l?i
           </button>
           <button
             onClick={() => setShowShare(true)}
             className="py-3 px-4 bg-app-card/50 hover:bg-app-card/70 text-white/60 font-medium rounded-xl transition-all cursor-pointer whitespace-nowrap border border-app-border"
           >
-            <i className="ri-share-line mr-1"></i>Chia sẻ
+            <i className="ri-share-line mr-1"></i>Chia s?
           </button>
           <button
             onClick={startQuiz}
             className="flex-1 py-3 bg-app-accent-primary hover:bg-app-accent-primary/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap"
           >
-            <i className="ri-refresh-line mr-2"></i>Làm lại
+            <i className="ri-refresh-line mr-2"></i>L�m l?i
           </button>
         </div>
       </div>

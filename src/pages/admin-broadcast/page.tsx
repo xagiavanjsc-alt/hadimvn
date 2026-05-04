@@ -1,8 +1,8 @@
-﻿import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { supabase } from "@/lib/supabase";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// --- Types --------------------------------------------------------------------
 interface BroadcastRecord {
   id: string;
   title: string;
@@ -26,12 +26,12 @@ interface TargetOption {
 }
 
 const EMAIL_TYPES = [
-  { value: "bulk_notification", label: "Thông báo chung", icon: "ri-notification-3-line", color: "#a78bfa" },
-  { value: "vip_expiry_reminder", label: "Nhắc gia hạn VIP", icon: "ri-alarm-warning-line", color: "#fb923c" },
-  { value: "welcome", label: "Chào mừng", icon: "ri-hand-heart-line", color: "#34d399" },
+  { value: "bulk_notification", label: "Th�ng b�o chung", icon: "ri-notification-3-line", color: "#a78bfa" },
+  { value: "vip_expiry_reminder", label: "Nh?c gia h?n VIP", icon: "ri-alarm-warning-line", color: "#fb923c" },
+  { value: "welcome", label: "Ch�o m?ng", icon: "ri-hand-heart-line", color: "#34d399" },
 ];
 
-// ─── Progress Modal ───────────────────────────────────────────────────────────
+// --- Progress Modal -----------------------------------------------------------
 function SendProgressModal({ total, sent, success, fail, done, onClose }: {
   total: number; sent: number; success: number; fail: number; done: boolean; onClose: () => void;
 }) {
@@ -45,14 +45,14 @@ function SendProgressModal({ total, sent, success, fail, done, onClose }: {
             <i className={`text-lg ${done ? "ri-checkbox-circle-line text-app-accent-success" : "ri-send-plane-line text-rose-400 animate-pulse"}`}></i>
           </div>
           <div>
-            <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>{done ? "Gửi hoàn tất!" : "Đang gửi email..."}</p>
-            <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>{sent}/{total} email đã xử lý</p>
+            <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>{done ? "G?i ho�n t?t!" : "�ang g?i email..."}</p>
+            <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>{sent}/{total} email d� x? l�</p>
           </div>
         </div>
 
         <div className="mb-4">
           <div className="flex items-center justify-between mb-1.5">
-            <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>Tiến độ</span>
+            <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>Ti?n d?</span>
             <span className="text-sm font-bold" style={{ color: done ? "#34d399" : "#f87171" }}>{pct}%</span>
           </div>
           <div className="h-3 rounded-full overflow-hidden" style={{ backgroundColor: "var(--admin-hover)" }}>
@@ -63,9 +63,9 @@ function SendProgressModal({ total, sent, success, fail, done, onClose }: {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
           {[
-            { label: "Tổng", value: total, color: "var(--admin-text)" },
-            { label: "Thành công", value: success, color: "#34d399" },
-            { label: "Thất bại", value: fail, color: "#f87171" },
+            { label: "T?ng", value: total, color: "var(--admin-text)" },
+            { label: "Th�nh c�ng", value: success, color: "#34d399" },
+            { label: "Th?t b?i", value: fail, color: "#f87171" },
           ].map(s => (
             <div key={s.label} className="text-center px-3 py-2.5 rounded-xl"
               style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>
@@ -77,7 +77,7 @@ function SendProgressModal({ total, sent, success, fail, done, onClose }: {
 
         {done && (
           <button onClick={onClose} className="w-full py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 text-white font-bold text-sm cursor-pointer whitespace-nowrap">
-            Đóng
+            ��ng
           </button>
         )}
       </div>
@@ -85,7 +85,7 @@ function SendProgressModal({ total, sent, success, fail, done, onClose }: {
   );
 }
 
-// ─── Broadcast History Row ────────────────────────────────────────────────────
+// --- Broadcast History Row ----------------------------------------------------
 function HistoryRow({ record }: { record: BroadcastRecord }) {
   const emailType = EMAIL_TYPES.find(t => t.value === record.emailType) || EMAIL_TYPES[0];
   const successRate = record.sentCount > 0 ? Math.round((record.successCount / record.sentCount) * 100) : 0;
@@ -103,27 +103,27 @@ function HistoryRow({ record }: { record: BroadcastRecord }) {
           <span className="text-[10px] px-1.5 py-0.5 rounded-full font-semibold flex-shrink-0"
             style={{ backgroundColor: `${emailType.color}15`, color: emailType.color }}>{emailType.label}</span>
           <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold flex-shrink-0 ${record.status === "done" ? "bg-app-accent-success/15 text-app-accent-success" : record.status === "sending" ? "bg-amber-500/15 text-amber-400" : "bg-rose-500/15 text-rose-400"}`}>
-            {record.status === "done" ? "Đã gửi" : record.status === "sending" ? "Đang gửi" : "Lỗi"}
+            {record.status === "done" ? "�� g?i" : record.status === "sending" ? "�ang g?i" : "L?i"}
           </span>
         </div>
         <p className="text-xs mb-2 line-clamp-1" style={{ color: "var(--admin-text-muted)" }}>{record.body}</p>
         <div className="flex items-center gap-4 text-xs flex-wrap" style={{ color: "var(--admin-text-faint)" }}>
           <span><i className="ri-group-line mr-1"></i>{record.targetLabel}</span>
-          <span><i className="ri-send-plane-line mr-1"></i>{record.sentCount.toLocaleString()} gửi</span>
-          <span className="text-app-accent-success"><i className="ri-checkbox-circle-line mr-1"></i>{record.successCount} thành công</span>
-          {record.failCount > 0 && <span className="text-rose-400"><i className="ri-close-circle-line mr-1"></i>{record.failCount} thất bại</span>}
+          <span><i className="ri-send-plane-line mr-1"></i>{record.sentCount.toLocaleString()} g?i</span>
+          <span className="text-app-accent-success"><i className="ri-checkbox-circle-line mr-1"></i>{record.successCount} th�nh c�ng</span>
+          {record.failCount > 0 && <span className="text-rose-400"><i className="ri-close-circle-line mr-1"></i>{record.failCount} th?t b?i</span>}
           <span>{new Date(record.sentAt).toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" })}</span>
         </div>
       </div>
       <div className="flex-shrink-0 text-right">
         <p className="text-lg font-black" style={{ color: successRate >= 90 ? "#34d399" : successRate >= 70 ? "app-accent-primary" : "#f87171" }}>{successRate}%</p>
-        <p className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>Thành công</p>
+        <p className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>Th�nh c�ng</p>
       </div>
     </div>
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function AdminBroadcastPage() {
   const [tab, setTab] = useState<"compose" | "history">("compose");
   const [title, setTitle] = useState("");
@@ -178,14 +178,14 @@ export default function AdminBroadcastPage() {
         .gte("vip_expires_at", new Date().toISOString());
 
       setTargetOptions([
-        { value: "all", label: "Tất cả học viên", count: total, icon: "ri-group-line", color: "#f87171" },
-        { value: "free", label: "Học viên Free", count: total - vipCount, icon: "ri-seedling-line", color: "#34d399" },
-        { value: "vip", label: "Học viên VIP", count: vipCount, icon: "ri-vip-crown-line", color: "app-accent-primary" },
-        { value: "vip_expiring", label: "VIP sắp hết hạn (7 ngày)", count: 0, icon: "ri-alarm-warning-line", color: "#fb923c" },
-        { value: "streak7", label: "Streak ≥ 7 ngày", count: streak7, icon: "ri-fire-line", color: "#fb923c" },
-        { value: "streak30", label: "Streak ≥ 30 ngày", count: streak30, icon: "ri-fire-fill", color: "#f87171" },
-        { value: "inactive", label: "Không hoạt động 7 ngày", count: inactive, icon: "ri-moon-line", color: "#6b7280" },
-        { value: "new", label: "Mới đăng ký (7 ngày)", count: newUsers, icon: "ri-user-add-line", color: "#a78bfa" },
+        { value: "all", label: "T?t c? h?c vi�n", count: total, icon: "ri-group-line", color: "#f87171" },
+        { value: "free", label: "H?c vi�n Free", count: total - vipCount, icon: "ri-seedling-line", color: "#34d399" },
+        { value: "vip", label: "H?c vi�n VIP", count: vipCount, icon: "ri-vip-crown-line", color: "app-accent-primary" },
+        { value: "vip_expiring", label: "VIP s?p h?t h?n (7 ng�y)", count: 0, icon: "ri-alarm-warning-line", color: "#fb923c" },
+        { value: "streak7", label: "Streak = 7 ng�y", count: streak7, icon: "ri-fire-line", color: "#fb923c" },
+        { value: "streak30", label: "Streak = 30 ng�y", count: streak30, icon: "ri-fire-fill", color: "#f87171" },
+        { value: "inactive", label: "Kh�ng ho?t d?ng 7 ng�y", count: inactive, icon: "ri-moon-line", color: "#6b7280" },
+        { value: "new", label: "M?i dang k� (7 ng�y)", count: newUsers, icon: "ri-user-add-line", color: "#a78bfa" },
       ]);
     }
     fetchCounts();
@@ -212,13 +212,13 @@ export default function AdminBroadcastPage() {
 
   const handleSend = async () => {
     if (!title.trim() || !body.trim()) {
-      showToast("Vui lòng nhập tiêu đề và nội dung!", "err");
+      showToast("Vui l�ng nh?p ti�u d? v� n?i dung!", "err");
       return;
     }
 
     const users = await fetchTargetUsers(target);
     if (users.length === 0) {
-      showToast("Không có người dùng nào trong nhóm này!", "err");
+      showToast("Kh�ng c� ngu?i d�ng n�o trong nh�m n�y!", "err");
       return;
     }
 
@@ -251,7 +251,7 @@ export default function AdminBroadcastPage() {
             body: {
               type: emailType,
               to: `user-${u.id}@placeholder.com`, // email not stored in user_profiles
-              displayName: u.display_name || "Học viên",
+              displayName: u.display_name || "H?c vi�n",
               bulkTitle: title,
               bulkBody: body,
               daysLeft: daysLeft || 7,
@@ -296,7 +296,7 @@ export default function AdminBroadcastPage() {
       action_label: "Broadcast email",
       actor_name: "Admin",
       target_name: selectedTarget?.label || target,
-      detail: `Gửi broadcast "${title}" đến ${users.length} người (${successCount} thành công, ${failCount} thất bại)`,
+      detail: `G?i broadcast "${title}" d?n ${users.length} ngu?i (${successCount} th�nh c�ng, ${failCount} th?t b?i)`,
       metadata: { target, count: users.length, success: successCount, fail: failCount, email_type: emailType },
       ip_address: "admin_panel",
     }).maybeSingle();
@@ -312,7 +312,7 @@ export default function AdminBroadcastPage() {
   return (
     <AdminLayout
       title="Broadcast Email"
-      subtitle="Gửi email hàng loạt đến toàn bộ hoặc nhóm học viên cụ thể"
+      subtitle="G?i email h�ng lo?t d?n to�n b? ho?c nh�m h?c vi�n c? th?"
     >
       {toast && (
         <div className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-xl text-sm font-medium text-white ${toast.type === "ok" ? "bg-emerald-600" : "bg-rose-600"}`}>
@@ -332,10 +332,10 @@ export default function AdminBroadcastPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng lần broadcast", value: history.length, icon: "ri-send-plane-line", color: "#34d399" },
-          { label: "Tổng email đã gửi", value: totalSent.toLocaleString(), icon: "ri-mail-send-line", color: "app-accent-primary" },
-          { label: "Tỷ lệ thành công TB", value: `${avgSuccessRate}%`, icon: "ri-checkbox-circle-line", color: "#a78bfa" },
-          { label: "Tổng học viên", value: (targetOptions[0]?.count || 0).toLocaleString(), icon: "ri-group-line", color: "#fb923c" },
+          { label: "T?ng l?n broadcast", value: history.length, icon: "ri-send-plane-line", color: "#34d399" },
+          { label: "T?ng email d� g?i", value: totalSent.toLocaleString(), icon: "ri-mail-send-line", color: "app-accent-primary" },
+          { label: "T? l? th�nh c�ng TB", value: `${avgSuccessRate}%`, icon: "ri-checkbox-circle-line", color: "#a78bfa" },
+          { label: "T?ng h?c vi�n", value: (targetOptions[0]?.count || 0).toLocaleString(), icon: "ri-group-line", color: "#fb923c" },
         ].map(s => (
           <div key={s.label} className="flex items-center gap-3 px-4 py-3 rounded-xl border"
             style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
@@ -353,8 +353,8 @@ export default function AdminBroadcastPage() {
       {/* Tabs */}
       <div className="flex items-center gap-1 mb-5 p-1 rounded-xl w-fit" style={{ backgroundColor: "var(--admin-hover)" }}>
         {[
-          { key: "compose", label: "Soạn & Gửi", icon: "ri-edit-line" },
-          { key: "history", label: `Lịch sử (${history.length})`, icon: "ri-history-line" },
+          { key: "compose", label: "So?n & G?i", icon: "ri-edit-line" },
+          { key: "history", label: `L?ch s? (${history.length})`, icon: "ri-history-line" },
         ].map(t => (
           <button key={t.key} onClick={() => setTab(t.key as "compose" | "history")}
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap"
@@ -369,7 +369,7 @@ export default function AdminBroadcastPage() {
           <div className="lg:col-span-2 space-y-4">
             {/* Email type */}
             <div className="rounded-2xl p-5 border" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-              <p className="text-xs font-semibold mb-3" style={{ color: "var(--admin-text-muted)" }}>Loại email</p>
+              <p className="text-xs font-semibold mb-3" style={{ color: "var(--admin-text-muted)" }}>Lo?i email</p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 {EMAIL_TYPES.map(t => (
                   <button key={t.value} onClick={() => setEmailType(t.value)}
@@ -387,17 +387,17 @@ export default function AdminBroadcastPage() {
             {/* Content */}
             <div className="rounded-2xl p-5 border space-y-4" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
               <div>
-                <label className="text-xs font-semibold block mb-2" style={{ color: "var(--admin-text-muted)" }}>Tiêu đề email *</label>
+                <label className="text-xs font-semibold block mb-2" style={{ color: "var(--admin-text-muted)" }}>Ti�u d? email *</label>
                 <input type="text" value={title} onChange={e => setTitle(e.target.value.slice(0, 100))}
-                  placeholder="Ví dụ: Tính năng mới tháng 4 đã ra mắt!"
+                  placeholder="V� d?: T�nh nang m?i th�ng 4 d� ra m?t!"
                   className="w-full px-4 py-3 rounded-xl text-sm outline-none border"
                   style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
                 <p className="text-[10px] mt-1 text-right" style={{ color: "var(--admin-text-faint)" }}>{title.length}/100</p>
               </div>
               <div>
-                <label className="text-xs font-semibold block mb-2" style={{ color: "var(--admin-text-muted)" }}>Nội dung *</label>
+                <label className="text-xs font-semibold block mb-2" style={{ color: "var(--admin-text-muted)" }}>N?i dung *</label>
                 <textarea value={body} onChange={e => setBody(e.target.value.slice(0, 500))}
-                  placeholder="Nhập nội dung email chi tiết..."
+                  placeholder="Nh?p n?i dung email chi ti?t..."
                   rows={5} className="w-full px-4 py-3 rounded-xl text-sm outline-none border resize-none"
                   style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
                 <p className="text-[10px] mt-1 text-right" style={{ color: "var(--admin-text-faint)" }}>{body.length}/500</p>
@@ -406,7 +406,7 @@ export default function AdminBroadcastPage() {
 
             {/* Target */}
             <div className="rounded-2xl p-5 border" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-              <p className="text-xs font-semibold mb-3" style={{ color: "var(--admin-text-muted)" }}>Đối tượng nhận</p>
+              <p className="text-xs font-semibold mb-3" style={{ color: "var(--admin-text-muted)" }}>�?i tu?ng nh?n</p>
               <div className="grid grid-cols-2 gap-2">
                 {targetOptions.map(t => (
                   <button key={t.value} onClick={() => setTarget(t.value)}
@@ -417,7 +417,7 @@ export default function AdminBroadcastPage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-medium truncate" style={{ color: target === t.value ? t.color : "var(--admin-text-muted)" }}>{t.label}</p>
-                      <p className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>{t.count.toLocaleString()} người</p>
+                      <p className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>{t.count.toLocaleString()} ngu?i</p>
                     </div>
                     {target === t.value && <i className="ri-check-line text-xs flex-shrink-0" style={{ color: t.color }}></i>}
                   </button>
@@ -429,8 +429,8 @@ export default function AdminBroadcastPage() {
             <div className="rounded-2xl p-5 border" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
               <div className="flex items-center justify-between mb-3">
                 <div>
-                  <p className="text-xs font-semibold" style={{ color: "var(--admin-text-muted)" }}>Lên lịch gửi</p>
-                  <p className="text-[10px] mt-0.5" style={{ color: "var(--admin-text-faint)" }}>Để trống để gửi ngay</p>
+                  <p className="text-xs font-semibold" style={{ color: "var(--admin-text-muted)" }}>L�n l?ch g?i</p>
+                  <p className="text-[10px] mt-0.5" style={{ color: "var(--admin-text-faint)" }}>�? tr?ng d? g?i ngay</p>
                 </div>
                 <button onClick={() => setScheduleEnabled(v => !v)}
                   className="relative w-10 h-5 rounded-full cursor-pointer flex-shrink-0"
@@ -450,22 +450,22 @@ export default function AdminBroadcastPage() {
               className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap disabled:opacity-40 text-white"
               style={{ backgroundColor: "#f43f5e" }}>
               <i className={scheduleEnabled ? "ri-calendar-schedule-line" : "ri-send-plane-fill"}></i>
-              {scheduleEnabled ? "Lên lịch gửi" : `Gửi ngay đến ${(selectedTarget?.count || 0).toLocaleString()} người`}
+              {scheduleEnabled ? "L�n l?ch g?i" : `G?i ngay d?n ${(selectedTarget?.count || 0).toLocaleString()} ngu?i`}
             </button>
           </div>
 
           {/* Preview */}
           <div className="space-y-4">
             <div className="rounded-2xl p-5 border" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-              <p className="text-xs font-semibold mb-4" style={{ color: "var(--admin-text-muted)" }}>Xem trước email</p>
+              <p className="text-xs font-semibold mb-4" style={{ color: "var(--admin-text-muted)" }}>Xem tru?c email</p>
               <div className="rounded-xl p-4 border" style={{ backgroundColor: "var(--admin-card2)", borderColor: "var(--admin-border)" }}>
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${selectedEmailType.color}15` }}>
                     <i className={`${selectedEmailType.icon} text-base`} style={{ color: selectedEmailType.color }}></i>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold" style={{ color: "var(--admin-text)" }}>{title || "Tiêu đề email"}</p>
-                    <p className="text-xs mt-1 leading-relaxed" style={{ color: "var(--admin-text-muted)" }}>{body || "Nội dung email sẽ hiển thị ở đây..."}</p>
+                    <p className="text-sm font-bold" style={{ color: "var(--admin-text)" }}>{title || "Ti�u d? email"}</p>
+                    <p className="text-xs mt-1 leading-relaxed" style={{ color: "var(--admin-text-muted)" }}>{body || "N?i dung email s? hi?n th? ? d�y..."}</p>
                     <div className="flex items-center gap-2 mt-2">
                       <span className="text-[10px] px-1.5 py-0.5 rounded-full font-semibold" style={{ backgroundColor: `${selectedEmailType.color}15`, color: selectedEmailType.color }}>{selectedEmailType.label}</span>
                     </div>
@@ -474,27 +474,27 @@ export default function AdminBroadcastPage() {
               </div>
               <div className="mt-4 pt-4 space-y-2 border-t" style={{ borderColor: "var(--admin-border)" }}>
                 <div className="flex items-center justify-between text-xs">
-                  <span style={{ color: "var(--admin-text-muted)" }}>Đối tượng:</span>
-                  <span className="font-semibold" style={{ color: "var(--admin-text)" }}>{selectedTarget?.label || "—"}</span>
+                  <span style={{ color: "var(--admin-text-muted)" }}>�?i tu?ng:</span>
+                  <span className="font-semibold" style={{ color: "var(--admin-text)" }}>{selectedTarget?.label || "�"}</span>
                 </div>
                 <div className="flex items-center justify-between text-xs">
-                  <span style={{ color: "var(--admin-text-muted)" }}>Số người nhận:</span>
+                  <span style={{ color: "var(--admin-text-muted)" }}>S? ngu?i nh?n:</span>
                   <span className="font-bold text-rose-400">{(selectedTarget?.count || 0).toLocaleString()}</span>
                 </div>
                 <div className="flex items-center justify-between text-xs">
-                  <span style={{ color: "var(--admin-text-muted)" }}>Loại email:</span>
+                  <span style={{ color: "var(--admin-text-muted)" }}>Lo?i email:</span>
                   <span className="font-semibold" style={{ color: selectedEmailType.color }}>{selectedEmailType.label}</span>
                 </div>
               </div>
             </div>
 
             <div className="rounded-2xl p-4 border" style={{ backgroundColor: "rgba(251,146,60,0.06)", borderColor: "rgba(251,146,60,0.20)" }}>
-              <p className="text-xs font-semibold mb-2" style={{ color: "#fb923c" }}>Lưu ý quan trọng</p>
+              <p className="text-xs font-semibold mb-2" style={{ color: "#fb923c" }}>Luu � quan tr?ng</p>
               <ul className="space-y-1.5 text-xs" style={{ color: "var(--admin-text-muted)" }}>
-                <li className="flex items-start gap-1.5"><i className="ri-information-line text-amber-400 flex-shrink-0 mt-0.5"></i>Email được gửi qua Resend API — cần cấu hình RESEND_API_KEY</li>
-                <li className="flex items-start gap-1.5"><i className="ri-information-line text-amber-400 flex-shrink-0 mt-0.5"></i>Email không lưu trong user_profiles — dùng email placeholder</li>
-                <li className="flex items-start gap-1.5"><i className="ri-information-line text-amber-400 flex-shrink-0 mt-0.5"></i>Gửi theo batch 5 email/lần để tránh rate limit</li>
-                <li className="flex items-start gap-1.5"><i className="ri-check-line text-app-accent-success flex-shrink-0 mt-0.5"></i>Mọi lần gửi đều được ghi vào Audit Log</li>
+                <li className="flex items-start gap-1.5"><i className="ri-information-line text-amber-400 flex-shrink-0 mt-0.5"></i>Email du?c g?i qua Resend API � c?n c?u h�nh RESEND_API_KEY</li>
+                <li className="flex items-start gap-1.5"><i className="ri-information-line text-amber-400 flex-shrink-0 mt-0.5"></i>Email kh�ng luu trong user_profiles � d�ng email placeholder</li>
+                <li className="flex items-start gap-1.5"><i className="ri-information-line text-amber-400 flex-shrink-0 mt-0.5"></i>G?i theo batch 5 email/l?n d? tr�nh rate limit</li>
+                <li className="flex items-start gap-1.5"><i className="ri-check-line text-app-accent-success flex-shrink-0 mt-0.5"></i>M?i l?n g?i d?u du?c ghi v�o Audit Log</li>
               </ul>
             </div>
           </div>
@@ -506,9 +506,9 @@ export default function AdminBroadcastPage() {
           {history.length === 0 ? (
             <div className="text-center py-16">
               <i className="ri-mail-send-line text-4xl mb-3 block" style={{ color: "var(--admin-text-faint)" }}></i>
-              <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Chưa có lần broadcast nào</p>
+              <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Chua c� l?n broadcast n�o</p>
               <button onClick={() => setTab("compose")} className="mt-3 text-xs cursor-pointer" style={{ color: "#f87171" }}>
-                Soạn broadcast đầu tiên →
+                So?n broadcast d?u ti�n ?
               </button>
             </div>
           ) : (

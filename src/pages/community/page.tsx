@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
@@ -10,21 +10,21 @@ import { useToast, ToastContainer } from "@/components/common/ToastNotification"
 import { communitySlug } from "@/lib/slugify";
 import AuthModal from "@/components/feature/AuthModal";
 
-// ─── SEO Component for Community Page ───────────────────────────────────────────────
+// --- SEO Component for Community Page -----------------------------------------------
 function CommunitySEO({ category, search }: { category: Category; search: string }) {
   useEffect(() => {
     const catConfig = CATEGORY_CONFIG[category];
-    let title = "Cộng đồng Hàn Quốc Ơi!";
-    let description = "Hỏi đáp, chia sẻ kinh nghiệm và cùng nhau tiến bộ";
+    let title = "C?ng d?ng H�n Qu?c Oi!";
+    let description = "H?i d�p, chia s? kinh nghi?m v� c�ng nhau ti?n b?";
 
     if (category !== "all") {
       title = `${catConfig.label} - ${title}`;
-      description = `Xem tất cả bài viết ${catConfig.label} trong cộng đồng Hàn Quốc Ơi!`;
+      description = `Xem t?t c? b�i vi?t ${catConfig.label} trong c?ng d?ng H�n Qu?c Oi!`;
     }
 
     if (search.trim()) {
-      title = `Kết quả tìm kiếm: "${search}" - ${title}`;
-      description = `Tìm kiếm "${search}" trong cộng đồng Hàn Quốc Ơi!`;
+      title = `K?t qu? t�m ki?m: "${search}" - ${title}`;
+      description = `T�m ki?m "${search}" trong c?ng d?ng H�n Qu?c Oi!`;
     }
 
     document.title = title;
@@ -64,7 +64,7 @@ function updateMetaTag(property: string, content: string) {
   tag.setAttribute('content', content);
 }
 
-// ─── Shared image utilities ───────────────────────────────────────────────────
+// --- Shared image utilities ---------------------------------------------------
 function convertToWebP(file: File, maxWidth: number): Promise<Blob> {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -100,7 +100,7 @@ async function uploadImageToCommunityStorage(file: File): Promise<string> {
   return getStorageUrl(`community-images/${fileName}`);
 }
 
-// ─── Rich Text Editor Component (WordPress-like, no external deps) ────────────
+// --- Rich Text Editor Component (WordPress-like, no external deps) ------------
 function RichEditor({ value, onChange, placeholder, onImageUpload }: {
   value: string;
   onChange: (value: string) => void;
@@ -135,7 +135,7 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Handle paste - strip inline styles & spans để tránh lỗi H2 bị wrap span/style
+  // Handle paste - strip inline styles & spans d? tr�nh l?i H2 b? wrap span/style
   const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
     e.preventDefault();
     const html = e.clipboardData.getData('text/html');
@@ -148,7 +148,7 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
         .replace(/<style[\s\S]*?<\/style>/gi, '')
         .replace(/<script[\s\S]*?<\/script>/gi, '')
         .replace(/<(\w+)([^>]*)>/gi, (_m, tag, attrs) => {
-          // Chỉ giữ href cho <a> và src/alt cho <img>
+          // Ch? gi? href cho <a> v� src/alt cho <img>
           if (tag.toLowerCase() === 'a') {
             const href = attrs.match(/href\s*=\s*"([^"]*)"/i);
             return `<a${href ? ` href="${href[1]}"` : ''}>`;
@@ -160,7 +160,7 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
           }
           return `<${tag}>`;
         })
-        // Bỏ <span> </span> wrap (vô nghĩa sau khi strip attrs)
+        // B? <span> </span> wrap (v� nghia sau khi strip attrs)
         .replace(/<\/?span>/gi, '')
         .replace(/<\/?font>/gi, '');
       document.execCommand('insertHTML', false, cleaned);
@@ -180,7 +180,7 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
       handleChange();
     } catch (err) {
       console.error('Image insert error:', err);
-      alert('Lỗi chèn ảnh');
+      alert('L?i ch�n ?nh');
     }
     e.target.value = ''; // reset to allow same file again
   };
@@ -188,48 +188,48 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
   const TOOLBAR = [
     { group: [
       { type: 'select', key: 'heading', options: [
-        { label: 'Văn bản', cmd: 'formatBlock', val: 'P' },
-        { label: 'Tiêu đề 1', cmd: 'formatBlock', val: 'H1' },
-        { label: 'Tiêu đề 2', cmd: 'formatBlock', val: 'H2' },
-        { label: 'Tiêu đề 3', cmd: 'formatBlock', val: 'H3' },
-        { label: 'Trích dẫn', cmd: 'formatBlock', val: 'BLOCKQUOTE' },
+        { label: 'Van b?n', cmd: 'formatBlock', val: 'P' },
+        { label: 'Ti�u d? 1', cmd: 'formatBlock', val: 'H1' },
+        { label: 'Ti�u d? 2', cmd: 'formatBlock', val: 'H2' },
+        { label: 'Ti�u d? 3', cmd: 'formatBlock', val: 'H3' },
+        { label: 'Tr�ch d?n', cmd: 'formatBlock', val: 'BLOCKQUOTE' },
       ]},
     ]},
     { group: [
-      { cmd: 'bold', icon: 'ri-bold', tip: 'In đậm (Ctrl+B)' },
-      { cmd: 'italic', icon: 'ri-italic', tip: 'In nghiêng (Ctrl+I)' },
-      { cmd: 'underline', icon: 'ri-underline', tip: 'Gạch chân (Ctrl+U)' },
-      { cmd: 'strikeThrough', icon: 'ri-strikethrough', tip: 'Gạch ngang' },
+      { cmd: 'bold', icon: 'ri-bold', tip: 'In d?m (Ctrl+B)' },
+      { cmd: 'italic', icon: 'ri-italic', tip: 'In nghi�ng (Ctrl+I)' },
+      { cmd: 'underline', icon: 'ri-underline', tip: 'G?ch ch�n (Ctrl+U)' },
+      { cmd: 'strikeThrough', icon: 'ri-strikethrough', tip: 'G?ch ngang' },
     ]},
     { group: [
-      { type: 'color', cmd: 'foreColor', icon: 'ri-font-color', tip: 'Màu chữ' },
-      { type: 'color', cmd: 'hiliteColor', icon: 'ri-mark-pen-line', tip: 'Màu nền' },
+      { type: 'color', cmd: 'foreColor', icon: 'ri-font-color', tip: 'M�u ch?' },
+      { type: 'color', cmd: 'hiliteColor', icon: 'ri-mark-pen-line', tip: 'M�u n?n' },
     ]},
     { group: [
-      { cmd: 'insertUnorderedList', icon: 'ri-list-unordered', tip: 'Danh sách' },
-      { cmd: 'insertOrderedList', icon: 'ri-list-ordered', tip: 'Danh sách số' },
+      { cmd: 'insertUnorderedList', icon: 'ri-list-unordered', tip: 'Danh s�ch' },
+      { cmd: 'insertOrderedList', icon: 'ri-list-ordered', tip: 'Danh s�ch s?' },
     ]},
     { group: [
-      { cmd: 'justifyLeft', icon: 'ri-align-left', tip: 'Căn trái' },
-      { cmd: 'justifyCenter', icon: 'ri-align-center', tip: 'Căn giữa' },
-      { cmd: 'justifyRight', icon: 'ri-align-right', tip: 'Căn phải' },
-      { cmd: 'justifyFull', icon: 'ri-align-justify', tip: 'Căn đều' },
+      { cmd: 'justifyLeft', icon: 'ri-align-left', tip: 'Can tr�i' },
+      { cmd: 'justifyCenter', icon: 'ri-align-center', tip: 'Can gi?a' },
+      { cmd: 'justifyRight', icon: 'ri-align-right', tip: 'Can ph?i' },
+      { cmd: 'justifyFull', icon: 'ri-align-justify', tip: 'Can d?u' },
     ]},
     { group: [
-      { cmd: 'createLink', icon: 'ri-link', tip: 'Chèn link' },
-      { cmd: 'unlink', icon: 'ri-link-unlink', tip: 'Xóa link' },
-      { cmd: 'insertImage', icon: 'ri-image-add-line', tip: 'Chèn ảnh' },
+      { cmd: 'createLink', icon: 'ri-link', tip: 'Ch�n link' },
+      { cmd: 'unlink', icon: 'ri-link-unlink', tip: 'X�a link' },
+      { cmd: 'insertImage', icon: 'ri-image-add-line', tip: 'Ch�n ?nh' },
     ]},
     { group: [
-      { cmd: 'undo', icon: 'ri-arrow-go-back-line', tip: 'Hoàn tác (Ctrl+Z)' },
-      { cmd: 'redo', icon: 'ri-arrow-go-forward-line', tip: 'Làm lại (Ctrl+Y)' },
-      { cmd: 'removeFormat', icon: 'ri-format-clear', tip: 'Xóa định dạng' },
+      { cmd: 'undo', icon: 'ri-arrow-go-back-line', tip: 'Ho�n t�c (Ctrl+Z)' },
+      { cmd: 'redo', icon: 'ri-arrow-go-forward-line', tip: 'L�m l?i (Ctrl+Y)' },
+      { cmd: 'removeFormat', icon: 'ri-format-clear', tip: 'X�a d?nh d?ng' },
     ]},
   ] as const;
 
   const handleToolbar = (item: any) => {
     if (item.cmd === 'createLink') {
-      const url = prompt('Nhập URL:');
+      const url = prompt('Nh?p URL:');
       if (url) exec('createLink', url);
     } else if (item.cmd === 'insertImage') {
       fileInputRef.current?.click();
@@ -238,14 +238,14 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
     }
   };
 
-  // Toggle giữa WYSIWYG <-> HTML source
+  // Toggle gi?a WYSIWYG <-> HTML source
   const toggleHtmlMode = () => {
     if (!htmlMode) {
-      // Chuyển WYSIWYG → HTML: lấy innerHTML hiện tại
+      // Chuy?n WYSIWYG ? HTML: l?y innerHTML hi?n t?i
       setHtmlDraft(editorRef.current?.innerHTML || value || "");
       setHtmlMode(true);
     } else {
-      // Chuyển HTML → WYSIWYG: ghi HTML vào editor
+      // Chuy?n HTML ? WYSIWYG: ghi HTML v�o editor
       if (editorRef.current) editorRef.current.innerHTML = htmlDraft;
       onChangeRef.current(htmlDraft);
       setHtmlMode(false);
@@ -272,7 +272,7 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
                     className="bg-app-card border border-app-border rounded-md px-2 py-1 text-white/70 text-xs cursor-pointer outline-none hover:border-white/20"
                     defaultValue=""
                   >
-                    <option value="" disabled>Định dạng</option>
+                    <option value="" disabled>�?nh d?ng</option>
                     {item.options.map((o: any) => (
                       <option key={o.label} value={o.label} className="bg-app-bg">{o.label}</option>
                     ))}
@@ -315,7 +315,7 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
           <button
             type="button"
             onClick={toggleHtmlMode}
-            title={htmlMode ? "Quay lại chế độ soạn thảo" : "Xem/sửa mã HTML (như WordPress)"}
+            title={htmlMode ? "Quay l?i ch? d? so?n th?o" : "Xem/s?a m� HTML (nhu WordPress)"}
             className={`h-7 px-2 flex items-center gap-1 rounded-md text-xs font-mono transition-colors cursor-pointer ${htmlMode ? "bg-app-accent-primary/15 text-app-accent-primary border border-app-accent-primary/30" : "text-white/50 hover:text-white hover:bg-white/10"}`}
           >
             <i className="ri-code-s-slash-line text-sm"></i>
@@ -343,7 +343,7 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
         onBlur={() => { setFocused(false); handleChange(); }}
         onFocus={() => setFocused(true)}
         onPaste={handlePaste}
-        data-placeholder={placeholder || "Viết nội dung bài đăng..."}
+        data-placeholder={placeholder || "Vi?t n?i dung b�i dang..."}
         className={`rich-editor-content min-h-[300px] p-4 text-white/85 text-sm leading-relaxed outline-none ${htmlMode ? "hidden" : ""}`}
         style={{ wordBreak: 'break-word' }}
       />
@@ -358,7 +358,7 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
           }}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          placeholder='Dán hoặc chỉnh sửa mã HTML, ví dụ: <h2>Tiêu đề</h2><p>Nội dung <strong>đậm</strong></p>'
+          placeholder='D�n ho?c ch?nh s?a m� HTML, v� d?: <h2>Ti�u d?</h2><p>N?i dung <strong>d?m</strong></p>'
           className="w-full min-h-[300px] p-4 bg-transparent text-emerald-300/90 text-[13px] font-mono leading-relaxed outline-none resize-y"
           spellCheck={false}
         />
@@ -389,59 +389,59 @@ function isRichEmpty(html: string): boolean {
   return text.length === 0;
 }
 
-// ─── Schema.org FAQPage structured data ─────────────────────────────────────
+// --- Schema.org FAQPage structured data -------------------------------------
 const FAQ_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "name": "Cộng đồng học tiếng Hàn - Hàn Quốc Ơi!",
-  "description": "Cộng đồng hỏi đáp, chia sẻ kinh nghiệm học tiếng Hàn, EPS-TOPIK và cuộc sống tại Hàn Quốc",
+  "name": "C?ng d?ng h?c ti?ng H�n - H�n Qu?c Oi!",
+  "description": "C?ng d?ng h?i d�p, chia s? kinh nghi?m h?c ti?ng H�n, EPS-TOPIK v� cu?c s?ng t?i H�n Qu?c",
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Làm thế nào để học tiếng Hàn hiệu quả cho kỳ thi EPS-TOPIK?",
+      "name": "L�m th? n�o d? h?c ti?ng H�n hi?u qu? cho k? thi EPS-TOPIK?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Để học tiếng Hàn hiệu quả cho EPS-TOPIK, bạn nên: học từ vựng theo chủ đề (an toàn lao động, giao tiếp cơ bản, pháp luật lao động), luyện nghe hàng ngày, làm bài thi thử thường xuyên và duy trì streak học tập liên tục."
+        "text": "�? h?c ti?ng H�n hi?u qu? cho EPS-TOPIK, b?n n�n: h?c t? v?ng theo ch? d? (an to�n lao d?ng, giao ti?p co b?n, ph�p lu?t lao d?ng), luy?n nghe h�ng ng�y, l�m b�i thi th? thu?ng xuy�n v� duy tr� streak h?c t?p li�n t?c."
       }
     },
     {
       "@type": "Question",
-      "name": "EPS-TOPIK gồm những phần thi nào?",
+      "name": "EPS-TOPIK g?m nh?ng ph?n thi n�o?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "EPS-TOPIK gồm 2 phần: Nghe hiểu (25 câu, 25 phút) và Đọc hiểu (25 câu, 25 phút). Tổng 50 câu, thời gian 50 phút. Điểm đậu tối thiểu là 80/200 điểm."
+        "text": "EPS-TOPIK g?m 2 ph?n: Nghe hi?u (25 c�u, 25 ph�t) v� �?c hi?u (25 c�u, 25 ph�t). T?ng 50 c�u, th?i gian 50 ph�t. �i?m d?u t?i thi?u l� 80/200 di?m."
       }
     },
     {
       "@type": "Question",
-      "name": "Người lao động nước ngoài ở Hàn Quốc có những quyền lợi gì?",
+      "name": "Ngu?i lao d?ng nu?c ngo�i ? H�n Qu?c c� nh?ng quy?n l?i g�?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Người lao động nước ngoài tại Hàn Quốc được hưởng: lương tối thiểu theo quy định, 4 loại bảo hiểm bắt buộc (y tế, lương hưu, việc làm, tai nạn lao động), nghỉ phép có lương sau 1 năm làm việc, và được bảo vệ theo Luật Tiêu chuẩn Lao động."
+        "text": "Ngu?i lao d?ng nu?c ngo�i t?i H�n Qu?c du?c hu?ng: luong t?i thi?u theo quy d?nh, 4 lo?i b?o hi?m b?t bu?c (y t?, luong huu, vi?c l�m, tai n?n lao d?ng), ngh? ph�p c� luong sau 1 nam l�m vi?c, v� du?c b?o v? theo Lu?t Ti�u chu?n Lao d?ng."
       }
     },
     {
       "@type": "Question",
-      "name": "Khi bị tai nạn lao động ở Hàn Quốc cần làm gì?",
+      "name": "Khi b? tai n?n lao d?ng ? H�n Qu?c c?n l�m g�?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Khi bị tai nạn lao động: 1) Báo ngay cho cấp trên và gọi 119 nếu cần cấp cứu, 2) Đến bệnh viện điều trị, 3) Báo cáo lên 근로복지공단 (Công đoàn phúc lợi lao động) để được hưởng bảo hiểm tai nạn lao động. Người nước ngoài cũng được bảo vệ đầy đủ."
+        "text": "Khi b? tai n?n lao d?ng: 1) B�o ngay cho c?p tr�n v� g?i 119 n?u c?n c?p c?u, 2) �?n b?nh vi?n di?u tr?, 3) B�o c�o l�n ?????? (C�ng do�n ph�c l?i lao d?ng) d? du?c hu?ng b?o hi?m tai n?n lao d?ng. Ngu?i nu?c ngo�i cung du?c b?o v? d?y d?."
       }
     },
     {
       "@type": "Question",
-      "name": "Làm thế nào để duy trì streak học tập hàng ngày?",
+      "name": "L�m th? n�o d? duy tr� streak h?c t?p h�ng ng�y?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Để duy trì streak học tập: đặt giờ học cố định mỗi ngày, học ít nhất 10-15 phút/ngày, sử dụng tính năng nhắc nhở, học flashcard từ vựng EPS, và tham gia cộng đồng để được động viên từ các thành viên khác."
+        "text": "�? duy tr� streak h?c t?p: d?t gi? h?c c? d?nh m?i ng�y, h?c �t nh?t 10-15 ph�t/ng�y, s? d?ng t�nh nang nh?c nh?, h?c flashcard t? v?ng EPS, v� tham gia c?ng d?ng d? du?c d?ng vi�n t? c�c th�nh vi�n kh�c."
       }
     },
     {
       "@type": "Question",
-      "name": "Số điện thoại khẩn cấp quan trọng ở Hàn Quốc là gì?",
+      "name": "S? di?n tho?i kh?n c?p quan tr?ng ? H�n Qu?c l� g�?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Các số điện thoại khẩn cấp quan trọng tại Hàn Quốc: 112 (Cảnh sát), 119 (Cứu hỏa và Cấp cứu), 1345 (Trung tâm hỗ trợ người nước ngoài - hỗ trợ tiếng Việt 24/7), 1350 (Đường dây lao động - tư vấn quyền lợi lao động)."
+        "text": "C�c s? di?n tho?i kh?n c?p quan tr?ng t?i H�n Qu?c: 112 (C?nh s�t), 119 (C?u h?a v� C?p c?u), 1345 (Trung t�m h? tr? ngu?i nu?c ngo�i - h? tr? ti?ng Vi?t 24/7), 1350 (�u?ng d�y lao d?ng - tu v?n quy?n l?i lao d?ng)."
       }
     }
   ]
@@ -518,22 +518,22 @@ interface Comment {
 }
 
 const CATEGORY_CONFIG: Record<string, { label: string; icon: string; color: string }> = {
-  all: { label: "Tất cả", icon: "ri-apps-line", color: "app-accent-primary" },
-  question: { label: "Hỏi đáp", icon: "ri-question-answer-line", color: "#60a5fa" },
-  share: { label: "Chia sẻ", icon: "ri-share-line", color: "#34d399" },
-  result: { label: "Kết quả thi", icon: "ri-trophy-line", color: "#FFD700" },
-  tip: { label: "Mẹo học", icon: "ri-lightbulb-line", color: "#fb923c" },
+  all: { label: "T?t c?", icon: "ri-apps-line", color: "app-accent-primary" },
+  question: { label: "H?i d�p", icon: "ri-question-answer-line", color: "#60a5fa" },
+  share: { label: "Chia s?", icon: "ri-share-line", color: "#34d399" },
+  result: { label: "K?t qu? thi", icon: "ri-trophy-line", color: "#FFD700" },
+  tip: { label: "M?o h?c", icon: "ri-lightbulb-line", color: "#fb923c" },
 };
 
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
   const h = Math.floor(diff / 3600000);
-  if (h < 1) return "Vừa xong";
-  if (h < 24) return `${h} giờ trước`;
-  return `${Math.floor(h / 24)} ngày trước`;
+  if (h < 1) return "V?a xong";
+  if (h < 24) return `${h} gi? tru?c`;
+  return `${Math.floor(h / 24)} ng�y tru?c`;
 }
 
-// ─── Comment Item ────────────────────────────────────────────────────────────
+// --- Comment Item ------------------------------------------------------------
 function CommentItem({
   comment,
   depth,
@@ -558,12 +558,12 @@ function CommentItem({
             <span className="text-[10px] text-app-text-muted">{timeAgo(comment.created_at)}</span>
             {comment.status === "pending" && (
               <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/25">
-                <i className="ri-time-line mr-0.5"></i>Đang chờ duyệt
+                <i className="ri-time-line mr-0.5"></i>�ang ch? duy?t
               </span>
             )}
             {comment.status === "rejected" && (
               <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/25">
-                <i className="ri-close-circle-line mr-0.5"></i>Bị từ chối
+                <i className="ri-close-circle-line mr-0.5"></i>B? t? ch?i
               </span>
             )}
           </div>
@@ -577,7 +577,7 @@ function CommentItem({
                 onClick={() => onReply(comment.id, comment.author_name)}
                 className="text-[10px] text-app-text-muted hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap"
               >
-                <i className="ri-reply-line mr-1"></i>Trả lời
+                <i className="ri-reply-line mr-1"></i>Tr? l?i
               </button>
             )}
           </div>
@@ -594,7 +594,7 @@ function CommentItem({
   );
 }
 
-// ─── AI Suggestion Panel ─────────────────────────────────────────────────────
+// --- AI Suggestion Panel -----------------------------------------------------
 function AISuggestionPanel({ post, onClose }: { post: Post; onClose: () => void }) {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
@@ -612,33 +612,33 @@ function AISuggestionPanel({ post, onClose }: { post: Post; onClose: () => void 
 
         if (content.includes("eps") || content.includes("topik")) {
           generated = [
-            "EPS-TOPIK 시험은 듣기 25문제, 읽기 25문제로 구성되어 있어요. 매일 꾸준히 공부하는 것이 중요해요!\n(Kỳ thi EPS-TOPIK gồm 25 câu nghe và 25 câu đọc. Điều quan trọng là học đều đặn mỗi ngày!)",
-            "저도 EPS-TOPIK 준비 중이에요. 같이 공부해요! 화이팅!\n(Tôi cũng đang chuẩn bị EPS-TOPIK. Cùng học nhé! Cố lên!)",
-            "단어 암기는 플래시카드를 사용하면 효과적이에요. 하루에 20개씩 외우면 좋아요.\n(Học từ vựng bằng flashcard rất hiệu quả. Mỗi ngày học 20 từ là tốt.)",
+            "EPS-TOPIK ??? ?? 25??, ?? 25??? ???? ???. ?? ??? ???? ?? ????!\n(K? thi EPS-TOPIK g?m 25 c�u nghe v� 25 c�u d?c. �i?u quan tr?ng l� h?c d?u d?n m?i ng�y!)",
+            "?? EPS-TOPIK ?? ????. ?? ????! ???!\n(T�i cung dang chu?n b? EPS-TOPIK. C�ng h?c nh�! C? l�n!)",
+            "?? ??? ?????? ???? ??????. ??? 20?? ??? ???.\n(H?c t? v?ng b?ng flashcard r?t hi?u qu?. M?i ng�y h?c 20 t? l� t?t.)",
           ];
-        } else if (content.includes("문법") || content.includes("ngữ pháp") || content.includes("grammar")) {
+        } else if (content.includes("??") || content.includes("ng? ph�p") || content.includes("grammar")) {
           generated = [
-            "한국어 문법은 처음에 어렵지만 꾸준히 연습하면 늘어요. 어떤 문법이 어려우세요?\n(Ngữ pháp tiếng Hàn khó lúc đầu nhưng sẽ tiến bộ nếu luyện tập đều đặn. Bạn thấy ngữ pháp nào khó?)",
-            "문법 공부할 때 예문을 많이 읽으면 도움이 돼요. 예문으로 외우는 게 좋아요!\n(Khi học ngữ pháp, đọc nhiều câu ví dụ rất hữu ích. Nên học thuộc qua câu ví dụ!)",
-            "저는 유튜브에서 한국어 문법 강의를 보면서 공부해요. 추천해 드릴까요?\n(Tôi học ngữ pháp qua video YouTube. Bạn có muốn tôi giới thiệu không?)",
+            "??? ??? ??? ???? ??? ???? ???. ?? ??? ??????\n(Ng? ph�p ti?ng H�n kh� l�c d?u nhung s? ti?n b? n?u luy?n t?p d?u d?n. B?n th?y ng? ph�p n�o kh�?)",
+            "?? ??? ? ??? ?? ??? ??? ??. ???? ??? ? ???!\n(Khi h?c ng? ph�p, d?c nhi?u c�u v� d? r?t h?u �ch. N�n h?c thu?c qua c�u v� d?!)",
+            "?? ????? ??? ?? ??? ??? ????. ??? ?????\n(T�i h?c ng? ph�p qua video YouTube. B?n c� mu?n t�i gi?i thi?u kh�ng?)",
           ];
-        } else if (content.includes("발음") || content.includes("phát âm") || content.includes("pronunciation")) {
+        } else if (content.includes("??") || content.includes("ph�t �m") || content.includes("pronunciation")) {
           generated = [
-            "발음 연습은 매일 소리 내어 읽는 것이 중요해요. 원어민 발음을 따라 해보세요!\n(Luyện phát âm quan trọng là đọc to mỗi ngày. Hãy bắt chước phát âm của người bản ngữ!)",
-            "한국어 발음 중 ㄹ 발음이 베트남 사람들에게 어렵다고 해요. 많이 연습하세요!\n(Trong tiếng Hàn, âm ㄹ được nói là khó với người Việt. Hãy luyện tập nhiều!)",
-            "TTS 앱을 사용해서 발음을 들으면서 따라 하면 효과적이에요.\n(Dùng app TTS để nghe và bắt chước phát âm rất hiệu quả.)",
+            "?? ??? ?? ?? ?? ?? ?? ????. ??? ??? ?? ????!\n(Luy?n ph�t �m quan tr?ng l� d?c to m?i ng�y. H�y b?t chu?c ph�t �m c?a ngu?i b?n ng?!)",
+            "??? ?? ? ? ??? ??? ????? ???? ??. ?? ?????!\n(Trong ti?ng H�n, �m ? du?c n�i l� kh� v?i ngu?i Vi?t. H�y luy?n t?p nhi?u!)",
+            "TTS ?? ???? ??? ???? ?? ?? ??????.\n(D�ng app TTS d? nghe v� b?t chu?c ph�t �m r?t hi?u qu?.)",
           ];
         } else if (isQuestion) {
           generated = [
-            "좋은 질문이에요! 저도 같은 고민을 했었어요. 같이 해결해 봐요!\n(Câu hỏi hay đấy! Tôi cũng từng băn khoăn điều này. Cùng giải quyết nhé!)",
-            "이 부분은 저도 공부 중이에요. 선생님께 여쭤보는 것도 좋을 것 같아요.\n(Phần này tôi cũng đang học. Hỏi giáo viên cũng là ý hay đấy.)",
-            "한국어 공부 화이팅! 모르는 것을 물어보는 것이 가장 빠른 방법이에요.\n(Cố lên học tiếng Hàn! Hỏi những gì không biết là cách nhanh nhất.)",
+            "?? ?????! ?? ?? ??? ????. ?? ??? ??!\n(C�u h?i hay d?y! T�i cung t?ng ban khoan di?u n�y. C�ng gi?i quy?t nh�!)",
+            "? ??? ?? ?? ????. ???? ???? ?? ?? ? ???.\n(Ph?n n�y t�i cung dang h?c. H?i gi�o vi�n cung l� � hay d?y.)",
+            "??? ?? ???! ??? ?? ???? ?? ?? ?? ?????.\n(C? l�n h?c ti?ng H�n! H?i nh?ng g� kh�ng bi?t l� c�ch nhanh nh?t.)",
           ];
         } else {
           generated = [
-            "정말 대단해요! 열심히 공부하시는 모습이 멋있어요. 저도 더 열심히 해야겠어요!\n(Thật tuyệt vời! Hình ảnh bạn học chăm chỉ thật đáng ngưỡng mộ. Tôi cũng phải cố gắng hơn!)",
-            "축하해요! 앞으로도 계속 화이팅! 같이 열심히 공부해요!\n(Chúc mừng! Tiếp tục cố lên! Cùng nhau học chăm chỉ nhé!)",
-            "좋은 정보 감사해요! 저도 참고할게요. 도움이 많이 됐어요!\n(Cảm ơn thông tin hay! Tôi sẽ tham khảo. Rất hữu ích!)",
+            "?? ????! ??? ????? ??? ????. ?? ? ??? ?????!\n(Th?t tuy?t v?i! H�nh ?nh b?n h?c cham ch? th?t d�ng ngu?ng m?. T�i cung ph?i c? g?ng hon!)",
+            "????! ???? ?? ???! ?? ??? ????!\n(Ch�c m?ng! Ti?p t?c c? l�n! C�ng nhau h?c cham ch? nh�!)",
+            "?? ?? ????! ?? ?????. ??? ?? ???!\n(C?m on th�ng tin hay! T�i s? tham kh?o. R?t h?u �ch!)",
           ];
         }
 
@@ -669,8 +669,8 @@ function AISuggestionPanel({ post, onClose }: { post: Post; onClose: () => void 
               <i className="ri-robot-line text-app-accent-primary text-sm"></i>
             </div>
             <div>
-              <h3 className="text-white font-bold text-sm">AI Gợi ý câu trả lời</h3>
-              <p className="text-app-text-muted text-[10px]">Dựa trên nội dung bài đăng</p>
+              <h3 className="text-white font-bold text-sm">AI G?i � c�u tr? l?i</h3>
+              <p className="text-app-text-muted text-[10px]">D?a tr�n n?i dung b�i dang</p>
             </div>
           </div>
           <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white/70 cursor-pointer">
@@ -681,18 +681,18 @@ function AISuggestionPanel({ post, onClose }: { post: Post; onClose: () => void 
         <div className="flex-1 overflow-y-auto px-5 py-4 space-y-3">
           {/* Post preview */}
           <div className="bg-app-surface/50 border border-app-border rounded-xl p-3 mb-4">
-            <p className="text-app-text-secondary text-[10px] tracking-normal mb-1">Bài đăng</p>
+            <p className="text-app-text-secondary text-[10px] tracking-normal mb-1">B�i dang</p>
             <p className="text-white/70 text-xs font-medium line-clamp-2">{post.title}</p>
           </div>
 
           {loading ? (
             <div className="flex flex-col items-center justify-center py-10 gap-3">
               <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
-              <p className="text-app-text-muted text-xs">AI đang phân tích và tạo gợi ý...</p>
+              <p className="text-app-text-muted text-xs">AI dang ph�n t�ch v� t?o g?i �...</p>
             </div>
           ) : (
             <>
-              <p className="text-app-text-muted text-xs mb-3">Chọn một gợi ý để copy và dùng làm bình luận:</p>
+              <p className="text-app-text-muted text-xs mb-3">Ch?n m?t g?i � d? copy v� d�ng l�m b�nh lu?n:</p>
               {suggestions.map((s, i) => (
                 <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 hover:border-white/15 transition-all group">
                   <div className="flex items-start gap-3">
@@ -707,14 +707,14 @@ function AISuggestionPanel({ post, onClose }: { post: Post; onClose: () => void 
                       className={`flex-shrink-0 flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[10px] font-medium transition-all cursor-pointer whitespace-nowrap ${copied === i ? "bg-emerald-500/20 text-app-accent-success" : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70 hover:text-white/70"}`}
                     >
                       <i className={`${copied === i ? "ri-check-line" : "ri-file-copy-line"} text-xs`}></i>
-                      {copied === i ? "Đã copy" : "Copy"}
+                      {copied === i ? "�� copy" : "Copy"}
                     </button>
                   </div>
                 </div>
               ))}
               <p className="text-app-text-muted text-[10px] text-center pt-2">
                 <i className="ri-information-line mr-1"></i>
-                Gợi ý được tạo tự động — hãy chỉnh sửa cho phù hợp trước khi đăng
+                G?i � du?c t?o t? d?ng � h�y ch?nh s?a cho ph� h?p tru?c khi dang
               </p>
             </>
           )}
@@ -724,7 +724,7 @@ function AISuggestionPanel({ post, onClose }: { post: Post; onClose: () => void 
   );
 }
 
-// ─── Comments Panel ──────────────────────────────────────────────────────────
+// --- Comments Panel ----------------------------------------------------------
 function CommentsPanel({
   postId,
   onClose,
@@ -745,8 +745,8 @@ function CommentsPanel({
   const [submitting, setSubmitting] = useState(false);
 
   const fetchComments = useCallback(async () => {
-    // RLS policy tự động lọc: approved + of-author + admin. Query all fields để
-    // hiển thị badge "Đang chờ duyệt" cho comment của chính mình.
+    // RLS policy t? d?ng l?c: approved + of-author + admin. Query all fields d?
+    // hi?n th? badge "�ang ch? duy?t" cho comment c?a ch�nh m�nh.
     const { data } = await supabase
       .from("community_comments")
       .select("*")
@@ -774,13 +774,13 @@ function CommentsPanel({
   const handleSubmit = async () => {
     if (!text.trim() || !currentUser || submitting) return;
     setSubmitting(true);
-    // Insert với status='pending' (trigger auto-approve nếu admin/mod)
+    // Insert v?i status='pending' (trigger auto-approve n?u admin/mod)
     const { error } = await supabase.from("community_comments").insert({
-      post_id: postId, // postId ở đây là UUID từ post.id (không phải slug)
+      post_id: postId, // postId ? d�y l� UUID t? post.id (kh�ng ph?i slug)
       parent_id: replyTo?.id || null,
       user_id: currentUser.id,
-      author_name: profile?.display_name || "Học viên",
-      author_level: "Học viên",
+      author_name: profile?.display_name || "H?c vi�n",
+      author_level: "H?c vi�n",
       content: text.trim(),
       status: "pending",
     });
@@ -788,9 +788,9 @@ function CommentsPanel({
       setText("");
       setReplyTo(null);
       await fetchComments();
-      showToast("Bình luận đã gửi — đang chờ quản trị viên duyệt.", "success");
+      showToast("B�nh lu?n d� g?i � dang ch? qu?n tr? vi�n duy?t.", "success");
     } else {
-      showToast(`Lỗi gửi bình luận: ${error.message}`, "error");
+      showToast(`L?i g?i b�nh lu?n: ${error.message}`, "error");
     }
     setSubmitting(false);
   };
@@ -806,7 +806,7 @@ function CommentsPanel({
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-app-border flex-shrink-0">
           <h3 className="text-white font-bold text-sm">
-            Bình luận <span className="text-app-text-muted font-normal">({totalCount})</span>
+            B�nh lu?n <span className="text-app-text-muted font-normal">({totalCount})</span>
           </h3>
           <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white/70 cursor-pointer">
             <i className="ri-close-line text-sm"></i>
@@ -822,8 +822,8 @@ function CommentsPanel({
           ) : comments.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-10 text-center">
               <i className="ri-chat-3-line text-white/10 text-3xl mb-2"></i>
-              <p className="text-app-text-muted text-sm">Chưa có bình luận nào</p>
-              <p className="text-app-text-muted text-xs mt-1">Hãy là người đầu tiên bình luận!</p>
+              <p className="text-app-text-muted text-sm">Chua c� b�nh lu?n n�o</p>
+              <p className="text-app-text-muted text-xs mt-1">H�y l� ngu?i d?u ti�n b�nh lu?n!</p>
             </div>
           ) : (
             comments.map(c => (
@@ -843,7 +843,7 @@ function CommentsPanel({
           {replyTo && (
             <div className="flex items-center gap-2 mb-2 px-3 py-1.5 bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-lg">
               <i className="ri-reply-line text-app-accent-primary text-xs"></i>
-              <span className="text-app-accent-primary/70 text-xs">Đang trả lời <strong>{replyTo.author}</strong></span>
+              <span className="text-app-accent-primary/70 text-xs">�ang tr? l?i <strong>{replyTo.author}</strong></span>
               <button onClick={() => setReplyTo(null)} className="ml-auto text-app-text-muted hover:text-white/60 cursor-pointer">
                 <i className="ri-close-line text-xs"></i>
               </button>
@@ -855,7 +855,7 @@ function CommentsPanel({
                 value={text}
                 onChange={e => setText(e.target.value.slice(0, 500))}
                 onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSubmit(); } }}
-                placeholder={replyTo ? `Trả lời ${replyTo.author}...` : "Viết bình luận..."}
+                placeholder={replyTo ? `Tr? l?i ${replyTo.author}...` : "Vi?t b�nh lu?n..."}
                 className="flex-1 bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-app-accent-primary/30 placeholder-white/20"
               />
               <button
@@ -868,7 +868,7 @@ function CommentsPanel({
             </div>
           ) : (
             <div className="text-center py-2">
-              <p className="text-app-text-muted text-xs">Đăng nhập để bình luận</p>
+              <p className="text-app-text-muted text-xs">�ang nh?p d? b�nh lu?n</p>
             </div>
           )}
         </div>
@@ -877,7 +877,7 @@ function CommentsPanel({
   );
 }
 
-// ─── Quiz Card (trong post) ─────────────────────────────────────────────────
+// --- Quiz Card (trong post) -------------------------------------------------
 function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { id: string } | null; profile: { display_name?: string } | null }) {
   const quiz = post.quiz;
   const [selected, setSelected] = useState<number | null>(null);
@@ -914,11 +914,11 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
 
   const handleSelect = async (optionId: number) => {
     if (!currentUser) {
-      setError("Vui lòng đăng nhập để trả lời");
+      setError("Vui l�ng dang nh?p d? tr? l?i");
       return;
     }
     if (isAuthor) {
-      setError("Bạn không thể trả lời câu hỏi của chính mình");
+      setError("B?n kh�ng th? tr? l?i c�u h?i c?a ch�nh m�nh");
       return;
     }
     if (submitted || submitting) return;
@@ -939,7 +939,7 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
       });
 
     if (insertError) {
-      setError("Lỗi: " + insertError.message);
+      setError("L?i: " + insertError.message);
       setSubmitting(false);
       return;
     }
@@ -949,19 +949,19 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
     setTotalAnswers(v => v + 1);
     if (isCorrect) setCorrectAnswers(v => v + 1);
 
-    // Auto-post comment: tăng engagement + SEO cho bài viết
+    // Auto-post comment: tang engagement + SEO cho b�i vi?t
     const letter = String.fromCharCode(65 + (quiz.options.findIndex(o => o.id === optionId)));
     const correct = quiz.options.find(o => o.is_correct);
     const commentText = isCorrect
-      ? `✅ Mình chọn <strong>${letter}. ${option?.text}</strong> và đã trả lời đúng! 🎉`
-      : `❌ Mình chọn <strong>${letter}. ${option?.text}</strong>, đáp án đúng là <strong>${correct?.text}</strong>.`;
+      ? `? M�nh ch?n <strong>${letter}. ${option?.text}</strong> v� d� tr? l?i d�ng! ??`
+      : `? M�nh ch?n <strong>${letter}. ${option?.text}</strong>, d�p �n d�ng l� <strong>${correct?.text}</strong>.`;
 
     await supabase.from("community_comments").insert({
       post_id: post.id,
       parent_id: null,
       user_id: currentUser.id,
-      author_name: profile?.display_name || "Học viên",
-      author_level: "Học viên",
+      author_name: profile?.display_name || "H?c vi�n",
+      author_level: "H?c vi�n",
       content: commentText,
       status: "approved", // auto-approve quiz answer comments
     });
@@ -977,11 +977,11 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
     <div className="mt-4 bg-gradient-to-br from-app-accent-primary/5 to-[#60a5fa]/5 border border-app-accent-primary/20 rounded-xl p-4">
       <div className="flex items-center gap-2 mb-3">
         <i className="ri-question-line text-app-accent-primary"></i>
-        <span className="text-app-accent-primary text-xs font-bold uppercase tracking-wide">Câu hỏi trắc nghiệm</span>
+        <span className="text-app-accent-primary text-xs font-bold uppercase tracking-wide">C�u h?i tr?c nghi?m</span>
         {totalAnswers > 0 && (
           <span className="ml-auto text-app-text-muted text-[10px]">
             <i className="ri-group-line mr-0.5"></i>
-            {correctAnswers}/{totalAnswers} đúng ({correctPct}%)
+            {correctAnswers}/{totalAnswers} d�ng ({correctPct}%)
           </span>
         )}
       </div>
@@ -991,7 +991,7 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
       )}
 
       {loading ? (
-        <p className="text-app-text-muted text-xs">Đang tải...</p>
+        <p className="text-app-text-muted text-xs">�ang t?i...</p>
       ) : (
         <div className="space-y-2">
           {quiz.options.map((opt, idx) => {
@@ -1038,7 +1038,7 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
           onClick={() => setShowAnswer(true)}
           className="mt-3 text-xs text-app-accent-primary hover:underline cursor-pointer"
         >
-          <i className="ri-eye-line mr-1"></i>Xem đáp án
+          <i className="ri-eye-line mr-1"></i>Xem d�p �n
         </button>
       )}
 
@@ -1051,18 +1051,18 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
           }`}>
             {isSelectedCorrect ? (
               <p className="text-emerald-400 text-sm font-semibold">
-                <i className="ri-trophy-line mr-1"></i>Chính xác! Bạn được +1 XP 🎉
+                <i className="ri-trophy-line mr-1"></i>Ch�nh x�c! B?n du?c +1 XP ??
               </p>
             ) : (
               <p className="text-red-400 text-sm font-semibold mb-1">
-                <i className="ri-close-circle-line mr-1"></i>Sai rồi. Đáp án đúng: <strong>{correctOption?.text}</strong>
+                <i className="ri-close-circle-line mr-1"></i>Sai r?i. ��p �n d�ng: <strong>{correctOption?.text}</strong>
               </p>
             )}
             {quiz.explanation && (
               <div className="text-white/70 text-xs mt-2 leading-relaxed post-content-preview">
                 <div className="flex items-center gap-1 mb-1 text-[#FFD700]">
                   <i className="ri-lightbulb-line"></i>
-                  <span className="font-semibold">Giải thích:</span>
+                  <span className="font-semibold">Gi?i th�ch:</span>
                 </div>
                 <div dangerouslySetInnerHTML={{ __html: resolveStoragePaths(quiz.explanation) }} />
               </div>
@@ -1072,26 +1072,26 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
             onClick={() => setShowAnswer(false)}
             className="mt-2 text-xs text-app-text-muted hover:text-white cursor-pointer"
           >
-            <i className="ri-arrow-up-line mr-1"></i>Thu gọn
+            <i className="ri-arrow-up-line mr-1"></i>Thu g?n
           </button>
         </>
       )}
 
       {!currentUser && (
         <p className="text-app-text-muted text-[11px] mt-2 text-center">
-          <i className="ri-lock-line mr-1"></i>Đăng nhập để tham gia trả lời
+          <i className="ri-lock-line mr-1"></i>�ang nh?p d? tham gia tr? l?i
         </p>
       )}
       {isAuthor && (
         <p className="text-app-text-muted text-[11px] mt-2 text-center">
-          <i className="ri-information-line mr-1"></i>Bạn là tác giả — không thể tự trả lời
+          <i className="ri-information-line mr-1"></i>B?n l� t�c gi? � kh�ng th? t? tr? l?i
         </p>
       )}
     </div>
   );
 }
 
-// ─── Post Card ───────────────────────────────────────────────────────────────
+// --- Post Card ---------------------------------------------------------------
 function PostCard({
   post,
   onLike,
@@ -1126,13 +1126,13 @@ function PostCard({
       {post.status === "pending" && (
         <div className="flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/25 text-amber-400 text-[11px] font-semibold mb-3 px-2.5 py-1.5 rounded-lg">
           <i className="ri-time-line"></i>
-          Bài của bạn đang chờ quản trị viên duyệt — chỉ bạn nhìn thấy.
+          B�i c?a b?n dang ch? qu?n tr? vi�n duy?t � ch? b?n nh�n th?y.
         </div>
       )}
       {post.status === "rejected" && (
         <div className="flex items-center gap-1.5 bg-red-500/10 border border-red-500/25 text-red-400 text-[11px] font-semibold mb-3 px-2.5 py-1.5 rounded-lg">
           <i className="ri-close-circle-line"></i>
-          Bài này đã bị từ chối.
+          B�i n�y d� b? t? ch?i.
         </div>
       )}
       {post.is_pinned && (
@@ -1161,7 +1161,7 @@ function PostCard({
             )}
             {post.streak_days && (
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#fb923c]/10 text-[#fb923c]">
-                <i className="ri-fire-line mr-1"></i>{post.streak_days} ngày
+                <i className="ri-fire-line mr-1"></i>{post.streak_days} ng�y
               </span>
             )}
           </div>
@@ -1187,7 +1187,7 @@ function PostCard({
       `}</style>
       {post.content.length > 150 && (
         <button onClick={() => setExpanded(v => !v)} className="text-app-accent-primary/60 text-[10px] mt-1 cursor-pointer hover:text-app-accent-primary whitespace-nowrap">
-          {expanded ? "Thu gọn" : "Xem thêm"}
+          {expanded ? "Thu g?n" : "Xem th�m"}
         </button>
       )}
 
@@ -1197,7 +1197,7 @@ function PostCard({
         ))}
       </div>
 
-      {/* Quiz (nếu post là câu hỏi trắc nghiệm) */}
+      {/* Quiz (n?u post l� c�u h?i tr?c nghi?m) */}
       {post.quiz && <QuizCard post={post} currentUser={currentUser} profile={currentProfile} />}
 
       <div className="flex items-center gap-4 mt-4 pt-3 border-t border-app-border">
@@ -1213,7 +1213,7 @@ function PostCard({
           className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-chat-3-line"></i>
-          {post.comments_count} bình luận
+          {post.comments_count} b�nh lu?n
         </button>
         {post.rating_count > 0 && (
           <div className="flex items-center gap-1.5 text-xs text-app-text-muted">
@@ -1227,14 +1227,14 @@ function PostCard({
             onClick={(e) => { e.stopPropagation(); onViewProfile(post.user_id!); }}
             className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-[#a78bfa]/70 transition-colors cursor-pointer whitespace-nowrap"
           >
-            <i className="ri-user-line"></i>Hồ sơ
+            <i className="ri-user-line"></i>H? so
           </button>
         )}
         <button
           onClick={() => onAISuggest(post)}
           className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap"
         >
-          <i className="ri-robot-line"></i>AI gợi ý
+          <i className="ri-robot-line"></i>AI g?i �
         </button>
         {isAuthor && (
           <>
@@ -1242,13 +1242,13 @@ function PostCard({
               onClick={(e) => { e.stopPropagation(); onEdit(post); }}
               className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap"
             >
-              <i className="ri-edit-line"></i>Sửa
+              <i className="ri-edit-line"></i>S?a
             </button>
             <button
               onClick={(e) => { e.stopPropagation(); onDelete(post); }}
               className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-red-400/70 transition-colors cursor-pointer whitespace-nowrap"
             >
-              <i className="ri-delete-bin-line"></i>Xóa
+              <i className="ri-delete-bin-line"></i>X�a
             </button>
           </>
         )}
@@ -1256,21 +1256,21 @@ function PostCard({
           onClick={() => onOpenDetail(post.id)}
           className="flex items-center gap-1.5 text-xs text-app-text-muted hover:text-app-accent-primary/70 transition-colors cursor-pointer whitespace-nowrap ml-auto"
         >
-          <i className="ri-external-link-line"></i>Xem chi tiết
+          <i className="ri-external-link-line"></i>Xem chi ti?t
         </button>
       </div>
     </div>
   );
 }
 
-// ─── New Post Modal ──────────────────────────────────────────────────────────
-// ─── Rich Text Toolbar ───────────────────────────────────────────────────────
+// --- New Post Modal ----------------------------------------------------------
+// --- Rich Text Toolbar -------------------------------------------------------
 function RichTextToolbar({ onFormat }: { onFormat: (tag: string) => void }) {
   const tools = [
-    { icon: "ri-bold", tag: "bold", title: "In đậm" },
-    { icon: "ri-italic", tag: "italic", title: "In nghiêng" },
-    { icon: "ri-list-unordered", tag: "list", title: "Danh sách" },
-    { icon: "ri-double-quotes-l", tag: "quote", title: "Trích dẫn" },
+    { icon: "ri-bold", tag: "bold", title: "In d?m" },
+    { icon: "ri-italic", tag: "italic", title: "In nghi�ng" },
+    { icon: "ri-list-unordered", tag: "list", title: "Danh s�ch" },
+    { icon: "ri-double-quotes-l", tag: "quote", title: "Tr�ch d?n" },
     { icon: "ri-code-line", tag: "code", title: "Code" },
   ];
   return (
@@ -1304,7 +1304,7 @@ function EditPostModal({ post, onClose, showToast }: { post: Post; onClose: () =
   const handleSubmit = async () => {
     if (!title.trim() || submitting) return;
     if (!isQuiz && isRichEmpty(content)) {
-      showToast("Vui lòng nhập nội dung", "error");
+      showToast("Vui l�ng nh?p n?i dung", "error");
       return;
     }
 
@@ -1313,11 +1313,11 @@ function EditPostModal({ post, onClose, showToast }: { post: Post; onClose: () =
     if (isQuiz) {
       const filled = quizOptions.filter(o => o.text.trim());
       if (filled.length < 2) {
-        showToast("Trắc nghiệm cần ít nhất 2 đáp án", "error");
+        showToast("Tr?c nghi?m c?n �t nh?t 2 d�p �n", "error");
         return;
       }
       if (!filled.some(o => o.is_correct)) {
-        showToast("Cần chọn ít nhất 1 đáp án đúng", "error");
+        showToast("C?n ch?n �t nh?t 1 d�p �n d�ng", "error");
         return;
       }
       quizData = {
@@ -1337,15 +1337,15 @@ function EditPostModal({ post, onClose, showToast }: { post: Post; onClose: () =
         category,
         tags: tags.split(",").map(t => t.trim()).filter(Boolean),
         quiz: quizData,
-        status: "pending", // Set lại status pending để admin kiểm duyệt lại
+        status: "pending", // Set l?i status pending d? admin ki?m duy?t l?i
       })
       .eq("id", post.id);
 
     setSubmitting(false);
     if (error) {
-      showToast(`Lỗi cập nhật bài viết: ${error.message}`, "error");
+      showToast(`L?i c?p nh?t b�i vi?t: ${error.message}`, "error");
     } else {
-      showToast("Bài viết đã cập nhật - đang chờ quản trị viên duyệt lại.", "success");
+      showToast("B�i vi?t d� c?p nh?t - dang ch? qu?n tr? vi�n duy?t l?i.", "success");
       onClose();
       window.location.reload();
     }
@@ -1355,23 +1355,23 @@ function EditPostModal({ post, onClose, showToast }: { post: Post; onClose: () =
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
       <div className="bg-app-bg border border-app-border rounded-t-2xl w-full max-w-2xl max-h-[90vh] flex flex-col" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between px-5 py-4 border-b border-app-border flex-shrink-0">
-          <h3 className="text-white font-bold text-sm">Chỉnh sửa bài viết</h3>
+          <h3 className="text-white font-bold text-sm">Ch?nh s?a b�i vi?t</h3>
           <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white/70 cursor-pointer">
             <i className="ri-close-line text-sm"></i>
           </button>
         </div>
         <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4">
           <div>
-            <label className="text-white/70 text-xs font-semibold mb-2 block">Tiêu đề</label>
+            <label className="text-white/70 text-xs font-semibold mb-2 block">Ti�u d?</label>
             <input
               value={title}
               onChange={e => setTitle(e.target.value)}
               className="w-full px-4 py-2.5 bg-app-card/50 border border-app-border rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-app-accent-primary/30"
-              placeholder="Nhập tiêu đề..."
+              placeholder="Nh?p ti�u d?..."
             />
           </div>
           <div>
-            <label className="text-white/70 text-xs font-semibold mb-2 block">Danh mục</label>
+            <label className="text-white/70 text-xs font-semibold mb-2 block">Danh m?c</label>
             <div className="flex gap-2 flex-wrap">
               {["question", "share", "result", "tip"].map(cat => (
                 <button
@@ -1379,27 +1379,27 @@ function EditPostModal({ post, onClose, showToast }: { post: Post; onClose: () =
                   onClick={() => setCategory(cat)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer whitespace-nowrap ${category === cat ? "bg-app-accent-primary text-app-bg" : "bg-app-card/50 text-app-text-secondary hover:bg-app-card/70"}`}
                 >
-                  {cat === "question" ? "Hỏi đáp" : cat === "share" ? "Chia sẻ" : cat === "result" ? "Kết quả thi" : "Mẹo học"}
+                  {cat === "question" ? "H?i d�p" : cat === "share" ? "Chia s?" : cat === "result" ? "K?t qu? thi" : "M?o h?c"}
                 </button>
               ))}
             </div>
           </div>
           <div>
-            <label className="text-white/70 text-xs font-semibold mb-2 block">Nội dung</label>
+            <label className="text-white/70 text-xs font-semibold mb-2 block">N?i dung</label>
             <RichEditor
               value={content}
               onChange={setContent}
-              placeholder="Chỉnh sửa nội dung bài viết..."
+              placeholder="Ch?nh s?a n?i dung b�i vi?t..."
               onImageUpload={uploadImageToCommunityStorage}
             />
           </div>
           <div>
-            <label className="text-white/70 text-xs font-semibold mb-2 block">Tags (ngăn cách bằng dấu phẩy)</label>
+            <label className="text-white/70 text-xs font-semibold mb-2 block">Tags (ngan c�ch b?ng d?u ph?y)</label>
             <input
               value={tags}
               onChange={e => setTags(e.target.value)}
               className="w-full px-4 py-2.5 bg-app-card/50 border border-app-border rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-app-accent-primary/30"
-              placeholder="ví dụ: eps, topik, ngữ pháp"
+              placeholder="v� d?: eps, topik, ng? ph�p"
             />
           </div>
 
@@ -1414,18 +1414,18 @@ function EditPostModal({ post, onClose, showToast }: { post: Post; onClose: () =
               />
               <span className="text-white text-sm font-medium">
                 <i className="ri-question-line mr-1 text-app-accent-primary"></i>
-                Bài trắc nghiệm
+                B�i tr?c nghi?m
               </span>
             </label>
             <p className="text-app-text-muted text-[11px] mt-1 ml-6">
-              Lưu ý: nếu sửa đáp án, lượt trả lời cũ vẫn giữ. Nếu admin từ chối bài đã sửa, XP của bạn và người trả lời đúng sẽ bị trừ tự động.
+              Luu �: n?u s?a d�p �n, lu?t tr? l?i cu v?n gi?. N?u admin t? ch?i b�i d� s?a, XP c?a b?n v� ngu?i tr? l?i d�ng s? b? tr? t? d?ng.
             </p>
 
             {isQuiz && (
               <div className="mt-4 space-y-3">
                 <p className="text-app-text-secondary text-xs">
                   <i className="ri-information-line mr-1"></i>
-                  Tiêu đề bài viết = câu hỏi.
+                  Ti�u d? b�i vi?t = c�u h?i.
                 </p>
 
                 {quizOptions.map((opt, idx) => (
@@ -1433,7 +1433,7 @@ function EditPostModal({ post, onClose, showToast }: { post: Post; onClose: () =
                     <button
                       type="button"
                       onClick={() => setQuizOptions(opts => opts.map((o, i) => ({ ...o, is_correct: i === idx })))}
-                      title="Chọn đây là đáp án đúng"
+                      title="Ch?n d�y l� d�p �n d�ng"
                       className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 cursor-pointer transition-colors ${opt.is_correct ? "bg-emerald-500/20 border border-emerald-500/40 text-emerald-400" : "bg-app-card/50 border border-app-border text-app-text-muted hover:text-white/60"}`}
                     >
                       <i className={opt.is_correct ? "ri-check-line" : "ri-circle-line"}></i>
@@ -1442,7 +1442,7 @@ function EditPostModal({ post, onClose, showToast }: { post: Post; onClose: () =
                       type="text"
                       value={opt.text}
                       onChange={e => setQuizOptions(opts => opts.map((o, i) => i === idx ? { ...o, text: e.target.value } : o))}
-                      placeholder={`Đáp án ${String.fromCharCode(65 + idx)}...`}
+                      placeholder={`��p �n ${String.fromCharCode(65 + idx)}...`}
                       maxLength={200}
                       className="flex-1 bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 placeholder-white/20"
                     />
@@ -1464,16 +1464,16 @@ function EditPostModal({ post, onClose, showToast }: { post: Post; onClose: () =
                     onClick={() => setQuizOptions(opts => [...opts, { id: opts.length + 1, text: "", is_correct: false }])}
                     className="w-full py-2 rounded-lg border border-dashed border-app-border text-app-text-secondary text-xs hover:text-white/60 hover:border-white/20 cursor-pointer"
                   >
-                    <i className="ri-add-line mr-1"></i>Thêm đáp án (tối đa 4)
+                    <i className="ri-add-line mr-1"></i>Th�m d�p �n (t?i da 4)
                   </button>
                 )}
 
                 <div>
-                  <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Giải thích đáp án đúng (tùy chọn)</label>
+                  <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Gi?i th�ch d�p �n d�ng (t�y ch?n)</label>
                   <RichEditor
                     value={quizExplanation}
                     onChange={setQuizExplanation}
-                    placeholder="Giải thích chi tiết: in đậm, màu chữ, ảnh, link, dán HTML... đều được"
+                    placeholder="Gi?i th�ch chi ti?t: in d?m, m�u ch?, ?nh, link, d�n HTML... d?u du?c"
                     onImageUpload={uploadImageToCommunityStorage}
                   />
                 </div>
@@ -1486,14 +1486,14 @@ function EditPostModal({ post, onClose, showToast }: { post: Post; onClose: () =
             onClick={onClose}
             className="flex-1 py-2.5 rounded-xl bg-app-card/50 text-white/70 text-sm font-medium cursor-pointer hover:bg-app-card/70 transition-colors"
           >
-            Hủy
+            H?y
           </button>
           <button
             onClick={handleSubmit}
             disabled={submitting || !title.trim()}
             className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold cursor-pointer whitespace-nowrap transition-colors disabled:opacity-50"
           >
-            {submitting ? "Đang lưu..." : "Lưu thay đổi"}
+            {submitting ? "�ang luu..." : "Luu thay d?i"}
           </button>
         </div>
       </div>
@@ -1552,7 +1552,7 @@ function NewPostModal({
       setImagePreview(getStorageUrl(relativePath));
     } catch (error) {
       console.error('Error uploading image:', error);
-      alert('Lỗi khi upload ảnh');
+      alert('L?i khi upload ?nh');
     } finally {
       setUploadingImage(false);
     }
@@ -1561,24 +1561,24 @@ function NewPostModal({
   const handleSubmit = async () => {
     console.log('[NewPost] handleSubmit called', { title, contentLen: content.length, isEmpty: isRichEmpty(content) });
     if (!title.trim()) {
-      showToast('Vui lòng nhập tiêu đề', 'error');
+      showToast('Vui l�ng nh?p ti�u d?', 'error');
       return;
     }
     if (!isQuiz && isRichEmpty(content)) {
-      showToast('Vui lòng nhập nội dung', 'error');
+      showToast('Vui l�ng nh?p n?i dung', 'error');
       return;
     }
 
-    // Validate quiz nếu bật chế độ trắc nghiệm
+    // Validate quiz n?u b?t ch? d? tr?c nghi?m
     let quizData: QuizData | null = null;
     if (isQuiz) {
       const filledOptions = quizOptions.filter(o => o.text.trim());
       if (filledOptions.length < 2) {
-        showToast('Trắc nghiệm cần ít nhất 2 đáp án', 'error');
+        showToast('Tr?c nghi?m c?n �t nh?t 2 d�p �n', 'error');
         return;
       }
       if (!filledOptions.some(o => o.is_correct)) {
-        showToast('Cần chọn ít nhất 1 đáp án đúng', 'error');
+        showToast('C?n ch?n �t nh?t 1 d�p �n d�ng', 'error');
         return;
       }
       quizData = {
@@ -1595,7 +1595,7 @@ function NewPostModal({
       onClose();
     } catch (err) {
       console.error('Submit error:', err);
-      showToast('Lỗi đăng bài: ' + (err instanceof Error ? err.message : 'unknown'), 'error');
+      showToast('L?i dang b�i: ' + (err instanceof Error ? err.message : 'unknown'), 'error');
     } finally {
       setSubmitting(false);
     }
@@ -1605,7 +1605,7 @@ function NewPostModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
       <div className="bg-app-bg border border-app-border rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between px-6 py-4 border-b border-app-border sticky top-0 bg-app-bg z-10">
-          <h3 className="text-white font-bold text-base">Tạo bài đăng mới</h3>
+          <h3 className="text-white font-bold text-base">T?o b�i dang m?i</h3>
           <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white/70 cursor-pointer">
             <i className="ri-close-line text-sm"></i>
           </button>
@@ -1614,7 +1614,7 @@ function NewPostModal({
         <div className="p-6 space-y-4">
           {/* Category */}
           <div>
-            <label className="text-app-text-secondary text-xs font-medium block mb-2">Loại bài đăng</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-2">Lo?i b�i dang</label>
             <div className="flex gap-2 flex-wrap">
               {(["question", "share", "result", "tip"] as const).map(cat => {
                 const c = CATEGORY_CONFIG[cat];
@@ -1631,18 +1631,18 @@ function NewPostModal({
 
           {/* Title */}
           <div>
-            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Tiêu đề</label>
-            <input value={title} onChange={e => setTitle(e.target.value)} placeholder="Tiêu đề bài đăng..." maxLength={100}
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Ti�u d?</label>
+            <input value={title} onChange={e => setTitle(e.target.value)} placeholder="Ti�u d? b�i dang..." maxLength={100}
               className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 placeholder-white/20" />
           </div>
 
           {/* Rich text content */}
           <div>
-            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Nội dung</label>
+            <label className="text-app-text-secondary text-xs font-medium block mb-1.5">N?i dung</label>
             <RichEditor
               value={content}
               onChange={setContent}
-              placeholder="Chia sẻ kinh nghiệm, đặt câu hỏi hoặc khoe thành tích..."
+              placeholder="Chia s? kinh nghi?m, d?t c�u h?i ho?c khoe th�nh t�ch..."
               onImageUpload={uploadImageToCommunityStorage}
             />
           </div>
@@ -1652,7 +1652,7 @@ function NewPostModal({
             <button onClick={() => fileInputRef.current?.click()}
               className="flex items-center gap-2 text-app-text-secondary hover:text-white/70 text-xs cursor-pointer whitespace-nowrap transition-colors">
               <i className="ri-image-add-line text-sm"></i>
-              Thêm ảnh (tự động chuyển WebP, resize về 800px)
+              Th�m ?nh (t? d?ng chuy?n WebP, resize v? 800px)
             </button>
             <input
               ref={fileInputRef}
@@ -1662,7 +1662,7 @@ function NewPostModal({
               className="hidden"
             />
             {uploadingImage && (
-              <div className="mt-2 text-app-text-muted text-xs">Đang upload ảnh...</div>
+              <div className="mt-2 text-app-text-muted text-xs">�ang upload ?nh...</div>
             )}
             {imagePreview && (
               <div className="mt-2 relative">
@@ -1686,18 +1686,18 @@ function NewPostModal({
               />
               <span className="text-white text-sm font-medium">
                 <i className="ri-question-line mr-1 text-app-accent-primary"></i>
-                Biến bài viết này thành câu hỏi trắc nghiệm
+                Bi?n b�i vi?t n�y th�nh c�u h?i tr?c nghi?m
               </span>
             </label>
             <p className="text-app-text-muted text-[11px] mt-1 ml-6">
-              Thành viên trả lời đúng sẽ được +1 XP. Mỗi người chỉ được trả lời 1 lần.
+              Th�nh vi�n tr? l?i d�ng s? du?c +1 XP. M?i ngu?i ch? du?c tr? l?i 1 l?n.
             </p>
 
             {isQuiz && (
               <div className="mt-4 space-y-3">
                 <p className="text-app-text-secondary text-xs">
                   <i className="ri-information-line mr-1"></i>
-                  Tiêu đề bài viết sẽ là câu hỏi. Nhập các đáp án dưới đây:
+                  Ti�u d? b�i vi?t s? l� c�u h?i. Nh?p c�c d�p �n du?i d�y:
                 </p>
 
                 {quizOptions.map((opt, idx) => (
@@ -1705,7 +1705,7 @@ function NewPostModal({
                     <button
                       type="button"
                       onClick={() => setQuizOptions(opts => opts.map((o, i) => ({ ...o, is_correct: i === idx })))}
-                      title="Chọn đây là đáp án đúng"
+                      title="Ch?n d�y l� d�p �n d�ng"
                       className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 cursor-pointer transition-colors ${opt.is_correct ? "bg-emerald-500/20 border border-emerald-500/40 text-emerald-400" : "bg-app-card/50 border border-app-border text-app-text-muted hover:text-white/60"}`}
                     >
                       <i className={opt.is_correct ? "ri-check-line" : "ri-circle-line"}></i>
@@ -1714,7 +1714,7 @@ function NewPostModal({
                       type="text"
                       value={opt.text}
                       onChange={e => setQuizOptions(opts => opts.map((o, i) => i === idx ? { ...o, text: e.target.value } : o))}
-                      placeholder={`Đáp án ${String.fromCharCode(65 + idx)}...`}
+                      placeholder={`��p �n ${String.fromCharCode(65 + idx)}...`}
                       maxLength={200}
                       className="flex-1 bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary/40 placeholder-white/20"
                     />
@@ -1736,16 +1736,16 @@ function NewPostModal({
                     onClick={() => setQuizOptions(opts => [...opts, { id: opts.length + 1, text: "", is_correct: false }])}
                     className="w-full py-2 rounded-lg border border-dashed border-app-border text-app-text-secondary text-xs hover:text-white/60 hover:border-white/20 cursor-pointer"
                   >
-                    <i className="ri-add-line mr-1"></i>Thêm đáp án (tối đa 4)
+                    <i className="ri-add-line mr-1"></i>Th�m d�p �n (t?i da 4)
                   </button>
                 )}
 
                 <div>
-                  <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Giải thích đáp án đúng (tùy chọn)</label>
+                  <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Gi?i th�ch d�p �n d�ng (t�y ch?n)</label>
                   <RichEditor
                     value={quizExplanation}
                     onChange={setQuizExplanation}
-                    placeholder="Giải thích chi tiết: in đậm, màu chữ, ảnh, link, HTML... đều được"
+                    placeholder="Gi?i th�ch chi ti?t: in d?m, m�u ch?, ?nh, link, HTML... d?u du?c"
                     onImageUpload={uploadImageToCommunityStorage}
                   />
                 </div>
@@ -1754,10 +1754,10 @@ function NewPostModal({
           </div>
 
           <div className="flex gap-3 pt-2">
-            <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50">Hủy</button>
+            <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50">H?y</button>
             <button onClick={handleSubmit} disabled={submitting}
               className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
-              {submitting ? "Đang đăng..." : "Đăng bài"}
+              {submitting ? "�ang dang..." : "�ang b�i"}
             </button>
           </div>
         </div>
@@ -1768,7 +1768,7 @@ function NewPostModal({
 
 const POSTS_PER_PAGE = 10;
 
-// ─── FAQ Item ─────────────────────────────────────────────────────────────────
+// --- FAQ Item -----------------------------------------------------------------
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false);
   return (
@@ -1789,7 +1789,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
   );
 }
 
-// ─── Pagination ───────────────────────────────────────────────────────────────
+// --- Pagination ---------------------------------------------------------------
 function Pagination({ current, total, onChange }: { current: number; total: number; onChange: (p: number) => void }) {
   if (total <= 1) return null;
   const pages = Array.from({ length: total }, (_, i) => i + 1);
@@ -1821,7 +1821,7 @@ function Pagination({ current, total, onChange }: { current: number; total: numb
   );
 }
 
-// ─── Main Page ───────────────────────────────────────────────────────────────
+// --- Main Page ---------------------------------------------------------------
 export default function CommunityPage() {
   const navigate = useNavigate();
   const [category, setCategory] = useState<Category>("all");
@@ -1841,13 +1841,13 @@ export default function CommunityPage() {
   const { settings: commSettings } = useCommunitySettings();
   const { showToast, toasts, removeToast } = useToast();
 
-  // Reset page khi filter thay đổi
+  // Reset page khi filter thay d?i
   useEffect(() => { setCurrentPage(1); }, [category, sortBy, search]);
 
   const fetchPosts = useCallback(async () => {
     setLoadingPosts(true);
-    // RLS policy đã lọc: approved + own-pending + admin-all. Không cần
-    // client-side filter nữa — chỉ cần SELECT *.
+    // RLS policy d� l?c: approved + own-pending + admin-all. Kh�ng c?n
+    // client-side filter n?a � ch? c?n SELECT *.
     const { data } = await supabase
       .from("community_posts")
       .select("*")
@@ -1858,7 +1858,7 @@ export default function CommunityPage() {
 
   useEffect(() => { fetchPosts(); }, [fetchPosts]);
 
-  // Sync likes từ DB cho user đã đăng nhập (tránh conflict với localStorage)
+  // Sync likes t? DB cho user d� dang nh?p (tr�nh conflict v?i localStorage)
   useEffect(() => {
     if (!user) return;
     (async () => {
@@ -1886,7 +1886,7 @@ export default function CommunityPage() {
   const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE);
   const pagedPosts = filtered.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);
 
-  // Guest view limit: chỉ giới hạn khách, thành viên đăng nhập xem full
+  // Guest view limit: ch? gi?i h?n kh�ch, th�nh vi�n dang nh?p xem full
   const isGuestLimited = !user && commSettings.access_control_enabled && commSettings.access_mode === "normal";
   const guestViewCount = isGuestLimited ? commSettings.guest_view_limit : Infinity;
   const displayPosts = isGuestLimited ? pagedPosts.slice(0, guestViewCount) : pagedPosts;
@@ -1894,25 +1894,25 @@ export default function CommunityPage() {
 
   const handleDeletePost = async (post: Post) => {
     if (!user) return;
-    if (!confirm(`Xác nhận xóa bài viết "${post.title}"? Hành động này không thể hoàn tác.`)) return;
+    if (!confirm(`X�c nh?n x�a b�i vi?t "${post.title}"? H�nh d?ng n�y kh�ng th? ho�n t�c.`)) return;
 
     const { error } = await supabase
       .from("community_posts")
       .delete()
       .eq("id", post.id)
-      .eq("user_id", user.id); // RLS double-check: chỉ tác giả được xóa
+      .eq("user_id", user.id); // RLS double-check: ch? t�c gi? du?c x�a
 
     if (error) {
-      showToast(`Lỗi xóa bài: ${error.message}`, "error");
+      showToast(`L?i x�a b�i: ${error.message}`, "error");
     } else {
       setPosts(prev => prev.filter(p => p.id !== post.id));
-      showToast("Đã xóa bài viết.", "success");
+      showToast("�� x�a b�i vi?t.", "success");
     }
   };
 
   const handleLike = async (id: string) => {
     if (!user) {
-      showToast("Vui lòng đăng nhập để thích bài viết", "error");
+      showToast("Vui l�ng dang nh?p d? th�ch b�i vi?t", "error");
       return;
     }
     const alreadyLiked = likedPosts.includes(id);
@@ -1920,14 +1920,14 @@ export default function CommunityPage() {
     setLikedPosts(prev => alreadyLiked ? prev.filter(x => x !== id) : [...prev, id]);
     setPosts(prev => prev.map(p => p.id === id ? { ...p, likes: Math.max(0, p.likes + (alreadyLiked ? -1 : 1)) } : p));
 
-    // Trigger `trg_update_post_likes_count` sẽ tự cập nhật community_posts.likes
+    // Trigger `trg_update_post_likes_count` s? t? c?p nh?t community_posts.likes
     if (alreadyLiked) {
       const { error } = await supabase.from("community_likes").delete().eq("user_id", user.id).eq("post_id", id);
       if (error) {
         // Rollback on error
         setLikedPosts(prev => [...prev, id]);
         setPosts(prev => prev.map(p => p.id === id ? { ...p, likes: p.likes + 1 } : p));
-        showToast("Lỗi bỏ thích: " + error.message, "error");
+        showToast("L?i b? th�ch: " + error.message, "error");
       }
     } else {
       const { error } = await supabase.from("community_likes").insert({ user_id: user.id, post_id: id });
@@ -1935,7 +1935,7 @@ export default function CommunityPage() {
         // Rollback
         setLikedPosts(prev => prev.filter(x => x !== id));
         setPosts(prev => prev.map(p => p.id === id ? { ...p, likes: Math.max(0, p.likes - 1) } : p));
-        showToast("Lỗi thích: " + error.message, "error");
+        showToast("L?i th�ch: " + error.message, "error");
       }
     }
   };
@@ -1943,13 +1943,13 @@ export default function CommunityPage() {
   const handleNewPost = async (data: { title: string; content: string; category: string; imageUrl?: string; quiz?: QuizData | null }) => {
     if (!user || !profile) return;
 
-    // Kiểm tra chế độ bảo trì
+    // Ki?m tra ch? d? b?o tr�
     if (commSettings.access_mode === "maintenance") {
-      showToast("Cộng đồng đang bảo trì, vui lòng quay lại sau!", "error");
+      showToast("C?ng d?ng dang b?o tr�, vui l�ng quay l?i sau!", "error");
       return;
     }
 
-    // Kiểm tra giới hạn đăng bài/ngày (chỉ áp dụng ở chế độ normal)
+    // Ki?m tra gi?i h?n dang b�i/ng�y (ch? �p d?ng ? ch? d? normal)
     if (commSettings.access_control_enabled && commSettings.access_mode === "normal") {
       const limit = isVipActive(profile) ? commSettings.vip_daily_post_limit : commSettings.member_daily_post_limit;
       if (limit > 0) {
@@ -1960,22 +1960,22 @@ export default function CommunityPage() {
           .eq("user_id", user.id)
           .gte("created_at", today);
         if (count !== null && count >= limit) {
-          showToast(`Bạn chỉ có thể đăng tối đa ${limit} bài/ngày. Nâng cấp VIP để không giới hạn!`, "error");
+          showToast(`B?n ch? c� th? dang t?i da ${limit} b�i/ng�y. N�ng c?p VIP d? kh�ng gi?i h?n!`, "error");
           return;
         }
       }
     }
 
     // Store relative path in DB (not full URL) for VPS migration later
-    // Format: {{storage:community-images/xxx.webp}} — converted to full URL on render
+    // Format: {{storage:community-images/xxx.webp}} � converted to full URL on render
     const contentWithImage = data.imageUrl
-      ? `${data.content}\n\n<img src="{{storage:${data.imageUrl}}}" alt="ảnh" style="max-width:100%;border-radius:12px" />`
+      ? `${data.content}\n\n<img src="{{storage:${data.imageUrl}}}" alt="?nh" style="max-width:100%;border-radius:12px" />`
       : data.content;
 
     const { error } = await supabase.from("community_posts").insert({
       user_id: user.id,
-      author_name: profile.display_name || "Học viên",
-      author_level: "Học viên",
+      author_name: profile.display_name || "H?c vi�n",
+      author_level: "H?c vi�n",
       title: data.title,
       content: contentWithImage,
       category: data.category,
@@ -1989,7 +1989,7 @@ export default function CommunityPage() {
       throw new Error(error.message);
     }
     await fetchPosts();
-    showToast("Bài đăng đã gửi — đang chờ quản trị viên duyệt. Bạn có thể xem bài của mình ở mục \"Đang chờ duyệt\".", "success");
+    showToast("B�i dang d� g?i � dang ch? qu?n tr? vi�n duy?t. B?n c� th? xem b�i c?a m�nh ? m?c \"�ang ch? duy?t\".", "success");
   };
 
   return (
@@ -1998,22 +1998,22 @@ export default function CommunityPage() {
     <CommunityFAQSchema />
     <ToastContainer toasts={toasts} removeToast={removeToast} />
     <DashboardLayout
-      title="Cộng đồng Hàn Quốc Ơi!"
-      subtitle="Hỏi đáp, chia sẻ kinh nghiệm và cùng nhau tiến bộ"
+      title="C?ng d?ng H�n Qu?c Oi!"
+      subtitle="H?i d�p, chia s? kinh nghi?m v� c�ng nhau ti?n b?"
       actions={
         user ? (
           <button
             onClick={() => setShowNewPost(true)}
             className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
           >
-            <i className="ri-add-line"></i>Đăng bài mới
+            <i className="ri-add-line"></i>�ang b�i m?i
           </button>
         ) : (
           <button
             onClick={() => setAuthModalOpen(true)}
             className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
           >
-            <i className="ri-user-add-line"></i>Đăng ký/Đăng nhập
+            <i className="ri-user-add-line"></i>�ang k�/�ang nh?p
           </button>
         )
       }
@@ -2027,12 +2027,12 @@ export default function CommunityPage() {
               <input
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                placeholder="Tìm kiếm bài đăng..."
+                placeholder="T�m ki?m b�i dang..."
                 className="w-full bg-app-bg border border-app-border rounded-xl pl-9 pr-4 py-2.5 text-white text-sm focus:outline-none focus:border-app-accent-primary/30 placeholder-white/20"
               />
             </div>
             <div className="flex items-center gap-1 bg-app-surface/50 border border-app-border rounded-lg p-1">
-              {([["latest", "Mới nhất"], ["popular", "Phổ biến"], ["comments", "Bình luận"]] as [SortBy, string][]).map(([s, label]) => (
+              {([["latest", "M?i nh?t"], ["popular", "Ph? bi?n"], ["comments", "B�nh lu?n"]] as [SortBy, string][]).map(([s, label]) => (
                 <button
                   key={s}
                   onClick={() => setSortBy(s)}
@@ -2056,7 +2056,7 @@ export default function CommunityPage() {
               </button>
             ))}
             {filtered.length > 0 && (
-              <span className="ml-auto text-app-text-muted text-xs self-center">{filtered.length} bài · trang {currentPage}/{totalPages || 1}</span>
+              <span className="ml-auto text-app-text-muted text-xs self-center">{filtered.length} b�i � trang {currentPage}/{totalPages || 1}</span>
             )}
           </div>
 
@@ -2067,10 +2067,10 @@ export default function CommunityPage() {
           ) : filtered.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-center">
               <i className="ri-chat-3-line text-white/10 text-4xl mb-3"></i>
-              <p className="text-app-text-muted text-sm">Chưa có bài đăng nào</p>
+              <p className="text-app-text-muted text-sm">Chua c� b�i dang n�o</p>
               {user && (
                 <button onClick={() => setShowNewPost(true)} className="mt-3 text-app-accent-primary text-xs cursor-pointer whitespace-nowrap">
-                  Hãy là người đầu tiên đăng bài →
+                  H�y l� ngu?i d?u ti�n dang b�i ?
                 </button>
               )}
             </div>
@@ -2102,11 +2102,11 @@ export default function CommunityPage() {
               {isGuestCutoff && (
                 <div className="mt-4 bg-gradient-to-r from-[app-accent-primary]/10 to-[#fb923c]/10 border border-app-accent-primary/20 rounded-2xl p-5 text-center">
                   <i className="ri-lock-line text-app-accent-primary text-2xl mb-2 block"></i>
-                  <p className="text-white font-bold text-sm mb-1">Bạn đã xem {guestViewCount} bài miễn phí</p>
-                  <p className="text-white/50 text-xs mb-3">Đăng ký thành viên để xem tất cả bài viết và tham gia thảo luận!</p>
+                  <p className="text-white font-bold text-sm mb-1">B?n d� xem {guestViewCount} b�i mi?n ph�</p>
+                  <p className="text-white/50 text-xs mb-3">�ang k� th�nh vi�n d? xem t?t c? b�i vi?t v� tham gia th?o lu?n!</p>
                   <button onClick={() => setAuthModalOpen(true)}
                     className="inline-flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors">
-                    <i className="ri-user-add-line"></i>Đăng ký ngay
+                    <i className="ri-user-add-line"></i>�ang k� ngay
                   </button>
                 </div>
               )}
@@ -2114,15 +2114,15 @@ export default function CommunityPage() {
               {commSettings.access_mode === "holiday" && (
                 <div className="mt-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-4 text-center">
                   <i className="ri-gift-line text-app-accent-success text-xl mb-1 block"></i>
-                  <p className="text-app-accent-success font-bold text-sm">{commSettings.mode_note || "🎉 Cộng đồng mở cửa tự do!"}</p>
-                  <p className="text-app-text-secondary text-xs mt-1">Đăng bài không giới hạn trong thời gian sự kiện</p>
+                  <p className="text-app-accent-success font-bold text-sm">{commSettings.mode_note || "?? C?ng d?ng m? c?a t? do!"}</p>
+                  <p className="text-app-text-secondary text-xs mt-1">�ang b�i kh�ng gi?i h?n trong th?i gian s? ki?n</p>
                 </div>
               )}
               {commSettings.access_mode === "maintenance" && (
                 <div className="mt-4 bg-rose-500/10 border border-rose-500/20 rounded-2xl p-4 text-center">
                   <i className="ri-tools-line text-rose-400 text-xl mb-1 block"></i>
-                  <p className="text-rose-400 font-bold text-sm">Cộng đồng đang bảo trì</p>
-                  <p className="text-app-text-secondary text-xs mt-1">Vui lòng quay lại sau!</p>
+                  <p className="text-rose-400 font-bold text-sm">C?ng d?ng dang b?o tr�</p>
+                  <p className="text-app-text-secondary text-xs mt-1">Vui l�ng quay l?i sau!</p>
                 </div>
               )}
               <Pagination current={currentPage} total={totalPages} onChange={p => { setCurrentPage(p); window.scrollTo({ top: 0, behavior: "smooth" }); }} />
@@ -2133,13 +2133,13 @@ export default function CommunityPage() {
         {/* Sidebar */}
         <div className="space-y-4">
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Cộng đồng Hàn Quốc Ơi!</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">C?ng d?ng H�n Qu?c Oi!</h3>
             <div className="space-y-3">
               {[
-                { icon: "ri-group-line", label: "Thành viên", value: "10,247", color: "app-accent-primary" },
-                { icon: "ri-article-line", label: "Bài đăng", value: posts.length.toString(), color: "#34d399" },
-                { icon: "ri-fire-line", label: "Streak trung bình", value: "23 ngày", color: "#fb923c" },
-                { icon: "ri-trophy-line", label: "Đậu EPS tháng này", value: "142 người", color: "#FFD700" },
+                { icon: "ri-group-line", label: "Th�nh vi�n", value: "10,247", color: "app-accent-primary" },
+                { icon: "ri-article-line", label: "B�i dang", value: posts.length.toString(), color: "#34d399" },
+                { icon: "ri-fire-line", label: "Streak trung b�nh", value: "23 ng�y", color: "#fb923c" },
+                { icon: "ri-trophy-line", label: "�?u EPS th�ng n�y", value: "142 ngu?i", color: "#FFD700" },
               ].map(s => (
                 <div key={s.label} className="flex items-center gap-3">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -2158,9 +2158,9 @@ export default function CommunityPage() {
             <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-2">
                 <i className="ri-lock-line text-app-accent-primary text-sm"></i>
-                <p className="text-white font-semibold text-sm">Tham gia cộng đồng</p>
+                <p className="text-white font-semibold text-sm">Tham gia c?ng d?ng</p>
               </div>
-              <p className="text-app-text-secondary text-xs leading-relaxed mb-3">Đăng nhập để đăng bài, bình luận và tương tác với cộng đồng học tiếng Hàn!</p>
+              <p className="text-app-text-secondary text-xs leading-relaxed mb-3">�ang nh?p d? dang b�i, b�nh lu?n v� tuong t�c v?i c?ng d?ng h?c ti?ng H�n!</p>
             </div>
           )}
 
@@ -2170,19 +2170,19 @@ export default function CommunityPage() {
                 <i className="ri-fire-line text-app-accent-primary text-lg"></i>
               </div>
               <div>
-                <p className="text-white font-bold text-base">{streak.count} ngày streak</p>
-                <p className="text-app-text-secondary text-xs">Của bạn</p>
+                <p className="text-white font-bold text-base">{streak.count} ng�y streak</p>
+                <p className="text-app-text-secondary text-xs">C?a b?n</p>
               </div>
             </div>
             <p className="text-app-text-secondary text-xs leading-relaxed">
-              {streak.count >= 30 ? "Top 10% cộng đồng! Xuất sắc!" : streak.count >= 7 ? "Đang tiến bộ tốt — tiếp tục nhé!" : "Bắt đầu streak để leo bảng xếp hạng!"}
+              {streak.count >= 30 ? "Top 10% c?ng d?ng! Xu?t s?c!" : streak.count >= 7 ? "�ang ti?n b? t?t � ti?p t?c nh�!" : "B?t d?u streak d? leo b?ng x?p h?ng!"}
             </p>
           </div>
 
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-3">Chủ đề hot</h3>
+            <h3 className="text-white font-semibold text-sm mb-3">Ch? d? hot</h3>
             <div className="flex flex-wrap gap-2">
-              {["EPS-TOPIK", "ngữ pháp", "từ vựng", "streak", "K-pop", "Hangul", "mẹo học", "TOPIK II", "kinh nghiệm", "thi thử"].map(tag => (
+              {["EPS-TOPIK", "ng? ph�p", "t? v?ng", "streak", "K-pop", "Hangul", "m?o h?c", "TOPIK II", "kinh nghi?m", "thi th?"].map(tag => (
                 <button
                   key={tag}
                   onClick={() => setSearch(tag)}
@@ -2197,13 +2197,13 @@ export default function CommunityPage() {
           {/* Online Users & Activity Feed */}
           <OnlineUsersWidget />
 
-          {/* FAQ Section — Schema.org FAQPage */}
+          {/* FAQ Section � Schema.org FAQPage */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-6 h-6 flex items-center justify-center rounded-lg bg-app-accent-primary/15">
                 <i className="ri-question-answer-line text-app-accent-primary text-xs"></i>
               </div>
-              <h3 className="text-white font-semibold text-sm">Câu hỏi thường gặp</h3>
+              <h3 className="text-white font-semibold text-sm">C�u h?i thu?ng g?p</h3>
             </div>
             <div className="space-y-2">
               {FAQ_SCHEMA.mainEntity.map((faq, i) => (

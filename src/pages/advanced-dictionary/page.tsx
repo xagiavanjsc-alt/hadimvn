@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface DictEntry {
@@ -16,59 +16,59 @@ interface DictEntry {
 
 const DICT_DATA: DictEntry[] = [
   {
-    word: "사랑", romanization: "sa-rang", pos: "명사", level: "A1", hanja: "愛",
+    word: "??", romanization: "sa-rang", pos: "??", level: "A1", hanja: "?",
     meanings: [
-      { meaning: "Tình yêu, tình cảm yêu thương", examples: [{ korean: "나는 너를 사랑해.", vietnamese: "Tôi yêu bạn." }, { korean: "부모님의 사랑은 무조건적이에요.", vietnamese: "Tình yêu của cha mẹ là vô điều kiện." }] },
-      { meaning: "Sự quan tâm, chăm sóc", examples: [{ korean: "아이들에게 사랑을 주세요.", vietnamese: "Hãy cho trẻ em tình yêu thương." }] },
+      { meaning: "T�nh y�u, t�nh c?m y�u thuong", examples: [{ korean: "?? ?? ???.", vietnamese: "T�i y�u b?n." }, { korean: "???? ??? ???????.", vietnamese: "T�nh y�u c?a cha m? l� v� di?u ki?n." }] },
+      { meaning: "S? quan t�m, cham s�c", examples: [{ korean: "????? ??? ???.", vietnamese: "H�y cho tr? em t�nh y�u thuong." }] },
     ],
-    synonyms: ["애정", "연애", "정"], antonyms: ["미움", "증오", "혐오"],
-    compounds: [{ word: "사랑하다", meaning: "Yêu (động từ)" }, { word: "사랑스럽다", meaning: "Đáng yêu" }, { word: "사랑받다", meaning: "Được yêu" }, { word: "첫사랑", meaning: "Tình yêu đầu tiên" }],
-    note: "Từ thuần Hàn, rất phổ biến trong văn học và âm nhạc Hàn Quốc.",
+    synonyms: ["??", "??", "?"], antonyms: ["??", "??", "??"],
+    compounds: [{ word: "????", meaning: "Y�u (d?ng t?)" }, { word: "?????", meaning: "��ng y�u" }, { word: "????", meaning: "�u?c y�u" }, { word: "???", meaning: "T�nh y�u d?u ti�n" }],
+    note: "T? thu?n H�n, r?t ph? bi?n trong van h?c v� �m nh?c H�n Qu?c.",
   },
   {
-    word: "행복", romanization: "haeng-bok", pos: "명사/형용사", level: "A2", hanja: "幸福",
-    meanings: [{ meaning: "Hạnh phúc, niềm vui", examples: [{ korean: "행복한 가정을 만들고 싶어요.", vietnamese: "Tôi muốn xây dựng một gia đình hạnh phúc." }, { korean: "작은 것에서 행복을 찾아요.", vietnamese: "Tìm hạnh phúc trong những điều nhỏ bé." }] }],
-    synonyms: ["기쁨", "즐거움", "만족"], antonyms: ["불행", "슬픔", "고통"],
-    compounds: [{ word: "행복하다", meaning: "Hạnh phúc (tính từ)" }, { word: "행복감", meaning: "Cảm giác hạnh phúc" }, { word: "행복지수", meaning: "Chỉ số hạnh phúc" }],
-    note: "Từ Hán Hàn (幸福). Dùng cả làm danh từ và tính từ.",
+    word: "??", romanization: "haeng-bok", pos: "??/???", level: "A2", hanja: "??",
+    meanings: [{ meaning: "H?nh ph�c, ni?m vui", examples: [{ korean: "??? ??? ??? ???.", vietnamese: "T�i mu?n x�y d?ng m?t gia d�nh h?nh ph�c." }, { korean: "?? ??? ??? ???.", vietnamese: "T�m h?nh ph�c trong nh?ng di?u nh? b�." }] }],
+    synonyms: ["??", "???", "??"], antonyms: ["??", "??", "??"],
+    compounds: [{ word: "????", meaning: "H?nh ph�c (t�nh t?)" }, { word: "???", meaning: "C?m gi�c h?nh ph�c" }, { word: "????", meaning: "Ch? s? h?nh ph�c" }],
+    note: "T? H�n H�n (??). D�ng c? l�m danh t? v� t�nh t?.",
   },
   {
-    word: "공부", romanization: "gong-bu", pos: "명사/동사", level: "A1", hanja: "工夫",
-    meanings: [{ meaning: "Học tập, việc học", examples: [{ korean: "매일 한국어 공부를 해요.", vietnamese: "Tôi học tiếng Hàn mỗi ngày." }, { korean: "공부가 재미있어요.", vietnamese: "Việc học rất thú vị." }] }],
-    synonyms: ["학습", "공부하기", "배움"], antonyms: ["놀이", "휴식"],
-    compounds: [{ word: "공부하다", meaning: "Học (động từ)" }, { word: "공부방", meaning: "Phòng học" }, { word: "공부벌레", meaning: "Mọt sách" }, { word: "자기공부", meaning: "Tự học" }],
+    word: "??", romanization: "gong-bu", pos: "??/??", level: "A1", hanja: "??",
+    meanings: [{ meaning: "H?c t?p, vi?c h?c", examples: [{ korean: "?? ??? ??? ??.", vietnamese: "T�i h?c ti?ng H�n m?i ng�y." }, { korean: "??? ?????.", vietnamese: "Vi?c h?c r?t th� v?." }] }],
+    synonyms: ["??", "????", "??"], antonyms: ["??", "??"],
+    compounds: [{ word: "????", meaning: "H?c (d?ng t?)" }, { word: "???", meaning: "Ph�ng h?c" }, { word: "????", meaning: "M?t s�ch" }, { word: "????", meaning: "T? h?c" }],
   },
   {
-    word: "아름답다", romanization: "a-reum-dap-da", pos: "형용사", level: "A2",
-    meanings: [{ meaning: "Đẹp, xinh đẹp (về ngoại hình hoặc tâm hồn)", examples: [{ korean: "한국의 가을은 정말 아름다워요.", vietnamese: "Mùa thu Hàn Quốc thực sự rất đẹp." }, { korean: "그녀는 마음이 아름다운 사람이에요.", vietnamese: "Cô ấy là người có tâm hồn đẹp." }] }],
-    synonyms: ["예쁘다", "곱다", "멋있다"], antonyms: ["못생기다", "추하다"],
-    compounds: [{ word: "아름다움", meaning: "Vẻ đẹp (danh từ)" }, { word: "아름답게", meaning: "Một cách đẹp đẽ" }],
-    note: "아름답다 dùng cho vẻ đẹp tổng thể, sâu sắc hơn 예쁘다 (chỉ ngoại hình).",
+    word: "????", romanization: "a-reum-dap-da", pos: "???", level: "A2",
+    meanings: [{ meaning: "�?p, xinh d?p (v? ngo?i h�nh ho?c t�m h?n)", examples: [{ korean: "??? ??? ?? ?????.", vietnamese: "M�a thu H�n Qu?c th?c s? r?t d?p." }, { korean: "??? ??? ???? ?????.", vietnamese: "C� ?y l� ngu?i c� t�m h?n d?p." }] }],
+    synonyms: ["???", "??", "???"], antonyms: ["????", "???"],
+    compounds: [{ word: "????", meaning: "V? d?p (danh t?)" }, { word: "????", meaning: "M?t c�ch d?p d?" }],
+    note: "???? d�ng cho v? d?p t?ng th?, s�u s?c hon ??? (ch? ngo?i h�nh).",
   },
   {
-    word: "생각", romanization: "saeng-gak", pos: "명사/동사", level: "A2",
-    meanings: [{ meaning: "Suy nghĩ, ý nghĩ", examples: [{ korean: "좋은 생각이 있어요.", vietnamese: "Tôi có một ý hay." }, { korean: "그 생각은 틀렸어요.", vietnamese: "Suy nghĩ đó sai rồi." }] }, { meaning: "Ký ức, hồi tưởng", examples: [{ korean: "고향 생각이 나요.", vietnamese: "Tôi nhớ quê hương." }] }],
-    synonyms: ["사고", "의견", "견해"], antonyms: [],
-    compounds: [{ word: "생각하다", meaning: "Suy nghĩ (động từ)" }, { word: "생각나다", meaning: "Nhớ ra, nảy ra ý" }, { word: "생각해보다", meaning: "Thử suy nghĩ" }],
+    word: "??", romanization: "saeng-gak", pos: "??/??", level: "A2",
+    meanings: [{ meaning: "Suy nghi, � nghi", examples: [{ korean: "?? ??? ???.", vietnamese: "T�i c� m?t � hay." }, { korean: "? ??? ????.", vietnamese: "Suy nghi d� sai r?i." }] }, { meaning: "K� ?c, h?i tu?ng", examples: [{ korean: "?? ??? ??.", vietnamese: "T�i nh? qu� huong." }] }],
+    synonyms: ["??", "??", "??"], antonyms: [],
+    compounds: [{ word: "????", meaning: "Suy nghi (d?ng t?)" }, { word: "????", meaning: "Nh? ra, n?y ra �" }, { word: "?????", meaning: "Th? suy nghi" }],
   },
   {
-    word: "노력", romanization: "no-ryeok", pos: "명사/동사", level: "B1", hanja: "努力",
-    meanings: [{ meaning: "Nỗ lực, cố gắng", examples: [{ korean: "노력 없이는 성공할 수 없어요.", vietnamese: "Không thể thành công nếu không nỗ lực." }, { korean: "최선을 다해 노력했어요.", vietnamese: "Tôi đã cố gắng hết sức." }] }],
-    synonyms: ["수고", "애씀", "분투"], antonyms: ["게으름", "나태"],
-    compounds: [{ word: "노력하다", meaning: "Nỗ lực (động từ)" }, { word: "노력가", meaning: "Người chăm chỉ" }, { word: "노력의 결실", meaning: "Thành quả của nỗ lực" }],
-    note: "Từ Hán Hàn (努力). Thường dùng với 하다 để tạo động từ.",
+    word: "??", romanization: "no-ryeok", pos: "??/??", level: "B1", hanja: "??",
+    meanings: [{ meaning: "N? l?c, c? g?ng", examples: [{ korean: "?? ??? ??? ? ???.", vietnamese: "Kh�ng th? th�nh c�ng n?u kh�ng n? l?c." }, { korean: "??? ?? ?????.", vietnamese: "T�i d� c? g?ng h?t s?c." }] }],
+    synonyms: ["??", "??", "??"], antonyms: ["???", "??"],
+    compounds: [{ word: "????", meaning: "N? l?c (d?ng t?)" }, { word: "???", meaning: "Ngu?i cham ch?" }, { word: "??? ??", meaning: "Th�nh qu? c?a n? l?c" }],
+    note: "T? H�n H�n (??). Thu?ng d�ng v?i ?? d? t?o d?ng t?.",
   },
   {
-    word: "경험", romanization: "gyeong-heom", pos: "명사/동사", level: "B1", hanja: "經驗",
-    meanings: [{ meaning: "Kinh nghiệm, trải nghiệm", examples: [{ korean: "다양한 경험이 중요해요.", vietnamese: "Kinh nghiệm đa dạng rất quan trọng." }, { korean: "해외 생활을 경험해 봤어요.", vietnamese: "Tôi đã trải nghiệm cuộc sống ở nước ngoài." }] }],
-    synonyms: ["체험", "경력", "이력"], antonyms: ["미경험", "초보"],
-    compounds: [{ word: "경험하다", meaning: "Trải nghiệm (động từ)" }, { word: "경험자", meaning: "Người có kinh nghiệm" }, { word: "경험담", meaning: "Câu chuyện kinh nghiệm" }],
+    word: "??", romanization: "gyeong-heom", pos: "??/??", level: "B1", hanja: "??",
+    meanings: [{ meaning: "Kinh nghi?m, tr?i nghi?m", examples: [{ korean: "??? ??? ????.", vietnamese: "Kinh nghi?m da d?ng r?t quan tr?ng." }, { korean: "?? ??? ??? ???.", vietnamese: "T�i d� tr?i nghi?m cu?c s?ng ? nu?c ngo�i." }] }],
+    synonyms: ["??", "??", "??"], antonyms: ["???", "??"],
+    compounds: [{ word: "????", meaning: "Tr?i nghi?m (d?ng t?)" }, { word: "???", meaning: "Ngu?i c� kinh nghi?m" }, { word: "???", meaning: "C�u chuy?n kinh nghi?m" }],
   },
   {
-    word: "발전", romanization: "bal-jeon", pos: "명사/동사", level: "B2", hanja: "發展",
-    meanings: [{ meaning: "Phát triển, tiến bộ", examples: [{ korean: "기술의 발전이 빠릅니다.", vietnamese: "Sự phát triển của công nghệ rất nhanh." }, { korean: "한국 경제는 빠르게 발전했어요.", vietnamese: "Kinh tế Hàn Quốc đã phát triển nhanh chóng." }] }],
-    synonyms: ["성장", "진보", "향상"], antonyms: ["퇴보", "쇠퇴", "후퇴"],
-    compounds: [{ word: "발전하다", meaning: "Phát triển (động từ)" }, { word: "발전소", meaning: "Nhà máy điện" }, { word: "경제 발전", meaning: "Phát triển kinh tế" }],
+    word: "??", romanization: "bal-jeon", pos: "??/??", level: "B2", hanja: "??",
+    meanings: [{ meaning: "Ph�t tri?n, ti?n b?", examples: [{ korean: "??? ??? ????.", vietnamese: "S? ph�t tri?n c?a c�ng ngh? r?t nhanh." }, { korean: "?? ??? ??? ?????.", vietnamese: "Kinh t? H�n Qu?c d� ph�t tri?n nhanh ch�ng." }] }],
+    synonyms: ["??", "??", "??"], antonyms: ["??", "??", "??"],
+    compounds: [{ word: "????", meaning: "Ph�t tri?n (d?ng t?)" }, { word: "???", meaning: "Nh� m�y di?n" }, { word: "?? ??", meaning: "Ph�t tri?n kinh t?" }],
   },
 ];
 
@@ -127,11 +127,11 @@ export default function AdvancedDictionaryPage() {
   };
 
   return (
-    <DashboardLayout title="Tra cứu Hán Hàn" subtitle="Từ điển Hàn-Việt nâng cao với ví dụ, đồng nghĩa, trái nghĩa">
+    <DashboardLayout title="Tra c?u H�n H�n" subtitle="T? di?n H�n-Vi?t n�ng cao v?i v� d?, d?ng nghia, tr�i nghia">
       <div className="max-w-5xl mx-auto px-3 sm:px-6 py-5">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
-          {/* ── Left: Search + Browse ── */}
+          {/* -- Left: Search + Browse -- */}
           <div className="lg:col-span-1 space-y-3">
             {/* Search box */}
             <div className="rounded-2xl border p-4" style={{ backgroundColor: "#0f1117", borderColor: "rgba(255,255,255,0.07)" }}>
@@ -145,7 +145,7 @@ export default function AdvancedDictionaryPage() {
                   value={query}
                   onChange={e => handleInput(e.target.value)}
                   onKeyDown={e => e.key === "Enter" && handleSearch(query)}
-                  placeholder="Nhập từ tiếng Hàn..."
+                  placeholder="Nh?p t? ti?ng H�n..."
                   className="w-full pl-9 pr-9 py-2.5 rounded-xl text-sm focus:outline-none transition-colors"
                   style={{ backgroundColor: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.85)", border: "1px solid rgba(255,255,255,0.08)" }}
                 />
@@ -161,7 +161,7 @@ export default function AdvancedDictionaryPage() {
                 style={{ backgroundColor: "rgba(232,200,74,0.15)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.25)" }}
               >
                 <i className="ri-search-line mr-1.5"></i>
-                Tra cứu
+                Tra c?u
               </button>
 
               {/* Suggestions dropdown */}
@@ -191,7 +191,7 @@ export default function AdvancedDictionaryPage() {
             {/* Recent searches */}
             {recentSearches.length > 0 && (
               <div className="rounded-2xl border p-4" style={{ backgroundColor: "#0f1117", borderColor: "rgba(255,255,255,0.07)" }}>
-                <p className="text-[10px] font-semibold tracking-normal mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>Tìm kiếm gần đây</p>
+                <p className="text-[10px] font-semibold tracking-normal mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>T�m ki?m g?n d�y</p>
                 <div className="flex flex-wrap gap-2">
                   {recentSearches.map(r => (
                     <button
@@ -209,7 +209,7 @@ export default function AdvancedDictionaryPage() {
 
             {/* Quick browse */}
             <div className="rounded-2xl border p-4" style={{ backgroundColor: "#0f1117", borderColor: "rgba(255,255,255,0.07)" }}>
-              <p className="text-[10px] font-semibold tracking-normal mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>Từ phổ biến</p>
+              <p className="text-[10px] font-semibold tracking-normal mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>T? ph? bi?n</p>
               <div className="space-y-0.5">
                 {DICT_DATA.map(d => {
                   const lc = LEVEL_COLORS[d.level] || { bg: "rgba(255,255,255,0.08)", text: "rgba(255,255,255,0.4)" };
@@ -236,7 +236,7 @@ export default function AdvancedDictionaryPage() {
             </div>
           </div>
 
-          {/* ── Right: Result ── */}
+          {/* -- Right: Result -- */}
           <div className="lg:col-span-2">
             {!result ? (
               <div className="rounded-2xl border flex items-center justify-center h-72" style={{ backgroundColor: "#0f1117", borderColor: "rgba(255,255,255,0.07)" }}>
@@ -244,8 +244,8 @@ export default function AdvancedDictionaryPage() {
                   <div className="w-14 h-14 flex items-center justify-center rounded-2xl mx-auto mb-3" style={{ backgroundColor: "rgba(232,200,74,0.08)" }}>
                     <i className="ri-search-2-line text-2xl" style={{ color: "rgba(232,200,74,0.4)" }}></i>
                   </div>
-                  <p className="font-medium text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>Nhập từ để tra cứu</p>
-                  <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.2)" }}>Hỗ trợ tiếng Hàn và romanization</p>
+                  <p className="font-medium text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>Nh?p t? d? tra c?u</p>
+                  <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.2)" }}>H? tr? ti?ng H�n v� romanization</p>
                 </div>
               </div>
             ) : (
@@ -300,7 +300,7 @@ export default function AdvancedDictionaryPage() {
                           borderBottom: activeTab === tab ? "2px solid app-accent-primary" : "2px solid transparent",
                         }}
                       >
-                        {tab === "meaning" ? "Nghĩa & Ví dụ" : tab === "examples" ? "Đồng/Trái nghĩa" : "Từ ghép"}
+                        {tab === "meaning" ? "Nghia & V� d?" : tab === "examples" ? "�?ng/Tr�i nghia" : "T? gh�p"}
                       </button>
                     ))}
                   </div>
@@ -334,7 +334,7 @@ export default function AdvancedDictionaryPage() {
                         ))}
                         {result.note && (
                           <div className="rounded-xl p-4" style={{ backgroundColor: "rgba(232,200,74,0.06)", border: "1px solid rgba(232,200,74,0.15)" }}>
-                            <p className="text-xs font-semibold mb-1" style={{ color: "app-accent-primary" }}><i className="ri-lightbulb-line mr-1"></i>Ghi chú</p>
+                            <p className="text-xs font-semibold mb-1" style={{ color: "app-accent-primary" }}><i className="ri-lightbulb-line mr-1"></i>Ghi ch�</p>
                             <p className="text-sm" style={{ color: "rgba(232,200,74,0.7)" }}>{result.note}</p>
                           </div>
                         )}
@@ -348,7 +348,7 @@ export default function AdvancedDictionaryPage() {
                           <div>
                             <p className="text-sm font-semibold mb-3 flex items-center gap-2" style={{ color: "rgba(255,255,255,0.6)" }}>
                               <span className="w-5 h-5 flex items-center justify-center rounded-full text-xs" style={{ backgroundColor: "rgba(74,222,128,0.15)", color: "#4ade80" }}>=</span>
-                              Từ đồng nghĩa
+                              T? d?ng nghia
                             </p>
                             <div className="flex flex-wrap gap-2">
                               {result.synonyms.map(s => (
@@ -367,8 +367,8 @@ export default function AdvancedDictionaryPage() {
                         {result.antonyms.length > 0 && (
                           <div>
                             <p className="text-sm font-semibold mb-3 flex items-center gap-2" style={{ color: "rgba(255,255,255,0.6)" }}>
-                              <span className="w-5 h-5 flex items-center justify-center rounded-full text-xs" style={{ backgroundColor: "rgba(248,113,113,0.15)", color: "#f87171" }}>≠</span>
-                              Từ trái nghĩa
+                              <span className="w-5 h-5 flex items-center justify-center rounded-full text-xs" style={{ backgroundColor: "rgba(248,113,113,0.15)", color: "#f87171" }}>?</span>
+                              T? tr�i nghia
                             </p>
                             <div className="flex flex-wrap gap-2">
                               {result.antonyms.map(a => (
@@ -385,7 +385,7 @@ export default function AdvancedDictionaryPage() {
                           </div>
                         )}
                         {result.synonyms.length === 0 && result.antonyms.length === 0 && (
-                          <p className="text-sm text-center py-8" style={{ color: "rgba(255,255,255,0.25)" }}>Chưa có dữ liệu từ đồng/trái nghĩa</p>
+                          <p className="text-sm text-center py-8" style={{ color: "rgba(255,255,255,0.25)" }}>Chua c� d? li?u t? d?ng/tr�i nghia</p>
                         )}
                       </div>
                     )}
@@ -408,13 +408,13 @@ export default function AdvancedDictionaryPage() {
                                 </div>
                                 <button onClick={() => { setQuery(c.word); handleSearch(c.word); }}
                                   className="text-xs cursor-pointer whitespace-nowrap" style={{ color: "app-accent-primary" }}>
-                                  Tra cứu
+                                  Tra c?u
                                 </button>
                               </div>
                             ))}
                           </div>
                         ) : (
-                          <p className="text-sm text-center py-8" style={{ color: "rgba(255,255,255,0.25)" }}>Chưa có dữ liệu từ ghép</p>
+                          <p className="text-sm text-center py-8" style={{ color: "rgba(255,255,255,0.25)" }}>Chua c� d? li?u t? gh�p</p>
                         )}
                       </div>
                     )}

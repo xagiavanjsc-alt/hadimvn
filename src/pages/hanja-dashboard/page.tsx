@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
@@ -18,7 +18,7 @@ interface HanjaNode {
 const LEARNED_KEY = "hanja_tree_learned";
 const STREAK_KEY = "hanja_streak_log";
 const ROOT_MEANINGS: Record<string, string> = {
-  "人": "Người", "大": "Lớn", "國": "Quốc gia", "學": "Học", "心": "Tâm/Lòng",
+  "?": "Ngu?i", "?": "L?n", "?": "Qu?c gia", "?": "H?c", "?": "T�m/L�ng",
 };
 
 function loadLearned(): Set<string> {
@@ -83,7 +83,7 @@ function exportLearnedCSV(nodes: HanjaNode[], learnedSet: Set<string>) {
   URL.revokeObjectURL(url);
 }
 
-// ─── Global Search Component ──────────────────────────────────────────────────
+// --- Global Search Component --------------------------------------------------
 function GlobalSearchPanel({ nodes }: { nodes: HanjaNode[] }) {
   const [query, setQuery] = useState("");
   const [focused, setFocused] = useState(false);
@@ -119,7 +119,7 @@ function GlobalSearchPanel({ nodes }: { nodes: HanjaNode[] }) {
           onChange={e => setQuery(e.target.value)}
           onFocus={() => setFocused(true)}
           onBlur={() => setTimeout(() => setFocused(false), 200)}
-          placeholder="Tìm kiếm Hán Hàn... (tiếng Hàn, Hán tự, nghĩa tiếng Việt)"
+          placeholder="T�m ki?m H�n H�n... (ti?ng H�n, H�n t?, nghia ti?ng Vi?t)"
           className="flex-1 text-sm text-white/80 placeholder-white/30 focus:outline-none bg-transparent"
         />
         {query && (
@@ -127,7 +127,7 @@ function GlobalSearchPanel({ nodes }: { nodes: HanjaNode[] }) {
             <i className="ri-close-line text-lg"></i>
           </button>
         )}
-        <span className="text-xs text-app-text-muted flex-shrink-0 hidden sm:block">{nodes.length} từ</span>
+        <span className="text-xs text-app-text-muted flex-shrink-0 hidden sm:block">{nodes.length} t?</span>
       </div>
 
       {focused && results.length > 0 && (
@@ -153,7 +153,7 @@ function GlobalSearchPanel({ nodes }: { nodes: HanjaNode[] }) {
                 <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
                   node.difficulty === 1 ? "bg-emerald-500/20 text-app-accent-success" :
                   node.difficulty === 2 ? "bg-amber-500/20 text-amber-400" : "bg-red-500/20 text-red-400"
-                }`}>{node.difficulty === 1 ? "Dễ" : node.difficulty === 2 ? "TB" : "Khó"}</span>
+                }`}>{node.difficulty === 1 ? "D?" : node.difficulty === 2 ? "TB" : "Kh�"}</span>
               </div>
             </button>
           ))}
@@ -163,7 +163,7 @@ function GlobalSearchPanel({ nodes }: { nodes: HanjaNode[] }) {
       {focused && query.trim() && results.length === 0 && (
         <div className="absolute top-full left-0 right-0 mt-2 bg-[#1a1d27] border border-app-border rounded-2xl p-6 text-center z-50">
           <i className="ri-search-line text-2xl text-app-text-muted mb-2 block"></i>
-          <p className="text-sm text-app-text-secondary">Không tìm thấy từ nào cho &ldquo;{query}&rdquo;</p>
+          <p className="text-sm text-app-text-secondary">Kh�ng t�m th?y t? n�o cho &ldquo;{query}&rdquo;</p>
         </div>
       )}
 
@@ -191,12 +191,12 @@ function GlobalSearchPanel({ nodes }: { nodes: HanjaNode[] }) {
                 <p className="text-xs text-app-text-secondary leading-relaxed">{selected.meaning_detail}</p>
               )}
               <div className="flex items-center gap-2 mt-2">
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-app-text-secondary">Gốc: {selected.root_char}</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-app-text-secondary">G?c: {selected.root_char}</span>
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-app-text-secondary">{selected.category}</span>
                 <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
                   selected.difficulty === 1 ? "bg-emerald-500/20 text-app-accent-success" :
                   selected.difficulty === 2 ? "bg-amber-500/20 text-amber-400" : "bg-red-500/20 text-red-400"
-                }`}>{selected.difficulty === 1 ? "Dễ" : selected.difficulty === 2 ? "Trung bình" : "Khó"}</span>
+                }`}>{selected.difficulty === 1 ? "D?" : selected.difficulty === 2 ? "Trung b�nh" : "Kh�"}</span>
               </div>
             </div>
           </div>
@@ -206,7 +206,7 @@ function GlobalSearchPanel({ nodes }: { nodes: HanjaNode[] }) {
   );
 }
 
-// ─── Review Quiz Modal ────────────────────────────────────────────────────────
+// --- Review Quiz Modal --------------------------------------------------------
 type QuizCard = HanjaNode & { showAnswer: boolean };
 
 function ReviewQuizModal({ nodes, learnedSet, onClose }: {
@@ -254,9 +254,9 @@ function ReviewQuizModal({ nodes, learnedSet, onClose }: {
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" onClick={onClose}>
         <div className="bg-[#1a1d27] border border-app-border rounded-2xl p-8 max-w-sm w-full text-center" onClick={e => e.stopPropagation()}>
           <i className="ri-book-open-line text-4xl text-app-text-muted mb-3 block"></i>
-          <h3 className="text-lg font-bold text-white/80 mb-2">Chưa có từ đã học</h3>
-          <p className="text-sm text-app-text-secondary mb-4">Hãy vào Hán Hàn hình cây và đánh dấu một số từ đã học trước nhé!</p>
-          <button onClick={onClose} className="w-full py-2.5 bg-rose-500 text-white font-bold rounded-xl cursor-pointer whitespace-nowrap">Đóng</button>
+          <h3 className="text-lg font-bold text-white/80 mb-2">Chua c� t? d� h?c</h3>
+          <p className="text-sm text-app-text-secondary mb-4">H�y v�o H�n H�n h�nh c�y v� d�nh d?u m?t s? t? d� h?c tru?c nh�!</p>
+          <button onClick={onClose} className="w-full py-2.5 bg-rose-500 text-white font-bold rounded-xl cursor-pointer whitespace-nowrap">��ng</button>
         </div>
       </div>
     );
@@ -273,13 +273,13 @@ function ReviewQuizModal({ nodes, learnedSet, onClose }: {
           </div>
           <h3 className="text-xl font-bold text-white/90 mb-1">{pct}%</h3>
           <p className="text-sm text-white/50 mb-4">
-            {score.correct}/{total} câu đúng
-            {pct >= 80 ? " — Xuất sắc!" : pct >= 60 ? " — Khá tốt!" : " — Cần ôn thêm!"}
+            {score.correct}/{total} c�u d�ng
+            {pct >= 80 ? " � Xu?t s?c!" : pct >= 60 ? " � Kh� t?t!" : " � C?n �n th�m!"}
           </p>
           <div className="grid grid-cols-2 gap-3 mb-5">
             <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3">
               <p className="text-2xl font-bold text-app-accent-success">{score.correct}</p>
-              <p className="text-xs text-emerald-500/70">Đúng</p>
+              <p className="text-xs text-emerald-500/70">��ng</p>
             </div>
             <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3">
               <p className="text-2xl font-bold text-red-400">{score.wrong}</p>
@@ -298,10 +298,10 @@ function ReviewQuizModal({ nodes, learnedSet, onClose }: {
               }}
               className="flex-1 py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-bold rounded-xl cursor-pointer whitespace-nowrap text-sm"
             >
-              Ôn lại
+              �n l?i
             </button>
             <button onClick={onClose} className="flex-1 py-2.5 bg-white/8 hover:bg-white/12 text-white/70 font-bold rounded-xl cursor-pointer whitespace-nowrap text-sm">
-              Đóng
+              ��ng
             </button>
           </div>
         </div>
@@ -332,14 +332,14 @@ function ReviewQuizModal({ nodes, learnedSet, onClose }: {
         <div className="flex items-center justify-between px-5 pt-5 pb-3">
           <div className="flex items-center gap-2">
             <i className="ri-brain-line text-rose-400"></i>
-            <span className="text-sm font-bold text-white/80">Ôn tập từ đã học</span>
+            <span className="text-sm font-bold text-white/80">�n t?p t? d� h?c</span>
           </div>
           <div className="flex items-center gap-3">
             <button
               onClick={() => setQuizMode(m => m === "kr-to-vi" ? "vi-to-kr" : "kr-to-vi")}
               className="text-xs px-2.5 py-1 rounded-full bg-white/8 hover:bg-white/12 text-white/60 cursor-pointer whitespace-nowrap"
             >
-              {quizMode === "kr-to-vi" ? "HK → VN" : "VN → HK"}
+              {quizMode === "kr-to-vi" ? "HK ? VN" : "VN ? HK"}
             </button>
             <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/12 text-app-text-secondary cursor-pointer">
               <i className="ri-close-line text-sm"></i>
@@ -350,7 +350,7 @@ function ReviewQuizModal({ nodes, learnedSet, onClose }: {
         <div className="px-5 pb-3">
           <div className="flex items-center justify-between text-xs text-app-text-secondary mb-1.5">
             <span>{currentIdx + 1}/{cards.length}</span>
-            <span className="text-app-accent-success font-medium">{score.correct} đúng</span>
+            <span className="text-app-accent-success font-medium">{score.correct} d�ng</span>
           </div>
           <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
             <div className="h-full bg-rose-400 rounded-full transition-all" style={{ width: `${((currentIdx) / cards.length) * 100}%` }} />
@@ -366,12 +366,12 @@ function ReviewQuizModal({ nodes, learnedSet, onClose }: {
                 {currentCard.pronunciation && (
                   <p className="text-sm text-app-text-secondary mt-1">[{currentCard.pronunciation}]</p>
                 )}
-                <p className="text-xs text-app-text-muted mt-2">Nghĩa tiếng Việt là gì?</p>
+                <p className="text-xs text-app-text-muted mt-2">Nghia ti?ng Vi?t l� g�?</p>
               </>
             ) : (
               <>
                 <p className="text-2xl font-bold text-white/80 mb-1">{currentCard.vietnamese}</p>
-                <p className="text-xs text-app-text-muted mt-2">Từ tiếng Hàn tương ứng là gì?</p>
+                <p className="text-xs text-app-text-muted mt-2">T? ti?ng H�n tuong ?ng l� g�?</p>
               </>
             )}
           </div>
@@ -406,7 +406,7 @@ function ReviewQuizModal({ nodes, learnedSet, onClose }: {
   );
 }
 
-// ─── Daily New Words Component ──────────────────────────────────────────────
+// --- Daily New Words Component ----------------------------------------------
 const DAILY_WORDS_KEY = "hanja_daily_words";
 
 function loadDailyWords(nodes: HanjaNode[], learnedSet: Set<string>): HanjaNode[] {
@@ -467,17 +467,17 @@ function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
             <i className="ri-sun-line text-rose-400 text-sm"></i>
           </div>
           <div>
-            <h3 className="text-sm font-bold text-white/80">Học từ mới hôm nay</h3>
-            <p className="text-xs text-app-text-secondary">{learnedToday}/{dailyWords.length} từ đã học · Nhấn thẻ để xem nghĩa</p>
+            <h3 className="text-sm font-bold text-white/80">H?c t? m?i h�m nay</h3>
+            <p className="text-xs text-app-text-secondary">{learnedToday}/{dailyWords.length} t? d� h?c � Nh?n th? d? xem nghia</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
           {learnedToday === dailyWords.length && dailyWords.length > 0 && (
             <span className="flex items-center gap-1 text-xs text-app-accent-success font-semibold bg-app-accent-success/15 px-2.5 py-1 rounded-full">
-              <i className="ri-checkbox-circle-fill"></i>Hoàn thành!
+              <i className="ri-checkbox-circle-fill"></i>Ho�n th�nh!
             </span>
           )}
-          <button onClick={refreshDaily} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/12 text-app-text-secondary cursor-pointer transition-all" title="Làm mới danh sách">
+          <button onClick={refreshDaily} className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/12 text-app-text-secondary cursor-pointer transition-all" title="L�m m?i danh s�ch">
             <i className="ri-refresh-line text-sm"></i>
           </button>
         </div>
@@ -518,12 +518,12 @@ function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
                       )}
                     </div>
                     <p className="text-[10px] text-app-text-muted mt-1">{node.pronunciation}</p>
-                    <p className="text-[10px] text-app-text-muted mt-1 text-center">Nhấn để xem nghĩa</p>
+                    <p className="text-[10px] text-app-text-muted mt-1 text-center">Nh?n d? xem nghia</p>
                   </>
                 ) : (
                   <>
                     <div>
-                      <p className="text-xs font-bold text-white/80 mb-0.5">{node.korean} · {node.hanja}</p>
+                      <p className="text-xs font-bold text-white/80 mb-0.5">{node.korean} � {node.hanja}</p>
                       <p className="text-sm font-semibold text-rose-400">{node.vietnamese}</p>
                       {node.meaning_detail && (
                         <p className="text-[10px] text-app-text-secondary mt-1 leading-relaxed line-clamp-2">{node.meaning_detail}</p>
@@ -533,7 +533,7 @@ function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
                       <span className={`text-[9px] px-1.5 py-0.5 rounded-full ${
                         node.difficulty === 1 ? "bg-emerald-500/20 text-app-accent-success" :
                         node.difficulty === 2 ? "bg-amber-500/20 text-amber-400" : "bg-red-500/20 text-red-400"
-                      }`}>{node.difficulty === 1 ? "Dễ" : node.difficulty === 2 ? "TB" : "Khó"}</span>
+                      }`}>{node.difficulty === 1 ? "D?" : node.difficulty === 2 ? "TB" : "Kh�"}</span>
                       <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-white/8 text-app-text-secondary">{node.category}</span>
                     </div>
                   </>
@@ -544,7 +544,7 @@ function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
                 className={`absolute -top-1.5 -right-1.5 w-6 h-6 flex items-center justify-center rounded-full border-2 border-[#141720] cursor-pointer transition-all ${
                   isLearned ? "bg-emerald-400 text-white" : "bg-white/15 text-app-text-secondary hover:bg-emerald-400 hover:text-white"
                 }`}
-                title={isLearned ? "Bỏ đánh dấu" : "Đánh dấu đã học"}
+                title={isLearned ? "B? d�nh d?u" : "��nh d?u d� h?c"}
               >
                 <i className="ri-check-line text-[10px]"></i>
               </button>
@@ -556,7 +556,7 @@ function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
   );
 }
 
-// ─── Main Dashboard ───────────────────────────────────────────────────────────
+// --- Main Dashboard -----------------------------------------------------------
 export default function HanjaDashboardPage() {
   const navigate = useNavigate();
   const [nodes, setNodes] = useState<HanjaNode[]>([]);
@@ -633,9 +633,9 @@ export default function HanjaDashboardPage() {
     const med = nodes.filter(n => n.difficulty === 2);
     const hard = nodes.filter(n => n.difficulty === 3);
     return [
-      { label: "Dễ", total: easy.length, learned: easy.filter(n => learnedSet.has(n.korean)).length, color: "#10b981" },
-      { label: "Trung bình", total: med.length, learned: med.filter(n => learnedSet.has(n.korean)).length, color: "#f59e0b" },
-      { label: "Khó", total: hard.length, learned: hard.filter(n => learnedSet.has(n.korean)).length, color: "#f43f5e" },
+      { label: "D?", total: easy.length, learned: easy.filter(n => learnedSet.has(n.korean)).length, color: "#10b981" },
+      { label: "Trung b�nh", total: med.length, learned: med.filter(n => learnedSet.has(n.korean)).length, color: "#f59e0b" },
+      { label: "Kh�", total: hard.length, learned: hard.filter(n => learnedSet.has(n.korean)).length, color: "#f43f5e" },
     ];
   }, [nodes, learnedSet]);
 
@@ -646,7 +646,7 @@ export default function HanjaDashboardPage() {
   const streak = useMemo(() => calcStreak(streakDays), [streakDays]);
 
   return (
-    <DashboardLayout title="Tổng quan Hán Hàn" subtitle="Theo dõi tiến độ học từ vựng Hán Hàn và quản lý dữ liệu">
+    <DashboardLayout title="T?ng quan H�n H�n" subtitle="Theo d�i ti?n d? h?c t? v?ng H�n H�n v� qu?n l� d? li?u">
       <div className="p-6">
         {/* Global Search */}
         <GlobalSearchPanel nodes={nodes} />
@@ -663,10 +663,10 @@ export default function HanjaDashboardPage() {
         {/* Top stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           {[
-            { label: "Tổng từ vựng", value: nodes.length, icon: "ri-character-recognition-line", color: "#f43f5e" },
-            { label: "Đã học", value: totalLearned, icon: "ri-checkbox-circle-line", color: "#10b981" },
-            { label: "Tiến độ", value: `${totalPct}%`, icon: "ri-pie-chart-2-line", color: "#f59e0b" },
-            { label: "Streak hiện tại", value: `${streak.current} ngày`, icon: "ri-fire-line", color: "#f97316" },
+            { label: "T?ng t? v?ng", value: nodes.length, icon: "ri-character-recognition-line", color: "#f43f5e" },
+            { label: "�� h?c", value: totalLearned, icon: "ri-checkbox-circle-line", color: "#10b981" },
+            { label: "Ti?n d?", value: `${totalPct}%`, icon: "ri-pie-chart-2-line", color: "#f59e0b" },
+            { label: "Streak hi?n t?i", value: `${streak.current} ng�y`, icon: "ri-fire-line", color: "#f97316" },
           ].map(s => (
             <div key={s.label} className="bg-app-card/50 border border-app-border rounded-xl p-4 flex items-center gap-3">
               <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}20` }}>
@@ -683,19 +683,19 @@ export default function HanjaDashboardPage() {
         {/* Overall progress bar + actions */}
         <div className="bg-app-card/50 border border-app-border rounded-xl p-4 mb-4">
           <div className="flex items-center justify-between mb-2">
-            <p className="text-sm font-semibold text-white/70">Tiến độ tổng thể</p>
+            <p className="text-sm font-semibold text-white/70">Ti?n d? t?ng th?</p>
             <div className="flex items-center gap-2 flex-wrap justify-end">
-              <p className="text-sm font-bold text-rose-400">{totalLearned}/{nodes.length} từ</p>
+              <p className="text-sm font-bold text-rose-400">{totalLearned}/{nodes.length} t?</p>
               {totalLearned > 0 && (
                 <button onClick={() => exportLearnedCSV(nodes, learnedSet)}
                   className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold rounded-lg cursor-pointer whitespace-nowrap transition-all">
-                  <i className="ri-download-2-line"></i>Xuất CSV
+                  <i className="ri-download-2-line"></i>Xu?t CSV
                 </button>
               )}
               {totalLearned > 0 && (
                 <button onClick={() => setShowReview(true)}
                   className="flex items-center gap-1.5 px-3 py-1.5 bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold rounded-lg cursor-pointer whitespace-nowrap transition-all">
-                  <i className="ri-brain-line"></i>Ôn tập ({totalLearned} từ)
+                  <i className="ri-brain-line"></i>�n t?p ({totalLearned} t?)
                 </button>
               )}
             </div>
@@ -703,7 +703,7 @@ export default function HanjaDashboardPage() {
           <div className="h-3 bg-white/8 rounded-full overflow-hidden">
             <div className="h-full bg-gradient-to-r from-rose-500 to-rose-400 rounded-full transition-all duration-700" style={{ width: `${totalPct}%` }} />
           </div>
-          <p className="text-xs text-app-text-muted mt-1.5">Còn {nodes.length - totalLearned} từ chưa học</p>
+          <p className="text-xs text-app-text-muted mt-1.5">C�n {nodes.length - totalLearned} t? chua h?c</p>
         </div>
 
         {/* Streak card */}
@@ -714,22 +714,22 @@ export default function HanjaDashboardPage() {
                 <i className="ri-fire-line text-orange-400 text-xl"></i>
               </div>
               <div>
-                <p className="text-xs text-orange-400 font-semibold">Streak học Hán Hàn</p>
-                <p className="text-xl font-bold text-orange-300">{streak.current} <span className="text-sm font-normal text-orange-400/70">ngày liên tiếp</span></p>
+                <p className="text-xs text-orange-400 font-semibold">Streak h?c H�n H�n</p>
+                <p className="text-xl font-bold text-orange-300">{streak.current} <span className="text-sm font-normal text-orange-400/70">ng�y li�n ti?p</span></p>
               </div>
             </div>
             <div className="flex items-center gap-6 ml-auto flex-wrap">
               <div className="text-center">
                 <p className="text-lg font-bold text-white/70">{streak.longest}</p>
-                <p className="text-[10px] text-app-text-muted">Dài nhất</p>
+                <p className="text-[10px] text-app-text-muted">D�i nh?t</p>
               </div>
               <div className="text-center">
                 <p className="text-lg font-bold text-white/70">{streak.total}</p>
-                <p className="text-[10px] text-app-text-muted">Tổng ngày</p>
+                <p className="text-[10px] text-app-text-muted">T?ng ng�y</p>
               </div>
               <div className="text-center">
                 <p className="text-lg font-bold text-white/70">{totalLearned}</p>
-                <p className="text-[10px] text-app-text-muted">Đã học</p>
+                <p className="text-[10px] text-app-text-muted">�� h?c</p>
               </div>
             </div>
           </div>
@@ -740,9 +740,9 @@ export default function HanjaDashboardPage() {
           <div className="lg:col-span-2 space-y-5">
             <div className="bg-app-card/50 border border-app-border rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-bold text-white/80">Tiến độ theo cây</h3>
+                <h3 className="text-sm font-bold text-white/80">Ti?n d? theo c�y</h3>
                 <button onClick={() => navigate("/hanja-tree")} className="flex items-center gap-1.5 text-xs text-rose-400 hover:text-rose-300 cursor-pointer font-medium">
-                  Vào học <i className="ri-arrow-right-line"></i>
+                  V�o h?c <i className="ri-arrow-right-line"></i>
                 </button>
               </div>
               {loading ? (
@@ -752,7 +752,7 @@ export default function HanjaDashboardPage() {
               ) : treeStats.length === 0 ? (
                 <div className="text-center py-8 text-app-text-muted">
                   <i className="ri-tree-line text-3xl mb-2 block"></i>
-                  <p className="text-sm">Chưa có dữ liệu. Import CSV để bắt đầu!</p>
+                  <p className="text-sm">Chua c� d? li?u. Import CSV d? b?t d?u!</p>
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -763,7 +763,7 @@ export default function HanjaDashboardPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-1">
                           <p className="text-sm font-semibold text-white/70">{t.rootMeaning}</p>
-                          <span className="text-xs text-app-text-secondary">{t.learned}/{t.total} · {t.pct}%</span>
+                          <span className="text-xs text-app-text-secondary">{t.learned}/{t.total} � {t.pct}%</span>
                         </div>
                         <div className="h-2 bg-white/8 rounded-full overflow-hidden">
                           <div className="h-full rounded-full transition-all" style={{ width: `${t.pct}%`, backgroundColor: t.pct >= 80 ? "#10b981" : t.pct >= 50 ? "#f59e0b" : "#f43f5e" }} />
@@ -776,7 +776,7 @@ export default function HanjaDashboardPage() {
             </div>
 
             <div className="bg-app-card/50 border border-app-border rounded-2xl p-4 sm:p-5">
-              <h3 className="text-sm font-bold text-white/80 mb-3 sm:mb-4">Phân bổ theo độ khó</h3>
+              <h3 className="text-sm font-bold text-white/80 mb-3 sm:mb-4">Ph�n b? theo d? kh�</h3>
               <div className="flex overflow-x-auto sm:grid sm:grid-cols-3 gap-3 pb-2 sm:pb-0 -mx-1 px-1 sm:mx-0 sm:px-0 scrollbar-hide">
                 {diffStats.map(d => (
                   <div key={d.label} className="flex-shrink-0 w-28 sm:w-auto text-center p-3 sm:p-4 rounded-xl border border-app-border bg-app-surface/50">
@@ -794,9 +794,9 @@ export default function HanjaDashboardPage() {
             {recentLearned.length > 0 && (
               <div className="bg-app-card/50 border border-app-border rounded-2xl p-5">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-sm font-bold text-white/80">Từ vừa học gần đây</h3>
+                  <h3 className="text-sm font-bold text-white/80">T? v?a h?c g?n d�y</h3>
                   <button onClick={() => setShowReview(true)} className="text-xs text-rose-400 hover:text-rose-300 cursor-pointer font-medium flex items-center gap-1">
-                    <i className="ri-brain-line"></i> Ôn tập ngay
+                    <i className="ri-brain-line"></i> �n t?p ngay
                   </button>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -815,11 +815,11 @@ export default function HanjaDashboardPage() {
           {/* Right: Quick actions */}
           <div>
             <div className="bg-app-card/50 border border-app-border rounded-2xl p-4 space-y-2">
-              <h3 className="text-xs font-bold text-white/50 mb-3">Truy cập nhanh</h3>
+              <h3 className="text-xs font-bold text-white/50 mb-3">Truy c?p nhanh</h3>
               {[
-                { label: "Học theo cây", icon: "ri-git-merge-line", path: "/hanja-tree", color: "#f43f5e" },
-                { label: "Từ vựng Hán Hàn", icon: "ri-translate-2", path: "/hanja-vocab", color: "#a78bfa" },
-                { label: "Hán Hàn chi tiết", icon: "ri-character-recognition-line", path: "/hanja-detail", color: "#f59e0b" },
+                { label: "H?c theo c�y", icon: "ri-git-merge-line", path: "/hanja-tree", color: "#f43f5e" },
+                { label: "T? v?ng H�n H�n", icon: "ri-translate-2", path: "/hanja-vocab", color: "#a78bfa" },
+                { label: "H�n H�n chi ti?t", icon: "ri-character-recognition-line", path: "/hanja-detail", color: "#f59e0b" },
               ].map(a => (
                 <button key={a.path} onClick={() => navigate(a.path)}
                   className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-app-card/50 transition-all cursor-pointer text-left border border-app-border">
@@ -836,8 +836,8 @@ export default function HanjaDashboardPage() {
               <div className="flex items-start gap-2">
                 <i className="ri-shield-keyhole-line text-amber-400 text-sm flex-shrink-0 mt-0.5"></i>
                 <div>
-                  <p className="text-xs font-semibold text-amber-400">Import dữ liệu</p>
-                  <p className="text-[10px] text-amber-400/60 mt-0.5">Chức năng import CSV/Excel chỉ dành cho quản trị viên. Truy cập trang Admin để thực hiện.</p>
+                  <p className="text-xs font-semibold text-amber-400">Import d? li?u</p>
+                  <p className="text-[10px] text-amber-400/60 mt-0.5">Ch?c nang import CSV/Excel ch? d�nh cho qu?n tr? vi�n. Truy c?p trang Admin d? th?c hi?n.</p>
                 </div>
               </div>
             </div>

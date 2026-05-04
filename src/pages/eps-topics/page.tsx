@@ -1,10 +1,10 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsQuestions, EPS_TOPICS } from "@/mocks/epsQuestions";
 
-// ─── Types ────────────────────────────────────────────────────────────────
+// --- Types ----------------------------------------------------------------
 interface TopicProgress {
   done: number;
   correct: number;
@@ -12,7 +12,7 @@ interface TopicProgress {
   lastStudied?: string;
 }
 
-// ─── Topic Detail Modal ───────────────────────────────────────────────────
+// --- Topic Detail Modal ---------------------------------------------------
 function TopicDetailModal({
   topicId,
   onClose,
@@ -51,7 +51,7 @@ function TopicDetailModal({
           </div>
           <div className="flex-1">
             <h2 className="text-white font-bold text-lg">{topic.label}</h2>
-            <p className="text-app-text-secondary text-sm">{questions.length} câu hỏi</p>
+            <p className="text-app-text-secondary text-sm">{questions.length} c�u h?i</p>
           </div>
           <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-app-card/50 cursor-pointer">
             <i className="ri-close-line text-app-text-secondary"></i>
@@ -61,7 +61,7 @@ function TopicDetailModal({
         {/* Progress */}
         <div className="bg-app-surface/50 rounded-xl p-4 mb-4">
           <div className="flex items-center justify-between mb-2">
-            <p className="text-white/50 text-xs">Tiến độ</p>
+            <p className="text-white/50 text-xs">Ti?n d?</p>
             <span className="text-sm font-bold" style={{ color: topic.color }}>{pct}%</span>
           </div>
           <div className="h-2 bg-app-card/50 rounded-full overflow-hidden mb-3">
@@ -70,15 +70,15 @@ function TopicDetailModal({
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
             <div>
               <p className="text-white font-bold text-lg">{done}</p>
-              <p className="text-app-text-muted text-[10px]">Đã làm</p>
+              <p className="text-app-text-muted text-[10px]">�� l�m</p>
             </div>
             <div>
               <p className="text-app-accent-success font-bold text-lg">{correct}</p>
-              <p className="text-app-text-muted text-[10px]">Đúng</p>
+              <p className="text-app-text-muted text-[10px]">��ng</p>
             </div>
             <div>
               <p className="text-white/60 font-bold text-lg">{questions.length - done}</p>
-              <p className="text-app-text-muted text-[10px]">Còn lại</p>
+              <p className="text-app-text-muted text-[10px]">C�n l?i</p>
             </div>
           </div>
         </div>
@@ -86,9 +86,9 @@ function TopicDetailModal({
         {/* Difficulty breakdown */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-5">
           {[
-            { label: "Dễ", count: byDifficulty.easy, color: "#34d399" },
-            { label: "Trung bình", count: byDifficulty.medium, color: "app-accent-primary" },
-            { label: "Khó", count: byDifficulty.hard, color: "#f87171" },
+            { label: "D?", count: byDifficulty.easy, color: "#34d399" },
+            { label: "Trung b�nh", count: byDifficulty.medium, color: "app-accent-primary" },
+            { label: "Kh�", count: byDifficulty.hard, color: "#f87171" },
           ].map(d => (
             <div key={d.label} className="bg-app-surface/50 rounded-xl p-3 text-center">
               <p className="font-bold text-base" style={{ color: d.color }}>{d.count}</p>
@@ -103,14 +103,14 @@ function TopicDetailModal({
             onClick={onClose}
             className="flex-1 py-3 rounded-xl border border-app-border text-white/50 text-sm hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"
           >
-            Đóng
+            ��ng
           </button>
           <button
             onClick={() => onStartPractice(topicId)}
             className="flex-1 py-3 rounded-xl text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
             style={{ backgroundColor: topic.color, color: "#0f1117" }}
           >
-            Bắt đầu luyện tập
+            B?t d?u luy?n t?p
           </button>
         </div>
       </div>
@@ -118,7 +118,7 @@ function TopicDetailModal({
   );
 }
 
-// ─── Topic Card ───────────────────────────────────────────────────────────
+// --- Topic Card -----------------------------------------------------------
 function TopicCard({
   topic,
   progress,
@@ -145,7 +145,7 @@ function TopicCard({
         {isCompleted ? (
           <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-app-accent-success/15 text-app-accent-success">
             <i className="ri-checkbox-circle-fill text-xs"></i>
-            Hoàn thành
+            Ho�n th�nh
           </span>
         ) : isStarted ? (
           <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-app-card/50 text-app-text-secondary">
@@ -153,14 +153,14 @@ function TopicCard({
           </span>
         ) : (
           <span className="text-[10px] font-bold px-2 py-1 rounded-full bg-app-card/50 text-app-text-muted">
-            Chưa học
+            Chua h?c
           </span>
         )}
       </div>
 
       {/* Title */}
       <h3 className="text-white font-semibold text-sm mb-1 group-hover:text-white transition-colors">{topic.label}</h3>
-      <p className="text-app-text-muted text-xs mb-4">{progress.total} câu hỏi</p>
+      <p className="text-app-text-muted text-xs mb-4">{progress.total} c�u h?i</p>
 
       {/* Progress bar */}
       <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden mb-2">
@@ -172,56 +172,56 @@ function TopicCard({
 
       {/* Stats */}
       <div className="flex items-center justify-between text-[10px]">
-        <span className="text-app-text-muted">{progress.done}/{progress.total} đã làm</span>
+        <span className="text-app-text-muted">{progress.done}/{progress.total} d� l�m</span>
         {progress.done > 0 && (
-          <span className="text-app-accent-success/70">{progress.correct} đúng</span>
+          <span className="text-app-accent-success/70">{progress.correct} d�ng</span>
         )}
       </div>
     </button>
   );
 }
 
-// ─── Learning Path Section ────────────────────────────────────────────────
+// --- Learning Path Section ------------------------------------------------
 const LEARNING_PATHS = [
   {
     id: "beginner",
-    label: "Người mới bắt đầu",
+    label: "Ngu?i m?i b?t d?u",
     icon: "ri-seedling-line",
     color: "#34d399",
-    desc: "Giao tiếp cơ bản, văn hóa, sinh hoạt hàng ngày",
+    desc: "Giao ti?p co b?n, van h�a, sinh ho?t h�ng ng�y",
     topics: ["greeting", "culture", "daily"],
-    duration: "2-3 tuần",
+    duration: "2-3 tu?n",
   },
   {
     id: "worker",
-    label: "Lao động phổ thông",
+    label: "Lao d?ng ph? th�ng",
     icon: "ri-tools-line",
     color: "#fb923c",
-    desc: "An toàn lao động, nơi làm việc, tình huống khẩn cấp",
+    desc: "An to�n lao d?ng, noi l�m vi?c, t�nh hu?ng kh?n c?p",
     topics: ["safety", "workplace", "emergency"],
-    duration: "3-4 tuần",
+    duration: "3-4 tu?n",
   },
   {
     id: "eps",
     label: "Thi EPS-TOPIK",
     icon: "ri-trophy-line",
     color: "app-accent-primary",
-    desc: "Pháp luật, nghe hiểu, đọc hiểu — chuẩn bị thi",
+    desc: "Ph�p lu?t, nghe hi?u, d?c hi?u � chu?n b? thi",
     topics: ["law", "listening", "reading"],
-    duration: "4-6 tuần",
+    duration: "4-6 tu?n",
   },
   {
     id: "full",
-    label: "Toàn diện",
+    label: "To�n di?n",
     icon: "ri-star-line",
     color: "#a78bfa",
-    desc: "Tất cả 9 chủ đề — chuẩn bị kỹ nhất",
+    desc: "T?t c? 9 ch? d? � chu?n b? k? nh?t",
     topics: EPS_TOPICS.map(t => t.id),
-    duration: "8-10 tuần",
+    duration: "8-10 tu?n",
   },
 ];
 
-// ─── Main Page ────────────────────────────────────────────────────────────
+// --- Main Page ------------------------------------------------------------
 export default function EpsTopicsPage() {
   const navigate = useNavigate();
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
@@ -255,16 +255,16 @@ export default function EpsTopicsPage() {
 
   return (
     <DashboardLayout
-      title="Học EPS theo Chủ đề"
-      subtitle="Lộ trình học có hệ thống — từ giao tiếp cơ bản đến pháp luật lao động"
+      title="H?c EPS theo Ch? d?"
+      subtitle="L? tr�nh h?c c� h? th?ng � t? giao ti?p co b?n d?n ph�p lu?t lao d?ng"
     >
       {/* Overall stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng câu hỏi", value: epsQuestions.length, icon: "ri-survey-line", color: "app-accent-primary" },
-          { label: "Đã hoàn thành", value: `${overallPct}%`, icon: "ri-pie-chart-line", color: "#34d399" },
-          { label: "Câu đúng", value: totalCorrect, icon: "ri-checkbox-circle-line", color: "#a78bfa" },
-          { label: "Chủ đề", value: EPS_TOPICS.length, icon: "ri-folder-line", color: "#fb923c" },
+          { label: "T?ng c�u h?i", value: epsQuestions.length, icon: "ri-survey-line", color: "app-accent-primary" },
+          { label: "�� ho�n th�nh", value: `${overallPct}%`, icon: "ri-pie-chart-line", color: "#34d399" },
+          { label: "C�u d�ng", value: totalCorrect, icon: "ri-checkbox-circle-line", color: "#a78bfa" },
+          { label: "Ch? d?", value: EPS_TOPICS.length, icon: "ri-folder-line", color: "#fb923c" },
         ].map(stat => (
           <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
@@ -288,13 +288,13 @@ export default function EpsTopicsPage() {
                 onClick={() => setView("path")}
                 className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${view === "path" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}
               >
-                Theo lộ trình
+                Theo l? tr�nh
               </button>
               <button
                 onClick={() => setView("all")}
                 className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${view === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}
               >
-                Tất cả chủ đề
+                T?t c? ch? d?
               </button>
             </div>
             {view === "path" && activePath && (
@@ -321,7 +321,7 @@ export default function EpsTopicsPage() {
         {/* Right: Learning paths */}
         <div className="space-y-4">
           <div>
-            <h3 className="text-white font-semibold text-sm mb-3">Chọn lộ trình học</h3>
+            <h3 className="text-white font-semibold text-sm mb-3">Ch?n l? tr�nh h?c</h3>
             <div className="space-y-2">
               {LEARNING_PATHS.map(path => {
                 const pathTopics = EPS_TOPICS.filter(t => path.topics.includes(t.id));
@@ -358,13 +358,13 @@ export default function EpsTopicsPage() {
 
           {/* Quick tips */}
           <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
-            <p className="text-app-accent-primary/80 text-xs font-semibold mb-2">Gợi ý học hiệu quả</p>
+            <p className="text-app-accent-primary/80 text-xs font-semibold mb-2">G?i � h?c hi?u qu?</p>
             <div className="space-y-2">
               {[
-                { icon: "ri-time-line", text: "Học 20-30 phút/ngày, đều đặn hơn học dồn" },
-                { icon: "ri-repeat-line", text: "Ôn lại câu sai ngay sau khi làm xong" },
-                { icon: "ri-volume-up-line", text: "Nghe và đọc to câu hỏi để nhớ lâu hơn" },
-                { icon: "ri-trophy-line", text: "Hoàn thành 1 chủ đề trước khi sang chủ đề khác" },
+                { icon: "ri-time-line", text: "H?c 20-30 ph�t/ng�y, d?u d?n hon h?c d?n" },
+                { icon: "ri-repeat-line", text: "�n l?i c�u sai ngay sau khi l�m xong" },
+                { icon: "ri-volume-up-line", text: "Nghe v� d?c to c�u h?i d? nh? l�u hon" },
+                { icon: "ri-trophy-line", text: "Ho�n th�nh 1 ch? d? tru?c khi sang ch? d? kh�c" },
               ].map((tip, i) => (
                 <div key={i} className="flex items-start gap-2">
                   <i className={`${tip.icon} text-app-accent-primary/50 text-xs flex-shrink-0 mt-0.5`}></i>
@@ -384,8 +384,8 @@ export default function EpsTopicsPage() {
                 <i className="ri-timer-line text-[#f87171] text-sm"></i>
               </div>
               <div className="text-left">
-                <p className="text-white/60 text-xs font-medium">Thi thử EPS (40 câu)</p>
-                <p className="text-app-text-muted text-[10px]">Mô phỏng đề thi thật</p>
+                <p className="text-white/60 text-xs font-medium">Thi th? EPS (40 c�u)</p>
+                <p className="text-app-text-muted text-[10px]">M� ph?ng d? thi th?t</p>
               </div>
               <i className="ri-arrow-right-line text-app-text-muted ml-auto"></i>
             </button>
@@ -397,8 +397,8 @@ export default function EpsTopicsPage() {
                 <i className="ri-brain-line text-[#a78bfa] text-sm"></i>
               </div>
               <div className="text-left">
-                <p className="text-white/60 text-xs font-medium">Kiểm tra đầu vào</p>
-                <p className="text-app-text-muted text-[10px]">AI phân tích trình độ</p>
+                <p className="text-white/60 text-xs font-medium">Ki?m tra d?u v�o</p>
+                <p className="text-app-text-muted text-[10px]">AI ph�n t�ch tr�nh d?</p>
               </div>
               <i className="ri-arrow-right-line text-app-text-muted ml-auto"></i>
             </button>

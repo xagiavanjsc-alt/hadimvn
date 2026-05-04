@@ -1,4 +1,4 @@
-﻿import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { isVipActive } from "@/lib/supabase";
@@ -49,7 +49,7 @@ function StreakBadge() {
       <div className="flex items-center gap-1.5">
         <i className="ri-fire-line text-app-accent-primary text-sm"></i>
         <div className="flex-1">
-          <p className="text-app-accent-primary text-xs font-bold">{streak.count} ngày liên tiếp</p>
+          <p className="text-app-accent-primary text-xs font-bold">{streak.count} ng�y li�n ti?p</p>
         </div>
       </div>
       <div className="flex items-center gap-1.5">
@@ -70,73 +70,73 @@ function StreakBadge() {
   );
 }
 
-// ─── Nav groups — Tối ưu gọn nhất ───────────────────────────────────────────
+// --- Nav groups � T?i uu g?n nh?t -------------------------------------------
 const navGroups = [
   {
-    label: "Tổng quan",
+    label: "T?ng quan",
     icon: "ri-dashboard-line",
     color: "app-accent-primary",
     items: [
       { path: "/learning-hub", icon: "ri-dashboard-line", label: "Learning Hub" },
       { path: "/exam-hub", icon: "ri-file-list-3-line", label: "Exam Hub" },
       { path: "/flashcard-hub", icon: "ri-stack-line", label: "Flashcard Hub" },
-      { path: "/leaderboard", icon: "ri-trophy-line", label: "Bảng xếp hạng" },
+      { path: "/leaderboard", icon: "ri-trophy-line", label: "B?ng x?p h?ng" },
     ],
   },
   {
-    label: "Học tập",
+    label: "H?c t?p",
     icon: "ri-book-open-line",
     color: "#4ade80",
     items: [
-      { path: "/eps-lessons", icon: "ri-file-list-3-line", label: "EPS (Lao động)" },
-      { path: "/seoul-textbook", icon: "ri-book-3-line", label: "Seoul (Du học)" },
-      { path: "/topik-test", icon: "ri-survey-line", label: "TOPIK (Chứng chỉ)" },
-      { path: "/hanja-detail", icon: "ri-character-recognition-line", label: "Hán Hàn", badge: "VIP" },
+      { path: "/eps-lessons", icon: "ri-file-list-3-line", label: "EPS (Lao d?ng)" },
+      { path: "/seoul-textbook", icon: "ri-book-3-line", label: "Seoul (Du h?c)" },
+      { path: "/topik-test", icon: "ri-survey-line", label: "TOPIK (Ch?ng ch?)" },
+      { path: "/hanja-detail", icon: "ri-character-recognition-line", label: "H�n H�n", badge: "VIP" },
     ],
   },
   {
-    label: "Hán Hàn Vip",
+    label: "H�n H�n Vip",
     icon: "ri-character-recognition-line",
     badge: "VIP",
     color: "app-accent-primary",
     items: [
-      { path: "/hanja-tree", icon: "ri-git-merge-line", label: "Hình cây từ vựng" },
-      { path: "/hanja-pro", icon: "ri-character-recognition-line", label: "Hán Hàn Chuyên Sâu" },
-      { path: "/hanja-dashboard", icon: "ri-bar-chart-2-line", label: "Tiến độ & Streak" },
-      { path: "/advanced-dictionary", icon: "ri-search-2-line", label: "Tra cứu Hán Hàn" },
+      { path: "/hanja-tree", icon: "ri-git-merge-line", label: "H�nh c�y t? v?ng" },
+      { path: "/hanja-pro", icon: "ri-character-recognition-line", label: "H�n H�n Chuy�n S�u" },
+      { path: "/hanja-dashboard", icon: "ri-bar-chart-2-line", label: "Ti?n d? & Streak" },
+      { path: "/advanced-dictionary", icon: "ri-search-2-line", label: "Tra c?u H�n H�n" },
     ],
   },
   {
-    label: "Ai & Kỹ năng",
+    label: "Ai & K? nang",
     icon: "ri-robot-2-line",
     color: "#a78bfa",
     items: [
-      { path: "/ai-chatbot", icon: "ri-robot-2-line", label: "Gia sư AI" },
-      { path: "/ai-pronunciation", icon: "ri-mic-line", label: "Phát âm & Giao tiếp" },
-      { path: "/ai-writing", icon: "ri-quill-pen-line", label: "Viết & Dịch" },
-      { path: "/kdrama-learn", icon: "ri-film-line", label: "Học qua phim & K-pop" },
-      { path: "/kpop-flashcard", icon: "ri-music-2-line", label: "Flashcard K-pop cá nhân" },
+      { path: "/ai-chatbot", icon: "ri-robot-2-line", label: "Gia su AI" },
+      { path: "/ai-pronunciation", icon: "ri-mic-line", label: "Ph�t �m & Giao ti?p" },
+      { path: "/ai-writing", icon: "ri-quill-pen-line", label: "Vi?t & D?ch" },
+      { path: "/kdrama-learn", icon: "ri-film-line", label: "H?c qua phim & K-pop" },
+      { path: "/kpop-flashcard", icon: "ri-music-2-line", label: "Flashcard K-pop c� nh�n" },
     ],
   },
   {
-    label: "Cộng đồng",
+    label: "C?ng d?ng",
     icon: "ri-group-line",
     color: "#fb923c",
     items: [
-      { path: "/community", icon: "ri-group-line", label: "Hỏi đáp" },
-      { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ cá nhân" },
+      { path: "/community", icon: "ri-group-line", label: "H?i d�p" },
+      { path: "/profile", icon: "ri-user-3-line", label: "H? so c� nh�n" },
     ],
   },
 ];
 
-// Admin group removed from user sidebar — admin has its own dedicated panel at /admin
+// Admin group removed from user sidebar � admin has its own dedicated panel at /admin
 
 const DEFAULT_OPEN: Record<string, boolean> = {
-  "Tổng quan": true,
-  "Học tập": true,
-  "Hán Hàn Vip": false,
-  "Ai & Kỹ năng": false,
-  "Cộng đồng": false,
+  "T?ng quan": true,
+  "H?c t?p": true,
+  "H�n H�n Vip": false,
+  "Ai & K? nang": false,
+  "C?ng d?ng": false,
 };
 
 // All nav items flattened for pin search
@@ -152,7 +152,7 @@ function PinnedSection({ pinnedPaths, onUnpin, onNavigate, currentPath }: {
   const items = pinnedPaths.map(p => ALL_NAV_ITEMS.find(i => i.path === p)).filter(Boolean) as typeof ALL_NAV_ITEMS;
   return (
     <div className="mb-2">
-      <p className="text-[9px] tracking-normal font-semibold text-app-accent-primary/40 px-3 py-1">Đã ghim</p>
+      <p className="text-[9px] tracking-normal font-semibold text-app-accent-primary/40 px-3 py-1">�� ghim</p>
       <div className="space-y-0.5">
         {items.map(item => {
           const isActive = currentPath === item.path;
@@ -172,7 +172,7 @@ function PinnedSection({ pinnedPaths, onUnpin, onNavigate, currentPath }: {
               <button
                 onClick={() => onUnpin(item.path)}
                 className="w-6 h-6 flex items-center justify-center rounded-md text-white/15 hover:text-red-400 hover:bg-red-500/10 transition-all cursor-pointer opacity-0 group-hover/pin:opacity-100 mr-1 flex-shrink-0"
-                title="Bỏ ghim"
+                title="B? ghim"
               >
                 <i className="ri-pushpin-fill text-xs"></i>
               </button>
@@ -264,7 +264,7 @@ function SidebarInner() {
     );
   }, [pinSearchQuery]);
 
-  // Hover preload — fire import() when hovering a link
+  // Hover preload � fire import() when hovering a link
   const handleNavHover = (path: string) => {
     if (location.pathname === path) return;
     const importMap: Record<string, () => Promise<unknown>> = {
@@ -308,12 +308,12 @@ function SidebarInner() {
       >
         <img
           src="https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png"
-          alt="Hàn Quốc Ơi! Logo"
+          alt="H�n Qu?c Oi! Logo"
           className="w-9 h-9 rounded-lg object-cover"
         />
         <div>
-          <p className="text-white font-semibold text-sm leading-tight">Hàn Quốc Ơi!</p>
-          <p className="text-app-text-secondary text-xs">Học tiếng Hàn</p>
+          <p className="text-white font-semibold text-sm leading-tight">H�n Qu?c Oi!</p>
+          <p className="text-app-text-secondary text-xs">H?c ti?ng H�n</p>
         </div>
       </button>
 
@@ -341,7 +341,7 @@ function SidebarInner() {
           <div className="w-4 h-4 flex items-center justify-center">
             <i className="ri-home-4-line text-sm"></i>
           </div>
-          <span className="flex-1">Trang chủ</span>
+          <span className="flex-1">Trang ch?</span>
         </button>
 
         {/* Daily words shortcut */}
@@ -356,7 +356,7 @@ function SidebarInner() {
           <div className="w-4 h-4 flex items-center justify-center">
             <i className="ri-sun-line text-sm"></i>
           </div>
-          <span className="flex-1">Học từ mới hôm nay</span>
+          <span className="flex-1">H?c t? m?i h�m nay</span>
         </button>
 
         {/* Stats shortcut */}
@@ -371,10 +371,10 @@ function SidebarInner() {
           <div className="w-4 h-4 flex items-center justify-center">
             <i className="ri-bar-chart-2-line text-sm"></i>
           </div>
-          <span className="flex-1">Thống kê học tập</span>
+          <span className="flex-1">Th?ng k� h?c t?p</span>
         </button>
 
-        {/* VIP History shortcut — chỉ hiện khi là VIP */}
+        {/* VIP History shortcut � ch? hi?n khi l� VIP */}
         {user && isVipActive(profile) && (
           <button
             onClick={() => handleNavClick("/vip-history")}
@@ -387,7 +387,7 @@ function SidebarInner() {
             <div className="w-4 h-4 flex items-center justify-center">
               <i className="ri-vip-crown-line text-sm"></i>
             </div>
-            <span className="flex-1">Lịch sử VIP</span>
+            <span className="flex-1">L?ch s? VIP</span>
           </button>
         )}
 
@@ -403,7 +403,7 @@ function SidebarInner() {
           <div className="w-4 h-4 flex items-center justify-center">
             <i className="ri-share-line text-sm"></i>
           </div>
-          <span className="flex-1">Chia sẻ tiến độ</span>
+          <span className="flex-1">Chia s? ti?n d?</span>
         </button>
 
         {/* Feedback shortcut */}
@@ -418,7 +418,7 @@ function SidebarInner() {
           <div className="w-4 h-4 flex items-center justify-center">
             <i className="ri-chat-smile-2-line text-sm"></i>
           </div>
-          <span className="flex-1">Góp ý &amp; Đánh giá</span>
+          <span className="flex-1">G�p � &amp; ��nh gi�</span>
         </button>
 
         {/* Roadmap shortcut */}
@@ -433,7 +433,7 @@ function SidebarInner() {
           <div className="w-4 h-4 flex items-center justify-center">
             <i className="ri-route-line text-sm"></i>
           </div>
-          <span className="flex-1">Lộ trình học</span>
+          <span className="flex-1">L? tr�nh h?c</span>
         </button>
 
         {/* Nav groups */}
@@ -500,7 +500,7 @@ function SidebarInner() {
                               ? "text-app-accent-primary/60 hover:text-red-400 hover:bg-red-500/10"
                               : "text-white/10 hover:text-app-accent-primary/50 hover:bg-app-accent-primary/10 opacity-0 group-hover/item:opacity-100"
                           }`}
-                          title={isPinned ? "Bỏ ghim" : "Ghim vào đầu"}
+                          title={isPinned ? "B? ghim" : "Ghim v�o d?u"}
                         >
                           <i className={`${isPinned ? "ri-pushpin-fill" : "ri-pushpin-line"} text-xs`}></i>
                         </button>
@@ -513,7 +513,7 @@ function SidebarInner() {
           );
         })}
 
-        {/* Admin Panel shortcut — chỉ hiện khi là admin */}
+        {/* Admin Panel shortcut � ch? hi?n khi l� admin */}
         {user && isAdminDetected && (
           <button
             onClick={() => { markAdminVerified(); navigate("/admin"); }}
@@ -523,13 +523,13 @@ function SidebarInner() {
             <div className="w-4 h-4 flex items-center justify-center">
               <i className="ri-shield-keyhole-line text-rose-400 text-sm"></i>
             </div>
-            <span className="text-xs font-semibold text-rose-400 flex-1 text-left">Trang quản lý admin</span>
+            <span className="text-xs font-semibold text-rose-400 flex-1 text-left">Trang qu?n l� admin</span>
             <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse flex-shrink-0"></span>
           </button>
         )}
       </nav>
 
-      {/* Footer — Auth */}
+      {/* Footer � Auth */}
       <div className="px-4 py-3 border-t border-app-border flex-shrink-0 space-y-2">
         {user ? (
           <div>
@@ -541,10 +541,10 @@ function SidebarInner() {
                 <i className="ri-user-line text-app-accent-primary text-xs"></i>
               </div>
               <div className="text-left flex-1 min-w-0">
-                <p className="text-white/70 text-xs font-medium truncate">{profile?.display_name || "Học viên"}</p>
+                <p className="text-white/70 text-xs font-medium truncate">{profile?.display_name || "H?c vi�n"}</p>
                 <div className="flex items-center gap-1">
                   <div className={`w-1.5 h-1.5 rounded-full ${syncing ? "bg-app-accent-primary animate-pulse" : "bg-emerald-400"}`}></div>
-                  <p className="text-app-text-muted text-[10px]">{syncing ? "Đang sync..." : "Đã đồng bộ"}</p>
+                  <p className="text-app-text-muted text-[10px]">{syncing ? "�ang sync..." : "�� d?ng b?"}</p>
                 </div>
               </div>
             </button>
@@ -553,7 +553,7 @@ function SidebarInner() {
               className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-app-text-muted hover:text-white/50 text-xs cursor-pointer whitespace-nowrap"
             >
               <i className="ri-logout-box-line text-xs"></i>
-              Đăng xuất
+              �ang xu?t
             </button>
           </div>
         ) : null}
@@ -569,7 +569,7 @@ function SidebarInner() {
           >
             <div className="p-3 border-b border-app-border flex items-center gap-2">
               <i className="ri-pushpin-line text-app-accent-primary text-sm"></i>
-              <p className="text-white/70 text-xs font-semibold flex-1">Ghim menu yêu thích</p>
+              <p className="text-white/70 text-xs font-semibold flex-1">Ghim menu y�u th�ch</p>
               <button onClick={() => setShowPinSearch(false)} className="text-app-text-muted hover:text-white/60 cursor-pointer">
                 <i className="ri-close-line text-sm"></i>
               </button>
@@ -579,7 +579,7 @@ function SidebarInner() {
                 <i className="ri-search-line absolute left-2.5 top-1/2 -translate-y-1/2 text-app-text-muted text-xs"></i>
                 <input
                   type="text"
-                  placeholder="Tìm menu..."
+                  placeholder="T�m menu..."
                   value={pinSearchQuery}
                   onChange={e => setPinSearchQuery(e.target.value)}
                   autoFocus
@@ -615,7 +615,7 @@ function SidebarInner() {
                   onClick={() => setPinnedPaths([])}
                   className="w-full py-1.5 text-xs text-app-accent-error/60 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all cursor-pointer"
                 >
-                  Xóa tất cả ghim ({pinnedPaths.length})
+                  X�a t?t c? ghim ({pinnedPaths.length})
                 </button>
               </div>
             )}

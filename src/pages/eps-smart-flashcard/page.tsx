@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useCallback, useEffect, useRef } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
@@ -179,10 +179,10 @@ export default function EpsSmartFlashcardPage() {
     }).filter(t => t.total > 0);
   }, [cardData]);
 
-  // ── SELECT PHASE ──────────────────────────────────────────────────────────
+  // -- SELECT PHASE ----------------------------------------------------------
   if (phase === "select") {
     return (
-      <DashboardLayout title="Flashcard thông minh EPS" subtitle="Tự động ưu tiên từ chưa thuộc · Phát âm tiếng Hàn · Spaced Repetition">
+      <DashboardLayout title="Flashcard th�ng minh EPS" subtitle="T? d?ng uu ti�n t? chua thu?c � Ph�t �m ti?ng H�n � Spaced Repetition">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
           <div className="space-y-5">
             {/* Quick start */}
@@ -192,10 +192,10 @@ export default function EpsSmartFlashcardPage() {
                   <i className="ri-brain-line text-app-accent-primary text-2xl"></i>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-white font-bold text-base">Học thông minh hôm nay</h3>
+                  <h3 className="text-white font-bold text-base">H?c th�ng minh h�m nay</h3>
                   <p className="text-app-text-secondary text-sm mt-0.5">
-                    <span className="text-app-accent-primary font-semibold">{stats.dueToday}</span> từ cần ôn hôm nay
-                    {stats.newCards > 0 && <span> · <span className="text-[#34d399] font-semibold">{Math.min(stats.newCards, 20)}</span> từ mới</span>}
+                    <span className="text-app-accent-primary font-semibold">{stats.dueToday}</span> t? c?n �n h�m nay
+                    {stats.newCards > 0 && <span> � <span className="text-[#34d399] font-semibold">{Math.min(stats.newCards, 20)}</span> t? m?i</span>}
                   </p>
                 </div>
                 <button
@@ -203,7 +203,7 @@ export default function EpsSmartFlashcardPage() {
                   className="flex items-center gap-2 px-5 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
                 >
                   <i className="ri-play-circle-line text-lg"></i>
-                  Học ngay
+                  H?c ngay
                 </button>
               </div>
             </div>
@@ -211,14 +211,14 @@ export default function EpsSmartFlashcardPage() {
             {/* Topic selection */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-white font-semibold text-sm">Hoặc chọn chủ đề cụ thể</h3>
+                <h3 className="text-white font-semibold text-sm">Ho?c ch?n ch? d? c? th?</h3>
                 {selectedTopics.length > 0 && (
                   <button
                     onClick={() => startStudy(selectedTopics)}
                     className="flex items-center gap-2 px-4 py-2 rounded-xl bg-app-accent-primary/10 border border-app-accent-primary/20 text-app-accent-primary text-xs font-semibold cursor-pointer whitespace-nowrap"
                   >
                     <i className="ri-play-circle-line"></i>
-                    Học {selectedTopics.length} chủ đề đã chọn
+                    H?c {selectedTopics.length} ch? d? d� ch?n
                   </button>
                 )}
               </div>
@@ -244,13 +244,13 @@ export default function EpsSmartFlashcardPage() {
                         <p className="text-white/70 text-xs font-medium leading-tight">{topic.label}</p>
                       </div>
                       <div className="flex items-center justify-between text-[10px] mb-1.5">
-                        <span className="text-app-text-muted">{topic.total} từ</span>
-                        {topic.due > 0 && <span className="text-app-accent-primary font-semibold">{topic.due} cần ôn</span>}
+                        <span className="text-app-text-muted">{topic.total} t?</span>
+                        {topic.due > 0 && <span className="text-app-accent-primary font-semibold">{topic.due} c?n �n</span>}
                       </div>
                       <div className="h-1 bg-app-card/50 rounded-full overflow-hidden">
                         <div className="h-full rounded-full" style={{ width: `${masteredPct}%`, backgroundColor: topic.color }} />
                       </div>
-                      <p className="text-app-text-muted text-[9px] mt-1">{masteredPct}% thuộc lòng</p>
+                      <p className="text-app-text-muted text-[9px] mt-1">{masteredPct}% thu?c l�ng</p>
                     </div>
                   );
                 })}
@@ -261,13 +261,13 @@ export default function EpsSmartFlashcardPage() {
           {/* Sidebar */}
           <div className="space-y-4">
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-bar-chart-line text-app-accent-primary mr-2"></i>Tổng quan học tập</h3>
+              <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-bar-chart-line text-app-accent-primary mr-2"></i>T?ng quan h?c t?p</h3>
               <div className="space-y-3">
                 {[
-                  { label: "Cần ôn hôm nay", value: stats.dueToday, color: "#f87171", icon: "ri-alarm-line" },
-                  { label: "Đang học", value: stats.learning, color: "app-accent-primary", icon: "ri-book-open-line" },
-                  { label: "Thuộc lòng", value: stats.mastered, color: "#34d399", icon: "ri-checkbox-circle-line" },
-                  { label: "Từ mới chưa học", value: stats.newCards, color: "#a78bfa", icon: "ri-add-circle-line" },
+                  { label: "C?n �n h�m nay", value: stats.dueToday, color: "#f87171", icon: "ri-alarm-line" },
+                  { label: "�ang h?c", value: stats.learning, color: "app-accent-primary", icon: "ri-book-open-line" },
+                  { label: "Thu?c l�ng", value: stats.mastered, color: "#34d399", icon: "ri-checkbox-circle-line" },
+                  { label: "T? m?i chua h?c", value: stats.newCards, color: "#a78bfa", icon: "ri-add-circle-line" },
                 ].map(s => (
                   <div key={s.label} className="flex items-center gap-3">
                     <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -283,18 +283,18 @@ export default function EpsSmartFlashcardPage() {
             </div>
 
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-lightbulb-line text-app-accent-primary mr-2"></i>Cách hoạt động</h3>
+              <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-lightbulb-line text-app-accent-primary mr-2"></i>C�ch ho?t d?ng</h3>
               <div className="space-y-2.5 text-app-text-secondary text-xs leading-relaxed">
-                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Từ chưa thuộc được ưu tiên hiển thị trước</p>
-                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nhấn loa để nghe phát âm tiếng Hàn</p>
-                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nhấn thẻ để lật và xem nghĩa + ví dụ</p>
-                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Spaced Repetition: từ đã thuộc sẽ ôn lại sau nhiều ngày hơn</p>
-                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Từ sai sẽ được đưa về đầu hàng đợi</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>T? chua thu?c du?c uu ti�n hi?n th? tru?c</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nh?n loa d? nghe ph�t �m ti?ng H�n</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nh?n th? d? l?t v� xem nghia + v� d?</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Spaced Repetition: t? d� thu?c s? �n l?i sau nhi?u ng�y hon</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>T? sai s? du?c dua v? d?u h�ng d?i</p>
               </div>
             </div>
 
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-3">Lịch ôn tập SR</h3>
+              <h3 className="text-white font-semibold text-sm mb-3">L?ch �n t?p SR</h3>
               <div className="space-y-1.5">
                 {SR_INTERVALS.map((days, i) => {
                   const count = Object.values(cardData).filter(c => c.interval === i).length;
@@ -302,7 +302,7 @@ export default function EpsSmartFlashcardPage() {
                   return (
                     <div key={i} className="flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: colors[i] }}></div>
-                      <span className="text-app-text-muted text-[10px] flex-1">{days === 0 ? "Mới" : `${days} ngày`}</span>
+                      <span className="text-app-text-muted text-[10px] flex-1">{days === 0 ? "M?i" : `${days} ng�y`}</span>
                       <span className="text-white/50 text-[10px] font-semibold">{count}</span>
                     </div>
                   );
@@ -315,7 +315,7 @@ export default function EpsSmartFlashcardPage() {
     );
   }
 
-  // ── STUDY PHASE ───────────────────────────────────────────────────────────
+  // -- STUDY PHASE -----------------------------------------------------------
   if (phase === "study" && currentItem) {
     const progress = ((currentIdx) / studyQueue.length) * 100;
     const cardInfo = cardData[currentItem.id];
@@ -324,11 +324,11 @@ export default function EpsSmartFlashcardPage() {
 
     return (
       <DashboardLayout
-        title="Flashcard thông minh"
-        subtitle={`${currentIdx + 1}/${studyQueue.length} · ${sessionStats.known} đã nhớ · ${sessionStats.unknown} chưa nhớ`}
+        title="Flashcard th�ng minh"
+        subtitle={`${currentIdx + 1}/${studyQueue.length} � ${sessionStats.known} d� nh? � ${sessionStats.unknown} chua nh?`}
         actions={
           <button onClick={() => setPhase("select")} className="flex items-center gap-2 px-4 py-2 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50">
-            <i className="ri-arrow-left-line"></i>Thoát
+            <i className="ri-arrow-left-line"></i>Tho�t
           </button>
         }
       >
@@ -345,22 +345,22 @@ export default function EpsSmartFlashcardPage() {
           <div className="flex items-center gap-2">
             {isNew && (
               <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#a78bfa]/15 text-[#a78bfa] border border-[#a78bfa]/20">
-                <i className="ri-add-circle-line"></i>Từ mới
+                <i className="ri-add-circle-line"></i>T? m?i
               </span>
             )}
             {!isNew && isDue && (
               <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary border border-app-accent-primary/20">
-                <i className="ri-alarm-line"></i>Đến hạn ôn
+                <i className="ri-alarm-line"></i>�?n h?n �n
               </span>
             )}
             {cardInfo && cardInfo.failCount > 0 && (
               <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-500/15 text-red-400 border border-red-500/20">
-                <i className="ri-error-warning-line"></i>Sai {cardInfo.failCount} lần
+                <i className="ri-error-warning-line"></i>Sai {cardInfo.failCount} l?n
               </span>
             )}
             {cardInfo && cardInfo.interval >= 3 && (
               <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success border border-emerald-500/20">
-                <i className="ri-checkbox-circle-line"></i>Đang thuộc
+                <i className="ri-checkbox-circle-line"></i>�ang thu?c
               </span>
             )}
           </div>
@@ -392,7 +392,7 @@ export default function EpsSmartFlashcardPage() {
                     <i className={`${isPlaying ? "ri-volume-up-fill" : "ri-volume-up-line"} text-lg`}></i>
                   </button>
                   <div className="text-center">
-                    <p className="text-app-text-muted text-xs tracking-normal mb-1">Tiếng Hàn</p>
+                    <p className="text-app-text-muted text-xs tracking-normal mb-1">Ti?ng H�n</p>
                     <p className="text-white text-5xl font-bold">{currentItem.korean}</p>
                     <p className="text-app-text-secondary text-base mt-1">[{currentItem.reading}]</p>
                   </div>
@@ -410,7 +410,7 @@ export default function EpsSmartFlashcardPage() {
                   ) : null;
                 })()}
 
-                <p className="text-app-text-muted text-xs mt-6">Nhấn để xem nghĩa</p>
+                <p className="text-app-text-muted text-xs mt-6">Nh?n d? xem nghia</p>
               </div>
 
               {/* Back */}
@@ -418,7 +418,7 @@ export default function EpsSmartFlashcardPage() {
                 className="absolute inset-0 rounded-2xl border border-app-accent-primary/20 flex flex-col items-center justify-center p-8"
                 style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)", backgroundColor: "#1a1600" }}
               >
-                <p className="text-app-accent-primary/40 text-xs tracking-normal mb-3">Tiếng Việt</p>
+                <p className="text-app-accent-primary/40 text-xs tracking-normal mb-3">Ti?ng Vi?t</p>
                 <p className="text-white text-3xl font-bold mb-2 text-center">{currentItem.vietnamese}</p>
                 <p className="text-app-text-secondary text-sm mb-4">[{currentItem.reading}]</p>
 
@@ -427,7 +427,7 @@ export default function EpsSmartFlashcardPage() {
                   className="flex items-center gap-1.5 text-xs text-app-accent-primary/60 hover:text-app-accent-primary cursor-pointer mb-3"
                 >
                   <i className={showExample ? "ri-eye-off-line" : "ri-eye-line"}></i>
-                  {showExample ? "Ẩn ví dụ" : "Xem ví dụ"}
+                  {showExample ? "?n v� d?" : "Xem v� d?"}
                 </button>
 
                 {showExample && (
@@ -454,28 +454,28 @@ export default function EpsSmartFlashcardPage() {
               onClick={handleDontKnow}
               className="flex-1 py-3.5 rounded-xl border border-red-500/20 bg-red-500/5 text-red-400 text-sm font-medium cursor-pointer whitespace-nowrap hover:bg-red-500/10 transition-colors flex items-center justify-center gap-2"
             >
-              <i className="ri-close-line text-lg"></i>Chưa nhớ
+              <i className="ri-close-line text-lg"></i>Chua nh?
             </button>
             <button
               onClick={() => { setFlipped(true); }}
               className="px-4 py-3.5 rounded-xl border border-app-border bg-app-surface/50 text-app-text-secondary text-sm cursor-pointer whitespace-nowrap hover:bg-white/8 transition-colors flex items-center justify-center gap-2"
             >
-              <i className="ri-refresh-line"></i>Lật
+              <i className="ri-refresh-line"></i>L?t
             </button>
             <button
               onClick={handleKnow}
               className="flex-1 py-3.5 rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-app-accent-success text-sm font-medium cursor-pointer whitespace-nowrap hover:bg-emerald-500/10 transition-colors flex items-center justify-center gap-2"
             >
-              <i className="ri-check-line text-lg"></i>Đã nhớ
+              <i className="ri-check-line text-lg"></i>�� nh?
             </button>
           </div>
 
           {/* SR info */}
           {cardInfo && (
             <div className="flex items-center justify-center gap-4 text-[10px] text-app-text-muted">
-              <span><i className="ri-check-line text-app-accent-success/50 mr-1"></i>{cardInfo.successCount} lần đúng</span>
-              <span><i className="ri-close-line text-red-400/50 mr-1"></i>{cardInfo.failCount} lần sai</span>
-              <span><i className="ri-calendar-line mr-1"></i>Ôn lại sau {SR_INTERVALS[Math.min(cardInfo.interval + 1, SR_INTERVALS.length - 1)]} ngày</span>
+              <span><i className="ri-check-line text-app-accent-success/50 mr-1"></i>{cardInfo.successCount} l?n d�ng</span>
+              <span><i className="ri-close-line text-red-400/50 mr-1"></i>{cardInfo.failCount} l?n sai</span>
+              <span><i className="ri-calendar-line mr-1"></i>�n l?i sau {SR_INTERVALS[Math.min(cardInfo.interval + 1, SR_INTERVALS.length - 1)]} ng�y</span>
             </div>
           )}
         </div>
@@ -483,11 +483,11 @@ export default function EpsSmartFlashcardPage() {
     );
   }
 
-  // ── DONE PHASE ────────────────────────────────────────────────────────────
+  // -- DONE PHASE ------------------------------------------------------------
   if (phase === "done") {
     const pct = sessionStats.total > 0 ? Math.round((sessionStats.known / sessionStats.total) * 100) : 0;
     return (
-      <DashboardLayout title="Hoàn thành phiên học!" subtitle="Kết quả phiên flashcard thông minh">
+      <DashboardLayout title="Ho�n th�nh phi�n h?c!" subtitle="K?t qu? phi�n flashcard th�ng minh">
         <div className="max-w-md mx-auto text-center py-8 space-y-6">
           <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto" style={{ backgroundColor: pct >= 70 ? "#34d39915" : "app-accent-primary15" }}>
             <i className={`text-4xl ${pct >= 70 ? "ri-trophy-fill text-[#34d399]" : "ri-refresh-line text-app-accent-primary"}`}></i>
@@ -495,37 +495,37 @@ export default function EpsSmartFlashcardPage() {
 
           <div>
             <p className="text-white text-3xl font-bold">{pct}%</p>
-            <p className="text-app-text-secondary text-sm mt-1">Tỷ lệ nhớ trong phiên này</p>
+            <p className="text-app-text-secondary text-sm mt-1">T? l? nh? trong phi�n n�y</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-emerald-500/5 border border-emerald-500/15 rounded-xl p-4">
               <p className="text-app-accent-success text-2xl font-bold">{sessionStats.known}</p>
-              <p className="text-app-text-secondary text-xs mt-1">Đã nhớ</p>
+              <p className="text-app-text-secondary text-xs mt-1">�� nh?</p>
             </div>
             <div className="bg-red-500/5 border border-red-500/15 rounded-xl p-4">
               <p className="text-red-400 text-2xl font-bold">{sessionStats.unknown}</p>
-              <p className="text-app-text-secondary text-xs mt-1">Chưa nhớ</p>
+              <p className="text-app-text-secondary text-xs mt-1">Chua nh?</p>
             </div>
             <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
               <p className="text-app-accent-primary text-2xl font-bold">{stats.mastered}</p>
-              <p className="text-app-text-secondary text-xs mt-1">Tổng thuộc lòng</p>
+              <p className="text-app-text-secondary text-xs mt-1">T?ng thu?c l�ng</p>
             </div>
           </div>
 
           <div className="bg-app-bg border border-app-border rounded-xl p-4 text-left">
-            <p className="text-white/50 text-xs font-semibold mb-2">Lịch ôn tập tiếp theo</p>
+            <p className="text-white/50 text-xs font-semibold mb-2">L?ch �n t?p ti?p theo</p>
             <p className="text-app-text-muted text-xs">
-              Từ đã nhớ sẽ được ôn lại sau {SR_INTERVALS[1]}-{SR_INTERVALS[3]} ngày. Từ chưa nhớ sẽ xuất hiện lại ngay hôm nay.
+              T? d� nh? s? du?c �n l?i sau {SR_INTERVALS[1]}-{SR_INTERVALS[3]} ng�y. T? chua nh? s? xu?t hi?n l?i ngay h�m nay.
             </p>
           </div>
 
           <div className="flex gap-3">
             <button onClick={() => startStudy(selectedTopics)} className="flex-1 py-3 rounded-xl border border-app-accent-primary/20 bg-app-accent-primary/5 text-app-accent-primary text-sm font-medium cursor-pointer whitespace-nowrap hover:bg-app-accent-primary/10">
-              <i className="ri-refresh-line mr-2"></i>Học lại
+              <i className="ri-refresh-line mr-2"></i>H?c l?i
             </button>
             <button onClick={() => setPhase("select")} className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold cursor-pointer whitespace-nowrap">
-              <i className="ri-home-line mr-2"></i>Về trang chủ
+              <i className="ri-home-line mr-2"></i>V? trang ch?
             </button>
           </div>
         </div>

@@ -1,10 +1,10 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { seoulBooks } from "@/mocks/seoulTextbook";
 
-// ─── Types ──────────────────────────────────────────────────────────────────
+// --- Types ------------------------------------------------------------------
 interface SeoulStreak {
   count: number;
   lastDate: string;
@@ -18,7 +18,7 @@ interface DayRecord {
   xpEarned: number;
 }
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
+// --- Helpers -----------------------------------------------------------------
 function getLast30Days(): string[] {
   const days: string[] = [];
   for (let i = 29; i >= 0; i--) {
@@ -44,7 +44,7 @@ function getWeekDays(): string[] {
 
 const DAY_LABELS = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
 
-// ─── Streak flame animation ───────────────────────────────────────────────────
+// --- Streak flame animation ---------------------------------------------------
 function FlameIcon({ size = 48, active = true }: { size?: number; active?: boolean }) {
   return (
     <div
@@ -63,17 +63,17 @@ function FlameIcon({ size = 48, active = true }: { size?: number; active?: boole
   );
 }
 
-// ─── XP Bonus table ───────────────────────────────────────────────────────────
+// --- XP Bonus table -----------------------------------------------------------
 const XP_BONUSES = [
-  { days: 3, bonus: 15, label: "3 ngày" },
-  { days: 7, bonus: 35, label: "1 tuần" },
-  { days: 14, bonus: 70, label: "2 tuần" },
-  { days: 30, bonus: 150, label: "1 tháng" },
-  { days: 60, bonus: 300, label: "2 tháng" },
-  { days: 100, bonus: 500, label: "100 ngày" },
+  { days: 3, bonus: 15, label: "3 ng�y" },
+  { days: 7, bonus: 35, label: "1 tu?n" },
+  { days: 14, bonus: 70, label: "2 tu?n" },
+  { days: 30, bonus: 150, label: "1 th�ng" },
+  { days: 60, bonus: 300, label: "2 th�ng" },
+  { days: 100, bonus: 500, label: "100 ng�y" },
 ];
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function SeoulStreakPage() {
   const navigate = useNavigate();
   const [streak, setStreak] = useLocalStorage<SeoulStreak>("kts_seoul_streak", {
@@ -129,14 +129,14 @@ export default function SeoulStreakPage() {
 
   return (
     <DashboardLayout
-      title="Streak học Seoul"
-      subtitle="Theo dõi chuỗi ngày học liên tiếp và nhận XP bonus"
+      title="Streak h?c Seoul"
+      subtitle="Theo d�i chu?i ng�y h?c li�n ti?p v� nh?n XP bonus"
       actions={
         <button
           onClick={() => navigate("/seoul-textbook")}
           className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/60 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
         >
-          <i className="ri-book-3-line"></i>Giáo trình Seoul
+          <i className="ri-book-3-line"></i>Gi�o tr�nh Seoul
         </button>
       }
     >
@@ -144,8 +144,8 @@ export default function SeoulStreakPage() {
       {showCelebration && (
         <div className="fixed inset-0 pointer-events-none z-50 flex items-center justify-center">
           <div className="bg-[#f97316]/20 border border-[#f97316]/40 rounded-2xl px-8 py-6 text-center animate-bounce">
-            <p className="text-4xl mb-2">🔥</p>
-            <p className="text-white font-bold text-lg">Streak {streak.count} ngày!</p>
+            <p className="text-4xl mb-2">??</p>
+            <p className="text-white font-bold text-lg">Streak {streak.count} ng�y!</p>
             <p className="text-[#f97316] text-sm">+{Math.min(streak.count * 5, 50) + 10} XP</p>
           </div>
         </div>
@@ -169,16 +169,16 @@ export default function SeoulStreakPage() {
             <div className="flex-1">
               <div className="flex items-baseline gap-2 mb-1">
                 <span className="text-5xl font-black text-white">{streak.count}</span>
-                <span className="text-[#f97316] font-semibold text-lg">ngày liên tiếp</span>
+                <span className="text-[#f97316] font-semibold text-lg">ng�y li�n ti?p</span>
               </div>
               <p className="text-white/50 text-sm">
                 {isActiveToday
-                  ? "Hôm nay đã học rồi! Tiếp tục duy trì nhé."
+                  ? "H�m nay d� h?c r?i! Ti?p t?c duy tr� nh�."
                   : isStreakAlive
-                  ? "Hôm nay chưa học. Đừng để streak bị gián đoạn!"
+                  ? "H�m nay chua h?c. �?ng d? streak b? gi�n do?n!"
                   : streak.count === 0
-                  ? "Bắt đầu streak của bạn ngay hôm nay!"
-                  : "Streak đã bị gián đoạn. Bắt đầu lại nào!"}
+                  ? "B?t d?u streak c?a b?n ngay h�m nay!"
+                  : "Streak d� b? gi�n do?n. B?t d?u l?i n�o!"}
               </p>
               {!isActiveToday && (
                 <button
@@ -186,7 +186,7 @@ export default function SeoulStreakPage() {
                   className="mt-3 flex items-center gap-2 bg-[#f97316] hover:bg-[#f97316]/90 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
                 >
                   <i className="ri-fire-line"></i>
-                  Điểm danh hôm nay (+10 XP)
+                  �i?m danh h�m nay (+10 XP)
                 </button>
               )}
             </div>
@@ -196,22 +196,22 @@ export default function SeoulStreakPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5">
             <div className="bg-app-card/50 rounded-xl p-3 text-center">
               <p className="text-[#f97316] text-xl font-bold">{streak.count}</p>
-              <p className="text-app-text-secondary text-xs mt-0.5">Streak hiện tại</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">Streak hi?n t?i</p>
             </div>
             <div className="bg-app-card/50 rounded-xl p-3 text-center">
               <p className="text-white text-xl font-bold">{streak.longestStreak || 0}</p>
-              <p className="text-app-text-secondary text-xs mt-0.5">Streak dài nhất</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">Streak d�i nh?t</p>
             </div>
             <div className="bg-app-card/50 rounded-xl p-3 text-center">
               <p className="text-app-accent-success text-xl font-bold">{streak.totalDays || 0}</p>
-              <p className="text-app-text-secondary text-xs mt-0.5">Tổng ngày học</p>
+              <p className="text-app-text-secondary text-xs mt-0.5">T?ng ng�y h?c</p>
             </div>
           </div>
         </div>
 
         {/* Weekly calendar */}
         <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
-          <h3 className="text-white font-semibold text-sm mb-4">Tuần này</h3>
+          <h3 className="text-white font-semibold text-sm mb-4">Tu?n n�y</h3>
           <div className="grid grid-cols-7 gap-2">
             {weekDays.map((day, i) => {
               const isToday = day === today;
@@ -251,13 +251,13 @@ export default function SeoulStreakPage() {
         {nextMilestone && (
           <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-white font-semibold text-sm">Mốc tiếp theo</h3>
+              <h3 className="text-white font-semibold text-sm">M?c ti?p theo</h3>
               <span className="text-[#f97316] text-xs font-semibold">+{nextMilestone.bonus} XP bonus</span>
             </div>
             <div className="flex items-center gap-4">
               <div className="flex-1">
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-white/50 text-xs">{streak.count} ngày</span>
+                  <span className="text-white/50 text-xs">{streak.count} ng�y</span>
                   <span className="text-[#f97316] text-xs font-semibold">{nextMilestone.label}</span>
                 </div>
                 <div className="h-2 bg-white/8 rounded-full overflow-hidden">
@@ -269,7 +269,7 @@ export default function SeoulStreakPage() {
                   ></div>
                 </div>
                 <p className="text-app-text-muted text-xs mt-1.5">
-                  Còn {nextMilestone.days - streak.count} ngày nữa để nhận {nextMilestone.bonus} XP bonus
+                  C�n {nextMilestone.days - streak.count} ng�y n?a d? nh?n {nextMilestone.bonus} XP bonus
                 </p>
               </div>
               <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-[#f97316]/10 flex-shrink-0">
@@ -281,7 +281,7 @@ export default function SeoulStreakPage() {
 
         {/* XP Bonus milestones */}
         <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
-          <h3 className="text-white font-semibold text-sm mb-4">Mốc thưởng XP</h3>
+          <h3 className="text-white font-semibold text-sm mb-4">M?c thu?ng XP</h3>
           <div className="space-y-2">
             {XP_BONUSES.map(milestone => {
               const achieved = streak.count >= milestone.days;
@@ -310,14 +310,14 @@ export default function SeoulStreakPage() {
                   </div>
                   <div className="flex-1">
                     <p className={`text-sm font-semibold ${achieved ? "text-white" : "text-app-text-secondary"}`}>
-                      {milestone.label} liên tiếp
+                      {milestone.label} li�n ti?p
                     </p>
-                    <p className="text-app-text-muted text-xs">{milestone.days} ngày học Seoul</p>
+                    <p className="text-app-text-muted text-xs">{milestone.days} ng�y h?c Seoul</p>
                   </div>
                   <div className={`text-right flex-shrink-0 ${achieved ? "text-[#f97316]" : "text-app-text-muted"}`}>
                     <p className="text-sm font-bold">+{milestone.bonus} XP</p>
                     {isCurrent && !achieved && (
-                      <p className="text-[10px] text-app-text-muted">Còn {milestone.days - streak.count} ngày</p>
+                      <p className="text-[10px] text-app-text-muted">C�n {milestone.days - streak.count} ng�y</p>
                     )}
                   </div>
                 </div>
@@ -328,11 +328,11 @@ export default function SeoulStreakPage() {
 
         {/* Progress summary */}
         <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
-          <h3 className="text-white font-semibold text-sm mb-4">Tiến độ học tập</h3>
+          <h3 className="text-white font-semibold text-sm mb-4">Ti?n d? h?c t?p</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-white/50 text-xs">Bài đã học</span>
+                <span className="text-white/50 text-xs">B�i d� h?c</span>
                 <span className="text-white text-xs font-semibold">{totalCompleted}/{totalLessons}</span>
               </div>
               <div className="h-2 bg-white/8 rounded-full overflow-hidden">
@@ -344,7 +344,7 @@ export default function SeoulStreakPage() {
             </div>
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-white/50 text-xs">Tổng XP</span>
+                <span className="text-white/50 text-xs">T?ng XP</span>
                 <span className="text-app-accent-primary text-xs font-semibold">{(xpData.total || 0).toLocaleString()}</span>
               </div>
               <div className="h-2 bg-white/8 rounded-full overflow-hidden">
@@ -365,7 +365,7 @@ export default function SeoulStreakPage() {
               <div className="w-8 h-8 flex items-center justify-center">
                 <i className="ri-book-3-line text-[#a78bfa]"></i>
               </div>
-              <span className="text-white/50 text-xs text-center">Học bài mới</span>
+              <span className="text-white/50 text-xs text-center">H?c b�i m?i</span>
             </button>
             <button
               onClick={() => navigate("/seoul-lesson-quiz")}
@@ -374,7 +374,7 @@ export default function SeoulStreakPage() {
               <div className="w-8 h-8 flex items-center justify-center">
                 <i className="ri-file-list-3-line text-[#34d399]"></i>
               </div>
-              <span className="text-white/50 text-xs text-center">Thi thử bài</span>
+              <span className="text-white/50 text-xs text-center">Thi th? b�i</span>
             </button>
             <button
               onClick={() => navigate("/seoul-wrong-review")}
@@ -383,7 +383,7 @@ export default function SeoulStreakPage() {
               <div className="w-8 h-8 flex items-center justify-center">
                 <i className="ri-error-warning-line text-red-400"></i>
               </div>
-              <span className="text-white/50 text-xs text-center">Ôn từ sai</span>
+              <span className="text-white/50 text-xs text-center">�n t? sai</span>
             </button>
           </div>
         </div>
@@ -395,9 +395,9 @@ export default function SeoulStreakPage() {
               <i className="ri-lightbulb-line text-[#f97316] text-sm"></i>
             </div>
             <div>
-              <p className="text-white/70 text-xs font-semibold mb-1">Mẹo duy trì streak</p>
+              <p className="text-white/70 text-xs font-semibold mb-1">M?o duy tr� streak</p>
               <p className="text-app-text-secondary text-xs leading-relaxed">
-                Học ít nhất 1 bài mỗi ngày để duy trì streak. Làm quiz bài học sẽ tự động cập nhật streak và tiến độ. Streak càng dài, XP bonus càng nhiều!
+                H?c �t nh?t 1 b�i m?i ng�y d? duy tr� streak. L�m quiz b�i h?c s? t? d?ng c?p nh?t streak v� ti?n d?. Streak c�ng d�i, XP bonus c�ng nhi?u!
               </p>
             </div>
           </div>

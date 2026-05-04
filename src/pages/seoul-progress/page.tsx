@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { seoulBooks } from "@/mocks/seoulTextbook";
@@ -14,17 +14,17 @@ interface LessonProgress {
 }
 
 const LEVEL_GROUPS = [
-  { group: 1, label: "Sơ cấp", color: "app-accent-primary", books: ["1A", "1B"] },
-  { group: 2, label: "Sơ-Trung cấp", color: "#34d399", books: ["2A", "2B"] },
-  { group: 3, label: "Trung cấp", color: "#a78bfa", books: ["3A", "3B"] },
-  { group: 4, label: "Cao cấp", color: "#f87171", books: ["4A", "4B"] },
+  { group: 1, label: "So c?p", color: "app-accent-primary", books: ["1A", "1B"] },
+  { group: 2, label: "So-Trung c?p", color: "#34d399", books: ["2A", "2B"] },
+  { group: 3, label: "Trung c?p", color: "#a78bfa", books: ["3A", "3B"] },
+  { group: 4, label: "Cao c?p", color: "#f87171", books: ["4A", "4B"] },
 ];
 
 export default function SeoulProgressPage() {
   const navigate = useNavigate();
-  // Đồng bộ với key của trang giáo trình (kts_seoul_progress)
+  // �?ng b? v?i key c?a trang gi�o tr�nh (kts_seoul_progress)
   const [completedMap] = useLocalStorage<Record<string, boolean>>("kts_seoul_progress", {});
-  // Chuyển đổi sang format LessonProgress để tương thích
+  // Chuy?n d?i sang format LessonProgress d? tuong th�ch
   const lessonProgress: LessonProgress = Object.fromEntries(
     Object.entries(completedMap).map(([id, done]) => [id, { studied: done }])
   );
@@ -62,8 +62,8 @@ export default function SeoulProgressPage() {
             <i className="ri-arrow-left-line text-lg"></i>
           </button>
           <div>
-            <h1 className="text-white font-bold text-xl">Bảng tiến độ Seoul</h1>
-            <p className="text-app-text-secondary text-sm">Theo dõi % hoàn thành từng bài học theo từng cuốn sách</p>
+            <h1 className="text-white font-bold text-xl">B?ng ti?n d? Seoul</h1>
+            <p className="text-app-text-secondary text-sm">Theo d�i % ho�n th�nh t?ng b�i h?c theo t?ng cu?n s�ch</p>
           </div>
         </div>
 
@@ -71,12 +71,12 @@ export default function SeoulProgressPage() {
         <div className="bg-app-surface/50 border border-app-border rounded-2xl p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-white font-bold text-lg">Tổng tiến độ</h2>
-              <p className="text-app-text-secondary text-sm">Toàn bộ giáo trình Seoul 1A–4B</p>
+              <h2 className="text-white font-bold text-lg">T?ng ti?n d?</h2>
+              <p className="text-app-text-secondary text-sm">To�n b? gi�o tr�nh Seoul 1A�4B</p>
             </div>
             <div className="text-right">
               <p className="text-white text-2xl font-bold">{totalProg.pct}%</p>
-              <p className="text-app-text-secondary text-sm">{totalProg.done}/{totalProg.total} bài</p>
+              <p className="text-app-text-secondary text-sm">{totalProg.done}/{totalProg.total} b�i</p>
             </div>
           </div>
           <div className="h-3 bg-white/8 rounded-full overflow-hidden">
@@ -106,7 +106,7 @@ export default function SeoulProgressPage() {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <button onClick={() => setSelectedBook(null)} className="text-app-text-secondary hover:text-white/70 cursor-pointer text-sm flex items-center gap-1">
-                <i className="ri-arrow-left-s-line"></i> Quay lại
+                <i className="ri-arrow-left-s-line"></i> Quay l?i
               </button>
               <span className="text-app-text-muted">/</span>
               <span className="font-bold text-sm" style={{ color: activeBook.color }}>{activeBook.name}</span>
@@ -120,7 +120,7 @@ export default function SeoulProgressPage() {
                 </div>
                 <div className="text-right">
                   <p className="text-xl font-bold" style={{ color: activeBook.color }}>{getBookProgress(activeBook.id).pct}%</p>
-                  <p className="text-app-text-muted text-xs">{getBookProgress(activeBook.id).done}/{getBookProgress(activeBook.id).total} bài</p>
+                  <p className="text-app-text-muted text-xs">{getBookProgress(activeBook.id).done}/{getBookProgress(activeBook.id).total} b�i</p>
                 </div>
               </div>
               <div className="h-2 bg-white/8 rounded-full overflow-hidden mb-5">
@@ -145,7 +145,7 @@ export default function SeoulProgressPage() {
                         <p className="text-app-text-muted text-xs truncate">{lesson.titleVi}</p>
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
-                        <span className="text-app-text-muted text-xs">{lesson.vocabulary.length} từ</span>
+                        <span className="text-app-text-muted text-xs">{lesson.vocabulary.length} t?</span>
                         {prog.quizScore !== undefined && (
                           <span className="text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: activeBook.color + "20", color: activeBook.color }}>
                             {prog.quizScore}%
@@ -163,10 +163,10 @@ export default function SeoulProgressPage() {
 
             <div className="flex gap-3">
               <button onClick={() => navigate("/seoul-textbook")} className="flex-1 py-3 rounded-xl border border-app-border text-white/60 hover:bg-app-card/50 text-sm cursor-pointer transition-all">
-                <i className="ri-book-3-line mr-2"></i>Mở giáo trình
+                <i className="ri-book-3-line mr-2"></i>M? gi�o tr�nh
               </button>
               <button onClick={() => navigate("/seoul-lesson-quiz")} className="flex-1 py-3 rounded-xl font-semibold text-sm cursor-pointer transition-all hover:opacity-90" style={{ backgroundColor: activeBook.color, color: "#000" }}>
-                <i className="ri-file-list-3-line mr-2"></i>Thi thử theo bài
+                <i className="ri-file-list-3-line mr-2"></i>Thi th? theo b�i
               </button>
             </div>
           </div>
@@ -205,7 +205,7 @@ export default function SeoulProgressPage() {
                           <div className="h-full rounded-full transition-all" style={{ width: `${prog.pct}%`, backgroundColor: book.color }}></div>
                         </div>
                         <div className="flex items-center justify-between">
-                          <span className="text-app-text-muted text-xs">{prog.done}/{prog.total} bài hoàn thành</span>
+                          <span className="text-app-text-muted text-xs">{prog.done}/{prog.total} b�i ho�n th�nh</span>
                           <i className="ri-arrow-right-s-line text-app-text-muted group-hover:text-white/50 transition-colors"></i>
                         </div>
 
@@ -226,25 +226,25 @@ export default function SeoulProgressPage() {
 
             {/* Quick Actions */}
             <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
-              <h3 className="text-white font-semibold text-sm mb-3">Hành động nhanh</h3>
+              <h3 className="text-white font-semibold text-sm mb-3">H�nh d?ng nhanh</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <button onClick={() => navigate("/seoul-textbook")} className="flex flex-col items-center gap-2 p-3 rounded-xl bg-app-surface/50 hover:bg-white/6 cursor-pointer transition-all">
                   <div className="w-8 h-8 flex items-center justify-center">
                     <i className="ri-book-3-line text-app-accent-primary"></i>
                   </div>
-                  <span className="text-white/50 text-xs text-center">Giáo trình</span>
+                  <span className="text-white/50 text-xs text-center">Gi�o tr�nh</span>
                 </button>
                 <button onClick={() => navigate("/seoul-lesson-quiz")} className="flex flex-col items-center gap-2 p-3 rounded-xl bg-app-surface/50 hover:bg-white/6 cursor-pointer transition-all">
                   <div className="w-8 h-8 flex items-center justify-center">
                     <i className="ri-file-list-3-line text-[#34d399]"></i>
                   </div>
-                  <span className="text-white/50 text-xs text-center">Thi thử bài</span>
+                  <span className="text-white/50 text-xs text-center">Thi th? b�i</span>
                 </button>
                 <button onClick={() => navigate("/seoul-listening-quiz")} className="flex flex-col items-center gap-2 p-3 rounded-xl bg-app-surface/50 hover:bg-white/6 cursor-pointer transition-all">
                   <div className="w-8 h-8 flex items-center justify-center">
                     <i className="ri-headphone-line text-[#a78bfa]"></i>
                   </div>
-                  <span className="text-white/50 text-xs text-center">Luyện nghe</span>
+                  <span className="text-white/50 text-xs text-center">Luy?n nghe</span>
                 </button>
               </div>
             </div>
@@ -256,7 +256,7 @@ export default function SeoulProgressPage() {
                   <i className="ri-information-line text-app-accent-primary text-sm"></i>
                 </div>
                 <p className="text-app-text-secondary text-xs">
-                  Tiến độ được tự động cập nhật khi bạn học flashcard, làm bài thi thử hoặc luyện tập từng bài. Hãy học đều đặn để hoàn thành toàn bộ giáo trình!
+                  Ti?n d? du?c t? d?ng c?p nh?t khi b?n h?c flashcard, l�m b�i thi th? ho?c luy?n t?p t?ng b�i. H�y h?c d?u d?n d? ho�n th�nh to�n b? gi�o tr�nh!
                 </p>
               </div>
             </div>

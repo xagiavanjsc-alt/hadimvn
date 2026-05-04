@@ -1,4 +1,4 @@
-﻿import { useMemo, useState, useEffect, useCallback } from "react";
+import { useMemo, useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useAdminUsers, getAdminStats } from "@/hooks/useAdminUsers";
@@ -9,12 +9,12 @@ import { supabase } from "@/lib/supabase";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
 import type { EbookSeries } from "@/pages/series/page";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// --- Types --------------------------------------------------------------------
 interface RevenueEntry { id: string; seriesId: string; buyerName: string; amount: number; date: string }
 interface BroadcastMsg { id: string; title: string; body: string; target: "all" | "vip" | "free"; sentAt: string; recipientCount: number }
 interface VipRevenueLog { id: string; user_name: string; user_email: string; vip_type: string; amount: number; granted_at: string; expires_at: string; note: string }
 
-// ─── Broadcast Modal ──────────────────────────────────────────────────────────
+// --- Broadcast Modal ----------------------------------------------------------
 function BroadcastModal({ onClose, totalUsers, vipCount }: {
   onClose: () => void; totalUsers: number; vipCount: number;
 }) {
@@ -27,7 +27,7 @@ function BroadcastModal({ onClose, totalUsers, vipCount }: {
 
   const recipientCount = target === "all" ? totalUsers : target === "vip" ? vipCount : totalUsers - vipCount;
 
-  const targetLabels = { all: "Tất cả thành viên", vip: "Chỉ thành viên VIP", free: "Chỉ thành viên Free" };
+  const targetLabels = { all: "T?t c? th�nh vi�n", vip: "Ch? th�nh vi�n VIP", free: "Ch? th�nh vi�n Free" };
   const targetColors = { all: "#f87171", vip: "app-accent-primary", free: "#34d399" };
 
   const handleSend = () => {
@@ -42,8 +42,8 @@ function BroadcastModal({ onClose, totalUsers, vipCount }: {
     setBroadcasts(prev => [msg, ...prev]);
     addNotification({
       type: "system",
-      title: "Broadcast đã gửi",
-      message: `"${title}" → ${recipientCount} thành viên (${targetLabels[target]})`,
+      title: "Broadcast d� g?i",
+      message: `"${title}" ? ${recipientCount} th�nh vi�n (${targetLabels[target]})`,
       icon: "ri-broadcast-line",
       color: "#a78bfa",
     });
@@ -64,10 +64,10 @@ function BroadcastModal({ onClose, totalUsers, vipCount }: {
             </div>
             <div>
               <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>
-                {step === "sent" ? "Đã gửi thành công!" : "Gửi thông báo broadcast"}
+                {step === "sent" ? "�� g?i th�nh c�ng!" : "G?i th�ng b�o broadcast"}
               </p>
               <p className="text-[10px]" style={{ color: "var(--admin-text-muted)" }}>
-                {step === "compose" ? "Soạn nội dung" : step === "preview" ? "Xem trước trước khi gửi" : "Thông báo đã được gửi"}
+                {step === "compose" ? "So?n n?i dung" : step === "preview" ? "Xem tru?c tru?c khi g?i" : "Th�ng b�o d� du?c g?i"}
               </p>
             </div>
           </div>
@@ -82,9 +82,9 @@ function BroadcastModal({ onClose, totalUsers, vipCount }: {
             <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-emerald-500/12 mx-auto mb-4">
               <i className="ri-checkbox-circle-line text-app-accent-success text-3xl"></i>
             </div>
-            <p className="font-bold text-base mb-1" style={{ color: "var(--admin-text)" }}>Broadcast đã gửi!</p>
+            <p className="font-bold text-base mb-1" style={{ color: "var(--admin-text)" }}>Broadcast d� g?i!</p>
             <p className="text-sm mb-1" style={{ color: "var(--admin-text-muted)" }}>
-              <span className="font-semibold" style={{ color: targetColors[target] }}>{recipientCount} thành viên</span> sẽ nhận được thông báo
+              <span className="font-semibold" style={{ color: targetColors[target] }}>{recipientCount} th�nh vi�n</span> s? nh?n du?c th�ng b�o
             </p>
             <p className="text-xs mb-6" style={{ color: "var(--admin-text-faint)" }}>
               {targetLabels[target]}
@@ -95,7 +95,7 @@ function BroadcastModal({ onClose, totalUsers, vipCount }: {
             </div>
             <button onClick={onClose}
               className="w-full py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 text-white font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
-              Đóng
+              ��ng
             </button>
           </div>
         ) : step === "preview" ? (
@@ -109,14 +109,14 @@ function BroadcastModal({ onClose, totalUsers, vipCount }: {
                     <i className="ri-notification-3-line text-rose-400 text-xs"></i>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-[10px] font-bold truncate" style={{ color: "var(--admin-text)" }}>Hàn Quốc Ơi!</p>
-                    <p className="text-[9px]" style={{ color: "var(--admin-text-faint)" }}>Vừa xong</p>
+                    <p className="text-[10px] font-bold truncate" style={{ color: "var(--admin-text)" }}>H�n Qu?c Oi!</p>
+                    <p className="text-[9px]" style={{ color: "var(--admin-text-faint)" }}>V?a xong</p>
                   </div>
                 </div>
                 <div className="px-3 py-3">
-                  <p className="text-xs font-semibold mb-1" style={{ color: "var(--admin-text)" }}>{title || "Tiêu đề thông báo"}</p>
+                  <p className="text-xs font-semibold mb-1" style={{ color: "var(--admin-text)" }}>{title || "Ti�u d? th�ng b�o"}</p>
                   <p className="text-[11px] leading-relaxed" style={{ color: "var(--admin-text-muted)" }}>
-                    {body || "Nội dung thông báo sẽ hiển thị ở đây..."}
+                    {body || "N?i dung th�ng b�o s? hi?n th? ? d�y..."}
                   </p>
                 </div>
               </div>
@@ -130,7 +130,7 @@ function BroadcastModal({ onClose, totalUsers, vipCount }: {
                   <span className="text-xs font-medium" style={{ color: "var(--admin-text)" }}>{targetLabels[target]}</span>
                 </div>
                 <span className="text-sm font-bold" style={{ color: targetColors[target] }}>
-                  {recipientCount} người nhận
+                  {recipientCount} ngu?i nh?n
                 </span>
               </div>
             </div>
@@ -139,11 +139,11 @@ function BroadcastModal({ onClose, totalUsers, vipCount }: {
               <button onClick={() => setStep("compose")}
                 className="flex-1 py-2.5 rounded-xl border text-sm font-medium cursor-pointer whitespace-nowrap transition-colors"
                 style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>
-                Chỉnh sửa
+                Ch?nh s?a
               </button>
               <button onClick={handleSend}
                 className="flex-1 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 text-white font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
-                <i className="ri-send-plane-line mr-2"></i>Gửi ngay
+                <i className="ri-send-plane-line mr-2"></i>G?i ngay
               </button>
             </div>
           </div>
@@ -152,7 +152,7 @@ function BroadcastModal({ onClose, totalUsers, vipCount }: {
             {/* Target selector */}
             <div>
               <label className="text-xs font-semibold mb-2 block" style={{ color: "var(--admin-text-muted)" }}>
-                Đối tượng nhận
+                �?i tu?ng nh?n
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 {(["all", "vip", "free"] as const).map(t => (
@@ -165,10 +165,10 @@ function BroadcastModal({ onClose, totalUsers, vipCount }: {
                     <i className={`${t === "all" ? "ri-team-line" : t === "vip" ? "ri-vip-crown-line" : "ri-user-line"} text-base mb-1`}
                       style={{ color: target === t ? targetColors[t] : "var(--admin-text-faint)" }}></i>
                     <span className="text-[10px] font-semibold" style={{ color: target === t ? targetColors[t] : "var(--admin-text-muted)" }}>
-                      {t === "all" ? "Tất cả" : t === "vip" ? "VIP" : "Free"}
+                      {t === "all" ? "T?t c?" : t === "vip" ? "VIP" : "Free"}
                     </span>
                     <span className="text-[9px]" style={{ color: "var(--admin-text-faint)" }}>
-                      {t === "all" ? totalUsers : t === "vip" ? vipCount : totalUsers - vipCount} người
+                      {t === "all" ? totalUsers : t === "vip" ? vipCount : totalUsers - vipCount} ngu?i
                     </span>
                   </button>
                 ))}
@@ -178,10 +178,10 @@ function BroadcastModal({ onClose, totalUsers, vipCount }: {
             {/* Title */}
             <div>
               <label className="text-xs font-semibold mb-1.5 block" style={{ color: "var(--admin-text-muted)" }}>
-                Tiêu đề <span className="text-rose-400">*</span>
+                Ti�u d? <span className="text-rose-400">*</span>
               </label>
               <input type="text" value={title} onChange={e => setTitle(e.target.value.slice(0, 80))}
-                placeholder="VD: Tính năng mới đã ra mắt!"
+                placeholder="VD: T�nh nang m?i d� ra m?t!"
                 className="w-full rounded-xl px-4 py-2.5 text-sm outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
               <p className="text-[10px] mt-1 text-right" style={{ color: "var(--admin-text-faint)" }}>{title.length}/80</p>
@@ -190,10 +190,10 @@ function BroadcastModal({ onClose, totalUsers, vipCount }: {
             {/* Body */}
             <div>
               <label className="text-xs font-semibold mb-1.5 block" style={{ color: "var(--admin-text-muted)" }}>
-                Nội dung <span className="text-rose-400">*</span>
+                N?i dung <span className="text-rose-400">*</span>
               </label>
               <textarea value={body} onChange={e => setBody(e.target.value.slice(0, 300))}
-                placeholder="Nội dung thông báo chi tiết..."
+                placeholder="N?i dung th�ng b�o chi ti?t..."
                 rows={4} maxLength={300}
                 className="w-full rounded-xl px-4 py-2.5 text-sm outline-none border resize-none"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
@@ -202,12 +202,12 @@ function BroadcastModal({ onClose, totalUsers, vipCount }: {
 
             {/* Quick templates */}
             <div>
-              <p className="text-[10px] mb-2" style={{ color: "var(--admin-text-faint)" }}>Mẫu nhanh:</p>
+              <p className="text-[10px] mb-2" style={{ color: "var(--admin-text-faint)" }}>M?u nhanh:</p>
               <div className="flex gap-2 flex-wrap">
                 {[
-                  { label: "Tính năng mới", t: "Tính năng mới đã ra mắt!", b: "Chúng tôi vừa cập nhật tính năng mới. Hãy khám phá ngay!" },
-                  { label: "Khuyến mãi VIP", t: "Ưu đãi VIP đặc biệt!", b: "Nâng cấp VIP hôm nay để nhận ưu đãi độc quyền. Chỉ còn 48 giờ!" },
-                  { label: "Nhắc học", t: "Đừng quên học hôm nay!", b: "Streak của bạn đang chờ! Chỉ cần 10 phút để duy trì thói quen học tiếng Hàn." },
+                  { label: "T�nh nang m?i", t: "T�nh nang m?i d� ra m?t!", b: "Ch�ng t�i v?a c?p nh?t t�nh nang m?i. H�y kh�m ph� ngay!" },
+                  { label: "Khuy?n m�i VIP", t: "Uu d�i VIP d?c bi?t!", b: "N�ng c?p VIP h�m nay d? nh?n uu d�i d?c quy?n. Ch? c�n 48 gi?!" },
+                  { label: "Nh?c h?c", t: "�?ng qu�n h?c h�m nay!", b: "Streak c?a b?n dang ch?! Ch? c?n 10 ph�t d? duy tr� th�i quen h?c ti?ng H�n." },
                 ].map(tpl => (
                   <button key={tpl.label} onClick={() => { setTitle(tpl.t); setBody(tpl.b); }}
                     className="text-[10px] px-2.5 py-1 rounded-full cursor-pointer whitespace-nowrap transition-colors"
@@ -222,11 +222,11 @@ function BroadcastModal({ onClose, totalUsers, vipCount }: {
               <button onClick={onClose}
                 className="flex-1 py-2.5 rounded-xl border text-sm font-medium cursor-pointer whitespace-nowrap transition-colors"
                 style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>
-                Hủy
+                H?y
               </button>
               <button onClick={() => setStep("preview")} disabled={!title.trim() || !body.trim()}
                 className="flex-1 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 disabled:opacity-40 text-white font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
-                <i className="ri-eye-line mr-2"></i>Xem trước
+                <i className="ri-eye-line mr-2"></i>Xem tru?c
               </button>
             </div>
           </div>
@@ -236,12 +236,12 @@ function BroadcastModal({ onClose, totalUsers, vipCount }: {
   );
 }
 
-// ─── Revenue Chart (30 days real-time) ───────────────────────────────────────
+// --- Revenue Chart (30 days real-time) ---------------------------------------
 function RevenueChart({ revenues }: { revenues: RevenueEntry[] }) {
   const [hoveredDay, setHoveredDay] = useState<number | null>(null);
   const [liveRevenue, setLiveRevenue] = useState(revenues.reduce((s, r) => s + r.amount, 0));
 
-  // liveRevenue = tổng thật từ prop revenues (không giả lập)
+  // liveRevenue = t?ng th?t t? prop revenues (kh�ng gi? l?p)
 
   const days30 = useMemo(() => {
     return Array.from({ length: 30 }, (_, i) => {
@@ -279,28 +279,28 @@ function RevenueChart({ revenues }: { revenues: RevenueEntry[] }) {
       <div className="flex items-start justify-between mb-5">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <h3 className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Doanh thu 30 ngày</h3>
+            <h3 className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Doanh thu 30 ng�y</h3>
             <span className="flex items-center gap-1 text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-500/12 text-app-accent-success font-bold">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
               LIVE
             </span>
           </div>
           <p className="text-2xl font-bold" style={{ color: "var(--admin-text)" }}>
-            {liveRevenue.toLocaleString("vi-VN")}đ
+            {liveRevenue.toLocaleString("vi-VN")}d
           </p>
           <div className="flex items-center gap-3 mt-1">
             <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>
-              TB/ngày: <span className="font-semibold">{formatVND(avgDay)}đ</span>
+              TB/ng�y: <span className="font-semibold">{formatVND(avgDay)}d</span>
             </span>
             <span className={`flex items-center gap-0.5 text-xs font-semibold ${growthPct >= 0 ? "text-app-accent-success" : "text-rose-400"}`}>
               <i className={growthPct >= 0 ? "ri-arrow-up-line" : "ri-arrow-down-line"}></i>
-              {Math.abs(growthPct)}% hôm nay
+              {Math.abs(growthPct)}% h�m nay
             </span>
           </div>
         </div>
         <div className="text-right">
-          <p className="text-xs" style={{ color: "var(--admin-text-faint)" }}>Hôm nay</p>
-          <p className="text-lg font-bold text-app-accent-success">{formatVND(todayVal)}đ</p>
+          <p className="text-xs" style={{ color: "var(--admin-text-faint)" }}>H�m nay</p>
+          <p className="text-lg font-bold text-app-accent-success">{formatVND(todayVal)}d</p>
         </div>
       </div>
 
@@ -320,7 +320,7 @@ function RevenueChart({ revenues }: { revenues: RevenueEntry[] }) {
                     style={{ minWidth: "80px" }}>
                     <div className="rounded-lg px-2.5 py-1.5 text-center"
                       style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border2)" }}>
-                      <p className="text-[10px] font-bold text-app-accent-success">{formatVND(d.value)}đ</p>
+                      <p className="text-[10px] font-bold text-app-accent-success">{formatVND(d.value)}d</p>
                       <p className="text-[9px]" style={{ color: "var(--admin-text-faint)" }}>{d.label}</p>
                     </div>
                   </div>
@@ -338,7 +338,7 @@ function RevenueChart({ revenues }: { revenues: RevenueEntry[] }) {
           })}
         </div>
 
-        {/* X-axis labels — show every 5 days */}
+        {/* X-axis labels � show every 5 days */}
         <div className="flex items-center gap-0.5">
           {days30.map((d, i) => (
             <div key={i} className="flex-1 text-center">
@@ -353,9 +353,9 @@ function RevenueChart({ revenues }: { revenues: RevenueEntry[] }) {
       {/* Mini stats row */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4 pt-4 border-t" style={{ borderColor: "var(--admin-border)" }}>
         {[
-          { label: "Tổng tháng", value: formatVND(totalMonth) + "đ", color: "#34d399" },
-          { label: "Cao nhất/ngày", value: formatVND(maxVal) + "đ", color: "app-accent-primary" },
-          { label: "Số đơn hàng", value: String(revenues.length || Math.floor(totalMonth / 200000)), color: "#a78bfa" },
+          { label: "T?ng th�ng", value: formatVND(totalMonth) + "d", color: "#34d399" },
+          { label: "Cao nh?t/ng�y", value: formatVND(maxVal) + "d", color: "app-accent-primary" },
+          { label: "S? don h�ng", value: String(revenues.length || Math.floor(totalMonth / 200000)), color: "#a78bfa" },
         ].map(s => (
           <div key={s.label} className="text-center">
             <p className="text-sm font-bold" style={{ color: s.color }}>{s.value}</p>
@@ -367,7 +367,7 @@ function RevenueChart({ revenues }: { revenues: RevenueEntry[] }) {
   );
 }
 
-// ─── VIP Revenue Stats ────────────────────────────────────────────────────────
+// --- VIP Revenue Stats --------------------------------------------------------
 function VipRevenueStats({ totalUsers, vipCount }: { totalUsers: number; vipCount: number }) {
   const [logs, setLogs] = useState<VipRevenueLog[]>([]);
   const [loading, setLoading] = useState(true);
@@ -410,31 +410,31 @@ function VipRevenueStats({ totalUsers, vipCount }: { totalUsers: number; vipCoun
   const maxMonthly = Math.max(...monthlyData.map(m => m.total), 1);
 
   const formatVND = (n: number) => {
-    if (n >= 1000000) return `${(n / 1000000).toFixed(1)}Mđ`;
-    if (n >= 1000) return `${(n / 1000).toFixed(0)}kđ`;
-    return `${n}đ`;
+    if (n >= 1000000) return `${(n / 1000000).toFixed(1)}Md`;
+    if (n >= 1000) return `${(n / 1000).toFixed(0)}kd`;
+    return `${n}d`;
   };
 
   return (
     <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
       <div className="flex items-center justify-between mb-5">
         <div>
-          <h3 className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Doanh thu VIP theo tháng</h3>
-          <p className="text-xs mt-0.5" style={{ color: "var(--admin-text-muted)" }}>6 tháng gần nhất · Tổng tích lũy: <span className="font-bold text-app-accent-success">{formatVND(totalRevenue)}</span></p>
+          <h3 className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Doanh thu VIP theo th�ng</h3>
+          <p className="text-xs mt-0.5" style={{ color: "var(--admin-text-muted)" }}>6 th�ng g?n nh?t � T?ng t�ch luy: <span className="font-bold text-app-accent-success">{formatVND(totalRevenue)}</span></p>
         </div>
         <div className="flex items-center gap-2">
           <span className="text-[10px] px-2 py-1 rounded-full font-bold" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary" }}>
-            {conversionRate}% chuyển đổi
+            {conversionRate}% chuy?n d?i
           </span>
         </div>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
         {[
-          { label: "Tháng này", value: formatVND(thisMonthRevenue), icon: "ri-calendar-line", color: "#34d399" },
-          { label: "Giao dịch", value: String(thisMonthCount), icon: "ri-exchange-line", color: "app-accent-primary" },
-          { label: "Tỷ lệ VIP", value: `${conversionRate}%`, icon: "ri-percent-line", color: "#a78bfa" },
-          { label: "Tổng VIP", value: String(vipCount), icon: "ri-vip-crown-line", color: "#fb923c" },
+          { label: "Th�ng n�y", value: formatVND(thisMonthRevenue), icon: "ri-calendar-line", color: "#34d399" },
+          { label: "Giao d?ch", value: String(thisMonthCount), icon: "ri-exchange-line", color: "app-accent-primary" },
+          { label: "T? l? VIP", value: `${conversionRate}%`, icon: "ri-percent-line", color: "#a78bfa" },
+          { label: "T?ng VIP", value: String(vipCount), icon: "ri-vip-crown-line", color: "#fb923c" },
         ].map(s => (
           <div key={s.label} className="rounded-xl p-3 text-center" style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>
             <div className="w-7 h-7 flex items-center justify-center rounded-lg mx-auto mb-1.5" style={{ backgroundColor: `${s.color}15` }}>
@@ -461,7 +461,7 @@ function VipRevenueStats({ totalUsers, vipCount }: { totalUsers: number; vipCoun
                   <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
                     <div className="rounded-lg px-2 py-1.5 text-center whitespace-nowrap" style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border2)" }}>
                       <p className="text-[10px] font-bold text-app-accent-success">{formatVND(m.total)}</p>
-                      <p className="text-[9px]" style={{ color: "var(--admin-text-faint)" }}>{m.count} giao dịch</p>
+                      <p className="text-[9px]" style={{ color: "var(--admin-text-faint)" }}>{m.count} giao d?ch</p>
                     </div>
                   </div>
                   <div className="w-full mt-auto rounded-t-sm transition-all duration-300"
@@ -481,10 +481,10 @@ function VipRevenueStats({ totalUsers, vipCount }: { totalUsers: number; vipCoun
       )}
 
       <div className="mt-5 pt-4 border-t" style={{ borderColor: "var(--admin-border)" }}>
-        <p className="text-xs font-semibold mb-3" style={{ color: "var(--admin-text-muted)" }}>Tỷ lệ chuyển đổi Free → VIP</p>
+        <p className="text-xs font-semibold mb-3" style={{ color: "var(--admin-text-muted)" }}>T? l? chuy?n d?i Free ? VIP</p>
         <div className="space-y-2">
           <div className="flex items-center gap-3">
-            <span className="text-[10px] w-20 text-right" style={{ color: "var(--admin-text-faint)" }}>Tổng user</span>
+            <span className="text-[10px] w-20 text-right" style={{ color: "var(--admin-text-faint)" }}>T?ng user</span>
             <div className="flex-1 h-4 rounded-full overflow-hidden" style={{ backgroundColor: "var(--admin-hover)" }}>
               <div className="h-full rounded-full" style={{ width: "100%", backgroundColor: "rgba(255,255,255,0.08)" }} />
             </div>
@@ -502,7 +502,7 @@ function VipRevenueStats({ totalUsers, vipCount }: { totalUsers: number; vipCoun
 
       {logs.length > 0 && (
         <div className="mt-4 pt-4 border-t" style={{ borderColor: "var(--admin-border)" }}>
-          <p className="text-xs font-semibold mb-2" style={{ color: "var(--admin-text-muted)" }}>Cấp VIP gần đây</p>
+          <p className="text-xs font-semibold mb-2" style={{ color: "var(--admin-text-muted)" }}>C?p VIP g?n d�y</p>
           <div className="space-y-1.5 max-h-32 overflow-y-auto">
             {logs.slice(0, 5).map(l => (
               <div key={l.id} className="flex items-center gap-2 px-3 py-2 rounded-lg" style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>
@@ -511,7 +511,7 @@ function VipRevenueStats({ totalUsers, vipCount }: { totalUsers: number; vipCoun
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-medium truncate" style={{ color: "var(--admin-text)" }}>{l.user_name}</p>
-                  <p className="text-[9px] truncate" style={{ color: "var(--admin-text-faint)" }}>VIP {l.vip_type === "year" ? "Năm" : "Tháng"} · {new Date(l.granted_at).toLocaleDateString("vi-VN")}</p>
+                  <p className="text-[9px] truncate" style={{ color: "var(--admin-text-faint)" }}>VIP {l.vip_type === "year" ? "Nam" : "Th�ng"} � {new Date(l.granted_at).toLocaleDateString("vi-VN")}</p>
                 </div>
                 <span className="text-[10px] font-bold" style={{ color: l.vip_type === "year" ? "app-accent-primary" : "#34d399" }}>{formatVND(l.amount)}</span>
               </div>
@@ -523,17 +523,17 @@ function VipRevenueStats({ totalUsers, vipCount }: { totalUsers: number; vipCoun
   );
 }
 
-// ─── Broadcast History ────────────────────────────────────────────────────────
+// --- Broadcast History --------------------------------------------------------
 function BroadcastHistory() {
   const [broadcasts] = useLocalStorage<BroadcastMsg[]>("kts_broadcasts", []);
   if (broadcasts.length === 0) return null;
   const targetColors: Record<string, string> = { all: "#f87171", vip: "app-accent-primary", free: "#34d399" };
-  const targetLabels: Record<string, string> = { all: "Tất cả", vip: "VIP", free: "Free" };
+  const targetLabels: Record<string, string> = { all: "T?t c?", vip: "VIP", free: "Free" };
   return (
     <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
       <h3 className="font-semibold text-sm mb-4" style={{ color: "var(--admin-text)" }}>
         <i className="ri-history-line mr-2" style={{ color: "var(--admin-text-muted)" }}></i>
-        Lịch sử broadcast ({broadcasts.length})
+        L?ch s? broadcast ({broadcasts.length})
       </h3>
       <div className="space-y-2 max-h-48 overflow-y-auto">
         {broadcasts.map(b => (
@@ -548,7 +548,7 @@ function BroadcastHistory() {
             </div>
             <div className="text-right flex-shrink-0">
               <span className="text-[9px] px-1.5 py-0.5 rounded-full font-bold" style={{ backgroundColor: `${targetColors[b.target]}15`, color: targetColors[b.target] }}>
-                {targetLabels[b.target]} · {b.recipientCount}
+                {targetLabels[b.target]} � {b.recipientCount}
               </span>
               <p className="text-[9px] mt-0.5" style={{ color: "var(--admin-text-faint)" }}>
                 {new Date(b.sentAt).toLocaleDateString("vi-VN")}
@@ -561,7 +561,7 @@ function BroadcastHistory() {
   );
 }
 
-// ─── Stat Card ────────────────────────────────────────────────────────────────
+// --- Stat Card ----------------------------------------------------------------
 function StatCard({ icon, label, value, sub, color, onClick }: {
   icon: string; label: string; value: string | number; sub?: string; color: string; onClick?: () => void;
 }) {
@@ -583,7 +583,7 @@ function StatCard({ icon, label, value, sub, color, onClick }: {
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function AdminDashboardPage() {
   const navigate = useNavigate();
   // Mark admin session as verified when admin panel is accessed
@@ -604,26 +604,26 @@ export default function AdminDashboardPage() {
   return (
     <AdminLayout
       title="Admin Dashboard"
-      subtitle="Tổng quan hệ thống Hàn Quốc Ơi!"
+      subtitle="T?ng quan h? th?ng H�n Qu?c Oi!"
       actions={
         <button
           onClick={() => setShowBroadcast(true)}
           className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap bg-rose-500 hover:bg-rose-400 text-white"
         >
           <i className="ri-broadcast-line"></i>
-          Gửi thông báo
+          G?i th�ng b�o
         </button>
       }
     >
       {/* Top stats */}
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
-        <StatCard icon="ri-user-line" label="Tổng người dùng" value={usersLoading ? "..." : stats.total.toLocaleString()} sub={usersLoading ? "Đang tải..." : `+${stats.thisWeek} tuần này`} color="#f87171" onClick={() => navigate("/admin/users")} />
-        <StatCard icon="ri-vip-crown-line" label="VIP" value={usersLoading ? "..." : stats.vipCount} sub={usersLoading ? "" : `${vipPct}% tổng`} color="app-accent-primary" onClick={() => navigate("/admin/users")} />
-        <StatCard icon="ri-money-dollar-circle-line" label="Doanh thu" value={`${(totalRevenue / 1000).toFixed(0)}k`} sub={`${revenues.length} đơn`} color="#34d399" onClick={() => navigate("/admin/stats")} />
-        <StatCard icon="ri-book-open-line" label="Bài học đã duyệt" value={approvedLessons.length} sub={`${seriesList.length} series`} color="#a78bfa" onClick={() => navigate("/admin/series")} />
+        <StatCard icon="ri-user-line" label="T?ng ngu?i d�ng" value={usersLoading ? "..." : stats.total.toLocaleString()} sub={usersLoading ? "�ang t?i..." : `+${stats.thisWeek} tu?n n�y`} color="#f87171" onClick={() => navigate("/admin/users")} />
+        <StatCard icon="ri-vip-crown-line" label="VIP" value={usersLoading ? "..." : stats.vipCount} sub={usersLoading ? "" : `${vipPct}% t?ng`} color="app-accent-primary" onClick={() => navigate("/admin/users")} />
+        <StatCard icon="ri-money-dollar-circle-line" label="Doanh thu" value={`${(totalRevenue / 1000).toFixed(0)}k`} sub={`${revenues.length} don`} color="#34d399" onClick={() => navigate("/admin/stats")} />
+        <StatCard icon="ri-book-open-line" label="B�i h?c d� duy?t" value={approvedLessons.length} sub={`${seriesList.length} series`} color="#a78bfa" onClick={() => navigate("/admin/series")} />
       </div>
 
-      {/* Revenue chart — full width */}
+      {/* Revenue chart � full width */}
       <div className="mb-6">
         <RevenueChart revenues={revenues} />
       </div>
@@ -636,8 +636,8 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-6">
         {/* VIP Distribution */}
         <div className="rounded-xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-          <h3 className="font-semibold text-sm mb-1" style={{ color: "var(--admin-text)" }}>Phân bố VIP</h3>
-          <p className="text-xs mb-4" style={{ color: "var(--admin-text-muted)" }}>Tỷ lệ người dùng VIP</p>
+          <h3 className="font-semibold text-sm mb-1" style={{ color: "var(--admin-text)" }}>Ph�n b? VIP</h3>
+          <p className="text-xs mb-4" style={{ color: "var(--admin-text-muted)" }}>T? l? ngu?i d�ng VIP</p>
           <div className="flex items-center justify-center mb-4">
             <div className="relative w-28 h-28">
               <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
@@ -662,8 +662,8 @@ export default function AdminDashboardPage() {
 
         {/* Top users */}
         <div className="rounded-xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-          <h3 className="font-semibold text-sm mb-1" style={{ color: "var(--admin-text)" }}>Top học viên</h3>
-          <p className="text-xs mb-4" style={{ color: "var(--admin-text-muted)" }}>Theo XP tích lũy</p>
+          <h3 className="font-semibold text-sm mb-1" style={{ color: "var(--admin-text)" }}>Top h?c vi�n</h3>
+          <p className="text-xs mb-4" style={{ color: "var(--admin-text-muted)" }}>Theo XP t�ch luy</p>
           <div className="space-y-3">
             {topUsers.map((u, i) => (
               <div key={u.id} className="flex items-center gap-3">
@@ -676,7 +676,7 @@ export default function AdminDashboardPage() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-medium truncate" style={{ color: "var(--admin-text)" }}>{u.display_name}</p>
-                  <p className="text-[9px]" style={{ color: "var(--admin-text-faint)" }}>{u.streak_count} ngày streak</p>
+                  <p className="text-[9px]" style={{ color: "var(--admin-text-faint)" }}>{u.streak_count} ng�y streak</p>
                 </div>
                 <span className="text-app-accent-primary text-xs font-bold">{(u.xp_total || 0).toLocaleString()} XP</span>
               </div>
@@ -686,8 +686,8 @@ export default function AdminDashboardPage() {
 
         {/* Recent signups */}
         <div className="rounded-xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-          <h3 className="font-semibold text-sm mb-1" style={{ color: "var(--admin-text)" }}>Đăng ký gần đây</h3>
-          <p className="text-xs mb-4" style={{ color: "var(--admin-text-muted)" }}>Người dùng mới nhất</p>
+          <h3 className="font-semibold text-sm mb-1" style={{ color: "var(--admin-text)" }}>�ang k� g?n d�y</h3>
+          <p className="text-xs mb-4" style={{ color: "var(--admin-text-muted)" }}>Ngu?i d�ng m?i nh?t</p>
           <div className="space-y-3">
             {recentUsers.map(u => (
               <div key={u.id} className="flex items-center gap-3">
@@ -712,34 +712,34 @@ export default function AdminDashboardPage() {
         <BroadcastHistory />
       </div>
 
-      {/* Quick actions — full grid */}
+      {/* Quick actions � full grid */}
       <div className="rounded-xl border p-4 sm:p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Truy cập nhanh</h3>
-          <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-faint)" }}>20 tác vụ</span>
+          <h3 className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Truy c?p nhanh</h3>
+          <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-faint)" }}>20 t�c v?</span>
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-2">
           {[
-            { path: "/admin/users", icon: "ri-user-settings-line", label: "Thành viên", color: "#f87171" },
-            { path: "/admin/pricing", icon: "ri-vip-crown-line", label: "Gói VIP", color: "app-accent-primary" },
+            { path: "/admin/users", icon: "ri-user-settings-line", label: "Th�nh vi�n", color: "#f87171" },
+            { path: "/admin/pricing", icon: "ri-vip-crown-line", label: "G�i VIP", color: "app-accent-primary" },
             { path: "/admin/coupon", icon: "ri-coupon-3-line", label: "Coupon", color: "#fb923c" },
-            { path: "/admin/roles", icon: "ri-shield-user-line", label: "Phân quyền", color: "#a78bfa" },
-            { path: "/admin/content", icon: "ri-article-line", label: "Duyệt nội dung", color: "#34d399" },
-            { path: "/admin/content-learn", icon: "ri-book-open-line", label: "Nội dung học", color: "#34d399" },
+            { path: "/admin/roles", icon: "ri-shield-user-line", label: "Ph�n quy?n", color: "#a78bfa" },
+            { path: "/admin/content", icon: "ri-article-line", label: "Duy?t n?i dung", color: "#34d399" },
+            { path: "/admin/content-learn", icon: "ri-book-open-line", label: "N?i dung h?c", color: "#34d399" },
             { path: "/admin/series", icon: "ri-stack-line", label: "Series & Ebook", color: "#a78bfa" },
-            { path: "/admin/eps", icon: "ri-image-edit-line", label: "Quản lý EPS", color: "app-accent-primary" },
-            { path: "/admin/eps-new", icon: "ri-add-circle-line", label: "Thêm bài EPS", color: "#34d399" },
-            { path: "/admin/eps-upload", icon: "ri-upload-cloud-2-line", label: "Upload ảnh EPS", color: "#fb923c" },
+            { path: "/admin/eps", icon: "ri-image-edit-line", label: "Qu?n l� EPS", color: "app-accent-primary" },
+            { path: "/admin/eps-new", icon: "ri-add-circle-line", label: "Th�m b�i EPS", color: "#34d399" },
+            { path: "/admin/eps-upload", icon: "ri-upload-cloud-2-line", label: "Upload ?nh EPS", color: "#fb923c" },
             { path: "/admin/upload", icon: "ri-upload-cloud-2-line", label: "Upload & AI", color: "#34d399" },
             { path: "/admin/broadcast", icon: "ri-broadcast-line", label: "Broadcast", color: "#e879f9" },
-            { path: "/admin/stats", icon: "ri-pie-chart-line", label: "Thống kê hệ thống", color: "#a78bfa" },
-            { path: "/admin/learn-stats", icon: "ri-bar-chart-grouped-line", label: "Thống kê học", color: "#34d399" },
+            { path: "/admin/stats", icon: "ri-pie-chart-line", label: "Th?ng k� h? th?ng", color: "#a78bfa" },
+            { path: "/admin/learn-stats", icon: "ri-bar-chart-grouped-line", label: "Th?ng k� h?c", color: "#34d399" },
             { path: "/admin/backup", icon: "ri-save-line", label: "Backup", color: "#34d399" },
-            { path: "/admin/settings", icon: "ri-settings-3-line", label: "Cài đặt API", color: "app-accent-primary" },
+            { path: "/admin/settings", icon: "ri-settings-3-line", label: "C�i d?t API", color: "app-accent-primary" },
             { path: "/admin/audit", icon: "ri-file-list-3-line", label: "Audit Log", color: "#fbbf24" },
-            { path: "/admin/ads", icon: "ri-advertisement-line", label: "Quảng cáo", color: "#fb923c" },
-            { path: "/admin/hanja", icon: "ri-character-recognition-line", label: "Hán Hàn", color: "app-accent-primary" },
-            { path: "/admin/control", icon: "ri-settings-4-line", label: "Cài đặt admin", color: "#38bdf8" },
+            { path: "/admin/ads", icon: "ri-advertisement-line", label: "Qu?ng c�o", color: "#fb923c" },
+            { path: "/admin/hanja", icon: "ri-character-recognition-line", label: "H�n H�n", color: "app-accent-primary" },
+            { path: "/admin/control", icon: "ri-settings-4-line", label: "C�i d?t admin", color: "#38bdf8" },
           ].map(item => (
             <button key={item.path} onClick={() => navigate(item.path)}
               className="flex flex-col items-center gap-2 px-3 py-4 rounded-xl border transition-all cursor-pointer text-center hover:scale-[1.02]"

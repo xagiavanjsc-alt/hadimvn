@@ -1,4 +1,4 @@
-﻿import { useState, useCallback, useEffect, useMemo } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { mockMelonSongs, MelonSong } from "@/mocks/melonSongs";
 import { generateMelonLesson, MelonLessonResult, AIConfig } from "@/services/aiService";
@@ -17,7 +17,7 @@ function loadConfig(): AIConfig | null {
 
 type Tab = "lyrics" | "story" | "vocab" | "grammar";
 
-// ─── Related Songs ────────────────────────────────────────────────────────────
+// --- Related Songs ------------------------------------------------------------
 interface RelatedSongsProps {
   song: MelonSong;
   onNavigate: (rank: number) => void;
@@ -53,7 +53,7 @@ function RelatedSongs({ song, onNavigate }: RelatedSongsProps) {
         <div className="w-5 h-5 flex items-center justify-center">
           <i className="ri-music-2-line text-[#00C73C] text-sm" />
         </div>
-        <h2 className="text-white/70 text-sm font-semibold tracking-normal">Bài hát liên quan</h2>
+        <h2 className="text-white/70 text-sm font-semibold tracking-normal">B�i h�t li�n quan</h2>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         {related.map((s) => {
@@ -75,11 +75,11 @@ function RelatedSongs({ song, onNavigate }: RelatedSongsProps) {
                 <div className="absolute top-2 left-2">
                   {isSameArtist ? (
                     <span className="text-[9px] bg-app-accent-primary text-app-bg font-bold px-1.5 py-0.5 rounded-full whitespace-nowrap">
-                      Cùng nghệ sĩ
+                      C�ng ngh? si
                     </span>
                   ) : (
                     <span className="text-[9px] bg-[#00C73C]/80 text-white font-bold px-1.5 py-0.5 rounded-full whitespace-nowrap">
-                      Cùng thể loại
+                      C�ng th? lo?i
                     </span>
                   )}
                 </div>
@@ -104,7 +104,7 @@ function RelatedSongs({ song, onNavigate }: RelatedSongsProps) {
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function MelonDetailPage() {
   const { rank } = useParams<{ rank: string }>();
   const navigate = useNavigate();
@@ -178,7 +178,7 @@ export default function MelonDetailPage() {
       setTab("story");
       setShowKeyInput(false);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Lỗi không xác định");
+      setError(e instanceof Error ? e.message : "L?i kh�ng x�c d?nh");
     } finally {
       setLoading(false);
     }
@@ -194,19 +194,19 @@ export default function MelonDetailPage() {
     return (
       <div className="min-h-screen bg-app-bg flex flex-col items-center justify-center text-center px-6">
         <i className="ri-music-2-line text-app-text-muted text-5xl mb-4" />
-        <p className="text-white/50 text-base">Không tìm thấy bài hát</p>
+        <p className="text-white/50 text-base">Kh�ng t�m th?y b�i h�t</p>
         <button onClick={() => navigate("/melon")} className="mt-4 text-app-accent-primary text-sm cursor-pointer">
-          ← Quay lại Melon Chart
+          ? Quay l?i Melon Chart
         </button>
       </div>
     );
   }
 
   const TABS: { key: Tab; label: string; icon: string; disabled?: boolean }[] = [
-    { key: "lyrics", label: "Lời bài hát", icon: "ri-music-line" },
-    { key: "story", label: "Truyện Chêm", icon: "ri-book-open-line", disabled: !result },
-    { key: "vocab", label: "Từ vựng", icon: "ri-translate-2", disabled: !result },
-    { key: "grammar", label: "Ngữ pháp", icon: "ri-graduation-cap-line", disabled: !result },
+    { key: "lyrics", label: "L?i b�i h�t", icon: "ri-music-line" },
+    { key: "story", label: "Truy?n Ch�m", icon: "ri-book-open-line", disabled: !result },
+    { key: "vocab", label: "T? v?ng", icon: "ri-translate-2", disabled: !result },
+    { key: "grammar", label: "Ng? ph�p", icon: "ri-graduation-cap-line", disabled: !result },
   ];
 
   return (
@@ -230,7 +230,7 @@ export default function MelonDetailPage() {
         <button
           onClick={() => navigate("/dashboard")}
           className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary hover:text-white/70 cursor-pointer flex-shrink-0 transition-colors"
-          title="Trang chủ"
+          title="Trang ch?"
         >
           <i className="ri-home-4-line" />
         </button>
@@ -253,7 +253,7 @@ export default function MelonDetailPage() {
           <div className="flex flex-col justify-end">
             <span className="inline-flex items-center gap-1.5 text-[#00C73C] text-xs font-medium bg-[#00C73C]/10 px-3 py-1 rounded-full w-fit mb-3">
               <i className="ri-bar-chart-2-line" />
-              #{song.rank} · {song.genre}
+              #{song.rank} � {song.genre}
             </span>
             <h1 className="text-white text-2xl lg:text-3xl font-bold mb-1">{song.title}</h1>
             <p className="text-white/50 text-base mb-4">{song.artist}</p>
@@ -264,34 +264,34 @@ export default function MelonDetailPage() {
                   className="flex items-center gap-2 bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold px-5 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
                 >
                   <i className="ri-sparkling-2-line" />
-                  Phân tích AI
+                  Ph�n t�ch AI
                 </button>
               )}
               {loading && (
                 <div className="flex items-center gap-2 bg-app-card/50 text-white/50 text-sm px-5 py-2.5 rounded-xl">
                   <i className="ri-loader-4-line animate-spin" />
-                  Đang phân tích...
+                  �ang ph�n t�ch...
                 </div>
               )}
               {result && !loading && (
                 <>
                   <span className="flex items-center gap-1.5 text-green-400 text-xs bg-green-500/10 border border-green-500/20 px-3 py-1.5 rounded-lg">
                     <i className="ri-checkbox-circle-line" />
-                    Đã phân tích
+                    �� ph�n t�ch
                   </span>
                   <button
                     onClick={() => setShowQuiz(true)}
                     className="flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 border border-app-accent-primary/20 text-app-accent-primary text-sm font-semibold px-4 py-2 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
                   >
                     <i className="ri-lightbulb-flash-line" />
-                    Làm Quiz (5 câu)
+                    L�m Quiz (5 c�u)
                   </button>
                   <button
                     onClick={handleAnalyze}
                     className="flex items-center gap-2 text-app-text-muted hover:text-white/60 text-xs px-3 py-2 rounded-xl border border-app-border hover:border-white/15 cursor-pointer whitespace-nowrap transition-colors"
                   >
                     <i className="ri-refresh-line" />
-                    Tạo lại
+                    T?o l?i
                   </button>
                 </>
               )}
@@ -309,7 +309,7 @@ export default function MelonDetailPage() {
           <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-2xl p-5 mb-6">
             <p className="text-white/60 text-sm mb-3">
               <i className="ri-key-2-line text-app-accent-primary mr-1.5" />
-              Nhập API Key để phân tích AI (chỉ cần nhập 1 lần)
+              Nh?p API Key d? ph�n t�ch AI (ch? c?n nh?p 1 l?n)
             </p>
             <div className="flex gap-2 mb-3">
               {(["gemini", "openai", "openrouter"] as const).map((p) => (
@@ -339,7 +339,7 @@ export default function MelonDetailPage() {
                 onClick={handleSaveKey}
                 className="bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold px-5 rounded-xl cursor-pointer whitespace-nowrap"
               >
-                Lưu &amp; Phân tích
+                Luu &amp; Ph�n t�ch
               </button>
             </div>
           </div>
@@ -375,7 +375,7 @@ export default function MelonDetailPage() {
                 <div className="w-6 h-6 flex items-center justify-center">
                   <i className="ri-music-line text-[#00C73C] text-sm" />
                 </div>
-                <span className="text-white/60 text-xs font-medium tracking-normal">Lời bài hát (Tiếng Hàn)</span>
+                <span className="text-white/60 text-xs font-medium tracking-normal">L?i b�i h�t (Ti?ng H�n)</span>
               </div>
               <pre className="text-white/75 text-sm leading-9 font-sans whitespace-pre-wrap">{song.lyrics}</pre>
             </div>
@@ -385,7 +385,7 @@ export default function MelonDetailPage() {
             {loading && (
               <div className="bg-app-surface/50 rounded-2xl border border-app-border p-10 flex flex-col items-center justify-center text-center">
                 <i className="ri-loader-4-line text-app-accent-primary text-3xl animate-spin mb-3" />
-                <p className="text-white/50 text-sm">AI đang phân tích...</p>
+                <p className="text-white/50 text-sm">AI dang ph�n t�ch...</p>
               </div>
             )}
             {!result && !loading && (
@@ -393,7 +393,7 @@ export default function MelonDetailPage() {
                 <div className="w-14 h-14 flex items-center justify-center bg-app-accent-primary/8 rounded-2xl mb-4">
                   <i className="ri-sparkling-2-line text-app-accent-primary/40 text-2xl" />
                 </div>
-                <p className="text-app-text-muted text-sm">Nhấn &ldquo;Phân tích AI&rdquo; để xem nội dung học tiếng Hàn</p>
+                <p className="text-app-text-muted text-sm">Nh?n &ldquo;Ph�n t�ch AI&rdquo; d? xem n?i dung h?c ti?ng H�n</p>
               </div>
             )}
             {result && !loading && (
@@ -407,7 +407,7 @@ export default function MelonDetailPage() {
                         tab === t ? "bg-app-accent-primary text-app-bg font-semibold" : "text-app-text-secondary hover:text-white/60"
                       }`}
                     >
-                      {t === "story" ? "Truyện Chêm" : t === "vocab" ? "Từ vựng" : "Ngữ pháp"}
+                      {t === "story" ? "Truy?n Ch�m" : t === "vocab" ? "T? v?ng" : "Ng? ph�p"}
                     </button>
                   ))}
                 </div>
@@ -417,14 +417,14 @@ export default function MelonDetailPage() {
                   <div className="bg-app-surface/50 rounded-2xl border border-app-border p-5">
                     <div className="flex items-center gap-2 mb-3">
                       <i className="ri-book-open-line text-app-accent-primary text-sm" />
-                      <span className="text-white/60 text-xs font-medium tracking-normal">Truyện Chêm</span>
+                      <span className="text-white/60 text-xs font-medium tracking-normal">Truy?n Ch�m</span>
                     </div>
                     <p className="text-white/75 text-sm leading-8 whitespace-pre-line">{result.story}</p>
                   </div>
                   <div className="bg-app-surface/50 rounded-2xl border border-app-border p-5">
                     <div className="flex items-center gap-2 mb-3">
                       <i className="ri-translate-2 text-app-accent-primary text-sm" />
-                      <span className="text-white/60 text-xs font-medium tracking-normal">Từ vựng</span>
+                      <span className="text-white/60 text-xs font-medium tracking-normal">T? v?ng</span>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       {result.vocabulary.map((v, i) => (
@@ -439,7 +439,7 @@ export default function MelonDetailPage() {
                   <div className="bg-app-surface/50 rounded-2xl border border-app-border p-5">
                     <div className="flex items-center gap-2 mb-3">
                       <i className="ri-graduation-cap-line text-app-accent-primary text-sm" />
-                      <span className="text-white/60 text-xs font-medium tracking-normal">Phân tích ngữ pháp</span>
+                      <span className="text-white/60 text-xs font-medium tracking-normal">Ph�n t�ch ng? ph�p</span>
                     </div>
                     <p className="text-white/70 text-sm leading-8 whitespace-pre-line">{result.explanation}</p>
                   </div>

@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useCallback, useRef } from "react";
+import { useState, useMemo, useCallback, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -6,7 +6,7 @@ import { useWebPush } from "@/hooks/useWebPush";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import { epsVocabulary } from "@/mocks/epsVocabulary";
 
-// ─── Types ────────────────────────────────────────────────────────────────
+// --- Types ----------------------------------------------------------------
 interface WeeklyReportData {
   weekLabel: string;
   startDate: string;
@@ -29,7 +29,7 @@ interface EmailStatus {
   error: string;
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────
+// --- Helpers --------------------------------------------------------------
 function getWeekRange(weeksAgo: number): { start: Date; end: Date; label: string } {
   const now = new Date();
   const dayOfWeek = now.getDay();
@@ -44,7 +44,7 @@ function getWeekRange(weeksAgo: number): { start: Date; end: Date; label: string
   end.setHours(23, 59, 59, 999);
 
   const fmt = (d: Date) => `${d.getDate()}/${d.getMonth() + 1}`;
-  const label = weeksAgo === 0 ? `Tuần này (${fmt(start)} - ${fmt(end)})` : weeksAgo === 1 ? `Tuần trước (${fmt(start)} - ${fmt(end)})` : `${fmt(start)} - ${fmt(end)}`;
+  const label = weeksAgo === 0 ? `Tu?n n�y (${fmt(start)} - ${fmt(end)})` : weeksAgo === 1 ? `Tu?n tru?c (${fmt(start)} - ${fmt(end)})` : `${fmt(start)} - ${fmt(end)}`;
 
   return { start, end, label };
 }
@@ -53,7 +53,7 @@ function formatDate(d: Date): string {
   return d.toISOString().split("T")[0];
 }
 
-// ─── Stat Card ────────────────────────────────────────────────────────────
+// --- Stat Card ------------------------------------------------------------
 function StatCard({ icon, label, value, sub, color }: { icon: string; label: string; value: string | number; sub?: string; color: string }) {
   return (
     <div className="bg-app-bg border border-app-border rounded-2xl p-5 flex items-center gap-4">
@@ -69,7 +69,7 @@ function StatCard({ icon, label, value, sub, color }: { icon: string; label: str
   );
 }
 
-// ─── Mini Bar Chart ───────────────────────────────────────────────────────
+// --- Mini Bar Chart -------------------------------------------------------
 function MiniBarChart({ data, color }: { data: { label: string; value: number }[]; color: string }) {
   const max = Math.max(...data.map(d => d.value), 1);
   return (
@@ -84,7 +84,7 @@ function MiniBarChart({ data, color }: { data: { label: string; value: number }[
   );
 }
 
-// ─── Email Preview Modal ──────────────────────────────────────────────────
+// --- Email Preview Modal --------------------------------------------------
 function EmailPreviewModal({ report, email, onClose, onSend, sending }: {
   report: WeeklyReportData; email: string; onClose: () => void; onSend: () => void; sending: boolean;
 }) {
@@ -94,8 +94,8 @@ function EmailPreviewModal({ report, email, onClose, onSend, sending }: {
       <div className="bg-[#1a1d27] border border-app-border rounded-2xl w-full max-w-lg max-h-[85vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-app-border">
           <div>
-            <h3 className="text-white font-bold text-base">Xem trước email báo cáo</h3>
-            <p className="text-app-text-secondary text-xs mt-0.5">Gửi đến: {email}</p>
+            <h3 className="text-white font-bold text-base">Xem tru?c email b�o c�o</h3>
+            <p className="text-app-text-secondary text-xs mt-0.5">G?i d?n: {email}</p>
           </div>
           <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary cursor-pointer">
             <i className="ri-close-line"></i>
@@ -110,20 +110,20 @@ function EmailPreviewModal({ report, email, onClose, onSend, sending }: {
               <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-app-accent-primary/20 mx-auto mb-3">
                 <i className="ri-bar-chart-box-line text-app-accent-primary text-2xl"></i>
               </div>
-              <h2 className="text-white font-bold text-lg">Báo cáo học tập tuần</h2>
+              <h2 className="text-white font-bold text-lg">B�o c�o h?c t?p tu?n</h2>
               <p className="text-white/50 text-sm mt-1">{report.weekLabel}</p>
-              <p className="text-app-text-muted text-xs mt-1">Hàn Quốc Ơi! — Học tiếng Hàn</p>
+              <p className="text-app-text-muted text-xs mt-1">H�n Qu?c Oi! � H?c ti?ng H�n</p>
             </div>
 
             {/* Stats grid */}
             <div className="p-5 grid grid-cols-2 gap-3">
               {[
-                { icon: "ri-flashlight-line", label: "XP kiếm được", value: `+${report.xpEarned}`, color: "app-accent-primary" },
-                { icon: "ri-translate-2", label: "Từ đã học", value: report.wordsLearned, color: "#34d399" },
-                { icon: "ri-fire-line", label: "Streak", value: `${report.streakDays} ngày`, color: "#fb923c" },
-                { icon: "ri-percent-line", label: "Độ chính xác", value: `${accuracy}%`, color: "#a78bfa" },
-                { icon: "ri-calendar-check-line", label: "Ngày học", value: `${report.studyDays}/7`, color: "#38bdf8" },
-                { icon: "ri-brain-line", label: "SR đã ôn", value: report.srCardsReviewed, color: "#f43f5e" },
+                { icon: "ri-flashlight-line", label: "XP ki?m du?c", value: `+${report.xpEarned}`, color: "app-accent-primary" },
+                { icon: "ri-translate-2", label: "T? d� h?c", value: report.wordsLearned, color: "#34d399" },
+                { icon: "ri-fire-line", label: "Streak", value: `${report.streakDays} ng�y`, color: "#fb923c" },
+                { icon: "ri-percent-line", label: "�? ch�nh x�c", value: `${accuracy}%`, color: "#a78bfa" },
+                { icon: "ri-calendar-check-line", label: "Ng�y h?c", value: `${report.studyDays}/7`, color: "#38bdf8" },
+                { icon: "ri-brain-line", label: "SR d� �n", value: report.srCardsReviewed, color: "#f43f5e" },
               ].map(s => (
                 <div key={s.label} className="bg-app-surface/50 rounded-xl p-3 flex items-center gap-3">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -140,7 +140,7 @@ function EmailPreviewModal({ report, email, onClose, onSend, sending }: {
             {/* Quiz scores */}
             {report.quizScores.length > 0 && (
               <div className="px-5 pb-5">
-                <p className="text-white/50 text-xs font-semibold mb-3 tracking-normal">Kết quả quiz tuần này</p>
+                <p className="text-white/50 text-xs font-semibold mb-3 tracking-normal">K?t qu? quiz tu?n n�y</p>
                 <div className="space-y-2">
                   {report.quizScores.slice(0, 5).map((q, i) => (
                     <div key={i} className="flex items-center justify-between bg-app-surface/50 rounded-lg px-3 py-2">
@@ -156,24 +156,24 @@ function EmailPreviewModal({ report, email, onClose, onSend, sending }: {
             <div className="px-5 pb-5">
               <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4 text-center">
                 <p className="text-app-accent-primary text-sm font-semibold mb-1">
-                  {report.studyDays >= 5 ? "Xuất sắc! Bạn học rất chăm chỉ!" : report.studyDays >= 3 ? "Tốt lắm! Tiếp tục duy trì nhé!" : "Hãy cố gắng hơn tuần tới!"}
+                  {report.studyDays >= 5 ? "Xu?t s?c! B?n h?c r?t cham ch?!" : report.studyDays >= 3 ? "T?t l?m! Ti?p t?c duy tr� nh�!" : "H�y c? g?ng hon tu?n t?i!"}
                 </p>
-                <p className="text-app-text-secondary text-xs">Tiếp tục học mỗi ngày để đạt mục tiêu EPS-TOPIK!</p>
+                <p className="text-app-text-secondary text-xs">Ti?p t?c h?c m?i ng�y d? d?t m?c ti�u EPS-TOPIK!</p>
               </div>
             </div>
 
             <div className="px-5 pb-5 text-center">
-              <p className="text-app-text-muted text-[10px]">Email này được gửi tự động từ Hàn Quốc Ơi!</p>
+              <p className="text-app-text-muted text-[10px]">Email n�y du?c g?i t? d?ng t? H�n Qu?c Oi!</p>
             </div>
           </div>
         </div>
 
         <div className="px-6 pb-6 flex gap-3">
           <button onClick={onClose} className="flex-1 py-3 bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/60 text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors">
-            Hủy
+            H?y
           </button>
           <button onClick={onSend} disabled={sending} className="flex-1 py-3 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-50 text-app-bg font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors">
-            {sending ? <><i className="ri-loader-4-line animate-spin mr-2"></i>Đang gửi...</> : <><i className="ri-send-plane-line mr-2"></i>Gửi email ngay</>}
+            {sending ? <><i className="ri-loader-4-line animate-spin mr-2"></i>�ang g?i...</> : <><i className="ri-send-plane-line mr-2"></i>G?i email ngay</>}
           </button>
         </div>
       </div>
@@ -181,7 +181,7 @@ function EmailPreviewModal({ report, email, onClose, onSend, sending }: {
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────
+// --- Main Page ------------------------------------------------------------
 export default function WeeklyReportPage() {
   const { user, profile } = useAuth();
   const [xpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
@@ -277,7 +277,7 @@ export default function WeeklyReportPage() {
   const handleSendEmail = useCallback(async () => {
     const targetEmail = emailInput.trim() || user?.email || "";
     if (!targetEmail) {
-      setEmailStatus({ loading: false, success: false, error: "Vui lòng nhập địa chỉ email" });
+      setEmailStatus({ loading: false, success: false, error: "Vui l�ng nh?p d?a ch? email" });
       return;
     }
 
@@ -288,28 +288,28 @@ export default function WeeklyReportPage() {
       const supabaseKey = import.meta.env.VITE_PUBLIC_SUPABASE_ANON_KEY;
 
       const emailBody = `
-Xin chào ${profile?.display_name || "Học viên"}!
+Xin ch�o ${profile?.display_name || "H?c vi�n"}!
 
-📊 BÁO CÁO HỌC TẬP TUẦN — ${report.weekLabel}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+?? B�O C�O H?C T?P TU?N � ${report.weekLabel}
+????????????????????????????????????????
 
-⚡ XP kiếm được: +${report.xpEarned} XP
-📚 Từ đã học: ${report.wordsLearned} từ
-🔥 Streak hiện tại: ${report.streakDays} ngày liên tiếp
-🎯 Độ chính xác: ${accuracy}%
-📅 Số ngày học: ${report.studyDays}/7 ngày
-🧠 Thẻ SR đã ôn: ${report.srCardsReviewed} thẻ
-🏆 Thẻ SR nắm vững: ${report.srMastered} thẻ
+? XP ki?m du?c: +${report.xpEarned} XP
+?? T? d� h?c: ${report.wordsLearned} t?
+?? Streak hi?n t?i: ${report.streakDays} ng�y li�n ti?p
+?? �? ch�nh x�c: ${accuracy}%
+?? S? ng�y h?c: ${report.studyDays}/7 ng�y
+?? Th? SR d� �n: ${report.srCardsReviewed} th?
+?? Th? SR n?m v?ng: ${report.srMastered} th?
 
-${report.quizScores.length > 0 ? `📝 KẾT QUẢ QUIZ TUẦN NÀY:
-${report.quizScores.slice(0, 5).map(q => `  • ${q.lesson}: ${q.score}/${q.total} điểm`).join("\n")}` : ""}
+${report.quizScores.length > 0 ? `?? K?T QU? QUIZ TU?N N�Y:
+${report.quizScores.slice(0, 5).map(q => `  � ${q.lesson}: ${q.score}/${q.total} di?m`).join("\n")}` : ""}
 
-${report.studyDays >= 5 ? "🌟 Xuất sắc! Bạn học rất chăm chỉ tuần này!" : report.studyDays >= 3 ? "👍 Tốt lắm! Tiếp tục duy trì nhé!" : "💪 Hãy cố gắng hơn tuần tới!"}
+${report.studyDays >= 5 ? "?? Xu?t s?c! B?n h?c r?t cham ch? tu?n n�y!" : report.studyDays >= 3 ? "?? T?t l?m! Ti?p t?c duy tr� nh�!" : "?? H�y c? g?ng hon tu?n t?i!"}
 
-Tiếp tục học mỗi ngày để đạt mục tiêu EPS-TOPIK!
+Ti?p t?c h?c m?i ng�y d? d?t m?c ti�u EPS-TOPIK!
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
+????????????????????????????????????????
+H�n Qu?c Oi! � H?c ti?ng H�n hi?u qu?
       `.trim();
 
       const res = await fetch(`${supabaseUrl}/functions/v1/send-email-resend`, {
@@ -321,8 +321,8 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
         body: JSON.stringify({
           type: "weekly_report",
           to: targetEmail,
-          subject: `📊 Báo cáo học tập tuần — ${report.weekLabel} | Hàn Quốc Ơi!`,
-          displayName: profile?.display_name || "Học viên",
+          subject: `?? B�o c�o h?c t?p tu?n � ${report.weekLabel} | H�n Qu?c Oi!`,
+          displayName: profile?.display_name || "H?c vi�n",
           body: emailBody,
           reportData: {
             weekLabel: report.weekLabel,
@@ -343,10 +343,10 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
         setShowPreview(false);
       } else {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Gửi email thất bại");
+        throw new Error(data.error || "G?i email th?t b?i");
       }
     } catch (err) {
-      setEmailStatus({ loading: false, success: false, error: err instanceof Error ? err.message : "Lỗi không xác định" });
+      setEmailStatus({ loading: false, success: false, error: err instanceof Error ? err.message : "L?i kh�ng x�c d?nh" });
     }
   }, [emailInput, user, profile, report, accuracy]);
 
@@ -386,19 +386,19 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
     if (el) {
       el.style.display = "block";
       el.innerHTML = `
-        <div class="pdf-title">📊 Báo cáo học tập tuần</div>
-        <div class="pdf-sub">${report.weekLabel} — Hàn Quốc Ơi!</div>
+        <div class="pdf-title">?? B�o c�o h?c t?p tu?n</div>
+        <div class="pdf-sub">${report.weekLabel} � H�n Qu?c Oi!</div>
         <div>
-          <div class="pdf-stat"><strong>${report.xpEarned}</strong><br/><small>XP kiếm được</small></div>
-          <div class="pdf-stat"><strong>${report.wordsLearned}</strong><br/><small>Từ đã học</small></div>
-          <div class="pdf-stat"><strong>${report.streakDays} ngày</strong><br/><small>Streak</small></div>
-          <div class="pdf-stat"><strong>${accuracy}%</strong><br/><small>Độ chính xác</small></div>
-          <div class="pdf-stat"><strong>${report.studyDays}/7</strong><br/><small>Ngày học</small></div>
-          <div class="pdf-stat"><strong>${report.srCardsReviewed}</strong><br/><small>SR đã ôn</small></div>
+          <div class="pdf-stat"><strong>${report.xpEarned}</strong><br/><small>XP ki?m du?c</small></div>
+          <div class="pdf-stat"><strong>${report.wordsLearned}</strong><br/><small>T? d� h?c</small></div>
+          <div class="pdf-stat"><strong>${report.streakDays} ng�y</strong><br/><small>Streak</small></div>
+          <div class="pdf-stat"><strong>${accuracy}%</strong><br/><small>�? ch�nh x�c</small></div>
+          <div class="pdf-stat"><strong>${report.studyDays}/7</strong><br/><small>Ng�y h?c</small></div>
+          <div class="pdf-stat"><strong>${report.srCardsReviewed}</strong><br/><small>SR d� �n</small></div>
         </div>
         ${report.quizScores.length > 0 ? `
         <div class="pdf-section">
-          <div class="pdf-section-title">Kết quả quiz tuần này</div>
+          <div class="pdf-section-title">K?t qu? quiz tu?n n�y</div>
           ${report.quizScores.slice(0, 8).map(q => `
             <div class="pdf-row">
               <span>${q.lesson}</span>
@@ -407,12 +407,12 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
           `).join("")}
         </div>` : ""}
         <div class="pdf-section">
-          <div class="pdf-section-title">Tóm tắt</div>
-          <div class="pdf-row"><span>Tổng XP tích lũy</span><span><strong>${xpData.total.toLocaleString()} XP</strong></span></div>
-          <div class="pdf-row"><span>Streak hiện tại</span><span><strong>${streak.count} ngày</strong></span></div>
-          <div class="pdf-row"><span>Thẻ SR nắm vững</span><span><strong>${report.srMastered}</strong></span></div>
+          <div class="pdf-section-title">T�m t?t</div>
+          <div class="pdf-row"><span>T?ng XP t�ch luy</span><span><strong>${xpData.total.toLocaleString()} XP</strong></span></div>
+          <div class="pdf-row"><span>Streak hi?n t?i</span><span><strong>${streak.count} ng�y</strong></span></div>
+          <div class="pdf-row"><span>Th? SR n?m v?ng</span><span><strong>${report.srMastered}</strong></span></div>
         </div>
-        <div style="margin-top:20px; font-size:11px; color:#999; text-align:center;">Xuất từ Hàn Quốc Ơi! — ${new Date().toLocaleDateString("vi-VN")}</div>
+        <div style="margin-top:20px; font-size:11px; color:#999; text-align:center;">Xu?t t? H�n Qu?c Oi! � ${new Date().toLocaleDateString("vi-VN")}</div>
       `;
     }
 
@@ -425,8 +425,8 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
 
   return (
     <DashboardLayout
-      title="Báo cáo học tập tuần"
-      subtitle="Tổng kết XP, từ đã học, streak và điểm quiz — gửi qua email mỗi tuần"
+      title="B�o c�o h?c t?p tu?n"
+      subtitle="T?ng k?t XP, t? d� h?c, streak v� di?m quiz � g?i qua email m?i tu?n"
       actions={
         <button
           onClick={handleExportPdf}
@@ -434,7 +434,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
           className="flex items-center gap-2 px-4 py-2.5 bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/60 hover:text-white/80 text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors disabled:opacity-50"
         >
           <i className={exportingPdf ? "ri-loader-4-line animate-spin" : "ri-file-pdf-line"}></i>
-          {exportingPdf ? "Đang xuất..." : "Xuất PDF"}
+          {exportingPdf ? "�ang xu?t..." : "Xu?t PDF"}
         </button>
       }
     >
@@ -442,7 +442,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
       <div id="kts-pdf-content" style={{ display: "none" }} ref={printRef}></div>
       {/* Week selector */}
       <div className="flex items-center gap-3 mb-6">
-        <p className="text-white/50 text-sm">Chọn tuần:</p>
+        <p className="text-white/50 text-sm">Ch?n tu?n:</p>
         <div className="flex items-center bg-app-card/50 rounded-xl p-1 flex-wrap gap-1">
           {weeks.map((w, i) => (
             <button
@@ -450,7 +450,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
               onClick={() => setSelectedWeek(i)}
               className={`px-4 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedWeek === i ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/70"}`}
             >
-              {i === 0 ? "Tuần này" : i === 1 ? "Tuần trước" : w.label}
+              {i === 0 ? "Tu?n n�y" : i === 1 ? "Tu?n tru?c" : w.label}
             </button>
           ))}
         </div>
@@ -458,12 +458,12 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
 
       {/* Stats grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <StatCard icon="ri-flashlight-line" label="XP kiếm được" value={`+${report.xpEarned}`} sub="tuần này" color="app-accent-primary" />
-        <StatCard icon="ri-translate-2" label="Từ đã học" value={report.wordsLearned} sub="tổng cộng" color="#34d399" />
-        <StatCard icon="ri-fire-line" label="Streak hiện tại" value={`${report.streakDays} ngày`} sub="liên tiếp" color="#fb923c" />
-        <StatCard icon="ri-percent-line" label="Độ chính xác" value={`${accuracy}%`} sub={`${report.correctAnswers}/${report.questionsAnswered} câu`} color="#a78bfa" />
-        <StatCard icon="ri-calendar-check-line" label="Ngày học" value={`${report.studyDays}/7`} sub="ngày trong tuần" color="#38bdf8" />
-        <StatCard icon="ri-brain-line" label="SR đã ôn" value={report.srCardsReviewed} sub={`${report.srMastered} thẻ nắm vững`} color="#f43f5e" />
+        <StatCard icon="ri-flashlight-line" label="XP ki?m du?c" value={`+${report.xpEarned}`} sub="tu?n n�y" color="app-accent-primary" />
+        <StatCard icon="ri-translate-2" label="T? d� h?c" value={report.wordsLearned} sub="t?ng c?ng" color="#34d399" />
+        <StatCard icon="ri-fire-line" label="Streak hi?n t?i" value={`${report.streakDays} ng�y`} sub="li�n ti?p" color="#fb923c" />
+        <StatCard icon="ri-percent-line" label="�? ch�nh x�c" value={`${accuracy}%`} sub={`${report.correctAnswers}/${report.questionsAnswered} c�u`} color="#a78bfa" />
+        <StatCard icon="ri-calendar-check-line" label="Ng�y h?c" value={`${report.studyDays}/7`} sub="ng�y trong tu?n" color="#38bdf8" />
+        <StatCard icon="ri-brain-line" label="SR d� �n" value={report.srCardsReviewed} sub={`${report.srMastered} th? n?m v?ng`} color="#f43f5e" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6">
@@ -472,26 +472,26 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
           {/* Activity chart */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-4">
-              <p className="text-white font-semibold text-sm">Hoạt động trong tuần</p>
+              <p className="text-white font-semibold text-sm">Ho?t d?ng trong tu?n</p>
               <span className="text-app-text-muted text-xs">{report.weekLabel}</span>
             </div>
             <MiniBarChart data={dailyActivity} color="app-accent-primary" />
             <div className="flex items-center gap-4 mt-3">
               <div className="flex items-center gap-1.5">
                 <div className="w-2 h-2 rounded-full bg-app-accent-primary"></div>
-                <span className="text-app-text-muted text-[10px]">Điểm quiz mỗi ngày</span>
+                <span className="text-app-text-muted text-[10px]">�i?m quiz m?i ng�y</span>
               </div>
             </div>
           </div>
 
           {/* Quiz history */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <p className="text-white font-semibold text-sm mb-4">Kết quả quiz tuần này</p>
+            <p className="text-white font-semibold text-sm mb-4">K?t qu? quiz tu?n n�y</p>
             {report.quizScores.length === 0 ? (
               <div className="text-center py-6">
                 <i className="ri-file-list-3-line text-white/15 text-3xl mb-2 block"></i>
-                <p className="text-app-text-muted text-sm">Chưa có quiz nào trong tuần này</p>
-                <p className="text-app-text-muted text-xs mt-1">Hãy làm bài thi EPS hoặc quiz để có dữ liệu</p>
+                <p className="text-app-text-muted text-sm">Chua c� quiz n�o trong tu?n n�y</p>
+                <p className="text-app-text-muted text-xs mt-1">H�y l�m b�i thi EPS ho?c quiz d? c� d? li?u</p>
               </div>
             ) : (
               <div className="space-y-2">
@@ -520,12 +520,12 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
 
           {/* Progress comparison */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <p className="text-white font-semibold text-sm mb-4">Tiến độ tổng thể</p>
+            <p className="text-white font-semibold text-sm mb-4">Ti?n d? t?ng th?</p>
             <div className="space-y-4">
               {[
-                { label: "Từ vựng EPS", current: report.wordsLearned, total: 1500, color: "app-accent-primary" },
-                { label: "Câu hỏi EPS đã làm", current: report.questionsAnswered, total: epsQuestions.length, color: "#34d399" },
-                { label: "Thẻ SR nắm vững", current: report.srMastered, total: epsVocabulary.length, color: "#a78bfa" },
+                { label: "T? v?ng EPS", current: report.wordsLearned, total: 1500, color: "app-accent-primary" },
+                { label: "C�u h?i EPS d� l�m", current: report.questionsAnswered, total: epsQuestions.length, color: "#34d399" },
+                { label: "Th? SR n?m v?ng", current: report.srMastered, total: epsVocabulary.length, color: "#a78bfa" },
               ].map(item => {
                 const pct = Math.min(100, Math.round((item.current / item.total) * 100));
                 return (
@@ -552,11 +552,11 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
               <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-accent-primary/10">
                 <i className="ri-mail-send-line text-app-accent-primary text-sm"></i>
               </div>
-              <p className="text-white font-semibold text-sm">Gửi báo cáo qua email</p>
+              <p className="text-white font-semibold text-sm">G?i b�o c�o qua email</p>
             </div>
 
             <div className="mb-4">
-              <label className="text-app-text-secondary text-xs mb-1.5 block">Địa chỉ email nhận báo cáo</label>
+              <label className="text-app-text-secondary text-xs mb-1.5 block">�?a ch? email nh?n b�o c�o</label>
               <input
                 type="email"
                 value={emailInput}
@@ -569,7 +569,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
             {emailStatus.success && (
               <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 mb-3 flex items-center gap-2">
                 <i className="ri-checkbox-circle-fill text-app-accent-success"></i>
-                <p className="text-app-accent-success text-xs">Email đã được gửi thành công!</p>
+                <p className="text-app-accent-success text-xs">Email d� du?c g?i th�nh c�ng!</p>
               </div>
             )}
             {emailStatus.error && (
@@ -583,14 +583,14 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
                 onClick={() => { setEmailStatus({ loading: false, success: false, error: "" }); setShowPreview(true); }}
                 className="w-full flex items-center justify-center gap-2 py-3 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors"
               >
-                <i className="ri-eye-line"></i>Xem trước & Gửi email
+                <i className="ri-eye-line"></i>Xem tru?c & G?i email
               </button>
               <button
                 onClick={handleSaveEmail}
                 className="w-full flex items-center justify-center gap-2 py-2.5 bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/60 text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors"
               >
                 <i className={savedEmail ? "ri-checkbox-circle-line text-app-accent-success" : "ri-save-line"}></i>
-                {savedEmail ? "Đã lưu!" : "Lưu email mặc định"}
+                {savedEmail ? "�� luu!" : "Luu email m?c d?nh"}
               </button>
             </div>
           </div>
@@ -599,8 +599,8 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-3">
               <div>
-                <p className="text-white font-semibold text-sm">Gửi tự động hàng tuần</p>
-                <p className="text-white/35 text-xs mt-0.5">Mỗi thứ Hai lúc 8:00 sáng</p>
+                <p className="text-white font-semibold text-sm">G?i t? d?ng h�ng tu?n</p>
+                <p className="text-white/35 text-xs mt-0.5">M?i th? Hai l�c 8:00 s�ng</p>
               </div>
               <button
                 onClick={() => setAutoSendEnabled(v => !v)}
@@ -613,7 +613,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
               <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-3">
                 <p className="text-app-accent-primary text-xs">
                   <i className="ri-information-line mr-1"></i>
-                  Báo cáo sẽ được gửi đến: <strong>{reportEmail || emailInput || "chưa cài đặt"}</strong>
+                  B�o c�o s? du?c g?i d?n: <strong>{reportEmail || emailInput || "chua c�i d?t"}</strong>
                 </p>
               </div>
             )}
@@ -623,14 +623,14 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
           <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
               <i className="ri-trophy-line text-app-accent-primary text-sm"></i>
-              <p className="text-white font-semibold text-sm">Tóm tắt tuần</p>
+              <p className="text-white font-semibold text-sm">T�m t?t tu?n</p>
             </div>
             <div className="space-y-2.5">
               {[
-                { label: "Tổng XP tích lũy", value: `${xpData.total.toLocaleString()} XP`, color: "app-accent-primary" },
-                { label: "Streak hiện tại", value: `${streak.count} ngày`, color: "#fb923c" },
-                { label: "Từ vựng đã học", value: `${report.wordsLearned} từ`, color: "#34d399" },
-                { label: "Độ chính xác EPS", value: `${accuracy}%`, color: "#a78bfa" },
+                { label: "T?ng XP t�ch luy", value: `${xpData.total.toLocaleString()} XP`, color: "app-accent-primary" },
+                { label: "Streak hi?n t?i", value: `${streak.count} ng�y`, color: "#fb923c" },
+                { label: "T? v?ng d� h?c", value: `${report.wordsLearned} t?`, color: "#34d399" },
+                { label: "�? ch�nh x�c EPS", value: `${accuracy}%`, color: "#a78bfa" },
               ].map(s => (
                 <div key={s.label} className="flex items-center justify-between">
                   <span className="text-app-text-secondary text-xs">{s.label}</span>
@@ -648,19 +648,19 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
               </div>
               <div>
                 <p className="text-white font-semibold text-sm">Web Push Notifications</p>
-                <p className="text-app-text-muted text-[10px]">Nhắc nhở học tập trên trình duyệt</p>
+                <p className="text-app-text-muted text-[10px]">Nh?c nh? h?c t?p tr�n tr�nh duy?t</p>
               </div>
             </div>
 
             {!pushSupported ? (
               <div className="bg-app-surface/50 rounded-xl p-3">
-                <p className="text-app-text-muted text-xs">Trình duyệt của bạn không hỗ trợ Web Push</p>
+                <p className="text-app-text-muted text-xs">Tr�nh duy?t c?a b?n kh�ng h? tr? Web Push</p>
               </div>
             ) : pushPermission === "denied" ? (
               <div className="bg-[#f87171]/5 border border-[#f87171]/15 rounded-xl p-3">
                 <p className="text-[#f87171] text-xs">
                   <i className="ri-error-warning-line mr-1"></i>
-                  Thông báo bị chặn. Vào cài đặt trình duyệt để bật lại.
+                  Th�ng b�o b? ch?n. V�o c�i d?t tr�nh duy?t d? b?t l?i.
                 </p>
               </div>
             ) : pushPermission !== "granted" ? (
@@ -668,14 +668,14 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
                 onClick={requestPermission}
                 className="w-full flex items-center justify-center gap-2 py-3 bg-[#a78bfa]/10 hover:bg-[#a78bfa]/20 border border-[#a78bfa]/20 text-[#a78bfa] text-sm font-semibold rounded-xl cursor-pointer whitespace-nowrap transition-colors"
               >
-                <i className="ri-notification-3-line"></i>Bật thông báo
+                <i className="ri-notification-3-line"></i>B?t th�ng b�o
               </button>
             ) : (
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-white/65 text-xs font-medium">Nhắc báo cáo thứ Hai</p>
-                    <p className="text-app-text-muted text-[10px]">Lúc {pushSettings.weeklyReportHour}:00 sáng</p>
+                    <p className="text-white/65 text-xs font-medium">Nh?c b�o c�o th? Hai</p>
+                    <p className="text-app-text-muted text-[10px]">L�c {pushSettings.weeklyReportHour}:00 s�ng</p>
                   </div>
                   <button
                     onClick={() => updatePushSettings({ weeklyReport: !pushSettings.weeklyReport })}
@@ -686,8 +686,8 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-white/65 text-xs font-medium">Nhắc học hàng ngày</p>
-                    <p className="text-app-text-muted text-[10px]">Lúc {pushSettings.studyReminderHour}:00 tối</p>
+                    <p className="text-white/65 text-xs font-medium">Nh?c h?c h�ng ng�y</p>
+                    <p className="text-app-text-muted text-[10px]">L�c {pushSettings.studyReminderHour}:00 t?i</p>
                   </div>
                   <button
                     onClick={() => updatePushSettings({ studyReminder: !pushSettings.studyReminder })}
@@ -698,10 +698,10 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-white/65 text-xs font-medium">Nhắc ôn tập SR</p>
+                    <p className="text-white/65 text-xs font-medium">Nh?c �n t?p SR</p>
                     <p className="text-app-text-muted text-[10px]">
-                      Lúc {pushSettings.srReminderHour}:00 sáng
-                      {countSRDueToday() > 0 && <span className="text-[#f43f5e] ml-1">· {countSRDueToday()} thẻ hôm nay</span>}
+                      L�c {pushSettings.srReminderHour}:00 s�ng
+                      {countSRDueToday() > 0 && <span className="text-[#f43f5e] ml-1">� {countSRDueToday()} th? h�m nay</span>}
                     </p>
                   </div>
                   <button
@@ -715,17 +715,17 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
                   onClick={testSRNotification}
                   className="w-full flex items-center justify-center gap-1.5 py-2 bg-[#f43f5e]/5 hover:bg-[#f43f5e]/10 text-[#f43f5e]/60 text-xs rounded-lg cursor-pointer whitespace-nowrap transition-colors"
                 >
-                  <i className="ri-brain-line text-xs"></i>Thử nhắc SR
+                  <i className="ri-brain-line text-xs"></i>Th? nh?c SR
                 </button>
                 <button
                   onClick={testNotification}
                   className="w-full flex items-center justify-center gap-1.5 py-2 bg-app-card/50 hover:bg-white/8 text-app-text-secondary text-xs rounded-lg cursor-pointer whitespace-nowrap transition-colors"
                 >
-                  <i className="ri-send-plane-line text-xs"></i>Gửi thông báo thử
+                  <i className="ri-send-plane-line text-xs"></i>G?i th�ng b�o th?
                 </button>
                 <div className="flex items-center gap-1.5">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
-                  <p className="text-app-accent-success/70 text-[10px]">Thông báo đã được bật</p>
+                  <p className="text-app-accent-success/70 text-[10px]">Th�ng b�o d� du?c b?t</p>
                 </div>
               </div>
             )}
@@ -733,30 +733,30 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
 
           {/* Tips */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <p className="text-white/50 text-xs font-semibold mb-3 tracking-normal">Gợi ý cải thiện</p>
+            <p className="text-white/50 text-xs font-semibold mb-3 tracking-normal">G?i � c?i thi?n</p>
             <div className="space-y-2.5">
               {accuracy < 70 && (
                 <div className="flex items-start gap-2">
                   <i className="ri-error-warning-line text-[#f87171] text-sm flex-shrink-0 mt-0.5"></i>
-                  <p className="text-white/45 text-xs">Độ chính xác thấp — hãy ôn lại câu sai qua SR</p>
+                  <p className="text-white/45 text-xs">�? ch�nh x�c th?p � h�y �n l?i c�u sai qua SR</p>
                 </div>
               )}
               {report.studyDays < 5 && (
                 <div className="flex items-start gap-2">
                   <i className="ri-calendar-line text-[#fb923c] text-sm flex-shrink-0 mt-0.5"></i>
-                  <p className="text-white/45 text-xs">Cố gắng học ít nhất 5 ngày/tuần để duy trì streak</p>
+                  <p className="text-white/45 text-xs">C? g?ng h?c �t nh?t 5 ng�y/tu?n d? duy tr� streak</p>
                 </div>
               )}
               {report.srCardsReviewed === 0 && (
                 <div className="flex items-start gap-2">
                   <i className="ri-brain-line text-[#a78bfa] text-sm flex-shrink-0 mt-0.5"></i>
-                  <p className="text-white/45 text-xs">Chưa ôn SR tuần này — vào Spaced Repetition để ôn</p>
+                  <p className="text-white/45 text-xs">Chua �n SR tu?n n�y � v�o Spaced Repetition d? �n</p>
                 </div>
               )}
               {report.studyDays >= 5 && accuracy >= 70 && report.srCardsReviewed > 0 && (
                 <div className="flex items-start gap-2">
                   <i className="ri-checkbox-circle-line text-app-accent-success text-sm flex-shrink-0 mt-0.5"></i>
-                  <p className="text-white/45 text-xs">Tuyệt vời! Bạn đang học rất hiệu quả tuần này!</p>
+                  <p className="text-white/45 text-xs">Tuy?t v?i! B?n dang h?c r?t hi?u qu? tu?n n�y!</p>
                 </div>
               )}
             </div>

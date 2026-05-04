@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 
 const EXAM_DURATION = 30 * 60; // 30 minutes in seconds
@@ -46,15 +46,15 @@ function buildExamQuestions(pool: HanjaEntry[]): ExamQuestion[] {
 function getQuestionPrompt(q: ExamQuestion): { main: string; sub: string; label: string } {
   switch (q.type) {
     case "ko2vi":
-      return { main: q.entry.korean, sub: q.entry.hanja, label: "Từ tiếng Hàn này có nghĩa là gì?" };
+      return { main: q.entry.korean, sub: q.entry.hanja, label: "T? ti?ng H�n n�y c� nghia l� g�?" };
     case "vi2ko":
-      return { main: q.entry.vietnamese, sub: "", label: "Nghĩa tiếng Việt này là từ Hàn nào?" };
+      return { main: q.entry.vietnamese, sub: "", label: "Nghia ti?ng Vi?t n�y l� t? H�n n�o?" };
     case "hanja2ko":
-      return { main: q.entry.hanja, sub: "", label: "Hán tự này đọc là gì trong tiếng Hàn?" };
+      return { main: q.entry.hanja, sub: "", label: "H�n t? n�y d?c l� g� trong ti?ng H�n?" };
     case "context":
-      return { main: q.entry.korean, sub: q.entry.hanja, label: "Chọn nghĩa đúng của từ này:" };
+      return { main: q.entry.korean, sub: q.entry.hanja, label: "Ch?n nghia d�ng c?a t? n�y:" };
     default:
-      return { main: q.entry.korean, sub: q.entry.hanja, label: "Từ tiếng Hàn này có nghĩa là gì?" };
+      return { main: q.entry.korean, sub: q.entry.hanja, label: "T? ti?ng H�n n�y c� nghia l� g�?" };
   }
 }
 
@@ -94,13 +94,13 @@ export default function TopikMockExamTab() {
   const [filterGroup, setFilterGroup] = useState<string>("all");
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const ALPHABET_GROUPS = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+  const ALPHABET_GROUPS = ["?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?"];
 
   function getInitial(char: string): string {
     const code = char.charCodeAt(0) - 0xAC00;
     if (code < 0 || code > 11171) return char[0];
     const idx = Math.floor(code / 588);
-    const initials = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+    const initials = ["?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?"];
     return initials[idx] || char[0];
   }
 
@@ -185,7 +185,7 @@ export default function TopikMockExamTab() {
   const timerColor = timeLeft < 300 ? "text-red-500" : timeLeft < 600 ? "text-amber-500" : "text-green-600";
   const timerBg = timeLeft < 300 ? "bg-red-50 border-red-200" : timeLeft < 600 ? "bg-amber-50 border-amber-200" : "bg-green-50 border-green-200";
 
-  // ── Intro ──────────────────────────────────────────────────────────────────
+  // -- Intro ------------------------------------------------------------------
   if (examState === "intro") {
     return (
       <div className="max-w-2xl mx-auto">
@@ -195,17 +195,17 @@ export default function TopikMockExamTab() {
             <div className="w-14 h-14 flex items-center justify-center bg-app-border/200 rounded-2xl mx-auto mb-3">
               <i className="ri-file-paper-2-line text-white text-2xl"></i>
             </div>
-            <h2 className="text-xl font-bold mb-1">Thi thử TOPIK Hán Hàn</h2>
-            <p className="text-white/80 text-sm">30 câu trắc nghiệm · 30 phút · Theo chuẩn đề thi TOPIK</p>
+            <h2 className="text-xl font-bold mb-1">Thi th? TOPIK H�n H�n</h2>
+            <p className="text-white/80 text-sm">30 c�u tr?c nghi?m � 30 ph�t � Theo chu?n d? thi TOPIK</p>
           </div>
 
           <div className="p-6">
             {/* Exam info */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               {[
-                { icon: "ri-question-line", label: "Số câu", value: "30 câu", color: "#f43f5e" },
-                { icon: "ri-timer-line", label: "Thời gian", value: "30 phút", color: "#fb923c" },
-                { icon: "ri-bar-chart-line", label: "Điểm đạt", value: "70%+", color: "#34d399" },
+                { icon: "ri-question-line", label: "S? c�u", value: "30 c�u", color: "#f43f5e" },
+                { icon: "ri-timer-line", label: "Th?i gian", value: "30 ph�t", color: "#fb923c" },
+                { icon: "ri-bar-chart-line", label: "�i?m d?t", value: "70%+", color: "#34d399" },
               ].map(s => (
                 <div key={s.label} className="text-center bg-gray-50 rounded-xl p-4">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${s.color}15` }}>
@@ -219,12 +219,12 @@ export default function TopikMockExamTab() {
 
             {/* Question types */}
             <div className="mb-5">
-              <p className="text-sm font-semibold text-gray-700 mb-3">Dạng câu hỏi trong đề thi</p>
+              <p className="text-sm font-semibold text-gray-700 mb-3">D?ng c�u h?i trong d? thi</p>
               <div className="space-y-2">
                 {[
-                  { label: "Hàn → Việt", desc: "Chọn nghĩa tiếng Việt đúng", pct: "40%" },
-                  { label: "Việt → Hàn", desc: "Chọn từ tiếng Hàn đúng", pct: "40%" },
-                  { label: "Hán tự → Hàn", desc: "Đọc Hán tự thành tiếng Hàn", pct: "20%" },
+                  { label: "H�n ? Vi?t", desc: "Ch?n nghia ti?ng Vi?t d�ng", pct: "40%" },
+                  { label: "Vi?t ? H�n", desc: "Ch?n t? ti?ng H�n d�ng", pct: "40%" },
+                  { label: "H�n t? ? H�n", desc: "�?c H�n t? th�nh ti?ng H�n", pct: "20%" },
                 ].map(t => (
                   <div key={t.label} className="flex items-center gap-3 px-3 py-2 bg-rose-50 rounded-lg">
                     <span className="text-rose-600 font-semibold text-sm w-28 flex-shrink-0">{t.label}</span>
@@ -237,11 +237,11 @@ export default function TopikMockExamTab() {
 
             {/* Filter by group */}
             <div className="mb-5">
-              <p className="text-sm font-semibold text-gray-700 mb-2">Chọn nhóm từ vựng</p>
+              <p className="text-sm font-semibold text-gray-700 mb-2">Ch?n nh�m t? v?ng</p>
               <div className="flex flex-wrap gap-1.5">
                 <button onClick={() => setFilterGroup("all")}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${filterGroup === "all" ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
-                  Tất cả ({HANJA_DATA.length})
+                  T?t c? ({HANJA_DATA.length})
                 </button>
                 {ALPHABET_GROUPS.map(g => {
                   const cnt = HANJA_DATA.filter(d => getInitial(d.korean[0]) === g).length;
@@ -254,17 +254,17 @@ export default function TopikMockExamTab() {
                   );
                 })}
               </div>
-              <p className="text-xs text-gray-400 mt-2">Đề thi sẽ lấy ngẫu nhiên {TOTAL_QUESTIONS} câu từ {pool.length} từ đã chọn</p>
+              <p className="text-xs text-gray-400 mt-2">�? thi s? l?y ng?u nhi�n {TOTAL_QUESTIONS} c�u t? {pool.length} t? d� ch?n</p>
             </div>
 
             <div className="flex gap-3">
               <button onClick={() => setExamState("history")}
                 className="flex items-center gap-2 px-4 py-3 border border-gray-200 text-gray-600 rounded-xl text-sm cursor-pointer hover:bg-gray-50 transition-colors whitespace-nowrap">
-                <i className="ri-history-line"></i>Lịch sử thi
+                <i className="ri-history-line"></i>L?ch s? thi
               </button>
               <button onClick={startExam} disabled={pool.length < 4}
                 className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-bold cursor-pointer hover:bg-rose-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
-                <i className="ri-play-circle-line"></i>Bắt đầu thi thử
+                <i className="ri-play-circle-line"></i>B?t d?u thi th?
               </button>
             </div>
           </div>
@@ -273,7 +273,7 @@ export default function TopikMockExamTab() {
         {/* Recent history preview */}
         {history.length > 0 && (
           <div className="bg-white border border-gray-100 rounded-xl p-4">
-            <p className="text-sm font-semibold text-gray-700 mb-3">Lần thi gần nhất</p>
+            <p className="text-sm font-semibold text-gray-700 mb-3">L?n thi g?n nh?t</p>
             <div className="flex items-center gap-4">
               <div className={`w-14 h-14 flex items-center justify-center rounded-xl flex-shrink-0 ${history[0].score / history[0].total >= 0.7 ? "bg-green-100" : "bg-amber-100"}`}>
                 <span className={`text-xl font-bold ${history[0].score / history[0].total >= 0.7 ? "text-green-600" : "text-amber-600"}`}>
@@ -281,8 +281,8 @@ export default function TopikMockExamTab() {
                 </span>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-900">Đúng {history[0].score}/{history[0].total} câu</p>
-                <p className="text-xs text-gray-400">Thời gian: {formatTime(history[0].timeUsed)} · {history[0].date}</p>
+                <p className="text-sm font-medium text-gray-900">��ng {history[0].score}/{history[0].total} c�u</p>
+                <p className="text-xs text-gray-400">Th?i gian: {formatTime(history[0].timeUsed)} � {history[0].date}</p>
               </div>
             </div>
           </div>
@@ -291,7 +291,7 @@ export default function TopikMockExamTab() {
     );
   }
 
-  // ── Exam ───────────────────────────────────────────────────────────────────
+  // -- Exam -------------------------------------------------------------------
   if (examState === "exam") {
     const q = questions[currentIdx];
     if (!q) return null;
@@ -305,8 +305,8 @@ export default function TopikMockExamTab() {
         {/* Exam header */}
         <div className="flex items-center justify-between mb-4 bg-white border border-gray-100 rounded-xl px-4 py-3">
           <div className="flex items-center gap-3">
-            <span className="text-sm text-gray-500">Câu {currentIdx + 1}/{questions.length}</span>
-            <span className="text-xs text-gray-400">({answeredCount} đã trả lời)</span>
+            <span className="text-sm text-gray-500">C�u {currentIdx + 1}/{questions.length}</span>
+            <span className="text-xs text-gray-400">({answeredCount} d� tr? l?i)</span>
           </div>
           <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm font-bold ${timerBg} ${timerColor}`}>
             <i className="ri-timer-line"></i>
@@ -314,7 +314,7 @@ export default function TopikMockExamTab() {
           </div>
           <button onClick={finishExam}
             className="flex items-center gap-1.5 px-3 py-1.5 bg-rose-500 text-white rounded-lg text-xs font-semibold cursor-pointer hover:bg-rose-600 transition-colors whitespace-nowrap">
-            <i className="ri-flag-line"></i>Nộp bài
+            <i className="ri-flag-line"></i>N?p b�i
           </button>
         </div>
 
@@ -326,7 +326,7 @@ export default function TopikMockExamTab() {
         {/* Question */}
         <div className="bg-white border-2 border-gray-100 rounded-2xl p-6 mb-4">
           <div className="flex items-center gap-2 mb-4">
-            <span className="px-2.5 py-1 bg-rose-100 text-rose-600 rounded-full text-xs font-bold">Câu {currentIdx + 1}</span>
+            <span className="px-2.5 py-1 bg-rose-100 text-rose-600 rounded-full text-xs font-bold">C�u {currentIdx + 1}</span>
             <span className="text-sm text-gray-500">{prompt.label}</span>
           </div>
           <div className="text-center py-4">
@@ -367,21 +367,21 @@ export default function TopikMockExamTab() {
         <div className="flex gap-3">
           <button onClick={goPrev} disabled={currentIdx === 0}
             className="flex items-center gap-2 px-4 py-3 border border-gray-200 text-gray-600 rounded-xl text-sm cursor-pointer hover:bg-gray-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap">
-            <i className="ri-arrow-left-line"></i>Trước
+            <i className="ri-arrow-left-line"></i>Tru?c
           </button>
           <button onClick={goNext}
             className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors flex items-center justify-center gap-2">
             {currentIdx + 1 >= questions.length ? (
-              <><i className="ri-flag-line"></i>Nộp bài</>
+              <><i className="ri-flag-line"></i>N?p b�i</>
             ) : (
-              <><span>Câu tiếp theo</span><i className="ri-arrow-right-line"></i></>
+              <><span>C�u ti?p theo</span><i className="ri-arrow-right-line"></i></>
             )}
           </button>
         </div>
 
         {/* Question navigator */}
         <div className="mt-4 bg-white border border-gray-100 rounded-xl p-3">
-          <p className="text-xs text-gray-400 mb-2">Điều hướng câu hỏi</p>
+          <p className="text-xs text-gray-400 mb-2">�i?u hu?ng c�u h?i</p>
           <div className="flex flex-wrap gap-1.5">
             {questions.map((q, i) => (
               <button key={i} onClick={() => setCurrentIdx(i)}
@@ -399,7 +399,7 @@ export default function TopikMockExamTab() {
     );
   }
 
-  // ── Review ─────────────────────────────────────────────────────────────────
+  // -- Review -----------------------------------------------------------------
   if (examState === "review" && examResult) {
     const pct = Math.round((examResult.score / examResult.total) * 100);
     const passed = pct >= 70;
@@ -414,15 +414,15 @@ export default function TopikMockExamTab() {
           </div>
           <p className="text-4xl font-bold text-gray-900 mb-1">{pct}%</p>
           <p className={`text-lg font-semibold mb-2 ${passed ? "text-green-600" : "text-amber-600"}`}>
-            {passed ? "Đạt! Xuất sắc!" : "Chưa đạt — Cần ôn thêm"}
+            {passed ? "�?t! Xu?t s?c!" : "Chua d?t � C?n �n th�m"}
           </p>
-          <p className="text-gray-500 text-sm mb-4">Đúng {examResult.score}/{examResult.total} câu · Thời gian: {formatTime(examResult.timeUsed)}</p>
+          <p className="text-gray-500 text-sm mb-4">��ng {examResult.score}/{examResult.total} c�u � Th?i gian: {formatTime(examResult.timeUsed)}</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
-              { label: "Đúng", value: examResult.score, color: "text-green-600", bg: "bg-green-100" },
+              { label: "��ng", value: examResult.score, color: "text-green-600", bg: "bg-green-100" },
               { label: "Sai", value: examResult.total - examResult.score, color: "text-red-500", bg: "bg-red-100" },
-              { label: "Điểm", value: `${pct}%`, color: passed ? "text-green-600" : "text-amber-600", bg: passed ? "bg-green-100" : "bg-amber-100" },
+              { label: "�i?m", value: `${pct}%`, color: passed ? "text-green-600" : "text-amber-600", bg: passed ? "bg-green-100" : "bg-amber-100" },
             ].map(s => (
               <div key={s.label} className={`${s.bg} rounded-xl p-3`}>
                 <p className={`text-xl font-bold ${s.color}`}>{s.value}</p>
@@ -438,7 +438,7 @@ export default function TopikMockExamTab() {
             <div className="px-5 py-4 border-b border-gray-100">
               <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                 <i className="ri-close-circle-line text-red-400"></i>
-                Câu sai cần ôn lại ({wrongItems.length} câu)
+                C�u sai c?n �n l?i ({wrongItems.length} c�u)
               </h3>
             </div>
             <div className="divide-y divide-gray-50">
@@ -453,12 +453,12 @@ export default function TopikMockExamTab() {
                         <span className="font-bold text-gray-900">{item.entry.korean}</span>
                         <span className="text-rose-400 font-bold">{item.entry.hanja}</span>
                       </div>
-                      <p className="text-xs text-green-600 font-medium">✓ Đúng: {item.entry.vietnamese}</p>
+                      <p className="text-xs text-green-600 font-medium">? ��ng: {item.entry.vietnamese}</p>
                       {item.userAnswer && (
-                        <p className="text-xs text-red-400">✗ Bạn chọn: {item.userAnswer}</p>
+                        <p className="text-xs text-red-400">? B?n ch?n: {item.userAnswer}</p>
                       )}
                       {!item.userAnswer && (
-                        <p className="text-xs text-gray-400">Chưa trả lời</p>
+                        <p className="text-xs text-gray-400">Chua tr? l?i</p>
                       )}
                     </div>
                   </div>
@@ -466,7 +466,7 @@ export default function TopikMockExamTab() {
               ))}
               {wrongItems.length > 10 && (
                 <div className="px-5 py-3 text-center text-xs text-gray-400">
-                  +{wrongItems.length - 10} câu sai khác...
+                  +{wrongItems.length - 10} c�u sai kh�c...
                 </div>
               )}
             </div>
@@ -476,38 +476,38 @@ export default function TopikMockExamTab() {
         <div className="flex gap-3">
           <button onClick={() => setExamState("history")}
             className="flex items-center gap-2 px-4 py-3 border border-gray-200 text-gray-600 rounded-xl text-sm cursor-pointer hover:bg-gray-50 transition-colors whitespace-nowrap">
-            <i className="ri-history-line"></i>Lịch sử
+            <i className="ri-history-line"></i>L?ch s?
           </button>
           <button onClick={startExam}
             className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-bold cursor-pointer hover:bg-rose-600 transition-colors flex items-center justify-center gap-2">
-            <i className="ri-refresh-line"></i>Thi lại
+            <i className="ri-refresh-line"></i>Thi l?i
           </button>
           <button onClick={() => setExamState("intro")}
             className="flex items-center gap-2 px-4 py-3 border border-gray-200 text-gray-600 rounded-xl text-sm cursor-pointer hover:bg-gray-50 transition-colors whitespace-nowrap">
-            <i className="ri-home-line"></i>Trang chủ
+            <i className="ri-home-line"></i>Trang ch?
           </button>
         </div>
       </div>
     );
   }
 
-  // ── History ────────────────────────────────────────────────────────────────
+  // -- History ----------------------------------------------------------------
   if (examState === "history") {
     return (
       <div className="max-w-2xl mx-auto">
         <div className="flex items-center gap-3 mb-5">
           <button onClick={() => setExamState("intro")}
             className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
-            <i className="ri-arrow-left-line"></i> Quay lại
+            <i className="ri-arrow-left-line"></i> Quay l?i
           </button>
-          <h2 className="text-base font-bold text-gray-900">Lịch sử thi thử</h2>
+          <h2 className="text-base font-bold text-gray-900">L?ch s? thi th?</h2>
         </div>
 
         {history.length === 0 ? (
           <div className="text-center py-16 text-gray-400">
             <i className="ri-history-line text-4xl"></i>
-            <p className="mt-2 text-sm">Chưa có lần thi nào</p>
-            <button onClick={() => setExamState("intro")} className="mt-3 text-rose-500 text-xs cursor-pointer">Bắt đầu thi thử →</button>
+            <p className="mt-2 text-sm">Chua c� l?n thi n�o</p>
+            <button onClick={() => setExamState("intro")} className="mt-3 text-rose-500 text-xs cursor-pointer">B?t d?u thi th? ?</button>
           </div>
         ) : (
           <div className="space-y-3">
@@ -520,11 +520,11 @@ export default function TopikMockExamTab() {
                     <span className={`text-sm font-bold ${passed ? "text-green-600" : "text-amber-600"}`}>{pct}%</span>
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-900">Đúng {h.score}/{h.total} câu</p>
-                    <p className="text-xs text-gray-400">Thời gian: {formatTime(h.timeUsed)} · {h.date}</p>
+                    <p className="text-sm font-medium text-gray-900">��ng {h.score}/{h.total} c�u</p>
+                    <p className="text-xs text-gray-400">Th?i gian: {formatTime(h.timeUsed)} � {h.date}</p>
                   </div>
                   <span className={`text-xs px-2.5 py-1 rounded-full font-bold ${passed ? "bg-green-100 text-green-600" : "bg-amber-100 text-amber-600"}`}>
-                    {passed ? "Đạt" : "Chưa đạt"}
+                    {passed ? "�?t" : "Chua d?t"}
                   </span>
                 </div>
               );

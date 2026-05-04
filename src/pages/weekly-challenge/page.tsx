@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
@@ -39,7 +39,7 @@ function getWeekDates() {
   const sunday = new Date(monday);
   sunday.setDate(monday.getDate() + 6);
   const fmt = (d: Date) => d.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit" });
-  return `${fmt(monday)} – ${fmt(sunday)}`;
+  return `${fmt(monday)} � ${fmt(sunday)}`;
 }
 
 function getDaysLeftInWeek() {
@@ -52,97 +52,97 @@ const WEEKLY_CHALLENGES: Challenge[] = [
   {
     id: "flash_50",
     title: "Flashcard Marathon",
-    description: "Học 50 từ vựng qua flashcard trong tuần này",
+    description: "H?c 50 t? v?ng qua flashcard trong tu?n n�y",
     icon: "ri-stack-line",
     color: "app-accent-primary",
     target: 50,
-    unit: "từ",
+    unit: "t?",
     xpReward: 100,
     bonusXP: 50,
-    bonusLabel: "Hoàn thành trước thứ 5",
+    bonusLabel: "Ho�n th�nh tru?c th? 5",
     category: "flashcard",
   },
   {
     id: "exam_3",
-    title: "Chiến binh EPS",
-    description: "Hoàn thành 3 bài thi thử EPS đầy đủ (40 câu)",
+    title: "Chi?n binh EPS",
+    description: "Ho�n th�nh 3 b�i thi th? EPS d?y d? (40 c�u)",
     icon: "ri-timer-line",
     color: "#34d399",
     target: 3,
-    unit: "bài thi",
+    unit: "b�i thi",
     xpReward: 150,
     bonusXP: 75,
-    bonusLabel: "Đạt 80%+ cả 3 bài",
+    bonusLabel: "�?t 80%+ c? 3 b�i",
     category: "exam",
   },
   {
     id: "streak_7",
-    title: "Không bỏ ngày nào",
-    description: "Duy trì streak học tập 7 ngày liên tiếp trong tuần",
+    title: "Kh�ng b? ng�y n�o",
+    description: "Duy tr� streak h?c t?p 7 ng�y li�n ti?p trong tu?n",
     icon: "ri-fire-line",
     color: "#fb923c",
     target: 7,
-    unit: "ngày",
+    unit: "ng�y",
     xpReward: 200,
     bonusXP: 100,
-    bonusLabel: "Streak không bị gián đoạn",
+    bonusLabel: "Streak kh�ng b? gi�n do?n",
     category: "streak",
   },
   {
     id: "drill_5",
-    title: "Luyện chủ đề EPS",
-    description: "Hoàn thành 5 buổi luyện thi theo chủ đề",
+    title: "Luy?n ch? d? EPS",
+    description: "Ho�n th�nh 5 bu?i luy?n thi theo ch? d?",
     icon: "ri-focus-3-line",
     color: "#06b6d4",
     target: 5,
-    unit: "buổi",
+    unit: "bu?i",
     xpReward: 120,
     category: "exam",
   },
   {
     id: "community_3",
-    title: "Chia sẻ kiến thức",
-    description: "Đăng 3 bài chia sẻ kinh nghiệm trong cộng đồng",
+    title: "Chia s? ki?n th?c",
+    description: "�ang 3 b�i chia s? kinh nghi?m trong c?ng d?ng",
     icon: "ri-group-line",
     color: "#f472b6",
     target: 3,
-    unit: "bài đăng",
+    unit: "b�i dang",
     xpReward: 90,
     bonusXP: 30,
-    bonusLabel: "Nhận 10+ lượt thích",
+    bonusLabel: "Nh?n 10+ lu?t th�ch",
     category: "community",
   },
   {
     id: "vocab_topic",
-    title: "Từ vựng theo chủ đề",
-    description: "Hoàn thành 2 chủ đề flashcard EPS (y tế, giao thông...)",
+    title: "T? v?ng theo ch? d?",
+    description: "Ho�n th�nh 2 ch? d? flashcard EPS (y t?, giao th�ng...)",
     icon: "ri-translate-2",
     color: "#a78bfa",
     target: 2,
-    unit: "chủ đề",
+    unit: "ch? d?",
     xpReward: 80,
     category: "vocab",
   },
   {
     id: "quiz_10",
     title: "Quiz Master",
-    description: "Hoàn thành 10 câu quiz hàng ngày trong tuần",
+    description: "Ho�n th�nh 10 c�u quiz h�ng ng�y trong tu?n",
     icon: "ri-survey-line",
     color: "#84cc16",
     target: 10,
-    unit: "câu quiz",
+    unit: "c�u quiz",
     xpReward: 70,
     category: "flashcard",
   },
 ];
 
 const CATEGORY_LABELS: Record<string, string> = {
-  all: "Tất cả",
+  all: "T?t c?",
   flashcard: "Flashcard",
   exam: "Thi EPS",
   streak: "Streak",
-  community: "Cộng đồng",
-  vocab: "Từ vựng",
+  community: "C?ng d?ng",
+  vocab: "T? v?ng",
 };
 
 function ChallengeCard({
@@ -173,7 +173,7 @@ function ChallengeCard({
             <p className="text-white font-semibold text-sm">{challenge.title}</p>
             {completed && (
               <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success">
-                <i className="ri-checkbox-circle-fill"></i>Hoàn thành
+                <i className="ri-checkbox-circle-fill"></i>Ho�n th�nh
               </span>
             )}
           </div>
@@ -212,16 +212,16 @@ function ChallengeCard({
         <button
           onClick={() => onClaim(challenge.id)}
           disabled
-          title="Tính năng đang được nâng cấp - XP sẽ được cộng tự động từ hoạt động học thực tế"
+          title="T�nh nang dang du?c n�ng c?p - XP s? du?c c?ng t? d?ng t? ho?t d?ng h?c th?c t?"
           className="w-full py-2.5 rounded-xl bg-app-accent-success/15 border border-emerald-500/25 text-app-accent-success text-sm font-semibold cursor-not-allowed opacity-70 whitespace-nowrap transition-colors flex items-center justify-center gap-2"
         >
-          <i className="ri-gift-2-line"></i>Nhận thưởng {challenge.xpReward} XP
+          <i className="ri-gift-2-line"></i>Nh?n thu?ng {challenge.xpReward} XP
         </button>
       ) : (
         <div className="bg-app-card/30 border border-app-border rounded-xl px-3 py-2.5 text-center">
           <p className="text-app-text-muted text-[11px]">
             <i className="ri-information-line mr-1"></i>
-            Tiến độ tự động cập nhật khi bạn hoàn thành hoạt động học thực tế
+            Ti?n d? t? d?ng c?p nh?t khi b?n ho�n th�nh ho?t d?ng h?c th?c t?
           </p>
         </div>
       )}
@@ -288,8 +288,8 @@ export default function WeeklyChallengePage() {
 
   return (
     <DashboardLayout
-      title="Thử thách hàng tuần"
-      subtitle={`Tuần ${getWeekDates()} · Còn ${daysLeft} ngày`}
+      title="Th? th�ch h�ng tu?n"
+      subtitle={`Tu?n ${getWeekDates()} � C�n ${daysLeft} ng�y`}
     >
       {/* Celebration overlay */}
       {showCelebration && (
@@ -298,7 +298,7 @@ export default function WeeklyChallengePage() {
             <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-app-accent-success/15 mx-auto mb-3">
               <i className="ri-trophy-fill text-app-accent-success text-3xl"></i>
             </div>
-            <p className="text-white font-bold text-lg">Thử thách hoàn thành!</p>
+            <p className="text-white font-bold text-lg">Th? th�ch ho�n th�nh!</p>
             <p className="text-white/50 text-sm mt-1">{showCelebration.title}</p>
             <p className="text-app-accent-success font-bold text-2xl mt-2">+{showCelebration.xp} XP</p>
           </div>
@@ -308,10 +308,10 @@ export default function WeeklyChallengePage() {
       {/* Weekly summary */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Thử thách hoàn thành", value: `${completedCount}/${WEEKLY_CHALLENGES.length}`, icon: "ri-checkbox-circle-line", color: "#34d399" },
-          { label: "XP đã nhận tuần này", value: `${earnedXP}`, icon: "ri-star-line", color: "app-accent-primary" },
-          { label: "XP có thể nhận", value: `${totalXPAvailable}`, icon: "ri-gift-line", color: "#a78bfa" },
-          { label: "Ngày còn lại", value: daysLeft, icon: "ri-time-line", color: "#fb923c" },
+          { label: "Th? th�ch ho�n th�nh", value: `${completedCount}/${WEEKLY_CHALLENGES.length}`, icon: "ri-checkbox-circle-line", color: "#34d399" },
+          { label: "XP d� nh?n tu?n n�y", value: `${earnedXP}`, icon: "ri-star-line", color: "app-accent-primary" },
+          { label: "XP c� th? nh?n", value: `${totalXPAvailable}`, icon: "ri-gift-line", color: "#a78bfa" },
+          { label: "Ng�y c�n l?i", value: daysLeft, icon: "ri-time-line", color: "#fb923c" },
         ].map(s => (
           <div key={s.label} className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
@@ -332,19 +332,19 @@ export default function WeeklyChallengePage() {
             <i className="ri-vip-crown-fill text-app-accent-primary text-3xl"></i>
           </div>
           <div className="flex-1">
-            <p className="text-white font-bold text-base">Hoàn thành tất cả thử thách!</p>
-            <p className="text-white/50 text-sm mt-0.5">Bạn đã chinh phục toàn bộ thử thách tuần này. Nhận thưởng đặc biệt!</p>
+            <p className="text-white font-bold text-base">Ho�n th�nh t?t c? th? th�ch!</p>
+            <p className="text-white/50 text-sm mt-0.5">B?n d� chinh ph?c to�n b? th? th�ch tu?n n�y. Nh?n thu?ng d?c bi?t!</p>
           </div>
           <button
             onClick={() => {
               awardXP({ type: "streak_bonus_7", amount: 300 });
               setWeekProgress(prev => ({ ...prev, claimedBonus: true }));
-              setShowCelebration({ title: "Hoàn thành tất cả thử thách!", xp: 300 });
+              setShowCelebration({ title: "Ho�n th�nh t?t c? th? th�ch!", xp: 300 });
               setTimeout(() => setShowCelebration(null), 3000);
             }}
             className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-5 py-3 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
           >
-            <i className="ri-gift-2-line"></i>Nhận +300 XP
+            <i className="ri-gift-2-line"></i>Nh?n +300 XP
           </button>
         </div>
       )}
@@ -352,7 +352,7 @@ export default function WeeklyChallengePage() {
       {/* Progress bar overall */}
       <div className="bg-app-bg border border-app-border rounded-2xl p-5 mb-6">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-white font-semibold text-sm">Tiến độ tổng thể tuần này</h3>
+          <h3 className="text-white font-semibold text-sm">Ti?n d? t?ng th? tu?n n�y</h3>
           <span className="text-app-accent-primary font-bold text-sm">{Math.round((completedCount / WEEKLY_CHALLENGES.length) * 100)}%</span>
         </div>
         <div className="h-3 bg-app-card/50 rounded-full overflow-hidden mb-2">

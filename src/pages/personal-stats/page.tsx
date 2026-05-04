@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -22,7 +22,7 @@ interface ExamResult {
 type Period = "week" | "month" | "3months";
 type StatsTab = "overview" | "streak" | "weakness" | "xp";
 
-// ─── Bar Chart ────────────────────────────────────────────────────────────────
+// --- Bar Chart ----------------------------------------------------------------
 function BarChart({ data, maxVal, color, labels }: {
   data: number[];
   maxVal: number;
@@ -54,7 +54,7 @@ function BarChart({ data, maxVal, color, labels }: {
   );
 }
 
-// ─── Line Chart ───────────────────────────────────────────────────────────────
+// --- Line Chart ---------------------------------------------------------------
 function LineChart({ data, maxVal, color }: { data: number[]; maxVal: number; color: string }) {
   if (data.length < 2) return null;
   const w = 100 / (data.length - 1);
@@ -86,7 +86,7 @@ function LineChart({ data, maxVal, color }: { data: number[]; maxVal: number; co
   );
 }
 
-// ─── Streak Calendar ──────────────────────────────────────────────────────────
+// --- Streak Calendar ----------------------------------------------------------
 function StreakCalendar({ xpLog }: { xpLog: XPEntry[] }) {
   const [viewMonth, setViewMonth] = useState(() => {
     const d = new Date();
@@ -140,9 +140,9 @@ function StreakCalendar({ xpLog }: { xpLog: XPEntry[] }) {
     <div className="bg-app-bg border border-app-border rounded-2xl p-6">
       <div className="flex items-center justify-between mb-5">
         <div>
-          <h3 className="text-white font-semibold text-sm">Lịch học tập (Streak Calendar)</h3>
+          <h3 className="text-white font-semibold text-sm">L?ch h?c t?p (Streak Calendar)</h3>
           <p className="text-app-text-muted text-xs mt-0.5">
-            {activeDaysThisMonth} ngày học · {totalXPThisMonth.toLocaleString()} XP tháng này
+            {activeDaysThisMonth} ng�y h?c � {totalXPThisMonth.toLocaleString()} XP th�ng n�y
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -209,17 +209,17 @@ function StreakCalendar({ xpLog }: { xpLog: XPEntry[] }) {
 
       {/* Legend */}
       <div className="flex items-center gap-2 mt-4 justify-end">
-        <span className="text-[10px] text-app-text-muted">Ít</span>
+        <span className="text-[10px] text-app-text-muted">�t</span>
         {intensityColors.map((c, i) => (
           <div key={i} className="w-3 h-3 rounded-sm" style={{ backgroundColor: c, border: "1px solid rgba(255,255,255,0.05)" }} />
         ))}
-        <span className="text-[10px] text-app-text-muted">Nhiều</span>
+        <span className="text-[10px] text-app-text-muted">Nhi?u</span>
       </div>
     </div>
   );
 }
 
-// ─── Weakness Analysis ────────────────────────────────────────────────────────
+// --- Weakness Analysis --------------------------------------------------------
 function WeaknessAnalysis({ examResults }: { examResults: ExamResult[] }) {
   const [answeredMap] = useLocalStorage<Record<string, { correct: boolean; topic?: string }>>("kts_eps_answers_detail", {});
 
@@ -250,12 +250,12 @@ function WeaknessAnalysis({ examResults }: { examResults: ExamResult[] }) {
   const strongTopics = topicStats.filter(t => t.accuracy >= 80 && t.total >= 3);
 
   const EPS_TOPICS = [
-    { name: "Lao động", icon: "ri-tools-line", color: "app-accent-primary" },
-    { name: "An toàn", icon: "ri-shield-check-line", color: "#34d399" },
-    { name: "Bảo hiểm", icon: "ri-heart-pulse-line", color: "#f87171" },
-    { name: "Hợp đồng", icon: "ri-file-text-line", color: "#a78bfa" },
-    { name: "Tiền lương", icon: "ri-money-dollar-circle-line", color: "#fb923c" },
-    { name: "Từ vựng", icon: "ri-translate-2", color: "#06b6d4" },
+    { name: "Lao d?ng", icon: "ri-tools-line", color: "app-accent-primary" },
+    { name: "An to�n", icon: "ri-shield-check-line", color: "#34d399" },
+    { name: "B?o hi?m", icon: "ri-heart-pulse-line", color: "#f87171" },
+    { name: "H?p d?ng", icon: "ri-file-text-line", color: "#a78bfa" },
+    { name: "Ti?n luong", icon: "ri-money-dollar-circle-line", color: "#fb923c" },
+    { name: "T? v?ng", icon: "ri-translate-2", color: "#06b6d4" },
   ];
 
   return (
@@ -263,9 +263,9 @@ function WeaknessAnalysis({ examResults }: { examResults: ExamResult[] }) {
       {/* Score overview */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
-          { label: "Điểm TB gần đây", value: `${avgScore}%`, color: avgScore >= 80 ? "#34d399" : avgScore >= 60 ? "app-accent-primary" : "#f87171", icon: "ri-bar-chart-line" },
-          { label: "Chủ đề yếu", value: weakTopics.length, color: "#f87171", icon: "ri-error-warning-line" },
-          { label: "Chủ đề mạnh", value: strongTopics.length, color: "#34d399", icon: "ri-checkbox-circle-line" },
+          { label: "�i?m TB g?n d�y", value: `${avgScore}%`, color: avgScore >= 80 ? "#34d399" : avgScore >= 60 ? "app-accent-primary" : "#f87171", icon: "ri-bar-chart-line" },
+          { label: "Ch? d? y?u", value: weakTopics.length, color: "#f87171", icon: "ri-error-warning-line" },
+          { label: "Ch? d? m?nh", value: strongTopics.length, color: "#34d399", icon: "ri-checkbox-circle-line" },
         ].map(s => (
           <div key={s.label} className="bg-app-bg border border-app-border rounded-2xl p-5 text-center">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl mx-auto mb-3" style={{ backgroundColor: `${s.color}15` }}>
@@ -280,7 +280,7 @@ function WeaknessAnalysis({ examResults }: { examResults: ExamResult[] }) {
       {/* Topic breakdown */}
       {topicStats.length > 0 ? (
         <div className="bg-app-bg border border-app-border rounded-2xl p-6">
-          <h3 className="text-white font-semibold text-sm mb-5">Phân tích theo chủ đề</h3>
+          <h3 className="text-white font-semibold text-sm mb-5">Ph�n t�ch theo ch? d?</h3>
           <div className="space-y-3">
             {topicStats.slice(0, 8).map(t => {
               const color = t.accuracy < 50 ? "#f87171" : t.accuracy < 70 ? "app-accent-primary" : "#34d399";
@@ -297,7 +297,7 @@ function WeaknessAnalysis({ examResults }: { examResults: ExamResult[] }) {
                     {t.accuracy}%
                   </div>
                   <div className="text-[10px] text-app-text-muted w-16 text-right flex-shrink-0">
-                    {t.correct}/{t.total} câu
+                    {t.correct}/{t.total} c�u
                   </div>
                 </div>
               );
@@ -306,7 +306,7 @@ function WeaknessAnalysis({ examResults }: { examResults: ExamResult[] }) {
         </div>
       ) : (
         <div className="bg-app-bg border border-app-border rounded-2xl p-6">
-          <h3 className="text-white font-semibold text-sm mb-4">Phân tích điểm yếu theo chủ đề EPS</h3>
+          <h3 className="text-white font-semibold text-sm mb-4">Ph�n t�ch di?m y?u theo ch? d? EPS</h3>
           <div className="grid grid-cols-2 gap-3">
             {EPS_TOPICS.map(t => (
               <div key={t.name} className="flex items-center gap-3 px-4 py-3 rounded-xl" style={{ backgroundColor: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)" }}>
@@ -319,11 +319,11 @@ function WeaknessAnalysis({ examResults }: { examResults: ExamResult[] }) {
                     <div className="h-full rounded-full bg-app-card/70" style={{ width: "0%" }} />
                   </div>
                 </div>
-                <span className="text-[10px] text-app-text-muted">Chưa có dữ liệu</span>
+                <span className="text-[10px] text-app-text-muted">Chua c� d? li?u</span>
               </div>
             ))}
           </div>
-          <p className="text-app-text-muted text-xs text-center mt-4">Làm bài thi để xem phân tích điểm yếu chi tiết</p>
+          <p className="text-app-text-muted text-xs text-center mt-4">L�m b�i thi d? xem ph�n t�ch di?m y?u chi ti?t</p>
         </div>
       )}
 
@@ -332,15 +332,15 @@ function WeaknessAnalysis({ examResults }: { examResults: ExamResult[] }) {
         <div className="bg-app-bg border border-rose-500/15 rounded-2xl p-6">
           <div className="flex items-center gap-2 mb-4">
             <i className="ri-lightbulb-line text-app-accent-primary"></i>
-            <h3 className="text-white font-semibold text-sm">Gợi ý cải thiện</h3>
+            <h3 className="text-white font-semibold text-sm">G?i � c?i thi?n</h3>
           </div>
           <div className="space-y-2">
             {weakTopics.slice(0, 3).map(t => (
               <div key={t.topic} className="flex items-center gap-3 px-4 py-3 rounded-xl" style={{ backgroundColor: "rgba(248,113,113,0.06)", border: "1px solid rgba(248,113,113,0.12)" }}>
                 <i className="ri-focus-3-line text-rose-400 flex-shrink-0"></i>
                 <div className="flex-1 min-w-0">
-                  <p className="text-white/70 text-xs">Ôn luyện chủ đề <strong className="text-rose-400">{t.topic}</strong></p>
-                  <p className="text-app-text-muted text-[10px] mt-0.5">Độ chính xác hiện tại: {t.accuracy}% — cần đạt 80%+</p>
+                  <p className="text-white/70 text-xs">�n luy?n ch? d? <strong className="text-rose-400">{t.topic}</strong></p>
+                  <p className="text-app-text-muted text-[10px] mt-0.5">�? ch�nh x�c hi?n t?i: {t.accuracy}% � c?n d?t 80%+</p>
                 </div>
                 <span className="text-[10px] px-2 py-1 rounded-full bg-rose-500/15 text-rose-400 font-bold flex-shrink-0">
                   {t.accuracy}%
@@ -354,15 +354,15 @@ function WeaknessAnalysis({ examResults }: { examResults: ExamResult[] }) {
   );
 }
 
-// ─── XP Breakdown ─────────────────────────────────────────────────────────────
+// --- XP Breakdown -------------------------------------------------------------
 function XPBreakdown({ xpLog }: { xpLog: XPEntry[] }) {
   const typeLabels: Record<string, { label: string; color: string; icon: string }> = {
-    eps_exam_completed: { label: "Thi thử EPS", color: "app-accent-primary", icon: "ri-file-list-3-line" },
+    eps_exam_completed: { label: "Thi th? EPS", color: "app-accent-primary", icon: "ri-file-list-3-line" },
     flashcard_learned: { label: "Flashcard", color: "#a78bfa", icon: "ri-stack-line" },
     quiz_completed: { label: "Quiz", color: "#34d399", icon: "ri-survey-line" },
     streak_bonus: { label: "Streak", color: "#fb923c", icon: "ri-fire-line" },
-    daily_study: { label: "Học hàng ngày", color: "#06b6d4", icon: "ri-book-open-line" },
-    other: { label: "Khác", color: "#6b7280", icon: "ri-star-line" },
+    daily_study: { label: "H?c h�ng ng�y", color: "#06b6d4", icon: "ri-book-open-line" },
+    other: { label: "Kh�c", color: "#6b7280", icon: "ri-star-line" },
   };
 
   const xpByType = useMemo(() => {
@@ -397,7 +397,7 @@ function XPBreakdown({ xpLog }: { xpLog: XPEntry[] }) {
     <div className="space-y-5">
       {/* XP by activity */}
       <div className="bg-app-bg border border-app-border rounded-2xl p-6">
-        <h3 className="text-white font-semibold text-sm mb-5">Phân bổ XP theo hoạt động</h3>
+        <h3 className="text-white font-semibold text-sm mb-5">Ph�n b? XP theo ho?t d?ng</h3>
         {xpByType.length > 0 ? (
           <div className="grid grid-cols-2 gap-4">
             {xpByType.map(({ type, amount }) => {
@@ -425,14 +425,14 @@ function XPBreakdown({ xpLog }: { xpLog: XPEntry[] }) {
         ) : (
           <div className="text-center py-8">
             <i className="ri-bar-chart-line text-white/10 text-3xl mb-2 block"></i>
-            <p className="text-app-text-muted text-sm">Chưa có dữ liệu XP. Hãy bắt đầu học!</p>
+            <p className="text-app-text-muted text-sm">Chua c� d? li?u XP. H�y b?t d?u h?c!</p>
           </div>
         )}
       </div>
 
       {/* XP by day of week */}
       <div className="bg-app-bg border border-app-border rounded-2xl p-6">
-        <h3 className="text-white font-semibold text-sm mb-5">XP theo ngày trong tuần</h3>
+        <h3 className="text-white font-semibold text-sm mb-5">XP theo ng�y trong tu?n</h3>
         <div className="flex items-end gap-2" style={{ height: 100 }}>
           {xpByDow.map((xp, i) => {
             const pct = (xp / maxDow) * 100;
@@ -462,15 +462,15 @@ function XPBreakdown({ xpLog }: { xpLog: XPEntry[] }) {
         </div>
         <p className="text-app-text-muted text-xs mt-3 text-center">
           {xpByDow.indexOf(Math.max(...xpByDow)) >= 0 && Math.max(...xpByDow) > 0
-            ? `Bạn học nhiều nhất vào ${dowLabels[xpByDow.indexOf(Math.max(...xpByDow))]}`
-            : "Chưa có dữ liệu"}
+            ? `B?n h?c nhi?u nh?t v�o ${dowLabels[xpByDow.indexOf(Math.max(...xpByDow))]}`
+            : "Chua c� d? li?u"}
         </p>
       </div>
     </div>
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function PersonalStatsPage() {
   const navigate = useNavigate();
   const { totalXP, currentRank } = useXPSystem();
@@ -557,25 +557,25 @@ export default function PersonalStatsPage() {
   }, [examTrend, latestExamScore]);
 
   const TABS: { id: StatsTab; label: string; icon: string }[] = [
-    { id: "overview", label: "Tổng quan", icon: "ri-dashboard-line" },
+    { id: "overview", label: "T?ng quan", icon: "ri-dashboard-line" },
     { id: "streak", label: "Streak Calendar", icon: "ri-calendar-check-line" },
-    { id: "weakness", label: "Điểm yếu", icon: "ri-focus-3-line" },
-    { id: "xp", label: "Phân tích XP", icon: "ri-bar-chart-2-line" },
+    { id: "weakness", label: "�i?m y?u", icon: "ri-focus-3-line" },
+    { id: "xp", label: "Ph�n t�ch XP", icon: "ri-bar-chart-2-line" },
   ];
 
   return (
     <DashboardLayout
-      title="Thống kê học tập cá nhân"
-      subtitle="Biểu đồ tiến độ, streak calendar và phân tích điểm yếu"
+      title="Th?ng k� h?c t?p c� nh�n"
+      subtitle="Bi?u d? ti?n d?, streak calendar v� ph�n t�ch di?m y?u"
     >
       <div className="space-y-6">
         {/* Header stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
-            { icon: "ri-flashlight-line", color: "app-accent-primary", bg: "bg-app-accent-primary/10", label: "Tổng XP", value: totalXP.toLocaleString(), sub: `Hạng ${currentRank.name}` },
-            { icon: "ri-fire-line", color: "#fb923c", bg: "bg-[#fb923c]/10", label: "Streak hiện tại", value: `${streak.count} ngày`, sub: "Liên tiếp" },
-            { icon: "ri-file-list-3-line", color: "#34d399", bg: "bg-emerald-500/10", label: "Lần thi EPS", value: examResults.length, sub: `TB ${avgExamScore}%` },
-            { icon: "ri-stack-line", color: "#a78bfa", bg: "bg-[#a78bfa]/10", label: "Từ đã thuộc", value: Object.values(flashcardProgress).filter(Boolean).length, sub: "Qua Flashcard" },
+            { icon: "ri-flashlight-line", color: "app-accent-primary", bg: "bg-app-accent-primary/10", label: "T?ng XP", value: totalXP.toLocaleString(), sub: `H?ng ${currentRank.name}` },
+            { icon: "ri-fire-line", color: "#fb923c", bg: "bg-[#fb923c]/10", label: "Streak hi?n t?i", value: `${streak.count} ng�y`, sub: "Li�n ti?p" },
+            { icon: "ri-file-list-3-line", color: "#34d399", bg: "bg-emerald-500/10", label: "L?n thi EPS", value: examResults.length, sub: `TB ${avgExamScore}%` },
+            { icon: "ri-stack-line", color: "#a78bfa", bg: "bg-[#a78bfa]/10", label: "T? d� thu?c", value: Object.values(flashcardProgress).filter(Boolean).length, sub: "Qua Flashcard" },
           ].map(s => (
             <div key={s.label} className="bg-app-bg border border-app-border rounded-2xl p-5">
               <div className={`w-10 h-10 flex items-center justify-center ${s.bg} rounded-xl mb-3`}>
@@ -611,12 +611,12 @@ export default function PersonalStatsPage() {
             <div className="bg-app-bg border border-app-border rounded-2xl p-6">
               <div className="flex items-center justify-between mb-5">
                 <div>
-                  <h3 className="text-white font-semibold text-sm">Biểu đồ XP theo thời gian</h3>
+                  <h3 className="text-white font-semibold text-sm">Bi?u d? XP theo th?i gian</h3>
                   <p className="text-app-text-muted text-xs mt-0.5">
-                    {totalXPInPeriod.toLocaleString()} XP trong kỳ này
+                    {totalXPInPeriod.toLocaleString()} XP trong k? n�y
                     {prevXPTotal > 0 && (
                       <span className={`ml-2 font-semibold ${xpChange >= 0 ? "text-app-accent-success" : "text-red-400"}`}>
-                        {xpChange >= 0 ? "+" : ""}{xpChangePct}% so với kỳ trước
+                        {xpChange >= 0 ? "+" : ""}{xpChangePct}% so v?i k? tru?c
                       </span>
                     )}
                   </p>
@@ -628,7 +628,7 @@ export default function PersonalStatsPage() {
                       onClick={() => setPeriod(p)}
                       className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${period === p ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}
                     >
-                      {p === "week" ? "7 ngày" : p === "month" ? "30 ngày" : "3 tháng"}
+                      {p === "week" ? "7 ng�y" : p === "month" ? "30 ng�y" : "3 th�ng"}
                     </button>
                   ))}
                 </div>
@@ -636,9 +636,9 @@ export default function PersonalStatsPage() {
               <BarChart data={xpByDay} maxVal={maxXPDay} color="app-accent-primary" labels={chartLabels} />
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5 pt-4 border-t border-app-border">
                 {[
-                  { label: "Tổng XP kỳ này", value: totalXPInPeriod.toLocaleString(), color: "app-accent-primary" },
-                  { label: "Ngày hoạt động", value: `${activeDays}/${dateRange.length}`, color: "#34d399" },
-                  { label: "TB XP/ngày học", value: avgXPPerDay.toLocaleString(), color: "#a78bfa" },
+                  { label: "T?ng XP k? n�y", value: totalXPInPeriod.toLocaleString(), color: "app-accent-primary" },
+                  { label: "Ng�y ho?t d?ng", value: `${activeDays}/${dateRange.length}`, color: "#34d399" },
+                  { label: "TB XP/ng�y h?c", value: avgXPPerDay.toLocaleString(), color: "#a78bfa" },
                 ].map(s => (
                   <div key={s.label} className="text-center">
                     <p className="font-bold text-xl" style={{ color: s.color }}>{s.value}</p>
@@ -653,8 +653,8 @@ export default function PersonalStatsPage() {
               <div className="bg-app-bg border border-app-border rounded-2xl p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <h3 className="text-white font-semibold text-sm">Tiến bộ thi EPS</h3>
-                    <p className="text-app-text-muted text-xs mt-0.5">10 lần thi gần nhất</p>
+                    <h3 className="text-white font-semibold text-sm">Ti?n b? thi EPS</h3>
+                    <p className="text-app-text-muted text-xs mt-0.5">10 l?n thi g?n nh?t</p>
                   </div>
                   {examTrend.length >= 2 && (
                     <div className={`flex items-center gap-1 text-sm font-bold px-3 py-1.5 rounded-xl ${examImprovement >= 0 ? "bg-emerald-500/10 text-app-accent-success" : "bg-red-500/10 text-red-400"}`}>
@@ -669,39 +669,39 @@ export default function PersonalStatsPage() {
                     <div className="mt-3 grid grid-cols-3 gap-3 pt-3 border-t border-app-border">
                       <div className="text-center">
                         <p className="text-app-accent-primary font-bold text-lg">{latestExamScore}%</p>
-                        <p className="text-app-text-muted text-[10px]">Lần gần nhất</p>
+                        <p className="text-app-text-muted text-[10px]">L?n g?n nh?t</p>
                       </div>
                       <div className="text-center">
                         <p className="text-white font-bold text-lg">{avgExamScore}%</p>
-                        <p className="text-app-text-muted text-[10px]">Trung bình</p>
+                        <p className="text-app-text-muted text-[10px]">Trung b�nh</p>
                       </div>
                       <div className="text-center">
                         <p className="text-app-accent-success font-bold text-lg">{Math.max(...examTrend)}%</p>
-                        <p className="text-app-text-muted text-[10px]">Cao nhất</p>
+                        <p className="text-app-text-muted text-[10px]">Cao nh?t</p>
                       </div>
                     </div>
                     <div className="mt-3 flex items-center gap-2 px-3 py-2 rounded-xl bg-app-surface/50">
                       <div className="w-3 h-0.5 bg-app-accent-primary"></div>
-                      <span className="text-app-text-muted text-[10px]">Ngưỡng đậu EPS: 80%</span>
+                      <span className="text-app-text-muted text-[10px]">Ngu?ng d?u EPS: 80%</span>
                       {latestExamScore >= 80 ? (
-                        <span className="ml-auto text-app-accent-success text-[10px] font-bold">Đã đạt!</span>
+                        <span className="ml-auto text-app-accent-success text-[10px] font-bold">�� d?t!</span>
                       ) : (
-                        <span className="ml-auto text-app-text-muted text-[10px]">Còn {80 - latestExamScore}%</span>
+                        <span className="ml-auto text-app-text-muted text-[10px]">C�n {80 - latestExamScore}%</span>
                       )}
                     </div>
                   </>
                 ) : (
                   <div className="flex flex-col items-center justify-center py-10 text-center">
                     <i className="ri-bar-chart-line text-white/10 text-3xl mb-2"></i>
-                    <p className="text-app-text-muted text-sm">Cần ít nhất 2 lần thi để hiển thị biểu đồ</p>
-                    <button onClick={() => navigate("/eps-exam")} className="mt-3 text-app-accent-primary text-xs cursor-pointer">Thi thử ngay →</button>
+                    <p className="text-app-text-muted text-sm">C?n �t nh?t 2 l?n thi d? hi?n th? bi?u d?</p>
+                    <button onClick={() => navigate("/eps-exam")} className="mt-3 text-app-accent-primary text-xs cursor-pointer">Thi th? ngay ?</button>
                   </div>
                 )}
               </div>
 
               {/* Goal prediction */}
               <div className="bg-app-bg border border-app-border rounded-2xl p-6">
-                <h3 className="text-white font-semibold text-sm mb-4">Dự đoán đạt mục tiêu EPS</h3>
+                <h3 className="text-white font-semibold text-sm mb-4">D? do�n d?t m?c ti�u EPS</h3>
                 <div className="flex items-center justify-center mb-5">
                   <div className="relative w-32 h-32">
                     <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
@@ -716,31 +716,31 @@ export default function PersonalStatsPage() {
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                       <p className="text-white font-bold text-2xl">{latestExamScore || 0}%</p>
-                      <p className="text-app-text-muted text-[10px]">Điểm hiện tại</p>
+                      <p className="text-app-text-muted text-[10px]">�i?m hi?n t?i</p>
                     </div>
                   </div>
                 </div>
                 {latestExamScore >= 80 ? (
                   <div className="text-center p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
                     <i className="ri-trophy-fill text-app-accent-success text-2xl mb-2 block"></i>
-                    <p className="text-app-accent-success font-bold text-sm">Đã đạt ngưỡng đậu EPS!</p>
-                    <p className="text-app-text-secondary text-xs mt-1">Tiếp tục duy trì và ôn luyện</p>
+                    <p className="text-app-accent-success font-bold text-sm">�� d?t ngu?ng d?u EPS!</p>
+                    <p className="text-app-text-secondary text-xs mt-1">Ti?p t?c duy tr� v� �n luy?n</p>
                   </div>
                 ) : daysToGoal !== null ? (
                   <div className="space-y-3">
                     <div className="flex items-center justify-between px-3 py-2.5 bg-app-surface/50 rounded-xl">
-                      <span className="text-app-text-secondary text-xs">Cần đạt thêm</span>
+                      <span className="text-app-text-secondary text-xs">C?n d?t th�m</span>
                       <span className="text-app-accent-primary font-bold text-sm">{80 - (latestExamScore || 0)}%</span>
                     </div>
                     <div className="flex items-center justify-between px-3 py-2.5 bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl">
-                      <span className="text-app-accent-primary/70 text-xs">Dự đoán đạt mục tiêu</span>
-                      <span className="text-app-accent-primary font-bold text-sm">~{daysToGoal} lần thi nữa</span>
+                      <span className="text-app-accent-primary/70 text-xs">D? do�n d?t m?c ti�u</span>
+                      <span className="text-app-accent-primary font-bold text-sm">~{daysToGoal} l?n thi n?a</span>
                     </div>
                   </div>
                 ) : (
                   <div className="text-center py-4">
-                    <p className="text-app-text-muted text-sm">Thi thêm để có dự đoán chính xác hơn</p>
-                    <button onClick={() => navigate("/eps-exam")} className="mt-3 text-app-accent-primary text-xs cursor-pointer">Thi thử ngay →</button>
+                    <p className="text-app-text-muted text-sm">Thi th�m d? c� d? do�n ch�nh x�c hon</p>
+                    <button onClick={() => navigate("/eps-exam")} className="mt-3 text-app-accent-primary text-xs cursor-pointer">Thi th? ngay ?</button>
                   </div>
                 )}
               </div>
@@ -749,10 +749,10 @@ export default function PersonalStatsPage() {
             {/* Quick actions */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
-                { label: "Thi thử EPS", icon: "ri-file-list-3-line", color: "app-accent-primary", route: "/eps-exam" },
-                { label: "Thi theo chủ đề", icon: "ri-focus-3-line", color: "#34d399", route: "/eps-topic-exam" },
-                { label: "Phân tích điểm yếu", icon: "ri-bar-chart-2-line", color: "#a78bfa", route: "/eps-weakness-analysis" },
-                { label: "Lịch sử thi", icon: "ri-history-line", color: "#fb923c", route: "/eps-exam-history" },
+                { label: "Thi th? EPS", icon: "ri-file-list-3-line", color: "app-accent-primary", route: "/eps-exam" },
+                { label: "Thi theo ch? d?", icon: "ri-focus-3-line", color: "#34d399", route: "/eps-topic-exam" },
+                { label: "Ph�n t�ch di?m y?u", icon: "ri-bar-chart-2-line", color: "#a78bfa", route: "/eps-weakness-analysis" },
+                { label: "L?ch s? thi", icon: "ri-history-line", color: "#fb923c", route: "/eps-exam-history" },
               ].map(item => (
                 <button
                   key={item.label}
@@ -776,9 +776,9 @@ export default function PersonalStatsPage() {
             {/* Streak stats */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
-                { label: "Streak hiện tại", value: `${streak.count} ngày`, color: "#fb923c", icon: "ri-fire-line" },
-                { label: "Tổng ngày học", value: new Set(xpLog.map(e => e.date?.split("T")[0]).filter(Boolean)).size, color: "#34d399", icon: "ri-calendar-check-line" },
-                { label: "Tháng này", value: xpLog.filter(e => e.date?.startsWith(new Date().toISOString().slice(0, 7))).length > 0
+                { label: "Streak hi?n t?i", value: `${streak.count} ng�y`, color: "#fb923c", icon: "ri-fire-line" },
+                { label: "T?ng ng�y h?c", value: new Set(xpLog.map(e => e.date?.split("T")[0]).filter(Boolean)).size, color: "#34d399", icon: "ri-calendar-check-line" },
+                { label: "Th�ng n�y", value: xpLog.filter(e => e.date?.startsWith(new Date().toISOString().slice(0, 7))).length > 0
                   ? new Set(xpLog.filter(e => e.date?.startsWith(new Date().toISOString().slice(0, 7))).map(e => e.date?.split("T")[0])).size
                   : 0, color: "app-accent-primary", icon: "ri-calendar-line" },
               ].map(s => (

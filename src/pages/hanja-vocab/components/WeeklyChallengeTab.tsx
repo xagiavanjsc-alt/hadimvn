@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 
 const WC_KEY = "hanja_weekly_challenge";
@@ -56,7 +56,7 @@ function getMasteryLevel(korean: string, srData: Record<string, { interval: numb
   return "learning";
 }
 
-// ─── Mini Quiz for weekly challenge ──────────────────────────────────────────
+// --- Mini Quiz for weekly challenge ------------------------------------------
 function WeeklyQuiz({ words, onPass, onFail }: {
   words: HanjaEntry[];
   onPass: () => void;
@@ -104,18 +104,18 @@ function WeeklyQuiz({ words, onPass, onFail }: {
           <i className={`text-3xl ${passed ? "ri-trophy-line text-green-600" : "ri-emotion-sad-line text-red-500"}`}></i>
         </div>
         <p className="text-2xl font-bold text-gray-900 mb-1">{pct}%</p>
-        <p className="text-gray-500 mb-2">Đúng {score}/{questions.length} câu</p>
+        <p className="text-gray-500 mb-2">��ng {score}/{questions.length} c�u</p>
         <p className={`text-sm font-semibold mb-6 ${passed ? "text-green-600" : "text-red-500"}`}>
-          {passed ? "Xuất sắc! Bạn đã vượt thách thức tuần này!" : "Chưa đạt 70% — Hãy ôn thêm và thử lại!"}
+          {passed ? "Xu?t s?c! B?n d� vu?t th�ch th?c tu?n n�y!" : "Chua d?t 70% � H�y �n th�m v� th? l?i!"}
         </p>
         <div className="flex gap-3 justify-center">
           {passed ? (
             <button onClick={onPass} className="px-6 py-3 bg-green-500 text-white rounded-xl font-bold cursor-pointer hover:bg-green-600 transition-colors whitespace-nowrap">
-              <i className="ri-gift-line mr-2"></i>Nhận XP Bonus!
+              <i className="ri-gift-line mr-2"></i>Nh?n XP Bonus!
             </button>
           ) : (
             <button onClick={onFail} className="px-6 py-3 bg-rose-500 text-white rounded-xl font-bold cursor-pointer hover:bg-rose-600 transition-colors whitespace-nowrap">
-              Thử lại
+              Th? l?i
             </button>
           )}
         </div>
@@ -126,14 +126,14 @@ function WeeklyQuiz({ words, onPass, onFail }: {
   return (
     <div className="max-w-lg mx-auto">
       <div className="flex items-center justify-between mb-3">
-        <span className="text-sm text-gray-500">Câu {idx + 1}/{questions.length}</span>
-        <span className="text-sm font-semibold text-green-600">Đúng: {score}</span>
+        <span className="text-sm text-gray-500">C�u {idx + 1}/{questions.length}</span>
+        <span className="text-sm font-semibold text-green-600">��ng: {score}</span>
       </div>
       <div className="w-full bg-gray-100 rounded-full h-2 mb-5">
         <div className="bg-rose-400 h-2 rounded-full transition-all" style={{ width: `${(idx / questions.length) * 100}%` }}></div>
       </div>
       <div className="bg-white border-2 border-gray-100 rounded-2xl p-8 text-center mb-4">
-        <p className="text-xs text-gray-400 mb-2 tracking-wide">Từ tiếng Hàn này có nghĩa là gì?</p>
+        <p className="text-xs text-gray-400 mb-2 tracking-wide">T? ti?ng H�n n�y c� nghia l� g�?</p>
         <p className="text-4xl font-bold text-gray-900 mb-2">{current.entry.korean}</p>
         <p className="text-xl text-rose-400 font-bold">{current.entry.hanja}</p>
       </div>
@@ -157,14 +157,14 @@ function WeeklyQuiz({ words, onPass, onFail }: {
       </div>
       {answered && (
         <button onClick={next} className="w-full py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">
-          {idx + 1 >= questions.length ? "Xem kết quả" : "Câu tiếp →"}
+          {idx + 1 >= questions.length ? "Xem k?t qu?" : "C�u ti?p ?"}
         </button>
       )}
     </div>
   );
 }
 
-// ─── Main WeeklyChallengeTab ──────────────────────────────────────────────────
+// --- Main WeeklyChallengeTab --------------------------------------------------
 export default function WeeklyChallengeTab() {
   const weekId = getWeekId();
   const daysLeft = getDaysLeft();
@@ -172,7 +172,7 @@ export default function WeeklyChallengeTab() {
   const [challenge, setChallenge] = useState<WeeklyChallenge>(() => {
     const saved = loadChallenge();
     if (saved && saved.weekId === weekId) return saved;
-    // New week — create fresh challenge
+    // New week � create fresh challenge
     const wordList = pickWeeklyWords(weekId);
     const fresh: WeeklyChallenge = {
       weekId,
@@ -235,7 +235,7 @@ export default function WeeklyChallengeTab() {
 
   const currentStudyWord = weekWords[studyIdx];
 
-  // ─── XP Modal ───────────────────────────────────────────────────────────────
+  // --- XP Modal ---------------------------------------------------------------
   if (showXpModal) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
@@ -243,17 +243,17 @@ export default function WeeklyChallengeTab() {
           <div className="w-24 h-24 flex items-center justify-center bg-amber-100 rounded-full mx-auto mb-5">
             <i className="ri-trophy-fill text-amber-500 text-5xl"></i>
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Thách thức hoàn thành!</h2>
-          <p className="text-gray-500 mb-4">Bạn đã vượt qua thách thức tuần {weekId}</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Th�ch th?c ho�n th�nh!</h2>
+          <p className="text-gray-500 mb-4">B?n d� vu?t qua th�ch th?c tu?n {weekId}</p>
           <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 mb-6">
             <p className="text-4xl font-bold text-amber-600">+{earnedXp} XP</p>
-            <p className="text-sm text-amber-500 mt-1">Đã cộng vào tài khoản của bạn!</p>
+            <p className="text-sm text-amber-500 mt-1">�� c?ng v�o t�i kho?n c?a b?n!</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6 text-center">
             {[
-              { label: "Từ đã học", value: learnedCount, color: "text-green-600" },
-              { label: "Quiz đạt", value: "70%+", color: "text-rose-600" },
-              { label: "Tuần", value: weekId.split("-")[1], color: "text-amber-600" },
+              { label: "T? d� h?c", value: learnedCount, color: "text-green-600" },
+              { label: "Quiz d?t", value: "70%+", color: "text-rose-600" },
+              { label: "Tu?n", value: weekId.split("-")[1], color: "text-amber-600" },
             ].map(s => (
               <div key={s.label} className="bg-gray-50 rounded-xl p-3">
                 <p className={`text-xl font-bold ${s.color}`}>{s.value}</p>
@@ -263,23 +263,23 @@ export default function WeeklyChallengeTab() {
           </div>
           <button onClick={() => setShowXpModal(false)}
             className="w-full py-3 bg-rose-500 text-white rounded-xl font-bold cursor-pointer hover:bg-rose-600 transition-colors">
-            Tuyệt vời!
+            Tuy?t v?i!
           </button>
         </div>
       </div>
     );
   }
 
-  // ─── Study Mode ─────────────────────────────────────────────────────────────
+  // --- Study Mode -------------------------------------------------------------
   if (view === "study") {
     return (
       <div className="max-w-lg mx-auto">
         <div className="flex items-center justify-between mb-5">
           <button onClick={() => setView("overview")} className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
-            <i className="ri-arrow-left-line"></i>Quay lại
+            <i className="ri-arrow-left-line"></i>Quay l?i
           </button>
           <span className="text-sm text-gray-500">{studyIdx + 1} / {weekWords.length}</span>
-          <span className="text-xs text-green-600 font-medium">{learnedCount} đã học</span>
+          <span className="text-xs text-green-600 font-medium">{learnedCount} d� h?c</span>
         </div>
 
         {/* Flashcard */}
@@ -293,14 +293,14 @@ export default function WeeklyChallengeTab() {
           }}>
             <div style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
               className="absolute inset-0 bg-white border-2 border-gray-100 rounded-2xl flex flex-col items-center justify-center p-6">
-              <p className="text-xs text-gray-400 tracking-normal mb-3">Tiếng Hàn</p>
+              <p className="text-xs text-gray-400 tracking-normal mb-3">Ti?ng H�n</p>
               <p className="text-5xl font-bold text-gray-900 mb-2">{currentStudyWord?.korean}</p>
               <p className="text-2xl text-rose-400 font-bold">{currentStudyWord?.hanja}</p>
-              <p className="text-xs text-gray-400 mt-3">Nhấn để xem nghĩa</p>
+              <p className="text-xs text-gray-400 mt-3">Nh?n d? xem nghia</p>
             </div>
             <div style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
               className="absolute inset-0 bg-rose-50 border-2 border-rose-200 rounded-2xl flex flex-col items-center justify-center p-6">
-              <p className="text-xs text-rose-400 tracking-normal mb-3">Nghĩa tiếng Việt</p>
+              <p className="text-xs text-rose-400 tracking-normal mb-3">Nghia ti?ng Vi?t</p>
               <p className="text-2xl font-bold text-rose-700 text-center">{currentStudyWord?.vietnamese}</p>
               <p className="text-lg text-rose-400 mt-2">{currentStudyWord?.hanja}</p>
             </div>
@@ -316,7 +316,7 @@ export default function WeeklyChallengeTab() {
               setStudyIdx(i => Math.min(i + 1, weekWords.length - 1));
             }}
             className="flex-1 py-3 bg-green-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-green-600 transition-colors whitespace-nowrap">
-            <i className="ri-check-line mr-1"></i>Đã thuộc
+            <i className="ri-check-line mr-1"></i>�� thu?c
           </button>
           <button
             onClick={() => {
@@ -324,13 +324,13 @@ export default function WeeklyChallengeTab() {
               setStudyIdx(i => Math.min(i + 1, weekWords.length - 1));
             }}
             className="flex-1 py-3 border border-gray-200 text-gray-600 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors whitespace-nowrap">
-            Bỏ qua →
+            B? qua ?
           </button>
         </div>
 
         {/* Word list mini */}
         <div className="mt-6 bg-gray-50 rounded-xl p-4">
-          <p className="text-xs font-semibold text-gray-500 mb-3">50 từ tuần này</p>
+          <p className="text-xs font-semibold text-gray-500 mb-3">50 t? tu?n n�y</p>
           <div className="flex flex-wrap gap-1.5">
             {weekWords.map((w, i) => (
               <button key={i} onClick={() => { setStudyIdx(i); setStudyFlipped(false); }}
@@ -344,22 +344,22 @@ export default function WeeklyChallengeTab() {
     );
   }
 
-  // ─── Quiz Mode ───────────────────────────────────────────────────────────────
+  // --- Quiz Mode ---------------------------------------------------------------
   if (view === "quiz") {
     return (
       <div className="max-w-lg mx-auto">
         <div className="flex items-center justify-between mb-5">
           <button onClick={() => setView("overview")} className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
-            <i className="ri-arrow-left-line"></i>Quay lại
+            <i className="ri-arrow-left-line"></i>Quay l?i
           </button>
-          <span className="text-sm font-semibold text-rose-600">Quiz tuần {weekId}</span>
+          <span className="text-sm font-semibold text-rose-600">Quiz tu?n {weekId}</span>
         </div>
         <WeeklyQuiz words={weekWords} onPass={handleQuizPass} onFail={handleQuizFail} />
       </div>
     );
   }
 
-  // ─── Overview ────────────────────────────────────────────────────────────────
+  // --- Overview ----------------------------------------------------------------
   return (
     <div className="max-w-2xl mx-auto">
       {/* Header banner */}
@@ -369,15 +369,15 @@ export default function WeeklyChallengeTab() {
         <div className="relative">
           <div className="flex items-center gap-2 mb-2">
             <i className="ri-sword-line text-white/80 text-lg"></i>
-            <span className="text-white/80 text-sm font-medium">Thách thức hàng tuần</span>
+            <span className="text-white/80 text-sm font-medium">Th�ch th?c h�ng tu?n</span>
             <span className="bg-app-border/200 text-white text-xs font-bold px-2 py-0.5 rounded-full">{weekId}</span>
           </div>
-          <h2 className="text-2xl font-bold mb-1">Học 50 từ Hán-Hàn</h2>
-          <p className="text-white/70 text-sm">Hoàn thành quiz đạt 70%+ để nhận XP bonus</p>
+          <h2 className="text-2xl font-bold mb-1">H?c 50 t? H�n-H�n</h2>
+          <p className="text-white/70 text-sm">Ho�n th�nh quiz d?t 70%+ d? nh?n XP bonus</p>
           <div className="flex items-center gap-4 mt-4">
             <div className="flex items-center gap-1.5">
               <i className="ri-time-line text-white/70"></i>
-              <span className="text-sm">{daysLeft} ngày còn lại</span>
+              <span className="text-sm">{daysLeft} ng�y c�n l?i</span>
             </div>
             <div className="flex items-center gap-1.5">
               <i className="ri-star-fill text-amber-300"></i>
@@ -386,7 +386,7 @@ export default function WeeklyChallengeTab() {
             {learnedCount >= 50 && (
               <div className="flex items-center gap-1.5">
                 <i className="ri-gift-line text-amber-300"></i>
-                <span className="text-sm font-bold">+200 XP thêm!</span>
+                <span className="text-sm font-bold">+200 XP th�m!</span>
               </div>
             )}
           </div>
@@ -397,9 +397,9 @@ export default function WeeklyChallengeTab() {
       <div className="bg-white border border-gray-100 rounded-2xl p-5 mb-5">
         <div className="flex items-center justify-between mb-3">
           <div>
-            <p className="text-lg font-bold text-gray-900">{learnedCount} / {totalWords} từ đã học</p>
+            <p className="text-lg font-bold text-gray-900">{learnedCount} / {totalWords} t? d� h?c</p>
             <p className="text-sm text-gray-500">
-              {learnedCount >= 50 ? "Hoàn thành! Sẵn sàng làm quiz!" : `Còn ${totalWords - learnedCount} từ nữa`}
+              {learnedCount >= 50 ? "Ho�n th�nh! S?n s�ng l�m quiz!" : `C�n ${totalWords - learnedCount} t? n?a`}
             </p>
           </div>
           <div className="w-16 h-16 flex items-center justify-center">
@@ -420,9 +420,9 @@ export default function WeeklyChallengeTab() {
       {/* Status cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
         {[
-          { label: "Đã học", value: learnedCount, icon: "ri-check-double-line", color: "text-green-600", bg: "bg-green-50" },
-          { label: "Chưa học", value: totalWords - learnedCount, icon: "ri-book-open-line", color: "text-amber-600", bg: "bg-amber-50" },
-          { label: "XP nhận được", value: challenge.xpEarned > 0 ? `+${challenge.xpEarned}` : "500+", icon: "ri-star-line", color: "text-rose-600", bg: "bg-rose-50" },
+          { label: "�� h?c", value: learnedCount, icon: "ri-check-double-line", color: "text-green-600", bg: "bg-green-50" },
+          { label: "Chua h?c", value: totalWords - learnedCount, icon: "ri-book-open-line", color: "text-amber-600", bg: "bg-amber-50" },
+          { label: "XP nh?n du?c", value: challenge.xpEarned > 0 ? `+${challenge.xpEarned}` : "500+", icon: "ri-star-line", color: "text-rose-600", bg: "bg-rose-50" },
         ].map(s => (
           <div key={s.label} className={`${s.bg} rounded-xl p-4 text-center`}>
             <div className="w-8 h-8 flex items-center justify-center mx-auto mb-2">
@@ -439,8 +439,8 @@ export default function WeeklyChallengeTab() {
         <div className="flex items-center gap-3 bg-green-50 border border-green-200 rounded-xl px-4 py-3 mb-5">
           <i className="ri-checkbox-circle-fill text-green-500 text-xl"></i>
           <div>
-            <p className="text-green-700 font-semibold text-sm">Đã hoàn thành thách thức tuần này!</p>
-            <p className="text-green-500 text-xs">Nhận +{challenge.xpEarned} XP · Quay lại tuần sau nhé!</p>
+            <p className="text-green-700 font-semibold text-sm">�� ho�n th�nh th�ch th?c tu?n n�y!</p>
+            <p className="text-green-500 text-xs">Nh?n +{challenge.xpEarned} XP � Quay l?i tu?n sau nh�!</p>
           </div>
         </div>
       )}
@@ -450,22 +450,22 @@ export default function WeeklyChallengeTab() {
         <button onClick={() => { setStudyIdx(0); setStudyFlipped(false); setView("study"); }}
           className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-rose-500 text-white rounded-xl font-bold cursor-pointer hover:bg-rose-600 transition-colors whitespace-nowrap">
           <i className="ri-book-open-line"></i>
-          {learnedCount === 0 ? "Bắt đầu học" : "Tiếp tục học"}
+          {learnedCount === 0 ? "B?t d?u h?c" : "Ti?p t?c h?c"}
         </button>
         <button
           onClick={() => setView("quiz")}
           disabled={challenge.quizPassed}
           className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold cursor-pointer transition-colors whitespace-nowrap ${challenge.quizPassed ? "bg-gray-100 text-gray-400 cursor-not-allowed" : learnedCount >= 20 ? "bg-amber-500 text-white hover:bg-amber-600" : "border-2 border-dashed border-gray-300 text-gray-400 cursor-not-allowed"}`}>
           <i className="ri-gamepad-line"></i>
-          {challenge.quizPassed ? "Đã hoàn thành" : learnedCount >= 20 ? "Làm Quiz ngay!" : `Học thêm ${20 - learnedCount} từ`}
+          {challenge.quizPassed ? "�� ho�n th�nh" : learnedCount >= 20 ? "L�m Quiz ngay!" : `H?c th�m ${20 - learnedCount} t?`}
         </button>
       </div>
 
       {/* Word list */}
       <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden">
         <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-          <h3 className="font-semibold text-gray-900 text-sm">50 từ tuần {weekId}</h3>
-          <span className="text-xs text-gray-400">{learnedCount} đã học</span>
+          <h3 className="font-semibold text-gray-900 text-sm">50 t? tu?n {weekId}</h3>
+          <span className="text-xs text-gray-400">{learnedCount} d� h?c</span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-0 divide-x divide-y divide-gray-50">
           {weekWords.map((word, i) => {
@@ -493,13 +493,13 @@ export default function WeeklyChallengeTab() {
       {/* XP breakdown */}
       <div className="mt-5 bg-amber-50 border border-amber-200 rounded-xl p-4">
         <p className="text-sm font-semibold text-amber-700 mb-3 flex items-center gap-2">
-          <i className="ri-star-line"></i>Cách nhận XP bonus
+          <i className="ri-star-line"></i>C�ch nh?n XP bonus
         </p>
         <div className="space-y-2">
           {[
-            { label: "Hoàn thành quiz đạt 70%+", xp: "+500 XP", done: challenge.quizPassed },
-            { label: "Học đủ 50 từ trong tuần", xp: "+200 XP", done: learnedCount >= 50 },
-            { label: "Hoàn thành trước thứ 5", xp: "+100 XP", done: false },
+            { label: "Ho�n th�nh quiz d?t 70%+", xp: "+500 XP", done: challenge.quizPassed },
+            { label: "H?c d? 50 t? trong tu?n", xp: "+200 XP", done: learnedCount >= 50 },
+            { label: "Ho�n th�nh tru?c th? 5", xp: "+100 XP", done: false },
           ].map(r => (
             <div key={r.label} className={`flex items-center justify-between text-sm ${r.done ? "opacity-50" : ""}`}>
               <div className="flex items-center gap-2">

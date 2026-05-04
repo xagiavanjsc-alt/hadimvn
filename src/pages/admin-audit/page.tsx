@@ -1,8 +1,8 @@
-﻿import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { supabase } from "@/lib/supabase";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// --- Types --------------------------------------------------------------------
 interface AuditLog {
   id: string;
   action_type: string;
@@ -31,25 +31,25 @@ interface SystemEvent {
   ip?: string;
 }
 
-// ─── Action type config ───────────────────────────────────────────────────────
+// --- Action type config -------------------------------------------------------
 const ACTION_CONFIG: Record<string, { color: string; icon: string; label: string }> = {
-  vip_granted: { color: "app-accent-primary", icon: "ri-vip-crown-line", label: "Cấp VIP" },
-  vip_revoked: { color: "#f87171", icon: "ri-close-circle-line", label: "Hủy VIP" },
-  bulk_vip_granted: { color: "app-accent-primary", icon: "ri-vip-crown-2-line", label: "Cấp VIP hàng loạt" },
-  admin_granted: { color: "#f87171", icon: "ri-shield-keyhole-line", label: "Cấp Admin" },
-  admin_revoked: { color: "#f87171", icon: "ri-shield-cross-line", label: "Hủy Admin" },
+  vip_granted: { color: "app-accent-primary", icon: "ri-vip-crown-line", label: "C?p VIP" },
+  vip_revoked: { color: "#f87171", icon: "ri-close-circle-line", label: "H?y VIP" },
+  bulk_vip_granted: { color: "app-accent-primary", icon: "ri-vip-crown-2-line", label: "C?p VIP h�ng lo?t" },
+  admin_granted: { color: "#f87171", icon: "ri-shield-keyhole-line", label: "C?p Admin" },
+  admin_revoked: { color: "#f87171", icon: "ri-shield-cross-line", label: "H?y Admin" },
   broadcast_sent: { color: "#a78bfa", icon: "ri-broadcast-line", label: "Broadcast" },
-  email_sent: { color: "#38bdf8", icon: "ri-mail-send-line", label: "Gửi email" },
-  email_bulk_sent: { color: "#38bdf8", icon: "ri-mail-send-line", label: "Email hàng loạt" },
-  content_deleted: { color: "#f87171", icon: "ri-delete-bin-line", label: "Xóa nội dung" },
-  content_approved: { color: "#34d399", icon: "ri-checkbox-circle-line", label: "Duyệt nội dung" },
-  data_export: { color: "#34d399", icon: "ri-download-2-line", label: "Xuất dữ liệu" },
-  settings_updated: { color: "#fb923c", icon: "ri-settings-3-line", label: "Cập nhật cài đặt" },
-  backup_created: { color: "#34d399", icon: "ri-save-line", label: "Tạo backup" },
-  admin_login: { color: "#a78bfa", icon: "ri-login-circle-line", label: "Đăng nhập Admin" },
-  user_joined: { color: "#34d399", icon: "ri-user-add-line", label: "Đăng ký" },
-  exam_taken: { color: "#a78bfa", icon: "ri-file-list-3-line", label: "Thi thử" },
-  post_created: { color: "#fb923c", icon: "ri-article-line", label: "Bài viết" },
+  email_sent: { color: "#38bdf8", icon: "ri-mail-send-line", label: "G?i email" },
+  email_bulk_sent: { color: "#38bdf8", icon: "ri-mail-send-line", label: "Email h�ng lo?t" },
+  content_deleted: { color: "#f87171", icon: "ri-delete-bin-line", label: "X�a n?i dung" },
+  content_approved: { color: "#34d399", icon: "ri-checkbox-circle-line", label: "Duy?t n?i dung" },
+  data_export: { color: "#34d399", icon: "ri-download-2-line", label: "Xu?t d? li?u" },
+  settings_updated: { color: "#fb923c", icon: "ri-settings-3-line", label: "C?p nh?t c�i d?t" },
+  backup_created: { color: "#34d399", icon: "ri-save-line", label: "T?o backup" },
+  admin_login: { color: "#a78bfa", icon: "ri-login-circle-line", label: "�ang nh?p Admin" },
+  user_joined: { color: "#34d399", icon: "ri-user-add-line", label: "�ang k�" },
+  exam_taken: { color: "#a78bfa", icon: "ri-file-list-3-line", label: "Thi th?" },
+  post_created: { color: "#fb923c", icon: "ri-article-line", label: "B�i vi?t" },
 };
 
 function getActionConfig(type: string) {
@@ -59,16 +59,16 @@ function getActionConfig(type: string) {
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
   const m = Math.floor(diff / 60000);
-  if (m < 1) return "Vừa xong";
-  if (m < 60) return `${m} phút trước`;
+  if (m < 1) return "V?a xong";
+  if (m < 60) return `${m} ph�t tru?c`;
   const h = Math.floor(m / 60);
-  if (h < 24) return `${h} giờ trước`;
+  if (h < 24) return `${h} gi? tru?c`;
   const d = Math.floor(h / 24);
-  if (d < 30) return `${d} ngày trước`;
-  return `${Math.floor(d / 30)} tháng trước`;
+  if (d < 30) return `${d} ng�y tru?c`;
+  return `${Math.floor(d / 30)} th�ng tru?c`;
 }
 
-// ─── Log Detail Modal ─────────────────────────────────────────────────────────
+// --- Log Detail Modal ---------------------------------------------------------
 function LogDetailModal({ log, onClose }: { log: SystemEvent; onClose: () => void }) {
   const cfg = getActionConfig(log.type);
   return (
@@ -91,11 +91,11 @@ function LogDetailModal({ log, onClose }: { log: SystemEvent; onClose: () => voi
         </div>
         <div className="p-5 space-y-3">
           {[
-            { label: "Người thực hiện", value: log.actor },
-            { label: "Chi tiết", value: log.detail },
-            { label: "IP Address", value: log.ip || "—" },
-            { label: "Thời gian", value: new Date(log.timestamp).toLocaleString("vi-VN") },
-            { label: "Nguồn", value: log.source === "admin_log" ? "Admin Panel" : "Hệ thống" },
+            { label: "Ngu?i th?c hi?n", value: log.actor },
+            { label: "Chi ti?t", value: log.detail },
+            { label: "IP Address", value: log.ip || "�" },
+            { label: "Th?i gian", value: new Date(log.timestamp).toLocaleString("vi-VN") },
+            { label: "Ngu?n", value: log.source === "admin_log" ? "Admin Panel" : "H? th?ng" },
           ].map(row => (
             <div key={row.label} className="flex items-start gap-3 px-3 py-2.5 rounded-xl"
               style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>
@@ -109,7 +109,7 @@ function LogDetailModal({ log, onClose }: { log: SystemEvent; onClose: () => voi
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function AdminAuditPage() {
   const [adminLogs, setAdminLogs] = useState<AuditLog[]>([]);
   const [systemEvents, setSystemEvents] = useState<SystemEvent[]>([]);
@@ -150,7 +150,7 @@ export default function AdminAuditPage() {
       const profileMap = new Map(profiles.map(p => [p.id, p]));
       const events: SystemEvent[] = [];
 
-      // Admin logs → events
+      // Admin logs ? events
       logs.forEach(log => {
         const cfg = getActionConfig(log.action_type);
         events.push({
@@ -172,9 +172,9 @@ export default function AdminAuditPage() {
         events.push({
           id: `uj_${p.id}`,
           type: "user_joined",
-          label: "Thành viên mới đăng ký",
-          detail: `${p.display_name || "Người dùng"} đã đăng ký tài khoản`,
-          actor: p.display_name || "Người dùng",
+          label: "Th�nh vi�n m?i dang k�",
+          detail: `${p.display_name || "Ngu?i d�ng"} d� dang k� t�i kho?n`,
+          actor: p.display_name || "Ngu?i d�ng",
           timestamp: p.created_at,
           color: "#34d399",
           icon: "ri-user-add-line",
@@ -189,9 +189,9 @@ export default function AdminAuditPage() {
         events.push({
           id: `ex_${e.id}`,
           type: "exam_taken",
-          label: "Thi thử EPS",
-          detail: `${profile?.display_name || "Học viên"} — ${e.score}/${e.total} (${pct}%)`,
-          actor: profile?.display_name || "Học viên",
+          label: "Thi th? EPS",
+          detail: `${profile?.display_name || "H?c vi�n"} � ${e.score}/${e.total} (${pct}%)`,
+          actor: profile?.display_name || "H?c vi�n",
           timestamp: e.taken_at,
           color: "#a78bfa",
           icon: "ri-file-list-3-line",
@@ -205,9 +205,9 @@ export default function AdminAuditPage() {
         events.push({
           id: `po_${p.id}`,
           type: "post_created",
-          label: "Bài viết cộng đồng",
-          detail: `${profile?.display_name || "Thành viên"}: ${p.title || "Bài viết mới"}`,
-          actor: profile?.display_name || "Thành viên",
+          label: "B�i vi?t c?ng d?ng",
+          detail: `${profile?.display_name || "Th�nh vi�n"}: ${p.title || "B�i vi?t m?i"}`,
+          actor: profile?.display_name || "Th�nh vi�n",
           timestamp: p.created_at,
           color: "#fb923c",
           icon: "ri-article-line",
@@ -254,15 +254,15 @@ export default function AdminAuditPage() {
 
   const handleExport = () => {
     const csv = [
-      ["Thời gian", "Loại", "Hành động", "Chi tiết", "Người thực hiện", "IP", "Nguồn"].join(","),
+      ["Th?i gian", "Lo?i", "H�nh d?ng", "Chi ti?t", "Ngu?i th?c hi?n", "IP", "Ngu?n"].join(","),
       ...filtered.map(e => [
         new Date(e.timestamp).toLocaleString("vi-VN"),
         e.type,
         e.label,
         `"${e.detail.replace(/"/g, '""')}"`,
         e.actor,
-        e.ip || "—",
-        e.source === "admin_log" ? "Admin Panel" : "Hệ thống",
+        e.ip || "�",
+        e.source === "admin_log" ? "Admin Panel" : "H? th?ng",
       ].join(",")),
     ].join("\n");
     const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" });
@@ -275,12 +275,12 @@ export default function AdminAuditPage() {
   return (
     <AdminLayout
       title="Audit Log"
-      subtitle="Lịch sử hành động admin + hoạt động hệ thống từ Supabase thực"
+      subtitle="L?ch s? h�nh d?ng admin + ho?t d?ng h? th?ng t? Supabase th?c"
       actions={
         <div className="flex items-center gap-2">
           <button onClick={fetchData} className="flex items-center gap-2 text-xs font-medium px-3 py-2 rounded-lg cursor-pointer whitespace-nowrap border"
             style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)", borderColor: "var(--admin-border)" }}>
-            <i className="ri-refresh-line"></i>Làm mới
+            <i className="ri-refresh-line"></i>L�m m?i
           </button>
           <button onClick={handleExport} className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-lg cursor-pointer whitespace-nowrap bg-emerald-600 hover:bg-emerald-500 text-white">
             <i className="ri-download-line"></i>Export CSV
@@ -293,11 +293,11 @@ export default function AdminAuditPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-5">
         {[
-          { label: "Tổng sự kiện", value: systemEvents.length, color: "#a78bfa", icon: "ri-history-line" },
-          { label: "Hành động Admin", value: adminActionsCount, color: "#f87171", icon: "ri-shield-keyhole-line" },
-          { label: "Hôm nay", value: todayCount, color: "#34d399", icon: "ri-calendar-check-line" },
-          { label: "Lần thi thử", value: typeCount("exam_taken"), color: "app-accent-primary", icon: "ri-file-list-3-line" },
-          { label: "Email đã gửi", value: emailCount, color: "#38bdf8", icon: "ri-mail-send-line" },
+          { label: "T?ng s? ki?n", value: systemEvents.length, color: "#a78bfa", icon: "ri-history-line" },
+          { label: "H�nh d?ng Admin", value: adminActionsCount, color: "#f87171", icon: "ri-shield-keyhole-line" },
+          { label: "H�m nay", value: todayCount, color: "#34d399", icon: "ri-calendar-check-line" },
+          { label: "L?n thi th?", value: typeCount("exam_taken"), color: "app-accent-primary", icon: "ri-file-list-3-line" },
+          { label: "Email d� g?i", value: emailCount, color: "#38bdf8", icon: "ri-mail-send-line" },
         ].map(s => (
           <div key={s.label} className="flex items-center gap-3 px-4 py-3 rounded-xl border"
             style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
@@ -316,10 +316,10 @@ export default function AdminAuditPage() {
       <div className="flex items-center gap-2 mb-4 flex-wrap">
         <div className="flex items-center gap-1 p-1 rounded-lg" style={{ backgroundColor: "var(--admin-hover)" }}>
           {([
-            { val: "all" as const, label: "Tất cả" },
+            { val: "all" as const, label: "T?t c?" },
             { val: "admin" as const, label: "Admin Actions" },
             { val: "email" as const, label: "Email Scheduler" },
-            { val: "system" as const, label: "Hệ thống" },
+            { val: "system" as const, label: "H? th?ng" },
           ]).map(s => (
             <button key={s.val} onClick={() => setFilterSource(s.val)}
               className="px-3 py-1.5 rounded-md text-xs font-semibold cursor-pointer whitespace-nowrap transition-all"
@@ -332,7 +332,7 @@ export default function AdminAuditPage() {
         <div className="flex items-center gap-2 rounded-xl px-3 py-2 flex-1 min-w-[200px] border"
           style={{ backgroundColor: "var(--admin-card2)", borderColor: "var(--admin-border)" }}>
           <i className="ri-search-line text-sm" style={{ color: "var(--admin-text-faint)" }}></i>
-          <input type="text" value={search} onChange={e => setSearch(e.target.value)} placeholder="Tìm sự kiện, người dùng, IP..."
+          <input type="text" value={search} onChange={e => setSearch(e.target.value)} placeholder="T�m s? ki?n, ngu?i d�ng, IP..."
             className="flex-1 bg-transparent text-sm outline-none" style={{ color: "var(--admin-text)" }} />
           {search && <button onClick={() => setSearch("")} className="cursor-pointer" style={{ color: "var(--admin-text-faint)" }}><i className="ri-close-line text-sm"></i></button>}
         </div>
@@ -340,14 +340,14 @@ export default function AdminAuditPage() {
         <select value={filterType} onChange={e => setFilterType(e.target.value)}
           className="rounded-lg px-3 py-2 text-xs outline-none cursor-pointer border"
           style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text-muted)", borderColor: "var(--admin-border)" }}>
-          <option value="all">Tất cả loại ({systemEvents.length})</option>
+          <option value="all">T?t c? lo?i ({systemEvents.length})</option>
           {allTypes.map(t => {
             const cfg = getActionConfig(t);
             return <option key={t} value={t}>{cfg.label} ({typeCount(t)})</option>;
           })}
         </select>
 
-        <span className="text-xs ml-auto" style={{ color: "var(--admin-text-faint)" }}>{filtered.length} kết quả</span>
+        <span className="text-xs ml-auto" style={{ color: "var(--admin-text-faint)" }}>{filtered.length} k?t qu?</span>
       </div>
 
       {/* Email Scheduler Panel */}
@@ -359,14 +359,14 @@ export default function AdminAuditPage() {
             </div>
             <div>
               <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>Email Scheduler Monitor</p>
-              <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>Theo dõi email tự động gửi bởi VIP Expiry Scheduler</p>
+              <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>Theo d�i email t? d?ng g?i b?i VIP Expiry Scheduler</p>
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
             {[
-              { label: "Tổng email đã gửi", value: emailCount, color: "#38bdf8", icon: "ri-mail-check-line" },
+              { label: "T?ng email d� g?i", value: emailCount, color: "#38bdf8", icon: "ri-mail-check-line" },
               { label: "Broadcast", value: typeCount("broadcast_sent"), color: "#a78bfa", icon: "ri-broadcast-line" },
-              { label: "Email hàng loạt", value: typeCount("email_bulk_sent"), color: "#fb923c", icon: "ri-mail-send-line" },
+              { label: "Email h�ng lo?t", value: typeCount("email_bulk_sent"), color: "#fb923c", icon: "ri-mail-send-line" },
             ].map(s => (
               <div key={s.label} className="flex items-center gap-3 px-4 py-3 rounded-xl border" style={{ backgroundColor: "var(--admin-card2)", borderColor: "var(--admin-border)" }}>
                 <div className="w-8 h-8 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -383,11 +383,11 @@ export default function AdminAuditPage() {
             <p className="text-xs font-semibold mb-2" style={{ color: "var(--admin-text)" }}>Cron Job Status</p>
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
-              <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>vip-expiry-scheduler — Chạy mỗi ngày lúc 08:00 UTC</p>
+              <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>vip-expiry-scheduler � Ch?y m?i ng�y l�c 08:00 UTC</p>
               <span className="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success font-bold">Active</span>
             </div>
             <p className="text-[10px] mt-2" style={{ color: "var(--admin-text-faint)" }}>
-              Gửi nhắc nhở gia hạn VIP: 7 ngày, 3 ngày, 1 ngày trước khi hết hạn
+              G?i nh?c nh? gia h?n VIP: 7 ng�y, 3 ng�y, 1 ng�y tru?c khi h?t h?n
             </p>
           </div>
         </div>
@@ -397,7 +397,7 @@ export default function AdminAuditPage() {
         <div className="flex items-center justify-center py-20">
           <div className="flex flex-col items-center gap-3">
             <div className="w-8 h-8 border-2 border-rose-500/30 border-t-rose-500 rounded-full animate-spin"></div>
-            <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Đang tải từ Supabase...</p>
+            <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>�ang t?i t? Supabase...</p>
           </div>
         </div>
       ) : (
@@ -406,7 +406,7 @@ export default function AdminAuditPage() {
             {paginated.length === 0 ? (
               <div className="text-center py-16">
                 <i className="ri-history-line text-4xl mb-3 block" style={{ color: "var(--admin-text-faint)" }}></i>
-                <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Không tìm thấy sự kiện nào</p>
+                <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Kh�ng t�m th?y s? ki?n n�o</p>
               </div>
             ) : (
               <div className="divide-y" style={{ borderColor: "var(--admin-border)" }}>
@@ -462,7 +462,7 @@ export default function AdminAuditPage() {
               <button onClick={() => setPage(p => p + 1)}
                 className="px-6 py-2.5 rounded-xl text-sm font-semibold cursor-pointer whitespace-nowrap border"
                 style={{ backgroundColor: "var(--admin-card)", color: "var(--admin-text-muted)", borderColor: "var(--admin-border)" }}>
-                Tải thêm ({filtered.length - paginated.length} còn lại)
+                T?i th�m ({filtered.length - paginated.length} c�n l?i)
               </button>
             </div>
           )}

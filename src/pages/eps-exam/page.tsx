@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useMemo, useCallback, useRef, lazy, Suspense } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -47,9 +47,9 @@ function ShareResultCard({ pct, correct, total, examResults }: { pct: number; co
   const lastResult = examResults[examResults.length - 1];
   const timeUsed = lastResult?.timeUsed ?? 0;
 
-  const grade = pct >= 80 ? "ĐẬU ✅" : pct >= 60 ? "Gần đậu 💪" : "Cần ôn thêm 📚";
-  const emoji = pct >= 80 ? "🏆" : pct >= 60 ? "🎯" : "📖";
-  const shareText = `${emoji} Kết quả thi thử EPS-TOPIK trên Hàn Quốc Ơi!\n\n📊 Điểm: ${correct}/${total} câu đúng (${pct}%)\n⏱️ Thời gian: ${Math.floor(timeUsed / 60)} phút ${timeUsed % 60} giây\n🎖️ Đánh giá: ${grade}\n\n${pct >= 80 ? "Vượt ngưỡng điểm đậu EPS-TOPIK! Sẵn sàng thi thật rồi!" : "Đang ôn luyện mỗi ngày — cố lên nhé!"}\n\n#HànQuốcƠi #EPSTOPIK #HọcTiếngHàn #TàuLáChuối`;
+  const grade = pct >= 80 ? "�?U ?" : pct >= 60 ? "G?n d?u ??" : "C?n �n th�m ??";
+  const emoji = pct >= 80 ? "??" : pct >= 60 ? "??" : "??";
+  const shareText = `${emoji} K?t qu? thi th? EPS-TOPIK tr�n H�n Qu?c Oi!\n\n?? �i?m: ${correct}/${total} c�u d�ng (${pct}%)\n?? Th?i gian: ${Math.floor(timeUsed / 60)} ph�t ${timeUsed % 60} gi�y\n??? ��nh gi�: ${grade}\n\n${pct >= 80 ? "Vu?t ngu?ng di?m d?u EPS-TOPIK! S?n s�ng thi th?t r?i!" : "�ang �n luy?n m?i ng�y � c? l�n nh�!"}\n\n#H�nQu?cOi #EPSTOPIK #H?cTi?ngH�n #T�uL�Chu?i`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(shareText).then(() => {
@@ -77,15 +77,15 @@ function ShareResultCard({ pct, correct, total, examResults }: { pct: number; co
               <div className="w-7 h-7 rounded-lg bg-app-accent-primary/20 flex items-center justify-center">
                 <i className="ri-leaf-line text-app-accent-primary text-sm"></i>
               </div>
-              <span className="text-white/60 text-xs font-semibold">Hàn Quốc Ơi!</span>
+              <span className="text-white/60 text-xs font-semibold">H�n Qu?c Oi!</span>
             </div>
-            <span className="text-app-text-muted text-xs">EPS-TOPIK Thi thử</span>
+            <span className="text-app-text-muted text-xs">EPS-TOPIK Thi th?</span>
           </div>
 
           <div className="flex items-center gap-6">
             <div>
               <p className="text-5xl font-extrabold" style={{ color: gradeColor }}>{pct}%</p>
-              <p className="text-white/50 text-xs mt-1">{correct}/{total} câu đúng</p>
+              <p className="text-white/50 text-xs mt-1">{correct}/{total} c�u d�ng</p>
             </div>
             <div className="flex-1">
               <div className="h-3 bg-app-card/70 rounded-full overflow-hidden mb-2">
@@ -93,11 +93,11 @@ function ShareResultCard({ pct, correct, total, examResults }: { pct: number; co
               </div>
               <div className="flex items-center justify-between text-[10px] text-app-text-muted">
                 <span>0%</span>
-                <span style={{ color: gradeColor }}>Ngưỡng đậu 80%</span>
+                <span style={{ color: gradeColor }}>Ngu?ng d?u 80%</span>
                 <span>100%</span>
               </div>
               <p className="text-sm font-bold mt-2" style={{ color: gradeColor }}>{grade}</p>
-              <p className="text-app-text-secondary text-xs">⏱️ {Math.floor(timeUsed / 60)} phút {timeUsed % 60} giây</p>
+              <p className="text-app-text-secondary text-xs">?? {Math.floor(timeUsed / 60)} ph�t {timeUsed % 60} gi�y</p>
             </div>
           </div>
         </div>
@@ -108,13 +108,13 @@ function ShareResultCard({ pct, correct, total, examResults }: { pct: number; co
         <div className="flex items-center justify-between mb-3">
           <p className="text-white/60 text-sm font-semibold flex items-center gap-2">
             <i className="ri-share-line text-app-accent-primary"></i>
-            Chia sẻ thành tích
+            Chia s? th�nh t�ch
           </p>
           <button
             onClick={() => setShowCard(!showCard)}
             className="text-app-text-muted hover:text-white/60 text-xs cursor-pointer"
           >
-            {showCard ? "Ẩn nội dung" : "Xem nội dung chia sẻ"}
+            {showCard ? "?n n?i dung" : "Xem n?i dung chia s?"}
           </button>
         </div>
 
@@ -130,7 +130,7 @@ function ShareResultCard({ pct, correct, total, examResults }: { pct: number; co
             className={`flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer whitespace-nowrap ${copied ? "bg-emerald-500/20 text-app-accent-success border border-emerald-500/30" : "bg-app-card/50 hover:bg-app-card/70 text-white/60 border border-app-border"}`}
           >
             <i className={copied ? "ri-checkbox-circle-line" : "ri-clipboard-line"}></i>
-            {copied ? "Đã copy!" : "Copy"}
+            {copied ? "�� copy!" : "Copy"}
           </button>
           <button
             onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=https://hanquocoi.com&quote=${encodeURIComponent(shareText)}`, "_blank", "width=600,height=400")}
@@ -181,11 +181,11 @@ export default function EpsExamPage() {
   }, []);
 
   const startExam = useCallback(() => {
-    // Anti-cheat: cooldown để chống spam
+    // Anti-cheat: cooldown d? ch?ng spam
     const lastAt = parseInt(localStorage.getItem("kts_eps_exam_last_at") || "0", 10) || null;
     const { inCooldown, remainingSec } = isInCooldown(lastAt);
     if (inCooldown) {
-      alert(`Vui lòng chờ ${remainingSec}s trước khi làm bài mới.`);
+      alert(`Vui l�ng ch? ${remainingSec}s tru?c khi l�m b�i m?i.`);
       return;
     }
     const qs = pickQuestions();
@@ -220,8 +220,8 @@ export default function EpsExamPage() {
     const timeUsed = Math.round((Date.now() - startTimeRef.current) / 1000);
     const correctIds = examQuestions.filter(q => answers[q.id] === q.correctIndex).map(q => q.id);
 
-    // Anti-cheat: nếu submit quá nhanh → kết quả vẫn lưu nhưng KHÔNG cộng XP,
-    // không sync leaderboard. Người dùng thấy kết quả nhưng không ảnh hưởng rank.
+    // Anti-cheat: n?u submit qu� nhanh ? k?t qu? v?n luu nhung KH�NG c?ng XP,
+    // kh�ng sync leaderboard. Ngu?i d�ng th?y k?t qu? nhung kh�ng ?nh hu?ng rank.
     const tooFast = isExamTooFast(timeUsed, examQuestions.length);
 
     const result: ExamResult = {
@@ -235,18 +235,18 @@ export default function EpsExamPage() {
     setExamResults(prev => [...prev, result]);
 
     if (tooFast) {
-      // Vẫn hiển thị kết quả, nhưng cảnh báo và không thưởng XP
+      // V?n hi?n th? k?t qu?, nhung c?nh b�o v� kh�ng thu?ng XP
       setMode("result");
       return;
     }
 
-    // Ghi timestamp cooldown — ngăn spam submit liên tiếp
+    // Ghi timestamp cooldown � ngan spam submit li�n ti?p
     localStorage.setItem("kts_eps_exam_last_at", String(Date.now()));
 
     // Auto-sync to cloud after valid exam
     if (user) {
       setSyncing(true);
-      const displayName = profile?.display_name || user.email?.split("@")[0] || "Học viên";
+      const displayName = profile?.display_name || user.email?.split("@")[0] || "H?c vi�n";
       Promise.all([
         syncToCloud(user.id),
         updateLeaderboard(user.id, displayName),
@@ -280,29 +280,29 @@ export default function EpsExamPage() {
   }, [mode, examQuestions, answers]);
 
   const topicLabels: Record<string, string> = {
-    greeting: "Giao tiếp", safety: "An toàn LĐ", culture: "Văn hóa",
-    workplace: "Nơi làm việc", daily: "Sinh hoạt", emergency: "Khẩn cấp",
-    listening: "Nghe hiểu", reading: "Đọc hiểu", law: "Pháp luật",
+    greeting: "Giao ti?p", safety: "An to�n L�", culture: "Van h�a",
+    workplace: "Noi l�m vi?c", daily: "Sinh ho?t", emergency: "Kh?n c?p",
+    listening: "Nghe hi?u", reading: "�?c hi?u", law: "Ph�p lu?t",
   };
 
-  // ── INTRO ──────────────────────────────────────────────────────────────────
+  // -- INTRO ------------------------------------------------------------------
   if (mode === "intro") {
     return (
-      <DashboardLayout title="Thi thử EPS-TOPIK" subtitle="Mô phỏng đề thi thật — 40 câu · 50 phút">
+      <DashboardLayout title="Thi th? EPS-TOPIK" subtitle="M� ph?ng d? thi th?t � 40 c�u � 50 ph�t">
         <div className="max-w-2xl mx-auto">
           {/* Exam info */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-8 mb-5">
             <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-app-accent-primary/10 mx-auto mb-5">
               <i className="ri-file-list-3-line text-app-accent-primary text-2xl"></i>
             </div>
-            <h2 className="text-white font-bold text-xl text-center mb-2">Đề thi thử EPS-TOPIK</h2>
-            <p className="text-app-text-secondary text-sm text-center mb-6">Câu hỏi được chọn ngẫu nhiên từ ngân hàng đề. Làm bài nghiêm túc như thi thật!</p>
+            <h2 className="text-white font-bold text-xl text-center mb-2">�? thi th? EPS-TOPIK</h2>
+            <p className="text-app-text-secondary text-sm text-center mb-6">C�u h?i du?c ch?n ng?u nhi�n t? ng�n h�ng d?. L�m b�i nghi�m t�c nhu thi th?t!</p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               {[
-                { icon: "ri-survey-line", color: "app-accent-primary", label: "Số câu hỏi", value: `${Math.min(EXAM_QUESTION_COUNT, epsQuestions.length)} câu` },
-                { icon: "ri-timer-line", color: "#34d399", label: "Thời gian", value: "50 phút" },
-                { icon: "ri-trophy-line", color: "#a78bfa", label: "Điểm đậu", value: "≥ 80/200" },
+                { icon: "ri-survey-line", color: "app-accent-primary", label: "S? c�u h?i", value: `${Math.min(EXAM_QUESTION_COUNT, epsQuestions.length)} c�u` },
+                { icon: "ri-timer-line", color: "#34d399", label: "Th?i gian", value: "50 ph�t" },
+                { icon: "ri-trophy-line", color: "#a78bfa", label: "�i?m d?u", value: "= 80/200" },
               ].map(item => (
                 <div key={item.label} className="bg-app-surface/50 rounded-xl p-4 text-center">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${item.color}15` }}>
@@ -315,13 +315,13 @@ export default function EpsExamPage() {
             </div>
 
             <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4 mb-6">
-              <p className="text-app-accent-primary/80 text-xs font-semibold mb-2">Lưu ý trước khi thi</p>
+              <p className="text-app-accent-primary/80 text-xs font-semibold mb-2">Luu � tru?c khi thi</p>
               <ul className="space-y-1.5">
                 {[
-                  "Câu hỏi được chọn ngẫu nhiên từ tất cả chủ đề",
-                  "Có thể đánh dấu câu để xem lại sau",
-                  "Hết giờ sẽ tự động nộp bài",
-                  "Kết quả được lưu vào hồ sơ học viên",
+                  "C�u h?i du?c ch?n ng?u nhi�n t? t?t c? ch? d?",
+                  "C� th? d�nh d?u c�u d? xem l?i sau",
+                  "H?t gi? s? t? d?ng n?p b�i",
+                  "K?t qu? du?c luu v�o h? so h?c vi�n",
                 ].map(note => (
                   <li key={note} className="flex items-start gap-2 text-app-text-secondary text-xs">
                     <i className="ri-checkbox-circle-line text-app-accent-primary/50 flex-shrink-0 mt-0.5"></i>
@@ -336,14 +336,14 @@ export default function EpsExamPage() {
               className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-base transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-play-circle-line text-lg"></i>
-              Bắt đầu thi ngay
+              B?t d?u thi ngay
             </button>
           </div>
 
           {/* Past results */}
           {examResults.length > 0 && (
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-4">Lịch sử thi ({examResults.length} lần)</h3>
+              <h3 className="text-white font-semibold text-sm mb-4">L?ch s? thi ({examResults.length} l?n)</h3>
               <div className="space-y-2" style={{ contentVisibility: "auto", containIntrinsicSize: "0 300px" }}>
                 {examResults.slice(-5).reverse().map((r, i) => {
                   const pct = Math.round((r.score / r.total) * 100);
@@ -354,8 +354,8 @@ export default function EpsExamPage() {
                         <span className="text-sm font-bold" style={{ color }}>{pct}%</span>
                       </div>
                       <div className="flex-1">
-                        <p className="text-white/70 text-xs font-medium">{r.score}/{r.total} câu đúng</p>
-                        <p className="text-app-text-muted text-[10px]">{new Date(r.date).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })} · {Math.floor(r.timeUsed / 60)} phút {r.timeUsed % 60} giây</p>
+                        <p className="text-white/70 text-xs font-medium">{r.score}/{r.total} c�u d�ng</p>
+                        <p className="text-app-text-muted text-[10px]">{new Date(r.date).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })} � {Math.floor(r.timeUsed / 60)} ph�t {r.timeUsed % 60} gi�y</p>
                       </div>
                       <div className="w-20 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                         <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: color }} />
@@ -371,12 +371,12 @@ export default function EpsExamPage() {
     );
   }
 
-  // ── EXAM ───────────────────────────────────────────────────────────────────
+  // -- EXAM -------------------------------------------------------------------
   if (mode === "exam" && currentQ) {
     return (
       <DashboardLayout
-        title="Thi thử EPS-TOPIK"
-        subtitle={`Câu ${currentIdx + 1}/${examQuestions.length}`}
+        title="Thi th? EPS-TOPIK"
+        subtitle={`C�u ${currentIdx + 1}/${examQuestions.length}`}
       >
         {/* Mobile sticky timer bar */}
         <div className="md:hidden sticky top-0 z-30 bg-app-bg border-b border-app-border px-3 py-2 flex items-center gap-2 shadow-lg">
@@ -388,7 +388,7 @@ export default function EpsExamPage() {
             <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
               <div className="h-full rounded-full transition-all duration-300" style={{ width: `${progressPct}%`, backgroundColor: "app-accent-primary" }} />
             </div>
-            <span className="text-white/35 text-[10px]">{answeredCount}/{examQuestions.length} câu · Câu {currentIdx + 1}</span>
+            <span className="text-white/35 text-[10px]">{answeredCount}/{examQuestions.length} c�u � C�u {currentIdx + 1}</span>
           </div>
           <button
             onClick={() => setShowReview(!showReview)}
@@ -402,7 +402,7 @@ export default function EpsExamPage() {
             className="flex items-center gap-1 bg-app-accent-primary text-app-bg font-bold text-xs px-2.5 py-1.5 rounded-lg cursor-pointer whitespace-nowrap flex-shrink-0"
           >
             <i className="ri-send-plane-line text-xs"></i>
-            Nộp
+            N?p
           </button>
         </div>
 
@@ -415,20 +415,20 @@ export default function EpsExamPage() {
           <div className="flex-1 h-1.5 bg-white/8 rounded-full overflow-hidden">
             <div className="h-full rounded-full bg-app-accent-primary transition-all" style={{ width: `${progressPct}%` }} />
           </div>
-          <span className="text-app-text-secondary text-sm">{answeredCount}/{examQuestions.length} đã trả lời</span>
+          <span className="text-app-text-secondary text-sm">{answeredCount}/{examQuestions.length} d� tr? l?i</span>
           <button
             onClick={() => setShowReview(!showReview)}
             className="flex items-center gap-2 bg-app-card/50 hover:bg-white/8 text-white/60 text-sm px-4 py-2 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-list-check-2"></i>
-            Xem lại
+            Xem l?i
           </button>
           <button
             onClick={submitExam}
             className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-4 py-2 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-send-plane-line"></i>
-            Nộp bài
+            N?p b�i
           </button>
         </div>
 
@@ -439,7 +439,7 @@ export default function EpsExamPage() {
               {/* Question card */}
               <div className="bg-app-bg border border-app-border rounded-2xl p-4 md:p-6">
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="text-app-text-muted text-xs font-mono">Câu {currentIdx + 1}</span>
+                  <span className="text-app-text-muted text-xs font-mono">C�u {currentIdx + 1}</span>
                   <button
                     onClick={() => setFlagged(prev => {
                       const next = new Set(prev);
@@ -450,7 +450,7 @@ export default function EpsExamPage() {
                     className={`ml-auto flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg transition-colors cursor-pointer whitespace-nowrap ${flagged.has(currentQ.id) ? "bg-[#fb923c]/15 text-[#fb923c]" : "bg-app-card/50 text-app-text-muted hover:text-white/50"}`}
                   >
                     <i className={flagged.has(currentQ.id) ? "ri-flag-fill" : "ri-flag-line"}></i>
-                    <span className="hidden sm:inline">{flagged.has(currentQ.id) ? "Đã đánh dấu" : "Đánh dấu"}</span>
+                    <span className="hidden sm:inline">{flagged.has(currentQ.id) ? "�� d�nh d?u" : "��nh d?u"}</span>
                   </button>
                   {currentQ.audioText && (
                     <button
@@ -497,13 +497,13 @@ export default function EpsExamPage() {
                   className="flex items-center gap-2 px-4 py-3 rounded-xl border border-app-border text-white/50 text-sm hover:bg-app-card/50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer whitespace-nowrap"
                 >
                   <i className="ri-arrow-left-line"></i>
-                  <span className="hidden sm:inline">Câu trước</span>
+                  <span className="hidden sm:inline">C�u tru?c</span>
                 </button>
                 <div className="flex-1 text-center text-app-text-muted text-xs">
                   {answers[currentQ.id] !== undefined ? (
-                    <span className="text-app-accent-primary/60">Đã trả lời</span>
+                    <span className="text-app-accent-primary/60">�� tr? l?i</span>
                   ) : (
-                    <span>Chưa trả lời</span>
+                    <span>Chua tr? l?i</span>
                   )}
                 </div>
                 <button
@@ -511,17 +511,17 @@ export default function EpsExamPage() {
                   disabled={currentIdx === examQuestions.length - 1}
                   className="flex items-center gap-2 px-4 py-3 rounded-xl bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-sm disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer whitespace-nowrap"
                 >
-                  <span className="hidden sm:inline">Câu tiếp</span>
+                  <span className="hidden sm:inline">C�u ti?p</span>
                   <i className="ri-arrow-right-line"></i>
                 </button>
               </div>
 
-              {/* Mobile question grid (collapsible) — triggered from sticky bar too */}
+              {/* Mobile question grid (collapsible) � triggered from sticky bar too */}
               <div className="md:hidden">
                 {showReview && (
                   <div className="bg-app-bg border border-app-border rounded-2xl p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <p className="text-white/50 text-xs font-medium">Danh sách câu hỏi</p>
+                      <p className="text-white/50 text-xs font-medium">Danh s�ch c�u h?i</p>
                       <button onClick={() => setShowReview(false)} className="w-6 h-6 flex items-center justify-center rounded-md bg-app-card/50 text-app-text-secondary cursor-pointer">
                         <i className="ri-close-line text-xs"></i>
                       </button>
@@ -549,14 +549,14 @@ export default function EpsExamPage() {
                     </div>
                     <div className="flex items-center gap-4 pt-2 border-t border-app-border">
                       <div className="flex items-center gap-1.5 text-[10px] text-app-text-muted">
-                        <div className="w-3 h-3 rounded bg-emerald-500/20"></div>{answeredCount} đã trả lời
+                        <div className="w-3 h-3 rounded bg-emerald-500/20"></div>{answeredCount} d� tr? l?i
                       </div>
                       <div className="flex items-center gap-1.5 text-[10px] text-app-text-muted">
-                        <div className="w-3 h-3 rounded bg-app-card/50"></div>{examQuestions.length - answeredCount} chưa trả lời
+                        <div className="w-3 h-3 rounded bg-app-card/50"></div>{examQuestions.length - answeredCount} chua tr? l?i
                       </div>
                       {flagged.size > 0 && (
                         <div className="flex items-center gap-1.5 text-[10px] text-app-text-muted">
-                          <div className="w-3 h-3 rounded bg-[#fb923c]/20"></div>{flagged.size} đánh dấu
+                          <div className="w-3 h-3 rounded bg-[#fb923c]/20"></div>{flagged.size} d�nh d?u
                         </div>
                       )}
                     </div>
@@ -568,7 +568,7 @@ export default function EpsExamPage() {
             {/* Desktop sidebar panel */}
             <div className="hidden md:block space-y-4">
               <div className="bg-app-bg border border-app-border rounded-2xl p-4">
-                <p className="text-app-text-secondary text-xs font-medium mb-3">Danh sách câu hỏi</p>
+                <p className="text-app-text-secondary text-xs font-medium mb-3">Danh s�ch c�u h?i</p>
                 <div className="grid grid-cols-5 gap-1.5">
                   {examQuestions.map((q, i) => {
                     const isAnswered = answers[q.id] !== undefined;
@@ -592,18 +592,18 @@ export default function EpsExamPage() {
                 </div>
                 <div className="mt-3 pt-3 border-t border-app-border space-y-1.5">
                   <div className="flex items-center gap-2 text-[10px] text-app-text-muted">
-                    <div className="w-3 h-3 rounded bg-emerald-500/20"></div>Đã trả lời ({answeredCount})
+                    <div className="w-3 h-3 rounded bg-emerald-500/20"></div>�� tr? l?i ({answeredCount})
                   </div>
                   <div className="flex items-center gap-2 text-[10px] text-app-text-muted">
-                    <div className="w-3 h-3 rounded bg-app-card/50"></div>Chưa trả lời ({examQuestions.length - answeredCount})
+                    <div className="w-3 h-3 rounded bg-app-card/50"></div>Chua tr? l?i ({examQuestions.length - answeredCount})
                   </div>
                   <div className="flex items-center gap-2 text-[10px] text-app-text-muted">
-                    <div className="w-3 h-3 rounded bg-[#fb923c]/30 relative"><span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-[#fb923c]"></span></div>Đánh dấu ({flagged.size})
+                    <div className="w-3 h-3 rounded bg-[#fb923c]/30 relative"><span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-[#fb923c]"></span></div>��nh d?u ({flagged.size})
                   </div>
                 </div>
               </div>
               <div className="bg-app-bg border border-app-border rounded-2xl p-4 text-center">
-                <p className="text-app-text-muted text-xs mb-1">Thời gian còn lại</p>
+                <p className="text-app-text-muted text-xs mb-1">Th?i gian c�n l?i</p>
                 <p className="font-mono font-bold text-3xl" style={{ color: timeColor }}>{timeStr}</p>
                 <div className="mt-2 h-1 bg-app-card/50 rounded-full overflow-hidden">
                   <div className="h-full rounded-full transition-all" style={{ width: `${(timeLeft / EXAM_DURATION) * 100}%`, backgroundColor: timeColor }} />
@@ -616,30 +616,30 @@ export default function EpsExamPage() {
     );
   }
 
-  // ── RESULT ─────────────────────────────────────────────────────────────────
+  // -- RESULT -----------------------------------------------------------------
   if (mode === "result" && resultStats) {
     const { correct, pct, byTopic } = resultStats;
-    const grade = pct >= 80 ? { label: "Đậu!", color: "#34d399", icon: "ri-trophy-line", desc: "Xuất sắc! Bạn đã vượt ngưỡng điểm đậu EPS-TOPIK." }
-      : pct >= 60 ? { label: "Gần đậu", color: "app-accent-primary", icon: "ri-medal-line", desc: "Khá tốt! Cần ôn thêm một chút để đạt điểm đậu." }
-      : { label: "Cần ôn thêm", color: "#f87171", icon: "ri-refresh-line", desc: "Hãy ôn luyện thêm các chủ đề yếu và thử lại." };
+    const grade = pct >= 80 ? { label: "�?u!", color: "#34d399", icon: "ri-trophy-line", desc: "Xu?t s?c! B?n d� vu?t ngu?ng di?m d?u EPS-TOPIK." }
+      : pct >= 60 ? { label: "G?n d?u", color: "app-accent-primary", icon: "ri-medal-line", desc: "Kh� t?t! C?n �n th�m m?t ch�t d? d?t di?m d?u." }
+      : { label: "C?n �n th�m", color: "#f87171", icon: "ri-refresh-line", desc: "H�y �n luy?n th�m c�c ch? d? y?u v� th? l?i." };
 
     const lastResult = examResults[examResults.length - 1];
     const timeUsed = lastResult?.timeUsed ?? 0;
     const flaggedTooFast = isExamTooFast(timeUsed, examQuestions.length);
 
     return (
-      <DashboardLayout title="Kết quả thi thử EPS-TOPIK" subtitle="Phân tích chi tiết kết quả bài thi">
+      <DashboardLayout title="K?t qu? thi th? EPS-TOPIK" subtitle="Ph�n t�ch chi ti?t k?t qu? b�i thi">
         <div className="max-w-3xl mx-auto space-y-5">
           {/* Anti-cheat warning */}
           {flaggedTooFast && (
             <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 flex items-start gap-3">
               <i className="ri-error-warning-line text-amber-400 text-xl flex-shrink-0 mt-0.5"></i>
               <div>
-                <p className="text-amber-300 text-sm font-semibold mb-1">Bài thi không hợp lệ</p>
+                <p className="text-amber-300 text-sm font-semibold mb-1">B�i thi kh�ng h?p l?</p>
                 <p className="text-amber-200/70 text-xs leading-relaxed">
-                  Thời gian làm bài quá ngắn (dưới {MIN_EPS_EXAM_TIME_SEC}s cho {examQuestions.length} câu).
-                  Kết quả vẫn được lưu để bạn xem lại, nhưng <strong>không được cộng XP</strong> và
-                  <strong> không đưa lên bảng xếp hạng</strong>. Hãy làm bài nghiêm túc để có kết quả chính xác.
+                  Th?i gian l�m b�i qu� ng?n (du?i {MIN_EPS_EXAM_TIME_SEC}s cho {examQuestions.length} c�u).
+                  K?t qu? v?n du?c luu d? b?n xem l?i, nhung <strong>kh�ng du?c c?ng XP</strong> v�
+                  <strong> kh�ng dua l�n b?ng x?p h?ng</strong>. H�y l�m b�i nghi�m t�c d? c� k?t qu? ch�nh x�c.
                 </p>
               </div>
             </div>
@@ -656,17 +656,17 @@ export default function EpsExamPage() {
             <div className="flex items-center justify-center gap-8 mb-5">
               <div>
                 <p className="font-bold text-4xl" style={{ color: grade.color }}>{pct}%</p>
-                <p className="text-app-text-muted text-xs mt-1">Tỷ lệ đúng</p>
+                <p className="text-app-text-muted text-xs mt-1">T? l? d�ng</p>
               </div>
               <div className="w-px h-12 bg-app-card/70"></div>
               <div>
                 <p className="text-white font-bold text-4xl">{correct}<span className="text-app-text-muted text-xl">/{examQuestions.length}</span></p>
-                <p className="text-app-text-muted text-xs mt-1">Câu đúng</p>
+                <p className="text-app-text-muted text-xs mt-1">C�u d�ng</p>
               </div>
               <div className="w-px h-12 bg-app-card/70"></div>
               <div>
                 <p className="text-white font-bold text-2xl">{Math.floor(timeUsed / 60)}:{String(timeUsed % 60).padStart(2, "0")}</p>
-                <p className="text-app-text-muted text-xs mt-1">Thời gian làm</p>
+                <p className="text-app-text-muted text-xs mt-1">Th?i gian l�m</p>
               </div>
             </div>
 
@@ -675,14 +675,14 @@ export default function EpsExamPage() {
             </div>
             <div className="flex items-center justify-between text-[10px] text-app-text-muted">
               <span>0%</span>
-              <span className="text-app-accent-primary">Ngưỡng đậu: 80%</span>
+              <span className="text-app-accent-primary">Ngu?ng d?u: 80%</span>
               <span>100%</span>
             </div>
           </div>
 
           {/* By topic */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Kết quả theo chủ đề</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">K?t qu? theo ch? d?</h3>
             <div className="grid grid-cols-2 gap-3">
               {Object.entries(byTopic).map(([topicId, data]) => {
                 const topicPct = data.total > 0 ? Math.round((data.correct / data.total) * 100) : 0;
@@ -696,7 +696,7 @@ export default function EpsExamPage() {
                     <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden mb-1">
                       <div className="h-full rounded-full" style={{ width: `${topicPct}%`, backgroundColor: color }} />
                     </div>
-                    <p className="text-app-text-muted text-[10px]">{data.correct}/{data.total} câu đúng</p>
+                    <p className="text-app-text-muted text-[10px]">{data.correct}/{data.total} c�u d�ng</p>
                   </div>
                 );
               })}
@@ -706,21 +706,21 @@ export default function EpsExamPage() {
           {/* Review wrong answers */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <h3 className="text-white font-semibold text-sm mb-4">
-              Câu trả lời sai ({examQuestions.filter(q => answers[q.id] !== undefined && answers[q.id] !== q.correctIndex).length} câu)
+              C�u tr? l?i sai ({examQuestions.filter(q => answers[q.id] !== undefined && answers[q.id] !== q.correctIndex).length} c�u)
             </h3>
             <div className="space-y-3 max-h-80 overflow-y-auto pr-1" style={{ contentVisibility: "auto", containIntrinsicSize: "0 320px" }}>
               {examQuestions.filter(q => answers[q.id] !== undefined && answers[q.id] !== q.correctIndex).map((q, i) => (
                 <div key={q.id} className="bg-red-500/5 border border-red-500/15 rounded-xl p-4">
                   <p className="text-white/70 text-xs font-medium mb-1">{i + 1}. {q.questionVi}</p>
                   <div className="flex items-center gap-2 text-[10px] mt-2">
-                    <span className="text-red-400/70">Bạn chọn: {q.optionsVi[answers[q.id]]}</span>
-                    <span className="text-app-text-muted">·</span>
-                    <span className="text-app-accent-success/70">Đáp án: {q.optionsVi[q.correctIndex]}</span>
+                    <span className="text-red-400/70">B?n ch?n: {q.optionsVi[answers[q.id]]}</span>
+                    <span className="text-app-text-muted">�</span>
+                    <span className="text-app-accent-success/70">��p �n: {q.optionsVi[q.correctIndex]}</span>
                   </div>
                 </div>
               ))}
               {examQuestions.filter(q => answers[q.id] !== undefined && answers[q.id] !== q.correctIndex).length === 0 && (
-                <p className="text-app-text-muted text-sm text-center py-4">Không có câu sai nào!</p>
+                <p className="text-app-text-muted text-sm text-center py-4">Kh�ng c� c�u sai n�o!</p>
               )}
             </div>
           </div>
@@ -729,7 +729,7 @@ export default function EpsExamPage() {
           {user && (
             <div className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-xs ${syncing ? "bg-app-accent-primary/5 border-app-accent-primary/15 text-app-accent-primary/70" : "bg-emerald-500/5 border-emerald-500/15 text-app-accent-success/70"}`}>
               <i className={`${syncing ? "ri-loader-4-line animate-spin" : "ri-cloud-line"} text-sm`}></i>
-              {syncing ? "Đang đồng bộ kết quả lên cloud..." : "Kết quả đã được lưu lên cloud và cập nhật bảng xếp hạng!"}
+              {syncing ? "�ang d?ng b? k?t qu? l�n cloud..." : "K?t qu? d� du?c luu l�n cloud v� c?p nh?t b?ng x?p h?ng!"}
             </div>
           )}
 
@@ -743,21 +743,21 @@ export default function EpsExamPage() {
               className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-app-border text-white/60 text-sm hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-user-line"></i>
-              Xem hồ sơ
+              Xem h? so
             </button>
             <button
               onClick={() => navigate("/progress")}
               className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-app-border text-white/60 text-sm hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-radar-line"></i>
-              So sánh tiến độ
+              So s�nh ti?n d?
             </button>
             <button
               onClick={startExam}
               className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-refresh-line"></i>
-              Thi lại
+              Thi l?i
             </button>
           </div>
         </div>

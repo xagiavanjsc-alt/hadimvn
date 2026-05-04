@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -18,21 +18,21 @@ interface ReminderLog {
 }
 
 const DAY_LABELS = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
-const DAY_FULL = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
+const DAY_FULL = ["Ch? nh?t", "Th? hai", "Th? ba", "Th? tu", "Th? nam", "Th? s�u", "Th? b?y"];
 
 const PRESET_MESSAGES = [
-  "⏰ Đến giờ học tiếng Hàn rồi! Hãy duy trì streak của bạn nhé!",
-  "🔥 Streak đang chờ bạn! Học 10 phút hôm nay để không mất streak!",
-  "📚 Bạn có 10 từ vựng mới cần học hôm nay. Bắt đầu thôi!",
-  "🏆 Thử thách tuần này chưa hoàn thành. Vào học ngay nào!",
-  "✨ Chỉ cần 15 phút mỗi ngày để thành thạo tiếng Hàn!",
+  "? �?n gi? h?c ti?ng H�n r?i! H�y duy tr� streak c?a b?n nh�!",
+  "?? Streak dang ch? b?n! H?c 10 ph�t h�m nay d? kh�ng m?t streak!",
+  "?? B?n c� 10 t? v?ng m?i c?n h?c h�m nay. B?t d?u th�i!",
+  "?? Th? th�ch tu?n n�y chua ho�n th�nh. V�o h?c ngay n�o!",
+  "? Ch? c?n 15 ph�t m?i ng�y d? th�nh th?o ti?ng H�n!",
 ];
 
 const REMINDER_TYPES = [
-  { id: "study", label: "Học tập chung", icon: "ri-book-open-line", color: "app-accent-primary", desc: "Nhắc nhở học bài hàng ngày" },
-  { id: "streak", label: "Duy trì Streak", icon: "ri-fire-line", color: "#fb923c", desc: "Nhắc trước khi mất streak" },
-  { id: "challenge", label: "Thử thách tuần", icon: "ri-trophy-line", color: "#34d399", desc: "Nhắc hoàn thành thử thách" },
-  { id: "custom", label: "Tùy chỉnh", icon: "ri-settings-3-line", color: "#a78bfa", desc: "Tự đặt nội dung nhắc nhở" },
+  { id: "study", label: "H?c t?p chung", icon: "ri-book-open-line", color: "app-accent-primary", desc: "Nh?c nh? h?c b�i h�ng ng�y" },
+  { id: "streak", label: "Duy tr� Streak", icon: "ri-fire-line", color: "#fb923c", desc: "Nh?c tru?c khi m?t streak" },
+  { id: "challenge", label: "Th? th�ch tu?n", icon: "ri-trophy-line", color: "#34d399", desc: "Nh?c ho�n th�nh th? th�ch" },
+  { id: "custom", label: "T�y ch?nh", icon: "ri-settings-3-line", color: "#a78bfa", desc: "T? d?t n?i dung nh?c nh?" },
 ];
 
 const DEFAULT_REMINDERS: ReminderConfig[] = [
@@ -48,7 +48,7 @@ function requestNotificationPermission(): Promise<string> {
 
 function sendTestNotification(message: string) {
   if (Notification.permission !== "granted") return;
-  new Notification("Hàn Quốc Ơi! 🇰🇷", {
+  new Notification("H�n Qu?c Oi! ????", {
     body: message,
     icon: "https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png",
     badge: "https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png",
@@ -143,7 +143,7 @@ function ReminderCard({
           <button
             onClick={() => onTest(reminder.message)}
             className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-white/70 cursor-pointer transition-colors"
-            title="Gửi thử"
+            title="G?i th?"
           >
             <i className="ri-send-plane-line text-xs"></i>
           </button>
@@ -169,7 +169,7 @@ function ReminderCard({
         <div className="px-5 pb-5 border-t border-app-border pt-4 space-y-4">
           {/* Time */}
           <div>
-            <label className="text-app-text-secondary text-xs mb-2 block">Giờ nhắc nhở</label>
+            <label className="text-app-text-secondary text-xs mb-2 block">Gi? nh?c nh?</label>
             <input
               type="time"
               value={reminder.time}
@@ -180,7 +180,7 @@ function ReminderCard({
 
           {/* Days */}
           <div>
-            <label className="text-app-text-secondary text-xs mb-2 block">Ngày trong tuần</label>
+            <label className="text-app-text-secondary text-xs mb-2 block">Ng�y trong tu?n</label>
             <div className="flex gap-2">
               {DAY_LABELS.map((d, i) => (
                 <button
@@ -197,7 +197,7 @@ function ReminderCard({
 
           {/* Message */}
           <div>
-            <label className="text-app-text-secondary text-xs mb-2 block">Nội dung thông báo</label>
+            <label className="text-app-text-secondary text-xs mb-2 block">N?i dung th�ng b�o</label>
             <textarea
               value={reminder.message}
               onChange={e => onChange(index, { ...reminder, message: e.target.value })}
@@ -212,7 +212,7 @@ function ReminderCard({
                   onClick={() => onChange(index, { ...reminder, message: msg })}
                   className="text-[10px] px-2 py-1 rounded-lg bg-app-card/50 text-app-text-muted hover:text-white/60 cursor-pointer whitespace-nowrap transition-colors border border-app-border"
                 >
-                  Mẫu {i + 1}
+                  M?u {i + 1}
                 </button>
               ))}
             </div>
@@ -220,7 +220,7 @@ function ReminderCard({
 
           {/* Type */}
           <div>
-            <label className="text-app-text-secondary text-xs mb-2 block">Loại nhắc nhở</label>
+            <label className="text-app-text-secondary text-xs mb-2 block">Lo?i nh?c nh?</label>
             <div className="grid grid-cols-2 gap-2">
               {REMINDER_TYPES.map(t => (
                 <button
@@ -241,7 +241,7 @@ function ReminderCard({
             onClick={() => onDelete(index)}
             className="flex items-center gap-2 text-app-accent-error/60 hover:text-red-400 text-xs cursor-pointer whitespace-nowrap transition-colors"
           >
-            <i className="ri-delete-bin-line"></i>Xóa nhắc nhở này
+            <i className="ri-delete-bin-line"></i>X�a nh?c nh? n�y
           </button>
         </div>
       )}
@@ -264,7 +264,7 @@ export default function StudyReminderPage() {
     if (info) {
       const h = Math.floor(info.ms / 3600000);
       const m = Math.floor((info.ms % 3600000) / 60000);
-      const label = h > 0 ? `${h} giờ ${m} phút nữa` : `${m} phút nữa`;
+      const label = h > 0 ? `${h} gi? ${m} ph�t n?a` : `${m} ph�t n?a`;
       setNextReminder({ ...info, label });
 
       // Auto-fire notification when time comes (only if tab is open)
@@ -317,8 +317,8 @@ export default function StudyReminderPage() {
 
   return (
     <DashboardLayout
-      title="Nhắc nhở học tập"
-      subtitle="Cài đặt thông báo trình duyệt để không bỏ lỡ buổi học nào"
+      title="Nh?c nh? h?c t?p"
+      subtitle="C�i d?t th�ng b�o tr�nh duy?t d? kh�ng b? l? bu?i h?c n�o"
     >
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         {/* Left */}
@@ -330,11 +330,11 @@ export default function StudyReminderPage() {
                 <i className="ri-notification-3-line text-app-accent-primary text-2xl"></i>
               </div>
               <div className="flex-1">
-                <p className="text-white font-semibold text-sm mb-0.5">Cho phép thông báo trình duyệt</p>
+                <p className="text-white font-semibold text-sm mb-0.5">Cho ph�p th�ng b�o tr�nh duy?t</p>
                 <p className="text-app-text-secondary text-xs">
                   {permission === "denied"
-                    ? "Thông báo bị chặn. Vào cài đặt trình duyệt → Site Settings → Notifications để bật lại."
-                    : "Cần cấp quyền để nhận nhắc nhở học tập hàng ngày."}
+                    ? "Th�ng b�o b? ch?n. V�o c�i d?t tr�nh duy?t ? Site Settings ? Notifications d? b?t l?i."
+                    : "C?n c?p quy?n d? nh?n nh?c nh? h?c t?p h�ng ng�y."}
                 </p>
               </div>
               {permission !== "denied" && (
@@ -342,7 +342,7 @@ export default function StudyReminderPage() {
                   onClick={handleRequestPermission}
                   className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-4 py-2.5 rounded-xl cursor-pointer whitespace-nowrap transition-colors"
                 >
-                  <i className="ri-notification-3-line"></i>Cho phép
+                  <i className="ri-notification-3-line"></i>Cho ph�p
                 </button>
               )}
             </div>
@@ -352,15 +352,15 @@ export default function StudyReminderPage() {
             <div className="p-4 bg-emerald-500/8 border border-emerald-500/20 rounded-xl">
               <div className="flex items-center gap-3 mb-2">
                 <i className="ri-checkbox-circle-fill text-app-accent-success text-lg"></i>
-                <p className="text-app-accent-success text-sm font-medium">Thông báo trình duyệt đã được bật!</p>
-                {testSent && <span className="ml-auto text-app-accent-success/70 text-xs">Đã gửi thử ✓</span>}
+                <p className="text-app-accent-success text-sm font-medium">Th�ng b�o tr�nh duy?t d� du?c b?t!</p>
+                {testSent && <span className="ml-auto text-app-accent-success/70 text-xs">�� g?i th? ?</span>}
               </div>
               {nextReminder && (
                 <div className="flex items-center gap-2 mt-1 pl-7">
                   <i className="ri-time-line text-app-accent-success/50 text-xs"></i>
                   <p className="text-app-accent-success/60 text-xs">
-                    Thông báo tiếp theo: <span className="font-semibold">{nextReminder.label}</span>
-                    {" "}(tab phải mở)
+                    Th�ng b�o ti?p theo: <span className="font-semibold">{nextReminder.label}</span>
+                    {" "}(tab ph?i m?)
                   </p>
                 </div>
               )}
@@ -386,7 +386,7 @@ export default function StudyReminderPage() {
             onClick={handleAdd}
             className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl border border-dashed border-white/15 text-app-text-secondary hover:text-white/60 hover:border-white/25 text-sm cursor-pointer whitespace-nowrap transition-all"
           >
-            <i className="ri-add-line text-lg"></i>Thêm nhắc nhở mới
+            <i className="ri-add-line text-lg"></i>Th�m nh?c nh? m?i
           </button>
         </div>
 
@@ -394,13 +394,13 @@ export default function StudyReminderPage() {
         <div className="space-y-4">
           {/* Status */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Trạng thái</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">Tr?ng th�i</h3>
             <div className="space-y-3">
               {[
-                { label: "Tổng nhắc nhở", value: reminders.length, color: "app-accent-primary" },
-                { label: "Đang bật", value: enabledCount, color: "#34d399" },
-                { label: "Đang tắt", value: reminders.length - enabledCount, color: "#f87171" },
-                { label: "Quyền thông báo", value: permission === "granted" ? "Đã bật" : "Chưa bật", color: permission === "granted" ? "#34d399" : "#fb923c" },
+                { label: "T?ng nh?c nh?", value: reminders.length, color: "app-accent-primary" },
+                { label: "�ang b?t", value: enabledCount, color: "#34d399" },
+                { label: "�ang t?t", value: reminders.length - enabledCount, color: "#f87171" },
+                { label: "Quy?n th�ng b�o", value: permission === "granted" ? "�� b?t" : "Chua b?t", color: permission === "granted" ? "#34d399" : "#fb923c" },
               ].map(s => (
                 <div key={s.label} className="flex items-center justify-between">
                   <span className="text-app-text-secondary text-xs">{s.label}</span>
@@ -412,7 +412,7 @@ export default function StudyReminderPage() {
 
           {/* Schedule preview */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Lịch nhắc nhở tuần này</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">L?ch nh?c nh? tu?n n�y</h3>
             <div className="space-y-2">
               {DAY_FULL.map((day, dayIdx) => {
                 const dayReminders = reminders.filter(r => r.enabled && r.days.includes(dayIdx));
@@ -422,7 +422,7 @@ export default function StudyReminderPage() {
                     <span className={`text-xs w-16 ${isToday ? "text-app-accent-primary font-bold" : "text-app-text-muted"}`}>{day}</span>
                     <div className="flex-1 flex gap-1.5 flex-wrap">
                       {dayReminders.length === 0 ? (
-                        <span className="text-white/15 text-[10px]">Không có</span>
+                        <span className="text-white/15 text-[10px]">Kh�ng c�</span>
                       ) : (
                         dayReminders.map((r, i) => {
                           const typeInfo = REMINDER_TYPES.find(t => t.id === r.type) || REMINDER_TYPES[0];
@@ -444,13 +444,13 @@ export default function StudyReminderPage() {
           <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
               <i className="ri-lightbulb-line text-app-accent-primary text-sm"></i>
-              <h3 className="text-white font-semibold text-sm">Mẹo đặt nhắc nhở</h3>
+              <h3 className="text-white font-semibold text-sm">M?o d?t nh?c nh?</h3>
             </div>
             <div className="space-y-2 text-app-text-secondary text-xs leading-relaxed">
-              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Đặt nhắc nhở buổi sáng (7–9h) hiệu quả nhất</p>
-              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nhắc nhở tối (20–22h) để ôn lại trước khi ngủ</p>
-              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Bật nhắc nhở Streak để không bao giờ mất chuỗi</p>
-              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Dùng nút "Gửi thử" để kiểm tra thông báo</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>�?t nh?c nh? bu?i s�ng (7�9h) hi?u qu? nh?t</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Nh?c nh? t?i (20�22h) d? �n l?i tru?c khi ng?</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>B?t nh?c nh? Streak d? kh�ng bao gi? m?t chu?i</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>D�ng n�t "G?i th?" d? ki?m tra th�ng b�o</p>
             </div>
           </div>
         </div>

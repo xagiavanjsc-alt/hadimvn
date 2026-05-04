@@ -1,11 +1,11 @@
-﻿import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAudioCache } from "@/hooks/useAudioCache";
 import { epsVocabulary, EPS_VOCAB_TOPICS, type EpsVocabItem } from "@/mocks/epsVocabulary";
 import { epsQuestions, EPS_TOPICS, type EpsQuestion } from "@/mocks/epsQuestions";
 
-// ─── SM-2 Algorithm ───────────────────────────────────────────────────────
+// --- SM-2 Algorithm -------------------------------------------------------
 interface SRCard {
   id: string;
   repetitions: number;
@@ -55,13 +55,13 @@ function getDefaultCard(id: string): SRCard {
 }
 
 const QUALITY_LABELS = [
-  { q: 0 as const, label: "Không nhớ", color: "#f87171", bg: "bg-red-500/10 border-red-500/20 hover:bg-red-500/20", icon: "ri-close-circle-line" },
-  { q: 2 as const, label: "Khó", color: "#fb923c", bg: "bg-orange-500/10 border-orange-500/20 hover:bg-orange-500/20", icon: "ri-emotion-sad-line" },
-  { q: 3 as const, label: "Được", color: "app-accent-primary", bg: "bg-app-accent-primary/10 border-app-accent-primary/20 hover:bg-app-accent-primary/20", icon: "ri-emotion-normal-line" },
-  { q: 5 as const, label: "Dễ", color: "#34d399", bg: "bg-emerald-500/10 border-emerald-500/20 hover:bg-emerald-500/20", icon: "ri-emotion-happy-line" },
+  { q: 0 as const, label: "Kh�ng nh?", color: "#f87171", bg: "bg-red-500/10 border-red-500/20 hover:bg-red-500/20", icon: "ri-close-circle-line" },
+  { q: 2 as const, label: "Kh�", color: "#fb923c", bg: "bg-orange-500/10 border-orange-500/20 hover:bg-orange-500/20", icon: "ri-emotion-sad-line" },
+  { q: 3 as const, label: "�u?c", color: "app-accent-primary", bg: "bg-app-accent-primary/10 border-app-accent-primary/20 hover:bg-app-accent-primary/20", icon: "ri-emotion-normal-line" },
+  { q: 5 as const, label: "D?", color: "#34d399", bg: "bg-emerald-500/10 border-emerald-500/20 hover:bg-emerald-500/20", icon: "ri-emotion-happy-line" },
 ];
 
-// ─── Stats Panel ──────────────────────────────────────────────────────────
+// --- Stats Panel ----------------------------------------------------------
 function StatsPanel({ cards, srData }: { cards: EpsVocabItem[]; srData: Record<string, SRCard> }) {
   const today = new Date().toISOString().split("T")[0];
   const dueToday = cards.filter(c => { const sr = srData[c.id]; return !sr || sr.nextReview <= today; }).length;
@@ -70,10 +70,10 @@ function StatsPanel({ cards, srData }: { cards: EpsVocabItem[]; srData: Record<s
   return (
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
       {[
-        { label: "Cần ôn hôm nay", value: dueToday, color: dueToday > 0 ? "#f87171" : "#34d399", icon: "ri-time-line" },
-        { label: "Đã học", value: learned, color: "app-accent-primary", icon: "ri-book-open-line" },
-        { label: "Thuộc lòng", value: mastered, color: "#a78bfa", icon: "ri-brain-line" },
-        { label: "Tổng từ", value: cards.length, color: "#fb923c", icon: "ri-file-list-3-line" },
+        { label: "C?n �n h�m nay", value: dueToday, color: dueToday > 0 ? "#f87171" : "#34d399", icon: "ri-time-line" },
+        { label: "�� h?c", value: learned, color: "app-accent-primary", icon: "ri-book-open-line" },
+        { label: "Thu?c l�ng", value: mastered, color: "#a78bfa", icon: "ri-brain-line" },
+        { label: "T?ng t?", value: cards.length, color: "#fb923c", icon: "ri-file-list-3-line" },
       ].map(s => (
         <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
           <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -89,7 +89,7 @@ function StatsPanel({ cards, srData }: { cards: EpsVocabItem[]; srData: Record<s
   );
 }
 
-// ─── Wrong Questions Stats Panel ─────────────────────────────────────────
+// --- Wrong Questions Stats Panel -----------------------------------------
 function WrongQStatsPanel({ srQData, totalWrong }: { srQData: Record<string, SRQuestionCard>; totalWrong: number }) {
   const today = new Date().toISOString().split("T")[0];
   const dueToday = Object.values(srQData).filter(c => c.nextReview <= today).length;
@@ -98,10 +98,10 @@ function WrongQStatsPanel({ srQData, totalWrong }: { srQData: Record<string, SRQ
   return (
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
       {[
-        { label: "Câu sai đã thêm", value: totalWrong, color: "#f87171", icon: "ri-error-warning-line" },
-        { label: "Trong hàng đợi SR", value: inQueue, color: "#fb923c", icon: "ri-time-line" },
-        { label: "Cần ôn hôm nay", value: dueToday, color: dueToday > 0 ? "#f87171" : "#34d399", icon: "ri-calendar-check-line" },
-        { label: "Đã nắm vững", value: mastered, color: "#a78bfa", icon: "ri-brain-line" },
+        { label: "C�u sai d� th�m", value: totalWrong, color: "#f87171", icon: "ri-error-warning-line" },
+        { label: "Trong h�ng d?i SR", value: inQueue, color: "#fb923c", icon: "ri-time-line" },
+        { label: "C?n �n h�m nay", value: dueToday, color: dueToday > 0 ? "#f87171" : "#34d399", icon: "ri-calendar-check-line" },
+        { label: "�� n?m v?ng", value: mastered, color: "#a78bfa", icon: "ri-brain-line" },
       ].map(s => (
         <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
           <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -117,7 +117,7 @@ function WrongQStatsPanel({ srQData, totalWrong }: { srQData: Record<string, SRQ
   );
 }
 
-// ─── Review Card (Vocab) ──────────────────────────────────────────────────
+// --- Review Card (Vocab) --------------------------------------------------
 function ReviewCard({ item, srCard, onRate, sessionIdx, sessionTotal }: {
   item: EpsVocabItem; srCard: SRCard; onRate: (q: 0 | 1 | 2 | 3 | 4 | 5) => void; sessionIdx: number; sessionTotal: number;
 }) {
@@ -130,11 +130,11 @@ function ReviewCard({ item, srCard, onRate, sessionIdx, sessionTotal }: {
 
   const nextReviewText = () => {
     const days = srCard.interval;
-    if (days === 0) return "Hôm nay";
-    if (days === 1) return "Ngày mai";
-    if (days < 7) return `${days} ngày nữa`;
-    if (days < 30) return `${Math.round(days / 7)} tuần nữa`;
-    return `${Math.round(days / 30)} tháng nữa`;
+    if (days === 0) return "H�m nay";
+    if (days === 1) return "Ng�y mai";
+    if (days < 7) return `${days} ng�y n?a`;
+    if (days < 30) return `${Math.round(days / 7)} tu?n n?a`;
+    return `${Math.round(days / 30)} th�ng n?a`;
   };
 
   return (
@@ -149,18 +149,18 @@ function ReviewCard({ item, srCard, onRate, sessionIdx, sessionTotal }: {
         <div className="p-8 text-center border-b border-app-border">
           <div className="flex items-center justify-center gap-2 mb-4">
             {topic && <span className="text-[10px] px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: `${topic.color}15`, color: topic.color }}>{topic.label}</span>}
-            {srCard.repetitions > 0 && <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-card/50 text-app-text-muted">Lần {srCard.totalReviews + 1} · {nextReviewText()}</span>}
+            {srCard.repetitions > 0 && <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-card/50 text-app-text-muted">L?n {srCard.totalReviews + 1} � {nextReviewText()}</span>}
           </div>
           <p className="text-5xl font-bold text-white mb-3">{item.korean}</p>
           <p className="text-app-text-muted text-sm font-mono">[{item.reading}]</p>
           <button onClick={() => playKorean(item.korean)} className="mt-4 flex items-center gap-2 mx-auto px-4 py-2 rounded-xl bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-white/70 text-sm transition-colors cursor-pointer whitespace-nowrap">
-            <i className="ri-volume-up-line"></i>Nghe phát âm
+            <i className="ri-volume-up-line"></i>Nghe ph�t �m
           </button>
         </div>
         {!revealed ? (
           <div className="p-6 text-center">
-            <button onClick={() => setRevealed(true)} className="px-8 py-3 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm rounded-xl transition-colors cursor-pointer whitespace-nowrap">Xem nghĩa</button>
-            <p className="text-app-text-muted text-xs mt-3">Thử nhớ nghĩa trước khi xem đáp án</p>
+            <button onClick={() => setRevealed(true)} className="px-8 py-3 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm rounded-xl transition-colors cursor-pointer whitespace-nowrap">Xem nghia</button>
+            <p className="text-app-text-muted text-xs mt-3">Th? nh? nghia tru?c khi xem d�p �n</p>
           </div>
         ) : (
           <div className="p-6">
@@ -173,7 +173,7 @@ function ReviewCard({ item, srCard, onRate, sessionIdx, sessionTotal }: {
                 </div>
               )}
             </div>
-            <p className="text-app-text-muted text-xs text-center mb-3">Bạn nhớ từ này ở mức nào?</p>
+            <p className="text-app-text-muted text-xs text-center mb-3">B?n nh? t? n�y ? m?c n�o?</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {QUALITY_LABELS.map(({ q, label, bg, icon }) => (
                 <button key={q} onClick={() => onRate(q)} className={`flex flex-col items-center gap-1.5 py-3 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${bg}`}>
@@ -186,7 +186,7 @@ function ReviewCard({ item, srCard, onRate, sessionIdx, sessionTotal }: {
       </div>
       {srCard.repetitions > 0 && (
         <div className="flex items-center justify-center gap-4 text-[10px] text-app-text-muted">
-          <span><i className="ri-repeat-line mr-1"></i>{srCard.repetitions} lần ôn</span>
+          <span><i className="ri-repeat-line mr-1"></i>{srCard.repetitions} l?n �n</span>
           <span><i className="ri-fire-line mr-1"></i>{srCard.correctStreak} streak</span>
           <span><i className="ri-settings-3-line mr-1"></i>EF: {srCard.easeFactor.toFixed(2)}</span>
         </div>
@@ -195,7 +195,7 @@ function ReviewCard({ item, srCard, onRate, sessionIdx, sessionTotal }: {
   );
 }
 
-// ─── Wrong Question Review Card ───────────────────────────────────────────
+// --- Wrong Question Review Card -------------------------------------------
 function WrongQuestionCard({ question, srCard, onRate, sessionIdx, sessionTotal }: {
   question: EpsQuestion; srCard: SRQuestionCard; onRate: (q: 0 | 1 | 2 | 3 | 4 | 5) => void; sessionIdx: number; sessionTotal: number;
 }) {
@@ -228,9 +228,9 @@ function WrongQuestionCard({ question, srCard, onRate, sessionIdx, sessionTotal 
           <div className="flex items-center gap-2 mb-3">
             {topic && <span className="text-[10px] px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: `${topic.color}15`, color: topic.color }}>{topic.label}</span>}
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-red-500/10 text-red-400 font-bold">
-              <i className="ri-error-warning-line mr-1"></i>Đã sai {srCard.wrongCount} lần
+              <i className="ri-error-warning-line mr-1"></i>�� sai {srCard.wrongCount} l?n
             </span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-card/50 text-app-text-muted">Ôn lần {srCard.totalReviews + 1}</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-card/50 text-app-text-muted">�n l?n {srCard.totalReviews + 1}</span>
           </div>
           <p className="text-white font-semibold text-base leading-relaxed mb-1">{question.question}</p>
           <p className="text-app-text-secondary text-sm italic">{question.questionVi}</p>
@@ -272,11 +272,11 @@ function WrongQuestionCard({ question, srCard, onRate, sessionIdx, sessionTotal 
             <div className={`rounded-xl p-4 mb-4 ${isCorrect ? "bg-emerald-500/8 border border-emerald-500/15" : "bg-red-500/8 border border-red-500/15"}`}>
               <div className="flex items-center gap-2 mb-2">
                 <i className={`${isCorrect ? "ri-checkbox-circle-fill text-app-accent-success" : "ri-close-circle-fill text-red-400"} text-base`}></i>
-                <span className={`text-sm font-bold ${isCorrect ? "text-app-accent-success" : "text-red-400"}`}>{isCorrect ? "Chính xác!" : "Chưa đúng"}</span>
+                <span className={`text-sm font-bold ${isCorrect ? "text-app-accent-success" : "text-red-400"}`}>{isCorrect ? "Ch�nh x�c!" : "Chua d�ng"}</span>
               </div>
               <p className="text-white/55 text-xs leading-relaxed">{question.explanation}</p>
             </div>
-            <p className="text-app-text-muted text-xs text-center mb-3">Bạn nhớ câu này ở mức nào?</p>
+            <p className="text-app-text-muted text-xs text-center mb-3">B?n nh? c�u n�y ? m?c n�o?</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {QUALITY_LABELS.map(({ q, label, bg, icon }) => (
                 <button key={q} onClick={() => onRate(q)} className={`flex flex-col items-center gap-1.5 py-3 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${bg}`}>
@@ -291,7 +291,7 @@ function WrongQuestionCard({ question, srCard, onRate, sessionIdx, sessionTotal 
   );
 }
 
-// ─── Session Complete ─────────────────────────────────────────────────────
+// --- Session Complete -----------------------------------------------------
 function SessionComplete({ results, onRestart, onClose }: {
   results: { correct: number; total: number; newCards: number }; onRestart: () => void; onClose: () => void;
 }) {
@@ -301,25 +301,25 @@ function SessionComplete({ results, onRestart, onClose }: {
       <div className="w-20 h-20 flex items-center justify-center rounded-2xl bg-app-accent-primary/10 mx-auto mb-5">
         <i className="ri-trophy-line text-app-accent-primary text-4xl"></i>
       </div>
-      <h2 className="text-white font-bold text-2xl mb-2">Phiên ôn tập hoàn thành!</h2>
-      <p className="text-app-text-secondary text-sm mb-6">Tuyệt vời! Bạn đã ôn xong {results.total} thẻ hôm nay.</p>
+      <h2 className="text-white font-bold text-2xl mb-2">Phi�n �n t?p ho�n th�nh!</h2>
+      <p className="text-app-text-secondary text-sm mb-6">Tuy?t v?i! B?n d� �n xong {results.total} th? h�m nay.</p>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <div className="bg-app-bg border border-app-border rounded-xl p-4">
           <p className="text-app-accent-success font-bold text-2xl">{results.correct}</p>
-          <p className="text-app-text-secondary text-xs mt-1">Nhớ được</p>
+          <p className="text-app-text-secondary text-xs mt-1">Nh? du?c</p>
         </div>
         <div className="bg-app-bg border border-app-border rounded-xl p-4">
           <p className="text-app-accent-primary font-bold text-2xl">{pct}%</p>
-          <p className="text-app-text-secondary text-xs mt-1">Tỷ lệ đúng</p>
+          <p className="text-app-text-secondary text-xs mt-1">T? l? d�ng</p>
         </div>
         <div className="bg-app-bg border border-app-border rounded-xl p-4">
           <p className="text-[#a78bfa] font-bold text-2xl">{results.newCards}</p>
-          <p className="text-app-text-secondary text-xs mt-1">Thẻ mới</p>
+          <p className="text-app-text-secondary text-xs mt-1">Th? m?i</p>
         </div>
       </div>
       <div className="flex gap-3">
         <button onClick={onRestart} className="flex-1 py-3 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm rounded-xl transition-colors cursor-pointer whitespace-nowrap">
-          <i className="ri-refresh-line mr-2"></i>Ôn tiếp
+          <i className="ri-refresh-line mr-2"></i>�n ti?p
         </button>
         <button onClick={onClose} className="flex-1 py-3 bg-app-card/50 hover:bg-app-card/70 border border-app-border text-white/60 text-sm rounded-xl transition-colors cursor-pointer whitespace-nowrap">Xong</button>
       </div>
@@ -327,7 +327,7 @@ function SessionComplete({ results, onRestart, onClose }: {
   );
 }
 
-// ─── Wrong Questions Tab ──────────────────────────────────────────────────
+// --- Wrong Questions Tab --------------------------------------------------
 function WrongQuestionsTab() {
   const [epsAnswers] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
   const [srQData, setSrQData] = useLocalStorage<Record<string, SRQuestionCard>>("kts_eps_wrong_sr", {});
@@ -466,10 +466,10 @@ function WrongQuestionsTab() {
           </div>
           <div className="flex-1">
             <p className="text-white font-semibold text-sm mb-0.5">
-              Phát hiện {wrongQuestions.length} câu EPS bạn đã làm sai
+              Ph�t hi?n {wrongQuestions.length} c�u EPS b?n d� l�m sai
             </p>
             <p className="text-app-text-secondary text-xs">
-              Hệ thống tự động đưa các câu sai vào hàng đợi Spaced Repetition để ôn lại đúng thời điểm.
+              H? th?ng t? d?ng dua c�c c�u sai v�o h�ng d?i Spaced Repetition d? �n l?i d�ng th?i di?m.
             </p>
           </div>
           <button
@@ -477,7 +477,7 @@ function WrongQuestionsTab() {
             className="flex items-center gap-2 px-4 py-2.5 bg-[#f87171] hover:bg-[#ef4444] text-white font-bold text-sm rounded-xl cursor-pointer whitespace-nowrap transition-colors flex-shrink-0"
           >
             <i className="ri-add-circle-line"></i>
-            {importDone ? "Đã cập nhật!" : "Thêm vào SR"}
+            {importDone ? "�� c?p nh?t!" : "Th�m v�o SR"}
           </button>
         </div>
       )}
@@ -485,8 +485,8 @@ function WrongQuestionsTab() {
       {wrongQuestions.length === 0 && (
         <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-2xl p-6 mb-5 text-center">
           <i className="ri-checkbox-circle-line text-app-accent-success text-3xl mb-2 block"></i>
-          <p className="text-app-accent-success font-semibold text-sm mb-1">Chưa có câu sai nào!</p>
-          <p className="text-app-text-secondary text-xs">Hãy làm bài thi EPS trước. Các câu sai sẽ tự động xuất hiện ở đây.</p>
+          <p className="text-app-accent-success font-semibold text-sm mb-1">Chua c� c�u sai n�o!</p>
+          <p className="text-app-text-secondary text-xs">H�y l�m b�i thi EPS tru?c. C�c c�u sai s? t? d?ng xu?t hi?n ? d�y.</p>
         </div>
       )}
 
@@ -494,13 +494,13 @@ function WrongQuestionsTab() {
         <div className="space-y-5">
           {/* Topic filter */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <p className="text-white font-semibold text-sm mb-4">Lọc theo chủ đề</p>
+            <p className="text-white font-semibold text-sm mb-4">L?c theo ch? d?</p>
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => setSelectedTopic("all")}
                 className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedTopic === "all" ? "bg-[#f87171] text-white" : "bg-app-card/50 text-app-text-secondary hover:text-white/60"}`}
               >
-                Tất cả ({Object.keys(srQData).length})
+                T?t c? ({Object.keys(srQData).length})
               </button>
               {topicsWithWrong.map(topic => {
                 const count = Object.keys(srQData).filter(id => {
@@ -524,9 +524,9 @@ function WrongQuestionsTab() {
 
           {/* Session config */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <p className="text-white font-semibold text-sm mb-4">Cấu hình phiên ôn tập</p>
+            <p className="text-white font-semibold text-sm mb-4">C?u h�nh phi�n �n t?p</p>
             <div className="flex items-center gap-4 mb-5">
-              <p className="text-white/50 text-sm">Số câu mỗi phiên:</p>
+              <p className="text-white/50 text-sm">S? c�u m?i phi�n:</p>
               <div className="flex items-center bg-app-card/50 rounded-xl p-1">
                 {[10, 20, 30, 50].map(n => (
                   <button key={n} onClick={() => setMaxCards(n)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${maxCards === n ? "bg-[#f87171] text-white" : "text-app-text-secondary hover:text-white/60"}`}>{n}</button>
@@ -535,14 +535,14 @@ function WrongQuestionsTab() {
             </div>
             <div className="grid grid-cols-2 gap-3 mb-5">
               <div className="bg-app-surface/50 rounded-xl p-3">
-                <p className="text-app-text-secondary text-xs mb-1">Cần ôn lại</p>
+                <p className="text-app-text-secondary text-xs mb-1">C?n �n l?i</p>
                 <p className="text-[#f87171] font-bold text-xl">{dueCards.length}</p>
-                <p className="text-app-text-muted text-[10px]">câu đến hạn hôm nay</p>
+                <p className="text-app-text-muted text-[10px]">c�u d?n h?n h�m nay</p>
               </div>
               <div className="bg-app-surface/50 rounded-xl p-3">
-                <p className="text-app-text-secondary text-xs mb-1">Trong hàng đợi</p>
+                <p className="text-app-text-secondary text-xs mb-1">Trong h�ng d?i</p>
                 <p className="text-app-accent-primary font-bold text-xl">{Object.keys(srQData).length}</p>
-                <p className="text-app-text-muted text-[10px]">câu đã thêm vào SR</p>
+                <p className="text-app-text-muted text-[10px]">c�u d� th�m v�o SR</p>
               </div>
             </div>
             <button
@@ -551,12 +551,12 @@ function WrongQuestionsTab() {
               className="w-full flex items-center justify-center gap-2 py-3.5 bg-[#f87171] hover:bg-[#ef4444] disabled:opacity-40 text-white font-bold text-sm rounded-xl transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-play-line text-base"></i>
-              Bắt đầu ôn câu sai ({Math.min(maxCards, dueCards.length)} câu)
+              B?t d?u �n c�u sai ({Math.min(maxCards, dueCards.length)} c�u)
             </button>
             {dueCards.length === 0 && Object.keys(srQData).length > 0 && (
               <p className="text-app-accent-success text-xs text-center mt-3">
                 <i className="ri-checkbox-circle-line mr-1"></i>
-                Tuyệt vời! Không có câu nào cần ôn hôm nay.
+                Tuy?t v?i! Kh�ng c� c�u n�o c?n �n h�m nay.
               </p>
             )}
           </div>
@@ -565,13 +565,13 @@ function WrongQuestionsTab() {
         {/* Right: How it works */}
         <div className="space-y-4">
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <p className="text-white font-semibold text-sm mb-4">Cách hoạt động</p>
+            <p className="text-white font-semibold text-sm mb-4">C�ch ho?t d?ng</p>
             <div className="space-y-3">
               {[
-                { icon: "ri-error-warning-line", color: "#f87171", text: "Câu EPS làm sai tự động được thêm vào hàng đợi SR" },
-                { icon: "ri-time-line", color: "#fb923c", text: "SM-2 tính toán thời điểm ôn lại tối ưu cho từng câu" },
-                { icon: "ri-brain-line", color: "app-accent-primary", text: "Câu khó xuất hiện lại sớm hơn, câu dễ ôn sau nhiều ngày" },
-                { icon: "ri-checkbox-circle-line", color: "#34d399", text: "Sau 4+ lần ôn đúng, câu được đánh dấu nắm vững" },
+                { icon: "ri-error-warning-line", color: "#f87171", text: "C�u EPS l�m sai t? d?ng du?c th�m v�o h�ng d?i SR" },
+                { icon: "ri-time-line", color: "#fb923c", text: "SM-2 t�nh to�n th?i di?m �n l?i t?i uu cho t?ng c�u" },
+                { icon: "ri-brain-line", color: "app-accent-primary", text: "C�u kh� xu?t hi?n l?i s?m hon, c�u d? �n sau nhi?u ng�y" },
+                { icon: "ri-checkbox-circle-line", color: "#34d399", text: "Sau 4+ l?n �n d�ng, c�u du?c d�nh d?u n?m v?ng" },
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${item.color}15` }}>
@@ -584,12 +584,12 @@ function WrongQuestionsTab() {
           </div>
 
           <div className="bg-[#f87171]/5 border border-[#f87171]/15 rounded-xl p-4">
-            <p className="text-[#f87171] text-xs font-semibold mb-2">Mẹo học hiệu quả</p>
+            <p className="text-[#f87171] text-xs font-semibold mb-2">M?o h?c hi?u qu?</p>
             <div className="space-y-1.5 text-[10px] text-white/35 leading-relaxed">
-              <p><i className="ri-arrow-right-s-line text-[#f87171] mr-1"></i>Làm bài thi EPS thường xuyên để tích lũy câu sai</p>
-              <p><i className="ri-arrow-right-s-line text-[#f87171] mr-1"></i>Ôn SR mỗi ngày 10-15 phút là đủ</p>
-              <p><i className="ri-arrow-right-s-line text-[#f87171] mr-1"></i>Đọc kỹ giải thích sau mỗi câu để hiểu sâu</p>
-              <p><i className="ri-arrow-right-s-line text-[#f87171] mr-1"></i>Nhấn "Thêm vào SR" sau mỗi lần làm bài mới</p>
+              <p><i className="ri-arrow-right-s-line text-[#f87171] mr-1"></i>L�m b�i thi EPS thu?ng xuy�n d? t�ch luy c�u sai</p>
+              <p><i className="ri-arrow-right-s-line text-[#f87171] mr-1"></i>�n SR m?i ng�y 10-15 ph�t l� d?</p>
+              <p><i className="ri-arrow-right-s-line text-[#f87171] mr-1"></i>�?c k? gi?i th�ch sau m?i c�u d? hi?u s�u</p>
+              <p><i className="ri-arrow-right-s-line text-[#f87171] mr-1"></i>Nh?n "Th�m v�o SR" sau m?i l?n l�m b�i m?i</p>
             </div>
           </div>
         </div>
@@ -598,7 +598,7 @@ function WrongQuestionsTab() {
   );
 }
 
-// ─── Vocab SR Tab ─────────────────────────────────────────────────────────
+// --- Vocab SR Tab ---------------------------------------------------------
 function VocabSRTab() {
   const [srData, setSrData] = useLocalStorage<Record<string, SRCard>>("kts_eps_sr_cards", {});
   const [selectedTopic, setSelectedTopic] = useState("all");
@@ -653,11 +653,11 @@ function VocabSRTab() {
 
   const intervalBuckets = useMemo(() => {
     const buckets = [
-      { label: "Mới", min: 0, max: 0, color: "#f87171" },
-      { label: "1 ngày", min: 1, max: 1, color: "#fb923c" },
-      { label: "2-6 ngày", min: 2, max: 6, color: "app-accent-primary" },
-      { label: "1-2 tuần", min: 7, max: 14, color: "#34d399" },
-      { label: "Thuộc lòng", min: 15, max: 9999, color: "#a78bfa" },
+      { label: "M?i", min: 0, max: 0, color: "#f87171" },
+      { label: "1 ng�y", min: 1, max: 1, color: "#fb923c" },
+      { label: "2-6 ng�y", min: 2, max: 6, color: "app-accent-primary" },
+      { label: "1-2 tu?n", min: 7, max: 14, color: "#34d399" },
+      { label: "Thu?c l�ng", min: 15, max: 9999, color: "#a78bfa" },
     ];
     return buckets.map(b => ({ ...b, count: Object.values(srData).filter(s => s.interval >= b.min && s.interval <= b.max).length }));
   }, [srData]);
@@ -678,10 +678,10 @@ function VocabSRTab() {
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         <div className="space-y-5">
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <p className="text-white font-semibold text-sm mb-4">Chọn chủ đề ôn tập</p>
+            <p className="text-white font-semibold text-sm mb-4">Ch?n ch? d? �n t?p</p>
             <div className="flex flex-wrap gap-2">
               <button onClick={() => setSelectedTopic("all")} className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedTopic === "all" ? "bg-app-accent-primary text-app-bg" : "bg-app-card/50 text-app-text-secondary hover:text-white/60"}`}>
-                Tất cả ({epsVocabulary.length})
+                T?t c? ({epsVocabulary.length})
               </button>
               {EPS_VOCAB_TOPICS.map(topic => {
                 const count = epsVocabulary.filter(v => v.topicId === topic.id).length;
@@ -696,9 +696,9 @@ function VocabSRTab() {
             </div>
           </div>
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <p className="text-white font-semibold text-sm mb-4">Cấu hình phiên ôn tập</p>
+            <p className="text-white font-semibold text-sm mb-4">C?u h�nh phi�n �n t?p</p>
             <div className="flex items-center gap-4 mb-5">
-              <p className="text-white/50 text-sm">Số từ mỗi phiên:</p>
+              <p className="text-white/50 text-sm">S? t? m?i phi�n:</p>
               <div className="flex items-center bg-app-card/50 rounded-xl p-1">
                 {[10, 20, 30, 50].map(n => (
                   <button key={n} onClick={() => setMaxCards(n)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${maxCards === n ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>{n}</button>
@@ -707,27 +707,27 @@ function VocabSRTab() {
             </div>
             <div className="grid grid-cols-2 gap-3 mb-5">
               <div className="bg-app-surface/50 rounded-xl p-3">
-                <p className="text-app-text-secondary text-xs mb-1">Cần ôn lại</p>
+                <p className="text-app-text-secondary text-xs mb-1">C?n �n l?i</p>
                 <p className="text-[#f87171] font-bold text-xl">{dueCards.length}</p>
-                <p className="text-app-text-muted text-[10px]">từ đến hạn hôm nay</p>
+                <p className="text-app-text-muted text-[10px]">t? d?n h?n h�m nay</p>
               </div>
               <div className="bg-app-surface/50 rounded-xl p-3">
-                <p className="text-app-text-secondary text-xs mb-1">Từ mới</p>
+                <p className="text-app-text-secondary text-xs mb-1">T? m?i</p>
                 <p className="text-app-accent-primary font-bold text-xl">{newCards.length}</p>
-                <p className="text-app-text-muted text-[10px]">chưa học lần nào</p>
+                <p className="text-app-text-muted text-[10px]">chua h?c l?n n�o</p>
               </div>
             </div>
             <button onClick={startSession} disabled={dueCards.length === 0 && newCards.length === 0} className="w-full flex items-center justify-center gap-2 py-3.5 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 text-app-bg font-bold text-sm rounded-xl transition-colors cursor-pointer whitespace-nowrap">
-              <i className="ri-play-line text-base"></i>Bắt đầu ôn tập ({Math.min(maxCards, dueCards.length + newCards.length)} từ)
+              <i className="ri-play-line text-base"></i>B?t d?u �n t?p ({Math.min(maxCards, dueCards.length + newCards.length)} t?)
             </button>
             {dueCards.length === 0 && newCards.length === 0 && (
-              <p className="text-app-accent-success text-xs text-center mt-3"><i className="ri-checkbox-circle-line mr-1"></i>Tuyệt vời! Bạn đã ôn hết từ vựng hôm nay.</p>
+              <p className="text-app-accent-success text-xs text-center mt-3"><i className="ri-checkbox-circle-line mr-1"></i>Tuy?t v?i! B?n d� �n h?t t? v?ng h�m nay.</p>
             )}
           </div>
         </div>
         <div className="space-y-4">
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <p className="text-white font-semibold text-sm mb-4">Phân bố khoảng ôn tập</p>
+            <p className="text-white font-semibold text-sm mb-4">Ph�n b? kho?ng �n t?p</p>
             <div className="space-y-3">
               {intervalBuckets.map(b => {
                 const total = Object.keys(srData).length;
@@ -736,7 +736,7 @@ function VocabSRTab() {
                   <div key={b.label}>
                     <div className="flex items-center justify-between mb-1">
                       <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full" style={{ backgroundColor: b.color }}></div><span className="text-white/50 text-xs">{b.label}</span></div>
-                      <span className="text-app-text-muted text-xs">{b.count} từ</span>
+                      <span className="text-app-text-muted text-xs">{b.count} t?</span>
                     </div>
                     <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                       <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, backgroundColor: b.color }} />
@@ -747,12 +747,12 @@ function VocabSRTab() {
             </div>
           </div>
           <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
-            <p className="text-app-accent-primary text-xs font-semibold mb-2">Thuật toán SM-2 hoạt động thế nào?</p>
+            <p className="text-app-accent-primary text-xs font-semibold mb-2">Thu?t to�n SM-2 ho?t d?ng th? n�o?</p>
             <div className="space-y-2 text-[10px] text-white/35 leading-relaxed">
-              <p><i className="ri-check-line text-app-accent-success mr-1"></i>Từ bạn nhớ tốt → ôn lại sau nhiều ngày hơn</p>
-              <p><i className="ri-close-line text-red-400 mr-1"></i>Từ bạn quên → ôn lại ngay ngày mai</p>
-              <p><i className="ri-time-line text-app-accent-primary mr-1"></i>Khoảng cách tăng dần: 1 → 6 → 15 → 30 ngày...</p>
-              <p><i className="ri-brain-line text-[#a78bfa] mr-1"></i>Tối ưu hóa bộ nhớ dài hạn theo khoa học</p>
+              <p><i className="ri-check-line text-app-accent-success mr-1"></i>T? b?n nh? t?t ? �n l?i sau nhi?u ng�y hon</p>
+              <p><i className="ri-close-line text-red-400 mr-1"></i>T? b?n qu�n ? �n l?i ngay ng�y mai</p>
+              <p><i className="ri-time-line text-app-accent-primary mr-1"></i>Kho?ng c�ch tang d?n: 1 ? 6 ? 15 ? 30 ng�y...</p>
+              <p><i className="ri-brain-line text-[#a78bfa] mr-1"></i>T?i uu h�a b? nh? d�i h?n theo khoa h?c</p>
             </div>
           </div>
         </div>
@@ -761,19 +761,19 @@ function VocabSRTab() {
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────
+// --- Main Page ------------------------------------------------------------
 export default function EpsSpacedReviewPage() {
   const [activeTab, setActiveTab] = useState<"vocab" | "wrong">("vocab");
 
   const tabs = [
-    { id: "vocab" as const, label: "Từ vựng EPS", icon: "ri-translate-2", color: "app-accent-primary" },
-    { id: "wrong" as const, label: "Câu hỏi sai", icon: "ri-error-warning-line", color: "#f87171" },
+    { id: "vocab" as const, label: "T? v?ng EPS", icon: "ri-translate-2", color: "app-accent-primary" },
+    { id: "wrong" as const, label: "C�u h?i sai", icon: "ri-error-warning-line", color: "#f87171" },
   ];
 
   return (
     <DashboardLayout
-      title="Ôn tập Spaced Repetition — EPS"
-      subtitle="Thuật toán SM-2 tự động nhắc ôn đúng thời điểm — học ít, nhớ lâu"
+      title="�n t?p Spaced Repetition � EPS"
+      subtitle="Thu?t to�n SM-2 t? d?ng nh?c �n d�ng th?i di?m � h?c �t, nh? l�u"
     >
       {/* Tab switcher */}
       <div className="flex items-center bg-app-card/50 rounded-xl p-1 mb-6 w-fit">

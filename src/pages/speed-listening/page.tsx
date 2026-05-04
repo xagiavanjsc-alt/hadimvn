@@ -1,4 +1,4 @@
-﻿import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface ListenTrack {
@@ -13,30 +13,30 @@ interface ListenTrack {
 }
 
 const tracks: ListenTrack[] = [
-  { id: "s1", level: "A1", levelColor: "#34d399", title: "Chào hỏi cơ bản", topic: "Giao tiếp", duration: 8,
-    text: "안녕하세요. 저는 학생이에요. 이름이 뭐예요? 만나서 반가워요.",
-    translation: "Xin chào. Tôi là học sinh. Tên bạn là gì? Rất vui được gặp bạn." },
-  { id: "s2", level: "A1", levelColor: "#34d399", title: "Số đếm và ngày tháng", topic: "Số học", duration: 10,
-    text: "오늘은 월요일이에요. 날짜는 오월 십오일이에요. 지금 몇 시예요? 세 시 삼십 분이에요.",
-    translation: "Hôm nay là thứ Hai. Ngày là 15 tháng 5. Bây giờ là mấy giờ? Là 3 giờ 30 phút." },
-  { id: "s3", level: "A2", levelColor: "#6ee7b7", title: "Đặt đồ ăn tại nhà hàng", topic: "Ẩm thực", duration: 12,
-    text: "여기요! 비빔밥 하나하고 된장찌개 하나 주세요. 물도 주세요. 얼마예요? 만 오천 원이에요.",
-    translation: "Xin lỗi! Cho tôi một bibimbap và một canh tương. Cho thêm nước. Bao nhiêu tiền? 15.000 won." },
-  { id: "s4", level: "A2", levelColor: "#6ee7b7", title: "Hỏi đường", topic: "Di chuyển", duration: 14,
-    text: "지하철역이 어디에 있어요? 저기 편의점 옆에 있어요. 걸어서 얼마나 걸려요? 오 분쯤 걸려요.",
-    translation: "Ga tàu điện ngầm ở đâu? Ở cạnh cửa hàng tiện lợi kia. Đi bộ mất bao lâu? Khoảng 5 phút." },
-  { id: "s5", level: "B1", levelColor: "#fbbf24", title: "Phỏng vấn xin việc", topic: "Công việc", duration: 18,
-    text: "자기소개를 해 주세요. 저는 베트남에서 온 응우옌이라고 합니다. 한국어를 공부한 지 삼 년이 됐어요. 성실하게 일하겠습니다.",
-    translation: "Hãy tự giới thiệu bản thân. Tôi là Nguyễn đến từ Việt Nam. Tôi đã học tiếng Hàn được 3 năm. Tôi sẽ làm việc chăm chỉ." },
-  { id: "s6", level: "B1", levelColor: "#fbbf24", title: "Thảo luận về kế hoạch", topic: "Kế hoạch", duration: 16,
-    text: "이번 주말에 뭐 할 거예요? 친구들이랑 한강에 가려고 해요. 날씨가 좋으면 자전거도 탈 거예요. 같이 갈래요?",
-    translation: "Cuối tuần này bạn sẽ làm gì? Tôi định đi Hàn Giang với bạn bè. Nếu thời tiết đẹp sẽ đạp xe. Bạn đi cùng không?" },
-  { id: "s7", level: "B2", levelColor: "#f59e0b", title: "Tin tức kinh tế", topic: "Kinh tế", duration: 22,
-    text: "오늘 주식 시장은 전날보다 이 퍼센트 상승했습니다. 전문가들은 이번 분기 경제 성장률이 삼 퍼센트를 넘을 것으로 전망하고 있습니다.",
-    translation: "Thị trường chứng khoán hôm nay tăng 2% so với hôm qua. Các chuyên gia dự báo tốc độ tăng trưởng kinh tế quý này sẽ vượt 3%." },
-  { id: "s8", level: "C1", levelColor: "#f87171", title: "Bài phát biểu học thuật", topic: "Học thuật", duration: 28,
-    text: "현대 사회에서 인공지능 기술의 발전은 우리의 일상생활뿐만 아니라 경제, 교육, 의료 등 다양한 분야에 혁신적인 변화를 가져오고 있습니다.",
-    translation: "Trong xã hội hiện đại, sự phát triển của công nghệ AI không chỉ mang lại thay đổi cách mạng trong cuộc sống hàng ngày mà còn trong các lĩnh vực kinh tế, giáo dục, y tế." },
+  { id: "s1", level: "A1", levelColor: "#34d399", title: "Ch�o h?i co b?n", topic: "Giao ti?p", duration: 8,
+    text: "?????. ?? ?????. ??? ???? ??? ????.",
+    translation: "Xin ch�o. T�i l� h?c sinh. T�n b?n l� g�? R?t vui du?c g?p b?n." },
+  { id: "s2", level: "A1", levelColor: "#34d399", title: "S? d?m v� ng�y th�ng", topic: "S? h?c", duration: 10,
+    text: "??? ??????. ??? ?? ??????. ?? ? ???? ? ? ?? ????.",
+    translation: "H�m nay l� th? Hai. Ng�y l� 15 th�ng 5. B�y gi? l� m?y gi?? L� 3 gi? 30 ph�t." },
+  { id: "s3", level: "A2", levelColor: "#6ee7b7", title: "�?t d? an t?i nh� h�ng", topic: "?m th?c", duration: 12,
+    text: "???! ??? ???? ???? ?? ???. ?? ???. ????? ? ?? ????.",
+    translation: "Xin l?i! Cho t�i m?t bibimbap v� m?t canh tuong. Cho th�m nu?c. Bao nhi�u ti?n? 15.000 won." },
+  { id: "s4", level: "A2", levelColor: "#6ee7b7", title: "H?i du?ng", topic: "Di chuy?n", duration: 14,
+    text: "????? ??? ???? ?? ??? ?? ???. ??? ??? ???? ? ?? ???.",
+    translation: "Ga t�u di?n ng?m ? d�u? ? c?nh c?a h�ng ti?n l?i kia. �i b? m?t bao l�u? Kho?ng 5 ph�t." },
+  { id: "s5", level: "B1", levelColor: "#fbbf24", title: "Ph?ng v?n xin vi?c", topic: "C�ng vi?c", duration: 18,
+    text: "????? ? ???. ?? ????? ? ?????? ???. ???? ??? ? ? ?? ???. ???? ??????.",
+    translation: "H�y t? gi?i thi?u b?n th�n. T�i l� Nguy?n d?n t? Vi?t Nam. T�i d� h?c ti?ng H�n du?c 3 nam. T�i s? l�m vi?c cham ch?." },
+  { id: "s6", level: "B1", levelColor: "#fbbf24", title: "Th?o lu?n v? k? ho?ch", topic: "K? ho?ch", duration: 16,
+    text: "?? ??? ? ? ???? ????? ??? ??? ??. ??? ??? ???? ? ???. ?? ????",
+    translation: "Cu?i tu?n n�y b?n s? l�m g�? T�i d?nh di H�n Giang v?i b?n b�. N?u th?i ti?t d?p s? d?p xe. B?n di c�ng kh�ng?" },
+  { id: "s7", level: "B2", levelColor: "#f59e0b", title: "Tin t?c kinh t?", topic: "Kinh t?", duration: 22,
+    text: "?? ?? ??? ???? ? ??? ??????. ????? ?? ?? ?? ???? ? ???? ?? ??? ???? ????.",
+    translation: "Th? tru?ng ch?ng kho�n h�m nay tang 2% so v?i h�m qua. C�c chuy�n gia d? b�o t?c d? tang tru?ng kinh t? qu� n�y s? vu?t 3%." },
+  { id: "s8", level: "C1", levelColor: "#f87171", title: "B�i ph�t bi?u h?c thu?t", topic: "H?c thu?t", duration: 28,
+    text: "?? ???? ???? ??? ??? ??? ?????? ??? ??, ??, ?? ? ??? ??? ???? ??? ???? ????.",
+    translation: "Trong x� h?i hi?n d?i, s? ph�t tri?n c?a c�ng ngh? AI kh�ng ch? mang l?i thay d?i c�ch m?ng trong cu?c s?ng h�ng ng�y m� c�n trong c�c linh v?c kinh t?, gi�o d?c, y t?." },
 ];
 
 const SPEEDS = [0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0];
@@ -110,16 +110,16 @@ export default function SpeedListeningPage() {
       <div className="max-w-4xl mx-auto px-4 py-6">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-white font-bold text-2xl mb-1">Luyện nghe theo tốc độ</h1>
-          <p className="text-white/50 text-sm">Điều chỉnh tốc độ 0.5x → 2x — luyện tai nghe từ chậm đến nhanh</p>
+          <h1 className="text-white font-bold text-2xl mb-1">Luy?n nghe theo t?c d?</h1>
+          <p className="text-white/50 text-sm">�i?u ch?nh t?c d? 0.5x ? 2x � luy?n tai nghe t? ch?m d?n nhanh</p>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
-            { label: "Tổng bài", value: tracks.length, color: "app-accent-primary" },
-            { label: "Đã nghe", value: completedIds.size, color: "#34d399" },
-            { label: "Tốc độ hiện tại", value: `${speed}x`, color: speedColor },
+            { label: "T?ng b�i", value: tracks.length, color: "app-accent-primary" },
+            { label: "�� nghe", value: completedIds.size, color: "#34d399" },
+            { label: "T?c d? hi?n t?i", value: `${speed}x`, color: speedColor },
           ].map(s => (
             <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-4 text-center">
               <p className="font-bold text-xl" style={{ color: s.color }}>{s.value}</p>
@@ -136,7 +136,7 @@ export default function SpeedListeningPage() {
                 <button key={l} onClick={() => setLevelFilter(l)}
                   className="px-2.5 py-1 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all"
                   style={levelFilter === l ? { backgroundColor: "rgba(255,255,255,0.15)", color: "white" } : { backgroundColor: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.4)" }}>
-                  {l === "all" ? "Tất cả" : l}
+                  {l === "all" ? "T?t c?" : l}
                 </button>
               ))}
             </div>
@@ -177,13 +177,13 @@ export default function SpeedListeningPage() {
                 </div>
                 <div className="text-right">
                   <p className="font-bold text-2xl" style={{ color: speedColor }}>{speed}x</p>
-                  <p className="text-app-text-muted text-xs">tốc độ</p>
+                  <p className="text-app-text-muted text-xs">t?c d?</p>
                 </div>
               </div>
 
               {/* Speed selector */}
               <div className="mb-5">
-                <p className="text-app-text-secondary text-xs mb-2">Chọn tốc độ phát:</p>
+                <p className="text-app-text-secondary text-xs mb-2">Ch?n t?c d? ph�t:</p>
                 <div className="flex gap-2 flex-wrap">
                   {SPEEDS.map(s => (
                     <button key={s} onClick={() => { setSpeed(s); if (isPlaying) stopPlayback(); }}
@@ -196,7 +196,7 @@ export default function SpeedListeningPage() {
                   ))}
                 </div>
                 <div className="mt-3 flex items-center gap-3">
-                  <span className="text-app-text-muted text-xs">Chậm</span>
+                  <span className="text-app-text-muted text-xs">Ch?m</span>
                   <div className="flex-1 h-1.5 bg-white/8 rounded-full overflow-hidden">
                     <div className="h-full rounded-full transition-all" style={{ width: `${((speed - 0.5) / 1.5) * 100}%`, backgroundColor: speedColor }} />
                   </div>
@@ -226,31 +226,31 @@ export default function SpeedListeningPage() {
                   className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm cursor-pointer whitespace-nowrap transition-all"
                   style={{ backgroundColor: isPlaying ? "rgba(248,113,113,0.15)" : speedColor, color: isPlaying ? "#f87171" : "#141720" }}>
                   <i className={isPlaying ? "ri-stop-fill text-lg" : "ri-play-fill text-lg"}></i>
-                  {isPlaying ? "Dừng" : "Phát"}
+                  {isPlaying ? "D?ng" : "Ph�t"}
                 </button>
                 <button onClick={() => setShowTranslation(v => !v)}
                   className="px-4 py-3 rounded-xl text-sm cursor-pointer whitespace-nowrap transition-all"
                   style={{ backgroundColor: showTranslation ? "rgba(232,200,74,0.15)" : "rgba(255,255,255,0.05)", color: showTranslation ? "app-accent-primary" : "rgba(255,255,255,0.5)" }}>
-                  <i className="ri-translate-2 mr-1"></i>Dịch
+                  <i className="ri-translate-2 mr-1"></i>D?ch
                 </button>
               </div>
 
               {/* Translation */}
               {showTranslation && (
                 <div className="p-4 rounded-xl bg-app-accent-primary/5 border border-app-accent-primary/15">
-                  <p className="text-app-text-secondary text-xs mb-1">Bản dịch:</p>
+                  <p className="text-app-text-secondary text-xs mb-1">B?n d?ch:</p>
                   <p className="text-white/70 text-sm leading-7">{selectedTrack.translation}</p>
                 </div>
               )}
 
               {/* Speed tips */}
               <div className="mt-4 p-3 rounded-xl bg-app-surface/50 border border-app-border">
-                <p className="text-app-text-secondary text-xs font-semibold mb-1">Gợi ý luyện tập:</p>
+                <p className="text-app-text-secondary text-xs font-semibold mb-1">G?i � luy?n t?p:</p>
                 <p className="text-app-text-muted text-xs">
-                  {speed <= 0.75 ? "Tốc độ chậm — tập nghe từng âm tiết, chú ý phát âm chuẩn"
-                    : speed === 1.0 ? "Tốc độ bình thường — nghe như người bản ngữ nói chuyện thực tế"
-                    : speed <= 1.5 ? "Tốc độ nhanh — luyện phản xạ nghe, tập trung vào từ khóa"
-                    : "Tốc độ rất nhanh — thử thách cao, luyện nghe trong điều kiện khó"}
+                  {speed <= 0.75 ? "T?c d? ch?m � t?p nghe t?ng �m ti?t, ch� � ph�t �m chu?n"
+                    : speed === 1.0 ? "T?c d? b�nh thu?ng � nghe nhu ngu?i b?n ng? n�i chuy?n th?c t?"
+                    : speed <= 1.5 ? "T?c d? nhanh � luy?n ph?n x? nghe, t?p trung v�o t? kh�a"
+                    : "T?c d? r?t nhanh � th? th�ch cao, luy?n nghe trong di?u ki?n kh�"}
                 </p>
               </div>
             </div>

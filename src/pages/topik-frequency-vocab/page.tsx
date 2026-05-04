@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface FreqWord {
@@ -15,43 +15,43 @@ interface FreqWord {
 }
 
 const freqWords: FreqWord[] = [
-  { rank: 1, korean: "이/가", pronunciation: "i/ga", partOfSpeech: "Trợ từ", meaning: "Chủ ngữ (là/thì)", example: "저가 학생이에요.", exampleVi: "Tôi là học sinh.", topikLevel: "I", frequency: 85, category: "Ngữ pháp" },
-  { rank: 2, korean: "은/는", pronunciation: "eun/neun", partOfSpeech: "Trợ từ", meaning: "Chủ đề (thì/là)", example: "저는 베트남 사람이에요.", exampleVi: "Tôi là người Việt Nam.", topikLevel: "I", frequency: 82, category: "Ngữ pháp" },
-  { rank: 3, korean: "하다", pronunciation: "ha-da", partOfSpeech: "Động từ", meaning: "Làm/Thực hiện", example: "공부를 해요.", exampleVi: "Tôi học bài.", topikLevel: "I", frequency: 78, category: "Hành động" },
-  { rank: 4, korean: "있다", pronunciation: "it-da", partOfSpeech: "Động từ", meaning: "Có/Tồn tại", example: "책이 있어요.", exampleVi: "Có sách.", topikLevel: "I", frequency: 75, category: "Trạng thái" },
-  { rank: 5, korean: "되다", pronunciation: "doe-da", partOfSpeech: "Động từ", meaning: "Trở thành/Được", example: "의사가 되고 싶어요.", exampleVi: "Tôi muốn trở thành bác sĩ.", topikLevel: "I", frequency: 72, category: "Hành động" },
-  { rank: 6, korean: "수", pronunciation: "su", partOfSpeech: "Danh từ", meaning: "Khả năng (-(으)ㄹ 수 있다)", example: "할 수 있어요.", exampleVi: "Có thể làm được.", topikLevel: "I", frequency: 70, category: "Ngữ pháp" },
-  { rank: 7, korean: "사람", pronunciation: "sa-ram", partOfSpeech: "Danh từ", meaning: "Người", example: "한국 사람이에요.", exampleVi: "Là người Hàn Quốc.", topikLevel: "I", frequency: 68, category: "Con người" },
-  { rank: 8, korean: "우리", pronunciation: "u-ri", partOfSpeech: "Đại từ", meaning: "Chúng tôi/Của tôi", example: "우리 가족이에요.", exampleVi: "Là gia đình tôi.", topikLevel: "I", frequency: 65, category: "Con người" },
-  { rank: 9, korean: "말하다", pronunciation: "mal-ha-da", partOfSpeech: "Động từ", meaning: "Nói", example: "한국어로 말해요.", exampleVi: "Nói bằng tiếng Hàn.", topikLevel: "I", frequency: 63, category: "Giao tiếp" },
-  { rank: 10, korean: "알다", pronunciation: "al-da", partOfSpeech: "Động từ", meaning: "Biết/Hiểu", example: "그 사람을 알아요.", exampleVi: "Tôi biết người đó.", topikLevel: "I", frequency: 61, category: "Nhận thức" },
-  { rank: 11, korean: "생각하다", pronunciation: "saeng-gak-ha-da", partOfSpeech: "Động từ", meaning: "Nghĩ/Suy nghĩ", example: "어떻게 생각해요?", exampleVi: "Bạn nghĩ thế nào?", topikLevel: "I", frequency: 58, category: "Nhận thức" },
-  { rank: 12, korean: "보다", pronunciation: "bo-da", partOfSpeech: "Động từ", meaning: "Nhìn/Xem", example: "영화를 봐요.", exampleVi: "Xem phim.", topikLevel: "I", frequency: 56, category: "Hành động" },
-  { rank: 13, korean: "오다", pronunciation: "o-da", partOfSpeech: "Động từ", meaning: "Đến/Tới", example: "한국에 왔어요.", exampleVi: "Đã đến Hàn Quốc.", topikLevel: "I", frequency: 54, category: "Di chuyển" },
-  { rank: 14, korean: "가다", pronunciation: "ga-da", partOfSpeech: "Động từ", meaning: "Đi", example: "학교에 가요.", exampleVi: "Đi học.", topikLevel: "I", frequency: 53, category: "Di chuyển" },
-  { rank: 15, korean: "때", pronunciation: "ttae", partOfSpeech: "Danh từ", meaning: "Lúc/Khi", example: "어릴 때 행복했어요.", exampleVi: "Lúc nhỏ tôi hạnh phúc.", topikLevel: "I", frequency: 51, category: "Thời gian" },
-  { rank: 16, korean: "문제", pronunciation: "mun-je", partOfSpeech: "Danh từ", meaning: "Vấn đề/Câu hỏi", example: "문제가 있어요.", exampleVi: "Có vấn đề.", topikLevel: "II", frequency: 49, category: "Trừu tượng" },
-  { rank: 17, korean: "경우", pronunciation: "gyeong-u", partOfSpeech: "Danh từ", meaning: "Trường hợp", example: "이런 경우에는 어떻게 해요?", exampleVi: "Trong trường hợp này làm thế nào?", topikLevel: "II", frequency: 47, category: "Trừu tượng" },
-  { rank: 18, korean: "사회", pronunciation: "sa-hoe", partOfSpeech: "Danh từ", meaning: "Xã hội", example: "현대 사회가 변하고 있어요.", exampleVi: "Xã hội hiện đại đang thay đổi.", topikLevel: "II", frequency: 45, category: "Xã hội" },
-  { rank: 19, korean: "통해", pronunciation: "tong-hae", partOfSpeech: "Trợ từ", meaning: "Qua/Thông qua", example: "인터넷을 통해 배워요.", exampleVi: "Học qua internet.", topikLevel: "II", frequency: 44, category: "Ngữ pháp" },
-  { rank: 20, korean: "위해", pronunciation: "wi-hae", partOfSpeech: "Trợ từ", meaning: "Vì/Để", example: "건강을 위해 운동해요.", exampleVi: "Tập thể dục vì sức khỏe.", topikLevel: "II", frequency: 43, category: "Ngữ pháp" },
-  { rank: 21, korean: "중요하다", pronunciation: "jung-yo-ha-da", partOfSpeech: "Tính từ", meaning: "Quan trọng", example: "교육이 중요해요.", exampleVi: "Giáo dục quan trọng.", topikLevel: "II", frequency: 42, category: "Đánh giá" },
-  { rank: 22, korean: "필요하다", pronunciation: "pil-lyo-ha-da", partOfSpeech: "Tính từ", meaning: "Cần thiết", example: "도움이 필요해요.", exampleVi: "Cần sự giúp đỡ.", topikLevel: "II", frequency: 41, category: "Đánh giá" },
-  { rank: 23, korean: "다양하다", pronunciation: "da-yang-ha-da", partOfSpeech: "Tính từ", meaning: "Đa dạng", example: "다양한 문화가 있어요.", exampleVi: "Có nhiều văn hóa đa dạng.", topikLevel: "II", frequency: 39, category: "Đánh giá" },
-  { rank: 24, korean: "발전하다", pronunciation: "bal-jeon-ha-da", partOfSpeech: "Động từ", meaning: "Phát triển", example: "기술이 발전했어요.", exampleVi: "Công nghệ đã phát triển.", topikLevel: "II", frequency: 38, category: "Thay đổi" },
-  { rank: 25, korean: "영향", pronunciation: "yeong-hyang", partOfSpeech: "Danh từ", meaning: "Ảnh hưởng", example: "환경에 영향을 줘요.", exampleVi: "Ảnh hưởng đến môi trường.", topikLevel: "II", frequency: 37, category: "Trừu tượng" },
-  { rank: 26, korean: "관계", pronunciation: "gwan-gye", partOfSpeech: "Danh từ", meaning: "Mối quan hệ", example: "좋은 관계를 유지해요.", exampleVi: "Duy trì mối quan hệ tốt.", topikLevel: "II", frequency: 36, category: "Xã hội" },
-  { rank: 27, korean: "현재", pronunciation: "hyeon-jae", partOfSpeech: "Danh từ", meaning: "Hiện tại", example: "현재 상황이 어때요?", exampleVi: "Tình hình hiện tại thế nào?", topikLevel: "II", frequency: 35, category: "Thời gian" },
-  { rank: 28, korean: "결과", pronunciation: "gyeol-gwa", partOfSpeech: "Danh từ", meaning: "Kết quả", example: "좋은 결과가 나왔어요.", exampleVi: "Kết quả tốt đã ra.", topikLevel: "II", frequency: 34, category: "Trừu tượng" },
-  { rank: 29, korean: "방법", pronunciation: "bang-beop", partOfSpeech: "Danh từ", meaning: "Phương pháp/Cách", example: "좋은 방법이 있어요.", exampleVi: "Có cách tốt.", topikLevel: "II", frequency: 33, category: "Trừu tượng" },
-  { rank: 30, korean: "가능하다", pronunciation: "ga-neung-ha-da", partOfSpeech: "Tính từ", meaning: "Có thể/Khả thi", example: "그것이 가능해요?", exampleVi: "Điều đó có thể không?", topikLevel: "II", frequency: 32, category: "Đánh giá" },
+  { rank: 1, korean: "?/?", pronunciation: "i/ga", partOfSpeech: "Tr? t?", meaning: "Ch? ng? (l�/th�)", example: "?? ?????.", exampleVi: "T�i l� h?c sinh.", topikLevel: "I", frequency: 85, category: "Ng? ph�p" },
+  { rank: 2, korean: "?/?", pronunciation: "eun/neun", partOfSpeech: "Tr? t?", meaning: "Ch? d? (th�/l�)", example: "?? ??? ?????.", exampleVi: "T�i l� ngu?i Vi?t Nam.", topikLevel: "I", frequency: 82, category: "Ng? ph�p" },
+  { rank: 3, korean: "??", pronunciation: "ha-da", partOfSpeech: "�?ng t?", meaning: "L�m/Th?c hi?n", example: "??? ??.", exampleVi: "T�i h?c b�i.", topikLevel: "I", frequency: 78, category: "H�nh d?ng" },
+  { rank: 4, korean: "??", pronunciation: "it-da", partOfSpeech: "�?ng t?", meaning: "C�/T?n t?i", example: "?? ???.", exampleVi: "C� s�ch.", topikLevel: "I", frequency: 75, category: "Tr?ng th�i" },
+  { rank: 5, korean: "??", pronunciation: "doe-da", partOfSpeech: "�?ng t?", meaning: "Tr? th�nh/�u?c", example: "??? ?? ???.", exampleVi: "T�i mu?n tr? th�nh b�c si.", topikLevel: "I", frequency: 72, category: "H�nh d?ng" },
+  { rank: 6, korean: "?", pronunciation: "su", partOfSpeech: "Danh t?", meaning: "Kh? nang (-(?)? ? ??)", example: "? ? ???.", exampleVi: "C� th? l�m du?c.", topikLevel: "I", frequency: 70, category: "Ng? ph�p" },
+  { rank: 7, korean: "??", pronunciation: "sa-ram", partOfSpeech: "Danh t?", meaning: "Ngu?i", example: "?? ?????.", exampleVi: "L� ngu?i H�n Qu?c.", topikLevel: "I", frequency: 68, category: "Con ngu?i" },
+  { rank: 8, korean: "??", pronunciation: "u-ri", partOfSpeech: "�?i t?", meaning: "Ch�ng t�i/C?a t�i", example: "?? ?????.", exampleVi: "L� gia d�nh t�i.", topikLevel: "I", frequency: 65, category: "Con ngu?i" },
+  { rank: 9, korean: "???", pronunciation: "mal-ha-da", partOfSpeech: "�?ng t?", meaning: "N�i", example: "???? ???.", exampleVi: "N�i b?ng ti?ng H�n.", topikLevel: "I", frequency: 63, category: "Giao ti?p" },
+  { rank: 10, korean: "??", pronunciation: "al-da", partOfSpeech: "�?ng t?", meaning: "Bi?t/Hi?u", example: "? ??? ???.", exampleVi: "T�i bi?t ngu?i d�.", topikLevel: "I", frequency: 61, category: "Nh?n th?c" },
+  { rank: 11, korean: "????", pronunciation: "saeng-gak-ha-da", partOfSpeech: "�?ng t?", meaning: "Nghi/Suy nghi", example: "??? ?????", exampleVi: "B?n nghi th? n�o?", topikLevel: "I", frequency: 58, category: "Nh?n th?c" },
+  { rank: 12, korean: "??", pronunciation: "bo-da", partOfSpeech: "�?ng t?", meaning: "Nh�n/Xem", example: "??? ??.", exampleVi: "Xem phim.", topikLevel: "I", frequency: 56, category: "H�nh d?ng" },
+  { rank: 13, korean: "??", pronunciation: "o-da", partOfSpeech: "�?ng t?", meaning: "�?n/T?i", example: "??? ???.", exampleVi: "�� d?n H�n Qu?c.", topikLevel: "I", frequency: 54, category: "Di chuy?n" },
+  { rank: 14, korean: "??", pronunciation: "ga-da", partOfSpeech: "�?ng t?", meaning: "�i", example: "??? ??.", exampleVi: "�i h?c.", topikLevel: "I", frequency: 53, category: "Di chuy?n" },
+  { rank: 15, korean: "?", pronunciation: "ttae", partOfSpeech: "Danh t?", meaning: "L�c/Khi", example: "?? ? ?????.", exampleVi: "L�c nh? t�i h?nh ph�c.", topikLevel: "I", frequency: 51, category: "Th?i gian" },
+  { rank: 16, korean: "??", pronunciation: "mun-je", partOfSpeech: "Danh t?", meaning: "V?n d?/C�u h?i", example: "??? ???.", exampleVi: "C� v?n d?.", topikLevel: "II", frequency: 49, category: "Tr?u tu?ng" },
+  { rank: 17, korean: "??", pronunciation: "gyeong-u", partOfSpeech: "Danh t?", meaning: "Tru?ng h?p", example: "?? ???? ??? ???", exampleVi: "Trong tru?ng h?p n�y l�m th? n�o?", topikLevel: "II", frequency: 47, category: "Tr?u tu?ng" },
+  { rank: 18, korean: "??", pronunciation: "sa-hoe", partOfSpeech: "Danh t?", meaning: "X� h?i", example: "?? ??? ??? ???.", exampleVi: "X� h?i hi?n d?i dang thay d?i.", topikLevel: "II", frequency: 45, category: "X� h?i" },
+  { rank: 19, korean: "??", pronunciation: "tong-hae", partOfSpeech: "Tr? t?", meaning: "Qua/Th�ng qua", example: "???? ?? ???.", exampleVi: "H?c qua internet.", topikLevel: "II", frequency: 44, category: "Ng? ph�p" },
+  { rank: 20, korean: "??", pronunciation: "wi-hae", partOfSpeech: "Tr? t?", meaning: "V�/�?", example: "??? ?? ????.", exampleVi: "T?p th? d?c v� s?c kh?e.", topikLevel: "II", frequency: 43, category: "Ng? ph�p" },
+  { rank: 21, korean: "????", pronunciation: "jung-yo-ha-da", partOfSpeech: "T�nh t?", meaning: "Quan tr?ng", example: "??? ????.", exampleVi: "Gi�o d?c quan tr?ng.", topikLevel: "II", frequency: 42, category: "��nh gi�" },
+  { rank: 22, korean: "????", pronunciation: "pil-lyo-ha-da", partOfSpeech: "T�nh t?", meaning: "C?n thi?t", example: "??? ????.", exampleVi: "C?n s? gi�p d?.", topikLevel: "II", frequency: 41, category: "��nh gi�" },
+  { rank: 23, korean: "????", pronunciation: "da-yang-ha-da", partOfSpeech: "T�nh t?", meaning: "�a d?ng", example: "??? ??? ???.", exampleVi: "C� nhi?u van h�a da d?ng.", topikLevel: "II", frequency: 39, category: "��nh gi�" },
+  { rank: 24, korean: "????", pronunciation: "bal-jeon-ha-da", partOfSpeech: "�?ng t?", meaning: "Ph�t tri?n", example: "??? ?????.", exampleVi: "C�ng ngh? d� ph�t tri?n.", topikLevel: "II", frequency: 38, category: "Thay d?i" },
+  { rank: 25, korean: "??", pronunciation: "yeong-hyang", partOfSpeech: "Danh t?", meaning: "?nh hu?ng", example: "??? ??? ??.", exampleVi: "?nh hu?ng d?n m�i tru?ng.", topikLevel: "II", frequency: 37, category: "Tr?u tu?ng" },
+  { rank: 26, korean: "??", pronunciation: "gwan-gye", partOfSpeech: "Danh t?", meaning: "M?i quan h?", example: "?? ??? ????.", exampleVi: "Duy tr� m?i quan h? t?t.", topikLevel: "II", frequency: 36, category: "X� h?i" },
+  { rank: 27, korean: "??", pronunciation: "hyeon-jae", partOfSpeech: "Danh t?", meaning: "Hi?n t?i", example: "?? ??? ????", exampleVi: "T�nh h�nh hi?n t?i th? n�o?", topikLevel: "II", frequency: 35, category: "Th?i gian" },
+  { rank: 28, korean: "??", pronunciation: "gyeol-gwa", partOfSpeech: "Danh t?", meaning: "K?t qu?", example: "?? ??? ????.", exampleVi: "K?t qu? t?t d� ra.", topikLevel: "II", frequency: 34, category: "Tr?u tu?ng" },
+  { rank: 29, korean: "??", pronunciation: "bang-beop", partOfSpeech: "Danh t?", meaning: "Phuong ph�p/C�ch", example: "?? ??? ???.", exampleVi: "C� c�ch t?t.", topikLevel: "II", frequency: 33, category: "Tr?u tu?ng" },
+  { rank: 30, korean: "????", pronunciation: "ga-neung-ha-da", partOfSpeech: "T�nh t?", meaning: "C� th?/Kh? thi", example: "??? ?????", exampleVi: "�i?u d� c� th? kh�ng?", topikLevel: "II", frequency: 32, category: "��nh gi�" },
 ];
 
-const categories = ["Tất cả", ...new Set(freqWords.map(w => w.category))];
+const categories = ["T?t c?", ...new Set(freqWords.map(w => w.category))];
 
 export default function TopikFrequencyVocabPage() {
   const [topikFilter, setTopikFilter] = useState<"all" | "I" | "II">("all");
-  const [categoryFilter, setCategoryFilter] = useState("Tất cả");
+  const [categoryFilter, setCategoryFilter] = useState("T?t c?");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedWord, setSelectedWord] = useState<FreqWord | null>(null);
   const [learnedIds, setLearnedIds] = useState<Set<number>>(new Set());
@@ -59,7 +59,7 @@ export default function TopikFrequencyVocabPage() {
 
   const filtered = useMemo(() => freqWords.filter(w => {
     const matchTopik = topikFilter === "all" || w.topikLevel === topikFilter;
-    const matchCat = categoryFilter === "Tất cả" || w.category === categoryFilter;
+    const matchCat = categoryFilter === "T?t c?" || w.category === categoryFilter;
     const matchSearch = !searchQuery || w.korean.includes(searchQuery) || w.meaning.toLowerCase().includes(searchQuery.toLowerCase());
     return matchTopik && matchCat && matchSearch;
   }), [topikFilter, categoryFilter, searchQuery]);
@@ -88,17 +88,17 @@ export default function TopikFrequencyVocabPage() {
       <div className="max-w-5xl mx-auto px-4 py-6">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-white font-bold text-2xl mb-1">Từ vựng theo tần suất TOPIK</h1>
-          <p className="text-white/50 text-sm">30 từ xuất hiện nhiều nhất trong đề thi TOPIK — học đúng trọng tâm</p>
+          <h1 className="text-white font-bold text-2xl mb-1">T? v?ng theo t?n su?t TOPIK</h1>
+          <p className="text-white/50 text-sm">30 t? xu?t hi?n nhi?u nh?t trong d? thi TOPIK � h?c d�ng tr?ng t�m</p>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
-            { label: "Tổng từ", value: freqWords.length, color: "app-accent-primary" },
+            { label: "T?ng t?", value: freqWords.length, color: "app-accent-primary" },
             { label: "TOPIK I", value: freqWords.filter(w => w.topikLevel === "I").length, color: "#34d399" },
             { label: "TOPIK II", value: freqWords.filter(w => w.topikLevel === "II").length, color: "#f87171" },
-            { label: "Đã học", value: learnedIds.size, color: "#a78bfa" },
+            { label: "�� h?c", value: learnedIds.size, color: "#a78bfa" },
           ].map(s => (
             <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-3 text-center">
               <p className="text-white font-bold text-xl" style={{ color: s.color }}>{s.value}</p>
@@ -110,8 +110,8 @@ export default function TopikFrequencyVocabPage() {
         {/* Progress bar */}
         <div className="mb-5">
           <div className="flex items-center justify-between mb-1.5">
-            <span className="text-app-text-secondary text-xs">Tiến độ học</span>
-            <span className="text-white/60 text-xs font-bold">{learnedIds.size}/{freqWords.length} từ</span>
+            <span className="text-app-text-secondary text-xs">Ti?n d? h?c</span>
+            <span className="text-white/60 text-xs font-bold">{learnedIds.size}/{freqWords.length} t?</span>
           </div>
           <div className="h-2 bg-white/8 rounded-full overflow-hidden">
             <div className="h-full bg-app-accent-primary rounded-full transition-all duration-500"
@@ -125,14 +125,14 @@ export default function TopikFrequencyVocabPage() {
             {(["all", "I", "II"] as const).map(t => (
               <button key={t} onClick={() => setTopikFilter(t)}
                 className={`px-4 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${topikFilter === t ? "bg-app-accent-primary text-[#141720]" : "text-white/50 hover:text-white/80"}`}>
-                {t === "all" ? "Tất cả" : `TOPIK ${t}`}
+                {t === "all" ? "T?t c?" : `TOPIK ${t}`}
               </button>
             ))}
           </div>
           <div className="relative flex-1 min-w-48">
             <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted text-sm"></i>
             <input type="text" value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Tìm từ..."
+              placeholder="T�m t?..."
               className="w-full pl-9 pr-4 py-2 rounded-xl bg-app-card/50 border border-app-border text-white text-sm placeholder-white/25 outline-none focus:border-white/20" />
           </div>
           <div className="flex gap-1 p-1 bg-app-card/50 rounded-xl">
@@ -235,7 +235,7 @@ export default function TopikFrequencyVocabPage() {
                       <i className="ri-volume-up-line"></i>
                     </button>
                   </div>
-                  <p className="text-app-text-secondary text-sm">[{selectedWord.pronunciation}] · {selectedWord.partOfSpeech}</p>
+                  <p className="text-app-text-secondary text-sm">[{selectedWord.pronunciation}] � {selectedWord.partOfSpeech}</p>
                 </div>
                 <button onClick={() => setSelectedWord(null)} className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary cursor-pointer">
                   <i className="ri-close-line"></i>
@@ -248,18 +248,18 @@ export default function TopikFrequencyVocabPage() {
                 </div>
 
                 <div className="p-3 rounded-xl bg-app-card/50 border border-app-border">
-                  <p className="text-app-text-secondary text-xs mb-1">Ví dụ</p>
+                  <p className="text-app-text-secondary text-xs mb-1">V� d?</p>
                   <p className="text-white text-sm mb-1">{selectedWord.example}</p>
                   <p className="text-app-text-secondary text-xs italic">{selectedWord.exampleVi}</p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div className="text-center p-2 rounded-lg bg-app-card/50">
-                    <p className="text-white/60 text-xs font-bold">Hạng</p>
+                    <p className="text-white/60 text-xs font-bold">H?ng</p>
                     <p className="text-app-accent-primary font-bold">#{selectedWord.rank}</p>
                   </div>
                   <div className="text-center p-2 rounded-lg bg-app-card/50">
-                    <p className="text-white/60 text-xs font-bold">Tần suất</p>
+                    <p className="text-white/60 text-xs font-bold">T?n su?t</p>
                     <p className="text-app-accent-primary font-bold">{selectedWord.frequency}/1k</p>
                   </div>
                   <div className="text-center p-2 rounded-lg bg-app-card/50">
@@ -272,7 +272,7 @@ export default function TopikFrequencyVocabPage() {
 
                 <button onClick={() => { toggleLearned(selectedWord.rank); setSelectedWord(null); }}
                   className={`w-full py-3 rounded-xl font-bold text-sm cursor-pointer whitespace-nowrap transition-colors ${learnedIds.has(selectedWord.rank) ? "bg-white/8 text-white/60" : "bg-app-accent-primary text-[#141720]"}`}>
-                  {learnedIds.has(selectedWord.rank) ? "Bỏ đánh dấu đã học" : "Đánh dấu đã học"}
+                  {learnedIds.has(selectedWord.rank) ? "B? d�nh d?u d� h?c" : "��nh d?u d� h?c"}
                 </button>
               </div>
             </div>

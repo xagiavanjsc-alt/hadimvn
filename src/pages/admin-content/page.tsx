@@ -1,10 +1,10 @@
-﻿import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { supabase } from "@/lib/supabase";
 import { useAdminToast } from "@/contexts/AdminToastContext";
 import { logError } from "@/lib/logError";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// --- Types --------------------------------------------------------------------
 type ContentTab = "community" | "comments" | "ratings" | "lessons" | "reports";
 type PostStatus = "pending" | "approved" | "rejected";
 type ReportStatus = "pending" | "resolved" | "dismissed";
@@ -25,28 +25,28 @@ interface Report {
   action?: string;
 }
 
-// ─── Mock reports ─────────────────────────────────────────────────────────────────
+// --- Mock reports -----------------------------------------------------------------
 const mockReports: Report[] = [
-  { id: "r-001", postId: "p-001", postTitle: "Chia sẻ kinh nghiệm thi EPS lần 3", postAuthor: "Nguyễn Văn A", reportedBy: "Trần Thị B", reason: "misinformation", detail: "Thông tin về điểm thi không chính xác, gây hiểu lầm cho người mới", status: "pending", createdAt: "2026-04-23T08:30:00Z" },
-  { id: "r-002", postId: "p-002", postTitle: "Hỏi về visa lao động Hàn Quốc", postAuthor: "Lê Văn C", reportedBy: "Phạm Thị D", reason: "spam", detail: "Bài viết chứa link quảng cáo dịch vụ visa không rõ nguồn gốc", status: "pending", createdAt: "2026-04-22T15:20:00Z" },
-  { id: "r-003", postId: "p-003", postTitle: "Kết quả thi EPS tháng 4/2026", postAuthor: "Hoàng Văn E", reportedBy: "Vũ Thị F", reason: "offensive", detail: "Bình luận trong bài viết có ngôn ngữ xúc phạm", status: "resolved", createdAt: "2026-04-21T10:00:00Z", resolvedAt: "2026-04-21T14:30:00Z", resolvedBy: "Admin", action: "Xóa bình luận vi phạm" },
-  { id: "r-004", postId: "p-004", postTitle: "Mẹo học từ vựng EPS nhanh", postAuthor: "Bùi Thị H", reportedBy: "Đặng Văn G", reason: "other", detail: "Nội dung sao chép từ trang khác không ghi nguồn", status: "dismissed", createdAt: "2026-04-20T09:00:00Z", resolvedAt: "2026-04-20T11:00:00Z", resolvedBy: "Moderator", action: "Không vi phạm, đã bỏ qua" },
-  { id: "r-005", postId: "p-005", postTitle: "Hỏi về chế độ bảo hiểm lao động", postAuthor: "Nguyễn Văn A", reportedBy: "Trần Thị B", reason: "harassment", detail: "Tác giả gửi tin nhắn quấy rối người bình luận", status: "pending", createdAt: "2026-04-23T11:45:00Z" },
-  { id: "r-006", postId: "p-006", postTitle: "Chia sẻ kết quả thi TOPIK II", postAuthor: "Lê Văn C", reportedBy: "Hoàng Văn E", reason: "misinformation", detail: "Thông tin về cấu trúc đề thi không đúng", status: "pending", createdAt: "2026-04-22T07:30:00Z" },
+  { id: "r-001", postId: "p-001", postTitle: "Chia s? kinh nghi?m thi EPS l?n 3", postAuthor: "Nguy?n Van A", reportedBy: "Tr?n Th? B", reason: "misinformation", detail: "Th�ng tin v? di?m thi kh�ng ch�nh x�c, g�y hi?u l?m cho ngu?i m?i", status: "pending", createdAt: "2026-04-23T08:30:00Z" },
+  { id: "r-002", postId: "p-002", postTitle: "H?i v? visa lao d?ng H�n Qu?c", postAuthor: "L� Van C", reportedBy: "Ph?m Th? D", reason: "spam", detail: "B�i vi?t ch?a link qu?ng c�o d?ch v? visa kh�ng r� ngu?n g?c", status: "pending", createdAt: "2026-04-22T15:20:00Z" },
+  { id: "r-003", postId: "p-003", postTitle: "K?t qu? thi EPS th�ng 4/2026", postAuthor: "Ho�ng Van E", reportedBy: "Vu Th? F", reason: "offensive", detail: "B�nh lu?n trong b�i vi?t c� ng�n ng? x�c ph?m", status: "resolved", createdAt: "2026-04-21T10:00:00Z", resolvedAt: "2026-04-21T14:30:00Z", resolvedBy: "Admin", action: "X�a b�nh lu?n vi ph?m" },
+  { id: "r-004", postId: "p-004", postTitle: "M?o h?c t? v?ng EPS nhanh", postAuthor: "B�i Th? H", reportedBy: "�?ng Van G", reason: "other", detail: "N?i dung sao ch�p t? trang kh�c kh�ng ghi ngu?n", status: "dismissed", createdAt: "2026-04-20T09:00:00Z", resolvedAt: "2026-04-20T11:00:00Z", resolvedBy: "Moderator", action: "Kh�ng vi ph?m, d� b? qua" },
+  { id: "r-005", postId: "p-005", postTitle: "H?i v? ch? d? b?o hi?m lao d?ng", postAuthor: "Nguy?n Van A", reportedBy: "Tr?n Th? B", reason: "harassment", detail: "T�c gi? g?i tin nh?n qu?y r?i ngu?i b�nh lu?n", status: "pending", createdAt: "2026-04-23T11:45:00Z" },
+  { id: "r-006", postId: "p-006", postTitle: "Chia s? k?t qu? thi TOPIK II", postAuthor: "L� Van C", reportedBy: "Ho�ng Van E", reason: "misinformation", detail: "Th�ng tin v? c?u tr�c d? thi kh�ng d�ng", status: "pending", createdAt: "2026-04-22T07:30:00Z" },
 ];
 
 const REASON_CONFIG: Record<ReportReason, { label: string; color: string; icon: string }> = {
   spam: { label: "Spam", color: "#fb923c", icon: "ri-spam-line" },
-  offensive: { label: "Nội dung xấu", color: "#f87171", icon: "ri-emotion-unhappy-line" },
-  misinformation: { label: "Sai thông tin", color: "app-accent-primary", icon: "ri-error-warning-line" },
-  harassment: { label: "Quấy rối", color: "#f87171", icon: "ri-user-forbid-line" },
-  other: { label: "Khác", color: "#6b7280", icon: "ri-flag-line" },
+  offensive: { label: "N?i dung x?u", color: "#f87171", icon: "ri-emotion-unhappy-line" },
+  misinformation: { label: "Sai th�ng tin", color: "app-accent-primary", icon: "ri-error-warning-line" },
+  harassment: { label: "Qu?y r?i", color: "#f87171", icon: "ri-user-forbid-line" },
+  other: { label: "Kh�c", color: "#6b7280", icon: "ri-flag-line" },
 };
 
 const REPORT_STATUS_CONFIG: Record<ReportStatus, { label: string; color: string; bg: string; icon: string }> = {
-  pending: { label: "Chờ xử lý", color: "app-accent-primary", bg: "rgba(232,200,74,0.12)", icon: "ri-time-line" },
-  resolved: { label: "Đã xử lý", color: "#34d399", bg: "rgba(52,211,153,0.12)", icon: "ri-checkbox-circle-line" },
-  dismissed: { label: "Bỏ qua", color: "#6b7280", bg: "rgba(107,114,128,0.12)", icon: "ri-close-circle-line" },
+  pending: { label: "Ch? x? l�", color: "app-accent-primary", bg: "rgba(232,200,74,0.12)", icon: "ri-time-line" },
+  resolved: { label: "�� x? l�", color: "#34d399", bg: "rgba(52,211,153,0.12)", icon: "ri-checkbox-circle-line" },
+  dismissed: { label: "B? qua", color: "#6b7280", bg: "rgba(107,114,128,0.12)", icon: "ri-close-circle-line" },
 };
 
 interface CommunityPost {
@@ -74,45 +74,45 @@ interface LessonItem {
   preview?: string;
 }
 
-// ─── Mock lesson submissions ──────────────────────────────────────────────────
+// --- Mock lesson submissions --------------------------------------------------
 const mockLessons: LessonItem[] = [
-  { id: "l-001", title: "BTS - Dynamite (Bài học từ vựng)", artist: "BTS", submittedBy: "Nguyễn Văn A", submittedAt: "2026-04-22T10:00:00Z", status: "pending", type: "melon", preview: "Bài học từ vựng từ ca khúc Dynamite của BTS, bao gồm 25 từ vựng thông dụng..." },
-  { id: "l-002", title: "Ngữ pháp -아/어서 (Vì... nên...)", submittedBy: "Trần Thị B", submittedAt: "2026-04-21T14:30:00Z", status: "pending", type: "grammar", preview: "Giải thích cấu trúc ngữ pháp -아/어서 với 10 ví dụ thực tế..." },
-  { id: "l-003", title: "EPS Chủ đề: An toàn lao động (Bổ sung)", submittedBy: "Lê Văn C", submittedAt: "2026-04-20T09:15:00Z", status: "approved", type: "eps", preview: "Bổ sung 15 câu hỏi mới về an toàn lao động trong nhà máy..." },
-  { id: "l-004", title: "IU - Celebrity (Phân tích lời bài hát)", artist: "IU", submittedBy: "Phạm Thị D", submittedAt: "2026-04-19T16:45:00Z", status: "rejected", type: "melon", preview: "Phân tích chi tiết lời bài hát Celebrity của IU..." },
-  { id: "l-005", title: "Ngữ pháp -(으)면 (Nếu... thì...)", submittedBy: "Hoàng Văn E", submittedAt: "2026-04-18T11:20:00Z", status: "pending", type: "grammar", preview: "Cấu trúc điều kiện -(으)면 với 12 ví dụ từ đơn giản đến nâng cao..." },
-  { id: "l-006", title: "NewJeans - Hype Boy (Từ vựng K-pop)", artist: "NewJeans", submittedBy: "Vũ Thị F", submittedAt: "2026-04-17T08:00:00Z", status: "approved", type: "melon", preview: "Học từ vựng qua bài Hype Boy, 20 từ vựng về tình cảm và cuộc sống..." },
+  { id: "l-001", title: "BTS - Dynamite (B�i h?c t? v?ng)", artist: "BTS", submittedBy: "Nguy?n Van A", submittedAt: "2026-04-22T10:00:00Z", status: "pending", type: "melon", preview: "B�i h?c t? v?ng t? ca kh�c Dynamite c?a BTS, bao g?m 25 t? v?ng th�ng d?ng..." },
+  { id: "l-002", title: "Ng? ph�p -?/?? (V�... n�n...)", submittedBy: "Tr?n Th? B", submittedAt: "2026-04-21T14:30:00Z", status: "pending", type: "grammar", preview: "Gi?i th�ch c?u tr�c ng? ph�p -?/?? v?i 10 v� d? th?c t?..." },
+  { id: "l-003", title: "EPS Ch? d?: An to�n lao d?ng (B? sung)", submittedBy: "L� Van C", submittedAt: "2026-04-20T09:15:00Z", status: "approved", type: "eps", preview: "B? sung 15 c�u h?i m?i v? an to�n lao d?ng trong nh� m�y..." },
+  { id: "l-004", title: "IU - Celebrity (Ph�n t�ch l?i b�i h�t)", artist: "IU", submittedBy: "Ph?m Th? D", submittedAt: "2026-04-19T16:45:00Z", status: "rejected", type: "melon", preview: "Ph�n t�ch chi ti?t l?i b�i h�t Celebrity c?a IU..." },
+  { id: "l-005", title: "Ng? ph�p -(?)? (N?u... th�...)", submittedBy: "Ho�ng Van E", submittedAt: "2026-04-18T11:20:00Z", status: "pending", type: "grammar", preview: "C?u tr�c di?u ki?n -(?)? v?i 12 v� d? t? don gi?n d?n n�ng cao..." },
+  { id: "l-006", title: "NewJeans - Hype Boy (T? v?ng K-pop)", artist: "NewJeans", submittedBy: "Vu Th? F", submittedAt: "2026-04-17T08:00:00Z", status: "approved", type: "melon", preview: "H?c t? v?ng qua b�i Hype Boy, 20 t? v?ng v? t�nh c?m v� cu?c s?ng..." },
 ];
 
-// ─── Category config ──────────────────────────────────────────────────────────
+// --- Category config ----------------------------------------------------------
 const CAT_CONFIG: Record<string, { label: string; color: string; icon: string }> = {
-  question: { label: "Hỏi đáp", color: "#60a5fa", icon: "ri-question-answer-line" },
-  share: { label: "Chia sẻ", color: "#34d399", icon: "ri-share-line" },
-  result: { label: "Kết quả thi", color: "#FFD700", icon: "ri-trophy-line" },
-  tip: { label: "Mẹo học", color: "#fb923c", icon: "ri-lightbulb-line" },
+  question: { label: "H?i d�p", color: "#60a5fa", icon: "ri-question-answer-line" },
+  share: { label: "Chia s?", color: "#34d399", icon: "ri-share-line" },
+  result: { label: "K?t qu? thi", color: "#FFD700", icon: "ri-trophy-line" },
+  tip: { label: "M?o h?c", color: "#fb923c", icon: "ri-lightbulb-line" },
 };
 
 const STATUS_CONFIG: Record<PostStatus, { label: string; color: string; bg: string; icon: string }> = {
-  pending: { label: "Chờ duyệt", color: "app-accent-primary", bg: "rgba(232,200,74,0.12)", icon: "ri-time-line" },
-  approved: { label: "Đã duyệt", color: "#34d399", bg: "rgba(52,211,153,0.12)", icon: "ri-checkbox-circle-line" },
-  rejected: { label: "Từ chối", color: "#f87171", bg: "rgba(248,113,113,0.12)", icon: "ri-close-circle-line" },
+  pending: { label: "Ch? duy?t", color: "app-accent-primary", bg: "rgba(232,200,74,0.12)", icon: "ri-time-line" },
+  approved: { label: "�� duy?t", color: "#34d399", bg: "rgba(52,211,153,0.12)", icon: "ri-checkbox-circle-line" },
+  rejected: { label: "T? ch?i", color: "#f87171", bg: "rgba(248,113,113,0.12)", icon: "ri-close-circle-line" },
 };
 
 const LESSON_TYPE_CONFIG: Record<string, { label: string; color: string; icon: string }> = {
   melon: { label: "Melon", color: "#a78bfa", icon: "ri-music-line" },
   eps: { label: "EPS", color: "app-accent-primary", icon: "ri-file-list-3-line" },
-  grammar: { label: "Ngữ pháp", color: "#34d399", icon: "ri-book-open-line" },
+  grammar: { label: "Ng? ph�p", color: "#34d399", icon: "ri-book-open-line" },
 };
 
 function timeAgo(dateStr: string) {
   const diff = Date.now() - new Date(dateStr).getTime();
   const h = Math.floor(diff / 3600000);
-  if (h < 1) return "Vừa xong";
-  if (h < 24) return `${h} giờ trước`;
-  return `${Math.floor(h / 24)} ngày trước`;
+  if (h < 1) return "V?a xong";
+  if (h < 24) return `${h} gi? tru?c`;
+  return `${Math.floor(h / 24)} ng�y tru?c`;
 }
 
-// ─── Confirm Modal ────────────────────────────────────────────────────────────
+// --- Confirm Modal ------------------------------------------------------------
 function ConfirmModal({ action, title, onConfirm, onCancel }: {
   action: "approve" | "reject" | "pin" | "delete";
   title: string;
@@ -120,10 +120,10 @@ function ConfirmModal({ action, title, onConfirm, onCancel }: {
   onCancel: () => void;
 }) {
   const config = {
-    approve: { label: "Duyệt", color: "#34d399", icon: "ri-checkbox-circle-line", desc: "Nội dung sẽ được hiển thị công khai." },
-    reject: { label: "Từ chối", color: "#f87171", icon: "ri-close-circle-line", desc: "Nội dung sẽ bị ẩn và tác giả sẽ được thông báo." },
-    pin: { label: "Ghim", color: "app-accent-primary", icon: "ri-pushpin-line", desc: "Bài viết sẽ được ghim lên đầu trang cộng đồng." },
-    delete: { label: "Xóa", color: "#f87171", icon: "ri-delete-bin-line", desc: "Hành động này không thể hoàn tác." },
+    approve: { label: "Duy?t", color: "#34d399", icon: "ri-checkbox-circle-line", desc: "N?i dung s? du?c hi?n th? c�ng khai." },
+    reject: { label: "T? ch?i", color: "#f87171", icon: "ri-close-circle-line", desc: "N?i dung s? b? ?n v� t�c gi? s? du?c th�ng b�o." },
+    pin: { label: "Ghim", color: "app-accent-primary", icon: "ri-pushpin-line", desc: "B�i vi?t s? du?c ghim l�n d?u trang c?ng d?ng." },
+    delete: { label: "X�a", color: "#f87171", icon: "ri-delete-bin-line", desc: "H�nh d?ng n�y kh�ng th? ho�n t�c." },
   }[action];
 
   return (
@@ -143,7 +143,7 @@ function ConfirmModal({ action, title, onConfirm, onCancel }: {
             <button onClick={onCancel}
               className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap"
               style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>
-              Hủy
+              H?y
             </button>
             <button onClick={onConfirm}
               className="flex-1 py-2.5 rounded-xl text-white font-bold text-sm cursor-pointer whitespace-nowrap"
@@ -157,7 +157,7 @@ function ConfirmModal({ action, title, onConfirm, onCancel }: {
   );
 }
 
-// ─── Post Detail Drawer ───────────────────────────────────────────────────────
+// --- Post Detail Drawer -------------------------------------------------------
 function PostDetailDrawer({ post, onClose, onApprove, onReject, onPin, onDelete }: {
   post: CommunityPost;
   onClose: () => void;
@@ -215,7 +215,7 @@ function PostDetailDrawer({ post, onClose, onApprove, onReject, onPin, onDelete 
             <div className="flex items-center gap-2 px-3 py-2 rounded-lg"
               style={{ backgroundColor: "rgba(232,200,74,0.08)", border: "1px solid rgba(232,200,74,0.2)" }}>
               <i className="ri-pushpin-fill text-app-accent-primary text-xs"></i>
-              <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>Bài viết đang được ghim</span>
+              <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>B�i vi?t dang du?c ghim</span>
             </div>
           )}
         </div>
@@ -227,25 +227,25 @@ function PostDetailDrawer({ post, onClose, onApprove, onReject, onPin, onDelete 
             {status !== "approved" && (
               <button onClick={() => onApprove(post.id)}
                 className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap bg-emerald-500 hover:bg-emerald-400 text-white transition-colors">
-                <i className="ri-checkbox-circle-line"></i>Duyệt
+                <i className="ri-checkbox-circle-line"></i>Duy?t
               </button>
             )}
             {status !== "rejected" && (
               <button onClick={() => onReject(post.id)}
                 className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap bg-rose-500 hover:bg-rose-400 text-white transition-colors">
-                <i className="ri-close-circle-line"></i>Từ chối
+                <i className="ri-close-circle-line"></i>T? ch?i
               </button>
             )}
             <button onClick={() => onPin(post.id)}
               className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium cursor-pointer whitespace-nowrap transition-colors"
               style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)", border: "1px solid var(--admin-border)" }}>
               <i className={post.is_pinned ? "ri-unpin-line" : "ri-pushpin-line"}></i>
-              {post.is_pinned ? "Bỏ ghim" : "Ghim"}
+              {post.is_pinned ? "B? ghim" : "Ghim"}
             </button>
             <button onClick={() => onDelete(post.id)}
               className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium cursor-pointer whitespace-nowrap transition-colors"
               style={{ backgroundColor: "rgba(248,113,113,0.08)", color: "#f87171", border: "1px solid rgba(248,113,113,0.2)" }}>
-              <i className="ri-delete-bin-line"></i>Xóa
+              <i className="ri-delete-bin-line"></i>X�a
             </button>
           </div>
         </div>
@@ -254,7 +254,7 @@ function PostDetailDrawer({ post, onClose, onApprove, onReject, onPin, onDelete 
   );
 }
 
-// ─── Bulk Action Bar ──────────────────────────────────────────────────────────
+// --- Bulk Action Bar ----------------------------------------------------------
 function BulkActionBar({ count, onApprove, onReject, onDelete, onClear }: {
   count: number;
   onApprove?: () => void;
@@ -269,26 +269,26 @@ function BulkActionBar({ count, onApprove, onReject, onDelete, onClear }: {
         <i className="ri-checkbox-multiple-line text-xs" style={{ color: "#a78bfa" }}></i>
       </div>
       <span className="text-xs font-semibold flex-1" style={{ color: "#a78bfa" }}>
-        Đã chọn {count} mục
+        �� ch?n {count} m?c
       </span>
       <div className="flex items-center gap-2">
         {onApprove && (
           <button onClick={onApprove}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer whitespace-nowrap bg-emerald-500 hover:bg-emerald-400 text-white transition-colors">
-            <i className="ri-checkbox-circle-line"></i>Duyệt tất cả
+            <i className="ri-checkbox-circle-line"></i>Duy?t t?t c?
           </button>
         )}
         {onReject && (
           <button onClick={onReject}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer whitespace-nowrap transition-colors"
             style={{ backgroundColor: "rgba(248,113,113,0.12)", color: "#f87171", border: "1px solid rgba(248,113,113,0.25)" }}>
-            <i className="ri-close-circle-line"></i>Từ chối tất cả
+            <i className="ri-close-circle-line"></i>T? ch?i t?t c?
           </button>
         )}
         <button onClick={onDelete}
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer whitespace-nowrap transition-colors"
           style={{ backgroundColor: "rgba(248,113,113,0.12)", color: "#f87171", border: "1px solid rgba(248,113,113,0.25)" }}>
-          <i className="ri-delete-bin-line"></i>Xóa tất cả
+          <i className="ri-delete-bin-line"></i>X�a t?t c?
         </button>
         <button onClick={onClear}
           className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer transition-colors"
@@ -300,7 +300,7 @@ function BulkActionBar({ count, onApprove, onReject, onDelete, onClear }: {
   );
 }
 
-// ─── Community Posts Tab ──────────────────────────────────────────────────────
+// --- Community Posts Tab ------------------------------------------------------
 function CommunityPostsTab() {
   const { showToast } = useAdminToast();
   const [posts, setPosts] = useState<CommunityPost[]>([]);
@@ -320,7 +320,7 @@ function CommunityPostsTab() {
       .select("*")
       .order("created_at", { ascending: false });
     if (error) {
-      showToast({ type: "error", title: "Lỗi tải bài viết", message: error.message });
+      showToast({ type: "error", title: "L?i t?i b�i vi?t", message: error.message });
       logError("database", `Fetch community_posts failed: ${error.message}`, { pageUrl: "/admin/content" });
     } else if (data) {
       setPosts((data as CommunityPost[]).map(p => ({ ...p, status: (p.status || "approved") as PostStatus })));
@@ -345,28 +345,28 @@ function CommunityPostsTab() {
     const post = posts.find(p => p.id === id);
     const { error } = await supabase.from("community_posts").update({ status: "approved" }).eq("id", id);
     if (error) {
-      showToast({ type: "error", title: "Lỗi duyệt bài", message: error.message });
+      showToast({ type: "error", title: "L?i duy?t b�i", message: error.message });
       logError("database", `Approve post failed [${id}]: ${error.message}`, { pageUrl: "/admin/content" });
       return;
     }
     setPosts(prev => prev.map(p => p.id === id ? { ...p, status: "approved" as PostStatus } : p));
     setSelectedPost(null);
     setConfirmAction(null);
-    showToast({ type: "approve", title: "Đã duyệt bài viết", message: post?.title?.slice(0, 50) });
+    showToast({ type: "approve", title: "�� duy?t b�i vi?t", message: post?.title?.slice(0, 50) });
   };
 
   const handleReject = async (id: string) => {
     const post = posts.find(p => p.id === id);
     const { error } = await supabase.from("community_posts").update({ status: "rejected" }).eq("id", id);
     if (error) {
-      showToast({ type: "error", title: "Lỗi từ chối bài", message: error.message });
+      showToast({ type: "error", title: "L?i t? ch?i b�i", message: error.message });
       logError("database", `Reject post failed [${id}]: ${error.message}`, { pageUrl: "/admin/content" });
       return;
     }
     setPosts(prev => prev.map(p => p.id === id ? { ...p, status: "rejected" as PostStatus } : p));
     setSelectedPost(null);
     setConfirmAction(null);
-    showToast({ type: "reject", title: "Đã từ chối bài viết", message: post?.title?.slice(0, 50) });
+    showToast({ type: "reject", title: "�� t? ch?i b�i vi?t", message: post?.title?.slice(0, 50) });
   };
 
   const handlePin = async (id: string) => {
@@ -374,28 +374,28 @@ function CommunityPostsTab() {
     if (!post) return;
     const { error } = await supabase.from("community_posts").update({ is_pinned: !post.is_pinned }).eq("id", id);
     if (error) {
-      showToast({ type: "error", title: "Lỗi ghim bài", message: error.message });
+      showToast({ type: "error", title: "L?i ghim b�i", message: error.message });
       logError("database", `Pin post failed [${id}]: ${error.message}`, { pageUrl: "/admin/content" });
       return;
     }
     setPosts(prev => prev.map(p => p.id === id ? { ...p, is_pinned: !p.is_pinned } : p));
     if (selectedPost?.id === id) setSelectedPost(prev => prev ? { ...prev, is_pinned: !prev.is_pinned } : null);
     setConfirmAction(null);
-    showToast({ type: "info", title: post.is_pinned ? "Đã bỏ ghim bài viết" : "Đã ghim bài viết", message: post.title?.slice(0, 50) });
+    showToast({ type: "info", title: post.is_pinned ? "�� b? ghim b�i vi?t" : "�� ghim b�i vi?t", message: post.title?.slice(0, 50) });
   };
 
   const handleDelete = async (id: string) => {
     const post = posts.find(p => p.id === id);
     const { error } = await supabase.from("community_posts").delete().eq("id", id);
     if (error) {
-      showToast({ type: "error", title: "Lỗi xóa bài", message: error.message });
+      showToast({ type: "error", title: "L?i x�a b�i", message: error.message });
       logError("database", `Delete post failed [${id}]: ${error.message}`, { pageUrl: "/admin/content" });
       return;
     }
     setPosts(prev => prev.filter(p => p.id !== id));
     setSelectedPost(null);
     setConfirmAction(null);
-    showToast({ type: "delete", title: "Đã xóa bài viết", message: post?.title?.slice(0, 50) });
+    showToast({ type: "delete", title: "�� x�a b�i vi?t", message: post?.title?.slice(0, 50) });
   };
 
   // Bulk handlers
@@ -409,7 +409,7 @@ function CommunityPostsTab() {
     setPosts(prev => prev.map(p => selectedIds.has(p.id) ? { ...p, status: "approved" as PostStatus } : p));
     setSelectedIds(new Set());
     setBulkConfirm(null);
-    showToast({ type: "approve", title: `Đã duyệt ${ok}/${count} bài viết`, message: ok < count ? `${count - ok} bài lỗi` : undefined });
+    showToast({ type: "approve", title: `�� duy?t ${ok}/${count} b�i vi?t`, message: ok < count ? `${count - ok} b�i l?i` : undefined });
   };
   const handleBulkReject = async () => {
     const count = selectedIds.size;
@@ -421,7 +421,7 @@ function CommunityPostsTab() {
     setPosts(prev => prev.map(p => selectedIds.has(p.id) ? { ...p, status: "rejected" as PostStatus } : p));
     setSelectedIds(new Set());
     setBulkConfirm(null);
-    showToast({ type: "reject", title: `Đã từ chối ${ok}/${count} bài viết`, message: ok < count ? `${count - ok} bài lỗi` : undefined });
+    showToast({ type: "reject", title: `�� t? ch?i ${ok}/${count} b�i vi?t`, message: ok < count ? `${count - ok} b�i l?i` : undefined });
   };
   const handleBulkDelete = async () => {
     const count = selectedIds.size;
@@ -433,7 +433,7 @@ function CommunityPostsTab() {
     setPosts(prev => prev.filter(p => !selectedIds.has(p.id)));
     setSelectedIds(new Set());
     setBulkConfirm(null);
-    showToast({ type: "delete", title: `Đã xóa ${count} bài viết`, message: "Các bài viết đã chọn đã bị xóa vĩnh viễn" });
+    showToast({ type: "delete", title: `�� x�a ${count} b�i vi?t`, message: "C�c b�i vi?t d� ch?n d� b? x�a vinh vi?n" });
   };
 
   const toggleSelect = (id: string, e: React.MouseEvent) => {
@@ -468,10 +468,10 @@ function CommunityPostsTab() {
       {/* Stats row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
         {[
-          { label: "Tổng bài", value: stats.total, color: "#a78bfa", icon: "ri-article-line" },
-          { label: "Chờ duyệt", value: stats.pending, color: "app-accent-primary", icon: "ri-time-line" },
-          { label: "Đã duyệt", value: stats.approved, color: "#34d399", icon: "ri-checkbox-circle-line" },
-          { label: "Đang ghim", value: stats.pinned, color: "#fb923c", icon: "ri-pushpin-line" },
+          { label: "T?ng b�i", value: stats.total, color: "#a78bfa", icon: "ri-article-line" },
+          { label: "Ch? duy?t", value: stats.pending, color: "app-accent-primary", icon: "ri-time-line" },
+          { label: "�� duy?t", value: stats.approved, color: "#34d399", icon: "ri-checkbox-circle-line" },
+          { label: "�ang ghim", value: stats.pinned, color: "#fb923c", icon: "ri-pushpin-line" },
         ].map(s => (
           <div key={s.label} className="rounded-xl p-4 border"
             style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
@@ -491,7 +491,7 @@ function CommunityPostsTab() {
         <div className="relative flex-1 min-w-48">
           <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-sm" style={{ color: "var(--admin-text-faint)" }}></i>
           <input value={search} onChange={e => setSearch(e.target.value)}
-            placeholder="Tìm bài viết, tác giả..."
+            placeholder="T�m b�i vi?t, t�c gi?..."
             className="w-full rounded-xl pl-9 pr-4 py-2 text-sm outline-none border"
             style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
         </div>
@@ -500,7 +500,7 @@ function CommunityPostsTab() {
             <button key={s} onClick={() => setFilterStatus(s)}
               className="px-3 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap"
               style={{ backgroundColor: filterStatus === s ? "var(--admin-hover)" : "transparent", color: filterStatus === s ? "var(--admin-text)" : "var(--admin-text-faint)" }}>
-              {s === "all" ? "Tất cả" : STATUS_CONFIG[s].label}
+              {s === "all" ? "T?t c?" : STATUS_CONFIG[s].label}
             </button>
           ))}
         </div>
@@ -509,7 +509,7 @@ function CommunityPostsTab() {
             <button key={c} onClick={() => setFilterCat(c)}
               className="px-2.5 py-1 rounded-md text-xs transition-all cursor-pointer whitespace-nowrap"
               style={{ backgroundColor: filterCat === c ? "var(--admin-hover)" : "transparent", color: filterCat === c ? "var(--admin-text)" : "var(--admin-text-faint)" }}>
-              {c === "all" ? "Tất cả" : CAT_CONFIG[c]?.label}
+              {c === "all" ? "T?t c?" : CAT_CONFIG[c]?.label}
             </button>
           ))}
         </div>
@@ -547,7 +547,7 @@ function CommunityPostsTab() {
                     {(allSelected || someSelected) && <i className="ri-check-line text-white text-[9px]"></i>}
                   </div>
                 </th>
-                {["Bài viết", "Tác giả", "Loại", "Trạng thái", "Tương tác", "Thời gian", "Hành động"].map(h => (
+                {["B�i vi?t", "T�c gi?", "Lo?i", "Tr?ng th�i", "Tuong t�c", "Th?i gian", "H�nh d?ng"].map(h => (
                   <th key={h} className="px-4 py-3 text-left font-semibold" style={{ color: "var(--admin-text-muted)" }}>{h}</th>
                 ))}
               </tr>
@@ -556,7 +556,7 @@ function CommunityPostsTab() {
               {filtered.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="text-center py-12" style={{ color: "var(--admin-text-faint)" }}>
-                    Không có bài viết nào
+                    Kh�ng c� b�i vi?t n�o
                   </td>
                 </tr>
               ) : filtered.map(post => {
@@ -601,26 +601,26 @@ function CommunityPostsTab() {
                         {status !== "approved" && (
                           <button onClick={() => setConfirmAction({ type: "approve", post })}
                             className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer transition-colors"
-                            style={{ backgroundColor: "rgba(52,211,153,0.1)", color: "#34d399" }} title="Duyệt">
+                            style={{ backgroundColor: "rgba(52,211,153,0.1)", color: "#34d399" }} title="Duy?t">
                             <i className="ri-checkbox-circle-line text-xs"></i>
                           </button>
                         )}
                         {status !== "rejected" && (
                           <button onClick={() => setConfirmAction({ type: "reject", post })}
                             className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer transition-colors"
-                            style={{ backgroundColor: "rgba(248,113,113,0.1)", color: "#f87171" }} title="Từ chối">
+                            style={{ backgroundColor: "rgba(248,113,113,0.1)", color: "#f87171" }} title="T? ch?i">
                             <i className="ri-close-circle-line text-xs"></i>
                           </button>
                         )}
                         <button onClick={() => setConfirmAction({ type: "pin", post })}
                           className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer transition-colors"
                           style={{ backgroundColor: "rgba(232,200,74,0.1)", color: "app-accent-primary" }}
-                          title={post.is_pinned ? "Bỏ ghim" : "Ghim"}>
+                          title={post.is_pinned ? "B? ghim" : "Ghim"}>
                           <i className={`${post.is_pinned ? "ri-unpin-line" : "ri-pushpin-line"} text-xs`}></i>
                         </button>
                         <button onClick={() => setConfirmAction({ type: "delete", post })}
                           className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer transition-colors"
-                          style={{ backgroundColor: "rgba(248,113,113,0.08)", color: "#f87171" }} title="Xóa">
+                          style={{ backgroundColor: "rgba(248,113,113,0.08)", color: "#f87171" }} title="X�a">
                           <i className="ri-delete-bin-line text-xs"></i>
                         </button>
                       </div>
@@ -668,20 +668,20 @@ function CommunityPostsTab() {
               <i className={`${bulkConfirm === "approve" ? "ri-checkbox-circle-line text-app-accent-success" : bulkConfirm === "reject" ? "ri-close-circle-line text-rose-400" : "ri-delete-bin-line text-rose-400"} text-xl`}></i>
             </div>
             <p className="font-bold text-sm mb-1" style={{ color: "var(--admin-text)" }}>
-              {bulkConfirm === "approve" ? "Duyệt" : bulkConfirm === "reject" ? "Từ chối" : "Xóa"} {selectedIds.size} bài viết?
+              {bulkConfirm === "approve" ? "Duy?t" : bulkConfirm === "reject" ? "T? ch?i" : "X�a"} {selectedIds.size} b�i vi?t?
             </p>
             <p className="text-xs mb-5" style={{ color: "var(--admin-text-muted)" }}>
-              {bulkConfirm === "delete" ? "Hành động này không thể hoàn tác." : "Trạng thái của tất cả bài viết đã chọn sẽ được cập nhật."}
+              {bulkConfirm === "delete" ? "H�nh d?ng n�y kh�ng th? ho�n t�c." : "Tr?ng th�i c?a t?t c? b�i vi?t d� ch?n s? du?c c?p nh?t."}
             </p>
             <div className="flex gap-3">
               <button onClick={() => setBulkConfirm(null)}
                 className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap"
-                style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>Hủy</button>
+                style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>H?y</button>
               <button
                 onClick={bulkConfirm === "approve" ? handleBulkApprove : bulkConfirm === "reject" ? handleBulkReject : handleBulkDelete}
                 className="flex-1 py-2.5 rounded-xl text-white font-bold text-sm cursor-pointer whitespace-nowrap"
                 style={{ backgroundColor: bulkConfirm === "approve" ? "#34d399" : "#f87171" }}>
-                Xác nhận
+                X�c nh?n
               </button>
             </div>
           </div>
@@ -691,7 +691,7 @@ function CommunityPostsTab() {
   );
 }
 
-// ─── Lessons Tab ──────────────────────────────────────────────────────────────
+// --- Lessons Tab --------------------------------------------------------------
 function LessonsTab() {
   const { showToast } = useAdminToast();
   const [lessons, setLessons] = useState<LessonItem[]>(mockLessons);
@@ -719,7 +719,7 @@ function LessonsTab() {
     setLessons(prev => prev.map(l => l.id === id ? { ...l, status: "approved" } : l));
     setSelectedLesson(null);
     setConfirmAction(null);
-    showToast({ type: "approve", title: "Đã duyệt bài học", message: lesson?.title?.slice(0, 50) });
+    showToast({ type: "approve", title: "�� duy?t b�i h?c", message: lesson?.title?.slice(0, 50) });
   };
 
   const handleReject = (id: string) => {
@@ -727,7 +727,7 @@ function LessonsTab() {
     setLessons(prev => prev.map(l => l.id === id ? { ...l, status: "rejected" } : l));
     setSelectedLesson(null);
     setConfirmAction(null);
-    showToast({ type: "reject", title: "Đã từ chối bài học", message: lesson?.title?.slice(0, 50) });
+    showToast({ type: "reject", title: "�� t? ch?i b�i h?c", message: lesson?.title?.slice(0, 50) });
   };
 
   const handleDelete = (id: string) => {
@@ -735,7 +735,7 @@ function LessonsTab() {
     setLessons(prev => prev.filter(l => l.id !== id));
     setSelectedLesson(null);
     setConfirmAction(null);
-    showToast({ type: "delete", title: "Đã xóa bài học", message: lesson?.title?.slice(0, 50) });
+    showToast({ type: "delete", title: "�� x�a b�i h?c", message: lesson?.title?.slice(0, 50) });
   };
 
   const handleBulkApprove = () => {
@@ -743,21 +743,21 @@ function LessonsTab() {
     setLessons(prev => prev.map(l => selectedIds.has(l.id) ? { ...l, status: "approved" as PostStatus } : l));
     setSelectedIds(new Set());
     setBulkConfirm(null);
-    showToast({ type: "approve", title: `Đã duyệt ${count} bài học`, message: "Tất cả bài học đã chọn được duyệt" });
+    showToast({ type: "approve", title: `�� duy?t ${count} b�i h?c`, message: "T?t c? b�i h?c d� ch?n du?c duy?t" });
   };
   const handleBulkReject = () => {
     const count = selectedIds.size;
     setLessons(prev => prev.map(l => selectedIds.has(l.id) ? { ...l, status: "rejected" as PostStatus } : l));
     setSelectedIds(new Set());
     setBulkConfirm(null);
-    showToast({ type: "reject", title: `Đã từ chối ${count} bài học`, message: "Tất cả bài học đã chọn bị từ chối" });
+    showToast({ type: "reject", title: `�� t? ch?i ${count} b�i h?c`, message: "T?t c? b�i h?c d� ch?n b? t? ch?i" });
   };
   const handleBulkDelete = () => {
     const count = selectedIds.size;
     setLessons(prev => prev.filter(l => !selectedIds.has(l.id)));
     setSelectedIds(new Set());
     setBulkConfirm(null);
-    showToast({ type: "delete", title: `Đã xóa ${count} bài học`, message: "Các bài học đã chọn đã bị xóa" });
+    showToast({ type: "delete", title: `�� x�a ${count} b�i h?c`, message: "C�c b�i h?c d� ch?n d� b? x�a" });
   };
 
   const toggleSelect = (id: string, e: React.MouseEvent) => {
@@ -777,10 +777,10 @@ function LessonsTab() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
         {[
-          { label: "Tổng bài học", value: stats.total, color: "#a78bfa", icon: "ri-book-open-line" },
-          { label: "Chờ duyệt", value: stats.pending, color: "app-accent-primary", icon: "ri-time-line" },
-          { label: "Đã duyệt", value: stats.approved, color: "#34d399", icon: "ri-checkbox-circle-line" },
-          { label: "Từ chối", value: stats.rejected, color: "#f87171", icon: "ri-close-circle-line" },
+          { label: "T?ng b�i h?c", value: stats.total, color: "#a78bfa", icon: "ri-book-open-line" },
+          { label: "Ch? duy?t", value: stats.pending, color: "app-accent-primary", icon: "ri-time-line" },
+          { label: "�� duy?t", value: stats.approved, color: "#34d399", icon: "ri-checkbox-circle-line" },
+          { label: "T? ch?i", value: stats.rejected, color: "#f87171", icon: "ri-close-circle-line" },
         ].map(s => (
           <div key={s.label} className="rounded-xl p-4 border"
             style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
@@ -800,7 +800,7 @@ function LessonsTab() {
         <div className="relative flex-1 min-w-48">
           <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-sm" style={{ color: "var(--admin-text-faint)" }}></i>
           <input value={search} onChange={e => setSearch(e.target.value)}
-            placeholder="Tìm bài học, người gửi..."
+            placeholder="T�m b�i h?c, ngu?i g?i..."
             className="w-full rounded-xl pl-9 pr-4 py-2 text-sm outline-none border"
             style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
         </div>
@@ -809,7 +809,7 @@ function LessonsTab() {
             <button key={s} onClick={() => setFilterStatus(s)}
               className="px-3 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap"
               style={{ backgroundColor: filterStatus === s ? "var(--admin-hover)" : "transparent", color: filterStatus === s ? "var(--admin-text)" : "var(--admin-text-faint)" }}>
-              {s === "all" ? "Tất cả" : STATUS_CONFIG[s].label}
+              {s === "all" ? "T?t c?" : STATUS_CONFIG[s].label}
             </button>
           ))}
         </div>
@@ -818,7 +818,7 @@ function LessonsTab() {
             <button key={t} onClick={() => setFilterType(t)}
               className="px-2.5 py-1 rounded-md text-xs transition-all cursor-pointer whitespace-nowrap"
               style={{ backgroundColor: filterType === t ? "var(--admin-hover)" : "transparent", color: filterType === t ? "var(--admin-text)" : "var(--admin-text-faint)" }}>
-              {t === "all" ? "Tất cả" : LESSON_TYPE_CONFIG[t]?.label}
+              {t === "all" ? "T?t c?" : LESSON_TYPE_CONFIG[t]?.label}
             </button>
           ))}
         </div>
@@ -839,7 +839,7 @@ function LessonsTab() {
       <div className="space-y-3">
         {filtered.length === 0 ? (
           <div className="text-center py-12 rounded-xl border" style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-faint)" }}>
-            Không có bài học nào
+            Kh�ng c� b�i h?c n�o
           </div>
         ) : filtered.map(lesson => {
           const typeCfg = LESSON_TYPE_CONFIG[lesson.type];
@@ -912,7 +912,7 @@ function LessonsTab() {
             onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between px-5 py-4 border-b flex-shrink-0"
               style={{ borderColor: "var(--admin-border)" }}>
-              <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Chi tiết bài học</p>
+              <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Chi ti?t b�i h?c</p>
               <button onClick={() => setSelectedLesson(null)} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer"
                 style={{ color: "var(--admin-text-muted)" }}>
                 <i className="ri-close-line"></i>
@@ -932,7 +932,7 @@ function LessonsTab() {
               <h2 className="font-bold text-base" style={{ color: "var(--admin-text)" }}>{selectedLesson.title}</h2>
               {selectedLesson.artist && (
                 <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>
-                  <i className="ri-music-line mr-1"></i>Nghệ sĩ: {selectedLesson.artist}
+                  <i className="ri-music-line mr-1"></i>Ngh? si: {selectedLesson.artist}
                 </p>
               )}
               <div className="rounded-xl p-4 text-sm leading-relaxed"
@@ -948,13 +948,13 @@ function LessonsTab() {
               {selectedLesson.status !== "approved" && (
                 <button onClick={() => setConfirmAction({ type: "approve", lesson: selectedLesson })}
                   className="flex-1 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-sm cursor-pointer whitespace-nowrap">
-                  <i className="ri-checkbox-circle-line mr-2"></i>Duyệt
+                  <i className="ri-checkbox-circle-line mr-2"></i>Duy?t
                 </button>
               )}
               {selectedLesson.status !== "rejected" && (
                 <button onClick={() => setConfirmAction({ type: "reject", lesson: selectedLesson })}
                   className="flex-1 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 text-white font-bold text-sm cursor-pointer whitespace-nowrap">
-                  <i className="ri-close-circle-line mr-2"></i>Từ chối
+                  <i className="ri-close-circle-line mr-2"></i>T? ch?i
                 </button>
               )}
             </div>
@@ -980,20 +980,20 @@ function LessonsTab() {
           <div className="w-full max-w-sm rounded-2xl border overflow-hidden p-6 text-center"
             style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border2)" }}>
             <p className="font-bold text-sm mb-1" style={{ color: "var(--admin-text)" }}>
-              {bulkConfirm === "approve" ? "Duyệt" : bulkConfirm === "reject" ? "Từ chối" : "Xóa"} {selectedIds.size} bài học?
+              {bulkConfirm === "approve" ? "Duy?t" : bulkConfirm === "reject" ? "T? ch?i" : "X�a"} {selectedIds.size} b�i h?c?
             </p>
             <p className="text-xs mb-5" style={{ color: "var(--admin-text-muted)" }}>
-              {bulkConfirm === "delete" ? "Hành động này không thể hoàn tác." : "Trạng thái sẽ được cập nhật cho tất cả bài học đã chọn."}
+              {bulkConfirm === "delete" ? "H�nh d?ng n�y kh�ng th? ho�n t�c." : "Tr?ng th�i s? du?c c?p nh?t cho t?t c? b�i h?c d� ch?n."}
             </p>
             <div className="flex gap-3">
               <button onClick={() => setBulkConfirm(null)}
                 className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap"
-                style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>Hủy</button>
+                style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>H?y</button>
               <button
                 onClick={bulkConfirm === "approve" ? handleBulkApprove : bulkConfirm === "reject" ? handleBulkReject : handleBulkDelete}
                 className="flex-1 py-2.5 rounded-xl text-white font-bold text-sm cursor-pointer whitespace-nowrap"
                 style={{ backgroundColor: bulkConfirm === "approve" ? "#34d399" : "#f87171" }}>
-                Xác nhận
+                X�c nh?n
               </button>
             </div>
           </div>
@@ -1003,7 +1003,7 @@ function LessonsTab() {
   );
 }
 
-// ─── Reports Tab ──────────────────────────────────────────────────────────────
+// --- Reports Tab --------------------------------------------------------------
 function ResolveModal({ report, onClose, onResolve, onDismiss }: {
   report: Report;
   onClose: () => void;
@@ -1012,7 +1012,7 @@ function ResolveModal({ report, onClose, onResolve, onDismiss }: {
 }) {
   const [action, setAction] = useState("");
   const reasonCfg = REASON_CONFIG[report.reason];
-  const quickActions = ["Xóa bài viết vi phạm", "Xóa bình luận vi phạm", "Cảnh cáo tác giả", "Khóa tài khoản tạm thời", "Gửi email nhắc nhở"];
+  const quickActions = ["X�a b�i vi?t vi ph?m", "X�a b�nh lu?n vi ph?m", "C?nh c�o t�c gi?", "Kh�a t�i kho?n t?m th?i", "G?i email nh?c nh?"];
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
       <div className="w-full max-w-md rounded-2xl border overflow-hidden"
@@ -1023,7 +1023,7 @@ function ResolveModal({ report, onClose, onResolve, onDismiss }: {
               <i className={`${reasonCfg.icon} text-sm`} style={{ color: reasonCfg.color }}></i>
             </div>
             <div>
-              <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>Xử lý báo cáo</p>
+              <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>X? l� b�o c�o</p>
               <p className="text-[10px]" style={{ color: "var(--admin-text-muted)" }}>{reasonCfg.label}</p>
             </div>
           </div>
@@ -1035,16 +1035,16 @@ function ResolveModal({ report, onClose, onResolve, onDismiss }: {
           <div className="rounded-xl p-4" style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>
             <p className="text-xs font-semibold mb-1" style={{ color: "var(--admin-text)" }}>{report.postTitle}</p>
             <p className="text-[10px] mb-2" style={{ color: "var(--admin-text-muted)" }}>
-              <i className="ri-user-line mr-1"></i>Tác giả: {report.postAuthor}
-              <span className="mx-2">·</span>
-              <i className="ri-flag-line mr-1"></i>Báo cáo bởi: {report.reportedBy}
+              <i className="ri-user-line mr-1"></i>T�c gi?: {report.postAuthor}
+              <span className="mx-2">�</span>
+              <i className="ri-flag-line mr-1"></i>B�o c�o b?i: {report.reportedBy}
             </p>
             <div className="rounded-lg px-3 py-2" style={{ backgroundColor: `${reasonCfg.color}08`, border: `1px solid ${reasonCfg.color}20` }}>
               <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>{report.detail}</p>
             </div>
           </div>
           <div>
-            <label className="text-xs font-semibold mb-2 block" style={{ color: "var(--admin-text-muted)" }}>Hành động xử lý</label>
+            <label className="text-xs font-semibold mb-2 block" style={{ color: "var(--admin-text-muted)" }}>H�nh d?ng x? l�</label>
             <div className="flex flex-wrap gap-1.5 mb-2">
               {quickActions.map(qa => (
                 <button key={qa} onClick={() => setAction(qa)}
@@ -1057,7 +1057,7 @@ function ResolveModal({ report, onClose, onResolve, onDismiss }: {
               ))}
             </div>
             <input value={action} onChange={e => setAction(e.target.value)}
-              placeholder="Hoặc nhập hành động tùy chỉnh..."
+              placeholder="Ho?c nh?p h�nh d?ng t�y ch?nh..."
               className="w-full rounded-xl px-4 py-2.5 text-sm outline-none border"
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
           </div>
@@ -1065,11 +1065,11 @@ function ResolveModal({ report, onClose, onResolve, onDismiss }: {
             <button onClick={() => onDismiss(report.id)}
               className="flex-1 py-2.5 rounded-xl border text-sm font-medium cursor-pointer whitespace-nowrap"
               style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>
-              <i className="ri-close-circle-line mr-2"></i>Bỏ qua
+              <i className="ri-close-circle-line mr-2"></i>B? qua
             </button>
-            <button onClick={() => onResolve(report.id, action || "Xử lý vi phạm")}
+            <button onClick={() => onResolve(report.id, action || "X? l� vi ph?m")}
               className="flex-1 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-sm cursor-pointer whitespace-nowrap">
-              <i className="ri-shield-check-line mr-2"></i>Xử lý xong
+              <i className="ri-shield-check-line mr-2"></i>X? l� xong
             </button>
           </div>
         </div>
@@ -1107,16 +1107,16 @@ function ReportsTab() {
       ...r, status: "resolved" as ReportStatus, resolvedAt: new Date().toISOString(), resolvedBy: "Admin", action,
     } : r));
     setResolveModal(null);
-    showToast({ type: "success", title: "Đã xử lý báo cáo", message: report?.postTitle?.slice(0, 50) });
+    showToast({ type: "success", title: "�� x? l� b�o c�o", message: report?.postTitle?.slice(0, 50) });
   };
 
   const handleDismiss = (id: string) => {
     const report = reports.find(r => r.id === id);
     setReports(prev => prev.map(r => r.id === id ? {
-      ...r, status: "dismissed" as ReportStatus, resolvedAt: new Date().toISOString(), resolvedBy: "Admin", action: "Không vi phạm",
+      ...r, status: "dismissed" as ReportStatus, resolvedAt: new Date().toISOString(), resolvedBy: "Admin", action: "Kh�ng vi ph?m",
     } : r));
     setResolveModal(null);
-    showToast({ type: "info", title: "Đã bỏ qua báo cáo", message: report?.postTitle?.slice(0, 50) });
+    showToast({ type: "info", title: "�� b? qua b�o c�o", message: report?.postTitle?.slice(0, 50) });
   };
 
   const stats = useMemo(() => ({
@@ -1130,10 +1130,10 @@ function ReportsTab() {
     <div>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
         {[
-          { label: "Tổng báo cáo", value: stats.total, color: "#a78bfa", icon: "ri-flag-line" },
-          { label: "Chờ xử lý", value: stats.pending, color: "app-accent-primary", icon: "ri-time-line" },
-          { label: "Đã xử lý", value: stats.resolved, color: "#34d399", icon: "ri-shield-check-line" },
-          { label: "Bỏ qua", value: stats.dismissed, color: "#6b7280", icon: "ri-close-circle-line" },
+          { label: "T?ng b�o c�o", value: stats.total, color: "#a78bfa", icon: "ri-flag-line" },
+          { label: "Ch? x? l�", value: stats.pending, color: "app-accent-primary", icon: "ri-time-line" },
+          { label: "�� x? l�", value: stats.resolved, color: "#34d399", icon: "ri-shield-check-line" },
+          { label: "B? qua", value: stats.dismissed, color: "#6b7280", icon: "ri-close-circle-line" },
         ].map(s => (
           <div key={s.label} className="rounded-xl p-4 border" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
             <div className="flex items-center gap-2 mb-1">
@@ -1150,7 +1150,7 @@ function ReportsTab() {
       <div className="flex items-center gap-3 mb-4 flex-wrap">
         <div className="relative flex-1 min-w-48">
           <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-sm" style={{ color: "var(--admin-text-faint)" }}></i>
-          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Tìm bài viết, tác giả, người báo cáo..."
+          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="T�m b�i vi?t, t�c gi?, ngu?i b�o c�o..."
             className="w-full rounded-xl pl-9 pr-4 py-2 text-sm outline-none border"
             style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
         </div>
@@ -1159,7 +1159,7 @@ function ReportsTab() {
             <button key={s} onClick={() => setFilterStatus(s)}
               className="px-3 py-1 rounded-md text-xs font-medium transition-all cursor-pointer whitespace-nowrap"
               style={{ backgroundColor: filterStatus === s ? "var(--admin-hover)" : "transparent", color: filterStatus === s ? "var(--admin-text)" : "var(--admin-text-faint)" }}>
-              {s === "all" ? "Tất cả" : REPORT_STATUS_CONFIG[s].label}
+              {s === "all" ? "T?t c?" : REPORT_STATUS_CONFIG[s].label}
             </button>
           ))}
         </div>
@@ -1168,7 +1168,7 @@ function ReportsTab() {
             <button key={r} onClick={() => setFilterReason(r)}
               className="px-2.5 py-1 rounded-md text-xs transition-all cursor-pointer whitespace-nowrap"
               style={{ backgroundColor: filterReason === r ? "var(--admin-hover)" : "transparent", color: filterReason === r ? "var(--admin-text)" : "var(--admin-text-faint)" }}>
-              {r === "all" ? "Tất cả" : REASON_CONFIG[r].label}
+              {r === "all" ? "T?t c?" : REASON_CONFIG[r].label}
             </button>
           ))}
         </div>
@@ -1177,7 +1177,7 @@ function ReportsTab() {
       <div className="space-y-3">
         {filtered.length === 0 ? (
           <div className="text-center py-12 rounded-xl border" style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-faint)" }}>
-            <i className="ri-flag-line text-3xl mb-2 block"></i>Không có báo cáo nào
+            <i className="ri-flag-line text-3xl mb-2 block"></i>Kh�ng c� b�o c�o n�o
           </div>
         ) : filtered.map(report => {
           const reasonCfg = REASON_CONFIG[report.reason];
@@ -1199,15 +1199,15 @@ function ReportsTab() {
                   </div>
                   <p className="font-semibold text-sm mb-1" style={{ color: "var(--admin-text)" }}>{report.postTitle}</p>
                   <div className="flex items-center gap-3 text-[10px] mb-2" style={{ color: "var(--admin-text-muted)" }}>
-                    <span><i className="ri-user-line mr-1"></i>Tác giả: <strong>{report.postAuthor}</strong></span>
-                    <span><i className="ri-flag-line mr-1"></i>Báo cáo bởi: <strong>{report.reportedBy}</strong></span>
+                    <span><i className="ri-user-line mr-1"></i>T�c gi?: <strong>{report.postAuthor}</strong></span>
+                    <span><i className="ri-flag-line mr-1"></i>B�o c�o b?i: <strong>{report.reportedBy}</strong></span>
                   </div>
                   <div className="rounded-lg px-3 py-2 text-xs" style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text-muted)" }}>{report.detail}</div>
                   {report.status !== "pending" && report.action && (
                     <div className="mt-2 flex items-center gap-2 text-[10px]" style={{ color: "var(--admin-text-faint)" }}>
                       <i className="ri-shield-check-line" style={{ color: statusCfg.color }}></i>
-                      <span>Hành động: <strong style={{ color: statusCfg.color }}>{report.action}</strong></span>
-                      {report.resolvedBy && <span>· bởi {report.resolvedBy}</span>}
+                      <span>H�nh d?ng: <strong style={{ color: statusCfg.color }}>{report.action}</strong></span>
+                      {report.resolvedBy && <span>� b?i {report.resolvedBy}</span>}
                     </div>
                   )}
                 </div>
@@ -1215,7 +1215,7 @@ function ReportsTab() {
                   <button onClick={() => setResolveModal(report)}
                     className="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold cursor-pointer whitespace-nowrap"
                     style={{ backgroundColor: "rgba(248,113,113,0.1)", color: "#f87171", border: "1px solid rgba(248,113,113,0.2)" }}>
-                    <i className="ri-shield-check-line"></i>Xử lý
+                    <i className="ri-shield-check-line"></i>X? l�
                   </button>
                 )}
               </div>
@@ -1231,7 +1231,7 @@ function ReportsTab() {
   );
 }
 
-// ─── Community Ratings Moderation ────────────────────────────────────────────
+// --- Community Ratings Moderation --------------------------------------------
 interface RatingRow {
   id: string;
   post_id: string;
@@ -1259,7 +1259,7 @@ function CommunityRatingsTab() {
     if (filter === "pending") query.eq("status", "pending");
     const { data, error } = await query;
     if (error) {
-      showToast({ type: "error", title: "Lỗi tải đánh giá", message: error.message });
+      showToast({ type: "error", title: "L?i t?i d�nh gi�", message: error.message });
       logError("database", `Fetch ratings failed: ${error.message}`, { pageUrl: "/admin/content" });
     } else if (data) {
       // Fetch user display names
@@ -1268,7 +1268,7 @@ function CommunityRatingsTab() {
         .from("user_profiles")
         .select("id,display_name")
         .in("id", userIds);
-      const userMap = new Map((usersData || []).map((u) => [u.id, u.display_name || "Học viên"]));
+      const userMap = new Map((usersData || []).map((u) => [u.id, u.display_name || "H?c vi�n"]));
       // Fetch post titles
       const postIds = Array.from(new Set(data.map((r) => r.post_id)));
       const { data: postsData } = await supabase
@@ -1280,7 +1280,7 @@ function CommunityRatingsTab() {
         data.map((r) => ({
           ...(r as RatingRow),
           user_display_name: userMap.get(r.user_id),
-          post_title: postMap.get(r.post_id) || "(bài đã xoá)",
+          post_title: postMap.get(r.post_id) || "(b�i d� xo�)",
         }))
       );
     }
@@ -1294,10 +1294,10 @@ function CommunityRatingsTab() {
   const handleApprove = async (id: string) => {
     const { error } = await supabase.from("community_ratings").update({ status: "approved" }).eq("id", id);
     if (error) {
-      showToast({ type: "error", title: "Lỗi duyệt", message: error.message });
+      showToast({ type: "error", title: "L?i duy?t", message: error.message });
       return;
     }
-    showToast({ type: "success", title: "Đã duyệt đánh giá" });
+    showToast({ type: "success", title: "�� duy?t d�nh gi�" });
     setRatings((prev) => prev.map((r) => (r.id === id ? { ...r, status: "approved" } : r)));
     if (filter === "pending") setRatings((prev) => prev.filter((r) => r.id !== id));
   };
@@ -1305,36 +1305,36 @@ function CommunityRatingsTab() {
   const handleReject = async (id: string) => {
     const { error } = await supabase.from("community_ratings").update({ status: "rejected" }).eq("id", id);
     if (error) {
-      showToast({ type: "error", title: "Lỗi từ chối", message: error.message });
+      showToast({ type: "error", title: "L?i t? ch?i", message: error.message });
       return;
     }
-    showToast({ type: "success", title: "Đã từ chối đánh giá" });
+    showToast({ type: "success", title: "�� t? ch?i d�nh gi�" });
     setRatings((prev) => prev.map((r) => (r.id === id ? { ...r, status: "rejected" } : r)));
     if (filter === "pending") setRatings((prev) => prev.filter((r) => r.id !== id));
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Xoá vĩnh viễn đánh giá này?")) return;
+    if (!confirm("Xo� vinh vi?n d�nh gi� n�y?")) return;
     const { error } = await supabase.from("community_ratings").delete().eq("id", id);
     if (error) {
-      showToast({ type: "error", title: "Lỗi xoá", message: error.message });
+      showToast({ type: "error", title: "L?i xo�", message: error.message });
       return;
     }
-    showToast({ type: "success", title: "Đã xoá đánh giá" });
+    showToast({ type: "success", title: "�� xo� d�nh gi�" });
     setRatings((prev) => prev.filter((r) => r.id !== id));
   };
 
   const handleEdit = async (id: string, newRating: number) => {
     if (newRating < 4.5 || newRating > 5) {
-      showToast({ type: "error", title: "Lỗi", message: "Rating phải từ 4.5 đến 5 sao" });
+      showToast({ type: "error", title: "L?i", message: "Rating ph?i t? 4.5 d?n 5 sao" });
       return;
     }
     const { error } = await supabase.from("community_ratings").update({ rating: newRating }).eq("id", id);
     if (error) {
-      showToast({ type: "error", title: "Lỗi sửa", message: error.message });
+      showToast({ type: "error", title: "L?i s?a", message: error.message });
       return;
     }
-    showToast({ type: "success", title: "Đã sửa đánh giá" });
+    showToast({ type: "success", title: "�� s?a d�nh gi�" });
     setRatings((prev) => prev.map((r) => (r.id === id ? { ...r, rating: newRating } : r)));
   };
 
@@ -1355,15 +1355,15 @@ function CommunityRatingsTab() {
                 border: filter === f ? "1px solid var(--admin-border)" : "1px solid transparent",
               }}
             >
-              {f === "pending" ? `Chờ duyệt (${pendingCount})` : "Tất cả"}
+              {f === "pending" ? `Ch? duy?t (${pendingCount})` : "T?t c?"}
             </button>
           ))}
         </div>
       </div>
       {loading ? (
-        <div className="text-center py-8" style={{ color: "var(--admin-text-faint)" }}>Đang tải...</div>
+        <div className="text-center py-8" style={{ color: "var(--admin-text-faint)" }}>�ang t?i...</div>
       ) : ratings.length === 0 ? (
-        <div className="text-center py-8" style={{ color: "var(--admin-text-faint)" }}>Không có đánh giá nào.</div>
+        <div className="text-center py-8" style={{ color: "var(--admin-text-faint)" }}>Kh�ng c� d�nh gi� n�o.</div>
       ) : (
         <div className="space-y-2">
           {ratings.map((r) => (
@@ -1374,7 +1374,7 @@ function CommunityRatingsTab() {
             >
               <div className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: "var(--admin-card)" }}>
                 <span className="text-xl font-bold" style={{ color: r.rating >= 4 ? "#34d399" : r.rating >= 3 ? "#fb923c" : "#f87171" }}>
-                  {r.rating}⭐
+                  {r.rating}?
                 </span>
               </div>
               <div className="flex-1 min-w-0">
@@ -1383,7 +1383,7 @@ function CommunityRatingsTab() {
                     {r.user_display_name}
                   </span>
                   <span className="text-xs" style={{ color: "var(--admin-text-faint)" }}>
-                    • {new Date(r.created_at).toLocaleString("vi-VN")}
+                    � {new Date(r.created_at).toLocaleString("vi-VN")}
                   </span>
                   <span
                     className="text-xs px-2 py-0.5 rounded-full"
@@ -1397,11 +1397,11 @@ function CommunityRatingsTab() {
                       color: r.status === "approved" ? "#34d399" : r.status === "rejected" ? "#f87171" : "#e8c84a",
                     }}
                   >
-                    {r.status === "approved" ? "Đã duyệt" : r.status === "rejected" ? "Đã từ chối" : "Chờ duyệt"}
+                    {r.status === "approved" ? "�� duy?t" : r.status === "rejected" ? "�� t? ch?i" : "Ch? duy?t"}
                   </span>
                 </div>
                 <div className="text-sm mb-1" style={{ color: "var(--admin-text-faint)" }}>
-                  Bài: <span className="font-medium" style={{ color: "var(--admin-text)" }}>{r.post_title}</span>
+                  B�i: <span className="font-medium" style={{ color: "var(--admin-text)" }}>{r.post_title}</span>
                 </div>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
@@ -1412,20 +1412,20 @@ function CommunityRatingsTab() {
                       className="px-3 py-1.5 rounded-md text-xs font-medium cursor-pointer transition-all"
                       style={{ backgroundColor: "#34d399", color: "#fff" }}
                     >
-                      Duyệt
+                      Duy?t
                     </button>
                     <button
                       onClick={() => handleReject(r.id)}
                       className="px-3 py-1.5 rounded-md text-xs font-medium cursor-pointer transition-all"
                       style={{ backgroundColor: "#f87171", color: "#fff" }}
                     >
-                      Từ chối
+                      T? ch?i
                     </button>
                   </>
                 )}
                 <button
                   onClick={() => {
-                    const newRating = prompt(`Sửa đánh giá (4.5 - 5 sao):`, r.rating.toFixed(1));
+                    const newRating = prompt(`S?a d�nh gi� (4.5 - 5 sao):`, r.rating.toFixed(1));
                     if (newRating) {
                       handleEdit(r.id, parseFloat(newRating));
                     }
@@ -1433,14 +1433,14 @@ function CommunityRatingsTab() {
                   className="px-3 py-1.5 rounded-md text-xs font-medium cursor-pointer transition-all"
                   style={{ backgroundColor: "#fb923c", color: "#fff" }}
                 >
-                  Sửa
+                  S?a
                 </button>
                 <button
                   onClick={() => handleDelete(r.id)}
                   className="px-3 py-1.5 rounded-md text-xs font-medium cursor-pointer transition-all"
                   style={{ backgroundColor: "var(--admin-card)", border: "1px solid var(--admin-border)", color: "var(--admin-text)" }}
                 >
-                  Xoá
+                  Xo�
                 </button>
               </div>
             </div>
@@ -1451,7 +1451,7 @@ function CommunityRatingsTab() {
   );
 }
 
-// ─── Community Comments Moderation ────────────────────────────────────────────
+// --- Community Comments Moderation --------------------------------------------
 interface CommunityCommentRow {
   id: string;
   post_id: string;
@@ -1480,7 +1480,7 @@ function CommunityCommentsTab() {
     if (filter === "pending") query.eq("status", "pending");
     const { data, error } = await query;
     if (error) {
-      showToast({ type: "error", title: "Lỗi tải bình luận", message: error.message });
+      showToast({ type: "error", title: "L?i t?i b�nh lu?n", message: error.message });
       logError("database", `Fetch comments failed: ${error.message}`, { pageUrl: "/admin/content" });
     } else if (data) {
       // Fetch post titles for context
@@ -1491,7 +1491,7 @@ function CommunityCommentsTab() {
         .in("id", postIds);
       const titleMap = new Map((postsData || []).map((p) => [p.id, p.title]));
       setComments(
-        data.map((c) => ({ ...(c as CommunityCommentRow), post_title: titleMap.get(c.post_id) || "(bài đã xoá)" }))
+        data.map((c) => ({ ...(c as CommunityCommentRow), post_title: titleMap.get(c.post_id) || "(b�i d� xo�)" }))
       );
     }
     setLoading(false);
@@ -1504,10 +1504,10 @@ function CommunityCommentsTab() {
   const handleApprove = async (id: string) => {
     const { error } = await supabase.from("community_comments").update({ status: "approved" }).eq("id", id);
     if (error) {
-      showToast({ type: "error", title: "Lỗi duyệt", message: error.message });
+      showToast({ type: "error", title: "L?i duy?t", message: error.message });
       return;
     }
-    showToast({ type: "success", title: "Đã duyệt bình luận" });
+    showToast({ type: "success", title: "�� duy?t b�nh lu?n" });
     setComments((prev) => prev.map((c) => (c.id === id ? { ...c, status: "approved" } : c)));
     if (filter === "pending") setComments((prev) => prev.filter((c) => c.id !== id));
   };
@@ -1515,22 +1515,22 @@ function CommunityCommentsTab() {
   const handleReject = async (id: string) => {
     const { error } = await supabase.from("community_comments").update({ status: "rejected" }).eq("id", id);
     if (error) {
-      showToast({ type: "error", title: "Lỗi từ chối", message: error.message });
+      showToast({ type: "error", title: "L?i t? ch?i", message: error.message });
       return;
     }
-    showToast({ type: "success", title: "Đã từ chối bình luận" });
+    showToast({ type: "success", title: "�� t? ch?i b�nh lu?n" });
     setComments((prev) => prev.map((c) => (c.id === id ? { ...c, status: "rejected" } : c)));
     if (filter === "pending") setComments((prev) => prev.filter((c) => c.id !== id));
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Xoá vĩnh viễn bình luận này?")) return;
+    if (!confirm("Xo� vinh vi?n b�nh lu?n n�y?")) return;
     const { error } = await supabase.from("community_comments").delete().eq("id", id);
     if (error) {
-      showToast({ type: "error", title: "Lỗi xoá", message: error.message });
+      showToast({ type: "error", title: "L?i xo�", message: error.message });
       return;
     }
-    showToast({ type: "success", title: "Đã xoá bình luận" });
+    showToast({ type: "success", title: "�� xo� b�nh lu?n" });
     setComments((prev) => prev.filter((c) => c.id !== id));
   };
 
@@ -1550,7 +1550,7 @@ function CommunityCommentsTab() {
                 color: filter === f ? "var(--admin-text)" : "var(--admin-text-faint)",
               }}
             >
-              {f === "pending" ? `Đang chờ (${pendingCount})` : "Tất cả"}
+              {f === "pending" ? `�ang ch? (${pendingCount})` : "T?t c?"}
             </button>
           ))}
         </div>
@@ -1559,16 +1559,16 @@ function CommunityCommentsTab() {
           className="px-3 py-1.5 rounded-md text-xs font-medium cursor-pointer whitespace-nowrap"
           style={{ backgroundColor: "var(--admin-card)", color: "var(--admin-text)", border: "1px solid var(--admin-border)" }}
         >
-          <i className="ri-refresh-line mr-1"></i>Tải lại
+          <i className="ri-refresh-line mr-1"></i>T?i l?i
         </button>
       </div>
 
       {loading ? (
-        <div className="text-center py-8" style={{ color: "var(--admin-text-faint)" }}>Đang tải…</div>
+        <div className="text-center py-8" style={{ color: "var(--admin-text-faint)" }}>�ang t?i�</div>
       ) : comments.length === 0 ? (
         <div className="text-center py-12 rounded-xl" style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text-faint)", border: "1px dashed var(--admin-border)" }}>
           <i className="ri-chat-check-line text-3xl mb-2 block"></i>
-          Không có bình luận nào {filter === "pending" ? "đang chờ duyệt" : ""}.
+          Kh�ng c� b�nh lu?n n�o {filter === "pending" ? "dang ch? duy?t" : ""}.
         </div>
       ) : (
         <div className="space-y-2">
@@ -1588,7 +1588,7 @@ function CommunityCommentsTab() {
                         color: c.status === "pending" ? "#fbbf24" : c.status === "rejected" ? "#f87171" : "#34d399",
                       }}
                     >
-                      {c.status === "pending" ? "Đang chờ" : c.status === "rejected" ? "Từ chối" : "Đã duyệt"}
+                      {c.status === "pending" ? "�ang ch?" : c.status === "rejected" ? "T? ch?i" : "�� duy?t"}
                     </span>
                     <span className="text-[11px]" style={{ color: "var(--admin-text-faint)" }}>
                       {new Date(c.created_at).toLocaleString("vi-VN")}
@@ -1596,7 +1596,7 @@ function CommunityCommentsTab() {
                   </div>
                   <p className="text-[11px] mb-2" style={{ color: "var(--admin-text-faint)" }}>
                     <i className="ri-article-line mr-1"></i>
-                    Bài viết: <span style={{ color: "var(--admin-text)" }}>{c.post_title}</span>
+                    B�i vi?t: <span style={{ color: "var(--admin-text)" }}>{c.post_title}</span>
                   </p>
                   <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: "var(--admin-text)" }}>{c.content}</p>
                 </div>
@@ -1607,7 +1607,7 @@ function CommunityCommentsTab() {
                       className="px-3 py-1.5 rounded-md text-xs font-medium cursor-pointer whitespace-nowrap"
                       style={{ backgroundColor: "rgba(52,211,153,0.12)", color: "#34d399", border: "1px solid rgba(52,211,153,0.25)" }}
                     >
-                      <i className="ri-check-line mr-1"></i>Duyệt
+                      <i className="ri-check-line mr-1"></i>Duy?t
                     </button>
                   )}
                   {c.status !== "rejected" && (
@@ -1616,7 +1616,7 @@ function CommunityCommentsTab() {
                       className="px-3 py-1.5 rounded-md text-xs font-medium cursor-pointer whitespace-nowrap"
                       style={{ backgroundColor: "rgba(248,113,113,0.12)", color: "#f87171", border: "1px solid rgba(248,113,113,0.25)" }}
                     >
-                      <i className="ri-close-line mr-1"></i>Từ chối
+                      <i className="ri-close-line mr-1"></i>T? ch?i
                     </button>
                   )}
                   <button
@@ -1636,7 +1636,7 @@ function CommunityCommentsTab() {
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function AdminContentPage() {
   const [activeTab, setActiveTab] = useState<ContentTab>("community");
   const [pendingRatings, setPendingRatings] = useState(0);
@@ -1656,17 +1656,17 @@ export default function AdminContentPage() {
 
   return (
     <AdminLayout
-      title="Quản lý nội dung"
-      subtitle="Duyệt bài viết cộng đồng, bài học và xử lý báo cáo vi phạm"
+      title="Qu?n l� n?i dung"
+      subtitle="Duy?t b�i vi?t c?ng d?ng, b�i h?c v� x? l� b�o c�o vi ph?m"
     >
       <div className="flex items-center gap-1 p-1 rounded-xl w-fit mb-6"
         style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>
         {([
-          { id: "community", label: "Bài viết cộng đồng", icon: "ri-team-line" },
-          { id: "comments", label: "Bình luận", icon: "ri-chat-3-line" },
-          { id: "ratings", label: `Đánh giá${pendingRatings > 0 ? ` (${pendingRatings})` : ""}`, icon: "ri-star-line" },
-          { id: "lessons", label: "Bài học gửi lên", icon: "ri-book-open-line" },
-          { id: "reports", label: `Báo cáo vi phạm${pendingReports > 0 ? ` (${pendingReports})` : ""}`, icon: "ri-flag-line" },
+          { id: "community", label: "B�i vi?t c?ng d?ng", icon: "ri-team-line" },
+          { id: "comments", label: "B�nh lu?n", icon: "ri-chat-3-line" },
+          { id: "ratings", label: `��nh gi�${pendingRatings > 0 ? ` (${pendingRatings})` : ""}`, icon: "ri-star-line" },
+          { id: "lessons", label: "B�i h?c g?i l�n", icon: "ri-book-open-line" },
+          { id: "reports", label: `B�o c�o vi ph?m${pendingReports > 0 ? ` (${pendingReports})` : ""}`, icon: "ri-flag-line" },
         ] as const).map(tab => (
           <button key={tab.id} onClick={() => setActiveTab(tab.id)}
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap"

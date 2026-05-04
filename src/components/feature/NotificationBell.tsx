@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useRef, useMemo, memo } from "react";
+import { useState, useEffect, useRef, useMemo, memo } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
 
@@ -15,12 +15,12 @@ interface StaticNotif {
 function timeAgo(ts: number): string {
   const diff = Date.now() - ts;
   const mins = Math.floor(diff / 60000);
-  if (mins < 1) return "Vừa xong";
-  if (mins < 60) return `${mins} phút trước`;
+  if (mins < 1) return "V?a xong";
+  if (mins < 60) return `${mins} ph�t tru?c`;
   const hrs = Math.floor(mins / 60);
-  if (hrs < 24) return `${hrs} giờ trước`;
+  if (hrs < 24) return `${hrs} gi? tru?c`;
   const days = Math.floor(hrs / 24);
-  return `${days} ngày trước`;
+  return `${days} ng�y tru?c`;
 }
 
 function NotificationBell() {
@@ -38,9 +38,9 @@ function NotificationBell() {
       items.push({
         id: `streak-${streak.count}`,
         type: "streak",
-        title: `🔥 ${streak.count} ngày streak!`,
-        message: `Tuyệt vời! Bạn đang duy trì ${streak.count} ngày học liên tiếp. Tiếp tục nhé!`,
-        time: "Hôm nay",
+        title: `?? ${streak.count} ng�y streak!`,
+        message: `Tuy?t v?i! B?n dang duy tr� ${streak.count} ng�y h?c li�n ti?p. Ti?p t?c nh�!`,
+        time: "H�m nay",
         icon: "ri-fire-line",
         color: "#fb923c",
       });
@@ -48,27 +48,27 @@ function NotificationBell() {
     items.push({
       id: "weekly-challenge-reminder",
       type: "challenge",
-      title: "Thử thách tuần này đang chờ!",
-      message: "7 thử thách mới đã sẵn sàng. Hoàn thành để nhận tới 1.000+ XP thưởng.",
-      time: "Đầu tuần",
+      title: "Th? th�ch tu?n n�y dang ch?!",
+      message: "7 th? th�ch m?i d� s?n s�ng. Ho�n th�nh d? nh?n t?i 1.000+ XP thu?ng.",
+      time: "�?u tu?n",
       icon: "ri-trophy-line",
       color: "app-accent-primary",
     });
     items.push({
       id: "community-like-1",
       type: "like",
-      title: "Bài đăng được yêu thích",
-      message: "Minh Tuấn và 12 người khác đã thích bài đăng của bạn.",
-      time: "2 giờ trước",
+      title: "B�i dang du?c y�u th�ch",
+      message: "Minh Tu?n v� 12 ngu?i kh�c d� th�ch b�i dang c?a b?n.",
+      time: "2 gi? tru?c",
       icon: "ri-heart-line",
       color: "#f472b6",
     });
     items.push({
       id: "system-new-content",
       type: "system",
-      title: "Nội dung mới",
-      message: "15 bài học K-pop mới vừa được thêm vào thư viện. Khám phá ngay!",
-      time: "2 ngày trước",
+      title: "N?i dung m?i",
+      message: "15 b�i h?c K-pop m?i v?a du?c th�m v�o thu vi?n. Kh�m ph� ngay!",
+      time: "2 ng�y tru?c",
       icon: "ri-notification-3-line",
       color: "#34d399",
     });
@@ -151,9 +151,9 @@ function NotificationBell() {
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-app-border">
             <div className="flex items-center gap-2">
-              <h3 className="text-white font-semibold text-sm">Thông báo</h3>
+              <h3 className="text-white font-semibold text-sm">Th�ng b�o</h3>
               {unreadCount > 0 && (
-                <span className="px-1.5 py-0.5 bg-app-accent-primary/15 text-app-accent-primary text-[10px] font-bold rounded-full">{unreadCount} mới</span>
+                <span className="px-1.5 py-0.5 bg-app-accent-primary/15 text-app-accent-primary text-[10px] font-bold rounded-full">{unreadCount} m?i</span>
               )}
             </div>
             {unreadCount > 0 && (
@@ -161,7 +161,7 @@ function NotificationBell() {
                 onClick={markAllRead}
                 className="text-[10px] text-app-text-muted hover:text-app-accent-primary/70 cursor-pointer whitespace-nowrap transition-colors"
               >
-                Đánh dấu đã đọc
+                ��nh d?u d� d?c
               </button>
             )}
           </div>
@@ -169,7 +169,7 @@ function NotificationBell() {
           {/* XP section header */}
           {xpNotifs.length > 0 && (
             <div className="px-4 py-2 bg-app-accent-primary/5 border-b border-app-accent-primary/10">
-              <p className="text-app-accent-primary text-[10px] font-bold tracking-normal">XP & Cấp bậc</p>
+              <p className="text-app-accent-primary text-[10px] font-bold tracking-normal">XP & C?p b?c</p>
             </div>
           )}
 
@@ -178,7 +178,7 @@ function NotificationBell() {
             {allNotifications.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-10 text-center">
                 <i className="ri-notification-off-line text-white/15 text-3xl mb-2"></i>
-                <p className="text-app-text-muted text-sm">Không có thông báo mới</p>
+                <p className="text-app-text-muted text-sm">Kh�ng c� th�ng b�o m?i</p>
               </div>
             ) : (
               allNotifications.map(n => {
@@ -217,9 +217,9 @@ function NotificationBell() {
               onClick={() => { clearAllNotifications(); setReadIds(staticNotifs.map(n => n.id)); setOpen(false); }}
               className="text-[10px] text-app-text-muted hover:text-app-text-secondary cursor-pointer whitespace-nowrap transition-colors"
             >
-              Xóa tất cả
+              X�a t?t c?
             </button>
-            <span className="text-[10px] text-app-text-muted">{allNotifications.length} thông báo</span>
+            <span className="text-[10px] text-app-text-muted">{allNotifications.length} th�ng b�o</span>
           </div>
         </div>
       )}

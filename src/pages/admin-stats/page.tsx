@@ -1,4 +1,4 @@
-﻿import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
@@ -84,7 +84,7 @@ export default function AdminStatsPage() {
     const highStarLessons = approvedLessons.filter(l => (l.stars ?? 0) >= 4).length;
     const epsWithImage = epsQuestions.filter(q => q.imageUrl).length;
 
-    // Monthly revenue chart — last 6 months
+    // Monthly revenue chart � last 6 months
     const monthlyChart: { label: string; value: number }[] = [];
     for (let i = 5; i >= 0; i--) {
       const d = new Date();
@@ -107,22 +107,22 @@ export default function AdminStatsPage() {
     return { totalRevenue, monthRevenue, highStarLessons, epsWithImage, monthlyChart, seriesPerf };
   }, [approvedLessons, seriesList, revenues]);
 
-  const formatVND = (n: number) => n.toLocaleString("vi-VN") + "đ";
+  const formatVND = (n: number) => n.toLocaleString("vi-VN") + "d";
   const maxChart = Math.max(...stats.monthlyChart.map(m => m.value), 1);
 
   const contentStats = [
-    { label: "Câu hỏi EPS", value: epsQuestions.length, max: 200, color: "app-accent-primary", icon: "ri-survey-line" },
-    { label: "Câu có ảnh", value: stats.epsWithImage, max: epsQuestions.length, color: "#34d399", icon: "ri-image-line" },
-    { label: "Từ vựng EPS", value: epsVocabulary.length, max: 500, color: "#fb923c", icon: "ri-translate-2" },
-    { label: "Bài K-pop đã duyệt", value: approvedLessons.length, max: 100, color: "#a78bfa", icon: "ri-music-2-line" },
-    { label: "Bài 4-5 sao", value: stats.highStarLessons, max: approvedLessons.length || 1, color: "#f59e0b", icon: "ri-star-fill" },
+    { label: "C�u h?i EPS", value: epsQuestions.length, max: 200, color: "app-accent-primary", icon: "ri-survey-line" },
+    { label: "C�u c� ?nh", value: stats.epsWithImage, max: epsQuestions.length, color: "#34d399", icon: "ri-image-line" },
+    { label: "T? v?ng EPS", value: epsVocabulary.length, max: 500, color: "#fb923c", icon: "ri-translate-2" },
+    { label: "B�i K-pop d� duy?t", value: approvedLessons.length, max: 100, color: "#a78bfa", icon: "ri-music-2-line" },
+    { label: "B�i 4-5 sao", value: stats.highStarLessons, max: approvedLessons.length || 1, color: "#f59e0b", icon: "ri-star-fill" },
     { label: "Series ebook", value: seriesList.length, max: 20, color: "#06b6d4", icon: "ri-stack-line" },
   ];
 
   return (
     <AdminLayout
-      title="Thống kê Nội dung"
-      subtitle="Tổng quan về nội dung học tập và doanh thu ebook"
+      title="Th?ng k� N?i dung"
+      subtitle="T?ng quan v? n?i dung h?c t?p v� doanh thu ebook"
       actions={
         <button
           onClick={() => exportRevenueCSV(revenues)}
@@ -135,17 +135,17 @@ export default function AdminStatsPage() {
     >
       {/* Top stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4" style={{ contentVisibility: "auto", containIntrinsicHeight: "120px" }}>
-        <StatCard icon="ri-money-dollar-circle-line" label="Tổng doanh thu" value={formatVND(stats.totalRevenue)} sub={`${revenues.length} đơn hàng`} color="#34d399" />
-        <StatCard icon="ri-calendar-line" label="Doanh thu tháng này" value={formatVND(stats.monthRevenue)} color="app-accent-primary" />
-        <StatCard icon="ri-survey-line" label="Câu hỏi EPS" value={epsQuestions.length} sub={`${stats.epsWithImage} có ảnh`} color="#fb923c" />
-        <StatCard icon="ri-music-2-line" label="Bài K-pop đã duyệt" value={approvedLessons.length} sub={`${stats.highStarLessons} bài 4-5 sao`} color="#a78bfa" />
+        <StatCard icon="ri-money-dollar-circle-line" label="T?ng doanh thu" value={formatVND(stats.totalRevenue)} sub={`${revenues.length} don h�ng`} color="#34d399" />
+        <StatCard icon="ri-calendar-line" label="Doanh thu th�ng n�y" value={formatVND(stats.monthRevenue)} color="app-accent-primary" />
+        <StatCard icon="ri-survey-line" label="C�u h?i EPS" value={epsQuestions.length} sub={`${stats.epsWithImage} c� ?nh`} color="#fb923c" />
+        <StatCard icon="ri-music-2-line" label="B�i K-pop d� duy?t" value={approvedLessons.length} sub={`${stats.highStarLessons} b�i 4-5 sao`} color="#a78bfa" />
       </div>
       {/* Real DB stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        <StatCard icon="ri-user-line" label="Tổng học viên (DB)" value={dbStats.totalUsers} sub={`${dbStats.totalVip} VIP`} color="#06b6d4" />
-        <StatCard icon="ri-file-list-3-line" label="Lượt thi thử (DB)" value={dbStats.totalExams} sub={`${dbStats.recentExams} tuần này`} color="#a78bfa" />
-        <StatCard icon="ri-percent-line" label="Điểm TB (DB)" value={`${dbStats.avgScore}%`} sub="Tất cả bài thi" color="#f59e0b" />
-        <StatCard icon="ri-vip-crown-line" label="Học viên VIP" value={dbStats.totalVip} sub={`${dbStats.totalUsers > 0 ? Math.round((dbStats.totalVip / dbStats.totalUsers) * 100) : 0}% tổng số`} color="#ec4899" />
+        <StatCard icon="ri-user-line" label="T?ng h?c vi�n (DB)" value={dbStats.totalUsers} sub={`${dbStats.totalVip} VIP`} color="#06b6d4" />
+        <StatCard icon="ri-file-list-3-line" label="Lu?t thi th? (DB)" value={dbStats.totalExams} sub={`${dbStats.recentExams} tu?n n�y`} color="#a78bfa" />
+        <StatCard icon="ri-percent-line" label="�i?m TB (DB)" value={`${dbStats.avgScore}%`} sub="T?t c? b�i thi" color="#f59e0b" />
+        <StatCard icon="ri-vip-crown-line" label="H?c vi�n VIP" value={dbStats.totalVip} sub={`${dbStats.totalUsers > 0 ? Math.round((dbStats.totalVip / dbStats.totalUsers) * 100) : 0}% t?ng s?`} color="#ec4899" />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-6" style={{ contentVisibility: "auto", containIntrinsicHeight: "400px" }}>
@@ -153,15 +153,15 @@ export default function AdminStatsPage() {
         <div className="col-span-2 bg-app-bg border border-app-border rounded-2xl p-5">
           <div className="flex items-center justify-between mb-5">
             <div>
-              <h3 className="text-white font-semibold text-sm">Doanh thu 6 tháng</h3>
-              <p className="text-app-text-muted text-xs mt-0.5">Theo tháng (VNĐ)</p>
+              <h3 className="text-white font-semibold text-sm">Doanh thu 6 th�ng</h3>
+              <p className="text-app-text-muted text-xs mt-0.5">Theo th�ng (VN�)</p>
             </div>
           </div>
           {revenues.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-10 text-center">
               <i className="ri-bar-chart-2-line text-white/10 text-4xl mb-3"></i>
-              <p className="text-app-text-muted text-sm">Chưa có doanh thu nào</p>
-              <p className="text-white/15 text-xs mt-1">Ghi nhận doanh thu từ trang Thống kê</p>
+              <p className="text-app-text-muted text-sm">Chua c� doanh thu n�o</p>
+              <p className="text-white/15 text-xs mt-1">Ghi nh?n doanh thu t? trang Th?ng k�</p>
             </div>
           ) : (
             <>
@@ -197,11 +197,11 @@ export default function AdminStatsPage() {
         {/* Series performance */}
         <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-1">Series theo doanh thu</h3>
-          <p className="text-app-text-muted text-xs mb-4">Top series bán chạy nhất</p>
+          <p className="text-app-text-muted text-xs mb-4">Top series b�n ch?y nh?t</p>
           {stats.seriesPerf.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-8 text-center">
               <i className="ri-stack-line text-white/10 text-3xl mb-2"></i>
-              <p className="text-app-text-muted text-xs">Chưa có dữ liệu</p>
+              <p className="text-app-text-muted text-xs">Chua c� d? li?u</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -212,7 +212,7 @@ export default function AdminStatsPage() {
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-white/60 text-xs font-medium truncate max-w-[120px]">{s.name}</span>
                       <div className="flex items-center gap-2">
-                        <span className="text-app-text-muted text-[10px]">{s.sales} đơn</span>
+                        <span className="text-app-text-muted text-[10px]">{s.sales} don</span>
                         <span className="text-app-accent-success text-xs font-bold">{formatVND(s.revenue)}</span>
                       </div>
                     </div>
@@ -229,7 +229,7 @@ export default function AdminStatsPage() {
 
       {/* Content breakdown */}
       <div className="bg-app-bg border border-app-border rounded-2xl p-5 mb-6" style={{ contentVisibility: "auto", containIntrinsicHeight: "300px" }}>
-        <h3 className="text-white font-semibold text-sm mb-4">Chi tiết nội dung</h3>
+        <h3 className="text-white font-semibold text-sm mb-4">Chi ti?t n?i dung</h3>
         <div className="grid grid-cols-2 gap-4">
           {contentStats.map(s => (
             <div key={s.label} className="flex items-center gap-3 px-4 py-3 bg-app-surface/50 rounded-xl">
@@ -252,8 +252,8 @@ export default function AdminStatsPage() {
       <div className="bg-app-bg border border-app-border rounded-2xl p-5" style={{ contentVisibility: "auto", containIntrinsicHeight: "200px" }}>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-white font-semibold text-sm">Độ phủ ảnh EPS</h3>
-            <p className="text-app-text-muted text-xs mt-0.5">Câu hỏi có ảnh minh họa</p>
+            <h3 className="text-white font-semibold text-sm">�? ph? ?nh EPS</h3>
+            <p className="text-app-text-muted text-xs mt-0.5">C�u h?i c� ?nh minh h?a</p>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-app-accent-success text-sm font-bold">{stats.epsWithImage}</span>
@@ -272,14 +272,14 @@ export default function AdminStatsPage() {
         <div className="flex items-center gap-4 text-xs text-app-text-muted">
           <div className="flex items-center gap-1.5">
             <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
-            <span>Có ảnh: {stats.epsWithImage}</span>
+            <span>C� ?nh: {stats.epsWithImage}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="w-2 h-2 rounded-full bg-app-card/70"></div>
-            <span>Chưa có: {epsQuestions.length - stats.epsWithImage}</span>
+            <span>Chua c�: {epsQuestions.length - stats.epsWithImage}</span>
           </div>
           <a href="/admin/eps" className="ml-auto text-rose-400/70 hover:text-rose-400 transition-colors cursor-pointer whitespace-nowrap">
-            Thêm ảnh →
+            Th�m ?nh ?
           </a>
         </div>
       </div>

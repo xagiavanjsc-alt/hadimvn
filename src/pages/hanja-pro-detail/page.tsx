@@ -125,7 +125,7 @@ export default function HanjaProDetailPage() {
       inDefinedTermSet: {
         "@type": "DefinedTermSet",
         name: "Hán Hàn — Phần 1 (100 từ thông dụng)",
-        url: "https://hadim.vn/hanja-pro",
+        url: "https://hanquocoi.vn/hanja-pro",
       },
     });
     document.head.appendChild(ld);

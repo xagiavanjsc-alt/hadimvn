@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -8,12 +8,12 @@ type Period = "7days" | "30days" | "90days";
 const XP_SOURCE_CONFIG: Record<string, { label: string; icon: string; color: string }> = {
   flashcard_learned: { label: "Flashcard", icon: "ri-stack-line", color: "app-accent-primary" },
   eps_exam_completed: { label: "Thi EPS", icon: "ri-timer-line", color: "#34d399" },
-  topic_drill_completed: { label: "Luyện chủ đề", icon: "ri-focus-3-line", color: "#06b6d4" },
+  topic_drill_completed: { label: "Luy?n ch? d?", icon: "ri-focus-3-line", color: "#06b6d4" },
   quiz_completed: { label: "Quiz", icon: "ri-survey-line", color: "#a78bfa" },
-  streak_day: { label: "Streak hàng ngày", icon: "ri-fire-line", color: "#fb923c" },
-  streak_bonus_7: { label: "Streak 7 ngày", icon: "ri-fire-fill", color: "#fb923c" },
-  streak_bonus_30: { label: "Streak 30 ngày", icon: "ri-fire-fill", color: "#ef4444" },
-  community_post: { label: "Cộng đồng", icon: "ri-group-line", color: "#f472b6" },
+  streak_day: { label: "Streak h�ng ng�y", icon: "ri-fire-line", color: "#fb923c" },
+  streak_bonus_7: { label: "Streak 7 ng�y", icon: "ri-fire-fill", color: "#fb923c" },
+  streak_bonus_30: { label: "Streak 30 ng�y", icon: "ri-fire-fill", color: "#ef4444" },
+  community_post: { label: "C?ng d?ng", icon: "ri-group-line", color: "#f472b6" },
   topik_exam_completed: { label: "Thi TOPIK", icon: "ri-file-list-3-line", color: "#84cc16" },
 };
 
@@ -75,8 +75,8 @@ function groupByWeek(history: { type: string; amount: number; ts: number }[], we
 const COMMUNITY_BENCHMARKS = [
   { label: "Top 10%", xpPerDay: 80, color: "#34d399" },
   { label: "Top 25%", xpPerDay: 45, color: "app-accent-primary" },
-  { label: "Trung bình", xpPerDay: 20, color: "#fb923c" },
-  { label: "Mới bắt đầu", xpPerDay: 5, color: "#f87171" },
+  { label: "Trung b�nh", xpPerDay: 20, color: "#fb923c" },
+  { label: "M?i b?t d?u", xpPerDay: 5, color: "#f87171" },
 ];
 
 export default function XPStatsPage() {
@@ -127,12 +127,12 @@ export default function XPStatsPage() {
 
   return (
     <DashboardLayout
-      title="Thống kê XP chi tiết"
-      subtitle="Theo dõi tiến trình tích lũy XP và dự đoán thời gian lên cấp"
+      title="Th?ng k� XP chi ti?t"
+      subtitle="Theo d�i ti?n tr�nh t�ch luy XP v� d? do�n th?i gian l�n c?p"
     >
       {/* Period selector */}
       <div className="flex items-center gap-2 mb-6">
-        {([["7days", "7 ngày"], ["30days", "30 ngày"], ["90days", "90 ngày"]] as [Period, string][]).map(([p, label]) => (
+        {([["7days", "7 ng�y"], ["30days", "30 ng�y"], ["90days", "90 ng�y"]] as [Period, string][]).map(([p, label]) => (
           <button
             key={p}
             onClick={() => setPeriod(p)}
@@ -146,10 +146,10 @@ export default function XPStatsPage() {
       {/* Summary cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng XP tích lũy", value: totalXP.toLocaleString(), icon: "ri-award-line", color: "app-accent-primary", sub: `Cấp ${currentRank.name}` },
-          { label: `XP trong ${days} ngày`, value: periodXP.toLocaleString(), icon: "ri-bar-chart-line", color: "#34d399", sub: `${avgXPPerDay} XP/ngày TB` },
-          { label: "Ngày tốt nhất", value: maxXP > 0 ? maxXP : "—", icon: "ri-trophy-line", color: "#fb923c", sub: bestDay?.label || "Chưa có" },
-          { label: "Tỷ lệ nhất quán", value: `${consistency}%`, icon: "ri-calendar-check-line", color: "#a78bfa", sub: `${activeDays}/${days} ngày hoạt động` },
+          { label: "T?ng XP t�ch luy", value: totalXP.toLocaleString(), icon: "ri-award-line", color: "app-accent-primary", sub: `C?p ${currentRank.name}` },
+          { label: `XP trong ${days} ng�y`, value: periodXP.toLocaleString(), icon: "ri-bar-chart-line", color: "#34d399", sub: `${avgXPPerDay} XP/ng�y TB` },
+          { label: "Ng�y t?t nh?t", value: maxXP > 0 ? maxXP : "�", icon: "ri-trophy-line", color: "#fb923c", sub: bestDay?.label || "Chua c�" },
+          { label: "T? l? nh?t qu�n", value: `${consistency}%`, icon: "ri-calendar-check-line", color: "#a78bfa", sub: `${activeDays}/${days} ng�y ho?t d?ng` },
         ].map(card => (
           <div key={card.label} className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
@@ -170,13 +170,13 @@ export default function XPStatsPage() {
           {/* Bar chart */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-6">
             <h3 className="text-white font-semibold text-sm mb-5">
-              Biểu đồ XP — {period === "7days" ? "7 ngày qua" : period === "30days" ? "4 tuần qua" : "90 ngày qua"}
+              Bi?u d? XP � {period === "7days" ? "7 ng�y qua" : period === "30days" ? "4 tu?n qua" : "90 ng�y qua"}
             </h3>
             {periodXP === 0 ? (
               <div className="flex flex-col items-center justify-center h-48 text-center">
                 <i className="ri-bar-chart-line text-white/10 text-4xl mb-3"></i>
-                <p className="text-app-text-muted text-sm">Chưa có dữ liệu XP trong kỳ này</p>
-                <p className="text-app-text-muted text-xs mt-1">Hãy học flashcard, làm bài thi để tích lũy XP!</p>
+                <p className="text-app-text-muted text-sm">Chua c� d? li?u XP trong k? n�y</p>
+                <p className="text-app-text-muted text-xs mt-1">H�y h?c flashcard, l�m b�i thi d? t�ch luy XP!</p>
               </div>
             ) : (
               <div className="flex items-end gap-1.5 h-48">
@@ -202,10 +202,10 @@ export default function XPStatsPage() {
 
           {/* XP by source */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-6">
-            <h3 className="text-white font-semibold text-sm mb-5">Nguồn XP (tổng tích lũy)</h3>
+            <h3 className="text-white font-semibold text-sm mb-5">Ngu?n XP (t?ng t�ch luy)</h3>
             {xpBySource.length === 0 ? (
               <div className="text-center py-8">
-                <p className="text-app-text-muted text-sm">Chưa có dữ liệu nguồn XP</p>
+                <p className="text-app-text-muted text-sm">Chua c� d? li?u ngu?n XP</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -237,10 +237,10 @@ export default function XPStatsPage() {
 
           {/* Recent XP history */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-6">
-            <h3 className="text-white font-semibold text-sm mb-4">Lịch sử XP gần đây</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">L?ch s? XP g?n d�y</h3>
             {xpHistory.length === 0 ? (
               <div className="text-center py-8">
-                <p className="text-app-text-muted text-sm">Chưa có lịch sử XP</p>
+                <p className="text-app-text-muted text-sm">Chua c� l?ch s? XP</p>
               </div>
             ) : (
               <div className="space-y-2 max-h-64 overflow-y-auto">
@@ -271,33 +271,33 @@ export default function XPStatsPage() {
         <div className="space-y-4">
           {/* Current rank + progress */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Cấp bậc hiện tại</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">C?p b?c hi?n t?i</h3>
             <div className="flex items-center gap-3 mb-4 p-3 rounded-xl" style={{ backgroundColor: `${currentRank.color}08`, border: `1px solid ${currentRank.color}20` }}>
               <div className="w-12 h-12 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${currentRank.color}15` }}>
                 <i className={`${currentRank.icon} text-2xl`} style={{ color: currentRank.color }}></i>
               </div>
               <div>
                 <p className="font-bold text-base" style={{ color: currentRank.color }}>{currentRank.name}</p>
-                <p className="text-app-text-secondary text-xs">{currentRank.nameKo} · {totalXP.toLocaleString()} XP</p>
+                <p className="text-app-text-secondary text-xs">{currentRank.nameKo} � {totalXP.toLocaleString()} XP</p>
               </div>
             </div>
 
             {nextRank && (
               <>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-app-text-secondary text-xs">Tiến độ lên {nextRank.name}</span>
+                  <span className="text-app-text-secondary text-xs">Ti?n d? l�n {nextRank.name}</span>
                   <span className="text-xs font-bold" style={{ color: currentRank.color }}>{Math.round(progress)}%</span>
                 </div>
                 <div className="h-2 bg-app-card/50 rounded-full overflow-hidden mb-3">
                   <div className="h-full rounded-full transition-all duration-700" style={{ width: `${progress}%`, backgroundColor: currentRank.color }}></div>
                 </div>
-                <p className="text-app-text-muted text-xs text-center">Còn <strong className="text-white/60">{xpToNext.toLocaleString()} XP</strong> để lên cấp</p>
+                <p className="text-app-text-muted text-xs text-center">C�n <strong className="text-white/60">{xpToNext.toLocaleString()} XP</strong> d? l�n c?p</p>
               </>
             )}
             {!nextRank && (
               <div className="text-center py-2">
                 <i className="ri-vip-crown-fill text-app-accent-primary text-2xl mb-1"></i>
-                <p className="text-app-accent-primary text-sm font-bold">Cấp tối đa!</p>
+                <p className="text-app-accent-primary text-sm font-bold">C?p t?i da!</p>
               </div>
             )}
           </div>
@@ -307,19 +307,19 @@ export default function XPStatsPage() {
             <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-3">
                 <i className="ri-time-line text-app-accent-primary text-sm"></i>
-                <h3 className="text-white font-semibold text-sm">Dự đoán lên cấp</h3>
+                <h3 className="text-white font-semibold text-sm">D? do�n l�n c?p</h3>
               </div>
               {daysToNextLevel !== null && avgXPPerDay > 0 ? (
                 <>
                   <div className="text-center py-3">
                     <p className="text-app-accent-primary font-bold text-3xl">{daysToNextLevel}</p>
-                    <p className="text-app-text-secondary text-xs mt-1">ngày nữa</p>
+                    <p className="text-app-text-secondary text-xs mt-1">ng�y n?a</p>
                   </div>
                   <div className="space-y-2 mt-3">
                     {[
-                      { label: "Tốc độ hiện tại", value: `${avgXPPerDay} XP/ngày` },
-                      { label: "XP còn thiếu", value: `${xpToNext.toLocaleString()} XP` },
-                      { label: "Cấp tiếp theo", value: nextRank.name },
+                      { label: "T?c d? hi?n t?i", value: `${avgXPPerDay} XP/ng�y` },
+                      { label: "XP c�n thi?u", value: `${xpToNext.toLocaleString()} XP` },
+                      { label: "C?p ti?p theo", value: nextRank.name },
                     ].map(s => (
                       <div key={s.label} className="flex items-center justify-between">
                         <span className="text-app-text-muted text-xs">{s.label}</span>
@@ -329,14 +329,14 @@ export default function XPStatsPage() {
                   </div>
                   <div className="mt-3 pt-3 border-t border-app-border">
                     <p className="text-app-text-muted text-[10px] text-center">
-                      Dựa trên tốc độ học {days} ngày qua
+                      D?a tr�n t?c d? h?c {days} ng�y qua
                     </p>
                   </div>
                 </>
               ) : (
                 <div className="text-center py-4">
-                  <p className="text-app-text-muted text-sm">Chưa đủ dữ liệu</p>
-                  <p className="text-app-text-muted text-xs mt-1">Hãy học ít nhất 1 ngày để dự đoán</p>
+                  <p className="text-app-text-muted text-sm">Chua d? d? li?u</p>
+                  <p className="text-app-text-muted text-xs mt-1">H�y h?c �t nh?t 1 ng�y d? d? do�n</p>
                 </div>
               )}
             </div>
@@ -344,14 +344,14 @@ export default function XPStatsPage() {
 
           {/* Community comparison */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">So sánh cộng đồng</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">So s�nh c?ng d?ng</h3>
             <div className="flex items-center gap-3 mb-4 p-3 rounded-xl" style={{ backgroundColor: `${COMMUNITY_BENCHMARKS[userBenchmark].color}08`, border: `1px solid ${COMMUNITY_BENCHMARKS[userBenchmark].color}20` }}>
               <div className="w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${COMMUNITY_BENCHMARKS[userBenchmark].color}15` }}>
                 <i className="ri-user-star-line text-lg" style={{ color: COMMUNITY_BENCHMARKS[userBenchmark].color }}></i>
               </div>
               <div>
                 <p className="font-bold text-sm" style={{ color: COMMUNITY_BENCHMARKS[userBenchmark].color }}>{COMMUNITY_BENCHMARKS[userBenchmark].label}</p>
-                <p className="text-app-text-secondary text-xs">{avgXPPerDay} XP/ngày của bạn</p>
+                <p className="text-app-text-secondary text-xs">{avgXPPerDay} XP/ng�y c?a b?n</p>
               </div>
             </div>
             <div className="space-y-2.5">
@@ -375,15 +375,15 @@ export default function XPStatsPage() {
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
               <i className="ri-lightbulb-line text-app-accent-primary text-sm"></i>
-              <h3 className="text-white font-semibold text-sm">Tăng tốc XP</h3>
+              <h3 className="text-white font-semibold text-sm">Tang t?c XP</h3>
             </div>
             <div className="space-y-2">
               {[
-                { icon: "ri-stack-line", text: "Flashcard: +5 XP/từ thuộc", color: "app-accent-primary" },
-                { icon: "ri-timer-line", text: "Thi EPS: +20–50 XP/lần", color: "#34d399" },
-                { icon: "ri-fire-line", text: "Streak 7 ngày: +50 XP bonus", color: "#fb923c" },
-                { icon: "ri-focus-3-line", text: "Luyện chủ đề: +15 XP/lần", color: "#06b6d4" },
-                { icon: "ri-group-line", text: "Đăng bài cộng đồng: +15 XP", color: "#f472b6" },
+                { icon: "ri-stack-line", text: "Flashcard: +5 XP/t? thu?c", color: "app-accent-primary" },
+                { icon: "ri-timer-line", text: "Thi EPS: +20�50 XP/l?n", color: "#34d399" },
+                { icon: "ri-fire-line", text: "Streak 7 ng�y: +50 XP bonus", color: "#fb923c" },
+                { icon: "ri-focus-3-line", text: "Luy?n ch? d?: +15 XP/l?n", color: "#06b6d4" },
+                { icon: "ri-group-line", text: "�ang b�i c?ng d?ng: +15 XP", color: "#f472b6" },
               ].map((tip, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">

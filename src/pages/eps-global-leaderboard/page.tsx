@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
@@ -18,12 +18,12 @@ interface LeaderboardEntry {
   isCurrentUser?: boolean;
 }
 
-// Leaderboard data fetched from Supabase (không còn mock)
+// Leaderboard data fetched from Supabase (kh�ng c�n mock)
 
 const PERIOD_LABELS: Record<Period, string> = {
-  week: "Tuần này",
-  month: "Tháng này",
-  alltime: "Mọi thời đại",
+  week: "Tu?n n�y",
+  month: "Th�ng n�y",
+  alltime: "M?i th?i d?i",
 };
 
 const PERIOD_ICONS: Record<Period, string> = {
@@ -46,7 +46,7 @@ export default function EpsGlobalLeaderboardPage() {
   }, [period]);
 
   useEffect(() => {
-    // Live activity feed thật từ exam_results gần nhất
+    // Live activity feed th?t t? exam_results g?n nh?t
     let cancelled = false;
     const load = async () => {
       const { data: recentExams } = await supabase
@@ -66,19 +66,19 @@ export default function EpsGlobalLeaderboardPage() {
 
       if (cancelled) return;
       const nameMap = Object.fromEntries(
-        (profiles || []).map((p: { id: string; display_name: string }) => [p.id, p.display_name || "Học viên"])
+        (profiles || []).map((p: { id: string; display_name: string }) => [p.id, p.display_name || "H?c vi�n"])
       );
 
       const feed = recentExams.map((r: { user_id: string; score: number; total: number }) => {
-        const name = nameMap[r.user_id] || "Học viên";
+        const name = nameMap[r.user_id] || "H?c vi�n";
         const pct = r.total > 0 ? Math.round((r.score / r.total) * 100) : 0;
-        const emoji = pct >= 90 ? "🔥" : pct >= 80 ? "⭐" : "📝";
-        return `${name} vừa đạt ${pct}/100 điểm EPS! ${emoji}`;
+        const emoji = pct >= 90 ? "??" : pct >= 80 ? "?" : "??";
+        return `${name} v?a d?t ${pct}/100 di?m EPS! ${emoji}`;
       });
       setLiveActivity(feed.slice(0, 3));
     };
     load();
-    const interval = setInterval(load, 30000); // refresh mỗi 30s
+    const interval = setInterval(load, 30000); // refresh m?i 30s
     return () => { cancelled = true; clearInterval(interval); };
   }, []);
 
@@ -108,7 +108,7 @@ export default function EpsGlobalLeaderboardPage() {
         return;
       }
 
-      // Gộp theo user: best score + total exams count
+      // G?p theo user: best score + total exams count
       const byUser: Record<string, { best: number; count: number }> = {};
       rows.forEach((r: { user_id: string; score: number; total: number }) => {
         const pct = r.total > 0 ? Math.round((r.score / r.total) * 100) : 0;
@@ -121,7 +121,7 @@ export default function EpsGlobalLeaderboardPage() {
 
       const userIds = Object.keys(byUser);
 
-      // Lấy profile + streak từ leaderboard
+      // L?y profile + streak t? leaderboard
       const [{ data: profiles }, { data: lbs }] = await Promise.all([
         supabase.from("user_profiles").select("id, display_name, avatar_url").in("id", userIds),
         supabase.from("leaderboard").select("user_id, streak").in("user_id", userIds),
@@ -141,13 +141,13 @@ export default function EpsGlobalLeaderboardPage() {
           return {
             rank: 0,
             userId: uid,
-            displayName: p?.display_name || "Học viên",
+            displayName: p?.display_name || "H?c vi�n",
             avatar: p?.avatar_url || "",
             score: d.best,
             streak: streakMap[uid] || 0,
             totalExams: d.count,
-            badge: "⭐",
-            region: "Việt Nam",
+            badge: "?",
+            region: "Vi?t Nam",
             isCurrentUser: user ? uid === user.id : false,
           };
         })
@@ -156,7 +156,7 @@ export default function EpsGlobalLeaderboardPage() {
         .map((e, i) => ({
           ...e,
           rank: i + 1,
-          badge: i === 0 ? "🏆" : i === 1 ? "🥈" : i === 2 ? "🥉" : "⭐",
+          badge: i === 0 ? "??" : i === 1 ? "??" : i === 2 ? "??" : "?",
         }));
 
       setEntries(combined);
@@ -182,8 +182,8 @@ export default function EpsGlobalLeaderboardPage() {
               <i className="ri-arrow-left-line text-white/60 text-sm"></i>
             </button>
             <div>
-              <h1 className="text-white font-bold text-lg">Bảng xếp hạng toàn cầu EPS</h1>
-              <p className="text-app-text-secondary text-xs">Top học viên điểm cao nhất · Cập nhật real-time</p>
+              <h1 className="text-white font-bold text-lg">B?ng x?p h?ng to�n c?u EPS</h1>
+              <p className="text-app-text-secondary text-xs">Top h?c vi�n di?m cao nh?t � C?p nh?t real-time</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -228,7 +228,7 @@ export default function EpsGlobalLeaderboardPage() {
           <>
             {/* Top 3 Podium */}
             <div className="bg-[#1a1d27] border border-app-border rounded-2xl p-6">
-              <h2 className="text-white/60 text-xs font-medium tracking-normal mb-6 text-center">Top 3 xuất sắc nhất</h2>
+              <h2 className="text-white/60 text-xs font-medium tracking-normal mb-6 text-center">Top 3 xu?t s?c nh?t</h2>
               <div className="flex items-end justify-center gap-4">
                 {/* 2nd */}
                 {top3[1] && (
@@ -242,7 +242,7 @@ export default function EpsGlobalLeaderboardPage() {
                       <p className="text-gray-400 text-[10px]">{top3[1].region}</p>
                     </div>
                     <div className="w-full bg-gray-500/20 rounded-t-lg flex flex-col items-center py-3" style={{ height: "80px" }}>
-                      <span className="text-2xl">🥈</span>
+                      <span className="text-2xl">??</span>
                       <span className="text-gray-300 font-bold text-sm">{top3[1].score}</span>
                     </div>
                   </div>
@@ -251,7 +251,7 @@ export default function EpsGlobalLeaderboardPage() {
                 {top3[0] && (
                   <div className="flex flex-col items-center gap-2 flex-1">
                     <div className="relative">
-                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-xl">👑</div>
+                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-xl">??</div>
                       <img src={top3[0].avatar} alt={top3[0].displayName} className="w-18 h-18 rounded-full object-cover border-2 border-app-accent-primary w-[72px] h-[72px]" />
                       <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-app-accent-primary flex items-center justify-center text-xs font-bold text-app-bg">1</div>
                     </div>
@@ -260,11 +260,11 @@ export default function EpsGlobalLeaderboardPage() {
                       <p className="text-app-text-secondary text-[10px]">{top3[0].region}</p>
                     </div>
                     <div className="w-full bg-app-accent-primary/15 rounded-t-lg flex flex-col items-center py-3" style={{ height: "110px" }}>
-                      <span className="text-2xl">🏆</span>
+                      <span className="text-2xl">??</span>
                       <span className="text-app-accent-primary font-bold text-lg">{top3[0].score}</span>
                       <div className="flex items-center gap-1 mt-1">
                         <i className="ri-fire-line text-orange-400 text-xs"></i>
-                        <span className="text-orange-400 text-[10px]">{top3[0].streak} ngày</span>
+                        <span className="text-orange-400 text-[10px]">{top3[0].streak} ng�y</span>
                       </div>
                     </div>
                   </div>
@@ -281,7 +281,7 @@ export default function EpsGlobalLeaderboardPage() {
                       <p className="text-app-text-secondary text-[10px]">{top3[2].region}</p>
                     </div>
                     <div className="w-full bg-amber-700/20 rounded-t-lg flex flex-col items-center py-3" style={{ height: "60px" }}>
-                      <span className="text-2xl">🥉</span>
+                      <span className="text-2xl">??</span>
                       <span className="text-amber-600 font-bold text-sm">{top3[2].score}</span>
                     </div>
                   </div>
@@ -297,12 +297,12 @@ export default function EpsGlobalLeaderboardPage() {
                 </div>
                 <img src={myRank.avatar} alt="me" className="w-10 h-10 rounded-full object-cover" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-white font-semibold text-sm">Bạn · {myRank.displayName}</p>
+                  <p className="text-white font-semibold text-sm">B?n � {myRank.displayName}</p>
                   <p className="text-app-text-secondary text-xs">{myRank.region}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-app-accent-primary font-bold text-lg">{myRank.score}</p>
-                  <p className="text-app-text-secondary text-xs">điểm TB</p>
+                  <p className="text-app-text-secondary text-xs">di?m TB</p>
                 </div>
               </div>
             )}
@@ -310,8 +310,8 @@ export default function EpsGlobalLeaderboardPage() {
             {/* Rest of leaderboard */}
             <div className="bg-[#1a1d27] border border-app-border rounded-2xl overflow-hidden">
               <div className="px-4 py-3 border-b border-app-border flex items-center justify-between">
-                <span className="text-white/60 text-xs font-medium">Xếp hạng 4-{entries.length}</span>
-                <span className="text-app-text-muted text-xs">{entries.length} học viên</span>
+                <span className="text-white/60 text-xs font-medium">X?p h?ng 4-{entries.length}</span>
+                <span className="text-app-text-muted text-xs">{entries.length} h?c vi�n</span>
               </div>
               <div className="divide-y divide-white/5">
                 {rest.map((entry) => (
@@ -336,24 +336,24 @@ export default function EpsGlobalLeaderboardPage() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
                         <p className={`text-sm font-medium truncate ${entry.isCurrentUser ? "text-app-accent-primary" : "text-white"}`}>{entry.displayName}</p>
-                        {entry.isCurrentUser && <span className="text-[10px] bg-app-accent-primary/20 text-app-accent-primary px-1.5 py-0.5 rounded-full whitespace-nowrap">Bạn</span>}
+                        {entry.isCurrentUser && <span className="text-[10px] bg-app-accent-primary/20 text-app-accent-primary px-1.5 py-0.5 rounded-full whitespace-nowrap">B?n</span>}
                       </div>
                       <div className="flex items-center gap-3 mt-0.5">
                         <span className="text-app-text-muted text-[10px]">{entry.region}</span>
                         <div className="flex items-center gap-1">
                           <i className="ri-fire-line text-orange-400 text-[10px]"></i>
-                          <span className="text-orange-400 text-[10px]">{entry.streak} ngày</span>
+                          <span className="text-orange-400 text-[10px]">{entry.streak} ng�y</span>
                         </div>
                         <div className="flex items-center gap-1">
                           <i className="ri-file-list-3-line text-app-text-muted text-[10px]"></i>
-                          <span className="text-app-text-muted text-[10px]">{entry.totalExams} bài</span>
+                          <span className="text-app-text-muted text-[10px]">{entry.totalExams} b�i</span>
                         </div>
                       </div>
                     </div>
                     {/* Score */}
                     <div className="text-right flex-shrink-0">
                       <p className="text-white font-bold text-base">{entry.score}</p>
-                      <p className="text-app-text-muted text-[10px]">điểm TB</p>
+                      <p className="text-app-text-muted text-[10px]">di?m TB</p>
                     </div>
                   </div>
                 ))}
@@ -363,8 +363,8 @@ export default function EpsGlobalLeaderboardPage() {
             {/* CTA to join */}
             {!user && (
               <div className="bg-[#1a1d27] border border-app-accent-primary/20 rounded-xl p-5 text-center">
-                <p className="text-white font-semibold text-sm mb-1">Bạn muốn xuất hiện trên bảng xếp hạng?</p>
-                <p className="text-app-text-secondary text-xs mb-4">Đăng nhập và bắt đầu thi EPS để được xếp hạng toàn cầu!</p>
+                <p className="text-white font-semibold text-sm mb-1">B?n mu?n xu?t hi?n tr�n b?ng x?p h?ng?</p>
+                <p className="text-app-text-secondary text-xs mb-4">�ang nh?p v� b?t d?u thi EPS d? du?c x?p h?ng to�n c?u!</p>
                 <button onClick={() => navigate("/")} className="bg-app-accent-primary text-app-bg font-bold px-6 py-2.5 rounded-lg text-sm hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer">
                   Tham gia ngay
                 </button>
@@ -374,9 +374,9 @@ export default function EpsGlobalLeaderboardPage() {
             {/* Stats summary */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { label: "Học viên tham gia", value: "10,247", icon: "ri-group-line", color: "app-accent-primary" },
-                { label: "Bài thi tuần này", value: "3,891", icon: "ri-file-list-3-line", color: "#10b981" },
-                { label: "Điểm TB toàn cầu", value: "74.2", icon: "ri-bar-chart-line", color: "#f59e0b" },
+                { label: "H?c vi�n tham gia", value: "10,247", icon: "ri-group-line", color: "app-accent-primary" },
+                { label: "B�i thi tu?n n�y", value: "3,891", icon: "ri-file-list-3-line", color: "#10b981" },
+                { label: "�i?m TB to�n c?u", value: "74.2", icon: "ri-bar-chart-line", color: "#f59e0b" },
               ].map(s => (
                 <div key={s.label} className="bg-[#1a1d27] border border-app-border rounded-xl p-4 text-center">
                   <div className="w-8 h-8 flex items-center justify-center mx-auto mb-2">

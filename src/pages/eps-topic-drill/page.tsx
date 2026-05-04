@@ -1,11 +1,11 @@
-﻿import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { epsQuestions, EPS_TOPICS, EpsQuestion } from "@/mocks/epsQuestions";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
 
-// ─── Types ───────────────────────────────────────────────────────────────────
+// --- Types -------------------------------------------------------------------
 interface DrillResult {
   questionId: string;
   correct: boolean;
@@ -21,7 +21,7 @@ interface TopicStats {
   lastDrilled: string;
 }
 
-// ─── Timer Hook ───────────────────────────────────────────────────────────────
+// --- Timer Hook ---------------------------------------------------------------
 function useTimer(active: boolean) {
   const [seconds, setSeconds] = useState(0);
   useEffect(() => {
@@ -33,7 +33,7 @@ function useTimer(active: boolean) {
   return { seconds, reset };
 }
 
-// ─── Topic Selector ───────────────────────────────────────────────────────────
+// --- Topic Selector -----------------------------------------------------------
 function TopicSelector({
   onSelect,
   topicStats,
@@ -57,8 +57,8 @@ function TopicSelector({
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <div className="text-center">
-        <h2 className="text-white font-bold text-xl mb-1">Chọn chủ đề luyện thi</h2>
-        <p className="text-app-text-secondary text-sm">Luyện tập tập trung theo từng chủ đề để cải thiện điểm yếu</p>
+        <h2 className="text-white font-bold text-xl mb-1">Ch?n ch? d? luy?n thi</h2>
+        <p className="text-app-text-secondary text-sm">Luy?n t?p t?p trung theo t?ng ch? d? d? c?i thi?n di?m y?u</p>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -98,10 +98,10 @@ function TopicSelector({
                 )}
               </div>
               <p className="text-white/80 text-xs font-semibold leading-snug mb-1">{topic.label}</p>
-              <p className="text-app-text-muted text-[10px]">{topic.questionCount} câu hỏi</p>
+              <p className="text-app-text-muted text-[10px]">{topic.questionCount} c�u h?i</p>
               {topic.stats && (
                 <p className="text-app-text-muted text-[10px] mt-0.5">
-                  Đã làm {topic.stats.totalDone} lần
+                  �� l�m {topic.stats.totalDone} l?n
                 </p>
               )}
             </button>
@@ -113,12 +113,12 @@ function TopicSelector({
         <div className="bg-app-bg border border-app-border rounded-2xl p-5 space-y-4">
           <h3 className="text-white font-semibold text-sm flex items-center gap-2">
             <i className={`${selected.icon} text-base`} style={{ color: selected.color }}></i>
-            Cài đặt: {selected.label}
+            C�i d?t: {selected.label}
           </h3>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-app-text-secondary text-xs block mb-2">Số câu hỏi</label>
+              <label className="text-app-text-secondary text-xs block mb-2">S? c�u h?i</label>
               <div className="flex items-center gap-2">
                 {[5, 10, 15, 20].filter(n => n <= maxCount).map(n => (
                   <button
@@ -138,13 +138,13 @@ function TopicSelector({
             </div>
 
             <div>
-              <label className="text-app-text-secondary text-xs block mb-2">Độ khó</label>
+              <label className="text-app-text-secondary text-xs block mb-2">�? kh�</label>
               <div className="flex items-center gap-2">
                 {[
-                  { v: "all", l: "Tất cả" },
-                  { v: "easy", l: "Dễ" },
+                  { v: "all", l: "T?t c?" },
+                  { v: "easy", l: "D?" },
                   { v: "medium", l: "TB" },
-                  { v: "hard", l: "Khó" },
+                  { v: "hard", l: "Kh�" },
                 ].map(d => (
                   <button
                     key={d.v}
@@ -167,7 +167,7 @@ function TopicSelector({
             className="w-full py-3 rounded-xl font-bold text-sm text-app-bg transition-all cursor-pointer whitespace-nowrap hover:opacity-90"
             style={{ backgroundColor: selected.color }}
           >
-            <i className="ri-play-fill mr-2"></i>Bắt đầu luyện thi
+            <i className="ri-play-fill mr-2"></i>B?t d?u luy?n thi
           </button>
         </div>
       )}
@@ -175,7 +175,7 @@ function TopicSelector({
   );
 }
 
-// ─── Question Card ────────────────────────────────────────────────────────────
+// --- Question Card ------------------------------------------------------------
 function QuestionCard({
   question,
   index,
@@ -242,7 +242,7 @@ function QuestionCard({
           question.difficulty === "medium" ? "bg-app-accent-primary/10 text-app-accent-primary" :
           "bg-red-500/10 text-red-400"
         }`}>
-          {question.difficulty === "easy" ? "Dễ" : question.difficulty === "medium" ? "Trung bình" : "Khó"}
+          {question.difficulty === "easy" ? "D?" : question.difficulty === "medium" ? "Trung b�nh" : "Kh�"}
         </span>
       </div>
 
@@ -306,7 +306,7 @@ function QuestionCard({
           <div className="flex items-center gap-2 mb-2">
             <i className={`${selected === question.correctIndex ? "ri-checkbox-circle-fill text-app-accent-success" : "ri-close-circle-fill text-red-400"} text-base`}></i>
             <span className={`text-xs font-bold ${selected === question.correctIndex ? "text-app-accent-success" : "text-red-400"}`}>
-              {selected === question.correctIndex ? "Chính xác!" : "Chưa đúng"}
+              {selected === question.correctIndex ? "Ch�nh x�c!" : "Chua d�ng"}
             </span>
           </div>
           <p className="text-white/60 text-xs leading-relaxed">{question.explanation}</p>
@@ -316,7 +316,7 @@ function QuestionCard({
   );
 }
 
-// ─── Results Screen ───────────────────────────────────────────────────────────
+// --- Results Screen -----------------------------------------------------------
 function ResultsScreen({
   results,
   questions,
@@ -342,10 +342,10 @@ function ResultsScreen({
     .filter(Boolean);
 
   const grade =
-    pct >= 90 ? { label: "Xuất sắc!", color: "#34d399", icon: "ri-trophy-fill" } :
-    pct >= 75 ? { label: "Tốt!", color: "app-accent-primary", icon: "ri-thumb-up-fill" } :
-    pct >= 60 ? { label: "Khá", color: "#fb923c", icon: "ri-emotion-normal-fill" } :
-    { label: "Cần ôn thêm", color: "#f87171", icon: "ri-emotion-sad-fill" };
+    pct >= 90 ? { label: "Xu?t s?c!", color: "#34d399", icon: "ri-trophy-fill" } :
+    pct >= 75 ? { label: "T?t!", color: "app-accent-primary", icon: "ri-thumb-up-fill" } :
+    pct >= 60 ? { label: "Kh�", color: "#fb923c", icon: "ri-emotion-normal-fill" } :
+    { label: "C?n �n th�m", color: "#f87171", icon: "ri-emotion-sad-fill" };
 
   return (
     <div className="max-w-2xl mx-auto space-y-5">
@@ -356,13 +356,13 @@ function ResultsScreen({
         </div>
         <p className="text-white font-bold text-2xl mb-1">{pct}%</p>
         <p className="font-bold text-base mb-1" style={{ color: grade.color }}>{grade.label}</p>
-        <p className="text-app-text-secondary text-sm">{correct}/{total} câu đúng · {topic?.label}</p>
+        <p className="text-app-text-secondary text-sm">{correct}/{total} c�u d�ng � {topic?.label}</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5">
           {[
-            { label: "Đúng", value: correct, color: "#34d399" },
+            { label: "��ng", value: correct, color: "#34d399" },
             { label: "Sai", value: total - correct, color: "#f87171" },
-            { label: "Thời gian TB", value: `${avgTime}s`, color: "app-accent-primary" },
+            { label: "Th?i gian TB", value: `${avgTime}s`, color: "app-accent-primary" },
           ].map(s => (
             <div key={s.label} className="bg-app-surface/50 rounded-xl p-3">
               <p className="font-bold text-lg" style={{ color: s.color }}>{s.value}</p>
@@ -377,7 +377,7 @@ function ResultsScreen({
         <div className="bg-app-bg border border-app-border rounded-2xl p-5">
           <h3 className="text-white font-semibold text-sm mb-3 flex items-center gap-2">
             <i className="ri-error-warning-line text-red-400"></i>
-            Câu cần ôn lại ({wrongQuestions.length})
+            C�u c?n �n l?i ({wrongQuestions.length})
           </h3>
           <div className="space-y-3">
             {wrongQuestions.map((q, i) => (
@@ -396,21 +396,21 @@ function ResultsScreen({
 
       <div className="flex gap-3">
         <button onClick={onBack} className="flex-1 py-3 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50">
-          <i className="ri-arrow-left-line mr-2"></i>Chọn chủ đề khác
+          <i className="ri-arrow-left-line mr-2"></i>Ch?n ch? d? kh�c
         </button>
         <button
           onClick={onRetry}
           className="flex-1 py-3 rounded-xl font-bold text-sm text-app-bg cursor-pointer whitespace-nowrap hover:opacity-90"
           style={{ backgroundColor: topic?.color || "app-accent-primary" }}
         >
-          <i className="ri-refresh-line mr-2"></i>Luyện lại
+          <i className="ri-refresh-line mr-2"></i>Luy?n l?i
         </button>
       </div>
     </div>
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function EpsTopicDrillPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -490,22 +490,22 @@ export default function EpsTopicDrillPage() {
 
   return (
     <DashboardLayout
-      title="Luyện thi EPS theo chủ đề"
-      subtitle="Tập trung vào từng chủ đề để cải thiện điểm yếu"
+      title="Luy?n thi EPS theo ch? d?"
+      subtitle="T?p trung v�o t?ng ch? d? d? c?i thi?n di?m y?u"
       actions={
         phase !== "select" ? (
           <button
             onClick={() => setPhase("select")}
             className="flex items-center gap-2 px-4 py-2 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50"
           >
-            <i className="ri-arrow-left-line"></i>Chọn lại
+            <i className="ri-arrow-left-line"></i>Ch?n l?i
           </button>
         ) : (
           <button
             onClick={() => navigate("/eps-exam")}
             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-app-accent-primary/10 border border-app-accent-primary/20 text-app-accent-primary text-sm cursor-pointer whitespace-nowrap"
           >
-            <i className="ri-timer-line"></i>Thi thử 40 câu
+            <i className="ri-timer-line"></i>Thi th? 40 c�u
           </button>
         )
       }

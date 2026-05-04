@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { vocabularyData, VOCAB_CATEGORIES, type VocabItem } from "@/mocks/vocabularyData";
 
@@ -24,10 +24,10 @@ interface SessionResult {
 }
 
 const LEVELS = [
-  { id: "A1", label: "A1 - Sơ cấp 1", color: "#34d399", desc: "Từ vựng cơ bản hàng ngày" },
-  { id: "A2", label: "A2 - Sơ cấp 2", color: "#38bdf8", desc: "Từ vựng giao tiếp thông dụng" },
-  { id: "B1", label: "B1 - Trung cấp 1", color: "#fb923c", desc: "Từ vựng xã hội, công việc" },
-  { id: "B2", label: "B2 - Trung cấp 2", color: "#f87171", desc: "Từ vựng học thuật, nâng cao" },
+  { id: "A1", label: "A1 - So c?p 1", color: "#34d399", desc: "T? v?ng co b?n h�ng ng�y" },
+  { id: "A2", label: "A2 - So c?p 2", color: "#38bdf8", desc: "T? v?ng giao ti?p th�ng d?ng" },
+  { id: "B1", label: "B1 - Trung c?p 1", color: "#fb923c", desc: "T? v?ng x� h?i, c�ng vi?c" },
+  { id: "B2", label: "B2 - Trung c?p 2", color: "#f87171", desc: "T? v?ng h?c thu?t, n�ng cao" },
 ];
 
 const SESSION_SIZES = [10, 15, 20, 30];
@@ -61,13 +61,13 @@ function generateQuestions(words: VocabItem[], count: number): ListeningQuestion
 
     if (qType === "word-meaning") {
       audioText = word.korean;
-      question = `Từ vừa nghe có nghĩa là gì?`;
+      question = `T? v?a nghe c� nghia l� g�?`;
     } else if (qType === "sentence-fill") {
       audioText = word.example;
-      question = `Câu vừa nghe, từ "${word.korean}" có nghĩa là gì?`;
+      question = `C�u v?a nghe, t? "${word.korean}" c� nghia l� g�?`;
     } else {
       audioText = `${word.korean}. ${word.example}`;
-      question = `Trong đoạn hội thoại, "${word.korean}" có nghĩa là gì?`;
+      question = `Trong do?n h?i tho?i, "${word.korean}" c� nghia l� g�?`;
     }
 
     return {
@@ -77,7 +77,7 @@ function generateQuestions(words: VocabItem[], count: number): ListeningQuestion
       question,
       options: allOptions,
       correctIndex,
-      explanation: `"${word.korean}" [${word.reading}] = ${word.vietnamese}. Ví dụ: ${word.example} — ${word.exampleVi}`,
+      explanation: `"${word.korean}" [${word.reading}] = ${word.vietnamese}. V� d?: ${word.example} � ${word.exampleVi}`,
       word,
     };
   });
@@ -161,7 +161,7 @@ export default function TopikListeningPage() {
     timerRef.current = setInterval(() => {
       setTimeLeft((t) => {
         if (t <= 1) {
-          // Time up — auto skip
+          // Time up � auto skip
           handleAnswer(-1);
           return 30;
         }
@@ -209,22 +209,22 @@ export default function TopikListeningPage() {
 
   const levelInfo = LEVELS.find((l) => l.id === selectedLevel);
 
-  // ─── Setup Phase ──────────────────────────────────────────────────────────
+  // --- Setup Phase ----------------------------------------------------------
   if (phase === "setup") {
     return (
       <DashboardLayout>
         <div className="p-6 max-w-3xl mx-auto">
           <div className="mb-8">
-            <h1 className="text-2xl font-bold text-white mb-1">Luyện nghe TOPIK</h1>
-            <p className="text-app-text-secondary text-sm">Nghe câu tiếng Hàn rồi chọn đáp án đúng — luyện kỹ năng nghe cho kỳ thi TOPIK</p>
+            <h1 className="text-2xl font-bold text-white mb-1">Luy?n nghe TOPIK</h1>
+            <p className="text-app-text-secondary text-sm">Nghe c�u ti?ng H�n r?i ch?n d�p �n d�ng � luy?n k? nang nghe cho k? thi TOPIK</p>
           </div>
 
           {/* How it works */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
             {[
-              { icon: "ri-volume-up-line", color: "#34d399", title: "Nghe", desc: "Hệ thống đọc câu tiếng Hàn" },
-              { icon: "ri-checkbox-multiple-line", color: "app-accent-primary", title: "Chọn đáp án", desc: "4 lựa chọn nghĩa tiếng Việt" },
-              { icon: "ri-bar-chart-line", color: "#fb923c", title: "Xem kết quả", desc: "Giải thích chi tiết từng câu" },
+              { icon: "ri-volume-up-line", color: "#34d399", title: "Nghe", desc: "H? th?ng d?c c�u ti?ng H�n" },
+              { icon: "ri-checkbox-multiple-line", color: "app-accent-primary", title: "Ch?n d�p �n", desc: "4 l?a ch?n nghia ti?ng Vi?t" },
+              { icon: "ri-bar-chart-line", color: "#fb923c", title: "Xem k?t qu?", desc: "Gi?i th�ch chi ti?t t?ng c�u" },
             ].map((step) => (
               <div key={step.title} className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: `${step.color}20` }}>
@@ -238,7 +238,7 @@ export default function TopikListeningPage() {
 
           {/* Level selection */}
           <div className="mb-5">
-            <p className="text-white/60 text-xs tracking-normal mb-3">Cấp độ</p>
+            <p className="text-white/60 text-xs tracking-normal mb-3">C?p d?</p>
             <div className="grid grid-cols-2 gap-2">
               {LEVELS.map((lv) => (
                 <button
@@ -267,7 +267,7 @@ export default function TopikListeningPage() {
 
           {/* Category */}
           <div className="mb-5">
-            <p className="text-white/60 text-xs tracking-normal mb-3">Chủ đề</p>
+            <p className="text-white/60 text-xs tracking-normal mb-3">Ch? d?</p>
             <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2">
               <button
                 onClick={() => setSelectedCategory("all")}
@@ -277,7 +277,7 @@ export default function TopikListeningPage() {
                     : "border-app-border text-app-text-secondary hover:text-white/70"
                 }`}
               >
-                Tất cả
+                T?t c?
               </button>
               {VOCAB_CATEGORIES.map((cat) => (
                 <button
@@ -300,7 +300,7 @@ export default function TopikListeningPage() {
 
           {/* Session size */}
           <div className="mb-5">
-            <p className="text-white/60 text-xs tracking-normal mb-3">Số câu</p>
+            <p className="text-white/60 text-xs tracking-normal mb-3">S? c�u</p>
             <div className="flex gap-2">
               {SESSION_SIZES.map((n) => (
                 <button
@@ -327,10 +327,10 @@ export default function TopikListeningPage() {
               >
                 <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all ${autoPlayEnabled ? "left-5" : "left-0.5"}`}></div>
               </div>
-              <span className="text-white/50 text-xs">Tự động phát âm</span>
+              <span className="text-white/50 text-xs">T? d?ng ph�t �m</span>
             </label>
             <div className="flex items-center gap-2">
-              <span className="text-app-text-muted text-xs">Tốc độ:</span>
+              <span className="text-app-text-muted text-xs">T?c d?:</span>
               {[0.7, 1.0, 1.2].map((r) => (
                 <button
                   key={r}
@@ -339,7 +339,7 @@ export default function TopikListeningPage() {
                     playbackRate === r ? "bg-app-accent-primary/15 border-app-accent-primary/40 text-app-accent-primary" : "border-app-border text-app-text-muted"
                   }`}
                 >
-                  {r === 0.7 ? "Chậm" : r === 1.0 ? "Bình thường" : "Nhanh"}
+                  {r === 0.7 ? "Ch?m" : r === 1.0 ? "B�nh thu?ng" : "Nhanh"}
                 </button>
               ))}
             </div>
@@ -347,8 +347,8 @@ export default function TopikListeningPage() {
 
           <div className="flex items-center justify-between mb-4">
             <p className="text-app-text-muted text-xs">
-              {filteredWords.length} từ có sẵn ở cấp {selectedLevel}
-              {selectedCategory !== "all" ? ` · chủ đề ${VOCAB_CATEGORIES.find((c) => c.id === selectedCategory)?.label}` : ""}
+              {filteredWords.length} t? c� s?n ? c?p {selectedLevel}
+              {selectedCategory !== "all" ? ` � ch? d? ${VOCAB_CATEGORIES.find((c) => c.id === selectedCategory)?.label}` : ""}
             </p>
           </div>
 
@@ -358,14 +358,14 @@ export default function TopikListeningPage() {
             className="w-full py-3.5 bg-app-accent-primary hover:bg-app-accent-primary/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
           >
             <i className="ri-headphone-line mr-2"></i>
-            Bắt đầu luyện nghe ({Math.min(sessionSize, filteredWords.length)} câu)
+            B?t d?u luy?n nghe ({Math.min(sessionSize, filteredWords.length)} c�u)
           </button>
         </div>
       </DashboardLayout>
     );
   }
 
-  // ─── Result Phase ─────────────────────────────────────────────────────────
+  // --- Result Phase ---------------------------------------------------------
   if (phase === "result") {
     const avgTime = results.length > 0 ? Math.round(results.reduce((a, b) => a + b.timeMs, 0) / results.length / 1000) : 0;
     const filteredResults = results.filter((r) => {
@@ -389,20 +389,20 @@ export default function TopikListeningPage() {
               <span className="text-3xl font-bold text-white">{score}%</span>
             </div>
             <h2 className="text-2xl font-bold text-white mb-1">
-              {score >= 80 ? "Xuất sắc!" : score >= 60 ? "Khá tốt!" : "Cần luyện thêm!"}
+              {score >= 80 ? "Xu?t s?c!" : score >= 60 ? "Kh� t?t!" : "C?n luy?n th�m!"}
             </h2>
             <p className="text-app-text-secondary text-sm">
-              {correctCount}/{results.length} câu đúng · Thời gian TB: {avgTime}s/câu
+              {correctCount}/{results.length} c�u d�ng � Th?i gian TB: {avgTime}s/c�u
             </p>
           </div>
 
           {/* Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
             {[
-              { label: "Đúng", value: correctCount, color: "#34d399" },
+              { label: "��ng", value: correctCount, color: "#34d399" },
               { label: "Sai", value: results.filter((r) => !r.correct).length, color: "#f87171" },
-              { label: "Điểm", value: `${score}%`, color: "app-accent-primary" },
-              { label: "Thời gian TB", value: `${avgTime}s`, color: "#38bdf8" },
+              { label: "�i?m", value: `${score}%`, color: "app-accent-primary" },
+              { label: "Th?i gian TB", value: `${avgTime}s`, color: "#38bdf8" },
             ].map((s) => (
               <div key={s.label} className="bg-app-surface/50 border border-app-border rounded-xl p-3 text-center">
                 <p className="text-xl font-bold" style={{ color: s.color }}>{s.value}</p>
@@ -421,7 +421,7 @@ export default function TopikListeningPage() {
                   filterTab === tab ? "bg-app-accent-primary/15 border-app-accent-primary/40 text-app-accent-primary" : "border-app-border text-app-text-secondary"
                 }`}
               >
-                {tab === "all" ? `Tất cả (${results.length})` : tab === "correct" ? `Đúng (${correctCount})` : `Sai (${results.filter((r) => !r.correct).length})`}
+                {tab === "all" ? `T?t c? (${results.length})` : tab === "correct" ? `��ng (${correctCount})` : `Sai (${results.filter((r) => !r.correct).length})`}
               </button>
             ))}
           </div>
@@ -441,7 +441,7 @@ export default function TopikListeningPage() {
                       <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${r.correct ? "bg-emerald-500/20" : "bg-red-500/20"}`}>
                         <i className={`${r.correct ? "ri-check-line text-app-accent-success" : "ri-close-line text-red-400"} text-xs`}></i>
                       </div>
-                      <span className="text-white/50 text-xs">Câu {results.indexOf(r) + 1}</span>
+                      <span className="text-white/50 text-xs">C�u {results.indexOf(r) + 1}</span>
                     </div>
                     <button
                       onClick={() => speakText(q.audioText)}
@@ -478,13 +478,13 @@ export default function TopikListeningPage() {
               onClick={() => setPhase("setup")}
               className="flex-1 py-3 bg-app-card/50 hover:bg-app-card/70 text-white/70 font-medium rounded-xl transition-all cursor-pointer whitespace-nowrap border border-app-border"
             >
-              Cài đặt lại
+              C�i d?t l?i
             </button>
             <button
               onClick={startSession}
               className="flex-1 py-3 bg-app-accent-primary hover:bg-app-accent-primary/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap"
             >
-              <i className="ri-refresh-line mr-2"></i>Luyện lại
+              <i className="ri-refresh-line mr-2"></i>Luy?n l?i
             </button>
           </div>
         </div>
@@ -492,7 +492,7 @@ export default function TopikListeningPage() {
     );
   }
 
-  // ─── Listening Phase ──────────────────────────────────────────────────────
+  // --- Listening Phase ------------------------------------------------------
   const timerPercent = (timeLeft / 30) * 100;
   const timerColor = timeLeft > 15 ? "#34d399" : timeLeft > 7 ? "app-accent-primary" : "#f87171";
 
@@ -548,7 +548,7 @@ export default function TopikListeningPage() {
                 {selectedLevel}
               </span>
               <span className="text-app-text-muted text-xs">
-                {currentQ?.type === "word-meaning" ? "Nghe từ" : currentQ?.type === "sentence-fill" ? "Nghe câu" : "Nghe hội thoại"}
+                {currentQ?.type === "word-meaning" ? "Nghe t?" : currentQ?.type === "sentence-fill" ? "Nghe c�u" : "Nghe h?i tho?i"}
               </span>
             </div>
             {!showResult && (
@@ -573,7 +573,7 @@ export default function TopikListeningPage() {
               <i className={`${isPlaying ? "ri-volume-up-fill" : "ri-play-fill"} text-app-accent-primary text-3xl`}></i>
             </button>
             <p className="text-app-text-muted text-xs mb-1">
-              {isPlaying ? "Đang phát..." : `Nhấn để nghe${playCount > 0 ? ` (đã nghe ${playCount} lần)` : ""}`}
+              {isPlaying ? "�ang ph�t..." : `Nh?n d? nghe${playCount > 0 ? ` (d� nghe ${playCount} l?n)` : ""}`}
             </p>
 
             {/* Speed control */}
@@ -636,7 +636,7 @@ export default function TopikListeningPage() {
             <div className="flex items-center gap-2 mb-2">
               <i className={`${selectedOption === currentQ?.correctIndex ? "ri-check-double-line text-app-accent-success" : "ri-close-circle-line text-red-400"} text-base`}></i>
               <span className={`text-sm font-bold ${selectedOption === currentQ?.correctIndex ? "text-app-accent-success" : "text-red-400"}`}>
-                {selectedOption === currentQ?.correctIndex ? "Chính xác!" : selectedOption === -1 ? "Hết giờ!" : "Chưa đúng!"}
+                {selectedOption === currentQ?.correctIndex ? "Ch�nh x�c!" : selectedOption === -1 ? "H?t gi?!" : "Chua d�ng!"}
               </span>
             </div>
             <p className="text-white/50 text-xs">{currentQ?.explanation}</p>
@@ -650,9 +650,9 @@ export default function TopikListeningPage() {
             className="w-full py-3 bg-app-accent-primary hover:bg-app-accent-primary/90 text-black font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap"
           >
             {currentIdx + 1 >= questions.length ? (
-              <><i className="ri-flag-line mr-2"></i>Xem kết quả</>
+              <><i className="ri-flag-line mr-2"></i>Xem k?t qu?</>
             ) : (
-              <><i className="ri-arrow-right-line mr-2"></i>Câu tiếp theo</>
+              <><i className="ri-arrow-right-line mr-2"></i>C�u ti?p theo</>
             )}
           </button>
         )}

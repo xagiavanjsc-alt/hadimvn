@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import MobileHeader from "@/components/feature/MobileHeader";
 import MobileNav from "@/components/feature/MobileNav";
 import { useNavigate } from "react-router-dom";
@@ -14,14 +14,14 @@ interface NaverQA {
 }
 
 const DEFAULT_QA: NaverQA[] = [
-  { id: 1, question: "한국어 공부를 어떻게 시작해야 하나요?", answer: "기초 발음부터 시작하는 것이 좋습니다. 한글 자모음을 먼저 익히고 기본 단어를 외우세요.", category: "학습법", likes: 124 },
-  { id: 2, question: "TOPIK 시험 준비는 얼마나 걸리나요?", answer: "개인 수준에 따라 다르지만 보통 3~6개월 꾸준히 공부하면 준비할 수 있습니다.", category: "TOPIK", likes: 98 },
-  { id: 3, question: "한국 드라마로 한국어를 배울 수 있나요?", answer: "네! 드라마는 자연스러운 표현과 억양을 배우는 데 매우 효과적입니다.", category: "문화", likes: 215 },
-  { id: 4, question: "어휘를 빠르게 외우는 방법이 있나요?", answer: "플래시카드와 반복 학습법(SRS)을 활용하면 효율적으로 어휘를 익힐 수 있습니다.", category: "어휘", likes: 176 },
-  { id: 5, question: "한국어 문법이 너무 어려운데 어떻게 해야 하나요?", answer: "기본 문형 패턴을 먼저 익히고, 예문을 통해 자연스럽게 체득하는 방법을 추천합니다.", category: "문법", likes: 143 },
-  { id: 6, question: "한국어 발음 교정은 어떻게 하나요?", answer: "원어민 발음을 많이 듣고 따라 말하는 쉐도잉 연습이 효과적입니다.", category: "발음", likes: 89 },
-  { id: 7, question: "한국어 경어체와 반말의 차이는?", answer: "경어체는 존댓말로 공식적인 상황에서, 반말은 친한 사이나 아랫사람에게 사용합니다.", category: "문법", likes: 201 },
-  { id: 8, question: "한국어 능력시험 TOPIK II 합격 점수는?", answer: "TOPIK II는 3~6급으로 나뉘며, 3급은 120점, 4급은 150점, 5급은 190점, 6급은 230점 이상입니다.", category: "TOPIK", likes: 167 },
+  { id: 1, question: "??? ??? ??? ???? ????", answer: "?? ???? ???? ?? ????. ?? ???? ?? ??? ?? ??? ????.", category: "???", likes: 124 },
+  { id: 2, question: "TOPIK ?? ??? ??? ?????", answer: "?? ??? ?? ???? ?? 3~6?? ??? ???? ??? ? ????.", category: "TOPIK", likes: 98 },
+  { id: 3, question: "?? ???? ???? ?? ? ????", answer: "?! ???? ????? ??? ??? ??? ? ?? ??????.", category: "??", likes: 215 },
+  { id: 4, question: "??? ??? ??? ??? ????", answer: "?????? ?? ???(SRS)? ???? ????? ??? ?? ? ????.", category: "??", likes: 176 },
+  { id: 5, question: "??? ??? ?? ???? ??? ?? ????", answer: "?? ?? ??? ?? ???, ??? ?? ????? ???? ??? ?????.", category: "??", likes: 143 },
+  { id: 6, question: "??? ?? ??? ??? ????", answer: "??? ??? ?? ?? ?? ??? ??? ??? ??????.", category: "??", likes: 89 },
+  { id: 7, question: "??? ???? ??? ????", answer: "???? ???? ???? ????, ??? ?? ??? ?????? ?????.", category: "??", likes: 201 },
+  { id: 8, question: "??? ???? TOPIK II ?? ????", answer: "TOPIK II? 3~6??? ???, 3?? 120?, 4?? 150?, 5?? 190?, 6?? 230? ?????.", category: "TOPIK", likes: 167 },
 ];
 
 function loadQA(): NaverQA[] {
@@ -32,13 +32,13 @@ function loadQA(): NaverQA[] {
   return DEFAULT_QA;
 }
 
-const CATEGORIES = ["전체", "학습법", "TOPIK", "문화", "어휘", "문법", "발음"];
+const CATEGORIES = ["??", "???", "TOPIK", "??", "??", "??", "??"];
 
 const NaverPage = () => {
   const navigate = useNavigate();
   const isAdmin = useIsAdmin();
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("전체");
+  const [selectedCategory, setSelectedCategory] = useState("??");
   const [qaData, setQaData] = useState<NaverQA[]>(loadQA);
   const [likedIds, setLikedIds] = useState<number[]>([]);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
@@ -63,7 +63,7 @@ const NaverPage = () => {
   };
 
   const filtered = qaData.filter((item) => {
-    const matchCat = selectedCategory === "전체" || item.category === selectedCategory;
+    const matchCat = selectedCategory === "??" || item.category === selectedCategory;
     const matchSearch = !searchQuery.trim() || item.question.includes(searchQuery) || item.answer.includes(searchQuery);
     return matchCat && matchSearch;
   });
@@ -85,7 +85,7 @@ const NaverPage = () => {
           </div>
           <span className="font-bold text-sm" style={{ color: "rgba(255,255,255,0.85)" }}>Naver KiN</span>
         </div>
-        <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>Học tiếng Hàn qua câu hỏi thực tế</p>
+        <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>H?c ti?ng H�n qua c�u h?i th?c t?</p>
         <div className="ml-auto flex items-center gap-2">
           {isAdmin && (
             <button
@@ -94,7 +94,7 @@ const NaverPage = () => {
               style={{ backgroundColor: "rgba(3,199,90,0.10)", color: "#03C75A", border: "1px solid rgba(3,199,90,0.18)" }}
             >
               <i className="ri-database-2-line" />
-              Dữ liệu
+              D? li?u
             </button>
           )}
         </div>
@@ -118,11 +118,11 @@ const NaverPage = () => {
               </div>
               <span className="text-white font-bold text-base">Naver KiN</span>
             </div>
-            <p className="text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>Học tiếng Hàn qua câu hỏi thực tế</p>
+            <p className="text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>H?c ti?ng H�n qua c�u h?i th?c t?</p>
           </div>
         </div>
 
-        {/* Admin button — mobile */}
+        {/* Admin button � mobile */}
         {isAdmin && (
           <div className="mb-3">
             <button
@@ -131,7 +131,7 @@ const NaverPage = () => {
               style={{ backgroundColor: "rgba(3,199,90,0.08)", color: "#03C75A", border: "1px solid rgba(3,199,90,0.15)" }}
             >
               <i className="ri-database-2-line"></i>
-              Quản lý dữ liệu (Admin)
+              Qu?n l� d? li?u (Admin)
               <span className="ml-1 text-[9px] px-1.5 py-0.5 rounded-full font-bold" style={{ backgroundColor: "rgba(3,199,90,0.15)", color: "#03C75A" }}>ADMIN</span>
             </button>
           </div>
@@ -144,7 +144,7 @@ const NaverPage = () => {
           </div>
           <input
             type="text"
-            placeholder="질문 검색..."
+            placeholder="?? ??..."
             className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm focus:outline-none transition-colors"
             style={{ backgroundColor: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.8)", border: "1px solid rgba(255,255,255,0.08)", caretColor: "#03C75A" }}
             value={searchQuery}
@@ -177,9 +177,9 @@ const NaverPage = () => {
         {/* Stats row */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
           {[
-            { label: "Câu hỏi", value: qaData.length, icon: "ri-question-line", color: "#03C75A" },
-            { label: "Đã thích", value: likedIds.length, icon: "ri-thumb-up-line", color: "app-accent-primary" },
-            { label: "Danh mục", value: CATEGORIES.length - 1, icon: "ri-folder-line", color: "#a78bfa" },
+            { label: "C�u h?i", value: qaData.length, icon: "ri-question-line", color: "#03C75A" },
+            { label: "�� th�ch", value: likedIds.length, icon: "ri-thumb-up-line", color: "app-accent-primary" },
+            { label: "Danh m?c", value: CATEGORIES.length - 1, icon: "ri-folder-line", color: "#a78bfa" },
           ].map(s => (
             <div key={s.label} className="rounded-xl p-3 text-center" style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
               <div className="w-7 h-7 flex items-center justify-center rounded-lg mx-auto mb-1.5" style={{ backgroundColor: `${s.color}15` }}>
@@ -228,7 +228,7 @@ const NaverPage = () => {
               <div className="w-12 h-12 flex items-center justify-center rounded-xl mb-3" style={{ backgroundColor: "rgba(255,255,255,0.05)" }}>
                 <i className="ri-search-line text-xl" style={{ color: "rgba(255,255,255,0.2)" }}></i>
               </div>
-              <p className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>검색 결과가 없습니다</p>
+              <p className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>?? ??? ????</p>
             </div>
           )}
         </div>

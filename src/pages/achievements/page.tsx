@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -27,54 +27,54 @@ interface UserStats {
 
 const ACHIEVEMENTS: Achievement[] = [
   // Streak
-  { id: "streak_3", icon: "ri-fire-line", name: "Bắt đầu hành trình", desc: "Học 3 ngày liên tiếp", category: "streak", condition: s => s.streak >= 3, reward: "+50 XP", rarity: "common" },
-  { id: "streak_7", icon: "ri-fire-fill", name: "Tuần lễ vàng", desc: "Học 7 ngày liên tiếp", category: "streak", condition: s => s.streak >= 7, reward: "+150 XP", rarity: "common" },
-  { id: "streak_14", icon: "ri-fire-fill", name: "Hai tuần bền bỉ", desc: "Học 14 ngày liên tiếp", category: "streak", condition: s => s.streak >= 14, reward: "+300 XP", rarity: "rare" },
-  { id: "streak_30", icon: "ri-fire-fill", name: "Tháng học không nghỉ", desc: "Học 30 ngày liên tiếp — milestone lớn!", category: "streak", condition: s => s.streak >= 30, reward: "+700 XP + Huy hiệu Lửa", rarity: "rare" },
-  { id: "streak_60", icon: "ri-fire-fill", name: "Hai tháng bất bại", desc: "Học 60 ngày liên tiếp", category: "streak", condition: s => s.streak >= 60, reward: "+1200 XP + Huy hiệu Bạch kim", rarity: "epic" },
-  { id: "streak_100", icon: "ri-fire-fill", name: "Huyền thoại 100 ngày", desc: "Học 100 ngày liên tiếp", category: "streak", condition: s => s.streak >= 100, reward: "+2000 XP + Huy hiệu Vàng", rarity: "legendary" },
+  { id: "streak_3", icon: "ri-fire-line", name: "B?t d?u h�nh tr�nh", desc: "H?c 3 ng�y li�n ti?p", category: "streak", condition: s => s.streak >= 3, reward: "+50 XP", rarity: "common" },
+  { id: "streak_7", icon: "ri-fire-fill", name: "Tu?n l? v�ng", desc: "H?c 7 ng�y li�n ti?p", category: "streak", condition: s => s.streak >= 7, reward: "+150 XP", rarity: "common" },
+  { id: "streak_14", icon: "ri-fire-fill", name: "Hai tu?n b?n b?", desc: "H?c 14 ng�y li�n ti?p", category: "streak", condition: s => s.streak >= 14, reward: "+300 XP", rarity: "rare" },
+  { id: "streak_30", icon: "ri-fire-fill", name: "Th�ng h?c kh�ng ngh?", desc: "H?c 30 ng�y li�n ti?p � milestone l?n!", category: "streak", condition: s => s.streak >= 30, reward: "+700 XP + Huy hi?u L?a", rarity: "rare" },
+  { id: "streak_60", icon: "ri-fire-fill", name: "Hai th�ng b?t b?i", desc: "H?c 60 ng�y li�n ti?p", category: "streak", condition: s => s.streak >= 60, reward: "+1200 XP + Huy hi?u B?ch kim", rarity: "epic" },
+  { id: "streak_100", icon: "ri-fire-fill", name: "Huy?n tho?i 100 ng�y", desc: "H?c 100 ng�y li�n ti?p", category: "streak", condition: s => s.streak >= 100, reward: "+2000 XP + Huy hi?u V�ng", rarity: "legendary" },
   // EPS
-  { id: "eps_first", icon: "ri-file-list-3-line", name: "Câu EPS đầu tiên", desc: "Làm câu hỏi EPS đầu tiên", category: "eps", condition: s => s.epsScore > 0, reward: "+30 XP", rarity: "common" },
-  { id: "eps_50", icon: "ri-medal-line", name: "Vượt ngưỡng 50", desc: "Đạt 50+ điểm EPS", category: "eps", condition: s => s.epsScore >= 50, reward: "+100 XP", rarity: "common" },
-  { id: "eps_70", icon: "ri-medal-fill", name: "Học viên xuất sắc", desc: "Đạt 70+ điểm EPS", category: "eps", condition: s => s.epsScore >= 70, reward: "+250 XP", rarity: "rare" },
-  { id: "eps_80", icon: "ri-trophy-line", name: "Gần đỉnh cao", desc: "Đạt 80+ điểm EPS — sắp đậu rồi!", category: "eps", condition: s => s.epsScore >= 80, reward: "+500 XP", rarity: "rare" },
-  { id: "eps_90", icon: "ri-trophy-fill", name: "Bậc thầy EPS", desc: "Đạt 90+ điểm EPS", category: "eps", condition: s => s.epsScore >= 90, reward: "+1000 XP + Huy hiệu Bạch kim", rarity: "epic" },
-  { id: "eps_100", icon: "ri-vip-crown-fill", name: "Điểm tuyệt đối", desc: "Đạt 100 điểm EPS — hoàn hảo!", category: "eps", condition: s => s.epsScore >= 100, reward: "+3000 XP + Huy hiệu Huyền thoại", rarity: "legendary" },
+  { id: "eps_first", icon: "ri-file-list-3-line", name: "C�u EPS d?u ti�n", desc: "L�m c�u h?i EPS d?u ti�n", category: "eps", condition: s => s.epsScore > 0, reward: "+30 XP", rarity: "common" },
+  { id: "eps_50", icon: "ri-medal-line", name: "Vu?t ngu?ng 50", desc: "�?t 50+ di?m EPS", category: "eps", condition: s => s.epsScore >= 50, reward: "+100 XP", rarity: "common" },
+  { id: "eps_70", icon: "ri-medal-fill", name: "H?c vi�n xu?t s?c", desc: "�?t 70+ di?m EPS", category: "eps", condition: s => s.epsScore >= 70, reward: "+250 XP", rarity: "rare" },
+  { id: "eps_80", icon: "ri-trophy-line", name: "G?n d?nh cao", desc: "�?t 80+ di?m EPS � s?p d?u r?i!", category: "eps", condition: s => s.epsScore >= 80, reward: "+500 XP", rarity: "rare" },
+  { id: "eps_90", icon: "ri-trophy-fill", name: "B?c th?y EPS", desc: "�?t 90+ di?m EPS", category: "eps", condition: s => s.epsScore >= 90, reward: "+1000 XP + Huy hi?u B?ch kim", rarity: "epic" },
+  { id: "eps_100", icon: "ri-vip-crown-fill", name: "�i?m tuy?t d?i", desc: "�?t 100 di?m EPS � ho�n h?o!", category: "eps", condition: s => s.epsScore >= 100, reward: "+3000 XP + Huy hi?u Huy?n tho?i", rarity: "legendary" },
   // Vocab
-  { id: "vocab_10", icon: "ri-book-open-line", name: "Từ vựng đầu tiên", desc: "Học 10 từ vựng", category: "vocab", condition: s => s.wordsLearned >= 10, reward: "+30 XP", rarity: "common" },
-  { id: "vocab_50", icon: "ri-book-open-line", name: "Từ vựng cơ bản", desc: "Học 50 từ vựng", category: "vocab", condition: s => s.wordsLearned >= 50, reward: "+80 XP", rarity: "common" },
-  { id: "vocab_200", icon: "ri-book-2-line", name: "Kho từ phong phú", desc: "Học 200 từ vựng", category: "vocab", condition: s => s.wordsLearned >= 200, reward: "+200 XP", rarity: "common" },
-  { id: "vocab_500", icon: "ri-book-fill", name: "Từ điển sống", desc: "Học 500 từ vựng", category: "vocab", condition: s => s.wordsLearned >= 500, reward: "+500 XP", rarity: "rare" },
-  { id: "vocab_1000", icon: "ri-book-fill", name: "Ngàn từ vựng", desc: "Học 1000 từ vựng", category: "vocab", condition: s => s.wordsLearned >= 1000, reward: "+1200 XP", rarity: "epic" },
+  { id: "vocab_10", icon: "ri-book-open-line", name: "T? v?ng d?u ti�n", desc: "H?c 10 t? v?ng", category: "vocab", condition: s => s.wordsLearned >= 10, reward: "+30 XP", rarity: "common" },
+  { id: "vocab_50", icon: "ri-book-open-line", name: "T? v?ng co b?n", desc: "H?c 50 t? v?ng", category: "vocab", condition: s => s.wordsLearned >= 50, reward: "+80 XP", rarity: "common" },
+  { id: "vocab_200", icon: "ri-book-2-line", name: "Kho t? phong ph�", desc: "H?c 200 t? v?ng", category: "vocab", condition: s => s.wordsLearned >= 200, reward: "+200 XP", rarity: "common" },
+  { id: "vocab_500", icon: "ri-book-fill", name: "T? di?n s?ng", desc: "H?c 500 t? v?ng", category: "vocab", condition: s => s.wordsLearned >= 500, reward: "+500 XP", rarity: "rare" },
+  { id: "vocab_1000", icon: "ri-book-fill", name: "Ng�n t? v?ng", desc: "H?c 1000 t? v?ng", category: "vocab", condition: s => s.wordsLearned >= 1000, reward: "+1200 XP", rarity: "epic" },
   // Quiz
-  { id: "quiz_1", icon: "ri-survey-line", name: "Quiz đầu tiên", desc: "Hoàn thành bài quiz đầu tiên", category: "quiz", condition: s => s.quizCount >= 1, reward: "+20 XP", rarity: "common" },
-  { id: "quiz_10", icon: "ri-survey-line", name: "Người mới bắt đầu", desc: "Hoàn thành 10 bài quiz", category: "quiz", condition: s => s.quizCount >= 10, reward: "+60 XP", rarity: "common" },
-  { id: "quiz_50", icon: "ri-survey-fill", name: "Tay quiz chuyên nghiệp", desc: "Hoàn thành 50 bài quiz", category: "quiz", condition: s => s.quizCount >= 50, reward: "+300 XP", rarity: "rare" },
-  { id: "quiz_100", icon: "ri-survey-fill", name: "Quiz Master", desc: "Hoàn thành 100 bài quiz", category: "quiz", condition: s => s.quizCount >= 100, reward: "+800 XP", rarity: "epic" },
+  { id: "quiz_1", icon: "ri-survey-line", name: "Quiz d?u ti�n", desc: "Ho�n th�nh b�i quiz d?u ti�n", category: "quiz", condition: s => s.quizCount >= 1, reward: "+20 XP", rarity: "common" },
+  { id: "quiz_10", icon: "ri-survey-line", name: "Ngu?i m?i b?t d?u", desc: "Ho�n th�nh 10 b�i quiz", category: "quiz", condition: s => s.quizCount >= 10, reward: "+60 XP", rarity: "common" },
+  { id: "quiz_50", icon: "ri-survey-fill", name: "Tay quiz chuy�n nghi?p", desc: "Ho�n th�nh 50 b�i quiz", category: "quiz", condition: s => s.quizCount >= 50, reward: "+300 XP", rarity: "rare" },
+  { id: "quiz_100", icon: "ri-survey-fill", name: "Quiz Master", desc: "Ho�n th�nh 100 b�i quiz", category: "quiz", condition: s => s.quizCount >= 100, reward: "+800 XP", rarity: "epic" },
   // Special
-  { id: "xp_100", icon: "ri-star-line", name: "100 XP đầu tiên", desc: "Tích lũy 100 XP", category: "special", condition: s => s.totalXP >= 100, reward: "+50 XP bonus", rarity: "common" },
-  { id: "xp_500", icon: "ri-star-fill", name: "500 XP — Đang lên!", desc: "Tích lũy 500 XP", category: "special", condition: s => s.totalXP >= 500, reward: "+150 XP bonus", rarity: "rare" },
-  { id: "xp_1000", icon: "ri-award-line", name: "1000 XP — Huyền thoại", desc: "Tích lũy 1000 XP", category: "special", condition: s => s.totalXP >= 1000, reward: "+500 XP bonus", rarity: "epic" },
-  { id: "days_30", icon: "ri-calendar-check-fill", name: "Học viên chuyên cần", desc: "Học 30 ngày khác nhau", category: "special", condition: s => s.daysStudied >= 30, reward: "+400 XP", rarity: "rare" },
-  { id: "days_100", icon: "ri-calendar-fill", name: "Trăm ngày kiên trì", desc: "Học 100 ngày khác nhau", category: "special", condition: s => s.daysStudied >= 100, reward: "+1500 XP", rarity: "epic" },
-  { id: "ebook_1", icon: "ri-file-pdf-line", name: "Tác giả đầu tiên", desc: "Xuất 1 ebook PDF", category: "special", condition: s => s.ebookExports >= 1, reward: "+100 XP", rarity: "common" },
-  { id: "ebook_5", icon: "ri-file-pdf-fill", name: "Nhà xuất bản", desc: "Xuất 5 ebook PDF", category: "special", condition: s => s.ebookExports >= 5, reward: "+300 XP", rarity: "rare" },
+  { id: "xp_100", icon: "ri-star-line", name: "100 XP d?u ti�n", desc: "T�ch luy 100 XP", category: "special", condition: s => s.totalXP >= 100, reward: "+50 XP bonus", rarity: "common" },
+  { id: "xp_500", icon: "ri-star-fill", name: "500 XP � �ang l�n!", desc: "T�ch luy 500 XP", category: "special", condition: s => s.totalXP >= 500, reward: "+150 XP bonus", rarity: "rare" },
+  { id: "xp_1000", icon: "ri-award-line", name: "1000 XP � Huy?n tho?i", desc: "T�ch luy 1000 XP", category: "special", condition: s => s.totalXP >= 1000, reward: "+500 XP bonus", rarity: "epic" },
+  { id: "days_30", icon: "ri-calendar-check-fill", name: "H?c vi�n chuy�n c?n", desc: "H?c 30 ng�y kh�c nhau", category: "special", condition: s => s.daysStudied >= 30, reward: "+400 XP", rarity: "rare" },
+  { id: "days_100", icon: "ri-calendar-fill", name: "Tram ng�y ki�n tr�", desc: "H?c 100 ng�y kh�c nhau", category: "special", condition: s => s.daysStudied >= 100, reward: "+1500 XP", rarity: "epic" },
+  { id: "ebook_1", icon: "ri-file-pdf-line", name: "T�c gi? d?u ti�n", desc: "Xu?t 1 ebook PDF", category: "special", condition: s => s.ebookExports >= 1, reward: "+100 XP", rarity: "common" },
+  { id: "ebook_5", icon: "ri-file-pdf-fill", name: "Nh� xu?t b?n", desc: "Xu?t 5 ebook PDF", category: "special", condition: s => s.ebookExports >= 5, reward: "+300 XP", rarity: "rare" },
 ];
 
 const RARITY_CONFIG = {
-  common: { label: "Phổ thông", color: "text-white/60", bg: "bg-app-card/50", border: "border-app-border", glow: "" },
-  rare: { label: "Hiếm", color: "text-sky-400", bg: "bg-sky-500/8", border: "border-sky-500/20", glow: "shadow-sky-500/10" },
-  epic: { label: "Sử thi", color: "text-purple-400", bg: "bg-purple-500/8", border: "border-purple-500/20", glow: "shadow-purple-500/10" },
-  legendary: { label: "Huyền thoại", color: "text-app-accent-primary", bg: "bg-app-accent-primary/8", border: "border-app-accent-primary/25", glow: "shadow-[app-accent-primary]/15" },
+  common: { label: "Ph? th�ng", color: "text-white/60", bg: "bg-app-card/50", border: "border-app-border", glow: "" },
+  rare: { label: "Hi?m", color: "text-sky-400", bg: "bg-sky-500/8", border: "border-sky-500/20", glow: "shadow-sky-500/10" },
+  epic: { label: "S? thi", color: "text-purple-400", bg: "bg-purple-500/8", border: "border-purple-500/20", glow: "shadow-purple-500/10" },
+  legendary: { label: "Huy?n tho?i", color: "text-app-accent-primary", bg: "bg-app-accent-primary/8", border: "border-app-accent-primary/25", glow: "shadow-[app-accent-primary]/15" },
 };
 
 const CATEGORY_LABELS: Record<string, string> = {
-  all: "Tất cả",
+  all: "T?t c?",
   streak: "Streak",
-  eps: "Điểm EPS",
-  vocab: "Từ vựng",
+  eps: "�i?m EPS",
+  vocab: "T? v?ng",
   quiz: "Quiz",
-  special: "Đặc biệt",
+  special: "�?c bi?t",
 };
 
 function AchievementCard({ achievement, unlocked }: { achievement: Achievement; unlocked: boolean }) {
@@ -120,12 +120,12 @@ function AchievementCard({ achievement, unlocked }: { achievement: Achievement; 
             <p className="text-white/50 text-sm text-center mt-3 leading-relaxed">{achievement.desc}</p>
             {unlocked ? (
               <div className="mt-4 p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-center">
-                <p className="text-app-accent-success text-xs font-medium">Đã mở khóa!</p>
+                <p className="text-app-accent-success text-xs font-medium">�� m? kh�a!</p>
                 <p className="text-app-accent-primary text-sm font-bold mt-1">{achievement.reward}</p>
               </div>
             ) : (
               <div className="mt-4 p-3 bg-app-surface/50 border border-app-border rounded-xl text-center">
-                <p className="text-app-text-muted text-xs">Chưa mở khóa</p>
+                <p className="text-app-text-muted text-xs">Chua m? kh�a</p>
                 <p className="text-white/50 text-sm mt-1">{achievement.reward}</p>
               </div>
             )}
@@ -133,7 +133,7 @@ function AchievementCard({ achievement, unlocked }: { achievement: Achievement; 
               onClick={() => setShowDetail(false)}
               className="mt-4 w-full py-2 bg-app-card/50 hover:bg-app-card/70 border border-app-border rounded-lg text-white/60 text-sm transition-all cursor-pointer whitespace-nowrap"
             >
-              Đóng
+              ��ng
             </button>
           </div>
         </div>
@@ -205,7 +205,7 @@ export default function AchievementsPage() {
   }));
 
   return (
-    <DashboardLayout title="Huy hiệu & Thành tích" subtitle="Mở khóa tự động khi đạt các mốc học tập — Hàn Quốc Ơi!">
+    <DashboardLayout title="Huy hi?u & Th�nh t�ch" subtitle="M? kh�a t? d?ng khi d?t c�c m?c h?c t?p � H�n Qu?c Oi!">
       {/* Auto-badge popup */}
       {newBadge && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => setNewBadge(null)}>
@@ -213,14 +213,14 @@ export default function AchievementsPage() {
             <div className="w-20 h-20 flex items-center justify-center rounded-2xl mx-auto mb-4 bg-app-accent-primary/15 border border-app-accent-primary/25">
               <i className={`${newBadge.icon} text-4xl text-app-accent-primary`}></i>
             </div>
-            <p className="text-app-accent-primary text-xs font-bold tracking-normal mb-2">Huy hiệu mới!</p>
+            <p className="text-app-accent-primary text-xs font-bold tracking-normal mb-2">Huy hi?u m?i!</p>
             <h3 className="text-white text-xl font-bold mb-2">{newBadge.name}</h3>
             <p className="text-white/50 text-sm mb-4">{newBadge.desc}</p>
             <div className="px-4 py-2 bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-xl mb-5">
               <p className="text-app-accent-primary font-bold text-sm">{newBadge.reward}</p>
             </div>
             <button onClick={() => setNewBadge(null)} className="w-full py-2.5 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold rounded-xl text-sm cursor-pointer whitespace-nowrap transition-colors">
-              Tuyệt vời!
+              Tuy?t v?i!
             </button>
           </div>
         </div>
@@ -230,8 +230,8 @@ export default function AchievementsPage() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-white text-2xl font-bold">Huy hiệu & Thành tích</h1>
-            <p className="text-app-text-secondary text-sm mt-1">Mở khóa tự động khi đạt các mốc học tập</p>
+            <h1 className="text-white text-2xl font-bold">Huy hi?u & Th�nh t�ch</h1>
+            <p className="text-app-text-secondary text-sm mt-1">M? kh�a t? d?ng khi d?t c�c m?c h?c t?p</p>
           </div>
           <div className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-xl">
             <i className="ri-vip-crown-line text-app-accent-primary"></i>
@@ -243,12 +243,12 @@ export default function AchievementsPage() {
         <div className="bg-[#1a1d27] border border-app-border rounded-xl p-5">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <p className="text-white font-semibold">{unlockedCount}/{ACHIEVEMENTS.length} huy hiệu đã mở khóa</p>
-              <p className="text-white/35 text-xs mt-0.5">Tiếp tục học để mở khóa thêm!</p>
+              <p className="text-white font-semibold">{unlockedCount}/{ACHIEVEMENTS.length} huy hi?u d� m? kh�a</p>
+              <p className="text-white/35 text-xs mt-0.5">Ti?p t?c h?c d? m? kh�a th�m!</p>
             </div>
             <div className="text-right">
               <p className="text-app-accent-primary text-2xl font-bold">{Math.round((unlockedCount / ACHIEVEMENTS.length) * 100)}%</p>
-              <p className="text-app-text-muted text-xs">hoàn thành</p>
+              <p className="text-app-text-muted text-xs">ho�n th�nh</p>
             </div>
           </div>
           <div className="w-full h-2 bg-app-card/50 rounded-full overflow-hidden mb-4">
@@ -273,10 +273,10 @@ export default function AchievementsPage() {
         {/* Current stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { label: "Streak hiện tại", value: `${userStats.streak} ngày`, icon: "ri-fire-line", color: "text-orange-400" },
-            { label: "Điểm EPS cao nhất", value: `${userStats.epsScore}`, icon: "ri-trophy-line", color: "text-app-accent-primary" },
-            { label: "Từ đã học", value: `${userStats.wordsLearned}`, icon: "ri-book-open-line", color: "text-app-accent-success" },
-            { label: "Bài quiz đã làm", value: `${userStats.quizCount}`, icon: "ri-survey-line", color: "text-sky-400" },
+            { label: "Streak hi?n t?i", value: `${userStats.streak} ng�y`, icon: "ri-fire-line", color: "text-orange-400" },
+            { label: "�i?m EPS cao nh?t", value: `${userStats.epsScore}`, icon: "ri-trophy-line", color: "text-app-accent-primary" },
+            { label: "T? d� h?c", value: `${userStats.wordsLearned}`, icon: "ri-book-open-line", color: "text-app-accent-success" },
+            { label: "B�i quiz d� l�m", value: `${userStats.quizCount}`, icon: "ri-survey-line", color: "text-sky-400" },
           ].map((s, i) => (
             <div key={i} className="bg-[#1a1d27] border border-app-border rounded-xl p-4 flex items-center gap-3">
               <div className="w-9 h-9 flex items-center justify-center">
@@ -312,7 +312,7 @@ export default function AchievementsPage() {
             }`}
           >
             <i className={`${showUnlockedOnly ? "ri-checkbox-circle-fill" : "ri-checkbox-circle-line"} text-sm`}></i>
-            Chỉ hiện đã mở khóa
+            Ch? hi?n d� m? kh�a
           </button>
         </div>
 
@@ -328,7 +328,7 @@ export default function AchievementsPage() {
             <div className="w-12 h-12 flex items-center justify-center mx-auto mb-3">
               <i className="ri-medal-line text-4xl"></i>
             </div>
-            <p>Không có huy hiệu nào phù hợp</p>
+            <p>Kh�ng c� huy hi?u n�o ph� h?p</p>
           </div>
         )}
       </div>

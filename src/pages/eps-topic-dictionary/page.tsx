@@ -1,12 +1,12 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { EPS_VOCAB_TOPICS, epsVocabulary, EpsVocabItem } from "@/mocks/epsVocabulary";
 
 const LEVELS = [
-  { value: "all", label: "Tất cả" },
-  { value: "basic", label: "Cơ bản" },
-  { value: "intermediate", label: "Trung cấp" },
-  { value: "advanced", label: "Nâng cao" },
+  { value: "all", label: "T?t c?" },
+  { value: "basic", label: "Co b?n" },
+  { value: "intermediate", label: "Trung c?p" },
+  { value: "advanced", label: "N�ng cao" },
 ];
 
 const LEVEL_COLORS: Record<string, string> = {
@@ -16,9 +16,9 @@ const LEVEL_COLORS: Record<string, string> = {
 };
 
 const LEVEL_LABELS: Record<string, string> = {
-  basic: "Cơ bản",
-  intermediate: "Trung cấp",
-  advanced: "Nâng cao",
+  basic: "Co b?n",
+  intermediate: "Trung c?p",
+  advanced: "N�ng cao",
 };
 
 function speak(text: string) {
@@ -35,7 +35,7 @@ function VocabCard({ item, onToggleFav, isFav }: { item: EpsVocabItem; onToggleF
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(`${item.korean} — ${item.vietnamese}`);
+    navigator.clipboard.writeText(`${item.korean} � ${item.vietnamese}`);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
@@ -57,14 +57,14 @@ function VocabCard({ item, onToggleFav, isFav }: { item: EpsVocabItem; onToggleF
           <button
             onClick={() => speak(item.korean)}
             className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-accent-primary/10 text-app-text-muted hover:text-app-accent-primary transition-colors cursor-pointer"
-            title="Phát âm"
+            title="Ph�t �m"
           >
             <i className="ri-volume-up-line text-sm"></i>
           </button>
           <button
             onClick={handleCopy}
             className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-muted hover:text-white/60 transition-colors cursor-pointer"
-            title="Sao chép"
+            title="Sao ch�p"
           >
             <i className={`${copied ? "ri-check-line text-app-accent-success" : "ri-file-copy-line"} text-sm`}></i>
           </button>
@@ -73,7 +73,7 @@ function VocabCard({ item, onToggleFav, isFav }: { item: EpsVocabItem; onToggleF
             className={`w-7 h-7 flex items-center justify-center rounded-lg transition-colors cursor-pointer ${
               isFav ? "bg-app-accent-primary/10 text-app-accent-primary" : "bg-app-card/50 text-app-text-muted hover:text-app-accent-primary"
             }`}
-            title="Yêu thích"
+            title="Y�u th�ch"
           >
             <i className={`${isFav ? "ri-bookmark-fill" : "ri-bookmark-line"} text-sm`}></i>
           </button>
@@ -85,7 +85,7 @@ function VocabCard({ item, onToggleFav, isFav }: { item: EpsVocabItem; onToggleF
         className="text-xs text-app-text-muted hover:text-app-accent-primary transition-colors cursor-pointer flex items-center gap-1 mt-1"
       >
         <i className={`${showExample ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"} text-sm`}></i>
-        {showExample ? "Ẩn ví dụ" : "Xem ví dụ"}
+        {showExample ? "?n v� d?" : "Xem v� d?"}
       </button>
 
       {showExample && (
@@ -168,7 +168,7 @@ export default function EpsTopicDictionaryPage() {
                 className="flex items-center gap-2 text-app-text-secondary hover:text-white/70 cursor-pointer"
               >
                 <i className="ri-arrow-left-line"></i>
-                <span className="text-sm">Thoát flashcard</span>
+                <span className="text-sm">Tho�t flashcard</span>
               </button>
               <span className="text-sm text-app-text-muted">{(flashcardIndex % flashcardItems.length) + 1} / {flashcardItems.length}</span>
             </div>
@@ -187,14 +187,14 @@ export default function EpsTopicDictionaryPage() {
                   >
                     <i className="ri-volume-up-line text-lg"></i>
                   </button>
-                  <p className="text-xs text-app-text-muted mt-6">Nhấn để xem nghĩa</p>
+                  <p className="text-xs text-app-text-muted mt-6">Nh?n d? xem nghia</p>
                 </>
               ) : (
                 <>
                   <p className="text-2xl font-bold text-app-accent-primary mb-2">{currentCard.vietnamese}</p>
                   <p className="text-sm text-app-text-secondary mt-2 italic">{currentCard.example}</p>
                   <p className="text-xs text-app-text-muted mt-1">{currentCard.exampleVi}</p>
-                  <p className="text-xs text-app-text-muted mt-6">Nhấn để lật lại</p>
+                  <p className="text-xs text-app-text-muted mt-6">Nh?n d? l?t l?i</p>
                 </>
               )}
             </div>
@@ -205,13 +205,13 @@ export default function EpsTopicDictionaryPage() {
                 disabled={flashcardIndex === 0}
                 className="flex-1 py-3 rounded-xl border border-app-border text-app-text-secondary hover:bg-app-card/50 disabled:opacity-30 cursor-pointer whitespace-nowrap transition-colors"
               >
-                <i className="ri-arrow-left-line mr-2"></i>Trước
+                <i className="ri-arrow-left-line mr-2"></i>Tru?c
               </button>
               <button
                 onClick={() => { setFlashcardIndex(i => i + 1); setFlashcardFlipped(false); }}
                 className="flex-1 py-3 rounded-xl bg-app-accent-primary text-app-bg font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors"
               >
-                Tiếp<i className="ri-arrow-right-line ml-2"></i>
+                Ti?p<i className="ri-arrow-right-line ml-2"></i>
               </button>
             </div>
           </div>
@@ -230,10 +230,10 @@ export default function EpsTopicDictionaryPage() {
               <div>
                 <h1 className="text-xl font-bold text-white flex items-center gap-2">
                   <i className="ri-book-open-line text-app-accent-primary"></i>
-                  Từ điển EPS theo chủ đề
+                  T? di?n EPS theo ch? d?
                 </h1>
                 <p className="text-sm text-app-text-secondary mt-0.5">
-                  {epsVocabulary.length} từ vựng · {EPS_VOCAB_TOPICS.length} chủ đề · Chuẩn EPS-TOPIK
+                  {epsVocabulary.length} t? v?ng � {EPS_VOCAB_TOPICS.length} ch? d? � Chu?n EPS-TOPIK
                 </p>
               </div>
               <div className="flex items-center gap-2">
@@ -242,7 +242,7 @@ export default function EpsTopicDictionaryPage() {
                   className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-app-bg rounded-lg text-sm font-bold hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors"
                 >
                   <i className="ri-stack-line"></i>
-                  Luyện Flashcard
+                  Luy?n Flashcard
                 </button>
                 <div className="flex items-center bg-app-card/50 rounded-lg p-1">
                   <button
@@ -269,7 +269,7 @@ export default function EpsTopicDictionaryPage() {
                   type="text"
                   value={search}
                   onChange={e => setSearch(e.target.value)}
-                  placeholder="Tìm từ tiếng Hàn, phiên âm, nghĩa..."
+                  placeholder="T�m t? ti?ng H�n, phi�n �m, nghia..."
                   className="w-full pl-9 pr-4 py-2 text-sm border border-app-border rounded-lg focus:outline-none focus:border-app-accent-primary/40 bg-app-card/50 text-white placeholder-white/25"
                 />
               </div>
@@ -289,18 +289,18 @@ export default function EpsTopicDictionaryPage() {
                 }`}
               >
                 <i className={`${showFavOnly ? "ri-bookmark-fill" : "ri-bookmark-line"} text-sm`}></i>
-                Yêu thích ({favorites.size})
+                Y�u th�ch ({favorites.size})
               </button>
             </div>
           </div>
         </div>
 
         <div className="max-w-7xl mx-auto px-6 py-6 flex gap-6">
-          {/* Sidebar — Topics */}
+          {/* Sidebar � Topics */}
           <div className="w-56 flex-shrink-0">
             <div className="bg-app-bg rounded-xl border border-app-border overflow-hidden sticky top-4">
               <div className="px-4 py-3 border-b border-app-border">
-                <p className="text-xs font-semibold text-app-text-muted tracking-normal">Chủ đề</p>
+                <p className="text-xs font-semibold text-app-text-muted tracking-normal">Ch? d?</p>
               </div>
               <div className="max-h-[calc(100vh-200px)] overflow-y-auto">
                 <button
@@ -311,7 +311,7 @@ export default function EpsTopicDictionaryPage() {
                 >
                   <span className="flex items-center gap-2">
                     <i className="ri-apps-line text-sm"></i>
-                    Tất cả
+                    T?t c?
                   </span>
                   <span className="text-xs text-app-text-muted">{epsVocabulary.length}</span>
                 </button>
@@ -347,11 +347,11 @@ export default function EpsTopicDictionaryPage() {
                   </div>
                   <div>
                     <h2 className="font-semibold text-white">{topic.label}</h2>
-                    <p className="text-xs text-app-text-secondary">{topic.labelKo} · {topic.description}</p>
+                    <p className="text-xs text-app-text-secondary">{topic.labelKo} � {topic.description}</p>
                   </div>
                   <div className="ml-auto text-right">
                     <p className="text-2xl font-bold text-white">{filtered.length}</p>
-                    <p className="text-xs text-app-text-muted">từ vựng</p>
+                    <p className="text-xs text-app-text-muted">t? v?ng</p>
                   </div>
                 </div>
               );
@@ -360,7 +360,7 @@ export default function EpsTopicDictionaryPage() {
             {/* Results count */}
             <div className="flex items-center justify-between mb-3">
               <p className="text-sm text-app-text-secondary">
-                {filtered.length} từ vựng
+                {filtered.length} t? v?ng
                 {search && <span className="ml-1">cho &ldquo;<strong className="text-white/60">{search}</strong>&rdquo;</span>}
               </p>
               {filtered.length > 0 && (
@@ -369,7 +369,7 @@ export default function EpsTopicDictionaryPage() {
                   className="text-xs text-app-text-muted hover:text-app-accent-primary flex items-center gap-1 cursor-pointer"
                 >
                   <i className="ri-volume-up-line"></i>
-                  Phát âm tất cả
+                  Ph�t �m t?t c?
                 </button>
               )}
             </div>
@@ -377,7 +377,7 @@ export default function EpsTopicDictionaryPage() {
             {filtered.length === 0 ? (
               <div className="text-center py-16 text-app-text-muted">
                 <i className="ri-search-line text-4xl mb-3 block"></i>
-                <p className="text-sm">Không tìm thấy từ vựng phù hợp</p>
+                <p className="text-sm">Kh�ng t�m th?y t? v?ng ph� h?p</p>
               </div>
             ) : viewMode === "grid" ? (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
@@ -395,10 +395,10 @@ export default function EpsTopicDictionaryPage() {
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-app-border bg-white/2">
-                      <th className="text-left px-4 py-3 text-xs font-semibold text-app-text-muted tracking-normal">Tiếng Hàn</th>
-                      <th className="text-left px-4 py-3 text-xs font-semibold text-app-text-muted tracking-normal">Phiên âm</th>
-                      <th className="text-left px-4 py-3 text-xs font-semibold text-app-text-muted tracking-normal">Nghĩa</th>
-                      <th className="text-left px-4 py-3 text-xs font-semibold text-app-text-muted tracking-normal">Cấp độ</th>
+                      <th className="text-left px-4 py-3 text-xs font-semibold text-app-text-muted tracking-normal">Ti?ng H�n</th>
+                      <th className="text-left px-4 py-3 text-xs font-semibold text-app-text-muted tracking-normal">Phi�n �m</th>
+                      <th className="text-left px-4 py-3 text-xs font-semibold text-app-text-muted tracking-normal">Nghia</th>
+                      <th className="text-left px-4 py-3 text-xs font-semibold text-app-text-muted tracking-normal">C?p d?</th>
                       <th className="px-4 py-3"></th>
                     </tr>
                   </thead>

@@ -45,7 +45,7 @@ serve(async (req) => {
       .maybeSingle();
 
     const defaultMessage = settingData?.value ||
-      "🇰🇷 Chào bạn! Hôm nay bạn chưa học tiếng Hàn đúng không? Chỉ 10 phút thôi là đủ để giữ streak rồi! Vào hadim.vn học ngay nhé! 🔥";
+      "🇰🇷 Chào bạn! Hôm nay bạn chưa học tiếng Hàn đúng không? Chỉ 10 phút thôi là đủ để giữ streak rồi! Vào hanquocoi.vn học ngay nhé! 🔥";
 
     const message = body.message || defaultMessage;
 

@@ -1,4 +1,4 @@
-﻿import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -13,39 +13,39 @@ interface SpeakingQuestion {
 }
 
 const speakingQuestions: SpeakingQuestion[] = [
-  { id: "s1", korean: "안녕하세요", vietnamese: "Xin chào", romanization: "An-nyeong-ha-se-yo", topic: "Chào hỏi", difficulty: "easy", tips: "Nhấn mạnh âm 'nyeong', giọng lên ở cuối" },
-  { id: "s2", korean: "감사합니다", vietnamese: "Cảm ơn", romanization: "Gam-sa-ham-ni-da", topic: "Chào hỏi", difficulty: "easy", tips: "Âm 'sa' ngắn, 'ham-ni-da' đọc liền mạch" },
-  { id: "s3", korean: "죄송합니다", vietnamese: "Xin lỗi", romanization: "Joe-song-ham-ni-da", topic: "Chào hỏi", difficulty: "medium", tips: "Âm 'joe' đọc như 'choe', không phải 'joe' tiếng Anh" },
-  { id: "s4", korean: "저는 베트남 사람입니다", vietnamese: "Tôi là người Việt Nam", romanization: "Jeo-neun be-teu-nam sa-ram-im-ni-da", topic: "Giới thiệu", difficulty: "medium", tips: "베트남 đọc rõ từng âm tiết" },
-  { id: "s5", korean: "작업장에서 안전을 지켜야 합니다", vietnamese: "Phải tuân thủ an toàn tại nơi làm việc", romanization: "Ja-geop-jang-e-seo an-jeo-neul ji-kyeo-ya ham-ni-da", topic: "An toàn lao động", difficulty: "hard", tips: "Câu dài, chia nhỏ: 작업장에서 / 안전을 / 지켜야 합니다" },
-  { id: "s6", korean: "화장실이 어디에 있어요?", vietnamese: "Nhà vệ sinh ở đâu?", romanization: "Hwa-jang-si-ri eo-di-e i-sseo-yo?", topic: "Sinh hoạt", difficulty: "easy", tips: "Giọng lên ở cuối vì là câu hỏi" },
-  { id: "s7", korean: "병원에 가고 싶어요", vietnamese: "Tôi muốn đến bệnh viện", romanization: "Byeong-wo-ne ga-go si-peo-yo", topic: "Sức khỏe", difficulty: "medium", tips: "병원 = byeong-won, không phải byeong-weon" },
-  { id: "s8", korean: "월급이 얼마예요?", vietnamese: "Lương tháng là bao nhiêu?", romanization: "Wol-geu-bi eol-ma-ye-yo?", topic: "Công việc", difficulty: "medium", tips: "월급 đọc liền: wol-geup, không tách rời" },
-  { id: "s9", korean: "계약서에 서명해 주세요", vietnamese: "Vui lòng ký vào hợp đồng", romanization: "Gye-yak-seo-e seo-myeong-hae ju-se-yo", topic: "Pháp luật", difficulty: "hard", tips: "계약서 = gye-yak-seo, chú ý âm 'yak'" },
-  { id: "s10", korean: "버스 정류장이 어디예요?", vietnamese: "Trạm xe buýt ở đâu?", romanization: "Beo-seu jeong-nyu-jang-i eo-di-ye-yo?", topic: "Giao thông", difficulty: "easy", tips: "정류장 đọc: jeong-nyu-jang, âm 'nyu' nhẹ" },
-  { id: "s11", korean: "오늘 몇 시에 퇴근해요?", vietnamese: "Hôm nay mấy giờ tan ca?", romanization: "O-neul myeot si-e toe-geun-hae-yo?", topic: "Công việc", difficulty: "medium", tips: "퇴근 = toe-geun, âm 'oe' như 'oe' trong tiếng Việt" },
-  { id: "s12", korean: "안전모를 꼭 써야 합니다", vietnamese: "Phải đội mũ bảo hộ", romanization: "An-jeon-mo-reul kkok sseo-ya ham-ni-da", topic: "An toàn lao động", difficulty: "hard", tips: "꼭 nhấn mạnh, 써야 đọc: sseo-ya" },
-  { id: "s13", korean: "한국 음식이 맛있어요", vietnamese: "Đồ ăn Hàn Quốc ngon", romanization: "Han-guk eum-si-gi ma-si-sseo-yo", topic: "Văn hóa", difficulty: "easy", tips: "맛있어요 đọc: ma-si-sseo-yo, không phải mat-it" },
-  { id: "s14", korean: "지하철역이 어디에 있어요?", vietnamese: "Ga tàu điện ngầm ở đâu?", romanization: "Ji-ha-cheol-lyeo-gi eo-di-e i-sseo-yo?", topic: "Giao thông", difficulty: "medium", tips: "지하철역 đọc liền: ji-ha-cheol-lyeok" },
-  { id: "s15", korean: "도움이 필요해요", vietnamese: "Tôi cần giúp đỡ", romanization: "Do-u-mi pi-ryo-hae-yo", topic: "Sinh hoạt", difficulty: "easy", tips: "필요 = pi-ryo, âm 'ryo' nhẹ và nhanh" },
+  { id: "s1", korean: "?????", vietnamese: "Xin ch�o", romanization: "An-nyeong-ha-se-yo", topic: "Ch�o h?i", difficulty: "easy", tips: "Nh?n m?nh �m 'nyeong', gi?ng l�n ? cu?i" },
+  { id: "s2", korean: "?????", vietnamese: "C?m on", romanization: "Gam-sa-ham-ni-da", topic: "Ch�o h?i", difficulty: "easy", tips: "�m 'sa' ng?n, 'ham-ni-da' d?c li?n m?ch" },
+  { id: "s3", korean: "?????", vietnamese: "Xin l?i", romanization: "Joe-song-ham-ni-da", topic: "Ch�o h?i", difficulty: "medium", tips: "�m 'joe' d?c nhu 'choe', kh�ng ph?i 'joe' ti?ng Anh" },
+  { id: "s4", korean: "?? ??? ?????", vietnamese: "T�i l� ngu?i Vi?t Nam", romanization: "Jeo-neun be-teu-nam sa-ram-im-ni-da", topic: "Gi?i thi?u", difficulty: "medium", tips: "??? d?c r� t?ng �m ti?t" },
+  { id: "s5", korean: "????? ??? ??? ???", vietnamese: "Ph?i tu�n th? an to�n t?i noi l�m vi?c", romanization: "Ja-geop-jang-e-seo an-jeo-neul ji-kyeo-ya ham-ni-da", topic: "An to�n lao d?ng", difficulty: "hard", tips: "C�u d�i, chia nh?: ????? / ??? / ??? ???" },
+  { id: "s6", korean: "???? ??? ????", vietnamese: "Nh� v? sinh ? d�u?", romanization: "Hwa-jang-si-ri eo-di-e i-sseo-yo?", topic: "Sinh ho?t", difficulty: "easy", tips: "Gi?ng l�n ? cu?i v� l� c�u h?i" },
+  { id: "s7", korean: "??? ?? ???", vietnamese: "T�i mu?n d?n b?nh vi?n", romanization: "Byeong-wo-ne ga-go si-peo-yo", topic: "S?c kh?e", difficulty: "medium", tips: "?? = byeong-won, kh�ng ph?i byeong-weon" },
+  { id: "s8", korean: "??? ?????", vietnamese: "Luong th�ng l� bao nhi�u?", romanization: "Wol-geu-bi eol-ma-ye-yo?", topic: "C�ng vi?c", difficulty: "medium", tips: "?? d?c li?n: wol-geup, kh�ng t�ch r?i" },
+  { id: "s9", korean: "???? ??? ???", vietnamese: "Vui l�ng k� v�o h?p d?ng", romanization: "Gye-yak-seo-e seo-myeong-hae ju-se-yo", topic: "Ph�p lu?t", difficulty: "hard", tips: "??? = gye-yak-seo, ch� � �m 'yak'" },
+  { id: "s10", korean: "?? ???? ?????", vietnamese: "Tr?m xe bu�t ? d�u?", romanization: "Beo-seu jeong-nyu-jang-i eo-di-ye-yo?", topic: "Giao th�ng", difficulty: "easy", tips: "??? d?c: jeong-nyu-jang, �m 'nyu' nh?" },
+  { id: "s11", korean: "?? ? ?? ?????", vietnamese: "H�m nay m?y gi? tan ca?", romanization: "O-neul myeot si-e toe-geun-hae-yo?", topic: "C�ng vi?c", difficulty: "medium", tips: "?? = toe-geun, �m 'oe' nhu 'oe' trong ti?ng Vi?t" },
+  { id: "s12", korean: "???? ? ?? ???", vietnamese: "Ph?i d?i mu b?o h?", romanization: "An-jeon-mo-reul kkok sseo-ya ham-ni-da", topic: "An to�n lao d?ng", difficulty: "hard", tips: "? nh?n m?nh, ?? d?c: sseo-ya" },
+  { id: "s13", korean: "?? ??? ????", vietnamese: "�? an H�n Qu?c ngon", romanization: "Han-guk eum-si-gi ma-si-sseo-yo", topic: "Van h�a", difficulty: "easy", tips: "???? d?c: ma-si-sseo-yo, kh�ng ph?i mat-it" },
+  { id: "s14", korean: "????? ??? ????", vietnamese: "Ga t�u di?n ng?m ? d�u?", romanization: "Ji-ha-cheol-lyeo-gi eo-di-e i-sseo-yo?", topic: "Giao th�ng", difficulty: "medium", tips: "???? d?c li?n: ji-ha-cheol-lyeok" },
+  { id: "s15", korean: "??? ????", vietnamese: "T�i c?n gi�p d?", romanization: "Do-u-mi pi-ryo-hae-yo", topic: "Sinh ho?t", difficulty: "easy", tips: "?? = pi-ryo, �m 'ryo' nh? v� nhanh" },
 ];
 
 const topicColors: Record<string, string> = {
-  "Chào hỏi": "bg-emerald-500/10 text-app-accent-success border-emerald-500/20",
-  "Giới thiệu": "bg-amber-500/10 text-amber-400 border-amber-500/20",
-  "An toàn lao động": "bg-red-500/10 text-red-400 border-red-500/20",
-  "Sinh hoạt": "bg-violet-500/10 text-violet-400 border-violet-500/20",
-  "Sức khỏe": "bg-sky-500/10 text-sky-400 border-sky-500/20",
-  "Công việc": "bg-orange-500/10 text-orange-400 border-orange-500/20",
-  "Pháp luật": "bg-pink-500/10 text-pink-400 border-pink-500/20",
-  "Giao thông": "bg-teal-500/10 text-teal-400 border-teal-500/20",
-  "Văn hóa": "bg-lime-500/10 text-lime-400 border-lime-500/20",
+  "Ch�o h?i": "bg-emerald-500/10 text-app-accent-success border-emerald-500/20",
+  "Gi?i thi?u": "bg-amber-500/10 text-amber-400 border-amber-500/20",
+  "An to�n lao d?ng": "bg-red-500/10 text-red-400 border-red-500/20",
+  "Sinh ho?t": "bg-violet-500/10 text-violet-400 border-violet-500/20",
+  "S?c kh?e": "bg-sky-500/10 text-sky-400 border-sky-500/20",
+  "C�ng vi?c": "bg-orange-500/10 text-orange-400 border-orange-500/20",
+  "Ph�p lu?t": "bg-pink-500/10 text-pink-400 border-pink-500/20",
+  "Giao th�ng": "bg-teal-500/10 text-teal-400 border-teal-500/20",
+  "Van h�a": "bg-lime-500/10 text-lime-400 border-lime-500/20",
 };
 
 const difficultyLabel: Record<string, string> = {
-  easy: "Dễ",
-  medium: "Trung bình",
-  hard: "Khó",
+  easy: "D?",
+  medium: "Trung b�nh",
+  hard: "Kh�",
 };
 
 const difficultyColor: Record<string, string> = {
@@ -90,17 +90,17 @@ function scoreTranscript(original: string, transcript: string): ScoreResult {
   const score = origWords.length > 0 ? Math.round((matched.length / origWords.length) * 100) : 0;
 
   let feedback = "";
-  if (score >= 90) feedback = "Xuất sắc! Phát âm rất chuẩn!";
-  else if (score >= 70) feedback = "Tốt! Cần luyện thêm một chút.";
-  else if (score >= 50) feedback = "Khá ổn! Hãy nghe lại và thử lần nữa.";
-  else feedback = "Cần luyện tập thêm. Đừng nản lòng!";
+  if (score >= 90) feedback = "Xu?t s?c! Ph�t �m r?t chu?n!";
+  else if (score >= 70) feedback = "T?t! C?n luy?n th�m m?t ch�t.";
+  else if (score >= 50) feedback = "Kh� ?n! H�y nghe l?i v� th? l?n n?a.";
+  else feedback = "C?n luy?n t?p th�m. �?ng n?n l�ng!";
 
   return { score, feedback, matchedWords: matched, missedWords: missed };
 }
 
 export default function EpsSpeakingPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [filterTopic, setFilterTopic] = useState("Tất cả");
+  const [filterTopic, setFilterTopic] = useState("T?t c?");
   const [filterDiff, setFilterDiff] = useState("all");
   const [recognitionState, setRecognitionState] = useState<RecognitionState>("idle");
   const [transcript, setTranscript] = useState("");
@@ -115,10 +115,10 @@ export default function EpsSpeakingPage() {
   const recognitionRef = useRef<any>(null);
   const synthRef = useRef<SpeechSynthesis | null>(null);
 
-  const topics = ["Tất cả", ...Array.from(new Set(speakingQuestions.map(q => q.topic)))];
+  const topics = ["T?t c?", ...Array.from(new Set(speakingQuestions.map(q => q.topic)))];
 
   const filtered = speakingQuestions.filter(q => {
-    const topicOk = filterTopic === "Tất cả" || q.topic === filterTopic;
+    const topicOk = filterTopic === "T?t c?" || q.topic === filterTopic;
     const diffOk = filterDiff === "all" || q.difficulty === filterDiff;
     return topicOk && diffOk;
   });
@@ -157,7 +157,7 @@ export default function EpsSpeakingPage() {
   const startRecording = useCallback(() => {
     const SpeechRecognition = (window as unknown as { SpeechRecognition?: typeof window.SpeechRecognition; webkitSpeechRecognition?: typeof window.SpeechRecognition }).SpeechRecognition || (window as unknown as { webkitSpeechRecognition?: typeof window.SpeechRecognition }).webkitSpeechRecognition;
     if (!SpeechRecognition) {
-      alert("Trình duyệt của bạn không hỗ trợ nhận dạng giọng nói. Hãy dùng Chrome.");
+      alert("Tr�nh duy?t c?a b?n kh�ng h? tr? nh?n d?ng gi?ng n�i. H�y d�ng Chrome.");
       return;
     }
 
@@ -262,17 +262,17 @@ export default function EpsSpeakingPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "'Nunito', sans-serif" }}>
-              Luyện nói EPS
+              Luy?n n�i EPS
             </h1>
-            <p className="text-app-text-secondary text-sm mt-0.5">Ghi âm giọng nói và so sánh với phát âm chuẩn tiếng Hàn</p>
+            <p className="text-app-text-secondary text-sm mt-0.5">Ghi �m gi?ng n�i v� so s�nh v?i ph�t �m chu?n ti?ng H�n</p>
           </div>
           <div className="flex items-center gap-3">
             <div className="bg-app-card/50 rounded-xl px-4 py-2 text-center">
-              <p className="text-app-text-secondary text-xs">Đúng</p>
+              <p className="text-app-text-secondary text-xs">��ng</p>
               <p className="text-app-accent-success font-bold text-lg">{sessionStats.correct}/{sessionStats.total}</p>
             </div>
             <div className="bg-app-card/50 rounded-xl px-4 py-2 text-center">
-              <p className="text-app-text-secondary text-xs">XP kiếm được</p>
+              <p className="text-app-text-secondary text-xs">XP ki?m du?c</p>
               <p className="text-amber-400 font-bold text-lg">+{sessionStats.xpEarned}</p>
             </div>
             <button
@@ -282,7 +282,7 @@ export default function EpsSpeakingPage() {
               <div className="w-4 h-4 flex items-center justify-center">
                 <i className="ri-bar-chart-line text-sm"></i>
               </div>
-              Thống kê
+              Th?ng k�
             </button>
           </div>
         </div>
@@ -301,14 +301,14 @@ export default function EpsSpeakingPage() {
 
           return (
             <div className="bg-app-card/50 border border-app-border rounded-2xl p-6 space-y-5">
-              <h3 className="text-white font-semibold">Thống kê phát âm</h3>
+              <h3 className="text-white font-semibold">Th?ng k� ph�t �m</h3>
 
               {/* Summary */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {[
-                  { label: "Điểm TB (30 lần gần nhất)", value: `${avgScore}%`, color: avgScore >= 70 ? "text-app-accent-success" : "text-amber-400" },
-                  { label: "Điểm cao nhất", value: `${best}%`, color: "text-amber-400" },
-                  { label: "Tổng lần luyện", value: pronHistory.length.toString(), color: "text-sky-400" },
+                  { label: "�i?m TB (30 l?n g?n nh?t)", value: `${avgScore}%`, color: avgScore >= 70 ? "text-app-accent-success" : "text-amber-400" },
+                  { label: "�i?m cao nh?t", value: `${best}%`, color: "text-amber-400" },
+                  { label: "T?ng l?n luy?n", value: pronHistory.length.toString(), color: "text-sky-400" },
                 ].map(stat => (
                   <div key={stat.label} className="bg-app-card/50 rounded-xl p-3 text-center">
                     <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
@@ -320,7 +320,7 @@ export default function EpsSpeakingPage() {
               {/* Score chart (last 10) */}
               {last30.length > 0 && (
                 <div>
-                  <p className="text-app-text-secondary text-xs mb-3">Điểm 10 lần gần nhất</p>
+                  <p className="text-app-text-secondary text-xs mb-3">�i?m 10 l?n g?n nh?t</p>
                   <div className="flex items-end gap-1.5 h-16">
                     {last30.slice(0, 10).reverse().map((r, i) => (
                       <div key={i} className="flex-1 flex flex-col items-center gap-1">
@@ -338,7 +338,7 @@ export default function EpsSpeakingPage() {
               {/* Topic breakdown */}
               {Object.keys(topicStats).length > 0 && (
                 <div>
-                  <p className="text-app-text-secondary text-xs mb-3">Điểm theo chủ đề</p>
+                  <p className="text-app-text-secondary text-xs mb-3">�i?m theo ch? d?</p>
                   <div className="space-y-2">
                     {Object.entries(topicStats).map(([topic, stat]) => {
                       const avg = Math.round(stat.sum / stat.total);
@@ -349,7 +349,7 @@ export default function EpsSpeakingPage() {
                             <div className={`h-full rounded-full ${avg >= 70 ? "bg-emerald-500" : "bg-amber-500"}`} style={{ width: `${avg}%` }} />
                           </div>
                           <span className={`text-xs font-medium w-10 text-right ${avg >= 70 ? "text-app-accent-success" : "text-amber-400"}`}>{avg}%</span>
-                          <span className="text-app-text-muted text-xs w-12 text-right">{stat.total} lần</span>
+                          <span className="text-app-text-muted text-xs w-12 text-right">{stat.total} l?n</span>
                         </div>
                       );
                     })}
@@ -360,7 +360,7 @@ export default function EpsSpeakingPage() {
               {/* Recent history */}
               {pronHistory.length > 0 && (
                 <div>
-                  <p className="text-app-text-secondary text-xs mb-3">Lịch sử gần đây</p>
+                  <p className="text-app-text-secondary text-xs mb-3">L?ch s? g?n d�y</p>
                   <div className="space-y-1.5 max-h-40 overflow-y-auto">
                     {pronHistory.slice(0, 15).map((r, i) => (
                       <div key={i} className="flex items-center gap-3 py-1.5 border-b border-app-border last:border-0">
@@ -375,7 +375,7 @@ export default function EpsSpeakingPage() {
               )}
 
               {pronHistory.length === 0 && (
-                <p className="text-app-text-muted text-sm text-center py-4">Chưa có lịch sử luyện nói. Hãy bắt đầu luyện tập!</p>
+                <p className="text-app-text-muted text-sm text-center py-4">Chua c� l?ch s? luy?n n�i. H�y b?t d?u luy?n t?p!</p>
               )}
             </div>
           );
@@ -397,7 +397,7 @@ export default function EpsSpeakingPage() {
             ))}
           </div>
           <div className="flex gap-1 ml-auto">
-            {[["all", "Tất cả"], ["easy", "Dễ"], ["medium", "TB"], ["hard", "Khó"]].map(([val, label]) => (
+            {[["all", "T?t c?"], ["easy", "D?"], ["medium", "TB"], ["hard", "Kh�"]].map(([val, label]) => (
               <button
                 key={val}
                 onClick={() => setFilterDiff(val)}
@@ -456,7 +456,7 @@ export default function EpsSpeakingPage() {
                 <div className="w-4 h-4 flex items-center justify-center">
                   <i className="ri-volume-up-line text-sm"></i>
                 </div>
-                Nghe chuẩn
+                Nghe chu?n
               </button>
               <button
                 onClick={speakSlow}
@@ -465,7 +465,7 @@ export default function EpsSpeakingPage() {
                 <div className="w-4 h-4 flex items-center justify-center">
                   <i className="ri-speed-line text-sm"></i>
                 </div>
-                Nghe chậm
+                Nghe ch?m
               </button>
               <button
                 onClick={() => setShowRomanization(!showRomanization)}
@@ -476,7 +476,7 @@ export default function EpsSpeakingPage() {
                 <div className="w-4 h-4 flex items-center justify-center">
                   <i className="ri-text-spacing text-sm"></i>
                 </div>
-                Phiên âm
+                Phi�n �m
               </button>
               <button
                 onClick={() => setShowTips(!showTips)}
@@ -487,7 +487,7 @@ export default function EpsSpeakingPage() {
                 <div className="w-4 h-4 flex items-center justify-center">
                   <i className="ri-lightbulb-line text-sm"></i>
                 </div>
-                Mẹo
+                M?o
               </button>
             </div>
 
@@ -532,17 +532,17 @@ export default function EpsSpeakingPage() {
               )}
 
               <p className="text-app-text-secondary text-sm">
-                {recognitionState === "idle" && "Nhấn để bắt đầu ghi âm"}
-                {recognitionState === "listening" && "Đang nghe... Nói tiếng Hàn"}
-                {recognitionState === "processing" && "Đang phân tích..."}
-                {recognitionState === "done" && "Hoàn thành! Nhấn để thử lại"}
+                {recognitionState === "idle" && "Nh?n d? b?t d?u ghi �m"}
+                {recognitionState === "listening" && "�ang nghe... N�i ti?ng H�n"}
+                {recognitionState === "processing" && "�ang ph�n t�ch..."}
+                {recognitionState === "done" && "Ho�n th�nh! Nh?n d? th? l?i"}
               </p>
             </div>
 
             {/* Transcript */}
             {transcript && (
               <div className="mt-6 bg-app-card/50 border border-app-border rounded-xl p-4">
-                <p className="text-app-text-secondary text-xs mb-1">Bạn đã nói:</p>
+                <p className="text-app-text-secondary text-xs mb-1">B?n d� n�i:</p>
                 <p className="text-white text-lg font-medium" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{transcript}</p>
               </div>
             )}
@@ -552,7 +552,7 @@ export default function EpsSpeakingPage() {
               <div className={`mt-4 border rounded-xl p-5 ${getScoreBg(scoreResult.score)}`}>
                 <div className="flex items-center justify-between mb-3">
                   <div>
-                    <p className="text-white/60 text-xs mb-1">Điểm phát âm</p>
+                    <p className="text-white/60 text-xs mb-1">�i?m ph�t �m</p>
                     <p className={`text-4xl font-bold ${getScoreColor(scoreResult.score)}`}>{scoreResult.score}%</p>
                   </div>
                   <div className="text-right">
@@ -573,7 +573,7 @@ export default function EpsSpeakingPage() {
 
                 {scoreResult.missedWords.length > 0 && (
                   <div>
-                    <p className="text-app-text-secondary text-xs mb-2">Từ cần luyện thêm:</p>
+                    <p className="text-app-text-secondary text-xs mb-2">T? c?n luy?n th�m:</p>
                     <div className="flex flex-wrap gap-1.5">
                       {scoreResult.missedWords.map((w, i) => (
                         <span key={i} className="bg-red-500/15 border border-red-500/20 text-red-400 text-xs px-2 py-0.5 rounded-full">
@@ -597,7 +597,7 @@ export default function EpsSpeakingPage() {
             <div className="w-4 h-4 flex items-center justify-center">
               <i className="ri-arrow-left-line text-sm"></i>
             </div>
-            Câu trước
+            C�u tru?c
           </button>
 
           <div className="flex gap-1">
@@ -617,7 +617,7 @@ export default function EpsSpeakingPage() {
             onClick={nextQuestion}
             className="flex items-center gap-2 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 rounded-xl px-4 py-2.5 text-amber-400 text-sm transition-all cursor-pointer whitespace-nowrap"
           >
-            Câu tiếp
+            C�u ti?p
             <div className="w-4 h-4 flex items-center justify-center">
               <i className="ri-arrow-right-line text-sm"></i>
             </div>
@@ -631,9 +631,9 @@ export default function EpsSpeakingPage() {
               <i className="ri-information-line text-amber-400 text-sm"></i>
             </div>
             <div>
-              <p className="text-white/60 text-sm font-medium mb-1">Hướng dẫn sử dụng</p>
+              <p className="text-white/60 text-sm font-medium mb-1">Hu?ng d?n s? d?ng</p>
               <p className="text-white/35 text-xs leading-relaxed">
-                1. Nhấn "Nghe chuẩn" để nghe phát âm mẫu. 2. Nhấn nút đỏ để ghi âm giọng nói của bạn. 3. Hệ thống sẽ so sánh và cho điểm phát âm. 4. Dùng Chrome để có kết quả tốt nhất.
+                1. Nh?n "Nghe chu?n" d? nghe ph�t �m m?u. 2. Nh?n n�t d? d? ghi �m gi?ng n�i c?a b?n. 3. H? th?ng s? so s�nh v� cho di?m ph�t �m. 4. D�ng Chrome d? c� k?t qu? t?t nh?t.
               </p>
             </div>
           </div>

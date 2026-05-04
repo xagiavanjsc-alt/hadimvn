@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { STATS, TESTIMONIALS, FAQ_ITEMS } from "@/mocks/landingData";
@@ -6,91 +6,91 @@ import { STATS, TESTIMONIALS, FAQ_ITEMS } from "@/mocks/landingData";
 const FEATURE_GROUPS = [
   {
     id: "eps", label: "EPS-TOPIK", icon: "ri-file-list-3-line", color: "#f97316", bg: "#fff7ed",
-    desc: "Luyện thi EPS-TOPIK toàn diện",
+    desc: "Luy?n thi EPS-TOPIK to�n di?n",
     features: [
-      { icon: "ri-gamepad-line", label: "Quiz theo bài EPS" },
-      { icon: "ri-file-paper-2-line", label: "Đề thi chính thức" },
-      { icon: "ri-stethoscope-line", label: "Phân tích điểm yếu" },
-      { icon: "ri-route-line", label: "Lộ trình cá nhân EPS" },
-      { icon: "ri-calendar-2-line", label: "Kế hoạch 30 ngày" },
-      { icon: "ri-earth-line", label: "BXH toàn cầu EPS" },
+      { icon: "ri-gamepad-line", label: "Quiz theo b�i EPS" },
+      { icon: "ri-file-paper-2-line", label: "�? thi ch�nh th?c" },
+      { icon: "ri-stethoscope-line", label: "Ph�n t�ch di?m y?u" },
+      { icon: "ri-route-line", label: "L? tr�nh c� nh�n EPS" },
+      { icon: "ri-calendar-2-line", label: "K? ho?ch 30 ng�y" },
+      { icon: "ri-earth-line", label: "BXH to�n c?u EPS" },
     ],
   },
   {
-    id: "seoul", label: "Giáo trình Seoul", icon: "ri-book-open-line", color: "#22c55e", bg: "#f0fdf4",
-    desc: "Học tiếng Hàn chuẩn giáo trình Seoul",
+    id: "seoul", label: "Gi�o tr�nh Seoul", icon: "ri-book-open-line", color: "#22c55e", bg: "#f0fdf4",
+    desc: "H?c ti?ng H�n chu?n gi�o tr�nh Seoul",
     features: [
-      { icon: "ri-route-line", label: "Lộ trình Seoul 1A–4B" },
+      { icon: "ri-route-line", label: "L? tr�nh Seoul 1A�4B" },
       { icon: "ri-headphone-line", label: "Quiz nghe Seoul" },
-      { icon: "ri-edit-line", label: "Luyện viết Seoul" },
-      { icon: "ri-character-recognition-line", label: "Hán tự Seoul" },
+      { icon: "ri-edit-line", label: "Luy?n vi?t Seoul" },
+      { icon: "ri-character-recognition-line", label: "H�n t? Seoul" },
       { icon: "ri-fire-line", label: "Streak Seoul" },
-      { icon: "ri-links-line", label: "Cặp từ đối lập" },
+      { icon: "ri-links-line", label: "C?p t? d?i l?p" },
     ],
   },
   {
     id: "kpop", label: "K-pop & Melon", icon: "ri-music-2-line", color: "#ec4899", bg: "#fdf2f8",
-    desc: "Học tiếng Hàn qua âm nhạc",
+    desc: "H?c ti?ng H�n qua �m nh?c",
     features: [
-      { icon: "ri-music-2-line", label: "Melon Chart học tiếng Hàn" },
-      { icon: "ri-stack-line", label: "Flashcard từ bài hát" },
-      { icon: "ri-bar-chart-line", label: "Thống kê K-pop" },
-      { icon: "ri-history-line", label: "Lịch sử bài đã học" },
-      { icon: "ri-music-2-line", label: "K-pop học EPS" },
-      { icon: "ri-share-line", label: "Chia sẻ thẻ từ vựng" },
+      { icon: "ri-music-2-line", label: "Melon Chart h?c ti?ng H�n" },
+      { icon: "ri-stack-line", label: "Flashcard t? b�i h�t" },
+      { icon: "ri-bar-chart-line", label: "Th?ng k� K-pop" },
+      { icon: "ri-history-line", label: "L?ch s? b�i d� h?c" },
+      { icon: "ri-music-2-line", label: "K-pop h?c EPS" },
+      { icon: "ri-share-line", label: "Chia s? th? t? v?ng" },
     ],
   },
   {
     id: "topik", label: "TOPIK I & II", icon: "ri-award-line", color: "#10b981", bg: "#ecfdf5",
-    desc: "Chinh phục kỳ thi TOPIK",
+    desc: "Chinh ph?c k? thi TOPIK",
     features: [
-      { icon: "ri-survey-line", label: "Quiz chủ đề TOPIK" },
-      { icon: "ri-headphone-line", label: "Luyện nghe TOPIK" },
-      { icon: "ri-book-read-line", label: "Luyện đọc TOPIK" },
+      { icon: "ri-survey-line", label: "Quiz ch? d? TOPIK" },
+      { icon: "ri-headphone-line", label: "Luy?n nghe TOPIK" },
+      { icon: "ri-book-read-line", label: "Luy?n d?c TOPIK" },
       { icon: "ri-stack-line", label: "Flashcard TOPIK" },
-      { icon: "ri-bar-chart-line", label: "Thống kê TOPIK" },
-      { icon: "ri-test-tube-line", label: "Thi thử TOPIK II" },
+      { icon: "ri-bar-chart-line", label: "Th?ng k� TOPIK" },
+      { icon: "ri-test-tube-line", label: "Thi th? TOPIK II" },
     ],
   },
   {
-    id: "community", label: "Cộng đồng", icon: "ri-group-line", color: "#06b6d4", bg: "#ecfeff",
-    desc: "Học cùng 10,000+ học viên",
+    id: "community", label: "C?ng d?ng", icon: "ri-group-line", color: "#06b6d4", bg: "#ecfeff",
+    desc: "H?c c�ng 10,000+ h?c vi�n",
     features: [
-      { icon: "ri-sword-line", label: "Thách đấu bạn bè" },
-      { icon: "ri-trophy-line", label: "BXH thử thách" },
-      { icon: "ri-fire-line", label: "Streak bạn bè" },
-      { icon: "ri-scales-line", label: "So sánh tiến độ" },
-      { icon: "ri-vip-crown-line", label: "Hạng cộng đồng" },
-      { icon: "ri-chat-3-line", label: "Diễn đàn học viên" },
+      { icon: "ri-sword-line", label: "Th�ch d?u b?n b�" },
+      { icon: "ri-trophy-line", label: "BXH th? th�ch" },
+      { icon: "ri-fire-line", label: "Streak b?n b�" },
+      { icon: "ri-scales-line", label: "So s�nh ti?n d?" },
+      { icon: "ri-vip-crown-line", label: "H?ng c?ng d?ng" },
+      { icon: "ri-chat-3-line", label: "Di?n d�n h?c vi�n" },
     ],
   },
   {
-    id: "stats", label: "Thống kê & AI", icon: "ri-bar-chart-box-line", color: "#f59e0b", bg: "#fffbeb",
-    desc: "Theo dõi tiến độ chi tiết",
+    id: "stats", label: "Th?ng k� & AI", icon: "ri-bar-chart-box-line", color: "#f59e0b", bg: "#fffbeb",
+    desc: "Theo d�i ti?n d? chi ti?t",
     features: [
-      { icon: "ri-user-3-line", label: "Thống kê cá nhân" },
-      { icon: "ri-line-chart-line", label: "Phân tích học tập" },
-      { icon: "ri-robot-2-line", label: "AI Chatbot tiếng Hàn" },
-      { icon: "ri-file-chart-line", label: "Báo cáo tuần" },
-      { icon: "ri-progress-3-line", label: "Tiến độ tổng thể" },
-      { icon: "ri-calendar-check-line", label: "Lịch học tập" },
+      { icon: "ri-user-3-line", label: "Th?ng k� c� nh�n" },
+      { icon: "ri-line-chart-line", label: "Ph�n t�ch h?c t?p" },
+      { icon: "ri-robot-2-line", label: "AI Chatbot ti?ng H�n" },
+      { icon: "ri-file-chart-line", label: "B�o c�o tu?n" },
+      { icon: "ri-progress-3-line", label: "Ti?n d? t?ng th?" },
+      { icon: "ri-calendar-check-line", label: "L?ch h?c t?p" },
     ],
   },
 ];
 
 const VOCAB_PREVIEW = [
-  { kr: "사랑", vi: "Tình yêu", rom: "sa-rang", level: "A1", color: "#22c55e" },
-  { kr: "행복", vi: "Hạnh phúc", rom: "haeng-bok", level: "A1", color: "#f59e0b" },
-  { kr: "공부하다", vi: "Học bài", rom: "gong-bu-ha-da", level: "A2", color: "#ec4899" },
-  { kr: "여행", vi: "Du lịch", rom: "yeo-haeng", level: "A2", color: "#10b981" },
-  { kr: "맛있다", vi: "Ngon", rom: "ma-sit-da", level: "A1", color: "#06b6d4" },
-  { kr: "화이팅", vi: "Cố lên!", rom: "hwa-i-ting", level: "A1", color: "#f97316" },
+  { kr: "??", vi: "T�nh y�u", rom: "sa-rang", level: "A1", color: "#22c55e" },
+  { kr: "??", vi: "H?nh ph�c", rom: "haeng-bok", level: "A1", color: "#f59e0b" },
+  { kr: "????", vi: "H?c b�i", rom: "gong-bu-ha-da", level: "A2", color: "#ec4899" },
+  { kr: "??", vi: "Du l?ch", rom: "yeo-haeng", level: "A2", color: "#10b981" },
+  { kr: "???", vi: "Ngon", rom: "ma-sit-da", level: "A1", color: "#06b6d4" },
+  { kr: "???", vi: "C? l�n!", rom: "hwa-i-ting", level: "A1", color: "#f97316" },
 ];
 
 const CONV_PREVIEW = [
-  { kr: "안녕하세요! 오늘 날씨가 정말 좋네요.", vi: "Xin chào! Hôm nay thời tiết thật đẹp nhỉ.", role: "bot" },
-  { kr: "네, 맞아요. 주말에 뭐 할 거예요?", vi: "Vâng, đúng vậy. Cuối tuần bạn sẽ làm gì?", role: "user" },
-  { kr: "친구들이랑 한강에 갈 거예요. 같이 갈래요?", vi: "Tôi sẽ đi sông Hàn với bạn bè. Bạn có muốn đi cùng không?", role: "bot" },
+  { kr: "?????! ?? ??? ?? ???.", vi: "Xin ch�o! H�m nay th?i ti?t th?t d?p nh?.", role: "bot" },
+  { kr: "?, ???. ??? ? ? ????", vi: "V�ng, d�ng v?y. Cu?i tu?n b?n s? l�m g�?", role: "user" },
+  { kr: "????? ??? ? ???. ?? ????", vi: "T�i s? di s�ng H�n v?i b?n b�. B?n c� mu?n di c�ng kh�ng?", role: "bot" },
 ];
 
 function FeatureCard({ group, onStart }: { group: typeof FEATURE_GROUPS[0]; onStart: () => void }) {
@@ -106,7 +106,7 @@ function FeatureCard({ group, onStart }: { group: typeof FEATURE_GROUPS[0]; onSt
             <h3 className="font-bold text-gray-900 text-sm">{group.label}</h3>
             <p className="text-xs text-gray-400 mt-0.5">{group.desc}</p>
           </div>
-          <span className="text-xs font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ backgroundColor: group.bg, color: group.color }}>{group.features.length} tính năng</span>
+          <span className="text-xs font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ backgroundColor: group.bg, color: group.color }}>{group.features.length} t�nh nang</span>
         </div>
         <div className="grid grid-cols-2 gap-1.5">
           {(expanded ? group.features : group.features.slice(0, 4)).map((f, i) => (
@@ -118,7 +118,7 @@ function FeatureCard({ group, onStart }: { group: typeof FEATURE_GROUPS[0]; onSt
         </div>
         {group.features.length > 4 && (
           <button onClick={() => setExpanded(!expanded)} className="mt-2 w-full text-xs text-center py-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-colors cursor-pointer">
-            {expanded ? "Thu gọn" : `+${group.features.length - 4} tính năng khác`}
+            {expanded ? "Thu g?n" : `+${group.features.length - 4} t�nh nang kh�c`}
           </button>
         )}
       </div>
@@ -157,26 +157,26 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white text-gray-900" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-      {/* ── NAVBAR ─────────────────────────────────────────────────────── */}
+      {/* -- NAVBAR ------------------------------------------------------- */}
       <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? "bg-white/95 backdrop-blur-md border-b border-gray-100" : "bg-transparent"}`}>
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#22c55e] to-[#16a34a] flex items-center justify-center flex-shrink-0">
               <i className="ri-translate-2 text-white text-sm"></i>
             </div>
-            <span className={`font-black text-sm tracking-tight transition-colors ${scrolled ? "text-gray-900" : "text-white"}`}>Hàn Quốc Ơi!</span>
+            <span className={`font-black text-sm tracking-tight transition-colors ${scrolled ? "text-gray-900" : "text-white"}`}>H�n Qu?c Oi!</span>
           </div>
           <nav className="hidden md:flex items-center gap-6">
-            {[["#features", "Tính năng"], ["#preview", "Xem thử"], ["#pricing", "Bảng giá"], ["#faq", "FAQ"]].map(([href, label]) => (
+            {[["#features", "T�nh nang"], ["#preview", "Xem th?"], ["#pricing", "B?ng gi�"], ["#faq", "FAQ"]].map(([href, label]) => (
               <a key={href} href={href} className={`text-sm transition-colors hover:text-[#22c55e] ${scrolled ? "text-gray-600" : "text-white/70"}`}>{label}</a>
             ))}
           </nav>
           <div className="flex items-center gap-3">
             <button onClick={handleLogin} className={`text-sm transition-colors hidden md:block whitespace-nowrap cursor-pointer ${scrolled ? "text-gray-600 hover:text-gray-900" : "text-white/70 hover:text-white"}`}>
-              {user ? "Vào app" : "Đăng nhập"}
+              {user ? "V�o app" : "�ang nh?p"}
             </button>
             <button onClick={handleStart} className="bg-[#22c55e] text-white text-sm font-bold px-4 py-2 rounded-lg hover:bg-[#16a34a] transition-colors whitespace-nowrap cursor-pointer">
-              {user ? "Vào app" : "Bắt đầu miễn phí"}
+              {user ? "V�o app" : "B?t d?u mi?n ph�"}
             </button>
             <button onClick={() => setMobileOpen(!mobileOpen)} className={`md:hidden w-8 h-8 flex items-center justify-center cursor-pointer ${scrolled ? "text-gray-700" : "text-white"}`}>
               <i className={mobileOpen ? "ri-close-line text-xl" : "ri-menu-line text-xl"}></i>
@@ -185,17 +185,17 @@ export default function LandingPage() {
         </div>
         {mobileOpen && (
           <div className="md:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-3">
-            {[["#features", "Tính năng"], ["#preview", "Xem thử"], ["#pricing", "Bảng giá"], ["#faq", "FAQ"]].map(([href, label]) => (
+            {[["#features", "T�nh nang"], ["#preview", "Xem th?"], ["#pricing", "B?ng gi�"], ["#faq", "FAQ"]].map(([href, label]) => (
               <a key={href} href={href} onClick={() => setMobileOpen(false)} className="block text-sm text-gray-700 py-2 border-b border-gray-50">{label}</a>
             ))}
             <button onClick={() => { handleStart(); setMobileOpen(false); }} className="w-full bg-[#22c55e] text-white text-sm font-bold py-3 rounded-xl mt-2 cursor-pointer whitespace-nowrap">
-              {user ? "Vào app" : "Bắt đầu miễn phí"}
+              {user ? "V�o app" : "B?t d?u mi?n ph�"}
             </button>
           </div>
         )}
       </header>
 
-      {/* ── HERO ─────────────────────────────────────────────────────────── */}
+      {/* -- HERO ----------------------------------------------------------- */}
       <section className="relative min-h-screen flex items-center justify-center pt-16">
         <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://readdy.ai/api/search-image?query=beautiful%20Seoul%20South%20Korea%20cityscape%20golden%20hour%20sunset%20Han%20River%20bridge%20modern%20skyscrapers%20warm%20orange%20light%20aerial%20photography%20cinematic%20wide%20angle&width=1440&height=900&seq=landing_hero_v12&orientation=landscape')" }} />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/75" />
@@ -203,25 +203,25 @@ export default function LandingPage() {
         <div className="relative z-10 text-center px-4 md:px-6 max-w-5xl mx-auto w-full">
           <div className="inline-flex items-center gap-2 bg-app-card/70 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6 md:mb-8">
             <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse flex-shrink-0"></span>
-            <span className="text-white/90 text-xs font-medium">10,000+ học viên đang học mỗi ngày</span>
+            <span className="text-white/90 text-xs font-medium">10,000+ h?c vi�n dang h?c m?i ng�y</span>
           </div>
           <h1 className="text-4xl md:text-7xl font-black leading-none mb-4 md:mb-5 tracking-tight text-white">
-            Hàn Quốc Ơi!
+            H�n Qu?c Oi!
           </h1>
           <p className="text-lg md:text-2xl font-semibold text-white/80 mb-3 md:mb-4">
-            Học tiếng Hàn không khó —
-            <span className="text-[#4ade80]"> Vui là chính, giỏi là tất yếu!</span>
+            H?c ti?ng H�n kh�ng kh� �
+            <span className="text-[#4ade80]"> Vui l� ch�nh, gi?i l� t?t y?u!</span>
           </p>
           <p className="text-white/55 text-sm md:text-base max-w-xl mx-auto mb-8 md:mb-10 leading-relaxed">
-            Nền tảng học tiếng Hàn EPS-TOPIK, TOPIK I/II với lộ trình AI cá nhân hóa. Học qua K-pop, Drama và tin tức thật.
+            N?n t?ng h?c ti?ng H�n EPS-TOPIK, TOPIK I/II v?i l? tr�nh AI c� nh�n h�a. H?c qua K-pop, Drama v� tin t?c th?t.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 mb-10 md:mb-14">
             <button onClick={handleStart} className="bg-[#22c55e] text-white font-bold px-7 md:px-8 py-3.5 md:py-4 rounded-xl text-sm md:text-base hover:bg-[#16a34a] transition-all hover:scale-105 whitespace-nowrap cursor-pointer w-full sm:w-auto">
-              Bắt đầu miễn phí ngay <i className="ri-arrow-right-line ml-2"></i>
+              B?t d?u mi?n ph� ngay <i className="ri-arrow-right-line ml-2"></i>
             </button>
             <a href="#features" className="flex items-center gap-2 bg-app-card/70 backdrop-blur-sm border border-white/20 hover:border-white/40 text-white/80 hover:text-white text-sm md:text-base px-5 md:px-6 py-3.5 md:py-4 rounded-xl transition-all whitespace-nowrap cursor-pointer w-full sm:w-auto justify-center">
               <i className="ri-apps-2-line text-[#4ade80]"></i>
-              Khám phá tính năng
+              Kh�m ph� t�nh nang
             </a>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-app-card/70 rounded-2xl overflow-hidden backdrop-blur-sm">
@@ -234,43 +234,43 @@ export default function LandingPage() {
           </div>
         </div>
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 animate-bounce">
-          <span className="text-app-text-muted text-xs">Cuộn xuống</span>
+          <span className="text-app-text-muted text-xs">Cu?n xu?ng</span>
           <i className="ri-arrow-down-line text-app-text-muted"></i>
         </div>
       </section>
 
-      {/* ── FEATURES ─────────────────────────────────────────────────────── */}
+      {/* -- FEATURES ------------------------------------------------------- */}
       <section id="features" className="py-16 md:py-24 px-4 md:px-6 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-2 bg-[#22c55e]/10 border border-[#22c55e]/20 rounded-full px-4 py-1.5 mb-4">
               <i className="ri-apps-2-line text-[#22c55e] text-xs"></i>
-              <span className="text-[#22c55e] text-xs font-semibold tracking-normal">Tính năng</span>
+              <span className="text-[#22c55e] text-xs font-semibold tracking-normal">T�nh nang</span>
             </div>
-            <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">Mọi thứ bạn cần để học tiếng Hàn</h2>
-            <p className="text-gray-500 text-sm md:text-base max-w-lg mx-auto">Từ bảng chữ cái đến thi EPS-TOPIK — một nền tảng duy nhất. <strong className="text-gray-700">60+ tính năng</strong> thiết kế cho người Việt.</p>
+            <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">M?i th? b?n c?n d? h?c ti?ng H�n</h2>
+            <p className="text-gray-500 text-sm md:text-base max-w-lg mx-auto">T? b?ng ch? c�i d?n thi EPS-TOPIK � m?t n?n t?ng duy nh?t. <strong className="text-gray-700">60+ t�nh nang</strong> thi?t k? cho ngu?i Vi?t.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
             {FEATURE_GROUPS.map(group => <FeatureCard key={group.id} group={group} onStart={handleStart} />)}
           </div>
           <div className="text-center mt-8">
             <button onClick={handleStart} className="inline-flex items-center gap-2 bg-gray-900 text-white font-bold px-6 py-3 rounded-xl text-sm hover:bg-gray-700 transition-all cursor-pointer whitespace-nowrap">
-              <i className="ri-apps-2-line"></i>Xem tất cả 60+ tính năng
+              <i className="ri-apps-2-line"></i>Xem t?t c? 60+ t�nh nang
             </button>
           </div>
         </div>
       </section>
 
-      {/* ── PREVIEW ──────────────────────────────────────────────────────── */}
+      {/* -- PREVIEW -------------------------------------------------------- */}
       <section id="preview" className="py-16 md:py-24 px-4 md:px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-2 bg-[#ec4899]/10 border border-[#ec4899]/20 rounded-full px-4 py-1.5 mb-4">
               <i className="ri-eye-line text-[#ec4899] text-xs"></i>
-              <span className="text-[#ec4899] text-xs font-semibold tracking-normal">Xem thử</span>
+              <span className="text-[#ec4899] text-xs font-semibold tracking-normal">Xem th?</span>
             </div>
-            <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">Trải nghiệm học thật sự</h2>
-            <p className="text-gray-500 text-sm md:text-base max-w-lg mx-auto">Không chỉ học từ vựng khô khan — học qua hội thoại thực tế, K-pop và ngữ cảnh sống động.</p>
+            <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">Tr?i nghi?m h?c th?t s?</h2>
+            <p className="text-gray-500 text-sm md:text-base max-w-lg mx-auto">Kh�ng ch? h?c t? v?ng kh� khan � h?c qua h?i tho?i th?c t?, K-pop v� ng? c?nh s?ng d?ng.</p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
             <div className="bg-gradient-to-br from-[#f0fdf4] to-[#dcfce7] rounded-2xl p-5 md:p-7 border border-[#22c55e]/20">
@@ -279,8 +279,8 @@ export default function LandingPage() {
                   <i className="ri-chat-3-line text-white text-lg"></i>
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 text-sm">Hội thoại thực tế</h3>
-                  <p className="text-xs text-gray-500">AI luyện nói với bạn 24/7</p>
+                  <h3 className="font-bold text-gray-900 text-sm">H?i tho?i th?c t?</h3>
+                  <p className="text-xs text-gray-500">AI luy?n n�i v?i b?n 24/7</p>
                 </div>
                 <span className="ml-auto text-xs px-2.5 py-1 rounded-full bg-[#22c55e]/15 text-[#16a34a] font-semibold">LIVE</span>
               </div>
@@ -288,7 +288,7 @@ export default function LandingPage() {
                 {CONV_PREVIEW.map((msg, i) => (
                   <div key={i} className={`flex gap-2.5 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
                     <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold ${msg.role === "bot" ? "bg-[#22c55e] text-white" : "bg-gray-200 text-gray-600"}`}>
-                      {msg.role === "bot" ? "AI" : "Bạn"}
+                      {msg.role === "bot" ? "AI" : "B?n"}
                     </div>
                     <div className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 ${msg.role === "bot" ? "bg-white border border-gray-100" : "bg-[#22c55e] text-white"}`}>
                       <p className={`text-sm font-semibold ${msg.role === "bot" ? "text-gray-900" : "text-white"}`}>{msg.kr}</p>
@@ -298,7 +298,7 @@ export default function LandingPage() {
                 ))}
               </div>
               <button onClick={handleStart} className="w-full py-2.5 bg-[#22c55e] text-white text-sm font-bold rounded-xl hover:bg-[#16a34a] transition-colors cursor-pointer whitespace-nowrap">
-                Thử hội thoại AI ngay <i className="ri-arrow-right-line ml-2"></i>
+                Th? h?i tho?i AI ngay <i className="ri-arrow-right-line ml-2"></i>
               </button>
             </div>
 
@@ -308,8 +308,8 @@ export default function LandingPage() {
                   <i className="ri-book-2-line text-white text-lg"></i>
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900 text-sm">Flashcard thông minh</h3>
-                  <p className="text-xs text-gray-500">Spaced Repetition tối ưu ghi nhớ</p>
+                  <h3 className="font-bold text-gray-900 text-sm">Flashcard th�ng minh</h3>
+                  <p className="text-xs text-gray-500">Spaced Repetition t?i uu ghi nh?</p>
                 </div>
                 <span className="ml-auto text-xs px-2.5 py-1 rounded-full bg-[#ec4899]/15 text-[#db2777] font-semibold">SRS</span>
               </div>
@@ -326,7 +326,7 @@ export default function LandingPage() {
                 ))}
               </div>
               <button onClick={handleStart} className="w-full py-2.5 bg-[#ec4899] text-white text-sm font-bold rounded-xl hover:bg-[#db2777] transition-colors cursor-pointer whitespace-nowrap">
-                Học từ vựng ngay <i className="ri-arrow-right-line ml-2"></i>
+                H?c t? v?ng ngay <i className="ri-arrow-right-line ml-2"></i>
               </button>
             </div>
           </div>
@@ -338,35 +338,35 @@ export default function LandingPage() {
               <div className="flex-1">
                 <div className="inline-flex items-center gap-2 bg-[#ec4899]/20 border border-[#ec4899]/30 rounded-full px-3 py-1 mb-4">
                   <i className="ri-music-2-line text-[#ec4899] text-xs"></i>
-                  <span className="text-[#ec4899] text-xs font-semibold">Tính năng độc quyền</span>
+                  <span className="text-[#ec4899] text-xs font-semibold">T�nh nang d?c quy?n</span>
                 </div>
-                <h3 className="text-white text-xl md:text-2xl font-bold mb-2 md:mb-3">Học tiếng Hàn qua K-pop</h3>
-                <p className="text-white/60 text-sm leading-relaxed max-w-md">AI phân tích lời bài hát Melon Chart, trích xuất từ vựng quan trọng, tạo quiz tương tác. Học từ BLACKPINK, BTS, aespa...</p>
+                <h3 className="text-white text-xl md:text-2xl font-bold mb-2 md:mb-3">H?c ti?ng H�n qua K-pop</h3>
+                <p className="text-white/60 text-sm leading-relaxed max-w-md">AI ph�n t�ch l?i b�i h�t Melon Chart, tr�ch xu?t t? v?ng quan tr?ng, t?o quiz tuong t�c. H?c t? BLACKPINK, BTS, aespa...</p>
               </div>
               <button onClick={handleStart} className="flex-shrink-0 inline-flex items-center gap-2 bg-[#ec4899] hover:bg-[#db2777] text-white font-bold px-6 py-3 rounded-xl text-sm transition-all cursor-pointer whitespace-nowrap">
-                <i className="ri-music-2-line"></i>Thử Melon Chart
+                <i className="ri-music-2-line"></i>Th? Melon Chart
               </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── HOW IT WORKS ─────────────────────────────────────────────────── */}
+      {/* -- HOW IT WORKS --------------------------------------------------- */}
       <section className="py-16 md:py-24 px-4 md:px-6 bg-gray-50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-2 bg-[#f59e0b]/10 border border-[#f59e0b]/20 rounded-full px-4 py-1.5 mb-4">
               <i className="ri-route-line text-[#f59e0b] text-xs"></i>
-              <span className="text-[#f59e0b] text-xs font-semibold tracking-normal">Cách hoạt động</span>
+              <span className="text-[#f59e0b] text-xs font-semibold tracking-normal">C�ch ho?t d?ng</span>
             </div>
-            <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">4 bước đến thành công</h2>
+            <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">4 bu?c d?n th�nh c�ng</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { step: "01", title: "Test trình độ", desc: "AI đánh giá trình độ hiện tại trong 5 phút", icon: "ri-clipboard-line", color: "#22c55e" },
-              { step: "02", title: "Lộ trình cá nhân", desc: "Nhận kế hoạch học tập được tùy chỉnh cho bạn", icon: "ri-route-line", color: "#f59e0b" },
-              { step: "03", title: "Học mỗi ngày", desc: "20 phút/ngày với flashcard, quiz và tin tức thật", icon: "ri-calendar-check-line", color: "#ec4899" },
-              { step: "04", title: "Thi & Đậu", desc: "Luyện đề thật, phân tích điểm yếu, tự tin thi EPS", icon: "ri-trophy-line", color: "#f97316" },
+              { step: "01", title: "Test tr�nh d?", desc: "AI d�nh gi� tr�nh d? hi?n t?i trong 5 ph�t", icon: "ri-clipboard-line", color: "#22c55e" },
+              { step: "02", title: "L? tr�nh c� nh�n", desc: "Nh?n k? ho?ch h?c t?p du?c t�y ch?nh cho b?n", icon: "ri-route-line", color: "#f59e0b" },
+              { step: "03", title: "H?c m?i ng�y", desc: "20 ph�t/ng�y v?i flashcard, quiz v� tin t?c th?t", icon: "ri-calendar-check-line", color: "#ec4899" },
+              { step: "04", title: "Thi & �?u", desc: "Luy?n d? th?t, ph�n t�ch di?m y?u, t? tin thi EPS", icon: "ri-trophy-line", color: "#f97316" },
             ].map((step, i) => (
               <div key={step.step} className="relative bg-white rounded-2xl p-5 md:p-6 border border-gray-100 hover:border-gray-200 transition-all hover:-translate-y-1">
                 {i < 3 && <div className="hidden md:block absolute top-8 -right-2 w-4 h-px bg-gray-200 z-10" />}
@@ -382,15 +382,15 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ─────────────────────────────────────────────────── */}
+      {/* -- TESTIMONIALS --------------------------------------------------- */}
       <section className="py-16 md:py-24 px-4 md:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-2 bg-[#06b6d4]/10 border border-[#06b6d4]/20 rounded-full px-4 py-1.5 mb-4">
               <i className="ri-star-fill text-[#06b6d4] text-xs"></i>
-              <span className="text-[#06b6d4] text-xs font-semibold tracking-normal">Học viên nói gì</span>
+              <span className="text-[#06b6d4] text-xs font-semibold tracking-normal">H?c vi�n n�i g�</span>
             </div>
-            <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">Hơn 3,200 người đã đậu EPS</h2>
+            <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">Hon 3,200 ngu?i d� d?u EPS</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {TESTIMONIALS.map((t) => (
@@ -416,64 +416,64 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── PRICING ──────────────────────────────────────────────────────── */}
+      {/* -- PRICING -------------------------------------------------------- */}
       <section id="pricing" className="py-16 md:py-24 px-4 md:px-6 bg-gray-50">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-2 bg-[#22c55e]/10 border border-[#22c55e]/20 rounded-full px-4 py-1.5 mb-4">
               <i className="ri-price-tag-3-line text-[#22c55e] text-xs"></i>
-              <span className="text-[#22c55e] text-xs font-semibold tracking-normal">Bảng giá</span>
+              <span className="text-[#22c55e] text-xs font-semibold tracking-normal">B?ng gi�</span>
             </div>
-            <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">Đơn giản, minh bạch</h2>
-            <p className="text-gray-500 text-sm md:text-base">Bắt đầu miễn phí, nâng cấp khi cần.</p>
+            <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">�on gi?n, minh b?ch</h2>
+            <p className="text-gray-500 text-sm md:text-base">B?t d?u mi?n ph�, n�ng c?p khi c?n.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-7">
               <div className="flex items-center gap-2 mb-3">
                 <i className="ri-seedling-line text-[#22c55e] text-lg"></i>
-                <p className="text-gray-500 text-sm">Miễn phí</p>
+                <p className="text-gray-500 text-sm">Mi?n ph�</p>
               </div>
               <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-4xl font-black text-gray-900">0đ</span>
-                <span className="text-gray-400 text-sm">/mãi mãi</span>
+                <span className="text-4xl font-black text-gray-900">0d</span>
+                <span className="text-gray-400 text-sm">/m�i m�i</span>
               </div>
               <div className="border-t border-gray-100 my-5" />
               <ul className="space-y-3 mb-7">
-                {["Hangul + Flashcard cơ bản", "10 câu EPS/ngày", "Đọc 3 bài tin tức/ngày", "Cộng đồng học viên", "Hệ thống XP & phần thưởng"].map(f => (
+                {["Hangul + Flashcard co b?n", "10 c�u EPS/ng�y", "�?c 3 b�i tin t?c/ng�y", "C?ng d?ng h?c vi�n", "H? th?ng XP & ph?n thu?ng"].map(f => (
                   <li key={f} className="flex items-start gap-2.5 text-sm text-gray-500">
                     <i className="ri-check-line mt-0.5 flex-shrink-0 text-gray-300"></i>{f}
                   </li>
                 ))}
               </ul>
-              <button onClick={handleStart} className="w-full py-3 rounded-xl font-semibold text-sm bg-gray-100 border border-gray-200 text-gray-600 hover:bg-gray-200 transition-all whitespace-nowrap cursor-pointer">Bắt đầu miễn phí</button>
+              <button onClick={handleStart} className="w-full py-3 rounded-xl font-semibold text-sm bg-gray-100 border border-gray-200 text-gray-600 hover:bg-gray-200 transition-all whitespace-nowrap cursor-pointer">B?t d?u mi?n ph�</button>
             </div>
             <div className="relative bg-gradient-to-br from-[#f0fdf4] to-[#dcfce7] border-2 border-[#22c55e]/40 rounded-2xl p-6 md:p-7">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="bg-[#22c55e] text-white text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">Phổ biến nhất</span>
+                <span className="bg-[#22c55e] text-white text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">Ph? bi?n nh?t</span>
               </div>
               <div className="flex items-center gap-2 mb-3">
                 <i className="ri-vip-crown-line text-[#22c55e] text-lg"></i>
                 <p className="text-[#16a34a] text-sm font-semibold">VIP</p>
               </div>
               <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-4xl font-black text-gray-900">99.000đ</span>
-                <span className="text-gray-400 text-sm">/tháng</span>
+                <span className="text-4xl font-black text-gray-900">99.000d</span>
+                <span className="text-gray-400 text-sm">/th�ng</span>
               </div>
               <div className="border-t border-[#22c55e]/20 my-5" />
               <ul className="space-y-3 mb-7">
-                {["Tất cả tính năng Free", "Không giới hạn câu EPS", "Lộ trình AI cá nhân hóa", "Phân tích điểm yếu chi tiết", "Đồng bộ cloud đa thiết bị", "Ưu tiên hỗ trợ 24/7", "Huy hiệu VIP độc quyền"].map(f => (
+                {["T?t c? t�nh nang Free", "Kh�ng gi?i h?n c�u EPS", "L? tr�nh AI c� nh�n h�a", "Ph�n t�ch di?m y?u chi ti?t", "�?ng b? cloud da thi?t b?", "Uu ti�n h? tr? 24/7", "Huy hi?u VIP d?c quy?n"].map(f => (
                   <li key={f} className="flex items-start gap-2.5 text-sm text-gray-700">
                     <i className="ri-check-line mt-0.5 flex-shrink-0 text-[#22c55e]"></i>{f}
                   </li>
                 ))}
               </ul>
-              <button onClick={handleStart} className="w-full py-3 rounded-xl font-bold text-sm bg-[#22c55e] hover:bg-[#16a34a] text-white transition-all whitespace-nowrap cursor-pointer">Đăng ký VIP ngay</button>
+              <button onClick={handleStart} className="w-full py-3 rounded-xl font-bold text-sm bg-[#22c55e] hover:bg-[#16a34a] text-white transition-all whitespace-nowrap cursor-pointer">�ang k� VIP ngay</button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── FAQ ──────────────────────────────────────────────────────────── */}
+      {/* -- FAQ ------------------------------------------------------------ */}
       <section id="faq" className="py-16 md:py-24 px-4 md:px-6 bg-white">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10 md:mb-14">
@@ -481,7 +481,7 @@ export default function LandingPage() {
               <i className="ri-question-line text-[#10b981] text-xs"></i>
               <span className="text-[#10b981] text-xs font-semibold tracking-normal">FAQ</span>
             </div>
-            <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">Câu hỏi thường gặp</h2>
+            <h2 className="text-2xl md:text-5xl font-black text-gray-900 mb-3 md:mb-4">C�u h?i thu?ng g?p</h2>
           </div>
           <div className="space-y-2">
             {FAQ_ITEMS.map((item, i) => (
@@ -501,26 +501,26 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── CTA ──────────────────────────────────────────────────────────── */}
+      {/* -- CTA ------------------------------------------------------------ */}
       <section className="py-16 md:py-24 px-4 md:px-6 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <div className="relative rounded-3xl overflow-hidden border border-[#22c55e]/20">
             <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://readdy.ai/api/search-image?query=Korean%20traditional%20Gyeongbokgung%20palace%20cherry%20blossom%20spring%20beautiful%20warm%20light%20soft%20bokeh%20green%20nature%20peaceful%20serene&width=1200&height=500&seq=cta_landing_v12&orientation=landscape')" }} />
             <div className="absolute inset-0 bg-gradient-to-br from-[#052e16]/90 via-[#14532d]/80 to-[#052e16]/90" />
             <div className="relative z-10 p-8 md:p-14 text-center">
-              <p className="text-[#4ade80] text-xs font-semibold tracking-normal mb-4">Lên tàu ngay thôi!</p>
-              <h2 className="text-2xl md:text-5xl font-black text-white mb-4 leading-tight">Biến tiếng Hàn<br />thành chuyện nhỏ</h2>
-              <p className="text-white/50 text-sm md:text-base mb-8 max-w-xl mx-auto">Miễn phí hoàn toàn. Không cần thẻ tín dụng. Bắt đầu học ngay trong 2 phút.</p>
+              <p className="text-[#4ade80] text-xs font-semibold tracking-normal mb-4">L�n t�u ngay th�i!</p>
+              <h2 className="text-2xl md:text-5xl font-black text-white mb-4 leading-tight">Bi?n ti?ng H�n<br />th�nh chuy?n nh?</h2>
+              <p className="text-white/50 text-sm md:text-base mb-8 max-w-xl mx-auto">Mi?n ph� ho�n to�n. Kh�ng c?n th? t�n d?ng. B?t d?u h?c ngay trong 2 ph�t.</p>
               <button onClick={handleStart} className="inline-flex items-center gap-2 bg-[#22c55e] text-white font-bold px-8 md:px-10 py-3.5 md:py-4 rounded-xl text-sm md:text-base hover:bg-[#16a34a] transition-all hover:scale-105 whitespace-nowrap cursor-pointer">
-                Bắt đầu học miễn phí <i className="ri-arrow-right-line"></i>
+                B?t d?u h?c mi?n ph� <i className="ri-arrow-right-line"></i>
               </button>
-              <p className="text-app-text-muted text-xs mt-4">Không cần thẻ tín dụng · Miễn phí mãi mãi</p>
+              <p className="text-app-text-muted text-xs mt-4">Kh�ng c?n th? t�n d?ng � Mi?n ph� m�i m�i</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── FOOTER ───────────────────────────────────────────────────────── */}
+      {/* -- FOOTER --------------------------------------------------------- */}
       <footer className="bg-gray-900 py-10 md:py-12 px-4 md:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -529,17 +529,17 @@ export default function LandingPage() {
                 <i className="ri-translate-2 text-white text-sm"></i>
               </div>
               <div>
-                <p className="text-white font-bold text-sm">Hàn Quốc Ơi!</p>
-                <p className="text-app-text-muted text-xs">Vui là chính, giỏi là tất yếu!</p>
+                <p className="text-white font-bold text-sm">H�n Qu?c Oi!</p>
+                <p className="text-app-text-muted text-xs">Vui l� ch�nh, gi?i l� t?t y?u!</p>
               </div>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
-              {[["#features", "Tính năng"], ["#preview", "Xem thử"], ["#pricing", "Bảng giá"], ["#faq", "FAQ"]].map(([href, label]) => (
+              {[["#features", "T�nh nang"], ["#preview", "Xem th?"], ["#pricing", "B?ng gi�"], ["#faq", "FAQ"]].map(([href, label]) => (
                 <a key={href} href={href} className="text-app-text-muted hover:text-white/60 text-xs transition-colors">{label}</a>
               ))}
-              <button onClick={() => navigate("/dashboard")} className="text-app-text-muted hover:text-white/60 text-xs transition-colors cursor-pointer whitespace-nowrap">Vào app</button>
+              <button onClick={() => navigate("/dashboard")} className="text-app-text-muted hover:text-white/60 text-xs transition-colors cursor-pointer whitespace-nowrap">V�o app</button>
             </div>
-            <p className="text-white/15 text-xs">© 2026 Hàn Quốc Ơi! All rights reserved.</p>
+            <p className="text-white/15 text-xs">� 2026 H�n Qu?c Oi! All rights reserved.</p>
           </div>
         </div>
       </footer>

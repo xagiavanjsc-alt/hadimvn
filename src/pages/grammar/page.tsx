@@ -1,11 +1,11 @@
-﻿import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 import { grammarPatterns, GRAMMAR_CATEGORIES, type GrammarPattern, type GrammarExercise } from "@/mocks/grammarData";
 
-// ─── Exercise Component ───────────────────────────────────────────────────
+// --- Exercise Component ---------------------------------------------------
 function ExerciseItem({
   ex,
   onAnswer,
@@ -74,7 +74,7 @@ function ExerciseItem({
             onChange={e => setFillValue(e.target.value)}
             onKeyDown={e => e.key === "Enter" && handleFillSubmit()}
             disabled={answered !== null}
-            placeholder="Điền vào chỗ trống..."
+            placeholder="�i?n v�o ch? tr?ng..."
             className={`flex-1 bg-app-card/50 border rounded-lg px-3 py-2 text-sm outline-none ${answered === null ? "border-app-border text-white/70" : isCorrect ? "border-emerald-500/40 text-app-accent-success" : "border-red-500/40 text-red-400"}`}
           />
           {answered === null && (
@@ -83,13 +83,13 @@ function ExerciseItem({
               disabled={!fillValue.trim()}
               className="px-4 py-2 rounded-lg bg-app-accent-primary text-app-bg text-xs font-bold disabled:opacity-40 cursor-pointer whitespace-nowrap"
             >
-              Kiểm tra
+              Ki?m tra
             </button>
           )}
           {answered !== null && (
             <div className={`flex items-center gap-1 text-xs font-bold ${isCorrect ? "text-app-accent-success" : "text-red-400"}`}>
               <i className={isCorrect ? "ri-checkbox-circle-fill" : "ri-close-circle-fill"}></i>
-              {isCorrect ? "Đúng!" : `Đáp án: ${ex.answer}`}
+              {isCorrect ? "��ng!" : `��p �n: ${ex.answer}`}
             </div>
           )}
         </div>
@@ -105,7 +105,7 @@ function ExerciseItem({
   );
 }
 
-// ─── Roadmap Panel ────────────────────────────────────────────────────────
+// --- Roadmap Panel --------------------------------------------------------
 function RoadmapPanel({
   exerciseAnswers,
   onSelectPattern,
@@ -116,7 +116,7 @@ function RoadmapPanel({
   const LEVELS = ["A1", "A2", "B1", "B2"] as const;
   const levelColors: Record<string, string> = { A1: "#34d399", A2: "app-accent-primary", B1: "#fb923c", B2: "#f87171" };
 
-  // Tính % hoàn thành mỗi level
+  // T�nh % ho�n th�nh m?i level
   const levelStats = LEVELS.map(lv => {
     const patterns = grammarPatterns.filter(p => p.level === lv);
     const totalEx = patterns.reduce((s, p) => s + p.exercises.length, 0);
@@ -126,11 +126,11 @@ function RoadmapPanel({
     return { lv, patterns, totalEx, doneEx, correctEx, pct };
   });
 
-  // Xác định level hiện tại (level đầu tiên chưa hoàn thành 80%)
+  // X�c d?nh level hi?n t?i (level d?u ti�n chua ho�n th�nh 80%)
   const currentLevelIdx = levelStats.findIndex(s => s.pct < 80);
   const currentLevel = currentLevelIdx >= 0 ? LEVELS[currentLevelIdx] : "B2";
 
-  // Gợi ý mẫu câu tiếp theo: chưa làm bài tập nào, ưu tiên level hiện tại
+  // G?i � m?u c�u ti?p theo: chua l�m b�i t?p n�o, uu ti�n level hi?n t?i
   const suggestions = useMemo(() => {
     const currentPatterns = grammarPatterns.filter(p => p.level === currentLevel);
     const notStarted = currentPatterns.filter(p =>
@@ -155,12 +155,12 @@ function RoadmapPanel({
           <i className="ri-route-line text-app-accent-primary text-lg"></i>
         </div>
         <div>
-          <p className="text-white font-semibold text-sm">Học theo lộ trình</p>
-          <p className="text-app-text-muted text-xs">Gợi ý dựa trên tiến độ của bạn</p>
+          <p className="text-white font-semibold text-sm">H?c theo l? tr�nh</p>
+          <p className="text-app-text-muted text-xs">G?i � d?a tr�n ti?n d? c?a b?n</p>
         </div>
         <div className="ml-auto flex items-center gap-2 bg-app-card/50 rounded-xl px-3 py-1.5">
           <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: levelColors[currentLevel] }}></div>
-          <span className="text-xs font-bold" style={{ color: levelColors[currentLevel] }}>Đang học: {currentLevel}</span>
+          <span className="text-xs font-bold" style={{ color: levelColors[currentLevel] }}>�ang h?c: {currentLevel}</span>
         </div>
       </div>
 
@@ -175,8 +175,8 @@ function RoadmapPanel({
             <div className="bg-app-card/50 rounded-full h-1.5 overflow-hidden mb-1.5">
               <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, backgroundColor: levelColors[lv] }}></div>
             </div>
-            <p className="text-app-text-muted text-[9px]">{doneEx}/{totalEx} bài tập</p>
-            {pct >= 80 && <p className="text-app-accent-success text-[9px] mt-0.5">✓ Hoàn thành</p>}
+            <p className="text-app-text-muted text-[9px]">{doneEx}/{totalEx} b�i t?p</p>
+            {pct >= 80 && <p className="text-app-accent-success text-[9px] mt-0.5">? Ho�n th�nh</p>}
           </div>
         ))}
       </div>
@@ -187,7 +187,7 @@ function RoadmapPanel({
           {suggestions.needReview.length > 0 && (
             <div>
               <p className="text-red-400/70 text-[10px] tracking-normal mb-2 flex items-center gap-1.5">
-                <i className="ri-refresh-line"></i>Cần ôn lại ({suggestions.needReview.length})
+                <i className="ri-refresh-line"></i>C?n �n l?i ({suggestions.needReview.length})
               </p>
               <div className="flex gap-2 flex-wrap">
                 {suggestions.needReview.map(p => (
@@ -204,7 +204,7 @@ function RoadmapPanel({
           {suggestions.inProgress.length > 0 && (
             <div>
               <p className="text-app-accent-primary/70 text-[10px] tracking-normal mb-2 flex items-center gap-1.5">
-                <i className="ri-loader-line"></i>Đang học dở ({suggestions.inProgress.length})
+                <i className="ri-loader-line"></i>�ang h?c d? ({suggestions.inProgress.length})
               </p>
               <div className="flex gap-2 flex-wrap">
                 {suggestions.inProgress.map(p => (
@@ -221,7 +221,7 @@ function RoadmapPanel({
           {suggestions.notStarted.length > 0 && (
             <div>
               <p className="text-app-text-muted text-[10px] tracking-normal mb-2 flex items-center gap-1.5">
-                <i className="ri-add-circle-line"></i>Học tiếp theo ({suggestions.notStarted.length})
+                <i className="ri-add-circle-line"></i>H?c ti?p theo ({suggestions.notStarted.length})
               </p>
               <div className="flex gap-2 flex-wrap">
                 {suggestions.notStarted.map(p => (
@@ -239,14 +239,14 @@ function RoadmapPanel({
       ) : (
         <div className="text-center py-4 bg-emerald-500/5 border border-emerald-500/15 rounded-xl">
           <i className="ri-trophy-fill text-app-accent-success text-xl mb-1 block"></i>
-          <p className="text-app-accent-success text-sm font-semibold">Xuất sắc! Bạn đã hoàn thành tất cả mẫu câu!</p>
+          <p className="text-app-accent-success text-sm font-semibold">Xu?t s?c! B?n d� ho�n th�nh t?t c? m?u c�u!</p>
         </div>
       )}
     </div>
   );
 }
 
-// ─── Pattern Card ─────────────────────────────────────────────────────────
+// --- Pattern Card ---------------------------------------------------------
 function PatternCard({
   pattern,
   isExpanded,
@@ -285,7 +285,7 @@ function PatternCard({
         </div>
         <div className="flex items-center gap-3 flex-shrink-0">
           {doneCount > 0 && (
-            <span className="text-[10px] text-app-accent-success/70">{doneCount}/{pattern.exercises.length} bài tập</span>
+            <span className="text-[10px] text-app-accent-success/70">{doneCount}/{pattern.exercises.length} b�i t?p</span>
           )}
           <i className={`ri-arrow-down-s-line text-app-text-muted text-lg transition-transform ${isExpanded ? "rotate-180" : ""}`}></i>
         </div>
@@ -301,7 +301,7 @@ function PatternCard({
 
           {/* Examples */}
           <div className="mb-5">
-            <p className="text-app-text-muted text-[10px] tracking-normal mb-2">Ví dụ</p>
+            <p className="text-app-text-muted text-[10px] tracking-normal mb-2">V� d?</p>
             <div className="space-y-2">
               {pattern.examples.map((ex, i) => (
                 <div key={i} className="flex items-start gap-3">
@@ -317,7 +317,7 @@ function PatternCard({
 
           {/* Exercises */}
           <div>
-            <p className="text-app-text-muted text-[10px] tracking-normal mb-3">Bài tập luyện tập</p>
+            <p className="text-app-text-muted text-[10px] tracking-normal mb-3">B�i t?p luy?n t?p</p>
             <div className="space-y-3">
               {pattern.exercises.map(ex => (
                 <ExerciseItem
@@ -335,7 +335,7 @@ function PatternCard({
   );
 }
 
-// ─── Quick Search Dropdown ───────────────────────────────────────────────────
+// --- Quick Search Dropdown ---------------------------------------------------
 function QuickSearchDropdown({
   query,
   onSelect,
@@ -365,7 +365,7 @@ function QuickSearchDropdown({
   return (
     <div className="absolute top-full left-0 right-0 mt-1.5 bg-[#1a1d27] border border-app-border rounded-xl shadow-2xl z-50 overflow-hidden max-h-80 overflow-y-auto">
       <div className="px-3 py-2 border-b border-app-border">
-        <p className="text-app-text-muted text-[10px] tracking-normal">{suggestions.length} mẫu câu phù hợp</p>
+        <p className="text-app-text-muted text-[10px] tracking-normal">{suggestions.length} m?u c�u ph� h?p</p>
       </div>
       {suggestions.map(p => {
         const matchedEx = p.examples.find(ex =>
@@ -384,7 +384,7 @@ function QuickSearchDropdown({
               </div>
               <p className="text-white/45 text-xs truncate">{p.meaning}</p>
               {matchedEx && (
-                <p className="text-app-text-muted text-[10px] truncate mt-0.5 italic">{matchedEx.korean} — {matchedEx.vietnamese}</p>
+                <p className="text-app-text-muted text-[10px] truncate mt-0.5 italic">{matchedEx.korean} � {matchedEx.vietnamese}</p>
               )}
             </div>
             <i className="ri-arrow-right-line text-app-text-muted text-xs flex-shrink-0 mt-1" />
@@ -395,7 +395,7 @@ function QuickSearchDropdown({
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function GrammarPage() {
   const { user } = useAuth();
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -466,23 +466,23 @@ export default function GrammarPage() {
 
   return (
     <DashboardLayout
-      title="Ngữ pháp tiếng Hàn"
-      subtitle="Mẫu câu từ cơ bản đến nâng cao — giải thích rõ ràng, luyện tập ngay"
+      title="Ng? ph�p ti?ng H�n"
+      subtitle="M?u c�u t? co b?n d?n n�ng cao � gi?i th�ch r� r�ng, luy?n t?p ngay"
       actions={
         <div className="flex items-center gap-3">
           {user && syncStatus !== "idle" && (
             <span className={`text-xs flex items-center gap-1 ${syncStatus === "saving" ? "text-app-text-secondary" : "text-app-accent-success"}`}>
               <i className={`${syncStatus === "saving" ? "ri-loader-4-line animate-spin" : "ri-cloud-line"} text-sm`}></i>
-              {syncStatus === "saving" ? "Đang lưu..." : "Đã lưu cloud"}
+              {syncStatus === "saving" ? "�ang luu..." : "�� luu cloud"}
             </span>
           )}
-          {!user && <span className="text-app-text-muted text-xs"><i className="ri-cloud-off-line mr-1"></i>Đăng nhập để lưu tiến độ</span>}
+          {!user && <span className="text-app-text-muted text-xs"><i className="ri-cloud-off-line mr-1"></i>�ang nh?p d? luu ti?n d?</span>}
           <button
             onClick={() => setShowRoadmap(r => !r)}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${showRoadmap ? "bg-app-accent-primary/10 border-app-accent-primary/25 text-app-accent-primary" : "bg-app-card/50 border-app-border text-app-text-secondary hover:text-white/60"}`}
           >
             <i className="ri-route-line"></i>
-            {showRoadmap ? "Ẩn lộ trình" : "Học theo lộ trình"}
+            {showRoadmap ? "?n l? tr�nh" : "H?c theo l? tr�nh"}
           </button>
         </div>
       }
@@ -495,10 +495,10 @@ export default function GrammarPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Mẫu câu", value: grammarPatterns.length, icon: "ri-book-open-line", color: "app-accent-primary" },
-          { label: "Bài tập", value: totalExercises, icon: "ri-pencil-line", color: "#34d399" },
-          { label: "Đã làm", value: doneExercises, icon: "ri-checkbox-circle-line", color: "#a78bfa" },
-          { label: "Làm đúng", value: correctExercises, icon: "ri-trophy-line", color: "#fb923c" },
+          { label: "M?u c�u", value: grammarPatterns.length, icon: "ri-book-open-line", color: "app-accent-primary" },
+          { label: "B�i t?p", value: totalExercises, icon: "ri-pencil-line", color: "#34d399" },
+          { label: "�� l�m", value: doneExercises, icon: "ri-checkbox-circle-line", color: "#a78bfa" },
+          { label: "L�m d�ng", value: correctExercises, icon: "ri-trophy-line", color: "#fb923c" },
         ].map(stat => (
           <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
@@ -515,13 +515,13 @@ export default function GrammarPage() {
       {/* Filters */}
       <div className="flex items-center gap-3 mb-5 flex-wrap">
         <div className="flex items-center bg-app-card/50 rounded-xl p-1">
-          <button onClick={() => setSelectedLevel("all")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>Tất cả</button>
+          <button onClick={() => setSelectedLevel("all")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>T?t c?</button>
           {levels.map(lv => (
             <button key={lv} onClick={() => setSelectedLevel(lv)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === lv ? "text-app-bg font-bold" : "text-app-text-secondary hover:text-white/60"}`} style={selectedLevel === lv ? { backgroundColor: levelColors[lv] } : {}}>{lv}</button>
           ))}
         </div>
         <div className="flex items-center bg-app-card/50 rounded-xl p-1 flex-wrap gap-0.5">
-          <button onClick={() => setSelectedCategory("all")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedCategory === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>Tất cả</button>
+          <button onClick={() => setSelectedCategory("all")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedCategory === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>T?t c?</button>
           {GRAMMAR_CATEGORIES.map(cat => (
             <button key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedCategory === cat.id ? "text-app-bg" : "text-app-text-secondary hover:text-white/60"}`} style={selectedCategory === cat.id ? { backgroundColor: cat.color } : {}}>{cat.label}</button>
           ))}
@@ -530,7 +530,7 @@ export default function GrammarPage() {
           <i className="ri-search-line text-app-text-muted text-sm flex-shrink-0"></i>
           <input
             type="text"
-            placeholder="Tìm mẫu câu tiếng Hàn hoặc tiếng Việt..."
+            placeholder="T�m m?u c�u ti?ng H�n ho?c ti?ng Vi?t..."
             value={searchQuery}
             onChange={e => { setSearchQuery(e.target.value); setShowSearchDropdown(true); }}
             onFocus={() => setShowSearchDropdown(true)}
@@ -550,7 +550,7 @@ export default function GrammarPage() {
             />
           )}
         </div>
-        <p className="text-app-text-muted text-xs whitespace-nowrap">{filteredPatterns.length} mẫu câu</p>
+        <p className="text-app-text-muted text-xs whitespace-nowrap">{filteredPatterns.length} m?u c�u</p>
       </div>
 
       {/* Pattern list */}
@@ -569,7 +569,7 @@ export default function GrammarPage() {
         {filteredPatterns.length === 0 && (
           <div className="text-center py-16 bg-app-bg border border-app-border rounded-2xl">
             <i className="ri-search-line text-app-text-muted text-3xl mb-3 block"></i>
-            <p className="text-app-text-muted text-sm">Không tìm thấy mẫu câu nào</p>
+            <p className="text-app-text-muted text-sm">Kh�ng t�m th?y m?u c�u n�o</p>
           </div>
         )}
       </div>

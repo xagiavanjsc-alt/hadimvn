@@ -1,19 +1,19 @@
-﻿import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { supabase } from "@/lib/supabase";
 
-// ─── Export helpers ───────────────────────────────────────────────────────────
+// --- Export helpers -----------------------------------------------------------
 function exportToCSV(transactions: VipTransaction[]) {
-  const headers = ["ID", "Thành viên", "Loại hành động", "Loại VIP", "Số tiền (VNĐ)", "Admin thực hiện", "Ghi chú", "Ngày hết hạn VIP", "Thời gian"];
+  const headers = ["ID", "Th�nh vi�n", "Lo?i h�nh d?ng", "Lo?i VIP", "S? ti?n (VN�)", "Admin th?c hi?n", "Ghi ch�", "Ng�y h?t h?n VIP", "Th?i gian"];
   const rows = transactions.map(tx => [
     tx.id,
     tx.display_name,
     ACTION_LABELS[tx.action_type]?.label || tx.action_type,
-    tx.vip_type ? VIP_TYPE_LABELS[tx.vip_type]?.label || tx.vip_type : "—",
+    tx.vip_type ? VIP_TYPE_LABELS[tx.vip_type]?.label || tx.vip_type : "�",
     tx.amount,
     tx.actor_name,
     tx.note,
-    tx.vip_expires_at ? new Date(tx.vip_expires_at).toLocaleDateString("vi-VN") : "—",
+    tx.vip_expires_at ? new Date(tx.vip_expires_at).toLocaleDateString("vi-VN") : "�",
     new Date(tx.created_at).toLocaleString("vi-VN"),
   ]);
   const csvContent = [headers, ...rows]
@@ -31,16 +31,16 @@ function exportToCSV(transactions: VipTransaction[]) {
 
 function exportToExcel(transactions: VipTransaction[]) {
   // Build HTML table that Excel can open
-  const headers = ["ID", "Thành viên", "Loại hành động", "Loại VIP", "Số tiền (VNĐ)", "Admin thực hiện", "Ghi chú", "Ngày hết hạn VIP", "Thời gian"];
+  const headers = ["ID", "Th�nh vi�n", "Lo?i h�nh d?ng", "Lo?i VIP", "S? ti?n (VN�)", "Admin th?c hi?n", "Ghi ch�", "Ng�y h?t h?n VIP", "Th?i gian"];
   const rows = transactions.map(tx => [
     tx.id,
     tx.display_name,
     ACTION_LABELS[tx.action_type]?.label || tx.action_type,
-    tx.vip_type ? VIP_TYPE_LABELS[tx.vip_type]?.label || tx.vip_type : "—",
+    tx.vip_type ? VIP_TYPE_LABELS[tx.vip_type]?.label || tx.vip_type : "�",
     tx.amount,
     tx.actor_name,
     tx.note,
-    tx.vip_expires_at ? new Date(tx.vip_expires_at).toLocaleDateString("vi-VN") : "—",
+    tx.vip_expires_at ? new Date(tx.vip_expires_at).toLocaleDateString("vi-VN") : "�",
     new Date(tx.created_at).toLocaleString("vi-VN"),
   ]);
   const tableHtml = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"><style>td{mso-number-format:"@";}</style></head><body><table><thead><tr>${headers.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("")}</tbody></table></body></html>`;
@@ -53,7 +53,7 @@ function exportToExcel(transactions: VipTransaction[]) {
   URL.revokeObjectURL(url);
 }
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// --- Types --------------------------------------------------------------------
 interface VipTransaction {
   id: string;
   user_id: string;
@@ -82,22 +82,22 @@ interface UserProfile {
 }
 
 function formatVND(n: number) {
-  return new Intl.NumberFormat("vi-VN").format(Math.round(n)) + "đ";
+  return new Intl.NumberFormat("vi-VN").format(Math.round(n)) + "d";
 }
 
 const ACTION_LABELS: Record<string, { label: string; color: string; icon: string }> = {
-  grant_vip: { label: "Cấp VIP", color: "#34d399", icon: "ri-vip-crown-line" },
-  revoke_vip: { label: "Thu hồi VIP", color: "#f87171", icon: "ri-vip-crown-2-line" },
-  auto_renew: { label: "Tự động gia hạn", color: "#a78bfa", icon: "ri-refresh-line" },
-  expire: { label: "Hết hạn", color: "#6b7280", icon: "ri-time-line" },
+  grant_vip: { label: "C?p VIP", color: "#34d399", icon: "ri-vip-crown-line" },
+  revoke_vip: { label: "Thu h?i VIP", color: "#f87171", icon: "ri-vip-crown-2-line" },
+  auto_renew: { label: "T? d?ng gia h?n", color: "#a78bfa", icon: "ri-refresh-line" },
+  expire: { label: "H?t h?n", color: "#6b7280", icon: "ri-time-line" },
 };
 
 const VIP_TYPE_LABELS: Record<string, { label: string; price: number; color: string }> = {
-  month: { label: "VIP Tháng", price: 79000, color: "#34d399" },
-  year: { label: "VIP Năm", price: 708000, color: "app-accent-primary" },
+  month: { label: "VIP Th�ng", price: 79000, color: "#34d399" },
+  year: { label: "VIP Nam", price: 708000, color: "app-accent-primary" },
 };
 
-// ─── Transaction Row ──────────────────────────────────────────────────────────
+// --- Transaction Row ----------------------------------------------------------
 function TransactionRow({ tx, onViewUser }: { tx: VipTransaction; onViewUser: (id: string) => void }) {
   const action = ACTION_LABELS[tx.action_type] || ACTION_LABELS.grant_vip;
   const vipType = tx.vip_type ? VIP_TYPE_LABELS[tx.vip_type] : null;
@@ -148,7 +148,7 @@ function TransactionRow({ tx, onViewUser }: { tx: VipTransaction; onViewUser: (i
           {tx.vip_expires_at && (
             <span className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>
               <i className="ri-calendar-line mr-1"></i>
-              Hết hạn: {new Date(tx.vip_expires_at).toLocaleDateString("vi-VN")}
+              H?t h?n: {new Date(tx.vip_expires_at).toLocaleDateString("vi-VN")}
             </span>
           )}
           {tx.note && (
@@ -170,7 +170,7 @@ function TransactionRow({ tx, onViewUser }: { tx: VipTransaction; onViewUser: (i
             {formatVND(tx.amount)}
           </p>
         ) : (
-          <p className="text-sm font-semibold" style={{ color: "var(--admin-text-faint)" }}>—</p>
+          <p className="text-sm font-semibold" style={{ color: "var(--admin-text-faint)" }}>�</p>
         )}
         <p className="text-[10px] mt-0.5" style={{ color: "var(--admin-text-faint)" }}>
           {new Date(tx.created_at).toLocaleString("vi-VN", {
@@ -183,7 +183,7 @@ function TransactionRow({ tx, onViewUser }: { tx: VipTransaction; onViewUser: (i
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function AdminVipTransactionsPage() {
   const [users, setUsers] = useState<UserProfile[]>([]);
   const [loading, setLoading] = useState(true);
@@ -269,7 +269,7 @@ export default function AdminVipTransactionsPage() {
           vip_type: vipType,
           amount: vipType === "year" ? 708000 : 79000,
           actor_name: "Admin",
-          note: "Dữ liệu từ hồ sơ người dùng",
+          note: "D? li?u t? h? so ngu?i d�ng",
           created_at: u.created_at,
           vip_expires_at: u.vip_expires_at,
         };
@@ -339,8 +339,8 @@ export default function AdminVipTransactionsPage() {
 
   return (
     <AdminLayout
-      title="Lịch sử giao dịch VIP"
-      subtitle="Theo dõi chi tiết từng lần cấp, gia hạn, thu hồi VIP"
+      title="L?ch s? giao d?ch VIP"
+      subtitle="Theo d�i chi ti?t t?ng l?n c?p, gia h?n, thu h?i VIP"
       actions={
         <div className="flex items-center gap-2">
           {/* Export dropdown */}
@@ -351,7 +351,7 @@ export default function AdminVipTransactionsPage() {
               style={{ backgroundColor: "rgba(52,211,153,0.10)", color: "#34d399", border: "1px solid rgba(52,211,153,0.20)" }}
             >
               <i className="ri-download-2-line"></i>
-              Xuất báo cáo
+              Xu?t b�o c�o
               <i className="ri-arrow-down-s-line"></i>
             </button>
             {showExportMenu && (
@@ -367,8 +367,8 @@ export default function AdminVipTransactionsPage() {
                     style={{ color: "var(--admin-text-muted)" }}
                   >
                     <i className="ri-file-text-line text-app-accent-success"></i>
-                    Xuất CSV
-                    <span className="ml-auto text-[10px]" style={{ color: "var(--admin-text-faint)" }}>{filtered.length} dòng</span>
+                    Xu?t CSV
+                    <span className="ml-auto text-[10px]" style={{ color: "var(--admin-text-faint)" }}>{filtered.length} d�ng</span>
                   </button>
                   <button
                     onClick={() => { exportToExcel(filtered); setShowExportMenu(false); }}
@@ -376,8 +376,8 @@ export default function AdminVipTransactionsPage() {
                     style={{ color: "var(--admin-text-muted)", borderColor: "var(--admin-border)" }}
                   >
                     <i className="ri-file-excel-2-line text-app-accent-success"></i>
-                    Xuất Excel (.xls)
-                    <span className="ml-auto text-[10px]" style={{ color: "var(--admin-text-faint)" }}>{filtered.length} dòng</span>
+                    Xu?t Excel (.xls)
+                    <span className="ml-auto text-[10px]" style={{ color: "var(--admin-text-faint)" }}>{filtered.length} d�ng</span>
                   </button>
                 </div>
               </>
@@ -398,7 +398,7 @@ export default function AdminVipTransactionsPage() {
             style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)", border: "1px solid var(--admin-border)" }}
           >
             <i className="ri-refresh-line"></i>
-            Làm mới
+            L�m m?i
           </button>
         </div>
       }
@@ -406,11 +406,11 @@ export default function AdminVipTransactionsPage() {
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
         {[
-          { label: "Tổng doanh thu VIP", value: formatVND(totalRevenue), icon: "ri-money-dollar-circle-line", color: "#34d399" },
-          { label: "Tổng giao dịch", value: transactions.length, icon: "ri-exchange-line", color: "app-accent-primary" },
-          { label: "Lần cấp VIP", value: totalGrants, icon: "ri-vip-crown-line", color: "#a78bfa" },
-          { label: "Tự động gia hạn", value: totalAutoRenew, icon: "ri-refresh-line", color: "#fb923c" },
-          { label: "VIP đang hoạt động", value: vipUsers, icon: "ri-user-star-line", color: "#f87171" },
+          { label: "T?ng doanh thu VIP", value: formatVND(totalRevenue), icon: "ri-money-dollar-circle-line", color: "#34d399" },
+          { label: "T?ng giao d?ch", value: transactions.length, icon: "ri-exchange-line", color: "app-accent-primary" },
+          { label: "L?n c?p VIP", value: totalGrants, icon: "ri-vip-crown-line", color: "#a78bfa" },
+          { label: "T? d?ng gia h?n", value: totalAutoRenew, icon: "ri-refresh-line", color: "#fb923c" },
+          { label: "VIP dang ho?t d?ng", value: vipUsers, icon: "ri-user-star-line", color: "#f87171" },
         ].map(s => (
           <div
             key={s.label}
@@ -432,8 +432,8 @@ export default function AdminVipTransactionsPage() {
       <div className="rounded-2xl border p-5 mb-6" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Doanh thu VIP theo tháng</p>
-            <p className="text-xs mt-0.5" style={{ color: "var(--admin-text-muted)" }}>6 tháng gần nhất</p>
+            <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Doanh thu VIP theo th�ng</p>
+            <p className="text-xs mt-0.5" style={{ color: "var(--admin-text-muted)" }}>6 th�ng g?n nh?t</p>
           </div>
           <span className="text-sm font-black" style={{ color: "#34d399" }}>{formatVND(totalRevenue)}</span>
         </div>
@@ -470,10 +470,10 @@ export default function AdminVipTransactionsPage() {
         {/* Action type filter */}
         <div className="flex items-center gap-1 p-1 rounded-xl" style={{ backgroundColor: "var(--admin-hover)" }}>
           {([
-            { val: "all", label: "Tất cả" },
-            { val: "grant_vip", label: "Cấp VIP" },
-            { val: "revoke_vip", label: "Thu hồi" },
-            { val: "auto_renew", label: "Tự động gia hạn" },
+            { val: "all", label: "T?t c?" },
+            { val: "grant_vip", label: "C?p VIP" },
+            { val: "revoke_vip", label: "Thu h?i" },
+            { val: "auto_renew", label: "T? d?ng gia h?n" },
           ] as const).map(f => (
             <button
               key={f.val}
@@ -493,9 +493,9 @@ export default function AdminVipTransactionsPage() {
         {/* VIP type filter */}
         <div className="flex items-center gap-1 p-1 rounded-xl" style={{ backgroundColor: "var(--admin-hover)" }}>
           {([
-            { val: "all", label: "Tất cả loại" },
-            { val: "month", label: "VIP Tháng" },
-            { val: "year", label: "VIP Năm" },
+            { val: "all", label: "T?t c? lo?i" },
+            { val: "month", label: "VIP Th�ng" },
+            { val: "year", label: "VIP Nam" },
           ] as const).map(f => (
             <button
               key={f.val}
@@ -522,7 +522,7 @@ export default function AdminVipTransactionsPage() {
             type="text"
             value={searchQuery}
             onChange={e => { setSearchQuery(e.target.value); setPage(1); }}
-            placeholder="Tìm theo tên, admin..."
+            placeholder="T�m theo t�n, admin..."
             className="flex-1 bg-transparent text-xs outline-none"
             style={{ color: "var(--admin-text)" }}
           />
@@ -534,7 +534,7 @@ export default function AdminVipTransactionsPage() {
         </div>
 
         <span className="text-xs flex-shrink-0" style={{ color: "var(--admin-text-faint)" }}>
-          {filtered.length} giao dịch
+          {filtered.length} giao d?ch
         </span>
       </div>
 
@@ -547,7 +547,7 @@ export default function AdminVipTransactionsPage() {
         ) : filtered.length === 0 ? (
           <div className="text-center py-16">
             <i className="ri-exchange-line text-4xl mb-3 block" style={{ color: "var(--admin-text-faint)" }}></i>
-            <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Không có giao dịch nào</p>
+            <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Kh�ng c� giao d?ch n�o</p>
           </div>
         ) : (
           <>
@@ -556,9 +556,9 @@ export default function AdminVipTransactionsPage() {
               className="grid grid-cols-[auto_1fr_auto] items-center gap-4 px-5 py-3 border-b"
               style={{ borderColor: "var(--admin-border)", backgroundColor: "var(--admin-card2)" }}
             >
-              <span className="text-[10px] tracking-normal font-semibold w-9" style={{ color: "var(--admin-text-faint)" }}>Loại</span>
-              <span className="text-[10px] tracking-normal font-semibold" style={{ color: "var(--admin-text-faint)" }}>Thành viên & Chi tiết</span>
-              <span className="text-[10px] tracking-normal font-semibold text-right" style={{ color: "var(--admin-text-faint)" }}>Số tiền / Thời gian</span>
+              <span className="text-[10px] tracking-normal font-semibold w-9" style={{ color: "var(--admin-text-faint)" }}>Lo?i</span>
+              <span className="text-[10px] tracking-normal font-semibold" style={{ color: "var(--admin-text-faint)" }}>Th�nh vi�n & Chi ti?t</span>
+              <span className="text-[10px] tracking-normal font-semibold text-right" style={{ color: "var(--admin-text-faint)" }}>S? ti?n / Th?i gian</span>
             </div>
 
             {paginated.map(tx => (
@@ -572,7 +572,7 @@ export default function AdminVipTransactionsPage() {
                   className="w-full py-2.5 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap transition-colors"
                   style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)", border: "1px solid var(--admin-border)" }}
                 >
-                  Xem thêm ({filtered.length - paginated.length} giao dịch còn lại)
+                  Xem th�m ({filtered.length - paginated.length} giao d?ch c�n l?i)
                 </button>
               </div>
             )}
@@ -588,7 +588,7 @@ export default function AdminVipTransactionsPage() {
             style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border2)" }}
           >
             <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: "var(--admin-border)" }}>
-              <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>Chi tiết thành viên</p>
+              <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>Chi ti?t th�nh vi�n</p>
               <button onClick={() => setSelectedUser(null)} className="cursor-pointer" style={{ color: "var(--admin-text-faint)" }}>
                 <i className="ri-close-line"></i>
               </button>
@@ -604,11 +604,11 @@ export default function AdminVipTransactionsPage() {
                 </div>
               </div>
               {[
-                { label: "Trạng thái VIP", value: selectedUser.is_vip ? "Đang hoạt động" : "Không có VIP", color: selectedUser.is_vip ? "#34d399" : "#6b7280" },
-                { label: "Hết hạn VIP", value: selectedUser.vip_expires_at ? new Date(selectedUser.vip_expires_at).toLocaleDateString("vi-VN") : "—", color: "var(--admin-text)" },
-                { label: "Ngày đăng ký", value: new Date(selectedUser.created_at).toLocaleDateString("vi-VN"), color: "var(--admin-text)" },
+                { label: "Tr?ng th�i VIP", value: selectedUser.is_vip ? "�ang ho?t d?ng" : "Kh�ng c� VIP", color: selectedUser.is_vip ? "#34d399" : "#6b7280" },
+                { label: "H?t h?n VIP", value: selectedUser.vip_expires_at ? new Date(selectedUser.vip_expires_at).toLocaleDateString("vi-VN") : "�", color: "var(--admin-text)" },
+                { label: "Ng�y dang k�", value: new Date(selectedUser.created_at).toLocaleDateString("vi-VN"), color: "var(--admin-text)" },
                 {
-                  label: "Số giao dịch",
+                  label: "S? giao d?ch",
                   value: transactions.filter(t => t.user_id === selectedUser.id).length,
                   color: "app-accent-primary",
                 },
@@ -625,7 +625,7 @@ export default function AdminVipTransactionsPage() {
                 className="w-full py-2.5 rounded-xl text-sm font-semibold cursor-pointer whitespace-nowrap"
                 style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)", border: "1px solid var(--admin-border)" }}
               >
-                Đóng
+                ��ng
               </button>
             </div>
           </div>

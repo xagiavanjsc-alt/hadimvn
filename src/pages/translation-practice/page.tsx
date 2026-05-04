@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface TranslationItem {
@@ -14,27 +14,27 @@ interface TranslationItem {
 }
 
 const items: TranslationItem[] = [
-  // A1 KR→VI
-  { id: "t1", level: "A1", levelColor: "#34d399", topic: "Chào hỏi", type: "kr-vi", source: "안녕하세요. 저는 학생입니다.", answer: "Xin chào. Tôi là học sinh.", hints: ["안녕하세요 = Xin chào", "저는 = Tôi là", "학생 = học sinh"] },
-  { id: "t2", level: "A1", levelColor: "#34d399", topic: "Gia đình", type: "kr-vi", source: "우리 가족은 네 명이에요.", answer: "Gia đình tôi có bốn người.", hints: ["우리 = của tôi/chúng tôi", "가족 = gia đình", "네 명 = bốn người"] },
-  { id: "t3", level: "A1", levelColor: "#34d399", topic: "Sở thích", type: "vi-kr", source: "Tôi thích ăn cơm Hàn Quốc.", answer: "저는 한국 밥을 좋아해요.", hints: ["좋아해요 = thích", "한국 = Hàn Quốc", "밥 = cơm"] },
+  // A1 KR?VI
+  { id: "t1", level: "A1", levelColor: "#34d399", topic: "Ch�o h?i", type: "kr-vi", source: "?????. ?? ?????.", answer: "Xin ch�o. T�i l� h?c sinh.", hints: ["????? = Xin ch�o", "?? = T�i l�", "?? = h?c sinh"] },
+  { id: "t2", level: "A1", levelColor: "#34d399", topic: "Gia d�nh", type: "kr-vi", source: "?? ??? ? ????.", answer: "Gia d�nh t�i c� b?n ngu?i.", hints: ["?? = c?a t�i/ch�ng t�i", "?? = gia d�nh", "? ? = b?n ngu?i"] },
+  { id: "t3", level: "A1", levelColor: "#34d399", topic: "S? th�ch", type: "vi-kr", source: "T�i th�ch an com H�n Qu?c.", answer: "?? ?? ?? ????.", hints: ["???? = th�ch", "?? = H�n Qu?c", "? = com"] },
   // A2
-  { id: "t4", level: "A2", levelColor: "#6ee7b7", topic: "Thời tiết", type: "kr-vi", source: "오늘 날씨가 흐리고 비가 올 것 같아요.", answer: "Hôm nay trời âm u và có vẻ sẽ mưa.", hints: ["흐리다 = âm u", "비가 오다 = trời mưa", "-(으)ㄹ 것 같다 = có vẻ sẽ"] },
-  { id: "t5", level: "A2", levelColor: "#6ee7b7", topic: "Mua sắm", type: "vi-kr", source: "Cái áo này bao nhiêu tiền? Có màu khác không?", answer: "이 옷이 얼마예요? 다른 색깔이 있어요?", hints: ["얼마예요 = bao nhiêu tiền", "다른 = khác", "색깔 = màu sắc"] },
-  { id: "t6", level: "A2", levelColor: "#6ee7b7", topic: "Kế hoạch", type: "kr-vi", source: "주말에 친구와 같이 영화를 보러 갈 거예요.", answer: "Cuối tuần tôi sẽ đi xem phim cùng bạn.", hints: ["-러 가다 = đi để làm gì", "같이 = cùng nhau", "-(으)ㄹ 거예요 = sẽ"] },
+  { id: "t4", level: "A2", levelColor: "#6ee7b7", topic: "Th?i ti?t", type: "kr-vi", source: "?? ??? ??? ?? ? ? ???.", answer: "H�m nay tr?i �m u v� c� v? s? mua.", hints: ["??? = �m u", "?? ?? = tr?i mua", "-(?)? ? ?? = c� v? s?"] },
+  { id: "t5", level: "A2", levelColor: "#6ee7b7", topic: "Mua s?m", type: "vi-kr", source: "C�i �o n�y bao nhi�u ti?n? C� m�u kh�c kh�ng?", answer: "? ?? ????? ?? ??? ????", hints: ["???? = bao nhi�u ti?n", "?? = kh�c", "?? = m�u s?c"] },
+  { id: "t6", level: "A2", levelColor: "#6ee7b7", topic: "K? ho?ch", type: "kr-vi", source: "??? ??? ?? ??? ?? ? ???.", answer: "Cu?i tu?n t�i s? di xem phim c�ng b?n.", hints: ["-? ?? = di d? l�m g�", "?? = c�ng nhau", "-(?)? ??? = s?"] },
   // B1
-  { id: "t7", level: "B1", levelColor: "#fbbf24", topic: "Công việc", type: "kr-vi", source: "이번 프로젝트 마감일이 다가와서 야근을 해야 할 것 같아요.", answer: "Deadline dự án lần này đang đến gần nên có vẻ phải làm thêm giờ.", hints: ["마감일 = deadline", "다가오다 = đến gần", "야근 = làm thêm giờ"] },
-  { id: "t8", level: "B1", levelColor: "#fbbf24", topic: "Sức khỏe", type: "vi-kr", source: "Dạo này tôi bị stress nhiều nên ngủ không ngon và hay mệt mỏi.", answer: "요즘 스트레스를 많이 받아서 잠을 잘 못 자고 자주 피곤해요.", hints: ["요즘 = dạo này", "스트레스를 받다 = bị stress", "-아/어서 = vì nên"] },
-  { id: "t9", level: "B1", levelColor: "#fbbf24", topic: "Du lịch", type: "kr-vi", source: "한국에 처음 왔는데 볼거리도 많고 먹을거리도 풍부해서 정말 좋아요.", answer: "Đây là lần đầu tôi đến Hàn Quốc, có nhiều thứ để xem và ẩm thực phong phú nên thực sự tuyệt.", hints: ["처음 = lần đầu", "볼거리 = thứ để xem", "풍부하다 = phong phú"] },
+  { id: "t7", level: "B1", levelColor: "#fbbf24", topic: "C�ng vi?c", type: "kr-vi", source: "?? ???? ???? ???? ??? ?? ? ? ???.", answer: "Deadline d? �n l?n n�y dang d?n g?n n�n c� v? ph?i l�m th�m gi?.", hints: ["??? = deadline", "???? = d?n g?n", "?? = l�m th�m gi?"] },
+  { id: "t8", level: "B1", levelColor: "#fbbf24", topic: "S?c kh?e", type: "vi-kr", source: "D?o n�y t�i b? stress nhi?u n�n ng? kh�ng ngon v� hay m?t m?i.", answer: "?? ????? ?? ??? ?? ? ? ?? ?? ????.", hints: ["?? = d?o n�y", "????? ?? = b? stress", "-?/?? = v� n�n"] },
+  { id: "t9", level: "B1", levelColor: "#fbbf24", topic: "Du l?ch", type: "kr-vi", source: "??? ?? ??? ???? ?? ????? ???? ?? ???.", answer: "��y l� l?n d?u t�i d?n H�n Qu?c, c� nhi?u th? d? xem v� ?m th?c phong ph� n�n th?c s? tuy?t.", hints: ["?? = l?n d?u", "??? = th? d? xem", "???? = phong ph�"] },
   // B2
-  { id: "t10", level: "B2", levelColor: "#f59e0b", topic: "Xã hội", type: "kr-vi", source: "현대 사회에서 소통 능력은 성공적인 직장 생활을 위해 필수적인 요소입니다.", answer: "Trong xã hội hiện đại, kỹ năng giao tiếp là yếu tố thiết yếu để có cuộc sống công sở thành công.", hints: ["소통 능력 = kỹ năng giao tiếp", "필수적 = thiết yếu", "요소 = yếu tố"] },
-  { id: "t11", level: "B2", levelColor: "#f59e0b", topic: "Môi trường", type: "vi-kr", source: "Biến đổi khí hậu là vấn đề toàn cầu đòi hỏi sự hợp tác quốc tế để giải quyết.", answer: "기후 변화는 해결하기 위해 국제적 협력이 필요한 전 세계적인 문제입니다.", hints: ["기후 변화 = biến đổi khí hậu", "국제적 협력 = hợp tác quốc tế", "전 세계적 = toàn cầu"] },
+  { id: "t10", level: "B2", levelColor: "#f59e0b", topic: "X� h?i", type: "kr-vi", source: "?? ???? ?? ??? ???? ?? ??? ?? ???? ?????.", answer: "Trong x� h?i hi?n d?i, k? nang giao ti?p l� y?u t? thi?t y?u d? c� cu?c s?ng c�ng s? th�nh c�ng.", hints: ["?? ?? = k? nang giao ti?p", "??? = thi?t y?u", "?? = y?u t?"] },
+  { id: "t11", level: "B2", levelColor: "#f59e0b", topic: "M�i tru?ng", type: "vi-kr", source: "Bi?n d?i kh� h?u l� v?n d? to�n c?u d�i h?i s? h?p t�c qu?c t? d? gi?i quy?t.", answer: "?? ??? ???? ?? ??? ??? ??? ? ???? ?????.", hints: ["?? ?? = bi?n d?i kh� h?u", "??? ?? = h?p t�c qu?c t?", "? ??? = to�n c?u"] },
   // C1
-  { id: "t12", level: "C1", levelColor: "#f87171", topic: "Triết học", type: "kr-vi", source: "인간은 사회적 동물로서 타인과의 관계 속에서 자아를 형성하고 의미를 찾아나갑니다.", answer: "Con người là động vật xã hội, hình thành bản ngã và tìm kiếm ý nghĩa trong mối quan hệ với người khác.", hints: ["사회적 동물 = động vật xã hội", "자아를 형성하다 = hình thành bản ngã", "의미를 찾다 = tìm kiếm ý nghĩa"] },
-  { id: "t13", level: "C1", levelColor: "#f87171", topic: "Kinh tế", type: "vi-kr", source: "Toàn cầu hóa mang lại cả cơ hội lẫn thách thức cho các nền kinh tế đang phát triển.", answer: "세계화는 개발도상국 경제에 기회와 도전을 동시에 가져다줍니다.", hints: ["세계화 = toàn cầu hóa", "개발도상국 = nước đang phát triển", "동시에 = đồng thời"] },
+  { id: "t12", level: "C1", levelColor: "#f87171", topic: "Tri?t h?c", type: "kr-vi", source: "??? ??? ???? ???? ?? ??? ??? ???? ??? ??????.", answer: "Con ngu?i l� d?ng v?t x� h?i, h�nh th�nh b?n ng� v� t�m ki?m � nghia trong m?i quan h? v?i ngu?i kh�c.", hints: ["??? ?? = d?ng v?t x� h?i", "??? ???? = h�nh th�nh b?n ng�", "??? ?? = t�m ki?m � nghia"] },
+  { id: "t13", level: "C1", levelColor: "#f87171", topic: "Kinh t?", type: "vi-kr", source: "To�n c?u h�a mang l?i c? co h?i l?n th�ch th?c cho c�c n?n kinh t? dang ph�t tri?n.", answer: "???? ????? ??? ??? ??? ??? ??????.", hints: ["??? = to�n c?u h�a", "????? = nu?c dang ph�t tri?n", "??? = d?ng th?i"] },
 ];
 
-// ─── Similarity check ─────────────────────────────────────────────────────────
+// --- Similarity check ---------------------------------------------------------
 function checkSimilarity(input: string, answer: string): number {
   const normalize = (s: string) => s.trim().toLowerCase().replace(/[.,!?]/g, "").replace(/\s+/g, " ");
   const a = normalize(input);
@@ -105,16 +105,16 @@ export default function TranslationPracticePage() {
       <div className="max-w-3xl mx-auto px-4 py-6">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-white font-bold text-2xl mb-1">Luyện dịch Hàn-Việt</h1>
-          <p className="text-white/50 text-sm">Dịch câu và đoạn văn theo cấp độ — cả Hàn→Việt và Việt→Hàn</p>
+          <h1 className="text-white font-bold text-2xl mb-1">Luy?n d?ch H�n-Vi?t</h1>
+          <p className="text-white/50 text-sm">D?ch c�u v� do?n van theo c?p d? � c? H�n?Vi?t v� Vi?t?H�n</p>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
-            { label: "Đã dịch", value: Object.keys(scores).length, icon: "ri-translate-2", color: "app-accent-primary" },
-            { label: "Điểm TB", value: `${avgScore}%`, icon: "ri-percent-line", color: "#34d399" },
-            { label: "Tổng câu", value: items.length, icon: "ri-list-check", color: "#a78bfa" },
+            { label: "�� d?ch", value: Object.keys(scores).length, icon: "ri-translate-2", color: "app-accent-primary" },
+            { label: "�i?m TB", value: `${avgScore}%`, icon: "ri-percent-line", color: "#34d399" },
+            { label: "T?ng c�u", value: items.length, icon: "ri-list-check", color: "#a78bfa" },
           ].map(s => (
             <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-4 text-center">
               <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${s.color}20` }}>
@@ -132,7 +132,7 @@ export default function TranslationPracticePage() {
             {(["all", "kr-vi", "vi-kr"] as const).map(t => (
               <button key={t} onClick={() => { setTypeFilter(t); setCurrentIdx(0); setInput(""); setSubmitted(false); }}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${typeFilter === t ? "bg-app-accent-primary text-[#141720]" : "text-white/50 hover:text-white/80"}`}>
-                {t === "all" ? "Tất cả" : t === "kr-vi" ? "Hàn → Việt" : "Việt → Hàn"}
+                {t === "all" ? "T?t c?" : t === "kr-vi" ? "H�n ? Vi?t" : "Vi?t ? H�n"}
               </button>
             ))}
           </div>
@@ -143,7 +143,7 @@ export default function TranslationPracticePage() {
                 style={levelFilter === lvl
                   ? (lvl === "all" ? { backgroundColor: "rgba(255,255,255,0.15)", color: "white" } : { backgroundColor: levelConfig[lvl]?.color, color: "#141720" })
                   : { backgroundColor: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.5)" }}>
-                {lvl === "all" ? "Tất cả" : lvl}
+                {lvl === "all" ? "T?t c?" : lvl}
               </button>
             ))}
           </div>
@@ -178,7 +178,7 @@ export default function TranslationPracticePage() {
             <div className="flex items-center gap-2 mb-5">
               <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${current.levelColor}20`, color: current.levelColor }}>{current.level}</span>
               <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${current.type === "kr-vi" ? "bg-amber-500/15 text-amber-400" : "bg-sky-500/15 text-sky-400"}`}>
-                {current.type === "kr-vi" ? "Hàn → Việt" : "Việt → Hàn"}
+                {current.type === "kr-vi" ? "H�n ? Vi?t" : "Vi?t ? H�n"}
               </span>
               <span className="text-app-text-muted text-xs">{current.topic}</span>
             </div>
@@ -187,7 +187,7 @@ export default function TranslationPracticePage() {
             <div className="p-4 rounded-xl bg-app-card/50 border border-app-border mb-5">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-app-text-secondary text-xs mb-2">{current.type === "kr-vi" ? "Tiếng Hàn" : "Tiếng Việt"}</p>
+                  <p className="text-app-text-secondary text-xs mb-2">{current.type === "kr-vi" ? "Ti?ng H�n" : "Ti?ng Vi?t"}</p>
                   <p className="text-white font-medium text-lg leading-8">{current.source}</p>
                 </div>
                 {current.type === "kr-vi" && (
@@ -202,9 +202,9 @@ export default function TranslationPracticePage() {
             {/* Input */}
             {!submitted ? (
               <>
-                <p className="text-white/50 text-xs mb-2">Dịch sang {current.type === "kr-vi" ? "tiếng Việt" : "tiếng Hàn"}:</p>
+                <p className="text-white/50 text-xs mb-2">D?ch sang {current.type === "kr-vi" ? "ti?ng Vi?t" : "ti?ng H�n"}:</p>
                 <textarea value={input} onChange={e => setInput(e.target.value)}
-                  placeholder={current.type === "kr-vi" ? "Nhập bản dịch tiếng Việt..." : "Nhập bản dịch tiếng Hàn..."}
+                  placeholder={current.type === "kr-vi" ? "Nh?p b?n d?ch ti?ng Vi?t..." : "Nh?p b?n d?ch ti?ng H�n..."}
                   rows={3}
                   className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm outline-none resize-none placeholder-white/20 focus:border-white/20 mb-4" />
 
@@ -212,7 +212,7 @@ export default function TranslationPracticePage() {
                 <button onClick={() => setShowHints(v => !v)}
                   className="flex items-center gap-2 text-app-text-secondary hover:text-white/60 text-xs mb-4 cursor-pointer transition-colors">
                   <i className="ri-lightbulb-line text-app-accent-primary"></i>
-                  {showHints ? "Ẩn gợi ý" : "Xem gợi ý"}
+                  {showHints ? "?n g?i �" : "Xem g?i �"}
                 </button>
                 {showHints && (
                   <div className="grid grid-cols-1 gap-1.5 mb-4">
@@ -226,7 +226,7 @@ export default function TranslationPracticePage() {
 
                 <button onClick={handleCheck} disabled={!input.trim()}
                   className="w-full py-3 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm disabled:opacity-30 cursor-pointer whitespace-nowrap">
-                  Kiểm tra bản dịch
+                  Ki?m tra b?n d?ch
                 </button>
               </>
             ) : (
@@ -235,7 +235,7 @@ export default function TranslationPracticePage() {
                 <div className={`p-4 rounded-xl border mb-4 ${similarity >= 80 ? "border-emerald-500/30 bg-emerald-500/5" : similarity >= 50 ? "border-amber-500/30 bg-amber-500/5" : "border-rose-500/30 bg-rose-500/5"}`}>
                   <div className="flex items-center justify-between mb-2">
                     <span className={`font-bold text-sm ${similarity >= 80 ? "text-app-accent-success" : similarity >= 50 ? "text-amber-400" : "text-rose-400"}`}>
-                      {similarity >= 80 ? "Rất tốt!" : similarity >= 50 ? "Khá ổn!" : "Cần cải thiện"} — {similarity}% khớp
+                      {similarity >= 80 ? "R?t t?t!" : similarity >= 50 ? "Kh� ?n!" : "C?n c?i thi?n"} � {similarity}% kh?p
                     </span>
                     <div className="flex gap-0.5">
                       {[...Array(5)].map((_, i) => (
@@ -243,7 +243,7 @@ export default function TranslationPracticePage() {
                       ))}
                     </div>
                   </div>
-                  <p className="text-white/50 text-xs mb-1">Bản dịch của bạn:</p>
+                  <p className="text-white/50 text-xs mb-1">B?n d?ch c?a b?n:</p>
                   <p className="text-white/70 text-sm mb-3">{input}</p>
                 </div>
 
@@ -251,7 +251,7 @@ export default function TranslationPracticePage() {
                 <div className="p-4 rounded-xl bg-app-card/50 border border-app-border mb-4">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-app-text-secondary text-xs mb-1">Đáp án tham khảo:</p>
+                      <p className="text-app-text-secondary text-xs mb-1">��p �n tham kh?o:</p>
                       <p className="text-white font-medium text-base leading-7">{current.answer}</p>
                       {current.notes && <p className="text-app-text-secondary text-xs mt-2 italic">{current.notes}</p>}
                     </div>
@@ -267,11 +267,11 @@ export default function TranslationPracticePage() {
                 <div className="flex gap-3">
                   <button onClick={() => { setInput(""); setSubmitted(false); setShowHints(false); }}
                     className="flex-1 py-2.5 rounded-xl bg-white/8 hover:bg-white/12 text-white/60 text-sm cursor-pointer whitespace-nowrap">
-                    Thử lại
+                    Th? l?i
                   </button>
                   <button onClick={handleNext} disabled={currentIdx >= filtered.length - 1}
                     className="flex-1 py-2.5 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm disabled:opacity-30 cursor-pointer whitespace-nowrap">
-                    Câu tiếp <i className="ri-arrow-right-line ml-1"></i>
+                    C�u ti?p <i className="ri-arrow-right-line ml-1"></i>
                   </button>
                 </div>
               </>
@@ -281,14 +281,14 @@ export default function TranslationPracticePage() {
 
         {/* All items list */}
         <div className="mt-6">
-          <p className="text-app-text-secondary text-xs font-semibold tracking-normal mb-3">Tất cả câu ({filtered.length})</p>
+          <p className="text-app-text-secondary text-xs font-semibold tracking-normal mb-3">T?t c? c�u ({filtered.length})</p>
           <div className="space-y-2">
             {filtered.map((it, i) => (
               <button key={it.id} onClick={() => { setCurrentIdx(i); setInput(""); setSubmitted(false); setShowHints(false); }}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border text-left cursor-pointer transition-all ${i === currentIdx ? "border-app-accent-primary/30 bg-app-accent-primary/5" : "border-app-border bg-app-surface/50 hover:bg-app-card/50"}`}>
                 <span className="text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0" style={{ backgroundColor: `${it.levelColor}20`, color: it.levelColor }}>{it.level}</span>
                 <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold flex-shrink-0 ${it.type === "kr-vi" ? "bg-amber-500/15 text-amber-400" : "bg-sky-500/15 text-sky-400"}`}>
-                  {it.type === "kr-vi" ? "KR→VI" : "VI→KR"}
+                  {it.type === "kr-vi" ? "KR?VI" : "VI?KR"}
                 </span>
                 <span className="text-white/60 text-sm flex-1 truncate">{it.source}</span>
                 {scores[it.id] !== undefined && (

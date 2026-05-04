@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
@@ -35,7 +35,7 @@ export default function StudyHistoryDetailPage() {
   const [history, setHistory] = useState<DayRecord[]>([]);
   const [wordHistory, setWordHistory] = useState<WordRecord[]>([]);
 
-  // Load lịch sử học thật từ study_history + topik_quiz_history
+  // Load l?ch s? h?c th?t t? study_history + topik_quiz_history
   useEffect(() => {
     if (!user?.id) return;
     let cancelled = false;
@@ -57,7 +57,7 @@ export default function StudyHistoryDetailPage() {
 
       if (cancelled) return;
 
-      // Gộp quiz theo ngày để tính trung bình score
+      // G?p quiz theo ng�y d? t�nh trung b�nh score
       const quizByDate: Record<string, { total: number; count: number }> = {};
       (quizRows || []).forEach((row: { score: number; total: number; created_at: string }) => {
         const d = row.created_at.split("T")[0];
@@ -84,15 +84,15 @@ export default function StudyHistoryDetailPage() {
           studyMinutes: minutes,
           xpEarned: xp,
           activities: [
-            { type: "vocab", label: "Từ vựng", count: numWords, icon: "ri-translate-2", color: "text-sky-500" },
+            { type: "vocab", label: "T? v?ng", count: numWords, icon: "ri-translate-2", color: "text-sky-500" },
             { type: "quiz", label: "Quiz", count: quiz?.count || 0, icon: "ri-survey-line", color: "text-amber-500" },
-            { type: "grammar", label: "Ngữ pháp", count: numGrammar, icon: "ri-stack-line", color: "text-violet-500" },
+            { type: "grammar", label: "Ng? ph�p", count: numGrammar, icon: "ri-stack-line", color: "text-violet-500" },
           ],
         });
       });
       setHistory(records);
 
-      // Load từ đã biết từ study_progress.vocab_known / flashcard_known
+      // Load t? d� bi?t t? study_progress.vocab_known / flashcard_known
       const { data: spData } = await supabase
         .from("study_progress")
         .select("vocab_known, flashcard_known")
@@ -105,7 +105,7 @@ export default function StudyHistoryDetailPage() {
         ...(Array.isArray(spData.vocab_known) ? spData.vocab_known : []),
         ...(Array.isArray(spData.flashcard_known) ? spData.flashcard_known : []),
       ];
-      // Lấy chi tiết từ vựng
+      // L?y chi ti?t t? v?ng
       if (knownIds.length > 0) {
         const { data: vocabRows } = await supabase
           .from("topik_vocabulary")
@@ -117,7 +117,7 @@ export default function StudyHistoryDetailPage() {
           (vocabRows || []).map((v: { korean: string; vietnamese: string; category?: string }) => ({
             word: v.korean,
             meaning: v.vietnamese,
-            category: v.category || "Khác",
+            category: v.category || "Kh�c",
             learnedAt: today,
             reviewCount: 1,
             lastReview: today,
@@ -178,8 +178,8 @@ export default function StudyHistoryDetailPage() {
   const masteryColor = (m: number) => m >= 80 ? "text-emerald-500" : m >= 60 ? "text-amber-500" : "text-rose-500";
   const masteryBg = (m: number) => m >= 80 ? "bg-emerald-500" : m >= 60 ? "bg-amber-500" : "bg-rose-500";
 
-  const monthNames = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
-    "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
+  const monthNames = ["Th�ng 1", "Th�ng 2", "Th�ng 3", "Th�ng 4", "Th�ng 5", "Th�ng 6",
+    "Th�ng 7", "Th�ng 8", "Th�ng 9", "Th�ng 10", "Th�ng 11", "Th�ng 12"];
 
   return (
     <DashboardLayout>
@@ -191,20 +191,20 @@ export default function StudyHistoryDetailPage() {
           </div>
           <div>
             <h1 className="text-2xl font-bold text-gray-900" style={{ fontFamily: "'Nunito', sans-serif" }}>
-              Lịch sử học tập
+              L?ch s? h?c t?p
             </h1>
-            <p className="text-gray-500 text-sm">Theo dõi chi tiết từng ngày, từng từ đã học</p>
+            <p className="text-gray-500 text-sm">Theo d�i chi ti?t t?ng ng�y, t?ng t? d� h?c</p>
           </div>
         </div>
 
         {/* Stats overview */}
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
           {[
-            { label: "Ngày học", value: totalDays, icon: "ri-calendar-check-line", color: "text-teal-500", bg: "bg-teal-50" },
-            { label: "Từ đã học", value: totalWords, icon: "ri-translate-2", color: "text-sky-500", bg: "bg-sky-50" },
-            { label: "Phút học", value: totalMinutes, icon: "ri-time-line", color: "text-violet-500", bg: "bg-violet-50" },
-            { label: "Tổng XP", value: totalXP, icon: "ri-star-line", color: "text-amber-500", bg: "bg-amber-50" },
-            { label: "Điểm TB", value: `${avgScore}%`, icon: "ri-bar-chart-line", color: "text-emerald-500", bg: "bg-emerald-50" },
+            { label: "Ng�y h?c", value: totalDays, icon: "ri-calendar-check-line", color: "text-teal-500", bg: "bg-teal-50" },
+            { label: "T? d� h?c", value: totalWords, icon: "ri-translate-2", color: "text-sky-500", bg: "bg-sky-50" },
+            { label: "Ph�t h?c", value: totalMinutes, icon: "ri-time-line", color: "text-violet-500", bg: "bg-violet-50" },
+            { label: "T?ng XP", value: totalXP, icon: "ri-star-line", color: "text-amber-500", bg: "bg-amber-50" },
+            { label: "�i?m TB", value: `${avgScore}%`, icon: "ri-bar-chart-line", color: "text-emerald-500", bg: "bg-emerald-50" },
           ].map((s, i) => (
             <div key={i} className={`${s.bg} rounded-2xl p-4 text-center`}>
               <div className={`w-8 h-8 flex items-center justify-center mx-auto mb-2 ${s.color}`}>
@@ -225,7 +225,7 @@ export default function StudyHistoryDetailPage() {
               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold cursor-pointer whitespace-nowrap transition-all ${viewMode === mode ? "bg-teal-500 text-white" : "bg-white text-gray-500 hover:bg-gray-50 border border-gray-100"}`}
             >
               <i className={`${mode === "calendar" ? "ri-calendar-2-line" : mode === "list" ? "ri-list-check-2" : "ri-translate-2"}`}></i>
-              {mode === "calendar" ? "Lịch học" : mode === "list" ? "Theo ngày" : "Từ đã học"}
+              {mode === "calendar" ? "L?ch h?c" : mode === "list" ? "Theo ng�y" : "T? d� h?c"}
             </button>
           ))}
         </div>
@@ -280,11 +280,11 @@ export default function StudyHistoryDetailPage() {
 
               {/* Legend */}
               <div className="flex items-center gap-2 mt-4 justify-end">
-                <span className="text-xs text-gray-400">Ít</span>
+                <span className="text-xs text-gray-400">�t</span>
                 {intensityColors.map((c, i) => (
                   <div key={i} className={`w-4 h-4 rounded ${c}`}></div>
                 ))}
-                <span className="text-xs text-gray-400">Nhiều</span>
+                <span className="text-xs text-gray-400">Nhi?u</span>
               </div>
             </div>
 
@@ -297,10 +297,10 @@ export default function StudyHistoryDetailPage() {
                   </p>
                   <div className="grid grid-cols-2 gap-3 mb-4">
                     {[
-                      { label: "Phút học", value: selectedDay.studyMinutes, icon: "ri-time-line", color: "text-violet-500" },
-                      { label: "Từ học", value: selectedDay.wordsLearned.length, icon: "ri-translate-2", color: "text-sky-500" },
-                      { label: "Điểm quiz", value: `${selectedDay.quizScore}%`, icon: "ri-survey-line", color: "text-amber-500" },
-                      { label: "XP kiếm", value: selectedDay.xpEarned, icon: "ri-star-line", color: "text-emerald-500" },
+                      { label: "Ph�t h?c", value: selectedDay.studyMinutes, icon: "ri-time-line", color: "text-violet-500" },
+                      { label: "T? h?c", value: selectedDay.wordsLearned.length, icon: "ri-translate-2", color: "text-sky-500" },
+                      { label: "�i?m quiz", value: `${selectedDay.quizScore}%`, icon: "ri-survey-line", color: "text-amber-500" },
+                      { label: "XP ki?m", value: selectedDay.xpEarned, icon: "ri-star-line", color: "text-emerald-500" },
                     ].map((s, i) => (
                       <div key={i} className="bg-gray-50 rounded-xl p-3 text-center">
                         <i className={`${s.icon} ${s.color} text-lg block mb-1`}></i>
@@ -309,7 +309,7 @@ export default function StudyHistoryDetailPage() {
                       </div>
                     ))}
                   </div>
-                  <p className="text-xs font-semibold text-gray-400 tracking-normal mb-2">Hoạt động</p>
+                  <p className="text-xs font-semibold text-gray-400 tracking-normal mb-2">Ho?t d?ng</p>
                   <div className="space-y-2 mb-4">
                     {selectedDay.activities.map((a, i) => (
                       <div key={i} className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2">
@@ -319,7 +319,7 @@ export default function StudyHistoryDetailPage() {
                       </div>
                     ))}
                   </div>
-                  <p className="text-xs font-semibold text-gray-400 tracking-normal mb-2">Từ đã học ({selectedDay.wordsLearned.length})</p>
+                  <p className="text-xs font-semibold text-gray-400 tracking-normal mb-2">T? d� h?c ({selectedDay.wordsLearned.length})</p>
                   <div className="flex flex-wrap gap-1.5">
                     {selectedDay.wordsLearned.map(w => (
                       <span key={w} className="px-2 py-1 bg-teal-50 text-teal-700 rounded-lg text-sm font-medium">{w}</span>
@@ -330,7 +330,7 @@ export default function StudyHistoryDetailPage() {
                 <div className="flex items-center justify-center h-48 text-gray-400">
                   <div className="text-center">
                     <i className="ri-calendar-line text-4xl mb-2 block"></i>
-                    <p className="text-sm">Chọn ngày để xem chi tiết</p>
+                    <p className="text-sm">Ch?n ng�y d? xem chi ti?t</p>
                   </div>
                 </div>
               )}
@@ -349,8 +349,8 @@ export default function StudyHistoryDetailPage() {
                       {new Date(day.date).toLocaleDateString("vi-VN", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
                     </p>
                     <div className="flex items-center gap-3 mt-1">
-                      <span className="text-xs text-gray-500"><i className="ri-time-line mr-1"></i>{day.studyMinutes} phút</span>
-                      <span className="text-xs text-gray-500"><i className="ri-translate-2 mr-1"></i>{day.wordsLearned.length} từ</span>
+                      <span className="text-xs text-gray-500"><i className="ri-time-line mr-1"></i>{day.studyMinutes} ph�t</span>
+                      <span className="text-xs text-gray-500"><i className="ri-translate-2 mr-1"></i>{day.wordsLearned.length} t?</span>
                       <span className="text-xs text-gray-500"><i className="ri-star-line mr-1"></i>{day.xpEarned} XP</span>
                     </div>
                   </div>
@@ -370,7 +370,7 @@ export default function StudyHistoryDetailPage() {
                   {day.activities.map((a, i) => (
                     <span key={i} className="flex items-center gap-1 text-xs text-gray-400">
                       <i className={`${a.icon} ${a.color}`}></i>
-                      {a.label} ×{a.count}
+                      {a.label} �{a.count}
                     </span>
                   ))}
                 </div>
@@ -391,7 +391,7 @@ export default function StudyHistoryDetailPage() {
                     onClick={() => setWordFilter(c)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer whitespace-nowrap transition-all ${wordFilter === c ? "bg-teal-500 text-white" : "bg-gray-50 text-gray-500 hover:bg-gray-100"}`}
                   >
-                    {c === "all" ? "Tất cả" : c}
+                    {c === "all" ? "T?t c?" : c}
                   </button>
                 ))}
               </div>
@@ -400,9 +400,9 @@ export default function StudyHistoryDetailPage() {
                 onChange={e => setWordSort(e.target.value as typeof wordSort)}
                 className="bg-gray-50 border border-gray-100 rounded-lg px-3 py-1.5 text-sm text-gray-600 focus:outline-none cursor-pointer"
               >
-                <option value="date">Mới nhất</option>
-                <option value="mastery">Độ thành thạo</option>
-                <option value="review">Số lần ôn</option>
+                <option value="date">M?i nh?t</option>
+                <option value="mastery">�? th�nh th?o</option>
+                <option value="review">S? l?n �n</option>
               </select>
             </div>
 
@@ -418,7 +418,7 @@ export default function StudyHistoryDetailPage() {
                   </div>
                   <div className="mb-2">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs text-gray-400">Độ thành thạo</span>
+                      <span className="text-xs text-gray-400">�? th�nh th?o</span>
                       <span className={`text-xs font-bold ${masteryColor(w.mastery)}`}>{w.mastery}%</span>
                     </div>
                     <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
@@ -426,8 +426,8 @@ export default function StudyHistoryDetailPage() {
                     </div>
                   </div>
                   <div className="flex items-center justify-between text-xs text-gray-400">
-                    <span><i className="ri-calendar-line mr-1"></i>Học: {new Date(w.learnedAt).toLocaleDateString("vi-VN", { day: "numeric", month: "numeric" })}</span>
-                    <span><i className="ri-refresh-line mr-1"></i>Ôn: {w.reviewCount} lần</span>
+                    <span><i className="ri-calendar-line mr-1"></i>H?c: {new Date(w.learnedAt).toLocaleDateString("vi-VN", { day: "numeric", month: "numeric" })}</span>
+                    <span><i className="ri-refresh-line mr-1"></i>�n: {w.reviewCount} l?n</span>
                   </div>
                 </div>
               ))}

@@ -1,11 +1,11 @@
-﻿import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { epsLessons, EPS_LESSON_TOPICS, type EpsLesson } from "@/mocks/epsLessons";
 
-// ─── Types ────────────────────────────────────────────────────────────────
+// --- Types ----------------------------------------------------------------
 interface QuizQuestion {
   id: string;
   type: "meaning_kr_to_vi" | "meaning_vi_to_kr" | "fill_blank" | "pronunciation";
@@ -27,7 +27,7 @@ interface QuizResult {
   timeSeconds: number;
 }
 
-// ─── Generate quiz questions from lesson vocabulary ───────────────────────
+// --- Generate quiz questions from lesson vocabulary -----------------------
 function generateQuestions(lesson: EpsLesson, count = 10): QuizQuestion[] {
   const vocab = lesson.vocabulary;
   const shuffled = [...vocab].sort(() => Math.random() - 0.5);
@@ -96,7 +96,7 @@ function speakKorean(text: string) {
   window.speechSynthesis.speak(u);
 }
 
-// ─── Lesson Selector ──────────────────────────────────────────────────────
+// --- Lesson Selector ------------------------------------------------------
 function LessonSelector({
   onSelect,
   completedLessons,
@@ -126,15 +126,15 @@ function LessonSelector({
             <i className="ri-file-list-3-line text-app-accent-primary text-xl"></i>
           </div>
           <div>
-            <h2 className="text-white font-bold text-lg">Thi thử theo bài</h2>
-            <p className="text-app-text-secondary text-sm">Chọn bài học để thi thử — câu hỏi tự động tạo từ từ vựng</p>
+            <h2 className="text-white font-bold text-lg">Thi th? theo b�i</h2>
+            <p className="text-app-text-secondary text-sm">Ch?n b�i h?c d? thi th? � c�u h?i t? d?ng t?o t? t? v?ng</p>
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
           {[
-            { label: "Bài có thể thi", value: epsLessons.length, color: "app-accent-primary" },
-            { label: "Đã thi thử", value: Object.keys(quizHistory).length, color: "#34d399" },
-            { label: "Bài đã học", value: Object.keys(completedLessons).length, color: "#a78bfa" },
+            { label: "B�i c� th? thi", value: epsLessons.length, color: "app-accent-primary" },
+            { label: "�� thi th?", value: Object.keys(quizHistory).length, color: "#34d399" },
+            { label: "B�i d� h?c", value: Object.keys(completedLessons).length, color: "#a78bfa" },
           ].map(s => (
             <div key={s.label} className="text-center p-3 rounded-xl bg-app-surface/50 border border-app-border">
               <p className="font-bold text-xl" style={{ color: s.color }}>{s.value}</p>
@@ -152,7 +152,7 @@ function LessonSelector({
             type="text"
             value={search}
             onChange={e => setSearch(e.target.value)}
-            placeholder="Tìm bài học..."
+            placeholder="T�m b�i h?c..."
             className="w-full bg-app-card/50 border border-app-border rounded-lg pl-9 pr-4 py-2 text-white text-sm placeholder-white/25 focus:outline-none focus:border-white/20"
           />
         </div>
@@ -161,7 +161,7 @@ function LessonSelector({
           onChange={e => setFilterTopic(e.target.value)}
           className="bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
         >
-          <option value="all">Tất cả chủ đề</option>
+          <option value="all">T?t c? ch? d?</option>
           {EPS_LESSON_TOPICS.map(t => (
             <option key={t.id} value={t.id}>{t.label}</option>
           ))}
@@ -193,16 +193,16 @@ function LessonSelector({
                       {topicInfo?.label}
                     </span>
                     <span className="text-[9px] text-app-text-muted flex items-center gap-0.5">
-                      <i className="ri-book-2-line"></i>{lesson.vocabulary.length} từ
+                      <i className="ri-book-2-line"></i>{lesson.vocabulary.length} t?
                     </span>
                     {isStudied && (
                       <span className="text-[9px] text-app-accent-success font-bold flex items-center gap-0.5">
-                        <i className="ri-checkbox-circle-fill"></i>Đã học
+                        <i className="ri-checkbox-circle-fill"></i>�� h?c
                       </span>
                     )}
                     {bestScore !== null && (
                       <span className={`text-[9px] font-bold ${bestScore >= 80 ? "text-app-accent-success" : bestScore >= 60 ? "text-app-accent-primary" : "text-red-400"}`}>
-                        Cao nhất: {bestScore}%
+                        Cao nh?t: {bestScore}%
                       </span>
                     )}
                   </div>
@@ -217,7 +217,7 @@ function LessonSelector({
   );
 }
 
-// ─── Quiz Screen ──────────────────────────────────────────────────────────
+// --- Quiz Screen ----------------------------------------------------------
 function QuizScreen({
   lesson,
   onFinish,
@@ -273,7 +273,7 @@ function QuizScreen({
     // Validate minimum time per question (2 seconds)
     const timeSpent = Date.now() - questionStartTime;
     if (timeSpent < 2000) {
-      alert("Vui lòng đọc kỹ câu hỏi trước khi trả lời (tối thiểu 2 giây).");
+      alert("Vui l�ng d?c k? c�u h?i tru?c khi tr? l?i (t?i thi?u 2 gi�y).");
       return;
     }
     
@@ -311,9 +311,9 @@ function QuizScreen({
   const timerBg = timeLeft > 15 ? "bg-emerald-400" : timeLeft > 7 ? "bg-app-accent-primary" : "bg-red-400";
 
   const getQuestionText = () => {
-    if (current.type === "meaning_kr_to_vi") return `"${current.korean}" có nghĩa là gì?`;
-    if (current.type === "meaning_vi_to_kr") return `"${current.vietnamese}" trong tiếng Hàn là gì?`;
-    return `Điền từ còn thiếu: ${current.example.replace(current.korean, "___")}`;
+    if (current.type === "meaning_kr_to_vi") return `"${current.korean}" c� nghia l� g�?`;
+    if (current.type === "meaning_vi_to_kr") return `"${current.vietnamese}" trong ti?ng H�n l� g�?`;
+    return `�i?n t? c�n thi?u: ${current.example.replace(current.korean, "___")}`;
   };
 
   const getQuestionSubtext = () => {
@@ -327,7 +327,7 @@ function QuizScreen({
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <button onClick={onBack} className="flex items-center gap-2 text-app-text-secondary hover:text-white/70 text-sm transition-colors cursor-pointer whitespace-nowrap">
-          <i className="ri-arrow-left-line"></i>Thoát
+          <i className="ri-arrow-left-line"></i>Tho�t
         </button>
         <div className="flex items-center gap-3">
           <span className="text-app-text-secondary text-sm">{currentIdx + 1}/{questions.length}</span>
@@ -349,10 +349,10 @@ function QuizScreen({
       <div className="bg-app-bg border border-app-border rounded-2xl p-6 mb-5">
         <div className="flex items-center gap-2 mb-3">
           <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${topicInfo?.color}15`, color: topicInfo?.color }}>
-            Bài {lesson.id}
+            B�i {lesson.id}
           </span>
           <span className="text-[10px] text-app-text-muted">
-            {current.type === "meaning_kr_to_vi" ? "Hàn → Việt" : current.type === "meaning_vi_to_kr" ? "Việt → Hàn" : "Điền vào chỗ trống"}
+            {current.type === "meaning_kr_to_vi" ? "H�n ? Vi?t" : current.type === "meaning_vi_to_kr" ? "Vi?t ? H�n" : "�i?n v�o ch? tr?ng"}
           </span>
         </div>
         <p className="text-white font-bold text-xl mb-2">{getQuestionText()}</p>
@@ -362,7 +362,7 @@ function QuizScreen({
             onClick={() => speakKorean(current.korean)}
             className="mt-3 flex items-center gap-2 text-app-accent-primary/70 hover:text-app-accent-primary text-xs transition-colors cursor-pointer"
           >
-            <i className="ri-volume-up-line"></i>Nghe phát âm
+            <i className="ri-volume-up-line"></i>Nghe ph�t �m
           </button>
         )}
       </div>
@@ -403,14 +403,14 @@ function QuizScreen({
             <i className={`${isCorrect ? "ri-checkbox-circle-fill text-app-accent-success" : "ri-close-circle-fill text-red-400"} text-lg flex-shrink-0 mt-0.5`}></i>
             <div>
               <p className={`font-semibold text-sm ${isCorrect ? "text-app-accent-success" : "text-red-400"}`}>
-                {isCorrect ? "Chính xác!" : answers[currentIdx] === -1 ? "Hết giờ!" : "Chưa đúng!"}
+                {isCorrect ? "Ch�nh x�c!" : answers[currentIdx] === -1 ? "H?t gi?!" : "Chua d�ng!"}
               </p>
               {!isCorrect && (
                 <p className="text-white/50 text-xs mt-1">
-                  Đáp án đúng: <span className="text-white font-semibold">{current.options[current.correctIndex]}</span>
+                  ��p �n d�ng: <span className="text-white font-semibold">{current.options[current.correctIndex]}</span>
                 </p>
               )}
-              <p className="text-app-text-secondary text-xs mt-1 italic">{current.example} — {current.exampleVi}</p>
+              <p className="text-app-text-secondary text-xs mt-1 italic">{current.example} � {current.exampleVi}</p>
             </div>
           </div>
         </div>
@@ -422,7 +422,7 @@ function QuizScreen({
           onClick={handleNext}
           className="w-full py-3.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
         >
-          {currentIdx + 1 >= questions.length ? "Xem kết quả" : "Câu tiếp theo"}
+          {currentIdx + 1 >= questions.length ? "Xem k?t qu?" : "C�u ti?p theo"}
           <i className="ri-arrow-right-line ml-2"></i>
         </button>
       )}
@@ -430,7 +430,7 @@ function QuizScreen({
   );
 }
 
-// ─── Result Screen ────────────────────────────────────────────────────────
+// --- Result Screen --------------------------------------------------------
 function ResultScreen({
   result,
   lesson,
@@ -446,10 +446,10 @@ function ResultScreen({
 }) {
   const topicInfo = EPS_LESSON_TOPICS.find(t => t.id === lesson.topic);
   const pct = result.percentage;
-  const grade = pct >= 90 ? { label: "Xuất sắc", color: "#34d399", icon: "ri-trophy-fill" }
-    : pct >= 75 ? { label: "Tốt", color: "app-accent-primary", icon: "ri-star-fill" }
-    : pct >= 60 ? { label: "Khá", color: "#fb923c", icon: "ri-thumb-up-fill" }
-    : { label: "Cần cố gắng", color: "#f87171", icon: "ri-refresh-line" };
+  const grade = pct >= 90 ? { label: "Xu?t s?c", color: "#34d399", icon: "ri-trophy-fill" }
+    : pct >= 75 ? { label: "T?t", color: "app-accent-primary", icon: "ri-star-fill" }
+    : pct >= 60 ? { label: "Kh�", color: "#fb923c", icon: "ri-thumb-up-fill" }
+    : { label: "C?n c? g?ng", color: "#f87171", icon: "ri-refresh-line" };
 
   const mins = Math.floor(result.timeSeconds / 60);
   const secs = result.timeSeconds % 60;
@@ -461,7 +461,7 @@ function ResultScreen({
         <i className={`${grade.icon} text-3xl`} style={{ color: grade.color }}></i>
       </div>
       <p className="text-white font-bold text-2xl mb-1">{grade.label}!</p>
-      <p className="text-app-text-secondary text-sm mb-6">Bài {lesson.id}: {lesson.titleVi}</p>
+      <p className="text-app-text-secondary text-sm mb-6">B�i {lesson.id}: {lesson.titleVi}</p>
 
       {/* Score circle */}
       <div className="relative w-32 h-32 mx-auto mb-6">
@@ -485,9 +485,9 @@ function ResultScreen({
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
         {[
-          { label: "Câu đúng", value: result.score, color: "#34d399" },
-          { label: "Câu sai", value: result.total - result.score, color: "#f87171" },
-          { label: "Thời gian", value: `${mins}:${secs.toString().padStart(2, "0")}`, color: "#a78bfa" },
+          { label: "C�u d�ng", value: result.score, color: "#34d399" },
+          { label: "C�u sai", value: result.total - result.score, color: "#f87171" },
+          { label: "Th?i gian", value: `${mins}:${secs.toString().padStart(2, "0")}`, color: "#a78bfa" },
         ].map(s => (
           <div key={s.label} className="p-3 rounded-xl bg-app-surface/50 border border-app-border">
             <p className="font-bold text-xl" style={{ color: s.color }}>{s.value}</p>
@@ -500,8 +500,8 @@ function ResultScreen({
       <div className="p-3 rounded-xl bg-app-accent-primary/8 border border-app-accent-primary/20 mb-6">
         <p className="text-app-accent-primary font-bold text-sm">
           <i className="ri-star-fill mr-1"></i>
-          +{result.score * 5 + (pct >= 80 ? 20 : 0)} XP đã nhận
-          {pct >= 80 && <span className="text-[10px] ml-1 opacity-70">(+20 bonus điểm cao)</span>}
+          +{result.score * 5 + (pct >= 80 ? 20 : 0)} XP d� nh?n
+          {pct >= 80 && <span className="text-[10px] ml-1 opacity-70">(+20 bonus di?m cao)</span>}
         </p>
       </div>
 
@@ -511,26 +511,26 @@ function ResultScreen({
           onClick={onRetry}
           className="w-full py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
         >
-          <i className="ri-refresh-line mr-2"></i>Thi lại bài này
+          <i className="ri-refresh-line mr-2"></i>Thi l?i b�i n�y
         </button>
         <button
           onClick={onSelectAnother}
           className="w-full py-3 rounded-xl border border-app-border bg-app-surface/50 hover:bg-white/6 text-white/70 text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap"
         >
-          <i className="ri-list-check mr-2"></i>Chọn bài khác
+          <i className="ri-list-check mr-2"></i>Ch?n b�i kh�c
         </button>
         <button
           onClick={onBack}
           className="w-full py-3 rounded-xl border border-app-border bg-white/2 hover:bg-white/4 text-app-text-secondary text-sm transition-colors cursor-pointer whitespace-nowrap"
         >
-          <i className="ri-book-open-line mr-2"></i>Về trang bài học
+          <i className="ri-book-open-line mr-2"></i>V? trang b�i h?c
         </button>
       </div>
     </div>
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────
+// --- Main Page ------------------------------------------------------------
 export default function EpsLessonQuizPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -564,7 +564,7 @@ export default function EpsLessonQuizPage() {
     }));
     // Award XP
     const xp = r.score * 5 + (r.percentage >= 80 ? 20 : 0);
-    addXP(xp, `Thi thử bài EPS ${r.lessonId} — ${r.percentage}%`);
+    addXP(xp, `Thi th? b�i EPS ${r.lessonId} � ${r.percentage}%`);
   }, [addXP, setQuizHistory]);
 
   const handleRetry = () => {
@@ -587,8 +587,8 @@ export default function EpsLessonQuizPage() {
 
   return (
     <DashboardLayout
-      title="Thi thử theo bài EPS"
-      subtitle="Kiểm tra từ vựng từng bài — câu hỏi tự động tạo từ từ vựng đã học"
+      title="Thi th? theo b�i EPS"
+      subtitle="Ki?m tra t? v?ng t?ng b�i � c�u h?i t? d?ng t?o t? t? v?ng d� h?c"
     >
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Main content */}
@@ -624,13 +624,13 @@ export default function EpsLessonQuizPage() {
           <div className="w-full lg:w-72 space-y-4">
             {/* How it works */}
             <div className="bg-app-bg border border-app-border rounded-2xl p-4">
-              <p className="text-white font-semibold text-sm mb-3">Cách hoạt động</p>
+              <p className="text-white font-semibold text-sm mb-3">C�ch ho?t d?ng</p>
               <div className="space-y-2.5">
                 {[
-                  { icon: "ri-book-open-line", color: "app-accent-primary", text: "Chọn bài học muốn thi thử" },
-                  { icon: "ri-question-line", color: "#a78bfa", text: "10 câu hỏi tự động từ từ vựng" },
-                  { icon: "ri-timer-line", color: "#fb923c", text: "30 giây mỗi câu" },
-                  { icon: "ri-star-line", color: "#34d399", text: "Nhận XP dựa trên điểm số" },
+                  { icon: "ri-book-open-line", color: "app-accent-primary", text: "Ch?n b�i h?c mu?n thi th?" },
+                  { icon: "ri-question-line", color: "#a78bfa", text: "10 c�u h?i t? d?ng t? t? v?ng" },
+                  { icon: "ri-timer-line", color: "#fb923c", text: "30 gi�y m?i c�u" },
+                  { icon: "ri-star-line", color: "#34d399", text: "Nh?n XP d?a tr�n di?m s?" },
                 ].map((s, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -645,7 +645,7 @@ export default function EpsLessonQuizPage() {
             {/* Recent history */}
             {recentHistory.length > 0 && (
               <div className="bg-app-bg border border-app-border rounded-2xl p-4">
-                <p className="text-white font-semibold text-sm mb-3">Lịch sử gần đây</p>
+                <p className="text-white font-semibold text-sm mb-3">L?ch s? g?n d�y</p>
                 <div className="space-y-2">
                   {recentHistory.map((h, i) => {
                     const pctColor = h.percentage >= 80 ? "text-app-accent-success" : h.percentage >= 60 ? "text-app-accent-primary" : "text-red-400";
@@ -660,7 +660,7 @@ export default function EpsLessonQuizPage() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-white/70 text-xs truncate">{h.lesson.titleVi}</p>
-                          <p className="text-app-text-muted text-[10px]">{h.score}/{h.total} câu đúng</p>
+                          <p className="text-app-text-muted text-[10px]">{h.score}/{h.total} c�u d�ng</p>
                         </div>
                         <span className={`font-bold text-sm ${pctColor}`}>{h.percentage}%</span>
                       </button>
@@ -672,19 +672,19 @@ export default function EpsLessonQuizPage() {
 
             {/* XP info */}
             <div className="bg-[#a78bfa]/5 border border-[#a78bfa]/15 rounded-xl p-4">
-              <p className="text-[#a78bfa] text-xs font-semibold mb-2">Phần thưởng XP</p>
+              <p className="text-[#a78bfa] text-xs font-semibold mb-2">Ph?n thu?ng XP</p>
               <div className="space-y-1.5">
                 <div className="flex justify-between text-xs">
-                  <span className="text-app-text-secondary">Mỗi câu đúng</span>
+                  <span className="text-app-text-secondary">M?i c�u d�ng</span>
                   <span className="text-[#a78bfa] font-bold">+5 XP</span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-app-text-secondary">Điểm &ge;80%</span>
+                  <span className="text-app-text-secondary">�i?m &ge;80%</span>
                   <span className="text-[#a78bfa] font-bold">+20 XP bonus</span>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-app-text-secondary">Điểm 100%</span>
-                  <span className="text-[#a78bfa] font-bold">+70 XP tổng</span>
+                  <span className="text-app-text-secondary">�i?m 100%</span>
+                  <span className="text-[#a78bfa] font-bold">+70 XP t?ng</span>
                 </div>
               </div>
             </div>

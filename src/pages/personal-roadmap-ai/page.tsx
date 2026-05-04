@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import DashboardLayout from "@/components/feature/DashboardLayout";
@@ -31,27 +31,27 @@ interface RoadmapData {
 }
 
 const LEVEL_LABELS: Record<Level, string> = {
-  A1: "A1 - Sơ cấp 1 (Mới bắt đầu)",
-  A2: "A2 - Sơ cấp 2 (Cơ bản)",
-  B1: "B1 - Trung cấp 1 (Giao tiếp được)",
-  B2: "B2 - Trung cấp 2 (Khá thành thạo)",
-  C1: "C1 - Cao cấp (Gần như bản ngữ)",
+  A1: "A1 - So c?p 1 (M?i b?t d?u)",
+  A2: "A2 - So c?p 2 (Co b?n)",
+  B1: "B1 - Trung c?p 1 (Giao ti?p du?c)",
+  B2: "B2 - Trung c?p 2 (Kh� th�nh th?o)",
+  C1: "C1 - Cao c?p (G?n nhu b?n ng?)",
 };
 
 const GOAL_LABELS: Record<Goal, { label: string; icon: string; desc: string }> = {
-  eps: { label: "Thi EPS-TOPIK", icon: "ri-file-list-3-line", desc: "Đậu kỳ thi EPS để đi làm tại Hàn Quốc" },
-  topik1: { label: "TOPIK I (Level 1-2)", icon: "ri-medal-line", desc: "Đạt chứng chỉ TOPIK I" },
-  topik2: { label: "TOPIK II (Level 3-6)", icon: "ri-trophy-line", desc: "Đạt chứng chỉ TOPIK II" },
-  conversation: { label: "Giao tiếp hàng ngày", icon: "ri-chat-voice-line", desc: "Nói chuyện tự nhiên với người Hàn" },
-  business: { label: "Tiếng Hàn công việc", icon: "ri-briefcase-line", desc: "Làm việc trong môi trường Hàn Quốc" },
-  travel: { label: "Du lịch Hàn Quốc", icon: "ri-plane-line", desc: "Giao tiếp khi du lịch Hàn Quốc" },
+  eps: { label: "Thi EPS-TOPIK", icon: "ri-file-list-3-line", desc: "�?u k? thi EPS d? di l�m t?i H�n Qu?c" },
+  topik1: { label: "TOPIK I (Level 1-2)", icon: "ri-medal-line", desc: "�?t ch?ng ch? TOPIK I" },
+  topik2: { label: "TOPIK II (Level 3-6)", icon: "ri-trophy-line", desc: "�?t ch?ng ch? TOPIK II" },
+  conversation: { label: "Giao ti?p h�ng ng�y", icon: "ri-chat-voice-line", desc: "N�i chuy?n t? nhi�n v?i ngu?i H�n" },
+  business: { label: "Ti?ng H�n c�ng vi?c", icon: "ri-briefcase-line", desc: "L�m vi?c trong m�i tru?ng H�n Qu?c" },
+  travel: { label: "Du l?ch H�n Qu?c", icon: "ri-plane-line", desc: "Giao ti?p khi du l?ch H�n Qu?c" },
 };
 
 const TIMEFRAME_LABELS: Record<TimeFrame, string> = {
-  "1month": "1 tháng (Cấp tốc)",
-  "3months": "3 tháng (Tiêu chuẩn)",
-  "6months": "6 tháng (Vững chắc)",
-  "1year": "1 năm (Toàn diện)",
+  "1month": "1 th�ng (C?p t?c)",
+  "3months": "3 th�ng (Ti�u chu?n)",
+  "6months": "6 th�ng (V?ng ch?c)",
+  "1year": "1 nam (To�n di?n)",
 };
 
 function generateRoadmap(level: Level, goal: Goal, timeFrame: TimeFrame): RoadmapData {
@@ -76,50 +76,50 @@ function generateRoadmap(level: Level, goal: Goal, timeFrame: TimeFrame): Roadma
     steps.push(
       {
         week: 1,
-        title: "Nền tảng EPS - Từ vựng cơ bản",
-        description: "Học 60 bài EPS cơ bản, nắm vững từ vựng chủ đề lao động",
-        tasks: ["Học 30 từ vựng EPS/ngày", "Làm 10 câu quiz EPS", "Nghe audio bài 1-5"],
+        title: "N?n t?ng EPS - T? v?ng co b?n",
+        description: "H?c 60 b�i EPS co b?n, n?m v?ng t? v?ng ch? d? lao d?ng",
+        tasks: ["H?c 30 t? v?ng EPS/ng�y", "L�m 10 c�u quiz EPS", "Nghe audio b�i 1-5"],
         resources: [
-          { label: "60 Bài học EPS", path: "/eps-lessons", icon: "ri-book-open-line" },
-          { label: "Từ vựng EPS", path: "/eps-vocabulary", icon: "ri-translate-2" },
+          { label: "60 B�i h?c EPS", path: "/eps-lessons", icon: "ri-book-open-line" },
+          { label: "T? v?ng EPS", path: "/eps-vocabulary", icon: "ri-translate-2" },
         ],
-        milestone: "Thuộc 200 từ EPS cơ bản",
+        milestone: "Thu?c 200 t? EPS co b?n",
         estimatedHours: 14,
       },
       {
         week: Math.ceil(totalWeeks * 0.3),
-        title: "Luyện thi EPS - Nghe & Đọc",
-        description: "Tập trung luyện kỹ năng nghe và đọc hiểu theo format EPS",
-        tasks: ["Luyện nghe 2 bài/ngày", "Làm đề thi thử 40 câu", "Ôn tập từ sai"],
+        title: "Luy?n thi EPS - Nghe & �?c",
+        description: "T?p trung luy?n k? nang nghe v� d?c hi?u theo format EPS",
+        tasks: ["Luy?n nghe 2 b�i/ng�y", "L�m d? thi th? 40 c�u", "�n t?p t? sai"],
         resources: [
-          { label: "Luyện nghe EPS", path: "/eps-listening", icon: "ri-headphone-line" },
-          { label: "Thi thử EPS", path: "/eps-exam", icon: "ri-timer-line" },
+          { label: "Luy?n nghe EPS", path: "/eps-listening", icon: "ri-headphone-line" },
+          { label: "Thi th? EPS", path: "/eps-exam", icon: "ri-timer-line" },
         ],
-        milestone: "Đạt 70% đề thi thử",
+        milestone: "�?t 70% d? thi th?",
         estimatedHours: 21,
       },
       {
         week: Math.ceil(totalWeeks * 0.7),
-        title: "Thi mô phỏng thật",
-        description: "Luyện đề thi EPS trong điều kiện thật, phân tích điểm yếu",
-        tasks: ["Thi mô phỏng 3 lần/tuần", "Phân tích câu sai", "Ôn tập chủ đề yếu"],
+        title: "Thi m� ph?ng th?t",
+        description: "Luy?n d? thi EPS trong di?u ki?n th?t, ph�n t�ch di?m y?u",
+        tasks: ["Thi m� ph?ng 3 l?n/tu?n", "Ph�n t�ch c�u sai", "�n t?p ch? d? y?u"],
         resources: [
-          { label: "Thi mô phỏng thật", path: "/eps-mock-exam", icon: "ri-file-list-3-line" },
-          { label: "Phân tích điểm yếu", path: "/eps-weakness-analysis", icon: "ri-bar-chart-line" },
+          { label: "Thi m� ph?ng th?t", path: "/eps-mock-exam", icon: "ri-file-list-3-line" },
+          { label: "Ph�n t�ch di?m y?u", path: "/eps-weakness-analysis", icon: "ri-bar-chart-line" },
         ],
-        milestone: "Đạt 80%+ đề thi mô phỏng",
+        milestone: "�?t 80%+ d? thi m� ph?ng",
         estimatedHours: 28,
       },
       {
         week: totalWeeks,
-        title: "Hoàn thiện & Sẵn sàng thi",
-        description: "Ôn tập toàn diện, tập trung vào điểm yếu cuối cùng",
-        tasks: ["Ôn tập toàn bộ từ vựng", "Làm đề thi chính thức", "Luyện nghe tốc độ cao"],
+        title: "Ho�n thi?n & S?n s�ng thi",
+        description: "�n t?p to�n di?n, t?p trung v�o di?m y?u cu?i c�ng",
+        tasks: ["�n t?p to�n b? t? v?ng", "L�m d? thi ch�nh th?c", "Luy?n nghe t?c d? cao"],
         resources: [
-          { label: "Đề thi chính thức", path: "/eps-official-exam", icon: "ri-file-list-2-line" },
+          { label: "�? thi ch�nh th?c", path: "/eps-official-exam", icon: "ri-file-list-2-line" },
           { label: "Spaced Repetition", path: "/eps-spaced-review", icon: "ri-brain-line" },
         ],
-        milestone: "Sẵn sàng thi EPS thật",
+        milestone: "S?n s�ng thi EPS th?t",
         estimatedHours: 35,
       }
     );
@@ -127,38 +127,38 @@ function generateRoadmap(level: Level, goal: Goal, timeFrame: TimeFrame): Roadma
     steps.push(
       {
         week: 1,
-        title: "Nền tảng TOPIK - Hangul & Từ vựng",
-        description: "Nắm vững bảng chữ Hangul, học từ vựng TOPIK cơ bản",
-        tasks: ["Học Hangul hoàn chỉnh", "Học 20 từ TOPIK/ngày", "Luyện đọc câu đơn giản"],
+        title: "N?n t?ng TOPIK - Hangul & T? v?ng",
+        description: "N?m v?ng b?ng ch? Hangul, h?c t? v?ng TOPIK co b?n",
+        tasks: ["H?c Hangul ho�n ch?nh", "H?c 20 t? TOPIK/ng�y", "Luy?n d?c c�u don gi?n"],
         resources: [
-          { label: "Bảng chữ Hangul", path: "/hangul", icon: "ri-font-size" },
-          { label: "Từ điển TOPIK", path: "/topik-dictionary", icon: "ri-search-2-line" },
+          { label: "B?ng ch? Hangul", path: "/hangul", icon: "ri-font-size" },
+          { label: "T? di?n TOPIK", path: "/topik-dictionary", icon: "ri-search-2-line" },
         ],
-        milestone: "Đọc được Hangul thành thạo",
+        milestone: "�?c du?c Hangul th�nh th?o",
         estimatedHours: 14,
       },
       {
         week: Math.ceil(totalWeeks * 0.4),
-        title: "Luyện kỹ năng TOPIK",
-        description: "Luyện nghe, đọc hiểu theo format TOPIK I/II",
-        tasks: ["Luyện nghe TOPIK 30 phút/ngày", "Đọc hiểu 2 bài/ngày", "Làm quiz theo chủ đề"],
+        title: "Luy?n k? nang TOPIK",
+        description: "Luy?n nghe, d?c hi?u theo format TOPIK I/II",
+        tasks: ["Luy?n nghe TOPIK 30 ph�t/ng�y", "�?c hi?u 2 b�i/ng�y", "L�m quiz theo ch? d?"],
         resources: [
-          { label: "Luyện nghe TOPIK", path: "/topik-listening", icon: "ri-headphone-line" },
-          { label: "Luyện đọc TOPIK", path: "/topik-reading", icon: "ri-book-read-line" },
+          { label: "Luy?n nghe TOPIK", path: "/topik-listening", icon: "ri-headphone-line" },
+          { label: "Luy?n d?c TOPIK", path: "/topik-reading", icon: "ri-book-read-line" },
         ],
-        milestone: "Hoàn thành 1 đề thi thử",
+        milestone: "Ho�n th�nh 1 d? thi th?",
         estimatedHours: 21,
       },
       {
         week: totalWeeks,
-        title: "Thi thử & Hoàn thiện",
-        description: "Thi thử TOPIK đầy đủ, phân tích và cải thiện",
-        tasks: ["Thi thử TOPIK 2 lần/tuần", "Ôn tập ngữ pháp nâng cao", "Flashcard từ vựng TOPIK"],
+        title: "Thi th? & Ho�n thi?n",
+        description: "Thi th? TOPIK d?y d?, ph�n t�ch v� c?i thi?n",
+        tasks: ["Thi th? TOPIK 2 l?n/tu?n", "�n t?p ng? ph�p n�ng cao", "Flashcard t? v?ng TOPIK"],
         resources: [
-          { label: goal === "topik1" ? "Thi thử TOPIK I" : "Thi thử TOPIK II", path: goal === "topik1" ? "/topik-test" : "/topik2-test", icon: "ri-file-list-2-line" },
+          { label: goal === "topik1" ? "Thi th? TOPIK I" : "Thi th? TOPIK II", path: goal === "topik1" ? "/topik-test" : "/topik2-test", icon: "ri-file-list-2-line" },
           { label: "Flashcard TOPIK", path: "/topik-flashcard", icon: "ri-stack-line" },
         ],
-        milestone: `Đạt điểm TOPIK ${goal === "topik1" ? "Level 2" : "Level 4"}`,
+        milestone: `�?t di?m TOPIK ${goal === "topik1" ? "Level 2" : "Level 4"}`,
         estimatedHours: 35,
       }
     );
@@ -166,38 +166,38 @@ function generateRoadmap(level: Level, goal: Goal, timeFrame: TimeFrame): Roadma
     steps.push(
       {
         week: 1,
-        title: "Nền tảng giao tiếp",
-        description: "Học từ vựng và ngữ pháp cơ bản cho giao tiếp hàng ngày",
-        tasks: ["Học 20 từ vựng/ngày", "Luyện phát âm 15 phút", "Học 1 mẫu câu mới/ngày"],
+        title: "N?n t?ng giao ti?p",
+        description: "H?c t? v?ng v� ng? ph�p co b?n cho giao ti?p h�ng ng�y",
+        tasks: ["H?c 20 t? v?ng/ng�y", "Luy?n ph�t �m 15 ph�t", "H?c 1 m?u c�u m?i/ng�y"],
         resources: [
-          { label: "Tiếng Hàn Giao Tiếp", path: "/conversation", icon: "ri-chat-voice-line" },
-          { label: "Từ vựng tổng hợp", path: "/vocabulary", icon: "ri-translate-2" },
+          { label: "Ti?ng H�n Giao Ti?p", path: "/conversation", icon: "ri-chat-voice-line" },
+          { label: "T? v?ng t?ng h?p", path: "/vocabulary", icon: "ri-translate-2" },
         ],
-        milestone: "Giao tiếp được câu đơn giản",
+        milestone: "Giao ti?p du?c c�u don gi?n",
         estimatedHours: 14,
       },
       {
         week: Math.ceil(totalWeeks * 0.5),
-        title: "Luyện nói & Nghe",
-        description: "Tập trung vào kỹ năng nghe và nói trong tình huống thực tế",
-        tasks: ["Luyện nghe K-pop 20 phút/ngày", "Luyện phát âm AI", "Học qua tin tức Hàn"],
+        title: "Luy?n n�i & Nghe",
+        description: "T?p trung v�o k? nang nghe v� n�i trong t�nh hu?ng th?c t?",
+        tasks: ["Luy?n nghe K-pop 20 ph�t/ng�y", "Luy?n ph�t �m AI", "H?c qua tin t?c H�n"],
         resources: [
           { label: "K-pop Lesson", path: "/melon", icon: "ri-music-2-line" },
-          { label: "Luyện phát âm AI", path: "/listen-practice", icon: "ri-mic-2-line" },
+          { label: "Luy?n ph�t �m AI", path: "/listen-practice", icon: "ri-mic-2-line" },
         ],
-        milestone: "Nghe hiểu 60% hội thoại thường ngày",
+        milestone: "Nghe hi?u 60% h?i tho?i thu?ng ng�y",
         estimatedHours: 21,
       },
       {
         week: totalWeeks,
-        title: "Giao tiếp tự nhiên",
-        description: "Luyện tập với đối tác, tham gia cộng đồng học tiếng Hàn",
-        tasks: ["Luyện với đối tác học tập", "Tham gia cộng đồng", "Xem phim Hàn không phụ đề"],
+        title: "Giao ti?p t? nhi�n",
+        description: "Luy?n t?p v?i d?i t�c, tham gia c?ng d?ng h?c ti?ng H�n",
+        tasks: ["Luy?n v?i d?i t�c h?c t?p", "Tham gia c?ng d?ng", "Xem phim H�n kh�ng ph? d?"],
         resources: [
-          { label: "Đối tác học tập", path: "/study-partner", icon: "ri-user-heart-line" },
-          { label: "Cộng đồng", path: "/community", icon: "ri-group-line" },
+          { label: "�?i t�c h?c t?p", path: "/study-partner", icon: "ri-user-heart-line" },
+          { label: "C?ng d?ng", path: "/community", icon: "ri-group-line" },
         ],
-        milestone: "Giao tiếp tự nhiên với người Hàn",
+        milestone: "Giao ti?p t? nhi�n v?i ngu?i H�n",
         estimatedHours: 28,
       }
     );
@@ -209,8 +209,8 @@ function generateRoadmap(level: Level, goal: Goal, timeFrame: TimeFrame): Roadma
     timeFrame,
     totalWeeks,
     steps,
-    dailyGoal: timeFrame === "1month" ? "3-4 giờ/ngày" : timeFrame === "3months" ? "1.5-2 giờ/ngày" : "1 giờ/ngày",
-    weeklyGoal: timeFrame === "1month" ? "20-25 giờ/tuần" : timeFrame === "3months" ? "10-14 giờ/tuần" : "7-10 giờ/tuần",
+    dailyGoal: timeFrame === "1month" ? "3-4 gi?/ng�y" : timeFrame === "3months" ? "1.5-2 gi?/ng�y" : "1 gi?/ng�y",
+    weeklyGoal: timeFrame === "1month" ? "20-25 gi?/tu?n" : timeFrame === "3months" ? "10-14 gi?/tu?n" : "7-10 gi?/tu?n",
     successRate: timeFrame === "1month" ? 72 : timeFrame === "3months" ? 85 : 93,
     vocabTarget: vocabTargetMap[timeFrame],
     grammarTarget: timeFrame === "1month" ? 30 : timeFrame === "3months" ? 80 : 150,
@@ -273,8 +273,8 @@ export default function PersonalRoadmapAIPage() {
                 <i className="ri-route-line text-app-accent-primary text-xl"></i>
               </div>
               <div>
-                <h1 className="text-white text-2xl font-bold">Lộ trình học cá nhân AI</h1>
-                <p className="text-app-text-secondary text-sm">AI tạo roadmap tối ưu dựa trên trình độ và mục tiêu của bạn</p>
+                <h1 className="text-white text-2xl font-bold">L? tr�nh h?c c� nh�n AI</h1>
+                <p className="text-app-text-secondary text-sm">AI t?o roadmap t?i uu d?a tr�n tr�nh d? v� m?c ti�u c?a b?n</p>
               </div>
             </div>
           </div>
@@ -285,9 +285,9 @@ export default function PersonalRoadmapAIPage() {
               {/* Stats bar */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
-                  { icon: "ri-user-line", label: "Học viên đã dùng", value: "12,847" },
-                  { icon: "ri-translate-2", label: "Từ vựng trong kho", value: vocabCount.toLocaleString() },
-                  { icon: "ri-trophy-line", label: "Tỷ lệ đạt mục tiêu", value: "87%" },
+                  { icon: "ri-user-line", label: "H?c vi�n d� d�ng", value: "12,847" },
+                  { icon: "ri-translate-2", label: "T? v?ng trong kho", value: vocabCount.toLocaleString() },
+                  { icon: "ri-trophy-line", label: "T? l? d?t m?c ti�u", value: "87%" },
                 ].map((s, i) => (
                   <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 flex items-center gap-3">
                     <div className="w-9 h-9 flex items-center justify-center bg-app-accent-primary/10 rounded-lg">
@@ -305,9 +305,9 @@ export default function PersonalRoadmapAIPage() {
               <div>
                 <h2 className="text-white font-semibold mb-1 flex items-center gap-2">
                   <span className="w-6 h-6 rounded-full bg-app-accent-primary/20 text-app-accent-primary text-xs flex items-center justify-center font-bold">1</span>
-                  Trình độ hiện tại của bạn
+                  Tr�nh d? hi?n t?i c?a b?n
                 </h2>
-                <p className="text-app-text-secondary text-sm mb-4 ml-8">Chọn cấp độ phù hợp nhất với bạn hiện tại</p>
+                <p className="text-app-text-secondary text-sm mb-4 ml-8">Ch?n c?p d? ph� h?p nh?t v?i b?n hi?n t?i</p>
                 <div className="grid grid-cols-5 gap-3">
                   {(Object.keys(LEVEL_LABELS) as Level[]).map(level => (
                     <button
@@ -339,9 +339,9 @@ export default function PersonalRoadmapAIPage() {
               <div>
                 <h2 className="text-white font-semibold mb-1 flex items-center gap-2">
                   <span className="w-6 h-6 rounded-full bg-app-accent-primary/20 text-app-accent-primary text-xs flex items-center justify-center font-bold">2</span>
-                  Mục tiêu học tập
+                  M?c ti�u h?c t?p
                 </h2>
-                <p className="text-app-text-secondary text-sm mb-4 ml-8">Bạn muốn đạt được điều gì?</p>
+                <p className="text-app-text-secondary text-sm mb-4 ml-8">B?n mu?n d?t du?c di?u g�?</p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {(Object.keys(GOAL_LABELS) as Goal[]).map(goal => {
                     const g = GOAL_LABELS[goal];
@@ -365,7 +365,7 @@ export default function PersonalRoadmapAIPage() {
                         {selectedGoal === goal && (
                           <div className="mt-2 flex items-center gap-1 text-app-accent-primary text-xs">
                             <i className="ri-check-line"></i>
-                            <span>Đã chọn</span>
+                            <span>�� ch?n</span>
                           </div>
                         )}
                       </button>
@@ -378,9 +378,9 @@ export default function PersonalRoadmapAIPage() {
               <div>
                 <h2 className="text-white font-semibold mb-1 flex items-center gap-2">
                   <span className="w-6 h-6 rounded-full bg-app-accent-primary/20 text-app-accent-primary text-xs flex items-center justify-center font-bold">3</span>
-                  Thời gian học
+                  Th?i gian h?c
                 </h2>
-                <p className="text-app-text-secondary text-sm mb-4 ml-8">Bạn có bao nhiêu thời gian để đạt mục tiêu?</p>
+                <p className="text-app-text-secondary text-sm mb-4 ml-8">B?n c� bao nhi�u th?i gian d? d?t m?c ti�u?</p>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {(Object.keys(TIMEFRAME_LABELS) as TimeFrame[]).map(tf => (
                     <button
@@ -415,7 +415,7 @@ export default function PersonalRoadmapAIPage() {
                 }`}
               >
                 <i className="ri-robot-line mr-2"></i>
-                {canGenerate ? "Tạo lộ trình học cá nhân" : "Vui lòng chọn đủ 3 thông tin trên"}
+                {canGenerate ? "T?o l? tr�nh h?c c� nh�n" : "Vui l�ng ch?n d? 3 th�ng tin tr�n"}
               </button>
             </div>
           )}
@@ -427,12 +427,12 @@ export default function PersonalRoadmapAIPage() {
                 <i className="ri-robot-line text-app-accent-primary text-4xl animate-pulse"></i>
               </div>
               <div className="text-center">
-                <h2 className="text-white text-xl font-bold mb-2">AI đang phân tích...</h2>
-                <p className="text-app-text-secondary text-sm">Đang tạo lộ trình học tối ưu cho bạn</p>
+                <h2 className="text-white text-xl font-bold mb-2">AI dang ph�n t�ch...</h2>
+                <p className="text-app-text-secondary text-sm">�ang t?o l? tr�nh h?c t?i uu cho b?n</p>
               </div>
               <div className="w-80">
                 <div className="flex justify-between text-xs text-app-text-secondary mb-2">
-                  <span>Đang xử lý</span>
+                  <span>�ang x? l�</span>
                   <span>{progress}%</span>
                 </div>
                 <div className="h-2 bg-white/8 rounded-full overflow-hidden">
@@ -444,10 +444,10 @@ export default function PersonalRoadmapAIPage() {
               </div>
               <div className="space-y-2 text-center">
                 {[
-                  { threshold: 20, text: "Phân tích trình độ hiện tại..." },
-                  { threshold: 50, text: "Tối ưu hóa lộ trình theo mục tiêu..." },
-                  { threshold: 80, text: "Tạo kế hoạch học tập chi tiết..." },
-                  { threshold: 95, text: "Hoàn thiện lộ trình cá nhân..." },
+                  { threshold: 20, text: "Ph�n t�ch tr�nh d? hi?n t?i..." },
+                  { threshold: 50, text: "T?i uu h�a l? tr�nh theo m?c ti�u..." },
+                  { threshold: 80, text: "T?o k? ho?ch h?c t?p chi ti?t..." },
+                  { threshold: 95, text: "Ho�n thi?n l? tr�nh c� nh�n..." },
                 ].map((item, i) => (
                   <div
                     key={i}
@@ -471,7 +471,7 @@ export default function PersonalRoadmapAIPage() {
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <h2 className="text-white text-xl font-bold mb-1">
-                      Lộ trình: {GOAL_LABELS[roadmap.goal].label}
+                      L? tr�nh: {GOAL_LABELS[roadmap.goal].label}
                     </h2>
                     <div className="flex items-center gap-3 flex-wrap">
                       <span className={`text-xs px-2 py-0.5 rounded-full border ${LEVEL_COLORS[roadmap.level]}`}>
@@ -489,15 +489,15 @@ export default function PersonalRoadmapAIPage() {
                   </div>
                   <div className="text-right">
                     <div className="text-app-accent-primary text-3xl font-bold">{roadmap.successRate}%</div>
-                    <div className="text-app-text-secondary text-xs">Tỷ lệ thành công</div>
+                    <div className="text-app-text-secondary text-xs">T? l? th�nh c�ng</div>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   {[
-                    { icon: "ri-calendar-2-line", label: "Tổng tuần", value: `${roadmap.totalWeeks} tuần` },
-                    { icon: "ri-translate-2", label: "Mục tiêu từ vựng", value: `${roadmap.vocabTarget} từ` },
-                    { icon: "ri-book-2-line", label: "Ngữ pháp", value: `${roadmap.grammarTarget} mẫu` },
-                    { icon: "ri-time-line", label: "Mỗi tuần", value: roadmap.weeklyGoal },
+                    { icon: "ri-calendar-2-line", label: "T?ng tu?n", value: `${roadmap.totalWeeks} tu?n` },
+                    { icon: "ri-translate-2", label: "M?c ti�u t? v?ng", value: `${roadmap.vocabTarget} t?` },
+                    { icon: "ri-book-2-line", label: "Ng? ph�p", value: `${roadmap.grammarTarget} m?u` },
+                    { icon: "ri-time-line", label: "M?i tu?n", value: roadmap.weeklyGoal },
                   ].map((s, i) => (
                     <div key={i} className="bg-app-card/50 rounded-xl p-3 text-center">
                       <div className="w-8 h-8 flex items-center justify-center bg-app-accent-primary/10 rounded-lg mx-auto mb-2">
@@ -514,7 +514,7 @@ export default function PersonalRoadmapAIPage() {
               <div>
                 <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
                   <i className="ri-map-pin-line text-app-accent-primary"></i>
-                  Các giai đoạn học tập
+                  C�c giai do?n h?c t?p
                 </h3>
                 <div className="space-y-4">
                   {roadmap.steps.map((s, idx) => (
@@ -536,13 +536,13 @@ export default function PersonalRoadmapAIPage() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-0.5">
                             <h4 className="text-white font-medium text-sm">{s.title}</h4>
-                            <span className="text-app-text-muted text-xs">Tuần {s.week}</span>
+                            <span className="text-app-text-muted text-xs">Tu?n {s.week}</span>
                           </div>
                           <p className="text-white/50 text-xs truncate">{s.description}</p>
                         </div>
                         <div className="flex items-center gap-3 flex-shrink-0">
                           <div className="text-right">
-                            <p className="text-white/60 text-xs">{s.estimatedHours}h/tuần</p>
+                            <p className="text-white/60 text-xs">{s.estimatedHours}h/tu?n</p>
                             {s.milestone && (
                               <p className="text-app-accent-primary text-[10px]">
                                 <i className="ri-flag-line mr-0.5"></i>
@@ -563,7 +563,7 @@ export default function PersonalRoadmapAIPage() {
                             </div>
                           )}
                           <div>
-                            <p className="text-white/50 text-xs font-semibold tracking-normal mb-2">Nhiệm vụ hàng ngày</p>
+                            <p className="text-white/50 text-xs font-semibold tracking-normal mb-2">Nhi?m v? h�ng ng�y</p>
                             <div className="space-y-1.5">
                               {s.tasks.map((task, ti) => (
                                 <div key={ti} className="flex items-center gap-2 text-white/60 text-sm">
@@ -576,7 +576,7 @@ export default function PersonalRoadmapAIPage() {
                             </div>
                           </div>
                           <div>
-                            <p className="text-white/50 text-xs font-semibold tracking-normal mb-2">Tài nguyên học tập</p>
+                            <p className="text-white/50 text-xs font-semibold tracking-normal mb-2">T�i nguy�n h?c t?p</p>
                             <div className="flex flex-wrap gap-2">
                               {s.resources.map((r, ri) => (
                                 <button
@@ -604,14 +604,14 @@ export default function PersonalRoadmapAIPage() {
                   className="flex-1 py-3 rounded-xl border border-white/15 text-white/60 hover:text-white hover:border-white/30 transition-all cursor-pointer whitespace-nowrap text-sm"
                 >
                   <i className="ri-refresh-line mr-2"></i>
-                  Tạo lại lộ trình
+                  T?o l?i l? tr�nh
                 </button>
                 <button
                   onClick={() => navigate(roadmap.goal === "eps" ? "/eps" : roadmap.goal.startsWith("topik") ? "/topik-test" : "/conversation")}
                   className="flex-2 flex-1 py-3 rounded-xl bg-app-accent-primary text-black font-semibold hover:bg-[#f0d060] transition-all cursor-pointer whitespace-nowrap text-sm"
                 >
                   <i className="ri-play-circle-line mr-2"></i>
-                  Bắt đầu học ngay
+                  B?t d?u h?c ngay
                 </button>
               </div>
             </div>

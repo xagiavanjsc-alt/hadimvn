@@ -1,8 +1,8 @@
-﻿import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { supabase } from "@/lib/supabase";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// --- Types --------------------------------------------------------------------
 interface VipUser {
   id: string;
   display_name: string;
@@ -31,7 +31,7 @@ interface ChurnUser {
   vipType: "month" | "year";
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+// --- Helpers ------------------------------------------------------------------
 function getVipType(u: VipUser): "month" | "year" | "none" {
   if (!u.is_vip || !u.vip_expires_at) return "none";
   const d = Math.floor((new Date(u.vip_expires_at).getTime() - Date.now()) / 86400000);
@@ -39,7 +39,7 @@ function getVipType(u: VipUser): "month" | "year" | "none" {
 }
 
 function formatVND(n: number) {
-  return new Intl.NumberFormat("vi-VN").format(Math.round(n)) + "đ";
+  return new Intl.NumberFormat("vi-VN").format(Math.round(n)) + "d";
 }
 
 function formatVNDShort(n: number) {
@@ -51,7 +51,7 @@ function formatVNDShort(n: number) {
 const MONTH_PRICE = 79000;
 const YEAR_PRICE_MONTHLY = 708000 / 12; // ~59000/month
 
-// ─── Mini Bar Chart ───────────────────────────────────────────────────────────
+// --- Mini Bar Chart -----------------------------------------------------------
 function BarChart({ data, valueKey, colorFn, labelKey, height = 120 }: {
   data: MonthlyData[];
   valueKey: keyof MonthlyData;
@@ -87,7 +87,7 @@ function BarChart({ data, valueKey, colorFn, labelKey, height = 120 }: {
   );
 }
 
-// ─── Line Chart (simple SVG) ──────────────────────────────────────────────────
+// --- Line Chart (simple SVG) --------------------------------------------------
 function LineChart({ data, valueKey, color = "#f87171", height = 80 }: {
   data: MonthlyData[]; valueKey: keyof MonthlyData; color?: string; height?: number;
 }) {
@@ -122,7 +122,7 @@ function LineChart({ data, valueKey, color = "#f87171", height = 80 }: {
   );
 }
 
-// ─── Cohort Retention Chart ───────────────────────────────────────────────────
+// --- Cohort Retention Chart ---------------------------------------------------
 interface CohortRow {
   cohortMonth: string;
   label: string;
@@ -187,12 +187,12 @@ function CohortRetentionChart({ users }: { users: VipUser[] }) {
         <div>
           <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>Cohort Retention Analysis</p>
           <p className="text-xs mt-0.5" style={{ color: "var(--admin-text-muted)" }}>
-            Tỷ lệ giữ chân VIP theo tháng đăng ký — xanh = giữ tốt, đỏ = churn cao
+            T? l? gi? ch�n VIP theo th�ng dang k� � xanh = gi? t?t, d? = churn cao
           </p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           {[
-            { label: "≥80%", color: "rgba(52,211,153,0.85)" },
+            { label: "=80%", color: "rgba(52,211,153,0.85)" },
             { label: "60-79%", color: "rgba(52,211,153,0.55)" },
             { label: "40-59%", color: "rgba(232,200,74,0.65)" },
             { label: "20-39%", color: "rgba(251,146,60,0.65)" },
@@ -213,7 +213,7 @@ function CohortRetentionChart({ users }: { users: VipUser[] }) {
               <th className="text-center px-2 pb-2 font-semibold text-[10px] tracking-normal" style={{ color: "var(--admin-text-faint)", minWidth: 50 }}>Size</th>
               {Array.from({ length: maxMonths }, (_, i) => (
                 <th key={i} className="text-center px-1 pb-2 font-semibold text-[10px] tracking-normal" style={{ color: "var(--admin-text-faint)", minWidth: 60 }}>
-                  {i === 0 ? "Tháng 0" : `+${i}th`}
+                  {i === 0 ? "Th�ng 0" : `+${i}th`}
                 </th>
               ))}
             </tr>
@@ -229,7 +229,7 @@ function CohortRetentionChart({ users }: { users: VipUser[] }) {
                   <td key={m} className="text-center px-1 py-1.5">
                     <div className="w-full h-8 rounded-lg flex items-center justify-center font-bold text-[11px] transition-all"
                       style={{ backgroundColor: pct < 0 ? "var(--admin-hover)" : retentionBg(pct), color: pct < 0 ? "var(--admin-text-faint)" : retentionFg(pct) }}>
-                      {pct < 0 ? "—" : `${pct}%`}
+                      {pct < 0 ? "�" : `${pct}%`}
                     </div>
                   </td>
                 ))}
@@ -240,7 +240,7 @@ function CohortRetentionChart({ users }: { users: VipUser[] }) {
       </div>
       <div className="mt-4 pt-4 border-t" style={{ borderColor: "var(--admin-border)" }}>
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-bold w-20 flex-shrink-0" style={{ color: "var(--admin-text-faint)" }}>TB cộng</span>
+          <span className="text-[10px] font-bold w-20 flex-shrink-0" style={{ color: "var(--admin-text-faint)" }}>TB c?ng</span>
           <span className="text-[10px] px-2 py-0.5 rounded-full font-bold mr-1" style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-faint)" }}>
             {Math.round(cohorts.reduce((s, r) => s + r.size, 0) / Math.max(cohorts.filter(r => r.size > 0).length, 1))}
           </span>
@@ -250,20 +250,20 @@ function CohortRetentionChart({ users }: { users: VipUser[] }) {
             return (
               <div key={m} className="flex-1 h-8 rounded-lg flex items-center justify-center font-bold text-[11px]"
                 style={{ backgroundColor: avg >= 0 ? retentionBg(avg) : "var(--admin-hover)", color: avg >= 0 ? retentionFg(avg) : "var(--admin-text-faint)" }}>
-                {avg >= 0 ? `${avg}%` : "—"}
+                {avg >= 0 ? `${avg}%` : "�"}
               </div>
             );
           })}
         </div>
         <p className="text-[9px] mt-2" style={{ color: "var(--admin-text-faint)" }}>
-          * Dữ liệu retention ước tính dựa trên ngày đăng ký và trạng thái VIP hiện tại.
+          * D? li?u retention u?c t�nh d?a tr�n ng�y dang k� v� tr?ng th�i VIP hi?n t?i.
         </p>
       </div>
     </div>
   );
 }
 
-// ─── Quarterly / Yearly Comparison Tab ──────────────────────────────────────
+// --- Quarterly / Yearly Comparison Tab --------------------------------------
 function QuarterlyYearlyTab({ monthlyData, users }: { monthlyData: MonthlyData[]; users: VipUser[] }) {
   const [compareMode, setCompareMode] = useState<"quarter" | "year">("quarter");
 
@@ -317,7 +317,7 @@ function QuarterlyYearlyTab({ monthlyData, users }: { monthlyData: MonthlyData[]
     <div className="space-y-5">
       {/* Toggle */}
       <div className="flex items-center gap-1 p-1 rounded-xl w-fit" style={{ backgroundColor: "var(--admin-hover)" }}>
-        {([{ val: "quarter" as const, label: "So sánh theo Quý" }, { val: "year" as const, label: "So sánh theo Năm" }]).map(m => (
+        {([{ val: "quarter" as const, label: "So s�nh theo Qu�" }, { val: "year" as const, label: "So s�nh theo Nam" }]).map(m => (
           <button key={m.val} onClick={() => setCompareMode(m.val)}
             className="px-4 py-2 rounded-lg text-xs font-semibold cursor-pointer whitespace-nowrap transition-all"
             style={{ backgroundColor: compareMode === m.val ? "var(--admin-card)" : "transparent", color: compareMode === m.val ? "var(--admin-text)" : "var(--admin-text-muted)", border: compareMode === m.val ? "1px solid var(--admin-border)" : "1px solid transparent" }}>
@@ -330,7 +330,7 @@ function QuarterlyYearlyTab({ monthlyData, users }: { monthlyData: MonthlyData[]
         <>
           {/* Quarterly bar chart */}
           <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-            <p className="font-semibold text-sm mb-5" style={{ color: "var(--admin-text)" }}>Doanh thu theo Quý</p>
+            <p className="font-semibold text-sm mb-5" style={{ color: "var(--admin-text)" }}>Doanh thu theo Qu�</p>
             <div className="flex items-end gap-4" style={{ height: 180 }}>
               {quarterlyData.map((q, i) => {
                 const pct = (q.mrr / maxQMrr) * 100;
@@ -356,12 +356,12 @@ function QuarterlyYearlyTab({ monthlyData, users }: { monthlyData: MonthlyData[]
           {/* Quarterly table */}
           <div className="rounded-2xl border overflow-hidden" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
             <div className="px-5 py-3 border-b" style={{ borderColor: "var(--admin-border)" }}>
-              <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Chi tiết theo Quý</p>
+              <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Chi ti?t theo Qu�</p>
             </div>
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b" style={{ borderColor: "var(--admin-border)" }}>
-                  {["Quý", "Doanh thu", "VIP mới", "Tổng VIP", "Churn", "Tăng trưởng"].map(h => (
+                  {["Qu�", "Doanh thu", "VIP m?i", "T?ng VIP", "Churn", "Tang tru?ng"].map(h => (
                     <th key={h} className="text-left px-4 py-2.5 text-[10px] tracking-normal font-semibold" style={{ color: "var(--admin-text-faint)" }}>{h}</th>
                   ))}
                 </tr>
@@ -378,7 +378,7 @@ function QuarterlyYearlyTab({ monthlyData, users }: { monthlyData: MonthlyData[]
                       <td className="px-4 py-3 text-xs" style={{ color: "var(--admin-text-muted)" }}>{q.totalVip}</td>
                       <td className="px-4 py-3 text-xs" style={{ color: "#f87171" }}>{q.churn}</td>
                       <td className="px-4 py-3 text-xs font-bold" style={{ color: growth === null ? "var(--admin-text-faint)" : growth >= 0 ? "#34d399" : "#f87171" }}>
-                        {growth === null ? "—" : `${growth >= 0 ? "+" : ""}${growth.toFixed(1)}%`}
+                        {growth === null ? "�" : `${growth >= 0 ? "+" : ""}${growth.toFixed(1)}%`}
                       </td>
                     </tr>
                   );
@@ -400,21 +400,21 @@ function QuarterlyYearlyTab({ monthlyData, users }: { monthlyData: MonthlyData[]
               return (
                 <div key={y.label} className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
                   <div className="flex items-center justify-between mb-4">
-                    <p className="font-bold text-lg" style={{ color: "var(--admin-text)" }}>Năm {y.label}</p>
+                    <p className="font-bold text-lg" style={{ color: "var(--admin-text)" }}>Nam {y.label}</p>
                     {growth !== null && (
                       <span className="text-xs font-bold px-2 py-1 rounded-full" style={{ backgroundColor: `${color}15`, color }}>
-                        {growth >= 0 ? "+" : ""}{growth.toFixed(1)}% so với năm trước
+                        {growth >= 0 ? "+" : ""}{growth.toFixed(1)}% so v?i nam tru?c
                       </span>
                     )}
                   </div>
                   <div className="space-y-3">
                     {[
-                      { label: "Tổng doanh thu", value: formatVND(y.mrr), color: "#34d399" },
-                      { label: "ARR ước tính", value: formatVND(y.arr), color: "app-accent-primary" },
-                      { label: "VIP mới", value: `+${y.newVip}`, color: "#a78bfa" },
-                      { label: "Tổng VIP cuối kỳ", value: y.totalVip, color: "#fb923c" },
+                      { label: "T?ng doanh thu", value: formatVND(y.mrr), color: "#34d399" },
+                      { label: "ARR u?c t�nh", value: formatVND(y.arr), color: "app-accent-primary" },
+                      { label: "VIP m?i", value: `+${y.newVip}`, color: "#a78bfa" },
+                      { label: "T?ng VIP cu?i k?", value: y.totalVip, color: "#fb923c" },
                       { label: "Churn", value: y.churn, color: "#f87171" },
-                      { label: "Số tháng dữ liệu", value: `${y.months} tháng`, color: "#6b7280" },
+                      { label: "S? th�ng d? li?u", value: `${y.months} th�ng`, color: "#6b7280" },
                     ].map(m => (
                       <div key={m.label} className="flex items-center justify-between px-3 py-2 rounded-xl" style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>
                         <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>{m.label}</span>
@@ -429,7 +429,7 @@ function QuarterlyYearlyTab({ monthlyData, users }: { monthlyData: MonthlyData[]
 
           {/* Year-over-year bar chart */}
           <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-            <p className="font-semibold text-sm mb-5" style={{ color: "var(--admin-text)" }}>So sánh doanh thu năm</p>
+            <p className="font-semibold text-sm mb-5" style={{ color: "var(--admin-text)" }}>So s�nh doanh thu nam</p>
             <div className="flex items-end gap-8 justify-center" style={{ height: 160 }}>
               {yearlyData.map((y, i) => {
                 const pct = (y.mrr / maxYMrr) * 100;
@@ -438,7 +438,7 @@ function QuarterlyYearlyTab({ monthlyData, users }: { monthlyData: MonthlyData[]
                   <div key={y.label} className="flex flex-col items-center gap-2" style={{ width: 120 }}>
                     <p className="text-sm font-black" style={{ color: colors[i] }}>{formatVND(y.mrr)}</p>
                     <div className="w-full rounded-t-2xl transition-all duration-700" style={{ height: `${Math.max(pct, 4)}%`, backgroundColor: colors[i], opacity: 0.85 }} />
-                    <p className="text-sm font-bold" style={{ color: "var(--admin-text-muted)" }}>Năm {y.label}</p>
+                    <p className="text-sm font-bold" style={{ color: "var(--admin-text-muted)" }}>Nam {y.label}</p>
                   </div>
                 );
               })}
@@ -450,7 +450,7 @@ function QuarterlyYearlyTab({ monthlyData, users }: { monthlyData: MonthlyData[]
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function AdminRevenuePage() {
   const [users, setUsers] = useState<VipUser[]>([]);
   const [loading, setLoading] = useState(true);
@@ -471,7 +471,7 @@ export default function AdminRevenuePage() {
     fetchData();
   }, []);
 
-  // ─── Computed metrics ─────────────────────────────────────────────────────
+  // --- Computed metrics -----------------------------------------------------
   const vipMonthUsers = useMemo(() => users.filter(u => getVipType(u) === "month"), [users]);
   const vipYearUsers = useMemo(() => users.filter(u => getVipType(u) === "year"), [users]);
   const freeUsers = useMemo(() => users.filter(u => !u.is_vip), [users]);
@@ -523,7 +523,7 @@ export default function AdminRevenuePage() {
         return u.is_vip && joined <= monthEnd;
       }).length;
 
-      // churnedVip tính từ số VIP thực tế bị hết hạn trong tháng
+      // churnedVip t�nh t? s? VIP th?c t? b? h?t h?n trong th�ng
       const churnedVip = users.filter(u => {
         if (!u.is_vip || !u.vip_expires_at) return false;
         const exp = new Date(u.vip_expires_at);
@@ -562,7 +562,7 @@ export default function AdminRevenuePage() {
 
   if (loading) {
     return (
-      <AdminLayout title="Phân tích Doanh thu" subtitle="MRR, ARR, Churn Rate từ dữ liệu thực">
+      <AdminLayout title="Ph�n t�ch Doanh thu" subtitle="MRR, ARR, Churn Rate t? d? li?u th?c">
         <div className="flex items-center justify-center py-20">
           <div className="w-8 h-8 border-2 border-rose-500/30 border-t-rose-500 rounded-full animate-spin"></div>
         </div>
@@ -572,15 +572,15 @@ export default function AdminRevenuePage() {
 
   return (
     <AdminLayout
-      title="Phân tích Doanh thu"
-      subtitle="MRR, ARR, Churn Rate và phân tích VIP từ dữ liệu Supabase thực"
+      title="Ph�n t�ch Doanh thu"
+      subtitle="MRR, ARR, Churn Rate v� ph�n t�ch VIP t? d? li?u Supabase th?c"
       actions={
         <div className="flex items-center gap-1 rounded-lg p-1" style={{ backgroundColor: "var(--admin-hover)" }}>
           {(["6m", "12m"] as const).map(p => (
             <button key={p} onClick={() => setPeriod(p)}
               className="px-3 py-1.5 rounded-md text-xs font-semibold cursor-pointer whitespace-nowrap transition-all"
               style={{ backgroundColor: period === p ? "var(--admin-card)" : "transparent", color: period === p ? "var(--admin-text)" : "var(--admin-text-muted)", border: period === p ? "1px solid var(--admin-border)" : "1px solid transparent" }}>
-              {p === "6m" ? "6 tháng" : "12 tháng"}
+              {p === "6m" ? "6 th�ng" : "12 th�ng"}
             </button>
           ))}
         </div>
@@ -589,10 +589,10 @@ export default function AdminRevenuePage() {
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
         {[
-          { label: "MRR", value: formatVND(mrr), sub: `${mrrGrowth >= 0 ? "+" : ""}${mrrGrowth.toFixed(1)}% so với tháng trước`, icon: "ri-money-dollar-circle-line", color: "#34d399", positive: mrrGrowth >= 0 },
-          { label: "ARR (ước tính)", value: formatVND(arr), sub: "Doanh thu năm dự kiến", icon: "ri-bar-chart-grouped-line", color: "app-accent-primary", positive: true },
-          { label: "Churn Rate", value: `${churnRate.toFixed(1)}%`, sub: `${churnRisk.length} VIP sắp hết hạn 30 ngày`, icon: "ri-user-unfollow-line", color: churnRate > 20 ? "#f87171" : "#fb923c", positive: churnRate < 10 },
-          { label: "ARPU", value: formatVND(arpu), sub: `LTV ước tính: ${formatVND(ltv)}`, icon: "ri-user-star-line", color: "#a78bfa", positive: true },
+          { label: "MRR", value: formatVND(mrr), sub: `${mrrGrowth >= 0 ? "+" : ""}${mrrGrowth.toFixed(1)}% so v?i th�ng tru?c`, icon: "ri-money-dollar-circle-line", color: "#34d399", positive: mrrGrowth >= 0 },
+          { label: "ARR (u?c t�nh)", value: formatVND(arr), sub: "Doanh thu nam d? ki?n", icon: "ri-bar-chart-grouped-line", color: "app-accent-primary", positive: true },
+          { label: "Churn Rate", value: `${churnRate.toFixed(1)}%`, sub: `${churnRisk.length} VIP s?p h?t h?n 30 ng�y`, icon: "ri-user-unfollow-line", color: churnRate > 20 ? "#f87171" : "#fb923c", positive: churnRate < 10 },
+          { label: "ARPU", value: formatVND(arpu), sub: `LTV u?c t�nh: ${formatVND(ltv)}`, icon: "ri-user-star-line", color: "#a78bfa", positive: true },
         ].map(s => (
           <div key={s.label} className="rounded-2xl border p-4" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
             <div className="flex items-center gap-2 mb-3">
@@ -610,11 +610,11 @@ export default function AdminRevenuePage() {
       {/* Tabs */}
       <div className="flex items-center gap-1 rounded-xl p-1 w-fit mb-5" style={{ backgroundColor: "var(--admin-hover)" }}>
         {([
-          { id: "overview" as const, label: "Tổng quan", icon: "ri-dashboard-line" },
+          { id: "overview" as const, label: "T?ng quan", icon: "ri-dashboard-line" },
           { id: "mrr" as const, label: "MRR / ARR", icon: "ri-line-chart-line" },
-          { id: "quarterly" as const, label: "Quý / Năm", icon: "ri-bar-chart-grouped-line" },
+          { id: "quarterly" as const, label: "Qu� / Nam", icon: "ri-bar-chart-grouped-line" },
           { id: "churn" as const, label: "Churn Risk", icon: "ri-user-unfollow-line" },
-          { id: "cohort" as const, label: "Phân bổ VIP", icon: "ri-pie-chart-line" },
+          { id: "cohort" as const, label: "Ph�n b? VIP", icon: "ri-pie-chart-line" },
         ]).map(tab => (
           <button key={tab.id} onClick={() => setActiveTab(tab.id)}
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap"
@@ -631,8 +631,8 @@ export default function AdminRevenuePage() {
           <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
             <div className="flex items-center justify-between mb-4">
               <div>
-                <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Xu hướng MRR</p>
-                <p className="text-xs mt-0.5" style={{ color: "var(--admin-text-muted)" }}>{period === "6m" ? "6 tháng" : "12 tháng"} gần nhất</p>
+                <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Xu hu?ng MRR</p>
+                <p className="text-xs mt-0.5" style={{ color: "var(--admin-text-muted)" }}>{period === "6m" ? "6 th�ng" : "12 th�ng"} g?n nh?t</p>
               </div>
               <span className={`text-xs font-bold px-2 py-1 rounded-full ${mrrGrowth >= 0 ? "bg-app-accent-success/15 text-app-accent-success" : "bg-rose-500/15 text-rose-400"}`}>
                 {mrrGrowth >= 0 ? "+" : ""}{mrrGrowth.toFixed(1)}%
@@ -653,8 +653,8 @@ export default function AdminRevenuePage() {
           <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
             <div className="flex items-center justify-between mb-4">
               <div>
-                <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Tăng trưởng VIP</p>
-                <p className="text-xs mt-0.5" style={{ color: "var(--admin-text-muted)" }}>Số VIP mới mỗi tháng</p>
+                <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Tang tru?ng VIP</p>
+                <p className="text-xs mt-0.5" style={{ color: "var(--admin-text-muted)" }}>S? VIP m?i m?i th�ng</p>
               </div>
             </div>
             <BarChart data={monthlyData} valueKey="newVip" colorFn={(_, i) => i === monthlyData.length - 1 ? "#f87171" : "#f87171"} height={120} />
@@ -662,17 +662,17 @@ export default function AdminRevenuePage() {
 
           {/* Revenue breakdown */}
           <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-            <p className="font-semibold text-sm mb-4" style={{ color: "var(--admin-text)" }}>Phân bổ doanh thu</p>
+            <p className="font-semibold text-sm mb-4" style={{ color: "var(--admin-text)" }}>Ph�n b? doanh thu</p>
             <div className="space-y-3">
               {[
-                { label: "VIP Tháng", count: vipMonthUsers.length, revenue: vipMonthUsers.length * MONTH_PRICE, color: "#34d399", pct: mrr > 0 ? (vipMonthUsers.length * MONTH_PRICE / mrr * 100) : 0 },
-                { label: "VIP Năm", count: vipYearUsers.length, revenue: vipYearUsers.length * YEAR_PRICE_MONTHLY, color: "app-accent-primary", pct: mrr > 0 ? (vipYearUsers.length * YEAR_PRICE_MONTHLY / mrr * 100) : 0 },
+                { label: "VIP Th�ng", count: vipMonthUsers.length, revenue: vipMonthUsers.length * MONTH_PRICE, color: "#34d399", pct: mrr > 0 ? (vipMonthUsers.length * MONTH_PRICE / mrr * 100) : 0 },
+                { label: "VIP Nam", count: vipYearUsers.length, revenue: vipYearUsers.length * YEAR_PRICE_MONTHLY, color: "app-accent-primary", pct: mrr > 0 ? (vipYearUsers.length * YEAR_PRICE_MONTHLY / mrr * 100) : 0 },
               ].map(row => (
                 <div key={row.label}>
                   <div className="flex items-center justify-between mb-1.5">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full" style={{ backgroundColor: row.color }}></div>
-                      <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>{row.label} ({row.count} người)</span>
+                      <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>{row.label} ({row.count} ngu?i)</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-bold" style={{ color: "var(--admin-text)" }}>{formatVND(row.revenue)}</span>
@@ -687,7 +687,7 @@ export default function AdminRevenuePage() {
             </div>
             <div className="mt-4 pt-4 border-t" style={{ borderColor: "var(--admin-border)" }}>
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold" style={{ color: "var(--admin-text-muted)" }}>Tổng MRR</span>
+                <span className="text-xs font-semibold" style={{ color: "var(--admin-text-muted)" }}>T?ng MRR</span>
                 <span className="text-base font-black" style={{ color: "#34d399" }}>{formatVND(mrr)}</span>
               </div>
             </div>
@@ -698,9 +698,9 @@ export default function AdminRevenuePage() {
             <p className="font-semibold text-sm mb-4" style={{ color: "var(--admin-text)" }}>Conversion Funnel</p>
             <div className="space-y-3">
               {[
-                { label: "Tổng thành viên", count: users.length, color: "#6b7280", pct: 100 },
-                { label: "Đã từng VIP", count: vipMonthUsers.length + vipYearUsers.length, color: "#a78bfa", pct: users.length > 0 ? (vipMonthUsers.length + vipYearUsers.length) / users.length * 100 : 0 },
-                { label: "VIP Năm (cao nhất)", count: vipYearUsers.length, color: "app-accent-primary", pct: users.length > 0 ? vipYearUsers.length / users.length * 100 : 0 },
+                { label: "T?ng th�nh vi�n", count: users.length, color: "#6b7280", pct: 100 },
+                { label: "�� t?ng VIP", count: vipMonthUsers.length + vipYearUsers.length, color: "#a78bfa", pct: users.length > 0 ? (vipMonthUsers.length + vipYearUsers.length) / users.length * 100 : 0 },
+                { label: "VIP Nam (cao nh?t)", count: vipYearUsers.length, color: "app-accent-primary", pct: users.length > 0 ? vipYearUsers.length / users.length * 100 : 0 },
               ].map((row, i) => (
                 <div key={row.label} className="flex items-center gap-3">
                   <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 text-[10px] font-bold text-white" style={{ backgroundColor: row.color }}>
@@ -723,7 +723,7 @@ export default function AdminRevenuePage() {
             </div>
             <div className="mt-4 pt-4 border-t" style={{ borderColor: "var(--admin-border)" }}>
               <div className="flex items-center justify-between">
-                <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>Tỷ lệ chuyển đổi Free → VIP</span>
+                <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>T? l? chuy?n d?i Free ? VIP</span>
                 <span className="text-sm font-black" style={{ color: "#a78bfa" }}>{conversionRate.toFixed(1)}%</span>
               </div>
             </div>
@@ -735,7 +735,7 @@ export default function AdminRevenuePage() {
       {activeTab === "mrr" && (
         <div className="space-y-5">
           <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-            <p className="font-semibold text-sm mb-4" style={{ color: "var(--admin-text)" }}>MRR theo tháng</p>
+            <p className="font-semibold text-sm mb-4" style={{ color: "var(--admin-text)" }}>MRR theo th�ng</p>
             <BarChart data={monthlyData} valueKey="mrr" colorFn={(d, i) => {
               const prev = monthlyData[i - 1];
               if (!prev) return "#34d399";
@@ -745,11 +745,11 @@ export default function AdminRevenuePage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-              <p className="font-semibold text-sm mb-4" style={{ color: "var(--admin-text)" }}>MRR từ VIP Tháng</p>
+              <p className="font-semibold text-sm mb-4" style={{ color: "var(--admin-text)" }}>MRR t? VIP Th�ng</p>
               <LineChart data={monthlyData} valueKey="mrrMonth" color="#34d399" height={80} />
             </div>
             <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-              <p className="font-semibold text-sm mb-4" style={{ color: "var(--admin-text)" }}>MRR từ VIP Năm</p>
+              <p className="font-semibold text-sm mb-4" style={{ color: "var(--admin-text)" }}>MRR t? VIP Nam</p>
               <LineChart data={monthlyData} valueKey="mrrYear" color="app-accent-primary" height={80} />
             </div>
           </div>
@@ -757,13 +757,13 @@ export default function AdminRevenuePage() {
           {/* Monthly table */}
           <div className="rounded-2xl border overflow-hidden" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
             <div className="px-5 py-3 border-b" style={{ borderColor: "var(--admin-border)" }}>
-              <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Chi tiết theo tháng</p>
+              <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Chi ti?t theo th�ng</p>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b" style={{ borderColor: "var(--admin-border)" }}>
-                    {["Tháng", "VIP mới", "Tổng VIP", "MRR Tháng", "MRR Năm", "Tổng MRR", "Tăng trưởng"].map(h => (
+                    {["Th�ng", "VIP m?i", "T?ng VIP", "MRR Th�ng", "MRR Nam", "T?ng MRR", "Tang tru?ng"].map(h => (
                       <th key={h} className="text-left px-4 py-2.5 text-[10px] tracking-normal font-semibold" style={{ color: "var(--admin-text-faint)" }}>{h}</th>
                     ))}
                   </tr>
@@ -781,7 +781,7 @@ export default function AdminRevenuePage() {
                         <td className="px-4 py-3 text-xs" style={{ color: "var(--admin-text-muted)" }}>{formatVND(m.mrrYear)}</td>
                         <td className="px-4 py-3 text-xs font-bold" style={{ color: "#34d399" }}>{formatVND(m.mrr)}</td>
                         <td className="px-4 py-3 text-xs font-bold" style={{ color: growth === null ? "var(--admin-text-faint)" : growth >= 0 ? "#34d399" : "#f87171" }}>
-                          {growth === null ? "—" : `${growth >= 0 ? "+" : ""}${growth.toFixed(1)}%`}
+                          {growth === null ? "�" : `${growth >= 0 ? "+" : ""}${growth.toFixed(1)}%`}
                         </td>
                       </tr>
                     );
@@ -803,9 +803,9 @@ export default function AdminRevenuePage() {
         <div className="space-y-5">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { label: "Churn Rate (30 ngày)", value: `${churnRate.toFixed(1)}%`, color: churnRate > 20 ? "#f87171" : "#fb923c", icon: "ri-user-unfollow-line" },
-              { label: "VIP sắp hết hạn", value: churnRisk.length, color: "#fb923c", icon: "ri-alarm-warning-line" },
-              { label: "Doanh thu có nguy cơ mất", value: formatVND(churnRisk.reduce((s, u) => s + (u.vipType === "year" ? YEAR_PRICE_MONTHLY : MONTH_PRICE), 0)), color: "#f87171", icon: "ri-money-dollar-circle-line" },
+              { label: "Churn Rate (30 ng�y)", value: `${churnRate.toFixed(1)}%`, color: churnRate > 20 ? "#f87171" : "#fb923c", icon: "ri-user-unfollow-line" },
+              { label: "VIP s?p h?t h?n", value: churnRisk.length, color: "#fb923c", icon: "ri-alarm-warning-line" },
+              { label: "Doanh thu c� nguy co m?t", value: formatVND(churnRisk.reduce((s, u) => s + (u.vipType === "year" ? YEAR_PRICE_MONTHLY : MONTH_PRICE), 0)), color: "#f87171", icon: "ri-money-dollar-circle-line" },
             ].map(s => (
               <div key={s.label} className="flex items-center gap-3 px-4 py-3 rounded-xl border"
                 style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
@@ -822,13 +822,13 @@ export default function AdminRevenuePage() {
 
           <div className="rounded-2xl border overflow-hidden" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
             <div className="flex items-center justify-between px-5 py-3 border-b" style={{ borderColor: "var(--admin-border)" }}>
-              <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Danh sách VIP sắp hết hạn</p>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-400 font-bold">{churnRisk.length} người</span>
+              <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Danh s�ch VIP s?p h?t h?n</p>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-400 font-bold">{churnRisk.length} ngu?i</span>
             </div>
             {churnRisk.length === 0 ? (
               <div className="text-center py-12">
                 <i className="ri-checkbox-circle-line text-3xl mb-2 block text-app-accent-success"></i>
-                <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Không có VIP nào sắp hết hạn trong 30 ngày!</p>
+                <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>Kh�ng c� VIP n�o s?p h?t h?n trong 30 ng�y!</p>
               </div>
             ) : (
               <div className="divide-y" style={{ borderColor: "var(--admin-border)" }}>
@@ -840,14 +840,14 @@ export default function AdminRevenuePage() {
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-semibold" style={{ color: "var(--admin-text)" }}>{u.display_name}</p>
                       <p className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>
-                        VIP {u.vipType === "year" ? "Năm" : "Tháng"} · Hết hạn {new Date(u.vip_expires_at).toLocaleDateString("vi-VN")}
+                        VIP {u.vipType === "year" ? "Nam" : "Th�ng"} � H?t h?n {new Date(u.vip_expires_at).toLocaleDateString("vi-VN")}
                       </p>
                     </div>
                     <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${u.daysLeft <= 7 ? "bg-rose-500/15 text-rose-400" : "bg-amber-500/15 text-amber-400"}`}>
-                      {u.daysLeft <= 0 ? "Đã hết" : `${u.daysLeft} ngày`}
+                      {u.daysLeft <= 0 ? "�� h?t" : `${u.daysLeft} ng�y`}
                     </span>
                     <span className="text-xs font-semibold" style={{ color: "var(--admin-text-muted)" }}>
-                      {formatVND(u.vipType === "year" ? YEAR_PRICE_MONTHLY : MONTH_PRICE)}/tháng
+                      {formatVND(u.vipType === "year" ? YEAR_PRICE_MONTHLY : MONTH_PRICE)}/th�ng
                     </span>
                   </div>
                 ))}
@@ -866,12 +866,12 @@ export default function AdminRevenuePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             {/* VIP distribution */}
             <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-              <p className="font-semibold text-sm mb-4" style={{ color: "var(--admin-text)" }}>Phân bổ thành viên</p>
+              <p className="font-semibold text-sm mb-4" style={{ color: "var(--admin-text)" }}>Ph�n b? th�nh vi�n</p>
               <div className="space-y-3">
                 {[
                   { label: "Free", count: freeUsers.length, color: "#6b7280" },
-                  { label: "VIP Tháng", count: vipMonthUsers.length, color: "#34d399" },
-                  { label: "VIP Năm", count: vipYearUsers.length, color: "app-accent-primary" },
+                  { label: "VIP Th�ng", count: vipMonthUsers.length, color: "#34d399" },
+                  { label: "VIP Nam", count: vipYearUsers.length, color: "app-accent-primary" },
                 ].map(row => (
                   <div key={row.label}>
                     <div className="flex items-center justify-between mb-1">
@@ -897,14 +897,14 @@ export default function AdminRevenuePage() {
 
             {/* Key metrics */}
             <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-              <p className="font-semibold text-sm mb-4" style={{ color: "var(--admin-text)" }}>Chỉ số quan trọng</p>
+              <p className="font-semibold text-sm mb-4" style={{ color: "var(--admin-text)" }}>Ch? s? quan tr?ng</p>
               <div className="space-y-3">
                 {[
-                  { label: "Tỷ lệ chuyển đổi", value: `${conversionRate.toFixed(1)}%`, desc: "Free → VIP", color: "#a78bfa" },
-                  { label: "ARPU (trung bình/user VIP)", value: formatVND(arpu), desc: "Doanh thu trung bình mỗi VIP", color: "#34d399" },
-                  { label: "LTV ước tính", value: formatVND(ltv), desc: "Giá trị vòng đời (8 tháng)", color: "app-accent-primary" },
-                  { label: "Tỷ lệ VIP Năm", value: `${totalVipCount > 0 ? (vipYearUsers.length / totalVipCount * 100).toFixed(1) : 0}%`, desc: "Trong tổng số VIP", color: "#fb923c" },
-                  { label: "Churn Rate (30 ngày)", value: `${churnRate.toFixed(1)}%`, desc: `${churnRisk.length} người sắp hết hạn`, color: churnRate > 20 ? "#f87171" : "#fb923c" },
+                  { label: "T? l? chuy?n d?i", value: `${conversionRate.toFixed(1)}%`, desc: "Free ? VIP", color: "#a78bfa" },
+                  { label: "ARPU (trung b�nh/user VIP)", value: formatVND(arpu), desc: "Doanh thu trung b�nh m?i VIP", color: "#34d399" },
+                  { label: "LTV u?c t�nh", value: formatVND(ltv), desc: "Gi� tr? v�ng d?i (8 th�ng)", color: "app-accent-primary" },
+                  { label: "T? l? VIP Nam", value: `${totalVipCount > 0 ? (vipYearUsers.length / totalVipCount * 100).toFixed(1) : 0}%`, desc: "Trong t?ng s? VIP", color: "#fb923c" },
+                  { label: "Churn Rate (30 ng�y)", value: `${churnRate.toFixed(1)}%`, desc: `${churnRisk.length} ngu?i s?p h?t h?n`, color: churnRate > 20 ? "#f87171" : "#fb923c" },
                 ].map(m => (
                   <div key={m.label} className="flex items-center justify-between px-3 py-2.5 rounded-xl"
                     style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>

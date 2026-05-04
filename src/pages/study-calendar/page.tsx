@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +24,7 @@ function generateStudyData(): StudyDay[] {
     let activities: string[] = [];
     if (rand > 0.35) {
       count = Math.floor(Math.random() * 4) + 1;
-      const pool = ["Flashcard", "Quiz", "Tin tức", "EPS", "Hangul", "Từ điển"];
+      const pool = ["Flashcard", "Quiz", "Tin t?c", "EPS", "Hangul", "T? di?n"];
       const n = Math.min(count, pool.length);
       activities = pool.sort(() => Math.random() - 0.5).slice(0, n);
     }
@@ -141,10 +141,10 @@ function ContributionGraph({ data }: { data: StudyDay[] }) {
             {new Date(tooltip.day.date).toLocaleDateString("vi-VN", { weekday: "long", day: "numeric", month: "long" })}
           </p>
           {tooltip.day.count === 0 ? (
-            <p className="text-app-text-muted mt-0.5">Chưa học ngày này</p>
+            <p className="text-app-text-muted mt-0.5">Chua h?c ng�y n�y</p>
           ) : (
             <>
-              <p className="text-app-accent-primary mt-0.5">{tooltip.day.count} hoạt động</p>
+              <p className="text-app-accent-primary mt-0.5">{tooltip.day.count} ho?t d?ng</p>
               <p className="text-app-text-secondary mt-0.5">{tooltip.day.activities.join(", ")}</p>
             </>
           )}
@@ -242,10 +242,10 @@ export default function StudyCalendarPage() {
   });
 
   const stats = [
-    { icon: "ri-fire-line", label: "Streak hiện tại", value: `${streak.count} ngày`, color: "text-orange-400" },
-    { icon: "ri-trophy-line", label: "Streak dài nhất", value: `${longestStreak} ngày`, color: "text-app-accent-primary" },
-    { icon: "ri-calendar-check-line", label: "Ngày học tháng này", value: `${thisMonthDays} ngày`, color: "text-app-accent-success" },
-    { icon: "ri-bar-chart-2-line", label: "Tổng hoạt động", value: `${totalActivities}`, color: "text-sky-400" },
+    { icon: "ri-fire-line", label: "Streak hi?n t?i", value: `${streak.count} ng�y`, color: "text-orange-400" },
+    { icon: "ri-trophy-line", label: "Streak d�i nh?t", value: `${longestStreak} ng�y`, color: "text-app-accent-primary" },
+    { icon: "ri-calendar-check-line", label: "Ng�y h?c th�ng n�y", value: `${thisMonthDays} ng�y`, color: "text-app-accent-success" },
+    { icon: "ri-bar-chart-2-line", label: "T?ng ho?t d?ng", value: `${totalActivities}`, color: "text-sky-400" },
   ];
 
   return (
@@ -254,15 +254,15 @@ export default function StudyCalendarPage() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-white text-2xl font-bold">Lịch học tập</h1>
-            <p className="text-app-text-secondary text-sm mt-1">Theo dõi hành trình học tiếng Hàn của bạn</p>
+            <h1 className="text-white text-2xl font-bold">L?ch h?c t?p</h1>
+            <p className="text-app-text-secondary text-sm mt-1">Theo d�i h�nh tr�nh h?c ti?ng H�n c?a b?n</p>
           </div>
           <button
             onClick={() => navigate("/learn-stats")}
             className="flex items-center gap-2 px-4 py-2 bg-app-card/50 hover:bg-app-card/70 border border-app-border rounded-lg text-white/60 text-sm transition-all cursor-pointer whitespace-nowrap"
           >
             <i className="ri-bar-chart-box-line text-sm"></i>
-            Thống kê chi tiết
+            Th?ng k� chi ti?t
           </button>
         </div>
 
@@ -285,15 +285,15 @@ export default function StudyCalendarPage() {
         <div className="bg-[#1a1d27] border border-app-border rounded-xl p-6">
           <div className="flex items-center justify-between mb-5">
             <div>
-              <h2 className="text-white font-semibold">Biểu đồ hoạt động</h2>
-              <p className="text-white/35 text-xs mt-0.5">{totalStudyDays} ngày học trong 12 tháng qua</p>
+              <h2 className="text-white font-semibold">Bi?u d? ho?t d?ng</h2>
+              <p className="text-white/35 text-xs mt-0.5">{totalStudyDays} ng�y h?c trong 12 th�ng qua</p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-app-text-muted text-xs">Ít</span>
+              <span className="text-app-text-muted text-xs">�t</span>
               {[0, 1, 2, 3, 4].map(v => (
                 <div key={v} className={`w-3 h-3 rounded-sm ${getIntensityClass(v)}`} />
               ))}
-              <span className="text-app-text-muted text-xs">Nhiều</span>
+              <span className="text-app-text-muted text-xs">Nhi?u</span>
             </div>
           </div>
           <div className="overflow-x-auto pb-2">
@@ -307,12 +307,12 @@ export default function StudyCalendarPage() {
           <div className="bg-[#1a1d27] border border-app-border rounded-xl p-5">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-white font-semibold">Lịch 5 tuần gần nhất</h2>
-                <p className="text-white/35 text-xs mt-0.5">Ngày có chấm vàng = đã học</p>
+                <h2 className="text-white font-semibold">L?ch 5 tu?n g?n nh?t</h2>
+                <p className="text-white/35 text-xs mt-0.5">Ng�y c� ch?m v�ng = d� h?c</p>
               </div>
               <div className="flex items-center gap-1.5 px-2.5 py-1 bg-orange-500/10 border border-orange-500/20 rounded-full">
                 <i className="ri-fire-line text-orange-400 text-xs"></i>
-                <span className="text-orange-400 text-xs font-bold">{streak.count} ngày</span>
+                <span className="text-orange-400 text-xs font-bold">{streak.count} ng�y</span>
               </div>
             </div>
             <StreakCalendar data={studyData} />
@@ -321,20 +321,20 @@ export default function StudyCalendarPage() {
           {/* Monthly bar */}
           <div className="bg-[#1a1d27] border border-app-border rounded-xl p-5">
             <div className="mb-4">
-              <h2 className="text-white font-semibold">Ngày học theo tháng</h2>
-              <p className="text-white/35 text-xs mt-0.5">6 tháng gần nhất</p>
+              <h2 className="text-white font-semibold">Ng�y h?c theo th�ng</h2>
+              <p className="text-white/35 text-xs mt-0.5">6 th�ng g?n nh?t</p>
             </div>
             <MonthlyBarChart data={studyData} />
 
             {/* Activity breakdown */}
             <div className="mt-4 pt-4 border-t border-app-border">
-              <p className="text-app-text-secondary text-xs mb-3">Hoạt động phổ biến nhất</p>
+              <p className="text-app-text-secondary text-xs mb-3">Ho?t d?ng ph? bi?n nh?t</p>
               <div className="space-y-2">
                 {[
                   { name: "Flashcard", pct: 82, color: "bg-app-accent-primary" },
-                  { name: "Quiz & Kiểm tra", pct: 67, color: "bg-emerald-400" },
-                  { name: "Luyện thi EPS", pct: 54, color: "bg-sky-400" },
-                  { name: "Học qua Tin tức", pct: 41, color: "bg-purple-400" },
+                  { name: "Quiz & Ki?m tra", pct: 67, color: "bg-emerald-400" },
+                  { name: "Luy?n thi EPS", pct: 54, color: "bg-sky-400" },
+                  { name: "H?c qua Tin t?c", pct: 41, color: "bg-purple-400" },
                 ].map((a, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <span className="text-white/50 text-xs w-28 truncate">{a.name}</span>
@@ -351,7 +351,7 @@ export default function StudyCalendarPage() {
 
         {/* Recent activity log */}
         <div className="bg-[#1a1d27] border border-app-border rounded-xl p-5">
-          <h2 className="text-white font-semibold mb-4">Nhật ký học tập gần đây</h2>
+          <h2 className="text-white font-semibold mb-4">Nh?t k� h?c t?p g?n d�y</h2>
           <div className="space-y-2">
             {studyData.filter(d => d.count > 0).slice(-7).reverse().map((day, i) => (
               <div key={i} className="flex items-center gap-4 py-2.5 border-b border-app-border last:border-0">

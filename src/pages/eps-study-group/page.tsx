@@ -1,10 +1,10 @@
-﻿import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
-// ─── Group Notification Types ─────────────────────────────────────────────────
+// --- Group Notification Types -------------------------------------------------
 interface GroupNotification {
   id: string;
   groupId: string;
@@ -17,7 +17,7 @@ interface GroupNotification {
   read: boolean;
 }
 
-// ─── Notification Bell Component ─────────────────────────────────────────────
+// --- Notification Bell Component ---------------------------------------------
 function GroupNotificationPanel({
   notifications,
   onMarkRead,
@@ -55,7 +55,7 @@ function GroupNotificationPanel({
         className="relative flex items-center gap-2 px-3 py-2.5 bg-white border border-gray-200 rounded-xl text-gray-600 text-sm font-medium hover:bg-gray-50 transition-colors cursor-pointer whitespace-nowrap shadow-sm"
       >
         <i className="ri-notification-3-line"></i>
-        <span className="hidden sm:inline">Thông báo</span>
+        <span className="hidden sm:inline">Th�ng b�o</span>
         {unread > 0 && (
           <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
             {unread > 9 ? "9+" : unread}
@@ -66,22 +66,22 @@ function GroupNotificationPanel({
       {open && (
         <div className="absolute right-0 top-full mt-2 w-80 bg-white border border-gray-200 rounded-2xl z-50 overflow-hidden">
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-            <p className="text-gray-700 font-semibold text-sm">Thông báo nhóm</p>
+            <p className="text-gray-700 font-semibold text-sm">Th�ng b�o nh�m</p>
             {notifications.length > 0 && (
-              <button onClick={onClear} className="text-gray-400 hover:text-gray-600 text-xs cursor-pointer">Xóa tất cả</button>
+              <button onClick={onClear} className="text-gray-400 hover:text-gray-600 text-xs cursor-pointer">X�a t?t c?</button>
             )}
           </div>
           <div className="max-h-80 overflow-y-auto">
             {notifications.length === 0 ? (
               <div className="py-8 text-center">
                 <i className="ri-notification-off-line text-gray-300 text-3xl block mb-2"></i>
-                <p className="text-gray-400 text-sm">Chưa có thông báo nào</p>
+                <p className="text-gray-400 text-sm">Chua c� th�ng b�o n�o</p>
               </div>
             ) : (
               notifications.slice(0, 20).map(notif => {
                 const cfg = typeConfig[notif.type];
                 const timeAgo = Math.floor((Date.now() - notif.timestamp) / 60000);
-                const timeStr = timeAgo < 1 ? "Vừa xong" : timeAgo < 60 ? `${timeAgo} phút trước` : `${Math.floor(timeAgo / 60)} giờ trước`;
+                const timeStr = timeAgo < 1 ? "V?a xong" : timeAgo < 60 ? `${timeAgo} ph�t tru?c` : `${Math.floor(timeAgo / 60)} gi? tru?c`;
                 return (
                   <div key={notif.id} className={`flex items-start gap-3 px-4 py-3 border-b border-gray-50 hover:bg-gray-50 transition-colors ${!notif.read ? "bg-amber-50/50" : ""}`}>
                     <div className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0" style={{ backgroundColor: `${cfg.color}20`, color: cfg.color }}>
@@ -105,7 +105,7 @@ function GroupNotificationPanel({
   );
 }
 
-// ─── Types ───────────────────────────────────────────────────────────────────
+// --- Types -------------------------------------------------------------------
 interface GroupMember {
   id: string;
   name: string;
@@ -131,7 +131,7 @@ interface StudyGroup {
 
 const AVATAR_COLORS = ["app-accent-primary", "#34d399", "#06b6d4", "#a78bfa", "#f87171", "#fb923c", "#ec4899", "#84cc16"];
 
-// ─── Group Card ───────────────────────────────────────────────────────────────
+// --- Group Card ---------------------------------------------------------------
 interface GroupCardProps {
   group: StudyGroup;
   onJoin: (group: StudyGroup) => void;
@@ -149,7 +149,7 @@ function GroupCard({ group, onJoin, onView, isJoined }: GroupCardProps) {
           <div className="flex items-center gap-2 mb-1">
             <h3 className="text-gray-800 font-bold text-base truncate">{group.name}</h3>
             {isJoined && (
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-600 font-bold flex-shrink-0">Đã tham gia</span>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-600 font-bold flex-shrink-0">�� tham gia</span>
             )}
           </div>
           <p className="text-gray-400 text-xs leading-relaxed line-clamp-2">{group.description}</p>
@@ -157,7 +157,7 @@ function GroupCard({ group, onJoin, onView, isJoined }: GroupCardProps) {
         <div className="ml-3 flex-shrink-0 text-center">
           <div className="bg-gray-100 rounded-xl px-3 py-2">
             <p className="text-gray-700 font-mono font-bold text-sm">{group.code}</p>
-            <p className="text-gray-400 text-[10px]">Mã nhóm</p>
+            <p className="text-gray-400 text-[10px]">M� nh�m</p>
           </div>
         </div>
       </div>
@@ -180,8 +180,8 @@ function GroupCard({ group, onJoin, onView, isJoined }: GroupCardProps) {
             </div>
           )}
         </div>
-        <span className="text-gray-400 text-xs">{group.members.length} thành viên</span>
-        <span className="text-gray-300">·</span>
+        <span className="text-gray-400 text-xs">{group.members.length} th�nh vi�n</span>
+        <span className="text-gray-300">�</span>
         <span className="text-gray-400 text-xs flex items-center gap-1">
           <i className="ri-trophy-line text-app-accent-primary text-[10px]"></i>
           Top: {topMember.name.split(" ").pop()} ({topMember.score}%)
@@ -196,7 +196,7 @@ function GroupCard({ group, onJoin, onView, isJoined }: GroupCardProps) {
         </span>
         <span className="flex items-center gap-1 text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded-lg">
           <i className="ri-focus-3-line text-emerald-500 text-[10px]"></i>
-          Mục tiêu: {group.weeklyGoal} lần/tuần
+          M?c ti�u: {group.weeklyGoal} l?n/tu?n
         </span>
       </div>
 
@@ -205,7 +205,7 @@ function GroupCard({ group, onJoin, onView, isJoined }: GroupCardProps) {
           onClick={() => onView(group)}
           className="flex-1 py-2.5 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium hover:bg-gray-200 transition-colors cursor-pointer whitespace-nowrap"
         >
-          Xem chi tiết
+          Xem chi ti?t
         </button>
         {!isJoined ? (
           <button
@@ -219,7 +219,7 @@ function GroupCard({ group, onJoin, onView, isJoined }: GroupCardProps) {
             onClick={() => onView(group)}
             className="flex-1 py-2.5 bg-emerald-500 text-white rounded-xl text-sm font-bold hover:bg-emerald-600 transition-colors cursor-pointer whitespace-nowrap"
           >
-            Vào nhóm
+            V�o nh�m
           </button>
         )}
       </div>
@@ -227,7 +227,7 @@ function GroupCard({ group, onJoin, onView, isJoined }: GroupCardProps) {
   );
 }
 
-// ─── Group Detail ─────────────────────────────────────────────────────────────
+// --- Group Detail -------------------------------------------------------------
 interface GroupDetailProps {
   group: StudyGroup;
   onBack: () => void;
@@ -250,7 +250,7 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
     <div className="p-6 md:p-8 max-w-2xl mx-auto">
       <button onClick={onBack} className="flex items-center gap-2 text-gray-500 hover:text-gray-700 text-sm mb-5 cursor-pointer">
         <i className="ri-arrow-left-line"></i>
-        Về danh sách nhóm
+        V? danh s�ch nh�m
       </button>
 
       {/* Group header */}
@@ -262,17 +262,17 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
           </div>
           <div className="bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-xl px-3 py-2 text-center flex-shrink-0 ml-3">
             <p className="text-app-accent-primary font-mono font-bold text-sm">{group.code}</p>
-            <p className="text-gray-400 text-[10px]">Mã nhóm</p>
+            <p className="text-gray-400 text-[10px]">M� nh�m</p>
           </div>
         </div>
         <div className="flex items-center gap-4 flex-wrap">
           <span className="text-gray-500 text-xs flex items-center gap-1">
             <i className="ri-group-line text-app-accent-primary"></i>
-            {group.members.length} thành viên
+            {group.members.length} th�nh vi�n
           </span>
           <span className="text-gray-500 text-xs flex items-center gap-1">
             <i className="ri-focus-3-line text-emerald-500"></i>
-            Mục tiêu {group.weeklyGoal} lần/tuần
+            M?c ti�u {group.weeklyGoal} l?n/tu?n
           </span>
           <span className="text-gray-500 text-xs flex items-center gap-1">
             <i className="ri-timer-line text-[#06b6d4]"></i>
@@ -284,8 +284,8 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
       {/* Tabs */}
       <div className="flex gap-1 bg-gray-100 p-1 rounded-xl mb-5 w-fit">
         {[
-          { key: "leaderboard", label: "Bảng xếp hạng" },
-          { key: "activity", label: "Hoạt động" },
+          { key: "leaderboard", label: "B?ng x?p h?ng" },
+          { key: "activity", label: "Ho?t d?ng" },
         ].map(t => (
           <button
             key={t.key}
@@ -312,9 +312,9 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
                 }`}
               >
                 <div className="w-8 flex items-center justify-center flex-shrink-0">
-                  {i === 0 ? <span className="text-xl">👑</span> :
-                   i === 1 ? <span className="text-xl">🥈</span> :
-                   i === 2 ? <span className="text-xl">🥉</span> :
+                  {i === 0 ? <span className="text-xl">??</span> :
+                   i === 1 ? <span className="text-xl">??</span> :
+                   i === 2 ? <span className="text-xl">??</span> :
                    <span className="text-gray-400 text-sm font-bold">{i + 1}</span>}
                 </div>
                 <div
@@ -327,16 +327,16 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
                   <div className="flex items-center gap-2">
                     <p className={`text-sm font-semibold ${isMe ? "text-app-accent-primary" : "text-gray-700"}`}>
                       {member.name}
-                      {isMe && <span className="ml-1 text-[10px] text-app-accent-primary/60">(Bạn)</span>}
+                      {isMe && <span className="ml-1 text-[10px] text-app-accent-primary/60">(B?n)</span>}
                     </p>
-                    {member.isOwner && <span className="text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500">Trưởng nhóm</span>}
+                    {member.isOwner && <span className="text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500">Tru?ng nh�m</span>}
                   </div>
                   <div className="flex items-center gap-2 mt-0.5">
                     <span className="text-gray-400 text-xs flex items-center gap-1">
                       <i className="ri-fire-line text-orange-400 text-[10px]"></i>
-                      {member.streak} ngày
+                      {member.streak} ng�y
                     </span>
-                    <span className="text-gray-300 text-xs">·</span>
+                    <span className="text-gray-300 text-xs">�</span>
                     <span className="text-gray-400 text-xs">{member.lastActive}</span>
                   </div>
                 </div>
@@ -355,10 +355,10 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
       {tab === "activity" && (
         <div className="space-y-3">
           {[
-            { member: sorted[0], action: "đạt điểm cao nhất tuần này", score: sorted[0].score, time: "2 giờ trước", icon: "ri-trophy-line", color: "app-accent-primary" },
-            { member: sorted[1], action: "hoàn thành bài thi EPS 40 câu", score: sorted[1].score, time: "5 giờ trước", icon: "ri-file-list-3-line", color: "#06b6d4" },
-            { member: sorted[2], action: "duy trì streak 8 ngày", score: null, time: "Hôm qua", icon: "ri-fire-line", color: "#fb923c" },
-            { member: sorted[0], action: "ôn tập câu sai thông minh", score: null, time: "Hôm qua", icon: "ri-brain-line", color: "#a78bfa" },
+            { member: sorted[0], action: "d?t di?m cao nh?t tu?n n�y", score: sorted[0].score, time: "2 gi? tru?c", icon: "ri-trophy-line", color: "app-accent-primary" },
+            { member: sorted[1], action: "ho�n th�nh b�i thi EPS 40 c�u", score: sorted[1].score, time: "5 gi? tru?c", icon: "ri-file-list-3-line", color: "#06b6d4" },
+            { member: sorted[2], action: "duy tr� streak 8 ng�y", score: null, time: "H�m qua", icon: "ri-fire-line", color: "#fb923c" },
+            { member: sorted[0], action: "�n t?p c�u sai th�ng minh", score: null, time: "H�m qua", icon: "ri-brain-line", color: "#a78bfa" },
           ].map((item, i) => (
             <div key={i} className="bg-white border border-gray-200 rounded-xl p-4 flex items-center gap-3 shadow-sm">
               <div className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0" style={{ backgroundColor: `${AVATAR_COLORS[i % AVATAR_COLORS.length]}20`, color: AVATAR_COLORS[i % AVATAR_COLORS.length] }}>
@@ -387,14 +387,14 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
           className="flex items-center justify-center gap-2 py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap"
         >
           <i className="ri-play-fill"></i>
-          Thi để cạnh tranh
+          Thi d? c?nh tranh
         </button>
         <button
           onClick={() => navigator.clipboard.writeText(group.code)}
           className="flex items-center justify-center gap-2 py-3 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium cursor-pointer whitespace-nowrap"
         >
           <i className="ri-share-line"></i>
-          Chia sẻ mã nhóm
+          Chia s? m� nh�m
         </button>
       </div>
 
@@ -405,7 +405,7 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
           className="w-full flex items-center justify-center gap-2 py-3 bg-white border border-gray-200 text-gray-600 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-megaphone-line text-app-accent-primary"></i>
-          Gửi thông báo cho cả nhóm
+          G?i th�ng b�o cho c? nh�m
         </button>
       </div>
 
@@ -421,7 +421,7 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
   );
 }
 
-// ─── Send Group Notification Modal ───────────────────────────────────────────
+// --- Send Group Notification Modal -------------------------------------------
 interface SendNotifModalProps {
   group: StudyGroup;
   myName: string;
@@ -435,10 +435,10 @@ function SendNotifModal({ group, myName, onClose, onSend }: SendNotifModalProps)
   const [sent, setSent] = useState(false);
 
   const TEMPLATES = [
-    { type: "exam_done" as const, icon: "ri-file-list-3-line", color: "app-accent-primary", label: "Vừa thi xong", placeholder: "VD: Vừa đạt 85% trong bài thi EPS! 🎯" },
-    { type: "streak" as const, icon: "ri-fire-line", color: "#ea580c", label: "Streak mới", placeholder: "VD: Đã học 15 ngày liên tiếp! 🔥" },
-    { type: "top_score" as const, icon: "ri-trophy-line", color: "#d97706", label: "Điểm cao mới", placeholder: "VD: Phá kỷ lục cá nhân với 92%! 🏆" },
-    { type: "joined" as const, icon: "ri-megaphone-line", color: "#10b981", label: "Nhắc nhở nhóm", placeholder: "VD: Nhớ ôn bài hôm nay nhé mọi người! 💪" },
+    { type: "exam_done" as const, icon: "ri-file-list-3-line", color: "app-accent-primary", label: "V?a thi xong", placeholder: "VD: V?a d?t 85% trong b�i thi EPS! ??" },
+    { type: "streak" as const, icon: "ri-fire-line", color: "#ea580c", label: "Streak m?i", placeholder: "VD: �� h?c 15 ng�y li�n ti?p! ??" },
+    { type: "top_score" as const, icon: "ri-trophy-line", color: "#d97706", label: "�i?m cao m?i", placeholder: "VD: Ph� k? l?c c� nh�n v?i 92%! ??" },
+    { type: "joined" as const, icon: "ri-megaphone-line", color: "#10b981", label: "Nh?c nh? nh�m", placeholder: "VD: Nh? �n b�i h�m nay nh� m?i ngu?i! ??" },
   ];
 
   const selected = TEMPLATES.find(t => t.type === type)!;
@@ -464,7 +464,7 @@ function SendNotifModal({ group, myName, onClose, onSend }: SendNotifModalProps)
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
       <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-5">
-          <h3 className="text-gray-800 font-bold text-lg">Gửi thông báo nhóm</h3>
+          <h3 className="text-gray-800 font-bold text-lg">G?i th�ng b�o nh�m</h3>
           <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-500 cursor-pointer">
             <i className="ri-close-line"></i>
           </button>
@@ -475,12 +475,12 @@ function SendNotifModal({ group, myName, onClose, onSend }: SendNotifModalProps)
             <div className="w-14 h-14 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-3">
               <i className="ri-check-line text-emerald-500 text-2xl"></i>
             </div>
-            <p className="text-gray-700 font-semibold">Đã gửi thông báo!</p>
+            <p className="text-gray-700 font-semibold">�� g?i th�ng b�o!</p>
           </div>
         ) : (
           <>
             <div className="mb-4">
-              <p className="text-gray-600 text-xs font-medium mb-2">Loại thông báo</p>
+              <p className="text-gray-600 text-xs font-medium mb-2">Lo?i th�ng b�o</p>
               <div className="grid grid-cols-2 gap-2">
                 {TEMPLATES.map(t => (
                   <button
@@ -496,7 +496,7 @@ function SendNotifModal({ group, myName, onClose, onSend }: SendNotifModalProps)
             </div>
 
             <div className="mb-5">
-              <p className="text-gray-600 text-xs font-medium mb-1.5">Nội dung thông báo</p>
+              <p className="text-gray-600 text-xs font-medium mb-1.5">N?i dung th�ng b�o</p>
               <textarea
                 value={customMsg}
                 onChange={e => setCustomMsg(e.target.value)}
@@ -509,7 +509,7 @@ function SendNotifModal({ group, myName, onClose, onSend }: SendNotifModalProps)
             </div>
 
             <div className="bg-gray-50 rounded-xl p-3 mb-4">
-              <p className="text-gray-400 text-xs mb-1">Xem trước:</p>
+              <p className="text-gray-400 text-xs mb-1">Xem tru?c:</p>
               <div className="flex items-start gap-2">
                 <div className="w-7 h-7 rounded-full bg-amber-100 flex items-center justify-center text-xs font-bold text-amber-700 flex-shrink-0">
                   {myName[0]?.toUpperCase() || "B"}
@@ -521,13 +521,13 @@ function SendNotifModal({ group, myName, onClose, onSend }: SendNotifModalProps)
             </div>
 
             <div className="flex gap-3">
-              <button onClick={onClose} className="flex-1 py-3 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium cursor-pointer whitespace-nowrap">Hủy</button>
+              <button onClick={onClose} className="flex-1 py-3 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium cursor-pointer whitespace-nowrap">H?y</button>
               <button
                 onClick={handleSend}
                 className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap"
               >
                 <i className="ri-send-plane-line mr-1.5"></i>
-                Gửi thông báo
+                G?i th�ng b�o
               </button>
             </div>
           </>
@@ -537,7 +537,7 @@ function SendNotifModal({ group, myName, onClose, onSend }: SendNotifModalProps)
   );
 }
 
-// ─── Create Group Modal ───────────────────────────────────────────────────────
+// --- Create Group Modal -------------------------------------------------------
 interface CreateGroupModalProps {
   onClose: () => void;
   onCreate: (group: StudyGroup) => void;
@@ -549,7 +549,7 @@ function CreateGroupModal({ onClose, onCreate, myName, myId }: CreateGroupModalP
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [weeklyGoal, setWeeklyGoal] = useState(5);
-  const [examType, setExamType] = useState("EPS-TOPIK 40 câu");
+  const [examType, setExamType] = useState("EPS-TOPIK 40 c�u");
 
   const handleCreate = () => {
     if (!name.trim()) return;
@@ -558,14 +558,14 @@ function CreateGroupModal({ onClose, onCreate, myName, myId }: CreateGroupModalP
       id: `g_${Date.now()}`,
       name: name.trim(),
       code,
-      description: description.trim() || "Nhóm học EPS-TOPIK",
+      description: description.trim() || "Nh�m h?c EPS-TOPIK",
       members: [{
         id: myId,
         name: myName,
         avatar: myName[0]?.toUpperCase() || "B",
         score: 0,
         streak: 0,
-        lastActive: "Hôm nay",
+        lastActive: "H�m nay",
         isOwner: true,
       }],
       createdAt: new Date().toISOString(),
@@ -579,7 +579,7 @@ function CreateGroupModal({ onClose, onCreate, myName, myId }: CreateGroupModalP
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
       <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-5">
-          <h3 className="text-gray-800 font-bold text-lg">Tạo nhóm học mới</h3>
+          <h3 className="text-gray-800 font-bold text-lg">T?o nh�m h?c m?i</h3>
           <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-500 hover:bg-gray-200 cursor-pointer">
             <i className="ri-close-line"></i>
           </button>
@@ -587,21 +587,21 @@ function CreateGroupModal({ onClose, onCreate, myName, myId }: CreateGroupModalP
 
         <div className="space-y-4">
           <div>
-            <label className="text-gray-600 text-xs font-medium mb-1.5 block">Tên nhóm *</label>
+            <label className="text-gray-600 text-xs font-medium mb-1.5 block">T�n nh�m *</label>
             <input
               value={name}
               onChange={e => setName(e.target.value)}
-              placeholder="VD: Nhóm EPS Hà Nội 2026"
+              placeholder="VD: Nh�m EPS H� N?i 2026"
               className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-700 text-sm focus:outline-none focus:border-app-accent-primary/50 focus:bg-white transition-colors"
               maxLength={50}
             />
           </div>
           <div>
-            <label className="text-gray-600 text-xs font-medium mb-1.5 block">Mô tả nhóm</label>
+            <label className="text-gray-600 text-xs font-medium mb-1.5 block">M� t? nh�m</label>
             <textarea
               value={description}
               onChange={e => setDescription(e.target.value)}
-              placeholder="Mục tiêu, lịch học, yêu cầu thành viên..."
+              placeholder="M?c ti�u, l?ch h?c, y�u c?u th�nh vi�n..."
               rows={3}
               className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-700 text-sm focus:outline-none focus:border-app-accent-primary/50 focus:bg-white transition-colors resize-none"
               maxLength={200}
@@ -609,26 +609,26 @@ function CreateGroupModal({ onClose, onCreate, myName, myId }: CreateGroupModalP
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-gray-600 text-xs font-medium mb-1.5 block">Mục tiêu thi/tuần</label>
+              <label className="text-gray-600 text-xs font-medium mb-1.5 block">M?c ti�u thi/tu?n</label>
               <select
                 value={weeklyGoal}
                 onChange={e => setWeeklyGoal(Number(e.target.value))}
                 className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-gray-700 text-sm focus:outline-none cursor-pointer"
               >
-                {[1, 2, 3, 5, 7].map(n => <option key={n} value={n}>{n} lần/tuần</option>)}
+                {[1, 2, 3, 5, 7].map(n => <option key={n} value={n}>{n} l?n/tu?n</option>)}
               </select>
             </div>
             <div>
-              <label className="text-gray-600 text-xs font-medium mb-1.5 block">Loại thi</label>
+              <label className="text-gray-600 text-xs font-medium mb-1.5 block">Lo?i thi</label>
               <select
                 value={examType}
                 onChange={e => setExamType(e.target.value)}
                 className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-gray-700 text-sm focus:outline-none cursor-pointer"
               >
-                <option>EPS-TOPIK 40 câu</option>
-                <option>Thi theo chủ đề</option>
-                <option>Thi mô phỏng thật</option>
-                <option>Ôn tập nhanh</option>
+                <option>EPS-TOPIK 40 c�u</option>
+                <option>Thi theo ch? d?</option>
+                <option>Thi m� ph?ng th?t</option>
+                <option>�n t?p nhanh</option>
               </select>
             </div>
           </div>
@@ -636,14 +636,14 @@ function CreateGroupModal({ onClose, onCreate, myName, myId }: CreateGroupModalP
 
         <div className="flex gap-3 mt-5">
           <button onClick={onClose} className="flex-1 py-3 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium cursor-pointer whitespace-nowrap">
-            Hủy
+            H?y
           </button>
           <button
             onClick={handleCreate}
             disabled={!name.trim()}
             className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap disabled:opacity-50"
           >
-            Tạo nhóm
+            T?o nh�m
           </button>
         </div>
       </div>
@@ -651,7 +651,7 @@ function CreateGroupModal({ onClose, onCreate, myName, myId }: CreateGroupModalP
   );
 }
 
-// ─── Join Group Modal ─────────────────────────────────────────────────────────
+// --- Join Group Modal ---------------------------------------------------------
 function JoinGroupModal({ onClose, onJoin, groups }: { onClose: () => void; onJoin: (code: string) => void; groups: StudyGroup[] }) {
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
@@ -659,7 +659,7 @@ function JoinGroupModal({ onClose, onJoin, groups }: { onClose: () => void; onJo
   const handleJoin = () => {
     const found = groups.find(g => g.code.toUpperCase() === code.toUpperCase().trim());
     if (!found) {
-      setError("Không tìm thấy nhóm với mã này. Kiểm tra lại mã nhóm.");
+      setError("Kh�ng t�m th?y nh�m v?i m� n�y. Ki?m tra l?i m� nh�m.");
       return;
     }
     onJoin(code.toUpperCase().trim());
@@ -669,13 +669,13 @@ function JoinGroupModal({ onClose, onJoin, groups }: { onClose: () => void; onJo
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
       <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-5">
-          <h3 className="text-gray-800 font-bold text-lg">Tham gia nhóm</h3>
+          <h3 className="text-gray-800 font-bold text-lg">Tham gia nh�m</h3>
           <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 text-gray-500 cursor-pointer">
             <i className="ri-close-line"></i>
           </button>
         </div>
         <div className="mb-4">
-          <label className="text-gray-600 text-xs font-medium mb-1.5 block">Nhập mã nhóm</label>
+          <label className="text-gray-600 text-xs font-medium mb-1.5 block">Nh?p m� nh�m</label>
           <input
             value={code}
             onChange={e => { setCode(e.target.value.toUpperCase()); setError(""); }}
@@ -686,7 +686,7 @@ function JoinGroupModal({ onClose, onJoin, groups }: { onClose: () => void; onJo
           {error && <p className="text-rose-500 text-xs mt-1.5">{error}</p>}
         </div>
         <div className="flex gap-3">
-          <button onClick={onClose} className="flex-1 py-3 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium cursor-pointer whitespace-nowrap">Hủy</button>
+          <button onClick={onClose} className="flex-1 py-3 bg-gray-100 text-gray-600 rounded-xl text-sm font-medium cursor-pointer whitespace-nowrap">H?y</button>
           <button onClick={handleJoin} disabled={!code.trim()} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap disabled:opacity-50">
             Tham gia
           </button>
@@ -696,7 +696,7 @@ function JoinGroupModal({ onClose, onJoin, groups }: { onClose: () => void; onJo
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function EpsStudyGroupPage() {
   const navigate = useNavigate();
   const { user, profile } = useAuth();
@@ -711,12 +711,12 @@ export default function EpsStudyGroupPage() {
   const [liveToast, setLiveToast] = useState<GroupNotification | null>(null);
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Notifications sẽ được thêm thật khi có Supabase Realtime (không còn fake events)
+  // Notifications s? du?c th�m th?t khi c� Supabase Realtime (kh�ng c�n fake events)
 
   const markRead = (id: string) => setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));
   const clearNotifications = () => setNotifications([]);
 
-  const myName = profile?.display_name || user?.email?.split("@")[0] || "Bạn";
+  const myName = profile?.display_name || user?.email?.split("@")[0] || "B?n";
   const myId = user?.id || "guest";
 
   const showSuccess = (msg: string) => {
@@ -729,7 +729,7 @@ export default function EpsStudyGroupPage() {
     setJoinedIds(prev => [...prev, group.id]);
     setShowCreate(false);
     setSelectedGroup(group);
-    showSuccess(`Đã tạo nhóm "${group.name}" — Mã: ${group.code}`);
+    showSuccess(`�� t?o nh�m "${group.name}" � M�: ${group.code}`);
   }, [setGroups, setJoinedIds]);
 
   const handleJoinByCode = useCallback((code: string) => {
@@ -738,12 +738,12 @@ export default function EpsStudyGroupPage() {
     setJoinedIds(prev => [...prev, group.id]);
     setShowJoin(false);
     setSelectedGroup(group);
-    showSuccess(`Đã tham gia nhóm "${group.name}"!`);
+    showSuccess(`�� tham gia nh�m "${group.name}"!`);
   }, [groups, setJoinedIds]);
 
   const handleJoinGroup = useCallback((group: StudyGroup) => {
     setJoinedIds(prev => [...prev, group.id]);
-    showSuccess(`Đã tham gia nhóm "${group.name}"!`);
+    showSuccess(`�� tham gia nh�m "${group.name}"!`);
   }, [setJoinedIds]);
 
   const filtered = groups.filter(g =>
@@ -753,7 +753,7 @@ export default function EpsStudyGroupPage() {
 
   if (selectedGroup) {
     return (
-      <DashboardLayout title="Chi tiết nhóm học">
+      <DashboardLayout title="Chi ti?t nh�m h?c">
         <GroupDetail
           group={selectedGroup}
           onBack={() => setSelectedGroup(null)}
@@ -764,7 +764,7 @@ export default function EpsStudyGroupPage() {
   }
 
   return (
-    <DashboardLayout title="Nhóm học EPS" subtitle="Thi đua điểm số với bạn bè cùng lớp">
+    <DashboardLayout title="Nh�m h?c EPS" subtitle="Thi dua di?m s? v?i b?n b� c�ng l?p">
       <div className="p-6 md:p-8 max-w-3xl mx-auto">
         {/* Success message */}
         {successMsg && (
@@ -781,7 +781,7 @@ export default function EpsStudyGroupPage() {
             <input
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder="Tìm nhóm theo tên hoặc mã..."
+              placeholder="T�m nh�m theo t�n ho?c m�..."
               className="w-full bg-white border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 text-gray-700 text-sm focus:outline-none focus:border-app-accent-primary/50 shadow-sm"
             />
           </div>
@@ -795,14 +795,14 @@ export default function EpsStudyGroupPage() {
             className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-gray-600 text-sm font-medium hover:bg-gray-50 transition-colors cursor-pointer whitespace-nowrap shadow-sm"
           >
             <i className="ri-login-box-line"></i>
-            Nhập mã nhóm
+            Nh?p m� nh�m
           </button>
           <button
             onClick={() => setShowCreate(true)}
             className="flex items-center gap-2 px-4 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-add-line"></i>
-            Tạo nhóm mới
+            T?o nh�m m?i
           </button>
         </div>
 
@@ -811,7 +811,7 @@ export default function EpsStudyGroupPage() {
           <div className="mb-6">
             <h2 className="text-gray-700 font-semibold text-sm mb-3 flex items-center gap-2">
               <i className="ri-group-fill text-app-accent-primary"></i>
-              Nhóm của tôi ({joinedIds.length})
+              Nh�m c?a t�i ({joinedIds.length})
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {groups.filter(g => joinedIds.includes(g.id)).map(group => (
@@ -831,14 +831,14 @@ export default function EpsStudyGroupPage() {
         <div>
           <h2 className="text-gray-700 font-semibold text-sm mb-3 flex items-center gap-2">
             <i className="ri-global-line text-app-accent-primary"></i>
-            Khám phá nhóm ({filtered.length})
+            Kh�m ph� nh�m ({filtered.length})
           </h2>
           {filtered.length === 0 ? (
             <div className="text-center py-12 bg-white rounded-2xl border border-gray-200">
               <i className="ri-group-line text-gray-300 text-4xl mb-3 block"></i>
-              <p className="text-gray-500 text-sm">Không tìm thấy nhóm nào</p>
+              <p className="text-gray-500 text-sm">Kh�ng t�m th?y nh�m n�o</p>
               <button onClick={() => setShowCreate(true)} className="mt-3 text-app-accent-primary text-sm font-medium cursor-pointer">
-                Tạo nhóm đầu tiên →
+                T?o nh�m d?u ti�n ?
               </button>
             </div>
           ) : (
@@ -860,13 +860,13 @@ export default function EpsStudyGroupPage() {
         <div className="mt-8 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
           <h3 className="text-gray-700 font-semibold text-sm mb-4 flex items-center gap-2">
             <i className="ri-question-line text-app-accent-primary"></i>
-            Cách hoạt động
+            C�ch ho?t d?ng
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { icon: "ri-add-circle-line", color: "app-accent-primary", title: "Tạo hoặc tham gia", desc: "Tạo nhóm mới hoặc nhập mã nhóm từ bạn bè" },
-              { icon: "ri-timer-line", color: "#06b6d4", title: "Thi đua cùng nhau", desc: "Làm bài thi EPS, điểm tự động cập nhật BXH nhóm" },
-              { icon: "ri-trophy-line", color: "app-accent-primary", title: "So sánh tiến bộ", desc: "Xem ai đang dẫn đầu, ai cần cố gắng thêm" },
+              { icon: "ri-add-circle-line", color: "app-accent-primary", title: "T?o ho?c tham gia", desc: "T?o nh�m m?i ho?c nh?p m� nh�m t? b?n b�" },
+              { icon: "ri-timer-line", color: "#06b6d4", title: "Thi dua c�ng nhau", desc: "L�m b�i thi EPS, di?m t? d?ng c?p nh?t BXH nh�m" },
+              { icon: "ri-trophy-line", color: "app-accent-primary", title: "So s�nh ti?n b?", desc: "Xem ai dang d?n d?u, ai c?n c? g?ng th�m" },
             ].map((item, i) => (
               <div key={i} className="text-center">
                 <div className="w-12 h-12 flex items-center justify-center rounded-2xl mx-auto mb-3" style={{ backgroundColor: `${item.color}15` }}>
@@ -905,7 +905,7 @@ export default function EpsStudyGroupPage() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-0.5">
-                <span className="text-[10px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded-full">Thông báo nhóm</span>
+                <span className="text-[10px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded-full">Th�ng b�o nh�m</span>
                 {liveToast.score && (
                   <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full">{liveToast.score}%</span>
                 )}

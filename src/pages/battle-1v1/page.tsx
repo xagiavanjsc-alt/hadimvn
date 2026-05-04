@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import DashboardLayout from "@/components/feature/DashboardLayout";
@@ -29,7 +29,7 @@ interface Player {
 
 type GameState = "lobby" | "matching" | "countdown" | "playing" | "result";
 
-const BOT_NAMES = ["김민준", "이서연", "박지호", "최수아", "정도윤", "강하은", "윤태양", "임나연"];
+const BOT_NAMES = ["???", "???", "???", "???", "???", "???", "???", "???"];
 const BOT_LEVELS = ["A1", "A2", "B1", "B2", "C1"];
 const BOT_AVATARS = [
   "https://readdy.ai/api/search-image?query=cute%20korean%20student%20avatar%20cartoon%20style%20simple%20background&width=80&height=80&seq=bot1&orientation=squarish",
@@ -59,7 +59,7 @@ export default function Battle1v1Page() {
   const [countdown, setCountdown] = useState(3);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const [player, setPlayer] = useState<Player>({ name: "Bạn", avatar: "", level: "B1", score: 0, streak: 0, isBot: false });
+  const [player, setPlayer] = useState<Player>({ name: "B?n", avatar: "", level: "B1", score: 0, streak: 0, isBot: false });
   const [opponent, setOpponent] = useState<Player | null>(null);
   const [matchingProgress, setMatchingProgress] = useState(0);
   const [playerAnswers, setPlayerAnswers] = useState<boolean[]>([]);
@@ -238,8 +238,8 @@ export default function Battle1v1Page() {
               <i className="ri-sword-line text-rose-400 text-xl"></i>
             </div>
             <div>
-              <h1 className="text-white text-2xl font-bold">Thi đấu 1v1</h1>
-              <p className="text-app-text-secondary text-sm">Đấu quiz realtime với đối thủ ngẫu nhiên</p>
+              <h1 className="text-white text-2xl font-bold">Thi d?u 1v1</h1>
+              <p className="text-app-text-secondary text-sm">�?u quiz realtime v?i d?i th? ng?u nhi�n</p>
             </div>
           </div>
 
@@ -250,7 +250,7 @@ export default function Battle1v1Page() {
               <div className="bg-app-surface/50 border border-app-border rounded-2xl p-6">
                 <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
                   <i className="ri-user-line text-app-accent-primary"></i>
-                  Thông tin của bạn
+                  Th�ng tin c?a b?n
                 </h3>
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 rounded-full bg-app-accent-primary/20 border-2 border-app-accent-primary/30 flex items-center justify-center">
@@ -262,7 +262,7 @@ export default function Battle1v1Page() {
                       <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30">{player.level}</span>
                       <span className="text-app-text-secondary text-xs">
                         <i className="ri-fire-line text-orange-400 mr-1"></i>
-                        Sẵn sàng chiến đấu
+                        S?n s�ng chi?n d?u
                       </span>
                     </div>
                   </div>
@@ -273,13 +273,13 @@ export default function Battle1v1Page() {
               <div className="bg-app-surface/50 border border-app-border rounded-2xl p-6">
                 <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
                   <i className="ri-settings-3-line text-white/50"></i>
-                  Độ khó
+                  �? kh�
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {([
-                    { key: "easy", label: "Dễ", desc: "Từ A1-A2", color: "emerald" },
-                    { key: "medium", label: "Trung bình", desc: "Từ A1-B1", color: "amber" },
-                    { key: "hard", label: "Khó", desc: "Từ A1-C1", color: "rose" },
+                    { key: "easy", label: "D?", desc: "T? A1-A2", color: "emerald" },
+                    { key: "medium", label: "Trung b�nh", desc: "T? A1-B1", color: "amber" },
+                    { key: "hard", label: "Kh�", desc: "T? A1-C1", color: "rose" },
                   ] as const).map(d => (
                     <button
                       key={d.key}
@@ -300,9 +300,9 @@ export default function Battle1v1Page() {
               {/* Stats */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
-                  { icon: "ri-question-line", label: "Số câu hỏi", value: `${TOTAL_QUESTIONS} câu` },
-                  { icon: "ri-timer-line", label: "Thời gian/câu", value: `${QUESTION_TIME}s` },
-                  { icon: "ri-trophy-line", label: "Điểm tối đa", value: "1,500+" },
+                  { icon: "ri-question-line", label: "S? c�u h?i", value: `${TOTAL_QUESTIONS} c�u` },
+                  { icon: "ri-timer-line", label: "Th?i gian/c�u", value: `${QUESTION_TIME}s` },
+                  { icon: "ri-trophy-line", label: "�i?m t?i da", value: "1,500+" },
                 ].map((s, i) => (
                   <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
                     <div className="w-8 h-8 flex items-center justify-center bg-app-card/50 rounded-lg mx-auto mb-2">
@@ -320,7 +320,7 @@ export default function Battle1v1Page() {
                 className="w-full py-4 rounded-xl bg-rose-500 hover:bg-rose-400 text-white font-bold text-lg transition-all cursor-pointer whitespace-nowrap flex items-center justify-center gap-3"
               >
                 <i className="ri-sword-line text-xl"></i>
-                Tìm đối thủ ngay
+                T�m d?i th? ngay
               </button>
             </div>
           )}
@@ -346,13 +346,13 @@ export default function Battle1v1Page() {
                   <div className="w-20 h-20 rounded-full bg-app-card/50 border-2 border-app-border flex items-center justify-center mx-auto mb-3 animate-pulse">
                     <i className="ri-question-mark text-app-text-muted text-3xl"></i>
                   </div>
-                  <p className="text-app-text-secondary font-bold">Đang tìm...</p>
+                  <p className="text-app-text-secondary font-bold">�ang t�m...</p>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-app-card/50 text-app-text-muted">???</span>
                 </div>
               </div>
               <div className="w-80">
                 <div className="flex justify-between text-xs text-app-text-secondary mb-2">
-                  <span>Đang ghép cặp</span>
+                  <span>�ang gh�p c?p</span>
                   <span>{matchingProgress}%</span>
                 </div>
                 <div className="h-2 bg-white/8 rounded-full overflow-hidden">
@@ -362,7 +362,7 @@ export default function Battle1v1Page() {
                   ></div>
                 </div>
               </div>
-              <p className="text-app-text-secondary text-sm animate-pulse">Đang tìm đối thủ phù hợp...</p>
+              <p className="text-app-text-secondary text-sm animate-pulse">�ang t�m d?i th? ph� h?p...</p>
             </div>
           )}
 
@@ -391,7 +391,7 @@ export default function Battle1v1Page() {
                   <span className="text-xs px-2 py-0.5 rounded-full bg-app-card/70 text-white/50">{opponent.level}</span>
                 </div>
               </div>
-              <p className="text-white/60 text-lg font-semibold">Trận đấu bắt đầu sau {countdown}...</p>
+              <p className="text-white/60 text-lg font-semibold">Tr?n d?u b?t d?u sau {countdown}...</p>
             </div>
           )}
 
@@ -453,12 +453,12 @@ export default function Battle1v1Page() {
 
               {/* Question */}
               <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8 text-center">
-                <p className="text-app-text-secondary text-sm mb-3">Từ này có nghĩa là gì?</p>
+                <p className="text-app-text-secondary text-sm mb-3">T? n�y c� nghia l� g�?</p>
                 <p className="text-white text-5xl font-black mb-2">{questions[currentQ].korean}</p>
                 {player.streak >= 3 && (
                   <div className="inline-flex items-center gap-1 bg-orange-500/20 border border-orange-500/30 rounded-full px-3 py-1 text-orange-400 text-xs mt-2">
                     <i className="ri-fire-line"></i>
-                    Chuỗi {player.streak} câu đúng! +20 điểm bonus
+                    Chu?i {player.streak} c�u d�ng! +20 di?m bonus
                   </div>
                 )}
               </div>
@@ -469,7 +469,7 @@ export default function Battle1v1Page() {
                   opponentCorrect ? "bg-emerald-500/10 border border-emerald-500/20 text-app-accent-success" : "bg-rose-500/10 border border-rose-500/20 text-rose-400"
                 }`}>
                   <i className={opponentCorrect ? "ri-check-line" : "ri-close-line"}></i>
-                  <span>{opponent.name} đã trả lời {opponentCorrect ? "đúng" : "sai"}!</span>
+                  <span>{opponent.name} d� tr? l?i {opponentCorrect ? "d�ng" : "sai"}!</span>
                 </div>
               )}
 
@@ -522,15 +522,15 @@ export default function Battle1v1Page() {
                   : "bg-rose-500/10 border-rose-500/30"
               }`}>
                 <div className="text-6xl mb-4">
-                  {isDraw ? "🤝" : playerWon ? "🏆" : "😔"}
+                  {isDraw ? "??" : playerWon ? "??" : "??"}
                 </div>
                 <h2 className={`text-2xl font-bold mb-2 ${
                   isDraw ? "text-amber-400" : playerWon ? "text-app-accent-success" : "text-rose-400"
                 }`}>
-                  {isDraw ? "Hòa!" : playerWon ? "Chiến thắng!" : "Thua rồi!"}
+                  {isDraw ? "H�a!" : playerWon ? "Chi?n th?ng!" : "Thua r?i!"}
                 </h2>
                 <p className="text-white/50 text-sm">
-                  {isDraw ? "Hai bên ngang tài ngang sức!" : playerWon ? "Xuất sắc! Bạn đã đánh bại đối thủ!" : "Cố gắng hơn lần sau nhé!"}
+                  {isDraw ? "Hai b�n ngang t�i ngang s?c!" : playerWon ? "Xu?t s?c! B?n d� d�nh b?i d?i th?!" : "C? g?ng hon l?n sau nh�!"}
                 </p>
               </div>
 
@@ -543,7 +543,7 @@ export default function Battle1v1Page() {
                     </div>
                     <p className="text-white font-bold">{player.name}</p>
                     <p className="text-app-accent-primary text-2xl font-bold">{player.score}</p>
-                    <p className="text-app-text-secondary text-xs">{playerAnswers.filter(Boolean).length}/{TOTAL_QUESTIONS} đúng</p>
+                    <p className="text-app-text-secondary text-xs">{playerAnswers.filter(Boolean).length}/{TOTAL_QUESTIONS} d�ng</p>
                   </div>
                   <div className="text-center">
                     <p className="text-app-text-muted text-xl font-bold">VS</p>
@@ -554,14 +554,14 @@ export default function Battle1v1Page() {
                     </div>
                     <p className="text-white font-bold">{opponent.name}</p>
                     <p className="text-rose-400 text-2xl font-bold">{opponent.score}</p>
-                    <p className="text-app-text-secondary text-xs">{opponentAnswers.filter(Boolean).length}/{TOTAL_QUESTIONS} đúng</p>
+                    <p className="text-app-text-secondary text-xs">{opponentAnswers.filter(Boolean).length}/{TOTAL_QUESTIONS} d�ng</p>
                   </div>
                 </div>
               </div>
 
               {/* Answer breakdown */}
               <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
-                <h3 className="text-white font-semibold mb-4 text-sm">Chi tiết từng câu</h3>
+                <h3 className="text-white font-semibold mb-4 text-sm">Chi ti?t t?ng c�u</h3>
                 <div className="space-y-2">
                   {questions.map((q, i) => (
                     <div key={i} className="flex items-center gap-3">
@@ -588,7 +588,7 @@ export default function Battle1v1Page() {
                     <div className="w-4 h-4 rounded-full bg-app-accent-primary/20 flex items-center justify-center">
                       <i className="ri-user-3-line text-app-accent-primary text-[8px]"></i>
                     </div>
-                    Bạn
+                    B?n
                   </div>
                   <div className="flex items-center gap-1">
                     <div className="w-4 h-4 rounded-full bg-app-card/70 overflow-hidden">
@@ -606,14 +606,14 @@ export default function Battle1v1Page() {
                   className="flex-1 py-3 rounded-xl border border-white/15 text-white/60 hover:text-white hover:border-white/30 transition-all cursor-pointer whitespace-nowrap text-sm"
                 >
                   <i className="ri-refresh-line mr-2"></i>
-                  Chơi lại
+                  Choi l?i
                 </button>
                 <button
                   onClick={() => navigate("/vocab-suggestion")}
                   className="flex-1 py-3 rounded-xl bg-app-accent-primary text-black font-semibold hover:bg-[#f0d060] transition-all cursor-pointer whitespace-nowrap text-sm"
                 >
                   <i className="ri-robot-line mr-2"></i>
-                  Ôn từ hay sai
+                  �n t? hay sai
                 </button>
               </div>
             </div>

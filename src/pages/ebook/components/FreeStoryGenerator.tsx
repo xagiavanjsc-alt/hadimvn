@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { AIConfig } from "@/services/aiService";
 import { generateFreeStory, type FreeStoryInput } from "@/services/aiService";
@@ -11,26 +11,26 @@ interface StoredConfig {
 }
 
 const TOPIC_SUGGESTIONS = [
-  "Buổi tập nhảy của idol",
-  "Fan meeting lần đầu gặp idol",
-  "Đi ăn tteokbokki ở Hongdae",
-  "Xem concert K-pop lần đầu",
-  "Học tiếng Hàn với bạn cùng phòng",
-  "Đi mua sắm ở Myeongdong",
-  "Xem phim Hàn cùng bạn bè",
-  "Thực tập ở công ty giải trí",
-  "Tham gia lớp học nấu ăn Hàn",
-  "Gặp idol ở sân bay",
-  "Đêm trước debut của nhóm nhạc",
-  "Buổi chụp ảnh album mới",
+  "Bu?i t?p nh?y c?a idol",
+  "Fan meeting l?n d?u g?p idol",
+  "�i an tteokbokki ? Hongdae",
+  "Xem concert K-pop l?n d?u",
+  "H?c ti?ng H�n v?i b?n c�ng ph�ng",
+  "�i mua s?m ? Myeongdong",
+  "Xem phim H�n c�ng b?n b�",
+  "Th?c t?p ? c�ng ty gi?i tr�",
+  "Tham gia l?p h?c n?u an H�n",
+  "G?p idol ? s�n bay",
+  "��m tru?c debut c?a nh�m nh?c",
+  "Bu?i ch?p ?nh album m?i",
 ];
 
 const STYLE_OPTIONS = [
-  { value: "Hài hước, nhẹ nhàng, gần gũi", label: "Hài hước" },
-  { value: "Lãng mạn, ngọt ngào, ấm áp", label: "Lãng mạn" },
-  { value: "Kịch tính, hồi hộp, bất ngờ", label: "Kịch tính" },
-  { value: "Truyền cảm hứng, tích cực, động lực", label: "Truyền cảm hứng" },
-  { value: "Nhẹ nhàng, thơ mộng, sâu lắng", label: "Thơ mộng" },
+  { value: "H�i hu?c, nh? nh�ng, g?n gui", label: "H�i hu?c" },
+  { value: "L�ng m?n, ng?t ng�o, ?m �p", label: "L�ng m?n" },
+  { value: "K?ch t�nh, h?i h?p, b?t ng?", label: "K?ch t�nh" },
+  { value: "Truy?n c?m h?ng, t�ch c?c, d?ng l?c", label: "Truy?n c?m h?ng" },
+  { value: "Nh? nh�ng, tho m?ng, s�u l?ng", label: "Tho m?ng" },
 ];
 
 interface Props {
@@ -51,8 +51,8 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
   const [result, setResult] = useState<ApprovedLesson | null>(null);
 
   const handleGenerate = async () => {
-    if (!topic.trim()) { setError("Nhập chủ đề trước nhé!"); return; }
-    if (!config?.apiKey) { setError("Chưa cài đặt API Key. Vào Cài đặt API để thêm."); return; }
+    if (!topic.trim()) { setError("Nh?p ch? d? tru?c nh�!"); return; }
+    if (!config?.apiKey) { setError("Chua c�i d?t API Key. V�o C�i d?t API d? th�m."); return; }
 
     setLoading(true);
     setError(null);
@@ -81,9 +81,9 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
         song: {
           rank: Date.now() % 100000,
           title: res.title,
-          artist: "Sáng tác tự do",
-          genre: "Truyện chêm",
-          lyrics: `Chủ đề: ${topic}`,
+          artist: "S�ng t�c t? do",
+          genre: "Truy?n ch�m",
+          lyrics: `Ch? d?: ${topic}`,
         },
         story: res.story,
         vocabulary: res.vocabulary.map(v => ({
@@ -100,7 +100,7 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
 
       setResult(lesson);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Lỗi không xác định");
+      setError(e instanceof Error ? e.message : "L?i kh�ng x�c d?nh");
     } finally {
       setLoading(false);
     }
@@ -122,22 +122,22 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
             <i className="ri-quill-pen-ai-line text-app-accent-primary text-base"></i>
           </div>
           <div>
-            <h3 className="text-white font-semibold text-sm">Tạo truyện chêm từ chủ đề</h3>
-            <p className="text-app-text-secondary text-xs">AI sẽ viết truyện chêm hoàn chỉnh — không cần lyrics bài hát</p>
+            <h3 className="text-white font-semibold text-sm">T?o truy?n ch�m t? ch? d?</h3>
+            <p className="text-app-text-secondary text-xs">AI s? vi?t truy?n ch�m ho�n ch?nh � kh�ng c?n lyrics b�i h�t</p>
           </div>
         </div>
 
         {/* Topic input */}
         <div className="mb-3">
           <label className="text-app-text-secondary text-xs font-medium block mb-1.5">
-            Chủ đề truyện *
+            Ch? d? truy?n *
           </label>
           <input
             type="text"
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleGenerate()}
-            placeholder="Ví dụ: buổi tập nhảy của idol, fan meeting lần đầu..."
+            placeholder="V� d?: bu?i t?p nh?y c?a idol, fan meeting l?n d?u..."
             className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
           />
         </div>
@@ -158,31 +158,31 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
         {/* Level + Length + Style */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
           <div>
-            <label className="text-app-text-secondary text-[10px] font-medium block mb-1.5">Trình độ</label>
+            <label className="text-app-text-secondary text-[10px] font-medium block mb-1.5">Tr�nh d?</label>
             <select
               value={level}
               onChange={(e) => setLevel(e.target.value as FreeStoryInput["level"])}
               className="w-full bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white/70 text-xs focus:outline-none focus:border-app-accent-primary/30 cursor-pointer"
             >
-              <option value="beginner" className="bg-app-bg">Sơ cấp</option>
-              <option value="intermediate" className="bg-app-bg">Trung cấp</option>
-              <option value="advanced" className="bg-app-bg">Cao cấp</option>
+              <option value="beginner" className="bg-app-bg">So c?p</option>
+              <option value="intermediate" className="bg-app-bg">Trung c?p</option>
+              <option value="advanced" className="bg-app-bg">Cao c?p</option>
             </select>
           </div>
           <div>
-            <label className="text-app-text-secondary text-[10px] font-medium block mb-1.5">Độ dài</label>
+            <label className="text-app-text-secondary text-[10px] font-medium block mb-1.5">�? d�i</label>
             <select
               value={storyLength}
               onChange={(e) => setStoryLength(e.target.value as FreeStoryInput["storyLength"])}
               className="w-full bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white/70 text-xs focus:outline-none focus:border-app-accent-primary/30 cursor-pointer"
             >
-              <option value="short" className="bg-app-bg">Ngắn (~150 từ)</option>
-              <option value="medium" className="bg-app-bg">Vừa (~300 từ)</option>
-              <option value="long" className="bg-app-bg">Dài (~500 từ)</option>
+              <option value="short" className="bg-app-bg">Ng?n (~150 t?)</option>
+              <option value="medium" className="bg-app-bg">V?a (~300 t?)</option>
+              <option value="long" className="bg-app-bg">D�i (~500 t?)</option>
             </select>
           </div>
           <div>
-            <label className="text-app-text-secondary text-[10px] font-medium block mb-1.5">Phong cách</label>
+            <label className="text-app-text-secondary text-[10px] font-medium block mb-1.5">Phong c�ch</label>
             <select
               value={style}
               onChange={(e) => setStyle(e.target.value)}
@@ -201,32 +201,32 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
           className="flex items-center gap-1.5 text-app-text-muted hover:text-white/60 text-xs transition-colors cursor-pointer mb-3"
         >
           {showAdvanced ? <i className="ri-arrow-up-s-line"></i> : <i className="ri-arrow-down-s-line"></i>}
-          Tùy chỉnh nâng cao (nhân vật, bối cảnh)
+          T�y ch?nh n�ng cao (nh�n v?t, b?i c?nh)
         </button>
 
         {showAdvanced && (
           <div className="space-y-3 mb-3 p-3 bg-app-surface/50 rounded-xl border border-app-border">
             <div>
               <label className="text-app-text-secondary text-[10px] font-medium block mb-1.5">
-                Nhân vật tùy chỉnh (để trống = AI tự chọn)
+                Nh�n v?t t�y ch?nh (d? tr?ng = AI t? ch?n)
               </label>
               <input
                 type="text"
                 value={characters}
                 onChange={(e) => setCharacters(e.target.value)}
-                placeholder="Ví dụ: Minh - sinh viên Việt, Ji-ho - idol Hàn"
+                placeholder="V� d?: Minh - sinh vi�n Vi?t, Ji-ho - idol H�n"
                 className="w-full bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white text-xs placeholder-white/20 focus:outline-none focus:border-app-accent-primary/30 transition-colors"
               />
             </div>
             <div>
               <label className="text-app-text-secondary text-[10px] font-medium block mb-1.5">
-                Bối cảnh tùy chỉnh (để trống = AI tự chọn)
+                B?i c?nh t�y ch?nh (d? tr?ng = AI t? ch?n)
               </label>
               <input
                 type="text"
                 value={setting}
                 onChange={(e) => setSetting(e.target.value)}
-                placeholder="Ví dụ: phòng tập nhảy ở Seoul"
+                placeholder="V� d?: ph�ng t?p nh?y ? Seoul"
                 className="w-full bg-app-card/50 border border-app-border rounded-lg px-3 py-2 text-white text-xs placeholder-white/20 focus:outline-none focus:border-app-accent-primary/30 transition-colors"
               />
             </div>
@@ -246,9 +246,9 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
           className="w-full flex items-center justify-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm py-3 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
         >
           {loading ? (
-            <><i className="ri-loader-4-line animate-spin"></i>AI đang viết truyện...</>
+            <><i className="ri-loader-4-line animate-spin"></i>AI dang vi?t truy?n...</>
           ) : (
-            <><i className="ri-magic-line"></i>Tạo truyện chêm</>
+            <><i className="ri-magic-line"></i>T?o truy?n ch�m</>
           )}
         </button>
       </div>
@@ -261,13 +261,13 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
               <i className="ri-checkbox-circle-fill text-app-accent-primary text-sm"></i>
               <p className="text-app-accent-primary font-semibold text-sm">{result.song.title}</p>
             </div>
-            <span className="text-app-text-muted text-[10px]">Chủ đề: {topic}</span>
+            <span className="text-app-text-muted text-[10px]">Ch? d?: {topic}</span>
           </div>
 
           <div className="p-5 space-y-4">
             {/* Story preview */}
             <div>
-              <p className="text-app-text-secondary text-[10px] font-bold tracking-normal mb-2">Truyện chêm</p>
+              <p className="text-app-text-secondary text-[10px] font-bold tracking-normal mb-2">Truy?n ch�m</p>
               <p className="text-white/70 text-xs leading-5 whitespace-pre-wrap line-clamp-6">{result.story}</p>
             </div>
 
@@ -275,7 +275,7 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
             {result.vocabulary.length > 0 && (
               <div>
                 <p className="text-app-text-secondary text-[10px] font-bold tracking-normal mb-2">
-                  Từ vựng ({result.vocabulary.length} từ)
+                  T? v?ng ({result.vocabulary.length} t?)
                 </p>
                 <div className="grid grid-cols-2 gap-1.5">
                   {result.vocabulary.slice(0, 4).map((v, i) => (
@@ -286,7 +286,7 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
                   ))}
                   {result.vocabulary.length > 4 && (
                     <div className="bg-app-surface/50 rounded-lg p-2 border border-app-border flex items-center justify-center">
-                      <p className="text-app-text-muted text-[9px]">+{result.vocabulary.length - 4} từ nữa</p>
+                      <p className="text-app-text-muted text-[9px]">+{result.vocabulary.length - 4} t? n?a</p>
                     </div>
                   )}
                 </div>
@@ -296,7 +296,7 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
             {/* Grammar preview */}
             {result.explanation && (
               <div>
-                <p className="text-app-text-secondary text-[10px] font-bold tracking-normal mb-2">Ngữ pháp</p>
+                <p className="text-app-text-secondary text-[10px] font-bold tracking-normal mb-2">Ng? ph�p</p>
                 <p className="text-white/50 text-[10px] leading-4 line-clamp-3">{result.explanation}</p>
               </div>
             )}
@@ -307,14 +307,14 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
                 className="flex items-center gap-1.5 bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary text-xs font-medium px-4 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
               >
                 <i className="ri-refresh-line"></i>
-                Tạo lại
+                T?o l?i
               </button>
               <button
                 onClick={handleAddToEbook}
                 className="flex-1 flex items-center justify-center gap-1.5 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-xs font-bold py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
               >
                 <i className="ri-add-line"></i>
-                Thêm vào ebook
+                Th�m v�o ebook
               </button>
             </div>
           </div>
@@ -328,10 +328,10 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
             <i className="ri-information-line text-app-text-muted text-sm"></i>
           </div>
           <div>
-            <p className="text-app-text-secondary text-xs font-medium mb-1">Truyện chêm sáng tác tự do</p>
+            <p className="text-app-text-secondary text-xs font-medium mb-1">Truy?n ch�m s�ng t�c t? do</p>
             <p className="text-app-text-muted text-[10px] leading-relaxed">
-              Khác với bài học từ Melon (dùng lyrics có sẵn), truyện này do AI sáng tác hoàn toàn — 
-              không lo bản quyền, có thể bán thương mại thoải mái. Bài được thêm vào danh sách bài học và có thể gom vào ebook.
+              Kh�c v?i b�i h?c t? Melon (d�ng lyrics c� s?n), truy?n n�y do AI s�ng t�c ho�n to�n � 
+              kh�ng lo b?n quy?n, c� th? b�n thuong m?i tho?i m�i. B�i du?c th�m v�o danh s�ch b�i h?c v� c� th? gom v�o ebook.
             </p>
           </div>
         </div>

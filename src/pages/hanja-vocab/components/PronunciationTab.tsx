@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useRef, useEffect, useCallback } from "react";
+import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 
 const XP_KEY = "kts_total_xp";
@@ -30,11 +30,11 @@ function getInitial(char: string): string {
   const code = char.charCodeAt(0) - 0xAC00;
   if (code < 0 || code > 11171) return char[0];
   const idx = Math.floor(code / 588);
-  const initials = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+  const initials = ["?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?"];
   return initials[idx] || char[0];
 }
 
-const ALPHABET_GROUPS = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+const ALPHABET_GROUPS = ["?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?"];
 
 // Simulate pronunciation scoring using Web Speech API recognition
 async function recognizeSpeech(): Promise<string> {
@@ -251,15 +251,15 @@ export default function PronunciationTab() {
         <div className="flex items-center gap-3 mb-5">
           <button onClick={() => setShowHistory(false)}
             className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
-            <i className="ri-arrow-left-line"></i> Quay lại
+            <i className="ri-arrow-left-line"></i> Quay l?i
           </button>
-          <h2 className="text-base font-bold text-gray-900">Lịch sử phát âm</h2>
+          <h2 className="text-base font-bold text-gray-900">L?ch s? ph�t �m</h2>
         </div>
 
         {history.length === 0 ? (
           <div className="text-center py-16 text-gray-400">
             <i className="ri-mic-line text-4xl"></i>
-            <p className="mt-2 text-sm">Chưa có lịch sử phát âm</p>
+            <p className="mt-2 text-sm">Chua c� l?ch s? ph�t �m</p>
           </div>
         ) : (
           <div className="space-y-2">
@@ -276,13 +276,13 @@ export default function PronunciationTab() {
                     <span className="font-bold text-gray-900">{h.korean}</span>
                     <span className="text-rose-400 font-bold text-sm">{h.hanja}</span>
                   </div>
-                  <p className="text-xs text-gray-400">{h.vietnamese} · {h.date}</p>
+                  <p className="text-xs text-gray-400">{h.vietnamese} � {h.date}</p>
                 </div>
                 <div className={`text-xs px-2 py-0.5 rounded-full font-bold ${
                   h.score >= 80 ? "bg-green-100 text-green-600" :
                   h.score >= 60 ? "bg-amber-100 text-amber-600" : "bg-red-100 text-red-500"
                 }`}>
-                  {h.score >= 80 ? "Tốt" : h.score >= 60 ? "Khá" : "Cần luyện"}
+                  {h.score >= 80 ? "T?t" : h.score >= 60 ? "Kh�" : "C?n luy?n"}
                 </div>
               </div>
             ))}
@@ -297,9 +297,9 @@ export default function PronunciationTab() {
       {/* Header stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
         {[
-          { label: "Đã luyện", value: history.length, icon: "ri-mic-line", color: "#f43f5e" },
-          { label: "Điểm TB", value: avgScore ? `${avgScore}%` : "—", icon: "ri-bar-chart-line", color: "#fb923c" },
-          { label: "Phát âm tốt", value: perfectCount, icon: "ri-star-line", color: "#34d399" },
+          { label: "�� luy?n", value: history.length, icon: "ri-mic-line", color: "#f43f5e" },
+          { label: "�i?m TB", value: avgScore ? `${avgScore}%` : "�", icon: "ri-bar-chart-line", color: "#fb923c" },
+          { label: "Ph�t �m t?t", value: perfectCount, icon: "ri-star-line", color: "#34d399" },
         ].map(s => (
           <div key={s.label} className="bg-white border border-gray-100 rounded-xl p-4 text-center">
             <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${s.color}15` }}>
@@ -315,7 +315,7 @@ export default function PronunciationTab() {
       <div className="flex flex-wrap gap-1.5 mb-5">
         <button onClick={() => setSelectedInitial(null)}
           className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
-          Tất cả
+          T?t c?
         </button>
         {ALPHABET_GROUPS.map(g => (
           <button key={g} onClick={() => setSelectedInitial(selectedInitial === g ? null : g)}
@@ -330,8 +330,8 @@ export default function PronunciationTab() {
         <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4 flex items-start gap-3">
           <i className="ri-error-warning-line text-amber-500 flex-shrink-0 mt-0.5"></i>
           <div>
-            <p className="text-sm font-semibold text-amber-700">Trình duyệt không hỗ trợ nhận dạng giọng nói</p>
-            <p className="text-xs text-amber-600 mt-0.5">Vui lòng dùng Chrome hoặc Edge để sử dụng tính năng ghi âm. Bạn vẫn có thể nghe phát âm chuẩn TTS.</p>
+            <p className="text-sm font-semibold text-amber-700">Tr�nh duy?t kh�ng h? tr? nh?n d?ng gi?ng n�i</p>
+            <p className="text-xs text-amber-600 mt-0.5">Vui l�ng d�ng Chrome ho?c Edge d? s? d?ng t�nh nang ghi �m. B?n v?n c� th? nghe ph�t �m chu?n TTS.</p>
           </div>
         </div>
       )}
@@ -363,11 +363,11 @@ export default function PronunciationTab() {
             <button onClick={handleSpeak} disabled={isSpeaking}
               className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium cursor-pointer transition-all ${isSpeaking ? "bg-rose-500 text-white" : "bg-rose-50 text-rose-600 hover:bg-rose-100"}`}>
               <i className={isSpeaking ? "ri-volume-up-fill" : "ri-volume-up-line"}></i>
-              {isSpeaking ? "Đang phát..." : "Nghe phát âm chuẩn"}
+              {isSpeaking ? "�ang ph�t..." : "Nghe ph�t �m chu?n"}
             </button>
             <button onClick={handleSpeakSlow} disabled={isSpeaking}
               className="flex items-center gap-2 px-4 py-3 bg-gray-50 text-gray-600 rounded-xl text-sm font-medium cursor-pointer hover:bg-gray-100 transition-all whitespace-nowrap">
-              <i className="ri-speed-line"></i>Chậm
+              <i className="ri-speed-line"></i>Ch?m
             </button>
           </div>
 
@@ -375,14 +375,14 @@ export default function PronunciationTab() {
           <div className="p-6">
             {recordState === "idle" && (
               <div className="text-center">
-                <p className="text-sm text-gray-500 mb-4">Nghe phát âm chuẩn, sau đó nhấn ghi âm để luyện tập</p>
+                <p className="text-sm text-gray-500 mb-4">Nghe ph�t �m chu?n, sau d� nh?n ghi �m d? luy?n t?p</p>
                 <button onClick={startRecording}
                   className="flex items-center gap-3 px-8 py-4 bg-rose-500 text-white rounded-2xl font-bold text-base cursor-pointer hover:bg-rose-600 transition-all mx-auto">
                   <i className="ri-mic-line text-xl"></i>
-                  Bắt đầu ghi âm
+                  B?t d?u ghi �m
                 </button>
                 {notSupported && (
-                  <p className="text-xs text-gray-400 mt-3">Tính năng ghi âm không khả dụng trên trình duyệt này</p>
+                  <p className="text-xs text-gray-400 mt-3">T�nh nang ghi �m kh�ng kh? d?ng tr�n tr�nh duy?t n�y</p>
                 )}
               </div>
             )}
@@ -392,7 +392,7 @@ export default function PronunciationTab() {
                 <div className="w-20 h-20 flex items-center justify-center rounded-full bg-rose-100 mx-auto mb-3">
                   <span className="text-4xl font-bold text-rose-600">{countdown}</span>
                 </div>
-                <p className="text-sm text-gray-500">Chuẩn bị đọc từ...</p>
+                <p className="text-sm text-gray-500">Chu?n b? d?c t?...</p>
               </div>
             )}
 
@@ -402,8 +402,8 @@ export default function PronunciationTab() {
                   <i className="ri-mic-fill text-red-500 text-3xl"></i>
                   <div className="absolute inset-0 rounded-full border-4 border-red-400 animate-ping opacity-30"></div>
                 </div>
-                <p className="text-sm font-semibold text-red-500">Đang ghi âm... Hãy đọc to từ trên!</p>
-                <p className="text-xs text-gray-400 mt-1">Tự động dừng sau 3 giây</p>
+                <p className="text-sm font-semibold text-red-500">�ang ghi �m... H�y d?c to t? tr�n!</p>
+                <p className="text-xs text-gray-400 mt-1">T? d?ng d?ng sau 3 gi�y</p>
               </div>
             )}
 
@@ -412,7 +412,7 @@ export default function PronunciationTab() {
                 <div className="w-16 h-16 flex items-center justify-center rounded-full bg-amber-100 mx-auto mb-3">
                   <i className="ri-loader-4-line text-amber-500 text-2xl animate-spin"></i>
                 </div>
-                <p className="text-sm text-gray-500">Đang phân tích phát âm...</p>
+                <p className="text-sm text-gray-500">�ang ph�n t�ch ph�t �m...</p>
               </div>
             )}
 
@@ -422,7 +422,7 @@ export default function PronunciationTab() {
                 {xpGained && (
                   <div className="flex items-center justify-center gap-2 mb-4 px-4 py-2 bg-amber-50 border border-amber-200 rounded-xl">
                     <i className="ri-star-fill text-amber-500"></i>
-                    <span className="text-sm font-bold text-amber-700">+{xpGained} XP kiếm được!</span>
+                    <span className="text-sm font-bold text-amber-700">+{xpGained} XP ki?m du?c!</span>
                   </div>
                 )}
 
@@ -430,19 +430,19 @@ export default function PronunciationTab() {
                   <ScoreRing score={score} />
                   <div className="flex-1">
                     <p className={`text-lg font-bold mb-1 ${score >= 80 ? "text-green-600" : score >= 60 ? "text-amber-600" : "text-red-500"}`}>
-                      {score >= 80 ? "Phát âm tốt!" : score >= 60 ? "Khá tốt!" : score >= 40 ? "Cần luyện thêm" : "Thử lại nhé!"}
+                      {score >= 80 ? "Ph�t �m t?t!" : score >= 60 ? "Kh� t?t!" : score >= 40 ? "C?n luy?n th�m" : "Th? l?i nh�!"}
                     </p>
                     {recognized && (
                       <div className="text-sm text-gray-500">
-                        <span className="text-gray-400">Nhận dạng được: </span>
+                        <span className="text-gray-400">Nh?n d?ng du?c: </span>
                         <span className="font-medium text-gray-700">&ldquo;{recognized}&rdquo;</span>
                       </div>
                     )}
                     {!recognized && (
-                      <p className="text-sm text-gray-400">Không nhận dạng được giọng nói</p>
+                      <p className="text-sm text-gray-400">Kh�ng nh?n d?ng du?c gi?ng n�i</p>
                     )}
                     <div className="mt-2 flex items-center gap-2">
-                      <span className="text-xs text-gray-400">Chuẩn:</span>
+                      <span className="text-xs text-gray-400">Chu?n:</span>
                       <span className="text-sm font-bold text-gray-900">{current.korean}</span>
                     </div>
                   </div>
@@ -451,24 +451,24 @@ export default function PronunciationTab() {
                 {/* Tips */}
                 <div className="bg-gray-50 rounded-xl p-3 mb-4">
                   <p className="text-xs font-semibold text-gray-600 mb-1">
-                    {score >= 80 ? "Xuất sắc! Tiếp tục duy trì!" :
-                     score >= 60 ? "Mẹo cải thiện:" : "Cần chú ý:"}
+                    {score >= 80 ? "Xu?t s?c! Ti?p t?c duy tr�!" :
+                     score >= 60 ? "M?o c?i thi?n:" : "C?n ch� �:"}
                   </p>
                   <p className="text-xs text-gray-500">
-                    {score >= 80 ? "Phát âm của bạn rất chuẩn. Hãy thử từ khó hơn!" :
-                     score >= 60 ? "Nghe lại phát âm chuẩn và chú ý âm điệu. Luyện tập chậm trước." :
-                     "Hãy nghe phát âm chuẩn nhiều lần, sau đó đọc theo từng âm tiết."}
+                    {score >= 80 ? "Ph�t �m c?a b?n r?t chu?n. H�y th? t? kh� hon!" :
+                     score >= 60 ? "Nghe l?i ph�t �m chu?n v� ch� � �m di?u. Luy?n t?p ch?m tru?c." :
+                     "H�y nghe ph�t �m chu?n nhi?u l?n, sau d� d?c theo t?ng �m ti?t."}
                   </p>
                 </div>
 
                 <div className="flex gap-3">
                   <button onClick={startRecording}
                     className="flex-1 flex items-center justify-center gap-2 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">
-                    <i className="ri-mic-line"></i>Thử lại
+                    <i className="ri-mic-line"></i>Th? l?i
                   </button>
                   <button onClick={nextWord}
                     className="flex-1 flex items-center justify-center gap-2 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">
-                    Từ tiếp theo<i className="ri-arrow-right-line"></i>
+                    T? ti?p theo<i className="ri-arrow-right-line"></i>
                   </button>
                 </div>
               </div>
@@ -482,18 +482,18 @@ export default function PronunciationTab() {
         <div className="flex-1 bg-rose-50 border border-rose-100 rounded-xl p-4">
           <div className="flex items-center gap-2 mb-2">
             <i className="ri-lightbulb-line text-rose-500"></i>
-            <span className="text-sm font-semibold text-rose-700">Hướng dẫn luyện phát âm</span>
+            <span className="text-sm font-semibold text-rose-700">Hu?ng d?n luy?n ph�t �m</span>
           </div>
           <ul className="space-y-1 text-xs text-rose-600">
-            <li className="flex items-start gap-1.5"><i className="ri-arrow-right-s-line mt-0.5 flex-shrink-0"></i>Nghe phát âm chuẩn TTS trước khi ghi âm</li>
-            <li className="flex items-start gap-1.5"><i className="ri-arrow-right-s-line mt-0.5 flex-shrink-0"></i>Đọc to, rõ ràng trong môi trường yên tĩnh</li>
-            <li className="flex items-start gap-1.5"><i className="ri-arrow-right-s-line mt-0.5 flex-shrink-0"></i>Đạt 80+ điểm để nhận +10 XP mỗi từ</li>
+            <li className="flex items-start gap-1.5"><i className="ri-arrow-right-s-line mt-0.5 flex-shrink-0"></i>Nghe ph�t �m chu?n TTS tru?c khi ghi �m</li>
+            <li className="flex items-start gap-1.5"><i className="ri-arrow-right-s-line mt-0.5 flex-shrink-0"></i>�?c to, r� r�ng trong m�i tru?ng y�n tinh</li>
+            <li className="flex items-start gap-1.5"><i className="ri-arrow-right-s-line mt-0.5 flex-shrink-0"></i>�?t 80+ di?m d? nh?n +10 XP m?i t?</li>
           </ul>
         </div>
         <button onClick={() => setShowHistory(true)}
           className="flex flex-col items-center justify-center gap-2 px-5 bg-white border border-gray-100 rounded-xl cursor-pointer hover:border-rose-200 transition-colors">
           <i className="ri-history-line text-gray-400 text-xl"></i>
-          <span className="text-xs text-gray-500 whitespace-nowrap">Lịch sử</span>
+          <span className="text-xs text-gray-500 whitespace-nowrap">L?ch s?</span>
           {history.length > 0 && (
             <span className="text-xs font-bold text-rose-500">{history.length}</span>
           )}

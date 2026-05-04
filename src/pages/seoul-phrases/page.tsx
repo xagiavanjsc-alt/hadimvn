@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { seoulBooks } from "@/mocks/seoulTextbook";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -45,7 +45,7 @@ function buildPhrases(): PhraseEntry[] {
             bookName: book.name,
             lessonNumber: lesson.lessonNumber,
             lessonTitle: lesson.titleVi,
-            speaker: "Ví dụ",
+            speaker: "V� d?",
             type: "grammar",
             grammarPattern: gp.pattern,
           });
@@ -172,7 +172,7 @@ export default function SeoulPhrasesPage() {
         <div className="p-6 max-w-2xl mx-auto space-y-5">
           <div className="flex items-center justify-between">
             <button onClick={() => setQuizState("idle")} className="flex items-center gap-1.5 text-app-text-secondary hover:text-white/60 text-sm cursor-pointer whitespace-nowrap">
-              <i className="ri-arrow-left-line text-sm"></i> Thoát
+              <i className="ri-arrow-left-line text-sm"></i> Tho�t
             </button>
             <span className="text-app-text-secondary text-sm">{quiz.currentIdx + 1}/{quiz.phrases.length}</span>
           </div>
@@ -182,23 +182,23 @@ export default function SeoulPhrasesPage() {
 
           <div className="bg-app-card/50 border border-app-border rounded-2xl p-6 space-y-4">
             <div className="flex items-center justify-between">
-              <span className={`px-2.5 py-1 rounded-full text-xs border ${bookColors[current.bookId]}`}>{current.bookName} · Bài {current.lessonNumber}</span>
+              <span className={`px-2.5 py-1 rounded-full text-xs border ${bookColors[current.bookId]}`}>{current.bookName} � B�i {current.lessonNumber}</span>
               {current.type === "grammar" && current.grammarPattern && (
                 <span className="text-app-text-muted text-xs truncate max-w-[200px]">{current.grammarPattern}</span>
               )}
             </div>
             <div>
-              <p className="text-app-text-secondary text-xs mb-2">Dịch sang tiếng Hàn:</p>
+              <p className="text-app-text-secondary text-xs mb-2">D?ch sang ti?ng H�n:</p>
               <p className="text-white font-semibold text-xl leading-relaxed">{current.vietnamese}</p>
             </div>
             <button onClick={() => speakKorean(current.korean)} className="flex items-center gap-1.5 text-app-text-muted hover:text-white/50 text-xs cursor-pointer whitespace-nowrap">
-              <i className="ri-volume-up-line text-xs"></i> Nghe gợi ý
+              <i className="ri-volume-up-line text-xs"></i> Nghe g?i �
             </button>
             <textarea
               value={quiz.userInput}
               onChange={e => setQuiz({ ...quiz, userInput: e.target.value })}
               onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submitQuizAnswer(); } }}
-              placeholder="Nhập câu tiếng Hàn..."
+              placeholder="Nh?p c�u ti?ng H�n..."
               rows={3}
               className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-base placeholder-white/20 focus:outline-none focus:border-white/25 resize-none"
               style={{ fontFamily: "'Noto Sans KR', sans-serif" }}
@@ -209,7 +209,7 @@ export default function SeoulPhrasesPage() {
               disabled={!quiz.userInput.trim()}
               className="w-full py-3 rounded-xl bg-app-accent-primary/15 border border-app-accent-primary/30 text-app-accent-primary font-medium text-sm hover:bg-app-accent-primary/25 transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
             >
-              Nộp bài (Enter)
+              N?p b�i (Enter)
             </button>
           </div>
         </div>
@@ -227,11 +227,11 @@ export default function SeoulPhrasesPage() {
             <div className="w-16 h-16 flex items-center justify-center bg-app-accent-primary/10 rounded-full mx-auto">
               <i className="ri-trophy-line text-app-accent-primary text-3xl"></i>
             </div>
-            <h2 className="text-white font-bold text-2xl">Kết quả kiểm tra</h2>
+            <h2 className="text-white font-bold text-2xl">K?t qu? ki?m tra</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 text-center">
                 <p className="text-app-accent-success font-bold text-xl">{quiz.score}</p>
-                <p className="text-app-accent-success/60 text-xs">Đúng</p>
+                <p className="text-app-accent-success/60 text-xs">��ng</p>
               </div>
               <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3 text-center">
                 <p className="text-red-400 font-bold text-xl">{quiz.phrases.length - quiz.score}</p>
@@ -244,7 +244,7 @@ export default function SeoulPhrasesPage() {
             </div>
             <div className="mt-2">
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-app-text-secondary text-xs">Độ chính xác</span>
+                <span className="text-app-text-secondary text-xs">�? ch�nh x�c</span>
                 <span className="text-white font-bold text-sm">{accuracy}%</span>
               </div>
               <div className="h-2 bg-white/8 rounded-full overflow-hidden">
@@ -255,7 +255,7 @@ export default function SeoulPhrasesPage() {
 
           {/* Review wrong answers */}
           <div className="space-y-2">
-            <p className="text-app-text-secondary text-sm font-medium">Xem lại đáp án</p>
+            <p className="text-app-text-secondary text-sm font-medium">Xem l?i d�p �n</p>
             {quiz.results.map((r, i) => (
               <div key={i} className={`border rounded-xl p-4 space-y-2 ${r.correct ? "border-emerald-500/20 bg-emerald-500/5" : "border-red-500/20 bg-red-500/5"}`}>
                 <div className="flex items-center gap-2">
@@ -268,15 +268,15 @@ export default function SeoulPhrasesPage() {
                   {r.phrase.korean}
                 </p>
                 {!r.correct && r.userAnswer && (
-                  <p className="text-app-accent-error/60 text-xs pl-6">Bạn viết: {r.userAnswer}</p>
+                  <p className="text-app-accent-error/60 text-xs pl-6">B?n vi?t: {r.userAnswer}</p>
                 )}
               </div>
             ))}
           </div>
 
           <div className="flex gap-3">
-            <button onClick={() => setQuizState("idle")} className="flex-1 py-3 rounded-xl border border-app-border text-white/60 text-sm cursor-pointer whitespace-nowrap">Về danh sách</button>
-            <button onClick={startQuiz} className="flex-1 py-3 rounded-xl bg-app-accent-primary/15 border border-app-accent-primary/30 text-app-accent-primary text-sm font-medium cursor-pointer whitespace-nowrap">Kiểm tra lại</button>
+            <button onClick={() => setQuizState("idle")} className="flex-1 py-3 rounded-xl border border-app-border text-white/60 text-sm cursor-pointer whitespace-nowrap">V? danh s�ch</button>
+            <button onClick={startQuiz} className="flex-1 py-3 rounded-xl bg-app-accent-primary/15 border border-app-accent-primary/30 text-app-accent-primary text-sm font-medium cursor-pointer whitespace-nowrap">Ki?m tra l?i</button>
           </div>
         </div>
       </DashboardLayout>
@@ -291,14 +291,14 @@ export default function SeoulPhrasesPage() {
         <div className="flex items-start justify-between flex-wrap gap-4">
           <div>
             <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "'Nunito', sans-serif" }}>
-              Bộ sưu tập câu mẫu Seoul
+              B? suu t?p c�u m?u Seoul
             </h1>
-            <p className="text-app-text-secondary text-sm mt-0.5">Tổng hợp câu mẫu từ hội thoại và ngữ pháp theo từng bài học</p>
+            <p className="text-app-text-secondary text-sm mt-0.5">T?ng h?p c�u m?u t? h?i tho?i v� ng? ph�p theo t?ng b�i h?c</p>
           </div>
           <div className="flex gap-3">
             <div className="bg-app-card/50 border border-app-border rounded-xl px-4 py-2 text-center">
               <p className="text-white font-bold text-xl">{ALL_PHRASES.length}</p>
-              <p className="text-app-text-secondary text-xs">Tổng câu mẫu</p>
+              <p className="text-app-text-secondary text-xs">T?ng c�u m?u</p>
             </div>
             <button
               onClick={startQuiz}
@@ -307,7 +307,7 @@ export default function SeoulPhrasesPage() {
               <div className="w-4 h-4 flex items-center justify-center">
                 <i className="ri-survey-line text-sm"></i>
               </div>
-              Kiểm tra
+              Ki?m tra
             </button>
           </div>
         </div>
@@ -318,7 +318,7 @@ export default function SeoulPhrasesPage() {
             onClick={() => setSelectedBook("all")}
             className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap border ${selectedBook === "all" ? "bg-white/15 text-white border-white/20" : "bg-app-card/50 text-app-text-secondary hover:text-white/70 border-transparent"}`}
           >
-            Tất cả ({ALL_PHRASES.length})
+            T?t c? ({ALL_PHRASES.length})
           </button>
           {seoulBooks.map(book => (
             <button
@@ -335,9 +335,9 @@ export default function SeoulPhrasesPage() {
         <div className="flex flex-wrap gap-3 items-center">
           <div className="flex gap-1 bg-app-card/50 border border-app-border rounded-xl p-1">
             {[
-              { id: "all", label: "Tất cả" },
-              { id: "dialogue", label: "Hội thoại" },
-              { id: "grammar", label: "Ngữ pháp" },
+              { id: "all", label: "T?t c?" },
+              { id: "dialogue", label: "H?i tho?i" },
+              { id: "grammar", label: "Ng? ph�p" },
             ].map(t => (
               <button
                 key={t.id}
@@ -356,7 +356,7 @@ export default function SeoulPhrasesPage() {
             <div className="w-3 h-3 flex items-center justify-center">
               <i className="ri-bookmark-fill text-xs"></i>
             </div>
-            Đã lưu ({savedIds.length})
+            �� luu ({savedIds.length})
           </button>
 
           <div className="flex-1 relative min-w-[200px]">
@@ -367,18 +367,18 @@ export default function SeoulPhrasesPage() {
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Tìm kiếm câu mẫu..."
+              placeholder="T�m ki?m c�u m?u..."
               className="w-full bg-app-card/50 border border-app-border rounded-xl pl-9 pr-4 py-2 text-white text-sm placeholder-white/25 focus:outline-none focus:border-white/25"
             />
           </div>
         </div>
 
-        <p className="text-app-text-muted text-sm">{filtered.length} câu mẫu</p>
+        <p className="text-app-text-muted text-sm">{filtered.length} c�u m?u</p>
 
         {/* Phrase list */}
         {filtered.length === 0 ? (
           <div className="bg-app-card/50 border border-app-border rounded-2xl p-12 text-center">
-            <p className="text-app-text-secondary text-sm">Không tìm thấy câu mẫu phù hợp</p>
+            <p className="text-app-text-secondary text-sm">Kh�ng t�m th?y c�u m?u ph� h?p</p>
           </div>
         ) : (
           <div className="space-y-2">
@@ -414,7 +414,7 @@ export default function SeoulPhrasesPage() {
                         <button
                           onClick={() => speakKorean(phrase.korean, true)}
                           className="w-6 h-6 flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 rounded-full transition-all cursor-pointer flex-shrink-0"
-                          title="Nghe chậm"
+                          title="Nghe ch?m"
                         >
                           <i className="ri-speed-line text-app-text-muted text-xs"></i>
                         </button>
@@ -428,7 +428,7 @@ export default function SeoulPhrasesPage() {
                         {showVi ? (
                           <p className="text-white/60 text-sm italic">{phrase.vietnamese}</p>
                         ) : (
-                          <p className="text-app-text-muted text-xs">Nhấn để xem nghĩa</p>
+                          <p className="text-app-text-muted text-xs">Nh?n d? xem nghia</p>
                         )}
                       </button>
                     </div>
@@ -444,7 +444,7 @@ export default function SeoulPhrasesPage() {
                       <span className={`px-2 py-0.5 rounded-full text-[10px] border ${bookColors[phrase.bookId]}`}>
                         {phrase.bookName}
                       </span>
-                      <span className="text-app-text-muted text-[10px]">Bài {phrase.lessonNumber}</span>
+                      <span className="text-app-text-muted text-[10px]">B�i {phrase.lessonNumber}</span>
                     </div>
                   </div>
                 </div>

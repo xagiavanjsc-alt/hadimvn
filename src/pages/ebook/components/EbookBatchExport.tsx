@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
 import type { EbookMeta } from "@/pages/ebook/page";
 import type { EbookTemplate } from "./EbookTemplates";
@@ -22,11 +22,11 @@ export default function EbookBatchExport({ lessons, meta, template, onExportGrou
     const map: Record<string, ApprovedLesson[]> = {};
     lessons.forEach((l) => {
       let key = "";
-      if (groupBy === "artist") key = l.song.artist || "Không rõ";
-      else if (groupBy === "genre") key = l.song.genre || "Khác";
+      if (groupBy === "artist") key = l.song.artist || "Kh�ng r�";
+      else if (groupBy === "genre") key = l.song.genre || "Kh�c";
       else if (groupBy === "stars") {
         const s = l.stars ?? 0;
-        key = s >= 5 ? "⭐⭐⭐⭐⭐ 5 sao" : s === 4 ? "⭐⭐⭐⭐ 4 sao" : s === 3 ? "⭐⭐⭐ 3 sao" : "Chưa đánh giá";
+        key = s >= 5 ? "????? 5 sao" : s === 4 ? "???? 4 sao" : s === 3 ? "??? 3 sao" : "Chua d�nh gi�";
       }
       if (!map[key]) map[key] = [];
       map[key].push(l);
@@ -65,7 +65,7 @@ export default function EbookBatchExport({ lessons, meta, template, onExportGrou
         className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/60 hover:text-white/90 text-sm font-medium px-4 py-2.5 rounded-xl transition-colors whitespace-nowrap cursor-pointer border border-app-border"
       >
         <i className="ri-stack-line"></i>
-        Batch xuất
+        Batch xu?t
       </button>
 
       {open && (
@@ -78,8 +78,8 @@ export default function EbookBatchExport({ lessons, meta, template, onExportGrou
                   <i className="ri-stack-line text-app-accent-primary text-base"></i>
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold text-sm">Batch xuất PDF</h3>
-                  <p className="text-app-text-secondary text-xs">Xuất nhiều ebook theo nhóm cùng lúc</p>
+                  <h3 className="text-white font-semibold text-sm">Batch xu?t PDF</h3>
+                  <p className="text-app-text-secondary text-xs">Xu?t nhi?u ebook theo nh�m c�ng l�c</p>
                 </div>
               </div>
               <button onClick={() => setOpen(false)} className="w-7 h-7 flex items-center justify-center text-app-text-muted hover:text-white/60 cursor-pointer">
@@ -89,12 +89,12 @@ export default function EbookBatchExport({ lessons, meta, template, onExportGrou
 
             {/* Group by selector */}
             <div className="px-6 py-4 border-b border-app-border flex-shrink-0">
-              <p className="text-app-text-secondary text-xs tracking-normal mb-3">Nhóm theo</p>
+              <p className="text-app-text-secondary text-xs tracking-normal mb-3">Nh�m theo</p>
               <div className="flex gap-2">
                 {([
-                  { value: "artist", label: "Nghệ sĩ", icon: "ri-user-voice-line" },
-                  { value: "genre", label: "Thể loại", icon: "ri-music-2-line" },
-                  { value: "stars", label: "Đánh sao", icon: "ri-star-line" },
+                  { value: "artist", label: "Ngh? si", icon: "ri-user-voice-line" },
+                  { value: "genre", label: "Th? lo?i", icon: "ri-music-2-line" },
+                  { value: "stars", label: "��nh sao", icon: "ri-star-line" },
                 ] as const).map(opt => (
                   <button
                     key={opt.value}
@@ -115,11 +115,11 @@ export default function EbookBatchExport({ lessons, meta, template, onExportGrou
             {/* Groups list */}
             <div className="flex-1 overflow-y-auto px-6 py-4 space-y-2">
               <div className="flex items-center justify-between mb-3">
-                <p className="text-app-text-muted text-xs">{groups.length} nhóm · {lessons.length} bài tổng</p>
+                <p className="text-app-text-muted text-xs">{groups.length} nh�m � {lessons.length} b�i t?ng</p>
                 <div className="flex items-center gap-2">
-                  <button onClick={selectAll} className="text-app-accent-primary/70 hover:text-app-accent-primary text-xs cursor-pointer whitespace-nowrap">Chọn tất cả</button>
-                  <span className="text-app-text-muted text-xs">·</span>
-                  <button onClick={clearAll} className="text-app-text-muted hover:text-white/60 text-xs cursor-pointer whitespace-nowrap">Bỏ chọn</button>
+                  <button onClick={selectAll} className="text-app-accent-primary/70 hover:text-app-accent-primary text-xs cursor-pointer whitespace-nowrap">Ch?n t?t c?</button>
+                  <span className="text-app-text-muted text-xs">�</span>
+                  <button onClick={clearAll} className="text-app-text-muted hover:text-white/60 text-xs cursor-pointer whitespace-nowrap">B? ch?n</button>
                 </div>
               </div>
 
@@ -143,7 +143,7 @@ export default function EbookBatchExport({ lessons, meta, template, onExportGrou
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className={`text-sm font-semibold truncate ${isSelected ? "text-white" : "text-white/70"}`}>{groupName}</p>
-                      <p className="text-app-text-muted text-xs mt-0.5">{groupLessons.length} bài học</p>
+                      <p className="text-app-text-muted text-xs mt-0.5">{groupLessons.length} b�i h?c</p>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
                       {/* Stars preview */}
@@ -164,20 +164,20 @@ export default function EbookBatchExport({ lessons, meta, template, onExportGrou
             <div className="px-6 py-4 border-t border-app-border flex-shrink-0 flex items-center justify-between">
               <div className="text-app-text-muted text-xs">
                 {selected.size > 0 ? (
-                  <span className="text-app-accent-primary">{selected.size} nhóm đã chọn · {groups.filter(([k]) => selected.has(k)).reduce((sum, [, l]) => sum + l.length, 0)} bài</span>
-                ) : "Chọn nhóm để xuất"}
+                  <span className="text-app-accent-primary">{selected.size} nh�m d� ch?n � {groups.filter(([k]) => selected.has(k)).reduce((sum, [, l]) => sum + l.length, 0)} b�i</span>
+                ) : "Ch?n nh�m d? xu?t"}
               </div>
               <div className="flex items-center gap-2">
-                <button onClick={() => setOpen(false)} className="px-4 py-2 text-app-text-secondary hover:text-white/70 text-sm cursor-pointer whitespace-nowrap">Hủy</button>
+                <button onClick={() => setOpen(false)} className="px-4 py-2 text-app-text-secondary hover:text-white/70 text-sm cursor-pointer whitespace-nowrap">H?y</button>
                 <button
                   onClick={handleExportSelected}
                   disabled={selected.size === 0 || !!exporting}
                   className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors whitespace-nowrap cursor-pointer"
                 >
                   {exporting ? (
-                    <><i className="ri-loader-4-line animate-spin"></i>Đang xuất...</>
+                    <><i className="ri-loader-4-line animate-spin"></i>�ang xu?t...</>
                   ) : (
-                    <><i className="ri-file-pdf-2-line"></i>Xuất {selected.size} ebook</>
+                    <><i className="ri-file-pdf-2-line"></i>Xu?t {selected.size} ebook</>
                   )}
                 </button>
               </div>

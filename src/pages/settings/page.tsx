@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useApiCostTracker } from "@/hooks/useApiCostTracker";
@@ -18,7 +18,7 @@ export interface StoryPromptSettings {
   storyLength: "short" | "medium" | "long";
   style: string;
   customInstruction: string;
-  pureKorean?: boolean; // Truyện chêm thuần tiếng Hàn, không phiên âm
+  pureKorean?: boolean; // Truy?n ch�m thu?n ti?ng H�n, kh�ng phi�n �m
 }
 
 export interface AppSettings {
@@ -30,10 +30,10 @@ export interface AppSettings {
 }
 
 const DEFAULT_STORY_PROMPT: StoryPromptSettings = {
-  context: "Một lớp học tiếng Hàn tại Việt Nam, học viên là người Việt yêu thích K-pop",
-  characters: "Giáo viên Minh (người Việt), học viên Linh và Tuấn, thỉnh thoảng có idol K-pop xuất hiện",
+  context: "M?t l?p h?c ti?ng H�n t?i Vi?t Nam, h?c vi�n l� ngu?i Vi?t y�u th�ch K-pop",
+  characters: "Gi�o vi�n Minh (ngu?i Vi?t), h?c vi�n Linh v� Tu?n, th?nh tho?ng c� idol K-pop xu?t hi?n",
   storyLength: "medium",
-  style: "Hài hước, nhẹ nhàng, dễ hiểu, phù hợp học sinh cấp 2-3",
+  style: "H�i hu?c, nh? nh�ng, d? hi?u, ph� h?p h?c sinh c?p 2-3",
   customInstruction: "",
 };
 
@@ -95,18 +95,18 @@ export default function SettingsPage() {
 
   const handleSave = () => {
     setSaved(form);
-    showToastMsg("Đã lưu cài đặt thành công!");
+    showToastMsg("�� luu c�i d?t th�nh c�ng!");
   };
 
   const handleReset = () => {
     setForm(DEFAULT_SETTINGS);
     setSaved(DEFAULT_SETTINGS);
-    showToastMsg("Đã xóa toàn bộ cài đặt");
+    showToastMsg("�� x�a to�n b? c�i d?t");
   };
 
   const handleResetPrompt = () => {
     setForm((prev) => ({ ...prev, storyPrompt: DEFAULT_STORY_PROMPT }));
-    showToastMsg("Đã khôi phục prompt mặc định");
+    showToastMsg("�� kh�i ph?c prompt m?c d?nh");
   };
 
   const updateStoryPrompt = (updates: Partial<StoryPromptSettings>) => {
@@ -121,54 +121,54 @@ export default function SettingsPage() {
     setTestResult({ apify: "idle", apifyMsg: "", ai: "idle", aiMsg: "" });
 
     if (form.apifyToken.trim()) {
-      setTestResult((prev) => ({ ...prev, apify: "testing", apifyMsg: "Đang kiểm tra..." }));
+      setTestResult((prev) => ({ ...prev, apify: "testing", apifyMsg: "�ang ki?m tra..." }));
       try {
         const res = await fetch(`https://api.apify.com/v2/users/me?token=${form.apifyToken.trim()}`);
         if (res.ok) {
           const data = await res.json();
           const username = data?.data?.username ?? "Unknown";
-          setTestResult((prev) => ({ ...prev, apify: "ok", apifyMsg: `Hợp lệ — Tài khoản: ${username}` }));
+          setTestResult((prev) => ({ ...prev, apify: "ok", apifyMsg: `H?p l? � T�i kho?n: ${username}` }));
         } else if (res.status === 401) {
-          setTestResult((prev) => ({ ...prev, apify: "fail", apifyMsg: "Token không hợp lệ hoặc đã hết hạn" }));
+          setTestResult((prev) => ({ ...prev, apify: "fail", apifyMsg: "Token kh�ng h?p l? ho?c d� h?t h?n" }));
         } else {
-          setTestResult((prev) => ({ ...prev, apify: "fail", apifyMsg: `Lỗi ${res.status} — Thử lại sau` }));
+          setTestResult((prev) => ({ ...prev, apify: "fail", apifyMsg: `L?i ${res.status} � Th? l?i sau` }));
         }
       } catch {
-        setTestResult((prev) => ({ ...prev, apify: "fail", apifyMsg: "Không kết nối được — Kiểm tra mạng" }));
+        setTestResult((prev) => ({ ...prev, apify: "fail", apifyMsg: "Kh�ng k?t n?i du?c � Ki?m tra m?ng" }));
       }
     } else {
-      setTestResult((prev) => ({ ...prev, apify: "fail", apifyMsg: "Chưa nhập Apify Token" }));
+      setTestResult((prev) => ({ ...prev, apify: "fail", apifyMsg: "Chua nh?p Apify Token" }));
     }
 
     if (form.aiApiKey.trim()) {
-      setTestResult((prev) => ({ ...prev, ai: "testing", aiMsg: "Đang kiểm tra..." }));
+      setTestResult((prev) => ({ ...prev, ai: "testing", aiMsg: "�ang ki?m tra..." }));
       try {
         const provider = form.aiProvider;
         let ok = false;
         let msg = "";
         if (provider === "openai") {
           const res = await fetch("https://api.openai.com/v1/models", { headers: { Authorization: `Bearer ${form.aiApiKey.trim()}` } });
-          if (res.ok) { ok = true; msg = "Hợp lệ — OpenAI kết nối thành công"; }
-          else if (res.status === 401) { msg = "API Key không hợp lệ hoặc hết hạn"; }
-          else if (res.status === 429) { msg = "Đã vượt rate limit — thử lại sau"; }
-          else { msg = `Lỗi ${res.status}`; }
+          if (res.ok) { ok = true; msg = "H?p l? � OpenAI k?t n?i th�nh c�ng"; }
+          else if (res.status === 401) { msg = "API Key kh�ng h?p l? ho?c h?t h?n"; }
+          else if (res.status === 429) { msg = "�� vu?t rate limit � th? l?i sau"; }
+          else { msg = `L?i ${res.status}`; }
         } else if (provider === "gemini") {
           const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models`, { headers: { "x-goog-api-key": form.aiApiKey.trim() } });
-          if (res.ok) { ok = true; msg = "Hợp lệ — Gemini kết nối thành công"; }
-          else if (res.status === 400 || res.status === 403) { msg = "API Key không hợp lệ"; }
-          else { msg = `Lỗi ${res.status}`; }
+          if (res.ok) { ok = true; msg = "H?p l? � Gemini k?t n?i th�nh c�ng"; }
+          else if (res.status === 400 || res.status === 403) { msg = "API Key kh�ng h?p l?"; }
+          else { msg = `L?i ${res.status}`; }
         } else if (provider === "openrouter") {
           const res = await fetch("https://openrouter.ai/api/v1/models", { headers: { Authorization: `Bearer ${form.aiApiKey.trim()}` } });
-          if (res.ok) { ok = true; msg = "Hợp lệ — OpenRouter kết nối thành công"; }
-          else if (res.status === 401) { msg = "API Key không hợp lệ"; }
-          else { msg = `Lỗi ${res.status}`; }
+          if (res.ok) { ok = true; msg = "H?p l? � OpenRouter k?t n?i th�nh c�ng"; }
+          else if (res.status === 401) { msg = "API Key kh�ng h?p l?"; }
+          else { msg = `L?i ${res.status}`; }
         }
         setTestResult((prev) => ({ ...prev, ai: ok ? "ok" : "fail", aiMsg: msg }));
       } catch {
-        setTestResult((prev) => ({ ...prev, ai: "fail", aiMsg: "Không kết nối được — Kiểm tra mạng" }));
+        setTestResult((prev) => ({ ...prev, ai: "fail", aiMsg: "Kh�ng k?t n?i du?c � Ki?m tra m?ng" }));
       }
     } else {
-      setTestResult((prev) => ({ ...prev, ai: "fail", aiMsg: "Chưa nhập AI API Key" }));
+      setTestResult((prev) => ({ ...prev, ai: "fail", aiMsg: "Chua nh?p AI API Key" }));
     }
   };
 
@@ -201,8 +201,8 @@ export default function SettingsPage() {
 
   return (
     <DashboardLayout
-      title="Cài đặt API"
-      subtitle="Quản lý kết nối Apify & AI"
+      title="C�i d?t API"
+      subtitle="Qu?n l� k?t n?i Apify & AI"
       actions={
         <div className="flex items-center gap-2">
           <button
@@ -210,14 +210,14 @@ export default function SettingsPage() {
             className="flex items-center gap-2 bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 text-xs font-medium px-4 py-2 rounded-lg transition-colors whitespace-nowrap cursor-pointer"
           >
             <i className="ri-wifi-line"></i>
-            Test kết nối
+            Test k?t n?i
           </button>
           <button
             onClick={handleReset}
             className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/50 hover:text-white/80 text-xs font-medium px-4 py-2 rounded-lg transition-colors whitespace-nowrap cursor-pointer"
           >
             <i className="ri-delete-bin-line"></i>
-            Xóa tất cả
+            X�a t?t c?
           </button>
           <button
             onClick={handleSave}
@@ -225,7 +225,7 @@ export default function SettingsPage() {
             className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-xs px-5 py-2.5 rounded-lg transition-colors whitespace-nowrap cursor-pointer"
           >
             <i className="ri-save-line"></i>
-            {hasUnsavedChanges ? "Lưu cài đặt *" : "Đã lưu"}
+            {hasUnsavedChanges ? "Luu c�i d?t *" : "�� luu"}
           </button>
         </div>
       }
@@ -245,7 +245,7 @@ export default function SettingsPage() {
           </div>
           <div>
             <p className={`text-sm font-medium ${isFullyConfigured ? "text-app-accent-success" : "text-amber-400"}`}>
-              {isFullyConfigured ? "Đã cấu hình đầy đủ — Sẵn sàng dùng API thật" : "Chưa cấu hình đầy đủ — Đang dùng dữ liệu mẫu"}
+              {isFullyConfigured ? "�� c?u h�nh d?y d? � S?n s�ng d�ng API th?t" : "Chua c?u h�nh d?y d? � �ang d�ng d? li?u m?u"}
             </p>
             <div className="flex items-center gap-3 mt-1">
               <span className={`flex items-center gap-1 text-xs ${isApifyConfigured ? "text-app-accent-success" : "text-app-text-muted"}`}>
@@ -262,7 +262,7 @@ export default function SettingsPage() {
         {hasUnsavedChanges && (
           <div className="flex items-center gap-2 text-amber-400/70 text-xs bg-amber-500/10 px-3 py-1.5 rounded-lg">
             <i className="ri-save-line"></i>
-            Chưa lưu — nhấn &quot;Lưu cài đặt&quot;
+            Chua luu � nh?n &quot;Luu c�i d?t&quot;
           </div>
         )}
       </div>
@@ -275,7 +275,7 @@ export default function SettingsPage() {
               <div className="w-7 h-7 flex items-center justify-center bg-sky-500/10 rounded-lg">
                 <i className="ri-wifi-line text-sky-400 text-sm"></i>
               </div>
-              <p className="text-white font-semibold text-sm">Kết quả kiểm tra kết nối</p>
+              <p className="text-white font-semibold text-sm">K?t qu? ki?m tra k?t n?i</p>
             </div>
             <button onClick={() => setShowTestPanel(false)} className="text-app-text-muted hover:text-white/50 cursor-pointer">
               <i className="ri-close-line text-sm"></i>
@@ -305,7 +305,7 @@ export default function SettingsPage() {
                     testResult[key] === "fail" ? "text-red-400/80" :
                     testResult[key] === "testing" ? "text-sky-400/70" : "text-app-text-muted"
                   }`}>
-                    {testResult[key] === "idle" ? "Chưa kiểm tra" : (key === "apify" ? testResult.apifyMsg : testResult.aiMsg)}
+                    {testResult[key] === "idle" ? "Chua ki?m tra" : (key === "apify" ? testResult.apifyMsg : testResult.aiMsg)}
                   </p>
                 </div>
               </div>
@@ -327,17 +327,17 @@ export default function SettingsPage() {
               </div>
               <div className="text-left">
                 <p className="text-white font-semibold text-sm">Apify API Token</p>
-                <p className="text-app-text-secondary text-xs">Dùng cho Melon Scraper &amp; Naver KiN Scraper</p>
+                <p className="text-app-text-secondary text-xs">D�ng cho Melon Scraper &amp; Naver KiN Scraper</p>
               </div>
               {isApifyConfigured ? (
                 <span className="ml-2 flex items-center gap-1 text-app-accent-success text-xs bg-emerald-400/10 px-2.5 py-1 rounded-full">
                   <i className="ri-checkbox-circle-fill text-[10px]"></i>
-                  Đã nhập
+                  �� nh?p
                 </span>
               ) : (
                 <span className="ml-2 flex items-center gap-1 text-amber-400/70 text-xs bg-amber-400/10 px-2.5 py-1 rounded-full">
                   <i className="ri-error-warning-line text-[10px]"></i>
-                  Chưa nhập
+                  Chua nh?p
                 </span>
               )}
             </div>
@@ -372,9 +372,9 @@ export default function SettingsPage() {
                 {form.apifyToken && (
                   <p className="text-app-accent-success/70 text-xs mt-1.5 flex items-center gap-1">
                     <i className="ri-checkbox-circle-line"></i>
-                    Token đã nhập ({form.apifyToken.length} ký tự)
+                    Token d� nh?p ({form.apifyToken.length} k� t?)
                     {hasUnsavedChanges && form.apifyToken !== saved.apifyToken && (
-                      <span className="text-amber-400/70 ml-1">— chưa lưu</span>
+                      <span className="text-amber-400/70 ml-1">� chua luu</span>
                     )}
                   </p>
                 )}
@@ -384,11 +384,11 @@ export default function SettingsPage() {
                   <i className="ri-information-line text-app-text-muted text-sm"></i>
                 </div>
                 <div className="text-app-text-muted text-xs leading-relaxed">
-                  Lấy token tại{" "}
+                  L?y token t?i{" "}
                   <a href="https://console.apify.com/account/integrations" target="_blank" rel="nofollow noreferrer" className="text-orange-400/70 hover:text-orange-400 underline">
-                    console.apify.com → Account → Integrations
+                    console.apify.com ? Account ? Integrations
                   </a>
-                  . Token được lưu cục bộ trên máy bạn, không gửi đi đâu khác.
+                  . Token du?c luu c?c b? tr�n m�y b?n, kh�ng g?i di d�u kh�c.
                 </div>
               </div>
             </div>
@@ -407,17 +407,17 @@ export default function SettingsPage() {
               </div>
               <div className="text-left">
                 <p className="text-white font-semibold text-sm">AI API Key</p>
-                <p className="text-app-text-secondary text-xs">OpenAI · Google Gemini · OpenRouter</p>
+                <p className="text-app-text-secondary text-xs">OpenAI � Google Gemini � OpenRouter</p>
               </div>
               {isAIConfigured ? (
                 <span className="ml-2 flex items-center gap-1 text-app-accent-success text-xs bg-emerald-400/10 px-2.5 py-1 rounded-full">
                   <i className="ri-checkbox-circle-fill text-[10px]"></i>
-                  Đã nhập
+                  �� nh?p
                 </span>
               ) : (
                 <span className="ml-2 flex items-center gap-1 text-amber-400/70 text-xs bg-amber-400/10 px-2.5 py-1 rounded-full">
                   <i className="ri-error-warning-line text-[10px]"></i>
-                  Chưa nhập
+                  Chua nh?p
                 </span>
               )}
             </div>
@@ -429,7 +429,7 @@ export default function SettingsPage() {
           {showAI && (
             <div className="px-6 pb-6 border-t border-app-border pt-5 space-y-4">
               <div>
-                <label className="text-white/50 text-xs font-medium block mb-2">Nhà cung cấp AI</label>
+                <label className="text-white/50 text-xs font-medium block mb-2">Nh� cung c?p AI</label>
                 <div className="flex gap-2 flex-wrap">
                   {(["gemini", "openai", "openrouter"] as AIProvider[]).map((p) => (
                     <button
@@ -452,7 +452,7 @@ export default function SettingsPage() {
                       <i className="ri-star-line text-app-accent-primary text-xs"></i>
                     </div>
                     <p className="text-app-accent-primary/70 text-xs leading-relaxed">
-                      <strong className="text-app-accent-primary">OpenRouter</strong> cho phép dùng nhiều model AI khác nhau với 1 API key duy nhất — bao gồm cả model miễn phí (Llama, Mistral). Lấy key tại{" "}
+                      <strong className="text-app-accent-primary">OpenRouter</strong> cho ph�p d�ng nhi?u model AI kh�c nhau v?i 1 API key duy nh?t � bao g?m c? model mi?n ph� (Llama, Mistral). L?y key t?i{" "}
                       <a href="https://openrouter.ai/keys" target="_blank" rel="nofollow noreferrer" className="underline hover:text-app-accent-primary">openrouter.ai/keys</a>.
                     </p>
                   </div>
@@ -494,7 +494,7 @@ export default function SettingsPage() {
                 >
                   {modelOptions.map((m) => (
                     <option key={m} value={m} className="bg-app-bg">
-                      {m}{m.includes(":free") ? " (Miễn phí)" : ""}
+                      {m}{m.includes(":free") ? " (Mi?n ph�)" : ""}
                     </option>
                   ))}
                 </select>
@@ -504,9 +504,9 @@ export default function SettingsPage() {
                   <i className="ri-information-line text-app-text-muted text-sm"></i>
                 </div>
                 <div className="text-app-text-muted text-xs leading-relaxed">
-                  {form.aiProvider === "openai" && (<>Lấy key tại <a href="https://platform.openai.com/api-keys" target="_blank" rel="nofollow noreferrer" className="text-app-accent-primary/70 hover:text-app-accent-primary underline">platform.openai.com/api-keys</a>. Khuyến nghị <strong className="text-white/50">gpt-4o-mini</strong> để tiết kiệm chi phí.</>)}
-                  {form.aiProvider === "gemini" && (<>Lấy key tại <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="nofollow noreferrer" className="text-app-accent-primary/70 hover:text-app-accent-primary underline">aistudio.google.com</a>. <strong className="text-white/50">gemini-1.5-flash</strong> miễn phí và rất nhanh.</>)}
-                  {form.aiProvider === "openrouter" && (<>Lấy key tại <a href="https://openrouter.ai/keys" target="_blank" rel="nofollow noreferrer" className="text-app-accent-primary/70 hover:text-app-accent-primary underline">openrouter.ai/keys</a>. Hỗ trợ 200+ model, có model miễn phí.</>)}
+                  {form.aiProvider === "openai" && (<>L?y key t?i <a href="https://platform.openai.com/api-keys" target="_blank" rel="nofollow noreferrer" className="text-app-accent-primary/70 hover:text-app-accent-primary underline">platform.openai.com/api-keys</a>. Khuy?n ngh? <strong className="text-white/50">gpt-4o-mini</strong> d? ti?t ki?m chi ph�.</>)}
+                  {form.aiProvider === "gemini" && (<>L?y key t?i <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="nofollow noreferrer" className="text-app-accent-primary/70 hover:text-app-accent-primary underline">aistudio.google.com</a>. <strong className="text-white/50">gemini-1.5-flash</strong> mi?n ph� v� r?t nhanh.</>)}
+                  {form.aiProvider === "openrouter" && (<>L?y key t?i <a href="https://openrouter.ai/keys" target="_blank" rel="nofollow noreferrer" className="text-app-accent-primary/70 hover:text-app-accent-primary underline">openrouter.ai/keys</a>. H? tr? 200+ model, c� model mi?n ph�.</>)}
                 </div>
               </div>
             </div>
@@ -524,12 +524,12 @@ export default function SettingsPage() {
                 <i className="ri-quill-pen-line text-violet-400 text-lg"></i>
               </div>
               <div className="text-left">
-                <p className="text-white font-semibold text-sm">Tùy chỉnh Prompt Truyện Chêm</p>
-                <p className="text-app-text-secondary text-xs">Thay đổi bối cảnh, nhân vật, độ dài, phong cách — không cần sửa code</p>
+                <p className="text-white font-semibold text-sm">T�y ch?nh Prompt Truy?n Ch�m</p>
+                <p className="text-app-text-secondary text-xs">Thay d?i b?i c?nh, nh�n v?t, d? d�i, phong c�ch � kh�ng c?n s?a code</p>
               </div>
               <span className="ml-2 flex items-center gap-1 text-violet-400/70 text-xs bg-violet-400/10 px-2.5 py-1 rounded-full">
                 <i className="ri-magic-line text-[10px]"></i>
-                Tùy chỉnh
+                T�y ch?nh
               </span>
             </div>
             <div className="w-5 h-5 flex items-center justify-center text-app-text-muted">
@@ -545,7 +545,7 @@ export default function SettingsPage() {
                   <i className="ri-lightbulb-line text-violet-400 text-sm"></i>
                 </div>
                 <p className="text-violet-400/70 text-xs leading-relaxed">
-                  Các cài đặt này sẽ được đưa vào prompt AI khi tạo Truyện Chêm. Thay đổi bối cảnh và nhân vật để tạo ra những câu chuyện phù hợp hơn với thương hiệu của bạn.
+                  C�c c�i d?t n�y s? du?c dua v�o prompt AI khi t?o Truy?n Ch�m. Thay d?i b?i c?nh v� nh�n v?t d? t?o ra nh?ng c�u chuy?n ph� h?p hon v?i thuong hi?u c?a b?n.
                 </p>
               </div>
 
@@ -553,47 +553,47 @@ export default function SettingsPage() {
               <div>
                 <label className="text-white/50 text-xs font-medium block mb-1.5">
                   <i className="ri-map-pin-line mr-1.5 text-violet-400/70"></i>
-                  Bối cảnh câu chuyện
+                  B?i c?nh c�u chuy?n
                 </label>
                 <textarea
                   value={sp.context}
                   onChange={(e) => updateStoryPrompt({ context: e.target.value })}
-                  placeholder="Ví dụ: Một lớp học tiếng Hàn tại Hà Nội, học viên là sinh viên đại học..."
+                  placeholder="V� d?: M?t l?p h?c ti?ng H�n t?i H� N?i, h?c vi�n l� sinh vi�n d?i h?c..."
                   rows={2}
                   maxLength={300}
                   className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-violet-400/40 transition-colors resize-none"
                 />
-                <p className="text-app-text-muted text-[10px] mt-1">{sp.context.length}/300 ký tự</p>
+                <p className="text-app-text-muted text-[10px] mt-1">{sp.context.length}/300 k� t?</p>
               </div>
 
               {/* Characters */}
               <div>
                 <label className="text-white/50 text-xs font-medium block mb-1.5">
                   <i className="ri-user-3-line mr-1.5 text-violet-400/70"></i>
-                  Nhân vật trong truyện
+                  Nh�n v?t trong truy?n
                 </label>
                 <textarea
                   value={sp.characters}
                   onChange={(e) => updateStoryPrompt({ characters: e.target.value })}
-                  placeholder="Ví dụ: Giáo viên Minh, học viên Linh và Tuấn, thỉnh thoảng có idol K-pop xuất hiện..."
+                  placeholder="V� d?: Gi�o vi�n Minh, h?c vi�n Linh v� Tu?n, th?nh tho?ng c� idol K-pop xu?t hi?n..."
                   rows={2}
                   maxLength={300}
                   className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-violet-400/40 transition-colors resize-none"
                 />
-                <p className="text-app-text-muted text-[10px] mt-1">{sp.characters.length}/300 ký tự</p>
+                <p className="text-app-text-muted text-[10px] mt-1">{sp.characters.length}/300 k� t?</p>
               </div>
 
               {/* Story length */}
               <div>
                 <label className="text-white/50 text-xs font-medium block mb-2">
                   <i className="ri-text-wrap mr-1.5 text-violet-400/70"></i>
-                  Độ dài truyện
+                  �? d�i truy?n
                 </label>
                 <div className="flex gap-2">
                   {([
-                    { value: "short", label: "Ngắn", desc: "~150 từ" },
-                    { value: "medium", label: "Vừa", desc: "~300 từ" },
-                    { value: "long", label: "Dài", desc: "~500 từ" },
+                    { value: "short", label: "Ng?n", desc: "~150 t?" },
+                    { value: "medium", label: "V?a", desc: "~300 t?" },
+                    { value: "long", label: "D�i", desc: "~500 t?" },
                   ] as const).map((opt) => (
                     <button
                       key={opt.value}
@@ -615,13 +615,13 @@ export default function SettingsPage() {
               <div>
                 <label className="text-white/50 text-xs font-medium block mb-1.5">
                   <i className="ri-palette-line mr-1.5 text-violet-400/70"></i>
-                  Phong cách viết
+                  Phong c�ch vi?t
                 </label>
                 <input
                   type="text"
                   value={sp.style}
                   onChange={(e) => updateStoryPrompt({ style: e.target.value })}
-                  placeholder="Ví dụ: Hài hước, nhẹ nhàng, dễ hiểu, phù hợp học sinh cấp 2-3..."
+                  placeholder="V� d?: H�i hu?c, nh? nh�ng, d? hi?u, ph� h?p h?c sinh c?p 2-3..."
                   maxLength={200}
                   className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-violet-400/40 transition-colors"
                 />
@@ -631,7 +631,7 @@ export default function SettingsPage() {
               <div>
                 <label className="text-white/50 text-xs font-medium block mb-2">
                   <i className="ri-translate-2 mr-1.5 text-violet-400/70"></i>
-                  Chế độ tiếng Hàn
+                  Ch? d? ti?ng H�n
                 </label>
                 <button
                   type="button"
@@ -648,12 +648,12 @@ export default function SettingsPage() {
                     </div>
                     <div className="text-left">
                       <p className={`text-sm font-semibold ${sp.pureKorean ? "text-app-accent-primary" : "text-white/50"}`}>
-                        Truyện chêm thuần tiếng Hàn
+                        Truy?n ch�m thu?n ti?ng H�n
                       </p>
                       <p className={`text-xs mt-0.5 ${sp.pureKorean ? "text-app-accent-primary/60" : "text-app-text-muted"}`}>
                         {sp.pureKorean
-                          ? "AI sẽ KHÔNG thêm phiên âm vào truyện chêm ngay từ đầu"
-                          : "Mặc định: AI có thể thêm phiên âm (annyeong) sau từ Hàn"}
+                          ? "AI s? KH�NG th�m phi�n �m v�o truy?n ch�m ngay t? d?u"
+                          : "M?c d?nh: AI c� th? th�m phi�n �m (annyeong) sau t? H�n"}
                       </p>
                     </div>
                   </div>
@@ -667,7 +667,7 @@ export default function SettingsPage() {
                       <i className="ri-star-line text-app-accent-primary text-xs"></i>
                     </div>
                     <p className="text-app-accent-primary/70 text-xs leading-relaxed">
-                      AI sẽ viết truyện chêm với từ tiếng Hàn <strong className="text-app-accent-primary">không kèm phiên âm</strong> — ví dụ: &quot;안녕&quot; thay vì &quot;안녕 (annyeong)&quot;. Phù hợp cho học viên đã biết đọc Hangul.
+                      AI s? vi?t truy?n ch�m v?i t? ti?ng H�n <strong className="text-app-accent-primary">kh�ng k�m phi�n �m</strong> � v� d?: &quot;??&quot; thay v� &quot;?? (annyeong)&quot;. Ph� h?p cho h?c vi�n d� bi?t d?c Hangul.
                     </p>
                   </div>
                 )}
@@ -677,30 +677,30 @@ export default function SettingsPage() {
               <div>
                 <label className="text-white/50 text-xs font-medium block mb-1.5">
                   <i className="ri-terminal-line mr-1.5 text-violet-400/70"></i>
-                  Hướng dẫn thêm (tùy chọn)
+                  Hu?ng d?n th�m (t�y ch?n)
                 </label>
                 <textarea
                   value={sp.customInstruction}
                   onChange={(e) => updateStoryPrompt({ customInstruction: e.target.value })}
-                  placeholder="Ví dụ: Luôn kết thúc bằng một câu hỏi cho học viên, tránh dùng từ ngữ phức tạp, thêm emoji vào cuối mỗi đoạn..."
+                  placeholder="V� d?: Lu�n k?t th�c b?ng m?t c�u h?i cho h?c vi�n, tr�nh d�ng t? ng? ph?c t?p, th�m emoji v�o cu?i m?i do?n..."
                   rows={3}
                   maxLength={500}
                   className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-violet-400/40 transition-colors resize-none"
                 />
-                <p className="text-app-text-muted text-[10px] mt-1">{sp.customInstruction.length}/500 ký tự</p>
+                <p className="text-app-text-muted text-[10px] mt-1">{sp.customInstruction.length}/500 k� t?</p>
               </div>
 
               {/* Preview */}
               <div className="bg-app-surface/50 rounded-xl p-4 border border-app-border">
                 <p className="text-app-text-muted text-[10px] tracking-normal mb-2 flex items-center gap-1.5">
                   <i className="ri-eye-line"></i>
-                  Xem trước prompt sẽ gửi cho AI
+                  Xem tru?c prompt s? g?i cho AI
                 </p>
                 <p className="text-app-text-secondary text-xs leading-relaxed font-mono">
-                  Viết một câu chuyện ngắn ({sp.storyLength === "short" ? "~150 từ" : sp.storyLength === "medium" ? "~300 từ" : "~500 từ"}) bằng tiếng Việt có chèn từ vựng tiếng Hàn từ bài hát.
-                  {" "}Bối cảnh: <span className="text-violet-400/70">{sp.context || "(chưa nhập)"}</span>.
-                  {" "}Nhân vật: <span className="text-violet-400/70">{sp.characters || "(chưa nhập)"}</span>.
-                  {" "}Phong cách: <span className="text-violet-400/70">{sp.style || "(chưa nhập)"}</span>.
+                  Vi?t m?t c�u chuy?n ng?n ({sp.storyLength === "short" ? "~150 t?" : sp.storyLength === "medium" ? "~300 t?" : "~500 t?"}) b?ng ti?ng Vi?t c� ch�n t? v?ng ti?ng H�n t? b�i h�t.
+                  {" "}B?i c?nh: <span className="text-violet-400/70">{sp.context || "(chua nh?p)"}</span>.
+                  {" "}Nh�n v?t: <span className="text-violet-400/70">{sp.characters || "(chua nh?p)"}</span>.
+                  {" "}Phong c�ch: <span className="text-violet-400/70">{sp.style || "(chua nh?p)"}</span>.
                   {sp.customInstruction && <>{" "}<span className="text-amber-400/60">{sp.customInstruction}</span></>}
                 </p>
               </div>
@@ -711,9 +711,9 @@ export default function SettingsPage() {
                   className="flex items-center gap-1.5 text-app-text-muted hover:text-white/50 text-xs transition-colors cursor-pointer"
                 >
                   <i className="ri-refresh-line"></i>
-                  Khôi phục mặc định
+                  Kh�i ph?c m?c d?nh
                 </button>
-                <p className="text-app-text-muted text-xs">Nhớ nhấn &quot;Lưu cài đặt&quot; để áp dụng</p>
+                <p className="text-app-text-muted text-xs">Nh? nh?n &quot;Luu c�i d?t&quot; d? �p d?ng</p>
               </div>
             </div>
           )}
@@ -730,13 +730,13 @@ export default function SettingsPage() {
                 <i className="ri-money-dollar-circle-line text-app-accent-success text-lg"></i>
               </div>
               <div className="text-left">
-                <p className="text-white font-semibold text-sm">Thống kê chi phí API</p>
-                <p className="text-app-text-secondary text-xs">Ước tính chi phí AI đã dùng theo model</p>
+                <p className="text-white font-semibold text-sm">Th?ng k� chi ph� API</p>
+                <p className="text-app-text-secondary text-xs">U?c t�nh chi ph� AI d� d�ng theo model</p>
               </div>
               <div className="ml-2 flex items-center gap-2">
                 <span className="flex items-center gap-1 text-app-accent-success text-xs bg-emerald-400/10 px-2.5 py-1 rounded-full">
                   <i className="ri-bar-chart-line text-[10px]"></i>
-                  {costSummary.totalCalls} lần gọi
+                  {costSummary.totalCalls} l?n g?i
                 </span>
                 <span className="flex items-center gap-1 text-app-accent-primary text-xs bg-app-accent-primary/10 px-2.5 py-1 rounded-full">
                   ~${costSummary.totalCostUsd.toFixed(4)}
@@ -753,24 +753,24 @@ export default function SettingsPage() {
               {costSummary.totalCalls === 0 ? (
                 <div className="text-center py-8 text-app-text-muted text-sm">
                   <i className="ri-bar-chart-line text-2xl block mb-2 opacity-30"></i>
-                  Chưa có lần gọi AI nào được ghi nhận
+                  Chua c� l?n g?i AI n�o du?c ghi nh?n
                 </div>
               ) : (
                 <>
                   {/* Summary cards */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div className="bg-app-surface/50 rounded-xl p-4 border border-app-border">
-                      <p className="text-app-text-muted text-[10px] tracking-normal mb-1">Tổng lần gọi</p>
+                      <p className="text-app-text-muted text-[10px] tracking-normal mb-1">T?ng l?n g?i</p>
                       <p className="text-white text-2xl font-bold">{costSummary.totalCalls}</p>
-                      <p className="text-app-text-muted text-[10px] mt-1">Tất cả thời gian</p>
+                      <p className="text-app-text-muted text-[10px] mt-1">T?t c? th?i gian</p>
                     </div>
                     <div className="bg-app-accent-primary/5 rounded-xl p-4 border border-app-accent-primary/15">
-                      <p className="text-app-accent-primary/60 text-[10px] tracking-normal mb-1">Chi phí ước tính</p>
+                      <p className="text-app-accent-primary/60 text-[10px] tracking-normal mb-1">Chi ph� u?c t�nh</p>
                       <p className="text-app-accent-primary text-2xl font-bold">${costSummary.totalCostUsd.toFixed(4)}</p>
-                      <p className="text-app-accent-primary/30 text-[10px] mt-1">USD tổng cộng</p>
+                      <p className="text-app-accent-primary/30 text-[10px] mt-1">USD t?ng c?ng</p>
                     </div>
                     <div className="bg-emerald-500/5 rounded-xl p-4 border border-emerald-500/15">
-                      <p className="text-app-accent-success/60 text-[10px] tracking-normal mb-1">30 ngày qua</p>
+                      <p className="text-app-accent-success/60 text-[10px] tracking-normal mb-1">30 ng�y qua</p>
                       <p className="text-app-accent-success text-2xl font-bold">{costSummary.last30Days}</p>
                       <p className="text-app-accent-success/30 text-[10px] mt-1">${costSummary.last30DaysCost.toFixed(4)}</p>
                     </div>
@@ -790,12 +790,12 @@ export default function SettingsPage() {
                               </div>
                               <div className="flex-1 min-w-0">
                                 <p className="text-white/70 text-xs font-medium truncate">{model}</p>
-                                <p className="text-app-text-muted text-[10px]">{stats.calls} lần gọi</p>
+                                <p className="text-app-text-muted text-[10px]">{stats.calls} l?n g?i</p>
                               </div>
                               <div className="text-right flex-shrink-0">
                                 <p className="text-app-accent-primary text-xs font-semibold">${stats.costUsd.toFixed(4)}</p>
                                 <p className="text-app-text-muted text-[10px]">
-                                  {stats.costUsd === 0 ? "Miễn phí" : `~$${(stats.costUsd / stats.calls).toFixed(5)}/lần`}
+                                  {stats.costUsd === 0 ? "Mi?n ph�" : `~$${(stats.costUsd / stats.calls).toFixed(5)}/l?n`}
                                 </p>
                               </div>
                             </div>
@@ -807,7 +807,7 @@ export default function SettingsPage() {
                   {/* By type */}
                   {Object.keys(costSummary.byType).length > 0 && (
                     <div>
-                      <p className="text-app-text-secondary text-xs font-medium tracking-normal mb-3">Theo tính năng</p>
+                      <p className="text-app-text-secondary text-xs font-medium tracking-normal mb-3">Theo t�nh nang</p>
                       <div className="flex gap-3">
                         {Object.entries(costSummary.byType).map(([type, stats]) => (
                           <div key={type} className="flex-1 bg-app-surface/50 rounded-xl p-4 border border-app-border">
@@ -829,16 +829,16 @@ export default function SettingsPage() {
                       <i className="ri-information-line text-app-text-muted text-sm"></i>
                     </div>
                     <p className="text-app-text-muted text-xs leading-relaxed">
-                      Chi phí là <strong className="text-app-text-secondary">ước tính</strong> dựa trên giá niêm yết của từng model. Giá thực tế có thể khác tùy theo số token. Gemini 1.5 Flash và các model :free trên OpenRouter hoàn toàn miễn phí.
+                      Chi ph� l� <strong className="text-app-text-secondary">u?c t�nh</strong> d?a tr�n gi� ni�m y?t c?a t?ng model. Gi� th?c t? c� th? kh�c t�y theo s? token. Gemini 1.5 Flash v� c�c model :free tr�n OpenRouter ho�n to�n mi?n ph�.
                     </p>
                   </div>
 
                   <button
-                    onClick={() => { clearRecords(); showToastMsg("Đã xóa lịch sử thống kê"); }}
+                    onClick={() => { clearRecords(); showToastMsg("�� x�a l?ch s? th?ng k�"); }}
                     className="flex items-center gap-2 text-red-400/40 hover:text-red-400 text-xs transition-colors cursor-pointer"
                   >
                     <i className="ri-delete-bin-line"></i>
-                    Xóa lịch sử thống kê
+                    X�a l?ch s? th?ng k�
                   </button>
                 </>
               )}
@@ -853,15 +853,15 @@ export default function SettingsPage() {
               <i className="ri-database-2-line text-app-text-secondary text-lg"></i>
             </div>
             <div>
-              <p className="text-white font-semibold text-sm">Quản lý dữ liệu cục bộ</p>
-              <p className="text-app-text-secondary text-xs">Dữ liệu đã duyệt lưu trong localStorage của trình duyệt</p>
+              <p className="text-white font-semibold text-sm">Qu?n l� d? li?u c?c b?</p>
+              <p className="text-app-text-secondary text-xs">D? li?u d� duy?t luu trong localStorage c?a tr�nh duy?t</p>
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
-              { key: "kts_melon_lessons", label: "Bài học K-pop", icon: "ri-music-2-line", color: "text-app-accent-primary" },
+              { key: "kts_melon_lessons", label: "B�i h?c K-pop", icon: "ri-music-2-line", color: "text-app-accent-primary" },
               { key: "kts_naver_qas", label: "Q&A Naver KiN", icon: "ri-question-answer-line", color: "text-sky-400" },
-              { key: "kts_settings", label: "Cài đặt API", icon: "ri-settings-3-line", color: "text-app-text-secondary" },
+              { key: "kts_settings", label: "C�i d?t API", icon: "ri-settings-3-line", color: "text-app-text-secondary" },
             ].map((item) => {
               const raw = localStorage.getItem(item.key);
               let count = 0;
@@ -876,7 +876,7 @@ export default function SettingsPage() {
                   </div>
                   <div>
                     <p className="text-white/70 text-xs font-medium">{item.label}</p>
-                    <p className="text-app-text-muted text-[10px]">{count > 0 ? `${count} mục` : "Trống"}</p>
+                    <p className="text-app-text-muted text-[10px]">{count > 0 ? `${count} m?c` : "Tr?ng"}</p>
                   </div>
                 </div>
               );
@@ -888,12 +888,12 @@ export default function SettingsPage() {
             <button
               onClick={() => {
                 ["kts_melon_lessons", "kts_naver_qas"].forEach((k) => localStorage.removeItem(k));
-                showToastMsg("Đã xóa dữ liệu đã duyệt (giữ lại cài đặt API)");
+                showToastMsg("�� x�a d? li?u d� duy?t (gi? l?i c�i d?t API)");
               }}
               className="flex items-center gap-2 text-app-accent-error/60 hover:text-red-400 text-xs transition-colors cursor-pointer"
             >
               <i className="ri-delete-bin-line"></i>
-              Xóa dữ liệu đã duyệt (giữ lại API keys)
+              X�a d? li?u d� duy?t (gi? l?i API keys)
             </button>
 
             <button
@@ -901,23 +901,23 @@ export default function SettingsPage() {
                 localStorage.removeItem("kts_melon_seen_songs");
                 localStorage.removeItem("kts_melon_cached_songs");
                 localStorage.removeItem("kts_melon_fetch_meta");
-                showToastMsg("Đã reset lịch sử bài hát Melon — lần quét tiếp sẽ coi tất cả là bài mới");
+                showToastMsg("�� reset l?ch s? b�i h�t Melon � l?n qu�t ti?p s? coi t?t c? l� b�i m?i");
               }}
               className="flex items-center gap-2 text-amber-400/50 hover:text-amber-400 text-xs transition-colors cursor-pointer"
             >
               <i className="ri-refresh-line"></i>
-              Reset lịch sử bài hát Melon (seen songs + cache)
+              Reset l?ch s? b�i h�t Melon (seen songs + cache)
             </button>
 
             <button
               onClick={() => {
                 localStorage.removeItem("kts_naver_cache");
-                showToastMsg("Đã xóa cache tìm kiếm Naver KiN");
+                showToastMsg("�� x�a cache t�m ki?m Naver KiN");
               }}
               className="flex items-center gap-2 text-sky-400/50 hover:text-sky-400 text-xs transition-colors cursor-pointer"
             >
               <i className="ri-history-line"></i>
-              Xóa cache tìm kiếm Naver KiN
+              X�a cache t�m ki?m Naver KiN
             </button>
           </div>
 
@@ -927,7 +927,7 @@ export default function SettingsPage() {
               <i className="ri-lightbulb-line text-app-text-muted text-sm"></i>
             </div>
             <p className="text-app-text-muted text-xs leading-relaxed">
-              <strong className="text-app-text-secondary">Gợi ý tần suất quét:</strong> Melon Top 100 cập nhật 1 lần/ngày — nên quét <strong className="text-app-text-secondary">1 lần/tuần</strong> để tiết kiệm chi phí. Naver KiN ít thay đổi hơn, có thể dùng cache 7 ngày.
+              <strong className="text-app-text-secondary">G?i � t?n su?t qu�t:</strong> Melon Top 100 c?p nh?t 1 l?n/ng�y � n�n qu�t <strong className="text-app-text-secondary">1 l?n/tu?n</strong> d? ti?t ki?m chi ph�. Naver KiN �t thay d?i hon, c� th? d�ng cache 7 ng�y.
             </p>
           </div>
         </section>
@@ -939,15 +939,15 @@ export default function SettingsPage() {
               <i className="ri-delete-bin-2-line text-rose-400 text-lg"></i>
             </div>
             <div>
-              <p className="text-white font-semibold text-sm">Xóa cache & Làm mới</p>
-              <p className="text-app-text-secondary text-xs">Fix lỗi khi trang không tải được hoặc icon hiển thị sai</p>
+              <p className="text-white font-semibold text-sm">X�a cache & L�m m?i</p>
+              <p className="text-app-text-secondary text-xs">Fix l?i khi trang kh�ng t?i du?c ho?c icon hi?n th? sai</p>
             </div>
           </div>
 
           <div className="space-y-3">
             <button
               onClick={async () => {
-                if (!confirm("Xóa cache và làm mới trang?\n\nĐiều này sẽ:\n- Xóa Service Worker cache\n- Xóa browser cache\n- Tải lại trang\n\nTiếp tục?")) return;
+                if (!confirm("X�a cache v� l�m m?i trang?\n\n�i?u n�y s?:\n- X�a Service Worker cache\n- X�a browser cache\n- T?i l?i trang\n\nTi?p t?c?")) return;
 
                 try {
                   // Unregister service worker
@@ -967,13 +967,13 @@ export default function SettingsPage() {
                   // Reload page
                   window.location.reload();
                 } catch (err) {
-                  alert("Lỗi khi xóa cache: " + (err instanceof Error ? err.message : String(err)));
+                  alert("L?i khi x�a cache: " + (err instanceof Error ? err.message : String(err)));
                 }
               }}
               className="w-full flex items-center justify-center gap-2 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 py-3 rounded-xl text-sm font-medium transition-colors cursor-pointer"
             >
               <i className="ri-refresh-line"></i>
-              Xóa cache & Làm mới trang
+              X�a cache & L�m m?i trang
             </button>
 
             <div className="flex items-start gap-2 bg-app-surface/50 rounded-lg px-4 py-3">
@@ -981,7 +981,7 @@ export default function SettingsPage() {
                 <i className="ri-information-line text-app-text-muted text-sm"></i>
               </div>
               <p className="text-app-text-muted text-xs leading-relaxed">
-                <strong className="text-app-text-secondary">Khi nào cần dùng:</strong> Trang không tải được, icon hiển thị ô vuông, hoặc một số máy vào được một số máy không. Nút này thay thế phím F5 trên máy tính.
+                <strong className="text-app-text-secondary">Khi n�o c?n d�ng:</strong> Trang kh�ng t?i du?c, icon hi?n th? � vu�ng, ho?c m?t s? m�y v�o du?c m?t s? m�y kh�ng. N�t n�y thay th? ph�m F5 tr�n m�y t�nh.
               </p>
             </div>
           </div>

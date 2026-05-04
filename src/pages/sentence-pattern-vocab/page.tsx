@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface SentencePattern {
@@ -15,112 +15,112 @@ interface SentencePattern {
 
 const patterns: SentencePattern[] = [
   {
-    id: "p1", pattern: "N은/는 N이에요/예요", patternVi: "N là N", level: "A1", levelColor: "#34d399",
-    category: "Định nghĩa",
-    explanation: "Câu định nghĩa cơ bản. 은/는 là trợ từ chủ đề, 이에요/예요 là 'là' (lịch sự).",
+    id: "p1", pattern: "N?/? N???/??", patternVi: "N l� N", level: "A1", levelColor: "#34d399",
+    category: "�?nh nghia",
+    explanation: "C�u d?nh nghia co b?n. ?/? l� tr? t? ch? d?, ???/?? l� 'l�' (l?ch s?).",
     examples: [
-      { korean: "저는 학생이에요.", vietnamese: "Tôi là học sinh.", highlight: ["저는", "학생이에요"] },
-      { korean: "이것은 책이에요.", vietnamese: "Đây là sách.", highlight: ["이것은", "책이에요"] },
-      { korean: "한국어는 재미있어요.", vietnamese: "Tiếng Hàn thú vị.", highlight: ["한국어는", "재미있어요"] },
+      { korean: "?? ?????.", vietnamese: "T�i l� h?c sinh.", highlight: ["??", "?????"] },
+      { korean: "??? ????.", vietnamese: "��y l� s�ch.", highlight: ["???", "????"] },
+      { korean: "???? ?????.", vietnamese: "Ti?ng H�n th� v?.", highlight: ["????", "?????"] },
     ],
     keyVocab: [
-      { word: "저", meaning: "tôi (khiêm tốn)", pos: "Đại từ" },
-      { word: "학생", meaning: "học sinh", pos: "Danh từ" },
-      { word: "이것", meaning: "cái này", pos: "Đại từ" },
-      { word: "책", meaning: "sách", pos: "Danh từ" },
+      { word: "?", meaning: "t�i (khi�m t?n)", pos: "�?i t?" },
+      { word: "??", meaning: "h?c sinh", pos: "Danh t?" },
+      { word: "??", meaning: "c�i n�y", pos: "�?i t?" },
+      { word: "?", meaning: "s�ch", pos: "Danh t?" },
     ],
   },
   {
-    id: "p2", pattern: "V-고 싶다", patternVi: "Muốn làm gì", level: "A2", levelColor: "#6ee7b7",
-    category: "Mong muốn",
-    explanation: "Diễn đạt mong muốn, ước muốn. Gắn -고 싶다 vào sau gốc động từ.",
+    id: "p2", pattern: "V-? ??", patternVi: "Mu?n l�m g�", level: "A2", levelColor: "#6ee7b7",
+    category: "Mong mu?n",
+    explanation: "Di?n d?t mong mu?n, u?c mu?n. G?n -? ?? v�o sau g?c d?ng t?.",
     examples: [
-      { korean: "한국에 가고 싶어요.", vietnamese: "Tôi muốn đi Hàn Quốc.", highlight: ["가고 싶어요"] },
-      { korean: "한국어를 잘 하고 싶어요.", vietnamese: "Tôi muốn nói tiếng Hàn giỏi.", highlight: ["하고 싶어요"] },
-      { korean: "맛있는 음식을 먹고 싶어요.", vietnamese: "Tôi muốn ăn đồ ăn ngon.", highlight: ["먹고 싶어요"] },
+      { korean: "??? ?? ???.", vietnamese: "T�i mu?n di H�n Qu?c.", highlight: ["?? ???"] },
+      { korean: "???? ? ?? ???.", vietnamese: "T�i mu?n n�i ti?ng H�n gi?i.", highlight: ["?? ???"] },
+      { korean: "??? ??? ?? ???.", vietnamese: "T�i mu?n an d? an ngon.", highlight: ["?? ???"] },
     ],
     keyVocab: [
-      { word: "가다", meaning: "đi", pos: "Động từ" },
-      { word: "잘 하다", meaning: "làm giỏi", pos: "Động từ" },
-      { word: "맛있다", meaning: "ngon", pos: "Tính từ" },
-      { word: "음식", meaning: "đồ ăn", pos: "Danh từ" },
+      { word: "??", meaning: "di", pos: "�?ng t?" },
+      { word: "? ??", meaning: "l�m gi?i", pos: "�?ng t?" },
+      { word: "???", meaning: "ngon", pos: "T�nh t?" },
+      { word: "??", meaning: "d? an", pos: "Danh t?" },
     ],
   },
   {
-    id: "p3", pattern: "V-(으)ㄹ 수 있다/없다", patternVi: "Có thể / Không thể làm gì", level: "A2", levelColor: "#6ee7b7",
-    category: "Khả năng",
-    explanation: "Diễn đạt khả năng. Dùng -ㄹ 수 있다 (có thể) hoặc -ㄹ 수 없다 (không thể).",
+    id: "p3", pattern: "V-(?)? ? ??/??", patternVi: "C� th? / Kh�ng th? l�m g�", level: "A2", levelColor: "#6ee7b7",
+    category: "Kh? nang",
+    explanation: "Di?n d?t kh? nang. D�ng -? ? ?? (c� th?) ho?c -? ? ?? (kh�ng th?).",
     examples: [
-      { korean: "한국어를 말할 수 있어요.", vietnamese: "Tôi có thể nói tiếng Hàn.", highlight: ["말할 수 있어요"] },
-      { korean: "지금 갈 수 없어요.", vietnamese: "Bây giờ tôi không thể đi.", highlight: ["갈 수 없어요"] },
-      { korean: "수영을 할 수 있어요?", vietnamese: "Bạn có thể bơi không?", highlight: ["할 수 있어요"] },
+      { korean: "???? ?? ? ???.", vietnamese: "T�i c� th? n�i ti?ng H�n.", highlight: ["?? ? ???"] },
+      { korean: "?? ? ? ???.", vietnamese: "B�y gi? t�i kh�ng th? di.", highlight: ["? ? ???"] },
+      { korean: "??? ? ? ????", vietnamese: "B?n c� th? boi kh�ng?", highlight: ["? ? ???"] },
     ],
     keyVocab: [
-      { word: "말하다", meaning: "nói", pos: "Động từ" },
-      { word: "수영", meaning: "bơi lội", pos: "Danh từ" },
-      { word: "지금", meaning: "bây giờ", pos: "Trạng từ" },
+      { word: "???", meaning: "n�i", pos: "�?ng t?" },
+      { word: "??", meaning: "boi l?i", pos: "Danh t?" },
+      { word: "??", meaning: "b�y gi?", pos: "Tr?ng t?" },
     ],
   },
   {
-    id: "p4", pattern: "A/V-아/어서", patternVi: "Vì... nên... / Và rồi...", level: "B1", levelColor: "#fbbf24",
-    category: "Nguyên nhân",
-    explanation: "Diễn đạt nguyên nhân-kết quả hoặc chuỗi hành động. Không dùng với mệnh lệnh/đề nghị.",
+    id: "p4", pattern: "A/V-?/??", patternVi: "V�... n�n... / V� r?i...", level: "B1", levelColor: "#fbbf24",
+    category: "Nguy�n nh�n",
+    explanation: "Di?n d?t nguy�n nh�n-k?t qu? ho?c chu?i h�nh d?ng. Kh�ng d�ng v?i m?nh l?nh/d? ngh?.",
     examples: [
-      { korean: "배가 고파서 밥을 먹었어요.", vietnamese: "Vì đói nên tôi đã ăn cơm.", highlight: ["고파서"] },
-      { korean: "비가 와서 집에 있었어요.", vietnamese: "Vì trời mưa nên tôi ở nhà.", highlight: ["와서"] },
-      { korean: "도서관에 가서 공부했어요.", vietnamese: "Tôi đến thư viện rồi học bài.", highlight: ["가서"] },
+      { korean: "?? ??? ?? ????.", vietnamese: "V� d�i n�n t�i d� an com.", highlight: ["???"] },
+      { korean: "?? ?? ?? ????.", vietnamese: "V� tr?i mua n�n t�i ? nh�.", highlight: ["??"] },
+      { korean: "???? ?? ?????.", vietnamese: "T�i d?n thu vi?n r?i h?c b�i.", highlight: ["??"] },
     ],
     keyVocab: [
-      { word: "배가 고프다", meaning: "đói bụng", pos: "Tính từ" },
-      { word: "비가 오다", meaning: "trời mưa", pos: "Động từ" },
-      { word: "도서관", meaning: "thư viện", pos: "Danh từ" },
+      { word: "?? ???", meaning: "d�i b?ng", pos: "T�nh t?" },
+      { word: "?? ??", meaning: "tr?i mua", pos: "�?ng t?" },
+      { word: "???", meaning: "thu vi?n", pos: "Danh t?" },
     ],
   },
   {
-    id: "p5", pattern: "V-(으)면", patternVi: "Nếu... thì...", level: "B1", levelColor: "#fbbf24",
-    category: "Điều kiện",
-    explanation: "Diễn đạt điều kiện giả định. Gắn -으면 (sau phụ âm) hoặc -면 (sau nguyên âm).",
+    id: "p5", pattern: "V-(?)?", patternVi: "N?u... th�...", level: "B1", levelColor: "#fbbf24",
+    category: "�i?u ki?n",
+    explanation: "Di?n d?t di?u ki?n gi? d?nh. G?n -?? (sau ph? �m) ho?c -? (sau nguy�n �m).",
     examples: [
-      { korean: "시간이 있으면 같이 가요.", vietnamese: "Nếu có thời gian thì đi cùng nhé.", highlight: ["있으면"] },
-      { korean: "열심히 공부하면 합격할 수 있어요.", vietnamese: "Nếu học chăm chỉ thì có thể đậu.", highlight: ["공부하면"] },
-      { korean: "날씨가 좋으면 소풍을 가요.", vietnamese: "Nếu thời tiết đẹp thì đi dã ngoại.", highlight: ["좋으면"] },
+      { korean: "??? ??? ?? ??.", vietnamese: "N?u c� th?i gian th� di c�ng nh�.", highlight: ["???"] },
+      { korean: "??? ???? ??? ? ???.", vietnamese: "N?u h?c cham ch? th� c� th? d?u.", highlight: ["????"] },
+      { korean: "??? ??? ??? ??.", vietnamese: "N?u th?i ti?t d?p th� di d� ngo?i.", highlight: ["???"] },
     ],
     keyVocab: [
-      { word: "시간", meaning: "thời gian", pos: "Danh từ" },
-      { word: "열심히", meaning: "chăm chỉ", pos: "Trạng từ" },
-      { word: "합격하다", meaning: "đậu/vượt qua", pos: "Động từ" },
-      { word: "소풍", meaning: "dã ngoại", pos: "Danh từ" },
+      { word: "??", meaning: "th?i gian", pos: "Danh t?" },
+      { word: "???", meaning: "cham ch?", pos: "Tr?ng t?" },
+      { word: "????", meaning: "d?u/vu?t qua", pos: "�?ng t?" },
+      { word: "??", meaning: "d� ngo?i", pos: "Danh t?" },
     ],
   },
   {
-    id: "p6", pattern: "V-는 것 같다", patternVi: "Có vẻ như / Dường như", level: "B2", levelColor: "#f59e0b",
-    category: "Phỏng đoán",
-    explanation: "Diễn đạt phỏng đoán, suy luận dựa trên quan sát. Hiện tại: -는 것 같다, Quá khứ: -(으)ㄴ 것 같다.",
+    id: "p6", pattern: "V-? ? ??", patternVi: "C� v? nhu / Du?ng nhu", level: "B2", levelColor: "#f59e0b",
+    category: "Ph?ng do�n",
+    explanation: "Di?n d?t ph?ng do�n, suy lu?n d?a tr�n quan s�t. Hi?n t?i: -? ? ??, Qu� kh?: -(?)? ? ??.",
     examples: [
-      { korean: "그 사람이 화가 난 것 같아요.", vietnamese: "Có vẻ người đó đang tức giận.", highlight: ["난 것 같아요"] },
-      { korean: "오늘 비가 올 것 같아요.", vietnamese: "Hôm nay có vẻ sẽ mưa.", highlight: ["올 것 같아요"] },
-      { korean: "그 영화가 재미있는 것 같아요.", vietnamese: "Có vẻ bộ phim đó thú vị.", highlight: ["재미있는 것 같아요"] },
+      { korean: "? ??? ?? ? ? ???.", vietnamese: "C� v? ngu?i d� dang t?c gi?n.", highlight: ["? ? ???"] },
+      { korean: "?? ?? ? ? ???.", vietnamese: "H�m nay c� v? s? mua.", highlight: ["? ? ???"] },
+      { korean: "? ??? ???? ? ???.", vietnamese: "C� v? b? phim d� th� v?.", highlight: ["???? ? ???"] },
     ],
     keyVocab: [
-      { word: "화가 나다", meaning: "tức giận", pos: "Động từ" },
-      { word: "비가 오다", meaning: "trời mưa", pos: "Động từ" },
-      { word: "재미있다", meaning: "thú vị", pos: "Tính từ" },
+      { word: "?? ??", meaning: "t?c gi?n", pos: "�?ng t?" },
+      { word: "?? ??", meaning: "tr?i mua", pos: "�?ng t?" },
+      { word: "????", meaning: "th� v?", pos: "T�nh t?" },
     ],
   },
   {
-    id: "p7", pattern: "V-도록 하다", patternVi: "Làm sao để / Cố gắng làm", level: "C1", levelColor: "#f87171",
-    category: "Mục đích",
-    explanation: "Diễn đạt mục đích hoặc chỉ thị gián tiếp. Thường dùng trong văn viết và lời nói trang trọng.",
+    id: "p7", pattern: "V-?? ??", patternVi: "L�m sao d? / C? g?ng l�m", level: "C1", levelColor: "#f87171",
+    category: "M?c d�ch",
+    explanation: "Di?n d?t m?c d�ch ho?c ch? th? gi�n ti?p. Thu?ng d�ng trong van vi?t v� l?i n�i trang tr?ng.",
     examples: [
-      { korean: "건강을 유지하도록 운동하세요.", vietnamese: "Hãy tập thể dục để duy trì sức khỏe.", highlight: ["유지하도록"] },
-      { korean: "실수하지 않도록 주의하세요.", vietnamese: "Hãy cẩn thận để không mắc lỗi.", highlight: ["않도록"] },
-      { korean: "모두가 이해하도록 설명해 주세요.", vietnamese: "Hãy giải thích để mọi người hiểu.", highlight: ["이해하도록"] },
+      { korean: "??? ????? ?????.", vietnamese: "H�y t?p th? d?c d? duy tr� s?c kh?e.", highlight: ["?????"] },
+      { korean: "???? ??? ?????.", vietnamese: "H�y c?n th?n d? kh�ng m?c l?i.", highlight: ["???"] },
+      { korean: "??? ????? ??? ???.", vietnamese: "H�y gi?i th�ch d? m?i ngu?i hi?u.", highlight: ["?????"] },
     ],
     keyVocab: [
-      { word: "유지하다", meaning: "duy trì", pos: "Động từ" },
-      { word: "실수하다", meaning: "mắc lỗi", pos: "Động từ" },
-      { word: "주의하다", meaning: "cẩn thận", pos: "Động từ" },
-      { word: "설명하다", meaning: "giải thích", pos: "Động từ" },
+      { word: "????", meaning: "duy tr�", pos: "�?ng t?" },
+      { word: "????", meaning: "m?c l?i", pos: "�?ng t?" },
+      { word: "????", meaning: "c?n th?n", pos: "�?ng t?" },
+      { word: "????", meaning: "gi?i th�ch", pos: "�?ng t?" },
     ],
   },
 ];
@@ -152,21 +152,21 @@ export default function SentencePatternVocabPage() {
         {/* Header */}
         <div className="flex items-start justify-between mb-6">
           <div>
-            <h1 className="text-white font-bold text-2xl mb-1">Từ vựng theo cấu trúc câu</h1>
-            <p className="text-white/50 text-sm">Học từ vựng qua các mẫu câu thông dụng TOPIK — hiểu ngữ cảnh thực tế</p>
+            <h1 className="text-white font-bold text-2xl mb-1">T? v?ng theo c?u tr�c c�u</h1>
+            <p className="text-white/50 text-sm">H?c t? v?ng qua c�c m?u c�u th�ng d?ng TOPIK � hi?u ng? c?nh th?c t?</p>
           </div>
           <button onClick={() => { setQuizMode(v => !v); setQuizIdx(0); setShowAnswer(false); }}
             className={`px-4 py-2 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap ${quizMode ? "bg-app-card/70 text-white/60" : "bg-app-accent-primary text-[#141720]"}`}>
-            {quizMode ? "Thoát Quiz" : "Chế độ Quiz"}
+            {quizMode ? "Tho�t Quiz" : "Ch? d? Quiz"}
           </button>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
-            { label: "Mẫu câu", value: patterns.length, color: "app-accent-primary" },
-            { label: "Đã học", value: learnedIds.size, color: "#34d399" },
-            { label: "Từ vựng", value: patterns.reduce((s, p) => s + p.keyVocab.length, 0), color: "#a78bfa" },
+            { label: "M?u c�u", value: patterns.length, color: "app-accent-primary" },
+            { label: "�� h?c", value: learnedIds.size, color: "#34d399" },
+            { label: "T? v?ng", value: patterns.reduce((s, p) => s + p.keyVocab.length, 0), color: "#a78bfa" },
           ].map(s => (
             <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-4 text-center">
               <p className="font-bold text-xl" style={{ color: s.color }}>{s.value}</p>
@@ -176,18 +176,18 @@ export default function SentencePatternVocabPage() {
         </div>
 
         {quizMode ? (
-          /* ── Quiz Mode ── */
+          /* -- Quiz Mode -- */
           <div className="rounded-2xl border border-app-border bg-app-surface/50 p-8 text-center">
             <p className="text-app-text-secondary text-sm mb-6">{quizIdx + 1} / {patterns.length}</p>
             <div className="mb-6">
-              <p className="text-app-text-secondary text-sm mb-3">Mẫu câu này có nghĩa gì?</p>
+              <p className="text-app-text-secondary text-sm mb-3">M?u c�u n�y c� nghia g�?</p>
               <p className="text-white font-bold text-4xl mb-2">{quizPattern.pattern}</p>
-              <p className="text-app-text-muted text-sm">{quizPattern.category} · {quizPattern.level}</p>
+              <p className="text-app-text-muted text-sm">{quizPattern.category} � {quizPattern.level}</p>
             </div>
             {!showAnswer ? (
               <button onClick={() => setShowAnswer(true)}
                 className="px-8 py-3 rounded-xl bg-app-accent-primary text-[#141720] font-bold cursor-pointer whitespace-nowrap mb-6">
-                Xem đáp án
+                Xem d�p �n
               </button>
             ) : (
               <div className="mb-6">
@@ -211,16 +211,16 @@ export default function SentencePatternVocabPage() {
               <button onClick={() => { setQuizIdx(i => Math.max(0, i - 1)); setShowAnswer(false); }}
                 disabled={quizIdx === 0}
                 className="flex-1 py-2.5 rounded-xl bg-white/8 text-white/60 text-sm cursor-pointer disabled:opacity-30 whitespace-nowrap">
-                Trước
+                Tru?c
               </button>
               <button onClick={() => { setQuizIdx(i => i + 1); setShowAnswer(false); }}
                 className="flex-1 py-2.5 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm cursor-pointer whitespace-nowrap">
-                Tiếp theo
+                Ti?p theo
               </button>
             </div>
           </div>
         ) : (
-          /* ── Browse Mode ── */
+          /* -- Browse Mode -- */
           <div className="flex gap-5">
             {/* Pattern list */}
             <div className="w-56 flex-shrink-0">
@@ -229,7 +229,7 @@ export default function SentencePatternVocabPage() {
                   <button key={l} onClick={() => setLevelFilter(l)}
                     className="px-2 py-1 rounded-full text-[10px] font-medium cursor-pointer whitespace-nowrap"
                     style={levelFilter === l ? { backgroundColor: "rgba(255,255,255,0.15)", color: "white" } : { backgroundColor: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.4)" }}>
-                    {l === "all" ? "Tất cả" : l}
+                    {l === "all" ? "T?t c?" : l}
                   </button>
                 ))}
               </div>
@@ -265,19 +265,19 @@ export default function SentencePatternVocabPage() {
                   </div>
                   <button onClick={() => setLearnedIds(prev => { const n = new Set(prev); n.has(selectedPattern.id) ? n.delete(selectedPattern.id) : n.add(selectedPattern.id); return n; })}
                     className={`px-3 py-2 rounded-xl text-xs font-bold cursor-pointer whitespace-nowrap ${learnedIds.has(selectedPattern.id) ? "bg-emerald-500/20 text-app-accent-success" : "bg-white/8 text-white/50"}`}>
-                    {learnedIds.has(selectedPattern.id) ? "Đã học" : "Đánh dấu"}
+                    {learnedIds.has(selectedPattern.id) ? "�� h?c" : "��nh d?u"}
                   </button>
                 </div>
 
                 {/* Explanation */}
                 <div className="p-4 rounded-xl bg-app-card/50 border border-app-border mb-5">
-                  <p className="text-app-text-secondary text-xs mb-1">Giải thích:</p>
+                  <p className="text-app-text-secondary text-xs mb-1">Gi?i th�ch:</p>
                   <p className="text-white/80 text-sm leading-relaxed">{selectedPattern.explanation}</p>
                 </div>
 
                 {/* Examples */}
                 <div className="mb-5">
-                  <p className="text-app-text-secondary text-xs font-semibold mb-3">Ví dụ ({selectedPattern.examples.length}):</p>
+                  <p className="text-app-text-secondary text-xs font-semibold mb-3">V� d? ({selectedPattern.examples.length}):</p>
                   <div className="space-y-3">
                     {selectedPattern.examples.map((ex, i) => (
                       <div key={i} className="p-4 rounded-xl bg-app-card/50 border border-app-border">
@@ -302,7 +302,7 @@ export default function SentencePatternVocabPage() {
 
                 {/* Key vocab */}
                 <div>
-                  <p className="text-app-text-secondary text-xs font-semibold mb-3">Từ vựng chính ({selectedPattern.keyVocab.length}):</p>
+                  <p className="text-app-text-secondary text-xs font-semibold mb-3">T? v?ng ch�nh ({selectedPattern.keyVocab.length}):</p>
                   <div className="grid grid-cols-2 gap-2">
                     {selectedPattern.keyVocab.map((v, i) => (
                       <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-app-card/50 border border-app-border">

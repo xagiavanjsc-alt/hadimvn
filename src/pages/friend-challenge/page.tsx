@@ -1,10 +1,10 @@
-﻿import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { epsQuestions } from "@/mocks/epsQuestions";
 
-// ─── Types ────────────────────────────────────────────────────────────────
+// --- Types ----------------------------------------------------------------
 interface ChallengeSession {
   id: string;
   createdAt: string;
@@ -31,20 +31,20 @@ interface QuizQuestion {
 }
 
 const TOPICS = [
-  { id: "all", label: "Tất cả chủ đề", icon: "ri-apps-line", color: "app-accent-primary" },
-  { id: "greeting", label: "Chào hỏi", icon: "ri-hand-heart-line", color: "#34d399" },
-  { id: "workplace", label: "Nơi làm việc", icon: "ri-building-line", color: "#fb923c" },
-  { id: "safety", label: "An toàn lao động", icon: "ri-shield-check-line", color: "#f87171" },
-  { id: "law", label: "Pháp luật", icon: "ri-scales-3-line", color: "#a78bfa" },
-  { id: "daily", label: "Sinh hoạt hàng ngày", icon: "ri-home-smile-line", color: "#38bdf8" },
+  { id: "all", label: "T?t c? ch? d?", icon: "ri-apps-line", color: "app-accent-primary" },
+  { id: "greeting", label: "Ch�o h?i", icon: "ri-hand-heart-line", color: "#34d399" },
+  { id: "workplace", label: "Noi l�m vi?c", icon: "ri-building-line", color: "#fb923c" },
+  { id: "safety", label: "An to�n lao d?ng", icon: "ri-shield-check-line", color: "#f87171" },
+  { id: "law", label: "Ph�p lu?t", icon: "ri-scales-3-line", color: "#a78bfa" },
+  { id: "daily", label: "Sinh ho?t h�ng ng�y", icon: "ri-home-smile-line", color: "#38bdf8" },
 ];
 
 const QUESTION_COUNTS = [5, 10, 15, 20];
 
-// Challenge history lưu trong localStorage, mặc định rỗng (không còn fake)
+// Challenge history luu trong localStorage, m?c d?nh r?ng (kh�ng c�n fake)
 const INITIAL_HISTORY: ChallengeSession[] = [];
 
-// ─── Quiz Mode ────────────────────────────────────────────────────────────
+// --- Quiz Mode ------------------------------------------------------------
 function QuizMode({
   questions,
   onFinish,
@@ -94,16 +94,16 @@ function QuizMode({
         <div className={`w-20 h-20 flex items-center justify-center rounded-full mb-5 ${pct >= 80 ? "bg-app-accent-success/15" : pct >= 60 ? "bg-app-accent-primary/15" : "bg-red-500/15"}`}>
           <i className={`text-3xl ${pct >= 80 ? "ri-trophy-line text-app-accent-success" : pct >= 60 ? "ri-thumb-up-line text-app-accent-primary" : "ri-emotion-sad-line text-red-400"}`}></i>
         </div>
-        <p className="text-white font-bold text-2xl mb-1">{score}/{questions.length} câu đúng</p>
-        <p className="text-app-text-secondary text-sm mb-2">Thời gian: {formatTime(elapsed)}</p>
+        <p className="text-white font-bold text-2xl mb-1">{score}/{questions.length} c�u d�ng</p>
+        <p className="text-app-text-secondary text-sm mb-2">Th?i gian: {formatTime(elapsed)}</p>
         <p className={`text-lg font-bold mb-6 ${pct >= 80 ? "text-app-accent-success" : pct >= 60 ? "text-app-accent-primary" : "text-red-400"}`}>
-          {pct >= 80 ? "Xuất sắc!" : pct >= 60 ? "Khá tốt!" : "Cần cố gắng thêm!"}
+          {pct >= 80 ? "Xu?t s?c!" : pct >= 60 ? "Kh� t?t!" : "C?n c? g?ng th�m!"}
         </p>
         <button
           onClick={() => onFinish(score, elapsed)}
           className="px-8 py-3 rounded-xl bg-app-accent-primary text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap hover:bg-[#d4b43a] transition-colors"
         >
-          Xem kết quả & Chia sẻ link
+          Xem k?t qu? & Chia s? link
         </button>
       </div>
     );
@@ -169,7 +169,7 @@ function QuizMode({
   );
 }
 
-// ─── Challenge Result Card ────────────────────────────────────────────────
+// --- Challenge Result Card ------------------------------------------------
 function ChallengeResultCard({ session }: { session: ChallengeSession }) {
   const topicInfo = TOPICS.find(t => t.id === session.topic) || TOPICS[0];
   const isWin = session.myScore !== undefined && session.opponentScore !== undefined && session.myScore > session.opponentScore;
@@ -179,9 +179,9 @@ function ChallengeResultCard({ session }: { session: ChallengeSession }) {
     const diff = Date.now() - new Date(session.createdAt).getTime();
     const h = Math.floor(diff / 3600000);
     const d = Math.floor(diff / 86400000);
-    if (d > 0) return `${d} ngày trước`;
-    if (h > 0) return `${h} giờ trước`;
-    return "Vừa xong";
+    if (d > 0) return `${d} ng�y tru?c`;
+    if (h > 0) return `${h} gi? tru?c`;
+    return "V?a xong";
   })();
 
   const formatTime = (s?: number) => s !== undefined ? `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}` : "--:--";
@@ -195,17 +195,17 @@ function ChallengeResultCard({ session }: { session: ChallengeSession }) {
           </div>
           <div>
             <p className="text-white font-semibold text-sm">{topicInfo.label}</p>
-            <p className="text-app-text-muted text-xs">{session.questionCount} câu · {timeAgo}</p>
+            <p className="text-app-text-muted text-xs">{session.questionCount} c�u � {timeAgo}</p>
           </div>
         </div>
         {isWaiting ? (
           <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-app-accent-primary/15 text-app-accent-primary flex items-center gap-1">
-            <i className="ri-time-line"></i>Chờ bạn bè
+            <i className="ri-time-line"></i>Ch? b?n b�
           </span>
         ) : isWin ? (
-          <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-app-accent-success/15 text-app-accent-success">Thắng</span>
+          <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-app-accent-success/15 text-app-accent-success">Th?ng</span>
         ) : isDraw ? (
-          <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-app-card/70 text-white/50">Hòa</span>
+          <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-app-card/70 text-white/50">H�a</span>
         ) : (
           <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-red-500/15 text-red-400">Thua</span>
         )}
@@ -214,15 +214,15 @@ function ChallengeResultCard({ session }: { session: ChallengeSession }) {
       {/* Score comparison */}
       <div className="flex items-center gap-4">
         <div className="flex-1 text-center p-3 rounded-xl bg-app-surface/50">
-          <p className="text-app-text-secondary text-[10px] mb-1">Bạn</p>
+          <p className="text-app-text-secondary text-[10px] mb-1">B?n</p>
           <p className="text-white font-bold text-2xl">{session.myScore ?? "--"}</p>
           <p className="text-app-text-muted text-[10px]">{formatTime(session.myTime)}</p>
         </div>
         <div className="text-app-text-muted font-bold text-lg">VS</div>
         <div className={`flex-1 text-center p-3 rounded-xl ${isWaiting ? "bg-app-accent-primary/5 border border-dashed border-app-accent-primary/20" : "bg-app-surface/50"}`}>
-          <p className="text-app-text-secondary text-[10px] mb-1">{session.opponentName || "Chờ..."}</p>
+          <p className="text-app-text-secondary text-[10px] mb-1">{session.opponentName || "Ch?..."}</p>
           {isWaiting ? (
-            <p className="text-app-accent-primary/50 text-sm font-medium">Chưa làm</p>
+            <p className="text-app-accent-primary/50 text-sm font-medium">Chua l�m</p>
           ) : (
             <>
               <p className="text-white font-bold text-2xl">{session.opponentScore ?? "--"}</p>
@@ -235,7 +235,7 @@ function ChallengeResultCard({ session }: { session: ChallengeSession }) {
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────
+// --- Main Page ------------------------------------------------------------
 export default function FriendChallengePage() {
   const { awardXP } = useXPSystem();
   const [challenges, setChallenges] = useLocalStorage<ChallengeSession[]>("kts_friend_challenges", INITIAL_HISTORY);
@@ -248,7 +248,7 @@ export default function FriendChallengePage() {
   const [linkCopied, setLinkCopied] = useState(false);
   const [joinCode, setJoinCode] = useState("");
   const [joinError, setJoinError] = useState("");
-  const [creatorName, setCreatorName] = useState("Bạn");
+  const [creatorName, setCreatorName] = useState("B?n");
 
   const generateQuestions = (topic: string, count: number): QuizQuestion[] => {
     const pool = topic === "all"
@@ -305,7 +305,7 @@ export default function FriendChallengePage() {
   const handleJoinChallenge = () => {
     const found = challenges.find(c => c.id === joinCode.trim() || c.id.includes(joinCode.trim()));
     if (!found) {
-      setJoinError("Không tìm thấy thách đấu với mã này. Kiểm tra lại link hoặc mã.");
+      setJoinError("Kh�ng t�m th?y th�ch d?u v?i m� n�y. Ki?m tra l?i link ho?c m�.");
       return;
     }
     const questions = generateQuestions(found.topic, found.questionCount);
@@ -330,13 +330,13 @@ export default function FriendChallengePage() {
   const losses = challenges.filter(c => c.status === "completed" && c.myScore !== undefined && c.opponentScore !== undefined && c.myScore < c.opponentScore).length;
   const draws = challenges.filter(c => c.status === "completed" && c.myScore !== undefined && c.opponentScore !== undefined && c.myScore === c.opponentScore).length;
 
-  // ── Quiz view ──
+  // -- Quiz view --
   if (view === "quiz") {
     return (
-      <DashboardLayout title="Thách đấu bạn bè" subtitle="Làm bài quiz — sau đó chia sẻ link cho bạn bè">
+      <DashboardLayout title="Th�ch d?u b?n b�" subtitle="L�m b�i quiz � sau d� chia s? link cho b?n b�">
         <div className="mb-6">
           <button onClick={() => setView("home")} className="flex items-center gap-2 text-app-text-secondary hover:text-white/70 text-sm cursor-pointer whitespace-nowrap transition-colors">
-            <i className="ri-arrow-left-line"></i>Quay lại
+            <i className="ri-arrow-left-line"></i>Quay l?i
           </button>
         </div>
         <QuizMode questions={quizQuestions} onFinish={handleQuizFinish} />
@@ -344,12 +344,12 @@ export default function FriendChallengePage() {
     );
   }
 
-  // ── Result view ──
+  // -- Result view --
   if (view === "result" && activeChallenge && finalScore) {
     const topicInfo = TOPICS.find(t => t.id === activeChallenge.topic) || TOPICS[0];
     const formatTime = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
     return (
-      <DashboardLayout title="Kết quả thách đấu" subtitle="Chia sẻ link để bạn bè cùng làm bài">
+      <DashboardLayout title="K?t qu? th�ch d?u" subtitle="Chia s? link d? b?n b� c�ng l�m b�i">
         <div className="max-w-lg mx-auto space-y-5">
           {/* Score card */}
           <div className="bg-app-bg border border-app-accent-primary/20 rounded-2xl p-6 text-center">
@@ -357,7 +357,7 @@ export default function FriendChallengePage() {
               <i className="ri-trophy-line text-app-accent-primary text-2xl"></i>
             </div>
             <p className="text-white font-bold text-3xl mb-1">{finalScore.score}/{activeChallenge.questionCount}</p>
-            <p className="text-app-text-secondary text-sm mb-1">Thời gian: {formatTime(finalScore.time)}</p>
+            <p className="text-app-text-secondary text-sm mb-1">Th?i gian: {formatTime(finalScore.time)}</p>
             <div className="flex items-center justify-center gap-2 mt-2">
               <div className="w-8 h-8 flex items-center justify-center rounded-lg" style={{ backgroundColor: `${topicInfo.color}15` }}>
                 <i className={`${topicInfo.icon} text-sm`} style={{ color: topicInfo.color }}></i>
@@ -368,7 +368,7 @@ export default function FriendChallengePage() {
 
           {/* Share link */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <p className="text-white font-semibold text-sm mb-3">Chia sẻ thách đấu</p>
+            <p className="text-white font-semibold text-sm mb-3">Chia s? th�ch d?u</p>
             <div className="flex gap-2 mb-3">
               <div className="flex-1 bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white/50 text-xs font-mono truncate">
                 {challengeLink}
@@ -377,10 +377,10 @@ export default function FriendChallengePage() {
                 onClick={handleCopyLink}
                 className={`px-4 py-2.5 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap transition-all ${linkCopied ? "bg-app-accent-success/15 text-app-accent-success border border-emerald-500/25" : "bg-app-accent-primary text-app-bg hover:bg-[#d4b43a]"}`}
               >
-                {linkCopied ? <><i className="ri-check-line mr-1"></i>Đã sao chép</> : <><i className="ri-file-copy-line mr-1"></i>Sao chép</>}
+                {linkCopied ? <><i className="ri-check-line mr-1"></i>�� sao ch�p</> : <><i className="ri-file-copy-line mr-1"></i>Sao ch�p</>}
               </button>
             </div>
-            <p className="text-app-text-muted text-xs">Gửi link này cho bạn bè — họ sẽ làm cùng bộ câu hỏi và so sánh điểm với bạn!</p>
+            <p className="text-app-text-muted text-xs">G?i link n�y cho b?n b� � h? s? l�m c�ng b? c�u h?i v� so s�nh di?m v?i b?n!</p>
           </div>
 
           {/* Share via */}
@@ -407,18 +407,18 @@ export default function FriendChallengePage() {
             onClick={() => { setView("home"); setActiveChallenge(null); setFinalScore(null); }}
             className="w-full py-3 rounded-xl border border-app-border text-white/50 text-sm hover:bg-app-card/50 cursor-pointer whitespace-nowrap transition-colors"
           >
-            Về trang chính
+            V? trang ch�nh
           </button>
         </div>
       </DashboardLayout>
     );
   }
 
-  // ── Home view ──
+  // -- Home view --
   return (
     <DashboardLayout
-      title="Thách đấu bạn bè"
-      subtitle="Tạo quiz, chia sẻ link — bạn bè làm cùng bộ câu hỏi và so sánh điểm"
+      title="Th�ch d?u b?n b�"
+      subtitle="T?o quiz, chia s? link � b?n b� l�m c�ng b? c�u h?i v� so s�nh di?m"
     >
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         {/* Left */}
@@ -426,9 +426,9 @@ export default function FriendChallengePage() {
           {/* Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
-              { label: "Thắng", value: wins, icon: "ri-trophy-line", color: "#34d399" },
+              { label: "Th?ng", value: wins, icon: "ri-trophy-line", color: "#34d399" },
               { label: "Thua", value: losses, icon: "ri-close-circle-line", color: "#f87171" },
-              { label: "Hòa", value: draws, icon: "ri-scales-3-line", color: "app-accent-primary" },
+              { label: "H�a", value: draws, icon: "ri-scales-3-line", color: "app-accent-primary" },
             ].map(s => (
               <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
                 <div className="w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -446,7 +446,7 @@ export default function FriendChallengePage() {
           {view === "create" ? (
             <div className="bg-app-bg border border-app-border rounded-2xl p-6 space-y-5">
               <div className="flex items-center justify-between">
-                <p className="text-white font-semibold">Tạo thách đấu mới</p>
+                <p className="text-white font-semibold">T?o th�ch d?u m?i</p>
                 <button onClick={() => setView("home")} className="text-app-text-muted hover:text-white/60 cursor-pointer">
                   <i className="ri-close-line text-lg"></i>
                 </button>
@@ -454,19 +454,19 @@ export default function FriendChallengePage() {
 
               {/* Creator name */}
               <div>
-                <label className="text-app-text-secondary text-xs mb-2 block">Tên của bạn</label>
+                <label className="text-app-text-secondary text-xs mb-2 block">T�n c?a b?n</label>
                 <input
                   type="text"
                   value={creatorName}
                   onChange={e => setCreatorName(e.target.value)}
-                  placeholder="Nhập tên..."
+                  placeholder="Nh?p t�n..."
                   className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-white/25"
                 />
               </div>
 
               {/* Topic */}
               <div>
-                <label className="text-app-text-secondary text-xs mb-2 block">Chủ đề câu hỏi</label>
+                <label className="text-app-text-secondary text-xs mb-2 block">Ch? d? c�u h?i</label>
                 <div className="grid grid-cols-2 gap-2">
                   {TOPICS.map(t => (
                     <button
@@ -486,7 +486,7 @@ export default function FriendChallengePage() {
 
               {/* Question count */}
               <div>
-                <label className="text-app-text-secondary text-xs mb-2 block">Số câu hỏi</label>
+                <label className="text-app-text-secondary text-xs mb-2 block">S? c�u h?i</label>
                 <div className="flex gap-2">
                   {QUESTION_COUNTS.map(n => (
                     <button
@@ -504,23 +504,23 @@ export default function FriendChallengePage() {
                 onClick={handleCreateChallenge}
                 className="w-full py-3.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
               >
-                <i className="ri-sword-line mr-2"></i>Bắt đầu làm bài
+                <i className="ri-sword-line mr-2"></i>B?t d?u l�m b�i
               </button>
             </div>
           ) : view === "join" ? (
             <div className="bg-app-bg border border-app-border rounded-2xl p-6 space-y-4">
               <div className="flex items-center justify-between">
-                <p className="text-white font-semibold">Tham gia thách đấu</p>
+                <p className="text-white font-semibold">Tham gia th�ch d?u</p>
                 <button onClick={() => setView("home")} className="text-app-text-muted hover:text-white/60 cursor-pointer">
                   <i className="ri-close-line text-lg"></i>
                 </button>
               </div>
-              <p className="text-app-text-secondary text-sm">Nhập mã thách đấu hoặc dán link từ bạn bè</p>
+              <p className="text-app-text-secondary text-sm">Nh?p m� th�ch d?u ho?c d�n link t? b?n b�</p>
               <input
                 type="text"
                 value={joinCode}
                 onChange={e => { setJoinCode(e.target.value); setJoinError(""); }}
-                placeholder="Nhập mã hoặc link thách đấu..."
+                placeholder="Nh?p m� ho?c link th�ch d?u..."
                 className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-white/25"
               />
               {joinError && <p className="text-red-400 text-xs">{joinError}</p>}
@@ -539,21 +539,21 @@ export default function FriendChallengePage() {
                 className="flex-1 flex items-center justify-center gap-3 py-4 rounded-2xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
               >
                 <i className="ri-add-circle-line text-lg"></i>
-                Tạo thách đấu mới
+                T?o th�ch d?u m?i
               </button>
               <button
                 onClick={() => setView("join")}
                 className="flex-1 flex items-center justify-center gap-3 py-4 rounded-2xl border border-app-border bg-app-surface/50 hover:bg-white/6 text-white/60 font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
               >
                 <i className="ri-link text-lg"></i>
-                Tham gia bằng link
+                Tham gia b?ng link
               </button>
             </div>
           )}
 
           {/* History */}
           <div>
-            <p className="text-app-text-secondary text-xs font-semibold tracking-normal mb-3">Lịch sử thách đấu</p>
+            <p className="text-app-text-secondary text-xs font-semibold tracking-normal mb-3">L?ch s? th�ch d?u</p>
             <div className="space-y-3">
               {challenges.map(c => (
                 <ChallengeResultCard key={c.id} session={c} />
@@ -561,7 +561,7 @@ export default function FriendChallengePage() {
               {challenges.length === 0 && (
                 <div className="text-center py-10 text-app-text-muted">
                   <i className="ri-sword-line text-3xl mb-2 block"></i>
-                  <p className="text-sm">Chưa có thách đấu nào. Tạo thách đấu đầu tiên!</p>
+                  <p className="text-sm">Chua c� th�ch d?u n�o. T?o th�ch d?u d?u ti�n!</p>
                 </div>
               )}
             </div>
@@ -572,13 +572,13 @@ export default function FriendChallengePage() {
         <div className="space-y-4">
           {/* How it works */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <p className="text-white font-semibold text-sm mb-4">Cách thức hoạt động</p>
+            <p className="text-white font-semibold text-sm mb-4">C�ch th?c ho?t d?ng</p>
             <div className="space-y-4">
               {[
-                { step: "1", icon: "ri-add-circle-line", color: "app-accent-primary", title: "Tạo thách đấu", desc: "Chọn chủ đề và số câu hỏi, sau đó làm bài" },
-                { step: "2", icon: "ri-share-line", color: "#34d399", title: "Chia sẻ link", desc: "Sao chép link và gửi cho bạn bè qua Zalo/Facebook" },
-                { step: "3", icon: "ri-user-received-line", color: "#a78bfa", title: "Bạn bè tham gia", desc: "Bạn bè mở link và làm cùng bộ câu hỏi" },
-                { step: "4", icon: "ri-trophy-line", color: "#fb923c", title: "So sánh điểm", desc: "Xem ai đúng nhiều hơn và nhanh hơn!" },
+                { step: "1", icon: "ri-add-circle-line", color: "app-accent-primary", title: "T?o th�ch d?u", desc: "Ch?n ch? d? v� s? c�u h?i, sau d� l�m b�i" },
+                { step: "2", icon: "ri-share-line", color: "#34d399", title: "Chia s? link", desc: "Sao ch�p link v� g?i cho b?n b� qua Zalo/Facebook" },
+                { step: "3", icon: "ri-user-received-line", color: "#a78bfa", title: "B?n b� tham gia", desc: "B?n b� m? link v� l�m c�ng b? c�u h?i" },
+                { step: "4", icon: "ri-trophy-line", color: "#fb923c", title: "So s�nh di?m", desc: "Xem ai d�ng nhi?u hon v� nhanh hon!" },
               ].map(s => (
                 <div key={s.step} className="flex items-start gap-3">
                   <div className="w-8 h-8 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -595,18 +595,18 @@ export default function FriendChallengePage() {
 
           {/* XP reward */}
           <div className="bg-[#a78bfa]/5 border border-[#a78bfa]/15 rounded-xl p-4">
-            <p className="text-[#a78bfa] text-xs font-semibold mb-2">Phần thưởng XP</p>
+            <p className="text-[#a78bfa] text-xs font-semibold mb-2">Ph?n thu?ng XP</p>
             <div className="space-y-1.5">
               <div className="flex justify-between text-xs">
-                <span className="text-app-text-secondary">Tham gia thách đấu</span>
+                <span className="text-app-text-secondary">Tham gia th�ch d?u</span>
                 <span className="text-[#a78bfa] font-bold">+20 XP</span>
               </div>
               <div className="flex justify-between text-xs">
-                <span className="text-app-text-secondary">Mỗi câu đúng</span>
+                <span className="text-app-text-secondary">M?i c�u d�ng</span>
                 <span className="text-[#a78bfa] font-bold">+5 XP</span>
               </div>
               <div className="flex justify-between text-xs">
-                <span className="text-app-text-secondary">Thắng thách đấu</span>
+                <span className="text-app-text-secondary">Th?ng th�ch d?u</span>
                 <span className="text-[#a78bfa] font-bold">+50 XP</span>
               </div>
             </div>
@@ -614,14 +614,14 @@ export default function FriendChallengePage() {
 
           {/* My stats */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <p className="text-white font-semibold text-sm mb-3">Thống kê của bạn</p>
+            <p className="text-white font-semibold text-sm mb-3">Th?ng k� c?a b?n</p>
             <div className="space-y-2">
               <div className="flex justify-between items-center py-1.5 border-b border-app-border">
-                <span className="text-app-text-secondary text-xs">Tổng thách đấu</span>
+                <span className="text-app-text-secondary text-xs">T?ng th�ch d?u</span>
                 <span className="text-white font-bold text-sm">{challenges.length}</span>
               </div>
               <div className="flex justify-between items-center py-1.5 border-b border-app-border">
-                <span className="text-app-text-secondary text-xs">Thắng</span>
+                <span className="text-app-text-secondary text-xs">Th?ng</span>
                 <span className="text-app-accent-success font-bold text-sm">{wins}</span>
               </div>
               <div className="flex justify-between items-center py-1.5 border-b border-app-border">
@@ -629,7 +629,7 @@ export default function FriendChallengePage() {
                 <span className="text-red-400 font-bold text-sm">{losses}</span>
               </div>
               <div className="flex justify-between items-center py-1.5">
-                <span className="text-app-text-secondary text-xs">Hòa</span>
+                <span className="text-app-text-secondary text-xs">H�a</span>
                 <span className="text-app-accent-primary font-bold text-sm">{draws}</span>
               </div>
             </div>

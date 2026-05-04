@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useCallback, useEffect, lazy, Suspense } from "react";
+import { useState, useMemo, useCallback, useEffect, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
@@ -38,27 +38,27 @@ function TabFallback() {
     <div className="flex flex-col items-center justify-center py-16 gap-3">
       <div className="flex items-center gap-2 text-gray-400">
         <i className="ri-loader-4-line animate-spin text-lg"></i>
-        <span className="text-sm">Đang tải...</span>
+        <span className="text-sm">�ang t?i...</span>
       </div>
       {slow && (
         <button
           onClick={() => window.location.reload()}
           className="text-xs text-rose-400 hover:text-rose-600 cursor-pointer underline"
         >
-          Tải quá lâu? Nhấn để tải lại trang
+          T?i qu� l�u? Nh?n d? t?i l?i trang
         </button>
       )}
     </div>
   );
 }
 
-const ALPHABET_GROUPS = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+const ALPHABET_GROUPS = ["?","?","?","?","?","?","?","?","?","?","?","?","?","?"];
 const FAV_KEY = "hanja_favorites";
 const SR_KEY = "hanja_sr_data";
 const STREAK_KEY = "hanja_streak";
 const NOTES_KEY = "hanja_notes";
 
-// ─── TTS Speak ────────────────────────────────────────────────────────────────
+// --- TTS Speak ----------------------------------------------------------------
 function speakKorean(text: string) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
@@ -68,12 +68,12 @@ function speakKorean(text: string) {
   window.speechSynthesis.speak(utter);
 }
 
-// ─── Streak helpers ───────────────────────────────────────────────────────────
+// --- Streak helpers -----------------------------------------------------------
 interface StreakData {
   currentStreak: number;
   longestStreak: number;
   lastStudyDate: string; // YYYY-MM-DD
-  history: Record<string, number>; // date → cards reviewed
+  history: Record<string, number>; // date ? cards reviewed
 }
 
 function getToday(): string {
@@ -107,7 +107,7 @@ function getInitial(char: string): string {
   const code = char.charCodeAt(0) - 0xAC00;
   if (code < 0 || code > 11171) return char[0];
   const idx = Math.floor(code / 588);
-  const initials = ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+  const initials = ["?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?","?"];
   return initials[idx] || char[0];
 }
 
@@ -115,11 +115,11 @@ function extractHanjaChars(hanja: string): string[] {
   return Array.from(hanja).filter(c => c.charCodeAt(0) > 0x4E00 && c.charCodeAt(0) < 0x9FFF);
 }
 
-// ─── Mastery types (declared early for use in exportCSV) ─────────────────────
+// --- Mastery types (declared early for use in exportCSV) ---------------------
 type MasteryFilter = "all" | "new" | "learning" | "mastered";
 
 
-// ─── CSV Export ───────────────────────────────────────────────────────────────
+// --- CSV Export ---------------------------------------------------------------
 function exportCSV(
   entries: HanjaEntry[],
   filename: string,
@@ -137,11 +137,11 @@ function exportCSV(
   }
   const hasNotes = notes && Object.keys(notes).length > 0;
   const hasMastery = masteryFilter && masteryFilter !== "all";
-  const cols = ["Tiếng Hàn", "Hán tự", "Nghĩa tiếng Việt"];
-  if (hasMastery) cols.push("Mức độ");
-  if (hasNotes) cols.push("Ghi chú");
+  const cols = ["Ti?ng H�n", "H�n t?", "Nghia ti?ng Vi?t"];
+  if (hasMastery) cols.push("M?c d?");
+  if (hasNotes) cols.push("Ghi ch�");
   const header = cols.join(",") + "\n";
-  const masteryLabel: Record<string, string> = { new: "Mới", learning: "Đang học", mastered: "Đã thuộc" };
+  const masteryLabel: Record<string, string> = { new: "M?i", learning: "�ang h?c", mastered: "�� thu?c" };
   const rows = filtered.map(e => {
     const parts = [`"${e.korean}"`, `"${e.hanja}"`, `"${e.vietnamese}"`];
     if (hasMastery && srData) parts.push(`"${masteryLabel[getMasteryLevel(e.korean, srData)] ?? ""}"`);
@@ -157,7 +157,7 @@ function exportCSV(
   URL.revokeObjectURL(url);
 }
 
-// ─── Spaced Repetition ────────────────────────────────────────────────────────
+// --- Spaced Repetition --------------------------------------------------------
 interface SRCard {
   korean: string;
   interval: number;   // days until next review
@@ -249,7 +249,7 @@ function useSR() {
   return { srData, review, getDueCards, getStats, resetCard };
 }
 
-// ─── Notes hook ───────────────────────────────────────────────────────────────
+// --- Notes hook ---------------------------------------------------------------
 function useNotes() {
   const [notes, setNotes] = useState<Record<string, string>>(() => {
     try { return JSON.parse(localStorage.getItem(NOTES_KEY) || "{}"); } catch { return {}; }
@@ -266,7 +266,7 @@ function useNotes() {
   return { notes, saveNote };
 }
 
-// ─── Favorites hook ───────────────────────────────────────────────────────────
+// --- Favorites hook -----------------------------------------------------------
 function useFavorites() {
   const [favs, setFavs] = useState<Set<string>>(() => {
     try {
@@ -291,7 +291,7 @@ type TabType = "vocab" | "flashcard" | "quiz" | "sr" | "roots" | "favorites" | "
 type QuizMode = "ko2vi" | "vi2ko" | "hanja2ko" | "listen";
 type ViewMode = "card" | "list";
 
-// ─── Flashcard Component ──────────────────────────────────────────────────────
+// --- Flashcard Component ------------------------------------------------------
 function FlashCard({ entry, isFav, onToggleFav }: { entry: HanjaEntry; isFav: boolean; onToggleFav: () => void }) {
   const [flipped, setFlipped] = useState(false);
   const [speaking, setSpeaking] = useState(false);
@@ -310,24 +310,24 @@ function FlashCard({ entry, isFav, onToggleFav }: { entry: HanjaEntry; isFav: bo
         <div style={{ transition: "transform 0.5s", transformStyle: "preserve-3d", transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)", position: "relative", height: "240px" }}>
           <div style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
             className="absolute inset-0 bg-white border-2 border-gray-100 rounded-2xl flex flex-col items-center justify-center p-6">
-            <p className="text-xs text-gray-400 tracking-normal mb-3">Tiếng Hàn</p>
+            <p className="text-xs text-gray-400 tracking-normal mb-3">Ti?ng H�n</p>
             <p className="text-5xl font-bold text-gray-900 mb-2">{entry.korean}</p>
             <p className="text-2xl text-rose-400 font-bold mb-3">{entry.hanja}</p>
             <button onClick={handleSpeak}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${speaking ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-500 hover:bg-rose-50 hover:text-rose-500"}`}>
               <i className={speaking ? "ri-volume-up-fill" : "ri-volume-up-line"}></i>
-              {speaking ? "Đang phát..." : "Nghe phát âm"}
+              {speaking ? "�ang ph�t..." : "Nghe ph�t �m"}
             </button>
           </div>
           <div style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
             className="absolute inset-0 bg-rose-50 border-2 border-rose-200 rounded-2xl flex flex-col items-center justify-center p-6">
-            <p className="text-xs text-rose-400 tracking-normal mb-3">Nghĩa tiếng Việt</p>
+            <p className="text-xs text-rose-400 tracking-normal mb-3">Nghia ti?ng Vi?t</p>
             <p className="text-3xl font-bold text-rose-700 text-center mb-2">{entry.vietnamese}</p>
             <p className="text-lg text-rose-400 mb-3">{entry.hanja}</p>
             <button onClick={handleSpeak}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${speaking ? "bg-rose-500 text-white" : "bg-rose-100 text-rose-500 hover:bg-rose-200"}`}>
               <i className={speaking ? "ri-volume-up-fill" : "ri-volume-up-line"}></i>
-              {speaking ? "Đang phát..." : "Nghe lại"}
+              {speaking ? "�ang ph�t..." : "Nghe l?i"}
             </button>
           </div>
         </div>
@@ -335,13 +335,13 @@ function FlashCard({ entry, isFav, onToggleFav }: { entry: HanjaEntry; isFav: bo
       <button onClick={e => { e.stopPropagation(); onToggleFav(); }}
         className={`mt-3 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${isFav ? "bg-rose-100 text-rose-600" : "bg-gray-100 text-gray-500 hover:bg-rose-50 hover:text-rose-500"}`}>
         <i className={isFav ? "ri-heart-fill" : "ri-heart-line"}></i>
-        {isFav ? "Đã lưu" : "Lưu từ này"}
+        {isFav ? "�� luu" : "Luu t? n�y"}
       </button>
     </div>
   );
 }
 
-// ─── Flashcard Tab ────────────────────────────────────────────────────────────
+// --- Flashcard Tab ------------------------------------------------------------
 function FlashcardTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: string) => void }) {
   const [selectedInitial, setSelectedInitial] = useState<string | null>(null);
   const [onlyFavs, setOnlyFavs] = useState(false);
@@ -376,11 +376,11 @@ function FlashcardTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (
       <div className="flex flex-wrap gap-2 mb-5 items-center">
         <button onClick={() => setOnlyFavs(f => !f)}
           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${onlyFavs ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
-          <i className="ri-heart-line"></i>Chỉ từ yêu thích ({favs.size})
+          <i className="ri-heart-line"></i>Ch? t? y�u th�ch ({favs.size})
         </button>
         <button onClick={() => setSelectedInitial(null)}
           className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600"}`}>
-          Tất cả
+          T?t c?
         </button>
         {ALPHABET_GROUPS.map(g => (
           <button key={g} onClick={() => setSelectedInitial(selectedInitial === g ? null : g)}
@@ -393,7 +393,7 @@ function FlashcardTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (
       {pool.length === 0 ? (
         <div className="text-center py-16 text-gray-400">
           <i className="ri-heart-line text-4xl"></i>
-          <p className="mt-2 text-sm">Chưa có từ yêu thích nào</p>
+          <p className="mt-2 text-sm">Chua c� t? y�u th�ch n�o</p>
         </div>
       ) : (
         <>
@@ -419,14 +419,14 @@ function FlashcardTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (
               <i className="ri-arrow-right-line text-lg"></i>
             </button>
           </div>
-          <p className="text-center text-xs text-gray-400 mt-3">Nhấn thẻ để lật · ← → để chuyển</p>
+          <p className="text-center text-xs text-gray-400 mt-3">Nh?n th? d? l?t � ? ? d? chuy?n</p>
         </>
       )}
     </div>
   );
 }
 
-// ─── Spaced Repetition Tab ────────────────────────────────────────────────────
+// --- Spaced Repetition Tab ----------------------------------------------------
 function SRTab({ favs }: { favs: Set<string> }) {
   const { srData, review, getDueCards, getStats, resetCard } = useSR();
   const [mode, setMode] = useState<"stats" | "session">("stats");
@@ -481,10 +481,10 @@ function SRTab({ favs }: { favs: Set<string> }) {
       <div className="max-w-lg mx-auto">
         <div className="flex items-center justify-between mb-4">
           <button onClick={() => setMode("stats")} className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
-            <i className="ri-arrow-left-line"></i> Dừng
+            <i className="ri-arrow-left-line"></i> D?ng
           </button>
           <span className="text-sm text-gray-500">{sessionIdx + 1} / {sessionCards.length}</span>
-          <span className="text-xs text-green-600 font-medium">✓ {sessionResults.correct} &nbsp; ✗ {sessionResults.wrong}</span>
+          <span className="text-xs text-green-600 font-medium">? {sessionResults.correct} &nbsp; ? {sessionResults.wrong}</span>
         </div>
 
         <div className="w-full bg-gray-100 rounded-full h-1.5 mb-6">
@@ -495,7 +495,7 @@ function SRTab({ favs }: { favs: Set<string> }) {
         {srInfo && (
           <div className="flex gap-2 mb-3 justify-center">
             <span className="px-2 py-0.5 bg-amber-50 text-amber-600 rounded-full text-xs">
-              Đã ôn {srInfo.totalReviews} lần
+              �� �n {srInfo.totalReviews} l?n
             </span>
             <span className="px-2 py-0.5 bg-green-50 text-green-600 rounded-full text-xs">
               Streak: {srInfo.correctStreak}
@@ -504,7 +504,7 @@ function SRTab({ favs }: { favs: Set<string> }) {
         )}
         {!srInfo && (
           <div className="flex justify-center mb-3">
-            <span className="px-2 py-0.5 bg-rose-50 text-rose-500 rounded-full text-xs">Từ mới</span>
+            <span className="px-2 py-0.5 bg-rose-50 text-rose-500 rounded-full text-xs">T? m?i</span>
           </div>
         )}
 
@@ -515,7 +515,7 @@ function SRTab({ favs }: { favs: Set<string> }) {
           {!revealed ? (
             <button onClick={() => setRevealed(true)}
               className="px-6 py-2 bg-gray-100 text-gray-600 rounded-lg text-sm cursor-pointer hover:bg-gray-200 transition-colors">
-              Hiện nghĩa
+              Hi?n nghia
             </button>
           ) : (
             <div className="border-t border-gray-100 pt-4">
@@ -527,13 +527,13 @@ function SRTab({ favs }: { favs: Set<string> }) {
         {/* Rating buttons */}
         {revealed && (
           <div>
-            <p className="text-center text-xs text-gray-400 mb-3">Bạn nhớ từ này như thế nào?</p>
+            <p className="text-center text-xs text-gray-400 mb-3">B?n nh? t? n�y nhu th? n�o?</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {[
-                { q: 0, label: "Quên", sub: "Không nhớ", color: "border-red-300 bg-red-50 text-red-700 hover:bg-red-100" },
-                { q: 2, label: "Khó", sub: "Nhớ mờ", color: "border-orange-300 bg-orange-50 text-orange-700 hover:bg-orange-100" },
-                { q: 3, label: "Được", sub: "Nhớ được", color: "border-yellow-300 bg-yellow-50 text-yellow-700 hover:bg-yellow-100" },
-                { q: 5, label: "Dễ", sub: "Nhớ rõ", color: "border-green-300 bg-green-50 text-green-700 hover:bg-green-100" },
+                { q: 0, label: "Qu�n", sub: "Kh�ng nh?", color: "border-red-300 bg-red-50 text-red-700 hover:bg-red-100" },
+                { q: 2, label: "Kh�", sub: "Nh? m?", color: "border-orange-300 bg-orange-50 text-orange-700 hover:bg-orange-100" },
+                { q: 3, label: "�u?c", sub: "Nh? du?c", color: "border-yellow-300 bg-yellow-50 text-yellow-700 hover:bg-yellow-100" },
+                { q: 5, label: "D?", sub: "Nh? r�", color: "border-green-300 bg-green-50 text-green-700 hover:bg-green-100" },
               ].map(r => (
                 <button key={r.q} onClick={() => handleRate(r.q)}
                   className={`p-3 rounded-xl border-2 cursor-pointer transition-all text-center ${r.color}`}>
@@ -556,21 +556,21 @@ function SRTab({ favs }: { favs: Set<string> }) {
           <div className="w-16 h-16 flex items-center justify-center bg-green-100 rounded-full mx-auto mb-4">
             <i className="ri-check-double-line text-green-600 text-2xl"></i>
           </div>
-          <h3 className="text-xl font-bold text-gray-900 mb-1">Hoàn thành phiên học!</h3>
-          <p className="text-gray-500 mb-3">Đúng {sessionResults.correct} · Sai {sessionResults.wrong} / {sessionCards.length} từ</p>
+          <h3 className="text-xl font-bold text-gray-900 mb-1">Ho�n th�nh phi�n h?c!</h3>
+          <p className="text-gray-500 mb-3">��ng {sessionResults.correct} � Sai {sessionResults.wrong} / {sessionCards.length} t?</p>
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="flex items-center gap-1.5 px-3 py-1.5 bg-orange-50 rounded-full">
               <i className="ri-fire-line text-orange-500"></i>
-              <span className="text-sm font-bold text-orange-600">{streak.currentStreak} ngày liên tiếp</span>
+              <span className="text-sm font-bold text-orange-600">{streak.currentStreak} ng�y li�n ti?p</span>
             </div>
             <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 rounded-full">
               <i className="ri-trophy-line text-amber-500"></i>
-              <span className="text-sm font-bold text-amber-600">Kỷ lục: {streak.longestStreak}</span>
+              <span className="text-sm font-bold text-amber-600">K? l?c: {streak.longestStreak}</span>
             </div>
           </div>
           <div className="flex gap-3">
-            <button onClick={startSession} className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">Tiếp tục ôn</button>
-            <button onClick={() => setMode("stats")} className="flex-1 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">Xem thống kê</button>
+            <button onClick={startSession} className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">Ti?p t?c �n</button>
+            <button onClick={() => setMode("stats")} className="flex-1 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">Xem th?ng k�</button>
           </div>
         </div>
       </div>
@@ -593,18 +593,18 @@ function SRTab({ favs }: { favs: Set<string> }) {
           <i className="ri-fire-line text-orange-500 text-2xl"></i>
         </div>
         <div className="flex-1">
-          <p className="text-2xl font-bold text-orange-600">{streakData.currentStreak} ngày liên tiếp</p>
-          <p className="text-xs text-gray-500">Kỷ lục: {streakData.longestStreak} ngày · Hôm nay: {streakData.history[getToday()] || 0} từ</p>
+          <p className="text-2xl font-bold text-orange-600">{streakData.currentStreak} ng�y li�n ti?p</p>
+          <p className="text-xs text-gray-500">K? l?c: {streakData.longestStreak} ng�y � H�m nay: {streakData.history[getToday()] || 0} t?</p>
         </div>
         <button onClick={() => setUseOnlyFavs(f => !f)}
           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all flex-shrink-0 ${useOnlyFavs ? "bg-rose-500 text-white" : "bg-white text-gray-600 border border-gray-200"}`}>
-          <i className="ri-heart-line"></i>Yêu thích
+          <i className="ri-heart-line"></i>Y�u th�ch
         </button>
       </div>
 
       {/* 14-day chart */}
       <div className="bg-white border border-gray-100 rounded-2xl p-5 mb-5">
-        <p className="text-sm font-semibold text-gray-700 mb-4">Hoạt động 14 ngày qua</p>
+        <p className="text-sm font-semibold text-gray-700 mb-4">Ho?t d?ng 14 ng�y qua</p>
         <div className="flex items-end gap-1 h-20">
           {last14Days.map((d, i) => (
             <div key={i} className="flex-1 flex flex-col items-center gap-1">
@@ -623,10 +623,10 @@ function SRTab({ favs }: { favs: Set<string> }) {
       {/* Stats cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
         {[
-          { label: "Cần ôn hôm nay", value: stats.due, color: "text-rose-600", bg: "bg-rose-50" },
-          { label: "Từ mới", value: stats.newCards, color: "text-amber-600", bg: "bg-amber-50" },
-          { label: "Đang học", value: stats.learning, color: "text-orange-600", bg: "bg-orange-50" },
-          { label: "Đã thuộc", value: stats.mastered, color: "text-green-600", bg: "bg-green-50" },
+          { label: "C?n �n h�m nay", value: stats.due, color: "text-rose-600", bg: "bg-rose-50" },
+          { label: "T? m?i", value: stats.newCards, color: "text-amber-600", bg: "bg-amber-50" },
+          { label: "�ang h?c", value: stats.learning, color: "text-orange-600", bg: "bg-orange-50" },
+          { label: "�� thu?c", value: stats.mastered, color: "text-green-600", bg: "bg-green-50" },
         ].map(s => (
           <div key={s.label} className={`${s.bg} rounded-xl p-4 text-center`}>
             <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
@@ -638,8 +638,8 @@ function SRTab({ favs }: { favs: Set<string> }) {
       {/* Progress bar */}
       <div className="bg-white border border-gray-100 rounded-xl p-4 mb-5">
         <div className="flex justify-between text-xs text-gray-500 mb-2">
-          <span>Tiến độ tổng thể</span>
-          <span>{stats.mastered} / {stats.total} từ đã thuộc ({stats.total > 0 ? Math.round((stats.mastered / stats.total) * 100) : 0}%)</span>
+          <span>Ti?n d? t?ng th?</span>
+          <span>{stats.mastered} / {stats.total} t? d� thu?c ({stats.total > 0 ? Math.round((stats.mastered / stats.total) * 100) : 0}%)</span>
         </div>
         <div className="w-full bg-gray-100 rounded-full h-3">
           <div className="bg-green-400 h-3 rounded-full transition-all" style={{ width: `${stats.total > 0 ? (stats.mastered / stats.total) * 100 : 0}%` }}></div>
@@ -648,24 +648,24 @@ function SRTab({ favs }: { favs: Set<string> }) {
 
       <button onClick={startSession} disabled={dueCards.length === 0}
         className="w-full py-3 bg-rose-500 text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-rose-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-3">
-        {dueCards.length > 0 ? `Bắt đầu ôn tập (${Math.min(20, dueCards.length)} câu)` : "Không có từ cần ôn hôm nay!"}
+        {dueCards.length > 0 ? `B?t d?u �n t?p (${Math.min(20, dueCards.length)} c�u)` : "Kh�ng c� t? c?n �n h�m nay!"}
       </button>
-      {dueCards.length === 0 && <p className="text-center text-sm text-green-600">Tuyệt vời! Hãy quay lại vào ngày mai.</p>}
+      {dueCards.length === 0 && <p className="text-center text-sm text-green-600">Tuy?t v?i! H�y quay l?i v�o ng�y mai.</p>}
 
       <div className="mt-5 bg-gray-50 rounded-xl p-4">
-        <p className="text-xs font-semibold text-gray-600 mb-2">Cách hoạt động (SM-2)</p>
+        <p className="text-xs font-semibold text-gray-600 mb-2">C�ch ho?t d?ng (SM-2)</p>
         <div className="grid grid-cols-2 gap-2 text-xs text-gray-500">
-          <div><span className="text-red-400 font-bold">Quên</span> → Ôn lại ngay hôm sau</div>
-          <div><span className="text-orange-400 font-bold">Khó</span> → Ôn lại ngay hôm sau</div>
-          <div><span className="text-yellow-500 font-bold">Được</span> → Ôn sau vài ngày</div>
-          <div><span className="text-green-500 font-bold">Dễ</span> → Khoảng cách tăng dần</div>
+          <div><span className="text-red-400 font-bold">Qu�n</span> ? �n l?i ngay h�m sau</div>
+          <div><span className="text-orange-400 font-bold">Kh�</span> ? �n l?i ngay h�m sau</div>
+          <div><span className="text-yellow-500 font-bold">�u?c</span> ? �n sau v�i ng�y</div>
+          <div><span className="text-green-500 font-bold">D?</span> ? Kho?ng c�ch tang d?n</div>
         </div>
       </div>
     </div>
   );
 }
 
-// ─── Mastery level badge helper ───────────────────────────────────────────────
+// --- Mastery level badge helper -----------------------------------------------
 function getMasteryLevel(korean: string, srData: Record<string, SRCard>): "new" | "learning" | "mastered" {
   const card = srData[korean];
   if (!card) return "new";
@@ -676,22 +676,22 @@ function getMasteryLevel(korean: string, srData: Record<string, SRCard>): "new" 
 function MasteryBadge({ level }: { level: "new" | "learning" | "mastered" }) {
   if (level === "new") return (
     <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-gray-100 text-gray-500">
-      <i className="ri-seedling-line text-xs"></i>Mới
+      <i className="ri-seedling-line text-xs"></i>M?i
     </span>
   );
   if (level === "learning") return (
     <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-amber-50 text-amber-600">
-      <i className="ri-book-open-line text-xs"></i>Đang học
+      <i className="ri-book-open-line text-xs"></i>�ang h?c
     </span>
   );
   return (
     <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-green-50 text-green-600">
-      <i className="ri-check-double-line text-xs"></i>Đã thuộc
+      <i className="ri-check-double-line text-xs"></i>�� thu?c
     </span>
   );
 }
 
-// ─── Vocab Tab ────────────────────────────────────────────────────────────────
+// --- Vocab Tab ----------------------------------------------------------------
 function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: string) => void }) {
   const { isVipYear, isVip, isVipMonth, isLoggedIn, checkAndRun, modalOpen, modalReason, closeModal } = useVipYearGuard();
   const [search, setSearch] = useState("");
@@ -775,18 +775,18 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
           <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-          <input type="text" placeholder="Tìm từ Hàn, Hán tự, nghĩa tiếng Việt..." value={search} onChange={e => setSearch(e.target.value)}
+          <input type="text" placeholder="T�m t? H�n, H�n t?, nghia ti?ng Vi?t..." value={search} onChange={e => setSearch(e.target.value)}
             className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
         </div>
         <div className="flex gap-2">
           <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
             <button onClick={() => setViewMode("card")}
               className={`px-3 py-1.5 rounded-md text-sm cursor-pointer whitespace-nowrap transition-all ${viewMode === "card" ? "bg-white text-rose-600" : "text-gray-500"}`}>
-              <i className="ri-grid-line mr-1"></i>Thẻ
+              <i className="ri-grid-line mr-1"></i>Th?
             </button>
             <button onClick={() => setViewMode("list")}
               className={`px-3 py-1.5 rounded-md text-sm cursor-pointer whitespace-nowrap transition-all ${viewMode === "list" ? "bg-white text-rose-600" : "text-gray-500"}`}>
-              <i className="ri-list-check mr-1"></i>Danh sách
+              <i className="ri-list-check mr-1"></i>Danh s�ch
             </button>
           </div>
           {/* Export CSV by mastery */}
@@ -795,18 +795,18 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
               className={`flex items-center gap-1.5 px-3 py-2 border rounded-lg text-sm cursor-pointer transition-colors whitespace-nowrap ${
                 isVipYear ? "border-gray-200 text-gray-600 hover:bg-gray-50" : "border-gray-200 text-gray-400 bg-gray-50"
               }`}
-              title={!isVipYear ? "Chỉ VIP Năm mới xuất được" : ""}>
+              title={!isVipYear ? "Ch? VIP Nam m?i xu?t du?c" : ""}>
               <i className={getExportBtnIcon(isLoggedIn, isVip, isVipYear)}></i>
-              {getExportBtnLabel(isLoggedIn, isVip, isVipYear, "Xuất CSV")}
+              {getExportBtnLabel(isLoggedIn, isVip, isVipYear, "Xu?t CSV")}
               {isVipYear && <i className="ri-arrow-down-s-line text-xs"></i>}
             </button>
             {showExportMenu && (
               <div className="absolute right-0 top-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg z-20 min-w-[180px] py-1">
                 {([
-                  { key: "all" as MasteryFilter, label: "Tất cả từ", icon: "ri-file-list-line" },
-                  { key: "new" as MasteryFilter, label: "Chỉ từ Mới", icon: "ri-seedling-line" },
-                  { key: "learning" as MasteryFilter, label: "Chỉ Đang học", icon: "ri-book-open-line" },
-                  { key: "mastered" as MasteryFilter, label: "Chỉ Đã thuộc", icon: "ri-check-double-line" },
+                  { key: "all" as MasteryFilter, label: "T?t c? t?", icon: "ri-file-list-line" },
+                  { key: "new" as MasteryFilter, label: "Ch? t? M?i", icon: "ri-seedling-line" },
+                  { key: "learning" as MasteryFilter, label: "Ch? �ang h?c", icon: "ri-book-open-line" },
+                  { key: "mastered" as MasteryFilter, label: "Ch? �� thu?c", icon: "ri-check-double-line" },
                 ]).map(opt => (
                   <button key={opt.key} onClick={() => handleExportCSV(opt.key)}
                     className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-rose-50 hover:text-rose-600 cursor-pointer transition-colors text-left">
@@ -822,10 +822,10 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
       {/* Mastery filter */}
       <div className="flex flex-wrap gap-2 mb-4">
         {([
-          { key: "all", label: "Tất cả", count: HANJA_DATA.length, color: "bg-rose-500 text-white", inactive: "bg-gray-100 text-gray-600 hover:bg-gray-200" },
-          { key: "new", label: "Mới", count: masteryStats.new, color: "bg-gray-600 text-white", inactive: "bg-gray-100 text-gray-600 hover:bg-gray-200", icon: "ri-seedling-line" },
-          { key: "learning", label: "Đang học", count: masteryStats.learning, color: "bg-amber-500 text-white", inactive: "bg-amber-50 text-amber-600 hover:bg-amber-100", icon: "ri-book-open-line" },
-          { key: "mastered", label: "Đã thuộc", count: masteryStats.mastered, color: "bg-green-500 text-white", inactive: "bg-green-50 text-green-600 hover:bg-green-100", icon: "ri-check-double-line" },
+          { key: "all", label: "T?t c?", count: HANJA_DATA.length, color: "bg-rose-500 text-white", inactive: "bg-gray-100 text-gray-600 hover:bg-gray-200" },
+          { key: "new", label: "M?i", count: masteryStats.new, color: "bg-gray-600 text-white", inactive: "bg-gray-100 text-gray-600 hover:bg-gray-200", icon: "ri-seedling-line" },
+          { key: "learning", label: "�ang h?c", count: masteryStats.learning, color: "bg-amber-500 text-white", inactive: "bg-amber-50 text-amber-600 hover:bg-amber-100", icon: "ri-book-open-line" },
+          { key: "mastered", label: "�� thu?c", count: masteryStats.mastered, color: "bg-green-500 text-white", inactive: "bg-green-50 text-green-600 hover:bg-green-100", icon: "ri-check-double-line" },
         ] as { key: MasteryFilter; label: string; count: number; color: string; inactive: string; icon?: string }[]).map(f => (
           <button key={f.key} onClick={() => setMasteryFilter(f.key)}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${masteryFilter === f.key ? f.color : f.inactive}`}>
@@ -838,7 +838,7 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
       <div className="flex flex-wrap gap-1.5 mb-4">
         <button onClick={() => setSelectedInitial(null)}
           className={`px-3 py-1 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
-          Tất cả
+          T?t c?
         </button>
         {ALPHABET_GROUPS.map(g => (
           <button key={g} onClick={() => setSelectedInitial(selectedInitial === g ? null : g)}
@@ -848,7 +848,7 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
         ))}
       </div>
 
-      <p className="text-xs text-gray-400 mb-4">Hiển thị {filtered.length} / {HANJA_DATA.length} từ · {favs.size} từ yêu thích</p>
+      <p className="text-xs text-gray-400 mb-4">Hi?n th? {filtered.length} / {HANJA_DATA.length} t? � {favs.size} t? y�u th�ch</p>
 
       {viewMode === "card" && (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
@@ -870,7 +870,7 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
                   {mastery !== "mastered" ? (
                     <button onClick={() => markAsLearned(item.korean)}
                       className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-green-50 text-green-600 hover:bg-green-100 cursor-pointer transition-colors whitespace-nowrap">
-                      <i className="ri-check-line text-xs"></i>Đã thuộc
+                      <i className="ri-check-line text-xs"></i>�� thu?c
                     </button>
                   ) : (
                     <button onClick={() => resetToNew(item.korean)}
@@ -888,7 +888,7 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
       {viewMode === "list" && (
         <div className="bg-white border border-gray-100 rounded-xl overflow-hidden">
           <div className="grid grid-cols-[1fr_1fr_1fr_120px_80px_32px] bg-gray-50 px-4 py-2 text-xs font-semibold text-gray-500 border-b border-gray-100">
-            <span>Tiếng Hàn</span><span>Hán tự</span><span>Nghĩa tiếng Việt</span><span>Mức độ</span><span>Đánh dấu</span><span></span>
+            <span>Ti?ng H�n</span><span>H�n t?</span><span>Nghia ti?ng Vi?t</span><span>M?c d?</span><span>��nh d?u</span><span></span>
           </div>
           <div className="divide-y divide-gray-50">
             {filtered.map((item, i) => {
@@ -902,7 +902,7 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
                   {mastery !== "mastered" ? (
                     <button onClick={() => markAsLearned(item.korean)}
                       className="flex items-center gap-1 px-2 py-1 rounded-full text-xs bg-green-50 text-green-600 hover:bg-green-100 cursor-pointer transition-colors whitespace-nowrap w-fit">
-                      <i className="ri-check-line"></i>Đã thuộc
+                      <i className="ri-check-line"></i>�� thu?c
                     </button>
                   ) : (
                     <button onClick={() => resetToNew(item.korean)}
@@ -924,7 +924,7 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
       {filtered.length === 0 && (
         <div className="text-center py-16 text-gray-400">
           <i className="ri-search-line text-4xl"></i>
-          <p className="mt-2 text-sm">Không tìm thấy từ nào</p>
+          <p className="mt-2 text-sm">Kh�ng t�m th?y t? n�o</p>
         </div>
       )}
 
@@ -938,13 +938,13 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
         open={modalOpen}
         onClose={closeModal}
         reason={modalReason ?? "not_vip_year"}
-        featureName="Xuất CSV từ vựng Hán-Hàn"
+        featureName="Xu?t CSV t? v?ng H�n-H�n"
       />
     </div>
   );
 }
 
-// ─── Favorites Tab ────────────────────────────────────────────────────────────
+// --- Favorites Tab ------------------------------------------------------------
 function FavoritesTab({ favs, onToggleFav, onStartFlashcard, notes, onSaveNote }: {
   favs: Set<string>;
   onToggleFav: (k: string) => void;
@@ -988,15 +988,15 @@ function FavoritesTab({ favs, onToggleFav, onStartFlashcard, notes, onSaveNote }
         <div className="w-16 h-16 flex items-center justify-center bg-rose-50 rounded-2xl mx-auto mb-4">
           <i className="ri-heart-line text-rose-300 text-3xl"></i>
         </div>
-        <p className="font-medium text-gray-500 mb-1">Chưa có từ yêu thích</p>
-        <p className="text-sm mb-6">Nhấn biểu tượng ♡ trong tab Từ vựng để lưu từ</p>
+        <p className="font-medium text-gray-500 mb-1">Chua c� t? y�u th�ch</p>
+        <p className="text-sm mb-6">Nh?n bi?u tu?ng ? trong tab T? v?ng d? luu t?</p>
         <button onClick={handleExportAll}
           className={`flex items-center gap-2 px-4 py-2 border rounded-lg text-sm cursor-pointer transition-colors mx-auto ${
             isVipYear ? "border-gray-200 text-gray-600 hover:bg-gray-50" : "border-gray-200 text-gray-400 bg-gray-50"
           }`}
-          title={!isVipYear ? "Chỉ VIP Năm mới xuất được" : ""}>
+          title={!isVipYear ? "Ch? VIP Nam m?i xu?t du?c" : ""}>
           <i className={getExportBtnIcon(isLoggedIn, isVip, isVipYear)}></i>
-          {isVipYear ? `Xuất tất cả ${HANJA_DATA.length} từ ra CSV` : getExportBtnLabel(isLoggedIn, isVip, isVipYear, "")}
+          {isVipYear ? `Xu?t t?t c? ${HANJA_DATA.length} t? ra CSV` : getExportBtnLabel(isLoggedIn, isVip, isVipYear, "")}
         </button>
       </div>
     );
@@ -1007,30 +1007,30 @@ function FavoritesTab({ favs, onToggleFav, onStartFlashcard, notes, onSaveNote }
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
           <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-          <input type="text" placeholder="Tìm trong yêu thích..." value={favSearch} onChange={e => setFavSearch(e.target.value)}
+          <input type="text" placeholder="T�m trong y�u th�ch..." value={favSearch} onChange={e => setFavSearch(e.target.value)}
             className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
         </div>
       </div>
       <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
-        <p className="text-sm text-gray-500">{favList.length} từ đã lưu · {Object.keys(notes).length} ghi chú</p>
+        <p className="text-sm text-gray-500">{favList.length} t? d� luu � {Object.keys(notes).length} ghi ch�</p>
         <div className="flex gap-2 flex-wrap">
           <button onClick={handleExportCSV}
             className={`flex items-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium cursor-pointer transition-colors whitespace-nowrap ${
               isVipYear || isVipMonth ? "border-rose-200 text-rose-600 hover:bg-rose-50" : "border-gray-200 text-gray-400 bg-gray-50"
             }`}>
             <i className={getExportBtnIcon(isLoggedIn, isVip, isVipYear)}></i>
-            {getExportBtnLabel(isLoggedIn, isVip, isVipYear, "Xuất CSV yêu thích")}
+            {getExportBtnLabel(isLoggedIn, isVip, isVipYear, "Xu?t CSV y�u th�ch")}
           </button>
           <button onClick={handleExportAll}
             className={`flex items-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium cursor-pointer transition-colors whitespace-nowrap ${
               isVipYear || isVipMonth ? "border-gray-200 text-gray-600 hover:bg-gray-50" : "border-gray-200 text-gray-400 bg-gray-50"
             }`}>
             <i className={getExportBtnIcon(isLoggedIn, isVip, isVipYear)}></i>
-            {getExportBtnLabel(isLoggedIn, isVip, isVipYear, "Xuất tất cả")}
+            {getExportBtnLabel(isLoggedIn, isVip, isVipYear, "Xu?t t?t c?")}
           </button>
           <button onClick={onStartFlashcard}
             className="flex items-center gap-2 px-4 py-2 bg-rose-500 text-white rounded-lg text-sm font-medium cursor-pointer hover:bg-rose-600 transition-colors whitespace-nowrap">
-            <i className="ri-play-circle-line"></i>Ôn tập Flashcard
+            <i className="ri-play-circle-line"></i>�n t?p Flashcard
           </button>
         </div>
       </div>
@@ -1040,7 +1040,7 @@ function FavoritesTab({ favs, onToggleFav, onStartFlashcard, notes, onSaveNote }
         open={modalOpen}
         onClose={closeModal}
         reason={modalReason ?? "not_vip_year"}
-        featureName="Xuất CSV từ yêu thích"
+        featureName="Xu?t CSV t? y�u th�ch"
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
@@ -1064,7 +1064,7 @@ function FavoritesTab({ favs, onToggleFav, onStartFlashcard, notes, onSaveNote }
                 <textarea
                   value={draftNote}
                   onChange={e => setDraftNote(e.target.value)}
-                  placeholder="Ghi chú của bạn..."
+                  placeholder="Ghi ch� c?a b?n..."
                   maxLength={200}
                   rows={3}
                   className="w-full text-xs border border-rose-200 rounded-lg p-2 resize-none focus:outline-none focus:ring-2 focus:ring-rose-300"
@@ -1073,11 +1073,11 @@ function FavoritesTab({ favs, onToggleFav, onStartFlashcard, notes, onSaveNote }
                 <div className="flex gap-2 mt-1.5">
                   <button onClick={() => commitNote(item.korean)}
                     className="flex-1 py-1 bg-rose-500 text-white rounded-md text-xs font-medium cursor-pointer hover:bg-rose-600 transition-colors">
-                    Lưu
+                    Luu
                   </button>
                   <button onClick={() => setEditingNote(null)}
                     className="flex-1 py-1 border border-gray-200 text-gray-500 rounded-md text-xs cursor-pointer hover:bg-gray-50 transition-colors">
-                    Hủy
+                    H?y
                   </button>
                 </div>
               </div>
@@ -1091,7 +1091,7 @@ function FavoritesTab({ favs, onToggleFav, onStartFlashcard, notes, onSaveNote }
                   </span>
                 ) : (
                   <span className="flex items-center gap-1.5">
-                    <i className="ri-add-line"></i>Thêm ghi chú...
+                    <i className="ri-add-line"></i>Th�m ghi ch�...
                   </span>
                 )}
               </button>
@@ -1103,7 +1103,7 @@ function FavoritesTab({ favs, onToggleFav, onStartFlashcard, notes, onSaveNote }
   );
 }
 
-// ─── Quiz Tab ─────────────────────────────────────────────────────────────────
+// --- Quiz Tab -----------------------------------------------------------------
 function QuizTab({ favs }: { favs: Set<string> }) {
   const [mode, setMode] = useState<QuizMode>("ko2vi");
   const [pool, setPool] = useState<HanjaEntry[]>([]);
@@ -1173,7 +1173,7 @@ function QuizTab({ favs }: { favs: Set<string> }) {
     if (!question) return "";
     if (mode === "ko2vi") return question.entry.hanja;
     if (mode === "vi2ko") return question.entry.hanja;
-    if (mode === "listen") return "Nghe và chọn từ Hàn đúng";
+    if (mode === "listen") return "Nghe v� ch?n t? H�n d�ng";
     return question.entry.vietnamese;
   };
 
@@ -1191,16 +1191,16 @@ function QuizTab({ favs }: { favs: Set<string> }) {
             <div className="w-14 h-14 flex items-center justify-center bg-rose-100 rounded-2xl mx-auto mb-3">
               <i className="ri-gamepad-line text-rose-600 text-2xl"></i>
             </div>
-            <h2 className="text-xl font-bold text-gray-900 mb-1">Quiz Hán-Hàn</h2>
-            <p className="text-sm text-gray-500">Chọn chế độ và bắt đầu luyện tập</p>
+            <h2 className="text-xl font-bold text-gray-900 mb-1">Quiz H�n-H�n</h2>
+            <p className="text-sm text-gray-500">Ch?n ch? d? v� b?t d?u luy?n t?p</p>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
             {([
-              { key: "ko2vi", label: "Hàn → Việt", icon: "ri-arrow-right-line" },
-              { key: "vi2ko", label: "Việt → Hàn", icon: "ri-arrow-left-line" },
-              { key: "hanja2ko", label: "Hán → Hàn", icon: "ri-translate-2" },
-              { key: "listen", label: "Nghe & Chọn", icon: "ri-headphone-line" },
+              { key: "ko2vi", label: "H�n ? Vi?t", icon: "ri-arrow-right-line" },
+              { key: "vi2ko", label: "Vi?t ? H�n", icon: "ri-arrow-left-line" },
+              { key: "hanja2ko", label: "H�n ? H�n", icon: "ri-translate-2" },
+              { key: "listen", label: "Nghe & Ch?n", icon: "ri-headphone-line" },
             ] as { key: QuizMode; label: string; icon: string }[]).map(m => (
               <button
                 key={m.key}
@@ -1218,18 +1218,18 @@ function QuizTab({ favs }: { favs: Set<string> }) {
               onClick={() => setOnlyFavs(f => !f)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${onlyFavs ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600"}`}
             >
-              <i className="ri-heart-line"></i>Chỉ từ yêu thích ({favs.size})
+              <i className="ri-heart-line"></i>Ch? t? y�u th�ch ({favs.size})
             </button>
           </div>
 
           <div className="mb-5">
-            <p className="text-xs text-gray-500 mb-2">Lọc theo chữ cái đầu</p>
+            <p className="text-xs text-gray-500 mb-2">L?c theo ch? c�i d?u</p>
             <div className="flex flex-wrap gap-1.5">
               <button
                 onClick={() => setSelectedInitial(null)}
                 className={`px-2.5 py-1 rounded-full text-xs cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600"}`}
               >
-                Tất cả ({HANJA_DATA.length})
+                T?t c? ({HANJA_DATA.length})
               </button>
               {ALPHABET_GROUPS.map(g => {
                 const cnt = HANJA_DATA.filter(d => getInitial(d.korean[0]) === g).length;
@@ -1250,7 +1250,7 @@ function QuizTab({ favs }: { favs: Set<string> }) {
             disabled={filteredPool.length < 4}
             className="w-full py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Bắt đầu Quiz ({Math.min(20, filteredPool.length)} câu)
+            B?t d?u Quiz ({Math.min(20, filteredPool.length)} c�u)
           </button>
         </div>
       </div>
@@ -1266,13 +1266,13 @@ function QuizTab({ favs }: { favs: Set<string> }) {
             <i className={`text-3xl ${pct >= 80 ? "ri-trophy-line text-green-600" : pct >= 50 ? "ri-emotion-normal-line text-yellow-600" : "ri-emotion-sad-line text-red-500"}`}></i>
           </div>
           <p className="text-3xl font-bold text-gray-900 mb-1">{pct}%</p>
-          <p className="text-gray-500 mb-2">Đúng {score} / {pool.length} câu</p>
+          <p className="text-gray-500 mb-2">��ng {score} / {pool.length} c�u</p>
           <p className="text-sm text-gray-400 mb-8">
-            {pct >= 80 ? "Xuất sắc! Bạn nắm rất tốt Hán-Hàn!" : pct >= 50 ? "Khá tốt! Tiếp tục luyện tập nhé!" : "Cần ôn thêm! Đừng nản lòng!"}
+            {pct >= 80 ? "Xu?t s?c! B?n n?m r?t t?t H�n-H�n!" : pct >= 50 ? "Kh� t?t! Ti?p t?c luy?n t?p nh�!" : "C?n �n th�m! �?ng n?n l�ng!"}
           </p>
           <div className="flex gap-3">
-            <button onClick={startQuiz} className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">Làm lại</button>
-            <button onClick={() => setStarted(false)} className="flex-1 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">Đổi chế độ</button>
+            <button onClick={startQuiz} className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">L�m l?i</button>
+            <button onClick={() => setStarted(false)} className="flex-1 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">�?i ch? d?</button>
           </div>
         </div>
       </div>
@@ -1287,8 +1287,8 @@ function QuizTab({ favs }: { favs: Set<string> }) {
   return (
     <div className="max-w-lg mx-auto">
       <div className="flex items-center justify-between mb-3">
-        <span className="text-sm text-gray-500">Câu {current + 1} / {pool.length}</span>
-        <span className="text-sm font-semibold text-rose-600">Đúng: {score}</span>
+        <span className="text-sm text-gray-500">C�u {current + 1} / {pool.length}</span>
+        <span className="text-sm font-semibold text-rose-600">��ng: {score}</span>
       </div>
       <div className="w-full bg-gray-100 rounded-full h-2 mb-6">
         <div className="bg-rose-400 h-2 rounded-full transition-all" style={{ width: `${(current / pool.length) * 100}%` }}></div>
@@ -1296,7 +1296,7 @@ function QuizTab({ favs }: { favs: Set<string> }) {
 
       <div className="bg-white border border-gray-100 rounded-2xl p-8 text-center mb-4">
         <p className="text-xs text-gray-400 mb-2 tracking-wide">
-          {mode === "ko2vi" ? "Từ tiếng Hàn này có nghĩa là gì?" : mode === "vi2ko" ? "Từ tiếng Việt này là từ Hàn nào?" : mode === "listen" ? "Nghe và chọn từ Hàn đúng" : "Hán tự này đọc là gì?"}
+          {mode === "ko2vi" ? "T? ti?ng H�n n�y c� nghia l� g�?" : mode === "vi2ko" ? "T? ti?ng Vi?t n�y l� t? H�n n�o?" : mode === "listen" ? "Nghe v� ch?n t? H�n d�ng" : "H�n t? n�y d?c l� g�?"}
         </p>
         {mode === "listen" ? (
           <div className="flex flex-col items-center gap-3">
@@ -1304,7 +1304,7 @@ function QuizTab({ favs }: { favs: Set<string> }) {
               className="w-20 h-20 flex items-center justify-center bg-rose-100 rounded-full cursor-pointer hover:bg-rose-200 transition-all">
               <i className="ri-volume-up-line text-rose-600 text-4xl"></i>
             </button>
-            <p className="text-sm text-gray-400">Nhấn để nghe lại</p>
+            <p className="text-sm text-gray-400">Nh?n d? nghe l?i</p>
           </div>
         ) : (
           <>
@@ -1336,14 +1336,14 @@ function QuizTab({ favs }: { favs: Set<string> }) {
 
       {question.answered && (
         <button onClick={nextQuestion} className="w-full py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">
-          {current + 1 >= pool.length ? "Xem kết quả" : "Câu tiếp theo →"}
+          {current + 1 >= pool.length ? "Xem k?t qu?" : "C�u ti?p theo ?"}
         </button>
       )}
     </div>
   );
 }
 
-// ─── Roots Tab ────────────────────────────────────────────────────────────────
+// --- Roots Tab ----------------------------------------------------------------
 function RootsTab() {
   const [selectedChar, setSelectedChar] = useState<string | null>(null);
   const [search, setSearch] = useState("");
@@ -1383,10 +1383,10 @@ function RootsTab() {
       <div className="lg:w-80 flex-shrink-0">
         <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden">
           <div className="p-4 border-b border-gray-100">
-            <p className="text-sm font-semibold text-gray-700 mb-3">Chọn Hán tự để xem từ đồng gốc</p>
+            <p className="text-sm font-semibold text-gray-700 mb-3">Ch?n H�n t? d? xem t? d?ng g?c</p>
             <div className="relative">
               <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-              <input type="text" placeholder="Tìm từ..." value={search} onChange={e => setSearch(e.target.value)}
+              <input type="text" placeholder="T�m t?..." value={search} onChange={e => setSearch(e.target.value)}
                 className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
             </div>
           </div>
@@ -1411,10 +1411,10 @@ function RootsTab() {
             <div className="w-16 h-16 flex items-center justify-center bg-rose-50 rounded-2xl mx-auto mb-4">
               <i className="ri-links-line text-rose-400 text-2xl"></i>
             </div>
-            <p className="text-gray-500 font-medium mb-1">Chọn một Hán tự</p>
-            <p className="text-sm text-gray-400">Xem tất cả từ tiếng Hàn có chứa chữ Hán đó</p>
+            <p className="text-gray-500 font-medium mb-1">Ch?n m?t H�n t?</p>
+            <p className="text-sm text-gray-400">Xem t?t c? t? ti?ng H�n c� ch?a ch? H�n d�</p>
             <div className="mt-6 flex flex-wrap gap-2 justify-center">
-              {["國","民","學","大","文","力","人","心","生","水","白","方"].map(c =>
+              {["?","?","?","?","?","?","?","?","?","?","?","?"].map(c =>
                 charMap.has(c) && (
                   <button key={c} onClick={() => setSelectedChar(c)}
                     className="px-4 py-2 bg-rose-50 text-rose-600 rounded-lg text-lg font-bold cursor-pointer hover:bg-rose-100 transition-colors"
@@ -1430,8 +1430,8 @@ function RootsTab() {
                 <span className="text-3xl font-bold text-rose-600">{selectedChar}</span>
               </div>
               <div>
-                <h3 className="text-lg font-bold text-gray-900">Từ đồng gốc &ldquo;{selectedChar}&rdquo;</h3>
-                <p className="text-sm text-gray-500">{relatedWords.length} từ chứa chữ này</p>
+                <h3 className="text-lg font-bold text-gray-900">T? d?ng g?c &ldquo;{selectedChar}&rdquo;</h3>
+                <p className="text-sm text-gray-500">{relatedWords.length} t? ch?a ch? n�y</p>
               </div>
               <button onClick={() => setSelectedChar(null)}
                 className="ml-auto w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 cursor-pointer rounded-lg hover:bg-gray-100"
@@ -1461,7 +1461,7 @@ function RootsTab() {
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function HanjaVocabPage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>("vocab");
@@ -1480,31 +1480,31 @@ export default function HanjaVocabPage() {
   }, [activeTab]);
 
   const tabs: { key: TabType; label: string; icon: string; badge?: number; isNew?: boolean }[] = [
-    { key: "vocab", label: "Từ vựng", icon: "ri-book-open-line" },
-    { key: "search", label: "Tìm thông minh", icon: "ri-search-eye-line" },
-    { key: "synonym", label: "Đồng nghĩa/âm", icon: "ri-git-merge-line" },
-    { key: "antonym", label: "Đối nghĩa", icon: "ri-arrow-left-right-line" },
-    { key: "hanviet", label: "So sánh Hán Việt", icon: "ri-translate-2", isNew: true },
-    { key: "examples", label: "Câu ví dụ", icon: "ri-newspaper-line", isNew: true },
+    { key: "vocab", label: "T? v?ng", icon: "ri-book-open-line" },
+    { key: "search", label: "T�m th�ng minh", icon: "ri-search-eye-line" },
+    { key: "synonym", label: "�?ng nghia/�m", icon: "ri-git-merge-line" },
+    { key: "antonym", label: "�?i nghia", icon: "ri-arrow-left-right-line" },
+    { key: "hanviet", label: "So s�nh H�n Vi?t", icon: "ri-translate-2", isNew: true },
+    { key: "examples", label: "C�u v� d?", icon: "ri-newspaper-line", isNew: true },
     { key: "flashcard", label: "Flashcard", icon: "ri-stack-line" },
     { key: "quickreview", label: "Quick Review", icon: "ri-flashlight-line" },
     { key: "quiz", label: "Quiz", icon: "ri-gamepad-line" },
     { key: "sr", label: "Spaced Rep", icon: "ri-brain-line" },
-    { key: "roots", label: "Đồng gốc", icon: "ri-links-line" },
-    { key: "topics", label: "Chủ đề", icon: "ri-apps-line" },
-    { key: "ranking", label: "Xếp hạng", icon: "ri-medal-line" },
-    { key: "stats", label: "Thống kê", icon: "ri-bar-chart-line" },
-    { key: "favorites", label: "Yêu thích", icon: "ri-heart-line", badge: favs.size },
-    ...(isAdmin ? [{ key: "export" as TabType, label: "Xuất flashcard", icon: "ri-download-2-line" }] : []),
-    { key: "weekly", label: "Thách thức tuần", icon: "ri-sword-line" },
-    { key: "leaderboard", label: "Bảng xếp hạng", icon: "ri-bar-chart-horizontal-line" },
-    { key: "homophone", label: "Đồng âm khác nghĩa", icon: "ri-sound-module-line" },
-    { key: "topik-exam", label: "Thi thử TOPIK", icon: "ri-file-paper-2-line" },
-    { key: "pronunciation", label: "Luyện phát âm", icon: "ri-mic-line" },
-    { key: "smart-review", label: "Ôn tập thông minh", icon: "ri-brain-line", isNew: true },
-    { key: "advanced-topics", label: "Chủ đề nâng cao", icon: "ri-graduation-cap-line", isNew: true },
-    { key: "diary", label: "Nhật ký học tập", icon: "ri-book-2-line", isNew: true },
-    { key: "word-match", label: "Ghép cặp", icon: "ri-drag-drop-line", isNew: true },
+    { key: "roots", label: "�?ng g?c", icon: "ri-links-line" },
+    { key: "topics", label: "Ch? d?", icon: "ri-apps-line" },
+    { key: "ranking", label: "X?p h?ng", icon: "ri-medal-line" },
+    { key: "stats", label: "Th?ng k�", icon: "ri-bar-chart-line" },
+    { key: "favorites", label: "Y�u th�ch", icon: "ri-heart-line", badge: favs.size },
+    ...(isAdmin ? [{ key: "export" as TabType, label: "Xu?t flashcard", icon: "ri-download-2-line" }] : []),
+    { key: "weekly", label: "Th�ch th?c tu?n", icon: "ri-sword-line" },
+    { key: "leaderboard", label: "B?ng x?p h?ng", icon: "ri-bar-chart-horizontal-line" },
+    { key: "homophone", label: "�?ng �m kh�c nghia", icon: "ri-sound-module-line" },
+    { key: "topik-exam", label: "Thi th? TOPIK", icon: "ri-file-paper-2-line" },
+    { key: "pronunciation", label: "Luy?n ph�t �m", icon: "ri-mic-line" },
+    { key: "smart-review", label: "�n t?p th�ng minh", icon: "ri-brain-line", isNew: true },
+    { key: "advanced-topics", label: "Ch? d? n�ng cao", icon: "ri-graduation-cap-line", isNew: true },
+    { key: "diary", label: "Nh?t k� h?c t?p", icon: "ri-book-2-line", isNew: true },
+    { key: "word-match", label: "Gh�p c?p", icon: "ri-drag-drop-line", isNew: true },
   ];
 
   return (
@@ -1514,20 +1514,20 @@ export default function HanjaVocabPage() {
         <div className="mb-6">
           <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-500 hover:text-gray-700 mb-4 cursor-pointer">
             <i className="ri-arrow-left-line"></i>
-            <span className="text-sm">Quay lại</span>
+            <span className="text-sm">Quay l?i</span>
           </button>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center bg-rose-100 rounded-xl">
               <i className="ri-translate-2 text-rose-600 text-xl"></i>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">Từ vựng Hán-Hàn</h1>
-              <p className="text-sm text-gray-500">{HANJA_DATA.length} từ · {favs.size} yêu thích</p>
+              <h1 className="text-xl font-bold text-gray-900">T? v?ng H�n-H�n</h1>
+              <p className="text-sm text-gray-500">{HANJA_DATA.length} t? � {favs.size} y�u th�ch</p>
             </div>
           </div>
         </div>
 
-        {/* Tabs — scrollable on mobile */}
+        {/* Tabs � scrollable on mobile */}
         <div className="mb-6 -mx-4 md:mx-0">
           <div className="flex gap-1 bg-gray-100 rounded-none md:rounded-xl p-1 overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: "none" }}>
             {tabs.map(t => (

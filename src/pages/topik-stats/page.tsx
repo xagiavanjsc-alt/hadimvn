@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { vocabularyData, VOCAB_CATEGORIES } from "@/mocks/vocabularyData";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -39,10 +39,10 @@ interface CloudQuizHistory {
 }
 
 const LEVELS = [
-  { id: "A1", label: "A1 - Sơ cấp 1", color: "#34d399", desc: "Giao tiếp cơ bản hàng ngày" },
-  { id: "A2", label: "A2 - Sơ cấp 2", color: "#38bdf8", desc: "Tình huống quen thuộc" },
-  { id: "B1", label: "B1 - Trung cấp 1", color: "#fb923c", desc: "Chủ đề phổ biến, công việc" },
-  { id: "B2", label: "B2 - Trung cấp 2", color: "#f87171", desc: "Văn bản phức tạp, trừu tượng" },
+  { id: "A1", label: "A1 - So c?p 1", color: "#34d399", desc: "Giao ti?p co b?n h�ng ng�y" },
+  { id: "A2", label: "A2 - So c?p 2", color: "#38bdf8", desc: "T�nh hu?ng quen thu?c" },
+  { id: "B1", label: "B1 - Trung c?p 1", color: "#fb923c", desc: "Ch? d? ph? bi?n, c�ng vi?c" },
+  { id: "B2", label: "B2 - Trung c?p 2", color: "#f87171", desc: "Van b?n ph?c t?p, tr?u tu?ng" },
 ];
 
 interface RadialProgressProps {
@@ -112,7 +112,7 @@ export default function TopikStatsPage() {
         score: c.score,
         total: c.total,
         level: c.level,
-        topic: c.topic || "Tổng hợp",
+        topic: c.topic || "T?ng h?p",
         quiz_type: c.quiz_type,
       }))
     : localQuizHistory;
@@ -194,8 +194,8 @@ export default function TopikStatsPage() {
         {/* Header */}
         <div className="flex items-start justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-white mb-1">Thống kê TOPIK</h1>
-            <p className="text-app-text-secondary text-sm">Theo dõi tiến độ học từ vựng TOPIK I/II theo cấp độ A1–B2</p>
+            <h1 className="text-2xl font-bold text-white mb-1">Th?ng k� TOPIK</h1>
+            <p className="text-app-text-secondary text-sm">Theo d�i ti?n d? h?c t? v?ng TOPIK I/II theo c?p d? A1�B2</p>
           </div>
           {user && (
             <button
@@ -204,7 +204,7 @@ export default function TopikStatsPage() {
               className="flex items-center gap-2 px-4 py-2 rounded-xl bg-app-card/50 hover:bg-app-card/70 text-white/50 hover:text-white/80 text-xs transition-all cursor-pointer whitespace-nowrap"
             >
               <i className={`ri-cloud-line text-sm ${syncStatus === "syncing" ? "animate-pulse text-app-accent-primary" : syncStatus === "done" ? "text-[#34d399]" : ""}`}></i>
-              {syncStatus === "syncing" ? "Đang đồng bộ..." : syncStatus === "done" ? "Đã đồng bộ!" : "Đồng bộ lên cloud"}
+              {syncStatus === "syncing" ? "�ang d?ng b?..." : syncStatus === "done" ? "�� d?ng b?!" : "�?ng b? l�n cloud"}
             </button>
           )}
         </div>
@@ -212,10 +212,10 @@ export default function TopikStatsPage() {
         {/* Top KPI cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
           {[
-            { label: "Tổng từ vựng", value: totalWords, icon: "ri-book-2-line", color: "app-accent-primary" },
-            { label: "Đã học", value: totalStudied, icon: "ri-eye-line", color: "#38bdf8" },
-            { label: "Đã thuộc", value: totalMastered, icon: "ri-check-double-line", color: "#34d399" },
-            { label: "Cần ôn hôm nay", value: totalDue, icon: "ri-alarm-line", color: "#fb923c" },
+            { label: "T?ng t? v?ng", value: totalWords, icon: "ri-book-2-line", color: "app-accent-primary" },
+            { label: "�� h?c", value: totalStudied, icon: "ri-eye-line", color: "#38bdf8" },
+            { label: "�� thu?c", value: totalMastered, icon: "ri-check-double-line", color: "#34d399" },
+            { label: "C?n �n h�m nay", value: totalDue, icon: "ri-alarm-line", color: "#fb923c" },
           ].map((kpi) => (
             <div key={kpi.label} className="bg-app-surface/50 border border-app-border rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
@@ -232,7 +232,7 @@ export default function TopikStatsPage() {
         {/* Tabs */}
         <div className="flex gap-1 bg-app-surface/50 border border-app-border rounded-xl p-1 mb-6 w-fit">
           {(["overview", "levels", "categories", "history"] as const).map((tab) => {
-            const labels = { overview: "Tổng quan", levels: "Theo cấp độ", categories: "Theo chủ đề", history: "Lịch sử quiz" };
+            const labels = { overview: "T?ng quan", levels: "Theo c?p d?", categories: "Theo ch? d?", history: "L?ch s? quiz" };
             return (
               <button
                 key={tab}
@@ -254,22 +254,22 @@ export default function TopikStatsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {/* Overall progress */}
               <div className="bg-app-surface/50 border border-app-border rounded-2xl p-6 flex flex-col items-center justify-center">
-                <p className="text-white/50 text-sm mb-4">Tiến độ tổng thể</p>
+                <p className="text-white/50 text-sm mb-4">Ti?n d? t?ng th?</p>
                 <div className="relative">
                   <RadialProgress value={animated ? overallPct : 0} color="app-accent-primary" size={140} />
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                     <p className="text-3xl font-bold text-white">{overallPct}%</p>
-                    <p className="text-app-text-muted text-xs">đã thuộc</p>
+                    <p className="text-app-text-muted text-xs">d� thu?c</p>
                   </div>
                 </div>
                 <div className="mt-4 grid grid-cols-2 gap-3 w-full">
                   <div className="text-center">
                     <p className="text-lg font-bold text-[#34d399]">{totalMastered}</p>
-                    <p className="text-app-text-muted text-xs">Đã thuộc</p>
+                    <p className="text-app-text-muted text-xs">�� thu?c</p>
                   </div>
                   <div className="text-center">
                     <p className="text-lg font-bold text-white/50">{totalWords - totalMastered}</p>
-                    <p className="text-app-text-muted text-xs">Chưa thuộc</p>
+                    <p className="text-app-text-muted text-xs">Chua thu?c</p>
                   </div>
                 </div>
               </div>
@@ -283,7 +283,7 @@ export default function TopikStatsPage() {
                         <span className="px-2 py-0.5 rounded text-xs font-bold" style={{ backgroundColor: `${lv.color}20`, color: lv.color }}>
                           {lv.id}
                         </span>
-                        <span className="text-white/50 text-xs">{lv.total} từ</span>
+                        <span className="text-white/50 text-xs">{lv.total} t?</span>
                       </div>
                       <span className="text-white/60 text-sm font-bold">{lv.masteredPct}%</span>
                     </div>
@@ -294,9 +294,9 @@ export default function TopikStatsPage() {
                       ></div>
                     </div>
                     <div className="flex justify-between mt-1.5">
-                      <span className="text-app-text-muted text-xs">{lv.mastered} đã thuộc</span>
+                      <span className="text-app-text-muted text-xs">{lv.mastered} d� thu?c</span>
                       {lv.due > 0 && (
-                        <span className="text-[#fb923c] text-xs">{lv.due} cần ôn</span>
+                        <span className="text-[#fb923c] text-xs">{lv.due} c?n �n</span>
                       )}
                     </div>
                   </div>
@@ -306,38 +306,38 @@ export default function TopikStatsPage() {
 
             {/* Quiz summary */}
             <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
-              <p className="text-white/60 text-sm font-medium mb-4">Kết quả Quiz</p>
+              <p className="text-white/60 text-sm font-medium mb-4">K?t qu? Quiz</p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="text-center">
                   <p className="text-2xl font-bold text-app-accent-primary">{quizHistory.length}</p>
-                  <p className="text-app-text-muted text-xs">Bài đã làm</p>
+                  <p className="text-app-text-muted text-xs">B�i d� l�m</p>
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-bold text-[#34d399]">{avgScore}%</p>
-                  <p className="text-app-text-muted text-xs">Điểm trung bình</p>
+                  <p className="text-app-text-muted text-xs">�i?m trung b�nh</p>
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-bold text-[#38bdf8]">{bestScore}%</p>
-                  <p className="text-app-text-muted text-xs">Điểm cao nhất</p>
+                  <p className="text-app-text-muted text-xs">�i?m cao nh?t</p>
                 </div>
               </div>
             </div>
 
             {/* Study activity */}
             <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
-              <p className="text-white/60 text-sm font-medium mb-4">Hoạt động học tập</p>
+              <p className="text-white/60 text-sm font-medium mb-4">Ho?t d?ng h?c t?p</p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="text-center">
                   <p className="text-2xl font-bold text-app-accent-primary">{spacedData.cards.length}</p>
-                  <p className="text-app-text-muted text-xs">Thẻ đã xem</p>
+                  <p className="text-app-text-muted text-xs">Th? d� xem</p>
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-bold text-[#34d399]">{studyDays}</p>
-                  <p className="text-app-text-muted text-xs">Ngày học</p>
+                  <p className="text-app-text-muted text-xs">Ng�y h?c</p>
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-bold text-[#fb923c]">{totalDue}</p>
-                  <p className="text-app-text-muted text-xs">Cần ôn hôm nay</p>
+                  <p className="text-app-text-muted text-xs">C?n �n h�m nay</p>
                 </div>
               </div>
             </div>
@@ -369,10 +369,10 @@ export default function TopikStatsPage() {
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
                   {[
-                    { label: "Tổng từ", value: lv.total, color: "text-white" },
-                    { label: "Đã học", value: lv.studied, color: "text-[#38bdf8]" },
-                    { label: "Đã thuộc", value: lv.mastered, color: "text-[#34d399]" },
-                    { label: "Cần ôn", value: lv.due, color: "text-[#fb923c]" },
+                    { label: "T?ng t?", value: lv.total, color: "text-white" },
+                    { label: "�� h?c", value: lv.studied, color: "text-[#38bdf8]" },
+                    { label: "�� thu?c", value: lv.mastered, color: "text-[#34d399]" },
+                    { label: "C?n �n", value: lv.due, color: "text-[#fb923c]" },
                   ].map((stat) => (
                     <div key={stat.label} className="bg-app-surface/50 rounded-xl p-3 text-center">
                       <p className={`text-xl font-bold ${stat.color}`}>{stat.value}</p>
@@ -385,7 +385,7 @@ export default function TopikStatsPage() {
                 <div className="space-y-2">
                   <div>
                     <div className="flex justify-between text-xs mb-1">
-                      <span className="text-app-text-secondary">Đã học</span>
+                      <span className="text-app-text-secondary">�� h?c</span>
                       <span className="text-[#38bdf8]">{lv.studiedPct}%</span>
                     </div>
                     <div className="h-1.5 bg-white/6 rounded-full overflow-hidden">
@@ -394,7 +394,7 @@ export default function TopikStatsPage() {
                   </div>
                   <div>
                     <div className="flex justify-between text-xs mb-1">
-                      <span className="text-app-text-secondary">Đã thuộc</span>
+                      <span className="text-app-text-secondary">�� thu?c</span>
                       <span className="text-[#34d399]">{lv.masteredPct}%</span>
                     </div>
                     <div className="h-1.5 bg-white/6 rounded-full overflow-hidden">
@@ -418,7 +418,7 @@ export default function TopikStatsPage() {
                   </div>
                   <div>
                     <p className="text-white/80 text-sm font-medium">{cat.label}</p>
-                    <p className="text-app-text-muted text-xs">{cat.total} từ</p>
+                    <p className="text-app-text-muted text-xs">{cat.total} t?</p>
                   </div>
                   <span className="ml-auto text-sm font-bold" style={{ color: cat.color }}>{cat.pct}%</span>
                 </div>
@@ -429,8 +429,8 @@ export default function TopikStatsPage() {
                   ></div>
                 </div>
                 <div className="flex justify-between mt-1.5">
-                  <span className="text-app-text-muted text-xs">{cat.mastered} đã thuộc</span>
-                  <span className="text-app-text-muted text-xs">{cat.total - cat.mastered} còn lại</span>
+                  <span className="text-app-text-muted text-xs">{cat.mastered} d� thu?c</span>
+                  <span className="text-app-text-muted text-xs">{cat.total - cat.mastered} c�n l?i</span>
                 </div>
               </div>
             ))}
@@ -444,13 +444,13 @@ export default function TopikStatsPage() {
             {!user && (
               <div className="mb-4 p-3 bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl flex items-center gap-3">
                 <i className="ri-cloud-off-line text-app-accent-primary/60 text-sm"></i>
-                <p className="text-app-accent-primary/60 text-xs">Đăng nhập để lưu lịch sử quiz lên cloud và xem trên mọi thiết bị</p>
+                <p className="text-app-accent-primary/60 text-xs">�ang nh?p d? luu l?ch s? quiz l�n cloud v� xem tr�n m?i thi?t b?</p>
               </div>
             )}
             {user && loadingCloud && (
               <div className="mb-4 p-3 bg-app-surface/50 border border-app-border rounded-xl flex items-center gap-3">
                 <i className="ri-loader-4-line text-app-text-muted text-sm animate-spin"></i>
-                <p className="text-app-text-muted text-xs">Đang tải lịch sử từ cloud...</p>
+                <p className="text-app-text-muted text-xs">�ang t?i l?ch s? t? cloud...</p>
               </div>
             )}
             {quizHistory.length === 0 ? (
@@ -458,15 +458,15 @@ export default function TopikStatsPage() {
                 <div className="w-16 h-16 rounded-full bg-app-card/50 flex items-center justify-center mx-auto mb-4">
                   <i className="ri-history-line text-app-text-muted text-2xl"></i>
                 </div>
-                <p className="text-app-text-muted text-sm">Chưa có lịch sử quiz</p>
-                <p className="text-app-text-muted text-xs mt-1">Làm bài quiz TOPIK để xem kết quả ở đây</p>
+                <p className="text-app-text-muted text-sm">Chua c� l?ch s? quiz</p>
+                <p className="text-app-text-muted text-xs mt-1">L�m b�i quiz TOPIK d? xem k?t qu? ? d�y</p>
               </div>
             ) : (
               <div className="space-y-2">
                 {quizHistory.map((q, i) => {
                   const pct = Math.round((q.score / q.total) * 100);
                   const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
-                  const typeLabel = q.quiz_type === "reading" ? "Đọc hiểu" : q.quiz_type === "listening" ? "Nghe" : "Từ vựng";
+                  const typeLabel = q.quiz_type === "reading" ? "�?c hi?u" : q.quiz_type === "listening" ? "Nghe" : "T? v?ng";
                   return (
                     <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 flex items-center gap-4">
                       <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${color}15` }}>
@@ -474,10 +474,10 @@ export default function TopikStatsPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-0.5">
-                          <p className="text-white/70 text-sm font-medium">{q.topic || "Tổng hợp"}</p>
+                          <p className="text-white/70 text-sm font-medium">{q.topic || "T?ng h?p"}</p>
                           <span className="px-1.5 py-0.5 rounded text-[10px] bg-white/8 text-app-text-muted">{typeLabel}</span>
                         </div>
-                        <p className="text-app-text-muted text-xs">{q.level} · {q.score}/{q.total} câu đúng</p>
+                        <p className="text-app-text-muted text-xs">{q.level} � {q.score}/{q.total} c�u d�ng</p>
                       </div>
                       <div className="text-right flex-shrink-0">
                         <p className="text-app-text-muted text-xs">{new Date(q.date).toLocaleDateString("vi-VN")}</p>

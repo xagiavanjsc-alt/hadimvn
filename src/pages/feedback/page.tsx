@@ -1,20 +1,20 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase, isVipActive } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 
 const CATEGORIES = [
-  { id: "general", label: "Tổng quan", icon: "ri-chat-smile-2-line", color: "#34d399" },
-  { id: "feature", label: "Tính năng", icon: "ri-settings-line", color: "#a78bfa" },
-  { id: "content", label: "Nội dung học", icon: "ri-book-open-line", color: "#fb923c" },
-  { id: "ui", label: "Giao diện", icon: "ri-layout-line", color: "#38bdf8" },
-  { id: "performance", label: "Hiệu suất", icon: "ri-speed-line", color: "app-accent-primary" },
-  { id: "suggestion", label: "Đề xuất tính năng", icon: "ri-lightbulb-line", color: "#f472b6" },
+  { id: "general", label: "T?ng quan", icon: "ri-chat-smile-2-line", color: "#34d399" },
+  { id: "feature", label: "T�nh nang", icon: "ri-settings-line", color: "#a78bfa" },
+  { id: "content", label: "N?i dung h?c", icon: "ri-book-open-line", color: "#fb923c" },
+  { id: "ui", label: "Giao di?n", icon: "ri-layout-line", color: "#38bdf8" },
+  { id: "performance", label: "Hi?u su?t", icon: "ri-speed-line", color: "app-accent-primary" },
+  { id: "suggestion", label: "�? xu?t t�nh nang", icon: "ri-lightbulb-line", color: "#f472b6" },
 ];
 
-const RATING_LABELS = ["", "Rất tệ", "Tệ", "Bình thường", "Tốt", "Tuyệt vời!"];
-const RATING_EMOJIS = ["", "😞", "😕", "😐", "😊", "🤩"];
+const RATING_LABELS = ["", "R?t t?", "T?", "B�nh thu?ng", "T?t", "Tuy?t v?i!"];
+const RATING_EMOJIS = ["", "??", "??", "??", "??", "??"];
 
 function StarRating({ value, onChange }: { value: number; onChange: (v: number) => void }) {
   const [hover, setHover] = useState(0);
@@ -60,15 +60,15 @@ export default function FeedbackPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (rating === 0) { setError("Vui lòng chọn đánh giá sao"); return; }
-    if (!title.trim() || !content.trim()) { setError("Vui lòng điền đầy đủ thông tin"); return; }
+    if (rating === 0) { setError("Vui l�ng ch?n d�nh gi� sao"); return; }
+    if (!title.trim() || !content.trim()) { setError("Vui l�ng di?n d?y d? th�ng tin"); return; }
 
     setSubmitting(true);
     setError(null);
     try {
       const { error: err } = await supabase.from("app_feedback").insert({
         user_id: user?.id || null,
-        user_name: profile?.display_name || "Khách",
+        user_name: profile?.display_name || "Kh�ch",
         user_email: user?.email || "",
         rating,
         category,
@@ -81,7 +81,7 @@ export default function FeedbackPage() {
       if (err) throw err;
       setSubmitted(true);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Gửi góp ý thất bại");
+      setError(err instanceof Error ? err.message : "G?i g�p � th?t b?i");
     } finally {
       setSubmitting(false);
     }
@@ -89,22 +89,22 @@ export default function FeedbackPage() {
 
   if (submitted) {
     return (
-      <DashboardLayout title="Góp ý & Đánh giá" subtitle="Cảm ơn bạn đã góp ý!">
+      <DashboardLayout title="G�p � & ��nh gi�" subtitle="C?m on b?n d� g�p �!">
         <div className="max-w-md mx-auto text-center py-16">
-          <div className="text-6xl mb-4">🎉</div>
-          <h2 className="text-white font-bold text-xl mb-2">Cảm ơn bạn rất nhiều!</h2>
+          <div className="text-6xl mb-4">??</div>
+          <h2 className="text-white font-bold text-xl mb-2">C?m on b?n r?t nhi?u!</h2>
           <p className="text-app-text-secondary text-sm mb-2 leading-relaxed">
-            Góp ý của bạn rất có giá trị với chúng tôi. Đội ngũ phát triển sẽ xem xét và cải thiện ứng dụng dựa trên phản hồi của bạn.
+            G�p � c?a b?n r?t c� gi� tr? v?i ch�ng t�i. �?i ngu ph�t tri?n s? xem x�t v� c?i thi?n ?ng d?ng d?a tr�n ph?n h?i c?a b?n.
           </p>
-          <p className="text-app-text-muted text-xs mb-8">Thường phản hồi trong vòng 24–48 giờ</p>
+          <p className="text-app-text-muted text-xs mb-8">Thu?ng ph?n h?i trong v�ng 24�48 gi?</p>
           <div className="flex gap-3 justify-center">
             <button onClick={() => navigate(-1)}
               className="px-6 py-3 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap hover:bg-app-card/50 transition-colors">
-              Quay lại
+              Quay l?i
             </button>
             <button onClick={() => { setSubmitted(false); setRating(0); setTitle(""); setContent(""); }}
               className="px-6 py-3 rounded-xl bg-app-accent-primary text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap">
-              Góp ý thêm
+              G�p � th�m
             </button>
           </div>
         </div>
@@ -114,8 +114,8 @@ export default function FeedbackPage() {
 
   return (
     <DashboardLayout
-      title="Góp ý & Đánh giá"
-      subtitle="Chia sẻ trải nghiệm của bạn để giúp chúng tôi cải thiện ứng dụng"
+      title="G�p � & ��nh gi�"
+      subtitle="Chia s? tr?i nghi?m c?a b?n d? gi�p ch�ng t�i c?i thi?n ?ng d?ng"
     >
       <div className="max-w-2xl mx-auto">
         {/* Hero */}
@@ -124,9 +124,9 @@ export default function FeedbackPage() {
           <div className="absolute inset-0 opacity-20"
             style={{ backgroundImage: "radial-gradient(circle at 20% 50%, app-accent-primary 0%, transparent 50%), radial-gradient(circle at 80% 50%, #34d399 0%, transparent 50%)" }} />
           <div className="relative z-10 text-center">
-            <div className="text-4xl mb-3">💬</div>
-            <h2 className="text-white font-bold text-lg mb-1">Ý kiến của bạn quan trọng với chúng tôi!</h2>
-            <p className="text-app-text-secondary text-sm">Mỗi góp ý giúp Hàn Quốc Ơi! trở nên tốt hơn mỗi ngày</p>
+            <div className="text-4xl mb-3">??</div>
+            <h2 className="text-white font-bold text-lg mb-1">� ki?n c?a b?n quan tr?ng v?i ch�ng t�i!</h2>
+            <p className="text-app-text-secondary text-sm">M?i g�p � gi�p H�n Qu?c Oi! tr? n�n t?t hon m?i ng�y</p>
           </div>
         </div>
 
@@ -134,14 +134,14 @@ export default function FeedbackPage() {
           {/* Star rating */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-6">
             <p className="text-white/50 text-xs font-semibold tracking-normal mb-4 text-center">
-              Bạn đánh giá ứng dụng như thế nào?
+              B?n d�nh gi� ?ng d?ng nhu th? n�o?
             </p>
             <StarRating value={rating} onChange={setRating} />
           </div>
 
           {/* Category */}
           <div>
-            <label className="text-xs font-semibold text-white/50 mb-3 block tracking-normal">Chủ đề góp ý</label>
+            <label className="text-xs font-semibold text-white/50 mb-3 block tracking-normal">Ch? d? g�p �</label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {CATEGORIES.map(cat => (
                 <button key={cat.id} type="button" onClick={() => setCategory(cat.id)}
@@ -166,10 +166,10 @@ export default function FeedbackPage() {
           {/* Title */}
           <div>
             <label className="text-xs font-semibold text-white/50 mb-1.5 block">
-              Tiêu đề <span className="text-rose-400">*</span>
+              Ti�u d? <span className="text-rose-400">*</span>
             </label>
             <input type="text" value={title} onChange={e => setTitle(e.target.value.slice(0, 100))}
-              placeholder="VD: Tính năng flashcard rất hay, muốn thêm chế độ..."
+              placeholder="VD: T�nh nang flashcard r?t hay, mu?n th�m ch? d?..."
               className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
               required />
             <p className="text-[10px] text-right mt-1 text-app-text-muted">{title.length}/100</p>
@@ -178,10 +178,10 @@ export default function FeedbackPage() {
           {/* Content */}
           <div>
             <label className="text-xs font-semibold text-white/50 mb-1.5 block">
-              Nội dung chi tiết <span className="text-rose-400">*</span>
+              N?i dung chi ti?t <span className="text-rose-400">*</span>
             </label>
             <textarea value={content} onChange={e => setContent(e.target.value.slice(0, 500))}
-              placeholder="Mô tả chi tiết góp ý, đề xuất hoặc trải nghiệm của bạn..."
+              placeholder="M� t? chi ti?t g�p �, d? xu?t ho?c tr?i nghi?m c?a b?n..."
               rows={5} maxLength={500}
               className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white/80 text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors resize-none"
               required />
@@ -195,8 +195,8 @@ export default function FeedbackPage() {
                 <i className="ri-user-line text-app-accent-primary text-sm" />
               </div>
               <div>
-                <p className="text-white/60 text-xs font-medium">{profile?.display_name || "Học viên"}</p>
-                <p className="text-app-text-muted text-[10px]">Góp ý sẽ được gửi kèm tên tài khoản</p>
+                <p className="text-white/60 text-xs font-medium">{profile?.display_name || "H?c vi�n"}</p>
+                <p className="text-app-text-muted text-[10px]">G�p � s? du?c g?i k�m t�n t�i kho?n</p>
               </div>
               {isVipActive(profile) && (
                 <span className="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-app-accent-primary/10 text-app-accent-primary font-bold">VIP</span>
@@ -214,19 +214,19 @@ export default function FeedbackPage() {
           <button type="submit" disabled={submitting || rating === 0 || !title.trim() || !content.trim()}
             className="w-full py-3.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors flex items-center justify-center gap-2">
             {submitting ? (
-              <><div className="w-4 h-4 border-2 border-[#0f1117]/30 border-t-[#0f1117] rounded-full animate-spin" />Đang gửi...</>
+              <><div className="w-4 h-4 border-2 border-[#0f1117]/30 border-t-[#0f1117] rounded-full animate-spin" />�ang g?i...</>
             ) : (
-              <><i className="ri-send-plane-line" />Gửi góp ý</>
+              <><i className="ri-send-plane-line" />G?i g�p �</>
             )}
           </button>
         </form>
 
         <div className="mt-6 pt-6 border-t border-app-border text-center">
           <p className="text-app-text-muted text-xs">
-            Có lỗi kỹ thuật?{" "}
+            C� l?i k? thu?t?{" "}
             <button onClick={() => navigate("/report-bug")}
               className="text-rose-400/60 hover:text-rose-400 cursor-pointer transition-colors">
-              Báo cáo lỗi tại đây
+              B�o c�o l?i t?i d�y
             </button>
           </p>
         </div>

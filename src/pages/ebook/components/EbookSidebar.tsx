@@ -1,4 +1,4 @@
-﻿import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
+import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
 
 interface Props {
   lessons: ApprovedLesson[];
@@ -45,8 +45,8 @@ export default function EbookSidebar({
       {/* Quick actions */}
       <div className="bg-app-bg border border-app-border rounded-xl p-4">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-white/50 text-xs font-medium tracking-normal">Chọn nhanh</p>
-          <span className="text-app-text-muted text-xs">{selectedRanks.length}/{lessons.length} đã chọn</span>
+          <p className="text-white/50 text-xs font-medium tracking-normal">Ch?n nhanh</p>
+          <span className="text-app-text-muted text-xs">{selectedRanks.length}/{lessons.length} d� ch?n</span>
         </div>
         <div className="flex flex-wrap gap-2">
           <button
@@ -54,7 +54,7 @@ export default function EbookSidebar({
             className="flex items-center gap-1.5 bg-app-card/50 hover:bg-app-card/70 text-white/60 hover:text-white/80 text-xs font-medium px-3 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-checkbox-multiple-line"></i>
-            Chọn tất cả ({lessons.length})
+            Ch?n t?t c? ({lessons.length})
           </button>
           {highQualityCount > 0 && (
             <button
@@ -62,7 +62,7 @@ export default function EbookSidebar({
               className="flex items-center gap-1.5 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-xs font-medium px-3 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-star-fill text-[10px]"></i>
-              Chỉ 4-5 sao ({highQualityCount})
+              Ch? 4-5 sao ({highQualityCount})
             </button>
           )}
           {selectedRanks.length > 0 && (
@@ -71,21 +71,21 @@ export default function EbookSidebar({
               className="flex items-center gap-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-medium px-3 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap"
             >
               <i className="ri-close-line"></i>
-              Bỏ chọn tất cả
+              B? ch?n t?t c?
             </button>
           )}
         </div>
       </div>
 
-      {/* Selected lessons — ordered */}
+      {/* Selected lessons � ordered */}
       {orderedSelected.length > 0 && (
         <div className="bg-app-bg border border-app-border rounded-xl p-4">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-5 h-5 flex items-center justify-center bg-app-accent-primary/10 rounded">
               <i className="ri-sort-asc text-app-accent-primary text-xs"></i>
             </div>
-            <p className="text-white/70 text-xs font-semibold">Thứ tự trong ebook</p>
-            <span className="text-app-text-muted text-[10px] ml-auto">Kéo để sắp xếp</span>
+            <p className="text-white/70 text-xs font-semibold">Th? t? trong ebook</p>
+            <span className="text-app-text-muted text-[10px] ml-auto">K�o d? s?p x?p</span>
           </div>
           <div className="space-y-1.5">
             {orderedSelected.map((lesson, idx) => (
@@ -130,7 +130,7 @@ export default function EbookSidebar({
       {/* All lessons to pick from */}
       <div className="bg-app-bg border border-app-border rounded-xl p-4">
         <p className="text-white/50 text-xs font-medium tracking-normal mb-3">
-          Tất cả bài học ({lessons.length})
+          T?t c? b�i h?c ({lessons.length})
         </p>
         <div className="space-y-1.5 max-h-96 overflow-y-auto pr-1">
           {lessons.map((lesson) => {

@@ -1,10 +1,10 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 
-// ─── Types ───────────────────────────────────────────────────────────────────
+// --- Types -------------------------------------------------------------------
 interface LeaderboardEntry {
   rank: number;
   userId: string;
@@ -21,12 +21,12 @@ interface LeaderboardEntry {
 type Period = "week" | "month" | "alltime";
 type ExamType = "all" | "mock" | "topic" | "quick";
 
-// Leaderboard data fetched from exam_results + user_profiles (không còn mock)
+// Leaderboard data fetched from exam_results + user_profiles (kh�ng c�n mock)
 
 const EXAM_TYPE_LABELS: Record<string, string> = {
-  eps_mock: "Thi mô phỏng thật",
-  eps_topic: "Thi theo chủ đề",
-  eps_quick: "Ôn tập nhanh",
+  eps_mock: "Thi m� ph?ng th?t",
+  eps_topic: "Thi theo ch? d?",
+  eps_quick: "�n t?p nhanh",
   eps: "Thi EPS",
 };
 
@@ -35,11 +35,11 @@ const AVATAR_COLORS = [
   "#fb923c", "#ec4899", "#84cc16", "#22d3ee", "#f59e0b",
 ];
 
-// ─── Components ───────────────────────────────────────────────────────────────
+// --- Components ---------------------------------------------------------------
 function RankBadge({ rank }: { rank: number }) {
-  if (rank === 1) return <span className="text-xl">👑</span>;
-  if (rank === 2) return <span className="text-xl">🥈</span>;
-  if (rank === 3) return <span className="text-xl">🥉</span>;
+  if (rank === 1) return <span className="text-xl">??</span>;
+  if (rank === 2) return <span className="text-xl">??</span>;
+  if (rank === 3) return <span className="text-xl">??</span>;
   return (
     <div className="w-7 h-7 flex items-center justify-center rounded-full bg-white/8">
       <span className="text-white/50 text-xs font-bold">{rank}</span>
@@ -59,7 +59,7 @@ function ScoreBar({ score }: { score: number }) {
   );
 }
 
-// ─── My Score Card ────────────────────────────────────────────────────────────
+// --- My Score Card ------------------------------------------------------------
 function MyScoreCard() {
   const navigate = useNavigate();
   const history = JSON.parse(localStorage.getItem("kts_eps_exam_history") || "[]");
@@ -71,7 +71,7 @@ function MyScoreCard() {
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-app-accent-primary font-semibold text-sm flex items-center gap-2">
           <i className="ri-user-star-line"></i>
-          Điểm của bạn
+          �i?m c?a b?n
         </h3>
         <button
           onClick={() => navigate("/eps-mock-exam")}
@@ -84,28 +84,28 @@ function MyScoreCard() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div className="text-center">
             <p className="text-xl font-bold text-app-accent-primary">{bestScore}</p>
-            <p className="text-app-text-secondary text-xs">Điểm cao nhất</p>
+            <p className="text-app-text-secondary text-xs">�i?m cao nh?t</p>
           </div>
           <div className="text-center">
             <p className="text-xl font-bold text-white">{lastScore}</p>
-            <p className="text-app-text-secondary text-xs">Lần thi gần nhất</p>
+            <p className="text-app-text-secondary text-xs">L?n thi g?n nh?t</p>
           </div>
           <div className="text-center">
             <p className="text-xl font-bold text-white">{history.length}</p>
-            <p className="text-app-text-secondary text-xs">Lần đã thi</p>
+            <p className="text-app-text-secondary text-xs">L?n d� thi</p>
           </div>
         </div>
       ) : (
         <div className="text-center py-3">
-          <p className="text-app-text-secondary text-sm">Bạn chưa thi lần nào</p>
-          <p className="text-app-text-muted text-xs mt-1">Thi thử để xem điểm của bạn trên BXH</p>
+          <p className="text-app-text-secondary text-sm">B?n chua thi l?n n�o</p>
+          <p className="text-app-text-muted text-xs mt-1">Thi th? d? xem di?m c?a b?n tr�n BXH</p>
         </div>
       )}
     </div>
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function EpsLeaderboardPage() {
   const navigate = useNavigate();
   const { user, profile } = useAuth();
@@ -115,7 +115,7 @@ export default function EpsLeaderboardPage() {
   const [myRank, setMyRank] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch leaderboard thật từ exam_results + user_profiles
+  // Fetch leaderboard th?t t? exam_results + user_profiles
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -144,11 +144,11 @@ export default function EpsLeaderboardPage() {
 
         const { data: rows } = await query
           .order("score", { ascending: false })
-          .limit(100); // lấy nhiều để tính rank của user
+          .limit(100); // l?y nhi?u d? t�nh rank c?a user
 
         if (cancelled || !rows) return;
 
-        // Gộp theo user_id, giữ điểm cao nhất (pct)
+        // G?p theo user_id, gi? di?m cao nh?t (pct)
         const bestByUser: Record<string, { score: number; correct: number; total: number; exam_type: string; created_at: string }> = {};
         rows.forEach((r: { user_id: string; score: number; total: number; exam_type: string; created_at: string }) => {
           const pct = r.total > 0 ? Math.round((r.score / r.total) * 100) : 0;
@@ -171,7 +171,7 @@ export default function EpsLeaderboardPage() {
           return;
         }
 
-        // Lấy display_name cho tất cả users
+        // L?y display_name cho t?t c? users
         const { data: profiles } = await supabase
           .from("user_profiles")
           .select("id, display_name")
@@ -179,13 +179,13 @@ export default function EpsLeaderboardPage() {
 
         if (cancelled) return;
         const nameMap = Object.fromEntries(
-          (profiles || []).map((p: { id: string; display_name: string }) => [p.id, p.display_name || "Học viên"])
+          (profiles || []).map((p: { id: string; display_name: string }) => [p.id, p.display_name || "H?c vi�n"])
         );
 
         const combined: LeaderboardEntry[] = userIds
           .map(uid => {
             const d = bestByUser[uid];
-            const name = nameMap[uid] || "Học viên";
+            const name = nameMap[uid] || "H?c vi�n";
             return {
               rank: 0,
               userId: uid,
@@ -214,9 +214,9 @@ export default function EpsLeaderboardPage() {
   }, [period, examType, user?.id, profile]);
 
   const periodLabels: Record<Period, string> = {
-    week: "Tuần này",
-    month: "Tháng này",
-    alltime: "Mọi thời đại",
+    week: "Tu?n n�y",
+    month: "Th�ng n�y",
+    alltime: "M?i th?i d?i",
   };
 
   return (
@@ -229,8 +229,8 @@ export default function EpsLeaderboardPage() {
               <i className="ri-trophy-line text-app-accent-primary text-xl"></i>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white">Bảng xếp hạng EPS</h1>
-              <p className="text-app-text-secondary text-sm">So sánh điểm thi thử với cộng đồng</p>
+              <h1 className="text-xl font-bold text-white">B?ng x?p h?ng EPS</h1>
+              <p className="text-app-text-secondary text-sm">So s�nh di?m thi th? v?i c?ng d?ng</p>
             </div>
           </div>
         </div>
@@ -258,10 +258,10 @@ export default function EpsLeaderboardPage() {
             onChange={e => setExamType(e.target.value as ExamType)}
             className="bg-app-card/50 border border-app-border rounded-xl px-3 py-2 text-white/60 text-xs focus:outline-none cursor-pointer"
           >
-            <option value="all">Tất cả loại thi</option>
-            <option value="mock">Thi mô phỏng thật</option>
-            <option value="topic">Thi theo chủ đề</option>
-            <option value="quick">Ôn tập nhanh</option>
+            <option value="all">T?t c? lo?i thi</option>
+            <option value="mock">Thi m� ph?ng th?t</option>
+            <option value="topic">Thi theo ch? d?</option>
+            <option value="quick">�n t?p nhanh</option>
           </select>
         </div>
 
@@ -279,7 +279,7 @@ export default function EpsLeaderboardPage() {
                   {entry.avatar}
                 </div>
                 <p className="text-white text-xs font-semibold text-center mb-1 truncate w-full text-center">{entry.name}</p>
-                <p className="text-xs font-bold mb-2" style={{ color: colors[podiumIdx] }}>{entry.score} điểm</p>
+                <p className="text-xs font-bold mb-2" style={{ color: colors[podiumIdx] }}>{entry.score} di?m</p>
                 <div
                   className={`w-full ${heights[podiumIdx]} rounded-t-xl flex items-center justify-center`}
                   style={{ backgroundColor: `${colors[podiumIdx]}20`, border: `1px solid ${colors[podiumIdx]}30` }}
@@ -294,16 +294,16 @@ export default function EpsLeaderboardPage() {
         {/* Full leaderboard */}
         <div className="bg-app-surface/50 border border-app-border rounded-2xl overflow-hidden">
           <div className="px-4 py-3 border-b border-app-border flex items-center justify-between">
-            <h3 className="text-white font-semibold text-sm">Top 10 điểm cao nhất</h3>
+            <h3 className="text-white font-semibold text-sm">Top 10 di?m cao nh?t</h3>
             <span className="text-app-text-muted text-xs">{periodLabels[period]}</span>
           </div>
           {loading ? (
-            <div className="py-10 text-center text-app-text-muted text-sm">Đang tải bảng xếp hạng...</div>
+            <div className="py-10 text-center text-app-text-muted text-sm">�ang t?i b?ng x?p h?ng...</div>
           ) : entries.length === 0 ? (
             <div className="py-10 text-center">
               <i className="ri-trophy-line text-app-text-muted text-4xl mb-2 block"></i>
-              <p className="text-app-text-secondary text-sm">Chưa có ai thi EPS trong {periodLabels[period].toLowerCase()}</p>
-              <p className="text-app-text-muted text-xs mt-1">Hãy là người đầu tiên!</p>
+              <p className="text-app-text-secondary text-sm">Chua c� ai thi EPS trong {periodLabels[period].toLowerCase()}</p>
+              <p className="text-app-text-muted text-xs mt-1">H�y l� ngu?i d?u ti�n!</p>
             </div>
           ) : (
           <div className="divide-y divide-white/5">
@@ -328,10 +328,10 @@ export default function EpsLeaderboardPage() {
                     <div className="flex items-center gap-2">
                       <p className={`text-sm font-semibold truncate ${isMe ? "text-app-accent-primary" : "text-white"}`}>
                         {entry.name}
-                        {isMe && <span className="ml-1 text-[10px] text-app-accent-primary/60">(Bạn)</span>}
+                        {isMe && <span className="ml-1 text-[10px] text-app-accent-primary/60">(B?n)</span>}
                       </p>
                     </div>
-                    <p className="text-app-text-muted text-xs">{entry.examType} • {entry.correct}/{entry.total} câu đúng</p>
+                    <p className="text-app-text-muted text-xs">{entry.examType} � {entry.correct}/{entry.total} c�u d�ng</p>
                   </div>
                   <div className="flex-shrink-0">
                     <ScoreBar score={entry.score} />
@@ -349,12 +349,12 @@ export default function EpsLeaderboardPage() {
             <div className="w-7 h-7 flex items-center justify-center rounded-full bg-app-accent-primary/20">
               <span className="text-app-accent-primary text-xs font-bold">{myRank}</span>
             </div>
-            <p className="text-app-accent-primary text-sm">Xếp hạng của bạn: #{myRank}</p>
+            <p className="text-app-accent-primary text-sm">X?p h?ng c?a b?n: #{myRank}</p>
             <button
               onClick={() => navigate("/eps-mock-exam")}
               className="ml-auto text-xs px-3 py-1.5 bg-app-accent-primary text-app-bg rounded-lg font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
             >
-              Cải thiện điểm
+              C?i thi?n di?m
             </button>
           </div>
         )}
@@ -366,14 +366,14 @@ export default function EpsLeaderboardPage() {
             className="flex items-center justify-center gap-2 py-3 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold hover:bg-[#f0d060] transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-play-fill"></i>
-            Thi thử ngay
+            Thi th? ngay
           </button>
           <button
             onClick={() => navigate("/eps-exam-history")}
             className="flex items-center justify-center gap-2 py-3 bg-app-card/50 border border-app-border rounded-xl text-white/70 text-sm font-medium hover:bg-white/8 transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-history-line"></i>
-            Lịch sử thi
+            L?ch s? thi
           </button>
         </div>
       </div>

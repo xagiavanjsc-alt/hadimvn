@@ -1,10 +1,10 @@
-﻿import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// --- Types --------------------------------------------------------------------
 interface RoomMember {
   id: string;
   name: string;
@@ -39,22 +39,22 @@ interface StudyRoom {
   color: string;
 }
 
-// ─── Mock rooms ───────────────────────────────────────────────────────────────
+// --- Mock rooms ---------------------------------------------------------------
 // Rooms + chat data stored in localStorage (no mock data)
 
 const QUICK_PHRASES = [
-  "화이팅! 💪", "감사합니다 🙏", "잘 모르겠어요 🤔", "이해했어요! ✅",
-  "다시 설명해 주세요", "같이 공부해요!", "오늘도 열심히!", "수고하셨습니다 👏",
+  "???! ??", "????? ??", "? ????? ??", "?????! ?",
+  "?? ??? ???", "?? ????!", "??? ???!", "??????? ??",
 ];
 
 function timeAgo(ms: number) {
   const diff = Date.now() - ms;
-  if (diff < 60000) return "vừa xong";
+  if (diff < 60000) return "v?a xong";
   if (diff < 3600000) return `${Math.floor(diff / 60000)}p`;
   return `${Math.floor(diff / 3600000)}h`;
 }
 
-// ─── Leaderboard ──────────────────────────────────────────────────────────────
+// --- Leaderboard --------------------------------------------------------------
 interface LeaderboardEntry {
   rank: number;
   name: string;
@@ -68,14 +68,14 @@ interface LeaderboardEntry {
 }
 
 const LEADERBOARD_DATA: LeaderboardEntry[] = [
-  { rank: 1, name: "Minh Tuấn", color: "app-accent-primary", level: "B2", studyMinutes: 342, wordsLearned: 187, streak: 47, room: "EPS-TOPIK Cùng Chinh Phục", badge: "ri-vip-crown-fill" },
-  { rank: 2, name: "Thu Hà", color: "#fb923c", level: "B1", studyMinutes: 298, wordsLearned: 154, streak: 32, room: "EPS-TOPIK Cùng Chinh Phục", badge: "ri-medal-fill" },
-  { rank: 3, name: "Hải Đăng", color: "#a78bfa", level: "C1", studyMinutes: 276, wordsLearned: 201, streak: 28, room: "TOPIK II Nâng Cao", badge: "ri-medal-fill" },
-  { rank: 4, name: "Lan Anh", color: "#34d399", level: "A2", studyMinutes: 215, wordsLearned: 98, streak: 15, room: "Hangul Cho Người Mới", badge: "ri-star-fill" },
-  { rank: 5, name: "Văn Đức", color: "#60a5fa", level: "B1", studyMinutes: 198, wordsLearned: 132, streak: 23, room: "EPS-TOPIK Cùng Chinh Phục", badge: "ri-star-fill" },
-  { rank: 6, name: "Thảo Nguyên", color: "#f472b6", level: "A2", studyMinutes: 187, wordsLearned: 89, streak: 19, room: "K-pop Lyrics Club", badge: "ri-star-fill" },
-  { rank: 7, name: "Bích Ngọc", color: "#fbbf24", level: "B2", studyMinutes: 165, wordsLearned: 143, streak: 11, room: "Từ Vựng Hán Hàn", badge: "ri-star-line" },
-  { rank: 8, name: "Quang Huy", color: "#4ade80", level: "A1", studyMinutes: 142, wordsLearned: 67, streak: 8, room: "Hangul Cho Người Mới", badge: "ri-star-line" },
+  { rank: 1, name: "Minh Tu?n", color: "app-accent-primary", level: "B2", studyMinutes: 342, wordsLearned: 187, streak: 47, room: "EPS-TOPIK C�ng Chinh Ph?c", badge: "ri-vip-crown-fill" },
+  { rank: 2, name: "Thu H�", color: "#fb923c", level: "B1", studyMinutes: 298, wordsLearned: 154, streak: 32, room: "EPS-TOPIK C�ng Chinh Ph?c", badge: "ri-medal-fill" },
+  { rank: 3, name: "H?i �ang", color: "#a78bfa", level: "C1", studyMinutes: 276, wordsLearned: 201, streak: 28, room: "TOPIK II N�ng Cao", badge: "ri-medal-fill" },
+  { rank: 4, name: "Lan Anh", color: "#34d399", level: "A2", studyMinutes: 215, wordsLearned: 98, streak: 15, room: "Hangul Cho Ngu?i M?i", badge: "ri-star-fill" },
+  { rank: 5, name: "Van �?c", color: "#60a5fa", level: "B1", studyMinutes: 198, wordsLearned: 132, streak: 23, room: "EPS-TOPIK C�ng Chinh Ph?c", badge: "ri-star-fill" },
+  { rank: 6, name: "Th?o Nguy�n", color: "#f472b6", level: "A2", studyMinutes: 187, wordsLearned: 89, streak: 19, room: "K-pop Lyrics Club", badge: "ri-star-fill" },
+  { rank: 7, name: "B�ch Ng?c", color: "#fbbf24", level: "B2", studyMinutes: 165, wordsLearned: 143, streak: 11, room: "T? V?ng H�n H�n", badge: "ri-star-line" },
+  { rank: 8, name: "Quang Huy", color: "#4ade80", level: "A1", studyMinutes: 142, wordsLearned: 67, streak: 8, room: "Hangul Cho Ngu?i M?i", badge: "ri-star-line" },
 ];
 
 function RoomLeaderboard() {
@@ -91,14 +91,14 @@ function RoomLeaderboard() {
             <i className="ri-trophy-line text-app-accent-primary text-sm"></i>
           </div>
           <div>
-            <h3 className="text-white font-bold text-sm">Bảng xếp hạng phòng học</h3>
-            <p className="text-app-text-muted text-[10px]">Tuần này · Cập nhật realtime</p>
+            <h3 className="text-white font-bold text-sm">B?ng x?p h?ng ph�ng h?c</h3>
+            <p className="text-app-text-muted text-[10px]">Tu?n n�y � C?p nh?t realtime</p>
           </div>
         </div>
         <div className="flex items-center gap-1 bg-white/4 border border-app-border rounded-xl p-1">
           {([
-            { key: "studyMinutes" as const, label: "Thời gian" },
-            { key: "wordsLearned" as const, label: "Từ học" },
+            { key: "studyMinutes" as const, label: "Th?i gian" },
+            { key: "wordsLearned" as const, label: "T? h?c" },
             { key: "streak" as const, label: "Streak" },
           ] as const).map(s => (
             <button
@@ -134,18 +134,18 @@ function RoomLeaderboard() {
             <div className="flex items-center gap-5 flex-shrink-0">
               <div className="text-right">
                 <p className="text-white/70 text-sm font-bold">{entry.studyMinutes}p</p>
-                <p className="text-app-text-muted text-[10px]">học</p>
+                <p className="text-app-text-muted text-[10px]">h?c</p>
               </div>
               <div className="text-right">
                 <p className="text-white/70 text-sm font-bold">{entry.wordsLearned}</p>
-                <p className="text-app-text-muted text-[10px]">từ</p>
+                <p className="text-app-text-muted text-[10px]">t?</p>
               </div>
               <div className="text-right">
                 <div className="flex items-center gap-1">
                   <i className="ri-fire-line text-[#fb923c] text-xs"></i>
                   <p className="text-white/70 text-sm font-bold">{entry.streak}</p>
                 </div>
-                <p className="text-app-text-muted text-[10px]">ngày</p>
+                <p className="text-app-text-muted text-[10px]">ng�y</p>
               </div>
             </div>
           </div>
@@ -155,7 +155,7 @@ function RoomLeaderboard() {
   );
 }
 
-// ─── Room Card ────────────────────────────────────────────────────────────────
+// --- Room Card ----------------------------------------------------------------
 interface RoomCardProps {
   room: StudyRoom;
   onJoin: (r: StudyRoom) => void;
@@ -189,7 +189,7 @@ function RoomCard({ room, onJoin }: RoomCardProps) {
 
       <div className="mb-3">
         <div className="flex items-center justify-between mb-1">
-          <span className="text-app-text-muted text-[10px]">{room.memberCount}/{room.maxMembers} thành viên</span>
+          <span className="text-app-text-muted text-[10px]">{room.memberCount}/{room.maxMembers} th�nh vi�n</span>
           <span className="text-[10px] font-bold" style={{ color: room.color }}>{pct}%</span>
         </div>
         <div className="h-1 bg-app-card/50 rounded-full overflow-hidden">
@@ -203,13 +203,13 @@ function RoomCard({ room, onJoin }: RoomCardProps) {
         className="w-full py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed"
         style={{ backgroundColor: `${room.color}20`, color: room.color, border: `1px solid ${room.color}30` }}
       >
-        {room.memberCount >= room.maxMembers ? "Phòng đầy" : "Tham gia"}
+        {room.memberCount >= room.maxMembers ? "Ph�ng d?y" : "Tham gia"}
       </button>
     </div>
   );
 }
 
-// ─── Study Room Chat ──────────────────────────────────────────────────────────
+// --- Study Room Chat ----------------------------------------------------------
 interface StudyRoomChatProps {
   room: StudyRoom;
   onLeave: () => void;
@@ -218,7 +218,7 @@ interface StudyRoomChatProps {
 
 function StudyRoomChat({ room, onLeave, profile }: StudyRoomChatProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [members] = useState<RoomMember[]>(profile ? [{ id: "me", name: profile.display_name, level: "", color: "app-accent-primary", joinedAt: Date.now(), activity: "Đang học", streak: 0, isHost: true }] : []);
+  const [members] = useState<RoomMember[]>(profile ? [{ id: "me", name: profile.display_name, level: "", color: "app-accent-primary", joinedAt: Date.now(), activity: "�ang h?c", streak: 0, isHost: true }] : []);
   const [inputText, setInputText] = useState("");
   const [studyTimer, setStudyTimer] = useState(0);
   const [timerRunning, setTimerRunning] = useState(true);
@@ -251,7 +251,7 @@ function StudyRoomChat({ room, onLeave, profile }: StudyRoomChatProps) {
     const newMsg: ChatMessage = {
       id: `my_${Date.now()}`,
       userId: "me",
-      userName: profile?.display_name || "Bạn",
+      userName: profile?.display_name || "B?n",
       color: "app-accent-primary",
       text: text.trim(),
       time: Date.now(),
@@ -276,7 +276,7 @@ function StudyRoomChat({ room, onLeave, profile }: StudyRoomChatProps) {
               <h3 className="text-white font-semibold text-sm">{room.name}</h3>
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></div>
-                <span className="text-app-text-muted text-[10px]">{members.length} thành viên online</span>
+                <span className="text-app-text-muted text-[10px]">{members.length} th�nh vi�n online</span>
               </div>
             </div>
           </div>
@@ -290,7 +290,7 @@ function StudyRoomChat({ room, onLeave, profile }: StudyRoomChatProps) {
               </button>
             </div>
             <button onClick={onLeave} className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs text-app-text-secondary hover:text-white/70 cursor-pointer whitespace-nowrap transition-colors" style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
-              <i className="ri-logout-box-line"></i>Rời phòng
+              <i className="ri-logout-box-line"></i>R?i ph�ng
             </button>
           </div>
         </div>
@@ -359,7 +359,7 @@ function StudyRoomChat({ room, onLeave, profile }: StudyRoomChatProps) {
               value={inputText}
               onChange={e => setInputText(e.target.value.slice(0, 200))}
               onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(inputText); } }}
-              placeholder="Nhắn tin với nhóm học... (Enter để gửi)"
+              placeholder="Nh?n tin v?i nh�m h?c... (Enter d? g?i)"
               className="flex-1 rounded-xl px-4 py-2.5 text-sm focus:outline-none"
               style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.8)" }}
             />
@@ -373,7 +373,7 @@ function StudyRoomChat({ room, onLeave, profile }: StudyRoomChatProps) {
       {/* Right: Members */}
       <div className="w-64 flex flex-col gap-3">
         <div className="bg-app-bg border border-app-border rounded-2xl p-4 flex-1">
-          <h4 className="text-white/50 text-[10px] tracking-normal mb-3">Thành viên ({members.length})</h4>
+          <h4 className="text-white/50 text-[10px] tracking-normal mb-3">Th�nh vi�n ({members.length})</h4>
           <div className="space-y-2.5">
             {members.map(m => (
               <div key={m.id} className="flex items-center gap-2.5">
@@ -402,12 +402,12 @@ function StudyRoomChat({ room, onLeave, profile }: StudyRoomChatProps) {
 
         {/* Study stats */}
         <div className="bg-app-bg border border-app-border rounded-2xl p-4">
-          <h4 className="text-white/50 text-[10px] tracking-normal mb-3">Phiên học này</h4>
+          <h4 className="text-white/50 text-[10px] tracking-normal mb-3">Phi�n h?c n�y</h4>
           <div className="space-y-2">
             {[
-              { label: "Thời gian học", value: formatTimer(studyTimer), icon: "ri-timer-line", color: "app-accent-primary" },
-              { label: "Tin nhắn", value: messages.filter(m => m.type === "message").length, icon: "ri-chat-3-line", color: "#34d399" },
-              { label: "Thành viên", value: members.length, icon: "ri-group-line", color: "#60a5fa" },
+              { label: "Th?i gian h?c", value: formatTimer(studyTimer), icon: "ri-timer-line", color: "app-accent-primary" },
+              { label: "Tin nh?n", value: messages.filter(m => m.type === "message").length, icon: "ri-chat-3-line", color: "#34d399" },
+              { label: "Th�nh vi�n", value: members.length, icon: "ri-group-line", color: "#60a5fa" },
             ].map(s => (
               <div key={s.label} className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
@@ -424,7 +424,7 @@ function StudyRoomChat({ room, onLeave, profile }: StudyRoomChatProps) {
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function StudyRoomPage() {
   const navigate = useNavigate();
   const { user, profile } = useAuth();
@@ -464,8 +464,8 @@ export default function StudyRoomPage() {
       memberCount: 1,
       maxMembers: 8,
       isPublic: newRoomPublic,
-      hostName: profile?.display_name || "Bạn",
-      language: "Tiếng Hàn",
+      hostName: profile?.display_name || "B?n",
+      language: "Ti?ng H�n",
       tags: [newRoomTopic],
       color: "app-accent-primary",
     };
@@ -477,7 +477,7 @@ export default function StudyRoomPage() {
 
   if (activeRoom) {
     return (
-      <DashboardLayout title={activeRoom.name} subtitle="Phòng học nhóm realtime">
+      <DashboardLayout title={activeRoom.name} subtitle="Ph�ng h?c nh�m realtime">
         <StudyRoomChat room={activeRoom} onLeave={handleLeave} profile={profile} />
       </DashboardLayout>
     );
@@ -485,24 +485,24 @@ export default function StudyRoomPage() {
 
   return (
     <DashboardLayout
-      title="Học cùng nhau"
-      subtitle="Tham gia phòng học nhóm — cùng tiến bộ nhanh hơn"
+      title="H?c c�ng nhau"
+      subtitle="Tham gia ph�ng h?c nh�m � c�ng ti?n b? nhanh hon"
       actions={
         <button
           onClick={() => setShowCreate(true)}
           className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
         >
-          <i className="ri-add-line"></i>Tạo phòng học
+          <i className="ri-add-line"></i>T?o ph�ng h?c
         </button>
       }
     >
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Phòng đang mở", value: rooms.filter(r => r.memberCount < r.maxMembers).length, icon: "ri-door-open-line", color: "#34d399" },
-          { label: "Học viên online", value: rooms.reduce((s, r) => s + r.memberCount, 0), icon: "ri-group-line", color: "app-accent-primary" },
-          { label: "Phòng công khai", value: rooms.filter(r => r.isPublic).length, icon: "ri-global-line", color: "#60a5fa" },
-          { label: "Chủ đề", value: [...new Set(rooms.map(r => r.topic))].length, icon: "ri-book-open-line", color: "#a78bfa" },
+          { label: "Ph�ng dang m?", value: rooms.filter(r => r.memberCount < r.maxMembers).length, icon: "ri-door-open-line", color: "#34d399" },
+          { label: "H?c vi�n online", value: rooms.reduce((s, r) => s + r.memberCount, 0), icon: "ri-group-line", color: "app-accent-primary" },
+          { label: "Ph�ng c�ng khai", value: rooms.filter(r => r.isPublic).length, icon: "ri-global-line", color: "#60a5fa" },
+          { label: "Ch? d?", value: [...new Set(rooms.map(r => r.topic))].length, icon: "ri-book-open-line", color: "#a78bfa" },
         ].map(s => (
           <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -522,13 +522,13 @@ export default function StudyRoomPage() {
           onClick={() => setActiveTab("rooms")}
           className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${activeTab === "rooms" ? "bg-app-accent-primary/15 text-app-accent-primary" : "text-app-text-secondary hover:text-white/70"}`}
         >
-          <i className="ri-door-open-line text-sm"></i>Danh sách phòng
+          <i className="ri-door-open-line text-sm"></i>Danh s�ch ph�ng
         </button>
         <button
           onClick={() => setActiveTab("leaderboard")}
           className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${activeTab === "leaderboard" ? "bg-app-accent-primary/15 text-app-accent-primary" : "text-app-text-secondary hover:text-white/70"}`}
         >
-          <i className="ri-trophy-line text-sm"></i>Bảng xếp hạng
+          <i className="ri-trophy-line text-sm"></i>B?ng x?p h?ng
         </button>
       </div>
 
@@ -540,9 +540,9 @@ export default function StudyRoomPage() {
           <div className="flex items-center gap-3 mb-5">
             <div className="flex-1 flex items-center gap-2 bg-app-bg border border-app-border rounded-xl px-4 py-2.5">
               <i className="ri-search-line text-app-text-muted text-sm"></i>
-              <input value={searchRoom} onChange={e => setSearchRoom(e.target.value)} placeholder="Tìm phòng học..." className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder-white/20" />
+              <input value={searchRoom} onChange={e => setSearchRoom(e.target.value)} placeholder="T�m ph�ng h?c..." className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder-white/20" />
             </div>
-            <span className="text-app-text-muted text-xs whitespace-nowrap">{filteredRooms.length} phòng</span>
+            <span className="text-app-text-muted text-xs whitespace-nowrap">{filteredRooms.length} ph�ng</span>
           </div>
 
           {/* Rooms grid */}
@@ -559,34 +559,34 @@ export default function StudyRoomPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => setShowCreate(false)}>
           <div className="bg-app-bg border border-app-border rounded-2xl p-6 w-full max-w-md" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-5">
-              <h3 className="text-white font-bold text-base">Tạo phòng học mới</h3>
+              <h3 className="text-white font-bold text-base">T?o ph�ng h?c m?i</h3>
               <button onClick={() => setShowCreate(false)} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary cursor-pointer"><i className="ri-close-line text-sm"></i></button>
             </div>
             <div className="space-y-4">
               <div>
-                <label className="text-app-text-secondary text-xs mb-1.5 block">Tên phòng học</label>
-                <input value={newRoomName} onChange={e => setNewRoomName(e.target.value)} placeholder="VD: EPS-TOPIK Cùng Chinh Phục" className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-app-accent-primary/30 placeholder-white/20" />
+                <label className="text-app-text-secondary text-xs mb-1.5 block">T�n ph�ng h?c</label>
+                <input value={newRoomName} onChange={e => setNewRoomName(e.target.value)} placeholder="VD: EPS-TOPIK C�ng Chinh Ph?c" className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-app-accent-primary/30 placeholder-white/20" />
               </div>
               <div>
-                <label className="text-app-text-secondary text-xs mb-1.5 block">Chủ đề</label>
+                <label className="text-app-text-secondary text-xs mb-1.5 block">Ch? d?</label>
                 <div className="flex flex-wrap gap-2">
-                  {["EPS-TOPIK", "TOPIK I/II", "Seoul", "K-pop", "Hangul", "Hán Hàn"].map(t => (
+                  {["EPS-TOPIK", "TOPIK I/II", "Seoul", "K-pop", "Hangul", "H�n H�n"].map(t => (
                     <button key={t} onClick={() => setNewRoomTopic(t)} className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${newRoomTopic === t ? "bg-app-accent-primary text-app-bg" : "bg-app-card/50 text-app-text-secondary hover:text-white/60"}`}>{t}</button>
                   ))}
                 </div>
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-white/70 text-sm font-medium">Phòng công khai</p>
-                  <p className="text-app-text-muted text-xs">Ai cũng có thể tham gia</p>
+                  <p className="text-white/70 text-sm font-medium">Ph�ng c�ng khai</p>
+                  <p className="text-app-text-muted text-xs">Ai cung c� th? tham gia</p>
                 </div>
                 <button onClick={() => setNewRoomPublic(v => !v)} className={`w-12 h-6 rounded-full transition-all cursor-pointer relative ${newRoomPublic ? "bg-app-accent-primary" : "bg-app-card/70"}`}>
                   <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-all ${newRoomPublic ? "left-6" : "left-0.5"}`}></div>
                 </button>
               </div>
               <div className="flex gap-3 pt-2">
-                <button onClick={() => setShowCreate(false)} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap">Hủy</button>
-                <button onClick={handleCreate} disabled={!newRoomName.trim()} className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap">Tạo phòng</button>
+                <button onClick={() => setShowCreate(false)} className="flex-1 py-2.5 rounded-xl border border-app-border text-white/50 text-sm cursor-pointer whitespace-nowrap">H?y</button>
+                <button onClick={handleCreate} disabled={!newRoomName.trim()} className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap">T?o ph�ng</button>
               </div>
             </div>
           </div>

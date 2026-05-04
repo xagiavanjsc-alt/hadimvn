@@ -1,9 +1,9 @@
-﻿import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { supabase } from "@/lib/supabase";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// --- Types --------------------------------------------------------------------
 interface SRSData {
   [cardId: string]: {
     interval: number;
@@ -20,7 +20,7 @@ interface DayActivity {
   level: 0 | 1 | 2 | 3 | 4;
 }
 
-// ─── Heatmap Cell ─────────────────────────────────────────────────────────────
+// --- Heatmap Cell -------------------------------------------------------------
 function HeatmapCell({ day }: { day: DayActivity }) {
   const colors = [
     "bg-app-card/50",
@@ -34,12 +34,12 @@ function HeatmapCell({ day }: { day: DayActivity }) {
   return (
     <div
       className={`w-3 h-3 rounded-sm ${colors[day.level]} cursor-default transition-all hover:scale-125`}
-      title={`${label}: ${day.count} từ`}
+      title={`${label}: ${day.count} t?`}
     ></div>
   );
 }
 
-// ─── Generate heatmap data ────────────────────────────────────────────────────
+// --- Generate heatmap data ----------------------------------------------------
 function generateHeatmap(srsData: SRSData): DayActivity[] {
   const days: DayActivity[] = [];
   const now = new Date();
@@ -58,7 +58,7 @@ function generateHeatmap(srsData: SRSData): DayActivity[] {
     const d = new Date(now);
     d.setDate(now.getDate() - i);
     const key = d.toISOString().split("T")[0];
-    // Chỉ dùng data thật từ SRS — không bịa fake data
+    // Ch? d�ng data th?t t? SRS � kh�ng b?a fake data
     const count = activityMap[key] || 0;
     const level = count === 0 ? 0 : count < 3 ? 1 : count < 7 ? 2 : count < 12 ? 3 : 4;
     days.push({ date: key, count, level: level as 0 | 1 | 2 | 3 | 4 });
@@ -66,7 +66,7 @@ function generateHeatmap(srsData: SRSData): DayActivity[] {
   return days;
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function VocabStatsPage() {
   const [totalVocab, setTotalVocab] = useState(0);
   const [categoryStats, setCategoryStats] = useState<{ category: string; count: number }[]>([]);
@@ -142,7 +142,7 @@ export default function VocabStatsPage() {
   const ratingDist = [1, 2, 3, 4, 5].map(r => ({
     rating: r,
     count: srsEntries.filter(e => e.lastRating === r).length,
-    label: ["Không nhớ", "Khó", "Nhớ được", "Dễ", "Rất dễ"][r - 1],
+    label: ["Kh�ng nh?", "Kh�", "Nh? du?c", "D?", "R?t d?"][r - 1],
     color: ["#f87171", "#fb923c", "app-accent-primary", "#34d399", "#a78bfa"][r - 1],
   }));
   const maxRating = Math.max(...ratingDist.map(r => r.count), 1);
@@ -155,17 +155,17 @@ export default function VocabStatsPage() {
 
   return (
     <DashboardLayout
-      title="Thống kê từ vựng cá nhân"
-      subtitle="Heatmap ôn tập, tốc độ học và dự đoán thời gian thuộc hết"
+      title="Th?ng k� t? v?ng c� nh�n"
+      subtitle="Heatmap �n t?p, t?c d? h?c v� d? do�n th?i gian thu?c h?t"
     >
       {/* Top stats */}
       <div className="grid grid-cols-5 gap-4 mb-6">
         {[
-          { label: "Tổng từ vựng", value: totalVocab, icon: "ri-book-open-line", color: "app-accent-primary", sub: "trong database" },
-          { label: "Đã thuộc", value: masteredCount, icon: "ri-check-double-line", color: "#34d399", sub: `${totalVocab > 0 ? Math.round((masteredCount / totalVocab) * 100) : 0}% tổng số` },
-          { label: "Đã ôn tập", value: totalReviewed, icon: "ri-refresh-line", color: "#fb923c", sub: "lần với SRS" },
-          { label: "Streak hiện tại", value: `${currentStreak} ngày`, icon: "ri-fire-line", color: "#f87171", sub: "liên tiếp" },
-          { label: "Interval TB", value: `${avgInterval} ngày`, icon: "ri-calendar-line", color: "#a78bfa", sub: `Ease: ${avgEase}` },
+          { label: "T?ng t? v?ng", value: totalVocab, icon: "ri-book-open-line", color: "app-accent-primary", sub: "trong database" },
+          { label: "�� thu?c", value: masteredCount, icon: "ri-check-double-line", color: "#34d399", sub: `${totalVocab > 0 ? Math.round((masteredCount / totalVocab) * 100) : 0}% t?ng s?` },
+          { label: "�� �n t?p", value: totalReviewed, icon: "ri-refresh-line", color: "#fb923c", sub: "l?n v?i SRS" },
+          { label: "Streak hi?n t?i", value: `${currentStreak} ng�y`, icon: "ri-fire-line", color: "#f87171", sub: "li�n ti?p" },
+          { label: "Interval TB", value: `${avgInterval} ng�y`, icon: "ri-calendar-line", color: "#a78bfa", sub: `Ease: ${avgEase}` },
         ].map(s => (
           <div key={s.label} className="bg-app-bg border border-app-border rounded-2xl p-4">
             <div className="flex items-center gap-2 mb-2">
@@ -186,13 +186,13 @@ export default function VocabStatsPage() {
           {/* Heatmap */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white font-semibold text-sm">Heatmap ôn tập (52 tuần)</h3>
+              <h3 className="text-white font-semibold text-sm">Heatmap �n t?p (52 tu?n)</h3>
               <div className="flex items-center gap-2 text-[10px] text-app-text-muted">
-                <span>Ít</span>
+                <span>�t</span>
                 {[0, 1, 2, 3, 4].map(l => (
                   <div key={l} className={`w-3 h-3 rounded-sm ${["bg-app-card/50", "bg-emerald-500/20", "bg-emerald-500/40", "bg-emerald-500/65", "bg-emerald-500"][l]}`}></div>
                 ))}
-                <span>Nhiều</span>
+                <span>Nhi?u</span>
               </div>
             </div>
             <div className="flex gap-1 overflow-x-auto pb-2">
@@ -205,14 +205,14 @@ export default function VocabStatsPage() {
               ))}
             </div>
             <div className="flex justify-between mt-2 text-[10px] text-app-text-muted">
-              <span>52 tuần trước</span>
-              <span>Hôm nay</span>
+              <span>52 tu?n tru?c</span>
+              <span>H�m nay</span>
             </div>
           </div>
 
           {/* Weekly bar chart */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Hoạt động 7 ngày gần nhất</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">Ho?t d?ng 7 ng�y g?n nh?t</h3>
             <div className="flex items-end gap-3 h-32">
               {weeklyData.map((w, i) => {
                 const pct = (w.count / maxWeekly) * 100;
@@ -238,7 +238,7 @@ export default function VocabStatsPage() {
 
           {/* Category breakdown */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Từ vựng theo chủ đề</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">T? v?ng theo ch? d?</h3>
             {loading ? (
               <div className="space-y-2">
                 {[...Array(5)].map((_, i) => <div key={i} className="h-8 bg-app-card/50 rounded-lg animate-pulse"></div>)}
@@ -253,7 +253,7 @@ export default function VocabStatsPage() {
                     <div key={cat.category}>
                       <div className="flex items-center justify-between mb-1">
                         <span className="text-white/60 text-xs">{cat.category}</span>
-                        <span className="text-xs font-bold" style={{ color }}>{cat.count} từ</span>
+                        <span className="text-xs font-bold" style={{ color }}>{cat.count} t?</span>
                       </div>
                       <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                         <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, backgroundColor: color }}></div>
@@ -272,24 +272,24 @@ export default function VocabStatsPage() {
           <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/20 rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-4">
               <i className="ri-time-line text-app-accent-primary text-sm"></i>
-              <h3 className="text-white font-semibold text-sm">Dự đoán hoàn thành</h3>
+              <h3 className="text-white font-semibold text-sm">D? do�n ho�n th�nh</h3>
             </div>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-app-text-secondary text-xs">Còn lại</span>
-                <span className="text-white font-bold">{remaining} từ</span>
+                <span className="text-app-text-secondary text-xs">C�n l?i</span>
+                <span className="text-white font-bold">{remaining} t?</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-app-text-secondary text-xs">Tốc độ TB</span>
-                <span className="text-app-accent-primary font-bold">{avgWordsPerDay} từ/ngày</span>
+                <span className="text-app-text-secondary text-xs">T?c d? TB</span>
+                <span className="text-app-accent-primary font-bold">{avgWordsPerDay} t?/ng�y</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-app-text-secondary text-xs">Thời gian ước tính</span>
-                <span className="text-white font-bold">{daysToFinish} ngày</span>
+                <span className="text-app-text-secondary text-xs">Th?i gian u?c t�nh</span>
+                <span className="text-white font-bold">{daysToFinish} ng�y</span>
               </div>
               <div className="h-px bg-white/8 my-2"></div>
               <div className="text-center">
-                <p className="text-app-text-muted text-xs mb-1">Dự kiến hoàn thành</p>
+                <p className="text-app-text-muted text-xs mb-1">D? ki?n ho�n th�nh</p>
                 <p className="text-app-accent-primary font-bold text-lg">
                   {finishDate.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" })}
                 </p>
@@ -309,7 +309,7 @@ export default function VocabStatsPage() {
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
                   <span className="text-app-accent-primary font-black text-lg">{totalVocab > 0 ? Math.round((masteredCount / totalVocab) * 100) : 0}%</span>
-                  <span className="text-app-text-muted text-[9px]">hoàn thành</span>
+                  <span className="text-app-text-muted text-[9px]">ho�n th�nh</span>
                 </div>
               </div>
             </div>
@@ -317,9 +317,9 @@ export default function VocabStatsPage() {
 
           {/* Rating distribution */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Phân bố đánh giá SRS</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">Ph�n b? d�nh gi� SRS</h3>
             {srsEntries.length === 0 ? (
-              <p className="text-app-text-muted text-xs text-center py-4">Chưa có dữ liệu SRS. Hãy học flashcard!</p>
+              <p className="text-app-text-muted text-xs text-center py-4">Chua c� d? li?u SRS. H�y h?c flashcard!</p>
             ) : (
               <div className="space-y-2.5">
                 {ratingDist.map(r => (
@@ -344,22 +344,22 @@ export default function VocabStatsPage() {
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
               <i className="ri-robot-line text-app-accent-primary text-sm"></i>
-              <h3 className="text-white font-semibold text-sm">Phân tích AI</h3>
+              <h3 className="text-white font-semibold text-sm">Ph�n t�ch AI</h3>
             </div>
             <div className="space-y-2 text-xs text-app-text-secondary leading-relaxed">
               {masteredCount < 50 && (
-                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Hãy tập trung ôn tập từ cơ bản (A1) trước để xây nền tảng vững chắc.</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>H�y t?p trung �n t?p t? co b?n (A1) tru?c d? x�y n?n t?ng v?ng ch?c.</p>
               )}
               {avgWordsPerDay < 5 && (
-                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Tăng tốc độ học lên 10 từ/ngày để hoàn thành nhanh hơn.</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Tang t?c d? h?c l�n 10 t?/ng�y d? ho�n th�nh nhanh hon.</p>
               )}
               {currentStreak < 7 && (
-                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Duy trì streak 7 ngày liên tiếp để tăng hiệu quả ghi nhớ.</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Duy tr� streak 7 ng�y li�n ti?p d? tang hi?u qu? ghi nh?.</p>
               )}
               {avgInterval > 10 && (
-                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Interval trung bình cao — bạn đang ghi nhớ tốt! Tiếp tục duy trì.</p>
+                <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Interval trung b�nh cao � b?n dang ghi nh? t?t! Ti?p t?c duy tr�.</p>
               )}
-              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>Học đều đặn mỗi ngày hiệu quả hơn học dồn vào cuối tuần.</p>
+              <p><i className="ri-arrow-right-s-line text-app-accent-primary mr-1"></i>H?c d?u d?n m?i ng�y hi?u qu? hon h?c d?n v�o cu?i tu?n.</p>
             </div>
           </div>
         </div>

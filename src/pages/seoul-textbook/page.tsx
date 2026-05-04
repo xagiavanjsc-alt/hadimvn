@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useEffect, lazy, Suspense } from "react";
+import { useState, useMemo, useEffect, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -10,7 +10,7 @@ import {
   type SeoulLesson,
 } from "@/mocks/seoulTextbook";
 
-// ─── Helpers ──────────────────────────────────────────────────────────────
+// --- Helpers --------------------------------------------------------------
 function speakKorean(text: string) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
@@ -21,13 +21,13 @@ function speakKorean(text: string) {
 }
 
 const LEVEL_GROUP_LABELS: Record<number, string> = {
-  1: "Sơ cấp",
-  2: "Sơ-Trung cấp",
-  3: "Trung cấp",
-  4: "Cao cấp",
+  1: "So c?p",
+  2: "So-Trung c?p",
+  3: "Trung c?p",
+  4: "Cao c?p",
 };
 
-// ─── Book Card ────────────────────────────────────────────────────────────
+// --- Book Card ------------------------------------------------------------
 function BookCard({
   book,
   completedCount,
@@ -59,9 +59,9 @@ function BookCard({
       </div>
 
       <div className="flex items-center justify-between gap-2 text-[10px] text-app-text-secondary">
-        <span>{completedCount}/{book.totalLessons} bài</span>
-        <span>{book.totalVocab} từ</span>
-        <span>{book.totalGrammar} ngữ pháp</span>
+        <span>{completedCount}/{book.totalLessons} b�i</span>
+        <span>{book.totalVocab} t?</span>
+        <span>{book.totalGrammar} ng? ph�p</span>
       </div>
 
       <div className="mt-2 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
@@ -71,7 +71,7 @@ function BookCard({
   );
 }
 
-// ─── Lesson Row ───────────────────────────────────────────────────────────
+// --- Lesson Row -----------------------------------------------------------
 function LessonRow({
   lesson,
   bookColor,
@@ -98,7 +98,7 @@ function LessonRow({
         <p className="text-app-text-muted text-[10px] md:text-xs truncate mt-0.5">{lesson.title}</p>
         <div className="flex items-center gap-2 md:gap-3 mt-1">
           <span className="text-[9px] text-app-text-muted flex items-center gap-0.5">
-            <i className="ri-translate-2 text-xs"></i>{lesson.vocabulary.length} từ
+            <i className="ri-translate-2 text-xs"></i>{lesson.vocabulary.length} t?
           </span>
           <span className="text-[9px] text-app-text-muted flex items-center gap-0.5">
             <i className="ri-book-2-line text-xs"></i>{lesson.grammarPoints.length} NP
@@ -110,7 +110,7 @@ function LessonRow({
   );
 }
 
-// ─── Lesson Detail Modal ──────────────────────────────────────────────────
+// --- Lesson Detail Modal --------------------------------------------------
 function LessonModal({
   lesson,
   book,
@@ -139,10 +139,10 @@ function LessonModal({
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${book.color}20`, color: book.color }}>
                 {book.level}
               </span>
-              <span className="text-[10px] text-app-text-muted">Bài {lesson.lessonNumber}</span>
+              <span className="text-[10px] text-app-text-muted">B�i {lesson.lessonNumber}</span>
               {isCompleted && (
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success">
-                  <i className="ri-checkbox-circle-fill mr-1"></i>Đã học
+                  <i className="ri-checkbox-circle-fill mr-1"></i>�� h?c
                 </span>
               )}
             </div>
@@ -172,7 +172,7 @@ function LessonModal({
               className={`flex-1 py-2.5 md:py-3 text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${tab === t ? "border-b-2" : "text-app-text-secondary hover:text-white/60"}`}
               style={tab === t ? { color: book.color, borderColor: book.color } : {}}
             >
-              {t === "vocab" ? `Từ vựng (${lesson.vocabulary.length})` : t === "grammar" ? `Ngữ pháp (${lesson.grammarPoints.length})` : "Hội thoại"}
+              {t === "vocab" ? `T? v?ng (${lesson.vocabulary.length})` : t === "grammar" ? `Ng? ph�p (${lesson.grammarPoints.length})` : "H?i tho?i"}
             </button>
           ))}
         </div>
@@ -183,16 +183,16 @@ function LessonModal({
           {tab === "vocab" && (
             <div className="space-y-3 md:space-y-4">
               <div className="flex items-center justify-between">
-                <p className="text-app-text-secondary text-xs">Nhấn vào thẻ để xem ví dụ</p>
+                <p className="text-app-text-secondary text-xs">Nh?n v�o th? d? xem v� d?</p>
                 {dbVocab.length > 0 && (
                   <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success">
-                    <i className="ri-database-2-line mr-1"></i>{dbVocab.length} từ từ Supabase
+                    <i className="ri-database-2-line mr-1"></i>{dbVocab.length} t? t? Supabase
                   </span>
                 )}
               </div>
               {vocabLoading && (
                 <div className="text-center py-4 text-app-text-muted text-xs">
-                  <i className="ri-loader-4-line animate-spin mr-1"></i>Đang tải từ vựng...
+                  <i className="ri-loader-4-line animate-spin mr-1"></i>�ang t?i t? v?ng...
                 </div>
               )}
               <div className="grid grid-cols-2 gap-2 md:gap-3">
@@ -238,7 +238,7 @@ function LessonModal({
                       </>
                     ) : (
                       <>
-                        <p className="text-app-text-secondary text-[10px] font-medium mb-1.5">Ví dụ:</p>
+                        <p className="text-app-text-secondary text-[10px] font-medium mb-1.5">V� d?:</p>
                         <p className="text-white text-xs md:text-sm font-medium mb-1">{v.example}</p>
                         <p className="text-app-text-secondary text-[10px] md:text-xs italic">{v.exampleVi}</p>
                       </>
@@ -252,7 +252,7 @@ function LessonModal({
                   <div className="flex items-start gap-2">
                     <i className="ri-global-line text-[#84cc16] text-sm flex-shrink-0 mt-0.5"></i>
                     <div>
-                      <p className="text-[#84cc16] text-xs font-semibold mb-1">Ghi chú văn hóa</p>
+                      <p className="text-[#84cc16] text-xs font-semibold mb-1">Ghi ch� van h�a</p>
                       <p className="text-white/50 text-xs leading-relaxed">{lesson.culturalTip}</p>
                     </div>
                   </div>
@@ -357,12 +357,12 @@ function LessonModal({
           )}
         </div>
 
-        {/* Footer — Mark as studied */}
+        {/* Footer � Mark as studied */}
         <div className="p-3 md:p-4 border-t border-app-border flex-shrink-0">
           {isCompleted ? (
             <div className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
               <i className="ri-checkbox-circle-fill text-app-accent-success"></i>
-              <span className="text-app-accent-success text-sm font-semibold">Đã đánh dấu hoàn thành</span>
+              <span className="text-app-accent-success text-sm font-semibold">�� d�nh d?u ho�n th�nh</span>
             </div>
           ) : (
             <button
@@ -371,7 +371,7 @@ function LessonModal({
               style={{ backgroundColor: book.color }}
             >
               <i className="ri-checkbox-circle-line mr-2"></i>
-              Đánh dấu đã học (+50 XP)
+              ��nh d?u d� h?c (+50 XP)
             </button>
           )}
         </div>
@@ -380,7 +380,7 @@ function LessonModal({
   );
 }
 
-// ─── Book Detail View ─────────────────────────────────────────────────────
+// --- Book Detail View -----------------------------------------------------
 function BookDetailView({
   book,
   completedLessons,
@@ -422,7 +422,7 @@ function BookDetailView({
         className="flex items-center gap-2 text-app-text-secondary hover:text-white/70 text-sm mb-4 md:mb-5 cursor-pointer transition-colors"
       >
         <i className="ri-arrow-left-line"></i>
-        Quay lại danh sách
+        Quay l?i danh s�ch
       </button>
 
       {/* Book header */}
@@ -440,15 +440,15 @@ function BookDetailView({
           </div>
           <div className="text-right flex-shrink-0">
             <p className="text-3xl md:text-4xl font-bold" style={{ color: book.color }}>{progress}%</p>
-            <p className="text-app-text-secondary text-xs md:text-sm">{completedCount}/{book.totalLessons} bài</p>
+            <p className="text-app-text-secondary text-xs md:text-sm">{completedCount}/{book.totalLessons} b�i</p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 md:gap-3 mt-4 md:mt-5">
           {[
-            { label: "Tổng bài", value: book.totalLessons, icon: "ri-book-open-line" },
-            { label: "Từ vựng", value: `~${book.totalVocab}`, icon: "ri-translate-2" },
-            { label: "Ngữ pháp", value: book.totalGrammar, icon: "ri-book-2-line" },
+            { label: "T?ng b�i", value: book.totalLessons, icon: "ri-book-open-line" },
+            { label: "T? v?ng", value: `~${book.totalVocab}`, icon: "ri-translate-2" },
+            { label: "Ng? ph�p", value: book.totalGrammar, icon: "ri-book-2-line" },
           ].map(s => (
             <div key={s.label} className="bg-app-card/50 rounded-xl p-2.5 md:p-3 flex items-center gap-2 md:gap-3">
               <div className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${book.color}15` }}>
@@ -471,7 +471,7 @@ function BookDetailView({
 
       {/* Lessons list */}
       <h3 className="text-white font-semibold text-sm mb-3">
-        Danh sách bài học ({validLessons.length} bài chi tiết)
+        Danh s�ch b�i h?c ({validLessons.length} b�i chi ti?t)
       </h3>
       <div className="space-y-2">
         {validLessons.map(lesson => (
@@ -487,8 +487,8 @@ function BookDetailView({
         {remainingCount > 0 && (
           <div className="p-4 rounded-xl border border-app-border bg-white/1 text-center">
             <i className="ri-lock-line text-app-text-muted text-2xl mb-2 block"></i>
-            <p className="text-app-text-muted text-sm font-medium">+{remainingCount} bài học tiếp theo</p>
-            <p className="text-app-text-muted text-xs mt-1">Đang được cập nhật thêm nội dung chi tiết</p>
+            <p className="text-app-text-muted text-sm font-medium">+{remainingCount} b�i h?c ti?p theo</p>
+            <p className="text-app-text-muted text-xs mt-1">�ang du?c c?p nh?t th�m n?i dung chi ti?t</p>
           </div>
         )}
       </div>
@@ -496,7 +496,7 @@ function BookDetailView({
   );
 }
 
-// ─── Progress Chart ───────────────────────────────────────────────────────
+// --- Progress Chart -------------------------------------------------------
 function ProgressChart({ completedLessons }: { completedLessons: Record<string, boolean> }) {
   const navigate = useNavigate();
 
@@ -514,15 +514,15 @@ function ProgressChart({ completedLessons }: { completedLessons: Record<string, 
     <div className="bg-app-bg border border-app-border rounded-2xl p-4 md:p-5 mb-5 md:mb-6">
       <div className="flex items-center justify-between mb-4 md:mb-5">
         <div>
-          <p className="text-white font-semibold text-sm">Tiến độ học Seoul</p>
-          <p className="text-app-text-muted text-xs mt-0.5">% hoàn thành từng cuốn sách</p>
+          <p className="text-white font-semibold text-sm">Ti?n d? h?c Seoul</p>
+          <p className="text-app-text-muted text-xs mt-0.5">% ho�n th�nh t?ng cu?n s�ch</p>
         </div>
         <button
           onClick={() => navigate("/seoul-progress")}
           className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg cursor-pointer transition-colors whitespace-nowrap"
           style={{ backgroundColor: "app-accent-primary15", color: "app-accent-primary" }}
         >
-          <i className="ri-bar-chart-line"></i>Chi tiết
+          <i className="ri-bar-chart-line"></i>Chi ti?t
         </button>
       </div>
 
@@ -542,7 +542,7 @@ function ProgressChart({ completedLessons }: { completedLessons: Record<string, 
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <p className="text-white font-bold text-base md:text-lg leading-none">{overallPct}%</p>
-            <p className="text-app-text-muted text-[9px]">Tổng thể</p>
+            <p className="text-app-text-muted text-[9px]">T?ng th?</p>
           </div>
         </div>
 
@@ -567,7 +567,7 @@ function ProgressChart({ completedLessons }: { completedLessons: Record<string, 
   );
 }
 
-// ─── Supabase vocab loader (enriches lessons with DB vocab) ──────────────
+// --- Supabase vocab loader (enriches lessons with DB vocab) --------------
 function useSupabaseVocab(lessonId: string | null) {
   const [dbVocab, setDbVocab] = useState<Array<{
     korean: string; pronunciation: string; vietnamese: string;
@@ -591,7 +591,7 @@ function useSupabaseVocab(lessonId: string | null) {
   return { dbVocab, loading };
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────
+// --- Main Page ------------------------------------------------------------
 export default function SeoulTextbookPage() {
   const { addXP } = useXPSystem();
   const navigatePage = useNavigate();
@@ -617,20 +617,20 @@ export default function SeoulTextbookPage() {
   const handleCompleteLesson = (lessonId: string) => {
     if (completedLessons[lessonId]) return;
     setCompletedLessons(prev => ({ ...prev, [lessonId]: true }));
-    addXP(50, `Hoàn thành bài Seoul: ${lessonId}`);
+    addXP(50, `Ho�n th�nh b�i Seoul: ${lessonId}`);
   };
 
   const levelGroups = [
-    { id: 1, label: "Sơ cấp", books: "1A, 1B", color: "app-accent-primary" },
-    { id: 2, label: "Sơ-Trung", books: "2A, 2B", color: "#fb923c" },
-    { id: 3, label: "Trung cấp", books: "3A, 3B", color: "#a78bfa" },
-    { id: 4, label: "Cao cấp", books: "4A, 4B", color: "#f87171" },
+    { id: 1, label: "So c?p", books: "1A, 1B", color: "app-accent-primary" },
+    { id: 2, label: "So-Trung", books: "2A, 2B", color: "#fb923c" },
+    { id: 3, label: "Trung c?p", books: "3A, 3B", color: "#a78bfa" },
+    { id: 4, label: "Cao c?p", books: "4A, 4B", color: "#f87171" },
   ];
 
   return (
     <DashboardLayout
-      title="Giáo Trình Seoul 1A–4B"
-      subtitle="Học tiếng Hàn bài bản theo giáo trình chuẩn quốc tế"
+      title="Gi�o Tr�nh Seoul 1A�4B"
+      subtitle="H?c ti?ng H�n b�i b?n theo gi�o tr�nh chu?n qu?c t?"
     >
       {!selectedBook ? (
         <>
@@ -641,24 +641,24 @@ export default function SeoulTextbookPage() {
               className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold cursor-pointer whitespace-nowrap transition-all hover:opacity-80"
               style={{ backgroundColor: "#f43f5e15", color: "#f43f5e", border: "1px solid #f43f5e30" }}
             >
-              <i className="ri-translate-2"></i>Từ vựng Hán-Hàn
+              <i className="ri-translate-2"></i>T? v?ng H�n-H�n
             </button>
             <button
               onClick={() => navigatePage("/seoul-hanja")}
               className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold cursor-pointer whitespace-nowrap transition-all hover:opacity-80"
               style={{ backgroundColor: "#f59e0b15", color: "#f59e0b", border: "1px solid #f59e0b30" }}
             >
-              <i className="ri-font-size"></i>Học Hán tự Seoul
+              <i className="ri-font-size"></i>H?c H�n t? Seoul
             </button>
           </div>
 
           {/* Overall stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-5 md:mb-6">
             {[
-              { label: "Tổng bài học", value: totalLessons, icon: "ri-book-open-line", color: "app-accent-primary" },
-              { label: "Đã hoàn thành", value: totalCompleted, icon: "ri-checkbox-circle-line", color: "#34d399" },
-              { label: "Tổng từ vựng", value: `~${totalVocab}`, icon: "ri-translate-2", color: "#a78bfa" },
-              { label: "Điểm ngữ pháp", value: totalGrammar, icon: "ri-book-2-line", color: "#fb923c" },
+              { label: "T?ng b�i h?c", value: totalLessons, icon: "ri-book-open-line", color: "app-accent-primary" },
+              { label: "�� ho�n th�nh", value: totalCompleted, icon: "ri-checkbox-circle-line", color: "#34d399" },
+              { label: "T?ng t? v?ng", value: `~${totalVocab}`, icon: "ri-translate-2", color: "#a78bfa" },
+              { label: "�i?m ng? ph�p", value: totalGrammar, icon: "ri-book-2-line", color: "#fb923c" },
             ].map(s => (
               <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-3 md:p-4 flex items-center gap-2 md:gap-3">
                 <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -681,7 +681,7 @@ export default function SeoulTextbookPage() {
               onClick={() => setFilterGroup("all")}
               className={`px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${filterGroup === "all" ? "bg-app-card/70 text-white" : "text-app-text-secondary hover:text-white/60 hover:bg-app-card/50"}`}
             >
-              Tất cả
+              T?t c?
             </button>
             {levelGroups.map(g => (
               <button
@@ -710,7 +710,7 @@ export default function SeoulTextbookPage() {
 
           {/* Learning path */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-4 md:p-5">
-            <h3 className="text-white font-semibold text-sm mb-3 md:mb-4">Lộ trình học tập</h3>
+            <h3 className="text-white font-semibold text-sm mb-3 md:mb-4">L? tr�nh h?c t?p</h3>
             <div className="flex items-center gap-0 overflow-x-auto pb-2">
               {seoulBooks.map((book, i) => (
                 <div key={book.id} className="flex items-center flex-shrink-0">

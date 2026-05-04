@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { mockMelonSongs } from "@/mocks/melonSongs";
 import { MelonLessonResult } from "@/services/aiService";
@@ -19,7 +19,7 @@ interface SongItem {
 }
 interface WeeklyGoal { songsPerWeek: number; }
 
-/* ── Local helpers ─────────────────────────────────────────────────────────── */
+/* -- Local helpers ----------------------------------------------------------- */
 function loadLearnedLocal(): number[] {
   try { return JSON.parse(localStorage.getItem(LEARNED_KEY) ?? "[]"); }
   catch { return []; }
@@ -78,7 +78,7 @@ function buildFromCloud(entries: MelonStudyEntry[]): SongItem[] {
     .filter(Boolean) as SongItem[];
 }
 
-/* ── Goal Progress Banner ─────────────────────────────────────────────────── */
+/* -- Goal Progress Banner --------------------------------------------------- */
 function GoalBanner({
   goal,
   songsThisWeek,
@@ -100,10 +100,10 @@ function GoalBanner({
           </div>
           <div>
             <p className="text-white/80 text-xs font-semibold">
-              {done ? "Đạt mục tiêu tuần này!" : "Mục tiêu tuần này"}
+              {done ? "�?t m?c ti�u tu?n n�y!" : "M?c ti�u tu?n n�y"}
             </p>
             <p className="text-app-text-muted text-[10px]">
-              {songsThisWeek}/{goal.songsPerWeek} bài · {done ? "Hoàn thành!" : `Còn ${goal.songsPerWeek - songsThisWeek} bài nữa`}
+              {songsThisWeek}/{goal.songsPerWeek} b�i � {done ? "Ho�n th�nh!" : `C�n ${goal.songsPerWeek - songsThisWeek} b�i n?a`}
             </p>
           </div>
         </div>
@@ -112,7 +112,7 @@ function GoalBanner({
           className="text-[10px] text-app-text-muted hover:text-white/50 cursor-pointer whitespace-nowrap flex items-center gap-1"
         >
           <i className="ri-edit-line" />
-          Sửa
+          S?a
         </button>
       </div>
       <div className="h-2 bg-white/8 rounded-full overflow-hidden">
@@ -127,13 +127,13 @@ function GoalBanner({
       <div className="flex justify-between mt-1.5">
         <span className="text-[10px] text-app-text-muted">0</span>
         <span className="text-[10px]" style={{ color: done ? "#22c55e" : "app-accent-primary" }}>{pct}%</span>
-        <span className="text-[10px] text-app-text-muted">{goal.songsPerWeek} bài</span>
+        <span className="text-[10px] text-app-text-muted">{goal.songsPerWeek} b�i</span>
       </div>
     </div>
   );
 }
 
-/* ── Goal Edit Modal ─────────────────────────────────────────────────────── */
+/* -- Goal Edit Modal ------------------------------------------------------- */
 function GoalModal({ goal, onSave, onClose }: { goal: WeeklyGoal; onSave: (g: WeeklyGoal) => void; onClose: () => void }) {
   const [val, setVal] = useState(goal.songsPerWeek);
   const OPTIONS = [1, 2, 3, 5, 7, 10, 14];
@@ -143,12 +143,12 @@ function GoalModal({ goal, onSave, onClose }: { goal: WeeklyGoal; onSave: (g: We
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
       <div className="relative bg-[#1a1d26] border border-app-border rounded-2xl p-6 w-full max-w-sm z-10">
         <div className="flex items-center justify-between mb-5">
-          <p className="text-white font-bold text-base">Đặt mục tiêu học Melon</p>
+          <p className="text-white font-bold text-base">�?t m?c ti�u h?c Melon</p>
           <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 text-app-text-secondary cursor-pointer">
             <i className="ri-close-line text-sm" />
           </button>
         </div>
-        <p className="text-app-text-secondary text-xs mb-4">Chọn số bài hát muốn học mỗi tuần:</p>
+        <p className="text-app-text-secondary text-xs mb-4">Ch?n s? b�i h�t mu?n h?c m?i tu?n:</p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
           {OPTIONS.map(n => (
             <button
@@ -165,20 +165,20 @@ function GoalModal({ goal, onSave, onClose }: { goal: WeeklyGoal; onSave: (g: We
           ))}
         </div>
         <p className="text-app-text-muted text-xs text-center mb-5">
-          {val} bài/tuần = ~{Math.round(val / 7 * 10) / 10} bài/ngày
+          {val} b�i/tu?n = ~{Math.round(val / 7 * 10) / 10} b�i/ng�y
         </p>
         <button
           onClick={() => { onSave({ songsPerWeek: val }); onClose(); }}
           className="w-full py-3 rounded-xl bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
         >
-          Lưu mục tiêu
+          Luu m?c ti�u
         </button>
       </div>
     </div>
   );
 }
 
-/* ── Main Page ───────────────────────────────────────────────────────────── */
+/* -- Main Page ------------------------------------------------------------- */
 export default function MelonHistoryPage() {
   const navigate = useNavigate();
   const { user } = useAuthContext();
@@ -209,7 +209,7 @@ export default function MelonHistoryPage() {
     return () => { mounted = false; };
   }, [user, loadMelonHistory]);
 
-  /* ── Songs learned this week ─────────────────────────────────────────── */
+  /* -- Songs learned this week ------------------------------------------- */
   const songsThisWeek = useMemo(() => {
     const now = new Date();
     const startOfWeek = new Date(now);
@@ -255,10 +255,10 @@ export default function MelonHistoryPage() {
           <i className="ri-arrow-left-line" />
         </button>
         <div className="flex-1">
-          <p className="text-white font-bold text-sm">Lịch sử học Melon</p>
+          <p className="text-white font-bold text-sm">L?ch s? h?c Melon</p>
           {source === "cloud" && (
             <p className="text-[#22c55e] text-[10px] flex items-center gap-1">
-              <i className="ri-cloud-line" /> Đồng bộ từ cloud
+              <i className="ri-cloud-line" /> �?ng b? t? cloud
             </p>
           )}
         </div>
@@ -267,7 +267,7 @@ export default function MelonHistoryPage() {
           className="flex items-center gap-1.5 text-xs text-app-text-secondary hover:text-white/70 cursor-pointer whitespace-nowrap mr-1"
         >
           <i className="ri-bar-chart-grouped-line" />
-          Thống kê
+          Th?ng k�
         </button>
         <div className="flex gap-1 bg-app-card/50 p-0.5 rounded-lg">
           <button
@@ -294,8 +294,8 @@ export default function MelonHistoryPage() {
               <i className="ri-cloud-off-line text-app-accent-primary text-sm" />
             </div>
             <div className="flex-1">
-              <p className="text-white/80 text-xs font-semibold">Đăng nhập để đồng bộ đa thiết bị</p>
-              <p className="text-app-text-secondary text-[11px] mt-0.5">Hiện đang dùng bộ nhớ cục bộ. Đăng nhập để lưu lịch sử lên cloud.</p>
+              <p className="text-white/80 text-xs font-semibold">�ang nh?p d? d?ng b? da thi?t b?</p>
+              <p className="text-app-text-secondary text-[11px] mt-0.5">Hi?n dang d�ng b? nh? c?c b?. �ang nh?p d? luu l?ch s? l�n cloud.</p>
             </div>
           </div>
         )}
@@ -311,7 +311,7 @@ export default function MelonHistoryPage() {
 
         {!loading && (
           <>
-            {/* ── GOAL BANNER ─────────────────────────────────────────────── */}
+            {/* -- GOAL BANNER ----------------------------------------------- */}
             <GoalBanner
               goal={goal}
               songsThisWeek={songsThisWeek}
@@ -321,10 +321,10 @@ export default function MelonHistoryPage() {
             {/* Stats overview */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-7">
               {[
-                { icon: "ri-music-2-line", val: learnedSongs.length, label: "Bài đã học", color: "text-[#22c55e]" },
-                { icon: "ri-translate-2", val: totalVocab, label: "Từ vựng", color: "text-app-accent-primary" },
+                { icon: "ri-music-2-line", val: learnedSongs.length, label: "B�i d� h?c", color: "text-[#22c55e]" },
+                { icon: "ri-translate-2", val: totalVocab, label: "T? v?ng", color: "text-app-accent-primary" },
                 { icon: "ri-lightbulb-flash-line", val: totalQuizDone, label: "Quiz xong", color: "text-orange-400" },
-                { icon: "ri-percent-line", val: totalQuizDone > 0 ? `${avgScore}%` : "—", label: "Điểm TB", color: "text-green-400" },
+                { icon: "ri-percent-line", val: totalQuizDone > 0 ? `${avgScore}%` : "�", label: "�i?m TB", color: "text-green-400" },
               ].map(s => (
                 <div key={s.label} className="bg-app-surface/50 border border-app-border rounded-2xl p-3 text-center">
                   <div className="w-8 h-8 flex items-center justify-center mx-auto mb-1">
@@ -339,7 +339,7 @@ export default function MelonHistoryPage() {
             {/* Genre breakdown */}
             {genreCounts.length > 0 && (
               <div className="bg-app-surface/50 border border-app-border rounded-2xl p-4 mb-6">
-                <p className="text-app-text-secondary text-xs tracking-normal mb-3">Thể loại đã học</p>
+                <p className="text-app-text-secondary text-xs tracking-normal mb-3">Th? lo?i d� h?c</p>
                 <div className="flex flex-wrap gap-2">
                   {genreCounts.map(([genre, count]) => (
                     <span key={genre} className="flex items-center gap-1.5 bg-app-card/50 border border-app-border text-white/60 text-xs px-3 py-1.5 rounded-full">
@@ -357,13 +357,13 @@ export default function MelonHistoryPage() {
                 <div className="w-16 h-16 flex items-center justify-center bg-app-card/50 rounded-2xl mb-4">
                   <i className="ri-history-line text-app-text-muted text-2xl" />
                 </div>
-                <p className="text-app-text-secondary text-sm font-medium mb-1">Chưa có lịch sử học</p>
-                <p className="text-app-text-muted text-xs mb-5">Mở phân tích AI của bất kỳ bài hát nào<br />để bắt đầu ghi lịch sử</p>
+                <p className="text-app-text-secondary text-sm font-medium mb-1">Chua c� l?ch s? h?c</p>
+                <p className="text-app-text-muted text-xs mb-5">M? ph�n t�ch AI c?a b?t k? b�i h�t n�o<br />d? b?t d?u ghi l?ch s?</p>
                 <button
                   onClick={() => navigate("/melon")}
                   className="bg-app-accent-primary hover:bg-app-accent-primary/80 text-app-bg text-sm font-bold px-6 py-2.5 rounded-xl cursor-pointer whitespace-nowrap"
                 >
-                  Đến Melon Chart
+                  �?n Melon Chart
                 </button>
               </div>
             )}
@@ -386,7 +386,7 @@ export default function MelonHistoryPage() {
                           <img src={song.albumArt} alt={song.title} className="w-12 h-12 rounded-xl object-cover object-top flex-shrink-0" />
                           <div className="flex-1 min-w-0">
                             <p className="text-white/85 text-sm font-semibold truncate">{song.title}</p>
-                            <p className="text-app-text-secondary text-xs">{song.artist} · #{song.rank}</p>
+                            <p className="text-app-text-secondary text-xs">{song.artist} � #{song.rank}</p>
                             {studiedAt && (
                               <p className="text-app-text-muted text-[10px] mt-0.5">
                                 {new Date(studiedAt).toLocaleDateString("vi-VN")}
@@ -396,7 +396,7 @@ export default function MelonHistoryPage() {
                               {analysis && (
                                 <span className="inline-flex items-center gap-1 text-[10px] text-green-400 bg-green-500/10 px-2 py-0.5 rounded-full">
                                   <i className="ri-translate-2" />
-                                  {analysis.vocabulary.length} từ vựng
+                                  {analysis.vocabulary.length} t? v?ng
                                 </span>
                               )}
                               {quizScore && (
@@ -406,7 +406,7 @@ export default function MelonHistoryPage() {
                                 </span>
                               )}
                               {!analysis && (
-                                <span className="text-[10px] text-app-text-muted bg-app-card/50 px-2 py-0.5 rounded-full">Chưa phân tích AI</span>
+                                <span className="text-[10px] text-app-text-muted bg-app-card/50 px-2 py-0.5 rounded-full">Chua ph�n t�ch AI</span>
                               )}
                             </div>
                           </div>
@@ -420,7 +420,7 @@ export default function MelonHistoryPage() {
                               </span>
                             ))}
                             {analysis.vocabulary.length > 3 && (
-                              <span className="text-[11px] text-app-text-muted px-2 py-0.5">+{analysis.vocabulary.length - 3} từ</span>
+                              <span className="text-[11px] text-app-text-muted px-2 py-0.5">+{analysis.vocabulary.length - 3} t?</span>
                             )}
                           </div>
                         )}
@@ -456,9 +456,9 @@ export default function MelonHistoryPage() {
                     <div className="px-3 py-2 flex items-center justify-between">
                       <span className="text-[10px] text-app-text-muted">#{song.rank}</span>
                       {analysis ? (
-                        <span className="text-[10px] text-green-400">{analysis.vocabulary.length} từ</span>
+                        <span className="text-[10px] text-green-400">{analysis.vocabulary.length} t?</span>
                       ) : (
-                        <span className="text-[10px] text-app-text-muted">Chưa AI</span>
+                        <span className="text-[10px] text-app-text-muted">Chua AI</span>
                       )}
                     </div>
                   </div>
@@ -477,8 +477,8 @@ export default function MelonHistoryPage() {
                     <i className="ri-stack-line text-app-accent-primary text-lg" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-white/85 text-sm font-semibold">Flashcard từ vựng K-pop</p>
-                    <p className="text-white/35 text-xs">{totalVocab} từ từ {learnedSongs.filter(s => s.analysis).length} bài hát đã học</p>
+                    <p className="text-white/85 text-sm font-semibold">Flashcard t? v?ng K-pop</p>
+                    <p className="text-white/35 text-xs">{totalVocab} t? t? {learnedSongs.filter(s => s.analysis).length} b�i h�t d� h?c</p>
                   </div>
                   <i className="ri-arrow-right-s-line text-app-accent-primary/50" />
                 </div>

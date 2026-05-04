@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useAdminUsers, type AdminUser } from "@/hooks/useAdminUsers";
 import { supabase } from "@/lib/supabase";
@@ -21,9 +21,9 @@ interface ScheduleConfig {
 }
 
 const DEFAULT_MESSAGES = [
-  "🇰🇷 Chào bạn! Hôm nay bạn chưa học tiếng Hàn đúng không? Chỉ 10 phút thôi là đủ để giữ streak rồi! Vào hadim.vn học ngay nhé! 🔥",
-  "📚 Nhắc nhở học tập: Bạn đang có streak tốt đấy! Đừng để gián đoạn nhé. Vào học 1 bài EPS hoặc 10 từ vựng ngay nào! hadim.vn",
-  "⚡ Hôm nay bạn chưa học tiếng Hàn! Chỉ cần 5 phút luyện phát âm hoặc 10 flashcard thôi. Giữ vững thói quen mỗi ngày nhé! 💪",
+  "???? Ch�o b?n! H�m nay b?n chua h?c ti?ng H�n d�ng kh�ng? Ch? 10 ph�t th�i l� d? d? gi? streak r?i! V�o hanquocoi.vn h?c ngay nh�! ??",
+  "?? Nh?c nh? h?c t?p: B?n dang c� streak t?t d?y! �?ng d? gi�n do?n nh�. V�o h?c 1 b�i EPS ho?c 10 t? v?ng ngay n�o! hanquocoi.vn",
+  "? H�m nay b?n chua h?c ti?ng H�n! Ch? c?n 5 ph�t luy?n ph�t �m ho?c 10 flashcard th�i. Gi? v?ng th�i quen m?i ng�y nh�! ??",
 ];
 
 function MemberRow({ user, selected, onToggle, lastStudy }: {
@@ -67,9 +67,9 @@ function MemberRow({ user, selected, onToggle, lastStudy }: {
       </div>
       <div className="text-right flex-shrink-0">
         <p className={`text-xs font-bold ${daysSince >= 3 ? "text-rose-400" : daysSince >= 1 ? "text-app-accent-primary" : "text-app-accent-success"}`}>
-          {daysSince >= 999 ? "Chưa từng học" : `${daysSince} ngày`}
+          {daysSince >= 999 ? "Chua t?ng h?c" : `${daysSince} ng�y`}
         </p>
-        <p className="text-app-text-muted text-[9px]">chưa học</p>
+        <p className="text-app-text-muted text-[9px]">chua h?c</p>
       </div>
     </div>
   );
@@ -155,7 +155,7 @@ export default function AdminZaloReminderPage() {
       );
     }
     setSavingSettings(false);
-    showToast("Đã lưu cài đặt Zalo OA!");
+    showToast("�� luu c�i d?t Zalo OA!");
     setShowSettings(false);
   };
 
@@ -190,8 +190,8 @@ export default function AdminZaloReminderPage() {
   };
 
   const handleSend = async () => {
-    if (selectedIds.size === 0) { showToast("Vui lòng chọn ít nhất 1 thành viên"); return; }
-    if (!message.trim()) { showToast("Vui lòng nhập nội dung tin nhắn"); return; }
+    if (selectedIds.size === 0) { showToast("Vui l�ng ch?n �t nh?t 1 th�nh vi�n"); return; }
+    if (!message.trim()) { showToast("Vui l�ng nh?p n?i dung tin nh?n"); return; }
 
     setSending(true);
     try {
@@ -205,11 +205,11 @@ export default function AdminZaloReminderPage() {
 
       if (error) throw error;
 
-      showToast(`Đã gửi ${data?.sent ?? 0}/${selectedIds.size} tin nhắn Zalo OA`);
+      showToast(`�� g?i ${data?.sent ?? 0}/${selectedIds.size} tin nh?n Zalo OA`);
       setSelectedIds(new Set());
       await fetchLogs();
     } catch (err) {
-      showToast(`Lỗi: ${err instanceof Error ? err.message : "Không thể gửi"}`);
+      showToast(`L?i: ${err instanceof Error ? err.message : "Kh�ng th? g?i"}`);
     } finally {
       setSending(false);
     }
@@ -226,10 +226,10 @@ export default function AdminZaloReminderPage() {
         },
       });
       if (error) throw error;
-      showToast(`Cron test: Đã gửi ${data?.sent ?? 0} tin nhắn`);
+      showToast(`Cron test: �� g?i ${data?.sent ?? 0} tin nh?n`);
       await fetchLogs();
     } catch (err) {
-      showToast(`Lỗi: ${err instanceof Error ? err.message : "Không thể chạy cron"}`);
+      showToast(`L?i: ${err instanceof Error ? err.message : "Kh�ng th? ch?y cron"}`);
     } finally {
       setSending(false);
     }
@@ -240,15 +240,15 @@ export default function AdminZaloReminderPage() {
 
   return (
     <AdminLayout
-      title="Nhắc nhở học tập Zalo OA"
-      subtitle="Gửi tin nhắn tự động qua Zalo OA cho thành viên chưa học trong ngày"
+      title="Nh?c nh? h?c t?p Zalo OA"
+      subtitle="G?i tin nh?n t? d?ng qua Zalo OA cho th�nh vi�n chua h?c trong ng�y"
       actions={
         <button
           onClick={() => setShowSettings(v => !v)}
           className="flex items-center gap-2 text-xs font-medium px-3 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap bg-app-card/50 text-white/50 border border-app-border hover:bg-app-card/70"
         >
           <i className="ri-settings-3-line" />
-          Cài đặt Zalo OA
+          C�i d?t Zalo OA
         </button>
       }
     >
@@ -262,7 +262,7 @@ export default function AdminZaloReminderPage() {
       {/* Settings panel */}
       {showSettings && (
         <div className="bg-[#111318] border border-app-border rounded-2xl p-5 mb-5">
-          <h3 className="text-white font-semibold text-sm mb-4">Cài đặt Zalo Official Account</h3>
+          <h3 className="text-white font-semibold text-sm mb-4">C�i d?t Zalo Official Account</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Zalo OA ID</label>
@@ -271,9 +271,9 @@ export default function AdminZaloReminderPage() {
                 className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40 transition-colors" />
             </div>
             <div>
-              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Access Token (lưu vào Supabase Secrets)</label>
+              <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Access Token (luu v�o Supabase Secrets)</label>
               <input type="password" value={zaloToken} onChange={e => setZaloToken(e.target.value)}
-                placeholder="Nhập Zalo OA Access Token"
+                placeholder="Nh?p Zalo OA Access Token"
                 className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40 transition-colors" />
             </div>
           </div>
@@ -282,8 +282,8 @@ export default function AdminZaloReminderPage() {
           <div className="border-t border-app-border pt-4 mb-4">
             <div className="flex items-center justify-between mb-3">
               <div>
-                <p className="text-white/70 text-sm font-semibold">Lịch gửi tự động (Cron)</p>
-                <p className="text-app-text-muted text-xs">Tự động gửi nhắc nhở mỗi ngày theo giờ đặt</p>
+                <p className="text-white/70 text-sm font-semibold">L?ch g?i t? d?ng (Cron)</p>
+                <p className="text-app-text-muted text-xs">T? d?ng g?i nh?c nh? m?i ng�y theo gi? d?t</p>
               </div>
               <button
                 onClick={() => setSchedule(prev => ({ ...prev, enabled: !prev.enabled }))}
@@ -295,20 +295,20 @@ export default function AdminZaloReminderPage() {
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Giờ gửi (0-23)</label>
+                <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Gi? g?i (0-23)</label>
                 <input type="number" min={0} max={23} value={schedule.hour}
                   onChange={e => setSchedule(prev => ({ ...prev, hour: parseInt(e.target.value) || 20 }))}
                   className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-rose-500/40 transition-colors" />
               </div>
               <div>
-                <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Không học bao nhiêu ngày</label>
+                <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Kh�ng h?c bao nhi�u ng�y</label>
                 <select value={schedule.inactiveDays}
                   onChange={e => setSchedule(prev => ({ ...prev, inactiveDays: parseInt(e.target.value) }))}
                   className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-rose-500/40 transition-colors cursor-pointer">
-                  <option value={1} className="bg-[#111318]">1 ngày</option>
-                  <option value={2} className="bg-[#111318]">2 ngày</option>
-                  <option value={3} className="bg-[#111318]">3 ngày</option>
-                  <option value={7} className="bg-[#111318]">7 ngày</option>
+                  <option value={1} className="bg-[#111318]">1 ng�y</option>
+                  <option value={2} className="bg-[#111318]">2 ng�y</option>
+                  <option value={3} className="bg-[#111318]">3 ng�y</option>
+                  <option value={7} className="bg-[#111318]">7 ng�y</option>
                 </select>
               </div>
             </div>
@@ -317,8 +317,8 @@ export default function AdminZaloReminderPage() {
           <div className="p-3 rounded-xl bg-app-accent-primary/5 border border-app-accent-primary/15 mb-4">
             <p className="text-app-accent-primary/80 text-xs leading-relaxed">
               <i className="ri-information-line mr-1" />
-              Để lấy Access Token: <strong className="text-app-accent-primary">Zalo OA Admin</strong> → Quản lý → Công cụ phát triển → Token.
-              Cần quyền <strong className="text-app-accent-primary">oa_send_message</strong>. Token được lưu vào Supabase Secrets (ZALO_OA_ACCESS_TOKEN).
+              �? l?y Access Token: <strong className="text-app-accent-primary">Zalo OA Admin</strong> ? Qu?n l� ? C�ng c? ph�t tri?n ? Token.
+              C?n quy?n <strong className="text-app-accent-primary">oa_send_message</strong>. Token du?c luu v�o Supabase Secrets (ZALO_OA_ACCESS_TOKEN).
             </p>
           </div>
 
@@ -329,7 +329,7 @@ export default function AdminZaloReminderPage() {
             </button>
             <button onClick={saveSettings} disabled={savingSettings}
               className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-50 text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
-              {savingSettings ? <><i className="ri-loader-4-line animate-spin" />Đang lưu...</> : <><i className="ri-save-line" />Lưu cài đặt</>}
+              {savingSettings ? <><i className="ri-loader-4-line animate-spin" />�ang luu...</> : <><i className="ri-save-line" />Luu c�i d?t</>}
             </button>
           </div>
         </div>
@@ -341,9 +341,9 @@ export default function AdminZaloReminderPage() {
           {/* Stats bar */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
-              { label: "Chưa học", value: inactiveMembers.length, color: "#f87171", icon: "ri-user-forbid-line" },
-              { label: "Đã chọn", value: selectedIds.size, color: "app-accent-primary", icon: "ri-user-add-line" },
-              { label: "Đã gửi (DB)", value: sentCount, color: "#34d399", icon: "ri-send-plane-line" },
+              { label: "Chua h?c", value: inactiveMembers.length, color: "#f87171", icon: "ri-user-forbid-line" },
+              { label: "�� ch?n", value: selectedIds.size, color: "app-accent-primary", icon: "ri-user-add-line" },
+              { label: "�� g?i (DB)", value: sentCount, color: "#34d399", icon: "ri-send-plane-line" },
             ].map(s => (
               <div key={s.label} className="bg-[#111318] border border-app-border rounded-xl p-3 flex items-center gap-3">
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -360,7 +360,7 @@ export default function AdminZaloReminderPage() {
           {/* Filter bar */}
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <div className="flex items-center gap-2">
-              <span className="text-app-text-secondary text-xs">Lọc:</span>
+              <span className="text-app-text-secondary text-xs">L?c:</span>
               {[1, 3, 7].map(days => (
                 <button key={days} onClick={() => setFilterDays(days)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer whitespace-nowrap transition-colors ${
@@ -368,13 +368,13 @@ export default function AdminZaloReminderPage() {
                       ? "bg-rose-500/15 text-rose-400 border border-rose-500/25"
                       : "bg-app-card/50 text-app-text-secondary border border-app-border hover:bg-white/8"
                   }`}>
-                  {days === 1 ? "Hôm nay" : `${days} ngày`}
+                  {days === 1 ? "H�m nay" : `${days} ng�y`}
                 </button>
               ))}
             </div>
             <button onClick={selectAll}
               className="text-xs text-app-accent-primary hover:text-[#d4b43a] cursor-pointer whitespace-nowrap transition-colors">
-              {selectedIds.size === inactiveMembers.length && inactiveMembers.length > 0 ? "Bỏ chọn tất cả" : "Chọn tất cả"}
+              {selectedIds.size === inactiveMembers.length && inactiveMembers.length > 0 ? "B? ch?n t?t c?" : "Ch?n t?t c?"}
             </button>
           </div>
 
@@ -389,8 +389,8 @@ export default function AdminZaloReminderPage() {
                 <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-emerald-500/10 mb-3">
                   <i className="ri-check-double-line text-app-accent-success text-2xl" />
                 </div>
-                <p className="text-white/60 text-sm font-medium mb-1">Tuyệt vời!</p>
-                <p className="text-app-text-muted text-xs">Tất cả thành viên đều đã học trong {filterDays} ngày qua</p>
+                <p className="text-white/60 text-sm font-medium mb-1">Tuy?t v?i!</p>
+                <p className="text-app-text-muted text-xs">T?t c? th�nh vi�n d?u d� h?c trong {filterDays} ng�y qua</p>
               </div>
             ) : (
               <div className="space-y-1 max-h-[480px] overflow-y-auto pr-1">
@@ -406,12 +406,12 @@ export default function AdminZaloReminderPage() {
         {/* Right: Compose + Logs */}
         <div className="space-y-4">
           <div className="bg-[#111318] border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-1">Soạn tin nhắn</h3>
-            <p className="text-app-text-muted text-xs mb-4">{selectedIds.size} thành viên được chọn</p>
+            <h3 className="text-white font-semibold text-sm mb-1">So?n tin nh?n</h3>
+            <p className="text-app-text-muted text-xs mb-4">{selectedIds.size} th�nh vi�n du?c ch?n</p>
 
             {/* Quick templates */}
             <div className="space-y-1.5 mb-4">
-              <p className="text-app-text-muted text-[10px] tracking-normal font-semibold mb-1">Mẫu tin nhắn</p>
+              <p className="text-app-text-muted text-[10px] tracking-normal font-semibold mb-1">M?u tin nh?n</p>
               {DEFAULT_MESSAGES.map((msg, i) => (
                 <button key={i} onClick={() => setMessage(msg)}
                   className={`w-full text-left px-3 py-2 rounded-lg text-xs leading-relaxed transition-colors cursor-pointer ${
@@ -425,10 +425,10 @@ export default function AdminZaloReminderPage() {
             </div>
 
             <div>
-              <label className="text-app-text-muted text-[10px] tracking-normal font-semibold block mb-1.5">Nội dung tùy chỉnh</label>
+              <label className="text-app-text-muted text-[10px] tracking-normal font-semibold block mb-1.5">N?i dung t�y ch?nh</label>
               <textarea value={message} onChange={e => setMessage(e.target.value.slice(0, 500))}
                 rows={5} maxLength={500}
-                placeholder="Nhập nội dung tin nhắn Zalo OA..."
+                placeholder="Nh?p n?i dung tin nh?n Zalo OA..."
                 className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-rose-500/40 transition-colors resize-none leading-relaxed" />
               <p className="text-app-text-muted text-[10px] text-right mt-1">{message.length}/500</p>
             </div>
@@ -436,13 +436,13 @@ export default function AdminZaloReminderPage() {
             <button onClick={handleSend} disabled={sending || selectedIds.size === 0}
               className="w-full mt-4 flex items-center justify-center gap-2 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
               {sending ? (
-                <><i className="ri-loader-4-line animate-spin" />Đang gửi...</>
+                <><i className="ri-loader-4-line animate-spin" />�ang g?i...</>
               ) : (
-                <><i className="ri-send-plane-fill" />Gửi {selectedIds.size} tin nhắn</>
+                <><i className="ri-send-plane-fill" />G?i {selectedIds.size} tin nh?n</>
               )}
             </button>
             <p className="text-app-text-muted text-[10px] text-center mt-2">
-              Gọi Edge Function → Zalo OA API. Logs lưu vào Supabase.
+              G?i Edge Function ? Zalo OA API. Logs luu v�o Supabase.
             </p>
           </div>
 
@@ -450,12 +450,12 @@ export default function AdminZaloReminderPage() {
           <div className="bg-[#111318] border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-3">
               <div>
-                <h3 className="text-white font-semibold text-sm">Lịch sử gửi</h3>
-                <p className="text-app-text-muted text-[10px]">Từ Supabase DB</p>
+                <h3 className="text-white font-semibold text-sm">L?ch s? g?i</h3>
+                <p className="text-app-text-muted text-[10px]">T? Supabase DB</p>
               </div>
               <button onClick={() => setShowLogs(v => !v)}
                 className="text-[10px] text-app-text-muted hover:text-white/50 cursor-pointer whitespace-nowrap transition-colors">
-                {showLogs ? "Thu gọn" : "Xem tất cả"}
+                {showLogs ? "Thu g?n" : "Xem t?t c?"}
               </button>
             </div>
             {logsLoading ? (
@@ -463,20 +463,20 @@ export default function AdminZaloReminderPage() {
                 <div className="w-5 h-5 border-2 border-rose-500/30 border-t-rose-500 rounded-full animate-spin" />
               </div>
             ) : logs.length === 0 ? (
-              <p className="text-app-text-muted text-xs text-center py-4">Chưa có lịch sử gửi</p>
+              <p className="text-app-text-muted text-xs text-center py-4">Chua c� l?ch s? g?i</p>
             ) : (
               <div className={`space-y-2 ${showLogs ? "" : "max-h-32 overflow-hidden"}`}>
                 {logs.slice(0, showLogs ? undefined : 3).map(log => (
                   <div key={log.id} className="flex items-center gap-2 px-3 py-2 rounded-lg bg-app-surface/50">
                     <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${log.status === "sent" ? "bg-emerald-400" : "bg-rose-400"}`} />
                     <div className="flex-1 min-w-0">
-                      <p className="text-white/60 text-xs truncate">{log.user_name || "Ẩn danh"}</p>
+                      <p className="text-white/60 text-xs truncate">{log.user_name || "?n danh"}</p>
                       <p className="text-app-text-muted text-[9px]">{new Date(log.sent_at).toLocaleString("vi-VN")}</p>
                     </div>
                     <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
                       log.status === "sent" ? "bg-emerald-500/10 text-app-accent-success" : "bg-rose-500/10 text-rose-400"
                     }`}>
-                      {log.status === "sent" ? "Đã gửi" : "Lỗi"}
+                      {log.status === "sent" ? "�� g?i" : "L?i"}
                     </span>
                   </div>
                 ))}
@@ -484,8 +484,8 @@ export default function AdminZaloReminderPage() {
             )}
             {logs.length > 0 && (
               <div className="flex items-center justify-between mt-3 pt-3 border-t border-app-border">
-                <span className="text-app-accent-success text-[10px] font-bold">{sentCount} thành công</span>
-                <span className="text-rose-400 text-[10px] font-bold">{failedCount} thất bại</span>
+                <span className="text-app-accent-success text-[10px] font-bold">{sentCount} th�nh c�ng</span>
+                <span className="text-rose-400 text-[10px] font-bold">{failedCount} th?t b?i</span>
               </div>
             )}
           </div>

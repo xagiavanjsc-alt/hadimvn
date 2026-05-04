@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 
 const SR_KEY = "hanja_sr_data";
@@ -22,17 +22,17 @@ function getMasteryLevel(korean: string, srData: Record<string, SRCard>): "new" 
 function MasteryBadge({ level }: { level: "new" | "learning" | "mastered" }) {
   if (level === "new") return (
     <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-gray-100 text-gray-500">
-      <i className="ri-seedling-line text-xs"></i>Mới
+      <i className="ri-seedling-line text-xs"></i>M?i
     </span>
   );
   if (level === "learning") return (
     <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-amber-50 text-amber-600">
-      <i className="ri-book-open-line text-xs"></i>Đang học
+      <i className="ri-book-open-line text-xs"></i>�ang h?c
     </span>
   );
   return (
     <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-green-50 text-green-600">
-      <i className="ri-check-double-line text-xs"></i>Đã thuộc
+      <i className="ri-check-double-line text-xs"></i>�� thu?c
     </span>
   );
 }
@@ -51,7 +51,7 @@ function buildHomophoneGroups(): { korean: string; words: HanjaEntry[] }[] {
 }
 
 // Famous homophone examples to highlight
-const FAMOUS_HOMOPHONES = ["의사", "지도", "기사", "사고", "수도", "이상", "자연", "정치", "사회", "문화", "경제", "교육", "과학", "역사", "사실"];
+const FAMOUS_HOMOPHONES = ["??", "??", "??", "??", "??", "??", "??", "??", "??", "??", "??", "??", "??", "??", "??"];
 
 type QuizState = "idle" | "playing" | "done";
 
@@ -70,7 +70,7 @@ function HomophoneQuiz({ group, onClose }: { group: { korean: string; words: Han
   const [state, setState] = useState<QuizState>("idle");
 
   const buildQuestions = useCallback(() => {
-    // For each word in group, ask: "Hán tự này có nghĩa gì?"
+    // For each word in group, ask: "H�n t? n�y c� nghia g�?"
     const qs: QuizQuestion[] = group.words.map(word => {
       // Wrong choices: other words from same group + random from other groups
       const others = group.words.filter(w => w.korean !== word.korean || w.hanja !== word.hanja);
@@ -112,8 +112,8 @@ function HomophoneQuiz({ group, onClose }: { group: { korean: string; words: Han
         <div className="w-14 h-14 flex items-center justify-center bg-rose-100 rounded-2xl mx-auto mb-3">
           <span className="text-2xl font-bold text-rose-600">{group.korean}</span>
         </div>
-        <h3 className="text-lg font-bold text-gray-900 mb-1">Quiz đồng âm: {group.korean}</h3>
-        <p className="text-sm text-gray-500 mb-4">{group.words.length} nghĩa khác nhau — phân biệt qua Hán tự</p>
+        <h3 className="text-lg font-bold text-gray-900 mb-1">Quiz d?ng �m: {group.korean}</h3>
+        <p className="text-sm text-gray-500 mb-4">{group.words.length} nghia kh�c nhau � ph�n bi?t qua H�n t?</p>
         <div className="space-y-2 mb-5 text-left">
           {group.words.map((w, i) => (
             <div key={i} className="flex items-center gap-3 px-3 py-2 bg-rose-50 rounded-lg">
@@ -123,8 +123,8 @@ function HomophoneQuiz({ group, onClose }: { group: { korean: string; words: Han
           ))}
         </div>
         <div className="flex gap-3">
-          <button onClick={onClose} className="flex-1 py-2.5 border border-gray-200 text-gray-600 rounded-xl text-sm cursor-pointer hover:bg-gray-50 transition-colors">Quay lại</button>
-          <button onClick={buildQuestions} className="flex-1 py-2.5 bg-rose-500 text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-rose-600 transition-colors">Bắt đầu Quiz</button>
+          <button onClick={onClose} className="flex-1 py-2.5 border border-gray-200 text-gray-600 rounded-xl text-sm cursor-pointer hover:bg-gray-50 transition-colors">Quay l?i</button>
+          <button onClick={buildQuestions} className="flex-1 py-2.5 bg-rose-500 text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-rose-600 transition-colors">B?t d?u Quiz</button>
         </div>
       </div>
     );
@@ -138,10 +138,10 @@ function HomophoneQuiz({ group, onClose }: { group: { korean: string; words: Han
           <i className={`text-2xl ${pct >= 80 ? "ri-trophy-line text-green-600" : "ri-emotion-normal-line text-amber-600"}`}></i>
         </div>
         <p className="text-2xl font-bold text-gray-900 mb-1">{pct}%</p>
-        <p className="text-gray-500 mb-6">Đúng {score} / {questions.length} câu</p>
+        <p className="text-gray-500 mb-6">��ng {score} / {questions.length} c�u</p>
         <div className="flex gap-3">
-          <button onClick={buildQuestions} className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">Làm lại</button>
-          <button onClick={onClose} className="flex-1 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">Quay lại</button>
+          <button onClick={buildQuestions} className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">L�m l?i</button>
+          <button onClick={onClose} className="flex-1 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">Quay l?i</button>
         </div>
       </div>
     );
@@ -154,20 +154,20 @@ function HomophoneQuiz({ group, onClose }: { group: { korean: string; words: Han
     <div className="max-w-lg mx-auto">
       <div className="flex items-center justify-between mb-3">
         <button onClick={onClose} className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
-          <i className="ri-arrow-left-line"></i> Dừng
+          <i className="ri-arrow-left-line"></i> D?ng
         </button>
-        <span className="text-sm text-gray-500">Câu {idx + 1} / {questions.length}</span>
-        <span className="text-sm font-semibold text-rose-600">✓ {score}</span>
+        <span className="text-sm text-gray-500">C�u {idx + 1} / {questions.length}</span>
+        <span className="text-sm font-semibold text-rose-600">? {score}</span>
       </div>
       <div className="w-full bg-gray-100 rounded-full h-1.5 mb-5">
         <div className="bg-rose-400 h-1.5 rounded-full transition-all" style={{ width: `${(idx / questions.length) * 100}%` }}></div>
       </div>
 
       <div className="bg-white border-2 border-gray-100 rounded-2xl p-8 text-center mb-4">
-        <p className="text-xs text-gray-400 tracking-wide mb-3">Hán tự này thuộc từ nào?</p>
+        <p className="text-xs text-gray-400 tracking-wide mb-3">H�n t? n�y thu?c t? n�o?</p>
         <p className="text-5xl font-bold text-rose-500 mb-2">{q.word.hanja}</p>
         <p className="text-2xl font-bold text-gray-900 mb-1">{q.word.korean}</p>
-        <p className="text-sm text-gray-400">Chọn nghĩa tiếng Việt đúng</p>
+        <p className="text-sm text-gray-400">Ch?n nghia ti?ng Vi?t d�ng</p>
       </div>
 
       <div className="grid grid-cols-1 gap-3 mb-4">
@@ -192,7 +192,7 @@ function HomophoneQuiz({ group, onClose }: { group: { korean: string; words: Han
 
       {q.answered && (
         <button onClick={next} className="w-full py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">
-          {idx + 1 >= questions.length ? "Xem kết quả" : "Câu tiếp theo →"}
+          {idx + 1 >= questions.length ? "Xem k?t qu?" : "C�u ti?p theo ?"}
         </button>
       )}
     </div>
@@ -234,17 +234,17 @@ export default function HomophoneTab() {
         <div className="flex items-center gap-3 mb-5">
           <button onClick={() => setSelectedGroup(null)}
             className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
-            <i className="ri-arrow-left-line"></i> Quay lại
+            <i className="ri-arrow-left-line"></i> Quay l?i
           </button>
-          <span className="text-sm font-semibold text-gray-700">Đồng âm: {selectedGroup.korean}</span>
-          <span className="text-xs text-gray-400">({selectedGroup.words.length} nghĩa)</span>
+          <span className="text-sm font-semibold text-gray-700">�?ng �m: {selectedGroup.korean}</span>
+          <span className="text-xs text-gray-400">({selectedGroup.words.length} nghia)</span>
         </div>
 
         {/* Hero comparison */}
         <div className="bg-gradient-to-br from-rose-50 to-orange-50 border border-rose-100 rounded-2xl p-6 mb-5">
           <div className="text-center mb-5">
             <p className="text-5xl font-bold text-gray-900 mb-1">{selectedGroup.korean}</p>
-            <p className="text-sm text-gray-500">{selectedGroup.words.length} nghĩa khác nhau — phân biệt qua Hán tự</p>
+            <p className="text-sm text-gray-500">{selectedGroup.words.length} nghia kh�c nhau � ph�n bi?t qua H�n t?</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -270,18 +270,18 @@ export default function HomophoneTab() {
         <div className="bg-amber-50 border border-amber-100 rounded-xl p-4 mb-4">
           <div className="flex items-center gap-2 mb-2">
             <i className="ri-lightbulb-line text-amber-500"></i>
-            <span className="text-sm font-semibold text-amber-700">Cách phân biệt đồng âm</span>
+            <span className="text-sm font-semibold text-amber-700">C�ch ph�n bi?t d?ng �m</span>
           </div>
           <ul className="space-y-1.5 text-xs text-amber-700">
-            <li className="flex items-start gap-2"><i className="ri-arrow-right-s-line mt-0.5 flex-shrink-0"></i>Chú ý Hán tự — mỗi chữ Hán mang nghĩa gốc riêng biệt</li>
-            <li className="flex items-start gap-2"><i className="ri-arrow-right-s-line mt-0.5 flex-shrink-0"></i>Học trong ngữ cảnh câu — nghĩa sẽ rõ hơn khi có context</li>
-            <li className="flex items-start gap-2"><i className="ri-arrow-right-s-line mt-0.5 flex-shrink-0"></i>Liên kết với tiếng Hán/Nhật nếu bạn biết — gốc chữ giống nhau</li>
+            <li className="flex items-start gap-2"><i className="ri-arrow-right-s-line mt-0.5 flex-shrink-0"></i>Ch� � H�n t? � m?i ch? H�n mang nghia g?c ri�ng bi?t</li>
+            <li className="flex items-start gap-2"><i className="ri-arrow-right-s-line mt-0.5 flex-shrink-0"></i>H?c trong ng? c?nh c�u � nghia s? r� hon khi c� context</li>
+            <li className="flex items-start gap-2"><i className="ri-arrow-right-s-line mt-0.5 flex-shrink-0"></i>Li�n k?t v?i ti?ng H�n/Nh?t n?u b?n bi?t � g?c ch? gi?ng nhau</li>
           </ul>
         </div>
 
         <button onClick={() => setQuizGroup(selectedGroup)}
           className="w-full py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors flex items-center justify-center gap-2">
-          <i className="ri-gamepad-line"></i>Quiz phân biệt nhóm này
+          <i className="ri-gamepad-line"></i>Quiz ph�n bi?t nh�m n�y
         </button>
       </div>
     );
@@ -291,19 +291,19 @@ export default function HomophoneTab() {
     <div>
       {/* Header */}
       <div className="mb-5">
-        <h2 className="text-lg font-bold text-gray-900 mb-1">Học theo cặp từ đồng âm khác nghĩa</h2>
+        <h2 className="text-lg font-bold text-gray-900 mb-1">H?c theo c?p t? d?ng �m kh�c nghia</h2>
         <p className="text-sm text-gray-500">
-          Ví dụ: <span className="font-bold text-rose-600">의사</span> (醫師 bác sĩ / 意思 ý định),{" "}
-          <span className="font-bold text-rose-600">지도</span> (地圖 bản đồ / 指導 hướng dẫn) — tránh nhầm lẫn!
+          V� d?: <span className="font-bold text-rose-600">??</span> (?? b�c si / ?? � d?nh),{" "}
+          <span className="font-bold text-rose-600">??</span> (?? b?n d? / ?? hu?ng d?n) � tr�nh nh?m l?n!
         </p>
       </div>
 
       {/* Stats banner */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
         {[
-          { label: "Nhóm đồng âm", value: allGroups.length, icon: "ri-sound-module-line", color: "#f43f5e" },
-          { label: "Từ nổi tiếng", value: allGroups.filter(g => FAMOUS_HOMOPHONES.includes(g.korean)).length, icon: "ri-star-line", color: "#fb923c" },
-          { label: "Tổng từ", value: allGroups.reduce((s, g) => s + g.words.length, 0), icon: "ri-translate-2", color: "#34d399" },
+          { label: "Nh�m d?ng �m", value: allGroups.length, icon: "ri-sound-module-line", color: "#f43f5e" },
+          { label: "T? n?i ti?ng", value: allGroups.filter(g => FAMOUS_HOMOPHONES.includes(g.korean)).length, icon: "ri-star-line", color: "#fb923c" },
+          { label: "T?ng t?", value: allGroups.reduce((s, g) => s + g.words.length, 0), icon: "ri-translate-2", color: "#34d399" },
         ].map(s => (
           <div key={s.label} className="bg-white border border-gray-100 rounded-xl p-4 text-center">
             <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${s.color}15` }}>
@@ -319,19 +319,19 @@ export default function HomophoneTab() {
       <div className="flex flex-wrap gap-2 mb-4">
         <div className="relative flex-1 min-w-48">
           <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-          <input type="text" placeholder="Tìm từ Hàn, Hán tự, nghĩa..." value={search} onChange={e => setSearch(e.target.value)}
+          <input type="text" placeholder="T�m t? H�n, H�n t?, nghia..." value={search} onChange={e => setSearch(e.target.value)}
             className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
         </div>
         <button onClick={() => setFilterFamous(f => !f)}
           className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium cursor-pointer whitespace-nowrap transition-all ${filterFamous ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
-          <i className="ri-star-line"></i>Từ nổi tiếng
+          <i className="ri-star-line"></i>T? n?i ti?ng
         </button>
       </div>
 
       {/* Famous homophones highlight */}
       {!search && !filterFamous && (
         <div className="mb-5">
-          <p className="text-xs font-semibold text-gray-500 tracking-wide mb-3">Từ đồng âm nổi tiếng — dễ nhầm nhất</p>
+          <p className="text-xs font-semibold text-gray-500 tracking-wide mb-3">T? d?ng �m n?i ti?ng � d? nh?m nh?t</p>
           <div className="flex flex-wrap gap-2">
             {FAMOUS_HOMOPHONES.map(korean => {
               const group = allGroups.find(g => g.korean === korean);
@@ -340,7 +340,7 @@ export default function HomophoneTab() {
                 <button key={korean} onClick={() => setSelectedGroup(group)}
                   className="flex items-center gap-2 px-3 py-2 bg-rose-50 border border-rose-200 rounded-xl text-sm font-bold text-rose-700 cursor-pointer hover:bg-rose-100 transition-colors whitespace-nowrap">
                   {korean}
-                  <span className="text-xs font-normal text-rose-400">{group.words.length} nghĩa</span>
+                  <span className="text-xs font-normal text-rose-400">{group.words.length} nghia</span>
                 </button>
               );
             })}
@@ -349,7 +349,7 @@ export default function HomophoneTab() {
       )}
 
       {/* Group list */}
-      <p className="text-xs text-gray-400 mb-3">Hiển thị {filteredGroups.length} nhóm đồng âm</p>
+      <p className="text-xs text-gray-400 mb-3">Hi?n th? {filteredGroups.length} nh�m d?ng �m</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {filteredGroups.map(group => {
           const masteredCount = group.words.filter(w => getMasteryLevel(w.korean, srData) === "mastered").length;
@@ -366,7 +366,7 @@ export default function HomophoneTab() {
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <p className="text-2xl font-bold text-gray-900">{group.korean}</p>
-                  <p className="text-xs text-gray-400">{group.words.length} nghĩa khác nhau</p>
+                  <p className="text-xs text-gray-400">{group.words.length} nghia kh�c nhau</p>
                 </div>
                 <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                   masteredCount === group.words.length ? "bg-green-100 text-green-600" :
@@ -383,7 +383,7 @@ export default function HomophoneTab() {
                   </div>
                 ))}
                 {group.words.length > 3 && (
-                  <p className="text-xs text-gray-400">+{group.words.length - 3} nghĩa khác...</p>
+                  <p className="text-xs text-gray-400">+{group.words.length - 3} nghia kh�c...</p>
                 )}
               </div>
               <div className="mt-3 flex items-center justify-between">
@@ -404,7 +404,7 @@ export default function HomophoneTab() {
       {filteredGroups.length === 0 && (
         <div className="text-center py-16 text-gray-400">
           <i className="ri-search-line text-4xl"></i>
-          <p className="mt-2 text-sm">Không tìm thấy nhóm đồng âm nào</p>
+          <p className="mt-2 text-sm">Kh�ng t�m th?y nh�m d?ng �m n�o</p>
         </div>
       )}
     </div>

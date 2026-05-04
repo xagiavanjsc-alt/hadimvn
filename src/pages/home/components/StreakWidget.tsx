@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -68,13 +68,13 @@ export default function StreakWidget() {
           </div>
           <div>
             <p className="text-app-text-secondary text-xs font-medium tracking-normal">
-              Streak học tập
+              Streak h?c t?p
             </p>
             <div className="flex items-baseline gap-1.5">
               <p className="text-4xl font-bold" style={{ color: streakColor }}>
                 {streak.count}
               </p>
-              <p className="text-app-text-secondary text-sm">ngày liên tiếp</p>
+              <p className="text-app-text-secondary text-sm">ng�y li�n ti?p</p>
             </div>
           </div>
         </div>
@@ -82,7 +82,7 @@ export default function StreakWidget() {
           onClick={() => navigate("/study-calendar")}
           className="text-app-text-muted hover:text-white/50 text-xs cursor-pointer whitespace-nowrap transition-colors"
         >
-          Xem lịch <i className="ri-arrow-right-line" />
+          Xem l?ch <i className="ri-arrow-right-line" />
         </button>
       </div>
 
@@ -110,8 +110,8 @@ export default function StreakWidget() {
       <div>
         <div className="flex items-center justify-between mb-1.5">
           <p className="text-app-text-muted text-[10px]">
-            Mục tiêu tiếp theo:{" "}
-            <span className="text-app-accent-primary">{nextMilestone} ngày</span>
+            M?c ti�u ti?p theo:{" "}
+            <span className="text-app-accent-primary">{nextMilestone} ng�y</span>
           </p>
           <p className="text-app-text-muted text-[10px]">
             {streak.count}/{nextMilestone}
@@ -127,7 +127,7 @@ export default function StreakWidget() {
 
       {streak.count === 0 && (
         <p className="text-app-text-muted text-xs mt-3 text-center">
-          Học bài hôm nay để bắt đầu streak!
+          H?c b�i h�m nay d? b?t d?u streak!
         </p>
       )}
     </div>

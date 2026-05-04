@@ -1,4 +1,4 @@
-﻿import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { memo } from "react";
 
 interface VipUpgradeModalProps {
@@ -13,9 +13,9 @@ const REASONS = {
     icon: "ri-user-line",
     iconBg: "bg-amber-500/10",
     iconColor: "text-amber-400",
-    title: "Vui lòng đăng nhập",
-    desc: "Bạn cần đăng nhập để sử dụng tính năng này.",
-    cta: "Đăng nhập ngay",
+    title: "Vui l�ng dang nh?p",
+    desc: "B?n c?n dang nh?p d? s? d?ng t�nh nang n�y.",
+    cta: "�ang nh?p ngay",
     ctaHref: "/login",
     ctaStyle: "bg-amber-400 hover:bg-amber-500 text-black",
   },
@@ -23,9 +23,9 @@ const REASONS = {
     icon: "ri-vip-crown-line",
     iconBg: "bg-yellow-500/10",
     iconColor: "text-yellow-400",
-    title: "Tính năng dành cho VIP",
-    desc: "Nâng cấp tài khoản VIP để mở khóa tính năng xuất file và nhiều tính năng cao cấp khác.",
-    cta: "Nâng cấp VIP",
+    title: "T�nh nang d�nh cho VIP",
+    desc: "N�ng c?p t�i kho?n VIP d? m? kh�a t�nh nang xu?t file v� nhi?u t�nh nang cao c?p kh�c.",
+    cta: "N�ng c?p VIP",
     ctaHref: "/pricing",
     ctaStyle: "bg-app-accent-primary hover:bg-[#d4b43a] text-black",
   },
@@ -33,20 +33,20 @@ const REASONS = {
     icon: "ri-vip-diamond-line",
     iconBg: "bg-app-accent-primary/10",
     iconColor: "text-app-accent-primary",
-    title: "Chỉ dành cho VIP Năm",
-    desc: "Tính năng xuất file đầy đủ chỉ dành cho gói VIP Năm. Gói VIP Tháng được xuất tối đa 50 từ có watermark.",
-    cta: "Xem gói VIP Năm",
+    title: "Ch? d�nh cho VIP Nam",
+    desc: "T�nh nang xu?t file d?y d? ch? d�nh cho g�i VIP Nam. G�i VIP Th�ng du?c xu?t t?i da 50 t? c� watermark.",
+    cta: "Xem g�i VIP Nam",
     ctaHref: "/pricing",
     ctaStyle: "bg-app-accent-primary hover:bg-[#d4b43a] text-black",
   },
 };
 
 const PLAN_COMPARE = [
-  { label: "Xuất CSV / TXT / JSON", free: false, month: "50 từ", year: true },
-  { label: "Xuất Anki Deck", free: false, month: false, year: true },
-  { label: "Xuất PDF flashcard", free: false, month: false, year: true },
-  { label: "Không watermark", free: false, month: false, year: true },
-  { label: "Học không giới hạn", free: false, month: true, year: true },
+  { label: "Xu?t CSV / TXT / JSON", free: false, month: "50 t?", year: true },
+  { label: "Xu?t Anki Deck", free: false, month: false, year: true },
+  { label: "Xu?t PDF flashcard", free: false, month: false, year: true },
+  { label: "Kh�ng watermark", free: false, month: false, year: true },
+  { label: "H?c kh�ng gi?i h?n", free: false, month: true, year: true },
   { label: "AI Chatbot", free: false, month: true, year: true },
 ];
 
@@ -94,24 +94,24 @@ function VipUpgradeModal({ open, onClose, reason, featureName }: VipUpgradeModal
           <h3 className="text-white font-bold text-lg mb-1.5">{info.title}</h3>
           {featureName && (
             <p className="text-app-text-secondary text-xs mb-2">
-              Tính năng: <span className="text-white/60 font-medium">{featureName}</span>
+              T�nh nang: <span className="text-white/60 font-medium">{featureName}</span>
             </p>
           )}
           <p className="text-white/50 text-sm leading-relaxed">{info.desc}</p>
         </div>
 
-        {/* Plan comparison — only for vip-related reasons */}
+        {/* Plan comparison � only for vip-related reasons */}
         {reason !== "not_logged_in" && (
           <div className="px-5 py-4 bg-gray-50 border-b border-gray-100">
-            <p className="text-xs font-semibold text-gray-500 tracking-normal mb-3">So sánh gói</p>
+            <p className="text-xs font-semibold text-gray-500 tracking-normal mb-3">So s�nh g�i</p>
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>
                   <tr>
-                    <th className="text-left text-gray-400 font-medium pb-2 pr-3">Tính năng</th>
+                    <th className="text-left text-gray-400 font-medium pb-2 pr-3">T�nh nang</th>
                     <th className="text-center text-gray-400 font-medium pb-2 px-2">Free</th>
-                    <th className="text-center text-gray-400 font-medium pb-2 px-2">VIP Tháng</th>
-                    <th className="text-center text-app-accent-primary font-bold pb-2 px-2">VIP Năm ⭐</th>
+                    <th className="text-center text-gray-400 font-medium pb-2 px-2">VIP Th�ng</th>
+                    <th className="text-center text-app-accent-primary font-bold pb-2 px-2">VIP Nam ?</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -142,7 +142,7 @@ function VipUpgradeModal({ open, onClose, reason, featureName }: VipUpgradeModal
             onClick={onClose}
             className="w-full py-2.5 rounded-xl border border-gray-200 text-gray-500 text-sm hover:bg-gray-50 transition-colors cursor-pointer whitespace-nowrap"
           >
-            Để sau
+            �? sau
           </button>
         </div>
       </div>

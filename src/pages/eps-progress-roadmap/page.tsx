@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { epsLessons, EPS_LESSON_TOPICS } from "@/mocks/epsLessons";
@@ -13,8 +13,8 @@ interface LessonProgress {
 type ViewMode = "roadmap" | "grid" | "topic";
 
 const BOOK_RANGES = [
-  { label: "Quyển 1", range: [1, 30], color: "app-accent-primary", icon: "ri-book-open-line" },
-  { label: "Quyển 2", range: [31, 60], color: "#34d399", icon: "ri-book-2-line" },
+  { label: "Quy?n 1", range: [1, 30], color: "app-accent-primary", icon: "ri-book-open-line" },
+  { label: "Quy?n 2", range: [31, 60], color: "#34d399", icon: "ri-book-2-line" },
 ];
 
 export default function EpsProgressRoadmapPage() {
@@ -68,8 +68,8 @@ export default function EpsProgressRoadmapPage() {
                 <i className="ri-arrow-left-line text-white/60"></i>
               </button>
               <div>
-                <h1 className="text-xl font-bold text-white">Bảng tiến độ EPS</h1>
-                <p className="text-app-text-secondary text-sm">Roadmap 60 bài học trực quan</p>
+                <h1 className="text-xl font-bold text-white">B?ng ti?n d? EPS</h1>
+                <p className="text-app-text-secondary text-sm">Roadmap 60 b�i h?c tr?c quan</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -78,7 +78,7 @@ export default function EpsProgressRoadmapPage() {
                 className="flex items-center gap-1.5 px-3 py-1.5 bg-app-accent-primary/15 hover:bg-app-accent-primary/25 border border-app-accent-primary/30 rounded-lg text-app-accent-primary text-xs font-medium transition-all cursor-pointer whitespace-nowrap"
               >
                 <i className="ri-flashlight-line text-xs"></i>
-                Ôn tập nhanh
+                �n t?p nhanh
               </button>
               {(["roadmap", "grid", "topic"] as ViewMode[]).map(mode => (
                 <button
@@ -88,7 +88,7 @@ export default function EpsProgressRoadmapPage() {
                     viewMode === mode ? "bg-app-accent-primary/20 text-app-accent-primary border border-app-accent-primary/30" : "text-app-text-secondary hover:text-white/70 hover:bg-app-card/50"
                   }`}
                 >
-                  {mode === "roadmap" ? "Roadmap" : mode === "grid" ? "Lưới" : "Chủ đề"}
+                  {mode === "roadmap" ? "Roadmap" : mode === "grid" ? "Lu?i" : "Ch? d?"}
                 </button>
               ))}
             </div>
@@ -99,10 +99,10 @@ export default function EpsProgressRoadmapPage() {
           {/* Overall Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { label: "Hoàn thành", value: `${stats.completed}/${stats.total}`, sub: `${stats.percent}%`, icon: "ri-checkbox-circle-line", color: "#34d399" },
-              { label: "Điểm TB", value: stats.avgScore > 0 ? `${Math.round(stats.avgScore)}%` : "—", sub: "Trung bình", icon: "ri-bar-chart-line", color: "app-accent-primary" },
-              { label: "Quyển 1", value: `${stats.book1Done}/30`, sub: `${Math.round((stats.book1Done / 30) * 100)}%`, icon: "ri-book-open-line", color: "app-accent-primary" },
-              { label: "Quyển 2", value: `${stats.book2Done}/30`, sub: `${Math.round((stats.book2Done / 30) * 100)}%`, icon: "ri-book-2-line", color: "#34d399" },
+              { label: "Ho�n th�nh", value: `${stats.completed}/${stats.total}`, sub: `${stats.percent}%`, icon: "ri-checkbox-circle-line", color: "#34d399" },
+              { label: "�i?m TB", value: stats.avgScore > 0 ? `${Math.round(stats.avgScore)}%` : "�", sub: "Trung b�nh", icon: "ri-bar-chart-line", color: "app-accent-primary" },
+              { label: "Quy?n 1", value: `${stats.book1Done}/30`, sub: `${Math.round((stats.book1Done / 30) * 100)}%`, icon: "ri-book-open-line", color: "app-accent-primary" },
+              { label: "Quy?n 2", value: `${stats.book2Done}/30`, sub: `${Math.round((stats.book2Done / 30) * 100)}%`, icon: "ri-book-2-line", color: "#34d399" },
             ].map((s, i) => (
               <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4">
                 <div className="flex items-center gap-2 mb-2">
@@ -120,7 +120,7 @@ export default function EpsProgressRoadmapPage() {
           {/* Progress Bar */}
           <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-white/70 text-sm font-medium">Tiến độ tổng thể</span>
+              <span className="text-white/70 text-sm font-medium">Ti?n d? t?ng th?</span>
               <span className="text-app-accent-primary font-bold">{stats.percent}%</span>
             </div>
             <div className="h-3 bg-white/8 rounded-full overflow-hidden">
@@ -130,8 +130,8 @@ export default function EpsProgressRoadmapPage() {
               ></div>
             </div>
             <div className="flex justify-between mt-2">
-              <span className="text-app-text-muted text-xs">Bài 1</span>
-              <span className="text-app-text-muted text-xs">Bài 60</span>
+              <span className="text-app-text-muted text-xs">B�i 1</span>
+              <span className="text-app-text-muted text-xs">B�i 60</span>
             </div>
           </div>
 
@@ -149,7 +149,7 @@ export default function EpsProgressRoadmapPage() {
                       </div>
                       <div>
                         <h2 className="text-white font-semibold">{book.label}</h2>
-                        <p className="text-app-text-secondary text-xs">Bài {book.range[0]}–{book.range[1]} • {bookDone}/{bookLessons.length} hoàn thành</p>
+                        <p className="text-app-text-secondary text-xs">B�i {book.range[0]}�{book.range[1]} � {bookDone}/{bookLessons.length} ho�n th�nh</p>
                       </div>
                       <div className="ml-auto flex items-center gap-2">
                         <div className="w-24 h-1.5 bg-white/8 rounded-full overflow-hidden">
@@ -159,7 +159,7 @@ export default function EpsProgressRoadmapPage() {
                       </div>
                     </div>
 
-                    {/* Roadmap grid — 6 per row */}
+                    {/* Roadmap grid � 6 per row */}
                     <div className="grid grid-cols-6 gap-3">
                       {bookLessons.map((lesson, idx) => {
                         const status = getLessonStatus(lesson.id);
@@ -223,15 +223,15 @@ export default function EpsProgressRoadmapPage() {
                                     <i className={`${getStatusIcon(status)} text-[10px]`} style={{ color: statusColor }}></i>
                                   </div>
                                   <span className="text-[10px]" style={{ color: statusColor }}>
-                                    {status === "completed" ? "Đã hoàn thành" : status === "in_progress" ? "Đang học" : "Chưa học"}
+                                    {status === "completed" ? "�� ho�n th�nh" : status === "in_progress" ? "�ang h?c" : "Chua h?c"}
                                   </span>
                                 </div>
                                 {progress?.score > 0 && (
-                                  <p className="text-app-text-secondary text-[10px] mb-1.5">Điểm: {Math.round(progress.score)}%</p>
+                                  <p className="text-app-text-secondary text-[10px] mb-1.5">�i?m: {Math.round(progress.score)}%</p>
                                 )}
                                 <div className="flex items-center gap-1 bg-app-accent-primary/15 rounded-md px-2 py-1">
                                   <i className="ri-play-circle-line text-app-accent-primary text-[10px]"></i>
-                                  <span className="text-app-accent-primary text-[10px] font-medium">Bắt đầu học</span>
+                                  <span className="text-app-accent-primary text-[10px] font-medium">B?t d?u h?c</span>
                                 </div>
                               </div>
                             )}
@@ -254,7 +254,7 @@ export default function EpsProgressRoadmapPage() {
                   onClick={() => setSelectedTopic("all")}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedTopic === "all" ? "bg-white/15 text-white" : "bg-app-card/50 text-app-text-secondary hover:text-white/70"}`}
                 >
-                  Tất cả ({epsLessons.length})
+                  T?t c? ({epsLessons.length})
                 </button>
                 {EPS_LESSON_TOPICS.map(topic => {
                   const count = epsLessons.filter(l => l.topic === topic.id).length;
@@ -300,7 +300,7 @@ export default function EpsProgressRoadmapPage() {
                         <div className="w-3 h-3 flex items-center justify-center">
                           <i className={`${lesson.topicIcon} text-[10px]`} style={{ color: lesson.topicColor }}></i>
                         </div>
-                        <span className="text-app-text-muted text-[10px]">{lesson.estimatedMinutes} phút</span>
+                        <span className="text-app-text-muted text-[10px]">{lesson.estimatedMinutes} ph�t</span>
                       </div>
                       {progress?.score > 0 && (
                         <div className="mb-2 h-1 bg-white/8 rounded-full overflow-hidden">
@@ -309,7 +309,7 @@ export default function EpsProgressRoadmapPage() {
                       )}
                       <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                         <i className="ri-play-circle-line text-app-accent-primary text-[10px]"></i>
-                        <span className="text-app-accent-primary text-[10px]">Bắt đầu học</span>
+                        <span className="text-app-accent-primary text-[10px]">B?t d?u h?c</span>
                       </div>
                     </button>
                   );
@@ -334,7 +334,7 @@ export default function EpsProgressRoadmapPage() {
                       </div>
                       <div className="flex-1">
                         <h3 className="text-white font-semibold text-sm">{topic.label}</h3>
-                        <p className="text-app-text-secondary text-xs">{topicDone}/{topicLessons.length} bài hoàn thành</p>
+                        <p className="text-app-text-secondary text-xs">{topicDone}/{topicLessons.length} b�i ho�n th�nh</p>
                       </div>
                       <div className="flex items-center gap-2">
                         <div className="w-20 h-1.5 bg-white/8 rounded-full overflow-hidden">
@@ -367,7 +367,7 @@ export default function EpsProgressRoadmapPage() {
                               <p className="text-white text-[10px] font-medium leading-tight mb-1">{lesson.titleVi}</p>
                               <div className="flex items-center gap-1">
                                 <i className="ri-play-circle-line text-app-accent-primary text-[9px]"></i>
-                                <span className="text-app-accent-primary text-[9px]">Bắt đầu học</span>
+                                <span className="text-app-accent-primary text-[9px]">B?t d?u h?c</span>
                               </div>
                             </div>
                           </div>
@@ -386,9 +386,9 @@ export default function EpsProgressRoadmapPage() {
               <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-accent-primary/10">
                 <i className="ri-translate-2 text-app-accent-primary text-sm"></i>
               </div>
-              <h3 className="text-white font-semibold text-sm">Thống kê từ vựng theo bài</h3>
+              <h3 className="text-white font-semibold text-sm">Th?ng k� t? v?ng theo b�i</h3>
               <span className="ml-auto text-app-text-muted text-xs">
-                {epsLessons.filter(l => l.vocabulary && l.vocabulary.length > 0).reduce((sum, l) => sum + l.vocabulary.length, 0)} từ tổng cộng
+                {epsLessons.filter(l => l.vocabulary && l.vocabulary.length > 0).reduce((sum, l) => sum + l.vocabulary.length, 0)} t? t?ng c?ng
               </span>
             </div>
 
@@ -403,22 +403,22 @@ export default function EpsProgressRoadmapPage() {
                   <>
                     <div className="bg-emerald-500/8 border border-emerald-500/15 rounded-lg p-3 text-center">
                       <p className="text-xl font-bold text-app-accent-success">{completedVocab}</p>
-                      <p className="text-app-accent-success/60 text-[10px] mt-0.5">Đã hoàn thành</p>
+                      <p className="text-app-accent-success/60 text-[10px] mt-0.5">�� ho�n th�nh</p>
                     </div>
                     <div className="bg-app-accent-primary/8 border border-app-accent-primary/15 rounded-lg p-3 text-center">
                       <p className="text-xl font-bold text-app-accent-primary">{studiedVocab}</p>
-                      <p className="text-app-accent-primary/60 text-[10px] mt-0.5">Đã tiếp xúc</p>
+                      <p className="text-app-accent-primary/60 text-[10px] mt-0.5">�� ti?p x�c</p>
                     </div>
                     <div className="bg-app-card/50 border border-app-border rounded-lg p-3 text-center">
                       <p className="text-xl font-bold text-white/60">{totalVocab - studiedVocab}</p>
-                      <p className="text-app-text-muted text-[10px] mt-0.5">Chưa học</p>
+                      <p className="text-app-text-muted text-[10px] mt-0.5">Chua h?c</p>
                     </div>
                   </>
                 );
               })()}
             </div>
 
-            {/* Per-lesson vocab bars — show first 20 lessons with vocab */}
+            {/* Per-lesson vocab bars � show first 20 lessons with vocab */}
             <div className="space-y-1.5 max-h-64 overflow-y-auto pr-1">
               {epsLessons.filter(l => l.vocabulary && l.vocabulary.length > 0).slice(0, 49).map(lesson => {
                 const progress = lessonProgress[lesson.id];
@@ -439,7 +439,7 @@ export default function EpsProgressRoadmapPage() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-0.5">
                         <span className="text-white/50 text-[10px] truncate">{lesson.titleVi}</span>
-                        <span className="text-app-text-muted text-[10px] flex-shrink-0 ml-2">{vocabCount} từ</span>
+                        <span className="text-app-text-muted text-[10px] flex-shrink-0 ml-2">{vocabCount} t?</span>
                       </div>
                       <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
                         <div
@@ -462,11 +462,11 @@ export default function EpsProgressRoadmapPage() {
 
           {/* Legend */}
           <div className="flex flex-wrap items-center gap-4 pt-2 border-t border-app-border">
-            <span className="text-app-text-muted text-xs">Chú thích:</span>
+            <span className="text-app-text-muted text-xs">Ch� th�ch:</span>
             {[
-              { color: "#34d399", label: "Đã hoàn thành" },
-              { color: "#f59e0b", label: "Đang học" },
-              { color: "#374151", label: "Chưa học" },
+              { color: "#34d399", label: "�� ho�n th�nh" },
+              { color: "#f59e0b", label: "�ang h?c" },
+              { color: "#374151", label: "Chua h?c" },
             ].map(item => (
               <div key={item.label} className="flex items-center gap-1.5">
                 <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></div>

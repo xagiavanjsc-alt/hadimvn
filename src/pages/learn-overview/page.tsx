@@ -1,4 +1,4 @@
-﻿import { useMemo } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -7,7 +7,7 @@ import { vocabularyData } from "@/mocks/vocabularyData";
 import { topikQuestions } from "@/mocks/topikQuestions";
 import { topik2Questions } from "@/mocks/topik2Questions";
 
-// ─── Mini Bar Chart ───────────────────────────────────────────────────────
+// --- Mini Bar Chart -------------------------------------------------------
 function MiniBar({ value, max, color }: { value: number; max: number; color: string }) {
   const pct = max > 0 ? Math.min(100, (value / max) * 100) : 0;
   return (
@@ -20,7 +20,7 @@ function MiniBar({ value, max, color }: { value: number; max: number; color: str
   );
 }
 
-// ─── Radial Progress ──────────────────────────────────────────────────────
+// --- Radial Progress ------------------------------------------------------
 function RadialProgress({ value, max, color, size = 80 }: { value: number; max: number; color: string; size?: number }) {
   const pct = max > 0 ? Math.min(100, (value / max) * 100) : 0;
   const r = (size - 10) / 2;
@@ -36,7 +36,7 @@ function RadialProgress({ value, max, color, size = 80 }: { value: number; max: 
   );
 }
 
-// ─── Module Card ──────────────────────────────────────────────────────────
+// --- Module Card ----------------------------------------------------------
 function ModuleCard({
   icon, title, subtitle, color, stats, path, onNavigate,
 }: {
@@ -81,7 +81,7 @@ function ModuleCard({
   );
 }
 
-// ─── Activity Heatmap (7 ngày gần nhất) ──────────────────────────────────
+// --- Activity Heatmap (7 ng�y g?n nh?t) ----------------------------------
 function ActivityStreak({ activityDays }: { activityDays: string[] }) {
   const today = new Date();
   const days = Array.from({ length: 28 }, (_, i) => {
@@ -107,18 +107,18 @@ function ActivityStreak({ activityDays }: { activityDays: string[] }) {
       <div className="flex items-center gap-3 mt-2">
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-sm bg-app-card/50"></div>
-          <span className="text-app-text-muted text-[10px]">Không học</span>
+          <span className="text-app-text-muted text-[10px]">Kh�ng h?c</span>
         </div>
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-sm bg-app-accent-primary/70"></div>
-          <span className="text-app-text-muted text-[10px]">Đã học</span>
+          <span className="text-app-text-muted text-[10px]">�� h?c</span>
         </div>
       </div>
     </div>
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────
+// --- Main Page ------------------------------------------------------------
 export default function LearnOverviewPage() {
   const navigate = useNavigate();
 
@@ -186,41 +186,41 @@ export default function LearnOverviewPage() {
 
   const moduleCards = [
     {
-      icon: "ri-book-2-line", title: "Ngữ pháp", subtitle: "Mẫu câu & Bài tập", color: "app-accent-primary", path: "/grammar",
+      icon: "ri-book-2-line", title: "Ng? ph�p", subtitle: "M?u c�u & B�i t?p", color: "app-accent-primary", path: "/grammar",
       stats: [
-        { label: "Bài tập hoàn thành", done: grammarDone, total: grammarTotal },
-        { label: "Mẫu câu đã học", done: grammarPatternsDone, total: grammarPatterns.length },
-        { label: "Trả lời đúng", done: grammarCorrect, total: grammarTotal },
+        { label: "B�i t?p ho�n th�nh", done: grammarDone, total: grammarTotal },
+        { label: "M?u c�u d� h?c", done: grammarPatternsDone, total: grammarPatterns.length },
+        { label: "Tr? l?i d�ng", done: grammarCorrect, total: grammarTotal },
       ],
     },
     {
-      icon: "ri-translate-2", title: "Từ vựng", subtitle: "Phân loại theo chủ đề", color: "#34d399", path: "/vocabulary",
+      icon: "ri-translate-2", title: "T? v?ng", subtitle: "Ph�n lo?i theo ch? d?", color: "#34d399", path: "/vocabulary",
       stats: [
-        { label: "Từ đã thuộc", done: vocabDone, total: vocabTotal },
-        { label: "Cấp A1-A2", done: vocabMastered.filter(id => vocabularyData.find(v => v.id === id && (v.topikLevel === "A1" || v.topikLevel === "A2"))).length, total: vocabularyData.filter(v => v.topikLevel === "A1" || v.topikLevel === "A2").length },
-        { label: "Cấp B1-B2", done: vocabMastered.filter(id => vocabularyData.find(v => v.id === id && (v.topikLevel === "B1" || v.topikLevel === "B2"))).length, total: vocabularyData.filter(v => v.topikLevel === "B1" || v.topikLevel === "B2").length },
+        { label: "T? d� thu?c", done: vocabDone, total: vocabTotal },
+        { label: "C?p A1-A2", done: vocabMastered.filter(id => vocabularyData.find(v => v.id === id && (v.topikLevel === "A1" || v.topikLevel === "A2"))).length, total: vocabularyData.filter(v => v.topikLevel === "A1" || v.topikLevel === "A2").length },
+        { label: "C?p B1-B2", done: vocabMastered.filter(id => vocabularyData.find(v => v.id === id && (v.topikLevel === "B1" || v.topikLevel === "B2"))).length, total: vocabularyData.filter(v => v.topikLevel === "B1" || v.topikLevel === "B2").length },
       ],
     },
     {
-      icon: "ri-edit-2-line", title: "Luyện viết Hangul", subtitle: "Nhận diện nét viết", color: "#a78bfa", path: "/hangul-write",
+      icon: "ri-edit-2-line", title: "Luy?n vi?t Hangul", subtitle: "Nh?n di?n n�t vi?t", color: "#a78bfa", path: "/hangul-write",
       stats: [
-        { label: "Ký tự thành thạo", done: hangulDone, total: hangulTotal },
-        { label: "Điểm TB", done: hangulAvgScore, total: 100 },
+        { label: "K� t? th�nh th?o", done: hangulDone, total: hangulTotal },
+        { label: "�i?m TB", done: hangulAvgScore, total: 100 },
       ],
     },
     {
-      icon: "ri-mic-2-line", title: "Luyện phát âm", subtitle: "Nhận diện giọng nói AI", color: "#38bdf8", path: "/listen-practice",
+      icon: "ri-mic-2-line", title: "Luy?n ph�t �m", subtitle: "Nh?n di?n gi?ng n�i AI", color: "#38bdf8", path: "/listen-practice",
       stats: [
-        { label: "Câu đã luyện", done: listenDone, total: listenTotal },
-        { label: "Thành thạo (≥80đ)", done: listenMastered, total: listenTotal },
+        { label: "C�u d� luy?n", done: listenDone, total: listenTotal },
+        { label: "Th�nh th?o (=80d)", done: listenMastered, total: listenTotal },
       ],
     },
   ];
 
   return (
     <DashboardLayout
-      title="Tổng quan học tập"
-      subtitle="Theo dõi tiến độ toàn bộ hành trình học tiếng Hàn của bạn"
+      title="T?ng quan h?c t?p"
+      subtitle="Theo d�i ti?n d? to�n b? h�nh tr�nh h?c ti?ng H�n c?a b?n"
     >
       {/* Overall hero */}
       <div className="bg-app-bg border border-app-border rounded-2xl p-6 mb-6">
@@ -230,25 +230,25 @@ export default function LearnOverviewPage() {
             <RadialProgress value={overallPct} max={100} color="app-accent-primary" size={120} />
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <span className="text-2xl font-bold text-app-accent-primary">{overallPct}%</span>
-              <span className="text-app-text-muted text-[10px]">Tổng thể</span>
+              <span className="text-app-text-muted text-[10px]">T?ng th?</span>
             </div>
           </div>
 
           <div className="flex-1">
-            <h2 className="text-white text-xl font-bold mb-1">Hành trình học tiếng Hàn</h2>
+            <h2 className="text-white text-xl font-bold mb-1">H�nh tr�nh h?c ti?ng H�n</h2>
             <p className="text-app-text-secondary text-sm mb-4">
-              {overallPct < 20 ? "Bạn mới bắt đầu — hãy kiên trì mỗi ngày!" :
-               overallPct < 50 ? "Đang tiến bộ tốt — tiếp tục nhé!" :
-               overallPct < 80 ? "Gần đến đích rồi — cố lên!" :
-               "Xuất sắc! Bạn đã học rất nhiều!"}
+              {overallPct < 20 ? "B?n m?i b?t d?u � h�y ki�n tr� m?i ng�y!" :
+               overallPct < 50 ? "�ang ti?n b? t?t � ti?p t?c nh�!" :
+               overallPct < 80 ? "G?n d?n d�ch r?i � c? l�n!" :
+               "Xu?t s?c! B?n d� h?c r?t nhi?u!"}
             </p>
             {/* Quick stats */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
-                { label: "Streak", value: `${streak.count} ngày`, icon: "ri-fire-line", color: "#fb923c" },
-                { label: "TOPIK I", value: topik1Attempts > 0 ? `${topik1Best}đ` : "Chưa thi", icon: "ri-file-list-2-line", color: "#38bdf8" },
-                { label: "TOPIK II", value: topik2Attempts > 0 ? `${topik2Best}đ` : "Chưa thi", icon: "ri-file-list-3-line", color: "#a78bfa" },
-                { label: "Từ thuộc", value: vocabDone, icon: "ri-translate-2", color: "#34d399" },
+                { label: "Streak", value: `${streak.count} ng�y`, icon: "ri-fire-line", color: "#fb923c" },
+                { label: "TOPIK I", value: topik1Attempts > 0 ? `${topik1Best}d` : "Chua thi", icon: "ri-file-list-2-line", color: "#38bdf8" },
+                { label: "TOPIK II", value: topik2Attempts > 0 ? `${topik2Best}d` : "Chua thi", icon: "ri-file-list-3-line", color: "#a78bfa" },
+                { label: "T? thu?c", value: vocabDone, icon: "ri-translate-2", color: "#34d399" },
               ].map(s => (
                 <div key={s.label} className="bg-app-surface/50 rounded-xl p-3 text-center">
                   <i className={`${s.icon} text-lg mb-1 block`} style={{ color: s.color }}></i>
@@ -281,7 +281,7 @@ export default function LearnOverviewPage() {
               </div>
               <div>
                 <p className="text-white font-semibold text-sm">{t.title}</p>
-                <p className="text-app-text-muted text-xs">{t.attempts} lần thi</p>
+                <p className="text-app-text-muted text-xs">{t.attempts} l?n thi</p>
               </div>
               <i className="ri-arrow-right-line text-app-text-muted ml-auto"></i>
             </div>
@@ -289,19 +289,19 @@ export default function LearnOverviewPage() {
               <>
                 <div className="flex items-end gap-2 mb-3">
                   <span className="text-4xl font-black" style={{ color: t.color }}>{t.best}</span>
-                  <span className="text-app-text-muted text-sm mb-1">/ {t.max} điểm</span>
+                  <span className="text-app-text-muted text-sm mb-1">/ {t.max} di?m</span>
                   {t.best >= t.passScore && (
-                    <span className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-app-accent-success">ĐẠT</span>
+                    <span className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-app-accent-success">�?T</span>
                   )}
                 </div>
                 <MiniBar value={t.best} max={t.max} color={t.color} />
-                <p className="text-app-text-muted text-[10px] mt-1.5">Điểm đạt: ≥{t.passScore}</p>
+                <p className="text-app-text-muted text-[10px] mt-1.5">�i?m d?t: ={t.passScore}</p>
               </>
             ) : (
               <div className="text-center py-4">
-                <p className="text-app-text-muted text-sm mb-2">Chưa thi lần nào</p>
+                <p className="text-app-text-muted text-sm mb-2">Chua thi l?n n�o</p>
                 <button className="px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap transition-colors" style={{ backgroundColor: `${t.color}15`, color: t.color }}>
-                  Thi thử ngay
+                  Thi th? ngay
                 </button>
               </div>
             )}
@@ -313,12 +313,12 @@ export default function LearnOverviewPage() {
       <div className="bg-app-bg border border-app-border rounded-2xl p-5 mb-6">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <p className="text-white font-semibold text-sm">Lịch học tập (28 ngày)</p>
-            <p className="text-app-text-muted text-xs">Streak hiện tại: {streak.count} ngày liên tiếp</p>
+            <p className="text-white font-semibold text-sm">L?ch h?c t?p (28 ng�y)</p>
+            <p className="text-app-text-muted text-xs">Streak hi?n t?i: {streak.count} ng�y li�n ti?p</p>
           </div>
           <div className="flex items-center gap-1.5 bg-app-accent-primary/8 border border-app-accent-primary/15 rounded-xl px-3 py-1.5">
             <i className="ri-fire-line text-app-accent-primary text-sm"></i>
-            <span className="text-app-accent-primary text-xs font-bold">{streak.count} ngày</span>
+            <span className="text-app-accent-primary text-xs font-bold">{streak.count} ng�y</span>
           </div>
         </div>
         <ActivityStreak activityDays={activityDays} />
@@ -326,14 +326,14 @@ export default function LearnOverviewPage() {
 
       {/* Suggestions */}
       <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-        <p className="text-white/50 text-sm font-semibold mb-4">Gợi ý học hôm nay</p>
+        <p className="text-white/50 text-sm font-semibold mb-4">G?i � h?c h�m nay</p>
         <div className="space-y-2">
           {[
-            grammarDone < grammarTotal && { icon: "ri-book-2-line", color: "app-accent-primary", text: `Còn ${grammarTotal - grammarDone} bài tập ngữ pháp chưa làm`, path: "/grammar" },
-            vocabDone < vocabTotal && { icon: "ri-translate-2", color: "#34d399", text: `Còn ${vocabTotal - vocabDone} từ vựng chưa thuộc`, path: "/vocabulary" },
-            hangulDone < hangulTotal && { icon: "ri-edit-2-line", color: "#a78bfa", text: `Còn ${hangulTotal - hangulDone} ký tự Hangul chưa thành thạo`, path: "/hangul-write" },
-            topik1Attempts === 0 && { icon: "ri-file-list-2-line", color: "#38bdf8", text: "Thử sức với đề thi TOPIK I lần đầu!", path: "/topik-test" },
-            topik2Attempts === 0 && { icon: "ri-file-list-3-line", color: "#a78bfa", text: "Thử sức với đề thi TOPIK II!", path: "/topik2-test" },
+            grammarDone < grammarTotal && { icon: "ri-book-2-line", color: "app-accent-primary", text: `C�n ${grammarTotal - grammarDone} b�i t?p ng? ph�p chua l�m`, path: "/grammar" },
+            vocabDone < vocabTotal && { icon: "ri-translate-2", color: "#34d399", text: `C�n ${vocabTotal - vocabDone} t? v?ng chua thu?c`, path: "/vocabulary" },
+            hangulDone < hangulTotal && { icon: "ri-edit-2-line", color: "#a78bfa", text: `C�n ${hangulTotal - hangulDone} k� t? Hangul chua th�nh th?o`, path: "/hangul-write" },
+            topik1Attempts === 0 && { icon: "ri-file-list-2-line", color: "#38bdf8", text: "Th? s?c v?i d? thi TOPIK I l?n d?u!", path: "/topik-test" },
+            topik2Attempts === 0 && { icon: "ri-file-list-3-line", color: "#a78bfa", text: "Th? s?c v?i d? thi TOPIK II!", path: "/topik2-test" },
           ].filter(Boolean).slice(0, 4).map((s, i) => s && (
             <button key={i} onClick={() => navigate(s.path)}
               className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-app-surface/50 border border-app-border hover:border-app-border cursor-pointer transition-all text-left">
@@ -347,8 +347,8 @@ export default function LearnOverviewPage() {
           {grammarDone >= grammarTotal && vocabDone >= vocabTotal && hangulDone >= hangulTotal && (
             <div className="text-center py-6 bg-emerald-500/5 border border-emerald-500/15 rounded-xl">
               <i className="ri-trophy-fill text-app-accent-success text-2xl mb-2 block"></i>
-              <p className="text-app-accent-success font-semibold">Bạn đã hoàn thành tất cả nội dung hiện có!</p>
-              <p className="text-app-text-muted text-xs mt-1">Tiếp tục ôn luyện và thi thử TOPIK nhé</p>
+              <p className="text-app-accent-success font-semibold">B?n d� ho�n th�nh t?t c? n?i dung hi?n c�!</p>
+              <p className="text-app-text-muted text-xs mt-1">Ti?p t?c �n luy?n v� thi th? TOPIK nh�</p>
             </div>
           )}
         </div>

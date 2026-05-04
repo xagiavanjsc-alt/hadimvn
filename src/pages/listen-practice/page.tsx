@@ -1,4 +1,4 @@
-﻿import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -14,32 +14,32 @@ interface PracticeItem {
 
 const PRACTICE_ITEMS: PracticeItem[] = [
   // A1
-  { id: "p1", korean: "안녕하세요", vietnamese: "Xin chào", romanization: "an-nyeong-ha-se-yo", level: "A1", category: "Chào hỏi", tips: "Nhấn mạnh âm tiết 'nyeong', giọng xuống ở cuối" },
-  { id: "p2", korean: "감사합니다", vietnamese: "Cảm ơn", romanization: "gam-sa-ham-ni-da", level: "A1", category: "Chào hỏi", tips: "Phát âm 'gam' ngắn, 'ni-da' nhẹ ở cuối" },
-  { id: "p3", korean: "괜찮아요", vietnamese: "Không sao / Ổn", romanization: "gwaen-cha-na-yo", level: "A1", category: "Hàng ngày", tips: "'gwaen' là âm đôi, phát âm nhanh" },
-  { id: "p4", korean: "사랑해요", vietnamese: "Tôi yêu bạn", romanization: "sa-rang-hae-yo", level: "A1", category: "Cảm xúc", tips: "Âm 'rang' rung nhẹ, 'hae-yo' lên giọng" },
-  { id: "p5", korean: "맛있어요", vietnamese: "Ngon", romanization: "ma-si-sseo-yo", level: "A1", category: "Ẩm thực", tips: "'맛' đọc là 'mat', kết hợp với '있어요' thành 'ma-si-sseo-yo'" },
-  { id: "p6", korean: "어디에 가요?", vietnamese: "Bạn đi đâu?", romanization: "eo-di-e ga-yo", level: "A1", category: "Hỏi đường", tips: "Câu hỏi — lên giọng ở cuối" },
-  { id: "p7", korean: "얼마예요?", vietnamese: "Bao nhiêu tiền?", romanization: "eol-ma-ye-yo", level: "A1", category: "Mua sắm", tips: "Lên giọng ở 'ye-yo' vì là câu hỏi" },
-  { id: "p8", korean: "도와주세요", vietnamese: "Hãy giúp tôi", romanization: "do-wa-ju-se-yo", level: "A1", category: "Khẩn cấp", tips: "Giọng khẩn thiết, nhấn 'do-wa'" },
+  { id: "p1", korean: "?????", vietnamese: "Xin ch�o", romanization: "an-nyeong-ha-se-yo", level: "A1", category: "Ch�o h?i", tips: "Nh?n m?nh �m ti?t 'nyeong', gi?ng xu?ng ? cu?i" },
+  { id: "p2", korean: "?????", vietnamese: "C?m on", romanization: "gam-sa-ham-ni-da", level: "A1", category: "Ch�o h?i", tips: "Ph�t �m 'gam' ng?n, 'ni-da' nh? ? cu?i" },
+  { id: "p3", korean: "????", vietnamese: "Kh�ng sao / ?n", romanization: "gwaen-cha-na-yo", level: "A1", category: "H�ng ng�y", tips: "'gwaen' l� �m d�i, ph�t �m nhanh" },
+  { id: "p4", korean: "????", vietnamese: "T�i y�u b?n", romanization: "sa-rang-hae-yo", level: "A1", category: "C?m x�c", tips: "�m 'rang' rung nh?, 'hae-yo' l�n gi?ng" },
+  { id: "p5", korean: "????", vietnamese: "Ngon", romanization: "ma-si-sseo-yo", level: "A1", category: "?m th?c", tips: "'?' d?c l� 'mat', k?t h?p v?i '???' th�nh 'ma-si-sseo-yo'" },
+  { id: "p6", korean: "??? ???", vietnamese: "B?n di d�u?", romanization: "eo-di-e ga-yo", level: "A1", category: "H?i du?ng", tips: "C�u h?i � l�n gi?ng ? cu?i" },
+  { id: "p7", korean: "?????", vietnamese: "Bao nhi�u ti?n?", romanization: "eol-ma-ye-yo", level: "A1", category: "Mua s?m", tips: "L�n gi?ng ? 'ye-yo' v� l� c�u h?i" },
+  { id: "p8", korean: "?????", vietnamese: "H�y gi�p t�i", romanization: "do-wa-ju-se-yo", level: "A1", category: "Kh?n c?p", tips: "Gi?ng kh?n thi?t, nh?n 'do-wa'" },
   // A2
-  { id: "p9", korean: "한국어를 공부해요", vietnamese: "Tôi học tiếng Hàn", romanization: "han-gu-geo-reul gong-bu-hae-yo", level: "A2", category: "Học tập", tips: "Chú ý liên âm: 'geo-reul' đọc liền" },
-  { id: "p10", korean: "날씨가 좋아요", vietnamese: "Thời tiết đẹp", romanization: "nal-ssi-ga jo-a-yo", level: "A2", category: "Thời tiết", tips: "'날씨' đọc là 'nal-ssi', âm đôi ss" },
-  { id: "p11", korean: "지하철을 타요", vietnamese: "Tôi đi tàu điện ngầm", romanization: "ji-ha-cheo-reul ta-yo", level: "A2", category: "Giao thông", tips: "Liên âm 'cheo-reul' đọc liền mạch" },
-  { id: "p12", korean: "배가 고파요", vietnamese: "Tôi đói bụng", romanization: "bae-ga go-pa-yo", level: "A2", category: "Cảm giác", tips: "'고파요' từ '고프다' — biến đổi bất quy tắc" },
-  { id: "p13", korean: "조금만 기다려 주세요", vietnamese: "Hãy đợi một chút", romanization: "jo-geum-man gi-da-ryeo ju-se-yo", level: "A2", category: "Hàng ngày", tips: "Câu dài — chia thành 2 nhịp: 조금만 / 기다려 주세요" },
+  { id: "p9", korean: "???? ????", vietnamese: "T�i h?c ti?ng H�n", romanization: "han-gu-geo-reul gong-bu-hae-yo", level: "A2", category: "H?c t?p", tips: "Ch� � li�n �m: 'geo-reul' d?c li?n" },
+  { id: "p10", korean: "??? ???", vietnamese: "Th?i ti?t d?p", romanization: "nal-ssi-ga jo-a-yo", level: "A2", category: "Th?i ti?t", tips: "'??' d?c l� 'nal-ssi', �m d�i ss" },
+  { id: "p11", korean: "???? ??", vietnamese: "T�i di t�u di?n ng?m", romanization: "ji-ha-cheo-reul ta-yo", level: "A2", category: "Giao th�ng", tips: "Li�n �m 'cheo-reul' d?c li?n m?ch" },
+  { id: "p12", korean: "?? ???", vietnamese: "T�i d�i b?ng", romanization: "bae-ga go-pa-yo", level: "A2", category: "C?m gi�c", tips: "'???' t? '???' � bi?n d?i b?t quy t?c" },
+  { id: "p13", korean: "??? ??? ???", vietnamese: "H�y d?i m?t ch�t", romanization: "jo-geum-man gi-da-ryeo ju-se-yo", level: "A2", category: "H�ng ng�y", tips: "C�u d�i � chia th�nh 2 nh?p: ??? / ??? ???" },
   // B1
-  { id: "p14", korean: "열심히 공부하면 합격할 거예요", vietnamese: "Nếu học chăm chỉ sẽ đậu", romanization: "yeol-sim-hi gong-bu-ha-myeon hap-gyeo-kal geo-ye-yo", level: "B1", category: "Động viên", tips: "Câu điều kiện — nhấn 'ha-myeon' và 'geo-ye-yo'" },
-  { id: "p15", korean: "한국 문화에 관심이 많아요", vietnamese: "Tôi rất quan tâm đến văn hóa Hàn", romanization: "han-guk mun-hwa-e gwan-si-mi ma-na-yo", level: "B1", category: "Văn hóa", tips: "Liên âm 'gwan-si-mi' — 관심이 đọc liền" },
-  { id: "p16", korean: "안전모를 반드시 착용하세요", vietnamese: "Nhất định phải đội mũ bảo hộ", romanization: "an-jeon-mo-reul ban-deu-si cha-gyong-ha-se-yo", level: "B1", category: "An toàn", tips: "Từ EPS quan trọng — phát âm rõ từng âm tiết" },
+  { id: "p14", korean: "??? ???? ??? ???", vietnamese: "N?u h?c cham ch? s? d?u", romanization: "yeol-sim-hi gong-bu-ha-myeon hap-gyeo-kal geo-ye-yo", level: "B1", category: "�?ng vi�n", tips: "C�u di?u ki?n � nh?n 'ha-myeon' v� 'geo-ye-yo'" },
+  { id: "p15", korean: "?? ??? ??? ???", vietnamese: "T�i r?t quan t�m d?n van h�a H�n", romanization: "han-guk mun-hwa-e gwan-si-mi ma-na-yo", level: "B1", category: "Van h�a", tips: "Li�n �m 'gwan-si-mi' � ??? d?c li?n" },
+  { id: "p16", korean: "???? ??? ?????", vietnamese: "Nh?t d?nh ph?i d?i mu b?o h?", romanization: "an-jeon-mo-reul ban-deu-si cha-gyong-ha-se-yo", level: "B1", category: "An to�n", tips: "T? EPS quan tr?ng � ph�t �m r� t?ng �m ti?t" },
   // B2
-  { id: "p17", korean: "환경 보호는 우리 모두의 책임입니다", vietnamese: "Bảo vệ môi trường là trách nhiệm của tất cả chúng ta", romanization: "hwan-gyeong bo-ho-neun u-ri mo-du-ui chae-gi-mim-ni-da", level: "B2", category: "Xã hội", tips: "Câu trang trọng — giọng đều, rõ ràng" },
-  { id: "p18", korean: "인공지능 기술이 빠르게 발전하고 있습니다", vietnamese: "Công nghệ AI đang phát triển nhanh chóng", romanization: "in-gong-ji-neung gi-su-ri ppa-reu-ge bal-jeon-ha-go it-seum-ni-da", level: "B2", category: "Công nghệ", tips: "Câu dài — chia nhịp: 인공지능 기술이 / 빠르게 / 발전하고 있습니다" },
+  { id: "p17", korean: "?? ??? ?? ??? ?????", vietnamese: "B?o v? m�i tru?ng l� tr�ch nhi?m c?a t?t c? ch�ng ta", romanization: "hwan-gyeong bo-ho-neun u-ri mo-du-ui chae-gi-mim-ni-da", level: "B2", category: "X� h?i", tips: "C�u trang tr?ng � gi?ng d?u, r� r�ng" },
+  { id: "p18", korean: "???? ??? ??? ???? ????", vietnamese: "C�ng ngh? AI dang ph�t tri?n nhanh ch�ng", romanization: "in-gong-ji-neung gi-su-ri ppa-reu-ge bal-jeon-ha-go it-seum-ni-da", level: "B2", category: "C�ng ngh?", tips: "C�u d�i � chia nh?p: ???? ??? / ??? / ???? ????" },
 ];
 
 const LEVEL_COLORS: Record<string, string> = { A1: "#34d399", A2: "app-accent-primary", B1: "#fb923c", B2: "#f87171" };
 
-// ─── Speech Recognition Hook ──────────────────────────────────────────────
+// --- Speech Recognition Hook ----------------------------------------------
 function useSpeechRecognition() {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
@@ -49,7 +49,7 @@ function useSpeechRecognition() {
   const startListening = useCallback(() => {
     const SpeechRecognitionAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognitionAPI) {
-      setError("Trình duyệt không hỗ trợ nhận diện giọng nói. Hãy dùng Chrome.");
+      setError("Tr�nh duy?t kh�ng h? tr? nh?n di?n gi?ng n�i. H�y d�ng Chrome.");
       return;
     }
     const recognition = new SpeechRecognitionAPI();
@@ -64,7 +64,7 @@ function useSpeechRecognition() {
       setTranscript(result);
     };
     recognition.onerror = (e: any) => {
-      setError(`Lỗi: ${e.error === "no-speech" ? "Không nghe thấy giọng nói" : e.error}`);
+      setError(`L?i: ${e.error === "no-speech" ? "Kh�ng nghe th?y gi?ng n�i" : e.error}`);
       setIsListening(false);
     };
     recognition.onend = () => setIsListening(false);
@@ -81,7 +81,7 @@ function useSpeechRecognition() {
   return { isListening, transcript, error, startListening, stopListening };
 }
 
-// ─── Score Calculator ─────────────────────────────────────────────────────
+// --- Score Calculator -----------------------------------------------------
 function calcScore(target: string, spoken: string): number {
   if (!spoken) return 0;
   const t = target.replace(/\s+/g, "").toLowerCase();
@@ -102,7 +102,7 @@ function calcScore(target: string, spoken: string): number {
   return Math.min(100, Math.round(similarity * 0.7 + wordBonus));
 }
 
-// ─── Practice Card ────────────────────────────────────────────────────────
+// --- Practice Card --------------------------------------------------------
 function PracticeCard({
   item,
   bestScore,
@@ -136,7 +136,7 @@ function PracticeCard({
   };
 
   const getScoreColor = (s: number) => s >= 80 ? "#34d399" : s >= 55 ? "app-accent-primary" : "#f87171";
-  const getScoreLabel = (s: number) => s >= 80 ? "Xuất sắc!" : s >= 55 ? "Khá tốt!" : "Thử lại nhé!";
+  const getScoreLabel = (s: number) => s >= 80 ? "Xu?t s?c!" : s >= 55 ? "Kh� t?t!" : "Th? l?i nh�!";
 
   return (
     <div className="bg-app-bg border border-app-border rounded-2xl p-5 hover:border-app-border transition-all">
@@ -147,7 +147,7 @@ function PracticeCard({
           <span className="text-[10px] px-2 py-0.5 rounded-full bg-app-card/50 text-app-text-muted">{item.category}</span>
         </div>
         {bestScore > 0 && (
-          <span className="text-[10px] font-bold" style={{ color: getScoreColor(bestScore) }}>Tốt nhất: {bestScore}</span>
+          <span className="text-[10px] font-bold" style={{ color: getScoreColor(bestScore) }}>T?t nh?t: {bestScore}</span>
         )}
       </div>
 
@@ -163,7 +163,7 @@ function PracticeCard({
 
       {/* Tips */}
       <div className="bg-app-accent-primary/5 border border-app-accent-primary/10 rounded-xl px-3 py-2 mb-4">
-        <p className="text-app-accent-primary/60 text-[10px] tracking-normal mb-0.5">Mẹo phát âm</p>
+        <p className="text-app-accent-primary/60 text-[10px] tracking-normal mb-0.5">M?o ph�t �m</p>
         <p className="text-app-text-secondary text-xs">{item.tips}</p>
       </div>
 
@@ -178,12 +178,12 @@ function PracticeCard({
                   <div key={i} className="w-1 bg-red-400 rounded-full animate-pulse" style={{ height: `${8 + i * 4}px`, animationDelay: `${i * 0.1}s` }}></div>
                 ))}
               </div>
-              <p className="text-red-400/70 text-xs flex-1">{transcript || "Đang nghe..."}</p>
+              <p className="text-red-400/70 text-xs flex-1">{transcript || "�ang nghe..."}</p>
             </div>
           ) : transcript ? (
             <p className="text-white/60 text-sm">{transcript}</p>
           ) : (
-            <p className="text-app-text-muted text-xs">Nhấn mic để bắt đầu nói...</p>
+            <p className="text-app-text-muted text-xs">Nh?n mic d? b?t d?u n�i...</p>
           )}
         </div>
 
@@ -192,12 +192,12 @@ function PracticeCard({
           {!isListening ? (
             <button onClick={startListening}
               className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-red-500/10 border border-red-500/20 hover:bg-red-500/15 text-red-400 text-sm font-semibold cursor-pointer whitespace-nowrap transition-colors">
-              <i className="ri-mic-line"></i>Bắt đầu nói
+              <i className="ri-mic-line"></i>B?t d?u n�i
             </button>
           ) : (
             <button onClick={handleStop}
               className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-red-500/20 border border-red-500/40 text-red-400 text-sm font-semibold cursor-pointer whitespace-nowrap animate-pulse">
-              <i className="ri-stop-circle-line"></i>Dừng lại
+              <i className="ri-stop-circle-line"></i>D?ng l?i
             </button>
           )}
           {attempts > 0 && (
@@ -216,7 +216,7 @@ function PracticeCard({
             <div className="text-2xl font-bold" style={{ color: getScoreColor(lastScore) }}>{lastScore}</div>
             <div>
               <p className="text-sm font-bold" style={{ color: getScoreColor(lastScore) }}>{getScoreLabel(lastScore)}</p>
-              <p className="text-app-text-muted text-[10px]">Lần thử #{attempts}</p>
+              <p className="text-app-text-muted text-[10px]">L?n th? #{attempts}</p>
             </div>
             {lastScore >= 80 && <i className="ri-checkbox-circle-fill text-app-accent-success text-xl ml-auto"></i>}
           </div>
@@ -226,7 +226,7 @@ function PracticeCard({
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────
+// --- Main Page ------------------------------------------------------------
 export default function ListenPracticePage() {
   const [selectedLevel, setSelectedLevel] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -259,24 +259,24 @@ export default function ListenPracticePage() {
 
   return (
     <DashboardLayout
-      title="Luyện phát âm & Nghe"
-      subtitle="Nói tiếng Hàn — AI nhận diện giọng nói và chấm điểm phát âm"
+      title="Luy?n ph�t �m & Nghe"
+      subtitle="N�i ti?ng H�n � AI nh?n di?n gi?ng n�i v� ch?m di?m ph�t �m"
     >
       {/* Browser warning */}
       {!isSpeechSupported && (
         <div className="bg-app-accent-primary/8 border border-app-accent-primary/20 rounded-xl px-4 py-3 mb-5 flex items-center gap-3">
           <i className="ri-information-line text-app-accent-primary text-lg flex-shrink-0"></i>
-          <p className="text-white/50 text-sm">Tính năng nhận diện giọng nói yêu cầu <strong className="text-white/70">Google Chrome</strong>. Hãy mở trang này bằng Chrome để sử dụng.</p>
+          <p className="text-white/50 text-sm">T�nh nang nh?n di?n gi?ng n�i y�u c?u <strong className="text-white/70">Google Chrome</strong>. H�y m? trang n�y b?ng Chrome d? s? d?ng.</p>
         </div>
       )}
 
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng câu", value: PRACTICE_ITEMS.length, icon: "ri-mic-2-line", color: "app-accent-primary" },
-          { label: "Đã luyện", value: totalPracticed, icon: "ri-checkbox-circle-line", color: "#34d399" },
-          { label: "Điểm TB", value: avgScore > 0 ? `${avgScore}` : "—", icon: "ri-bar-chart-line", color: "#38bdf8" },
-          { label: "Thành thạo", value: mastered, icon: "ri-trophy-line", color: "#fb923c" },
+          { label: "T?ng c�u", value: PRACTICE_ITEMS.length, icon: "ri-mic-2-line", color: "app-accent-primary" },
+          { label: "�� luy?n", value: totalPracticed, icon: "ri-checkbox-circle-line", color: "#34d399" },
+          { label: "�i?m TB", value: avgScore > 0 ? `${avgScore}` : "�", icon: "ri-bar-chart-line", color: "#38bdf8" },
+          { label: "Th�nh th?o", value: mastered, icon: "ri-trophy-line", color: "#fb923c" },
         ].map(stat => (
           <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
@@ -293,10 +293,10 @@ export default function ListenPracticePage() {
       {/* How it works */}
       <div className="bg-app-surface/50 border border-app-border rounded-xl px-4 py-3 mb-5 flex items-center gap-4 flex-wrap">
         {[
-          { icon: "ri-volume-up-line", text: "Nghe mẫu phát âm" },
-          { icon: "ri-mic-line", text: "Nhấn mic và nói" },
-          { icon: "ri-brain-line", text: "AI nhận diện giọng nói" },
-          { icon: "ri-bar-chart-line", text: "Nhận điểm & phản hồi" },
+          { icon: "ri-volume-up-line", text: "Nghe m?u ph�t �m" },
+          { icon: "ri-mic-line", text: "Nh?n mic v� n�i" },
+          { icon: "ri-brain-line", text: "AI nh?n di?n gi?ng n�i" },
+          { icon: "ri-bar-chart-line", text: "Nh?n di?m & ph?n h?i" },
         ].map((step, i) => (
           <div key={i} className="flex items-center gap-2">
             <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-accent-primary/10">
@@ -311,22 +311,22 @@ export default function ListenPracticePage() {
       {/* Filters */}
       <div className="flex items-center gap-3 mb-5 flex-wrap">
         <div className="flex items-center bg-app-card/50 rounded-xl p-1">
-          <button onClick={() => setSelectedLevel("all")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>Tất cả</button>
+          <button onClick={() => setSelectedLevel("all")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>T?t c?</button>
           {["A1","A2","B1","B2"].map(lv => (
             <button key={lv} onClick={() => setSelectedLevel(lv)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === lv ? "text-app-bg font-bold" : "text-app-text-secondary hover:text-white/60"}`} style={selectedLevel === lv ? { backgroundColor: LEVEL_COLORS[lv] } : {}}>{lv}</button>
           ))}
         </div>
         <div className="flex items-center bg-app-card/50 rounded-xl p-1 flex-wrap gap-0.5">
-          <button onClick={() => setSelectedCategory("all")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedCategory === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>Tất cả</button>
+          <button onClick={() => setSelectedCategory("all")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedCategory === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>T?t c?</button>
           {categories.map(cat => (
             <button key={cat} onClick={() => setSelectedCategory(cat)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedCategory === cat ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>{cat}</button>
           ))}
         </div>
         <div className="flex items-center gap-2 bg-app-card/50 border border-app-border rounded-xl px-3 py-2 flex-1 min-w-[160px]">
           <i className="ri-search-line text-app-text-muted text-sm"></i>
-          <input type="text" placeholder="Tìm câu..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder-white/20" />
+          <input type="text" placeholder="T�m c�u..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder-white/20" />
         </div>
-        <p className="text-app-text-muted text-xs whitespace-nowrap">{filtered.length} câu</p>
+        <p className="text-app-text-muted text-xs whitespace-nowrap">{filtered.length} c�u</p>
       </div>
 
       {/* Grid */}

@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -16,7 +16,7 @@ function speakKorean(text: string) {
   window.speechSynthesis.speak(utter);
 }
 
-// ─── Question Card ────────────────────────────────────────────────────────
+// --- Question Card --------------------------------------------------------
 function EpsQuestionCard({ q, answered, onAnswer }: {
   q: EpsQuestion;
   answered: number | null;
@@ -24,7 +24,7 @@ function EpsQuestionCard({ q, answered, onAnswer }: {
 }) {
   const topic = EPS_TOPICS.find(t => t.id === q.topic);
   const diffColor = q.difficulty === "easy" ? "#34d399" : q.difficulty === "medium" ? "app-accent-primary" : "#f87171";
-  const diffLabel = q.difficulty === "easy" ? "Dễ" : q.difficulty === "medium" ? "Trung bình" : "Khó";
+  const diffLabel = q.difficulty === "easy" ? "D?" : q.difficulty === "medium" ? "Trung b�nh" : "Kh�";
 
   return (
     <div className="bg-app-bg border border-app-border rounded-2xl p-6">
@@ -49,7 +49,7 @@ function EpsQuestionCard({ q, answered, onAnswer }: {
         )}
       </div>
 
-      {/* Image illustration — dùng ImageWithFallback để tự fallback nếu VPS lỗi */}
+      {/* Image illustration � d�ng ImageWithFallback d? t? fallback n?u VPS l?i */}
       {q.imageUrl && (
         <div className="mb-4 rounded-xl overflow-hidden border border-app-border">
           <ImageWithFallback
@@ -58,7 +58,7 @@ function EpsQuestionCard({ q, answered, onAnswer }: {
             className="w-full object-cover object-top"
             style={{ maxHeight: "220px" }}
             caption={q.imageCaption}
-            placeholderText="Ảnh minh họa đang được cập nhật"
+            placeholderText="?nh minh h?a dang du?c c?p nh?t"
           />
         </div>
       )}
@@ -118,7 +118,7 @@ function EpsQuestionCard({ q, answered, onAnswer }: {
   );
 }
 
-// ─── Topic Selector ───────────────────────────────────────────────────────
+// --- Topic Selector -------------------------------------------------------
 function TopicCard({ topic, count, done, isSelected, onClick }: {
   topic: typeof EPS_TOPICS[0];
   count: number;
@@ -138,7 +138,7 @@ function TopicCard({ topic, count, done, isSelected, onClick }: {
         </div>
         <div className="flex-1 min-w-0">
           <p className={`text-sm font-semibold ${isSelected ? "text-white" : "text-white/70"}`}>{topic.label}</p>
-          <p className="text-app-text-muted text-[10px]">{count} câu hỏi</p>
+          <p className="text-app-text-muted text-[10px]">{count} c�u h?i</p>
         </div>
         <span className="text-xs font-bold" style={{ color: topic.color }}>{pct}%</span>
       </div>
@@ -149,7 +149,7 @@ function TopicCard({ topic, count, done, isSelected, onClick }: {
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────
+// --- Main Page ------------------------------------------------------------
 export default function EpsPage() {
   const { user, profile } = useAuth();
   const { syncToCloud, updateLeaderboard } = useStudySync();
@@ -186,7 +186,7 @@ export default function EpsPage() {
 
   const handleSessionComplete = useCallback(() => {
     if (user) {
-      const displayName = profile?.display_name || user.email?.split("@")[0] || "Học viên";
+      const displayName = profile?.display_name || user.email?.split("@")[0] || "H?c vi�n";
       Promise.all([syncToCloud(user.id), updateLeaderboard(user.id, displayName)])
         .then(() => { setSyncedMsg(true); setTimeout(() => setSyncedMsg(false), 3000); });
     }
@@ -218,8 +218,8 @@ export default function EpsPage() {
 
   return (
     <DashboardLayout
-      title="Luyện thi EPS-TOPIK"
-      subtitle="Bộ đề trắc nghiệm theo chủ đề — chuẩn bị cho kỳ thi lao động Hàn Quốc"
+      title="Luy?n thi EPS-TOPIK"
+      subtitle="B? d? tr?c nghi?m theo ch? d? � chu?n b? cho k? thi lao d?ng H�n Qu?c"
       actions={
         mode !== "topics" ? (
           <button
@@ -227,7 +227,7 @@ export default function EpsPage() {
             className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/60 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-arrow-left-line"></i>
-            Về danh sách chủ đề
+            V? danh s�ch ch? d?
           </button>
         ) : undefined
       }
@@ -235,10 +235,10 @@ export default function EpsPage() {
       {/* Overall stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng câu hỏi", value: epsQuestions.length, icon: "ri-survey-line", color: "app-accent-primary" },
-          { label: "Đã làm", value: totalDone, icon: "ri-checkbox-circle-line", color: "#34d399" },
-          { label: "Trả lời đúng", value: totalCorrect, icon: "ri-trophy-line", color: "#a78bfa" },
-          { label: "Tỷ lệ đúng", value: `${overallPct}%`, icon: "ri-bar-chart-line", color: "#fb923c" },
+          { label: "T?ng c�u h?i", value: epsQuestions.length, icon: "ri-survey-line", color: "app-accent-primary" },
+          { label: "�� l�m", value: totalDone, icon: "ri-checkbox-circle-line", color: "#34d399" },
+          { label: "Tr? l?i d�ng", value: totalCorrect, icon: "ri-trophy-line", color: "#a78bfa" },
+          { label: "T? l? d�ng", value: `${overallPct}%`, icon: "ri-bar-chart-line", color: "#fb923c" },
         ].map(stat => (
           <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
@@ -256,7 +256,7 @@ export default function EpsPage() {
       {mode === "topics" && (
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
           <div>
-            <h3 className="text-white font-semibold text-sm mb-4">Chọn chủ đề luyện tập</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">Ch?n ch? d? luy?n t?p</h3>
             <div className="grid grid-cols-2 gap-3">
               {EPS_TOPICS.map(topic => (
                 <TopicCard
@@ -274,13 +274,13 @@ export default function EpsPage() {
           <div className="space-y-4">
             {/* EPS info */}
             <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-              <h3 className="text-white font-semibold text-sm mb-3">Về kỳ thi EPS-TOPIK</h3>
+              <h3 className="text-white font-semibold text-sm mb-3">V? k? thi EPS-TOPIK</h3>
               <div className="space-y-3">
                 {[
-                  { icon: "ri-file-text-line", title: "Hình thức thi", desc: "Trắc nghiệm 4 lựa chọn, 40 câu trong 50 phút" },
-                  { icon: "ri-translate-2", title: "Nội dung", desc: "Tiếng Hàn cơ bản, văn hóa, an toàn lao động, quy định pháp luật" },
-                  { icon: "ri-award-line", title: "Điểm đậu", desc: "Từ 80/200 điểm trở lên (tùy ngành nghề)" },
-                  { icon: "ri-calendar-line", title: "Tần suất", desc: "Tổ chức 2-3 lần/năm tại Việt Nam" },
+                  { icon: "ri-file-text-line", title: "H�nh th?c thi", desc: "Tr?c nghi?m 4 l?a ch?n, 40 c�u trong 50 ph�t" },
+                  { icon: "ri-translate-2", title: "N?i dung", desc: "Ti?ng H�n co b?n, van h�a, an to�n lao d?ng, quy d?nh ph�p lu?t" },
+                  { icon: "ri-award-line", title: "�i?m d?u", desc: "T? 80/200 di?m tr? l�n (t�y ng�nh ngh?)" },
+                  { icon: "ri-calendar-line", title: "T?n su?t", desc: "T? ch?c 2-3 l?n/nam t?i Vi?t Nam" },
                 ].map(item => (
                   <div key={item.title} className="flex items-start gap-3">
                     <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-accent-primary/10 flex-shrink-0">
@@ -296,9 +296,9 @@ export default function EpsPage() {
             </div>
 
             <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
-              <p className="text-app-accent-primary/80 text-xs font-semibold mb-1">Mẹo luyện thi EPS</p>
+              <p className="text-app-accent-primary/80 text-xs font-semibold mb-1">M?o luy?n thi EPS</p>
               <p className="text-app-text-secondary text-xs leading-relaxed">
-                Làm hết tất cả chủ đề ít nhất 3 lần. Chú ý các câu về an toàn lao động và quy định pháp luật — thường chiếm 30% đề thi.
+                L�m h?t t?t c? ch? d? �t nh?t 3 l?n. Ch� � c�c c�u v? an to�n lao d?ng v� quy d?nh ph�p lu?t � thu?ng chi?m 30% d? thi.
               </p>
             </div>
           </div>
@@ -321,7 +321,7 @@ export default function EpsPage() {
                 />
               </div>
               <p className="text-app-accent-success text-xs font-bold whitespace-nowrap">
-                {Object.values(sessionAnswers).filter((v, i) => v === topicQuestions[i]?.correctIndex).length} đúng
+                {Object.values(sessionAnswers).filter((v, i) => v === topicQuestions[i]?.correctIndex).length} d�ng
               </p>
             </div>
 
@@ -342,7 +342,7 @@ export default function EpsPage() {
                         className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-[#06b6d4]/20 bg-[#06b6d4]/5 hover:bg-[#06b6d4]/10 text-[#06b6d4] text-sm font-medium transition-colors cursor-pointer whitespace-nowrap"
                       >
                         <i className="ri-mic-line"></i>
-                        Luyện phát âm câu này
+                        Luy?n ph�t �m c�u n�y
                       </button>
                     ) : (
                       <PronunciationRecorder
@@ -357,7 +357,7 @@ export default function EpsPage() {
                   onClick={() => { setShowRecorder(false); handleNext(); }}
                   className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm transition-colors cursor-pointer whitespace-nowrap"
                 >
-                  {currentIdx + 1 >= topicQuestions.length ? "Xem kết quả" : "Câu tiếp theo"}
+                  {currentIdx + 1 >= topicQuestions.length ? "Xem k?t qu?" : "C�u ti?p theo"}
                   <i className="ri-arrow-right-line"></i>
                 </button>
               </div>
@@ -367,7 +367,7 @@ export default function EpsPage() {
           {/* Side: topic progress */}
           <div className="space-y-3">
             <div className="bg-app-bg border border-app-border rounded-2xl p-4">
-              <p className="text-app-text-secondary text-xs font-medium mb-3">Tiến độ chủ đề này</p>
+              <p className="text-app-text-secondary text-xs font-medium mb-3">Ti?n d? ch? d? n�y</p>
               <div className="space-y-2">
                 {topicQuestions.map((q, i) => {
                   const ans = answeredMap[q.id];
@@ -385,7 +385,7 @@ export default function EpsPage() {
                         : i === currentIdx ? "bg-app-accent-primary/20 text-app-accent-primary"
                         : "bg-app-card/50 text-app-text-muted"
                       }`}>
-                        {isDone ? (isCorrect ? "✓" : "✗") : i + 1}
+                        {isDone ? (isCorrect ? "?" : "?") : i + 1}
                       </div>
                       <p className="text-white/50 text-[10px] truncate flex-1">{q.questionVi.slice(0, 35)}...</p>
                     </button>
@@ -402,9 +402,9 @@ export default function EpsPage() {
         <div className="bg-app-bg border border-app-border rounded-2xl p-8 max-w-lg mx-auto text-center">
           {(() => {
             const pct = topicQuestions.length > 0 ? Math.round((sessionScore / topicQuestions.length) * 100) : 0;
-            const grade = pct >= 80 ? { label: "Xuất sắc!", color: "#34d399", icon: "ri-trophy-line" }
-              : pct >= 60 ? { label: "Khá tốt!", color: "app-accent-primary", icon: "ri-medal-line" }
-              : { label: "Cần ôn thêm!", color: "#fb923c", icon: "ri-refresh-line" };
+            const grade = pct >= 80 ? { label: "Xu?t s?c!", color: "#34d399", icon: "ri-trophy-line" }
+              : pct >= 60 ? { label: "Kh� t?t!", color: "app-accent-primary", icon: "ri-medal-line" }
+              : { label: "C?n �n th�m!", color: "#fb923c", icon: "ri-refresh-line" };
             return (
               <>
                 <div className="w-16 h-16 flex items-center justify-center rounded-2xl mx-auto mb-4" style={{ backgroundColor: `${grade.color}15` }}>
@@ -412,7 +412,7 @@ export default function EpsPage() {
                 </div>
                 <h2 className="text-white font-bold text-xl mb-2">{grade.label}</h2>
                 <p className="text-app-text-secondary text-sm mb-5">
-                  Đúng <span className="font-bold" style={{ color: grade.color }}>{sessionScore}/{topicQuestions.length}</span> câu ({pct}%)
+                  ��ng <span className="font-bold" style={{ color: grade.color }}>{sessionScore}/{topicQuestions.length}</span> c�u ({pct}%)
                 </p>
                 <div className="w-full h-2 bg-app-card/50 rounded-full overflow-hidden mb-6">
                   <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: grade.color }} />
@@ -422,13 +422,13 @@ export default function EpsPage() {
                     onClick={() => { setCurrentIdx(0); setSessionAnswers({}); setMode("practice"); }}
                     className="flex-1 py-3 rounded-xl border border-app-border text-white/60 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"
                   >
-                    Làm lại
+                    L�m l?i
                   </button>
                   <button
                     onClick={() => setMode("topics")}
                     className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-sm font-bold transition-colors cursor-pointer whitespace-nowrap"
                   >
-                    Chủ đề khác
+                    Ch? d? kh�c
                   </button>
                 </div>
               </>

@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -23,72 +23,72 @@ const ROADMAP_LEVELS: RoadmapLevel[] = [
   {
     id: "beginner",
     level: "beginner",
-    topik: "Nhập môn",
-    title: "Hangul & Phát âm",
-    subtitle: "Làm quen bảng chữ cái, phát âm cơ bản",
+    topik: "Nh?p m�n",
+    title: "Hangul & Ph�t �m",
+    subtitle: "L�m quen b?ng ch? c�i, ph�t �m co b?n",
     color: "#34d399",
     icon: "ri-seedling-line",
-    badge: "Bắt đầu tại đây",
-    skills: ["Đọc được Hangul", "Phát âm 40 âm cơ bản", "Chào hỏi đơn giản", "Số đếm 1-100"],
+    badge: "B?t d?u t?i d�y",
+    skills: ["�?c du?c Hangul", "Ph�t �m 40 �m co b?n", "Ch�o h?i don gi?n", "S? d?m 1-100"],
     vocabTarget: 100,
-    grammarPoints: ["이다/아니다 (là/không là)", "은/는 (chủ ngữ)", "이/가 (chủ thể)", "을/를 (tân ngữ)"],
-    recommendedLessons: ["Bài hát có giai điệu chậm, từ vựng đơn giản"],
+    grammarPoints: ["??/??? (l�/kh�ng l�)", "?/? (ch? ng?)", "?/? (ch? th?)", "?/? (t�n ng?)"],
+    recommendedLessons: ["B�i h�t c� giai di?u ch?m, t? v?ng don gi?n"],
   },
   {
     id: "elementary",
     level: "elementary",
-    topik: "TOPIK I — Cấp 1",
-    title: "Giao tiếp cơ bản",
-    subtitle: "Câu đơn giản, từ vựng hàng ngày",
+    topik: "TOPIK I � C?p 1",
+    title: "Giao ti?p co b?n",
+    subtitle: "C�u don gi?n, t? v?ng h�ng ng�y",
     color: "app-accent-primary",
     icon: "ri-plant-line",
     badge: "TOPIK 1",
-    skills: ["Giới thiệu bản thân", "Mua sắm, ăn uống", "Hỏi đường", "Nói về sở thích"],
+    skills: ["Gi?i thi?u b?n th�n", "Mua s?m, an u?ng", "H?i du?ng", "N�i v? s? th�ch"],
     vocabTarget: 800,
-    grammarPoints: ["아/어요 (kính ngữ)", "고 싶다 (muốn)", "에 가다 (đi đến)", "-(으)ㄹ 수 있다 (có thể)"],
-    recommendedLessons: ["K-pop ballad chậm", "OST phim Hàn"],
+    grammarPoints: ["?/?? (k�nh ng?)", "? ?? (mu?n)", "? ?? (di d?n)", "-(?)? ? ?? (c� th?)"],
+    recommendedLessons: ["K-pop ballad ch?m", "OST phim H�n"],
   },
   {
     id: "intermediate",
     level: "intermediate",
-    topik: "TOPIK I — Cấp 2",
-    title: "Diễn đạt ý kiến",
-    subtitle: "Câu phức tạp, ngữ pháp trung cấp",
+    topik: "TOPIK I � C?p 2",
+    title: "Di?n d?t � ki?n",
+    subtitle: "C�u ph?c t?p, ng? ph�p trung c?p",
     color: "#fb923c",
     icon: "ri-tree-line",
     badge: "TOPIK 2",
-    skills: ["Kể chuyện quá khứ", "Diễn đạt cảm xúc", "Đọc hiểu đoạn ngắn", "Viết email đơn giản"],
+    skills: ["K? chuy?n qu� kh?", "Di?n d?t c?m x�c", "�?c hi?u do?n ng?n", "Vi?t email don gi?n"],
     vocabTarget: 1500,
-    grammarPoints: ["-(으)면 (nếu)", "-기 때문에 (vì)", "-(으)ㄴ/는데 (nhưng/mà)", "-아/어서 (vì/nên)"],
-    recommendedLessons: ["K-pop idol group", "Nhạc có lyric kể chuyện"],
+    grammarPoints: ["-(?)? (n?u)", "-? ??? (v�)", "-(?)?/?? (nhung/m�)", "-?/?? (v�/n�n)"],
+    recommendedLessons: ["K-pop idol group", "Nh?c c� lyric k? chuy?n"],
   },
   {
     id: "upper-intermediate",
     level: "upper-intermediate",
-    topik: "TOPIK II — Cấp 3",
-    title: "Tiếng Hàn tự nhiên",
-    subtitle: "Ngữ pháp nâng cao, đọc báo đơn giản",
+    topik: "TOPIK II � C?p 3",
+    title: "Ti?ng H�n t? nhi�n",
+    subtitle: "Ng? ph�p n�ng cao, d?c b�o don gi?n",
     color: "#a78bfa",
     icon: "ri-leaf-line",
     badge: "TOPIK 3",
-    skills: ["Đọc tin tức đơn giản", "Thảo luận chủ đề xã hội", "Viết đoạn văn", "Nghe hiểu 70%"],
+    skills: ["�?c tin t?c don gi?n", "Th?o lu?n ch? d? x� h?i", "Vi?t do?n van", "Nghe hi?u 70%"],
     vocabTarget: 3000,
-    grammarPoints: ["-(으)ㄹ 뿐만 아니라 (không chỉ...mà còn)", "-에 따르면 (theo)", "-(으)ㄹ수록 (càng...càng)", "-도록 (để/cho đến khi)"],
-    recommendedLessons: ["Nhạc Hàn có lyric sâu sắc", "Tin tức Naver đơn giản"],
+    grammarPoints: ["-(?)? ?? ??? (kh�ng ch?...m� c�n)", "-? ??? (theo)", "-(?)??? (c�ng...c�ng)", "-?? (d?/cho d?n khi)"],
+    recommendedLessons: ["Nh?c H�n c� lyric s�u s?c", "Tin t?c Naver don gi?n"],
   },
   {
     id: "advanced",
     level: "advanced",
-    topik: "TOPIK II — Cấp 4-6",
-    title: "Thành thạo tiếng Hàn",
-    subtitle: "Đọc báo, xem phim không phụ đề",
+    topik: "TOPIK II � C?p 4-6",
+    title: "Th�nh th?o ti?ng H�n",
+    subtitle: "�?c b�o, xem phim kh�ng ph? d?",
     color: "#f472b6",
     icon: "ri-award-line",
     badge: "TOPIK 4-6",
-    skills: ["Đọc báo Hàn tự nhiên", "Xem phim không phụ đề", "Viết luận văn", "Phỏng vấn xin việc"],
+    skills: ["�?c b�o H�n t? nhi�n", "Xem phim kh�ng ph? d?", "Vi?t lu?n van", "Ph?ng v?n xin vi?c"],
     vocabTarget: 6000,
-    grammarPoints: ["Văn phong trang trọng", "Thành ngữ & tục ngữ", "Từ Hán-Hàn nâng cao", "Ngữ pháp học thuật"],
-    recommendedLessons: ["Nhạc rap Hàn", "Tin tức Naver đầy đủ", "Podcast tiếng Hàn"],
+    grammarPoints: ["Van phong trang tr?ng", "Th�nh ng? & t?c ng?", "T? H�n-H�n n�ng cao", "Ng? ph�p h?c thu?t"],
+    recommendedLessons: ["Nh?c rap H�n", "Tin t?c Naver d?y d?", "Podcast ti?ng H�n"],
   },
 ];
 
@@ -141,7 +141,7 @@ function LevelCard({ level, lessons, isActive, isCompleted, onSelect }: {
           {/* Vocab target */}
           <div className="flex items-center gap-2 mt-2">
             <i className="ri-translate-2 text-app-text-muted text-xs"></i>
-            <span className="text-app-text-muted text-[10px]">Mục tiêu: {level.vocabTarget.toLocaleString()} từ vựng</span>
+            <span className="text-app-text-muted text-[10px]">M?c ti�u: {level.vocabTarget.toLocaleString()} t? v?ng</span>
           </div>
         </div>
 
@@ -153,7 +153,7 @@ function LevelCard({ level, lessons, isActive, isCompleted, onSelect }: {
         <div className="mt-5 pt-5 border-t border-app-border space-y-4">
           {/* Skills */}
           <div>
-            <p className="text-app-text-muted text-[10px] tracking-normal font-semibold mb-2">Kỹ năng cần đạt</p>
+            <p className="text-app-text-muted text-[10px] tracking-normal font-semibold mb-2">K? nang c?n d?t</p>
             <div className="grid grid-cols-2 gap-2">
               {level.skills.map((skill, i) => (
                 <div key={i} className="flex items-center gap-2">
@@ -166,7 +166,7 @@ function LevelCard({ level, lessons, isActive, isCompleted, onSelect }: {
 
           {/* Grammar */}
           <div>
-            <p className="text-app-text-muted text-[10px] tracking-normal font-semibold mb-2">Ngữ pháp trọng tâm</p>
+            <p className="text-app-text-muted text-[10px] tracking-normal font-semibold mb-2">Ng? ph�p tr?ng t�m</p>
             <div className="flex flex-wrap gap-1.5">
               {level.grammarPoints.map((g, i) => (
                 <span
@@ -183,7 +183,7 @@ function LevelCard({ level, lessons, isActive, isCompleted, onSelect }: {
           {/* Recommended lessons */}
           {matchedLessons.length > 0 && (
             <div>
-              <p className="text-app-text-muted text-[10px] tracking-normal font-semibold mb-2">Bài học gợi ý từ kho của bạn</p>
+              <p className="text-app-text-muted text-[10px] tracking-normal font-semibold mb-2">B�i h?c g?i � t? kho c?a b?n</p>
               <div className="space-y-1.5">
                 {matchedLessons.map(l => (
                   <div key={l.song.rank} className="flex items-center gap-2 bg-app-surface/50 rounded-lg px-3 py-2">
@@ -230,8 +230,8 @@ export default function RoadmapPage() {
 
   return (
     <DashboardLayout
-      title="Lộ trình học tiếng Hàn"
-      subtitle="Từ Hangul đến TOPIK — theo từng bước rõ ràng"
+      title="L? tr�nh h?c ti?ng H�n"
+      subtitle="T? Hangul d?n TOPIK � theo t?ng bu?c r� r�ng"
     >
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
         {/* Left: Roadmap */}
@@ -248,7 +248,7 @@ export default function RoadmapPage() {
                     <i className={`${currentLevelData.icon} text-lg`} style={{ color: currentLevelData.color }}></i>
                   </div>
                   <div>
-                    <p className="text-app-text-secondary text-[10px] tracking-normal font-semibold">Cấp độ hiện tại</p>
+                    <p className="text-app-text-secondary text-[10px] tracking-normal font-semibold">C?p d? hi?n t?i</p>
                     <p className="text-white font-bold text-sm">{currentLevelData.title}</p>
                   </div>
                 </div>
@@ -263,7 +263,7 @@ export default function RoadmapPage() {
                     }}
                   >
                     <i className={completedLevels.includes(currentLevel) ? "ri-checkbox-circle-fill" : "ri-checkbox-circle-line"}></i>
-                    {completedLevels.includes(currentLevel) ? "Đã hoàn thành" : "Đánh dấu hoàn thành"}
+                    {completedLevels.includes(currentLevel) ? "�� ho�n th�nh" : "��nh d?u ho�n th�nh"}
                   </button>
                 </div>
               </div>
@@ -292,12 +292,12 @@ export default function RoadmapPage() {
         <div className="space-y-4">
           {/* My stats */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Thống kê của bạn</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">Th?ng k� c?a b?n</h3>
             <div className="space-y-3">
               {[
-                { label: "Bài học đã tạo", value: approvedLessons.length, icon: "ri-book-2-line", color: "app-accent-primary" },
-                { label: "Từ vựng tích lũy", value: totalVocab, icon: "ri-translate-2", color: "#34d399" },
-                { label: "Cấp độ hoàn thành", value: `${completedLevels.length}/${ROADMAP_LEVELS.length}`, icon: "ri-award-line", color: "#a78bfa" },
+                { label: "B�i h?c d� t?o", value: approvedLessons.length, icon: "ri-book-2-line", color: "app-accent-primary" },
+                { label: "T? v?ng t�ch luy", value: totalVocab, icon: "ri-translate-2", color: "#34d399" },
+                { label: "C?p d? ho�n th�nh", value: `${completedLevels.length}/${ROADMAP_LEVELS.length}`, icon: "ri-award-line", color: "#a78bfa" },
               ].map(stat => (
                 <div key={stat.label} className="flex items-center gap-3">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
@@ -314,7 +314,7 @@ export default function RoadmapPage() {
 
           {/* Set current level */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-3">Chọn cấp độ của bạn</h3>
+            <h3 className="text-white font-semibold text-sm mb-3">Ch?n c?p d? c?a b?n</h3>
             <div className="space-y-2">
               {ROADMAP_LEVELS.map(level => (
                 <button
@@ -343,12 +343,12 @@ export default function RoadmapPage() {
 
           {/* Quick actions */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-3">Học ngay</h3>
+            <h3 className="text-white font-semibold text-sm mb-3">H?c ngay</h3>
             <div className="space-y-2">
               {[
-                { icon: "ri-stack-line", label: "Ôn flashcard", sub: "Luyện từ vựng", path: "/flashcard", color: "app-accent-primary" },
-                { icon: "ri-music-2-line", label: "K-pop Lesson", sub: "Tạo bài học mới", path: "/melon", color: "#34d399" },
-                { icon: "ri-book-2-line", label: "Ebook Builder", sub: "Xuất bản ebook", path: "/ebook", color: "#fb923c" },
+                { icon: "ri-stack-line", label: "�n flashcard", sub: "Luy?n t? v?ng", path: "/flashcard", color: "app-accent-primary" },
+                { icon: "ri-music-2-line", label: "K-pop Lesson", sub: "T?o b�i h?c m?i", path: "/melon", color: "#34d399" },
+                { icon: "ri-book-2-line", label: "Ebook Builder", sub: "Xu?t b?n ebook", path: "/ebook", color: "#fb923c" },
               ].map(item => (
                 <button
                   key={item.path}
@@ -370,9 +370,9 @@ export default function RoadmapPage() {
 
           {/* Tip */}
           <div className="bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl p-4">
-            <p className="text-app-accent-primary/80 text-xs font-semibold mb-1">Mẹo học hiệu quả</p>
+            <p className="text-app-accent-primary/80 text-xs font-semibold mb-1">M?o h?c hi?u qu?</p>
             <p className="text-app-text-secondary text-xs leading-relaxed">
-              Học 15-20 phút/ngày đều đặn hiệu quả hơn học 2 tiếng/tuần. Kết hợp K-pop + flashcard + đọc tin tức để tiến bộ nhanh nhất!
+              H?c 15-20 ph�t/ng�y d?u d?n hi?u qu? hon h?c 2 ti?ng/tu?n. K?t h?p K-pop + flashcard + d?c tin t?c d? ti?n b? nhanh nh?t!
             </p>
           </div>
         </div>

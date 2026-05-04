@@ -1,8 +1,8 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { seoulBooks, SeoulVocabItem } from "@/mocks/seoulTextbook";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
-// ─── Word pair types ──────────────────────────────────────────────────────────
+// --- Word pair types ----------------------------------------------------------
 type PairType = "synonym" | "antonym" | "related";
 
 interface WordPair {
@@ -13,72 +13,72 @@ interface WordPair {
   note: string;
 }
 
-// ─── Predefined pairs ─────────────────────────────────────────────────────────
+// --- Predefined pairs ---------------------------------------------------------
 const PAIR_DEFINITIONS: Array<{
   korean1: string;
   korean2: string;
   type: PairType;
   note: string;
 }> = [
-  // Antonyms — emotions
-  { korean1: "기쁘다", korean2: "슬프다", type: "antonym", note: "Vui ↔ Buồn" },
-  { korean1: "즐겁다", korean2: "외롭다", type: "antonym", note: "Vui vẻ ↔ Cô đơn" },
-  { korean1: "만족하다", korean2: "속상하다", type: "antonym", note: "Hài lòng ↔ Buồn phiền" },
-  { korean1: "운이 좋다", korean2: "운이 없다", type: "antonym", note: "May mắn ↔ Không may" },
-  { korean1: "자랑스럽다", korean2: "창피하다", type: "antonym", note: "Tự hào ↔ Xấu hổ" },
-  // Antonyms — appearance
-  { korean1: "키가 크다", korean2: "키가 작다", type: "antonym", note: "Cao ↔ Thấp" },
-  { korean1: "날씬하다", korean2: "뚱뚱하다", type: "antonym", note: "Thon thả ↔ Béo" },
-  { korean1: "눈이 크다", korean2: "눈이 작다", type: "antonym", note: "Mắt to ↔ Mắt nhỏ" },
-  { korean1: "코가 높다", korean2: "코가 낮다", type: "antonym", note: "Mũi cao ↔ Mũi thấp" },
-  { korean1: "어리다", korean2: "늙다", type: "antonym", note: "Nhỏ tuổi ↔ Già" },
-  // Antonyms — taste
-  { korean1: "달다", korean2: "쓰다", type: "antonym", note: "Ngọt ↔ Đắng" },
-  { korean1: "짜다", korean2: "싱겁다", type: "antonym", note: "Mặn ↔ Nhạt" },
-  // Antonyms — directions
-  { korean1: "왼쪽으로 돌아가다", korean2: "오른쪽으로 돌아가다", type: "antonym", note: "Rẽ trái ↔ Rẽ phải" },
-  { korean1: "좌회전하다", korean2: "우회전하다", type: "antonym", note: "Rẽ trái ↔ Rẽ phải (trang trọng)" },
-  // Antonyms — finance
-  { korean1: "입금하다", korean2: "출금하다", type: "antonym", note: "Nộp tiền ↔ Rút tiền" },
-  { korean1: "왕복", korean2: "편도", type: "antonym", note: "Vé khứ hồi ↔ Vé một chiều" },
-  // Antonyms — life events
-  { korean1: "태어나다", korean2: "죽다", type: "antonym", note: "Sinh ra ↔ Chết" },
-  { korean1: "취직하다", korean2: "은퇴하다", type: "antonym", note: "Tìm được việc ↔ Về hưu" },
-  { korean1: "오르다", korean2: "내리다", type: "antonym", note: "Tăng lên ↔ Giảm xuống" },
-  { korean1: "줄다", korean2: "늘다", type: "antonym", note: "Giảm đi ↔ Tiến bộ/Tăng" },
+  // Antonyms � emotions
+  { korean1: "???", korean2: "???", type: "antonym", note: "Vui ? Bu?n" },
+  { korean1: "???", korean2: "???", type: "antonym", note: "Vui v? ? C� don" },
+  { korean1: "????", korean2: "????", type: "antonym", note: "H�i l�ng ? Bu?n phi?n" },
+  { korean1: "?? ??", korean2: "?? ??", type: "antonym", note: "May m?n ? Kh�ng may" },
+  { korean1: "?????", korean2: "????", type: "antonym", note: "T? h�o ? X?u h?" },
+  // Antonyms � appearance
+  { korean1: "?? ??", korean2: "?? ??", type: "antonym", note: "Cao ? Th?p" },
+  { korean1: "????", korean2: "????", type: "antonym", note: "Thon th? ? B�o" },
+  { korean1: "?? ??", korean2: "?? ??", type: "antonym", note: "M?t to ? M?t nh?" },
+  { korean1: "?? ??", korean2: "?? ??", type: "antonym", note: "Mui cao ? Mui th?p" },
+  { korean1: "???", korean2: "??", type: "antonym", note: "Nh? tu?i ? Gi�" },
+  // Antonyms � taste
+  { korean1: "??", korean2: "??", type: "antonym", note: "Ng?t ? �?ng" },
+  { korean1: "??", korean2: "???", type: "antonym", note: "M?n ? Nh?t" },
+  // Antonyms � directions
+  { korean1: "???? ????", korean2: "????? ????", type: "antonym", note: "R? tr�i ? R? ph?i" },
+  { korean1: "?????", korean2: "?????", type: "antonym", note: "R? tr�i ? R? ph?i (trang tr?ng)" },
+  // Antonyms � finance
+  { korean1: "????", korean2: "????", type: "antonym", note: "N?p ti?n ? R�t ti?n" },
+  { korean1: "??", korean2: "??", type: "antonym", note: "V� kh? h?i ? V� m?t chi?u" },
+  // Antonyms � life events
+  { korean1: "????", korean2: "??", type: "antonym", note: "Sinh ra ? Ch?t" },
+  { korean1: "????", korean2: "????", type: "antonym", note: "T�m du?c vi?c ? V? huu" },
+  { korean1: "???", korean2: "???", type: "antonym", note: "Tang l�n ? Gi?m xu?ng" },
+  { korean1: "??", korean2: "??", type: "antonym", note: "Gi?m di ? Ti?n b?/Tang" },
   // Synonyms
-  { korean1: "매일", korean2: "날마다", type: "synonym", note: "Mỗi ngày (2 cách nói)" },
-  { korean1: "매달", korean2: "달마다", type: "synonym", note: "Mỗi tháng (2 cách nói)" },
-  { korean1: "매년", korean2: "해마다", type: "synonym", note: "Hàng năm (2 cách nói)" },
-  { korean1: "장소", korean2: "곳", type: "synonym", note: "Nơi/Địa điểm (2 cách nói)" },
-  { korean1: "죽다", korean2: "돌아가시다", type: "synonym", note: "Chết (thường ↔ kính ngữ)" },
-  { korean1: "먹다", korean2: "드시다", type: "synonym", note: "Ăn (thường ↔ kính ngữ)" },
-  { korean1: "있다", korean2: "계시다", type: "synonym", note: "Có/Ở (thường ↔ kính ngữ)" },
-  { korean1: "자다", korean2: "주무시다", type: "synonym", note: "Ngủ (thường ↔ kính ngữ)" },
-  { korean1: "환전하다", korean2: "돈을 바꾸다", type: "synonym", note: "Đổi tiền (2 cách nói)" },
-  { korean1: "송금하다", korean2: "돈을 보내다", type: "synonym", note: "Chuyển tiền (2 cách nói)" },
-  { korean1: "출금하다", korean2: "돈을 찾다", type: "synonym", note: "Rút tiền (2 cách nói)" },
-  { korean1: "추수하다", korean2: "수확하다", type: "synonym", note: "Thu hoạch (2 cách nói)" },
-  { korean1: "외출하다", korean2: "나가다", type: "synonym", note: "Ra ngoài (2 cách nói)" },
+  { korean1: "??", korean2: "???", type: "synonym", note: "M?i ng�y (2 c�ch n�i)" },
+  { korean1: "??", korean2: "???", type: "synonym", note: "M?i th�ng (2 c�ch n�i)" },
+  { korean1: "??", korean2: "???", type: "synonym", note: "H�ng nam (2 c�ch n�i)" },
+  { korean1: "??", korean2: "?", type: "synonym", note: "Noi/�?a di?m (2 c�ch n�i)" },
+  { korean1: "??", korean2: "?????", type: "synonym", note: "Ch?t (thu?ng ? k�nh ng?)" },
+  { korean1: "??", korean2: "???", type: "synonym", note: "An (thu?ng ? k�nh ng?)" },
+  { korean1: "??", korean2: "???", type: "synonym", note: "C�/? (thu?ng ? k�nh ng?)" },
+  { korean1: "??", korean2: "????", type: "synonym", note: "Ng? (thu?ng ? k�nh ng?)" },
+  { korean1: "????", korean2: "?? ???", type: "synonym", note: "�?i ti?n (2 c�ch n�i)" },
+  { korean1: "????", korean2: "?? ???", type: "synonym", note: "Chuy?n ti?n (2 c�ch n�i)" },
+  { korean1: "????", korean2: "?? ??", type: "synonym", note: "R�t ti?n (2 c�ch n�i)" },
+  { korean1: "????", korean2: "????", type: "synonym", note: "Thu ho?ch (2 c�ch n�i)" },
+  { korean1: "????", korean2: "???", type: "synonym", note: "Ra ngo�i (2 c�ch n�i)" },
   // Related pairs
-  { korean1: "선배", korean2: "후배", type: "related", note: "Tiền bối & Hậu bối" },
-  { korean1: "형제", korean2: "자매", type: "related", note: "Anh em trai & Chị em gái" },
-  { korean1: "동창", korean2: "동료", type: "related", note: "Bạn cùng trường & Đồng nghiệp" },
-  { korean1: "동호회", korean2: "동호인", type: "related", note: "Hội sở thích & Người cùng sở thích" },
-  { korean1: "콘서트", korean2: "음악회", type: "related", note: "Hòa nhạc (ca sĩ) & Hòa nhạc (nhạc cụ)" },
-  { korean1: "아파트", korean2: "원룸", type: "related", note: "Chung cư & Phòng đơn" },
-  { korean1: "월세", korean2: "보증금", type: "related", note: "Tiền thuê tháng & Tiền đặt cọc" },
-  { korean1: "내과", korean2: "치과", type: "related", note: "Khoa nội & Khoa răng" },
-  { korean1: "안과", korean2: "피부과", type: "related", note: "Khoa mắt & Khoa da liễu" },
-  { korean1: "설날", korean2: "추석", type: "related", note: "Tết Nguyên Đán & Tết Trung Thu" },
-  { korean1: "줄무늬", korean2: "꽃무늬", type: "related", note: "Kẻ sọc & Họa tiết hoa" },
-  { korean1: "체크무늬", korean2: "물방울무늬", type: "related", note: "Kẻ ca rô & Chấm bi" },
-  { korean1: "하얀색", korean2: "까만색", type: "related", note: "Trắng & Đen" },
-  { korean1: "빨간색", korean2: "파란색", type: "related", note: "Đỏ & Xanh nước biển" },
-  { korean1: "노란색", korean2: "녹색", type: "related", note: "Vàng & Xanh lục" },
+  { korean1: "??", korean2: "??", type: "related", note: "Ti?n b?i & H?u b?i" },
+  { korean1: "??", korean2: "??", type: "related", note: "Anh em trai & Ch? em g�i" },
+  { korean1: "??", korean2: "??", type: "related", note: "B?n c�ng tru?ng & �?ng nghi?p" },
+  { korean1: "???", korean2: "???", type: "related", note: "H?i s? th�ch & Ngu?i c�ng s? th�ch" },
+  { korean1: "???", korean2: "???", type: "related", note: "H�a nh?c (ca si) & H�a nh?c (nh?c c?)" },
+  { korean1: "???", korean2: "??", type: "related", note: "Chung cu & Ph�ng don" },
+  { korean1: "??", korean2: "???", type: "related", note: "Ti?n thu� th�ng & Ti?n d?t c?c" },
+  { korean1: "??", korean2: "??", type: "related", note: "Khoa n?i & Khoa rang" },
+  { korean1: "??", korean2: "???", type: "related", note: "Khoa m?t & Khoa da li?u" },
+  { korean1: "??", korean2: "??", type: "related", note: "T?t Nguy�n ��n & T?t Trung Thu" },
+  { korean1: "???", korean2: "???", type: "related", note: "K? s?c & H?a ti?t hoa" },
+  { korean1: "????", korean2: "?????", type: "related", note: "K? ca r� & Ch?m bi" },
+  { korean1: "???", korean2: "???", type: "related", note: "Tr?ng & �en" },
+  { korean1: "???", korean2: "???", type: "related", note: "�? & Xanh nu?c bi?n" },
+  { korean1: "???", korean2: "??", type: "related", note: "V�ng & Xanh l?c" },
 ];
 
-// ─── Build pairs from vocab data ──────────────────────────────────────────────
+// --- Build pairs from vocab data ----------------------------------------------
 function buildPairs(): WordPair[] {
   // Flatten all vocab
   const allVocab: Array<SeoulVocabItem & { bookId: string; lessonNumber: number }> = [];
@@ -107,15 +107,15 @@ function buildPairs(): WordPair[] {
   return pairs;
 }
 
-// ─── Pair card ────────────────────────────────────────────────────────────────
+// --- Pair card ----------------------------------------------------------------
 function PairCard({ pair, expanded, onToggle }: { pair: WordPair; expanded: boolean; onToggle: () => void }) {
   const typeConfig = {
-    synonym: { label: "Đồng nghĩa", color: "#34d399", bg: "bg-emerald-500/10", border: "border-emerald-500/20" },
-    antonym: { label: "Trái nghĩa", color: "#f87171", bg: "bg-red-500/10", border: "border-red-500/20" },
-    related: { label: "Liên quan", color: "app-accent-primary", bg: "bg-app-accent-primary/10", border: "border-app-accent-primary/20" },
+    synonym: { label: "�?ng nghia", color: "#34d399", bg: "bg-emerald-500/10", border: "border-emerald-500/20" },
+    antonym: { label: "Tr�i nghia", color: "#f87171", bg: "bg-red-500/10", border: "border-red-500/20" },
+    related: { label: "Li�n quan", color: "app-accent-primary", bg: "bg-app-accent-primary/10", border: "border-app-accent-primary/20" },
   }[pair.type];
 
-  const connector = pair.type === "synonym" ? "≈" : pair.type === "antonym" ? "↔" : "~";
+  const connector = pair.type === "synonym" ? "�" : pair.type === "antonym" ? "?" : "~";
 
   return (
     <div
@@ -161,20 +161,20 @@ function PairCard({ pair, expanded, onToggle }: { pair: WordPair; expanded: bool
         <div className="border-t border-app-border p-4 space-y-3">
           <div className="grid grid-cols-2 gap-3">
             <div className="bg-app-card/50 rounded-lg p-3">
-              <p className="text-app-text-muted text-[10px] mb-1">Ví dụ 1</p>
+              <p className="text-app-text-muted text-[10px] mb-1">V� d? 1</p>
               <p className="text-white/80 text-sm">{pair.word1.example}</p>
               <p className="text-app-text-secondary text-xs mt-1">{pair.word1.exampleVi}</p>
             </div>
             <div className="bg-app-card/50 rounded-lg p-3">
-              <p className="text-app-text-muted text-[10px] mb-1">Ví dụ 2</p>
+              <p className="text-app-text-muted text-[10px] mb-1">V� d? 2</p>
               <p className="text-white/80 text-sm">{pair.word2.example}</p>
               <p className="text-app-text-secondary text-xs mt-1">{pair.word2.exampleVi}</p>
             </div>
           </div>
           <div className="flex gap-2 text-xs text-app-text-muted">
-            <span>Bài {pair.word1.lessonNumber} ({pair.word1.bookId})</span>
-            <span>·</span>
-            <span>Bài {pair.word2.lessonNumber} ({pair.word2.bookId})</span>
+            <span>B�i {pair.word1.lessonNumber} ({pair.word1.bookId})</span>
+            <span>�</span>
+            <span>B�i {pair.word2.lessonNumber} ({pair.word2.bookId})</span>
           </div>
         </div>
       )}
@@ -182,7 +182,7 @@ function PairCard({ pair, expanded, onToggle }: { pair: WordPair; expanded: bool
   );
 }
 
-// ─── Quiz mode ────────────────────────────────────────────────────────────────
+// --- Quiz mode ----------------------------------------------------------------
 function PairQuiz({ pairs, onBack }: { pairs: WordPair[]; onBack: () => void }) {
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
@@ -230,20 +230,20 @@ function PairQuiz({ pairs, onBack }: { pairs: WordPair[]; onBack: () => void }) 
         <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-bold ${pct >= 80 ? "bg-emerald-500/20 text-app-accent-success" : "bg-app-accent-primary/20 text-app-accent-primary"}`}>
           {pct}%
         </div>
-        <h2 className="text-xl font-bold text-white mb-2">{pct >= 80 ? "Xuất sắc!" : "Cần ôn thêm!"}</h2>
-        <p className="text-white/50 text-sm mb-6">Đúng {score}/{shuffled.length} câu</p>
+        <h2 className="text-xl font-bold text-white mb-2">{pct >= 80 ? "Xu?t s?c!" : "C?n �n th�m!"}</h2>
+        <p className="text-white/50 text-sm mb-6">��ng {score}/{shuffled.length} c�u</p>
         <div className="flex gap-3 justify-center">
-          <button onClick={() => { setCurrent(0); setSelected(null); setScore(0); setFinished(false); }} className="px-6 py-2.5 bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-xl text-app-accent-primary text-sm cursor-pointer">Làm lại</button>
-          <button onClick={onBack} className="px-6 py-2.5 bg-app-card/50 border border-app-border rounded-xl text-white/60 text-sm cursor-pointer">Quay lại</button>
+          <button onClick={() => { setCurrent(0); setSelected(null); setScore(0); setFinished(false); }} className="px-6 py-2.5 bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-xl text-app-accent-primary text-sm cursor-pointer">L�m l?i</button>
+          <button onClick={onBack} className="px-6 py-2.5 bg-app-card/50 border border-app-border rounded-xl text-white/60 text-sm cursor-pointer">Quay l?i</button>
         </div>
       </div>
     );
   }
 
   const typeConfig = {
-    synonym: { label: "Đồng nghĩa", color: "#34d399" },
-    antonym: { label: "Trái nghĩa", color: "#f87171" },
-    related: { label: "Liên quan", color: "app-accent-primary" },
+    synonym: { label: "�?ng nghia", color: "#34d399" },
+    antonym: { label: "Tr�i nghia", color: "#f87171" },
+    related: { label: "Li�n quan", color: "app-accent-primary" },
   }[q.type];
 
   return (
@@ -251,10 +251,10 @@ function PairQuiz({ pairs, onBack }: { pairs: WordPair[]; onBack: () => void }) 
       <div className="flex items-center justify-between mb-6">
         <button onClick={onBack} className="text-app-text-secondary hover:text-white/70 text-sm cursor-pointer flex items-center gap-1">
           <div className="w-4 h-4 flex items-center justify-center"><i className="ri-arrow-left-line"></i></div>
-          Quay lại
+          Quay l?i
         </button>
         <p className="text-app-text-secondary text-sm">{current + 1}/{shuffled.length}</p>
-        <p className="text-app-accent-success text-sm font-bold">{score} đúng</p>
+        <p className="text-app-accent-success text-sm font-bold">{score} d�ng</p>
       </div>
 
       <div className="h-1.5 bg-white/8 rounded-full mb-6 overflow-hidden">
@@ -263,7 +263,7 @@ function PairQuiz({ pairs, onBack }: { pairs: WordPair[]; onBack: () => void }) 
 
       <div className="bg-app-card/50 border border-app-border rounded-2xl p-6 mb-4 text-center">
         <span className="text-[10px] px-2 py-0.5 rounded-full mb-3 inline-block" style={{ color: typeConfig.color, backgroundColor: `${typeConfig.color}20` }}>
-          {typeConfig.label} với từ nào?
+          {typeConfig.label} v?i t? n�o?
         </span>
         <p className="text-white text-2xl font-bold mt-2">{q.word1.korean}</p>
         <p className="text-app-text-secondary text-sm">{q.word1.pronunciation}</p>
@@ -299,13 +299,13 @@ function PairQuiz({ pairs, onBack }: { pairs: WordPair[]; onBack: () => void }) 
         disabled={!selected}
         className={`w-full py-3 rounded-xl text-sm font-medium transition-all ${selected ? "bg-app-accent-primary text-black cursor-pointer" : "bg-app-card/50 text-app-text-muted cursor-not-allowed"}`}
       >
-        {current + 1 >= shuffled.length ? "Xem kết quả" : "Tiếp theo"}
+        {current + 1 >= shuffled.length ? "Xem k?t qu?" : "Ti?p theo"}
       </button>
     </div>
   );
 }
 
-// ─── Main page ────────────────────────────────────────────────────────────────
+// --- Main page ----------------------------------------------------------------
 export default function SeoulWordPairsPage() {
   const [filterType, setFilterType] = useState<PairType | "all">("all");
   const [search, setSearch] = useState("");
@@ -355,8 +355,8 @@ export default function SeoulWordPairsPage() {
           {/* Header */}
           <div className="flex items-start justify-between mb-6">
             <div>
-              <h1 className="text-2xl font-bold text-white mb-1">Học theo cặp</h1>
-              <p className="text-app-text-secondary text-sm">Đồng nghĩa · Trái nghĩa · Từ liên quan trong Seoul</p>
+              <h1 className="text-2xl font-bold text-white mb-1">H?c theo c?p</h1>
+              <p className="text-app-text-secondary text-sm">�?ng nghia � Tr�i nghia � T? li�n quan trong Seoul</p>
             </div>
             <button
               onClick={() => setQuizMode(true)}
@@ -365,16 +365,16 @@ export default function SeoulWordPairsPage() {
               <div className="w-4 h-4 flex items-center justify-center">
                 <i className="ri-gamepad-line"></i>
               </div>
-              Luyện tập
+              Luy?n t?p
             </button>
           </div>
 
           {/* Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
             {[
-              { type: "synonym" as PairType, label: "Đồng nghĩa", color: "#34d399", count: counts.synonym },
-              { type: "antonym" as PairType, label: "Trái nghĩa", color: "#f87171", count: counts.antonym },
-              { type: "related" as PairType, label: "Liên quan", color: "app-accent-primary", count: counts.related },
+              { type: "synonym" as PairType, label: "�?ng nghia", color: "#34d399", count: counts.synonym },
+              { type: "antonym" as PairType, label: "Tr�i nghia", color: "#f87171", count: counts.antonym },
+              { type: "related" as PairType, label: "Li�n quan", color: "app-accent-primary", count: counts.related },
             ].map(s => (
               <button
                 key={s.type}
@@ -399,7 +399,7 @@ export default function SeoulWordPairsPage() {
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder="Tìm từ vựng..."
+              placeholder="T�m t? v?ng..."
               className="w-full bg-app-card/50 border border-app-border rounded-xl pl-9 pr-4 py-2.5 text-white/80 text-sm placeholder-white/25 focus:outline-none focus:border-white/20"
             />
           </div>
@@ -407,10 +407,10 @@ export default function SeoulWordPairsPage() {
           {/* Filter tabs */}
           <div className="flex gap-2 mb-6">
             {[
-              { value: "all" as const, label: `Tất cả (${counts.all})` },
-              { value: "synonym" as PairType, label: `Đồng nghĩa (${counts.synonym})` },
-              { value: "antonym" as PairType, label: `Trái nghĩa (${counts.antonym})` },
-              { value: "related" as PairType, label: `Liên quan (${counts.related})` },
+              { value: "all" as const, label: `T?t c? (${counts.all})` },
+              { value: "synonym" as PairType, label: `�?ng nghia (${counts.synonym})` },
+              { value: "antonym" as PairType, label: `Tr�i nghia (${counts.antonym})` },
+              { value: "related" as PairType, label: `Li�n quan (${counts.related})` },
             ].map(tab => (
               <button
                 key={tab.value}
@@ -432,7 +432,7 @@ export default function SeoulWordPairsPage() {
               <div className="w-12 h-12 flex items-center justify-center mx-auto mb-3 bg-app-card/50 rounded-full">
                 <i className="ri-search-line text-xl"></i>
               </div>
-              <p>Không tìm thấy cặp từ nào</p>
+              <p>Kh�ng t�m th?y c?p t? n�o</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

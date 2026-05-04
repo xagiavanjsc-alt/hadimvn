@@ -1,4 +1,4 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
@@ -28,7 +28,7 @@ function VocabTag({ v, highlight }: { v: VocabItem; highlight?: boolean }) {
 
 function StarBadge({ stars }: { stars?: number }) {
   const s = stars ?? 0;
-  if (s === 0) return <span className="text-app-text-muted text-xs">Chưa đánh giá</span>;
+  if (s === 0) return <span className="text-app-text-muted text-xs">Chua d�nh gi�</span>;
   return (
     <div className="flex items-center gap-0.5">
       {[1, 2, 3, 4, 5].map((i) => (
@@ -38,7 +38,7 @@ function StarBadge({ stars }: { stars?: number }) {
         ></i>
       ))}
       <span className="text-app-text-secondary text-[10px] ml-1">
-        {s === 5 ? "Xuất sắc" : s === 4 ? "Rất tốt" : s === 3 ? "Khá" : s === 2 ? "Trung bình" : "Yếu"}
+        {s === 5 ? "Xu?t s?c" : s === 4 ? "R?t t?t" : s === 3 ? "Kh�" : s === 2 ? "Trung b�nh" : "Y?u"}
       </span>
     </div>
   );
@@ -113,14 +113,14 @@ function LessonSelector({
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Tìm bài hát..."
+                placeholder="T�m b�i h�t..."
                 className="w-full bg-app-card/50 rounded-lg px-3 py-2 text-white text-xs placeholder-white/20 focus:outline-none"
                 autoFocus
               />
             </div>
             <div className="overflow-y-auto flex-1">
               {filtered.length === 0 ? (
-                <div className="text-center py-6 text-app-text-muted text-xs">Không tìm thấy</div>
+                <div className="text-center py-6 text-app-text-muted text-xs">Kh�ng t�m th?y</div>
               ) : (
                 filtered.map((l) => (
                   <button
@@ -190,22 +190,22 @@ export default function ComparePage() {
 
   return (
     <DashboardLayout
-      title="So sánh bài học"
-      subtitle="Đặt 2 bài cạnh nhau — xem từ vựng trùng và chọn bài tốt hơn cho ebook"
+      title="So s�nh b�i h?c"
+      subtitle="�?t 2 b�i c?nh nhau � xem t? v?ng tr�ng v� ch?n b�i t?t hon cho ebook"
     >
       {approvedLessons.length < 2 ? (
         <div className="flex flex-col items-center justify-center py-24 text-center">
           <div className="w-16 h-16 flex items-center justify-center bg-app-card/50 rounded-2xl mb-5">
             <i className="ri-layout-column-line text-app-text-muted text-3xl"></i>
           </div>
-          <p className="text-app-text-secondary text-sm font-medium">Cần ít nhất 2 bài học đã duyệt</p>
-          <p className="text-app-text-muted text-xs mt-1 mb-5">Hiện có {approvedLessons.length} bài — duyệt thêm trong K-pop Lesson</p>
+          <p className="text-app-text-secondary text-sm font-medium">C?n �t nh?t 2 b�i h?c d� duy?t</p>
+          <p className="text-app-text-muted text-xs mt-1 mb-5">Hi?n c� {approvedLessons.length} b�i � duy?t th�m trong K-pop Lesson</p>
           <a
             href="/melon"
             className="flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-sm font-medium px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-music-2-line"></i>
-            Đến K-pop Lesson
+            �?n K-pop Lesson
           </a>
         </div>
       ) : (
@@ -215,10 +215,10 @@ export default function ComparePage() {
             <div>
               <p className="text-app-text-muted text-[10px] tracking-normal mb-2 flex items-center gap-2">
                 <span className="w-5 h-5 flex items-center justify-center bg-app-accent-primary/15 rounded text-app-accent-primary text-[10px] font-bold">A</span>
-                Bài học thứ nhất
+                B�i h?c th? nh?t
               </p>
               <LessonSelector
-                label="Chọn bài học A..."
+                label="Ch?n b�i h?c A..."
                 lessons={approvedLessons}
                 selected={lessonA}
                 onSelect={setLessonA}
@@ -228,10 +228,10 @@ export default function ComparePage() {
             <div>
               <p className="text-app-text-muted text-[10px] tracking-normal mb-2 flex items-center gap-2">
                 <span className="w-5 h-5 flex items-center justify-center bg-sky-500/15 rounded text-sky-400 text-[10px] font-bold">B</span>
-                Bài học thứ hai
+                B�i h?c th? hai
               </p>
               <LessonSelector
-                label="Chọn bài học B..."
+                label="Ch?n b�i h?c B..."
                 lessons={approvedLessons}
                 selected={lessonB}
                 onSelect={setLessonB}
@@ -243,8 +243,8 @@ export default function ComparePage() {
           {!canCompare && (
             <div className="flex flex-col items-center justify-center py-16 bg-app-bg border border-app-border rounded-2xl text-center">
               <i className="ri-layout-column-line text-white/10 text-4xl mb-3"></i>
-              <p className="text-app-text-muted text-sm">Chọn 2 bài học để bắt đầu so sánh</p>
-              <p className="text-white/15 text-xs mt-1">Xem từ vựng trùng nhau, chất lượng và gợi ý bài tốt hơn</p>
+              <p className="text-app-text-muted text-sm">Ch?n 2 b�i h?c d? b?t d?u so s�nh</p>
+              <p className="text-white/15 text-xs mt-1">Xem t? v?ng tr�ng nhau, ch?t lu?ng v� g?i � b�i t?t hon</p>
             </div>
           )}
 
@@ -264,21 +264,21 @@ export default function ComparePage() {
                   </div>
                   <div className="flex-1">
                     <p className={`font-bold text-sm ${comparison.winner === "A" ? "text-app-accent-primary" : "text-sky-400"}`}>
-                      Bài {comparison.winner} được gợi ý cho ebook
+                      B�i {comparison.winner} du?c g?i � cho ebook
                     </p>
                     <p className="text-app-text-secondary text-xs mt-0.5">
                       {comparison.winner === "A"
-                        ? `"${lessonA.song.title}" — điểm tổng hợp cao hơn (sao, từ vựng, độ dài truyện)`
-                        : `"${lessonB.song.title}" — điểm tổng hợp cao hơn (sao, từ vựng, độ dài truyện)`}
+                        ? `"${lessonA.song.title}" � di?m t?ng h?p cao hon (sao, t? v?ng, d? d�i truy?n)`
+                        : `"${lessonB.song.title}" � di?m t?ng h?p cao hon (sao, t? v?ng, d? d�i truy?n)`}
                     </p>
                   </div>
                   <div className="flex items-center gap-3 text-xs text-app-text-muted">
                     <span className={`font-bold ${comparison.winner === "A" ? "text-app-accent-primary" : "text-app-text-secondary"}`}>
-                      A: {comparison.scoreA.toFixed(1)}đ
+                      A: {comparison.scoreA.toFixed(1)}d
                     </span>
                     <span>vs</span>
                     <span className={`font-bold ${comparison.winner === "B" ? "text-sky-400" : "text-app-text-secondary"}`}>
-                      B: {comparison.scoreB.toFixed(1)}đ
+                      B: {comparison.scoreB.toFixed(1)}d
                     </span>
                   </div>
                 </div>
@@ -288,8 +288,8 @@ export default function ComparePage() {
                     <i className="ri-scales-3-line text-app-text-secondary text-lg"></i>
                   </div>
                   <div>
-                    <p className="text-white/60 font-semibold text-sm">Hai bài tương đương nhau</p>
-                    <p className="text-app-text-muted text-xs mt-0.5">Điểm chênh lệch không đáng kể — chọn theo cảm nhận cá nhân</p>
+                    <p className="text-white/60 font-semibold text-sm">Hai b�i tuong duong nhau</p>
+                    <p className="text-app-text-muted text-xs mt-0.5">�i?m ch�nh l?ch kh�ng d�ng k? � ch?n theo c?m nh?n c� nh�n</p>
                   </div>
                 </div>
               )}
@@ -297,10 +297,10 @@ export default function ComparePage() {
               {/* Overlap stats */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {[
-                  { label: "Từ vựng trùng", value: comparison.shared.length, color: "text-app-accent-primary", icon: "ri-links-line" },
-                  { label: "Chỉ có ở A", value: comparison.onlyA.length, color: "text-app-accent-primary", icon: "ri-subtract-line" },
-                  { label: "Chỉ có ở B", value: comparison.onlyB.length, color: "text-sky-400", icon: "ri-subtract-line" },
-                  { label: "Tỷ lệ trùng", value: `${comparison.overlapPct}%`, color: comparison.overlapPct > 50 ? "text-amber-400" : "text-app-accent-success", icon: "ri-percent-line" },
+                  { label: "T? v?ng tr�ng", value: comparison.shared.length, color: "text-app-accent-primary", icon: "ri-links-line" },
+                  { label: "Ch? c� ? A", value: comparison.onlyA.length, color: "text-app-accent-primary", icon: "ri-subtract-line" },
+                  { label: "Ch? c� ? B", value: comparison.onlyB.length, color: "text-sky-400", icon: "ri-subtract-line" },
+                  { label: "T? l? tr�ng", value: `${comparison.overlapPct}%`, color: comparison.overlapPct > 50 ? "text-amber-400" : "text-app-accent-success", icon: "ri-percent-line" },
                 ].map((stat) => (
                   <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 text-center">
                     <div className="w-7 h-7 flex items-center justify-center bg-app-card/50 rounded-lg mx-auto mb-2">
@@ -315,9 +315,9 @@ export default function ComparePage() {
               {/* Tabs */}
               <div className="flex items-center gap-1 bg-app-bg border border-app-border rounded-xl p-1 w-fit">
                 {([
-                  ["overview", "Tổng quan", "ri-layout-grid-line"],
-                  ["vocab", "Từ vựng", "ri-translate-2"],
-                  ["story", "Truyện Chêm", "ri-book-open-line"],
+                  ["overview", "T?ng quan", "ri-layout-grid-line"],
+                  ["vocab", "T? v?ng", "ri-translate-2"],
+                  ["story", "Truy?n Ch�m", "ri-book-open-line"],
                 ] as const).map(([tab, label, icon]) => (
                   <button
                     key={tab}
@@ -355,31 +355,31 @@ export default function ComparePage() {
 
                         <div className="space-y-2">
                           <div className="flex items-center justify-between">
-                            <span className="text-app-text-secondary text-xs">Đánh giá</span>
+                            <span className="text-app-text-secondary text-xs">��nh gi�</span>
                             <StarBadge stars={lesson.stars} />
                           </div>
                           <div className="flex items-center justify-between">
-                            <span className="text-app-text-secondary text-xs">Từ vựng</span>
-                            <span className={`text-xs font-bold ${color}`}>{lesson.vocabulary.length} từ</span>
+                            <span className="text-app-text-secondary text-xs">T? v?ng</span>
+                            <span className={`text-xs font-bold ${color}`}>{lesson.vocabulary.length} t?</span>
                           </div>
                           <div className="flex items-center justify-between">
-                            <span className="text-app-text-secondary text-xs">Độ dài truyện</span>
-                            <span className="text-white/60 text-xs">{lesson.story.length} ký tự</span>
+                            <span className="text-app-text-secondary text-xs">�? d�i truy?n</span>
+                            <span className="text-white/60 text-xs">{lesson.story.length} k� t?</span>
                           </div>
                           <div className="flex items-center justify-between">
-                            <span className="text-app-text-secondary text-xs">Thể loại</span>
-                            <span className="text-white/50 text-xs">{lesson.song.genre || "—"}</span>
+                            <span className="text-app-text-secondary text-xs">Th? lo?i</span>
+                            <span className="text-white/50 text-xs">{lesson.song.genre || "�"}</span>
                           </div>
                           <div className="flex items-center justify-between">
-                            <span className="text-app-text-secondary text-xs">Đã đăng</span>
+                            <span className="text-app-text-secondary text-xs">�� dang</span>
                             <span className={`text-xs ${lesson.publishedAt ? "text-app-accent-success" : "text-app-text-muted"}`}>
-                              {lesson.publishedAt ? "Đã đăng" : "Chưa đăng"}
+                              {lesson.publishedAt ? "�� dang" : "Chua dang"}
                             </span>
                           </div>
                           <div className="flex items-center justify-between">
-                            <span className="text-app-text-secondary text-xs">Điểm tổng hợp</span>
+                            <span className="text-app-text-secondary text-xs">�i?m t?ng h?p</span>
                             <span className={`text-sm font-bold ${color}`}>
-                              {label === "A" ? comparison.scoreA.toFixed(1) : comparison.scoreB.toFixed(1)}đ
+                              {label === "A" ? comparison.scoreA.toFixed(1) : comparison.scoreB.toFixed(1)}d
                             </span>
                           </div>
                         </div>
@@ -399,10 +399,10 @@ export default function ComparePage() {
                           <i className="ri-links-line text-app-accent-primary text-xs"></i>
                         </div>
                         <p className="text-white/60 text-xs font-semibold">
-                          Từ vựng trùng nhau ({comparison.shared.length} từ)
+                          T? v?ng tr�ng nhau ({comparison.shared.length} t?)
                         </p>
                         <span className="text-[10px] bg-app-accent-primary/10 text-app-accent-primary px-2 py-0.5 rounded-full">
-                          Xuất hiện ở cả 2 bài
+                          Xu?t hi?n ? c? 2 b�i
                         </span>
                       </div>
                       <div className="flex flex-wrap gap-1.5">
@@ -418,10 +418,10 @@ export default function ComparePage() {
                     <div className="bg-app-bg border border-app-accent-primary/10 rounded-2xl p-5">
                       <div className="flex items-center gap-2 mb-3">
                         <span className="w-5 h-5 flex items-center justify-center bg-app-accent-primary/15 rounded text-app-accent-primary text-[10px] font-bold">A</span>
-                        <p className="text-white/50 text-xs">Chỉ có ở bài A ({comparison.onlyA.length} từ)</p>
+                        <p className="text-white/50 text-xs">Ch? c� ? b�i A ({comparison.onlyA.length} t?)</p>
                       </div>
                       {comparison.onlyA.length === 0 ? (
-                        <p className="text-app-text-muted text-xs">Không có từ riêng</p>
+                        <p className="text-app-text-muted text-xs">Kh�ng c� t? ri�ng</p>
                       ) : (
                         <div className="flex flex-wrap gap-1.5">
                           {comparison.onlyA.map((v) => (
@@ -433,10 +433,10 @@ export default function ComparePage() {
                     <div className="bg-app-bg border border-sky-500/10 rounded-2xl p-5">
                       <div className="flex items-center gap-2 mb-3">
                         <span className="w-5 h-5 flex items-center justify-center bg-sky-500/15 rounded text-sky-400 text-[10px] font-bold">B</span>
-                        <p className="text-white/50 text-xs">Chỉ có ở bài B ({comparison.onlyB.length} từ)</p>
+                        <p className="text-white/50 text-xs">Ch? c� ? b�i B ({comparison.onlyB.length} t?)</p>
                       </div>
                       {comparison.onlyB.length === 0 ? (
-                        <p className="text-app-text-muted text-xs">Không có từ riêng</p>
+                        <p className="text-app-text-muted text-xs">Kh�ng c� t? ri�ng</p>
                       ) : (
                         <div className="flex flex-wrap gap-1.5">
                           {comparison.onlyB.map((v) => (
@@ -459,7 +459,7 @@ export default function ComparePage() {
                             {label}
                           </span>
                           <p className="text-white/50 text-xs font-medium truncate">{lesson.song.title}</p>
-                          <span className="text-app-text-muted text-[10px] ml-auto flex-shrink-0">{lesson.story.length} ký tự</span>
+                          <span className="text-app-text-muted text-[10px] ml-auto flex-shrink-0">{lesson.story.length} k� t?</span>
                         </div>
                         <p className="text-white/60 text-xs leading-6 whitespace-pre-wrap max-h-80 overflow-y-auto">
                           {lesson.story}

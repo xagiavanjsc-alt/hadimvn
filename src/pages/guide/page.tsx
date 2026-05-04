@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
@@ -12,30 +12,30 @@ interface Section {
 }
 
 const GUIDE_SECTIONS: Omit<Section, "content">[] = [
-  { id: "intro", title: "Hàn Quốc Ơi! là gì?", icon: "ri-information-line", color: "text-rose-600", bg: "bg-rose-50" },
-  { id: "features", title: "Tính năng nổi bật", icon: "ri-star-line", color: "text-amber-600", bg: "bg-amber-50" },
-  { id: "hanja", title: "Học Hán-Hàn hiệu quả", icon: "ri-translate-2", color: "text-indigo-600", bg: "bg-indigo-50" },
-  { id: "topik", title: "Luyện thi TOPIK", icon: "ri-file-paper-2-line", color: "text-green-600", bg: "bg-green-50" },
-  { id: "kpop", title: "Học qua K-pop", icon: "ri-music-2-line", color: "text-pink-600", bg: "bg-pink-50" },
-  { id: "tips", title: "Mẹo học tiếng Hàn", icon: "ri-lightbulb-line", color: "text-orange-600", bg: "bg-orange-50" },
-  { id: "roadmap", title: "Lộ trình học", icon: "ri-route-line", color: "text-teal-600", bg: "bg-teal-50" },
-  { id: "community", title: "Cộng đồng & Chia sẻ", icon: "ri-team-line", color: "text-violet-600", bg: "bg-violet-50" },
+  { id: "intro", title: "H�n Qu?c Oi! l� g�?", icon: "ri-information-line", color: "text-rose-600", bg: "bg-rose-50" },
+  { id: "features", title: "T�nh nang n?i b?t", icon: "ri-star-line", color: "text-amber-600", bg: "bg-amber-50" },
+  { id: "hanja", title: "H?c H�n-H�n hi?u qu?", icon: "ri-translate-2", color: "text-indigo-600", bg: "bg-indigo-50" },
+  { id: "topik", title: "Luy?n thi TOPIK", icon: "ri-file-paper-2-line", color: "text-green-600", bg: "bg-green-50" },
+  { id: "kpop", title: "H?c qua K-pop", icon: "ri-music-2-line", color: "text-pink-600", bg: "bg-pink-50" },
+  { id: "tips", title: "M?o h?c ti?ng H�n", icon: "ri-lightbulb-line", color: "text-orange-600", bg: "bg-orange-50" },
+  { id: "roadmap", title: "L? tr�nh h?c", icon: "ri-route-line", color: "text-teal-600", bg: "bg-teal-50" },
+  { id: "community", title: "C?ng d?ng & Chia s?", icon: "ri-team-line", color: "text-violet-600", bg: "bg-violet-50" },
 ];
 
 function IntroSection() {
   return (
     <div className="space-y-6">
       <div className="bg-gradient-to-r from-rose-50 to-pink-50 border border-rose-100 rounded-2xl p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-3">Chào mừng đến với Hàn Quốc Ơi!</h3>
+        <h3 className="text-xl font-bold text-gray-900 mb-3">Ch�o m?ng d?n v?i H�n Qu?c Oi!</h3>
         <p className="text-gray-600 leading-relaxed mb-4">
-          <strong>Hàn Quốc Ơi!</strong> là nền tảng học tiếng Hàn toàn diện dành riêng cho người Việt Nam — kết hợp phương pháp học khoa học với văn hóa K-pop, giúp bạn học tiếng Hàn một cách tự nhiên, hiệu quả và thú vị.
+          <strong>H�n Qu?c Oi!</strong> l� n?n t?ng h?c ti?ng H�n to�n di?n d�nh ri�ng cho ngu?i Vi?t Nam � k?t h?p phuong ph�p h?c khoa h?c v?i van h�a K-pop, gi�p b?n h?c ti?ng H�n m?t c�ch t? nhi�n, hi?u qu? v� th� v?.
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: "ri-book-open-line", label: "2,400+ từ Hán-Hàn", color: "text-rose-600" },
+            { icon: "ri-book-open-line", label: "2,400+ t? H�n-H�n", color: "text-rose-600" },
             { icon: "ri-brain-line", label: "Spaced Repetition", color: "text-indigo-600" },
-            { icon: "ri-music-2-line", label: "Học qua K-pop", color: "text-pink-600" },
-            { icon: "ri-trophy-line", label: "Thi thử TOPIK", color: "text-amber-600" },
+            { icon: "ri-music-2-line", label: "H?c qua K-pop", color: "text-pink-600" },
+            { icon: "ri-trophy-line", label: "Thi th? TOPIK", color: "text-amber-600" },
           ].map(item => (
             <div key={item.label} className="bg-white rounded-xl p-3 text-center border border-gray-100">
               <i className={`${item.icon} ${item.color} text-2xl block mb-1`}></i>
@@ -46,28 +46,28 @@ function IntroSection() {
       </div>
 
       <div>
-        <h4 className="font-bold text-gray-900 mb-3">Tại sao chọn Hàn Quốc Ơi!?</h4>
+        <h4 className="font-bold text-gray-900 mb-3">T?i sao ch?n H�n Qu?c Oi!?</h4>
         <div className="space-y-3">
           {[
             {
               icon: "ri-flag-line",
-              title: "Thiết kế cho người Việt",
-              desc: "Giao diện tiếng Việt hoàn toàn, giải thích ngữ pháp bằng tiếng Việt, so sánh Hán-Việt để học nhanh hơn. Người Việt có lợi thế đặc biệt khi học tiếng Hàn nhờ gốc chữ Hán chung!",
+              title: "Thi?t k? cho ngu?i Vi?t",
+              desc: "Giao di?n ti?ng Vi?t ho�n to�n, gi?i th�ch ng? ph�p b?ng ti?ng Vi?t, so s�nh H�n-Vi?t d? h?c nhanh hon. Ngu?i Vi?t c� l?i th? d?c bi?t khi h?c ti?ng H�n nh? g?c ch? H�n chung!",
             },
             {
               icon: "ri-brain-line",
-              title: "Phương pháp khoa học SM-2",
-              desc: "Thuật toán Spaced Repetition (SM-2) tự động tính toán thời điểm ôn tập tối ưu cho từng từ, giúp bạn nhớ lâu hơn với ít thời gian hơn.",
+              title: "Phuong ph�p khoa h?c SM-2",
+              desc: "Thu?t to�n Spaced Repetition (SM-2) t? d?ng t�nh to�n th?i di?m �n t?p t?i uu cho t?ng t?, gi�p b?n nh? l�u hon v?i �t th?i gian hon.",
             },
             {
               icon: "ri-music-2-line",
-              title: "Học qua K-pop thực tế",
-              desc: "Từ vựng và ngữ pháp được học qua lời bài hát K-pop thực tế, giúp bạn nhớ từ trong ngữ cảnh tự nhiên và cảm nhận được âm nhạc Hàn Quốc.",
+              title: "H?c qua K-pop th?c t?",
+              desc: "T? v?ng v� ng? ph�p du?c h?c qua l?i b�i h�t K-pop th?c t?, gi�p b?n nh? t? trong ng? c?nh t? nhi�n v� c?m nh?n du?c �m nh?c H�n Qu?c.",
             },
             {
               icon: "ri-route-line",
-              title: "Lộ trình cá nhân hóa",
-              desc: "Hệ thống tự động đề xuất từ cần ôn, chủ đề cần học dựa trên tiến độ thực tế của bạn. Không học theo kiểu 'một size cho tất cả'.",
+              title: "L? tr�nh c� nh�n h�a",
+              desc: "H? th?ng t? d?ng d? xu?t t? c?n �n, ch? d? c?n h?c d?a tr�n ti?n d? th?c t? c?a b?n. Kh�ng h?c theo ki?u 'm?t size cho t?t c?'.",
             },
           ].map(item => (
             <div key={item.title} className="flex gap-4 p-4 bg-white border border-gray-100 rounded-xl">
@@ -89,43 +89,43 @@ function IntroSection() {
 function FeaturesSection() {
   const features = [
     {
-      category: "Từ vựng Hán-Hàn",
+      category: "T? v?ng H�n-H�n",
       color: "bg-rose-50 border-rose-200",
       titleColor: "text-rose-700",
       items: [
-        "2,400+ từ Hán-Hàn phân loại theo chữ cái đầu",
-        "Flashcard lật thẻ với TTS phát âm chuẩn",
-        "Spaced Repetition (SM-2) — ôn đúng lúc, nhớ lâu",
-        "So sánh Hán-Việt — người Việt học nhanh hơn 3x",
-        "Học theo cặp từ đồng âm khác nghĩa (의사, 지도...)",
-        "Học theo chủ đề nâng cao: Kinh tế, Y tế, Chính trị",
-        "Ghép cặp drag & drop — học vui, nhớ lâu",
-        "Nhật ký học tập — theo dõi tiến độ mỗi ngày",
+        "2,400+ t? H�n-H�n ph�n lo?i theo ch? c�i d?u",
+        "Flashcard l?t th? v?i TTS ph�t �m chu?n",
+        "Spaced Repetition (SM-2) � �n d�ng l�c, nh? l�u",
+        "So s�nh H�n-Vi?t � ngu?i Vi?t h?c nhanh hon 3x",
+        "H?c theo c?p t? d?ng �m kh�c nghia (??, ??...)",
+        "H?c theo ch? d? n�ng cao: Kinh t?, Y t?, Ch�nh tr?",
+        "Gh�p c?p drag & drop � h?c vui, nh? l�u",
+        "Nh?t k� h?c t?p � theo d�i ti?n d? m?i ng�y",
       ],
     },
     {
-      category: "Luyện thi TOPIK",
+      category: "Luy?n thi TOPIK",
       color: "bg-green-50 border-green-200",
       titleColor: "text-green-700",
       items: [
-        "Thi thử TOPIK Hán-Hàn — 30 câu + timer 30 phút",
-        "3 dạng câu: Hàn→Việt, Việt→Hàn, Hán tự→Hàn",
-        "Review câu sai sau khi thi",
-        "Lịch sử 10 lần thi — theo dõi tiến bộ",
-        "Lọc theo nhóm chữ cái để thi chuyên đề",
-        "Câu ví dụ thực tế từ đề thi TOPIK",
+        "Thi th? TOPIK H�n-H�n � 30 c�u + timer 30 ph�t",
+        "3 d?ng c�u: H�n?Vi?t, Vi?t?H�n, H�n t??H�n",
+        "Review c�u sai sau khi thi",
+        "L?ch s? 10 l?n thi � theo d�i ti?n b?",
+        "L?c theo nh�m ch? c�i d? thi chuy�n d?",
+        "C�u v� d? th?c t? t? d? thi TOPIK",
       ],
     },
     {
-      category: "K-pop & Văn hóa",
+      category: "K-pop & Van h�a",
       color: "bg-pink-50 border-pink-200",
       titleColor: "text-pink-700",
       items: [
-        "Học từ vựng qua lời bài hát K-pop (Melon Top 100)",
-        "AI tạo truyện chêm từ bài hát yêu thích",
-        "Học qua tin tức Hàn Quốc thực tế",
-        "Từ điển hàng ngày — 5 từ mới mỗi ngày",
-        "Luyện phát âm với ghi âm + so sánh TTS",
+        "H?c t? v?ng qua l?i b�i h�t K-pop (Melon Top 100)",
+        "AI t?o truy?n ch�m t? b�i h�t y�u th�ch",
+        "H?c qua tin t?c H�n Qu?c th?c t?",
+        "T? di?n h�ng ng�y � 5 t? m?i m?i ng�y",
+        "Luy?n ph�t �m v?i ghi �m + so s�nh TTS",
       ],
     },
     {
@@ -133,12 +133,12 @@ function FeaturesSection() {
       color: "bg-amber-50 border-amber-200",
       titleColor: "text-amber-700",
       items: [
-        "Hệ thống XP + phần thưởng hàng ngày",
-        "Streak học tập — duy trì thói quen",
-        "Bảng xếp hạng tuần — cạnh tranh với bạn bè",
-        "Thách thức tuần — mục tiêu học tập",
-        "Huy hiệu thành tích — ghi nhận nỗ lực",
-        "Phạt XP khi bỏ học — tạo động lực",
+        "H? th?ng XP + ph?n thu?ng h�ng ng�y",
+        "Streak h?c t?p � duy tr� th�i quen",
+        "B?ng x?p h?ng tu?n � c?nh tranh v?i b?n b�",
+        "Th�ch th?c tu?n � m?c ti�u h?c t?p",
+        "Huy hi?u th�nh t�ch � ghi nh?n n? l?c",
+        "Ph?t XP khi b? h?c � t?o d?ng l?c",
       ],
     },
   ];
@@ -166,45 +166,45 @@ function HanjaSection() {
   return (
     <div className="space-y-5">
       <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-5">
-        <h4 className="font-bold text-indigo-800 mb-2">Tại sao người Việt học Hán-Hàn dễ hơn?</h4>
+        <h4 className="font-bold text-indigo-800 mb-2">T?i sao ngu?i Vi?t h?c H�n-H�n d? hon?</h4>
         <p className="text-sm text-indigo-700 leading-relaxed">
-          Tiếng Việt và tiếng Hàn đều có nguồn gốc từ chữ Hán. Khoảng <strong>60-70% từ vựng tiếng Hàn</strong> có gốc Hán, và nhiều từ phát âm rất giống tiếng Việt. Ví dụ: 국가 (quốc gia), 경제 (kinh tế), 사회 (xã hội)...
+          Ti?ng Vi?t v� ti?ng H�n d?u c� ngu?n g?c t? ch? H�n. Kho?ng <strong>60-70% t? v?ng ti?ng H�n</strong> c� g?c H�n, v� nhi?u t? ph�t �m r?t gi?ng ti?ng Vi?t. V� d?: ?? (qu?c gia), ?? (kinh t?), ?? (x� h?i)...
         </p>
       </div>
 
       <div>
-        <h4 className="font-bold text-gray-900 mb-3">Cách học Hán-Hàn hiệu quả</h4>
+        <h4 className="font-bold text-gray-900 mb-3">C�ch h?c H�n-H�n hi?u qu?</h4>
         <div className="space-y-3">
           {[
             {
               step: "1",
-              title: "Bắt đầu với nhóm ㄱ-ㄴ",
-              desc: "Học theo thứ tự chữ cái Hangul. Mỗi ngày học 10-15 từ, không cố học quá nhiều một lúc.",
-              tip: "Dùng tab 'Từ vựng' → lọc theo chữ cái đầu",
+              title: "B?t d?u v?i nh�m ?-?",
+              desc: "H?c theo th? t? ch? c�i Hangul. M?i ng�y h?c 10-15 t?, kh�ng c? h?c qu� nhi?u m?t l�c.",
+              tip: "D�ng tab 'T? v?ng' ? l?c theo ch? c�i d?u",
             },
             {
               step: "2",
-              title: "Kích hoạt Spaced Repetition",
-              desc: "Sau khi học từ mới, chuyển sang tab 'Spaced Rep' để ôn tập. Hệ thống sẽ tự động nhắc bạn ôn đúng lúc.",
-              tip: "Mỗi ngày dành 10-15 phút ôn SR",
+              title: "K�ch ho?t Spaced Repetition",
+              desc: "Sau khi h?c t? m?i, chuy?n sang tab 'Spaced Rep' d? �n t?p. H? th?ng s? t? d?ng nh?c b?n �n d�ng l�c.",
+              tip: "M?i ng�y d�nh 10-15 ph�t �n SR",
             },
             {
               step: "3",
-              title: "So sánh với Hán-Việt",
-              desc: "Dùng tab 'So sánh Hán Việt' để tìm những từ giống tiếng Việt. Những từ này bạn sẽ nhớ ngay lập tức!",
-              tip: "국가=quốc gia, 경제=kinh tế, 사회=xã hội",
+              title: "So s�nh v?i H�n-Vi?t",
+              desc: "D�ng tab 'So s�nh H�n Vi?t' d? t�m nh?ng t? gi?ng ti?ng Vi?t. Nh?ng t? n�y b?n s? nh? ngay l?p t?c!",
+              tip: "??=qu?c gia, ??=kinh t?, ??=x� h?i",
             },
             {
               step: "4",
-              title: "Học theo chủ đề nâng cao",
-              desc: "Khi đã có nền tảng, học từ vựng chuyên ngành theo chủ đề: Kinh tế, Y tế, Chính trị, Công nghệ...",
-              tip: "Tab 'Chủ đề nâng cao' — có câu ví dụ thực tế",
+              title: "H?c theo ch? d? n�ng cao",
+              desc: "Khi d� c� n?n t?ng, h?c t? v?ng chuy�n ng�nh theo ch? d?: Kinh t?, Y t?, Ch�nh tr?, C�ng ngh?...",
+              tip: "Tab 'Ch? d? n�ng cao' � c� c�u v� d? th?c t?",
             },
             {
               step: "5",
-              title: "Thi thử TOPIK định kỳ",
-              desc: "Mỗi tuần làm 1 bài thi thử TOPIK để kiểm tra tiến độ. Review câu sai để biết điểm yếu cần cải thiện.",
-              tip: "Tab 'Thi thử TOPIK' — 30 câu, 30 phút",
+              title: "Thi th? TOPIK d?nh k?",
+              desc: "M?i tu?n l�m 1 b�i thi th? TOPIK d? ki?m tra ti?n d?. Review c�u sai d? bi?t di?m y?u c?n c?i thi?n.",
+              tip: "Tab 'Thi th? TOPIK' � 30 c�u, 30 ph�t",
             },
           ].map(item => (
             <div key={item.step} className="flex gap-4 p-4 bg-white border border-gray-100 rounded-xl">
@@ -226,16 +226,16 @@ function HanjaSection() {
 
       <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
         <p className="text-sm font-semibold text-amber-800 mb-2">
-          <i className="ri-fire-line mr-1"></i>Mẹo nhanh: Nhóm từ dễ nhớ nhất
+          <i className="ri-fire-line mr-1"></i>M?o nhanh: Nh�m t? d? nh? nh?t
         </p>
         <div className="grid grid-cols-2 gap-2 text-xs">
           {[
-            ["국가 (國家)", "quốc gia"],
-            ["경제 (經濟)", "kinh tế"],
-            ["사회 (社會)", "xã hội"],
-            ["문화 (文化)", "văn hóa"],
-            ["교육 (敎育)", "giáo dục"],
-            ["정치 (政治)", "chính trị"],
+            ["?? (??)", "qu?c gia"],
+            ["?? (??)", "kinh t?"],
+            ["?? (??)", "x� h?i"],
+            ["?? (??)", "van h�a"],
+            ["?? (??)", "gi�o d?c"],
+            ["?? (??)", "ch�nh tr?"],
           ].map(([ko, vi]) => (
             <div key={ko} className="flex items-center gap-2 bg-white rounded-lg px-2.5 py-1.5 border border-amber-100">
               <span className="font-bold text-amber-700">{ko}</span>
@@ -252,29 +252,29 @@ function TopikSection() {
   return (
     <div className="space-y-5">
       <div className="bg-green-50 border border-green-200 rounded-2xl p-5">
-        <h4 className="font-bold text-green-800 mb-2">TOPIK là gì?</h4>
+        <h4 className="font-bold text-green-800 mb-2">TOPIK l� g�?</h4>
         <p className="text-sm text-green-700 leading-relaxed">
-          <strong>TOPIK (Test of Proficiency in Korean)</strong> là kỳ thi năng lực tiếng Hàn quốc tế do Bộ Giáo dục Hàn Quốc tổ chức. Có 6 cấp độ (TOPIK I: 1-2, TOPIK II: 3-6). Chứng chỉ TOPIK được công nhận toàn cầu, cần thiết cho du học, làm việc tại Hàn Quốc.
+          <strong>TOPIK (Test of Proficiency in Korean)</strong> l� k? thi nang l?c ti?ng H�n qu?c t? do B? Gi�o d?c H�n Qu?c t? ch?c. C� 6 c?p d? (TOPIK I: 1-2, TOPIK II: 3-6). Ch?ng ch? TOPIK du?c c�ng nh?n to�n c?u, c?n thi?t cho du h?c, l�m vi?c t?i H�n Qu?c.
         </p>
       </div>
 
       <div>
-        <h4 className="font-bold text-gray-900 mb-3">Cấu trúc đề thi TOPIK</h4>
+        <h4 className="font-bold text-gray-900 mb-3">C?u tr�c d? thi TOPIK</h4>
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
             <thead>
               <tr className="bg-gray-50">
-                <th className="text-left p-3 border border-gray-200 font-semibold text-gray-700">Cấp độ</th>
-                <th className="text-left p-3 border border-gray-200 font-semibold text-gray-700">Kỹ năng</th>
-                <th className="text-left p-3 border border-gray-200 font-semibold text-gray-700">Số câu</th>
-                <th className="text-left p-3 border border-gray-200 font-semibold text-gray-700">Thời gian</th>
+                <th className="text-left p-3 border border-gray-200 font-semibold text-gray-700">C?p d?</th>
+                <th className="text-left p-3 border border-gray-200 font-semibold text-gray-700">K? nang</th>
+                <th className="text-left p-3 border border-gray-200 font-semibold text-gray-700">S? c�u</th>
+                <th className="text-left p-3 border border-gray-200 font-semibold text-gray-700">Th?i gian</th>
               </tr>
             </thead>
             <tbody>
               {[
-                ["TOPIK I (1-2)", "Nghe + Đọc", "70 câu", "100 phút"],
-                ["TOPIK II (3-4)", "Nghe + Đọc + Viết", "104 câu", "180 phút"],
-                ["TOPIK II (5-6)", "Nghe + Đọc + Viết", "104 câu", "180 phút"],
+                ["TOPIK I (1-2)", "Nghe + �?c", "70 c�u", "100 ph�t"],
+                ["TOPIK II (3-4)", "Nghe + �?c + Vi?t", "104 c�u", "180 ph�t"],
+                ["TOPIK II (5-6)", "Nghe + �?c + Vi?t", "104 c�u", "180 ph�t"],
               ].map(row => (
                 <tr key={row[0]} className="hover:bg-gray-50">
                   {row.map((cell, i) => (
@@ -288,12 +288,12 @@ function TopikSection() {
       </div>
 
       <div>
-        <h4 className="font-bold text-gray-900 mb-3">Lộ trình luyện thi TOPIK với Hàn Quốc Ơi!</h4>
+        <h4 className="font-bold text-gray-900 mb-3">L? tr�nh luy?n thi TOPIK v?i H�n Qu?c Oi!</h4>
         <div className="space-y-3">
           {[
-            { level: "TOPIK 1-2", time: "3-6 tháng", desc: "Học 500-800 từ Hán-Hàn cơ bản, ngữ pháp cơ bản, luyện nghe qua K-pop", color: "bg-green-100 text-green-700" },
-            { level: "TOPIK 3-4", time: "6-12 tháng", desc: "Mở rộng 1500+ từ, học từ vựng chuyên ngành, luyện đọc báo Hàn", color: "bg-amber-100 text-amber-700" },
-            { level: "TOPIK 5-6", time: "12-24 tháng", desc: "Nắm vững 2400+ từ Hán-Hàn, từ vựng học thuật, viết luận", color: "bg-rose-100 text-rose-700" },
+            { level: "TOPIK 1-2", time: "3-6 th�ng", desc: "H?c 500-800 t? H�n-H�n co b?n, ng? ph�p co b?n, luy?n nghe qua K-pop", color: "bg-green-100 text-green-700" },
+            { level: "TOPIK 3-4", time: "6-12 th�ng", desc: "M? r?ng 1500+ t?, h?c t? v?ng chuy�n ng�nh, luy?n d?c b�o H�n", color: "bg-amber-100 text-amber-700" },
+            { level: "TOPIK 5-6", time: "12-24 th�ng", desc: "N?m v?ng 2400+ t? H�n-H�n, t? v?ng h?c thu?t, vi?t lu?n", color: "bg-rose-100 text-rose-700" },
           ].map(item => (
             <div key={item.level} className="flex gap-4 p-4 bg-white border border-gray-100 rounded-xl">
               <span className={`px-3 py-1 rounded-full text-xs font-bold flex-shrink-0 h-fit ${item.color}`}>{item.level}</span>
@@ -313,32 +313,32 @@ function KpopSection() {
   return (
     <div className="space-y-5">
       <div className="bg-pink-50 border border-pink-200 rounded-2xl p-5">
-        <h4 className="font-bold text-pink-800 mb-2">Tại sao học qua K-pop hiệu quả?</h4>
+        <h4 className="font-bold text-pink-800 mb-2">T?i sao h?c qua K-pop hi?u qu??</h4>
         <p className="text-sm text-pink-700 leading-relaxed">
-          Nghiên cứu ngôn ngữ học cho thấy học qua âm nhạc giúp nhớ từ vựng lâu hơn 40% so với học thuần túy. Lời bài hát K-pop chứa nhiều từ vựng thực tế, cảm xúc tự nhiên, và được lặp đi lặp lại — điều kiện lý tưởng để ghi nhớ.
+          Nghi�n c?u ng�n ng? h?c cho th?y h?c qua �m nh?c gi�p nh? t? v?ng l�u hon 40% so v?i h?c thu?n t�y. L?i b�i h�t K-pop ch?a nhi?u t? v?ng th?c t?, c?m x�c t? nhi�n, v� du?c l?p di l?p l?i � di?u ki?n l� tu?ng d? ghi nh?.
         </p>
       </div>
 
       <div>
-        <h4 className="font-bold text-gray-900 mb-3">Cách học qua K-pop trên Hàn Quốc Ơi!</h4>
+        <h4 className="font-bold text-gray-900 mb-3">C�ch h?c qua K-pop tr�n H�n Qu?c Oi!</h4>
         <div className="space-y-3">
           {[
             {
               icon: "ri-music-2-line",
               title: "Melon K-pop Lesson",
-              desc: "AI phân tích bài hát từ Melon Top 100, tạo bài học với từ vựng, ngữ pháp và truyện chêm thú vị. Học từ bài hát bạn yêu thích!",
+              desc: "AI ph�n t�ch b�i h�t t? Melon Top 100, t?o b�i h?c v?i t? v?ng, ng? ph�p v� truy?n ch�m th� v?. H?c t? b�i h�t b?n y�u th�ch!",
               path: "/melon",
             },
             {
               icon: "ri-newspaper-line",
-              title: "Học qua Tin tức",
-              desc: "Đọc báo Hàn thực tế, AI highlight từ vựng quan trọng và giải thích ngữ pháp theo trình độ của bạn.",
+              title: "H?c qua Tin t?c",
+              desc: "�?c b�o H�n th?c t?, AI highlight t? v?ng quan tr?ng v� gi?i th�ch ng? ph�p theo tr�nh d? c?a b?n.",
               path: "/news",
             },
             {
               icon: "ri-volume-up-line",
-              title: "Luyện phát âm",
-              desc: "Ghi âm giọng nói, so sánh với phát âm chuẩn TTS. Nhận điểm số và gợi ý cải thiện.",
+              title: "Luy?n ph�t �m",
+              desc: "Ghi �m gi?ng n�i, so s�nh v?i ph�t �m chu?n TTS. Nh?n di?m s? v� g?i � c?i thi?n.",
               path: "/hanja-vocab",
             },
           ].map(item => (
@@ -356,7 +356,7 @@ function KpopSection() {
       </div>
 
       <div className="bg-gray-50 rounded-xl p-4">
-        <p className="text-sm font-semibold text-gray-700 mb-3">Nghệ sĩ phổ biến trong bài học</p>
+        <p className="text-sm font-semibold text-gray-700 mb-3">Ngh? si ph? bi?n trong b�i h?c</p>
         <div className="flex flex-wrap gap-2">
           {["BTS", "BLACKPINK", "aespa", "NewJeans", "IVE", "Stray Kids", "TWICE", "EXO", "SEVENTEEN", "NCT"].map(artist => (
             <span key={artist} className="px-3 py-1 bg-white border border-gray-200 rounded-full text-xs text-gray-600 font-medium">{artist}</span>
@@ -370,55 +370,55 @@ function KpopSection() {
 function TipsSection() {
   const tips = [
     {
-      category: "Học từ vựng",
+      category: "H?c t? v?ng",
       icon: "ri-book-open-line",
       color: "text-rose-600",
       bg: "bg-rose-50",
       items: [
-        "Học 10-15 từ mới mỗi ngày, không cố học quá nhiều",
-        "Luôn học từ trong ngữ cảnh câu ví dụ, không học từ đơn lẻ",
-        "Dùng Spaced Repetition — đừng bỏ qua phiên ôn tập",
-        "Nhóm từ theo chủ đề để nhớ dễ hơn (kinh tế, y tế...)",
-        "Người Việt: tận dụng gốc Hán-Việt để đoán nghĩa từ Hàn",
+        "H?c 10-15 t? m?i m?i ng�y, kh�ng c? h?c qu� nhi?u",
+        "Lu�n h?c t? trong ng? c?nh c�u v� d?, kh�ng h?c t? don l?",
+        "D�ng Spaced Repetition � d?ng b? qua phi�n �n t?p",
+        "Nh�m t? theo ch? d? d? nh? d? hon (kinh t?, y t?...)",
+        "Ngu?i Vi?t: t?n d?ng g?c H�n-Vi?t d? do�n nghia t? H�n",
       ],
     },
     {
-      category: "Luyện nghe & nói",
+      category: "Luy?n nghe & n�i",
       icon: "ri-volume-up-line",
       color: "text-indigo-600",
       bg: "bg-indigo-50",
       items: [
-        "Nghe TTS mỗi từ khi học — tập phát âm ngay từ đầu",
-        "Dùng tính năng ghi âm để so sánh phát âm của bạn",
-        "Xem phim/drama Hàn có phụ đề tiếng Hàn",
-        "Nghe nhạc K-pop và cố gắng nhận ra từ đã học",
-        "Luyện đọc to — không chỉ đọc thầm trong đầu",
+        "Nghe TTS m?i t? khi h?c � t?p ph�t �m ngay t? d?u",
+        "D�ng t�nh nang ghi �m d? so s�nh ph�t �m c?a b?n",
+        "Xem phim/drama H�n c� ph? d? ti?ng H�n",
+        "Nghe nh?c K-pop v� c? g?ng nh?n ra t? d� h?c",
+        "Luy?n d?c to � kh�ng ch? d?c th?m trong d?u",
       ],
     },
     {
-      category: "Duy trì động lực",
+      category: "Duy tr� d?ng l?c",
       icon: "ri-fire-line",
       color: "text-orange-600",
       bg: "bg-orange-50",
       items: [
-        "Đặt mục tiêu nhỏ hàng ngày (10 từ/ngày) thay vì mục tiêu lớn",
-        "Duy trì streak học tập — đừng để chuỗi bị đứt",
-        "Tham gia thách thức tuần để có mục tiêu cụ thể",
-        "Ghi nhật ký học tập để thấy tiến bộ của mình",
-        "Kết nối với cộng đồng học tiếng Hàn để có động lực",
+        "�?t m?c ti�u nh? h�ng ng�y (10 t?/ng�y) thay v� m?c ti�u l?n",
+        "Duy tr� streak h?c t?p � d?ng d? chu?i b? d?t",
+        "Tham gia th�ch th?c tu?n d? c� m?c ti�u c? th?",
+        "Ghi nh?t k� h?c t?p d? th?y ti?n b? c?a m�nh",
+        "K?t n?i v?i c?ng d?ng h?c ti?ng H�n d? c� d?ng l?c",
       ],
     },
     {
-      category: "Chuẩn bị thi TOPIK",
+      category: "Chu?n b? thi TOPIK",
       icon: "ri-file-paper-2-line",
       color: "text-green-600",
       bg: "bg-green-50",
       items: [
-        "Làm bài thi thử ít nhất 1 lần/tuần",
-        "Review kỹ câu sai — đây là điểm yếu cần cải thiện",
-        "Học từ vựng theo chủ đề TOPIK: xã hội, kinh tế, văn hóa",
-        "Luyện đọc báo Hàn để quen với văn phong học thuật",
-        "Đăng ký thi thật để có deadline cụ thể",
+        "L�m b�i thi th? �t nh?t 1 l?n/tu?n",
+        "Review k? c�u sai � d�y l� di?m y?u c?n c?i thi?n",
+        "H?c t? v?ng theo ch? d? TOPIK: x� h?i, kinh t?, van h�a",
+        "Luy?n d?c b�o H�n d? quen v?i van phong h?c thu?t",
+        "�ang k� thi th?t d? c� deadline c? th?",
       ],
     },
   ];
@@ -448,49 +448,49 @@ function TipsSection() {
 function RoadmapSection() {
   const stages = [
     {
-      level: "Sơ cấp",
+      level: "So c?p",
       topik: "TOPIK 1-2",
-      duration: "3-6 tháng",
+      duration: "3-6 th�ng",
       color: "border-green-400 bg-green-50",
       badge: "bg-green-100 text-green-700",
       goals: [
-        "Thuộc bảng chữ cái Hangul",
-        "Học 500-800 từ Hán-Hàn cơ bản (nhóm ㄱ-ㄷ)",
-        "Ngữ pháp cơ bản: -이에요/예요, -아/어요, -고 싶다",
-        "Giao tiếp đơn giản: chào hỏi, mua sắm, ăn uống",
-        "Nghe hiểu hội thoại đơn giản",
+        "Thu?c b?ng ch? c�i Hangul",
+        "H?c 500-800 t? H�n-H�n co b?n (nh�m ?-?)",
+        "Ng? ph�p co b?n: -???/??, -?/??, -? ??",
+        "Giao ti?p don gi?n: ch�o h?i, mua s?m, an u?ng",
+        "Nghe hi?u h?i tho?i don gi?n",
       ],
-      tools: ["Flashcard", "Spaced Rep", "Quiz cơ bản", "Luyện phát âm"],
+      tools: ["Flashcard", "Spaced Rep", "Quiz co b?n", "Luy?n ph�t �m"],
     },
     {
-      level: "Trung cấp",
+      level: "Trung c?p",
       topik: "TOPIK 3-4",
-      duration: "6-12 tháng",
+      duration: "6-12 th�ng",
       color: "border-amber-400 bg-amber-50",
       badge: "bg-amber-100 text-amber-700",
       goals: [
-        "Mở rộng 1500+ từ Hán-Hàn (nhóm ㄹ-ㅅ)",
-        "Ngữ pháp trung cấp: -(으)면, -기 때문에, -(으)ㄹ 것 같다",
-        "Đọc hiểu bài báo đơn giản",
-        "Học từ vựng chuyên ngành (kinh tế, xã hội)",
-        "Viết đoạn văn ngắn",
+        "M? r?ng 1500+ t? H�n-H�n (nh�m ?-?)",
+        "Ng? ph�p trung c?p: -(?)?, -? ???, -(?)? ? ??",
+        "�?c hi?u b�i b�o don gi?n",
+        "H?c t? v?ng chuy�n ng�nh (kinh t?, x� h?i)",
+        "Vi?t do?n van ng?n",
       ],
-      tools: ["Học theo chủ đề", "Đọc tin tức", "Thi thử TOPIK", "Đồng âm khác nghĩa"],
+      tools: ["H?c theo ch? d?", "�?c tin t?c", "Thi th? TOPIK", "�?ng �m kh�c nghia"],
     },
     {
-      level: "Cao cấp",
+      level: "Cao c?p",
       topik: "TOPIK 5-6",
-      duration: "12-24 tháng",
+      duration: "12-24 th�ng",
       color: "border-rose-400 bg-rose-50",
       badge: "bg-rose-100 text-rose-700",
       goals: [
-        "Nắm vững 2400+ từ Hán-Hàn (tất cả nhóm)",
-        "Ngữ pháp nâng cao: -(으)ㄹ수록, -는 반면에",
-        "Đọc hiểu văn bản học thuật, báo chí",
-        "Viết luận, báo cáo bằng tiếng Hàn",
-        "Giao tiếp tự nhiên trong mọi tình huống",
+        "N?m v?ng 2400+ t? H�n-H�n (t?t c? nh�m)",
+        "Ng? ph�p n�ng cao: -(?)???, -? ???",
+        "�?c hi?u van b?n h?c thu?t, b�o ch�",
+        "Vi?t lu?n, b�o c�o b?ng ti?ng H�n",
+        "Giao ti?p t? nhi�n trong m?i t�nh hu?ng",
       ],
-      tools: ["Tất cả tính năng", "Thi thử TOPIK II", "Học theo câu ví dụ", "Bảng xếp hạng"],
+      tools: ["T?t c? t�nh nang", "Thi th? TOPIK II", "H?c theo c�u v� d?", "B?ng x?p h?ng"],
     },
   ];
 
@@ -498,7 +498,7 @@ function RoadmapSection() {
     <div className="space-y-4">
       <div className="bg-gray-50 rounded-xl p-4 mb-2">
         <p className="text-sm text-gray-600 leading-relaxed">
-          <strong>Lưu ý:</strong> Thời gian học phụ thuộc vào cường độ học tập. Học 1-2 giờ/ngày có thể đạt TOPIK 2 trong 6 tháng. Người Việt có lợi thế nhờ gốc Hán chung — thường học nhanh hơn 20-30% so với người không biết chữ Hán.
+          <strong>Luu �:</strong> Th?i gian h?c ph? thu?c v�o cu?ng d? h?c t?p. H?c 1-2 gi?/ng�y c� th? d?t TOPIK 2 trong 6 th�ng. Ngu?i Vi?t c� l?i th? nh? g?c H�n chung � thu?ng h?c nhanh hon 20-30% so v?i ngu?i kh�ng bi?t ch? H�n.
         </p>
       </div>
       {stages.map((stage, i) => (
@@ -517,7 +517,7 @@ function RoadmapSection() {
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <p className="text-xs font-semibold text-gray-600 mb-2">Mục tiêu</p>
+              <p className="text-xs font-semibold text-gray-600 mb-2">M?c ti�u</p>
               <ul className="space-y-1">
                 {stage.goals.map(g => (
                   <li key={g} className="flex items-start gap-1.5 text-xs text-gray-600">
@@ -528,7 +528,7 @@ function RoadmapSection() {
               </ul>
             </div>
             <div>
-              <p className="text-xs font-semibold text-gray-600 mb-2">Công cụ nên dùng</p>
+              <p className="text-xs font-semibold text-gray-600 mb-2">C�ng c? n�n d�ng</p>
               <div className="flex flex-wrap gap-1.5">
                 {stage.tools.map(t => (
                   <span key={t} className="px-2 py-1 bg-white border border-gray-200 rounded-lg text-xs text-gray-600">{t}</span>
@@ -546,9 +546,9 @@ function CommunitySection() {
   return (
     <div className="space-y-5">
       <div className="bg-violet-50 border border-violet-200 rounded-2xl p-5">
-        <h4 className="font-bold text-violet-800 mb-2">Cộng đồng Hàn Quốc Ơi!</h4>
+        <h4 className="font-bold text-violet-800 mb-2">C?ng d?ng H�n Qu?c Oi!</h4>
         <p className="text-sm text-violet-700 leading-relaxed">
-          Học một mình có thể nhàm chán và thiếu động lực. Tham gia cộng đồng để chia sẻ tiến độ, hỏi đáp, và cùng nhau tiến bộ. Học cùng nhau luôn hiệu quả hơn!
+          H?c m?t m�nh c� th? nh�m ch�n v� thi?u d?ng l?c. Tham gia c?ng d?ng d? chia s? ti?n d?, h?i d�p, v� c�ng nhau ti?n b?. H?c c�ng nhau lu�n hi?u qu? hon!
         </p>
       </div>
 
@@ -556,30 +556,30 @@ function CommunitySection() {
         {[
           {
             icon: "ri-discuss-line",
-            title: "Diễn đàn cộng đồng",
-            desc: "Đặt câu hỏi, chia sẻ mẹo học, thảo luận về K-pop và văn hóa Hàn Quốc với hàng nghìn học viên khác.",
-            action: "Vào diễn đàn",
+            title: "Di?n d�n c?ng d?ng",
+            desc: "�?t c�u h?i, chia s? m?o h?c, th?o lu?n v? K-pop v� van h�a H�n Qu?c v?i h�ng ngh�n h?c vi�n kh�c.",
+            action: "V�o di?n d�n",
             path: "/community",
           },
           {
             icon: "ri-bar-chart-horizontal-line",
-            title: "Bảng xếp hạng tuần",
-            desc: "So sánh tiến độ với bạn bè, cạnh tranh lành mạnh để có thêm động lực học tập mỗi tuần.",
-            action: "Xem bảng xếp hạng",
+            title: "B?ng x?p h?ng tu?n",
+            desc: "So s�nh ti?n d? v?i b?n b�, c?nh tranh l�nh m?nh d? c� th�m d?ng l?c h?c t?p m?i tu?n.",
+            action: "Xem b?ng x?p h?ng",
             path: "/hanja-vocab",
           },
           {
             icon: "ri-sword-line",
-            title: "Thách thức tuần",
-            desc: "Tham gia thách thức học từ vựng hàng tuần. Hoàn thành thách thức để nhận XP và huy hiệu đặc biệt.",
-            action: "Xem thách thức",
+            title: "Th�ch th?c tu?n",
+            desc: "Tham gia th�ch th?c h?c t? v?ng h�ng tu?n. Ho�n th�nh th�ch th?c d? nh?n XP v� huy hi?u d?c bi?t.",
+            action: "Xem th�ch th?c",
             path: "/hanja-vocab",
           },
           {
             icon: "ri-share-line",
-            title: "Chia sẻ tiến độ",
-            desc: "Chia sẻ kết quả học tập lên mạng xã hội để khoe thành tích và truyền cảm hứng cho người khác.",
-            action: "Chia sẻ ngay",
+            title: "Chia s? ti?n d?",
+            desc: "Chia s? k?t qu? h?c t?p l�n m?ng x� h?i d? khoe th�nh t�ch v� truy?n c?m h?ng cho ngu?i kh�c.",
+            action: "Chia s? ngay",
             path: "/hanja-vocab",
           },
         ].map(item => (
@@ -597,12 +597,12 @@ function CommunitySection() {
 
       <div className="bg-gradient-to-r from-rose-50 to-pink-50 border border-rose-200 rounded-2xl p-5 text-center">
         <i className="ri-heart-line text-rose-500 text-3xl block mb-2"></i>
-        <h4 className="font-bold text-gray-900 mb-2">Cùng nhau học tiếng Hàn!</h4>
+        <h4 className="font-bold text-gray-900 mb-2">C�ng nhau h?c ti?ng H�n!</h4>
         <p className="text-sm text-gray-600 mb-4">
-          Hàn Quốc Ơi! được xây dựng với tình yêu dành cho tiếng Hàn và văn hóa Hàn Quốc. Chúng tôi tin rằng mọi người đều có thể học tiếng Hàn — chỉ cần có phương pháp đúng và cộng đồng hỗ trợ.
+          H�n Qu?c Oi! du?c x�y d?ng v?i t�nh y�u d�nh cho ti?ng H�n v� van h�a H�n Qu?c. Ch�ng t�i tin r?ng m?i ngu?i d?u c� th? h?c ti?ng H�n � ch? c?n c� phuong ph�p d�ng v� c?ng d?ng h? tr?.
         </p>
         <p className="text-xs text-gray-400">
-          <strong>한국어 공부 화이팅!</strong> (Cố lên trong việc học tiếng Hàn!)
+          <strong>??? ?? ???!</strong> (C? l�n trong vi?c h?c ti?ng H�n!)
         </p>
       </div>
     </div>
@@ -627,19 +627,19 @@ export default function GuidePage() {
   const current = GUIDE_SECTIONS.find(s => s.id === activeSection)!;
 
   return (
-    <DashboardLayout title="Hướng dẫn Hàn Quốc Ơi!" subtitle="Tất cả những gì bạn cần biết để học tiếng Hàn hiệu quả">
+    <DashboardLayout title="Hu?ng d?n H�n Qu?c Oi!" subtitle="T?t c? nh?ng g� b?n c?n bi?t d? h?c ti?ng H�n hi?u qu?">
       <div className="p-4 md:p-6 max-w-5xl mx-auto">
         {/* Hero */}
         <div className="relative rounded-2xl overflow-hidden mb-6 h-40">
           <img
             src="https://readdy.ai/api/search-image?query=Korean%20language%20learning%20guide%20book%20open%20pages%20with%20Korean%20characters%20hangul%20written%20beautifully%2C%20soft%20warm%20lighting%2C%20minimalist%20clean%20aesthetic%2C%20educational%20atmosphere%2C%20cherry%20blossom%20petals%20floating&width=1200&height=320&seq=guide-hero1&orientation=landscape"
-            alt="Hướng dẫn Hàn Quốc Ơi!"
+            alt="Hu?ng d?n H�n Qu?c Oi!"
             className="w-full h-full object-cover object-top"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent flex items-center px-8">
             <div>
-              <h1 className="text-2xl font-bold text-white mb-1">Hướng dẫn Hàn Quốc Ơi!</h1>
-              <p className="text-white/70 text-sm">Học tiếng Hàn thông minh — dành riêng cho người Việt</p>
+              <h1 className="text-2xl font-bold text-white mb-1">Hu?ng d?n H�n Qu?c Oi!</h1>
+              <p className="text-white/70 text-sm">H?c ti?ng H�n th�ng minh � d�nh ri�ng cho ngu?i Vi?t</p>
             </div>
           </div>
         </div>
@@ -649,7 +649,7 @@ export default function GuidePage() {
           <div className="w-full lg:w-56 flex-shrink-0">
             <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden sticky top-4">
               <div className="p-3 border-b border-gray-100">
-                <p className="text-xs font-semibold text-gray-500 tracking-normal">Mục lục</p>
+                <p className="text-xs font-semibold text-gray-500 tracking-normal">M?c l?c</p>
               </div>
               <div className="p-2">
                 {GUIDE_SECTIONS.map(section => (
@@ -710,7 +710,7 @@ export default function GuidePage() {
                   onClick={() => navigate("/hanja-vocab")}
                   className="flex items-center gap-2 px-4 py-2 bg-rose-500 text-white rounded-xl text-sm cursor-pointer hover:bg-rose-600 transition-colors"
                 >
-                  Bắt đầu học ngay!
+                  B?t d?u h?c ngay!
                   <i className="ri-arrow-right-line"></i>
                 </button>
               )}

@@ -290,7 +290,7 @@ export default function AdminCategorySEOPage() {
                     value={form.og_image}
                     onChange={(e) => setForm({ ...form, og_image: e.target.value })}
                     className="w-full bg-app-surface/50 border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary"
-                    placeholder="https://hadim.vn/og-category.png"
+                    placeholder="https://hanquocoi.vn/og-category.png"
                   />
                 </div>
 
@@ -301,7 +301,7 @@ export default function AdminCategorySEOPage() {
                     value={form.canonical_url}
                     onChange={(e) => setForm({ ...form, canonical_url: e.target.value })}
                     className="w-full bg-app-surface/50 border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary"
-                    placeholder="https://hadim.vn/community/category/share"
+                    placeholder="https://hanquocoi.vn/community/category/share"
                   />
                 </div>
 

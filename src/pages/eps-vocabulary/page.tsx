@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -6,9 +6,9 @@ import { supabase } from "@/lib/supabase";
 import { useAudioCache } from "@/hooks/useAudioCache";
 import { epsVocabulary, EPS_VOCAB_TOPICS, type EpsVocabItem } from "@/mocks/epsVocabulary";
 
-// ─── PDF Export ───────────────────────────────────────────────────────────
+// --- PDF Export -----------------------------------------------------------
 function exportToPDF(items: EpsVocabItem[], topicId: string) {
-  const topicLabel = EPS_VOCAB_TOPICS.find(t => t.id === topicId)?.label || "Tất cả chủ đề";
+  const topicLabel = EPS_VOCAB_TOPICS.find(t => t.id === topicId)?.label || "T?t c? ch? d?";
   const date = new Date().toLocaleDateString("vi-VN");
 
   const rows = items.map((item, i) => {
@@ -28,7 +28,7 @@ function exportToPDF(items: EpsVocabItem[], topicId: string) {
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Từ vựng EPS-TOPIK — ${topicLabel}</title>
+<title>T? v?ng EPS-TOPIK � ${topicLabel}</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -46,22 +46,22 @@ function exportToPDF(items: EpsVocabItem[], topicId: string) {
 </style>
 </head>
 <body>
-<h1>Từ vựng EPS-TOPIK</h1>
-<p class="meta">Chủ đề: ${topicLabel} &nbsp;·&nbsp; ${items.length} từ &nbsp;·&nbsp; Xuất ngày ${date} &nbsp;·&nbsp; hadim.vn</p>
+<h1>T? v?ng EPS-TOPIK</h1>
+<p class="meta">Ch? d?: ${topicLabel} &nbsp;�&nbsp; ${items.length} t? &nbsp;�&nbsp; Xu?t ng�y ${date} &nbsp;�&nbsp; hanquocoi.vn</p>
 <table>
   <thead>
     <tr>
       <th style="width:40px">#</th>
-      <th style="width:120px">Tiếng Hàn</th>
-      <th style="width:110px">Phiên âm</th>
-      <th style="width:140px">Tiếng Việt</th>
-      <th>Ví dụ</th>
-      <th style="width:110px">Chủ đề</th>
+      <th style="width:120px">Ti?ng H�n</th>
+      <th style="width:110px">Phi�n �m</th>
+      <th style="width:140px">Ti?ng Vi?t</th>
+      <th>V� d?</th>
+      <th style="width:110px">Ch? d?</th>
     </tr>
   </thead>
   <tbody>${rows}</tbody>
 </table>
-<p class="footer">Hàn Quốc Ơi! — Học tiếng Hàn cùng cộng đồng · hadim.vn</p>
+<p class="footer">H�n Qu?c Oi! � H?c ti?ng H�n c�ng c?ng d?ng � hanquocoi.vn</p>
 <script>window.onload = () => window.print();</script>
 </body>
 </html>`;
@@ -73,7 +73,7 @@ function exportToPDF(items: EpsVocabItem[], topicId: string) {
   setTimeout(() => URL.revokeObjectURL(url), 10000);
 }
 
-// ─── Dedup helper ─────────────────────────────────────────────────────────
+// --- Dedup helper ---------------------------------------------------------
 function deduplicateVocab(items: EpsVocabItem[]): EpsVocabItem[] {
   const seen = new Set<string>();
   return items.filter(item => {
@@ -87,9 +87,9 @@ function deduplicateVocab(items: EpsVocabItem[]): EpsVocabItem[] {
 const DEDUPED_VOCAB = deduplicateVocab(epsVocabulary);
 
 const LEVEL_COLORS = { basic: "#34d399", intermediate: "app-accent-primary", advanced: "#f87171" };
-const LEVEL_LABELS = { basic: "Cơ bản", intermediate: "Trung cấp", advanced: "Nâng cao" };
+const LEVEL_LABELS = { basic: "Co b?n", intermediate: "Trung c?p", advanced: "N�ng cao" };
 
-// ─── Flashcard Modal ──────────────────────────────────────────────────────
+// --- Flashcard Modal ------------------------------------------------------
 function FlashcardModal({
   items, startIdx, onClose, masteredIds, onMaster,
 }: {
@@ -133,7 +133,7 @@ function FlashcardModal({
               >
                 <i className="ri-volume-up-line mr-1"></i>Nghe
               </button>
-              <p className="mt-4 text-white/15 text-[10px]">Nhấn để xem nghĩa</p>
+              <p className="mt-4 text-white/15 text-[10px]">Nh?n d? xem nghia</p>
             </div>
             <div className="absolute inset-0 rounded-xl border border-app-accent-primary/20 bg-[#13161e] flex flex-col items-center justify-center p-6 text-center" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
               <p className="text-2xl font-bold text-app-accent-primary mb-2">{card.vietnamese}</p>
@@ -146,7 +146,7 @@ function FlashcardModal({
         <div className="flex gap-2">
           <button onClick={() => { if (idx > 0) setIdx(i => i - 1); }} disabled={idx === 0} className="flex-1 py-2.5 rounded-xl border border-app-border text-app-text-secondary text-sm disabled:opacity-30 hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"><i className="ri-arrow-left-line"></i></button>
           <button onClick={() => onMaster(card.id)} className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap ${masteredIds.includes(card.id) ? "bg-app-accent-success/15 text-app-accent-success border border-emerald-500/25" : "bg-app-card/50 text-white/50 border border-app-border hover:bg-white/8"}`}>
-            {masteredIds.includes(card.id) ? "✓ Đã thuộc" : "Đánh dấu thuộc"}
+            {masteredIds.includes(card.id) ? "? �� thu?c" : "��nh d?u thu?c"}
           </button>
           <button onClick={() => { if (idx < items.length - 1) setIdx(i => i + 1); }} disabled={idx === items.length - 1} className="flex-1 py-2.5 rounded-xl border border-app-border text-app-text-secondary text-sm disabled:opacity-30 hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap"><i className="ri-arrow-right-line"></i></button>
         </div>
@@ -155,7 +155,7 @@ function FlashcardModal({
   );
 }
 
-// ─── Vocab Card ───────────────────────────────────────────────────────────
+// --- Vocab Card -----------------------------------------------------------
 function EpsVocabCard({
   item, isMastered, onMaster, onFlashcard,
 }: {
@@ -196,7 +196,7 @@ function EpsVocabCard({
         </div>
       )}
       <button onClick={() => setShowExample(s => !s)} className="text-[10px] text-app-text-muted hover:text-white/50 cursor-pointer transition-colors whitespace-nowrap">
-        {showExample ? "Ẩn ví dụ" : "Xem ví dụ"}
+        {showExample ? "?n v� d?" : "Xem v� d?"}
         <i className={`${showExample ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"} ml-1`}></i>
       </button>
       {showExample && (
@@ -211,7 +211,7 @@ function EpsVocabCard({
 
 const PAGE_SIZE = 20;
 
-// ─── Pagination Component ─────────────────────────────────────────────────
+// --- Pagination Component -------------------------------------------------
 function Pagination({ current, total, onChange }: { current: number; total: number; onChange: (p: number) => void }) {
   if (total <= 1) return null;
   const pages = Array.from({ length: total }, (_, i) => i + 1);
@@ -260,7 +260,7 @@ function Pagination({ current, total, onChange }: { current: number; total: numb
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────
+// --- Main Page ------------------------------------------------------------
 export default function EpsVocabularyPage() {
   const { user } = useAuth();
   const [masteredIds, setMasteredIds] = useLocalStorage<string[]>("kts_eps_vocab_mastered", []);
@@ -272,7 +272,7 @@ export default function EpsVocabularyPage() {
   const [syncStatus, setSyncStatus] = useState<"idle" | "saving" | "saved">("idle");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Reset page khi filter thay đổi
+  // Reset page khi filter thay d?i
   useEffect(() => { setCurrentPage(1); }, [selectedTopic, selectedLevel, filterMode, searchQuery]);
 
   // Load mastered from Supabase
@@ -337,14 +337,14 @@ export default function EpsVocabularyPage() {
 
   return (
     <DashboardLayout
-      title="Từ vựng EPS-TOPIK"
-      subtitle={`${DEDUPED_VOCAB.length} từ chuẩn theo chủ đề thực tế — không trùng lặp, có phát âm`}
+      title="T? v?ng EPS-TOPIK"
+      subtitle={`${DEDUPED_VOCAB.length} t? chu?n theo ch? d? th?c t? � kh�ng tr�ng l?p, c� ph�t �m`}
       actions={
         <div className="flex items-center gap-3">
           {user && syncStatus !== "idle" && (
             <span className={`text-xs flex items-center gap-1 ${syncStatus === "saving" ? "text-app-text-secondary" : "text-app-accent-success"}`}>
               <i className={`${syncStatus === "saving" ? "ri-loader-4-line animate-spin" : "ri-cloud-line"} text-sm`}></i>
-              {syncStatus === "saving" ? "Đang lưu..." : "Đã lưu cloud"}
+              {syncStatus === "saving" ? "�ang luu..." : "�� luu cloud"}
             </span>
           )}
           <button
@@ -352,14 +352,14 @@ export default function EpsVocabularyPage() {
             disabled={filteredItems.length === 0}
             className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 disabled:opacity-40 border border-app-border text-white/70 font-medium text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
-            <i className="ri-file-pdf-line"></i>Xuất PDF
+            <i className="ri-file-pdf-line"></i>Xu?t PDF
           </button>
           <button
             onClick={() => setFlashcardItem({ items: filteredItems, startIdx: 0 })}
             disabled={filteredItems.length === 0}
             className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
-            <i className="ri-play-line"></i>Học Flashcard ({filteredItems.length})
+            <i className="ri-play-line"></i>H?c Flashcard ({filteredItems.length})
           </button>
         </div>
       }
@@ -367,10 +367,10 @@ export default function EpsVocabularyPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng từ EPS", value: DEDUPED_VOCAB.length, icon: "ri-file-list-3-line", color: "#fb923c" },
-          { label: "Đã thuộc", value: totalMastered, icon: "ri-checkbox-circle-line", color: "#34d399" },
-          { label: "Chưa thuộc", value: DEDUPED_VOCAB.length - totalMastered, icon: "ri-time-line", color: "app-accent-primary" },
-          { label: "Tiến độ", value: `${overallPct}%`, icon: "ri-pie-chart-line", color: "#a78bfa" },
+          { label: "T?ng t? EPS", value: DEDUPED_VOCAB.length, icon: "ri-file-list-3-line", color: "#fb923c" },
+          { label: "�� thu?c", value: totalMastered, icon: "ri-checkbox-circle-line", color: "#34d399" },
+          { label: "Chua thu?c", value: DEDUPED_VOCAB.length - totalMastered, icon: "ri-time-line", color: "app-accent-primary" },
+          { label: "Ti?n d?", value: `${overallPct}%`, icon: "ri-pie-chart-line", color: "#a78bfa" },
         ].map(stat => (
           <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
@@ -386,13 +386,13 @@ export default function EpsVocabularyPage() {
 
       {/* Topic grid */}
       <div className="mb-5">
-        <p className="text-app-text-muted text-[10px] tracking-normal mb-3">Chủ đề</p>
+        <p className="text-app-text-muted text-[10px] tracking-normal mb-3">Ch? d?</p>
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setSelectedTopic("all")}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedTopic === "all" ? "bg-app-accent-primary text-app-bg" : "bg-app-card/50 text-app-text-secondary hover:text-white/60"}`}
           >
-            <i className="ri-apps-line text-xs"></i>Tất cả ({DEDUPED_VOCAB.length})
+            <i className="ri-apps-line text-xs"></i>T?t c? ({DEDUPED_VOCAB.length})
           </button>
           {EPS_VOCAB_TOPICS.map(topic => {
             const stats = topicStats[topic.id] || { total: 0, mastered: 0 };
@@ -418,20 +418,20 @@ export default function EpsVocabularyPage() {
         <div className="flex items-center bg-app-card/50 rounded-xl p-1">
           {(["all", "basic", "intermediate", "advanced"] as const).map(lv => (
             <button key={lv} onClick={() => setSelectedLevel(lv)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === lv ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>
-              {lv === "all" ? "Tất cả" : LEVEL_LABELS[lv]}
+              {lv === "all" ? "T?t c?" : LEVEL_LABELS[lv]}
             </button>
           ))}
         </div>
         <div className="flex items-center bg-app-card/50 rounded-xl p-1">
-          {([["all", "Tất cả"], ["unmastered", "Chưa thuộc"]] as [string, string][]).map(([f, label]) => (
+          {([["all", "T?t c?"], ["unmastered", "Chua thu?c"]] as [string, string][]).map(([f, label]) => (
             <button key={f} onClick={() => setFilterMode(f as "all" | "unmastered")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${filterMode === f ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>{label}</button>
           ))}
         </div>
         <div className="flex items-center gap-2 bg-app-card/50 border border-app-border rounded-xl px-3 py-2 flex-1 min-w-[180px]">
           <i className="ri-search-line text-app-text-muted text-sm"></i>
-          <input type="text" placeholder="Tìm từ vựng EPS..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder-white/20" />
+          <input type="text" placeholder="T�m t? v?ng EPS..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder-white/20" />
         </div>
-        <p className="text-app-text-muted text-xs whitespace-nowrap">{filteredItems.length} từ · trang {currentPage}/{totalPages || 1}</p>
+        <p className="text-app-text-muted text-xs whitespace-nowrap">{filteredItems.length} t? � trang {currentPage}/{totalPages || 1}</p>
       </div>
 
       {/* Grid */}
@@ -453,7 +453,7 @@ export default function EpsVocabularyPage() {
       ) : (
         <div className="text-center py-16 bg-app-bg border border-app-border rounded-2xl">
           <i className="ri-search-line text-app-text-muted text-3xl mb-3 block"></i>
-          <p className="text-app-text-muted text-sm">Không tìm thấy từ vựng nào</p>
+          <p className="text-app-text-muted text-sm">Kh�ng t�m th?y t? v?ng n�o</p>
         </div>
       )}
 

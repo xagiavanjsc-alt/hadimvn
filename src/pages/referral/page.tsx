@@ -1,4 +1,4 @@
-﻿import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -14,14 +14,14 @@ interface ReferralRecord {
 
 const XP_PER_REFERRAL = 100;
 const MILESTONE_REWARDS = [
-  { count: 1,  xp: 100,  label: "Người mời đầu tiên",  icon: "ri-user-add-line",    color: "#34d399" },
-  { count: 3,  xp: 300,  label: "Nhóm học nhỏ",        icon: "ri-group-line",       color: "app-accent-primary" },
-  { count: 5,  xp: 600,  label: "Đại sứ học tập",      icon: "ri-medal-line",       color: "#fb923c" },
-  { count: 10, xp: 1500, label: "Huyền thoại mời bạn", icon: "ri-vip-crown-line",   color: "#a78bfa" },
+  { count: 1,  xp: 100,  label: "Ngu?i m?i d?u ti�n",  icon: "ri-user-add-line",    color: "#34d399" },
+  { count: 3,  xp: 300,  label: "Nh�m h?c nh?",        icon: "ri-group-line",       color: "app-accent-primary" },
+  { count: 5,  xp: 600,  label: "�?i s? h?c t?p",      icon: "ri-medal-line",       color: "#fb923c" },
+  { count: 10, xp: 1500, label: "Huy?n tho?i m?i b?n", icon: "ri-vip-crown-line",   color: "#a78bfa" },
 ];
 
 function generateReferralCode(userId: string): string {
-  // Simple deterministic code from userId — HQO = Hàn Quốc Ơi
+  // Simple deterministic code from userId � HQO = H�n Qu?c Oi
   const base = userId ? userId.slice(-6).toUpperCase() : "GUEST1";
   return `HQO-${base}`;
 }
@@ -60,15 +60,15 @@ export default function ReferralPage() {
   );
 
   const shareMessages = [
-    { platform: "Facebook", icon: "ri-facebook-fill", color: "#1877f2", text: `Mình đang học tiếng Hàn trên Hàn Quốc Ơi! Dùng mã ${referralCode} để nhận 50 XP miễn phí khi đăng ký. ${referralLink}` },
-    { platform: "Zalo", icon: "ri-message-2-line", color: "#0068ff", text: `Học tiếng Hàn cùng mình nhé! Dùng link này để nhận 50 XP: ${referralLink}` },
-    { platform: "Copy tin nhắn", icon: "ri-chat-quote-line", color: "#34d399", text: `Bạn ơi, mình đang học tiếng Hàn trên Hàn Quốc Ơi rất hay! Đăng ký qua link ${referralLink} (mã: ${referralCode}) để cả hai cùng nhận XP thưởng nhé!` },
+    { platform: "Facebook", icon: "ri-facebook-fill", color: "#1877f2", text: `M�nh dang h?c ti?ng H�n tr�n H�n Qu?c Oi! D�ng m� ${referralCode} d? nh?n 50 XP mi?n ph� khi dang k�. ${referralLink}` },
+    { platform: "Zalo", icon: "ri-message-2-line", color: "#0068ff", text: `H?c ti?ng H�n c�ng m�nh nh�! D�ng link n�y d? nh?n 50 XP: ${referralLink}` },
+    { platform: "Copy tin nh?n", icon: "ri-chat-quote-line", color: "#34d399", text: `B?n oi, m�nh dang h?c ti?ng H�n tr�n H�n Qu?c Oi r?t hay! �ang k� qua link ${referralLink} (m�: ${referralCode}) d? c? hai c�ng nh?n XP thu?ng nh�!` },
   ];
 
   return (
     <DashboardLayout
-      title="Mời bạn bè"
-      subtitle="Chia sẻ link mời — bạn bè đăng ký được +50 XP, bạn nhận +100 XP"
+      title="M?i b?n b�"
+      subtitle="Chia s? link m?i � b?n b� dang k� du?c +50 XP, b?n nh?n +100 XP"
     >
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
         {/* Left main */}
@@ -80,14 +80,14 @@ export default function ReferralPage() {
                 <i className="ri-gift-2-line text-app-accent-primary text-2xl"></i>
               </div>
               <div>
-                <h3 className="text-white font-bold text-base">Link mời của bạn</h3>
-                <p className="text-app-text-secondary text-xs">Chia sẻ link này để nhận XP thưởng</p>
+                <h3 className="text-white font-bold text-base">Link m?i c?a b?n</h3>
+                <p className="text-app-text-secondary text-xs">Chia s? link n�y d? nh?n XP thu?ng</p>
               </div>
             </div>
 
             {/* Referral code */}
             <div className="mb-4">
-              <p className="text-app-text-muted text-xs mb-2">Mã giới thiệu</p>
+              <p className="text-app-text-muted text-xs mb-2">M� gi?i thi?u</p>
               <div className="flex items-center gap-3">
                 <div className="flex-1 flex items-center gap-3 bg-app-card/50 border border-app-accent-primary/20 rounded-xl px-4 py-3">
                   <i className="ri-coupon-3-line text-app-accent-primary text-lg"></i>
@@ -97,14 +97,14 @@ export default function ReferralPage() {
                   onClick={() => handleCopy("code")}
                   className="flex items-center gap-2 px-4 py-3 rounded-xl border border-app-accent-primary/25 bg-app-accent-primary/10 text-app-accent-primary text-sm font-semibold cursor-pointer whitespace-nowrap hover:bg-app-accent-primary/20 transition-colors"
                 >
-                  {copied === "code" ? <><i className="ri-checkbox-circle-fill"></i>Đã copy!</> : <><i className="ri-file-copy-line"></i>Copy mã</>}
+                  {copied === "code" ? <><i className="ri-checkbox-circle-fill"></i>�� copy!</> : <><i className="ri-file-copy-line"></i>Copy m�</>}
                 </button>
               </div>
             </div>
 
             {/* Referral link */}
             <div className="mb-5">
-              <p className="text-app-text-muted text-xs mb-2">Link mời đầy đủ</p>
+              <p className="text-app-text-muted text-xs mb-2">Link m?i d?y d?</p>
               <div className="flex items-center gap-3">
                 <div className="flex-1 flex items-center gap-2 bg-app-card/50 border border-app-border rounded-xl px-3 py-2.5 overflow-hidden">
                   <i className="ri-link text-app-text-muted text-sm flex-shrink-0"></i>
@@ -114,14 +114,14 @@ export default function ReferralPage() {
                   onClick={() => handleCopy("link")}
                   className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-app-border bg-app-card/50 text-white/60 text-sm font-medium cursor-pointer whitespace-nowrap hover:bg-app-card/70 transition-colors"
                 >
-                  {copied === "link" ? <><i className="ri-checkbox-circle-fill text-app-accent-success"></i><span className="text-app-accent-success">Đã copy!</span></> : <><i className="ri-file-copy-line"></i>Copy link</>}
+                  {copied === "link" ? <><i className="ri-checkbox-circle-fill text-app-accent-success"></i><span className="text-app-accent-success">�� copy!</span></> : <><i className="ri-file-copy-line"></i>Copy link</>}
                 </button>
               </div>
             </div>
 
             {/* Share buttons */}
             <div>
-              <p className="text-app-text-muted text-xs mb-3">Chia sẻ nhanh</p>
+              <p className="text-app-text-muted text-xs mb-3">Chia s? nhanh</p>
               <div className="flex gap-2 flex-wrap">
                 {shareMessages.map(s => (
                   <button
@@ -139,12 +139,12 @@ export default function ReferralPage() {
 
           {/* How it works */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Cách hoạt động</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">C�ch ho?t d?ng</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
-                { step: "1", icon: "ri-share-line", color: "app-accent-primary", title: "Chia sẻ link", desc: "Gửi link mời hoặc mã giới thiệu cho bạn bè" },
-                { step: "2", icon: "ri-user-add-line", color: "#34d399", title: "Bạn đăng ký", desc: "Bạn bè đăng ký tài khoản qua link của bạn" },
-                { step: "3", icon: "ri-star-fill", color: "#fb923c", title: "Cả hai nhận XP", desc: "Bạn +100 XP, bạn bè +50 XP ngay lập tức" },
+                { step: "1", icon: "ri-share-line", color: "app-accent-primary", title: "Chia s? link", desc: "G?i link m?i ho?c m� gi?i thi?u cho b?n b�" },
+                { step: "2", icon: "ri-user-add-line", color: "#34d399", title: "B?n dang k�", desc: "B?n b� dang k� t�i kho?n qua link c?a b?n" },
+                { step: "3", icon: "ri-star-fill", color: "#fb923c", title: "C? hai nh?n XP", desc: "B?n +100 XP, b?n b� +50 XP ngay l?p t?c" },
               ].map(s => (
                 <div key={s.step} className="text-center">
                   <div className="w-12 h-12 flex items-center justify-center rounded-2xl mx-auto mb-3" style={{ backgroundColor: `${s.color}15` }}>
@@ -161,13 +161,13 @@ export default function ReferralPage() {
           {/* Referred friends list */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white font-semibold text-sm">Bạn bè đã mời ({referrals.length})</h3>
+              <h3 className="text-white font-semibold text-sm">B?n b� d� m?i ({referrals.length})</h3>
               <div className="flex items-center gap-2">
                 {activeReferrals.length > 0 && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success">{activeReferrals.length} hoạt động</span>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success">{activeReferrals.length} ho?t d?ng</span>
                 )}
                 {pendingReferrals.length > 0 && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#fb923c]/15 text-[#fb923c]">{pendingReferrals.length} chờ xác nhận</span>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#fb923c]/15 text-[#fb923c]">{pendingReferrals.length} ch? x�c nh?n</span>
                 )}
               </div>
             </div>
@@ -177,8 +177,8 @@ export default function ReferralPage() {
                 <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-app-card/50 mx-auto mb-3">
                   <i className="ri-user-add-line text-app-text-muted text-2xl"></i>
                 </div>
-                <p className="text-app-text-muted text-sm">Chưa có bạn bè nào được mời</p>
-                <p className="text-app-text-muted text-xs mt-1">Chia sẻ link ở trên để bắt đầu!</p>
+                <p className="text-app-text-muted text-sm">Chua c� b?n b� n�o du?c m?i</p>
+                <p className="text-app-text-muted text-xs mt-1">Chia s? link ? tr�n d? b?t d?u!</p>
               </div>
             ) : (
               <div className="space-y-2">
@@ -190,16 +190,16 @@ export default function ReferralPage() {
                     <div className="flex-1 min-w-0">
                       <p className="text-white/70 text-sm font-medium">{r.name}</p>
                       <p className="text-app-text-muted text-[10px]">
-                        Tham gia {new Date(r.joinedAt).toLocaleDateString("vi-VN")} ·{" "}
+                        Tham gia {new Date(r.joinedAt).toLocaleDateString("vi-VN")} �{" "}
                         <span className={r.status === "active" ? "text-app-accent-success" : "text-[#fb923c]"}>
-                          {r.status === "active" ? "Đang hoạt động" : "Chờ xác nhận"}
+                          {r.status === "active" ? "�ang ho?t d?ng" : "Ch? x�c nh?n"}
                         </span>
                       </p>
                     </div>
                     {r.xpAwarded ? (
-                      <span className="text-[10px] font-bold text-app-accent-primary whitespace-nowrap">+{XP_PER_REFERRAL} XP ✓</span>
+                      <span className="text-[10px] font-bold text-app-accent-primary whitespace-nowrap">+{XP_PER_REFERRAL} XP ?</span>
                     ) : (
-                      <span className="text-[10px] text-app-text-muted whitespace-nowrap">Chờ...</span>
+                      <span className="text-[10px] text-app-text-muted whitespace-nowrap">Ch?...</span>
                     )}
                   </div>
                 ))}
@@ -212,13 +212,13 @@ export default function ReferralPage() {
         <div className="space-y-4">
           {/* Stats */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Thống kê mời bạn</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">Th?ng k� m?i b?n</h3>
             <div className="space-y-3">
               {[
-                { label: "Tổng bạn đã mời", value: referrals.length, color: "app-accent-primary" },
-                { label: "Đang hoạt động", value: activeReferrals.length, color: "#34d399" },
-                { label: "Chờ xác nhận", value: pendingReferrals.length, color: "#fb923c" },
-                { label: "XP đã nhận", value: `${totalXPEarned} XP`, color: "#a78bfa" },
+                { label: "T?ng b?n d� m?i", value: referrals.length, color: "app-accent-primary" },
+                { label: "�ang ho?t d?ng", value: activeReferrals.length, color: "#34d399" },
+                { label: "Ch? x�c nh?n", value: pendingReferrals.length, color: "#fb923c" },
+                { label: "XP d� nh?n", value: `${totalXPEarned} XP`, color: "#a78bfa" },
               ].map(s => (
                 <div key={s.label} className="flex items-center justify-between">
                   <span className="text-app-text-secondary text-xs">{s.label}</span>
@@ -230,7 +230,7 @@ export default function ReferralPage() {
 
           {/* Milestones */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-5">
-            <h3 className="text-white font-semibold text-sm mb-4">Mốc thưởng</h3>
+            <h3 className="text-white font-semibold text-sm mb-4">M?c thu?ng</h3>
             <div className="space-y-3">
               {MILESTONE_REWARDS.map(m => {
                 const reached = activeReferrals.length >= m.count;
@@ -246,7 +246,7 @@ export default function ReferralPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-white/70 text-xs font-semibold">{m.label}</p>
-                        <p className="text-app-text-muted text-[10px]">{m.count} bạn bè · +{m.xp} XP</p>
+                        <p className="text-app-text-muted text-[10px]">{m.count} b?n b� � +{m.xp} XP</p>
                       </div>
                       {reached && !claimed ? (
                         <button
@@ -254,7 +254,7 @@ export default function ReferralPage() {
                           className="text-[10px] font-bold px-2.5 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
                           style={{ backgroundColor: `${m.color}15`, color: m.color, border: `1px solid ${m.color}25` }}
                         >
-                          Nhận!
+                          Nh?n!
                         </button>
                       ) : claimed ? (
                         <i className="ri-checkbox-circle-fill text-app-accent-success text-base"></i>
@@ -281,10 +281,10 @@ export default function ReferralPage() {
             <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-2">
                 <i className="ri-flag-line text-app-accent-primary text-sm"></i>
-                <h3 className="text-white font-semibold text-sm">Mốc tiếp theo</h3>
+                <h3 className="text-white font-semibold text-sm">M?c ti?p theo</h3>
               </div>
               <p className="text-app-text-secondary text-xs leading-relaxed">
-                Mời thêm <strong className="text-white/70">{nextMilestone.count - activeReferrals.length} bạn</strong> để đạt mốc <strong style={{ color: nextMilestone.color }}>{nextMilestone.label}</strong> và nhận <strong className="text-app-accent-primary">+{nextMilestone.xp} XP</strong>!
+                M?i th�m <strong className="text-white/70">{nextMilestone.count - activeReferrals.length} b?n</strong> d? d?t m?c <strong style={{ color: nextMilestone.color }}>{nextMilestone.label}</strong> v� nh?n <strong className="text-app-accent-primary">+{nextMilestone.xp} XP</strong>!
               </p>
             </div>
           )}

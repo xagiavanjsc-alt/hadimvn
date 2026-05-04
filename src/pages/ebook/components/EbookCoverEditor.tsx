@@ -1,4 +1,4 @@
-﻿import type { EbookMeta } from "@/pages/ebook/page";
+import type { EbookMeta } from "@/pages/ebook/page";
 
 interface Props {
   meta: EbookMeta;
@@ -6,23 +6,23 @@ interface Props {
 }
 
 const FONT_OPTIONS: { label: string; value: "sans" | "serif"; desc: string; preview: string }[] = [
-  { label: "Noto Sans KR", value: "sans", desc: "Hiện đại, dễ đọc", preview: "안녕하세요 — Xin chào" },
-  { label: "Noto Serif KR", value: "serif", desc: "Cổ điển, sang trọng", preview: "안녕하세요 — Xin chào" },
+  { label: "Noto Sans KR", value: "sans", desc: "Hi?n d?i, d? d?c", preview: "????? � Xin ch�o" },
+  { label: "Noto Serif KR", value: "serif", desc: "C? di?n, sang tr?ng", preview: "????? � Xin ch�o" },
 ];
 
 const ACCENT_COLORS = [
-  { label: "Vàng KTS", value: "app-accent-primary" },
-  { label: "Xanh lá", value: "#34d399" },
+  { label: "V�ng KTS", value: "app-accent-primary" },
+  { label: "Xanh l�", value: "#34d399" },
   { label: "Cam", value: "#fb923c" },
-  { label: "Hồng", value: "#f472b6" },
-  { label: "Trắng", value: "#f8fafc" },
+  { label: "H?ng", value: "#f472b6" },
+  { label: "Tr?ng", value: "#f8fafc" },
 ];
 
 const COVER_COLORS = [
-  { label: "Đen đậm", value: "#0f1117" },
-  { label: "Xanh đêm", value: "#0d1b2a" },
-  { label: "Nâu tối", value: "#1a1208" },
-  { label: "Tím đêm", value: "#13111c" },
+  { label: "�en d?m", value: "#0f1117" },
+  { label: "Xanh d�m", value: "#0d1b2a" },
+  { label: "N�u t?i", value: "#1a1208" },
+  { label: "T�m d�m", value: "#13111c" },
 ];
 
 export default function EbookCoverEditor({ meta, onChange }: Props) {
@@ -40,17 +40,17 @@ export default function EbookCoverEditor({ meta, onChange }: Props) {
         <div className="w-7 h-7 flex items-center justify-center bg-app-accent-primary/10 rounded-lg">
           <i className="ri-book-2-line text-app-accent-primary text-sm"></i>
         </div>
-        <p className="text-white font-semibold text-sm">Thông tin bìa ebook</p>
+        <p className="text-white font-semibold text-sm">Th�ng tin b�a ebook</p>
       </div>
 
       {/* Title */}
       <div>
-        <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Tiêu đề chính</label>
+        <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Ti�u d? ch�nh</label>
         <input
           type="text"
           value={meta.title}
           onChange={(e) => update("title", e.target.value)}
-          placeholder="Học Tiếng Hàn Qua K-pop"
+          placeholder="H?c Ti?ng H�n Qua K-pop"
           maxLength={80}
           className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
         />
@@ -58,12 +58,12 @@ export default function EbookCoverEditor({ meta, onChange }: Props) {
 
       {/* Subtitle */}
       <div>
-        <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Tiêu đề phụ</label>
+        <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Ti�u d? ph?</label>
         <input
           type="text"
           value={meta.subtitle}
           onChange={(e) => update("subtitle", e.target.value)}
-          placeholder="Truyện Chêm & Từ Vựng Thực Tế"
+          placeholder="Truy?n Ch�m & T? V?ng Th?c T?"
           maxLength={100}
           className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
         />
@@ -71,12 +71,12 @@ export default function EbookCoverEditor({ meta, onChange }: Props) {
 
       {/* Author */}
       <div>
-        <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Tác giả / Thương hiệu</label>
+        <label className="text-app-text-secondary text-xs font-medium block mb-1.5">T�c gi? / Thuong hi?u</label>
         <input
           type="text"
           value={meta.author}
           onChange={(e) => update("author", e.target.value)}
-          placeholder="Hàn Việt KTS"
+          placeholder="H�n Vi?t KTS"
           maxLength={60}
           className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors"
         />
@@ -84,11 +84,11 @@ export default function EbookCoverEditor({ meta, onChange }: Props) {
 
       {/* Description */}
       <div>
-        <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Mô tả ngắn (xuất hiện ở trang bìa)</label>
+        <label className="text-app-text-secondary text-xs font-medium block mb-1.5">M� t? ng?n (xu?t hi?n ? trang b�a)</label>
         <textarea
           value={meta.description}
           onChange={(e) => update("description", e.target.value)}
-          placeholder="Tuyển tập bài học tiếng Hàn..."
+          placeholder="Tuy?n t?p b�i h?c ti?ng H�n..."
           rows={3}
           maxLength={300}
           className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors resize-none"
@@ -100,7 +100,7 @@ export default function EbookCoverEditor({ meta, onChange }: Props) {
       <div className="border-t border-app-border pt-1">
         <p className="text-app-text-muted text-[10px] tracking-normal mb-4 flex items-center gap-1.5">
           <i className="ri-pages-line"></i>
-          Trang bổ sung
+          Trang b? sung
         </p>
       </div>
 
@@ -108,24 +108,24 @@ export default function EbookCoverEditor({ meta, onChange }: Props) {
       <div>
         <label className="text-app-text-secondary text-xs font-medium block mb-1.5">
           <i className="ri-quill-pen-line mr-1 text-violet-400/60"></i>
-          Lời mở đầu (trang 3)
+          L?i m? d?u (trang 3)
         </label>
         <textarea
           value={meta.foreword ?? ""}
           onChange={(e) => update("foreword", e.target.value)}
-          placeholder="Chào bạn đọc thân mến! Viết lời mở đầu cho ebook của bạn..."
+          placeholder="Ch�o b?n d?c th�n m?n! Vi?t l?i m? d?u cho ebook c?a b?n..."
           rows={5}
           maxLength={800}
           className="w-full bg-app-card/50 border border-app-border rounded-lg px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-violet-400/30 transition-colors resize-none"
         />
-        <p className="text-app-text-muted text-[10px] mt-1">{(meta.foreword ?? "").length}/800 — Để trống nếu không cần trang lời mở đầu</p>
+        <p className="text-app-text-muted text-[10px] mt-1">{(meta.foreword ?? "").length}/800 � �? tr?ng n?u kh�ng c?n trang l?i m? d?u</p>
       </div>
 
       {/* Contact info */}
       <div>
         <label className="text-app-text-secondary text-xs font-medium block mb-1.5">
           <i className="ri-contacts-line mr-1 text-app-accent-success/60"></i>
-          Thông tin liên hệ (trang kết)
+          Th�ng tin li�n h? (trang k?t)
         </label>
         <textarea
           value={meta.contactInfo ?? ""}
@@ -141,7 +141,7 @@ export default function EbookCoverEditor({ meta, onChange }: Props) {
       <div>
         <label className="text-app-text-secondary text-xs font-medium block mb-1.5">
           <i className="ri-global-line mr-1 text-app-accent-success/60"></i>
-          Website (trang kết)
+          Website (trang k?t)
         </label>
         <input
           type="text"
@@ -157,7 +157,7 @@ export default function EbookCoverEditor({ meta, onChange }: Props) {
       <div>
         <label className="text-app-text-secondary text-xs font-medium block mb-2">
           <i className="ri-font-size mr-1 text-sky-400/60"></i>
-          Font chữ ebook
+          Font ch? ebook
         </label>
         <div className="grid grid-cols-2 gap-2">
           {FONT_OPTIONS.map((f) => (
@@ -193,7 +193,7 @@ export default function EbookCoverEditor({ meta, onChange }: Props) {
 
       {/* Cover background color */}
       <div>
-        <label className="text-app-text-secondary text-xs font-medium block mb-2">Màu nền bìa</label>
+        <label className="text-app-text-secondary text-xs font-medium block mb-2">M�u n?n b�a</label>
         <div className="flex gap-2 flex-wrap">
           {COVER_COLORS.map((c) => (
             <button
@@ -211,7 +211,7 @@ export default function EbookCoverEditor({ meta, onChange }: Props) {
 
       {/* Accent color */}
       <div>
-        <label className="text-app-text-secondary text-xs font-medium block mb-2">Màu nhấn</label>
+        <label className="text-app-text-secondary text-xs font-medium block mb-2">M�u nh?n</label>
         <div className="flex gap-2 flex-wrap">
           {ACCENT_COLORS.map((c) => (
             <button
@@ -232,7 +232,7 @@ export default function EbookCoverEditor({ meta, onChange }: Props) {
           <i className="ri-lightbulb-line text-app-text-muted text-sm"></i>
         </div>
         <p className="text-app-text-muted text-xs leading-relaxed">
-          Thay đổi sẽ hiển thị ngay trong preview bên phải. Khi xuất PDF, bìa sẽ là trang đầu tiên.
+          Thay d?i s? hi?n th? ngay trong preview b�n ph?i. Khi xu?t PDF, b�a s? l� trang d?u ti�n.
         </p>
       </div>
     </div>

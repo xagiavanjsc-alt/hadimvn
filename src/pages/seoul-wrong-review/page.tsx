@@ -1,10 +1,10 @@
-﻿import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { seoulBooks } from "@/mocks/seoulTextbook";
 
-// ─── Types ─────────────────────────────────────────────────────────────────
+// --- Types -----------------------------------------------------------------
 interface WrongWord {
   korean: string;
   vietnamese: string;
@@ -21,7 +21,7 @@ interface WrongWord {
 
 type ReviewMode = "flashcard" | "quiz" | "listen";
 
-// ─── Helpers ───────────────────────────────────────────────────────────────
+// --- Helpers ---------------------------------------------------------------
 function speakKorean(text: string) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
@@ -40,7 +40,7 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-// ─── Flashcard Review ──────────────────────────────────────────────────────
+// --- Flashcard Review ------------------------------------------------------
 function FlashcardReview({ words, onFinish, onMarkKnown }: {
   words: WrongWord[];
   onFinish: (score: number) => void;
@@ -71,7 +71,7 @@ function FlashcardReview({ words, onFinish, onMarkKnown }: {
         <div className="flex items-center justify-between mb-2">
           <span className="text-app-text-secondary text-xs">{index + 1} / {total}</span>
           <div className="flex items-center gap-2">
-            <span className="text-red-400 text-xs font-semibold">Sai {current.wrongCount} lần</span>
+            <span className="text-red-400 text-xs font-semibold">Sai {current.wrongCount} l?n</span>
           </div>
         </div>
         <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
@@ -88,7 +88,7 @@ function FlashcardReview({ words, onFinish, onMarkKnown }: {
             <button onClick={e => { e.stopPropagation(); speakKorean(current.korean); }} className="mt-4 w-10 h-10 flex items-center justify-center rounded-xl bg-red-500/10 cursor-pointer">
               <i className="ri-volume-up-line text-lg text-red-400"></i>
             </button>
-            <p className="text-app-text-muted text-xs mt-4">Click để xem nghĩa</p>
+            <p className="text-app-text-muted text-xs mt-4">Click d? xem nghia</p>
           </div>
           <div className="absolute inset-0 flex flex-col items-center justify-center p-8 rounded-2xl border border-red-500/20 bg-red-500/5" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
             <p className="text-white text-3xl font-bold mb-2 text-center">{current.korean}</p>
@@ -101,20 +101,20 @@ function FlashcardReview({ words, onFinish, onMarkKnown }: {
 
       <div className="flex items-center gap-4 w-full">
         <button onClick={handleUnknow} className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-red-500/30 bg-red-500/10 text-red-400 font-semibold text-sm hover:bg-red-500/20 transition-colors cursor-pointer whitespace-nowrap">
-          <i className="ri-close-line text-lg"></i>Chưa thuộc
+          <i className="ri-close-line text-lg"></i>Chua thu?c
         </button>
         <button onClick={() => setFlipped(f => !f)} className="w-12 h-12 flex items-center justify-center rounded-xl border border-app-border bg-app-card/50 text-app-text-secondary hover:bg-app-card/70 transition-colors cursor-pointer">
           <i className="ri-refresh-line text-lg"></i>
         </button>
         <button onClick={handleKnow} className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-app-accent-success font-semibold text-sm hover:bg-emerald-500/20 transition-colors cursor-pointer whitespace-nowrap">
-          <i className="ri-check-line text-lg"></i>Đã thuộc
+          <i className="ri-check-line text-lg"></i>�� thu?c
         </button>
       </div>
     </div>
   );
 }
 
-// ─── Quiz Review ───────────────────────────────────────────────────────────
+// --- Quiz Review -----------------------------------------------------------
 function QuizReview({ words, allWords, onFinish, onMarkKnown }: {
   words: WrongWord[];
   allWords: WrongWord[];
@@ -157,15 +157,15 @@ function QuizReview({ words, allWords, onFinish, onMarkKnown }: {
     <div className="flex flex-col gap-6 max-w-lg mx-auto">
       <div>
         <div className="flex items-center justify-between mb-2">
-          <span className="text-app-text-secondary text-xs">Câu {index + 1} / {total}</span>
-          <span className="text-red-400 text-xs font-semibold">{score} đúng</span>
+          <span className="text-app-text-secondary text-xs">C�u {index + 1} / {total}</span>
+          <span className="text-red-400 text-xs font-semibold">{score} d�ng</span>
         </div>
         <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
           <div className="h-full rounded-full bg-red-500/60 transition-all duration-500" style={{ width: `${Math.round((index / total) * 100)}%` }} />
         </div>
       </div>
       <div className="bg-app-bg border border-red-500/15 rounded-2xl p-8 text-center">
-        <p className="text-app-text-secondary text-xs mb-3">Nghĩa của từ này là gì?</p>
+        <p className="text-app-text-secondary text-xs mb-3">Nghia c?a t? n�y l� g�?</p>
         <p className="text-white text-5xl font-bold mb-2">{current.word.korean}</p>
         <p className="text-app-text-muted text-sm">[{current.word.pronunciation}]</p>
         <button onClick={() => speakKorean(current.word.korean)} className="mt-3 w-9 h-9 flex items-center justify-center rounded-xl mx-auto cursor-pointer bg-red-500/10">
@@ -191,7 +191,7 @@ function QuizReview({ words, allWords, onFinish, onMarkKnown }: {
   );
 }
 
-// ─── Listen Review ─────────────────────────────────────────────────────────
+// --- Listen Review ---------------------------------------------------------
 function ListenReview({ words, onFinish, onMarkKnown }: {
   words: WrongWord[];
   onFinish: (score: number) => void;
@@ -228,33 +228,33 @@ function ListenReview({ words, onFinish, onMarkKnown }: {
     <div className="flex flex-col gap-6 max-w-lg mx-auto">
       <div>
         <div className="flex items-center justify-between mb-2">
-          <span className="text-app-text-secondary text-xs">Câu {index + 1} / {total}</span>
-          <span className="text-red-400 text-xs font-semibold">{score} đúng</span>
+          <span className="text-app-text-secondary text-xs">C�u {index + 1} / {total}</span>
+          <span className="text-red-400 text-xs font-semibold">{score} d�ng</span>
         </div>
         <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
           <div className="h-full rounded-full bg-red-500/60 transition-all duration-500" style={{ width: `${Math.round((index / total) * 100)}%` }} />
         </div>
       </div>
       <div className="bg-app-bg border border-red-500/15 rounded-2xl p-8 text-center">
-        <p className="text-app-text-secondary text-xs mb-4">Nghe và điền từ tiếng Hàn</p>
-        <p className="text-white/60 text-sm mb-2">Nghĩa: <span className="text-white font-semibold">{current.vietnamese}</span></p>
+        <p className="text-app-text-secondary text-xs mb-4">Nghe v� di?n t? ti?ng H�n</p>
+        <p className="text-white/60 text-sm mb-2">Nghia: <span className="text-white font-semibold">{current.vietnamese}</span></p>
         <button onClick={handleListen} className="w-20 h-20 flex items-center justify-center rounded-full mx-auto cursor-pointer transition-all hover:scale-105 bg-red-500/15 border-2 border-red-500/30">
           <i className="ri-volume-up-line text-4xl text-red-400"></i>
         </button>
-        <p className="text-app-text-muted text-xs mt-3">Đã nghe {listenCount} lần</p>
+        <p className="text-app-text-muted text-xs mt-3">�� nghe {listenCount} l?n</p>
         {listenCount >= 2 && <p className="mt-2 text-app-accent-error/60 text-sm font-medium">[{current.pronunciation}]</p>}
       </div>
       <div className="flex gap-3">
-        <input type="text" value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && !submitted && handleSubmit()} placeholder="Nhập từ tiếng Hàn..." disabled={submitted}
+        <input type="text" value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && !submitted && handleSubmit()} placeholder="Nh?p t? ti?ng H�n..." disabled={submitted}
           className={`flex-1 px-4 py-3 rounded-xl border text-sm text-white placeholder-white/20 bg-app-surface/50 outline-none transition-colors ${submitted ? isCorrect ? "border-emerald-500/50 bg-emerald-500/10" : "border-red-500/50 bg-red-500/10" : "border-app-border focus:border-white/25"}`} />
         <button onClick={handleSubmit} disabled={submitted || !input.trim()} className="px-5 py-3 rounded-xl font-semibold text-sm transition-colors cursor-pointer whitespace-nowrap disabled:opacity-40 bg-red-500/15 text-red-400 hover:bg-red-500/25">
-          Kiểm tra
+          Ki?m tra
         </button>
       </div>
       {submitted && (
         <div className={`p-4 rounded-xl text-center ${isCorrect ? "bg-emerald-500/10 border border-emerald-500/20" : "bg-red-500/10 border border-red-500/20"}`}>
-          {isCorrect ? <p className="text-app-accent-success font-semibold">Chính xác!</p> : (
-            <div><p className="text-red-400 font-semibold mb-1">Chưa đúng</p><p className="text-white/60 text-sm">Đáp án: <span className="text-white font-bold">{current.korean}</span></p></div>
+          {isCorrect ? <p className="text-app-accent-success font-semibold">Ch�nh x�c!</p> : (
+            <div><p className="text-red-400 font-semibold mb-1">Chua d�ng</p><p className="text-white/60 text-sm">��p �n: <span className="text-white font-bold">{current.korean}</span></p></div>
           )}
         </div>
       )}
@@ -262,9 +262,9 @@ function ListenReview({ words, onFinish, onMarkKnown }: {
   );
 }
 
-// ─── Export Helpers ────────────────────────────────────────────────────────
+// --- Export Helpers --------------------------------------------------------
 function exportToCSV(words: WrongWord[]) {
-  const header = "Tiếng Hàn,Phiên âm,Tiếng Việt,Ví dụ,Dịch ví dụ,Bài học,Số lần sai";
+  const header = "Ti?ng H�n,Phi�n �m,Ti?ng Vi?t,V� d?,D?ch v� d?,B�i h?c,S? l?n sai";
   const rows = words.map(w =>
     [w.korean, w.pronunciation, w.vietnamese, w.example, w.exampleVi, w.lessonTitle, w.wrongCount]
       .map(v => `"${String(v).replace(/"/g, '""')}"`)
@@ -282,9 +282,9 @@ function exportToCSV(words: WrongWord[]) {
 
 function exportToTXT(words: WrongWord[]) {
   const lines = words.map((w, i) =>
-    `${i + 1}. ${w.korean} [${w.pronunciation}] — ${w.vietnamese}\n   Ví dụ: ${w.example}\n   Dịch: ${w.exampleVi}\n   Bài: ${w.lessonTitle} | Sai: ${w.wrongCount} lần`
+    `${i + 1}. ${w.korean} [${w.pronunciation}] � ${w.vietnamese}\n   V� d?: ${w.example}\n   D?ch: ${w.exampleVi}\n   B�i: ${w.lessonTitle} | Sai: ${w.wrongCount} l?n`
   );
-  const txt = `TỪ SAI SEOUL — Xuất ngày ${new Date().toLocaleDateString("vi-VN")}\n${"=".repeat(50)}\n\n${lines.join("\n\n")}`;
+  const txt = `T? SAI SEOUL � Xu?t ng�y ${new Date().toLocaleDateString("vi-VN")}\n${"=".repeat(50)}\n\n${lines.join("\n\n")}`;
   const blob = new Blob([txt], { type: "text/plain;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
@@ -294,7 +294,7 @@ function exportToTXT(words: WrongWord[]) {
   URL.revokeObjectURL(url);
 }
 
-// ─── Main Page ─────────────────────────────────────────────────────────────
+// --- Main Page -------------------------------------------------------------
 export default function SeoulWrongReviewPage() {
   const navigate = useNavigate();
   const [wrongWords, setWrongWords] = useLocalStorage<WrongWord[]>("kts_seoul_wrong_words", []);
@@ -322,7 +322,7 @@ export default function SeoulWrongReviewPage() {
   }, [setWrongWords]);
 
   const handleClearAll = () => {
-    if (window.confirm("Xóa tất cả từ sai? Hành động này không thể hoàn tác.")) {
+    if (window.confirm("X�a t?t c? t? sai? H�nh d?ng n�y kh�ng th? ho�n t�c.")) {
       setWrongWords([]);
     }
   };
@@ -347,31 +347,31 @@ export default function SeoulWrongReviewPage() {
   };
 
   const modeInfo = {
-    flashcard: { icon: "ri-stack-line", label: "Flashcard", desc: "Lật thẻ ôn lại" },
-    quiz: { icon: "ri-survey-line", label: "Quiz", desc: "Trắc nghiệm" },
-    listen: { icon: "ri-headphone-line", label: "Nghe & Điền", desc: "Nghe và gõ" },
+    flashcard: { icon: "ri-stack-line", label: "Flashcard", desc: "L?t th? �n l?i" },
+    quiz: { icon: "ri-survey-line", label: "Quiz", desc: "Tr?c nghi?m" },
+    listen: { icon: "ri-headphone-line", label: "Nghe & �i?n", desc: "Nghe v� g�" },
   };
 
   const pct = sortedWords.length > 0 && finished ? Math.round((finalScore / sortedWords.length) * 100) : 0;
 
   return (
     <DashboardLayout
-      title="Ôn tập từ sai — Seoul"
-      subtitle="Ôn lại những từ trả lời sai trong quiz và ghép cặp"
+      title="�n t?p t? sai � Seoul"
+      subtitle="�n l?i nh?ng t? tr? l?i sai trong quiz v� gh�p c?p"
       actions={
         <div className="flex items-center gap-2">
           {wrongWords.length > 0 && (
             <div className="relative">
               <button onClick={() => setShowExportMenu(v => !v)} className="flex items-center gap-2 bg-[#34d399]/10 hover:bg-[#34d399]/20 text-[#34d399] text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
-                <i className="ri-download-line"></i>Xuất danh sách
+                <i className="ri-download-line"></i>Xu?t danh s�ch
               </button>
               {showExportMenu && (
                 <div className="absolute right-0 top-full mt-2 bg-app-bg border border-app-border rounded-xl overflow-hidden z-50 min-w-[160px]">
                   <button onClick={() => { exportToCSV(sortedWords); setShowExportMenu(false); }} className="w-full flex items-center gap-3 px-4 py-3 text-sm text-white/70 hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">
-                    <i className="ri-file-excel-line text-app-accent-success"></i>Xuất CSV
+                    <i className="ri-file-excel-line text-app-accent-success"></i>Xu?t CSV
                   </button>
                   <button onClick={() => { exportToTXT(sortedWords); setShowExportMenu(false); }} className="w-full flex items-center gap-3 px-4 py-3 text-sm text-white/70 hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">
-                    <i className="ri-file-text-line text-app-accent-primary"></i>Xuất TXT
+                    <i className="ri-file-text-line text-app-accent-primary"></i>Xu?t TXT
                   </button>
                 </div>
               )}
@@ -379,11 +379,11 @@ export default function SeoulWrongReviewPage() {
           )}
           {wrongWords.length > 0 && (
             <button onClick={handleClearAll} className="flex items-center gap-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
-              <i className="ri-delete-bin-line"></i>Xóa tất cả
+              <i className="ri-delete-bin-line"></i>X�a t?t c?
             </button>
           )}
           <button onClick={() => navigate("/seoul-practice")} className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 text-white/60 text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
-            <i className="ri-gamepad-line"></i>Luyện tập Seoul
+            <i className="ri-gamepad-line"></i>Luy?n t?p Seoul
           </button>
         </div>
       }
@@ -394,10 +394,10 @@ export default function SeoulWrongReviewPage() {
           <div className="w-20 h-20 flex items-center justify-center rounded-full bg-emerald-500/10 mb-6">
             <i className="ri-checkbox-circle-line text-4xl text-app-accent-success"></i>
           </div>
-          <p className="text-white text-xl font-bold mb-2">Chưa có từ sai nào!</p>
-          <p className="text-app-text-secondary text-sm mb-6">Hãy luyện tập Quiz hoặc Ghép cặp trong Seoul Practice để ghi lại từ sai.</p>
+          <p className="text-white text-xl font-bold mb-2">Chua c� t? sai n�o!</p>
+          <p className="text-app-text-secondary text-sm mb-6">H�y luy?n t?p Quiz ho?c Gh�p c?p trong Seoul Practice d? ghi l?i t? sai.</p>
           <button onClick={() => navigate("/seoul-practice")} className="flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm bg-[#34d399]/15 text-[#34d399] hover:bg-[#34d399]/25 transition-colors cursor-pointer whitespace-nowrap">
-            <i className="ri-gamepad-line"></i>Đến trang luyện tập
+            <i className="ri-gamepad-line"></i>�?n trang luy?n t?p
           </button>
         </div>
       ) : !started ? (
@@ -406,25 +406,25 @@ export default function SeoulWrongReviewPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-app-bg border border-red-500/15 rounded-2xl p-5 text-center">
               <p className="text-red-400 text-3xl font-bold">{wrongWords.length}</p>
-              <p className="text-app-text-secondary text-xs mt-1">Từ cần ôn</p>
+              <p className="text-app-text-secondary text-xs mt-1">T? c?n �n</p>
             </div>
             <div className="bg-app-bg border border-app-border rounded-2xl p-5 text-center">
               <p className="text-white text-3xl font-bold">{booksWithWrong.length}</p>
-              <p className="text-app-text-secondary text-xs mt-1">Cuốn sách</p>
+              <p className="text-app-text-secondary text-xs mt-1">Cu?n s�ch</p>
             </div>
             <div className="bg-app-bg border border-app-border rounded-2xl p-5 text-center">
               <p className="text-app-accent-primary text-3xl font-bold">{Math.max(...wrongWords.map(w => w.wrongCount), 0)}</p>
-              <p className="text-app-text-secondary text-xs mt-1">Sai nhiều nhất</p>
+              <p className="text-app-text-secondary text-xs mt-1">Sai nhi?u nh?t</p>
             </div>
           </div>
 
           {/* Filter by book */}
           {booksWithWrong.length > 1 && (
             <div>
-              <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Lọc theo cuốn sách</p>
+              <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">L?c theo cu?n s�ch</p>
               <div className="flex flex-wrap gap-2">
                 <button onClick={() => setFilterBook("all")} className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap ${filterBook === "all" ? "bg-app-card/70 text-white" : "bg-app-surface/50 text-app-text-secondary hover:bg-white/6"}`}>
-                  Tất cả ({wrongWords.length})
+                  T?t c? ({wrongWords.length})
                 </button>
                 {booksWithWrong.map(book => {
                   const count = wrongWords.filter(w => w.bookId === book.id).length;
@@ -441,7 +441,7 @@ export default function SeoulWrongReviewPage() {
 
           {/* Mode selector */}
           <div>
-            <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Chọn chế độ ôn tập</p>
+            <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Ch?n ch? d? �n t?p</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {(Object.entries(modeInfo) as [ReviewMode, typeof modeInfo[ReviewMode]][]).map(([m, info]) => (
                 <button key={m} onClick={() => setMode(m)} className={`p-4 rounded-xl border text-center transition-all cursor-pointer ${mode === m ? "border-red-500/30 bg-red-500/8" : "border-app-border bg-white/2 hover:border-white/15"}`}>
@@ -457,7 +457,7 @@ export default function SeoulWrongReviewPage() {
 
           {/* Word list preview */}
           <div>
-            <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Danh sách từ sai ({sortedWords.length} từ)</p>
+            <p className="text-white/50 text-xs font-semibold tracking-normal mb-3">Danh s�ch t? sai ({sortedWords.length} t?)</p>
             <div className="space-y-2 max-h-80 overflow-y-auto">
               {sortedWords.map((word, i) => {
                 const book = seoulBooks.find(b => b.id === word.bookId);
@@ -486,7 +486,7 @@ export default function SeoulWrongReviewPage() {
           <div className="flex justify-center pt-2">
             <button onClick={handleStart} className="flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-base transition-all cursor-pointer whitespace-nowrap bg-red-500/15 text-red-300 hover:bg-red-500/25 border border-red-500/20">
               <i className="ri-play-fill text-xl"></i>
-              Bắt đầu ôn tập ({sortedWords.length} từ)
+              B?t d?u �n t?p ({sortedWords.length} t?)
             </button>
           </div>
         </div>
@@ -497,16 +497,16 @@ export default function SeoulWrongReviewPage() {
             <p className="text-3xl font-bold text-red-300">{pct}%</p>
           </div>
           <div>
-            <p className="text-white text-2xl font-bold mb-1">{pct >= 80 ? "Tuyệt vời!" : pct >= 60 ? "Tiến bộ rồi!" : "Cần ôn thêm!"}</p>
-            <p className="text-white/50 text-sm">Đúng {finalScore}/{sortedWords.length} từ</p>
-            {wrongWords.length > 0 && <p className="text-app-text-muted text-xs mt-2">Còn {wrongWords.length} từ cần ôn lại</p>}
+            <p className="text-white text-2xl font-bold mb-1">{pct >= 80 ? "Tuy?t v?i!" : pct >= 60 ? "Ti?n b? r?i!" : "C?n �n th�m!"}</p>
+            <p className="text-white/50 text-sm">��ng {finalScore}/{sortedWords.length} t?</p>
+            {wrongWords.length > 0 && <p className="text-app-text-muted text-xs mt-2">C�n {wrongWords.length} t? c?n �n l?i</p>}
           </div>
           <div className="flex gap-3 w-full">
             <button onClick={handleRetry} className="flex-1 py-3 rounded-xl border border-white/15 text-white/60 font-semibold text-sm hover:bg-app-card/50 transition-colors cursor-pointer whitespace-nowrap">
-              <i className="ri-refresh-line mr-2"></i>Làm lại
+              <i className="ri-refresh-line mr-2"></i>L�m l?i
             </button>
             <button onClick={() => setStarted(false)} className="flex-1 py-3 rounded-xl font-semibold text-sm transition-colors cursor-pointer whitespace-nowrap bg-red-500/15 text-red-300 hover:bg-red-500/25">
-              <i className="ri-arrow-left-line mr-2"></i>Danh sách từ sai
+              <i className="ri-arrow-left-line mr-2"></i>Danh s�ch t? sai
             </button>
           </div>
         </div>
@@ -515,10 +515,10 @@ export default function SeoulWrongReviewPage() {
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <button onClick={() => setStarted(false)} className="flex items-center gap-2 text-app-text-secondary hover:text-white/70 text-sm cursor-pointer transition-colors">
-              <i className="ri-arrow-left-line"></i>Quay lại
+              <i className="ri-arrow-left-line"></i>Quay l?i
             </button>
             <span className="text-xs px-2 py-1 rounded-full font-semibold bg-red-500/10 text-red-400">
-              {modeInfo[mode].label} — Ôn tập từ sai
+              {modeInfo[mode].label} � �n t?p t? sai
             </span>
           </div>
           {mode === "flashcard" && <FlashcardReview key={key} words={sortedWords} onFinish={handleFinish} onMarkKnown={handleMarkKnown} />}

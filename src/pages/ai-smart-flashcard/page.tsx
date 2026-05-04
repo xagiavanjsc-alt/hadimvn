@@ -1,8 +1,8 @@
-﻿import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// --- Types --------------------------------------------------------------------
 interface VocabCard {
   id: string;
   korean: string;
@@ -14,7 +14,7 @@ interface VocabCard {
 
 interface CardMemory {
   id: string;
-  easeFactor: number;    // 1.3 – 2.5
+  easeFactor: number;    // 1.3 � 2.5
   interval: number;      // days
   repetitions: number;
   nextReview: string;    // ISO date
@@ -26,13 +26,13 @@ interface CardMemory {
 
 type Rating = 1 | 2 | 3 | 4; // 1=Again, 2=Hard, 3=Good, 4=Easy
 
-// ─── SM-2 Algorithm ───────────────────────────────────────────────────────────
+// --- SM-2 Algorithm -----------------------------------------------------------
 function sm2(memory: CardMemory, rating: Rating): CardMemory {
   const q = rating; // 1-4 mapped to quality
   let { easeFactor, interval, repetitions } = memory;
 
   if (q < 2) {
-    // Again — reset
+    // Again � reset
     repetitions = 0;
     interval = 1;
   } else {
@@ -75,31 +75,31 @@ function getDefaultMemory(id: string): CardMemory {
   };
 }
 
-// ─── Mock fallback vocab ──────────────────────────────────────────────────────
+// --- Mock fallback vocab ------------------------------------------------------
 const mockVocab: VocabCard[] = [
-  { id: "m1", korean: "사랑", vietnamese: "Tình yêu", example: "사랑해요.", topic: "Cảm xúc", level: "A1" },
-  { id: "m2", korean: "행복", vietnamese: "Hạnh phúc", example: "행복하세요!", topic: "Cảm xúc", level: "A1" },
-  { id: "m3", korean: "공부하다", vietnamese: "Học bài", example: "열심히 공부해요.", topic: "Giáo dục", level: "A1" },
-  { id: "m4", korean: "친구", vietnamese: "Bạn bè", example: "친구를 만났어요.", topic: "Xã hội", level: "A1" },
-  { id: "m5", korean: "음식", vietnamese: "Thức ăn", example: "음식이 맛있어요.", topic: "Ẩm thực", level: "A1" },
-  { id: "m6", korean: "여행", vietnamese: "Du lịch", example: "여행을 좋아해요.", topic: "Hoạt động", level: "A2" },
-  { id: "m7", korean: "경험", vietnamese: "Kinh nghiệm", example: "좋은 경험이었어요.", topic: "Trừu tượng", level: "B1" },
-  { id: "m8", korean: "노력", vietnamese: "Nỗ lực", example: "노력하면 됩니다.", topic: "Trừu tượng", level: "B1" },
-  { id: "m9", korean: "발전", vietnamese: "Phát triển", example: "많이 발전했어요.", topic: "Xã hội", level: "B1" },
-  { id: "m10", korean: "환경", vietnamese: "Môi trường", example: "환경을 보호해요.", topic: "Xã hội", level: "B1" },
-  { id: "m11", korean: "문화", vietnamese: "Văn hóa", example: "한국 문화가 좋아요.", topic: "Xã hội", level: "A2" },
-  { id: "m12", korean: "기회", vietnamese: "Cơ hội", example: "좋은 기회예요.", topic: "Trừu tượng", level: "B1" },
-  { id: "m13", korean: "변화", vietnamese: "Sự thay đổi", example: "큰 변화가 있었어요.", topic: "Trừu tượng", level: "B1" },
-  { id: "m14", korean: "성공", vietnamese: "Thành công", example: "성공하고 싶어요.", topic: "Trừu tượng", level: "A2" },
-  { id: "m15", korean: "습관", vietnamese: "Thói quen", example: "좋은 습관을 만들어요.", topic: "Trừu tượng", level: "B1" },
-  { id: "m16", korean: "태도", vietnamese: "Thái độ", example: "좋은 태도가 중요해요.", topic: "Trừu tượng", level: "B1" },
-  { id: "m17", korean: "이해", vietnamese: "Sự thấu hiểu", example: "이해해 주세요.", topic: "Trừu tượng", level: "A2" },
-  { id: "m18", korean: "표현", vietnamese: "Biểu hiện/Diễn đạt", example: "감정을 표현해요.", topic: "Ngôn ngữ", level: "B1" },
-  { id: "m19", korean: "추천", vietnamese: "Đề xuất/Giới thiệu", example: "이 책을 추천해요.", topic: "Hoạt động", level: "A2" },
-  { id: "m20", korean: "설명", vietnamese: "Giải thích", example: "설명해 주세요.", topic: "Ngôn ngữ", level: "A2" },
+  { id: "m1", korean: "??", vietnamese: "T�nh y�u", example: "????.", topic: "C?m x�c", level: "A1" },
+  { id: "m2", korean: "??", vietnamese: "H?nh ph�c", example: "?????!", topic: "C?m x�c", level: "A1" },
+  { id: "m3", korean: "????", vietnamese: "H?c b�i", example: "??? ????.", topic: "Gi�o d?c", level: "A1" },
+  { id: "m4", korean: "??", vietnamese: "B?n b�", example: "??? ????.", topic: "X� h?i", level: "A1" },
+  { id: "m5", korean: "??", vietnamese: "Th?c an", example: "??? ????.", topic: "?m th?c", level: "A1" },
+  { id: "m6", korean: "??", vietnamese: "Du l?ch", example: "??? ????.", topic: "Ho?t d?ng", level: "A2" },
+  { id: "m7", korean: "??", vietnamese: "Kinh nghi?m", example: "?? ??????.", topic: "Tr?u tu?ng", level: "B1" },
+  { id: "m8", korean: "??", vietnamese: "N? l?c", example: "???? ???.", topic: "Tr?u tu?ng", level: "B1" },
+  { id: "m9", korean: "??", vietnamese: "Ph�t tri?n", example: "?? ?????.", topic: "X� h?i", level: "B1" },
+  { id: "m10", korean: "??", vietnamese: "M�i tru?ng", example: "??? ????.", topic: "X� h?i", level: "B1" },
+  { id: "m11", korean: "??", vietnamese: "Van h�a", example: "?? ??? ???.", topic: "X� h?i", level: "A2" },
+  { id: "m12", korean: "??", vietnamese: "Co h?i", example: "?? ????.", topic: "Tr?u tu?ng", level: "B1" },
+  { id: "m13", korean: "??", vietnamese: "S? thay d?i", example: "? ??? ????.", topic: "Tr?u tu?ng", level: "B1" },
+  { id: "m14", korean: "??", vietnamese: "Th�nh c�ng", example: "???? ???.", topic: "Tr?u tu?ng", level: "A2" },
+  { id: "m15", korean: "??", vietnamese: "Th�i quen", example: "?? ??? ????.", topic: "Tr?u tu?ng", level: "B1" },
+  { id: "m16", korean: "??", vietnamese: "Th�i d?", example: "?? ??? ????.", topic: "Tr?u tu?ng", level: "B1" },
+  { id: "m17", korean: "??", vietnamese: "S? th?u hi?u", example: "??? ???.", topic: "Tr?u tu?ng", level: "A2" },
+  { id: "m18", korean: "??", vietnamese: "Bi?u hi?n/Di?n d?t", example: "??? ????.", topic: "Ng�n ng?", level: "B1" },
+  { id: "m19", korean: "??", vietnamese: "�? xu?t/Gi?i thi?u", example: "? ?? ????.", topic: "Ho?t d?ng", level: "A2" },
+  { id: "m20", korean: "??", vietnamese: "Gi?i th�ch", example: "??? ???.", topic: "Ng�n ng?", level: "A2" },
 ];
 
-// ─── AI Suggestion Engine ─────────────────────────────────────────────────────
+// --- AI Suggestion Engine -----------------------------------------------------
 function getAISuggestions(vocab: VocabCard[], memories: Record<string, CardMemory>) {
   const today = new Date().toISOString().split("T")[0];
 
@@ -127,7 +127,7 @@ function getAISuggestions(vocab: VocabCard[], memories: Record<string, CardMemor
   return scored.sort((a, b) => b.priority - a.priority);
 }
 
-// ─── Flashcard Component ──────────────────────────────────────────────────────
+// --- Flashcard Component ------------------------------------------------------
 function FlashCard({ card, onRate, cardIndex, total }: {
   card: VocabCard;
   onRate: (rating: Rating) => void;
@@ -162,10 +162,10 @@ function FlashCard({ card, onRate, cardIndex, total }: {
   };
 
   const ratings: { label: string; value: Rating; color: string; desc: string }[] = [
-    { label: "Lại", value: 1, color: "bg-rose-500/15 border-rose-500/30 text-rose-400 hover:bg-rose-500/25", desc: "Không nhớ" },
-    { label: "Khó", value: 2, color: "bg-amber-500/15 border-amber-500/30 text-amber-400 hover:bg-amber-500/25", desc: "Nhớ mờ" },
-    { label: "Tốt", value: 3, color: "bg-app-accent-success/15 border-emerald-500/30 text-app-accent-success hover:bg-emerald-500/25", desc: "Nhớ được" },
-    { label: "Dễ", value: 4, color: "bg-app-accent-primary/15 border-app-accent-primary/30 text-app-accent-primary hover:bg-app-accent-primary/25", desc: "Rất dễ" },
+    { label: "L?i", value: 1, color: "bg-rose-500/15 border-rose-500/30 text-rose-400 hover:bg-rose-500/25", desc: "Kh�ng nh?" },
+    { label: "Kh�", value: 2, color: "bg-amber-500/15 border-amber-500/30 text-amber-400 hover:bg-amber-500/25", desc: "Nh? m?" },
+    { label: "T?t", value: 3, color: "bg-app-accent-success/15 border-emerald-500/30 text-app-accent-success hover:bg-emerald-500/25", desc: "Nh? du?c" },
+    { label: "D?", value: 4, color: "bg-app-accent-primary/15 border-app-accent-primary/30 text-app-accent-primary hover:bg-app-accent-primary/25", desc: "R?t d?" },
   ];
 
   return (
@@ -196,17 +196,17 @@ function FlashCard({ card, onRate, cardIndex, total }: {
         <div className="flex flex-col items-center justify-center p-8 min-h-[260px]">
           {!flipped ? (
             <div className="text-center">
-              <p className="text-app-text-muted text-xs mb-4 tracking-normal">Tiếng Hàn</p>
+              <p className="text-app-text-muted text-xs mb-4 tracking-normal">Ti?ng H�n</p>
               <p className="text-white font-bold text-4xl mb-3">{card.korean}</p>
               <button onClick={e => handleTTS(e, card.korean)}
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white/8 hover:bg-white/15 text-white/50 hover:text-white/80 transition-colors mx-auto">
                 <i className="ri-volume-up-line text-lg"></i>
               </button>
-              <p className="text-app-text-muted text-xs mt-6">Nhấn để lật thẻ</p>
+              <p className="text-app-text-muted text-xs mt-6">Nh?n d? l?t th?</p>
             </div>
           ) : (
             <div className="text-center w-full">
-              <p className="text-app-text-muted text-xs mb-4 tracking-normal">Tiếng Việt</p>
+              <p className="text-app-text-muted text-xs mb-4 tracking-normal">Ti?ng Vi?t</p>
               <p className="text-app-accent-primary font-bold text-3xl mb-3">{card.vietnamese}</p>
               <p className="text-white font-medium text-xl mb-4">{card.korean}</p>
               {card.example && (
@@ -235,14 +235,14 @@ function FlashCard({ card, onRate, cardIndex, total }: {
       {!flipped && (
         <button onClick={handleFlip}
           className="w-full py-3 rounded-xl bg-white/8 hover:bg-white/12 text-white/60 hover:text-white text-sm font-medium cursor-pointer transition-colors whitespace-nowrap">
-          <i className="ri-refresh-line mr-2"></i>Lật thẻ để xem đáp án
+          <i className="ri-refresh-line mr-2"></i>L?t th? d? xem d�p �n
         </button>
       )}
     </div>
   );
 }
 
-// ─── Stats Panel ──────────────────────────────────────────────────────────────
+// --- Stats Panel --------------------------------------------------------------
 function StatsPanel({ memories, vocab }: { memories: Record<string, CardMemory>; vocab: VocabCard[] }) {
   const today = new Date().toISOString().split("T")[0];
   const dueCount = vocab.filter(v => (memories[v.id]?.nextReview || today) <= today).length;
@@ -255,11 +255,11 @@ function StatsPanel({ memories, vocab }: { memories: Record<string, CardMemory>;
   return (
     <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
       {[
-        { label: "Cần ôn hôm nay", value: dueCount, color: "#f87171", icon: "ri-alarm-line" },
-        { label: "Từ mới", value: newCount, color: "app-accent-primary", icon: "ri-add-circle-line" },
-        { label: "Đã thuộc", value: learnedCount, color: "#34d399", icon: "ri-checkbox-circle-line" },
-        { label: "Tổng lần ôn", value: totalReviews, color: "#a78bfa", icon: "ri-repeat-line" },
-        { label: "Độ chính xác", value: `${Math.round(avgAccuracy * 100)}%`, color: "#fbbf24", icon: "ri-percent-line" },
+        { label: "C?n �n h�m nay", value: dueCount, color: "#f87171", icon: "ri-alarm-line" },
+        { label: "T? m?i", value: newCount, color: "app-accent-primary", icon: "ri-add-circle-line" },
+        { label: "�� thu?c", value: learnedCount, color: "#34d399", icon: "ri-checkbox-circle-line" },
+        { label: "T?ng l?n �n", value: totalReviews, color: "#a78bfa", icon: "ri-repeat-line" },
+        { label: "�? ch�nh x�c", value: `${Math.round(avgAccuracy * 100)}%`, color: "#fbbf24", icon: "ri-percent-line" },
       ].map(s => (
         <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-3 text-center">
           <div className="w-7 h-7 flex items-center justify-center rounded-lg mx-auto mb-1.5" style={{ backgroundColor: `${s.color}20` }}>
@@ -273,7 +273,7 @@ function StatsPanel({ memories, vocab }: { memories: Record<string, CardMemory>;
   );
 }
 
-// ─── AI Insight Panel ─────────────────────────────────────────────────────────
+// --- AI Insight Panel ---------------------------------------------------------
 function AIInsightPanel({ suggestions }: { suggestions: ReturnType<typeof getAISuggestions> }) {
   const weakCards = suggestions.filter(s => s.accuracy < 0.5 && s.memory.totalReviews > 2).slice(0, 3);
   const dueCards = suggestions.filter(s => s.isDue && !s.isNew).slice(0, 3);
@@ -286,8 +286,8 @@ function AIInsightPanel({ suggestions }: { suggestions: ReturnType<typeof getAIS
           <i className="ri-robot-2-line text-app-accent-primary text-sm"></i>
         </div>
         <div>
-          <p className="text-app-accent-primary font-bold text-sm">AI Phân tích học tập</p>
-          <p className="text-app-text-secondary text-xs">Dựa trên thuật toán SM-2 và lịch sử ôn tập của bạn</p>
+          <p className="text-app-accent-primary font-bold text-sm">AI Ph�n t�ch h?c t?p</p>
+          <p className="text-app-text-secondary text-xs">D?a tr�n thu?t to�n SM-2 v� l?ch s? �n t?p c?a b?n</p>
         </div>
       </div>
 
@@ -295,47 +295,47 @@ function AIInsightPanel({ suggestions }: { suggestions: ReturnType<typeof getAIS
         {/* Weak cards */}
         <div>
           <p className="text-rose-400 text-xs font-semibold mb-2 flex items-center gap-1">
-            <i className="ri-error-warning-line"></i> Từ cần chú ý ({weakCards.length})
+            <i className="ri-error-warning-line"></i> T? c?n ch� � ({weakCards.length})
           </p>
           {weakCards.length > 0 ? weakCards.map(s => (
             <div key={s.vocab.id} className="flex items-center justify-between py-1.5">
               <span className="text-white/70 text-sm font-medium">{s.vocab.korean}</span>
-              <span className="text-rose-400 text-xs">{Math.round(s.accuracy * 100)}% đúng</span>
+              <span className="text-rose-400 text-xs">{Math.round(s.accuracy * 100)}% d�ng</span>
             </div>
-          )) : <p className="text-app-text-muted text-xs">Chưa có dữ liệu</p>}
+          )) : <p className="text-app-text-muted text-xs">Chua c� d? li?u</p>}
         </div>
 
         {/* Due cards */}
         <div>
           <p className="text-amber-400 text-xs font-semibold mb-2 flex items-center gap-1">
-            <i className="ri-time-line"></i> Đến hạn ôn ({dueCards.length})
+            <i className="ri-time-line"></i> �?n h?n �n ({dueCards.length})
           </p>
           {dueCards.length > 0 ? dueCards.map(s => (
             <div key={s.vocab.id} className="flex items-center justify-between py-1.5">
               <span className="text-white/70 text-sm font-medium">{s.vocab.korean}</span>
               <span className="text-amber-400 text-xs">{s.memory.interval}d interval</span>
             </div>
-          )) : <p className="text-app-text-muted text-xs">Không có từ đến hạn</p>}
+          )) : <p className="text-app-text-muted text-xs">Kh�ng c� t? d?n h?n</p>}
         </div>
 
         {/* Streak cards */}
         <div>
           <p className="text-app-accent-success text-xs font-semibold mb-2 flex items-center gap-1">
-            <i className="ri-fire-line"></i> Đang streak ({streakCards.length})
+            <i className="ri-fire-line"></i> �ang streak ({streakCards.length})
           </p>
           {streakCards.length > 0 ? streakCards.map(s => (
             <div key={s.vocab.id} className="flex items-center justify-between py-1.5">
               <span className="text-white/70 text-sm font-medium">{s.vocab.korean}</span>
               <span className="text-app-accent-success text-xs">{s.memory.streak}x streak</span>
             </div>
-          )) : <p className="text-app-text-muted text-xs">Chưa có streak</p>}
+          )) : <p className="text-app-text-muted text-xs">Chua c� streak</p>}
         </div>
       </div>
     </div>
   );
 }
 
-// ─── Session Complete ─────────────────────────────────────────────────────────
+// --- Session Complete ---------------------------------------------------------
 function SessionComplete({ results, onRestart }: {
   results: { card: VocabCard; rating: Rating }[];
   onRestart: () => void;
@@ -348,17 +348,17 @@ function SessionComplete({ results, onRestart }: {
       <div className={`w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-5 ${pct >= 75 ? "bg-app-accent-success/15" : pct >= 50 ? "bg-amber-500/15" : "bg-rose-500/15"}`}>
         <i className={`text-4xl ${pct >= 75 ? "ri-trophy-line text-app-accent-success" : pct >= 50 ? "ri-thumb-up-line text-amber-400" : "ri-refresh-line text-rose-400"}`}></i>
       </div>
-      <h2 className="text-white font-bold text-2xl mb-2">Phiên học hoàn thành!</h2>
+      <h2 className="text-white font-bold text-2xl mb-2">Phi�n h?c ho�n th�nh!</h2>
       <p className="text-white/50 text-sm mb-6">
-        {correct}/{results.length} từ nhớ tốt ({pct}%)
+        {correct}/{results.length} t? nh? t?t ({pct}%)
       </p>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8 max-w-sm mx-auto">
         {[
-          { label: "Lại", count: results.filter(r => r.rating === 1).length, color: "#f87171" },
-          { label: "Khó", count: results.filter(r => r.rating === 2).length, color: "#fbbf24" },
-          { label: "Tốt", count: results.filter(r => r.rating === 3).length, color: "#34d399" },
-          { label: "Dễ", count: results.filter(r => r.rating === 4).length, color: "app-accent-primary" },
+          { label: "L?i", count: results.filter(r => r.rating === 1).length, color: "#f87171" },
+          { label: "Kh�", count: results.filter(r => r.rating === 2).length, color: "#fbbf24" },
+          { label: "T?t", count: results.filter(r => r.rating === 3).length, color: "#34d399" },
+          { label: "D?", count: results.filter(r => r.rating === 4).length, color: "app-accent-primary" },
         ].map(s => (
           <div key={s.label} className="rounded-xl p-3 border border-app-border bg-app-surface/50">
             <p className="font-bold text-xl" style={{ color: s.color }}>{s.count}</p>
@@ -368,18 +368,18 @@ function SessionComplete({ results, onRestart }: {
       </div>
 
       <p className="text-app-text-secondary text-sm mb-6">
-        AI đã cập nhật lịch ôn tập cho {results.length} từ. Từ khó sẽ xuất hiện sớm hơn!
+        AI d� c?p nh?t l?ch �n t?p cho {results.length} t?. T? kh� s? xu?t hi?n s?m hon!
       </p>
 
       <button onClick={onRestart}
         className="px-8 py-3 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm cursor-pointer whitespace-nowrap">
-        <i className="ri-refresh-line mr-2"></i>Học tiếp
+        <i className="ri-refresh-line mr-2"></i>H?c ti?p
       </button>
     </div>
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function AISmartFlashcardPage() {
   const [vocab, setVocab] = useState<VocabCard[]>(mockVocab);
   const [memories, setMemories] = useState<Record<string, CardMemory>>(() => {
@@ -467,10 +467,10 @@ export default function AISmartFlashcardPage() {
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-1">
-            <h1 className="text-white font-bold text-2xl">Flashcard thông minh AI</h1>
+            <h1 className="text-white font-bold text-2xl">Flashcard th�ng minh AI</h1>
             <span className="text-xs px-2.5 py-1 rounded-full bg-app-accent-primary/15 text-app-accent-primary font-bold">SM-2</span>
           </div>
-          <p className="text-white/50 text-sm">AI gợi ý từ cần ôn dựa trên đường cong quên lãng — học đúng lúc, nhớ lâu hơn</p>
+          <p className="text-white/50 text-sm">AI g?i � t? c?n �n d?a tr�n du?ng cong qu�n l�ng � h?c d�ng l�c, nh? l�u hon</p>
         </div>
 
         {mode === "overview" && (
@@ -480,24 +480,24 @@ export default function AISmartFlashcardPage() {
 
             {/* Session config */}
             <div className="rounded-2xl border border-app-border bg-app-surface/50 p-5 mb-5">
-              <h3 className="text-white font-bold text-base mb-4">Bắt đầu phiên học</h3>
+              <h3 className="text-white font-bold text-base mb-4">B?t d?u phi�n h?c</h3>
 
               {/* Filter mode */}
               <div className="mb-4">
-                <p className="text-white/50 text-xs mb-2">Chọn loại từ</p>
+                <p className="text-white/50 text-xs mb-2">Ch?n lo?i t?</p>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                   {[
-                    { value: "due", label: "Đến hạn ôn", icon: "ri-alarm-line", color: "#f87171", count: dueCount },
-                    { value: "new", label: "Từ mới", icon: "ri-add-circle-line", color: "app-accent-primary", count: vocab.filter(v => !memories[v.id] || memories[v.id].totalReviews === 0).length },
-                    { value: "weak", label: "Từ yếu", icon: "ri-error-warning-line", color: "#fbbf24", count: suggestions.filter(s => s.accuracy < 0.6 && s.memory.totalReviews > 0).length },
-                    { value: "all", label: "Tất cả", icon: "ri-apps-line", color: "#a78bfa", count: vocab.length },
+                    { value: "due", label: "�?n h?n �n", icon: "ri-alarm-line", color: "#f87171", count: dueCount },
+                    { value: "new", label: "T? m?i", icon: "ri-add-circle-line", color: "app-accent-primary", count: vocab.filter(v => !memories[v.id] || memories[v.id].totalReviews === 0).length },
+                    { value: "weak", label: "T? y?u", icon: "ri-error-warning-line", color: "#fbbf24", count: suggestions.filter(s => s.accuracy < 0.6 && s.memory.totalReviews > 0).length },
+                    { value: "all", label: "T?t c?", icon: "ri-apps-line", color: "#a78bfa", count: vocab.length },
                   ].map(opt => (
                     <button key={opt.value} onClick={() => setFilterMode(opt.value as typeof filterMode)}
                       className={`flex flex-col items-center py-3 rounded-xl border transition-all cursor-pointer ${filterMode === opt.value ? "border-opacity-50" : "border-app-border bg-app-surface/50 hover:bg-app-card/50"}`}
                       style={filterMode === opt.value ? { backgroundColor: `${opt.color}15`, borderColor: `${opt.color}40` } : {}}>
                       <i className={`${opt.icon} text-lg mb-1`} style={{ color: filterMode === opt.value ? opt.color : "rgba(255,255,255,0.3)" }}></i>
                       <span className="text-xs font-semibold" style={{ color: filterMode === opt.value ? opt.color : "rgba(255,255,255,0.5)" }}>{opt.label}</span>
-                      <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>{opt.count} từ</span>
+                      <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>{opt.count} t?</span>
                     </button>
                   ))}
                 </div>
@@ -505,7 +505,7 @@ export default function AISmartFlashcardPage() {
 
               {/* Session size */}
               <div className="mb-5">
-                <p className="text-white/50 text-xs mb-2">Số thẻ mỗi phiên: <span className="text-white font-bold">{sessionSize}</span></p>
+                <p className="text-white/50 text-xs mb-2">S? th? m?i phi�n: <span className="text-white font-bold">{sessionSize}</span></p>
                 <input type="range" min={5} max={30} step={5} value={sessionSize} onChange={e => setSessionSize(Number(e.target.value))}
                   className="w-full accent-[app-accent-primary]" />
                 <div className="flex justify-between text-app-text-muted text-xs mt-1">
@@ -516,7 +516,7 @@ export default function AISmartFlashcardPage() {
               <button onClick={startSession}
                 className="w-full py-3.5 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm cursor-pointer whitespace-nowrap transition-opacity hover:opacity-90">
                 <i className="ri-play-circle-line mr-2"></i>
-                Bắt đầu học ({Math.min(sessionSize, vocab.length)} thẻ)
+                B?t d?u h?c ({Math.min(sessionSize, vocab.length)} th?)
               </button>
             </div>
 
@@ -524,7 +524,7 @@ export default function AISmartFlashcardPage() {
             <div className="rounded-2xl border border-app-border bg-app-surface/50 p-5">
               <h3 className="text-white font-bold text-sm mb-4">
                 <i className="ri-list-check mr-2 text-app-text-secondary"></i>
-                Danh sách từ ưu tiên hôm nay
+                Danh s�ch t? uu ti�n h�m nay
               </h3>
               <div className="space-y-2 max-h-64 overflow-y-auto">
                 {suggestions.slice(0, 15).map((s, i) => (
@@ -535,8 +535,8 @@ export default function AISmartFlashcardPage() {
                       <span className="text-app-text-secondary text-xs ml-2">{s.vocab.vietnamese}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      {s.isNew && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary font-bold">MỚI</span>}
-                      {s.isDue && !s.isNew && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-rose-500/15 text-rose-400 font-bold">ĐẾN HẠN</span>}
+                      {s.isNew && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-app-accent-primary/15 text-app-accent-primary font-bold">M?I</span>}
+                      {s.isDue && !s.isNew && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-rose-500/15 text-rose-400 font-bold">�?N H?N</span>}
                       {s.memory.totalReviews > 0 && (
                         <span className="text-app-text-muted text-xs">{Math.round(s.accuracy * 100)}%</span>
                       )}
@@ -553,11 +553,11 @@ export default function AISmartFlashcardPage() {
             <div className="flex items-center justify-between mb-5">
               <button onClick={() => setMode("overview")}
                 className="flex items-center gap-2 text-white/50 hover:text-white/80 text-sm cursor-pointer transition-colors">
-                <i className="ri-arrow-left-line"></i> Dừng phiên
+                <i className="ri-arrow-left-line"></i> D?ng phi�n
               </button>
               <span className="text-app-text-secondary text-xs">
                 <i className="ri-robot-2-line mr-1 text-app-accent-primary"></i>
-                AI đang theo dõi tiến độ
+                AI dang theo d�i ti?n d?
               </span>
             </div>
             <FlashCard

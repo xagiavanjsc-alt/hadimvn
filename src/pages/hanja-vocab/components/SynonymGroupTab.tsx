@@ -1,4 +1,4 @@
-﻿import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 
 const SR_KEY = "hanja_sr_data";
@@ -24,7 +24,7 @@ function normalize(str: string): string {
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .replace(/đ/g, "d")
+    .replace(/d/g, "d")
     .replace(/[^a-z0-9]/g, "")
     .trim();
 }
@@ -85,26 +85,26 @@ function buildHomophoneGroups(): { korean: string; words: HanjaEntry[] }[] {
 function MasteryBadge({ level }: { level: "new" | "learning" | "mastered" }) {
   if (level === "new") return (
     <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-gray-100 text-gray-500">
-      <i className="ri-seedling-line text-xs"></i>Mới
+      <i className="ri-seedling-line text-xs"></i>M?i
     </span>
   );
   if (level === "learning") return (
     <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-amber-50 text-amber-600">
-      <i className="ri-book-open-line text-xs"></i>Đang học
+      <i className="ri-book-open-line text-xs"></i>�ang h?c
     </span>
   );
   return (
     <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-green-50 text-green-600">
-      <i className="ri-check-double-line text-xs"></i>Đã thuộc
+      <i className="ri-check-double-line text-xs"></i>�� thu?c
     </span>
   );
 }
 
 type Mode = "synonym" | "homophone" | "match";
 
-// ─── Match Quiz (ghép cặp đồng nghĩa) ────────────────────────────────────────
+// --- Match Quiz (gh�p c?p d?ng nghia) ----------------------------------------
 function MatchQuiz({ groups, onClose }: { groups: SynonymGroup[]; onClose: () => void }) {
-  // Pick 4 random groups with ≥2 words, pick 1 word from each
+  // Pick 4 random groups with =2 words, pick 1 word from each
   const [round, setRound] = useState(0);
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
@@ -179,9 +179,9 @@ function MatchQuiz({ groups, onClose }: { groups: SynonymGroup[]; onClose: () =>
           <i className={`text-2xl ${pct >= 75 ? "ri-trophy-line text-green-600" : "ri-emotion-normal-line text-amber-600"}`}></i>
         </div>
         <p className="text-2xl font-bold text-gray-900 mb-1">{pct}%</p>
-        <p className="text-gray-500 mb-6">Ghép đúng {score} / {ROUNDS} nhóm</p>
+        <p className="text-gray-500 mb-6">Gh�p d�ng {score} / {ROUNDS} nh�m</p>
         <div className="flex gap-3 justify-center">
-          <button onClick={onClose} className="px-6 py-2.5 border border-gray-200 text-gray-700 rounded-xl font-medium cursor-pointer hover:bg-gray-50 transition-colors">Quay lại</button>
+          <button onClick={onClose} className="px-6 py-2.5 border border-gray-200 text-gray-700 rounded-xl font-medium cursor-pointer hover:bg-gray-50 transition-colors">Quay l?i</button>
         </div>
       </div>
     );
@@ -193,22 +193,22 @@ function MatchQuiz({ groups, onClose }: { groups: SynonymGroup[]; onClose: () =>
     <div className="max-w-lg mx-auto">
       <div className="flex items-center justify-between mb-4">
         <button onClick={onClose} className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
-          <i className="ri-arrow-left-line"></i> Dừng
+          <i className="ri-arrow-left-line"></i> D?ng
         </button>
-        <span className="text-sm text-gray-500">Nhóm {round + 1} / {ROUNDS}</span>
-        <span className="text-sm font-semibold text-rose-600">✓ {score}</span>
+        <span className="text-sm text-gray-500">Nh�m {round + 1} / {ROUNDS}</span>
+        <span className="text-sm font-semibold text-rose-600">? {score}</span>
       </div>
       <div className="w-full bg-gray-100 rounded-full h-1.5 mb-5">
         <div className="bg-rose-400 h-1.5 rounded-full transition-all" style={{ width: `${(round / ROUNDS) * 100}%` }}></div>
       </div>
       <div className="bg-rose-50 border border-rose-200 rounded-xl p-3 text-center mb-5">
-        <p className="text-xs text-rose-500 font-semibold tracking-wide mb-1">Chủ đề nhóm</p>
+        <p className="text-xs text-rose-500 font-semibold tracking-wide mb-1">Ch? d? nh�m</p>
         <p className="text-lg font-bold text-gray-900 capitalize">{current.group.label}</p>
-        <p className="text-xs text-gray-500">Ghép từ Hàn với nghĩa tiếng Việt tương ứng</p>
+        <p className="text-xs text-gray-500">Gh�p t? H�n v?i nghia ti?ng Vi?t tuong ?ng</p>
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-3">
-          <p className="text-xs font-semibold text-gray-500 text-center tracking-wide">Tiếng Hàn</p>
+          <p className="text-xs font-semibold text-gray-500 text-center tracking-wide">Ti?ng H�n</p>
           {leftWords.map(korean => {
             const isMatched = pairMatched.has(korean);
             const isSelected = leftSel === korean;
@@ -229,7 +229,7 @@ function MatchQuiz({ groups, onClose }: { groups: SynonymGroup[]; onClose: () =>
           })}
         </div>
         <div className="space-y-3">
-          <p className="text-xs font-semibold text-gray-500 text-center tracking-wide">Tiếng Việt</p>
+          <p className="text-xs font-semibold text-gray-500 text-center tracking-wide">Ti?ng Vi?t</p>
           {rightWords.map(viet => {
             const matchedKorean = current.words.find(w => w.vietnamese === viet && pairMatched.has(w.korean));
             const isMatched = !!matchedKorean;
@@ -337,10 +337,10 @@ export default function SynonymGroupTab() {
       <div className="max-w-lg mx-auto">
         <div className="flex items-center justify-between mb-4">
           <button onClick={() => setQuizGroup(null)} className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
-            <i className="ri-arrow-left-line"></i> Dừng
+            <i className="ri-arrow-left-line"></i> D?ng
           </button>
           <span className="text-sm text-gray-500">{quizIdx + 1} / {quizGroup.length}</span>
-          <span className="text-xs text-green-600 font-medium">✓ {quizResults.known} &nbsp; ✗ {quizResults.unknown}</span>
+          <span className="text-xs text-green-600 font-medium">? {quizResults.known} &nbsp; ? {quizResults.unknown}</span>
         </div>
         <div className="w-full bg-gray-100 rounded-full h-1.5 mb-6">
           <div className="bg-rose-400 h-1.5 rounded-full transition-all" style={{ width: `${(quizIdx / quizGroup.length) * 100}%` }}></div>
@@ -351,7 +351,7 @@ export default function SynonymGroupTab() {
           {!quizRevealed ? (
             <button onClick={() => setQuizRevealed(true)}
               className="px-6 py-2 bg-gray-100 text-gray-600 rounded-lg text-sm cursor-pointer hover:bg-gray-200 transition-colors">
-              Hiện nghĩa
+              Hi?n nghia
             </button>
           ) : (
             <div className="border-t border-gray-100 pt-4">
@@ -363,11 +363,11 @@ export default function SynonymGroupTab() {
           <div className="grid grid-cols-2 gap-3">
             <button onClick={() => handleQuizAnswer(false)}
               className="py-4 rounded-xl border-2 border-red-300 bg-red-50 text-red-700 font-bold cursor-pointer hover:bg-red-100 transition-colors">
-              <i className="ri-close-line mr-1"></i>Chưa biết
+              <i className="ri-close-line mr-1"></i>Chua bi?t
             </button>
             <button onClick={() => handleQuizAnswer(true)}
               className="py-4 rounded-xl border-2 border-green-300 bg-green-50 text-green-700 font-bold cursor-pointer hover:bg-green-100 transition-colors">
-              <i className="ri-check-line mr-1"></i>Đã biết
+              <i className="ri-check-line mr-1"></i>�� bi?t
             </button>
           </div>
         )}
@@ -384,10 +384,10 @@ export default function SynonymGroupTab() {
             <i className={`text-3xl ${pct >= 80 ? "ri-trophy-line text-green-600" : pct >= 50 ? "ri-emotion-normal-line text-amber-600" : "ri-emotion-sad-line text-red-500"}`}></i>
           </div>
           <h3 className="text-2xl font-bold text-gray-900 mb-1">{pct}%</h3>
-          <p className="text-gray-500 mb-8">Biết {quizResults.known} / {quizGroup.length} từ</p>
+          <p className="text-gray-500 mb-8">Bi?t {quizResults.known} / {quizGroup.length} t?</p>
           <div className="flex gap-3">
-            <button onClick={() => startQuiz(quizGroup)} className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">Ôn lại</button>
-            <button onClick={() => setQuizGroup(null)} className="flex-1 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">Quay lại</button>
+            <button onClick={() => startQuiz(quizGroup)} className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">�n l?i</button>
+            <button onClick={() => setQuizGroup(null)} className="flex-1 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">Quay l?i</button>
           </div>
         </div>
       </div>
@@ -397,32 +397,32 @@ export default function SynonymGroupTab() {
   // Group detail view
   if (selectedGroup && currentGroupWords.length > 0) {
     const groupLabel = mode === "synonym"
-      ? `Nhóm nghĩa "${selectedSynonymGroup?.label}"`
-      : `Đồng âm "${selectedHomophoneGroup?.korean}"`;
+      ? `Nh�m nghia "${selectedSynonymGroup?.label}"`
+      : `�?ng �m "${selectedHomophoneGroup?.korean}"`;
 
     return (
       <div>
         <div className="flex items-center gap-3 mb-5">
           <button onClick={() => setSelectedGroup(null)}
             className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
-            <i className="ri-arrow-left-line"></i> Quay lại
+            <i className="ri-arrow-left-line"></i> Quay l?i
           </button>
           <span className="text-sm font-semibold text-gray-700">{groupLabel}</span>
-          <span className="text-xs text-gray-400">({currentGroupWords.length} từ)</span>
+          <span className="text-xs text-gray-400">({currentGroupWords.length} t?)</span>
         </div>
 
         {/* Comparison table */}
         <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden mb-4">
           <div className="p-4 border-b border-gray-100 flex items-center justify-between">
             <div>
-              <p className="text-sm font-semibold text-gray-700">So sánh các từ trong nhóm</p>
+              <p className="text-sm font-semibold text-gray-700">So s�nh c�c t? trong nh�m</p>
               <p className="text-xs text-gray-400 mt-0.5">
-                {mode === "synonym" ? "Các từ có cùng nghĩa tiếng Việt — học phân biệt" : "Các từ đọc giống nhau nhưng nghĩa khác nhau"}
+                {mode === "synonym" ? "C�c t? c� c�ng nghia ti?ng Vi?t � h?c ph�n bi?t" : "C�c t? d?c gi?ng nhau nhung nghia kh�c nhau"}
               </p>
             </div>
             <button onClick={() => startQuiz(currentGroupWords)}
               className="flex items-center gap-2 px-4 py-2 bg-rose-500 text-white rounded-lg text-sm font-medium cursor-pointer hover:bg-rose-600 transition-colors whitespace-nowrap">
-              <i className="ri-flashlight-line"></i>Ôn nhóm này
+              <i className="ri-flashlight-line"></i>�n nh�m n�y
             </button>
           </div>
 
@@ -453,12 +453,12 @@ export default function SynonymGroupTab() {
         <div className="bg-amber-50 border border-amber-100 rounded-xl p-4">
           <div className="flex items-center gap-2 mb-2">
             <i className="ri-lightbulb-line text-amber-500"></i>
-            <span className="text-sm font-semibold text-amber-700">Mẹo ghi nhớ</span>
+            <span className="text-sm font-semibold text-amber-700">M?o ghi nh?</span>
           </div>
           <p className="text-xs text-amber-700">
             {mode === "synonym"
-              ? "Chú ý sự khác biệt về Hán tự — mỗi chữ Hán mang sắc thái nghĩa riêng dù phiên âm tiếng Việt giống nhau."
-              : "Các từ đồng âm rất dễ nhầm lẫn! Hãy chú ý Hán tự và ngữ cảnh sử dụng để phân biệt."}
+              ? "Ch� � s? kh�c bi?t v? H�n t? � m?i ch? H�n mang s?c th�i nghia ri�ng d� phi�n �m ti?ng Vi?t gi?ng nhau."
+              : "C�c t? d?ng �m r?t d? nh?m l?n! H�y ch� � H�n t? v� ng? c?nh s? d?ng d? ph�n bi?t."}
           </p>
         </div>
       </div>
@@ -469,8 +469,8 @@ export default function SynonymGroupTab() {
   return (
     <div>
       <div className="mb-5">
-        <h2 className="text-lg font-bold text-gray-900 mb-1">Học theo cặp từ</h2>
-        <p className="text-sm text-gray-500">Nhóm các từ đồng nghĩa hoặc đồng âm để học phân biệt hiệu quả hơn</p>
+        <h2 className="text-lg font-bold text-gray-900 mb-1">H?c theo c?p t?</h2>
+        <p className="text-sm text-gray-500">Nh�m c�c t? d?ng nghia ho?c d?ng �m d? h?c ph�n bi?t hi?u qu? hon</p>
       </div>
 
       {/* Mode toggle */}
@@ -478,25 +478,25 @@ export default function SynonymGroupTab() {
         <div className="flex gap-1 bg-gray-100 rounded-xl p-1">
           <button onClick={() => { setMode("synonym"); setSelectedGroup(null); setSearch(""); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium cursor-pointer whitespace-nowrap transition-all ${mode === "synonym" ? "bg-white text-rose-600" : "text-gray-500 hover:text-gray-700"}`}>
-            <i className="ri-links-line"></i>Đồng nghĩa
+            <i className="ri-links-line"></i>�?ng nghia
             <span className="text-xs opacity-60">({synonymGroups.length})</span>
           </button>
           <button onClick={() => { setMode("homophone"); setSelectedGroup(null); setSearch(""); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium cursor-pointer whitespace-nowrap transition-all ${mode === "homophone" ? "bg-white text-rose-600" : "text-gray-500 hover:text-gray-700"}`}>
-            <i className="ri-sound-module-line"></i>Đồng âm
+            <i className="ri-sound-module-line"></i>�?ng �m
             <span className="text-xs opacity-60">({homophoneGroups.length})</span>
           </button>
         </div>
         <button onClick={() => setMatchQuizMode(true)}
           className="flex items-center gap-2 px-4 py-2 bg-rose-500 text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-rose-600 transition-colors whitespace-nowrap">
-          <i className="ri-drag-drop-line"></i>Quiz ghép cặp đồng nghĩa
+          <i className="ri-drag-drop-line"></i>Quiz gh�p c?p d?ng nghia
         </button>
       </div>
 
       {/* Search */}
       <div className="relative mb-5">
         <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-        <input type="text" placeholder={mode === "synonym" ? "Tìm theo nghĩa tiếng Việt..." : "Tìm theo từ Hàn..."}
+        <input type="text" placeholder={mode === "synonym" ? "T�m theo nghia ti?ng Vi?t..." : "T�m theo t? H�n..."}
           value={search} onChange={e => setSearch(e.target.value)}
           className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
       </div>
@@ -505,7 +505,7 @@ export default function SynonymGroupTab() {
       {mode === "synonym" && (
         <div>
           <p className="text-xs text-gray-400 mb-3">
-            Hiển thị {filteredSynonymGroups.length} nhóm · Tổng {synonymGroups.length} nhóm đồng nghĩa
+            Hi?n th? {filteredSynonymGroups.length} nh�m � T?ng {synonymGroups.length} nh�m d?ng nghia
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {filteredSynonymGroups.map(group => {
@@ -516,7 +516,7 @@ export default function SynonymGroupTab() {
                   <div className="flex items-start justify-between mb-3">
                     <div>
                       <p className="font-bold text-gray-900 text-sm capitalize">{group.label}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">{group.words.length} từ cùng nghĩa</p>
+                      <p className="text-xs text-gray-400 mt-0.5">{group.words.length} t? c�ng nghia</p>
                     </div>
                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                       masteredCount === group.words.length ? "bg-green-100 text-green-600" :
@@ -552,7 +552,7 @@ export default function SynonymGroupTab() {
       {mode === "homophone" && (
         <div>
           <p className="text-xs text-gray-400 mb-3">
-            Hiển thị {filteredHomophoneGroups.length} nhóm · Tổng {homophoneGroups.length} nhóm đồng âm
+            Hi?n th? {filteredHomophoneGroups.length} nh�m � T?ng {homophoneGroups.length} nh�m d?ng �m
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {filteredHomophoneGroups.map(group => {
@@ -563,7 +563,7 @@ export default function SynonymGroupTab() {
                   <div className="flex items-start justify-between mb-3">
                     <div>
                       <p className="font-bold text-gray-900 text-xl">{group.korean}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">{group.words.length} nghĩa khác nhau</p>
+                      <p className="text-xs text-gray-400 mt-0.5">{group.words.length} nghia kh�c nhau</p>
                     </div>
                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                       masteredCount === group.words.length ? "bg-green-100 text-green-600" :
@@ -580,7 +580,7 @@ export default function SynonymGroupTab() {
                       </div>
                     ))}
                     {group.words.length > 3 && (
-                      <p className="text-xs text-gray-400">+{group.words.length - 3} nghĩa khác...</p>
+                      <p className="text-xs text-gray-400">+{group.words.length - 3} nghia kh�c...</p>
                     )}
                   </div>
                   <div className="mt-2 w-full bg-gray-100 rounded-full h-1">

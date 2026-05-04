@@ -1,11 +1,11 @@
-﻿import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { supabase } from "@/lib/supabase";
 import { useAdminUsers } from "@/hooks/useAdminUsers";
 import { useAuth } from "@/hooks/useAuth";
 
-// ─── Audit Logger ─────────────────────────────────────────────────────────────
+// --- Audit Logger -------------------------------------------------------------
 async function logPricingAction(
   actionType: string,
   actionLabel: string,
@@ -25,7 +25,7 @@ async function logPricingAction(
   }).maybeSingle();
 }
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// --- Types --------------------------------------------------------------------
 interface PricingPlan {
   id: string;
   name: string;
@@ -43,11 +43,11 @@ interface PricingPlan {
 const DEFAULT_PLANS: PricingPlan[] = [
   {
     id: "free",
-    name: "Miễn phí",
+    name: "Mi?n ph�",
     price: 0,
     yearlyPrice: 0,
-    description: "Học cơ bản, không giới hạn thời gian",
-    features: ["Hangul cơ bản", "20 flashcard/ngày", "3 câu EPS/ngày", "5 câu quiz/lần", "Streak hàng ngày"],
+    description: "H?c co b?n, kh�ng gi?i h?n th?i gian",
+    features: ["Hangul co b?n", "20 flashcard/ng�y", "3 c�u EPS/ng�y", "5 c�u quiz/l?n", "Streak h�ng ng�y"],
     isPopular: false,
     active: true,
     color: "#6b7280",
@@ -55,11 +55,11 @@ const DEFAULT_PLANS: PricingPlan[] = [
   },
   {
     id: "vip_month",
-    name: "VIP Tháng",
+    name: "VIP Th�ng",
     price: 79000,
     yearlyPrice: 0,
-    description: "Mở khóa toàn bộ tính năng, thanh toán hàng tháng",
-    features: ["Tất cả tính năng Free", "50+ câu EPS không giới hạn", "Học qua tin tức Naver thật", "Ghi âm & so sánh phát âm", "Lộ trình TOPIK cá nhân hóa", "Toàn bộ kho K-pop Lesson", "Xuất CSV/Anki (50 từ/lần)", "Không quảng cáo"],
+    description: "M? kh�a to�n b? t�nh nang, thanh to�n h�ng th�ng",
+    features: ["T?t c? t�nh nang Free", "50+ c�u EPS kh�ng gi?i h?n", "H?c qua tin t?c Naver th?t", "Ghi �m & so s�nh ph�t �m", "L? tr�nh TOPIK c� nh�n h�a", "To�n b? kho K-pop Lesson", "Xu?t CSV/Anki (50 t?/l?n)", "Kh�ng qu?ng c�o"],
     isPopular: false,
     active: true,
     color: "#34d399",
@@ -67,20 +67,20 @@ const DEFAULT_PLANS: PricingPlan[] = [
   },
   {
     id: "vip_year",
-    name: "VIP Năm",
+    name: "VIP Nam",
     price: 59000,
     yearlyPrice: 708000,
-    description: "Tiết kiệm 25% so với gói tháng, xuất không giới hạn",
-    features: ["Tất cả tính năng VIP Tháng", "Xuất CSV/Anki/PDF không giới hạn", "Ebook Builder không giới hạn", "Hỗ trợ ưu tiên qua Zalo", "Lịch sử học tập đầy đủ", "Backup dữ liệu học tập"],
+    description: "Ti?t ki?m 25% so v?i g�i th�ng, xu?t kh�ng gi?i h?n",
+    features: ["T?t c? t�nh nang VIP Th�ng", "Xu?t CSV/Anki/PDF kh�ng gi?i h?n", "Ebook Builder kh�ng gi?i h?n", "H? tr? uu ti�n qua Zalo", "L?ch s? h?c t?p d?y d?", "Backup d? li?u h?c t?p"],
     isPopular: true,
     active: true,
     color: "app-accent-primary",
     trialDays: 0,
-    badge: "Tiết kiệm 25%",
+    badge: "Ti?t ki?m 25%",
   },
 ];
 
-// ─── Plan Editor Modal ────────────────────────────────────────────────────────
+// --- Plan Editor Modal --------------------------------------------------------
 function PlanEditorModal({ plan, isNew, onSave, onClose }: {
   plan: PricingPlan; isNew: boolean;
   onSave: (p: PricingPlan) => void;
@@ -115,7 +115,7 @@ function PlanEditorModal({ plan, isNew, onSave, onClose }: {
             <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${edited.color}20` }}>
               <i className="ri-price-tag-3-line text-sm" style={{ color: edited.color }}></i>
             </div>
-            <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>{isNew ? "Thêm gói mới" : `Chỉnh sửa: ${plan.name}`}</p>
+            <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>{isNew ? "Th�m g�i m?i" : `Ch?nh s?a: ${plan.name}`}</p>
           </div>
           <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ color: "var(--admin-text-muted)" }}>
             <i className="ri-close-line"></i>
@@ -125,22 +125,22 @@ function PlanEditorModal({ plan, isNew, onSave, onClose }: {
         <div className="p-5 space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Tên gói *</label>
+              <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>T�n g�i *</label>
               <input type="text" value={edited.name} onChange={e => setEdited(p => ({ ...p, name: e.target.value }))}
                 className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
             </div>
             <div>
-              <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Badge (tùy chọn)</label>
+              <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Badge (t�y ch?n)</label>
               <input type="text" value={edited.badge || ""} onChange={e => setEdited(p => ({ ...p, badge: e.target.value }))}
-                placeholder="VD: Tiết kiệm 25%"
+                placeholder="VD: Ti?t ki?m 25%"
                 className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
             </div>
           </div>
 
           <div>
-            <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Mô tả</label>
+            <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>M� t?</label>
             <input type="text" value={edited.description} onChange={e => setEdited(p => ({ ...p, description: e.target.value }))}
               className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
               style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
@@ -148,19 +148,19 @@ function PlanEditorModal({ plan, isNew, onSave, onClose }: {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
-              <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Giá/tháng (VNĐ)</label>
+              <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Gi�/th�ng (VN�)</label>
               <input type="number" min={0} value={edited.price} onChange={e => setEdited(p => ({ ...p, price: parseInt(e.target.value) || 0 }))}
                 className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
             </div>
             <div>
-              <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Giá năm (VNĐ)</label>
+              <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Gi� nam (VN�)</label>
               <input type="number" min={0} value={edited.yearlyPrice} onChange={e => setEdited(p => ({ ...p, yearlyPrice: parseInt(e.target.value) || 0 }))}
                 className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
             </div>
             <div>
-              <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Ngày dùng thử</label>
+              <label className="text-[10px] font-semibold tracking-normal mb-1.5 block" style={{ color: "var(--admin-text-faint)" }}>Ng�y d�ng th?</label>
               <input type="number" min={0} value={edited.trialDays} onChange={e => setEdited(p => ({ ...p, trialDays: parseInt(e.target.value) || 0 }))}
                 className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
@@ -169,7 +169,7 @@ function PlanEditorModal({ plan, isNew, onSave, onClose }: {
 
           {/* Color picker */}
           <div>
-            <label className="text-[10px] font-semibold tracking-normal mb-2 block" style={{ color: "var(--admin-text-faint)" }}>Màu sắc</label>
+            <label className="text-[10px] font-semibold tracking-normal mb-2 block" style={{ color: "var(--admin-text-faint)" }}>M�u s?c</label>
             <div className="flex items-center gap-2 flex-wrap">
               {COLORS.map(c => (
                 <button key={c} onClick={() => setEdited(p => ({ ...p, color: c }))}
@@ -177,13 +177,13 @@ function PlanEditorModal({ plan, isNew, onSave, onClose }: {
                   style={{ backgroundColor: c, outline: edited.color === c ? `2px solid ${c}` : "none", outlineOffset: "2px" }} />
               ))}
               <input type="color" value={edited.color} onChange={e => setEdited(p => ({ ...p, color: e.target.value }))}
-                className="w-7 h-7 rounded-full cursor-pointer border-0 bg-transparent" title="Màu tùy chỉnh" />
+                className="w-7 h-7 rounded-full cursor-pointer border-0 bg-transparent" title="M�u t�y ch?nh" />
             </div>
           </div>
 
           {/* Features */}
           <div>
-            <label className="text-[10px] font-semibold tracking-normal mb-2 block" style={{ color: "var(--admin-text-faint)" }}>Tính năng ({edited.features.length})</label>
+            <label className="text-[10px] font-semibold tracking-normal mb-2 block" style={{ color: "var(--admin-text-faint)" }}>T�nh nang ({edited.features.length})</label>
             <div className="space-y-1.5 mb-2 max-h-48 overflow-y-auto">
               {edited.features.map((f, i) => (
                 <div key={i} className="flex items-center gap-2 px-3 py-2 rounded-lg"
@@ -207,7 +207,7 @@ function PlanEditorModal({ plan, isNew, onSave, onClose }: {
             <div className="flex gap-2">
               <input type="text" value={newFeature} onChange={e => setNewFeature(e.target.value)}
                 onKeyDown={e => e.key === "Enter" && addFeature()}
-                placeholder="Thêm tính năng mới... (Enter)"
+                placeholder="Th�m t�nh nang m?i... (Enter)"
                 className="flex-1 rounded-xl px-3 py-2 text-xs outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
               <button onClick={addFeature} className="px-3 py-2 rounded-xl text-xs cursor-pointer whitespace-nowrap"
@@ -221,11 +221,11 @@ function PlanEditorModal({ plan, isNew, onSave, onClose }: {
           <div className="flex items-center gap-6 pt-2">
             <label className="flex items-center gap-2 cursor-pointer">
               <input type="checkbox" checked={edited.isPopular} onChange={e => setEdited(p => ({ ...p, isPopular: e.target.checked }))} className="w-4 h-4 rounded accent-rose-500" />
-              <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>Đánh dấu "Phổ biến nhất"</span>
+              <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>��nh d?u "Ph? bi?n nh?t"</span>
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
               <input type="checkbox" checked={edited.active} onChange={e => setEdited(p => ({ ...p, active: e.target.checked }))} className="w-4 h-4 rounded accent-rose-500" />
-              <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>Hiển thị gói này</span>
+              <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>Hi?n th? g�i n�y</span>
             </label>
           </div>
         </div>
@@ -233,11 +233,11 @@ function PlanEditorModal({ plan, isNew, onSave, onClose }: {
         <div className="flex gap-3 px-5 py-4 border-t sticky bottom-0"
           style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
           <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap"
-            style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>Hủy</button>
+            style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>H?y</button>
           <button onClick={() => onSave(edited)} disabled={!edited.name.trim()}
             className="flex-1 py-2.5 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap disabled:opacity-40 text-black"
             style={{ backgroundColor: edited.color }}>
-            {isNew ? "Thêm gói" : "Lưu thay đổi"}
+            {isNew ? "Th�m g�i" : "Luu thay d?i"}
           </button>
         </div>
       </div>
@@ -245,7 +245,7 @@ function PlanEditorModal({ plan, isNew, onSave, onClose }: {
   );
 }
 
-// ─── Plan Card ────────────────────────────────────────────────────────────────
+// --- Plan Card ----------------------------------------------------------------
 function PlanCard({ plan, onEdit, onDelete, onToggle, userCount }: {
   plan: PricingPlan; userCount: number;
   onEdit: () => void; onDelete: () => void; onToggle: () => void;
@@ -259,7 +259,7 @@ function PlanCard({ plan, onEdit, onDelete, onToggle, userCount }: {
       style={{ backgroundColor: "var(--admin-card)", borderColor: plan.isPopular ? `${plan.color}40` : "var(--admin-border)" }}>
       {plan.isPopular && (
         <div className="absolute top-0 right-0 text-[10px] font-bold px-3 py-1 rounded-bl-xl text-black" style={{ backgroundColor: plan.color }}>
-          PHỔ BIẾN NHẤT
+          PH? BI?N NH?T
         </div>
       )}
       {plan.badge && !plan.isPopular && (
@@ -284,16 +284,16 @@ function PlanCard({ plan, onEdit, onDelete, onToggle, userCount }: {
         {/* Pricing */}
         <div className="flex items-end gap-3 mb-4">
           <div>
-            <p className="text-[10px] tracking-normal mb-0.5" style={{ color: "var(--admin-text-faint)" }}>Hàng tháng</p>
+            <p className="text-[10px] tracking-normal mb-0.5" style={{ color: "var(--admin-text-faint)" }}>H�ng th�ng</p>
             <p className="font-bold text-2xl" style={{ color: "var(--admin-text)" }}>
-              {plan.price === 0 ? "Miễn phí" : `${new Intl.NumberFormat("vi-VN").format(plan.price)}đ`}
+              {plan.price === 0 ? "Mi?n ph�" : `${new Intl.NumberFormat("vi-VN").format(plan.price)}d`}
             </p>
           </div>
           {plan.yearlyPrice > 0 && (
             <div className="mb-0.5">
-              <p className="text-[10px] tracking-normal mb-0.5" style={{ color: "var(--admin-text-faint)" }}>Hàng năm</p>
+              <p className="text-[10px] tracking-normal mb-0.5" style={{ color: "var(--admin-text-faint)" }}>H�ng nam</p>
               <p className="font-semibold text-base" style={{ color: "var(--admin-text-muted)" }}>
-                {new Intl.NumberFormat("vi-VN").format(plan.yearlyPrice)}đ/năm
+                {new Intl.NumberFormat("vi-VN").format(plan.yearlyPrice)}d/nam
               </p>
             </div>
           )}
@@ -304,7 +304,7 @@ function PlanCard({ plan, onEdit, onDelete, onToggle, userCount }: {
           )}
           {plan.trialDays > 0 && (
             <span className="mb-0.5 text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400">
-              {plan.trialDays}d thử
+              {plan.trialDays}d th?
             </span>
           )}
         </div>
@@ -318,7 +318,7 @@ function PlanCard({ plan, onEdit, onDelete, onToggle, userCount }: {
             </div>
           ))}
           {plan.features.length > 4 && (
-            <p className="text-xs pl-5" style={{ color: "var(--admin-text-faint)" }}>+{plan.features.length - 4} tính năng khác</p>
+            <p className="text-xs pl-5" style={{ color: "var(--admin-text-faint)" }}>+{plan.features.length - 4} t�nh nang kh�c</p>
           )}
         </div>
 
@@ -326,11 +326,11 @@ function PlanCard({ plan, onEdit, onDelete, onToggle, userCount }: {
         <div className="flex items-center gap-3 py-3 border-t mb-3" style={{ borderColor: "var(--admin-border)" }}>
           <div className="flex items-center gap-1.5">
             <i className="ri-user-line text-xs" style={{ color: "var(--admin-text-faint)" }}></i>
-            <span className="text-xs font-semibold" style={{ color: "var(--admin-text-muted)" }}>{userCount} thành viên</span>
+            <span className="text-xs font-semibold" style={{ color: "var(--admin-text-muted)" }}>{userCount} th�nh vi�n</span>
           </div>
           <div className="flex items-center gap-1.5 ml-auto">
             <div className={`w-2 h-2 rounded-full ${plan.active ? "bg-emerald-400" : "bg-gray-500"}`}></div>
-            <span className="text-xs" style={{ color: "var(--admin-text-faint)" }}>{plan.active ? "Đang hiển thị" : "Đã ẩn"}</span>
+            <span className="text-xs" style={{ color: "var(--admin-text-faint)" }}>{plan.active ? "�ang hi?n th?" : "�� ?n"}</span>
           </div>
         </div>
 
@@ -338,7 +338,7 @@ function PlanCard({ plan, onEdit, onDelete, onToggle, userCount }: {
         <div className="flex items-center gap-2">
           <button onClick={onEdit} className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap"
             style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)", border: "1px solid var(--admin-border)" }}>
-            <i className="ri-edit-line"></i>Chỉnh sửa
+            <i className="ri-edit-line"></i>Ch?nh s?a
           </button>
           <button onClick={onToggle} className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap"
             style={{ backgroundColor: plan.active ? "rgba(251,146,60,0.10)" : "rgba(52,211,153,0.10)", color: plan.active ? "#fb923c" : "#34d399", border: `1px solid ${plan.active ? "rgba(251,146,60,0.20)" : "rgba(52,211,153,0.20)"}` }}>
@@ -356,7 +356,7 @@ function PlanCard({ plan, onEdit, onDelete, onToggle, userCount }: {
   );
 }
 
-// ─── Revenue Analytics ────────────────────────────────────────────────────────
+// --- Revenue Analytics --------------------------------------------------------
 function RevenueAnalytics({ users }: { users: ReturnType<typeof useAdminUsers>["users"] }) {
   const vipMonthUsers = users.filter(u => {
     if (!u.is_vip || !u.vip_expires_at) return false;
@@ -389,10 +389,10 @@ function RevenueAnalytics({ users }: { users: ReturnType<typeof useAdminUsers>["
       {/* MRR/ARR */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
-          { label: "MRR (ước tính)", value: `${new Intl.NumberFormat("vi-VN").format(Math.round(mrr))}đ`, icon: "ri-money-dollar-circle-line", color: "#34d399", sub: "Doanh thu tháng" },
-          { label: "ARR (ước tính)", value: `${new Intl.NumberFormat("vi-VN").format(Math.round(arr))}đ`, icon: "ri-bar-chart-grouped-line", color: "app-accent-primary", sub: "Doanh thu năm" },
-          { label: "Tỷ lệ chuyển đổi", value: `${conversionRate}%`, icon: "ri-percent-line", color: "#a78bfa", sub: "Free → VIP" },
-          { label: "Nguy cơ churn", value: churnRisk, icon: "ri-alarm-warning-line", color: "#f87171", sub: "Hết hạn trong 30 ngày" },
+          { label: "MRR (u?c t�nh)", value: `${new Intl.NumberFormat("vi-VN").format(Math.round(mrr))}d`, icon: "ri-money-dollar-circle-line", color: "#34d399", sub: "Doanh thu th�ng" },
+          { label: "ARR (u?c t�nh)", value: `${new Intl.NumberFormat("vi-VN").format(Math.round(arr))}d`, icon: "ri-bar-chart-grouped-line", color: "app-accent-primary", sub: "Doanh thu nam" },
+          { label: "T? l? chuy?n d?i", value: `${conversionRate}%`, icon: "ri-percent-line", color: "#a78bfa", sub: "Free ? VIP" },
+          { label: "Nguy co churn", value: churnRisk, icon: "ri-alarm-warning-line", color: "#f87171", sub: "H?t h?n trong 30 ng�y" },
         ].map(s => (
           <div key={s.label} className="flex items-center gap-3 px-4 py-3 rounded-xl border"
             style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
@@ -410,12 +410,12 @@ function RevenueAnalytics({ users }: { users: ReturnType<typeof useAdminUsers>["
 
       {/* Distribution */}
       <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-        <p className="text-sm font-semibold mb-4" style={{ color: "var(--admin-text)" }}>Phân bổ thành viên</p>
+        <p className="text-sm font-semibold mb-4" style={{ color: "var(--admin-text)" }}>Ph�n b? th�nh vi�n</p>
         <div className="space-y-3">
           {[
             { label: "Free", count: freeUsers.length, color: "#6b7280", pct: users.length > 0 ? freeUsers.length / users.length * 100 : 0 },
-            { label: "VIP Tháng", count: vipMonthUsers.length, color: "#34d399", pct: users.length > 0 ? vipMonthUsers.length / users.length * 100 : 0 },
-            { label: "VIP Năm", count: vipYearUsers.length, color: "app-accent-primary", pct: users.length > 0 ? vipYearUsers.length / users.length * 100 : 0 },
+            { label: "VIP Th�ng", count: vipMonthUsers.length, color: "#34d399", pct: users.length > 0 ? vipMonthUsers.length / users.length * 100 : 0 },
+            { label: "VIP Nam", count: vipYearUsers.length, color: "app-accent-primary", pct: users.length > 0 ? vipYearUsers.length / users.length * 100 : 0 },
           ].map(row => (
             <div key={row.label}>
               <div className="flex items-center justify-between mb-1">
@@ -440,8 +440,8 @@ function RevenueAnalytics({ users }: { users: ReturnType<typeof useAdminUsers>["
       {expiringSoon.length > 0 && (
         <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
           <div className="flex items-center justify-between mb-4">
-            <p className="text-sm font-semibold" style={{ color: "var(--admin-text)" }}>VIP sắp hết hạn (30 ngày)</p>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-400 font-bold">{expiringSoon.length} người</span>
+            <p className="text-sm font-semibold" style={{ color: "var(--admin-text)" }}>VIP s?p h?t h?n (30 ng�y)</p>
+            <span className="text-xs px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-400 font-bold">{expiringSoon.length} ngu?i</span>
           </div>
           <div className="space-y-2">
             {expiringSoon.slice(0, 8).map(u => {
@@ -454,10 +454,10 @@ function RevenueAnalytics({ users }: { users: ReturnType<typeof useAdminUsers>["
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs font-medium truncate" style={{ color: "var(--admin-text)" }}>{u.display_name}</p>
-                    <p className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>Hết hạn: {new Date(u.vip_expires_at!).toLocaleDateString("vi-VN")}</p>
+                    <p className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>H?t h?n: {new Date(u.vip_expires_at!).toLocaleDateString("vi-VN")}</p>
                   </div>
                   <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${d <= 7 ? "bg-rose-500/15 text-rose-400" : "bg-amber-500/15 text-amber-400"}`}>
-                    {d <= 0 ? "Đã hết" : `${d}d`}
+                    {d <= 0 ? "�� h?t" : `${d}d`}
                   </span>
                 </div>
               );
@@ -469,7 +469,7 @@ function RevenueAnalytics({ users }: { users: ReturnType<typeof useAdminUsers>["
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function AdminPricingPage() {
   const [plans, setPlans] = useLocalStorage<PricingPlan[]>("kts_pricing_plans_v2", DEFAULT_PLANS);
   const [editingPlan, setEditingPlan] = useState<PricingPlan | null>(null);
@@ -492,19 +492,19 @@ export default function AdminPricingPage() {
     if (isNewPlan) {
       const newPlan = { ...plan, id: `plan_${Date.now()}` };
       setPlans(prev => [...prev, newPlan]);
-      showToast("Đã thêm gói mới!");
+      showToast("�� th�m g�i m?i!");
       await logPricingAction(
-        "plan_created", "Thêm gói VIP mới", actorName, plan.name,
-        `Thêm gói "${plan.name}" — ${plan.price.toLocaleString()}đ/tháng`,
+        "plan_created", "Th�m g�i VIP m?i", actorName, plan.name,
+        `Th�m g�i "${plan.name}" � ${plan.price.toLocaleString()}d/th�ng`,
         { plan_id: newPlan.id, price: plan.price, yearly_price: plan.yearlyPrice, color: plan.color }
       );
     } else {
       const oldPlan = plans.find(p => p.id === plan.id);
       setPlans(prev => prev.map(p => p.id === plan.id ? plan : p));
-      showToast("Đã cập nhật gói!");
+      showToast("�� c?p nh?t g�i!");
       await logPricingAction(
-        "plan_updated", "Cập nhật gói VIP", actorName, plan.name,
-        `Cập nhật gói "${plan.name}" — giá: ${oldPlan?.price?.toLocaleString()}đ → ${plan.price.toLocaleString()}đ`,
+        "plan_updated", "C?p nh?t g�i VIP", actorName, plan.name,
+        `C?p nh?t g�i "${plan.name}" � gi�: ${oldPlan?.price?.toLocaleString()}d ? ${plan.price.toLocaleString()}d`,
         { plan_id: plan.id, old_price: oldPlan?.price, new_price: plan.price, changes: { name: plan.name, color: plan.color } }
       );
     }
@@ -515,11 +515,11 @@ export default function AdminPricingPage() {
   const handleDeletePlan = useCallback(async (id: string) => {
     const plan = plans.find(p => p.id === id);
     setPlans(prev => prev.filter(p => p.id !== id));
-    showToast("Đã xóa gói!");
+    showToast("�� x�a g�i!");
     if (plan) {
       await logPricingAction(
-        "plan_deleted", "Xóa gói VIP", actorName, plan.name,
-        `Xóa gói "${plan.name}" (${plan.price.toLocaleString()}đ/tháng)`,
+        "plan_deleted", "X�a g�i VIP", actorName, plan.name,
+        `X�a g�i "${plan.name}" (${plan.price.toLocaleString()}d/th�ng)`,
         { plan_id: id, plan_name: plan.name, price: plan.price }
       );
     }
@@ -528,13 +528,13 @@ export default function AdminPricingPage() {
   const handleTogglePlan = useCallback(async (id: string) => {
     const plan = plans.find(p => p.id === id);
     setPlans(prev => prev.map(p => p.id === id ? { ...p, active: !p.active } : p));
-    showToast(plan?.active ? "Đã ẩn gói!" : "Đã hiện gói!");
+    showToast(plan?.active ? "�� ?n g�i!" : "�� hi?n g�i!");
     if (plan) {
       await logPricingAction(
         plan.active ? "plan_hidden" : "plan_shown",
-        plan.active ? "Ẩn gói VIP" : "Hiện gói VIP",
+        plan.active ? "?n g�i VIP" : "Hi?n g�i VIP",
         actorName, plan.name,
-        `${plan.active ? "Ẩn" : "Hiện"} gói "${plan.name}" trên trang pricing`,
+        `${plan.active ? "?n" : "Hi?n"} g�i "${plan.name}" tr�n trang pricing`,
         { plan_id: id, plan_name: plan.name, new_status: !plan.active }
       );
     }
@@ -547,9 +547,9 @@ export default function AdminPricingPage() {
       const { data, error } = await supabase.functions.invoke("vip-expiry-scheduler", { body: {} });
       if (error) throw error;
       setSchedulerResult(data as Record<string, unknown>);
-      showToast(`Scheduler chạy xong: ${(data as Record<string, unknown>)?.sent || 0} email đã gửi`);
+      showToast(`Scheduler ch?y xong: ${(data as Record<string, unknown>)?.sent || 0} email d� g?i`);
     } catch (err) {
-      showToast("Lỗi khi chạy scheduler!", "err");
+      showToast("L?i khi ch?y scheduler!", "err");
       setSchedulerResult({ error: String(err) });
     } finally {
       setSchedulerRunning(false);
@@ -571,13 +571,13 @@ export default function AdminPricingPage() {
 
   return (
     <AdminLayout
-      title="Quản lý Gói VIP & Pricing"
-      subtitle="Cấu hình gói, phân tích doanh thu và theo dõi subscriber"
+      title="Qu?n l� G�i VIP & Pricing"
+      subtitle="C?u h�nh g�i, ph�n t�ch doanh thu v� theo d�i subscriber"
       actions={
         <div className="flex items-center gap-2">
           <button onClick={() => { setIsNewPlan(true); setEditingPlan({ id: "", name: "", price: 0, yearlyPrice: 0, description: "", features: [], isPopular: false, active: true, color: "#34d399", trialDays: 0 }); }}
             className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-lg cursor-pointer whitespace-nowrap bg-rose-500 hover:bg-rose-400 text-white">
-            <i className="ri-add-line"></i>Thêm gói mới
+            <i className="ri-add-line"></i>Th�m g�i m?i
           </button>
         </div>
       }
@@ -591,8 +591,8 @@ export default function AdminPricingPage() {
       {/* Tabs */}
       <div className="flex items-center gap-1 rounded-xl p-1 w-fit mb-5" style={{ backgroundColor: "var(--admin-hover)" }}>
         {([
-          { id: "plans" as const, label: "Cấu hình gói", icon: "ri-price-tag-3-line" },
-          { id: "analytics" as const, label: "Phân tích doanh thu", icon: "ri-bar-chart-line" },
+          { id: "plans" as const, label: "C?u h�nh g�i", icon: "ri-price-tag-3-line" },
+          { id: "analytics" as const, label: "Ph�n t�ch doanh thu", icon: "ri-bar-chart-line" },
           { id: "scheduler" as const, label: "Email Scheduler", icon: "ri-timer-line" },
         ]).map(tab => (
           <button key={tab.id} onClick={() => setActiveTab(tab.id)}
@@ -629,13 +629,13 @@ export default function AdminPricingPage() {
               <div className="flex-1">
                 <p className="font-bold text-sm mb-1" style={{ color: "var(--admin-text)" }}>VIP Expiry Email Scheduler</p>
                 <p className="text-xs leading-relaxed" style={{ color: "var(--admin-text-muted)" }}>
-                  Edge Function tự động gửi email nhắc gia hạn VIP đến các thành viên sắp hết hạn.
-                  Gửi vào các mốc: <strong>7 ngày</strong>, <strong>3 ngày</strong>, và <strong>1 ngày</strong> trước khi hết hạn.
+                  Edge Function t? d?ng g?i email nh?c gia h?n VIP d?n c�c th�nh vi�n s?p h?t h?n.
+                  G?i v�o c�c m?c: <strong>7 ng�y</strong>, <strong>3 ng�y</strong>, v� <strong>1 ng�y</strong> tru?c khi h?t h?n.
                 </p>
                 <div className="flex items-center gap-2 mt-3 flex-wrap">
-                  <span className="text-[10px] px-2 py-1 rounded-full font-semibold bg-app-accent-success/15 text-app-accent-success">✓ Đã deploy</span>
+                  <span className="text-[10px] px-2 py-1 rounded-full font-semibold bg-app-accent-success/15 text-app-accent-success">? �� deploy</span>
                   <span className="text-[10px] px-2 py-1 rounded-full font-semibold" style={{ backgroundColor: "rgba(168,139,250,0.15)", color: "#a78bfa" }}>Resend API</span>
-                  <span className="text-[10px] px-2 py-1 rounded-full font-semibold" style={{ backgroundColor: "rgba(52,211,153,0.15)", color: "#34d399" }}>Audit Log tự động</span>
+                  <span className="text-[10px] px-2 py-1 rounded-full font-semibold" style={{ backgroundColor: "rgba(52,211,153,0.15)", color: "#34d399" }}>Audit Log t? d?ng</span>
                 </div>
               </div>
             </div>
@@ -643,14 +643,14 @@ export default function AdminPricingPage() {
 
           {/* How it works */}
           <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-            <p className="font-semibold text-sm mb-4" style={{ color: "var(--admin-text)" }}>Cách hoạt động</p>
+            <p className="font-semibold text-sm mb-4" style={{ color: "var(--admin-text)" }}>C�ch ho?t d?ng</p>
             <div className="space-y-3">
               {[
-                { step: "1", title: "Cron Job kích hoạt", desc: "Supabase cron job gọi edge function mỗi ngày lúc 8:00 sáng", color: "#a78bfa" },
-                { step: "2", title: "Quét VIP sắp hết hạn", desc: "Tìm tất cả VIP hết hạn trong 1, 3, 7 ngày tới", color: "#34d399" },
-                { step: "3", title: "Gửi email cá nhân hóa", desc: "Email có tên, số ngày còn lại, màu sắc theo mức độ khẩn cấp", color: "app-accent-primary" },
-                { step: "4", title: "Ghi Audit Log", desc: "Mỗi email gửi được ghi vào admin_audit_logs để theo dõi", color: "#fb923c" },
-                { step: "5", title: "Tránh gửi trùng", desc: "Kiểm tra audit log để không gửi 2 lần trong 24 giờ", color: "#f87171" },
+                { step: "1", title: "Cron Job k�ch ho?t", desc: "Supabase cron job g?i edge function m?i ng�y l�c 8:00 s�ng", color: "#a78bfa" },
+                { step: "2", title: "Qu�t VIP s?p h?t h?n", desc: "T�m t?t c? VIP h?t h?n trong 1, 3, 7 ng�y t?i", color: "#34d399" },
+                { step: "3", title: "G?i email c� nh�n h�a", desc: "Email c� t�n, s? ng�y c�n l?i, m�u s?c theo m?c d? kh?n c?p", color: "app-accent-primary" },
+                { step: "4", title: "Ghi Audit Log", desc: "M?i email g?i du?c ghi v�o admin_audit_logs d? theo d�i", color: "#fb923c" },
+                { step: "5", title: "Tr�nh g?i tr�ng", desc: "Ki?m tra audit log d? kh�ng g?i 2 l?n trong 24 gi?", color: "#f87171" },
               ].map(s => (
                 <div key={s.step} className="flex items-start gap-3">
                   <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold text-white" style={{ backgroundColor: s.color }}>{s.step}</div>
@@ -665,8 +665,8 @@ export default function AdminPricingPage() {
 
           {/* Setup cron */}
           <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-            <p className="font-semibold text-sm mb-3" style={{ color: "var(--admin-text)" }}>Cài đặt Cron Job (Supabase Dashboard)</p>
-            <p className="text-xs mb-3" style={{ color: "var(--admin-text-muted)" }}>Vào Supabase Dashboard → Database → Extensions → pg_cron, sau đó chạy SQL:</p>
+            <p className="font-semibold text-sm mb-3" style={{ color: "var(--admin-text)" }}>C�i d?t Cron Job (Supabase Dashboard)</p>
+            <p className="text-xs mb-3" style={{ color: "var(--admin-text-muted)" }}>V�o Supabase Dashboard ? Database ? Extensions ? pg_cron, sau d� ch?y SQL:</p>
             <div className="rounded-xl p-4 font-mono text-xs overflow-x-auto" style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)", color: "#34d399" }}>
               <pre>{`SELECT cron.schedule(
   'vip-expiry-daily',
@@ -684,27 +684,27 @@ export default function AdminPricingPage() {
 
           {/* Manual trigger */}
           <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-            <p className="font-semibold text-sm mb-2" style={{ color: "var(--admin-text)" }}>Chạy thủ công ngay bây giờ</p>
-            <p className="text-xs mb-4" style={{ color: "var(--admin-text-muted)" }}>Kích hoạt scheduler ngay để kiểm tra hoặc gửi email khẩn cấp.</p>
+            <p className="font-semibold text-sm mb-2" style={{ color: "var(--admin-text)" }}>Ch?y th? c�ng ngay b�y gi?</p>
+            <p className="text-xs mb-4" style={{ color: "var(--admin-text-muted)" }}>K�ch ho?t scheduler ngay d? ki?m tra ho?c g?i email kh?n c?p.</p>
             <button onClick={handleRunScheduler} disabled={schedulerRunning}
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap disabled:opacity-50 text-white"
               style={{ backgroundColor: "#a78bfa" }}>
               {schedulerRunning ? (
-                <><i className="ri-loader-4-line animate-spin"></i>Đang chạy...</>
+                <><i className="ri-loader-4-line animate-spin"></i>�ang ch?y...</>
               ) : (
-                <><i className="ri-play-circle-line"></i>Chạy Scheduler ngay</>
+                <><i className="ri-play-circle-line"></i>Ch?y Scheduler ngay</>
               )}
             </button>
 
             {schedulerResult && (
               <div className="mt-4 rounded-xl p-4" style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>
-                <p className="text-xs font-semibold mb-2" style={{ color: "var(--admin-text)" }}>Kết quả:</p>
+                <p className="text-xs font-semibold mb-2" style={{ color: "var(--admin-text)" }}>K?t qu?:</p>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
                   {[
-                    { label: "Kiểm tra", key: "checked", color: "#a78bfa" },
-                    { label: "Đã gửi", key: "sent", color: "#34d399" },
-                    { label: "Lỗi", key: "failed", color: "#f87171" },
-                    { label: "Bỏ qua", key: "skipped", color: "#6b7280" },
+                    { label: "Ki?m tra", key: "checked", color: "#a78bfa" },
+                    { label: "�� g?i", key: "sent", color: "#34d399" },
+                    { label: "L?i", key: "failed", color: "#f87171" },
+                    { label: "B? qua", key: "skipped", color: "#6b7280" },
                   ].map(s => (
                     <div key={s.key} className="text-center">
                       <p className="text-xl font-black" style={{ color: s.color }}>{String(schedulerResult[s.key] ?? 0)}</p>
@@ -715,7 +715,7 @@ export default function AdminPricingPage() {
                 {Array.isArray(schedulerResult.details) && schedulerResult.details.length > 0 && (
                   <div className="space-y-1 max-h-32 overflow-y-auto">
                     {(schedulerResult.details as string[]).map((d, i) => (
-                      <p key={i} className="text-[10px]" style={{ color: d.startsWith("✓") ? "#34d399" : d.startsWith("✗") ? "#f87171" : "var(--admin-text-faint)" }}>{d}</p>
+                      <p key={i} className="text-[10px]" style={{ color: d.startsWith("?") ? "#34d399" : d.startsWith("?") ? "#f87171" : "var(--admin-text-faint)" }}>{d}</p>
                     ))}
                   </div>
                 )}

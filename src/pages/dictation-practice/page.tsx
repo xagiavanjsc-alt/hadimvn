@@ -1,4 +1,4 @@
-﻿import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface DictationItem {
@@ -12,21 +12,21 @@ interface DictationItem {
 }
 
 const dictationItems: DictationItem[] = [
-  { id: "d1", level: "A1", levelColor: "#34d399", topic: "Chào hỏi", korean: "안녕하세요. 만나서 반갑습니다.", vietnamese: "Xin chào. Rất vui được gặp bạn.", hint: "Câu chào hỏi cơ bản" },
-  { id: "d2", level: "A1", levelColor: "#34d399", topic: "Giới thiệu", korean: "저는 베트남 사람입니다.", vietnamese: "Tôi là người Việt Nam.", hint: "Giới thiệu quốc tịch" },
-  { id: "d3", level: "A1", levelColor: "#34d399", topic: "Số đếm", korean: "사과가 세 개 있어요.", vietnamese: "Có ba quả táo.", hint: "Đếm đồ vật" },
-  { id: "d4", level: "A2", levelColor: "#6ee7b7", topic: "Thời tiết", korean: "오늘 날씨가 맑고 따뜻해요.", vietnamese: "Hôm nay thời tiết trong sáng và ấm áp.", hint: "Mô tả thời tiết" },
-  { id: "d5", level: "A2", levelColor: "#6ee7b7", topic: "Mua sắm", korean: "이 옷이 얼마예요? 좀 비싸네요.", vietnamese: "Bộ quần áo này bao nhiêu tiền? Hơi đắt nhỉ.", hint: "Hỏi giá" },
-  { id: "d6", level: "A2", levelColor: "#6ee7b7", topic: "Kế hoạch", korean: "내일 친구와 같이 영화를 볼 거예요.", vietnamese: "Ngày mai tôi sẽ xem phim cùng bạn.", hint: "Kế hoạch tương lai" },
-  { id: "d7", level: "B1", levelColor: "#fbbf24", topic: "Sức khỏe", korean: "요즘 스트레스를 많이 받아서 잠을 잘 못 자요.", vietnamese: "Dạo này tôi bị nhiều stress nên ngủ không ngon.", hint: "Vấn đề sức khỏe" },
-  { id: "d8", level: "B1", levelColor: "#fbbf24", topic: "Du lịch", korean: "한국에 처음 왔는데 볼거리가 정말 많네요.", vietnamese: "Đây là lần đầu tôi đến Hàn Quốc và có rất nhiều thứ để xem.", hint: "Trải nghiệm du lịch" },
-  { id: "d9", level: "B1", levelColor: "#fbbf24", topic: "Công việc", korean: "이번 프로젝트를 성공적으로 마무리했어요.", vietnamese: "Tôi đã hoàn thành dự án lần này một cách thành công.", hint: "Kết quả công việc" },
-  { id: "d10", level: "B2", levelColor: "#f59e0b", topic: "Xã hội", korean: "현대 사회에서 소통 능력은 매우 중요한 역할을 합니다.", vietnamese: "Trong xã hội hiện đại, kỹ năng giao tiếp đóng vai trò rất quan trọng.", hint: "Câu văn phức tạp" },
-  { id: "d11", level: "B2", levelColor: "#f59e0b", topic: "Giáo dục", korean: "교육의 목적은 단순히 지식을 전달하는 것이 아니라 사고력을 키우는 것입니다.", vietnamese: "Mục đích của giáo dục không chỉ là truyền đạt kiến thức mà còn là phát triển tư duy.", hint: "Câu phức với cấu trúc nâng cao" },
-  { id: "d12", level: "C1", levelColor: "#f87171", topic: "Triết học", korean: "인간은 사회적 동물로서 타인과의 관계 속에서 자아를 형성해 나갑니다.", vietnamese: "Con người là động vật xã hội, hình thành bản ngã trong mối quan hệ với người khác.", hint: "Câu học thuật phức tạp" },
+  { id: "d1", level: "A1", levelColor: "#34d399", topic: "Ch�o h?i", korean: "?????. ??? ?????.", vietnamese: "Xin ch�o. R?t vui du?c g?p b?n.", hint: "C�u ch�o h?i co b?n" },
+  { id: "d2", level: "A1", levelColor: "#34d399", topic: "Gi?i thi?u", korean: "?? ??? ?????.", vietnamese: "T�i l� ngu?i Vi?t Nam.", hint: "Gi?i thi?u qu?c t?ch" },
+  { id: "d3", level: "A1", levelColor: "#34d399", topic: "S? d?m", korean: "??? ? ? ???.", vietnamese: "C� ba qu? t�o.", hint: "�?m d? v?t" },
+  { id: "d4", level: "A2", levelColor: "#6ee7b7", topic: "Th?i ti?t", korean: "?? ??? ?? ????.", vietnamese: "H�m nay th?i ti?t trong s�ng v� ?m �p.", hint: "M� t? th?i ti?t" },
+  { id: "d5", level: "A2", levelColor: "#6ee7b7", topic: "Mua s?m", korean: "? ?? ????? ? ????.", vietnamese: "B? qu?n �o n�y bao nhi�u ti?n? Hoi d?t nh?.", hint: "H?i gi�" },
+  { id: "d6", level: "A2", levelColor: "#6ee7b7", topic: "K? ho?ch", korean: "?? ??? ?? ??? ? ???.", vietnamese: "Ng�y mai t�i s? xem phim c�ng b?n.", hint: "K? ho?ch tuong lai" },
+  { id: "d7", level: "B1", levelColor: "#fbbf24", topic: "S?c kh?e", korean: "?? ????? ?? ??? ?? ? ? ??.", vietnamese: "D?o n�y t�i b? nhi?u stress n�n ng? kh�ng ngon.", hint: "V?n d? s?c kh?e" },
+  { id: "d8", level: "B1", levelColor: "#fbbf24", topic: "Du l?ch", korean: "??? ?? ??? ???? ?? ???.", vietnamese: "��y l� l?n d?u t�i d?n H�n Qu?c v� c� r?t nhi?u th? d? xem.", hint: "Tr?i nghi?m du l?ch" },
+  { id: "d9", level: "B1", levelColor: "#fbbf24", topic: "C�ng vi?c", korean: "?? ????? ????? ??????.", vietnamese: "T�i d� ho�n th�nh d? �n l?n n�y m?t c�ch th�nh c�ng.", hint: "K?t qu? c�ng vi?c" },
+  { id: "d10", level: "B2", levelColor: "#f59e0b", topic: "X� h?i", korean: "?? ???? ?? ??? ?? ??? ??? ???.", vietnamese: "Trong x� h?i hi?n d?i, k? nang giao ti?p d�ng vai tr� r?t quan tr?ng.", hint: "C�u van ph?c t?p" },
+  { id: "d11", level: "B2", levelColor: "#f59e0b", topic: "Gi�o d?c", korean: "??? ??? ??? ??? ???? ?? ??? ???? ??? ????.", vietnamese: "M?c d�ch c?a gi�o d?c kh�ng ch? l� truy?n d?t ki?n th?c m� c�n l� ph�t tri?n tu duy.", hint: "C�u ph?c v?i c?u tr�c n�ng cao" },
+  { id: "d12", level: "C1", levelColor: "#f87171", topic: "Tri?t h?c", korean: "??? ??? ???? ???? ?? ??? ??? ??? ????.", vietnamese: "Con ngu?i l� d?ng v?t x� h?i, h�nh th�nh b?n ng� trong m?i quan h? v?i ngu?i kh�c.", hint: "C�u h?c thu?t ph?c t?p" },
 ];
 
-// ─── Compare function ─────────────────────────────────────────────────────────
+// --- Compare function ---------------------------------------------------------
 function compareTexts(input: string, answer: string): { correct: boolean; similarity: number; diff: { char: string; correct: boolean }[] } {
   const normalize = (s: string) => s.trim().replace(/\s+/g, " ");
   const inp = normalize(input);
@@ -49,7 +49,7 @@ function compareTexts(input: string, answer: string): { correct: boolean; simila
   return { correct: similarity >= 95, similarity, diff };
 }
 
-// ─── Dictation Card ───────────────────────────────────────────────────────────
+// --- Dictation Card -----------------------------------------------------------
 function DictationCard({ item, onComplete }: { item: DictationItem; onComplete: (score: number) => void }) {
   const [input, setInput] = useState("");
   const [revealed, setRevealed] = useState(false);
@@ -84,7 +84,7 @@ function DictationCard({ item, onComplete }: { item: DictationItem; onComplete: 
       <div className="flex items-center gap-2 mb-5">
         <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: `${item.levelColor}20`, color: item.levelColor }}>{item.level}</span>
         <span className="text-app-text-secondary text-xs">{item.topic}</span>
-        {item.hint && <span className="text-app-text-muted text-xs">· {item.hint}</span>}
+        {item.hint && <span className="text-app-text-muted text-xs">� {item.hint}</span>}
       </div>
 
       {/* Play buttons */}
@@ -92,16 +92,16 @@ function DictationCard({ item, onComplete }: { item: DictationItem; onComplete: 
         <button onClick={() => handlePlay(false)}
           className={`flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm cursor-pointer transition-all whitespace-nowrap ${isPlaying ? "bg-app-accent-primary/30 text-app-accent-primary" : "bg-app-accent-primary text-[#141720] hover:opacity-90"}`}>
           <i className={isPlaying ? "ri-pause-circle-line" : "ri-play-circle-line"}></i>
-          {isPlaying ? "Đang phát..." : "Nghe"}
+          {isPlaying ? "�ang ph�t..." : "Nghe"}
         </button>
         <button onClick={() => handlePlay(true)}
           className="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/8 hover:bg-white/12 text-white/60 hover:text-white text-sm cursor-pointer transition-all whitespace-nowrap">
           <i className="ri-speed-line"></i>
-          Chậm
+          Ch?m
         </button>
         {playCount > 0 && (
           <span className="flex items-center text-app-text-muted text-xs ml-auto">
-            <i className="ri-repeat-line mr-1"></i>{playCount} lần
+            <i className="ri-repeat-line mr-1"></i>{playCount} l?n
           </span>
         )}
       </div>
@@ -109,23 +109,23 @@ function DictationCard({ item, onComplete }: { item: DictationItem; onComplete: 
       {/* Input */}
       {!revealed ? (
         <div>
-          <p className="text-white/50 text-xs mb-2">Viết lại những gì bạn nghe được:</p>
+          <p className="text-white/50 text-xs mb-2">Vi?t l?i nh?ng g� b?n nghe du?c:</p>
           <textarea
             ref={inputRef}
             value={input}
             onChange={e => setInput(e.target.value)}
-            placeholder="Gõ tiếng Hàn ở đây..."
+            placeholder="G� ti?ng H�n ? d�y..."
             rows={3}
             className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm outline-none resize-none placeholder-white/20 focus:border-white/20 mb-4"
           />
           <div className="flex gap-3">
             <button onClick={handleCheck} disabled={!input.trim()}
               className="flex-1 py-3 rounded-xl bg-app-accent-primary text-[#141720] font-bold text-sm disabled:opacity-30 cursor-pointer whitespace-nowrap">
-              Kiểm tra
+              Ki?m tra
             </button>
             <button onClick={() => { setRevealed(true); setResult(null); }}
               className="px-4 py-3 rounded-xl bg-white/8 hover:bg-white/12 text-white/50 text-sm cursor-pointer whitespace-nowrap">
-              Xem đáp án
+              Xem d�p �n
             </button>
           </div>
         </div>
@@ -135,7 +135,7 @@ function DictationCard({ item, onComplete }: { item: DictationItem; onComplete: 
             <div className={`p-4 rounded-xl border mb-4 ${result.correct ? "border-emerald-500/30 bg-emerald-500/5" : result.similarity >= 70 ? "border-amber-500/30 bg-amber-500/5" : "border-rose-500/30 bg-rose-500/5"}`}>
               <div className="flex items-center justify-between mb-2">
                 <span className={`text-sm font-bold ${result.correct ? "text-app-accent-success" : result.similarity >= 70 ? "text-amber-400" : "text-rose-400"}`}>
-                  {result.correct ? "Chính xác!" : `${result.similarity}% đúng`}
+                  {result.correct ? "Ch�nh x�c!" : `${result.similarity}% d�ng`}
                 </span>
                 <div className="flex items-center gap-1">
                   {[...Array(5)].map((_, i) => (
@@ -145,7 +145,7 @@ function DictationCard({ item, onComplete }: { item: DictationItem; onComplete: 
               </div>
               {!result.correct && (
                 <div className="text-sm">
-                  <p className="text-app-text-secondary text-xs mb-1">Bạn viết:</p>
+                  <p className="text-app-text-secondary text-xs mb-1">B?n vi?t:</p>
                   <p className="text-white/60 mb-2">{input}</p>
                 </div>
               )}
@@ -154,14 +154,14 @@ function DictationCard({ item, onComplete }: { item: DictationItem; onComplete: 
 
           {/* Answer */}
           <div className="p-4 rounded-xl bg-app-card/50 border border-app-border mb-4">
-            <p className="text-app-text-secondary text-xs mb-2">Đáp án đúng:</p>
+            <p className="text-app-text-secondary text-xs mb-2">��p �n d�ng:</p>
             <p className="text-white font-medium text-base leading-8">{item.korean}</p>
             <p className="text-app-text-secondary text-sm mt-1 italic">{item.vietnamese}</p>
           </div>
 
           <button onClick={() => { setInput(""); setRevealed(false); setResult(null); setPlayCount(0); }}
             className="w-full py-2.5 rounded-xl bg-white/8 hover:bg-white/12 text-white/60 text-sm cursor-pointer whitespace-nowrap">
-            <i className="ri-refresh-line mr-2"></i>Thử lại
+            <i className="ri-refresh-line mr-2"></i>Th? l?i
           </button>
         </div>
       )}
@@ -169,7 +169,7 @@ function DictationCard({ item, onComplete }: { item: DictationItem; onComplete: 
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// --- Main Page ----------------------------------------------------------------
 export default function DictationPracticePage() {
   const [selectedLevel, setSelectedLevel] = useState("all");
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -199,16 +199,16 @@ export default function DictationPracticePage() {
       <div className="max-w-3xl mx-auto px-4 py-6">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-white font-bold text-2xl mb-1">Luyện nghe chép chính tả</h1>
-          <p className="text-white/50 text-sm">Nghe và viết lại tiếng Hàn — so sánh với đáp án để cải thiện chính tả</p>
+          <h1 className="text-white font-bold text-2xl mb-1">Luy?n nghe ch�p ch�nh t?</h1>
+          <p className="text-white/50 text-sm">Nghe v� vi?t l?i ti?ng H�n � so s�nh v?i d�p �n d? c?i thi?n ch�nh t?</p>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
-            { label: "Đã luyện", value: Object.keys(scores).length, icon: "ri-checkbox-circle-line", color: "#34d399" },
-            { label: "Điểm TB", value: `${avgScore}%`, icon: "ri-percent-line", color: "app-accent-primary" },
-            { label: "Tổng câu", value: dictationItems.length, icon: "ri-list-check", color: "#a78bfa" },
+            { label: "�� luy?n", value: Object.keys(scores).length, icon: "ri-checkbox-circle-line", color: "#34d399" },
+            { label: "�i?m TB", value: `${avgScore}%`, icon: "ri-percent-line", color: "app-accent-primary" },
+            { label: "T?ng c�u", value: dictationItems.length, icon: "ri-list-check", color: "#a78bfa" },
           ].map(s => (
             <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-4 text-center">
               <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${s.color}20` }}>
@@ -224,7 +224,7 @@ export default function DictationPracticePage() {
         <div className="flex gap-2 flex-wrap mb-5">
           <button onClick={() => { setSelectedLevel("all"); setCurrentIdx(0); }}
             className={`px-4 py-2 rounded-full text-xs font-semibold cursor-pointer transition-all whitespace-nowrap ${selectedLevel === "all" ? "bg-white/15 text-white" : "bg-app-card/50 text-white/50 hover:bg-white/8"}`}>
-            Tất cả ({dictationItems.length})
+            T?t c? ({dictationItems.length})
           </button>
           {Object.entries(levelConfig).map(([lvl, cfg]) => {
             const count = dictationItems.filter(d => d.level === lvl).length;
@@ -268,7 +268,7 @@ export default function DictationPracticePage() {
 
         {/* All items list */}
         <div className="mt-6">
-          <p className="text-app-text-secondary text-xs font-semibold tracking-normal mb-3">Tất cả câu luyện tập</p>
+          <p className="text-app-text-secondary text-xs font-semibold tracking-normal mb-3">T?t c? c�u luy?n t?p</p>
           <div className="space-y-2">
             {filtered.map((item, i) => (
               <button key={item.id} onClick={() => setCurrentIdx(i)}
