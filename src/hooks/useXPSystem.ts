@@ -409,6 +409,52 @@ export function useXPSystem() {
     };
   }, []);
 
+  // ─── Realtime XP listener ────────────────────────────────────────────────
+  // Subscribe to user_progress changes for the current user. Server-side
+  // triggers (community approval, exam grading, admin grant_xp RPC) update
+  // user_progress.xp; we surface those increases as toasts here so the user
+  // sees "+N XP" without waiting for next sync round-trip.
+  useEffect(() => {
+    if (!user) return;
+    const channel = supabase
+      .channel(`user_progress:${user.id}`)
+      .on(
+        "postgres_changes" as never,
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "user_progress",
+          filter: `user_id=eq.${user.id}`,
+        },
+        (payload: { new: { xp?: number } }) => {
+          const newXP = Number(payload?.new?.xp) || 0;
+          const local = xpTotalRef.current;
+          // Only react to genuine external increases (not echoes of our own sync).
+          if (newXP > local) {
+            const delta = newXP - local;
+            addNotification({
+              type: "xp_gained",
+              title: `+${delta} XP`,
+              message: "Phần thưởng từ hoạt động cộng đồng / admin",
+              xpAmount: delta,
+            });
+            setXPData((prev) => ({
+              ...prev,
+              total: newXP,
+              history: [
+                { type: "external_grant", amount: delta, ts: Date.now() },
+                ...(prev.history ?? []).slice(0, 99),
+              ],
+            }));
+          }
+        }
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [user, addNotification, setXPData]);
+
   // Reference profile so it updates after auth state changes (avoid stale closure)
   void profile;
 

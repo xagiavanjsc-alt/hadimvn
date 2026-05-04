@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
+import { supabase } from "@/lib/supabase";
 import { HANJA_DATA } from "@/mocks/hanjaData";
 import { sanitizeHtml } from "@/lib/sanitize";
 
@@ -20,7 +21,7 @@ function AdminPanel() {
   const [srData] = useState<Record<string, { interval: number; totalReviews: number; correctStreak?: number; dueDate?: number }>>(() => {
     try { return JSON.parse(localStorage.getItem("hanja_sr_data") || "{}"); } catch { return {}; }
   });
-  const [adminSubTab, setAdminSubTab] = useState<"overview" | "chart" | "quiz" | "groups" | "content">("overview");
+  const [adminSubTab, setAdminSubTab] = useState<"overview" | "chart" | "quiz" | "groups" | "content" | "grant_xp">("overview");
 
   const ALPHA_GROUPS = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
 
@@ -75,6 +76,7 @@ function AdminPanel() {
     { key: "quiz" as const, label: "Từ khó nhất", icon: "ri-error-warning-line" },
     { key: "groups" as const, label: "Theo nhóm", icon: "ri-list-check" },
     { key: "content" as const, label: "Quản lý nội dung", icon: "ri-settings-3-line" },
+    { key: "grant_xp" as const, label: "Trao XP thủ công", icon: "ri-gift-2-line" },
   ];
 
   // Content management data
@@ -448,6 +450,221 @@ function AdminPanel() {
                 </button>
               ))}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Manual grant XP */}
+      {adminSubTab === "grant_xp" && <GrantXPPanel />}
+    </div>
+  );
+}
+
+// ─── Admin: Manual Grant XP Panel ────────────────────────────────────────
+// Calls Supabase RPC `grant_xp(user_id, amount, reason)` (migration 038).
+// Search target user by display_name → list candidates → confirm → grant.
+function GrantXPPanel() {
+  const [search, setSearch] = useState("");
+  const [users, setUsers] = useState<{ id: string; display_name: string; avatar_url: string | null; xp: number }[]>([]);
+  const [selected, setSelected] = useState<{ id: string; display_name: string; xp: number } | null>(null);
+  const [amount, setAmount] = useState<number>(100);
+  const [reason, setReason] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [result, setResult] = useState<{ ok: boolean; msg: string } | null>(null);
+  const [history, setHistory] = useState<{ user_id: string; amount: number; reason: string; ts: number }[]>(() => {
+    try { return JSON.parse(localStorage.getItem("kts_admin_grant_xp_history") || "[]"); } catch { return []; }
+  });
+
+  const handleSearch = async () => {
+    if (!search.trim()) return;
+    setLoading(true);
+    setResult(null);
+    try {
+      const { data, error } = await supabase
+        .from("user_profiles")
+        .select("id, display_name, avatar_url")
+        .ilike("display_name", `%${search.trim()}%`)
+        .limit(10);
+      if (error) throw error;
+      // Fetch XP for each
+      const ids = (data || []).map(u => u.id);
+      const { data: progress } = await supabase
+        .from("user_progress")
+        .select("user_id, xp")
+        .in("user_id", ids);
+      const xpMap = new Map((progress || []).map(p => [p.user_id, p.xp || 0]));
+      setUsers((data || []).map(u => ({
+        id: u.id,
+        display_name: u.display_name || "Học viên",
+        avatar_url: u.avatar_url,
+        xp: xpMap.get(u.id) || 0,
+      })));
+    } catch (e) {
+      setResult({ ok: false, msg: e instanceof Error ? e.message : "Tìm kiếm thất bại" });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGrant = async () => {
+    if (!selected || !amount || amount === 0) return;
+    if (amount < 0 && !confirm(`Trừ ${Math.abs(amount)} XP của ${selected.display_name}?`)) return;
+    setSubmitting(true);
+    setResult(null);
+    try {
+      const { data, error } = await supabase.rpc("grant_xp", {
+        p_target_user_id: selected.id,
+        p_amount: amount,
+        p_reason: reason || null,
+      });
+      if (error) throw error;
+      const newXP = Number(data) || 0;
+      setResult({ ok: true, msg: `Đã ${amount > 0 ? "trao" : "trừ"} ${Math.abs(amount)} XP cho ${selected.display_name}. XP mới: ${newXP}` });
+      // Update local history
+      const next = [{ user_id: selected.id, amount, reason, ts: Date.now() }, ...history].slice(0, 20);
+      setHistory(next);
+      try { localStorage.setItem("kts_admin_grant_xp_history", JSON.stringify(next)); } catch { /* ignore */ }
+      // Refresh selected user XP
+      setSelected({ ...selected, xp: newXP });
+      setUsers(prev => prev.map(u => u.id === selected.id ? { ...u, xp: newXP } : u));
+      setReason("");
+    } catch (e) {
+      setResult({ ok: false, msg: e instanceof Error ? e.message : "Trao XP thất bại — kiểm tra quyền admin" });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="bg-app-bg border border-app-border rounded-2xl p-5">
+        <h3 className="text-white font-semibold text-sm mb-1 flex items-center gap-2">
+          <i className="ri-gift-2-line text-amber-400"></i>Trao XP thủ công cho học viên
+        </h3>
+        <p className="text-app-text-muted text-xs mb-4">
+          Tìm học viên theo tên hiển thị, sau đó trao bonus XP (positive) hoặc trừ XP (negative). Mọi thay đổi tuân thủ rule never-decrease ở client; muốn trừ XP hãy nhập số âm.
+        </p>
+
+        {/* Search */}
+        <div className="flex gap-2 mb-3">
+          <input
+            type="text"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            onKeyDown={e => { if (e.key === "Enter") handleSearch(); }}
+            placeholder="Tìm theo tên hiển thị..."
+            className="flex-1 px-4 py-2.5 bg-app-card/50 border border-app-border rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400/30"
+          />
+          <button
+            onClick={handleSearch}
+            disabled={loading || !search.trim()}
+            className="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white rounded-xl text-sm font-semibold cursor-pointer whitespace-nowrap transition-colors"
+          >
+            {loading ? "Đang tìm..." : "Tìm"}
+          </button>
+        </div>
+
+        {/* User results */}
+        {users.length > 0 && (
+          <div className="space-y-2 max-h-60 overflow-y-auto mb-4">
+            {users.map(u => (
+              <button
+                key={u.id}
+                onClick={() => setSelected({ id: u.id, display_name: u.display_name, xp: u.xp })}
+                className={`w-full flex items-center gap-3 p-3 rounded-xl border text-left cursor-pointer transition-colors ${selected?.id === u.id ? "bg-amber-500/10 border-amber-400/30" : "bg-app-surface/50 border-app-border hover:border-app-border"}`}
+              >
+                <div className="w-9 h-9 rounded-full bg-app-card flex items-center justify-center flex-shrink-0 overflow-hidden">
+                  {u.avatar_url ? (
+                    <img src={u.avatar_url} alt={u.display_name} className="w-full h-full object-cover" />
+                  ) : (
+                    <i className="ri-user-3-line text-app-text-muted text-sm"></i>
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-white text-sm font-medium truncate">{u.display_name}</p>
+                  <p className="text-app-text-muted text-[10px] font-mono truncate">{u.id.slice(0, 8)}...</p>
+                </div>
+                <div className="text-right flex-shrink-0">
+                  <p className="text-amber-400 font-bold text-sm">{u.xp.toLocaleString()} XP</p>
+                </div>
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Grant form */}
+        {selected && (
+          <div className="bg-amber-500/5 border border-amber-400/20 rounded-xl p-4 space-y-3">
+            <div className="flex items-center gap-2 text-sm">
+              <i className="ri-arrow-right-line text-amber-400"></i>
+              <span className="text-white/70">Trao XP cho:</span>
+              <span className="text-white font-semibold">{selected.display_name}</span>
+              <span className="text-app-text-muted text-xs">(hiện: {selected.xp.toLocaleString()} XP)</span>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="text-app-text-muted text-xs mb-1 block">Số XP (âm = trừ)</label>
+                <input
+                  type="number"
+                  value={amount}
+                  onChange={e => setAmount(parseInt(e.target.value, 10) || 0)}
+                  className="w-full px-3 py-2 bg-app-card/50 border border-app-border rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400/30"
+                />
+              </div>
+              <div>
+                <label className="text-app-text-muted text-xs mb-1 block">Lý do (tuỳ chọn)</label>
+                <input
+                  type="text"
+                  value={reason}
+                  onChange={e => setReason(e.target.value)}
+                  placeholder="VD: Bonus event, fix lỗi..."
+                  className="w-full px-3 py-2 bg-app-card/50 border border-app-border rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400/30"
+                />
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setSelected(null)}
+                className="px-4 py-2 border border-app-border text-white/50 rounded-lg text-sm cursor-pointer hover:bg-app-card/50 transition-colors"
+              >
+                Huỷ
+              </button>
+              <button
+                onClick={handleGrant}
+                disabled={submitting || !amount}
+                className="flex-1 px-4 py-2 bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white rounded-lg text-sm font-bold cursor-pointer whitespace-nowrap transition-colors"
+              >
+                {submitting ? "Đang xử lý..." : `${amount > 0 ? "+" : ""}${amount} XP — Xác nhận`}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Result toast */}
+        {result && (
+          <div className={`mt-3 p-3 rounded-xl text-sm flex items-start gap-2 ${result.ok ? "bg-emerald-500/10 border border-emerald-500/25 text-app-accent-success" : "bg-red-500/10 border border-red-500/25 text-red-400"}`}>
+            <i className={result.ok ? "ri-checkbox-circle-fill" : "ri-error-warning-fill"}></i>
+            <span>{result.msg}</span>
+          </div>
+        )}
+      </div>
+
+      {/* Recent history */}
+      {history.length > 0 && (
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
+          <h4 className="text-white font-semibold text-sm mb-3 flex items-center gap-2">
+            <i className="ri-history-line text-app-text-muted"></i>Lịch sử trao XP gần đây
+          </h4>
+          <div className="space-y-2">
+            {history.slice(0, 10).map((h, i) => (
+              <div key={i} className="flex items-center gap-3 text-xs py-2 border-b border-app-border last:border-0">
+                <span className={`font-bold ${h.amount > 0 ? "text-amber-400" : "text-red-400"}`}>{h.amount > 0 ? "+" : ""}{h.amount} XP</span>
+                <span className="text-app-text-muted font-mono">{h.user_id.slice(0, 8)}</span>
+                {h.reason && <span className="text-white/50 truncate">— {h.reason}</span>}
+                <span className="text-app-text-muted ml-auto whitespace-nowrap">{new Date(h.ts).toLocaleString("vi-VN")}</span>
+              </div>
+            ))}
           </div>
         </div>
       )}
