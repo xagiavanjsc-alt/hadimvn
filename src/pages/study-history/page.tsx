@@ -321,7 +321,7 @@ function useWrongItems() {
           date: new Date().toISOString(),
           reviewCount: sr.reviewCount,
           nextReview: sr.nextReview,
-          difficulty: v.difficulty,
+          difficulty: v.difficulty as "easy" | "medium" | "hard",
         };
       });
   }, [masteredVocab, srData]);

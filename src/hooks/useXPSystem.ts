@@ -295,7 +295,7 @@ export function useXPSystem() {
           total: newTotal,
           history: [
             { type: event.type, amount, ts: Date.now() },
-            ...prev.history.slice(0, 99),
+            ...(prev.history ?? []).slice(0, 99),
           ],
         };
       });
