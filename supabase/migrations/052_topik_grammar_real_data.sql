@@ -273,3 +273,204 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   '먹다 chia quá khứ 먹었 + 거든요. Thông báo điều người nghe chưa biết.',
   'medium'
 );
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #5: N – (이)잖아요, A/V – 잖아요 [vì... mà, mà]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'N – (이)잖아요, A/V – 잖아요',
+  '(i)janhayo',
+  'vì... mà, mà',
+  'beginner',
+  'ending',
+  'Khi người nói muốn đưa ra ý kiến, lý do mà người nghe cũng biết, hoặc gợi lại cho người nghe lý do mà người nghe có vẻ đã quên. Còn dùng để trách mắng hoặc khiển trách khi không nghe theo lời khuyên dẫn đến kết quả không tốt. Chỉ dùng trong văn nói, với người thân thiết.',
+  'A/V + 잖아요 / N(nguyên âm) + 잖아요 / N(phụ âm) + 이잖아요',
+  '[
+    {"korean": "담배를 끊었잖아요.", "vietnamese": "Vì tôi bỏ thuốc lá rồi mà."},
+    {"korean": "예쁘잖아.", "vietnamese": "Vì đẹp mà."},
+    {"korean": "수영 씨가 새우 알레르기가 있잖아.", "vietnamese": "Sooyoung bị dị ứng tôm mà."},
+    {"korean": "목요일에는 영어 수업이 있잖아요.", "vietnamese": "Thứ 5 có tiết học tiếng Anh mà."},
+    {"korean": "회의는 오후에 하기로 했잖아요.", "vietnamese": "Cuộc họp diễn ra vào buổi chiều mà."},
+    {"korean": "비가 아니라 눈이 오잖아.", "vietnamese": "Không phải mưa mà là tuyết mà."},
+    {"korean": "마리 씨는 일본에서 살았잖아요. 지난번에 마리 씨가 말했는데 생각 안 나요?", "vietnamese": "Mari đã sống ở Nhật mà. Lần trước Mari nói bạn không nhớ à?"}
+  ]'::jsonb,
+  ARRAY['N – (이)거든요, A/V –거든요', 'A/V – (으)니까']::TEXT[],
+  ARRAY['ending', 'cause', 'topik1', 'beginner', 'spoken']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N – (이)잖아요, A/V – 잖아요' LIMIT 1),
+  '담배를 끊었 ___.',
+  'fill_blank',
+  '["잖아요", "거든요", "니까요", "어서요"]'::jsonb,
+  '잖아요',
+  'Gợi lại lý do người nghe cũng biết → dùng -잖아요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N – (이)잖아요, A/V – 잖아요' LIMIT 1),
+  '목요일에는 영어 수업이 있 ___.',
+  'fill_blank',
+  '["잖아요", "거든요", "어서요", "기 때문에"]'::jsonb,
+  '잖아요',
+  'Nhắc lại điều người nghe đã biết nhưng quên → dùng -잖아요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N – (이)잖아요, A/V – 잖아요' LIMIT 1),
+  '회의는 오후에 하기로 했 ___.',
+  'multiple_choice',
+  '["잖아요", "거든요", "니까요", "때문에"]'::jsonb,
+  '잖아요',
+  'Nhắc lại quyết định đã có → dùng -잖아요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N – (이)잖아요, A/V – 잖아요' LIMIT 1),
+  '마리 씨는 일본에서 살았 ___.',
+  'fill_blank',
+  '["잖아요", "거든요", "어서요", "니까요"]'::jsonb,
+  '잖아요',
+  'Gợi lại thông tin người nghe đã biết → dùng -잖아요.',
+  'medium'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #6: N –(이)고, A/V – 고 [và, còn]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'N –(이)고, A/V – 고',
+  '(i)go',
+  'và, còn',
+  'beginner',
+  'connective',
+  'Liệt kê về mặt không gian. Sử dụng khi mệnh đề trước và sau là những hành động hay trạng thái tương tự nhau. Cả hai vế câu có ý nghĩa bình đẳng và có thể hoán đổi. Có thể dùng dạng N1 도 + 고 + N2 도... Có thể sử dụng với 았/었 hay 겠.',
+  'A/V + 고 / N(nguyên âm) + 고 / N(phụ âm) + 이고',
+  '[
+    {"korean": "내 친구는 공부도 잘하고 얼굴도 예뻐요.", "vietnamese": "Bạn tôi học giỏi và có khuôn mặt xinh xắn."},
+    {"korean": "빵은 부드럽고 맛있어요.", "vietnamese": "Bánh mì mềm và ngon."},
+    {"korean": "오늘 빨래하고 청소해요.", "vietnamese": "Hôm nay tôi giặt giũ và dọn dẹp."},
+    {"korean": "날씨도 좋고 경치도 예뻐요.", "vietnamese": "Trời đẹp và cảnh cũng đẹp."},
+    {"korean": "여기는 휴게실이고 저기는 사무실이에요.", "vietnamese": "Ở đây là phòng nghỉ và ở kia là văn phòng."},
+    {"korean": "지수는 키도 크고 예뻐서 인기가 많아요.", "vietnamese": "Jisoo cao và xinh đẹp nên được yêu thích."},
+    {"korean": "비가 몹시 내리고 바람도 심하게 불어요.", "vietnamese": "Trời mưa to và gió thổi mạnh."},
+    {"korean": "아버지는 회사에 가시고 누나는 학교에 갔어요.", "vietnamese": "Bố tôi thì đi làm còn chị tôi thì đi học."},
+    {"korean": "눈이 오고 날씨가 추워요.", "vietnamese": "Tuyết rơi và trời lạnh."},
+    {"korean": "딸기가 싸고 맛있어요.", "vietnamese": "Dâu tây rẻ và ngon."}
+  ]'::jsonb,
+  ARRAY['A/V – 거나', 'A/V – 아/어서']::TEXT[],
+  ARRAY['connective', 'listing', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N –(이)고, A/V – 고' LIMIT 1),
+  '빵은 부드럽 ___ 맛있어요.',
+  'fill_blank',
+  '["고", "어서", "니까", "거나"]'::jsonb,
+  '고',
+  'Liệt kê 2 trạng thái bình đẳng (mềm + ngon) → dùng -고.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N –(이)고, A/V – 고' LIMIT 1),
+  '날씨도 좋 ___ 경치도 예뻐요.',
+  'fill_blank',
+  '["고", "어서", "니까", "지만"]'::jsonb,
+  '고',
+  'Liệt kê 2 trạng thái cùng chiều → dùng -고.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N –(이)고, A/V – 고' LIMIT 1),
+  '여기는 휴게실이 ___ 저기는 사무실이에요.',
+  'multiple_choice',
+  '["고", "어서", "니까", "거나"]'::jsonb,
+  '고',
+  'Danh từ + (이)고. Liệt kê bình đẳng.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N –(이)고, A/V – 고' LIMIT 1),
+  '눈이 오 ___ 날씨가 추워요.',
+  'fill_blank',
+  '["고", "어서", "니까", "거나"]'::jsonb,
+  '고',
+  'Liệt kê 2 sự kiện cùng xảy ra → dùng -고.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #7: A/V – 거나 [hoặc..., hay...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A/V – 거나',
+  'geona',
+  'hoặc..., hay...',
+  'beginner',
+  'connective',
+  'Biểu hiện sự lựa chọn một trong hai hoặc nhiều sự vật, trạng thái. Vế trước chia hiện tại.',
+  'A/V + 거나',
+  '[
+    {"korean": "오후에 축구를 하거나 농구를 할 거예요.", "vietnamese": "Vào buổi chiều tôi chơi bóng đá hoặc chơi bóng rổ."},
+    {"korean": "주말에 보통 쉬거나 책을 읽어요.", "vietnamese": "Vào cuối tuần tôi thường nghỉ ngơi hoặc đọc sách."},
+    {"korean": "저는 맵거나 짠 음식을 잘 못 먹어요.", "vietnamese": "Tôi không thể ăn đồ ăn cay hoặc mặn."},
+    {"korean": "민준 씨는 주말에 보통 친구를 만나거나 영화를 봐요.", "vietnamese": "Vào cuối tuần Minchun thường gặp bạn bè hoặc xem phim."},
+    {"korean": "외모로 봤을 때 그는 경찰이거나 군인인 것 같았어요.", "vietnamese": "Khi nhìn vào ngoại hình thì người đó chắc là cảnh sát hoặc bộ đội."},
+    {"korean": "아침에 빵을 먹거나 라면을 먹어요.", "vietnamese": "Bữa sáng tôi ăn bánh mì hoặc ăn mì."},
+    {"korean": "늦거나 가방이 무거울 때 택시를 타요.", "vietnamese": "Khi muộn hoặc túi xách nặng thì tôi sẽ đi taxi."},
+    {"korean": "외식을 하거나 피자를 주문합시다.", "vietnamese": "Chúng ta hãy đi ăn ngoài hoặc đặt pizza về."},
+    {"korean": "병원에 가거나 약을 먹었나요?", "vietnamese": "Bạn đã đến bệnh viện hay uống thuốc chưa?"},
+    {"korean": "방학에 아르바이트를 하거나 고향을 돌아가요.", "vietnamese": "Vào kì nghỉ tôi đi làm thêm hoặc về quê."}
+  ]'::jsonb,
+  ARRAY['N –(이)고, A/V – 고', 'N –(이)나']::TEXT[],
+  ARRAY['connective', 'choice', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 거나' LIMIT 1),
+  '주말에 보통 쉬 ___ 책을 읽어요.',
+  'fill_blank',
+  '["거나", "고", "어서", "니까"]'::jsonb,
+  '거나',
+  'Lựa chọn một trong hai hành động → dùng -거나.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 거나' LIMIT 1),
+  '아침에 빵을 먹 ___ 라면을 먹어요.',
+  'fill_blank',
+  '["거나", "고", "어서", "지만"]'::jsonb,
+  '거나',
+  'Lựa chọn một trong hai → dùng -거나.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 거나' LIMIT 1),
+  '늦 ___ 가방이 무거울 때 택시를 타요.',
+  'multiple_choice',
+  '["거나", "고", "어서", "니까"]'::jsonb,
+  '거나',
+  'Lựa chọn một trong hai trường hợp → dùng -거나.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 거나' LIMIT 1),
+  '병원에 가 ___ 약을 먹었나요?',
+  'fill_blank',
+  '["거나", "고", "어서", "니까"]'::jsonb,
+  '거나',
+  'Hỏi lựa chọn một trong hai → dùng -거나.',
+  'easy'
+);
