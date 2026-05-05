@@ -132,7 +132,6 @@ BEGIN
 END;
 $$;
 
--- ─── 5. Refresh leaderboard cache ────────────────────────────────────────
--- Đảm bảo bảng xếp hạng hiển thị XP mới
-REFRESH MATERIALIZED VIEW CONCURRENTLY leaderboard
-WITH DATA;
+-- ─── 5. leaderboard là regular table (không phải materialized view) ──────
+-- XP mới đã được sync vào user_progress ở bước 4.
+-- Leaderboard sẽ tự cập nhật qua sync trigger/RPC khi user tiếp theo đăng nhập.
