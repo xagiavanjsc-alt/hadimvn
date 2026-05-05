@@ -1591,3 +1591,322 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   'Đang đi ăn → 가는 길이에요.',
   'easy'
 );
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #25: V – 는 도중에 [trong quá trình..., trong lúc...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V – 는 도중에',
+  'neun dojunge',
+  'trong quá trình..., trong lúc...',
+  'beginner',
+  'time',
+  'Cấu trúc thể hiện việc đang thực hiện hành động nào đó mà vế trước thể hiện hoặc nhân cơ hội đó mà thực hiện hành động sau.',
+  'V + 는 도중에',
+  '[
+    {"korean": "대전에서 서울로 오는 도중에 버스가 고장이 났어요.", "vietnamese": "Trong lúc từ Daejon lên Seoul thì xe bus bị hỏng."},
+    {"korean": "버스를 타기 위해 걸어가는 도중에 우연히 친구를 만났어요.", "vietnamese": "Đang đi bộ để lên xe bus thì tình cờ tôi gặp người bạn."},
+    {"korean": "산 정상으로 오르는 도중에 경치가 좋아 잠시 멈추어 사진을 찍었어요.", "vietnamese": "Trong khi đang leo lên đỉnh núi thì vì phong cảnh đẹp nên tôi đã dừng lại chụp ảnh."}
+  ]'::jsonb,
+  ARRAY['N 동안, V- 는 동안', 'V – 는 길이다/ 는 길에', 'N – 때, A/V – (으)ㄹ 때']::TEXT[],
+  ARRAY['time', 'process', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 는 도중에' LIMIT 1),
+  '대전에서 서울로 오는 ___ 버스가 고장이 났어요.',
+  'fill_blank',
+  '["도중에", "동안", "중에", "길에"]'::jsonb,
+  '도중에',
+  'Trong quá trình đi → 오는 도중에.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 는 도중에' LIMIT 1),
+  '걸어가는 ___ 우연히 친구를 만났어요.',
+  'fill_blank',
+  '["도중에", "동안", "중에", "길에"]'::jsonb,
+  '도중에',
+  'Trong quá trình đi bộ → 걸어가는 도중에.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 는 도중에' LIMIT 1),
+  '오르는 ___ 경치가 좋아 사진을 찍었어요.',
+  'multiple_choice',
+  '["도중에", "동안", "중에", "길에"]'::jsonb,
+  '도중에',
+  'Trong quá trình leo → 오르는 도중에.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 는 도중에' LIMIT 1),
+  '공부하는 ___ 친구가 왔어요.',
+  'fill_blank',
+  '["도중에", "동안", "중에", "길에"]'::jsonb,
+  '도중에',
+  'Trong quá trình học → 공부하는 도중에.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #26: V – 고 있다 [đang...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V – 고 있다',
+  'go itda',
+  'đang...',
+  'beginner',
+  'time',
+  'Cấu trúc thể hiện một hành động hoặc quá trình diễn ra ngay tại thời điểm nói hoặc xung quanh thời điểm nói. Cấu trúc diễn tả thời hiện tại tiếp diễn. Kính ngữ ở dạng 고 계시다. Dạng quá khứ 고 있었다.',
+  'V + 고 있다',
+  '[
+    {"korean": "한국에 살고 있어요.", "vietnamese": "Tôi đang sống ở Hàn Quốc."},
+    {"korean": "저는 대학교에 다니고 있어요.", "vietnamese": "Tôi đang học đại học."},
+    {"korean": "한국어를 공부하고 있어요.", "vietnamese": "Tôi đang học tiếng Hàn."},
+    {"korean": "언니는 지금 통화하고 있어요.", "vietnamese": "Chị gái đang nghe điện thoại."},
+    {"korean": "지금 어디에서 살고 있어요?", "vietnamese": "Bây giờ bạn đang sống ở đâu?"},
+    {"korean": "할아버지께서는 책을 읽고 계세요.", "vietnamese": "Ông đang đọc sách."},
+    {"korean": "비가 오고 있어요.", "vietnamese": "Trời đang mưa."}
+  ]'::jsonb,
+  ARRAY['N 중, V- 는 중이다', 'V – (으)ㄴ 지', 'A/V – (으)ㄹ 수 있다/없다']::TEXT[],
+  ARRAY['time', 'progressive', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고 있다' LIMIT 1),
+  '한국에 살 ___.',
+  'fill_blank',
+  '["고 있어요", "고 있었어요", "고", "아서"]'::jsonb,
+  '고 있어요',
+  'Đang sống → 살고 있어요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고 있다' LIMIT 1),
+  '한국어를 공부 ___.',
+  'fill_blank',
+  '["하고 있어요", "하고 있었어요", "하고", "아서"]'::jsonb,
+  '하고 있어요',
+  'Đang học → 공부하고 있어요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고 있다' LIMIT 1),
+  '언니는 지금 통화 ___.',
+  'multiple_choice',
+  '["하고 있어요", "하고 있었어요", "하고", "아서"]'::jsonb,
+  '하고 있어요',
+  'Đang nghe điện thoại → 통화하고 있어요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고 있다' LIMIT 1),
+  '비가 오 ___.',
+  'fill_blank',
+  '["고 있어요", "고 있었어요", "고", "아서"]'::jsonb,
+  '고 있어요',
+  'Đang mưa → 오고 있어요.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #27: A/V – 다가 [đang A thì B]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A/V – 다가',
+  'daga',
+  'đang A thì B',
+  'beginner',
+  'time',
+  'Diễn tả người nói đang làm gì thì đột nhiên dừng lại và thực hiện hành động khác. Cũng có thể được dùng trong một số trường hợp mà hành động phía trước không bị ngắt quãng mà vẫn được tiếp tục. – 다가 có thể được tỉnh lược thành – 다. Chủ ngữ ở hai vế phải giống nhau. Có thể sử dụng với tính từ khi chung chủ thể và diễn tả trạng thái đột ngột thay đổi. –다가 có thể kết hợp với thì quá khứ ở vế trước thành dạng 았/었/였다가 để thể hiện việc hành động vế trước được hoàn thành.',
+  'A/V + 다가',
+  '[
+    {"korean": "영화를 보다가 울었어요.", "vietnamese": "Đang xem phim thì tôi khóc."},
+    {"korean": "숙제를 하다가 잤어요.", "vietnamese": "Đang làm bài tập thì ngủ gật."},
+    {"korean": "비가 오다가 그쳤어요.", "vietnamese": "Trời đang mưa bỗng dưng tạnh."},
+    {"korean": "날씨가 맑다가 갑자기 흐려졌어요.", "vietnamese": "Trời đang trong xanh đột nhiên trở nên âm u."},
+    {"korean": "설거지를 하다가 접시를 깨뜨렸어요.", "vietnamese": "Tôi đang rửa chén thì làm vỡ cái đĩa."},
+    {"korean": "버스에서 내리다가 돈지갑을 잃어버렸습니다.", "vietnamese": "Tôi xuống xe buýt thì đánh mất ví tiền."}
+  ]'::jsonb,
+  ARRAY['V – 고', 'A/V – (으)면', 'V – 자마자']::TEXT[],
+  ARRAY['time', 'interruption', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 다가' LIMIT 1),
+  '영화를 보 ___ 울었어요.',
+  'fill_blank',
+  '["다가", "다", "고", "아서"]'::jsonb,
+  '다가',
+  'Đang xem thì khóc → 보다가.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 다가' LIMIT 1),
+  '숙제를 하 ___ 잤어요.',
+  'fill_blank',
+  '["다가", "다", "고", "아서"]'::jsonb,
+  '다가',
+  'Đang làm thì ngủ → 하다가.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 다가' LIMIT 1),
+  '비가 오 ___ 그쳤어요.',
+  'multiple_choice',
+  '["다가", "다", "고", "아서"]'::jsonb,
+  '다가',
+  'Đang mưa thì tạnh → 오다가.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 다가' LIMIT 1),
+  '설거지를 하 ___ 접시를 깨뜨렸어요.',
+  'fill_blank',
+  '["다가", "다", "고", "아서"]'::jsonb,
+  '다가',
+  'Đang rửa thì vỡ → 하다가.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #28: A/V – (으)ㄹ 수 있다/ 없다 [có thể..., không thể...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A/V – (으)ㄹ 수 있다/ 없다',
+  '(eu)l su itda/eopda',
+  'có thể..., không thể...',
+  'beginner',
+  'ability',
+  'Diễn tả việc có năng lực làm một việc nào đó hoặc diễn tả một sự việc nào đó có khả năng xảy ra. Dạng nhấn mạnh là (으)ㄹ 수가 있다/없다.',
+  'V(nguyên âm/ㄹ) + ㄹ 수 있다/없다 / V(phụ âm) + 을 수 있다/없다',
+  '[
+    {"korean": "저는 피아노를 칠 수 있어요.", "vietnamese": "Tôi có thể chơi piano."},
+    {"korean": "주말이라서 영화관에 사람들이 많을 수 있으니 미리 예매를 하세요.", "vietnamese": "Vì là cuối tuần nên rạp chiếu phim có thể sẽ đông người nên hãy đặt vé trước đi nhé."},
+    {"korean": "이번 주 금요일에 같이 벚꽃 보러 갈 수 있어요?", "vietnamese": "Thứ 6 tuần này chúng ta có thể cùng nhau đi ngắm hoa anh đào không?"},
+    {"korean": "이따가 점심을 같이 먹을 수 있어요?", "vietnamese": "Lát nữa chúng ta có thể cùng nhau ăn trưa không?"},
+    {"korean": "내일 비가 올 수도 있어요.", "vietnamese": "Ngày mai trời cũng có thể sẽ mưa."},
+    {"korean": "저는 요리할 수 없어요.", "vietnamese": "Tôi không thể nấu ăn."},
+    {"korean": "저는 오토바이를 탈 수가 없어요.", "vietnamese": "Tôi không thể lái xe máy."},
+    {"korean": "저는 술을 마실 수 없어요.", "vietnamese": "Tôi không thể uống rượu."}
+  ]'::jsonb,
+  ARRAY['V - (으)ㄹ 줄 알다/ 모르다', 'A/V – (으)면', 'A/V – (으)ㄹ래']::TEXT[],
+  ARRAY['ability', 'possibility', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄹ 수 있다/ 없다' LIMIT 1),
+  '저는 피아노를 칠 ___ 있어요.',
+  'fill_blank',
+  '["수", "수가", "줄", "것"]'::jsonb,
+  '수',
+  'Có thể → 칠 수 있어요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄹ 수 있다/ 없다' LIMIT 1),
+  '저는 요리할 ___ 없어요.',
+  'fill_blank',
+  '["수", "수가", "줄", "것"]'::jsonb,
+  '수',
+  'Không thể → 요리할 수 없어요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄹ 수 있다/ 없다' LIMIT 1),
+  '내일 비가 올 ___ 있어요.',
+  'multiple_choice',
+  '["수도", "수", "줄", "것"]'::jsonb,
+  '수도',
+  'Có thể sẽ → 올 수도 있어요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄹ 수 있다/ 없다' LIMIT 1),
+  '저는 오토바이를 탈 ___ 없어요.',
+  'fill_blank',
+  '["수가", "수", "줄", "것"]'::jsonb,
+  '수가',
+  'Không thể (nhấn mạnh) → 탈 수가 없어요.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #29: V - (으)ㄹ 줄 알다/ 모르다 [biết cách, không biết cách làm gì đó]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V - (으)ㄹ 줄 알다/ 모르다',
+  '(eu)l jul alda/moreuda',
+  'biết cách, không biết cách làm gì đó',
+  'beginner',
+  'ability',
+  'Thể hiện chủ thể biết/không biết phương pháp làm gì đó, có/không có năng lực làm gì. Phân biệt với (으)ㄹ 수 있다/없다: (으)ㄹ 줄 = biết cách/phương pháp, (으)ㄹ 수 = khả năng/tình huống cho phép.',
+  'V(nguyên âm/ㄹ) + ㄹ 줄 알다/모르다 / V(phụ âm) + 을 줄 알다/모르다',
+  '[
+    {"korean": "저는 한국에 처음 올 때 한국말을 할 줄 몰랐어요.", "vietnamese": "Lúc đến Hàn Quốc lần đầu tiên, tôi đã không biết tiếng Hàn."},
+    {"korean": "저는 운전을 할 줄 몰라요.", "vietnamese": "Tôi không biết cách lái xe."},
+    {"korean": "요리할 줄 알아요?", "vietnamese": "Bạn có biết nấu ăn không?"},
+    {"korean": "저는 김밥을 만들 줄 알아요.", "vietnamese": "Tôi biết cách làm kimbap."},
+    {"korean": "휴대전화를 쓸 줄 알아요?", "vietnamese": "Bạn có biết cách dùng điện thoại không?"}
+  ]'::jsonb,
+  ARRAY['A/V – (으)ㄹ 수 있다/ 없다', 'V – (으)러 가다/오다', 'A/V – (으)면']::TEXT[],
+  ARRAY['ability', 'know-how', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V - (으)ㄹ 줄 알다/ 모르다' LIMIT 1),
+  '저는 운전을 할 ___ 몰라요.',
+  'fill_blank',
+  '["줄", "수", "것", "방법"]'::jsonb,
+  '줄',
+  'Không biết cách → 할 줄 몰라요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V - (으)ㄹ 줄 알다/ 모르다' LIMIT 1),
+  '요리할 ___ 알아요?',
+  'fill_blank',
+  '["줄", "수", "것", "방법"]'::jsonb,
+  '줄',
+  'Biết cách → 요리할 줄 알아요?',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V - (으)ㄹ 줄 알다/ 모르다' LIMIT 1),
+  '저는 김밥을 만들 ___ 알아요.',
+  'multiple_choice',
+  '["줄", "수", "것", "방법"]'::jsonb,
+  '줄',
+  'Biết cách → 만들 줄 알아요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V - (으)ㄹ 줄 알다/ 모르다' LIMIT 1),
+  '휴대전화를 쓸 ___ 알아요?',
+  'fill_blank',
+  '["줄", "수", "것", "방법"]'::jsonb,
+  '줄',
+  'Biết cách → 쓸 줄 알아요?',
+  'easy'
+);
