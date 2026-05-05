@@ -4275,8 +4275,8 @@ INSERT INTO public.grammar_patterns (
     {"korean": "법을 어기지 않는 한 자유롭게 행동할 수 있다.", "vietnamese": "Miễn là không vi phạm pháp luật, bạn có thể hành động tự do."}
   ]'::jsonb,
   ARRAY['V-는 이상', 'V-는 동안']::TEXT[],
-  ARRAY['condition', 'formal', 'c1', 'topik3']::TEXT[],
-  'TOPIK III'
+  ARRAY['condition', 'formal', 'c1', 'topik2']::TEXT[],
+  'TOPIK II'
 );
 
 INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
