@@ -24,6 +24,7 @@ const adminNavGroups = [
     items: [
       { path: "/admin/users", icon: "ri-user-settings-line", label: "Quản lý thành viên", permission: "users.view" as Permission },
       { path: "/admin/roles", icon: "ri-shield-keyhole-line", label: "Phân quyền Admin", permission: "system.roles" as Permission },
+      { path: "/admin/weekly-rewards", icon: "ri-trophy-line", label: "Thưởng tuần (XP + Huy hiệu)" },
       { path: "/admin/coupon", icon: "ri-coupon-3-line", label: "Coupon & Mã giảm giá", permission: "users.vip" as Permission },
     ],
   },
