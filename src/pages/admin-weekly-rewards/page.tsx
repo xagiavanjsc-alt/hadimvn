@@ -10,7 +10,7 @@ interface LeaderboardEntry {
   avatar_url: string | null;
   xp: number;
   best_score: number;
-  streak: number;
+  streak_count: number;
   level: string;
 }
 
@@ -62,11 +62,26 @@ export default function AdminWeeklyRewardsPage() {
 
   const fetchData = useCallback(async () => {
     setLoading(true);
+    // Query user_progress (source of truth) JOIN user_profiles for display_name/avatar
     const [lb, hist] = await Promise.all([
-      supabase.from("leaderboard").select("*").order("xp", { ascending: false }).limit(20),
+      supabase
+        .from("user_progress")
+        .select("user_id, xp, best_score, streak_count, level, user_profiles!inner(display_name, avatar_url)")
+        .order("xp", { ascending: false })
+        .limit(20),
       supabase.from("weekly_rewards_summary").select("*").order("week_start", { ascending: false }).limit(50),
     ]);
-    setLeaderboard(lb.data || []);
+    // Flatten nested user_profiles join
+    const entries = (lb.data || []).map((row: any) => ({
+      user_id: row.user_id,
+      xp: row.xp ?? 0,
+      best_score: row.best_score ?? 0,
+      streak_count: row.streak_count ?? 0,
+      level: row.level ?? "Cơ bản",
+      display_name: row.user_profiles?.display_name || "Học viên",
+      avatar_url: row.user_profiles?.avatar_url || null,
+    }));
+    setLeaderboard(entries);
     setHistory(hist.data || []);
     setLoading(false);
   }, []);
