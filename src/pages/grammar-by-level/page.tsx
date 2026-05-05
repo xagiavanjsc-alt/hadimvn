@@ -2490,6 +2490,72 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
     ],
     tags: ["Xác nhận", "Đồng tình", "TOPIK I"],
   },
+  {
+    id: "a2-68",
+    level: "A2",
+    levelColor: "#84cc16",
+    pattern: "A – (으)ㄴ가요? / V – 나요?",
+    meaning: "Câu hỏi lịch sự",
+    explanation: "Đuôi câu này được sử dụng như một cách lịch sự và nhẹ nhàng, vẫn có sắc thái thân mật, tạo cảm giác gần gũi. Thường được dùng trong văn nói khi hỏi khách hàng hoặc với những người có quan hệ xã giao nhưng không quá xa lạ.",
+    formation: "Hiện tại: V + 나요? / A + (으)ㄴ가요? / Quá khứ: V/A + 았/었나요? / Tương lai: V/A + (으)ㄹ 건가요?",
+    notes: [
+      "Lịch sự và nhẹ nhàng.",
+      "Văn nói, xã giao.",
+      "Thân mật nhưng trang trọng.",
+    ],
+    examples: [
+      { korean: "흐엉 씨는 무슨 운동을 좋아하나요?", vietnamese: "Chị Hương thích môn thể thao gì vậy?" },
+      { korean: "어디가 아픈가요?", vietnamese: "Anh đau ở đâu thế?" },
+      { korean: "한국 생활이 재미있나요?", vietnamese: "Cuộc sống ở Hàn thú vị chứ ạ?" },
+      { korean: "벌써 1시인데 아직도 점심을 안 먹었나요?", vietnamese: "Đã 1 giờ rồi này anh chị vẫn chưa ăn trưa đúng không ạ?" },
+      { korean: "어제 시험을 잘 봤나요?", vietnamese: "Hôm qua anh thi tốt chứ ạ?" },
+      { korean: "지하철이나 공항버스로 가실 수 있는데 무엇을 이용하실 건가요?", vietnamese: "Anh có thể đi bằng tàu điện ngầm hoặc xe bus sân bay, anh sẽ sử dụng phương tiện nào?" },
+    ],
+    exercises: [
+      { question: "무슨 운동을 좋아하___.", options: ["나요?", "ㄴ가요?", "어요?", "습니까?"], answer: 0, explanation: "Thích động từ → 좋아하나요?" },
+      { question: "어디가 아픈___.", options: ["가요?", "나요?", "어요?", "습니까?"], answer: 1, explanation: "Đau tính từ → 아픈가요?" },
+    ],
+    commonMistakes: [
+      "Nhầm với -아/어요 (thông thường vs lịch sự).",
+      "Dùng sai thì (hiện tại/quá khứ/tương lai).",
+      "Quên ngữ cảnh xã giao.",
+    ],
+    tags: ["Câu hỏi", "Lịch sự", "Văn nói", "TOPIK I"],
+  },
+  {
+    id: "a2-69",
+    level: "A2",
+    levelColor: "#84cc16",
+    pattern: "A – 아/어 하다",
+    meaning: "Cảm thấy...",
+    explanation: "Gắn với các tính từ chỉ tâm lý mô tả cảm giác cảm thấy... lúc này cụm cấu trúc sẽ trở thành Động từ. Thường mô tả cảm giác của ngôi thứ 3. Tuy nhiên ngôi 1 có thể được sử dụng để khách quan hoá. Cũng gắn với A khác: cảm thấy. Dùng cho ngôi số 3, đối tượng gắn 을/를.",
+    formation: "A(ㅏ/ㅗ) + 아 하다 / A(khác) + 어 하다",
+    notes: [
+      "Cảm giác tâm lý.",
+      "Thường ngôi thứ 3.",
+      "Khách quan hóa (ngôi 1).",
+    ],
+    examples: [
+      { korean: "엄마가 슬퍼해요.", vietnamese: "Mẹ cảm thấy buồn." },
+      { korean: "요즘 지훈 씨가 피곤해해요.", vietnamese: "Gần đây Jihoon cảm thấy mệt mỏi." },
+      { korean: "민호 씨가 축구 경기에서 이겨서 엄청 기뻐해요.", vietnamese: "Anh Minho vì chiến thắng trong trận đá banh nên cảm thấy vui mừng." },
+      { korean: "누나가 그 소식을 들으면 기뻐할 거예요.", vietnamese: "Chị gái nếu nghe tin đó sẽ cảm thấy rất vui." },
+      { korean: "저는 비가 올 때마다 우울해요.", vietnamese: "Tôi mỗi khi trời mưa sẽ u sầu." },
+      { korean: "아이들은 동물원에서 원숭이의 동작을 보고 즐거워했어요.", vietnamese: "Bọn trẻ nhìn thấy động tác của những chú khỉ trong công viên và cảm thấy rất vui." },
+      { korean: "흐엉 씨는 게임을 재미있어해요.", vietnamese: "Hương cảm thấy game thú vị." },
+      { korean: "아이들이 더워서 에어컨을 틀었어요.", vietnamese: "Bọn trẻ cảm thấy nóng nên bật máy lạnh." },
+    ],
+    exercises: [
+      { question: "요즘 지훈 씨가 피곤해___.", options: ["요.", "해요.", "습니다.", "습니다."], answer: 1, explanation: "Cảm thấy mệt → 피곤해해요." },
+      { question: "엄마가 슬퍼___.", options: ["요.", "해요.", "습니다.", "습니다."], answer: 1, explanation: "Cảm thấy buồn → 슬퍼해요." },
+    ],
+    commonMistakes: [
+      "Nhầm với tính từ nguyên bản.",
+      "Quên khách quan hóa.",
+      "Dùng sai ngôi thứ.",
+    ],
+    tags: ["Cảm xúc", "Cảm giác", "Khách quan", "TOPIK I"],
+  },
 ];
 
 const LEVELS = ["Tất cả", "A1", "A2", "B1", "B2", "C1"];
