@@ -542,18 +542,21 @@ export default function DailyPlanPage() {
                 Đã hoàn thành hôm nay
               </div>
             ) : (
-              <>
+              <div className="flex gap-3">
                 <button
                   onClick={() => handleStartTask(selectedTask)}
-                  className="w-full bg-app-accent-primary text-[#0a0c10] font-bold py-3 rounded-xl text-sm hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer"
+                  className="flex-1 bg-app-accent-primary text-[#0a0c10] font-bold py-3 rounded-xl text-sm hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer"
                 >
                   Bắt đầu ngay
                 </button>
-                <p className="text-center text-app-text-muted text-[11px] mt-3">
-                  <i className="ri-information-line mr-1"></i>
-                  XP được cộng tự động khi bạn hoàn thành bài học thực tế (thi, flashcard, đăng bài...)
-                </p>
-              </>
+                <button
+                  onClick={() => handleMarkDone(selectedTask.id)}
+                  className="flex-1 bg-[#4ade80]/15 text-[#4ade80] font-bold py-3 rounded-xl text-sm hover:bg-[#4ade80]/25 transition-colors whitespace-nowrap cursor-pointer border border-[#4ade80]/20"
+                >
+                  <i className="ri-check-line mr-1"></i>
+                  Hoàn thành +{selectedTask.xp} XP
+                </button>
+              </div>
             )}
           </div>
         </div>

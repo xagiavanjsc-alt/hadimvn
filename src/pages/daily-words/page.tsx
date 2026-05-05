@@ -223,7 +223,7 @@ function QuizMode({
       setSelected(null);
       setAnswered(false);
     } else {
-      onFinish(score + (selected === q.correctIdx ? 1 : 0));
+      onFinish(score);
     }
   };
 
