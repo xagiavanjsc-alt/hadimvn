@@ -19,46 +19,6 @@ interface GrammarPattern {
 
 const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
-    id: "a1-1",
-    level: "A1",
-    levelColor: "#22c55e",
-    pattern: "N은/는",
-    meaning: "Trợ từ chủ đề",
-    explanation: "은/는 là trợ từ chủ đề, dùng để đánh dấu chủ đề của câu. Dùng 은 sau phụ âm, 는 sau nguyên âm.",
-    formation: "N(phụ âm) + 은 / N(nguyên âm) + 는",
-    examples: [
-      { korean: "저는 학생이에요.", vietnamese: "Tôi là học sinh." },
-      { korean: "한국은 아름다워요.", vietnamese: "Hàn Quốc thật đẹp." },
-      { korean: "오늘은 날씨가 좋아요.", vietnamese: "Hôm nay thời tiết đẹp." },
-    ],
-    exercises: [
-      { question: "저 ___ 베트남 사람이에요.", options: ["은", "는", "이", "가"], answer: 1, explanation: "저 kết thúc bằng nguyên âm eo, nên dùng 는" },
-      { question: "한국어 ___ 재미있어요.", options: ["은", "는", "이", "가"], answer: 0, explanation: "한국어 kết thúc bằng phụ âm eo, nên dùng 은" },
-    ],
-    commonMistakes: ["Nhầm lẫn 은/는 với 이/가", "Dùng 은/는 khi cần nhấn mạnh chủ ngữ"],
-    tags: ["Trợ từ", "Cơ bản", "Chủ đề"],
-  },
-  {
-    id: "a1-2",
-    level: "A1",
-    levelColor: "#22c55e",
-    pattern: "N이/가",
-    meaning: "Trợ từ chủ ngữ",
-    explanation: "이/가 là trợ từ chủ ngữ, dùng để đánh dấu chủ ngữ thực sự của câu. Dùng 이 sau phụ âm, 가 sau nguyên âm.",
-    formation: "N(phụ âm) + 이 / N(nguyên âm) + 가",
-    examples: [
-      { korean: "꽃이 예뻐요.", vietnamese: "Hoa đẹp." },
-      { korean: "누가 왔어요?", vietnamese: "Ai đến vậy?" },
-      { korean: "비가 와요.", vietnamese: "Trời mưa." },
-    ],
-    exercises: [
-      { question: "꽃 ___ 예뻐요.", options: ["은", "는", "이", "가"], answer: 2, explanation: "꽃 kết thúc bằng phụ âm, nên dùng 이" },
-      { question: "누구 ___ 왔어요?", options: ["은", "는", "이", "가"], answer: 3, explanation: "누구 kết thúc bằng nguyên âm, nên dùng 가" },
-    ],
-    commonMistakes: ["Nhầm 이/가 với 은/는", "이/가 dùng khi giới thiệu thông tin mới"],
-    tags: ["Trợ từ", "Cơ bản", "Chủ ngữ"],
-  },
-  {
     id: "a2-1",
     level: "A2",
     levelColor: "#84cc16",
@@ -2322,6 +2282,104 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
     tags: ["Suy đoán", "Phỏng đoán", "B1"],
   },
   {
+    id: "b1-3",
+    level: "B1",
+    levelColor: "#f59e0b",
+    pattern: "V – 느라(고)",
+    meaning: "vì mải làm gì đó nên...",
+    explanation: "Vĩ tố liên kết thể hiện mệnh đề trước là nguyên nhân, lý do gây kết quả tiêu cực ở mệnh đề sau. Nếu dùng kết quả tích cực ở mệnh đề sau câu sẽ thiếu tự nhiên. Vế sau chủ yếu chia ở thời quá khứ. Chỉ những động từ yêu cầu thời gian, sức lực, ý chí của chủ thể hành động mới được đứng trước – 느라고.",
+    formation: "V + 느라고",
+    notes: [
+      "Nguyên nhân gây kết quả tiêu cực.",
+      "Vế sau quá khứ.",
+      "Động từ cần thời gian/sức lực.",
+    ],
+    examples: [
+      { korean: "열심히 공부하느라고 고생했어요.", vietnamese: "Vì mải học hành nên đã rất vất vả." },
+      { korean: "일을 하느라고 점심을 못 먹었어요.", vietnamese: "Vì mải làm việc mà tôi đã không thể ăn trưa." },
+      { korean: "텔레비전을 보느라고 숙제를 못 했어요.", vietnamese: "Vì mải xem tivi mà tôi đã không thể làm bài tập." },
+      { korean: "어제 책을 읽느라고 밤을 세웠어요.", vietnamese: "Vì mải đọc sách mà hôm qua tôi đã thức cả đêm." },
+      { korean: "피곤해서 자느라 전화 소리도 못 들었어요.", vietnamese: "Xin lỗi, vì mệt nên mình ngủ say quá không nghe thấy chuông điện thoại." },
+      { korean: "아르바이트를 하느라 바빠요.", vietnamese: "Vì đi làm thêm nên tớ bận rộn." },
+    ],
+    exercises: [
+      { question: "공부하느라고 고생했___.", options: ["어요.", "습니다.", "했어요.", "했어."], answer: 0, explanation: "Quá khứ → 고생했어요." },
+      { question: "일을 하느라고 점심을 못 먹었___.", options: ["어요.", "습니다.", "었어요.", "었어."], answer: 0, explanation: "Quá khứ → 못 먹었어요." },
+    ],
+    commonMistakes: [
+      "Dùng với kết quả tích cực (không tự nhiên).",
+      "Quên vế sau phải quá khứ.",
+      "Dùng với động từ không cần thời gian.",
+    ],
+    tags: ["Nguyên nhân", "Kết quả tiêu cực", "Quá khứ", "B1"],
+  },
+  {
+    id: "b1-4",
+    level: "B1",
+    levelColor: "#f59e0b",
+    pattern: "V – 는 바람에",
+    meaning: "chẳng qua là vì...",
+    explanation: "Thông thường, mệnh đề trước diễn tả tình huống hoặc hoàn cảnh gây ảnh hưởng tiêu cực đến mệnh đề sau hoặc gây ra một kết quả không mong muốn. Là vĩ tố liên kết mang tính chất biện minh. Tuy nhiên, thỉnh thoảng cũng có thể dùng cấu trúc này trong tình huống mang tính tích cực khi kết quả xảy ra ngoài dự đoán. Mệnh đề sau – 는 바람에 luôn chia ở hình thức quá khứ nhưng không kết hợp với câu mệnh lệnh hoặc câu thỉnh dụ.",
+    formation: "V + 는 바람에",
+    notes: [
+      "Hoàn cảnh gây kết quả tiêu cực.",
+      "Tính biện minh.",
+      "Vế sau luôn quá khứ.",
+    ],
+    examples: [
+      { korean: "노트북이 갑자기 고장 나는 바람에 이메일을 확인하지 못했어요.", vietnamese: "Vì laptop đột nhiên bị hỏng nên tôi không thể xác nhận email được." },
+      { korean: "버스를 잘못 타는 바람에 늦었어요.", vietnamese: "Em xin lỗi ạ. Tại vì bị lỡ xe bus nên em đến muộn ạ." },
+      { korean: "갑자기 감기에 걸리는 바람에 약속을 취소했어요.", vietnamese: "Do tự nhiên bị cảm cúm nên tôi đã đành hủy bỏ cuộc hẹn." },
+      { korean: "태풍이 오는 바람에 비행기가 취소됐어요.", vietnamese: "Tại có bão nên chuyến bay bị hủy." },
+      { korean: "급하게 먹는 바람에 체했어요.", vietnamese: "Tại ăn vội nên bị nghẹn." },
+      { korean: "교통사고가 나는 바람에 다쳐서 병원에 입원했어요.", vietnamese: "Vì bị tai nạn giao thông nên đã nhập viện." },
+      { korean: "길이 막히는 바람에 늦었어요.", vietnamese: "Vì đường bị tắc nên tôi đã bị muộn." },
+    ],
+    exercises: [
+      { question: "노트북이 갑자기 고장 나는 바람에 이메일을 확인하지 못했___.", options: ["어요.", "습니다.", "했어요.", "했어."], answer: 0, explanation: "Quá khứ → 못 했어요." },
+      { question: "버스를 잘못 타는 바람에 늦었___.", options: ["어요.", "습니다.", "었어요.", "었어."], answer: 0, explanation: "Quá khứ → 늦었어요." },
+    ],
+    commonMistakes: [
+      "Dùng với mệnh lệnh/thỉnh dụ.",
+      "Quên vế sau phải quá khứ.",
+      "Dùng khi kết quả tích cực (thiếu tự nhiên).",
+    ],
+    tags: ["Nguyên nhân", "Biện minh", "Quá khứ", "B1"],
+  },
+  {
+    id: "b1-5",
+    level: "B1",
+    levelColor: "#f59e0b",
+    pattern: "A/V – (으)ㄴ/는 탓에",
+    meaning: "đổ lỗi, nêu lý do",
+    explanation: "Vĩ tố liên kết dùng để đổ lỗi, nêu ra lý do, nguyên nhân, biện hộ, quy trách nhiệm cho một tình huống không tốt nào đó. Mệnh đề sau xảy ra do mệnh đề trước.",
+    formation: "V + 는 탓에 / A + (으)ㄴ 탓에 / N인 탓에",
+    notes: [
+      "Đổ lỗi/nêu lý do.",
+      "Tình huống không tốt.",
+      "Biện hộ/quy trách nhiệm.",
+    ],
+    examples: [
+      { korean: "밤새도록 드라마를 보는 탓에 아침에 자주 늦게 일어나요.", vietnamese: "Vì xem phim cả đêm nên tôi thường buổi sáng tôi thường dậy muộn." },
+      { korean: "요즘 스트레스를 자주 받는 탓에 건강이 나빠져요.", vietnamese: "Dạo này vì bị căng thẳng nhiều nên sức khỏe trở nên xấu đi." },
+      { korean: "장마철인 탓에 비가 자주 온다.", vietnamese: "Do đang mùa mưa nên trời hay mưa." },
+      { korean: "어제 눈이 많이 온 탓에 길이 미끄러워요.", vietnamese: "Vì hôm qua tuyết rơi nhiều nên đường rất trơn." },
+      { korean: "어제 술을 많이 마신 탓에 오늘 아침에 머리가 아팠어요.", vietnamese: "Vì hôm qua uống nhiều rượu nên sáng nay tôi bị đau đầu." },
+      { korean: "시험 문제가 어려운 탓에 학생들의 점수가 좋지 않다.", vietnamese: "Vì đề thi khó nên điểm số của các em học sinh không được cao." },
+      { korean: "돈을 없는 탓에 원하는 것을 살 수 없다.", vietnamese: "Vì không có tiền nên không thể mua được thứ mình muốn." },
+    ],
+    exercises: [
+      { question: "밤새도록 드라마를 보는 탓에 아침에 자주 늦게 일어나___.", options: ["요.", "습니다.", "나요.", "나."], answer: 0, explanation: "Hiện tại → 일어나요." },
+      { question: "요즘 스트레스를 자주 받는 탓에 건강이 나빠져___.", options: ["요.", "습니다.", "어요.", "어."], answer: 0, explanation: "Hiện tại → 나빠져요." },
+    ],
+    commonMistakes: [
+      "Nhầm với -(으)ㄴ/는 덕분에 (kết quả tốt).",
+      "Dùng khi tình huống tích cực.",
+      "Quên ý nghĩa đổ lỗi.",
+    ],
+    tags: ["Đổ lỗi", "Nêu lý do", "Biện hộ", "B1"],
+  },
+  {
     id: "b2-1",
     level: "B2",
     levelColor: "#f97316",
@@ -2558,7 +2616,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   },
 ];
 
-const LEVELS = ["Tất cả", "A1", "A2", "B1", "B2", "C1"];
+const LEVELS = ["Tất cả", "A2", "B1", "B2", "C1"];
 
 export default function GrammarByLevelPage() {
   const [selectedLevel, setSelectedLevel] = useState("Tất cả");
