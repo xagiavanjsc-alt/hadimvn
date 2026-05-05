@@ -1004,3 +1004,264 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   '만나다 → 만나서. Gặp rồi xem phim.',
   'easy'
 );
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #16: V – 고 [rồi]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V – 고',
+  'go',
+  'rồi',
+  'beginner',
+  'time',
+  'Liệt kê trình tự thời gian: vế trước xảy ra rồi kế tiếp vế sau xuất hiện lần lượt theo trình tự thời gian. Hai vế phải có cùng chủ ngữ, 2 vế không có quan hệ mục đích qua lại như 아/어서. Không thể kết hợp cùng với 았/었, 겠 ở vế trước.',
+  'V + 고',
+  '[
+    {"korean": "오늘 아침에 세수하고 밥을 먹었어요.", "vietnamese": "Sáng nay tôi đã rửa mặt rồi ăn cơm."},
+    {"korean": "저는 어제 수업을 듣고 점심을 먹었어요.", "vietnamese": "Hôm qua tôi nghe giảng rồi ăn trưa."},
+    {"korean": "저는 숙제를 하고 친구를 만날 거예요.", "vietnamese": "Tôi làm bài tập rồi sẽ gặp gỡ bạn bè."},
+    {"korean": "양복을 입고 출근했어요.", "vietnamese": "Tôi mặc âu phục rồi đi làm."},
+    {"korean": "운동화를 신고 산책해요.", "vietnamese": "Tôi đi giày rồi đi dạo."}
+  ]'::jsonb,
+  ARRAY['V – 아/어서', 'V – 고 나서', 'N –(이)고, A/V – 고']::TEXT[],
+  ARRAY['time', 'sequence', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고' LIMIT 1),
+  '오늘 아침에 세수 ___ 밥을 먹었어요.',
+  'fill_blank',
+  '["고", "고 나서", "아서", "어서"]'::jsonb,
+  '고',
+  'Liệt kê trình tự → dùng -고.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고' LIMIT 1),
+  '저는 어제 수업을 듣 ___ 점심을 먹었어요.',
+  'fill_blank',
+  '["고", "고 나서", "아서", "어서"]'::jsonb,
+  '고',
+  'Liệt kê trình tự → dùng -고.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고' LIMIT 1),
+  '저는 숙제를 하 ___ 친구를 만날 거예요.',
+  'multiple_choice',
+  '["고", "고 나서", "아서", "어서"]'::jsonb,
+  '고',
+  'Liệt kê trình tự → dùng -고.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고' LIMIT 1),
+  '양복을 입 ___ 출근했어요.',
+  'fill_blank',
+  '["고", "고 나서", "아서", "어서"]'::jsonb,
+  '고',
+  'Liệt kê trình tự → dùng -고.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #17: N – 때, A/V – (으)ㄹ 때 [khi...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'N – 때, A/V – (으)ㄹ 때',
+  'ttae / (eu)l ttae',
+  'khi...',
+  'beginner',
+  'time',
+  'Diễn tả thời điểm diễn ra hành động hoặc trạng thái nào đó. Không thể dùng 때 với 아침, 오전, 오후, 주말 và các thứ trong tuần.',
+  'N + 때 / A + ㄹ 때 / V + (으)ㄹ 때',
+  '[
+    {"korean": "저는 집에 혼자 있을 때 책을 읽어요.", "vietnamese": "Khi tôi ở nhà một mình thì tôi đọc sách."},
+    {"korean": "방학 때 고향에 갈 거예요.", "vietnamese": "Tôi sẽ về quê trong kỳ nghỉ."},
+    {"korean": "심심할 때마다 한국 음악을 들어요.", "vietnamese": "Mỗi khi buồn chán tôi nghe nhạc."},
+    {"korean": "몸이 아플 때 병원에 가요.", "vietnamese": "Khi bị ốm tôi đến bệnh viện."},
+    {"korean": "회사에 갈 때 양복을 입어요.", "vietnamese": "Khi đi làm tôi mặc âu phục."},
+    {"korean": "배고플 때 밥을 두 그릇 먹어요.", "vietnamese": "Khi đói tôi ăn 2 bát cơm."}
+  ]'::jsonb,
+  ARRAY['N 전에, V – 기 전에', 'N 후에, V – (으)ㄴ 후에', 'A/V – (으)면']::TEXT[],
+  ARRAY['time', 'when', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N – 때, A/V – (으)ㄹ 때' LIMIT 1),
+  '저는 집에 혼자 있 ___ 책을 읽어요.',
+  'fill_blank',
+  '["을 때", "때", "고", "아서"]'::jsonb,
+  '을 때',
+  'Động từ + (으)ㄹ 때 = khi ở nhà.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N – 때, A/V – (으)ㄹ 때' LIMIT 1),
+  '방학 ___ 고향에 갈 거예요.',
+  'fill_blank',
+  '["때", "을 때", "고", "아서"]'::jsonb,
+  '때',
+  'Danh từ + 때 = trong kỳ nghỉ.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N – 때, A/V – (으)ㄹ 때' LIMIT 1),
+  '심심할 ___ 한국 음악을 들어요.',
+  'multiple_choice',
+  '["때마다", "때", "고", "아서"]'::jsonb,
+  '때마다',
+  'Tính từ + 때마다 = mỗi khi buồn chán.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N – 때, A/V – (으)ㄹ 때' LIMIT 1),
+  '몸이 아플 ___ 병원에 가요.',
+  'fill_blank',
+  '["때", "을 때", "고", "아서"]'::jsonb,
+  '때',
+  'Tính từ + 때 = khi bị ốm.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #18: A/V – (으)면서 [vừa...vừa...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A/V – (으)면서',
+  '(eu)myeonseo',
+  'vừa...vừa...',
+  'beginner',
+  'time',
+  'Diễn tả hai hành động diễn ra ở cùng thời điểm, chủ ngữ của hai hành động phải đồng nhất. Cũng có thể sử dụng với tính từ khi 2 trạng thái tương đương; có thể thay bằng (으)며. Động từ trước – (으)면서 phải để nguyên thể.',
+  'A + 면서 / V + (으)면서',
+  '[
+    {"korean": "그 사람이 울면서 말했어요.", "vietnamese": "Người đó vừa nói vừa khóc."},
+    {"korean": "운전하면서 핸드폰을 보지 마세요.", "vietnamese": "Đừng xem điện thoại trong khi đang lái xe."},
+    {"korean": "흐엉 씨는 똑똑하면서 예뻐요.", "vietnamese": "Hương vừa thông minh vừa xinh đẹp."},
+    {"korean": "밥을 먹으면서 텔레비전을 봐요.", "vietnamese": "Tôi vừa ăn vừa xem phim."},
+    {"korean": "요리를 하면서 많이 먹어요.", "vietnamese": "Tôi ăn rất nhiều trong lúc đang nấu ăn."},
+    {"korean": "마이 씨는 그림을 그리며 노래를 했습니다.", "vietnamese": "Mai vừa vẽ tranh vừa hát."},
+    {"korean": "음악을 들으면서 운동을 해요.", "vietnamese": "Tôi vừa nghe nhạc vừa tập thể dục."},
+    {"korean": "서울은 한국의 수도이며 경제의 중심입니다.", "vietnamese": "Seoul vừa là thủ đô của Hàn Quốc vừa là trung tâm kinh tế."}
+  ]'::jsonb,
+  ARRAY['A/V – (으)며', 'N –(이)고, A/V – 고', 'A/V – 아/어서']::TEXT[],
+  ARRAY['time', 'simultaneous', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)면서' LIMIT 1),
+  '그 사람이 울 ___ 말했어요.',
+  'fill_blank',
+  '["면서", "고", "아서", "때"]'::jsonb,
+  '면서',
+  'Vừa khóc vừa nói → dùng -면서.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)면서' LIMIT 1),
+  '밥을 먹 ___ 텔레비전을 봐요.',
+  'fill_blank',
+  '["으면서", "고", "아서", "때"]'::jsonb,
+  '으면서',
+  'Vừa ăn vừa xem → dùng -으면서.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)면서' LIMIT 1),
+  '음악을 들 ___ 운동을 해요.',
+  'multiple_choice',
+  '["으면서", "고", "아서", "때"]'::jsonb,
+  '으면서',
+  'Vừa nghe vừa tập → dùng -으면서.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)면서' LIMIT 1),
+  '흐엉 씨는 똑똑하 ___ 예뻐요.',
+  'fill_blank',
+  '["면서", "고", "아서", "때"]'::jsonb,
+  '면서',
+  'Vừa thông minh vừa xinh → dùng -면서.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #19: A/V – (으)며 [vừa...vừa... / và...và...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A/V – (으)며',
+  '(eu)myeo',
+  'vừa...vừa... / và...và...',
+  'beginner',
+  'time',
+  'Diễn tả hai hành động diễn ra ở cùng thời điểm, chủ ngữ của hai hành động phải đồng nhất. Thường dùng trong văn viết. Liệt kê 2 hành động hay trạng thái, thường dùng trong văn viết. Có thể thay bằng (으)면서.',
+  'A + 며 / V + (으)며',
+  '[
+    {"korean": "부산은 바다로 유명하며 강원도는 산으로 유명합니다.", "vietnamese": "Busan nổi tiếng với biển và Gangwondo nổi tiếng với núi."},
+    {"korean": "오늘 한국은 축구 경기를 하며 중국은 농구 경기를 합니다.", "vietnamese": "Hôm nay Hàn Quốc thi đấu bóng đá còn Trung Quốc thi đấu bóng rổ."},
+    {"korean": "내 친구는 공부도 잘하며 성격도 좋다.", "vietnamese": "Bạn tôi học cũng giỏi và tính cách cũng tốt nữa."},
+    {"korean": "제가 어제 만난 남자는 멋있었으며 친절했습니다.", "vietnamese": "Người đàn ông tôi gặp hôm qua đã rất tuyệt và tử tế."},
+    {"korean": "내일은 날씨가 춥겠으며 바람도 불겠습니다.", "vietnamese": "Ngày mai thời tiết sẽ lạnh và cũng sẽ có gió."},
+    {"korean": "친구가 책을 읽으며 커피를 마셔요.", "vietnamese": "Đứa bạn vừa đọc sách vừa uống cà phê."},
+    {"korean": "저는 텔레비전을 보며 식사를 합니다.", "vietnamese": "Tôi vừa ăn vừa xem phim."},
+    {"korean": "이 컴퓨터는 크기도 작으며 값도 싸요.", "vietnamese": "Chiếc máy vi tính này kích cỡ vừa nhỏ giá cả lại còn rẻ nữa."},
+    {"korean": "방이 깨끗하며 넓어요.", "vietnamese": "Căn phòng vừa sạch sẽ vừa rộng rãi."},
+    {"korean": "친구가 음악을 들으며 게임을 해요.", "vietnamese": "Đứa bạn vừa điện thoại vừa chơi game."}
+  ]'::jsonb,
+  ARRAY['A/V – (으)면서', 'N –(이)고, A/V – 고', 'A/V – 아/어서']::TEXT[],
+  ARRAY['time', 'simultaneous', 'written', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)며' LIMIT 1),
+  '부산은 바다로 유명하 ___ 강원도는 산으로 유명합니다.',
+  'fill_blank',
+  '["며", "고", "아서", "때"]'::jsonb,
+  '며',
+  'Văn viết, liệt kê → dùng -며.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)며' LIMIT 1),
+  '내 친구는 공부도 잘하 ___ 성격도 좋다.',
+  'fill_blank',
+  '["며", "고", "아서", "때"]'::jsonb,
+  '며',
+  'Văn viết, liệt kê → dùng -며.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)며' LIMIT 1),
+  '친구가 책을 읽 ___ 커피를 마셔요.',
+  'multiple_choice',
+  '["으며", "고", "아서", "때"]'::jsonb,
+  '으며',
+  'Vừa đọc vừa uống → dùng -으며.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)며' LIMIT 1),
+  '방이 깨끗하 ___ 넓어요.',
+  'fill_blank',
+  '["며", "고", "아서", "때"]'::jsonb,
+  '며',
+  'Vừa sạch vừa rộng → dùng -며.',
+  'easy'
+);
