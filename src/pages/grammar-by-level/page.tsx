@@ -9,9 +9,11 @@ interface GrammarPattern {
   meaning: string;
   explanation: string;
   formation: string;
+  notes?: string[];
   examples: { korean: string; vietnamese: string }[];
   exercises: { question: string; options: string[]; answer: number; explanation: string }[];
   commonMistakes: string[];
+  comparison?: { title: string; headers: [string, string]; rows: [string, string][] };
   tags: string[];
 }
 
@@ -80,21 +82,88 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
     id: "a2-2",
     level: "A2",
     levelColor: "#84cc16",
-    pattern: "V-아/어서",
-    meaning: "Vì... nên... / Và rồi...",
-    explanation: "아/어서 có 2 nghĩa: (1) Nguyên nhân - kết quả (vì... nên...), (2) Trình tự hành động (và rồi...). Không dùng được với -았/었 ở vế trước.",
-    formation: "V(ㅏ/ㅗ) + 아서 / V(khác) + 어서",
+    pattern: "A/V – 아/어서",
+    meaning: "Vì... nên..., do... nên...",
+    explanation: "Mệnh đề trước là nguyên nhân gây ra kết quả ở mệnh đề sau. Vế sau không dùng câu mệnh lệnh, cầu khiến và vế trước chỉ chia thì hiện tại. Với danh từ dùng (이)라서 hoặc 여서/이어서.",
+    formation: "A/V(ㅏ/ㅗ) + 아서 / A/V(khác) + 어서 / 하다 → 해서 / N + (이)라서",
+    notes: [
+      "Mệnh đề trước là nguyên nhân gây kết quả mệnh đề sau.",
+      "Vế sau không dùng mệnh đề lệnh, cầu khiến và vế trước chỉ chia thì hiện tại.",
+      "Danh từ + (이)라서 hoặc 여서/이어서",
+    ],
     examples: [
-      { korean: "배가 고파서 밥을 먹었어요.", vietnamese: "Vì đói bụng nên tôi đã ăn cơm." },
-      { korean: "도서관에 가서 공부했어요.", vietnamese: "Tôi đến thư viện rồi học bài." },
-      { korean: "피곤해서 일찍 잤어요.", vietnamese: "Vì mệt nên tôi ngủ sớm." },
+      { korean: "배가 고파서 많이 먹었어요.", vietnamese: "Vì đói bụng nên tôi đã ăn nhiều." },
+      { korean: "좀 늦어서 택시를 탔어요.", vietnamese: "Vì muộn nên tôi đã đi taxi." },
+      { korean: "기뻐서 눈물이 났어요.", vietnamese: "Vì vui nên tôi đã rơi nước mắt." },
+      { korean: "주말이라서 사람이 많아요.", vietnamese: "Vì là cuối tuần nên người đông." },
+      { korean: "퇴근 시간에는 차가 많아서 버스를 타요.", vietnamese: "Vào giờ tan làm, vì nhiều xe nên tôi đã đi xe bus." },
+      { korean: "열심히 공부해서 100점을 받았어요.", vietnamese: "Vì chăm học nên tôi đã được 100 điểm." },
+      { korean: "저는 심심해서 공원에 가고 싶어요.", vietnamese: "Vì chán nên tôi muốn đi công viên." },
+      { korean: "눈이 와서 길이 미끄러워요.", vietnamese: "Vì tuyết rơi nên đường trơn." },
+      { korean: "배가 아파서 학교에 못 갔어요.", vietnamese: "Vì đau bụng nên tôi đã không thể đến trường." },
+      { korean: "저는 화장을 하지 않아서 못생겨 보여요.", vietnamese: "Vì tôi không trang điểm nên trông xấu xí." },
     ],
     exercises: [
-      { question: "배가 고프 ___ 밥을 먹었어요.", options: ["아서", "어서", "고서", "서"], answer: 0, explanation: "고프다 → 고파서 (ㅡ bị lược bỏ, thêm 아서)" },
-      { question: "학교에 가 ___ 친구를 만났어요.", options: ["아서", "어서", "고서", "서"], answer: 0, explanation: "가다 → 가서 (nguyên âm ㅏ, thêm 아서 → 가서)" },
+      { question: "배가 고프 ___ 많이 먹었어요.", options: ["아서", "어서", "라서", "고서"], answer: 0, explanation: "고프다 → 고파서 (ㅡ bị lược bỏ, nguyên âm ㅗ nên thêm 아서)" },
+      { question: "좀 늦 ___ 택시를 탔어요.", options: ["아서", "어서", "라서", "해서"], answer: 1, explanation: "늦다 → 늦어서 (nguyên âm ㅡ, không phải ㅏ/ㅗ nên dùng 어서)" },
+      { question: "주말 ___ 사람이 많아요.", options: ["아서", "어서", "이라서", "해서"], answer: 2, explanation: "주말 là danh từ kết thúc bằng phụ âm ㄹ → dùng 이라서" },
+      { question: "열심히 공부 ___ 100점을 받았어요.", options: ["아서", "어서", "해서", "라서"], answer: 2, explanation: "공부하다 → 공부해서 (하다 luôn biến thành 해서)" },
     ],
-    commonMistakes: ["Dùng 았/었어서 (sai)", "Nhầm với 기 때문에 (trang trọng hơn)"],
-    tags: ["Nguyên nhân", "Trình tự", "Liên kết câu"],
+    commonMistakes: [
+      "Dùng 았/었어서 ở vế trước (sai: 늦었어서 → đúng: 늦어서)",
+      "Vế sau dùng mệnh lệnh/đề nghị (sai: 배고파서 먹으세요 → nên dùng -니까)",
+      "Nhầm với -(으)니까 (-(으)니까 có thể dùng với mệnh lệnh/đề nghị)",
+      "Nhầm với -기 때문에 (trang trọng hơn, thường dùng trong văn viết)",
+    ],
+    tags: ["Nguyên nhân", "Liên kết câu", "TOPIK I"],
+  },
+  {
+    id: "a2-3",
+    level: "A2",
+    levelColor: "#84cc16",
+    pattern: "A/V – (으)니까",
+    meaning: "Vì... nên..., do... nên...",
+    explanation: "Mệnh đề trước là nguyên nhân gây kết quả mệnh đề sau. Vế sau thường dùng mệnh lệnh, cầu khiến. Vế trước có thể chia quá khứ hoặc tương lai.",
+    formation: "A/V(nguyên âm/ㄹ) + 니까 / A/V(phụ âm) + 으니까",
+    notes: [
+      "Mệnh đề trước là nguyên nhân gây kết quả mệnh đề sau.",
+      "Vế sau thường dùng mệnh lệnh, cầu khiến, đề nghị.",
+      "Vế trước có thể chia quá khứ (-았/었으니까) hoặc tương lai (-겠으니까).",
+    ],
+    examples: [
+      { korean: "추우니까 옷을 많이 입고 가세요.", vietnamese: "Vì trời lạnh nên hãy mặc nhiều áo vào nhé." },
+      { korean: "날씨가 좋으니까 같이 산책할래요?", vietnamese: "Vì trời đẹp nên hãy cùng nhau đi dạo nhé?" },
+      { korean: "이번주는 바쁘니까 다음 주에 놀러 갑시다.", vietnamese: "Vì tuần này tôi bận nên tuần sau đi chơi nhé?" },
+      { korean: "전에 한국에 살았으니까 한국말을 조금 할 수 있어요.", vietnamese: "Vì trước đây tôi đã sống ở Hàn Quốc nên tôi có thể nói được một chút tiếng Hàn." },
+      { korean: "더우니까 시원한 것을 먹을래요?", vietnamese: "Vì trời nóng nên đi ăn cái gì mát mát nhé?" },
+      { korean: "밥이 없으니까 라면 먹자.", vietnamese: "Vì không có cơm nên hãy ăn mì thôi nào." },
+      { korean: "길이 막히니까 지하철을 탑시다.", vietnamese: "Vì tắc đường nên hãy đi tàu điện ngầm." },
+      { korean: "내일 발표가 있으니까 같이 준비합시다.", vietnamese: "Ngày mai có bài phát biểu nên hãy cùng nhau chuẩn bị thôi nào." },
+      { korean: "비가 올 것 같으니 우산을 가지고 가세요.", vietnamese: "Vì trời có thể sẽ mưa nên hãy đem theo ô nhé." },
+      { korean: "길이 미끄러우니까 넘어지지 않게 조심하세요.", vietnamese: "Vì đường trơn nên hãy cẩn thận để không ngã." },
+    ],
+    exercises: [
+      { question: "추우 ___ 옷을 많이 입고 가세요.", options: ["니까", "어서", "아서", "고서"], answer: 0, explanation: "춥다 → 추우니까 (bất quy tắc ㅂ, nguyên âm → 니까). Vế sau là mệnh lệnh nên dùng -(으)니까." },
+      { question: "전에 한국에 살 ___ 한국말을 조금 할 수 있어요.", options: ["았으니까", "아서", "어서", "으니까"], answer: 0, explanation: "살다 + 았으니까 → 살았으니까. Vế trước chia quá khứ nên dùng 았으니까." },
+      { question: "길이 막히 ___ 지하철을 탑시다.", options: ["니까", "어서", "아서", "라서"], answer: 0, explanation: "막히다 → 막히니까 (nguyên âm → 니까). Vế sau là đề nghị 탑시다 nên dùng -(으)니까." },
+      { question: "날씨가 좋 ___ 같이 산책할래요?", options: ["으니까", "아서", "어서", "니까"], answer: 0, explanation: "좋다 → 좋으니까 (phụ âm ㅎ → 으니까). Vế sau là đề nghị nên dùng -(으)니까." },
+    ],
+    commonMistakes: [
+      "Dùng -아/어서 khi vế sau là mệnh lệnh/đề nghị (sai: 추워서 옷을 입으세요 → đúng: 추우니까 옷을 입으세요)",
+      "Dùng -(으)니까 với 반갑다, 고맙다, 감사하다, 미안하다 (phải dùng -아/어서)",
+      "Nhầm với -아/어서 — hai cấu trúc đều diễn tả nguyên nhân nhưng khác cách dùng.",
+    ],
+    comparison: {
+      title: "Phân biệt – 아/어서 và – (으)니까",
+      headers: ["– 아/어서", "– (으)니까"],
+      rows: [
+        ["(X) + câu mệnh lệnh hoặc thỉnh dụ", "(O) + câu mệnh lệnh hoặc thỉnh dụ"],
+        ["(X) + –았/었 hoặc –겠– trước – 아/어서", "(O) + –았/었 hoặc –겠– trước – (으)니까"],
+        ["Chủ yếu diễn tả lý do thông thường", "Nguyên nhân khách quan / lý do cụ thể. Chủ yếu diễn tả lý do người nghe cũng biết"],
+        ["(O) + 반갑다, 고맙다, 감사하다, 미안하다", "(X) + 반갑다, 고맙다, 감사하다, 미안하다"],
+      ],
+    },
+    tags: ["Nguyên nhân", "Liên kết câu", "TOPIK I", "Mệnh lệnh"],
   },
   {
     id: "b1-1",
@@ -327,6 +396,19 @@ export default function GrammarByLevelPage() {
                         <h3 className="text-sm font-semibold text-gray-700 mb-2">Giải thích</h3>
                         <p className="text-sm text-gray-600 leading-relaxed">{selectedPattern.explanation}</p>
                       </div>
+                      {selectedPattern.notes && selectedPattern.notes.length > 0 && (
+                        <div>
+                          <h3 className="text-sm font-semibold text-gray-700 mb-2">Quy tắc sử dụng</h3>
+                          <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 space-y-2">
+                            {selectedPattern.notes.map((note, i) => (
+                              <div key={i} className="flex items-start gap-2.5 text-sm">
+                                <span className="flex-shrink-0 w-5 h-5 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 text-[10px] font-bold mt-0.5">{i + 1}</span>
+                                <span className="text-gray-700 leading-relaxed">{note}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                       <div>
                         <h3 className="text-sm font-semibold text-gray-700 mb-2">Lỗi thường gặp</h3>
                         <div className="space-y-2">
@@ -338,6 +420,29 @@ export default function GrammarByLevelPage() {
                           ))}
                         </div>
                       </div>
+                      {selectedPattern.comparison && (
+                        <div>
+                          <h3 className="text-sm font-semibold text-gray-700 mb-2">{selectedPattern.comparison.title}</h3>
+                          <div className="border border-gray-200 rounded-xl overflow-hidden">
+                            <table className="w-full text-sm">
+                              <thead>
+                                <tr className="bg-gray-50">
+                                  <th className="px-4 py-2.5 text-left font-bold text-rose-600 border-r border-gray-200">{selectedPattern.comparison.headers[0]}</th>
+                                  <th className="px-4 py-2.5 text-left font-bold text-blue-600">{selectedPattern.comparison.headers[1]}</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {selectedPattern.comparison.rows.map((row, i) => (
+                                  <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}>
+                                    <td className="px-4 py-2.5 text-gray-600 border-r border-gray-200 align-top">{row[0]}</td>
+                                    <td className="px-4 py-2.5 text-gray-600 align-top">{row[1]}</td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      )}
                       <div>
                         <h3 className="text-sm font-semibold text-gray-700 mb-2">Tags</h3>
                         <div className="flex flex-wrap gap-2">
