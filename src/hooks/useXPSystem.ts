@@ -416,42 +416,51 @@ export function useXPSystem() {
   // sees "+N XP" without waiting for next sync round-trip.
   useEffect(() => {
     if (!user) return;
-    const channel = supabase
-      .channel(`user_progress:${user.id}`)
-      .on(
-        "postgres_changes" as never,
-        {
-          event: "UPDATE",
-          schema: "public",
-          table: "user_progress",
-          filter: `user_id=eq.${user.id}`,
-        },
-        (payload: { new: { xp?: number } }) => {
-          const newXP = Number(payload?.new?.xp) || 0;
-          const local = xpTotalRef.current;
-          // Only react to genuine external increases (not echoes of our own sync).
-          if (newXP > local) {
-            const delta = newXP - local;
-            addNotification({
-              type: "xp_gained",
-              title: `+${delta} XP`,
-              message: "Phần thưởng từ hoạt động cộng đồng / admin",
-              xpAmount: delta,
-            });
-            setXPData((prev) => ({
-              ...prev,
-              total: newXP,
-              history: [
-                { type: "external_grant", amount: delta, ts: Date.now() },
-                ...(prev.history ?? []).slice(0, 99),
-              ],
-            }));
+    let channel: ReturnType<typeof supabase.channel> | null = null;
+    try {
+      channel = supabase
+        .channel(`user_progress:${user.id}`)
+        .on(
+          "postgres_changes" as never,
+          {
+            event: "UPDATE",
+            schema: "public",
+            table: "user_progress",
+            filter: `user_id=eq.${user.id}`,
+          },
+          (payload: { new: { xp?: number } }) => {
+            const newXP = Number(payload?.new?.xp) || 0;
+            const local = xpTotalRef.current;
+            // Only react to genuine external increases (not echoes of our own sync).
+            if (newXP > local) {
+              const delta = newXP - local;
+              addNotification({
+                type: "xp_gained",
+                title: `+${delta} XP`,
+                message: "Phần thưởng từ hoạt động cộng đồng / admin",
+                xpAmount: delta,
+              });
+              setXPData((prev) => ({
+                ...prev,
+                total: newXP,
+                history: [
+                  { type: "external_grant", amount: delta, ts: Date.now() },
+                  ...(prev.history ?? []).slice(0, 99),
+                ],
+              }));
+            }
           }
-        }
-      )
-      .subscribe();
+        )
+        .subscribe((status, err) => {
+          if (err) console.warn("[XPSystem] Realtime error (non-fatal):", err.message);
+        });
+    } catch (e) {
+      console.warn("[XPSystem] WebSocket not available, realtime XP updates disabled:", e);
+    }
     return () => {
-      supabase.removeChannel(channel);
+      try {
+        if (channel) supabase.removeChannel(channel);
+      } catch {}
     };
   }, [user, addNotification, setXPData]);
 

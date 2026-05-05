@@ -7,7 +7,44 @@ export const isSupabaseConfigured =
   Boolean(import.meta.env.VITE_PUBLIC_SUPABASE_URL) &&
   Boolean(import.meta.env.VITE_PUBLIC_SUPABASE_ANON_KEY);
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Detect if WebSocket is available (blocked on some iOS/mobile browsers)
+export const isWebSocketAvailable = (() => {
+  try {
+    if (typeof WebSocket === "undefined") return false;
+    // Some browsers have WebSocket defined but blocked (e.g. iOS in-app browser)
+    const ws = new WebSocket("wss://echo.websocket.org");
+    ws.close();
+    return true;
+  } catch {
+    return false;
+  }
+})();
+
+// Create Supabase client - disable realtime if WebSocket not available
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  realtime: {
+    params: {
+      eventsPerSecond: 10,
+    },
+  },
+});
+
+// Safe subscribe helper - catches WebSocket errors and falls back gracefully
+export function safeSubscribe(channel: ReturnType<typeof supabase.channel>): ReturnType<typeof supabase.channel> {
+  try {
+    return channel.subscribe((status, err) => {
+      if (err) {
+        console.warn("[Realtime] Subscribe error (non-fatal):", err.message);
+      }
+      if (status === "CHANNEL_ERROR") {
+        console.warn("[Realtime] Channel error - realtime disabled for this session");
+      }
+    });
+  } catch (e) {
+    console.warn("[Realtime] WebSocket not available, skipping realtime:", e);
+    return channel;
+  }
+}
 
 // ─── Storage URL helper ───────────────────────────────────────────────────────
 // Store ONLY relative paths in DB (e.g. "community-images/filename.webp")

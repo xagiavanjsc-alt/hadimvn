@@ -40,36 +40,45 @@ export function useRealtimeLeaderboard(limit = 50) {
 
     fetchLeaderboard();
 
-    // Subscribe to realtime updates
-    const channel = supabase
-      .channel("leaderboard-updates")
-      .on(
-        "postgres_changes",
-        {
-          event: "*",
-          schema: "public",
-          table: "leaderboard",
-        },
-        (payload) => {
-          if (!mounted) return;
+    // Subscribe to realtime updates (skip if WebSocket not available)
+    let channel: ReturnType<typeof supabase.channel> | null = null;
+    try {
+      channel = supabase
+        .channel("leaderboard-updates")
+        .on(
+          "postgres_changes",
+          {
+            event: "*",
+            schema: "public",
+            table: "leaderboard",
+          },
+          (payload) => {
+            if (!mounted) return;
 
-          if (payload.eventType === "INSERT" || payload.eventType === "UPDATE") {
-            const newEntry = payload.new as LeaderboardEntry;
-            setLeaderboard((prev) => {
-              const filtered = prev.filter((e) => e.user_id !== newEntry.user_id);
-              return [...filtered, newEntry].sort((a, b) => b.xp - a.xp).slice(0, limit);
-            });
-          } else if (payload.eventType === "DELETE") {
-            const deletedId = payload.old.user_id;
-            setLeaderboard((prev) => prev.filter((e) => e.user_id !== deletedId));
+            if (payload.eventType === "INSERT" || payload.eventType === "UPDATE") {
+              const newEntry = payload.new as LeaderboardEntry;
+              setLeaderboard((prev) => {
+                const filtered = prev.filter((e) => e.user_id !== newEntry.user_id);
+                return [...filtered, newEntry].sort((a, b) => b.xp - a.xp).slice(0, limit);
+              });
+            } else if (payload.eventType === "DELETE") {
+              const deletedId = payload.old.user_id;
+              setLeaderboard((prev) => prev.filter((e) => e.user_id !== deletedId));
+            }
           }
-        }
-      )
-      .subscribe();
+        )
+        .subscribe((status, err) => {
+          if (err) console.warn("[Leaderboard] Realtime error (non-fatal):", err.message);
+        });
+    } catch (e) {
+      console.warn("[Leaderboard] WebSocket not available, realtime disabled:", e);
+    }
 
     return () => {
       mounted = false;
-      supabase.removeChannel(channel);
+      try {
+        if (channel) supabase.removeChannel(channel);
+      } catch {}
     };
   }, [limit]);
 

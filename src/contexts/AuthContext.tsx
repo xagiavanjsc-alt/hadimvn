@@ -182,31 +182,41 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const userId = state.user?.id;
       if (!userId) return;
 
-      channel = supabase
-        .channel(`profile_changes_${userId}`)
-        .on(
-          "postgres_changes",
-          {
-            event: "UPDATE",
-            schema: "public",
-            table: "user_profiles",
-            filter: `id=eq.${userId}`,
-          },
-          async () => {
-            // Profile was updated (e.g. admin granted VIP) — re-fetch
-            const updated = await fetchProfile(userId);
-            if (updated) {
-              setState(prev => ({ ...prev, profile: updated }));
+      try {
+        channel = supabase
+          .channel(`profile_changes_${userId}`)
+          .on(
+            "postgres_changes",
+            {
+              event: "UPDATE",
+              schema: "public",
+              table: "user_profiles",
+              filter: `id=eq.${userId}`,
+            },
+            async () => {
+              // Profile was updated (e.g. admin granted VIP) — re-fetch
+              const updated = await fetchProfile(userId);
+              if (updated) {
+                setState(prev => ({ ...prev, profile: updated }));
+              }
             }
-          }
-        )
-        .subscribe();
+          )
+          .subscribe((status, err) => {
+            if (err) console.warn("[AuthContext] Realtime error (non-fatal):", err.message);
+            if (status === "CHANNEL_ERROR") console.warn("[AuthContext] Realtime channel error - VIP sync will not work in realtime");
+          });
+      } catch (e) {
+        // WebSocket not available (iOS/mobile) — silently degrade, no crash
+        console.warn("[AuthContext] Realtime not available, VIP sync disabled:", e);
+      }
     };
 
     setupRealtime();
 
     return () => {
-      if (channel) supabase.removeChannel(channel);
+      try {
+        if (channel) supabase.removeChannel(channel);
+      } catch {}
     };
   }, [state.user?.id, fetchProfile]);
 
