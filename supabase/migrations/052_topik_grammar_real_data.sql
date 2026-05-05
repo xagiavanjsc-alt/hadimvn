@@ -745,3 +745,262 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   'Động từ quá khứ + (으)ㄴ 후에 = sau khi ăn.',
   'easy'
 );
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #12: V – 고 나서 [xong rồi thì...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V – 고 나서',
+  'go naseo',
+  'xong rồi thì...',
+  'beginner',
+  'time',
+  'Biểu hiện hành động ở vế sau được thực hiện sau khi hành động ở vế trước hoàn thành. Không thể kết hợp cùng với 았/었, 겠, (으)ㄹ 것이다. Chỉ dùng với các động từ mà bắt đầu và kết thúc một cách rõ ràng.',
+  'V + 고 나서',
+  '[
+    {"korean": "숙제를 끝내고 나서 친구를 만날 거예요.", "vietnamese": "Hoàn thành xong bài tập về nhà tôi sẽ gặp gỡ bạn bè."},
+    {"korean": "손을 씻고 나서 식사를 해야 합니다.", "vietnamese": "Rửa tay xong rồi thì phải ăn thôi."},
+    {"korean": "식사를 하고 나서 커피를 마십시다.", "vietnamese": "Sau khi ăn xong rồi chúng ta hãy uống cà phê đi."},
+    {"korean": "선생님의 설명을 듣고 나서 이해가 되었어요.", "vietnamese": "Nghe giải thích của thầy giáo xong thì tôi đã hiểu rồi."},
+    {"korean": "주말에 집안일을 하고 나서 산책해요.", "vietnamese": "Cuối tuần sau khi làm việc nhà xong tôi đi dạo."},
+    {"korean": "샤워 하고 나서 했어요.", "vietnamese": "Sau khi tắm xong mình đã làm rồi."},
+    {"korean": "그는 전화를 받고 나서 나갔어요.", "vietnamese": "Anh ta nhận điện thoại xong rồi đi ra ngoài."},
+    {"korean": "텔레비전을 보고 나서 자요.", "vietnamese": "Tôi xem TV xong rồi ngủ."},
+    {"korean": "아침을 먹고 나서 학교에 가요.", "vietnamese": "Tôi ăn sáng xong rồi đi học."}
+  ]'::jsonb,
+  ARRAY['V – 고 나면', 'V – 고 나니', 'N 후에, V – (으)ㄴ 후에']::TEXT[],
+  ARRAY['time', 'sequence', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고 나서' LIMIT 1),
+  '숙제를 끝내 ___ 친구를 만날 거예요.',
+  'fill_blank',
+  '["고 나서", "고 나면", "고 나니", "아서"]'::jsonb,
+  '고 나서',
+  'Hoàn thành xong rồi → dùng -고 나서.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고 나서' LIMIT 1),
+  '손을 씻 ___ 식사를 해야 합니다.',
+  'fill_blank',
+  '["고 나서", "고 나면", "고 나니", "아서"]'::jsonb,
+  '고 나서',
+  'Rửa xong rồi → dùng -고 나서.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고 나서' LIMIT 1),
+  '식사를 하 ___ 커피를 마십시다.',
+  'multiple_choice',
+  '["고 나서", "고 나면", "고 나니", "아서"]'::jsonb,
+  '고 나서',
+  'Ăn xong rồi → dùng -고 나서.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고 나서' LIMIT 1),
+  '텔레비전을 보 ___ 자요.',
+  'fill_blank',
+  '["고 나서", "고 나면", "고 나니", "아서"]'::jsonb,
+  '고 나서',
+  'Xem xong rồi → dùng -고 나서.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #13: V – 고 나면 [nếu xong rồi thì...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V – 고 나면',
+  'go namyeon',
+  'nếu xong rồi thì...',
+  'beginner',
+  'time',
+  'Biểu hiện giả định hành động ở vế sau được thực hiện sau khi hành động ở vế trước hoàn thành.',
+  'V + 고 나면',
+  '[
+    {"korean": "한국어를 공부하고 나면 통역사가 될 수 있어요.", "vietnamese": "Nếu học tiếng Hàn xong thì sẽ có thể trở thành thông dịch viên."},
+    {"korean": "자기한테 맞는 공부 방법을 찾게 되고 나면 공부하기가 쉬워져요.", "vietnamese": "Nếu tìm được phương pháp học tập phù hợp với mình xong thì việc học sẽ trở nên dễ dàng hơn."},
+    {"korean": "약을 먹고 나면 좋아질 거예요.", "vietnamese": "Nếu bạn uống thuốc xong, bạn sẽ thấy tốt hơn."},
+    {"korean": "일을 마치고 나면 보람을 느낄 수 있을 거예요.", "vietnamese": "Khi bạn hoàn thành công việc xong, bạn sẽ cảm thấy có giá trị."},
+    {"korean": "규칙을 알고 나면 수학이 아주 쉬워질 겁니다.", "vietnamese": "Nếu bạn nắm rõ được các quy tắc xong thì môn toán sẽ trở nên dễ dàng."}
+  ]'::jsonb,
+  ARRAY['V – 고 나서', 'V – 고 나니', 'A/V – (으)면']::TEXT[],
+  ARRAY['time', 'conditional', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고 나면' LIMIT 1),
+  '한국어를 공부 ___ 통역사가 될 수 있어요.',
+  'fill_blank',
+  '["고 나면", "고 나서", "고 나니", "아서"]'::jsonb,
+  '고 나면',
+  'Giả định: nếu học xong → dùng -고 나면.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고 나면' LIMIT 1),
+  '약을 먹 ___ 좋아질 거예요.',
+  'fill_blank',
+  '["고 나면", "고 나서", "고 나니", "아서"]'::jsonb,
+  '고 나면',
+  'Giả định: nếu uống xong → dùng -고 나면.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고 나면' LIMIT 1),
+  '일을 마치 ___ 보람을 느낄 수 있을 거예요.',
+  'multiple_choice',
+  '["고 나면", "고 나서", "고 나니", "아서"]'::jsonb,
+  '고 나면',
+  'Giả định: nếu hoàn thành xong → dùng -고 나면.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고 나면' LIMIT 1),
+  '규칙을 알 ___ 수학이 아주 쉬워질 겁니다.',
+  'fill_blank',
+  '["고 나면", "고 나서", "고 나니", "아서"]'::jsonb,
+  '고 나면',
+  'Giả định: nếu biết xong → dùng -고 나면.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #14: V – 고 나니 [xong rồi thì thấy...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V – 고 나니',
+  'go nani',
+  'xong rồi thì thấy...',
+  'beginner',
+  'time',
+  'Biểu hiện hành động ở vế sau được thực hiện sau khi hành động ở vế trước hoàn thành. Do kết hợp với (으)니까 nên có ý nghĩa làm gì đó xong thì phát hiện ra sự thật nào đó.',
+  'V + 고 나니',
+  '[
+    {"korean": "밥을 많이 먹고 나니 이제 졸려요.", "vietnamese": "Sau khi đã ăn rất nhiều thì tôi thấy rất buồn ngủ."},
+    {"korean": "돈을 벌고 나니 비싼 물건을 사고 싶어졌어요.", "vietnamese": "Sau khi kiếm được nhiều tiền tôi thấy mình muốn mua những thứ đắt tiền."},
+    {"korean": "샤워를 하고 나니 기분이 훨씬 좋네요.", "vietnamese": "Sau khi tắm tôi thấy tinh thần mình tốt hơn."},
+    {"korean": "집을 청소하고 나니 더 넓어 보여요.", "vietnamese": "Sau khi dọn dẹp nhà tôi thấy ngôi nhà trông lớn hơn rất nhiều."},
+    {"korean": "약을 먹고 나니 머리가 안 아파요.", "vietnamese": "Sau khi tôi uống thuốc, tôi thấy đã hết đau đầu."}
+  ]'::jsonb,
+  ARRAY['V – 고 나서', 'V – 고 나면', 'A/V – (으)니까']::TEXT[],
+  ARRAY['time', 'discovery', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고 나니' LIMIT 1),
+  '밥을 많이 먹 ___ 이제 졸려요.',
+  'fill_blank',
+  '["고 나니", "고 나서", "고 나면", "아서"]'::jsonb,
+  '고 나니',
+  'Xong rồi thấy → dùng -고 나니.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고 나니' LIMIT 1),
+  '돈을 벌 ___ 비싼 물건을 사고 싶어졌어요.',
+  'fill_blank',
+  '["고 나니", "고 나서", "고 나면", "아서"]'::jsonb,
+  '고 나니',
+  'Xong rồi thấy muốn → dùng -고 나니.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고 나니' LIMIT 1),
+  '샤워를 하 ___ 기분이 훨씬 좋네요.',
+  'multiple_choice',
+  '["고 나니", "고 나서", "고 나면", "아서"]'::jsonb,
+  '고 나니',
+  'Xong rồi thấy → dùng -고 나니.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 고 나니' LIMIT 1),
+  '약을 먹 ___ 머리가 안 아파요.',
+  'fill_blank',
+  '["고 나니", "고 나서", "고 나면", "아서"]'::jsonb,
+  '고 나니',
+  'Xong rồi thấy → dùng -고 나니.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #15: V – 아/어서 [để rồi]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V – 아/어서',
+  'a/eo-seo',
+  'để rồi',
+  'beginner',
+  'time',
+  'Vế trước xảy ra rồi kế tiếp vế sau xuất hiện lần lượt theo trình tự thời gian. Hai vế phải có cùng chủ ngữ và có quan hệ qua lại lẫn nhau. Hành động ở mệnh đề sau tiếp nối hành động của mệnh đề trước. Không dùng với 았/었, 겠 ở vế trước. Vế sau có thể chia mệnh lệnh, cầu khiến.',
+  'V(ㅏ/ㅗ) + 아서 / V(khác) + 어서 / 하다 → 해서',
+  '[
+    {"korean": "사과를 씻어서 먹었어요.", "vietnamese": "Tôi rửa táo rồi mới ăn."},
+    {"korean": "아침에 일어나서 세수를 했어요.", "vietnamese": "Buổi sáng tôi thức dậy rồi rửa mặt."},
+    {"korean": "여기에 앉아서 잠깐만 기다리세요.", "vietnamese": "Hãy ngồi ở đây rồi chờ một chút nhé."},
+    {"korean": "친구를 만나서 영화를 봤어요.", "vietnamese": "Tôi đã gặp bạn rồi cùng đi xem phim."},
+    {"korean": "커피숍에 가서 커피를 마셨어요.", "vietnamese": "Tôi đã đến quán cà phê rồi uống cà phê."},
+    {"korean": "민수 씨는 고향에 가서 부모님을 만났어요.", "vietnamese": "Minsu về quê rồi gặp bố mẹ."},
+    {"korean": "도서관에 가서 친구를 기다렸어요.", "vietnamese": "Tôi đã đến thư viện rồi đợi bạn."},
+    {"korean": "이메일을 써서 친구에게 보냈습니다.", "vietnamese": "Tôi đã viết email rồi gửi cho bạn."}
+  ]'::jsonb,
+  ARRAY['V – 고 나서', 'A/V – 아/어서 (nguyên nhân)', 'N 후에, V – (으)ㄴ 후에']::TEXT[],
+  ARRAY['time', 'sequence', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 아/어서' LIMIT 1),
+  '사과를 씻 ___ 먹었어요.',
+  'fill_blank',
+  '["어서", "아서", "고 나서", "고 나니"]'::jsonb,
+  '어서',
+  '씻다 → 씻어서. Rửa rồi ăn.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 아/어서' LIMIT 1),
+  '아침에 일어나 ___ 세수를 했어요.',
+  'fill_blank',
+  '["아서", "어서", "고 나서", "고 나니"]'::jsonb,
+  '아서',
+  '일어나다 → 일어나서. Thức dậy rồi rửa mặt.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 아/어서' LIMIT 1),
+  '여기에 앉 ___ 잠깐만 기다리세요.',
+  'multiple_choice',
+  '["아서", "어서", "고 나서", "고 나니"]'::jsonb,
+  '아서',
+  '앉다 → 앉아서. Ngồi rồi chờ.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 아/어서' LIMIT 1),
+  '친구를 만나 ___ 영화를 봤어요.',
+  'fill_blank',
+  '["아서", "어서", "고 나서", "고 나니"]'::jsonb,
+  '아서',
+  '만나다 → 만나서. Gặp rồi xem phim.',
+  'easy'
+);
