@@ -307,7 +307,7 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 고야' LIMIT 1),
   '그렇게 운동해 가지고야 살이 빠지겠___.',
   'fill_blank',
-  ["니?", "어요?", "습니까?", "해요?"]::jsonb,
+  '["니?", "어요?", "습니까?", "해요?"]'::jsonb,
   '니?',
   'Câu hỏi → 겠니?',
   'medium'
@@ -316,7 +316,7 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 고야' LIMIT 1),
   '이래 가지고야 제시간에 도착할 수 있___.',
   'fill_blank',
-  ["을까?", "어요?", "습니까?", "해요?"]::jsonb,
+  '["을까?", "어요?", "습니까?", "해요?"]'::jsonb,
   '을까?',
   'Câu hỏi → 을까?',
   'medium'
