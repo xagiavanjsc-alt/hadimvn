@@ -462,6 +462,12 @@ export default function GrammarByLevelPage() {
     return list;
   }, [selectedLevel, search]);
 
+  const levelStats = useMemo(() => {
+    const stats: Record<string, number> = {};
+    GRAMMAR_PATTERNS.forEach(p => { stats[p.level] = (stats[p.level] || 0) + 1; });
+    return stats;
+  }, []);
+
   const handleAnswer = (qIdx: number, optIdx: number) => {
     if (showResults) return;
     setAnswers(prev => ({ ...prev, [qIdx]: optIdx }));
@@ -481,6 +487,30 @@ export default function GrammarByLevelPage() {
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900">Bài tập ngữ pháp theo cấp độ</h1>
           <p className="text-gray-500 text-sm mt-1">Luyện ngữ pháp từ A1 đến C1 với giải thích chi tiết</p>
+        </div>
+
+        {/* Stats bar */}
+        <div className="mb-5 p-3.5 bg-gradient-to-r from-rose-50 to-orange-50 border border-rose-100 rounded-xl">
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <div className="flex items-center gap-2">
+              <i className="ri-book-2-line text-rose-500"></i>
+              <span className="text-sm font-bold text-gray-800">Tổng cộng: <span className="text-rose-600">{GRAMMAR_PATTERNS.length}</span> cấu trúc ngữ pháp</span>
+            </div>
+            <div className="flex items-center gap-2 flex-wrap">
+              {["A1", "A2", "B1", "B2", "C1"].map(lv => (
+                <span key={lv} className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/70 text-gray-600 border border-gray-200">
+                  {lv}: {levelStats[lv] || 0}
+                </span>
+              ))}
+            </div>
+          </div>
+          {(selectedLevel !== "Tất cả" || search.trim()) && (
+            <div className="mt-2 pt-2 border-t border-rose-100/50 text-xs text-gray-500">
+              Đang hiển thị <span className="font-bold text-rose-600">{filtered.length}</span> / {GRAMMAR_PATTERNS.length} cấu trúc
+              {selectedLevel !== "Tất cả" && <span> • Cấp độ: <span className="font-bold">{selectedLevel}</span></span>}
+              {search.trim() && <span> • Tìm: "<span className="font-bold">{search}</span>"</span>}
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
