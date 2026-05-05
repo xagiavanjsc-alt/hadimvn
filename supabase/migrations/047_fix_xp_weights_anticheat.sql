@@ -58,10 +58,17 @@ BEGIN
   FROM user_progress WHERE user_id = p_user_id;
 
   -- Exam stats (chỉ tính exam hợp lệ: thời gian >= min_sec_per_question * số câu)
+  -- correct_ids có thể là JSONB array hoặc TEXT[] — dùng CASE để xử lý cả hai
   SELECT
     COALESCE(MAX(ROUND((score::NUMERIC / NULLIF(total, 0)) * 100)), 0),
     COALESCE(AVG(ROUND((score::NUMERIC / NULLIF(total, 0)) * 100)), 0),
-    COALESCE(SUM(ARRAY_LENGTH(correct_ids, 1)), 0),
+    COALESCE(SUM(
+      CASE
+        WHEN correct_ids IS NULL THEN 0
+        WHEN jsonb_typeof(correct_ids::jsonb) = 'array' THEN jsonb_array_length(correct_ids::jsonb)
+        ELSE score  -- fallback: dùng score nếu correct_ids không parse được
+      END
+    ), 0),
     COUNT(*)
   INTO v_best_score, v_avg_score, v_total_correct, v_valid_exams
   FROM exam_results

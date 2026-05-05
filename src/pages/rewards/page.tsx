@@ -4,6 +4,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { useXPSystem } from "@/hooks/useXPSystem";
+import { RANKS } from "@/data/ranks";
 import { supabase } from "@/lib/supabase";
 import { HANJA_DATA } from "@/mocks/hanjaData";
 import { sanitizeHtml } from "@/lib/sanitize";
@@ -992,9 +993,13 @@ export default function RewardsPage() {
     icon: "ri-vip-crown-line",
   };
 
-  const nextLevelXp = displayXp >= 5000 ? 5000 : displayXp >= 2000 ? 5000 : displayXp >= 1000 ? 2000 : displayXp >= 300 ? 1000 : 300;
-  const prevLevelXp = displayXp >= 5000 ? 2000 : displayXp >= 2000 ? 1000 : displayXp >= 1000 ? 300 : 0;
-  const levelProgress = Math.min(100, Math.round(((displayXp - prevLevelXp) / (nextLevelXp - prevLevelXp)) * 100));
+  // Use RANKS from data/ranks.ts for progress bar (keeps in sync with rank system)
+  const nextRankData = RANKS[RANKS.indexOf(currentRank) + 1] ?? null;
+  const nextLevelXp = nextRankData ? nextRankData.minXP : currentRank.minXP;
+  const prevLevelXp = currentRank.minXP;
+  const levelProgress = nextRankData
+    ? Math.min(100, Math.round(((displayXp - prevLevelXp) / (nextLevelXp - prevLevelXp)) * 100))
+    : 100;
 
   // Keep awardXP referenced for admin manual-grant flow below
   void awardXP;

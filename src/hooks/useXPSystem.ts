@@ -165,8 +165,8 @@ function checkBadges(
   if (words >= 200 && !has("vocab200")) newBadges.push("vocab200");
   if (extra?.hangulCompleted && !has("hangul_master")) newBadges.push("hangul_master");
 
-  // XP milestone badges
-  if (xp >= 5000 && !has("top10")) newBadges.push("top10"); // Proxy: Legend rank ≈ top 10
+  // XP milestone badges — Legend rank now starts at 12000, Expert at 6000
+  if (xp >= 6000 && !has("top10")) newBadges.push("top10"); // Proxy: Expert rank ≈ top 10
 
   return newBadges;
 }
