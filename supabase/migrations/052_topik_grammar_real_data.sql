@@ -138,3 +138,138 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   '좋다 → 좋으니까 (phụ âm ㅎ → 으니까). Vế sau là đề nghị nên dùng -(으)니까.',
   'medium'
 );
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #3: N 때문에, A/V – 기 때문에 [tại... nên..., do... nên...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'N 때문에, A/V – 기 때문에',
+  'ttaemune / gi ttaemune',
+  'tại... nên..., do... nên...',
+  'beginner',
+  'connective',
+  'Diễn tả lý do, tại một lí do nào đó dẫn đến kết quả vế sau. Vế sau là kết quả có phần chưa tốt, tuy nhiên vẫn có thể có kết quả tốt. Có thể dùng nhiều hơn trong văn viết so với – 아/어서 và – (으)니까. Có thể dùng đuôi câu dạng 기 때문이다. Vế sau không dùng mệnh lệnh và các dạng cầu khiến.',
+  'N + 때문에 / A/V + 기 때문에 / N + (이)기 때문에',
+  '[
+    {"korean": "비 때문에 차가 막혀요.", "vietnamese": "Tại trời mưa nên kẹt xe."},
+    {"korean": "바쁘기 때문에 여행을 못 가요.", "vietnamese": "Tại vì bận nên tôi không thể đi du lịch."},
+    {"korean": "왜냐하면 너무 피곤하기 때문입니다.", "vietnamese": "Nếu hỏi tại sao thì tại vì tôi quá mệt."},
+    {"korean": "저는 배고프기 때문에 밥을 먹고 싶어요.", "vietnamese": "Vì đói nên tôi muốn ăn cơm."},
+    {"korean": "눈이 내리기 때문에 길이 미끄러워요.", "vietnamese": "Vì tuyết rơi nên đường trơn."},
+    {"korean": "아이 때문에 밥을 못 먹어요.", "vietnamese": "Vì đứa bé mà tôi không thể ăn cơm."},
+    {"korean": "학생이기 때문에 할인을 받았어요.", "vietnamese": "Vì là học sinh nên tôi được giảm giá."},
+    {"korean": "외국인이기 때문에 한국말을 잘 못해요.", "vietnamese": "Vì là người nước ngoài nên tôi không thể nói được tiếng Hàn."},
+    {"korean": "감기에 걸렸기 때문에 병원에 갔어요.", "vietnamese": "Vì bị cảm nên tôi đã đến bệnh viện."},
+    {"korean": "비싸기 때문에 살 수 없어요.", "vietnamese": "Vì đắt nên tôi không thể mua được."}
+  ]'::jsonb,
+  ARRAY['A/V – 아/어서', 'A/V – (으)니까', '-는 바람에']::TEXT[],
+  ARRAY['connective', 'cause', 'topik1', 'beginner', 'formal']::TEXT[],
+  'TOPIK I'
+);
+
+-- Insert practice questions for N 때문에, A/V – 기 때문에
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 때문에, A/V – 기 때문에' LIMIT 1),
+  '비 ___ 차가 막혀요.',
+  'fill_blank',
+  '["때문에", "기 때문에", "어서", "니까"]'::jsonb,
+  '때문에',
+  '비 là danh từ → dùng N 때문에.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 때문에, A/V – 기 때문에' LIMIT 1),
+  '바쁘 ___ 여행을 못 가요.',
+  'fill_blank',
+  '["기 때문에", "때문에", "어서", "니까"]'::jsonb,
+  '기 때문에',
+  '바쁘다 là tính từ → dùng A + 기 때문에.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 때문에, A/V – 기 때문에' LIMIT 1),
+  '학생이 ___ 할인을 받았어요.',
+  'multiple_choice',
+  '["기 때문에", "때문에", "어서", "니까"]'::jsonb,
+  '기 때문에',
+  '학생 là danh từ + 이기 때문에 = vì LÀ học sinh.',
+  'medium'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 때문에, A/V – 기 때문에' LIMIT 1),
+  '감기에 걸렸 ___ 병원에 갔어요.',
+  'fill_blank',
+  '["기 때문에", "때문에", "어서", "으니까"]'::jsonb,
+  '기 때문에',
+  '걸리다 → 걸렸기 때문에. Động từ chia quá khứ + 기 때문에.',
+  'medium'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #4: N – (이)거든요, A/V –거든요 [vì... / ...đấy nhé]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'N – (이)거든요, A/V –거든요',
+  '(i)geodeunyo',
+  'vì... / ...đấy nhé',
+  'beginner',
+  'ending',
+  'Dùng để đáp lại câu hỏi, hoặc khi người nói muốn đưa ra ý kiến, lý do mà người nghe chưa biết. Cũng dùng khi thông báo điều người nghe chưa biết, thể hiện tiền đề của nội dung sẽ tiếp nối về sau. Chỉ sử dụng trong văn nói, khi trò chuyện với người quen, không dùng trong trường hợp trang trọng.',
+  'A/V + 거든요 / N(nguyên âm) + 거든요 / N(phụ âm) + 이거든요',
+  '[
+    {"korean": "아니요, 못 갔어요. 날씨가 나빴거든요.", "vietnamese": "Không, tôi không thể đến được. Vì thời tiết xấu."},
+    {"korean": "요즘 장마철이거든요. 한 달 동안은 계속 올 거예요.", "vietnamese": "Vì gần đây đang là mùa mưa đấy. Sẽ tiếp tục mưa trong một tháng nữa."},
+    {"korean": "어제 영화를 보느라고 잠을 못 잤거든요.", "vietnamese": "Vì hôm qua tôi mải xem phim nên đã không ngủ."},
+    {"korean": "오늘은 지각하면 안 돼요. 오늘 수업에서 제가 발표를 하거든요.", "vietnamese": "Hôm nay không được đến muộn. Vì trong tiết học hôm nay tôi sẽ thuyết trình."},
+    {"korean": "삼촌은 언제 오실 수 있는지 잘 모르겠어요. 연락이 아직 안 왔거든요.", "vietnamese": "Tôi không rõ chú khi nào có thể đến được. Vì vẫn không thấy có liên lạc gì."},
+    {"korean": "집에 친구들이 많이 오거든요.", "vietnamese": "Vì nhiều người bạn đến nhà tôi đấy."},
+    {"korean": "감기약을 먹었거든요. 그런데도 나아지지를 않네요.", "vietnamese": "Tôi đã uống thuốc cảm rồi đấy. Nhưng dù vậy nó vẫn không đỡ hơn."}
+  ]'::jsonb,
+  ARRAY['A/V – 아/어서', 'A/V – (으)니까', 'N 때문에, A/V – 기 때문에']::TEXT[],
+  ARRAY['ending', 'cause', 'topik1', 'beginner', 'spoken']::TEXT[],
+  'TOPIK I'
+);
+
+-- Insert practice questions for N – (이)거든요, A/V –거든요
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N – (이)거든요, A/V –거든요' LIMIT 1),
+  '못 갔어요. 날씨가 나빴 ___.',
+  'fill_blank',
+  '["거든요", "어서", "니까", "때문에"]'::jsonb,
+  '거든요',
+  'Đáp lại câu hỏi, đưa ra lý do người nghe chưa biết → dùng -거든요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N – (이)거든요, A/V –거든요' LIMIT 1),
+  '요즘 장마철이 ___. 한 달 동안은 계속 올 거예요.',
+  'fill_blank',
+  '["거든요", "어서요", "니까요", "때문이에요"]'::jsonb,
+  '거든요',
+  '장마철 là danh từ kết thúc phụ âm ㄹ → 이거든요. Thông báo tiền đề.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N – (이)거든요, A/V –거든요' LIMIT 1),
+  '오늘 수업에서 제가 발표를 하 ___.',
+  'multiple_choice',
+  '["거든요", "어서요", "니까요", "기 때문에요"]'::jsonb,
+  '거든요',
+  '하다 + 거든요. Đưa ra lý do người nghe chưa biết.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N – (이)거든요, A/V –거든요' LIMIT 1),
+  '감기약을 먹었 ___. 그런데도 나아지지를 않네요.',
+  'fill_blank',
+  '["거든요", "어서요", "으니까요", "기 때문에"]'::jsonb,
+  '거든요',
+  '먹다 chia quá khứ 먹었 + 거든요. Thông báo điều người nghe chưa biết.',
+  'medium'
+);
