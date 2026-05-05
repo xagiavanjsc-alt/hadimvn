@@ -4051,7 +4051,7 @@ INSERT INTO public.grammar_patterns (
   'Đã từng / Chưa từng',
   'intermediate',
   'experience',
-  'Diễn tả kinh nghiệm đã có hoặc chưa có trong quá khứ. Tương đương với 'have/haven't done' trong tiếng Anh.',
+  'Diễn tả kinh nghiệm đã có hoặc chưa có trong quá khứ. Tương đương với ''have/haven''t done'' trong tiếng Anh.',
   'V(nguyên âm/ㄹ) + ㄴ 적이 있다 / V(phụ âm) + 은 적이 있다',
   '[
     {"korean": "한국에 가 본 적이 있어요.", "vietnamese": "Tôi đã từng đến Hàn Quốc."},
