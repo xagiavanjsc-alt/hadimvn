@@ -4,6 +4,8 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { epsLessons, EPS_LESSON_TOPICS, type EpsLesson } from "@/mocks/epsLessons";
+import EnhancedQuizFeedback from "@/components/feature/EnhancedQuizFeedback";
+import WeaknessAlert, { useTopicAccuracy } from "@/components/feature/WeaknessAlert";
 
 // ─── Types ────────────────────────────────────────────────────────────────
 interface QuizQuestion {
@@ -222,10 +224,12 @@ function QuizScreen({
   lesson,
   onFinish,
   onBack,
+  navigate,
 }: {
   lesson: EpsLesson;
   onFinish: (result: QuizResult) => void;
   onBack: () => void;
+  navigate: ReturnType<typeof useNavigate>;
 }) {
   const [questions] = useState(() => generateQuestions(lesson, Math.min(10, lesson.vocabulary.length)));
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -235,6 +239,15 @@ function QuizScreen({
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
   const [timerActive, setTimerActive] = useState(true);
   const [timeLeft, setTimeLeft] = useState(30);
+  const { topicAccuracy, updateAccuracy } = useTopicAccuracy();
+
+  // Track topic accuracy
+  useEffect(() => {
+    if (currentIdx > 0 && showAnswer) {
+      const correctCount = Object.values(answers).slice(0, currentIdx).filter((ans, idx) => ans === questions[idx].correctIndex).length;
+      updateAccuracy(lesson.topic, correctCount, currentIdx);
+    }
+  }, [showAnswer, currentIdx, answers, questions, lesson.topic, updateAccuracy]);
 
   // Reset question timer when moving to next question
   useEffect(() => {
@@ -324,6 +337,13 @@ function QuizScreen({
 
   return (
     <div className="max-w-2xl mx-auto">
+      {/* Weakness Alert */}
+      <WeaknessAlert
+        topicAccuracy={topicAccuracy}
+        onDismiss={(topic) => console.log("Dismissed:", topic)}
+        onAction={(topic) => navigate(`/eps-lessons/${lesson.id}`)}
+      />
+
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <button onClick={onBack} className="flex items-center gap-2 text-app-text-secondary hover:text-white/70 text-sm transition-colors cursor-pointer whitespace-nowrap">
@@ -398,22 +418,34 @@ function QuizScreen({
 
       {/* Answer feedback */}
       {showAnswer && (
-        <div className={`p-4 rounded-xl border mb-4 ${isCorrect ? "border-emerald-500/25 bg-emerald-500/8" : "border-red-500/25 bg-red-500/8"}`}>
-          <div className="flex items-start gap-3">
-            <i className={`${isCorrect ? "ri-checkbox-circle-fill text-app-accent-success" : "ri-close-circle-fill text-red-400"} text-lg flex-shrink-0 mt-0.5`}></i>
-            <div>
-              <p className={`font-semibold text-sm ${isCorrect ? "text-app-accent-success" : "text-red-400"}`}>
-                {isCorrect ? "Chính xác!" : answers[currentIdx] === -1 ? "Hết giờ!" : "Chưa đúng!"}
-              </p>
-              {!isCorrect && (
-                <p className="text-white/50 text-xs mt-1">
-                  Đáp án đúng: <span className="text-white font-semibold">{current.options[current.correctIndex]}</span>
-                </p>
-              )}
-              <p className="text-app-text-secondary text-xs mt-1 italic">{current.example} — {current.exampleVi}</p>
+        <>
+          {isCorrect ? (
+            <div className="p-4 rounded-xl border border-emerald-500/25 bg-emerald-500/8 mb-4">
+              <div className="flex items-start gap-3">
+                <i className="ri-checkbox-circle-fill text-app-accent-success text-lg flex-shrink-0 mt-0.5"></i>
+                <div>
+                  <p className="font-semibold text-sm text-app-accent-success">Chính xác!</p>
+                  <p className="text-app-text-secondary text-xs mt-1 italic">{current.example} — {current.exampleVi}</p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          ) : (
+            <EnhancedQuizFeedback
+              question={{
+                korean: current.korean,
+                vietnamese: current.vietnamese,
+                pronunciation: current.pronunciation,
+                example: current.example,
+                exampleVi: current.exampleVi,
+                type: current.type,
+              }}
+              userAnswer={answers[currentIdx] === -1 ? "(hết giờ)" : current.options[answers[currentIdx]]}
+              correctAnswer={current.options[current.correctIndex]}
+              topic={lesson.topic}
+              onLearnMore={() => navigate(`/eps-lessons/${lesson.id}`)}
+            />
+          )}
+        </>
       )}
 
       {/* Next button */}
@@ -606,6 +638,7 @@ export default function EpsLessonQuizPage() {
               lesson={selectedLesson}
               onFinish={handleFinish}
               onBack={() => setPhase("select")}
+              navigate={navigate}
             />
           )}
           {phase === "result" && result && selectedLesson && (
