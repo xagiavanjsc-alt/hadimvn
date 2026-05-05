@@ -21,26 +21,39 @@ export default function WeaknessAlert({
   const [dismissedTopics, setDismissedTopics] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    const weakAreas: WeakArea[] = [];
+    try {
+      if (!topicAccuracy || typeof topicAccuracy !== 'object') {
+        setAlerts([]);
+        return;
+      }
 
-    for (const [topic, accuracy] of Object.entries(topicAccuracy)) {
-      if (dismissedTopics.has(topic)) continue;
+      const weakAreas: WeakArea[] = [];
 
-      let severity: WeakArea["severity"] = "info";
-      if (accuracy < 40) severity = "critical";
-      else if (accuracy < 60) severity = "warning";
-      else continue; // Not weak enough to alert
+      for (const [topic, accuracy] of Object.entries(topicAccuracy)) {
+        if (dismissedTopics.has(topic)) continue;
 
-      weakAreas.push({ topic, accuracy, severity });
+        // Validate accuracy is a number
+        if (typeof accuracy !== 'number' || isNaN(accuracy)) continue;
+
+        let severity: WeakArea["severity"] = "info";
+        if (accuracy < 40) severity = "critical";
+        else if (accuracy < 60) severity = "warning";
+        else continue; // Not weak enough to alert
+
+        weakAreas.push({ topic, accuracy, severity });
+      }
+
+      // Sort by severity (critical first)
+      weakAreas.sort((a, b) => {
+        const severityOrder = { critical: 0, warning: 1, info: 2 };
+        return severityOrder[a.severity] - severityOrder[b.severity];
+      });
+
+      setAlerts(weakAreas);
+    } catch (error) {
+      console.error('Error in WeaknessAlert useEffect:', error);
+      setAlerts([]);
     }
-
-    // Sort by severity (critical first)
-    weakAreas.sort((a, b) => {
-      const severityOrder = { critical: 0, warning: 1, info: 2 };
-      return severityOrder[a.severity] - severityOrder[b.severity];
-    });
-
-    setAlerts(weakAreas);
   }, [topicAccuracy, dismissedTopics]);
 
   const handleDismiss = (topic: string) => {

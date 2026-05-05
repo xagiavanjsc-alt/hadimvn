@@ -60,7 +60,7 @@ function generateFeedback(
   correctAnswer: string,
   topic?: string
 ): FeedbackData {
-  const { korean, vietnamese, example, exampleVi } = question;
+  const { korean, vietnamese, pronunciation, example, exampleVi } = question;
 
   // Detect grammar pattern
   let grammarPattern: string | undefined;
@@ -136,10 +136,19 @@ export default function EnhancedQuizFeedback({
   topic,
   onLearnMore,
 }: EnhancedFeedbackProps) {
-  const feedback = useMemo(
-    () => generateFeedback(question, userAnswer, correctAnswer, topic),
-    [question, userAnswer, correctAnswer, topic]
-  );
+  const feedback = useMemo(() => {
+    try {
+      return generateFeedback(question, userAnswer, correctAnswer, topic);
+    } catch (error) {
+      console.error('Error generating feedback:', error);
+      return {
+        explanation: 'Đáp án đúng đã hiển thị.',
+        similarExamples: [],
+        recommendedAction: 'Ôn tập lại từ vựng này.',
+        relatedVocab: [],
+      };
+    }
+  }, [question, userAnswer, correctAnswer, topic]);
 
   return (
     <div className="bg-red-500/8 border border-red-500/25 rounded-xl p-4 mb-4">

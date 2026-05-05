@@ -243,9 +243,13 @@ function QuizScreen({
 
   // Track topic accuracy
   useEffect(() => {
-    if (currentIdx > 0 && showAnswer) {
-      const correctCount = Object.values(answers).slice(0, currentIdx).filter((ans, idx) => ans === questions[idx].correctIndex).length;
-      updateAccuracy(lesson.topic, correctCount, currentIdx);
+    try {
+      if (currentIdx > 0 && showAnswer) {
+        const correctCount = Object.values(answers).slice(0, currentIdx).filter((ans, idx) => ans === questions[idx].correctIndex).length;
+        updateAccuracy(lesson.topic, correctCount, currentIdx);
+      }
+    } catch (error) {
+      console.error('Error tracking topic accuracy:', error);
     }
   }, [showAnswer, currentIdx, answers, questions, lesson.topic, updateAccuracy]);
 
