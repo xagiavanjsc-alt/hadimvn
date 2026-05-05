@@ -254,7 +254,19 @@ export default function EpsExamPage() {
     }
 
     // Award XP only for legitimate exam
-    awardXP({ type: "eps_exam_completed", amount: 20 + Math.round((correctIds.length / examQuestions.length) * 30) });
+    // Formula: base 15 XP + up to 35 XP based on score (total max 50 XP/exam)
+    const scorePct = Math.round((correctIds.length / examQuestions.length) * 100);
+    const examXP = 15 + Math.round((scorePct / 100) * 35);
+    awardXP({ type: "eps_exam_completed", amount: examXP });
+
+    // Award eps_pass badge if score >= 40% (EPS-TOPIK real passing threshold)
+    if (scorePct >= 40) {
+      awardXP({ type: "manual_bonus", amount: 0, meta: { badge: "eps_pass", score: scorePct } });
+    }
+    // Award perfect_score badge if 100%
+    if (scorePct === 100) {
+      awardXP({ type: "manual_bonus", amount: 50, meta: { badge: "perfect_score" } });
+    }
     setMode("result");
   }, [examQuestions, answers, setExamResults, user, profile, syncToCloud, updateLeaderboard, awardXP]);
 

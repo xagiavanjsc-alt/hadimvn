@@ -31,20 +31,23 @@ export interface XPSettings {
  * Default XP settings if database fetch fails
  */
 export const DEFAULT_XP_SETTINGS: XPSettings = {
-  streak_weight: 30,
-  best_score_weight: 8,
-  average_score_weight: 5,
+  // Formula weights — khớp với DEFAULT_WEIGHTS trong lib/xp.ts
+  streak_weight: 15,          // giảm: login nhiều không nên thắng học thật
+  best_score_weight: 12,       // tăng: thưởng điểm cao hơn
+  average_score_weight: 8,     // tăng: học đều quan trọng
   correct_answer_weight: 3,
   flashcard_weight: 4,
-  exam_completed_bonus: 10,
+  exam_completed_bonus: 15,    // tăng: khuyến khích thi nhiều
+  // Community weights
   post_weight: 50,
   comment_weight: 20,
   like_received_weight: 5,
   rating_given_weight: 10,
   daily_post_cap: 5,
   daily_comment_cap: 20,
+  // Anti-cheat
   flashcard_xp_cap: 500,
-  min_sec_per_question: 3,
+  min_sec_per_question: 8,    // tăng từ 3→8: 8 giây/câu phản ánh EPS-TOPIK thực tế
   exam_cooldown_sec: 30,
   max_exams_per_day: 20,
 };

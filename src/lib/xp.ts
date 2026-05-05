@@ -31,12 +31,12 @@ export interface XPWeights {
 }
 
 export const DEFAULT_WEIGHTS: XPWeights = {
-  streak_weight: 30,
-  best_score_weight: 8,
-  average_score_weight: 5,
+  streak_weight: 15,          // giảm từ 30→15: login ko nên thắng học thật
+  best_score_weight: 12,       // tăng từ 8→12: thưởng điểm cao hơn
+  average_score_weight: 8,     // tăng từ 5→8: học đều quan trọng
   correct_answer_weight: 3,
   flashcard_weight: 4,
-  exam_completed_bonus: 10,
+  exam_completed_bonus: 15,    // tăng từ 10→15: khuyến khích thi nhiều
   flashcard_xp_cap: 500,
 };
 
@@ -67,20 +67,37 @@ export function computeXP(s: UserStudyStats, w: XPWeights = DEFAULT_WEIGHTS): nu
   );
 }
 
-/** Phân cấp TOPIK từ best_score (0–100). */
+/**
+ * Phân cấp dựa trên điểm thi thử EPS-TOPIK (0–100).
+ * EPS-TOPIK thực tế: đậu ~40% (80/200 điểm). Phân cấp sau phản ánh
+ * mức độ thành thạo theo chuẩn học tiếng Hàn EPS, không nhầm với TOPIK.
+ */
 export function deriveLevel(bestScorePct: number): string {
-  if (bestScorePct >= 80) return "TOPIK II";
-  if (bestScorePct >= 60) return "TOPIK I";
-  return "Cơ bản";
+  if (bestScorePct >= 90) return "Xuất sắc";    // 90-100%
+  if (bestScorePct >= 75) return "Giỏi";         // 75-89%
+  if (bestScorePct >= 55) return "Khá";           // 55-74%
+  if (bestScorePct >= 40) return "Trung bình";   // 40-54% (ngưỡng đậu EPS thật)
+  return "Cơ bản";                                // <40%
 }
+
+/** Label tiếng Hàn cho level EPS. */
+export const LEVEL_LABELS_KO: Record<string, string> = {
+  "Xuất sắc": "우수",
+  "Giỏi": "잘함",
+  "Khá": "보통",
+  "Trung bình": "기초",
+  "Cơ bản": "입문",
+};
 
 // ─── Anti-cheat thresholds ────────────────────────────────────────────────
 
-/** EPS full exam: 40 câu × tối thiểu 3 giây = 120s mới hợp lệ. */
-export const MIN_EPS_EXAM_TIME_SEC = 120;
+/** EPS full exam: 40 câu × tối thiểu 8 giây = 320s mới hợp lệ.
+ *  (Thực tế EPS-TOPIK: 70 phút / 50 câu = 84s/câu, minimum hợp lý là 8s)
+ */
+export const MIN_EPS_EXAM_TIME_SEC = 320;
 
-/** EPS topic exam: 20 câu × tối thiểu 3 giây = 60s. */
-export const MIN_EPS_TOPIC_EXAM_TIME_SEC = 60;
+/** EPS topic exam: 20 câu × tối thiểu 8 giây = 160s. */
+export const MIN_EPS_TOPIC_EXAM_TIME_SEC = 160;
 
 /** Tối thiểu thời gian giữa 2 lần submit exam (chống spam). */
 export const EXAM_COOLDOWN_SEC = 30;
@@ -88,14 +105,24 @@ export const EXAM_COOLDOWN_SEC = 30;
 /** Tối đa số exam hợp lệ / ngày / user. */
 export const MAX_EXAMS_PER_DAY = 20;
 
-/** Detect nếu user submit exam quá nhanh (gian lận). */
+/** Detect nếu user submit exam quá nhanh (gian lận).
+ *  Default 8s/câu — đủ thời gian đọc câu hỏi + 4 đáp án tiếng Hàn.
+ */
 export function isExamTooFast(
   timeUsedSec: number,
   numQuestions: number,
-  minPerQuestionSec = 3
+  minPerQuestionSec = 8
 ): boolean {
   return timeUsedSec < numQuestions * minPerQuestionSec;
 }
+
+/** Cap XP cho mỗi lần gọi addXP (chống farm thủ công).
+ *  Mỗi hoạt động không nên vượt 200 XP một lần, trừ streak bonus đặc biệt.
+ */
+export const MAX_SINGLE_ADD_XP = 200;
+
+/** Cap XP hàng ngày từ addXP (tổng cộng qua raw addXP calls). */
+export const DAILY_RAW_XP_CAP = 500;
 
 /** Kiểm tra cooldown dựa trên last exam timestamp (ms). */
 export function isInCooldown(

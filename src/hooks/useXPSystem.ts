@@ -3,7 +3,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { RANKS, BADGES } from "@/data/ranks";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
-import { computeXP, deriveLevel } from "@/lib/xp";
+import { computeXP, deriveLevel, MAX_SINGLE_ADD_XP, DAILY_RAW_XP_CAP } from "@/lib/xp";
 
 /**
  * XP event types for tracking user achievements
@@ -78,12 +78,12 @@ const DAILY_EVENT_CAPS: Partial<Record<XPEvent["type"], number>> = {
   topic_drill_completed: 10,
   community_post: 5,
   community_like_received: 100,
-  quiz_completed: 10,
+  quiz_completed: 20,            // tăng: có nhiều loại quiz
   hanja_word_learned: 100,
   hanja_quiz_completed: 10,
   hanja_tree_completed: 5,
   streak_day: 1,                 // exactly once/day for daily login bonus
-  // manual_bonus intentionally uncapped — callers must validate legitimacy
+  manual_bonus: 100,             // chống farm addXP: tối đa 100 lần/ngày
 };
 
 /** Per-day counts for anti-cheat. Resets when day changes. */
@@ -140,15 +140,34 @@ function getRankForXP(xp: number) {
 function checkBadges(
   xp: number,
   streak: number,
-  earnedBadgeIds: string[]
+  earnedBadgeIds: string[],
+  extra?: {
+    bestScorePct?: number;     // For eps_pass, perfect_score
+    wordsLearned?: number;     // For vocab200
+    hangulCompleted?: boolean; // For hangul_master
+  }
 ): string[] {
   const newBadges: string[] = [];
-  if (streak >= 7 && !earnedBadgeIds.includes("streak7"))
-    newBadges.push("streak7");
-  if (streak >= 30 && !earnedBadgeIds.includes("streak30"))
-    newBadges.push("streak30");
-  if (streak >= 100 && !earnedBadgeIds.includes("streak100"))
-    newBadges.push("streak100");
+  const has = (id: string) => earnedBadgeIds.includes(id);
+
+  // Streak badges
+  if (streak >= 7 && !has("streak7")) newBadges.push("streak7");
+  if (streak >= 30 && !has("streak30")) newBadges.push("streak30");
+  if (streak >= 100 && !has("streak100")) newBadges.push("streak100");
+
+  // Score badges
+  const score = extra?.bestScorePct ?? 0;
+  if (score >= 40 && !has("eps_pass")) newBadges.push("eps_pass");     // EPS đậu thật là 40%
+  if (score >= 100 && !has("perfect_score")) newBadges.push("perfect_score");
+
+  // Learning badges
+  const words = extra?.wordsLearned ?? 0;
+  if (words >= 200 && !has("vocab200")) newBadges.push("vocab200");
+  if (extra?.hangulCompleted && !has("hangul_master")) newBadges.push("hangul_master");
+
+  // XP milestone badges
+  if (xp >= 5000 && !has("top10")) newBadges.push("top10"); // Proxy: Legend rank ≈ top 10
+
   return newBadges;
 }
 
@@ -326,11 +345,23 @@ export function useXPSystem() {
       // Sync to Supabase so leaderboard / profile stats reflect latest XP
       scheduleServerSync();
 
-      // Check new badges
+      // Check new badges — pass extra context for score/vocab badges
+      const flashcardKnown = (() => {
+        try { return JSON.parse(localStorage.getItem("kts_flashcard_known") || "{}"); } catch { return {}; }
+      })();
+      const examResults = (() => {
+        try { return JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]"); } catch { return []; }
+      })() as { score: number; total: number }[];
+      const bestScorePct = examResults.length > 0
+        ? Math.max(...examResults.map(r => Math.round((r.score / r.total) * 100)))
+        : 0;
+      const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length;
+
       const newBadges = checkBadges(
         xpData.total + amount,
         streak.count,
-        earnedBadgeIds
+        earnedBadgeIds,
+        { bestScorePct, wordsLearned }
       );
       if (newBadges.length > 0) {
         setEarnedBadgeIds((prev) => [...prev, ...newBadges]);
@@ -491,9 +522,16 @@ export function useXPSystem() {
     addXP: ((arg1: XPEvent | number, arg2?: string) => {
       if (typeof arg1 === "number") {
         if (!Number.isFinite(arg1) || arg1 <= 0) return;
+        // Cap single call to MAX_SINGLE_ADD_XP (200 XP)
+        const capped = Math.min(Math.floor(arg1), MAX_SINGLE_ADD_XP);
+        // Check daily raw XP cap across all manual_bonus calls
+        const today = todayKey();
+        const currentDay = dailyCounts.date === today ? dailyCounts : { date: today, counts: {} as Record<string, number> };
+        const usedToday = (currentDay.counts["manual_bonus"] || 0) * 10; // approx XP used
+        if (usedToday >= DAILY_RAW_XP_CAP) return; // daily cap reached
         awardXP({
           type: "manual_bonus",
-          amount: Math.floor(arg1),
+          amount: capped,
           meta: { reason: arg2 },
         });
       } else {
