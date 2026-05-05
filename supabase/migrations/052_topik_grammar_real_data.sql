@@ -1910,3 +1910,514 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   'Biết cách → 쓸 줄 알아요?',
   'easy'
 );
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #30: V – (으)세요. / (으)십시오 [hãy, vui lòng]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V – (으)세요. / (으)십시오',
+  '(eu)seyo / (eu)sipsio',
+  'hãy, vui lòng',
+  'beginner',
+  'imperative',
+  'Dùng để yêu cầu người nghe làm gì một cách lịch sự, câu MỆNH LỆNH. Hình thức tôn kính là – (으)십시오. Một số động từ chuyển đổi đặc biệt: 먹다/마시다 → 드세요, 자다 → 주무세요, 있다 → 계세요, 주다 → 주세요/드리세요. Một số tính từ kết thúc bằng 하다 có thể sử dụng cố định với – (으)세요 như 건강하다, 행복하다...',
+  'V + (으)세요 / (으)십시오',
+  '[
+    {"korean": "민규 씨, 결혼 축하해요. 행복하세요.", "vietnamese": "Minkyu, chúc mừng kết hôn nhé. Hãy thật hạnh phúc nhé."},
+    {"korean": "여기 앉으세요.", "vietnamese": "Xin vui lòng ngồi ở đây."},
+    {"korean": "맛있게 드세요.", "vietnamese": "Hãy ăn thật ngon miệng nhé."},
+    {"korean": "잠깐만 기다리세요.", "vietnamese": "Vui lòng đợi một chút nhé."},
+    {"korean": "조용히 하십시오.", "vietnamese": "Xin vui lòng giữ trật tự."},
+    {"korean": "기대지 마십시오.", "vietnamese": "Xin vui lòng không dựa vào."}
+  ]'::jsonb,
+  ARRAY['V – 지 말다', 'A/V – (으)면 안 되다', 'A/V – (으)ㄹ까요']::TEXT[],
+  ARRAY['imperative', 'polite', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – (으)세요. / (으)십시오' LIMIT 1),
+  '여기 ___.',
+  'fill_blank',
+  '["앉으세요", "앉어요", "앉고", "앉으십시오"]'::jsonb,
+  '앉으세요',
+  'Yêu cầu lịch sự → 앉으세요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – (으)세요. / (으)십시오' LIMIT 1),
+  '맛있게 ___.',
+  'fill_blank',
+  '["드세요", "먹으세요", "먹어요", "드십시오"]'::jsonb,
+  '드세요',
+  'Ăn → 드세요 (động từ đặc biệt).',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – (으)세요. / (으)십시오' LIMIT 1),
+  '잠깐만 ___.',
+  'multiple_choice',
+  '["기다리세요", "기다려요", "기다리고", "기다리십시오"]'::jsonb,
+  '기다리세요',
+  'Đợi → 기다리세요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – (으)세요. / (으)십시오' LIMIT 1),
+  '조용히 ___.',
+  'fill_blank',
+  '["하십시오", "하세요", "해요", "하고"]'::jsonb,
+  '하십시오',
+  'Giữ trật tự (tôn kính) → 하십시오.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #31: V – 지 말다: 지 마세요. / 지 맙시다 [đừng...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V – 지 말다: 지 마세요. / 지 맙시다',
+  'ji malda',
+  'đừng...',
+  'beginner',
+  'imperative',
+  'Yêu cầu, khuyên bảo người nghe không làm gì. Là dạng 지 말다 + (으)세요. Rủ rê, cầu khiến người khác đừng làm gì với mình: 지 맙시다. Ở dạng 반말 là 지 마, tuỳ theo hoàn cảnh có thể là câu mệnh lệnh, cầu khiến. Hình thức tôn kính là – 지 마십시오.',
+  'V + 지 마세요 / 지 맙시다 / 지 마 / 지 마십시오',
+  '[
+    {"korean": "수업 시간에 자지 마세요.", "vietnamese": "Đừng ngủ trong giờ học."},
+    {"korean": "살을 빼고 싶으면 피자를 먹지 마세요.", "vietnamese": "Nếu muốn giảm cân thì đừng ăn pizza."},
+    {"korean": "우리 담배를 피우지 맙시다.", "vietnamese": "Chúng ta hãy đừng hút thuốc lá."},
+    {"korean": "시험이 쉬우니까 걱정하지 마세요.", "vietnamese": "Vì bài thi dễ nên đừng lo lắng."},
+    {"korean": "도서관이니까 떠들지 맙시다.", "vietnamese": "Vì là thư viện nên chúng ta hãy đừng làm ồn nhé."},
+    {"korean": "의자가 더러워요. 여기에 앉지 마세요.", "vietnamese": "Ghế bẩn đấy. Anh đừng ngồi ở đây nhé."}
+  ]'::jsonb,
+  ARRAY['V – (으)세요. / (으)십시오', 'A/V – (으)면 안 되다', 'V – (으)ㅂ시다']::TEXT[],
+  ARRAY['imperative', 'negative', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 지 말다: 지 마세요. / 지 맙시다' LIMIT 1),
+  '수업 시간에 자지 ___.',
+  'fill_blank',
+  '["마세요", "말세요", "마", "마십시오"]'::jsonb,
+  '마세요',
+  'Đừng ngủ → 자지 마세요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 지 말다: 지 마세요. / 지 맙시다' LIMIT 1),
+  '피자를 먹지 ___.',
+  'fill_blank',
+  '["마세요", "말세요", "마", "마십시오"]'::jsonb,
+  '마세요',
+  'Đừng ăn → 먹지 마세요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 지 말다: 지 마세요. / 지 맙시다' LIMIT 1),
+  '우리 담배를 피우지 ___.',
+  'multiple_choice',
+  '["맙시다", "마세요", "마", "마십시오"]'::jsonb,
+  '맙시다',
+  'Chúng ta đừng → 피우지 맙시다.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 지 말다: 지 마세요. / 지 맙시다' LIMIT 1),
+  '걱정하지 ___.',
+  'fill_blank',
+  '["마세요", "말세요", "마", "마십시오"]'::jsonb,
+  '마세요',
+  'Đừng lo → 걱정하지 마세요.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #32: V – 아/어야 되다 / 하다 [phải...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V – 아/어야 되다 / 하다',
+  'a/eoya doeda / hada',
+  'phải...',
+  'beginner',
+  'obligation',
+  'Diễn tả hành động phải làm gì đó. Văn nói có thể dùng 아/어야 되다 / 하다 còn văn viết chỉ dùng 아/어야 하다. Hình thức quá khứ: – 았/었어야 되다 / 하다: đã phải làm gì đó.',
+  'V + 아/어야 되다 / 하다',
+  '[
+    {"korean": "식사하기 전에 손을 씻어야 해요.", "vietnamese": "Phải rửa tay trước khi ăn."},
+    {"korean": "오늘은 고향에 가야 해요.", "vietnamese": "Hôm nay tôi phải về quê."},
+    {"korean": "저녁에 숙제를 해야 돼요.", "vietnamese": "Buổi tối tôi phải làm bài tập."},
+    {"korean": "교통 규칙을 잘 지켜야 해요.", "vietnamese": "Phải tuân thủ quy tắc giao thông."},
+    {"korean": "학생은 열심히 공부해야 합니다.", "vietnamese": "Học sinh phải học hành chăm chỉ."},
+    {"korean": "버스는 3 시에 출발해야 합니다.", "vietnamese": "Xe bus phải xuất phát lúc 3 giờ."},
+    {"korean": "가수는 목소리가 좋아야 합니다.", "vietnamese": "Ca sĩ thì giọng phải tốt."}
+  ]'::jsonb,
+  ARRAY['A/V – 지 않아도 되다', 'A/V – (으)면 안 되다', 'A/V – 아/어도 되다']::TEXT[],
+  ARRAY['obligation', 'must', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 아/어야 되다 / 하다' LIMIT 1),
+  '식사하기 전에 손을 씻어야 ___.',
+  'fill_blank',
+  '["해요", "돼요", "되다", "한다"]'::jsonb,
+  '해요',
+  'Phải → 씻어야 해요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 아/어야 되다 / 하다' LIMIT 1),
+  '오늘은 고향에 가야 ___.',
+  'fill_blank',
+  '["해요", "돼요", "되다", "한다"]'::jsonb,
+  '해요',
+  'Phải → 가야 해요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 아/어야 되다 / 하다' LIMIT 1),
+  '저녁에 숙제를 해야 ___.',
+  'multiple_choice',
+  '["돼요", "해요", "되다", "한다"]'::jsonb,
+  '돼요',
+  'Phải → 해야 돼요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 아/어야 되다 / 하다' LIMIT 1),
+  '학생은 열심히 공부해야 ___.',
+  'fill_blank',
+  '["합니다", "해요", "돼요", "되다"]'::jsonb,
+  '합니다',
+  'Phải (văn viết) → 공부해야 합니다.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #33: A V – 아/어도 되다 [được phép làm gì đó]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A V – 아/어도 되다',
+  'a/eodo doeda',
+  'được phép làm gì đó',
+  'beginner',
+  'permission',
+  'Diễn tả sự cho phép hoặc chấp thuận hành động nào đó. Khi hỏi 아/어도 되다, nếu đồng ý dùng 아/어도 되다, còn nếu không được phép dùng cấu trúc (으)면 안 되as, không được phép dùng cấu trúc 아/어도 안 되다. 아/어도 괜찮다 và – 아/어도 좋다 có nghĩa tương tự – 아/어도 되다.',
+  'V + 아/어도 되다',
+  '[
+    {"korean": "에어컨을 켜도 돼요? 네, 켜도 돼요.", "vietnamese": "Tôi bật điều hòa được không? Vâng, được ạ."},
+    {"korean": "기숙사에서 요리해도 돼요? 아니요, 하면 안 돼요.", "vietnamese": "Có được nấu ăn ở kí túc xá không ạ? Không, không được đâu."},
+    {"korean": "엄마, 이 약을 먹어도 돼요? 아니요, 먹으면 안 돼요.", "vietnamese": "Mẹ, con uống thuốc này được không ạ? Không, không được đâu."},
+    {"korean": "창문을 열어도 돼요? 그럼요. 열어도 돼요.", "vietnamese": "Tôi mở cửa sổ nhé? Vâng, bạn mở đi."},
+    {"korean": "여기에 앉아도 돼요?", "vietnamese": "Tôi ngồi ở đây được chứ?"},
+    {"korean": "사진을 찍어도 돼요?", "vietnamese": "Tôi chụp ảnh được chứ?"}
+  ]'::jsonb,
+  ARRAY['A/V – (으)면 안 되다', 'A/V – 지 않아도 되다', 'V – 아/어야 되다 / 하다']::TEXT[],
+  ARRAY['permission', 'allowed', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A V – 아/어도 되다' LIMIT 1),
+  '에어컨을 켜도 ___.',
+  'fill_blank',
+  '["돼요", "되다", "좋다", "괜찮다"]'::jsonb,
+  '돼요',
+  'Được phép → 켜도 돼요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A V – 아/어도 되다' LIMIT 1),
+  '기숙사에서 요리해도 ___.',
+  'fill_blank',
+  '["돼요", "되다", "좋다", "괜찮다"]'::jsonb,
+  '돼요',
+  'Được phép → 요리해도 돼요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A V – 아/어도 되다' LIMIT 1),
+  '창문을 열어도 ___.',
+  'multiple_choice',
+  '["돼요", "되다", "좋다", "괜찮다"]'::jsonb,
+  '돼요',
+  'Được phép → 열어도 돼요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A V – 아/어도 되다' LIMIT 1),
+  '사진을 찍어도 ___.',
+  'fill_blank',
+  '["돼요", "되다", "좋다", "괜찮다"]'::jsonb,
+  '돼요',
+  'Được phép → 찍어도 돼요.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #34: A/V – (으)면 안 되다 [không được]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A/V – (으)면 안 되다',
+  '(eu)myeon an doeda',
+  'không được',
+  'beginner',
+  'prohibition',
+  'Cấm đoán, ngăn cấm ai đó không được phép làm một việc gì đó. Hình thức phủ định của – (으)면 안 되다 là – 지 않으면 안 되다 (nhấn mạnh hành vi cần phải làm).',
+  'A/V + (으)면 안 되다',
+  '[
+    {"korean": "지금 길을 건너면 안 돼요.", "vietnamese": "Bây giờ không được qua đường."},
+    {"korean": "여기 앉으면 안 돼요.", "vietnamese": "Không được ngồi ở đây."},
+    {"korean": "기숙사에서 요리하면 안 돼요.", "vietnamese": "Không được nấu ăn trong kí túc xá."},
+    {"korean": "여기 담배를 피우면 안 돼요.", "vietnamese": "Không được hút thuốc lá ở đây."},
+    {"korean": "뜨거우니까 만지면 안 돼요.", "vietnamese": "Vì nóng nên không được chạm vào."},
+    {"korean": "숙제를 하지 않으면 안 돼요.", "vietnamese": "Nếu không làm bài tập là không được."}
+  ]'::jsonb,
+  ARRAY['A V – 아/어도 되다', 'V – 지 말다', 'V – 아/어야 되다 / 하다']::TEXT[],
+  ARRAY['prohibition', 'not allowed', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)면 안 되다' LIMIT 1),
+  '지금 길을 건너면 안 ___.',
+  'fill_blank',
+  '["돼요", "되다", "좋다", "괜찮다"]'::jsonb,
+  '돼요',
+  'Không được → 건너면 안 돼요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)면 안 되다' LIMIT 1),
+  '여기 앉으면 안 ___.',
+  'fill_blank',
+  '["돼요", "되다", "좋다", "괜찮다"]'::jsonb,
+  '돼요',
+  'Không được → 앉으면 안 돼요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)면 안 되다' LIMIT 1),
+  '기숙사에서 요리하면 안 ___.',
+  'multiple_choice',
+  '["돼요", "되다", "좋다", "괜찮다"]'::jsonb,
+  '돼요',
+  'Không được → 요리하면 안 돼요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)면 안 되다' LIMIT 1),
+  '여기 담배를 피우면 안 ___.',
+  'fill_blank',
+  '["돼요", "되다", "좋다", "괜찮다"]'::jsonb,
+  '돼요',
+  'Không được → 피우면 안 돼요.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #35: A/V – 지 않아도 되다. (안 A/V – 아 /어도 되다) [không cần ... cũng được]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A/V – 지 않아도 되다. (안 A/V – 아 /어도 되다)',
+  'ji anado doeda',
+  'không cần ... cũng được',
+  'beginner',
+  'obligation',
+  'Diễn tả không cần thiết phải làm hành động nào đó. Là hình thức phủ định của – 아/어야 되다 / 하다.',
+  'A/V + 지 않아도 되다 / 안 A/V + 아/어도 되다',
+  '[
+    {"korean": "금요일에는 교복을 안 입어도 돼요.", "vietnamese": "Vào thứ 6 không mặc đồng phục cũng được."},
+    {"korean": "평일이니까 영화 표를 미리 사지 않아도 돼요.", "vietnamese": "Vì là ngày trong tuần nên không mua vé xem phim trước cũng được."},
+    {"korean": "숙제를 하지 않아도 괜찮아요.", "vietnamese": "Không làm bài tập cũng được."},
+    {"korean": "오늘 회사에 꼭 가야 돼요?", "vietnamese": "Hôm nay nhất định phải đến công ty sao?"},
+    {"korean": "바쁘면 안 가도 돼요.", "vietnamese": "Nếu bận thì không đến cũng được."}
+  ]'::jsonb,
+  ARRAY['V – 아/어야 되다 / 하다', 'A V – 아/어도 되다', 'A/V – (으)면 안 되다']::TEXT[],
+  ARRAY['obligation', 'not necessary', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 지 않아도 되다. (안 A/V – 아 /어도 되다)' LIMIT 1),
+  '금요일에는 교복을 안 입어도 ___.',
+  'fill_blank',
+  '["돼요", "되다", "좋다", "괜찮다"]'::jsonb,
+  '돼요',
+  'Không cần cũng được → 안 입어도 돼요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 지 않아도 되다. (안 A/V – 아 /어도 되다)' LIMIT 1),
+  '영화 표를 미리 사지 않아도 ___.',
+  'fill_blank',
+  '["돼요", "되다", "좋다", "괜찮다"]'::jsonb,
+  '돼요',
+  'Không cần cũng được → 사지 않아도 돼요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 지 않아도 되다. (안 A/V – 아 /어도 되다)' LIMIT 1),
+  '숙제를 하지 않아도 ___.',
+  'multiple_choice',
+  '["괜찮아요", "돼요", "되다", "좋다"]'::jsonb,
+  '괜찮아요',
+  'Không cần cũng được → 하지 않아도 괜찮아요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 지 않아도 되다. (안 A/V – 아 /어도 되다)' LIMIT 1),
+  '바쁘면 안 가도 ___.',
+  'fill_blank',
+  '["돼요", "되다", "좋다", "괜찮다"]'::jsonb,
+  '돼요',
+  'Không cần cũng được → 안 가도 돼요.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #36: A/V – (으)ㄹ까요? [tôi làm... nhé? / (chúng mình)... nhé? / nhỉ?]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A/V – (으)ㄹ까요?',
+  '(eu)lkkayo',
+  'tôi làm... nhé? / (chúng mình)... nhé? / nhỉ?',
+  'beginner',
+  'suggestion',
+  'Nghĩa 1: Gợi ý, hỏi ý kiến của người nghe về việc mình định làm. Chủ ngữ thông thường là 제가/내가 có thể được tỉnh lược. Nghĩa 2: Người nói muốn rủ người nghe cùng làm gì đó. Chủ ngữ는 우리 thường được tỉnh lược. Nghĩa 3: Được sử dụng cho câu hỏi, suy nghĩ hay suy đoán về đối tượng ngôi số 3.',
+  'A/V + (으)ㄹ까요?',
+  '[
+    {"korean": "저는 어디에 앉을까요?", "vietnamese": "Tôi ngồi ở đâu nhỉ?"},
+    {"korean": "오늘 저녁에 우리 같이 먹을까요?", "vietnamese": "Tối nay chúng mình cùng ăn tối nhé?"},
+    {"korean": "요즘 꽃이 비쌀까요?", "vietnamese": "Dạo này hoa đắt nhỉ?"},
+    {"korean": "김 선생님께서는 b现在 chắc đang ở trường đấy nhỉ?", "vietnamese": "Cô Kim chắc đang ở trường đấy nhỉ?"},
+    {"korean": "문을 열어도 될까요?", "vietnamese": "Tôi mở cửa nhé?"},
+    {"korean": "케이크를 좀 드실까요?", "vietnamese": "Bạn ăn chút bánh kem nhé?"}
+  ]'::jsonb,
+  ARRAY['V – (으)ㅂ시다', 'A/V – (으)면', 'V – (으)세요. / (으)십시오']::TEXT[],
+  ARRAY['suggestion', 'invitation', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄹ까요?' LIMIT 1),
+  '저는 어디에 앉___.',
+  'fill_blank',
+  '["을까요?", "을까", "을까요", "을까"]'::jsonb,
+  '을까요?',
+  'Tôi ngồi đâu nhỉ → 앉을까요?',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄹ까요?' LIMIT 1),
+  '오늘 저녁에 우리 같이 먹___.',
+  'fill_blank',
+  '["을까요?", "을까", "을까요", "을까"]'::jsonb,
+  '을까요?',
+  'Chúng mình cùng ăn → 먹을까요?',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄹ까요?' LIMIT 1),
+  '요즘 꽃이 비쌀___.',
+  'multiple_choice',
+  '["까요?", "까", "까요", "까"]'::jsonb,
+  '까요?',
+  'Hoa đắt nhỉ → 비쌀까요?',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄹ까요?' LIMIT 1),
+  '문을 열어도 될___.',
+  'fill_blank',
+  '["까요?", "까", "까요", "까"]'::jsonb,
+  '까요?',
+  'Mở cửa nhé → 열어도 될까요?',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #37: V – (으) ㅂ시다 [hãy cùng, chúng ta cùng]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V – (으) ㅂ시다',
+  '(eu)psida',
+  'hãy cùng, chúng ta cùng',
+  'beginner',
+  'suggestion',
+  'Gợi ý hoặc đề nghị người nghe cùng làm gì, CÂU CẦU KHIẾN. Lưu ý: 아/어요 cũng có thể là dạng câu cầu khiến, khi đó thêm 함께/같이. Sử dụng khi người nói gợi ý một tập thể làm gì đó hoặc khi người nghe ít tuổi hơn hoặc có địa vị thấp hơn người nói. Không nên sử dụng với người lớn tuổi hoặc người có địa vị cao hơn. Khi đề xuất đừng làm gì đó: – 지 맙시다 hoặc – 지 마요.',
+  'V + (으)ㅂ시다',
+  '[
+    {"korean": "지하철을 탑시다.", "vietnamese": "Chúng ta cùng đi tàu điện ngầm đi."},
+    {"korean": "김치를 만듭시다.", "vietnamese": "Hãy cùng làm kimchi đi."},
+    {"korean": "우리 같이 비빔밥 먹읍시다.", "vietnamese": "Chúng ta cùng ăn cơm trộn đi."},
+    {"korean": "도서관에서 한국어 숙제를 합시다.", "vietnamese": "Chúng ta cùng làm bài tập tiếng Hàn ở thư viện đi."},
+    {"korean": "제주도를 여행합시다.", "vietnamese": "Chúng ta cùng đi du lịch đảo Jeju đi."}
+  ]'::jsonb,
+  ARRAY['A/V – (으)ㄹ까요?', 'V – 지 말다', 'V – (으)세요. / (으)십시오']::TEXT[],
+  ARRAY['suggestion', 'imperative', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – (으) ㅂ시다' LIMIT 1),
+  '지하철을 탑___.',
+  'fill_blank',
+  '["시다", "읍시다", "ㅂ시다", "습니다"]'::jsonb,
+  '시다',
+  'Cùng đi tàu → 탑시다.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – (으) ㅂ시다' LIMIT 1),
+  '김치를 만듭___.',
+  'fill_blank',
+  '["시다", "읍시다", "ㅂ시다", "습니다"]'::jsonb,
+  '시다',
+  'Cùng làm kimchi → 만듭시다.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – (으) ㅂ시다' LIMIT 1),
+  '우리 같이 비빔밥 먹읍___.',
+  'multiple_choice',
+  '["시다", "읍시다", "ㅂ시다", "습니다"]'::jsonb,
+  '시다',
+  'Cùng ăn cơm trộn → 먹읍시다.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – (으) ㅂ시다' LIMIT 1),
+  '제주도를 여행합___.',
+  'fill_blank',
+  '["시다", "읍시다", "ㅂ시다", "습니다"]'::jsonb,
+  '시다',
+  'Cùng đi du lịch → 여행합시다.',
+  'easy'
+);
