@@ -4039,3 +4039,262 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   'Mưa thật → 오는군요.',
   'easy'
 );
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #63: V-ㄴ/은 적이 있다/없다 [Đã từng / Chưa từng]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V-ㄴ/은 적이 있다/없다',
+  'n/eun jeogi itda/eopda',
+  'Đã từng / Chưa từng',
+  'intermediate',
+  'experience',
+  'Diễn tả kinh nghiệm đã có hoặc chưa có trong quá khứ. Tương đương với 'have/haven't done' trong tiếng Anh.',
+  'V(nguyên âm/ㄹ) + ㄴ 적이 있다 / V(phụ âm) + 은 적이 있다',
+  '[
+    {"korean": "한국에 가 본 적이 있어요.", "vietnamese": "Tôi đã từng đến Hàn Quốc."},
+    {"korean": "김치를 먹은 적이 없어요.", "vietnamese": "Tôi chưa từng ăn kimchi."},
+    {"korean": "스키를 탄 적이 있어요?", "vietnamese": "Bạn đã từng trượt tuyết chưa?"}
+  ]'::jsonb,
+  ARRAY['V – 아/어 보다', 'V – 았/었어요']::TEXT[],
+  ARRAY['experience', 'past', 'b1', 'topik2']::TEXT[],
+  'TOPIK II'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V-ㄴ/은 적이 있다/없다' LIMIT 1),
+  '한국 음식을 먹 ___ 적이 있어요.',
+  'fill_blank',
+  '["은", "ㄴ", "는", "던"]'::jsonb,
+  '은',
+  '먹다 kết thúc bằng phụ âm ㄱ, nên dùng 은',
+  'medium'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V-ㄴ/은 적이 있다/없다' LIMIT 1),
+  '서울에 가 ___ 적이 없어요.',
+  'fill_blank',
+  '["은", "ㄴ", "는", "던"]'::jsonb,
+  'ㄴ',
+  '가다 kết thúc bằng nguyên âm, nên dùng ㄴ → 간 적이',
+  'medium'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #64: V-는 것 같다 [Có vẻ như, Dường như]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V-는 것 같다',
+  'neun geot gata',
+  'Có vẻ như, Dường như',
+  'intermediate',
+  'conjecture',
+  'Diễn tả suy đoán, phỏng đoán dựa trên quan sát. Thì hiện tại dùng -는 것 같다, quá khứ dùng -ㄴ/은 것 같다, tương lai dùng -ㄹ/을 것 같다.',
+  'V + 는 것 같다 (hiện tại) / V + ㄴ/은 것 같다 (quá khứ) / V + ㄹ/을 것 같다 (tương lai)',
+  '[
+    {"korean": "비가 오는 것 같아요.", "vietnamese": "Có vẻ như trời đang mưa."},
+    {"korean": "그 사람이 화가 난 것 같아요.", "vietnamese": "Có vẻ như người đó đang tức giận."},
+    {"korean": "어제 비가 온 것 같아요.", "vietnamese": "Có vẻ như hôm qua trời đã mưa."},
+    {"korean": "내일 비가 올 것 같아요.", "vietnamese": "Có vẻ như ngày mai trời sẽ mưa."}
+  ]'::jsonb,
+  ARRAY['A/V – (으)ㄴ/는/(으)ㄹ 것 같다', 'A – 아/어 보이다']::TEXT[],
+  ARRAY['conjecture', 'observation', 'b1', 'topik2']::TEXT[],
+  'TOPIK II'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V-는 것 같다' LIMIT 1),
+  '비가 오 ___ 것 같아요.',
+  'fill_blank',
+  '["는", "ㄴ", "은", "던"]'::jsonb,
+  '는',
+  'Hiện tại đang mưa → 오는 것 같아요',
+  'medium'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V-는 것 같다' LIMIT 1),
+  '어제 비가 온 ___ 같아요.',
+  'fill_blank',
+  '["는", "ㄴ", "은", "던"]'::jsonb,
+  'ㄴ',
+  'Quá khứ đã mưa → 온 것 같아요',
+  'medium'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #65: N은/는 [Trợ từ chủ đề]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'N은/는',
+  'eun/neun',
+  'Trợ từ chủ đề',
+  'beginner',
+  'particle',
+  '은/는 là trợ từ chủ đề, dùng để đánh dấu chủ đề của câu. Dùng 은 sau phụ âm, 는 sau nguyên âm.',
+  'N(phụ âm) + 은 / N(nguyên âm) + 는',
+  '[
+    {"korean": "저는 학생이에요.", "vietnamese": "Tôi là học sinh."},
+    {"korean": "한국은 아름다워요.", "vietnamese": "Hàn Quốc thật đẹp."},
+    {"korean": "오늘은 날씨가 좋아요.", "vietnamese": "Hôm nay thời tiết đẹp."}
+  ]'::jsonb,
+  ARRAY['N이/가']::TEXT[],
+  ARRAY['particle', 'basic', 'topic', 'a1', 'topik1']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N은/는' LIMIT 1),
+  '저 ___ 베트남 사람이에요.',
+  'fill_blank',
+  '["은", "는", "이", "가"]'::jsonb,
+  '는',
+  '저 kết thúc bằng nguyên âm eo, nên dùng 는',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N은/는' LIMIT 1),
+  '한국어 ___ 재미있어요.',
+  'fill_blank',
+  '["은", "는", "이", "가"]'::jsonb,
+  '은',
+  '한국어 kết thúc bằng phụ âm, nên dùng 은',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #66: N이/가 [Trợ từ chủ ngữ]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'N이/가',
+  'i/ga',
+  'Trợ từ chủ ngữ',
+  'beginner',
+  'particle',
+  '이/가 là trợ từ chủ ngữ, dùng để đánh dấu chủ ngữ thực sự của câu. Dùng 이 sau phụ âm, 가 sau nguyên âm.',
+  'N(phụ âm) + 이 / N(nguyên âm) + 가',
+  '[
+    {"korean": "꽃이 예뻐요.", "vietnamese": "Hoa đẹp."},
+    {"korean": "누가 왔어요?", "vietnamese": "Ai đến vậy?"},
+    {"korean": "비가 와요.", "vietnamese": "Trời mưa."}
+  ]'::jsonb,
+  ARRAY['N은/는']::TEXT[],
+  ARRAY['particle', 'basic', 'subject', 'a1', 'topik1']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N이/가' LIMIT 1),
+  '꽃 ___ 예뻐요.',
+  'fill_blank',
+  '["은", "는", "이", "가"]'::jsonb,
+  '이',
+  '꽃 kết thúc bằng phụ âm, nên dùng 이',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N이/가' LIMIT 1),
+  '누구 ___ 왔어요?',
+  'fill_blank',
+  '["은", "는", "이", "가"]'::jsonb,
+  '가',
+  '누구 kết thúc bằng nguyên âm, nên dùng 가',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #67: V-ㄹ/을수록 [Càng... càng...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V-ㄹ/을수록',
+  'l/eulsurok',
+  'Càng... càng...',
+  'advanced',
+  'proportional',
+  'Diễn tả mối quan hệ tỷ lệ thuận: khi A tăng thì B cũng tăng. Thường đi kèm với 더 (hơn) hoặc 더욱 (càng hơn).',
+  'V/A + ㄹ/을수록 + (더) V/A',
+  '[
+    {"korean": "공부할수록 더 재미있어요.", "vietnamese": "Càng học càng thấy thú vị."},
+    {"korean": "알면 알수록 어려워요.", "vietnamese": "Càng biết càng thấy khó."},
+    {"korean": "시간이 지날수록 그리워져요.", "vietnamese": "Thời gian càng trôi qua càng nhớ."}
+  ]'::jsonb,
+  ARRAY['V-면', 'A-아/어질수록']::TEXT[],
+  ARRAY['proportional', 'comparison', 'b2', 'topik2']::TEXT[],
+  'TOPIK II'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V-ㄹ/을수록' LIMIT 1),
+  '연습하 ___ 실력이 늘어요.',
+  'fill_blank',
+  '["ㄹ수록", "을수록", "면", "아서"]'::jsonb,
+  'ㄹ수록',
+  '연습하다 kết thúc bằng nguyên âm, dùng ㄹ수록',
+  'medium'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V-ㄹ/을수록' LIMIT 1),
+  '먹 ___ 더 먹고 싶어요.',
+  'fill_blank',
+  '["ㄹ수록", "을수록", "면", "아서"]'::jsonb,
+  '을수록',
+  '먹다 kết thúc bằng phụ âm ㄱ, dùng 을수록',
+  'medium'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #68: V-는 한 [Chừng nào còn..., Miễn là...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V-는 한',
+  'neun han',
+  'Chừng nào còn..., Miễn là...',
+  'advanced',
+  'condition',
+  'Diễn tả điều kiện duy trì: chừng nào điều kiện A còn tồn tại thì kết quả B vẫn đúng. Mang tính trang trọng, thường dùng trong văn viết.',
+  'V + 는 한 / A + ㄴ/은 한 / N인 한',
+  '[
+    {"korean": "내가 살아있는 한 너를 지킬게.", "vietnamese": "Chừng nào tôi còn sống, tôi sẽ bảo vệ em."},
+    {"korean": "노력하는 한 반드시 성공할 수 있다.", "vietnamese": "Chừng nào còn nỗ lực, nhất định sẽ thành công."},
+    {"korean": "법을 어기지 않는 한 자유롭게 행동할 수 있다.", "vietnamese": "Miễn là không vi phạm pháp luật, bạn có thể hành động tự do."}
+  ]'::jsonb,
+  ARRAY['V-는 이상', 'V-는 동안']::TEXT[],
+  ARRAY['condition', 'formal', 'c1', 'topik3']::TEXT[],
+  'TOPIK III'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V-는 한' LIMIT 1),
+  '포기하지 않 ___ 한 희망이 있어요.',
+  'fill_blank',
+  '["는", "은", "ㄴ", "던"]'::jsonb,
+  '는',
+  '포기하지 않다 là động từ phủ định, dùng -는 한',
+  'hard'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V-는 한' LIMIT 1),
+  '건강 ___ 한 모든 것이 가능해요.',
+  'fill_blank',
+  '["인", "는", "은", "이"]'::jsonb,
+  '인',
+  '건강 là danh từ, dùng 인 한',
+  'hard'
+);
