@@ -1265,3 +1265,329 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   'Vừa sạch vừa rộng → dùng -며.',
   'easy'
 );
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #20: N 중, V- 는 중이다 [đang..., đang trong quá trình...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'N 중, V- 는 중이다',
+  'jung / neun jungida',
+  'đang..., đang trong quá trình...',
+  'beginner',
+  'time',
+  'Diễn tả hành động đang trong quá trình được thực hiện. Một số từ thông dụng: 회의 중, 수업 중, 공사 중, 출장 중, 외출 중... Có thể dùng ở dạng cấu trúc V-는 중에. – 는 중 và – 고 있다 giống nhau. Tuy nhiên, – 고 있다 có thể kết hợp các động từ, còn – 는 중 không được dùng để diễn tả các hiện tượng tự nhiên và thường không kết hợp với 살다, 지내다, 다니다...',
+  'N + 중 / V + 는 중이다 / V + 는 중에',
+  '[
+    {"korean": "이사할 거예요. 그래서 집을 찾는 중이에요.", "vietnamese": "Tôi sẽ chuyển nhà. Nên tôi đang tìm nhà."},
+    {"korean": "지금 수업 중이니까 나중에 전화하세요.", "vietnamese": "Bây giờ tôi đang học nên hãy gọi lại sau nhé."},
+    {"korean": "학교에 가는 중에 친구를 만났어요.", "vietnamese": "Tôi đã gặp gỡ bạn bè khi đang đến trường."},
+    {"korean": "친구가 안 와서 기다리는 중이에요.", "vietnamese": "Bạn chưa đến nên tôi đang đợi."},
+    {"korean": "내일 시험이라서 공부하는 중이에요.", "vietnamese": "Vì ngày mai là buổi thi nên tôi đang học bài."},
+    {"korean": "공사 중이라서 길이 자주 막혀요.", "vietnamese": "Vì đang trong quá trình xây dựng nên con đường thường tắc nghẽn."},
+    {"korean": "요즘 운전을 배우는 중이에요.", "vietnamese": "Dạo này tôi đang học lái xe."}
+  ]'::jsonb,
+  ARRAY['V – 고 있다', 'N – 때, A/V – (으)ㄹ 때', 'V – (으)ㄴ 지']::TEXT[],
+  ARRAY['time', 'progress', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 중, V- 는 중이다' LIMIT 1),
+  '지금 수업 ___ 나중에 전화하세요.',
+  'fill_blank',
+  '["중이니까", "중에", "동안", "때"]'::jsonb,
+  '중이니까',
+  'Đang học → 수업 중이니까.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 중, V- 는 중이다' LIMIT 1),
+  '학교에 가는 ___ 친구를 만났어요.',
+  'fill_blank',
+  '["중에", "중이니까", "동안", "때"]'::jsonb,
+  '중에',
+  'Đang đến trường → 가는 중에.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 중, V- 는 중이다' LIMIT 1),
+  '친구가 안 와서 기다리는 ___.',
+  'multiple_choice',
+  '["중이에요", "중에", "동안", "때"]'::jsonb,
+  '중이에요',
+  'Đang đợi → 기다리는 중이에요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 중, V- 는 중이다' LIMIT 1),
+  '요즘 운전을 배우는 ___.',
+  'fill_blank',
+  '["중이에요", "중에", "동안", "때"]'::jsonb,
+  '중이에요',
+  'Đang học → 배우는 중이에요.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #21: V – 자마자 [ngay sau khi...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V – 자마자',
+  'jamaja',
+  'ngay sau khi...',
+  'beginner',
+  'time',
+  'Biểu hiện việc gì đó xảy ra ngay lập tức sau một việc nào đó, thường không có khoảng trống về mặt thời gian giữa 2 hành động. Chủ ngữ của mệnh đề trước và sau không nhất thiết phải đồng nhất. Thì của động từ được chia ở mệnh đề sau.',
+  'V + 자마자',
+  '[
+    {"korean": "어제는 피곤해서 침대에 눕자마자 잠이 들었어요.", "vietnamese": "Hôm qua vì mệt mỏi nên ngay khi nằm xuống giường tôi đã ngủ thiếp đi."},
+    {"korean": "집에서 나가자마자 비가 오기 시작했어요.", "vietnamese": "Ngay sau khi tôi rời khỏi nhà thì trời đã bắt đầu đổ mưa."},
+    {"korean": "남편은 집에 오자마자 텔레비전을 켜요.", "vietnamese": "Chồng tôi vừa về đến nhà là bật ngay cái TV."},
+    {"korean": "친구가 기다리고 있어서 퇴근하자마자 가야 돼요.", "vietnamese": "Bạn tôi đang đợi nên ngay sau khi tan làm tôi phải đi ngay."},
+    {"korean": "수업이 끝나자마자 학생들은 교실을 나갔어요.", "vietnamese": "Sau khi lớp học kết thúc thì học sinh chạy ra khỏi lớp ngay."},
+    {"korean": "밥을 먹자마자 누우면 건강에 안 좋아요.", "vietnamese": "Vừa ăn xong mà đi nằm luôn không tốt cho sức khỏe đâu."}
+  ]'::jsonb,
+  ARRAY['V – 고 나서', 'V – (으)ㄴ 후에', 'N – 때, A/V – (으)ㄹ 때']::TEXT[],
+  ARRAY['time', 'immediate', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 자마자' LIMIT 1),
+  '침대에 눕 ___ 잠이 들었어요.',
+  'fill_blank',
+  '["자마자", "고 나서", "아서", "때"]'::jsonb,
+  '자마자',
+  'Ngay khi nằm → 눕자마자.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 자마자' LIMIT 1),
+  '집에서 나가 ___ 비가 오기 시작했어요.',
+  'fill_blank',
+  '["자마자", "고 나서", "아서", "때"]'::jsonb,
+  '자마자',
+  'Ngay khi ra nhà → 나가자마자.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 자마자' LIMIT 1),
+  '남편은 집에 오 ___ 텔레비전을 켜요.',
+  'multiple_choice',
+  '["자마자", "고 나서", "아서", "때"]'::jsonb,
+  '자마자',
+  'Vừa về nhà → 오자마자.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 자마자' LIMIT 1),
+  '수업이 끝나 ___ 학생들은 교실을 나갔어요.',
+  'fill_blank',
+  '["자마자", "고 나서", "아서", "때"]'::jsonb,
+  '자마자',
+  'Ngay khi kết thúc → 끝나자마자.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #22: N 동안, V- 는 동안 [trong lúc..., trong khi...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'N 동안, V- 는 동안',
+  'dongan / neun dongan',
+  'trong lúc..., trong khi...',
+  'beginner',
+  'time',
+  'Thể hiện thời gian mà hành động hoặc trạng thái nào đó được duy trì trong khoảng thời gian như nhau. Có thể mô tả 2 quá trình. Chủ ngữ của mệnh đề trước và sau không nhất thiết phải đồng nhất. Có thể sử dụng với 없다, 있다.',
+  'N + 동안 / V + 는 동안',
+  '[
+    {"korean": "나는 방학 동안 고향에 다녀올 거예요.", "vietnamese": "Trong kì nghỉ tôi sẽ về quê."},
+    {"korean": "내가 음식을 만드는 동안 동생은 잤어요.", "vietnamese": "Em tôi ngủ trong lúc tôi nấu ăn."},
+    {"korean": "한국에 사는 동안 한국 친구를 많이 사귀었어요.", "vietnamese": "Trong lúc sống ở Hàn tôi đã kết bạn được với nhiều bạn Hàn Quốc."},
+    {"korean": "네가 없는 동안 너무 외로웠어요.", "vietnamese": "Trong lúc không có bạn mình đã rất cô đơn."},
+    {"korean": "저는 너무 긴장해서 발표하는 동안 계속 떨었어요.", "vietnamese": "Tôi quá căng thẳng nên đã run liên tục trong khi phát biểu."},
+    {"korean": "공사를 하는 동안 좀 시끄러울 거예요.", "vietnamese": "Trong lúc thi công sẽ hơi ồn."},
+    {"korean": "친구를 기다리는 동안 책을 읽었어요.", "vietnamese": "Tôi đã đọc sách trong khi đợi bạn."}
+  ]'::jsonb,
+  ARRAY['N – 때, A/V – (으)ㄹ 때', 'N 중, V- 는 중이다', 'A/V – (으)면서']::TEXT[],
+  ARRAY['time', 'duration', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 동안, V- 는 동안' LIMIT 1),
+  '나는 방학 ___ 고향에 다녀올 거예요.',
+  'fill_blank',
+  '["동안", "중에", "때", "동안에"]'::jsonb,
+  '동안',
+  'Trong kì nghỉ → 방학 동안.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 동안, V- 는 동안' LIMIT 1),
+  '내가 음식을 만드는 ___ 동생은 잤어요.',
+  'fill_blank',
+  '["동안", "중에", "때", "동안에"]'::jsonb,
+  '동안',
+  'Trong lúc nấu → 만드는 동안.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 동안, V- 는 동안' LIMIT 1),
+  '한국에 사는 ___ 한국 친구를 많이 사귀었어요.',
+  'multiple_choice',
+  '["동안", "중에", "때", "동안에"]'::jsonb,
+  '동안',
+  'Trong lúc sống → 사는 동안.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 동안, V- 는 동안' LIMIT 1),
+  '친구를 기다리는 ___ 책을 읽었어요.',
+  'fill_blank',
+  '["동안", "중에", "때", "동안에"]'::jsonb,
+  '동안',
+  'Trong lúc đợi → 기다리는 동안.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #23: V – (으)ㄴ 지 [đã bao lâu từ khi làm một việc gì đó]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V – (으)ㄴ 지',
+  '(eu)n ji',
+  'đã bao lâu từ khi làm một việc gì đó',
+  'beginner',
+  'time',
+  'Diễn tả khoảng thời gian đã trải qua sau khi thực hiện một hành động nào đó. Cấu trúc: V – (으)ㄴ 지 + thời gian + 되다/ 안 되다/ 지나다/ 넘다. Chưa được bao lâu: 얼마 안 되다, Được lâu: 오래 되다.',
+  'V(nguyên âm/ㄹ) + ㄴ 지 / V(phụ âm) + 은 지',
+  '[
+    {"korean": "한국어를 공부한 지 얼마나 됐어요?", "vietnamese": "Bạn học tiếng Hàn được bao lâu rồi?"},
+    {"korean": "여기 산 지 6개월 됐어요.", "vietnamese": "Tôi sống ở đây được 6 tháng rồi."},
+    {"korean": "남자 친구를 헤어진 지 오래 되었어요.", "vietnamese": "Tôi chia tay bạn trai lâu rồi."},
+    {"korean": "이 책은 안 읽은 지 10년도 넘었어요.", "vietnamese": "Cũng đã mười năm rồi từ khi tôi đọc cuốn sách này."},
+    {"korean": "그 사람하고 연락을 안 한 지 5년이 지났어요.", "vietnamese": "Đã 5 năm trôi qua từ ngày tôi liên lạc với người đó."},
+    {"korean": "친구하고 싸운 지 한 달이 넘었어요.", "vietnamese": "Đã một tháng trôi qua từ khi tôi đánh nhau với một người bạn."},
+    {"korean": "민수 씨는 결혼한 지 5 년 넘었습니다.", "vietnamese": "Minsoo đã kết hôn được hơn 5 năm rồi."},
+    {"korean": "담배 끊은 지 한 달 되었어요.", "vietnamese": "Tôi bỏ thuốc lá được một tháng rồi."}
+  ]'::jsonb,
+  ARRAY['N 동안, V- 는 동안', 'N – 때, A/V – (으)ㄹ 때', 'V – (으)ㄴ 후에']::TEXT[],
+  ARRAY['time', 'duration', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – (으)ㄴ 지' LIMIT 1),
+  '한국어를 공부 ___ 얼마나 됐어요?',
+  'fill_blank',
+  '["한 지", "한 동안", "하는 중", "하는 때"]'::jsonb,
+  '한 지',
+  'Đã bao lâu → 공부한 지.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – (으)ㄴ 지' LIMIT 1),
+  '여기 산 ___ 6개월 됐어요.',
+  'fill_blank',
+  '["지", "동안", "중", "때"]'::jsonb,
+  '지',
+  'Sống được bao lâu → 산 지.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – (으)ㄴ 지' LIMIT 1),
+  '남자 친구를 헤어진 ___ 오래 되었어요.',
+  'multiple_choice',
+  '["지", "동안", "중", "때"]'::jsonb,
+  '지',
+  'Chia tay bao lâu → 헤어진 지.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – (으)ㄴ 지' LIMIT 1),
+  '담배 끊은 ___ 한 달 되었어요.',
+  'fill_blank',
+  '["지", "동안", "중", "때"]'::jsonb,
+  '지',
+  'Bỏ thuốc bao lâu → 끊은 지.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #24: V – 는 길이다/ 는 길에 [đang trên đường]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'V – 는 길이다/ 는 길에',
+  'neun gilida / neun gile',
+  'đang trên đường',
+  'beginner',
+  'time',
+  'Được sử dụng khi người nói thực hiện một hành động nào đó trong quá trình di chuyển đến đâu đó. Còn được sử dụng dưới hình thức –는 길이다. Chỉ có thể kết hợp với các động từ mang ý nghĩa di chuyển, di động như 가다/오다, 나가다/나오다, 들어가다/들어오다, 돌아가다/돌아오다, 올라가다/올라오다, 내려가다/내려오다, 출근하다/퇴근하다. Khi kết hợp với các động từ hành động, chuyển thành động từ di chuyển qua cấu trúc V + (으)러 가다/오다...',
+  'V + 는 길이다 / V + 는 길에',
+  '[
+    {"korean": "퇴근하는 길에 지하철에서 갑자기 친구를 만났어요.", "vietnamese": "Trên đường tan làm thì tình cờ tôi gặp bạn ở tàu điện ngầm."},
+    {"korean": "어디 가는 길이에요?", "vietnamese": "Bạn đang trên đường đi đâu thế?"},
+    {"korean": "만나러 가는 길이에요.", "vietnamese": "Mình đang trên đường đi gặp người bạn."},
+    {"korean": "집에 돌아오는 길에 시장에 가서 음식을 사 왔어요.", "vietnamese": "Đang trên đường trở về nhà thì tôi đi chợ mua chút đồ ăn."},
+    {"korean": "밥 먹으러 가는 길이에요.", "vietnamese": "Tôi đang trên đường đi ăn cơm."},
+    {"korean": "제가 지금 집에 가는 길이라서 15 분 후에 다시 전화하면 안 돼요?", "vietnamese": "Tôi đang trên đường về nhà nên 15 phút sau gọi điện lại có được không ạ?"},
+    {"korean": "그냥 지나가는 길에 들렀어요.", "vietnamese": "Trên đường đi qua đây tôi ghé vào một chút."},
+    {"korean": "돈을 찾으러 은행에 가는 길이에요.", "vietnamese": "Tôi đang trên đường đến ngân hàng rút tiền."}
+  ]'::jsonb,
+  ARRAY['N 동안, V- 는 동안', 'N – 때, A/V – (으)ㄹ 때', 'V – (으)러 가다/오다']::TEXT[],
+  ARRAY['time', 'on the way', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 는 길이다/ 는 길에' LIMIT 1),
+  '퇴근하는 ___ 지하철에서 갑자기 친구를 만났어요.',
+  'fill_blank',
+  '["길에", "동안", "중에", "때"]'::jsonb,
+  '길에',
+  'Trên đường tan làm → 퇴근하는 길에.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 는 길이다/ 는 길에' LIMIT 1),
+  '어디 가는 ___?',
+  'fill_blank',
+  '["길이에요", "동안", "중에", "때"]'::jsonb,
+  '길이에요',
+  'Đang đi đâu → 가는 길이에요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 는 길이다/ 는 길에' LIMIT 1),
+  '집에 돌아오는 ___ 시장에 가서 음식을 사 왔어요.',
+  'multiple_choice',
+  '["길에", "동안", "중에", "때"]'::jsonb,
+  '길에',
+  'Trên đường về nhà → 돌아오는 길에.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 는 길이다/ 는 길에' LIMIT 1),
+  '밥 먹으러 가는 ___.',
+  'fill_blank',
+  '["길이에요", "동안", "중에", "때"]'::jsonb,
+  '길이에요',
+  'Đang đi ăn → 가는 길이에요.',
+  'easy'
+);
