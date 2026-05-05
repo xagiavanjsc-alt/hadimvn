@@ -39,15 +39,16 @@ DECLARE
   v_w             RECORD;
 BEGIN
   -- Load weights from xp_settings (fallback to new defaults)
+  -- Aliases are required so that v_w RECORD fields are named correctly
   SELECT
-    COALESCE(streak_weight, 15),
-    COALESCE(best_score_weight, 12),
-    COALESCE(average_score_weight, 8),
-    COALESCE(correct_answer_weight, 3),
-    COALESCE(flashcard_weight, 4),
-    COALESCE(exam_completed_bonus, 15),
-    COALESCE(flashcard_xp_cap, 500),
-    COALESCE(min_sec_per_question, 8)
+    COALESCE(streak_weight, 15)         AS streak_weight,
+    COALESCE(best_score_weight, 12)     AS best_score_weight,
+    COALESCE(average_score_weight, 8)   AS average_score_weight,
+    COALESCE(correct_answer_weight, 3)  AS correct_answer_weight,
+    COALESCE(flashcard_weight, 4)       AS flashcard_weight,
+    COALESCE(exam_completed_bonus, 15)  AS exam_completed_bonus,
+    COALESCE(flashcard_xp_cap, 500)     AS flashcard_xp_cap,
+    COALESCE(min_sec_per_question, 8)   AS min_sec_per_question
   INTO v_w
   FROM xp_settings WHERE id = 'global'
   LIMIT 1;
