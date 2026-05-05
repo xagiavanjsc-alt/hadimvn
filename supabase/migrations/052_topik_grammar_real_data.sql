@@ -3583,3 +3583,459 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   'Đã nhận → 받게 되었어요.',
   'easy'
 );
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #56: A/V – 겠어요 [sẽ..., chắc sẽ...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A/V – 겠어요',
+  'gesseoyo',
+  'sẽ..., chắc sẽ...',
+  'beginner',
+  'prediction',
+  'Thể hiện sự dự đoán, phỏng đoán về tình huống, trạng thái nào đó. Thường dùng khi mô tả ý chí quyết tâm làm gì đó nếu dùng với động từ. Hình thức phỏng đoán quá khứ: - 았/었 + 겠어요 => - 았/었겠어요',
+  'A/V + 겠어요',
+  '[
+    {"korean": "그래요? 많이 피곤하겠어요.", "vietnamese": "Vậy sao? Chắc bạn mệt lắm nhỉ?"},
+    {"korean": "오늘은 일이 있어서 못 가겠습니다.", "vietnamese": "Hôm nay vì có việc bận nên tôi sẽ không đến được."},
+    {"korean": "어제 많이 피곤했겠네요.", "vietnamese": "Hôm qua chắc bạn mệt lắm nhỉ."},
+    {"korean": "아침마다 운동하겠어요.", "vietnamese": "Tôi sẽ tập thể dục vào mỗi buổi sáng."},
+    {"korean": "이제 술을 마시지 않겠어요.", "vietnamese": "Bây giờ tôi sẽ không uống rượu nữa."},
+    {"korean": "올해에는 담배를 꼭 끊겠습니다.", "vietnamese": "Năm nay nhất định tôi sẽ bỏ thuốc."},
+    {"korean": "그럼 한국말을 잘하겠어요.", "vietnamese": "Vậy thì chắc bạn giỏi tiếng Hàn lắm nhỉ."}
+  ]'::jsonb,
+  ARRAY['A/V – (으)ㄹ 거예요', 'A/V – (으)ㄹ 것 같다', 'A/V – (으)ㄹ 텐데']::TEXT[],
+  ARRAY['prediction', 'determination', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 겠어요' LIMIT 1),
+  '많이 피곤하겠___.',
+  'fill_blank',
+  '["어요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '어요.',
+  'Chắc mệt → 피곤하겠어요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 겠어요' LIMIT 1),
+  '오늘은 일이 있어서 못 가겠___.',
+  'fill_blank',
+  '["습니다.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '습니다.',
+  'Sẽ không đến → 못 가겠습니다.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 겠어요' LIMIT 1),
+  '아침마다 운동하겠___.',
+  'multiple_choice',
+  '["어요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '어요.',
+  'Sẽ tập thể dục → 운동하겠어요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 겠어요' LIMIT 1),
+  '이제 술을 마시지 않겠___.',
+  'fill_blank',
+  '["어요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '어요.',
+  'Sẽ không uống → 마시지 않겠어요.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #57: A/V – (으)ㄹ 거예요 [sẽ...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A/V – (으)ㄹ 거예요',
+  '(eu)l geoyeyo',
+  'sẽ...',
+  'beginner',
+  'future',
+  'Sử dụng khi phỏng đoán trạng thái hay hành động nào đó. Chủ ngữ là ngôi thứ 3. Nếu chủ ngữ ngôi số 1 hoặc 2 là thì diễn tả kế hoạch, ý chí nào đó sẽ được thực hiện trong tương lai. So với –겠- thì mức độ quyết tâm không mạnh mẽ bằng. Dạng trang trọng là (으)ㄹ 겁니다. Hình thức phỏng đoán quá khứ: - 았/었 + (으)ㄹ 거예요',
+  'A/V + (으)ㄹ 거예요',
+  '[
+    {"korean": "내일도 추울 거예요.", "vietnamese": "Ngày mai chắc trời sẽ lạnh."},
+    {"korean": "유리 씨가 지금 집에서 음악을 들을 거예요.", "vietnamese": "Yuri bây giờ chắc đang ở nhà nghe nhạc."},
+    {"korean": "흐엉 씨는 내일 학교에 올 거예요?", "vietnamese": "Hương ngày mai chắc sẽ đến trường nhỉ?"},
+    {"korean": "이번 주말에 친구들과 등산할 거예요.", "vietnamese": "Cuối tuần này tôi sẽ đi leo núi với bạn."},
+    {"korean": "오늘 점심에 어디에서 먹을 거예요?", "vietnamese": "Trưa nay chúng ta sẽ ăn ở đâu?"},
+    {"korean": "저는 주말에 학교 도서관에서 공부할 거예요.", "vietnamese": "Cuối tuần tôi sẽ học ở thư viện trường học."},
+    {"korean": "내일 뭐 거예요? 친구들이랑 캠핑할 거예요.", "vietnamese": "Ngày mai bạn sẽ làm gì? Mình sẽ cắm trại cùng mấy người bạn nè."},
+    {"korean": "오늘 정부는 교통 체증 문제에 대해 의논할 겁니다.", "vietnamese": "Hôm nay Chính phủ sẽ bàn bạc về vấn đề ùn tắc giao thông."}
+  ]'::jsonb,
+  ARRAY['A/V – 겠어요', 'A/V – (으)ㄹ 것 같다', 'A/V – (으)ㄹ 텐데']::TEXT[],
+  ARRAY['future', 'prediction', 'plan', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄹ 거예요' LIMIT 1),
+  '내일도 추울 거___.',
+  'fill_blank',
+  '["예요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '예요.',
+  'Chắc lạnh → 추울 거예요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄹ 거예요' LIMIT 1),
+  '흐엉 씨는 내일 학교에 올 거___.',
+  'fill_blank',
+  '["예요?", "어요?", "습니까?", "습니까?"]'::jsonb,
+  '예요?',
+  'Chắc đến → 올 거예요?',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄹ 거예요' LIMIT 1),
+  '이번 주말에 친구들과 등산할 거___.',
+  'multiple_choice',
+  '["예요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '예요.',
+  'Sẽ đi → 등산할 거예요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄹ 거예요' LIMIT 1),
+  '오늘 점심에 어디에서 먹을 거___.',
+  'fill_blank',
+  '["예요?", "어요?", "습니까?", "습니까?"]'::jsonb,
+  '예요?',
+  'Sẽ ăn → 먹을 거예요?',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #58: A/V – (으)ㄴ/는/(으)ㄹ 것 같다 [hình như..., dường như...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A/V – (으)ㄴ/는/(으)ㄹ 것 같다',
+  '(eu)n/neun/(eu)l geot gata',
+  'hình như..., dường như...',
+  'beginner',
+  'conjecture',
+  'Vĩ tố kết thúc: Chỉ sự phỏng đoán của người nói. Thì thể của cấu trúc này phụ thuộc vào điều gì đó đã xảy ra trong quá khứ, đang xảy ra ở hiện tại, hoặc sẽ xảy ra trong tương lai. Còn được dùng để diễn tả quan điểm, suy nghĩ của người nói một cách tế nhị. Động từ có 3 thì quá khứ, hiện tại, tương lai ứng với (으)ㄴ/는/(으)ㄹ còn với tính từ dùng với (으)ㄴ hoặc nếu trạng thái mơ hồ thì dùng (으)ㄹ.',
+  'V(qua khứ) + (으)ㄴ 것 같다 / V(hiện tại) + 는 것 같다 / V(tương lai) + (으)ㄹ 것 같다',
+  '[
+    {"korean": "비가 그친 것 같아요.", "vietnamese": "Hình như trời tạnh mưa rồi."},
+    {"korean": "비가 올 것 같아요.", "vietnamese": "Hình như trời sẽ mưa."},
+    {"korean": "아기가 지금 자는 거 같아요.", "vietnamese": "Chắc có lẽ bây giờ đứa bé đang ngủ."},
+    {"korean": "그 책이 어려운 것 같아요.", "vietnamese": "Chắc quyển sách đó khó."},
+    {"korean": "그 가방은 비싼/비쌀 것 같아요.", "vietnamese": "Chắc cái túi xách đó đắt lắm."},
+    {"korean": "민수 씨가 감기에 걸려서 집에서 쉬는 것 같아요.", "vietnamese": "Minsu bị cảm nên chắc là đang nghỉ ở nhà."},
+    {"korean": "배가 불러서 더 못 먹을 것 같아요.", "vietnamese": "Tôi no quá rồi nên chắc là sẽ không ăn thêm được nữa."},
+    {"korean": "집에 아무도 없는 것 같아요.", "vietnamese": "Trong nhà hình như không có ai."}
+  ]'::jsonb,
+  ARRAY['A/V – 겠어요', 'A/V – (으)ㄹ 거예요', 'A – 아/어 보이다']::TEXT[],
+  ARRAY['conjecture', 'opinion', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄴ/는/(으)ㄹ 것 같다' LIMIT 1),
+  '비가 그친 것 같___.',
+  'fill_blank',
+  '["아요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '아요.',
+  'Hình như tạnh → 그친 것 같아요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄴ/는/(으)ㄹ 것 같다' LIMIT 1),
+  '비가 올 것 같___.',
+  'fill_blank',
+  '["아요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '아요.',
+  'Hình như mưa → 올 것 같아요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄴ/는/(으)ㄹ 것 같다' LIMIT 1),
+  '아기가 지금 자는 거 같___.',
+  'multiple_choice',
+  '["아요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '아요.',
+  'Chắc đang ngủ → 자는 거 같아요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄴ/는/(으)ㄹ 것 같다' LIMIT 1),
+  '그 책이 어려운 것 같___.',
+  'fill_blank',
+  '["아요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '아요.',
+  'Chắc khó → 어려운 것 같아요.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #59: A - 아/어 보이다 [trông/nhìn có vẻ...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A - 아/어 보이다',
+  'a/eo boida',
+  'trông/nhìn có vẻ...',
+  'beginner',
+  'appearance',
+  'Vĩ tố kết thúc: Diễn tả sự phỏng đoán hoặc cảm nhận của bạn dựa trên vẻ ngoài của con người, sự vật, sự việc.',
+  'A + 아/어 보이다',
+  '[
+    {"korean": "지금 괜찮으세요? 슬퍼 보여요.", "vietnamese": "Bạn không sao chứ? Trông bạn có vẻ buồn."},
+    {"korean": "이 치마를 입으니까 젊어 보여요.", "vietnamese": "Bạn mặc váy này trông có vẻ trẻ."},
+    {"korean": "김치가 매워 보이네요.", "vietnamese": "Kimchi nhìn có vẻ cay."},
+    {"korean": "이 케이크가 맛있어 보여서 샀는데, 너무 달아요.", "vietnamese": "Chiếc bánh này trông có vẻ ngon nên tôi đã mua nhưng nó ngọt quá."},
+    {"korean": "마크 씨, 얼굴이 피곤해 보여요. 무슨 일 있어요?", "vietnamese": "Mark à, trông bạn có vẻ mệt. Có chuyện gì thế?"},
+    {"korean": "가방이 무거워 보이는데 들어 드릴까요?", "vietnamese": "Trông túi xách cô có vẻ nặng, để tôi xách giúp nhé?"}
+  ]'::jsonb,
+  ARRAY['A/V – (으)ㄴ/는/(으)ㄹ 것 같다', 'A – 아/어지다', 'A/V – 게 되다']::TEXT[],
+  ARRAY['appearance', 'conjecture', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A - 아/어 보이다' LIMIT 1),
+  '슬퍼 보___.',
+  'fill_blank',
+  '["여요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '여요.',
+  'Trông buồn → 슬퍼 보여요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A - 아/어 보이다' LIMIT 1),
+  '젊어 보___.',
+  'fill_blank',
+  '["여요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '여요.',
+  'Trông trẻ → 젊어 보여요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A - 아/어 보이다' LIMIT 1),
+  '매워 보___.',
+  'multiple_choice',
+  '["여요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '여요.',
+  'Trông cay → 매워 보이네요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A - 아/어 보이다' LIMIT 1),
+  '맛있어 보___.',
+  'fill_blank',
+  '["여요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '여요.',
+  'Trông ngon → 맛있어 보여서.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #60: A/V - (으)ㄹ 텐데 [chắc sẽ... nên, sẽ ...đấy, nên...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A/V - (으)ㄹ 텐데',
+  '(eu)l tende',
+  'chắc sẽ... nên, sẽ ...đấy, nên...',
+  'beginner',
+  'conjecture',
+  'Là cấu trúc (으)ㄹ 터 + (으)ㄴ/는 데 dùng để đưa ra nhận định, phỏng đoán ở vế trước và đưa ra bối cảnh ở vế sau. Mệnh đề trước diễn tả ý định, phỏng đoán, mệnh đề sau có thể liên quan hoặc tương phản mệnh đề trước. Vế sau thường dùng với mệnh đề lệnh, cầu khiến. Phỏng đoán quá khứ: 았/었 + (으)ㄹ 텐데. Có thể sử dụng ở cuối câu => - (으)ㄹ 텐데요.',
+  'A/V + (으)ㄹ 텐데',
+  '[
+    {"korean": "아기가 깨면 엄마를 찾을 텐데 큰일이에요.", "vietnamese": "Nếu đứa bé tỉnh dậy chắc tìm mẹ, lớn chuyện đó."},
+    {"korean": "영화가 지금 끝나서 사람이 많을 텐데 다른 쪽에 있는 화장실에 가요.", "vietnamese": "Bây giờ bộ phim kết thúc nên chắc sẽ có nhiều người lắm, vì vậy chúng tôi đi nhà vệ sinh ở hướng khác."},
+    {"korean": "그 식당이 이미 닫았을 텐데 가지 마세요.", "vietnamese": "Chắc nhà hàng đó đã đóng cửa rồi nên đừng đi."},
+    {"korean": "바람이 불면 추울 텐데 따뜻하게 입고 가세요.", "vietnamese": "Gió thổi nhiều nên chắc sẽ lạnh, bạn hãy mặc ấm vào nhé."},
+    {"korean": "배가 고플 텐데 이것 좀 드세요.", "vietnamese": "Chắc là anh đói lắm, anh ăn cái này một chút đi."},
+    {"korean": "인선 씨가 서울에 도착했을 텐데 이따가 연락해 볼까요?", "vietnamese": "Chắc là anh Inseon đã đến Hàn Quốc rồi, chút nữa tôi thử liên lạc xem sao nhé?"},
+    {"korean": "어제 야근하느라고 많이 피곤했을 텐데 오늘은 일찍 들어가세요.", "vietnamese": "Hôm qua làm ca đêm nên chắc anh mệt rồi, hôm nay anh về nhà sớm đi."},
+    {"korean": "차가 많이 막힐 텐데 좀 일찍 출발하는 게 어때요?", "vietnamese": "Chắc là sẽ tắc đường vậy nên xuất phát sớm chút nhé?"}
+  ]'::jsonb,
+  ARRAY['A/V – (으)ㄹ 테니까', 'A/V – (으)ㄹ 거예요', 'A/V – (으)ㄹ 것 같다']::TEXT[],
+  ARRAY['conjecture', 'context', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V - (으)ㄹ 텐데' LIMIT 1),
+  '사람이 많을 텐데 다른 쪽에 있는 화장실에 가___.',
+  'fill_blank',
+  '["요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '요.',
+  'Chắc đông → 많을 텐데 가요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V - (으)ㄹ 텐데' LIMIT 1),
+  '그 식당이 이미 닫았을 텐데 가지 마세___.',
+  'fill_blank',
+  '["요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '요.',
+  'Chắc đóng → 닫았을 텐데 마세요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V - (으)ㄹ 텐데' LIMIT 1),
+  '바람이 불면 추울 텐데 따뜻하게 입고 가세___.',
+  'multiple_choice',
+  '["요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '요.',
+  'Chắc lạnh → 추울 텐데 가세요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V - (으)ㄹ 텐데' LIMIT 1),
+  '배가 고플 텐데 이것 좀 드세___.',
+  'fill_blank',
+  '["요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '요.',
+  'Chắc đói → 고플 텐데 드세요.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #61: A/V – (으)ㄹ 테니까 [vì tôi sẽ... nên, chắc là sẽ... nên]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A/V – (으)ㄹ 테니까',
+  '(eu)l tenikka',
+  'vì tôi sẽ... nên, chắc là sẽ... nên',
+  'beginner',
+  'reason',
+  '(1) Chủ ngữ vế đầu tiên ngôi số 1: diễn tả ý chí vì TÔI sẽ làm gì đó nên... Mệnh đề sau thường là lời gợi ý hoặc lời khuyên dành cho người nghe. (2) Chủ ngữ vế đầu tiên ngôi số 3: diễn tả sự phỏng đoán và đưa ra lời khuyên, cầu khiến, ý chí. Không dùng 걱정이다, 고맙다, 감사하다, 미안하다 sau – (으)ㄹ 테니까. Trong khi (으)ㄹ 텐데 nhấn mạnh bối cảnh thì (으)ㄹ 테니까 thiên về giải thích lí do.',
+  'A/V + (으)ㄹ 테니까',
+  '[
+    {"korean": "시험 기간이라서 사람이 많을 테니까 아침 일찍 갑시다.", "vietnamese": "Vì đang là giai đoạn thi nên chắc sẽ đông, buổi sáng đến sớm chút nhé."},
+    {"korean": "제가 도와 줄 테니까 너무 걱정하지 마세요.", "vietnamese": "Tôi sẽ giúp nên đừng lo lắng quá nhé."},
+    {"korean": "밖에 추울 테니까 나가지 마세요.", "vietnamese": "Bên ngoài trời lạnh nên đừng ra ngoài."},
+    {"korean": "요즘 귤 철이라 귤이 싸고 맛있을 테니까 귤을 사 가요.", "vietnamese": "Dạo này đang là mùa quýt nên quýt sẽ rẻ và ngon, vì vậy tôi đi mua quýt."},
+    {"korean": "제가 청소를 할 테니까 설거지를 하세요.", "vietnamese": "Tôi sẽ dọn dẹp vì thế bạn rửa bát đĩa nhé."},
+    {"korean": "이건 제가 할 테니까 걱정하지 말고 쉬세요.", "vietnamese": "Tôi sẽ làm việc này vì vậy đừng lo lắng và nghỉ ngơi đi."},
+    {"korean": "퇴근 시간이라 길이 막힐 테니까 지하철을 타.", "vietnamese": "Đang giờ tan tầm nên là đường tắc đấy đi tàu điện ngầm đi nhé."},
+    {"korean": "밖에 햇빛이 강할 테니까 양산을 챙겨 나가세요.", "vietnamese": "Bên ngoài vì chắc là nắng to nên chuẩn bị ô che nắng mang đi nhé."}
+  ]'::jsonb,
+  ARRAY['A/V - (으)ㄹ 텐데', 'A/V – (으)ㄹ 거예요', 'A/V – (으)ㄹ 것 같다']::TEXT[],
+  ARRAY['reason', 'will', 'conjecture', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄹ 테니까' LIMIT 1),
+  '사람이 많을 테니까 아침 일찍 갑___.',
+  'fill_blank',
+  '["시다.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '시다.',
+  'Chắc đông → 많을 테니까 갑시다.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄹ 테니까' LIMIT 1),
+  '제가 도와 줄 테니까 너무 걱정하지 마세___.',
+  'fill_blank',
+  '["요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '요.',
+  'Tôi sẽ giúp → 도와 줄 테니까 마세요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄹ 테니까' LIMIT 1),
+  '밖에 추울 테니까 나가지 마세___.',
+  'multiple_choice',
+  '["요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '요.',
+  'Trời lạnh → 추울 테니까 마세요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄹ 테니까' LIMIT 1),
+  '제가 청소를 할 테니까 설거지를 하세___.',
+  'fill_blank',
+  '["요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '요.',
+  'Tôi sẽ dọn → 할 테니까 하세요.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #62: A – 군요, V – 는군요 [....thế!, ...đấy!]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A – 군요, V – 는군요',
+  'gunyo/neungunyo',
+  '....thế!, ...đấy!',
+  'beginner',
+  'realization',
+  'Vĩ tố kết thúc: Diễn tả sự ngạc nhiên hoặc thắc mắc khi người nói trực tiếp chứng kiến, trải nghiệm hoặc nghe thấy từ ai đó. Có thể kết hợp với danh từ: N +(이)군요. Hình thức quá khứ: – 았/었군요',
+  'A + 군요 / V + 는군요 / N + (이)군요',
+  '[
+    {"korean": "유리 씨는 영어를 정말 잘하시는군요.", "vietnamese": "Yuri giỏi tiếng Anh thật đấy!"},
+    {"korean": "영호 씨는 정말 머리가 좋군요.", "vietnamese": "Young–ho tóc đẹp thật đấy!"},
+    {"korean": "감기에 걸렸군요.", "vietnamese": "Bạn bị cảm cúm rồi đấy!"},
+    {"korean": "어렸을 때 정말 귀여웠군요.", "vietnamese": "Ôi, hồi nhỏ cậu đáng yêu thế!"},
+    {"korean": "정말 비가 오는군요. 우산이 없는데 어떻게 하죠?", "vietnamese": "Ra là trời đang mưa. Tôi không có ô, phải làm sao đây?"}
+  ]'::jsonb,
+  ARRAY['A/V – (으)ㄹ까요?', 'A/V – (으)ㄹ 것 같다', 'A/V – 겠어요']::TEXT[],
+  ARRAY['realization', 'surprise', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A – 군요, V – 는군요' LIMIT 1),
+  '유리 씨는 영어를 정말 잘하시는군___.',
+  'fill_blank',
+  '["요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '요.',
+  'Giỏi thật → 잘하시는군요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A – 군요, V – 는군요' LIMIT 1),
+  '영호 씨는 정말 머리가 좋군___.',
+  'fill_blank',
+  '["요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '요.',
+  'Đẹp thật → 머리가 좋군요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A – 군요, V – 는군요' LIMIT 1),
+  '감기에 걸렸군___.',
+  'multiple_choice',
+  '["요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '요.',
+  'Bị cảm rồi → 걸렸군요.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A – 군요, V – 는군요' LIMIT 1),
+  '정말 비가 오는군___.',
+  'fill_blank',
+  '["요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '요.',
+  'Mưa thật → 오는군요.',
+  'easy'
+);
