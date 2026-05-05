@@ -7,6 +7,10 @@ import { epsLessons, EPS_LESSON_TOPICS, type EpsLesson } from "@/mocks/epsLesson
 import EnhancedQuizFeedback from "@/components/feature/EnhancedQuizFeedback";
 import WeaknessAlert, { useTopicAccuracy } from "@/components/feature/WeaknessAlert";
 
+// Feature flag to disable new features if they cause issues
+// Set to false to prevent crashes while debugging
+const ENABLE_NEW_FEATURES = false;
+
 // ─── Types ────────────────────────────────────────────────────────────────
 interface QuizQuestion {
   id: string;
@@ -239,19 +243,23 @@ function QuizScreen({
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
   const [timerActive, setTimerActive] = useState(true);
   const [timeLeft, setTimeLeft] = useState(30);
-  const { topicAccuracy, updateAccuracy } = useTopicAccuracy();
+  const { topicAccuracy, updateAccuracy } = ENABLE_NEW_FEATURES ? useTopicAccuracy() : { topicAccuracy: {}, updateAccuracy: () => {} };
 
   // Track topic accuracy
   useEffect(() => {
     try {
-      if (currentIdx > 0 && showAnswer) {
-        const correctCount = Object.values(answers).slice(0, currentIdx).filter((ans, idx) => ans === questions[idx].correctIndex).length;
+      if (currentIdx > 0 && showAnswer && lesson?.topic) {
+        const answersArray = Object.values(answers);
+        const correctCount = answersArray.slice(0, currentIdx).filter((ans, idx) => {
+          const question = questions[idx];
+          return question && ans === question.correctIndex;
+        }).length;
         updateAccuracy(lesson.topic, correctCount, currentIdx);
       }
     } catch (error) {
       console.error('Error tracking topic accuracy:', error);
     }
-  }, [showAnswer, currentIdx, answers, questions, lesson.topic, updateAccuracy]);
+  }, [showAnswer, currentIdx, answers, questions, lesson?.topic, updateAccuracy]);
 
   // Reset question timer when moving to next question
   useEffect(() => {
@@ -341,12 +349,14 @@ function QuizScreen({
 
   return (
     <div className="max-w-2xl mx-auto">
-      {/* Weakness Alert */}
-      <WeaknessAlert
-        topicAccuracy={topicAccuracy}
-        onDismiss={(topic) => console.log("Dismissed:", topic)}
-        onAction={(topic) => navigate(`/eps-lessons/${lesson.id}`)}
-      />
+      {/* Weakness Alert - with error boundary */}
+      {topicAccuracy && Object.keys(topicAccuracy).length > 0 && (
+        <WeaknessAlert
+          topicAccuracy={topicAccuracy}
+          onDismiss={(topic) => console.log("Dismissed:", topic)}
+          onAction={(topic) => navigate(`/eps-lessons/${lesson.id}`)}
+        />
+      )}
 
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
@@ -433,21 +443,34 @@ function QuizScreen({
                 </div>
               </div>
             </div>
-          ) : (
+          ) : ENABLE_NEW_FEATURES ? (
             <EnhancedQuizFeedback
               question={{
-                korean: current.korean,
-                vietnamese: current.vietnamese,
-                pronunciation: current.pronunciation,
-                example: current.example,
-                exampleVi: current.exampleVi,
-                type: current.type,
+                korean: current.korean || "",
+                vietnamese: current.vietnamese || "",
+                pronunciation: current.pronunciation || "",
+                example: current.example || "",
+                exampleVi: current.exampleVi || "",
+                type: current.type || "meaning_kr_to_vi",
               }}
-              userAnswer={answers[currentIdx] === -1 ? "(hết giờ)" : current.options[answers[currentIdx]]}
-              correctAnswer={current.options[current.correctIndex]}
+              userAnswer={answers[currentIdx] === -1 ? "(hết giờ)" : current.options[answers[currentIdx]] || ""}
+              correctAnswer={current.options[current.correctIndex] || ""}
               topic={lesson.topic}
               onLearnMore={() => navigate(`/eps-lessons/${lesson.id}`)}
             />
+          ) : (
+            <div className="p-4 rounded-xl border border-red-500/25 bg-red-500/8 mb-4">
+              <div className="flex items-start gap-3">
+                <i className="ri-close-circle-fill text-red-400 text-lg flex-shrink-0 mt-0.5"></i>
+                <div>
+                  <p className="font-semibold text-sm text-red-400">Chưa đúng!</p>
+                  <p className="text-white/50 text-xs mt-1">
+                    Đáp án đúng: <span className="text-white font-semibold">{current.options[current.correctIndex]}</span>
+                  </p>
+                  <p className="text-app-text-secondary text-xs mt-1 italic">{current.example} — {current.exampleVi}</p>
+                </div>
+              </div>
+            </div>
           )}
         </>
       )}

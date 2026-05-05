@@ -138,6 +138,14 @@ export default function EnhancedQuizFeedback({
 }: EnhancedFeedbackProps) {
   const feedback = useMemo(() => {
     try {
+      if (!question || !question.korean) {
+        return {
+          explanation: 'Đáp án đúng đã hiển thị.',
+          similarExamples: [],
+          recommendedAction: 'Ôn tập lại từ vựng này.',
+          relatedVocab: [],
+        };
+      }
       return generateFeedback(question, userAnswer, correctAnswer, topic);
     } catch (error) {
       console.error('Error generating feedback:', error);
