@@ -542,3 +542,206 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   'Trái ngược: đắt vs tiện lợi → dùng -지만.',
   'easy'
 );
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #9: A/V – (으)ㄴ/는데 [nhưng, còn, nên...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A/V – (으)ㄴ/는데',
+  '(eu)nde',
+  'nhưng, còn, nên...',
+  'beginner',
+  'connective',
+  'Thể hiện sự tương phản, trái ngược. Đưa ra thông tin bối cảnh để giải thích trước khi đặt câu hỏi, rủ rê, ra lệnh. Từ chối lịch sự hoặc khi có thêm thông tin muốn nói. Chia động từ: quá khứ 았/었었는데, hiện tại A+(으)ㄴ데/V+는데, tương lai 겠는데/(으)ㄹ 건데.',
+  'A + (으)ㄴ데 / V + 는데 / A/V + 았/었었는데 / A/V + 겠데',
+  '[
+    {"korean": "어제는 따뜻했는데 오늘은 좀 쌀쌀해요.", "vietnamese": "Hôm qua trời nóng nhưng hôm nay trời se se lạnh."},
+    {"korean": "가방은 예쁜데 좀 비싸요.", "vietnamese": "Túi xách đẹp nhưng hơi đắt."},
+    {"korean": "이 식당은 음식이 맛있는데 좀 비싸요.", "vietnamese": "Nhà hàng này đồ ăn ngon nhưng hơi đắt."},
+    {"korean": "방은 좀 작은데 너무 깨끗해요.", "vietnamese": "Phòng tuy hơi bé nhưng sạch sẽ."},
+    {"korean": "일은 많은데 월급은 적어요.", "vietnamese": "Việc thì nhiều mà lương thì thấp."},
+    {"korean": "비가 오는데 어디에 가요?", "vietnamese": "Trời đang mưa, bạn đi đâu vậy?"},
+    {"korean": "날씨가 좋은데 같이 산책할래요?", "vietnamese": "Trời đẹp quá chúng ta cùng đi dạo nhé?"},
+    {"korean": "좀 피곤한데 잠깐 쉬는게 어때요?", "vietnamese": "Tôi hơi mệt nên tôi nghỉ ngơi một chút nhé?"},
+    {"korean": "아니요, 예쁜데요.", "vietnamese": "Không, nó đẹp mà."},
+    {"korean": "미안해요. 오늘 약속이 있는데요.", "vietnamese": "Xin lỗi nha. Hôm nay tôi đã có hẹn rồi."}
+  ]'::jsonb,
+  ARRAY['A/V – 지만', 'A/V – (으)니까', 'A/V – 아/어서']::TEXT[],
+  ARRAY['connective', 'contrast', 'topik1', 'beginner', 'spoken']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄴ/는데' LIMIT 1),
+  '가방은 예쁜 ___ 좀 비싸요.',
+  'fill_blank',
+  '["데", "지만", "고", "거나"]'::jsonb,
+  '데',
+  'Tương phản: đẹp nhưng đắt → dùng -는데.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄴ/는데' LIMIT 1),
+  '일은 많은 ___ 월급은 적어요.',
+  'fill_blank',
+  '["데", "지만", "고", "어서"]'::jsonb,
+  '데',
+  'Tương phản: việc nhiều lương thấp → dùng -는데.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄴ/는데' LIMIT 1),
+  '비가 오 ___ 어디에 가요?',
+  'multiple_choice',
+  '["는데", "지만", "고", "니까"]'::jsonb,
+  '는데',
+  'Đưa bối cảnh trước khi hỏi → dùng -는데.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄴ/는데' LIMIT 1),
+  '날씨가 좋은 ___ 같이 산책할래요?',
+  'fill_blank',
+  '["데", "지만", "고", "거나"]'::jsonb,
+  '데',
+  'Đưa bối cảnh trước khi rủ → dùng -는데.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #10: N 전에, V – 기 전에 [trước khi...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'N 전에, V – 기 전에',
+  'jeone / gi jeone',
+  'trước khi...',
+  'beginner',
+  'time',
+  'Diễn tả hành động hay tình huống nào đó xuất hiện, xảy ra TRƯỚC một sự việc khác. Có thể gắn cùng các tiểu từ 부터/까지.',
+  'N + 전에 / V + 기 전에',
+  '[
+    {"korean": "회사에 가기 전에 아침을 먹어요.", "vietnamese": "Trước khi đi làm tôi ăn sáng."},
+    {"korean": "저는 잠을 자기 전에 책을 읽어요.", "vietnamese": "Trước khi ngủ tôi đọc sách."},
+    {"korean": "보고서는 금요일 전까지 제출해 주세요.", "vietnamese": "Đến trước thứ 6, hãy nộp bài báo cáo."},
+    {"korean": "밥 먹기 전에 손을 씻어야 해요.", "vietnamese": "Trước khi ăn cơm phải rửa tay."},
+    {"korean": "고향에 가기 전에 선물을 준비했어요.", "vietnamese": "Trước khi về quê tôi đã chuẩn bị quà."},
+    {"korean": "밥 먹기 30 분전에 약을 드세요.", "vietnamese": "Hãy uống thuốc trước khi ăn 30 phút."},
+    {"korean": "친구의 집을 방문하기 전에 전화를 했어요.", "vietnamese": "Tôi đã gọi điện trước khi đến nhà bạn."},
+    {"korean": "한국에 오기 전에 무엇을 하셨습니까?", "vietnamese": "Bạn đã làm gì trước khi đến Hàn Quốc?"},
+    {"korean": "자동차를 사기 전에 운전을 배우십시오.", "vietnamese": "Hãy học lái xe trước khi mua xe hơi."},
+    {"korean": "할머니께서는 2년 전에 돌아가셨어요.", "vietnamese": "Bà tôi đã qua đời 2 năm trước."}
+  ]'::jsonb,
+  ARRAY['N 후에, V – (으)ㄴ 후에', 'V – (으)ㄴ 다음에']::TEXT[],
+  ARRAY['time', 'before', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 전에, V – 기 전에' LIMIT 1),
+  '회사에 가 ___ 아침을 먹어요.',
+  'fill_blank',
+  '["기 전에", "전에", "후에", "는데"]'::jsonb,
+  '기 전에',
+  'Động từ + 기 전에 = trước khi làm gì.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 전에, V – 기 전에' LIMIT 1),
+  '저는 잠을 자 ___ 책을 읽어요.',
+  'fill_blank',
+  '["기 전에", "전에", "후에", "는데"]'::jsonb,
+  '기 전에',
+  'Động từ + 기 전에 = trước khi ngủ.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 전에, V – 기 전에' LIMIT 1),
+  '보고서는 금요일 ___ 제출해 주세요.',
+  'multiple_choice',
+  '["전까지", "기 전에", "후에", "는데"]'::jsonb,
+  '전까지',
+  'Danh từ + 전까지 = đến trước thứ 6.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 전에, V – 기 전에' LIMIT 1),
+  '밥 먹 ___ 손을 씻어야 해요.',
+  'fill_blank',
+  '["기 전에", "전에", "후에", "는데"]'::jsonb,
+  '기 전에',
+  'Động từ + 기 전에 = trước khi ăn.',
+  'easy'
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #11: N 후에, V – (으)ㄴ 후에 [sau khi...]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'N 후에, V – (으)ㄴ 후에',
+  'hue / (eu)n hue',
+  'sau khi...',
+  'beginner',
+  'time',
+  'Diễn tả hành động hay tình huống nào đó xuất hiện, xảy ra SAU một sự việc khác. Có thể gắn cùng các tiểu từ 부터/까지. Có thể thay thế bằng V – (으)ㄴ 다음에 hoặc V – (으)ㄴ 뒤에.',
+  'N + 후에 / V + (으)ㄴ 후에',
+  '[
+    {"korean": "점심을 먹은 후에 영화를 볼까요?", "vietnamese": "Sau khi ăn trưa cùng nhau đi xem phim nhé?"},
+    {"korean": "시험 후에 뭐 할 거예요?", "vietnamese": "Sau kì thi bạn sẽ làm gì?"},
+    {"korean": "집에 돌아온 다음에 샤워했어요.", "vietnamese": "Sau khi về nhà tôi đã tắm."},
+    {"korean": "결혼한 후에 그 여자는 직장을 그만두었어요.", "vietnamese": "Cô ấy đã nghỉ làm sau khi kết hôn."},
+    {"korean": "30분 후에 도서관 앞에서 만나자.", "vietnamese": "Gặp nhau ở trước thư viện sau ba mươi phút nữa nhé."},
+    {"korean": "밥을 먹은 후에 이를 닦아요.", "vietnamese": "Tôi đánh răng sau khi ăn cơm."},
+    {"korean": "수업 후에 시간 있어요?", "vietnamese": "Sau tiết học bạn có rảnh không?"},
+    {"korean": "수업이 끝난 다음에 아르바이트를 해요.", "vietnamese": "Sau khi tiết học kết thúc tôi đi làm thêm."},
+    {"korean": "대학교를 졸업 후에 취직을 했어요.", "vietnamese": "Tôi đi làm sau khi tốt nghiệp."}
+  ]'::jsonb,
+  ARRAY['N 전에, V – 기 전에', 'V – (으)ㄴ 다음에', 'V – (으)ㄴ 뒤에']::TEXT[],
+  ARRAY['time', 'after', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 후에, V – (으)ㄴ 후에' LIMIT 1),
+  '점심을 먹 ___ 영화를 볼까요?',
+  'fill_blank',
+  '["은 후에", "기 전에", "전에", "는데"]'::jsonb,
+  '은 후에',
+  'Động từ quá khứ + (으)ㄴ 후에 = sau khi ăn.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 후에, V – (으)ㄴ 후에' LIMIT 1),
+  '시험 ___ 뭐 할 거예요?',
+  'fill_blank',
+  '["후에", "기 전에", "전에", "는데"]'::jsonb,
+  '후에',
+  'Danh từ + 후에 = sau kì thi.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 후에, V – (으)ㄴ 후에' LIMIT 1),
+  '집에 돌아온 ___ 샤워했어요.',
+  'multiple_choice',
+  '["다음에", "기 전에", "전에", "는데"]'::jsonb,
+  '다음에',
+  '다음에 thay thế cho 후에 = sau khi về nhà.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'N 후에, V – (으)ㄴ 후에' LIMIT 1),
+  '밥을 먹 ___ 이를 닦아요.',
+  'fill_blank',
+  '["은 후에", "기 전에", "전에", "는데"]'::jsonb,
+  '은 후에',
+  'Động từ quá khứ + (으)ㄴ 후에 = sau khi ăn.',
+  'easy'
+);
