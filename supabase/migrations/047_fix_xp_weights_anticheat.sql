@@ -1,13 +1,19 @@
 -- Migration 047: Fix XP weights, anti-cheat thresholds, and deriveLevel
 -- Syncs server-side formula with client-side changes in lib/xp.ts
 
--- ─── 1. Update xp_settings with corrected weights ─────────────────────────
+-- ─── 1. Ensure all columns exist (idempotent) ───────────────────────────────
+ALTER TABLE public.xp_settings
+  ADD COLUMN IF NOT EXISTS min_sec_per_question INT NOT NULL DEFAULT 8,
+  ADD COLUMN IF NOT EXISTS exam_cooldown_sec    INT NOT NULL DEFAULT 30,
+  ADD COLUMN IF NOT EXISTS max_exams_per_day    INT NOT NULL DEFAULT 20;
+
+-- ─── 2. Update xp_settings with corrected weights ─────────────────────────
 -- streak_weight: 30 → 15 (login không nên thắng học thật)
 -- best_score_weight: 8 → 12 (thưởng điểm cao hơn)
 -- average_score_weight: 5 → 8 (học đều quan trọng)
 -- exam_completed_bonus: 10 → 15 (khuyến khích thi nhiều)
 -- min_sec_per_question: 3 → 8 (EPS-TOPIK thực tế 84s/câu, min 8s)
-UPDATE xp_settings SET
+UPDATE public.xp_settings SET
   streak_weight         = 15,
   best_score_weight     = 12,
   average_score_weight  = 8,

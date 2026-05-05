@@ -739,6 +739,7 @@ export default function AdminDashboardPage() {
             { path: "/admin/audit", icon: "ri-file-list-3-line", label: "Audit Log", color: "#fbbf24" },
             { path: "/admin/ads", icon: "ri-advertisement-line", label: "Quảng cáo", color: "#fb923c" },
             { path: "/admin/hanja", icon: "ri-character-recognition-line", label: "Hán Hàn", color: "app-accent-primary" },
+            { path: "/admin/weekly-rewards", icon: "ri-trophy-line", label: "Thưởng tuần", color: "#FFD700" },
             { path: "/admin/control", icon: "ri-settings-4-line", label: "Cài đặt admin", color: "#38bdf8" },
           ].map(item => (
             <button key={item.path} onClick={() => navigate(item.path)}

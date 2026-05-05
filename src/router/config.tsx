@@ -346,6 +346,7 @@ const AdminEpsPage = lazyPage(() => import("../pages/admin-eps/page"));
 const AdminEpsUploadPage = lazyPage(() => import("../pages/admin-eps-upload/page"));
 const AdminCouponPage = lazyPage(() => import("../pages/admin-coupon/page"));
 const AdminXPConfigPage = lazyPage(() => import("../pages/admin-xp-config/page"));
+const AdminWeeklyRewardsPage = lazyPage(() => import("../pages/admin-weekly-rewards/page"));
 const AdminPricingPage = lazyPage(() => import("../pages/admin-pricing/page"));
 const AdminSeriesPage = lazyPage(() => import("../pages/admin-series/page"));
 const AdminStatsPage = lazyPage(() => import("../pages/admin-stats/page"));
@@ -573,6 +574,7 @@ const routes: RouteObject[] = [
   { path: "/admin/users", element: <AdminUsersPage /> },
   { path: "/admin/coupon", element: <RequirePermission permission="users.vip"><AdminCouponPage /></RequirePermission> },
   { path: "/admin/xp-config", element: <RequirePermission permission="system.settings"><AdminXPConfigPage /></RequirePermission> },
+  { path: "/admin/weekly-rewards", element: <AdminWeeklyRewardsPage /> },
   { path: "/admin/pricing", element: <RequirePermission permission="system.settings"><AdminPricingPage /></RequirePermission> },
   { path: "/admin/series", element: <AdminSeriesPage /> },
   { path: "/admin/stats", element: <AdminStatsPage /> },
