@@ -474,3 +474,71 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   'Hỏi lựa chọn một trong hai → dùng -거나.',
   'easy'
 );
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- #8: A/V – 지만 [nhưng]
+-- ═══════════════════════════════════════════════════════════════════════════════
+INSERT INTO public.grammar_patterns (
+  pattern, romanization, meaning, level, category, explanation, usage, examples, related_patterns, tags, topik_level
+) VALUES (
+  'A/V – 지만',
+  'jiman',
+  'nhưng',
+  'beginner',
+  'connective',
+  'Nội dung vế sau trái ngược với nội dung vế trước. Khi dùng với thì quá khứ thì sử dụng dạng 았/었/였지만, tương lai 겠지만.',
+  'A/V + 지만 / A/V + 았/었/였지만 / A/V + 겠지만',
+  '[
+    {"korean": "어제 학교에 갔지만 수업이 없었습니다.", "vietnamese": "Hôm qua tôi đã đến trường nhưng không có tiết học nào."},
+    {"korean": "김치가 맛있지만 좀 맵습니다.", "vietnamese": "Kim chi ngon nhưng hơi cay."},
+    {"korean": "한국어 재미있지만 좀 어려워요.", "vietnamese": "Tiếng Hàn thú vị nhưng khó."},
+    {"korean": "한국 여행은 힘들었지만 재미있었어요.", "vietnamese": "Chuyến du lịch Hàn Quốc mệt nhưng vui."},
+    {"korean": "교실 밖에는 춥지만 안에는 따뜻해요.", "vietnamese": "Ngoài lớp học lạnh nhưng trong lớp học thì ấm."},
+    {"korean": "휴대전화는 비싸지만 편리해요.", "vietnamese": "Điện thoại đắt nhưng tiện lợi."},
+    {"korean": "민호 씨에게 전화를 했지만 받지 않았어요.", "vietnamese": "Tôi đã gọi điện cho Minho nhưng không bắt máy."},
+    {"korean": "저는 한국어를 배우고 싶지만 시간이 없어요.", "vietnamese": "Tôi muốn học tiếng Hàn nhưng không có thời gian."},
+    {"korean": "제 친구는 키가 작지만 농구를 잘해요.", "vietnamese": "Bạn tôi tuy thấp nhưng chơi bóng rổ giỏi."},
+    {"korean": "라면은 맛있지만 건강에 좋지는 않아요.", "vietnamese": "Mì tôm ngon nhưng không tốt cho sức khỏe."}
+  ]'::jsonb,
+  ARRAY['N –(이)고, A/V – 고', 'A/V – 거나', 'A/V – 아/어서']::TEXT[],
+  ARRAY['connective', 'contrast', 'topik1', 'beginner']::TEXT[],
+  'TOPIK I'
+);
+
+INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation, difficulty) VALUES
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 지만' LIMIT 1),
+  '김치가 맛있 ___ 좀 맵습니다.',
+  'fill_blank',
+  '["지만", "고", "거나", "어서"]'::jsonb,
+  '지만',
+  'Trái ngược: ngon vs cay → dùng -지만.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 지만' LIMIT 1),
+  '한국어 재미있 ___ 좀 어려워요.',
+  'fill_blank',
+  '["지만", "고", "거나", "니까"]'::jsonb,
+  '지만',
+  'Trái ngược: thú vị vs khó → dùng -지만.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 지만' LIMIT 1),
+  '어제 학교에 갔 ___ 수업이 없었습니다.',
+  'multiple_choice',
+  '["지만", "고", "거나", "어서"]'::jsonb,
+  '지만',
+  'Quá khứ + 지만 = 갔지만. Trái ngược.',
+  'easy'
+),
+(
+  (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – 지만' LIMIT 1),
+  '휴대전화는 비싸 ___ 편리해요.',
+  'fill_blank',
+  '["지만", "고", "거나", "니까"]'::jsonb,
+  '지만',
+  'Trái ngược: đắt vs tiện lợi → dùng -지만.',
+  'easy'
+);
