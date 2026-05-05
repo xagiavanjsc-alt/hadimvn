@@ -81,7 +81,7 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   (SELECT id FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄴ/는지 알다 / 모르다' LIMIT 1),
   '이 사람 누구인지 알세___.',
   'fill_blank',
-  ['["요.", "어요.", "습니다.", "습니다."]'::jsonb,
+  '["요.", "어요.", "습니다.", "습니다."]'::jsonb,
   '요.',
   'Biết không → 알세요.',
   'medium'
