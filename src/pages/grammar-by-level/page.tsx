@@ -3485,14 +3485,14 @@ export default function GrammarByLevelPage() {
           <p className="text-gray-500 text-sm mt-1">Luyện ngữ pháp từ A1 đến C1 với giải thích chi tiết</p>
         </div>
 
-        {/* Stats bar */}
+        {/* Stats bar - compact on mobile */}
         <div className="mb-5 p-3.5 bg-gradient-to-r from-rose-50 to-orange-50 border border-rose-100 rounded-xl">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2">
               <i className="ri-book-2-line text-rose-500"></i>
-              <span className="text-sm font-bold text-gray-800">Tổng cộng: <span className="text-rose-600">{GRAMMAR_PATTERNS.length}</span> cấu trúc ngữ pháp</span>
+              <span className="text-sm font-bold text-gray-800">Tổng: <span className="text-rose-600">{GRAMMAR_PATTERNS.length}</span> cấu trúc</span>
             </div>
-            <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex items-center gap-1.5 flex-wrap">
               {["A1", "A2", "B1", "B2", "C1"].map(lv => (
                 <span key={lv} className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/70 text-gray-600 border border-gray-200">
                   {lv}: {levelStats[lv] || 0}
@@ -3510,10 +3510,10 @@ export default function GrammarByLevelPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left: Pattern list */}
-          <div className="lg:col-span-1">
-            {/* Filters */}
-            <div className="mb-3">
+          {/* Left: Pattern list - sticky on desktop */}
+          <div className="lg:col-span-1 lg:sticky lg:top-4 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto">
+            {/* Filters - sticky on mobile */}
+            <div className="mb-3 sticky top-0 bg-white z-10 pb-3">
               <div className="relative mb-3">
                 <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
                 <input
@@ -3521,7 +3521,7 @@ export default function GrammarByLevelPage() {
                   placeholder="Tìm cấu trúc..."
                   value={search}
                   onChange={e => setSearch(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-300"
+                  className="w-full pl-9 pr-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-300"
                 />
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -3529,7 +3529,7 @@ export default function GrammarByLevelPage() {
                   <button
                     key={lv}
                     onClick={() => setSelectedLevel(lv)}
-                    className={`px-3 py-1 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedLevel === lv ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}
+                    className={`px-2.5 py-1 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedLevel === lv ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}
                   >
                     {lv}
                   </button>
@@ -3537,30 +3537,25 @@ export default function GrammarByLevelPage() {
               </div>
             </div>
 
-            {/* Pattern list */}
-            <div className="space-y-2">
+            {/* Pattern list - compact cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-1 gap-2">
               {filtered.map(pattern => (
                 <button
                   key={pattern.id}
-                  onClick={() => { setSelectedPattern(pattern); setActiveTab("explain"); handleReset(); }}
-                  className={`w-full text-left p-3 rounded-xl border cursor-pointer transition-all ${selectedPattern?.id === pattern.id ? "border-rose-300 bg-rose-50" : "border-gray-100 bg-white hover:border-gray-200 hover:bg-gray-50"}`}
+                  onClick={() => { setSelectedPattern(pattern); setActiveTab("explain"); handleReset(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className={`text-left p-2.5 rounded-lg border cursor-pointer transition-all ${selectedPattern?.id === pattern.id ? "border-rose-300 bg-rose-50" : "border-gray-100 bg-white hover:border-gray-200 hover:bg-gray-50"}`}
                 >
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="px-2 py-0.5 rounded-full text-xs font-bold text-white" style={{ backgroundColor: pattern.levelColor }}>
-                      {pattern.level}
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold text-white" style={{ backgroundColor: pattern.levelColor }}>
+                      {pattern.level.replace('TOPIK ', '')}
                     </span>
-                    <span className="font-bold text-sm text-gray-900">{pattern.pattern}</span>
+                    <span className="font-semibold text-xs text-gray-900 truncate">{pattern.pattern}</span>
                   </div>
-                  <p className="text-xs text-gray-500">{pattern.meaning}</p>
-                  <div className="flex flex-wrap gap-1 mt-1.5">
-                    {pattern.tags.slice(0, 2).map(tag => (
-                      <span key={tag} className="px-1.5 py-0.5 bg-gray-100 text-gray-500 text-[10px] rounded">{tag}</span>
-                    ))}
-                  </div>
+                  <p className="text-[10px] text-gray-500 truncate">{pattern.meaning}</p>
                 </button>
               ))}
               {filtered.length === 0 && (
-                <div className="text-center py-8 text-gray-400 text-sm">Không tìm thấy cấu trúc nào</div>
+                <div className="col-span-2 text-center py-8 text-gray-400 text-sm">Không tìm thấy cấu trúc nào</div>
               )}
             </div>
           </div>
@@ -3574,22 +3569,30 @@ export default function GrammarByLevelPage() {
               </div>
             ) : (
               <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
-                {/* Pattern header */}
-                <div className="px-6 py-5 border-b border-gray-100">
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="px-3 py-1 rounded-full text-sm font-bold text-white" style={{ backgroundColor: selectedPattern.levelColor }}>
+                {/* Pattern header with back button on mobile */}
+                <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-100">
+                  <div className="flex items-center gap-2 mb-2">
+                    <button
+                      onClick={() => setSelectedPattern(null)}
+                      className="lg:hidden flex items-center gap-1 text-gray-500 hover:text-gray-700 text-sm"
+                    >
+                      <i className="ri-arrow-left-line"></i>Quay lại
+                    </button>
+                  </div>
+                  <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                    <span className="px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-bold text-white" style={{ backgroundColor: selectedPattern.levelColor }}>
                       {selectedPattern.level}
                     </span>
-                    <h2 className="text-xl font-bold text-gray-900">{selectedPattern.pattern}</h2>
+                    <h2 className="text-lg sm:text-xl font-bold text-gray-900">{selectedPattern.pattern}</h2>
                   </div>
-                  <p className="text-gray-600 font-medium">{selectedPattern.meaning}</p>
+                  <p className="text-gray-600 font-medium text-sm sm:text-base">{selectedPattern.meaning}</p>
                   <div className="mt-2 px-3 py-2 bg-gray-50 rounded-lg">
                     <span className="text-xs text-gray-500 font-semibold">Cấu trúc: </span>
                     <span className="text-xs text-gray-700 font-mono">{selectedPattern.formation}</span>
                   </div>
                 </div>
 
-                {/* Tabs */}
+                {/* Tabs - better touch targets on mobile */}
                 <div className="flex border-b border-gray-100">
                   {([
                     { id: "explain", label: "Giải thích", icon: "ri-book-2-line" },
@@ -3599,15 +3602,15 @@ export default function GrammarByLevelPage() {
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium cursor-pointer transition-colors whitespace-nowrap ${activeTab === tab.id ? "text-rose-600 border-b-2 border-rose-500" : "text-gray-500 hover:text-gray-700"}`}
+                      className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-3 text-xs sm:text-sm font-medium cursor-pointer transition-colors whitespace-nowrap ${activeTab === tab.id ? "text-rose-600 border-b-2 border-rose-500" : "text-gray-500 hover:text-gray-700"}`}
                     >
                       <i className={tab.icon}></i>{tab.label}
                     </button>
                   ))}
                 </div>
 
-                {/* Tab content */}
-                <div className="p-6">
+                {/* Tab content - better padding for mobile */}
+                <div className="p-4 sm:p-6">
                   {activeTab === "explain" && (
                     <div className="space-y-5">
                       <div>
@@ -3673,11 +3676,11 @@ export default function GrammarByLevelPage() {
                   )}
 
                   {activeTab === "examples" && (
-                    <div className="space-y-4">
+                    <div className="space-y-3 sm:space-y-4">
                       {selectedPattern.examples.map((ex, i) => (
-                        <div key={i} className="p-4 bg-gray-50 rounded-xl">
-                          <p className="text-base font-bold text-gray-900 mb-1">{ex.korean}</p>
-                          <p className="text-sm text-gray-500">{ex.vietnamese}</p>
+                        <div key={i} className="p-3 sm:p-4 bg-gray-50 rounded-xl">
+                          <p className="text-sm sm:text-base font-bold text-gray-900 mb-1">{ex.korean}</p>
+                          <p className="text-xs sm:text-sm text-gray-500">{ex.vietnamese}</p>
                         </div>
                       ))}
                     </div>
@@ -3690,11 +3693,11 @@ export default function GrammarByLevelPage() {
                           <p className="text-sm font-semibold text-gray-800">
                             {qIdx + 1}. {ex.question}
                           </p>
-                          <div className="grid grid-cols-2 gap-2">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {ex.options.map((opt, optIdx) => {
                               const isSelected = answers[qIdx] === optIdx;
                               const isCorrect = ex.answer === optIdx;
-                              let btnClass = "px-4 py-2.5 rounded-xl text-sm font-medium cursor-pointer transition-all border text-left whitespace-nowrap ";
+                              let btnClass = "px-4 py-3 rounded-xl text-sm font-medium cursor-pointer transition-all border text-left whitespace-nowrap ";
                               if (!showResults) {
                                 btnClass += isSelected
                                   ? "bg-rose-50 border-rose-300 text-rose-700"
