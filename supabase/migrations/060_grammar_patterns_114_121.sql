@@ -31,12 +31,12 @@ Ngoài ra còn có ý nghĩa giải phóng khỏi những nặng nề do việc 
 );
 
 INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation)
-SELECT id, '돈을 다 써 ___어요.', 'fill_in_blank', '["버렸", "놓았", "있었", "두었다"]'::jsonb, 0,
+SELECT id, '돈을 다 써 ___어요.', 'fill_blank', '["버렸", "놓았", "있었", "두었다"]'::jsonb, 0,
   'Tiêu hết tiền (hoàn tất triệt để) → 써 버렸어요.'
 FROM public.grammar_patterns WHERE pattern = 'V – 아/어 버리다' AND topik_level = 'TOPIK II';
 
 INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation)
-SELECT id, '친구가 기다리지 않고 가 ___어요.', 'fill_in_blank', '["버렸", "놓았", "있었", "두었다"]'::jsonb, 0,
+SELECT id, '친구가 기다리지 않고 가 ___어요.', 'fill_blank', '["버렸", "놓았", "있었", "두었다"]'::jsonb, 0,
   'Bỏ đi mất (tiếc nuối) → 가 버렸어요.'
 FROM public.grammar_patterns WHERE pattern = 'V – 아/어 버리다' AND topik_level = 'TOPIK II';
 
@@ -71,12 +71,12 @@ Trước –고 말다 thường xuất hiện các từ như 결국, 드디어,
 );
 
 INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation)
-SELECT id, '열심히 공부했지만 결국 시험에 떨어지고 ___어요.', 'fill_in_blank', '["말았", "버렸", "있었", "두었다"]'::jsonb, 0,
+SELECT id, '열심히 공부했지만 결국 시험에 떨어지고 ___어요.', 'fill_blank', '["말았", "버렸", "있었", "두었다"]'::jsonb, 0,
   'Kết quả tiêu cực ngoài ý muốn → 고 말았어요.'
 FROM public.grammar_patterns WHERE pattern = 'V – 고 말다' AND topik_level = 'TOPIK II';
 
 INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation)
-SELECT id, '뛰어갔는데도 지각하고 ___어요.', 'fill_in_blank', '["말았", "버렸", "있었", "놓았"]'::jsonb, 0,
+SELECT id, '뛰어갔는데도 지각하고 ___어요.', 'fill_blank', '["말았", "버렸", "있었", "놓았"]'::jsonb, 0,
   'Dù cố gắng vẫn trễ → 고 말았어요.'
 FROM public.grammar_patterns WHERE pattern = 'V – 고 말다' AND topik_level = 'TOPIK II';
 
@@ -110,12 +110,12 @@ Hình thức –았/었 trong –았/었다가 không ngụ ý quá khứ mà di
 );
 
 INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation)
-SELECT id, '창문을 닫___ 다가 다시 열었어요.', 'fill_in_blank', '["았", "는", "던", "은"]'::jsonb, 0,
+SELECT id, '창문을 닫___ 다가 다시 열었어요.', 'fill_blank', '["았", "는", "던", "은"]'::jsonb, 0,
   'Đóng xong rồi mở lại → 닫았다가.'
 FROM public.grammar_patterns WHERE pattern = 'V – 았/었다가' AND topik_level = 'TOPIK II';
 
 INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation)
-SELECT id, '비행기 표를 예약___ 다가 취소했어요.', 'fill_in_blank', '["했", "하는", "하던", "하"]'::jsonb, 0,
+SELECT id, '비행기 표를 예약___ 다가 취소했어요.', 'fill_blank', '["했", "하는", "하던", "하"]'::jsonb, 0,
   'Đặt vé xong rồi hủy → 예약했다가.'
 FROM public.grammar_patterns WHERE pattern = 'V – 았/었다가' AND topik_level = 'TOPIK II';
 
@@ -148,12 +148,12 @@ Khi tính từ kết hợp với –았/었던: nghĩa thứ nhất chỉ sự v
 );
 
 INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation)
-SELECT id, '지난번에 만___ 카페에서 만납시다.', 'fill_in_blank', '["났던", "나던", "나는", "난"]'::jsonb, 0,
+SELECT id, '지난번에 만___ 카페에서 만납시다.', 'fill_blank', '["났던", "나던", "나는", "난"]'::jsonb, 0,
   'Gặp một lần trong quá khứ, đã xong → 만났던.'
 FROM public.grammar_patterns WHERE pattern = 'A/V – 았/었던 N' AND topik_level = 'TOPIK II';
 
 INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation)
-SELECT id, '작년에는 키가 작___ 남 씨가 지금은 커요.', 'fill_in_blank', '["았던", "던", "은", "는"]'::jsonb, 0,
+SELECT id, '작년에는 키가 작___ 남 씨가 지금은 커요.', 'fill_blank', '["았던", "던", "은", "는"]'::jsonb, 0,
   'Trạng thái quá khứ tương phản hiện tại → 작았던.'
 FROM public.grammar_patterns WHERE pattern = 'A/V – 았/었던 N' AND topik_level = 'TOPIK II';
 
@@ -184,12 +184,12 @@ INSERT INTO public.grammar_patterns (
 );
 
 INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation)
-SELECT id, '저는 매운 음식을 잘 먹는 ___이에요.', 'fill_in_blank', '["편", "쪽", "듯", "것"]'::jsonb, 0,
+SELECT id, '저는 매운 음식을 잘 먹는 ___이에요.', 'fill_blank', '["편", "쪽", "듯", "것"]'::jsonb, 0,
   'Thuộc diện ăn cay giỏi → 먹는 편이에요.'
 FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄴ/는 편이다' AND topik_level = 'TOPIK II';
 
 INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation)
-SELECT id, '우리 동네는 집값이 조금 싼 ___입니다.', 'fill_in_blank', '["편", "쪽", "듯", "것"]'::jsonb, 0,
+SELECT id, '우리 동네는 집값이 조금 싼 ___입니다.', 'fill_blank', '["편", "쪽", "듯", "것"]'::jsonb, 0,
   'Thuộc dạng rẻ (tương đối) → 싼 편입니다.'
 FROM public.grammar_patterns WHERE pattern = 'A/V – (으)ㄴ/는 편이다' AND topik_level = 'TOPIK II';
 
@@ -219,12 +219,12 @@ INSERT INTO public.grammar_patterns (
 );
 
 INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation)
-SELECT id, '그녀는 항상 여성___ 옷을 입어요.', 'fill_in_blank', '["스러운", "다운", "같은", "인"]'::jsonb, 0,
+SELECT id, '그녀는 항상 여성___ 옷을 입어요.', 'fill_blank', '["스러운", "다운", "같은", "인"]'::jsonb, 0,
   'Có vẻ nữ tính → 여성스러운.'
 FROM public.grammar_patterns WHERE pattern = 'N – 스럽다' AND topik_level = 'TOPIK II';
 
 INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation)
-SELECT id, '자___ 행동하는 것이 중요해요.', 'fill_in_blank', '["연스럽게", "연답게", "연같이", "연처럼"]'::jsonb, 0,
+SELECT id, '자___ 행동하는 것이 중요해요.', 'fill_blank', '["연스럽게", "연답게", "연같이", "연처럼"]'::jsonb, 0,
   'Hành động tự nhiên → 자연스럽게.'
 FROM public.grammar_patterns WHERE pattern = 'N – 스럽다' AND topik_level = 'TOPIK II';
 
@@ -255,12 +255,12 @@ INSERT INTO public.grammar_patterns (
 );
 
 INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation)
-SELECT id, '학생은 학생___ 행동해야 해요.', 'fill_in_blank', '["답게", "스럽게", "같이", "처럼"]'::jsonb, 0,
+SELECT id, '학생은 학생___ 행동해야 해요.', 'fill_blank', '["답게", "스럽게", "같이", "처럼"]'::jsonb, 0,
   'Ra dáng học sinh (đầy đủ tính chất) → 학생답게.'
 FROM public.grammar_patterns WHERE pattern = 'N – 답다' AND topik_level = 'TOPIK II';
 
 INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation)
-SELECT id, '그 행동은 형___ 않은 행동이야.', 'fill_in_blank', '["답지", "스럽지", "같지", "처럼"]'::jsonb, 0,
+SELECT id, '그 행동은 형___ 않은 행동이야.', 'fill_blank', '["답지", "스럽지", "같지", "처럼"]'::jsonb, 0,
   'Không ra dáng đàn anh → 형답지 않다.'
 FROM public.grammar_patterns WHERE pattern = 'N – 답다' AND topik_level = 'TOPIK II';
 
@@ -293,11 +293,11 @@ Có thể dùng dạng dẫn: 자고요? / (으)라고요? / 냐고요? Tùy the
 );
 
 INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation)
-SELECT id, '가: 회사를 그만뒀어요. 나: 뭐___ 요? 다시 한번 말해 주세요.', 'fill_in_blank', '["라고", "라는", "라던", "라면"]'::jsonb, 0,
+SELECT id, '가: 회사를 그만뒀어요. 나: 뭐___ 요? 다시 한번 말해 주세요.', 'fill_blank', '["라고", "라는", "라던", "라면"]'::jsonb, 0,
   'Xác nhận lại điều khó tin → 뭐라고요?'
 FROM public.grammar_patterns WHERE pattern = 'A/V – 다고요?' AND topik_level = 'TOPIK II';
 
 INSERT INTO public.grammar_practice_questions (pattern_id, question, question_type, options, correct_answer, explanation)
-SELECT id, '가: 공원에 가자. 나: 공원에 가___ 요?', 'fill_in_blank', '["자고", "다고", "라고", "냐고"]'::jsonb, 0,
+SELECT id, '가: 공원에 가자. 나: 공원에 가___ 요?', 'fill_blank', '["자고", "다고", "라고", "냐고"]'::jsonb, 0,
   'Câu đề nghị 가자 → trích dẫn 가자고요?'
 FROM public.grammar_patterns WHERE pattern = 'A/V – 다고요?' AND topik_level = 'TOPIK II';
