@@ -3380,7 +3380,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
     levelColor: "#84cc16",
     pattern: "A/V – 기는요",
     meaning: "Gì mà..., đâu mà... (phủ nhận khiêm tốn)",
-    explanation: "1. Sử dụng khi nói một cách khiêm tốn về lời khen của đối phương. 2. Thể hiện sự phủ nhận bác bỏ, từ chối một cách nhẹ nhàng lời nói của đối phương. Dùng nhiều trong văn nói.",
+    explanation: "1. Sử dụng khi nói một cách khiêm tốn về lời khen của đối phương.\n\n2. Thể hiện sự phủ nhận bác bỏ, từ chối một cách nhẹ nhàng lời nói của đối phương. Dùng nhiều trong văn nói.",
     formation: "A/V + 기는요",
     notes: [
       "Dùng trong văn nói.",
@@ -3504,13 +3504,13 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
     level: "TOPIK 2",
     levelColor: "#84cc16",
     pattern: "A/V – (으)ㄴ/는 대신(에)",
-    meaning: "Thay vì..., bù lại...",
-    explanation: "Nghĩa 1: Thể hiện sự thay đổi hành động hay trạng thái ở vế trước sang hành động hay trạng thái khác tương tự hoặc tương ứng ở vế sau. [thay vì, thay cho]. Nghĩa 2: Hành động hoặc trạng thái ở vế trước và vế sau khác nhau hoặc trái ngược. [bù lại, thay vào đó]. Cũng dùng N + 대신(에).",
-    formation: "V + 는 대신(에) / V + (으)ㄴ 대신(에) / N + 대신(에)",
+    meaning: "Thay vì, thay cho / Bù lại, ngược lại",
+    explanation: "Nghĩa 1: Thể hiện sự thay đổi hành động hay trạng thái ở vế trước sang hành động hay trạng thái khác tương ứng ở vế sau. [thay vì, thay cho].\n\nNghĩa 2: Hành động hoặc trạng thái ở vế trước và vế sau khác nhau hoặc trái ngược. [bù lại, thay vào đó]. Cũng dùng N + 대신(에).",
+    formation: "V + 는 대신(에) / A/V + (으)ㄴ 대신(에) / N + 대신(에)",
     notes: [
-      "Nghĩa 1: thay thế hành động (thay vì A thì B).",
-      "Nghĩa 2: bổ sung bù đắp (A nhưng bù lại B).",
-      "N + 대신에: 불고기 대신에 삼겹살 (thay vì bulgogi thì thịt ba chỉ).",
+      "Nghĩa 1: A thay thế cho B (낚시 대신에 테니스).",
+      "Nghĩa 2: A có mặt tốt nhưng bù lại có mặt xấu (빠른 대신에 사람이 많다).",
+      "Cũng dùng với danh từ: N + 대신(에).",
     ],
     examples: [
       { korean: "불고기 대신에 삼겹살을 먹으면 어때요?", vietnamese: "Thay vì Bulgogi thì ăn thịt ba chỉ được không?" },
@@ -3629,7 +3629,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
     levelColor: "#84cc16",
     pattern: "A/V – 든지 A/V – 든지",
     meaning: "Hoặc là... hoặc là... / Cho dù...",
-    explanation: "1. Thể hiện rằng trong nhiều thứ, có thể chọn một thứ hoặc là chọn thứ nào cũng không thành vấn đề. [hoặc là...hoặc là]. Cấu trúc rút gọn: –든 –든, có dạng N+(이)든지 N+(이)든지. 2. Khi ở dạng 든지 trong cấu trúc lựa chọn, vế trước có chứa đại danh từ nghi vấn. [cho dù...]",
+    explanation: "1. Thể hiện rằng trong nhiều thứ, có thể chọn một thứ hoặc là chọn thứ nào cũng không thành vấn đề. [hoặc là...hoặc là]. Cấu trúc rút gọn: –든 –든, có dạng N+(이)든지 N+(이)든지.\n\n2. Khi ở dạng 든지 trong cấu trúc lựa chọn, vế trước có chứa đại danh từ nghi vấn. [cho dù...]",
     formation: "A/V + 든지 A/V + 든지 / N + (이)든지 N + (이)든지 / 누구든지, 어디든지, 뭐든지,...",
     notes: [
       "Nghĩa 1: liệt kê 2 lựa chọn, chọn cái nào cũng được.",
@@ -3662,7 +3662,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
     levelColor: "#84cc16",
     pattern: "A/V – 던 N",
     meaning: "Đã từng thường... / Đang... dở",
-    explanation: "1. Diễn tả hành động đã thường xuyên xảy ra ở quá khứ nhưng bây giờ đã chấm dứt. Thường đi kèm 여러번, 자주, 가끔, 항상,... [đã từng thường]. 2. Hồi tưởng những sự việc đã bắt đầu xảy ra trong quá khứ nhưng vẫn chưa kết thúc mà vẫn còn dang dở. Thường dùng với 지난달, 지난주, 어제, 아까, 저번에,... [đang... dở].",
+    explanation: "1. Diễn tả hành động đã thường xuyên xảy ra ở quá khứ nhưng bây giờ đã chấm dứt. Thường đi kèm 여러번, 자주, 가끔, 항상,... [đã từng thường].\n\n2. Hồi tưởng những sự việc đã bắt đầu xảy ra trong quá khứ nhưng vẫn chưa kết thúc mà vẫn còn dang dở. Thường dùng với 지난달, 지난주, 어제, 아까, 저번에,... [đang... dở].",
     formation: "A/V + 던 + N",
     notes: [
       "Nghĩa 1: hành động lặp lại trong quá khứ, nay đã chấm dứt → thường đi kèm 자주, 항상...",
@@ -4216,7 +4216,7 @@ export default function GrammarByLevelPage() {
                     <div className="space-y-5">
                       <div>
                         <h3 className="text-sm font-semibold text-white mb-2">Giải thích</h3>
-                        <p className="text-sm text-white/70 leading-relaxed">{selectedPattern.explanation}</p>
+                        <p className="text-sm text-white/70 leading-relaxed whitespace-pre-line">{selectedPattern.explanation}</p>
                       </div>
                       {selectedPattern.notes && selectedPattern.notes.length > 0 && (
                         <div>
