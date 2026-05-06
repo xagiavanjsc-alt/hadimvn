@@ -36,6 +36,8 @@ function FlipCard({ card, onKnow, onDontKnow }: {
   const touchStartY = useRef<number | null>(null);
   const [swipeHint, setSwipeHint] = useState<"left" | "right" | null>(null);
   const [audioPlayed, setAudioPlayed] = useState(false);
+  const [warningMsg, setWarningMsg] = useState<string | null>(null);
+  const warningTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [flipStartTime, setFlipStartTime] = useState<number | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const MIN_READ_TIME_MS = 1500; // Minimum 1.5 seconds to read before marking as known
@@ -103,12 +105,18 @@ function FlipCard({ card, onKnow, onDontKnow }: {
     }
   };
 
+  const showWarning = (msg: string) => {
+    setWarningMsg(msg);
+    if (warningTimer.current) clearTimeout(warningTimer.current);
+    warningTimer.current = setTimeout(() => setWarningMsg(null), 2500);
+  };
+
   const handleKnowWithValidation = () => {
     // Check if user spent enough time reading the answer
     if (flipStartTime) {
       const timeSpent = Date.now() - flipStartTime;
       if (timeSpent < MIN_READ_TIME_MS) {
-        alert("Vui lòng đọc kỹ đáp án trước khi đánh dấu đã thuộc (tối thiểu 1.5 giây).");
+        showWarning("Đọc kỹ đáp án trước khi đánh dấu đã thuộc");
         return;
       }
     }
@@ -129,6 +137,18 @@ function FlipCard({ card, onKnow, onDontKnow }: {
 
   return (
     <div className="flex flex-col items-center gap-6">
+      {/* Warning toast */}
+      {warningMsg && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 animate-[fadeInDown_0.3s_ease] pointer-events-none">
+          <div className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-[#1a1d27] border border-amber-500/30 shadow-lg shadow-black/40">
+            <div className="w-8 h-8 flex items-center justify-center rounded-xl bg-amber-500/15 flex-shrink-0">
+              <i className="ri-timer-line text-amber-400 text-base"></i>
+            </div>
+            <p className="text-amber-200 text-sm font-medium">{warningMsg}</p>
+          </div>
+        </div>
+      )}
+
       {/* Swipe hint overlay */}
       {swipeHint && (
         <div className={`fixed inset-0 pointer-events-none z-10 flex items-center justify-center transition-opacity ${swipeHint ? "opacity-100" : "opacity-0"}`}>
@@ -369,8 +389,10 @@ export default function FlashcardPage() {
 
   const masteredCount = allCards.filter(c => c.mastered).length;
 
+  const DAILY_LIMIT = 20;
+
   const startStudy = useCallback(() => {
-    const queue = [...filteredCards].sort(() => Math.random() - 0.5);
+    const queue = [...filteredCards].sort(() => Math.random() - 0.5).slice(0, DAILY_LIMIT);
     setStudyQueue(queue);
     setCurrentIdx(0);
     setSessionKnown([]);
@@ -447,7 +469,7 @@ export default function FlashcardPage() {
             className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
             <i className="ri-play-line"></i>
-            Bắt đầu học ({filteredCards.length} thẻ)
+            Bắt đầu học ({Math.min(filteredCards.length, DAILY_LIMIT)} thẻ)
           </button>
         ) : mode === "study" ? (
           <button
