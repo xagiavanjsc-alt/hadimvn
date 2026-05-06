@@ -290,9 +290,17 @@ export default function DailyPlanPage() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center gap-2 text-app-text-secondary text-xs mb-2">
-            <i className="ri-calendar-line"></i>
-            <span>{dateStr}</span>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2 text-app-text-secondary text-xs">
+              <i className="ri-calendar-line"></i>
+              <span>{dateStr}</span>
+            </div>
+            <button
+              onClick={() => navigate("/")}
+              className="flex items-center gap-2 text-white/50 hover:text-white text-sm cursor-pointer transition-colors"
+            >
+              <i className="ri-home-line"></i>Trang chủ
+            </button>
           </div>
           <h1 className="text-2xl font-bold text-white mb-1">Lộ trình học hôm nay</h1>
           <p className="text-white/50 text-sm">AI đã phân tích kết quả của bạn và tạo kế hoạch tối ưu</p>
