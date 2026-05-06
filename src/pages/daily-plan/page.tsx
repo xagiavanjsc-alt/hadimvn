@@ -204,6 +204,7 @@ export default function DailyPlanPage() {
   const [examResults] = useLocalStorage<ExamResult[]>("kts_exam_results", []);
   const [streak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
   const [completedToday, setCompletedToday] = useLocalStorage<string[]>("kts_daily_completed", []);
+  const [startedToday, setStartedToday] = useLocalStorage<string[]>("kts_daily_started", []);
   const [lastCompletedDate, setLastCompletedDate] = useLocalStorage<string>("kts_daily_date", "");
   const [tasks, setTasks] = useState<DailyTask[]>([]);
   const [selectedTask, setSelectedTask] = useState<DailyTask | null>(null);
@@ -215,6 +216,7 @@ export default function DailyPlanPage() {
     // Reset completed tasks if new day
     if (lastCompletedDate !== today) {
       setCompletedToday([]);
+      setStartedToday([]);
       setLastCompletedDate(today);
     }
   }, []);
@@ -268,6 +270,9 @@ export default function DailyPlanPage() {
   };
 
   const handleStartTask = (task: DailyTask) => {
+    if (!startedToday.includes(task.id)) {
+      setStartedToday([...startedToday, task.id]);
+    }
     navigate(task.path);
   };
 
@@ -542,20 +547,27 @@ export default function DailyPlanPage() {
                 Đã hoàn thành hôm nay
               </div>
             ) : (
-              <div className="flex gap-3">
+              <div className="flex flex-col gap-3">
                 <button
                   onClick={() => handleStartTask(selectedTask)}
-                  className="flex-1 bg-app-accent-primary text-[#0a0c10] font-bold py-3 rounded-xl text-sm hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer"
+                  className="w-full bg-app-accent-primary text-[#0a0c10] font-bold py-3 rounded-xl text-sm hover:bg-[#f0d060] transition-colors whitespace-nowrap cursor-pointer"
                 >
-                  Bắt đầu ngay
+                  {startedToday.includes(selectedTask.id) ? "Tiếp tục học" : "Bắt đầu ngay"}
                 </button>
-                <button
-                  onClick={() => handleMarkDone(selectedTask.id)}
-                  className="flex-1 bg-[#4ade80]/15 text-[#4ade80] font-bold py-3 rounded-xl text-sm hover:bg-[#4ade80]/25 transition-colors whitespace-nowrap cursor-pointer border border-[#4ade80]/20"
-                >
-                  <i className="ri-check-line mr-1"></i>
-                  Hoàn thành +{selectedTask.xp} XP
-                </button>
+                {startedToday.includes(selectedTask.id) ? (
+                  <button
+                    onClick={() => handleMarkDone(selectedTask.id)}
+                    className="w-full bg-[#4ade80]/15 text-[#4ade80] font-bold py-3 rounded-xl text-sm hover:bg-[#4ade80]/25 transition-colors whitespace-nowrap cursor-pointer border border-[#4ade80]/20"
+                  >
+                    <i className="ri-check-line mr-1"></i>
+                    Đánh dấu hoàn thành · +{selectedTask.xp} XP
+                  </button>
+                ) : (
+                  <p className="text-center text-app-text-muted text-[11px]">
+                    <i className="ri-information-line mr-1"></i>
+                    Bắt đầu học trước để nhận XP khi hoàn thành
+                  </p>
+                )}
               </div>
             )}
           </div>

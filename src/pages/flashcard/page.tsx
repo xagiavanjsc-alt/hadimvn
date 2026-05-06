@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useStudySync } from "@/hooks/useStudySync";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
+import { epsVocabulary, EPS_VOCAB_TOPICS } from "@/mocks/epsVocabulary";
 
 interface FlashcardItem {
   id: string;
@@ -313,9 +314,10 @@ export default function FlashcardPage() {
   const [sessionKnown, setSessionKnown] = useState<string[]>([]);
   const [sessionDontKnow, setSessionDontKnow] = useState<string[]>([]);
 
-  // Build all flashcards from approved lessons
+  // Build all flashcards from approved lessons + built-in EPS vocab
   const allCards = useMemo<FlashcardItem[]>(() => {
     const cards: FlashcardItem[] = [];
+    // Cards from K-pop lessons
     approvedLessons.forEach(lesson => {
       (lesson.vocab ?? []).forEach((v, i) => {
         const id = `${lesson.song.rank}-vocab-${i}`;
@@ -330,6 +332,22 @@ export default function FlashcardPage() {
           mastered: masteredIds.includes(id),
           reviewCount: sessions.filter(s => s.cardId === id).length,
         });
+      });
+    });
+    // Built-in EPS vocabulary (always available)
+    epsVocabulary.forEach(v => {
+      const id = `eps-${v.id}`;
+      const topic = EPS_VOCAB_TOPICS.find(t => t.id === v.topicId);
+      cards.push({
+        id,
+        word: v.korean,
+        reading: v.reading,
+        meaning: v.vietnamese,
+        example: v.example,
+        lessonTitle: topic?.label ?? "EPS-TOPIK",
+        artist: topic?.labelKo ?? "한국어",
+        mastered: masteredIds.includes(id),
+        reviewCount: sessions.filter(s => s.cardId === id).length,
       });
     });
     return cards;
