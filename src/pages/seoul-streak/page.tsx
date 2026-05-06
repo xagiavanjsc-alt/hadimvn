@@ -85,7 +85,6 @@ export default function SeoulStreakPage() {
   const [completedMap] = useLocalStorage<Record<string, boolean>>("kts_seoul_progress", {});
   const [xpData, setXpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
   const [dayHistory] = useLocalStorage<DayRecord[]>("kts_seoul_day_history", []);
-  const [showCelebration, setShowCelebration] = useState(false);
 
   const today = new Date().toISOString().split("T")[0];
   const isActiveToday = streak.lastDate === today;
@@ -104,25 +103,6 @@ export default function SeoulStreakPage() {
   const nextMilestone = XP_BONUSES.find(m => m.days > streak.count);
   const prevMilestone = [...XP_BONUSES].reverse().find(m => m.days <= streak.count);
 
-  // Simulate "check in" for today (mark streak active)
-  const handleCheckIn = () => {
-    if (isActiveToday) return;
-    const yesterday2 = new Date(Date.now() - 86400000).toISOString().split("T")[0];
-    const newCount = streak.lastDate === yesterday2 ? streak.count + 1 : 1;
-    const newLongest = Math.max(streak.longestStreak || 0, newCount);
-    setStreak({
-      count: newCount,
-      lastDate: today,
-      totalDays: (streak.totalDays || 0) + 1,
-      longestStreak: newLongest,
-    });
-    // Award XP
-    const bonus = Math.min(newCount * 5, 50);
-    setXpData({ total: (xpData.total || 0) + bonus + 10 });
-    setShowCelebration(true);
-    setTimeout(() => setShowCelebration(false), 3000);
-  };
-
   // Days with activity (from history or completedMap)
   const activeDays = new Set<string>(dayHistory.map(d => d.date));
   if (isActiveToday) activeDays.add(today);
@@ -140,17 +120,6 @@ export default function SeoulStreakPage() {
         </button>
       }
     >
-      {/* Celebration overlay */}
-      {showCelebration && (
-        <div className="fixed inset-0 pointer-events-none z-50 flex items-center justify-center">
-          <div className="bg-[#f97316]/20 border border-[#f97316]/40 rounded-2xl px-8 py-6 text-center animate-bounce">
-            <p className="text-4xl mb-2">🔥</p>
-            <p className="text-white font-bold text-lg">Streak {streak.count} ngày!</p>
-            <p className="text-[#f97316] text-sm">+{Math.min(streak.count * 5, 50) + 10} XP</p>
-          </div>
-        </div>
-      )}
-
       <div className="max-w-3xl mx-auto space-y-6">
         {/* Main streak card */}
         <div className="relative overflow-hidden bg-gradient-to-br from-[#f97316]/15 to-[#f97316]/5 border border-[#f97316]/20 rounded-2xl p-6">
@@ -175,18 +144,18 @@ export default function SeoulStreakPage() {
                 {isActiveToday
                   ? "Hôm nay đã học rồi! Tiếp tục duy trì nhé."
                   : isStreakAlive
-                  ? "Hôm nay chưa học. Đừng để streak bị gián đoạn!"
+                  ? "Hôm nay chưa học. Học bài hoặc làm quiz để duy trì streak!"
                   : streak.count === 0
-                  ? "Bắt đầu streak của bạn ngay hôm nay!"
-                  : "Streak đã bị gián đoạn. Bắt đầu lại nào!"}
+                  ? "Học bài đầu tiên để bắt đầu streak của bạn!"
+                  : "Streak đã bị gián đoạn. Học bài để bắt đầu lại!"}
               </p>
               {!isActiveToday && (
                 <button
-                  onClick={handleCheckIn}
+                  onClick={() => navigate("/seoul-textbook")}
                   className="mt-3 flex items-center gap-2 bg-[#f97316] hover:bg-[#f97316]/90 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
                 >
-                  <i className="ri-fire-line"></i>
-                  Điểm danh hôm nay (+10 XP)
+                  <i className="ri-book-3-line"></i>
+                  Học bài ngay
                 </button>
               )}
             </div>
