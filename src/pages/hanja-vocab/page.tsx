@@ -699,6 +699,8 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
   const [viewMode, setViewMode] = useState<ViewMode>("card");
   const [masteryFilter, setMasteryFilter] = useState<MasteryFilter>("all");
   const [showExportMenu, setShowExportMenu] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 24;
 
   const [srData, setSrData] = useState<Record<string, SRCard>>(() => {
     try { return JSON.parse(localStorage.getItem(SR_KEY) || "{}"); } catch { return {}; }
@@ -754,6 +756,18 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
     if (masteryFilter !== "all") data = data.filter(d => getMasteryLevel(d.korean, srData) === masteryFilter);
     return data;
   }, [search, selectedInitial, masteryFilter, srData]);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, selectedInitial, masteryFilter]);
+
+  // Pagination
+  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+  const paginatedData = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filtered.slice(start, start + ITEMS_PER_PAGE);
+  }, [filtered, currentPage]);
 
   const handleExportCSV = (filter: MasteryFilter) => {
     checkAndRun(
@@ -851,74 +865,168 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
       <p className="text-xs text-white/40 mb-4">Hiển thị {filtered.length} / {HANJA_DATA.length} từ · {favs.size} từ yêu thích</p>
 
       {viewMode === "card" && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
-          {filtered.map((item, i) => {
-            const mastery = getMasteryLevel(item.korean, srData);
-            return (
-              <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 hover:border-app-accent-primary transition-all relative group">
-                <button onClick={() => onToggleFav(item.korean)}
-                  className={`absolute top-2 right-2 w-6 h-6 flex items-center justify-center rounded-full cursor-pointer transition-all ${favs.has(item.korean) ? "text-app-accent-primary" : "text-white/30 hover:text-app-accent-primary"}`}>
-                  <i className={favs.has(item.korean) ? "ri-heart-fill" : "ri-heart-line"}></i>
-                </button>
-                <div className="mb-2">
-                  <span className="text-base font-bold text-white block">{item.korean}</span>
-                  <span className="text-xl font-bold text-app-accent-primary">{item.hanja}</span>
-                </div>
-                <p className="text-xs text-white/50 pr-4 mb-2">{item.vietnamese}</p>
-                <div className="flex items-center gap-1 flex-wrap">
-                  <MasteryBadge level={mastery} />
-                  {mastery !== "mastered" ? (
-                    <button onClick={() => markAsLearned(item.korean)}
-                      className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-green-500/10 text-green-400 hover:bg-green-500/20 cursor-pointer transition-colors whitespace-nowrap">
-                      <i className="ri-check-line text-xs"></i>Đã thuộc
-                    </button>
-                  ) : (
-                    <button onClick={() => resetToNew(item.korean)}
-                      className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-app-surface/50 text-white/40 hover:bg-app-surface/70 cursor-pointer transition-colors whitespace-nowrap">
-                      <i className="ri-refresh-line text-xs"></i>Reset
-                    </button>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
-
-      {viewMode === "list" && (
-        <div className="bg-app-surface/50 border border-app-border rounded-xl overflow-hidden">
-          <div className="grid grid-cols-[1fr_1fr_1fr_120px_80px_32px] bg-app-card/50 px-4 py-2 text-xs font-semibold text-white/50 border-b border-app-border">
-            <span>Tiếng Hàn</span><span>Hán tự</span><span>Nghĩa tiếng Việt</span><span>Mức độ</span><span>Đánh dấu</span><span></span>
-          </div>
-          <div className="divide-y divide-app-border">
-            {filtered.map((item, i) => {
+        <>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+            {paginatedData.map((item, i) => {
               const mastery = getMasteryLevel(item.korean, srData);
               return (
-                <div key={i} className="grid grid-cols-[1fr_1fr_1fr_120px_80px_32px] px-4 py-3 hover:bg-app-accent-primary/5 transition-colors items-center">
-                  <span className="text-sm font-semibold text-white">{item.korean}</span>
-                  <span className="text-sm font-bold text-app-accent-primary">{item.hanja}</span>
-                  <span className="text-sm text-white/70">{item.vietnamese}</span>
-                  <MasteryBadge level={mastery} />
-                  {mastery !== "mastered" ? (
-                    <button onClick={() => markAsLearned(item.korean)}
-                      className="flex items-center gap-1 px-2 py-1 rounded-full text-xs bg-green-500/10 text-green-400 hover:bg-green-500/20 cursor-pointer transition-colors whitespace-nowrap w-fit">
-                      <i className="ri-check-line"></i>Đã thuộc
-                    </button>
-                  ) : (
-                    <button onClick={() => resetToNew(item.korean)}
-                      className="flex items-center gap-1 px-2 py-1 rounded-full text-xs bg-app-surface/50 text-white/40 hover:bg-app-surface/70 cursor-pointer transition-colors whitespace-nowrap w-fit">
-                      <i className="ri-refresh-line"></i>Reset
-                    </button>
-                  )}
+                <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 hover:border-app-accent-primary transition-all relative group">
                   <button onClick={() => onToggleFav(item.korean)}
-                    className={`w-6 h-6 flex items-center justify-center rounded-full cursor-pointer transition-all ${favs.has(item.korean) ? "text-app-accent-primary" : "text-white/30 hover:text-app-accent-primary"}`}>
+                    className={`absolute top-2 right-2 w-6 h-6 flex items-center justify-center rounded-full cursor-pointer transition-all ${favs.has(item.korean) ? "text-app-accent-primary" : "text-white/30 hover:text-app-accent-primary"}`}>
                     <i className={favs.has(item.korean) ? "ri-heart-fill" : "ri-heart-line"}></i>
                   </button>
+                  <div className="mb-2">
+                    <span className="text-base font-bold text-white block">{item.korean}</span>
+                    <span className="text-xl font-bold text-app-accent-primary">{item.hanja}</span>
+                  </div>
+                  <p className="text-xs text-white/50 pr-4 mb-2">{item.vietnamese}</p>
+                  <div className="flex items-center gap-1 flex-wrap">
+                    <MasteryBadge level={mastery} />
+                    {mastery !== "mastered" ? (
+                      <button onClick={() => markAsLearned(item.korean)}
+                        className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-green-500/10 text-green-400 hover:bg-green-500/20 cursor-pointer transition-colors whitespace-nowrap">
+                        <i className="ri-check-line text-xs"></i>Đã thuộc
+                      </button>
+                    ) : (
+                      <button onClick={() => resetToNew(item.korean)}
+                        className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-app-surface/50 text-white/40 hover:bg-app-surface/70 cursor-pointer transition-colors whitespace-nowrap">
+                        <i className="ri-refresh-line text-xs"></i>Reset
+                      </button>
+                    )}
+                  </div>
                 </div>
               );
             })}
           </div>
-        </div>
+
+          {/* Pagination controls */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-2 mt-6">
+              <button
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-1.5 rounded-lg text-sm bg-app-surface/50 text-white/70 hover:bg-app-surface/70 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <i className="ri-arrow-left-line"></i>
+              </button>
+              {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                let pageNum;
+                if (totalPages <= 5) {
+                  pageNum = i + 1;
+                } else if (currentPage <= 3) {
+                  pageNum = i + 1;
+                } else if (currentPage >= totalPages - 2) {
+                  pageNum = totalPages - 4 + i;
+                } else {
+                  pageNum = currentPage - 2 + i;
+                }
+                return (
+                  <button
+                    key={pageNum}
+                    onClick={() => setCurrentPage(pageNum)}
+                    className={`w-10 h-10 rounded-lg text-sm font-medium transition-colors ${
+                      currentPage === pageNum
+                        ? "bg-app-accent-primary text-app-bg"
+                        : "bg-app-surface/50 text-white/70 hover:bg-app-surface/70"
+                    }`}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
+              <button
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1.5 rounded-lg text-sm bg-app-surface/50 text-white/70 hover:bg-app-surface/70 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <i className="ri-arrow-right-line"></i>
+              </button>
+            </div>
+          )}
+        </>
+      )}
+
+      {viewMode === "list" && (
+        <>
+          <div className="bg-app-surface/50 border border-app-border rounded-xl overflow-hidden">
+            <div className="grid grid-cols-[1fr_1fr_1fr_120px_80px_32px] bg-app-card/50 px-4 py-2 text-xs font-semibold text-white/50 border-b border-app-border">
+              <span>Tiếng Hàn</span><span>Hán tự</span><span>Nghĩa tiếng Việt</span><span>Mức độ</span><span>Đánh dấu</span><span></span>
+            </div>
+            <div className="divide-y divide-app-border">
+              {paginatedData.map((item, i) => {
+                const mastery = getMasteryLevel(item.korean, srData);
+                return (
+                  <div key={i} className="grid grid-cols-[1fr_1fr_1fr_120px_80px_32px] px-4 py-3 hover:bg-app-accent-primary/5 transition-colors items-center">
+                    <span className="text-sm font-semibold text-white">{item.korean}</span>
+                    <span className="text-sm font-bold text-app-accent-primary">{item.hanja}</span>
+                    <span className="text-sm text-white/70">{item.vietnamese}</span>
+                    <MasteryBadge level={mastery} />
+                    {mastery !== "mastered" ? (
+                      <button onClick={() => markAsLearned(item.korean)}
+                        className="flex items-center gap-1 px-2 py-1 rounded-full text-xs bg-green-500/10 text-green-400 hover:bg-green-500/20 cursor-pointer transition-colors whitespace-nowrap w-fit">
+                        <i className="ri-check-line"></i>Đã thuộc
+                      </button>
+                    ) : (
+                      <button onClick={() => resetToNew(item.korean)}
+                        className="flex items-center gap-1 px-2 py-1 rounded-full text-xs bg-app-surface/50 text-white/40 hover:bg-app-surface/70 cursor-pointer transition-colors whitespace-nowrap w-fit">
+                        <i className="ri-refresh-line"></i>Reset
+                      </button>
+                    )}
+                    <button onClick={() => onToggleFav(item.korean)}
+                      className={`w-6 h-6 flex items-center justify-center rounded-full cursor-pointer transition-all ${favs.has(item.korean) ? "text-app-accent-primary" : "text-white/30 hover:text-app-accent-primary"}`}>
+                      <i className={favs.has(item.korean) ? "ri-heart-fill" : "ri-heart-line"}></i>
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Pagination controls for list view */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-2 mt-6">
+              <button
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-1.5 rounded-lg text-sm bg-app-surface/50 text-white/70 hover:bg-app-surface/70 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <i className="ri-arrow-left-line"></i>
+              </button>
+              {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                let pageNum;
+                if (totalPages <= 5) {
+                  pageNum = i + 1;
+                } else if (currentPage <= 3) {
+                  pageNum = i + 1;
+                } else if (currentPage >= totalPages - 2) {
+                  pageNum = totalPages - 4 + i;
+                } else {
+                  pageNum = currentPage - 2 + i;
+                }
+                return (
+                  <button
+                    key={pageNum}
+                    onClick={() => setCurrentPage(pageNum)}
+                    className={`w-10 h-10 rounded-lg text-sm font-medium transition-colors ${
+                      currentPage === pageNum
+                        ? "bg-app-accent-primary text-app-bg"
+                        : "bg-app-surface/50 text-white/70 hover:bg-app-surface/70"
+                    }`}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
+              <button
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1.5 rounded-lg text-sm bg-app-surface/50 text-white/70 hover:bg-app-surface/70 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <i className="ri-arrow-right-line"></i>
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       {filtered.length === 0 && (
@@ -1528,7 +1636,7 @@ export default function HanjaVocabPage() {
 
         {/* Tabs — scrollable on mobile */}
         <div className="mb-6 -mx-4 md:mx-0">
-          <div className="flex gap-1 bg-app-surface/50 rounded-none md:rounded-xl p-1 overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: "none" }}>
+          <div className="flex flex-wrap gap-1 bg-app-surface/50 rounded-none md:rounded-xl p-1">
             {tabs.map(t => (
               <button
                 key={t.key}
@@ -1539,10 +1647,10 @@ export default function HanjaVocabPage() {
                 <span className="hidden sm:inline">{t.label}</span>
                 <span className="sm:hidden">{t.label.split(" ")[0]}</span>
                 {t.isNew && (
-                  <span className="absolute -top-1.5 -right-1 text-[8px] px-1 py-0.5 rounded-full bg-amber-400 text-white font-bold leading-none">NEW</span>
+                  <span className="absolute -top-2 -right-2 text-[7px] px-1.5 py-0.5 rounded-full bg-amber-400 text-white font-bold leading-none whitespace-nowrap">NEW</span>
                 )}
                 {t.badge !== undefined && t.badge > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center bg-app-accent-primary text-white text-xs rounded-full leading-none">
+                  <span className="absolute -top-1.5 -right-1.5 w-4 h-4 flex items-center justify-center bg-app-accent-primary text-white text-[9px] rounded-full leading-none">
                     {t.badge > 9 ? "9+" : t.badge}
                   </span>
                 )}
