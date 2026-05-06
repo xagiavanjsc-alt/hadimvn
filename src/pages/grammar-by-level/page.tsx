@@ -3439,7 +3439,7 @@ const LEVELS = ["Tất cả", "TOPIK 1", "TOPIK 2", "TOPIK 3", "TOPIK 4", "TOPIK
 
 export default function GrammarByLevelPage() {
   const [selectedLevel, setSelectedLevel] = useState("Tất cả");
-  const [selectedPattern, setSelectedPattern] = useState<GrammarPattern | null>(null);
+  const [selectedPattern, setSelectedPattern] = useState<GrammarPattern | null>(GRAMMAR_PATTERNS[0] || null);
   const [activeTab, setActiveTab] = useState<"explain" | "examples" | "exercise">("explain");
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [showResults, setShowResults] = useState(false);
@@ -3481,28 +3481,28 @@ export default function GrammarByLevelPage() {
       <div className="max-w-5xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">Bài tập ngữ pháp theo cấp độ</h1>
-          <p className="text-gray-500 text-sm mt-1">Luyện ngữ pháp từ A1 đến C1 với giải thích chi tiết</p>
+          <h1 className="text-2xl font-bold text-white">Bài tập ngữ pháp theo cấp độ</h1>
+          <p className="text-white/50 text-sm mt-1">Luyện ngữ pháp từ A1 đến C1 với giải thích chi tiết</p>
         </div>
 
         {/* Stats bar - compact on mobile */}
-        <div className="mb-5 p-3.5 bg-gradient-to-r from-rose-50 to-orange-50 border border-rose-100 rounded-xl">
+        <div className="mb-5 p-3.5 bg-gradient-to-r from-app-surface/50 to-app-card/50 border border-app-border rounded-xl">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2">
-              <i className="ri-book-2-line text-rose-500"></i>
-              <span className="text-sm font-bold text-gray-800">Tổng: <span className="text-rose-600">{GRAMMAR_PATTERNS.length}</span> cấu trúc</span>
+              <i className="ri-book-2-line text-app-accent-primary"></i>
+              <span className="text-sm font-bold text-white">Tổng: <span className="text-app-accent-primary">{GRAMMAR_PATTERNS.length}</span> cấu trúc</span>
             </div>
             <div className="flex items-center gap-1.5 flex-wrap">
               {["A1", "A2", "B1", "B2", "C1"].map(lv => (
-                <span key={lv} className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/70 text-gray-600 border border-gray-200">
+                <span key={lv} className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/10 text-white/70 border border-white/10">
                   {lv}: {levelStats[lv] || 0}
                 </span>
               ))}
             </div>
           </div>
           {(selectedLevel !== "Tất cả" || search.trim()) && (
-            <div className="mt-2 pt-2 border-t border-rose-100/50 text-xs text-gray-500">
-              Đang hiển thị <span className="font-bold text-rose-600">{filtered.length}</span> / {GRAMMAR_PATTERNS.length} cấu trúc
+            <div className="mt-2 pt-2 border-t border-app-border text-xs text-white/50">
+              Đang hiển thị <span className="font-bold text-app-accent-primary">{filtered.length}</span> / {GRAMMAR_PATTERNS.length} cấu trúc
               {selectedLevel !== "Tất cả" && <span> • Cấp độ: <span className="font-bold">{selectedLevel}</span></span>}
               {search.trim() && <span> • Tìm: "<span className="font-bold">{search}</span>"</span>}
             </div>
@@ -3513,15 +3513,15 @@ export default function GrammarByLevelPage() {
           {/* Left: Pattern list - sticky on desktop */}
           <div className="lg:col-span-1 lg:sticky lg:top-4 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto">
             {/* Filters - sticky on mobile */}
-            <div className="mb-3 sticky top-0 bg-white z-10 pb-3">
+            <div className="mb-3 sticky top-0 bg-app-bg z-10 pb-3">
               <div className="relative mb-3">
-                <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/40 text-sm"></i>
                 <input
                   type="text"
                   placeholder="Tìm cấu trúc..."
                   value={search}
                   onChange={e => setSearch(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-300"
+                  className="w-full pl-9 pr-3 py-2.5 border border-app-border rounded-xl text-sm bg-app-surface/50 text-white focus:outline-none focus:ring-2 focus:ring-app-accent-primary"
                 />
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -3529,7 +3529,7 @@ export default function GrammarByLevelPage() {
                   <button
                     key={lv}
                     onClick={() => setSelectedLevel(lv)}
-                    className={`px-2.5 py-1 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedLevel === lv ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}
+                    className={`px-2.5 py-1 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedLevel === lv ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/60 hover:bg-app-surface/70"}`}
                   >
                     {lv}
                   </button>
@@ -3543,19 +3543,19 @@ export default function GrammarByLevelPage() {
                 <button
                   key={pattern.id}
                   onClick={() => { setSelectedPattern(pattern); setActiveTab("explain"); handleReset(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                  className={`text-left p-2.5 rounded-lg border cursor-pointer transition-all ${selectedPattern?.id === pattern.id ? "border-rose-300 bg-rose-50" : "border-gray-100 bg-white hover:border-gray-200 hover:bg-gray-50"}`}
+                  className={`text-left p-2.5 rounded-lg border cursor-pointer transition-all ${selectedPattern?.id === pattern.id ? "border-app-accent-primary bg-app-accent-primary/10" : "border-app-border bg-app-surface/50 hover:border-app-border hover:bg-app-surface/70"}`}
                 >
                   <div className="flex items-center gap-1.5 mb-1">
                     <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold text-white" style={{ backgroundColor: pattern.levelColor }}>
                       {pattern.level.replace('TOPIK ', '')}
                     </span>
-                    <span className="font-semibold text-xs text-gray-900 truncate">{pattern.pattern}</span>
+                    <span className="font-semibold text-xs text-white truncate">{pattern.pattern}</span>
                   </div>
-                  <p className="text-[10px] text-gray-500 truncate">{pattern.meaning}</p>
+                  <p className="text-[10px] text-white/50 truncate">{pattern.meaning}</p>
                 </button>
               ))}
               {filtered.length === 0 && (
-                <div className="col-span-2 text-center py-8 text-gray-400 text-sm">Không tìm thấy cấu trúc nào</div>
+                <div className="col-span-2 text-center py-8 text-white/40 text-sm">Không tìm thấy cấu trúc nào</div>
               )}
             </div>
           </div>
@@ -3563,18 +3563,18 @@ export default function GrammarByLevelPage() {
           {/* Right: Detail */}
           <div className="lg:col-span-2">
             {!selectedPattern ? (
-              <div className="flex flex-col items-center justify-center h-64 text-gray-400">
+              <div className="flex flex-col items-center justify-center h-64 text-white/40">
                 <i className="ri-book-open-line text-5xl mb-3"></i>
                 <p className="text-sm">Chọn một cấu trúc ngữ pháp để xem chi tiết</p>
               </div>
             ) : (
-              <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+              <div className="bg-app-surface/50 rounded-2xl border border-app-border overflow-hidden">
                 {/* Pattern header with back button on mobile */}
-                <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-100">
+                <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-app-border">
                   <div className="flex items-center gap-2 mb-2">
                     <button
                       onClick={() => setSelectedPattern(null)}
-                      className="lg:hidden flex items-center gap-1 text-gray-500 hover:text-gray-700 text-sm"
+                      className="lg:hidden flex items-center gap-1 text-white/50 hover:text-white/70 text-sm"
                     >
                       <i className="ri-arrow-left-line"></i>Quay lại
                     </button>
@@ -3583,17 +3583,17 @@ export default function GrammarByLevelPage() {
                     <span className="px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-bold text-white" style={{ backgroundColor: selectedPattern.levelColor }}>
                       {selectedPattern.level}
                     </span>
-                    <h2 className="text-lg sm:text-xl font-bold text-gray-900">{selectedPattern.pattern}</h2>
+                    <h2 className="text-lg sm:text-xl font-bold text-white">{selectedPattern.pattern}</h2>
                   </div>
-                  <p className="text-gray-600 font-medium text-sm sm:text-base">{selectedPattern.meaning}</p>
-                  <div className="mt-2 px-3 py-2 bg-gray-50 rounded-lg">
-                    <span className="text-xs text-gray-500 font-semibold">Cấu trúc: </span>
-                    <span className="text-xs text-gray-700 font-mono">{selectedPattern.formation}</span>
+                  <p className="text-white/70 font-medium text-sm sm:text-base">{selectedPattern.meaning}</p>
+                  <div className="mt-2 px-3 py-2 bg-app-card/50 rounded-lg">
+                    <span className="text-xs text-white/50 font-semibold">Cấu trúc: </span>
+                    <span className="text-xs text-white font-mono">{selectedPattern.formation}</span>
                   </div>
                 </div>
 
                 {/* Tabs - better touch targets on mobile */}
-                <div className="flex border-b border-gray-100">
+                <div className="flex border-b border-app-border">
                   {([
                     { id: "explain", label: "Giải thích", icon: "ri-book-2-line" },
                     { id: "examples", label: "Ví dụ", icon: "ri-chat-quote-line" },
@@ -3602,7 +3602,7 @@ export default function GrammarByLevelPage() {
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-3 text-xs sm:text-sm font-medium cursor-pointer transition-colors whitespace-nowrap ${activeTab === tab.id ? "text-rose-600 border-b-2 border-rose-500" : "text-gray-500 hover:text-gray-700"}`}
+                      className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-3 text-xs sm:text-sm font-medium cursor-pointer transition-colors whitespace-nowrap ${activeTab === tab.id ? "text-app-accent-primary border-b-2 border-app-accent-primary" : "text-white/50 hover:text-white/70"}`}
                     >
                       <i className={tab.icon}></i>{tab.label}
                     </button>
@@ -3614,49 +3614,49 @@ export default function GrammarByLevelPage() {
                   {activeTab === "explain" && (
                     <div className="space-y-5">
                       <div>
-                        <h3 className="text-sm font-semibold text-gray-700 mb-2">Giải thích</h3>
-                        <p className="text-sm text-gray-600 leading-relaxed">{selectedPattern.explanation}</p>
+                        <h3 className="text-sm font-semibold text-white mb-2">Giải thích</h3>
+                        <p className="text-sm text-white/70 leading-relaxed">{selectedPattern.explanation}</p>
                       </div>
                       {selectedPattern.notes && selectedPattern.notes.length > 0 && (
                         <div>
-                          <h3 className="text-sm font-semibold text-gray-700 mb-2">Quy tắc sử dụng</h3>
-                          <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 space-y-2">
+                          <h3 className="text-sm font-semibold text-white mb-2">Quy tắc sử dụng</h3>
+                          <div className="bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-xl p-4 space-y-2">
                             {selectedPattern.notes.map((note, i) => (
                               <div key={i} className="flex items-start gap-2.5 text-sm">
-                                <span className="flex-shrink-0 w-5 h-5 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 text-[10px] font-bold mt-0.5">{i + 1}</span>
-                                <span className="text-gray-700 leading-relaxed">{note}</span>
+                                <span className="flex-shrink-0 w-5 h-5 flex items-center justify-center rounded-full bg-app-accent-primary/20 text-app-accent-primary text-[10px] font-bold mt-0.5">{i + 1}</span>
+                                <span className="text-white leading-relaxed">{note}</span>
                               </div>
                             ))}
                           </div>
                         </div>
                       )}
                       <div>
-                        <h3 className="text-sm font-semibold text-gray-700 mb-2">Lỗi thường gặp</h3>
+                        <h3 className="text-sm font-semibold text-white mb-2">Lỗi thường gặp</h3>
                         <div className="space-y-2">
                           {selectedPattern.commonMistakes.map((m, i) => (
                             <div key={i} className="flex items-start gap-2 text-sm">
                               <i className="ri-error-warning-line text-amber-500 flex-shrink-0 mt-0.5"></i>
-                              <span className="text-gray-600">{m}</span>
+                              <span className="text-white/70">{m}</span>
                             </div>
                           ))}
                         </div>
                       </div>
                       {selectedPattern.comparison && (
                         <div>
-                          <h3 className="text-sm font-semibold text-gray-700 mb-2">{selectedPattern.comparison.title}</h3>
-                          <div className="border border-gray-200 rounded-xl overflow-hidden">
+                          <h3 className="text-sm font-semibold text-white mb-2">{selectedPattern.comparison.title}</h3>
+                          <div className="border border-app-border rounded-xl overflow-hidden">
                             <table className="w-full text-sm">
                               <thead>
-                                <tr className="bg-gray-50">
-                                  <th className="px-4 py-2.5 text-left font-bold text-rose-600 border-r border-gray-200">{selectedPattern.comparison.headers[0]}</th>
-                                  <th className="px-4 py-2.5 text-left font-bold text-blue-600">{selectedPattern.comparison.headers[1]}</th>
+                                <tr className="bg-app-surface/50">
+                                  <th className="px-4 py-2.5 text-left font-bold text-app-accent-primary border-r border-app-border">{selectedPattern.comparison.headers[0]}</th>
+                                  <th className="px-4 py-2.5 text-left font-bold text-blue-400">{selectedPattern.comparison.headers[1]}</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 {selectedPattern.comparison.rows.map((row, i) => (
-                                  <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50/50"}>
-                                    <td className="px-4 py-2.5 text-gray-600 border-r border-gray-200 align-top">{row[0]}</td>
-                                    <td className="px-4 py-2.5 text-gray-600 align-top">{row[1]}</td>
+                                  <tr key={i} className={i % 2 === 0 ? "bg-app-card/30" : "bg-app-surface/30"}>
+                                    <td className="px-4 py-2.5 text-white/70 border-r border-app-border align-top">{row[0]}</td>
+                                    <td className="px-4 py-2.5 text-white/70 align-top">{row[1]}</td>
                                   </tr>
                                 ))}
                               </tbody>
@@ -3665,10 +3665,10 @@ export default function GrammarByLevelPage() {
                         </div>
                       )}
                       <div>
-                        <h3 className="text-sm font-semibold text-gray-700 mb-2">Tags</h3>
+                        <h3 className="text-sm font-semibold text-white mb-2">Tags</h3>
                         <div className="flex flex-wrap gap-2">
                           {selectedPattern.tags.map(tag => (
-                            <span key={tag} className="px-2.5 py-1 bg-rose-50 text-rose-600 text-xs rounded-full font-medium">{tag}</span>
+                            <span key={tag} className="px-2.5 py-1 bg-app-accent-primary/10 text-app-accent-primary text-xs rounded-full font-medium">{tag}</span>
                           ))}
                         </div>
                       </div>
@@ -3678,9 +3678,9 @@ export default function GrammarByLevelPage() {
                   {activeTab === "examples" && (
                     <div className="space-y-3 sm:space-y-4">
                       {selectedPattern.examples.map((ex, i) => (
-                        <div key={i} className="p-3 sm:p-4 bg-gray-50 rounded-xl">
-                          <p className="text-sm sm:text-base font-bold text-gray-900 mb-1">{ex.korean}</p>
-                          <p className="text-xs sm:text-sm text-gray-500">{ex.vietnamese}</p>
+                        <div key={i} className="p-3 sm:p-4 bg-app-card/50 rounded-xl">
+                          <p className="text-sm sm:text-base font-bold text-white mb-1">{ex.korean}</p>
+                          <p className="text-xs sm:text-sm text-white/50">{ex.vietnamese}</p>
                         </div>
                       ))}
                     </div>
@@ -3690,7 +3690,7 @@ export default function GrammarByLevelPage() {
                     <div className="space-y-6">
                       {selectedPattern.exercises.map((ex, qIdx) => (
                         <div key={qIdx} className="space-y-3">
-                          <p className="text-sm font-semibold text-gray-800">
+                          <p className="text-sm font-semibold text-white">
                             {qIdx + 1}. {ex.question}
                           </p>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -3700,12 +3700,12 @@ export default function GrammarByLevelPage() {
                               let btnClass = "px-4 py-3 rounded-xl text-sm font-medium cursor-pointer transition-all border text-left whitespace-nowrap ";
                               if (!showResults) {
                                 btnClass += isSelected
-                                  ? "bg-rose-50 border-rose-300 text-rose-700"
-                                  : "bg-white border-gray-200 text-gray-700 hover:border-gray-300";
+                                  ? "bg-app-accent-primary/10 border-app-accent-primary text-app-accent-primary"
+                                  : "bg-app-card/30 border-app-border text-white/70 hover:border-app-border";
                               } else {
-                                if (isCorrect) btnClass += "bg-green-50 border-green-400 text-green-700";
-                                else if (isSelected && !isCorrect) btnClass += "bg-red-50 border-red-400 text-red-700";
-                                else btnClass += "bg-white border-gray-200 text-gray-400";
+                                if (isCorrect) btnClass += "bg-green-500/10 border-green-500 text-green-400";
+                                else if (isSelected && !isCorrect) btnClass += "bg-red-500/10 border-red-500 text-red-400";
+                                else btnClass += "bg-app-card/30 border-app-border text-white/40";
                               }
                               return (
                                 <button key={optIdx} onClick={() => handleAnswer(qIdx, optIdx)} className={btnClass}>
@@ -3717,7 +3717,7 @@ export default function GrammarByLevelPage() {
                             })}
                           </div>
                           {showResults && (
-                            <div className={`p-3 rounded-lg text-xs ${answers[qIdx] === ex.answer ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"}`}>
+                            <div className={`p-3 rounded-lg text-xs ${answers[qIdx] === ex.answer ? "bg-green-500/10 text-green-400" : "bg-red-500/10 text-red-400"}`}>
                               <i className={`${answers[qIdx] === ex.answer ? "ri-check-line" : "ri-close-line"} mr-1`}></i>
                               {ex.explanation}
                             </div>
@@ -3729,22 +3729,25 @@ export default function GrammarByLevelPage() {
                         <button
                           onClick={handleSubmit}
                           disabled={Object.keys(answers).length < selectedPattern.exercises.length}
-                          className={`w-full py-3 rounded-xl font-semibold text-sm cursor-pointer transition-colors whitespace-nowrap ${Object.keys(answers).length < selectedPattern.exercises.length ? "bg-gray-200 text-gray-400 cursor-not-allowed" : "bg-rose-500 hover:bg-rose-600 text-white"}`}
+                          className={`w-full py-3 rounded-xl font-semibold text-sm cursor-pointer transition-colors whitespace-nowrap ${Object.keys(answers).length < selectedPattern.exercises.length ? "bg-app-surface/50 text-white/40 cursor-not-allowed" : "bg-app-accent-primary hover:bg-app-accent-primary/90 text-app-bg"}`}
                         >
                           Kiểm tra đáp án
                         </button>
                       ) : (
                         <div className="space-y-3">
-                          <div className={`p-4 rounded-xl text-center ${correctCount === selectedPattern.exercises.length ? "bg-green-50" : "bg-amber-50"}`}>
+                          <div className={`p-4 rounded-xl text-center ${correctCount === selectedPattern.exercises.length ? "bg-green-500/10" : "bg-amber-500/10"}`}>
                             <p className="text-xl font-bold mb-1" style={{ color: correctCount === selectedPattern.exercises.length ? "#22c55e" : "#f59e0b" }}>
                               {correctCount}/{selectedPattern.exercises.length}
                             </p>
-                            <p className="text-sm font-medium text-gray-600">
+                            <p className="text-sm font-medium text-white/70">
                               {correctCount === selectedPattern.exercises.length ? "Hoàn hảo! Bạn đã nắm vững cấu trúc này." : "Hãy xem lại phần giải thích và thử lại!"}
                             </p>
                           </div>
-                          <button onClick={handleReset} className="w-full py-2.5 border border-gray-200 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 cursor-pointer transition-colors whitespace-nowrap">
-                            <i className="ri-refresh-line mr-2"></i>Làm lại
+                          <button
+                            onClick={handleReset}
+                            className="w-full py-2.5 rounded-xl font-semibold text-sm cursor-pointer border border-app-border text-white/70 hover:bg-app-surface/50 transition-colors whitespace-nowrap"
+                          >
+                            Làm lại
                           </button>
                         </div>
                       )}
