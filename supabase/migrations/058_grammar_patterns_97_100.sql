@@ -31,7 +31,7 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 아/어 놓다' LIMIT 1),
   '비행기 표를 미리 사 ___었어요.',
   'fill_blank',
-  '["놓", '아', '고', '겠"]'::jsonb,
+  '["놓", "아", "고", "겠"]'::jsonb,
   '놓',
   'Đã làm sẵn rồi → 사 놓았어요.',
   'medium'
@@ -40,7 +40,7 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 아/어 놓다' LIMIT 1),
   '회의실에 미리 가서 에어컨을 틀어 ___을게요.',
   'fill_blank',
-  '["놓", '아', '고', '겠"]'::jsonb,
+  '["놓", "아", "고", "겠"]'::jsonb,
   '놓',
   'Sẽ làm sẵn để đấy → 틀어 놓을게요.',
   'medium'
@@ -77,7 +77,7 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 아/어 두다' LIMIT 1),
   '잊어버리지 않게 적어 ___었어요.',
   'fill_blank',
-  '["둔", '았', '고', '겠"]'::jsonb,
+  '["둔", "았", "고", "겠"]'::jsonb,
   '둔',
   'Đã ghi để giữ → 적어 두었어요.',
   'medium'
@@ -86,7 +86,7 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 아/어 두다' LIMIT 1),
   '사람이 없을 때는 방에 꺼 ___세요.',
   'fill_blank',
-  '["두", '놓', '아', '고']'::jsonb,
+  '["두", "놓", "아", "고"]'::jsonb,
   '두',
   'Giữ trạng thái tắt → 꺼 두세요.',
   'medium'
@@ -125,7 +125,7 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   (SELECT id FROM public.grammar_patterns WHERE pattern = 'V-(으)ㄴ 채(로)' LIMIT 1),
   '창문을 열어 놓은 ___로 잤더니 감기에 걸린 것 같아요.',
   'fill_blank',
-  '["채", '상태', '때', '것"]'::jsonb,
+  '["채", "상태", "때", "것"]'::jsonb,
   '채',
   'Trong trạng thái vẫn mở → 열어 놓은 채로.',
   'medium'
@@ -134,7 +134,7 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   (SELECT id FROM public.grammar_patterns WHERE pattern = 'V-(으)ㄴ 채(로)' LIMIT 1),
   '신발을 신은 ___ 방에 들어가면 안 된다.',
   'fill_blank',
-  '["채", '상태', '때', '것"]'::jsonb,
+  '["채", "상태", "때", "것"]'::jsonb,
   '채',
   'Vẫn đang mang giày → 신은 채.',
   'medium'
@@ -174,7 +174,7 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 아/어 있다' LIMIT 1),
   '고양이가 탁자 위에 앉아 ___.',
   'fill_blank',
-  '["있어요.", '했어요.', '겠어요.", '할게요."]'::jsonb,
+  '["있어요.", "했어요.", "겠어요.", "할게요."]'::jsonb,
   '있어요.',
   'Vẫn đang ngồi → 앉아 있어요.',
   'medium'
@@ -183,7 +183,7 @@ INSERT INTO public.grammar_practice_questions (pattern_id, question, question_ty
   (SELECT id FROM public.grammar_patterns WHERE pattern = 'V – 아/어 있다' LIMIT 1),
   '통장에 아직 100 만원이 남아 ___.',
   'fill_blank',
-  '["있어요.", '했어요.', '겠어요.", '할게요."]'::jsonb,
+  '["있어요.", "했어요.", "겠어요.", "할게요."]'::jsonb,
   '있어요.',
   'Vẫn còn có → 남아 있어요.',
   'medium'
