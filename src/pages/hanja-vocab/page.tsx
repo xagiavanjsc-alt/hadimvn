@@ -36,14 +36,14 @@ function TabFallback() {
   }, []);
   return (
     <div className="flex flex-col items-center justify-center py-16 gap-3">
-      <div className="flex items-center gap-2 text-gray-400">
+      <div className="flex items-center gap-2 text-white/40">
         <i className="ri-loader-4-line animate-spin text-lg"></i>
         <span className="text-sm">Đang tải...</span>
       </div>
       {slow && (
         <button
           onClick={() => window.location.reload()}
-          className="text-xs text-rose-400 hover:text-rose-600 cursor-pointer underline"
+          className="text-xs text-app-accent-primary hover:text-app-accent-primary/80 cursor-pointer underline"
         >
           Tải quá lâu? Nhấn để tải lại trang
         </button>
@@ -309,23 +309,23 @@ function FlashCard({ entry, isFav, onToggleFav }: { entry: HanjaEntry; isFav: bo
       <div className="w-full max-w-sm cursor-pointer" style={{ perspective: "1000px" }} onClick={() => setFlipped(f => !f)}>
         <div style={{ transition: "transform 0.5s", transformStyle: "preserve-3d", transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)", position: "relative", height: "240px" }}>
           <div style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
-            className="absolute inset-0 bg-white border-2 border-gray-100 rounded-2xl flex flex-col items-center justify-center p-6">
-            <p className="text-xs text-gray-400 tracking-normal mb-3">Tiếng Hàn</p>
-            <p className="text-5xl font-bold text-gray-900 mb-2">{entry.korean}</p>
-            <p className="text-2xl text-rose-400 font-bold mb-3">{entry.hanja}</p>
+            className="absolute inset-0 bg-app-surface/50 border-2 border-app-border rounded-2xl flex flex-col items-center justify-center p-6">
+            <p className="text-xs text-white/40 tracking-normal mb-3">Tiếng Hàn</p>
+            <p className="text-5xl font-bold text-white mb-2">{entry.korean}</p>
+            <p className="text-2xl text-app-accent-primary font-bold mb-3">{entry.hanja}</p>
             <button onClick={handleSpeak}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${speaking ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-500 hover:bg-rose-50 hover:text-rose-500"}`}>
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${speaking ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/50 hover:bg-app-accent-primary/10 hover:text-app-accent-primary"}`}>
               <i className={speaking ? "ri-volume-up-fill" : "ri-volume-up-line"}></i>
               {speaking ? "Đang phát..." : "Nghe phát âm"}
             </button>
           </div>
           <div style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-            className="absolute inset-0 bg-rose-50 border-2 border-rose-200 rounded-2xl flex flex-col items-center justify-center p-6">
-            <p className="text-xs text-rose-400 tracking-normal mb-3">Nghĩa tiếng Việt</p>
-            <p className="text-3xl font-bold text-rose-700 text-center mb-2">{entry.vietnamese}</p>
-            <p className="text-lg text-rose-400 mb-3">{entry.hanja}</p>
+            className="absolute inset-0 bg-app-accent-primary/10 border-2 border-app-accent-primary/30 rounded-2xl flex flex-col items-center justify-center p-6">
+            <p className="text-xs text-app-accent-primary tracking-normal mb-3">Nghĩa tiếng Việt</p>
+            <p className="text-3xl font-bold text-app-accent-primary text-center mb-2">{entry.vietnamese}</p>
+            <p className="text-lg text-app-accent-primary mb-3">{entry.hanja}</p>
             <button onClick={handleSpeak}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${speaking ? "bg-rose-500 text-white" : "bg-rose-100 text-rose-500 hover:bg-rose-200"}`}>
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${speaking ? "bg-app-accent-primary text-app-bg" : "bg-app-accent-primary/20 text-app-accent-primary hover:bg-app-accent-primary/30"}`}>
               <i className={speaking ? "ri-volume-up-fill" : "ri-volume-up-line"}></i>
               {speaking ? "Đang phát..." : "Nghe lại"}
             </button>
@@ -333,7 +333,7 @@ function FlashCard({ entry, isFav, onToggleFav }: { entry: HanjaEntry; isFav: bo
         </div>
       </div>
       <button onClick={e => { e.stopPropagation(); onToggleFav(); }}
-        className={`mt-3 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${isFav ? "bg-rose-100 text-rose-600" : "bg-gray-100 text-gray-500 hover:bg-rose-50 hover:text-rose-500"}`}>
+        className={`mt-3 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${isFav ? "bg-app-accent-primary/10 text-app-accent-primary" : "bg-app-surface/50 text-white/50 hover:bg-app-accent-primary/10 hover:text-app-accent-primary"}`}>
         <i className={isFav ? "ri-heart-fill" : "ri-heart-line"}></i>
         {isFav ? "Đã lưu" : "Lưu từ này"}
       </button>
@@ -375,33 +375,33 @@ function FlashcardTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (
     <div className="max-w-lg mx-auto">
       <div className="flex flex-wrap gap-2 mb-5 items-center">
         <button onClick={() => setOnlyFavs(f => !f)}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${onlyFavs ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${onlyFavs ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/60 hover:bg-app-surface/70"}`}>
           <i className="ri-heart-line"></i>Chỉ từ yêu thích ({favs.size})
         </button>
         <button onClick={() => setSelectedInitial(null)}
-          className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600"}`}>
+          className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/60"}`}>
           Tất cả
         </button>
         {ALPHABET_GROUPS.map(g => (
           <button key={g} onClick={() => setSelectedInitial(selectedInitial === g ? null : g)}
-            className={`px-2.5 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedInitial === g ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600"}`}>
+            className={`px-2.5 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedInitial === g ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/60"}`}>
             {g}
           </button>
         ))}
       </div>
 
       {pool.length === 0 ? (
-        <div className="text-center py-16 text-gray-400">
+        <div className="text-center py-16 text-white/40">
           <i className="ri-heart-line text-4xl"></i>
           <p className="mt-2 text-sm">Chưa có từ yêu thích nào</p>
         </div>
       ) : (
         <>
           <div className="flex items-center justify-between mb-3">
-            <span className="text-sm text-gray-500">{idx + 1} / {pool.length}</span>
+            <span className="text-sm text-white/50">{idx + 1} / {pool.length}</span>
             <div className="flex gap-1">
               {pool.slice(Math.max(0, idx - 2), idx + 3).map((_, i) => (
-                <div key={i} className={`w-2 h-2 rounded-full ${i + Math.max(0, idx - 2) === idx ? "bg-rose-500" : "bg-gray-200"}`}></div>
+                <div key={i} className={`w-2 h-2 rounded-full ${i + Math.max(0, idx - 2) === idx ? "bg-app-accent-primary" : "bg-app-border"}`}></div>
               ))}
             </div>
           </div>
@@ -411,15 +411,15 @@ function FlashcardTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (
           </div>
           <div className="flex items-center justify-center gap-4 mt-6">
             <button id="fc-prev" onClick={() => go("left")}
-              className="w-12 h-12 flex items-center justify-center bg-white border border-gray-200 rounded-full cursor-pointer hover:border-rose-300 hover:text-rose-500 transition-all">
+              className="w-12 h-12 flex items-center justify-center bg-app-surface/50 border border-app-border rounded-full cursor-pointer hover:border-app-accent-primary hover:text-app-accent-primary transition-all">
               <i className="ri-arrow-left-line text-lg"></i>
             </button>
             <button id="fc-next" onClick={() => go("right")}
-              className="w-12 h-12 flex items-center justify-center bg-rose-500 text-white rounded-full cursor-pointer hover:bg-rose-600 transition-all">
+              className="w-12 h-12 flex items-center justify-center bg-app-accent-primary text-app-bg rounded-full cursor-pointer hover:bg-app-accent-primary/90 transition-all">
               <i className="ri-arrow-right-line text-lg"></i>
             </button>
           </div>
-          <p className="text-center text-xs text-gray-400 mt-3">Nhấn thẻ để lật · ← → để chuyển</p>
+          <p className="text-center text-xs text-white/40 mt-3">Nhấn thẻ để lật · ← → để chuyển</p>
         </>
       )}
     </div>
@@ -480,46 +480,46 @@ function SRTab({ favs }: { favs: Set<string> }) {
     return (
       <div className="max-w-lg mx-auto">
         <div className="flex items-center justify-between mb-4">
-          <button onClick={() => setMode("stats")} className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
+          <button onClick={() => setMode("stats")} className="flex items-center gap-1 text-sm text-white/50 hover:text-white/70 cursor-pointer">
             <i className="ri-arrow-left-line"></i> Dừng
           </button>
-          <span className="text-sm text-gray-500">{sessionIdx + 1} / {sessionCards.length}</span>
-          <span className="text-xs text-green-600 font-medium">✓ {sessionResults.correct} &nbsp; ✗ {sessionResults.wrong}</span>
+          <span className="text-sm text-white/50">{sessionIdx + 1} / {sessionCards.length}</span>
+          <span className="text-xs text-green-400 font-medium">✓ {sessionResults.correct} &nbsp; ✗ {sessionResults.wrong}</span>
         </div>
 
-        <div className="w-full bg-gray-100 rounded-full h-1.5 mb-6">
-          <div className="bg-rose-400 h-1.5 rounded-full transition-all" style={{ width: `${(sessionIdx / sessionCards.length) * 100}%` }}></div>
+        <div className="w-full bg-app-surface/50 rounded-full h-1.5 mb-6">
+          <div className="bg-app-accent-primary h-1.5 rounded-full transition-all" style={{ width: `${(sessionIdx / sessionCards.length) * 100}%` }}></div>
         </div>
 
         {/* SR info badge */}
         {srInfo && (
           <div className="flex gap-2 mb-3 justify-center">
-            <span className="px-2 py-0.5 bg-amber-50 text-amber-600 rounded-full text-xs">
+            <span className="px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded-full text-xs">
               Đã ôn {srInfo.totalReviews} lần
             </span>
-            <span className="px-2 py-0.5 bg-green-50 text-green-600 rounded-full text-xs">
+            <span className="px-2 py-0.5 bg-green-500/10 text-green-400 rounded-full text-xs">
               Streak: {srInfo.correctStreak}
             </span>
           </div>
         )}
         {!srInfo && (
           <div className="flex justify-center mb-3">
-            <span className="px-2 py-0.5 bg-rose-50 text-rose-500 rounded-full text-xs">Từ mới</span>
+            <span className="px-2 py-0.5 bg-app-accent-primary/10 text-app-accent-primary rounded-full text-xs">Từ mới</span>
           </div>
         )}
 
         {/* Card */}
-        <div className="bg-white border-2 border-gray-100 rounded-2xl p-8 text-center mb-4">
-          <p className="text-4xl font-bold text-gray-900 mb-2">{currentCard.korean}</p>
-          <p className="text-xl text-rose-400 font-bold mb-4">{currentCard.hanja}</p>
+        <div className="bg-app-surface/50 border-2 border-app-border rounded-2xl p-8 text-center mb-4">
+          <p className="text-4xl font-bold text-white mb-2">{currentCard.korean}</p>
+          <p className="text-xl text-app-accent-primary font-bold mb-4">{currentCard.hanja}</p>
           {!revealed ? (
             <button onClick={() => setRevealed(true)}
-              className="px-6 py-2 bg-gray-100 text-gray-600 rounded-lg text-sm cursor-pointer hover:bg-gray-200 transition-colors">
+              className="px-6 py-2 bg-app-surface/70 text-white/70 rounded-lg text-sm cursor-pointer hover:bg-app-surface/80 transition-colors">
               Hiện nghĩa
             </button>
           ) : (
-            <div className="border-t border-gray-100 pt-4">
-              <p className="text-xl font-semibold text-gray-700">{currentCard.vietnamese}</p>
+            <div className="border-t border-app-border pt-4">
+              <p className="text-xl font-semibold text-white">{currentCard.vietnamese}</p>
             </div>
           )}
         </div>
@@ -527,13 +527,13 @@ function SRTab({ favs }: { favs: Set<string> }) {
         {/* Rating buttons */}
         {revealed && (
           <div>
-            <p className="text-center text-xs text-gray-400 mb-3">Bạn nhớ từ này như thế nào?</p>
+            <p className="text-center text-xs text-white/40 mb-3">Bạn nhớ từ này như thế nào?</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {[
-                { q: 0, label: "Quên", sub: "Không nhớ", color: "border-red-300 bg-red-50 text-red-700 hover:bg-red-100" },
-                { q: 2, label: "Khó", sub: "Nhớ mờ", color: "border-orange-300 bg-orange-50 text-orange-700 hover:bg-orange-100" },
-                { q: 3, label: "Được", sub: "Nhớ được", color: "border-yellow-300 bg-yellow-50 text-yellow-700 hover:bg-yellow-100" },
-                { q: 5, label: "Dễ", sub: "Nhớ rõ", color: "border-green-300 bg-green-50 text-green-700 hover:bg-green-100" },
+                { q: 0, label: "Quên", sub: "Không nhớ", color: "border-red-500 bg-red-500/10 text-red-400 hover:bg-red-500/20" },
+                { q: 2, label: "Khó", sub: "Nhớ mờ", color: "border-orange-500 bg-orange-500/10 text-orange-400 hover:bg-orange-500/20" },
+                { q: 3, label: "Được", sub: "Nhớ được", color: "border-yellow-500 bg-yellow-500/10 text-yellow-400 hover:bg-yellow-500/20" },
+                { q: 5, label: "Dễ", sub: "Nhớ rõ", color: "border-green-500 bg-green-500/10 text-green-400 hover:bg-green-500/20" },
               ].map(r => (
                 <button key={r.q} onClick={() => handleRate(r.q)}
                   className={`p-3 rounded-xl border-2 cursor-pointer transition-all text-center ${r.color}`}>
@@ -552,25 +552,25 @@ function SRTab({ favs }: { favs: Set<string> }) {
     const streak = recordStudy(sessionCards.length);
     return (
       <div className="max-w-lg mx-auto">
-        <div className="bg-white border border-gray-100 rounded-2xl p-8 text-center">
-          <div className="w-16 h-16 flex items-center justify-center bg-green-100 rounded-full mx-auto mb-4">
-            <i className="ri-check-double-line text-green-600 text-2xl"></i>
+        <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8 text-center">
+          <div className="w-16 h-16 flex items-center justify-center bg-green-500/10 rounded-full mx-auto mb-4">
+            <i className="ri-check-double-line text-green-400 text-2xl"></i>
           </div>
-          <h3 className="text-xl font-bold text-gray-900 mb-1">Hoàn thành phiên học!</h3>
-          <p className="text-gray-500 mb-3">Đúng {sessionResults.correct} · Sai {sessionResults.wrong} / {sessionCards.length} từ</p>
+          <h3 className="text-xl font-bold text-white mb-1">Hoàn thành phiên học!</h3>
+          <p className="text-white/50 mb-3">Đúng {sessionResults.correct} · Sai {sessionResults.wrong} / {sessionCards.length} từ</p>
           <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-orange-50 rounded-full">
-              <i className="ri-fire-line text-orange-500"></i>
-              <span className="text-sm font-bold text-orange-600">{streak.currentStreak} ngày liên tiếp</span>
+            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-orange-500/10 rounded-full">
+              <i className="ri-fire-line text-orange-400"></i>
+              <span className="text-sm font-bold text-orange-400">{streak.currentStreak} ngày liên tiếp</span>
             </div>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 rounded-full">
-              <i className="ri-trophy-line text-amber-500"></i>
-              <span className="text-sm font-bold text-amber-600">Kỷ lục: {streak.longestStreak}</span>
+            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/10 rounded-full">
+              <i className="ri-trophy-line text-amber-400"></i>
+              <span className="text-sm font-bold text-amber-400">Kỷ lục: {streak.longestStreak}</span>
             </div>
           </div>
           <div className="flex gap-3">
-            <button onClick={startSession} className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">Tiếp tục ôn</button>
-            <button onClick={() => setMode("stats")} className="flex-1 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">Xem thống kê</button>
+            <button onClick={startSession} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Tiếp tục ôn</button>
+            <button onClick={() => setMode("stats")} className="flex-1 py-3 border border-app-border text-white/70 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Xem thống kê</button>
           </div>
         </div>
       </div>
@@ -588,33 +588,33 @@ function SRTab({ favs }: { favs: Set<string> }) {
   return (
     <div className="max-w-2xl mx-auto">
       {/* Streak banner */}
-      <div className="flex items-center gap-4 mb-6 bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl p-4">
-        <div className="w-14 h-14 flex items-center justify-center bg-orange-100 rounded-xl flex-shrink-0">
-          <i className="ri-fire-line text-orange-500 text-2xl"></i>
+      <div className="flex items-center gap-4 mb-6 bg-gradient-to-r from-orange-500/10 to-amber-500/10 rounded-2xl p-4">
+        <div className="w-14 h-14 flex items-center justify-center bg-orange-500/20 rounded-xl flex-shrink-0">
+          <i className="ri-fire-line text-orange-400 text-2xl"></i>
         </div>
         <div className="flex-1">
-          <p className="text-2xl font-bold text-orange-600">{streakData.currentStreak} ngày liên tiếp</p>
-          <p className="text-xs text-gray-500">Kỷ lục: {streakData.longestStreak} ngày · Hôm nay: {streakData.history[getToday()] || 0} từ</p>
+          <p className="text-2xl font-bold text-orange-400">{streakData.currentStreak} ngày liên tiếp</p>
+          <p className="text-xs text-white/50">Kỷ lục: {streakData.longestStreak} ngày · Hôm nay: {streakData.history[getToday()] || 0} từ</p>
         </div>
         <button onClick={() => setUseOnlyFavs(f => !f)}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all flex-shrink-0 ${useOnlyFavs ? "bg-rose-500 text-white" : "bg-white text-gray-600 border border-gray-200"}`}>
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all flex-shrink-0 ${useOnlyFavs ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/60 border border-app-border"}`}>
           <i className="ri-heart-line"></i>Yêu thích
         </button>
       </div>
 
       {/* 14-day chart */}
-      <div className="bg-white border border-gray-100 rounded-2xl p-5 mb-5">
-        <p className="text-sm font-semibold text-gray-700 mb-4">Hoạt động 14 ngày qua</p>
+      <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5 mb-5">
+        <p className="text-sm font-semibold text-white mb-4">Hoạt động 14 ngày qua</p>
         <div className="flex items-end gap-1 h-20">
           {last14Days.map((d, i) => (
             <div key={i} className="flex-1 flex flex-col items-center gap-1">
               <div className="w-full rounded-t-sm transition-all"
                 style={{
                   height: `${Math.max(4, (d.count / maxCount) * 64)}px`,
-                  backgroundColor: d.count > 0 ? (d.date === getToday() ? "#f43f5e" : "#fda4af") : "#f3f4f6"
+                  backgroundColor: d.count > 0 ? (d.date === getToday() ? "rgb(244 63 94)" : "rgb(253 164 175)") : "rgba(255,255,255,0.1)"
                 }}
               ></div>
-              <span className="text-xs text-gray-400" style={{ fontSize: "9px" }}>{d.label}</span>
+              <span className="text-xs text-white/40" style={{ fontSize: "9px" }}>{d.label}</span>
             </div>
           ))}
         </div>
@@ -623,42 +623,42 @@ function SRTab({ favs }: { favs: Set<string> }) {
       {/* Stats cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
         {[
-          { label: "Cần ôn hôm nay", value: stats.due, color: "text-rose-600", bg: "bg-rose-50" },
-          { label: "Từ mới", value: stats.newCards, color: "text-amber-600", bg: "bg-amber-50" },
-          { label: "Đang học", value: stats.learning, color: "text-orange-600", bg: "bg-orange-50" },
-          { label: "Đã thuộc", value: stats.mastered, color: "text-green-600", bg: "bg-green-50" },
+          { label: "Cần ôn hôm nay", value: stats.due, color: "text-app-accent-primary", bg: "bg-app-accent-primary/10" },
+          { label: "Từ mới", value: stats.newCards, color: "text-amber-400", bg: "bg-amber-500/10" },
+          { label: "Đang học", value: stats.learning, color: "text-orange-400", bg: "bg-orange-500/10" },
+          { label: "Đã thuộc", value: stats.mastered, color: "text-green-400", bg: "bg-green-500/10" },
         ].map(s => (
           <div key={s.label} className={`${s.bg} rounded-xl p-4 text-center`}>
             <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
-            <p className="text-xs text-gray-500 mt-1">{s.label}</p>
+            <p className="text-xs text-white/50 mt-1">{s.label}</p>
           </div>
         ))}
       </div>
 
       {/* Progress bar */}
-      <div className="bg-white border border-gray-100 rounded-xl p-4 mb-5">
-        <div className="flex justify-between text-xs text-gray-500 mb-2">
+      <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 mb-5">
+        <div className="flex justify-between text-xs text-white/50 mb-2">
           <span>Tiến độ tổng thể</span>
           <span>{stats.mastered} / {stats.total} từ đã thuộc ({stats.total > 0 ? Math.round((stats.mastered / stats.total) * 100) : 0}%)</span>
         </div>
-        <div className="w-full bg-gray-100 rounded-full h-3">
+        <div className="w-full bg-app-surface/50 rounded-full h-3">
           <div className="bg-green-400 h-3 rounded-full transition-all" style={{ width: `${stats.total > 0 ? (stats.mastered / stats.total) * 100 : 0}%` }}></div>
         </div>
       </div>
 
       <button onClick={startSession} disabled={dueCards.length === 0}
-        className="w-full py-3 bg-rose-500 text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-rose-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-3">
+        className="w-full py-3 bg-app-accent-primary text-app-bg rounded-xl font-bold text-lg cursor-pointer hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-3">
         {dueCards.length > 0 ? `Bắt đầu ôn tập (${Math.min(20, dueCards.length)} câu)` : "Không có từ cần ôn hôm nay!"}
       </button>
-      {dueCards.length === 0 && <p className="text-center text-sm text-green-600">Tuyệt vời! Hãy quay lại vào ngày mai.</p>}
+      {dueCards.length === 0 && <p className="text-center text-sm text-green-400">Tuyệt vời! Hãy quay lại vào ngày mai.</p>}
 
-      <div className="mt-5 bg-gray-50 rounded-xl p-4">
-        <p className="text-xs font-semibold text-gray-600 mb-2">Cách hoạt động (SM-2)</p>
-        <div className="grid grid-cols-2 gap-2 text-xs text-gray-500">
+      <div className="mt-5 bg-app-surface/50 rounded-xl p-4">
+        <p className="text-xs font-semibold text-white mb-2">Cách hoạt động (SM-2)</p>
+        <div className="grid grid-cols-2 gap-2 text-xs text-white/50">
           <div><span className="text-red-400 font-bold">Quên</span> → Ôn lại ngay hôm sau</div>
           <div><span className="text-orange-400 font-bold">Khó</span> → Ôn lại ngay hôm sau</div>
-          <div><span className="text-yellow-500 font-bold">Được</span> → Ôn sau vài ngày</div>
-          <div><span className="text-green-500 font-bold">Dễ</span> → Khoảng cách tăng dần</div>
+          <div><span className="text-yellow-400 font-bold">Được</span> → Ôn sau vài ngày</div>
+          <div><span className="text-green-400 font-bold">Dễ</span> → Khoảng cách tăng dần</div>
         </div>
       </div>
     </div>
@@ -675,17 +675,17 @@ function getMasteryLevel(korean: string, srData: Record<string, SRCard>): "new" 
 
 function MasteryBadge({ level }: { level: "new" | "learning" | "mastered" }) {
   if (level === "new") return (
-    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-gray-100 text-gray-500">
+    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-app-surface/50 text-white/50">
       <i className="ri-seedling-line text-xs"></i>Mới
     </span>
   );
   if (level === "learning") return (
-    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-amber-50 text-amber-600">
+    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-amber-500/10 text-amber-400">
       <i className="ri-book-open-line text-xs"></i>Đang học
     </span>
   );
   return (
-    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-green-50 text-green-600">
+    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-green-500/10 text-green-400">
       <i className="ri-check-double-line text-xs"></i>Đã thuộc
     </span>
   );
@@ -774,18 +774,18 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
     <div>
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
-          <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+          <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/40 text-sm"></i>
           <input type="text" placeholder="Tìm từ Hàn, Hán tự, nghĩa tiếng Việt..." value={search} onChange={e => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
+            className="w-full pl-9 pr-4 py-2 border border-app-border rounded-lg text-sm bg-app-surface/50 text-white focus:outline-none focus:ring-2 focus:ring-app-accent-primary" />
         </div>
         <div className="flex gap-2">
-          <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
+          <div className="flex gap-1 bg-app-surface/50 rounded-lg p-1">
             <button onClick={() => setViewMode("card")}
-              className={`px-3 py-1.5 rounded-md text-sm cursor-pointer whitespace-nowrap transition-all ${viewMode === "card" ? "bg-white text-rose-600" : "text-gray-500"}`}>
+              className={`px-3 py-1.5 rounded-md text-sm cursor-pointer whitespace-nowrap transition-all ${viewMode === "card" ? "bg-app-surface/70 text-app-accent-primary" : "text-white/50"}`}>
               <i className="ri-grid-line mr-1"></i>Thẻ
             </button>
             <button onClick={() => setViewMode("list")}
-              className={`px-3 py-1.5 rounded-md text-sm cursor-pointer whitespace-nowrap transition-all ${viewMode === "list" ? "bg-white text-rose-600" : "text-gray-500"}`}>
+              className={`px-3 py-1.5 rounded-md text-sm cursor-pointer whitespace-nowrap transition-all ${viewMode === "list" ? "bg-app-surface/70 text-app-accent-primary" : "text-white/50"}`}>
               <i className="ri-list-check mr-1"></i>Danh sách
             </button>
           </div>
@@ -793,7 +793,7 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
           <div className="relative">
             <button onClick={() => isVipYear ? setShowExportMenu(m => !m) : checkAndRun(() => {})}
               className={`flex items-center gap-1.5 px-3 py-2 border rounded-lg text-sm cursor-pointer transition-colors whitespace-nowrap ${
-                isVipYear ? "border-gray-200 text-gray-600 hover:bg-gray-50" : "border-gray-200 text-gray-400 bg-gray-50"
+                isVipYear ? "border-app-border text-white/70 hover:bg-app-surface/50" : "border-app-border text-white/40 bg-app-surface/30"
               }`}
               title={!isVipYear ? "Chỉ VIP Năm mới xuất được" : ""}>
               <i className={getExportBtnIcon(isLoggedIn, isVip, isVipYear)}></i>
@@ -801,7 +801,7 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
               {isVipYear && <i className="ri-arrow-down-s-line text-xs"></i>}
             </button>
             {showExportMenu && (
-              <div className="absolute right-0 top-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg z-20 min-w-[180px] py-1">
+              <div className="absolute right-0 top-full mt-1 bg-app-surface/50 border border-app-border rounded-xl shadow-lg z-20 min-w-[180px] py-1">
                 {([
                   { key: "all" as MasteryFilter, label: "Tất cả từ", icon: "ri-file-list-line" },
                   { key: "new" as MasteryFilter, label: "Chỉ từ Mới", icon: "ri-seedling-line" },
@@ -809,7 +809,7 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
                   { key: "mastered" as MasteryFilter, label: "Chỉ Đã thuộc", icon: "ri-check-double-line" },
                 ]).map(opt => (
                   <button key={opt.key} onClick={() => handleExportCSV(opt.key)}
-                    className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-rose-50 hover:text-rose-600 cursor-pointer transition-colors text-left">
+                    className="w-full flex items-center gap-2 px-4 py-2 text-sm text-white/70 hover:bg-app-accent-primary/10 hover:text-app-accent-primary cursor-pointer transition-colors text-left">
                     <i className={opt.icon}></i>{opt.label}
                   </button>
                 ))}
@@ -822,10 +822,10 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
       {/* Mastery filter */}
       <div className="flex flex-wrap gap-2 mb-4">
         {([
-          { key: "all", label: "Tất cả", count: HANJA_DATA.length, color: "bg-rose-500 text-white", inactive: "bg-gray-100 text-gray-600 hover:bg-gray-200" },
-          { key: "new", label: "Mới", count: masteryStats.new, color: "bg-gray-600 text-white", inactive: "bg-gray-100 text-gray-600 hover:bg-gray-200", icon: "ri-seedling-line" },
-          { key: "learning", label: "Đang học", count: masteryStats.learning, color: "bg-amber-500 text-white", inactive: "bg-amber-50 text-amber-600 hover:bg-amber-100", icon: "ri-book-open-line" },
-          { key: "mastered", label: "Đã thuộc", count: masteryStats.mastered, color: "bg-green-500 text-white", inactive: "bg-green-50 text-green-600 hover:bg-green-100", icon: "ri-check-double-line" },
+          { key: "all", label: "Tất cả", count: HANJA_DATA.length, color: "bg-app-accent-primary text-app-bg", inactive: "bg-app-surface/50 text-white/60 hover:bg-app-surface/70" },
+          { key: "new", label: "Mới", count: masteryStats.new, color: "bg-white/20 text-white", inactive: "bg-app-surface/50 text-white/60 hover:bg-app-surface/70", icon: "ri-seedling-line" },
+          { key: "learning", label: "Đang học", count: masteryStats.learning, color: "bg-amber-500 text-white", inactive: "bg-amber-500/10 text-amber-400 hover:bg-amber-500/20", icon: "ri-book-open-line" },
+          { key: "mastered", label: "Đã thuộc", count: masteryStats.mastered, color: "bg-green-500 text-white", inactive: "bg-green-500/10 text-green-400 hover:bg-green-500/20", icon: "ri-check-double-line" },
         ] as { key: MasteryFilter; label: string; count: number; color: string; inactive: string; icon?: string }[]).map(f => (
           <button key={f.key} onClick={() => setMasteryFilter(f.key)}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${masteryFilter === f.key ? f.color : f.inactive}`}>
@@ -837,44 +837,44 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
 
       <div className="flex flex-wrap gap-1.5 mb-4">
         <button onClick={() => setSelectedInitial(null)}
-          className={`px-3 py-1 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+          className={`px-3 py-1 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/60 hover:bg-app-surface/70"}`}>
           Tất cả
         </button>
         {ALPHABET_GROUPS.map(g => (
           <button key={g} onClick={() => setSelectedInitial(selectedInitial === g ? null : g)}
-            className={`px-3 py-1 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedInitial === g ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+            className={`px-3 py-1 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedInitial === g ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/60 hover:bg-app-surface/70"}`}>
             {g}
           </button>
         ))}
       </div>
 
-      <p className="text-xs text-gray-400 mb-4">Hiển thị {filtered.length} / {HANJA_DATA.length} từ · {favs.size} từ yêu thích</p>
+      <p className="text-xs text-white/40 mb-4">Hiển thị {filtered.length} / {HANJA_DATA.length} từ · {favs.size} từ yêu thích</p>
 
       {viewMode === "card" && (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
           {filtered.map((item, i) => {
             const mastery = getMasteryLevel(item.korean, srData);
             return (
-              <div key={i} className="bg-white border border-gray-100 rounded-xl p-4 hover:border-rose-200 transition-all relative group">
+              <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 hover:border-app-accent-primary transition-all relative group">
                 <button onClick={() => onToggleFav(item.korean)}
-                  className={`absolute top-2 right-2 w-6 h-6 flex items-center justify-center rounded-full cursor-pointer transition-all ${favs.has(item.korean) ? "text-rose-500" : "text-gray-300 hover:text-rose-400"}`}>
+                  className={`absolute top-2 right-2 w-6 h-6 flex items-center justify-center rounded-full cursor-pointer transition-all ${favs.has(item.korean) ? "text-app-accent-primary" : "text-white/30 hover:text-app-accent-primary"}`}>
                   <i className={favs.has(item.korean) ? "ri-heart-fill" : "ri-heart-line"}></i>
                 </button>
                 <div className="mb-2">
-                  <span className="text-base font-bold text-gray-900 block">{item.korean}</span>
-                  <span className="text-xl font-bold text-rose-400">{item.hanja}</span>
+                  <span className="text-base font-bold text-white block">{item.korean}</span>
+                  <span className="text-xl font-bold text-app-accent-primary">{item.hanja}</span>
                 </div>
-                <p className="text-xs text-gray-500 pr-4 mb-2">{item.vietnamese}</p>
+                <p className="text-xs text-white/50 pr-4 mb-2">{item.vietnamese}</p>
                 <div className="flex items-center gap-1 flex-wrap">
                   <MasteryBadge level={mastery} />
                   {mastery !== "mastered" ? (
                     <button onClick={() => markAsLearned(item.korean)}
-                      className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-green-50 text-green-600 hover:bg-green-100 cursor-pointer transition-colors whitespace-nowrap">
+                      className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-green-500/10 text-green-400 hover:bg-green-500/20 cursor-pointer transition-colors whitespace-nowrap">
                       <i className="ri-check-line text-xs"></i>Đã thuộc
                     </button>
                   ) : (
                     <button onClick={() => resetToNew(item.korean)}
-                      className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-gray-50 text-gray-400 hover:bg-gray-100 cursor-pointer transition-colors whitespace-nowrap">
+                      className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-app-surface/50 text-white/40 hover:bg-app-surface/70 cursor-pointer transition-colors whitespace-nowrap">
                       <i className="ri-refresh-line text-xs"></i>Reset
                     </button>
                   )}
@@ -886,32 +886,32 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
       )}
 
       {viewMode === "list" && (
-        <div className="bg-white border border-gray-100 rounded-xl overflow-hidden">
-          <div className="grid grid-cols-[1fr_1fr_1fr_120px_80px_32px] bg-gray-50 px-4 py-2 text-xs font-semibold text-gray-500 border-b border-gray-100">
+        <div className="bg-app-surface/50 border border-app-border rounded-xl overflow-hidden">
+          <div className="grid grid-cols-[1fr_1fr_1fr_120px_80px_32px] bg-app-card/50 px-4 py-2 text-xs font-semibold text-white/50 border-b border-app-border">
             <span>Tiếng Hàn</span><span>Hán tự</span><span>Nghĩa tiếng Việt</span><span>Mức độ</span><span>Đánh dấu</span><span></span>
           </div>
-          <div className="divide-y divide-gray-50">
+          <div className="divide-y divide-app-border">
             {filtered.map((item, i) => {
               const mastery = getMasteryLevel(item.korean, srData);
               return (
-                <div key={i} className="grid grid-cols-[1fr_1fr_1fr_120px_80px_32px] px-4 py-3 hover:bg-rose-50/30 transition-colors items-center">
-                  <span className="text-sm font-semibold text-gray-900">{item.korean}</span>
-                  <span className="text-sm font-bold text-rose-500">{item.hanja}</span>
-                  <span className="text-sm text-gray-600">{item.vietnamese}</span>
+                <div key={i} className="grid grid-cols-[1fr_1fr_1fr_120px_80px_32px] px-4 py-3 hover:bg-app-accent-primary/5 transition-colors items-center">
+                  <span className="text-sm font-semibold text-white">{item.korean}</span>
+                  <span className="text-sm font-bold text-app-accent-primary">{item.hanja}</span>
+                  <span className="text-sm text-white/70">{item.vietnamese}</span>
                   <MasteryBadge level={mastery} />
                   {mastery !== "mastered" ? (
                     <button onClick={() => markAsLearned(item.korean)}
-                      className="flex items-center gap-1 px-2 py-1 rounded-full text-xs bg-green-50 text-green-600 hover:bg-green-100 cursor-pointer transition-colors whitespace-nowrap w-fit">
+                      className="flex items-center gap-1 px-2 py-1 rounded-full text-xs bg-green-500/10 text-green-400 hover:bg-green-500/20 cursor-pointer transition-colors whitespace-nowrap w-fit">
                       <i className="ri-check-line"></i>Đã thuộc
                     </button>
                   ) : (
                     <button onClick={() => resetToNew(item.korean)}
-                      className="flex items-center gap-1 px-2 py-1 rounded-full text-xs bg-gray-50 text-gray-400 hover:bg-gray-100 cursor-pointer transition-colors whitespace-nowrap w-fit">
+                      className="flex items-center gap-1 px-2 py-1 rounded-full text-xs bg-app-surface/50 text-white/40 hover:bg-app-surface/70 cursor-pointer transition-colors whitespace-nowrap w-fit">
                       <i className="ri-refresh-line"></i>Reset
                     </button>
                   )}
                   <button onClick={() => onToggleFav(item.korean)}
-                    className={`w-6 h-6 flex items-center justify-center rounded-full cursor-pointer transition-all ${favs.has(item.korean) ? "text-rose-500" : "text-gray-300 hover:text-rose-400"}`}>
+                    className={`w-6 h-6 flex items-center justify-center rounded-full cursor-pointer transition-all ${favs.has(item.korean) ? "text-app-accent-primary" : "text-white/30 hover:text-app-accent-primary"}`}>
                     <i className={favs.has(item.korean) ? "ri-heart-fill" : "ri-heart-line"}></i>
                   </button>
                 </div>
@@ -922,7 +922,7 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
       )}
 
       {filtered.length === 0 && (
-        <div className="text-center py-16 text-gray-400">
+        <div className="text-center py-16 text-white/40">
           <i className="ri-search-line text-4xl"></i>
           <p className="mt-2 text-sm">Không tìm thấy từ nào</p>
         </div>
@@ -984,15 +984,15 @@ function FavoritesTab({ favs, onToggleFav, onStartFlashcard, notes, onSaveNote }
 
   if (favList.length === 0) {
     return (
-      <div className="text-center py-16 text-gray-400">
-        <div className="w-16 h-16 flex items-center justify-center bg-rose-50 rounded-2xl mx-auto mb-4">
-          <i className="ri-heart-line text-rose-300 text-3xl"></i>
+      <div className="text-center py-16 text-white/40">
+        <div className="w-16 h-16 flex items-center justify-center bg-app-accent-primary/10 rounded-2xl mx-auto mb-4">
+          <i className="ri-heart-line text-app-accent-primary text-3xl"></i>
         </div>
-        <p className="font-medium text-gray-500 mb-1">Chưa có từ yêu thích</p>
+        <p className="font-medium text-white/50 mb-1">Chưa có từ yêu thích</p>
         <p className="text-sm mb-6">Nhấn biểu tượng ♡ trong tab Từ vựng để lưu từ</p>
         <button onClick={handleExportAll}
           className={`flex items-center gap-2 px-4 py-2 border rounded-lg text-sm cursor-pointer transition-colors mx-auto ${
-            isVipYear ? "border-gray-200 text-gray-600 hover:bg-gray-50" : "border-gray-200 text-gray-400 bg-gray-50"
+            isVipYear ? "border-app-border text-white/70 hover:bg-app-surface/50" : "border-app-border text-white/40 bg-app-surface/30"
           }`}
           title={!isVipYear ? "Chỉ VIP Năm mới xuất được" : ""}>
           <i className={getExportBtnIcon(isLoggedIn, isVip, isVipYear)}></i>
@@ -1006,30 +1006,30 @@ function FavoritesTab({ favs, onToggleFav, onStartFlashcard, notes, onSaveNote }
     <div>
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
-          <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+          <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/40 text-sm"></i>
           <input type="text" placeholder="Tìm trong yêu thích..." value={favSearch} onChange={e => setFavSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
+            className="w-full pl-9 pr-4 py-2 border border-app-border rounded-lg text-sm bg-app-surface/50 text-white focus:outline-none focus:ring-2 focus:ring-app-accent-primary" />
         </div>
       </div>
       <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
-        <p className="text-sm text-gray-500">{favList.length} từ đã lưu · {Object.keys(notes).length} ghi chú</p>
+        <p className="text-sm text-white/50">{favList.length} từ đã lưu · {Object.keys(notes).length} ghi chú</p>
         <div className="flex gap-2 flex-wrap">
           <button onClick={handleExportCSV}
             className={`flex items-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium cursor-pointer transition-colors whitespace-nowrap ${
-              isVipYear || isVipMonth ? "border-rose-200 text-rose-600 hover:bg-rose-50" : "border-gray-200 text-gray-400 bg-gray-50"
+              isVipYear || isVipMonth ? "border-app-accent-primary/30 text-app-accent-primary hover:bg-app-accent-primary/10" : "border-app-border text-white/40 bg-app-surface/30"
             }`}>
             <i className={getExportBtnIcon(isLoggedIn, isVip, isVipYear)}></i>
             {getExportBtnLabel(isLoggedIn, isVip, isVipYear, "Xuất CSV yêu thích")}
           </button>
           <button onClick={handleExportAll}
             className={`flex items-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium cursor-pointer transition-colors whitespace-nowrap ${
-              isVipYear || isVipMonth ? "border-gray-200 text-gray-600 hover:bg-gray-50" : "border-gray-200 text-gray-400 bg-gray-50"
+              isVipYear || isVipMonth ? "border-app-border text-white/70 hover:bg-app-surface/50" : "border-app-border text-white/40 bg-app-surface/30"
             }`}>
             <i className={getExportBtnIcon(isLoggedIn, isVip, isVipYear)}></i>
             {getExportBtnLabel(isLoggedIn, isVip, isVipYear, "Xuất tất cả")}
           </button>
           <button onClick={onStartFlashcard}
-            className="flex items-center gap-2 px-4 py-2 bg-rose-500 text-white rounded-lg text-sm font-medium cursor-pointer hover:bg-rose-600 transition-colors whitespace-nowrap">
+            className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-app-bg rounded-lg text-sm font-medium cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
             <i className="ri-play-circle-line"></i>Ôn tập Flashcard
           </button>
         </div>
@@ -1045,18 +1045,18 @@ function FavoritesTab({ favs, onToggleFav, onStartFlashcard, notes, onSaveNote }
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
         {favList.map((item, i) => (
-          <div key={i} className="bg-white border border-rose-100 rounded-xl p-4 hover:border-rose-300 transition-all">
+          <div key={i} className="bg-app-surface/50 border border-app-accent-primary/30 rounded-xl p-4 hover:border-app-accent-primary transition-all">
             <div className="flex items-start justify-between mb-2">
               <div>
-                <span className="text-base font-bold text-gray-900 block">{item.korean}</span>
-                <span className="text-lg font-bold text-rose-400">{item.hanja}</span>
+                <span className="text-base font-bold text-white block">{item.korean}</span>
+                <span className="text-lg font-bold text-app-accent-primary">{item.hanja}</span>
               </div>
               <button onClick={() => onToggleFav(item.korean)}
-                className="w-6 h-6 flex items-center justify-center rounded-full cursor-pointer text-rose-500 hover:text-rose-700 transition-all flex-shrink-0">
+                className="w-6 h-6 flex items-center justify-center rounded-full cursor-pointer text-app-accent-primary hover:text-app-accent-primary/80 transition-all flex-shrink-0">
                 <i className="ri-heart-fill"></i>
               </button>
             </div>
-            <p className="text-xs text-gray-500 mb-3">{item.vietnamese}</p>
+            <p className="text-xs text-white/50 mb-3">{item.vietnamese}</p>
 
             {/* Note area */}
             {editingNote === item.korean ? (
@@ -1067,23 +1067,23 @@ function FavoritesTab({ favs, onToggleFav, onStartFlashcard, notes, onSaveNote }
                   placeholder="Ghi chú của bạn..."
                   maxLength={200}
                   rows={3}
-                  className="w-full text-xs border border-rose-200 rounded-lg p-2 resize-none focus:outline-none focus:ring-2 focus:ring-rose-300"
+                  className="w-full text-xs border border-app-accent-primary/30 rounded-lg p-2 resize-none focus:outline-none focus:ring-2 focus:ring-app-accent-primary bg-app-surface/50 text-white"
                   autoFocus
                 />
                 <div className="flex gap-2 mt-1.5">
                   <button onClick={() => commitNote(item.korean)}
-                    className="flex-1 py-1 bg-rose-500 text-white rounded-md text-xs font-medium cursor-pointer hover:bg-rose-600 transition-colors">
+                    className="flex-1 py-1 bg-app-accent-primary text-app-bg rounded-md text-xs font-medium cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
                     Lưu
                   </button>
                   <button onClick={() => setEditingNote(null)}
-                    className="flex-1 py-1 border border-gray-200 text-gray-500 rounded-md text-xs cursor-pointer hover:bg-gray-50 transition-colors">
+                    className="flex-1 py-1 border border-app-border text-white/50 rounded-md text-xs cursor-pointer hover:bg-app-surface/50 transition-colors">
                     Hủy
                   </button>
                 </div>
               </div>
             ) : (
               <button onClick={() => startEdit(item.korean)}
-                className={`w-full text-left px-2.5 py-2 rounded-lg text-xs cursor-pointer transition-all border ${notes[item.korean] ? "border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100" : "border-dashed border-gray-200 text-gray-400 hover:border-rose-300 hover:text-rose-400"}`}>
+                className={`w-full text-left px-2.5 py-2 rounded-lg text-xs cursor-pointer transition-all border ${notes[item.korean] ? "border-amber-500/30 bg-amber-500/10 text-amber-400 hover:bg-amber-500/20" : "border-dashed border-app-border text-white/40 hover:border-app-accent-primary/30 hover:text-app-accent-primary"}`}>
                 {notes[item.korean] ? (
                   <span className="flex items-start gap-1.5">
                     <i className="ri-sticky-note-line flex-shrink-0 mt-0.5"></i>
@@ -1186,13 +1186,13 @@ function QuizTab({ favs }: { favs: Set<string> }) {
   if (!started) {
     return (
       <div className="max-w-lg mx-auto">
-        <div className="bg-white border border-gray-100 rounded-2xl p-8">
+        <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8">
           <div className="text-center mb-6">
-            <div className="w-14 h-14 flex items-center justify-center bg-rose-100 rounded-2xl mx-auto mb-3">
-              <i className="ri-gamepad-line text-rose-600 text-2xl"></i>
+            <div className="w-14 h-14 flex items-center justify-center bg-app-accent-primary/10 rounded-2xl mx-auto mb-3">
+              <i className="ri-gamepad-line text-app-accent-primary text-2xl"></i>
             </div>
-            <h2 className="text-xl font-bold text-gray-900 mb-1">Quiz Hán-Hàn</h2>
-            <p className="text-sm text-gray-500">Chọn chế độ và bắt đầu luyện tập</p>
+            <h2 className="text-xl font-bold text-white mb-1">Quiz Hán-Hàn</h2>
+            <p className="text-sm text-white/50">Chọn chế độ và bắt đầu luyện tập</p>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
@@ -1205,7 +1205,7 @@ function QuizTab({ favs }: { favs: Set<string> }) {
               <button
                 key={m.key}
                 onClick={() => setMode(m.key)}
-                className={`p-3 rounded-xl border-2 text-xs font-medium cursor-pointer transition-all text-center ${mode === m.key ? "border-rose-400 bg-rose-50 text-rose-700" : "border-gray-200 text-gray-600 hover:border-gray-300"}`}
+                className={`p-3 rounded-xl border-2 text-xs font-medium cursor-pointer transition-all text-center ${mode === m.key ? "border-app-accent-primary bg-app-accent-primary/10 text-app-accent-primary" : "border-app-border text-white/60 hover:border-app-border"}`}
               >
                 <i className={`${m.icon} block text-lg mb-1`}></i>
                 {m.label}
@@ -1216,18 +1216,18 @@ function QuizTab({ favs }: { favs: Set<string> }) {
           <div className="flex gap-2 mb-4">
             <button
               onClick={() => setOnlyFavs(f => !f)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${onlyFavs ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600"}`}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${onlyFavs ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/60"}`}
             >
               <i className="ri-heart-line"></i>Chỉ từ yêu thích ({favs.size})
             </button>
           </div>
 
           <div className="mb-5">
-            <p className="text-xs text-gray-500 mb-2">Lọc theo chữ cái đầu</p>
+            <p className="text-xs text-white/50 mb-2">Lọc theo chữ cái đầu</p>
             <div className="flex flex-wrap gap-1.5">
               <button
                 onClick={() => setSelectedInitial(null)}
-                className={`px-2.5 py-1 rounded-full text-xs cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600"}`}
+                className={`px-2.5 py-1 rounded-full text-xs cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/60"}`}
               >
                 Tất cả ({HANJA_DATA.length})
               </button>
@@ -1236,7 +1236,7 @@ function QuizTab({ favs }: { favs: Set<string> }) {
                 if (cnt === 0) return null;
                 return (
                   <button key={g} onClick={() => setSelectedInitial(selectedInitial === g ? null : g)}
-                    className={`px-2.5 py-1 rounded-full text-xs cursor-pointer whitespace-nowrap transition-all ${selectedInitial === g ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600"}`}
+                    className={`px-2.5 py-1 rounded-full text-xs cursor-pointer whitespace-nowrap transition-all ${selectedInitial === g ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/60"}`}
                   >
                     {g} ({cnt})
                   </button>
@@ -1248,7 +1248,7 @@ function QuizTab({ favs }: { favs: Set<string> }) {
           <button
             onClick={startQuiz}
             disabled={filteredPool.length < 4}
-            className="w-full py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Bắt đầu Quiz ({Math.min(20, filteredPool.length)} câu)
           </button>
@@ -1261,18 +1261,18 @@ function QuizTab({ favs }: { favs: Set<string> }) {
     const pct = Math.round((score / pool.length) * 100);
     return (
       <div className="max-w-lg mx-auto">
-        <div className="bg-white border border-gray-100 rounded-2xl p-8 text-center">
-          <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4 ${pct >= 80 ? "bg-green-100" : pct >= 50 ? "bg-yellow-100" : "bg-red-100"}`}>
-            <i className={`text-3xl ${pct >= 80 ? "ri-trophy-line text-green-600" : pct >= 50 ? "ri-emotion-normal-line text-yellow-600" : "ri-emotion-sad-line text-red-500"}`}></i>
+        <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8 text-center">
+          <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4 ${pct >= 80 ? "bg-green-500/10" : pct >= 50 ? "bg-yellow-500/10" : "bg-red-500/10"}`}>
+            <i className={`text-3xl ${pct >= 80 ? "ri-trophy-line text-green-400" : pct >= 50 ? "ri-emotion-normal-line text-yellow-400" : "ri-emotion-sad-line text-red-400"}`}></i>
           </div>
-          <p className="text-3xl font-bold text-gray-900 mb-1">{pct}%</p>
-          <p className="text-gray-500 mb-2">Đúng {score} / {pool.length} câu</p>
-          <p className="text-sm text-gray-400 mb-8">
+          <p className="text-3xl font-bold text-white mb-1">{pct}%</p>
+          <p className="text-white/50 mb-2">Đúng {score} / {pool.length} câu</p>
+          <p className="text-sm text-white/40 mb-8">
             {pct >= 80 ? "Xuất sắc! Bạn nắm rất tốt Hán-Hàn!" : pct >= 50 ? "Khá tốt! Tiếp tục luyện tập nhé!" : "Cần ôn thêm! Đừng nản lòng!"}
           </p>
           <div className="flex gap-3">
-            <button onClick={startQuiz} className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">Làm lại</button>
-            <button onClick={() => setStarted(false)} className="flex-1 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">Đổi chế độ</button>
+            <button onClick={startQuiz} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Làm lại</button>
+            <button onClick={() => setStarted(false)} className="flex-1 py-3 border border-app-border text-white/70 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Đổi chế độ</button>
           </div>
         </div>
       </div>
@@ -1287,47 +1287,46 @@ function QuizTab({ favs }: { favs: Set<string> }) {
   return (
     <div className="max-w-lg mx-auto">
       <div className="flex items-center justify-between mb-3">
-        <span className="text-sm text-gray-500">Câu {current + 1} / {pool.length}</span>
-        <span className="text-sm font-semibold text-rose-600">Đúng: {score}</span>
+        <span className="text-sm text-white/50">Câu {current + 1} / {pool.length}</span>
+        <span className="text-sm font-semibold text-app-accent-primary">Đúng: {score}</span>
       </div>
-      <div className="w-full bg-gray-100 rounded-full h-2 mb-6">
-        <div className="bg-rose-400 h-2 rounded-full transition-all" style={{ width: `${(current / pool.length) * 100}%` }}></div>
+      <div className="w-full bg-app-surface/50 rounded-full h-2 mb-6">
+        <div className="bg-app-accent-primary h-2 rounded-full transition-all" style={{ width: `${(current / pool.length) * 100}%` }}></div>
       </div>
 
-      <div className="bg-white border border-gray-100 rounded-2xl p-8 text-center mb-4">
-        <p className="text-xs text-gray-400 mb-2 tracking-wide">
+      <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8 text-center mb-4">
+        <p className="text-xs text-white/40 mb-2 tracking-wide">
           {mode === "ko2vi" ? "Từ tiếng Hàn này có nghĩa là gì?" : mode === "vi2ko" ? "Từ tiếng Việt này là từ Hàn nào?" : mode === "listen" ? "Nghe và chọn từ Hàn đúng" : "Hán tự này đọc là gì?"}
         </p>
         {mode === "listen" ? (
           <div className="flex flex-col items-center gap-3">
             <button onClick={handleListenSpeak}
-              className="w-20 h-20 flex items-center justify-center bg-rose-100 rounded-full cursor-pointer hover:bg-rose-200 transition-all">
-              <i className="ri-volume-up-line text-rose-600 text-4xl"></i>
+              className="w-20 h-20 flex items-center justify-center bg-app-accent-primary/10 rounded-full cursor-pointer hover:bg-app-accent-primary/20 transition-all">
+              <i className="ri-volume-up-line text-app-accent-primary text-4xl"></i>
             </button>
-            <p className="text-sm text-gray-400">Nhấn để nghe lại</p>
+            <p className="text-sm text-white/40">Nhấn để nghe lại</p>
           </div>
         ) : (
           <>
-            <p className="text-4xl font-bold text-gray-900 mb-2">{getQuestionText()}</p>
-            <p className="text-sm text-gray-400">{getQuestionSub()}</p>
+            <p className="text-4xl font-bold text-white mb-2">{getQuestionText()}</p>
+            <p className="text-sm text-white/40">{getQuestionSub()}</p>
           </>
         )}
       </div>
 
       <div className="grid grid-cols-2 gap-3 mb-4">
         {question.choices.map((choice, i) => {
-          let cls = "border-2 border-gray-200 bg-white text-gray-700 hover:border-rose-300";
+          let cls = "border-2 border-app-border bg-app-surface/50 text-white/70 hover:border-app-accent-primary";
           if (question.answered) {
-            if (isCorrect(choice)) cls = "border-2 border-green-400 bg-green-50 text-green-700";
-            else if (isSelected(choice)) cls = "border-2 border-red-400 bg-red-50 text-red-700";
-            else cls = "border-2 border-gray-100 bg-gray-50 text-gray-400";
+            if (isCorrect(choice)) cls = "border-2 border-green-500 bg-green-500/10 text-green-400";
+            else if (isSelected(choice)) cls = "border-2 border-red-500 bg-red-500/10 text-red-400";
+            else cls = "border-2 border-app-border bg-app-surface/30 text-white/40";
           }
           return (
             <button key={i} onClick={() => handleAnswer(choice)} disabled={question.answered}
-              className={`p-4 rounded-xl text-sm font-medium cursor-pointer transition-all text-left ${cls} disabled:cursor-default`}
-            >
-              {question.answered && isCorrect(choice) && <i className="ri-check-line text-green-600 mr-1"></i>}
-              {question.answered && isSelected(choice) && !isCorrect(choice) && <i className="ri-close-line text-red-500 mr-1"></i>}
+              className={`p-4 rounded-xl text-sm font-medium cursor-pointer transition-all text-left ${cls} disabled:cursor-default`}>
+              {question.answered && isCorrect(choice) && <i className="ri-check-line text-green-400 mr-1"></i>}
+              {question.answered && isSelected(choice) && !isCorrect(choice) && <i className="ri-close-line text-red-400 mr-1"></i>}
               {getChoiceLabel(choice)}
             </button>
           );
@@ -1335,7 +1334,7 @@ function QuizTab({ favs }: { favs: Set<string> }) {
       </div>
 
       {question.answered && (
-        <button onClick={nextQuestion} className="w-full py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">
+        <button onClick={nextQuestion} className="w-full py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
           {current + 1 >= pool.length ? "Xem kết quả" : "Câu tiếp theo →"}
         </button>
       )}
@@ -1381,23 +1380,23 @@ function RootsTab() {
   return (
     <div className="flex flex-col lg:flex-row gap-6">
       <div className="lg:w-80 flex-shrink-0">
-        <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden">
-          <div className="p-4 border-b border-gray-100">
-            <p className="text-sm font-semibold text-gray-700 mb-3">Chọn Hán tự để xem từ đồng gốc</p>
+        <div className="bg-app-surface/50 border border-app-border rounded-2xl overflow-hidden">
+          <div className="p-4 border-b border-app-border">
+            <p className="text-sm font-semibold text-white mb-3">Chọn Hán tự để xem từ đồng gốc</p>
             <div className="relative">
-              <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+              <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/40 text-sm"></i>
               <input type="text" placeholder="Tìm từ..." value={search} onChange={e => setSearch(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
+                className="w-full pl-9 pr-4 py-2 border border-app-border rounded-lg text-sm bg-app-surface/50 text-white focus:outline-none focus:ring-2 focus:ring-app-accent-primary" />
             </div>
           </div>
           <div className="p-3 max-h-[500px] overflow-y-auto">
             <div className="flex flex-wrap gap-2">
               {filteredChars.map(c => (
                 <button key={c} onClick={() => setSelectedChar(selectedChar === c ? null : c)}
-                  className={`relative flex flex-col items-center justify-center w-14 h-14 rounded-xl border-2 cursor-pointer transition-all ${selectedChar === c ? "border-rose-400 bg-rose-50" : "border-gray-200 bg-white hover:border-rose-200"}`}
+                  className={`relative flex flex-col items-center justify-center w-14 h-14 rounded-xl border-2 cursor-pointer transition-all ${selectedChar === c ? "border-app-accent-primary bg-app-accent-primary/10" : "border-app-border bg-app-surface/30 hover:border-app-accent-primary/50"}`}
                 >
-                  <span className={`text-xl font-bold ${selectedChar === c ? "text-rose-600" : "text-gray-800"}`}>{c}</span>
-                  <span className="text-xs text-gray-400">{charMap.get(c)?.length}</span>
+                  <span className={`text-xl font-bold ${selectedChar === c ? "text-app-accent-primary" : "text-white"}`}>{c}</span>
+                  <span className="text-xs text-white/40">{charMap.get(c)?.length}</span>
                 </button>
               ))}
             </div>
@@ -1407,50 +1406,50 @@ function RootsTab() {
 
       <div className="flex-1">
         {!selectedChar ? (
-          <div className="bg-white border border-gray-100 rounded-2xl p-12 text-center">
-            <div className="w-16 h-16 flex items-center justify-center bg-rose-50 rounded-2xl mx-auto mb-4">
-              <i className="ri-links-line text-rose-400 text-2xl"></i>
+          <div className="bg-app-surface/50 border border-app-border rounded-2xl p-12 text-center">
+            <div className="w-16 h-16 flex items-center justify-center bg-app-accent-primary/10 rounded-2xl mx-auto mb-4">
+              <i className="ri-links-line text-app-accent-primary text-2xl"></i>
             </div>
-            <p className="text-gray-500 font-medium mb-1">Chọn một Hán tự</p>
-            <p className="text-sm text-gray-400">Xem tất cả từ tiếng Hàn có chứa chữ Hán đó</p>
+            <p className="text-white/50 font-medium mb-1">Chọn một Hán tự</p>
+            <p className="text-sm text-white/40">Xem tất cả từ tiếng Hàn có chứa chữ Hán đó</p>
             <div className="mt-6 flex flex-wrap gap-2 justify-center">
               {["國","民","學","大","文","力","人","心","生","水","白","方"].map(c =>
                 charMap.has(c) && (
                   <button key={c} onClick={() => setSelectedChar(c)}
-                    className="px-4 py-2 bg-rose-50 text-rose-600 rounded-lg text-lg font-bold cursor-pointer hover:bg-rose-100 transition-colors"
+                    className="px-4 py-2 bg-app-accent-primary/10 text-app-accent-primary rounded-lg text-lg font-bold cursor-pointer hover:bg-app-accent-primary/20 transition-colors"
                   >{c}</button>
                 )
               )}
             </div>
           </div>
         ) : (
-          <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden">
-            <div className="p-5 border-b border-gray-100 flex items-center gap-4">
-              <div className="w-14 h-14 flex items-center justify-center bg-rose-100 rounded-xl">
-                <span className="text-3xl font-bold text-rose-600">{selectedChar}</span>
+          <div className="bg-app-surface/50 border border-app-border rounded-2xl overflow-hidden">
+            <div className="p-5 border-b border-app-border flex items-center gap-4">
+              <div className="w-14 h-14 flex items-center justify-center bg-app-accent-primary/10 rounded-xl">
+                <span className="text-3xl font-bold text-app-accent-primary">{selectedChar}</span>
               </div>
               <div>
-                <h3 className="text-lg font-bold text-gray-900">Từ đồng gốc &ldquo;{selectedChar}&rdquo;</h3>
-                <p className="text-sm text-gray-500">{relatedWords.length} từ chứa chữ này</p>
+                <h3 className="text-lg font-bold text-white">Từ đồng gốc &ldquo;{selectedChar}&rdquo;</h3>
+                <p className="text-sm text-white/50">{relatedWords.length} từ chứa chữ này</p>
               </div>
               <button onClick={() => setSelectedChar(null)}
-                className="ml-auto w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 cursor-pointer rounded-lg hover:bg-gray-100"
+                className="ml-auto w-8 h-8 flex items-center justify-center text-white/40 hover:text-white/60 cursor-pointer rounded-lg hover:bg-app-surface/50"
               >
                 <i className="ri-close-line"></i>
               </button>
             </div>
-            <div className="divide-y divide-gray-50">
+            <div className="divide-y divide-app-border">
               {relatedWords.map((word, i) => (
-                <div key={i} className="flex items-center gap-4 px-5 py-3 hover:bg-rose-50/30 transition-colors">
-                  <span className="text-base font-bold text-gray-900 w-24">{word.korean}</span>
+                <div key={i} className="flex items-center gap-4 px-5 py-3 hover:bg-app-accent-primary/5 transition-colors">
+                  <span className="text-base font-bold text-white w-24">{word.korean}</span>
                   <span className="text-base font-bold w-24">
                     {word.hanja.split("").map((ch, j) =>
                       ch === selectedChar
-                        ? <span key={j} className="text-rose-500 font-bold">{ch}</span>
+                        ? <span key={j} className="text-app-accent-primary font-bold">{ch}</span>
                         : <span key={j}>{ch}</span>
                     )}
                   </span>
-                  <span className="text-sm text-gray-500 flex-1">{word.vietnamese}</span>
+                  <span className="text-sm text-white/50 flex-1">{word.vietnamese}</span>
                 </div>
               ))}
             </div>
@@ -1512,29 +1511,29 @@ export default function HanjaVocabPage() {
       <div className="p-4 md:p-6 max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-6">
-          <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-500 hover:text-gray-700 mb-4 cursor-pointer">
+          <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-white/50 hover:text-white/70 mb-4 cursor-pointer">
             <i className="ri-arrow-left-line"></i>
             <span className="text-sm">Quay lại</span>
           </button>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 flex items-center justify-center bg-rose-100 rounded-xl">
-              <i className="ri-translate-2 text-rose-600 text-xl"></i>
+            <div className="w-10 h-10 flex items-center justify-center bg-app-accent-primary/10 rounded-xl">
+              <i className="ri-translate-2 text-app-accent-primary text-xl"></i>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">Từ vựng Hán-Hàn</h1>
-              <p className="text-sm text-gray-500">{HANJA_DATA.length} từ · {favs.size} yêu thích</p>
+              <h1 className="text-xl font-bold text-white">Từ vựng Hán-Hàn</h1>
+              <p className="text-sm text-white/50">{HANJA_DATA.length} từ · {favs.size} yêu thích</p>
             </div>
           </div>
         </div>
 
         {/* Tabs — scrollable on mobile */}
         <div className="mb-6 -mx-4 md:mx-0">
-          <div className="flex gap-1 bg-gray-100 rounded-none md:rounded-xl p-1 overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: "none" }}>
+          <div className="flex gap-1 bg-app-surface/50 rounded-none md:rounded-xl p-1 overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: "none" }}>
             {tabs.map(t => (
               <button
                 key={t.key}
                 onClick={() => setActiveTab(t.key)}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium cursor-pointer whitespace-nowrap transition-all relative flex-shrink-0 ${activeTab === t.key ? "bg-white text-rose-600" : "text-gray-500 hover:text-gray-700"}`}
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium cursor-pointer whitespace-nowrap transition-all relative flex-shrink-0 ${activeTab === t.key ? "bg-app-surface/70 text-app-accent-primary" : "text-white/50 hover:text-white/70"}`}
               >
                 <i className={t.icon}></i>
                 <span className="hidden sm:inline">{t.label}</span>
@@ -1543,7 +1542,7 @@ export default function HanjaVocabPage() {
                   <span className="absolute -top-1.5 -right-1 text-[8px] px-1 py-0.5 rounded-full bg-amber-400 text-white font-bold leading-none">NEW</span>
                 )}
                 {t.badge !== undefined && t.badge > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center bg-rose-500 text-white text-xs rounded-full leading-none">
+                  <span className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center bg-app-accent-primary text-white text-xs rounded-full leading-none">
                     {t.badge > 9 ? "9+" : t.badge}
                   </span>
                 )}
