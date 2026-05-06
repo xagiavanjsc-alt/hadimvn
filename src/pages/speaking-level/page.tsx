@@ -1,5 +1,6 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
+import { useToast } from "@/components/base/Toast";
 
 interface SpeakingPrompt {
   id: string;
@@ -106,6 +107,7 @@ interface RecordingData {
 }
 
 export default function SpeakingLevelPage() {
+  const { showToast, ToastComponent } = useToast();
   const [selectedLevel, setSelectedLevel] = useState("Tất cả");
   const [currentIdx, setCurrentIdx] = useState(0);
   const [recordingState, setRecordingState] = useState<RecordingState>("idle");
@@ -170,7 +172,7 @@ export default function SpeakingLevelPage() {
         });
       }, 1000);
     } catch {
-      alert("Không thể truy cập microphone. Vui lòng cấp quyền.");
+      showToast("Không thể truy cập microphone. Vui lòng cấp quyền", "error", 4000);
     }
   }, [recordingTime]);
 
@@ -241,6 +243,7 @@ export default function SpeakingLevelPage() {
 
   return (
     <DashboardLayout>
+      <ToastComponent />
       <div className="max-w-3xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-6">

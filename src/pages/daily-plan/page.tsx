@@ -88,14 +88,14 @@ function generateDailyPlan(
       id: "flashcard-review",
       type: "flashcard",
       title: "Ôn Flashcard hàng ngày",
-      desc: "20 thẻ từ vựng — duy trì streak " + streak + " ngày",
+      desc: "20 thẻ từ vựng — duy trì streak " + streak + " ngày (Lưu ý: XP từ vựng giới hạn 500 từ. Ví dụ: Học 100 từ = 400 XP, 500 từ = 2000 XP tối đa. Từ đã học sẽ không lặp lại. Tăng XP qua làm bài thi EPS)",
       duration: 10,
       xp: 25,
       icon: "ri-stack-line",
       color: "#4ade80",
       path: "/flashcard",
       priority: "medium",
-      reason: `Streak ${streak} ngày — tiếp tục duy trì đà học tốt!`,
+      reason: `Streak ${streak} ngày — tiếp tục duy trì đà học tốt! (Lưu ý: XP từ vựng giới hạn ở 500 từ đã học. Học 500 từ = 2000 XP tối đa. Từ đã học sẽ không lặp lại. Tăng XP qua làm bài thi EPS để đạt thứ hạng cao hơn.)`,
       completed: completedToday.includes("flashcard-review"),
     });
   }

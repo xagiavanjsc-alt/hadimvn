@@ -1,6 +1,7 @@
 ﻿import { useState, useMemo, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useToast } from "@/components/base/Toast";
 import { epsQuestions, EPS_TOPICS, type EpsQuestion } from "@/mocks/epsQuestions";
 import { epsVocabulary, EPS_VOCAB_TOPICS, type EpsVocabItem } from "@/mocks/epsVocabulary";
 import ImageWithFallback from "@/components/base/ImageWithFallback";
@@ -111,6 +112,7 @@ function QuestionEditor({
 
 // ─── Import Panel ─────────────────────────────────────────────────────────
 function ImportPanel() {
+  const { showToast, ToastComponent } = useToast();
   const [importText, setImportText] = useState("");
   const [parseResult, setParseResult] = useState<{ valid: EpsVocabItem[]; dupes: string[]; errors: string[] } | null>(null);
 
@@ -183,6 +185,7 @@ function ImportPanel() {
           </button>
         </div>
 
+        <ToastComponent />
         <textarea
           value={importText}
           onChange={e => { setImportText(e.target.value); setParseResult(null); }}
@@ -202,7 +205,7 @@ function ImportPanel() {
           </button>
           {parseResult && parseResult.valid.length > 0 && (
             <button
-              onClick={() => alert(`Tính năng import sẽ cần kết nối Supabase để lưu ${parseResult.valid.length} từ mới. Hiện tại hãy thêm vào file epsVocabulary.ts.`)}
+              onClick={() => showToast(`Tính năng import sẽ cần kết nối Supabase để lưu ${parseResult.valid.length} từ mới. Hiện tại hãy thêm vào file epsVocabulary.ts`, "info", 5000)}
               className="flex-1 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors"
             >
               <i className="ri-add-line mr-2"></i>Import {parseResult.valid.length} từ
@@ -388,7 +391,9 @@ echo "✅ Uploaded: https://img.hanquocoi.vn/$CATEGORY/$FILENAME"`;
 
 // ─── Main Page ────────────────────────────────────────────────────────────
 export default function AdminEpsPage() {
+  const { showToast, ToastComponent } = useToast();
   const [activeTab, setActiveTab] = useState<AdminTab>("questions");
+  const [questions, setQuestions] = useState<EpsQuestion[]>(epsQuestions);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [overrides, setOverrides] = useLocalStorage<Record<string, Partial<EpsQuestion>>>("kts_eps_overrides", {});
   const [searchQ, setSearchQ] = useState("");
@@ -450,6 +455,7 @@ export default function AdminEpsPage() {
       title="Admin — Quản lý EPS"
       subtitle="Chỉnh sửa ảnh câu hỏi, import từ vựng, cấu hình VPS"
     >
+      <ToastComponent />
       {/* Tabs */}
       <div className="flex items-center gap-1 bg-app-card/50 rounded-xl p-1 mb-6 w-fit">
         {tabs.map(tab => (

@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useApiCostTracker } from "@/hooks/useApiCostTracker";
 import type { AIProvider } from "@/services/aiService";
+import { useToast } from "@/components/base/Toast";
 
 type TestStatus = "idle" | "testing" | "ok" | "fail";
 interface TestResult {
@@ -71,6 +72,7 @@ const PROVIDER_ICONS: Record<AIProvider, string> = {
 };
 
 export default function SettingsPage() {
+  const { showToast, ToastComponent } = useToast();
   const [saved, setSaved] = useLocalStorage<AppSettings>("kts_settings", DEFAULT_SETTINGS);
   const [form, setForm] = useState<AppSettings>({ ...DEFAULT_SETTINGS, ...saved, storyPrompt: { ...DEFAULT_STORY_PROMPT, ...(saved.storyPrompt ?? {}) } });
   const [showApify, setShowApify] = useState(false);
@@ -204,7 +206,9 @@ export default function SettingsPage() {
       title="Cài đặt API"
       subtitle="Quản lý kết nối Apify & AI"
       actions={
-        <div className="flex items-center gap-2">
+        <>
+          <ToastComponent />
+          <div className="flex items-center gap-2">
           <button
             onClick={handleTestConnections}
             className="flex items-center gap-2 bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 text-xs font-medium px-4 py-2 rounded-lg transition-colors whitespace-nowrap cursor-pointer"
@@ -227,7 +231,8 @@ export default function SettingsPage() {
             <i className="ri-save-line"></i>
             {hasUnsavedChanges ? "Lưu cài đặt *" : "Đã lưu"}
           </button>
-        </div>
+          </div>
+        </>
       }
     >
       {toast && (
@@ -967,7 +972,7 @@ export default function SettingsPage() {
                   // Reload page
                   window.location.reload();
                 } catch (err) {
-                  alert("Lỗi khi xóa cache: " + (err instanceof Error ? err.message : String(err)));
+                  showToast("Lỗi khi xóa cache: " + (err instanceof Error ? err.message : String(err)), "error", 4000);
                 }
               }}
               className="w-full flex items-center justify-center gap-2 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 py-3 rounded-xl text-sm font-medium transition-colors cursor-pointer"

@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
+import { useToast } from "@/components/base/Toast";
 import { epsLessons, EPS_LESSON_TOPICS, type EpsLesson } from "@/mocks/epsLessons";
 import EnhancedQuizFeedback from "@/components/feature/EnhancedQuizFeedback";
 import WeaknessAlert, { useTopicAccuracy } from "@/components/feature/WeaknessAlert";
@@ -243,6 +244,7 @@ function QuizScreen({
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
   const [timerActive, setTimerActive] = useState(true);
   const [timeLeft, setTimeLeft] = useState(30);
+  const { showToast, ToastComponent } = useToast();
   const { topicAccuracy, updateAccuracy } = ENABLE_NEW_FEATURES ? useTopicAccuracy() : { topicAccuracy: {}, updateAccuracy: () => {} };
 
   // Track topic accuracy
@@ -298,7 +300,7 @@ function QuizScreen({
     // Validate minimum time per question (2 seconds)
     const timeSpent = Date.now() - questionStartTime;
     if (timeSpent < 2000) {
-      alert("Vui lòng đọc kỹ câu hỏi trước khi trả lời (tối thiểu 2 giây).");
+      showToast("Đọc kỹ câu hỏi trước khi trả lời (tối thiểu 2 giây)", "warning", 2500);
       return;
     }
     
@@ -349,6 +351,8 @@ function QuizScreen({
 
   return (
     <div className="max-w-2xl mx-auto">
+      <ToastComponent />
+
       {/* Weakness Alert - with error boundary */}
       {topicAccuracy && Object.keys(topicAccuracy).length > 0 && (
         <WeaknessAlert
@@ -594,6 +598,7 @@ export default function EpsLessonQuizPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { addXP } = useXPSystem();
+  const { showToast, ToastComponent } = useToast();
 
   const [completedLessons] = useLocalStorage<Record<number, { score: number; completedAt: string }>>("kts_eps_lessons_progress", {});
   const [quizHistory, setQuizHistory] = useLocalStorage<Record<number, QuizResult[]>>("kts_eps_lesson_quiz_history", {});

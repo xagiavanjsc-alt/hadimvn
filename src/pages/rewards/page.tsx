@@ -4,6 +4,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { useXPSystem } from "@/hooks/useXPSystem";
+import { useToast } from "@/components/base/Toast";
 import { RANKS } from "@/data/ranks";
 import { supabase } from "@/lib/supabase";
 import { HANJA_DATA } from "@/mocks/hanjaData";
@@ -20,6 +21,7 @@ function getInitial(korean: string): string {
 }
 
 function AdminPanel() {
+  const { showToast, ToastComponent } = useToast();
   const [srData] = useState<Record<string, { interval: number; totalReviews: number; correctStreak?: number; dueDate?: number }>>(() => {
     try { return JSON.parse(localStorage.getItem("hanja_sr_data") || "{}"); } catch { return {}; }
   });
@@ -164,7 +166,7 @@ function AdminPanel() {
               {[
                 { label: "Reset dữ liệu học Hán Hàn", icon: "ri-delete-bin-line", color: "#ef4444", action: () => { if (confirm("Reset toàn bộ dữ liệu học Hán Hàn?")) { localStorage.removeItem("hanja_sr_data"); window.location.reload(); } } },
                 { label: "Reset XP & Streak", icon: "ri-refresh-line", color: "#fb923c", action: () => { if (confirm("Reset XP và streak?")) { localStorage.removeItem("kts_total_xp"); localStorage.removeItem("kts_streak"); window.location.reload(); } } },
-                { label: "Xem dữ liệu SR (JSON)", icon: "ri-code-line", color: "#a78bfa", action: () => { const d = localStorage.getItem("hanja_sr_data"); alert(d ? `${Object.keys(JSON.parse(d)).length} từ đã học` : "Chưa có dữ liệu"); } },
+                { label: "Xem dữ liệu SR (JSON)", icon: "ri-code-line", color: "#a78bfa", action: () => { const d = localStorage.getItem("hanja_sr_data"); showToast(d ? `${Object.keys(JSON.parse(d)).length} từ đã học` : "Chưa có dữ liệu", "info", 3000); } },
                 { label: "Xuất báo cáo JSON", icon: "ri-download-line", color: "#34d399", action: () => { const data = { totalWords, totalMastered, totalLearning, totalReviews, groupStats }; const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "hanja-report.json"; a.click(); } },
               ].map(btn => (
                 <button key={btn.label} onClick={btn.action}
@@ -469,6 +471,7 @@ function AdminPanel() {
 // ─── Admin: Redemption Requests Panel ───────────────────────────────────────
 // Manages VIP redemption requests - approve or deny pending requests
 function RedemptionRequestsPanel() {
+  const { showToast, ToastComponent } = useToast();
   const [requests, setRequests] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<"all" | "pending" | "approved" | "rejected">("pending");
@@ -543,7 +546,7 @@ function RedemptionRequestsPanel() {
 
       loadRequests();
     } catch (e) {
-      alert("Lỗi khi duyệt: " + (e instanceof Error ? e.message : "Unknown error"));
+      showToast("Lỗi khi duyệt: " + (e instanceof Error ? e.message : "Unknown error"), "error", 4000);
     }
   };
 
@@ -557,12 +560,13 @@ function RedemptionRequestsPanel() {
       if (error) throw error;
       loadRequests();
     } catch (e) {
-      alert("Lỗi khi từ chối: " + (e instanceof Error ? e.message : "Unknown error"));
+      showToast("Lỗi khi từ chối: " + (e instanceof Error ? e.message : "Unknown error"), "error", 4000);
     }
   };
 
   return (
     <div className="space-y-4">
+      <ToastComponent />
       <div className="bg-app-bg border border-app-border rounded-2xl p-5">
         <h3 className="text-white font-semibold text-sm mb-1 flex items-center gap-2">
           <i className="ri-vip-crown-line text-amber-400"></i>Quản lý yêu cầu đổi VIP
@@ -923,6 +927,7 @@ function DailyLoginBonus() {
 
 export default function RewardsPage() {
   const navigate = useNavigate();
+  const { showToast, ToastComponent } = useToast();
   const { user } = useAuth();
   const [streak] = useLocalStorage<{ count: number }>("kts_streak", { count: 0 });
   const [redeemedRewards, setRedeemedRewards] = useLocalStorage<string[]>("kts_redeemed_rewards", []);
@@ -950,7 +955,7 @@ export default function RewardsPage() {
     // VIP rewards require admin approval
     if (reward.type === "vip") {
       if (!user) {
-        alert("Vui lòng đăng nhập để đổi VIP");
+        showToast("Vui lòng đăng nhập để đổi VIP", "warning", 3000);
         return;
       }
       
@@ -965,7 +970,7 @@ export default function RewardsPage() {
       });
       
       if (error) {
-        alert("Lỗi khi gửi yêu cầu đổi VIP: " + error.message);
+        showToast("Lỗi khi gửi yêu cầu đổi VIP: " + error.message, "error", 4000);
         return;
       }
       
@@ -1009,6 +1014,7 @@ export default function RewardsPage() {
       title="Phần thưởng & XP"
       subtitle="Tích lũy XP từ việc học, đổi lấy ưu đãi VIP và huy hiệu"
     >
+      <ToastComponent />
       <DailyLoginBonus />
 
       {redeemMsg && (

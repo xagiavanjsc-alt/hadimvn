@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/components/base/Toast";
 import { supabase } from "@/lib/supabase";
 
 type CardTheme = "dark" | "gold" | "green" | "pink";
@@ -174,6 +175,7 @@ function ProgressCard({
 export default function ShareProgressPage() {
   const navigate = useNavigate();
   const { user, profile } = useAuth();
+  const { showToast, ToastComponent } = useToast();
 
   const [theme, setTheme] = useState<CardTheme>("dark");
   const [layout, setLayout] = useState<CardLayout>("square");
@@ -253,7 +255,7 @@ export default function ShareProgressPage() {
       a.click();
     } catch {
       // Fallback: show message
-      alert("Trình duyệt không hỗ trợ tải ảnh trực tiếp. Hãy chụp màn hình thẻ này!");
+      showToast("Trình duyệt không hỗ trợ tải ảnh trực tiếp. Hãy chụp màn hình thẻ này", "warning", 5000);
     } finally {
       setDownloading(false);
     }
@@ -278,6 +280,7 @@ export default function ShareProgressPage() {
       title="Chia sẻ tiến độ học tập"
       subtitle="Tạo thẻ đẹp để chia sẻ lên Facebook, Zalo, Instagram"
     >
+      <ToastComponent />
       <div className="max-w-5xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Left: Card preview */}

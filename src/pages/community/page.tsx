@@ -180,7 +180,7 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
       handleChange();
     } catch (err) {
       console.error('Image insert error:', err);
-      alert('Lỗi chèn ảnh');
+      showToast('Lỗi chèn ảnh', 'error');
     }
     e.target.value = ''; // reset to allow same file again
   };
@@ -1552,7 +1552,7 @@ function NewPostModal({
       setImagePreview(getStorageUrl(relativePath));
     } catch (error) {
       console.error('Error uploading image:', error);
-      alert('Lỗi khi upload ảnh');
+      showToast('Lỗi khi upload ảnh', 'error');
     } finally {
       setUploadingImage(false);
     }

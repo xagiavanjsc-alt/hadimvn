@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase, isVipActive } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/components/base/Toast";
 
 interface PlanFeature {
   label: string;
@@ -310,7 +311,8 @@ function AutoRenewSection({ isVip, vipExpiresAt }: { isVip: boolean; vipExpiresA
 
 export default function PricingPage() {
   const navigate = useNavigate();
-  const { profile, user } = useAuth();
+  const { showToast, ToastComponent } = useToast();
+  const { user } = useAuth();
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -369,7 +371,7 @@ export default function PricingPage() {
       setTimeout(() => setShowSuccess(false), 5000);
     } catch (err) {
       console.error("Payment submission error:", err);
-      alert("Có lỗi xảy ra. Vui lòng thử lại.");
+      showToast("Có lỗi xảy ra. Vui lòng thử lại", "error", 4000);
     } finally {
       setSubmittingPayment(false);
     }
@@ -406,6 +408,7 @@ export default function PricingPage() {
       title="Gói học VIP"
       subtitle="Mở khóa toàn bộ tính năng — học tiếng Hàn hiệu quả hơn gấp 3 lần"
     >
+      <ToastComponent />
       {/* Success toast */}
       {showSuccess && (
         <div className="fixed top-6 right-6 z-50 bg-emerald-500/10 border border-emerald-500/30 text-app-accent-success px-5 py-3.5 rounded-xl text-sm font-medium flex items-center gap-2.5 shadow-lg">

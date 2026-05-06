@@ -1,6 +1,7 @@
-﻿import { useState, useEffect, useCallback, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+﻿import { useState, useEffect, useCallback } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
+import { useToast } from "@/components/base/Toast";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase, resolveStoragePaths } from "@/lib/supabase";
 import { usePageSEO } from "@/hooks/usePageSEO";
@@ -410,6 +411,7 @@ function CommentThread({
 export default function PostDetailPage({ postId, titleSlug }: { postId: string; titleSlug?: string }) {
   const navigate = useNavigate();
   const { user, profile } = useAuth();
+  const { showToast, ToastComponent } = useToast();
   const [post, setPost] = useState<Post | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
@@ -488,12 +490,12 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
       status: "pending",
     });
     if (error) {
-      alert(`Lỗi gửi bình luận: ${error.message}`);
+      showToast(`Lỗi gửi bình luận: ${error.message}`, "error", 4000);
     } else {
       setCommentText("");
       setReplyTo(null);
       await fetchData();
-      alert("Bình luận đã gửi — đang chờ quản trị viên duyệt.");
+      showToast("Bình luận đã gửi — đang chờ quản trị viên duyệt", "success", 3000);
     }
     setSubmitting(false);
   };
@@ -528,7 +530,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
     setRatingSubmitting(false);
 
     if (error) {
-      alert(`Lỗi đánh giá: ${error.message}`);
+      showToast(`Lỗi đánh giá: ${error.message}`, "error", 4000);
     } else {
       setUserRating(finalRating);
       setRatingToast({ stars: finalRating });
@@ -552,6 +554,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
           </button>
         }
       >
+        <ToastComponent />
       {loading ? (
         <div className="flex items-center justify-center py-24">
           <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>

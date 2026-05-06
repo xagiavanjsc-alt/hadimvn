@@ -5,6 +5,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { useStudySync } from "@/hooks/useStudySync";
 import { useXPSystem } from "@/hooks/useXPSystem";
+import { useToast } from "@/components/base/Toast";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import { isExamTooFast, isInCooldown, MIN_EPS_EXAM_TIME_SEC } from "@/lib/xp";
 
@@ -161,6 +162,7 @@ export default function EpsExamPage() {
   const { user, profile } = useAuth();
   const { syncToCloud, updateLeaderboard } = useStudySync();
   const { awardXP } = useXPSystem();
+  const { showToast, ToastComponent } = useToast();
   const [examResults, setExamResults] = useLocalStorage<ExamResult[]>("kts_eps_exam_history", []);
   const [mode, setMode] = useState<"intro" | "exam" | "result">("intro");
   const [syncing, setSyncing] = useState(false);
@@ -185,7 +187,7 @@ export default function EpsExamPage() {
     const lastAt = parseInt(localStorage.getItem("kts_eps_exam_last_at") || "0", 10) || null;
     const { inCooldown, remainingSec } = isInCooldown(lastAt);
     if (inCooldown) {
-      alert(`Vui lòng chờ ${remainingSec}s trước khi làm bài mới.`);
+      showToast(`Vui lòng chờ ${remainingSec}s trước khi làm bài mới`, "warning", 3000);
       return;
     }
     const qs = pickQuestions();
@@ -301,6 +303,7 @@ export default function EpsExamPage() {
   if (mode === "intro") {
     return (
       <DashboardLayout title="Thi thử EPS-TOPIK" subtitle="Mô phỏng đề thi thật — 40 câu · 50 phút">
+        <ToastComponent />
         <div className="max-w-2xl mx-auto">
           {/* Exam info */}
           <div className="bg-app-bg border border-app-border rounded-2xl p-8 mb-5">
@@ -390,6 +393,7 @@ export default function EpsExamPage() {
         title="Thi thử EPS-TOPIK"
         subtitle={`Câu ${currentIdx + 1}/${examQuestions.length}`}
       >
+        <ToastComponent />
         {/* Mobile sticky timer bar */}
         <div className="md:hidden sticky top-0 z-30 bg-app-bg border-b border-app-border px-3 py-2 flex items-center gap-2 shadow-lg">
           <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border font-mono font-bold text-sm flex-shrink-0" style={{ borderColor: `${timeColor}40`, backgroundColor: `${timeColor}12`, color: timeColor }}>
@@ -641,6 +645,7 @@ export default function EpsExamPage() {
 
     return (
       <DashboardLayout title="Kết quả thi thử EPS-TOPIK" subtitle="Phân tích chi tiết kết quả bài thi">
+        <ToastComponent />
         <div className="max-w-3xl mx-auto space-y-5">
           {/* Anti-cheat warning */}
           {flaggedTooFast && (

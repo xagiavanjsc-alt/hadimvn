@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
+import { useToast } from "@/components/base/Toast";
 import { epsQuestions, EPS_TOPICS } from "@/mocks/epsQuestions";
 import { isExamTooFast, isInCooldown } from "@/lib/xp";
 
@@ -42,6 +43,7 @@ interface TopicExamResult {
 export default function EpsTopicExamPage() {
   const navigate = useNavigate();
   const { awardXP } = useXPSystem();
+  const { showToast, ToastComponent } = useToast();
   const [history, setHistory] = useLocalStorage<TopicExamResult[]>("kts_eps_topic_exam_history", []);
 
   const [mode, setMode] = useState<"select" | "exam" | "result">("select");
@@ -68,7 +70,7 @@ export default function EpsTopicExamPage() {
     const lastAt = parseInt(localStorage.getItem("kts_eps_topic_exam_last_at") || "0", 10) || null;
     const { inCooldown, remainingSec } = isInCooldown(lastAt);
     if (inCooldown) {
-      alert(`Vui lòng chờ ${remainingSec}s trước khi làm bài mới.`);
+      showToast(`Vui lòng chờ ${remainingSec}s trước khi làm bài mới`, "warning", 3000);
       return;
     }
     const topicQs = epsQuestions.filter(q => q.topic === topicId);
@@ -146,6 +148,7 @@ export default function EpsTopicExamPage() {
   if (mode === "select") {
     return (
       <DashboardLayout title="Thi thử EPS theo chủ đề" subtitle="Chọn 1 chủ đề và thi 20 câu tập trung">
+        <ToastComponent />
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
           <div>
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
@@ -279,6 +282,7 @@ export default function EpsTopicExamPage() {
         title={`Thi thử: ${topicInfo?.label || ""}`}
         subtitle={`Câu ${currentIdx + 1}/${examQuestions.length} · 20 câu · 25 phút`}
       >
+        <ToastComponent />
         {/* Top bar */}
         <div className="flex items-center gap-3 px-6 py-3 bg-app-bg border-b border-app-border mb-4 -mx-6 -mt-2">
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl border font-mono font-bold text-sm" style={{ borderColor: `${timeColor}30`, backgroundColor: `${timeColor}10`, color: timeColor }}>

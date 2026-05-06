@@ -4,6 +4,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { useStudySync } from "@/hooks/useStudySync";
 import { useXPSystem } from "@/hooks/useXPSystem";
+import { useToast } from "@/components/base/Toast";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
 import { epsVocabulary, EPS_VOCAB_TOPICS } from "@/mocks/epsVocabulary";
 
@@ -36,11 +37,10 @@ function FlipCard({ card, onKnow, onDontKnow }: {
   const touchStartY = useRef<number | null>(null);
   const [swipeHint, setSwipeHint] = useState<"left" | "right" | null>(null);
   const [audioPlayed, setAudioPlayed] = useState(false);
-  const [warningMsg, setWarningMsg] = useState<string | null>(null);
-  const warningTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [flipStartTime, setFlipStartTime] = useState<number | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const MIN_READ_TIME_MS = 1500; // Minimum 1.5 seconds to read before marking as known
+  const { showToast, ToastComponent } = useToast();
 
   // Play audio when card is shown (for Korean words)
   useEffect(() => {
@@ -105,18 +105,12 @@ function FlipCard({ card, onKnow, onDontKnow }: {
     }
   };
 
-  const showWarning = (msg: string) => {
-    setWarningMsg(msg);
-    if (warningTimer.current) clearTimeout(warningTimer.current);
-    warningTimer.current = setTimeout(() => setWarningMsg(null), 2500);
-  };
-
   const handleKnowWithValidation = () => {
     // Check if user spent enough time reading the answer
     if (flipStartTime) {
       const timeSpent = Date.now() - flipStartTime;
       if (timeSpent < MIN_READ_TIME_MS) {
-        showWarning("Đọc kỹ đáp án trước khi đánh dấu đã thuộc");
+        showToast("Đọc kỹ đáp án trước khi đánh dấu đã thuộc", "warning", 2500);
         return;
       }
     }
@@ -137,17 +131,7 @@ function FlipCard({ card, onKnow, onDontKnow }: {
 
   return (
     <div className="flex flex-col items-center gap-6">
-      {/* Warning toast */}
-      {warningMsg && (
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 animate-[fadeInDown_0.3s_ease] pointer-events-none">
-          <div className="flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-[#1a1d27] border border-amber-500/30 shadow-lg shadow-black/40">
-            <div className="w-8 h-8 flex items-center justify-center rounded-xl bg-amber-500/15 flex-shrink-0">
-              <i className="ri-timer-line text-amber-400 text-base"></i>
-            </div>
-            <p className="text-amber-200 text-sm font-medium">{warningMsg}</p>
-          </div>
-        </div>
-      )}
+      <ToastComponent />
 
       {/* Swipe hint overlay */}
       {swipeHint && (

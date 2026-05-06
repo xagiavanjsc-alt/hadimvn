@@ -5,6 +5,7 @@
 import { useState, useMemo, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useToast } from "@/components/base/Toast";
 import { epsQuestions, EPS_TOPICS, type EpsQuestion } from "@/mocks/epsQuestions";
 import { epsVocabulary, EPS_VOCAB_TOPICS, type EpsVocabItem } from "@/mocks/epsVocabulary";
 import ImageWithFallback from "@/components/base/ImageWithFallback";
@@ -69,6 +70,7 @@ function QuestionEditor({ question, onSave, onCancel }: {
 }
 
 function ImportPanel() {
+  const { showToast, ToastComponent } = useToast();
   const [importText, setImportText] = useState("");
   const [parseResult, setParseResult] = useState<{ valid: EpsVocabItem[]; dupes: string[]; errors: string[] } | null>(null);
 
@@ -107,6 +109,7 @@ function ImportPanel() {
             <i className="ri-file-copy-line mr-1"></i>Dùng dữ liệu mẫu
           </button>
         </div>
+        <ToastComponent />
         <textarea value={importText} onChange={e => { setImportText(e.target.value); setParseResult(null); }}
           placeholder="Dán dữ liệu TSV vào đây..." rows={8} maxLength={50000}
           className="w-full bg-app-card/50 border border-app-border rounded-xl px-3 py-2.5 text-white/70 text-xs font-mono outline-none focus:border-rose-400/40 placeholder-white/20 resize-none" />
@@ -116,7 +119,7 @@ function ImportPanel() {
             <i className="ri-eye-line mr-2"></i>Kiểm tra dữ liệu
           </button>
           {parseResult && parseResult.valid.length > 0 && (
-            <button onClick={() => alert(`Cần kết nối Supabase để import ${parseResult.valid.length} từ mới.`)}
+            <button onClick={() => showToast(`Cần kết nối Supabase để import ${parseResult.valid.length} từ mới`, "info", 5000)}
               className="flex-1 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 text-white font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
               <i className="ri-add-line mr-2"></i>Import {parseResult.valid.length} từ
             </button>
@@ -175,6 +178,7 @@ function VpsGuide() {
 }
 
 export default function AdminEpsNewPage() {
+  const { showToast, ToastComponent } = useToast();
   const [activeTab, setActiveTab] = useState<AdminTab>("questions");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [overrides, setOverrides] = useLocalStorage<Record<string, Partial<EpsQuestion>>>("kts_eps_overrides", {});
@@ -230,6 +234,7 @@ export default function AdminEpsNewPage() {
 
   return (
     <AdminLayout title="Quản lý EPS" subtitle="Chỉnh sửa ảnh câu hỏi, import từ vựng, cấu hình VPS">
+      <ToastComponent />
       {/* Tabs */}
       <div className="flex items-center gap-1 bg-app-card/50 rounded-xl p-1 mb-6 w-fit">
         {tabs.map(tab => (

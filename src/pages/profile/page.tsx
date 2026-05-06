@@ -1,6 +1,7 @@
 ﻿import { useMemo, useState, useRef, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
+import { useToast } from "@/components/base/Toast";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { isVipActive, supabase } from "@/lib/supabase";
@@ -72,6 +73,7 @@ function StatCard({ icon, color, bg, label, value, sub }: {
 export default function ProfilePage() {
   const navigate = useNavigate();
   const { user, profile, updateProfile, signOut, refreshProfile, loading: authLoading } = useAuth();
+  const { showToast, ToastComponent } = useToast();
 
   // Refresh profile on mount to ensure VIP status is current
   useEffect(() => {
@@ -143,11 +145,11 @@ export default function ProfilePage() {
     e.target.value = ''; // reset
 
     if (!file.type.startsWith('image/')) {
-      alert('Chỉ chấp nhận file ảnh');
+      showToast('Chỉ chấp nhận file ảnh', 'error', 3000);
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
-      alert('Ảnh không được vượt quá 5MB');
+      showToast('Ảnh không được vượt quá 5MB', 'error', 3000);
       return;
     }
 
@@ -190,7 +192,7 @@ export default function ProfilePage() {
       showSuccess("Đã cập nhật avatar!");
     } catch (err) {
       console.error('[uploadAvatar] error:', err);
-      alert('Lỗi upload avatar: ' + (err instanceof Error ? err.message : 'unknown'));
+      showToast('Lỗi upload avatar: ' + (err instanceof Error ? err.message : 'unknown'), 'error', 4000);
     } finally {
       setSavingAvatar(false);
     }
@@ -291,7 +293,9 @@ export default function ProfilePage() {
       title="Hồ sơ học viên"
       subtitle="Theo dõi tiến độ và thành tích học tiếng Hàn của bạn"
       actions={
-        <div className="flex flex-wrap items-center gap-2">
+        <>
+          <ToastComponent />
+          <div className="flex flex-wrap items-center gap-2">
           {saveMsg && (
             <span className="flex items-center gap-1.5 text-app-accent-success text-xs font-medium px-3 py-1.5 bg-emerald-500/10 rounded-lg border border-emerald-500/20">
               <i className="ri-checkbox-circle-fill"></i>
@@ -334,7 +338,8 @@ export default function ProfilePage() {
               <span className="sm:hidden">VIP</span>
             </button>
           )}
-        </div>
+          </div>
+        </>
       }
     >
       {/* Profile header */}

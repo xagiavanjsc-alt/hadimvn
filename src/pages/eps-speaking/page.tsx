@@ -1,5 +1,7 @@
-﻿import { useState, useRef, useCallback, useEffect } from "react";
+﻿import { useState, useEffect, useCallback, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
+import { useToast } from "@/components/base/Toast";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 interface SpeakingQuestion {
@@ -99,6 +101,8 @@ function scoreTranscript(original: string, transcript: string): ScoreResult {
 }
 
 export default function EpsSpeakingPage() {
+  const navigate = useNavigate();
+  const { showToast, ToastComponent } = useToast();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [filterTopic, setFilterTopic] = useState("Tất cả");
   const [filterDiff, setFilterDiff] = useState("all");
@@ -157,7 +161,7 @@ export default function EpsSpeakingPage() {
   const startRecording = useCallback(() => {
     const SpeechRecognition = (window as unknown as { SpeechRecognition?: typeof window.SpeechRecognition; webkitSpeechRecognition?: typeof window.SpeechRecognition }).SpeechRecognition || (window as unknown as { webkitSpeechRecognition?: typeof window.SpeechRecognition }).webkitSpeechRecognition;
     if (!SpeechRecognition) {
-      alert("Trình duyệt của bạn không hỗ trợ nhận dạng giọng nói. Hãy dùng Chrome.");
+      showToast("Trình duyệt không hỗ trợ nhận dạng giọng nói. Hãy dùng Chrome", "error", 4000);
       return;
     }
 
@@ -257,6 +261,7 @@ export default function EpsSpeakingPage() {
 
   return (
     <DashboardLayout>
+      <ToastComponent />
       <div className="p-6 max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
