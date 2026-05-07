@@ -9079,11 +9079,12 @@ const LEVELS = ["Tất cả", "TOPIK 1", "TOPIK 2", "TOPIK 3", "TOPIK 4", "TOPIK
 
 export default function GrammarByLevelPage() {
   const [selectedLevel, setSelectedLevel] = useState("Tất cả");
-  const [selectedPattern, setSelectedPattern] = useState<GrammarPattern | null>(GRAMMAR_PATTERNS[0] || null);
+  const [selectedPattern, setSelectedPattern] = useState<GrammarPattern | null>(null);
   const [activeTab, setActiveTab] = useState<"explain" | "examples" | "exercise">("explain");
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [showResults, setShowResults] = useState(false);
   const [search, setSearch] = useState("");
+  const [openLevels, setOpenLevels] = useState<Set<string>>(new Set(["TOPIK 1", "TOPIK 2", "TOPIK 3", "TOPIK 4", "TOPIK 5"]));
 
   const filtered = useMemo(() => {
     let list = selectedLevel === "Tất cả" ? GRAMMAR_PATTERNS : GRAMMAR_PATTERNS.filter(p => p.level === selectedLevel);
@@ -9103,6 +9104,8 @@ export default function GrammarByLevelPage() {
     GRAMMAR_PATTERNS.forEach(p => { stats[p.level] = (stats[p.level] || 0) + 1; });
     return stats;
   }, []);
+
+  const toggleLevel = (lv: string) => setOpenLevels(prev => { const n = new Set(prev); n.has(lv) ? n.delete(lv) : n.add(lv); return n; });
 
   const handleAnswer = (qIdx: number, optIdx: number) => {
     if (showResults) return;
@@ -9150,8 +9153,8 @@ export default function GrammarByLevelPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left: Pattern list - sticky on desktop */}
-          <div className="lg:col-span-1 lg:sticky lg:top-4 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto">
+          {/* Left: Pattern list - sticky on desktop, hidden on mobile when detail open */}
+          <div className={`lg:col-span-1 lg:sticky lg:top-4 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto ${selectedPattern ? 'hidden lg:block' : ''}`}>
             {/* Filters - sticky on mobile */}
             <div className="mb-3 sticky top-0 bg-app-bg z-10 pb-3">
               <div className="relative mb-3">
@@ -9177,31 +9180,73 @@ export default function GrammarByLevelPage() {
               </div>
             </div>
 
-            {/* Pattern list - compact cards */}
-            <div className="grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-1 gap-2">
-              {filtered.map(pattern => (
-                <button
-                  key={pattern.id}
-                  onClick={() => { setSelectedPattern(pattern); setActiveTab("explain"); handleReset(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                  className={`text-left p-2.5 rounded-lg border cursor-pointer transition-all ${selectedPattern?.id === pattern.id ? "border-app-accent-primary bg-app-accent-primary/10" : "border-app-border bg-app-surface/50 hover:border-app-border hover:bg-app-surface/70"}`}
-                >
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold text-white" style={{ backgroundColor: pattern.levelColor }}>
-                      {pattern.level.replace('TOPIK ', '')}
-                    </span>
-                    <span className="font-semibold text-xs text-white truncate">{pattern.pattern}</span>
-                  </div>
-                  <p className="text-[10px] text-white/50 truncate">{pattern.meaning}</p>
-                </button>
-              ))}
-              {filtered.length === 0 && (
-                <div className="col-span-2 text-center py-8 text-white/40 text-sm">Không tìm thấy cấu trúc nào</div>
-              )}
-            </div>
+            {/* Pattern list */}
+            {selectedLevel !== "Tất cả" || search.trim() ? (
+              /* Flat list (filtered / search mode) */
+              <div className="grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-1 gap-2">
+                {filtered.map(pattern => (
+                  <button
+                    key={pattern.id}
+                    onClick={() => { setSelectedPattern(pattern); setActiveTab("explain"); handleReset(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                    className={`text-left p-2.5 rounded-lg border cursor-pointer transition-all ${selectedPattern?.id === pattern.id ? "border-app-accent-primary bg-app-accent-primary/10" : "border-app-border bg-app-surface/50 hover:bg-app-surface/70"}`}
+                  >
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold text-white" style={{ backgroundColor: pattern.levelColor }}>
+                        {pattern.level.replace('TOPIK ', '')}
+                      </span>
+                      <span className="font-semibold text-xs text-white truncate">{pattern.pattern}</span>
+                    </div>
+                    <p className="text-[10px] text-white/50 truncate">{pattern.meaning}</p>
+                  </button>
+                ))}
+                {filtered.length === 0 && (
+                  <div className="col-span-2 text-center py-8 text-white/40 text-sm">Không tìm thấy cấu trúc nào</div>
+                )}
+              </div>
+            ) : (
+              /* Grouped accordion by level */
+              <div className="space-y-2">
+                {LEVELS.filter(lv => lv !== "Tất cả" && (levelStats[lv] || 0) > 0).map(lv => {
+                  const lvPatterns = GRAMMAR_PATTERNS.filter(p => p.level === lv);
+                  const lvColor = lvPatterns[0]?.levelColor ?? "#888";
+                  const isOpen = openLevels.has(lv);
+                  return (
+                    <div key={lv} className="border border-app-border rounded-xl overflow-hidden">
+                      <button
+                        onClick={() => toggleLevel(lv)}
+                        className="w-full flex items-center justify-between px-3 py-2.5 bg-app-surface/70 hover:bg-app-surface/90 transition-colors"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold text-white" style={{ backgroundColor: lvColor }}>
+                            {lv}
+                          </span>
+                          <span className="text-white/50 text-xs">({levelStats[lv] || 0} cấu trúc)</span>
+                        </div>
+                        <i className={`${isOpen ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'} text-white/50`}></i>
+                      </button>
+                      {isOpen && (
+                        <div className="grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-1 gap-1.5 p-2 bg-app-bg/20">
+                          {lvPatterns.map(pattern => (
+                            <button
+                              key={pattern.id}
+                              onClick={() => { setSelectedPattern(pattern); setActiveTab("explain"); handleReset(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                              className={`text-left p-2.5 rounded-lg border cursor-pointer transition-all ${selectedPattern?.id === pattern.id ? "border-app-accent-primary bg-app-accent-primary/10" : "border-app-border bg-app-surface/50 hover:bg-app-surface/70"}`}
+                            >
+                              <span className="font-semibold text-xs text-white truncate block mb-0.5">{pattern.pattern}</span>
+                              <p className="text-[10px] text-white/50 truncate">{pattern.meaning}</p>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Right: Detail */}
-          <div className="lg:col-span-2">
+          <div className={`lg:col-span-2 ${!selectedPattern ? 'hidden lg:block' : ''}`}>
             {!selectedPattern ? (
               <div className="flex flex-col items-center justify-center h-64 text-white/40">
                 <i className="ri-book-open-line text-5xl mb-3"></i>
@@ -9214,9 +9259,9 @@ export default function GrammarByLevelPage() {
                   <div className="flex items-center gap-2 mb-2">
                     <button
                       onClick={() => setSelectedPattern(null)}
-                      className="lg:hidden flex items-center gap-1 text-white/50 hover:text-white/70 text-sm"
+                      className="lg:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-surface/70 text-white/70 hover:text-white text-sm border border-app-border"
                     >
-                      <i className="ri-arrow-left-line"></i>Quay lại
+                      <i className="ri-arrow-left-line"></i>Danh sách
                     </button>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-3 mb-2">
