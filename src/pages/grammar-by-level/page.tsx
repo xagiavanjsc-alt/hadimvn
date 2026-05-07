@@ -5928,7 +5928,11 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       { question: "환경오염__ 자연생태계가 위협을 받고 있습니다.", options: ["으로 인해서", "에 비해서", "에 따라서", "을 통해서"], answer: 0, explanation: "Nguyên nhân trang trọng: 환경오염으로 인해서." },
       { question: "과학 기술의 발전__ 우리의 생활이 편리해졌다.", options: ["으로 인해", "에 비해", "에 따라", "로써"], answer: 0, explanation: "Do sự phát triển của khoa học kỹ thuật → 발전으로 인해." },
     ],
-    commonMistakes: [],
+    commonMistakes: [
+      "Nhầm với 때문에 (덜 trang trọng hơn).",
+      "Quên biến thể: nguyên âm → 로 인해서, phụ âm → 으로 인해서.",
+      "Dùng sai trong văn nói thông thường.",
+    ],
     tags: ["Nguyên nhân", "Trang trọng", "Văn viết", "TOPIK 3"],
   },
   {
@@ -5948,7 +5952,11 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       { question: "지하철을 잘못 타__ 반대 방향으로 갔어요.", options: ["는 통에", "는 김에", "는 대신에", "도록"], answer: 0, explanation: "Hoàn cảnh gây kết quả tiêu cực → 잘못 타는 통에." },
       { question: "아이들이 시끄럽게 우__ 전화 통화가 힘들어요.", options: ["는 통에", "기 마련이라", "는 대로", "고자"], answer: 0, explanation: "Trẻ khóc ồn gây khó nói điện thoại → 우는 통에." },
     ],
-    commonMistakes: [],
+    commonMistakes: [
+      "Dùng với kết quả tích cực (vế sau phải luôn tiêu cực).",
+      "Nhầm với 는 바람에 (바람에 nhẹ hơn, 통에 mang nghĩa hỗn loạn hơn).",
+      "Kết hợp với tính từ thay vì động từ.",
+    ],
     tags: ["Nguyên nhân", "Kết quả tiêu cực", "Hỗn loạn", "TOPIK 3"],
   },
   {
@@ -5968,7 +5976,11 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       { question: "전쟁__ 문화유산들이 소실되었다.", options: ["으로 말미암아", "에 비해서", "을 통해서", "에 따라"], answer: 0, explanation: "Nguyên nhân tiêu cực trang trọng → 전쟁으로 말미암아." },
       { question: "오존층 파괴__ 피부암 환자가 증가하고 있다.", options: ["로 말미암아", "에다가", "만큼", "로써"], answer: 0, explanation: "Do sự phá hủy tầng ozon → 파괴로 말미암아." },
     ],
-    commonMistakes: [],
+    commonMistakes: [
+      "Nhầm với 으로 인해서 (cả hai tương tự nhưng 말미암아 trang trọng hơn).",
+      "Dùng trong văn nói thông thường (chỉ dùng trong văn viết/trang trọng).",
+      "Quên biến thể nguyên âm/phụ âm.",
+    ],
     tags: ["Nguyên nhân", "Trang trọng", "Văn viết", "TOPIK 3"],
   },
   {
@@ -5988,7 +6000,10 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       { question: "그 일__ 그도 정신 차렸을 거예요.", options: ["로 해서", "에 비해서", "를 통해서", "에다가"], answer: 0, explanation: "Vì việc đó → 그 일로 해서." },
       { question: "시내__ 가는 것이 빠릅니다.", options: ["로 해서", "에 의해", "에 따라", "만큼"], answer: 0, explanation: "Đi qua trung tâm thành phố → 시내로 해서." },
     ],
-    commonMistakes: [],
+    commonMistakes: [
+      "Nhầm nghĩa 'vì' với nghĩa 'đi qua' khi dùng với động từ chuyển động.",
+      "Quên biến thể: nguyên âm → 로 해서, phụ âm → 으로 해서.",
+    ],
     tags: ["Nguyên nhân", "Lộ trình", "Trang trọng", "TOPIK 3"],
   },
   {
@@ -6008,7 +6023,11 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       { question: "날씨가 추우__ 밖에 나가지 말고 집에서 쉬자.", options: ["니만큼", "기로서니", "기에", "는 통에"], answer: 0, explanation: "Căn cứ vào sự thật trời lạnh để đề nghị → 추우니만큼." },
       { question: "중요한 발표__ 준비를 철저하게 해야 돼요.", options: ["니만큼", "답시고", "통에", "로써"], answer: 0, explanation: "Danh từ + 이니만큼/니만큼 → 발표니만큼." },
     ],
-    commonMistakes: [],
+    commonMistakes: [
+      "Nhầm chia dạng: động từ/tính từ → 느니만큼/으니만큼, danh từ → 이니만큼/니만큼.",
+      "Nhầm với 만큼 đơn thuần (만큼 diễn tả mức độ, 느니만큼 diễn tả căn cứ).",
+      "Dùng sai khi vế sau không phải phán xét/đề nghị/yêu cầu.",
+    ],
     tags: ["Căn cứ", "Phán xét", "Trang trọng", "TOPIK 3"],
   },
   {
@@ -6027,7 +6046,10 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       { question: "기숙사 생활을 하__ 약간의 불편을 감수해야 한다.", options: ["느니만치", "기로서니", "는 통에", "답시고"], answer: 0, explanation: "Căn cứ vào việc cùng sống ký túc xá → 하느니만치." },
       { question: "상당한 시간이 걸리__ 느긋하게 기다리는 것이 필요하다.", options: ["느니만치", "기에 망정이지", "는답시고", "로 해서"], answer: 0, explanation: "Căn cứ vào việc tốn thời gian → 걸리느니만치." },
     ],
-    commonMistakes: [],
+    commonMistakes: [
+      "Nhầm với 느니만큼 (cả hai tương tự, 만치 cũ hơn và ít dùng hơn trong văn nói).",
+      "Dùng trong văn nói thông thường (nên dùng 느니만큼 cho văn nói).",
+    ],
     tags: ["Căn cứ", "Phán xét", "Trang trọng", "TOPIK 3"],
   },
   {
@@ -6047,7 +6069,11 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       { question: "약속을 한 __ 약속을 지켜야 한다.", options: ["이상", "통에", "답시고", "망정이지"], answer: 0, explanation: "Một khi đã hứa → 약속을 한 이상." },
       { question: "이 회사의 직원__ 이 행사에 꼭 참여해야 돼요.", options: ["인 이상", "인 통에", "인답시고", "으로써"], answer: 0, explanation: "Danh từ + 인 이상 → 직원인 이상." },
     ],
-    commonMistakes: [],
+    commonMistakes: [
+      "Nhầm chia: tính từ → (으)ㄴ 이상, động từ → 는 이상, danh từ → 인 이상.",
+      "Quên rằng vế sau thường là nghĩa vụ/tất yếu, không phải điều tùy ý.",
+      "Nhầm với 는 한 (두 dạng tương tự nhau).",
+    ],
     tags: ["Điều kiện", "Nghĩa vụ", "Tất yếu", "TOPIK 3"],
   },
   {
@@ -6067,7 +6093,11 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       { question: "아무리 바쁘__ 밥 먹을 시간도 없겠어요?", options: ["기로서니", "기에 망정이지", "는 통에", "는답시고"], answer: 0, explanation: "Công nhận lý do nhưng phủ nhận mức độ hợp lý → 바쁘기로서니." },
       { question: "화가 좀 났__ 어떻게 그런 심한 말을 해요?", options: ["기로서니", "으니만큼", "는 통에", "으로써"], answer: 0, explanation: "Quá khứ + 기로서니 → 났기로서니." },
     ],
-    commonMistakes: [],
+    commonMistakes: [
+      "Dùng với câu khẳng định thay vì câu hỏi tu từ.",
+      "Nhầm với 아무리 -아/어도 (nhượng bộ thông thường, 기로서니 nhấn mạnh lý do không đủ).",
+      "Quên 아무리 thường đi kèm cấu trúc này.",
+    ],
     tags: ["Nhượng bộ", "Phủ nhận biện minh", "Tu từ", "TOPIK 3"],
   },
   {
@@ -6087,7 +6117,11 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       { question: "일찍 출발했__ 기차를 놓칠 뻔했어요.", options: ["기에 망정이지", "기로서니", "는 통에", "는답시고"], answer: 0, explanation: "May mà xuất phát sớm, tránh kết quả xấu → 출발했기에 망정이지." },
       { question: "우산을 가져왔__ 비를 홀딱 맞을 뻔했어요.", options: ["기에 망정이지", "기로서니", "느니만큼", "로 해서"], answer: 0, explanation: "May mang ô nên tránh bị ướt → 가져왔기에 망정이지." },
     ],
-    commonMistakes: [],
+    commonMistakes: [
+      "Dùng khi kết quả ở vế sau là tích cực (vế sau phải là kết quả xấu nếu không có vế trước).",
+      "Nhầm với 기로서니 (기로서니 phủ nhận lý do, 기에 망정이지 thể hiện may mắn).",
+      "Chia sai thì: thường dùng quá khứ ở vế trước.",
+    ],
     tags: ["May mắn", "Tránh kết quả xấu", "Nhẹ nhõm", "TOPIK 3"],
   },
   {
@@ -6107,7 +6141,11 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       { question: "온라인 강의를 듣__ 컴퓨터를 사 놓고 게임만 해요.", options: ["는답시고", "기에 망정이지", "기로서니", "는 통에"], answer: 0, explanation: "Bảo là nghe giảng online nhưng hành động không thoả đáng → 듣는답시고." },
       { question: "다이어트하__ 일주일도 안 돼서 폭식했어요.", options: ["ㄴ답시고", "기에", "는 통에", "로써"], answer: 0, explanation: "Bảo là ăn kiêng nhưng lại ăn quá nhiều → 다이어트한답시고." },
     ],
-    commonMistakes: [],
+    commonMistakes: [
+      "Chia sai dạng: hiện tại → 는답시고, quá khứ → (았/었)답시고.",
+      "Dùng với ý nghĩa trung lập (cấu trúc này luôn mang hàm ý châm biếm/phê phán).",
+      "Nhầm với 느라고 (느라고 nêu lý do, 답시고 châm biếm).",
+    ],
     tags: ["Châm biếm", "Phê phán", "Hành động không thoả đáng", "TOPIK 3"],
   },
   {
@@ -6127,7 +6165,11 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       { question: "한글을 창제함__ 언어 생활을 편리하게 만들었어요.", options: ["으로써", "으로 인해", "으로 말미암아", "으로 해서"], answer: 0, explanation: "Bằng việc sáng tạo Hangul → 창제함으로써." },
       { question: "책을 많이 읽음__ 견문을 넓히고 있습니다.", options: ["으로써", "으로 인해서", "으로 말미암아", "는 통에"], answer: 0, explanation: "Bằng việc đọc nhiều sách → 읽음으로써." },
     ],
-    commonMistakes: [],
+    commonMistakes: [
+      "Nhầm với 으로 인해서 (인해서 = nguyên nhân, 으로써 = phương tiện/cách thức).",
+      "Chia sai: động từ/tính từ danh từ hóa bằng (으)ㅁ trước 으로써.",
+      "Quên rằng N + 으로써 và A/V + (으)ㅁ으로써 là hai dạng khác nhau.",
+    ],
     tags: ["Phương tiện", "Cách thức", "Trang trọng", "TOPIK 3"],
   },
 ];
