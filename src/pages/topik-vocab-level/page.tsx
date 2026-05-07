@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
+import { seoulBooks } from "@/mocks/data/seoul-books-data";
 
 interface VocabWord {
   id: number;
@@ -92,7 +93,56 @@ const LEVEL_INFO: LevelInfo[] = [
   },
 ];
 
-// Mock vocab data per level
+// Seoul Textbook book → TOPIK level mapping
+const BOOK_TOPIK_LEVEL: Record<string, number> = {
+  "1A": 1, "1B": 2, "2A": 2, "2B": 3, "3A": 3, "3B": 4, "4A": 5, "4B": 6,
+};
+
+function getSeoulVocabByTopikLevel(level: number): VocabWord[] {
+  const result: VocabWord[] = [];
+  const seen = new Set<string>();
+  let counter = level * 10000;
+  for (const book of seoulBooks) {
+    if (BOOK_TOPIK_LEVEL[book.id] !== level) continue;
+    for (const lesson of book.lessons) {
+      const catLabel = lesson.titleVi || lesson.title;
+      for (const v of lesson.vocabulary) {
+        if (seen.has(v.korean)) continue;
+        seen.add(v.korean);
+        result.push({
+          id: counter++,
+          word: v.korean,
+          meaning: v.vietnamese,
+          level: level.toString(),
+          category: catLabel,
+          example: v.example,
+        });
+      }
+    }
+  }
+  return result;
+}
+
+function getSeoulLevelCounts(): Record<number, number> {
+  const counts: Record<number, number> = {};
+  const seen: Record<number, Set<string>> = {};
+  for (const book of seoulBooks) {
+    const lvl = BOOK_TOPIK_LEVEL[book.id];
+    if (!lvl) continue;
+    if (!seen[lvl]) seen[lvl] = new Set();
+    for (const lesson of book.lessons) {
+      for (const v of lesson.vocabulary) {
+        if (!seen[lvl].has(v.korean)) {
+          seen[lvl].add(v.korean);
+          counts[lvl] = (counts[lvl] || 0) + 1;
+        }
+      }
+    }
+  }
+  return counts;
+}
+
+// Fallback mock vocab data per level (used only if Seoul data also empty)
 const MOCK_VOCAB: Record<number, VocabWord[]> = {
   1: [
     { id: 1, word: "안녕하세요", meaning: "Xin chào", level: "1", category: "Chào hỏi", example: "안녕하세요! 저는 민준이에요." },
@@ -212,17 +262,21 @@ export default function TopikVocabLevelPage() {
   }, []);
 
   const loadLevelStats = async () => {
+    // Use Seoul textbook counts as base
+    const seoulCounts = getSeoulLevelCounts();
+    setLevelStats(seoulCounts);
+    // Then try to merge in any Supabase topik_vocabulary counts
     try {
       const { data } = await supabase
         .from("topik_vocabulary")
         .select("level");
-      if (data) {
-        const stats: Record<number, number> = {};
+      if (data && data.length > 0) {
+        const merged = { ...seoulCounts };
         data.forEach((row: { level?: string }) => {
           const lvl = parseInt(row.level || "1");
-          stats[lvl] = (stats[lvl] || 0) + 1;
+          if (!isNaN(lvl)) merged[lvl] = (merged[lvl] || 0) + 1;
         });
-        setLevelStats(stats);
+        setLevelStats(merged);
       }
     } catch { /* ignore */ }
   };
@@ -232,19 +286,24 @@ export default function TopikVocabLevelPage() {
     setSelectedLevel(level);
     setSearchQuery("");
     setSelectedCategory("all");
+    // Always load Seoul textbook vocab as the base
+    const seoulVocab = getSeoulVocabByTopikLevel(level);
     try {
       const { data } = await supabase
         .from("topik_vocabulary")
         .select("*")
         .eq("level", level.toString())
-        .limit(100);
+        .limit(200);
       if (data && data.length > 0) {
-        setWords(data);
+        // Merge Supabase words on top of Seoul vocab (Supabase takes priority)
+        const supabaseKorean = new Set(data.map((d: { word?: string; korean?: string }) => d.word || d.korean || ""));
+        const merged = [...data, ...seoulVocab.filter(w => !supabaseKorean.has(w.word))];
+        setWords(merged);
       } else {
-        setWords(MOCK_VOCAB[level] || []);
+        setWords(seoulVocab.length > 0 ? seoulVocab : (MOCK_VOCAB[level] || []));
       }
     } catch {
-      setWords(MOCK_VOCAB[level] || []);
+      setWords(seoulVocab.length > 0 ? seoulVocab : (MOCK_VOCAB[level] || []));
     }
     setLoading(false);
   };
