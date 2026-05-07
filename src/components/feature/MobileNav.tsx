@@ -31,6 +31,7 @@ const MENU_GROUPS = [
       { path: "/seoul-textbook", icon: "ri-book-3-line", label: "Seoul (Du học)" },
       { path: "/topik-test", icon: "ri-survey-line", label: "TOPIK (Chứng chỉ)" },
       { path: "/grammar-by-level", icon: "ri-book-2-line", label: "Ngữ pháp TOPIK" },
+      { path: "/topik-vocab-level", icon: "ri-translate-2", label: "Từ vựng TOPIK" },
       { path: "/hanja-detail", icon: "ri-character-recognition-line", label: "Hán Hàn" },
       { path: "/hanja-pro", icon: "ri-character-recognition-line", label: "Hán Hàn Chuyên Sâu" },
     ],

@@ -13,6 +13,7 @@ export interface SeoulGrammarPoint {
   explanation: string;
   examples: { korean: string; vietnamese: string }[];
   notes?: string;
+  topikPatternId?: string;
 }
 
 export interface SeoulLesson {
