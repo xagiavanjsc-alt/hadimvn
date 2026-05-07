@@ -28,9 +28,9 @@ const LEVEL_INFO: LevelInfo[] = [
   {
     level: 1,
     label: "TOPIK I - Cấp 1",
-    color: "text-emerald-600",
-    bg: "bg-emerald-50",
-    border: "border-emerald-200",
+    color: "text-emerald-400",
+    bg: "bg-emerald-500/10",
+    border: "border-emerald-500/20",
     badge: "bg-emerald-500",
     description: "Từ vựng cơ bản nhất — chào hỏi, số đếm, màu sắc, gia đình",
     wordCount: 0,
@@ -39,9 +39,9 @@ const LEVEL_INFO: LevelInfo[] = [
   {
     level: 2,
     label: "TOPIK I - Cấp 2",
-    color: "text-teal-600",
-    bg: "bg-teal-50",
-    border: "border-teal-200",
+    color: "text-teal-400",
+    bg: "bg-teal-500/10",
+    border: "border-teal-500/20",
     badge: "bg-teal-500",
     description: "Từ vựng sinh hoạt hàng ngày — mua sắm, ăn uống, giao thông",
     wordCount: 0,
@@ -50,9 +50,9 @@ const LEVEL_INFO: LevelInfo[] = [
   {
     level: 3,
     label: "TOPIK II - Cấp 3",
-    color: "text-sky-600",
-    bg: "bg-sky-50",
-    border: "border-sky-200",
+    color: "text-sky-400",
+    bg: "bg-sky-500/10",
+    border: "border-sky-500/20",
     badge: "bg-sky-500",
     description: "Từ vựng trung cấp — công việc, xã hội, cảm xúc",
     wordCount: 0,
@@ -61,9 +61,9 @@ const LEVEL_INFO: LevelInfo[] = [
   {
     level: 4,
     label: "TOPIK II - Cấp 4",
-    color: "text-violet-600",
-    bg: "bg-violet-50",
-    border: "border-violet-200",
+    color: "text-violet-400",
+    bg: "bg-violet-500/10",
+    border: "border-violet-500/20",
     badge: "bg-violet-500",
     description: "Từ vựng trung cao — kinh tế, chính trị, khoa học",
     wordCount: 0,
@@ -72,9 +72,9 @@ const LEVEL_INFO: LevelInfo[] = [
   {
     level: 5,
     label: "TOPIK II - Cấp 5",
-    color: "text-orange-600",
-    bg: "bg-orange-50",
-    border: "border-orange-200",
+    color: "text-orange-400",
+    bg: "bg-orange-500/10",
+    border: "border-orange-500/20",
     badge: "bg-orange-500",
     description: "Từ vựng cao cấp — học thuật, văn học, triết học",
     wordCount: 0,
@@ -83,9 +83,9 @@ const LEVEL_INFO: LevelInfo[] = [
   {
     level: 6,
     label: "TOPIK II - Cấp 6",
-    color: "text-rose-600",
-    bg: "bg-rose-50",
-    border: "border-rose-200",
+    color: "text-rose-400",
+    bg: "bg-rose-500/10",
+    border: "border-rose-500/20",
     badge: "bg-rose-500",
     description: "Từ vựng thành thạo — chuyên ngành, thành ngữ, tục ngữ",
     wordCount: 0,
@@ -342,18 +342,18 @@ export default function TopikVocabLevelPage() {
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-[#f8f7f4] p-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-1">
             <div className="w-10 h-10 flex items-center justify-center bg-violet-500/10 rounded-xl">
-              <i className="ri-bar-chart-grouped-line text-violet-500 text-xl"></i>
+              <i className="ri-bar-chart-grouped-line text-violet-400 text-xl"></i>
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900" style={{ fontFamily: "'Nunito', sans-serif" }}>
+              <h1 className="text-2xl font-bold text-white">
                 Từ vựng theo cấp độ TOPIK
               </h1>
-              <p className="text-gray-500 text-sm">Phân loại từ vựng chuẩn theo 6 cấp độ TOPIK I &amp; II</p>
+              <p className="text-app-text-secondary text-sm">Phân loại từ vựng chuẩn theo 6 cấp độ TOPIK I &amp; II</p>
             </div>
           </div>
         </div>
@@ -370,7 +370,7 @@ export default function TopikVocabLevelPage() {
                   <button
                     key={info.level}
                     onClick={() => loadWords(info.level)}
-                    className={`text-left p-5 rounded-2xl border-2 ${info.bg} ${info.border} hover:shadow-md transition-all cursor-pointer group`}
+                    className={`text-left p-5 rounded-2xl border ${info.bg} ${info.border} hover:brightness-110 transition-all cursor-pointer group`}
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div className={`w-10 h-10 flex items-center justify-center rounded-xl ${info.badge} text-white font-black text-lg`}>
@@ -381,14 +381,14 @@ export default function TopikVocabLevelPage() {
                       </span>
                     </div>
                     <h3 className={`font-bold text-base ${info.color} mb-1`}>{info.label}</h3>
-                    <p className="text-gray-500 text-xs mb-3 leading-relaxed">{info.description}</p>
+                    <p className="text-white/50 text-xs mb-3 leading-relaxed">{info.description}</p>
                     <div className="flex flex-wrap gap-1 mb-3">
                       {info.topics.slice(0, 3).map(t => (
-                        <span key={t} className="text-[10px] px-2 py-0.5 bg-white/70 rounded-full text-gray-500">{t}</span>
+                        <span key={t} className="text-[10px] px-2 py-0.5 bg-white/5 rounded-full text-white/50">{t}</span>
                       ))}
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-gray-400">{totalCount}+ từ vựng</span>
+                      <span className="text-xs text-white/40">{totalCount}+ từ vựng</span>
                       <i className={`ri-arrow-right-line ${info.color} group-hover:translate-x-1 transition-transform`}></i>
                     </div>
                   </button>
@@ -397,21 +397,21 @@ export default function TopikVocabLevelPage() {
             </div>
 
             {/* Overview stats */}
-            <div className="bg-white rounded-2xl border border-gray-100 p-5">
-              <p className="text-sm font-semibold text-gray-700 mb-4">Tổng quan hệ thống TOPIK</p>
+            <div className="bg-app-card rounded-2xl border border-app-border p-5">
+              <p className="text-sm font-semibold text-white/80 mb-4">Tổng quan hệ thống TOPIK</p>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {[
-                  { label: "Tổng từ vựng", value: "1,095+", icon: "ri-translate-2", color: "text-violet-500" },
-                  { label: "Cấp độ", value: "6 cấp", icon: "ri-bar-chart-line", color: "text-sky-500" },
-                  { label: "Chủ đề", value: "30+", icon: "ri-apps-line", color: "text-emerald-500" },
-                  { label: "Đã học", value: `${learnedWords.size}`, icon: "ri-checkbox-circle-line", color: "text-amber-500" },
+                  { label: "Tổng từ vựng", value: "1,095+", icon: "ri-translate-2", color: "text-violet-400" },
+                  { label: "Cấp độ", value: "6 cấp", icon: "ri-bar-chart-line", color: "text-sky-400" },
+                  { label: "Chủ đề", value: "30+", icon: "ri-apps-line", color: "text-emerald-400" },
+                  { label: "Đã học", value: `${learnedWords.size}`, icon: "ri-checkbox-circle-line", color: "text-amber-400" },
                 ].map((s, i) => (
-                  <div key={i} className="bg-gray-50 rounded-xl p-3 text-center">
+                  <div key={i} className="bg-app-surface/50 rounded-xl p-3 text-center">
                     <div className={`w-8 h-8 flex items-center justify-center mx-auto mb-2 ${s.color}`}>
                       <i className={`${s.icon} text-xl`}></i>
                     </div>
-                    <p className="text-xl font-bold text-gray-800">{s.value}</p>
-                    <p className="text-xs text-gray-500">{s.label}</p>
+                    <p className="text-xl font-bold text-white">{s.value}</p>
+                    <p className="text-xs text-app-text-secondary">{s.label}</p>
                   </div>
                 ))}
               </div>
@@ -424,7 +424,7 @@ export default function TopikVocabLevelPage() {
             <div className="flex items-center gap-3 mb-4">
               <button
                 onClick={() => setSelectedLevel(null)}
-                className="flex items-center gap-1.5 text-gray-500 hover:text-gray-700 cursor-pointer whitespace-nowrap text-sm"
+                className="flex items-center gap-1.5 text-app-text-secondary hover:text-white cursor-pointer whitespace-nowrap text-sm"
               >
                 <i className="ri-arrow-left-line"></i>
                 Quay lại
@@ -437,12 +437,12 @@ export default function TopikVocabLevelPage() {
             </div>
 
             {/* Progress bar */}
-            <div className="bg-white rounded-2xl border border-gray-100 p-4 mb-4">
+            <div className="bg-app-card rounded-2xl border border-app-border p-4 mb-4">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-sm font-semibold text-gray-700">Tiến độ học</p>
-                <span className="text-sm font-bold text-gray-700">{learnedCount}/{filteredWords.length} từ ({progress}%)</span>
+                <p className="text-sm font-semibold text-white/80">Tiến độ học</p>
+                <span className="text-sm font-bold text-white/80">{learnedCount}/{filteredWords.length} từ ({progress}%)</span>
               </div>
-              <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden">
+              <div className="h-2.5 bg-app-surface rounded-full overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${currentLevelInfo?.badge || "bg-violet-500"}`}
                   style={{ width: `${progress}%` }}
@@ -451,38 +451,38 @@ export default function TopikVocabLevelPage() {
             </div>
 
             {/* Filters */}
-            <div className="bg-white rounded-2xl border border-gray-100 p-4 mb-4">
+            <div className="bg-app-card rounded-2xl border border-app-border p-4 mb-4">
               <div className="flex flex-col sm:flex-row gap-3">
                 <div className="flex-1 relative">
-                  <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                  <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/40 text-sm"></i>
                   <input
                     type="text"
                     placeholder="Tìm từ vựng..."
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
-                    className="w-full pl-9 pr-4 py-2 bg-gray-50 rounded-lg text-sm border border-gray-100 focus:outline-none focus:border-violet-300"
+                    className="w-full pl-9 pr-4 py-2 bg-app-surface rounded-lg text-sm text-white border border-app-border focus:outline-none focus:border-violet-500 placeholder:text-white/30"
                   />
                 </div>
                 <div className="flex items-center gap-2">
                   <select
                     value={selectedCategory}
                     onChange={e => setSelectedCategory(e.target.value)}
-                    className="bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-sm text-gray-600 focus:outline-none cursor-pointer"
+                    className="bg-app-surface border border-app-border rounded-lg px-3 py-2 text-sm text-white/70 focus:outline-none cursor-pointer"
                   >
                     {categories.map(c => (
                       <option key={c} value={c}>{c === "all" ? "Tất cả chủ đề" : c}</option>
                     ))}
                   </select>
-                  <div className="flex bg-gray-50 rounded-lg border border-gray-100 overflow-hidden">
+                  <div className="flex bg-app-surface rounded-lg border border-app-border overflow-hidden">
                     <button
                       onClick={() => setViewMode("grid")}
-                      className={`px-3 py-2 cursor-pointer ${viewMode === "grid" ? "bg-violet-500 text-white" : "text-gray-500 hover:bg-gray-100"}`}
+                      className={`px-3 py-2 cursor-pointer ${viewMode === "grid" ? "bg-violet-500 text-white" : "text-white/40 hover:bg-app-surface"}`}
                     >
                       <i className="ri-grid-line text-sm"></i>
                     </button>
                     <button
                       onClick={() => setViewMode("list")}
-                      className={`px-3 py-2 cursor-pointer ${viewMode === "list" ? "bg-violet-500 text-white" : "text-gray-500 hover:bg-gray-100"}`}
+                      className={`px-3 py-2 cursor-pointer ${viewMode === "list" ? "bg-violet-500 text-white" : "text-white/40 hover:bg-app-surface"}`}
                     >
                       <i className="ri-list-check text-sm"></i>
                     </button>
@@ -494,6 +494,7 @@ export default function TopikVocabLevelPage() {
             {loading ? (
               <div className="flex items-center justify-center py-20">
                 <i className="ri-loader-4-line animate-spin text-3xl text-violet-400"></i>
+
               </div>
             ) : (
               <div className={viewMode === "grid" ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" : "space-y-2"}>
@@ -503,22 +504,22 @@ export default function TopikVocabLevelPage() {
                   return (
                     <div
                       key={word.id}
-                      className={`bg-white rounded-xl border transition-all ${
-                        isLearned ? "border-emerald-200 bg-emerald-50/30" : "border-gray-100 hover:border-gray-200"
+                      className={`rounded-xl border transition-all ${
+                        isLearned ? "border-emerald-500/30 bg-emerald-500/5" : "border-app-border bg-app-card hover:border-app-border/80"
                       } ${viewMode === "list" ? "p-3" : "p-4"}`}
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="text-lg font-bold text-gray-900">{word.word}</span>
+                            <span className="text-lg font-bold text-white">{word.word}</span>
                             <button
                               onClick={() => speak(word.word)}
-                              className="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-violet-500 cursor-pointer"
+                              className="w-6 h-6 flex items-center justify-center text-white/40 hover:text-violet-400 cursor-pointer"
                             >
                               <i className="ri-volume-up-line text-sm"></i>
                             </button>
                           </div>
-                          <p className="text-sm text-gray-600">{word.meaning}</p>
+                          <p className="text-sm text-white/60">{word.meaning}</p>
                           {word.category && (
                             <span className={`inline-block mt-1 text-[10px] px-2 py-0.5 rounded-full ${currentLevelInfo?.bg} ${currentLevelInfo?.color} border ${currentLevelInfo?.border}`}>
                               {word.category}
@@ -529,15 +530,15 @@ export default function TopikVocabLevelPage() {
                           {word.example && (
                             <button
                               onClick={() => setShowExample(isExpanded ? null : word.id)}
-                              className="w-7 h-7 flex items-center justify-center text-gray-400 hover:text-sky-500 cursor-pointer"
+                              className="w-7 h-7 flex items-center justify-center text-white/40 hover:text-sky-400 cursor-pointer"
                             >
-                              <i className={`${isExpanded ? "ri-chat-1-fill text-sky-500" : "ri-chat-1-line"} text-sm`}></i>
+                              <i className={`${isExpanded ? "ri-chat-1-fill text-sky-400" : "ri-chat-1-line"} text-sm`}></i>
                             </button>
                           )}
                           <button
                             onClick={() => toggleLearned(word.id)}
                             className={`w-7 h-7 flex items-center justify-center cursor-pointer rounded-lg transition-all ${
-                              isLearned ? "bg-emerald-100 text-emerald-500" : "text-gray-300 hover:text-app-accent-success"
+                              isLearned ? "bg-emerald-500/15 text-emerald-400" : "text-white/30 hover:text-emerald-400"
                             }`}
                           >
                             <i className={`${isLearned ? "ri-checkbox-circle-fill" : "ri-checkbox-blank-circle-line"} text-base`}></i>
@@ -545,8 +546,8 @@ export default function TopikVocabLevelPage() {
                         </div>
                       </div>
                       {isExpanded && word.example && (
-                        <div className="mt-2 pt-2 border-t border-gray-100">
-                          <p className="text-xs text-sky-600 bg-sky-50 rounded-lg px-3 py-2">{word.example}</p>
+                        <div className="mt-2 pt-2 border-t border-app-border">
+                          <p className="text-xs text-sky-400 bg-sky-500/10 rounded-lg px-3 py-2">{word.example}</p>
                         </div>
                       )}
                     </div>
@@ -556,7 +557,7 @@ export default function TopikVocabLevelPage() {
             )}
 
             {filteredWords.length === 0 && !loading && (
-              <div className="text-center py-16 text-gray-400">
+              <div className="text-center py-16 text-white/30">
                 <i className="ri-search-line text-4xl mb-2 block"></i>
                 <p>Không tìm thấy từ vựng phù hợp</p>
               </div>
