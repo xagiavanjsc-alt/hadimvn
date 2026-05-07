@@ -1,4 +1,5 @@
-﻿import { useState, useMemo } from "react";
+﻿import { useState, useMemo, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
 interface GrammarPattern {
@@ -10144,6 +10145,21 @@ export default function GrammarByLevelPage() {
   const [showResults, setShowResults] = useState(false);
   const [search, setSearch] = useState("");
   const [openLevels, setOpenLevels] = useState<Set<string>>(new Set(["TOPIK 1", "TOPIK 2", "TOPIK 3", "TOPIK 4", "TOPIK 5", "TOPIK 6"]));
+
+  const location = useLocation();
+  useEffect(() => {
+    const id = new URLSearchParams(location.search).get('id');
+    if (id) {
+      const pattern = GRAMMAR_PATTERNS.find(p => p.id === id);
+      if (pattern) {
+        setSelectedPattern(pattern);
+        setActiveTab("explain");
+        setAnswers({});
+        setShowResults(false);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  }, [location.search]);
 
   const filtered = useMemo(() => {
     let list = selectedLevel === "Tất cả" ? GRAMMAR_PATTERNS : GRAMMAR_PATTERNS.filter(p => p.level === selectedLevel);

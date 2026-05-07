@@ -128,6 +128,7 @@ function LessonModal({
   const [flipped, setFlipped] = useState<Record<number, boolean>>({});
   const [grammarOpen, setGrammarOpen] = useState<Record<number, boolean>>({ 0: true });
   const { dbVocab, loading: vocabLoading } = useSupabaseVocab(lesson.id);
+  const navigate = useNavigate();
 
   return (
     <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-0 md:p-4 bg-black/60 backdrop-blur-sm">
@@ -307,6 +308,16 @@ function LessonModal({
                           </div>
                         ))}
                       </div>
+                      {g.topikPatternId && (
+                        <button
+                          onClick={() => { onClose(); navigate(`/grammar-by-level?id=${g.topikPatternId}`); }}
+                          className="w-full flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-colors whitespace-nowrap"
+                          style={{ backgroundColor: `${book.color}10`, color: book.color, border: `1px solid ${book.color}30` }}
+                        >
+                          <i className="ri-links-line"></i>
+                          Xem chi tiết ngữ pháp TOPIK
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>
