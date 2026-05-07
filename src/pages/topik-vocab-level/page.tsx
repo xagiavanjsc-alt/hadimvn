@@ -93,6 +93,8 @@ const LEVEL_INFO: LevelInfo[] = [
   },
 ];
 
+const ROMAN_LEVEL: Record<number, string> = { 1: "I", 2: "II", 3: "III", 4: "IV", 5: "V", 6: "VI" };
+
 // Seoul Textbook book → TOPIK level mapping
 const BOOK_TOPIK_LEVEL: Record<string, number> = {
   "1A": 1, "1B": 2, "2A": 2, "2B": 3, "3A": 3, "3B": 4, "4A": 5, "4B": 6,
@@ -262,19 +264,18 @@ export default function TopikVocabLevelPage() {
   }, []);
 
   const loadLevelStats = async () => {
-    // Use Seoul textbook counts as base
     const seoulCounts = getSeoulLevelCounts();
     setLevelStats(seoulCounts);
-    // Then try to merge in any Supabase topik_vocabulary counts
     try {
       const { data } = await supabase
         .from("topik_vocabulary")
-        .select("level");
+        .select("level, topik_level");
       if (data && data.length > 0) {
         const merged = { ...seoulCounts };
-        data.forEach((row: { level?: string }) => {
-          const lvl = parseInt(row.level || "1");
-          if (!isNaN(lvl)) merged[lvl] = (merged[lvl] || 0) + 1;
+        const romanToNum: Record<string, number> = { "I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6 };
+        data.forEach((row: { level?: string; topik_level?: string }) => {
+          const lvl = parseInt(row.level || "0") || romanToNum[row.topik_level || ""] || 0;
+          if (lvl >= 1 && lvl <= 6) merged[lvl] = (merged[lvl] || 0) + 1;
         });
         setLevelStats(merged);
       }
@@ -289,10 +290,11 @@ export default function TopikVocabLevelPage() {
     // Always load Seoul textbook vocab as the base
     const seoulVocab = getSeoulVocabByTopikLevel(level);
     try {
+      const roman = ROMAN_LEVEL[level];
       const { data } = await supabase
         .from("topik_vocabulary")
         .select("*")
-        .eq("level", level.toString())
+        .or(`level.eq.${level},topik_level.eq.${roman}`)
         .limit(200);
       if (data && data.length > 0) {
         // Merge Supabase words on top of Seoul vocab (Supabase takes priority)
