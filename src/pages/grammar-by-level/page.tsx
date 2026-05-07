@@ -9073,6 +9073,406 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
     ],
     tags: ["Ý định bị cản", "Không thể", "Dù muốn", "TOPIK 5"],
   },
+  {
+    id: "topik6-1",
+    level: "TOPIK 6",
+    levelColor: "#ef4444",
+    pattern: "만약/만일 – (으)면/(으)ㄹ 텐데",
+    meaning: "Nhỡ như, nếu như... (giả định, có thể trái với thực tế)",
+    explanation: "만약/만일 là trạng từ nhấn mạnh tính giả định không chắc xảy ra. Kết hợp với (으)면 cho điều kiện thông thường hoặc (았/었)다면...(으)ㄹ 텐데 cho giả định trái thực tế.",
+    formation: "만약/만일 + A/V + (으)면 + ... / 만약/만일 + A/V + 았/었다면 + V + (으)ㄹ 텐데",
+    examples: [
+      { korean: "내가 만약 공부를 좀 더 잘했다면 좋은 대학에 갈 수 있었을 텐데.", vietnamese: "Giả như mình chịu học chăm thêm một chút thì vào được trường đại học tốt rồi." },
+      { korean: "만일 그 일이 사실이라면 큰일이다.", vietnamese: "Nếu như chuyện đó là thật thì to chuyện rồi." },
+      { korean: "만약 돈이 많다면 세계 여행을 하고 싶다.", vietnamese: "Nếu có nhiều tiền thì tôi muốn đi du lịch vòng quanh thế giới." },
+      { korean: "만일 내가 그때 더 조심했더라면 사고가 나지 않았을 텐데.", vietnamese: "Nếu lúc đó tôi cẩn thận hơn thì đã không xảy ra tai nạn rồi." },
+      { korean: "만약 기회가 있다면 다시 도전해 보고 싶다.", vietnamese: "Nếu có cơ hội thì tôi muốn thử thách lại một lần nữa." },
+    ],
+    exercises: [
+      { question: "내가 만약 공부를 좀 더 잘했다면 좋은 대학에 갈 수 있었을 ___.", options: ["텐데", "거야", "거든", "는데"], answer: 0, explanation: "반사실 가정: 만약 + 았/었다면 + (으)ㄹ 텐데." },
+      { question: "___ 그 일이 사실이라면 큰일이다.", options: ["만일", "혹시", "비록", "아마"], answer: 0, explanation: "강한 가정 강조 부사: 만일/만약." },
+    ],
+    commonMistakes: [
+      "만약/만일 없이 조건문만 쓰는 경우 (강조 효과 감소).",
+      "반사실 가정에서 (으)ㄹ 텐데 없이 (으)면만 쓰는 경우.",
+    ],
+    tags: ["Giả định", "Điều kiện", "Trái thực tế", "TOPIK 6"],
+  },
+  {
+    id: "topik6-2",
+    level: "TOPIK 6",
+    levelColor: "#ef4444",
+    pattern: "혹시 – (으)면/아/어도/더라도",
+    meaning: "Giả sử, lỡ đâu, không chừng... (khả năng thấp, hỏi lịch sự)",
+    explanation: "혹시 là trạng từ mang nghĩa giả định khả năng xảy ra thấp hoặc hỏi lịch sự. Kết hợp với (으)면, 아/어도, 더라도.",
+    formation: "혹시 + A/V + (으)면 / 혹시 + A/V + 아/어도 / 혹시 + A/V + 더라도",
+    examples: [
+      { korean: "이번 주 토요일에 혹시 시간 괜찮으면 영화 보러 안 갈래?", vietnamese: "Thứ 7 tuần này giả dụ mà có thời gian bạn có muốn đi xem phim không?" },
+      { korean: "혹시 모르니 우산을 가져가세요.", vietnamese: "Lỡ đâu không biết thế nào nên mang theo ô đi." },
+      { korean: "혹시 실망하더라도 포기하지 마세요.", vietnamese: "Dù lỡ có thất vọng thì cũng đừng bỏ cuộc." },
+      { korean: "혹시 그 사람을 아세요?", vietnamese: "Không chừng bạn có biết người đó không?" },
+      { korean: "혹시 필요하면 언제든지 연락하세요.", vietnamese: "Lỡ đâu cần thì cứ liên lạc bất cứ lúc nào." },
+    ],
+    exercises: [
+      { question: "이번 주 토요일에 ___ 시간 괜찮으면 영화 보러 안 갈래?", options: ["혹시", "만약", "비록", "아마"], answer: 0, explanation: "가능성 낮은 가정+정중한 제안: 혹시 + (으)면." },
+      { question: "혹시 실망하___ 포기하지 마세요.", options: ["더라도", "아도", "면", "지만"], answer: 0, explanation: "혹시+더라도 조합: 양보 표현." },
+    ],
+    commonMistakes: [
+      "혹시 없이 더라도/면만 쓰는 경우 (정중함/가능성 낮음 뉘앙스 감소).",
+      "혹시를 확정적 상황에 쓰는 경우 (불확실 상황에만 사용).",
+    ],
+    tags: ["Giả sử", "Lỡ đâu", "Lịch sự", "TOPIK 6"],
+  },
+  {
+    id: "topik6-3",
+    level: "TOPIK 6",
+    levelColor: "#ef4444",
+    pattern: "비록 – 더라도/(으)ㄹ지라도",
+    meaning: "Mặc dù, cho dù... (nhượng bộ mạnh, văn viết)",
+    explanation: "비록 là trạng từ nhấn mạnh sự nhượng bộ, thường đi với 더라도 hoặc (으)ㄹ지라도 (văn viết trang trọng hơn). Nhấn mạnh rằng dù hoàn cảnh khó khăn vẫn kiên định ở vế sau.",
+    formation: "비록 + A/V + 더라도 / 비록 + A/V + (으)ㄹ지라도",
+    examples: [
+      { korean: "비록 지금의 현실이 가혹하더라도 절대 꿈을 잃지 마십시오.", vietnamese: "Cho dù hiện tại hiện thực có khắc nghiệt đi chăng nữa tuyệt đối đừng đánh mất ước mơ." },
+      { korean: "비록 실패하더라도 도전하는 것이 중요하다.", vietnamese: "Mặc dù có thất bại đi nữa, điều quan trọng là dám thử thách." },
+      { korean: "비록 몸은 멀리 있을지라도 마음은 항상 함께하겠습니다.", vietnamese: "Cho dù thân xác có ở xa đi nữa, trái tim sẽ luôn ở cùng." },
+      { korean: "비록 작은 선물이지만 마음을 담아 드립니다.", vietnamese: "Mặc dù là món quà nhỏ nhưng tôi gửi tặng với tất cả tấm lòng." },
+      { korean: "비록 늦었더라도 지금이라도 시작해 보세요.", vietnamese: "Dù có muộn rồi thì hãy bắt đầu ngay bây giờ đi." },
+    ],
+    exercises: [
+      { question: "비록 지금의 현실이 가혹하___ 절대 꿈을 잃지 마십시오.", options: ["더라도", "아도", "지만", "면서도"], answer: 0, explanation: "비록+더라도: 강한 양보 표현." },
+      { question: "비록 몸은 멀리 있을___ 마음은 항상 함께하겠습니다.", options: ["지라도", "더라도", "지만", "어도"], answer: 0, explanation: "문어체 양보: 비록+(으)ㄹ지라도." },
+    ],
+    commonMistakes: [
+      "비록 없이 더라도만 쓰는 경우 (강조 효과 감소).",
+      "비록을 사실에 기반한 양보에 쓰는 경우 (비록은 주로 가정/강조).",
+    ],
+    tags: ["Mặc dù", "Cho dù", "Văn viết", "TOPIK 6"],
+  },
+  {
+    id: "topik6-4",
+    level: "TOPIK 6",
+    levelColor: "#ef4444",
+    pattern: "아무리 – 아/어도",
+    meaning: "Dù như thế nào đi nữa, dù có... đến đâu... cũng... (nhấn mạnh nhượng bộ tuyệt đối)",
+    explanation: "아무리 là trạng từ nhấn mạnh mức độ tuyệt đối của sự nhượng bộ. Luôn đi với 아/어도 hoặc 더라도. Vế sau thường có ý nghĩa phủ nhận hoặc bất biến dù mức độ vế trước cực cao.",
+    formation: "아무리 + A/V + 아/어도 + ...",
+    examples: [
+      { korean: "상대방 전화기가 고장났는지 아무리 걸어도 신호가 가지 않는다.", vietnamese: "Không biết người kia điện thoại hỏng hay sao cho dù gọi thế nào cũng không có tín hiệu." },
+      { korean: "아무리 배가 불러도 케이크는 먹을 수 있어요.", vietnamese: "Dù no đến mấy thì vẫn ăn được bánh kem." },
+      { korean: "아무리 힘들어도 포기하지 않겠습니다.", vietnamese: "Dù khó khăn đến đâu tôi cũng sẽ không bỏ cuộc." },
+      { korean: "아무리 빨리 달려도 버스를 따라잡을 수 없었다.", vietnamese: "Dù chạy nhanh thế nào cũng không đuổi kịp xe buýt." },
+      { korean: "아무리 설명해도 그는 이해하지 못했다.", vietnamese: "Dù giải thích thế nào anh ấy cũng không hiểu." },
+    ],
+    exercises: [
+      { question: "아무리 힘들어___ 포기하지 않겠습니다.", options: ["도", "지만", "서", "면"], answer: 0, explanation: "아무리+아/어도: 아무리 힘들어도 → 최대 양보." },
+      { question: "___ 빨리 달려도 버스를 따라잡을 수 없었다.", options: ["아무리", "비록", "혹시", "만약"], answer: 0, explanation: "절대적 양보 강조 부사: 아무리." },
+    ],
+    commonMistakes: [
+      "아무리 없이 아/어도만 쓰는 경우 (강조 감소).",
+      "뒷절에 긍정적 결과가 오는 경우 (주로 부정/불변 결과와 함께).",
+    ],
+    tags: ["Dù thế nào", "Nhượng bộ tuyệt đối", "TOPIK 6"],
+  },
+  {
+    id: "topik6-5",
+    level: "TOPIK 6",
+    levelColor: "#ef4444",
+    pattern: "어찌나/얼마나 – (으)ㄴ/는지",
+    meaning: "Sao mà, biết bao nhiêu... (nhấn mạnh mức độ dẫn đến kết quả)",
+    explanation: "어찌나/얼마나 là trạng từ cảm thán diễn tả mức độ quá cao dẫn đến kết quả ở vế sau. Khác với topik2-86 (얼마나...는지 모르다 = không biết bao nhiêu), dạng này mang nghĩa 'quá... nên...'.",
+    formation: "어찌나/얼마나 + A + (으)ㄴ지 / 어찌나/얼마나 + V + 는지",
+    examples: [
+      { korean: "갓난쟁이가 힘이 어찌나 좋은지 울음소리가 쩌렁쩌렁해요.", vietnamese: "Đứa trẻ mới sinh này sao mà sức khỏe thế tiếng khóc cứ oang oang." },
+      { korean: "이야기만 들어도 도니가 얼마나 괴롭고 힘들지 가히 짐작할 수 있었다.", vietnamese: "Chỉ nghe nói thôi cũng có thể đoán được Toni phải chịu gian khổ và vất vả biết bao nhiêu." },
+      { korean: "날씨가 어찌나 더운지 밖에 나갈 수가 없어요.", vietnamese: "Thời tiết sao mà nóng thế không thể ra ngoài được." },
+      { korean: "그 영화가 얼마나 재미있는지 세 번이나 봤어요.", vietnamese: "Bộ phim đó hay biết bao nhiêu tôi đã xem đến ba lần." },
+      { korean: "어찌나 무서운지 잠을 잘 수가 없었다.", vietnamese: "Sao mà sợ thế không tài nào ngủ được." },
+    ],
+    exercises: [
+      { question: "날씨가 어찌나 더운___ 밖에 나갈 수가 없어요.", options: ["지", "지만", "더니", "는데"], answer: 0, explanation: "어찌나+(으)ㄴ/는지: 더운지 → 정도가 너무 심해 결과 발생." },
+      { question: "___ 무서운지 잠을 잘 수가 없었다.", options: ["어찌나", "얼마", "아무리", "과연"], answer: 0, explanation: "감탄 정도 강조: 어찌나 → 어찌나 무서운지." },
+    ],
+    commonMistakes: [
+      "얼마나 – (으)ㄴ/는지 모르다(TOPIK 2)와 혼동: 모르다 없으면 '너무 ~해서' 의미.",
+      "동사 연결: 동사 현재 → 는지, 형용사 → (으)ㄴ지.",
+    ],
+    tags: ["Sao mà", "Mức độ", "Cảm thán", "TOPIK 6"],
+  },
+  {
+    id: "topik6-6",
+    level: "TOPIK 6",
+    levelColor: "#ef4444",
+    pattern: "왜냐하면 – 기 때문이다",
+    meaning: "Bởi vì, tại vì... (giải thích lý do sau câu trước)",
+    explanation: "왜냐하면 là trạng từ mở đầu câu giải thích lý do, luôn kết thúc bằng 기 때문이다/기 때문에. Thường đứng đầu câu thứ hai để giải thích cho câu đứng trước. Mang tính trang trọng và giải thích rõ ràng.",
+    formation: "왜냐하면 + A/V + 기 때문이다 / 왜냐하면 + A/V + 기 때문에",
+    examples: [
+      { korean: "나는 어제 학교에 지각을 했다. 왜냐하면 아침에 늦게 일어났기 때문이다.", vietnamese: "Hôm qua mình tới trường muộn. Bởi vì sao là vì buổi sáng dậy muộn." },
+      { korean: "오늘 외출을 못 하겠어요. 왜냐하면 몸이 많이 안 좋기 때문이에요.", vietnamese: "Hôm nay tôi không ra ngoài được. Tại vì sức khỏe không được tốt." },
+      { korean: "저는 커피를 안 마셔요. 왜냐하면 카페인에 약하기 때문이에요.", vietnamese: "Tôi không uống cà phê. Bởi vì tôi nhạy cảm với caffeine." },
+      { korean: "이 책을 추천해요. 왜냐하면 내용이 정말 유익하기 때문이에요.", vietnamese: "Tôi giới thiệu cuốn sách này. Bởi vì nội dung thực sự bổ ích." },
+      { korean: "그 식당에 다시 가고 싶지 않아요. 왜냐하면 음식이 너무 짜기 때문이에요.", vietnamese: "Tôi không muốn đến nhà hàng đó nữa. Vì món ăn quá mặn." },
+    ],
+    exercises: [
+      { question: "나는 지각을 했다. ___ 늦게 일어났기 때문이다.", options: ["왜냐하면", "그래서", "그런데", "하지만"], answer: 0, explanation: "이유 설명 접속: 왜냐하면 → 앞 문장 이유 설명." },
+      { question: "왜냐하면 커피를 안 마셔요. 왜냐하면 카페인에 약하___ 때문이에요.", options: ["기", "은", "는", "을"], answer: 0, explanation: "왜냐하면 + 기 때문이다: A/V + 기 + 때문." },
+    ],
+    commonMistakes: [
+      "왜냐하면을 문장 중간에 삽입하는 경우 (항상 새 문장 시작).",
+      "기 때문이다 없이 왜냐하면만 쓰는 경우 (짝을 이뤄야 함).",
+    ],
+    tags: ["Bởi vì", "Lý do", "Diễn ngôn", "TOPIK 6"],
+  },
+  {
+    id: "topik6-7",
+    level: "TOPIK 6",
+    levelColor: "#ef4444",
+    pattern: "단지/다만 – (으)ㄹ 뿐이다/(으)ㄹ 따름이다",
+    meaning: "Duy chỉ, chỉ riêng... mà thôi (giới hạn tuyệt đối)",
+    explanation: "단지/다만 là trạng từ giới hạn nhấn mạnh rằng chỉ có và không có gì hơn. Đi với 뿐이다 (thông dụng) hoặc 따름이다 (văn viết trang trọng hơn).",
+    formation: "단지/다만 + A/V + (으)ㄹ 뿐이다 / 단지/다만 + A/V + (으)ㄹ 따름이다",
+    examples: [
+      { korean: "아무도 자신의 의견을 제시하려고 하지 않았다. 단지 침묵만이 있을 뿐이었다.", vietnamese: "Không ai có ý định đưa ra ý kiến cá nhân cả. Chỉ có sự im lặng." },
+      { korean: "저는 단지 도와주고 싶었을 뿐이에요.", vietnamese: "Tôi chỉ muốn giúp đỡ thôi." },
+      { korean: "다만 건강하게 지낼 따름입니다.", vietnamese: "Chỉ mong sống khỏe mạnh mà thôi." },
+      { korean: "그는 다만 진실을 말했을 뿐이다.", vietnamese: "Anh ấy chỉ nói thật thôi." },
+      { korean: "저는 단지 제 할 일을 했을 뿐입니다.", vietnamese: "Tôi chỉ làm công việc của mình mà thôi." },
+    ],
+    exercises: [
+      { question: "단지 침묵만이 있을___ 이었다.", options: ["뿐", "따름", "만큼", "정도"], answer: 0, explanation: "단지+뿐이다: 단지...뿐이다 → 오직 그것만." },
+      { question: "다만 건강하게 지낼___ 입니다.", options: ["따름", "뿐", "만큼", "정도"], answer: 0, explanation: "다만+따름이다: 문어체 제한 표현." },
+    ],
+    commonMistakes: [
+      "따름이다를 구어에 쓰는 경우 (뿐이다가 더 자연스러움).",
+      "단지/다만 없이 뿐이다만 쓰는 경우 (강조 감소).",
+    ],
+    tags: ["Duy chỉ", "Giới hạn", "Văn viết", "TOPIK 6"],
+  },
+  {
+    id: "topik6-8",
+    level: "TOPIK 6",
+    levelColor: "#ef4444",
+    pattern: "점점 – 아/어지다/게 되다",
+    meaning: "Dần dần, ngày càng... (thay đổi theo thời gian)",
+    explanation: "점점 là trạng từ diễn tả sự thay đổi dần dần theo thời gian, thường đi với 아/어지다 (thay đổi trạng thái tính từ) hoặc 게 되다 (thay đổi tình huống động từ).",
+    formation: "점점 + A + 아/어지다 / 점점 + V + 게 되다",
+    examples: [
+      { korean: "이번 프로젝트의 진행이 점점 느려지는 것 같군요.", vietnamese: "Tiến độ thực hiện dự án này hình như đang dần chậm lại." },
+      { korean: "날씨가 점점 추워지고 있어요.", vietnamese: "Thời tiết đang ngày càng lạnh hơn." },
+      { korean: "한국어 공부를 할수록 점점 재미있어져요.", vietnamese: "Càng học tiếng Hàn lại càng thấy thú vị hơn." },
+      { korean: "시간이 지날수록 그 사람이 점점 그리워지네요.", vietnamese: "Thời gian càng trôi qua lại càng nhớ người đó hơn." },
+      { korean: "환경 문제가 점점 심각해지고 있다.", vietnamese: "Vấn đề môi trường đang ngày càng nghiêm trọng hơn." },
+    ],
+    exercises: [
+      { question: "날씨가 점점 추워___ 있어요.", options: ["지고", "지고서", "지다", "져서"], answer: 0, explanation: "점점+아/어지다: 추워지고 있어요 (진행)." },
+      { question: "환경 문제가 점점 심각해___ 있다.", options: ["지고", "지다", "져서", "지는"], answer: 0, explanation: "점점+아/어지다: 심각해지고 있다 → 상태 변화 진행." },
+    ],
+    commonMistakes: [
+      "점점을 순간적 변화에 쓰는 경우 (점점은 점진적 변화에만).",
+      "아/어지다 없이 점점만 쓰는 경우 (변화 동사 필요).",
+    ],
+    tags: ["Dần dần", "Ngày càng", "Thay đổi", "TOPIK 6"],
+  },
+  {
+    id: "topik6-9",
+    level: "TOPIK 6",
+    levelColor: "#ef4444",
+    pattern: "꼭/반드시 – 아/어야 하다",
+    meaning: "Nhất định phải, chắc chắn phải... (bắt buộc tuyệt đối)",
+    explanation: "꼭/반드시 là trạng từ nhấn mạnh tính bắt buộc tuyệt đối. 반드시 mang sắc thái trang trọng hơn 꼭. Kết hợp với 아/어야 하다 hoặc 지 않으면 안 되다.",
+    formation: "꼭/반드시 + V + 아/어야 하다 / 꼭/반드시 + V + 지 않으면 안 되다",
+    examples: [
+      { korean: "아버지가 뭐라고 하셔도 저는 이 결혼 꼭 해야 하겠습니다.", vietnamese: "Dù cha tôi có nói gì đi nữa, nhất định tôi sẽ phải kết hôn với người đó." },
+      { korean: "이 약은 식후에 반드시 복용해야 합니다.", vietnamese: "Thuốc này nhất định phải uống sau bữa ăn." },
+      { korean: "비밀번호는 반드시 기억해야 합니다.", vietnamese: "Mật khẩu nhất định phải nhớ." },
+      { korean: "운전할 때는 꼭 안전벨트를 매야 해요.", vietnamese: "Khi lái xe nhất định phải thắt dây an toàn." },
+      { korean: "이 서류는 내일까지 반드시 제출해야 합니다.", vietnamese: "Tài liệu này nhất định phải nộp trước ngày mai." },
+    ],
+    exercises: [
+      { question: "이 약은 식후에 반드시 복용해___ 합니다.", options: ["야", "서", "도", "고"], answer: 0, explanation: "반드시+아/어야 하다: 복용해야 합니다 → 절대적 의무." },
+      { question: "운전할 때는 ___ 안전벨트를 매야 해요.", options: ["꼭", "혹시", "아마", "과연"], answer: 0, explanation: "의무 강조 부사: 꼭 → 꼭 안전벨트를 매야." },
+    ],
+    commonMistakes: [
+      "꼭/반드시와 아마/혹시 혼용 (꼭/반드시는 의무, 아마는 추측).",
+      "반드시를 구어 비격식체에 쓰는 경우 (꼭이 더 자연스러움).",
+    ],
+    tags: ["Nhất định phải", "Bắt buộc", "Nghĩa vụ", "TOPIK 6"],
+  },
+  {
+    id: "topik6-10",
+    level: "TOPIK 6",
+    levelColor: "#ef4444",
+    pattern: "꼭/반드시 – (으)ㄹ 필요는 없다",
+    meaning: "Không nhất thiết phải..., không cần thiết...",
+    explanation: "Phủ định của 꼭/반드시 + 아/어야 하다. Biểu thị rằng việc đó không bắt buộc, không cần thiết. 꼭 nhấn mạnh rằng không phải lúc nào cũng cần làm.",
+    formation: "꼭/반드시 + V + (으)ㄹ 필요는 없다",
+    examples: [
+      { korean: "네가 꼭 희생할 필요는 없어.", vietnamese: "Cậu không cần thiết phải hi sinh." },
+      { korean: "반드시 비싼 선물을 살 필요는 없어요.", vietnamese: "Không nhất thiết phải mua quà đắt tiền." },
+      { korean: "꼭 혼자 해야 할 필요는 없어요.", vietnamese: "Không cần thiết phải tự làm một mình." },
+      { korean: "반드시 완벽할 필요는 없습니다.", vietnamese: "Không nhất thiết phải hoàn hảo." },
+      { korean: "꼭 지금 결정할 필요는 없어.", vietnamese: "Không cần thiết phải quyết định ngay bây giờ." },
+    ],
+    exercises: [
+      { question: "네가 꼭 희생할___ 는 없어.", options: ["필요", "이유", "까닭", "방법"], answer: 0, explanation: "꼭+필요는 없다: 꼭 희생할 필요는 없다 → 불필요." },
+      { question: "반드시 완벽할 필요는___.", options: ["없습니다", "있습니다", "됩니다", "합니다"], answer: 0, explanation: "필요는 없다: 완벽할 필요는 없습니다 → 의무 아님." },
+    ],
+    commonMistakes: [
+      "필요가 없다와 필요는 없다 혼용 (필요는 = 강조/주제화).",
+      "꼭/반드시 생략 시 강조 효과 감소.",
+    ],
+    tags: ["Không cần thiết", "Phủ định bắt buộc", "TOPIK 6"],
+  },
+  {
+    id: "topik6-11",
+    level: "TOPIK 6",
+    levelColor: "#ef4444",
+    pattern: "마치 – (으)ㄴ/는 것 같다/(으)ㄴ/는 듯하다",
+    meaning: "Như, hệt như, cứ như là... (so sánh ẩn dụ nhấn mạnh)",
+    explanation: "마치 là trạng từ nhấn mạnh sự so sánh ẩn dụ không thực, đi với 것 같다 hoặc 듯하다. Diễn tả điều gì đó trông/cảm giác rất giống như thứ khác nhưng thực ra không phải.",
+    formation: "마치 + A/V + (으)ㄴ/는 것 같다 / 마치 + A/V + (으)ㄴ/는 듯하다",
+    examples: [
+      { korean: "아름다운 그녀는 마치 천사와 같다.", vietnamese: "Cô ấy đẹp hệt như một thiên thần." },
+      { korean: "마치 꿈을 꾸는 것 같았어요.", vietnamese: "Cứ như là đang trong mơ vậy." },
+      { korean: "그의 목소리는 마치 음악 같아요.", vietnamese: "Giọng nói của anh ấy hệt như âm nhạc vậy." },
+      { korean: "마치 어제 일처럼 생생하게 기억나요.", vietnamese: "Ký ức rõ mồn một như thể chuyện hôm qua vậy." },
+      { korean: "그 아이는 마치 어른처럼 말을 해요.", vietnamese: "Đứa bé đó nói chuyện hệt như người lớn vậy." },
+    ],
+    exercises: [
+      { question: "마치 꿈을 꾸는 것___ 아요.", options: ["같았", "있었", "되었", "했"], answer: 0, explanation: "마치+것 같다: 마치 꿈을 꾸는 것 같았어요 → 은유 비교." },
+      { question: "그녀는 ___ 천사와 같다.", options: ["마치", "비록", "혹시", "결국"], answer: 0, explanation: "은유 강조 부사: 마치 → 마치 천사와 같다." },
+    ],
+    commonMistakes: [
+      "마치 없이 것 같다만 쓰는 경우 (은유 강조 감소).",
+      "마치를 실제 비교에 쓰는 경우 (마치는 비유/가상 비교에만).",
+    ],
+    tags: ["Như", "Hệt như", "So sánh ẩn dụ", "TOPIK 6"],
+  },
+  {
+    id: "topik6-12",
+    level: "TOPIK 6",
+    levelColor: "#ef4444",
+    pattern: "결국 – 고 말다",
+    meaning: "Kết cục, cuối cùng rồi cũng... (kết quả tiêu cực không tránh khỏi)",
+    explanation: "결국 là trạng từ nhấn mạnh kết quả cuối cùng sau một quá trình dài, thường mang sắc thái tiêu cực hoặc đáng tiếc. Đi với 고 말다 để nhấn mạnh kết quả không thể tránh khỏi.",
+    formation: "결국 + V + 고 말았다 / 결국 + V + 고 말았어요",
+    examples: [
+      { korean: "김 씨는 사업이 망한 후 노숙자 생활을 하다 결국 길에서 객사하고 말았다.", vietnamese: "Ông Kim sau khi công việc kinh doanh sụp đổ đã lang thang vô gia cư cuối cùng chết trên đường phố." },
+      { korean: "오래 참았지만 결국 화가 나고 말았어요.", vietnamese: "Nhịn lâu rồi nhưng cuối cùng cũng nổi giận mất." },
+      { korean: "열심히 노력했지만 결국 실패하고 말았다.", vietnamese: "Cố gắng hết sức nhưng cuối cùng cũng thất bại mất." },
+      { korean: "비밀을 지키려 했지만 결국 말하고 말았어요.", vietnamese: "Cố giữ bí mật nhưng cuối cùng cũng nói ra mất." },
+      { korean: "몸이 안 좋다고 했는데 결국 쓰러지고 말았다.", vietnamese: "Đã nói là không khỏe mà cuối cùng cũng ngã bệnh mất." },
+    ],
+    exercises: [
+      { question: "오래 참았지만 결국 화가 나고___.", options: ["말았어요", "버렸어요", "났어요", "했어요"], answer: 0, explanation: "결국+고 말다: 결국 화가 나고 말았어요 → 피할 수 없는 부정적 결과." },
+      { question: "열심히 노력했지만 ___ 실패하고 말았다.", options: ["결국", "단지", "마치", "이미"], answer: 0, explanation: "결과 강조 부사: 결국 → 결국 실패하고 말았다." },
+    ],
+    commonMistakes: [
+      "결국 없이 고 말다만 쓰는 경우 (강조 감소).",
+      "긍정적 결과에 사용하는 경우 (부정/아쉬운 결과에만).",
+    ],
+    tags: ["Kết cục", "Cuối cùng", "Kết quả tiêu cực", "TOPIK 6"],
+  },
+  {
+    id: "topik6-13",
+    level: "TOPIK 6",
+    levelColor: "#ef4444",
+    pattern: "과연 – (으)ㄹ까?/(으)ㄴ가?/는가?",
+    meaning: "Quả nhiên, liệu có..., không biết có... (câu hỏi nghi ngờ/tu từ)",
+    explanation: "과연 là trạng từ biểu thị sự nghi ngờ hoặc tự hỏi về khả năng xảy ra của điều gì. Đi với câu nghi vấn (으)ㄹ까? hoặc (으)ㄴ가?/는가? (văn viết trang trọng).",
+    formation: "과연 + A/V + (으)ㄹ까? / 과연 + A/V + (으)ㄴ가?/는가?",
+    examples: [
+      { korean: "과연 회사에서 나 같은 사람을 뽑아 줄까?", vietnamese: "Quả nhiên công ty sẽ chọn người như tôi?" },
+      { korean: "과연 그 계획이 성공할 수 있을까?", vietnamese: "Liệu kế hoạch đó có thể thành công không?" },
+      { korean: "과연 그가 약속을 지킬까 모르겠다.", vietnamese: "Không biết anh ấy liệu có giữ lời hứa không." },
+      { korean: "이번에 과연 합격할 수 있을까?", vietnamese: "Lần này liệu có thể đậu không?" },
+      { korean: "과연 이것이 최선의 방법인가?", vietnamese: "Liệu đây có phải là phương pháp tốt nhất không?" },
+    ],
+    exercises: [
+      { question: "과연 회사에서 나 같은 사람을 뽑아 줄___?", options: ["까", "나", "가", "는가"], answer: 0, explanation: "과연+(으)ㄹ까: 과연...줄까 → 가능성 의심 의문." },
+      { question: "___ 이것이 최선의 방법인가?", options: ["과연", "아마", "결국", "점점"], answer: 0, explanation: "의심/의문 강조 부사: 과연 → 과연 이것이 최선인가?" },
+    ],
+    commonMistakes: [
+      "과연을 확신 표현과 쓰는 경우 (과연은 의심/불확실에 사용).",
+      "(으)ㄹ까 없이 과연만 쓰는 경우 (의문형과 짝을 이뤄야 함).",
+    ],
+    tags: ["Liệu có", "Quả nhiên", "Tu từ", "TOPIK 6"],
+  },
+  {
+    id: "topik6-14",
+    level: "TOPIK 6",
+    levelColor: "#ef4444",
+    pattern: "아마/아마도 – (으)ㄹ 것이다/(으)ㄹ 것 같다",
+    meaning: "Có lẽ, chắc là... (phỏng đoán không chắc chắn)",
+    explanation: "아마/아마도 là trạng từ phỏng đoán không chắc chắn, đi với (으)ㄹ 것이다 hoặc (으)ㄹ 것 같다. 아마도 nhấn mạnh hơn 아마.",
+    formation: "아마/아마도 + A/V + (으)ㄹ 것이다 / 아마/아마도 + A/V + (으)ㄹ 것 같다",
+    examples: [
+      { korean: "아마 네가 개정되기 전의 책을 읽은 것 같다.", vietnamese: "Có lẽ bạn đọc cuốn sách đó trước khi nó được tái bản." },
+      { korean: "아마도 내일 비가 올 것 같아요.", vietnamese: "Có lẽ ngày mai trời sẽ mưa." },
+      { korean: "아마 그 사람은 이미 알고 있을 거예요.", vietnamese: "Chắc là người đó đã biết rồi." },
+      { korean: "아마도 그게 최선이었을 거야.", vietnamese: "Có lẽ đó là điều tốt nhất có thể làm lúc đó." },
+      { korean: "아마 그는 지금쯤 집에 도착했을 것이다.", vietnamese: "Chắc là giờ này anh ấy đã đến nhà rồi." },
+    ],
+    exercises: [
+      { question: "아마도 내일 비가 올 것___.", options: ["같아요", "이에요", "있어요", "맞아요"], answer: 0, explanation: "아마도+(으)ㄹ 것 같다: 아마도 올 것 같아요 → 추측." },
+      { question: "___ 그 사람은 이미 알고 있을 거예요.", options: ["아마", "결국", "과연", "벌써"], answer: 0, explanation: "추측 부사: 아마 → 아마 알고 있을 거예요." },
+    ],
+    commonMistakes: [
+      "과연과 혼동: 아마는 추측, 과연은 의심/의문.",
+      "(으)ㄹ 것이다 없이 아마만 쓰는 경우 (추측 어미와 함께 사용).",
+    ],
+    tags: ["Có lẽ", "Phỏng đoán", "Chắc là", "TOPIK 6"],
+  },
+  {
+    id: "topik6-15",
+    level: "TOPIK 6",
+    levelColor: "#ef4444",
+    pattern: "이미/벌써 – 았/었다",
+    meaning: "Đã... rồi, mới đó đã... (hoàn thành trước kỳ vọng)",
+    explanation: "이미 nhấn mạnh trạng thái đã hoàn thành và không thể thay đổi. 벌써 nhấn mạnh sự nhanh chóng hoặc sớm hơn kỳ vọng, thường kèm sắc thái ngạc nhiên.",
+    formation: "이미/벌써 + A/V + 았/었다",
+    examples: [
+      { korean: "벌써 가판을 마치고 인쇄 작업에 들어갔습니다.", vietnamese: "Mới đó đã xong bản in và đã đưa vào bắt đầu in ấn." },
+      { korean: "사람들은 회사의 정식 명칭 대신 가칭돼서 불리던 이름에 이미 익숙해졌다.", vietnamese: "Mọi người đã gần như quen gọi công ty với cái tên tạm thời thay vì tên chính thức của công ty." },
+      { korean: "벌써 봄이 왔네요.", vietnamese: "Mới đó đã vào xuân rồi nhỉ." },
+      { korean: "이미 결정이 났으니 더 이상 논의할 필요가 없어요.", vietnamese: "Đã quyết định rồi nên không cần bàn thêm nữa." },
+      { korean: "그 영화는 벌써 끝났어요.", vietnamese: "Bộ phim đó đã chiếu xong rồi." },
+    ],
+    exercises: [
+      { question: "___ 봄이 왔네요.", options: ["벌써", "이미", "아직", "결국"], answer: 0, explanation: "예상보다 빠름+놀라움: 벌써 → 벌써 봄이 왔네요." },
+      { question: "이미 결정이 났으니 더 이상 논의할 필요가___.", options: ["없어요", "있어요", "됩니다", "합니다"], answer: 0, explanation: "이미+완료: 이미...났으니 → 돌이킬 수 없는 완료 상태." },
+    ],
+    commonMistakes: [
+      "이미와 벌써 혼동: 이미(완료·불가역), 벌써(예상보다 빠름·놀라움).",
+      "아직(아직 아님)과 반대 의미 혼동.",
+    ],
+    tags: ["Đã rồi", "Sớm hơn kỳ vọng", "Hoàn thành", "TOPIK 6"],
+  },
+  {
+    id: "topik6-16",
+    level: "TOPIK 6",
+    levelColor: "#ef4444",
+    pattern: "하마터면 – (으)ㄹ 뻔하다",
+    meaning: "Suýt, gần như suýt... (thoát khỏi tình huống nguy hiểm)",
+    explanation: "하마터면 là trạng từ nhấn mạnh việc suýt xảy ra điều không mong muốn. Luôn đi kèm với (으)ㄹ 뻔하다 hoặc (으)ㄹ 뻔했다 ở thì quá khứ. Liên quan đến 기에 망정이지 (may mà). Xem thêm: topik2 – V-(으)ㄹ 뻔하다.",
+    formation: "하마터면 + V + (으)ㄹ 뻔하다 / 하마터면 + V + (으)ㄹ 뻔했다",
+    examples: [
+      { korean: "내가 집에 일찍 왔기에 망정이지 하마터면 집에 불이 날 뻔했다.", vietnamese: "May mà tôi về nhà sớm chứ không thì suýt nữa cháy nhà." },
+      { korean: "하마터면 지갑을 잃어버릴 뻔했어요.", vietnamese: "Suýt nữa là mất ví rồi." },
+      { korean: "하마터면 넘어질 뻔했어요.", vietnamese: "Suýt nữa là ngã rồi." },
+      { korean: "하마터면 기차를 놓칠 뻔했어요.", vietnamese: "Suýt nữa là lỡ tàu rồi." },
+      { korean: "하마터면 큰 사고가 날 뻔했다.", vietnamese: "Suýt nữa là xảy ra tai nạn lớn rồi." },
+    ],
+    exercises: [
+      { question: "하마터면 지갑을 잃어버릴___ 아요.", options: ["뻔했", "했", "버렸", "말았"], answer: 0, explanation: "하마터면+(으)ㄹ 뻔하다: 잃어버릴 뻔했어요 → 아슬아슬하게 모면." },
+      { question: "___ 큰 사고가 날 뻔했다.", options: ["하마터면", "결국", "벌써", "마치"], answer: 0, explanation: "아슬아슬 회피 부사: 하마터면 → 하마터면 사고가 날 뻔했다." },
+    ],
+    commonMistakes: [
+      "하마터면 없이 (으)ㄹ 뻔하다만 쓰는 경우 (강조 감소).",
+      "(으)ㄹ 뻔하다를 현재형으로 쓰는 경우 (항상 과거형 사용).",
+    ],
+    tags: ["Suýt", "Gần như", "Thoát hiểm", "TOPIK 6"],
+  },
 ];
 
 const LEVELS = ["Tất cả", "TOPIK 1", "TOPIK 2", "TOPIK 3", "TOPIK 4", "TOPIK 5", "TOPIK 6"];
@@ -9084,7 +9484,7 @@ export default function GrammarByLevelPage() {
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [showResults, setShowResults] = useState(false);
   const [search, setSearch] = useState("");
-  const [openLevels, setOpenLevels] = useState<Set<string>>(new Set(["TOPIK 1", "TOPIK 2", "TOPIK 3", "TOPIK 4", "TOPIK 5"]));
+  const [openLevels, setOpenLevels] = useState<Set<string>>(new Set(["TOPIK 1", "TOPIK 2", "TOPIK 3", "TOPIK 4", "TOPIK 5", "TOPIK 6"]));
 
   const filtered = useMemo(() => {
     let list = selectedLevel === "Tất cả" ? GRAMMAR_PATTERNS : GRAMMAR_PATTERNS.filter(p => p.level === selectedLevel);
@@ -9136,7 +9536,7 @@ export default function GrammarByLevelPage() {
               <span className="text-sm font-bold text-white">Tổng: <span className="text-app-accent-primary">{GRAMMAR_PATTERNS.length}</span> cấu trúc</span>
             </div>
             <div className="flex items-center gap-1.5 flex-wrap">
-              {["TOPIK 1", "TOPIK 2", "TOPIK 3", "TOPIK 4", "TOPIK 5"].map(lv => (
+              {["TOPIK 1", "TOPIK 2", "TOPIK 3", "TOPIK 4", "TOPIK 5", "TOPIK 6"].map(lv => (
                 <span key={lv} className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/10 text-white/70 border border-white/10">
                   {lv}: {levelStats[lv] || 0}
                 </span>
