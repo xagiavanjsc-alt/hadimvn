@@ -5914,7 +5914,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-2",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "N – (으)로 인해서",
     meaning: "Do, nhờ, bởi (nguyên nhân trang trọng)",
     explanation: "Diễn tả nguyên nhân hay lý do của một tình trạng nào đó. Dùng trong văn viết hoặc văn nói trang trọng. Danh từ kết thúc phụ âm + 으로 인해서, kết thúc nguyên âm + 로 인해서. Có thể rút gọn thành 으로 인해/로 인해.",
@@ -5943,7 +5943,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-3",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "V – 는 통에",
     meaning: "Do, vì, tại vì... nên... (hoàn cảnh hỗn loạn)",
     explanation: "Diễn tả nguyên nhân từ một hoàn cảnh hỗn loạn, náo động dẫn đến kết quả tiêu cực. Luôn đi kèm với kết quả tiêu cực ở vế sau. Chỉ kết hợp với động từ.",
@@ -5972,7 +5972,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-4",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "N – (으)로 말미암아",
     meaning: "Vì, do... (nguyên nhân tiêu cực, rất trang trọng)",
     explanation: "Diễn tả nguyên nhân hoặc lý do dẫn đến kết quả tiêu cực. Dùng trong văn viết trang trọng, mang tính học thuật. Tương tự (으)로 인해서 nhưng mức độ trang trọng cao hơn.",
@@ -6000,7 +6000,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-5",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "N – (으)로 해서",
     meaning: "Vì, do, tại... / đi qua...",
     explanation: "Diễn tả nguyên nhân hay lý do danh từ vế trước dẫn đến kết quả tiêu cực. Ngoài ra dùng với động từ chuyển động mang nghĩa nhấn mạnh đi qua.",
@@ -6024,7 +6024,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-6",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "A/V – 느니만큼",
     meaning: "Bởi vì... nên... (căn cứ vào sự thật để đưa ra phán xét)",
     explanation: "Diễn tả căn cứ vào sự thật hay tình huống ở vế trước để đưa ra phán xét, yêu cầu, đề nghị ở vế sau. Kết hợp với động từ/tính từ → 느니만큼/으니만큼, danh từ → (이)니만큼.",
@@ -6052,7 +6052,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-7",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "A/V – 느니만치",
     meaning: "Bởi vì... nên... (biến thể của 느니만큼)",
     explanation: "Tương tự 느니만큼, diễn tả căn cứ vào sự thật ở vế trước để đưa ra phán xét ở vế sau. Là biến thể cũ hơn, ít dùng hơn trong văn nói hiện đại.",
@@ -6077,7 +6077,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-8",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "A/V – (으)ㄴ/는 이상",
     meaning: "Một khi mà..., trong tình huống mà...",
     explanation: "Diễn tả một khi đã đặt vào tình huống hoặc điều kiện ở vế trước thì vế sau là điều tất nhiên xảy ra hoặc phải làm. Thường kéo theo nghĩa vụ, trách nhiệm.",
@@ -6106,7 +6106,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-9",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "A/V – 기로서니",
     meaning: "Mặc dù vì... nhưng... (lý do không đủ biện minh)",
     explanation: "Diễn tả dù công nhận lý do ở vế trước nhưng phủ nhận mức độ hợp lý của kết quả ở vế sau. Thường dùng trong câu hỏi tu từ với 아무리.",
@@ -6136,7 +6136,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-10",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "A/V – 기에 망정이지",
     meaning: "May mà... chứ...",
     explanation: "Diễn tả may mắn vì điều ở vế trước xảy ra, nếu không thì đã có kết quả tiêu cực. Luôn hàm ý kết quả xấu ở vế sau.",
@@ -6163,7 +6163,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-11",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "V – (느)ㄴ 답시고",
     meaning: "Bảo là... rồi lại/mà lại... (hành động không thoả đáng)",
     explanation: "Diễn tả sự châm biếm, phê phán khi ai đó nói rằng làm việc gì nhưng hành động thực tế không phù hợp hoặc không đạt yêu cầu.",
@@ -6190,7 +6190,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-12",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "A/V – (으)ㅁ으로써",
     meaning: "Với việc..., bằng việc... nên (phương tiện/cách thức)",
     explanation: "Diễn tả phương tiện hoặc cách thức để đạt được kết quả ở vế sau. Khác với (으)로써 thuần túy, dạng này nhấn mạnh vào hành động/trạng thái được danh từ hóa.",
@@ -6219,7 +6219,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-13",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "A/V – 더라도",
     meaning: "Dù, dù rằng... (nhượng bộ giả định)",
     explanation: "Thể hiện sự nhượng bộ hoặc giả định: dù công nhận sự thật ở vế trước nhưng hành động ở vế sau hoàn toàn không bị ảnh hưởng. Có thể dùng dạng 다고 하더라도 / 다더라도 để nhấn mạnh. Thường đi cùng với 아무리.",
@@ -6245,7 +6245,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-14",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "V – 는 대로",
     meaning: "Ngay khi... thì... (ngay sau khi hành động hoàn thành)",
     explanation: "Sau khi hành động ở vế trước kết thúc, hành động ở vế sau diễn ra ngay lập tức. Vế sau thường thể hiện ý chí, mệnh lệnh, kế hoạch tương lai. Vế sau không chia quá khứ. Hoàn toàn có thể thay thế bằng 자마자 trong mọi trường hợp.",
@@ -6272,7 +6272,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-15",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "A/V – 듯이",
     meaning: "Như, như thế (so sánh tương tự)",
     explanation: "Thể hiện vế sau gần như tương tự với vế trước. Có thể rút gọn thành 듯. Biểu hiện tương tự: 는 것처럼, 는 것과 마찬가지로.",
@@ -6297,7 +6297,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-16",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "V – 아/어 대다",
     meaning: "Cứ... (hành động lặp lại quá mức, liên tục)",
     explanation: "Một hành động thường xuyên lặp lại quá mức và liên tục. Thường được sử dụng để mô tả các tình huống tiêu cực.",
@@ -6322,7 +6322,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-17",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "V – (으)려다가",
     meaning: "Đang định... nhưng lại... (thay đổi hoặc từ bỏ kế hoạch)",
     explanation: "Chủ ngữ đã có ý định làm một hành động nhưng sau đó quyết định bỏ hoặc làm điều khác thay thế. Chủ ngữ của cả 2 vế phải đồng nhất.",
@@ -6347,7 +6347,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-18",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "A/V – 는 듯이",
     meaning: "Cứ như là, như thể là... (so sánh trạng thái/hành động)",
     explanation: "Thể hiện động tác hay trạng thái ở vế câu sau tương tự, gần giống như hoặc có thể phỏng đoán do liên quan đến nội dung nêu lên ở vế câu trước.",
@@ -6372,7 +6372,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-19",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "A/V – (으)ㄹ 리가 없다/있다",
     meaning: "Có/Không có lý nào... (phủ nhận hoặc xác nhận khả năng)",
     explanation: "리가 없다 thể hiện sự phủ nhận mạnh – không có lý nào sự việc đó xảy ra. 리가 있다 thường dùng ở dạng nghi vấn để hỏi về khả năng.",
@@ -6396,7 +6396,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-20",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "A/V – 기 마련이다",
     meaning: "Tất nhiên..., đương nhiên là... (quy luật tự nhiên)",
     explanation: "Thể hiện một sự việc đương nhiên xảy ra theo lẽ tự nhiên. Thường dùng với châm ngôn, tục ngữ. Có thể thay thế bằng –게 마련이다.",
@@ -6420,7 +6420,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
   {
     id: "topik3-21",
     level: "TOPIK 3",
-    levelColor: "#f97316",
+    levelColor: "#f59e0b",
     pattern: "V – 데요",
     meaning: "Hóa ra..., tôi thấy rằng... (hồi tưởng trực tiếp trải nghiệm)",
     explanation: "Dùng khi người nói hồi tưởng điều gì đó họ đã trực tiếp trải qua hoặc cảm nhận trong quá khứ và đang truyền đạt cho người khác. Chủ yếu dùng trong văn nói.",
