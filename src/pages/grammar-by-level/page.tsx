@@ -36,7 +36,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       { question: "그는 의사가 되 ___ 싶어해요.", options: ["고", "아", "어", "서"], answer: 0, explanation: "Ngôi thứ ba dùng 고 싶어하다" },
     ],
     commonMistakes: ["Dùng 고 싶다 cho ngôi thứ ba (phải dùng 고 싶어하다)", "Nhầm với 고 싶지 않다 (không muốn)"],
-    tags: ["Nguyện vọng", "Động từ", "A2"],
+    tags: ["Nguyện vọng", "Động từ", "TOPIK 1"],
   },
   {
     id: "topik1-2",
@@ -2259,7 +2259,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       { question: "서울에 가 ___ 적이 없어요.", options: ["은", "ㄴ", "는", "던"], answer: 1, explanation: "가다 kết thúc bằng nguyên âm, nên dùng ㄴ → 간 적이" },
     ],
     commonMistakes: ["Nhầm với 았/었어요 (quá khứ đơn)", "Quên 본 trong 가 본 적이"],
-    tags: ["Kinh nghiệm", "Quá khứ", "B1"],
+    tags: ["Kinh nghiệm", "Quá khứ", "TOPIK 2"],
   },
   {
     id: "topik2-2",
@@ -2279,7 +2279,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       { question: "어제 비가 많이 왔 ___ 것 같아요.", options: ["는", "ㄴ", "ㄹ", "던"], answer: 1, explanation: "Quá khứ dùng -ㄴ/은 것 같다" },
     ],
     commonMistakes: ["Nhầm thì của 것 같다", "Dùng 것 같다 khi chắc chắn (nên dùng 겠다)"],
-    tags: ["Suy đoán", "Phỏng đoán", "B1"],
+    tags: ["Suy đoán", "Phỏng đoán", "TOPIK 2"],
   },
   {
     id: "topik2-3",
@@ -2311,7 +2311,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       "Quên vế sau phải quá khứ.",
       "Dùng với động từ không cần thời gian.",
     ],
-    tags: ["Nguyên nhân", "Kết quả tiêu cực", "Quá khứ", "B1"],
+    tags: ["Nguyên nhân", "Kết quả tiêu cực", "Quá khứ", "TOPIK 2"],
   },
   {
     id: "topik2-4",
@@ -2344,7 +2344,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       "Quên vế sau phải quá khứ.",
       "Dùng khi kết quả tích cực (thiếu tự nhiên).",
     ],
-    tags: ["Nguyên nhân", "Biện minh", "Quá khứ", "B1"],
+    tags: ["Nguyên nhân", "Biện minh", "Quá khứ", "TOPIK 2"],
   },
   {
     id: "topik2-5",
@@ -2377,7 +2377,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       "Dùng khi tình huống tích cực.",
       "Quên ý nghĩa đổ lỗi.",
     ],
-    tags: ["Đổ lỗi", "Nêu lý do", "Biện hộ", "B1"],
+    tags: ["Đổ lỗi", "Nêu lý do", "Biện hộ", "TOPIK 2"],
   },
   {
     id: "topik2-6",
@@ -5694,7 +5694,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       { question: "먹 ___ 더 먹고 싶어요.", options: ["ㄹ수록", "을수록", "면", "아서"], answer: 1, explanation: "먹다 kết thúc bằng phụ âm ㄱ, dùng 을수록" },
     ],
     commonMistakes: ["Nhầm với -면 -ㄹ수록 (dùng cả hai)", "Quên 더 ở vế sau"],
-    tags: ["Tỷ lệ thuận", "So sánh", "B2"],
+    tags: ["Tỷ lệ thuận", "So sánh", "TOPIK 3"],
   },
   {
     id: "topik4-1",
@@ -5714,7 +5714,7 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
       { question: "건강 ___ 한 모든 것이 가능해요.", options: ["인", "는", "은", "이"], answer: 0, explanation: "건강 là danh từ, dùng 인 한" },
     ],
     commonMistakes: ["Nhầm với -는 이상 (tương tự nhưng nhấn mạnh hơn)", "Dùng sai thì của vế trước"],
-    tags: ["Điều kiện", "Trang trọng", "C1"],
+    tags: ["Điều kiện", "Trang trọng", "TOPIK 4"],
   },
   {
     id: "topik1-64",
@@ -8194,6 +8194,228 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
     ],
     tags: ["Hoàn thành", "Vượt khó", "Thành tích", "TOPIK 4"],
   },
+  {
+    id: "topik4-65",
+    level: "TOPIK 4",
+    levelColor: "#f97316",
+    pattern: "A/V – (으)ㄴ/는 마당에",
+    meaning: "Trong hoàn cảnh..., với tình hình... (bối cảnh không thuận lợi)",
+    explanation: "Biểu hiện một hoàn cảnh hoặc tình huống tạo điều kiện cho một việc xảy ra. Tình huống ở mệnh đề trước thường không thuận lợi hoặc có tính tiêu cực.",
+    formation: "V + 는 마당에 / A/V + (으)ㄴ 마당에",
+    examples: [
+      { korean: "집안 형편이 어려워진 마당에 오직 돈을 벌어야겠다는 일념으로 살았다.", vietnamese: "Trong hoàn cảnh gia đình trở nên khó khăn, tôi đã sống với quyết tâm chỉ kiếm tiền." },
+      { korean: "학기가 끝나는 마당에 열심히 공부하지 않은 걸 후회해도 소용이 없죠.", vietnamese: "Trong hoàn cảnh kì học đã kết thúc, dù có hối hận vì đã không học hành chăm chỉ thì cũng vô ích." },
+      { korean: "모든 증거가 확실한 마당에 더 이상 체포를 망설일 필요는 없어요.", vietnamese: "Một khi tất cả chứng cứ đã rõ ràng thì không cần thiết phải do dự việc bắt giữ nữa cả." },
+      { korean: "모두들 일하는 마당에 너만 놀아서 되겠니?", vietnamese: "Trong khi mọi người đang làm việc, chỉ một mình anh chơi liệu có được không?" },
+      { korean: "사람들이 다 아는 마당에 무엇을 더 숨기겠어요?", vietnamese: "Trong khi tất cả mọi người đều biết thì sẽ còn gì che giấu được nữa?" },
+    ],
+    exercises: [
+      { question: "집안 형편이 어려워진___ 오직 돈을 벌어야겠다는 일념으로 살았다.", options: ["마당에", "터에", "판에", "와중에"], answer: 0, explanation: "어려운 상황 배경: 어려워진 마당에 → 불리한 상황 속 행동 결정." },
+      { question: "모두들 일하는___ 너만 놀아서 되겠니?", options: ["마당에", "터에", "판에", "와중에"], answer: 0, explanation: "현재 상황 배경+질책: 일하는 마당에 → 진행 중인 상황에서의 부적절한 행동." },
+    ],
+    commonMistakes: [
+      "Nhầm với (으)ㄴ/는 판에 (판에 thường dùng cho tình huống hỗn loạn hơn).",
+      "Nhầm với 터에 (터에 = bối cảnh đã có, 마당에 = hoàn cảnh hiện tại tiêu cực).",
+    ],
+    tags: ["Hoàn cảnh", "Tình huống tiêu cực", "Bối cảnh", "TOPIK 4"],
+  },
+  {
+    id: "topik4-66",
+    level: "TOPIK 4",
+    levelColor: "#f97316",
+    pattern: "N 치고",
+    meaning: "Đã là...thì... / So với...thì... (đại diện hoặc so sánh)",
+    explanation: "Nghĩa 1: Khi dùng với danh từ mang tính đại diện, biểu hiện nội dung phía sau thỏa đáng với toàn bộ danh từ đó. Thường dùng với câu phủ định hoặc câu hỏi tu từ. Nghĩa 2: Biểu hiện sự khác biệt so với đặc tính thông thường của danh từ đó.",
+    formation: "N + 치고 (đại diện, phủ định) / N + 치고 (so sánh khác biệt)",
+    examples: [
+      { korean: "아이치고 사탕을 싫어하는 아이는 없을 거예요.", vietnamese: "Đã là trẻ con thì sẽ không có đứa trẻ nào ghét kẹo cả." },
+      { korean: "한국 사람치고는 김치를 못 먹는 사람이 어디 있겠어요?", vietnamese: "Đã là người Hàn Quốc thì làm gì có ai không ăn được kimchi chứ?" },
+      { korean: "꽃치고 안 예쁜 꽃은 없다.", vietnamese: "Đã là hoa thì không có hoa nào là không đẹp cả." },
+      { korean: "외국 사람치고 한국어 발음이 좋은 편이에요.", vietnamese: "So với người nước ngoài thì phát âm tiếng Hàn như thế này là thuộc diện tốt đó." },
+      { korean: "초보자치고 꽤 운전을 잘 하시는군요.", vietnamese: "So với người mới học thì lái xe như thế này khá là tốt đó." },
+      { korean: "여름 날씨치고 시원해요.", vietnamese: "So với thời tiết mùa hè thì như thế này là mát mẻ rồi đó." },
+    ],
+    exercises: [
+      { question: "아이___ 사탕을 싫어하는 아이는 없을 거예요.", options: ["치고", "로서", "치고는", "이라면"], answer: 0, explanation: "대표성 전칭 부정: 아이치고 → 아이라는 집합 전체 해당." },
+      { question: "초보자___ 꽤 운전을 잘 하시는군요.", options: ["치고", "로서", "에 비해", "이라면"], answer: 0, explanation: "기대 대비 비교: 초보자치고 → 예상보다 뛰어남." },
+    ],
+    commonMistakes: [
+      "Nhầm nghĩa 1 và nghĩa 2: nghĩa 1 (toàn thể) thường đi với câu phủ định, nghĩa 2 (so sánh) đứng độc lập.",
+      "Nhầm với (으)로서 (로서 = tư cách/vị thế, 치고 = đại diện toàn thể hoặc so sánh).",
+    ],
+    tags: ["So sánh", "Đại diện", "Phủ định toàn thể", "TOPIK 4"],
+  },
+  {
+    id: "topik4-67",
+    level: "TOPIK 4",
+    levelColor: "#f97316",
+    pattern: "V – (으)ㅁ에 따라",
+    meaning: "Cùng với việc... nên (kết quả phụ thuộc)",
+    explanation: "Thể hiện kết quả của mệnh đề sau phụ thuộc vào tiêu chuẩn hay tình huống của mệnh đề trước. Thường được sử dụng trong văn viết.",
+    formation: "V + (으)ㅁ에 따라",
+    examples: [
+      { korean: "과학 기술이 발달함에 따라 우리의 생활이 점점 편리해졌다.", vietnamese: "Cùng với sự phát triển của khoa học kĩ thuật, cuộc sống sinh hoạt của chúng ta đã trở nên thuận tiện hơn." },
+      { korean: "사람들은 시간이 지남에 따라 슬픈 일을 다 잊어버렸어요.", vietnamese: "Theo thời gian mọi người sẽ quên hết mọi chuyện buồn." },
+      { korean: "환경에 대한 관심이 높아짐에 따라 전기 차를 사용하는 사람도 많아지고 있다.", vietnamese: "Cùng với sự quan tâm về môi trường ngày càng cao, người sử dụng xe điện đang ngày càng tăng lên." },
+      { korean: "기술이 발달함에 따라 편리해진 점도 많지만 새로운 문제도 나타나고 있다.", vietnamese: "Cùng với sự phát triển của khoa học thì có nhiều việc trở nên thuận lợi nhưng cũng đang xuất hiện các vấn đề mới." },
+    ],
+    exercises: [
+      { question: "과학 기술이 발달함___ 우리의 생활이 편리해졌다.", options: ["에 따라", "에 의해", "으로 인해", "에 따르면"], answer: 0, explanation: "비례 변화: 발달함에 따라 → 앞 변화에 따른 뒤 결과." },
+      { question: "환경에 대한 관심이 높아짐___ 전기 차 사용자도 많아지고 있다.", options: ["에 따라", "에 의해", "으로 인해", "으로써"], answer: 0, explanation: "동반 변화: 높아짐에 따라 → 비례적 결과 강조." },
+    ],
+    commonMistakes: [
+      "Nhầm với 에 따르면 (따르면 = theo như, 따라 = cùng với/tỉ lệ thuận).",
+      "Dùng trong văn nói thông thường (mang sắc thái văn viết).",
+    ],
+    tags: ["Phụ thuộc", "Tỉ lệ thuận", "Văn viết", "TOPIK 4"],
+  },
+  {
+    id: "topik4-68",
+    level: "TOPIK 4",
+    levelColor: "#f97316",
+    pattern: "여간 A/V – 지 않다",
+    meaning: "Hết sức..., vô cùng... (mức độ vượt thông thường)",
+    explanation: "Diễn đạt một trạng thái có mức độ hơn hẳn thông thường. Với danh từ dùng dưới dạng 여간 N 이/가 아니다.",
+    formation: "여간 A/V + 지 않다 / 여간 N + 이/가 아니다",
+    examples: [
+      { korean: "흐엉 씨는 외국인이지만 매운 한국 음식도 여간 잘 먹지 않아요.", vietnamese: "Hương là người nước ngoài nhưng ăn đồ ăn cay Hàn Quốc giỏi vô cùng." },
+      { korean: "요즘 아르바이트하며 토픽 시험 준비까지 하니까 여간 힘들지 않다.", vietnamese: "Dạo này mình vừa làm thêm vừa ôn thi Topik nên hết sức vất vả." },
+      { korean: "일과 육아를 병행한다는 건 여간 어려운 일이 아닙니다.", vietnamese: "Việc thực hiện song hành công việc và nuôi dạy trẻ là việc làm vô cùng khó khăn." },
+      { korean: "동생이 혼자 해외여행을 간다는 게 저는 여간 걱정스럽지 않아요.", vietnamese: "Việc em tôi đi du lịch nước ngoài một mình làm tôi vô cùng lo lắng." },
+      { korean: "한국어를 공부하면 할수록 여간 어렵지 않아요.", vietnamese: "Tiếng Hàn càng học càng khó." },
+    ],
+    exercises: [
+      { question: "요즘 아르바이트하며 토픽 준비까지 하니까 여간 힘들___ 않다.", options: ["지", "게", "기가", "기는"], answer: 0, explanation: "여간 + 지 않다: 힘들지 않다 → 매우 힘들다의 완곡한 강조." },
+      { question: "일과 육아를 병행한다는 건 여간 어려운 일이 ___.", options: ["아닙니다", "없습니다", "됩니다", "같습니다"], answer: 0, explanation: "여간 N 이/가 아니다: 어려운 일이 아니다 → 매우 어렵다 강조." },
+    ],
+    commonMistakes: [
+      "Nhầm với 그다지 ~ 지 않다 (그다지 = không lắm, 여간 = hết sức/vô cùng — nghĩa ngược nhau).",
+      "Quên dùng với câu phủ định: 여간 + 지 않다, không dùng 여간 + 다.",
+    ],
+    tags: ["Mức độ", "Nhấn mạnh", "Vô cùng", "TOPIK 4"],
+  },
+  {
+    id: "topik4-69",
+    level: "TOPIK 4",
+    levelColor: "#f97316",
+    pattern: "V – 기에 앞서",
+    meaning: "Trước khi... (hành động ưu tiên)",
+    explanation: "Biểu hiện việc cần làm trước khi thực hiện một hành động nào đó. Mang sắc thái trang trọng, thường dùng trong văn viết và diễn thuyết.",
+    formation: "V + 기에 앞서",
+    examples: [
+      { korean: "집을 임대하기에 앞서 계약서를 자세하게 읽어야 한다.", vietnamese: "Trước khi thuê nhà phải đọc bản hợp đồng một cách tỉ mỉ." },
+      { korean: "자신의 생각을 주장하기에 앞서 체계적인 준비를 해야 한다.", vietnamese: "Trước khi khẳng định suy nghĩ của mình, bạn phải chuẩn bị một cách có hệ thống." },
+      { korean: "해외에 이주하기에 앞서 그 나라에 대해 면밀히 분석해야 한다.", vietnamese: "Trước khi di cư ra nước ngoài, bạn phải tìm hiểu kỹ về đất nước đó." },
+      { korean: "어떤 제품을 사기에 앞서 그 제품에 대해 사전 검사를 하는 게 좋다.", vietnamese: "Trước khi mua sản phẩm nào đó, tốt nhất bạn nên kiểm tra sơ bộ sản phẩm." },
+    ],
+    exercises: [
+      { question: "집을 임대하___ 계약서를 자세하게 읽어야 한다.", options: ["기에 앞서", "기 전에", "는 전에", "기 위해서"], answer: 0, explanation: "우선 행동 강조: 임대하기에 앞서 → 기 전에보다 격식체." },
+      { question: "어떤 제품을 사___ 사전 검사를 하는 게 좋다.", options: ["기에 앞서", "기 전에", "기 위해", "는 전에"], answer: 0, explanation: "구매 전 우선 조치: 사기에 앞서 → 선행 행동 강조." },
+    ],
+    commonMistakes: [
+      "Nhầm với 기 전에 (두 표현 유사하지만 기에 앞서 trang trọng hơn, chủ yếu dùng văn viết).",
+      "Dùng trong văn nói thông thường.",
+    ],
+    tags: ["Trình tự", "Ưu tiên", "Trước khi", "Văn viết", "TOPIK 4"],
+  },
+  {
+    id: "topik4-70",
+    level: "TOPIK 4",
+    levelColor: "#f97316",
+    pattern: "A – (으)ㄴ 감이 있다",
+    meaning: "Có cảm giác rằng... (phán đoán chủ quan)",
+    explanation: "Biểu hiện sự phán đoán mang tính chủ quan của người nói.",
+    formation: "A + (으)ㄴ 감이 있다",
+    examples: [
+      { korean: "색이 약간 진한 감이 있지만 얼굴에 잘 어울린다.", vietnamese: "Cảm giác như màu sắc hơi đậm nhưng rất hợp với khuôn mặt." },
+      { korean: "우리가 일을 너무 서두르는 감이 있어요.", vietnamese: "Cảm giác như chúng ta đã làm việc quá vội vàng." },
+      { korean: "그 문제는 고등학생이 풀기에 쉬운 감이 있습니다.", vietnamese: "Tôi nghĩ là vấn đề đó dễ dàng cho học sinh phổ thông giải quyết." },
+      { korean: "대학 입시를 다시 치르겠다는 친구의 결정은 좀 늦은 감이 있어요.", vietnamese: "Tôi nghĩ là quyết định của bạn rằng sẽ dự thi lại kỳ thi tuyển sinh là hơi trễ." },
+    ],
+    exercises: [
+      { question: "색이 약간 진한___ 있지만 얼굴에 잘 어울린다.", options: ["감이", "듯이", "것이", "편이"], answer: 0, explanation: "주관적 인상: 진한 감이 있다 → 느낌/판단 표현." },
+      { question: "친구의 결정은 좀 늦은___ 있어요.", options: ["감이", "듯이", "것이", "편이"], answer: 0, explanation: "주관적 평가: 늦은 감이 있다 → 개인적 판단 표현." },
+    ],
+    commonMistakes: [
+      "Nhầm với 것 같다 (것 같다 thông dụng hơn trong văn nói, 감이 있다 mang sắc thái ấn tượng cá nhân hơn).",
+      "Dùng với động từ (cấu trúc này chỉ dùng với tính từ).",
+    ],
+    tags: ["Phán đoán", "Chủ quan", "Ấn tượng", "TOPIK 4"],
+  },
+  {
+    id: "topik4-71",
+    level: "TOPIK 4",
+    levelColor: "#f97316",
+    pattern: "A/V – (으)ㄹ 무렵",
+    meaning: "Khi, vào lúc... (thời điểm xảy ra)",
+    explanation: "Dùng để biểu hiện thời điểm xảy ra hành động hoặc trạng thái nào đó. Có thể kết hợp với danh từ (N + 무렵), động từ, tính từ.",
+    formation: "V/A + (으)ㄹ 무렵 / N + 무렵",
+    examples: [
+      { korean: "자정 무렵에 어선들은 출항을 했다.", vietnamese: "Tàu thuyền đánh cá đã khởi hành vào lúc nửa đêm." },
+      { korean: "이웃아저씨가 저녁 무렵에 세상을 떠났다.", vietnamese: "Ông chú hàng xóm đã từ trần vào lúc chiều tối." },
+      { korean: "우리가 도착했을 무렵에는 비가 오고 있었다.", vietnamese: "Lúc chúng tôi đến nơi thì trời mưa." },
+      { korean: "피아노가 손에 익을 무렵부터 나는 재즈를 치기 시작했다.", vietnamese: "Từ khi quen tay chơi piano thì tôi bắt đầu chơi nhạc jazz." },
+      { korean: "밤이 깊을 무렵 이상한 소리가 들렸다.", vietnamese: "Khi màn đêm buông xuống thì có âm thanh kì lạ vang lên." },
+    ],
+    exercises: [
+      { question: "우리가 도착했을___ 에는 비가 오고 있었다.", options: ["무렵", "즈음", "때쯤", "시간"], answer: 0, explanation: "과거 도착 시점: 도착했을 무렵 → 행동 시점의 배경 묘사." },
+      { question: "밤이 깊을___ 이상한 소리가 들렸다.", options: ["무렵", "즈음", "때쯤", "시간"], answer: 0, explanation: "시간대 배경: 깊을 무렵 → 특정 시점 상황 묘사." },
+    ],
+    commonMistakes: [
+      "Nhầm với (으)ㄹ 즈음 (두 표현 유사, 즈음 nhấn mạnh thời điểm hoàn thành hơn).",
+      "Nhầm với (으)ㄹ 때 (때 = khi, 무렵 = vào khoảng lúc — 무렵 có sắc thái tương đối hơn).",
+    ],
+    tags: ["Thời gian", "Thời điểm", "Khoảng thời gian", "TOPIK 4"],
+  },
+  {
+    id: "topik4-72",
+    level: "TOPIK 4",
+    levelColor: "#f97316",
+    pattern: "A/V – (으)ㄹ 즈음",
+    meaning: "Khi... (thời điểm hoàn thành hành động)",
+    explanation: "Dùng để biểu hiện thời điểm xảy ra hành động hoặc trạng thái nào đó. Nhấn mạnh thời điểm hoàn thành hành động. Chỉ kết hợp với động từ và thường dùng dưới dạng (으)ㄹ 즈음에, (으)ㄹ 즈음이다.",
+    formation: "V + (으)ㄹ 즈음에 / V + (으)ㄹ 즈음이다",
+    examples: [
+      { korean: "우리 모두 지친 표정이 되었을 즈음에 멀리 바다가 보이기 시작했다.", vietnamese: "Khi tất cả chúng tôi đều trông mệt mỏi, chúng tôi bắt đầu nhìn thấy biển ở đằng xa." },
+      { korean: "빨래를 거의 다 했을 즈음, 남편이 들어왔다.", vietnamese: "Khi tôi giặt đồ gần xong thì chồng tôi bước vào." },
+      { korean: "딸을 유치원에 보냈을 즈음에야 내 시간을 가질 수 있었다.", vietnamese: "Chỉ khi cho con gái đi học mẫu giáo, tôi mới có thời gian dành cho bản thân." },
+      { korean: "우리가 바닷가를 거닐고 있을 즈음이었다.", vietnamese: "Đó là khoảng thời gian chúng tôi đi dạo dọc bãi biển." },
+    ],
+    exercises: [
+      { question: "빨래를 거의 다 했을___ 남편이 들어왔다.", options: ["즈음", "무렵", "때쯤", "시간"], answer: 0, explanation: "완료 직전 시점: 했을 즈음 → 행동 완료 무렵의 다른 사건." },
+      { question: "딸을 유치원에 보냈을___ 에야 내 시간을 가질 수 있었다.", options: ["즈음", "무렵", "때쯤", "시간"], answer: 0, explanation: "완료 시점+야 강조: 보냈을 즈음에야 → 행동 완료 후 비로소." },
+    ],
+    commonMistakes: [
+      "Nhầm với 무렵 (두 표현 유사, 즈음 thường chỉ dùng với động từ và nhấn mạnh hoàn thành).",
+      "Dùng với tính từ (즈음 chỉ dùng với động từ).",
+    ],
+    tags: ["Thời gian", "Hoàn thành", "Thời điểm", "TOPIK 4"],
+  },
+  {
+    id: "topik4-73",
+    level: "TOPIK 4",
+    levelColor: "#f97316",
+    pattern: "N – (으)로서",
+    meaning: "Với tư cách là... (địa vị, thân phận)",
+    explanation: "Trợ từ thể hiện địa vị, thân phận hay tư cách nào đó.",
+    formation: "N + (으)로서",
+    examples: [
+      { korean: "부모로서 자식을 돌보는 것은 당연한 일입니다.", vietnamese: "Với tư cách cha mẹ việc trông coi con cái là việc thường tình." },
+      { korean: "내가 친구로서 너한테 해 줄 수 있는 게 아무것도 없어서 슬프다.", vietnamese: "Là bạn bè mà chẳng có gì mình có thể làm cho cậu nên mình buồn quá." },
+      { korean: "대한민국 국민으로서 선거에 참여하는 것은 당연하지요.", vietnamese: "Với tư cách là công dân Hàn Quốc việc tham gia bầu cử là đương nhiên rồi." },
+      { korean: "사장으로서 직원들에게 해 줄 수 있는 것이 무엇인지 생각해 보십시오.", vietnamese: "Với tư cách giám đốc xin hãy cân nhắc việc có thể làm gì cho các nhân viên của mình." },
+      { korean: "나는 선생님으로서 항상 아이들의 모범이 되기 위해 노력한다.", vietnamese: "Tôi luôn nỗ lực để trở thành tấm gương sáng của bọn trẻ với tư cách là một nhà giáo." },
+    ],
+    exercises: [
+      { question: "부모___ 자식을 돌보는 것은 당연한 일입니다.", options: ["로서", "로써", "으로서", "이라서"], answer: 0, explanation: "신분/자격 표현: 부모로서 → 부모라는 신분에서 당연한 의무." },
+      { question: "대한민국 국민___ 선거에 참여하는 것은 당연하지요.", options: ["으로서", "으로써", "이라서", "로"], answer: 0, explanation: "자격 표현: 국민으로서 → 국민으로서의 의무와 권리." },
+    ],
+    commonMistakes: [
+      "Nhầm với (으)로써 (로서 = tư cách/địa vị, 로써 = phương tiện/công cụ).",
+      "Nhầm với (이)라서 (이라서 = vì là, 로서 = với tư cách là).",
+    ],
+    tags: ["Tư cách", "Địa vị", "Thân phận", "TOPIK 4"],
+  },
   // ── TOPIK 5 – Advanced quotation expressions ─────────────────────────────
   {
     id: "topik5-7",
@@ -8609,6 +8831,248 @@ const GRAMMAR_PATTERNS: GrammarPattern[] = [
     ],
     tags: ["Đồng thời", "Bối cảnh", "Trang trọng", "TOPIK 5"],
   },
+  {
+    id: "topik5-24",
+    level: "TOPIK 5",
+    levelColor: "#8b5cf6",
+    pattern: "A – 기가 이를 데 없다",
+    meaning: "Không còn gì...hơn, quá ư là... (mức độ cực đại)",
+    explanation: "Nhấn mạnh mức độ không gì so sánh được. Chủ yếu dùng trong văn viết. Biểu hiện tương tự: 기 짝이 없다.",
+    formation: "A + 기가 이를 데 없다 / A + 기 이를 데 없다",
+    examples: [
+      { korean: "출퇴근 시간에는 버스에 사람이 너무 많아서 혼잡하기가 이를 데 없다.", vietnamese: "Vào giờ tan tầm, xe bus rất đông người nên vô cùng hỗn loạn." },
+      { korean: "한국에 처음에 왔을 때는 언어와 문화가 많이 달라서 답답하기가 이를 데 없었다.", vietnamese: "Khi lần đầu đến Hàn Quốc, ngôn ngữ và văn hóa khác nhau rất nhiều nên vô cùng bức bối." },
+      { korean: "방학 내내 밀린 숙제를 해야 하는 내 마음은 괴롭기가 이를 데 없다.", vietnamese: "Cả kì nghỉ phải làm số bài tập bị dồn đọng từ trong năm học thật là không còn gì đau khổ hơn." },
+      { korean: "이렇게 다시 만나게 돼서 반갑기가 이를 데 없다.", vietnamese: "Gặp lại được nhau như thế này thật là không có gì vui sướng hơn." },
+      { korean: "아르바이트를 하며 공부하는 것은 힘들기 이를 데 없다.", vietnamese: "Vừa làm thêm vừa học đúng là không có gì vất vả hơn." },
+    ],
+    exercises: [
+      { question: "출퇴근 시간에 버스가 너무 복잡해서 혼잡하기가 이를 데___.", options: ["없다", "않다", "모른다", "힘들다"], answer: 0, explanation: "최상급 강조: 이를 데 없다 → 비교 대상이 없을 정도로 극심." },
+      { question: "이렇게 다시 만나게 돼서 반갑___ 이를 데 없다.", options: ["기가", "기를", "기에", "기는"], answer: 0, explanation: "기가 이를 데 없다: 반갑기가 → 형용사+기가 연결." },
+    ],
+    commonMistakes: [
+      "Nhầm với 기 짝이 없다 (두 표현 유사, 이를 데 없다 mang tính văn học cao hơn).",
+      "Dùng với động từ (chỉ dùng với tính từ).",
+    ],
+    tags: ["Mức độ", "Cực đại", "Văn viết", "TOPIK 5"],
+  },
+  {
+    id: "topik5-25",
+    level: "TOPIK 5",
+    levelColor: "#8b5cf6",
+    pattern: "A – 기 짝이 없다",
+    meaning: "Không còn gì...hơn, thật là... (mức độ cực đại)",
+    explanation: "Nhấn mạnh mức độ không gì so sánh được. Chủ yếu dùng trong văn viết. Biểu hiện tương tự: 기가 이를 데 없다.",
+    formation: "A + 기 짝이 없다",
+    examples: [
+      { korean: "많은 사람들 앞에서 그런 실수를 하다니 부끄럽기 짝이 없어요.", vietnamese: "Thật quá là xấu hổ khi mắc lỗi như vậy trước nhiều người." },
+      { korean: "그 드라마가 정말 지루하기 짝이 없었다.", vietnamese: "Bộ phim đó thật quá là tẻ nhạt." },
+      { korean: "사람들이 나를 범인이라고 하니 억울하기 짝이 없습니다.", vietnamese: "Thật quá là uất ức khi mọi người coi tôi là kẻ phạm tội." },
+      { korean: "두 사람이 싸우는 것을 보니 유치하기 짝이 없군요.", vietnamese: "Việc xem hai người oánh cãi lộn nhau thật quá ư là ấu trĩ." },
+      { korean: "그동안 만나고 싶었던 친구를 만나니 기쁘기 짝이 없었다.", vietnamese: "Gặp mặt người bạn đã từng muốn gặp trong suốt thời gian qua thật không có gì vui hơn." },
+    ],
+    exercises: [
+      { question: "많은 사람들 앞에서 그런 실수를 하다니 부끄럽기___ 없어요.", options: ["짝이", "이를 데가", "그지가", "한이"], answer: 0, explanation: "최상급 수치심: 부끄럽기 짝이 없다 → 비교 불가한 정도." },
+      { question: "그 드라마가 정말 지루하기___ 없었다.", options: ["짝이", "이를 데가", "그지가", "한이"], answer: 0, explanation: "최상급 지루함 강조: 지루하기 짝이 없다." },
+    ],
+    commonMistakes: [
+      "Nhầm với 기가 이를 데 없다 (두 표현 유사, 짝이 없다 thông dụng hơn trong văn nói).",
+      "Dùng với động từ (chỉ dùng với tính từ).",
+    ],
+    tags: ["Mức độ", "Cực đại", "Văn viết", "TOPIK 5"],
+  },
+  {
+    id: "topik5-26",
+    level: "TOPIK 5",
+    levelColor: "#8b5cf6",
+    pattern: "A – 기 그지없다",
+    meaning: "Bao la, vô cùng... (mức độ không giới hạn)",
+    explanation: "Gắn với tính từ diễn tả cảm xúc và đánh giá, nhấn mạnh mức độ bao la rộng lớn, vô cùng của sự vật hiện tượng.",
+    formation: "A + 기 그지없다 / A + 기가 그지없다",
+    examples: [
+      { korean: "자녀를 위한 부모의 사랑은 크기가 그지없다.", vietnamese: "Tình yêu cha mẹ dành cho con cái vô cùng lớn." },
+      { korean: "너의 행동은 실망스럽기가 그지없다.", vietnamese: "Hành động của cậu thật quá là thất vọng." },
+      { korean: "여기 바다 경치는 아름답기가 그지없다.", vietnamese: "Cảnh biển ở đây đẹp vô cùng." },
+      { korean: "어렸을 때 시절 내 인생은 지루하기가 그지없다.", vietnamese: "Cuộc sống của tôi thời thơ ấu vô cùng tẻ nhạt." },
+      { korean: "그 그림은 예쁘기가 그지없다.", vietnamese: "Bức tranh ấy tuyệt đẹp vô cùng." },
+    ],
+    exercises: [
+      { question: "여기 바다 경치는 아름답기가___.", options: ["그지없다", "짝이 없다", "이를 데 없다", "한이 없다"], answer: 0, explanation: "무한 아름다움 강조: 아름답기가 그지없다 → 한계 없는 아름다움." },
+      { question: "너의 행동은 실망스럽기가___.", options: ["그지없다", "짝이 없다", "이를 데 없다", "한이 없다"], answer: 0, explanation: "감정 극단 표현: 실망스럽기가 그지없다." },
+    ],
+    commonMistakes: [
+      "Nhầm với 기 짝이 없다 (두 표현 유사, 그지없다 mang sắc thái 'không có giới hạn' rõ hơn).",
+      "Dùng với động từ (chỉ dùng với tính từ).",
+    ],
+    tags: ["Mức độ", "Vô hạn", "Văn viết", "TOPIK 5"],
+  },
+  {
+    id: "topik5-27",
+    level: "TOPIK 5",
+    levelColor: "#8b5cf6",
+    pattern: "A – 기 한이 없다",
+    meaning: "Vô độ, vô hạn, không có điểm dừng... (mức độ vô giới hạn)",
+    explanation: "Gắn với tính từ diễn tả cảm giác và sự đánh giá, chủ yếu diễn tả trạng thái nghiêm trọng đến mức độ vô hạn, vô cùng của sự vật hiện tượng.",
+    formation: "A + 기 한이 없다 / A + 기가 한이 없다",
+    examples: [
+      { korean: "엄청난 부자이면서도 욕심은 한이 없어요.", vietnamese: "Dù là người cực giàu rồi nhưng anh ta vẫn vô cùng tham lam." },
+      { korean: "창 밖으로 보이는 바다의 경치는 아름답기가 한이 없다.", vietnamese: "Cảnh biển nhìn qua cửa sổ tuyệt đẹp vô cùng." },
+      { korean: "구조 대원들이 수재민에게 보낸 사랑은 따뜻하기 한이 없다.", vietnamese: "Tình thương ấm áp mà các thành viên đội cứu hộ gửi đến đồng bào lũ lụt là vô hạn." },
+    ],
+    exercises: [
+      { question: "바다의 경치는 아름답기가___ 없다.", options: ["한이", "짝이", "이를 데가", "그지가"], answer: 0, explanation: "무한 아름다움: 아름답기가 한이 없다 → 끝없는 아름다움." },
+      { question: "구조 대원들이 수재민에게 보낸 사랑은 따뜻하기___ 없다.", options: ["한이", "짝이", "이를 데가", "그지가"], answer: 0, explanation: "무한 따뜻함 강조: 따뜻하기 한이 없다." },
+    ],
+    commonMistakes: [
+      "Nhầm với 기 그지없다 (두 표현 유사, 한이 없다 nhấn mạnh 'không có giới hạn/điểm dừng').",
+      "Dùng với động từ (chỉ dùng với tính từ).",
+    ],
+    tags: ["Mức độ", "Vô hạn", "Không giới hạn", "TOPIK 5"],
+  },
+  {
+    id: "topik5-28",
+    level: "TOPIK 5",
+    levelColor: "#8b5cf6",
+    pattern: "V – (으)ㄹ 나위도 없다",
+    meaning: "Không cần phải... thêm (hoàn hảo tột đỉnh)",
+    explanation: "Biểu hiện không còn gì có thể hơn, có thể hài lòng thêm nữa. Có thể dùng biểu hiện (으)ㄹ 여지가 없다 thay thế.",
+    formation: "V + (으)ㄹ 나위도 없다 / V + (으)ㄹ 나위가 없다",
+    examples: [
+      { korean: "그의 성품은 말할 나위가 없이 좋아요.", vietnamese: "Phẩm chất của anh ấy tốt khỏi phải nói thêm." },
+      { korean: "박 선생은 선생님으로서는 더 할 나위가 없는 사람입니다.", vietnamese: "Thầy Park là một nhà giáo tuyệt vời không phải bàn cãi thêm gì nữa." },
+      { korean: "더 할 나위가 없이 잘 해주는 아빠인데도 아이들은 불만인가 봅니다.", vietnamese: "Dù là người bố tốt không cần phải bàn cãi gì thêm nhưng có vẻ bọn trẻ vẫn không hài lòng." },
+      { korean: "세계적으로 인정받는 회사 제품이니 질은 의심할 나위가 없다고 봅니다.", vietnamese: "Tôi thấy rằng sản phẩm của công ty được thế giới công nhận thì chất lượng không có gì phải nghi ngờ." },
+    ],
+    exercises: [
+      { question: "그의 성품은 말할___ 없이 좋아요.", options: ["나위가", "짝이", "여지가", "한이"], answer: 0, explanation: "더 이상의 여지 없음: 말할 나위가 없다 → 너무 좋아서 말이 필요 없을 정도." },
+      { question: "질은 의심할___ 없다고 봅니다.", options: ["나위가", "짝이", "여지가", "한이"], answer: 0, explanation: "의심 여지 없음: 의심할 나위가 없다 → 완전한 확신." },
+    ],
+    commonMistakes: [
+      "Nhầm với (으)ㄹ 여지가 없다 (두 표현 유사, 나위 없다 = không cần thêm gì, 여지가 없다 = không có chỗ/khả năng).",
+      "Dùng với tính từ (chỉ dùng với động từ).",
+    ],
+    tags: ["Hoàn hảo", "Không cần thêm", "Văn viết", "TOPIK 5"],
+  },
+  {
+    id: "topik5-29",
+    level: "TOPIK 5",
+    levelColor: "#8b5cf6",
+    pattern: "V – (으)ㄹ 락 말 락 하다",
+    meaning: "Lúc có lúc không..., sắp sửa... (dao động gần ngưỡng)",
+    explanation: "Cấu trúc thể hiện việc nào đó gần như xảy ra hay gần mức độ đó, dao động giữa có và không.",
+    formation: "V + (으)ㄹ 락 말 락 하다",
+    examples: [
+      { korean: "안개 때문에 앞 차가 보일락 말락 한다.", vietnamese: "Do sương mù nên xe phía trước lúc thấy lúc không." },
+      { korean: "잠이 겨우 들락 말락 하는데 문 닫는 소리 때문에 잠이 깼다.", vietnamese: "Tôi vừa mới vào giấc ngủ chập chờn thì tiếng đóng cửa đã làm tôi tỉnh giấc." },
+      { korean: "비가 그치고 구름 사이로 해가 나올락 말락 한다.", vietnamese: "Mưa tạnh và mặt trời như đang lấp ló trong những đám mây." },
+      { korean: "늑대가 양을 잡아먹을락 말락 하고 있어요.", vietnamese: "Con sói gần như sắp sửa bắt ăn thịt con cừu." },
+    ],
+    exercises: [
+      { question: "안개 때문에 앞 차가 보일락___ 한다.", options: ["말락", "듯", "것 같", "정도로"], answer: 0, explanation: "경계선 반복: 보일락 말락 → 보였다 안 보였다 반복." },
+      { question: "잠이 겨우 들락___ 하는데 소리 때문에 잠이 깼다.", options: ["말락", "듯", "것 같", "정도로"], answer: 0, explanation: "수면 경계: 들락 말락 → 잠든 것도 깬 것도 아닌 상태." },
+    ],
+    commonMistakes: [
+      "Nhầm với 을/ㄹ 듯 말 듯 하다 (두 표현 유사, 듯 말 듯 = như có như không, 락 말 락 = dao động thực tế hơn).",
+      "Dùng với tính từ (chỉ dùng với động từ).",
+    ],
+    tags: ["Dao động", "Gần ngưỡng", "Không chắc chắn", "TOPIK 5"],
+  },
+  {
+    id: "topik5-30",
+    level: "TOPIK 5",
+    levelColor: "#8b5cf6",
+    pattern: "N – 을/를 막론하고",
+    meaning: "Bất kể, bất cứ... mà không phân biệt (막론하고)",
+    explanation: "Cấu trúc thể hiện không cân nhắc hay không phân biệt nội dung mà từ ngữ ở trước thể hiện.",
+    formation: "N + 을/를 막론하고",
+    examples: [
+      { korean: "이 청소기는 가볍고 사용법도 간단해서 남녀노소를 막론하고 사용할 수 있습니다.", vietnamese: "Máy hút bụi này nhẹ và cách sử dụng cũng đơn giản nên bất kể nam nữ già trẻ đều có thể sử dụng." },
+      { korean: "사과는 동서양을 막론하고 즐겨 먹는 과일이다.", vietnamese: "Táo là loại trái cây người ta thích ăn bất kể phương Đông hay phương Tây." },
+      { korean: "여야를 막론하고 노인 복지를 위한 예산을 늘리는 데 찬성하였다.", vietnamese: "Bất kể chính đảng hay đảng đối lập đã tán thành việc tăng ngân sách vì phúc lợi người già." },
+    ],
+    exercises: [
+      { question: "남녀노소를___ 사용할 수 있습니다.", options: ["막론하고", "불문하고", "관계없이", "막론해서"], answer: 0, explanation: "무차별 포괄: 막론하고 → 구분 없이 모두 해당." },
+      { question: "동서양을___ 즐겨 먹는 과일이다.", options: ["막론하고", "불문하고", "관계없이", "막론해서"], answer: 0, explanation: "지역 구분 없음: 동서양을 막론하고 → 어느 지역에나 해당." },
+    ],
+    commonMistakes: [
+      "Nhầm với 불문하고 (두 표현 거의 유사, 막론하고 thường dùng trong văn học/xã luận, 불문하고 trong văn pháp lý).",
+      "Nhầm với 에 관계없이 (관계없이 = bất kể/không liên quan, 막론하고 = không phân biệt/bất kể).",
+    ],
+    tags: ["Bất kể", "Không phân biệt", "Toàn thể", "TOPIK 5"],
+  },
+  {
+    id: "topik5-31",
+    level: "TOPIK 5",
+    levelColor: "#8b5cf6",
+    pattern: "N – 을/를 불문하고",
+    meaning: "Bất kể, bất cứ... mà không phân biệt (불문하고)",
+    explanation: "Cấu trúc thể hiện không cân nhắc hay không phân biệt nội dung mà từ ngữ ở trước thể hiện. Tương tự 막론하고 nhưng 불문하고 thường dùng trong văn pháp luật và quy định chính thức hơn.",
+    formation: "N + 을/를 불문하고",
+    examples: [
+      { korean: "남녀를 불문하고 자신을 멋있게 만드는 패션에 관심이 많다.", vietnamese: "Bất kể là nam hay nữ, họ đều rất quan tâm đến thời trang khiến bản thân trông thật đẹp." },
+      { korean: "K-pop 이라면 장르를 불문하고 다 좋아한다.", vietnamese: "Khi nói đến K-pop, tôi thích tất cả bất kể thể loại nào." },
+      { korean: "국적을 불문하고 누구에게나 백신을 맞을 기회를 준다.", vietnamese: "Bất kỳ ai, bất kể quốc tịch, đều có cơ hội được tiêm vắc xin." },
+      { korean: "그는 옷에 관심이 많아서 가격을 불문하고 옷을 산다.", vietnamese: "Anh ấy rất quan tâm đến quần áo nên mua bất chấp giá cả." },
+    ],
+    exercises: [
+      { question: "장르를___ 다 좋아한다.", options: ["불문하고", "막론하고", "관계없이", "불문해서"], answer: 0, explanation: "장르 구분 없음: 장르를 불문하고 → 모든 장르 포함." },
+      { question: "국적을___ 누구에게나 백신을 맞을 기회를 준다.", options: ["불문하고", "막론하고", "관계없이", "불문해서"], answer: 0, explanation: "국적 무관: 국적을 불문하고 → 공식적 무차별 표현." },
+    ],
+    commonMistakes: [
+      "Nhầm với 막론하고 (두 표현 거의 유사, 불문하고 thường dùng trong văn pháp lý/quy định).",
+      "Nhầm với 에 관계없이 (관계없이 thông dụng hơn trong văn nói).",
+    ],
+    tags: ["Bất kể", "Không phân biệt", "Pháp lý", "Trang trọng", "TOPIK 5"],
+  },
+  {
+    id: "topik5-32",
+    level: "TOPIK 5",
+    levelColor: "#8b5cf6",
+    pattern: "V – (으)ㄹ 리가 만무하다",
+    meaning: "Không có lí nào, không có lẽ nào... (phủ nhận hoàn toàn)",
+    explanation: "Dùng để biểu hiện về việc mà không có tính khả thi, không có khả năng xảy ra. Mang sắc thái phủ nhận mạnh hơn 리가 없다.",
+    formation: "V + (으)ㄹ 리가 만무하다",
+    examples: [
+      { korean: "매일 놀기만 한 친구가 이번 시험에서 1등을 할 리가 만무하다.", vietnamese: "Không có lí nào mà một người bạn mỗi ngày chỉ chơi mà lại giành được hạng nhất trong kì thi lần này." },
+      { korean: "그렇게 착한 사람이 사람을 속일 리가 만무하다.", vietnamese: "Một người tốt như vậy không thể nào lừa gạt người khác được." },
+      { korean: "한국어를 배운지 한 달밖에 안 됐는데 한국어를 한국 사람처럼 말할 리가 만무하다.", vietnamese: "Mới học tiếng Hàn được một tháng nên không có lí nào lại nói tiếng Hàn như người Hàn được." },
+      { korean: "아픈 아이를 집에 혼자 두고 출근한 그녀는 일이 손에 잡힐 리가 만무했다.", vietnamese: "Cô ấy không thể nào đi làm và để con ốm ở nhà một mình được." },
+    ],
+    exercises: [
+      { question: "매일 놀기만 한 친구가 1등을 할 리가___.", options: ["만무하다", "없다", "아니다", "불가능하다"], answer: 0, explanation: "강한 가능성 부정: 만무하다 → 리가 없다보다 더 강한 부정." },
+      { question: "그렇게 착한 사람이 사람을 속일 리가___.", options: ["만무하다", "없다", "아니다", "불가능하다"], answer: 0, explanation: "성품 기반 부정: 만무하다 → 완전한 논리적 불가능." },
+    ],
+    commonMistakes: [
+      "Nhầm với (으)ㄹ 리가 없다 (리가 없다 = không có lẽ, 리가 만무하다 = hoàn toàn không có khả năng — mạnh hơn).",
+      "Dùng 만무하다 trong văn nói thông thường (mang sắc thái văn viết).",
+    ],
+    tags: ["Phủ nhận", "Không có khả năng", "Văn viết", "TOPIK 5"],
+  },
+  {
+    id: "topik5-33",
+    level: "TOPIK 5",
+    levelColor: "#8b5cf6",
+    pattern: "V – (으)ㄹ 래야 V – (으)ㄹ 수가 없다",
+    meaning: "Có muốn... cũng không thể (ý định bị ngăn cản)",
+    explanation: "Mặc dù có ý định thực hiện một việc gì đó nhưng có tình huống ngược lại với ý định đó xảy ra nên cuối cùng không thực hiện được ý định ban đầu.",
+    formation: "V + (으)ㄹ 래야 + V + (으)ㄹ 수가 없다",
+    examples: [
+      { korean: "이번에는 꼭 담배를 끊기로 다짐했는데 오랫동안 피워서 그런지 끊을래야 끊을 수가 없어요.", vietnamese: "Lần này tôi quyết định bỏ thuốc lá nhưng không biết có phải là do hút thuốc lâu quá không mà có muốn bỏ cũng không thể bỏ được." },
+      { korean: "도서관에서 학생증을 잃어버렸는데 아무리 살펴봐도 찾을래야 찾을 수가 없어요.", vietnamese: "Tôi đã làm mất thẻ học sinh ở thư viện, dù có tìm thế nào cũng không thể tìm được." },
+      { korean: "비록 그 사람과 헤어졌지만 함께 했던 추억은 잊을래야 잊을 수가 없다.", vietnamese: "Mặc dù tôi đã chia tay với người ấy nhưng tôi hoàn toàn không thể quên được những ký ức cùng người ấy." },
+      { korean: "나를 속였다는 것 때문에 너무 화가 나서 참을래야 도저히 참을 수가 없다.", vietnamese: "Vì việc (ai đó) lừa dối tôi mà tôi vô cùng tức giận nên có bảo nín nhịn cũng hoàn toàn không thể nhịn được." },
+      { korean: "밖에 시끄러워서 책을 읽을래야 읽을 수 없다.", vietnamese: "Bên ngoài ồn ào quá nên có muốn đọc sách cũng không đọc được." },
+    ],
+    exercises: [
+      { question: "담배를 끊을래야 끊을 수가___.", options: ["없어요", "있어요", "됩니다", "않아요"], answer: 0, explanation: "의도+불가능: 끊을래야 끊을 수가 없다 → 의지 있으나 실현 불가." },
+      { question: "그 추억은 잊을래야 잊을___ 없다.", options: ["수가", "리가", "법이", "것이"], answer: 0, explanation: "감정 기반 불가능: 잊을래야 잊을 수가 없다 → 잊고 싶어도 못 잊는 상태." },
+    ],
+    commonMistakes: [
+      "Nhầm với (으)려야 (으)ㄹ 수 없다 (두 표현 유사, 래야 thông dụng hơn trong văn nói).",
+      "Quên lặp lại cùng động từ ở cả hai vế: 끊을래야 끊을 수가 없다.",
+    ],
+    tags: ["Ý định bị cản", "Không thể", "Dù muốn", "TOPIK 5"],
+  },
 ];
 
 const LEVELS = ["Tất cả", "TOPIK 1", "TOPIK 2", "TOPIK 3", "TOPIK 4", "TOPIK 5", "TOPIK 6"];
@@ -8658,7 +9122,7 @@ export default function GrammarByLevelPage() {
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-white">Bài tập ngữ pháp theo cấp độ</h1>
-          <p className="text-white/50 text-sm mt-1">Luyện ngữ pháp từ A1 đến C1 với giải thích chi tiết</p>
+          <p className="text-white/50 text-sm mt-1">Luyện ngữ pháp từ TOPIK 1 đến TOPIK 5 với giải thích chi tiết</p>
         </div>
 
         {/* Stats bar - compact on mobile */}
@@ -8669,7 +9133,7 @@ export default function GrammarByLevelPage() {
               <span className="text-sm font-bold text-white">Tổng: <span className="text-app-accent-primary">{GRAMMAR_PATTERNS.length}</span> cấu trúc</span>
             </div>
             <div className="flex items-center gap-1.5 flex-wrap">
-              {["A1", "A2", "B1", "B2", "C1"].map(lv => (
+              {["TOPIK 1", "TOPIK 2", "TOPIK 3", "TOPIK 4", "TOPIK 5"].map(lv => (
                 <span key={lv} className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/10 text-white/70 border border-white/10">
                   {lv}: {levelStats[lv] || 0}
                 </span>
