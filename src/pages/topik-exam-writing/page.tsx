@@ -507,11 +507,22 @@ export default function TopikExamWritingPage() {
                 <div className="px-4 pb-3 space-y-3 border-t border-app-border">
                   <p className="text-white/65 text-sm leading-relaxed pt-3">{selectedQ.analysisVi}</p>
                   {selectedQ.outline && selectedQ.outline.length > 0 && (
-                    <div className="bg-app-card/40 rounded-lg p-3 space-y-1.5">
-                      <p className="text-white/30 text-[10px] font-semibold uppercase tracking-wide mb-2">Dàn ý gợi ý</p>
-                      {selectedQ.outline.map((step, i) => (
-                        <p key={i} className="text-white/55 text-xs leading-relaxed">{step}</p>
-                      ))}
+                    <div className="bg-app-card/40 rounded-lg p-3 space-y-2">
+                      <p className="text-amber-400/50 text-[10px] font-semibold uppercase tracking-wide mb-2.5">Dàn ý gợi ý</p>
+                      {selectedQ.outline.map((step, i) => {
+                        const bracketMatch = step.match(/^\[([^\]]+)\]/);
+                        const label = bracketMatch ? bracketMatch[1] : null;
+                        const text = step.replace(/^[\u2460\u2461\u2462\u2463\u2464]\s*/, '').replace(/^\[[^\]]+\]\s*/, '');
+                        return (
+                          <div key={i} className="flex items-start gap-2.5">
+                            <span className="flex-shrink-0 w-5 h-5 rounded-md bg-amber-500/25 text-amber-400 text-[10px] font-bold flex items-center justify-center mt-0.5">{i + 1}</span>
+                            <p className="text-white/65 text-xs leading-relaxed">
+                              {label && <span className="text-amber-400 font-semibold mr-1">[{label}]</span>}
+                              {text}
+                            </p>
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
