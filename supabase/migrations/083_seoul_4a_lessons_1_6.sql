@@ -191,13 +191,13 @@ FROM inserted_grammar, (VALUES
   ('상담할수록 진로가 분명해졌어요.', 'Càng trao đổi tư vấn thì định hướng nghề nghiệp càng rõ ràng.')
 ) AS ex(korean, vietnamese);
 
-INSERT INTO seoul_dialogue (lesson_id, book_id, speaker, text, translation, order_index)
+INSERT INTO seoul_dialogue (lesson_id, book_id, speaker, text, translation)
 VALUES
-  ('4A-L1', '4A', '민수', '졸업을 앞두고 진로를 선택하기가 정말 어려워요.', 'Sắp tốt nghiệp rồi nên việc lựa chọn định hướng nghề nghiệp thật sự khó.', 1),
-  ('4A-L1', '4A', '선생님', '진로를 선택하기에 앞서 자신의 적성과 능력을 먼저 알아보는 것이 좋아요.', 'Trước khi chọn hướng đi, em nên tìm hiểu năng khiếu và năng lực của bản thân trước.', 2),
-  ('4A-L1', '4A', '민수', '저는 사람들을 만나는 일을 좋아하고 성격도 활발한 편이에요.', 'Em thích công việc gặp gỡ mọi người và tính cách cũng khá hoạt bát.', 3),
-  ('4A-L1', '4A', '선생님', '그렇다면 상담을 통해 서비스 업무나 여행 가이드 일을 알아보는 것도 좋겠네요.', 'Vậy thì thông qua tư vấn, em thử tìm hiểu công việc dịch vụ hoặc hướng dẫn viên du lịch cũng tốt.', 4),
-  ('4A-L1', '4A', '민수', '생각할수록 항공사에서 근무하는 일이 제 적성에 맞는 것 같아요.', 'Càng nghĩ em càng thấy công việc làm ở hãng hàng không phù hợp với năng khiếu của mình.', 5);
+  ('4A-L1', '4A', '민수', '졸업을 앞두고 진로를 선택하기가 정말 어려워요.', 'Sắp tốt nghiệp rồi nên việc lựa chọn định hướng nghề nghiệp thật sự khó.'),
+  ('4A-L1', '4A', '선생님', '진로를 선택하기에 앞서 자신의 적성과 능력을 먼저 알아보는 것이 좋아요.', 'Trước khi chọn hướng đi, em nên tìm hiểu năng khiếu và năng lực của bản thân trước.'),
+  ('4A-L1', '4A', '민수', '저는 사람들을 만나는 일을 좋아하고 성격도 활발한 편이에요.', 'Em thích công việc gặp gỡ mọi người và tính cách cũng khá hoạt bát.'),
+  ('4A-L1', '4A', '선생님', '그렇다면 상담을 통해 서비스 업무나 여행 가이드 일을 알아보는 것도 좋겠네요.', 'Vậy thì thông qua tư vấn, em thử tìm hiểu công việc dịch vụ hoặc hướng dẫn viên du lịch cũng tốt.'),
+  ('4A-L1', '4A', '민수', '생각할수록 항공사에서 근무하는 일이 제 적성에 맞는 것 같아요.', 'Càng nghĩ em càng thấy công việc làm ở hãng hàng không phù hợp với năng khiếu của mình.');
 
 -- 4A-L2: 건강한 삶
 DELETE FROM seoul_dialogue WHERE lesson_id = '4A-L2';
@@ -375,13 +375,13 @@ FROM inserted_grammar, (VALUES
   ('폐암을 예방하려면 담배를 끊어야 해요.', 'Nếu muốn phòng ung thư phổi thì phải bỏ thuốc lá.')
 ) AS ex(korean, vietnamese);
 
-INSERT INTO seoul_dialogue (lesson_id, book_id, speaker, text, translation, order_index)
+INSERT INTO seoul_dialogue (lesson_id, book_id, speaker, text, translation)
 VALUES
-  ('4A-L2', '4A', '의사', '어디가 불편해서 오셨어요?', 'Bạn thấy không thoải mái ở đâu nên đến khám vậy?', 1),
-  ('4A-L2', '4A', '환자', '요즘 눈이 침침하고 목이 뻣뻣해요. 가슴도 답답해서 걱정돼요.', 'Dạo này mắt tôi mờ và cổ bị cứng. Ngực cũng tức nên tôi lo lắng.', 2),
-  ('4A-L2', '4A', '의사', '과로하지 않도록 하시고 충분히 쉬어야 해요.', 'Bạn hãy cố gắng đừng làm việc quá sức và phải nghỉ ngơi đầy đủ.', 3),
-  ('4A-L2', '4A', '환자', '발목도 조금 부었는데 어떻게 해야 해요?', 'Cổ chân tôi cũng hơi sưng thì phải làm thế nào?', 4),
-  ('4A-L2', '4A', '의사', '발목이 부으면 얼음찜질을 하고, 증상이 심하면 바로 치료를 받도록 하세요.', 'Nếu cổ chân bị sưng thì hãy chườm đá, nếu triệu chứng nặng thì hãy đi điều trị ngay.', 5);
+  ('4A-L2', '4A', '의사', '어디가 불편해서 오셨어요?', 'Bạn thấy không thoải mái ở đâu nên đến khám vậy?'),
+  ('4A-L2', '4A', '환자', '요즘 눈이 침침하고 목이 뻣뻣해요. 가슴도 답답해서 걱정돼요.', 'Dạo này mắt tôi mờ và cổ bị cứng. Ngực cũng tức nên tôi lo lắng.'),
+  ('4A-L2', '4A', '의사', '과로하지 않도록 하시고 충분히 쉬어야 해요.', 'Bạn hãy cố gắng đừng làm việc quá sức và phải nghỉ ngơi đầy đủ.'),
+  ('4A-L2', '4A', '환자', '발목도 조금 부었는데 어떻게 해야 해요?', 'Cổ chân tôi cũng hơi sưng thì phải làm thế nào?'),
+  ('4A-L2', '4A', '의사', '발목이 부으면 얼음찜질을 하고, 증상이 심하면 바로 치료를 받도록 하세요.', 'Nếu cổ chân bị sưng thì hãy chườm đá, nếu triệu chứng nặng thì hãy đi điều trị ngay.');
 
 -- 4A-L3: 스포츠의 세계
 DELETE FROM seoul_dialogue WHERE lesson_id = '4A-L3';
@@ -544,14 +544,14 @@ FROM inserted_grammar, (VALUES
   ('상대편 선수가 많이 지쳐 보여요.', 'Cầu thủ đối phương trông có vẻ rất mệt.')
 ) AS ex(korean, vietnamese);
 
-INSERT INTO seoul_dialogue (lesson_id, book_id, speaker, text, translation, order_index)
+INSERT INTO seoul_dialogue (lesson_id, book_id, speaker, text, translation)
 VALUES
-  ('4A-L3', '4A', '지훈', '어제 서울월드컵경기장에서 축구 경기를 관람했어요.', 'Hôm qua tôi đã xem trận bóng đá ở sân vận động Seoul World Cup.', 1),
-  ('4A-L3', '4A', '수진', '경기가 어땠어요? 흥미진진했어요?', 'Trận đấu thế nào? Có hấp dẫn không?', 2),
-  ('4A-L3', '4A', '지훈', '네, 두 팀 실력이 막상막하라서 정말 아슬아슬했어요.', 'Có, thực lực hai đội ngang tài ngang sức nên thật sự rất gay cấn.', 3),
-  ('4A-L3', '4A', '수진', '우리 팀이 이겼어요?', 'Đội mình thắng không?', 4),
-  ('4A-L3', '4A', '지훈', '후반전에 골을 넣었지만 마지막 순간에 실점하는 바람에 무승부로 끝났어요.', 'Hiệp hai đã ghi bàn nhưng vì bị thủng lưới ở khoảnh khắc cuối nên kết thúc hòa.', 5),
-  ('4A-L3', '4A', '수진', '아쉽지만 선수들이 최선을 다했다면 결과를 받아들이는 것도 스포츠 정신이에요.', 'Đáng tiếc thật, nhưng nếu các cầu thủ đã cố hết sức thì chấp nhận kết quả cũng là tinh thần thể thao.', 6);
+  ('4A-L3', '4A', '지훈', '어제 서울월드컵경기장에서 축구 경기를 관람했어요.', 'Hôm qua tôi đã xem trận bóng đá ở sân vận động Seoul World Cup.'),
+  ('4A-L3', '4A', '수진', '경기가 어땠어요? 흥미진진했어요?', 'Trận đấu thế nào? Có hấp dẫn không?'),
+  ('4A-L3', '4A', '지훈', '네, 두 팀 실력이 막상막하라서 정말 아슬아슬했어요.', 'Có, thực lực hai đội ngang tài ngang sức nên thật sự rất gay cấn.'),
+  ('4A-L3', '4A', '수진', '우리 팀이 이겼어요?', 'Đội mình thắng không?'),
+  ('4A-L3', '4A', '지훈', '후반전에 골을 넣었지만 마지막 순간에 실점하는 바람에 무승부로 끝났어요.', 'Hiệp hai đã ghi bàn nhưng vì bị thủng lưới ở khoảnh khắc cuối nên kết thúc hòa.'),
+  ('4A-L3', '4A', '수진', '아쉽지만 선수들이 최선을 다했다면 결과를 받아들이는 것도 스포츠 정신이에요.', 'Đáng tiếc thật, nhưng nếu các cầu thủ đã cố hết sức thì chấp nhận kết quả cũng là tinh thần thể thao.');
 
 -- 4A-L4: 남자와 여자
 DELETE FROM seoul_dialogue WHERE lesson_id = '4A-L4';
@@ -709,13 +709,13 @@ FROM inserted_grammar, (VALUES
   ('가격에 비해 서비스 수준이 높아요.', 'So với giá thì mức độ dịch vụ cao.')
 ) AS ex(korean, vietnamese);
 
-INSERT INTO seoul_dialogue (lesson_id, book_id, speaker, text, translation, order_index)
+INSERT INTO seoul_dialogue (lesson_id, book_id, speaker, text, translation)
 VALUES
-  ('4A-L4', '4A', '민지', '모처럼 데이트하는데 왜 또 콘서트는 싫다고 해요?', 'Lâu lắm mới hẹn hò mà sao anh lại nói không thích concert nữa vậy?', 1),
-  ('4A-L4', '4A', '준호', '싫다는 게 아니라 내 취향이랑 조금 달라서 그래요. 우리 의논해서 고르면 안 돼요?', 'Không phải là anh ghét, chỉ là hơi khác gu của anh thôi. Chúng ta bàn bạc rồi chọn không được à?', 2),
-  ('4A-L4', '4A', '민지', '당신은 늘 계획성이 없고 눈치도 없어서 속상해요.', 'Anh lúc nào cũng không có kế hoạch, lại không tinh ý nên em buồn lòng.', 3),
-  ('4A-L4', '4A', '준호', '그렇게 지적하면 나도 발끈하게 돼요. 따지기보다는 침착하게 이야기해요.', 'Em chỉ ra như vậy thì anh cũng dễ nổi nóng. Thay vì cãi lý, mình bình tĩnh nói chuyện nhé.', 4),
-  ('4A-L4', '4A', '민지', '맞아요. 서로의 취향에 비해 무엇이 더 좋은지 이야기해 봐요.', 'Đúng vậy. Hãy thử nói xem so với sở thích của nhau thì điều gì tốt hơn.', 5);
+  ('4A-L4', '4A', '민지', '모처럼 데이트하는데 왜 또 콘서트는 싫다고 해요?', 'Lâu lắm mới hẹn hò mà sao anh lại nói không thích concert nữa vậy?'),
+  ('4A-L4', '4A', '준호', '싫다는 게 아니라 내 취향이랑 조금 달라서 그래요. 우리 의논해서 고르면 안 돼요?', 'Không phải là anh ghét, chỉ là hơi khác gu của anh thôi. Chúng ta bàn bạc rồi chọn không được à?'),
+  ('4A-L4', '4A', '민지', '당신은 늘 계획성이 없고 눈치도 없어서 속상해요.', 'Anh lúc nào cũng không có kế hoạch, lại không tinh ý nên em buồn lòng.'),
+  ('4A-L4', '4A', '준호', '그렇게 지적하면 나도 발끈하게 돼요. 따지기보다는 침착하게 이야기해요.', 'Em chỉ ra như vậy thì anh cũng dễ nổi nóng. Thay vì cãi lý, mình bình tĩnh nói chuyện nhé.'),
+  ('4A-L4', '4A', '민지', '맞아요. 서로의 취향에 비해 무엇이 더 좋은지 이야기해 봐요.', 'Đúng vậy. Hãy thử nói xem so với sở thích của nhau thì điều gì tốt hơn.');
 
 -- 4A-L5: 속담과 관용어
 DELETE FROM seoul_dialogue WHERE lesson_id = '4A-L5';
@@ -857,13 +857,13 @@ FROM inserted_grammar, (VALUES
   ('조깅을 제대로 하다 보니 건강이 좋아졌어요.', 'Cứ chạy bộ đúng cách nên sức khỏe tốt lên.')
 ) AS ex(korean, vietnamese);
 
-INSERT INTO seoul_dialogue (lesson_id, book_id, speaker, text, translation, order_index)
+INSERT INTO seoul_dialogue (lesson_id, book_id, speaker, text, translation)
 VALUES
-  ('4A-L5', '4A', '지우', '부장님이 신입 사원을 너무 심하게 야단치셨어요.', 'Trưởng phòng đã la nhân viên mới quá nặng lời.', 1),
-  ('4A-L5', '4A', '현우', '예전에는 부장님도 신입이었잖아요. 개구리 올챙이 적 생각 못 한다는 말이 떠오르네요.', 'Trước đây trưởng phòng cũng từng là nhân viên mới mà. Tôi nhớ đến câu ếch quên thời còn là nòng nọc.', 2),
-  ('4A-L5', '4A', '지우', '맞아요. 게다가 그 신입 사원은 일을 제대로 배우는 중이에요.', 'Đúng vậy. Hơn nữa nhân viên mới đó đang trong quá trình học việc đúng cách.', 3),
-  ('4A-L5', '4A', '현우', '그래도 실수한 뒤에 고치면 소 잃고 외양간 고치는 셈이니까 미리 알려 줘야 해요.', 'Nhưng nếu mắc lỗi rồi mới sửa thì là mất bò mới lo làm chuồng, nên phải chỉ trước.', 4),
-  ('4A-L5', '4A', '지우', '천리 길도 한 걸음부터니까 천천히 가르쳐 주면 좋겠어요.', 'Đường thiên lý bắt đầu từ một bước chân nên nếu chỉ dạy từ từ thì tốt.', 5);
+  ('4A-L5', '4A', '지우', '부장님이 신입 사원을 너무 심하게 야단치셨어요.', 'Trưởng phòng đã la nhân viên mới quá nặng lời.'),
+  ('4A-L5', '4A', '현우', '예전에는 부장님도 신입이었잖아요. 개구리 올챙이 적 생각 못 한다는 말이 떠오르네요.', 'Trước đây trưởng phòng cũng từng là nhân viên mới mà. Tôi nhớ đến câu ếch quên thời còn là nòng nọc.'),
+  ('4A-L5', '4A', '지우', '맞아요. 게다가 그 신입 사원은 일을 제대로 배우는 중이에요.', 'Đúng vậy. Hơn nữa nhân viên mới đó đang trong quá trình học việc đúng cách.'),
+  ('4A-L5', '4A', '현우', '그래도 실수한 뒤에 고치면 소 잃고 외양간 고치는 셈이니까 미리 알려 줘야 해요.', 'Nhưng nếu mắc lỗi rồi mới sửa thì là mất bò mới lo làm chuồng, nên phải chỉ trước.'),
+  ('4A-L5', '4A', '지우', '천리 길도 한 걸음부터니까 천천히 가르쳐 주면 좋겠어요.', 'Đường thiên lý bắt đầu từ một bước chân nên nếu chỉ dạy từ từ thì tốt.');
 
 -- 4A-L6: 공연과 축제
 DELETE FROM seoul_dialogue WHERE lesson_id = '4A-L6';
@@ -1037,13 +1037,13 @@ FROM inserted_grammar, (VALUES
   ('유튜브를 통해 공연 영상을 공유했어요.', 'Thông qua YouTube, tôi đã chia sẻ video biểu diễn.')
 ) AS ex(korean, vietnamese);
 
-INSERT INTO seoul_dialogue (lesson_id, book_id, speaker, text, translation, order_index)
+INSERT INTO seoul_dialogue (lesson_id, book_id, speaker, text, translation)
 VALUES
-  ('4A-L6', '4A', '수연', '어제 하이서울페스티벌에 다녀왔어요. 서울 곳곳에서 공연이 진행됐어요.', 'Hôm qua tôi đã đi Lễ hội Hi Seoul. Các buổi biểu diễn diễn ra khắp nơi ở Seoul.', 1),
-  ('4A-L6', '4A', '민호', '어땠어요? 볼거리가 많았어요?', 'Thế nào? Có nhiều thứ đáng xem không?', 2),
-  ('4A-L6', '4A', '수연', '네, 사물놀이와 비보이 공연이 한자리에서 어우러져서 정말 인상적이었어요.', 'Có, samulnori và biểu diễn B-boy hòa quyện cùng một nơi nên thật sự rất ấn tượng.', 3),
-  ('4A-L6', '4A', '민호', '전통 공연은 이해하기 어렵지 않았어요?', 'Biểu diễn truyền thống có khó hiểu không?', 4),
-  ('4A-L6', '4A', '수연', '판소리는 조금 어려웠지만 가사가 감동적이라 가슴이 찡했어요.', 'Pansori hơi khó nhưng lời ca cảm động nên tôi xúc động nghẹn ngào.', 5),
-  ('4A-L6', '4A', '민호', '저도 다음에는 기회를 놓치지 말고 꼭 가 봐야겠어요.', 'Lần sau tôi cũng nhất định phải không bỏ lỡ cơ hội và đi thử.', 6);
+  ('4A-L6', '4A', '수연', '어제 하이서울페스티벌에 다녀왔어요. 서울 곳곳에서 공연이 진행됐어요.', 'Hôm qua tôi đã đi Lễ hội Hi Seoul. Các buổi biểu diễn diễn ra khắp nơi ở Seoul.'),
+  ('4A-L6', '4A', '민호', '어땠어요? 볼거리가 많았어요?', 'Thế nào? Có nhiều thứ đáng xem không?'),
+  ('4A-L6', '4A', '수연', '네, 사물놀이와 비보이 공연이 한자리에서 어우러져서 정말 인상적이었어요.', 'Có, samulnori và biểu diễn B-boy hòa quyện cùng một nơi nên thật sự rất ấn tượng.'),
+  ('4A-L6', '4A', '민호', '전통 공연은 이해하기 어렵지 않았어요?', 'Biểu diễn truyền thống có khó hiểu không?'),
+  ('4A-L6', '4A', '수연', '판소리는 조금 어려웠지만 가사가 감동적이라 가슴이 찡했어요.', 'Pansori hơi khó nhưng lời ca cảm động nên tôi xúc động nghẹn ngào.'),
+  ('4A-L6', '4A', '민호', '저도 다음에는 기회를 놓치지 말고 꼭 가 봐야겠어요.', 'Lần sau tôi cũng nhất định phải không bỏ lỡ cơ hội và đi thử.');
 
 COMMIT;
