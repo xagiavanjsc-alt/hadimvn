@@ -48,7 +48,106 @@ const USEFUL_PHRASES_54 = [
 ];
 
 const QUESTIONS: TopikWritingQ[] = [
-  // ─── Q51 ─────────────────────────────────────────────────────────────────
+  // ─── 105회 (2025) ─────────────────────────────────────────────────────────────────────
+  {
+    id: "q51-2025-1",
+    year: 2025, session: 1, qNum: 51,
+    title: "빈칸 채우기 ㉠㉡ (이메일)",
+    passage: `제목: 상담을 받고 싶습니다
+교수님, 안녕하십니까? 경영학과 1학년 쿠이입니다. 이번 학기에 들은 '경영학의 이해' 수업이 너무 어려웠습니다. 앞으로 공부를 어떻게 ( ㉠ ) 잘 모르겠습니다. 교수님께 상담을 받으면 저에게 큰 도움이 ( ㉡ ). 가능하시다면 상담 시간을 알려 주시면 감사하겠습니다. 감사합니다.`,
+    passageSummaryVi: "Đây là email sinh viên gửi giáo sư xin tư vấn học tập. ㉠ đứng sau '어떻게' → cần cụm chỉ 'không biết nên làm gì'. ㉡ đứng sau '큰 도움이' → cần cụm bổ ngữ dự đoán tương lai lịch sự.",
+    question: "㉠과 ㉡에 들어갈 알맞은 말을 각각 한 문장으로 쓰시오.",
+    analysisVi: "㉠ theo sau '어떻게' + '잘 모르겠습니다' → chỉ sự không biết cách: **해야 할지** hoặc **해야 하는지**. ㉡ theo sau '큰 도움이' → bổ ngữ danh từ + kết quả tương lai lịch sự: **될 것 같습니다** / **될 것입니다** / **되겠습니다**.",
+    usefulPhrases: USEFUL_PHRASES_51_52,
+    sampleAnswer: "㉠ 해야 할지 (또는 해야 하는지)\n㉡ 될 것 같습니다 (또는 될 것입니다 / 되겠습니다)",
+    scoringPoints: [
+      "㉠: '어떻게' 뒤에 어울리는 불확실 표현 (해야 할지 / 해야 하는지)",
+      "㉡: '도움이' 뒤에 어울리는 미래·추측 표현 (될 것 같습니다 / 될 것입니다 / 되겠습니다)",
+    ],
+    timerMinutes: 5,
+  },
+  {
+    id: "q52-2025-1",
+    year: 2025, session: 1, qNum: 52,
+    title: "빈칸 채우기 ㉠㉡ (버스 승차감)",
+    passage: `달리는 버스에 앉을 때 승차감이 좋은 자리는 어디일까? 버스가 회전하면 승객의 몸은 회전하는 방향의 반대쪽으로 기울어진다. 이때 몸이 많이 기울어지는 곳은 버스의 앞자리이다. 이는 버스는 뒤바퀴를 중심으로 ( ㉠ ). 또한 울퉁불퉁한 도로에서는 바퀴의 위쪽에 앉으면 지면의 진동을 크게 느낄 수 있다. 따라서 버스에서 흔들림을 적게 ( ㉡ ) 앞바퀴와 뒤바퀴의 중간에 앉으면 된다.`,
+    passageSummaryVi: "Đoạn văn giải thích vị trí ngồi ít rung lắc nhất trên xe buýt. ㉠ đứng sau '뒤바퀴를 중심으로' → cần cụm giải thích lý do. ㉡ đứng sau '흔들림을 적게' → cần cụm điều kiện 'muốn... thì'.",
+    question: "㉠과 ㉡에 들어갈 알맞은 말을 각각 한 문장으로 쓰시오.",
+    analysisVi: "㉠ theo sau '뒤바퀴를 중심으로' → cần động từ giải thích nguyên nhân tại sao phần trước rung nhiều hơn: **회전하기 때문이다**. ㉡ theo sau '흔들림을 적게' + câu kết quả → cần cụm điều kiện: **느끼려면**.",
+    usefulPhrases: USEFUL_PHRASES_51_52,
+    sampleAnswer: "㉠ 회전하기 때문이다\n㉡ 느끼려면",
+    scoringPoints: [
+      "㉠: '뒤바퀴를 중심으로' 뒤에 어울리는 원인 표현 (회전하기 때문이다)",
+      "㉡: '흔들림을 적게' 뒤에 어울리는 조건 표현 (느끼려면)",
+    ],
+    timerMinutes: 5,
+  },
+  {
+    id: "q53-2025-1",
+    year: 2025, session: 1, qNum: 53,
+    title: "단락 쓰기 (200~300자) — 생성형 AI",
+    passage: `다음을 참고하여 '인주시 생성형 AI 서비스 이용 변화'에 대한 글을 200~300자로 쓰시오. 단, 글의 제목은 쓰지 마시오.
+
+* 조사기관: 인주시정보연구소
+[자료]
+• 생성형 AI 서비스 이용률: 2023년 17.6% → 2025년 55.2% (약 3배)
+• 목적형 이용률 변화: 정보 검색 1.1배, 문서 작업 1.6배, 영상·이미지 생성 3.3배 (가장 크게 증가)
+• 변화 원인: 개인 콘텐츠 제작 증가, 생성형 AI 창작품 수준 향상`,
+    question: "위 자료를 바탕으로 200~300자로 쓰시오.",
+    analysisVi: "Đề bài yêu cầu: **hiện trạng** (số liệu tổng và chi tiết) + **nguyên nhân** (2 ý từ bảng). Chú ý: không điền tiêu đề bài. Kết cấu: ① Tổng quan tăng trưởng → ② Phân tích theo mục đích → ③ Nguyên nhân ảnh hưởng nhiều nhất.",
+    outline: [
+      "Đầu: Nêu kết quả điều tra của viện nghiên cứu thông tin Inju.",
+      "Số liệu tổng: từ 17.6% (2023) tăng lên 55.2% (2025), gần 3 lần.",
+      "Chi tiết: tìm kiếm thông tin 1.1 lần, soạn thảo 1.6 lần; **tạo video/ảnh tăng mạnh nhất 3.3 lần**.",
+      "Nguyên nhân: sản xuất nội dung cá nhân tăng + chất lượng sản phẩm AI sáng tạo nâng cao.",
+    ],
+    usefulPhrases: USEFUL_PHRASES_53,
+    charLimit: { min: 200, max: 300 },
+    sampleAnswer: `인주시 정보 연구소에서 인주시 생성형 AI 서비스 이용 변화에 대해 조사를 실시한 결과, 2023년 17.6%에서 2025년 55.2%로 약 3배 늘어난 것으로 나타났다. 한편 같은 기간 동안 목적형 생성형 AI 이용률을 살펴보면 정보 검색는 1.1배, 문서 작업은 1.6배 소폭 증가한 반면, 영상·이미지 생성은 3.3배 대폭 증가한 것으로 조사되었다. 이렇게 영상·이미지 생성이 대폭 증가한 원인으로는 개인 콘텐츠 제작이 늘어났고 생성형 AI 창작품의 수준이 올라갔기 때문인 것으로 분석되었다.`,
+    scoringPoints: [
+      "이용률 전체 변화 수치 제시 (17.6% → 55.2%, 3배)",
+      "목적별 세부 수치 언급 (정보검색/문서작업/영상이미지 각 배수)",
+      "영상·이미지 생성이 가장 크게 증가한 포인트 강조",
+      "원인 2가지 모두 언급 (개인 콘텐츠 제작, AI 창작품 수준)",
+    ],
+    timerMinutes: 15,
+  },
+  {
+    id: "q54-2025-1",
+    year: 2025, session: 1, qNum: 54,
+    title: "논설문 편지 (600~700자) — 경험의 의의",
+    passage: `다음을 참고하여 '경험과 성장'에 대한 자신의 생각을 쓰시오. (단, 아래에 제시한 세 가지를 모두 포함하여 쓰시오.)
+
+• 간접 경험이 많아진 이유는 무엇인가?
+• 직접 경험을 통해 얻을 수 있는 장점은 무엇인가?
+• 성장을 위해 경험을 어떻게 쌓아야 하는가?`,
+    passageSummaryVi: "Chủ đề: Kinh nghiệm và sự trưởng thành. Cần trả lời đủ 3 câu hỏi: (1) Tại sao trải nghiệm gián tiếp tăng? (2) Ưu điểm của trải nghiệm trực tiếp? (3) Nên tích lũy kinh nghiệm như thế nào?",
+    question: "위의 세 가지 내용을 모두 포함하여 600~700자로 쓰시오.",
+    analysisVi: "Cần viết luận văn đủ **3 ý chính** theo thứ tự đề bài. **Không được bỏ sót bất kỳ câu hỏi nào**. Sơ đồ: [서론] Hiện trạng gián tiếp kinh nghiệm tăng → [본론 1] Nguyên nhân → [본론 2] Ưu điểm trực tiếp → [결론] Cách tích lũy đúng đắn.",
+    outline: [
+      "[서론] Ngày nay người ta học rất nhiều qua trải nghiệm gián tiếp (sách, video, internet). Tuy nhiên trải nghiệm trực tiếp vẫn được coi trọng.",
+      "[본론 1 — Lý do tăng] Sự phát triển của internet, SNS, nền tảng video → không bị giới hạn không gian/thời gian. Tiếp cận văn hóa, kiến thức toàn cầu nhanh chóng.",
+      "[본론 2 — Ưu điểm trực tiếp] Rèn khả năng giải quyết vấn đề thực tế, phát triển tự tin + trách nhiệm. Những giá trị này không thể có qua màn hình.",
+      "[결론 — Cách tích lũy] Kết hợp cả hai loại: dùng gián tiếp để mở rộng kiến thức, chủ động tạo cơ hội trực tiếp. Không ngại thử thách mới.",
+    ],
+    usefulPhrases: USEFUL_PHRASES_54,
+    charLimit: { min: 600, max: 700 },
+    sampleAnswer: `현대 사회에서 사람들은 간접 경험을 통해 많은 것을 배우고 있다. 책, 영상, 인터넷은 다양한 정보를 빠르게 전달한다. 이러한 변화 속에서 경험의 방식도 달라지고 있다. 그러나 직접 경험의 중요성도 함께 다시 주목되고 있다.
+
+간접 경험이 많아진 이유로는 디지털 매체의 급격한 발달을 들 수 있다. 스마트폰과 인터넷의 보급으로 누구나 시간과 공간의 제약 없이 전 세계의 다양한 정보와 문화를 접할 수 있게 되었다. 또한 영상 플랫폼과 SNS를 통해 타인의 경험을 마치 자신의 것처럼 생생하게 느낄 수 있어 간접 경험의 폭이 크게 확대되었다.
+
+한편 직접 경험을 통해서만 얻을 수 있는 장점도 있다. 직접 경험은 실제 상황에서 문제를 스스로 해결하는 능력과 판단력을 길러 준다. 뿐만 아니라 실패와 도전을 반복하면서 자신감과 책임감이 자연스럽게 형성된다. 이러한 경험은 단순한 정보 습득과 달리 삶 전반에 영향을 미치는 값진 자산이 된다.
+
+성장을 위해서는 두 가지 경험을 균형 있게 쌓는 노력이 필요하다. 간접 경험으로 폭넓은 지식과 정보를 쌓되, 그것을 바탕으로 실제로 도전하고 체험하는 기회를 적극적으로 만들어야 한다. 특히 낯선 상황에서 직접 경험하는 것을 두려워하지 말고, 이를 성장의 발판으로 삼는 자세가 중요하다.`,
+    scoringPoints: [
+      "간접 경험 증가 원인: 디지털 매체·인터넷 발달 관련 내용 포함",
+      "직접 경험의 장점: 문제 해결 능력, 자신감·책임감 형성 언급",
+      "경험을 쌓는 방법: 간접+직접 균형, 도전적 자세 언급",
+      "세 가지 항목(구조)을 모두 포함하여 작성",
+    ],
+    timerMinutes: 50,
+  },
+  // ─── Q51 ─────────────────────────────────────────────────────────────────────────────
   {
     id: "q51-2023-1",
     year: 2023, session: 1, qNum: 51,
@@ -325,7 +424,7 @@ const Q_COLORS: Record<number, string> = {
   54: "text-rose-400 bg-rose-500/15 border-rose-500/25",
 };
 
-const YEARS = [2023, 2022, 2021];
+const YEARS = [2025, 2023, 2022, 2021];
 
 const DRAFT_KEY = (id: string) => `topik_draft_${id}`;
 const HISTORY_KEY = "topik_writing_history";
