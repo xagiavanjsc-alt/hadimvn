@@ -327,17 +327,24 @@ const Q_COLORS: Record<number, string> = {
 
 const YEARS = [2023, 2022, 2021];
 
+const DRAFT_KEY = (id: string) => `topik_draft_${id}`;
+
 export default function TopikExamWritingPage() {
   const [filterType, setFilterType] = useState<"all" | 51 | 52 | 53 | 54>("all");
   const [filterYear, setFilterYear] = useState<number | "all">("all");
   const [selectedQ, setSelectedQ] = useState<TopikWritingQ>(QUESTIONS[0]);
-  const [text, setText] = useState("");
+  const [text, setText] = useState(() => localStorage.getItem(DRAFT_KEY(QUESTIONS[0].id)) || "");
   const [showAnswer, setShowAnswer] = useState(false);
   const [showAnalysis, setShowAnalysis] = useState(true);
   const [showPhrases, setShowPhrases] = useState(false);
   const [timerSec, setTimerSec] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
+  const [examMode, setExamMode] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [selfChecked, setSelfChecked] = useState<boolean[]>([]);
+  const [draftSaved, setDraftSaved] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (timerRunning) {
@@ -348,6 +355,18 @@ export default function TopikExamWritingPage() {
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, [timerRunning]);
 
+  // Auto-save draft with debounce
+  useEffect(() => {
+    if (!text) return;
+    if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+    saveTimerRef.current = setTimeout(() => {
+      localStorage.setItem(DRAFT_KEY(selectedQ.id), text);
+      setDraftSaved(true);
+      setTimeout(() => setDraftSaved(false), 1500);
+    }, 800);
+    return () => { if (saveTimerRef.current) clearTimeout(saveTimerRef.current); };
+  }, [text, selectedQ.id]);
+
   const filtered = QUESTIONS.filter(q => {
     const typeOk = filterType === "all" || q.qNum === filterType;
     const yearOk = filterYear === "all" || q.year === filterYear;
@@ -356,11 +375,42 @@ export default function TopikExamWritingPage() {
 
   const handleSelect = (q: TopikWritingQ) => {
     setSelectedQ(q);
-    setText("");
+    setText(localStorage.getItem(DRAFT_KEY(q.id)) || "");
     setShowAnswer(false);
     setShowAnalysis(true);
+    setShowPhrases(false);
     setTimerSec(0);
     setTimerRunning(false);
+    setSubmitted(false);
+    setSelfChecked([]);
+  };
+
+  const handleExamModeToggle = () => {
+    const next = !examMode;
+    setExamMode(next);
+    setShowAnswer(false);
+    setSubmitted(false);
+    setSelfChecked([]);
+    if (next) {
+      setShowAnalysis(false);
+      setShowPhrases(false);
+      setTimerSec(0);
+      setTimerRunning(true);
+    } else {
+      setTimerRunning(false);
+      setShowAnalysis(true);
+    }
+  };
+
+  const handleSubmit = () => {
+    setTimerRunning(false);
+    setSubmitted(true);
+    setShowAnswer(true);
+    setSelfChecked(new Array(selectedQ.scoringPoints?.length ?? 0).fill(false));
+  };
+
+  const toggleSelfCheck = (i: number) => {
+    setSelfChecked(prev => prev.map((v, idx) => idx === i ? !v : v));
   };
 
   const fmtTimer = (s: number) => {
@@ -381,17 +431,34 @@ export default function TopikExamWritingPage() {
         : "text-green-400"
     : "text-white/40";
 
+  const hasDraft = !!localStorage.getItem(DRAFT_KEY(selectedQ.id));
+
   return (
     <DashboardLayout>
       <div className="p-4 md:p-6 max-w-6xl mx-auto">
         {/* Header */}
-        <div className="mb-5">
-          <h1 className="text-xl font-bold text-white flex items-center gap-2">
-            <i className="ri-draft-line text-app-accent-primary"></i>
-            Luyện Viết TOPIK II
-          </h1>
-          <p className="text-white/45 text-sm mt-1">Đề thi thật — Câu 51, 52, 53, 54 qua các năm · Có đáp án tham khảo</p>
+        <div className="mb-5 flex items-start justify-between gap-4">
+          <div>
+            <h1 className="text-xl font-bold text-white flex items-center gap-2">
+              <i className="ri-draft-line text-app-accent-primary"></i>
+              Luyện Viết TOPIK II
+            </h1>
+            <p className="text-white/45 text-sm mt-1">Đề thi thật — Câu 51, 52, 53, 54 qua các năm · Có đáp án tham khảo</p>
+          </div>
+          <button
+            onClick={handleExamModeToggle}
+            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all whitespace-nowrap flex-shrink-0 border ${examMode ? "bg-rose-500/15 border-rose-500/30 text-rose-400" : "bg-app-card/50 border-app-border text-white/50 hover:text-white/70"}`}
+          >
+            <i className={`${examMode ? "ri-stop-circle-line" : "ri-timer-flash-line"} text-sm`}></i>
+            {examMode ? "Thoát thi" : "Chế độ thi"}
+          </button>
         </div>
+        {examMode && (
+          <div className="mb-4 px-3 py-2 bg-rose-500/8 border border-rose-500/20 rounded-xl flex items-center gap-2">
+            <i className="ri-error-warning-line text-rose-400 text-sm"></i>
+            <p className="text-rose-300/70 text-xs">Đang thi — gợi ý đã ẩn. Viết xong nhấn <strong>Nộp bài</strong> để xem đáp án.</p>
+          </div>
+        )}
 
         {/* Filters */}
         <div className="flex flex-wrap gap-2 mb-5">
@@ -483,7 +550,7 @@ export default function TopikExamWritingPage() {
                 </div>
               )}
 
-              {selectedQ.passageSummaryVi && (
+              {selectedQ.passageSummaryVi && !examMode && (
                 <div className="bg-blue-500/5 border border-blue-500/15 rounded-lg px-3 py-2 flex gap-2">
                   <i className="ri-translate-2 text-blue-400 text-xs mt-0.5 flex-shrink-0"></i>
                   <p className="text-blue-300/70 text-xs leading-relaxed">{selectedQ.passageSummaryVi}</p>
@@ -493,8 +560,8 @@ export default function TopikExamWritingPage() {
               <p className="text-white text-sm font-medium">{selectedQ.question}</p>
             </div>
 
-            {/* Vietnamese Analysis Panel */}
-            <div className="bg-[#1a1f2e] rounded-xl border border-app-border overflow-hidden">
+            {/* Vietnamese Analysis Panel — hidden in exam mode */}
+            {!examMode && <div className="bg-[#1a1f2e] rounded-xl border border-app-border overflow-hidden">
               <button
                 onClick={() => setShowAnalysis(v => !v)}
                 className="w-full flex items-center gap-2 px-4 py-2.5 hover:bg-white/3 transition-colors cursor-pointer"
@@ -527,10 +594,10 @@ export default function TopikExamWritingPage() {
                   )}
                 </div>
               )}
-            </div>
+            </div>}
 
-            {/* Useful Phrases */}
-            {selectedQ.usefulPhrases && (
+            {/* Useful Phrases — hidden in exam mode */}
+            {!examMode && selectedQ.usefulPhrases && (
               <div className="bg-[#1a1f2e] rounded-xl border border-app-border overflow-hidden">
                 <button
                   onClick={() => setShowPhrases(v => !v)}
@@ -556,7 +623,11 @@ export default function TopikExamWritingPage() {
             {/* Writing area */}
             <div className="bg-[#1a1f2e] rounded-xl border border-app-border overflow-hidden">
               <div className="flex items-center justify-between px-4 py-2.5 border-b border-app-border">
-                <span className="text-white/40 text-xs">Bài viết của bạn</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-white/40 text-xs">Bài viết của bạn</span>
+                  {draftSaved && <span className="text-green-400/60 text-[10px] flex items-center gap-1"><i className="ri-save-line text-[10px]"></i>Đã lưu</span>}
+                  {!draftSaved && hasDraft && charCount === 0 && <span className="text-white/25 text-[10px]">Có nháp cũ</span>}
+                </div>
                 <span className={`text-xs font-mono ${charColor}`}>
                   {charCount}
                   {selectedQ.charLimit && ` / ${selectedQ.charLimit.min}~${selectedQ.charLimit.max}`}
@@ -582,14 +653,32 @@ export default function TopikExamWritingPage() {
               )}
             </div>
 
-            {/* Show answer toggle */}
-            <button
-              onClick={() => setShowAnswer(v => !v)}
-              className={`w-full py-2.5 rounded-xl text-sm font-semibold cursor-pointer transition-all border whitespace-nowrap ${showAnswer ? "bg-app-card/50 border-app-border text-white/50" : "bg-app-accent-primary/10 border-app-accent-primary/25 text-app-accent-primary hover:bg-app-accent-primary/15"}`}
-            >
-              <i className={`${showAnswer ? "ri-eye-off-line" : "ri-eye-line"} mr-1.5`}></i>
-              {showAnswer ? "Ẩn đáp án" : "Xem đáp án tham khảo"}
-            </button>
+            {/* Action buttons */}
+            {examMode ? (
+              !submitted ? (
+                <button
+                  onClick={handleSubmit}
+                  disabled={charCount === 0}
+                  className={`w-full py-2.5 rounded-xl text-sm font-semibold cursor-pointer transition-all border whitespace-nowrap ${charCount > 0 ? "bg-rose-500/15 border-rose-500/30 text-rose-400 hover:bg-rose-500/20" : "bg-app-card/30 border-app-border text-white/20 cursor-not-allowed"}`}
+                >
+                  <i className="ri-send-plane-line mr-1.5"></i>
+                  Nộp bài — Xem kết quả
+                </button>
+              ) : (
+                <div className="flex items-center gap-2 px-3 py-2 bg-green-500/8 border border-green-500/20 rounded-xl">
+                  <i className="ri-checkbox-circle-line text-green-400"></i>
+                  <span className="text-green-300/70 text-xs font-medium">Đã nộp bài · {fmtTimer(timerSec)} · Tự chấm bên dưới</span>
+                </div>
+              )
+            ) : (
+              <button
+                onClick={() => setShowAnswer(v => !v)}
+                className={`w-full py-2.5 rounded-xl text-sm font-semibold cursor-pointer transition-all border whitespace-nowrap ${showAnswer ? "bg-app-card/50 border-app-border text-white/50" : "bg-app-accent-primary/10 border-app-accent-primary/25 text-app-accent-primary hover:bg-app-accent-primary/15"}`}
+              >
+                <i className={`${showAnswer ? "ri-eye-off-line" : "ri-eye-line"} mr-1.5`}></i>
+                {showAnswer ? "Ẩn đáp án" : "Xem đáp án tham khảo"}
+              </button>
+            )}
 
             {showAnswer && (
               <div className="bg-[#1a1f2e] rounded-xl border border-green-500/20 p-4 space-y-3">
@@ -599,16 +688,36 @@ export default function TopikExamWritingPage() {
                 </h3>
                 <p className="text-white/70 text-sm leading-relaxed whitespace-pre-line">{selectedQ.sampleAnswer}</p>
                 {selectedQ.scoringPoints && selectedQ.scoringPoints.length > 0 && (
-                  <div className="pt-2 border-t border-app-border">
-                    <p className="text-white/35 text-xs font-semibold mb-2">Tiêu chí chấm điểm:</p>
-                    <ul className="space-y-1">
+                  <div className="pt-3 border-t border-app-border">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-white/50 text-xs font-semibold">Tự chấm — Tích những ý bạn đã thực hiện:</p>
+                      {selfChecked.length > 0 && (
+                        <span className={`text-xs font-bold px-2 py-0.5 rounded-lg ${selfChecked.filter(Boolean).length === selfChecked.length ? "text-green-400 bg-green-500/15" : "text-white/40 bg-white/5"}`}>
+                          {selfChecked.filter(Boolean).length}/{selfChecked.length}
+                        </span>
+                      )}
+                    </div>
+                    <ul className="space-y-1.5">
                       {selectedQ.scoringPoints.map((p, i) => (
-                        <li key={i} className="text-xs text-white/45 flex items-start gap-1.5">
-                          <span className="text-app-accent-primary mt-0.5 flex-shrink-0">•</span>
-                          {p}
+                        <li
+                          key={i}
+                          onClick={() => toggleSelfCheck(i)}
+                          className={`flex items-start gap-2.5 px-3 py-2 rounded-lg cursor-pointer transition-all select-none ${
+                            selfChecked[i] ? "bg-green-500/10 border border-green-500/20" : "bg-app-card/30 border border-transparent hover:bg-app-card/50"
+                          }`}
+                        >
+                          <span className={`flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center mt-0.5 transition-all ${
+                            selfChecked[i] ? "bg-green-500 border-green-500" : "border-white/20"
+                          }`}>
+                            {selfChecked[i] && <i className="ri-check-line text-white text-[10px]"></i>}
+                          </span>
+                          <span className={`text-xs leading-relaxed ${selfChecked[i] ? "text-green-300/80" : "text-white/50"}`}>{p}</span>
                         </li>
                       ))}
                     </ul>
+                    {selfChecked.length > 0 && selfChecked.every(Boolean) && (
+                      <p className="text-center text-green-400 text-xs font-semibold mt-3">🎉 Hoàn hảo! Bạn đã thực hiện đủ các tiêu chí!</p>
+                    )}
                   </div>
                 )}
               </div>
