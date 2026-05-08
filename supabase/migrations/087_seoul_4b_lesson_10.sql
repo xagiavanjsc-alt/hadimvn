@@ -3,6 +3,22 @@
 
 BEGIN;
 
+-- ── Upsert book 4B ────────────────────────────────────────────────────────
+INSERT INTO seoul_books (id, name, level, level_group, color, bg_gradient, description, total_lessons, total_vocab, total_grammar, cefr_level, target_audience)
+VALUES ('4B', 'Seoul 4B', '4B', 4, '#f87171', 'from-[#f87171]/20 to-[#f87171]/5', 'Thành thạo tiếng Hàn — ngôn ngữ học thuật, kinh doanh và chuẩn bị TOPIK cấp cao', 10, 450, 38, 'B2+', 'Đã hoàn thành Seoul 4A')
+ON CONFLICT (id) DO UPDATE SET
+  name           = EXCLUDED.name,
+  level          = EXCLUDED.level,
+  level_group    = EXCLUDED.level_group,
+  color          = EXCLUDED.color,
+  bg_gradient    = EXCLUDED.bg_gradient,
+  description    = EXCLUDED.description,
+  total_lessons  = EXCLUDED.total_lessons,
+  total_vocab    = EXCLUDED.total_vocab,
+  total_grammar  = EXCLUDED.total_grammar,
+  cefr_level     = EXCLUDED.cefr_level,
+  target_audience = EXCLUDED.target_audience;
+
 -- ── Clean up existing data for 4B-L10 ──────────────────────────────────────
 DELETE FROM seoul_dialogue WHERE lesson_id = '4B-L10';
 DELETE FROM seoul_grammar_examples WHERE grammar_id IN (SELECT id FROM seoul_grammar WHERE lesson_id = '4B-L10');
