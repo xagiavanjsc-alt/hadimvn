@@ -1,53 +1,58 @@
-﻿import { useMemo, useState, useCallback } from "react";
+﻿import { useMemo, useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import hanjaData from "@/data/hanja_phan1.json";
-import { toSlug } from "@/lib/romanize";
+import { supabase } from "@/lib/supabase";
 
 interface HanjaEntry {
   id: number;
   hangul: string;
   hanja: string;
   meaning_vn: string | null;
-  hanja_breakdown: { char: string; reading: string; meaning: string }[];
-  examples: { ko: string; vi: string; boi?: string }[];
-  related_words: { word: string; hanja: string; meaning: string }[];
-  mnemonic: string | null;
-  raw: string;
+  slug: string;
 }
 
-// Filter out the header row (id=1 without hangul content)
-const ENTRIES: HanjaEntry[] = (hanjaData as HanjaEntry[]).filter(
-  e => e.examples.length > 0 || e.mnemonic
-);
-
-// Extract all unique hanja characters for filter
-const UNIQUE_CHARS = Array.from(
-  new Set(ENTRIES.flatMap(e => e.hanja.split("").filter(c => /[\u4e00-\u9fff]/.test(c))))
-).sort();
+interface HanjaQuizEntry extends HanjaEntry {
+  examples: { ko: string; vi: string; boi?: string }[];
+}
 
 function getShortMeaning(entry: HanjaEntry): string {
-  if (entry.meaning_vn && entry.meaning_vn.length > 1 && !/^[\u4e00-\u9fff]$/.test(entry.meaning_vn)) {
-    return entry.meaning_vn;
-  }
-  const m = entry.raw.match(/Nghĩa tiếng Việt[^:]*:\s*([^\n.]+)/);
-  return m ? m[1].trim().replace(/^["“]|["”]$/g, "") : "";
+  return entry.meaning_vn ?? "";
 }
 
 export default function HanjaProPage() {
   const navigate = useNavigate();
+  const [entries, setEntries] = useState<HanjaEntry[]>([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filterChar, setFilterChar] = useState<string | null>(null);
   const [known] = useLocalStorage<Record<number, boolean>>("kts_hanja_pro_known", {});
   const [favorites] = useLocalStorage<Record<number, boolean>>("kts_hanja_pro_fav", {});
   const [quizMode, setQuizMode] = useState(false);
+  const [quizLoading, setQuizLoading] = useState(false);
+  const [quizEntries, setQuizEntries] = useState<HanjaQuizEntry[]>([]);
   const [quizIdx, setQuizIdx] = useState(0);
   const [quizAnswered, setQuizAnswered] = useState<number | null>(null);
   const [quizScore, setQuizScore] = useState({ correct: 0, total: 0 });
 
+  useEffect(() => {
+    supabase
+      .from("hanja_pro")
+      .select("id,hangul,hanja,meaning_vn,slug")
+      .order("id", { ascending: true })
+      .limit(10000)
+      .then(({ data, error }) => {
+        if (!error) setEntries(data ?? []);
+        setLoading(false);
+      });
+  }, []);
+
+  const UNIQUE_CHARS = useMemo(() =>
+    Array.from(new Set(entries.flatMap(e => e.hanja.split("").filter(c => /[\u4e00-\u9fff]/.test(c))))).sort(),
+  [entries]);
+
   const filtered = useMemo(() => {
-    let list = ENTRIES;
+    let list = entries;
     if (filterChar) list = list.filter(e => e.hanja.includes(filterChar));
     if (search.trim()) {
       const q = search.toLowerCase();
@@ -58,31 +63,41 @@ export default function HanjaProPage() {
       );
     }
     return list;
-  }, [search, filterChar]);
+  }, [entries, search, filterChar]);
 
   const stats = useMemo(() => ({
-    total: ENTRIES.length,
+    total: entries.length,
     known: Object.values(known).filter(Boolean).length,
     favorites: Object.values(favorites).filter(Boolean).length,
-  }), [known, favorites]);
+  }), [entries, known, favorites]);
 
   const openDetail = useCallback((entry: HanjaEntry) => {
-    navigate(`/hanja-pro/${toSlug(entry.hangul)}`);
+    navigate(`/hanja-pro/${entry.slug}`);
   }, [navigate]);
 
-  // Quiz logic
-  const quizSet = useMemo(() => {
-    return [...ENTRIES].sort(() => Math.random() - 0.5).slice(0, 10);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quizMode]);
+  const startQuiz = useCallback(async () => {
+    setQuizLoading(true);
+    const { data } = await supabase
+      .from("hanja_pro")
+      .select("id,hangul,hanja,meaning_vn,slug,examples")
+      .limit(200)
+      .order("id", { ascending: true });
+    const shuffled = ((data ?? []) as HanjaQuizEntry[]).sort(() => Math.random() - 0.5).slice(0, 10);
+    setQuizEntries(shuffled);
+    setQuizLoading(false);
+    setQuizMode(true);
+    setQuizIdx(0);
+    setQuizAnswered(null);
+    setQuizScore({ correct: 0, total: 0 });
+  }, []);
 
-  const quizCurrent = quizSet[quizIdx];
+  const quizCurrent = quizEntries[quizIdx];
   const quizOptions = useMemo(() => {
     if (!quizCurrent) return [];
-    const others = ENTRIES.filter(e => e.id !== quizCurrent.id)
+    const others = quizEntries.filter(e => e.id !== quizCurrent.id)
       .sort(() => Math.random() - 0.5).slice(0, 3);
     return [...others, quizCurrent].sort(() => Math.random() - 0.5);
-  }, [quizCurrent]);
+  }, [quizCurrent, quizEntries]);
 
   const playTTS = (text: string) => {
     if (!("speechSynthesis" in window)) return;
@@ -101,7 +116,7 @@ export default function HanjaProPage() {
   };
 
   const handleNextQuiz = () => {
-    if (quizIdx + 1 >= quizSet.length) {
+    if (quizIdx + 1 >= quizEntries.length) {
       setQuizMode(false);
       setQuizIdx(0);
       setQuizAnswered(null);
@@ -111,11 +126,22 @@ export default function HanjaProPage() {
     }
   };
 
+  // ─── Quiz Loading ────────────────────────────────────────────────────────
+  if (quizLoading) {
+    return (
+      <DashboardLayout title="Quiz Hán Hàn" subtitle="Đang tải câu hỏi...">
+        <div className="flex items-center justify-center py-20">
+          <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-app-accent-primary rounded-full animate-spin"></div>
+        </div>
+      </DashboardLayout>
+    );
+  }
+
   // ─── Quiz Mode ──────────────────────────────────────────────────────────
   if (quizMode && quizCurrent) {
     const example = quizCurrent.examples[0];
     return (
-      <DashboardLayout title="Quiz Hán Hàn" subtitle={`Câu ${quizIdx + 1}/${quizSet.length} · Điểm: ${quizScore.correct}/${quizScore.total}`}>
+      <DashboardLayout title="Quiz Hán Hàn" subtitle={`Câu ${quizIdx + 1}/${quizEntries.length} · Điểm: ${quizScore.correct}/${quizScore.total}`}>
         <div className="max-w-3xl mx-auto">
           <div className="bg-app-bg border border-app-border rounded-2xl p-8 mb-6">
             <p className="text-app-text-muted text-sm mb-4">Chọn từ Hán Hàn phù hợp với ví dụ sau:</p>
@@ -164,7 +190,7 @@ export default function HanjaProPage() {
                   Thoát
                 </button>
                 <button onClick={handleNextQuiz} className="px-6 py-2.5 bg-app-accent-primary hover:bg-app-accent-primary/90 text-app-bg rounded-xl text-sm font-bold cursor-pointer">
-                  {quizIdx + 1 >= quizSet.length ? "Hoàn thành" : "Câu tiếp"} <i className="ri-arrow-right-line ml-1"></i>
+                  {quizIdx + 1 >= quizEntries.length ? "Hoàn thành" : "Câu tiếp"} <i className="ri-arrow-right-line ml-1"></i>
                 </button>
               </div>
             )}
@@ -177,18 +203,24 @@ export default function HanjaProPage() {
   return (
     <DashboardLayout
       title="Hán Hàn Chuyên Sâu"
-      subtitle={`${stats.total} từ · Đã thuộc ${stats.known} · Yêu thích ${stats.favorites}`}
+      subtitle={loading ? "Đang tải..." : `${stats.total} từ · Đã thuộc ${stats.known} · Yêu thích ${stats.favorites}`}
       actions={
         <button
-          onClick={() => { setQuizMode(true); setQuizIdx(0); setQuizAnswered(null); setQuizScore({ correct: 0, total: 0 }); }}
+          onClick={startQuiz}
           className="flex items-center gap-2 bg-app-accent-primary hover:bg-app-accent-primary/90 text-app-bg text-sm font-bold px-4 py-2.5 rounded-xl cursor-pointer whitespace-nowrap"
         >
           <i className="ri-brain-line"></i>Làm quiz 10 câu
         </button>
       }
     >
+      {loading && (
+        <div className="flex items-center justify-center py-20">
+          <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-app-accent-primary rounded-full animate-spin"></div>
+        </div>
+      )}
+
       {/* Search + filter */}
-      <div className="bg-app-bg border border-app-border rounded-2xl p-4 mb-6">
+      {!loading && <div className="bg-app-bg border border-app-border rounded-2xl p-4 mb-6">
         <div className="flex gap-3 mb-3">
           <div className="flex-1 relative">
             <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-app-text-muted"></i>
@@ -221,35 +253,38 @@ export default function HanjaProPage() {
             </button>
           ))}
         </div>
-      </div>
+      </div>}
 
-      {/* Grid — 1 col mobile cho dễ đọc, tăng dần ở desktop */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-        {filtered.map(entry => {
-          const isKnown = known[entry.id];
-          const isFav = favorites[entry.id];
-          const meaning = getShortMeaning(entry);
-          return (
-            <button
-              key={entry.id}
-              onClick={() => openDetail(entry)}
-              className={`relative bg-app-bg border rounded-xl p-4 text-left cursor-pointer transition-all hover:border-app-accent-primary/40 ${isKnown ? "border-emerald-500/40" : "border-app-border"}`}
-            >
-              {isFav && <i className="ri-bookmark-fill absolute top-2 right-2 text-app-accent-primary text-sm"></i>}
-              {isKnown && <i className="ri-check-double-line absolute top-2 right-2 text-emerald-400 text-sm"></i>}
-              <p className="text-white font-bold text-base mb-1" lang="ko">{entry.hangul}</p>
-              <p className="text-app-accent-primary text-sm font-medium mb-2">{entry.hanja}</p>
-              <p className="text-app-text-secondary text-xs line-clamp-2">{meaning || "Nhấn để xem"}</p>
-            </button>
-          );
-        })}
-      </div>
-
-      {filtered.length === 0 && (
-        <div className="text-center py-12 text-app-text-muted">
-          <i className="ri-search-line text-4xl mb-2"></i>
-          <p>Không tìm thấy từ nào</p>
-        </div>
+      {!loading && (
+        <>
+          {/* Grid — 1 col mobile cho dễ đọc, tăng dần ở desktop */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+            {filtered.map(entry => {
+              const isKnown = known[entry.id];
+              const isFav = favorites[entry.id];
+              const meaning = getShortMeaning(entry);
+              return (
+                <button
+                  key={entry.id}
+                  onClick={() => openDetail(entry)}
+                  className={`relative bg-app-bg border rounded-xl p-4 text-left cursor-pointer transition-all hover:border-app-accent-primary/40 ${isKnown ? "border-emerald-500/40" : "border-app-border"}`}
+                >
+                  {isFav && <i className="ri-bookmark-fill absolute top-2 right-2 text-app-accent-primary text-sm"></i>}
+                  {isKnown && <i className="ri-check-double-line absolute top-2 right-2 text-emerald-400 text-sm"></i>}
+                  <p className="text-white font-bold text-base mb-1" lang="ko">{entry.hangul}</p>
+                  <p className="text-app-accent-primary text-sm font-medium mb-2">{entry.hanja}</p>
+                  <p className="text-app-text-secondary text-xs line-clamp-2">{meaning || "Nhấn để xem"}</p>
+                </button>
+              );
+            })}
+          </div>
+          {filtered.length === 0 && (
+            <div className="text-center py-12 text-app-text-muted">
+              <i className="ri-search-line text-4xl mb-2"></i>
+              <p>Không tìm thấy từ nào</p>
+            </div>
+          )}
+        </>
       )}
     </DashboardLayout>
   );

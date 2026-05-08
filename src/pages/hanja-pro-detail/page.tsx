@@ -1,15 +1,15 @@
-import { useEffect, useMemo } from "react";
-import { useParams, Link, useNavigate, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import hanjaData from "@/data/hanja_phan1.json";
-import { toSlug } from "@/lib/romanize";
+import { supabase } from "@/lib/supabase";
 
 interface HanjaEntry {
   id: number;
   hangul: string;
   hanja: string;
   meaning_vn: string | null;
+  slug: string;
   hanja_breakdown: { char: string; reading: string; meaning: string }[];
   examples: { ko: string; vi: string; boi?: string }[];
   related_words: { word: string; hanja: string; meaning: string }[];
@@ -17,28 +17,11 @@ interface HanjaEntry {
   raw: string;
 }
 
-const ENTRIES: HanjaEntry[] = (hanjaData as HanjaEntry[]).filter(
-  e => e.examples.length > 0 || e.mnemonic
-);
-
-// Build slug → entry map (handles collisions by appending suffix)
-const SLUG_MAP: Record<string, HanjaEntry> = {};
-const ENTRY_TO_SLUG: Record<number, string> = {};
-{
-  const counts: Record<string, number> = {};
-  for (const e of ENTRIES) {
-    let s = toSlug(e.hangul);
-    if (counts[s]) {
-      s = `${s}-${counts[s] + 1}`;
-    }
-    counts[toSlug(e.hangul)] = (counts[toSlug(e.hangul)] || 0) + 1;
-    SLUG_MAP[s] = e;
-    ENTRY_TO_SLUG[e.id] = s;
-  }
-}
-
-export function getEntrySlug(entry: HanjaEntry): string {
-  return ENTRY_TO_SLUG[entry.id] || toSlug(entry.hangul);
+interface HanjaNav {
+  id: number;
+  hangul: string;
+  hanja: string;
+  slug: string;
 }
 
 function playTTS(text: string, lang = "ko-KR") {
@@ -76,24 +59,43 @@ export default function HanjaProDetailPage() {
   const navigate = useNavigate();
   const [known, setKnown] = useLocalStorage<Record<number, boolean>>("kts_hanja_pro_known", {});
   const [favorites, setFavorites] = useLocalStorage<Record<number, boolean>>("kts_hanja_pro_fav", {});
+  const [entry, setEntry] = useState<HanjaEntry | null | undefined>(undefined);
+  const [prev, setPrev] = useState<HanjaNav | null>(null);
+  const [next, setNext] = useState<HanjaNav | null>(null);
 
-  const decoded = slug ? decodeURIComponent(slug) : "";
+  const decoded = slug ? decodeURIComponent(slug).toLowerCase() : "";
 
-  const entry = useMemo(() => {
-    if (!decoded) return null;
-    // Try slug first (lowercase), then fall back to hangul match (legacy URLs)
-    const bySlug = SLUG_MAP[decoded.toLowerCase()];
-    if (bySlug) return bySlug;
-    return ENTRIES.find(e => e.hangul === decoded) || null;
+  useEffect(() => {
+    if (!decoded) { setEntry(null); return; }
+    setEntry(undefined);
+    supabase
+      .from("hanja_pro")
+      .select("*")
+      .eq("slug", decoded)
+      .single()
+      .then(async ({ data, error }) => {
+        if (error || !data) { setEntry(null); return; }
+        setEntry(data as HanjaEntry);
+        // fetch prev
+        const { data: prevData } = await supabase
+          .from("hanja_pro")
+          .select("id,hangul,hanja,slug")
+          .lt("id", data.id)
+          .order("id", { ascending: false })
+          .limit(1)
+          .single();
+        setPrev(prevData as HanjaNav | null);
+        // fetch next
+        const { data: nextData } = await supabase
+          .from("hanja_pro")
+          .select("id,hangul,hanja,slug")
+          .gt("id", data.id)
+          .order("id", { ascending: true })
+          .limit(1)
+          .single();
+        setNext(nextData as HanjaNav | null);
+      });
   }, [decoded]);
-
-  // SEO canonical: if user accessed via hangul, redirect to slug URL
-  const isLegacyHangulUrl = entry && decoded === entry.hangul;
-  const canonicalSlug = entry ? getEntrySlug(entry) : null;
-
-  const idx = useMemo(() => entry ? ENTRIES.findIndex(e => e.id === entry.id) : -1, [entry]);
-  const prev = idx > 0 ? ENTRIES[idx - 1] : null;
-  const next = idx >= 0 && idx < ENTRIES.length - 1 ? ENTRIES[idx + 1] : null;
 
   // SEO: update document title + meta description per word
   useEffect(() => {
@@ -135,7 +137,18 @@ export default function HanjaProDetailPage() {
     };
   }, [entry]);
 
-  if (!entry) {
+  // loading state (undefined = fetching, null = not found)
+  if (entry === undefined) {
+    return (
+      <DashboardLayout title="Hán Hàn Chuyên Sâu">
+        <div className="flex items-center justify-center py-20">
+          <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-app-accent-primary rounded-full animate-spin"></div>
+        </div>
+      </DashboardLayout>
+    );
+  }
+
+  if (entry === null) {
     return (
       <DashboardLayout title="Không tìm thấy từ">
         <div className="max-w-2xl mx-auto py-16 text-center">
@@ -148,11 +161,6 @@ export default function HanjaProDetailPage() {
         </div>
       </DashboardLayout>
     );
-  }
-
-  // Redirect legacy hangul URLs to slug URL (preserves SEO + sharable links)
-  if (isLegacyHangulUrl && canonicalSlug && canonicalSlug !== decoded.toLowerCase()) {
-    return <Navigate to={`/hanja-pro/${canonicalSlug}`} replace />;
   }
 
   const meaning = getShortMeaning(entry);
@@ -287,27 +295,13 @@ export default function HanjaProDetailPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {entry.related_words.map((w, i) => {
                 // If related word is in our dataset, link to it
-                const linkTarget = ENTRIES.find(e => e.hangul === w.word);
-                const inner = (
-                  <>
+                return (
+                  <div key={i} className="bg-app-card/20 rounded-xl p-3 border border-app-border">
                     <div className="flex items-center gap-2 mb-0.5">
                       <p className="text-white font-bold text-base" lang="ko">{w.word}</p>
                       <p className="text-app-accent-primary text-sm">{w.hanja}</p>
                     </div>
                     <p className="text-app-text-secondary text-sm leading-relaxed">{w.meaning}</p>
-                  </>
-                );
-                return linkTarget ? (
-                  <Link
-                    key={i}
-                    to={`/hanja-pro/${getEntrySlug(linkTarget)}`}
-                    className="bg-app-card/30 hover:bg-app-card/50 rounded-xl p-3 border border-app-border hover:border-app-accent-primary/40 transition-colors"
-                  >
-                    {inner}
-                  </Link>
-                ) : (
-                  <div key={i} className="bg-app-card/20 rounded-xl p-3 border border-app-border">
-                    {inner}
                   </div>
                 );
               })}
@@ -332,7 +326,7 @@ export default function HanjaProDetailPage() {
         <nav className="flex items-stretch gap-3 mt-8" aria-label="Navigation">
           {prev ? (
             <Link
-              to={`/hanja-pro/${getEntrySlug(prev)}`}
+              to={`/hanja-pro/${prev.slug}`}
               className="flex-1 bg-app-card/30 hover:bg-app-card/50 border border-app-border hover:border-app-accent-primary/40 rounded-xl p-4 transition-colors group"
             >
               <p className="text-app-text-muted text-xs mb-1 flex items-center gap-1">
@@ -343,7 +337,7 @@ export default function HanjaProDetailPage() {
           ) : <div className="flex-1" />}
           {next ? (
             <Link
-              to={`/hanja-pro/${getEntrySlug(next)}`}
+              to={`/hanja-pro/${next.slug}`}
               className="flex-1 bg-app-card/30 hover:bg-app-card/50 border border-app-border hover:border-app-accent-primary/40 rounded-xl p-4 transition-colors text-right"
             >
               <p className="text-app-text-muted text-xs mb-1 flex items-center justify-end gap-1">
@@ -359,7 +353,7 @@ export default function HanjaProDetailPage() {
             onClick={() => navigate("/hanja-pro")}
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-app-card/50 hover:bg-app-card/70 text-white/70 rounded-xl text-sm font-medium cursor-pointer"
           >
-            <i className="ri-grid-line"></i>Xem tất cả 100 từ
+            <i className="ri-grid-line"></i>Xem danh sách Hán Hàn
           </button>
         </div>
       </div>
