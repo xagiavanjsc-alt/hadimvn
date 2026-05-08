@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS public.hanja_pro (
 
 CREATE INDEX IF NOT EXISTS idx_hanja_pro_slug   ON public.hanja_pro (slug);
 CREATE INDEX IF NOT EXISTS idx_hanja_pro_hangul ON public.hanja_pro (hangul);
-CREATE INDEX IF NOT EXISTS idx_hanja_pro_hanja  ON public.hanja_pro USING gin (hanja gin_trgm_ops);
+CREATE INDEX IF NOT EXISTS idx_hanja_pro_hanja  ON public.hanja_pro (hanja);
 
 -- RLS: public read, no write from client
 ALTER TABLE public.hanja_pro ENABLE ROW LEVEL SECURITY;

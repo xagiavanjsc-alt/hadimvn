@@ -10627,39 +10627,72 @@ export default function GrammarByLevelPage() {
                     </div>
                   )}
 
-                  {activeTab === "write" && (
-                    <div className="space-y-4">
-                      <div className="p-3 bg-app-accent-primary/8 border border-app-accent-primary/20 rounded-xl text-sm text-white/70">
-                        Viết 1–2 câu có dùng mẫu <span className="text-app-accent-primary font-semibold">{selectedPattern.pattern}</span>
-                        <span className="block text-xs text-white/40 mt-0.5">Cấu trúc: {selectedPattern.formation}</span>
-                      </div>
-                      <textarea
-                        value={writeSentence}
-                        onChange={e => { setWriteSentence(e.target.value); setWriteFeedback(null); }}
-                        placeholder="저는... (Viết câu tiếng Hàn tại đây)"
-                        rows={4}
-                        className="w-full bg-app-card/40 border border-app-border rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-app-accent-primary resize-none"
-                      />
-                      <button
-                        onClick={() => checkWriteSentence(selectedPattern, writeSentence)}
-                        disabled={!writeSentence.trim()}
-                        className="w-full py-2.5 rounded-xl text-sm font-semibold cursor-pointer transition-colors whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed bg-app-accent-primary hover:bg-app-accent-primary/90 text-app-bg"
-                      >
-                        Kiểm tra
-                      </button>
-                      {writeFeedback && (
-                        <div className={`p-3 rounded-xl text-sm border ${writeFeedback.ok ? "bg-green-500/8 border-green-500/25 text-green-400" : "bg-red-500/8 border-red-500/25 text-red-400"}`}>
-                          <p className="font-medium mb-2">{writeFeedback.message}</p>
-                          {writeFeedback.sample && (
-                            <p className="text-xs text-white/40">Câu mẫu: <span className="text-white/60">{writeFeedback.sample}</span></p>
-                          )}
-                          {writeFeedback.ok && (
-                            <button onClick={() => { setWriteSentence(""); setWriteFeedback(null); }} className="mt-2 text-xs text-app-accent-primary cursor-pointer hover:underline">Viết câu khác</button>
-                          )}
+                  {activeTab === "write" && (() => {
+                    const currentIdx = filtered.findIndex(p => p.id === selectedPattern.id);
+                    const prevP = currentIdx > 0 ? filtered[currentIdx - 1] : null;
+                    const nextP = currentIdx < filtered.length - 1 ? filtered[currentIdx + 1] : null;
+                    const goTo = (p: GrammarPattern) => { setSelectedPattern(p); setActiveTab("write"); handleReset(); window.scrollTo({ top: 0, behavior: "smooth" }); };
+                    return (
+                      <div className="space-y-4">
+                        {/* Progress indicator */}
+                        <div className="flex items-center justify-between text-xs text-white/40">
+                          <span>{currentIdx + 1} / {filtered.length} mẫu</span>
+                          <span>{selectedPattern.level}</span>
                         </div>
-                      )}
-                    </div>
-                  )}
+                        <div className="h-1 bg-app-border rounded-full overflow-hidden">
+                          <div className="h-full bg-app-accent-primary rounded-full" style={{ width: `${((currentIdx + 1) / filtered.length) * 100}%` }} />
+                        </div>
+
+                        <div className="p-3 bg-app-accent-primary/8 border border-app-accent-primary/20 rounded-xl text-sm text-white/70">
+                          Viết 1–2 câu có dùng mẫu <span className="text-app-accent-primary font-semibold">{selectedPattern.pattern}</span>
+                          <span className="block text-xs text-white/40 mt-0.5">Cấu trúc: {selectedPattern.formation}</span>
+                        </div>
+                        <textarea
+                          value={writeSentence}
+                          onChange={e => { setWriteSentence(e.target.value); setWriteFeedback(null); }}
+                          placeholder="저는... (Viết câu tiếng Hàn tại đây)"
+                          rows={4}
+                          className="w-full bg-app-card/40 border border-app-border rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-app-accent-primary resize-none"
+                        />
+                        <button
+                          onClick={() => checkWriteSentence(selectedPattern, writeSentence)}
+                          disabled={!writeSentence.trim()}
+                          className="w-full py-2.5 rounded-xl text-sm font-semibold cursor-pointer transition-colors whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed bg-app-accent-primary hover:bg-app-accent-primary/90 text-app-bg"
+                        >
+                          Kiểm tra
+                        </button>
+                        {writeFeedback && (
+                          <div className={`p-3 rounded-xl text-sm border ${writeFeedback.ok ? "bg-green-500/8 border-green-500/25 text-green-400" : "bg-red-500/8 border-red-500/25 text-red-400"}`}>
+                            <p className="font-medium mb-2">{writeFeedback.message}</p>
+                            {writeFeedback.sample && (
+                              <p className="text-xs text-white/40">Câu mẫu: <span className="text-white/60">{writeFeedback.sample}</span></p>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Prev / Next navigation */}
+                        <div className="flex gap-2 pt-1">
+                          <button
+                            onClick={() => prevP && goTo(prevP)}
+                            disabled={!prevP}
+                            className="flex-1 py-2 rounded-xl text-sm border border-app-border text-white/50 hover:bg-app-surface/50 cursor-pointer disabled:opacity-25 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
+                          >
+                            <i className="ri-arrow-left-line mr-1"></i>Trước
+                            {prevP && <span className="ml-1 text-white/30 text-xs truncate">{prevP.pattern}</span>}
+                          </button>
+                          <button
+                            onClick={() => nextP && goTo(nextP)}
+                            disabled={!nextP}
+                            className="flex-1 py-2 rounded-xl text-sm border border-app-accent-primary/40 text-app-accent-primary hover:bg-app-accent-primary/10 cursor-pointer disabled:opacity-25 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
+                          >
+                            Tiếp
+                            {nextP && <span className="ml-1 text-app-accent-primary/50 text-xs truncate">{nextP.pattern}</span>}
+                            <i className="ri-arrow-right-line ml-1"></i>
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })()}
 
                   {activeTab === "exercise" && (
                     <div className="space-y-6">

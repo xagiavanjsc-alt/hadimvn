@@ -34,6 +34,8 @@ export default function HanjaProPage() {
   const [quizIdx, setQuizIdx] = useState(0);
   const [quizAnswered, setQuizAnswered] = useState<number | null>(null);
   const [quizScore, setQuizScore] = useState({ correct: 0, total: 0 });
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 20;
 
   useEffect(() => {
     supabase
@@ -65,11 +67,16 @@ export default function HanjaProPage() {
     return list;
   }, [entries, search, filterChar]);
 
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  const paginated = useMemo(() => filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE), [filtered, page, PAGE_SIZE]);
+
   const stats = useMemo(() => ({
     total: entries.length,
     known: Object.values(known).filter(Boolean).length,
     favorites: Object.values(favorites).filter(Boolean).length,
   }), [entries, known, favorites]);
+
+  useEffect(() => { setPage(1); }, [search, filterChar]);
 
   const openDetail = useCallback((entry: HanjaEntry) => {
     navigate(`/hanja-pro/${entry.slug}`);
@@ -203,7 +210,7 @@ export default function HanjaProPage() {
   return (
     <DashboardLayout
       title="Hán Hàn Chuyên Sâu"
-      subtitle={loading ? "Đang tải..." : `${stats.total} từ · Đã thuộc ${stats.known} · Yêu thích ${stats.favorites}`}
+      subtitle={loading ? "Đang tải..." : `${stats.total} từ (${filtered.length} hiển thị) · Đã thuộc ${stats.known} · Yêu thích ${stats.favorites}`}
       actions={
         <button
           onClick={startQuiz}
@@ -258,8 +265,11 @@ export default function HanjaProPage() {
       {!loading && (
         <>
           {/* Grid — 1 col mobile cho dễ đọc, tăng dần ở desktop */}
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-app-text-muted text-sm">Hiển thị <span className="text-white font-medium">{(page-1)*PAGE_SIZE+1}–{Math.min(page*PAGE_SIZE, filtered.length)}</span> / <span className="text-app-accent-primary font-medium">{filtered.length}</span> từ</p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-            {filtered.map(entry => {
+            {paginated.map(entry => {
               const isKnown = known[entry.id];
               const isFav = favorites[entry.id];
               const meaning = getShortMeaning(entry);
@@ -282,6 +292,39 @@ export default function HanjaProPage() {
             <div className="text-center py-12 text-app-text-muted">
               <i className="ri-search-line text-4xl mb-2"></i>
               <p>Không tìm thấy từ nào</p>
+            </div>
+          )}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-2 mt-6">
+              <button
+                onClick={() => setPage(p => Math.max(1, p - 1))}
+                disabled={page === 1}
+                className="px-3 py-2 bg-app-card/40 hover:bg-app-card/60 disabled:opacity-30 text-white rounded-xl text-sm cursor-pointer"
+              >
+                <i className="ri-arrow-left-s-line"></i>
+              </button>
+              {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
+                const p = totalPages <= 7 ? i + 1 : page <= 4 ? i + 1 : page >= totalPages - 3 ? totalPages - 6 + i : page - 3 + i;
+                return (
+                  <button
+                    key={p}
+                    onClick={() => setPage(p)}
+                    className={`px-3 py-2 rounded-xl text-sm font-medium cursor-pointer ${
+                      page === p ? "bg-app-accent-primary text-app-bg" : "bg-app-card/40 hover:bg-app-card/60 text-white/70"
+                    }`}
+                  >
+                    {p}
+                  </button>
+                );
+              })}
+              <button
+                onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                disabled={page === totalPages}
+                className="px-3 py-2 bg-app-card/40 hover:bg-app-card/60 disabled:opacity-30 text-white rounded-xl text-sm cursor-pointer"
+              >
+                <i className="ri-arrow-right-s-line"></i>
+              </button>
+              <span className="text-app-text-muted text-sm ml-2">Trang {page}/{totalPages}</span>
             </div>
           )}
         </>
