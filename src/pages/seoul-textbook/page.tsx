@@ -394,22 +394,35 @@ function LessonModal({
           )}
         </div>
 
-        {/* Footer — Mark as studied */}
+        {/* Footer — Quiz required to complete */}
         <div className="p-3 md:p-4 border-t border-app-border flex-shrink-0">
           {isCompleted ? (
-            <div className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-              <i className="ri-checkbox-circle-fill text-app-accent-success"></i>
-              <span className="text-app-accent-success text-sm font-semibold">Đã đánh dấu hoàn thành</span>
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                <i className="ri-checkbox-circle-fill text-app-accent-success"></i>
+                <span className="text-app-accent-success text-sm font-semibold">Đã hoàn thành bài học</span>
+              </div>
+              <button
+                onClick={() => { onClose(); navigate("/seoul-lesson-quiz", { state: { bookId: book.id, lessonNumber: lesson.lessonNumber, lessonTitle: lesson.titleVi, lessonId: lesson.id } }); }}
+                className="w-full py-2.5 rounded-xl font-semibold text-sm transition-all cursor-pointer whitespace-nowrap hover:opacity-90"
+                style={{ backgroundColor: `${book.color}15`, color: book.color, border: `1px solid ${book.color}30` }}
+              >
+                <i className="ri-refresh-line mr-2"></i>
+                Ôn tập lại
+              </button>
             </div>
           ) : (
-            <button
-              onClick={() => { onComplete(); onClose(); }}
-              className="w-full py-3 rounded-xl font-bold text-sm transition-all cursor-pointer whitespace-nowrap text-app-bg hover:opacity-90 active:scale-95"
-              style={{ backgroundColor: book.color }}
-            >
-              <i className="ri-checkbox-circle-line mr-2"></i>
-              Đánh dấu đã học (+50 XP)
-            </button>
+            <div className="flex flex-col gap-2">
+              <p className="text-center text-app-text-muted text-[10px]">Hoàn thành bài kiểm tra (≥60%) để xác nhận đã học xong</p>
+              <button
+                onClick={() => { onClose(); navigate("/seoul-lesson-quiz", { state: { bookId: book.id, lessonNumber: lesson.lessonNumber, lessonTitle: lesson.titleVi, lessonId: lesson.id } }); }}
+                className="w-full py-3 rounded-xl font-bold text-sm transition-all cursor-pointer whitespace-nowrap text-app-bg hover:opacity-90 active:scale-95"
+                style={{ backgroundColor: book.color }}
+              >
+                <i className="ri-play-circle-line mr-2"></i>
+                Làm bài kiểm tra để hoàn thành
+              </button>
+            </div>
           )}
         </div>
       </div>

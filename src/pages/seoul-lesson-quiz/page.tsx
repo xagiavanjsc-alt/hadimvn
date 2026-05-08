@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { seoulBooks } from "@/mocks/seoulTextbook";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 
@@ -562,12 +562,19 @@ function QuizSession({
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function SeoulLessonQuizPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [session, setSession] = useState<{
     bookId: string;
     lessonNumber: number;
     lessonTitle: string;
     lessonId: string;
-  } | null>(null);
+  } | null>(() => {
+    const s = location.state as { bookId?: string; lessonNumber?: number; lessonTitle?: string; lessonId?: string } | null;
+    if (s?.bookId && s?.lessonId && s?.lessonNumber != null && s?.lessonTitle) {
+      return { bookId: s.bookId, lessonNumber: s.lessonNumber, lessonTitle: s.lessonTitle, lessonId: s.lessonId };
+    }
+    return null;
+  });
 
   return (
     <DashboardLayout>
