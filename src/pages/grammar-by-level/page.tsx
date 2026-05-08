@@ -10286,9 +10286,11 @@ const LEVELS = ["Tất cả", "TOPIK 1", "TOPIK 2", "TOPIK 3", "TOPIK 4", "TOPIK
 export default function GrammarByLevelPage() {
   const [selectedLevel, setSelectedLevel] = useState("Tất cả");
   const [selectedPattern, setSelectedPattern] = useState<GrammarPattern | null>(null);
-  const [activeTab, setActiveTab] = useState<"explain" | "examples" | "exercise">("explain");
+  const [activeTab, setActiveTab] = useState<"explain" | "examples" | "exercise" | "write">("explain");
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [showResults, setShowResults] = useState(false);
+  const [writeSentence, setWriteSentence] = useState("");
+  const [writeFeedback, setWriteFeedback] = useState<{ ok: boolean; message: string; sample?: string } | null>(null);
   const [search, setSearch] = useState("");
   const [openLevels, setOpenLevels] = useState<Set<string>>(new Set<string>());
 
@@ -10335,6 +10337,11 @@ export default function GrammarByLevelPage() {
 
   const toggleLevel = (lv: string) => setOpenLevels(prev => { const n = new Set(prev); n.has(lv) ? n.delete(lv) : n.add(lv); return n; });
 
+  useEffect(() => {
+    setWriteSentence("");
+    setWriteFeedback(null);
+  }, [selectedPattern]);
+
   const handleAnswer = (qIdx: number, optIdx: number) => {
     if (showResults) return;
     setAnswers(prev => ({ ...prev, [qIdx]: optIdx }));
@@ -10342,6 +10349,26 @@ export default function GrammarByLevelPage() {
 
   const handleSubmit = () => setShowResults(true);
   const handleReset = () => { setAnswers({}); setShowResults(false); };
+
+  const checkWriteSentence = (pattern: GrammarPattern, sentence: string) => {
+    const trimmed = sentence.trim();
+    if (!trimmed || !/[가-힣]/.test(trimmed)) {
+      setWriteFeedback({ ok: false, message: "Hãy viết câu bằng tiếng Hàn." });
+      return;
+    }
+    const raw = pattern.pattern;
+    const keywords = raw
+      .replace(/[~A-Za-z\/\s\(\)]/g, " ")
+      .split(/\s+/)
+      .filter(s => /[가-힣]/.test(s) && s.length >= 2);
+    const found = keywords.some(kw => trimmed.includes(kw));
+    const sample = pattern.examples[0]?.korean ?? "";
+    if (found) {
+      setWriteFeedback({ ok: true, message: "✓ Câu của bạn có dùng mẫu này. Tốt lắm!", sample });
+    } else {
+      setWriteFeedback({ ok: false, message: `✗ Chưa thấy mẫu ngữ pháp trong câu. Hãy thử lại.`, sample });
+    }
+  };
 
   const correctCount = selectedPattern
     ? selectedPattern.exercises.filter((ex, i) => answers[i] === ex.answer).length
@@ -10511,6 +10538,7 @@ export default function GrammarByLevelPage() {
                     { id: "explain", label: "Giải thích", icon: "ri-book-2-line" },
                     { id: "examples", label: "Ví dụ", icon: "ri-chat-quote-line" },
                     { id: "exercise", label: "Bài tập", icon: "ri-pencil-line" },
+                    { id: "write", label: "Viết câu", icon: "ri-edit-2-line" },
                   ] as const).map(tab => (
                     <button
                       key={tab.id}
@@ -10596,6 +10624,40 @@ export default function GrammarByLevelPage() {
                           <p className="text-xs sm:text-sm text-white/50">{ex.vietnamese}</p>
                         </div>
                       ))}
+                    </div>
+                  )}
+
+                  {activeTab === "write" && (
+                    <div className="space-y-4">
+                      <div className="p-3 bg-app-accent-primary/8 border border-app-accent-primary/20 rounded-xl text-sm text-white/70">
+                        Viết 1–2 câu có dùng mẫu <span className="text-app-accent-primary font-semibold">{selectedPattern.pattern}</span>
+                        <span className="block text-xs text-white/40 mt-0.5">Cấu trúc: {selectedPattern.formation}</span>
+                      </div>
+                      <textarea
+                        value={writeSentence}
+                        onChange={e => { setWriteSentence(e.target.value); setWriteFeedback(null); }}
+                        placeholder="저는... (Viết câu tiếng Hàn tại đây)"
+                        rows={4}
+                        className="w-full bg-app-card/40 border border-app-border rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-app-accent-primary resize-none"
+                      />
+                      <button
+                        onClick={() => checkWriteSentence(selectedPattern, writeSentence)}
+                        disabled={!writeSentence.trim()}
+                        className="w-full py-2.5 rounded-xl text-sm font-semibold cursor-pointer transition-colors whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed bg-app-accent-primary hover:bg-app-accent-primary/90 text-app-bg"
+                      >
+                        Kiểm tra
+                      </button>
+                      {writeFeedback && (
+                        <div className={`p-3 rounded-xl text-sm border ${writeFeedback.ok ? "bg-green-500/8 border-green-500/25 text-green-400" : "bg-red-500/8 border-red-500/25 text-red-400"}`}>
+                          <p className="font-medium mb-2">{writeFeedback.message}</p>
+                          {writeFeedback.sample && (
+                            <p className="text-xs text-white/40">Câu mẫu: <span className="text-white/60">{writeFeedback.sample}</span></p>
+                          )}
+                          {writeFeedback.ok && (
+                            <button onClick={() => { setWriteSentence(""); setWriteFeedback(null); }} className="mt-2 text-xs text-app-accent-primary cursor-pointer hover:underline">Viết câu khác</button>
+                          )}
+                        </div>
+                      )}
                     </div>
                   )}
 
