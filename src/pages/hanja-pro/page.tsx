@@ -44,7 +44,8 @@ export default function HanjaProPage() {
       .order("id", { ascending: true })
       .limit(10000)
       .then(({ data, error }) => {
-        if (!error) setEntries(data ?? []);
+        if (error) console.error("[hanja_pro] fetch error:", error);
+        else setEntries(data ?? []);
         setLoading(false);
       });
   }, []);
