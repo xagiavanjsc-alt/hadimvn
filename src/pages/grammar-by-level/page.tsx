@@ -10290,9 +10290,16 @@ export default function GrammarByLevelPage() {
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [showResults, setShowResults] = useState(false);
   const [search, setSearch] = useState("");
-  const [openLevels, setOpenLevels] = useState<Set<string>>(new Set(["TOPIK 1", "TOPIK 2", "TOPIK 3", "TOPIK 4", "TOPIK 5", "TOPIK 6"]));
+  const [openLevels, setOpenLevels] = useState<Set<string>>(new Set<string>());
 
   const location = useLocation();
+
+  useEffect(() => {
+    if (window.innerWidth >= 1024 && !selectedPattern && GRAMMAR_PATTERNS.length > 0) {
+      setSelectedPattern(GRAMMAR_PATTERNS[0]);
+    }
+  }, []);
+
   useEffect(() => {
     const id = new URLSearchParams(location.search).get('id');
     if (id) {
