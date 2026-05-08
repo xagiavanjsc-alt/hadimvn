@@ -338,6 +338,7 @@ const SentencePatternVocabPage = lazyPage(() => import("../pages/sentence-patter
 const HangulWritingNewPage = lazyPage(() => import("../pages/hangul-writing/page"));
 const AdminContentLearnPage = lazyPage(() => import("../pages/admin-content-learn/page"));
 const GrammarByLevelPage = lazyPage(() => import("../pages/grammar-by-level/page"));
+const TopikExamWritingPage = lazyPage(() => import("../pages/topik-exam-writing/page"));
 
 // ─── Admin ───────────────────────────────────────────────────────────────────
 const AdminDashboardPage = lazyPage(() => import("../pages/admin-dashboard/page"));
@@ -671,6 +672,7 @@ const routes: RouteObject[] = [
   { path: "/sentence-pattern-vocab", element: <SentencePatternVocabPage /> },
   { path: "/admin/content-learn", element: <AdminContentLearnPage /> },
   { path: "/grammar-by-level", element: <GrammarByLevelPage /> },
+  { path: "/topik-exam-writing", element: <TopikExamWritingPage /> },
 
   // Misc
   { path: "*", element: <NotFound /> },

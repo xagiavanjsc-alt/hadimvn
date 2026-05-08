@@ -35,6 +35,7 @@ const ALL_NAV_ITEMS: NavItem[] = [
   { path: "/topik-listening", label: "Luyện nghe TOPIK", group: "TOPIK", icon: "ri-headphone-line", keywords: "nghe topik listening" },
   { path: "/topik-reading", label: "Luyện đọc TOPIK", group: "TOPIK", icon: "ri-book-read-line", keywords: "đọc topik reading" },
   { path: "/topik-vocab-level", label: "Từ vựng TOPIK", group: "TOPIK", icon: "ri-translate-2", keywords: "từ vựng topik vocabulary level cấp độ" },
+  { path: "/topik-exam-writing", label: "Luyện Viết TOPIK II", group: "TOPIK", icon: "ri-draft-line", keywords: "viết câu 51 52 53 54 topik 2 luyện thi đáp án" },
   { path: "/eps-lessons", label: "60 Bài Học EPS", group: "EPS-TOPIK", icon: "ri-book-open-line", keywords: "bài học eps 60" },
   { path: "/eps-vocabulary", label: "Từ vựng EPS", group: "EPS-TOPIK", icon: "ri-translate-2", keywords: "từ vựng eps" },
   { path: "/eps-exam", label: "Thi thử EPS (40 câu)", group: "EPS-TOPIK", icon: "ri-timer-line", keywords: "thi thử eps 40 câu" },

@@ -92,6 +92,7 @@ const navGroups = [
       { path: "/seoul-textbook", icon: "ri-book-3-line", label: "Seoul (Du học)" },
       { path: "/topik-test", icon: "ri-survey-line", label: "TOPIK (Chứng chỉ)" },
       { path: "/grammar-by-level", icon: "ri-book-2-line", label: "Ngữ pháp TOPIK" },
+      { path: "/topik-exam-writing", icon: "ri-draft-line", label: "Luyện Viết TOPIK II" },
       { path: "/topik-vocab-level", icon: "ri-translate-2", label: "Từ vựng TOPIK" },
       { path: "/hanja-detail", icon: "ri-character-recognition-line", label: "Hán Hàn", badge: "VIP" },
     ],
