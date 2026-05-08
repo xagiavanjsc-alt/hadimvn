@@ -477,6 +477,8 @@ export default function TopikExamWritingPage() {
     : "text-white/40";
 
   const hasDraft = !!localStorage.getItem(DRAFT_KEY(selectedQ.id));
+  const [guideOpen, setGuideOpen] = useState(() => !localStorage.getItem("topik_guide_seen"));
+  const dismissGuide = () => { setGuideOpen(false); localStorage.setItem("topik_guide_seen", "1"); };
 
   return (
     <DashboardLayout>
@@ -502,6 +504,32 @@ export default function TopikExamWritingPage() {
           <div className="mb-4 px-3 py-2 bg-rose-500/8 border border-rose-500/20 rounded-xl flex items-center gap-2">
             <i className="ri-error-warning-line text-rose-400 text-sm"></i>
             <p className="text-rose-300/70 text-xs">Đang thi — gợi ý đã ẩn. Viết xong nhấn <strong>Nộp bài</strong> để xem đáp án.</p>
+          </div>
+        )}
+
+        {/* Guide panel */}
+        {guideOpen && (
+          <div className="mb-4 bg-app-accent-primary/5 border border-app-accent-primary/15 rounded-xl overflow-hidden">
+            <div className="flex items-center gap-2 px-4 py-2.5">
+              <i className="ri-information-line text-app-accent-primary text-sm"></i>
+              <span className="text-app-accent-primary/80 text-xs font-semibold flex-1">Hướng dẫn sử dụng</span>
+              <button onClick={dismissGuide} className="text-white/25 hover:text-white/50 cursor-pointer transition-colors text-xs">Đã hiểu ×</button>
+            </div>
+            <div className="px-4 pb-3 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 border-t border-app-accent-primary/10">
+              {[
+                ["ri-book-open-line", "Chế độ học", "Có đầy đủ phân tích đề, dàn ý, cụm từ gợi ý. Xem đáp án bất kỳ lúc nào."],
+                ["ri-timer-flash-line", "Chế độ thi", "Bấm nút góc phải. Gợi ý ẩn, timer tự chạy. Viết xong nhấn Nộp bài."],
+                ["ri-save-line", "Tự động lưu", "Bài viết được lưu tự động vào trình duyệt. Chuyển câu rồi quay lại vẫn còn."],
+                ["ri-chat-quote-line", "Cụm từ highlight", "Mở panel ‘Cụm từ hay dùng’ → cụm nào bạn đã dùng sẽ sáng lên."],
+                ["ri-checkbox-circle-line", "Tự chấm điểm", "Sau khi xem đáp án, tích vào tiêu chí nào bạn đã đạt."],
+                ["ri-history-line", "Lịch sử bài", "Mọi bài đã xem đáp án được lưu lại. Xem lại hoặc khôi phục ở cột trái."],
+              ].map(([icon, title, desc]) => (
+                <div key={title} className="flex items-start gap-2 py-1">
+                  <i className={`${icon} text-app-accent-primary/50 text-xs mt-0.5 flex-shrink-0`}></i>
+                  <p className="text-white/50 text-xs leading-relaxed"><span className="text-white/70 font-medium">{title}:</span> {desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
@@ -531,9 +559,27 @@ export default function TopikExamWritingPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          {/* Left: question list */}
-          <div className="space-y-2">
+        <div className="lg:grid lg:grid-cols-3 lg:gap-5">
+          {/* Mobile: horizontal scroll strip */}
+          <div className="lg:hidden -mx-4 px-4 overflow-x-auto pb-2 mb-1">
+            <div className="flex gap-2 w-max">
+              {filtered.map(q => (
+                <button
+                  key={q.id}
+                  onClick={() => handleSelect(q)}
+                  className={`flex-shrink-0 flex flex-col items-start px-3 py-2 rounded-xl border transition-all cursor-pointer min-w-[100px] ${
+                    selectedQ.id === q.id ? "bg-app-accent-primary/10 border-app-accent-primary/25" : "bg-app-card/40 border-app-border"
+                  }`}
+                >
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded font-bold border mb-1 ${Q_COLORS[q.qNum]}`}>Câu {q.qNum}</span>
+                  <span className="text-white/40 text-[10px]">{q.year} L{q.session}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop: vertical question list */}
+          <div className="hidden lg:block space-y-2">
             <p className="text-white/30 text-xs px-1 mb-1">{filtered.length} câu hỏi</p>
             {filtered.length === 0 && (
               <p className="text-white/30 text-sm text-center py-8">Không có câu hỏi phù hợp</p>
@@ -608,10 +654,10 @@ export default function TopikExamWritingPage() {
           </div>
 
           {/* Right: detail + writing */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-4 mt-3 lg:mt-0">
             {/* Question header */}
             <div className="bg-[#1a1f2e] rounded-xl border border-app-border p-4 space-y-3">
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-2 flex-wrap gap-y-2">
                 <span className={`text-xs px-2 py-0.5 rounded font-bold border ${Q_COLORS[selectedQ.qNum]}`}>
                   Câu {selectedQ.qNum}
                 </span>
