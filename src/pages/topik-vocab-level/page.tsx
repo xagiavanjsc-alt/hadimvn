@@ -339,6 +339,7 @@ export default function TopikVocabLevelPage() {
   const progress = filteredWords.length > 0 ? Math.round((learnedCount / filteredWords.length) * 100) : 0;
 
   const currentLevelInfo = selectedLevel ? LEVEL_INFO[selectedLevel - 1] : null;
+  const totalVocabCount = Object.values(levelStats).reduce((a, b) => a + b, 0);
 
   return (
     <DashboardLayout>
@@ -363,9 +364,7 @@ export default function TopikVocabLevelPage() {
           <div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
               {LEVEL_INFO.map(info => {
-                const dbCount = levelStats[info.level] || 0;
-                const mockCount = (MOCK_VOCAB[info.level] || []).length;
-                const totalCount = dbCount + mockCount;
+                const totalCount = levelStats[info.level] || (MOCK_VOCAB[info.level] || []).length;
                 return (
                   <button
                     key={info.level}
@@ -401,7 +400,7 @@ export default function TopikVocabLevelPage() {
               <p className="text-sm font-semibold text-white/80 mb-4">Tổng quan hệ thống TOPIK</p>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {[
-                  { label: "Tổng từ vựng", value: "1,095+", icon: "ri-translate-2", color: "text-violet-400" },
+                  { label: "Tổng từ vựng", value: totalVocabCount > 0 ? `${totalVocabCount.toLocaleString()}+` : "3,500+", icon: "ri-translate-2", color: "text-violet-400" },
                   { label: "Cấp độ", value: "6 cấp", icon: "ri-bar-chart-line", color: "text-sky-400" },
                   { label: "Chủ đề", value: "30+", icon: "ri-apps-line", color: "text-emerald-400" },
                   { label: "Đã học", value: `${learnedWords.size}`, icon: "ri-checkbox-circle-line", color: "text-amber-400" },
