@@ -1,4 +1,4 @@
--- Seoul 4A Lesson 9: 한국의 대중교통 (Giao thông công cộng của Hàn Quốc)
+-- Seoul 4A Lesson 9: 한국의 대중문화 (Văn hóa đại chúng Hàn Quốc)
 -- Generated from src/mocks/data/seoul-books-data.ts
 
 BEGIN;
@@ -13,8 +13,8 @@ DELETE FROM seoul_vocabulary WHERE lesson_id = '4A-L9';
 INSERT INTO seoul_lessons (id, book_id, lesson_number, title, title_vi, objectives, dialogue_title, cultural_tip)
 VALUES (
   '4A-L9', '4A', 9,
-  '한국의 대중교통',
-  'Giao thông công cộng của Hàn Quốc',
+  '한국의 대중문화',
+  'Văn hóa đại chúng Hàn Quốc',
   ARRAY['Nói về ngành giải trí Hàn Quốc (K-drama, K-pop)', 'Học từ vựng về diễn xuất, ca nhạc và cảm xúc', 'Dùng ~(으)ㄹ 것 같다, ~다니 để diễn đạt cảm xúc']::text[],
   '한국 드라마와 K-팝 이야기 (Chuyện K-drama và K-pop)',
   'Làn sóng Hallyu (한류) đã đưa K-drama và K-pop ra toàn thế giới. Một diễn viên/ca sĩ thường bắt đầu từ 데뷔 (ra mắt) dưới sự quản lý của công ty giải trí, sau đó xuất hiện trong 예능 프로그램 để tăng nhận diện. 팬 미팅 là sự kiện quan trọng để gắn kết với người hâm mộ. Diễn viên nam Hàn Quốc thường phải 입대 (nhập ngũ) từ 18–28 tuổi, đây là nghĩa vụ quân sự bắt buộc.'

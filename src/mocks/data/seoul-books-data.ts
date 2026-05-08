@@ -5908,8 +5908,8 @@ export const seoulBooks: SeoulBook[] = [
       {
         id: "4A-L9",
         lessonNumber: 9,
-        title: "한국의 대중교통",
-        titleVi: "Giao thông công cộng của Hàn Quốc",
+        title: "한국의 대중문화",
+        titleVi: "Văn hóa đại chúng Hàn Quốc",
         objectives: ["Nói về ngành giải trí Hàn Quốc (K-drama, K-pop)", "Học từ vựng về diễn xuất, ca nhạc và cảm xúc", "Dùng ~(으)ㄹ 것 같다, ~다니 để diễn đạt cảm xúc"],
         vocabulary: [
           { korean: "기분", pronunciation: "gi-bun", vietnamese: "Tâm trạng, cảm xúc", partOfSpeech: "Danh từ", example: "기분이 좋아요.", exampleVi: "Tâm trạng tốt." },
