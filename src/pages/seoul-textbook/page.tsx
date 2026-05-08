@@ -28,12 +28,28 @@ const LEVEL_GROUP_LABELS: Record<number, string> = {
 };
 
 function getBookStats(book: SeoulBook) {
-  const lessons = book.lessons.filter(l => !l.id.includes("-REMOVED") && !l.id.includes("-placeholder"));
+  const lessons = getValidBookLessons(book);
   return {
-    totalLessons: lessons.length,
-    totalVocab: lessons.reduce((sum, lesson) => sum + lesson.vocabulary.length, 0),
-    totalGrammar: lessons.reduce((sum, lesson) => sum + lesson.grammarPoints.length, 0),
+    totalLessons: lessons.length || book.totalLessons,
+    totalVocab: lessons.length ? lessons.reduce((sum, lesson) => sum + lesson.vocabulary.length, 0) : book.totalVocab,
+    totalGrammar: lessons.length ? lessons.reduce((sum, lesson) => sum + lesson.grammarPoints.length, 0) : book.totalGrammar,
   };
+}
+
+function getValidBookLessons(book: SeoulBook) {
+  const bookPrefix = book.id + "-L";
+  const lessons: SeoulLesson[] = [];
+  seoulBooks.forEach(b => {
+    b.lessons.forEach(l => {
+      if (l.id.startsWith(bookPrefix) && !l.id.includes("-REMOVED") && !l.id.includes("-placeholder")) {
+        lessons.push(l);
+      }
+    });
+  });
+  const seen = new Set<string>();
+  return lessons
+    .filter(l => { if (seen.has(l.id)) return false; seen.add(l.id); return true; })
+    .sort((a, b) => a.lessonNumber - b.lessonNumber);
 }
 
 // ─── Book Card ────────────────────────────────────────────────────────────
@@ -413,25 +429,7 @@ function BookDetailView({
   onLessonClick: (lesson: SeoulLesson) => void;
   onBack: () => void;
 }) {
-  // Filter out removed/placeholder lessons and sort by lessonNumber
-  // Also collect lessons from other books that belong to this book (by id prefix)
-  const validLessons = useMemo(() => {
-    const bookPrefix = book.id + "-L";
-    // Gather all lessons across all books that have this book's prefix
-    const allMatchingLessons: typeof book.lessons = [];
-    seoulBooks.forEach(b => {
-      b.lessons.forEach(l => {
-        if (l.id.startsWith(bookPrefix) && !l.id.includes("-REMOVED") && !l.id.includes("-placeholder")) {
-          allMatchingLessons.push(l);
-        }
-      });
-    });
-    // Deduplicate by id
-    const seen = new Set<string>();
-    return allMatchingLessons
-      .filter(l => { if (seen.has(l.id)) return false; seen.add(l.id); return true; })
-      .sort((a, b) => a.lessonNumber - b.lessonNumber);
-  }, [book.id, book.lessons]);
+  const validLessons = useMemo(() => getValidBookLessons(book), [book]);
   const stats = {
     totalLessons: validLessons.length,
     totalVocab: validLessons.reduce((sum, lesson) => sum + lesson.vocabulary.length, 0),
@@ -519,7 +517,7 @@ function ProgressChart({ completedLessons }: { completedLessons: Record<string, 
 
   const bookStats = useMemo(() => seoulBooks.map(book => {
     const stats = getBookStats(book);
-    const completed = book.lessons.filter(l => completedLessons[l.id]).length;
+    const completed = getValidBookLessons(book).filter(l => completedLessons[l.id]).length;
     const pct = stats.totalLessons > 0 ? Math.round((completed / stats.totalLessons) * 100) : 0;
     return { book, completed, pct, totalLessons: stats.totalLessons };
   }), [completedLessons]);
@@ -629,7 +627,7 @@ export default function SeoulTextbookPage() {
   const totalGrammar = seoulBooks.reduce((sum, b) => sum + getBookStats(b).totalGrammar, 0);
 
   const getBookCompletedCount = (book: SeoulBook) => {
-    return book.lessons.filter(l => !l.id.includes("-REMOVED") && !l.id.includes("-placeholder") && completedLessons[l.id]).length;
+    return getValidBookLessons(book).filter(l => completedLessons[l.id]).length;
   };
 
   const handleCompleteLesson = (lessonId: string) => {
