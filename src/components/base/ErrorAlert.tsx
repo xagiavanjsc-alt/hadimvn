@@ -9,27 +9,19 @@ interface ErrorAlertProps {
 
 const ERROR_HINTS: { pattern: RegExp; hint: string }[] = [
   {
-    pattern: /token|hợp lệ|hết hạn|401|403/i,
-    hint: "Kiểm tra lại Apify Token trong trang Cài đặt.",
+    pattern: /401|403|không hợp lệ|hết hạn/i,
+    hint: "Kiểm tra lại AI API Key trong trang Cài đặt.",
   },
   {
-    pattern: /404|không tìm thấy actor/i,
-    hint: "Actor ID có thể đã thay đổi. Liên hệ admin để cập nhật.",
+    pattern: /429|rate limit|giới hạn/i,
+    hint: "Đã vượt giới hạn request. Thử lại sau vài phút hoặc dùng model khác.",
   },
   {
-    pattern: /429|giới hạn/i,
-    hint: "Tài khoản Apify miễn phí có giới hạn request. Nâng cấp plan hoặc chờ reset.",
+    pattern: /trống|không tìm thấy/i,
+    hint: "Thử lại hoặc kiểm tra kết nối internet.",
   },
   {
-    pattern: /timeout|quá thời gian|vẫn đang chạy/i,
-    hint: "Actor đang bận hoặc Melon/Naver phản hồi chậm. Thử lại sau 1-2 phút.",
-  },
-  {
-    pattern: /trống|không tìm thấy câu hỏi/i,
-    hint: "Thử từ khóa khác hoặc kiểm tra kết nối internet.",
-  },
-  {
-    pattern: /mất kết nối|network/i,
+    pattern: /mất kết nối|network|fetch/i,
     hint: "Kiểm tra kết nối internet và thử lại.",
   },
 ];

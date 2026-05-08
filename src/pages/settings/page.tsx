@@ -7,8 +7,6 @@ import { useToast } from "@/components/base/Toast";
 
 type TestStatus = "idle" | "testing" | "ok" | "fail";
 interface TestResult {
-  apify: TestStatus;
-  apifyMsg: string;
   ai: TestStatus;
   aiMsg: string;
 }
@@ -23,7 +21,6 @@ export interface StoryPromptSettings {
 }
 
 export interface AppSettings {
-  apifyToken: string;
   aiProvider: AIProvider;
   aiApiKey: string;
   aiModel: string;
@@ -39,7 +36,6 @@ const DEFAULT_STORY_PROMPT: StoryPromptSettings = {
 };
 
 const DEFAULT_SETTINGS: AppSettings = {
-  apifyToken: "",
   aiProvider: "gemini",
   aiApiKey: "",
   aiModel: "",
@@ -75,17 +71,12 @@ export default function SettingsPage() {
   const { showToast, ToastComponent } = useToast();
   const [saved, setSaved] = useLocalStorage<AppSettings>("kts_settings", DEFAULT_SETTINGS);
   const [form, setForm] = useState<AppSettings>({ ...DEFAULT_SETTINGS, ...saved, storyPrompt: { ...DEFAULT_STORY_PROMPT, ...(saved.storyPrompt ?? {}) } });
-  const [showApify, setShowApify] = useState(false);
   const [showAI, setShowAI] = useState(false);
   const [showPrompt, setShowPrompt] = useState(false);
   const [showCost, setShowCost] = useState(false);
-  const [showApifyToken, setShowApifyToken] = useState(false);
   const [showAIKey, setShowAIKey] = useState(false);
   const [toast, setToast] = useState<{ msg: string; type: "success" | "error" } | null>(null);
-  const [testResult, setTestResult] = useState<TestResult>({
-    apify: "idle", apifyMsg: "",
-    ai: "idle", aiMsg: "",
-  });
+  const [testResult, setTestResult] = useState<TestResult>({ ai: "idle", aiMsg: "" });
   const [showTestPanel, setShowTestPanel] = useState(false);
   const { getSummary, clearRecords } = useApiCostTracker();
   const costSummary = getSummary();
@@ -120,27 +111,7 @@ export default function SettingsPage() {
 
   const handleTestConnections = async () => {
     setShowTestPanel(true);
-    setTestResult({ apify: "idle", apifyMsg: "", ai: "idle", aiMsg: "" });
-
-    if (form.apifyToken.trim()) {
-      setTestResult((prev) => ({ ...prev, apify: "testing", apifyMsg: "Đang kiểm tra..." }));
-      try {
-        const res = await fetch(`https://api.apify.com/v2/users/me?token=${form.apifyToken.trim()}`);
-        if (res.ok) {
-          const data = await res.json();
-          const username = data?.data?.username ?? "Unknown";
-          setTestResult((prev) => ({ ...prev, apify: "ok", apifyMsg: `Hợp lệ — Tài khoản: ${username}` }));
-        } else if (res.status === 401) {
-          setTestResult((prev) => ({ ...prev, apify: "fail", apifyMsg: "Token không hợp lệ hoặc đã hết hạn" }));
-        } else {
-          setTestResult((prev) => ({ ...prev, apify: "fail", apifyMsg: `Lỗi ${res.status} — Thử lại sau` }));
-        }
-      } catch {
-        setTestResult((prev) => ({ ...prev, apify: "fail", apifyMsg: "Không kết nối được — Kiểm tra mạng" }));
-      }
-    } else {
-      setTestResult((prev) => ({ ...prev, apify: "fail", apifyMsg: "Chưa nhập Apify Token" }));
-    }
+    setTestResult({ ai: "idle", aiMsg: "" });
 
     if (form.aiApiKey.trim()) {
       setTestResult((prev) => ({ ...prev, ai: "testing", aiMsg: "Đang kiểm tra..." }));
@@ -189,11 +160,8 @@ export default function SettingsPage() {
   const modelOptions = getModelOptions(form.aiProvider);
   const defaultModel = getDefaultModel(form.aiProvider);
 
-  const isApifyConfigured = !!form.apifyToken.trim();
   const isAIConfigured = !!form.aiApiKey.trim();
-  const isFullyConfigured = isApifyConfigured && isAIConfigured;
   const hasUnsavedChanges =
-    form.apifyToken !== saved.apifyToken ||
     form.aiApiKey !== saved.aiApiKey ||
     form.aiProvider !== saved.aiProvider ||
     form.aiModel !== saved.aiModel ||
@@ -204,7 +172,7 @@ export default function SettingsPage() {
   return (
     <DashboardLayout
       title="Cài đặt API"
-      subtitle="Quản lý kết nối Apify & AI"
+      subtitle="Quản lý kết nối AI"
       actions={
         <>
           <ToastComponent />
@@ -243,20 +211,16 @@ export default function SettingsPage() {
       )}
 
       {/* Status banner */}
-      <div className={`flex items-center justify-between px-5 py-4 rounded-xl mb-6 border ${isFullyConfigured ? "bg-emerald-500/5 border-emerald-500/20" : "bg-amber-500/5 border-amber-500/20"}`}>
+      <div className={`flex items-center justify-between px-5 py-4 rounded-xl mb-6 border ${isAIConfigured ? "bg-emerald-500/5 border-emerald-500/20" : "bg-amber-500/5 border-amber-500/20"}`}>
         <div className="flex items-center gap-3">
-          <div className={`w-8 h-8 flex items-center justify-center rounded-lg ${isFullyConfigured ? "bg-emerald-500/10" : "bg-amber-500/10"}`}>
-            <i className={`text-base ${isFullyConfigured ? "ri-checkbox-circle-line text-app-accent-success" : "ri-error-warning-line text-amber-400"}`}></i>
+          <div className={`w-8 h-8 flex items-center justify-center rounded-lg ${isAIConfigured ? "bg-emerald-500/10" : "bg-amber-500/10"}`}>
+            <i className={`text-base ${isAIConfigured ? "ri-checkbox-circle-line text-app-accent-success" : "ri-error-warning-line text-amber-400"}`}></i>
           </div>
           <div>
-            <p className={`text-sm font-medium ${isFullyConfigured ? "text-app-accent-success" : "text-amber-400"}`}>
-              {isFullyConfigured ? "Đã cấu hình đầy đủ — Sẵn sàng dùng API thật" : "Chưa cấu hình đầy đủ — Đang dùng dữ liệu mẫu"}
+            <p className={`text-sm font-medium ${isAIConfigured ? "text-app-accent-success" : "text-amber-400"}`}>
+              {isAIConfigured ? "Đã cấu hình AI — Sẵn sàng dùng" : "Chưa nhập AI API Key — Đang dùng dữ liệu mẫu"}
             </p>
             <div className="flex items-center gap-3 mt-1">
-              <span className={`flex items-center gap-1 text-xs ${isApifyConfigured ? "text-app-accent-success" : "text-app-text-muted"}`}>
-                <i className={isApifyConfigured ? "ri-checkbox-circle-fill" : "ri-circle-line"}></i>
-                Apify
-              </span>
               <span className={`flex items-center gap-1 text-xs ${isAIConfigured ? "text-app-accent-success" : "text-app-text-muted"}`}>
                 <i className={isAIConfigured ? "ri-checkbox-circle-fill" : "ri-circle-line"}></i>
                 {PROVIDER_LABELS[form.aiProvider]}
@@ -287,119 +251,34 @@ export default function SettingsPage() {
             </button>
           </div>
           <div className="space-y-3">
-            {[
-              { key: "apify" as const, label: "Apify Token", icon: "ri-robot-line" },
-              { key: "ai" as const, label: `${PROVIDER_LABELS[form.aiProvider]} API Key`, icon: "ri-sparkling-2-line" },
-            ].map(({ key, label, icon }) => (
-              <div key={key} className={`flex items-center gap-3 px-4 py-3 rounded-xl border ${
-                testResult[key] === "ok" ? "bg-emerald-500/5 border-emerald-500/20" :
-                testResult[key] === "fail" ? "bg-red-500/5 border-red-500/20" :
-                testResult[key] === "testing" ? "bg-sky-500/5 border-sky-500/15" :
-                "bg-app-surface/50 border-app-border"
-              }`}>
-                <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
-                  {testResult[key] === "testing" && <i className="ri-loader-4-line animate-spin text-sky-400 text-sm"></i>}
-                  {testResult[key] === "ok" && <i className="ri-checkbox-circle-fill text-app-accent-success text-sm"></i>}
-                  {testResult[key] === "fail" && <i className="ri-close-circle-fill text-red-400 text-sm"></i>}
-                  {testResult[key] === "idle" && <i className={`${icon} text-app-text-muted text-sm`}></i>}
-                </div>
-                <div className="flex-1">
-                  <p className="text-white/60 text-xs font-medium">{label}</p>
-                  <p className={`text-xs mt-0.5 ${
-                    testResult[key] === "ok" ? "text-app-accent-success" :
-                    testResult[key] === "fail" ? "text-red-400/80" :
-                    testResult[key] === "testing" ? "text-sky-400/70" : "text-app-text-muted"
-                  }`}>
-                    {testResult[key] === "idle" ? "Chưa kiểm tra" : (key === "apify" ? testResult.apifyMsg : testResult.aiMsg)}
-                  </p>
-                </div>
+            <div className={`flex items-center gap-3 px-4 py-3 rounded-xl border ${
+              testResult.ai === "ok" ? "bg-emerald-500/5 border-emerald-500/20" :
+              testResult.ai === "fail" ? "bg-red-500/5 border-red-500/20" :
+              testResult.ai === "testing" ? "bg-sky-500/5 border-sky-500/15" :
+              "bg-app-surface/50 border-app-border"
+            }`}>
+              <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
+                {testResult.ai === "testing" && <i className="ri-loader-4-line animate-spin text-sky-400 text-sm"></i>}
+                {testResult.ai === "ok" && <i className="ri-checkbox-circle-fill text-app-accent-success text-sm"></i>}
+                {testResult.ai === "fail" && <i className="ri-close-circle-fill text-red-400 text-sm"></i>}
+                {testResult.ai === "idle" && <i className="ri-sparkling-2-line text-app-text-muted text-sm"></i>}
               </div>
-            ))}
+              <div className="flex-1">
+                <p className="text-white/60 text-xs font-medium">{PROVIDER_LABELS[form.aiProvider]} API Key</p>
+                <p className={`text-xs mt-0.5 ${
+                  testResult.ai === "ok" ? "text-app-accent-success" :
+                  testResult.ai === "fail" ? "text-red-400/80" :
+                  testResult.ai === "testing" ? "text-sky-400/70" : "text-app-text-muted"
+                }`}>
+                  {testResult.ai === "idle" ? "Chưa kiểm tra" : testResult.aiMsg}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       )}
 
       <div className="space-y-5">
-        {/* Apify Section */}
-        <section className="bg-app-bg border border-app-border rounded-xl overflow-hidden">
-          <button
-            onClick={() => setShowApify(!showApify)}
-            className="w-full flex items-center justify-between px-6 py-5 cursor-pointer hover:bg-white/2 transition-colors"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 flex items-center justify-center bg-orange-500/10 rounded-xl">
-                <i className="ri-robot-line text-orange-400 text-lg"></i>
-              </div>
-              <div className="text-left">
-                <p className="text-white font-semibold text-sm">Apify API Token</p>
-                <p className="text-app-text-secondary text-xs">Dùng cho Melon Scraper &amp; Naver KiN Scraper</p>
-              </div>
-              {isApifyConfigured ? (
-                <span className="ml-2 flex items-center gap-1 text-app-accent-success text-xs bg-emerald-400/10 px-2.5 py-1 rounded-full">
-                  <i className="ri-checkbox-circle-fill text-[10px]"></i>
-                  Đã nhập
-                </span>
-              ) : (
-                <span className="ml-2 flex items-center gap-1 text-amber-400/70 text-xs bg-amber-400/10 px-2.5 py-1 rounded-full">
-                  <i className="ri-error-warning-line text-[10px]"></i>
-                  Chưa nhập
-                </span>
-              )}
-            </div>
-            <div className="w-5 h-5 flex items-center justify-center text-app-text-muted">
-              <i className={`text-sm transition-transform ${showApify ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
-            </div>
-          </button>
-
-          {showApify && (
-            <div className="px-6 pb-6 border-t border-app-border pt-5 space-y-4">
-              <div>
-                <label className="text-white/50 text-xs font-medium block mb-2">Apify API Token</label>
-                <div className="relative">
-                  <div className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center">
-                    <i className="ri-key-2-line text-app-text-muted text-sm"></i>
-                  </div>
-                  <input
-                    type={showApifyToken ? "text" : "password"}
-                    value={form.apifyToken}
-                    onChange={(e) => setForm({ ...form, apifyToken: e.target.value })}
-                    placeholder="apify_api_xxxxxxxxxxxxxxxxxxxx"
-                    className="w-full bg-app-card/50 border border-app-border rounded-lg pl-9 pr-12 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-orange-400/50 transition-colors font-mono"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowApifyToken(!showApifyToken)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-app-text-muted hover:text-white/60 transition-colors cursor-pointer"
-                  >
-                    <i className={showApifyToken ? "ri-eye-off-line" : "ri-eye-line"}></i>
-                  </button>
-                </div>
-                {form.apifyToken && (
-                  <p className="text-app-accent-success/70 text-xs mt-1.5 flex items-center gap-1">
-                    <i className="ri-checkbox-circle-line"></i>
-                    Token đã nhập ({form.apifyToken.length} ký tự)
-                    {hasUnsavedChanges && form.apifyToken !== saved.apifyToken && (
-                      <span className="text-amber-400/70 ml-1">— chưa lưu</span>
-                    )}
-                  </p>
-                )}
-              </div>
-              <div className="bg-app-surface/50 rounded-lg px-4 py-3 flex items-start gap-2">
-                <div className="w-4 h-4 flex items-center justify-center mt-0.5">
-                  <i className="ri-information-line text-app-text-muted text-sm"></i>
-                </div>
-                <div className="text-app-text-muted text-xs leading-relaxed">
-                  Lấy token tại{" "}
-                  <a href="https://console.apify.com/account/integrations" target="_blank" rel="nofollow noreferrer" className="text-orange-400/70 hover:text-orange-400 underline">
-                    console.apify.com → Account → Integrations
-                  </a>
-                  . Token được lưu cục bộ trên máy bạn, không gửi đi đâu khác.
-                </div>
-              </div>
-            </div>
-          )}
-        </section>
-
         {/* AI Section */}
         <section className="bg-app-bg border border-app-border rounded-xl overflow-hidden">
           <button
