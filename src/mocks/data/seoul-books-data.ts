@@ -5872,7 +5872,7 @@ export const seoulBooks: SeoulBook[] = [
               { korean: "사투리는 들으면 들을수록 정겨워요.", vietnamese: "Phương ngữ càng nghe càng ấm áp tình cảm." },
               { korean: "전통을 지킬수록 문화가 풍성해져요.", vietnamese: "Càng gìn giữ truyền thống, văn hóa càng phong phú." },
             ],
-            topikPatternId: "topik2-125",
+            topikPatternId: "topik2-108",
           },
           {
             pattern: "~에 비해서 (So với...)",
@@ -5882,7 +5882,7 @@ export const seoulBooks: SeoulBook[] = [
               { korean: "한국에 비해서 다른 나라는 사투리 차이가 더 커요.", vietnamese: "So với Hàn Quốc, ở các nước khác sự khác biệt phương ngữ lớn hơn." },
               { korean: "도시에 비해서 농촌의 전통이 더 잘 보존되어 있어요.", vietnamese: "So với thành phố, truyền thống nông thôn được bảo tồn tốt hơn." },
             ],
-            topikPatternId: "topik2-126",
+            topikPatternId: "topik2-119",
           },
           {
             pattern: "~다고 할 수 있다 (Có thể nói là...)",
@@ -6662,7 +6662,7 @@ export const seoulBooks: SeoulBook[] = [
               { korean: "진돗개는 대담할 뿐만 아니라 충성심도 강해요.", vietnamese: "Chó Jindo không chỉ táo bạo mà còn rất trung thành." },
               { korean: "학대는 고통을 줄 뿐만 아니라 동물의 본능도 망가뜨려요.", vietnamese: "Bạo hành không chỉ gây đau khổ mà còn phá hủy bản năng của động vật." },
             ],
-            topikPatternId: "topik2-138",
+            topikPatternId: "topik2-68",
           },
           {
             pattern: "~는 반면에 (Trong khi... thì... ngược lại...)",
@@ -6672,7 +6672,7 @@ export const seoulBooks: SeoulBook[] = [
               { korean: "개는 집을 잘 지키는 반면에 관리가 힘들어요.", vietnamese: "Chó trông nhà tốt trong khi đó việc quản lý lại khó." },
               { korean: "화초는 정서적으로 안정되게 해 주는 반면에 물 주기가 번거로워요.", vietnamese: "Cây cảnh giúp ổn định tình cảm trong khi đó việc tưới nước lại phiền phức." },
             ],
-            topikPatternId: "topik2-139",
+            topikPatternId: "topik2-13",
           },
           {
             pattern: "~아/어도 되다 (Có thể... cũng được, được phép...)",
@@ -6772,7 +6772,7 @@ export const seoulBooks: SeoulBook[] = [
               { korean: "이게 유전으로 전달될 리가 없어요.", vietnamese: "Điều này không thể được truyền qua di truyền." },
               { korean: "운석이 이렇게 자주 떨어질 리가 없어요.", vietnamese: "Không thể nào thiên thạch lại rơi xuống thường xuyên như vậy." },
             ],
-            topikPatternId: "topik2-140",
+            topikPatternId: "topik2-122",
           },
           {
             pattern: "~는지 모르다 (Không biết... hay không, không rõ...)",
@@ -6782,7 +6782,7 @@ export const seoulBooks: SeoulBook[] = [
               { korean: "외계인이 존재하는지 모르겠어요.", vietnamese: "Không biết người ngoài hành tinh có tồn tại hay không." },
               { korean: "타임머신이 이론적으로 가능한지 모르겠어요.", vietnamese: "Không biết cỗ máy thời gian có khả thi về mặt lý thuyết hay không." },
             ],
-            topikPatternId: "topik2-141",
+            topikPatternId: "topik2-123",
           },
           {
             pattern: "~에 따르면 (Theo..., dựa theo...)",
@@ -6853,7 +6853,7 @@ export const seoulBooks: SeoulBook[] = [
               { korean: "일찍 만났더라면 더 좋았을 텐데요.", vietnamese: "Giá mà hồi đó gặp nhau sớm hơn thì tốt biết mấy." },
               { korean: "연락을 했더라면 만날 수 있었을 텐데요.", vietnamese: "Nếu hồi đó liên lạc thì đã có thể gặp nhau." },
             ],
-            topikPatternId: "topik2-142",
+            topikPatternId: "topik2-23",
           },
           {
             pattern: "~(으)ㄹ 뻔하다 (Suýt nữa...)",
@@ -6863,7 +6863,7 @@ export const seoulBooks: SeoulBook[] = [
               { korean: "못 알아볼 뻔했어요.", vietnamese: "Suýt nữa không nhận ra." },
               { korean: "지나칠 뻔했어요.", vietnamese: "Suýt nữa đi qua mà không thấy." },
             ],
-            topikPatternId: "topik2-143",
+            topikPatternId: "topik2-24",
           },
           {
             pattern: "~(으)ㄴ/는 것 같다 (Có vẻ..., hình như...)",
