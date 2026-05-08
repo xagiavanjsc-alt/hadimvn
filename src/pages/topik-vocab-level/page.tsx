@@ -125,6 +125,16 @@ function getSeoulVocabByTopikLevel(level: number): VocabWord[] {
   return result;
 }
 
+function getSeoulGlobalUniqueCount(): number {
+  const seen = new Set<string>();
+  for (const book of seoulBooks) {
+    for (const lesson of book.lessons) {
+      for (const v of lesson.vocabulary) seen.add(v.korean);
+    }
+  }
+  return seen.size;
+}
+
 function getSeoulLevelCounts(): Record<number, number> {
   const counts: Record<number, number> = {};
   const seen: Record<number, Set<string>> = {};
@@ -339,7 +349,8 @@ export default function TopikVocabLevelPage() {
   const progress = filteredWords.length > 0 ? Math.round((learnedCount / filteredWords.length) * 100) : 0;
 
   const currentLevelInfo = selectedLevel ? LEVEL_INFO[selectedLevel - 1] : null;
-  const totalVocabCount = Object.values(levelStats).reduce((a, b) => a + b, 0);
+  const globalUniqueCount = getSeoulGlobalUniqueCount();
+  const totalVocabCount = globalUniqueCount > 0 ? globalUniqueCount : Object.values(levelStats).reduce((a, b) => a + b, 0);
 
   return (
     <DashboardLayout>
