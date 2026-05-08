@@ -27,6 +27,15 @@ const LEVEL_GROUP_LABELS: Record<number, string> = {
   4: "Cao cấp",
 };
 
+function getBookStats(book: SeoulBook) {
+  const lessons = book.lessons.filter(l => !l.id.includes("-REMOVED") && !l.id.includes("-placeholder"));
+  return {
+    totalLessons: lessons.length,
+    totalVocab: lessons.reduce((sum, lesson) => sum + lesson.vocabulary.length, 0),
+    totalGrammar: lessons.reduce((sum, lesson) => sum + lesson.grammarPoints.length, 0),
+  };
+}
+
 // ─── Book Card ────────────────────────────────────────────────────────────
 function BookCard({
   book,
@@ -39,7 +48,8 @@ function BookCard({
   isSelected: boolean;
   onClick: () => void;
 }) {
-  const progress = Math.round((completedCount / book.totalLessons) * 100);
+  const stats = getBookStats(book);
+  const progress = stats.totalLessons > 0 ? Math.round((completedCount / stats.totalLessons) * 100) : 0;
   return (
     <button
       onClick={onClick}
@@ -59,9 +69,9 @@ function BookCard({
       </div>
 
       <div className="flex items-center justify-between gap-2 text-[10px] text-app-text-secondary">
-        <span>{completedCount}/{book.totalLessons} bài</span>
-        <span>{book.totalVocab} từ</span>
-        <span>{book.totalGrammar} ngữ pháp</span>
+        <span>{completedCount}/{stats.totalLessons} bài</span>
+        <span>{stats.totalVocab} từ</span>
+        <span>{stats.totalGrammar} ngữ pháp</span>
       </div>
 
       <div className="mt-2 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
@@ -422,9 +432,13 @@ function BookDetailView({
       .filter(l => { if (seen.has(l.id)) return false; seen.add(l.id); return true; })
       .sort((a, b) => a.lessonNumber - b.lessonNumber);
   }, [book.id, book.lessons]);
+  const stats = {
+    totalLessons: validLessons.length,
+    totalVocab: validLessons.reduce((sum, lesson) => sum + lesson.vocabulary.length, 0),
+    totalGrammar: validLessons.reduce((sum, lesson) => sum + lesson.grammarPoints.length, 0),
+  };
   const completedCount = validLessons.filter(l => completedLessons[l.id]).length;
-  const progress = book.totalLessons > 0 ? Math.round((completedCount / book.totalLessons) * 100) : 0;
-  const remainingCount = book.totalLessons - validLessons.length;
+  const progress = stats.totalLessons > 0 ? Math.round((completedCount / stats.totalLessons) * 100) : 0;
 
   return (
     <div>
@@ -451,15 +465,15 @@ function BookDetailView({
           </div>
           <div className="text-right flex-shrink-0">
             <p className="text-3xl md:text-4xl font-bold" style={{ color: book.color }}>{progress}%</p>
-            <p className="text-app-text-secondary text-xs md:text-sm">{completedCount}/{book.totalLessons} bài</p>
+            <p className="text-app-text-secondary text-xs md:text-sm">{completedCount}/{stats.totalLessons} bài</p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 md:gap-3 mt-4 md:mt-5">
           {[
-            { label: "Tổng bài", value: book.totalLessons, icon: "ri-book-open-line" },
-            { label: "Từ vựng", value: `~${book.totalVocab}`, icon: "ri-translate-2" },
-            { label: "Ngữ pháp", value: book.totalGrammar, icon: "ri-book-2-line" },
+            { label: "Tổng bài", value: stats.totalLessons, icon: "ri-book-open-line" },
+            { label: "Từ vựng", value: stats.totalVocab, icon: "ri-translate-2" },
+            { label: "Ngữ pháp", value: stats.totalGrammar, icon: "ri-book-2-line" },
           ].map(s => (
             <div key={s.label} className="bg-app-card/50 rounded-xl p-2.5 md:p-3 flex items-center gap-2 md:gap-3">
               <div className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${book.color}15` }}>
@@ -494,14 +508,6 @@ function BookDetailView({
             onClick={() => onLessonClick(lesson)}
           />
         ))}
-
-        {remainingCount > 0 && (
-          <div className="p-4 rounded-xl border border-app-border bg-white/1 text-center">
-            <i className="ri-lock-line text-app-text-muted text-2xl mb-2 block"></i>
-            <p className="text-app-text-muted text-sm font-medium">+{remainingCount} bài học tiếp theo</p>
-            <p className="text-app-text-muted text-xs mt-1">Đang được cập nhật thêm nội dung chi tiết</p>
-          </div>
-        )}
       </div>
     </div>
   );
@@ -512,14 +518,15 @@ function ProgressChart({ completedLessons }: { completedLessons: Record<string, 
   const navigate = useNavigate();
 
   const bookStats = useMemo(() => seoulBooks.map(book => {
+    const stats = getBookStats(book);
     const completed = book.lessons.filter(l => completedLessons[l.id]).length;
-    const pct = book.totalLessons > 0 ? Math.round((completed / book.totalLessons) * 100) : 0;
-    return { book, completed, pct };
+    const pct = stats.totalLessons > 0 ? Math.round((completed / stats.totalLessons) * 100) : 0;
+    return { book, completed, pct, totalLessons: stats.totalLessons };
   }), [completedLessons]);
 
   const totalCompleted = Object.keys(completedLessons).length;
-  const totalLessons = seoulBooks.reduce((s, b) => s + b.totalLessons, 0);
-  const overallPct = Math.round((totalCompleted / totalLessons) * 100);
+  const totalLessons = seoulBooks.reduce((s, b) => s + getBookStats(b).totalLessons, 0);
+  const overallPct = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
 
   return (
     <div className="bg-app-bg border border-app-border rounded-2xl p-4 md:p-5 mb-5 md:mb-6">
@@ -559,7 +566,7 @@ function ProgressChart({ completedLessons }: { completedLessons: Record<string, 
 
         {/* Per-book bars */}
         <div className="flex-1 space-y-1.5 md:space-y-2">
-          {bookStats.map(({ book, completed, pct }) => (
+          {bookStats.map(({ book, completed, pct, totalLessons }) => (
             <div key={book.id} className="flex items-center gap-2 md:gap-3">
               <span className="text-[10px] font-bold w-5 md:w-6 flex-shrink-0" style={{ color: book.color }}>{book.level}</span>
               <div className="flex-1 h-1.5 md:h-2 bg-app-card/50 rounded-full overflow-hidden">
@@ -568,7 +575,7 @@ function ProgressChart({ completedLessons }: { completedLessons: Record<string, 
                   style={{ width: `${pct}%`, backgroundColor: book.color }}
                 />
               </div>
-              <span className="text-app-text-muted text-[9px] md:text-[10px] w-10 md:w-12 text-right flex-shrink-0">{completed}/{book.totalLessons}</span>
+              <span className="text-app-text-muted text-[9px] md:text-[10px] w-10 md:w-12 text-right flex-shrink-0">{completed}/{totalLessons}</span>
               <span className="text-[9px] md:text-[10px] font-bold w-7 md:w-8 text-right flex-shrink-0" style={{ color: pct > 0 ? book.color : "rgba(255,255,255,0.2)" }}>{pct}%</span>
             </div>
           ))}
@@ -617,12 +624,12 @@ export default function SeoulTextbookPage() {
   }, [filterGroup]);
 
   const totalCompleted = Object.keys(completedLessons).length;
-  const totalLessons = seoulBooks.reduce((sum, b) => sum + b.totalLessons, 0);
-  const totalVocab = seoulBooks.reduce((sum, b) => sum + b.totalVocab, 0);
-  const totalGrammar = seoulBooks.reduce((sum, b) => sum + b.totalGrammar, 0);
+  const totalLessons = seoulBooks.reduce((sum, b) => sum + getBookStats(b).totalLessons, 0);
+  const totalVocab = seoulBooks.reduce((sum, b) => sum + getBookStats(b).totalVocab, 0);
+  const totalGrammar = seoulBooks.reduce((sum, b) => sum + getBookStats(b).totalGrammar, 0);
 
   const getBookCompletedCount = (book: SeoulBook) => {
-    return book.lessons.filter(l => completedLessons[l.id]).length;
+    return book.lessons.filter(l => !l.id.includes("-REMOVED") && !l.id.includes("-placeholder") && completedLessons[l.id]).length;
   };
 
   const handleCompleteLesson = (lessonId: string) => {
@@ -732,7 +739,7 @@ export default function SeoulTextbookPage() {
                     <div
                       className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-xl font-bold text-xs md:text-sm transition-all group-hover:scale-110"
                       style={{
-                        backgroundColor: getBookCompletedCount(book) === book.totalLessons ? `${book.color}30` : `${book.color}15`,
+                        backgroundColor: getBookCompletedCount(book) === getBookStats(book).totalLessons ? `${book.color}30` : `${book.color}15`,
                         color: book.color,
                         border: `2px solid ${book.color}${getBookCompletedCount(book) > 0 ? "60" : "25"}`,
                       }}
