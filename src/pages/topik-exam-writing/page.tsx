@@ -328,6 +328,18 @@ const Q_COLORS: Record<number, string> = {
 const YEARS = [2023, 2022, 2021];
 
 const DRAFT_KEY = (id: string) => `topik_draft_${id}`;
+const HISTORY_KEY = "topik_writing_history";
+
+interface WritingHistory {
+  id: string;
+  questionId: string;
+  questionLabel: string;
+  text: string;
+  charCount: number;
+  timerSec: number;
+  date: string;
+  mode: "study" | "exam";
+}
 
 export default function TopikExamWritingPage() {
   const [filterType, setFilterType] = useState<"all" | 51 | 52 | 53 | 54>("all");
@@ -343,6 +355,11 @@ export default function TopikExamWritingPage() {
   const [submitted, setSubmitted] = useState(false);
   const [selfChecked, setSelfChecked] = useState<boolean[]>([]);
   const [draftSaved, setDraftSaved] = useState(false);
+  const [history, setHistory] = useState<WritingHistory[]>(() => {
+    try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]"); } catch { return []; }
+  });
+  const [showHistory, setShowHistory] = useState(false);
+  const [expandedHist, setExpandedHist] = useState<string | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -402,11 +419,39 @@ export default function TopikExamWritingPage() {
     }
   };
 
+  const saveHistory = (mode: "study" | "exam") => {
+    if (!text.trim()) return;
+    const entry: WritingHistory = {
+      id: Date.now().toString(),
+      questionId: selectedQ.id,
+      questionLabel: `Câu ${selectedQ.qNum} · ${selectedQ.year}`,
+      text: text.trim(),
+      charCount: text.trim().length,
+      timerSec,
+      date: new Date().toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }),
+      mode,
+    };
+    const updated = [entry, ...history].slice(0, 30);
+    setHistory(updated);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(updated));
+  };
+
+  const phraseUsed = (kr: string): boolean => {
+    if (!text.trim()) return false;
+    const parts = kr.split(" / ");
+    return parts.some(part => {
+      const words = part.replace(/[~\s\/\(\)\[\]A-Za-z%\.]/g, " ")
+        .split(/\s+/).filter(w => /[\uAC00-\uD7A3]{2,}/.test(w));
+      return words.some(w => text.includes(w));
+    });
+  };
+
   const handleSubmit = () => {
     setTimerRunning(false);
     setSubmitted(true);
     setShowAnswer(true);
     setSelfChecked(new Array(selectedQ.scoringPoints?.length ?? 0).fill(false));
+    saveHistory("exam");
   };
 
   const toggleSelfCheck = (i: number) => {
@@ -508,6 +553,58 @@ export default function TopikExamWritingPage() {
                 <p className="text-white/65 text-xs leading-snug line-clamp-2">{q.title}</p>
               </button>
             ))}
+            {/* History section */}
+            {history.length > 0 && (
+              <div className="mt-4 border-t border-app-border pt-4">
+                <button
+                  onClick={() => setShowHistory(v => !v)}
+                  className="w-full flex items-center gap-2 text-white/35 hover:text-white/55 transition-colors cursor-pointer"
+                >
+                  <i className="ri-history-line text-xs"></i>
+                  <span className="text-[11px] font-medium flex-1 text-left">Lịch sử bài ({history.length})</span>
+                  <i className={`ri-arrow-${showHistory ? "up" : "down"}-s-line text-xs`}></i>
+                </button>
+                {showHistory && (
+                  <div className="mt-2 space-y-1.5">
+                    {history.map(h => (
+                      <div key={h.id} className="rounded-lg border border-app-border/50 overflow-hidden">
+                        <button
+                          onClick={() => setExpandedHist(expandedHist === h.id ? null : h.id)}
+                          className="w-full flex items-center gap-2 px-3 py-2 bg-app-card/30 hover:bg-app-card/50 transition-colors cursor-pointer text-left"
+                        >
+                          <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold border flex-shrink-0 ${Q_COLORS[parseInt(h.questionId.replace('q', '').split('-')[0])]}`}>
+                            {h.questionLabel}
+                          </span>
+                          <span className={`text-[9px] px-1 py-0.5 rounded flex-shrink-0 ${h.mode === "exam" ? "bg-rose-500/15 text-rose-400" : "bg-white/5 text-white/30"}`}>
+                            {h.mode === "exam" ? "Thi" : "Học"}
+                          </span>
+                          <span className="text-white/25 text-[9px] flex-1">{h.date}</span>
+                          <span className="text-white/25 text-[9px] flex-shrink-0">{h.charCount} ký</span>
+                        </button>
+                        {expandedHist === h.id && (
+                          <div className="px-3 py-2 bg-app-card/15 border-t border-app-border/30">
+                            {h.timerSec > 0 && <p className="text-white/25 text-[10px] mb-1">⏱ {fmtTimer(h.timerSec)}</p>}
+                            <p className="text-white/50 text-[11px] leading-relaxed line-clamp-4">{h.text}</p>
+                            <button
+                              onClick={() => { setText(h.text); setExpandedHist(null); }}
+                              className="mt-2 text-[10px] text-app-accent-primary/60 hover:text-app-accent-primary cursor-pointer"
+                            >
+                              ↪ Khôi phục bài này
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                    <button
+                      onClick={() => { setHistory([]); localStorage.removeItem(HISTORY_KEY); }}
+                      className="w-full text-[10px] text-white/20 hover:text-rose-400/60 cursor-pointer py-1 transition-colors"
+                    >
+                      Xóa toàn bộ lịch sử
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Right: detail + writing */}
@@ -608,13 +705,22 @@ export default function TopikExamWritingPage() {
                   <i className={`ri-arrow-${showPhrases ? "up" : "down"}-s-line text-white/25 text-xs`}></i>
                 </button>
                 {showPhrases && (
-                  <div className="px-4 pb-3 border-t border-app-border pt-3 grid grid-cols-1 gap-1.5">
-                    {selectedQ.usefulPhrases.map((p, i) => (
-                      <div key={i} className="flex items-start gap-3 bg-app-card/30 rounded-lg px-3 py-2">
-                        <span className="text-white/80 text-xs font-medium font-mono min-w-0 flex-1">{p.kr}</span>
-                        <span className="text-white/35 text-xs text-right flex-shrink-0">{p.vi}</span>
-                      </div>
-                    ))}
+                  <div className="px-4 pb-3 border-t border-app-border pt-3 space-y-1.5">
+                    {text && (
+                      <p className="text-violet-400/50 text-[10px] mb-2">
+                        Đã dùng: {selectedQ.usefulPhrases!.filter(p => phraseUsed(p.kr)).length}/{selectedQ.usefulPhrases!.length} cụm từ
+                      </p>
+                    )}
+                    {selectedQ.usefulPhrases!.map((p, i) => {
+                      const used = phraseUsed(p.kr);
+                      return (
+                        <div key={i} className={`flex items-start gap-3 rounded-lg px-3 py-2 transition-all ${used ? "bg-violet-500/12 border border-violet-500/25" : "bg-app-card/30"}`}>
+                          <span className={`flex-shrink-0 w-3 h-3 rounded-full mt-0.5 transition-all ${used ? "bg-violet-400" : "bg-white/8"}`}/>
+                          <span className={`text-xs font-medium font-mono min-w-0 flex-1 transition-all ${used ? "text-violet-300" : "text-white/70"}`}>{p.kr}</span>
+                          <span className="text-white/30 text-xs text-right flex-shrink-0">{p.vi}</span>
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -672,7 +778,11 @@ export default function TopikExamWritingPage() {
               )
             ) : (
               <button
-                onClick={() => setShowAnswer(v => !v)}
+                onClick={() => {
+                const next = !showAnswer;
+                setShowAnswer(next);
+                if (next) { setSelfChecked(new Array(selectedQ.scoringPoints?.length ?? 0).fill(false)); saveHistory("study"); }
+              }}
                 className={`w-full py-2.5 rounded-xl text-sm font-semibold cursor-pointer transition-all border whitespace-nowrap ${showAnswer ? "bg-app-card/50 border-app-border text-white/50" : "bg-app-accent-primary/10 border-app-accent-primary/25 text-app-accent-primary hover:bg-app-accent-primary/15"}`}
               >
                 <i className={`${showAnswer ? "ri-eye-off-line" : "ri-eye-line"} mr-1.5`}></i>
