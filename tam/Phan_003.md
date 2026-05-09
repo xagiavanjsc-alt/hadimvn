@@ -4,7 +4,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "xung đột, mâu thuẫn". "葛" (갈, cát) là cây nho dại leo quấn; "藤" (등, đằng) là dây leo. Hợp lại chỉ sự rối rắm, quấn vào nhau như dây leo, nghĩa bóng là xung đột, mâu thuẫn.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 두 팀 사이의 갈등이 심화되고 있다.
 + Bồi: Du teum sa-i-ui gal-deung-i sim-hwa-do-go it-da.
    + Việt: Xung đột giữa hai đội đang trở nên trầm trọng hơn.
@@ -25,10 +25,15 @@
 + Bồi: I mun-je-neun gal-deung-ui geun-won-i mu-eo-sin-ji pa-ak-hae-ya han-da.
    + Việt: Vấn đề này cần xác định nguồn gốc của xung đột.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 갈등 상황에서 중재자의 역할이 중요하다.
++ Bồi: Gal-deung sang-hwang-e-seo jung-je-ja-ui yeok-hal-i jung-yo-ha-da.
+   + Việt: Vai trò của người hòa giải trong tình huống xung đột là quan trọng.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 분쟁 (紛爭): "tranh chấp, tranh giành"
    - 대립 (對立): "đối lập, đối đầu"
    - 화해 (和解): "hòa giải, giải hòa"
+   - 중재 (仲栽): "trung tài, hòa giải"
 
 4. MẸO NHỚ: Hãy tưởng tượng hai dây leo "CÁT" (갈) và "ĐẰNG" (등) quấn chặt vào nhau, giống như hai bên đang xung đột không ai chịu nhường ai. Muốn tách ra phải cắt từng sợi một.
 
@@ -36,7 +41,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cảm giác, giác quan". "感" (감, cảm) nghĩa là cảm nhận, rung động; "覺" (각, giác) nghĩa là nhận thức, tỉnh ngộ. Hợp lại chỉ khả năng nhận thức thế giới bên ngoài qua các giác quan.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이 음악은 특별한 감각을 준다.
 + Bồi: I eum-ak-eun teuk-byeol-han gam-gak-eul jun-da.
    + Việt: Âm nhạc này mang lại một cảm giác đặc biệt.
@@ -57,10 +62,15 @@
 + Bồi: Gam-gak-i dun-hae-ji-neun geot-eun na-i-ga deun sin-ho-il su it-da.
    + Việt: Giác quan suy giảm có thể là dấu hiệu của tuổi già.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 후각은 맛을 느끼는 중요한 감각이다.
++ Bồi: Hu-gak-eun mat-eul neu-kki-neun jung-yo-han gam-gak-i-da.
+   + Việt: Khứu giác là giác quan quan trọng để cảm nhận vị giác.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 느낌 (-): "cảm giác, cảm nhận"
    - 인식 (認識): "nhận thức, nhận biết"
    - 지각 (知覺): "tri giác, nhận thức"
+   - 후각 (嗅覺): "khứu giác"
 
 4. MẸO NHỚ: Hãy nghĩ đến "CẢM" (감- cảm) xúc và "GIÁC" (각- giác) ngộ. Khi bạn chạm vào nước đá, bạn có "CẢM GIÁC" lạnh — đó chính là cảm giác (감각).
 
@@ -68,7 +78,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cảm ơn, biết ơn". "感" (감, cảm) là cảm nhận, rung động; "謝" (사, tạ) là tạ ơn, xin lỗi. Hợp lại chỉ sự cảm kích, biết ơn đối với người khác.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 도와주셔서 정말 감사합니다.
 + Bồi: Do-wa-ju-syeo-seo jeong-mal gam-sa-ham-ni-da.
    + Việt: Thực sự cảm ơn bạn đã giúp đỡ.
@@ -89,10 +99,15 @@
 + Bồi: Geu-bun-kke gam-sa pyeon-ji-reul bo-naet-da.
    + Việt: Tôi đã gửi thư cảm ơn đến ngài ấy.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 감사 인사를 잊지 않는 것이 예의이다.
++ Bồi: Gam-sa in-sa-reul it-ji an-neun geot-i ye-ui-i-da.
+   + Việt: Không quên lời cảm ơn là phép lịch sự.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 고맙다 (-): "cảm ơn"
    - 은혜 (恩惠): "ân đức, ân huệ"
    - 보답 (報答): "báo đáp, đền đáp"
+   - 감사패 (感謝牌): "biển cảm ơn"
 
 4. MẸO NHỚ: Từ này ai cũng biết! Hãy nhớ "CẢM" (감) động trước ân tình rồi "TẠ" (사) ơn. Khi ai đó giúp bạn, hãy nói "감사합니다" — "cảm tạ ngài".
 
@@ -100,7 +115,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "giảm, suy giảm, thu hẹp". "減" (감, giảm) nghĩa là giảm bớt, hao tổn; "少" (소, thiểu) nghĩa là ít. Hợp lại chỉ sự giảm đi về số lượng, mức độ hoặc quy mô.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 매출이 지난달보다 10퍼센트 감소했다.
 + Bồi: Mae-chul-i ji-nan-dal-bo-da sip-peo-sen-teu gam-so-haet-da.
    + Việt: Doanh thu đã giảm 10% so với tháng trước.
@@ -121,10 +136,15 @@
 + Bồi: Tu-ja gyu-mo-reul gam-so-ha-gi-ro gyeol-jeong-haet-da.
    + Việt: Đã quyết định thu hẹp quy mô đầu tư.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 지난해 대비 수출이 감소했다.
++ Bồi: Ji-nan-hae dae-bi su-chul-i gam-so-haet-da.
+   + Việt: Xuất khẩu đã giảm so với năm ngoái.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 증가 (增加): "tăng gia, gia tăng"
    - 축소 (縮小): "suy giảm, thu nhỏ"
    - 하락 (下落): "suy tàn, giảm xuống"
+   - 위축 (萎縮): "suy giảm, teo tóp"
 
 4. MẸO NHỚ: Hãy nghĩ đến cái cân. Khi bạn "GIẢM" (감) ăn, cân nặng trở nên "ÍT" (소) hơn — đó là giảm cân, tức 감소! Ngược lại tăng thì gọi là 증가.
 
@@ -132,7 +152,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cảm xúc, tình cảm". "感" (감, cảm) là cảm nhận, rung động; "情" (정, tình) là tình cảm, cảm xúc. Hợp lại chỉ những phản ứng tâm lý sâu sắc của con người.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 감정을 숨기는 것은 건강에 좋지 않다.
 + Bồi: Gam-jeong-eul sum-gi-neun geot-eun geon-gang-e jo-chi an-ta.
    + Việt: Giấu cảm xúc không tốt cho sức khỏe.
@@ -153,10 +173,15 @@
 + Bồi: A-i-ui gam-jeong-eul jon-jung-hae ju-se-yo.
    + Việt: Hãy tôn trọng cảm xúc của trẻ.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 감정 조절 능력은 사회생활에 필수적이다.
++ Bồi: Gam-jeong jo-jeol neung-ryeok-eun sa-hoe-saeng-hwal-e pil-su-jeok-i-da.
+   + Việt: Khả năng kiểm soát cảm xúc là cần thiết trong cuộc sống xã hội.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 심리 (心理): "tâm lý"
    - 기분 (氣分): "tâm trạng, khí phận"
    - 정서 (情緖): "tình trạng, tâm tình"
+   - 정신 (精神): "tinh thần"
 
 4. MẸO NHỚ: Hãy nghĩ đến trái tim rung động "CẢM" (감) nhận được một "TÌNH" (정) cảm đặc biệt. Khi xem phim buồn, nước mắt rơi vì "cảm tình" — đó là 감정.
 
@@ -164,7 +189,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "giám sát, đạo diễn". "監" (감, giám) nghĩa là quan sát, giám sát; "督" (독, đốc) nghĩa là đôn đốc, giám thị. Hợp lại chỉ người giám sát, đặc biệt là đạo diễn phim hoặc người quản lý.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이 영화의 감독은 세계적으로 유명하다.
 + Bồi: I yeong-hwa-ui gam-dok-eun se-gye-jeok-euro yu-myeong-ha-da.
    + Việt: Đạo diễn của bộ phim này nổi tiếng toàn cầu.
@@ -185,10 +210,15 @@
 + Bồi: Gam-dok eop-si-neun hyeon-jang-i hon-ran-seu-reo-wo-jin-da.
    + Việt: Không có giám sát thì công trường sẽ hỗn loạn.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 감독의 비전이 작품의 방향을 결정한다.
++ Bồi: Gam-dok-ui bi-jeon-i jak-pum-ui bang-hyang-eul gyeol-jeong-han-da.
+   + Việt: Tầm nhìn của đạo diễn quyết định hướng đi của tác phẩm.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 연출 (演出): "diễn xuất, biểu diễn"
    - 관리 (管理): "quản lý"
    - 지휘 (指揮): "chỉ huy, điều khiển"
+   - 제작 (制作): "chế tác, sản xuất"
 
 4. MẸO NHỚ: Hãy nghĩ đến camera "GIÁM" (감) sát và đôn "ĐỐC" (독) diễn viên. Đạo diễn đứng sau máy quay, luôn quan sát và thúc đẩy — đó chính là 감독.
 
@@ -196,7 +226,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "dám, dám làm". "敢" (감, cảm) nghĩa là dám, có gan; "爲" (위, vi) nghĩa là làm, vì. Hợp lại chỉ sự can đảm làm điều gì đó, thường dùng trong câu phủ định hoặc nghi vấn.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 네가 감히 나에게 거짓말을 했어?
 + Bồi: Ne-ga gam-hi na-e-ge geo-jit-mal-eul hae-sseo?
    + Việt: Mày dám nói dối ta à?
@@ -217,10 +247,15 @@
 + Bồi: Gam-hi je-an ha-na deu-ryeo-do doe-get-seum-ni-kka?
    + Việt: Tôi dám xin đề xuất một ý kiến được không?
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 감히 내 앞에서 그런 말을 하다니!
++ Bồi: Gam-hi nae ap-e-seo geu-reon mal-eul ha-da-ni!
+   + Việt: Dám nói như vậy trước mặt ta sao!
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 용기 (勇氣): "dũng khí, can đảm"
    - 대담 (大膽): "táo bạo, can đảm"
    - 겁 (-): "sợ, nhát"
+   - 용감 (勇敢): "dũng cảm, can đảm"
 
 4. MẸO NHỚ: Hãy nghĩ đến người "CẢM" (감) dám đối mặt với nguy hiểm để "VI" (위) làm điều đúng đắn. Chỉ có kẻ thật sự can đảm mới dám (감히) đứng lên.
 
@@ -228,7 +263,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "mạnh mẽ, cường lực". "强" (강, cường) nghĩa là mạnh, cứng rắn; "力" (력, lực) nghĩa là sức mạnh, năng lực. Hợp lại chỉ sức mạnh to lớn, quyết liệt, hùng hậu.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 경찰이 강력 범죄를 단속하고 있다.
 + Bồi: Gyeong-chal-i gang-ryeok beom-jo-eul dan-sok-ha-go it-da.
    + Việt: Cảnh sát đang trấn áp tội phạm nghiêm trọng.
@@ -249,10 +284,15 @@
 + Bồi: Geu-neun gang-ryeok-han gyeong-jaeng-ja-ro bu-sang-haet-da.
    + Việt: Anh ấy đã nổi lên như một đối thủ cạnh tranh mạnh.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 강력한 화재 진압을 위해 소방관이 출동했다.
++ Bồi: Gang-ryeok-han hwa-gae jin-ak-eul wi-hae so-bang-gwan-i chul-dong-haet-da.
+   + Việt: Lính cứu hỏa đã xuất động để dập tắt đám cháy lớn.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 힘 (力): "sức mạnh"
    - 세력 (勢力): "thế lực, thế lực"
    - 위력 (威力): "uy lực, oai lực"
+   - 권력 (權力): "quyền lực"
 
 4. MẸO NHỚ: Hãy nghĩ đến siêu nhân "CƯỜNG" (강) trang đầy "LỰC" (력) lượng. Khi cần thiết, anh ấy dùng sức mạnh (강력) để bảo vệ công lý.
 
@@ -260,7 +300,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "ép buộc, cưỡng yêu". "强" (강, cường) nghĩa là mạnh, ép buộc; "要" (요, yêu) nghĩa là yêu cầu, đòi hỏi. Hợp lại chỉ việc dùng sức mạnh hoặc quyền lực để buộc người khác làm điều gì.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 누구에게도 강요받고 싶지 않다.
 + Bồi: Nu-gu-e-ge-do gang-yo-bat-go sip-ji an-ta.
    + Việt: Tôi không muốn bị ai ép buộc cả.
@@ -281,10 +321,15 @@
 + Bồi: Geu-geot-eun gang-yo-ga a-nin gwon-yu-i-eot-da.
    + Việt: Đó là khuyến khích chứ không phải ép buộc.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 회사에서 초과 근무를 강요당한 적이 있다.
++ Bồi: Hoe-sa-e-seo cho-gwa geun-mu-reul gang-yo-dang-han jeok-i it-da.
+   + Việt: Tôi đã từng bị công ty ép buộc làm thêm giờ.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 압박 (壓迫): "áp bức, áp lực"
    - 강제 (强制): "cưỡng chế, bắt buộc"
    - 설득 (說得): "thuyết phục"
+   - 협박 (脅迫): "đe dọa, hăm dọa"
 
 4. MẸO NHỚ: Hãy nghĩ đến kẻ "CƯỜNG" (강) đứng trước cửa "YÊU" (요) cầu tiền bạc. Không đưa thì không cho qua — đó là ép buộc, 강요.
 
@@ -292,7 +337,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "nhấn mạnh". "强" (강, cường) nghĩa là mạnh, gia tăng; "調" (조, điều) nghĩa là điều chỉnh, điều hòa. Hợp lại chỉ việc nhấn mạnh, làm nổi bật điều gì đó.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 교사는 안전의 중요성을 강조했다.
 + Bồi: Gyo-sa-neun an-jeon-ui jung-yo-seong-eul gang-jo-haet-da.
    + Việt: Giáo viên đã nhấn mạnh tầm quan trọng của an toàn.
@@ -313,10 +358,15 @@
 + Bồi: Geu-neun ja-sin-ui ui-gyeon-eul ggeun-him-eop-si gang-jo-haet-da.
    + Việt: Anh ấy không ngừng nhấn mạnh ý kiến của mình.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 교육 현장에서 창의성 강조가 필요하다.
++ Bồi: Gyo-yuk hyeon-jang-e-seo chang-ui-seong gang-jo-ga pil-yo-ha-da.
+   + Việt: Cần nhấn mạnh tính sáng tạo trong môi trường giáo dục.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 부각 (浮刻): "làm nổi bật"
    - 역설 (逆說): "giải thích ngược"
    - 경시 (輕視): "coi nhẹ, khinh thị"
+   - 명시 (明示): "minh thị, nêu rõ"
 
 4. MẸO NHỚ: Hãy nghĩ đến micro "CƯỜNG" (강) hơn bình thường để "ĐIỀU" (조) chỉnh âm lượng. Người phát biểu nhấn mạnh (강조) điểm quan trọng bằng cách nói to hơn.
 
@@ -324,7 +374,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "tăng cường, cường hóa". "强" (강, cường) nghĩa là mạnh, gia tăng; "化" (화, hóa) nghĩa là biến thành, hóa thành. Hợp lại chỉ việc làm cho mạnh hơn, tăng cường năng lực.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 근육을 강화하기 위해 매일 운동한다.
 + Bồi: Geun-yuk-eul gang-hwa-ha-gi wi-hae mae-il un-dong-han-da.
    + Việt: Tôi tập thể dục mỗi ngày để tăng cường cơ bắp.
@@ -345,10 +395,15 @@
 + Bồi: Bo-an si-seu-te-meu-reul gang-hwa-hae-ya han-da.
    + Việt: Cần phải tăng cường hệ thống bảo mật.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 인력을 강화하여 생산 효율을 높였다.
++ Bồi: In-ryeok-eul gang-hwa-ha-yeo saeng-san hyo-yul-eul no-lyeot-da.
+   + Việt: Đã tăng cường nhân lực để nâng cao hiệu quả sản xuất.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 증강 (增彊): "tăng cường"
    - 보강 (補强): "bổ sung, củng cố"
    - 약화 (弱化): "suy yếu, làm yếu"
+   - 강철 (强鐵): "gang thép"
 
 4. MẸO NHỚ: Hãy nghĩ đến tập gym để "CƯỜNG" (강) thân thể "HÓA" (화) thành siêu nhân. Tập luyện mỗi ngày để tăng cường (강화) sức mạnh.
 
@@ -356,7 +411,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "giang hồ". "江" (강, giang) nghĩa là sông lớn; "湖" (호, hồ) nghĩa là hồ nước. Hợp lại chỉ giang hồ — thế giới bên ngoài của những người du hành, võ sĩ, hoặc nghệ sĩ lưu động.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 그는 강호의 전설적인 인물이다.
 + Bồi: Geu-neun gang-ho-ui jeon-seol-jeok-in in-mul-i-da.
    + Việt: Ông ấy là nhân vật huyền thoại của giang hồ.
@@ -377,10 +432,15 @@
 + Bồi: Gang-ho-e-seo-neun sil-ryeok-i got myeong-ye-da.
    + Việt: Trong giang hồ, thực lực chính là danh dự.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 강호에 은둔하며 세상과 담을 쌓았다.
++ Bồi: Gang-ho-e eun-dun-ha-myeo se-sang-gwa dam-eul ssa-at-da.
+   + Việt: Anh ấy ẩn dật trong giang hồ và cách ly với thế gian.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 천하 (天下): "thiên hạ"
    - 무림 (武林): "võ lâm"
    - 유랑 (流浪): "lưu lãng, du hành"
+   - 은둔 (隱遁): "ẩn dật"
 
 4. MẸO NHỚ: Hãy nghĩ đến các cao thủ võ lâm bên bờ "GIANG" (강) sông và "HỒ" (호) nước. Đó là nơi họ giao đấu, hành hiệp trượng nghĩa — giang hồ (강호).
 
@@ -388,7 +448,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "khái quan, tổng quan". "槪" (개, khái) nghĩa là khái lược, tóm tắt; "觀" (관, quan) nghĩa là quan sát, nhìn. Hợp lại chỉ việc nhìn nhận tổng thể, nắm bắt đại khái.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이 보고서는 시장 상황에 대한 개관을 제공한다.
 + Bồi: I bo-go-seo-neun si-jang sang-hwang-e dae-han gae-gwan-eul je-gong-han-da.
    + Việt: Báo cáo này cung cấp cái nhìn tổng quan về tình hình thị trường.
@@ -409,10 +469,15 @@
 + Bồi: Do-si gae-gwan ji-do-reul han jang bat-go sip-seup-ni-da.
    + Việt: Tôi muốn nhận một bản đồ tổng quan thành phố.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 문제의 개관을 파악한 후 상세히 논의하자.
++ Bồi: Mun-je-ui gae-gwan-eul pa-ak-han hu sang-se-hi no-ni-ha-ja.
+   + Việt: Hãy nắm bắt khái quan vấn đề trước rồi thảo luận chi tiết sau.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 개요 (槪要): "khái yếu, tóm tắt"
    - 전반 (一般): "toàn bộ, phổ biến"
    - 상세 (詳細): "tường tận, chi tiết"
+   - 대략 (大略): "đại lược, đại khái"
 
 4. MẸO NHỚ: Hãy đứng trên đồi cao "KHÁI" (개) lược nhìn xuống và "QUAN" (관) sát toàn cảnh. Từ trên cao bạn thấy bức tranh tổng quan (개관) của thành phố.
 
@@ -420,7 +485,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "khai quốc, thành lập nước". "開" (개, khai) nghĩa là mở, bắt đầu; "國" (국, quốc) nghĩa là nước, quốc gia. Hợp lại chỉ việc thành lập một quốc gia mới, khởi đầu triều đại.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 대한민국은 1948년에 개국되었다.
 + Bồi: Dae-han-min-guk-eun 1948-nyeon-e gae-guk-doe-eot-da.
    + Việt: Hàn Quốc được thành lập vào năm 1948.
@@ -441,10 +506,15 @@
 + Bồi: I na-ra-ui gae-guk sin-hwa-ga jeon-hae-jin-da.
    + Việt: Thần thoại khai quốc của đất nước này được truyền tụng.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 개국 기념일에는 국민들이 깃발을 흔든다.
++ Bồi: Gae-guk gi-nyeom-il-e-neun gung-min-deul-i git-bal-eul heun-deun-da.
+   + Việt: Vào ngày kỷ niệm khai quốc, người dân vẫy cờ.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 건국 (建國): "kiến quốc, xây dựng đất nước"
    - 창업 (創業): "sáng nghiệp, khởi nghiệp"
    - 멸망 (滅亡): "diệt vong, sụp đổ"
+   - 독립 (獨立): "độc lập"
 
 4. MẸO NHỚ: Hãy nghĩ đến người anh hùng "KHAI" (개) cửa biên cương để lập "QUỐC" (국) gia. Khai quốc (개국) là việc vĩ đại nhất trong lịch sử một dân tộc.
 
@@ -452,7 +522,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cải thiện, cải tiến". "改" (개, cải) nghĩa là thay đổi, sửa chữa; "善" (선, thiện) nghĩa là tốt đẹp, thiện lương. Hợp lại chỉ việc thay đổi theo hướng tốt hơn, cải thiện.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 서비스 품질을 개선해야 한다.
 + Bồi: Seo-bi-seu pum-jil-eul gae-seon-hae-ya han-da.
    + Việt: Cần phải cải thiện chất lượng dịch vụ.
@@ -473,10 +543,15 @@
 + Bồi: I-bon gae-seon-an-eun hyo-gwa-ga keul geot-i-da.
    + Việt: Phương án cải tiến lần này sẽ rất hiệu quả.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 학교 시설을 개선하는 데 예산이 투입되었다.
++ Bồi: Hak-gyo si-seul-eul gae-seon-ha-neun de ye-san-i tu-ip-doe-eot-da.
+   + Việt: Ngân sách đã được đầu tư để cải thiện cơ sở vật chất trường học.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 발전 (發展): "phát triển"
    - 향상 (向上): "hướng thượng, nâng cao"
    - 퇴화 (退化): "thoái hóa, suy thoái"
+   - 수리 (修理): "sửa chữa, tu bổ"
 
 4. MẸO NHỚ: Hãy nghĩ đến việc "CẢI" (개) sửa nhà cũ thành "THIỆN" (선) đẹp hơn. Thay đổi theo hướng tốt đẹp — đó chính là cải thiện (개선).
 
@@ -484,7 +559,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cá tính, tính cách riêng". "個" (개, cá) nghĩa là cá thể, riêng lẻ; "性" (성, tính) nghĩa là bản chất, tính chất. Hợp lại chỉ những đặc điểm riêng biệt của mỗi người, tính cách độc đáo.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 그녀는 개성이 뚜렷한 디자이너이다.
 + Bồi: Geu-nyeo-neun gae-seong-i ddu-ryeot-han di-jai-neo-i-da.
    + Việt: Cô ấy là nhà thiết kế có cá tính rất rõ nét.
@@ -505,10 +580,15 @@
 + Bồi: Gae-seong it-neun sa-ram-i se-sang-eul ba-kkun-da.
    + Việt: Người có cá tính mới thay đổi được thế giới.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 패션은 개성을 표현하는 하나의 수단이다.
++ Bồi: Pae-syeon-eun gae-seong-eul pyo-hyeon-ha-neun ha-na-ui su-dan-i-da.
+   + Việt: Thời trang là một cách thể hiện cá tính.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 특징 (特徵): "đặc trưng, đặc điểm"
    - 성격 (性格): "tính cách"
    - 독창 (獨創): "độc sáng, sáng tạo"
+   - 성품 (性品): "tính phẩm, phẩm chất"
 
 4. MẸO NHỚ: Hãy nghĩ đến mỗi người là một "CÁ" (개) thể riêng biệt với bản "TÍNH" (성) khác nhau. Không ai giống ai — đó chính là cá tính (개성).
 
@@ -516,7 +596,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cá nhân". "個" (개, cá) nghĩa là cá thể; "人" (인, nhân) nghĩa là người. Hợp lại chỉ mỗi người riêng lẻ, đối lập với tập thể hoặc tổ chức.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 개인의 자유는 소중한 권리이다.
 + Bồi: Gae-in-ui ja-yu-neun so-jung-han gwon-ri-i-da.
    + Việt: Tự do cá nhân là quyền lợi quý giá.
@@ -537,10 +617,15 @@
 + Bồi: Tim-bo-da gae-in neung-ryeok-i ddui-eo-nat-da.
    + Việt: Năng lực cá nhân xuất sắc hơn cả đội.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 개인 사업자 등록을 마쳤다.
++ Bồi: Gae-in sa-eop-ja deung-nog-eul ma-chyeot-da.
+   + Việt: Tôi đã hoàn tất đăng ký hộ kinh doanh cá thể.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 사람 (-): "người"
    - 단체 (團體): "đoàn thể, tập thể"
    - 공동 (共同): "cộng đồng, chung"
+   - 사업 (事業): "sự nghiệp, kinh doanh"
 
 4. MẸO NHỚ: Hãy nghĩ đến mỗi "CÁ" (개) "NHÂN" (인) như một ngọn nến riêng biệt. Tập thể là cả chùm nến, còn cá nhân (개인) là ngọn lửa riêng của mỗi người.
 
@@ -548,7 +633,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "tháng". "個" (개, cá) là đơn vị đếm; "月" (월, nguyệt) nghĩa là tháng, mặt trăng. Hợp lại chỉ đơn vị thời gian khoảng 30 ngày, dùng để đếm số tháng.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 3개월 동안 한국어를 공부했다.
 + Bồi: Sam-gae-wal dong-an han-guk-eo-reul gong-bu-haet-da.
    + Việt: Tôi đã học tiếng Hàn trong 3 tháng.
@@ -569,10 +654,15 @@
 + Bồi: Hyu-ga-neun du-gae-wal hu-e ga-neung-ha-da.
    + Việt: Nghỉ phép có thể sau 2 tháng nữa.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 6개월마다 건강검진을 받는다.
++ Bồi: Yuk-gae-wal-ma-da geon-gang-geom-jin-eul bat-neun-da.
+   + Việt: Tôi khám sức khỏe mỗi 6 tháng một lần.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 달 (-): "tháng"
    - 년 (年): "năm"
    - 주 (週): "tuần"
+   - 일 (日): "ngày"
 
 4. MẸO NHỚ: Hãy nghĩ đến mỗi "CÁ" (개) "NGUYỆT" (월) — mỗi lần trăng tròn là một tháng. Đếm tháng bằng cách đếm số lần trăng tròn: 1 tháng, 2 tháng (1개월, 2개월).
 
@@ -580,7 +670,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "khách quan". "客" (객, khách) nghĩa là khách, người ngoài; "觀" (관, quan) nghĩa là quan sát, nhìn. Hợp lại chỉ việc nhìn nhận sự việc không theo cảm xúc cá nhân, đứng từ góc độ người ngoài.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 객관적인 판단이 필요하다.
 + Bồi: Gae-gwan-jeok-in pan-dan-i pil-yo-ha-da.
    + Việt: Cần có phán đoán khách quan.
@@ -601,10 +691,15 @@
 + Bồi: Yeok-sa-reul gae-gwan-jeok-eu-ro gi-rok-hae-ya han-da.
    + Việt: Lịch sử cần được ghi chép một cách khách quan.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 객관적 증거가 없으면 고발하기 어렵다.
++ Bồi: Gae-gwan-jeok jeung-geo-ga eop-seu-myeon go-bal-ha-gi eo-ryeop-da.
+   + Việt: Khó có thể tố cáo nếu không có bằng chứng khách quan.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 공정 (公正): "công chính, công bằng"
    - 주관 (主觀): "chủ quan"
    - 중립 (中立): "trung lập"
+   - 증거 (證據): "bằng chứng, chứng cứ"
 
 4. MẸO NHỚ: Hãy nghĩ đến người "KHÁCH" (객) đứng ngoài "QUAN" (관) sát mà không thiên vị. Vì không liên quan trực tiếp nên nhìn nhận khách quan (객관) hơn.
 
@@ -612,7 +707,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "khách mời, ghế khách, chỗ ngồi dành cho khách". "客" (객, khách) nghĩa là khách; "席" (석, tịch) nghĩa là chỗ ngồi, tịch. Hợp lại chỉ chỗ ngồi dành cho khách trong nhà hát, sân vận động hoặc buổi tiệc.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 객석이 만석이다.
 + Bồi: Gaek-seok-i man-seok-i-da.
    + Việt: Ghế khách đã kín chỗ.
@@ -633,10 +728,15 @@
 + Bồi: Mu-dae-bo-da gae-seok-i deo gin-jang-dwaet-da.
    + Việt: Khán giả còn căng thẳng hơn cả sân khấu.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 객석을 가득 메운 관객들이 환호했다.
++ Bồi: Gae-seok-eul ga-deuk me-un gwan-gaek-deul-i hwan-ho-haet-da.
+   + Việt: Khán giả lấp đầy chỗ ngồi đã hoan hô.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 관객 (觀客): "khán giả, quan khách"
    - 좌석 (座席): "chỗ ngồi, ghế ngồi"
    - 무대 (舞臺): "sân khấu"
+   - 만석 (滿席): "kín chỗ, chật kín"
 
 4. MẸO NHỚ: Hãy nghĩ đến người "KHÁCH" (객) ngồi trên "TỊCH" (석) vị trong nhà hát. Họ là khán giả, người ngồi ở ghế khách (객석) để xem biểu diễn.
 
@@ -644,7 +744,7 @@
 
 1. GIẢI NGHĨA: Nghĩa tiếng Việt là "giả dối, dối trá". "虛" (거, hư) nghĩa là hư ảo, giả tạo; "僞" (짓, ngụy) nghĩa là ngụy trang, giả mạo. Hợp lại chỉ sự không thật, lừa dối, nói sai sự thật.
 
-2. 5 VÍ DỤ THỰC CHIẾN:
+2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 거짓말은 결국 드러난다.
 + Bồi: Geo-jit-mal-eun gyeol-guk deu-reo-nan-da.
    + Việt: Nói dối rồi cũng sẽ bị phát hiện.
@@ -665,9 +765,14 @@
 + Bồi: Geo-jit-eu-ro eo-deun geot-eun o-rae-ga-ji mot-han-da.
    + Việt: Những gì có được bằng dối trá không tồn tại lâu.
 
-3. 3 TỪ LIÊN QUAN GỐC HÁN:
++ Hàn: 거짓 뉴스는 사회를 혼란에 빠뜨린다.
++ Bồi: Geo-jit nyu-seu-neun sa-hoe-reul hon-ran-e bba-deu-rin-da.
+   + Việt: Tin giả làm xã hội rơi vào hỗn loạn.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 진실 (眞實): "chân thật, sự thật"
    - 위조 (僞造): "ngụy tạo, giả mạo"
    - 기만 (欺瞞): "lừa dối, gian dối"
+   - 허위 (虛僞): "hư ngụy, giả dối"
 
 4. MẸO NHỚ: Hãy nghĩ đến người nói "HƯ" (거) ảo và "NGỤY" (짓) trang sự thật. Khi bắt gặp ai đó nói dối, hãy nhớ từ 거짓 — sự giả dối.
