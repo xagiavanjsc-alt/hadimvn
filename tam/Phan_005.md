@@ -1,926 +1,753 @@
-# Phan 005 Hanja Vocabulary
+## 경이 (驚異)
 
-## 계획 (計劃)
-
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Kế hoạch, dự định". "計" (계, kế) nghĩa là tính toán, kế sách; "劃" (획, hoạch) nghĩa là phân chia, vạch ra. Hợp lại chỉ việc lập ra phương án, kế hoạch để thực hiện mục tiêu.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Sự kinh ngạc, sự ngạc nhiên đến sửng sốt". Gốc Hán: "驚" (Kinh) nghĩa là giật mình, kinh hãi; "異" (Dị) nghĩa là khác thường, lạ lùng. Hợp lại chỉ cảm giác bất ngờ trước điều kỳ lạ, phi thường.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 새해 계획을 세웠다.
-+ Bồi: Sae-hae gye-hwaeg-eul se-woo-at-da.
-   + Việt: Đã lập kế hoạch năm mới.
++ Hàn: 자연의 경이는 끝이 없는 것 같아요.
++ Bồi: ja-yeon-ui gyeong-i-neun kkeut-i eop-neun geot gat-a-yo
+   + Việt: Vẻ kỳ diệu của thiên nhiên dường như vô tận.
 
-+ Hàn: 이 프로젝트는 계획대로 진행 중이다.
-+ Bồi: I peu-ro-jek-teu-neun gye-hwaek-dae-ro jin-haeng jung-i-da.
-   + Việt: Dự án này đang tiến hành theo kế hoạch.
++ Hàn: 그 신기술은 모두를 경이롭게 만들었습니다.
++ Bồi: geu sin-gi-sul-eun mo-du-reul gyeong-i-rop-ge man-deul-eot-seup-ni-da
+   + Việt: Công nghệ mới đó đã khiến mọi người kinh ngạc.
 
-+ Hàn: 계획이 틀어지지 않도록 노력하자.
-+ Bồi: Gye-hwaek-i teul-eo-ji-ji an-do-rok no-ryeok-ha-ja.
-   + Việt: Hãy cố gắng để kế hoạch không bị lệch.
++ Hàn: 경이로운 광경을 눈앞에서 목격했습니다.
++ Bồi: gyeong-i-ro-un gwang-gyeong-eul nun-ap-e-seo mok-gyeok-haet-seup-ni-da
+   + Việt: Tôi đã tận mắt chứng kiến một cảnh tượng kỳ diệu.
 
-+ Hàn: 장기 계획을 세우는 것이 중요하다.
-+ Bồi: Jang-gi gye-hwaek-eul se-u-neun geot-i jung-yo-ha-da.
-   + Việt: Lập kế hoạch dài hạn là quan trọng.
++ Hàn: 아이의 천재성에 순수한 경이를 느꼈어요.
++ Bồi: a-i-ui cheon-jae-seong-e sun-su-han gyeong-i-reul neu-kkyeot-eo-yo
+   + Việt: Tôi cảm thấy một sự kinh ngạc thuần khiết trước thiên tài của đứa trẻ.
 
-+ Hàn: 그는 계획적인 사람이다.
-+ Bồi: Geu-neun gye-hwaek-jeok-in sa-ram-i-da.
-   + Việt: Anh ấy là người có tính kế hoạch.
++ Hàn: 이 고대 유적은 참으로 경이스러워요.
++ Bồi: i go-dae yu-jeok-eun cham-eu-ro gyeong-i-seu-reo-wo-yo
+   + Việt: Di tích cổ đại này thực sự đáng kinh ngạc.
 
-+ Hàn: 계획을 세우기 전에 충분히 조사하라.
-+ Bồi: Gye-hwaek-eul se-u-gi jeon-e chung-bun-hi jo-sa-ha-ra.
-   + Việt: Trước khi lập kế hoạch hãy điều tra kỹ lưỡng.
++ Hàn: 과학의 경이는 우리 삶을 바꾸고 있어요.
++ Bồi: gwa-hak-ui gyeong-i-neun u-ri salm-eul ba-kku-go it-eo-yo
+   + Việt: Những điều kỳ diệu của khoa học đang thay đổi cuộc sống chúng ta.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 계획서 (計劃書): Kế hoạch thư, phương án
-   - 안 (案): Án, dự án
-   - 목표 (目標): Mục tiêu
-   - 일정 (日程): Nhật trình, lịch trình
+   - 경악 (驚愕, Gyeong-ag): Sự kinh hoàng, sửng sốt (vì sợ hãi).
+   - 이상 (異常, I-sang): Dị thường, bất thường.
+   - 기적 (奇跡, Gi-jeok): Kỳ tích, phép lạ.
 
-4. MẸO NHỚ: Hãy nghĩ đến việc "KẾ" (계) sách tính toán rồi "HOẠCH" (획) vạch ra lộ trình. Có kế hoạch (계획) thì đi đúng hướng.
+4. MẸO NHỚ: Hãy tưởng tượng bạn đang "KINH" (giật mình) khi thấy một điều "DỊ" (kỳ lạ, khác thường). Cảm giác "KINH DỊ" đó chính là "경이" - sự kinh ngạc trước điều phi thường.
 
-## 고객 (顧客)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Khách hàng". "顧" (고, cố) nghĩa là quan tâm, chăm sóc; "客" (객, khách) nghĩa là người đến thăm, khách. Hợp lại chỉ người mua hàng hoặc sử dụng dịch vụ.
+## 경쟁력 (競爭力)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Năng lực cạnh tranh". Phân tích gốc Hán: "競爭" (경쟁 - cạnh tranh) + "力" (력 - sức lực, năng lực).
 
 2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 고객 만족이 최우선이다.
-+ Bồi: Go-gaek man-jok-i choe-u-seon-i-da.
-   + Việt: Sự hài lòng của khách hàng là ưu tiên số một.
++ Hàn: 기업의 경쟁력은 기술 혁신에서 나옵니다.
++ Bồi: gi-eop-ui gyeong-jaeng-ryeok-eun gi-sul hyeok-sin-e-seo na-op-ni-da
+   + Việt: Năng lực cạnh tranh của doanh nghiệp đến từ đổi mới công nghệ.
 
-+ Hàn: 고객 센터에 전화했더니 친절했다.
-+ Bồi: Go-gaek sen-teo-e jeon-hwa-haet-deo-ni chin-jeol-haet-da.
-   + Việt: Gọi trung tâm chăm sóc khách hàng thì họ rất nhiệt tình.
++ Hàn: 글로벌 시장에서 경쟁력을 유지하려면 끊임없이 배워야 합니다.
++ Bồi: geul-ro-beol si-jang-e-seo gyeong-jaeng-ryeok-eul yu-ji-ha-ryeo-myeon kkeun-im-eop-i bae-wo-ya hap-ni-da
+   + Việt: Để duy trì năng lực cạnh tranh trên thị trường toàn cầu, phải không ngừng học hỏi.
 
-+ Hàn: 신규 고객을 유치하기 위해 프로모션을 한다.
-+ Bồi: Sin-gyu go-gaek-eul yu-chi-ha-gi wi-hae peu-ro-mo-syeon-eul han-da.
-   + Việt: Làm khuyến mãi để thu hút khách hàng mới.
++ Hàn: 그 회사의 가장 큰 경쟁력은 우수한 인재입니다.
++ Bồi: geu hoe-sa-ui ga-jang keun gyeong-jaeng-ryeok-eun u-su-han in-jae-ip-ni-da
+   + Việt: Năng lực cạnh tranh lớn nhất của công ty đó là nhân tài xuất sắc.
 
-+ Hàn: 고객의 불만을 신속히 처리해야 한다.
-+ Bồi: Go-gaek-ui bul-man-eul sin-sok-hi cheo-ri-hae-ya han-da.
-   + Việt: Cần xử lý khiếu nại của khách hàng nhanh chóng.
++ Hàn: 가격 경쟁력만으로는 시장에서 살아남기 어렵습니다.
++ Bồi: ga-gyeok gyeong-jaeng-ryeok-man-eu-ro-neun si-jang-e-seo sal-a-nam-gi eo-ryeop-seup-ni-da
+   + Việt: Chỉ riêng năng lực cạnh tranh về giá cả thì khó tồn tại trên thị trường.
 
-+ Hàn: 단골 고객에게 할인 혜택을 준다.
-+ Bồi: Dan-gol go-gaek-e-ge hal-in hye-taeg-eul jun-da.
-   + Việt: Giảm giá cho khách hàng thân thiết.
++ Hàn: 우리 제품의 경쟁력을 높이기 위해 품질 개선에 집중하고 있습니다.
++ Bồi: u-ri je-pum-ui gyeong-jaeng-ryeok-eul nop-i-gi wi-hae pum-jil gae-seon-e jip-jung-ha-go it-seup-ni-da
+   + Việt: Chúng tôi đang tập trung cải thiện chất lượng để nâng cao năng lực cạnh tranh cho sản phẩm.
 
-+ Hàn: 고객 데이터를 분석하여 전략을 세운다.
-+ Bồi: Go-gaek de-i-teo-reul bun-seok-ha-yeo jeon-ryak-eul se-un-da.
-   + Việt: Phân tích dữ liệu khách hàng để xây dựng chiến lược.
++ Hàn: 경쟁력 분석은 비즈니스 전략의 첫 단계입니다.
++ Bồi: gyeong-jaeng-ryeok bun-seok-eun bi-jeu-ni-seu jeon-ryak-ui cheot dan-gye-ip-ni-da
+   + Việt: Phân tích năng lực cạnh tranh là bước đầu tiên trong chiến lược kinh doanh.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 손님 (-): Khách
-   - 소비자 (消費者): Người tiêu dùng
-   - 이용자 (利用者): Người sử dụng
-   - vip (-): Khách hàng thân thiết
+   - 경쟁자 (競爭者): Đối thủ cạnh tranh.
+   - 경쟁심 (競爭心): Tinh thần cạnh tranh, lòng hiếu thắng.
+   - 생존력 (生存力): Sức sống, năng lực sinh tồn.
+   - 핵심역량 (核心力量): Năng lực cốt lõi.
 
-4. MẸO NHỚ: Hãy nghĩ đến người "CỐ" (고) nghĩ đến "KHÁCH" (객) hàng như thượng đế. Khách hàng (고객) luôn đúng.
+4. MẸO NHỚ: Hãy hình dung một cuộc **"chạy đua" (경쟁)** đòi hỏi rất nhiều **"sức lực" (力)**. Ai có nhiều "sức lực để chạy đua" hơn thì người đó có **"경쟁력"** cao hơn.
+
+
+## 경청 (傾聽)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt: "Lắng nghe". Phân tích gốc Hán: 傾 (경, nghiêng về, chú tâm) + 聽 (청, nghe) => chỉ việc chú tâm, nghiêng mình để lắng nghe một cách chân thành và tập trung.
+
+2. 6 VÍ DỤ THỰC CHIẾN:
++ Hàn: 경청은 좋은 대화의 시작입니다.
++ Bồi: gyeong-cheong-eun jot-eun dae-hwa-ui si-jak-ip-ni-da
+   + Việt: Lắng nghe là khởi đầu của một cuộc trò chuyện tốt đẹp.
+
++ Hàn: 상대방의 말을 경청할 때 이해도가 높아져요.
++ Bồi: sang-dae-bang-ui mal-eul gyeong-cheong-hal ttae i-hae-do-ga nop-a-jyeo-yo
+   + Việt: Khi lắng nghe lời đối phương, mức độ thấu hiểu sẽ tăng lên.
+
++ Hàn: 리더는 팀원의 의견을 경청하는 자세가 필요해요.
++ Bồi: ri-deo-neun tim-won-ui ui-gyeon-eul gyeong-cheong-ha-neun ja-se-ga pil-yo-hae-yo
+   + Việt: Người lãnh đạo cần có thái độ lắng nghe ý kiến của thành viên trong nhóm.
+
++ Hàn: 경청하지 않고는 진정한 소통이 불가능해요.
++ Bồi: gyeong-cheong-ha-ji an-go-neun jin-jeong-han so-tong-i bul-ga-neung-hae-yo
+   + Việt: Không lắng nghe thì không thể có giao tiếp chân thực được.
+
++ Hàn: 그 강연은 관객의 경청을 이끌어냈어요.
++ Bồi: geu gang-yeon-eun gwan-gaek-ui gyeong-cheong-eul i-kkeul-eo-naet-eo-yo
+   + Việt: Bài diễn thuyết đó đã thu hút được sự lắng nghe của khán giả.
+
++ Hàn: 경청하는 습관을 기르는 것이 중요합니다.
++ Bồi: gyeong-cheong-ha-neun seup-gwan-eul gi-reu-neun geot-i jung-yo-hap-ni-da
+   + Việt: Việc rèn luyện thói quen lắng nghe là rất quan trọng.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
+   - 청취 (聽取): Lắng nghe và tiếp thu, thường dùng trong ngữ cảnh như nghe đài, podcast.
+   - 청강 (聽講): Nghe giảng, dự thính một bài giảng hay khóa học.
+   - 경력 (經歷): Kinh lịch, chỉ kinh nghiệm và quá trình đã trải qua.
+   - 경향 (傾向): Khuynh hướng, xu hướng nghiêng về một phía nào đó.
+
+4. MẸO NHỚ: Hãy tưởng tượng chữ "경" như hình người nghiêng người (傾), và "청" là tai đang lắng nghe (聽). Ghép lại thành hành động "nghiêng người để dùng tai lắng nghe" - chính là "경청".
+
+
+## 경호 (警護)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Bảo vệ", chỉ hoạt động bảo vệ an ninh, bảo vệ cá nhân. Phân tích gốc Hán: 警 (경, cảnh) nghĩa là cảnh giác, cảnh báo; 護 (호, hộ) nghĩa là che chở, bảo vệ. Hợp lại chỉ việc bảo vệ một cách cảnh giác.
+
+2. 6 VÍ DỤ THỰC CHIẾN:
+Hàn: 경호원이 그 사람을 안전하게 지켰다.
+Bồi: Gyeonghowoni geu saram-eul anjeonhage jikyeotda.
+Việt: Nhân viên bảo vệ đã bảo vệ an toàn cho người đó.
+
+Hàn: 그 회사는 전문 경호 서비스를 제공합니다.
+Bồi: Geu hoesaneun jeonmun gyeongho seobiseureul jegonghamnida.
+Việt: Công ty đó cung cấp dịch vụ bảo vệ chuyên nghiệp.
+
+Hàn: 경호 업무를 위해서 특별한 훈련이 필요하다.
+Bồi: Gyeongho eommureul wihaeseo teukbyeolhan hunlyeoni piryohada.
+Việt: Cần có huấn luyện đặc biệt cho công việc bảo vệ.
+
+Hàn: 대통령의 방문에 맞춰 경호가 강화되었다.
+Bồi: Daetongnyeong-ui bangmun-e matchwo gyeonghoga ganghwadoeeotda.
+Việt: Công tác bảo vệ được tăng cường cho chuyến thăm của tổng thống.
+
+Hàn: 그 건물은 24시간 경호를 받고 있다.
+Bồi: Geu geonmureun 24sigan gyeonghoreul batgo itda.
+Việt: Tòa nhà đó được bảo vệ 24 giờ.
+
+Hàn: 경호는 중요한 공공 안전 업무이다.
+Bồi: Gyeonghoneun jungyohan gonggong anjeon eommuda.
+Việt: Bảo vệ là nhiệm vụ an toàn công cộng quan trọng.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN: liệt kê 3 từ có liên quan, mỗi từ kèm giải thích ngắn.
+- 경찰 (警察): Cảnh sát - cơ quan thực thi pháp luật, duy
+
+
+## 계몽 (啓蒙)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Khai sáng", chỉ việc mở mang trí tuệ, giác ngộ cho người khác. Gốc Hán: "계" (啓 - Khải) nghĩa là mở ra, bắt đầu; "몽" (蒙 - Mông) nghĩa là mông muội, tối tăm. Hợp lại thành "mở ra sự mông muội".
+
+2. 6 VÍ DỤ THỰC CHIẾN:
++ Hàn: 계몽 사상은 사회 변화를 이끌었습니다.
++ Bồi: gye-mong sa-sang-eun sa-hoe byeon-hwa-reul i-kkeul-eot-seup-ni-da
+   + Việt: Tư tưởng khai sáng đã dẫn dắt sự thay đổi xã hội.
+
++ Hàn: 그 책은 청소년에게 중요한 계몽 서적이에요.
++ Bồi: geu chaek-eun cheong-so-nyeon-e-ge jung-yo-han gye-mong seo-jeok-i-e-yo
+   + Việt: Cuốn sách đó là sách khai sáng quan trọng cho giới trẻ.
+
++ Hàn: 계몽 교육을 통해 비판적 사고를 기릅니다.
++ Bồi: gye-mong gyo-yuk-eul tong-hae bi-pan-jeok sa-go-reul gi-reup-ni-da
+   + Việt: Thông qua giáo dục khai sáng, người ta nuôi dưỡng tư duy phê phán.
+
++ Hàn: 그 시대의 계몽주의자들은 큰 영향을 남겼어요.
++ Bồi: geu si-dae-ui gye-mong-ju-ui-ja-deul-eun keun yeong-hyang-eul nam-gyeot-eo-yo
+   + Việt: Những nhà khai sáng chủ nghĩa của thời đại đó đã để lại ảnh hưởng lớn.
+
++ Hàn: 이 프로그램은 과학적 계몽을 목표로 합니다.
++ Bồi: i peu-ro-geu-raem-eun gwa-hak-jeok gye-mong-eul mok-pyo-ro hap-ni-da
+   + Việt: Chương trình này nhằm mục tiêu khai sáng khoa học.
+
++ Hàn: 진정한 계몽은 스스로 생각하는 힘을 줍니다.
++ Bồi: jin-jeong-han gye-mong-eun seu-seu-ro saeng-gak-ha-neun him-eul jup-ni-da
+   + Việt: Sự khai sáng thực sự trao cho ta sức mạnh tự tư duy.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
+   - 개방 (開放 - Khai phóng): Mở cửa, mở mang, tự do hóa.
+   - 몽매 (蒙昧 - Mông muội): Trạng thái u mê, thiếu hiểu biết.
+   - 계발 (啓發 - Khải phát): Khơi dậy, khai mở tiềm năng.
+   - 교양 (敎養 - Giáo dưỡng): Sự giáo dục, nuôi dưỡng văn hóa, tri thức.
+
+4. MẸO NHỚ: Hãy tưởng tượng một cánh cửa (계 - Khải, mở ra) đang bị khóa bởi một lớp sương mù dày đặc (몽 - Mông, mông muội). "Khai sáng" chính là chìa khóa mở cánh cửa ấy, xua tan sương mù để ánh sáng trí tuệ lọt vào.
+
+
+## 계산 (計算)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Tính toán". Gốc Hán: "계" (計) nghĩa là kế hoạch, đếm; "산" (算) nghĩa là tính, suy nghĩ. Hợp lại chỉ việc tính toán số liệu, chi phí hoặc dự định.
+
+2. 6 VÍ DỤ THỰC CHIẾN:
++ Hàn: 계산 좀 해 주세요.
++ Bồi: gye-san jom hae ju-se-yo
+   + Việt: Hãy tính toán giúp tôi.
++ Hàn: 이 계산은 정확하지 않아요.
++ Bồi: i gye-san-eun jeong-hwak-ha-ji an-a-yo
+   + Việt: Phép tính này không chính xác.
++ Hàn: 계산서를 요청합니다.
++ Bồi: gye-san-seo-reul yo-cheong-hap-ni-da
+   + Việt: Tôi yêu cầu hóa đơn thanh toán.
++ Hàn: 그건 제 계산 밖이에요.
++ Bồi: geu-geon je gye-san bak-i-e-yo
+   + Việt: Điều đó nằm ngoài dự tính của tôi.
++ Hàn: 생활비를 계산 중이에요.
++ Bồi: saeng-hwal-bi-reul gye-san jung-i-e-yo
+   + Việt: Tôi đang tính toán chi phí sinh hoạt.
++ Hàn: 계산기를 사용하세요.
++ Bồi: gye-san-gi-reul sa-yong-ha-se-yo
+   + Việt: Hãy sử dụng máy tính.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
+   - 계획 (計劃): Kế hoạch, lên kế hoạch.
+   - 예산 (豫算): Ngân sách, dự toán.
+   - 산수 (算數): Số học, tính toán cơ bản.
+   - 통계 (統計): Thống kê, tập hợp và phân tích số liệu.
+
+4. MẸO NHỚ: Hãy tưởng tượng bạn đang ở quán cafe, gọi "계산서 주세요! " (Cho tôi hóa đơn! ). Chữ "계" như chiếc máy tính (calculator), "산" như các con số đang nhảy múa. Ghép lại là hành động "tính" tiền trên "hóa đơn".
+
+
+## 계승 (繼承)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Kế thừa", "thừa kế". Gốc Hán: 繼 (Kế - nối tiếp) + 承 (Thừa - tiếp nhận), chỉ việc tiếp nhận và phát huy những gì của thế hệ trước.
+
+2. 6 VÍ DỤ THỰC CHIẾN:
++ Hàn: 그는 가업을 계승했다.
++ Bồi: geu-neun ga-eop-eul gye-seung-haet-da
+   + Việt: Anh ấy đã kế thừa gia nghiệp.
+
++ Hàn: 우리는 선조의 유산을 계승해야 합니다.
++ Bồi: u-ri-neun seon-jo-ui yu-san-eul gye-seung-hae-ya hap-ni-da
+   + Việt: Chúng ta phải kế thừa di sản của tổ tiên.
+
++ Hàn: 그 정신은 후대에 계승될 것이다.
++ Bồi: geu jeong-sin-eun hu-dae-e gye-seung-doel geot-i-da
+   + Việt: Tinh thần ấy sẽ được kế thừa bởi các thế hệ sau.
+
++ Hàn: 전통 문화를 계승하는 것은 중요하다.
++ Bồi: jeon-tong mun-hwa-reul gye-seung-ha-neun geot-eun jung-yo-ha-da
+   + Việt: Việc kế thừa văn hóa truyền thống rất quan trọng.
+
++ Hàn: 왕위 계승 문제로 분쟁이 일어났다.
++ Bồi: wang-wi gye-seung mun-je-ro bun-jaeng-i il-eo-nat-da
+   + Việt: Tranh chấp đã nổ ra vì vấn đề kế thừa ngai vàng.
+
++ Hàn: 기술을 계승할 젊은 인재가 필요해요.
++ Bồi: gi-sul-eul gye-seung-hal jeolm-eun in-jae-ga pil-yo-hae-yo
+   + Việt: Cần có nhân tài trẻ để kế thừa công nghệ.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
+   - 상속 (相續, Sang-sok): Thừa kế tài sản (từ chuyên ngành pháp lý).
+   - 계승자 (繼承者, Gye-seung-ja): Người kế thừa.
+   - 전승 (傳承, Jeon-seung): Truyền thừa, lưu truyền (nhấn mạnh truyền lại).
+   - 승계 (承繼, Seung-gye): Sự tiếp nối, kế tục (cách diễn đạt khác của 계승).
+
+4. MẸO NHỚ: Hãy nghĩ đến "Kế" trong "kế tiếp" và "Thừa" trong "thừa hưởng". Từ "계승" phát âm gần giống "kế thừa" trong tiếng Việt, giúp liên tưởng ngay đến nghĩa "kế thừa".
+
+
+## 계층 (階層)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt: "tầng lớp". Phân tích gốc Hán: "계" (階 - giai) chỉ bậc, thang bậc; "층" (層 - tằng) chỉ lớp, tầng. Hợp lại chỉ nhóm người có địa vị, điều kiện tương đồng trong xã hội.
+
+2. 6 VÍ DỤ THỰC CHIẾN:
++ Hàn: 사회에는 다양한 소득 계층이 존재합니다.
++ Bồi: sa-hoe-e-neun da-yang-han so-deuk gye-cheung-i jon-jae-hap-ni-da
+   + Việt: Trong xã hội tồn tại nhiều tầng lớp thu nhập khác nhau.
+
++ Hàn: 이 정책은 중산 계층에 큰 혜택을 줍니다.
++ Bồi: i jeong-chaek-eun jung-san gye-cheung-e keun hye-taek-eul jup-ni-da
+   + Việt: Chính sách này mang lại lợi ích lớn cho tầng lớp trung lưu.
+
++ Hàn: 고대 사회는 엄격한 신분 계층으로 나뉘었어요.
++ Bồi: go-dae sa-hoe-neun eom-gyeok-han sin-bun gye-cheung-eu-ro na-nwi-eot-eo-yo
+   + Việt: Xã hội cổ đại được chia thành các tầng lớp đẳng cấp nghiêm ngặt.
+
++ Hàn: 정보 격차는 디지털 계층 간 갈등을 유발할 수 있어요.
++ Bồi: jeong-bo gyeok-cha-neun di-ji-teol gye-cheung gan gal-deung-eul yu-bal-hal su it-eo-yo
+   + Việt: Khoảng cách số có thể gây ra mâu thuẫn giữa các tầng lớp kỹ thuật số.
+
++ Hàn: 그는 낮은 사회 계층에서 성공한 이야기로 유명해요.
++ Bồi: geu-neun nat-eun sa-hoe gye-cheung-e-seo seong-gong-han i-ya-gi-ro yu-myeong-hae-yo
+   + Việt: Anh ấy nổi tiếng với câu chuyện thành công từ tầng lớp xã hội thấp.
+
++ Hàn: 이 건물은 지하주차장부터 옥상까지 10개 계층으로 되어 있습니다.
++ Bồi: i geon-mul-eun ji-ha-ju-cha-jang-bu-teo ok-sang-kka-ji 10gae gye-cheung-eu-ro doe-eo it-seup-ni-da
+   + Việt: Tòa nhà này có cấu trúc 10 tầng, từ bãi đậu xe ngầm đến tầng thượng.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
+   - 계급 (階級 - Gye-geup): Giai cấp, thường nhấn mạnh sự phân chia địa vị hoặc cấp bậc.
+   - 단계 (段階 - Dan-gye): Giai đoạn, bước, chỉ trình tự hoặc mức độ phát triển.
+   - 충층 (層 - Cheung): Tầng, lớp, thường dùng để chỉ số tầng của một tòa nhà.
+
+4. MẸO NHỚ: Hãy hình dung một tòa tháp nhiều **tầng** (층). Mỗi tầng là một nhóm người khác nhau, và muốn lên **bậc** (계) cao hơn phải leo từng bậc thang. "계층" chính là các tầng bậc xã hội đó.
+
+
+## 고갈 (枯渴)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cạn kiệt". Gốc Hán: "枯" (고) nghĩa là khô héo, cạn kiệt; "渴" (갈) nghĩa là khát nước. Hợp lại chỉ sự cạn kiệt, hao hụt đến mức không còn gì.
+
+2. 6 VÍ DỤ THỰC CHIẾN:
++ Hàn: 자원이 고갈되고 있어요.
++ Bồi: ja-won-i go-gal-doe-go it-eo-yo
+   + Việt: Tài nguyên đang bị cạn kiệt.
++ Hàn: 그 일로 체력이 완전히 고갈됐어요.
++ Bồi: geu il-ro che-ryeok-i wan-jeon-hi go-gal-dwaet-eo-yo
+   + Việt: Công việc đó khiến thể lực tôi cạn kiệt hoàn toàn.
++ Hàn: 국가 재정이 고갈될 위기에 처해 있다.
++ Bồi: guk-ga jae-jeong-i go-gal-doel wi-gi-e cheo-hae it-da
+   + Việt: Ngân sách quốc gia đang đứng trước nguy cơ cạn kiệt.
++ Hàn: 장시간 논쟁으로 인해 그의 인내심이 고갈되었다.
++ Bồi: jang-si-gan non-jaeng-eu-ro in-hae geu-ui in-nae-sim-i go-gal-doe-eot-da
+   + Việt: Cuộc tranh cãi kéo dài đã làm cạn kiệt sự kiên nhẫn của anh ta.
++ Hàn: 지하수 고갈 문제가 심각합니다.
++ Bồi: ji-ha-su go-gal mun-je-ga sim-gak-hap-ni-da
+   + Việt: Vấn đề cạn kiệt nước ngầm rất nghiêm trọng.
++ Hàn: 창의력이 고갈된 느낌이 들어요.
++ Bồi: chang-ui-ryeok-i go-gal-doen neu-kkim-i deul-eo-yo
+   + Việt: Tôi cảm thấy sự sáng tạo của mình đã cạn kiệt.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
+   - 고독 (孤獨): Cô độc. "孤" (cô đơn), "獨" (một mình).
+   - 갈망 (渴望): Khát khao, mong mỏi. "渴" (khát), "望" (trông mong).
+   - 고통 (苦痛): Khổ đau, đau đớn. "苦" (khổ), "痛" (đau).
+   - 갈등 (葛藤): Mâu thuẫn, xung đột. "葛" (dây leo), "藤" (dây móc), ý chỉ rối rắm.
+
+4. MẸO NHỚ: Hãy tưởng tượng một cái **cốc (고)** nước bị **gạt (갈)** hết sạch, không còn một giọt. "Cốc bị gạt sạch" -> **고갈** -> CẠN KIỆT.
+
+
+## 고귀 (高貴)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cao quý, quý giá". Từ gốc Hán là 高貴 (Cao Quý), trong đó "高" (cao) chỉ sự cao thượng, "貴" (quý) chỉ sự quý giá, đáng trọng.
+
+2. 6 VÍ DỤ THỰC CHIẾN:
++ Hàn: 그녀는 고귀한 태도를 지녔다.
++ Bồi: geu-nyeo-neun go-gwi-han tae-do-reul ji-nyeot-da
+   + Việt: Cô ấy có một thái độ cao quý.
++ Hàn: 고귀한 보석이 반지에 박혀 있었다.
++ Bồi: go-gwi-han bo-seok-i ban-ji-e bak-hyeo it-eot-da
+   + Việt: Một viên đá quý cao quý được gắn trên chiếc nhẫn.
++ Hàn: 그의 고귀한 희생을 잊지 말자.
++ Bồi: geu-ui go-gwi-han hui-saeng-eul it-ji mal-ja
+   + Việt: Đừng quên sự hy sinh cao quý của anh ấy.
++ Hàn: 이 왕관은 고귀한 가치를 지닌다.
++ Bồi: i wang-gwan-eun go-gwi-han ga-chi-reul ji-nin-da
+   + Việt: Vương miện này mang một giá trị cao quý.
++ Hàn: 그 가문은 매우 고귀한 혈통이다.
++ Bồi: geu ga-mun-eun mae-u go-gwi-han hyeol-tong-i-da
+   + Việt: Dòng họ đó có dòng máu rất cao quý.
++ Hàn: 마음의 고귀함이 외모보다 중요하다.
++ Bồi: ma-eum-ui go-gwi-ham-i oe-mo-bo-da jung-yo-ha-da
+   + Việt: Sự cao quý của tâm hồn quan trọng hơn vẻ bề ngoài.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
+   - 고가 (高價, Cao Giá): Giá cao, chỉ món đồ có giá trị lớn về tiền bạc.
+   - 귀중 (貴重, Quý Trọng): Quý giá, trọng yếu, rất đáng quý và quan trọng.
+   - 고상 (高尚, Cao Thượng): Thanh cao, cao thượng, chỉ phẩm chất đạo đức tốt đẹp.
+   - 명귀 (名貴, Danh Quý): Nổi tiếng và quý giá, thường chỉ đồ vật quý hiếm, đắt giá.
+
+4. MẸO NHỚ: Hãy tưởng tượng một "cô gái (고) quý (귀) phái" - "고귀" - với dáng vẻ và tâm hồn cao quý, đứng trên một nơi cao (高) và được mọi người quý trọng (貴).
+
+
+## 고독 (孤獨)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cô đơn". Gốc Hán: "孤" (고) nghĩa là trơ trọi, "獨" (독) nghĩa là một mình, hợp thành chỉ sự cô độc, lẻ loi.
+
+2. 6 VÍ DỤ THỰC CHIẾN:
++ Hàn: 깊은 밤의 고독이 가장 무겁게 느껴진다.
++ Bồi: gip-eun bam-ui go-dok-i ga-jang mu-geop-ge neu-kkyeo-jin-da
+   + Việt: Nỗi cô đơn trong đêm khuya cảm thấy nặng nề nhất.
+
++ Hàn: 그는 고독을 친구처럼 여기며 살았다.
++ Bồi: geu-neun go-dok-eul chin-gu-cheo-reom yeo-gi-myeo sal-at-da
+   + Việt: Anh ấy sống coi sự cô đơn như một người bạn.
+
++ Hàn: 고독은 때로 창조의 어머니가 되기도 한다.
++ Bồi: go-dok-eun ttae-ro chang-jo-ui eo-meo-ni-ga doe-gi-do han-da
+   + Việt: Sự cô đơn đôi khi trở thành mẹ đẻ của sáng tạo.
+
++ Hàn: 그 방에는 쓸쓸한 고독의 분위기가 감돌았다.
++ Bồi: geu bang-e-neun sseul-sseul-han go-dok-ui bun-wi-gi-ga gam-dol-at-da
+   + Việt: Căn phòng ấy bao trùm một bầu không khí cô đơn hiu quạnh.
+
++ Hàn: 고독을 이겨내는 법을 배우는 중이에요.
++ Bồi: go-dok-eul i-gyeo-nae-neun beop-eul bae-u-neun jung-i-e-yo
+   + Việt: Tôi đang học cách vượt qua sự cô đơn.
+
++ Hàn: 현대 사회에서의 고독은 점점 더 보편화되고 있다.
++ Bồi: hyeon-dae sa-hoe-e-seo-ui go-dok-eun jeom-jeom deo bo-pyeon-hwa-doe-go it-da
+   + Việt: Sự cô đơn trong xã hội hiện đại đang ngày càng trở nên phổ biến.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
+   - 고립 (孤立): Cô lập, bị tách biệt khỏi xung quanh.
+   - 독신 (獨身): Độc thân, sống một mình.
+   - 외로움: Nỗi cô đơn (từ thuần Hàn, đồng nghĩa phổ biến).
+   - 고독사 (孤獨死): Chết trong cô đơn, qua đời một mình không ai hay.
+
+4. MẸO NHỚ: Hãy hình dung một con chó (독 - "dok" nghe như tiếng chó sủa) đang đứng một mình (孤 - "go") giữa cánh đồng trống. Hình ảnh "con chó cô đơn" giúp liên tưởng nhanh đến từ "고독".
+
 
 ## 고려 (考慮)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cân nhắc, xem xét". "考" (고, khảo) nghĩa là khảo sát, nghiên cứu; "慮" (려, lự) nghĩa là suy tư, nghĩ ngợi. Hợp lại chỉ việc suy nghĩ kỹ trước khi quyết định.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Suy xét, cân nhắc". Từ gốc Hán "考慮" (고려), trong đó "考" (고) nghĩa là xem xét, "慮" (려) nghĩa là suy nghĩ.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 모든 가능성을 고려해야 한다.
-+ Bồi: Mo-deun ga-neung-seong-eul go-ryeo-hae-ya han-da.
-   + Việt: Cần cân nhắc mọi khả năng.
-
-+ Hàn: 그의 의견도 고려해 주세요.
-+ Bồi: Geu-ui ui-gyeon-do go-ryeo-hae ju-se-yo.
-   + Việt: Hãy xem xét ý kiến của anh ấy nữa.
-
-+ Hàn: 고려할 시간이 더 필요하다.
-+ Bồi: Go-ryeo-hal si-gan-i deo pil-yo-ha-da.
-   + Việt: Cần thêm thời gian để cân nhắc.
-
-+ Hàn: 비용을 고려하지 않으면 안 된다.
-+ Bồi: Bi-yong-eul go-ryeo-ha-ji an-eu-myeon an doen-da.
++ Hàn: 이 사안을 깊이 고려해 주세요.
++ Bồi: i sa-an-eul gip-i go-ryeo-hae ju-se-yo
+   + Việt: Hãy cân nhắc kỹ vấn đề này.
+   
++ Hàn: 모든 요소를 고려한 후에 결정하겠습니다.
++ Bồi: mo-deun yo-so-reul go-ryeo-han hu-e gyeol-jeong-ha-get-seup-ni-da
+   + Việt: Tôi sẽ quyết định sau khi xem xét mọi yếu tố.
+   
++ Hàn: 비용을 고려하지 않을 수 없어요.
++ Bồi: bi-yong-eul go-ryeo-ha-ji an-eul su eop-eo-yo
    + Việt: Không thể không cân nhắc đến chi phí.
-
-+ Hàn: 그는 여러 요인을 고려한 후 결정했다.
-+ Bồi: Geu-neun yeo-reo yo-in-eul go-ryeo-han hu gyeol-jeong-haet-da.
-   + Việt: Anh ấy đã cân nhắc nhiều yếu tố rồi mới quyết định.
-
-+ Hàn: 고려 사항을 목록으로 정리하자.
-+ Bồi: Go-ryeo sa-hang-eul mok-rok-eu-ro jeong-ri-ha-ja.
-   + Việt: Hãy liệt kê các vấn đề cần cân nhắc.
+   
++ Hàn: 그녀의 입장도 고려해야 합니다.
++ Bồi: geu-nyeo-ui ip-jang-do go-ryeo-hae-ya hap-ni-da
+   + Việt: Chúng ta cũng phải xem xét đến lập trường của cô ấy.
+   
++ Hàn: 날씨를 고려하여 옷을 입으세요.
++ Bồi: nal-ssi-reul go-ryeo-ha-yeo ot-eul ip-eu-se-yo
+   + Việt: Hãy mặc đồ có cân nhắc đến thời tiết.
+   
++ Hàn: 이 점을 고려하면 그의 결정이 이해됩니다.
++ Bồi: i jeom-eul go-ryeo-ha-myeon geu-ui gyeol-jeong-i i-hae-doep-ni-da
+   + Việt: Nếu xem xét điểm này thì có thể hiểu được quyết định của anh ấy.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 생각 (-): Suy nghĩ
-   - 숙고 (熟考): Suy xét kỹ, chín chắn
-   - 판단 (判斷): Phán đoán
-   - 무시 (無視): Phớt lờ, bỏ qua
+   - 고찰 (考察, 고찰): Sự khảo sát, nghiên cứu kỹ lưỡng.
+   - 숙고 (熟考, 숙고): Sự suy nghĩ chín chắn, cân nhắc kỹ càng.
+   - 심사숙고 (深思熟考, 심사숙고): Suy nghĩ sâu xa và kỹ lưỡng.
+   - 참고 (參考, 참고): Tham khảo, xem xét để lấy thông tin.
 
-4. MẸO NHỚ: Hãy nghĩ đến việc "KHẢO" (고) cứu kỹ lưỡng, "LỰ" (려) tư sâu sắc. Cân nhắc (고려) kỹ trước khi chọn.
+4. MẸO NHỚ: Hãy tưởng tượng một vị quan "고" (cổ) xưa đang "려" (lự) chọn, cân nhắc rất lâu trước khi đưa ra phán quyết. Hành động "lựa chọn sau khi cân nhắc" chính là "고려".
+
+
+## 고발 (告發)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt: "tố cáo", "vạch trần". Phân tích gốc Hán: "告" (Cáo) nghĩa là báo cáo, tố giác; "發" (Phát) nghĩa là phát hiện, đưa ra. Hợp nghĩa: hành động tố cáo, vạch trần một hành vi sai trái.
+
+2. 6 VÍ DỤ THỰC CHIẾN:
++ Hàn: 그 직원은 회사의 비리를 공개적으로 고발했다.
++ Bồi: geu jik-won-eun hoe-sa-ui bi-ri-reul gong-gae-jeok-eu-ro go-bal-haet-da
+   + Việt: Nhân viên đó đã công khai tố cáo hành vi tham nhũng của công ty.
++ Hàn: 고발 내용이 사실이라면 심각한 문제가 될 수 있습니다.
++ Bồi: go-bal nae-yong-i sa-sil-i-ra-myeon sim-gak-han mun-je-ga doel su it-seup-ni-da
+   + Việt: Nếu nội dung tố cáo là sự thật thì có thể trở thành vấn đề nghiêm trọng.
++ Hàn: 익명의 고발자로부터 제보가 접수되었습니다.
++ Bồi: ik-myeong-ui go-bal-ja-ro-bu-teo je-bo-ga jeop-su-doe-eot-seup-ni-da
+   + Việt: Đã tiếp nhận tin báo từ một người tố cáo nặc danh.
++ Hàn: 언론 고발은 사회적 약점을 드러내는 역할을 한다.
++ Bồi: eon-ron go-bal-eun sa-hoe-jeok yak-jeom-eul deu-reo-nae-neun yeok-hal-eul han-da
+   + Việt: Việc tố cáo qua báo chí đóng vai trò phơi bày những điểm yếu của xã hội.
++ Hàn: 내부 고발자 보호 법안이 논의 중에 있습니다.
++ Bồi: nae-bu go-bal-ja bo-ho beop-an-i non-ui jung-e it-seup-ni-da
+   + Việt: Đạo luật bảo vệ người tố cáo nội bộ đang được thảo luận.
++ Hàn: 그 고발은 허위로 판명되어 기소되지 않았다.
++ Bồi: geu go-bal-eun heo-wi-ro pan-myeong-doe-eo gi-so-doe-ji an-at-da
+   + Việt: Vụ tố cáo đó được xác định là sai sự thật nên không bị khởi tố.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
+   - 고소 (告訴): Tố tụng, kiện ra tòa. Hán tự: 告 (cáo) + 訴 (tố).
+   - 신고 (申告): Khai báo, báo cáo (với cơ quan chức năng). Hán tự: 申 (thân) + 告 (cáo).
+   - 폭로 (暴露): Phơi bày, tiết lộ (bí mật). Hán tự: 暴 (bạo) + 露 (lộ).
+   - 제보 (提報): Cung cấp thông tin, báo tin. Hán tự: 提 (đề) + 報 (báo).
+
+4. MẸO NHỚ: Hãy nhớ "고발" như một hành động "báo cáo phát hiện" điều xấu. Gốc Hán "告發" giống nghĩa Việt "tố cáo" (tố = tố giác, cáo = báo cáo). Cứ nghĩ đến việc "cáo phát" (báo cáo phát hiện) là ra nghĩa.
+
+
+## 고백 (告白)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Sự thú nhận", "sự tỏ tình". Phân tích gốc Hán: "고" (Cáo) nghĩa là báo, thưa, trình bày; "백" (Bạch) nghĩa là trắng, nói rõ. Hợp lại chỉ việc nói ra một cách rõ ràng, thường là tình cảm hoặc sự thật.
+
+2. 6 VÍ DỤ THỰC CHIẾN:
++ Hàn: 그는 어제 사랑하는 사람에게 고백을 했어요.
++ Bồi: geu-neun eo-je sa-rang-ha-neun sa-ram-e-ge go-baek-eul haet-eo-yo
+   + Việt: Anh ấy đã tỏ tình với người mình yêu hôm qua.
+
++ Hàn: 고백을 받고 너무 떨려서 말이 안 나왔어요.
++ Bồi: go-baek-eul bat-go neo-mu tteol-ryeo-seo mal-i an na-wat-eo-yo
+   + Việt: Tôi đã nhận lời tỏ tình và run đến mức không nói nên lời.
+
++ Hàn: 진실을 고백하는 것은 용기가 필요해요.
++ Bồi: jin-sil-eul go-baek-ha-neun geot-eun yong-gi-ga pil-yo-hae-yo
+   + Việt: Thú nhận sự thật cần có dũng khí.
+
++ Hàn: 그 작가는 자신의 과거를 고백하는 책을 썼다.
++ Bồi: geu jak-ga-neun ja-sin-ui gwa-geo-reul go-baek-ha-neun chaek-eul sseot-da
+   + Việt: Tác giả đó đã viết một cuốn sách thú nhận về quá khứ của mình.
+
++ Hàn: 고백할 때가 가장 중요해요.
++ Bồi: go-baek-hal ttae-ga ga-jang jung-yo-hae-yo
+   + Việt: Thời điểm tỏ tình là quan trọng nhất.
+
++ Hàn: 나는 그의 고백을 정중히 거절했다.
++ Bồi: na-neun geu-ui go-baek-eul jeong-jung-hi geo-jeol-haet-da
+   + Việt: Tôi đã lịch sự từ chối lời tỏ tình của anh ấy.
+
+3. 4 TỪ LIÊN QUAN GỐC HÁN:
+   - 고발 (告發): Tố cáo, báo cho cơ quan chức năng về hành vi sai trái.
+   - 백서 (白書): Sách trắng, báo cáo chính thức của chính phủ về một vấn đề.
+   - 설명 (說明): Giải thích, làm cho rõ ràng, dễ hiểu (chữ "설" cũng có nghĩa là "nói rõ").
+
+4. MẸO NHỚ: Hãy tưởng tượng cảnh trong phim Hàn, nhân vật chính "고백" (tỏ tình) dưới cơn mưa. Chữ "고" giống người đang đứng (形似), "백" (trắng) như tờ giấy trắng để viết thư tình. Nhớ rằng "고백" là mở lời nói ra ("고") điều trong trắng ("백") của trái tim.
+
 
 ## 고생 (苦生)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Khổ sở, vất vả". "苦" (고, khổ) nghĩa là đau khổ, cực nhọc; "生" (생, sinh) nghĩa là sống, sinh tồn. Hợp lại chỉ sự chịu đựng khó khăn, cực nhọc.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Khổ cực", "gian nan". Gốc Hán: "苦" (고) nghĩa là khổ đau, "生" (생) nghĩa là sự sống, sinh ra. Hợp lại chỉ việc trải qua những điều vất vả, cực nhọc trong cuộc sống.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 고생 끝에 낙이 온다.
-+ Bồi: Go-saeng ggeut-e na-gi on-da.
-   + Việt: Của để dành sau khổ sở.
-
-+ Hàn: 그동안 고생 많으셨습니다.
-+ Bồi: Geu-dong-an go-saeng manh-eu-syeot-seup-ni-da.
-   + Việt: Thời gian qua anh/chị đã vất vả nhiều.
-
-+ Hàn: 시험 준비하느라 고생했어.
-+ Bồi: Si-heom jun-bi-ha-neu-ra go-saeng-haet-sseo.
-   + Việt: Vất vả vì ôn thi đúng không.
-
-+ Hàn: 고생하면서 돈을 모았다.
-+ Bồi: Go-saeng-ha-myeo don-eul mo-at-da.
-   + Việt: Tích cóp tiền trong khổ sở.
-
-+ Hàn: 그는 젊은 시절 고생을 많이 했다.
-+ Bồi: Geu-neun jeol-meun si-jeol go-saeng-eul man-hi haet-da.
-   + Việt: Anh ấy đã trải qua nhiều khổ sở khi còn trẻ.
-
-+ Hàn: 고생스러운 일이지만 끝까지 하겠다.
-+ Bồi: Go-saeng-seu-reo-un il-i-ji-man ggeut-kka-ji ha-get-da.
-   + Việt: Dù công việc vất vả nhưng tôi sẽ làm đến cùng.
++ Hàn: 요즘 일 때문에 정말 고생이 많아요.
++ Bồi: yo-jeum il ttae-mun-e jeong-mal go-saeng-i man-a-yo
+   + Việt: Dạo này tôi thực sự chịu nhiều khổ cực vì công việc.
+   
++ Hàn: 고생 끝에 낙이 온다고, 포기하지 마세요.
++ Bồi: go-saeng kkeut-e nak-i on-da-go, po-gi-ha-ji ma-se-yo
+   + Việt: Sau khổ cực sẽ đến niềm vui, đừng bỏ cuộc nhé.
+   
++ Hàn: 아이 키우는 건 행복하지만 고생도 많아요.
++ Bồi: a-i ki-u-neun geon haeng-bok-ha-ji-man go-saeng-do man-a-yo
+   + Việt: Nuôi con thì hạnh phúc nhưng cũng nhiều cực khổ.
+   
++ Hàn: 그 프로젝트를 성공시키기 위해 많은 고생을 했다.
++ Bồi: geu peu-ro-jek-teu-reul seong-gong-si-ki-gi wi-hae man-eun go-saeng-eul haet-da
+   + Việt: Tôi đã trải qua nhiều khổ cực để thành công dự án đó.
+   
++ Hàn: 젊은 시절의 고생은 미래의 자산이 됩니다.
++ Bồi: jeolm-eun si-jeol-ui go-saeng-eun mi-rae-ui ja-san-i doep-ni-da
+   + Việt: Những khổ cực thời trẻ sẽ trở thành tài sản cho tương lai.
+   
++ Hàn: 고생을 사서 한다는 말이 괜히 있는 게 아니에요.
++ Bồi: go-saeng-eul sa-seo han-da-neun mal-i gwaen-hi it-neun ge a-ni-e-yo
+   + Việt: Câu nói "tự mua khổ cực vào thân" không phải không có lý do đâu.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 수고 (受苦): Chịu khổ, công sức
-   - 노력 (努力): Nỗ lực
-   - 희생 (犧牲): Hy sinh
-   - 안락 (安樂): An lạc, thoải mái
+   - 고통 (苦痛): Nỗi đau khổ, sự đau đớn (cả thể xác lẫn tinh thần).
+   - 인생 (人生): Cuộc đời, nhân sinh.
+   - 생활 (生活): Cuộc sống, sinh hoạt.
+   - 고난 (苦難): Gian nan, khó khăn.
 
-4. MẸO NHỚ: Hãy nghĩ đến cuộc "KHỔ" (고) đời đầy gian nan nhưng vẫn "SINH" (생) tồn. Khổ sở (고생) rồi sẽ qua.
+4. MẸO NHỚ: Hãy tưởng tượng một cây **cỏ** (phát âm "고" gần giống "cỏ") **sống** ("생") rất khó khăn trên đá, tượng trưng cho sự "khổ cực". Hoặc nhớ câu: "Có **khổ** (**苦**) mới có **sống** (**生**) tốt đẹp hơn".
 
-## 고장 (故障)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Hỏng hóc, sự cố". "故" (고, cố) nghĩa là cũ, hỏng; "障" (장, chướng) nghĩa là chướng ngại, trở ngại. Hợp lại chỉ sự hư hỏng, trục trặc của máy móc hoặc hệ thống.
+## 고소 (告訴)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Kiện tụng", "tố cáo". Từ gốc Hán "告訴" trong đó "告" (고 - cáo) nghĩa là báo cáo, tố giác và "訴" (소 - tố) nghĩa là kêu van, kiện cáo. Hợp lại chỉ việc trình báo, khởi kiện ra cơ quan pháp luật.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 컴퓨터가 고장 났다.
-+ Bồi: Keom-pyu-teo-ga go-jang nat-da.
-   + Việt: Máy tính bị hỏng rồi.
++ Hàn: 그 회사에 손해배상 소송을 고소했습니다.
++ Bồi: geu hoe-sa-e son-hae-bae-sang so-song-eul go-so-haet-seup-ni-da
+   + Việt: Tôi đã kiện công ty đó để đòi bồi thường thiệt hại.
 
-+ Hàn: 엘리베이터 고장으로 계단을 이용했다.
-+ Bồi: El-li-be-i-teo go-jang-eu-ro gye-dan-eul i-yong-haet-da.
-   + Việt: Do thang máy hỏng nên đã dùng cầu thang.
++ Hàn: 고소 접수 후 경찰이 조사를 시작할 것입니다.
++ Bồi: go-so jeop-su hu gyeong-chal-i jo-sa-reul si-jak-hal geot-ip-ni-da
+   + Việt: Sau khi nhận được đơn kiện, cảnh sát sẽ bắt đầu điều tra.
 
-+ Hàn: 고장 수리비가 얼마나 드나요?
-+ Bồi: Go-jang su-ri-bi-ga eol-ma-na deu-na-yo?
-   + Việt: Chi phí sửa chữa hỏng hóc là bao nhiêu?
++ Hàn: 명예훼손으로 고소당하는 것이 두렵습니다.
++ Bồi: myeong-ye-hwe-son-eu-ro go-so-dang-ha-neun geot-i du-ryeop-seup-ni-da
+   + Việt: Tôi sợ bị kiện vì tội làm nhục danh dự.
 
-+ Hàn: 자주 고장 나는 제품은 사지 마라.
-+ Bồi: Ja-ju go-jang na-neun je-pum-eun sa-ji ma-ra.
-   + Việt: Đừng mua sản phẩm hay hỏng.
++ Hàn: 변호사와 상의 후 고소를 포기하기로 했어요.
++ Bồi: byeon-ho-sa-wa sang-ui hu go-so-reul po-gi-ha-gi-ro haet-eo-yo
+   + Việt: Sau khi tham khảo ý kiến luật sư, tôi đã quyết định bỏ kiện.
 
-+ Hàn: 고장 신고를 접수했습니다.
-+ Bồi: Go-jang sin-go-reul jeop-su-haet-seup-ni-da.
-   + Việt: Đã tiếp nhận báo cáo sự cố.
++ Hàn: 그 고소는 증거 불충분으로 기각되었습니다.
++ Bồi: geu go-so-neun jeung-geo bul-chung-bun-eu-ro gi-gak-doe-eot-seup-ni-da
+   + Việt: Vụ kiện đó đã bị bác do không đủ chứng cứ.
 
-+ Hàn: 차가 고장나서 길가에 섰다.
-+ Bồi: Cha-ga go-jang-na-seo gil-ga-e seot-da.
-   + Việt: Xe bị hỏng nên đứng bên đường.
++ Hàn: 온라인에서 모욕을 당하면 사이버 고소를 할 수 있어요.
++ Bồi: on-ra-in-e-seo mo-yok-eul dang-ha-myeon sa-i-beo go-so-reul hal su it-eo-yo
+   + Việt: Nếu bị xúc phạm trên mạng, bạn có thể tố cáo trên không gian mạng.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 수리 (修理): Sửa chữa
-   - 문제 (問題): Vấn đề
-   - 불량 (不良): Bất lương, lỗi
-   - 정상 (正常): Chính thường, bình thường
+   - 고발 (告發, 고발): Tố giác, báo cáo vi phạm cho cơ quan có thẩm quyền.
+   - 소송 (訴訟, 소송): Vụ kiện, thủ tục tố tụng tại tòa án.
+   - 고소인 (告訴人, 고소인): Người khởi kiện, nguyên đơn.
+   - 피고소인 (被告訴人, 피고소인): Người bị kiện, bị đơn.
 
-4. MẸO NHỚ: Hãy nghĩ đến thứ "CỔ" (고) cũ kỹ bị "CHƯỚNG" (장) ngại. Hỏng hóc (고장) là lúc cần thợ sửa.
+4. MẸO NHỚ: Hãy tưởng tượng một người tên "Cáo" (고) đi "tố" (소) người khác ra tòa. "Cáo Tố" chính là hành động "kiện tụng".
 
-## 고집 (固執)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cố chấp, bướng bỉnh". "固" (고, cố) nghĩa là chắc chắn, cứng; "執" (집, chấp) nghĩa là cầm, giữ, khăng khăng. Hợp lại chỉ tính không chịu thay đổi ý kiến dù sai.
+## 고통 (苦痛)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt: "Đau khổ". Phân tích gốc Hán: Từ "고통" (苦痛) ghép bởi "고" (苦 - khổ: đắng, khổ cực) và "통" (痛 - thống: đau đớn), diễn tả nỗi đau về thể xác hoặc tinh thần.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 고집이 세서 말이 안 통한다.
-+ Bồi: Go-jib-i se-seo mal-i an tong-han-da.
-   + Việt: Cố chấp quá nên không nghe lời.
-
-+ Hàn: 그의 고집 때문에 일이 꼬였다.
-+ Bồi: Geu-ui go-jib ttae-mun-e il-i kko-yeot-da.
-   + Việt: Vì sự cố chấp của anh ấy mà việc bị rối.
-
-+ Hàn: 고집을 부리지 마세요.
-+ Bồi: Go-jib-eul bu-ri-ji ma-se-yo.
-   + Việt: Đừng bướng bỉnh.
-
-+ Hàn: 어린아이처럼 고집을 피우다니.
-+ Bồi: Eo-rin-a-i-cheo-reom go-jib-eul pi-u-da-ni.
-   + Việt: Cố chấp như trẻ con vậy.
-
-+ Hàn: 고집은 필요 이상으로 하지 마라.
-+ Bồi: Go-jib-eun pil-yo i-sang-eu-ro ha-ji ma-ra.
-   + Việt: Đừng cố chấp quá mức cần thiết.
-
-+ Hàn: 그녀의 고집이 때로는 존경스럽다.
-+ Bồi: Geu-nyeo-ui go-jib-i ttae-ro-neun jon-gyeong-seu-reop-da.
-   + Việt: Đôi khi sự bướng bỉnh của cô ấy đáng ngưỡng mộ.
++ Hàn: 그 사고는 그에게 큰 고통을 남겼어요.
++ Bồi: geu sa-go-neun geu-e-ge keun go-tong-eul nam-gyeot-eo-yo
+   + Việt: Vụ tai nạn đã để lại nỗi đau lớn cho anh ấy.
++ Hàn: 환자들이 통증 완화를 위해 약을 먹습니다.
++ Bồi: hwan-ja-deul-i tong-jeung wan-hwa-reul wi-hae yak-eul meok-seup-ni-da
+   + Việt: Các bệnh nhân uống thuốc để giảm bớt cơn đau.
++ Hàn: 마음의 고통은 말로 표현하기 어렵습니다.
++ Bồi: ma-eum-ui go-tong-eun mal-ro pyo-hyeon-ha-gi eo-ryeop-seup-ni-da
+   + Việt: Nỗi đau trong lòng thật khó diễn tả bằng lời.
++ Hàn: 그는 오랜 병으로 고통받고 있어요.
++ Bồi: geu-neun o-raen byeong-eu-ro go-tong-bat-go it-eo-yo
+   + Việt: Anh ấy đang phải chịu đựng căn bệnh lâu năm.
++ Hàn: 이별의 고통을 이겨내야 합니다.
++ Bồi: i-byeol-ui go-tong-eul i-gyeo-nae-ya hap-ni-da
+   + Việt: Phải vượt qua nỗi đau chia ly.
++ Hàn: 경제적 어려움은 가족에게 고통을 줍니다.
++ Bồi: gyeong-je-jeok eo-ryeo-um-eun ga-jok-e-ge go-tong-eul jup-ni-da
+   + Việt: Khó khăn kinh tế gây ra đau khổ cho gia đình.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 완고 (頑固): Ngoan cố
-   - 고집스럽다 (-): Cố chấp, cứng đầu
-   - 융통성 (融通性): Tính linh hoạt
-   - 타협 (妥協): Thỏa hiệp
+   - 고민 (苦悶): Phiền muộn, lo lắng (苦 - khổ, 悶 - muộn).
+   - 고생 (苦生): Cực khổ, vất vả (苦 - khổ, 生 - sinh).
+   - 통증 (痛症): Triệu chứng đau, cơn đau (痛 - thống, 症 - chứng).
+   - 통탄 (痛歎): Đau đớn than thở (痛 - thống, 歎 - thán).
 
-4. MẸO NHỚ: Hãy nghĩ đến tảng đá "CỐ" (고) định, "CHẤP" (집) nhất không nhúc nhích. Cố chấp (고집) như đá tảng — khó lay chuyển.
+4. MẸO NHỚ: Hãy liên tưởng đến âm "Cô đông" (고통) - một cô gái đơn độc trong mùa đông lạnh giá, cảm thấy đau khổ và cô đơn. Hán tự "苦痛" có chữ "苦" giống trong "고민" (phiền muộn) và chữ "痛" giống trong "통증" (cơn đau).
 
-## 공감 (共感)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Đồng cảm". "共" (공, cộng) nghĩa là cùng, chung; "感" (감, cảm) nghĩa là cảm giác, xúc động. Hợp lại chỉ việc cùng cảm nhận, chia sẻ cảm xúc với người khác.
+## 고혈압 (高血壓)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cao huyết áp". Gốc Hán: "고" (高 - cao), "혈" (血 - máu), "압" (壓 - áp lực). Chỉ tình trạng áp lực máu trong lòng mạch tăng cao bất thường.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 그의 이야기에 깊이 공감했다.
-+ Bồi: Geu-ui i-ya-gi-e gip-i gong-gam-haet-da.
-   + Việt: Tôi đồng cảm sâu sắc với câu chuyện của anh ấy.
++ Hàn: 고혈압은 대표적인 만성 질환입니다.
++ Bồi: go-hyeol-ap-eun dae-pyo-jeok-in man-seong jil-hwan-ip-ni-da
+   + Việt: Cao huyết áp là một bệnh mãn tính điển hình.
 
-+ Hàn: 공감 능력이 중요한 시대이다.
-+ Bồi: Gong-gam neung-ryeok-i jung-yo-han si-dae-i-da.
-   + Việt: Đây là thời đại khả năng đồng cảm quan trọng.
++ Hàn: 정기적으로 혈압을 체크해야 합니다.
++ Bồi: jeong-gi-jeok-eu-ro hyeol-ap-eul che-keu-hae-ya hap-ni-da
+   + Việt: Bạn cần kiểm tra huyết áp định kỳ.
 
-+ Hàn: 아픔에 대해 공감해 주셔서 감사합니다.
-+ Bồi: A-peum-e dae-hae gong-gam-hae ju-syeo-seo gam-sa-hap-ni-da.
-   + Việt: Cảm ơn đã đồng cảm với nỗi đau của tôi.
++ Hàn: 짜게 먹으면 고혈압 위험이 커져요.
++ Bồi: jja-ge meok-eu-myeon go-hyeol-ap wi-heom-i keo-jyeo-yo
+   + Việt: Nếu ăn mặn, nguy cơ cao huyết áp sẽ tăng lên.
 
-+ Hàn: 공감하지 못하는 사람과는 대화가 어렵다.
-+ Bồi: Gong-gam-ha-ji mot-ha-neun sa-ram-gwa-neun dae-hwa-ga eo-ryeop-da.
-   + Việt: Khó trò chuyện với người không biết đồng cảm.
++ Hàn: 고혈압 약은 꾸준히 복용하는 게 중요해요.
++ Bồi: go-hyeol-ap yak-eun kku-jun-hi bok-yong-ha-neun ge jung-yo-hae-yo
+   + Việt: Việc uống thuốc cao huyết áp đều đặn là rất quan trọng.
 
-+ Hàn: 그림이 공감을 불러일으켰다.
-+ Bồi: Geu-rim-i gong-gam-eul bul-leo-il-eu-kyeot-da.
-   + Việt: Bức tranh đã gợi lên sự đồng cảm.
++ Hàn: 스트레스도 고혈압의 원인이 될 수 있어요.
++ Bồi: seu-teu-re-seu-do go-hyeol-ap-ui won-in-i doel su it-eo-yo
+   + Việt: Căng thẳng cũng có thể trở thành nguyên nhân gây cao huyết áp.
 
-+ Hàn: 공감은 관계를 깊게 만든다.
-+ Bồi: Gong-gam-eun gwan-gye-reul gip-ge man-deun-da.
-   + Việt: Đồng cảm làm sâu sắc mối quan hệ.
++ Hàn: 아버지께서는 고혈압으로 약을 드세요.
++ Bồi: a-beo-ji-kke-seo-neun go-hyeol-ap-eu-ro yak-eul deu-se-yo
+   + Việt: Bố tôi uống thuốc vì bệnh cao huyết áp.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 이해 (理解): Lý giải, hiểu
-   - 공감대 (共感帶): Khu vực đồng cảm
-   - 위로 (慰勞): An ủi
-   - 무관심 (無關心): Vô tâm, thờ ơ
+   - 저혈압 (低血壓): Huyết áp thấp ("저" - thấp).
+   - 혈압계 (血壓計): Máy đo huyết áp ("계" - máy đo).
+   - 고지혈증 (高脂血症): Mỡ máu cao ("고지" - mỡ cao, "증" - chứng).
+   - 심혈관 (心血管): Tim mạch ("심" - tim, "관" - ống, mạch).
 
-4. MẸO NHỚ: Hãy nghĩ đến hai người "CỘNG" (공) chung một "CẢM" (감) giác. Đồng cảm (공감) là chia sẻ nỗi vui buồn.
+4. MẸO NHỚ: Hãy tưởng tượng một "cái ống (혈관) có máu (혈) chảy bên trong, bị một sức ép (압) rất CAO (고)" đè lên. Ghép lại thành 고+혈+압 = áp lực máu cao.
 
-## 공개 (公開)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Công khai, mở ra". "公" (공, công) nghĩa là công khai, chung; "開" (개, khai) nghĩa là mở ra, bắt đầu. Hợp lại chỉ việc đưa ra cho mọi người biết, không giấu giếm.
+## 공격 (攻擊)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Tấn công, công kích". Gốc Hán: "공" (攻, công) nghĩa là đánh, tấn; "격" (擊, kích) nghĩa là đánh, phá. Hợp lại chỉ hành động chủ động tấn công.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 회의 내용을 공개했다.
-+ Bồi: Hoe-ui nae-yong-eul gong-gae-haet-da.
-   + Việt: Đã công khai nội dung cuộc họp.
-
-+ Hàn: 공개 채용 공고가 떴다.
-+ Bồi: Gong-gae chae-yong gong-go-ga tteot-da.
-   + Việt: Thông báo tuyển dụng công khai đã được đăng.
-
-+ Hàn: 개인 정보는 공개하지 마세요.
-+ Bồi: Gae-in jeong-bo-neun gong-gae-ha-ji ma-se-yo.
-   + Việt: Đừng công khai thông tin cá nhân.
-
-+ Hàn: 경매가 공개로 진행된다.
-+ Bồi: Gyeong-mae-ga gong-gae-ro jin-haeng-doen-da.
-   + Việt: Cuộc đấu giá được tiến hành công khai.
-
-+ Hàn: 공개된 자료를 분석했다.
-+ Bồi: Gong-gae-doen ja-ryo-reul bun-seok-haet-da.
-   + Việt: Đã phân tích tài liệu được công bố.
-
-+ Hàn: 그의 사생활이 공개되어 곤란했다.
-+ Bồi: Geu-ui sa-saeng-hwal-i gong-gae-doe-eo gon-ran-haet-da.
-   + Việt: Đời tư của anh ấy bị công khai nên rất khó xử.
++ Hàn: 군대가 적의 진지를 공격했습니다.
++ Bồi: gun-dae-ga jeok-ui jin-ji-reul gong-gyeok-haet-seup-ni-da
+   + Việt: Quân đội đã tấn công vị trí của địch.
++ Hàn: 그 팀은 빠른 공격으로 유명해요.
++ Bồi: geu tim-eun ppa-reun gong-gyeok-eu-ro yu-myeong-hae-yo
+   + Việt: Đội đó nổi tiếng với những pha tấn công nhanh.
++ Hàn: 해커가 회사 시스템을 공격했어요.
++ Bồi: hae-keo-ga hoe-sa si-seu-tem-eul gong-gyeok-haet-eo-yo
+   + Việt: Hacker đã tấn công hệ thống của công ty.
++ Hàn: 언론의 비난 공격을 받았습니다.
++ Bồi: eon-ron-ui bi-nan gong-gyeok-eul bat-at-seup-ni-da
+   + Việt: Anh ấy/Cô ấy đã hứng chịu đợt tấn công chỉ trích từ báo chí.
++ Hàn: 공격적인 마케팅 전략이 필요해요.
++ Bồi: gong-gyeok-jeok-in ma-ke-ting jeon-ryak-i pil-yo-hae-yo
+   + Việt: Chúng ta cần một chiến lược marketing mang tính tấn công.
++ Hàn: 그 선수는 공격에 특화되어 있습니다.
++ Bồi: geu seon-su-neun gong-gyeok-e teuk-hwa-doe-eo it-seup-ni-da
+   + Việt: Cầu thủ đó được chuyên môn hóa cho việc tấn công.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 비공개 (非公開): Phi công khai, riêng tư
-   - 공표 (公表): Công bố
-   - 발표 (發表): Phát biểu, công bố
-   - 비밀 (秘密): Bí mật
+   - 방어 (防禦, bang-eo): Phòng thủ, sự phòng ngự.
+   - 반격 (反擊, ban-gyeok): Phản công, sự đánh trả lại.
+   - 공격수 (攻擊手, gong-gyeok-su): Tiền đạo, cầu thủ tấn công.
+   - 총공격 (總攻擊, chong-gong-gyeok): Tổng tấn công.
 
-4. MẸO NHỚ: Hãy nghĩ đến cánh cửa "CÔNG" (공) chung được "KHAI" (개) mở ra. Công khai (공개) là để ai cũng nhìn thấy.
+4. MẸO NHỚ: Hãy liên tưởng đến từ "Công kích" trong tiếng Việt (cũng gốc Hán, cùng nghĩa). Âm "공" (cong) giống "công", âm "격" (gyeok) giống "kích". Nhớ "Công kích = Tấn công".
 
-## 공기 (空氣)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Không khí". "空" (공, không) nghĩa là trống rỗng, bầu trời; "氣" (기, khí) nghĩa là hơi, khí. Hợp lại chỉ hỗn hợp khí bao quanh trái đất, không khí.
+## 공경 (恭敬)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Kính trọng". Từ gốc Hán "恭敬": "공" (Cung) nghĩa là cung kính, cẩn thận; "경" (Kính) nghĩa là tôn trọng, kính nể.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 공기가 맑아서 기분이 좋다.
-+ Bồi: Gong-gi-ga mal-ga-seo gi-bun-i jo-ta.
-   + Việt: Không khí trong lành nên tâm trạng tốt.
-
-+ Hàn: 공기청정기를 사야겠다.
-+ Bồi: Gong-gi-cheong-jeong-gi-reul sa-ya-get-da.
-   + Việt: Tôi cần mua máy lọc không khí.
-
-+ Hàn: 실내 공기가 탁하다.
-+ Bồi: Sil-nae gong-gi-ga tak-ha-da.
-   + Việt: Không khí trong nhà ngột ngạt.
-
-+ Hàn: 공기 중에 먼지가 많다.
-+ Bồi: Gong-gi jung-e meon-ji-ga manh-da.
-   + Việt: Bụi trong không khí nhiều.
-
-+ Hàn: 산에서 깨끗한 공기를 마셨다.
-+ Bồi: San-e-seo ggae-ggeut-han gong-gi-reul ma-syeot-da.
-   + Việt: Đã hít thở không khí sạch trên núi.
-
-+ Hàn: 공기 순환이 잘 안 된다.
-+ Bồi: Gong-gi sun-hwan-i jal an doen-da.
-   + Việt: Lưu thông không khí không tốt.
++ Hàn: 부모님을 공경하는 것은 중요한 가치입니다.
++ Bồi: bu-mo-nim-eul gong-gyeong-ha-neun geot-eun jung-yo-han ga-chi-ip-ni-da
+   + Việt: Kính trọng cha mẹ là một giá trị quan trọng.
++ Hàn: 그는 항상 어른들에게 공경하는 마음을 가집니다.
++ Bồi: geu-neun hang-sang eo-reun-deul-e-ge gong-gyeong-ha-neun ma-eum-eul ga-jip-ni-da
+   + Việt: Anh ấy luôn giữ tấm lòng kính trọng với những người lớn tuổi.
++ Hàn: 선생님께 공경의 뜻으로 꽃을 드렸다.
++ Bồi: seon-saeng-nim-kke gong-gyeong-ui tteut-eu-ro kkot-eul deu-ryeot-da
+   + Việt: Tôi đã tặng hoa cho thầy giáo với lòng thành kính.
++ Hàn: 공경하는 태도로 상대방의 말에 귀 기울이세요.
++ Bồi: gong-gyeong-ha-neun tae-do-ro sang-dae-bang-ui mal-e gwi gi-ul-i-se-yo
+   + Việt: Hãy lắng nghe lời đối phương với thái độ kính trọng.
++ Hàn: 그 의식은 조상에 대한 공경을 나타냅니다.
++ Bồi: geu ui-sik-eun jo-sang-e dae-han gong-gyeong-eul na-ta-naep-ni-da
+   + Việt: Nghi lễ đó thể hiện sự kính trọng đối với tổ tiên.
++ Hàn: 직장에서 윗사람을 공경하는 것은 기본입니다.
++ Bồi: jik-jang-e-seo wit-sa-ram-eul gong-gyeong-ha-neun geot-eun gi-bon-ip-ni-da
+   + Việt: Ở nơi làm việc, việc kính trọng cấp trên là điều cơ bản.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 대기 (大氣): Khí quyển
-   - 산소 (酸素): Oxy
-   - 오염 (汚染): Ô nhiễm
-   - 청정 (淸淨): Thanh tịnh, sạch
+   - 공손 (恭遜): Khiêm tốn, lễ phép (Cung + Khiêm nhường).
+   - 존경 (尊敬): Sự tôn kính (Tôn trọng + Kính nể).
+   - 경의 (敬意): Lòng kính trọng, ý thức tôn kính (Kính + Ý).
 
-4. MẸO NHỚ: Hãy nghĩ đến bầu trời "KHÔNG" (공) trung đầy "KHÍ" (기) tức. Không khí (공기) là sự sống.
+4. MẸO NHỚ: Hãy nghĩ đến hình ảnh "cúi đầu (공) một cách trịnh trọng (경)" khi gặp người đáng kính. Hoặc liên tưởng đến từ "cung kính" trong tiếng Việt, có âm Hán Việt rất gần với "공경".
 
-## 공동 (共同)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cộng đồng, chung". "共" (공, cộng) nghĩa là cùng, chung; "同" (동, đồng) nghĩa là giống nhau, cùng. Hợp lại chỉ sự chia sẻ, cùng nhau làm điều gì đó.
+## 공과 (功過)
+
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Công và tội", chỉ thành tích và sai sót, công lao và tội lỗi. Gốc Hán: "功" (công) là công lao, thành tựu; "過" (quá) là lỗi lầm, sai sót.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 공동 목표를 달성하자.
-+ Bồi: Gong-dong mok-pyo-reul dal-seong-ha-ja.
-   + Việt: Hãy đạt được mục tiêu chung.
++ Hàn: 역사적 인물을 평가할 때는 그의 공과를 객관적으로 따져야 한다.
++ Bồi: yeok-sa-jeok in-mul-eul pyeong-ga-hal ttae-neun geu-ui gong-gwa-reul gaek-gwan-jeok-eu-ro tta-jyeo-ya han-da
+   + Việt: Khi đánh giá nhân vật lịch sử, phải xem xét công và tội của họ một cách khách quan.
 
-+ Hàn: 공동 주택에 살고 있다.
-+ Bồi: Gong-dong ju-taek-e sal-go it-da.
-   + Việt: Đang sống ở nhà chung cư.
++ Hàn: 그 회사의 공과를 정리한 보고서가 발표되었다.
++ Bồi: geu hoe-sa-ui gong-gwa-reul jeong-ri-han bo-go-seo-ga bal-pyo-doe-eot-da
+   + Việt: Báo cáo tổng kết những thành công và thất bại của công ty đó đã được công bố.
 
-+ Hàn: 공동으로 프로젝트를 진행했다.
-+ Bồi: Gong-dong-eu-ro peu-ro-jek-teu-reul jin-haeng-haet-da.
-   + Việt: Đã tiến hành dự án chung.
++ Hàn: 모든 지도자는 공과를 동시에 지닐 수 있다.
++ Bồi: mo-deun ji-do-ja-neun gong-gwa-reul dong-si-e ji-nil su it-da
+   + Việt: Mọi nhà lãnh đạo đều có thể mang trong mình cả công lẫn tội.
 
-+ Hàn: 공동 책임은 모두가 져야 한다.
-+ Bồi: Gong-dong chaeg-im-eun mo-du-ga jyeo-ya han-da.
-   + Việt: Trách nhiệm chung mọi người phải gánh.
++ Hàn: 인생에는 공과가 함께 존재하기 마련이다.
++ Bồi: in-saeng-e-neun gong-gwa-ga ham-kke jon-jae-ha-gi ma-ryeon-i-da
+   + Việt: Trong đời, công và tội luôn tồn tại song hành.
 
-+ Hàn: 공동 구매로 돈을 절약했다.
-+ Bồi: Gong-dong gu-mae-ro don-eul jeol-yak-haet-da.
-   + Việt: Tiết kiệm tiền nhờ mua chung.
++ Hàn: 그 정책의 공과를 논하는 데는 시간이 필요하다.
++ Bồi: geu jeong-chaek-ui gong-gwa-reul non-ha-neun de-neun si-gan-i pil-yo-ha-da
+   + Việt: Cần có thời gian để thảo luận về mặt được và mất của chính sách đó.
 
-+ Hàn: 공동 이익을 위해 협력하자.
-+ Bồi: Gong-dong i-ik-eul wi-hae hyeop-ryeok-ha-ja.
-   + Việt: Hãy hợp tác vì lợi ích chung.
-
-3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 협력 (協力): Hợp lực, hợp tác
-   - 단체 (團體): Đoàn thể, tập thể
-   - 혼자 (-): Một mình
-   - 개인 (個人): Cá nhân
-
-4. MẸO NHỚ: Hãy nghĩ đến mọi người "CỘNG" (공) nhau "ĐỒNG" (동) lòng. Cộng đồng (공동) là sức mạnh tập thể.
-
-## 공부 (工夫)
-
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Học tập, học". "工" (공, công) nghĩa là công việc, lao động; "夫" (부, phu) nghĩa là người đàn ông, công phu. Hợp lại chỉ việc dành thời gian nghiên cứu, học hỏi kiến thức.
-
-2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 매일 꾸준히 공부해야 한다.
-+ Bồi: Mae-il kku-jun-hi gong-bu-hae-ya han-da.
-   + Việt: Phải học tập đều đặn mỗi ngày.
-
-+ Hàn: 영어 공부가 재미있다.
-+ Bồi: Yeong-eo gong-bu-ga jae-mi-it-da.
-   + Việt: Học tiếng Anh thú vị.
-
-+ Hàn: 시험 전날 밤새 공부했다.
-+ Bồi: Si-heom jeon-nal bam-sae gong-bu-haet-da.
-   + Việt: Thức đêm học trước ngày thi.
-
-+ Hàn: 공부 방법을 바꿔야겠다.
-+ Bồi: Gong-bu bang-beob-eul ba-kkwo-ya-get-da.
-   + Việt: Tôi cần thay đổi phương pháp học.
-
-+ Hàn: 그는 공부를 위해 도서관에 간다.
-+ Bồi: Geu-neun gong-bu-reul wi-hae do-seo-gwan-e gan-da.
-   + Việt: Anh ấy đến thư viện để học.
-
-+ Hàn: 공부만 하는 것은 건강에 해롭다.
-+ Bồi: Gong-bu-man ha-neun geot-eun geon-gang-e hae-rop-da.
-   + Việt: Chỉ học không thì có hại cho sức khỏe.
++ Hàn: 스스로의 공과를 반성하는 것은 성장에 중요하다.
++ Bồi: seu-seu-ro-ui gong-gwa-reul ban-seong-ha-neun geot-eun seong-jang-e jung-yo-ha-da
+   + Việt: Tự phản tỉnh về công và tội của bản thân là điều quan trọng cho sự trưởng thành.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 학습 (學習): Học tập
-   - 학문 (學問): Học vấn
-   - 성적 (成績): Thành tích, điểm số
-   - 노력 (努力): Nỗ lực
+   - 공적 (功績): Công tích, thành tích đã lập được.
+   - 과실 (過失): Lỗi lầm, sai sót do sơ suất.
+   - 평가 (評價): Sự đánh giá, nhận định về giá trị.
+   - 장점과 단점 (長點과 短點): Ưu điểm và khuyết điểm.
 
-4. MẸO NHỚ: Hãy nghĩ đến người "CÔNG" (공) nhân "PHU" (부) chịu khó đèn sách. Học tập (공부) là công phu của trí tuệ.
+4. MẸO NHỚ: Hãy hình dung một cái cân. Một bên đĩa cân là "공" (công lao, như những viên gạch xây dựng), bên kia là "과" (tội lỗi, như những viên đá nặng). Đánh giá một sự việc hay con người thường là việc cân đo hai đĩa cân này.
 
-## 공사 (工事)
-
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Công trình, xây dựng". "工" (공, công) nghĩa là công việc, lao động; "事" (사, sự) nghĩa là việc, sự việc. Hợp lại chỉ công việc xây dựng, tu sửa công trình.
-
-2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 길 공사 때문에 교통이 혼잡하다.
-+ Bồi: Gil gong-sa ttae-mun-e gyo-tong-i hon-jap-ha-da.
-   + Việt: Giao thông hỗn loạn vì công trình đường.
-
-+ Hàn: 아파트 공사가 한창이다.
-+ Bồi: A-pa-teu gong-sa-ga han-chang-i-da.
-   + Việt: Công trình chung cư đang rầm rộ.
-
-+ Hàn: 공사 현장에 출입 금지입니다.
-+ Bồi: Gong-sa hyeon-jang-e chul-ip geum-ji-im-ni-da.
-   + Việt: Cấm vào khu vực thi công.
-
-+ Hàn: 공사 기간이 연장되었다.
-+ Bồi: Gong-sa gi-gan-i yeon-jang-doe-eot-da.
-   + Việt: Thời gian thi công đã bị kéo dài.
-
-+ Hàn: 공사 비용이 예상보다 많이 들었다.
-+ Bồi: Gong-sa bi-yong-i ye-sang-bo-da man-hi deul-eot-da.
-   + Việt: Chi phí xây dựng cao hơn dự kiến.
-
-+ Hàn: 공사를 마무리하는 단계이다.
-+ Bồi: Gong-sa-reul ma-mu-ri-ha-neun dan-gye-i-da.
-   + Việt: Đang ở giai đoạn hoàn thiện công trình.
-
-3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 건설 (建設): Kiến thiết, xây dựng
-   - 수리 (修理): Sửa chữa
-   - 현장 (現場): Hiện trường
-   - 완공 (完工): Hoàn công
-
-4. MẸO NHỚ: Hãy nghĩ đến nơi "CÔNG" (공) nhân làm việc trong "TRƯỜNG" (장) lớn. Nhà máy (공장) là nơi ra đời sản phẩm.
-
-## 공식 (公式)
-
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Công thức, chính thức". "公" (공, công) nghĩa là công khai, chung; "式" (식, thức) nghĩa là cách thức, quy tắc. Hợp lại chỉ quy tắc, phương pháp chuẩn mực được công nhận.
-
-2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 수학 공식을 외웠다.
-+ Bồi: Su-hak gong-sik-eul oe-woot-da.
-   + Việt: Đã thuộc công thức toán học.
-
-+ Hàn: 공식적으로 발표되었다.
-+ Bồi: Gong-sik-jeok-eu-ro bal-pyo-doe-eot-da.
-   + Việt: Đã được công bố chính thức.
-
-+ Hàn: 이 공식은 모든 경우에 적용된다.
-+ Bồi: I gong-sik-eun mo-deun gyeong-u-e jeok-doeong-doen-da.
-   + Việt: Công thức này áp dụng cho mọi trường hợp.
-
-+ Hàn: 공식 절차를 따라야 한다.
-+ Bồi: Gong-sik jeol-cha-reul dda-ra-ya han-da.
-   + Việt: Phải tuân theo thủ tục chính thức.
-
-+ Hàn: 공식 계정으로 문의하세요.
-+ Bồi: Gong-sik gye-jeong-eu-ro mun-ui-ha-se-yo.
-   + Việt: Vui lòng liên hệ qua tài khoản chính thức.
-
-+ Hàn: 그들은 공식적으로 이혼했다.
-+ Bồi: Geu-deul-eun gong-sik-jeok-eu-ro i-hon-haet-da.
-   + Việt: Họ đã ly hôn chính thức.
-
-3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 비공식 (非公式): Phi chính thức
-   - 방법 (方法): Phương pháp
-   - 원리 (原理): Nguyên lý
-   - 정식 (正式): Chính thức
-
-4. MẸO NHỚ: Hãy nghĩ đến "CÔNG" (공) khai quy tắc "THỨC" (식) mực. Công thức (공식) là chìa khóa giải toán.
-
-## 공연 (公演)
-
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Biểu diễn, trình diễn". "公" (공, công) nghĩa là công khai, chung; "演" (연, diễn) nghĩa là diễn xuất, biểu diễn. Hợp lại chỉ việc trình diễn nghệ thuật trước công chúng.
-
-2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 공연 티켓을 예매했다.
-+ Bồi: Gong-yeon ti-ket-eul ye-mae-haet-da.
-   + Việt: Đã đặt vé biểu diễn.
-
-+ Hàn: 무대 공연이 멋졌다.
-+ Bồi: Mu-dae gong-yeon-i meot-jyeot-da.
-   + Việt: Buổi biểu diễn sân khấu tuyệt vời.
-
-+ Hàn: 공연 날짜가 변경되었다.
-+ Bồi: Gong-yeon nal-jja-ga byeon-gyeong-doe-eot-da.
-   + Việt: Ngày biểu diễn đã thay đổi.
-
-+ Hàn: 학교에서 연극 공연을 했다.
-+ Bồi: Hak-gyo-e-seo yeon-geuk gong-yeon-eul haet-da.
-   + Việt: Trường đã tổ chức biểu diễn kịch.
-
-+ Hàn: 공연장이 만석이었다.
-+ Bồi: Gong-yeon-jang-i man-seok-i-eot-da.
-   + Việt: Nhà hát chật kín người.
-
-+ Hàn: 그는 공연을 위해 매일 연습한다.
-+ Bồi: Geu-neun gong-yeon-eul wi-hae mae-il yeon-seup-han-da.
-   + Việt: Anh ấy tập luyện mỗi ngày cho buổi biểu diễn.
-
-3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 무대 (舞臺): Sân khấu
-   - 연극 (演劇): Kịch, tuồng
-   - 콘서트 (-): Buổi hòa nhạc
-   - 관객 (觀客): Khán giả
-
-4. MẸO NHỚ: Hãy nghĩ đến sân khấu "CÔNG" (공) khai "DIỄN" (연) xuất. Biểu diễn (공연) là ánh đèn rọi xuống nghệ sĩ.
-
-## 공원 (公園)
-
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Công viên". "公" (공, công) nghĩa là công chúng, chung; "園" (원, viên) nghĩa là vườn, khuôn viên. Hợp lại chỉ khu vực cây xanh mở cửa cho công chúng thư giãn.
-
-2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 주말에 공원에 산책하러 간다.
-+ Bồi: Ju-mal-e gong-won-e san-chaek-ha-reo gan-da.
-   + Việt: Cuối tuần đi dạo công viên.
-
-+ Hàn: 공원에서 아이들이 놀고 있다.
-+ Bồi: Gong-won-e-seo a-i-deul-i nol-go it-da.
-   + Việt: Trẻ con đang chơi ở công viên.
-
-+ Hàn: 도심 속 공원은 소중한 휴식 공간이다.
-+ Bồi: Do-sim sok gong-won-eun so-jung-han hyu-sik gong-gan-i-da.
-   + Việt: Công viên giữa trung tâm thành phố là không gian nghỉ ngơi quý giá.
-
-+ Hàn: 공원 벤치에 앉아 책을 읽었다.
-+ Bồi: Gong-won ben-chi-e an-ja chaeg-eul il-geo-at-da.
-   + Việt: Ngồi đọc sách trên ghế công viên.
-
-+ Hàn: 공원에 벚꽃이 만개했다.
-+ Bồi: Gong-won-e beot-kkoch-i man-gae-haet-da.
-   + Việt: Hoa anh đào nở rộ trong công viên.
-
-+ Hàn: 공원을 청소하는 봉사활동을 했다.
-+ Bồi: Gong-won-eul cheong-so-ha-neun bong-sa-hwal-dong-eul haet-da.
-   + Việt: Tham gia hoạt động tình nguyện dọn công viên.
-
-3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 정원 (庭園): Vườn, khuôn viên
-   - 산책 (散策): Dạo, tản bộ
-   - 휴식 (休息): Nghỉ ngơi
-   - 자연 (自然): Tự nhiên
-
-4. MẸO NHỚ: Hãy nghĩ đến khu "CÔNG" (공) cộng "VIÊN" (원) tử xanh mát. Công viên (공원) là lá phổi của thành phố.
-
-## 공장 (工場)
-
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Nhà máy, xí nghiệp". "工" (공, công) nghĩa là công việc, lao động; "場" (장, trường) nghĩa là nơi chốn, sân. Hợp lại chỉ nơi sản xuất hàng hóa, chế tạo sản phẩm.
-
-2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 공장에서 자동차를 생산한다.
-+ Bồi: Gong-jang-e-seo ja-dong-cha-reul saeng-san-han-da.
-   + Việt: Nhà máy sản xuất ô tô.
-
-+ Hàn: 공장 근무 시간이 길다.
-+ Bồi: Gong-jang geun-mu si-gan-i gil-da.
-   + Việt: Thời gian làm việc ở nhà máy dài.
-
-+ Hàn: 그는 공장에 취직했다.
-+ Bồi: Geu-neun gong-jang-e chwi-jik-haet-da.
-   + Việt: Anh ấy đã xin được việc ở nhà máy.
-
-+ Hàn: 공장 배출가스로 공기가 나빠졌다.
-+ Bồi: Gong-jang bae-chul ga-seu-ro gong-gi-ga na-bba-jyeot-da.
-   + Việt: Khí thải nhà máy làm không khí xấu đi.
-
-+ Hàn: 공장을 자동화하는 중이다.
-+ Bồi: Gong-jang-eul ja-dong-hwa-ha-neun jung-i-da.
-   + Việt: Đang tự động hóa nhà máy.
-
-+ Hàn: 공장 근로자들의 안전이 중요하다.
-+ Bồi: Gong-jang geun-ro-ja-deul-ui an-jeon-i jung-yo-ha-da.
-   + Việt: An toàn của công nhân nhà máy là quan trọng.
-
-3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 제조 (製造): Chế tạo, sản xuất
-   - 생산 (生產): Sản xuất
-   - 업체 (業體): Doanh nghiệp
-   - 노동자 (勞動者): Người lao động
-
-4. MẸO NHỚ: Hãy nghĩ đến nơi "CÔNG" (공) nhân làm việc trong "TRƯỜNG" (장) lớn. Nhà máy (공장) là nơi ra đời sản phẩm.
-
-## 공주 (公主)
-
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Công chúa". "公" (공, công) nghĩa là công tước; "主" (주, chủ) nghĩa là chủ nhân, người đứng đầu. Hợp lại chỉ con gái của vua hoặc hoàng tử, người có địa vị cao quý.
-
-2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 동화 속 공주는 아름다웠다.
-+ Bồi: Dong-hwa sok gong-ju-neun a-reum-da-woot-da.
-   + Việt: Công chúa trong truyện cổ tích rất đẹp.
-
-+ Hàn: 공주님 같은 분위기를 풍긴다.
-+ Bồi: Gong-ju-nim gat-eun bun-wi-gi-reul pung-gin-da.
-   + Việt: Toát lên khí chất như công chúa.
-
-+ Hàn: 영국의 공주가 방문했다.
-+ Bồi: Yeong-guk-ui gong-ju-ga bang-mun-haet-da.
-   + Việt: Công chúa nước Anh đã đến thăm.
-
-+ Hàn: 우리 집 고양이는 공주처럼 군다.
-+ Bồi: U-ri jib go-yang-i-neun gong-ju-cheo-reom gun-da.
-   + Việt: Con mèo nhà tôi ăn diện như công chúa.
-
-+ Hàn: 공주와 왕자의 이야기를 들려주었다.
-+ Bồi: Gong-ju-wa wang-ja-ui i-ya-gi-reul deul-lyeo-ju-eot-da.
-   + Việt: Kể chuyện công chúa và hoàng tử.
-
-+ Hàn: 그녀는 마치 동화 속 공주 같았다.
-+ Bồi: Geu-nyeo-neun ma-chi dong-hwa sok gong-ju gat-at-da.
-   + Việt: Cô ấy như công chúa bước ra từ truyện cổ tích.
-
-3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 왕자 (王子): Hoàng tử
-   - 귀족 (貴族): Quý tộc
-   - 왕비 (王妃): Vương phi, hoàng hậu
-   - 황실 (皇室): Hoàng thất
-
-4. MẸO NHỚ: Hãy nghĩ đến tiểu thư "CÔNG" (공) tước là "CHỦ" (주) nhân lâu đài. Công chúa (공주) là ngôi sao trong truyện cổ tích.
-
-## 공지 (公知)
-
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Thông báo, công bố". "公" (공, công) nghĩa là công khai; "知" (지, tri) nghĩa là biết, hiểu. Hợp lại chỉ việc đưa thông tin cho mọi người cùng biết.
-
-2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 공지사항을 꼭 읽어주세요.
-+ Bồi: Gong-ji-sa-hang-eul kkok il-geo-ju-se-yo.
-   + Việt: Hãy nhất định đọc thông báo.
-
-+ Hàn: 공지가 올라왔으니 확인하세요.
-+ Bồi: Gong-ji-ga ol-la-wat-eu-ni hwak-in-ha-se-yo.
-   + Việt: Thông báo đã đăng, hãy kiểm tra.
-
-+ Hàn: 중요 공지는 이메일로도 발송된다.
-+ Bồi: Jung-yo gong-ji-neun i-me-il-ro-do bal-song-doen-da.
-   + Việt: Thông báo quan trọng cũng gửi qua email.
-
-+ Hàn: 공지 내용을 위반하면 제재를 받는다.
-+ Bồi: Gong-ji nae-yong-eul wi-ban-ha-myeon je-jae-reul bat-neun-da.
-   + Việt: Vi phạm nội dung thông báo sẽ bị xử lý.
-
-+ Hàn: 공지 없이 일정이 변경되었다.
-+ Bồi: Gong-ji eop-si il-jeong-i byeon-gyeong-doe-eot-da.
-   + Việt: Lịch trình thay đổi mà không có thông báo.
-
-+ Hàn: 게시판에 공지를 올렸다.
-+ Bồi: Ge-si-ban-e gong-ji-reul ol-ryeot-da.
-   + Việt: Đã đăng thông báo lên bảng tin.
-
-3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 공고 (公告): Công cáo, thông báo
-   - 알림 (-): Thông báo
-   - 통보 (通報): Thông báo, thông tri
-   - 안내 (案內): Hướng dẫn
-
-4. MẸO NHỚ: Hãy nghĩ đến việc "CÔNG" (공) khai cho mọi người cùng "TRI" (지) biết. Thông báo (공지) là để không ai bỏ lỡ.
-
-## 공짜 (-)
-
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Miễn phí, không tốn tiền". Từ thuần Hàn, không có Hán tự tương ứng. "공" (gong) nghĩa là công chúng, chung; "짜" (jja) nghĩa là hào, tiền đồng xu cũ. Hợp lại chỉ điều được cho không, không mất phí.
-
-2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 공짜로 받은 것을 팔았다.
-+ Bồi: Gong-jja-ro bat-eun geot-eul pal-at-da.
-   + Việt: Đã bán thứ được cho miễn phí.
-
-+ Hàn: 세상에 공짜는 없다.
-+ Bồi: Se-sang-e gong-jja-neun eop-da.
-   + Việt: Trên đời không có gì miễn phí.
-
-+ Hàn: 공짜 샘플을 나눠줬다.
-+ Bồi: Gong-jja saem-peul-eul na-nwo-jwot-da.
-   + Việt: Phát mẫu thử miễn phí.
-
-+ Hàn: 공짜로 입장할 수 있는 날이다.
-+ Bồi: Gong-jja-ro ip-jang-hal su in-neun nal-i-da.
-   + Việt: Hôm nay vào cửa miễn phí.
-
-+ Hàn: 공짜밥은 없다는 말이 있다.
-+ Bồi: Gong-jja-bap-eun eop-da-neun mal-i it-da.
-   + Việt: Có câu không có cơm miễn phí.
-
-+ Hàn: 그는 공짜로 여행하게 되었다.
-+ Bồi: Geu-neun gong-jja-ro yeo-haeng-ha-ge doe-eot-da.
-   + Việt: Anh ấy được đi du lịch miễn phí.
-
-3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 무료 (無料): Miễn phí
-   - 할인 (割引): Giảm giá
-   - 유료 (有料): Có phí, trả tiền
-   - 선물 (前物): Quà tặng
-
-4. MẸO NHỚ: Hãy nghĩ đến "CÔNG" (공) chung chẳng mất đồng "GIÁ" (짜) nào. Miễn phí (공짜) là món quà của cuộc đời.
-
-## 공통 (共通)
-
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Chung, phổ biến". "共" (공, cộng) nghĩa là cùng, chung; "通" (통, thông) nghĩa là thông suốt, chung. Hợp lại chỉ điều mà nhiều người hoặc nhóm cùng có, cùng chia sẻ.
-
-2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 우리의 공통 관심사는 음악이다.
-+ Bồi: U-ri-ui gong-tong gwan-sim-sa-neun eum-ak-i-da.
-   + Việt: Sở thích chung của chúng tôi là âm nhạc.
-
-+ Hàn: 공통점을 찾아보면 친해지기 쉽다.
-+ Bồi: Gong-tong-jeom-eul cha-ja-bo-myeon chin-hae-ji-gi swip-da.
-   + Việt: Tìm điểm chung thì dễ làm bạn.
-
-+ Hàn: 두 나라 간 공통 언어가 없다.
-+ Bồi: Du na-ra gan gong-tong eo-neo-ga eop-da.
-   + Việt: Hai nước không có ngôn ngữ chung.
-
-+ Hàn: 공통 목표를 위해 힘을 모았다.
-+ Bồi: Gong-tong mok-pyo-reul wi-hae him-eul mo-at-da.
-   + Việt: Tập hợp sức lực vì mục tiêu chung.
-
-+ Hàn: 공통의 적이 있으면 연합한다.
-+ Bồi: Gong-tong-ui jeok-i i-seu-myeon yeon-hap-han-da.
-   + Việt: Có kẻ thù chung thì liên minh.
-
-+ Hàn: 이 문제는 우리 모두의 공통 과제이다.
-+ Bồi: I mun-je-neun u-ri mo-du-ui gong-tong gwa-je-i-da.
-   + Việt: Vấn đề này là bài tập chung của tất cả.
-
-3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 공유 (共有): Cộng hữu, chia sẻ
-   - 일반 (一般): Nhất ban, phổ biến
-   - 차이 (差異): Khác biệt
-   - 특색 (特色): Đặc sắc, đặc trưng
-
-4. MẸO NHỚ: Hãy nghĩ đến điều "CỘNG" (공) chung "THÔNG" (통) suốt giữa mọi người. Chung (공통) là sợi dây kết nối.
-
-## 공포 (恐怖)
-
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Khủng bố, sợ hãi". "恐" (공, khủng) nghĩa là sợ, kinh hoàng; "怖" (포, bố) nghĩa là sợ hãi, khiếp sợ. Hợp lại chỉ cảm giác sợ hãi tột độ, kinh hoàng.
-
-2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 공포 영화를 보면 잠이 안 온다.
-+ Bồi: Gong-po yeong-hwa-reul bo-myeon jam-i an on-da.
-   + Việt: Xem phim kinh dị thì không ngủ được.
-
-+ Hàn: 그는 공포에 질려 움직이지 못했다.
-+ Bồi: Geu-neun gong-po-e jil-lyeo um-jik-i-ji mot-haet-da.
-   + Việt: Anh ấy sợ đến mức không thể cử động.
-
-+ Hàn: 공포 분위기가 연출되었다.
-+ Bồi: Gong-po bun-wi-gi-ga yeon-chul-doe-eot-da.
-   + Việt: Không khí kinh hoàng đã được tạo ra.
-
-+ Hàn: 높이에 대한 공포증이 있다.
-+ Bồi: No-pi-e dae-han gong-po-jung-i it-da.
-   + Việt: Tôi có chứng sợ độ cao.
-
-+ Hàn: 공포를 이겨내는 것이 성장이다.
-+ Bồi: Gong-po-reul i-gyeo-nae-neun geot-i seong-jang-i-da.
-   + Việt: Vượt qua nỗi sợ là trưởng thành.
-
-+ Hàn: 그의 눈에 공포가 가득 찼다.
-+ Bồi: Geu-ui nun-e gong-po-ga ga-deuk chat-da.
-   + Việt: Đôi mắt anh ấy đầy vẻ sợ hãi.
-
-3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 두려움 (-): Nỗi sợ
-   - 공포증 (恐怖症): Chứng sợ
-   - 공포심 (恐怖心): Tâm lý sợ hãi
-   - 용기 (勇氣): Dũng khí
-
-4. MẸO NHỚ: Hãy nghĩ đến bóng tối làm lòng "KHỦNG" (공) loạn, "BỐ" (포) rối. Khủng bố (공포) là khi sợ chiếm lấy tâm trí.
-
-## 공허 (空虛)
-
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Trống rỗng, hư vô". "空" (공, không) nghĩa là trống rỗng; "虛" (허, hư) nghĩa là hư ảo, không thực. Hợp lại chỉ cảm giác thiếu vắng, không có ý nghĩa.
-
-2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 공허한 느낌이 들었다.
-+ Bồi: Gong-heo-han neu-ggim-i deul-eot-da.
-   + Việt: Cảm thấy trống rỗng.
-
-+ Hàn: 성공 후에도 공허함을 느꼈다.
-+ Bồi: Seong-gong hu-e-do gong-heo-ham-eul neu-ggyeot-da.
-   + Việt: Dù thành công vẫn cảm thấy trống trải.
-
-+ Hàn: 그의 미소에는 공허함이 배어 있었다.
-+ Bồi: Geu-ui mi-so-e-neun gong-heo-ham-i bae-eo i-seot-da.
-   + Việt: Nụ cười anh ấy thoáng vẻ trống rỗng.
-
-+ Hàn: 밤하늘의 공허함이 느껴졌다.
-+ Bồi: Bam-ha-neul-ui gong-heo-ham-i neu-ggyeo-jyeot-da.
-   + Việt: Cảm nhận được sự hư vô của bầu trời đêm.
-
-+ Hàn: 공허한 방안에 메아리만 울렸다.
-+ Bồi: Gong-heo-han bang-an-e me-a-ri-man ul-lyeot-da.
-   + Việt: Tiếng vang vọng trong căn phòng trống.
-
-+ Hàn: 그녀의 눈빛은 공허했다.
-+ Bồi: Geu-nyeo-ui nun-bit-eun gong-heo-haet-da.
-   + Việt: Ánh mắt cô ấy trống rỗng.
-
-3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 허무 (虛無): Hư vô
-   - 공백 (空白): Khoảng trắng, bỏ trống
-   - 실망 (失望): Thất vọng
-   - 충만 (充滿): Tràn đầy, đầy đủ
-
-4. MẸO NHỚ: Hãy nghĩ đến căn phòng "KHÔNG" (공) trống, "HƯ" (허) ảo không người. Trống rỗng (공허) là khi lòng không có điểm tựa.
-
-## 공휴일 (公休日)
-
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Ngày nghỉ lễ, ngày nghỉ chung". "公" (공, công) nghĩa là công chúng, chung; "休" (휴, hưu) nghĩa là nghỉ ngơi; "日" (일, nhật) nghĩa là ngày. Hợp lại chỉ ngày nghỉ chung của toàn xã hội, thường là ngày lễ.
-
-2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 다음 주 공휴일이 무엇인가요?
-+ Bồi: Da-eum ju gong-hyu-il-i mu-eo-sin-ga-yo?
-   + Việt: Ngày nghỉ lễ tuần sau là ngày gì?
-
-+ Hàn: 공휴일에는 은행이 문을 닫는다.
-+ Bồi: Gong-hyu-il-e-neun eun-haeng-i mun-eul dan-neun-da.
-   + Việt: Ngày lễ ngân hàng đóng cửa.
-
-+ Hàn: 공휴일을 맞아 가족들과 여행 갔다.
-+ Bồi: Gong-hyu-il-eul ma-ja ga-jok-deul-gwa yeo-haeng gat-da.
-   + Việt: Nhân dịp nghỉ lễ đã đi du lịch với gia đình.
-
-+ Hàn: 공휴일에도 일하는 사람들이 있다.
-+ Bồi: Gong-hyu-il-e-do il-ha-neun sa-ram-deul-i it-da.
-   + Việt: Có người vẫn làm việc ngày lễ.
-
-+ Hàn: 이번 달 공휴일이 많다.
-+ Bồi: I-beon dal gong-hyu-il-i manh-da.
-   + Việt: Tháng này nhiều ngày nghỉ lễ.
-
-+ Hàn: 공휴일에는 교통이 복잡하다.
-+ Bồi: Gong-hyu-il-e-neun gyo-tong-i bok-jap-ha-da.
-   + Việt: Ngày lễ giao thông phức tạp.
-
-3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 휴일 (休日): Ngày nghỉ
-   - 연휴 (連休): Nghỉ liền, nghỉ dài
-   - 근무 (勤務): Làm việc, công tác
-   - 명절 (名節): Danh tiết, lễ tết
-
-4. MẸO NHỚ: Hãy nghĩ đến ngày "CÔNG" (공) chung được "HƯU" (휴) nghỉ "NHẬT" (일). Ngày nghỉ lễ (공휴일) là món quà của thời gian.
-
-## 과거 (過去)
-
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Quá khứ". "過" (과, quá) nghĩa là qua, vượt qua; "去" (거, khứ) nghĩa là đi, rời. Hợp lại chỉ thời gian đã trôi qua, không quay lại được.
-
-2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 과거를 후회해도 소용없다.
-+ Bồi: Gwa-geo-reul hu-hoe-hae-do so-yong-eop-da.
-   + Việt: Hối hận quá khứ cũng vô ích.
-
-+ Hàn: 과거의 실패를教訓 삼아라.
-+ Bồi: Gwa-geo-ui sil-pae-reul gyo-hun sam-a-ra.
-   + Việt: Lấy thất bại quá khứ làm bài học.
-
-+ Hàn: 과거와 화해하는 것이 중요하다.
-+ Bồi: Gwa-geo-wa hwa-hae-ha-neun geot-i jung-yo-ha-da.
-   + Việt: Hòa giải với quá khứ là quan trọng.
-
-+ Hàn: 그는 과거에 살고 있다.
-+ Bồi: Geu-neun gwa-geo-e sal-go it-da.
-   + Việt: Anh ấy đang sống trong quá khứ.
-
-+ Hàn: 과거 사진을 보며 추억에 잠겼다.
-+ Bồi: Gwa-geo sa-jin-eul bo-myeo chu-eok-e jam-gyeot-da.
-   + Việt: Ngắm ảnh cũ mà chìm trong hoài niệm.
-
-+ Hàn: 과거를 잊고 새 출발을 하자.
-+ Bồi: Gwa-geo-reul it-go sae chul-bal-eul ha-ja.
-   + Việt: Hãy quên quá khứ và bắt đầu lại.
-
-3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 현재 (現在): Hiện tại
-   - 미래 (未來): Tương lai
-   - 추억 (追憶): Hoài niệm, hồi tưởng
-   - 역사 (歷史): Lịch sử
-
-4. MẸO NHỚ: Hãy nghĩ đến thời gian đã "QUÁ" (과) đi "KHỨ" (거) mãi. Quá khứ (과거) là chương đã đóng lại.
-
-## 과연 (果然)
-
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Quả nhiên, liệu có". "果" (과, quả) nghĩa là kết quả, thật sự; "然" (연, nhiên) nghĩa là như vậy, đúng thế. Hợp lại dùng để nhấn mạnh sự thật hoặc nghi vấn về điều gì đó.
-
-2. 6 VÍ DỤ THỰC CHIẾN:
-+ Hàn: 과연 그 말이 사실일까?
-+ Bồi: Gwa-yeon geu mal-i sa-sil-il-kka?
-   + Việt: Liệu lời đó có phải sự thật?
-
-+ Hàn: 과연 대단한 실력이었다.
-+ Bồi: Gwa-yeon dae-dan-han sil-ryeok-i-eot-da.
-   + Việt: Quả nhiên là thực lực phi thường.
-
-+ Hàn: 과연 그가 해낼 수 있을까?
-+ Bồi: Gwa-yeon geu-ga hae-nal su i-sseul-kka?
-   + Việt: Liệu anh ấy có làm được không?
-
-+ Hàn: 과연 기대만큼 좋았다.
-+ Bồi: Gwa-yeon gi-dae-man-keum jo-at-da.
-   + Việt: Quả nhiên tốt như mong đợi.
-
-+ Hàn: 과연 그럴 리가 없지.
-+ Bồi: Gwa-yeon geu-reol ri-ga eop-ji.
-   + Việt: Quả nhiên không thể như vậy.
-
-+ Hàn: 과연 명불허전이었다.
-+ Bồi: Gwa-yeon myeong-bul-heo-jeon-i-eot-da.
-   + Việt: Quả nhiên danh bất hư truyền.
-
-3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 정말 (-): Thật sự
-   - 역시 (-): Quả nhiên, như dự đoán
-   - 설마 (-): Lẽ nào, chẳng lẽ
-   - 확실히 (確實): Chắc chắn
-
-4. MẸO NHỚ: Hãy nghĩ đến "QUẢ" (과) nhiên đúng "NHIÊN" (연) như vậy. Khi kết quả đúng như dự đoán — đó là quả nhiên (과연).
