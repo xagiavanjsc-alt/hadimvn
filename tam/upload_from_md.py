@@ -39,7 +39,7 @@ def extract_examples(raw):
 
 def extract_related(raw):
     results = []
-    sec_match = re.search(r'3\.\s*3 TỪ LIÊN QUAN GỐC HÁN[:\s]+([\s\S]+?)(?=\n\s*4\.)', raw)
+    sec_match = re.search(r'3\.\s*\d+\s*TỪ LIÊN QUAN GỐC HÁN[:\s]+([\s\S]+?)(?=\n\s*4\.)', raw)
     if sec_match:
         re_pattern = r'-\s*(\S+)\s*\(([^)]+)\)\s*:\s*(.+)'
         for m in re.finditer(re_pattern, sec_match.group(1)):
