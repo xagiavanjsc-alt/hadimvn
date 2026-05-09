@@ -11,7 +11,7 @@ Mỗi từ vựng theo đúng 5 phần theo thứ tự:
 ```markdown
 ## hangul (hanja)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "nghĩa ngắn". Giải thích gốc Hán chi tiết.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Viết hoa đầu câu, còn lại thường". Giải thích gốc Hán chi tiết.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: Câu tiếng Hàn
