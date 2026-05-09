@@ -2,7 +2,7 @@
 
 ## 갈등 (葛藤)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "xung đột, mâu thuẫn". "葛" (갈, cát) là cây nho dại leo quấn; "藤" (등, đằng) là dây leo. Hợp lại chỉ sự rối rắm, quấn vào nhau như dây leo, nghĩa bóng là xung đột, mâu thuẫn.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Xung đột, mâu thuẫn". "葛" (갈, cát) là cây nho dại leo quấn; "藤" (등, đằng) là dây leo. Hợp lại chỉ sự rối rắm, quấn vào nhau như dây leo, nghĩa bóng là xung đột, mâu thuẫn.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 두 팀 사이의 갈등이 심화되고 있다.
@@ -39,7 +39,7 @@
 
 ## 감각 (感覺)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cảm giác, giác quan". "感" (감, cảm) nghĩa là cảm nhận, rung động; "覺" (각, giác) nghĩa là nhận thức, tỉnh ngộ. Hợp lại chỉ khả năng nhận thức thế giới bên ngoài qua các giác quan.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cảm giác, giác quan". "感" (감, cảm) nghĩa là cảm nhận, rung động; "覺" (각, giác) nghĩa là nhận thức, tỉnh ngộ. Hợp lại chỉ khả năng nhận thức thế giới bên ngoài qua các giác quan.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이 음악은 특별한 감각을 준다.
@@ -76,7 +76,7 @@
 
 ## 감사 (感謝)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cảm ơn, biết ơn". "感" (감, cảm) là cảm nhận, rung động; "謝" (사, tạ) là tạ ơn, xin lỗi. Hợp lại chỉ sự cảm kích, biết ơn đối với người khác.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cảm ơn, biết ơn". "感" (감, cảm) là cảm nhận, rung động; "謝" (사, tạ) là tạ ơn, xin lỗi. Hợp lại chỉ sự cảm kích, biết ơn đối với người khác.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 도와주셔서 정말 감사합니다.
@@ -113,7 +113,7 @@
 
 ## 감소 (減少)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "giảm, suy giảm, thu hẹp". "減" (감, giảm) nghĩa là giảm bớt, hao tổn; "少" (소, thiểu) nghĩa là ít. Hợp lại chỉ sự giảm đi về số lượng, mức độ hoặc quy mô.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Giảm, suy giảm, thu hẹp". "減" (감, giảm) nghĩa là giảm bớt, hao tổn; "少" (소, thiểu) nghĩa là ít. Hợp lại chỉ sự giảm đi về số lượng, mức độ hoặc quy mô.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 매출이 지난달보다 10퍼센트 감소했다.
@@ -150,7 +150,7 @@
 
 ## 감정 (感情)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cảm xúc, tình cảm". "感" (감, cảm) là cảm nhận, rung động; "情" (정, tình) là tình cảm, cảm xúc. Hợp lại chỉ những phản ứng tâm lý sâu sắc của con người.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cảm xúc, tình cảm". "感" (감, cảm) là cảm nhận, rung động; "情" (정, tình) là tình cảm, cảm xúc. Hợp lại chỉ những phản ứng tâm lý sâu sắc của con người.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 감정을 숨기는 것은 건강에 좋지 않다.
@@ -187,7 +187,7 @@
 
 ## 감독 (監督)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "giám sát, đạo diễn". "監" (감, giám) nghĩa là quan sát, giám sát; "督" (독, đốc) nghĩa là đôn đốc, giám thị. Hợp lại chỉ người giám sát, đặc biệt là đạo diễn phim hoặc người quản lý.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Giám sát, đạo diễn". "監" (감, giám) nghĩa là quan sát, giám sát; "督" (독, đốc) nghĩa là đôn đốc, giám thị. Hợp lại chỉ người giám sát, đặc biệt là đạo diễn phim hoặc người quản lý.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이 영화의 감독은 세계적으로 유명하다.
@@ -224,7 +224,7 @@
 
 ## 감히 (敢爲)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "dám, dám làm". "敢" (감, cảm) nghĩa là dám, có gan; "爲" (위, vi) nghĩa là làm, vì. Hợp lại chỉ sự can đảm làm điều gì đó, thường dùng trong câu phủ định hoặc nghi vấn.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Dám, dám làm". "敢" (감, cảm) nghĩa là dám, có gan; "爲" (위, vi) nghĩa là làm, vì. Hợp lại chỉ sự can đảm làm điều gì đó, thường dùng trong câu phủ định hoặc nghi vấn.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 네가 감히 나에게 거짓말을 했어?
@@ -261,7 +261,7 @@
 
 ## 강력 (强力)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "mạnh mẽ, cường lực". "强" (강, cường) nghĩa là mạnh, cứng rắn; "力" (력, lực) nghĩa là sức mạnh, năng lực. Hợp lại chỉ sức mạnh to lớn, quyết liệt, hùng hậu.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Mạnh mẽ, cường lực". "强" (강, cường) nghĩa là mạnh, cứng rắn; "力" (력, lực) nghĩa là sức mạnh, năng lực. Hợp lại chỉ sức mạnh to lớn, quyết liệt, hùng hậu.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 경찰이 강력 범죄를 단속하고 있다.
@@ -298,7 +298,7 @@
 
 ## 강요 (强要)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "ép buộc, cưỡng yêu". "强" (강, cường) nghĩa là mạnh, ép buộc; "要" (요, yêu) nghĩa là yêu cầu, đòi hỏi. Hợp lại chỉ việc dùng sức mạnh hoặc quyền lực để buộc người khác làm điều gì.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Ép buộc, cưỡng yêu". "强" (강, cường) nghĩa là mạnh, ép buộc; "要" (요, yêu) nghĩa là yêu cầu, đòi hỏi. Hợp lại chỉ việc dùng sức mạnh hoặc quyền lực để buộc người khác làm điều gì.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 누구에게도 강요받고 싶지 않다.
@@ -335,7 +335,7 @@
 
 ## 강조 (强調)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "nhấn mạnh". "强" (강, cường) nghĩa là mạnh, gia tăng; "調" (조, điều) nghĩa là điều chỉnh, điều hòa. Hợp lại chỉ việc nhấn mạnh, làm nổi bật điều gì đó.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Nhấn mạnh". "强" (강, cường) nghĩa là mạnh, gia tăng; "調" (조, điều) nghĩa là điều chỉnh, điều hòa. Hợp lại chỉ việc nhấn mạnh, làm nổi bật điều gì đó.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 교사는 안전의 중요성을 강조했다.
@@ -372,7 +372,7 @@
 
 ## 강화 (强化)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "tăng cường, cường hóa". "强" (강, cường) nghĩa là mạnh, gia tăng; "化" (화, hóa) nghĩa là biến thành, hóa thành. Hợp lại chỉ việc làm cho mạnh hơn, tăng cường năng lực.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Tăng cường, cường hóa". "强" (강, cường) nghĩa là mạnh, gia tăng; "化" (화, hóa) nghĩa là biến thành, hóa thành. Hợp lại chỉ việc làm cho mạnh hơn, tăng cường năng lực.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 근육을 강화하기 위해 매일 운동한다.
@@ -409,7 +409,7 @@
 
 ## 강호 (江湖)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "giang hồ". "江" (강, giang) nghĩa là sông lớn; "湖" (호, hồ) nghĩa là hồ nước. Hợp lại chỉ giang hồ — thế giới bên ngoài của những người du hành, võ sĩ, hoặc nghệ sĩ lưu động.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Giang hồ". "江" (강, giang) nghĩa là sông lớn; "湖" (호, hồ) nghĩa là hồ nước. Hợp lại chỉ giang hồ — thế giới bên ngoài của những người du hành, võ sĩ, hoặc nghệ sĩ lưu động.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 그는 강호의 전설적인 인물이다.
@@ -446,7 +446,7 @@
 
 ## 개관 (槪觀)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "khái quan, tổng quan". "槪" (개, khái) nghĩa là khái lược, tóm tắt; "觀" (관, quan) nghĩa là quan sát, nhìn. Hợp lại chỉ việc nhìn nhận tổng thể, nắm bắt đại khái.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Khái quan, tổng quan". "槪" (개, khái) nghĩa là khái lược, tóm tắt; "觀" (관, quan) nghĩa là quan sát, nhìn. Hợp lại chỉ việc nhìn nhận tổng thể, nắm bắt đại khái.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이 보고서는 시장 상황에 대한 개관을 제공한다.
@@ -483,7 +483,7 @@
 
 ## 개국 (開國)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "khai quốc, thành lập nước". "開" (개, khai) nghĩa là mở, bắt đầu; "國" (국, quốc) nghĩa là nước, quốc gia. Hợp lại chỉ việc thành lập một quốc gia mới, khởi đầu triều đại.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Khai quốc, thành lập nước". "開" (개, khai) nghĩa là mở, bắt đầu; "國" (국, quốc) nghĩa là nước, quốc gia. Hợp lại chỉ việc thành lập một quốc gia mới, khởi đầu triều đại.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 대한민국은 1948년에 개국되었다.
@@ -520,7 +520,7 @@
 
 ## 개선 (改善)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cải thiện, cải tiến". "改" (개, cải) nghĩa là thay đổi, sửa chữa; "善" (선, thiện) nghĩa là tốt đẹp, thiện lương. Hợp lại chỉ việc thay đổi theo hướng tốt hơn, cải thiện.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cải thiện, cải tiến". "改" (개, cải) nghĩa là thay đổi, sửa chữa; "善" (선, thiện) nghĩa là tốt đẹp, thiện lương. Hợp lại chỉ việc thay đổi theo hướng tốt hơn, cải thiện.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 서비스 품질을 개선해야 한다.
@@ -557,7 +557,7 @@
 
 ## 개성 (個性)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cá tính, tính cách riêng". "個" (개, cá) nghĩa là cá thể, riêng lẻ; "性" (성, tính) nghĩa là bản chất, tính chất. Hợp lại chỉ những đặc điểm riêng biệt của mỗi người, tính cách độc đáo.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cá tính, tính cách riêng". "個" (개, cá) nghĩa là cá thể, riêng lẻ; "性" (성, tính) nghĩa là bản chất, tính chất. Hợp lại chỉ những đặc điểm riêng biệt của mỗi người, tính cách độc đáo.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 그녀는 개성이 뚜렷한 디자이너이다.
@@ -594,7 +594,7 @@
 
 ## 개인 (個人)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cá nhân". "個" (개, cá) nghĩa là cá thể; "人" (인, nhân) nghĩa là người. Hợp lại chỉ mỗi người riêng lẻ, đối lập với tập thể hoặc tổ chức.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cá nhân". "個" (개, cá) nghĩa là cá thể; "人" (인, nhân) nghĩa là người. Hợp lại chỉ mỗi người riêng lẻ, đối lập với tập thể hoặc tổ chức.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 개인의 자유는 소중한 권리이다.
@@ -631,7 +631,7 @@
 
 ## 개월 (個月)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "tháng". "個" (개, cá) là đơn vị đếm; "月" (월, nguyệt) nghĩa là tháng, mặt trăng. Hợp lại chỉ đơn vị thời gian khoảng 30 ngày, dùng để đếm số tháng.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Tháng". "個" (개, cá) là đơn vị đếm; "月" (월, nguyệt) nghĩa là tháng, mặt trăng. Hợp lại chỉ đơn vị thời gian khoảng 30 ngày, dùng để đếm số tháng.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 3개월 동안 한국어를 공부했다.
@@ -668,7 +668,7 @@
 
 ## 객관 (客觀)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "khách quan". "客" (객, khách) nghĩa là khách, người ngoài; "觀" (관, quan) nghĩa là quan sát, nhìn. Hợp lại chỉ việc nhìn nhận sự việc không theo cảm xúc cá nhân, đứng từ góc độ người ngoài.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Khách quan". "客" (객, khách) nghĩa là khách, người ngoài; "觀" (관, quan) nghĩa là quan sát, nhìn. Hợp lại chỉ việc nhìn nhận sự việc không theo cảm xúc cá nhân, đứng từ góc độ người ngoài.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 객관적인 판단이 필요하다.
@@ -705,7 +705,7 @@
 
 ## 객석 (客席)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "khách mời, ghế khách, chỗ ngồi dành cho khách". "客" (객, khách) nghĩa là khách; "席" (석, tịch) nghĩa là chỗ ngồi, tịch. Hợp lại chỉ chỗ ngồi dành cho khách trong nhà hát, sân vận động hoặc buổi tiệc.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Khách mời, ghế khách, chỗ ngồi dành cho khách". "客" (객, khách) nghĩa là khách; "席" (석, tịch) nghĩa là chỗ ngồi, tịch. Hợp lại chỉ chỗ ngồi dành cho khách trong nhà hát, sân vận động hoặc buổi tiệc.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 객석이 만석이다.
@@ -742,7 +742,7 @@
 
 ## 거짓 (虛僞)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "giả dối, dối trá". "虛" (거, hư) nghĩa là hư ảo, giả tạo; "僞" (짓, ngụy) nghĩa là ngụy trang, giả mạo. Hợp lại chỉ sự không thật, lừa dối, nói sai sự thật.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Giả dối, dối trá". "虛" (거, hư) nghĩa là hư ảo, giả tạo; "僞" (짓, ngụy) nghĩa là ngụy trang, giả mạo. Hợp lại chỉ sự không thật, lừa dối, nói sai sự thật.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 거짓말은 결국 드러난다.

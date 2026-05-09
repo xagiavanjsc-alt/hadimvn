@@ -1,6 +1,6 @@
 ## 가전 (家電)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "đồ điện gia dụng". Từ gốc Hán "家電" (gia điện): "家" (가) nghĩa là nhà, gia đình; "電" (전) nghĩa là điện.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Đồ điện gia dụng". Từ gốc Hán "家電" (gia điện): "家" (가) nghĩa là nhà, gia đình; "電" (전) nghĩa là điện.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: **가전** 제품을 새로 사려고 백화점에 갔어요.
@@ -33,7 +33,7 @@
 
 ## 가중 (加重)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "tăng nặng", "làm trầm trọng thêm". Gốc Hán: "加" (가, gia) nghĩa là thêm vào; "重" (중, trọng) nghĩa là nặng, trọng lượng.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Tăng nặng", "làm trầm trọng thêm". Gốc Hán: "加" (가, gia) nghĩa là thêm vào; "重" (중, trọng) nghĩa là nặng, trọng lượng.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 형량을 **가중**시키다.
@@ -66,7 +66,7 @@
 
 ## 가창 (歌唱)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "ca hát". Từ gốc Hán: "가" (歌 - ca) nghĩa là bài hát, hát; "창" (唱 - xướng) nghĩa là cất tiếng, hát lên. Hợp thành chỉ hành động biểu diễn bài hát bằng giọng.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Ca hát". Từ gốc Hán: "가" (歌 - ca) nghĩa là bài hát, hát; "창" (唱 - xướng) nghĩa là cất tiếng, hát lên. Hợp thành chỉ hành động biểu diễn bài hát bằng giọng.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 그녀의 **가창** 실력은 정말 놀랍습니다.
@@ -103,7 +103,7 @@
 
 ## 가해 (加害)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "gây hại", "sự gây hại". Từ gốc Hán: "加" (가 - gia) nghĩa là thêm vào, tăng lên; "害" (해 - hại) nghĩa là tổn hại, thiệt hại. Hợp lại chỉ hành động gây ra tổn hại.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Gây hại", "sự gây hại". Từ gốc Hán: "加" (가 - gia) nghĩa là thêm vào, tăng lên; "害" (해 - hại) nghĩa là tổn hại, thiệt hại. Hợp lại chỉ hành động gây ra tổn hại.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: **가해** 행위는 법으로 엄격히 처벌받습니다.
@@ -177,7 +177,7 @@
 
 ## 각국 (各國)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "các nước". Từ gốc Hán: "各" (các) + "國" (nước, quốc gia).
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Các nước". Từ gốc Hán: "各" (các) + "國" (nước, quốc gia).
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: **각국**의 문화는 매우 다양합니다.
@@ -214,7 +214,7 @@
 
 ## 각론 (各論)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "từng luận điểm", "phần thảo luận chi tiết". Gốc Hán: "各" (các - mỗi) + "論" (luận - bàn luận, lý thuyết). Chỉ việc đi sâu phân tích từng điểm riêng biệt trong một chủ đề lớn.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Từng luận điểm", "phần thảo luận chi tiết". Gốc Hán: "各" (các - mỗi) + "論" (luận - bàn luận, lý thuyết). Chỉ việc đi sâu phân tích từng điểm riêng biệt trong một chủ đề lớn.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이 책은 윤리학의 개론과 **각론**을 모두 포함하고 있어.
@@ -284,7 +284,7 @@
 
 ## 각색 (各色)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "các loại", "đủ loại". Gốc Hán: "各" (các) + "色" (màu sắc, loại) → chỉ sự đa dạng, nhiều chủng loại khác nhau.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Các loại", "đủ loại". Gốc Hán: "各" (các) + "色" (màu sắc, loại) → chỉ sự đa dạng, nhiều chủng loại khác nhau.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 시장에는 **각색** 과일이 가득했다.
@@ -321,7 +321,7 @@
 
 ## 각자 (各自)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "mỗi người", "từng người một". Gốc Hán: "各" (각 - mỗi) + "自" (자 - tự bản thân), nhấn mạnh tính cá nhân, riêng lẻ.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Mỗi người", "từng người một". Gốc Hán: "各" (각 - mỗi) + "自" (자 - tự bản thân), nhấn mạnh tính cá nhân, riêng lẻ.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 우리는 **각자** 할 일이 있어서 먼저 갈게요.
@@ -355,7 +355,7 @@
 
 ## 각종 (各種)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "các loại, đủ loại, nhiều thứ khác nhau". Từ gốc Hán: 各 (các - mỗi) + 種 (chủng - loại, giống) = "các loại".
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Các loại, đủ loại, nhiều thứ khác nhau". Từ gốc Hán: 各 (các - mỗi) + 種 (chủng - loại, giống) = "các loại".
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이 가게에서는 **각종** 문구를 판매합니다.
@@ -392,7 +392,7 @@
 
 ## 각지 (各地)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "các nơi", "khắp nơi". Phân tích gốc Hán: "각" (各 - mỗi, các) + "지" (地 - đất, vùng) = các vùng đất, các nơi.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Các nơi", "khắp nơi". Phân tích gốc Hán: "각" (各 - mỗi, các) + "지" (地 - đất, vùng) = các vùng đất, các nơi.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: **각지**에서 모인 사람들이 축제를 즐겼다.
@@ -462,7 +462,7 @@
 
 ## 간과 (看過)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "bỏ qua", "lơ là", "không chú ý tới". Gốc Hán: "看" (xem, nhìn) + "過" (đi qua, trải qua). Nghĩa gốc là "nhìn mà cho qua", chỉ việc không để ý, xem nhẹ hoặc bỏ sót.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Bỏ qua", "lơ là", "không chú ý tới". Gốc Hán: "看" (xem, nhìn) + "過" (đi qua, trải qua). Nghĩa gốc là "nhìn mà cho qua", chỉ việc không để ý, xem nhẹ hoặc bỏ sót.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 중요한 문제를 **간과**해서는 안 됩니다.
@@ -495,7 +495,7 @@
 
 ## 간략 (簡略)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "sơ lược", "tóm tắt". Phân tích gốc Hán: 簡 (Giản) - đơn giản, 略 (Lược) - tóm tắt, bỏ qua chi tiết.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Sơ lược", "tóm tắt". Phân tích gốc Hán: 簡 (Giản) - đơn giản, 略 (Lược) - tóm tắt, bỏ qua chi tiết.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 보고서를 **간략**하게 요약해 주세요.
@@ -532,7 +532,7 @@
 
 ## 간섭 (干涉)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "sự can thiệp, sự xen vào". Từ gốc Hán "干涉" (干涉): "Can" (干) nghĩa là dính dáng, "thiệp" (涉) nghĩa là liên quan, dấn vào.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Sự can thiệp, sự xen vào". Từ gốc Hán "干涉" (干涉): "Can" (干) nghĩa là dính dáng, "thiệp" (涉) nghĩa là liên quan, dấn vào.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 부모님은 자녀의 결혼 문제에 **간섭**하지 않는 게 좋다고 생각합니다.
@@ -569,7 +569,7 @@
 
 ## 간소 (簡素)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "đơn giản, giản dị, mộc mạc". Phân tích gốc Hán: "간" (簡) nghĩa là đơn giản, ngắn gọn; "소" (素) nghĩa là mộc mạc, thuần khiết, không trang sức.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Đơn giản, giản dị, mộc mạc". Phân tích gốc Hán: "간" (簡) nghĩa là đơn giản, ngắn gọn; "소" (素) nghĩa là mộc mạc, thuần khiết, không trang sức.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 그의 생활 방식은 매우 **간소**합니다.
@@ -606,7 +606,7 @@
 
 ## 간식 (間食)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "ăn vặt". Phân tích gốc Hán: "간" (間 - gian) chỉ khoảng giữa, thời gian giữa; "식" (食 - thực) chỉ việc ăn uống. "간식" nghĩa là bữa ăn nhẹ giữa các bữa chính.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Ăn vặt". Phân tích gốc Hán: "간" (間 - gian) chỉ khoảng giữa, thời gian giữa; "식" (食 - thực) chỉ việc ăn uống. "간식" nghĩa là bữa ăn nhẹ giữa các bữa chính.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: **간식**으로 과일을 먹는 것이 건강에 좋아요.
@@ -643,7 +643,7 @@
 
 ## 간이 (簡易)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "đơn giản, giản lược". Gốc Hán: "간" (簡 - giản) nghĩa là đơn giản, "이" (易 - dịch) nghĩa là dễ dàng. Hợp lại chỉ sự đơn giản, dễ làm.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Đơn giản, giản lược". Gốc Hán: "간" (簡 - giản) nghĩa là đơn giản, "이" (易 - dịch) nghĩa là dễ dàng. Hợp lại chỉ sự đơn giản, dễ làm.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: **간이** 식탁을 준비했어요.
@@ -676,7 +676,7 @@
 
 ## 간주 (看做)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "coi như, xem như, đánh giá là". Phân tích gốc Hán: "간" (看) nghĩa là nhìn, xem xét; "주" (做) nghĩa là làm, coi như. Hợp lại thành "coi như là".
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Coi như, xem như, đánh giá là". Phân tích gốc Hán: "간" (看) nghĩa là nhìn, xem xét; "주" (做) nghĩa là làm, coi như. Hợp lại thành "coi như là".
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 그 실수는 경고 없이 **간주**됩니다.
@@ -709,7 +709,7 @@
 
 ## 간청 (懇請)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "khẩn cầu", tức là yêu cầu, thỉnh cầu một cách chân thành, thiết tha. Phân tích gốc Hán: "간" (懇) nghĩa là chân thành, khẩn thiết; "청" (請) nghĩa là yêu cầu, thỉnh cầu.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Khẩn cầu", tức là yêu cầu, thỉnh cầu một cách chân thành, thiết tha. Phân tích gốc Hán: "간" (懇) nghĩa là chân thành, khẩn thiết; "청" (請) nghĩa là yêu cầu, thỉnh cầu.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 그는 용서를 **간청**하며 눈물을 흘렸다.

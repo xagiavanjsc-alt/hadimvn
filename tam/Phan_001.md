@@ -2,7 +2,7 @@
 
 ## 가결 (可決)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "thông qua", "biểu quyết chấp thuận". Phân tích gốc Hán: "可" (가, khả) nghĩa là "có thể", "được phép"; "決" (결, quyết) nghĩa là "quyết định". Hợp lại chỉ việc quyết định chấp thuận, thông qua một đề xuất, nghị quyết.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Thông qua", "biểu quyết chấp thuận". Phân tích gốc Hán: "可" (가, khả) nghĩa là "có thể", "được phép"; "決" (결, quyết) nghĩa là "quyết định". Hợp lại chỉ việc quyết định chấp thuận, thông qua một đề xuất, nghị quyết.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 국회에서 예산안이 **가결**되었습니다.
@@ -34,7 +34,7 @@
 
 ## 가격 (價格)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "giá cả", "giá tiền". Phân tích gốc Hán: "가" (價 - giá) chỉ giá trị, "격" (格 - cách) chỉ mức độ, tiêu chuẩn. Hợp lại chỉ mức giá của hàng hóa, dịch vụ.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Giá cả", "giá tiền". Phân tích gốc Hán: "가" (價 - giá) chỉ giá trị, "격" (格 - cách) chỉ mức độ, tiêu chuẩn. Hợp lại chỉ mức giá của hàng hóa, dịch vụ.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이 제품의 **가격**이 얼마예요?
@@ -66,7 +66,7 @@
 
 ## 가관 (可觀)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "đáng xem, đáng chú ý". Phân tích gốc Hán: "가" (可 - khả) nghĩa là "có thể, đáng", "관" (觀 - quan) nghĩa là "xem, ngắm nhìn". Hợp lại chỉ điều gì đó đáng để nhìn, đáng chú ý.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Đáng xem, đáng chú ý". Phân tích gốc Hán: "가" (可 - khả) nghĩa là "có thể, đáng", "관" (觀 - quan) nghĩa là "xem, ngắm nhìn". Hợp lại chỉ điều gì đó đáng để nhìn, đáng chú ý.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 그 박물관의 소장품은 정말 **가관**이에요.
@@ -98,7 +98,7 @@
 
 ## 가담 (加擔)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "tham gia, dính líu, nhúng tay vào". Gốc Hán: "加" (가, gia) nghĩa là thêm vào, gia nhập; "擔" (담, đảm) nghĩa là gánh vác, đảm đương. "加擔" hàm ý tham gia vào một việc và cùng gánh vác trách nhiệm.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Tham gia, dính líu, nhúng tay vào". Gốc Hán: "加" (가, gia) nghĩa là thêm vào, gia nhập; "擔" (담, đảm) nghĩa là gánh vác, đảm đương. "加擔" hàm ý tham gia vào một việc và cùng gánh vác trách nhiệm.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 그 프로젝트에 **가담**할지 아직 결정하지 못했어요.
@@ -130,7 +130,7 @@
 
 ## 가동 (稼動)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "vận hành", "khởi động máy móc, thiết bị, hệ thống". Gốc Hán: 稼 (canh tác, trồng trọt) + 動 (chuyển động, hoạt động) → Ý chỉ sự vận hành, đưa vào hoạt động.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Vận hành", "khởi động máy móc, thiết bị, hệ thống". Gốc Hán: 稼 (canh tác, trồng trọt) + 動 (chuyển động, hoạt động) → Ý chỉ sự vận hành, đưa vào hoạt động.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 새 공장의 생산 라인을 내일 정식으로 **가동**합니다.
@@ -259,7 +259,7 @@
 
 ## 가맹 (加盟)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "gia nhập, trở thành thành viên (của một tổ chức, hiệp hội, liên minh)". Phân tích gốc Hán: "加" (가) nghĩa là thêm vào, "盟" (맹) nghĩa là liên minh, lời thề kết nghĩa.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Gia nhập, trở thành thành viên (của một tổ chức, hiệp hội, liên minh)". Phân tích gốc Hán: "加" (가) nghĩa là thêm vào, "盟" (맹) nghĩa là liên minh, lời thề kết nghĩa.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 그 기업은 국제적 환경 보호 연합에 **가맹**하기로 결정했습니다.
@@ -326,7 +326,7 @@ Phân tích gốc Hán: "家" (Gia) nghĩa là nhà, gia đình. "門" (Môn) ng
 
 ## 가변 (可變)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "có thể thay đổi", "khả biến". Gốc Hán: "可" (가, khả) nghĩa là "có thể", "變" (변, biến) nghĩa là "thay đổi".
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Có thể thay đổi", "khả biến". Gốc Hán: "可" (가, khả) nghĩa là "có thể", "變" (변, biến) nghĩa là "thay đổi".
 
 2. 5 VÍ DỤ THỰC CHIẾN:
    Hàn: 이 시스템은 가변적인 설정을 지원합니다.
@@ -385,7 +385,7 @@ Phân tích gốc Hán: "家" (Gia) nghĩa là nhà, gia đình. "門" (Môn) ng
 
 ## 가산 (加算)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cộng thêm", "tính thêm vào". Gốc Hán: 加 (gia - thêm vào) + 算 (toán - tính toán).
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cộng thêm", "tính thêm vào". Gốc Hán: 加 (gia - thêm vào) + 算 (toán - tính toán).
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이 상품은 부가세가 **가산**됩니다.
@@ -417,7 +417,7 @@ Phân tích gốc Hán: "家" (Gia) nghĩa là nhà, gia đình. "門" (Môn) ng
 
 ## 가설 (假說)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "giả thuyết". Phân tích gốc Hán: "假" (giả) nghĩa là tạm thời, giả định; "說" (thuyết) nghĩa là thuyết, lý thuyết. Hợp lại chỉ một lời giải thích hoặc dự đoán mang tính chất tạm thời, cần được kiểm chứng.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Giả thuyết". Phân tích gốc Hán: "假" (giả) nghĩa là tạm thời, giả định; "說" (thuyết) nghĩa là thuyết, lý thuyết. Hợp lại chỉ một lời giải thích hoặc dự đoán mang tính chất tạm thời, cần được kiểm chứng.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 과학자는 실험을 통해 자신의 **가설**을 검증했다.
@@ -449,7 +449,7 @@ Phân tích gốc Hán: "家" (Gia) nghĩa là nhà, gia đình. "門" (Môn) ng
 
 ## 가속 (加速)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "tăng tốc, gia tốc". Phân tích gốc Hán: "가" (加 - gia) nghĩa là thêm vào, tăng lên; "속" (速 - tốc) nghĩa là tốc độ. Hợp lại chỉ việc làm tăng tốc độ.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Tăng tốc, gia tốc". Phân tích gốc Hán: "가" (加 - gia) nghĩa là thêm vào, tăng lên; "속" (速 - tốc) nghĩa là tốc độ. Hợp lại chỉ việc làm tăng tốc độ.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 자동차가 갑자기 **가속**했다.
@@ -481,7 +481,7 @@ Phân tích gốc Hán: "家" (Gia) nghĩa là nhà, gia đình. "門" (Môn) ng
 
 ## 가압 (加壓)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "tăng áp", "tăng áp lực". Phân tích gốc Hán: 加 (가, gia) nghĩa là thêm vào, tăng lên; 壓 (압, áp) nghĩa là áp lực, đè nén.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Tăng áp", "tăng áp lực". Phân tích gốc Hán: 加 (가, gia) nghĩa là thêm vào, tăng lên; 壓 (압, áp) nghĩa là áp lực, đè nén.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이 시스템은 유체에 **가압**하여 효율을 높입니다.
@@ -513,7 +513,7 @@ Phân tích gốc Hán: "家" (Gia) nghĩa là nhà, gia đình. "門" (Môn) ng
 
 ## 가업 (家業)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "gia nghiệp", chỉ sự nghiệp, cơ nghiệp hoặc nghề nghiệp do gia đình tạo dựng và truyền lại qua các thế hệ. Phân tích gốc Hán: "가" (家 - Gia) nghĩa là nhà, gia đình; "업" (業 - Nghiệp) nghĩa là sự nghiệp, công việc.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Gia nghiệp", chỉ sự nghiệp, cơ nghiệp hoặc nghề nghiệp do gia đình tạo dựng và truyền lại qua các thế hệ. Phân tích gốc Hán: "가" (家 - Gia) nghĩa là nhà, gia đình; "업" (業 - Nghiệp) nghĩa là sự nghiệp, công việc.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
    Hàn: 그의 가업은 3대째 이어져 오는 한약방이다.
@@ -540,7 +540,7 @@ Phân tích gốc Hán: "家" (Gia) nghĩa là nhà, gia đình. "門" (Môn) ng
 
 ## 가요 (歌謠)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "bài hát", "ca khúc". Gốc Hán: "歌" (ca) nghĩa là hát, "謠" (dao) nghĩa là bài hát dân gian, đồng dao. Hợp lại chỉ các bài hát nói chung.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Bài hát", "ca khúc". Gốc Hán: "歌" (ca) nghĩa là hát, "謠" (dao) nghĩa là bài hát dân gian, đồng dao. Hợp lại chỉ các bài hát nói chung.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 요즘 가장 인기 있는 **가요**는 뭐예요?
@@ -572,7 +572,7 @@ Phân tích gốc Hán: "家" (Gia) nghĩa là nhà, gia đình. "門" (Môn) ng
 
 ## 가용 (可用)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "có thể dùng được, sẵn sàng để sử dụng". Phân tích gốc Hán: "가" (可 - khả) nghĩa là "có thể", "용" (用 - dụng) nghĩa là "sử dụng, dùng".
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Có thể dùng được, sẵn sàng để sử dụng". Phân tích gốc Hán: "가" (可 - khả) nghĩa là "có thể", "용" (用 - dụng) nghĩa là "sử dụng, dùng".
 
 2. 5 VÍ DỤ THỰC CHIẾN:
    Hàn: 이 컴퓨터의 가용 메모리가 얼마나 됩니까?
@@ -599,7 +599,7 @@ Phân tích gốc Hán: "家" (Gia) nghĩa là nhà, gia đình. "門" (Môn) ng
 
 ## 가입 (加入)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "gia nhập", "đăng ký thành viên". Từ gốc Hán "加入", trong đó "加" (가) nghĩa là thêm vào, "入" (입) nghĩa là vào. Hợp lại chỉ việc thêm vào, đi vào một tổ chức hay nhóm.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Gia nhập", "đăng ký thành viên". Từ gốc Hán "加入", trong đó "加" (가) nghĩa là thêm vào, "入" (입) nghĩa là vào. Hợp lại chỉ việc thêm vào, đi vào một tổ chức hay nhóm.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: 회원으로 **가입**하려면 어떻게 해야 하나요?
@@ -631,7 +631,7 @@ Phân tích gốc Hán: "家" (Gia) nghĩa là nhà, gia đình. "門" (Môn) ng
 
 ## 가장 (家長)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "gia trưởng" (người đứng đầu, chủ gia đình). Phân tích gốc Hán: "家" (Gia) nghĩa là nhà, gia đình; "長" (Trưởng) nghĩa là người đứng đầu, trưởng. Hợp lại chỉ người chủ trong nhà.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Gia trưởng" (người đứng đầu, chủ gia đình). Phân tích gốc Hán: "家" (Gia) nghĩa là nhà, gia đình; "長" (Trưởng) nghĩa là người đứng đầu, trưởng. Hợp lại chỉ người chủ trong nhà.
 
 2. 5 VÍ DỤ THỰC CHIẾN:
 + Hàn: **가장**으로서의 책임을 다하려고 노력합니다.
