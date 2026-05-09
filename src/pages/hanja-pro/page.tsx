@@ -26,6 +26,7 @@ export default function HanjaProPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filterChar, setFilterChar] = useState<string | null>(null);
+  const [filterStatus, setFilterStatus] = useState<'all' | 'known' | 'unknown' | 'favorites'>('all');
   const [known] = useLocalStorage<Record<number, boolean>>("kts_hanja_pro_known", {});
   const [favorites] = useLocalStorage<Record<number, boolean>>("kts_hanja_pro_fav", {});
   const [quizMode, setQuizMode] = useState(false);
@@ -57,6 +58,9 @@ export default function HanjaProPage() {
   const filtered = useMemo(() => {
     let list = entries;
     if (filterChar) list = list.filter(e => e.hanja.includes(filterChar));
+    if (filterStatus === 'known') list = list.filter(e => known[e.id]);
+    if (filterStatus === 'unknown') list = list.filter(e => !known[e.id]);
+    if (filterStatus === 'favorites') list = list.filter(e => favorites[e.id]);
     if (search.trim()) {
       const q = search.toLowerCase();
       list = list.filter(e =>
@@ -66,7 +70,7 @@ export default function HanjaProPage() {
       );
     }
     return list;
-  }, [entries, search, filterChar]);
+  }, [entries, search, filterChar, filterStatus, known, favorites]);
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const paginated = useMemo(() => filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE), [filtered, page, PAGE_SIZE]);
@@ -77,7 +81,7 @@ export default function HanjaProPage() {
     favorites: Object.values(favorites).filter(Boolean).length,
   }), [entries, known, favorites]);
 
-  useEffect(() => { setPage(1); }, [search, filterChar]);
+  useEffect(() => { setPage(1); }, [search, filterChar, filterStatus]);
 
   const openDetail = useCallback((entry: HanjaEntry) => {
     navigate(`/hanja-pro/${entry.slug}`);
@@ -222,8 +226,14 @@ export default function HanjaProPage() {
       }
     >
       {loading && (
-        <div className="flex items-center justify-center py-20">
-          <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-app-accent-primary rounded-full animate-spin"></div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="bg-app-bg border border-app-border rounded-xl p-4 animate-pulse">
+              <div className="h-5 bg-app-card/40 rounded mb-2 w-1/2"></div>
+              <div className="h-4 bg-app-card/40 rounded mb-2 w-3/4"></div>
+              <div className="h-3 bg-app-card/40 rounded w-full"></div>
+            </div>
+          ))}
         </div>
       )}
 
@@ -258,6 +268,48 @@ export default function HanjaProPage() {
               className={`px-2.5 py-1 rounded-lg text-sm font-medium transition-colors ${filterChar === char ? "bg-app-accent-primary text-app-bg" : "bg-app-card/40 text-white/70 hover:bg-app-card/60"}`}
             >
               {char}
+            </button>
+          ))}
+        </div>
+
+        {/* Progress bar */}
+        {entries.length > 0 && (
+          <div className="mt-3 pt-3 border-t border-app-border">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-app-text-muted text-xs">Tiến độ</span>
+              <span className="text-white text-xs font-medium">{stats.known}/{stats.total} ({Math.round((stats.known / stats.total) * 100)}%)</span>
+            </div>
+            <div className="w-full h-1.5 bg-app-card/40 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-emerald-500 rounded-full transition-all"
+                style={{ width: `${(stats.known / stats.total) * 100}%` }}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Status filter */}
+        <div className="flex gap-2 mt-3 flex-wrap">
+          {([
+            { key: 'all', label: 'Tất cả', count: stats.total },
+            { key: 'known', label: 'Đã thuộc', count: stats.known },
+            { key: 'unknown', label: 'Chưa thuộc', count: stats.total - stats.known },
+            { key: 'favorites', label: 'Yêu thích', count: stats.favorites },
+          ] as const).map(({ key, label, count }) => (
+            <button
+              key={key}
+              onClick={() => setFilterStatus(key)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 ${
+                filterStatus === key
+                  ? "bg-app-accent-primary text-app-bg"
+                  : "bg-app-card/40 text-white/70 hover:bg-app-card/60"
+              }`}
+            >
+              {key === 'known' && <i className="ri-check-double-line"></i>}
+              {key === 'unknown' && <i className="ri-checkbox-blank-circle-line"></i>}
+              {key === 'favorites' && <i className="ri-bookmark-fill"></i>}
+              {label}
+              <span className={`text-[10px] px-1 rounded ${filterStatus === key ? 'bg-app-bg/20' : 'bg-app-bg/10'}`}>{count}</span>
             </button>
           ))}
         </div>

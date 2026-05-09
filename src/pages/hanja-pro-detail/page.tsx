@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -22,6 +22,29 @@ interface HanjaNav {
   hangul: string;
   hanja: string;
   slug: string;
+}
+
+async function copyToClipboard(text: string) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+  }
+}
+
+function shareWord(hangul: string, hanja: string, slug: string) {
+  const url = `https://hanquocoi.vn/hanja-pro/${slug}`;
+  const text = `Học từ Hán Hàn: ${hangul} (${hanja})`;
+  if (navigator.share) {
+    navigator.share({ title: text, text, url });
+  } else {
+    copyToClipboard(url);
+  }
 }
 
 function playTTS(text: string, lang = "ko-KR") {
@@ -58,6 +81,13 @@ export default function HanjaProDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const [known, setKnown] = useLocalStorage<Record<number, boolean>>("kts_hanja_pro_known", {});
+  const [copied, setCopied] = useState<string | null>(null);
+
+  const handleCopy = useCallback((text: string, label: string) => {
+    copyToClipboard(text);
+    setCopied(label);
+    setTimeout(() => setCopied(null), 1500);
+  }, []);
   const [favorites, setFavorites] = useLocalStorage<Record<number, boolean>>("kts_hanja_pro_fav", {});
   const [entry, setEntry] = useState<HanjaEntry | null | undefined>(undefined);
   const [prev, setPrev] = useState<HanjaNav | null>(null);
@@ -175,6 +205,14 @@ export default function HanjaProDetailPage() {
       actions={
         <div className="flex items-center gap-2">
           <button
+            onClick={() => shareWord(entry.hangul, entry.hanja, entry.slug)}
+            className="flex items-center gap-1.5 px-3 py-2 bg-app-card/50 hover:bg-app-card/70 rounded-xl text-sm font-medium cursor-pointer"
+            title="Chia sẻ"
+          >
+            <i className="ri-share-line text-app-text-muted"></i>
+            Chia sẻ
+          </button>
+          <button
             onClick={() => setFavorites(p => ({ ...p, [entry.id]: !p[entry.id] }))}
             className="flex items-center gap-1.5 px-3 py-2 bg-app-card/50 hover:bg-app-card/70 rounded-xl text-sm font-medium cursor-pointer"
             title="Yêu thích"
@@ -213,8 +251,24 @@ export default function HanjaProDetailPage() {
                 >
                   <i className="ri-volume-up-line"></i>
                 </button>
+                <button
+                  onClick={() => handleCopy(entry.hangul, 'hangul')}
+                  className="w-10 h-10 flex items-center justify-center rounded-xl bg-app-card/40 text-app-text-muted hover:bg-app-card/60 cursor-pointer"
+                  title="Copy Hangul"
+                >
+                  <i className={copied === 'hangul' ? "ri-check-line text-emerald-400" : "ri-file-copy-line"}></i>
+                </button>
               </div>
-              <p className="text-app-accent-primary text-2xl sm:text-3xl font-medium mb-3">{entry.hanja}</p>
+              <div className="flex items-center gap-2 mb-3">
+                <p className="text-app-accent-primary text-2xl sm:text-3xl font-medium">{entry.hanja}</p>
+                <button
+                  onClick={() => handleCopy(entry.hanja, 'hanja')}
+                  className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/40 text-app-text-muted hover:bg-app-card/60 cursor-pointer"
+                  title="Copy Hán tự"
+                >
+                  <i className={copied === 'hanja' ? "ri-check-line text-emerald-400" : "ri-file-copy-line text-sm"}></i>
+                </button>
+              </div>
               {meaning && (
                 <p className="text-white/85 text-base sm:text-lg leading-relaxed">{meaning}</p>
               )}
