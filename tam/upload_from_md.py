@@ -4,10 +4,10 @@ import requests
 import os
 
 # ================== CẤU HÌNH ==================
-FILE_INPUT = os.path.join(os.path.dirname(__file__), "Phan_001.md")
+FILE_INPUT = os.path.join(os.path.dirname(__file__), "Phan_003.md")
 SUPABASE_URL = "https://dcjofhkdrgbrowabudyt.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjam9maGtkcmdicm93YWJ1ZHl0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjE1OTczNiwiZXhwIjoyMDkxNzM1NzM2fQ.T1_WxXzgB0LhFxcOvlqLyt_83rMOgmaQIuUO_4stPOE"
-START_ID = 100
+START_ID = 142
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
