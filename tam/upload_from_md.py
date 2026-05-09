@@ -4,10 +4,10 @@ import requests
 import os
 
 # ================== CẤU HÌNH ==================
-FILE_INPUT = os.path.join(os.path.dirname(__file__), "Phan_006.md")
+FILE_INPUT = os.path.join(os.path.dirname(__file__), "Phan_004.md")
 SUPABASE_URL = "https://dcjofhkdrgbrowabudyt.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjam9maGtkcmdicm93YWJ1ZHl0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjE1OTczNiwiZXhwIjoyMDkxNzM1NzM2fQ.T1_WxXzgB0LhFxcOvlqLyt_83rMOgmaQIuUO_4stPOE"
-START_ID = 205
+START_ID = 163
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -41,11 +41,12 @@ def extract_related(raw):
     results = []
     sec_match = re.search(r'3\.\s*\d+\s*TỪ LIÊN QUAN GỐC HÁN[:\s]+([\s\S]+?)(?=\n\s*4\.)', raw)
     if sec_match:
-        re_pattern = r'-\s*(\S+)\s*\(([^)]+)\)\s*:\s*(.+)'
+        # Support both: word (hanja): meaning AND word: meaning (no hanja)
+        re_pattern = r'-\s*(\S+)(?:\s*\(([^)]*)\))?\s*:\s*(.+)'
         for m in re.finditer(re_pattern, sec_match.group(1)):
             results.append({
                 'word': m.group(1).strip(),
-                'hanja': m.group(2).strip(),
+                'hanja': m.group(2).strip() if m.group(2) else '',
                 'meaning': m.group(3).strip()
             })
     return results

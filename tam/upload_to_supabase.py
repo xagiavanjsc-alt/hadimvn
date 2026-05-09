@@ -6,7 +6,7 @@ import requests
 
 # ================== CẤU HÌNH ==================
 import os
-FILE_INPUT = os.path.join(os.path.dirname(__file__), "Phan_1.xlsx")
+FILE_INPUT = os.path.join(os.path.dirname(__file__), "Phan_001.xlsx")
 SUPABASE_URL = "https://dcjofhkdrgbrowabudyt.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjam9maGtkcmdicm93YWJ1ZHl0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjE1OTczNiwiZXhwIjoyMDkxNzM1NzM2fQ.T1_WxXzgB0LhFxcOvlqLyt_83rMOgmaQIuUO_4stPOE"
 START_ID = 100
@@ -41,7 +41,7 @@ def extract_examples(raw):
 
 def extract_related(raw):
     results = []
-    sec_match = re.search(r'3\.\s*3 T[ƯU]\u0300 LI[EÊ][N]\s*QUAN[\s\S]+?\n([\s\S]+?)(?=\n\s*4\.)', raw)
+    sec_match = re.search(r'3\.\s*3 TỪ LIÊN QUAN GỐC HÁN[:\s]+([\s\S]+?)(?=\n\s*4\.)', raw)
     if sec_match:
         re_pattern = r'-\s*(\S+)\s*\(([^)]+)\)\s*:\s*(.+)'
         for m in re.finditer(re_pattern, sec_match.group(1)):

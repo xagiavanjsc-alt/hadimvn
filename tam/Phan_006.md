@@ -23,10 +23,10 @@
    + Việt: Luật mới đã tăng cường quyền lực công của chính phủ.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 공무원 (公務員): Công chức, viên chức nhà nước.
-   - 행정권 (行政權): Quyền hành pháp.
-   - 국권 (國權): Quyền lực quốc gia, chủ quyền.
-   - 권력구조 (權力構造): Cơ cấu quyền lực.
+   - 공무원 (公務員 - Gongmuwon): Công chức, viên chức nhà nước.
+   - 행정권 (行政權 - Haengjeonggwon): Quyền hành pháp.
+   - 국권 (國權 - Gukgwon): Quyền lực quốc gia, chủ quyền.
+   - 권력구조 (權力構造 - Gwonlyeok gujo): Cơ cấu quyền lực.
 
 4. MẸO NHỚ: Hãy tưởng tượng một vị "Công" an (công) cầm "quyền" trượng (quyền) có "lực" lượng (lực) hùng hậu đứng sau. Ba yếu tố đó hợp thành "Công-Quyền-Lực" - tức là quyền lực công.
 
@@ -137,10 +137,10 @@
    + Việt: Công chức phải phục vụ vì nhân dân.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 공원 (公園): Khu vực vui chơi, giải trí công cộng.
-   - 회사원 (會社員): Nhân viên công ty.
-   - 공공 (公共): Thuộc về chung của cộng đồng, xã hội.
-   - 직원 (職員): Nhân viên, người làm một chức vụ.
+   - 공원 (公園 - công viên): Khu vực vui chơi, giải trí công cộng.
+   - 회사원 (會社員 - hội xã viên): Nhân viên công ty.
+   - 공공 (公共 - công cộng): Thuộc về chung của cộng đồng, xã hội.
+   - 직원 (職員 - chức viên): Nhân viên, người làm một chức vụ.
 
 4. MẸO NHỚ: Hãy hình dung một "viên" (원) đạn "công" (공) lực đang "vụ" (무) về phía tòa nhà chính phủ - tượng trưng cho người làm nhiệm vụ công. Hoặc nhớ cụm: "Làm việc (務) Công (公) thì thành Viên (員)".
 
@@ -207,10 +207,10 @@
    + Việt: Trong xã hội hiện đại, thật khó để tìm thấy một công bộc chân chính.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 공무원 (公務員): Công chức, viên chức nhà nước.
-   - 공직 (公職): Chức vụ công, công vụ.
-   - 봉사 (奉仕): Sự phụng sự, phục vụ.
-   - 민복 (民僕): Đầy tớ của dân, từ đồng nghĩa với 공복.
+   - 공무원 (公務員, gongmuwon): Công chức, viên chức nhà nước.
+   - 공직 (公職, gongjik): Chức vụ công, công vụ.
+   - 봉사 (奉仕, bongsa): Sự phụng sự, phục vụ.
+   - 민복 (民僕, minbok): Đầy tớ của dân, từ đồng nghĩa với 공복.
 
 4. MẸO NHỚ: Hãy hình dung một "Ông Bố Công" (公 = công, 僕 = bok nghe như "bốc" nhưng hãy nghĩ đến "bố"). "Ông Bố Công" là người bố chung, luôn chăm lo và phục vụ cho cả cộng đồng như một người đầy tớ tận tụy.
 
@@ -310,9 +310,9 @@
    + Việt: Phải ưu tiên lợi ích công hơn lợi ích cá nhân.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 공공 (公共): Công cộng, chung. Chỉ những gì thuộc về hoặc phục vụ cho cộng đồng.
-   - 이익 (利益): Lợi ích, ích lợi. Thường chỉ lợi ích cá nhân hoặc tập thể.
-   - 공헌 (貢獻): Cống hiến. Đóng góp có giá trị cho xã hội hoặc cộng đồng.
+   - 공공 (公共 - Gong-gong): Công cộng, chung. Chỉ những gì thuộc về hoặc phục vụ cho cộng đồng.
+   - 이익 (利益 - I-ik): Lợi ích, ích lợi. Thường chỉ lợi ích cá nhân hoặc tập thể.
+   - 공헌 (貢獻 - Gong-heon): Cống hiến. Đóng góp có giá trị cho xã hội hoặc cộng đồng.
 
 4. MẸO NHỚ: Hãy nghĩ đến từ "CÔNG Ích" - mang lại ÍCH lợi cho CÔNG chúng. Chữ "공" giống trong "공원" (công viên - nơi công cộng), chữ "익" giống trong "이익" (lợi ích). Ghép lại thành "lợi ích công cộng".
 
@@ -347,10 +347,10 @@
    + Việt: Lịch làm việc quá dày đặc.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 공장 (工場): Nhà máy, công xưởng - nơi tiến hành sản xuất.
-   - 작업 (作業): Tác nghiệp, thao tác - chỉ quá trình thực hiện một công việc cụ thể.
-   - 직공 (職工): Công nhân - người lao động chuyên môn.
-   - 작품 (作品): Tác phẩm - sản phẩm được tạo ra từ công việc.
+   - 공장 (工場, gong-jang): Nhà máy, công xưởng - nơi tiến hành sản xuất.
+   - 작업 (作業, ja-geop): Tác nghiệp, thao tác - chỉ quá trình thực hiện một công việc cụ thể.
+   - 직공 (職工, jik-gong): Công nhân - người lao động chuyên môn.
+   - 작품 (作品, jak-pum): Tác phẩm - sản phẩm được tạo ra từ công việc.
 
 4. MẸO NHỚ: Hãy tưởng tượng một "công nhân" (工) đang "làm" (作) việc. Ghép hai chữ này lại thành "công tác". Hoặc liên tưởng đến từ "công việc" trong tiếng Việt cũng có chữ "công" giống nhau.
 
@@ -412,9 +412,9 @@
    + Việt: Tôi đã từng gặp (ai đó) ở nhà tắm công cộng.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 공공 (公共): Công cộng. Chỉ những gì thuộc về hoặc phục vụ chung cho cộng đồng.
-   - 대중 (大衆): Đại chúng. Chỉ số đông quần chúng trong xã hội.
-   - 시민 (市民): Thị dân/Công dân. Chỉ những người dân sống trong một thành phố hoặc có quyền công dân.
+   - 공공 (公共 - Gong-gong): Công cộng. Chỉ những gì thuộc về hoặc phục vụ chung cho cộng đồng.
+   - 대중 (大衆 - Dae-jung): Đại chúng. Chỉ số đông quần chúng trong xã hội.
+   - 시민 (市民 - Si-min): Thị dân/Công dân. Chỉ những người dân sống trong một thành phố hoặc có quyền công dân.
 
 4. MẸO NHỚ: Hãy nghĩ đến "công viên đông người". "Công" (公) là công viên/công cộng, "đông người" chính là "chúng" (衆). Ghép lại thành "công chúng" - đám đông ở nơi công cộng. Từ Hàn "공중" phát âm gần giống "công chung" - cũng rất dễ liên tưởng.
 
@@ -481,10 +481,10 @@
    + Việt: Nhóm chuyên gia dự kiến sẽ trình bày tại hội nghị lắng nghe.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 공개 (公開): Công khai, nghĩa là mở ra cho công chúng.
-   - 청문회 (聽聞會): Phiên điều trần, một hình thức họp công khai để thẩm tra, chất vấn.
-   - 회의 (會議): Cuộc họp, hội nghị.
-   - 의견 (意見): Ý kiến, quan điểm.
+   - 공개 (公開 - Gonggae): Công khai, nghĩa là mở ra cho công chúng.
+   - 청문회 (聽聞會 - Cheongmunhoe): Phiên điều trần, một hình thức họp công khai để thẩm tra, chất vấn.
+   - 회의 (會議 - Hoeui): Cuộc họp, hội nghị.
+   - 의견 (意見 - Uigyeon): Ý kiến, quan điểm.
 
 4. MẸO NHỚ: Hãy tưởng tượng một "CÔNG viên" (公) nơi mọi người cùng "LẮNG NGHE" (聽) trong một "BUỔI HỌP" (會) lớn. Ghép lại thành "Hội nghị lắng nghe công khai".
 
@@ -584,10 +584,10 @@
    + Việt: Cạnh tranh quá mức thì không tốt cho xã hội.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 과소비 (過消費): Tiêu dùng quá mức, lãng phí.
-   - 과속 (過速): Vượt quá tốc độ cho phép (quá tốc độ).
-   - 과잉 (過剩): Dư thừa, vượt quá nhu cầu.
-   - 절도 (節度): Sự điều độ, giữ đúng mức độ cần thiết (trái nghĩa với "과도").
+   - 과소비 (過消費 - Quá tiêu phí): Tiêu dùng quá mức, lãng phí.
+   - 과속 (過速 - Quá tốc): Vượt quá tốc độ cho phép (quá tốc độ).
+   - 과잉 (過剩 - Quá thặng): Dư thừa, vượt quá nhu cầu.
+   - 절도 (節度 - Tiết độ): Sự điều độ, giữ đúng mức độ cần thiết (trái nghĩa với "과도").
 
 4. MẸO NHỚ: Hãy tưởng tượng một cái cân. "과" (Quá) là vượt qua, "도" (Độ) là vạch mức độ. Khi đặt vật nặng vượt quá vạch cho phép, cân sẽ bị "quá mức" (과도). Hoặc nhớ đến cụm "quá độ đường" - đường đi mà vượt quá mức độ an toàn.
 
