@@ -28,9 +28,9 @@
    + Việt: Những điều kỳ diệu của khoa học đang thay đổi cuộc sống chúng ta.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 경악 (驚愕, Gyeong-ag): Sự kinh hoàng, sửng sốt (vì sợ hãi).
-   - 이상 (異常, I-sang): Dị thường, bất thường.
-   - 기적 (奇跡, Gi-jeok): Kỳ tích, phép lạ.
+   - 경악 (驚愕): Sự kinh hoàng, sửng sốt (vì sợ hãi).
+   - 이상 (異常): Dị thường, bất thường.
+   - 기적 (奇跡): Kỳ tích, phép lạ.
 
 4. MẸO NHỚ: Hãy tưởng tượng bạn đang "KINH" (giật mình) khi thấy một điều "DỊ" (kỳ lạ, khác thường). Cảm giác "KINH DỊ" đó chính là "경이" - sự kinh ngạc trước điều phi thường.
 
@@ -70,7 +70,7 @@
    - 생존력 (生存力): Sức sống, năng lực sinh tồn.
    - 핵심역량 (核心力量): Năng lực cốt lõi.
 
-4. MẸO NHỚ: Hãy hình dung một cuộc **"chạy đua" (경쟁)** đòi hỏi rất nhiều **"sức lực" (力)**. Ai có nhiều "sức lực để chạy đua" hơn thì người đó có **"경쟁력"** cao hơn.
+4. MẸO NHỚ: Hãy hình dung một cuộc "chạy đua" (경쟁) đòi hỏi rất nhiều "sức lực" (力). Ai có nhiều "sức lực để chạy đua" hơn thì người đó có "경쟁력" cao hơn.
 
 
 ## 경청 (傾聽)
@@ -174,10 +174,10 @@ Việt: Bảo vệ là nhiệm vụ an toàn công cộng quan trọng.
    + Việt: Sự khai sáng thực sự trao cho ta sức mạnh tự tư duy.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 개방 (開放 - Khai phóng): Mở cửa, mở mang, tự do hóa.
-   - 몽매 (蒙昧 - Mông muội): Trạng thái u mê, thiếu hiểu biết.
-   - 계발 (啓發 - Khải phát): Khơi dậy, khai mở tiềm năng.
-   - 교양 (敎養 - Giáo dưỡng): Sự giáo dục, nuôi dưỡng văn hóa, tri thức.
+   - 개방 (開放): Mở cửa, mở mang, tự do hóa.
+   - 몽매 (蒙昧): Trạng thái u mê, thiếu hiểu biết.
+   - 계발 (啓發): Khơi dậy, khai mở tiềm năng.
+   - 교양 (敎養): Sự giáo dục, nuôi dưỡng văn hóa, tri thức.
 
 4. MẸO NHỚ: Hãy tưởng tượng một cánh cửa (계 - Khải, mở ra) đang bị khóa bởi một lớp sương mù dày đặc (몽 - Mông, mông muội). "Khai sáng" chính là chìa khóa mở cánh cửa ấy, xua tan sương mù để ánh sáng trí tuệ lọt vào.
 
@@ -245,10 +245,10 @@ Việt: Bảo vệ là nhiệm vụ an toàn công cộng quan trọng.
    + Việt: Cần có nhân tài trẻ để kế thừa công nghệ.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 상속 (相續, Sang-sok): Thừa kế tài sản (từ chuyên ngành pháp lý).
-   - 계승자 (繼承者, Gye-seung-ja): Người kế thừa.
-   - 전승 (傳承, Jeon-seung): Truyền thừa, lưu truyền (nhấn mạnh truyền lại).
-   - 승계 (承繼, Seung-gye): Sự tiếp nối, kế tục (cách diễn đạt khác của 계승).
+   - 상속 (相續): Thừa kế tài sản (từ chuyên ngành pháp lý).
+   - 계승자 (繼承者): Người kế thừa.
+   - 전승 (傳承): Truyền thừa, lưu truyền (nhấn mạnh truyền lại).
+   - 승계 (承繼): Sự tiếp nối, kế tục (cách diễn đạt khác của 계승).
 
 4. MẸO NHỚ: Hãy nghĩ đến "Kế" trong "kế tiếp" và "Thừa" trong "thừa hưởng". Từ "계승" phát âm gần giống "kế thừa" trong tiếng Việt, giúp liên tưởng ngay đến nghĩa "kế thừa".
 
@@ -283,11 +283,11 @@ Việt: Bảo vệ là nhiệm vụ an toàn công cộng quan trọng.
    + Việt: Tòa nhà này có cấu trúc 10 tầng, từ bãi đậu xe ngầm đến tầng thượng.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 계급 (階級 - Gye-geup): Giai cấp, thường nhấn mạnh sự phân chia địa vị hoặc cấp bậc.
-   - 단계 (段階 - Dan-gye): Giai đoạn, bước, chỉ trình tự hoặc mức độ phát triển.
-   - 충층 (層 - Cheung): Tầng, lớp, thường dùng để chỉ số tầng của một tòa nhà.
+   - 계급 (階級): Giai cấp, thường nhấn mạnh sự phân chia địa vị hoặc cấp bậc.
+   - 단계 (段階): Giai đoạn, bước, chỉ trình tự hoặc mức độ phát triển.
+   - 충층 (層): Tầng, lớp, thường dùng để chỉ số tầng của một tòa nhà.
 
-4. MẸO NHỚ: Hãy hình dung một tòa tháp nhiều **tầng** (층). Mỗi tầng là một nhóm người khác nhau, và muốn lên **bậc** (계) cao hơn phải leo từng bậc thang. "계층" chính là các tầng bậc xã hội đó.
+4. MẸO NHỚ: Hãy hình dung một tòa tháp nhiều tầng (층). Mỗi tầng là một nhóm người khác nhau, và muốn lên bậc (계) cao hơn phải leo từng bậc thang. "계층" chính là các tầng bậc xã hội đó.
 
 
 ## 고갈 (枯渴)
@@ -320,7 +320,7 @@ Việt: Bảo vệ là nhiệm vụ an toàn công cộng quan trọng.
    - 고통 (苦痛): Khổ đau, đau đớn. "苦" (khổ), "痛" (đau).
    - 갈등 (葛藤): Mâu thuẫn, xung đột. "葛" (dây leo), "藤" (dây móc), ý chỉ rối rắm.
 
-4. MẸO NHỚ: Hãy tưởng tượng một cái **cốc (고)** nước bị **gạt (갈)** hết sạch, không còn một giọt. "Cốc bị gạt sạch" -> **고갈** -> CẠN KIỆT.
+4. MẸO NHỚ: Hãy tưởng tượng một cái cốc (고) nước bị gạt (갈) hết sạch, không còn một giọt. "Cốc bị gạt sạch" -> 고갈 -> CẠN KIỆT.
 
 
 ## 고귀 (高貴)
@@ -348,10 +348,10 @@ Việt: Bảo vệ là nhiệm vụ an toàn công cộng quan trọng.
    + Việt: Sự cao quý của tâm hồn quan trọng hơn vẻ bề ngoài.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 고가 (高價, Cao Giá): Giá cao, chỉ món đồ có giá trị lớn về tiền bạc.
-   - 귀중 (貴重, Quý Trọng): Quý giá, trọng yếu, rất đáng quý và quan trọng.
-   - 고상 (高尚, Cao Thượng): Thanh cao, cao thượng, chỉ phẩm chất đạo đức tốt đẹp.
-   - 명귀 (名貴, Danh Quý): Nổi tiếng và quý giá, thường chỉ đồ vật quý hiếm, đắt giá.
+   - 고가 (高價): Giá cao, chỉ món đồ có giá trị lớn về tiền bạc.
+   - 귀중 (貴重): Quý giá, trọng yếu, rất đáng quý và quan trọng.
+   - 고상 (高尚): Thanh cao, cao thượng, chỉ phẩm chất đạo đức tốt đẹp.
+   - 명귀 (名貴): Nổi tiếng và quý giá, thường chỉ đồ vật quý hiếm, đắt giá.
 
 4. MẸO NHỚ: Hãy tưởng tượng một "cô gái (고) quý (귀) phái" - "고귀" - với dáng vẻ và tâm hồn cao quý, đứng trên một nơi cao (高) và được mọi người quý trọng (貴).
 
@@ -424,10 +424,10 @@ Việt: Bảo vệ là nhiệm vụ an toàn công cộng quan trọng.
    + Việt: Nếu xem xét điểm này thì có thể hiểu được quyết định của anh ấy.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 고찰 (考察, 고찰): Sự khảo sát, nghiên cứu kỹ lưỡng.
-   - 숙고 (熟考, 숙고): Sự suy nghĩ chín chắn, cân nhắc kỹ càng.
-   - 심사숙고 (深思熟考, 심사숙고): Suy nghĩ sâu xa và kỹ lưỡng.
-   - 참고 (參考, 참고): Tham khảo, xem xét để lấy thông tin.
+   - 고찰 (考察): Sự khảo sát, nghiên cứu kỹ lưỡng.
+   - 숙고 (熟考): Sự suy nghĩ chín chắn, cân nhắc kỹ càng.
+   - 심사숙고 (深思熟考): Suy nghĩ sâu xa và kỹ lưỡng.
+   - 참고 (參考): Tham khảo, xem xét để lấy thông tin.
 
 4. MẸO NHỚ: Hãy tưởng tượng một vị quan "고" (cổ) xưa đang "려" (lự) chọn, cân nhắc rất lâu trước khi đưa ra phán quyết. Hành động "lựa chọn sau khi cân nhắc" chính là "고려".
 
@@ -537,7 +537,7 @@ Việt: Bảo vệ là nhiệm vụ an toàn công cộng quan trọng.
    - 생활 (生活): Cuộc sống, sinh hoạt.
    - 고난 (苦難): Gian nan, khó khăn.
 
-4. MẸO NHỚ: Hãy tưởng tượng một cây **cỏ** (phát âm "고" gần giống "cỏ") **sống** ("생") rất khó khăn trên đá, tượng trưng cho sự "khổ cực". Hoặc nhớ câu: "Có **khổ** (**苦**) mới có **sống** (**生**) tốt đẹp hơn".
+4. MẸO NHỚ: Hãy tưởng tượng một cây cỏ (phát âm "고" gần giống "cỏ") sống ("생") rất khó khăn trên đá, tượng trưng cho sự "khổ cực". Hoặc nhớ câu: "Có khổ (苦) mới có sống (生) tốt đẹp hơn".
 
 
 ## 고소 (告訴)
@@ -570,10 +570,10 @@ Việt: Bảo vệ là nhiệm vụ an toàn công cộng quan trọng.
    + Việt: Nếu bị xúc phạm trên mạng, bạn có thể tố cáo trên không gian mạng.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 고발 (告發, 고발): Tố giác, báo cáo vi phạm cho cơ quan có thẩm quyền.
-   - 소송 (訴訟, 소송): Vụ kiện, thủ tục tố tụng tại tòa án.
-   - 고소인 (告訴人, 고소인): Người khởi kiện, nguyên đơn.
-   - 피고소인 (被告訴人, 피고소인): Người bị kiện, bị đơn.
+   - 고발 (告發): Tố giác, báo cáo vi phạm cho cơ quan có thẩm quyền.
+   - 소송 (訴訟): Vụ kiện, thủ tục tố tụng tại tòa án.
+   - 고소인 (告訴人): Người khởi kiện, nguyên đơn.
+   - 피고소인 (被告訴人): Người bị kiện, bị đơn.
 
 4. MẸO NHỚ: Hãy tưởng tượng một người tên "Cáo" (고) đi "tố" (소) người khác ra tòa. "Cáo Tố" chính là hành động "kiện tụng".
 
@@ -674,10 +674,10 @@ Việt: Bảo vệ là nhiệm vụ an toàn công cộng quan trọng.
    + Việt: Cầu thủ đó được chuyên môn hóa cho việc tấn công.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 방어 (防禦, bang-eo): Phòng thủ, sự phòng ngự.
-   - 반격 (反擊, ban-gyeok): Phản công, sự đánh trả lại.
-   - 공격수 (攻擊手, gong-gyeok-su): Tiền đạo, cầu thủ tấn công.
-   - 총공격 (總攻擊, chong-gong-gyeok): Tổng tấn công.
+   - 방어 (防禦): Phòng thủ, sự phòng ngự.
+   - 반격 (反擊): Phản công, sự đánh trả lại.
+   - 공격수 (攻擊手): Tiền đạo, cầu thủ tấn công.
+   - 총공격 (總攻擊): Tổng tấn công.
 
 4. MẸO NHỚ: Hãy liên tưởng đến từ "Công kích" trong tiếng Việt (cũng gốc Hán, cùng nghĩa). Âm "공" (cong) giống "công", âm "격" (gyeok) giống "kích". Nhớ "Công kích = Tấn công".
 
