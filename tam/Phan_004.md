@@ -2,7 +2,7 @@
 
 ## 거절 (拒絶)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "từ chối, khước từ". "拒" (거, cự) nghĩa là từ chối, kháng cự; "絶" (절, tuyệt) nghĩa là đứt, ngừng. Hợp lại chỉ việc không chấp nhận đề nghị, yêu cầu của người khác.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Từ chối, khước từ". "拒" (거, cự) nghĩa là từ chối, kháng cự; "絶" (절, tuyệt) nghĩa là đứt, ngừng. Hợp lại chỉ việc không chấp nhận đề nghị, yêu cầu của người khác.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 그의 프로포즈를 거절했다.
@@ -30,16 +30,16 @@
    + Việt: Đơn xin vay vốn đã bị ngân hàng từ chối.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 수락 (受諾): thụ nạp, chấp nhận
-   - 거부 (拒否): cự tuyệt, khước từ
-   - 거절감 (拒絶感): cảm giác bị từ chối
-   - 거부권 (拒否權): quyền phủ quyết
+   - 수락 (受諾): Thụ nạp, chấp nhận
+   - 거부 (拒否): Cự tuyệt, khước từ
+   - 거절감 (拒絶感): Cảm giác bị từ chối
+   - 거부권 (拒否權): Quyền phủ quyết
 
 4. MẸO NHỚ: Hãy nghĩ đến người "CỰ" (거) lại mọi lời mời một cách "TUYỆT" (절) đối. Không ai lay chuyển được quyết định từ chối (거절) của anh ấy.
 
 ## 거리 (距離)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "khoảng cách". "距" (거, cự) nghĩa là xa, cách; "離" (리, li) nghĩa là xa, rời. Hợp lại chỉ khoảng không gian giữa hai điểm, hai người.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Khoảng cách". "距" (거, cự) nghĩa là xa, cách; "離" (리, li) nghĩa là xa, rời. Hợp lại chỉ khoảng không gian giữa hai điểm, hai người.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 집에서 학교까지 거리가 멀다.
@@ -67,16 +67,16 @@
    + Việt: Giãn cách xã hội đã được dỡ bỏ.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 간격 (間隔): khoảng cách, quãng
-   - 근접 (近接): cận tiếp, gần gũi
-   - 장거리 (長距離): đường dài, xa
-   - 단거리 (短距離): đường ngắn, gần
+   - 간격 (間隔): Khoảng cách, quãng
+   - 근접 (近接): Cận tiếp, gần gũi
+   - 장거리 (長距離): Đường dài, xa
+   - 단거리 (短距離): Đường ngắn, gần
 
 4. MẸO NHỚ: Hãy nghĩ đến hai người đứng "CỰ" (거) xa nhau đến mức "LY" (리) tán. Càng đứng xa, khoảng cách (거리) càng lớn.
 
 ## 걱정 (擔情)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "lo lắng, bận tâm". "擔" (걱, đảm) nghĩa là gánh vác, đảm đương; "情" (정, tình) nghĩa là tình cảm. Hợp lại chỉ sự băn khoăn, sợ điều xấu sẽ xảy ra.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Lo lắng, bận tâm". "擔" (걱, đảm) nghĩa là gánh vác, đảm đương; "情" (정, tình) nghĩa là tình cảm. Hợp lại chỉ sự băn khoăn, sợ điều xấu sẽ xảy ra.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 아이가 늦게 오는 걸 걱정하고 있다.
@@ -104,16 +104,16 @@
    + Việt: Tôi muốn sống mà không lo lắng về tiền.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 우려 (憂慮): ưu lự, lo ngại
-   - 불안 (不安): bất an, lo âu
-   - 안심 (安心): an tâm, yên lòng
-   - 심란 (心亂): tâm loạn, bối rối
+   - 우려 (憂慮): Ưu lự, lo ngại
+   - 불안 (不安): Bất an, lo âu
+   - 안심 (安心): An tâm, yên lòng
+   - 심란 (心亂): Tâm loạn, bối rối
 
 4. MẸO NHỚ: Hãy nghĩ đến người "ĐẢM" (걱) đương cả núi "TÌNH" (정) cảm lo âu. Càng nghĩ nhiều càng lo lắng (걱정) — đó là bản chất của người mẹ.
 
 ## 검사 (檢査)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "kiểm tra, thanh tra". "檢" (검, kiểm) nghĩa là xem xét, kiểm tra; "査" (사, tra) nghĩa là tra cứu, xét hỏi. Hợp lại chỉ việc xem xét, đánh giá tình trạng, chất lượng.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Kiểm tra, thanh tra". "檢" (검, kiểm) nghĩa là xem xét, kiểm tra; "査" (사, tra) nghĩa là tra cứu, xét hỏi. Hợp lại chỉ việc xem xét, đánh giá tình trạng, chất lượng.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 병원에서 건강 검사를 받았다.
@@ -141,16 +141,16 @@
    + Việt: Thanh tra viên đang thu thập chứng cứ.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 조사 (調査): điều tra
-   - 심사 (審査): thẩm tra
-   - 점검 (點檢): điểm kiểm, kiểm tra
-   - 감사 (監査): giám tra
+   - 조사 (調査): Điều tra
+   - 심사 (審査): Thẩm tra
+   - 점검 (點檢): Điểm kiểm, kiểm tra
+   - 감사 (監査): Giám tra
 
 4. MẸO NHỚ: Hãy nghĩ đến người "KIỂM" (검) soát từng chi tiết, "TRA" (사) xét kỹ lưỡng. Công việc của thanh tra (검사) là kiểm tra từng thứ một.
 
 ## 검토 (檢討)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "xem xét, nghiên cứu". "檢" (검, kiểm) nghĩa là xem xét; "討" (토, thảo) nghĩa là bàn luận, luận bàn. Hợp lại chỉ việc xem xét kỹ lưỡng, đánh giá ưu nhược điểm trước khi quyết định.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Xem xét, nghiên cứu". "檢" (검, kiểm) nghĩa là xem xét; "討" (토, thảo) nghĩa là bàn luận, luận bàn. Hợp lại chỉ việc xem xét kỹ lưỡng, đánh giá ưu nhược điểm trước khi quyết định.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이 문제를 다시 검토해야 한다.
@@ -178,16 +178,16 @@
    + Việt: Đã yêu cầu xem xét về các thay đổi.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 검토하다 (-): xem xét, nghiên cứu
-   - 검토안 (檢討案): phương án xem xét
-   - 재검토 (再檢討): xem xét lại
-   - 심의 (審議): thẩm nghị, thảo luận
+   - 검토하다 (-): Xem xét, nghiên cứu
+   - 검토안 (檢討案): Phương án xem xét
+   - 재검토 (再檢討): Xem xét lại
+   - 심의 (審議): Thẩm nghị, thảo luận
 
 4. MẸO NHỚ: Hãy nghĩ đến cuộc họp "KIỂM" (검) lại từng điểm rồi "THẢO" (토) luận. Xem xét (검토) kỹ trước khi quyết định là điều khôn ngoan.
 
 ## 게시 (揭示)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "đăng, niêm yết". "揭" (게, yết) nghĩa là vạch ra, mở ra; "示" (시, thị) nghĩa là cho thấy, biểu thị. Hợp lại chỉ việc công bố, đăng thông tin cho mọi người biết.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Đăng, niêm yết". "揭" (게, yết) nghĩa là vạch ra, mở ra; "示" (시, thị) nghĩa là cho thấy, biểu thị. Hợp lại chỉ việc công bố, đăng thông tin cho mọi người biết.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 공지사항을 게시판에 게시했다.
@@ -215,16 +215,16 @@
    + Việt: Đăng quảng cáo cần có sự phê duyệt.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 공고 (公告): công cáo, thông báo
-   - 포스팅 (-): đăng bài
-   - 발표 (發表): phát biểu, công bố
-   - 게시판 (揭示板): bảng tin, bảng thông báo
+   - 공고 (公告): Công cáo, thông báo
+   - 포스팅 (-): Đăng bài
+   - 발표 (發表): Phát biểu, công bố
+   - 게시판 (揭示板): Bảng tin, bảng thông báo
 
 4. MẸO NHỚ: Hãy nghĩ đến việc "YẾT" (게) mở bảng và "THỊ" (시) ra cho mọi người xem. Đăng tin (게시) lên bảng là cách thông báo công khai.
 
 ## 견고 (堅固)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "kiên cố, vững chắc". "堅" (견, kiên) nghĩa là cứng, bền; "固" (고, cố) nghĩa là chắc chắn, bền vững. Hợp lại chỉ sự vững chãi, khó bị phá vỡ hoặc lay chuyển.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Kiên cố, vững chắc". "堅" (견, kiên) nghĩa là cứng, bền; "固" (고, cố) nghĩa là chắc chắn, bền vững. Hợp lại chỉ sự vững chãi, khó bị phá vỡ hoặc lay chuyển.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이 집은 구조가 견고하다.
@@ -252,16 +252,16 @@
    + Việt: Tôi tập thể dục để xây dựng cơ bắp săn chắc.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 튼튼 (-): chắc chắn, khỏe
-   - 특고 (特固): đặc cố, đặc biệt vững
-   - 확고 (確固): xác cố, kiên định
-   - 취약 (脆弱): tổn thương, yếu ớt
+   - 튼튼 (-): Chắc chắn, khỏe
+   - 특고 (特固): Đặc cố, đặc biệt vững
+   - 확고 (確固): Xác cố, kiên định
+   - 취약 (脆弱): Tổn thương, yếu ớt
 
 4. MẸO NHỚ: Hãy nghĩ đến tòa thành "KIÊN" (견) trì đứng vững, "CỐ" (고) nhiên không gục ngã. Xây kiên cố (견고) như thành đồng vách sắt.
 
 ## 견해 (見解)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "quan điểm, nhận thức". "見" (견, kiến) nghĩa là nhìn thấy, gặp gỡ; "解" (해, giải) nghĩa là giải thích, hiểu rõ. Hợp lại chỉ cách nhìn nhận, đánh giá về một vấn đề.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Quan điểm, nhận thức". "見" (견, kiến) nghĩa là nhìn thấy, gặp gỡ; "解" (해, giải) nghĩa là giải thích, hiểu rõ. Hợp lại chỉ cách nhìn nhận, đánh giá về một vấn đề.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 나의 견해는 조금 다르다.
@@ -289,16 +289,16 @@
    + Việt: Tôi không đồng ý với quan điểm của anh ấy.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 의견 (意見): ý kiến
-   - 관점 (觀點): quan điểm, góc nhìn
-   - 시각 (視角): thị giác, góc nhìn
-   - 입장 (立場): lập trường
+   - 의견 (意見): Ý kiến
+   - 관점 (觀點): Quan điểm, góc nhìn
+   - 시각 (視角): Thị giác, góc nhìn
+   - 입장 (立場): Lập trường
 
 4. MẸO NHỚ: Hãy nghĩ đến việc "KIẾN" (견) thấy một vấn đề và "GIẢI" (해) thích theo cách riêng. Mỗi người có một quan điểm (견해) khác nhau.
 
 ## 결석 (缺席)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "vắng mặt". "缺" (결, khuyết) nghĩa là thiếu, hụt; "席" (석, tịch) nghĩa là chỗ ngồi. Hợp lại chỉ việc không có mặt ở nơi cần phải đến.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Vắng mặt". "缺" (결, khuyết) nghĩa là thiếu, hụt; "席" (석, tịch) nghĩa là chỗ ngồi. Hợp lại chỉ việc không có mặt ở nơi cần phải đến.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 병 때문에 수업에 결석했다.
@@ -326,16 +326,16 @@
    + Việt: Tỷ lệ vắng mặt tăng thì trường sẽ liên lạc.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 출석 (出席): xuất tịch, có mặt
-   - 병가 (病假): bệnh giả, nghỉ bệnh
-   - 조퇴 (早退): tảo thoái, về sớm
-   - 지각 (遲刻): trễ, đến muộn
+   - 출석 (出席): Xuất tịch, có mặt
+   - 병가 (病假): Bệnh giả, nghỉ bệnh
+   - 조퇴 (早退): Tảo thoái, về sớm
+   - 지각 (遲刻): Trễ, đến muộn
 
 4. MẸO NHỚ: Hãy nghĩ đến chỗ ngồi "KHUYẾT" (결) thiếu một người, "TỊCH" (석) vị trống không. Đó là ai đó vắng mặt (결석).
 
 ## 결심 (決心)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "quyết tâm". "決" (결, quyết) nghĩa là quyết định, giải quyết; "心" (심, tâm) nghĩa là trái tim, tâm trí. Hợp lại chỉ sự kiên quyết làm điều gì đó.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Quyết tâm". "決" (결, quyết) nghĩa là quyết định, giải quyết; "心" (심, tâm) nghĩa là trái tim, tâm trí. Hợp lại chỉ sự kiên quyết làm điều gì đó.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이번에는 반드시 성공하겠다고 결심했다.
@@ -363,16 +363,16 @@
    + Việt: Lưỡng lự lâu rồi cuối cùng cũng quyết tâm.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 각오 (覺悟): giác ngộ, quyết tâm
-   - 의지 (意志): ý chí
-   - 마음먹기 (-): quyết định, đặt lòng
-   - 동기 (動機): động cơ
+   - 각오 (覺悟): Giác ngộ, quyết tâm
+   - 의지 (意志): Ý chí
+   - 마음먹기 (-): Quyết định, đặt lòng
+   - 동기 (動機): Động cơ
 
 4. MẸO NHỚ: Hãy nghĩ đến trái tim "QUYẾT" (결) định không lay chuyển. Khi tâm trí kiên định — đó là quyết tâm (결심).
 
 ## 결정 (決定)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "quyết định". "決" (결, quyết) nghĩa là quyết định, giải quyết; "定" (정, định) nghĩa là xác định, ổn định. Hợp lại chỉ việc chọn một phương án sau khi cân nhắc.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Quyết định". "決" (결, quyết) nghĩa là quyết định, giải quyết; "定" (정, định) nghĩa là xác định, ổn định. Hợp lại chỉ việc chọn một phương án sau khi cân nhắc.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 중요한 결정을 내려야 하는 순간이다.
@@ -400,16 +400,16 @@
    + Việt: Cần tôn trọng quyết định của cô ấy.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 판단 (判斷): phán đoán
-   - 선택 (選擇): tuyển trạch, lựa chọn
-   - 판결 (判決): phán quyết
-   - 결론 (結論): kết luận
+   - 판단 (判斷): Phán đoán
+   - 선택 (選擇): Tuyển trạch, lựa chọn
+   - 판결 (判決): Phán quyết
+   - 결론 (結論): Kết luận
 
 4. MẸO NHỚ: Hãy nghĩ đến ngã rẽ đường, bạn "QUYẾT" (결) định chọn lối "ĐỊNH" (정) rõ. Đó là quyết định (결정) — không thể đi ngược lại.
 
 ## 결혼 (結婚)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "kết hôn". "結" (결, kết) nghĩa là kết nối, buộc; "婚" (혼, hôn) nghĩa là hôn nhân. Hợp lại chỉ việc hai người trở thành vợ chồng theo pháp luật hoặc tập quán.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Kết hôn". "結" (결, kết) nghĩa là kết nối, buộc; "婚" (혼, hôn) nghĩa là hôn nhân. Hợp lại chỉ việc hai người trở thành vợ chồng theo pháp luật hoặc tập quán.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 내년에 결혼할 예정이다.
@@ -437,16 +437,16 @@
    + Việt: Anh ấy nói không muốn kết hôn.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 혼인 (婚姻): hôn nhân
-   - 이혼 (離婚): ly hôn
-   - 신혼 (新婚): tân hôn, mới cưới
-   - 부부 (夫婦): phu phụ, vợ chồng
+   - 혼인 (婚姻): Hôn nhân
+   - 이혼 (離婚): Ly hôn
+   - 신혼 (新婚): Tân hôn, mới cưới
+   - 부부 (夫婦): Phu phụ, vợ chồng
 
 4. MẸO NHỚ: Hãy nghĩ đến sợi dây đỏ "KẾT" (결) buộc hai người thành "HÔN" (혼) nhân. Kết hôn (결혼) là buộc sợi chỉ đỏ vĩnh viễn.
 
 ## 경계 (警戒)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cảnh giác". "警" (경, cảnh) nghĩa là cảnh báo, đề phòng; "戒" (계, giới) nghĩa là ngăn cấm, răn dạy. Hợp lại chỉ sự đề phòng, cẩn thận trước nguy hiểm.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cảnh giác". "警" (경, cảnh) nghĩa là cảnh báo, đề phòng; "戒" (계, giới) nghĩa là ngăn cấm, răn dạy. Hợp lại chỉ sự đề phòng, cẩn thận trước nguy hiểm.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 적의 움직임에 경계를 해야 한다.
@@ -474,16 +474,16 @@
    + Việt: Luôn duy trì cảnh giác với môi trường xung quanh.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 경보 (警報): cảnh báo
-   - 위협 (威脅): uy hiếp, đe dọa
-   - 방어 (防禦): phòng ngự, phòng thủ
-   - 선 (線): ranh giới, đường
+   - 경보 (警報): Cảnh báo
+   - 위협 (威脅): Uy hiếp, đe dọa
+   - 방어 (防禦): Phòng ngự, phòng thủ
+   - 선 (線): Ranh giới, đường
 
 4. MẸO NHỚ: Hãy nghĩ đến người lính "CẢNH" (경) báo có giặc và "GIỚI" (계) bị không được ngủ. Phải luôn cảnh giác (경계).
 
 ## 경고 (警告)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cảnh cáo". "警" (경, cảnh) nghĩa là cảnh báo; "告" (고, cáo) nghĩa là báo cho biết. Hợp lại chỉ lời nhắc nhở nghiêm túc về hậu quả xấu có thể xảy ra.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cảnh cáo". "警" (경, cảnh) nghĩa là cảnh báo; "告" (고, cáo) nghĩa là báo cho biết. Hợp lại chỉ lời nhắc nhở nghiêm túc về hậu quả xấu có thể xảy ra.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 선생님은 그에게 경고를 주셨다.
@@ -511,16 +511,16 @@
    + Việt: Lời nói của anh ấy là một lời cảnh báo.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 주의 (注意): chú ý
-   - 경고하다 (-): cảnh cáo
-   - 처벌 (處罰): xử phạt
-   - 금지 (禁止): cấm chỉ
+   - 주의 (注意): Chú ý
+   - 경고하다 (-): Cảnh cáo
+   - 처벌 (處罰): Xử phạt
+   - 금지 (禁止): Cấm chỉ
 
 4. MẸO NHỚ: Hãy nghĩ đến còi báo động "CẢNH" (경) báo nguy hiểm, "CÁO" (고) tri cho mọi người. Đó là cảnh cáo (경고) — nghe thì phải dừng lại.
 
 ## 경력 (經歷)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "kinh nghiệm". "經" (경, kinh) nghĩa là trải qua, kinh nghiệm; "歷" (력, lịch) nghĩa là lịch sử, trải qua. Hợp lại chỉ quá trình làm việc, trải nghiệm đã tích lũy.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Kinh nghiệm". "經" (경, kinh) nghĩa là trải qua, kinh nghiệm; "歷" (력, lịch) nghĩa là lịch sử, trải qua. Hợp lại chỉ quá trình làm việc, trải nghiệm đã tích lũy.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 그는 10년의 경력을 가진 개발자이다.
@@ -548,16 +548,16 @@
    + Việt: Kinh nghiệm của cô ấy rất ấn tượng.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 경험 (經驗): kinh nghiệm
-   - 이력 (履歷): lý lịch, sơ yếu
-   - 연차 (年次): năm thứ, thâm niên
-   - 자격 (資格): tư cách, bằng cấp
+   - 경험 (經驗): Kinh nghiệm
+   - 이력 (履歷): Lý lịch, sơ yếu
+   - 연차 (年次): Năm thứ, thâm niên
+   - 자격 (資格): Tư cách, bằng cấp
 
 4. MẸO NHỚ: Hãy nghĩ đến cuốn "KINH" (경) sách ghi chép lịch "LỊCH" (력) sử đời người. Kinh nghiệm (경력) chính là những trang sách đó.
 
 ## 경쟁 (競爭)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cạnh tranh". "競" (경, đối/cạnh) nghĩa là tranh đua, ganh đua; "爭" (쟁, tranh) nghĩa là tranh giành, đấu tranh. Hợp lại chỉ sự đua tranh để giành lợi ích, vị trí.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cạnh tranh". "競" (경, đối/cạnh) nghĩa là tranh đua, ganh đua; "爭" (쟁, tranh) nghĩa là tranh giành, đấu tranh. Hợp lại chỉ sự đua tranh để giành lợi ích, vị trí.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 시장 경쟁이 매우 치열하다.
@@ -585,16 +585,16 @@
    + Việt: Tôn trọng đối thủ cạnh tranh là quan trọng.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 대결 (對決): đối quyết, đối đầu
-   - 경쟁력 (競爭力): năng lực cạnh tranh
-   - 협력 (協力): hợp lực, hợp tác
-   - 독점 (獨占): độc chiếm
+   - 대결 (對決): Đối quyết, đối đầu
+   - 경쟁력 (競爭力): Năng lực cạnh tranh
+   - 협력 (協力): Hợp lực, hợp tác
+   - 독점 (獨占): Độc chiếm
 
 4. MẸO NHỚ: Hãy nghĩ đến hai người chạy đua "ĐỐI" (경) nhau, "TRANH" (쟁) giành vạch đích. Cạnh tranh (경쟁) là cuộc đua không có chỗ cho người thứ hai.
 
 ## 경제 (經濟)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "kinh tế". "經" (경, kinh) nghĩa là kinh qua, quản lý; "濟" (제, tế) nghĩa là giúp đỡ, vượt qua. Hợp lại chỉ hệ thống sản xuất, phân phối, tiêu dùng trong xã hội.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Kinh tế". "經" (경, kinh) nghĩa là kinh qua, quản lý; "濟" (제, tế) nghĩa là giúp đỡ, vượt qua. Hợp lại chỉ hệ thống sản xuất, phân phối, tiêu dùng trong xã hội.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 경제 성장률이 둔화되고 있다.
@@ -622,16 +622,16 @@
    + Việt: Tình hình kinh tế cá nhân đang khá hơn.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 금융 (金融): kim dung, tài chính
-   - 산업 (産業): sản nghiệp, công nghiệp
-   - 무역 (貿易): mậu dịch, thương mại
-   - 시장 (市場): thị trường, chợ
+   - 금융 (金融): Kim dung, tài chính
+   - 산업 (産業): Sản nghiệp, công nghiệp
+   - 무역 (貿易): Mậu dịch, thương mại
+   - 시장 (市場): Thị trường, chợ
 
 4. MẸO NHỚ: Hãy nghĩ đến việc "KINH" (경) quản nguồn lực để "TẾ" (제) vượt qua khó khăn. Kinh tế (경제) là bánh xe vận hành xã hội.
 
 ## 경찰 (警察)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cảnh sát". "警" (경, cảnh) nghĩa là cảnh giác, đề phòng; "察" (찰, sát) nghĩa là quan sát, xem xét. Hợp lại chỉ lực lượng duy trì trật tự, bắt tội phạm.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cảnh sát". "警" (경, cảnh) nghĩa là cảnh giác, đề phòng; "察" (찰, sát) nghĩa là quan sát, xem xét. Hợp lại chỉ lực lượng duy trì trật tự, bắt tội phạm.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 경찰에 신고했다.
@@ -659,16 +659,16 @@
    + Việt: Người mặc đồng phục cảnh sát gõ cửa.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 순경 (巡警): tuần cảnh, cảnh sát
-   - 형사 (刑事): hình sự, điều tra viên
-   - 법률 (法律): pháp luật
-   - 치안 (治安): trị an, an ninh
+   - 순경 (巡警): Tuần cảnh, cảnh sát
+   - 형사 (刑事): Hình sự, điều tra viên
+   - 법률 (法律): Pháp luật
+   - 치안 (治安): Trị an, an ninh
 
 4. MẸO NHỚ: Hãy nghĩ đến người "CẢNH" (경) giác canh gác, "SÁT" (찰) xét mọi hành vi. Cảnh sát (경찰) luôn để mắt đến kẻ xấu.
 
 ## 경치 (景致)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "phong cảnh". "景" (경, cảnh) nghĩa là cảnh sắc, quang cảnh; "致" (치, trí) nghĩa là đạt đến, gửi đến. Hợp lại chỉ vẻ đẹp thiên nhiên hoặc không gian nhìn thấy.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Phong cảnh". "景" (경, cảnh) nghĩa là cảnh sắc, quang cảnh; "致" (치, trí) nghĩa là đạt đến, gửi đến. Hợp lại chỉ vẻ đẹp thiên nhiên hoặc không gian nhìn thấy.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 산의 경치가 아름답다.
@@ -696,16 +696,16 @@
    + Việt: Tôi đã chụp rất nhiều ảnh phong cảnh.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 풍경 (風景): phong cảnh
-   - 광경 (光景): quang cảnh
-   - 명소 (名所): danh thắng
-   - 전망 (展望): triển vọng, tầm nhìn
+   - 풍경 (風景): Phong cảnh
+   - 광경 (光景): Quang cảnh
+   - 명소 (名所): Danh thắng
+   - 전망 (展望): Triển vọng, tầm nhìn
 
 4. MẸO NHỚ: Hãy nghĩ đến "CẢNH" (경) sắc đẹp đến "TRÍ" (치) mức không thể rời mắt. Phong cảnh (경치) đẹp làm người ta ngây ngất.
 
 ## 경향 (傾向)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "khuynh hướng". "傾" (경, khuynh) nghĩa là nghiêng về, đổ về; "向" (향, hướng) nghĩa là hướng đến, xu hướng. Hợp lại chỉ xu hướng phát triển theo một hướng nhất định.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Khuynh hướng". "傾" (경, khuynh) nghĩa là nghiêng về, đổ về; "向" (향, hướng) nghĩa là hướng đến, xu hướng. Hợp lại chỉ xu hướng phát triển theo một hướng nhất định.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 최근 물가 상승 경향이 있다.
@@ -733,16 +733,16 @@
    + Việt: Khuynh hướng tuyển dụng ngày càng chuyển sang trực tuyến.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 추세 (趨勢): xu thế
-   - 방향 (方向): phương hướng
-   - 흐름 (-): dòng chảy, xu hướng
-   - 유행 (流行): lưu hành, phổ biến
+   - 추세 (趨勢): Xu thế
+   - 방향 (方向): Phương hướng
+   - 흐름 (-): Dòng chảy, xu hướng
+   - 유행 (流行): Lưu hành, phổ biến
 
 4. MẸO NHỚ: Hãy nghĩ đến cái cân nghiêng "KHUYNH" (경) về một "HƯỚNG" (향). Khi đa số đổ về một phía — đó là khuynh hướng (경향).
 
 ## 계기 (契機)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cơ hội, cơ hội thuận lợi". "契" (계, khế) nghĩa là khế ước, cơ hội; "機" (기, cơ) nghĩa là cơ hội, máy móc. Hợp lại chỉ thời điểm thuận lợi để làm điều gì đó.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cơ hội, cơ hội thuận lợi". "契" (계, khế) nghĩa là khế ước, cơ hội; "機" (기, cơ) nghĩa là cơ hội, máy móc. Hợp lại chỉ thời điểm thuận lợi để làm điều gì đó.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이 일은 인생의 계기가 되었다.
@@ -770,9 +770,9 @@
    + Việt: Thất bại có thể là cơ hội của thành công.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 기회 (機會): cơ hội
-   - 전환점 (轉換點): điểm chuyển biến
-   - 발판 (發板): bàn đạp
-   - 시작 (始作): bắt đầu
+   - 기회 (機會): Cơ hội
+   - 전환점 (轉換點): Điểm chuyển biến
+   - 발판 (發板): Bàn đạp
+   - 시작 (始作): Bắt đầu
 
 4. MẸO NHỚ: Hãy nghĩ đến "KHẾ" (계) ước gặp đúng "CƠ" (기) hội. Khi cửa mở ra — đó là cơ hội (계기), phải bước qua ngay.
