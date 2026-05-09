@@ -30,10 +30,10 @@
    + Việt: Vai trò của người hòa giải trong tình huống xung đột là quan trọng.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 분쟁 (紛爭): "Tranh chấp, tranh giành"
-   - 대립 (對立): "Đối lập, đối đầu"
-   - 화해 (和解): "Hòa giải, giải hòa"
-   - 중재 (仲栽): "Trung tài, hòa giải"
+   - 분쟁 (紛爭): Tranh chấp, tranh giành
+   - 대립 (對立): Đối lập, đối đầu
+   - 화해 (和解): Hòa giải, giải hòa
+   - 중재 (仲栽): Trung tài, hòa giải
 
 4. MẸO NHỚ: Hãy tưởng tượng hai dây leo "CÁT" (갈) và "ĐẰNG" (등) quấn chặt vào nhau, giống như hai bên đang xung đột không ai chịu nhường ai. Muốn tách ra phải cắt từng sợi một.
 
@@ -67,10 +67,10 @@
    + Việt: Khứu giác là giác quan quan trọng để cảm nhận vị giác.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 느낌 (-): "Cảm giác, cảm nhận"
-   - 인식 (認識): "Nhận thức, nhận biết"
-   - 지각 (知覺): "Tri giác, nhận thức"
-   - 후각 (嗅覺): "Khứu giác"
+   - 느낌 (-): Cảm giác, cảm nhận
+   - 인식 (認識): Nhận thức, nhận biết
+   - 지각 (知覺): Tri giác, nhận thức
+   - 후각 (嗅覺): Khứu giác
 
 4. MẸO NHỚ: Hãy nghĩ đến "CẢM" (감- cảm) xúc và "GIÁC" (각- giác) ngộ. Khi bạn chạm vào nước đá, bạn có "CẢM GIÁC" lạnh — đó chính là cảm giác (감각).
 
@@ -104,10 +104,10 @@
    + Việt: Không quên lời cảm ơn là phép lịch sự.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 고맙다 (-): "Cảm ơn"
-   - 은혜 (恩惠): "Ân đức, ân huệ"
-   - 보답 (報答): "Báo đáp, đền đáp"
-   - 감사패 (感謝牌): "Biển cảm ơn"
+   - 고맙다 (-): Cảm ơn
+   - 은혜 (恩惠): Ân đức, ân huệ
+   - 보답 (報答): Báo đáp, đền đáp
+   - 감사패 (感謝牌): Biển cảm ơn
 
 4. MẸO NHỚ: Từ này ai cũng biết! Hãy nhớ "CẢM" (감) động trước ân tình rồi "TẠ" (사) ơn. Khi ai đó giúp bạn, hãy nói "감사합니다" — "cảm tạ ngài".
 
@@ -141,10 +141,10 @@
    + Việt: Xuất khẩu đã giảm so với năm ngoái.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 증가 (增加): "Tăng gia, gia tăng"
-   - 축소 (縮小): "Suy giảm, thu nhỏ"
-   - 하락 (下落): "Suy tàn, giảm xuống"
-   - 위축 (萎縮): "Suy giảm, teo tóp"
+   - 증가 (增加): Tăng gia, gia tăng
+   - 축소 (縮小): Suy giảm, thu nhỏ
+   - 하락 (下落): Suy tàn, giảm xuống
+   - 위축 (萎縮): Suy giảm, teo tóp
 
 4. MẸO NHỚ: Hãy nghĩ đến cái cân. Khi bạn "GIẢM" (감) ăn, cân nặng trở nên "ÍT" (소) hơn — đó là giảm cân, tức 감소! Ngược lại tăng thì gọi là 증가.
 
@@ -178,10 +178,10 @@
    + Việt: Khả năng kiểm soát cảm xúc là cần thiết trong cuộc sống xã hội.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 심리 (心理): "Tâm lý"
-   - 기분 (氣分): "Tâm trạng, khí phận"
-   - 정서 (情緖): "Tình trạng, tâm tình"
-   - 정신 (精神): "Tinh thần"
+   - 심리 (心理): Tâm lý
+   - 기분 (氣分): Tâm trạng, khí phận
+   - 정서 (情緖): Tình trạng, tâm tình
+   - 정신 (精神): Tinh thần
 
 4. MẸO NHỚ: Hãy nghĩ đến trái tim rung động "CẢM" (감) nhận được một "TÌNH" (정) cảm đặc biệt. Khi xem phim buồn, nước mắt rơi vì "cảm tình" — đó là 감정.
 
@@ -215,10 +215,10 @@
    + Việt: Tầm nhìn của đạo diễn quyết định hướng đi của tác phẩm.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 연출 (演出): "Diễn xuất, biểu diễn"
-   - 관리 (管理): "Quản lý"
-   - 지휘 (指揮): "Chỉ huy, điều khiển"
-   - 제작 (制作): "Chế tác, sản xuất"
+   - 연출 (演出): Diễn xuất, biểu diễn
+   - 관리 (管理): Quản lý
+   - 지휘 (指揮): Chỉ huy, điều khiển
+   - 제작 (制作): Chế tác, sản xuất
 
 4. MẸO NHỚ: Hãy nghĩ đến camera "GIÁM" (감) sát và đôn "ĐỐC" (독) diễn viên. Đạo diễn đứng sau máy quay, luôn quan sát và thúc đẩy — đó chính là 감독.
 
@@ -252,10 +252,10 @@
    + Việt: Dám nói như vậy trước mặt ta sao!
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 용기 (勇氣): "Dũng khí, can đảm"
-   - 대담 (大膽): "Táo bạo, can đảm"
-   - 겁 (-): "Sợ, nhát"
-   - 용감 (勇敢): "Dũng cảm, can đảm"
+   - 용기 (勇氣): Dũng khí, can đảm
+   - 대담 (大膽): Táo bạo, can đảm
+   - 겁 (-): Sợ, nhát
+   - 용감 (勇敢): Dũng cảm, can đảm
 
 4. MẸO NHỚ: Hãy nghĩ đến người "CẢM" (감) dám đối mặt với nguy hiểm để "VI" (위) làm điều đúng đắn. Chỉ có kẻ thật sự can đảm mới dám (감히) đứng lên.
 
@@ -289,10 +289,10 @@
    + Việt: Lính cứu hỏa đã xuất động để dập tắt đám cháy lớn.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 힘 (力): "Sức mạnh"
-   - 세력 (勢力): "Thế lực, thế lực"
-   - 위력 (威力): "Uy lực, oai lực"
-   - 권력 (權力): "Quyền lực"
+   - 힘 (力): Sức mạnh
+   - 세력 (勢力): Thế lực, thế lực
+   - 위력 (威力): Uy lực, oai lực
+   - 권력 (權力): Quyền lực
 
 4. MẸO NHỚ: Hãy nghĩ đến siêu nhân "CƯỜNG" (강) trang đầy "LỰC" (력) lượng. Khi cần thiết, anh ấy dùng sức mạnh (강력) để bảo vệ công lý.
 
@@ -326,10 +326,10 @@
    + Việt: Tôi đã từng bị công ty ép buộc làm thêm giờ.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 압박 (壓迫): "Áp bức, áp lực"
-   - 강제 (强制): "Cưỡng chế, bắt buộc"
-   - 설득 (說得): "Thuyết phục"
-   - 협박 (脅迫): "Đe dọa, hăm dọa"
+   - 압박 (壓迫): Áp bức, áp lực
+   - 강제 (强制): Cưỡng chế, bắt buộc
+   - 설득 (說得): Thuyết phục
+   - 협박 (脅迫): Đe dọa, hăm dọa
 
 4. MẸO NHỚ: Hãy nghĩ đến kẻ "CƯỜNG" (강) đứng trước cửa "YÊU" (요) cầu tiền bạc. Không đưa thì không cho qua — đó là ép buộc, 강요.
 
@@ -363,10 +363,10 @@
    + Việt: Cần nhấn mạnh tính sáng tạo trong môi trường giáo dục.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 부각 (浮刻): "Làm nổi bật"
-   - 역설 (逆說): "Giải thích ngược"
-   - 경시 (輕視): "Coi nhẹ, khinh thị"
-   - 명시 (明示): "Minh thị, nêu rõ"
+   - 부각 (浮刻): Làm nổi bật
+   - 역설 (逆說): Giải thích ngược
+   - 경시 (輕視): Coi nhẹ, khinh thị
+   - 명시 (明示): Minh thị, nêu rõ
 
 4. MẸO NHỚ: Hãy nghĩ đến micro "CƯỜNG" (강) hơn bình thường để "ĐIỀU" (조) chỉnh âm lượng. Người phát biểu nhấn mạnh (강조) điểm quan trọng bằng cách nói to hơn.
 
@@ -400,10 +400,10 @@
    + Việt: Đã tăng cường nhân lực để nâng cao hiệu quả sản xuất.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 증강 (增彊): "Tăng cường"
-   - 보강 (補强): "Bổ sung, củng cố"
-   - 약화 (弱化): "Suy yếu, làm yếu"
-   - 강철 (强鐵): "Gang thép"
+   - 증강 (增彊): Tăng cường
+   - 보강 (補强): Bổ sung, củng cố
+   - 약화 (弱化): Suy yếu, làm yếu
+   - 강철 (强鐵): Gang thép
 
 4. MẸO NHỚ: Hãy nghĩ đến tập gym để "CƯỜNG" (강) thân thể "HÓA" (화) thành siêu nhân. Tập luyện mỗi ngày để tăng cường (강화) sức mạnh.
 
@@ -437,10 +437,10 @@
    + Việt: Anh ấy ẩn dật trong giang hồ và cách ly với thế gian.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 천하 (天下): "Thiên hạ"
-   - 무림 (武林): "Võ lâm"
-   - 유랑 (流浪): "Lưu lãng, du hành"
-   - 은둔 (隱遁): "Ẩn dật"
+   - 천하 (天下): Thiên hạ
+   - 무림 (武林): Võ lâm
+   - 유랑 (流浪): Lưu lãng, du hành
+   - 은둔 (隱遁): Ẩn dật
 
 4. MẸO NHỚ: Hãy nghĩ đến các cao thủ võ lâm bên bờ "GIANG" (강) sông và "HỒ" (호) nước. Đó là nơi họ giao đấu, hành hiệp trượng nghĩa — giang hồ (강호).
 
@@ -474,10 +474,10 @@
    + Việt: Hãy nắm bắt khái quan vấn đề trước rồi thảo luận chi tiết sau.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 개요 (槪要): "Khái yếu, tóm tắt"
-   - 전반 (一般): "Toàn bộ, phổ biến"
-   - 상세 (詳細): "Tường tận, chi tiết"
-   - 대략 (大略): "Đại lược, đại khái"
+   - 개요 (槪要): Khái yếu, tóm tắt
+   - 전반 (一般): Toàn bộ, phổ biến
+   - 상세 (詳細): Tường tận, chi tiết
+   - 대략 (大略): Đại lược, đại khái
 
 4. MẸO NHỚ: Hãy đứng trên đồi cao "KHÁI" (개) lược nhìn xuống và "QUAN" (관) sát toàn cảnh. Từ trên cao bạn thấy bức tranh tổng quan (개관) của thành phố.
 
@@ -511,10 +511,10 @@
    + Việt: Vào ngày kỷ niệm khai quốc, người dân vẫy cờ.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 건국 (建國): "Kiến quốc, xây dựng đất nước"
-   - 창업 (創業): "Sáng nghiệp, khởi nghiệp"
-   - 멸망 (滅亡): "Diệt vong, sụp đổ"
-   - 독립 (獨立): "Độc lập"
+   - 건국 (建國): Kiến quốc, xây dựng đất nước
+   - 창업 (創業): Sáng nghiệp, khởi nghiệp
+   - 멸망 (滅亡): Diệt vong, sụp đổ
+   - 독립 (獨立): Độc lập
 
 4. MẸO NHỚ: Hãy nghĩ đến người anh hùng "KHAI" (개) cửa biên cương để lập "QUỐC" (국) gia. Khai quốc (개국) là việc vĩ đại nhất trong lịch sử một dân tộc.
 
@@ -548,10 +548,10 @@
    + Việt: Ngân sách đã được đầu tư để cải thiện cơ sở vật chất trường học.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 발전 (發展): "Phát triển"
-   - 향상 (向上): "Hướng thượng, nâng cao"
-   - 퇴화 (退化): "Thoái hóa, suy thoái"
-   - 수리 (修理): "Sửa chữa, tu bổ"
+   - 발전 (發展): Phát triển
+   - 향상 (向上): Hướng thượng, nâng cao
+   - 퇴화 (退化): Thoái hóa, suy thoái
+   - 수리 (修理): Sửa chữa, tu bổ
 
 4. MẸO NHỚ: Hãy nghĩ đến việc "CẢI" (개) sửa nhà cũ thành "THIỆN" (선) đẹp hơn. Thay đổi theo hướng tốt đẹp — đó chính là cải thiện (개선).
 
@@ -585,10 +585,10 @@
    + Việt: Thời trang là một cách thể hiện cá tính.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 특징 (特徵): "Đặc trưng, đặc điểm"
-   - 성격 (性格): "Tính cách"
-   - 독창 (獨創): "Độc sáng, sáng tạo"
-   - 성품 (性品): "Tính phẩm, phẩm chất"
+   - 특징 (特徵): Đặc trưng, đặc điểm
+   - 성격 (性格): Tính cách
+   - 독창 (獨創): Độc sáng, sáng tạo
+   - 성품 (性品): Tính phẩm, phẩm chất
 
 4. MẸO NHỚ: Hãy nghĩ đến mỗi người là một "CÁ" (개) thể riêng biệt với bản "TÍNH" (성) khác nhau. Không ai giống ai — đó chính là cá tính (개성).
 
@@ -622,10 +622,10 @@
    + Việt: Tôi đã hoàn tất đăng ký hộ kinh doanh cá thể.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 사람 (-): "Người"
-   - 단체 (團體): "Đoàn thể, tập thể"
-   - 공동 (共同): "Cộng đồng, chung"
-   - 사업 (事業): "Sự nghiệp, kinh doanh"
+   - 사람 (-): Người
+   - 단체 (團體): Đoàn thể, tập thể
+   - 공동 (共同): Cộng đồng, chung
+   - 사업 (事業): Sự nghiệp, kinh doanh
 
 4. MẸO NHỚ: Hãy nghĩ đến mỗi "CÁ" (개) "NHÂN" (인) như một ngọn nến riêng biệt. Tập thể là cả chùm nến, còn cá nhân (개인) là ngọn lửa riêng của mỗi người.
 
@@ -659,10 +659,10 @@
    + Việt: Tôi khám sức khỏe mỗi 6 tháng một lần.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 달 (-): "Tháng"
-   - 년 (年): "Năm"
-   - 주 (週): "Tuần"
-   - 일 (日): "Ngày"
+   - 달 (-): Tháng
+   - 년 (年): Năm
+   - 주 (週): Tuần
+   - 일 (日): Ngày
 
 4. MẸO NHỚ: Hãy nghĩ đến mỗi "CÁ" (개) "NGUYỆT" (월) — mỗi lần trăng tròn là một tháng. Đếm tháng bằng cách đếm số lần trăng tròn: 1 tháng, 2 tháng (1개월, 2개월).
 
@@ -696,10 +696,10 @@
    + Việt: Khó có thể tố cáo nếu không có bằng chứng khách quan.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 공정 (公正): "Công chính, công bằng"
-   - 주관 (主觀): "Chủ quan"
-   - 중립 (中立): "Trung lập"
-   - 증거 (證據): "Bằng chứng, chứng cứ"
+   - 공정 (公正): Công chính, công bằng
+   - 주관 (主觀): Chủ quan
+   - 중립 (中立): Trung lập
+   - 증거 (證據): Bằng chứng, chứng cứ
 
 4. MẸO NHỚ: Hãy nghĩ đến người "KHÁCH" (객) đứng ngoài "QUAN" (관) sát mà không thiên vị. Vì không liên quan trực tiếp nên nhìn nhận khách quan (객관) hơn.
 
@@ -733,10 +733,10 @@
    + Việt: Khán giả lấp đầy chỗ ngồi đã hoan hô.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 관객 (觀客): "Khán giả, quan khách"
-   - 좌석 (座席): "Chỗ ngồi, ghế ngồi"
-   - 무대 (舞臺): "Sân khấu"
-   - 만석 (滿席): "Kín chỗ, chật kín"
+   - 관객 (觀客): Khán giả, quan khách
+   - 좌석 (座席): Chỗ ngồi, ghế ngồi
+   - 무대 (舞臺): Sân khấu
+   - 만석 (滿席): Kín chỗ, chật kín
 
 4. MẸO NHỚ: Hãy nghĩ đến người "KHÁCH" (객) ngồi trên "TỊCH" (석) vị trong nhà hát. Họ là khán giả, người ngồi ở ghế khách (객석) để xem biểu diễn.
 
@@ -770,9 +770,9 @@
    + Việt: Tin giả làm xã hội rơi vào hỗn loạn.
 
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
-   - 진실 (眞實): "Chân thật, sự thật"
-   - 위조 (僞造): "Ngụy tạo, giả mạo"
-   - 기만 (欺瞞): "Lừa dối, gian dối"
-   - 허위 (虛僞): "Hư ngụy, giả dối"
+   - 진실 (眞實): Chân thật, sự thật
+   - 위조 (僞造): Ngụy tạo, giả mạo
+   - 기만 (欺瞞): Lừa dối, gian dối
+   - 허위 (虛僞): Hư ngụy, giả dối
 
 4. MẸO NHỚ: Hãy nghĩ đến người nói "HƯ" (거) ảo và "NGỤY" (짓) trang sự thật. Khi bắt gặp ai đó nói dối, hãy nhớ từ 거짓 — sự giả dối.
