@@ -53,7 +53,7 @@ Mỗi từ vựng theo đúng 5 phần theo thứ tự:
 ### 2.1. Các phần áp dụng quy tắc viết hoa:
 | Phần | Quy tắc |
 |------|---------|
-| `1. GIẢI NGHĨA` | Chữ đầu câu viết hoa. Chữ trong ngoặc kép `""` viết thường. |
+| `1. GIẢI NGHĨA` | Chữ đầu câu viết hoa. Cả chữ trong ngoặc kép `""` cũng viết hoa chữ đầu. |
 | `2. VÍ DỤ` — dòng Việt | Chữ đầu câu viết hoa, còn lại thường. |
 | `3. TỪ LIÊN QUAN` — nghĩa | Không có dấu `"`. Chữ đầu viết hoa, còn lại thường. |
 | `4. MẸO NHỚ` | Chữ đầu câu viết hoa. Tên riêng trong ngoặc kép giữ nguyên. |
