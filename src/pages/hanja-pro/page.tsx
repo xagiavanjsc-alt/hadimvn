@@ -39,16 +39,26 @@ export default function HanjaProPage() {
   const PAGE_SIZE = 20;
 
   useEffect(() => {
-    supabase
-      .from("hanja_pro")
-      .select("id,hangul,hanja,meaning_vn,slug")
-      .order("id", { ascending: true })
-      .limit(10000)
-      .then(({ data, error }) => {
-        if (error) console.error("[hanja_pro] fetch error:", error);
-        else setEntries(data ?? []);
-        setLoading(false);
-      });
+    const fetchAll = async () => {
+      const all: HanjaEntry[] = [];
+      const pageSize = 1000;
+      let from = 0;
+      while (true) {
+        const { data, error } = await supabase
+          .from("hanja_pro")
+          .select("id,hangul,hanja,meaning_vn,slug")
+          .order("id", { ascending: true })
+          .range(from, from + pageSize - 1);
+        if (error) { console.error("[hanja_pro] fetch error:", error); break; }
+        if (!data || data.length === 0) break;
+        all.push(...data);
+        if (data.length < pageSize) break;
+        from += pageSize;
+      }
+      setEntries(all);
+      setLoading(false);
+    };
+    fetchAll();
   }, []);
 
   const UNIQUE_CHARS = useMemo(() =>
