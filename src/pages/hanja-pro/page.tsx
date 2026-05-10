@@ -342,10 +342,9 @@ export default function HanjaProPage() {
                   onClick={() => openDetail(entry)}
                   className={`relative bg-app-bg border rounded-xl p-4 text-left cursor-pointer transition-all hover:border-app-accent-primary/40 ${isKnown ? "border-emerald-500/40" : "border-app-border"}`}
                 >
-                  <span className="absolute top-2 left-2 text-[10px] font-mono text-app-text-muted bg-app-card/40 px-1.5 py-0.5 rounded">#{entry.id - 99}</span>
                   {isFav && <i className="ri-bookmark-fill absolute top-2 right-2 text-app-accent-primary text-sm"></i>}
                   {isKnown && <i className="ri-check-double-line absolute top-2 right-2 text-emerald-400 text-sm"></i>}
-                  <p className="text-white font-bold text-base mb-1 mt-4" lang="ko">{entry.hangul}</p>
+                  <p className="text-white font-bold text-base mb-1" lang="ko">{entry.hangul}</p>
                   <p className="text-app-accent-primary text-sm font-medium mb-2">{entry.hanja}</p>
                   <p className="text-app-text-secondary text-xs line-clamp-2">{meaning || "Nhấn để xem"}</p>
                 </button>
