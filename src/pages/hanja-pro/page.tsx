@@ -36,7 +36,7 @@ export default function HanjaProPage() {
   const [quizAnswered, setQuizAnswered] = useState<number | null>(null);
   const [quizScore, setQuizScore] = useState({ correct: 0, total: 0 });
   const [page, setPage] = useState(1);
-  const PAGE_SIZE = 20;
+  const PAGE_SIZE = 32;
 
   useEffect(() => {
     const fetchAll = async () => {
