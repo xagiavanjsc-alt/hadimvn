@@ -36,8 +36,4 @@ def clear_all():
         logger.error(f"❌ Xoa that bai: {resp.status_code} - {resp.text}")
 
 if __name__ == "__main__":
-    confirm = input("XAC NHAN: Xoa toan bo data trong hanja_pro? (yes/no): ")
-    if confirm.lower() == 'yes':
-        clear_all()
-    else:
-        print("Huy bo.")
+    clear_all()

@@ -494,7 +494,7 @@
 
 ## 가설 (假說)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "giả thuyết". Gốc Hán "假說" nghĩa là lời nói/lập luận giả định.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "giả thuyết". Gốc Hán "假" (giả) nghĩa là tạm thời, giả định, "說" (thuyết) nghĩa là lời nói, lập luận.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 그 가설은 아직 증명되지 않았습니다.

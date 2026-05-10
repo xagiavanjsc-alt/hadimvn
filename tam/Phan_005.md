@@ -38,7 +38,7 @@
 
 ## 경쟁력 (競爭力)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Năng lực cạnh tranh". Gốc Hán "競爭力" nghĩa là "Tranh đua" (競爭) và "Sức lực, khả năng" (力).
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "năng lực cạnh tranh". Gốc Hán "競爭力" nghĩa là "tranh đua" (競爭) và "sức lực, khả năng" (力).
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 기업의 경쟁력을 높이는 것이 중요합니다.
@@ -71,12 +71,12 @@
    - 경쟁심 (競爭心): Tinh thần cạnh tranh.
    - 경쟁업체 (競爭業體): Doanh nghiệp đối thủ cạnh tranh.
 
-4. MẸO NHỚ: Hãy nghĩ đến một cuộc "TRANH" giành (競) và "ĐUA" tốc độ (爭) để có được "SỨC" lực (力) vượt trội. Ghép lại thành "Sức mạnh trong cuộc đua tranh" chính là Năng lực cạnh tranh.
+4. MẸO NHỚ: Hãy nghĩ đến một cuộc "tranh" giành (競) và "đua" tốc độ (爭) để có được "sức" lực (力) vượt trội. ghép lại thành "sức mạnh trong cuộc đua tranh" chính là năng lực cạnh tranh.
 
 
 ## 경청 (傾聽)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Lắng nghe". Gốc Hán "傾聽" nghĩa là nghiêng người để nghe, chú ý lắng nghe một cách tập trung và tôn trọng.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "lắng nghe". Gốc Hán "傾聽" nghĩa là nghiêng người để nghe, chú ý lắng nghe một cách tập trung và tôn trọng.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 상대방의 말을 경청하는 것이 중요합니다.
@@ -109,7 +109,7 @@
    - 이해 (理解): Hiểu biết, thấu hiểu.
    - 수용 (受容): Tiếp nhận, chấp nhận (ý kiến).
 
-4. MẸO NHỚ: Hãy tưởng tượng bạn đang "nghiêng (傾) tai để nghe (聽)" một cách chăm chú. Âm "경청" nghe như "kính trọng mà nghe", nhắc bạn cần tôn trọng người nói khi lắng nghe.
+4. MẸO NHỚ: Hãy tưởng tượng bạn đang "nghiêng (傾) tai để nghe (聽)" một cách chăm chú. âm "경청" nghe như "kính trọng mà nghe", nhắc bạn cần tôn trọng người nói khi lắng nghe.
 
 
 ## 경호 (警護)
@@ -147,12 +147,12 @@
    - 안전 (安全): An toàn.
    - 경계 (警戒): Cảnh giới, đề phòng.
 
-4. MẸO NHỚ: Hãy nhớ "경호" như một "cảnh sát (警) bảo vệ (護)" bạn. Tưởng tượng một vệ sĩ (호) mặc đồ cảnh sát (경) đang canh gác.
+4. MẸO NHỚ: Hãy nhớ "경호" như một "cảnh sát (警) bảo vệ (護)" bạn. tưởng tượng một vệ sĩ (호) mặc đồ cảnh sát (경) đang canh gác.
 
 
 ## 계몽 (啓蒙)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Khai sáng, mở mang trí tuệ, giác ngộ". Gốc Hán "啓" (khai) nghĩa là mở ra, "蒙" (mông) nghĩa là mờ tối, u mê.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "khai sáng, mở mang trí tuệ, giác ngộ". Gốc Hán "啓" (khai) nghĩa là mở ra, "蒙" (mông) nghĩa là mờ tối, u mê.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 계몽 운동은 사회 변화를 이끌었다.
@@ -185,7 +185,7 @@
    - 각성 (覺醒): Giác ngộ, thức tỉnh.
    - 지식 (知識): Tri thức, kiến thức.
 
-4. MẸO NHỚ: Hãy nhớ "계몽" (Khai sáng) như một cánh cửa (啓 - Khai) mở ra, xua tan bóng tối của sự u mê (蒙 - Mông). Giống như bật đèn trong phòng tối vậy.
+4. MẸO NHỚ: Hãy nhớ "계몽" (khai sáng) như một cánh cửa (啓 - khai) mở ra, xua tan bóng tối của sự u mê (蒙 - mông). giống như bật đèn trong phòng tối vậy.
 
 
 ## 계산 (計算)
@@ -261,7 +261,7 @@
    - 전승 (傳承): Sự truyền thừa, lưu truyền.
    - 계승자 (繼承者): Người kế thừa, người thừa kế.
 
-4. MẸO NHỚ: Hãy nghĩ đến hình ảnh một cây đuốc được truyền từ tay người này sang người khác trong một cuộc chạy tiếp sức. "계승" (Kế thừa) cũng giống như vậy, là sự trao truyền và tiếp nhận những giá trị từ thế hệ trước cho thế hệ sau.
+4. MẸO NHỚ: Hãy nghĩ đến hình ảnh một cây đuốc được truyền từ tay người này sang người khác trong một cuộc chạy tiếp sức. "계승" (kế thừa) cũng giống như vậy, là sự trao truyền và tiếp nhận những giá trị từ thế hệ trước cho thế hệ sau.
 
 
 ## 계층 (階層)
@@ -299,7 +299,7 @@
    - 상층 (上層): Tầng trên, thượng tầng.
    - 하층 (下層): Tầng dưới, hạ tầng.
 
-4. MẸO NHỚ: Hãy tưởng tượng một chiếc bánh sinh nhật nhiều tầng (계층). Mỗi tầng bánh (층) được xếp chồng lên nhau theo thứ tự bậc thang (계), tượng trưng cho các lớp người khác nhau trong xã hội.
+4. MẸO NHỚ: Hãy tưởng tượng một chiếc bánh sinh nhật nhiều tầng (계층). mỗi tầng bánh (층) được xếp chồng lên nhau theo thứ tự bậc thang (계), tượng trưng cho các lớp người khác nhau trong xã hội.
 
 
 ## 고갈 (枯渴)
@@ -375,7 +375,7 @@
    - 귀중 (貴重): Quý trọng, quý giá.
    - 고매 (高邁): Cao siêu, cao thượng.
 
-4. MẸO NHỚ: Hãy nghĩ đến "Cao Quý" như một người ở vị trí cao (高) và rất có giá trị (貴), giống như một vị vua hay nữ hoàng.
+4. MẸO NHỚ: Hãy nghĩ đến "cao quý" như một người ở vị trí cao (高) và rất có giá trị (貴), giống như một vị vua hay nữ hoàng.
 
 
 ## 고독 (孤獨)
@@ -413,12 +413,12 @@
    - 단독 (單獨): Đơn độc, riêng lẻ.
    - 고뇌 (苦惱): Khổ não, phiền muộn.
 
-4. MẸO NHỚ: Hãy nhớ chữ Hán "孤獨" - "孤" (cô) là đứa trẻ mồ côi, "獨" (độc) là một mình. Hình ảnh một đứa trẻ mồ côi đứng một mình chính là "cô đơn".
+4. MẸO NHỚ: Hãy nhớ chữ hán "孤獨" - "孤" (cô) là đứa trẻ mồ côi, "獨" (độc) là một mình. hình ảnh một đứa trẻ mồ côi đứng một mình chính là "cô đơn".
 
 
 ## 고려 (考慮)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Xem xét, cân nhắc". Gốc Hán "考慮" nghĩa là suy nghĩ, đắn đo.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "xem xét, cân nhắc". Gốc Hán "考慮" nghĩa là suy nghĩ, đắn đo.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이 점을 고려해 주세요.
@@ -451,7 +451,7 @@
    - 평가 (評價): Đánh giá, định giá.
    - 분석 (分析): Phân tích.
 
-4. MẸO NHỚ: Hãy nghĩ đến triều đại Goryeo (고려) trong lịch sử Hàn Quốc. Các vị vua thời đó phải "xem xét" rất nhiều vấn đề trọng đại để trị vì đất nước.
+4. MẸO NHỚ: Hãy nghĩ đến triều đại goryeo (고려) trong lịch sử hàn quốc. các vị vua thời đó phải "xem xét" rất nhiều vấn đề trọng đại để trị vì đất nước.
 
 
 ## 고발 (告發)
@@ -489,7 +489,7 @@
    - 제소 (提訴): Khởi kiện, đệ đơn kiện.
    - 진정 (陳情): Khiếu nại, trình bày nguyện vọng.
 
-4. MẸO NHỚ: Hãy nghĩ đến "Cáo Phát" - khi bạn "cáo" (báo cáo) để "phát" (phát giác, vạch trần) một hành vi xấu.
+4. MẸO NHỚ: Hãy nghĩ đến "cáo phát" - khi bạn "cáo" (báo cáo) để "phát" (phát giác, vạch trần) một hành vi xấu.
 
 
 ## 고백 (告白)
@@ -527,7 +527,7 @@
    - 진술 (陳述): Trình bày, khai báo.
    - 발표 (發表): Công bố, phát biểu.
 
-4. MẸO NHỚ: Hãy nghĩ đến "Cao" (高 - cao) và "Bạch" (白 - trắng, nói rõ). "Cao bạch" là nói ra một cách cao thượng và rõ ràng, chính là "thú nhận" hoặc "bày tỏ tình cảm".
+4. MẸO NHỚ: Hãy nghĩ đến "cao" (高 - cao) và "bạch" (白 - trắng, nói rõ). "cao bạch" là nói ra một cách cao thượng và rõ ràng, chính là "thú nhận" hoặc "bày tỏ tình cảm".
 
 
 ## 고생 (苦生)
@@ -562,15 +562,15 @@
 3. 4 TỪ LIÊN QUAN GỐC HÁN:
    - 고통 (苦痛): Nỗi đau khổ, sự đau đớn.
    - 고난 (苦難): Gian nan, khó khăn.
-   - 생고 (生苦): Nỗi khổ của sự sinh tồn (thường dùng trong Phật giáo).
+   - 생고 (生苦): Nỗi khổ của sự sinh tồn (thường dùng trong phật giáo).
    - 노고 (勞苦): Lao khổ, nhọc nhằn.
 
-4. MẸO NHỚ: Hãy tưởng tượng một người đang "cao" (고) lên nhưng việc "săn" (생 - phát âm gần giống) bắt, kiếm sống rất khó nhọc. "Cao săn" -> "고생" nghĩa là leo cao để săn mồi, một công việc đầy khổ cực.
+4. MẸO NHỚ: Hãy tưởng tượng một người đang "cao" (고) lên nhưng việc "săn" (생 - phát âm gần giống) bắt, kiếm sống rất khó nhọc. "cao săn" -> "고생" nghĩa là leo cao để săn mồi, một công việc đầy khổ cực.
 
 
 ## 고소 (告訴)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Kiện tụng, tố cáo". Gốc Hán "告訴" nghĩa là báo cáo, tố cáo.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "kiện tụng, tố cáo". Gốc Hán "告訴" nghĩa là báo cáo, tố cáo.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 그 회사에 고소장을 제출했어요.
@@ -603,7 +603,7 @@
    - 고발자 (告發者): Người tố cáo.
    - 피고소인 (被告訴人): Bị cáo, người bị kiện.
 
-4. MẸO NHỚ: Hãy nghĩ đến "Cáo" trong "tố cáo". "고소" (Go-so) nghe như "Cáo Sổ" - tưởng tượng bạn đang "cáo sổ" (trình báo) một ai đó ra tòa.
+4. MẸO NHỚ: Hãy nghĩ đến "cáo" trong "tố cáo". "고소" (go-so) nghe như "cáo sổ" - tưởng tượng bạn đang "cáo sổ" (trình báo) một ai đó ra tòa.
 
 
 ## 고통 (苦痛)
@@ -641,12 +641,12 @@
    - 통증 (痛症): Triệu chứng đau, cơn đau.
    - 비통 (悲痛): Đau thương, bi thống.
 
-4. MẸO NHỚ: Hãy nhớ từ "고통" (đau khổ) giống như tiếng kêu "Go... tong!" khi bạn bị đau. "고" (go) nghĩa là "khổ", "통" (tong) nghĩa là "đau", hợp lại thành "khổ đau".
+4. MẸO NHỚ: Hãy nhớ từ "고통" (đau khổ) giống như tiếng kêu "go... tong!" khi bạn bị đau. "고" (go) nghĩa là "khổ", "통" (tong) nghĩa là "đau", hợp lại thành "khổ đau".
 
 
 ## 고혈압 (高血壓)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Cao huyết áp". Gốc Hán "高血壓" nghĩa là "高" (cao), "血" (máu), "壓" (áp lực), chỉ tình trạng áp lực máu trong động mạch tăng cao.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "cao huyết áp". Gốc Hán "高血壓" nghĩa là "高" (cao), "血" (máu), "壓" (áp lực), chỉ tình trạng áp lực máu trong động mạch tăng cao.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 고혈압은 위험한 질병입니다.
@@ -679,12 +679,12 @@
    - 고지혈증 (高脂血症): Mỡ máu cao, tăng lipid máu.
    - 당뇨병 (糖尿病): Bệnh tiểu đường.
 
-4. MẸO NHỚ: Hãy nhớ từ này qua gốc Hán dễ hiểu: "고 (cao) + 혈 (máu) + 압 (áp lực)" = "Áp lực máu cao". Hoặc liên tưởng đến việc "huyết áp cao" như một cái máy đo huyết áp chỉ số luôn ở mức cao (고).
+4. MẸO NHỚ: Hãy nhớ từ này qua Gốc Hán dễ hiểu: "고 (cao) + 혈 (máu) + 압 (áp lực)" = "áp lực máu cao". hoặc liên tưởng đến việc "huyết áp cao" như một cái máy đo huyết áp chỉ số luôn ở mức cao (고).
 
 
 ## 공격 (攻擊)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Tấn công, đánh, xâm phạm". Gốc Hán "攻擊" nghĩa là công kích, tấn công.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "tấn công, đánh, xâm phạm". Gốc Hán "攻擊" nghĩa là công kích, tấn công.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 적군이 갑자기 공격해 왔다.
@@ -755,7 +755,7 @@
    - 경의 (敬意): Lòng kính trọng, sự tôn kính.
    - 공손 (恭遜): Khiêm tốn, lễ phép.
 
-4. MẸO NHỚ: Hãy nghĩ đến từ "cung kính" trong tiếng Việt, phát âm rất gần với "공경" (gong-gyeong). "Cung" (恭) là cung kính, "Kính" (敬) là kính trọng, ghép lại chính là "sự cung kính, tôn trọng".
+4. MẸO NHỚ: Hãy nghĩ đến từ "cung kính" trong tiếng Việt, phát âm rất gần với "공경" (gong-gyeong). "cung" (恭) là cung kính, "kính" (敬) là kính trọng, ghép lại chính là "sự cung kính, tôn trọng".
 
 
 ## 공과 (功過)

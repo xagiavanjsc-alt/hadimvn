@@ -75,39 +75,66 @@ def extract_slug(hangul):
     """Slug = phien am boi cua tu tieng Han"""
     return word_to_slug(hangul)
 
+def capitalize_first(s):
+    """Viet hoa chu cai dau tien"""
+    if not s:
+        return s
+    return s[0].upper() + s[1:]
+
 def extract_meaning_vn(raw):
-    m = re.search(r'Ngh[iĩ]a ti[eế]ng Vi[eệ]t(?:\s+l[aà])?\s*[:"«]?\s*["\u201c\u201d\u201e]?([^"\u201c\u201d\u201e\n]+)', raw)
+    # Lay phan sau "1. GIẢI NGHĨA: " hoac lay doan dau tien
+    m = re.search(r'1\.\s*GIẢI NGHĨA\s*:\s*(.+?)(?:\n|$)', raw)
     if m:
-        result = m.group(1).strip()
-        result = re.sub(r'["\u201c\u201d\u201e,.\'"]+$', '', result)
-        result = re.sub(r'^["\u201c\u201d\u201e\']+', '', result)
-        return result
+        line = m.group(1).strip()
+        # Tim phan trong dau ngoac kep hoac lay ca dong
+        quote = re.search(r'["\u201c\u201d]([^"\u201c\u201d]+)["\u201d]', line)
+        if quote:
+            return capitalize_first(quote.group(1).strip())
+        # Hoac lay tu dau den dau cham dau tien
+        dot = re.split(r'[.!?]\s+', line)
+        if dot:
+            return capitalize_first(dot[0].strip())
+        return capitalize_first(line)
     return ''
 
 def extract_examples(raw):
     results = []
-    # Tim cac khoi + Han: ... + Boi: ... + Viet: ...
-    pattern = r'\+\s*H[aà]n:\s*(.+?)\n\+\s*B[ôồ]i:\s*(.+?)\n\s*\+\s*Vi[eệ]t:\s*(.+?)(?=\n\n|\n\+\s*H[aà]n|\Z)'
-    matches = re.findall(pattern, raw, re.DOTALL)
-    for han, boi, viet in matches:
-        results.append({
-            'han': han.strip(),
-            'boi': boi.strip(),
-            'viet': viet.strip()
-        })
+    lines = raw.split('\n')
+    i = 0
+    while i < len(lines) - 2:
+        # Dong + Hàn: ...
+        m1 = re.match(r'^\+\s*H[aà]n:\s*(.+)', lines[i])
+        if m1:
+            han = m1.group(1).strip()
+            # Dong tiep theo + Bồi: ...
+            m2 = re.match(r'^\+\s*B[ôồ]i:\s*(.+)', lines[i+1]) if i+1 < len(lines) else None
+            if m2:
+                boi = m2.group(1).strip()
+                # Dong tiep theo    + Việt: ... (co spaces o dau)
+                m3 = re.match(r'^\s+\+\s*Vi[eệ]t:\s*(.+)', lines[i+2]) if i+2 < len(lines) else None
+                if m3:
+                    viet = m3.group(1).strip()
+                    results.append({
+                        'ko': han,
+                        'boi': boi,
+                        'vi': viet
+                    })
+                    i += 3
+                    continue
+        i += 1
     return results
 
 def extract_related(raw):
     results = []
-    # Pattern: - Hangul (Hanja): meaning
-    pattern = r'-\s*([가-힣]+)\s*\(([^)]+)\)\s*:\s*(.+?)(?=\n-|\n\n|\Z)'
-    matches = re.findall(pattern, raw, re.DOTALL)
-    for hangul, hanja, meaning in matches:
-        results.append({
-            'hangul': hangul.strip(),
-            'hanja': hanja.strip(),
-            'meaning': meaning.strip().rstrip('.')
-        })
+    lines = raw.split('\n')
+    for line in lines:
+        m = re.match(r'^\s+-\s+([가-힣]+)\s*\(([^)]+)\)\s*:\s*(.+)', line)
+        if m:
+            results.append({
+                'word': m.group(1).strip(),
+                'hanja': m.group(2).strip(),
+                'meaning': m.group(3).strip().rstrip('.')
+            })
     return results
 
 def extract_mnemonic(raw):
@@ -120,18 +147,96 @@ def extract_mnemonic(raw):
             return ' '.join(lines)
     return ''
 
-def extract_breakdown(raw):
-    m = re.search(r'G[ốo]c H[aá]n.*?ngh[iĩ]a l[aà].*?(\n|$)', raw)
-    if m:
-        return m.group(0).strip()
-    return ''
+def extract_breakdown(raw, hanja):
+    """Tra ve array cac hanja don le de frontend .map() duoc
+    Parse meaning tu raw, vd: 'cao (高) va quy (貴)' -> cao, quy
+    """
+    STOP_WORDS = {'là', 'và', 'chỉ', 'có', 'nghĩa', 'nghia', 'gốc', 'hán', 'sự'}
+    char_meaning = {}
+
+    # Pattern A1: "字" (word) - vd: "高" (cao)
+    for m in re.finditer(r'["\u201c]([\u4e00-\u9fff\u3400-\u4dbf])["\u201d]\s*\(([^)]+)\)', raw):
+        char_found = m.group(1)
+        meaning_word = m.group(2).strip()
+        if char_found not in char_meaning:
+            char_meaning[char_found] = capitalize_first(meaning_word)
+
+    # Pattern A2: "字" nghĩa là "word" - vd: "各" nghĩa là "từng, mỗi"
+    for m in re.finditer(r'["\u201c]([\u4e00-\u9fff\u3400-\u4dbf])["\u201d]\s*nghĩa\s+là\s*["\u201c]([^"\u201c\u201d]+)["\u201d]', raw):
+        char_found = m.group(1)
+        meaning_word = m.group(2).strip().split(',')[0].strip()
+        if char_found not in char_meaning:
+            char_meaning[char_found] = capitalize_first(meaning_word)
+
+    # Pattern B: "word (字)" hoac "word word (字)" - vd: cao (高)
+    # Chi match tu Latin/Viet, KHONG match Hangul (가-힣)
+    for m in re.finditer(r'([a-zA-Z\u00C0-\u024F\u1E00-\u1EFF]+(?:\s+[a-zA-Z\u00C0-\u024F\u1E00-\u1EFF]+){0,2})\s*\(([\u4e00-\u9fff\u3400-\u4dbf])\)', raw):
+        words = m.group(1).strip().split()
+        char_found = m.group(2)
+        # Bo cac stop words o dau
+        while words and words[0].lower() in STOP_WORDS:
+            words.pop(0)
+        if words and char_found not in char_meaning:
+            char_meaning[char_found] = capitalize_first(' '.join(words))
+
+    # Fallback: neu ko parse duoc, dung meaning_vn chia deu
+    # Tim meaning_vn tu raw
+    meaning_vn = ''
+    m_vn = re.search(r'1\.\s*GIẢI NGHĨA\s*:\s*(.+?)(?:\n|$)', raw)
+    if m_vn:
+        line = m_vn.group(1).strip()
+        quote = re.search(r'["\u201c\u201d]([^"\u201c\u201d]+)["\u201d]', line)
+        if quote:
+            meaning_vn = quote.group(1).strip()
+
+    hanja_chars = [ch for ch in hanja if '\u4e00' <= ch <= '\u9fff' or '\u3400' <= ch <= '\u4dbf']
+
+    # Fallback 1: parse "X va Y" tu doan "nghia la ..."
+    missing = [ch for ch in hanja_chars if ch not in char_meaning]
+    if missing:
+        m_goc = re.search(r'nghĩa\s+là\s+(.+?)(?:\.\s|,\s*chỉ|$)', raw)
+        if m_goc:
+            goc_text = m_goc.group(1).strip()
+            # Loai bo cac quoted chars
+            goc_text = re.sub(r'["\u201c\u201d][^\u201c\u201d"]*["\u201c\u201d]', '', goc_text)
+            parts = re.split(r'\s+và\s+|,\s+', goc_text)
+            parts = [p.strip() for p in parts if p.strip() and len(p.strip()) < 30]
+            # Neu chi co 1 part nhung nhieu chars, thu split theo space
+            if len(parts) < len(missing) and len(parts) == 1:
+                words = parts[0].split()
+                if len(words) >= len(missing):
+                    parts = words
+            if len(parts) >= len(missing):
+                for i, ch in enumerate(missing):
+                    if i < len(parts):
+                        char_meaning[ch] = capitalize_first(parts[i])
+
+    # Fallback 2: neu van con rong, dung meaning_vn chia deu
+    missing = [ch for ch in hanja_chars if ch not in char_meaning]
+    if missing and meaning_vn:
+        parts = re.split(r',\s*', meaning_vn)
+        if len(parts) >= len(missing):
+            for i, ch in enumerate(missing):
+                if i < len(parts):
+                    char_meaning[ch] = capitalize_first(parts[i].strip())
+
+    breakdown = []
+    for ch in hanja_chars:
+        meaning = char_meaning.get(ch, '')
+        breakdown.append({
+            'char': ch,
+            'meaning': meaning,
+            'reading': ''
+        })
+    return breakdown
 
 def parse_md_file(filepath):
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read()
     
     entries = []
-    sections = re.split(r'\n##\s+', content)
+    # Split theo ## o dau dong hoac dau file
+    sections = re.split(r'(?:^|\n)##\s+', content)
     
     for section in sections:
         section = section.strip()
@@ -153,6 +258,41 @@ def parse_md_file(filepath):
         })
     
     return entries
+
+# ================== CHECK DUPLICATES ==================
+def get_existing_entries():
+    """Lay danh sach slug va hangul da co trong Supabase"""
+    url = f"{SUPABASE_URL}/rest/v1/hanja_pro?select=slug,hangul&limit=10000"
+    headers = {
+        'apikey': SUPABASE_KEY,
+        'Authorization': f'Bearer {SUPABASE_KEY}',
+    }
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        data = response.json()
+        existing_slugs = set(d['slug'] for d in data if d.get('slug'))
+        existing_hangul = set(d['hangul'] for d in data if d.get('hangul'))
+        return existing_slugs, existing_hangul
+    return set(), set()
+
+def check_duplicates_before_upload(entries, existing_slugs, existing_hangul):
+    """Kiem tra trung lap truoc khi upload, tra ve (ok_entries, skipped)"""
+    ok = []
+    skipped = []
+    seen_slugs = set()
+    seen_hangul = set()
+    for entry in entries:
+        hangul = entry['hangul']
+        slug = word_to_slug(hangul)
+        if slug in existing_slugs or slug in seen_slugs:
+            skipped.append((hangul, f"trung slug '{slug}'"))
+        elif hangul in existing_hangul or hangul in seen_hangul:
+            skipped.append((hangul, f"trung hangul '{hangul}'"))
+        else:
+            ok.append(entry)
+            seen_slugs.add(slug)
+            seen_hangul.add(hangul)
+    return ok, skipped
 
 # ================== UPLOAD TO SUPABASE ==================
 def upload_to_supabase(data):
@@ -192,7 +332,7 @@ def main():
         examples = extract_examples(raw)
         related = extract_related(raw)
         mnemonic = extract_mnemonic(raw)
-        breakdown = extract_breakdown(raw)
+        breakdown = extract_breakdown(raw, hanja)
 
         data = {
             'id': id,
