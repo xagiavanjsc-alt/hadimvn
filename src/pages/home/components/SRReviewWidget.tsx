@@ -1,6 +1,7 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { HANJA_DATA } from "@/mocks/hanjaData";
+import { supabase } from "@/lib/supabase";
 
 interface SRCard {
   korean: string;
@@ -11,25 +12,43 @@ interface SRCard {
   correctStreak: number;
 }
 
-function getDueWords(): { entry: typeof HANJA_DATA[0]; card: SRCard | null; isNew: boolean }[] {
+// Deterministic shuffle dựa trên seed (ngày hôm nay) → mỗi ngày ra set từ khác
+function seededShuffle<T>(arr: T[], seed: number): T[] {
+  const a = [...arr];
+  let s = seed;
+  for (let i = a.length - 1; i > 0; i--) {
+    s = (s * 1664525 + 1013904223) & 0xffffffff;
+    const j = Math.abs(s) % (i + 1);
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function getDailyDueWords(): { entry: typeof HANJA_DATA[0]; card: SRCard | null; isNew: boolean }[] {
   try {
     const srData: Record<string, SRCard> = JSON.parse(localStorage.getItem("hanja_sr_data") || "{}");
     const now = Date.now();
+    const today = new Date();
+    const daySeed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+
     const due = HANJA_DATA.filter(e => {
       const card = srData[e.korean];
       return !card || card.dueDate <= now;
-    }).slice(0, 5).map(e => ({
+    });
+
+    // Shuffle theo ngày → mỗi ngày hiện 5 từ khác nhau
+    const shuffled = seededShuffle(due, daySeed);
+    return shuffled.slice(0, 5).map(e => ({
       entry: e,
       card: srData[e.korean] || null,
       isNew: !srData[e.korean],
     }));
-    return due;
   } catch {
     return HANJA_DATA.slice(0, 5).map(e => ({ entry: e, card: null, isNew: true }));
   }
 }
 
-function getTotalDue(): number {
+function getTotalDueLocal(): number {
   try {
     const srData: Record<string, SRCard> = JSON.parse(localStorage.getItem("hanja_sr_data") || "{}");
     const now = Date.now();
@@ -45,9 +64,19 @@ function getTotalDue(): number {
 export default function SRReviewWidget() {
   const navigate = useNavigate();
   const [revealed, setRevealed] = useState<Set<number>>(new Set());
+  const [dbTotal, setDbTotal] = useState<number | null>(null);
 
-  const dueWords = useMemo(() => getDueWords(), []);
-  const totalDue = useMemo(() => getTotalDue(), []);
+  // Lấy tổng số từ thực tế từ Supabase
+  useEffect(() => {
+    supabase
+      .from("hanja_tree_nodes")
+      .select("id", { count: "exact", head: true })
+      .then(({ count }) => { if (count !== null) setDbTotal(count); });
+  }, []);
+
+  const dueWords = useMemo(() => getDailyDueWords(), []);
+  const totalDue = useMemo(() => getTotalDueLocal(), []);
+  const displayTotal = dbTotal !== null ? dbTotal : totalDue;
 
   const toggleReveal = (i: number) => {
     setRevealed(prev => {
@@ -89,7 +118,7 @@ export default function SRReviewWidget() {
           </div>
           <div>
             <h3 className="text-white font-semibold text-sm">Gợi ý ôn hôm nay</h3>
-            <p className="text-app-text-muted text-[10px]">Spaced Repetition · {totalDue} từ cần ôn</p>
+            <p className="text-app-text-muted text-[10px]">Spaced Repetition · {displayTotal} từ cần ôn</p>
           </div>
         </div>
         <button
@@ -150,7 +179,7 @@ export default function SRReviewWidget() {
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-semibold cursor-pointer whitespace-nowrap transition-colors"
         >
           <i className="ri-play-circle-line text-xs"></i>
-          Bắt đầu ôn ({totalDue})
+          Bắt đầu ôn ({displayTotal})
         </button>
       </div>
     </div>
