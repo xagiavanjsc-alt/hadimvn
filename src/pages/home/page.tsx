@@ -1,5 +1,6 @@
 ﻿import { useNavigate } from "react-router-dom";
-import { lazy, Suspense, useMemo } from "react";
+import { lazy, Suspense, useMemo, useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import AdBanner from "@/components/feature/AdBanner";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -219,6 +220,11 @@ function ToolRow({
 
 export default function Home() {
   const navigate = useNavigate();
+  const [hanjaCount, setHanjaCount] = useState<number | null>(null);
+  useEffect(() => {
+    supabase.from("hanja_tree_nodes").select("id", { count: "exact", head: true })
+      .then(({ count }) => { if (count !== null) setHanjaCount(count); });
+  }, []);
   const isAdmin = useIsAdmin();
   const [approvedLessons] = useLocalStorage<ApprovedLesson[]>("kts_melon_lessons", []);
   const [approvedQAs] = useLocalStorage<ApprovedQA[]>("kts_naver_qas", []);
@@ -562,7 +568,7 @@ export default function Home() {
                 icon: "ri-character-recognition-line",
                 color: "app-accent-primary",
                 label: "Hán Hàn VIP",
-                desc: "2.691 từ Hán Hàn",
+                desc: hanjaCount !== null ? `${hanjaCount.toLocaleString("vi-VN")} từ Hán Hàn` : "2.691 từ Hán Hàn",
                 path: "/hanja-detail",
                 sub: "Từ điển chuyên sâu",
               },

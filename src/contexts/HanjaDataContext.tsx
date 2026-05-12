@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from "react
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 import { supabase } from "@/lib/supabase";
 
-const CACHE_KEY = "hanja_db_cache";
+const CACHE_KEY = "hanja_db_cache_v2";
 const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 hours
 
 interface CacheEntry {
@@ -43,7 +43,7 @@ export function HanjaDataProvider({ children }: { children: ReactNode }) {
       while (true) {
         const { data: rows, error } = await supabase
           .from("hanja_tree_nodes")
-          .select("korean,hanja,vietnamese,pronunciation,category,difficulty")
+          .select("korean,hanja,vietnamese,pronunciation,category,difficulty,root_char,root_meaning,examples,related_words,memory_tip,audio_url")
           .order("korean", { ascending: true })
           .range(offset, offset + PAGE - 1);
         if (error || !rows || rows.length === 0) break;

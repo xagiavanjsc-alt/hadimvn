@@ -10,6 +10,18 @@ export interface HanjaEntry {
   difficulty?: 1 | 2 | 3;
   /** Cấp độ TOPIK 1-6 (1-2: sơ cấp, 3-4: trung cấp, 5-6: cao cấp) */
   topikLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+  /** Nghĩa gốc Hán tự */
+  root_meaning?: string;
+  /** Ví dụ câu dùng từ */
+  examples?: string;
+  /** Mẹo ghi nhớ */
+  memory_tip?: string;
+  /** URL file âm thanh MP3 */
+  audio_url?: string;
+  /** Chữ Hán gốc */
+  root_char?: string;
+  /** Từ liên quan */
+  related_words?: string;
 }
 
 // Data moved to data/hanja-data.ts for code splitting
