@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/lib/supabase";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
@@ -224,8 +225,27 @@ export default function LearningRoadmapPage() {
   const [completedSteps, setCompletedSteps] = useLocalStorage<string[]>("kts_roadmap_completed", []);
   const [selectedGoal, setSelectedGoal] = useState<Goal | null>(savedGoal);
   const [showGoalPicker, setShowGoalPicker] = useState(!savedGoal);
+  const [hanjaCount, setHanjaCount] = useState<number | null>(null);
 
-  const roadmap = selectedGoal ? GOAL_ROADMAPS[selectedGoal] : null;
+  useEffect(() => {
+    supabase.from("hanja_tree_nodes").select("id", { count: "exact", head: true })
+      .then(({ count }) => { if (count !== null) setHanjaCount(count); });
+  }, []);
+
+  const rawRoadmap = selectedGoal ? GOAL_ROADMAPS[selectedGoal] : null;
+  const roadmap = useMemo(() => {
+    if (!rawRoadmap || selectedGoal !== "hanja" || hanjaCount === null) return rawRoadmap;
+    const n = hanjaCount.toLocaleString("vi-VN");
+    return {
+      ...rawRoadmap,
+      subtitle: `Lộ trình học ${n} từ Hán Hàn chuyên sâu`,
+      steps: rawRoadmap.steps.map(phase => phase.map(step =>
+        step.id === "hanja-2691"
+          ? { ...step, title: `Mục tiêu ${n} từ`, description: `Hoàn thành toàn bộ ${n} từ Hán Hàn VIP` }
+          : step
+      )),
+    };
+  }, [rawRoadmap, selectedGoal, hanjaCount]);
 
   const totalSteps = roadmap ? roadmap.steps.flat().filter(s => !s.isOptional).length : 0;
   const doneSteps = roadmap ? roadmap.steps.flat().filter(s => completedSteps.includes(s.id) && !s.isOptional).length : 0;

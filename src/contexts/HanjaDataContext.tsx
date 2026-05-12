@@ -31,9 +31,8 @@ interface HanjaDataCtx { data: HanjaEntry[]; isLoading: boolean; }
 const HanjaDataContext = createContext<HanjaDataCtx>({ data: HANJA_DATA, isLoading: false });
 
 export function HanjaDataProvider({ children }: { children: ReactNode }) {
-  const cached = readCache();
-  const [data, setData] = useState<HanjaEntry[]>(() => cached ?? HANJA_DATA);
-  const [isLoading, setIsLoading] = useState(!cached);
+  const [data, setData] = useState<HanjaEntry[]>(() => readCache() ?? HANJA_DATA);
+  const [isLoading, setIsLoading] = useState(() => readCache() === null);
 
   useEffect(() => {
     const cached = readCache();
