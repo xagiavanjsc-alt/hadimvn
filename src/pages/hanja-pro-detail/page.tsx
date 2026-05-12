@@ -1,8 +1,9 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { supabase } from "@/lib/supabase";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 interface HanjaEntry {
   id: number;
@@ -15,6 +16,9 @@ interface HanjaEntry {
   related_words: { word: string; hanja: string; meaning: string }[];
   mnemonic: string | null;
   raw: string;
+  seo_title: string | null;
+  seo_description: string | null;
+  og_image: string | null;
 }
 
 interface HanjaNav {
@@ -127,45 +131,36 @@ export default function HanjaProDetailPage() {
       });
   }, [decoded]);
 
-  // SEO: update document title + meta description per word
-  useEffect(() => {
-    if (!entry) return;
+  // SEO: dùng usePageSEO — ưu tiên custom SEO từ admin, fallback tự sinh
+  const seoConfig = useMemo(() => {
+    if (!entry) return null;
     const meaning = getShortMeaning(entry);
-    document.title = `${entry.hangul} (${entry.hanja}) — ${meaning || "Hán Hàn"} | Hàn Quốc Ơi!`;
-
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement("meta");
-      metaDesc.setAttribute("name", "description");
-      document.head.appendChild(metaDesc);
-    }
-    const desc = `Học từ Hán Hàn ${entry.hangul} (${entry.hanja})${meaning ? ` — nghĩa: ${meaning}` : ""}. Phân tích gốc Hán, ${entry.examples.length} ví dụ thực chiến, từ liên quan và mẹo nhớ.`;
-    metaDesc.setAttribute("content", desc.slice(0, 160));
-
-    // JSON-LD structured data
-    const ldId = "hanja-jsonld";
-    document.getElementById(ldId)?.remove();
-    const ld = document.createElement("script");
-    ld.type = "application/ld+json";
-    ld.id = ldId;
-    ld.textContent = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "DefinedTerm",
-      name: entry.hangul,
-      alternateName: entry.hanja,
-      description: meaning,
-      inDefinedTermSet: {
-        "@type": "DefinedTermSet",
-        name: "Hán Hàn — Phần 1 (100 từ thông dụng)",
-        url: "https://hanquocoi.vn/hanja-pro",
+    const autoTitle = `${entry.hangul} (${entry.hanja}) — ${meaning || "Hán Hàn"} | Hàn Quốc Ơi!`;
+    const autoDescBase = `Học từ Hán Hàn ${entry.hangul} (${entry.hanja})${meaning ? ` — ${meaning}` : ""}. Phân tích gốc Hán, ví dụ thực chiến và mẹo nhớ.`;
+    const autoDesc = autoDescBase.slice(0, 140);
+    return {
+      title: entry.seo_title || autoTitle,
+      description: entry.seo_description || autoDesc,
+      path: `/hanja-pro/${entry.slug}`,
+      image: entry.og_image || undefined,
+      ogType: "article" as const,
+      keywords: `${entry.hangul}, ${entry.hanja}, hán hàn, học tiếng hàn, ${meaning}`,
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@type": "DefinedTerm",
+        name: entry.hangul,
+        alternateName: entry.hanja,
+        description: meaning,
+        inDefinedTermSet: {
+          "@type": "DefinedTermSet",
+          name: "Hán Hàn Chuyên Sâu",
+          url: "https://hanquocoi.vn/hanja-pro",
+        },
       },
-    });
-    document.head.appendChild(ld);
-
-    return () => {
-      document.getElementById(ldId)?.remove();
     };
   }, [entry]);
+
+  usePageSEO(seoConfig);
 
   // loading state (undefined = fetching, null = not found)
   if (entry === undefined) {

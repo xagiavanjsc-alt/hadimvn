@@ -9,6 +9,12 @@ import { PreloadCommonRoutes } from "./router/config";
 import PageTransition from "@/components/base/PageTransition";
 import XPNotificationToast from "@/components/feature/XPNotificationToast";
 import { DailyLoginBonusGate } from "@/hooks/useDailyLoginBonus";
+import { useRefTracking } from "@/hooks/useRefTracking";
+
+function RefTracker() {
+  useRefTracking();
+  return null;
+}
 
 function App() {
   return (
@@ -18,6 +24,7 @@ function App() {
           <BrowserRouter basename={__BASE_PATH__}>
             <ErrorBoundary>
               <PreloadCommonRoutes />
+              <RefTracker />
               <DailyLoginBonusGate />
               <PageTransition>
                 <AppRoutes />

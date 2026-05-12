@@ -1,6 +1,6 @@
 ## 양육 (養育)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "nuôi dưỡng, chăm sóc và giáo dục (thường dùng cho trẻ em)". Gốc Hán "養" (dưỡng) nghĩa là nuôi dưỡng, "育" (dục) nghĩa là nuôi dạy, giáo dục.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "nuôi dưỡng, chăm sóc và giáo dục (thường dùng cho trẻ em)". Gốc Hán "養" nghĩa là nuôi dưỡng, "育" nghĩa là nuôi dạy, giáo dục.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 아이를 양육하는 것은 큰 책임입니다.
@@ -38,7 +38,7 @@
 
 ## 어감 (語感)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "sắc thái, cảm quan ngôn ngữ, ấn tượng mà từ ngữ mang lại". Gốc Hán "語" (ngữ) nghĩa là ngôn ngữ, "感" (cảm) nghĩa là cảm giác, ấn tượng.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "sắc thái, cảm quan ngôn ngữ, ấn tượng mà từ ngữ mang lại". Gốc Hán "語感" nghĩa là ngữ (ngôn ngữ) và cảm (cảm giác, ấn tượng).
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이 단어는 어감이 거칠어.
@@ -76,7 +76,7 @@
 
 ## 어뢰 (魚雷)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "ngư lôi". Gốc Hán "魚" (ngư) nghĩa là cá, "雷" (lôi) nghĩa là sấm sét, sấm sét.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "ngư lôi". Gốc Hán "魚雷" nghĩa là cá (魚) và sấm sét (雷), chỉ vũ khí tự hành dưới nước hình con cá.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 어뢰 공격을 준비하라.
@@ -114,7 +114,7 @@
 
 ## 어민 (漁民)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "ngư dân". Gốc Hán "漁" (ngư) nghĩa là đánh cá, "民" (dân) nghĩa là người dân.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "ngư dân". Gốc Hán "漁民" nghĩa là "漁" (đánh cá) và "民" (dân).
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 어민들은 새벽에 바다로 나갑니다.
@@ -152,7 +152,7 @@
 
 ## 어법 (語法)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "ngữ pháp". Gốc Hán "語" (ngữ) nghĩa là ngôn ngữ, "法" (pháp) nghĩa là pháp luật, quy tắc.
+1. GIẢI NGHĨA: Nghia tieng Viet la "ngữ pháp". Goc Han "語法" nghia la phép tắc, quy tắc về ngôn ngữ.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 한국어 어법을 공부하는 것은 중요합니다.
@@ -190,7 +190,7 @@
 
 ## 어부 (漁夫)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Ngư phủ". Gốc Hán "漁" (ngư) nghĩa là đánh cá, "夫" (phu) nghĩa là người đàn ông.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Ngư phủ". Gốc Hán "漁夫" nghĩa là người đánh cá.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 어부는 새벽에 배를 타고 나갑니다.
@@ -228,7 +228,7 @@
 
 ## 언론 (言論)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "ngôn luận, báo chí, truyền thông". Gốc Hán "言" (ngôn) nghĩa là lời nói, "論" (luận) nghĩa là bàn luận, thảo luận.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "ngôn luận, báo chí, truyền thông". Gốc Hán "言論" nghĩa là lời nói và thảo luận.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 언론의 자유는 민주주의의 핵심입니다.
@@ -266,7 +266,7 @@
 
 ## 언어 (言語)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "ngôn ngữ". Gốc Hán "言" (ngôn) nghĩa là lời nói, "語" (ngữ) nghĩa là ngôn ngữ.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "ngôn ngữ". Gốc Hán "言語" nghĩa là lời nói, ngôn từ.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 언어는 문화를 이해하는 중요한 열쇠입니다.
@@ -304,7 +304,7 @@
 
 ## 언쟁 (言爭)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "tranh luận, cãi vã". Gốc Hán "言" (ngôn) nghĩa là lời nói, "爭" (tranh) nghĩa là tranh giành, tranh cãi.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "tranh luận, cãi vã". Gốc Hán "言爭" nghĩa là lời nói tranh giành.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 그들은 정치 문제로 언쟁 중이에요.
@@ -342,7 +342,7 @@
 
 ## 엄격 (嚴格)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "nghiêm khắc". Gốc Hán "嚴" (nghiêm) nghĩa là nghiêm ngặt, nghiêm khắc, "格" (cách) nghĩa là khuôn mẫu, quy tắc.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "nghiêm khắc". Gốc Hán "嚴格" nghĩa là nghiêm ngặt, khắt khe.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 선생님이 매우 엄격하세요.
@@ -380,7 +380,7 @@
 
 ## 엄금 (嚴禁)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "nghiêm cấm". Gốc Hán "嚴" (nghiêm) nghĩa là nghiêm ngặt, nghiêm khắc, "禁" (cấm) nghĩa là cấm đoán, cấm.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "nghiêm cấm". Gốc Hán "嚴禁" nghĩa là cấm đoán một cách nghiêm ngặt, chặt chẽ.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 이 구역은 주차가 엄금되어 있습니다.
@@ -418,7 +418,7 @@
 
 ## 업무 (業務)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "nghiệp vụ, công việc chuyên môn". Gốc Hán "業" (nghiệp) nghĩa là công việc, sự nghiệp, "務" (vụ) nghĩa là việc, nhiệm vụ.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "nghiệp vụ, công việc chuyên môn". Gốc Hán "업" (nghiệp) nghĩa là công việc, sự nghiệp, "무" (vụ) nghĩa là việc, nhiệm vụ.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 업무 능력을 향상시켜야 합니다.
@@ -456,7 +456,7 @@
 
 ## 여객 (旅客)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "hành khách". Gốc Hán "旅" (lữ) nghĩa là đi du lịch, "客" (khách) nghĩa là khách.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "hành khách". Gốc Hán "旅客" nghĩa là khách đi đường, người đi du lịch.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 여객 수가 크게 증가했습니다.
@@ -494,7 +494,7 @@
 
 ## 여론 (輿論)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "dư luận". Gốc Hán "輿" (dư) nghĩa là đám đông, công chúng, "論" (luận) nghĩa là bàn luận, thảo luận.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "dư luận". Gốc Hán "輿論" nghĩa là ý kiến, sự bàn tán của công chúng (輿: xe, đám đông; 論: bàn luận).
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 여론 조사가 시작되었습니다.
@@ -532,7 +532,7 @@
 
 ## 여비 (旅費)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "lộ phí". Gốc Hán "旅" (lữ) nghĩa là đi du lịch, "費" (phí) nghĩa là chi phí.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "lộ phí". Gốc Hán "旅費" nghĩa là chi phí cho chuyến đi.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 회사에서 출장 여비를 지급했습니다.
@@ -570,7 +570,7 @@
 
 ## 여신 (女神)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Nữ thần". Gốc Hán "女" (nữ) nghĩa là phụ nữ, "神" (thần) nghĩa là thần thánh.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Nữ thần". Gốc Hán "女神" nghĩa là Nữ thần.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 그녀는 마치 여신처럼 아름답다.
@@ -608,7 +608,7 @@
 
 ## 여왕 (女王)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Nữ hoàng". Gốc Hán "女" (nữ) nghĩa là phụ nữ, "王" (vương) nghĩa là vua.
+1. GIẢI NGHĨA: Nghia tieng Viet la "Nữ hoàng". Goc Han "女王" nghia la nữ vương.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 여왕이 국가를 통치합니다.
@@ -646,7 +646,7 @@
 
 ## 여유 (餘裕)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "sự dư dả, thư thả, khoảng trống". Gốc Hán "餘" (dư) nghĩa là dư thừa, còn lại, "裕" (dụ) nghĩa là rộng rãi, dư dả.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "sự dư dả, thư thả, khoảng trống". Gốc Hán "餘裕" nghĩa là dư thừa, rộng rãi.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 시간이 좀 더 여유가 필요해요.
@@ -684,7 +684,7 @@
 
 ## 역경 (逆境)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "hoàn cảnh khó khăn, trắc trở". Gốc Hán "逆" (nghịch) nghĩa là trái ngược, "境" (cảnh) nghĩa là hoàn cảnh, hoàn cảnh.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "hoàn cảnh khó khăn, trắc trở". Gốc Hán "逆境" nghĩa là "nghịch" là trái ngược, "cảnh" là hoàn cảnh.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 역경을 이겨 내면 성장할 수 있습니다.
@@ -722,7 +722,7 @@
 
 ## 역사 (歷史)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Lịch sử". Gốc Hán "歷" (lịch) nghĩa là trải qua, qua đi, "史" (sử) nghĩa là lịch sử, ghi chép.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "Lịch sử". Gốc Hán "歷史" nghĩa là những gì đã trải qua và được ghi chép lại.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 한국 역사를 공부합니다.
@@ -760,7 +760,7 @@
 
 ## 연구 (硏究)
 
-1. GIẢI NGHĨA: Nghĩa tiếng Việt là "nghiên cứu". Gốc Hán "研" (nghiên) nghĩa là mài, nghiên cứu kỹ, "究" (cứu) nghĩa là tìm tòi, nghiên cứu sâu.
+1. GIẢI NGHĨA: Nghĩa tiếng Việt là "nghiên cứu". Gốc Hán "研究" nghĩa là mài (研) cho kỹ, tìm tòi (究) cho sâu.
 
 2. 6 VÍ DỤ THỰC CHIẾN:
 + Hàn: 과학자들은 새로운 치료법을 연구하고 있습니다.

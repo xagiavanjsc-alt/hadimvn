@@ -207,6 +207,7 @@ interface HanjaTreeNode {
   memory_tip: string;
   hanja_chars: string[];
   root_char: string;
+  root_meaning?: string;
   level: number;
   category: string;
   difficulty: number;
@@ -226,13 +227,7 @@ interface TreeGroup {
   count: number;
 }
 
-const ROOT_MEANINGS: Record<string, string> = {
-  "人": "Người",
-  "大": "Lớn",
-  "國": "Quốc gia",
-  "學": "Học",
-  "心": "Tâm/Lòng",
-};
+// ROOT_MEANINGS is now computed dynamically from data (see rootMeaningsMap below)
 
 const DIFF_CONFIG = {
   1: { label: "Dễ", cls: "bg-emerald-500/20 text-app-accent-success border-emerald-500/30" },
@@ -510,7 +505,7 @@ export default function HanjaTreePage() {
   const navigate = useNavigate();
   const [nodes, setNodes] = useState<HanjaTreeNode[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedRoot, setSelectedRoot] = useState<string>("人");
+  const [selectedRoot, setSelectedRoot] = useState<string>("");
   const [selectedNode, setSelectedNode] = useState<HanjaTreeNode | null>(null);
   const [search, setSearch] = useState("");
   const [diffFilter, setDiffFilter] = useState<number | null>(null);
@@ -537,11 +532,25 @@ export default function HanjaTreePage() {
           hanja_chars: (n.hanja_chars as string[]) || [],
         })) as HanjaTreeNode[];
         setNodes(parsed);
+        // Auto-select first root after load
+        if (parsed.length > 0) {
+          setSelectedRoot(prev => prev || parsed[0].root_char);
+        }
       }
       setLoading(false);
     };
     fetchNodes();
   }, []);
+
+  const rootMeaningsMap = useMemo((): Record<string, string> => {
+    const map: Record<string, string> = {};
+    nodes.forEach(n => {
+      if (n.root_char && n.root_meaning && !map[n.root_char]) {
+        map[n.root_char] = n.root_meaning;
+      }
+    });
+    return map;
+  }, [nodes]);
 
   const treeGroups = useMemo((): TreeGroup[] => {
     const groups: Record<string, HanjaTreeNode[]> = {};
@@ -551,11 +560,11 @@ export default function HanjaTreePage() {
     });
     return Object.entries(groups).map(([rootChar, grpNodes]) => ({
       rootChar,
-      rootMeaning: ROOT_MEANINGS[rootChar] || rootChar,
+      rootMeaning: rootMeaningsMap[rootChar] || rootChar,
       nodes: grpNodes,
       count: grpNodes.length,
     }));
-  }, [nodes]);
+  }, [nodes, rootMeaningsMap]);
 
   const currentGroup = useMemo(
     () => treeGroups.find(g => g.rootChar === selectedRoot),
@@ -721,7 +730,7 @@ export default function HanjaTreePage() {
               </div>
               <div className="flex-1 min-w-0">
                 <h2 className="text-sm font-bold text-white/80">
-                  Cây &ldquo;{ROOT_MEANINGS[selectedRoot] || selectedRoot}&rdquo;
+                  Cây &ldquo;{rootMeaningsMap[selectedRoot] || selectedRoot}&rdquo;
                 </h2>
                 <p className="text-xs text-app-text-secondary">
                   {filteredNodes.length}/{currentGroup?.count || 0} từ · {groupLearnedCount} đã học
@@ -896,7 +905,7 @@ export default function HanjaTreePage() {
                       {selectedRoot}
                     </div>
                     <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-xs text-app-text-secondary whitespace-nowrap font-medium">
-                      {ROOT_MEANINGS[selectedRoot] || selectedRoot}
+                      {rootMeaningsMap[selectedRoot] || selectedRoot}
                     </div>
                     <div className="absolute top-full left-1/2 -translate-x-1/2 w-0.5 h-5 bg-rose-500/30 mt-1"></div>
                   </div>
@@ -990,7 +999,7 @@ export default function HanjaTreePage() {
           nodes={currentGroup.nodes}
           learnedSet={learnedSet}
           rootChar={selectedRoot}
-          rootMeaning={ROOT_MEANINGS[selectedRoot] || selectedRoot}
+          rootMeaning={rootMeaningsMap[selectedRoot] || selectedRoot}
           onClose={() => setShowQuiz(false)}
         />
       )}

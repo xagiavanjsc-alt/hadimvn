@@ -3,6 +3,7 @@ import { User, Session } from "@supabase/supabase-js";
 import { supabase, UserProfile, isSupabaseConfigured } from "@/lib/supabase";
 import { trackLoginSession } from "@/hooks/useAdminUsers";
 import { reportError } from "@/lib/errorReporting";
+import { getActiveRefCode, clearRefCode } from "@/hooks/useRefTracking";
 
 interface AuthState {
   user: User | null;
@@ -51,11 +52,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [fetchProfile]);
 
   const createProfile = useCallback(async (userId: string, displayName: string) => {
+    const refCode = getActiveRefCode();
     const { data } = await supabase
       .from("user_profiles")
-      .insert({ id: userId, display_name: displayName })
+      .insert({ id: userId, display_name: displayName, ...(refCode ? { ref_code: refCode } : {}) })
       .select()
       .maybeSingle();
+    if (refCode && data) clearRefCode();
     return data as UserProfile | null;
   }, []);
 

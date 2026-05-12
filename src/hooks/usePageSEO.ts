@@ -59,7 +59,7 @@ export function usePageSEO(config: SEOConfig | null | undefined) {
     const fullUrl = path.startsWith("http") ? path : SITE_URL + path;
     const image = config.image || DEFAULT_OG_IMAGE;
     const ogType = config.ogType || "website";
-    const desc = (config.description || "").slice(0, 300);
+    const desc = (config.description || "").slice(0, 140);
 
     // ── Core ────────────────────────────────────────────────────────────
     document.title = config.title;

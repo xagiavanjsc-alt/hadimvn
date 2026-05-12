@@ -921,6 +921,44 @@ export default function AdminUsersPage() {
     if (res.data?.error) throw new Error(res.data.error);
     showMsg("Đã cấp VIP thành công!");
     refetch();
+
+    // Ghi hoa hồng CTV nếu user đến từ link CTV
+    try {
+      const { data: userProfile } = await supabase
+        .from("user_profiles")
+        .select("ref_code, display_name")
+        .eq("id", userId)
+        .single();
+      if (userProfile?.ref_code) {
+        const { data: ctv } = await supabase
+          .from("ctv_profiles")
+          .select("id, commission_rate, total_commission, total_sales, total_referred")
+          .eq("ref_code", userProfile.ref_code)
+          .eq("status", "active")
+          .single();
+        if (ctv) {
+          const saleAmount = type === "year" ? 708000 : 79000;
+          const commissionAmount = Math.round(saleAmount * ctv.commission_rate / 100);
+          await supabase.from("ctv_commissions").insert({
+            ctv_id: ctv.id,
+            referred_user_id: userId,
+            referred_user_name: userProfile.display_name,
+            vip_type: type,
+            sale_amount: saleAmount,
+            commission_rate: ctv.commission_rate,
+            commission_amount: commissionAmount,
+            status: "pending",
+          });
+          await supabase.from("ctv_profiles").update({
+            total_commission: (ctv.total_commission || 0) + commissionAmount,
+            total_sales: (ctv.total_sales || 0) + saleAmount,
+            total_referred: (ctv.total_referred || 0) + 1,
+          }).eq("id", ctv.id);
+        }
+      }
+    } catch (e) {
+      console.warn("[CTV] Ghi hoa hồng thất bại (non-fatal):", e);
+    }
   }, [refetch]);
 
   const handleBulkGrantVip = useCallback(async (userIds: string[], type: "month" | "year", expiresAt: string) => {
