@@ -464,6 +464,7 @@ export default function HanjaTreePage() {
   const [viewMode, setViewMode] = useState<"tree" | "list">("tree");
   const [showQuiz, setShowQuiz] = useState(false);
   const [showAdvFilter, setShowAdvFilter] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   useEffect(() => {
     const fetchNodes = async () => {
@@ -583,9 +584,18 @@ export default function HanjaTreePage() {
 
   return (
     <DashboardLayout>
-      <div className="flex h-[calc(100vh-64px)] overflow-hidden">
+      <div className="flex h-[calc(100vh-64px)] overflow-hidden relative">
+        {/* Mobile overlay */}
+        {showSidebar && (
+          <div className="fixed inset-0 bg-black/50 z-30 md:hidden" onClick={() => setShowSidebar(false)} />
+        )}
         {/* Left sidebar */}
-        <div className="w-60 bg-[#1a1d27] border-r border-app-border flex flex-col flex-shrink-0">
+        <div className={`
+          fixed md:relative inset-y-0 left-0 z-40 md:z-auto
+          w-72 md:w-60 bg-[#1a1d27] border-r border-app-border flex flex-col flex-shrink-0
+          transform transition-transform duration-200 ease-in-out
+          ${showSidebar ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+        `} style={{ top: 0, height: "100%" }}>
           {/* Header */}
           <div className="p-4 border-b border-app-border">
             <div className="flex items-center gap-2 mb-2">
@@ -596,6 +606,12 @@ export default function HanjaTreePage() {
                 <h1 className="text-sm font-bold text-white/80">Hán Hàn Hình Cây</h1>
                 <p className="text-[10px] text-app-text-secondary">{nodes.length} từ · {treeGroups.length} cây</p>
               </div>
+              <button
+                onClick={() => setShowSidebar(false)}
+                className="md:hidden w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 text-white/50 hover:bg-white/15 cursor-pointer"
+              >
+                <i className="ri-close-line text-sm"></i>
+              </button>
               <button
                 onClick={() => navigate("/hanja-dashboard")}
                 className="w-7 h-7 flex items-center justify-center rounded-lg bg-rose-500/20 text-rose-400 hover:bg-rose-500/30 cursor-pointer transition-all flex-shrink-0"
@@ -648,7 +664,7 @@ export default function HanjaTreePage() {
                 return (
                   <button
                     key={group.rootChar}
-                    onClick={() => { setSelectedRoot(group.rootChar); setSelectedNode(null); setSearch(""); setDiffFilter(null); }}
+                    onClick={() => { setSelectedRoot(group.rootChar); setSelectedNode(null); setSearch(""); setDiffFilter(null); setShowSidebar(false); }}
                     className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-left transition-all cursor-pointer ${
                       selectedRoot === group.rootChar ? "bg-rose-500/15 border border-rose-500/30" : "hover:bg-app-card/50 border border-transparent"
                     }`}
@@ -681,7 +697,14 @@ export default function HanjaTreePage() {
         <div className="flex-1 flex flex-col overflow-hidden">
           {/* Tree header */}
           <div className="border-b border-app-border bg-[#141720] flex-shrink-0">
-            <div className="px-5 py-3 flex items-center gap-3 flex-wrap">
+            <div className="px-3 md:px-5 py-3 flex items-center gap-2 md:gap-3 flex-wrap">
+              {/* Mobile sidebar toggle */}
+              <button
+                onClick={() => setShowSidebar(true)}
+                className="md:hidden w-9 h-9 flex items-center justify-center bg-rose-500/15 border border-rose-500/30 text-rose-400 rounded-xl cursor-pointer flex-shrink-0"
+              >
+                <i className="ri-menu-line text-sm"></i>
+              </button>
               <div className="w-9 h-9 flex items-center justify-center bg-rose-500 text-white rounded-xl text-lg font-bold flex-shrink-0">
                 {selectedRoot}
               </div>
