@@ -449,57 +449,6 @@ function TreeNodeCard({
   );
 }
 
-// ─── Import Guide ─────────────────────────────────────────────────────────────
-function ImportGuidePanel() {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="border-t border-app-border">
-      <button onClick={() => setOpen(o => !o)} className="w-full flex items-center gap-2 px-4 py-3 text-left hover:bg-app-card/50 transition-colors cursor-pointer">
-        <div className="w-6 h-6 flex items-center justify-center bg-amber-500/20 rounded-md flex-shrink-0">
-          <i className="ri-file-excel-2-line text-amber-400 text-xs"></i>
-        </div>
-        <span className="text-xs font-semibold text-white/50 flex-1">Hướng dẫn import Excel</span>
-        <i className={`${open ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"} text-app-text-muted text-sm`}></i>
-      </button>
-      {open && (
-        <div className="px-4 pb-4 space-y-2">
-          <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3">
-            <p className="text-[10px] font-semibold text-amber-400 mb-1.5">Cột bắt buộc:</p>
-            {[
-              ["korean", "Từ tiếng Hàn (VD: 인간)"],
-              ["hanja", "Chữ Hán (VD: 人間)"],
-              ["vietnamese", "Nghĩa tiếng Việt"],
-              ["root_char", "Chữ Hán gốc (VD: 人)"],
-              ["pronunciation", "Phiên âm"],
-            ].map(([col, desc]) => (
-              <div key={col} className="flex items-start gap-1.5 mb-1">
-                <code className="text-[9px] bg-amber-500/20 text-amber-400 px-1 py-0.5 rounded font-mono flex-shrink-0">{col}</code>
-                <span className="text-[10px] text-amber-400/70">{desc}</span>
-              </div>
-            ))}
-          </div>
-          <div className="bg-app-card/50 border border-app-border rounded-xl p-3">
-            <p className="text-[10px] font-semibold text-app-text-secondary mb-1.5">Cột tùy chọn:</p>
-            {[
-              ["meaning_detail", "Giải nghĩa chi tiết"],
-              ["examples", "JSON: [{korean, vietnamese}]"],
-              ["related_words", "JSON: [{word, meaning}]"],
-              ["memory_tip", "Mẹo nhớ"],
-              ["difficulty", "1=Dễ, 2=TB, 3=Khó"],
-              ["category", "Danh mục (VD: Danh từ)"],
-            ].map(([col, desc]) => (
-              <div key={col} className="flex items-start gap-1.5 mb-1">
-                <code className="text-[9px] bg-app-card/70 text-white/50 px-1 py-0.5 rounded font-mono flex-shrink-0">{col}</code>
-                <span className="text-[10px] text-app-text-muted">{desc}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function HanjaTreePage() {
   const navigate = useNavigate();
@@ -726,7 +675,6 @@ export default function HanjaTreePage() {
             )}
           </div>
 
-          <ImportGuidePanel />
         </div>
 
         {/* Main area */}
