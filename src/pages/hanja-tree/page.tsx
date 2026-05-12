@@ -315,7 +315,7 @@ function NodeDetailPanel({
                 {node.hanja_chars.map((char, i) => (
                   <div key={i} className="flex items-center gap-1 bg-rose-500/15 rounded-lg px-2 py-1 border border-rose-500/20">
                     <span className="text-sm font-bold text-rose-400">{char}</span>
-                    <span className="text-[10px] text-app-text-secondary">{ROOT_MEANINGS[char] || "..."}</span>
+                    <span className="text-[10px] text-app-text-secondary">{char}</span>
                   </div>
                 ))}
               </div>
@@ -519,21 +519,29 @@ export default function HanjaTreePage() {
   useEffect(() => {
     const fetchNodes = async () => {
       setLoading(true);
-      const { data } = await supabase
-        .from("hanja_tree_nodes")
-        .select("*")
-        .order("root_char", { ascending: true })
-        .order("korean", { ascending: true })
-        .limit(5000);
-      if (data) {
-        const parsed = data.map((n: Record<string, unknown>) => ({
+      const all: Record<string, unknown>[] = [];
+      const pageSize = 1000;
+      let from = 0;
+      while (true) {
+        const { data, error } = await supabase
+          .from("hanja_tree_nodes")
+          .select("*")
+          .order("root_char", { ascending: true })
+          .order("korean", { ascending: true })
+          .range(from, from + pageSize - 1);
+        if (error || !data || data.length === 0) break;
+        all.push(...data);
+        if (data.length < pageSize) break;
+        from += pageSize;
+      }
+      if (all.length > 0) {
+        const parsed = all.map((n) => ({
           ...n,
           examples: (n.examples as { korean: string; vietnamese: string }[]) || [],
           related_words: (n.related_words as { word: string; meaning: string }[]) || [],
           hanja_chars: (n.hanja_chars as string[]) || [],
         })) as HanjaTreeNode[];
         setNodes(parsed);
-        // Auto-select first root after load
         if (parsed.length > 0) {
           setSelectedRoot(prev => prev || parsed[0].root_char);
         }
