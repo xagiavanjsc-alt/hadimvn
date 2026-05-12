@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase";
 interface PaymentSettings {
   bankAccount: {
     bankName: string;
+    bankCode: string;
     accountNumber: string;
     accountName: string;
     branch: string;
@@ -31,6 +32,7 @@ interface PaymentSettings {
 const DEFAULT_PAYMENT: PaymentSettings = {
   bankAccount: {
     bankName: "",
+    bankCode: "",
     accountNumber: "",
     accountName: "",
     branch: "",
@@ -141,55 +143,69 @@ export default function AdminPaymentPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Tên ngân hàng</label>
-                  <input
-                    type="text"
-                    value={settings.bankAccount.bankName}
+                  <input type="text" value={settings.bankAccount.bankName}
                     onChange={(e) => handleChange("bankAccount", "bankName", e.target.value)}
                     className="w-full bg-app-bg border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary"
-                    placeholder="Vietcombank"
-                  />
+                    placeholder="Vietcombank" />
+                </div>
+                <div>
+                  <label className="text-app-text-secondary text-xs font-medium block mb-1.5">
+                    Mã ngân hàng <span className="text-white/30">(dùng cho VietQR)</span>
+                  </label>
+                  <input type="text" value={settings.bankAccount.bankCode}
+                    onChange={(e) => handleChange("bankAccount", "bankCode", e.target.value.toUpperCase())}
+                    className="w-full bg-app-bg border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary font-mono"
+                    placeholder="VD: VCB • MB • TCB • BIDV • VTB" />
+                  <p className="text-[10px] text-app-text-muted mt-1">
+                    <a href="https://api.vietqr.io/v2/banks" target="_blank" rel="noreferrer" className="underline hover:text-white/60">Xem danh sách mã ngân hàng</a>
+                  </p>
                 </div>
                 <div>
                   <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Số tài khoản</label>
-                  <input
-                    type="text"
-                    value={settings.bankAccount.accountNumber}
+                  <input type="text" value={settings.bankAccount.accountNumber}
                     onChange={(e) => handleChange("bankAccount", "accountNumber", e.target.value)}
-                    className="w-full bg-app-bg border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary"
-                    placeholder="1234567890"
-                  />
+                    className="w-full bg-app-bg border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary font-mono"
+                    placeholder="1234567890" />
                 </div>
                 <div>
                   <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Chủ tài khoản</label>
-                  <input
-                    type="text"
-                    value={settings.bankAccount.accountName}
-                    onChange={(e) => handleChange("bankAccount", "accountName", e.target.value)}
+                  <input type="text" value={settings.bankAccount.accountName}
+                    onChange={(e) => handleChange("bankAccount", "accountName", e.target.value.toUpperCase())}
                     className="w-full bg-app-bg border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary"
-                    placeholder="NGUYEN VAN A"
-                  />
+                    placeholder="NGUYEN VAN A" />
                 </div>
                 <div>
                   <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Chi nhánh</label>
-                  <input
-                    type="text"
-                    value={settings.bankAccount.branch}
+                  <input type="text" value={settings.bankAccount.branch}
                     onChange={(e) => handleChange("bankAccount", "branch", e.target.value)}
                     className="w-full bg-app-bg border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary"
-                    placeholder="Hà Nội"
-                  />
+                    placeholder="Hà Nội" />
                 </div>
-                <div className="col-span-2">
-                  <label className="text-app-text-secondary text-xs font-medium block mb-1.5">URL mã QR</label>
-                  <input
-                    type="text"
-                    value={settings.bankAccount.qrCodeUrl}
+                <div>
+                  <label className="text-app-text-secondary text-xs font-medium block mb-1.5">URL mã QR tùy chỉnh (nếu có)</label>
+                  <input type="text" value={settings.bankAccount.qrCodeUrl}
                     onChange={(e) => handleChange("bankAccount", "qrCodeUrl", e.target.value)}
                     className="w-full bg-app-bg border border-app-border rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-app-accent-primary"
-                    placeholder="https://..."
-                  />
+                    placeholder="https://... (trống = tự tạo VietQR)" />
                 </div>
               </div>
+
+              {/* VietQR Preview */}
+              {settings.bankAccount.bankCode && settings.bankAccount.accountNumber && (
+                <div className="mt-4 p-4 bg-white/5 border border-white/10 rounded-xl flex items-center gap-5">
+                  <img
+                    src={`https://img.vietqr.io/image/${settings.bankAccount.bankCode}-${settings.bankAccount.accountNumber}-compact2.jpg?accountName=${encodeURIComponent(settings.bankAccount.accountName || "")}`}
+                    alt="VietQR Preview"
+                    className="w-28 h-28 rounded-lg bg-white"
+                  />
+                  <div className="text-sm space-y-1">
+                    <p className="font-bold text-white/90">{settings.bankAccount.bankName || settings.bankAccount.bankCode}</p>
+                    <p className="font-mono text-white/70">{settings.bankAccount.accountNumber}</p>
+                    <p className="text-white/50">{settings.bankAccount.accountName}</p>
+                    <p className="text-[10px] text-app-text-muted mt-1">QR tự động tạo qua VietQR API</p>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* MoMo */}

@@ -312,17 +312,18 @@ function AutoRenewSection({ isVip, vipExpiresAt }: { isVip: boolean; vipExpiresA
 export default function PricingPage() {
   const navigate = useNavigate();
   const { showToast, ToastComponent } = useToast();
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showViolationModal, setShowViolationModal] = useState(false);
-  const [bankAccount, setBankAccount] = useState<any>(null);
-  const [loadingBankInfo, setLoadingBankInfo] = useState(true);
+  const [paySettings, setPaySettings] = useState<any>(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [payTab, setPayTab] = useState<"bank" | "momo">("bank");
   const [paymentProof, setPaymentProof] = useState<File | null>(null);
   const [paymentNote, setPaymentNote] = useState("");
   const [submittingPayment, setSubmittingPayment] = useState(false);
+  const [copied, setCopied] = useState<string | null>(null);
 
   const monthlyPrice = 79000;
   const yearlyPrice = 59000;
@@ -377,30 +378,19 @@ export default function PricingPage() {
     }
   };
 
-  // Load bank account settings from admin settings
+  const copyToClipboard = (text: string, key: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(key);
+    setTimeout(() => setCopied(null), 2000);
+  };
+
   useEffect(() => {
-    const loadBankSettings = async () => {
-      try {
-        const res = await supabase.functions.invoke("admin-grant-vip", {
-          body: { action: "get_settings" },
-        });
-        if (res.data?.data?.bank_account) {
-          setBankAccount(res.data.data.bank_account);
+    supabase.from("admin_settings").select("value").eq("key", "payment_settings").single()
+      .then(({ data }) => {
+        if (data?.value) {
+          try { setPaySettings(JSON.parse(data.value)); } catch {}
         }
-      } catch {
-        // Fallback to localStorage
-        const localSettings = localStorage.getItem("kts_settings");
-        if (localSettings) {
-          const parsed = JSON.parse(localSettings);
-          if (parsed.bankAccount) {
-            setBankAccount(parsed.bankAccount);
-          }
-        }
-      } finally {
-        setLoadingBankInfo(false);
-      }
-    };
-    loadBankSettings();
+      });
   }, []);
 
   return (
@@ -417,106 +407,154 @@ export default function PricingPage() {
         </div>
       )}
 
-      {/* Payment Submission Modal */}
-      {showPaymentModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="bg-app-bg border border-app-border rounded-2xl w-full max-w-md p-6">
-            <div className="flex items-center justify-between mb-5">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 flex items-center justify-center bg-emerald-500/10 rounded-xl">
-                  <i className="ri-bank-line text-app-accent-success text-lg"></i>
-                </div>
+      {/* Payment Modal — redesigned with VietQR */}
+      {showPaymentModal && (() => {
+        const amount = billing === "monthly" ? monthlyPrice : yearlyPrice * 12;
+        const fmtAmt = new Intl.NumberFormat("vi-VN").format(amount);
+        const content = `VIP_${user?.email?.split("@")[0] || "EMAIL"}`;
+        const bank = paySettings?.bankAccount;
+        const momo = paySettings?.momo;
+        const hasMomo = momo?.enabled && momo?.phoneNumber;
+        const vietQrUrl = bank?.bankCode && bank?.accountNumber
+          ? (bank.qrCodeUrl || `https://img.vietqr.io/image/${bank.bankCode}-${bank.accountNumber}-compact2.jpg?amount=${amount}&addInfo=${encodeURIComponent(content)}&accountName=${encodeURIComponent(bank.accountName || "")}`)
+          : null;
+        return (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+            <div className="bg-[#111] border border-app-border rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl">
+
+              {/* Header */}
+              <div className="flex items-center justify-between px-5 py-4 border-b border-app-border">
                 <div>
-                  <p className="text-white font-semibold text-sm">Gửi minh chứng thanh toán</p>
-                  <p className="text-app-text-secondary text-xs">Chụp màn hình giao dịch chuyển khoản</p>
+                  <p className="text-white font-bold text-sm">Nâng cấp VIP {billing === "monthly" ? "Tháng" : "Năm"}</p>
+                  <p className="text-app-text-secondary text-xs mt-0.5">Chuyển khoản → gửi minh chứng → kích hoạt trong 30 phút</p>
                 </div>
+                <button onClick={() => setShowPaymentModal(false)} className="w-8 h-8 flex items-center justify-center rounded-lg text-app-text-muted hover:text-white/70 hover:bg-white/8 cursor-pointer transition-all">
+                  <i className="ri-close-line text-lg"></i>
+                </button>
               </div>
-              <button onClick={() => setShowPaymentModal(false)} className="text-app-text-muted hover:text-white/60 cursor-pointer">
-                <i className="ri-close-line text-xl"></i>
-              </button>
-            </div>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="text-white/50 text-xs font-medium block mb-2">Ảnh minh chứng</label>
-                <div className="relative">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={e => setPaymentProof(e.target.files?.[0] || null)}
-                    className="hidden"
-                    id="payment-proof"
-                  />
-                  <label
-                    htmlFor="payment-proof"
-                    className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-app-border rounded-xl cursor-pointer hover:border-white/20 transition-colors bg-app-surface/50"
-                  >
-                    {paymentProof ? (
-                      <div className="text-center">
-                        <i className="ri-image-line text-2xl text-app-accent-success"></i>
-                        <p className="text-white/60 text-xs mt-2">{paymentProof.name}</p>
+
+              {/* Tabs */}
+              {hasMomo && (
+                <div className="flex border-b border-app-border">
+                  {(["bank", "momo"] as const).map(t => (
+                    <button key={t} onClick={() => setPayTab(t)}
+                      className={`flex-1 py-2.5 text-xs font-semibold cursor-pointer transition-all ${payTab === t ? "text-white border-b-2 border-app-accent-primary" : "text-app-text-muted"}`}>
+                      {t === "bank" ? <><i className="ri-bank-line mr-1.5"></i>Chuyển khoản</> : <><i className="ri-smartphone-line mr-1.5"></i>MoMo</>}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              <div className="p-5 space-y-4 max-h-[70vh] overflow-y-auto">
+                {/* Bank tab */}
+                {payTab === "bank" && (
+                  <>
+                    {bank ? (
+                      <div className="flex gap-4">
+                        {/* QR */}
+                        {vietQrUrl && (
+                          <div className="flex-shrink-0">
+                            <img src={vietQrUrl} alt="QR chuyển khoản" className="w-32 h-32 rounded-xl bg-white" />
+                            <p className="text-[10px] text-app-text-muted text-center mt-1">Quét để chuyển khoản</p>
+                          </div>
+                        )}
+                        {/* Info */}
+                        <div className="flex-1 space-y-2.5">
+                          <div>
+                            <p className="text-[10px] text-app-text-muted mb-0.5">Ngân hàng</p>
+                            <p className="text-sm font-bold text-white/90">{bank.bankName || bank.bankCode}</p>
+                          </div>
+                          {[{ label: "Số tài khoản", value: bank.accountNumber, key: "acc" },
+                            { label: "Chủ tài khoản", value: bank.accountName, key: "name" },
+                            { label: "Số tiền",       value: `${fmtAmt}đ`,    key: "amt" },
+                            { label: "Nội dung CK",   value: content,         key: "msg" },
+                          ].map(r => r.value && (
+                            <div key={r.key} className="flex items-center justify-between gap-2">
+                              <div className="min-w-0">
+                                <p className="text-[10px] text-app-text-muted">{r.label}</p>
+                                <p className={`text-sm font-semibold text-white/80 truncate ${r.key === "acc" || r.key === "msg" ? "font-mono" : ""}`}>{r.value}</p>
+                              </div>
+                              <button onClick={() => copyToClipboard(r.value!, r.key)}
+                                className="flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/15 cursor-pointer transition-all">
+                                <i className={`text-xs ${copied === r.key ? "ri-check-line text-app-accent-success" : "ri-file-copy-line text-app-text-muted"}`}></i>
+                              </button>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     ) : (
-                      <div className="text-center">
-                        <i className="ri-upload-cloud-line text-2xl text-app-text-muted"></i>
-                        <p className="text-app-text-secondary text-xs mt-2">Click để chọn ảnh</p>
+                      <div className="text-center py-6 text-app-text-muted">
+                        <i className="ri-bank-line text-2xl mb-2 block opacity-40"></i>
+                        <p className="text-xs">Thông tin ngân hàng chưa được cấu hình</p>
                       </div>
                     )}
+                  </>
+                )}
+
+                {/* MoMo tab */}
+                {payTab === "momo" && hasMomo && (
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-4 p-4 bg-pink-500/8 border border-pink-500/20 rounded-xl">
+                      <div className="w-14 h-14 flex items-center justify-center bg-pink-500/15 rounded-xl flex-shrink-0">
+                        <i className="ri-smartphone-line text-pink-400 text-2xl"></i>
+                      </div>
+                      <div className="flex-1 space-y-2">
+                        {[{ label: "Số MoMo",      value: momo.phoneNumber,  key: "momo_phone" },
+                          { label: "Tên hiển thị", value: momo.displayName, key: "momo_name" },
+                          { label: "Số tiền",      value: `${fmtAmt}đ`,     key: "momo_amt" },
+                          { label: "Nội dung",     value: content,          key: "momo_msg" },
+                        ].map(r => r.value && (
+                          <div key={r.key} className="flex items-center justify-between gap-2">
+                            <div>
+                              <p className="text-[10px] text-app-text-muted">{r.label}</p>
+                              <p className="text-sm font-semibold text-white/80 font-mono">{r.value}</p>
+                            </div>
+                            <button onClick={() => copyToClipboard(r.value!, r.key)}
+                              className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 hover:bg-pink-500/20 cursor-pointer transition-all">
+                              <i className={`text-xs ${copied === r.key ? "ri-check-line text-app-accent-success" : "ri-file-copy-line text-app-text-muted"}`}></i>
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Upload proof */}
+                <div className="border-t border-app-border pt-4">
+                  <label className="text-white/60 text-xs font-semibold block mb-2">Ảnh minh chứng chuyển khoản <span className="text-rose-400">*</span></label>
+                  <input type="file" accept="image/*" onChange={e => setPaymentProof(e.target.files?.[0] || null)} className="hidden" id="payment-proof" />
+                  <label htmlFor="payment-proof"
+                    className="flex items-center gap-3 w-full px-4 py-3 border-2 border-dashed border-app-border rounded-xl cursor-pointer hover:border-white/20 transition-colors bg-app-surface/30">
+                    {paymentProof ? (
+                      <><i className="ri-image-line text-xl text-app-accent-success"></i>
+                        <span className="text-white/70 text-sm truncate">{paymentProof.name}</span>
+                        <span className="text-[10px] text-app-accent-success ml-auto">Đã chọn</span></>
+                    ) : (
+                      <><i className="ri-upload-cloud-line text-xl text-app-text-muted"></i>
+                        <span className="text-app-text-secondary text-sm">Chọn ảnh chụp giao dịch</span></>
+                    )}
                   </label>
+                  <textarea value={paymentNote} onChange={e => setPaymentNote(e.target.value)} rows={2}
+                    placeholder="Ghi chú thêm (không bắt buộc)"
+                    className="w-full mt-2 bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-emerald-400/40 transition-colors resize-none" />
                 </div>
-              </div>
-              
-              <div>
-                <label className="text-white/50 text-xs font-medium block mb-2">Ghi chú (tùy chọn)</label>
-                <textarea
-                  value={paymentNote}
-                  onChange={e => setPaymentNote(e.target.value)}
-                  placeholder="VD: Đã chuyển 790.000đ cho gói VIP tháng"
-                  rows={3}
-                  className="w-full bg-app-card/50 border border-app-border rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-emerald-400/40 transition-colors resize-none"
-                />
-              </div>
-              
-              <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-3">
-                <div className="flex items-start gap-2">
-                  <i className="ri-information-line text-app-accent-success text-xs mt-0.5 flex-shrink-0"></i>
-                  <p className="text-app-accent-success/70 text-xs leading-relaxed">
-                    Số tiền cần chuyển: <span className="text-app-accent-success font-semibold">{new Intl.NumberFormat("vi-VN").format(billing === "monthly" ? monthlyPrice : yearlyPrice * 12)}đ</span>
-                    <br />
-                    Nội dung chuyển khoản: <span className="text-app-accent-success font-semibold">VIP_{user?.email?.split("@")[0] || "EMAIL"}</span>
-                  </p>
+
+                <div className="flex gap-3">
+                  <button onClick={() => setShowPaymentModal(false)}
+                    className="flex-1 py-3 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer">
+                    Hủy
+                  </button>
+                  <button onClick={handleSubmitPayment} disabled={!paymentProof || submittingPayment}
+                    className="flex-1 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-bold transition-colors cursor-pointer flex items-center justify-center gap-2">
+                    {submittingPayment ? <><i className="ri-loader-4-line animate-spin"></i>Đang gửi...</> : <><i className="ri-send-plane-line"></i>Gửi xác nhận</>}
+                  </button>
                 </div>
-              </div>
-              
-              <div className="flex gap-3 pt-2">
-                <button
-                  onClick={() => setShowPaymentModal(false)}
-                  className="flex-1 py-3 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer"
-                >
-                  Hủy
-                </button>
-                <button
-                  onClick={handleSubmitPayment}
-                  disabled={!paymentProof || submittingPayment}
-                  className="flex-1 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-bold transition-colors cursor-pointer flex items-center justify-center gap-2"
-                >
-                  {submittingPayment ? (
-                    <>
-                      <i className="ri-loader-4-line animate-spin"></i>
-                      Đang gửi...
-                    </>
-                  ) : (
-                    <>
-                      <i className="ri-send-plane-line"></i>
-                      Gửi yêu cầu
-                    </>
-                  )}
-                </button>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* Hero banner */}
       <div className="relative overflow-hidden rounded-2xl mb-8 p-8"
@@ -675,7 +713,7 @@ export default function PricingPage() {
       </div>
 
       {/* Payment Information */}
-      {bankAccount && bankAccount.bankName && bankAccount.accountNumber && (
+      {paySettings?.bankAccount?.bankName && paySettings?.bankAccount?.accountNumber && (
         <div className="bg-app-bg border border-emerald-500/20 rounded-2xl p-6 mb-10">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 flex items-center justify-center bg-emerald-500/10 rounded-xl">
@@ -692,20 +730,20 @@ export default function PricingPage() {
             <div className="space-y-3">
               <div className="flex items-center justify-between py-2 border-b border-app-border">
                 <span className="text-app-text-secondary text-xs">Ngân hàng</span>
-                <span className="text-white text-sm font-medium">{bankAccount.bankName}</span>
+                <span className="text-white text-sm font-medium">{paySettings.bankAccount.bankName}</span>
               </div>
               <div className="flex items-center justify-between py-2 border-b border-app-border">
                 <span className="text-app-text-secondary text-xs">Số tài khoản</span>
-                <span className="text-white text-sm font-medium font-mono">{bankAccount.accountNumber}</span>
+                <span className="text-white text-sm font-medium font-mono">{paySettings.bankAccount.accountNumber}</span>
               </div>
               <div className="flex items-center justify-between py-2 border-b border-app-border">
                 <span className="text-app-text-secondary text-xs">Chủ tài khoản</span>
-                <span className="text-white text-sm font-medium">{bankAccount.accountName}</span>
+                <span className="text-white text-sm font-medium">{paySettings.bankAccount.accountName}</span>
               </div>
-              {bankAccount.branch && (
+              {paySettings.bankAccount.branch && (
                 <div className="flex items-center justify-between py-2 border-b border-app-border">
                   <span className="text-app-text-secondary text-xs">Chi nhánh</span>
-                  <span className="text-white text-sm font-medium">{bankAccount.branch}</span>
+                  <span className="text-white text-sm font-medium">{paySettings.bankAccount.branch}</span>
                 </div>
               )}
               <div className="flex items-center justify-between py-2">
@@ -715,13 +753,19 @@ export default function PricingPage() {
             </div>
             
             {/* QR Code */}
-            {bankAccount.qrCodeUrl && (
-              <div className="flex flex-col items-center justify-center p-4 bg-app-card/50 rounded-xl">
-                <p className="text-app-text-secondary text-xs mb-3">Quét mã QR để chuyển khoản</p>
-                <img src={bankAccount.qrCodeUrl} alt="QR Code" className="w-48 h-48 rounded-lg" />
-                <p className="text-app-text-muted text-[10px] mt-3 text-center">Sử dụng app ngân hàng để quét mã</p>
-              </div>
-            )}
+            {(() => {
+              const b = paySettings.bankAccount;
+              const qr = b.qrCodeUrl || (b.bankCode && b.accountNumber
+                ? `https://img.vietqr.io/image/${b.bankCode}-${b.accountNumber}-compact2.jpg?accountName=${encodeURIComponent(b.accountName || "")}`
+                : null);
+              return qr ? (
+                <div className="flex flex-col items-center justify-center p-4 bg-app-card/50 rounded-xl">
+                  <p className="text-app-text-secondary text-xs mb-3">Quét mã QR để chuyển khoản</p>
+                  <img src={qr} alt="QR Code" className="w-48 h-48 rounded-lg bg-white" />
+                  <p className="text-app-text-muted text-[10px] mt-3 text-center">Sử dụng app ngân hàng để quét mã</p>
+                </div>
+              ) : null;
+            })()}
           </div>
           
           <div className="mt-4 pt-4 border-t border-app-border">
