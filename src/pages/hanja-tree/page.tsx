@@ -523,7 +523,8 @@ export default function HanjaTreePage() {
         .from("hanja_tree_nodes")
         .select("*")
         .order("root_char", { ascending: true })
-        .order("korean", { ascending: true });
+        .order("korean", { ascending: true })
+        .limit(5000);
       if (data) {
         const parsed = data.map((n: Record<string, unknown>) => ({
           ...n,
@@ -560,7 +561,7 @@ export default function HanjaTreePage() {
     });
     return Object.entries(groups).map(([rootChar, grpNodes]) => ({
       rootChar,
-      rootMeaning: rootMeaningsMap[rootChar] || rootChar,
+      rootMeaning: rootMeaningsMap[rootChar] || grpNodes[0]?.vietnamese?.split(",")[0]?.trim() || rootChar,
       nodes: grpNodes,
       count: grpNodes.length,
     }));
