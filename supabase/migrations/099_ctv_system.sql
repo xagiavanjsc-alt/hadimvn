@@ -53,6 +53,17 @@ DROP POLICY IF EXISTS "ctv_read_own_profile" ON public.ctv_profiles;
 CREATE POLICY "ctv_read_own_profile" ON public.ctv_profiles
   FOR SELECT USING (user_id = auth.uid());
 
+-- CTV tự cập nhật mã ref và thông tin ngân hàng của mình
+DROP POLICY IF EXISTS "ctv_update_own_profile" ON public.ctv_profiles;
+CREATE POLICY "ctv_update_own_profile" ON public.ctv_profiles
+  FOR UPDATE USING (user_id = auth.uid())
+  WITH CHECK (user_id = auth.uid());
+
+-- CTV tự đăng ký hồ sơ
+DROP POLICY IF EXISTS "ctv_insert_own_profile" ON public.ctv_profiles;
+CREATE POLICY "ctv_insert_own_profile" ON public.ctv_profiles
+  FOR INSERT WITH CHECK (user_id = auth.uid());
+
 -- CTV xem được hoa hồng của mình
 DROP POLICY IF EXISTS "ctv_read_own_commissions" ON public.ctv_commissions;
 CREATE POLICY "ctv_read_own_commissions" ON public.ctv_commissions
