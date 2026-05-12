@@ -234,11 +234,38 @@ export default function AdminCTVPage() {
   }, [ctvs, filterStatus, search]);
 
   const handleUpdateWithdrawal = async (id: string, status: Withdrawal["status"], admin_note?: string) => {
+    const wd = withdrawals.find(w => w.id === id);
     const updates: Partial<Withdrawal> = { status };
     if (admin_note !== undefined) updates.admin_note = admin_note;
     if (status === "paid" || status === "approved") updates.processed_at = new Date().toISOString();
     const { error } = await supabase.from("ctv_withdrawals").update(updates).eq("id", id);
-    if (error) { showToast("Lỗi: " + error.message); return; }
+    if (error) { showToast("L\u1ed7i: " + error.message); return; }
+
+    // Khi \u0111\u00e3 thanh to\u00e1n: \u0111\u00e1nh d\u1ea5u commission rows l\u00e0 paid + c\u1eadp nh\u1eadt paid_commission
+    if (status === "paid" && wd) {
+      // L\u1ea5y c\u00e1c commission pending c\u1ee7a CTV n\u00e0y (theo s\u1ed1 ti\u1ec1n r\u00fat)
+      const ctvComs = commissions.filter(c => c.ctv_id === wd.ctv_id && c.status === "pending");
+      let remaining = wd.amount;
+      const toMarkPaid: string[] = [];
+      for (const c of ctvComs) {
+        if (remaining <= 0) break;
+        toMarkPaid.push(c.id);
+        remaining -= c.commission_amount;
+      }
+      if (toMarkPaid.length) {
+        await supabase.from("ctv_commissions")
+          .update({ status: "paid", paid_at: new Date().toISOString() })
+          .in("id", toMarkPaid);
+      }
+      // C\u1eadp nh\u1eadt paid_commission tr\u00ean ctv_profiles
+      const ctv = ctvs.find(c => c.id === wd.ctv_id);
+      if (ctv) {
+        await supabase.from("ctv_profiles")
+          .update({ paid_commission: (ctv.paid_commission || 0) + wd.amount })
+          .eq("id", wd.ctv_id);
+      }
+    }
+
     await load();
     showToast("Đã cập nhật yêu cầu rút tiền");
   };

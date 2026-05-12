@@ -913,7 +913,6 @@ export default function AdminUsersPage() {
   }, [refetch]);
 
   const handleGrantVip = useCallback(async (userId: string, type: "month" | "year", expiresAt: string) => {
-    const { data: { session } } = await supabase.auth.getSession();
     const res = await supabase.functions.invoke("admin-grant-vip", {
       body: { action: "grant_vip", userId, vipType: type, expiresAt },
     });
@@ -949,11 +948,12 @@ export default function AdminUsersPage() {
             commission_amount: commissionAmount,
             status: "pending",
           });
-          await supabase.from("ctv_profiles").update({
-            total_commission: (ctv.total_commission || 0) + commissionAmount,
-            total_sales: (ctv.total_sales || 0) + saleAmount,
-            total_referred: (ctv.total_referred || 0) + 1,
-          }).eq("id", ctv.id);
+          // Dùng RPC increment tránh race condition
+          await supabase.rpc("increment_ctv_stats", {
+            p_ctv_id: ctv.id,
+            p_commission: commissionAmount,
+            p_sales: saleAmount,
+          });
         }
       }
     } catch (e) {
