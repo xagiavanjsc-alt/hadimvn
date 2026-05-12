@@ -4,6 +4,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useToast } from "@/components/base/Toast";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase, resolveStoragePaths } from "@/lib/supabase";
+import { sanitizeHtml } from "@/lib/sanitize";
 import { usePageSEO } from "@/hooks/usePageSEO";
 
 // ─── SEO Component (uses usePageSEO) ──────────────────────────────────────────
@@ -294,7 +295,7 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
                   <i className="ri-lightbulb-line"></i>
                   <span className="font-semibold">Giải thích:</span>
                 </div>
-                <div dangerouslySetInnerHTML={{ __html: resolveStoragePaths(quiz.explanation) }} />
+                <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(resolveStoragePaths(quiz.explanation ?? "")) }} />
               </div>
             )}
           </div>
@@ -376,7 +377,7 @@ function CommentThread({
           </div>
           <div
             className="text-white/65 text-sm leading-relaxed comment-content"
-            dangerouslySetInnerHTML={{ __html: resolveStoragePaths(comment.content) }}
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(resolveStoragePaths(comment.content ?? "")) }}
           />
           <div className="flex items-center gap-4 mt-2">
             <button
@@ -606,7 +607,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
               <h1 className="text-white font-bold text-xl mb-4 leading-snug">{post.title}</h1>
               <div
                 className="post-content text-white/75 text-sm leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: resolveStoragePaths(post.content) }}
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(resolveStoragePaths(post.content ?? "")) }}
               />
               <style>{`
                 .post-content h1 { font-size: 1.5rem; font-weight: 700; margin: 0.8em 0 0.4em; color: #fff; }

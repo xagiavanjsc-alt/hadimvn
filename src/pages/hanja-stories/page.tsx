@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
+import { sanitizeHtml } from "@/lib/sanitize";
 
 interface HanjaStory {
   id: string;
@@ -88,13 +89,15 @@ export default function HanjaStoriesPage() {
     return found?.label || topic;
   };
 
+  const escapeAttr = (s: string) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   const highlightHanjaWords = (content: string, hanjaWords: any[]) => {
-    let highlightedContent = content;
+    let highlightedContent = sanitizeHtml(content);
     hanjaWords.forEach((word) => {
       const regex = new RegExp(word.korean, "g");
+      const title = escapeAttr(`${word.hanja} - ${word.vietnamese}`);
       highlightedContent = highlightedContent.replace(
         regex,
-        `<span class="bg-app-accent-primary/20 text-app-accent-primary px-1 rounded font-semibold cursor-pointer hover:bg-app-accent-primary/30" title="${word.hanja} - ${word.vietnamese}">${word.korean}</span>`
+        `<span class="bg-app-accent-primary/20 text-app-accent-primary px-1 rounded font-semibold cursor-pointer hover:bg-app-accent-primary/30" title="${title}">${word.korean}</span>`
       );
     });
     return highlightedContent;

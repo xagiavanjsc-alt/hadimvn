@@ -4,6 +4,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { useCommunitySettings } from "@/hooks/useCommunitySettings";
 import { supabase, resolveStoragePaths, getStorageUrl, isVipActive } from "@/lib/supabase";
+import { sanitizeHtml } from "@/lib/sanitize";
 import OnlineUsersWidget from "./components/OnlineUsersWidget";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useToast, ToastContainer } from "@/components/common/ToastNotification";
@@ -569,7 +570,7 @@ function CommentItem({
           </div>
           <div
             className="text-white/60 text-xs leading-relaxed comment-content"
-            dangerouslySetInnerHTML={{ __html: resolveStoragePaths(comment.content) }}
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(resolveStoragePaths(comment.content ?? "")) }}
           />
           <div className="flex items-center gap-3 mt-1.5">
             {currentUser && depth < 2 && (
@@ -1064,7 +1065,7 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
                   <i className="ri-lightbulb-line"></i>
                   <span className="font-semibold">Giải thích:</span>
                 </div>
-                <div dangerouslySetInnerHTML={{ __html: resolveStoragePaths(quiz.explanation) }} />
+                <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(resolveStoragePaths(quiz.explanation ?? "")) }} />
               </div>
             )}
           </div>
@@ -1173,7 +1174,7 @@ function PostCard({
       </button>
       <div
         className={`post-content-preview text-white/55 text-xs leading-relaxed ${!expanded ? "max-h-[4.5rem] overflow-hidden" : ""}`}
-        dangerouslySetInnerHTML={{ __html: resolveStoragePaths(post.content) }}
+        dangerouslySetInnerHTML={{ __html: sanitizeHtml(resolveStoragePaths(post.content ?? "")) }}
       />
       <style>{`
         .post-content-preview img { max-width: 100%; height: auto; border-radius: 8px; margin: 6px 0; display: block; }
