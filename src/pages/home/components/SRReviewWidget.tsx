@@ -1,7 +1,17 @@
 import { useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { HANJA_DATA } from "@/mocks/hanjaData";
+import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 import { supabase } from "@/lib/supabase";
+
+const DB_CACHE_KEY = "hanja_db_cache_v2";
+function readDbCache(): HanjaEntry[] {
+  try {
+    const raw = localStorage.getItem(DB_CACHE_KEY);
+    if (!raw) return HANJA_DATA;
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed.data) && parsed.data.length > 0 ? parsed.data : HANJA_DATA;
+  } catch { return HANJA_DATA; }
+}
 
 interface SRCard {
   korean: string;
@@ -24,19 +34,19 @@ function seededShuffle<T>(arr: T[], seed: number): T[] {
   return a;
 }
 
-function getDailyDueWords(): { entry: typeof HANJA_DATA[0]; card: SRCard | null; isNew: boolean }[] {
+function getDailyDueWords(): { entry: HanjaEntry; card: SRCard | null; isNew: boolean }[] {
   try {
+    const allData = readDbCache();
     const srData: Record<string, SRCard> = JSON.parse(localStorage.getItem("hanja_sr_data") || "{}");
     const now = Date.now();
     const today = new Date();
     const daySeed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
 
-    const due = HANJA_DATA.filter(e => {
+    const due = allData.filter(e => {
       const card = srData[e.korean];
       return !card || card.dueDate <= now;
     });
 
-    // Shuffle theo ngày → mỗi ngày hiện 5 từ khác nhau
     const shuffled = seededShuffle(due, daySeed);
     return shuffled.slice(0, 5).map(e => ({
       entry: e,
@@ -50,9 +60,10 @@ function getDailyDueWords(): { entry: typeof HANJA_DATA[0]; card: SRCard | null;
 
 function getTotalDueLocal(): number {
   try {
+    const allData = readDbCache();
     const srData: Record<string, SRCard> = JSON.parse(localStorage.getItem("hanja_sr_data") || "{}");
     const now = Date.now();
-    return HANJA_DATA.filter(e => {
+    return allData.filter(e => {
       const card = srData[e.korean];
       return !card || card.dueDate <= now;
     }).length;

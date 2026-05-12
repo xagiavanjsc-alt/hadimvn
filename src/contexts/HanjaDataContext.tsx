@@ -27,14 +27,17 @@ function writeCache(data: HanjaEntry[]) {
   } catch { /* ignore quota errors */ }
 }
 
-const HanjaDataContext = createContext<HanjaEntry[]>(HANJA_DATA);
+interface HanjaDataCtx { data: HanjaEntry[]; isLoading: boolean; }
+const HanjaDataContext = createContext<HanjaDataCtx>({ data: HANJA_DATA, isLoading: false });
 
 export function HanjaDataProvider({ children }: { children: ReactNode }) {
-  const [data, setData] = useState<HanjaEntry[]>(() => readCache() ?? HANJA_DATA);
+  const cached = readCache();
+  const [data, setData] = useState<HanjaEntry[]>(() => cached ?? HANJA_DATA);
+  const [isLoading, setIsLoading] = useState(!cached);
 
   useEffect(() => {
     const cached = readCache();
-    if (cached) { setData(cached); return; }
+    if (cached) { setData(cached); setIsLoading(false); return; }
 
     async function fetchAll() {
       const PAGE = 1000;
@@ -55,17 +58,22 @@ export function HanjaDataProvider({ children }: { children: ReactNode }) {
         writeCache(all);
         setData(all);
       }
+      setIsLoading(false);
     }
     fetchAll();
   }, []);
 
   return (
-    <HanjaDataContext.Provider value={data}>
+    <HanjaDataContext.Provider value={{ data, isLoading }}>
       {children}
     </HanjaDataContext.Provider>
   );
 }
 
 export function useHanjaData(): HanjaEntry[] {
-  return useContext(HanjaDataContext);
+  return useContext(HanjaDataContext).data;
+}
+
+export function useHanjaLoading(): boolean {
+  return useContext(HanjaDataContext).isLoading;
 }

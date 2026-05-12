@@ -79,7 +79,7 @@ export default function WordMatchTab() {
     let data = HANJA_DATA;
     if (selectedInitial) data = data.filter(d => getInitial(d.korean[0]) === selectedInitial);
     return data;
-  }, [selectedInitial]);
+  }, [selectedInitial, HANJA_DATA]);
 
   const startGame = useCallback(() => {
     const shuffled = [...pool].sort(() => Math.random() - 0.5).slice(0, pairCount);

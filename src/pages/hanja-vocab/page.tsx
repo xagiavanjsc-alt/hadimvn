@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { HanjaEntry } from "@/mocks/hanjaData";
-import { HanjaDataProvider, useHanjaData } from "@/contexts/HanjaDataContext";
+import { HanjaDataProvider, useHanjaData, useHanjaLoading } from "@/contexts/HanjaDataContext";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useVipYearGuard, getExportBtnLabel, getExportBtnIcon, addCsvWatermark } from "@/hooks/useVipYearGuard";
@@ -1579,6 +1579,7 @@ function RootsTab() {
 function HanjaVocabPageInner() {
   const navigate = useNavigate();
   const hanjaDB = useHanjaData();
+  const isLoadingDB = useHanjaLoading();
   const [activeTab, setActiveTab] = useState<TabType>("vocab");
   const { favs, toggle: toggleFav } = useFavorites();
   const { notes, saveNote } = useNotes();
@@ -1637,7 +1638,11 @@ function HanjaVocabPageInner() {
             </div>
             <div>
               <h1 className="text-xl font-bold text-white">Từ vựng Hán-Hàn</h1>
-              <p className="text-sm text-white/50">{hanjaDB.length} từ · {favs.size} yêu thích</p>
+              <p className="text-sm text-white/50">
+                {isLoadingDB
+                  ? <span className="inline-flex items-center gap-1"><i className="ri-loader-4-line animate-spin text-xs"></i>Đang tải dữ liệu...</span>
+                  : <>{hanjaDB.length} từ · {favs.size} yêu thích</>}
+              </p>
             </div>
           </div>
         </div>
