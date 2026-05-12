@@ -1,5 +1,6 @@
 ﻿import { useState, useMemo, useEffect, useCallback } from "react";
-import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
+import { HanjaEntry } from "@/mocks/hanjaData";
+import { useHanjaData } from "@/contexts/HanjaDataContext";
 
 const SR_KEY = "hanja_sr_data";
 
@@ -38,9 +39,9 @@ function MasteryBadge({ level }: { level: "new" | "learning" | "mastered" }) {
 }
 
 // Build homophone groups: same Korean pronunciation, different hanja/meaning
-function buildHomophoneGroups(): { korean: string; words: HanjaEntry[] }[] {
+function buildHomophoneGroups(data: HanjaEntry[]): { korean: string; words: HanjaEntry[] }[] {
   const map = new Map<string, HanjaEntry[]>();
-  HANJA_DATA.forEach(entry => {
+  data.forEach(entry => {
     if (!map.has(entry.korean)) map.set(entry.korean, []);
     map.get(entry.korean)!.push(entry);
   });
@@ -64,6 +65,7 @@ interface QuizQuestion {
 }
 
 function HomophoneQuiz({ group, onClose }: { group: { korean: string; words: HanjaEntry[] }; onClose: () => void }) {
+  const HANJA_DATA = useHanjaData();
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [idx, setIdx] = useState(0);
   const [score, setScore] = useState(0);
@@ -200,6 +202,7 @@ function HomophoneQuiz({ group, onClose }: { group: { korean: string; words: Han
 }
 
 export default function HomophoneTab() {
+  const HANJA_DATA = useHanjaData();
   const [search, setSearch] = useState("");
   const [selectedGroup, setSelectedGroup] = useState<{ korean: string; words: HanjaEntry[] } | null>(null);
   const [quizGroup, setQuizGroup] = useState<{ korean: string; words: HanjaEntry[] } | null>(null);
@@ -209,7 +212,7 @@ export default function HomophoneTab() {
     try { return JSON.parse(localStorage.getItem(SR_KEY) || "{}"); } catch { return {}; }
   }, []);
 
-  const allGroups = useMemo(() => buildHomophoneGroups(), []);
+  const allGroups = useMemo(() => buildHomophoneGroups(HANJA_DATA), [HANJA_DATA]);
 
   const filteredGroups = useMemo(() => {
     let groups = allGroups;

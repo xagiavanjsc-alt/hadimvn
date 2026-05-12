@@ -1,5 +1,5 @@
 ﻿import { useState, useMemo } from "react";
-import { HANJA_DATA } from "@/mocks/hanjaData";
+import { useHanjaData } from "@/contexts/HanjaDataContext";
 
 // Mapping Hán tự → Hán Việt đọc (phiên âm Hán Việt)
 const HANVIET_MAP: Record<string, string> = {
@@ -96,19 +96,6 @@ function calcSimilarity(korean: string, vietnamese: string, hanviet: string): "i
   return partialMatch ? "similar" : "different";
 }
 
-const COMPARE_DATA: CompareEntry[] = HANJA_DATA
-  .filter(e => e.hanja && e.hanja.length >= 2)
-  .map(e => {
-    const hanviet = buildHanViet(e.hanja);
-    return {
-      korean: e.korean,
-      hanja: e.hanja,
-      vietnamese: e.vietnamese,
-      hanviet,
-      similarity: calcSimilarity(e.korean, e.vietnamese, hanviet),
-    };
-  })
-  .filter(e => e.hanviet.length > 0);
 
 // Curated examples for the "spotlight" section
 const SPOTLIGHT_EXAMPLES = [
@@ -127,6 +114,14 @@ const SPOTLIGHT_EXAMPLES = [
 ];
 
 export default function HanVietCompareTab() {
+  const HANJA_DATA = useHanjaData();
+  const COMPARE_DATA = useMemo<CompareEntry[]>(() => HANJA_DATA
+    .filter(e => e.hanja && e.hanja.length >= 2)
+    .map(e => {
+      const hanviet = buildHanViet(e.hanja);
+      return { korean: e.korean, hanja: e.hanja, vietnamese: e.vietnamese, hanviet, similarity: calcSimilarity(e.korean, e.vietnamese, hanviet) };
+    })
+    .filter(e => e.hanviet.length > 0), [HANJA_DATA]);
   const [filter, setFilter] = useState<"all" | "identical" | "similar" | "different">("identical");
   const [search, setSearch] = useState("");
   const [showSpotlight, setShowSpotlight] = useState(true);

@@ -1,5 +1,5 @@
 ﻿import { useMemo } from "react";
-import { HANJA_DATA } from "@/mocks/hanjaData";
+import { useHanjaData } from "@/contexts/HanjaDataContext";
 
 const ALPHABET_GROUPS = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
 const SR_KEY = "hanja_sr_data";
@@ -29,6 +29,7 @@ function getMasteryLevel(korean: string, srData: Record<string, SRCard>): "new" 
 }
 
 export default function StatsTab() {
+  const HANJA_DATA = useHanjaData();
   const srData = useMemo<Record<string, SRCard>>(() => {
     try { return JSON.parse(localStorage.getItem(SR_KEY) || "{}"); } catch { return {}; }
   }, []);

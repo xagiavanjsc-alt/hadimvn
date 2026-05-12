@@ -1,5 +1,6 @@
 ﻿import { useState, useMemo, useEffect, useCallback } from "react";
-import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
+import { HANJA_DATA as HANJA_DATA_MOCK, HanjaEntry } from "@/mocks/hanjaData";
+import { useHanjaData } from "@/contexts/HanjaDataContext";
 
 const WC_KEY = "hanja_weekly_challenge";
 const SR_KEY = "hanja_sr_data";
@@ -41,7 +42,7 @@ function saveChallenge(c: WeeklyChallenge) {
 function pickWeeklyWords(weekId: string): string[] {
   // Deterministic shuffle based on weekId seed
   const seed = weekId.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
-  const shuffled = [...HANJA_DATA].sort((a, b) => {
+  const shuffled = [...HANJA_DATA_MOCK].sort((a, b) => {
     const ha = (a.korean.charCodeAt(0) * seed) % 9973;
     const hb = (b.korean.charCodeAt(0) * seed) % 9973;
     return ha - hb;
@@ -166,6 +167,7 @@ function WeeklyQuiz({ words, onPass, onFail }: {
 
 // ─── Main WeeklyChallengeTab ──────────────────────────────────────────────────
 export default function WeeklyChallengeTab() {
+  const HANJA_DATA = useHanjaData();
   const weekId = getWeekId();
   const daysLeft = getDaysLeft();
 

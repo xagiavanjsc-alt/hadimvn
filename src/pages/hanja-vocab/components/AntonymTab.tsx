@@ -1,5 +1,6 @@
 ﻿import { useState, useMemo, useCallback } from "react";
-import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
+import { HanjaEntry } from "@/mocks/hanjaData";
+import { useHanjaData } from "@/contexts/HanjaDataContext";
 
 const SR_KEY = "hanja_sr_data";
 const CUSTOM_PAIRS_KEY = "hanja_custom_antonym_pairs";
@@ -119,6 +120,7 @@ const BUILTIN_PAIRS: AntonymPair[] = [
 
 // ─── Mini Quiz ────────────────────────────────────────────────────────────────
 function AntonymQuiz({ pairs, onClose }: { pairs: AntonymPair[]; onClose: () => void }) {
+  const HANJA_DATA = useHanjaData();
   const [idx, setIdx] = useState(0);
   const [score, setScore] = useState(0);
   const [answered, setAnswered] = useState(false);
@@ -239,6 +241,7 @@ function AntonymQuiz({ pairs, onClose }: { pairs: AntonymPair[]; onClose: () => 
 
 // ─── Add Custom Pair Modal ────────────────────────────────────────────────────
 function AddPairModal({ onAdd, onClose }: { onAdd: (pair: AntonymPair) => void; onClose: () => void }) {
+  const HANJA_DATA = useHanjaData();
   const [wordA, setWordA] = useState("");
   const [wordB, setWordB] = useState("");
   const [category, setCategory] = useState("");
@@ -329,6 +332,7 @@ function AddPairModal({ onAdd, onClose }: { onAdd: (pair: AntonymPair) => void; 
 
 // ─── Pair Card ────────────────────────────────────────────────────────────────
 function PairCard({ pair, srData, onDelete }: { pair: AntonymPair; srData: Record<string, SRCard>; onDelete?: () => void }) {
+  const HANJA_DATA = useHanjaData();
   const entryA = HANJA_DATA.find(d => d.korean === pair.a);
   const entryB = HANJA_DATA.find(d => d.korean === pair.b);
   const masteryA = getMastery(pair.a, srData);
@@ -401,6 +405,7 @@ function PairCard({ pair, srData, onDelete }: { pair: AntonymPair; srData: Recor
 
 // ─── Main AntonymTab ──────────────────────────────────────────────────────────
 export default function AntonymTab() {
+  const HANJA_DATA = useHanjaData();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [quizMode, setQuizMode] = useState(false);
   const [search, setSearch] = useState("");

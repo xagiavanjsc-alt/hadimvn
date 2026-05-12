@@ -1,5 +1,6 @@
 ﻿import { useState, useMemo, useCallback, useRef } from "react";
-import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
+import { HanjaEntry } from "@/mocks/hanjaData";
+import { useHanjaData } from "@/contexts/HanjaDataContext";
 
 const ALPHABET_GROUPS = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
 const SR_KEY = "hanja_sr_data";
@@ -169,6 +170,7 @@ function SwipeCard({
 
 // ─── Main QuickReviewTab ──────────────────────────────────────────────────────
 export default function QuickReviewTab({ favs }: { favs: Set<string> }) {
+  const HANJA_DATA = useHanjaData();
   const [selectedInitial, setSelectedInitial] = useState<string | null>(null);
   const [onlyFavs, setOnlyFavs] = useState(false);
   const [onlyNew, setOnlyNew] = useState(false);

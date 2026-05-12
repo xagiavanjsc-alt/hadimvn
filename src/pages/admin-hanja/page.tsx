@@ -1,6 +1,5 @@
-﻿import { useState, useRef, useCallback, useMemo } from "react";
+﻿import { useState, useEffect, useCallback, useMemo } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { supabase } from "@/lib/supabase";
 
 interface HanjaEntry {
@@ -9,48 +8,26 @@ interface HanjaEntry {
   hanja?: string;
   vietnamese: string;
   pronunciation?: string;
-  difficulty: "easy" | "medium" | "hard";
+  difficulty: 1 | 2 | 3;
   category?: string;
   example?: string;
   example_meaning?: string;
   root_char?: string;
-  tree_node_id?: string;
+  audio_url?: string;
 }
 
-const DIFF_COLORS = {
-  easy: { bg: "rgba(74,222,128,0.12)", text: "#4ade80", label: "Dễ" },
-  medium: { bg: "rgba(232,200,74,0.12)", text: "app-accent-primary", label: "TB" },
-  hard: { bg: "rgba(248,113,113,0.12)", text: "#f87171", label: "Khó" },
+const DIFF_COLORS: Record<number, { bg: string; text: string; label: string }> = {
+  1: { bg: "rgba(74,222,128,0.12)",  text: "#4ade80",  label: "Dễ" },
+  2: { bg: "rgba(232,200,74,0.12)",  text: "#e8c84a",  label: "TB" },
+  3: { bg: "rgba(248,113,113,0.12)", text: "#f87171",  label: "Khó" },
 };
-
-function parseCSV(text: string): HanjaEntry[] {
-  const lines = text.trim().split("\n");
-  if (lines.length < 2) return [];
-  const headers = lines[0].split(",").map(h => h.trim().toLowerCase().replace(/"/g, ""));
-  return lines.slice(1).map(line => {
-    const values = line.split(",").map(v => v.trim().replace(/^"|"$/g, ""));
-    const obj: Record<string, string> = {};
-    headers.forEach((h, i) => { obj[h] = values[i] || ""; });
-    return {
-      korean: obj.korean || obj.word || obj["từ"] || "",
-      hanja: obj.hanja || obj["hán tự"] || "",
-      vietnamese: obj.vietnamese || obj.meaning || obj["nghĩa"] || "",
-      pronunciation: obj.pronunciation || obj["phát âm"] || "",
-      difficulty: (obj.difficulty || obj["độ khó"] || "medium") as HanjaEntry["difficulty"],
-      category: obj.category || obj["loại từ"] || "",
-      example: obj.example || obj["ví dụ"] || "",
-      example_meaning: obj.example_meaning || obj["nghĩa ví dụ"] || "",
-      root_char: obj.root_char || obj["gốc"] || "",
-    };
-  }).filter(e => e.korean && e.vietnamese);
-}
 
 function EntryEditor({ entry, onSave, onCancel }: {
   entry: Partial<HanjaEntry>;
   onSave: (e: HanjaEntry) => void;
   onCancel: () => void;
 }) {
-  const [form, setForm] = useState<Partial<HanjaEntry>>({ difficulty: "medium", ...entry });
+  const [form, setForm] = useState<Partial<HanjaEntry>>({ difficulty: 2, ...entry });
 
   const handleSave = () => {
     if (!form.korean?.trim() || !form.vietnamese?.trim()) return;
@@ -59,7 +36,7 @@ function EntryEditor({ entry, onSave, onCancel }: {
       hanja: form.hanja || "",
       vietnamese: form.vietnamese || "",
       pronunciation: form.pronunciation || "",
-      difficulty: form.difficulty || "medium",
+      difficulty: (form.difficulty || 2) as 1|2|3,
       category: form.category || "",
       example: form.example || "",
       example_meaning: form.example_meaning || "",
@@ -111,12 +88,12 @@ function EntryEditor({ entry, onSave, onCancel }: {
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--admin-text-muted)" }}>Độ khó</label>
-              <select value={form.difficulty} onChange={e => setForm(f => ({ ...f, difficulty: e.target.value as HanjaEntry["difficulty"] }))}
+              <select value={form.difficulty} onChange={e => setForm(f => ({ ...f, difficulty: Number(e.target.value) as 1|2|3 }))}
                 className="w-full rounded-xl px-3 py-2.5 text-sm outline-none border"
                 style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }}>
-                <option value="easy">Dễ</option>
-                <option value="medium">Trung bình</option>
-                <option value="hard">Khó</option>
+                <option value={1}>Dễ</option>
+                <option value={2}>Trung bình</option>
+                <option value={3}>Khó</option>
               </select>
             </div>
             <div>
@@ -159,206 +136,156 @@ function EntryEditor({ entry, onSave, onCancel }: {
 }
 
 export default function AdminHanjaPage() {
-  const [entries, setEntries] = useLocalStorage<HanjaEntry[]>("kts_admin_hanja_entries", []);
+  const [entries, setEntries] = useState<HanjaEntry[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(0);
+  const PAGE_SIZE = 50;
   const [search, setSearch] = useState("");
-  const [filterDiff, setFilterDiff] = useState<"all" | "easy" | "medium" | "hard">("all");
+  const [filterDiff, setFilterDiff] = useState<0 | 1 | 2 | 3>(0);
   const [editingEntry, setEditingEntry] = useState<Partial<HanjaEntry> | null>(null);
-  const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null);
-  const [importing, setImporting] = useState(false);
-  const [importResult, setImportResult] = useState<{ added: number; skipped: number } | null>(null);
-  const [syncing, setSyncing] = useState(false);
-  const [syncResult, setSyncResult] = useState<string | null>(null);
-  const fileRef = useRef<HTMLInputElement>(null);
+  const [deleteTarget, setDeleteTarget] = useState<HanjaEntry | null>(null);
+  const [toast, setToast] = useState<{ msg: string; ok: boolean } | null>(null);
+  const [audioLoading, setAudioLoading] = useState<string | null>(null);
 
-  const filtered = useMemo(() => {
-    return entries.filter(e => {
-      const matchSearch = !search || e.korean.includes(search) || e.vietnamese.toLowerCase().includes(search.toLowerCase()) || (e.hanja || "").includes(search);
-      const matchDiff = filterDiff === "all" || e.difficulty === filterDiff;
-      return matchSearch && matchDiff;
-    });
-  }, [entries, search, filterDiff]);
+  const showToast = (msg: string, ok = true) => {
+    setToast({ msg, ok });
+    setTimeout(() => setToast(null), 3500);
+  };
 
-  const handleSaveEntry = useCallback((entry: HanjaEntry) => {
-    setEntries(prev => {
-      if (entry.id) {
-        return prev.map((e, i) => String(i) === entry.id ? entry : e);
-      }
-      return [...prev, entry];
-    });
-    setEditingEntry(null);
-  }, [setEntries]);
-
-  const handleDelete = useCallback((idx: number) => {
-    setEntries(prev => prev.filter((_, i) => i !== idx));
-    setDeleteConfirm(null);
-  }, [setEntries]);
-
-  const handleImportCSV = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setImporting(true);
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      const text = ev.target?.result as string;
-      const parsed = parseCSV(text);
-      const existing = new Set(entries.map(e => e.korean));
-      const newEntries = parsed.filter(e => !existing.has(e.korean));
-      setEntries(prev => [...prev, ...newEntries]);
-      setImportResult({ added: newEntries.length, skipped: parsed.length - newEntries.length });
-      setImporting(false);
-      setTimeout(() => setImportResult(null), 5000);
-    };
-    reader.readAsText(file, "UTF-8");
-    e.target.value = "";
-  }, [entries, setEntries]);
-
-  const handleSyncToSupabase = useCallback(async () => {
-    if (entries.length === 0) return;
-    setSyncing(true);
-    setSyncResult(null);
-    try {
-      const rows = entries.map(e => ({
-        korean: e.korean,
-        hanja: e.hanja || null,
-        vietnamese: e.vietnamese,
-        pronunciation: e.pronunciation || null,
-        difficulty: e.difficulty,
-        category: e.category || null,
-        example: e.example || null,
-        example_meaning: e.example_meaning || null,
-        root_char: e.root_char || null,
-      }));
-      const { error } = await supabase.from("hanja_vocab_entries").upsert(rows, { onConflict: "korean" });
-      if (error) throw error;
-      setSyncResult(`✓ Đã đồng bộ ${rows.length} từ lên Supabase`);
-    } catch (err) {
-      setSyncResult(`✗ Lỗi: ${err instanceof Error ? err.message : "Không thể kết nối"}`);
-    } finally {
-      setSyncing(false);
-      setTimeout(() => setSyncResult(null), 5000);
+  const load = useCallback(async (p = page, q = search, diff = filterDiff) => {
+    setLoading(true);
+    let query = supabase.from("hanja_vocab_entries").select("*", { count: "exact" });
+    if (q.trim()) {
+      query = query.or(`korean.ilike.%${q}%,vietnamese.ilike.%${q}%,hanja.ilike.%${q}%`);
     }
-  }, [entries]);
+    if (diff > 0) query = query.eq("difficulty", diff);
+    const { data, count, error } = await query
+      .order("created_at", { ascending: false })
+      .range(p * PAGE_SIZE, (p + 1) * PAGE_SIZE - 1);
+    if (!error) {
+      setEntries((data || []) as HanjaEntry[]);
+      setTotal(count || 0);
+    }
+    setLoading(false);
+  }, [page, search, filterDiff]);
 
-  const handleExportCSV = useCallback(() => {
-    const headers = ["korean", "hanja", "vietnamese", "pronunciation", "difficulty", "category", "example", "example_meaning", "root_char"];
-    const rows = entries.map(e => headers.map(h => `"${(e[h as keyof HanjaEntry] || "").toString().replace(/"/g, '""')}"`).join(","));
-    const csv = "\uFEFF" + [headers.join(","), ...rows].join("\n");
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `hanja_vocab_${new Date().toISOString().split("T")[0]}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
-  }, [entries]);
+  useEffect(() => { load(0, search, filterDiff); setPage(0); }, [search, filterDiff]);
+  useEffect(() => { load(page, search, filterDiff); }, [page]);
+
+  const handleSaveEntry = useCallback(async (entry: HanjaEntry) => {
+    const row = {
+      korean: entry.korean,
+      hanja: entry.hanja || null,
+      vietnamese: entry.vietnamese,
+      pronunciation: entry.pronunciation || null,
+      difficulty: entry.difficulty,
+      category: entry.category || null,
+      updated_at: new Date().toISOString(),
+    };
+    if (entry.id) {
+      const { error } = await supabase.from("hanja_vocab_entries").update(row).eq("id", entry.id);
+      if (error) { showToast("Lỗi: " + error.message, false); return; }
+      showToast("Đã cập nhật từ " + entry.korean);
+    } else {
+      const { error } = await supabase.from("hanja_vocab_entries").insert(row);
+      if (error) { showToast("Lỗi: " + error.message, false); return; }
+      showToast("Đã thêm từ " + entry.korean);
+    }
+    setEditingEntry(null);
+    load(page, search, filterDiff);
+  }, [page, search, filterDiff, load]);
+
+  const handleDelete = useCallback(async () => {
+    if (!deleteTarget?.id) return;
+    const { error } = await supabase.from("hanja_vocab_entries").delete().eq("id", deleteTarget.id);
+    if (error) { showToast("Lỗi xóa: " + error.message, false); return; }
+    showToast(`Đã xóa "${deleteTarget.korean}"`);
+    setDeleteTarget(null);
+    load(page, search, filterDiff);
+  }, [deleteTarget, page, search, filterDiff, load]);
+
+  const handleGenerateAudio = useCallback(async (entry: HanjaEntry) => {
+    if (!entry.id) return;
+    setAudioLoading(entry.id);
+    try {
+      const { data, error } = await supabase.functions.invoke("generate-audio", {
+        body: { entryId: entry.id, text: entry.korean },
+      });
+      if (error || data?.error) {
+        showToast("Lỗi tạo âm thanh: " + (data?.error || error?.message), false);
+        return;
+      }
+      showToast(`✓ Đã tạo âm thanh cho "${entry.korean}"`);
+      // Cập nhật local state ngay không cần reload
+      setEntries(prev => prev.map(e => e.id === entry.id ? { ...e, audio_url: data.url } : e));
+    } finally {
+      setAudioLoading(null);
+    }
+  }, []);
 
   const stats = useMemo(() => ({
-    total: entries.length,
-    easy: entries.filter(e => e.difficulty === "easy").length,
-    medium: entries.filter(e => e.difficulty === "medium").length,
-    hard: entries.filter(e => e.difficulty === "hard").length,
-  }), [entries]);
+    total,
+    d1: entries.filter(e => e.difficulty === 1).length,
+    d2: entries.filter(e => e.difficulty === 2).length,
+    d3: entries.filter(e => e.difficulty === 3).length,
+    audio: entries.filter(e => e.audio_url).length,
+  }), [entries, total]);
 
   return (
     <AdminLayout
       title="Quản lý Hán Hàn"
-      subtitle="Thêm, sửa, xóa và import từ vựng Hán Hàn"
+      subtitle="CRUD trực tiếp từ Supabase · Auto âm thanh via OpenAI TTS"
       actions={
-        <div className="flex items-center gap-2">
-          <button onClick={() => fileRef.current?.click()} disabled={importing}
-            className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
-            style={{ backgroundColor: "rgba(74,222,128,0.15)", color: "#4ade80", border: "1px solid rgba(74,222,128,0.25)" }}>
-            <i className="ri-upload-cloud-2-line"></i>
-            {importing ? "Đang import..." : "Import CSV"}
-          </button>
-          <input ref={fileRef} type="file" accept=".csv,.txt" className="hidden" onChange={handleImportCSV} />
-          <button onClick={handleExportCSV} disabled={entries.length === 0}
-            className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
-            style={{ backgroundColor: "rgba(96,165,250,0.15)", color: "#60a5fa", border: "1px solid rgba(96,165,250,0.25)" }}>
-            <i className="ri-download-line"></i>
-            Xuất CSV
-          </button>
-          <button onClick={handleSyncToSupabase} disabled={syncing || entries.length === 0}
-            className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
-            style={{ backgroundColor: "rgba(167,139,250,0.15)", color: "#a78bfa", border: "1px solid rgba(167,139,250,0.25)" }}>
-            <i className={`${syncing ? "ri-loader-4-line animate-spin" : "ri-cloud-line"}`}></i>
-            {syncing ? "Đang sync..." : "Sync Supabase"}
-          </button>
-          <button onClick={() => setEditingEntry({})}
-            className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-lg bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg cursor-pointer whitespace-nowrap transition-colors">
-            <i className="ri-add-line"></i>
-            Thêm từ
-          </button>
-        </div>
+        <button onClick={() => setEditingEntry({})}
+          className="flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-lg bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg cursor-pointer whitespace-nowrap transition-colors">
+          <i className="ri-add-line"></i>Thêm từ
+        </button>
       }
     >
-      {/* Notifications */}
-      {importResult && (
-        <div className="mb-4 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-2">
-          <i className="ri-checkbox-circle-line text-app-accent-success"></i>
-          <p className="text-app-accent-success text-sm">Import thành công: +{importResult.added} từ mới, bỏ qua {importResult.skipped} từ trùng</p>
-        </div>
-      )}
-      {syncResult && (
-        <div className={`mb-4 p-3 rounded-xl flex items-center gap-2 ${syncResult.startsWith("✓") ? "bg-emerald-500/10 border border-emerald-500/20" : "bg-rose-500/10 border border-rose-500/20"}`}>
-          <p className={`text-sm ${syncResult.startsWith("✓") ? "text-app-accent-success" : "text-rose-400"}`}>{syncResult}</p>
+      {toast && (
+        <div className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-xl text-sm font-medium flex items-center gap-2 shadow-lg ${
+          toast.ok ? "bg-emerald-600 text-white" : "bg-rose-600 text-white"}`}>
+          <i className={toast.ok ? "ri-checkbox-circle-fill" : "ri-error-warning-line"}></i>
+          {toast.msg}
         </div>
       )}
 
       {/* Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
         {[
-          { label: "Tổng từ", value: stats.total, color: "app-accent-primary", icon: "ri-character-recognition-line" },
-          { label: "Dễ", value: stats.easy, color: "#4ade80", icon: "ri-seedling-line" },
-          { label: "Trung bình", value: stats.medium, color: "app-accent-primary", icon: "ri-star-line" },
-          { label: "Khó", value: stats.hard, color: "#f87171", icon: "ri-fire-line" },
+          { label: "Tổng từ",    value: total,        color: "#e8c84a", icon: "ri-character-recognition-line" },
+          { label: "Dễ (1)",     value: stats.d1,     color: "#4ade80", icon: "ri-seedling-line" },
+          { label: "Trung (2)",  value: stats.d2,     color: "#e8c84a", icon: "ri-star-line" },
+          { label: "Khó (3)",    value: stats.d3,     color: "#f87171", icon: "ri-fire-line" },
+          { label: "Có âm thanh",value: stats.audio,  color: "#60a5fa", icon: "ri-volume-up-line" },
         ].map(s => (
           <div key={s.label} className="rounded-xl border p-4" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
-            <div className="w-8 h-8 flex items-center justify-center rounded-lg mb-2" style={{ backgroundColor: `${s.color}15` }}>
-              <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
-            </div>
+            <i className={`${s.icon} text-lg mb-2 block`} style={{ color: s.color }}></i>
             <p className="text-xl font-bold" style={{ color: "var(--admin-text)" }}>{s.value}</p>
             <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>{s.label}</p>
           </div>
         ))}
       </div>
 
-      {/* CSV format guide */}
-      <div className="mb-5 p-4 rounded-xl border" style={{ backgroundColor: "var(--admin-card2)", borderColor: "var(--admin-border)" }}>
-        <div className="flex items-center gap-2 mb-2">
-          <i className="ri-information-line text-app-accent-primary text-sm"></i>
-          <p className="text-xs font-semibold" style={{ color: "var(--admin-text)" }}>Định dạng CSV import</p>
-        </div>
-        <p className="text-[10px] font-mono" style={{ color: "var(--admin-text-muted)" }}>
-          korean,hanja,vietnamese,pronunciation,difficulty,category,example,example_meaning,root_char
-        </p>
-        <p className="text-[10px] mt-1" style={{ color: "var(--admin-text-faint)" }}>
-          Cột bắt buộc: korean, vietnamese. Các cột khác tùy chọn. Encoding: UTF-8.
-        </p>
-      </div>
-
       {/* Search + Filter */}
-      <div className="flex items-center gap-3 mb-5">
-        <div className="flex-1 relative">
+      <div className="flex items-center gap-3 mb-5 flex-wrap">
+        <div className="flex-1 min-w-48 relative">
           <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-sm" style={{ color: "var(--admin-text-faint)" }}></i>
-          <input
-            type="text"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="Tìm từ tiếng Hàn, nghĩa, Hán tự..."
+          <input type="text" value={search} onChange={e => setSearch(e.target.value)}
+            placeholder="Tìm tiếng Hàn, nghĩa Việt, Hán tự..."
             className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm outline-none border"
-            style={{ backgroundColor: "var(--admin-card)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }}
-          />
+            style={{ backgroundColor: "var(--admin-card)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
         </div>
         <div className="flex items-center gap-1 p-1 rounded-xl" style={{ backgroundColor: "var(--admin-card)" }}>
-          {(["all", "easy", "medium", "hard"] as const).map(d => (
+          {([0, 1, 2, 3] as const).map(d => (
             <button key={d} onClick={() => setFilterDiff(d)}
               className="px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all whitespace-nowrap"
               style={{
-                backgroundColor: filterDiff === d ? (d === "all" ? "rgba(232,200,74,0.15)" : DIFF_COLORS[d as keyof typeof DIFF_COLORS]?.bg || "rgba(232,200,74,0.15)") : "transparent",
-                color: filterDiff === d ? (d === "all" ? "app-accent-primary" : DIFF_COLORS[d as keyof typeof DIFF_COLORS]?.text || "app-accent-primary") : "var(--admin-text-muted)",
+                backgroundColor: filterDiff === d ? (DIFF_COLORS[d]?.bg || "rgba(232,200,74,0.15)") : "transparent",
+                color: filterDiff === d ? (DIFF_COLORS[d]?.text || "#e8c84a") : "var(--admin-text-muted)",
               }}>
-              {d === "all" ? "Tất cả" : DIFF_COLORS[d as keyof typeof DIFF_COLORS]?.label}
+              {d === 0 ? "Tất cả" : DIFF_COLORS[d]?.label}
             </button>
           ))}
         </div>
@@ -368,61 +295,85 @@ export default function AdminHanjaPage() {
       <div className="rounded-2xl border overflow-hidden" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
         <div className="flex items-center justify-between px-5 py-3 border-b" style={{ borderColor: "var(--admin-border)" }}>
           <p className="text-sm font-semibold" style={{ color: "var(--admin-text)" }}>
-            {filtered.length} từ {search || filterDiff !== "all" ? `(lọc từ ${entries.length})` : ""}
+            {loading ? "Đang tải..." : `${total} từ${search || filterDiff > 0 ? " (đang lọc)" : ""}`}
           </p>
+          <div className="flex items-center gap-2 text-xs" style={{ color: "var(--admin-text-muted)" }}>
+            <button disabled={page === 0} onClick={() => setPage(p => Math.max(0, p-1))}
+              className="px-2 py-1 rounded cursor-pointer disabled:opacity-30">◀</button>
+            <span>Trang {page + 1} / {Math.max(1, Math.ceil(total / PAGE_SIZE))}</span>
+            <button disabled={(page + 1) * PAGE_SIZE >= total} onClick={() => setPage(p => p+1)}
+              className="px-2 py-1 rounded cursor-pointer disabled:opacity-30">▶</button>
+          </div>
         </div>
 
-        {filtered.length === 0 ? (
+        {loading ? (
+          <div className="flex items-center justify-center py-16">
+            <i className="ri-loader-4-line animate-spin text-2xl" style={{ color: "var(--admin-text-faint)" }}></i>
+          </div>
+        ) : entries.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
             <i className="ri-character-recognition-line text-4xl mb-3" style={{ color: "var(--admin-text-faint)" }}></i>
-            <p className="text-sm mb-1" style={{ color: "var(--admin-text-muted)" }}>
-              {entries.length === 0 ? "Chưa có từ nào" : "Không tìm thấy kết quả"}
-            </p>
-            {entries.length === 0 && (
-              <div className="flex gap-3 mt-4">
-                <button onClick={() => fileRef.current?.click()}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm cursor-pointer whitespace-nowrap"
-                  style={{ backgroundColor: "rgba(74,222,128,0.12)", color: "#4ade80", border: "1px solid rgba(74,222,128,0.2)" }}>
-                  <i className="ri-upload-cloud-2-line"></i>Import CSV
-                </button>
-                <button onClick={() => setEditingEntry({})}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm cursor-pointer whitespace-nowrap bg-app-accent-primary text-app-bg font-bold">
-                  <i className="ri-add-line"></i>Thêm từ đầu tiên
-                </button>
-              </div>
+            <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>{search ? "Không tìm thấy kết quả" : "Chưa có từ nào"}</p>
+            {!search && (
+              <button onClick={() => setEditingEntry({})}
+                className="mt-4 flex items-center gap-2 px-4 py-2 rounded-xl text-sm cursor-pointer bg-app-accent-primary text-app-bg font-bold">
+                <i className="ri-add-line"></i>Thêm từ đầu tiên
+              </button>
             )}
           </div>
         ) : (
           <div className="divide-y" style={{ borderColor: "var(--admin-border)" }}>
-            {filtered.slice(0, 100).map((entry, idx) => {
-              const realIdx = entries.indexOf(entry);
-              const diff = DIFF_COLORS[entry.difficulty];
+            {entries.map((entry) => {
+              const diff = DIFF_COLORS[entry.difficulty] || DIFF_COLORS[2];
+              const isGenAudio = audioLoading === entry.id;
               return (
-                <div key={idx} className="flex items-center gap-4 px-5 py-3 hover:bg-white/2 transition-colors">
-                  <div className="w-8 text-center flex-shrink-0">
-                    <span className="text-xs" style={{ color: "var(--admin-text-faint)" }}>{realIdx + 1}</span>
-                  </div>
-                  <div className="w-24 flex-shrink-0">
+                <div key={entry.id} className="flex items-center gap-3 px-5 py-3 hover:bg-white/2 transition-colors">
+                  <div className="w-28 flex-shrink-0">
                     <p className="text-base font-bold" style={{ color: "var(--admin-text)" }}>{entry.korean}</p>
                     {entry.hanja && <p className="text-xs" style={{ color: "var(--admin-text-faint)" }}>{entry.hanja}</p>}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm" style={{ color: "var(--admin-text)" }}>{entry.vietnamese}</p>
+                    <p className="text-sm truncate" style={{ color: "var(--admin-text)" }}>{entry.vietnamese}</p>
                     {entry.pronunciation && <p className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>[{entry.pronunciation}]</p>}
                   </div>
-                  <div className="w-20 flex-shrink-0">
-                    {entry.category && <p className="text-[10px] truncate" style={{ color: "var(--admin-text-muted)" }}>{entry.category}</p>}
-                  </div>
-                  <div className="w-14 flex-shrink-0">
+                  <div className="w-16 flex-shrink-0">
                     <span className="text-[9px] px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: diff.bg, color: diff.text }}>{diff.label}</span>
                   </div>
+                  {/* Audio status + generate button */}
+                  <div className="w-24 flex-shrink-0 flex items-center gap-1.5">
+                    {entry.audio_url ? (
+                      <>
+                        <audio src={entry.audio_url} className="hidden" id={`aud-${entry.id}`} />
+                        <button onClick={() => (document.getElementById(`aud-${entry.id}`) as HTMLAudioElement)?.play()}
+                          className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer"
+                          style={{ backgroundColor: "rgba(96,165,250,0.15)", color: "#60a5fa" }}
+                          title="Nghe thử">
+                          <i className="ri-play-fill text-xs"></i>
+                        </button>
+                        <button onClick={() => handleGenerateAudio(entry)} disabled={isGenAudio}
+                          className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer"
+                          style={{ backgroundColor: "rgba(96,165,250,0.1)", color: "#60a5fa" }}
+                          title="Tạo lại">
+                          <i className={`text-xs ${isGenAudio ? "ri-loader-4-line animate-spin" : "ri-refresh-line"}`}></i>
+                        </button>
+                      </>
+                    ) : (
+                      <button onClick={() => handleGenerateAudio(entry)} disabled={isGenAudio}
+                        className="flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-bold cursor-pointer disabled:opacity-50 transition-all"
+                        style={{ backgroundColor: "rgba(96,165,250,0.12)", color: "#60a5fa", border: "1px solid rgba(96,165,250,0.2)" }}
+                        title="Tự động tạo âm thanh qua OpenAI TTS">
+                        <i className={`${isGenAudio ? "ri-loader-4-line animate-spin" : "ri-volume-up-line"}`}></i>
+                        {isGenAudio ? "Đang tạo..." : "Tạo audio"}
+                      </button>
+                    )}
+                  </div>
                   <div className="flex items-center gap-1.5 flex-shrink-0">
-                    <button onClick={() => setEditingEntry({ ...entry, id: String(realIdx) })}
+                    <button onClick={() => setEditingEntry(entry)}
                       className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer transition-colors"
                       style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>
                       <i className="ri-edit-line text-xs"></i>
                     </button>
-                    <button onClick={() => setDeleteConfirm(realIdx)}
+                    <button onClick={() => setDeleteTarget(entry)}
                       className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer transition-colors hover:bg-rose-500/10 hover:text-rose-400"
                       style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)" }}>
                       <i className="ri-delete-bin-line text-xs"></i>
@@ -431,11 +382,6 @@ export default function AdminHanjaPage() {
                 </div>
               );
             })}
-            {filtered.length > 100 && (
-              <div className="px-5 py-3 text-center text-xs" style={{ color: "var(--admin-text-faint)" }}>
-                Hiển thị 100/{filtered.length} từ. Dùng tìm kiếm để lọc.
-              </div>
-            )}
           </div>
         )}
       </div>
@@ -444,20 +390,20 @@ export default function AdminHanjaPage() {
         <EntryEditor entry={editingEntry} onSave={handleSaveEntry} onCancel={() => setEditingEntry(null)} />
       )}
 
-      {deleteConfirm !== null && (
+      {deleteTarget && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
           <div className="rounded-2xl border p-6 w-full max-w-sm" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border2)" }}>
             <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-rose-500/12 mx-auto mb-4">
               <i className="ri-delete-bin-line text-rose-400 text-xl"></i>
             </div>
             <p className="text-center font-bold text-sm mb-1" style={{ color: "var(--admin-text)" }}>
-              Xóa từ &quot;{entries[deleteConfirm]?.korean}&quot;?
+              Xóa từ &quot;{deleteTarget.korean}&quot;?
             </p>
             <p className="text-center text-xs mb-5" style={{ color: "var(--admin-text-muted)" }}>Hành động này không thể hoàn tác</p>
             <div className="flex gap-3">
-              <button onClick={() => setDeleteConfirm(null)} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap"
+              <button onClick={() => setDeleteTarget(null)} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap"
                 style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>Hủy</button>
-              <button onClick={() => handleDelete(deleteConfirm)} className="flex-1 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 text-white font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">Xóa</button>
+              <button onClick={handleDelete} className="flex-1 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 text-white font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">Xóa</button>
             </div>
           </div>
         </div>
@@ -465,4 +411,3 @@ export default function AdminHanjaPage() {
     </AdminLayout>
   );
 }
-

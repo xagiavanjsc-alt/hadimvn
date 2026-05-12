@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { HANJA_DATA } from "@/mocks/hanjaData";
+import { useHanjaData } from "@/contexts/HanjaDataContext";
 
 const SR_KEY = "hanja_sr_data";
 const STREAK_KEY = "hanja_streak";
@@ -45,6 +45,7 @@ function getDayLabel(dateStr: string): string {
 }
 
 export default function PersonalRankingTab() {
+  const HANJA_DATA = useHanjaData();
   const [period, setPeriod] = useState<"7" | "30" | "all">("30");
 
   const srData = useMemo<Record<string, SRCard>>(() => {

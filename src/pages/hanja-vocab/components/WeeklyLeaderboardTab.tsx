@@ -1,5 +1,5 @@
 ﻿import { useState, useMemo, useEffect } from "react";
-import { HANJA_DATA } from "@/mocks/hanjaData";
+import { useHanjaData } from "@/contexts/HanjaDataContext";
 
 interface LeaderboardEntry {
   id: string;
@@ -58,7 +58,7 @@ function loadMyProgress(): WeeklyProgress {
   }
 }
 
-function computeMyProgress(): WeeklyProgress {
+function computeMyProgress(hanjaTotal: number): WeeklyProgress {
   try {
     const srData: Record<string, { interval: number; totalReviews: number }> =
       JSON.parse(localStorage.getItem("hanja_sr_data") || "{}");
@@ -68,7 +68,7 @@ function computeMyProgress(): WeeklyProgress {
     const totalXp = parseInt(localStorage.getItem("kts_total_xp") || "0", 10);
     return {
       wordsLearned,
-      quizScore: Math.min(100, Math.round((wordsLearned / Math.max(1, HANJA_DATA.length)) * 100 * 10)),
+      quizScore: Math.min(100, Math.round((wordsLearned / Math.max(1, hanjaTotal)) * 100 * 10)),
       streak,
       xp: totalXp,
       lastUpdated: new Date().toISOString(),
@@ -81,6 +81,7 @@ function computeMyProgress(): WeeklyProgress {
 type SortKey = "xp" | "wordsLearned" | "quizScore" | "streak";
 
 export default function WeeklyLeaderboardTab() {
+  const hanjaDB = useHanjaData();
   const [sortBy, setSortBy] = useState<SortKey>("xp");
   const [myProgress, setMyProgress] = useState<WeeklyProgress>(loadMyProgress);
   const [showShareModal, setShowShareModal] = useState(false);
@@ -90,7 +91,7 @@ export default function WeeklyLeaderboardTab() {
 
   // Refresh my progress
   useEffect(() => {
-    const fresh = computeMyProgress();
+    const fresh = computeMyProgress(hanjaDB.length);
     setMyProgress(fresh);
     localStorage.setItem(MY_PROGRESS_KEY, JSON.stringify(fresh));
   }, []);

@@ -1,5 +1,6 @@
 import { useState, useCallback, useMemo, useEffect } from "react";
-import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
+import { HanjaEntry } from "@/mocks/hanjaData";
+import { useHanjaData } from "@/contexts/HanjaDataContext";
 
 const SR_KEY = "hanja_sr_data";
 
@@ -73,6 +74,7 @@ export default function WordMatchTab() {
     return () => clearInterval(interval);
   }, [gameState, startTime]);
 
+  const HANJA_DATA = useHanjaData();
   const pool = useMemo(() => {
     let data = HANJA_DATA;
     if (selectedInitial) data = data.filter(d => getInitial(d.korean[0]) === selectedInitial);

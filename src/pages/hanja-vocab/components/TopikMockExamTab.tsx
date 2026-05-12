@@ -1,5 +1,6 @@
 ﻿import { useState, useMemo, useEffect, useRef, useCallback } from "react";
-import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
+import { HanjaEntry } from "@/mocks/hanjaData";
+import { useHanjaData } from "@/contexts/HanjaDataContext";
 
 const EXAM_DURATION = 30 * 60; // 30 minutes in seconds
 const TOTAL_QUESTIONS = 30;
@@ -104,10 +105,11 @@ export default function TopikMockExamTab() {
     return initials[idx] || char[0];
   }
 
+  const HANJA_DATA = useHanjaData();
   const pool = useMemo(() => {
     if (filterGroup === "all") return HANJA_DATA;
     return HANJA_DATA.filter(d => getInitial(d.korean[0]) === filterGroup);
-  }, [filterGroup]);
+  }, [filterGroup, HANJA_DATA]);
 
   const startExam = useCallback(() => {
     const qs = buildExamQuestions(pool);

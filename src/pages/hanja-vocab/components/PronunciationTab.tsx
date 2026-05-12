@@ -1,5 +1,6 @@
 ﻿import { useState, useMemo, useRef, useEffect, useCallback } from "react";
-import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
+import { HanjaEntry } from "@/mocks/hanjaData";
+import { useHanjaData } from "@/contexts/HanjaDataContext";
 
 const XP_KEY = "kts_total_xp";
 const PRON_HISTORY_KEY = "hanja_pronunciation_history";
@@ -115,6 +116,7 @@ function ScoreRing({ score }: { score: number }) {
 }
 
 export default function PronunciationTab() {
+  const HANJA_DATA = useHanjaData();
   const [selectedInitial, setSelectedInitial] = useState<string | null>(null);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [recordState, setRecordState] = useState<RecordingState>("idle");

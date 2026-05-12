@@ -1,5 +1,6 @@
 ﻿import { useState, useMemo } from "react";
-import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
+import { HanjaEntry } from "@/mocks/hanjaData";
+import { useHanjaData } from "@/contexts/HanjaDataContext";
 import { useVipYearGuard, getExportBtnLabel, getExportBtnIcon, addCsvWatermark } from "@/hooks/useVipYearGuard";
 import VipUpgradeModal from "@/components/feature/VipUpgradeModal";
 
@@ -127,6 +128,7 @@ function getInitial(korean: string): string {
 }
 
 export default function FlashcardExportTab() {
+  const HANJA_DATA = useHanjaData();
   const { isVipYear, isVip, isVipMonth, isLoggedIn, checkAndRun, modalOpen, modalReason, closeModal } = useVipYearGuard();
   const [filterMode, setFilterMode] = useState<FilterMode>("all");
   const [selectedAlpha, setSelectedAlpha] = useState<string | null>(null);

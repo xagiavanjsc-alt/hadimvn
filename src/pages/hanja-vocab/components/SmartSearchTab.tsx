@@ -1,5 +1,6 @@
 ﻿import { useState, useMemo, useRef, useEffect } from "react";
-import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
+import { HanjaEntry } from "@/mocks/hanjaData";
+import { useHanjaData } from "@/contexts/HanjaDataContext";
 
 const SR_KEY = "hanja_sr_data";
 
@@ -40,9 +41,9 @@ function extractViRoots(viet: string): string[] {
 }
 
 // Build suggestion list from all Vietnamese meanings
-function buildSuggestions(): string[] {
+function buildSuggestions(data: HanjaEntry[]): string[] {
   const set = new Set<string>();
-  HANJA_DATA.forEach(e => {
+  data.forEach(e => {
     extractViRoots(e.vietnamese).forEach(w => set.add(w));
   });
   return Array.from(set).sort();
@@ -120,6 +121,7 @@ function MasteryBadge({ level }: { level: "new" | "learning" | "mastered" }) {
 }
 
 export default function SmartSearchTab() {
+  const HANJA_DATA = useHanjaData();
   const [query, setQuery] = useState("");
   const [submitted, setSubmitted] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -129,7 +131,7 @@ export default function SmartSearchTab() {
     try { return JSON.parse(localStorage.getItem(SR_KEY) || "{}"); } catch { return {}; }
   }, []);
 
-  const allSuggestions = useMemo(() => buildSuggestions(), []);
+  const allSuggestions = useMemo(() => buildSuggestions(HANJA_DATA), [HANJA_DATA]);
 
   const filteredSuggestions = useMemo(() => {
     if (!query.trim() || query.length < 2) return [];
@@ -142,7 +144,7 @@ export default function SmartSearchTab() {
   const results = useMemo(() => {
     if (!submitted.trim()) return [];
     return smartSearch(submitted, HANJA_DATA);
-  }, [submitted]);
+  }, [submitted, HANJA_DATA]);
 
   const handleSearch = (q: string) => {
     setQuery(q);

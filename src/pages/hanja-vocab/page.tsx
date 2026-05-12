@@ -1,7 +1,8 @@
 ﻿import { useState, useMemo, useCallback, useEffect, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
-import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
+import { HanjaEntry } from "@/mocks/hanjaData";
+import { HanjaDataProvider, useHanjaData } from "@/contexts/HanjaDataContext";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useVipYearGuard, getExportBtnLabel, getExportBtnIcon, addCsvWatermark } from "@/hooks/useVipYearGuard";
@@ -343,6 +344,7 @@ function FlashCard({ entry, isFav, onToggleFav }: { entry: HanjaEntry; isFav: bo
 
 // ─── Flashcard Tab ────────────────────────────────────────────────────────────
 function FlashcardTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: string) => void }) {
+  const HANJA_DATA = useHanjaData();
   const [selectedInitial, setSelectedInitial] = useState<string | null>(null);
   const [onlyFavs, setOnlyFavs] = useState(false);
   const [idx, setIdx] = useState(0);
@@ -354,7 +356,7 @@ function FlashcardTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (
     if (selectedInitial) data = data.filter(d => getInitial(d.korean[0]) === selectedInitial);
     if (onlyFavs) data = data.filter(d => favs.has(d.korean));
     return data;
-  }, [selectedInitial, onlyFavs, favs]);
+  }, [selectedInitial, onlyFavs, favs, HANJA_DATA]);
 
   useEffect(() => { setIdx(0); }, [pool]);
 
@@ -428,6 +430,7 @@ function FlashcardTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (
 
 // ─── Spaced Repetition Tab ────────────────────────────────────────────────────
 function SRTab({ favs }: { favs: Set<string> }) {
+  const HANJA_DATA = useHanjaData();
   const { srData, review, getDueCards, getStats, resetCard } = useSR();
   const [mode, setMode] = useState<"stats" | "session">("stats");
   const [useOnlyFavs, setUseOnlyFavs] = useState(false);
@@ -440,7 +443,7 @@ function SRTab({ favs }: { favs: Set<string> }) {
   const pool = useMemo(() => {
     if (useOnlyFavs) return HANJA_DATA.filter(d => favs.has(d.korean));
     return HANJA_DATA;
-  }, [useOnlyFavs, favs]);
+  }, [useOnlyFavs, favs, HANJA_DATA]);
 
   const stats = useMemo(() => getStats(pool), [getStats, pool, srData]);
   const dueCards = useMemo(() => getDueCards(pool), [getDueCards, pool, srData]);
@@ -735,6 +738,7 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
     });
   }, []);
 
+  const HANJA_DATA = useHanjaData();
   const masteryStats = useMemo(() => {
     let newCount = 0, learningCount = 0, masteredCount = 0;
     HANJA_DATA.forEach(d => {
@@ -744,7 +748,7 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
       else masteredCount++;
     });
     return { new: newCount, learning: learningCount, mastered: masteredCount };
-  }, [srData]);
+  }, [srData, HANJA_DATA]);
 
   const filtered = useMemo(() => {
     let data = HANJA_DATA;
@@ -1061,6 +1065,7 @@ function FavoritesTab({ favs, onToggleFav, onStartFlashcard, notes, onSaveNote }
   onSaveNote: (korean: string, text: string) => void;
 }) {
   const { isVipYear, isVip, isVipMonth, isLoggedIn, checkAndRun, modalOpen, modalReason, closeModal } = useVipYearGuard();
+  const HANJA_DATA = useHanjaData();
   const [favSearch, setFavSearch] = useState("");
   const favList = useMemo(() => {
     const all = HANJA_DATA.filter(d => favs.has(d.korean));
@@ -1223,6 +1228,7 @@ function QuizTab({ favs }: { favs: Set<string> }) {
   const [finished, setFinished] = useState(false);
   const [started, setStarted] = useState(false);
   const [selectedInitial, setSelectedInitial] = useState<string | null>(null);
+  const HANJA_DATA = useHanjaData();
   const [onlyFavs, setOnlyFavs] = useState(false);
 
   const filteredPool = useMemo(() => {
@@ -1455,6 +1461,7 @@ function RootsTab() {
   const [selectedChar, setSelectedChar] = useState<string | null>(null);
   const [search, setSearch] = useState("");
 
+  const HANJA_DATA = useHanjaData();
   const charMap = useMemo(() => {
     const map = new Map<string, HanjaEntry[]>();
     HANJA_DATA.forEach(entry => {
@@ -1464,7 +1471,7 @@ function RootsTab() {
       });
     });
     return map;
-  }, []);
+  }, [HANJA_DATA]);
 
   const allChars = useMemo(() =>
     Array.from(charMap.entries())
@@ -1569,8 +1576,9 @@ function RootsTab() {
 }
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
-export default function HanjaVocabPage() {
+function HanjaVocabPageInner() {
   const navigate = useNavigate();
+  const hanjaDB = useHanjaData();
   const [activeTab, setActiveTab] = useState<TabType>("vocab");
   const { favs, toggle: toggleFav } = useFavorites();
   const { notes, saveNote } = useNotes();
@@ -1629,7 +1637,7 @@ export default function HanjaVocabPage() {
             </div>
             <div>
               <h1 className="text-xl font-bold text-white">Từ vựng Hán-Hàn</h1>
-              <p className="text-sm text-white/50">{HANJA_DATA.length} từ · {favs.size} yêu thích</p>
+              <p className="text-sm text-white/50">{hanjaDB.length} từ · {favs.size} yêu thích</p>
             </div>
           </div>
         </div>
@@ -1696,6 +1704,14 @@ export default function HanjaVocabPage() {
         </Suspense>
       </div>
     </DashboardLayout>
+  );
+}
+
+export default function HanjaVocabPage() {
+  return (
+    <HanjaDataProvider>
+      <HanjaVocabPageInner />
+    </HanjaDataProvider>
   );
 }
 

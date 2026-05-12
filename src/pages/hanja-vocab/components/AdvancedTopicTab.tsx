@@ -1,5 +1,4 @@
 ﻿import { useState, useMemo } from "react";
-import { HANJA_DATA } from "@/mocks/hanjaData";
 
 interface TopicWord {
   korean: string;

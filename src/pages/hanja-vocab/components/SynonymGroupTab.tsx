@@ -1,5 +1,6 @@
 ﻿import { useState, useMemo, useEffect } from "react";
-import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
+import { HanjaEntry } from "@/mocks/hanjaData";
+import { useHanjaData } from "@/contexts/HanjaDataContext";
 
 const SR_KEY = "hanja_sr_data";
 
@@ -44,10 +45,10 @@ interface SynonymGroup {
 }
 
 // Build synonym groups: group words that share the same Vietnamese root word
-function buildSynonymGroups(minSize: number = 2): SynonymGroup[] {
+function buildSynonymGroups(data: HanjaEntry[], minSize: number = 2): SynonymGroup[] {
   const map = new Map<string, { label: string; words: HanjaEntry[] }>();
 
-  HANJA_DATA.forEach(entry => {
+  data.forEach(entry => {
     const roots = extractRoots(entry.vietnamese);
     roots.forEach(root => {
       const key = normalize(root);
@@ -70,9 +71,9 @@ function buildSynonymGroups(minSize: number = 2): SynonymGroup[] {
 }
 
 // Homophones: same Korean pronunciation (same korean string, different hanja/meaning)
-function buildHomophoneGroups(): { korean: string; words: HanjaEntry[] }[] {
+function buildHomophoneGroups(data: HanjaEntry[]): { korean: string; words: HanjaEntry[] }[] {
   const map = new Map<string, HanjaEntry[]>();
-  HANJA_DATA.forEach(entry => {
+  data.forEach(entry => {
     if (!map.has(entry.korean)) map.set(entry.korean, []);
     map.get(entry.korean)!.push(entry);
   });
@@ -254,6 +255,7 @@ function MatchQuiz({ groups, onClose }: { groups: SynonymGroup[]; onClose: () =>
 }
 
 export default function SynonymGroupTab() {
+  const HANJA_DATA = useHanjaData();
   const [mode, setMode] = useState<Mode>("synonym");
   const [search, setSearch] = useState("");
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
@@ -268,8 +270,8 @@ export default function SynonymGroupTab() {
     try { return JSON.parse(localStorage.getItem(SR_KEY) || "{}"); } catch { return {}; }
   }, []);
 
-  const synonymGroups = useMemo(() => buildSynonymGroups(2), []);
-  const homophoneGroups = useMemo(() => buildHomophoneGroups(), []);
+  const synonymGroups = useMemo(() => buildSynonymGroups(HANJA_DATA, 2), [HANJA_DATA]);
+  const homophoneGroups = useMemo(() => buildHomophoneGroups(HANJA_DATA), [HANJA_DATA]);
 
   const filteredSynonymGroups = useMemo(() => {
     if (!search.trim()) return synonymGroups.slice(0, 60);

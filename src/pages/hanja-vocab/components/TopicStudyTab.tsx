@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
-import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
+import { HanjaEntry } from "@/mocks/hanjaData";
+import { useHanjaData } from "@/contexts/HanjaDataContext";
 
 const SR_KEY = "hanja_sr_data";
 
@@ -104,8 +105,8 @@ const TOPICS: Topic[] = [
   },
 ];
 
-function getTopicWords(topic: Topic): HanjaEntry[] {
-  return HANJA_DATA.filter(entry =>
+function getTopicWords(data: HanjaEntry[], topic: Topic): HanjaEntry[] {
+  return data.filter(entry =>
     topic.keywords.some(kw =>
       entry.korean.includes(kw) ||
       entry.vietnamese.toLowerCase().includes(kw.toLowerCase())
@@ -132,6 +133,7 @@ function MasteryBadge({ level }: { level: "new" | "learning" | "mastered" }) {
 }
 
 export default function TopicStudyTab() {
+  const HANJA_DATA = useHanjaData();
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
   const [search, setSearch] = useState("");
   const [quizMode, setQuizMode] = useState(false);
@@ -146,8 +148,8 @@ export default function TopicStudyTab() {
 
   const topicWords = useMemo(() => {
     if (!selectedTopic) return [];
-    return getTopicWords(selectedTopic);
-  }, [selectedTopic]);
+    return getTopicWords(HANJA_DATA, selectedTopic);
+  }, [selectedTopic, HANJA_DATA]);
 
   const filteredWords = useMemo(() => {
     if (!search.trim()) return topicWords;
@@ -159,11 +161,11 @@ export default function TopicStudyTab() {
 
   const topicStats = useMemo(() => {
     return TOPICS.map(t => {
-      const words = getTopicWords(t);
+      const words = getTopicWords(HANJA_DATA, t);
       const mastered = words.filter(w => getMasteryLevel(w.korean, srData) === "mastered").length;
       return { ...t, total: words.length, mastered, pct: words.length > 0 ? Math.round((mastered / words.length) * 100) : 0 };
     });
-  }, [srData]);
+  }, [srData, HANJA_DATA]);
 
   const startQuiz = () => {
     setQuizIdx(0);
@@ -364,7 +366,7 @@ export default function TopicStudyTab() {
 
             <div className="flex gap-2 text-xs">
               <span className="text-gray-400">{topic.total - topic.mastered - HANJA_DATA.filter(w => {
-                const inTopic = getTopicWords(topic).some(tw => tw.korean === w.korean);
+                const inTopic = getTopicWords(HANJA_DATA, topic).some(tw => tw.korean === w.korean);
                 return inTopic && getMasteryLevel(w.korean, srData) === "learning";
               }).length} mới</span>
               <span className="text-green-500">{topic.mastered} thuộc</span>

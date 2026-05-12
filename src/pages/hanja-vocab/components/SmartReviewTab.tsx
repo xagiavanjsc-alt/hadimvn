@@ -1,5 +1,6 @@
 ﻿import { useState, useMemo, useCallback } from "react";
-import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
+import { HanjaEntry } from "@/mocks/hanjaData";
+import { useHanjaData } from "@/contexts/HanjaDataContext";
 
 const SR_KEY = "hanja_sr_data";
 const QUIZ_WRONG_KEY = "hanja_quiz_wrong";
@@ -52,6 +53,7 @@ interface SessionCard {
 }
 
 export default function SmartReviewTab() {
+  const HANJA_DATA = useHanjaData();
   const [mode, setMode] = useState<ReviewMode>("overview");
   const [sessionCards, setSessionCards] = useState<SessionCard[]>([]);
   const [idx, setIdx] = useState(0);
