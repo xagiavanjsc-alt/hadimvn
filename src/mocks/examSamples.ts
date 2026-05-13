@@ -86,6 +86,171 @@ export const EPS_EXAMPLES: ExamQuestion[] = [
     ],
     correctIndex: 0,
     explanation: "저는 학교에 갑니다 là câu hiện tại lịch sự đúng nhất."
+  },
+  {
+    id: "eps_11",
+    question: "다음 중 '작다'의 의미를 고르십시오.",
+    options: ["lớn", "nhỏ", "dài", "cao"],
+    correctIndex: 1,
+    explanation: "작다 có nghĩa là nhỏ."
+  },
+  {
+    id: "eps_12",
+    question: "다음 문장의 빈칸에 알맞은 단어를 고르십시오.\n\n친구가 _____을/를 좋아합니다.",
+    options: ["음악", "음악을", "음악에", "음악이"],
+    correctIndex: 1,
+    explanation: "음악을 (nhạc) với object marker -을/를 là đúng."
+  },
+  {
+    id: "eps_13",
+    question: "다음 중 '오다'의 의미를 고르십시오.",
+    options: ["đi", "đến", "rời", "trở về"],
+    correctIndex: 1,
+    explanation: "오다 có nghĩa là đến."
+  },
+  {
+    id: "eps_14",
+    question: "다음 문장을 한국어로 번역하십시오.\n\nBạn có khỏe không?",
+    options: [
+      "당신은 건강합니까?",
+      "건강하십니까?",
+      "안녕하십니까?",
+      "어떻습니까?"
+    ],
+    correctIndex: 1,
+    explanation: "건강하십니까 là câu hỏi đúng nhất."
+  },
+  {
+    id: "eps_15",
+    question: "다음 중 '많다'의 의미를 고르십시오.",
+    options: ["ít", "nhiều", "lớn", "nhỏ"],
+    correctIndex: 1,
+    explanation: "많다 có nghĩa là nhiều."
+  },
+  {
+    id: "eps_16",
+    question: "다음 문장의 빈칸에 알맞은 단어를 고르십시오.\n\n교실에 학생이 _____.",
+    options: ["많다", "많습니다", "많아요", "많이"],
+    correctIndex: 1,
+    explanation: "많습니다 là dạng lịch sự hiện tại."
+  },
+  {
+    id: "eps_17",
+    question: "다음 중 '적다'의 의미를 고르십시오.",
+    options: ["nhiều", "ít", "lớn", "nhỏ"],
+    correctIndex: 1,
+    explanation: "적다 có nghĩa là ít."
+  },
+  {
+    id: "eps_18",
+    question: "다음 문장을 한국어로 번역하십시오.\n\nTôi uống nước.",
+    options: [
+      "저는 물을 마십니다.",
+      "저는 물을 마십니다.",
+      "저는 물을 마십니다.",
+      "저는 물을 마십니다."
+    ],
+    correctIndex: 0,
+    explanation: "저는 물을 마십니다 là câu đúng."
+  },
+  {
+    id: "eps_19",
+    question: "다음 중 '마시다'의 의미를 고르십시오.",
+    options: ["ăn", "uống", "ngủ", "đi"],
+    correctIndex: 1,
+    explanation: "마시다 có nghĩa là uống."
+  },
+  {
+    id: "eps_20",
+    question: "다음 문장의 빈칸에 알맞은 단어를 고르십시오.\n\n저는 커피를 _____.",
+    options: ["마시다", "마십니다", "마셔요", "마신다"],
+    correctIndex: 1,
+    explanation: "마십니다 là dạng lịch sự hiện tại."
+  },
+  {
+    id: "eps_21",
+    question: "다음 중 '자다'의 의미를 고르십시오.",
+    options: ["đi", "ngủ", "đến", "rời"],
+    correctIndex: 1,
+    explanation: "자다 có nghĩa là ngủ."
+  },
+  {
+    id: "eps_22",
+    question: "다음 문장을 한국어로 번역하십시오.\n\nTôi ngủ 8 tiếng.",
+    options: [
+      "저는 여덟 시간을 잡니다.",
+      "저는 여덟 시간을 잡니다.",
+      "저는 여덟 시간을 잡니다.",
+      "저는 여덟 시간을 잡니다."
+    ],
+    correctIndex: 0,
+    explanation: "저는 여덟 시간을 잡니다 là câu đúng."
+  },
+  {
+    id: "eps_23",
+    question: "다음 중 '일어나다'의 의미를 고르십시오.",
+    options: ["ngủ", "dậy", "đi", "đến"],
+    correctIndex: 1,
+    explanation: "일어나다 có nghĩa là dậy."
+  },
+  {
+    id: "eps_24",
+    question: "다음 문장의 빈칸에 알맞은 단어를 고르십시오.\n\n저는 아침 _____에 일어납니다.",
+    options: ["6시", "6시에", "6시를", "6시가"],
+    correctIndex: 1,
+    explanation: "6시 với time marker -에 là đúng."
+  },
+  {
+    id: "eps_25",
+    question: "다음 중 '씻다'의 의미를 고르십시오.",
+    options: ["ăn", "uống", "tắm", "ngủ"],
+    correctIndex: 2,
+    explanation: "씻다 có nghĩa là tắm."
+  },
+  {
+    id: "eps_26",
+    question: "다음 문장을 한국어로 번역하십시오.\n\nTôi tắm rửa.",
+    options: [
+      "저는 씻습니다.",
+      "저는 씻습니다.",
+      "저는 씻습니다.",
+      "저는 씻습니다."
+    ],
+    correctIndex: 0,
+    explanation: "저는 씻습니다 là câu đúng."
+  },
+  {
+    id: "eps_27",
+    question: "다음 중 '입다'의 의미를 고르십시오.",
+    options: ["cởi", "mặc", "đi", "đến"],
+    correctIndex: 1,
+    explanation: "입다 có nghĩa là mặc."
+  },
+  {
+    id: "eps_28",
+    question: "다음 문장의 빈칸에 알맞은 단어를 고르십시오.\n\n저는 옷을 _____.",
+    options: ["입다", "입습니다", "입어요", "입은"],
+    correctIndex: 1,
+    explanation: "입습니다 là dạng lịch sự hiện tại."
+  },
+  {
+    id: "eps_29",
+    question: "다음 중 '벗다'의 의미를 고르십시오.",
+    options: ["mặc", "cởi", "đi", "đến"],
+    correctIndex: 1,
+    explanation: "벗다 có nghĩa là cởi."
+  },
+  {
+    id: "eps_30",
+    question: "다음 문장을 한국어로 번역하십시오.\n\nTôi cởi quần áo.",
+    options: [
+      "저는 옷을 벗습니다.",
+      "저는 옷을 벗습니다.",
+      "저는 옷을 벗습니다.",
+      "저는 옷을 벗습니다."
+    ],
+    correctIndex: 0,
+    explanation: "저는 옷을 벗습니다 là câu đúng."
   }
 ];
 
@@ -168,23 +333,165 @@ export const SEOUL_EXAMPLES: ExamQuestion[] = [
 ];
 
 export const TOPIK_EXAMPLES: ExamQuestion[] = [
+  // Listening Questions (1-20)
   {
     id: "topik_1",
-    question: "다음을 읽고 물음에 답하십시오.\n\n가: 안녕하세요? 무엇을 도와드릴까요?\n나: 이 책을 주세요.\n\n나는 무엇을 원하는가?",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(남자: 여기가 학교입니다.)\n\n어디입니까?",
+    options: ["bệnh viện", "trường học", "cửa hàng", "nhà ga"],
+    correctIndex: 1,
+    explanation: "학교 (trường học) được nhắc trong câu nói."
+  },
+  {
+    id: "topik_2",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(여자: 사과를 먹습니다.)\n\n무엇을 먹습니까?",
+    options: ["táo", "cam", "chuối", "nho"],
+    correctIndex: 0,
+    explanation: "사과 (táo) được nhắc trong câu nói."
+  },
+  {
+    id: "topik_3",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(남자: 책을 읽습니다.)\n\n무엇을 합니까?",
+    options: ["viết", "đọc", "nghe", "nói"],
+    correctIndex: 1,
+    explanation: "책을 읽습니다 (đọc sách) được nhắc."
+  },
+  {
+    id: "topik_4",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(여자: 물을 마십니다.)\n\n무엇을 마십니까?",
+    options: ["cà phê", "trà", "nước", "sữa"],
+    correctIndex: 2,
+    explanation: "물 (nước) được nhắc trong câu nói."
+  },
+  {
+    id: "topik_5",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(남자: 버스를 탑니다.)\n\n무엇을 탑니까?",
+    options: ["tàu", "xe buýt", "xe taxi", "máy bay"],
+    correctIndex: 1,
+    explanation: "버스 (xe buýt) được nhắc trong câu nói."
+  },
+  {
+    id: "topik_6",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(여자: 우산을 씁니다.)\n\n날씨가 어떻습니까?",
+    options: ["nắng", "mưa", "gió", "tuyết"],
+    correctIndex: 1,
+    explanation: "우산 (ô) được dùng khi mưa."
+  },
+  {
+    id: "topik_7",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(남자: 커피를 마십니다.)\n\n무엇을 마십니까?",
+    options: ["nước", "trà", "cà phê", "sữa"],
+    correctIndex: 2,
+    explanation: "커피 (cà phê) được nhắc trong câu nói."
+  },
+  {
+    id: "topik_8",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(여자: 친구를 만납니다.)\n\n누구를 만납니까?",
+    options: ["thầy giáo", "bạn", "cha mẹ", "anh chị"],
+    correctIndex: 1,
+    explanation: "친구 (bạn) được nhắc trong câu nói."
+  },
+  {
+    id: "topik_9",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(남자: 빵을 삽니다.)\n\n무엇을 삽니까?",
+    options: ["quần áo", "sách", "bánh", "nước"],
+    correctIndex: 2,
+    explanation: "빵 (bánh) được nhắc trong câu nói."
+  },
+  {
+    id: "topik_10",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(여자: 잡니다.)\n\n무엇을 합니까?",
+    options: ["đi", "ngủ", "uống", "ngủ"],
+    correctIndex: 3,
+    explanation: "잡니다 (ngủ) được nhắc trong câu nói."
+  },
+  {
+    id: "topik_11",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(남자: 전화를 받습니다.)\n\n무엇을 합니까?",
+    options: ["gửi email", "nhận điện thoại", "gửi tin nhắn", "gọi điện thoại"],
+    correctIndex: 1,
+    explanation: "전화를 받습니다 (nhận điện thoại) được nhắc."
+  },
+  {
+    id: "topik_12",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(여자: 운동을 합니다.)\n\n무엇을 합니까?",
+    options: ["ngủ", "ăn", "tập thể dục", "đi làm"],
+    correctIndex: 2,
+    explanation: "운동을 합니다 (tập thể dục) được nhắc."
+  },
+  {
+    id: "topik_13",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(남자: 병원에 갑니다.)\n\n어디에 갑니까?",
+    options: ["trường học", "bệnh viện", "cửa hàng", "nhà hàng"],
+    correctIndex: 1,
+    explanation: "병원 (bệnh viện) được nhắc trong câu nói."
+  },
+  {
+    id: "topik_14",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(여자: 쇼핑을 합니다.)\n\n무엇을 합니까?",
+    options: ["đi làm", "mua sắm", "đi học", "ngủ"],
+    correctIndex: 1,
+    explanation: "쇼핑을 합니다 (mua sắm) được nhắc."
+  },
+  {
+    id: "topik_15",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(남자: 택시를 탑니다.)\n\n무엇을 탑니까?",
+    options: ["xe buýt", "tàu", "xe taxi", "máy bay"],
+    correctIndex: 2,
+    explanation: "택시 (xe taxi) được nhắc trong câu nói."
+  },
+  {
+    id: "topik_16",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(여자: 노래를 부릅니다.)\n\n무엇을 합니까?",
+    options: ["nghe nhạc", "hát", "nhảy", "vẽ"],
+    correctIndex: 1,
+    explanation: "노래를 부릅니다 (hát) được nhắc."
+  },
+  {
+    id: "topik_17",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(남자: 요리를 합니다.)\n\n무엇을 합니까?",
+    options: ["ăn", "nấu ăn", "uống", "mua"],
+    correctIndex: 1,
+    explanation: "요리를 합니다 (nấu ăn) được nhắc."
+  },
+  {
+    id: "topik_18",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(여자: 사진을 찍습니다.)\n\n무엇을 합니까?",
+    options: ["vẽ", "chụp ảnh", "viết", "đọc"],
+    correctIndex: 1,
+    explanation: "사진을 찍습니다 (chụp ảnh) được nhắc."
+  },
+  {
+    id: "topik_19",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(남자: 이메일을 씁니다.)\n\n무엇을 합니까?",
+    options: ["gửi tin nhắn", "gọi điện thoại", "viết email", "đọc email"],
+    correctIndex: 2,
+    explanation: "이메일을 씁니다 (viết email) được nhắc."
+  },
+  {
+    id: "topik_20",
+    question: "[듣기] 다음을 듣고 알맞은 그림을 고르십시오.\n\n(여자: 영화를 봅니다.)\n\n무엇을 봅니까?",
+    options: ["TV", "sách", "truyện", "báo"],
+    correctIndex: 0,
+    explanation: "영화를 봅니다 (xem phim) thường xem trên TV."
+  },
+  // Reading Questions (21-40)
+  {
+    id: "topik_21",
+    question: "[읽기] 다음을 읽고 물음에 답하십시오.\n\n가: 안녕하세요? 무엇을 도와드릴까요?\n나: 이 책을 주세요.\n\n나는 무엇을 원하는가?",
     options: ["bánh", "nước", "sách", "bút"],
     correctIndex: 2,
     explanation: "책 (sách) là từ được nhắc trong câu '이 책을 주세요'."
   },
   {
-    id: "topik_2",
-    question: "다음을 읽고 물음에 답하십시오.\n\n가: 식당이 어디에 있습니까?\n나: 2층에 있습니다.\n\n식당은 어디에 있는가?",
+    id: "topik_22",
+    question: "[읽기] 다음을 읽고 물음에 답하십시오.\n\n가: 식당이 어디에 있습니까?\n나: 2층에 있습니다.\n\n식당은 어디에 있는가?",
     options: ["tầng 1", "tầng 2", "tầng 3", "tầng 4"],
     correctIndex: 1,
     explanation: "2층 (tầng 2) là địa điểm được nhắc trong câu."
   },
   {
-    id: "topik_3",
-    question: "다음 중 알맞은 표현을 고르십시오.\n\n친구가 아파서 병원에 갔습니다. 무엇이라고 말합니까?",
+    id: "topik_23",
+    question: "[읽기] 다음 중 알맞은 표현을 고르십시오.\n\n친구가 아파서 병원에 갔습니다. 무엇이라고 말합니까?",
     options: [
       "안녕하세요?",
       "맛있게 드세요.",
@@ -195,43 +502,43 @@ export const TOPIK_EXAMPLES: ExamQuestion[] = [
     explanation: "빨리 나으세요 (hãy mau khỏe) là lời chúc phù hợp khi ai đó bị ốm."
   },
   {
-    id: "topik_4",
-    question: "다음을 읽고 물음에 답하십시오.\n\n어제 친구와 영화를 봤습니다. 영화는 재미있었습니다.\n\n무엇을 했는가?",
+    id: "topik_24",
+    question: "[읽기] 다음을 읽고 물음에 답하십시오.\n\n어제 친구와 영화를 봤습니다. 영화는 재미있었습니다.\n\n무엇을 했는가?",
     options: ["đi học", "xem phim", "đi làm", "ngủ"],
     correctIndex: 1,
     explanation: "영화를 봤습니다 (đã xem phim) là hoạt động được nhắc."
   },
   {
-    id: "topik_5",
-    question: "다음 중 '만나다'의 의미를 고르십시오.",
+    id: "topik_25",
+    question: "[읽기] 다음 중 '만나다'의 의미를 고르십시오.",
     options: ["đi", "gặp", "đến", "rời"],
     correctIndex: 1,
     explanation: "만나다 có nghĩa là gặp."
   },
   {
-    id: "topik_6",
-    question: "다음 문장의 빈칸에 알맞은 단어를 고르십시오.\n\n내일 친구를 _____.",
+    id: "topik_26",
+    question: "[읽기] 다음 문장의 빈칸에 알맞은 단어를 고르십시오.\n\n내일 친구를 _____.",
     options: ["만나다", "만나", "만난다", "만나는"],
     correctIndex: 1,
     explanation: "만나 (gặp) là dạng cơ bản phù hợp cho câu tương lai."
   },
   {
-    id: "topik_7",
-    question: "다음을 읽고 물음에 답하십시오.\n\n가: 시간이 있습니까?\n나: 네, 있습니다.\n\n나는 시간이 있는가?",
+    id: "topik_27",
+    question: "[읽기] 다음을 읽고 물음에 답하십시오.\n\n가: 시간이 있습니까?\n나: 네, 있습니다.\n\n나는 시간이 있는가?",
     options: ["có", "không có", "không biết", "có thể"],
     correctIndex: 0,
     explanation: "네, 있습니다 (vâng, có) xác nhận có thời gian."
   },
   {
-    id: "topik_8",
-    question: "다음 중 '시간'의 의미를 고르십시오.",
+    id: "topik_28",
+    question: "[읽기] 다음 중 '시간'의 의미를 고르십시오.",
     options: ["tiền", "thời gian", "nơi chốn", "người"],
     correctIndex: 1,
     explanation: "시간 có nghĩa là thời gian."
   },
   {
-    id: "topik_9",
-    question: "다음 문장을 한국어로 번역하십시오.\n\nTôi sẽ đi gặp bạn.",
+    id: "topik_29",
+    question: "[읽기] 다음 문장을 한국어로 번역하십시오.\n\nTôi sẽ đi gặp bạn.",
     options: [
       "저는 친구를 만납니다.",
       "저는 친구를 만났습니다.",
@@ -242,10 +549,80 @@ export const TOPIK_EXAMPLES: ExamQuestion[] = [
     explanation: "저는 친구를 만날 거예요 là câu tương lai đúng nhất."
   },
   {
-    id: "topik_10",
-    question: "다음을 읽고 물음에 답하십시오.\n\n가: 날씨가 어떻습니까?\n나: 맑습니다.\n\n날씨는 어떤가?",
+    id: "topik_30",
+    question: "[읽기] 다음을 읽고 물음에 답하십시오.\n\n가: 날씨가 어떻습니까?\n나: 맑습니다.\n\n날씨는 어떤가?",
     options: ["mưa", "nắng đẹp", "gió", "tuyết"],
     correctIndex: 1,
     explanation: "맑습니다 (trời nắng đẹp) mô tả thời tiết."
+  },
+  {
+    id: "topik_31",
+    question: "[읽기] 다음을 읽고 물음에 답하십시오.\n\n저는 매일 학교에 갑니다. 학교는 집에서 가깝습니다.\n\n학교는 어떤 곳인가?",
+    options: ["xa", "gần", "lớn", "nhỏ"],
+    correctIndex: 1,
+    explanation: "가깝습니다 (gần) mô tả vị trí trường học."
+  },
+  {
+    id: "topik_32",
+    question: "[읽기] 다음을 읽고 물음에 답하십시오.\n\n오늘은 날씨가 좋습니다. 친구와 공원에 갑니다.\n\n어디에 갑니까?",
+    options: ["bệnh viện", "công viên", "trường học", "cửa hàng"],
+    correctIndex: 1,
+    explanation: "공원 (công viên) là địa điểm được nhắc."
+  },
+  {
+    id: "topik_33",
+    question: "[읽기] 다음을 읽고 물음에 답하십시오.\n\n저는 한국 음식을 좋아합니다. 김치와 불고기를 자주 먹습니다.\n\n무엇을 좋아합니까?",
+    options: ["món Nhật", "món Trung", "món Hàn", "món Việt"],
+    correctIndex: 2,
+    explanation: "한국 음식 (món Hàn) được nhắc trong câu."
+  },
+  {
+    id: "topik_34",
+    question: "[읽기] 다음을 읽고 물음에 답하십시오.\n\n가: 취미가 무엇입니까?\n나: 독서입니다.\n\n취미는 무엇인가?",
+    options: ["nghe nhạc", "đọc sách", "xem phim", "chơi game"],
+    correctIndex: 1,
+    explanation: "독서 (đọc sách) là sở thích được nhắc."
+  },
+  {
+    id: "topik_35",
+    question: "[읽기] 다음을 읽고 물음에 답하십시오.\n\n우리 가족은 4명입니다. 아버지, 어머니, 저, 그리고 동생입니다.\n\n가족은 몇 명인가?",
+    options: ["2명", "3명", "4명", "5명"],
+    correctIndex: 2,
+    explanation: "가족은 4명 (gia đình có 4 người) được nhắc."
+  },
+  {
+    id: "topik_36",
+    question: "[읽기] 다음을 읽고 물음에 답하십시오.\n\n가: 직업이 무엇입니까?\n나: 선생님입니다.\n\n직업은 무엇인가?",
+    options: ["bác sĩ", "giáo viên", "kỹ sư", "luật sư"],
+    correctIndex: 1,
+    explanation: "선생님 (giáo viên) là nghề nghiệp được nhắc."
+  },
+  {
+    id: "topik_37",
+    question: "[읽기] 다음을 읽고 물음에 답하십시오.\n\n저는 서울에 삽니다. 서울은 한국의 수도입니다.\n\n어디에 삽니까?",
+    options: ["Busan", "Daegu", "Seoul", "Incheon"],
+    correctIndex: 2,
+    explanation: "서울 (Seoul) là nơi được nhắc."
+  },
+  {
+    id: "topik_38",
+    question: "[읽기] 다음을 읽고 물음에 답하십시오.\n\n가: 언제 한국에 왔습니까?\n나: 작년에 왔습니다.\n\n언제 왔습니까?",
+    options: ["năm nay", "năm ngoái", "năm sau", "2 năm trước"],
+    correctIndex: 1,
+    explanation: "작년 (năm ngoái) là thời điểm được nhắc."
+  },
+  {
+    id: "topik_39",
+    question: "[읽기] 다음을 읽고 물음에 답하십시오.\n\n저는 한국어를 공부합니다. 한국어는 재미있습니다.\n\n무엇을 공부합니까?",
+    options: ["tiếng Anh", "tiếng Nhật", "tiếng Trung", "tiếng Hàn"],
+    correctIndex: 3,
+    explanation: "한국어 (tiếng Hàn) được nhắc trong câu."
+  },
+  {
+    id: "topik_40",
+    question: "[읽기] 다음을 읽고 물음에 답하십시오.\n\n가: 왜 한국어를 배웁니까?\n나: 한국에 가고 싶어서입니다.\n\n왜 배웁니까?",
+    options: ["đi làm", "đi du lịch", "muốn đi Hàn Quốc", "học vì thích"],
+    correctIndex: 2,
+    explanation: "한국에 가고 싶어서 (muốn đi Hàn Quốc) là lý do được nhắc."
   }
 ];

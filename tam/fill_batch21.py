@@ -8,7 +8,7 @@ import re, json, time, requests, openai
 
 SUPABASE_URL = "https://dcjofhkdrgbrowabudyt.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjam9maGtkcmdicm93YWJ1ZHl0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjE1OTczNiwiZXhwIjoyMDkxNzM1NzM2fQ.T1_WxXzgB0LhFxcOvlqLyt_83rMOgmaQIuUO_4stPOE"
-API_KEY      = "fw_TGsAPiEnXTbKZAgW8BeHkQ"  # <-- THAY KEY MOI O DAY
+API_KEY      = "fw_5JG6V8mYwpCz1xXv31E9dk"  # <-- THAY KEY MOI O DAY
 
 BATCH_SIZE   = 5   # so tu moi lan chay
 MIN_EXAMPLES = 3   # so vi du toi thieu moi tu

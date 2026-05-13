@@ -42,14 +42,14 @@ const EXAM_OPTIONS: ExamOption[] = [
   },
   {
     id: "topik",
-    title: "TOPIK",
+    title: "TOPIK I",
     subtitle: "Chứng chỉ tiếng Hàn",
     icon: "ri-survey-line",
     color: "#f472b6",
     bgColor: "rgba(244,114,182,0.08)",
-    totalQuestions: 70,
-    timeLimit: 2100,
-    description: "Đề thi TOPIK I và II. Tần suất câu hỏi cao trong kỳ thi thật.",
+    totalQuestions: 40,
+    timeLimit: 3000,
+    description: "Đề thi TOPIK I: 20 câu nghe + 20 câu đọc. Thời gian 50 phút.",
   },
 ];
 
