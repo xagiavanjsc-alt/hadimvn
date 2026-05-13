@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { mockMelonSongs, MelonSong } from "@/mocks/melonSongs";
 import { generateMelonLesson, MelonLessonResult, AIConfig } from "@/services/aiService";
 import LyricsQuizModal from "@/pages/melon/components/LyricsQuizModal";
+import { useMelonSongs } from "@/hooks/useMelonSongs";
 
 const AI_CONFIG_KEY = "melon_ai_config";
 const LEARNED_KEY = "melon_learned_ranks";
@@ -17,26 +18,27 @@ function loadConfig(): AIConfig | null {
 
 type Tab = "lyrics" | "story" | "vocab" | "grammar";
 
-// ─── Related Songs ────────────────────────────────────────────────────────────
+// ─── Related Songs ────────────────────────────────────────────────────────────────
 interface RelatedSongsProps {
   song: MelonSong;
+  allSongs: MelonSong[];
   onNavigate: (rank: number) => void;
 }
 
-function RelatedSongs({ song, onNavigate }: RelatedSongsProps) {
+function RelatedSongs({ song, allSongs, onNavigate }: RelatedSongsProps) {
   const related = useMemo(() => {
     const genre = song.genre.split("/")[0].trim().toLowerCase();
-    const sameArtist = mockMelonSongs.filter(
+    const sameArtist = allSongs.filter(
       (s) => s.rank !== song.rank && s.artist === song.artist
     );
-    const sameGenre = mockMelonSongs.filter(
+    const sameGenre = allSongs.filter(
       (s) =>
         s.rank !== song.rank &&
         s.artist !== song.artist &&
         s.genre.toLowerCase().includes(genre)
     );
     return [...sameArtist, ...sameGenre].slice(0, 6);
-  }, [song]);
+  }, [song, allSongs]);
 
   const learnedRanks = useMemo(() => {
     try {
@@ -109,7 +111,9 @@ export default function MelonDetailPage() {
   const { rank } = useParams<{ rank: string }>();
   const navigate = useNavigate();
   const rankNum = parseInt(rank ?? "0", 10);
-  const song: MelonSong | undefined = mockMelonSongs.find((s) => s.rank === rankNum);
+  // Load from Supabase → localStorage → mock (same priority as main melon page)
+  const { songs } = useMelonSongs();
+  const song: MelonSong | undefined = songs.find((s) => s.rank === rankNum);
 
   const [tab, setTab] = useState<Tab>("lyrics");
   const [loading, setLoading] = useState(false);
@@ -202,11 +206,16 @@ export default function MelonDetailPage() {
     );
   }
 
-  const TABS: { key: Tab; label: string; icon: string; disabled?: boolean }[] = [
+  // Tabs unlock if: AI result exists OR song has pre-processed data
+  const hasPreVocab = (song?.vocabulary?.length ?? 0) > 0;
+  const hasPreGrammar = (song?.grammar?.length ?? 0) > 0;
+  const hasPreStory = Boolean(song?.translation?.full);
+
+  const TABS: { key: Tab; label: string; icon: string; disabled?: boolean; preloaded?: boolean }[] = [
     { key: "lyrics", label: "Lời bài hát", icon: "ri-music-line" },
-    { key: "story", label: "Truyện Chêm", icon: "ri-book-open-line", disabled: !result },
-    { key: "vocab", label: "Từ vựng", icon: "ri-translate-2", disabled: !result },
-    { key: "grammar", label: "Ngữ pháp", icon: "ri-graduation-cap-line", disabled: !result },
+    { key: "story", label: "Truyện Chêm", icon: "ri-book-open-line", disabled: !result && !hasPreStory, preloaded: hasPreStory },
+    { key: "vocab", label: "Từ vựng", icon: "ri-translate-2", disabled: !result && !hasPreVocab, preloaded: hasPreVocab },
+    { key: "grammar", label: "Ngữ pháp", icon: "ri-graduation-cap-line", disabled: !result && !hasPreGrammar, preloaded: hasPreGrammar },
   ];
 
   return (
@@ -388,12 +397,113 @@ export default function MelonDetailPage() {
                 <p className="text-white/50 text-sm">AI đang phân tích...</p>
               </div>
             )}
-            {!result && !loading && (
+            {!result && !loading && !hasPreVocab && !hasPreGrammar && !hasPreStory && (
               <div className="bg-app-surface/50 rounded-2xl border border-app-border p-10 flex flex-col items-center justify-center text-center">
                 <div className="w-14 h-14 flex items-center justify-center bg-app-accent-primary/8 rounded-2xl mb-4">
                   <i className="ri-sparkling-2-line text-app-accent-primary/40 text-2xl" />
                 </div>
                 <p className="text-app-text-muted text-sm">Nhấn &ldquo;Phân tích AI&rdquo; để xem nội dung học tiếng Hàn</p>
+              </div>
+            )}
+            {/* Pre-processed data from admin upload */}
+            {!result && !loading && (hasPreVocab || hasPreGrammar || hasPreStory) && (
+              <div>
+                {/* Sub-tab switcher on mobile */}
+                <div className="flex gap-1 bg-app-card/50 p-1 rounded-xl mb-4 lg:hidden">
+                  {(["story", "vocab", "grammar"] as Tab[]).filter(t =>
+                    (t === "story" && hasPreStory) || (t === "vocab" && hasPreVocab) || (t === "grammar" && hasPreGrammar)
+                  ).map((t) => (
+                    <button
+                      key={t}
+                      onClick={() => setTab(t)}
+                      className={`flex-1 text-xs py-2 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
+                        tab === t ? "bg-app-accent-primary text-app-bg font-semibold" : "text-app-text-secondary hover:text-white/60"
+                      }`}
+                    >
+                      {t === "story" ? "Bản dịch" : t === "vocab" ? "Từ vựng" : "Ngữ pháp"}
+                    </button>
+                  ))}
+                </div>
+                <div className="hidden lg:space-y-4 lg:block">
+                  {hasPreStory && (
+                    <div className="bg-app-surface/50 rounded-2xl border border-app-border p-5">
+                      <div className="flex items-center gap-2 mb-3">
+                        <i className="ri-book-open-line text-app-accent-primary text-sm" />
+                        <span className="text-white/60 text-xs font-medium">Bản dịch viết</span>
+                        <span className="text-[9px] bg-blue-500/15 text-blue-400 px-1.5 py-0.5 rounded-full">Admin</span>
+                      </div>
+                      <p className="text-white/75 text-sm leading-8 whitespace-pre-line">{song.translation?.full}</p>
+                    </div>
+                  )}
+                  {hasPreVocab && (
+                    <div className="bg-app-surface/50 rounded-2xl border border-app-border p-5">
+                      <div className="flex items-center gap-2 mb-3">
+                        <i className="ri-translate-2 text-app-accent-primary text-sm" />
+                        <span className="text-white/60 text-xs font-medium">Từ vựng ({song.vocabulary!.length} từ)</span>
+                        <span className="text-[9px] bg-blue-500/15 text-blue-400 px-1.5 py-0.5 rounded-full">Admin</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        {song.vocabulary!.map((v, i) => (
+                          <div key={i} className="bg-app-surface/50 rounded-xl p-3 border border-app-border">
+                            <p className="text-app-accent-primary text-sm font-semibold mb-0.5">{v.korean}</p>
+                            <p className="text-white/55 text-xs">{v.vietnamese}</p>
+                            {v.romaji && <p className="text-white/30 text-[10px] italic">{v.romaji}</p>}
+                            {v.topikLevel && <span className="text-[9px] bg-app-accent-primary/10 text-app-accent-primary px-1.5 py-0.5 rounded-full">TOPIK {v.topikLevel}</span>}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {hasPreGrammar && (
+                    <div className="bg-app-surface/50 rounded-2xl border border-app-border p-5">
+                      <div className="flex items-center gap-2 mb-3">
+                        <i className="ri-graduation-cap-line text-app-accent-primary text-sm" />
+                        <span className="text-white/60 text-xs font-medium">Ngữ pháp ({song.grammar!.length} mẫu)</span>
+                        <span className="text-[9px] bg-blue-500/15 text-blue-400 px-1.5 py-0.5 rounded-full">Admin</span>
+                      </div>
+                      <div className="space-y-3">
+                        {song.grammar!.map((g, i) => (
+                          <div key={i} className="border-l-2 border-app-accent-primary/40 pl-3">
+                            <p className="text-app-accent-primary text-sm font-semibold">{g.pattern}</p>
+                            <p className="text-white/60 text-xs mb-1">{g.meaning}</p>
+                            {g.examples[0] && (
+                              <p className="text-white/40 text-xs italic">VD: {g.examples[0].sentence} — {g.examples[0].translation}</p>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                {/* Mobile */}
+                <div className="lg:hidden">
+                  {tab === "story" && hasPreStory && (
+                    <div className="bg-app-surface/50 rounded-2xl p-5 border border-app-border">
+                      <p className="text-white/75 text-sm leading-8 whitespace-pre-line">{song.translation?.full}</p>
+                    </div>
+                  )}
+                  {tab === "vocab" && hasPreVocab && (
+                    <div className="space-y-2.5">
+                      {song.vocabulary!.map((v, i) => (
+                        <div key={i} className="bg-app-surface/50 rounded-xl p-4 border border-app-border">
+                          <p className="text-app-accent-primary text-sm font-semibold mb-0.5">{v.korean}</p>
+                          <p className="text-white/60 text-xs mb-1">{v.vietnamese}</p>
+                          {v.romaji && <p className="text-white/35 text-xs italic">{v.romaji}</p>}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {tab === "grammar" && hasPreGrammar && (
+                    <div className="space-y-3">
+                      {song.grammar!.map((g, i) => (
+                        <div key={i} className="bg-app-surface/50 rounded-xl p-4 border border-app-border border-l-2 border-l-app-accent-primary/40">
+                          <p className="text-app-accent-primary text-sm font-semibold">{g.pattern}</p>
+                          <p className="text-white/60 text-xs">{g.meaning}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             )}
             {result && !loading && (
@@ -475,7 +585,7 @@ export default function MelonDetailPage() {
         </div>
 
         {/* Related Songs */}
-        <RelatedSongs song={song} onNavigate={(r) => navigate(`/melon/${r}`)} />
+        <RelatedSongs song={song} allSongs={songs} onNavigate={(r) => navigate(`/melon/${r}`)} />
       </div>
 
       {showQuiz && result && (
