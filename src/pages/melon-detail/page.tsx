@@ -380,14 +380,14 @@ export default function MelonDetailPage() {
         <div className="lg:grid lg:grid-cols-2 lg:gap-6">
           <div className={tab === "lyrics" || tab === "vocab" ? "block" : "hidden lg:block"}>
             {/* Korean lyrics */}
-            <div className="bg-app-surface/50 rounded-2xl border border-app-border p-6">
-              <div className="flex items-center gap-2 mb-4">
+            <div className="bg-app-surface/50 rounded-2xl border border-app-border p-6 flex flex-col h-[480px]">
+              <div className="flex items-center gap-2 mb-4 flex-shrink-0">
                 <div className="w-6 h-6 flex items-center justify-center">
                   <i className="ri-music-line text-[#00C73C] text-sm" />
                 </div>
                 <span className="text-white/60 text-xs font-medium tracking-normal">Lời bài hát (Tiếng Hàn)</span>
               </div>
-              <pre className="text-white/75 text-sm leading-9 font-sans whitespace-pre-wrap max-h-[420px] overflow-y-auto pr-1 custom-scrollbar">{song.lyrics}</pre>
+              <pre className="text-white/75 text-sm leading-6 font-sans whitespace-pre-wrap flex-1 min-h-0 overflow-y-auto pr-1 custom-scrollbar">{song.lyrics}</pre>
             </div>
             {/* Vocabulary — desktop always, mobile when vocab tab */}
             {!result && !loading && hasPreVocab && (
@@ -449,13 +449,13 @@ export default function MelonDetailPage() {
                 </div>
                 <div className="hidden lg:space-y-4 lg:block">
                   {hasPreStory && (
-                    <div className="bg-app-surface/50 rounded-2xl border border-app-border p-5">
-                      <div className="flex items-center gap-2 mb-3">
+                    <div className="bg-app-surface/50 rounded-2xl border border-app-border p-5 flex flex-col h-[480px]">
+                      <div className="flex items-center gap-2 mb-3 flex-shrink-0">
                         <i className="ri-book-open-line text-app-accent-primary text-sm" />
                         <span className="text-white/60 text-xs font-medium">Bản dịch viết</span>
                         <span className="text-[9px] bg-blue-500/15 text-blue-400 px-1.5 py-0.5 rounded-full">Admin</span>
                       </div>
-                      <p className="text-white/75 text-sm leading-8 whitespace-pre-line max-h-[420px] overflow-y-auto pr-1 custom-scrollbar">{song.translation?.full}</p>
+                      <p className="text-white/75 text-sm leading-7 whitespace-pre-line flex-1 min-h-0 overflow-y-auto pr-1 custom-scrollbar">{song.translation?.full}</p>
                     </div>
                   )}
                   {hasPreGrammar && (
