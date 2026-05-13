@@ -37,6 +37,7 @@ export interface MelonSong {
     speed: number;
     recommendedFor: string[];
   };
+  audioUrl?: string;
 }
 
 export const mockMelonSongs: MelonSong[] = [

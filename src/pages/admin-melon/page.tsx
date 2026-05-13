@@ -43,6 +43,7 @@ interface MelonSong {
     speed: number;
     recommendedFor: string[];
   };
+  audioUrl?: string;
 }
 
 const AdminMelonPage = () => {
@@ -449,6 +450,51 @@ const AdminMelonPage = () => {
                 </div>
 
                 <div className="space-y-4">
+                  {/* Album Art */}
+                  <div>
+                    <label className="text-white/60 text-sm mb-2 block">Album Art (URL hoặc /images/melon/...)</label>
+                    <div className="flex gap-3 items-start">
+                      <img
+                        src={editingSong.albumArt || "/images/melon/album-placeholder.svg"}
+                        alt="album art"
+                        className="w-16 h-16 rounded-xl object-cover flex-shrink-0 bg-app-surface"
+                        onError={e => { (e.target as HTMLImageElement).src = "/images/melon/album-placeholder.svg"; }}
+                      />
+                      <input
+                        type="text"
+                        value={editingSong.albumArt}
+                        onChange={e => setEditingSong({ ...editingSong, albumArt: e.target.value })}
+                        placeholder="/images/melon/album-placeholder.svg"
+                        className="flex-1 bg-app-surface border border-app-border rounded-xl px-4 py-3 text-white text-sm"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Audio */}
+                  <div>
+                    <label className="text-white/60 text-sm mb-2 block">Audio URL (Supabase Storage hoặc URL mp3)</label>
+                    <div className="flex gap-2 items-center">
+                      <input
+                        type="text"
+                        value={editingSong.audioUrl ?? ""}
+                        onChange={e => setEditingSong({ ...editingSong, audioUrl: e.target.value })}
+                        placeholder="https://... hoặc /audio/melon/song.mp3"
+                        className="flex-1 bg-app-surface border border-app-border rounded-xl px-4 py-3 text-white text-sm"
+                      />
+                      {editingSong.audioUrl && (
+                        <button
+                          onClick={() => setEditingSong({ ...editingSong, audioUrl: "" })}
+                          className="p-3 text-white/40 hover:text-red-400 bg-app-surface border border-app-border rounded-xl"
+                        >
+                          <i className="ri-delete-bin-line" />
+                        </button>
+                      )}
+                    </div>
+                    {editingSong.audioUrl && (
+                      <audio controls src={editingSong.audioUrl} className="w-full mt-2 h-8" />
+                    )}
+                  </div>
+
                   <div>
                     <label className="text-white/60 text-sm mb-2 block">Title</label>
                     <input

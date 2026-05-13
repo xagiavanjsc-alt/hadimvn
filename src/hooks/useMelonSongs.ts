@@ -21,6 +21,7 @@ function mapRow(row: Record<string, unknown>): MelonSong {
     vocabulary: row.vocabulary as MelonSong["vocabulary"],
     grammar: row.grammar as MelonSong["grammar"],
     difficulty: row.difficulty as MelonSong["difficulty"],
+    audioUrl: row.audio_url as string | undefined,
   };
 }
 
@@ -116,6 +117,7 @@ export async function saveMelonSongsToSupabase(songs: MelonSong[]): Promise<{ ok
       vocabulary: s.vocabulary ?? null,
       grammar: s.grammar ?? null,
       difficulty: s.difficulty ?? null,
+      audio_url: s.audioUrl ?? null,
     }));
 
     const { error: insError } = await supabase
