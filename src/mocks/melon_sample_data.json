@@ -1,0 +1,335 @@
+[
+  {
+    "rank": 1,
+    "title": "Supernova",
+    "artist": "aespa",
+    "genre": "K-pop",
+    "lyrics": "나를 중심으로 돌아가는 이 세계\n넌 내 orbit 안에 갇혀버렸어\n빛보다 빠르게 달려가는 나\nSupernova, 폭발하는 순간\n\n눈을 감아도 보여 너의 존재\n중력을 거슬러 올라가는 느낌\n우주의 끝에서 만나는 우리\n이 순간이 영원하길 바라",
+    "albumArt": "/images/melon/album-placeholder.svg",
+    "processed": false,
+    "releaseDate": "2024-05-27",
+    "album": "Armageddon",
+    "translation": {
+      "full": "Thế giới xoay quanh tôi / Bạn bị mắc kẹt trong orbit của tôi / Tôi chạy nhanh hơn ánh sáng / Supernova, khoảnh khắc bùng nổ / Khi nhắm mắt vẫn thấy sự tồn tại của bạn / Cảm giác như đang chống lại trọng lực / Chúng ta gặp nhau ở cuối vũ trụ / Mong khoảnh khắc này vĩnh cửu",
+      "lineByLine": [
+        {
+          "korean": "나를 중심으로 돌아가는 이 세계",
+          "vietnamese": "Thế giới xoay quanh tôi"
+        },
+        {
+          "korean": "넌 내 orbit 안에 갇혀버렸어",
+          "vietnamese": "Bạn bị mắc kẹt trong orbit của tôi"
+        },
+        {
+          "korean": "빛보다 빠르게 달려가는 나",
+          "vietnamese": "Tôi chạy nhanh hơn ánh sáng"
+        },
+        {
+          "korean": "Supernova, 폭발하는 순간",
+          "vietnamese": "Supernova, khoảnh khắc bùng nổ"
+        },
+        {
+          "korean": "눈을 감아도 보여 너의 존재",
+          "vietnamese": "Khi nhắm mắt vẫn thấy sự tồn tại của bạn"
+        },
+        {
+          "korean": "중력을 거슬러 올라가는 느낌",
+          "vietnamese": "Cảm giác như đang chống lại trọng lực"
+        },
+        {
+          "korean": "우주의 끝에서 만나는 우리",
+          "vietnamese": "Chúng ta gặp nhau ở cuối vũ trụ"
+        },
+        {
+          "korean": "이 순간이 영원하길 바라",
+          "vietnamese": "Mong khoảnh khắc này vĩnh cửu"
+        }
+      ],
+      "culturalNotes": [
+        "Orbit: quỹ đạo, ám chỉ sự hút dấn không thể thoát khỏi",
+        "Supernova: siêu tân tinh, ngôi sao bùng nổ cực mạnh trong vũ trụ",
+        "Bài hát sử dụng hình ảnh vũ trụ để miêu tả sức hút mãnh liệt của tình yêu"
+      ]
+    },
+    "vocabulary": [
+      {
+        "korean": "중력",
+        "vietnamese": "trọng lực",
+        "romaji": "jung-ryeok",
+        "topikLevel": "2",
+        "epsCategory": "science",
+        "frequency": 1,
+        "position": [2],
+        "exampleSentence": "지구의 중력 때문에 우리는 땅에 서 있을 수 있다."
+      },
+      {
+        "korean": "우주",
+        "vietnamese": "vũ trụ",
+        "romaji": "u-ju",
+        "topikLevel": "1",
+        "epsCategory": "science",
+        "frequency": 2,
+        "position": [2, 4],
+        "exampleSentence": "우주선이 우주로 날아갔다."
+      },
+      {
+        "korean": "빛",
+        "vietnamese": "ánh sáng",
+        "romaji": "bit",
+        "topikLevel": "1",
+        "epsCategory": "general",
+        "frequency": 1,
+        "position": [3],
+        "exampleSentence": "햇빛이 밝게 비친다."
+      },
+      {
+        "korean": "순간",
+        "vietnamese": "khoảnh khắc",
+        "romaji": "sun-gan",
+        "topikLevel": "2",
+        "epsCategory": "time",
+        "frequency": 1,
+        "position": [4],
+        "exampleSentence": "그 순간을 잊지 못할 것이다."
+      },
+      {
+        "korean": "영원",
+        "vietnamese": "vĩnh cửu",
+        "romaji": "yeong-won",
+        "topikLevel": "2",
+        "epsCategory": "time",
+        "frequency": 1,
+        "position": [5],
+        "exampleSentence": "우리의 우정은 영원할 것이다."
+      }
+    ],
+    "grammar": [
+      {
+        "pattern": "-아/어 보다",
+        "meaning": "thử làm gì đó",
+        "level": "1",
+        "examples": [
+          {
+            "sentence": "보여",
+            "translation": "thử xem",
+            "line": 2
+          }
+        ],
+        "relatedGrammar": ["-아/어 보니", "-아/어 보니까"]
+      },
+      {
+        "pattern": "-에 갇히다",
+        "meaning": "bị mắc kẹt ở/trong",
+        "level": "2",
+        "examples": [
+          {
+            "sentence": "갇혀버렸어",
+            "translation": "bị mắc kẹt rồi",
+            "line": 2
+          }
+        ],
+        "relatedGrammar": ["-에 넣다", "-에 들어가다"]
+      },
+      {
+        "pattern": "-보다 빠르다",
+        "meaning": "nhanh hơn",
+        "level": "1",
+        "examples": [
+          {
+            "sentence": "빛보다 빠르게",
+            "translation": "nhanh hơn ánh sáng",
+            "line": 3
+          }
+        ],
+        "relatedGrammar": ["-보다 느리다", "-보다 크다"]
+      }
+    ],
+    "difficulty": {
+      "overall": "medium",
+      "vocabulary": 3,
+      "grammar": 2,
+      "speed": 4,
+      "recommendedFor": ["intermediate"]
+    }
+  },
+  {
+    "rank": 2,
+    "title": "Magnetic",
+    "artist": "ILLIT",
+    "genre": "K-pop",
+    "lyrics": "자꾸만 끌려와 너한테\n이상하게 자꾸 신경 쓰여\n자석처럼 붙어버린 우리\nMagnetic, 떨어질 수가 없어",
+    "albumArt": "/images/melon/album-placeholder.svg",
+    "processed": false,
+    "releaseDate": "2024-03-25",
+    "album": "Magnetic",
+    "translation": {
+      "full": "Tôi cứ bị hút về phía bạn / Lạ thường là cứ lo lắng về bạn / Chúng tôi như nam châm dính vào nhau / Magnetic, không thể rời xa",
+      "lineByLine": [
+        {
+          "korean": "자꾸만 끌려와 너한테",
+          "vietnamese": "Tôi cứ bị hút về phía bạn"
+        },
+        {
+          "korean": "이상하게 자꾸 신경 쓰여",
+          "vietnamese": "Lạ thường là cứ lo lắng về bạn"
+        },
+        {
+          "korean": "자석처럼 붙어버린 우리",
+          "vietnamese": "Chúng tôi như nam châm dính vào nhau"
+        },
+        {
+          "korean": "Magnetic, 떨어질 수가 없어",
+          "vietnamese": "Magnetic, không thể rời xa"
+        }
+      ],
+      "culturalNotes": [
+        "Magnetic: nam châm, ám chỉ sự hút dấn mạnh",
+        "Bài hát nói về sức hút không thể cưỡng lại của tình yêu"
+      ]
+    },
+    "vocabulary": [
+      {
+        "korean": "끌려오다",
+        "vietnamese": "bị kéo đến",
+        "romaji": "kkeul-ryeo-o-da",
+        "topikLevel": "2",
+        "epsCategory": "general",
+        "frequency": 1,
+        "position": [1],
+        "exampleSentence": "자석에 끌려오는 쇠붙이"
+      },
+      {
+        "korean": "신경 쓰다",
+        "vietnamese": "lo lắng, quan tâm",
+        "romaji": "sin-gyeong sseu-da",
+        "topikLevel": "1",
+        "epsCategory": "emotion",
+        "frequency": 1,
+        "position": [2],
+        "exampleSentence": "그 일 때문에 신경 쓴다."
+      },
+      {
+        "korean": "자석",
+        "vietnamese": "nam châm",
+        "romaji": "ja-seok",
+        "topikLevel": "1",
+        "epsCategory": "science",
+        "frequency": 1,
+        "position": [3],
+        "exampleSentence": "자석이 쇠붙이를 끌어당긴다."
+      }
+    ],
+    "grammar": [
+      {
+        "pattern": "-아/어지다",
+        "meaning": "trở thành, bị",
+        "level": "1",
+        "examples": [
+          {
+            "sentence": "붙어버린",
+            "translation": "dính vào rồi",
+            "line": 3
+          }
+        ],
+        "relatedGrammar": ["-게 되다", "-아/어 가다"]
+      }
+    ],
+    "difficulty": {
+      "overall": "easy",
+      "vocabulary": 2,
+      "grammar": 1,
+      "speed": 3,
+      "recommendedFor": ["beginner", "intermediate"]
+    }
+  },
+  {
+    "rank": 3,
+    "title": "How Sweet",
+    "artist": "NewJeans",
+    "genre": "K-pop / R&B",
+    "lyrics": "달콤한 너의 말 한마디\n하루 종일 귓가에 맴돌아\nHow sweet, 어떻게 이렇게 달콤해\n너만 보면 심장이 두근거려",
+    "albumArt": "/images/melon/album-placeholder.svg",
+    "processed": false,
+    "releaseDate": "2024-05-24",
+    "album": "How Sweet",
+    "translation": {
+      "full": "Lời nói ngọt ngào của bạn / Nguyên ngày vang vọng trong tai tôi / How sweet, sao lại ngọt ngào thế này / Chỉ cần thấy bạn tim tôi đập thình thịch",
+      "lineByLine": [
+        {
+          "korean": "달콤한 너의 말 한마디",
+          "vietnamese": "Lời nói ngọt ngào của bạn"
+        },
+        {
+          "korean": "하루 종일 귓가에 맴돌아",
+          "vietnamese": "Nguyên ngày vang vọng trong tai tôi"
+        },
+        {
+          "korean": "How sweet, 어떻게 이렇게 달콤해",
+          "vietnamese": "How sweet, sao lại ngọt ngào thế này"
+        },
+        {
+          "korean": "너만 보면 심장이 두근거려",
+          "vietnamese": "Chỉ cần thấy bạn tim tôi đập thình thịch"
+        }
+      ],
+      "culturalNotes": [
+        "How sweet: ngọt ngào, dùng để miêu tả tình yêu",
+        "Bài hát sử dụng nhiều từ tiếng Anh pha trộn tiếng Hàn"
+      ]
+    },
+    "vocabulary": [
+      {
+        "korean": "달콤하다",
+        "vietnamese": "ngọt ngào",
+        "romaji": "dal-kom-ha-da",
+        "topikLevel": "1",
+        "epsCategory": "taste",
+        "frequency": 2,
+        "position": [1, 3],
+        "exampleSentence": "이 케이크는 정말 달콤하다."
+      },
+      {
+        "korean": "맴돌다",
+        "vietnamese": "vang vọng, quanh quẩn",
+        "romaji": "maem-dol-da",
+        "topikLevel": "2",
+        "epsCategory": "general",
+        "frequency": 1,
+        "position": [2],
+        "exampleSentence": "음악 소리가 귓가에 맴돈다."
+      },
+      {
+        "korean": "심장",
+        "vietnamese": "trái tim",
+        "romaji": "sim-jang",
+        "topikLevel": "1",
+        "epsCategory": "body",
+        "frequency": 1,
+        "position": [4],
+        "exampleSentence": "심장이 빨리 뛴다."
+      }
+    ],
+    "grammar": [
+      {
+        "pattern": "-면",
+        "meaning": "nếu, khi",
+        "level": "1",
+        "examples": [
+          {
+            "sentence": "너만 보면",
+            "translation": "chỉ cần thấy bạn",
+            "line": 4
+          }
+        ],
+        "relatedGrammar": ["-(으)면", "-(으)니까"]
+      }
+    ],
+    "difficulty": {
+      "overall": "easy",
+      "vocabulary": 1,
+      "grammar": 1,
+      "speed": 2,
+      "recommendedFor": ["beginner"]
+    }
+  }
+]

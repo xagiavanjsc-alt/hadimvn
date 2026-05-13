@@ -386,6 +386,8 @@ const AdminBugsPage = lazyPage(() => import("../pages/admin-bugs/page"));
 const AdminVipTransactionsPage = lazyPage(() => import("../pages/admin-vip-transactions/page"));
 const AdminZaloReminderPage = lazyPage(() => import("../pages/admin-zalo-reminder/page"));
 const AdminFeedbackPage = lazyPage(() => import("../pages/admin-feedback/page"));
+const AdminMelonPage = lazyPage(() => import("../pages/admin-melon/page"));
+const AdminNaverKinPage = lazyPage(() => import("../pages/admin-naver-kin/page"));
 const FeedbackPage = lazyPage(() => import("../pages/feedback/page"));
 const ReportBugPage = lazyPage(() => import("../pages/report-bug/page"));
 const VipHistoryPage = lazyPage(() => import("../pages/vip-history/page"));
@@ -621,6 +623,8 @@ const routes: RouteObject[] = [
   { path: "/admin/feedback", element: <AdminFeedbackPage /> },
   { path: "/admin/error-logs", element: <RequirePermission permission="system.settings"><AdminErrorLogsPage /></RequirePermission> },
   { path: "/admin/community-settings", element: <RequirePermission permission="content.view"><AdminCommunitySettingsPage /></RequirePermission> },
+  { path: "/admin-melon", element: <AdminGuard><AdminMelonPage /></AdminGuard> },
+  { path: "/admin-naver-kin", element: <AdminGuard><AdminNaverKinPage /></AdminGuard> },
   { path: "/feedback", element: <FeedbackPage /> },
   { path: "/report-bug", element: <ReportBugPage /> },
   { path: "/vip-history", element: <RequireAuth title="Lịch sử VIP"><VipHistoryPage /></RequireAuth> },

@@ -1,0 +1,347 @@
+[
+  {
+    "id": 1,
+    "question": "한국어 공부 어떻게 시작해요?",
+    "question_vi": "Làm thế nào để bắt đầu học tiếng Hàn?",
+    "answer": "먼저 한글을 완벽하게 익히세요. 한글은 배우기 쉽고 일주일이면 마스터할 수 있습니다. 그 다음 기초 어휘와 문법을 공부하세요. TOPIK 1급 단어 1000개 정도 외우면 좋습니다. 듣기와 말하기 연습도 병행하세요. 유튜브 한국어 강의나 한국 드라마를 보면서 공부하면 흥미를 잃지 않고 지속할 수 있습니다.",
+    "answer_vi": "Trước hết hãy học hoàn hảo bảng chữ cái Hangul. Hangul dễ học và có thể thành thạo trong 1 tuần. Sau đó học từ vựng cơ bản và ngữ pháp. Nên học khoảng 1000 từ TOPIK cấp 1. Cần kết hợp luyện nghe và nói. Xem video YouTube tiếng Hàn hoặc phim Hàn để học sẽ không bị chán và có thể duy trì lâu dài.",
+    "category": "한국어 공부",
+    "likes": 1250,
+    "views": 8500,
+    "url": "https://kin.naver.com/qna/12345",
+    "translated": true,
+    "vocabulary": [
+      {
+        "korean": "완벽하다",
+        "vietnamese": "hoàn hảo",
+        "romaji": "wan-byeok-ha-da",
+        "topikLevel": "2",
+        "epsCategory": "general"
+      },
+      {
+        "korean": "마스터하다",
+        "vietnamese": "thành thạo",
+        "romaji": "ma-seu-teo-ha-da",
+        "topikLevel": "2",
+        "epsCategory": "general"
+      },
+      {
+        "korean": "기초",
+        "vietnamese": "cơ bản",
+        "romaji": "gi-cho",
+        "topikLevel": "1",
+        "epsCategory": "general"
+      },
+      {
+        "korean": "어휘",
+        "vietnamese": "từ vựng",
+        "romaji": "eo-hwi",
+        "topikLevel": "1",
+        "epsCategory": "language"
+      }
+    ],
+    "grammar": [
+      {
+        "pattern": "-어/아야 하다",
+        "meaning": "phải làm gì đó",
+        "level": "1",
+        "examples": [
+          {
+            "sentence": "시작해요",
+            "translation": "bắt đầu đi",
+            "context": "bắt đầu học"
+          }
+        ]
+      },
+      {
+        "pattern": "-면",
+        "meaning": "nếu",
+        "level": "1",
+        "examples": [
+          {
+            "sentence": "마스터할 수 있습니다",
+            "translation": "có thể thành thạo",
+            "context": "khả năng có thể"
+          }
+        ]
+      }
+    ],
+    "difficulty": "1"
+  },
+  {
+    "id": 2,
+    "question": "TOPIK 시험 준비 어떻게 해요?",
+    "question_vi": "Làm thế nào để chuẩn bị thi TOPIK?",
+    "answer": "TOPIK 시험 준비는 체계적으로 해야 합니다. 먼저 자신의 수준을 파악하세요. 초급자는 TOPIK I, 중급자는 TOPIK II를 목표로 하세요. 기출문제를 많이 풀어보는 것이 중요합니다. 매일 일정 시간 동안 꾸준히 공부하는 것이 핵심입니다. 듣기는 한국어 뉴스나 팟캐스트를, 읽기는 신문이나 책을 활용하세요. 쓰기는 일기 쓰기 연습을, 말하기는 한국인과 대화 연습을 하세요.",
+    "answer_vi": "Chuẩn bị thi TOPIK cần có kế hoạch hệ thống. Trước hết hãy xác định trình độ của mình. Người mới bắt đầu nên nhắm TOPIK I, người trung cấp nhắm TOPIK II. Viết đề thi cũ rất quan trọng. Học đều đặn một khoảng thời gian mỗi ngày là chìa khóa. Luyện nghe bằng tin tức tiếng Hàn hoặc podcast, luyện đọc bằng báo hoặc sách. Luyện viết bằng viết nhật ký, luyện nói bằng nói chuyện với người Hàn.",
+    "category": "TOPIK 시험",
+    "likes": 2100,
+    "views": 12000,
+    "url": "https://kin.naver.com/qna/12346",
+    "translated": true,
+    "vocabulary": [
+      {
+        "korean": "체계적",
+        "vietnamese": "hệ thống",
+        "romaji": "che-gye-jeok",
+        "topikLevel": "2",
+        "epsCategory": "general"
+      },
+      {
+        "korean": "파악하다",
+        "vietnamese": "nắm bắt, hiểu rõ",
+        "romaji": "pa-ak-ha-da",
+        "topikLevel": "2",
+        "epsCategory": "mental"
+      },
+      {
+        "korean": "기출문제",
+        "vietnamese": "đề thi cũ",
+        "romaji": "gi-chul-mun-je",
+        "topikLevel": "2",
+        "epsCategory": "education"
+      },
+      {
+        "korean": "꾸준히",
+        "vietnamese": "kiên trì, đều đặn",
+        "romaji": "kku-jun-hi",
+        "topikLevel": "1",
+        "epsCategory": "habit"
+      }
+    ],
+    "grammar": [
+      {
+        "pattern": "-어야 하다",
+        "meaning": "phải",
+        "level": "1",
+        "examples": [
+          {
+            "sentence": "해야 합니다",
+            "translation": "phải làm",
+            "context": "nghĩa vụ"
+          }
+        ]
+      },
+      {
+        "pattern": "-는 것이",
+        "meaning": "việc gì đó",
+        "level": "1",
+        "examples": [
+          {
+            "sentence": "풀어보는 것이 중요합니다",
+            "translation": "việc giải là quan trọng",
+            "context": "nhấn mạnh chủ ngữ"
+          }
+        ]
+      }
+    ],
+    "difficulty": "2"
+  },
+  {
+    "id": 3,
+    "question": "한국어 발음이 너무 어려워요",
+    "question_vi": "Phát âm tiếng Hàn quá khó",
+    "answer": "한국어 발음은 처음에는 어렵지만 연습하면 점점 좋아집니다. 받침 발음 연습이 가장 중요합니다. ㅂ, ㄷ, ㄱ 받침의 발음 변화를 익히세요. 론놈론 발음 구분도 중요합니다. 한국어 뉴스나 방송을 들으면서 따라 읽어보세요. 한국인 친구와 대화하면서 피드백을 받으면 더 빨리 발음이 좋아집니다. 발음 교정 앱을 활용하는 것도 좋은 방법입니다.",
+    "answer_vi": "Phát âm tiếng Hàn ban đầu khó nhưng luyện tập sẽ dần tốt lên. Luyện phát âm cuối từ (banchim) là quan trọng nhất. Học cách thay đổi phát âm của các cuối từ ㅂ, ㄷ, ㄱ. Phân biệt phát âm 론/놈/론 cũng quan trọng. Nghe tin tức hoặc chương trình tiếng Hàn và đọc theo. Nói chuyện với bạn Hàn Quốc để nhận phản hồi sẽ giúp phát âm tốt nhanh hơn. Sử dụng app chỉnh phát âm cũng là cách tốt.",
+    "category": "한국어 발음",
+    "likes": 890,
+    "views": 5400,
+    "url": "https://kin.naver.com/qna/12347",
+    "translated": true,
+    "vocabulary": [
+      {
+        "korean": "발음",
+        "vietnamese": "phát âm",
+        "romaji": "bal-eum",
+        "topikLevel": "1",
+        "epsCategory": "language"
+      },
+      {
+        "korean": "받침",
+        "vietnamese": "cuối từ",
+        "romaji": "ban-chim",
+        "topikLevel": "1",
+        "epsCategory": "language"
+      },
+      {
+        "korean": "변화",
+        "vietnamese": "thay đổi",
+        "romaji": "byeon-hwa",
+        "topikLevel": "2",
+        "epsCategory": "general"
+      },
+      {
+        "korean": "교정",
+        "vietnamese": "chỉnh sửa",
+        "romaji": "gyo-jeong",
+        "topikLevel": "2",
+        "epsCategory": "general"
+      }
+    ],
+    "grammar": [
+      {
+        "pattern": "-지만",
+        "meaning": "nhưng",
+        "level": "1",
+        "examples": [
+          {
+            "sentence": "어렵지만 연습하면",
+            "translation": "khó nhưng nếu luyện tập",
+            "context": "đối lập"
+          }
+        ]
+      },
+      {
+        "pattern": "-으면서",
+        "meaning": "trong khi",
+        "level": "2",
+        "examples": [
+          {
+            "sentence": "들으면서 따라 읽어보세요",
+            "translation": "trong khi nghe hãy đọc theo",
+            "context": "hành động song song"
+          }
+        ]
+      }
+    ],
+    "difficulty": "2"
+  },
+  {
+    "id": 4,
+    "question": "EPS-TOPIK 시험 어떻게 준비하나요?",
+    "question_vi": "Làm thế nào để chuẩn bị thi EPS-TOPIK?",
+    "answer": "EPS-TOPIK은 실용 한국어 능력을 평가합니다. 공장, 건설, 농장 등 현장에서 사용하는 어휘와 표현을 익혀야 합니다. 기출문제를 많이 풀어보세요. 특히 듣기 파트가 중요하니 한국어 지시어를 잘 이해해야 합니다. 안전 관련 어휘, 작업 관련 표현을 집중적으로 공부하세요. 실제 현장 상황을 가정한 연습을 하면 좋습니다. 한국어 교재뿐만 아니라 한국어 뉴스에서도 관련 정보를 얻을 수 있습니다.",
+    "answer_vi": "EPS-TOPIK đánh giá năng lực tiếng Hàn thực tế. Cần học từ vựng và biểu thức dùng tại nhà máy, công trường, nông trại v.v. Nên viết nhiều đề thi cũ. Phần nghe rất quan trọng nên phải hiểu rõ chỉ dẫn tiếng Hàn. Tập trung học từ vựng an toàn và biểu thức công việc. Luyện tập giả định tình huống thực tế sẽ tốt. Có thể lấy thông tin liên quan từ tin tức tiếng Hàn không chỉ giáo trình.",
+    "category": "EPS-TOPIK",
+    "likes": 1850,
+    "views": 9800,
+    "url": "https://kin.naver.com/qna/12348",
+    "translated": true,
+    "vocabulary": [
+      {
+        "korean": "실용",
+        "vietnamese": "thực dụng",
+        "romaji": "sil-yong",
+        "topikLevel": "2",
+        "epsCategory": "general"
+      },
+      {
+        "korean": "현장",
+        "vietnamese": "hiện trường",
+        "romaji": "hyeon-jang",
+        "topikLevel": "2",
+        "epsCategory": "work"
+      },
+      {
+        "korean": "지시어",
+        "vietnamese": "chỉ dẫn",
+        "romaji": "ji-si-eo",
+        "topikLevel": "2",
+        "epsCategory": "work"
+      },
+      {
+        "korean": "안전",
+        "vietnamese": "an toàn",
+        "romaji": "an-jeon",
+        "topikLevel": "1",
+        "epsCategory": "safety"
+      }
+    ],
+    "grammar": [
+      {
+        "pattern": "-어야 하다",
+        "meaning": "phải",
+        "level": "1",
+        "examples": [
+          {
+            "sentence": "익혀야 합니다",
+            "translation": "phải học",
+            "context": "nghĩa vụ"
+          }
+        ]
+      },
+      {
+        "pattern": "-뿐만 아니라",
+        "meaning": "không chỉ... mà còn",
+        "level": "2",
+        "examples": [
+          {
+            "sentence": "교재뿐만 아니라 뉴스에서도",
+            "translation": "không chỉ giáo trình mà còn tin tức",
+            "context": "liệt kê thêm"
+          }
+        ]
+      }
+    ],
+    "difficulty": "2"
+  },
+  {
+    "id": 5,
+    "question": "한국어 단어 외우는 방법 알려주세요",
+    "question_vi": "Hãy cho tôi cách học từ tiếng Hàn",
+    "answer": "한국어 단어를 외우는 여러 가지 방법이 있습니다. 플래시카드를 활용하세요. 단어장을 만들어서 매일 복습하는 것이 좋습니다. 단어를 문장 속에서 익히세요. 문맥을 이해하면 기억이 오래 남습니다. 연관 단어를 같이 외우세요. 예를 들어 '학교'와 관련된 단어들을 묶어서 외우면 효율적입니다. 어원을 이해하면 외우기 쉬워집니다. 한국어 노래나 드라마에서 나오는 단어를 찾아서 공부하면 흥미가 생깁니다.",
+    "answer_vi": "Có nhiều cách học từ tiếng Hàn. Hãy dùng flashcard. Tạo danh sách từ và ôn tập hàng ngày. Học từ trong câu. Hiểu ngữ cảnh sẽ nhớ lâu hơn. Học các từ liên quan cùng lúc. Ví dụ nhóm các từ liên quan đến 'học trường' để học sẽ hiệu quả. Hiểu nguồn gốc từ sẽ dễ học hơn. Tìm từ trong bài hát hoặc phim Hàn để học sẽ tạo hứng thú.",
+    "category": "한국어 단어",
+    "likes": 1450,
+    "views": 7800,
+    "url": "https://kin.naver.com/qna/12349",
+    "translated": true,
+    "vocabulary": [
+      {
+        "korean": "플래시카드",
+        "vietnamese": "flashcard",
+        "romaji": "peul-laes-i-ka-deu",
+        "topikLevel": "2",
+        "epsCategory": "education"
+      },
+      {
+        "korean": "단어장",
+        "vietnamese": "sổ từ",
+        "romaji": "dan-eo-jang",
+        "topikLevel": "1",
+        "epsCategory": "education"
+      },
+      {
+        "korean": "복습",
+        "vietnamese": "ôn tập",
+        "romaji": "bok-seup",
+        "topikLevel": "1",
+        "epsCategory": "education"
+      },
+      {
+        "korean": "문맥",
+        "vietnamese": "ngữ cảnh",
+        "romaji": "mun-maek",
+        "topikLevel": "2",
+        "epsCategory": "language"
+      }
+    ],
+    "grammar": [
+      {
+        "pattern": "-는 것이",
+        "meaning": "việc gì đó",
+        "level": "1",
+        "examples": [
+          {
+            "sentence": "복습하는 것이 좋습니다",
+            "translation": "ôn tập là tốt",
+            "context": "nhấn mạnh hành động"
+          }
+        ]
+      },
+      {
+        "pattern": "-면",
+        "meaning": "nếu",
+        "level": "1",
+        "examples": [
+          {
+            "sentence": "이해하면 기억이 오래 남습니다",
+            "translation": "nếu hiểu thì nhớ lâu",
+            "context": "điều kiện"
+          }
+        ]
+      }
+    ],
+    "difficulty": "1"
+  }
+]

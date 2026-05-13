@@ -4,6 +4,7 @@ import MobileNav from "@/components/feature/MobileNav";
 import { useNavigate } from "react-router-dom";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import NaverAdminDataPanel from "./components/AdminDataPanel";
+import realNaverData from "@/mocks/naver_kin_real.json";
 
 interface NaverQA {
   id: number;
@@ -25,6 +26,11 @@ const DEFAULT_QA: NaverQA[] = [
 ];
 
 function loadQA(): NaverQA[] {
+  // Try to load from JSON file first (offline approach)
+  if (realNaverData && realNaverData.length > 0) {
+    return realNaverData as NaverQA[];
+  }
+  // Fallback to localStorage
   try {
     const raw = localStorage.getItem("kts_naver_qa");
     if (raw) return JSON.parse(raw) as NaverQA[];
