@@ -118,6 +118,7 @@ const navGroups = [
       { path: "/ai-chatbot", icon: "ri-robot-2-line", label: "Gia sư AI" },
       { path: "/ai-pronunciation", icon: "ri-mic-line", label: "Luyện phát âm" },
       { path: "/shadowing-practice", icon: "ri-volume-up-line", label: "Shadowing" },
+      { path: "/listening-dictation", icon: "ri-headphone-line", label: "Nghe chép" },
       { path: "/ai-writing", icon: "ri-quill-pen-line", label: "Viết & Dịch" },
       { path: "/kdrama-learn", icon: "ri-film-line", label: "Học qua phim & K-pop" },
       { path: "/kpop-flashcard", icon: "ri-music-2-line", label: "Flashcard K-pop cá nhân" },
