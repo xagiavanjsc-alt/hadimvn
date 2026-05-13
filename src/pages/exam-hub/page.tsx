@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { UnifiedExam } from "@/components/feature/UnifiedExam";
@@ -25,9 +25,9 @@ const EXAM_OPTIONS: ExamOption[] = [
     icon: "ri-file-list-3-line",
     color: "#4ade80",
     bgColor: "rgba(74,222,128,0.08)",
-    totalQuestions: 60,
+    totalQuestions: 30,
     timeLimit: 1800,
-    description: "Đề thi EPS-TOPIK với 60 câu hỏi. Luyện thi chứng chỉ lao động Hàn Quốc.",
+    description: "Đề thi EPS-TOPIK với 30 câu hỏi mẫu. Luyện thi chứng chỉ lao động Hàn Quốc.",
   },
   {
     id: "seoul",
@@ -36,9 +36,9 @@ const EXAM_OPTIONS: ExamOption[] = [
     icon: "ri-book-3-line",
     color: "#60a5fa",
     bgColor: "rgba(96,165,250,0.08)",
-    totalQuestions: 50,
+    totalQuestions: 10,
     timeLimit: 1500,
-    description: "Đề thi dựa trên giáo trình Seoul 1A-4B. Phù hợp cho học sinh du học.",
+    description: "Đề thi dựa trên giáo trình Seoul 1A-4B với 10 câu hỏi mẫu. Phù hợp cho học sinh du học.",
   },
   {
     id: "topik",
@@ -102,7 +102,7 @@ export default function ExamHubPage() {
   };
 
   // Get real exam questions from samples
-  const getExamQuestions = (examType: string) => {
+  const getExamQuestions = useCallback((examType: string) => {
     switch (examType) {
       case "eps":
         return EPS_EXAMPLES;
@@ -113,7 +113,7 @@ export default function ExamHubPage() {
       default:
         return [];
     }
-  };
+  }, []);
 
   return (
     <DashboardLayout>
@@ -151,16 +151,43 @@ export default function ExamHubPage() {
                   <i className="ri-check-line text-green-400 text-3xl"></i>
                 </div>
                 <h2 className="text-white text-xl font-semibold mb-2">Hoàn thành!</h2>
-                <p className="text-white/60 text-sm mb-4">
-                  Bạn đã hoàn thành {examResult.total} câu hỏi
+                <p className="text-white/60 text-sm mb-6">
+                  Bạn đã hoàn thành {examResult.total} câu hỏi trong {Math.floor(examResult.timeUsed / 60)} phút
                 </p>
-                <div className="flex gap-4 text-sm">
-                  <div className="text-green-400">{examResult.score} đúng</div>
-                  <div className="text-app-text-muted">{examResult.total - examResult.score} sai</div>
+                
+                <div className="grid grid-cols-3 gap-6 mb-8">
+                  <div>
+                    <p className="text-3xl font-bold text-green-400">
+                      {Math.round((examResult.score / examResult.total) * 100)}%
+                    </p>
+                    <p className="text-app-text-secondary text-xs">Điểm số</p>
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold text-white">{examResult.score}/{examResult.total}</p>
+                    <p className="text-app-text-secondary text-xs">Đúng</p>
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold text-white">
+                      {Math.floor(examResult.timeUsed / 60)}:{(examResult.timeUsed % 60).toString().padStart(2, '0')}
+                    </p>
+                    <p className="text-app-text-secondary text-xs">Thời gian</p>
+                  </div>
                 </div>
-                <button onClick={handleBack} className="mt-6 px-6 py-2 bg-app-card/50 hover:bg-app-card/70 rounded-lg text-white text-sm transition-colors">
-                  Quay lại hub
-                </button>
+
+                <div className="flex gap-3">
+                  <button onClick={handleBack} className="px-6 py-2.5 rounded-xl bg-app-card/50 hover:bg-app-card/70 text-white text-sm font-medium transition-colors">
+                    Quay lại hub
+                  </button>
+                  <button 
+                    onClick={() => {
+                      setExamResult(null);
+                    }}
+                    className="px-6 py-2.5 rounded-xl text-sm font-medium transition-colors"
+                    style={{ backgroundColor: activeExam.color, color: "#0f1117" }}
+                  >
+                    Làm lại
+                  </button>
+                </div>
               </div>
             ) : (
               <UnifiedExam
