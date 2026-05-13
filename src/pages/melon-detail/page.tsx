@@ -476,7 +476,12 @@ export default function MelonDetailPage() {
                             </div>
                             <p className="text-white/60 text-xs mb-1">{g.meaning}</p>
                             {g.examples[0] && (
-                              <p className="text-white/40 text-xs italic">VD: {g.examples[0].sentence} — {g.examples[0].translation}</p>
+                              <div className="mt-1 space-y-0.5">
+                                <p className="text-white/40 text-xs italic">VD: {g.examples[0].sentence}</p>
+                                {g.examples[0].translation && (
+                                  <p className="text-white/30 text-xs">→ {g.examples[0].translation}</p>
+                                )}
+                              </div>
                             )}
                           </div>
                         ))}

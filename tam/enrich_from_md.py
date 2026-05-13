@@ -159,9 +159,10 @@ Trả về đúng cấu trúc Markdown này (giữ đúng các tiêu đề ##):
 
 ## NGU_PHAP
 [2-3 mẫu]. Mỗi mẫu:
-### mẫu-ngữ-pháp
+### V/A + mẫu-ngữ-pháp (ghi rõ dạng V/A/N ở trước)
 Giải thích ngắn bằng tiếng Việt
-> câu ví dụ tiếng Hàn | dịch tiếng Việt
+> câu ví dụ tiếng Hàn | bản dịch tiếng Việt (BẮt buộc có dấu | và phần dịch sau dấu |)
+(Ví dụ chuẩn: > 나그네야 | Lữ khách ơi)
 
 ## DO_KHO
 easy | Dễ | lý do ngắn
