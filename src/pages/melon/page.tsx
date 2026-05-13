@@ -310,12 +310,7 @@ const MelonPage = () => {
 
       <div className="max-w-2xl mx-auto pt-16 md:pt-6 px-4">
         {/* Hero banner */}
-        <div className="mb-5 rounded-2xl overflow-hidden relative h-28">
-          <img
-            src="https://readdy.ai/api/search-image?query=Melon%20music%20chart%20Korean%20pop%20music%20streaming%20service%20vibrant%20colorful%20musical%20notes%20rhythm%20waves%20abstract%20art%20neon%20gradient%20warm%20orange%20pink&width=640&height=224&seq=melon-hero-001&orientation=landscape"
-            alt="Melon Chart"
-            className="w-full h-full object-cover object-top"
-          />
+        <div className="mb-5 rounded-2xl overflow-hidden relative h-28 bg-gradient-to-br from-[#00C73C] via-[#FF6B6B] to-[#4ECDC4]">
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
           <div className="absolute inset-0 flex flex-col justify-center px-5">
             <div className="flex items-center gap-2 mb-1">
