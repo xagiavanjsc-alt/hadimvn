@@ -6,6 +6,8 @@ export interface MelonSong {
   lyrics: string;
   albumArt: string;
   processed?: boolean;
+  releaseDate?: string;
+  album?: string;
 }
 
 export const mockMelonSongs: MelonSong[] = [
