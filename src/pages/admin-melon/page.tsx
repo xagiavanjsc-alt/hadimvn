@@ -56,6 +56,7 @@ const AdminMelonPage = () => {
   const [dragOver, setDragOver] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [fetchMsg, setFetchMsg] = useState("");
+  const [showUploadPanel, setShowUploadPanel] = useState(false);
 
   // Load songs from localStorage
   useEffect(() => {
@@ -81,7 +82,9 @@ const AdminMelonPage = () => {
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) setUploadFile(file);
+    if (file && (file.name.endsWith(".json") || file.name.endsWith(".csv"))) {
+      setUploadFile(file);
+    }
   };
 
   const handleUpload = async () => {
@@ -233,7 +236,7 @@ const AdminMelonPage = () => {
               {isFetching ? "Đang fetch..." : "Fetch từ API"}
             </button>
             <button
-              onClick={() => setUploadFile(null)}
+              onClick={() => setShowUploadPanel(!showUploadPanel)}
               className="px-4 py-2 bg-app-accent-primary/20 border border-app-accent-primary/40 rounded-lg text-app-accent-primary text-sm hover:bg-app-accent-primary/30 transition-colors"
             >
               <i className="ri-upload-line mr-2"></i>
@@ -250,23 +253,57 @@ const AdminMelonPage = () => {
         )}
 
         {/* Upload Panel */}
-        {uploadFile && (
+        {showUploadPanel && (
           <div className="bg-app-card/50 border border-app-border rounded-2xl p-6">
-            <h3 className="text-white font-semibold mb-4">Upload dữ liệu Melon</h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-white font-semibold">Upload dữ liệu Melon</h3>
+              <button
+                onClick={() => { setShowUploadPanel(false); setUploadFile(null); }}
+                className="text-white/40 hover:text-white"
+              >
+                <i className="ri-close-line text-xl"></i>
+              </button>
+            </div>
             <div
               onDragOver={e => { e.preventDefault(); setDragOver(true); }}
               onDragLeave={() => setDragOver(false)}
               onDrop={handleFileDrop}
-              className="border-2 border-dashed border-app-border rounded-xl p-8 text-center"
+              className="border-2 border-dashed border-app-border rounded-xl p-8 text-center cursor-pointer"
               style={{
                 borderColor: dragOver ? "#10b981" : undefined,
                 backgroundColor: dragOver ? "rgba(16, 185, 129, 0.05)" : undefined
               }}
+              onClick={() => document.getElementById('fileInput')?.click()}
             >
               <i className="ri-file-upload-line text-4xl text-white/30 mb-3"></i>
-              <p className="text-white/60 mb-2">{uploadFile.name}</p>
+              <p className="text-white/60 mb-2">{uploadFile ? uploadFile.name : "Kéo thả file vào đây hoặc click để chọn"}</p>
               <p className="text-white/40 text-xs mb-4">Hỗ trợ .json và .csv</p>
+              <input
+                id="fileInput"
+                type="file"
+                accept=".json,.csv"
+                onChange={handleFileSelect}
+                className="hidden"
+              />
             </div>
+
+            {uploadFile && (
+              <div className="flex gap-3 mt-4">
+                <button
+                  onClick={handleUpload}
+                  disabled={uploadStatus === "processing"}
+                  className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-medium hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {uploadStatus === "processing" ? "Đang upload..." : "Upload"}
+                </button>
+                <button
+                  onClick={() => setUploadFile(null)}
+                  className="px-6 py-3 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-colors"
+                >
+                  Hủy
+                </button>
+              </div>
+            )}
 
             {uploadStatus === "processing" && (
               <div className="mt-4 text-center text-white/60">

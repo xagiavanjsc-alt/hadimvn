@@ -44,6 +44,14 @@ const adminNavGroups = [
     ],
   },
   {
+    label: "Dữ liệu K-pop",
+    color: "#fbbf24",
+    items: [
+      { path: "/admin-melon", icon: "ri-music-2-line", label: "Quản lý Melon Chart" },
+      { path: "/admin-naver-kin", icon: "ri-question-answer-line", label: "Quản lý Naver KiN Q&A" },
+    ],
+  },
+  {
     label: "Doanh thu",
     color: "#34d399",
     items: [
