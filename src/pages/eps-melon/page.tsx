@@ -28,7 +28,7 @@ interface SongEpsMatch {
 
 // ─── EPS Vocab normalization ───────────────────────────────────────────────────
 function buildEpsWords(): EpsWord[] {
-  return epsVocabulary.slice(0, 200).map((v, i) => ({
+  return epsVocabulary.map((v, i) => ({
     id: String(i),
     korean: v.korean,
     vietnamese: v.vietnamese,
