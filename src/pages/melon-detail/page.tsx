@@ -386,7 +386,7 @@ export default function MelonDetailPage() {
                 </div>
                 <span className="text-white/60 text-xs font-medium tracking-normal">Lời bài hát (Tiếng Hàn)</span>
               </div>
-              <pre className="text-white/75 text-sm leading-9 font-sans whitespace-pre-wrap">{song.lyrics}</pre>
+              <pre className="text-white/75 text-sm leading-9 font-sans whitespace-pre-wrap max-h-[420px] overflow-y-auto pr-1 custom-scrollbar">{song.lyrics}</pre>
             </div>
           </div>
 
@@ -432,7 +432,7 @@ export default function MelonDetailPage() {
                         <span className="text-white/60 text-xs font-medium">Bản dịch viết</span>
                         <span className="text-[9px] bg-blue-500/15 text-blue-400 px-1.5 py-0.5 rounded-full">Admin</span>
                       </div>
-                      <p className="text-white/75 text-sm leading-8 whitespace-pre-line">{song.translation?.full}</p>
+                      <p className="text-white/75 text-sm leading-8 whitespace-pre-line max-h-[420px] overflow-y-auto pr-1 custom-scrollbar">{song.translation?.full}</p>
                     </div>
                   )}
                   {hasPreVocab && (
@@ -464,7 +464,12 @@ export default function MelonDetailPage() {
                       <div className="space-y-3">
                         {song.grammar!.map((g, i) => (
                           <div key={i} className="border-l-2 border-app-accent-primary/40 pl-3">
-                            <p className="text-app-accent-primary text-sm font-semibold">{g.pattern}</p>
+                            <div className="flex items-center gap-1.5">
+                              <p className="text-app-accent-primary text-sm font-semibold">{g.pattern.replace(/^#+\s*/, '')}</p>
+                              <a href="/grammar-by-level" target="_blank" rel="noopener noreferrer" title="Xem ngữ pháp TOPIK" className="text-white/20 hover:text-app-accent-primary transition-colors flex-shrink-0">
+                                <i className="ri-external-link-line text-xs" />
+                              </a>
+                            </div>
                             <p className="text-white/60 text-xs mb-1">{g.meaning}</p>
                             {g.examples[0] && (
                               <p className="text-white/40 text-xs italic">VD: {g.examples[0].sentence} — {g.examples[0].translation}</p>
@@ -479,7 +484,7 @@ export default function MelonDetailPage() {
                 <div className="lg:hidden">
                   {tab === "story" && hasPreStory && (
                     <div className="bg-app-surface/50 rounded-2xl p-5 border border-app-border">
-                      <p className="text-white/75 text-sm leading-8 whitespace-pre-line">{song.translation?.full}</p>
+                      <p className="text-white/75 text-sm leading-8 whitespace-pre-line max-h-[420px] overflow-y-auto pr-1 custom-scrollbar">{song.translation?.full}</p>
                     </div>
                   )}
                   {tab === "vocab" && hasPreVocab && (
@@ -497,7 +502,12 @@ export default function MelonDetailPage() {
                     <div className="space-y-3">
                       {song.grammar!.map((g, i) => (
                         <div key={i} className="bg-app-surface/50 rounded-xl p-4 border border-app-border border-l-2 border-l-app-accent-primary/40">
-                          <p className="text-app-accent-primary text-sm font-semibold">{g.pattern}</p>
+                          <div className="flex items-center gap-1.5">
+                            <p className="text-app-accent-primary text-sm font-semibold">{g.pattern.replace(/^#+\s*/, '')}</p>
+                            <a href="/grammar-by-level" target="_blank" rel="noopener noreferrer" className="text-white/20 hover:text-app-accent-primary transition-colors flex-shrink-0">
+                              <i className="ri-external-link-line text-xs" />
+                            </a>
+                          </div>
                           <p className="text-white/60 text-xs">{g.meaning}</p>
                         </div>
                       ))}
