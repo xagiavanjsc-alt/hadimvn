@@ -55,6 +55,7 @@ const ALL_FEATURES: Feature[] = [
   // Hangul hidden features
   { path: "/hangul-canvas", label: "Vẽ Hangul", icon: "ri-brush-line", tags: ["Hangul", "Viết tay"], description: "Luyện viết tay Hangul trên canvas" },
   { path: "/hangul-write", label: "Luyện viết Hangul", icon: "ri-pencil-line", tags: ["Hangul", "Viết"], description: "Luyện viết từng ký tự Hangul" },
+  { path: "/handwriting-practice", label: "Luyện viết nâng cao", icon: "ri-edit-line", tags: ["Hangul", "Hán tự", "Viết"], description: "Luyện viết chữ Hán và Hangul với nhận diện nét" },
 
   // Community hidden features
   { path: "/community-ranks", label: "Hạng cộng đồng", icon: "ri-vip-crown-line", tags: ["Cộng đồng", "Xếp hạng"], description: "Hệ thống hạng và danh hiệu cộng đồng" },

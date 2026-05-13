@@ -202,7 +202,7 @@ export default function LearnOverviewPage() {
       ],
     },
     {
-      icon: "ri-edit-2-line", title: "Luyện viết Hangul", subtitle: "Nhận diện nét viết", color: "#a78bfa", path: "/hangul-write",
+      icon: "ri-edit-2-line", title: "Luyện viết", subtitle: "Nhận diện nét viết", color: "#a78bfa", path: "/handwriting-practice",
       stats: [
         { label: "Ký tự thành thạo", done: hangulDone, total: hangulTotal },
         { label: "Điểm TB", done: hangulAvgScore, total: 100 },
