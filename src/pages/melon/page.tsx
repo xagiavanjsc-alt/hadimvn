@@ -8,7 +8,7 @@ import StreakProtectionBanner from "./components/StreakProtectionBanner";
 import { useMelonStreak } from "@/hooks/useMelonStreak";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import AdminDataPanel from "./components/AdminDataPanel";
-import { fetchTop100, MelonApiResponse } from "@/lib/melonApi";
+import realMelonData from "@/mocks/melonSongs_real.json";
 
 const SongAnalysisModal = lazy(() => import("./components/SongAnalysisModal"));
 const PlaylistTab = lazy(() => import("./components/PlaylistTab"));
@@ -158,43 +158,11 @@ const MelonPage = () => {
   const [playlistRanks, setPlaylistRanks] = useState<number[]>(loadPlaylistRanks);
   const [streakBannerDismissed, setStreakBannerDismissed] = useState(false);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
-  const [songs, setSongs] = useState<MelonSong[]>(mockMelonSongs);
-  const [isLoading, setIsLoading] = useState(false);
-  const [useRealData, setUseRealData] = useState(false);
 
-  // Fetch real data from API on mount if API key is available
-  useEffect(() => {
-    const fetchRealData = async () => {
-      if (import.meta.env.VITE_APIFY_API_KEY) {
-        setIsLoading(true);
-        try {
-          const apiData = await fetchTop100();
-          if (apiData.length > 0) {
-            // Transform API data to MelonSong format
-            const transformedSongs: MelonSong[] = apiData.map((item: MelonApiResponse) => ({
-              rank: item.rank,
-              title: item.title,
-              artist: item.artist,
-              genre: item.genre || "K-pop",
-              lyrics: item.lyrics || "",
-              albumArt: item.albumArt || "/images/melon/album-placeholder.svg",
-              processed: false,
-              releaseDate: item.releaseDate,
-              album: item.album,
-            }));
-            setSongs(transformedSongs);
-            setUseRealData(true);
-          }
-        } catch (error) {
-          console.error("Failed to fetch Melon data:", error);
-        } finally {
-          setIsLoading(false);
-        }
-      }
-    };
-
-    fetchRealData();
-  }, []);
+  // Load real data from JSON file if available, otherwise use mock data
+  const songs: MelonSong[] = (realMelonData && realMelonData.length > 0)
+    ? realMelonData as MelonSong[]
+    : mockMelonSongs;
 
   const togglePlaylist = useCallback((song: MelonSong) => {
     setPlaylistRanks((prev) => {
@@ -347,25 +315,6 @@ const MelonPage = () => {
       <MobileHeader title="Melon Chart" showBack />
 
       <div className="max-w-2xl mx-auto pt-16 md:pt-6 px-4">
-        {/* Loading indicator */}
-        {isLoading && (
-          <div className="mb-4 bg-app-card border border-app-border rounded-xl p-4 flex items-center gap-3">
-            <i className="ri-loader-4-line animate-spin text-app-accent-primary text-lg" />
-            <div>
-              <p className="text-white text-sm font-medium">Đang tải dữ liệu Melon...</p>
-              <p className="text-app-text-muted text-xs">Lấy TOP 100 từ chart thực tế</p>
-            </div>
-          </div>
-        )}
-
-        {/* Data source indicator */}
-        {useRealData && (
-          <div className="mb-4 bg-green-500/10 border border-green-500/20 rounded-xl p-3 flex items-center gap-2">
-            <i className="ri-check-line text-green-400" />
-            <p className="text-green-400 text-xs">Dữ liệu real-time từ Melon Chart</p>
-          </div>
-        )}
-
         {/* Hero banner */}
         <div className="mb-5 rounded-2xl overflow-hidden relative h-28 bg-gradient-to-br from-[#00C73C] via-[#FF6B6B] to-[#4ECDC4]">
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
