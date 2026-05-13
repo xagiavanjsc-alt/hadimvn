@@ -90,6 +90,7 @@ export default function ExamHubPage() {
   const [examHistory, setExamHistory] = useState<any[]>([]);
   const [showHistory, setShowHistory] = useState(false);
   const [filterType, setFilterType] = useState<string>("all");
+  const [selectedHistory, setSelectedHistory] = useState<any>(null);
 
   useEffect(() => {
     loadExamHistory();
@@ -331,26 +332,27 @@ export default function ExamHubPage() {
                               const examConfig = EXAM_OPTIONS.find(e => e.id === history.exam_type);
                               const percentage = Math.round((history.score / history.total) * 100);
                               const date = new Date(history.taken_at);
-                              const formattedDate = date.toLocaleDateString('vi-VN', { 
-                                day: '2-digit', 
-                                month: '2-digit', 
+                              const formattedDate = date.toLocaleDateString('vi-VN', {
+                                day: '2-digit',
+                                month: '2-digit',
                                 year: 'numeric',
                                 hour: '2-digit',
                                 minute: '2-digit'
                               });
 
                               return (
-                                <div
+                                <button
                                   key={history.id || index}
-                                  className="bg-app-card border border-app-border rounded-xl p-4"
+                                  onClick={() => setSelectedHistory(history)}
+                                  className="bg-app-card border border-app-border rounded-xl p-4 w-full text-left hover:border-app-border/50 transition-all"
                                 >
                                   <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
-                                      <div 
+                                      <div
                                         className="w-10 h-10 flex items-center justify-center rounded-lg"
                                         style={{ backgroundColor: examConfig?.bgColor || "#4ade8015" }}
                                       >
-                                        <i 
+                                        <i
                                           className={`${examConfig?.icon || "ri-file-list-3-line"} text-lg`}
                                           style={{ color: examConfig?.color || "#4ade80" }}
                                         />
@@ -367,7 +369,7 @@ export default function ExamHubPage() {
                                       <p className="text-app-text-faint text-xs">{history.score}/{history.total}</p>
                                     </div>
                                   </div>
-                                </div>
+                                </button>
                               );
                             })}
                           </div>
@@ -382,6 +384,120 @@ export default function ExamHubPage() {
                     })()}
                   </>
                 )}
+              </div>
+            )}
+
+            {/* Detailed Result Modal */}
+            {selectedHistory && (
+              <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+                <div className="bg-app-bg border border-app-border rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+                  {/* Header */}
+                  <div className="p-6 border-b border-app-border">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div
+                          className="w-12 h-12 flex items-center justify-center rounded-xl"
+                          style={{ backgroundColor: EXAM_OPTIONS.find(e => e.id === selectedHistory.exam_type)?.bgColor || "#4ade8015" }}
+                        >
+                          <i
+                            className={`${EXAM_OPTIONS.find(e => e.id === selectedHistory.exam_type)?.icon || "ri-file-list-3-line"} text-2xl`}
+                            style={{ color: EXAM_OPTIONS.find(e => e.id === selectedHistory.exam_type)?.color || "#4ade80" }}
+                          />
+                        </div>
+                        <div>
+                          <h2 className="text-white font-semibold">{EXAM_OPTIONS.find(e => e.id === selectedHistory.exam_type)?.title || selectedHistory.exam_type}</h2>
+                          <p className="text-app-text-faint text-xs">
+                            {new Date(selectedHistory.taken_at).toLocaleDateString('vi-VN', {
+                              day: '2-digit',
+                              month: '2-digit',
+                              year: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => setSelectedHistory(null)}
+                        className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-card/50 text-white/60 hover:text-white transition-colors"
+                      >
+                        <i className="ri-close-line text-lg"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 overflow-y-auto p-6">
+                    {selectedHistory.questions && selectedHistory.user_answers ? (
+                      <div className="space-y-4">
+                        {selectedHistory.questions.map((question: any, index: number) => {
+                          const userAnswer = selectedHistory.user_answers[question.id];
+                          const isCorrect = userAnswer === question.correctIndex;
+                          const isAnswered = userAnswer !== undefined;
+
+                          return (
+                            <div
+                              key={question.id}
+                              className={`bg-app-card border rounded-xl p-4 ${isCorrect ? "border-green-500/30" : isAnswered ? "border-red-500/30" : "border-app-border"}`}
+                            >
+                              <div className="flex items-start gap-3 mb-3">
+                                <div
+                                  className={`w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold ${
+                                    isCorrect ? "bg-green-500/20 text-green-400" : isAnswered ? "bg-red-500/20 text-red-400" : "bg-app-card/50 text-app-text-secondary"
+                                  }`}
+                                >
+                                  {isCorrect ? "✓" : isAnswered ? "✗" : index + 1}
+                                </div>
+                                <p className="text-white text-sm flex-1">{question.question}</p>
+                              </div>
+
+                              <div className="space-y-2 ml-9">
+                                {question.options.map((option: string, optIndex: number) => {
+                                  let bgColor = "bg-app-surface/50";
+                                  let borderColor = "border-app-border";
+                                  let textColor = "text-white";
+
+                                  if (optIndex === question.correctIndex) {
+                                    bgColor = "bg-green-500/10";
+                                    borderColor = "border-green-500/30";
+                                    textColor = "text-green-400";
+                                  } else if (userAnswer === optIndex && optIndex !== question.correctIndex) {
+                                    bgColor = "bg-red-500/10";
+                                    borderColor = "border-red-500/30";
+                                    textColor = "text-red-400";
+                                  }
+
+                                  return (
+                                    <div
+                                      key={optIndex}
+                                      className={`p-3 rounded-lg border text-sm ${bgColor} ${borderColor} ${textColor}`}
+                                    >
+                                      <span className="font-medium mr-2">{String.fromCharCode(65 + optIndex)}.</span>
+                                      {option}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+
+                              {question.explanation && (
+                                <div className="mt-3 ml-9 p-3 rounded-lg bg-app-surface/50 border border-app-border">
+                                  <p className="text-white/60 text-xs">
+                                    <strong className="text-white/80">Giải thích:</strong> {question.explanation}
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <div className="text-center py-12">
+                        <p className="text-app-text-secondary">Chi tiết câu hỏi không khả dụng cho kỳ thi này.</p>
+                        <p className="text-app-text-faint text-xs mt-2">Chỉ các kỳ thi mới sẽ lưu chi tiết.</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             )}
           </>

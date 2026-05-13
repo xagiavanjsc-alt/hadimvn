@@ -23,6 +23,14 @@ export interface ExamHistoryData {
   time_used: number;
   correct_ids: string[];
   taken_at: string;
+  questions?: Array<{
+    id: string;
+    question: string;
+    options: string[];
+    correctIndex: number;
+    explanation?: string;
+  }>;
+  user_answers?: Record<string, number>;
 }
 
 class IndexedDBWrapper {

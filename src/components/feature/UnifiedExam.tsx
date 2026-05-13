@@ -95,6 +95,8 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
       time_used: finalTimeUsed,
       correct_ids: Object.keys(answers).filter(id => answers[id] === questions.find(q => q.id === id)?.correctIndex),
       taken_at: new Date().toISOString(),
+      questions: questions,
+      user_answers: answers,
     };
 
     try {
