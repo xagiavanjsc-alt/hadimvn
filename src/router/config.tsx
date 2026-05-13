@@ -307,6 +307,7 @@ const VideoLessonsPage = lazyPage(() => import("../pages/video-lessons/page"));
 const AIPronunciationPage = lazyPage(() => import("../pages/ai-pronunciation/page"));
 const ShadowingPracticePage = lazyPage(() => import("../pages/shadowing-practice/page"));
 const ListeningDictationPage = lazyPage(() => import("../pages/listening-dictation/page"));
+const HandwritingPracticePage = lazyPage(() => import("../pages/handwriting-practice/page"));
 const AIWritingPage = lazyPage(() => import("../pages/ai-writing/page"));
 const KDramaLearnPage = lazyPage(() => import("../pages/kdrama-learn/page"));
 const OfflineVocabPage = lazyPage(() => import("../pages/offline-vocab/page"));
@@ -651,6 +652,7 @@ const routes: RouteObject[] = [
   { path: "/ai-pronunciation", element: <AIPronunciationPage /> },
   { path: "/shadowing-practice", element: <ShadowingPracticePage /> },
   { path: "/listening-dictation", element: <ListeningDictationPage /> },
+  { path: "/handwriting-practice", element: <HandwritingPracticePage /> },
   { path: "/ai-writing", element: <AIWritingPage /> },
   { path: "/kdrama-learn", element: <KDramaLearnPage /> },
   { path: "/offline-vocab", element: <OfflineVocabPage /> },
