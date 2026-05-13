@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useToast } from "@/components/base/Toast";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
-import { saveMelonSongsToSupabase, upsertMelonSongsToSupabase, clearMelonSongsFromSupabase } from "@/hooks/useMelonSongs";
+import { useMelonSongs, saveMelonSongsToSupabase, upsertMelonSongsToSupabase, clearMelonSongsFromSupabase } from "@/hooks/useMelonSongs";
 
 interface MelonSong {
   rank: number;
@@ -49,6 +49,7 @@ interface MelonSong {
 const AdminMelonPage = () => {
   const isAdmin = useIsAdmin();
   const toast = useToast();
+  const { songs: loadedSongs, loading: songsLoading } = useMelonSongs();
   const [songs, setSongs] = useState<MelonSong[]>([]);
   const [selectedSong, setSelectedSong] = useState<MelonSong | null>(null);
   const [editingSong, setEditingSong] = useState<MelonSong | null>(null);
@@ -61,18 +62,12 @@ const AdminMelonPage = () => {
   const [showUploadPanel, setShowUploadPanel] = useState(false);
   const [uploadMode, setUploadMode] = useState<"replace" | "upsert">("upsert");
 
-  // Load songs from localStorage
+  // Load songs from Supabase → localStorage → mock (via useMelonSongs hook)
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("kts_melon_songs");
-      if (raw) {
-        const data = JSON.parse(raw) as MelonSong[];
-        setSongs(data);
-      }
-    } catch (e) {
-      console.error("Failed to load songs:", e);
+    if (!songsLoading && loadedSongs.length > 0) {
+      setSongs(loadedSongs as MelonSong[]);
     }
-  }, []);
+  }, [loadedSongs, songsLoading]);
 
   const handleFileDrop = (e: React.DragEvent) => {
     e.preventDefault();

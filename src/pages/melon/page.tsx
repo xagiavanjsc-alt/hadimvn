@@ -6,8 +6,6 @@ import { MelonSong } from "@/mocks/melonSongs";
 import { useVirtualScroll } from "@/hooks/useVirtualScroll";
 import StreakProtectionBanner from "./components/StreakProtectionBanner";
 import { useMelonStreak } from "@/hooks/useMelonStreak";
-import { useIsAdmin } from "@/hooks/useIsAdmin";
-import AdminDataPanel from "./components/AdminDataPanel";
 import { useMelonSongs } from "@/hooks/useMelonSongs";
 
 const SongAnalysisModal = lazy(() => import("./components/SongAnalysisModal"));
@@ -162,7 +160,6 @@ function savePlaylistRanks(ranks: number[]): void {
 
 const MelonPage = () => {
   const navigate = useNavigate();
-  const isAdmin = useIsAdmin();
   const { streak, learnedRanks, learnedToday, markLearned, refreshLearnedRanks, isLearned } =
     useMelonStreak();
 
@@ -174,8 +171,6 @@ const MelonPage = () => {
   const [analysisTarget, setAnalysisTarget] = useState<MelonSong | null>(null);
   const [playlistRanks, setPlaylistRanks] = useState<number[]>(loadPlaylistRanks);
   const [streakBannerDismissed, setStreakBannerDismissed] = useState(false);
-  const [showAdminPanel, setShowAdminPanel] = useState(false);
-
   // Load songs from Supabase → localStorage → mock (priority order)
   const { songs, loading: songsLoading, source: songsSource } = useMelonSongs();
 
@@ -316,16 +311,6 @@ const MelonPage = () => {
             <i className="ri-book-2-line" />
             EPS + K-pop
           </button>
-          {isAdmin && (
-            <button
-              onClick={() => setShowAdminPanel(true)}
-              className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
-              style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.20)" }}
-            >
-              <i className="ri-database-2-line" />
-              Dữ liệu
-            </button>
-          )}
         </div>
       </header>
 
@@ -440,20 +425,6 @@ const MelonPage = () => {
           </div>
         )}
 
-        {/* Admin data button — mobile */}
-        {isAdmin && (
-          <div className="mb-3">
-            <button
-              onClick={() => setShowAdminPanel(true)}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap transition-all"
-              style={{ backgroundColor: "rgba(232,200,74,0.10)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.18)" }}
-            >
-              <i className="ri-database-2-line"></i>
-              Quản lý dữ liệu (Admin)
-              <span className="ml-1 text-[9px] px-1.5 py-0.5 rounded-full font-bold" style={{ backgroundColor: "rgba(232,200,74,0.15)", color: "app-accent-primary" }}>ADMIN</span>
-            </button>
-          </div>
-        )}
 
         {/* Quick nav */}
         <div className="flex gap-2 mb-4 flex-wrap">
@@ -652,11 +623,6 @@ const MelonPage = () => {
           </Suspense>
         )}
       </div>
-
-      {/* Admin Data Panel */}
-      {showAdminPanel && isAdmin && (
-        <AdminDataPanel onClose={() => setShowAdminPanel(false)} />
-      )}
 
       {/* AI Analysis Modal — lazy loaded */}
       {analysisTarget && (
