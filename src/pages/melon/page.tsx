@@ -8,7 +8,6 @@ import StreakProtectionBanner from "./components/StreakProtectionBanner";
 import { useMelonStreak } from "@/hooks/useMelonStreak";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import AdminDataPanel from "./components/AdminDataPanel";
-import realMelonData from "@/mocks/melonSongs_real.json";
 
 const SongAnalysisModal = lazy(() => import("./components/SongAnalysisModal"));
 const PlaylistTab = lazy(() => import("./components/PlaylistTab"));
@@ -159,10 +158,24 @@ const MelonPage = () => {
   const [streakBannerDismissed, setStreakBannerDismissed] = useState(false);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
 
-  // Load real data from JSON file if available, otherwise use mock data
-  const songs: MelonSong[] = (realMelonData && realMelonData.length > 0)
-    ? realMelonData as MelonSong[]
-    : mockMelonSongs;
+  // Load songs from localStorage (same as admin panel)
+  const [songs, setSongs] = useState<MelonSong[]>([]);
+  
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("kts_melon_songs");
+      if (raw) {
+        const data = JSON.parse(raw) as MelonSong[];
+        setSongs(data);
+      } else {
+        // Fallback to mock data if no data in localStorage
+        setSongs(mockMelonSongs);
+      }
+    } catch (e) {
+      console.error("Failed to load songs:", e);
+      setSongs(mockMelonSongs);
+    }
+  }, []);
 
   const togglePlaylist = useCallback((song: MelonSong) => {
     setPlaylistRanks((prev) => {
