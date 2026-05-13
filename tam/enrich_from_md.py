@@ -87,7 +87,7 @@ def parse_md(path: str) -> list[dict]:
         genre      = _extract_table(section, "Thể loại") or ""
         album      = _extract_table(section, "Album") or ""
         released   = _extract_table(section, "Phát hành") or ""
-        album_art  = _extract_img(section)
+        album_art  = "/images/melon/album-placeholder.svg"  # dùng placeholder local thay CDN Melon
         song_url   = _extract_link(section, title)
 
         # Extract lyrics (inside ``` block)
