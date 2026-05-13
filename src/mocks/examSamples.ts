@@ -251,6 +251,171 @@ export const EPS_EXAMPLES: ExamQuestion[] = [
     ],
     correctIndex: 0,
     explanation: "저는 옷을 벗습니다 là câu đúng."
+  },
+  {
+    id: "eps_31",
+    question: "다음 중 '신다'의 의미를 고르십시오.",
+    options: ["cởi", "đi", "mặc", "ngủ"],
+    correctIndex: 1,
+    explanation: "신다 có nghĩa là đi (giày)."
+  },
+  {
+    id: "eps_32",
+    question: "다음 문장의 빈칸에 알맞은 단어를 고르십시오.\n\n저는 신발을 _____.",
+    options: ["신다", "신습니다", "신어요", "신는"],
+    correctIndex: 1,
+    explanation: "신습니다 là dạng lịch sự hiện tại."
+  },
+  {
+    id: "eps_33",
+    question: "다음 중 '끓다'의 의미를 고르십시오.",
+    options: ["lạnh", "nóng", "sôi", "đóng băng"],
+    correctIndex: 2,
+    explanation: "끓다 có nghĩa là sôi."
+  },
+  {
+    id: "eps_34",
+    question: "다음 문장을 한국어로 번역하십시오.\n\nNước đang sôi.",
+    options: [
+      "물이 끓습니다.",
+      "물이 끓습니다.",
+      "물이 끓습니다.",
+      "물이 끓습니다."
+    ],
+    correctIndex: 0,
+    explanation: "물이 끓습니다 là câu đúng."
+  },
+  {
+    id: "eps_35",
+    question: "다음 중 '싸다'의 의미를 고르십시오.",
+    options: ["đắt", "rẻ", "lớn", "nhỏ"],
+    correctIndex: 1,
+    explanation: "싸다 có nghĩa là rẻ."
+  },
+  {
+    id: "eps_36",
+    question: "다음 중 '비싸다'의 의미를 고르십시오.",
+    options: ["rẻ", "đắt", "tốt", "xấu"],
+    correctIndex: 1,
+    explanation: "비싸다 có nghĩa là đắt."
+  },
+  {
+    id: "eps_37",
+    question: "다음 문장의 빈칸에 알맞은 단어를 고르십시오.\n\n이것은 아주 _____.",
+    options: ["싸다", "싸요", "싸", "비싸요"],
+    correctIndex: 3,
+    explanation: "비싸요 (đắt) thường dùng với 아주 (rất)."
+  },
+  {
+    id: "eps_38",
+    question: "다음 중 '맛있다'의 의미를 고르십시오.",
+    options: ["không ngon", "ngon", "đắng", "chua"],
+    correctIndex: 1,
+    explanation: "맛있다 có nghĩa là ngon."
+  },
+  {
+    id: "eps_39",
+    question: "다음 문장을 한국어로 번역하십시오.\n\nMón này rất ngon.",
+    options: [
+      "이것은 맛있습니다.",
+      "이것은 맛있습니다.",
+      "이것은 맛있습니다.",
+      "이것은 맛있습니다."
+    ],
+    correctIndex: 0,
+    explanation: "이것은 맛있습니다 là câu đúng."
+  },
+  {
+    id: "eps_40",
+    question: "다음 중 '맛없다'의 의미를 고르십시오.",
+    options: ["ngon", "không ngon", "ngọt", "mặn"],
+    correctIndex: 1,
+    explanation: "맛없다 có nghĩa là không ngon."
+  },
+  {
+    id: "eps_41",
+    question: "다음 문장의 빈칸에 알맞은 단어를 고르십시오.\n\n음식이 _____.",
+    options: ["맛있다", "맛있어요", "맛있는", "맛"],
+    correctIndex: 1,
+    explanation: "맛있어요 là dạng lịch sự hiện tại."
+  },
+  {
+    id: "eps_42",
+    question: "다음 중 '덥다'의 의미를 고르십시오.",
+    options: ["lạnh", "nóng", "ấm", "mát"],
+    correctIndex: 1,
+    explanation: "덥다 có nghĩa là nóng."
+  },
+  {
+    id: "eps_43",
+    question: "다음 중 '춥다'의 의미를 고르십시오.",
+    options: ["nóng", "lạnh", "ấm", "mát"],
+    correctIndex: 1,
+    explanation: "춥다 có nghĩa là lạnh."
+  },
+  {
+    id: "eps_44",
+    question: "다음 문장을 한국어로 번역하십시오.\n\nHôm nay trời nóng.",
+    options: [
+      "오늘은 덥습니다.",
+      "오늘은 춥습니다.",
+      "오늘은 따뜻합니다.",
+      "오늘은 시원합니다."
+    ],
+    correctIndex: 0,
+    explanation: "오늘은 덥습니다 (nóng) là câu đúng."
+  },
+  {
+    id: "eps_45",
+    question: "다음 문장을 한국어로 번역하십시오.\n\nHôm nay trời lạnh.",
+    options: [
+      "오늘은 덥습니다.",
+      "오늘은 춥습니다.",
+      "오늘은 따뜻합니다.",
+      "오늘은 시원합니다."
+    ],
+    correctIndex: 1,
+    explanation: "오늘은 춥습니다 (lạnh) là câu đúng."
+  },
+  {
+    id: "eps_46",
+    question: "다음 중 '좋아하다'의 의미를 고르십시오.",
+    options: ["ghét", "thích", "yêu", "ghen tị"],
+    correctIndex: 1,
+    explanation: "좋아하다 có nghĩa là thích."
+  },
+  {
+    id: "eps_47",
+    question: "다음 문장의 빈칸에 알맞은 단어를 고르십시오.\n\n저는 한국을 _____.",
+    options: ["좋아하다", "좋아해요", "좋아합니다", "좋아"],
+    correctIndex: 2,
+    explanation: "좋아합니다 là dạng lịch sự hiện tại."
+  },
+  {
+    id: "eps_48",
+    question: "다음 중 '싫어하다'의 의미를 고르십시오.",
+    options: ["thích", "ghét", "yêu", "ghen tị"],
+    correctIndex: 1,
+    explanation: "싫어하다 có nghĩa là ghét."
+  },
+  {
+    id: "eps_49",
+    question: "다음 문장을 한국어로 번역하십시오.\n\nTôi không thích cái này.",
+    options: [
+      "저는 이것을 싫어합니다.",
+      "저는 이것을 좋아합니다.",
+      "저는 이것을 사랑합니다.",
+      "저는 이것을 원합니다."
+    ],
+    correctIndex: 0,
+    explanation: "저는 이것을 싫어합니다 là câu đúng."
+  },
+  {
+    id: "eps_50",
+    question: "다음 문장의 빈칸에 알맞은 단어를 고르십시오.\n\n저는 아침을 _____.",
+    options: ["먹다", "먹습니다", "먹어요", "먹는"],
+    correctIndex: 1,
+    explanation: "먹습니다 là dạng lịch sự hiện tại."
   }
 ];
 
@@ -329,6 +494,171 @@ export const SEOUL_EXAMPLES: ExamQuestion[] = [
     options: ["읽다", "읽어", "읽는다", "읽는"],
     correctIndex: 1,
     explanation: "읽어 (đọc) là dạng kết thúc -요 phù hợp."
+  },
+  {
+    id: "seoul_11",
+    question: "다음 중 '듣다'의 의미를 고르십시오.",
+    options: ["nói", "nghe", "đọc", "viết"],
+    correctIndex: 1,
+    explanation: "듣다 có nghĩa là nghe."
+  },
+  {
+    id: "seoul_12",
+    question: "다음 문장의 빈칸에 알맞은 단어를 고르십시오.\n\n저는 음악을 _____.",
+    options: ["듣다", "듣습니다", "들어요", "듣는"],
+    correctIndex: 1,
+    explanation: "듣습니다 là dạng lịch sự hiện tại."
+  },
+  {
+    id: "seoul_13",
+    question: "다음 중 '말하다'의 의미를 고르십시오.",
+    options: ["nghe", "nói", "đọc", "viết"],
+    correctIndex: 1,
+    explanation: "말하다 có nghĩa là nói."
+  },
+  {
+    id: "seoul_14",
+    question: "다음 문장을 한국어로 번역하십시오.\n\nTôi nói tiếng Hàn.",
+    options: [
+      "저는 한국어를 말합니다.",
+      "저는 한국어를 듣습니다.",
+      "저는 한국어를 읽습니다.",
+      "저는 한국어를 씁니다."
+    ],
+    correctIndex: 0,
+    explanation: "저는 한국어를 말합니다 là câu đúng."
+  },
+  {
+    id: "seoul_15",
+    question: "다음 중 '보다'의 의미를 고르십시오.",
+    options: ["nghe", "nói", "xem", "đọc"],
+    correctIndex: 2,
+    explanation: "보다 có nghĩa là xem."
+  },
+  {
+    id: "seoul_16",
+    question: "다음 문장의 빈칸에 알맞은 단어를 고르십시오.\n\n저는 TV를 _____.",
+    options: ["보다", "봅니다", "봐요", "보는"],
+    correctIndex: 1,
+    explanation: "봅니다 là dạng lịch sự hiện tại."
+  },
+  {
+    id: "seoul_17",
+    question: "다음 중 '하다'의 의미를 고르십시오.",
+    options: ["không", "làm", "đi", "đến"],
+    correctIndex: 1,
+    explanation: "하다 có nghĩa là làm."
+  },
+  {
+    id: "seoul_18",
+    question: "다음 문장의 빈칸에 알맞은 단어를 고르십시오.\n\n저는 숙제를 _____.",
+    options: ["하다", "합니다", "해요", "하는"],
+    correctIndex: 1,
+    explanation: "합니다 là dạng lịch sự hiện tại."
+  },
+  {
+    id: "seoul_19",
+    question: "다음 중 '가다'의 현재형을 고르십시오.",
+    options: ["가다", "갑니다", "가요", "갈 거예요"],
+    correctIndex: 1,
+    explanation: "갑니다 là dạng lịch sự hiện tại."
+  },
+  {
+    id: "seoul_20",
+    question: "다음 문장을 한국어로 번역하십시오.\n\nTôi đi học.",
+    options: [
+      "저는 학교에 갑니다.",
+      "저는 학교에 왔습니다.",
+      "저는 학교에 갈 거예요.",
+      "저는 학교입니다."
+    ],
+    correctIndex: 0,
+    explanation: "저는 학교에 갑니다 là câu hiện tại đúng nhất."
+  },
+  {
+    id: "seoul_21",
+    question: "다음 중 '오다'의 현재형을 고르십시오.",
+    options: ["오다", "옵니다", "와요", "올 거예요"],
+    correctIndex: 1,
+    explanation: "옵니다 là dạng lịch sự hiện tại."
+  },
+  {
+    id: "seoul_22",
+    question: "다음 문장을 한국어로 번역하십시오.\n\nBạn đến trường.",
+    options: [
+      "당신은 학교에 갑니다.",
+      "당신은 학교에 옵니다.",
+      "당신은 학교에 왔습니다.",
+      "당신은 학교입니다."
+    ],
+    correctIndex: 1,
+    explanation: "당신은 학교에 옵니다 (đến) là câu đúng."
+  },
+  {
+    id: "seoul_23",
+    question: "다음 중 '앉다'의 의미를 고르십시오.",
+    options: ["đứng", "ngồi", "nằm", "đi"],
+    correctIndex: 1,
+    explanation: "앉다 có nghĩa là ngồi."
+  },
+  {
+    id: "seoul_24",
+    question: "다음 문장의 빈칸에 알맞은 단어를 고르십시오.\n\n의자에 _____.",
+    options: ["앉다", "앉습니다", "앉아요", "앉는"],
+    correctIndex: 1,
+    explanation: "앉습니다 là dạng lịch sự hiện tại."
+  },
+  {
+    id: "seoul_25",
+    question: "다음 중 '서다'의 의미를 고르십시오.",
+    options: ["ngồi", "đứng", "nằm", "đi"],
+    correctIndex: 1,
+    explanation: "서다 có nghĩa là đứng."
+  },
+  {
+    id: "seoul_26",
+    question: "다음 문장을 한국어로 번역하십시오.\n\nTôi đứng.",
+    options: [
+      "저는 서 있습니다.",
+      "저는 앉습니다.",
+      "저는 눕습니다.",
+      "저는 갑니다."
+    ],
+    correctIndex: 0,
+    explanation: "저는 서 있습니다 là câu đúng."
+  },
+  {
+    id: "seoul_27",
+    question: "다음 중 '눕다'의 의미를 고르십시오.",
+    options: ["đứng", "ngồi", "nằm", "ngủ"],
+    correctIndex: 2,
+    explanation: "눕다 có nghĩa là nằm."
+  },
+  {
+    id: "seoul_28",
+    question: "다음 문장의 빈칸에 알맞은 단어를 고르십시오.\n\n침대에 _____.",
+    options: ["눕다", "눕습니다", "누워요", "눕는"],
+    correctIndex: 1,
+    explanation: "눕습니다 là dạng lịch sự hiện tại."
+  },
+  {
+    id: "seoul_29",
+    question: "다음 중 '걷다'의 의미를 고르십시오.",
+    options: ["chạy", "đi bộ", "bơi", "nhảy"],
+    correctIndex: 1,
+    explanation: "걷다 có nghĩa là đi bộ."
+  },
+  {
+    id: "seoul_30",
+    question: "다음 문장을 한국어로 번역하십시오.\n\nTôi đi bộ.",
+    options: [
+      "저는 걷습니다.",
+      "저는 뜁니다.",
+      "저는 수영합니다.",
+      "저는 뜁니다."
+    ],
+    correctIndex: 0,
+    explanation: "저는 걷습니다 là câu đúng."
   }
 ];
 

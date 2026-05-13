@@ -26,9 +26,9 @@ const EXAM_OPTIONS: ExamOption[] = [
     icon: "ri-file-list-3-line",
     color: "#4ade80",
     bgColor: "rgba(74,222,128,0.08)",
-    totalQuestions: 30,
+    totalQuestions: 50,
     timeLimit: 1800,
-    description: "Đề thi EPS-TOPIK với 30 câu hỏi mẫu. Luyện thi chứng chỉ lao động Hàn Quốc.",
+    description: "Đề thi EPS-TOPIK với 50 câu hỏi mẫu. Luyện thi chứng chỉ lao động Hàn Quốc.",
   },
   {
     id: "seoul",
@@ -37,9 +37,9 @@ const EXAM_OPTIONS: ExamOption[] = [
     icon: "ri-book-3-line",
     color: "#60a5fa",
     bgColor: "rgba(96,165,250,0.08)",
-    totalQuestions: 10,
+    totalQuestions: 30,
     timeLimit: 1500,
-    description: "Đề thi dựa trên giáo trình Seoul 1A-4B với 10 câu hỏi mẫu. Phù hợp cho học sinh du học.",
+    description: "Đề thi dựa trên giáo trình Seoul 1A-4B với 30 câu hỏi mẫu. Phù hợp cho học sinh du học.",
   },
   {
     id: "topik",
