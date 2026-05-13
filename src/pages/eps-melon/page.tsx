@@ -115,8 +115,26 @@ export default function EpsMelonPage() {
 
   const epsWords = useMemo(() => {
     const built = buildEpsWords();
-    return built.length >= 20 ? built : BUILTIN_EPS_WORDS;
-  }, []);
+    const base = built.length >= 20 ? built : BUILTIN_EPS_WORDS;
+    const seen = new Set(base.map(w => w.korean));
+    const fromSongs: EpsWord[] = [];
+    supabaseSongs.forEach(song => {
+      if (!song.vocabulary) return;
+      song.vocabulary.forEach((v, i) => {
+        if (v.korean && v.korean.length > 1 && !seen.has(v.korean)) {
+          seen.add(v.korean);
+          fromSongs.push({
+            id: `song-${song.rank}-${i}`,
+            korean: v.korean,
+            vietnamese: v.vietnamese,
+            category: v.topikLevel ? `TOPIK ${v.topikLevel}` : "K-pop",
+            example: v.romaji || "",
+          });
+        }
+      });
+    });
+    return [...base, ...fromSongs];
+  }, [supabaseSongs]);
 
   const songMatches = useMemo((): SongEpsMatch[] => {
     const source = supabaseSongs.length > 0 ? supabaseSongs : [];
