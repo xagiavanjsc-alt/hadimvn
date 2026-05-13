@@ -133,6 +133,42 @@ export async function saveMelonSongsToSupabase(songs: MelonSong[]): Promise<{ ok
   }
 }
 
+// Admin: upsert (thêm mới hoặc cập nhật theo rank, KHÔNG xóa bài cũ)
+export async function upsertMelonSongsToSupabase(songs: MelonSong[]): Promise<{ ok: boolean; upserted: number; error?: string }> {
+  if (!isSupabaseConfigured) {
+    return { ok: true, upserted: songs.length };
+  }
+
+  const rows = songs.map(s => ({
+    rank:         s.rank,
+    title:        s.title,
+    artist:       s.artist,
+    genre:        s.genre,
+    lyrics:       s.lyrics,
+    album_art:    s.albumArt,
+    processed:    s.processed ?? false,
+    release_date: s.releaseDate ?? "",
+    album:        s.album ?? "",
+    translation:  s.translation ?? null,
+    vocabulary:   s.vocabulary ?? null,
+    grammar:      s.grammar ?? null,
+    difficulty:   s.difficulty ?? null,
+    audio_url:    s.audioUrl ?? null,
+  }));
+
+  try {
+    const { error } = await supabase
+      .from("melon_songs")
+      .upsert(rows, { onConflict: "rank" });
+
+    if (error) throw error;
+    return { ok: true, upserted: rows.length };
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "Unknown error";
+    return { ok: false, upserted: 0, error: msg };
+  }
+}
+
 // Admin: clear all songs
 export async function clearMelonSongsFromSupabase(): Promise<{ ok: boolean; error?: string }> {
   localStorage.removeItem(LOCAL_KEY);

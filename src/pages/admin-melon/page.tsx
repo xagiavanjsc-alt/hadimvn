@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useToast } from "@/components/base/Toast";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
-import { saveMelonSongsToSupabase, clearMelonSongsFromSupabase } from "@/hooks/useMelonSongs";
+import { saveMelonSongsToSupabase, upsertMelonSongsToSupabase, clearMelonSongsFromSupabase } from "@/hooks/useMelonSongs";
 
 interface MelonSong {
   rank: number;
@@ -59,6 +59,7 @@ const AdminMelonPage = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [fetchMsg, setFetchMsg] = useState("");
   const [showUploadPanel, setShowUploadPanel] = useState(false);
+  const [uploadMode, setUploadMode] = useState<"replace" | "upsert">("upsert");
 
   // Load songs from localStorage
   useEffect(() => {
@@ -99,7 +100,8 @@ const AdminMelonPage = () => {
       let data: MelonSong[];
 
       if (uploadFile.name.endsWith(".json")) {
-        data = JSON.parse(text);
+        const parsed = JSON.parse(text);
+        data = Array.isArray(parsed) ? parsed : parsed.songs ?? [];
       } else if (uploadFile.name.endsWith(".csv")) {
         // Parse CSV
         const lines = text.split("\n").filter(l => l.trim());
@@ -118,10 +120,26 @@ const AdminMelonPage = () => {
       }
 
       setUploadMsg("Đang lưu lên Supabase...");
-      const result = await saveMelonSongsToSupabase(data);
-      setSongs(data);
-      setUploadStatus("success");
-      setUploadMsg(`✅ Đã import ${data.length} bài hát! ${result.ok ? "(Đã sync lên Supabase)" : "(Chỉ lưu cục bộ)"}`);
+      if (uploadMode === "upsert") {
+        const result = await upsertMelonSongsToSupabase(data);
+        if (result.ok) {
+          setSongs(prev => {
+            const map = new Map(prev.map(s => [s.rank, s]));
+            data.forEach(s => map.set(s.rank, s));
+            return Array.from(map.values()).sort((a, b) => a.rank - b.rank);
+          });
+          setUploadStatus("success");
+          setUploadMsg(`✅ Upsert ${result.upserted} bài (bài cũ không bị xóa, trùng rank thì ghi đè)`);
+        } else {
+          setUploadStatus("error");
+          setUploadMsg(`Lỗi: ${result.error}`);
+        }
+      } else {
+        const result = await saveMelonSongsToSupabase(data);
+        setSongs(data);
+        setUploadStatus("success");
+        setUploadMsg(`✅ Thay thế toàn bộ: ${data.length} bài hát. ${result.ok ? "(Đã sync Supabase)" : "(Chỉ lưu cục bộ)"}`);
+      }
       setUploadFile(null);
     } catch (err) {
       setUploadStatus("error");
@@ -272,7 +290,35 @@ const AdminMelonPage = () => {
         {showUploadPanel && (
           <div className="bg-app-card/50 border border-app-border rounded-2xl p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white font-semibold">Upload dữ liệu Melon</h3>
+              <div>
+              <h3 className="text-white font-semibold mb-1">Upload dữ liệu Melon</h3>
+              <div className="flex gap-2 mt-2">
+                <button
+                  onClick={() => setUploadMode("upsert")}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
+                    uploadMode === "upsert"
+                      ? "bg-green-500/20 border-green-500/40 text-green-400"
+                      : "bg-white/5 border-app-border text-white/40 hover:text-white/60"
+                  }`}
+                >
+                  <i className="ri-add-circle-line mr-1" />
+                  Thêm / Cập nhật (giữ bài cũ)
+                </button>
+                <button
+                  onClick={() => setUploadMode("replace")}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
+                    uploadMode === "replace"
+                      ? "bg-red-500/20 border-red-500/40 text-red-400"
+                      : "bg-white/5 border-app-border text-white/40 hover:text-white/60"
+                  }`}
+                >
+                  <i className="ri-refresh-line mr-1" />
+                  Thay thế tất cả
+                </button>
+              </div>
+              {uploadMode === "upsert" && <p className="text-white/30 text-xs mt-1">Trùng rank → ghi đè. Rank mới → thêm vào. Bài cũ không liên quan giữ nguyên.</p>}
+              {uploadMode === "replace" && <p className="text-red-400/60 text-xs mt-1">⚠️ Sẽ xóa TOÀN BỘ bài cũ trước khi insert. Dùng khi reset hoàn toàn.</p>}
+            </div>
               <button
                 onClick={() => { setShowUploadPanel(false); setUploadFile(null); }}
                 className="text-white/40 hover:text-white"
