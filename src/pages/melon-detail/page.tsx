@@ -378,7 +378,8 @@ export default function MelonDetailPage() {
 
         {/* Tab content */}
         <div className="lg:grid lg:grid-cols-2 lg:gap-6">
-          <div className={tab === "lyrics" ? "block" : "hidden lg:block"}>
+          <div className={tab === "lyrics" || tab === "vocab" ? "block" : "hidden lg:block"}>
+            {/* Korean lyrics */}
             <div className="bg-app-surface/50 rounded-2xl border border-app-border p-6">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-6 h-6 flex items-center justify-center">
@@ -388,9 +389,31 @@ export default function MelonDetailPage() {
               </div>
               <pre className="text-white/75 text-sm leading-9 font-sans whitespace-pre-wrap max-h-[420px] overflow-y-auto pr-1 custom-scrollbar">{song.lyrics}</pre>
             </div>
+            {/* Vocabulary — desktop always, mobile when vocab tab */}
+            {!result && !loading && hasPreVocab && (
+              <div className={`mt-4 ${tab === "vocab" ? "block" : "hidden lg:block"}`}>
+                <div className="bg-app-surface/50 rounded-2xl border border-app-border p-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <i className="ri-translate-2 text-app-accent-primary text-sm" />
+                    <span className="text-white/60 text-xs font-medium">Từ vựng ({song.vocabulary!.length} từ)</span>
+                    <span className="text-[9px] bg-blue-500/15 text-blue-400 px-1.5 py-0.5 rounded-full">Admin</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {song.vocabulary!.map((v, i) => (
+                      <div key={i} className="bg-app-surface/50 rounded-xl p-3 border border-app-border">
+                        <p className="text-app-accent-primary text-sm font-semibold mb-0.5">{v.korean}</p>
+                        <p className="text-white/55 text-xs">{v.vietnamese}</p>
+                        {v.romaji && <p className="text-white/30 text-[10px] italic">{v.romaji}</p>}
+                        {v.topikLevel && <span className="text-[9px] bg-app-accent-primary/10 text-app-accent-primary px-1.5 py-0.5 rounded-full">TOPIK {v.topikLevel}</span>}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
-          <div className={tab !== "lyrics" ? "block" : "hidden lg:block"}>
+          <div className={tab !== "lyrics" && tab !== "vocab" ? "block" : "hidden lg:block"}>
             {loading && (
               <div className="bg-app-surface/50 rounded-2xl border border-app-border p-10 flex flex-col items-center justify-center text-center">
                 <i className="ri-loader-4-line text-app-accent-primary text-3xl animate-spin mb-3" />
@@ -410,8 +433,8 @@ export default function MelonDetailPage() {
               <div>
                 {/* Sub-tab switcher on mobile */}
                 <div className="flex gap-1 bg-app-card/50 p-1 rounded-xl mb-4 lg:hidden">
-                  {(["story", "vocab", "grammar"] as Tab[]).filter(t =>
-                    (t === "story" && hasPreStory) || (t === "vocab" && hasPreVocab) || (t === "grammar" && hasPreGrammar)
+                  {(["story", "grammar"] as Tab[]).filter(t =>
+                    (t === "story" && hasPreStory) || (t === "grammar" && hasPreGrammar)
                   ).map((t) => (
                     <button
                       key={t}
@@ -420,7 +443,7 @@ export default function MelonDetailPage() {
                         tab === t ? "bg-app-accent-primary text-app-bg font-semibold" : "text-app-text-secondary hover:text-white/60"
                       }`}
                     >
-                      {t === "story" ? "Bản dịch" : t === "vocab" ? "Từ vựng" : "Ngữ pháp"}
+                      {t === "story" ? "Bản dịch" : "Ngữ pháp"}
                     </button>
                   ))}
                 </div>
@@ -433,25 +456,6 @@ export default function MelonDetailPage() {
                         <span className="text-[9px] bg-blue-500/15 text-blue-400 px-1.5 py-0.5 rounded-full">Admin</span>
                       </div>
                       <p className="text-white/75 text-sm leading-8 whitespace-pre-line max-h-[420px] overflow-y-auto pr-1 custom-scrollbar">{song.translation?.full}</p>
-                    </div>
-                  )}
-                  {hasPreVocab && (
-                    <div className="bg-app-surface/50 rounded-2xl border border-app-border p-5">
-                      <div className="flex items-center gap-2 mb-3">
-                        <i className="ri-translate-2 text-app-accent-primary text-sm" />
-                        <span className="text-white/60 text-xs font-medium">Từ vựng ({song.vocabulary!.length} từ)</span>
-                        <span className="text-[9px] bg-blue-500/15 text-blue-400 px-1.5 py-0.5 rounded-full">Admin</span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        {song.vocabulary!.map((v, i) => (
-                          <div key={i} className="bg-app-surface/50 rounded-xl p-3 border border-app-border">
-                            <p className="text-app-accent-primary text-sm font-semibold mb-0.5">{v.korean}</p>
-                            <p className="text-white/55 text-xs">{v.vietnamese}</p>
-                            {v.romaji && <p className="text-white/30 text-[10px] italic">{v.romaji}</p>}
-                            {v.topikLevel && <span className="text-[9px] bg-app-accent-primary/10 text-app-accent-primary px-1.5 py-0.5 rounded-full">TOPIK {v.topikLevel}</span>}
-                          </div>
-                        ))}
-                      </div>
                     </div>
                   )}
                   {hasPreGrammar && (
@@ -485,17 +489,6 @@ export default function MelonDetailPage() {
                   {tab === "story" && hasPreStory && (
                     <div className="bg-app-surface/50 rounded-2xl p-5 border border-app-border">
                       <p className="text-white/75 text-sm leading-8 whitespace-pre-line max-h-[420px] overflow-y-auto pr-1 custom-scrollbar">{song.translation?.full}</p>
-                    </div>
-                  )}
-                  {tab === "vocab" && hasPreVocab && (
-                    <div className="space-y-2.5">
-                      {song.vocabulary!.map((v, i) => (
-                        <div key={i} className="bg-app-surface/50 rounded-xl p-4 border border-app-border">
-                          <p className="text-app-accent-primary text-sm font-semibold mb-0.5">{v.korean}</p>
-                          <p className="text-white/60 text-xs mb-1">{v.vietnamese}</p>
-                          {v.romaji && <p className="text-white/35 text-xs italic">{v.romaji}</p>}
-                        </div>
-                      ))}
                     </div>
                   )}
                   {tab === "grammar" && hasPreGrammar && (
