@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState, useCallback } from "react";
 import { MelonSong } from "@/mocks/melonSongs";
 import { MelonLessonResult } from "@/services/aiService";
 
@@ -25,12 +25,7 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
   const theme = THEMES.find((t) => t.id === themeId) ?? THEMES[0];
   const topVocab = result.vocabulary.slice(0, 4);
 
-  useEffect(() => {
-    drawCard();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [themeId, result]);
-
-  function drawCard() {
+  const drawCard = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -132,7 +127,7 @@ export default function ShareLessonModal({ song, result, onClose }: ShareLessonM
     ctx.fillStyle = theme.accent;
     ctx.font = "bold 13px system-ui";
     ctx.fillText("Học tiếng Hàn qua K-pop · hanquocoi.app", 48, bottomY + 25);
-  }
+  }, [theme, song, topVocab]);
 
   function roundRect(
     ctx: CanvasRenderingContext2D,

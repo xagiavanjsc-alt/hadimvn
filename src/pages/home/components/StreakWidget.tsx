@@ -23,6 +23,7 @@ export default function StreakWidget() {
     const newCount = streak.lastDate === yesterday ? streak.count + 1 : 1;
     const newHistory = [...(streak.history || []).slice(-29), today];
     setStreak({ count: newCount, lastDate: today, history: newHistory });
+    // Intentionally empty deps - should only run on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

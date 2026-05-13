@@ -133,8 +133,7 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
     if (editorRef.current && value && !editorRef.current.innerHTML) {
       editorRef.current.innerHTML = value;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [value]);
 
   // Handle paste - strip inline styles & spans để tránh lỗi H2 bị wrap span/style
   const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
@@ -1560,7 +1559,6 @@ function NewPostModal({
   };
 
   const handleSubmit = async () => {
-    console.log('[NewPost] handleSubmit called', { title, contentLen: content.length, isEmpty: isRichEmpty(content) });
     if (!title.trim()) {
       showToast('Vui lòng nhập tiêu đề', 'error');
       return;

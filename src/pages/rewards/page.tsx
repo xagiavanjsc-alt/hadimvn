@@ -914,15 +914,6 @@ function DailyLoginBonus() {
   // Daily login bonus is handled globally by `DailyLoginBonusGate` in App.tsx
   // (uses `useXPSystem.awardXP` → toast + Supabase sync). No-op here.
   return null;
-  // The original UI block below is intentionally unused.
-  // eslint-disable-next-line no-unreachable
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="bg-app-bg border border-app-accent-primary/30 rounded-2xl p-8 text-center max-w-sm w-full mx-4 animate-in zoom-in-95">
-        <div />
-      </div>
-    </div>
-  );
 }
 
 export default function RewardsPage() {

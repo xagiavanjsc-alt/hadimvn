@@ -85,7 +85,6 @@ export function useAdminUsers(): UseAdminUsersReturn {
         setUsers([]);
         return;
       }
-      console.log("[useAdminUsers] RPC returned", profiles.length, "users");
       await mergeWithLeaderboard(profiles);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Lỗi tải dữ liệu";

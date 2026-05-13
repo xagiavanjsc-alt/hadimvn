@@ -115,6 +115,7 @@ export function useMelonStreak() {
   }, [learnedToday, bumpStreak]);
 
   // On mount: if streak was last updated yesterday, bump it now
+  // Intentionally empty deps - should only run on mount
   useEffect(() => {
     const current = readStreak();
     const today = new Date().toISOString().split("T")[0];

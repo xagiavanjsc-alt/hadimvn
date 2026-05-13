@@ -72,6 +72,7 @@ export default function SongAnalysisModal({ song, onClose, onMarkLearned }: Song
       setProvider(cfg.provider as "openai" | "gemini" | "openrouter");
       setApiKey(cfg.apiKey);
     }
+    // Intentionally only cacheKey - setters are stable, loadConfig is external
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cacheKey]);
 

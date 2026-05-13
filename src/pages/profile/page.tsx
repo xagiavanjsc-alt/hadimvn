@@ -78,7 +78,7 @@ export default function ProfilePage() {
   // Refresh profile on mount to ensure VIP status is current
   useEffect(() => {
     if (user) refreshProfile();
-  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [user, refreshProfile]);
 
   const [streak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});

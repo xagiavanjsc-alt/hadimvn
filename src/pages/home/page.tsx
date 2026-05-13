@@ -229,9 +229,6 @@ export default function Home() {
   const [approvedLessons] = useLocalStorage<ApprovedLesson[]>("kts_melon_lessons", []);
   const [approvedQAs] = useLocalStorage<ApprovedQA[]>("kts_naver_qas", []);
   const [cachedSearches] = useLocalStorage<CachedSearch[]>("kts_naver_cache", []);
-  const { getSummary } = useApiCostTracker();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const _cost = getSummary();
 
   const [streak] = useLocalStorage<{ count: number; lastDate: string; history: string[] }>(
     "kts_streak",

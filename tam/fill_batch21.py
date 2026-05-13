@@ -223,4 +223,21 @@ def main():
         print("=== DA HOAN THANH TAT CA ===", flush=True)
 
 if __name__ == "__main__":
-    main()
+    round_num = 0
+    while True:
+        round_num += 1
+        print(f"\n{'='*40}", flush=True)
+        print(f"Lo thu {round_num}", flush=True)
+        remaining = count_remaining()
+        if remaining == 0:
+            print("=== DA HOAN THANH TAT CA ===", flush=True)
+            break
+        print(f"Con lai: {remaining} tu", flush=True)
+        batch = fetch_batch()
+        if not batch:
+            print("Khong con tu nao can xu ly.", flush=True)
+            break
+        ok = process_batch(batch)
+        print(f"Xong lo {round_num}: {ok}/{len(batch)} tu", flush=True)
+        print("Nghi 4 giay...", flush=True)
+        time.sleep(4)

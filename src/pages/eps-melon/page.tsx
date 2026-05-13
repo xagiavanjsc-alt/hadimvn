@@ -25,14 +25,12 @@ interface SongEpsMatch {
 
 // ─── EPS Vocab normalization ───────────────────────────────────────────────────
 function buildEpsWords(): EpsWord[] {
-  // Use epsVocabulary mock — may have different shape
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (epsVocabulary as any[]).slice(0, 200).map((v: any, i: number) => ({
+  return epsVocabulary.slice(0, 200).map((v, i) => ({
     id: String(i),
-    korean: v.korean ?? v.word ?? v.kr ?? "",
-    vietnamese: v.vietnamese ?? v.meaning ?? v.vi ?? "",
-    category: v.category ?? v.topic ?? "Từ vựng",
-    example: v.example ?? v.sentence ?? "",
+    korean: v.korean,
+    vietnamese: v.vietnamese,
+    category: v.topic ?? "Từ vựng",
+    example: v.example,
   })).filter((w: EpsWord) => w.korean.length > 1);
 }
 

@@ -357,7 +357,7 @@ function QuizScreen({
       {topicAccuracy && Object.keys(topicAccuracy).length > 0 && (
         <WeaknessAlert
           topicAccuracy={topicAccuracy}
-          onDismiss={(topic) => console.log("Dismissed:", topic)}
+          onDismiss={() => {}}
           onAction={(topic) => navigate(`/eps-lessons/${lesson.id}`)}
         />
       )}

@@ -110,25 +110,18 @@ export default function AdminRolesPage() {
   const handleSave = async (userId: string, role: Role, permissions: string[]) => {
     setSaving(true);
     try {
-      console.log("[handleSave]", { userId, role, permissions });
-
-      // ONLY use RPC - direct UPDATE would bypass hierarchy check
-      const rpcRes = await supabase.rpc("admin_set_user_role", {
-        target_user_id: userId,
-        new_role: role,
+      const { data, error } = await supabase.rpc("update_user_role", {
+        p_user_id: userId,
+        p_role: role,
+        p_permissions: permissions,
       });
-      console.log("[handleSave] RPC response:", rpcRes);
 
-      if (rpcRes.error) {
-        showToast(`Lỗi: ${rpcRes.error.message}`);
+      if (error) {
+        showToast(`Lỗi: ${error.message}`);
         return;
       }
-      if (rpcRes.data?.error) {
-        showToast(`❌ ${rpcRes.data.error}`);
-        return;
-      }
-      if (!rpcRes.data?.success) {
-        showToast("❌ Cập nhật thất bại - kiểm tra quyền");
+      if (data?.error) {
+        showToast(`❌ ${data.error}`);
         return;
       }
 
