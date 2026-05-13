@@ -1,13 +1,14 @@
-import { useState, useMemo, useCallback, lazy, Suspense, useEffect } from "react";
+import { useState, useMemo, useCallback, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import MobileHeader from "@/components/feature/MobileHeader";
 import MobileNav from "@/components/feature/MobileNav";
-import { mockMelonSongs, MelonSong } from "@/mocks/melonSongs";
+import { MelonSong } from "@/mocks/melonSongs";
 import { useVirtualScroll } from "@/hooks/useVirtualScroll";
 import StreakProtectionBanner from "./components/StreakProtectionBanner";
 import { useMelonStreak } from "@/hooks/useMelonStreak";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import AdminDataPanel from "./components/AdminDataPanel";
+import { useMelonSongs } from "@/hooks/useMelonSongs";
 
 const SongAnalysisModal = lazy(() => import("./components/SongAnalysisModal"));
 const PlaylistTab = lazy(() => import("./components/PlaylistTab"));
@@ -175,24 +176,8 @@ const MelonPage = () => {
   const [streakBannerDismissed, setStreakBannerDismissed] = useState(false);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
 
-  // Load songs from localStorage (same as admin panel)
-  const [songs, setSongs] = useState<MelonSong[]>([]);
-  
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem("kts_melon_songs");
-      if (raw) {
-        const data = JSON.parse(raw) as MelonSong[];
-        setSongs(data);
-      } else {
-        // Fallback to mock data if no data in localStorage
-        setSongs(mockMelonSongs);
-      }
-    } catch (e) {
-      console.error("Failed to load songs:", e);
-      setSongs(mockMelonSongs);
-    }
-  }, []);
+  // Load songs from Supabase → localStorage → mock (priority order)
+  const { songs, loading: songsLoading, source: songsSource } = useMelonSongs();
 
   const togglePlaylist = useCallback((song: MelonSong) => {
     setPlaylistRanks((prev) => {
@@ -357,8 +342,14 @@ const MelonPage = () => {
                 <i className="ri-music-2-line text-white text-sm" />
               </div>
               <span className="text-white font-bold text-base">Melon Top 100</span>
+              {songsLoading && <i className="ri-loader-4-line animate-spin text-white/60 text-sm" />}
+              {!songsLoading && songsSource === "supabase" && (
+                <span className="text-[9px] bg-green-500/20 text-green-300 px-1.5 py-0.5 rounded-full">● Live</span>
+              )}
             </div>
-            <p className="text-white/60 text-xs">Học tiếng Hàn qua lời bài hát K-pop</p>
+            <p className="text-white/60 text-xs">
+              {songsLoading ? "Đang tải dữ liệu..." : `${songs.length} bài hát • Học tiếng Hàn qua K-pop`}
+            </p>
           </div>
         </div>
 

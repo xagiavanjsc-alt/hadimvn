@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useToast } from "@/components/base/Toast";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
+import { saveMelonSongsToSupabase, clearMelonSongsFromSupabase } from "@/hooks/useMelonSongs";
 
 interface MelonSong {
   rank: number;
@@ -115,10 +116,11 @@ const AdminMelonPage = () => {
         throw new Error("Unsupported file format");
       }
 
-      localStorage.setItem("kts_melon_songs", JSON.stringify(data));
+      setUploadMsg("Đang lưu lên Supabase...");
+      const result = await saveMelonSongsToSupabase(data);
       setSongs(data);
       setUploadStatus("success");
-      setUploadMsg(`Đã import thành công ${data.length} bài hát!`);
+      setUploadMsg(`✅ Đã import ${data.length} bài hát! ${result.ok ? "(Đã sync lên Supabase)" : "(Chỉ lưu cục bộ)"}`);
       setUploadFile(null);
     } catch (err) {
       setUploadStatus("error");
@@ -126,20 +128,20 @@ const AdminMelonPage = () => {
     }
   };
 
-  const handleSaveEdit = () => {
+  const handleSaveEdit = async () => {
     if (!editingSong) return;
     const updated = songs.map(s => s.rank === editingSong.rank ? editingSong : s);
     setSongs(updated);
-    localStorage.setItem("kts_melon_songs", JSON.stringify(updated));
+    await saveMelonSongsToSupabase(updated);
     setEditingSong(null);
     toast.showToast("Đã lưu thay đổi", "success");
   };
 
-  const handleDelete = (rank: number) => {
+  const handleDelete = async (rank: number) => {
     if (!confirm("Bạn có chắc muốn xóa bài hát này?")) return;
     const updated = songs.filter(s => s.rank !== rank);
     setSongs(updated);
-    localStorage.setItem("kts_melon_songs", JSON.stringify(updated));
+    await saveMelonSongsToSupabase(updated);
     toast.showToast("Đã xóa bài hát", "success");
   };
 
@@ -243,11 +245,11 @@ const AdminMelonPage = () => {
               Upload file
             </button>
             <button
-              onClick={() => {
-                if (confirm("Xóa toàn bộ dữ liệu Melon?")) {
-                  localStorage.removeItem("kts_melon_songs");
+              onClick={async () => {
+                if (confirm("Xóa toàn bộ dữ liệu Melon? Dữ liệu sẽ bị xóa cả trên Supabase.")) {
+                  await clearMelonSongsFromSupabase();
                   setSongs([]);
-                  toast.success("Đã xóa toàn bộ dữ liệu");
+                  toast.showToast("Đã xóa toàn bộ dữ liệu", "success");
                 }
               }}
               className="px-4 py-2 bg-red-500/20 border border-red-500/40 rounded-lg text-red-400 text-sm hover:bg-red-500/30 transition-colors"
