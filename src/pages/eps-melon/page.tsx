@@ -1,7 +1,10 @@
 ﻿import { useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { mockMelonSongs, MelonSong } from "@/mocks/melonSongs";
+import { MelonSong } from "@/mocks/melonSongs";
 import { epsVocabulary } from "@/mocks/epsVocabulary";
+import { useMelonSongs } from "@/hooks/useMelonSongs";
+
+const PAGE_SIZE = 32;
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 interface EpsWord {
@@ -97,8 +100,10 @@ const CATEGORIES = ["Tất cả", "Cảm xúc", "Thiên nhiên", "Giao tiếp", 
 
 export default function EpsMelonPage() {
   const navigate = useNavigate();
+  const { songs: supabaseSongs } = useMelonSongs();
   const [selectedSong, setSelectedSong] = useState<MelonSong | null>(null);
   const [categoryFilter, setCategoryFilter] = useState("Tất cả");
+  const [currentPage, setCurrentPage] = useState(1);
   const [learnedIds, setLearnedIds] = useState<Set<string>>(() => {
     try {
       const raw = localStorage.getItem("eps_melon_learned");
@@ -114,11 +119,12 @@ export default function EpsMelonPage() {
   }, []);
 
   const songMatches = useMemo((): SongEpsMatch[] => {
-    return mockMelonSongs.map((song) => ({
+    const source = supabaseSongs.length > 0 ? supabaseSongs : [];
+    return source.map((song) => ({
       song,
       matches: matchEpsToLyrics(song, epsWords),
     })).filter((s) => s.matches.length > 0);
-  }, [epsWords]);
+  }, [epsWords, supabaseSongs]);
 
   const activeMatches = useMemo((): MatchedWord[] => {
     const base = selectedSong
@@ -137,10 +143,21 @@ export default function EpsMelonPage() {
         m.epsWord.vietnamese.toLowerCase().includes(q) ||
         m.epsWord.category.toLowerCase().includes(q)
     );
-  }, [selectedSong, epsWords, categoryFilter, searchQuery]);
+  }, [selectedSong, epsWords, categoryFilter, searchQuery, supabaseSongs]);
+
+  const totalPages = Math.ceil(activeMatches.length / PAGE_SIZE);
+  const pagedMatches = useMemo(
+    () => activeMatches.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE),
+    [activeMatches, currentPage]
+  );
 
   const totalVocab = epsWords.length;
   const learnedCount = learnedIds.size;
+
+  const handleFilterChange = useCallback((setter: () => void) => {
+    setter();
+    setCurrentPage(1);
+  }, []);
 
   const toggleLearned = useCallback((id: string) => {
     setLearnedIds((prev) => {
@@ -238,7 +255,7 @@ export default function EpsMelonPage() {
 
               {/* All words option */}
               <button
-                onClick={() => setSelectedSong(null)}
+                onClick={() => { setSelectedSong(null); setCurrentPage(1); }}
                 className={`w-full flex items-center gap-3 px-4 py-3 border-b border-app-border cursor-pointer transition-colors ${
                   !selectedSong ? "bg-emerald-500/10 text-emerald-300" : "hover:bg-app-card/50 text-white/50"
                 }`}
@@ -258,7 +275,7 @@ export default function EpsMelonPage() {
                 {songMatches.map(({ song, matches }) => (
                   <button
                     key={song.rank}
-                    onClick={() => setSelectedSong(song)}
+                    onClick={() => { setSelectedSong(song); setCurrentPage(1); }}
                     className={`w-full flex items-center gap-3 px-4 py-3 border-b border-app-border cursor-pointer transition-colors last:border-0 ${
                       selectedSong?.rank === song.rank
                         ? "bg-app-accent-primary/8 text-app-accent-primary"
@@ -341,7 +358,7 @@ export default function EpsMelonPage() {
                 {CATEGORIES.slice(0, 5).map((cat) => (
                   <button
                     key={cat}
-                    onClick={() => setCategoryFilter(cat)}
+                    onClick={() => handleFilterChange(() => setCategoryFilter(cat))}
                     className={`text-xs px-3 py-2 rounded-xl whitespace-nowrap cursor-pointer transition-all ${
                       categoryFilter === cat
                         ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
@@ -355,7 +372,7 @@ export default function EpsMelonPage() {
             </div>
 
             {/* Cards grid */}
-            {activeMatches.length === 0 ? (
+            {pagedMatches.length === 0 && activeMatches.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 text-center">
                 <div className="w-14 h-14 flex items-center justify-center bg-app-card/50 rounded-2xl mb-3">
                   <i className="ri-search-line text-app-text-muted text-xl" />
@@ -369,7 +386,7 @@ export default function EpsMelonPage() {
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                {activeMatches.map(({ epsWord, context }) => {
+                {pagedMatches.map(({ epsWord, context }) => {
                   const isFlipped = flippedCards.has(epsWord.id);
                   const isLearned = learnedIds.has(epsWord.id);
                   return (
@@ -445,6 +462,51 @@ export default function EpsMelonPage() {
                     </div>
                   );
                 })}
+              </div>
+            )}
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-2 mt-5">
+                <button
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-surface/50 border border-app-border text-white/60 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                >
+                  <i className="ri-arrow-left-s-line text-sm" />
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1)
+                  .filter(p => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 1)
+                  .reduce<(number | "...")[]>((acc, p, idx, arr) => {
+                    if (idx > 0 && p - (arr[idx - 1] as number) > 1) acc.push("...");
+                    acc.push(p);
+                    return acc;
+                  }, [])
+                  .map((p, i) =>
+                    p === "..." ? (
+                      <span key={`dots-${i}`} className="text-white/30 text-xs px-1">…</span>
+                    ) : (
+                      <button
+                        key={p}
+                        onClick={() => setCurrentPage(p as number)}
+                        className={`w-8 h-8 flex items-center justify-center rounded-lg text-xs font-semibold border transition-colors ${
+                          currentPage === p
+                            ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-300"
+                            : "bg-app-surface/50 border-app-border text-white/50 hover:text-white"
+                        }`}
+                      >
+                        {p}
+                      </button>
+                    )
+                  )}
+                <button
+                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-surface/50 border border-app-border text-white/60 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                >
+                  <i className="ri-arrow-right-s-line text-sm" />
+                </button>
+                <span className="text-white/30 text-xs ml-1">{(currentPage - 1) * PAGE_SIZE + 1}–{Math.min(currentPage * PAGE_SIZE, activeMatches.length)} / {activeMatches.length}</span>
               </div>
             )}
 
