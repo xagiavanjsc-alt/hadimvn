@@ -89,6 +89,7 @@ export default function ExamHubPage() {
   const [examResult, setExamResult] = useState<{ score: number; total: number; timeUsed: number } | null>(null);
   const [examHistory, setExamHistory] = useState<any[]>([]);
   const [showHistory, setShowHistory] = useState(false);
+  const [filterType, setFilterType] = useState<string>("all");
 
   useEffect(() => {
     loadExamHistory();
@@ -244,78 +245,141 @@ export default function ExamHubPage() {
 
                 {showHistory && (
                   <>
-                    {/* Statistics */}
-                    <div className="grid grid-cols-3 gap-4 mb-6">
-                      <div className="bg-app-card border border-app-border rounded-xl p-4 text-center">
-                        <p className="text-2xl font-bold text-white">{examHistory.length}</p>
-                        <p className="text-app-text-secondary text-xs">Tổng số lần thi</p>
-                      </div>
-                      <div className="bg-app-card border border-app-border rounded-xl p-4 text-center">
-                        <p className="text-2xl font-bold text-green-400">
-                          {Math.round(examHistory.reduce((sum, h) => sum + (h.score / h.total) * 100, 0) / examHistory.length)}%
-                        </p>
-                        <p className="text-app-text-secondary text-xs">Điểm trung bình</p>
-                      </div>
-                      <div className="bg-app-card border border-app-border rounded-xl p-4 text-center">
-                        <p className="text-2xl font-bold text-white">
-                          {Math.max(...examHistory.map(h => Math.round((h.score / h.total) * 100)))}%
-                        </p>
-                        <p className="text-app-text-secondary text-xs">Điểm cao nhất</p>
-                      </div>
+                    {/* Filter Buttons */}
+                    <div className="flex gap-2 mb-4">
+                      <button
+                        onClick={() => setFilterType("all")}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                          filterType === "all"
+                            ? "bg-white text-black"
+                            : "bg-app-card/50 text-app-text-secondary hover:text-white"
+                        }`}
+                      >
+                        Tất cả
+                      </button>
+                      <button
+                        onClick={() => setFilterType("eps")}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                          filterType === "eps"
+                            ? "bg-white text-black"
+                            : "bg-app-card/50 text-app-text-secondary hover:text-white"
+                        }`}
+                      >
+                        EPS-TOPIK
+                      </button>
+                      <button
+                        onClick={() => setFilterType("seoul")}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                          filterType === "seoul"
+                            ? "bg-white text-black"
+                            : "bg-app-card/50 text-app-text-secondary hover:text-white"
+                        }`}
+                      >
+                        Seoul
+                      </button>
+                      <button
+                        onClick={() => setFilterType("topik")}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                          filterType === "topik"
+                            ? "bg-white text-black"
+                            : "bg-app-card/50 text-app-text-secondary hover:text-white"
+                        }`}
+                      >
+                        TOPIK I
+                      </button>
                     </div>
 
-                    {/* History List */}
-                    <div className="space-y-3">
-                      {examHistory.slice(0, 10).map((history, index) => {
-                        const examConfig = EXAM_OPTIONS.find(e => e.id === history.exam_type);
-                        const percentage = Math.round((history.score / history.total) * 100);
-                        const date = new Date(history.taken_at);
-                        const formattedDate = date.toLocaleDateString('vi-VN', { 
-                          day: '2-digit', 
-                          month: '2-digit', 
-                          year: 'numeric',
-                          hour: '2-digit',
-                          minute: '2-digit'
-                        });
+                    {/* Filtered History */}
+                    {(() => {
+                      const filteredHistory = filterType === "all"
+                        ? examHistory
+                        : examHistory.filter(h => h.exam_type === filterType);
 
+                      if (filteredHistory.length === 0) {
                         return (
-                          <div
-                            key={history.id || index}
-                            className="bg-app-card border border-app-border rounded-xl p-4"
-                          >
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center gap-3">
-                                <div 
-                                  className="w-10 h-10 flex items-center justify-center rounded-lg"
-                                  style={{ backgroundColor: examConfig?.bgColor || "#4ade8015" }}
-                                >
-                                  <i 
-                                    className={`${examConfig?.icon || "ri-file-list-3-line"} text-lg`}
-                                    style={{ color: examConfig?.color || "#4ade80" }}
-                                  />
-                                </div>
-                                <div>
-                                  <p className="text-white font-medium text-sm">{examConfig?.title || history.exam_type}</p>
-                                  <p className="text-app-text-faint text-xs">{formattedDate}</p>
-                                </div>
-                              </div>
-                              <div className="text-right">
-                                <p className={`font-bold ${percentage >= 80 ? "text-green-400" : percentage >= 60 ? "text-amber-400" : "text-rose-400"}`}>
-                                  {percentage}%
-                                </p>
-                                <p className="text-app-text-faint text-xs">{history.score}/{history.total}</p>
-                              </div>
-                            </div>
+                          <div className="bg-app-card border border-app-border rounded-xl p-8 text-center">
+                            <p className="text-app-text-secondary text-sm">Không có lịch sử thi cho loại đề này</p>
                           </div>
                         );
-                      })}
-                    </div>
+                      }
 
-                    {examHistory.length > 10 && (
-                      <p className="text-app-text-faint text-xs text-center mt-4">
-                        Hiển thị 10 lần thi gần nhất (tổng {examHistory.length} lần)
-                      </p>
-                    )}
+                      return (
+                        <>
+                          {/* Statistics */}
+                          <div className="grid grid-cols-3 gap-4 mb-6">
+                            <div className="bg-app-card border border-app-border rounded-xl p-4 text-center">
+                              <p className="text-2xl font-bold text-white">{filteredHistory.length}</p>
+                              <p className="text-app-text-secondary text-xs">Tổng số lần thi</p>
+                            </div>
+                            <div className="bg-app-card border border-app-border rounded-xl p-4 text-center">
+                              <p className="text-2xl font-bold text-green-400">
+                                {Math.round(filteredHistory.reduce((sum, h) => sum + (h.score / h.total) * 100, 0) / filteredHistory.length)}%
+                              </p>
+                              <p className="text-app-text-secondary text-xs">Điểm trung bình</p>
+                            </div>
+                            <div className="bg-app-card border border-app-border rounded-xl p-4 text-center">
+                              <p className="text-2xl font-bold text-white">
+                                {Math.max(...filteredHistory.map(h => Math.round((h.score / h.total) * 100)))}%
+                              </p>
+                              <p className="text-app-text-secondary text-xs">Điểm cao nhất</p>
+                            </div>
+                          </div>
+
+                          {/* History List */}
+                          <div className="space-y-3">
+                            {filteredHistory.slice(0, 10).map((history, index) => {
+                              const examConfig = EXAM_OPTIONS.find(e => e.id === history.exam_type);
+                              const percentage = Math.round((history.score / history.total) * 100);
+                              const date = new Date(history.taken_at);
+                              const formattedDate = date.toLocaleDateString('vi-VN', { 
+                                day: '2-digit', 
+                                month: '2-digit', 
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                              });
+
+                              return (
+                                <div
+                                  key={history.id || index}
+                                  className="bg-app-card border border-app-border rounded-xl p-4"
+                                >
+                                  <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                      <div 
+                                        className="w-10 h-10 flex items-center justify-center rounded-lg"
+                                        style={{ backgroundColor: examConfig?.bgColor || "#4ade8015" }}
+                                      >
+                                        <i 
+                                          className={`${examConfig?.icon || "ri-file-list-3-line"} text-lg`}
+                                          style={{ color: examConfig?.color || "#4ade80" }}
+                                        />
+                                      </div>
+                                      <div>
+                                        <p className="text-white font-medium text-sm">{examConfig?.title || history.exam_type}</p>
+                                        <p className="text-app-text-faint text-xs">{formattedDate}</p>
+                                      </div>
+                                    </div>
+                                    <div className="text-right">
+                                      <p className={`font-bold ${percentage >= 80 ? "text-green-400" : percentage >= 60 ? "text-amber-400" : "text-rose-400"}`}>
+                                        {percentage}%
+                                      </p>
+                                      <p className="text-app-text-faint text-xs">{history.score}/{history.total}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+
+                          {filteredHistory.length > 10 && (
+                            <p className="text-app-text-faint text-xs text-center mt-4">
+                              Hiển thị 10 lần thi gần nhất (tổng {filteredHistory.length} lần)
+                            </p>
+                          )}
+                        </>
+                      );
+                    })()}
                   </>
                 )}
               </div>
