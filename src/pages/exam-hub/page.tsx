@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { UnifiedExam } from "@/components/feature/UnifiedExam";
 import DashboardLayout from "@/components/feature/DashboardLayout";
+import { EPS_EXAMPLES, SEOUL_EXAMPLES, TOPIK_EXAMPLES } from "@/mocks/examSamples";
 
 interface ExamOption {
   id: string;
@@ -100,32 +101,18 @@ export default function ExamHubPage() {
     setExamResult(null);
   };
 
-  // Mock questions for demo - will be replaced with real data fetch
-  const getMockQuestions = (examType: string) => {
-    const questions: Array<{
-      id: string;
-      question: string;
-      options: string[];
-      correctIndex: number;
-      explanation?: string;
-    }> = [];
-    const count = EXAM_OPTIONS.find(e => e.id === examType)?.totalQuestions || 10;
-
-    for (let i = 1; i <= Math.min(count, 10); i++) {
-      questions.push({
-        id: `${examType}_q_${i}`,
-        question: `Câu hỏi ${i} cho ${examType.toUpperCase()}`,
-        options: [
-          `Đáp án A cho câu ${i}`,
-          `Đáp án B cho câu ${i}`,
-          `Đáp án C cho câu ${i}`,
-          `Đáp án D cho câu ${i}`,
-        ],
-        correctIndex: Math.floor(Math.random() * 4),
-        explanation: `Giải thích cho câu ${i}`,
-      });
+  // Get real exam questions from samples
+  const getExamQuestions = (examType: string) => {
+    switch (examType) {
+      case "eps":
+        return EPS_EXAMPLES;
+      case "seoul":
+        return SEOUL_EXAMPLES;
+      case "topik":
+        return TOPIK_EXAMPLES;
+      default:
+        return [];
     }
-    return questions;
   };
 
   return (
@@ -179,7 +166,7 @@ export default function ExamHubPage() {
               <UnifiedExam
                 examType={activeExam.id}
                 userId={user?.id || ""}
-                questions={getMockQuestions(activeExam.id)}
+                questions={getExamQuestions(activeExam.id)}
                 timeLimit={activeExam.timeLimit}
                 onComplete={handleComplete}
               />
