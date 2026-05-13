@@ -4,6 +4,7 @@ import { mockMelonSongs, MelonSong } from "@/mocks/melonSongs";
 import { generateMelonLesson, MelonLessonResult, AIConfig } from "@/services/aiService";
 import LyricsQuizModal from "@/pages/melon/components/LyricsQuizModal";
 import { useMelonSongs } from "@/hooks/useMelonSongs";
+import { useKpopFlashcard } from "@/hooks/useKpopFlashcard";
 
 const AI_CONFIG_KEY = "melon_ai_config";
 const LEARNED_KEY = "melon_learned_ranks";
@@ -113,6 +114,7 @@ export default function MelonDetailPage() {
   const rankNum = parseInt(rank ?? "0", 10);
   // Load from Supabase → localStorage → mock (same priority as main melon page)
   const { songs } = useMelonSongs();
+  const { addCard, hasCard } = useKpopFlashcard();
   const song: MelonSong | undefined = songs.find((s) => s.rank === rankNum);
 
   const [tab, setTab] = useState<Tab>("lyrics");
@@ -399,14 +401,27 @@ export default function MelonDetailPage() {
                     <span className="text-[9px] bg-blue-500/15 text-blue-400 px-1.5 py-0.5 rounded-full">Admin</span>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
-                    {song.vocabulary!.map((v, i) => (
-                      <div key={i} className="bg-app-surface/50 rounded-xl p-3 border border-app-border">
-                        <p className="text-app-accent-primary text-sm font-semibold mb-0.5">{v.korean}</p>
-                        <p className="text-white/55 text-xs">{v.vietnamese}</p>
-                        {v.romaji && <p className="text-white/30 text-[10px] italic">{v.romaji}</p>}
-                        {v.topikLevel && <span className="text-[9px] bg-app-accent-primary/10 text-app-accent-primary px-1.5 py-0.5 rounded-full">TOPIK {v.topikLevel}</span>}
-                      </div>
-                    ))}
+                    {song.vocabulary!.map((v, i) => {
+                      const saved = hasCard(v.korean, song.title);
+                      return (
+                        <div key={i} className="bg-app-surface/50 rounded-xl p-3 border border-app-border relative">
+                          <button
+                            onClick={() => addCard({ word: v.korean, meaning: v.vietnamese, example: v.romaji || "", songTitle: song.title, artist: song.artist })}
+                            disabled={saved}
+                            className={`absolute top-2 right-2 p-1 rounded-lg transition-colors ${
+                              saved ? "text-app-accent-primary" : "text-white/20 hover:text-app-accent-primary"
+                            }`}
+                            title={saved ? "Đã lưu" : "Lưu vào Flashcard"}
+                          >
+                            <i className={saved ? "ri-bookmark-fill text-xs" : "ri-bookmark-line text-xs"} />
+                          </button>
+                          <p className="text-app-accent-primary text-sm font-semibold mb-0.5 pr-5">{v.korean}</p>
+                          <p className="text-white/55 text-xs">{v.vietnamese}</p>
+                          {v.romaji && <p className="text-white/30 text-[10px] italic">{v.romaji}</p>}
+                          {v.topikLevel && <span className="text-[9px] bg-app-accent-primary/10 text-app-accent-primary px-1.5 py-0.5 rounded-full">TOPIK {v.topikLevel}</span>}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
