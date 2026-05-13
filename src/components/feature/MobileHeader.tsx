@@ -32,7 +32,7 @@ export default function MobileHeader({ title, showBack }: MobileHeaderProps) {
             className="flex items-center gap-2 flex-shrink-0 cursor-pointer"
           >
             <img
-              src="https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png"
+              src="/images/brand/logo.svg"
               alt="Logo"
               className="w-7 h-7 rounded-lg object-cover"
             />

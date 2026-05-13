@@ -1,0 +1,13 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" rx="40" fill="url(#logoGradient)"/>
+  <path d="M50 60 Q100 40 150 60 Q160 100 150 140 Q100 160 50 140 Q40 100 50 60" stroke="white" stroke-width="4" fill="none" opacity="0.3"/>
+  <circle cx="100" cy="100" r="30" fill="white" opacity="0.2"/>
+  <text x="100" y="110" text-anchor="middle" fill="white" font-size="40" font-weight="bold">한</text>
+  <text x="100" y="145" text-anchor="middle" fill="white" font-size="14" opacity="0.8">HanoiKorean</text>
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4ade80;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>

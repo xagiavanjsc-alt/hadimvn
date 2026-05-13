@@ -317,7 +317,7 @@ function SidebarInner() {
         className="flex items-center gap-3 px-5 py-5 border-b border-app-border flex-shrink-0 cursor-pointer text-left hover:bg-app-surface/50 transition-colors"
       >
         <img
-          src="https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png"
+          src="/images/brand/logo.svg"
           alt="Hàn Quốc Ơi! Logo"
           className="w-9 h-9 rounded-lg object-cover"
         />

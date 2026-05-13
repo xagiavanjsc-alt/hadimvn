@@ -106,7 +106,7 @@ const NaverPage = () => {
         {/* Hero */}
         <div className="mb-4 rounded-2xl overflow-hidden relative h-24 sm:h-28">
           <img
-            src="https://readdy.ai/api/search-image?query=Naver%20Korean%20knowledge%20sharing%20platform%20question%20answer%20community%20vibrant%20green%20teal%20abstract%20digital%20network%20nodes%20connections%20modern%20tech%20background&width=640&height=224&seq=naver-hero-001&orientation=landscape"
+            style={{ background: "linear-gradient(135deg, #03c75a 0%, #00a86b 100%)" }}
             alt="Naver KiN"
             className="w-full h-full object-cover object-top"
           />

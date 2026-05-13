@@ -51,7 +51,7 @@ const OverallStatsPage = () => {
         <div className="bg-white rounded-2xl shadow-sm p-4 mt-4">
           <h3 className="text-sm font-bold text-gray-700 mb-3">Weekly Activity</h3>
           <img
-            src="https://readdy.ai/api/search-image?query=colorful%20bar%20chart%20weekly%20study%20progress%20data%20visualization%20clean%20minimal&width=320&height=160&seq=overallchart1&orientation=landscape"
+            style={{ background: "linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)" }}
             alt="Weekly chart"
             className="w-full h-36 object-cover object-top rounded-xl"
           />

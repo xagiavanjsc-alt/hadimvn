@@ -50,8 +50,8 @@ function sendTestNotification(message: string) {
   if (Notification.permission !== "granted") return;
   new Notification("Hàn Quốc Ơi! 🇰🇷", {
     body: message,
-    icon: "https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png",
-    badge: "https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png",
+    icon: "/images/brand/logo.svg",
+    badge: "/images/brand/logo.svg",
     tag: "study-reminder",
   });
 }

@@ -10,7 +10,7 @@ const newsItems = [
     summary: "2026년 상반기 TOPIK 시험 접수가 시작되었습니다. 일정을 확인하고 준비하세요.",
     category: "시험",
     date: "2026.04.20",
-    image: "https://readdy.ai/api/search-image?query=Korean%20language%20test%20TOPIK%20exam%20hall%20students&width=320&height=160&seq=news1&orientation=landscape",
+    image: "/images/brand/logo.svg",
     readTime: "3분",
   },
   {
@@ -19,7 +19,7 @@ const newsItems = [
     summary: "2026년부터 EPS-TOPIK 시험 문항 수와 시험 시간이 일부 변경됩니다.",
     category: "EPS",
     date: "2026.04.18",
-    image: "https://readdy.ai/api/search-image?query=Korea%20work%20permit%20exam%20EPS%20paper%20test&width=320&height=160&seq=news2&orientation=landscape",
+    image: "/images/brand/logo.svg",
     readTime: "2분",
   },
   {
@@ -28,7 +28,7 @@ const newsItems = [
     summary: "한국어 학습 앱 사용자가 100만 명을 넘어서며 K-문화 열풍이 이어지고 있습니다.",
     category: "문화",
     date: "2026.04.15",
-    image: "https://readdy.ai/api/search-image?query=Korean%20culture%20hallyu%20wave%20language%20learning%20app%20mobile&width=320&height=160&seq=news3&orientation=landscape",
+    image: "/images/brand/logo.svg",
     readTime: "4분",
   },
   {
@@ -37,7 +37,7 @@ const newsItems = [
     summary: "서울시가 외국인 거주자를 위한 한국어 교육 지원 예산을 대폭 늘렸습니다.",
     category: "교육",
     date: "2026.04.12",
-    image: "https://readdy.ai/api/search-image?query=Seoul%20city%20Korean%20language%20class%20foreigners%20education&width=320&height=160&seq=news4&orientation=landscape",
+    image: "/images/brand/logo.svg",
     readTime: "3분",
   },
 ];

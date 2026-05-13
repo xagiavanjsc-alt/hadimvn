@@ -400,7 +400,7 @@ export default function VideoLessonsPage() {
                   alt={video.title}
                   className="w-full h-44 object-cover"
                   onError={e => {
-                    (e.target as HTMLImageElement).src = `https://readdy.ai/api/search-image?query=Korean%20language%20learning%20video%20lesson%20classroom%20teacher%20whiteboard&width=480&height=270&seq=${video.id}&orientation=landscape`;
+                    (e.target as HTMLImageElement).style.background = "linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)";
                   }}
                 />
                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-all flex items-center justify-center">

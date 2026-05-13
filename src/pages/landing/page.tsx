@@ -197,7 +197,7 @@ export default function LandingPage() {
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center justify-center pt-16">
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://readdy.ai/api/search-image?query=beautiful%20Seoul%20South%20Korea%20cityscape%20golden%20hour%20sunset%20Han%20River%20bridge%20modern%20skyscrapers%20warm%20orange%20light%20aerial%20photography%20cinematic%20wide%20angle&width=1440&height=900&seq=landing_hero_v12&orientation=landscape')" }} />
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-500/30 via-amber-500/20 to-yellow-500/30" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/75" />
 
         <div className="relative z-10 text-center px-4 md:px-6 max-w-5xl mx-auto w-full">
@@ -332,7 +332,7 @@ export default function LandingPage() {
           </div>
 
           <div className="mt-6 md:mt-8 relative rounded-2xl overflow-hidden border border-[#ec4899]/20">
-            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://readdy.ai/api/search-image?query=K-pop%20concert%20stage%20colorful%20neon%20lights%20crowd%20energy%20vibrant%20aesthetic%20music%20performance%20dark%20background%20bokeh%20lights&width=1200&height=400&seq=kpop_landing_v12&orientation=landscape')" }} />
+            <div className="absolute inset-0 bg-gradient-to-r from-pink-500/30 via-purple-500/20 to-indigo-500/30" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
             <div className="relative z-10 p-6 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-6">
               <div className="flex-1">
@@ -505,7 +505,7 @@ export default function LandingPage() {
       <section className="py-16 md:py-24 px-4 md:px-6 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <div className="relative rounded-3xl overflow-hidden border border-[#22c55e]/20">
-            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://readdy.ai/api/search-image?query=Korean%20traditional%20Gyeongbokgung%20palace%20cherry%20blossom%20spring%20beautiful%20warm%20light%20soft%20bokeh%20green%20nature%20peaceful%20serene&width=1200&height=500&seq=cta_landing_v12&orientation=landscape')" }} />
+            <div className="absolute inset-0 bg-gradient-to-br from-green-500/30 via-emerald-500/20 to-teal-500/30" />
             <div className="absolute inset-0 bg-gradient-to-br from-[#052e16]/90 via-[#14532d]/80 to-[#052e16]/90" />
             <div className="relative z-10 p-8 md:p-14 text-center">
               <p className="text-[#4ade80] text-xs font-semibold tracking-normal mb-4">Lên tàu ngay thôi!</p>

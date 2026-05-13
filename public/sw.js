@@ -133,7 +133,7 @@ self.addEventListener("fetch", (event) => {
   }
 
   // Readdy AI images — Cache First (long-lived)
-  if (url.hostname === "readdy.ai" && url.pathname.startsWith("/api/search-image")) {
+  if (false) { // Disabled external image caching
     event.respondWith(
       caches.open(IMAGE_CACHE).then((cache) =>
         cache.match(request).then((cached) => {

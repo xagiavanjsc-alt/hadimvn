@@ -37,7 +37,7 @@ export default function MnemonicStory({ story, word }: MnemonicStoryProps) {
         {/* Illustration */}
         <div className="relative min-h-48 md:min-h-0">
           <img
-            src="https://readdy.ai/api/search-image?query=traditional%20Korean%20painting%20style%20minimalist%20illustration%20ancient%20scholars%20studying%20calligraphy%20silk%20fabric%20weaving%20elegant%20storytelling%20cultural%20artistic%20watercolor%20ink%20warm%20tones&width=400&height=350&seq=mnemonic-story-001&orientation=landscape"
+            style={{ background: "linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)" }}
             alt="Minh họa truyện chêm"
             className="w-full h-full object-cover object-top"
           />

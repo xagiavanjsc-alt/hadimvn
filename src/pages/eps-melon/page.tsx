@@ -192,7 +192,7 @@ export default function EpsMelonPage() {
         {/* Hero banner */}
         <div className="relative rounded-2xl overflow-hidden mb-6 h-32">
           <img
-            src="https://readdy.ai/api/search-image?query=Korean%20language%20study%20EPS-TOPIK%20exam%20textbook%20vocabulary%20flashcards%20with%20K-pop%20music%20notes%20flying%20around%20colorful%20vibrant%20educational%20background%20warm%20tones&width=960&height=256&seq=eps-melon-hero-001&orientation=landscape"
+            style={{ background: "linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)" }}
             alt="EPS Melon"
             className="w-full h-full object-cover object-top"
           />

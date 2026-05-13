@@ -137,7 +137,7 @@ export default function SchedulerPage() {
       if (notifPermission === "granted") {
         new Notification("Hàn Việt KTS — Test thông báo", {
           body: "Lịch quét Melon hoạt động bình thường. Sẽ thông báo khi có bài mới!",
-          icon: "https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png",
+          icon: "/images/brand/logo.svg",
         });
       }
     }, 2000);

@@ -32,9 +32,9 @@ type GameState = "lobby" | "matching" | "countdown" | "playing" | "result";
 const BOT_NAMES = ["김민준", "이서연", "박지호", "최수아", "정도윤", "강하은", "윤태양", "임나연"];
 const BOT_LEVELS = ["A1", "A2", "B1", "B2", "C1"];
 const BOT_AVATARS = [
-  "https://readdy.ai/api/search-image?query=cute%20korean%20student%20avatar%20cartoon%20style%20simple%20background&width=80&height=80&seq=bot1&orientation=squarish",
-  "https://readdy.ai/api/search-image?query=friendly%20korean%20person%20avatar%20illustration%20minimal%20background&width=80&height=80&seq=bot2&orientation=squarish",
-  "https://readdy.ai/api/search-image?query=young%20korean%20student%20portrait%20cartoon%20avatar%20clean%20background&width=80&height=80&seq=bot3&orientation=squarish",
+  "/images/brand/logo.svg",
+  "/images/brand/logo.svg",
+  "/images/brand/logo.svg"
 ];
 
 const TOTAL_QUESTIONS = 10;

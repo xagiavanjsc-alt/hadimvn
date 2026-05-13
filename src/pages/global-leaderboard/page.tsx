@@ -17,25 +17,25 @@ interface GlobalUser {
 }
 
 const GLOBAL_USERS: GlobalUser[] = [
-  { rank: 1, name: "Nguyễn Thị Lan", country: "Việt Nam", countryFlag: "🇻🇳", level: "C1", xp: 98450, streak: 365, wordsLearned: 2840, avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20young%20woman%20student%20smiling%20portrait%20professional%20photo&width=80&height=80&seq=av1&orientation=squarish", badge: "ri-vip-crown-2-line", weeklyXP: 4200 },
-  { rank: 2, name: "Trần Minh Khoa", country: "Việt Nam", countryFlag: "🇻🇳", level: "B2", xp: 87320, streak: 280, wordsLearned: 2450, avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20young%20man%20student%20smiling%20portrait%20professional%20photo&width=80&height=80&seq=av2&orientation=squarish", badge: "ri-medal-line", weeklyXP: 3850 },
-  { rank: 3, name: "Lê Thu Hương", country: "Việt Nam", countryFlag: "🇻🇳", level: "B2", xp: 76890, streak: 210, wordsLearned: 2180, avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20woman%20professional%20portrait%20smiling%20office%20background&width=80&height=80&seq=av3&orientation=squarish", badge: "ri-award-line", weeklyXP: 3200 },
-  { rank: 4, name: "Phạm Đức Anh", country: "Việt Nam", countryFlag: "🇻🇳", level: "B1", xp: 65400, streak: 180, wordsLearned: 1920, avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20man%20young%20professional%20portrait%20casual%20smile&width=80&height=80&seq=av4&orientation=squarish", badge: "ri-star-line", weeklyXP: 2900 },
-  { rank: 5, name: "Hoàng Thị Mai", country: "Việt Nam", countryFlag: "🇻🇳", level: "B1", xp: 58700, streak: 145, wordsLearned: 1750, avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20young%20woman%20casual%20portrait%20smiling%20happy&width=80&height=80&seq=av5&orientation=squarish", badge: "ri-fire-line", weeklyXP: 2650 },
-  { rank: 6, name: "Vũ Thanh Tùng", country: "Việt Nam", countryFlag: "🇻🇳", level: "A2", xp: 45200, streak: 98, wordsLearned: 1340, avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20man%20student%20portrait%20casual%20background&width=80&height=80&seq=av6&orientation=squarish", badge: "ri-shield-star-line", weeklyXP: 2100 },
-  { rank: 7, name: "Đặng Thị Hoa", country: "Việt Nam", countryFlag: "🇻🇳", level: "A2", xp: 38900, streak: 76, wordsLearned: 1120, avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20woman%20portrait%20smiling%20natural%20light&width=80&height=80&seq=av7&orientation=squarish", badge: "ri-leaf-line", weeklyXP: 1850 },
-  { rank: 8, name: "Bùi Văn Nam", country: "Việt Nam", countryFlag: "🇻🇳", level: "A2", xp: 32100, streak: 54, wordsLearned: 980, avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20young%20man%20casual%20portrait%20outdoor&width=80&height=80&seq=av8&orientation=squarish", badge: "ri-seedling-line", weeklyXP: 1600 },
-  { rank: 9, name: "Ngô Thị Linh", country: "Việt Nam", countryFlag: "🇻🇳", level: "A1", xp: 24500, streak: 32, wordsLearned: 720, avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20girl%20student%20portrait%20smiling%20school&width=80&height=80&seq=av9&orientation=squarish", badge: "ri-plant-line", weeklyXP: 1200 },
-  { rank: 10, name: "Đinh Quang Huy", country: "Việt Nam", countryFlag: "🇻🇳", level: "A1", xp: 18700, streak: 21, wordsLearned: 540, avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20young%20man%20portrait%20casual%20smile%20outdoor&width=80&height=80&seq=av10&orientation=squarish", badge: "ri-star-smile-line", weeklyXP: 980 },
-  { rank: 11, name: "Trịnh Thị Yến", country: "Việt Nam", countryFlag: "🇻🇳", level: "A1", xp: 15200, streak: 15, wordsLearned: 420, avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20woman%20portrait%20natural%20smile%20casual&width=80&height=80&seq=av11&orientation=squarish", badge: "ri-emotion-happy-line", weeklyXP: 780 },
-  { rank: 12, name: "Lý Văn Đức", country: "Việt Nam", countryFlag: "🇻🇳", level: "A1", xp: 12400, streak: 10, wordsLearned: 310, avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20man%20portrait%20casual%20outdoor%20smile&width=80&height=80&seq=av12&orientation=squarish", badge: "ri-thumb-up-line", weeklyXP: 620 },
+  { rank: 1, name: "Nguyễn Thị Lan", country: "Việt Nam", countryFlag: "🇻🇳", level: "C1", xp: 98450, streak: 365, wordsLearned: 2840, avatar: "/images/brand/logo.svg", badge: "ri-vip-crown-2-line", weeklyXP: 4200 },
+  { rank: 2, name: "Trần Minh Khoa", country: "Việt Nam", countryFlag: "🇻🇳", level: "B2", xp: 87320, streak: 280, wordsLearned: 2450, avatar: "/images/brand/logo.svg", badge: "ri-medal-line", weeklyXP: 3850 },
+  { rank: 3, name: "Lê Thu Hương", country: "Việt Nam", countryFlag: "🇻🇳", level: "B2", xp: 76890, streak: 210, wordsLearned: 2180, avatar: "/images/brand/logo.svg", badge: "ri-award-line", weeklyXP: 3200 },
+  { rank: 4, name: "Phạm Đức Anh", country: "Việt Nam", countryFlag: "🇻🇳", level: "B1", xp: 65400, streak: 180, wordsLearned: 1920, avatar: "/images/brand/logo.svg", badge: "ri-star-line", weeklyXP: 2900 },
+  { rank: 5, name: "Hoàng Thị Mai", country: "Việt Nam", countryFlag: "🇻🇳", level: "B1", xp: 58700, streak: 145, wordsLearned: 1750, avatar: "/images/brand/logo.svg", badge: "ri-fire-line", weeklyXP: 2650 },
+  { rank: 6, name: "Vũ Thanh Tùng", country: "Việt Nam", countryFlag: "🇻🇳", level: "A2", xp: 45200, streak: 98, wordsLearned: 1340, avatar: "/images/brand/logo.svg", badge: "ri-shield-star-line", weeklyXP: 2100 },
+  { rank: 7, name: "Đặng Thị Hoa", country: "Việt Nam", countryFlag: "🇻🇳", level: "A2", xp: 38900, streak: 76, wordsLearned: 1120, avatar: "/images/brand/logo.svg", badge: "ri-leaf-line", weeklyXP: 1850 },
+  { rank: 8, name: "Bùi Văn Nam", country: "Việt Nam", countryFlag: "🇻🇳", level: "A2", xp: 32100, streak: 54, wordsLearned: 980, avatar: "/images/brand/logo.svg", badge: "ri-seedling-line", weeklyXP: 1600 },
+  { rank: 9, name: "Ngô Thị Linh", country: "Việt Nam", countryFlag: "🇻🇳", level: "A1", xp: 24500, streak: 32, wordsLearned: 720, avatar: "/images/brand/logo.svg", badge: "ri-plant-line", weeklyXP: 1200 },
+  { rank: 10, name: "Đinh Quang Huy", country: "Việt Nam", countryFlag: "🇻🇳", level: "A1", xp: 18700, streak: 21, wordsLearned: 540, avatar: "/images/brand/logo.svg", badge: "ri-star-smile-line", weeklyXP: 980 },
+  { rank: 11, name: "Trịnh Thị Yến", country: "Việt Nam", countryFlag: "🇻🇳", level: "A1", xp: 15200, streak: 15, wordsLearned: 420, avatar: "/images/brand/logo.svg", badge: "ri-emotion-happy-line", weeklyXP: 780 },
+  { rank: 12, name: "Lý Văn Đức", country: "Việt Nam", countryFlag: "🇻🇳", level: "A1", xp: 12400, streak: 10, wordsLearned: 310, avatar: "/images/brand/logo.svg", badge: "ri-thumb-up-line", weeklyXP: 620 },
   { rank: 47, name: "Bạn", country: "Việt Nam", countryFlag: "🇻🇳", level: "A2", xp: 3240, streak: 7, wordsLearned: 180, avatar: "", badge: "ri-user-line", weeklyXP: 320, isCurrentUser: true },
 ];
 
 const WEEKLY_TOP: GlobalUser[] = [
-  { rank: 1, name: "Nguyễn Thị Lan", country: "Việt Nam", countryFlag: "🇻🇳", level: "C1", xp: 98450, streak: 365, wordsLearned: 2840, avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20young%20woman%20student%20smiling%20portrait%20professional%20photo&width=80&height=80&seq=av1&orientation=squarish", badge: "ri-vip-crown-2-line", weeklyXP: 4200 },
-  { rank: 2, name: "Hoàng Thị Mai", country: "Việt Nam", countryFlag: "🇻🇳", level: "B1", xp: 58700, streak: 145, wordsLearned: 1750, avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20young%20woman%20casual%20portrait%20smiling%20happy&width=80&height=80&seq=av5&orientation=squarish", badge: "ri-fire-line", weeklyXP: 3950 },
-  { rank: 3, name: "Trần Minh Khoa", country: "Việt Nam", countryFlag: "🇻🇳", level: "B2", xp: 87320, streak: 280, wordsLearned: 2450, avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20young%20man%20student%20smiling%20portrait%20professional%20photo&width=80&height=80&seq=av2&orientation=squarish", badge: "ri-medal-line", weeklyXP: 3850 },
+  { rank: 1, name: "Nguyễn Thị Lan", country: "Việt Nam", countryFlag: "🇻🇳", level: "C1", xp: 98450, streak: 365, wordsLearned: 2840, avatar: "/images/brand/logo.svg", badge: "ri-vip-crown-2-line", weeklyXP: 4200 },
+  { rank: 2, name: "Hoàng Thị Mai", country: "Việt Nam", countryFlag: "🇻🇳", level: "B1", xp: 58700, streak: 145, wordsLearned: 1750, avatar: "/images/brand/logo.svg", badge: "ri-fire-line", weeklyXP: 3950 },
+  { rank: 3, name: "Trần Minh Khoa", country: "Việt Nam", countryFlag: "🇻🇳", level: "B2", xp: 87320, streak: 280, wordsLearned: 2450, avatar: "/images/brand/logo.svg", badge: "ri-medal-line", weeklyXP: 3850 },
 ];
 
 const TABS = ["Tổng XP", "Tuần này", "Streak", "Từ vựng"];
@@ -98,7 +98,7 @@ export default function GlobalLeaderboardPage() {
             {/* 2nd */}
             <div className="flex flex-col items-center gap-2 flex-1">
               <div className="relative">
-                <img src={top3[1]?.avatar} alt={top3[1]?.name} className="w-14 h-14 rounded-full object-cover border-2 border-white/20" onError={e => { (e.target as HTMLImageElement).src = "https://readdy.ai/api/search-image?query=person%20portrait%20avatar%20neutral%20background&width=80&height=80&seq=def2&orientation=squarish"; }} />
+                <img src={top3[1]?.avatar} alt={top3[1]?.name} className="w-14 h-14 rounded-full object-cover border-2 border-white/20" onError={e => { (e.target as HTMLImageElement).src = "/images/brand/logo.svg"; }} />
                 <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#C0C0C0] flex items-center justify-center text-xs font-bold text-black">2</div>
               </div>
               <p className="text-white/70 text-xs font-medium text-center truncate w-full">{top3[1]?.name}</p>
@@ -111,7 +111,7 @@ export default function GlobalLeaderboardPage() {
             <div className="flex flex-col items-center gap-2 flex-1">
               <div className="relative">
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-xl">👑</div>
-                <img src={top3[0]?.avatar} alt={top3[0]?.name} className="w-18 h-18 rounded-full object-cover border-2 border-app-accent-primary/60 mt-2" style={{ width: 72, height: 72 }} onError={e => { (e.target as HTMLImageElement).src = "https://readdy.ai/api/search-image?query=person%20portrait%20avatar%20neutral%20background&width=80&height=80&seq=def1&orientation=squarish"; }} />
+                <img src={top3[0]?.avatar} alt={top3[0]?.name} className="w-18 h-18 rounded-full object-cover border-2 border-app-accent-primary/60 mt-2" style={{ width: 72, height: 72 }} onError={e => { (e.target as HTMLImageElement).src = "/images/brand/logo.svg"; }} />
                 <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-app-accent-primary flex items-center justify-center text-xs font-bold text-black">1</div>
               </div>
               <p className="text-app-accent-primary text-xs font-bold text-center truncate w-full">{top3[0]?.name}</p>
@@ -123,7 +123,7 @@ export default function GlobalLeaderboardPage() {
             {/* 3rd */}
             <div className="flex flex-col items-center gap-2 flex-1">
               <div className="relative">
-                <img src={top3[2]?.avatar} alt={top3[2]?.name} className="w-14 h-14 rounded-full object-cover border-2 border-white/20" onError={e => { (e.target as HTMLImageElement).src = "https://readdy.ai/api/search-image?query=person%20portrait%20avatar%20neutral%20background&width=80&height=80&seq=def3&orientation=squarish"; }} />
+                <img src={top3[2]?.avatar} alt={top3[2]?.name} className="w-14 h-14 rounded-full object-cover border-2 border-white/20" onError={e => { (e.target as HTMLImageElement).src = "/images/brand/logo.svg"; }} />
                 <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#CD7F32] flex items-center justify-center text-xs font-bold text-white">3</div>
               </div>
               <p className="text-white/70 text-xs font-medium text-center truncate w-full">{top3[2]?.name}</p>
@@ -165,7 +165,7 @@ export default function GlobalLeaderboardPage() {
                 {/* Avatar */}
                 <div className="relative flex-shrink-0">
                   {user.avatar ? (
-                    <img src={user.avatar} alt={user.name} className="w-10 h-10 rounded-full object-cover" onError={e => { (e.target as HTMLImageElement).src = "https://readdy.ai/api/search-image?query=person%20portrait%20avatar%20neutral%20background&width=80&height=80&seq=defav&orientation=squarish"; }} />
+                    <img src={user.avatar} alt={user.name} className="w-10 h-10 rounded-full object-cover" onError={e => { (e.target as HTMLImageElement).src = "/images/brand/logo.svg"; }} />
                   ) : (
                     <div className="w-10 h-10 rounded-full bg-app-accent-primary/20 flex items-center justify-center">
                       <i className="ri-user-line text-app-accent-primary"></i>

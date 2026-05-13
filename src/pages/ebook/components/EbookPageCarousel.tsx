@@ -271,7 +271,7 @@ function LessonPageDark({ meta, lesson, idx, pageNum }: { meta: EbookMeta; lesso
 }
 
 function LessonPageAlbum({ meta, lesson, idx, pageNum }: { meta: EbookMeta; lesson: ApprovedLesson; idx: number; pageNum: number }) {
-  const albumImg = `https://readdy.ai/api/search-image?query=K-pop%20album%20art%20cover%20minimalist%20colorful%20music%20$%7Blesson.song.artist%7D%20aesthetic%20gradient&width=200&height=200&seq=album-${lesson.song.rank}&orientation=squarish`;
+  const albumImg = "/images/brand/logo.svg";
   return (
     <div className="w-full h-full bg-white flex flex-col overflow-hidden relative">
       <div className="flex items-stretch" style={{ height: "28%" }}>
@@ -373,12 +373,11 @@ function LessonPageGradient({ meta, lesson, idx, pageNum }: { meta: EbookMeta; l
 
 // ─── Magazine Template ────────────────────────────────────────────────────
 function LessonPageMagazine({ meta, lesson, idx, pageNum }: { meta: EbookMeta; lesson: ApprovedLesson; idx: number; pageNum: number }) {
-  const bgImg = `https://readdy.ai/api/search-image?query=K-pop%20aesthetic%20background%20abstract%20colorful%20gradient%20music%20$%7Blesson.song.artist%7D%20moody%20cinematic&width=400&height=120&seq=mag-${lesson.song.rank}&orientation=landscape`;
   return (
     <div className="w-full h-full bg-white flex flex-col overflow-hidden relative">
-      {/* Magazine header with image */}
-      <div className="relative flex-shrink-0 overflow-hidden" style={{ height: "26%" }}>
-        <img src={bgImg} alt="" className="w-full h-full object-cover object-top" />
+      {/* Magazine header with gradient */}
+      <div className="relative flex-shrink-0 overflow-hidden" style={{ height: "26%", background: `linear-gradient(135deg, ${meta.coverAccent}dd, ${meta.coverColor}cc)` }}>
+        <div className="absolute inset-0 bg-black/10" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-4">
           <div className="flex items-end justify-between">

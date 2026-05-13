@@ -145,7 +145,7 @@ export default function MobileNav() {
             <div className="flex items-center justify-between px-5 py-3 border-b border-app-border flex-shrink-0">
               <div className="flex items-center gap-3">
                 <img
-                  src="https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png"
+                  src="/images/brand/logo.svg"
                   alt="Logo"
                   className="w-7 h-7 rounded-lg object-cover"
                 />

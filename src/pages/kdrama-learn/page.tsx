@@ -43,7 +43,7 @@ const DRAMA_SCENES: DramaScene[] = [
     episode: "Tập 1",
     title: "Cảnh gặp gỡ đầu tiên",
     description: "Cảnh Yoon Se-ri hạ cánh khẩn cấp xuống Bắc Triều Tiên và gặp Ri Jeong-hyeok lần đầu tiên.",
-    thumbnail: "https://readdy.ai/api/search-image?query=Korean%20drama%20romantic%20scene%20couple%20meeting%20in%20forest%20military%20uniform%20elegant%20woman%20surprised%20expression%20cinematic&width=480&height=270&seq=kdrama1&orientation=landscape",
+    thumbnail: "/images/brand/logo.svg",
     youtubeId: "dQw4w9WgXcQ",
     level: "B1",
     dialogue: [
@@ -75,7 +75,7 @@ const DRAMA_SCENES: DramaScene[] = [
     episode: "Tập 3",
     title: "Cảnh ở tiệm bánh",
     description: "Ji Eun-tak và Kim Shin gặp nhau tại tiệm bánh, cuộc trò chuyện hài hước về bánh mì.",
-    thumbnail: "https://readdy.ai/api/search-image?query=Korean%20drama%20fantasy%20scene%20bakery%20shop%20cozy%20warm%20lighting%20couple%20talking%20bread%20pastry%20cinematic&width=480&height=270&seq=kdrama2&orientation=landscape",
+    thumbnail: "/images/brand/logo.svg",
     youtubeId: "dQw4w9WgXcQ",
     level: "A2",
     dialogue: [
@@ -107,7 +107,7 @@ const DRAMA_SCENES: DramaScene[] = [
     episode: "Tập 7",
     title: "Cảnh tranh cãi hài hước",
     description: "Cheon Song-yi và Do Min-joon tranh cãi về việc sử dụng ngôn ngữ lịch sự.",
-    thumbnail: "https://readdy.ai/api/search-image?query=Korean%20drama%20romantic%20comedy%20scene%20apartment%20living%20room%20couple%20arguing%20funny%20expression%20modern%20interior&width=480&height=270&seq=kdrama3&orientation=landscape",
+    thumbnail: "/images/brand/logo.svg",
     youtubeId: "dQw4w9WgXcQ",
     level: "B1",
     dialogue: [
@@ -138,7 +138,7 @@ const DRAMA_SCENES: DramaScene[] = [
     episode: "Tập 5",
     title: "Cảnh tại quán ăn",
     description: "Park Saeroyi và nhân viên phục vụ khách hàng tại quán DanBam, học từ vựng về nhà hàng.",
-    thumbnail: "https://readdy.ai/api/search-image?query=Korean%20drama%20restaurant%20scene%20small%20bar%20pub%20night%20Itaewon%20Seoul%20street%20food%20cooking%20team%20work&width=480&height=270&seq=kdrama4&orientation=landscape",
+    thumbnail: "/images/brand/logo.svg",
     youtubeId: "dQw4w9WgXcQ",
     level: "A2",
     dialogue: [
@@ -170,7 +170,7 @@ const DRAMA_SCENES: DramaScene[] = [
     episode: "Tập 2",
     title: "Cảnh bữa cơm gia đình",
     description: "Gia đình Deok-sun quây quần bên bữa cơm tối, học từ vựng về gia đình và bữa ăn.",
-    thumbnail: "https://readdy.ai/api/search-image?query=Korean%20drama%20family%20dinner%20scene%201988%20retro%20vintage%20home%20warm%20cozy%20traditional%20Korean%20food%20table&width=480&height=270&seq=kdrama5&orientation=landscape",
+    thumbnail: "/images/brand/logo.svg",
     youtubeId: "dQw4w9WgXcQ",
     level: "A1",
     dialogue: [
@@ -202,7 +202,7 @@ const DRAMA_SCENES: DramaScene[] = [
     episode: "Tập 10",
     title: "Cảnh tại văn phòng luật",
     description: "Vincenzo và Hong Cha-young thảo luận về vụ kiện, học từ vựng pháp lý và công sở.",
-    thumbnail: "https://readdy.ai/api/search-image?query=Korean%20drama%20office%20scene%20lawyer%20meeting%20room%20professional%20suit%20documents%20serious%20discussion%20modern%20Seoul&width=480&height=270&seq=kdrama6&orientation=landscape",
+    thumbnail: "/images/brand/logo.svg",
     youtubeId: "dQw4w9WgXcQ",
     level: "B2",
     dialogue: [

@@ -58,7 +58,7 @@ function QuestionEditor({
             placeholder="https://img.hanquocoi.vn/eps/safety/helmet-01.jpg"
             className="w-full bg-app-card/50 border border-app-border rounded-xl px-3 py-2.5 text-white/70 text-sm outline-none focus:border-app-accent-primary/40 placeholder-white/20"
           />
-          <p className="text-app-text-muted text-[10px] mt-1">Hỗ trợ: img.hanquocoi.vn, readdy.ai, hoặc bất kỳ URL ảnh nào</p>
+          <p className="text-app-text-muted text-[10px] mt-1">Hỗ trợ: img.hanquocoi.vn hoặc bất kỳ URL ảnh nào</p>
         </div>
         <div>
           <label className="text-app-text-secondary text-xs mb-1 block">Alt text (mô tả ảnh)</label>

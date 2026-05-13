@@ -31,7 +31,7 @@ function PostSEO({ post, slug }: { post: Post; slug: string }) {
       "name": "Hàn Quốc Ơi!",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png",
+        "url": "/images/brand/logo.svg",
       },
     },
   };

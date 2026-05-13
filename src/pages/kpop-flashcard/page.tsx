@@ -401,7 +401,7 @@ export default function KpopFlashcardPage() {
       ...c,
       source: "saved" as const,
       albumArt: mockMelonSongs.find(s => s.title === c.songTitle)?.albumArt ||
-        "https://readdy.ai/api/search-image?query=K-pop%20album%20cover%20colorful%20music%20Korean%20pop&width=100&height=100&seq=kpop-default-art&orientation=squarish",
+        "/images/brand/logo.svg",
     }));
     const analysisKeys = new Set(analysisCards.map(c => `${c.word}::${c.songTitle}`));
     const uniqueSaved = saved.filter(c => !analysisKeys.has(`${c.word}::${c.songTitle}`));

@@ -18,7 +18,7 @@ export const TESTIMONIALS = [
   {
     name: "Nguyễn Thị Lan",
     role: "Đậu EPS-TOPIK lần 3",
-    avatar: "https://readdy.ai/api/search-image?query=young%20Vietnamese%20woman%20smiling%20portrait%20professional%20photo%20warm%20lighting%20natural%20background%20soft%20bokeh&width=80&height=80&seq=tdark1hqo&orientation=squarish",
+    avatar: "/images/brand/logo.svg",
     text: "Nhờ thi thử EPS mỗi ngày trên Hàn Quốc Ơi!, mình biết chính xác chủ đề nào yếu để ôn. Điểm tăng từ 65 lên 89 chỉ trong 2 tháng!",
     score: "89/100",
     badgeColor: "#f59e0b",
@@ -27,7 +27,7 @@ export const TESTIMONIALS = [
   {
     name: "Trần Văn Minh",
     role: "TOPIK II — Streak 64 ngày",
-    avatar: "https://readdy.ai/api/search-image?query=young%20Vietnamese%20man%20smiling%20portrait%20casual%20photo%20warm%20lighting%20natural%20background%20friendly%20face&width=80&height=80&seq=tdark2hqo&orientation=squarish",
+    avatar: "/images/brand/logo.svg",
     text: "Học qua tin tức tiếng Hàn thật sự khác hẳn sách giáo khoa. Từ vựng nhớ lâu hơn vì học trong ngữ cảnh thực tế.",
     score: "🔥 64 ngày",
     badgeColor: "#f97316",
@@ -36,7 +36,7 @@ export const TESTIMONIALS = [
   {
     name: "Lê Quang Hùng",
     role: "Công nhân xuất khẩu lao động",
-    avatar: "https://readdy.ai/api/search-image?query=Vietnamese%20man%20worker%20smiling%20portrait%20casual%20warm%20lighting%20natural%20background%20confident%20look&width=80&height=80&seq=tdark3hqo&orientation=squarish",
+    avatar: "/images/brand/logo.svg",
     text: "Chỉ 20 phút/ngày trên Hàn Quốc Ơi! là đủ. Sau 3 tháng đã đậu EPS và chuẩn bị sang Hàn! Cộng đồng ở đây nhiệt tình lắm.",
     score: "Đậu EPS",
     badgeColor: "#22c55e",

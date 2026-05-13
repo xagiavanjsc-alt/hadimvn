@@ -33,7 +33,7 @@ function NotificationPanel({
     setTesting(true);
     new Notification("Nhắc nhở học tập", {
       body: "Đây là thông báo thử nghiệm từ Hàn Quốc Ơi! Đến giờ ôn bài rồi!",
-      icon: "https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png",
+      icon: "/images/brand/logo.svg",
     });
     setTimeout(() => setTesting(false), 2000);
   };
@@ -449,7 +449,7 @@ export default function ReviewSchedulePage() {
       if (todaySchedules.length > 0) {
         new Notification("Nhắc nhở ôn tập EPS", {
           body: `Bạn có ${todaySchedules.length} bài cần ôn hôm nay. Hãy học ngay!`,
-          icon: "https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png",
+          icon: "/images/brand/logo.svg",
         });
       }
     }

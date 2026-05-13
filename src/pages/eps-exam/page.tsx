@@ -71,7 +71,7 @@ function ShareResultCard({ pct, correct, total, examResults }: { pct: number; co
     <div className="rounded-2xl overflow-hidden border border-app-border">
       {/* Visual card preview */}
       <div className={`bg-gradient-to-br ${gradeBg} p-6 relative`}>
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "url('https://readdy.ai/api/search-image?query=Korean%20pattern%20subtle%20texture%20dark%20background&width=600&height=200&seq=share_bg1&orientation=landscape')", backgroundSize: "cover" }} />
+        <div className="absolute inset-0 opacity-5" style={{ background: "linear-gradient(45deg, #3b82f6 25%, transparent 25%, transparent 75%, #3b82f6 75%), linear-gradient(45deg, #3b82f6 25%, transparent 25%, transparent 75%, #3b82f6 75%)", backgroundSize: "20px 20px" }} />
         <div className="relative z-10">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">

@@ -10,7 +10,7 @@ import { useEffect } from "react";
 //   - og:image nên dùng ảnh riêng của trang nếu có (fallback homepage image)
 
 const SITE_URL = "https://hanquocoi.vn";
-const DEFAULT_OG_IMAGE = "https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png";
+const DEFAULT_OG_IMAGE = "/images/brand/logo.svg";
 
 export interface SEOConfig {
   title: string;

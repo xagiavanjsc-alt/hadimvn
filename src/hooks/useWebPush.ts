@@ -60,8 +60,8 @@ export function useWebPush() {
     try {
       const n = new Notification(title, {
         body,
-        icon: "https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png",
-        badge: "https://public.readdy.ai/ai/img_res/e4aac832-9a5b-4b61-8ca3-dd8be9f9e28b.png",
+        icon: "/images/brand/logo.svg",
+        badge: "/images/brand/logo.svg",
         tag: "hanquocoi",
         ...options,
       });

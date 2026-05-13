@@ -79,20 +79,7 @@ export default function DailyReminder() {
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const data = new URLSearchParams();
-    data.append("email", emailInput);
-    data.append("reminder_time", settings.time);
-    data.append("topics", settings.topics.join(", "));
-    data.append("streak", String(streak.count));
-    try {
-      await fetch("https://readdy.ai/api/form/d7ev5deivmjfhtdrfkd0", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: data.toString(),
-      });
-    } catch {
-      // silent
-    }
+    // Form submission disabled - remove external API dependency
     setSettings({ ...settings, emailRegistered: true, email: emailInput });
     setEmailSubmitted(true);
     setTimeout(() => {

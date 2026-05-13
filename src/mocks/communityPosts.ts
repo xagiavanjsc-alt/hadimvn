@@ -20,7 +20,7 @@ export const communityPosts: CommunityPost[] = [
   {
     id: "p1",
     author: "Nguyễn Thị Lan",
-    authorAvatar: "https://readdy.ai/api/search-image?query=young%20Vietnamese%20woman%20smiling%20portrait%20professional%20warm%20lighting&width=60&height=60&seq=cp1&orientation=squarish",
+    authorAvatar: "/images/brand/logo.svg",
     authorLevel: "TOPIK II",
     authorXp: 18450,
     category: "result",
@@ -36,7 +36,7 @@ export const communityPosts: CommunityPost[] = [
   {
     id: "p2",
     author: "Trần Minh Khoa",
-    authorAvatar: "https://readdy.ai/api/search-image?query=young%20Vietnamese%20man%20smiling%20portrait%20casual%20warm%20lighting&width=60&height=60&seq=cp2&orientation=squarish",
+    authorAvatar: "/images/brand/logo.svg",
     authorLevel: "TOPIK I",
     authorXp: 15200,
     category: "question",
@@ -50,7 +50,7 @@ export const communityPosts: CommunityPost[] = [
   {
     id: "p3",
     author: "Lê Thị Hương",
-    authorAvatar: "https://readdy.ai/api/search-image?query=Vietnamese%20woman%20student%20smiling%20portrait%20casual%20soft%20background&width=60&height=60&seq=cp3&orientation=squarish",
+    authorAvatar: "/images/brand/logo.svg",
     authorLevel: "TOPIK I",
     authorXp: 12800,
     category: "tip",
@@ -64,7 +64,7 @@ export const communityPosts: CommunityPost[] = [
   {
     id: "p4",
     author: "Phạm Văn Đức",
-    authorAvatar: "https://readdy.ai/api/search-image?query=Vietnamese%20man%20student%20smiling%20portrait%20casual%20natural%20background&width=60&height=60&seq=cp4&orientation=squarish",
+    authorAvatar: "/images/brand/logo.svg",
     authorLevel: "TOPIK I",
     authorXp: 10500,
     category: "share",
@@ -79,7 +79,7 @@ export const communityPosts: CommunityPost[] = [
   {
     id: "p5",
     author: "Hoàng Thị Mai",
-    authorAvatar: "https://readdy.ai/api/search-image?query=Vietnamese%20woman%20smiling%20portrait%20warm%20lighting%20natural&width=60&height=60&seq=cp5&orientation=squarish",
+    authorAvatar: "/images/brand/logo.svg",
     authorLevel: "TOPIK I",
     authorXp: 9800,
     category: "question",
@@ -93,7 +93,7 @@ export const communityPosts: CommunityPost[] = [
   {
     id: "p6",
     author: "Vũ Quang Huy",
-    authorAvatar: "https://readdy.ai/api/search-image?query=Vietnamese%20man%20smiling%20portrait%20casual%20warm%20background&width=60&height=60&seq=cp6&orientation=squarish",
+    authorAvatar: "/images/brand/logo.svg",
     authorLevel: "Cơ bản",
     authorXp: 7600,
     category: "result",
@@ -108,7 +108,7 @@ export const communityPosts: CommunityPost[] = [
   {
     id: "p7",
     author: "Đặng Thị Thu",
-    authorAvatar: "https://readdy.ai/api/search-image?query=Vietnamese%20woman%20portrait%20smiling%20casual%20natural%20light&width=60&height=60&seq=cp7&orientation=squarish",
+    authorAvatar: "/images/brand/logo.svg",
     authorLevel: "Cơ bản",
     authorXp: 6400,
     category: "tip",
@@ -122,7 +122,7 @@ export const communityPosts: CommunityPost[] = [
   {
     id: "p8",
     author: "Bùi Văn Nam",
-    authorAvatar: "https://readdy.ai/api/search-image?query=Vietnamese%20man%20portrait%20smiling%20casual%20warm%20light&width=60&height=60&seq=cp8&orientation=squarish",
+    authorAvatar: "/images/brand/logo.svg",
     authorLevel: "Cơ bản",
     authorXp: 5200,
     category: "share",

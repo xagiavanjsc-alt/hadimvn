@@ -632,7 +632,7 @@ export default function GuidePage() {
         {/* Hero */}
         <div className="relative rounded-2xl overflow-hidden mb-6 h-40">
           <img
-            src="https://readdy.ai/api/search-image?query=Korean%20language%20learning%20guide%20book%20open%20pages%20with%20Korean%20characters%20hangul%20written%20beautifully%2C%20soft%20warm%20lighting%2C%20minimalist%20clean%20aesthetic%2C%20educational%20atmosphere%2C%20cherry%20blossom%20petals%20floating&width=1200&height=320&seq=guide-hero1&orientation=landscape"
+            style={{ background: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)" }}
             alt="Hướng dẫn Hàn Quốc Ơi!"
             className="w-full h-full object-cover object-top"
           />
