@@ -8,6 +8,35 @@ export interface MelonSong {
   processed?: boolean;
   releaseDate?: string;
   album?: string;
+  translation?: {
+    full?: string;
+    lineByLine?: Array<{ korean: string; vietnamese: string }>;
+    culturalNotes?: string[];
+  };
+  vocabulary?: Array<{
+    korean: string;
+    vietnamese: string;
+    romaji: string;
+    topikLevel?: "1" | "2";
+    epsCategory?: string;
+    frequency?: number;
+    position?: number[];
+    exampleSentence?: string;
+  }>;
+  grammar?: Array<{
+    pattern: string;
+    meaning: string;
+    level: "1" | "2" | "3";
+    examples: Array<{ sentence: string; translation: string; line: number }>;
+    relatedGrammar?: string[];
+  }>;
+  difficulty?: {
+    overall: "easy" | "medium" | "hard";
+    vocabulary: number;
+    grammar: number;
+    speed: number;
+    recommendedFor: string[];
+  };
 }
 
 export const mockMelonSongs: MelonSong[] = [

@@ -94,9 +94,25 @@ function VirtualSongList({
                           <span className="hidden sm:inline">Đã học</span>
                         </span>
                       )}
+                      {song.difficulty && (
+                        <span className={`inline-flex items-center text-[9px] px-1 py-0.5 rounded-full whitespace-nowrap flex-shrink-0 hidden sm:inline-flex ${
+                          song.difficulty.overall === "easy" ? "bg-green-500/10 text-green-400" :
+                          song.difficulty.overall === "medium" ? "bg-yellow-500/10 text-yellow-400" :
+                          "bg-red-500/10 text-red-400"
+                        }`}>
+                          {song.difficulty.overall === "easy" ? "Dễ" : song.difficulty.overall === "medium" ? "TB" : "Khó"}
+                        </span>
+                      )}
                     </div>
                     <p className="text-white/35 text-[10px] sm:text-xs truncate">{song.artist}</p>
-                    <p className="text-app-text-muted text-[9px] sm:text-[10px] truncate hidden sm:block">{song.genre}</p>
+                    <div className="flex items-center gap-2">
+                      <p className="text-app-text-muted text-[9px] sm:text-[10px] truncate hidden sm:block">{song.genre}</p>
+                      {song.vocabulary && song.vocabulary.length > 0 && (
+                        <span className="text-[9px] text-app-accent-primary/60 hidden sm:inline whitespace-nowrap">
+                          <i className="ri-book-2-line mr-0.5" />{song.vocabulary.length} từ
+                        </span>
+                      )}
+                    </div>
                   </div>
                   <div className="flex items-center gap-1 flex-shrink-0">
                     <button
@@ -152,6 +168,7 @@ const MelonPage = () => {
   const [activeTab, setActiveTab] = useState<"chart" | "playlist">("chart");
   const [search, setSearch] = useState("");
   const [genreFilter, setGenreFilter] = useState<string>("all");
+  const [difficultyFilter, setDifficultyFilter] = useState<"all" | "easy" | "medium" | "hard">("all");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [analysisTarget, setAnalysisTarget] = useState<MelonSong | null>(null);
   const [playlistRanks, setPlaylistRanks] = useState<number[]>(loadPlaylistRanks);
@@ -222,8 +239,11 @@ const MelonPage = () => {
     if (genreFilter !== "all") {
       list = list.filter(s => s.genre.toLowerCase().includes(genreFilter.toLowerCase()));
     }
+    if (difficultyFilter !== "all") {
+      list = list.filter(s => s.difficulty?.overall === difficultyFilter);
+    }
     return list;
-  }, [search, genreFilter, songs]);
+  }, [search, genreFilter, difficultyFilter, songs]);
 
   const playlistSongs = useMemo(
     () =>
@@ -403,6 +423,32 @@ const MelonPage = () => {
           </div>
         )}
 
+        {/* Learning Progress Bar */}
+        {songs.length > 0 && learnedRanks.length > 0 && (
+          <div className="mb-4 bg-app-card/50 border border-app-border rounded-2xl px-4 py-3">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-white/60 text-xs">Tiến độ học</span>
+              <span className="text-white text-xs font-bold">{learnedRanks.length}/{songs.length} bài</span>
+            </div>
+            <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-[#00C73C] to-app-accent-primary transition-all duration-500"
+                style={{ width: `${Math.round((learnedRanks.length / songs.length) * 100)}%` }}
+              />
+            </div>
+            <div className="flex justify-between mt-1.5">
+              <span className="text-[10px] text-app-text-muted">
+                {Math.round((learnedRanks.length / songs.length) * 100)}% hoàn thành
+              </span>
+              {songs.filter(s => s.processed).length > 0 && (
+                <span className="text-[10px] text-app-accent-primary/60">
+                  {songs.filter(s => s.processed).length} bài có bản dịch
+                </span>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Admin data button — mobile */}
         {isAdmin && (
           <div className="mb-3">
@@ -566,6 +612,28 @@ const MelonPage = () => {
                 </button>
               );
             })}
+          </div>
+        )}
+
+        {/* Difficulty filter */}
+        {activeTab === "chart" && songs.some(s => s.difficulty) && (
+          <div className="flex gap-2 mb-4">
+            {(["all", "easy", "medium", "hard"] as const).map(d => (
+              <button
+                key={d}
+                onClick={() => setDifficultyFilter(d)}
+                className={`flex-shrink-0 text-xs px-3 py-1.5 rounded-full border transition-colors cursor-pointer whitespace-nowrap ${
+                  difficultyFilter === d
+                    ? d === "easy" ? "bg-green-500 text-white border-green-500"
+                      : d === "medium" ? "bg-yellow-500 text-white border-yellow-500"
+                      : d === "hard" ? "bg-red-500 text-white border-red-500"
+                      : "bg-app-accent-primary text-app-bg border-app-accent-primary"
+                    : "bg-app-card/50 text-app-text-secondary border-app-border hover:text-white/70"
+                }`}
+              >
+                {d === "all" ? "Tất cả" : d === "easy" ? "🟢 Dễ" : d === "medium" ? "🟡 TB" : "🔴 Khó"}
+              </button>
+            ))}
           </div>
         )}
 
