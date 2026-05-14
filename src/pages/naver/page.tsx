@@ -167,6 +167,47 @@ const NaverPage = () => {
     if (saved) { try { setLikedIds(JSON.parse(saved)); } catch { /* ignore */ } }
   }, []);
 
+  // SEO: FAQPage schema + meta tags
+  useEffect(() => {
+    if (qaData.length === 0) return;
+    document.title = "Naver KiN - Hỏi đáp học tiếng Hàn thực tế | Hàn Quốc Ơi";
+    const setMeta = (name: string, content: string) => {
+      let el = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      if (!el) { el = document.createElement("meta"); el.name = name; document.head.appendChild(el); }
+      el.content = content;
+    };
+    const setProp = (prop: string, content: string) => {
+      let el = document.querySelector(`meta[property="${prop}"]`) as HTMLMetaElement;
+      if (!el) { el = document.createElement("meta"); el.setAttribute("property", prop); document.head.appendChild(el); }
+      el.content = content;
+    };
+    setMeta("description", "Tổng hợp câu hỏi - trả lời học tiếng Hàn từ Naver KiN, dịch sang tiếng Việt kèm từ vựng và ngữ pháp thực tế.");
+    setMeta("keywords", "học tiếng Hàn, câu hỏi tiếng Hàn, Naver KiN, TOPIK, EPS-TOPIK, ngữ pháp tiếng Hàn, từ vựng tiếng Hàn");
+    setProp("og:title", "Naver KiN - Hỏi đáp học tiếng Hàn | Hàn Quốc Ơi");
+    setProp("og:description", "Hàng trăm câu hỏi học tiếng Hàn từ người Hàn thực trả lời, dịch tiếng Việt kèm từ vựng và ngữ pháp.");
+    setProp("og:url", "https://hanquocoi.vn/naver");
+
+    const top20 = qaData.slice(0, 20).filter(q => q.question && q.answer);
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": top20.map(q => ({
+        "@type": "Question",
+        "name": q.question,
+        "acceptedAnswer": { "@type": "Answer", "text": q.answer }
+      }))
+    };
+    const existing = document.getElementById("faq-schema");
+    if (existing) existing.remove();
+    const script = document.createElement("script");
+    script.id = "faq-schema";
+    script.type = "application/ld+json";
+    script.text = JSON.stringify(schema);
+    document.head.appendChild(script);
+
+    return () => { document.getElementById("faq-schema")?.remove(); };
+  }, [qaData]);
+
   const toggleLike = (id: number) => {
     setLikedIds(prev => {
       const next = prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id];

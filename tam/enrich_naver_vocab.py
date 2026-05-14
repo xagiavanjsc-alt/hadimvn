@@ -48,18 +48,20 @@ def ai_extract_batch(items: list) -> list:
     for i, row in enumerate(items):
         lines.append(f"[{i}] KR: {row.get('answer_kr','')[:400]} | VN: {row.get('answer_vn','')[:300]}")
 
-    prompt = f"""Trich xuat tu vung va ngu phap tu {len(items)} cap cau tra loi (tieng Han + tieng Viet):
+    prompt = f"""Extract vocabulary and grammar from {len(items)} Korean Q&A answers:
 
 {chr(10).join(lines)}
 
-Tra ve JSON array {len(items)} phan tu, moi phan tu:
-{{"vocabulary":[{{"korean":"tu Han","vn":"nghia tieng Viet","level":"1"}}],"grammar":[{{"pattern":"-mau ngu phap","meaning":"nghia tieng Viet","example":"cau vi du tieng Han = nghia tieng Viet","level":"1"}}]}}
+Return JSON array of {len(items)} objects:
+{{"vocabulary":[{{"korean":"한국어단어","vn":"nghia tieng Viet","level":"1"}}],"grammar":[{{"pattern":"-아/어야 하다","meaning":"phai lam gi do","example":"매일 공부해야 해요 = Phai hoc moi ngay","level":"1"}}]}}
 
-- vocabulary: 2-3 tu tieng Han kho, level TOPIK "1" hoac "2"
-- grammar: 0-2 mau ngu phap THUC SU co trong cau tra loi tieng Han, kem cau vi du thuc te
-- example: lay tu cau tra loi goc hoac tao cau ngan, format: "cau Han = nghia Viet"
-- De grammar=[] neu khong co mau ngu phap ro rang
-- Chi tra JSON, khong giai thich"""
+RULES:
+- "korean" field: MUST be actual Korean Hangul characters (한글) from the KR text, NOT Vietnamese words
+- vocabulary: 2-3 difficult Korean words (한자어 or 고유어), TOPIK level "1" or "2"
+- grammar: 0-2 grammar patterns actually present in the KR answer (e.g. -면, -어야 하다, -지만)
+- example: short Korean sentence using the pattern = Vietnamese meaning
+- If no clear grammar pattern, set grammar=[]
+- Return ONLY valid JSON array, no explanation"""
 
     for attempt in range(len(API_KEYS) * 2):
         key = next(key_cycle)
