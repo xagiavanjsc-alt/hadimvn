@@ -286,15 +286,37 @@ const AdminMelonPage = () => {
           </div>
         )}
         {isSupabaseConfigured && dataSource && (
-          <div className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs ${
+          <div className={`flex items-center gap-3 flex-wrap px-3 py-2 rounded-xl text-xs ${
             dataSource === "supabase" ? "bg-green-500/10 border border-green-500/20 text-green-400" :
             dataSource === "localstorage" ? "bg-yellow-500/10 border border-yellow-500/20 text-yellow-400" :
             "bg-white/5 border border-white/10 text-white/40"
           }`}>
             <i className={dataSource === "supabase" ? "ri-cloud-line" : dataSource === "localstorage" ? "ri-save-line" : "ri-database-2-line"} />
             {dataSource === "supabase" && <span>Dữ liệu từ <b>Supabase</b> — đồng bộ mọi thiết bị ✅</span>}
-            {dataSource === "localstorage" && <span>Dữ liệu từ <b>localStorage</b> — chỉ máy này, không đồng bộ ⚠️</span>}
+            {dataSource === "localstorage" && <span>Dữ liệu từ <b>localStorage</b> ({songs.length} bài) — chỉ máy này ⚠️</span>}
             {dataSource === "mock" && <span>Dữ liệu <b>mock</b> — chưa có dữ liệu thật</span>}
+            {dataSource === "localstorage" && songs.length > 0 && (
+              <button
+                onClick={async () => {
+                  if (!confirm(`Đẩy ${songs.length} bài từ localStorage lên Supabase?`)) return;
+                  setUploadMsg("Đang đồng bộ...");
+                  setUploadStatus("processing");
+                  const result = await upsertMelonSongsToSupabase(songs as any);
+                  if (result.ok) {
+                    setUploadStatus("success");
+                    setUploadMsg(`✅ Đã đồng bộ ${result.upserted} bài lên Supabase!`);
+                    toast.showToast(`Đồng bộ thành công ${result.upserted} bài`, "success");
+                  } else {
+                    setUploadStatus("error");
+                    setUploadMsg(`❌ Lỗi: ${result.error}`);
+                  }
+                }}
+                className="ml-auto px-3 py-1 rounded-lg bg-yellow-500/20 border border-yellow-500/40 text-yellow-300 hover:bg-yellow-500/30 transition-colors font-semibold"
+              >
+                <i className="ri-upload-cloud-line mr-1" />
+                Đẩy lên Supabase ngay
+              </button>
+            )}
           </div>
         )}
 
