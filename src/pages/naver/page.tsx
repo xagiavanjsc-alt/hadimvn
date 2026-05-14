@@ -2,8 +2,6 @@
 import MobileHeader from "@/components/feature/MobileHeader";
 import MobileNav from "@/components/feature/MobileNav";
 import { useNavigate } from "react-router-dom";
-import { useIsAdmin } from "@/hooks/useIsAdmin";
-import NaverAdminDataPanel from "./components/AdminDataPanel";
 import { supabase } from "@/lib/supabase";
 import realNaverData from "@/mocks/naver_kin_real.json";
 
@@ -129,13 +127,11 @@ function QACard({ item, liked, onLike }: { item: NaverQA; liked: boolean; onLike
 
 const NaverPage = () => {
   const navigate = useNavigate();
-  const isAdmin = useIsAdmin();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Tất cả");
   const [qaData, setQaData] = useState<NaverQA[]>(loadQAFallback);
   const [loading, setLoading] = useState(true);
   const [likedIds, setLikedIds] = useState<number[]>([]);
-  const [showAdminPanel, setShowAdminPanel] = useState(false);
 
   // Load from Supabase
   useEffect(() => {
@@ -160,10 +156,6 @@ const NaverPage = () => {
     };
     fetchQA();
   }, []);
-
-  const handleAdminClose = () => {
-    setShowAdminPanel(false);
-  };
 
   useEffect(() => {
     const saved = localStorage.getItem("kts_naver_liked");
@@ -204,23 +196,11 @@ const NaverPage = () => {
           <span className="font-bold text-sm" style={{ color: "rgba(255,255,255,0.85)" }}>Naver KiN</span>
         </div>
         <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>Học tiếng Hàn qua câu hỏi thực tế</p>
-        <div className="ml-auto flex items-center gap-2">
-          {isAdmin && (
-            <button
-              onClick={() => setShowAdminPanel(true)}
-              className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg cursor-pointer whitespace-nowrap transition-colors"
-              style={{ backgroundColor: "rgba(3,199,90,0.10)", color: "#03C75A", border: "1px solid rgba(3,199,90,0.18)" }}
-            >
-              <i className="ri-database-2-line" />
-              Dữ liệu
-            </button>
-          )}
-        </div>
       </header>
 
       <MobileHeader title="Naver KiN" showBack />
 
-      <div className="max-w-2xl mx-auto pt-16 md:pt-6 px-3 sm:px-4">
+      <div className="max-w-2xl mx-auto w-full pt-16 md:pt-6 px-4">
         {/* Hero */}
         <div className="mb-4 rounded-2xl overflow-hidden relative h-24 sm:h-28">
           <img
@@ -240,21 +220,6 @@ const NaverPage = () => {
           </div>
         </div>
 
-        {/* Admin button — mobile */}
-        {isAdmin && (
-          <div className="mb-3">
-            <button
-              onClick={() => setShowAdminPanel(true)}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap transition-all"
-              style={{ backgroundColor: "rgba(3,199,90,0.08)", color: "#03C75A", border: "1px solid rgba(3,199,90,0.15)" }}
-            >
-              <i className="ri-database-2-line"></i>
-              Quản lý dữ liệu (Admin)
-              <span className="ml-1 text-[9px] px-1.5 py-0.5 rounded-full font-bold" style={{ backgroundColor: "rgba(3,199,90,0.15)", color: "#03C75A" }}>ADMIN</span>
-            </button>
-          </div>
-        )}
-
         {/* Search */}
         <div className="relative mb-3">
           <div className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 flex items-center justify-center pointer-events-none">
@@ -262,7 +227,7 @@ const NaverPage = () => {
           </div>
           <input
             type="text"
-            placeholder="질문 검색..."
+            placeholder="Tìm câu hỏi..."
             className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm focus:outline-none transition-colors"
             style={{ backgroundColor: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.8)", border: "1px solid rgba(255,255,255,0.08)", caretColor: "#03C75A" }}
             value={searchQuery}
@@ -324,11 +289,6 @@ const NaverPage = () => {
           )}
         </div>
       </div>
-
-      {/* Admin Panel */}
-      {showAdminPanel && isAdmin && (
-        <NaverAdminDataPanel onClose={handleAdminClose} />
-      )}
 
       <MobileNav />
     </div>
