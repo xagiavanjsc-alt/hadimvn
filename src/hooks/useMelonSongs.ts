@@ -161,14 +161,28 @@ export async function upsertMelonSongsToSupabase(songs: MelonSong[]): Promise<{ 
   }));
 
   try {
-    const { error } = await supabase
+    // Fetch existing songs
+    const { data: existing } = await supabase
       .from("melon_songs")
-      .upsert(rows, { onConflict: "rank" });
+      .select("*");
 
-    if (error) {
-      const msg = `${error.message} (code: ${error.code}, hint: ${error.hint ?? "-"})`;
-      return { ok: false, upserted: 0, error: msg };
-    }
+    // Merge: new songs override by rank, keep old ones not in new batch
+    const newRanks = new Set(rows.map(r => r.rank));
+    const kept = (existing ?? []).filter((r: any) => !newRanks.has(r.rank));
+    const merged = [...kept, ...rows];
+
+    // Replace all
+    const { error: delError } = await supabase
+      .from("melon_songs")
+      .delete()
+      .gte("rank", 0);
+    if (delError) return { ok: false, upserted: 0, error: `DELETE lỗi: ${delError.message} (code: ${delError.code})` };
+
+    const { error: insError } = await supabase
+      .from("melon_songs")
+      .insert(merged);
+    if (insError) return { ok: false, upserted: 0, error: `INSERT lỗi: ${insError.message} (code: ${insError.code})` };
+
     return { ok: true, upserted: rows.length };
   } catch (e) {
     const msg = e instanceof Error ? e.message : JSON.stringify(e);
