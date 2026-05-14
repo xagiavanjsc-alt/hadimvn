@@ -295,33 +295,6 @@ const AdminMelonPage = () => {
             {dataSource === "supabase" && <span>Dữ liệu từ <b>Supabase</b> — đồng bộ mọi thiết bị ✅</span>}
             {dataSource === "localstorage" && <span>Dữ liệu từ <b>localStorage</b> ({songs.length} bài) — chỉ máy này ⚠️</span>}
             {dataSource === "mock" && <span>Dữ liệu <b>mock</b> — chưa có dữ liệu thật</span>}
-            {dataSource === "localstorage" && songs.length > 0 && (
-              <button
-                onClick={async () => {
-                  if (!confirm(`Đẩy ${songs.length} bài từ localStorage lên Supabase?`)) return;
-                  setDiagMsg("⏳ Đang đồng bộ...");
-                  setDiagLoading(true);
-                  try {
-                    const result = await saveMelonSongsToSupabase(songs as any);
-                    if (result.ok) {
-                      setDiagMsg(`✅ Đã đồng bộ ${songs.length} bài lên Supabase! Reload trang để xác nhận.`);
-                      toast.showToast(`Đồng bộ thành công ${songs.length} bài`, "success");
-                    } else {
-                      setDiagMsg(`❌ Lỗi: ${result.error}`);
-                      toast.showToast(`Lỗi: ${result.error}`, "error");
-                    }
-                  } catch (e) {
-                    setDiagMsg(`❌ Exception: ${e instanceof Error ? e.message : String(e)}`);
-                  } finally {
-                    setDiagLoading(false);
-                  }
-                }}
-                className="ml-auto px-3 py-1 rounded-lg bg-yellow-500/20 border border-yellow-500/40 text-yellow-300 hover:bg-yellow-500/30 transition-colors font-semibold"
-              >
-                <i className="ri-upload-cloud-line mr-1" />
-                Đẩy lên Supabase ngay
-              </button>
-            )}
           </div>
         )}
 
