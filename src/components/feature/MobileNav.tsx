@@ -10,7 +10,7 @@ const BOTTOM_NAV = [
   { path: "/", icon: "ri-home-4-line", label: "Trang chủ", exact: true },
   { path: "/learning-hub", icon: "ri-book-open-line", label: "Học" },
   { path: "/exam-hub", icon: "ri-survey-line", label: "Thi" },
-  { path: "/community", icon: "ri-group-line", label: "Cộng đồng" },
+  { path: "/naver", icon: "ri-question-answer-line", label: "Naver KiN" },
 ];
 
 // ─── Slide-up menu — mirror desktop Sidebar (đã tối ưu gọn) ─────────────────
@@ -62,7 +62,8 @@ const MENU_GROUPS = [
   {
     label: "Cộng đồng",
     items: [
-      { path: "/community", icon: "ri-group-line", label: "Hỏi đáp" },
+      { path: "/naver", icon: "ri-question-answer-line", label: "Naver KiN Q&A" },
+      { path: "/community", icon: "ri-group-line", label: "Diễn đàn" },
       { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ cá nhân" },
     ],
   },
