@@ -3,7 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useToast } from "@/components/base/Toast";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { useMelonSongs, saveMelonSongsToSupabase, upsertMelonSongsToSupabase, clearMelonSongsFromSupabase } from "@/hooks/useMelonSongs";
-import { isSupabaseConfigured } from "@/lib/supabase";
+import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 
 interface MelonSong {
   rank: number;
@@ -62,6 +62,29 @@ const AdminMelonPage = () => {
   const [fetchMsg, setFetchMsg] = useState("");
   const [showUploadPanel, setShowUploadPanel] = useState(false);
   const [uploadMode, setUploadMode] = useState<"replace" | "upsert">("upsert");
+  const [diagMsg, setDiagMsg] = useState("");
+  const [diagLoading, setDiagLoading] = useState(false);
+
+  const handleTestConnection = async () => {
+    setDiagLoading(true);
+    setDiagMsg("");
+    try {
+      const { data, error, count } = await supabase
+        .from("melon_songs")
+        .select("rank, title", { count: "exact" })
+        .order("rank", { ascending: true })
+        .limit(3);
+      if (error) {
+        setDiagMsg(`❌ Lỗi read: ${error.message} (code: ${error.code})`);
+      } else {
+        setDiagMsg(`✅ Đọc được Supabase. Tổng số bài trong DB: ${count ?? "?"}. 3 bài đầu: ${(data ?? []).map((r: any) => `#${r.rank} ${r.title}`).join(", ") || "(trống)"}`);
+      }
+    } catch (e) {
+      setDiagMsg(`❌ Exception: ${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setDiagLoading(false);
+    }
+  };
 
   // Load songs from Supabase → localStorage → mock (via useMelonSongs hook)
   useEffect(() => {
@@ -245,6 +268,21 @@ const AdminMelonPage = () => {
               <p className="text-red-400 font-semibold text-sm">Supabase chưa được kết nối</p>
               <p className="text-red-400/70 text-xs mt-1">Biến môi trường <code className="bg-red-500/20 px-1 rounded">VITE_PUBLIC_SUPABASE_URL</code> và <code className="bg-red-500/20 px-1 rounded">VITE_PUBLIC_SUPABASE_ANON_KEY</code> chưa được set trên server. Dữ liệu chỉ lưu cục bộ (localStorage), sẽ mất khi dùng trình duyệt/máy khác.</p>
             </div>
+          </div>
+        )}
+        {isSupabaseConfigured && (
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleTestConnection}
+              disabled={diagLoading}
+              className="px-3 py-1.5 rounded-lg text-xs bg-blue-500/15 border border-blue-500/30 text-blue-400 hover:bg-blue-500/25 transition-colors disabled:opacity-50"
+            >
+              <i className={`mr-1.5 ${diagLoading ? "ri-loader-4-line animate-spin" : "ri-wifi-line"}`} />
+              Test kết nối Supabase
+            </button>
+            {diagMsg && (
+              <span className={`text-xs ${diagMsg.startsWith("✅") ? "text-green-400" : "text-red-400"}`}>{diagMsg}</span>
+            )}
           </div>
         )}
         {isSupabaseConfigured && dataSource && (
