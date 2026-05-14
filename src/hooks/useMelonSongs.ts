@@ -101,7 +101,9 @@ export async function saveMelonSongsToSupabase(songs: MelonSong[]): Promise<{ ok
       .delete()
       .gte("rank", 0);
 
-    if (delError) throw delError;
+    if (delError) {
+      return { ok: false, error: `DELETE lỗi: ${delError.message} (code: ${delError.code}, hint: ${delError.hint ?? "-"})` };
+    }
 
     const rows = songs.map(s => ({
       rank: s.rank,
@@ -124,11 +126,13 @@ export async function saveMelonSongsToSupabase(songs: MelonSong[]): Promise<{ ok
       .from("melon_songs")
       .insert(rows);
 
-    if (insError) throw insError;
+    if (insError) {
+      return { ok: false, error: `INSERT lỗi: ${insError.message} (code: ${insError.code}, hint: ${insError.hint ?? "-"})` };
+    }
 
     return { ok: true };
   } catch (e) {
-    const msg = e instanceof Error ? e.message : "Unknown error";
+    const msg = e instanceof Error ? e.message : JSON.stringify(e);
     return { ok: false, error: msg };
   }
 }
