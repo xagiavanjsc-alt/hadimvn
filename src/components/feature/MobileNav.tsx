@@ -63,7 +63,6 @@ const MENU_GROUPS = [
     label: "Cộng đồng",
     items: [
       { path: "/naver", icon: "ri-question-answer-line", label: "Naver KiN Q&A" },
-      { path: "/community", icon: "ri-group-line", label: "Diễn đàn" },
       { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ cá nhân" },
     ],
   },

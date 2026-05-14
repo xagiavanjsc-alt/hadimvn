@@ -129,10 +129,10 @@ const navGroups = [
   },
   {
     label: "Cộng đồng",
-    icon: "ri-group-line",
+    icon: "ri-question-answer-line",
     color: "#fb923c",
     items: [
-      { path: "/community", icon: "ri-group-line", label: "Hỏi đáp" },
+      { path: "/naver", icon: "ri-question-answer-line", label: "Naver KiN Q&A" },
       { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ cá nhân" },
     ],
   },
