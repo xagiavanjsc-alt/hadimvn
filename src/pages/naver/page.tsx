@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+﻿import { useState, useEffect, useRef, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase, isVipActive } from "@/lib/supabase";
 import { useAuthContext } from "@/contexts/AuthContext";
@@ -12,6 +12,7 @@ interface NaverQA {
   question: string;
   question_kr?: string;
   answer: string;
+  answer_kr?: string;
   category: string;
   likes: number;
   vocabulary?: VocabItem[];
@@ -51,9 +52,20 @@ function speak(text: string) {
 // ─── QACard ──────────────────────────────────────────────────────────────────
 const LEVEL_COLOR: Record<string, string> = { "1": "#03C75A", "2": "#f59e0b" };
 
-function QACard({ item, liked, onLike }: { item: NaverQA; liked: boolean; onLike: (id: number) => void }) {
+function QACard({ item, liked, onLike, isVip, onRequestVip }: {
+  item: NaverQA; liked: boolean; onLike: (id: number) => void;
+  isVip: boolean; onRequestVip: () => void;
+}) {
   const [expanded, setExpanded] = useState(false);
   const [speaking, setSpeaking] = useState<string | null>(null);
+  // ── Shadowing state ──────────────────────────────────────
+  const [shadowMode, setShadowMode] = useState(false);
+  const [shadowIdx, setShadowIdx] = useState(0);
+  const [shadowPlaying, setShadowPlaying] = useState(false);
+  const [shadowSpeed, setShadowSpeed] = useState(0.85);
+  const shadowActiveRef = useRef(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const sentencesRef = useRef<string[]>([]);
   const TRUNCATE = 200;
   const isLong = item.answer.length > TRUNCATE;
   const displayAnswer = isLong && !expanded ? item.answer.slice(0, TRUNCATE) + "…" : item.answer;
@@ -63,6 +75,56 @@ function QACard({ item, liked, onLike }: { item: NaverQA; liked: boolean; onLike
     speak(korean);
     setTimeout(() => setSpeaking(null), 1500);
   };
+
+  // ── Shadowing sentences ──────────────────────────────────
+  const sentences = useMemo(() => {
+    const text = item.answer_kr || "";
+    if (!text) return [];
+    const parts = text.match(/[^.!?。？！]+[.!?。？！]?/g) || [];
+    return parts.map(s => s.trim()).filter(s => s.length > 4);
+  }, [item.answer_kr]);
+  sentencesRef.current = sentences;
+
+  const stopShadow = () => {
+    shadowActiveRef.current = false;
+    if (timerRef.current) { clearTimeout(timerRef.current); timerRef.current = null; }
+    window.speechSynthesis.cancel();
+    setShadowPlaying(false);
+  };
+
+  const playAt = (idx: number, spd: number) => {
+    const sents = sentencesRef.current;
+    if (!shadowActiveRef.current || idx >= sents.length) { setShadowPlaying(false); return; }
+    window.speechSynthesis.cancel();
+    setShadowIdx(idx); setShadowPlaying(true);
+    const u = new SpeechSynthesisUtterance(sents[idx]);
+    u.lang = "ko-KR"; u.rate = spd;
+    u.onend = () => {
+      if (!shadowActiveRef.current) return;
+      timerRef.current = setTimeout(() => playAt(idx + 1, spd), 2200);
+    };
+    window.speechSynthesis.speak(u);
+  };
+
+  const toggleShadow = () => {
+    if (!isVip) { onRequestVip(); return; }
+    if (shadowMode) { stopShadow(); setShadowMode(false); return; }
+    if (sentences.length === 0) return;
+    shadowActiveRef.current = true;
+    setShadowMode(true); setShadowIdx(0);
+    setTimeout(() => playAt(0, shadowSpeed), 300);
+  };
+
+  const repeatCurrent = () => { stopShadow(); shadowActiveRef.current = true; setTimeout(() => playAt(shadowIdx, shadowSpeed), 100); };
+  const nextSentence = () => { stopShadow(); shadowActiveRef.current = true; const n = Math.min(shadowIdx + 1, sentences.length - 1); setTimeout(() => playAt(n, shadowSpeed), 100); };
+  const prevSentence = () => { stopShadow(); shadowActiveRef.current = true; const p = Math.max(shadowIdx - 1, 0); setTimeout(() => playAt(p, shadowSpeed), 100); };
+  const toggleSpeed = () => {
+    const next = shadowSpeed === 0.85 ? 0.65 : 0.85;
+    setShadowSpeed(next);
+    if (shadowPlaying) { stopShadow(); shadowActiveRef.current = true; setTimeout(() => playAt(shadowIdx, next), 100); }
+  };
+
+  useEffect(() => () => { shadowActiveRef.current = false; if (timerRef.current) clearTimeout(timerRef.current); window.speechSynthesis.cancel(); }, []);
 
   return (
     <article
@@ -160,7 +222,87 @@ function QACard({ item, liked, onLike }: { item: NaverQA; liked: boolean; onLike
             </div>
           </div>
         )}
+
+        {/* Shadowing button */}
+        {(item.answer_kr || !isVip) && (
+          <div className="mt-3 pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+            <button
+              onClick={toggleShadow}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold cursor-pointer transition-all w-full justify-center"
+              style={{
+                backgroundColor: shadowMode ? "rgba(251,191,36,0.12)" : "rgba(255,255,255,0.05)",
+                border: `1px solid ${shadowMode ? "rgba(251,191,36,0.25)" : "rgba(255,255,255,0.08)"}`,
+                color: shadowMode ? "#fbbf24" : "rgba(255,255,255,0.45)",
+              }}
+            >
+              <i className={shadowMode ? "ri-mic-fill text-xs" : "ri-mic-line text-xs"} />
+              {shadowMode ? "Đang luyện Shadowing" : "🎙 Luyện Shadowing"}
+              {!isVip && <span className="text-[9px] px-1.5 py-0.5 rounded-full ml-1" style={{ backgroundColor: "rgba(212,180,58,0.15)", color: "#d4b43a" }}>VIP</span>}
+            </button>
+          </div>
+        )}
       </div>
+
+      {/* Shadowing panel */}
+      {shadowMode && sentences.length > 0 && (
+        <div className="border-t" style={{ borderColor: "rgba(251,191,36,0.15)", backgroundColor: "rgba(251,191,36,0.04)" }}>
+          <div className="p-4 space-y-2.5">
+            {/* Sentences list */}
+            <div className="space-y-1.5 max-h-48 overflow-y-auto">
+              {sentences.map((s, i) => (
+                <div
+                  key={i}
+                  onClick={() => { stopShadow(); shadowActiveRef.current = true; setTimeout(() => playAt(i, shadowSpeed), 100); }}
+                  className="px-3 py-2 rounded-xl cursor-pointer transition-all text-xs leading-relaxed"
+                  style={{
+                    backgroundColor: i === shadowIdx ? "rgba(251,191,36,0.12)" : "rgba(255,255,255,0.03)",
+                    border: `1px solid ${i === shadowIdx ? "rgba(251,191,36,0.3)" : "rgba(255,255,255,0.05)"}`,
+                    color: i === shadowIdx ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.4)",
+                    fontWeight: i === shadowIdx ? 600 : 400,
+                  }}
+                >
+                  {i === shadowIdx && shadowPlaying && (
+                    <span className="inline-block w-1.5 h-1.5 rounded-full mr-2 animate-pulse" style={{ backgroundColor: "#fbbf24" }} />
+                  )}
+                  {s}
+                </div>
+              ))}
+            </div>
+
+            {/* Controls */}
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-1.5">
+                <button onClick={prevSentence} className="w-8 h-8 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.5)" }}>
+                  <i className="ri-skip-back-line text-sm" />
+                </button>
+                <button onClick={repeatCurrent} className="w-8 h-8 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.5)" }}>
+                  <i className="ri-repeat-one-line text-sm" />
+                </button>
+                <button
+                  onClick={() => { if (shadowPlaying) { stopShadow(); } else { shadowActiveRef.current = true; playAt(shadowIdx, shadowSpeed); } }}
+                  className="w-9 h-9 flex items-center justify-center rounded-xl cursor-pointer"
+                  style={{ backgroundColor: "rgba(251,191,36,0.2)", color: "#fbbf24", border: "1px solid rgba(251,191,36,0.3)" }}
+                >
+                  <i className={shadowPlaying ? "ri-pause-fill text-base" : "ri-play-fill text-base"} />
+                </button>
+                <button onClick={nextSentence} className="w-8 h-8 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.5)" }}>
+                  <i className="ri-skip-forward-line text-sm" />
+                </button>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>{shadowIdx + 1}/{sentences.length}</span>
+                <button
+                  onClick={toggleSpeed}
+                  className="px-2.5 py-1 rounded-lg text-[10px] font-bold cursor-pointer"
+                  style={{ backgroundColor: "rgba(255,255,255,0.06)", color: shadowSpeed < 0.8 ? "#fbbf24" : "rgba(255,255,255,0.45)", border: `1px solid ${shadowSpeed < 0.8 ? "rgba(251,191,36,0.3)" : "rgba(255,255,255,0.08)"}` }}
+                >
+                  {shadowSpeed < 0.8 ? "🐢 0.7x" : "▶ 1.0x"}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </article>
   );
 }
@@ -182,7 +324,7 @@ const NaverPage = () => {
     const fetchQA = async () => {
       const { data, error } = await supabase
         .from("naver_qa")
-        .select("id,question_vn,question_kr,answer_vn,category_vn,likes,vocabulary,grammar")
+        .select("id,question_vn,question_kr,answer_vn,answer_kr,category_vn,likes,vocabulary,grammar")
         .order("likes", { ascending: false })
         .limit(200);
       if (!error && data && data.length > 0) {
@@ -191,6 +333,7 @@ const NaverPage = () => {
           question:    r.question_vn || "",
           question_kr: r.question_kr  || "",
           answer:      r.answer_vn   || "",
+          answer_kr:   r.answer_kr   || "",
           category:   r.category_vn || "Học tiếng Hàn",
           likes:      r.likes || 0,
           vocabulary: (r.vocabulary as VocabItem[])  || [],
@@ -343,7 +486,7 @@ const NaverPage = () => {
         {/* Q&A List */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           {(isVip ? filtered : filtered.slice(0, FREE_LIMIT)).map((item) => (
-            <QACard key={item.id} item={item} liked={likedIds.includes(item.id)} onLike={toggleLike} />
+            <QACard key={item.id} item={item} liked={likedIds.includes(item.id)} onLike={toggleLike} isVip={isVip} onRequestVip={() => setVipModal(true)} />
           ))}
 
           {/* VIP gate teaser */}
