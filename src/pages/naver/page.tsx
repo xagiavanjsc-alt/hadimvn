@@ -1,6 +1,8 @@
 ﻿import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
-import { supabase } from "@/lib/supabase";
+import { supabase, isVipActive } from "@/lib/supabase";
+import { useAuthContext } from "@/contexts/AuthContext";
+import VipUpgradeModal from "@/components/feature/VipUpgradeModal";
 import realNaverData from "@/mocks/naver_kin_real.json";
 
 interface VocabItem  { korean: string; vn: string; level?: string; }
@@ -130,12 +132,17 @@ function QACard({ item, liked, onLike }: { item: NaverQA; liked: boolean; onLike
   );
 }
 
+const FREE_LIMIT = 5;
+
 const NaverPage = () => {
+  const { user, profile } = useAuthContext();
+  const isVip = isVipActive(profile);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Tất cả");
   const [qaData, setQaData] = useState<NaverQA[]>(loadQAFallback);
   const [loading, setLoading] = useState(true);
   const [likedIds, setLikedIds] = useState<number[]>([]);
+  const [vipModal, setVipModal] = useState(false);
 
   // Load from Supabase
   useEffect(() => {
@@ -302,9 +309,40 @@ const NaverPage = () => {
 
         {/* Q&A List */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-          {filtered.map((item) => (
+          {(isVip ? filtered : filtered.slice(0, FREE_LIMIT)).map((item) => (
             <QACard key={item.id} item={item} liked={likedIds.includes(item.id)} onLike={toggleLike} />
           ))}
+
+          {/* VIP gate teaser */}
+          {!isVip && filtered.length > FREE_LIMIT && (
+            <div className="lg:col-span-2 relative rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(255,255,255,0.08)" }}>
+              {/* blurred preview */}
+              <div className="blur-sm pointer-events-none opacity-40 p-4 space-y-2">
+                {filtered.slice(FREE_LIMIT, FREE_LIMIT + 2).map((item) => (
+                  <div key={item.id} className="rounded-xl p-3" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
+                    <p className="text-sm font-semibold mb-1" style={{ color: "rgba(255,255,255,0.7)" }}>❓ {item.question}</p>
+                    <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>💬 {item.answer.slice(0, 80)}...</p>
+                  </div>
+                ))}
+              </div>
+              {/* overlay CTA */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center" style={{ background: "linear-gradient(to bottom, rgba(15,17,23,0.6) 0%, rgba(15,17,23,0.95) 60%)" }}>
+                <div className="w-10 h-10 flex items-center justify-center rounded-xl" style={{ backgroundColor: "rgba(212,180,58,0.15)" }}>
+                  <i className="ri-vip-crown-2-line text-xl" style={{ color: "#d4b43a" }} />
+                </div>
+                <p className="font-bold text-sm" style={{ color: "rgba(255,255,255,0.9)" }}>Còn {filtered.length - FREE_LIMIT} câu hỏi đang bị khóa</p>
+                <p className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>Nâng cấp VIP để xem toàn bộ hỏi đáp + từ vựng + ngữ pháp</p>
+                <button
+                  onClick={() => setVipModal(true)}
+                  className="px-5 py-2 rounded-xl text-sm font-bold cursor-pointer transition-all"
+                  style={{ backgroundColor: "#d4b43a", color: "#0f1117" }}
+                >
+                  Mở khóa VIP
+                </button>
+              </div>
+            </div>
+          )}
+
           {filtered.length === 0 && (
             <div className="flex flex-col items-center py-14 text-center">
               <div className="w-12 h-12 flex items-center justify-center rounded-xl mb-3" style={{ backgroundColor: "rgba(255,255,255,0.05)" }}>
@@ -315,6 +353,12 @@ const NaverPage = () => {
           )}
         </div>
       </div>
+      <VipUpgradeModal
+        open={vipModal}
+        onClose={() => setVipModal(false)}
+        reason={user ? "not_vip" : "not_logged_in"}
+        featureName="Hỏi đáp Naver KiN"
+      />
     </DashboardLayout>
   );
 };
