@@ -354,29 +354,6 @@ function NodeDetailPanel({
           </div>
         )}
 
-        {node.rootAnalysis && (
-          <div className="flex-shrink-0 w-64 p-4 border-r border-app-border overflow-y-auto">
-            <p className="text-[10px] text-app-text-muted font-semibold tracking-normal mb-2">Phân tích gốc</p>
-            <div className="bg-app-card/50 rounded-lg p-3">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-lg font-bold text-app-accent-primary">{node.rootAnalysis.char1.hanja}</span>
-                <span className="text-xs text-app-text-muted">+</span>
-                <span className="text-lg font-bold text-app-accent-secondary">{node.rootAnalysis.char2.hanja}</span>
-              </div>
-              <p className="text-[10px] text-app-text-secondary leading-relaxed">{node.rootAnalysis.explanation}</p>
-            </div>
-          </div>
-        )}
-
-        {node.mnemonicStory && (
-          <div className="flex-shrink-0 w-64 p-4 overflow-y-auto">
-            <p className="text-[10px] text-app-text-muted font-semibold tracking-normal mb-2">Truyện chêm</p>
-            <div className="bg-app-card/50 rounded-lg p-3">
-              <p className="text-[10px] text-app-text-secondary leading-relaxed italic">{node.mnemonicStory}</p>
-            </div>
-          </div>
-        )}
-
         {node.related_words?.length > 0 && (
           <div className="flex-shrink-0 w-52 p-4 overflow-y-auto">
             <p className="text-[10px] text-app-text-muted font-semibold tracking-normal mb-2">Từ liên quan</p>
