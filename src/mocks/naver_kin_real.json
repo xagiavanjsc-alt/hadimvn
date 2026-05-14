@@ -11,8 +11,8 @@
       { "korean": "어휘", "vn": "từ vựng", "level": "1" }
     ],
     "grammar": [
-      { "pattern": "-면", "meaning": "nếu...", "level": "1" },
-      { "pattern": "-어야 하다", "meaning": "phải làm gì đó", "level": "1" }
+      { "pattern": "-면", "meaning": "nếu...", "example": "한글을 배우면 쉬워요 = Nếu học Hangul thì dễ hơn", "level": "1" },
+      { "pattern": "-어야 하다", "meaning": "phải làm gì đó", "example": "매일 공부해야 해요 = Phải học mỗi ngày", "level": "1" }
     ]
   },
   {
@@ -27,7 +27,7 @@
       { "korean": "꾸준히", "vn": "kiên trì", "level": "1" }
     ],
     "grammar": [
-      { "pattern": "-는 것이 중요하다", "meaning": "việc... là quan trọng", "level": "1" }
+      { "pattern": "-는 것이 중요하다", "meaning": "việc... là quan trọng", "example": "꾸준히 공부하는 것이 중요해요 = Việc học đều đặn là quan trọng", "level": "1" }
     ]
   },
   {
@@ -42,8 +42,8 @@
       { "korean": "교정", "vn": "chỉnh sửa", "level": "2" }
     ],
     "grammar": [
-      { "pattern": "-지만", "meaning": "nhưng (đối lập)", "level": "1" },
-      { "pattern": "-으면서", "meaning": "trong khi", "level": "2" }
+      { "pattern": "-지만", "meaning": "nhưng (đối lập)", "example": "어렵지만 재미있어요 = Khó nhưng thú vị", "level": "1" },
+      { "pattern": "-으면서", "meaning": "trong khi làm gì", "example": "들으면서 따라 하세요 = Vừa nghe vừa làm theo", "level": "2" }
     ]
   },
   {
@@ -58,8 +58,8 @@
       { "korean": "지시", "vn": "chỉ dẫn", "level": "2" }
     ],
     "grammar": [
-      { "pattern": "-어야 하다", "meaning": "phải làm gì đó", "level": "1" },
-      { "pattern": "-뿐만 아니라", "meaning": "không chỉ... mà còn", "level": "2" }
+      { "pattern": "-어야 하다", "meaning": "phải làm gì đó", "example": "안전모를 써야 해요 = Phải đội mũ bảo hộ", "level": "1" },
+      { "pattern": "-뿐만 아니라", "meaning": "không chỉ... mà còn", "example": "듣기뿐만 아니라 읽기도 중요해요 = Không chỉ nghe mà đọc cũng quan trọng", "level": "2" }
     ]
   },
   {
@@ -74,7 +74,7 @@
       { "korean": "효율적", "vn": "hiệu quả", "level": "2" }
     ],
     "grammar": [
-      { "pattern": "-는 것이", "meaning": "việc... (danh từ hóa)", "level": "1" }
+      { "pattern": "-는 것이", "meaning": "việc... (danh từ hóa)", "example": "문맥으로 배우는 것이 좋아요 = Học theo ngữ cảnh thì tốt hơn", "level": "1" }
     ]
   }
 ]

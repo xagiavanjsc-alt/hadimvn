@@ -4,10 +4,11 @@ import { supabase } from "@/lib/supabase";
 import realNaverData from "@/mocks/naver_kin_real.json";
 
 interface VocabItem  { korean: string; vn: string; level?: string; }
-interface GrammarItem { pattern: string; meaning: string; level?: string; }
+interface GrammarItem { pattern: string; meaning: string; example?: string; level?: string; }
 interface NaverQA {
   id: number;
   question: string;
+  question_kr?: string;
   answer: string;
   category: string;
   likes: number;
@@ -62,9 +63,12 @@ function QACard({ item, liked, onLike }: { item: NaverQA; liked: boolean; onLike
       </div>
 
       {/* Question */}
-      <h2 className="text-sm font-semibold mb-2 leading-relaxed" style={{ color: "rgba(255,255,255,0.85)" }}>
-        ❓ {item.question}
-      </h2>
+      <div className="mb-2">
+        <h2 className="text-sm font-semibold leading-relaxed" style={{ color: "rgba(255,255,255,0.85)" }}>❓ {item.question}</h2>
+        {item.question_kr && (
+          <p className="text-[11px] mt-0.5 leading-relaxed" style={{ color: "rgba(255,255,255,0.22)" }}>{item.question_kr}</p>
+        )}
+      </div>
 
       {/* Answer */}
       <div className="mb-3">
@@ -105,16 +109,19 @@ function QACard({ item, liked, onLike }: { item: NaverQA; liked: boolean; onLike
           <p className="text-[10px] mb-1 font-medium" style={{ color: "rgba(255,255,255,0.3)" }}>📝 Ngữ pháp</p>
           <div className="flex flex-wrap gap-1.5">
             {item.grammar.map((g, i) => (
-              <span key={i} className="flex items-center gap-1 px-2 py-0.5 rounded-lg text-[11px]" style={{ backgroundColor: "rgba(167,139,250,0.08)", border: "1px solid rgba(167,139,250,0.15)" }}>
-                <span className="font-mono font-semibold" style={{ color: "#a78bfa" }}>{g.pattern}</span>
-                <span style={{ color: "rgba(255,255,255,0.38)" }}>·</span>
-                <span style={{ color: "rgba(255,255,255,0.5)" }}>{g.meaning}</span>
-                {g.level && (
-                  <span className="text-[9px] px-1 rounded" style={{ backgroundColor: "rgba(167,139,250,0.12)", color: "#a78bfa" }}>
-                    T{g.level}
-                  </span>
+              <div key={i} className="px-2.5 py-1.5 rounded-xl text-[11px]" style={{ backgroundColor: "rgba(167,139,250,0.08)", border: "1px solid rgba(167,139,250,0.15)" }}>
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <span className="font-mono font-semibold" style={{ color: "#a78bfa" }}>{g.pattern}</span>
+                  <span style={{ color: "rgba(255,255,255,0.28)" }}>→</span>
+                  <span style={{ color: "rgba(255,255,255,0.55)" }}>{g.meaning}</span>
+                  {g.level && (
+                    <span className="text-[9px] px-1 rounded" style={{ backgroundColor: "rgba(167,139,250,0.12)", color: "#a78bfa" }}>T{g.level}</span>
+                  )}
+                </div>
+                {g.example && (
+                  <p className="text-[10px] mt-1 italic" style={{ color: "rgba(255,255,255,0.35)" }}>💡 {g.example}</p>
                 )}
-              </span>
+              </div>
             ))}
           </div>
         </div>
@@ -135,14 +142,15 @@ const NaverPage = () => {
     const fetchQA = async () => {
       const { data, error } = await supabase
         .from("naver_qa")
-        .select("id,question_vn,answer_vn,category_vn,likes,vocabulary,grammar")
+        .select("id,question_vn,question_kr,answer_vn,category_vn,likes,vocabulary,grammar")
         .order("likes", { ascending: false })
         .limit(200);
       if (!error && data && data.length > 0) {
         setQaData(data.map(r => ({
           id:         r.id,
-          question:   r.question_vn || "",
-          answer:     r.answer_vn   || "",
+          question:    r.question_vn || "",
+          question_kr: r.question_kr  || "",
+          answer:      r.answer_vn   || "",
           category:   r.category_vn || "Học tiếng Hàn",
           likes:      r.likes || 0,
           vocabulary: (r.vocabulary as VocabItem[])  || [],
