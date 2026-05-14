@@ -442,6 +442,7 @@ export default function HanjaTreePage() {
   const [showQuiz, setShowQuiz] = useState(false);
   const [showAdvFilter, setShowAdvFilter] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
+  const [hideSmallTrees, setHideSmallTrees] = useState(true);
 
   useEffect(() => {
     const fetchNodes = async () => {
@@ -501,6 +502,11 @@ export default function HanjaTreePage() {
       count: grpNodes.length,
     }));
   }, [nodes, rootMeaningsMap]);
+
+  const visibleGroups = useMemo(
+    () => hideSmallTrees ? treeGroups.filter(g => g.count >= 2) : treeGroups,
+    [treeGroups, hideSmallTrees]
+  );
 
   const currentGroup = useMemo(
     () => treeGroups.find(g => g.rootChar === selectedRoot),
@@ -581,7 +587,7 @@ export default function HanjaTreePage() {
               </div>
               <div className="flex-1 min-w-0">
                 <h1 className="text-sm font-bold text-white/80">Hán Hàn Hình Cây</h1>
-                <p className="text-[10px] text-app-text-secondary">{nodes.length} từ · {treeGroups.length} cây</p>
+                <p className="text-[10px] text-app-text-secondary">{nodes.length} từ · {visibleGroups.length} cây</p>
               </div>
               <button
                 onClick={() => setShowSidebar(false)}
@@ -609,6 +615,20 @@ export default function HanjaTreePage() {
             </div>
           </div>
 
+          {/* Hide small trees toggle */}
+          <div className="px-3 py-1.5 border-b border-app-border flex items-center justify-between">
+            <span className="text-[10px] text-app-text-muted">Ẩn cây &lt; 2 từ</span>
+            <button
+              onClick={() => setHideSmallTrees(p => !p)}
+              className={`w-8 h-4 rounded-full transition-all relative flex-shrink-0 ${
+                hideSmallTrees ? "bg-rose-500" : "bg-white/15"
+              }`}
+            >
+              <span className={`absolute top-0.5 w-3 h-3 bg-white rounded-full shadow transition-all ${
+                hideSmallTrees ? "left-4" : "left-0.5"
+              }`} />
+            </button>
+          </div>
           {/* Search */}
           <div className="p-3 border-b border-app-border">
             <div className="relative">
@@ -635,7 +655,7 @@ export default function HanjaTreePage() {
                 <p className="text-xs">Chưa có dữ liệu</p>
               </div>
             ) : (
-              treeGroups.map(group => {
+              visibleGroups.map(group => {
                 const gLearned = group.nodes.filter(n => learnedSet.has(n.korean)).length;
                 const gPct = group.count > 0 ? Math.round((gLearned / group.count) * 100) : 0;
                 return (
