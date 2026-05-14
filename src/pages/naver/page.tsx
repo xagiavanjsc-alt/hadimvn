@@ -4,6 +4,7 @@ import MobileNav from "@/components/feature/MobileNav";
 import { useNavigate } from "react-router-dom";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import NaverAdminDataPanel from "./components/AdminDataPanel";
+import { supabase } from "@/lib/supabase";
 import realNaverData from "@/mocks/naver_kin_real.json";
 
 interface NaverQA {
@@ -25,12 +26,9 @@ const DEFAULT_QA: NaverQA[] = [
   { id: 8, question: "한국어 능력시험 TOPIK II 합격 점수는?", answer: "TOPIK II는 3~6급으로 나뉘며, 3급은 120점, 4급은 150점, 5급은 190점, 6급은 230점 이상입니다.", category: "TOPIK", likes: 167 },
 ];
 
-function loadQA(): NaverQA[] {
-  // Try to load from JSON file first (offline approach)
-  if (realNaverData && realNaverData.length > 0) {
+function loadQAFallback(): NaverQA[] {
+  if (realNaverData && (realNaverData as NaverQA[]).length > 0)
     return realNaverData as NaverQA[];
-  }
-  // Fallback to localStorage
   try {
     const raw = localStorage.getItem("kts_naver_qa");
     if (raw) return JSON.parse(raw) as NaverQA[];
@@ -38,21 +36,40 @@ function loadQA(): NaverQA[] {
   return DEFAULT_QA;
 }
 
-const CATEGORIES = ["전체", "학습법", "TOPIK", "문화", "어휘", "문법", "발음"];
-
 const NaverPage = () => {
   const navigate = useNavigate();
   const isAdmin = useIsAdmin();
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("전체");
-  const [qaData, setQaData] = useState<NaverQA[]>(loadQA);
+  const [selectedCategory, setSelectedCategory] = useState("Tất cả");
+  const [qaData, setQaData] = useState<NaverQA[]>(loadQAFallback);
+  const [loading, setLoading] = useState(true);
   const [likedIds, setLikedIds] = useState<number[]>([]);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
 
-  // Reload from localStorage when admin panel closes
+  // Load from Supabase
+  useEffect(() => {
+    const fetchQA = async () => {
+      const { data, error } = await supabase
+        .from("naver_qa")
+        .select("id,question_vn,answer_vn,category_vn,likes,views,url")
+        .order("likes", { ascending: false })
+        .limit(200);
+      if (!error && data && data.length > 0) {
+        setQaData(data.map(r => ({
+          id:       r.id,
+          question: r.question_vn || "",
+          answer:   r.answer_vn   || "",
+          category: r.category_vn || "Học tiếng Hàn",
+          likes:    r.likes || 0,
+        })));
+      }
+      setLoading(false);
+    };
+    fetchQA();
+  }, []);
+
   const handleAdminClose = () => {
     setShowAdminPanel(false);
-    setQaData(loadQA());
   };
 
   useEffect(() => {
@@ -68,9 +85,11 @@ const NaverPage = () => {
     });
   };
 
+  const categories = ["Tất cả", ...Array.from(new Set(qaData.map(q => q.category).filter(Boolean))).sort()];
+
   const filtered = qaData.filter((item) => {
-    const matchCat = selectedCategory === "전체" || item.category === selectedCategory;
-    const matchSearch = !searchQuery.trim() || item.question.includes(searchQuery) || item.answer.includes(searchQuery);
+    const matchCat = selectedCategory === "Tất cả" || item.category === selectedCategory;
+    const matchSearch = !searchQuery.trim() || item.question.toLowerCase().includes(searchQuery.toLowerCase()) || item.answer.toLowerCase().includes(searchQuery.toLowerCase());
     return matchCat && matchSearch;
   });
 
@@ -165,7 +184,7 @@ const NaverPage = () => {
 
         {/* Category Filter */}
         <div className="flex gap-2 overflow-x-auto pb-2 mb-4" style={{ scrollbarWidth: "none" }}>
-          {CATEGORIES.map((cat) => (
+          {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
@@ -185,7 +204,7 @@ const NaverPage = () => {
           {[
             { label: "Câu hỏi", value: qaData.length, icon: "ri-question-line", color: "#03C75A" },
             { label: "Đã thích", value: likedIds.length, icon: "ri-thumb-up-line", color: "app-accent-primary" },
-            { label: "Danh mục", value: CATEGORIES.length - 1, icon: "ri-folder-line", color: "#a78bfa" },
+            { label: "Danh mục", value: categories.length - 1, icon: "ri-folder-line", color: "#a78bfa" },
           ].map(s => (
             <div key={s.label} className="rounded-xl p-3 text-center" style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
               <div className="w-7 h-7 flex items-center justify-center rounded-lg mx-auto mb-1.5" style={{ backgroundColor: `${s.color}15` }}>
