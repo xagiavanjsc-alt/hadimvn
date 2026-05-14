@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useToast } from "@/components/base/Toast";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { useMelonSongs, saveMelonSongsToSupabase, upsertMelonSongsToSupabase, clearMelonSongsFromSupabase } from "@/hooks/useMelonSongs";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 interface MelonSong {
   rank: number;
@@ -49,7 +50,7 @@ interface MelonSong {
 const AdminMelonPage = () => {
   const isAdmin = useIsAdmin();
   const toast = useToast();
-  const { songs: loadedSongs, loading: songsLoading } = useMelonSongs();
+  const { songs: loadedSongs, loading: songsLoading, source: dataSource } = useMelonSongs();
   const [songs, setSongs] = useState<MelonSong[]>([]);
   const [selectedSong, setSelectedSong] = useState<MelonSong | null>(null);
   const [editingSong, setEditingSong] = useState<MelonSong | null>(null);
@@ -236,6 +237,29 @@ const AdminMelonPage = () => {
   return (
     <DashboardLayout>
       <div className="p-6 space-y-6">
+        {/* Supabase connection status */}
+        {!isSupabaseConfigured && (
+          <div className="flex items-start gap-3 bg-red-500/10 border border-red-500/30 rounded-xl p-4">
+            <i className="ri-error-warning-line text-red-400 text-lg flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-red-400 font-semibold text-sm">Supabase chưa được kết nối</p>
+              <p className="text-red-400/70 text-xs mt-1">Biến môi trường <code className="bg-red-500/20 px-1 rounded">VITE_PUBLIC_SUPABASE_URL</code> và <code className="bg-red-500/20 px-1 rounded">VITE_PUBLIC_SUPABASE_ANON_KEY</code> chưa được set trên server. Dữ liệu chỉ lưu cục bộ (localStorage), sẽ mất khi dùng trình duyệt/máy khác.</p>
+            </div>
+          </div>
+        )}
+        {isSupabaseConfigured && dataSource && (
+          <div className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs ${
+            dataSource === "supabase" ? "bg-green-500/10 border border-green-500/20 text-green-400" :
+            dataSource === "localstorage" ? "bg-yellow-500/10 border border-yellow-500/20 text-yellow-400" :
+            "bg-white/5 border border-white/10 text-white/40"
+          }`}>
+            <i className={dataSource === "supabase" ? "ri-cloud-line" : dataSource === "localstorage" ? "ri-save-line" : "ri-database-2-line"} />
+            {dataSource === "supabase" && <span>Dữ liệu từ <b>Supabase</b> — đồng bộ mọi thiết bị ✅</span>}
+            {dataSource === "localstorage" && <span>Dữ liệu từ <b>localStorage</b> — chỉ máy này, không đồng bộ ⚠️</span>}
+            {dataSource === "mock" && <span>Dữ liệu <b>mock</b> — chưa có dữ liệu thật</span>}
+          </div>
+        )}
+
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
