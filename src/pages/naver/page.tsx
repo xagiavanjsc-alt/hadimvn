@@ -1,7 +1,5 @@
 ﻿import { useState, useEffect } from "react";
-import MobileHeader from "@/components/feature/MobileHeader";
-import MobileNav from "@/components/feature/MobileNav";
-import { useNavigate } from "react-router-dom";
+import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 import realNaverData from "@/mocks/naver_kin_real.json";
 
@@ -126,7 +124,6 @@ function QACard({ item, liked, onLike }: { item: NaverQA; liked: boolean; onLike
 }
 
 const NaverPage = () => {
-  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Tất cả");
   const [qaData, setQaData] = useState<NaverQA[]>(loadQAFallback);
@@ -179,28 +176,8 @@ const NaverPage = () => {
   });
 
   return (
-    <div className="min-h-screen pb-24 md:pb-8" style={{ backgroundColor: "#0f1117" }}>
-      {/* Desktop top bar */}
-      <header className="hidden md:flex sticky top-0 z-30 backdrop-blur-md border-b h-14 items-center px-6 gap-4" style={{ backgroundColor: "rgba(15,17,23,0.95)", borderColor: "rgba(255,255,255,0.08)" }}>
-        <button
-          onClick={() => navigate("/dashboard")}
-          className="w-8 h-8 flex items-center justify-center rounded-lg cursor-pointer flex-shrink-0 transition-colors"
-          style={{ backgroundColor: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.5)" }}
-        >
-          <i className="ri-arrow-left-line" />
-        </button>
-        <div className="flex items-center gap-2">
-          <div className="w-6 h-6 flex items-center justify-center rounded-md" style={{ backgroundColor: "#03C75A" }}>
-            <i className="ri-question-answer-line text-white text-sm" />
-          </div>
-          <span className="font-bold text-sm" style={{ color: "rgba(255,255,255,0.85)" }}>Naver KiN</span>
-        </div>
-        <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>Học tiếng Hàn qua câu hỏi thực tế</p>
-      </header>
-
-      <MobileHeader title="Naver KiN" showBack />
-
-      <div className="max-w-2xl mx-auto w-full pt-16 md:pt-6 px-4">
+    <DashboardLayout title="Naver KiN" subtitle="Học tiếng Hàn qua câu hỏi thực tế">
+      <div className="py-4">
         {/* Hero */}
         <div className="mb-4 rounded-2xl overflow-hidden relative h-24 sm:h-28">
           <img
@@ -275,7 +252,7 @@ const NaverPage = () => {
         </div>
 
         {/* Q&A List */}
-        <div className="space-y-3">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           {filtered.map((item) => (
             <QACard key={item.id} item={item} liked={likedIds.includes(item.id)} onLike={toggleLike} />
           ))}
@@ -289,9 +266,7 @@ const NaverPage = () => {
           )}
         </div>
       </div>
-
-      <MobileNav />
-    </div>
+    </DashboardLayout>
   );
 };
 
