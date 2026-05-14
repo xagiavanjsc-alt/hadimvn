@@ -161,10 +161,13 @@ export async function upsertMelonSongsToSupabase(songs: MelonSong[]): Promise<{ 
       .from("melon_songs")
       .upsert(rows, { onConflict: "rank" });
 
-    if (error) throw error;
+    if (error) {
+      const msg = `${error.message} (code: ${error.code}, hint: ${error.hint ?? "-"})`;
+      return { ok: false, upserted: 0, error: msg };
+    }
     return { ok: true, upserted: rows.length };
   } catch (e) {
-    const msg = e instanceof Error ? e.message : "Unknown error";
+    const msg = e instanceof Error ? e.message : JSON.stringify(e);
     return { ok: false, upserted: 0, error: msg };
   }
 }
