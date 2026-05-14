@@ -56,11 +56,13 @@ Return JSON array of {len(items)} objects:
 {{"vocabulary":[{{"korean":"한국어단어","vn":"nghia tieng Viet","level":"1"}}],"grammar":[{{"pattern":"-아/어야 하다","meaning":"phai lam gi do","example":"매일 공부해야 해요 = Phai hoc moi ngay","level":"1"}}]}}
 
 RULES:
-- "korean" field: MUST be actual Korean Hangul characters (한글) from the KR text, NOT Vietnamese words
-- vocabulary: 2-3 difficult Korean words (한자어 or 고유어), TOPIK level "1" or "2"
-- grammar: 0-2 grammar patterns actually present in the KR answer (e.g. -면, -어야 하다, -지만)
-- example: short Korean sentence using the pattern = Vietnamese meaning
-- If no clear grammar pattern, set grammar=[]
+- "korean" field: MUST be actual Korean Hangul characters (한글) from the KR answer text
+- vocabulary: pick 2-3 USEFUL words that learners should memorize — prefer 한자어/고유어 that appear in the KR answer
+- EXCLUDE these overly common words (everyone knows them): 공부,언어,단어,문법,발음,학습,시험,한국어,말하기,듣기,읽기,쓰기,어휘,수준,방법
+- Choose words like: 꾸준히,체계적,습득,교정,억양,받침,집중,반복,자신감,기출,효율,완벽 — words learners actually need to know
+- grammar: 0-2 grammar patterns actually present in the KR answer (e.g. -면, -어야 하다, -지만, -기 위해)
+- example: short real Korean sentence using the pattern = Vietnamese meaning
+- If no clear grammar pattern in KR text, set grammar=[]
 - Return ONLY valid JSON array, no explanation"""
 
     for attempt in range(len(API_KEYS) * 2):
