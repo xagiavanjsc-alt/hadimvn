@@ -39,95 +39,128 @@ function loadQAFallback(): NaverQA[] {
   return DEFAULT_QA;
 }
 
+// ─── TTS helper ──────────────────────────────────────────────────────────────
+function speak(text: string) {
+  if (!("speechSynthesis" in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "ko-KR"; u.rate = 0.9;
+  window.speechSynthesis.speak(u);
+}
+
 // ─── QACard ──────────────────────────────────────────────────────────────────
 const LEVEL_COLOR: Record<string, string> = { "1": "#03C75A", "2": "#f59e0b" };
 
 function QACard({ item, liked, onLike }: { item: NaverQA; liked: boolean; onLike: (id: number) => void }) {
   const [expanded, setExpanded] = useState(false);
-  const TRUNCATE = 180;
+  const [speaking, setSpeaking] = useState<string | null>(null);
+  const TRUNCATE = 200;
   const isLong = item.answer.length > TRUNCATE;
   const displayAnswer = isLong && !expanded ? item.answer.slice(0, TRUNCATE) + "…" : item.answer;
 
+  const handleSpeak = (korean: string) => {
+    setSpeaking(korean);
+    speak(korean);
+    setTimeout(() => setSpeaking(null), 1500);
+  };
+
   return (
     <article
-      className="rounded-2xl p-4 transition-all"
+      className="rounded-2xl overflow-hidden transition-all hover:border-white/10"
       style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
     >
-      {/* Category + like row */}
-      <div className="flex items-center justify-between gap-2 mb-2.5">
-        <span className="px-2 py-0.5 rounded-full text-[11px] font-medium" style={{ backgroundColor: "rgba(3,199,90,0.12)", color: "#03C75A" }}>
-          {item.category}
-        </span>
-        <button onClick={() => onLike(item.id)} className="flex items-center gap-1 cursor-pointer transition-all flex-shrink-0" style={{ color: liked ? "#03C75A" : "rgba(255,255,255,0.28)" }}>
-          <i className={liked ? "ri-thumb-up-fill text-xs" : "ri-thumb-up-line text-xs"} />
-          <span className="text-[11px]">{item.likes + (liked ? 1 : 0)}</span>
-        </button>
-      </div>
+      {/* Accent top bar */}
+      <div className="h-0.5 w-full" style={{ background: "linear-gradient(to right, #03C75A44, transparent)" }} />
 
-      {/* Question */}
-      <div className="mb-2">
-        <h2 className="text-sm font-semibold leading-relaxed" style={{ color: "rgba(255,255,255,0.85)" }}>❓ {item.question}</h2>
-        {item.question_kr && (
-          <p className="text-[11px] mt-0.5 leading-relaxed" style={{ color: "rgba(255,255,255,0.22)" }}>{item.question_kr}</p>
-        )}
-      </div>
-
-      {/* Answer */}
-      <div className="mb-3">
-        <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-          💬 {displayAnswer}
-        </p>
-        {isLong && (
-          <button onClick={() => setExpanded(p => !p)} className="text-[11px] mt-1 cursor-pointer" style={{ color: "#03C75A" }}>
-            {expanded ? "Thu gọn ▲" : "Xem thêm ▼"}
+      <div className="p-4">
+        {/* Category + like row */}
+        <div className="flex items-center justify-between gap-2 mb-3">
+          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-wide" style={{ backgroundColor: "rgba(3,199,90,0.1)", color: "#03C75A", border: "1px solid rgba(3,199,90,0.2)" }}>
+            {item.category}
+          </span>
+          <button onClick={() => onLike(item.id)} className="flex items-center gap-1.5 cursor-pointer transition-all flex-shrink-0 px-2 py-1 rounded-lg" style={{ color: liked ? "#03C75A" : "rgba(255,255,255,0.28)", backgroundColor: liked ? "rgba(3,199,90,0.08)" : "transparent" }}>
+            <i className={liked ? "ri-thumb-up-fill text-xs" : "ri-thumb-up-line text-xs"} />
+            <span className="text-[11px] font-medium">{item.likes + (liked ? 1 : 0)}</span>
           </button>
-        )}
-      </div>
-
-      {/* Vocabulary chips */}
-      {item.vocabulary && item.vocabulary.length > 0 && (
-        <div className="mb-2">
-          <p className="text-[10px] mb-1 font-medium" style={{ color: "rgba(255,255,255,0.3)" }}>📚 Từ vựng</p>
-          <div className="flex flex-wrap gap-1.5">
-            {item.vocabulary.map((v, i) => (
-              <span key={i} className="flex items-center gap-1 px-2 py-0.5 rounded-lg text-[11px]" style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                <span className="font-semibold" style={{ color: "rgba(255,255,255,0.8)" }}>{v.korean}</span>
-                <span style={{ color: "rgba(255,255,255,0.38)" }}>·</span>
-                <span style={{ color: "rgba(255,255,255,0.5)" }}>{v.vn}</span>
-                {v.level && (
-                  <span className="text-[9px] px-1 rounded" style={{ backgroundColor: `${LEVEL_COLOR[v.level] ?? "#888"}22`, color: LEVEL_COLOR[v.level] ?? "#888" }}>
-                    T{v.level}
-                  </span>
-                )}
-              </span>
-            ))}
-          </div>
         </div>
-      )}
 
-      {/* Grammar tags */}
-      {item.grammar && item.grammar.length > 0 && (
-        <div>
-          <p className="text-[10px] mb-1 font-medium" style={{ color: "rgba(255,255,255,0.3)" }}>📝 Ngữ pháp</p>
-          <div className="flex flex-wrap gap-1.5">
-            {item.grammar.map((g, i) => (
-              <div key={i} className="px-2.5 py-1.5 rounded-xl text-[11px]" style={{ backgroundColor: "rgba(167,139,250,0.08)", border: "1px solid rgba(167,139,250,0.15)" }}>
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  <span className="font-mono font-semibold" style={{ color: "#a78bfa" }}>{g.pattern}</span>
-                  <span style={{ color: "rgba(255,255,255,0.28)" }}>→</span>
-                  <span style={{ color: "rgba(255,255,255,0.55)" }}>{g.meaning}</span>
-                  {g.level && (
-                    <span className="text-[9px] px-1 rounded" style={{ backgroundColor: "rgba(167,139,250,0.12)", color: "#a78bfa" }}>T{g.level}</span>
+        {/* Question */}
+        <div className="mb-3 pl-3" style={{ borderLeft: "2px solid rgba(3,199,90,0.35)" }}>
+          <h2 className="text-sm font-semibold leading-relaxed" style={{ color: "rgba(255,255,255,0.88)" }}>{item.question}</h2>
+          {item.question_kr && (
+            <p className="text-[11px] mt-0.5 leading-relaxed" style={{ color: "rgba(255,255,255,0.2)" }}>{item.question_kr}</p>
+          )}
+        </div>
+
+        {/* Answer */}
+        <div className="mb-3 rounded-xl p-3" style={{ backgroundColor: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)" }}>
+          <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>{displayAnswer}</p>
+          {isLong && (
+            <button onClick={() => setExpanded(p => !p)} className="text-[11px] mt-1.5 cursor-pointer font-medium" style={{ color: "#03C75A" }}>
+              {expanded ? "Thu gọn ▲" : "Xem thêm ▼"}
+            </button>
+          )}
+        </div>
+
+        {/* Vocabulary chips */}
+        {item.vocabulary && item.vocabulary.length > 0 && (
+          <div className="mb-2.5">
+            <p className="text-[10px] mb-1.5 font-semibold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.25)" }}>Từ vựng</p>
+            <div className="flex flex-wrap gap-1.5">
+              {item.vocabulary.map((v, i) => (
+                <button
+                  key={i}
+                  onClick={() => handleSpeak(v.korean)}
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] cursor-pointer transition-all"
+                  style={{
+                    backgroundColor: speaking === v.korean ? "rgba(3,199,90,0.12)" : "rgba(255,255,255,0.05)",
+                    border: `1px solid ${speaking === v.korean ? "rgba(3,199,90,0.3)" : "rgba(255,255,255,0.08)"}`,
+                  }}
+                  title="Click để nghe phát âm"
+                >
+                  <i className="ri-volume-up-line text-[9px]" style={{ color: speaking === v.korean ? "#03C75A" : "rgba(255,255,255,0.2)" }} />
+                  <span className="font-bold" style={{ color: speaking === v.korean ? "#03C75A" : "rgba(255,255,255,0.82)" }}>{v.korean}</span>
+                  <span style={{ color: "rgba(255,255,255,0.3)" }}>·</span>
+                  <span style={{ color: "rgba(255,255,255,0.5)" }}>{v.vn}</span>
+                  {v.level && (
+                    <span className="text-[9px] px-1 rounded font-semibold" style={{ backgroundColor: `${LEVEL_COLOR[v.level] ?? "#888"}18`, color: LEVEL_COLOR[v.level] ?? "#888" }}>
+                      T{v.level}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Grammar tags */}
+        {item.grammar && item.grammar.length > 0 && (
+          <div>
+            <p className="text-[10px] mb-1.5 font-semibold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.25)" }}>Ngữ pháp</p>
+            <div className="space-y-1.5">
+              {item.grammar.map((g, i) => (
+                <div key={i} className="px-3 py-2 rounded-xl" style={{ backgroundColor: "rgba(167,139,250,0.07)", border: "1px solid rgba(167,139,250,0.13)" }}>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <button onClick={() => handleSpeak(g.pattern.replace(/-/g, ""))} className="cursor-pointer" title="Click để nghe">
+                      <span className="font-mono font-bold text-xs" style={{ color: "#a78bfa" }}>{g.pattern}</span>
+                    </button>
+                    <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.2)" }}>→</span>
+                    <span className="text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>{g.meaning}</span>
+                    {g.level && (
+                      <span className="text-[9px] px-1.5 py-0.5 rounded-full font-semibold" style={{ backgroundColor: "rgba(167,139,250,0.12)", color: "#a78bfa" }}>T{g.level}</span>
+                    )}
+                  </div>
+                  {g.example && (
+                    <p className="text-[10px] mt-1.5 pl-1" style={{ color: "rgba(255,255,255,0.38)", borderLeft: "2px solid rgba(167,139,250,0.25)" }}>
+                      💡 {g.example}
+                    </p>
                   )}
                 </div>
-                {g.example && (
-                  <p className="text-[10px] mt-1 italic" style={{ color: "rgba(255,255,255,0.35)" }}>💡 {g.example}</p>
-                )}
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </article>
   );
 }
