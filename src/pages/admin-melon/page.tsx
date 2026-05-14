@@ -299,16 +299,21 @@ const AdminMelonPage = () => {
               <button
                 onClick={async () => {
                   if (!confirm(`Đẩy ${songs.length} bài từ localStorage lên Supabase?`)) return;
-                  setUploadMsg("Đang đồng bộ...");
-                  setUploadStatus("processing");
-                  const result = await upsertMelonSongsToSupabase(songs as any);
-                  if (result.ok) {
-                    setUploadStatus("success");
-                    setUploadMsg(`✅ Đã đồng bộ ${result.upserted} bài lên Supabase!`);
-                    toast.showToast(`Đồng bộ thành công ${result.upserted} bài`, "success");
-                  } else {
-                    setUploadStatus("error");
-                    setUploadMsg(`❌ Lỗi: ${result.error}`);
+                  setDiagMsg("⏳ Đang đồng bộ...");
+                  setDiagLoading(true);
+                  try {
+                    const result = await upsertMelonSongsToSupabase(songs as any);
+                    if (result.ok) {
+                      setDiagMsg(`✅ Đã đồng bộ ${result.upserted} bài lên Supabase! Reload trang để xác nhận.`);
+                      toast.showToast(`Đồng bộ thành công ${result.upserted} bài`, "success");
+                    } else {
+                      setDiagMsg(`❌ Upsert lỗi: ${result.error}`);
+                      toast.showToast(`Lỗi: ${result.error}`, "error");
+                    }
+                  } catch (e) {
+                    setDiagMsg(`❌ Exception: ${e instanceof Error ? e.message : String(e)}`);
+                  } finally {
+                    setDiagLoading(false);
                   }
                 }}
                 className="ml-auto px-3 py-1 rounded-lg bg-yellow-500/20 border border-yellow-500/40 text-yellow-300 hover:bg-yellow-500/30 transition-colors font-semibold"
