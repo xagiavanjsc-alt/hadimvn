@@ -7,12 +7,16 @@ import NaverAdminDataPanel from "./components/AdminDataPanel";
 import { supabase } from "@/lib/supabase";
 import realNaverData from "@/mocks/naver_kin_real.json";
 
+interface VocabItem  { korean: string; vn: string; level?: string; }
+interface GrammarItem { pattern: string; meaning: string; level?: string; }
 interface NaverQA {
   id: number;
   question: string;
   answer: string;
   category: string;
   likes: number;
+  vocabulary?: VocabItem[];
+  grammar?: GrammarItem[];
 }
 
 const DEFAULT_QA: NaverQA[] = [
@@ -36,6 +40,93 @@ function loadQAFallback(): NaverQA[] {
   return DEFAULT_QA;
 }
 
+// ─── QACard ──────────────────────────────────────────────────────────────────
+const LEVEL_COLOR: Record<string, string> = { "1": "#03C75A", "2": "#f59e0b" };
+
+function QACard({ item, liked, onLike }: { item: NaverQA; liked: boolean; onLike: (id: number) => void }) {
+  const [expanded, setExpanded] = useState(false);
+  const TRUNCATE = 180;
+  const isLong = item.answer.length > TRUNCATE;
+  const displayAnswer = isLong && !expanded ? item.answer.slice(0, TRUNCATE) + "…" : item.answer;
+
+  return (
+    <article
+      className="rounded-2xl p-4 transition-all"
+      style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+    >
+      {/* Category + like row */}
+      <div className="flex items-center justify-between gap-2 mb-2.5">
+        <span className="px-2 py-0.5 rounded-full text-[11px] font-medium" style={{ backgroundColor: "rgba(3,199,90,0.12)", color: "#03C75A" }}>
+          {item.category}
+        </span>
+        <button onClick={() => onLike(item.id)} className="flex items-center gap-1 cursor-pointer transition-all flex-shrink-0" style={{ color: liked ? "#03C75A" : "rgba(255,255,255,0.28)" }}>
+          <i className={liked ? "ri-thumb-up-fill text-xs" : "ri-thumb-up-line text-xs"} />
+          <span className="text-[11px]">{item.likes + (liked ? 1 : 0)}</span>
+        </button>
+      </div>
+
+      {/* Question */}
+      <h2 className="text-sm font-semibold mb-2 leading-relaxed" style={{ color: "rgba(255,255,255,0.85)" }}>
+        ❓ {item.question}
+      </h2>
+
+      {/* Answer */}
+      <div className="mb-3">
+        <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+          💬 {displayAnswer}
+        </p>
+        {isLong && (
+          <button onClick={() => setExpanded(p => !p)} className="text-[11px] mt-1 cursor-pointer" style={{ color: "#03C75A" }}>
+            {expanded ? "Thu gọn ▲" : "Xem thêm ▼"}
+          </button>
+        )}
+      </div>
+
+      {/* Vocabulary chips */}
+      {item.vocabulary && item.vocabulary.length > 0 && (
+        <div className="mb-2">
+          <p className="text-[10px] mb-1 font-medium" style={{ color: "rgba(255,255,255,0.3)" }}>📚 Từ vựng</p>
+          <div className="flex flex-wrap gap-1.5">
+            {item.vocabulary.map((v, i) => (
+              <span key={i} className="flex items-center gap-1 px-2 py-0.5 rounded-lg text-[11px]" style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <span className="font-semibold" style={{ color: "rgba(255,255,255,0.8)" }}>{v.korean}</span>
+                <span style={{ color: "rgba(255,255,255,0.38)" }}>·</span>
+                <span style={{ color: "rgba(255,255,255,0.5)" }}>{v.vn}</span>
+                {v.level && (
+                  <span className="text-[9px] px-1 rounded" style={{ backgroundColor: `${LEVEL_COLOR[v.level] ?? "#888"}22`, color: LEVEL_COLOR[v.level] ?? "#888" }}>
+                    T{v.level}
+                  </span>
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Grammar tags */}
+      {item.grammar && item.grammar.length > 0 && (
+        <div>
+          <p className="text-[10px] mb-1 font-medium" style={{ color: "rgba(255,255,255,0.3)" }}>📝 Ngữ pháp</p>
+          <div className="flex flex-wrap gap-1.5">
+            {item.grammar.map((g, i) => (
+              <span key={i} className="flex items-center gap-1 px-2 py-0.5 rounded-lg text-[11px]" style={{ backgroundColor: "rgba(167,139,250,0.08)", border: "1px solid rgba(167,139,250,0.15)" }}>
+                <span className="font-mono font-semibold" style={{ color: "#a78bfa" }}>{g.pattern}</span>
+                <span style={{ color: "rgba(255,255,255,0.38)" }}>·</span>
+                <span style={{ color: "rgba(255,255,255,0.5)" }}>{g.meaning}</span>
+                {g.level && (
+                  <span className="text-[9px] px-1 rounded" style={{ backgroundColor: "rgba(167,139,250,0.12)", color: "#a78bfa" }}>
+                    T{g.level}
+                  </span>
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </article>
+  );
+}
+
 const NaverPage = () => {
   const navigate = useNavigate();
   const isAdmin = useIsAdmin();
@@ -51,16 +142,18 @@ const NaverPage = () => {
     const fetchQA = async () => {
       const { data, error } = await supabase
         .from("naver_qa")
-        .select("id,question_vn,answer_vn,category_vn,likes,views,url")
+        .select("id,question_vn,answer_vn,category_vn,likes,vocabulary,grammar")
         .order("likes", { ascending: false })
         .limit(200);
       if (!error && data && data.length > 0) {
         setQaData(data.map(r => ({
-          id:       r.id,
-          question: r.question_vn || "",
-          answer:   r.answer_vn   || "",
-          category: r.category_vn || "Học tiếng Hàn",
-          likes:    r.likes || 0,
+          id:         r.id,
+          question:   r.question_vn || "",
+          answer:     r.answer_vn   || "",
+          category:   r.category_vn || "Học tiếng Hàn",
+          likes:      r.likes || 0,
+          vocabulary: (r.vocabulary as VocabItem[])  || [],
+          grammar:    (r.grammar    as GrammarItem[]) || [],
         })));
       }
       setLoading(false);
@@ -218,42 +311,15 @@ const NaverPage = () => {
 
         {/* Q&A List */}
         <div className="space-y-3">
-          {filtered.map((item) => {
-            const liked = likedIds.includes(item.id);
-            return (
-              <div key={item.id} className="rounded-2xl p-4 transition-all" style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <span className="px-2 py-0.5 rounded-full text-xs font-medium flex-shrink-0" style={{ backgroundColor: "rgba(3,199,90,0.12)", color: "#03C75A" }}>
-                    {item.category}
-                  </span>
-                </div>
-                <p className="text-sm font-semibold mb-2 leading-relaxed" style={{ color: "rgba(255,255,255,0.82)" }}>
-                  Q. {item.question}
-                </p>
-                <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
-                  A. {item.answer}
-                </p>
-                <div className="flex items-center gap-1.5 mt-3">
-                  <button
-                    onClick={() => toggleLike(item.id)}
-                    className="flex items-center gap-1 cursor-pointer transition-all"
-                    style={{ color: liked ? "app-accent-primary" : "rgba(255,255,255,0.3)" }}
-                  >
-                    <div className="w-4 h-4 flex items-center justify-center">
-                      <i className={liked ? "ri-thumb-up-fill text-sm" : "ri-thumb-up-line text-sm"} />
-                    </div>
-                    <span className="text-xs">{item.likes + (liked ? 1 : 0)}</span>
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+          {filtered.map((item) => (
+            <QACard key={item.id} item={item} liked={likedIds.includes(item.id)} onLike={toggleLike} />
+          ))}
           {filtered.length === 0 && (
             <div className="flex flex-col items-center py-14 text-center">
               <div className="w-12 h-12 flex items-center justify-center rounded-xl mb-3" style={{ backgroundColor: "rgba(255,255,255,0.05)" }}>
                 <i className="ri-search-line text-xl" style={{ color: "rgba(255,255,255,0.2)" }}></i>
               </div>
-              <p className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>검색 결과가 없습니다</p>
+              <p className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>Không tìm thấy kết quả</p>
             </div>
           )}
         </div>

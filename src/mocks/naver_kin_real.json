@@ -1,1 +1,80 @@
-[]
+[
+  {
+    "id": 1,
+    "question": "Làm thế nào để bắt đầu học tiếng Hàn?",
+    "answer": "Trước hết hãy học hoàn hảo bảng chữ cái Hangul. Hangul dễ học và có thể thành thạo trong 1 tuần. Sau đó học từ vựng cơ bản và ngữ pháp. Nên học khoảng 1000 từ TOPIK cấp 1. Cần kết hợp luyện nghe và nói. Xem video YouTube tiếng Hàn hoặc phim Hàn để học sẽ không bị chán.",
+    "category": "Phương pháp học",
+    "likes": 1250,
+    "vocabulary": [
+      { "korean": "완벽하다", "vn": "hoàn hảo", "level": "2" },
+      { "korean": "기초", "vn": "cơ bản", "level": "1" },
+      { "korean": "어휘", "vn": "từ vựng", "level": "1" }
+    ],
+    "grammar": [
+      { "pattern": "-면", "meaning": "nếu...", "level": "1" },
+      { "pattern": "-어야 하다", "meaning": "phải làm gì đó", "level": "1" }
+    ]
+  },
+  {
+    "id": 2,
+    "question": "Làm thế nào để chuẩn bị thi TOPIK?",
+    "answer": "Chuẩn bị thi TOPIK cần có kế hoạch hệ thống. Trước hết hãy xác định trình độ của mình. Người mới bắt đầu nên nhắm TOPIK I, người trung cấp nhắm TOPIK II. Giải đề thi cũ rất quan trọng. Học đều đặn mỗi ngày là chìa khóa.",
+    "category": "Thi TOPIK",
+    "likes": 2100,
+    "vocabulary": [
+      { "korean": "체계적", "vn": "có hệ thống", "level": "2" },
+      { "korean": "기출문제", "vn": "đề thi cũ", "level": "2" },
+      { "korean": "꾸준히", "vn": "kiên trì", "level": "1" }
+    ],
+    "grammar": [
+      { "pattern": "-는 것이 중요하다", "meaning": "việc... là quan trọng", "level": "1" }
+    ]
+  },
+  {
+    "id": 3,
+    "question": "Phát âm tiếng Hàn quá khó, làm sao luyện?",
+    "answer": "Phát âm tiếng Hàn ban đầu khó nhưng luyện tập sẽ dần tốt lên. Luyện phát âm cuối từ (받침) là quan trọng nhất. Nghe tin tức tiếng Hàn và đọc theo (shadowing). Nói chuyện với bạn Hàn Quốc để nhận phản hồi sẽ giúp tiến bộ nhanh hơn.",
+    "category": "Phát âm",
+    "likes": 890,
+    "vocabulary": [
+      { "korean": "발음", "vn": "phát âm", "level": "1" },
+      { "korean": "받침", "vn": "phụ âm cuối", "level": "1" },
+      { "korean": "교정", "vn": "chỉnh sửa", "level": "2" }
+    ],
+    "grammar": [
+      { "pattern": "-지만", "meaning": "nhưng (đối lập)", "level": "1" },
+      { "pattern": "-으면서", "meaning": "trong khi", "level": "2" }
+    ]
+  },
+  {
+    "id": 4,
+    "question": "Làm thế nào để chuẩn bị thi EPS-TOPIK?",
+    "answer": "EPS-TOPIK đánh giá năng lực tiếng Hàn thực tế tại nơi làm việc. Cần học từ vựng về nhà máy, công trường, nông trại. Phần nghe rất quan trọng - phải hiểu rõ chỉ dẫn tiếng Hàn. Tập trung học từ vựng an toàn lao động và biểu thức công việc.",
+    "category": "EPS-TOPIK",
+    "likes": 1850,
+    "vocabulary": [
+      { "korean": "현장", "vn": "hiện trường/nơi làm việc", "level": "2" },
+      { "korean": "안전", "vn": "an toàn", "level": "1" },
+      { "korean": "지시", "vn": "chỉ dẫn", "level": "2" }
+    ],
+    "grammar": [
+      { "pattern": "-어야 하다", "meaning": "phải làm gì đó", "level": "1" },
+      { "pattern": "-뿐만 아니라", "meaning": "không chỉ... mà còn", "level": "2" }
+    ]
+  },
+  {
+    "id": 5,
+    "question": "Cách học từ vựng tiếng Hàn hiệu quả nhất là gì?",
+    "answer": "Có nhiều cách học từ tiếng Hàn hiệu quả. Dùng flashcard và ôn tập theo phương pháp SRS (lặp lại ngắt quãng). Học từ trong câu thay vì học rời - hiểu ngữ cảnh sẽ nhớ lâu hơn. Nhóm các từ cùng chủ đề lại để học cùng lúc. Tìm từ trong bài hát Kpop hoặc phim Hàn để học vui hơn.",
+    "category": "Từ vựng",
+    "likes": 1450,
+    "vocabulary": [
+      { "korean": "복습", "vn": "ôn tập", "level": "1" },
+      { "korean": "문맥", "vn": "ngữ cảnh", "level": "2" },
+      { "korean": "효율적", "vn": "hiệu quả", "level": "2" }
+    ],
+    "grammar": [
+      { "pattern": "-는 것이", "meaning": "việc... (danh từ hóa)", "level": "1" }
+    ]
+  }
+]

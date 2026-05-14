@@ -72,14 +72,17 @@ def ai_translate_batch(items: list) -> list:
         a = (it.get("answer_kr")   or "")[:500]
         lines.append(f"{i+1}. Q: {q}\n   A: {a}")
 
-    prompt = f"""Dich {len(items)} cap Q&A tieng Han sau sang tieng Viet ngan gon, ro rang:
+    prompt = f"""Dich {len(items)} cap Q&A tieng Han sang tieng Viet + trich xuat tu vung va ngu phap:
 
 {chr(10).join(lines)}
 
-Tra ve JSON array {len(items)} phan tu, moi phan tu co 3 truong:
-{{"question_vn":"cau hoi tieng Viet","answer_vn":"cau tra loi tieng Viet","category_vn":"danh muc"}}
+Tra ve JSON array {len(items)} phan tu:
+{{"question_vn":"cau hoi tieng Viet","answer_vn":"cau tra loi tieng Viet (3-5 cau, thuc dung)","category_vn":"danh muc","vocabulary":[{{"korean":"tu kho","vn":"nghia","level":"1"}}],"grammar":[{{"pattern":"-mau ngu phap","meaning":"nghia","level":"1"}}]}}
 
-category_vn phai la 1 trong: Phương pháp học, Thi TOPIK, Từ vựng, Ngữ pháp, Phát âm, Văn hóa Hàn, EPS-TOPIK, Đời sống"""
+- category_vn: Phương pháp học | Thi TOPIK | Từ vựng | Ngữ pháp | Phát âm | Văn hóa Hàn | EPS-TOPIK | Đời sống
+- vocabulary: 2-3 tu kho trong cau tra loi, level TOPIK "1" hoac "2"
+- grammar: 0-2 mau ngu phap co trong cau tra loi, co the de trong []
+- answer_vn: ngan gon thuc dung, khong dich tung chu"""
 
     for _ in range(len(API_KEYS) * 2):
         key = next(key_cycle)
@@ -223,6 +226,8 @@ def main():
             "views":       int(r.get("views", 0) or 0),
             "url":         r.get("url", "")[:500],
             "answered_at": r.get("answered_at", "")[:50],
+            "vocabulary":  r.get("vocabulary", []),
+            "grammar":     r.get("grammar", []),
         }
         for r in all_translated
     ]
