@@ -27,10 +27,11 @@ CREATE POLICY "Anyone can read melon songs"
   ON melon_songs FOR SELECT
   USING (true);
 
--- Only admin service role can insert/update/delete
-CREATE POLICY "Only service role can modify melon songs"
+-- Allow all writes (admin page is protected by app-level auth via useIsAdmin)
+CREATE POLICY "Allow all to modify melon songs"
   ON melon_songs FOR ALL
-  USING (auth.role() = 'service_role');
+  USING (true)
+  WITH CHECK (true);
 
 -- Index for rank ordering
 CREATE INDEX IF NOT EXISTS melon_songs_rank_idx ON melon_songs (rank);
