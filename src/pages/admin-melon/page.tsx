@@ -302,12 +302,12 @@ const AdminMelonPage = () => {
                   setDiagMsg("⏳ Đang đồng bộ...");
                   setDiagLoading(true);
                   try {
-                    const result = await upsertMelonSongsToSupabase(songs as any);
+                    const result = await saveMelonSongsToSupabase(songs as any);
                     if (result.ok) {
-                      setDiagMsg(`✅ Đã đồng bộ ${result.upserted} bài lên Supabase! Reload trang để xác nhận.`);
-                      toast.showToast(`Đồng bộ thành công ${result.upserted} bài`, "success");
+                      setDiagMsg(`✅ Đã đồng bộ ${songs.length} bài lên Supabase! Reload trang để xác nhận.`);
+                      toast.showToast(`Đồng bộ thành công ${songs.length} bài`, "success");
                     } else {
-                      setDiagMsg(`❌ Upsert lỗi: ${result.error}`);
+                      setDiagMsg(`❌ Lỗi: ${result.error}`);
                       toast.showToast(`Lỗi: ${result.error}`, "error");
                     }
                   } catch (e) {
