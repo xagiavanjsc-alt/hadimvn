@@ -1,9 +1,9 @@
 ﻿import { useState, useEffect, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
-import { supabase } from "@/lib/supabase";
-import RootAnalysis from "./components/RootAnalysis";
-import MnemonicStory from "./components/MnemonicStory";
+import { supabase, isVipActive } from "@/lib/supabase";
+import { useAuthContext } from "@/contexts/AuthContext";
+import VipUpgradeModal from "@/components/feature/VipUpgradeModal";
 
 // ─── Tree Quiz Modal ──────────────────────────────────────────────────────────
 function TreeQuizModal({ nodes, learnedSet, rootChar, rootMeaning, onClose }: {
@@ -313,11 +313,16 @@ function NodeDetailPanel({
               <p className="text-[10px] text-app-text-muted font-semibold tracking-normal mb-1.5">Phân tích Hán tự</p>
               <div className="flex flex-wrap gap-1.5">
                 {node.hanja_chars.map((char, i) => (
-                  <div key={i} className="flex items-center gap-1 bg-rose-500/15 rounded-lg px-2 py-1 border border-rose-500/20">
-                    <span className="text-sm font-bold text-rose-400">{char}</span>
-                    <span className="text-[10px] text-app-text-secondary">{char}</span>
+                  <div key={i} className="flex flex-col items-center bg-rose-500/15 rounded-lg px-2.5 py-1.5 border border-rose-500/20 min-w-[36px]">
+                    <span className="text-base font-bold text-rose-400 leading-tight">{char}</span>
+                    <span className="text-[9px] text-rose-400/50 mt-0.5">{i + 1}/{node.hanja_chars.length}</span>
                   </div>
                 ))}
+                <div className="flex items-center text-[10px] text-app-text-muted">=</div>
+                <div className="flex flex-col items-center bg-white/8 rounded-lg px-2.5 py-1.5 border border-app-border">
+                  <span className="text-sm font-bold text-white/70">{node.hanja}</span>
+                  <span className="text-[9px] text-app-text-muted mt-0.5">{node.pronunciation}</span>
+                </div>
               </div>
             </div>
           )}
@@ -429,6 +434,8 @@ function TreeNodeCard({
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function HanjaTreePage() {
   const navigate = useNavigate();
+  const { user, profile } = useAuthContext();
+  const isVip = isVipActive(profile);
   const [nodes, setNodes] = useState<HanjaTreeNode[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedRoot, setSelectedRoot] = useState<string>("");
@@ -443,6 +450,19 @@ export default function HanjaTreePage() {
   const [showAdvFilter, setShowAdvFilter] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const [hideSmallTrees, setHideSmallTrees] = useState(true);
+  const [vipModal, setVipModal] = useState(false);
+
+  // SEO meta tags
+  useEffect(() => {
+    document.title = "Hán Hàn Hình Cây - Học chữ Hán qua sơ đồ cây | Hàn Quốc Ơi";
+    const setMeta = (n: string, c: string) => {
+      let el = document.querySelector(`meta[name="${n}"]`) as HTMLMetaElement;
+      if (!el) { el = document.createElement("meta"); el.name = n; document.head.appendChild(el); }
+      el.content = c;
+    };
+    setMeta("description", `Khám phá ${nodes.length}+ từ Hán Hàn qua sơ đồ cây gốc. Phân tích từng chữ Hán, ví dụ thực tế, mẹo nhớ và quiz ôn tập.`);
+    setMeta("keywords", "chữ Hán tiếng Hàn, Hán Hàn, hanja, 漢字, học tiếng Hàn, TOPIK, gốc Hán");
+  }, [nodes.length]);
 
   useEffect(() => {
     const fetchNodes = async () => {
@@ -453,7 +473,7 @@ export default function HanjaTreePage() {
       while (true) {
         const { data, error } = await supabase
           .from("hanja_tree_nodes")
-          .select("*")
+          .select("id,korean,hanja,vietnamese,pronunciation,meaning_detail,examples,related_words,memory_tip,hanja_chars,root_char,root_meaning,level,category,difficulty")
           .order("root_char", { ascending: true })
           .order("korean", { ascending: true })
           .range(from, from + pageSize - 1);
@@ -746,11 +766,12 @@ export default function HanjaTreePage() {
               </div>
 
               <button
-                onClick={() => setShowQuiz(true)}
+                onClick={() => { if (!isVip) { setVipModal(true); return; } setShowQuiz(true); }}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-rose-500/30 bg-rose-500/15 text-rose-400 text-xs font-medium cursor-pointer hover:bg-rose-500/25 transition-all whitespace-nowrap"
               >
                 <i className="ri-brain-line text-sm"></i>
                 Ôn tập cây này
+                {!isVip && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-[rgba(212,180,58,0.15)] text-[#d4b43a] ml-0.5">VIP</span>}
               </button>
 
               <button
@@ -914,7 +935,8 @@ export default function HanjaTreePage() {
               </div>
             ) : (
               <div className="max-w-3xl mx-auto">
-                <div className="bg-app-card/50 border border-app-border rounded-2xl overflow-hidden">
+                {/* Desktop table */}
+                <div className="hidden md:block bg-app-card/50 border border-app-border rounded-2xl overflow-hidden">
                   <div className="grid grid-cols-[1fr_70px_1fr_70px_80px_36px] bg-app-card/50 px-4 py-2.5 text-xs font-semibold text-app-text-secondary border-b border-app-border">
                     <span>Tiếng Hàn</span><span>Hán tự</span><span>Nghĩa</span><span>Mức độ</span><span>Trạng thái</span><span></span>
                   </div>
@@ -955,6 +977,50 @@ export default function HanjaTreePage() {
                     })}
                   </div>
                 </div>
+                {/* Mobile cards */}
+                <div className="md:hidden space-y-2">
+                  {filteredNodes.map((node, i) => {
+                    const diff = DIFF_CONFIG[node.difficulty as keyof typeof DIFF_CONFIG] ?? DIFF_CONFIG[1];
+                    const isLearned = learnedSet.has(node.korean);
+                    return (
+                      <div
+                        key={i}
+                        onClick={() => handleSelectNode(node)}
+                        className={`rounded-xl p-3 cursor-pointer transition-all ${
+                          selectedNode?.id === node.id ? "bg-rose-500/10 border border-rose-500/30" : "bg-app-card/50 border border-app-border"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between mb-1.5">
+                          <div className="flex items-center gap-2">
+                            <span className="text-base font-bold text-white/90">{node.korean}</span>
+                            <span className="text-sm font-bold text-rose-400">{node.hanja}</span>
+                            <span className={`text-[9px] px-1.5 py-0.5 rounded-full border ${diff.cls}`}>{diff.label}</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <button
+                              onClick={e => { e.stopPropagation(); toggleLearned(node.korean); }}
+                              className={`w-7 h-7 flex items-center justify-center rounded-full cursor-pointer transition-all ${
+                                isLearned ? "bg-emerald-500/20 text-app-accent-success" : "bg-white/8 text-app-text-muted"
+                              }`}
+                            >
+                              <i className={`${isLearned ? "ri-checkbox-circle-fill" : "ri-checkbox-circle-line"} text-xs`}></i>
+                            </button>
+                            <button
+                              onClick={e => { e.stopPropagation(); speakKorean(node.korean); }}
+                              className="w-7 h-7 flex items-center justify-center rounded-full bg-white/8 text-app-text-muted hover:text-rose-400 cursor-pointer"
+                            >
+                              <i className="ri-volume-up-line text-xs"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] text-app-text-muted">{node.pronunciation}</span>
+                          <span className="text-xs text-white/50">{node.vietnamese}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>
@@ -980,6 +1046,12 @@ export default function HanjaTreePage() {
           onClose={() => setShowQuiz(false)}
         />
       )}
+      <VipUpgradeModal
+        open={vipModal}
+        onClose={() => setVipModal(false)}
+        reason={user ? "not_vip" : "not_logged_in"}
+        featureName="Quiz ôn tập Hán Hàn"
+      />
     </DashboardLayout>
   );
 }
