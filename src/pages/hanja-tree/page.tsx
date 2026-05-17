@@ -380,6 +380,154 @@ function NodeDetailPanel({
   );
 }
 
+// ─── Flashcard View ──────────────────────────────────────────────────────────
+function FlashcardView({
+  nodes, flashIdx, setFlashIdx, flashFlipped, setFlashFlipped, learnedSet, toggleLearned,
+}: {
+  nodes: HanjaTreeNode[];
+  flashIdx: number;
+  setFlashIdx: (v: number | ((p: number) => number)) => void;
+  flashFlipped: boolean;
+  setFlashFlipped: (v: boolean | ((p: boolean) => boolean)) => void;
+  learnedSet: Set<string>;
+  toggleLearned: (korean: string) => void;
+}) {
+  const card = nodes[flashIdx];
+  const isLearned = card ? learnedSet.has(card.korean) : false;
+  const diff = card ? (DIFF_CONFIG[card.difficulty as keyof typeof DIFF_CONFIG] ?? DIFF_CONFIG[1]) : DIFF_CONFIG[1];
+
+  // Keyboard controls
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === " " || e.key === "Enter") { e.preventDefault(); setFlashFlipped(f => !f); }
+      if (e.key === "ArrowRight" || e.key === "d") { setFlashFlipped(false); setFlashIdx(i => Math.min(i + 1, nodes.length - 1)); }
+      if (e.key === "ArrowLeft" || e.key === "a") { setFlashFlipped(false); setFlashIdx(i => Math.max(i - 1, 0)); }
+      if (e.key === "l" && card) { toggleLearned(card.korean); }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [nodes.length, card, setFlashFlipped, setFlashIdx, toggleLearned]);
+
+  if (!card) return null;
+
+  return (
+    <div className="flex flex-col items-center justify-center h-full py-6">
+      {/* Progress */}
+      <div className="flex items-center gap-3 mb-4">
+        <span className="text-xs text-app-text-muted">{flashIdx + 1} / {nodes.length}</span>
+        <div className="w-40 h-1.5 bg-white/8 rounded-full overflow-hidden">
+          <div className="h-full bg-rose-400 rounded-full transition-all" style={{ width: `${((flashIdx + 1) / nodes.length) * 100}%` }} />
+        </div>
+        <span className="text-[10px] text-app-text-muted">{nodes.filter(n => learnedSet.has(n.korean)).length} đã học</span>
+      </div>
+
+      {/* Card */}
+      <div
+        onClick={() => setFlashFlipped(f => !f)}
+        className="w-full max-w-sm aspect-[3/4] cursor-pointer select-none"
+        style={{ perspective: "1000px" }}
+      >
+        <div
+          className="relative w-full h-full transition-transform duration-500"
+          style={{ transformStyle: "preserve-3d", transform: flashFlipped ? "rotateY(180deg)" : "rotateY(0)" }}
+        >
+          {/* Front */}
+          <div className="absolute inset-0 rounded-2xl border-2 border-rose-500/30 bg-gradient-to-br from-[#1e2030] to-[#1a1d27] p-6 flex flex-col items-center justify-center" style={{ backfaceVisibility: "hidden" }}>
+            <span className={`text-[9px] px-2 py-0.5 rounded-full border mb-4 ${diff.cls}`}>{diff.label}</span>
+            <p className="text-5xl font-black text-white/90 mb-3">{card.korean}</p>
+            <p className="text-2xl font-bold text-rose-400 mb-2">{card.hanja}</p>
+            {card.pronunciation && <p className="text-sm text-app-text-secondary mb-4">[{card.pronunciation}]</p>}
+            <button
+              onClick={e => { e.stopPropagation(); speakKorean(card.korean); }}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-rose-500/20 text-rose-400 hover:bg-rose-500/30 cursor-pointer transition-all"
+            >
+              <i className="ri-volume-up-line text-lg"></i>
+            </button>
+            <p className="text-xs text-app-text-muted mt-6"><i className="ri-arrow-left-right-line mr-1"></i>Nhấn để lật</p>
+          </div>
+
+          {/* Back */}
+          <div className="absolute inset-0 rounded-2xl border-2 border-emerald-500/30 bg-gradient-to-br from-[#1a2420] to-[#1a1d27] p-5 flex flex-col overflow-y-auto" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
+            <p className="text-lg font-bold text-app-accent-success mb-1">{card.vietnamese}</p>
+            {card.meaning_detail && <p className="text-xs text-app-text-secondary leading-relaxed mb-3">{card.meaning_detail}</p>}
+
+            {card.hanja_chars?.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                {card.hanja_chars.map((ch, i) => (
+                  <span key={i} className="px-2 py-1 bg-rose-500/15 rounded-lg text-sm font-bold text-rose-400 border border-rose-500/20">{ch}</span>
+                ))}
+                <span className="flex items-center text-[10px] text-app-text-muted">=</span>
+                <span className="px-2 py-1 bg-white/8 rounded-lg text-sm font-bold text-white/70 border border-app-border">{card.hanja}</span>
+              </div>
+            )}
+
+            {card.examples?.length > 0 && (
+              <div className="mb-3">
+                <p className="text-[10px] text-app-text-muted font-semibold mb-1.5">Ví dụ</p>
+                {card.examples.slice(0, 2).map((ex, i) => (
+                  <div key={i} className="mb-1.5">
+                    <div className="flex items-start gap-1">
+                      <p className="text-xs text-white/70 flex-1">{ex.korean}</p>
+                      <button onClick={e => { e.stopPropagation(); speakKorean(ex.korean); }} className="text-app-text-muted hover:text-rose-400 cursor-pointer flex-shrink-0">
+                        <i className="ri-volume-up-line text-[10px]"></i>
+                      </button>
+                    </div>
+                    <p className="text-[10px] text-app-text-secondary italic">{ex.vietnamese}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {card.memory_tip && (
+              <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-2 mt-auto">
+                <p className="text-[10px] text-amber-400 font-semibold mb-0.5"><i className="ri-lightbulb-line mr-1"></i>Mẹo nhớ</p>
+                <p className="text-[10px] text-amber-400/70 leading-relaxed">{card.memory_tip}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Controls */}
+      <div className="flex items-center gap-3 mt-5">
+        <button
+          onClick={() => { setFlashFlipped(false); setFlashIdx(i => Math.max(i - 1, 0)); }}
+          disabled={flashIdx === 0}
+          className="w-10 h-10 flex items-center justify-center rounded-full bg-white/8 text-white/50 hover:bg-white/15 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+        >
+          <i className="ri-arrow-left-s-line text-lg"></i>
+        </button>
+
+        <button
+          onClick={() => toggleLearned(card.korean)}
+          className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap transition-all ${
+            isLearned
+              ? "bg-emerald-500/20 text-app-accent-success border border-emerald-500/30"
+              : "bg-white/8 text-white/50 border border-app-border hover:bg-emerald-500/15 hover:text-app-accent-success"
+          }`}
+        >
+          <i className={`${isLearned ? "ri-checkbox-circle-fill" : "ri-checkbox-circle-line"} text-sm`}></i>
+          {isLearned ? "Đã học" : "Đánh dấu đã học"}
+        </button>
+
+        <button
+          onClick={() => { setFlashFlipped(false); setFlashIdx(i => Math.min(i + 1, nodes.length - 1)); }}
+          disabled={flashIdx >= nodes.length - 1}
+          className="w-10 h-10 flex items-center justify-center rounded-full bg-white/8 text-white/50 hover:bg-white/15 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+        >
+          <i className="ri-arrow-right-s-line text-lg"></i>
+        </button>
+      </div>
+
+      <p className="text-[9px] text-app-text-muted mt-3">
+        <kbd className="px-1 py-0.5 bg-white/8 rounded text-[8px]">Space</kbd> lật · 
+        <kbd className="px-1 py-0.5 bg-white/8 rounded text-[8px]">←→</kbd> qua lại · 
+        <kbd className="px-1 py-0.5 bg-white/8 rounded text-[8px]">L</kbd> đánh dấu
+      </p>
+    </div>
+  );
+}
+
 // ─── Tree Node Card ───────────────────────────────────────────────────────────
 function TreeNodeCard({
   node,
@@ -445,7 +593,9 @@ export default function HanjaTreePage() {
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
   const [levelFilter, setLevelFilter] = useState<number | null>(null);
   const [learnedSet, setLearnedSet] = useState<Set<string>>(loadLearned);
-  const [viewMode, setViewMode] = useState<"tree" | "list">("tree");
+  const [viewMode, setViewMode] = useState<"tree" | "list" | "flashcard">("tree");
+  const [flashIdx, setFlashIdx] = useState(0);
+  const [flashFlipped, setFlashFlipped] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
   const [showAdvFilter, setShowAdvFilter] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -633,6 +783,26 @@ export default function HanjaTreePage() {
                 <div className="h-full bg-emerald-400 rounded-full transition-all" style={{ width: `${nodes.length > 0 ? (totalLearned / nodes.length) * 100 : 0}%` }} />
               </div>
             </div>
+            {/* TOPIK Level Progress */}
+            {nodes.length > 0 && (
+              <div className="mt-2 space-y-1">
+                {[1, 2, 3, 4, 5, 6].map(lv => {
+                  const lvNodes = nodes.filter(n => n.level === lv);
+                  if (lvNodes.length === 0) return null;
+                  const lvLearned = lvNodes.filter(n => learnedSet.has(n.korean)).length;
+                  const pct = Math.round((lvLearned / lvNodes.length) * 100);
+                  return (
+                    <div key={lv} className="flex items-center gap-1.5">
+                      <span className="text-[9px] text-app-text-muted w-12 flex-shrink-0">TOPIK {lv}</span>
+                      <div className="flex-1 h-1 bg-white/8 rounded-full overflow-hidden">
+                        <div className="h-full bg-rose-400/70 rounded-full transition-all" style={{ width: `${pct}%` }} />
+                      </div>
+                      <span className="text-[9px] text-app-text-muted w-8 text-right flex-shrink-0">{lvLearned}/{lvNodes.length}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Hide small trees toggle */}
@@ -762,6 +932,12 @@ export default function HanjaTreePage() {
                   className={`px-2.5 py-1 rounded-md text-xs cursor-pointer whitespace-nowrap transition-all ${viewMode === "list" ? "bg-white/15 text-rose-400 font-medium" : "text-app-text-secondary"}`}
                 >
                   <i className="ri-list-check mr-1"></i>Danh sách
+                </button>
+                <button
+                  onClick={() => { setViewMode("flashcard"); setFlashIdx(0); setFlashFlipped(false); }}
+                  className={`px-2.5 py-1 rounded-md text-xs cursor-pointer whitespace-nowrap transition-all ${viewMode === "flashcard" ? "bg-white/15 text-rose-400 font-medium" : "text-app-text-secondary"}`}
+                >
+                  <i className="ri-stack-line mr-1"></i>Thẻ
                 </button>
               </div>
 
@@ -933,6 +1109,16 @@ export default function HanjaTreePage() {
                   ))}
                 </div>
               </div>
+            ) : viewMode === "flashcard" ? (
+              <FlashcardView
+                nodes={filteredNodes}
+                flashIdx={flashIdx}
+                setFlashIdx={setFlashIdx}
+                flashFlipped={flashFlipped}
+                setFlashFlipped={setFlashFlipped}
+                learnedSet={learnedSet}
+                toggleLearned={toggleLearned}
+              />
             ) : (
               <div className="max-w-3xl mx-auto">
                 {/* Desktop table */}
@@ -1025,7 +1211,7 @@ export default function HanjaTreePage() {
             )}
           </div>
 
-          {selectedNode && (
+          {selectedNode && viewMode !== "flashcard" && (
             <NodeDetailPanel
               node={selectedNode}
               isLearned={learnedSet.has(selectedNode.korean)}
