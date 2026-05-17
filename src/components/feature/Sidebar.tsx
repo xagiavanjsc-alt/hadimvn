@@ -94,15 +94,15 @@ const navGroups = [
       { path: "/grammar-by-level", icon: "ri-book-2-line", label: "Ngữ pháp TOPIK" },
       { path: "/topik-exam-writing", icon: "ri-draft-line", label: "Luyện Viết TOPIK II" },
       { path: "/topik-vocab-level", icon: "ri-translate-2", label: "Từ vựng TOPIK" },
-      { path: "/hanja-detail", icon: "ri-character-recognition-line", label: "Hán Hàn", badge: "VIP" },
     ],
   },
   {
-    label: "Hán Hàn Vip",
+    label: "Hán Hàn",
     icon: "ri-character-recognition-line",
     badge: "VIP",
     color: "app-accent-primary",
     items: [
+      { path: "/hanja-detail", icon: "ri-character-recognition-line", label: "Hán Hàn Cơ Bản" },
       { path: "/hanja-tree", icon: "ri-git-merge-line", label: "Hình cây từ vựng" },
       { path: "/hanja-flashcard", icon: "ri-stack-line", label: "Flashcard Hán Hàn" },
       { path: "/hanja-pro", icon: "ri-character-recognition-line", label: "Hán Hàn Chuyên Sâu" },
