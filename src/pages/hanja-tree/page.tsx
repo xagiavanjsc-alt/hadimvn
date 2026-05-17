@@ -203,7 +203,7 @@ interface HanjaTreeNode {
   pronunciation: string;
   meaning_detail: string;
   examples: { korean: string; vietnamese: string; pronunciation?: string }[];
-  related_words: { word: string; meaning: string }[];
+  related_words: (string | { word: string; meaning: string })[];
   memory_tip: string;
   hanja_chars: string[];
   root_char: string;
@@ -284,6 +284,7 @@ function NodeDetailPanel({
           <span className="text-sm text-app-text-secondary">{node.pronunciation}</span>
           <span className={`text-[10px] px-1.5 py-0.5 rounded-full border ${diff.cls}`}>{diff.label}</span>
           <span className="text-xs px-2 py-0.5 rounded-full bg-white/8 text-app-text-secondary">{node.category}</span>
+          {node.level > 0 && <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-sky-500/15 text-sky-400 border border-sky-500/20">TOPIK {node.level}</span>}
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -360,18 +361,23 @@ function NodeDetailPanel({
         )}
 
         {node.related_words?.length > 0 && (
-          <div className="flex-shrink-0 w-52 p-4 overflow-y-auto">
-            <p className="text-[10px] text-app-text-muted font-semibold tracking-normal mb-2">Từ liên quan</p>
+          <div className="flex-shrink-0 w-60 p-4 overflow-y-auto">
+            <p className="text-[10px] text-app-text-muted font-semibold tracking-normal mb-2">Từ liên quan ({node.related_words.length})</p>
             <div className="space-y-1.5">
-              {node.related_words.map((rw, i) => (
-                <div key={i} className="flex items-center justify-between bg-rose-500/10 rounded-lg px-2.5 py-2 border border-rose-500/20">
-                  <button onClick={() => speakKorean(rw.word)} className="text-sm font-semibold text-rose-400 cursor-pointer hover:text-rose-300 flex items-center gap-1">
-                    {rw.word}
-                    <i className="ri-volume-up-line text-[10px] text-rose-500/60"></i>
-                  </button>
-                  <span className="text-xs text-rose-400/70">{rw.meaning}</span>
-                </div>
-              ))}
+              {node.related_words.map((rw, i) => {
+                const word = typeof rw === "string" ? rw : rw.word;
+                const meaning = typeof rw === "string" ? "" : rw.meaning;
+                if (!word) return null;
+                return (
+                  <div key={i} className="flex items-center justify-between bg-rose-500/10 rounded-lg px-2.5 py-2 border border-rose-500/20">
+                    <button onClick={() => speakKorean(word)} className="text-sm font-semibold text-rose-400 cursor-pointer hover:text-rose-300 flex items-center gap-1">
+                      {word}
+                      <i className="ri-volume-up-line text-[10px] text-rose-500/60"></i>
+                    </button>
+                    {meaning && <span className="text-xs text-rose-400/70">{meaning}</span>}
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
