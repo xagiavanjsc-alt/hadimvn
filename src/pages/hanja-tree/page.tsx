@@ -281,7 +281,7 @@ function NodeDetailPanel({
               <i className="ri-volume-up-line text-xs"></i>
             </button>
           </div>
-          <span className="text-sm text-app-text-secondary">{node.pronunciation}</span>
+          <span className="text-sm text-app-text-secondary">{node.pronunciation || <span className="text-amber-400/60 italic text-xs">(Đang cập nhật...)</span>}</span>
           <span className={`text-[10px] px-1.5 py-0.5 rounded-full border ${diff.cls}`}>{diff.label}</span>
           <span className="text-xs px-2 py-0.5 rounded-full bg-white/8 text-app-text-secondary">{node.category}</span>
           {node.level > 0 && <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-sky-500/15 text-sky-400 border border-sky-500/20">TOPIK {node.level}</span>}

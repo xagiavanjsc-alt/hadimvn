@@ -193,6 +193,7 @@ const HangulWritePage = lazyPage(() => import("../pages/hangul-write/page"));
 
 // ─── Hanja ───────────────────────────────────────────────────────────────────
 const HanjaVocabPage = lazyPage(() => import("../pages/hanja-vocab/page"));
+const HanjaFlashcardPage = lazyPage(() => import("../pages/hanja-flashcard/page"), "flashcard");
 
 // ─── Community ────────────────────────────────────────────────────────────────
 const CommunityPage = lazyPage(() => import("../pages/community/page"));
@@ -493,6 +494,7 @@ const routes: RouteObject[] = [
 
   // Hanja
   { path: "/hanja-vocab", element: <HanjaVocabPage /> },
+  { path: "/hanja-flashcard", element: <HanjaFlashcardPage /> },
 
   // Community
   { path: "/community", element: <CommunityPage /> },
