@@ -534,57 +534,6 @@ function FlashcardView({
   );
 }
 
-// ─── Tree Node Card ───────────────────────────────────────────────────────────
-function TreeNodeCard({
-  node,
-  isSelected,
-  isLearned,
-  onSelect,
-}: {
-  node: HanjaTreeNode;
-  isSelected: boolean;
-  isLearned: boolean;
-  onSelect: () => void;
-}) {
-  const diff = DIFF_CONFIG[node.difficulty as keyof typeof DIFF_CONFIG] ?? DIFF_CONFIG[1];
-  return (
-    <div className="flex flex-col items-center">
-      <div className="w-0.5 h-4 bg-rose-500/30 flex-shrink-0"></div>
-
-      <div
-        onClick={onSelect}
-        className={`w-full border-2 rounded-xl p-3 cursor-pointer transition-all relative ${
-          isSelected ? "border-rose-500/60 bg-rose-500/10" : isLearned ? "border-emerald-500/30 bg-emerald-500/8" : "border-app-border bg-app-card/50 hover:border-rose-500/30 hover:bg-rose-500/8"
-        }`}
-      >
-        {isLearned && (
-          <div className="absolute top-1.5 right-1.5 w-5 h-5 flex items-center justify-center rounded-full bg-emerald-500/20">
-            <i className="ri-check-line text-app-accent-success text-[10px]"></i>
-          </div>
-        )}
-        <div className="flex items-start gap-1 mb-1">
-          <div className="flex-1 min-w-0">
-            <p className="text-base font-bold text-white/90 leading-tight">{node.korean}</p>
-            <p className="text-sm text-rose-400 font-semibold">{node.hanja}</p>
-          </div>
-        </div>
-        <p className="text-[10px] text-app-text-muted mb-1">{node.pronunciation}</p>
-        <p className="text-xs text-white/50 line-clamp-2 mb-2">{node.vietnamese}</p>
-
-        <div className="flex items-center gap-1 flex-wrap">
-          <span className={`text-[9px] px-1.5 py-0.5 rounded-full border ${diff.cls}`}>{diff.label}</span>
-          <button
-            onClick={e => { e.stopPropagation(); speakKorean(node.korean); }}
-            className="ml-auto w-5 h-5 flex items-center justify-center rounded-full bg-white/8 text-app-text-muted hover:bg-rose-500/20 hover:text-rose-400 transition-all cursor-pointer flex-shrink-0"
-          >
-            <i className="ri-volume-up-line text-[10px]"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function HanjaTreePage() {
   const navigate = useNavigate();
@@ -599,7 +548,7 @@ export default function HanjaTreePage() {
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
   const [levelFilter, setLevelFilter] = useState<number | null>(null);
   const [learnedSet, setLearnedSet] = useState<Set<string>>(loadLearned);
-  const [viewMode, setViewMode] = useState<"tree" | "list" | "flashcard">("tree");
+  const [viewMode, setViewMode] = useState<"list" | "flashcard">("list");
   const [flashIdx, setFlashIdx] = useState(0);
   const [flashFlipped, setFlashFlipped] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
@@ -928,12 +877,6 @@ export default function HanjaTreePage() {
 
               <div className="flex gap-1 bg-white/8 rounded-lg p-0.5">
                 <button
-                  onClick={() => setViewMode("tree")}
-                  className={`px-2.5 py-1 rounded-md text-xs cursor-pointer whitespace-nowrap transition-all ${viewMode === "tree" ? "bg-white/15 text-rose-400 font-medium" : "text-app-text-secondary"}`}
-                >
-                  <i className="ri-git-merge-line mr-1"></i>Cây
-                </button>
-                <button
                   onClick={() => setViewMode("list")}
                   className={`px-2.5 py-1 rounded-md text-xs cursor-pointer whitespace-nowrap transition-all ${viewMode === "list" ? "bg-white/15 text-rose-400 font-medium" : "text-app-text-secondary"}`}
                 >
@@ -1075,44 +1018,6 @@ export default function HanjaTreePage() {
                   <i className="ri-search-line text-4xl mb-2"></i>
                   <p className="text-sm">Không tìm thấy từ nào</p>
                   {search && <button onClick={() => setSearch("")} className="mt-2 text-xs text-rose-400 hover:text-rose-300 cursor-pointer">Xóa tìm kiếm</button>}
-                </div>
-              </div>
-            ) : viewMode === "tree" ? (
-              <div className="max-w-5xl mx-auto">
-                <div className="flex justify-center mb-4">
-                  <div className="relative">
-                    <div className="w-16 h-16 flex items-center justify-center bg-rose-500 text-white rounded-2xl text-2xl font-bold">
-                      {selectedRoot}
-                    </div>
-                    <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-xs text-app-text-secondary whitespace-nowrap font-medium">
-                      {rootMeaningsMap[selectedRoot] || selectedRoot}
-                    </div>
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 w-0.5 h-5 bg-rose-500/30 mt-1"></div>
-                  </div>
-                </div>
-
-                <div className="flex justify-center mt-2 mb-0">
-                  <div className="w-full max-w-4xl h-0.5 bg-rose-500/20 relative">
-                    {filteredNodes.map((_, i) => {
-                      const total = filteredNodes.length;
-                      const left = total > 1 ? (i / (total - 1)) * 100 : 50;
-                      return (
-                        <div key={i} className="absolute top-0 w-0.5 h-3 bg-rose-500/20" style={{ left: `${left}%`, transform: "translateX(-50%)" }} />
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 mt-0">
-                  {filteredNodes.map(node => (
-                    <TreeNodeCard
-                      key={node.id}
-                      node={node}
-                      isSelected={selectedNode?.id === node.id}
-                      isLearned={learnedSet.has(node.korean)}
-                      onSelect={() => handleSelectNode(node)}
-                    />
-                  ))}
                 </div>
               </div>
             ) : viewMode === "flashcard" ? (
