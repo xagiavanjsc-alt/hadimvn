@@ -222,7 +222,7 @@ export default function Home() {
   const navigate = useNavigate();
   const [hanjaCount, setHanjaCount] = useState<number | null>(null);
   useEffect(() => {
-    supabase.from("hanja_tree_nodes").select("id", { count: "exact", head: true })
+    supabase.from("hanja_pro").select("id", { count: "exact", head: true })
       .then(({ count }) => { if (count !== null) setHanjaCount(count); });
   }, []);
   const isAdmin = useIsAdmin();

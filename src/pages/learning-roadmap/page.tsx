@@ -228,7 +228,7 @@ export default function LearningRoadmapPage() {
   const [hanjaCount, setHanjaCount] = useState<number | null>(null);
 
   useEffect(() => {
-    supabase.from("hanja_tree_nodes").select("id", { count: "exact", head: true })
+    supabase.from("hanja_pro").select("id", { count: "exact", head: true })
       .then(({ count }) => { if (count !== null) setHanjaCount(count); });
   }, []);
 

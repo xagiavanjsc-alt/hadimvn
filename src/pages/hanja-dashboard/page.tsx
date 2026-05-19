@@ -4,7 +4,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 
 interface HanjaNode {
-  id: string;
+  id: number;
   korean: string;
   hanja: string;
   vietnamese: string;
@@ -15,16 +15,16 @@ interface HanjaNode {
   meaning_detail?: string;
 }
 
-const LEARNED_KEY = "hanja_tree_learned";
+const LEARNED_KEY = "kts_hanja_pro_known";
 const STREAK_KEY = "hanja_streak_log";
-const ROOT_MEANINGS: Record<string, string> = {
-  "人": "Người", "大": "Lớn", "國": "Quốc gia", "學": "Học", "心": "Tâm/Lòng",
-};
 
-function loadLearned(): Set<string> {
+function loadLearned(): Set<number> {
   try {
     const raw = localStorage.getItem(LEARNED_KEY);
-    return raw ? new Set(JSON.parse(raw)) : new Set();
+    if (!raw) return new Set();
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) return new Set(parsed.map(Number));
+    return new Set(Object.entries(parsed).filter(([, value]) => value).map(([key]) => Number(key)));
   } catch { return new Set(); }
 }
 
@@ -66,8 +66,8 @@ function calcStreak(days: string[]): { current: number; longest: number; total: 
   return { current, longest, total: sorted.length };
 }
 
-function exportLearnedCSV(nodes: HanjaNode[], learnedSet: Set<string>) {
-  const learned = nodes.filter(n => learnedSet.has(n.korean));
+function exportLearnedCSV(nodes: HanjaNode[], learnedSet: Set<number>) {
+  const learned = nodes.filter(n => learnedSet.has(n.id));
   if (learned.length === 0) return;
   const header = "korean,hanja,vietnamese,root_char,difficulty,category";
   const rows = learned.map(n =>
@@ -211,11 +211,11 @@ type QuizCard = HanjaNode & { showAnswer: boolean };
 
 function ReviewQuizModal({ nodes, learnedSet, onClose }: {
   nodes: HanjaNode[];
-  learnedSet: Set<string>;
+  learnedSet: Set<number>;
   onClose: () => void;
 }) {
   const learnedNodes = useMemo(() =>
-    nodes.filter(n => learnedSet.has(n.korean)),
+    nodes.filter(n => learnedSet.has(n.id)),
     [nodes, learnedSet]
   );
 
@@ -409,18 +409,18 @@ function ReviewQuizModal({ nodes, learnedSet, onClose }: {
 // ─── Daily New Words Component ──────────────────────────────────────────────
 const DAILY_WORDS_KEY = "hanja_daily_words";
 
-function loadDailyWords(nodes: HanjaNode[], learnedSet: Set<string>): HanjaNode[] {
+function loadDailyWords(nodes: HanjaNode[], learnedSet: Set<number>): HanjaNode[] {
   try {
     const today = new Date().toISOString().split("T")[0];
     const raw = localStorage.getItem(DAILY_WORDS_KEY);
     if (raw) {
-      const saved = JSON.parse(raw) as { date: string; wordIds: string[] };
+      const saved = JSON.parse(raw) as { date: string; wordIds: number[] };
       if (saved.date === today) {
         const words = saved.wordIds.map(id => nodes.find(n => n.id === id)).filter(Boolean) as HanjaNode[];
         if (words.length > 0) return words;
       }
     }
-    const unlearned = nodes.filter(n => !learnedSet.has(n.korean));
+    const unlearned = nodes.filter(n => !learnedSet.has(n.id));
     const shuffled = [...unlearned].sort(() => Math.random() - 0.5).slice(0, 8);
     localStorage.setItem(DAILY_WORDS_KEY, JSON.stringify({ date: today, wordIds: shuffled.map(n => n.id) }));
     return shuffled;
@@ -429,11 +429,11 @@ function loadDailyWords(nodes: HanjaNode[], learnedSet: Set<string>): HanjaNode[
 
 function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
   nodes: HanjaNode[];
-  learnedSet: Set<string>;
-  onToggleLearned: (korean: string) => void;
+  learnedSet: Set<number>;
+  onToggleLearned: (id: number) => void;
 }) {
   const [dailyWords, setDailyWords] = useState<HanjaNode[]>([]);
-  const [flipped, setFlipped] = useState<Set<string>>(new Set());
+  const [flipped, setFlipped] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     if (nodes.length > 0) {
@@ -441,7 +441,7 @@ function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
     }
   }, [nodes, learnedSet]);
 
-  const toggleFlip = (id: string) => {
+  const toggleFlip = (id: number) => {
     setFlipped(prev => {
       const next = new Set(prev);
       next.has(id) ? next.delete(id) : next.add(id);
@@ -455,7 +455,7 @@ function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
     setFlipped(new Set());
   };
 
-  const learnedToday = dailyWords.filter(n => learnedSet.has(n.korean)).length;
+  const learnedToday = dailyWords.filter(n => learnedSet.has(n.id)).length;
 
   if (dailyWords.length === 0) return null;
 
@@ -491,7 +491,7 @@ function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {dailyWords.map(node => {
           const isFlipped = flipped.has(node.id);
-          const isLearned = learnedSet.has(node.korean);
+          const isLearned = learnedSet.has(node.id);
           return (
             <div key={node.id} className="relative">
               <div
@@ -540,7 +540,7 @@ function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
                 )}
               </div>
               <button
-                onClick={() => onToggleLearned(node.korean)}
+                onClick={() => onToggleLearned(node.id)}
                 className={`absolute -top-1.5 -right-1.5 w-6 h-6 flex items-center justify-center rounded-full border-2 border-[#141720] cursor-pointer transition-all ${
                   isLearned ? "bg-emerald-400 text-white" : "bg-white/15 text-app-text-secondary hover:bg-emerald-400 hover:text-white"
                 }`}
@@ -561,15 +561,15 @@ export default function HanjaDashboardPage() {
   const navigate = useNavigate();
   const [nodes, setNodes] = useState<HanjaNode[]>([]);
   const [loading, setLoading] = useState(true);
-  const [learnedSet, setLearnedSet] = useState<Set<string>>(loadLearned);
+  const [learnedSet, setLearnedSet] = useState<Set<number>>(loadLearned);
   const [showReview, setShowReview] = useState(false);
   const [streakDays, setStreakDays] = useState<string[]>(loadStreakDays);
 
-  const toggleLearned = useCallback((korean: string) => {
+  const toggleLearned = useCallback((id: number) => {
     setLearnedSet(prev => {
       const next = new Set(prev);
-      next.has(korean) ? next.delete(korean) : next.add(korean);
-      localStorage.setItem(LEARNED_KEY, JSON.stringify(Array.from(next)));
+      next.has(id) ? next.delete(id) : next.add(id);
+      localStorage.setItem(LEARNED_KEY, JSON.stringify(Object.fromEntries(Array.from(next).map(item => [item, true]))));
       return next;
     });
   }, []);
@@ -578,10 +578,26 @@ export default function HanjaDashboardPage() {
     const fetchNodes = async () => {
       setLoading(true);
       const { data } = await supabase
-        .from("hanja_tree_nodes")
-        .select("id, korean, hanja, vietnamese, root_char, difficulty, category, pronunciation, meaning_detail")
-        .order("root_char");
-      if (data) setNodes(data as HanjaNode[]);
+        .from("hanja_pro")
+        .select("id, hangul, hanja, meaning_vn, hanja_breakdown, slug")
+        .order("id");
+      if (data) {
+        setNodes(data.map((row: any) => {
+          const breakdown = Array.isArray(row.hanja_breakdown) ? row.hanja_breakdown : [];
+          const root = breakdown[0];
+          return {
+            id: row.id,
+            korean: row.hangul,
+            hanja: row.hanja,
+            vietnamese: row.meaning_vn || "",
+            root_char: root?.char || row.hanja?.[0] || "",
+            difficulty: row.hanja?.length >= 4 ? 3 : row.hanja?.length >= 3 ? 2 : 1,
+            category: "Hán Hàn Chuyên Sâu",
+            pronunciation: "",
+            meaning_detail: breakdown.map((item: any) => `${item.char}: ${item.meaning}`).join(" · "),
+          } as HanjaNode;
+        }));
+      }
       setLoading(false);
     };
     fetchNodes();
@@ -614,10 +630,10 @@ export default function HanjaDashboardPage() {
       groups[n.root_char].push(n);
     });
     return Object.entries(groups).map(([rootChar, grpNodes]) => {
-      const learned = grpNodes.filter(n => learnedSet.has(n.korean)).length;
+      const learned = grpNodes.filter(n => learnedSet.has(n.id)).length;
       return {
         rootChar,
-        rootMeaning: ROOT_MEANINGS[rootChar] || rootChar,
+        rootMeaning: grpNodes[0]?.meaning_detail?.split(" · ")[0]?.replace(`${rootChar}: `, "") || rootChar,
         total: grpNodes.length,
         learned,
         pct: grpNodes.length > 0 ? Math.round((learned / grpNodes.length) * 100) : 0,
@@ -625,7 +641,7 @@ export default function HanjaDashboardPage() {
     });
   }, [nodes, learnedSet]);
 
-  const totalLearned = nodes.filter(n => learnedSet.has(n.korean)).length;
+  const totalLearned = nodes.filter(n => learnedSet.has(n.id)).length;
   const totalPct = nodes.length > 0 ? Math.round((totalLearned / nodes.length) * 100) : 0;
 
   const diffStats = useMemo(() => {
@@ -633,14 +649,14 @@ export default function HanjaDashboardPage() {
     const med = nodes.filter(n => n.difficulty === 2);
     const hard = nodes.filter(n => n.difficulty === 3);
     return [
-      { label: "Dễ", total: easy.length, learned: easy.filter(n => learnedSet.has(n.korean)).length, color: "#10b981" },
-      { label: "Trung bình", total: med.length, learned: med.filter(n => learnedSet.has(n.korean)).length, color: "#f59e0b" },
-      { label: "Khó", total: hard.length, learned: hard.filter(n => learnedSet.has(n.korean)).length, color: "#f43f5e" },
+      { label: "Dễ", total: easy.length, learned: easy.filter(n => learnedSet.has(n.id)).length, color: "#10b981" },
+      { label: "Trung bình", total: med.length, learned: med.filter(n => learnedSet.has(n.id)).length, color: "#f59e0b" },
+      { label: "Khó", total: hard.length, learned: hard.filter(n => learnedSet.has(n.id)).length, color: "#f43f5e" },
     ];
   }, [nodes, learnedSet]);
 
   const recentLearned = useMemo(() => {
-    return nodes.filter(n => learnedSet.has(n.korean)).slice(-10).reverse();
+    return nodes.filter(n => learnedSet.has(n.id)).slice(-10).reverse();
   }, [nodes, learnedSet]);
 
   const streak = useMemo(() => calcStreak(streakDays), [streakDays]);

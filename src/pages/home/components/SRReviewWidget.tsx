@@ -80,7 +80,7 @@ export default function SRReviewWidget() {
   // Lấy tổng số từ thực tế từ Supabase
   useEffect(() => {
     supabase
-      .from("hanja_tree_nodes")
+      .from("hanja_pro")
       .select("id", { count: "exact", head: true })
       .then(({ count }) => { if (count !== null) setDbTotal(count); });
   }, []);

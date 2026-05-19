@@ -3,7 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 
 interface TreeNode {
-  id: string;
+  id: number;
   korean: string;
   hanja: string;
   vietnamese: string;
@@ -16,6 +16,43 @@ interface TreeNode {
   related_words: { word: string; meaning: string }[];
   memory_tip: string;
   audio_url: string | null;
+}
+
+interface HanjaProRow {
+  id: number;
+  hangul: string;
+  hanja: string;
+  meaning_vn: string | null;
+  hanja_breakdown?: { char: string; reading?: string; meaning?: string }[] | null;
+  examples?: { ko: string; vi: string; boi?: string }[] | null;
+  related_words?: { word: string; meaning: string }[] | null;
+  mnemonic?: string | null;
+}
+
+function inferDifficulty(hanja: string): number {
+  if (hanja.length >= 4) return 3;
+  if (hanja.length >= 3) return 2;
+  return 1;
+}
+
+function mapHanjaProRow(row: HanjaProRow): TreeNode {
+  const breakdown = Array.isArray(row.hanja_breakdown) ? row.hanja_breakdown : [];
+  const root = breakdown[0];
+  return {
+    id: row.id,
+    korean: row.hangul,
+    hanja: row.hanja,
+    vietnamese: row.meaning_vn || "",
+    pronunciation: "",
+    root_char: root?.char || row.hanja?.[0] || "",
+    root_meaning: root?.meaning || "",
+    category: "Hán Hàn Chuyên Sâu",
+    difficulty: inferDifficulty(row.hanja || ""),
+    examples: Array.isArray(row.examples) ? row.examples.map(ex => ({ korean: ex.ko, vietnamese: ex.vi, pronunciation: ex.boi })) : [],
+    related_words: Array.isArray(row.related_words) ? row.related_words.map(item => ({ word: item.word, meaning: item.meaning })) : [],
+    memory_tip: row.mnemonic || "",
+    audio_url: null,
+  };
 }
 
 const DIFF_MAP: Record<number, { label: string; bg: string; text: string }> = {
@@ -46,14 +83,13 @@ export default function AdvancedDictionaryPage() {
 
   const loadBrowse = useCallback(async (diff: number | null) => {
     let q = supabase
-      .from("hanja_tree_nodes")
-      .select("id,korean,hanja,vietnamese,pronunciation,root_char,root_meaning,category,difficulty,examples,related_words,memory_tip,audio_url")
-      .order("difficulty", { ascending: true })
-      .order("korean", { ascending: true })
-      .limit(30);
-    if (diff) q = q.eq("difficulty", diff);
+      .from("hanja_pro")
+      .select("id,hangul,hanja,meaning_vn,hanja_breakdown,examples,related_words,mnemonic")
+      .order("id", { ascending: true })
+      .limit(80);
     const { data } = await q;
-    setBrowseList((data as TreeNode[]) || []);
+    const mapped = ((data as HanjaProRow[]) || []).map(mapHanjaProRow);
+    setBrowseList(diff ? mapped.filter(item => item.difficulty === diff).slice(0, 30) : mapped.slice(0, 30));
   }, []);
 
   useEffect(() => { loadBrowse(diffFilter); }, [diffFilter, loadBrowse]);
@@ -62,11 +98,11 @@ export default function AdvancedDictionaryPage() {
     if (!val.trim()) { setSuggestions([]); setShowSuggestions(false); return; }
     setLoadingSugg(true);
     const { data } = await supabase
-      .from("hanja_tree_nodes")
-      .select("id,korean,hanja,vietnamese,pronunciation,difficulty")
-      .or(`korean.ilike.%${val}%,vietnamese.ilike.%${val}%,hanja.ilike.%${val}%,pronunciation.ilike.%${val}%`)
+      .from("hanja_pro")
+      .select("id,hangul,hanja,meaning_vn,hanja_breakdown,examples,related_words,mnemonic")
+      .or(`hangul.ilike.%${val}%,meaning_vn.ilike.%${val}%,hanja.ilike.%${val}%`)
       .limit(7);
-    setSuggestions((data as TreeNode[]) || []);
+    setSuggestions(((data as HanjaProRow[]) || []).map(mapHanjaProRow));
     setShowSuggestions(true);
     setLoadingSugg(false);
   }, []);
@@ -85,11 +121,11 @@ export default function AdvancedDictionaryPage() {
       setResult(node);
     } else {
       const { data } = await supabase
-        .from("hanja_tree_nodes")
-        .select("*")
+        .from("hanja_pro")
+        .select("id,hangul,hanja,meaning_vn,hanja_breakdown,examples,related_words,mnemonic")
         .eq("id", node.id)
         .single();
-      if (data) setResult(data as TreeNode);
+      if (data) setResult(mapHanjaProRow(data as HanjaProRow));
     }
     const updated = [node.korean, ...recentSearches.filter(r => r !== node.korean)].slice(0, 8);
     setRecentSearches(updated);
@@ -100,12 +136,12 @@ export default function AdvancedDictionaryPage() {
     if (!query.trim()) return;
     setShowSuggestions(false);
     const { data } = await supabase
-      .from("hanja_tree_nodes")
-      .select("*")
-      .or(`korean.eq.${query},vietnamese.ilike.%${query}%`)
+      .from("hanja_pro")
+      .select("id,hangul,hanja,meaning_vn,hanja_breakdown,examples,related_words,mnemonic")
+      .or(`hangul.eq.${query},hanja.eq.${query},meaning_vn.ilike.%${query}%`)
       .limit(1)
       .single();
-    if (data) { setResult(data as TreeNode); setActiveTab("meaning"); }
+    if (data) { setResult(mapHanjaProRow(data as HanjaProRow)); setActiveTab("meaning"); }
   };
 
   const speak = (text: string, node?: TreeNode) => {
