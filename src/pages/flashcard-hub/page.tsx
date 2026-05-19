@@ -28,7 +28,7 @@ const DECK_OPTIONS: DeckOption[] = [
     totalCards: 3501,
     learnedCards: 0,
     badge: "VIP",
-    description: "3.501 từ Hán Hàn với Hán tự, phát âm, nghĩa tiếng Việt. Học theo cây từ vựng.",
+    description: "3.501 từ Hán Hàn với Hán tự, phát âm, nghĩa tiếng Việt. Ôn tập bằng flashcard.",
   },
   {
     id: "eps",

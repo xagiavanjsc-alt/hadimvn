@@ -106,7 +106,7 @@ const GOAL_ROADMAPS: Record<Goal, { title: string; subtitle: string; icon: strin
     steps: [
       [
         { id: "hanja-intro", title: "Giới thiệu Hán Hàn", description: "Hiểu về từ gốc Hán trong tiếng Hàn và tầm quan trọng", icon: "ri-information-line", color: "app-accent-primary", path: "/hanja-detail", estimatedDays: 3 },
-        { id: "hanja-tree-basic", title: "Hình cây từ vựng", description: "Học từ theo cây — hiểu gốc từ để nhớ nhiều từ hơn", icon: "ri-git-merge-line", color: "#fb923c", path: "/hanja-tree", estimatedDays: 14 },
+        { id: "hanja-flashcard-basic", title: "Flashcard Hán Hàn", description: "Ôn tập từ Hán Hàn bằng thẻ lật để nhớ nhanh và lâu hơn", icon: "ri-stack-line", color: "#fb923c", path: "/hanja-flashcard", estimatedDays: 14 },
       ],
       [
         { id: "hanja-daily", title: "Học từ mới hôm nay", description: "Mỗi ngày học 8 từ mới — duy trì streak học tập", icon: "ri-sun-line", color: "#4ade80", path: "/daily-words", estimatedDays: 30, badge: "Hàng ngày" },

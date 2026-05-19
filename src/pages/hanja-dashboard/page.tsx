@@ -740,9 +740,9 @@ export default function HanjaDashboardPage() {
           <div className="lg:col-span-2 space-y-5">
             <div className="bg-app-card/50 border border-app-border rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-bold text-white/80">Tiến độ theo cây</h3>
-                <button onClick={() => navigate("/hanja-tree")} className="flex items-center gap-1.5 text-xs text-rose-400 hover:text-rose-300 cursor-pointer font-medium">
-                  Vào học <i className="ri-arrow-right-line"></i>
+                <h3 className="text-sm font-bold text-white/80">Tiến độ theo nhóm Hán tự</h3>
+                <button onClick={() => navigate("/hanja-flashcard")} className="flex items-center gap-1.5 text-xs text-rose-400 hover:text-rose-300 cursor-pointer font-medium">
+                  Ôn flashcard <i className="ri-arrow-right-line"></i>
                 </button>
               </div>
               {loading ? (
@@ -757,7 +757,7 @@ export default function HanjaDashboardPage() {
               ) : (
                 <div className="space-y-3">
                   {treeStats.map(t => (
-                    <button key={t.rootChar} onClick={() => navigate("/hanja-tree")}
+                    <button key={t.rootChar} onClick={() => navigate("/hanja-flashcard")}
                       className="w-full flex items-center gap-3 hover:bg-app-card/50 rounded-xl p-2 transition-all cursor-pointer text-left">
                       <div className="w-10 h-10 flex items-center justify-center bg-rose-500/20 rounded-xl text-lg font-bold text-rose-400 flex-shrink-0">{t.rootChar}</div>
                       <div className="flex-1 min-w-0">
@@ -817,7 +817,7 @@ export default function HanjaDashboardPage() {
             <div className="bg-app-card/50 border border-app-border rounded-2xl p-4 space-y-2">
               <h3 className="text-xs font-bold text-white/50 mb-3">Truy cập nhanh</h3>
               {[
-                { label: "Học theo cây", icon: "ri-git-merge-line", path: "/hanja-tree", color: "#f43f5e" },
+                { label: "Flashcard Hán Hàn", icon: "ri-stack-line", path: "/hanja-flashcard", color: "#f43f5e" },
                 { label: "Từ vựng Hán Hàn", icon: "ri-translate-2", path: "/hanja-vocab", color: "#a78bfa" },
                 { label: "Hán Hàn chi tiết", icon: "ri-character-recognition-line", path: "/hanja-detail", color: "#f59e0b" },
               ].map(a => (

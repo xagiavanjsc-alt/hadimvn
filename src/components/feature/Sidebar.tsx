@@ -103,7 +103,6 @@ const navGroups = [
     color: "app-accent-primary",
     items: [
       { path: "/hanja-detail", icon: "ri-character-recognition-line", label: "Hán Hàn Cơ Bản" },
-      { path: "/hanja-tree", icon: "ri-git-merge-line", label: "Hình cây từ vựng" },
       { path: "/hanja-flashcard", icon: "ri-stack-line", label: "Flashcard Hán Hàn" },
       { path: "/hanja-pro", icon: "ri-character-recognition-line", label: "Hán Hàn Chuyên Sâu" },
       { path: "/hanja-dashboard", icon: "ri-bar-chart-2-line", label: "Tiến độ & Streak" },

@@ -624,11 +624,11 @@ export default function DailyWordsPage() {
 
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
               <button
-                onClick={() => navigate("/hanja-tree")}
+                onClick={() => navigate("/hanja-flashcard")}
                 className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-app-card/50 text-white/60 text-sm font-medium cursor-pointer hover:bg-white/8 transition-all border border-app-border whitespace-nowrap"
               >
-                <i className="ri-git-merge-line" />
-                Xem hình cây từ vựng
+                <i className="ri-stack-line" />
+                Ôn flashcard Hán Hàn
               </button>
               {learnedCount > 0 && (
                 <button

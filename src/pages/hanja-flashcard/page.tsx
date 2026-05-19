@@ -173,7 +173,7 @@ export default function HanjaFlashcardPage() {
         {showStartScreen ? (
           <div className="max-w-4xl mx-auto py-8 px-4">
             <div className="mb-6">
-              <button onClick={() => navigate("/hanja-tree")} className="flex items-center gap-1.5 text-app-text-muted hover:text-white/70 cursor-pointer text-sm mb-4">
+              <button onClick={() => navigate("/hanja-pro")} className="flex items-center gap-1.5 text-app-text-muted hover:text-white/70 cursor-pointer text-sm mb-4">
                 <i className="ri-arrow-left-line"></i>Quay lại Hán Hàn
               </button>
               <h1 className="text-2xl font-bold text-white/90 mb-2">Flashcard Hán Hàn</h1>

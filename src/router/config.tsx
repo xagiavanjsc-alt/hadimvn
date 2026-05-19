@@ -319,7 +319,6 @@ const PodcastLearnPage = lazyPage(() => import("../pages/podcast-learn/page"));
 const GlobalLeaderboardPage = lazyPage(() => import("../pages/global-leaderboard/page"));
 const KoreanNewsPage = lazyPage(() => import("../pages/korean-news/page"));
 const HanjaDetailPage = lazyPage(() => import("../pages/hanja-detail/page"));
-const HanjaTreePage = lazyPage(() => import("../pages/hanja-tree/page"));
 const HanjaDashboardPage = lazyPage(() => import("../pages/hanja-dashboard/page"));
 const HanjaProPage = lazyPage(() => import("../pages/hanja-pro/page"));
 const HanjaProDetailPage = lazyPage(() => import("../pages/hanja-pro-detail/page"));
@@ -671,7 +670,6 @@ const routes: RouteObject[] = [
   { path: "/global-leaderboard", element: <GlobalLeaderboardPage /> },
   { path: "/korean-news", element: <KoreanNewsPage /> },
   { path: "/hanja-detail", element: <HanjaDetailPage /> },
-  { path: "/hanja-tree", element: <HanjaTreePage /> },
   { path: "/hanja-dashboard", element: <HanjaDashboardPage /> },
   { path: "/hanja-pro", element: <HanjaProPage /> },
   { path: "/hanja-pro/:slug", element: <HanjaProDetailPage /> },
