@@ -72,6 +72,7 @@ export default function HanjaFlashcardPage() {
   const [known, setKnown] = useState<Record<number, boolean>>(() => loadRecord(KNOWN_KEY));
   const [favorites, setFavorites] = useState<Record<number, boolean>>(() => loadRecord(FAV_KEY));
   const [filter, setFilter] = useState<"all" | "unknown" | "known" | "favorites">("all");
+  const [groupPage, setGroupPage] = useState(1);
   const [flashIdx, setFlashIdx] = useState(0);
   const [flashFlipped, setFlashFlipped] = useState(false);
   const [vipModal, setVipModal] = useState(false);
@@ -142,6 +143,22 @@ export default function HanjaFlashcardPage() {
     [charGroups, selectedChar]
   );
 
+  const filteredCharGroups = useMemo(() => charGroups.filter(group => {
+    return group.entries.some(entry => {
+      if (filter === "known") return known[entry.id];
+      if (filter === "unknown") return !known[entry.id];
+      if (filter === "favorites") return favorites[entry.id];
+      return true;
+    });
+  }), [charGroups, filter, known, favorites]);
+
+  const GROUP_PAGE_SIZE = 20;
+  const groupTotalPages = Math.ceil(filteredCharGroups.length / GROUP_PAGE_SIZE);
+  const paginatedCharGroups = useMemo(
+    () => filteredCharGroups.slice((groupPage - 1) * GROUP_PAGE_SIZE, groupPage * GROUP_PAGE_SIZE),
+    [filteredCharGroups, groupPage]
+  );
+
   const currentEntries = useMemo(() => {
     const base = currentGroup?.entries || [];
     if (filter === "known") return base.filter(entry => known[entry.id]);
@@ -149,6 +166,14 @@ export default function HanjaFlashcardPage() {
     if (filter === "favorites") return base.filter(entry => favorites[entry.id]);
     return base;
   }, [currentGroup, filter, known, favorites]);
+
+  useEffect(() => {
+    setGroupPage(1);
+  }, [filter]);
+
+  useEffect(() => {
+    if (groupPage > groupTotalPages) setGroupPage(Math.max(groupTotalPages, 1));
+  }, [groupPage, groupTotalPages]);
 
   const toggleKnown = useCallback((id: number) => {
     setKnown(prev => {
@@ -263,13 +288,14 @@ export default function HanjaFlashcardPage() {
                   ))}
                 </div>
 
-                {charGroups.length === 0 ? (
+                {filteredCharGroups.length === 0 ? (
                   <div className="text-center py-12 text-app-text-muted">
                     <p className="text-sm">Chưa có dữ liệu</p>
                   </div>
                 ) : (
+                  <>
                   <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                    {charGroups.map(group => {
+                    {paginatedCharGroups.map(group => {
                       const filteredCount = group.entries.filter(entry => {
                         if (filter === "known") return known[entry.id];
                         if (filter === "unknown") return !known[entry.id];
@@ -305,6 +331,41 @@ export default function HanjaFlashcardPage() {
                       );
                     })}
                   </div>
+
+                  {groupTotalPages > 1 && (
+                    <div className="flex items-center justify-center gap-2 mt-6">
+                      <button
+                        onClick={() => setGroupPage(prev => Math.max(1, prev - 1))}
+                        disabled={groupPage === 1}
+                        className="px-3 py-2 bg-app-card/40 hover:bg-app-card/60 disabled:opacity-30 text-white rounded-xl text-sm cursor-pointer"
+                      >
+                        <i className="ri-arrow-left-s-line"></i>
+                      </button>
+                      {Array.from({ length: Math.min(groupTotalPages, 5) }, (_, i) => {
+                        const p = groupTotalPages <= 5 ? i + 1 : groupPage <= 3 ? i + 1 : groupPage >= groupTotalPages - 2 ? groupTotalPages - 4 + i : groupPage - 2 + i;
+                        return (
+                          <button
+                            key={p}
+                            onClick={() => setGroupPage(p)}
+                            className={`px-3 py-2 rounded-xl text-sm font-medium cursor-pointer ${
+                              groupPage === p ? "bg-rose-400 text-app-bg" : "bg-app-card/40 hover:bg-app-card/60 text-white/70"
+                            }`}
+                          >
+                            {p}
+                          </button>
+                        );
+                      })}
+                      <button
+                        onClick={() => setGroupPage(prev => Math.min(groupTotalPages, prev + 1))}
+                        disabled={groupPage === groupTotalPages}
+                        className="px-3 py-2 bg-app-card/40 hover:bg-app-card/60 disabled:opacity-30 text-white rounded-xl text-sm cursor-pointer"
+                      >
+                        <i className="ri-arrow-right-s-line"></i>
+                      </button>
+                      <span className="text-app-text-muted text-sm ml-2">Trang {groupPage}/{groupTotalPages}</span>
+                    </div>
+                  )}
+                  </>
                 )}
               </>
             )}
