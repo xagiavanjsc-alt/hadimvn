@@ -437,7 +437,7 @@ export default function HanjaFlashcardPage() {
                   {card.examples?.length ? (
                     <div className="mb-4">
                       <p className="text-xs text-app-text-muted font-semibold mb-2">Ví dụ</p>
-                      {card.examples.slice(0, 3).map((example, index) => (
+                      {card.examples.slice(0, 6).map((example, index) => (
                         <div key={index} className="mb-2">
                           <div className="flex items-start gap-2">
                             <p className="text-sm text-white/70 flex-1">{example.ko}</p>
