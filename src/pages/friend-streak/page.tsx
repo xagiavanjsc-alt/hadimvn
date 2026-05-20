@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
+import { getStreakData } from "@/utils/streak";
 
 interface FriendStreak {
   id: string;
@@ -46,7 +47,7 @@ function StreakFlame({ count }: { count: number }) {
 
 export default function FriendStreakPage() {
   const { user } = useAuth();
-  const [myStreak] = useLocalStorage<{ count: number }>("kts_streak", { count: 0 });
+  const myStreak = getStreakData();
   const [myXP] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
   const [leaderboard, setLeaderboard] = useState<FriendStreak[]>([]);
   const [loading, setLoading] = useState(true);
@@ -105,7 +106,7 @@ export default function FriendStreakPage() {
   const myRank = sorted.findIndex(f => f.id === user?.id) + 1;
 
   const shareChallenge = () => {
-    const text = `Tôi đang có streak ${myStreak.count} ngày học tiếng Hàn liên tiếp trên Hàn Quốc Ơi! Bạn có dám thách đấu không? 🔥`;
+    const text = `Tôi đang có streak ${myStreak.currentStreak} ngày học tiếng Hàn liên tiếp trên Hàn Quốc Ơi! Bạn có dám thách đấu không? 🔥`;
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -136,7 +137,7 @@ export default function FriendStreakPage() {
               <div className="flex-1">
                 <p className="text-app-text-secondary text-xs mb-1">Streak của bạn</p>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-white font-black text-3xl">{myStreak.count}</span>
+                  <span className="text-white font-black text-3xl">{myStreak.currentStreak}</span>
                   <span className="text-app-text-secondary text-sm">ngày liên tiếp</span>
                 </div>
                 {myRank > 0 && (
@@ -242,7 +243,7 @@ export default function FriendStreakPage() {
                 { days: 30, icon: "ri-fire-fill", color: "#ef4444", label: "Một tháng", desc: "30 ngày liên tiếp" },
                 { days: 100, icon: "ri-vip-crown-fill", color: "#FFD700", label: "Huyền thoại", desc: "100 ngày liên tiếp" },
               ].map(m => {
-                const achieved = myStreak.count >= m.days;
+                const achieved = myStreak.currentStreak >= m.days;
                 return (
                   <div key={m.days} className={`flex items-center gap-3 p-2.5 rounded-xl transition-all ${achieved ? "bg-app-surface/50" : "opacity-40"}`}>
                     <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${m.color}15` }}>

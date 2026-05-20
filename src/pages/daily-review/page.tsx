@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { grammarPatterns } from "@/mocks/grammarData";
 import { vocabularyData } from "@/mocks/vocabularyData";
+import { getStreakData, recordActivity } from "@/utils/streak";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type QuestionType = "vocab_meaning" | "vocab_korean" | "grammar_choose" | "grammar_fill";
@@ -334,7 +335,7 @@ function ResultScreen({
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function DailyReviewPage() {
   const [session, setSession] = useLocalStorage<DailySession | null>("kts_daily_review_session", null);
-  const [streak, setStreak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
+  const streak = getStreakData();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [showResult, setShowResult] = useState(false);
@@ -388,14 +389,8 @@ export default function DailyReviewPage() {
       const updatedSession = { ...session!, answers, completed: true, score: correct };
       setSession(updatedSession);
 
-      // Update streak
-      const yesterday = new Date();
-      yesterday.setDate(yesterday.getDate() - 1);
-      const yesterdayKey = yesterday.toISOString().slice(0, 10);
-      const newCount = streak.lastDate === yesterdayKey || streak.lastDate === todayKey
-        ? (streak.lastDate === todayKey ? streak.count : streak.count + 1)
-        : 1;
-      setStreak({ count: newCount, lastDate: todayKey });
+      // Update streak using centralized function
+      recordActivity(1);
 
       // Save history
       setHistory(prev => [{ date: todayKey, score: correct, total: questions.length }, ...prev.slice(0, 29)]);
@@ -403,7 +398,7 @@ export default function DailyReviewPage() {
     } else {
       setCurrentIndex(i => i + 1);
     }
-  }, [isLastQuestion, questions, answers, session, streak, todayKey]);
+  }, [isLastQuestion, questions, answers, session, todayKey]);
 
   const handleRestart = useCallback(() => {
     const newQuestions = generateDailyQuestions();
@@ -451,7 +446,7 @@ export default function DailyReviewPage() {
               questions={questions}
               answers={answers}
               onRestart={handleRestart}
-              streak={streak.count}
+              streak={streak.currentStreak}
             />
           ) : (
             <div className="space-y-5">
@@ -527,14 +522,14 @@ export default function DailyReviewPage() {
                 <i className="ri-fire-line text-[#fb923c] text-xl"></i>
               </div>
               <div>
-                <p className="text-white font-bold text-xl">{streak.count} ngày</p>
+                <p className="text-white font-bold text-xl">{streak.currentStreak} ngày</p>
                 <p className="text-app-text-secondary text-xs">Streak hiện tại</p>
               </div>
             </div>
             <p className="text-app-text-secondary text-xs leading-relaxed">
-              {streak.count >= 30
+              {streak.currentStreak >= 30
                 ? "Top 5% cộng đồng! Bạn thật xuất sắc!"
-                : streak.count >= 7
+                : streak.currentStreak >= 7
                   ? "Đang tiến bộ tốt — tiếp tục nhé!"
                   : "Học mỗi ngày để duy trì streak!"}
             </p>

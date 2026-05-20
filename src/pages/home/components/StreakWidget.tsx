@@ -1,31 +1,10 @@
-﻿import { useEffect, useMemo } from "react";
+﻿import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
-
-interface StreakData {
-  count: number;
-  lastDate: string;
-  history: string[];
-}
+import { getStreakData } from "@/utils/streak";
 
 export default function StreakWidget() {
   const navigate = useNavigate();
-  const [streak, setStreak] = useLocalStorage<StreakData>("kts_streak", {
-    count: 0,
-    lastDate: "",
-    history: [],
-  });
-
-  useEffect(() => {
-    const today = new Date().toISOString().split("T")[0];
-    if (streak.lastDate === today) return;
-    const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
-    const newCount = streak.lastDate === yesterday ? streak.count + 1 : 1;
-    const newHistory = [...(streak.history || []).slice(-29), today];
-    setStreak({ count: newCount, lastDate: today, history: newHistory });
-    // Intentionally empty deps - should only run on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const streak = getStreakData();
 
   const last7 = useMemo(() => {
     const days = [];
@@ -34,26 +13,26 @@ export default function StreakWidget() {
       d.setDate(d.getDate() - i);
       const dateStr = d.toISOString().split("T")[0];
       const label = d.toLocaleDateString("vi-VN", { weekday: "short" });
-      const active = (streak.history || []).includes(dateStr);
+      const active = (streak.history && streak.history[dateStr] > 0);
       days.push({ dateStr, label, active });
     }
     return days;
   }, [streak.history]);
 
   const milestones = [3, 7, 14, 30, 60, 100];
-  const nextMilestone = milestones.find((m) => m > streak.count) || 100;
-  const prevMilestone = milestones.filter((m) => m <= streak.count).pop() || 0;
+  const nextMilestone = milestones.find((m) => m > streak.currentStreak) || 100;
+  const prevMilestone = milestones.filter((m) => m <= streak.currentStreak).pop() || 0;
   const milestoneProgress =
     nextMilestone > prevMilestone
-      ? Math.min(100, ((streak.count - prevMilestone) / (nextMilestone - prevMilestone)) * 100)
+      ? Math.min(100, ((streak.currentStreak - prevMilestone) / (nextMilestone - prevMilestone)) * 100)
       : 100;
 
   const streakColor =
-    streak.count >= 30
+    streak.currentStreak >= 30
       ? "#f87171"
-      : streak.count >= 14
+      : streak.currentStreak >= 14
       ? "#fb923c"
-      : streak.count >= 7
+      : streak.currentStreak >= 7
       ? "app-accent-primary"
       : "#fb923c";
 
@@ -73,7 +52,7 @@ export default function StreakWidget() {
             </p>
             <div className="flex items-baseline gap-1.5">
               <p className="text-4xl font-bold" style={{ color: streakColor }}>
-                {streak.count}
+                {streak.currentStreak}
               </p>
               <p className="text-app-text-secondary text-sm">ngày liên tiếp</p>
             </div>
@@ -115,7 +94,7 @@ export default function StreakWidget() {
             <span className="text-app-accent-primary">{nextMilestone} ngày</span>
           </p>
           <p className="text-app-text-muted text-[10px]">
-            {streak.count}/{nextMilestone}
+            {streak.currentStreak}/{nextMilestone}
           </p>
         </div>
         <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
@@ -126,7 +105,7 @@ export default function StreakWidget() {
         </div>
       </div>
 
-      {streak.count === 0 && (
+      {streak.currentStreak === 0 && (
         <p className="text-app-text-muted text-xs mt-3 text-center">
           Học bài hôm nay để bắt đầu streak!
         </p>

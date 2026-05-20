@@ -6,6 +6,7 @@ import { useXPSystem } from "@/hooks/useXPSystem";
 import { useAuth } from "@/hooks/useAuth";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import { epsVocabulary } from "@/mocks/epsVocabulary";
+import { getStreakData } from "@/utils/streak";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface FeedItem {
@@ -108,7 +109,7 @@ export default function StudyFeedPage() {
   const navigate = useNavigate();
   const { user, profile } = useAuth();
   const { totalXP, currentRank, xpHistory } = useXPSystem();
-  const [streak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
+  const streak = getStreakData();
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
   const [masteredIds] = useLocalStorage<string[]>("kts_eps_vocab_mastered", []);
   const [flashcardKnownMap] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
@@ -131,30 +132,29 @@ export default function StudyFeedPage() {
     const items: { title: string; desc: string; path: string; icon: string; color: string; reason: string }[] = [];
     if (epsDone < 50) items.push({ title: "Luyện thi EPS theo chủ đề", desc: "Bạn chưa làm nhiều câu EPS. Bắt đầu với chủ đề An toàn lao động!", path: "/eps-topic-drill", icon: "ri-focus-3-line", color: "#34d399", reason: `Mới làm ${epsDone} câu` });
     if (vocabMastered < 30) items.push({ title: "Flashcard EPS theo chủ đề", desc: "Học từ vựng theo chủ đề Y tế và Giao thông — quan trọng cho kỳ thi!", path: "/eps-vocab-flashcard", icon: "ri-stack-line", color: "app-accent-primary", reason: `Mới thuộc ${vocabMastered} từ` });
-    if (streak.count < 7) items.push({ title: "Duy trì streak hàng ngày", desc: `Streak hiện tại: ${streak.count} ngày. Học thêm hôm nay để giữ streak!`, path: "/daily-review", icon: "ri-fire-line", color: "#fb923c", reason: "Streak chưa đủ 7 ngày" });
+    if (streak.currentStreak < 7) items.push({ title: "Duy trì streak hàng ngày", desc: `Streak hiện tại: ${streak.currentStreak} ngày. Học thêm hôm nay để giữ streak!`, path: "/daily-review", icon: "ri-fire-line", color: "#fb923c", reason: "Streak chưa đủ 7 ngày" });
     if (epsAccuracy < 70 && epsDone > 10) items.push({ title: "Ôn lại câu sai EPS", desc: `Độ chính xác ${epsAccuracy}% — cần ôn lại các câu sai để cải thiện!`, path: "/study-history", icon: "ri-refresh-line", color: "#f472b6", reason: `Độ chính xác ${epsAccuracy}%` });
     if (flashcardKnown < 20) items.push({ title: "Flashcard từ vựng tổng hợp", desc: "Học từ vựng qua flashcard — cách nhanh nhất để mở rộng vốn từ!", path: "/flashcard", icon: "ri-translate-2", color: "#a78bfa", reason: "Chưa học nhiều từ vựng" });
     items.push({ title: "Thi thử EPS đầy đủ (40 câu)", desc: "Kiểm tra trình độ thực tế với bài thi mô phỏng 40 câu trong 50 phút.", path: "/eps-exam", icon: "ri-timer-line", color: "#06b6d4", reason: "Luyện thi thực tế" });
     return items.slice(0, 4);
-  }, [epsDone, vocabMastered, streak.count, epsAccuracy, flashcardKnown]);
+  }, [epsDone, vocabMastered, streak.currentStreak, epsAccuracy, flashcardKnown]);
 
   // Build feed items
   const allFeedItems = useMemo<FeedItem[]>(() => {
     const items: FeedItem[] = [];
 
     // Streak status
-    if (streak.count > 0) {
+    if (streak.currentStreak > 0) {
       items.push({
         id: "streak-status",
         type: "streak",
-        title: `🔥 Streak ${streak.count} ngày — Đừng để mất!`,
-        body: streak.count >= 7 ? `Tuyệt vời! Bạn đang có streak ${streak.count} ngày liên tiếp. Tiếp tục học hôm nay để duy trì!` : `Bạn đang có streak ${streak.count} ngày. Cần ${7 - streak.count} ngày nữa để nhận bonus 50 XP!`,
+        title: `🔥 Streak ${streak.currentStreak} ngày — Đừng để mất!`,
+        body: streak.currentStreak >= 7 ? `Tuyệt vời! Bạn đang có streak ${streak.currentStreak} ngày liên tiếp. Tiếp tục học hôm nay để duy trì!` : `Bạn đang có streak ${streak.currentStreak} ngày. Cần ${7 - streak.currentStreak} ngày nữa để nhận bonus 50 XP!`,
         icon: "ri-fire-fill",
         color: "#fb923c",
-        action: { label: "Học ngay hôm nay", path: "/daily-review" },
         time: "Hôm nay",
         pinned: true,
-        xp: streak.count >= 7 ? 50 : undefined,
+        xp: streak.currentStreak >= 7 ? 50 : undefined,
       });
     }
 
@@ -273,12 +273,12 @@ export default function StudyFeedPage() {
             <p className="text-app-accent-primary/70 text-xs font-semibold tracking-normal mb-1">{getGreeting()}</p>
             <h2 className="text-white font-bold text-2xl mb-1">{displayName}!</h2>
             <p className="text-app-text-secondary text-sm">
-              Cấp <span style={{ color: currentRank.color }} className="font-semibold">{currentRank.name}</span> · {totalXP.toLocaleString()} XP · Streak {streak.count} ngày
+              Cấp <span style={{ color: currentRank.color }} className="font-semibold">{currentRank.name}</span> · {totalXP.toLocaleString()} XP · Streak {streak.currentStreak} ngày
             </p>
           </div>
           <div className="flex items-center gap-6">
             <DailyProgressRing value={todayXP} max={100} label="XP hôm nay" color="app-accent-primary" />
-            <DailyProgressRing value={streak.count} max={30} label="Streak" color="#fb923c" />
+            <DailyProgressRing value={streak.currentStreak} max={30} label="Streak" color="#fb923c" />
             <DailyProgressRing value={epsAccuracy} max={100} label="EPS chính xác" color="#34d399" />
           </div>
         </div>
@@ -383,7 +383,7 @@ export default function StudyFeedPage() {
               {[
                 { label: "Học 10 flashcard", done: vocabMastered > 0, icon: "ri-stack-line" },
                 { label: "Làm 20 câu EPS", done: epsDone >= 20, icon: "ri-file-list-3-line" },
-                { label: "Duy trì streak", done: streak.lastDate === today, icon: "ri-fire-line" },
+                { label: "Duy trì streak", done: streak.lastStudyDate === today, icon: "ri-fire-line" },
                 { label: "Kiếm 50 XP", done: todayXP >= 50, icon: "ri-star-line" },
               ].map((g, i) => (
                 <div key={i} className="flex items-center gap-2.5">

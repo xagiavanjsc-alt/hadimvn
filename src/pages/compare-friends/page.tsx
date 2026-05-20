@@ -5,6 +5,7 @@ import { useXPSystem } from "@/hooks/useXPSystem";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import { RANKS } from "@/data/ranks";
 import { supabase } from "@/lib/supabase";
+import { getStreakData } from "@/utils/streak";
 
 function getRankForXP(xp: number) {
   return [...RANKS].reverse().find(r => xp >= r.minXP) || RANKS[0];
@@ -81,7 +82,7 @@ export default function CompareFriendsPage() {
   const [savedFriends, setSavedFriends] = useLocalStorage<FriendData[]>("kts_saved_friends", []);
 
   const { totalXP, currentRank } = useXPSystem();
-  const [streak] = useLocalStorage<{ count: number }>("kts_streak", { count: 0 });
+  const streak = getStreakData();
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
   const [flashcardProgress] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
   const [earnedBadgeIds] = useLocalStorage<string[]>("kts_earned_badges", []);
@@ -95,7 +96,7 @@ export default function CompareFriendsPage() {
     id: "me",
     name: "Bạn",
     xp: totalXP,
-    streak: streak.count,
+    streak: streak.currentStreak,
     epsAccuracy,
     epsDone,
     flashcardKnown,

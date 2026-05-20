@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsQuestions } from "@/mocks/epsQuestions";
+import { getStreakData } from "@/utils/streak";
 
 interface ExamResult { id: string; date: string; score: number; total: number; timeUsed: number; correctIds: string[] }
 
@@ -17,7 +18,7 @@ function MiniBar({ value, max, color }: { value: number; max: number; color: str
 
 export default function LearnStatsPage() {
   const navigate = useNavigate();
-  const [streak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
+  const streak = getStreakData();
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
   const [flashcardKnown] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
   const [hangulKnown] = useLocalStorage<Record<string, boolean>>("kts_hangul_known", {});
@@ -101,7 +102,7 @@ export default function LearnStatsPage() {
     score += Math.min(hangulCount * 3, 120);
     score += Math.min(examResults.length * 20, 200);
     score += Math.min(quizHistory.length * 10, 100);
-    score += Math.min(streak.count * 15, 150);
+    score += Math.min(streak.currentStreak * 15, 150);
     score += Math.min(newsLessons.length * 10, 100);
     return score;
   }, [epsDone, epsCorrect, knownCount, hangulCount, examResults, quizHistory, streak, newsLessons]);
@@ -150,7 +151,7 @@ export default function LearnStatsPage() {
           </div>
           <div className="grid grid-cols-2 gap-3 flex-shrink-0">
             {[
-              { label: "Streak", value: `${streak.count}d`, color: "#fb923c" },
+              { label: "Streak", value: `${streak.currentStreak}d`, color: "#fb923c" },
               { label: "EPS đúng", value: `${epsAccuracy}%`, color: "#34d399" },
               { label: "Thi cao nhất", value: bestExam > 0 ? `${bestExam}%` : "—", color: "app-accent-primary" },
               { label: "TB Quiz", value: avgQuiz > 0 ? `${avgQuiz}%` : "—", color: "#a78bfa" },

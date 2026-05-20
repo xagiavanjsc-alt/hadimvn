@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { RANKS, BADGES } from "@/data/ranks";
+import { getStreakData } from "@/utils/streak";
 
 // Re-export for backward compatibility
 export { RANKS, BADGES };
@@ -185,7 +186,7 @@ function LeaderboardRow({ entry, isMe }: { entry: typeof MOCK_LEADERBOARD[0]; is
 export default function CommunityRanksPage() {
   const [activeTab, setActiveTab] = useState<"ranks" | "badges" | "leaderboard">("ranks");
   const [badgeCategory, setBadgeCategory] = useState("all");
-  const [streak] = useLocalStorage<{ count: number }>("kts_streak", { count: 0 });
+  const streak = getStreakData();
   const [xpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
   const { user, profile } = useAuth();
 
@@ -195,11 +196,11 @@ export default function CommunityRanksPage() {
   // Determine earned badges based on local data
   const earnedBadgeIds = useMemo(() => {
     const earned: string[] = [];
-    if (streak.count >= 7) earned.push("streak7");
-    if (streak.count >= 30) earned.push("streak30");
-    if (streak.count >= 100) earned.push("streak100");
+    if (streak.currentStreak >= 7) earned.push("streak7");
+    if (streak.currentStreak >= 30) earned.push("streak30");
+    if (streak.currentStreak >= 100) earned.push("streak100");
     return earned;
-  }, [streak.count]);
+  }, [streak.currentStreak]);
 
   const filteredBadges = useMemo(() => {
     if (badgeCategory === "all") return BADGES;
@@ -239,7 +240,7 @@ export default function CommunityRanksPage() {
                 </div>
                 <div className="flex items-center gap-4 text-sm">
                   <span className="text-white/60"><i className="ri-star-line text-app-accent-primary mr-1"></i>{userXP.toLocaleString()} XP</span>
-                  <span className="text-app-text-secondary"><i className="ri-fire-line text-[#fb923c] mr-1"></i>{streak.count} ngày streak</span>
+                  <span className="text-app-text-secondary"><i className="ri-fire-line text-[#fb923c] mr-1"></i>{streak.currentStreak} ngày streak</span>
                   <span className="text-app-text-secondary"><i className="ri-medal-line text-[#a78bfa] mr-1"></i>{earnedBadgeIds.length} huy hiệu</span>
                 </div>
                 {nextRank && (

@@ -176,7 +176,7 @@ export function useStudySync() {
 
   const updateLeaderboard = useCallback(async (userId: string, _displayName: string) => {
     try {
-      const streak = JSON.parse(localStorage.getItem("kts_streak") || '{"count":0}');
+      const streak = getStreakData();
       const flashcardKnown = JSON.parse(localStorage.getItem("kts_flashcard_known") || "{}");
       const examResults = JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]");
       // Local granular XP total (from every awardXP/addXP call) — source of truth

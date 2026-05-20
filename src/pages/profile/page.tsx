@@ -8,6 +8,7 @@ import { isVipActive, supabase } from "@/lib/supabase";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import ShareResultCard from "@/components/feature/ShareResultCard";
+import { getStreakData } from "@/utils/streak";
 
 interface ExamResult {
   id: string;
@@ -80,7 +81,7 @@ export default function ProfilePage() {
     if (user) refreshProfile();
   }, [user, refreshProfile]);
 
-  const [streak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
+  const streak = getStreakData();
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
   const [flashcardProgress] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
   const [hangulProgress] = useLocalStorage<Record<string, boolean>>("kts_hangul_known", {});
@@ -234,8 +235,8 @@ export default function ProfilePage() {
   const earnedBadges = useMemo(() => {
     const earned: string[] = [];
     if (epsDone > 0) earned.push("first_eps");
-    if (streak.count >= 7) earned.push("streak_7");
-    if (streak.count >= 30) earned.push("streak_30");
+    if (streak.currentStreak >= 7) earned.push("streak_7");
+    if (streak.currentStreak >= 30) earned.push("streak_30");
     if (hangulKnown >= 30) earned.push("hangul_done");
     if (flashcardKnown >= 50) earned.push("flashcard_50");
     if (bestExam && Math.round((bestExam.score / bestExam.total) * 100) >= 80) earned.push("eps_80");
@@ -262,7 +263,7 @@ export default function ProfilePage() {
       const d = new Date();
       d.setDate(d.getDate() - (6 - i));
       const dayName = days[d.getDay()];
-      const isActive = i >= 7 - streak.count;
+      const isActive = i >= 7 - streak.currentStreak;
       return { day: dayName, active: isActive };
     });
   }, [streak]);
@@ -431,7 +432,7 @@ export default function ProfilePage() {
             <div className="flex items-center gap-3 mt-2 flex-wrap">
               <span className="flex items-center gap-1.5 text-[#fb923c] text-xs font-semibold">
                 <i className="ri-fire-line"></i>
-                {streak.count} ngày streak
+                {streak.currentStreak} ngày streak
               </span>
               <span className="text-app-text-muted">·</span>
               <span className="flex items-center gap-1.5 text-xs font-semibold" style={{ color: topikLevel.color }}>
@@ -1043,7 +1044,7 @@ export default function ProfilePage() {
       {showShareCard && (
         <ShareResultCard
           type="streak"
-          streakCount={streak.count}
+          streakCount={streak.currentStreak}
           displayName={displayName}
           onClose={() => setShowShareCard(false)}
         />

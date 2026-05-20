@@ -1,6 +1,7 @@
 ﻿import { useState, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { getStreakData } from "@/utils/streak";
 
 interface Certificate {
   id: string;
@@ -18,12 +19,12 @@ interface Certificate {
 
 function useCertificateData() {
   const [xpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
-  const [streak] = useLocalStorage<{ count: number }>("kts_streak", { count: 0 });
+  const streak = getStreakData();
   const [epsHistory] = useLocalStorage<Array<{ score: number; total: number }>>("kts_eps_exam_history", []);
   const [vocabProgress] = useLocalStorage<Record<string, { known: boolean }>>("kts_vocab_progress", {});
 
   const totalXP = xpData.total || 0;
-  const streakCount = streak.count || 0;
+  const streakCount = streak.currentStreak || 0;
   const bestEpsScore = epsHistory.length > 0 ? Math.max(...epsHistory.map(h => Math.round((h.score / h.total) * 100))) : 0;
   const knownVocab = Object.values(vocabProgress).filter(v => v.known).length;
 

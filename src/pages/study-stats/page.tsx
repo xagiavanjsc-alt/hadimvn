@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsQuestions } from "@/mocks/epsQuestions";
+import { getStreakData } from "@/utils/streak";
 
 interface DayStats {
   date: string;
@@ -136,10 +137,7 @@ function CompareBar({
 
 export default function StudyStatsPage() {
   const navigate = useNavigate();
-  const [streak] = useLocalStorage<{ count: number; lastDate: string; history: string[] }>(
-    "kts_streak",
-    { count: 0, lastDate: "", history: [] }
-  );
+  const streak = getStreakData();
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
   const [flashcardKnown] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
   const [learnedIds] = useLocalStorage<Record<string, string[]>>("kts_daily_learned", {});
@@ -188,7 +186,7 @@ export default function StudyStatsPage() {
       const d = new Date();
       d.setDate(d.getDate() - i);
       const dateStr = d.toISOString().split("T")[0];
-      const active = (streak.history || []).includes(dateStr) || learnedIds[dateStr]?.length > 0;
+      const active = (streak.history && streak.history[dateStr] > 0) || learnedIds[dateStr]?.length > 0;
       days.push({ date: dateStr, active });
     }
     return days;
@@ -210,7 +208,7 @@ export default function StudyStatsPage() {
               color: "#fb923c",
               bg: "rgba(251,146,60,0.1)",
               label: "Streak hiện tại",
-              value: `${streak.count}`,
+              value: `${streak.currentStreak}`,
               unit: "ngày",
             },
             {
@@ -394,7 +392,7 @@ export default function StudyStatsPage() {
                 </div>
                 <div>
                   <p className="text-white font-bold text-xl">
-                    {streak.count}{" "}
+                    {streak.currentStreak}{" "}
                     <span className="text-app-text-secondary text-sm font-normal">ngày liên tiếp</span>
                   </p>
                   <p className="text-app-text-muted text-xs">

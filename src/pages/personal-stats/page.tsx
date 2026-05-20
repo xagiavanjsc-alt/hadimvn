@@ -4,6 +4,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { useAuth } from "@/hooks/useAuth";
+import { getStreakData } from "@/utils/streak";
 
 interface XPEntry {
   date: string;
@@ -478,7 +479,7 @@ export default function PersonalStatsPage() {
   const [period, setPeriod] = useState<Period>("week");
   const [xpLog] = useLocalStorage<XPEntry[]>("kts_xp_log", []);
   const [examResults] = useLocalStorage<ExamResult[]>("kts_eps_exam_history", []);
-  const [streak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
+  const streak = getStreakData();
   const [flashcardProgress] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
 
   // Generate date range
@@ -573,7 +574,7 @@ export default function PersonalStatsPage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
             { icon: "ri-flashlight-line", color: "app-accent-primary", bg: "bg-app-accent-primary/10", label: "Tổng XP", value: totalXP.toLocaleString(), sub: `Hạng ${currentRank.name}` },
-            { icon: "ri-fire-line", color: "#fb923c", bg: "bg-[#fb923c]/10", label: "Streak hiện tại", value: `${streak.count} ngày`, sub: "Liên tiếp" },
+            { icon: "ri-fire-line", color: "#fb923c", bg: "bg-[#fb923c]/10", label: "Streak hiện tại", value: `${streak.currentStreak} ngày`, sub: "Liên tiếp" },
             { icon: "ri-file-list-3-line", color: "#34d399", bg: "bg-emerald-500/10", label: "Lần thi EPS", value: examResults.length, sub: `TB ${avgExamScore}%` },
             { icon: "ri-stack-line", color: "#a78bfa", bg: "bg-[#a78bfa]/10", label: "Từ đã thuộc", value: Object.values(flashcardProgress).filter(Boolean).length, sub: "Qua Flashcard" },
           ].map(s => (
@@ -776,7 +777,7 @@ export default function PersonalStatsPage() {
             {/* Streak stats */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
-                { label: "Streak hiện tại", value: `${streak.count} ngày`, color: "#fb923c", icon: "ri-fire-line" },
+                { label: "Streak hiện tại", value: `${streak.currentStreak} ngày`, color: "#fb923c", icon: "ri-fire-line" },
                 { label: "Tổng ngày học", value: new Set(xpLog.map(e => e.date?.split("T")[0]).filter(Boolean)).size, color: "#34d399", icon: "ri-calendar-check-line" },
                 { label: "Tháng này", value: xpLog.filter(e => e.date?.startsWith(new Date().toISOString().slice(0, 7))).length > 0
                   ? new Set(xpLog.filter(e => e.date?.startsWith(new Date().toISOString().slice(0, 7))).map(e => e.date?.split("T")[0])).size

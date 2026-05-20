@@ -1,0 +1,695 @@
+=== fill_tree_complete: Bo sung examples + memory_tip + related_words + meaning_detail ===
+So tu can bo sung: 652
+  [4/652 1%] ✅=4 ❌=0 | 중동...
+  [8/652 1%] ✅=8 ❌=0 | 백만...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [12/652 2%] ✅=12 ❌=0 | 감격...
+  [16/652 2%] ✅=16 ❌=0 | 내진...
+  [20/652 3%] ✅=20 ❌=0 | 배포...
+  [24/652 4%] ✅=24 ❌=0 | 방화...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [28/652 4%] ✅=28 ❌=0 | 급성...
+  [32/652 5%] ✅=32 ❌=0 | 목숨...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [36/652 6%] ✅=36 ❌=0 | 벌채...
+  [40/652 6%] ✅=40 ❌=0 | 동정...
+  [44/652 7%] ✅=44 ❌=0 | 박람회...
+  [48/652 7%] ✅=48 ❌=0 | 감동...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [52/652 8%] ✅=52 ❌=0 | 중력...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "관용은 중요한 덕목입니다.",
+        "vietnamese": "Khoan dung là một đức tính quan trọng.",
+        "pronunciation": "gwan-yong-eun jung-yo-han deok-mok-im-ni-d
+  Key 2/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [56/652 9%] ✅=56 ❌=0 | 관용...
+  [60/652 9%] ✅=60 ❌=0 | 공룡...
+  [64/652 10%] ✅=64 ❌=0 | 종교...
+  [68/652 10%] ✅=68 ❌=0 | 중간...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [72/652 11%] ✅=72 ❌=0 | 백기...
+  [76/652 12%] ✅=76 ❌=0 | 중심...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그 팀은 결승전에서 대패를 당했다.",
+        "vietnamese": "Đội đó đã bị đại bại trong trận chung kết.",
+        "pronunciation": "대패 (dae-pae)"
+      },
+      {
+  
+  [80/652 12%] ✅=80 ❌=0 | 대패...
+  [84/652 13%] ✅=84 ❌=0 | 무정부...
+  [88/652 13%] ✅=88 ❌=0 | 직무...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그녀는 마을에서 제일 가는 미녀입니다.",
+        "vietnamese": "Cô ấy là người đẹp nhất làng.",
+        "pronunciation": "mi-nyeo"
+      },
+      {
+        "korean": 
+  [92/652 14%] ✅=92 ❌=0 | 미녀...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [96/652 15%] ✅=96 ❌=0 | 무선...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "문제가 생기면 어떻게 대처해야 할까요?",
+        "vietnamese": "Nếu xảy ra vấn đề thì nên đối phó thế nào?",
+        "pronunciation": "munje-ga saenggimyeon eotteoke 
+  [100/652 15%] ✅=100 ❌=0 | 대처...
+  [104/652 16%] ✅=104 ❌=0 | 농담...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그는 항상 겸손한 태도로 사람들을 대한다.",
+        "vietnamese": "Anh ấy luôn đối xử với mọi người bằng thái độ khiêm tốn.",
+        "pronunciation": "geu-neun hang-s
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그는 항상 겸손한 태도로 말합니다.",
+        "vietnamese": "Anh ấy luôn nói chuyện với thái độ khiêm tốn.",
+        "pronunciation": "geu-neun hang-sang gyeom-son-h
+  Key 4/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [108/652 17%] ✅=108 ❌=0 | 겸손...
+  [112/652 17%] ✅=112 ❌=0 | 증가...
+  [116/652 18%] ✅=116 ❌=0 | 가관...
+  [debug] parse fail, raw[:200]: Chúng ta cần bổ sung thông tin tiếng Việt cho 4 từ tiếng Hàn. Mỗi từ sẽ có một đối tượng JSON với các trường: examples (2 câu TOPIK 2-3), memory_tip (1 câu mẹo nhớ), related_words (2 từ cùng gốc), và 
+  Key 2/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [120/652 18%] ✅=120 ❌=0 | 각색...
+  [124/652 19%] ✅=124 ❌=0 | 지형...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [128/652 20%] ✅=128 ❌=0 | 마찰...
+  [132/652 20%] ✅=132 ❌=0 | 경이...
+  [136/652 21%] ✅=136 ❌=0 | 범사...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그 지역은 아직도 낙후된 상태입니다.",
+        "vietnamese": "Khu vực đó vẫn còn trong tình trạng lạc hậu.",
+        "pronunciation": "geu jiyeogeun ajikdo nak-hu-do
+  Key 2/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [140/652 21%] ✅=140 ❌=0 | 낙후...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그는 다양한 분야에 지식이 많아요.",
+        "vietnamese": "Anh ấy có nhiều kiến thức ở nhiều lĩnh vực khác nhau.",
+        "pronunciation": "geu-neun da-yang-han b
+  Key 2/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [144/652 22%] ✅=144 ❌=0 | 지식...
+  [148/652 23%] ✅=148 ❌=0 | 방송...
+  [152/652 23%] ✅=152 ❌=0 | 동심...
+  [156/652 24%] ✅=156 ❌=0 | 기획...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그 정치인의 기만적인 말에 많은 사람들이 속았다.",
+        "vietnamese": "Nhiều người đã bị lừa bởi lời nói dối trá của chính trị gia đó.",
+        "pronunciation": "geu 
+  [160/652 25%] ✅=160 ❌=0 | 기만...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [164/652 25%] ✅=164 ❌=0 | 관할...
+  [168/652 26%] ✅=168 ❌=0 | 민생...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그녀는 고귀한 태도를 가지고 있다.",
+        "vietnamese": "Cô ấy có thái độ cao quý.",
+        "pronunciation": "geu-nyeo-neun go-gwi-han tae-do-reul ga-ji-go it-d
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그녀는 고귀한 태도를 가지고 있다.",
+        "vietnamese": "Cô ấy có thái độ cao quý.",
+        "pronunciation": "geu-nyeo-neun go-gwi-han tae-do-reul ga-ji-go it-d
+  Key 3/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [172/652 26%] ✅=172 ❌=0 | 고귀...
+  [176/652 27%] ✅=176 ❌=0 | 공립...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [180/652 28%] ✅=180 ❌=0 | 권위...
+  [184/652 28%] ✅=184 ❌=0 | 고갈...
+  [188/652 29%] ✅=188 ❌=0 | 범죄...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "이 공식은 수학 문제를 풀 때 유용해요.",
+        "vietnamese": "Công thức này hữu ích khi giải bài toán.",
+        "pronunciation": "gong-sik"
+      },
+      {
+     
+  Key 2/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [debug] parse fail, raw[:200]: Chúng ta có 4 từ tiếng Hàn cần bổ sung thông tin tiếng Việt. Mỗi từ cần có:
+- examples: 2 câu ví dụ ở trình độ TOPIK 2-3 (câu tiếng Hàn, bản dịch tiếng Việt, và phiên âm cách đọc).
+- memory_tip: 1 câu
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "한국어 문법에는 많은 공식이 있습니다.",
+        "vietnamese": "Trong ngữ pháp tiếng Hàn có nhiều công thức.",
+        "pronunciation": "han-gug-eo mun-beob-e-neun ma
+  Key 5/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [192/652 29%] ✅=192 ❌=0 | 공식...
+  [196/652 30%] ✅=196 ❌=0 | 대결...
+  [200/652 31%] ✅=200 ❌=0 | 무단...
+  [204/652 31%] ✅=204 ❌=0 | 대리점...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [208/652 32%] ✅=208 ❌=0 | 박사...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "이 제품의 가격은 고정되어 있습니다.",
+        "vietnamese": "Giá của sản phẩm này được cố định.",
+        "pronunciation": "i jeopum-ui gagyeong-eun gojeongdoeeo is
+  Key 2/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [212/652 33%] ✅=212 ❌=0 | 고정...
+  [216/652 33%] ✅=216 ❌=0 | 간략...
+  [220/652 34%] ✅=220 ❌=0 | 반격...
+  [224/652 34%] ✅=224 ❌=0 | 공정...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  Key 2/8 [error]: upstream connect error or disconnect/reset before headers. reset reason: remote 
+  Key 3/8 [error]: no healthy upstream
+  Key 4/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  Key 5/8 [error]: no healthy upstream
+  Key 6/8 [error]: no healthy upstream
+  Key 7/8 [error]: no healthy upstream
+  Key 8/8 [error]: no healthy upstream
+  [228/652] ⚠️  AI tra ve rong cho batch nay
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  Key 2/8 [error]: no healthy upstream
+  Key 3/8 [error]: no healthy upstream
+  Key 4/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  Key 5/8 [error]: Error code: 429 - {'error': {'message': 'You have exceeded your rate limit for t
+  Key 6/8 [error]: no healthy upstream
+  Key 7/8 [error]: no healthy upstream
+  Key 8/8 [error]: no healthy upstream
+  [232/652] ⚠️  AI tra ve rong cho batch nay
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  Key 2/8 [error]: no healthy upstream
+  Key 3/8 [error]: no healthy upstream
+  Key 4/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  Key 5/8 [error]: Error code: 429 - {'error': {'message': 'You have exceeded your rate limit for t
+  Key 6/8 [error]: no healthy upstream
+  Key 7/8 [error]: no healthy upstream
+  Key 8/8 [error]: no healthy upstream
+  [236/652] ⚠️  AI tra ve rong cho batch nay
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  Key 2/8 [error]: no healthy upstream
+  Key 3/8 [error]: no healthy upstream
+  Key 4/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  Key 5/8 [error]: Error code: 429 - {'error': {'message': 'You have exceeded your rate limit for t
+  Key 6/8 [error]: no healthy upstream
+  Key 7/8 [error]: no healthy upstream
+  Key 8/8 [error]: no healthy upstream
+  [240/652] ⚠️  AI tra ve rong cho batch nay
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  Key 2/8 [error]: no healthy upstream
+  Key 3/8 [error]: no healthy upstream
+  Key 4/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  Key 5/8 [error]: no healthy upstream
+  Key 6/8 [error]: no healthy upstream
+  Key 7/8 [error]: no healthy upstream
+  Key 8/8 [error]: no healthy upstream
+  [244/652] ⚠️  AI tra ve rong cho batch nay
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  Key 2/8 [error]: no healthy upstream
+  [248/652 38%] ✅=228 ❌=20 | 노화...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [252/652 39%] ✅=232 ❌=20 | 대장...
+  [256/652 39%] ✅=236 ❌=20 | 과잉...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그는 어릴 때부터 작가가 되는 몽상을 품고 있었다.",
+        "vietnamese": "Anh ấy từ nhỏ đã ấp ủ mộng tưởng trở thành nhà văn.",
+        "pronunciation": "geu-neun eo-ril
+  [260/652 40%] ✅=240 ❌=20 | 몽상...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [264/652 40%] ✅=244 ❌=20 | 미숙...
+  [268/652 41%] ✅=248 ❌=20 | 지리...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [272/652 42%] ✅=252 ❌=20 | 번역...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그는 범부에 불과한 인물이다.",
+        "vietnamese": "Anh ấy chỉ là một nhân vật tầm thường.",
+        "pronunciation": "geu-neun beom-bu-e bul-gwa-han in-mul-i-
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그는 범부에 불과한 사람이에요.",
+        "vietnamese": "Anh ấy chỉ là một người phàm phu.",
+        "pronunciation": "geu-neun beom-bu-e bul-gwa-han sa-ram-i-e-yo
+  [276/652 42%] ✅=256 ❌=20 | 범부...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그는 당원으로서 모범을 보였다.",
+        "vietnamese": "Anh ấy đã làm gương với tư cách là đảng viên.",
+        "pronunciation": "geu-neun dang-won-eu-ro-seo mo-b
+  [280/652 43%] ✅=260 ❌=20 | 당원...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [284/652 44%] ✅=264 ❌=20 | 대표...
+  [288/652 44%] ✅=268 ❌=20 | 각자...
+  [292/652 45%] ✅=272 ❌=20 | 목적...
+  [296/652 45%] ✅=276 ❌=20 | 방위...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [300/652 46%] ✅=280 ❌=20 | 가요...
+  [debug] parse fail, raw[:200]: Chúng ta có 4 từ tiếng Hàn cần bổ sung thông tin tiếng Việt. Mỗi từ cần cung cấp:
+- examples: 2 câu ví dụ ở trình độ TOPIK 2-3 (tức là trình độ trung cấp).
+- memory_tip: 1 câu mẹo nhớ.
+- related_words
+  Key 2/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [304/652 47%] ✅=284 ❌=20 | 대책...
+  [debug] parse fail, raw[:200]: Vậy, tôi cần tạo một mảng JSON với 4 phần tử, mỗi phần tử ứng với một từ tiếng Hàn. Mỗi phần tử phải có các trường: examples (2 câu TOPIK cấp 2-3), memory_tip (1 câu mẹo nhớ), related_words (2 từ cùng
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그는 프로젝트를 담당하고 있습니다.",
+        "vietnamese": "Anh ấy đang phụ trách dự án.",
+        "pronunciation": "geu-neun peu-ro-jek-teu-reul dam-dang-ha-go it-
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "이 프로젝트는 그가 담당하고 있습니다.",
+        "vietnamese": "Anh ấy đang phụ trách dự án này.",
+        "pronunciation": "i peurojekteu-neun geu-ga damdanghago iss
+  Key 4/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [308/652 47%] ✅=288 ❌=20 | 담당...
+  [312/652 48%] ✅=292 ❌=20 | 귀족...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [316/652 48%] ✅=296 ❌=20 | 배열...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "이 식물은 번식이 매우 빠릅니다.",
+        "vietnamese": "Loại cây này sinh sản rất nhanh.",
+        "pronunciation": "i sigmur-eun beonsig-i maeu ppalrimnida."
+  
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "이 식물은 빠르게 번식합니다.",
+        "vietnamese": "Loài cây này sinh sản nhanh chóng.",
+        "pronunciation": "i sik-mul-eun ppa-reu-ge beon-sik-ham-ni-da.
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "동물원에서 동물들이 번식하고 있어요.",
+        "vietnamese": "Ở vườn thú, các loài động vật đang sinh sản.",
+        "pronunciation": "dong-mul-won-e-seo dong-mul-de
+  Key 4/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "이 식물은 번식이 빨라요.",
+        "vietnamese": "Cây này sinh sản nhanh.",
+        "pronunciation": "i sik-mul-eun beon-sik-i ppal-la-yo."
+      },
+      {
+  
+  [320/652 49%] ✅=300 ❌=20 | 번식...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "회사 재정을 관리하는 일은 중요합니다.",
+        "vietnamese": "Việc quản lý tài chính công ty rất quan trọng.",
+        "pronunciation": "hoesa jaejeong-eul gwalli-h
+  [324/652 50%] ✅=304 ❌=20 | 관리...
+  [328/652 50%] ✅=308 ❌=20 | 공권력...
+  [332/652 51%] ✅=312 ❌=20 | 명백...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [336/652 52%] ✅=316 ❌=20 | 공작...
+  [340/652 52%] ✅=320 ❌=20 | 매출...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [344/652 53%] ✅=324 ❌=20 | 명함...
+  [348/652 53%] ✅=328 ❌=20 | 고립...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "변호사가 피고인을 변호했다.",
+        "vietnamese": "Luật sư đã bào chữa cho bị cáo.",
+        "pronunciation": "Byeonhosa-ga pigoin-eul byeonho-haetda."
+      }
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "변호사는 법정에서 피고인을 변호합니다.",
+        "vietnamese": "Luật sư bào chữa cho bị cáo tại tòa án.",
+        "pronunciation": "byeon-ho-sa-neun beop-jeong-e-seo 
+  Key 3/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "변호사는 의뢰인을 변호합니다.",
+        "vietnamese": "Luật sư biện hộ cho thân chủ.",
+        "pronunciation": "byeon-ho-sa-neun ui-roe-in-eul byeon-ho-ham-ni-da
+  [352/652 54%] ✅=332 ❌=20 | 변호...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [debug] parse fail, raw[:200]: Chúng ta có 4 từ tiếng Hàn cần bổ sung thông tin tiếng Việt. Mỗi từ cần cung cấp:
+- examples: 2 câu ví dụ ở trình độ TOPIK 2-3 (tức là trình độ sơ-trung cấp).
+- memory_tip: 1 câu mẹo để nhớ từ.
+- rela
+  [356/652 55%] ✅=336 ❌=20 | 간염...
+  [debug] parse fail, raw[:200]: Chúng ta có 4 từ tiếng Hàn cần bổ sung thông tin tiếng Việt. Mỗi từ cần cung cấp:
+- examples: 2 câu ví dụ ở trình độ TOPIK 2-3 (câu tiếng Hàn, bản dịch tiếng Việt, và cách đọc).
+- memory_tip: 1 câu mẹ
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그 왕은 단명하여 20세에 죽었다.",
+        "vietnamese": "Vị vua đó đoản mệnh, qua đời năm 20 tuổi.",
+        "pronunciation": "geu wang-eun danmyeonghayeo isip-s
+  Key 3/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [360/652 55%] ✅=340 ❌=20 | 단명...
+  [364/652 56%] ✅=344 ❌=20 | 강국...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "중요한 문제를 간과해서는 안 됩니다.",
+        "vietnamese": "Không được bỏ qua vấn đề quan trọng.",
+        "pronunciation": "jung-yo-han mun-je-reul gan-gwa-hae-se
+  [368/652 56%] ✅=348 ❌=20 | 간과...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그는 직권을 남용하지 않는다.",
+        "vietnamese": "Anh ấy không lạm dụng chức quyền.",
+        "pronunciation": "geuneun jikgwoneul namyonghaji anneunda."
+   
+  [372/652 57%] ✅=352 ❌=20 | 직권...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [376/652 58%] ✅=356 ❌=20 | 공중...
+  [380/652 58%] ✅=360 ❌=20 | 공구...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [384/652 59%] ✅=364 ❌=20 | 낙수...
+  [388/652 60%] ✅=368 ❌=20 | 관료...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "선생님은 학생들을 격려했습니다.",
+        "vietnamese": "Cô giáo đã động viên học sinh.",
+        "pronunciation": "seon-saeng-nim-eun hak-saeng-deul-eul gyeong-ny
+  [392/652 60%] ✅=372 ❌=20 | 격려...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [396/652 61%] ✅=376 ❌=20 | 모집...
+  [400/652 61%] ✅=380 ❌=20 | 경영...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [404/652 62%] ✅=384 ❌=20 | 변태...
+  [408/652 63%] ✅=388 ❌=20 | 노자...
+  [debug] parse fail, raw[:200]: Vâng, tôi cần bổ sung thông tin tiếng Việt cho 4 từ tiếng Hàn đã cho. Mỗi từ cần có các phần: examples (2 câu TOPIK 2-3), memory_tip (mẹo nhớ), related_words (2 từ cùng gốc), và meaning_detail (phân t
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그는 실수를 변명하지 않고 솔직히 인정했다.",
+        "vietnamese": "Anh ấy không thanh minh cho lỗi lầm mà thành thật thừa nhận.",
+        "pronunciation": "geu-neun s
+  Key 3/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [412/652 63%] ✅=392 ❌=20 | 변명...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "이 문제는 경제와 관련이 있습니다.",
+        "vietnamese": "Vấn đề này có liên quan đến kinh tế.",
+        "pronunciation": "i munje-neun gyeongje-wa gwan-ryeon-i i
+  Key 2/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "이 문제는 경제와 관련이 깊다.",
+        "vietnamese": "Vấn đề này liên quan sâu sắc đến kinh tế.",
+        "pronunciation": "i munje-neun gyeongje-wa gwan-ryeon-
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "이 문제는 너와 관련이 없어.",
+        "vietnamese": "Vấn đề này không liên quan đến bạn.",
+        "pronunciation": "i munje-neun neo-wa gwan-ryeon-i eop-seo."
+
+  [416/652 64%] ✅=396 ❌=20 | 관련...
+  [420/652 64%] ✅=400 ❌=20 | 대양주...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [424/652 65%] ✅=404 ❌=20 | 각별...
+  [428/652 66%] ✅=408 ❌=20 | 가장...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그는 대의를 위해 자신의 이익을 포기했다.",
+        "vietnamese": "Anh ấy đã từ bỏ lợi ích cá nhân vì đại nghĩa.",
+        "pronunciation": "Geuneun dae-uireul wihae j
+  [432/652 66%] ✅=412 ❌=20 | 대의...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "군인들은 숲에 매복하여 적을 기다렸다.",
+        "vietnamese": "Người lính mai phục trong rừng chờ kẻ địch.",
+        "pronunciation": "gun-in-deul-eun sup-e mae-bok-
+  [436/652 67%] ✅=416 ❌=20 | 매복...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [440/652 67%] ✅=420 ❌=20 | 과실...
+  [444/652 68%] ✅=424 ❌=20 | 가문...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "한국에서는 생일 축하 노래를 부른 후에 '만세!'를 외칩니다.",
+        "vietnamese": "Ở Hàn Quốc, sau khi hát bài hát chúc mừng sinh nhật, mọi người hô 'Vạn tuế!'.",
+        "
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "독립 기념일에는 태극기를 흔들며 '대한민국 만세!'를 외쳤다.",
+        "vietnamese": "Vào ngày kỷ niệm độc lập, chúng tôi vẫy cờ Taegeuk và hô 'Đại Hàn Dân Quốc muôn năm!'.",
+
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "한국 사람들은 독립 기념일에 '만세!'를 외쳤다.",
+        "vietnamese": "Người Hàn Quốc hô 'Vạn tuế!' trong ngày kỷ niệm độc lập.",
+        "pronunciation": "hanguk sara
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "독립 만세!",
+        "vietnamese": "Độc lập muôn năm!",
+        "pronunciation": "dong-nip man-se"
+      },
+      {
+        "korean": "그는 만세를 부르며 기뻐했다.",
+  Key 6/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "독립 기념일에는 태극기를 흔들며 만세를 부릅니다.",
+        "vietnamese": "Vào ngày kỷ niệm độc lập, chúng tôi vẫy cờ Taegeuk và hô vang 'muôn năm'.",
+        "pronunciati
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "한국 사람들은 축구 경기에서 '대한민국 만세!'를 외칩니다.",
+        "vietnamese": "Người Hàn Quốc hô 'Đại Hàn Dân Quốc vạn tuế!' trong trận đấu bóng đá.",
+        "pronuncia
+  [448/652] ⚠️  AI tra ve rong cho batch nay
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [452/652 69%] ✅=428 ❌=24 | 법인...
+  [456/652 70%] ✅=432 ❌=24 | 근로...
+  [460/652 71%] ✅=436 ❌=24 | 공직...
+  [464/652 71%] ✅=440 ❌=24 | 농가...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [468/652 72%] ✅=444 ❌=24 | 국무...
+  [472/652 72%] ✅=448 ❌=24 | 대양...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [476/652 73%] ✅=452 ❌=24 | 동작...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "한국은 국제 분쟁에 중립을 지키고 있다.",
+        "vietnamese": "Hàn Quốc đang giữ thái độ trung lập trong các cuộc xung đột quốc tế.",
+        "pronunciation": "han-
+  [480/652 74%] ✅=456 ❌=24 | 중립...
+  [484/652 74%] ✅=460 ❌=24 | 민중...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [488/652 75%] ✅=464 ❌=24 | 당선...
+  [492/652 75%] ✅=468 ❌=24 | 물질...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [496/652 76%] ✅=472 ❌=24 | 반복...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "맹자는 유교의 중요한 사상가 중 한 명입니다.",
+        "vietnamese": "Mạnh Tử là một trong những nhà tư tưởng quan trọng của Nho giáo.",
+        "pronunciation": "maeng
+  [500/652 77%] ✅=476 ❌=24 | 맹자...
+  [504/652 77%] ✅=480 ❌=24 | 감시...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [508/652 78%] ✅=484 ❌=24 | 중재...
+  [512/652 79%] ✅=488 ❌=24 | 백색...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [516/652 79%] ✅=492 ❌=24 | 단거리...
+  [520/652 80%] ✅=496 ❌=24 | 갈등...
+  [524/652 80%] ✅=500 ❌=24 | 도전...
+  [528/652 81%] ✅=504 ❌=24 | 중독...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [532/652 82%] ✅=508 ❌=24 | 노예...
+  [536/652 82%] ✅=512 ❌=24 | 고속...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [540/652 83%] ✅=516 ❌=24 | 만족...
+  [544/652 83%] ✅=520 ❌=24 | 교사...
+  [548/652 84%] ✅=524 ❌=24 | 권리...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "그 나라는 현대적인 병력을 보유하고 있습니다.",
+        "vietnamese": "Đất nước đó sở hữu binh lực hiện đại.",
+        "pronunciation": "geu nara-neun hyeondaejeog-in by
+  Key 2/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [552/652 85%] ✅=528 ❌=24 | 병력...
+  [556/652 85%] ✅=532 ❌=24 | 당뇨병...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "이 기계는 만능으로 여러 가지 작업을 할 수 있습니다.",
+        "vietnamese": "Cái máy này là đa năng và có thể làm nhiều việc khác nhau.",
+        "pronunciation": "i gi-g
+  [560/652 86%] ✅=536 ❌=24 | 만능...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "경제 상황이 자주 변동해서 불안해요.",
+        "vietnamese": "Tình hình kinh tế thường xuyên biến động nên tôi cảm thấy bất an.",
+        "pronunciation": "gyeong-je
+  [564/652 87%] ✅=540 ❌=24 | 변동...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [568/652 87%] ✅=544 ❌=24 | 즉위...
+  [572/652 88%] ✅=548 ❌=24 | 광산...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "한국 지도를 보면서 여행 계획을 세웠어요.",
+        "vietnamese": "Tôi đã lên kế hoạch du lịch trong khi xem bản đồ Hàn Quốc.",
+        "pronunciation": "Hanguk jido-r
+  [576/652 88%] ✅=552 ❌=24 | 지도(地圖)...
+  [580/652 89%] ✅=556 ❌=24 | 지정...
+  [584/652 90%] ✅=560 ❌=24 | 길흉...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [588/652 90%] ✅=564 ❌=24 | 감축...
+  [debug] parse fail, raw[:200]: Chúng ta cần bổ sung thông tin tiếng Việt cho 4 từ tiếng Hàn đã cho. Mỗi từ cần có: examples (2 câu TOPIK 2-3), memory_tip (1 câu mẹo nhớ), related_words (2 từ cùng gốc), meaning_detail (phân tích âm 
+  Key 2/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [592/652 91%] ✅=568 ❌=24 | 경찰...
+  [596/652 91%] ✅=572 ❌=24 | 기억...
+  [600/652 92%] ✅=576 ❌=24 | 민원...
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "물을 가압하여 공급하는 시스템입니다.",
+        "vietnamese": "Đây là hệ thống cung cấp nước bằng cách tăng áp.",
+        "pronunciation": "ga-ap"
+      },
+      {
+  
+  Key 2/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [604/652 93%] ✅=580 ❌=24 | 가압...
+  [608/652 93%] ✅=584 ❌=24 | 감염...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "폭력은 다른 사람에게 가해를 입힐 수 있습니다.",
+        "vietnamese": "Bạo lực có thể gây hại cho người khác.",
+        "pronunciation": "pong-nyeog-eun da-reun sa-ram-
+  [debug] parse fail, raw[:200]: Chúng ta có 4 từ tiếng Hàn cần bổ sung thông tin tiếng Việt. Mỗi từ cần có:
+- examples: 2 câu ví dụ ở trình độ TOPIK 2-3 (tức là trình độ sơ-trung cấp, câu đơn giản, dễ hiểu).
+- memory_tip: 1 câu mẹo 
+  [612/652 94%] ✅=588 ❌=24 | 가해...
+  [616/652 94%] ✅=592 ❌=24 | 공약...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [debug] parse fail, raw[:200]: [
+  {
+    "examples": [
+      {
+        "korean": "한국어를 배우느라 고생이 많았어요.",
+        "vietnamese": "Tôi đã rất khổ cực khi học tiếng Hàn.",
+        "pronunciation": "han-gu-geo-reul bae-u-neu-ra go-saeng-
+  [620/652 95%] ✅=596 ❌=24 | 고생...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [624/652 96%] ✅=600 ❌=24 | 문안...
+  [628/652 96%] ✅=604 ❌=24 | 공청회...
+  [632/652 97%] ✅=608 ❌=24 | 간청...
+  [636/652 98%] ✅=612 ❌=24 | 고대...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account phudutrang18290-76qk is suspend
+  [640/652 98%] ✅=616 ❌=24 | 조형...
+  [644/652 99%] ✅=620 ❌=24 | 거짓...
+  Key 1/8 [suspended]: Error code: 412 - {'error': {'message': 'Account nguyenthanhdien25101 is suspend
+  [648/652 99%] ✅=624 ❌=24 | 가령...
+  [652/652 100%] ✅=628 ❌=24 | 주민...
+
+✅ HOAN THANH! 628/652 tu da duoc bo sung. That bai: 24

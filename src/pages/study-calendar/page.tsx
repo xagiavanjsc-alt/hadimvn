@@ -2,6 +2,7 @@
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
+import { getStreakData } from "@/utils/streak";
 
 interface StudyDay {
   date: string;
@@ -221,7 +222,7 @@ function MonthlyBarChart({ data }: { data: StudyDay[] }) {
 
 export default function StudyCalendarPage() {
   const navigate = useNavigate();
-  const [streak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
+  const streak = getStreakData();
   const [activeTab, setActiveTab] = useState<"contribution" | "calendar">("contribution");
 
   const studyData = MOCK_STUDY_DATA;
@@ -242,7 +243,7 @@ export default function StudyCalendarPage() {
   });
 
   const stats = [
-    { icon: "ri-fire-line", label: "Streak hiện tại", value: `${streak.count} ngày`, color: "text-orange-400" },
+    { icon: "ri-fire-line", label: "Streak hiện tại", value: `${streak.currentStreak} ngày`, color: "text-orange-400" },
     { icon: "ri-trophy-line", label: "Streak dài nhất", value: `${longestStreak} ngày`, color: "text-app-accent-primary" },
     { icon: "ri-calendar-check-line", label: "Ngày học tháng này", value: `${thisMonthDays} ngày`, color: "text-app-accent-success" },
     { icon: "ri-bar-chart-2-line", label: "Tổng hoạt động", value: `${totalActivities}`, color: "text-sky-400" },
@@ -312,7 +313,7 @@ export default function StudyCalendarPage() {
               </div>
               <div className="flex items-center gap-1.5 px-2.5 py-1 bg-orange-500/10 border border-orange-500/20 rounded-full">
                 <i className="ri-fire-line text-orange-400 text-xs"></i>
-                <span className="text-orange-400 text-xs font-bold">{streak.count} ngày</span>
+                <span className="text-orange-400 text-xs font-bold">{streak.currentStreak} ngày</span>
               </div>
             </div>
             <StreakCalendar data={studyData} />

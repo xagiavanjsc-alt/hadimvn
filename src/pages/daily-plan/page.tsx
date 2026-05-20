@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { EPS_TOPICS } from "@/mocks/epsQuestions";
+import { getStreakData } from "@/utils/streak";
 
 interface ExamResult {
   date: string;
@@ -202,7 +203,7 @@ export default function DailyPlanPage() {
   const navigate = useNavigate();
   const { addXP } = useXPSystem();
   const [examResults] = useLocalStorage<ExamResult[]>("kts_exam_results", []);
-  const [streak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
+  const streak = getStreakData();
   const [completedToday, setCompletedToday] = useLocalStorage<string[]>("kts_daily_completed", []);
   const [startedToday, setStartedToday] = useLocalStorage<string[]>("kts_daily_started", []);
   const [lastCompletedDate, setLastCompletedDate] = useLocalStorage<string>("kts_daily_date", "");
@@ -222,11 +223,11 @@ export default function DailyPlanPage() {
   }, []);
 
   useEffect(() => {
-    const plan = generateDailyPlan(streak.count, examResults, completedToday);
+    const plan = generateDailyPlan(streak.currentStreak, examResults, completedToday);
     setTasks(plan);
     const xp = plan.filter((t) => t.completed).reduce((sum, t) => sum + t.xp, 0);
     setXpGained(xp);
-  }, [examResults, streak.count, completedToday]);
+  }, [examResults, streak.currentStreak, completedToday]);
 
   const totalXp = tasks.reduce((sum, t) => sum + t.xp, 0);
   const completedCount = tasks.filter((t) => t.completed).length;
@@ -341,7 +342,7 @@ export default function DailyPlanPage() {
                 <i className="ri-fire-line text-app-accent-primary text-xl"></i>
               </div>
               <div>
-                <p className="text-white font-bold text-xl">{streak.count}</p>
+                <p className="text-white font-bold text-xl">{streak.currentStreak}</p>
                 <p className="text-app-text-secondary text-xs">ngày liên tiếp</p>
               </div>
             </div>

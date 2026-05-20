@@ -6,6 +6,7 @@ import { grammarPatterns } from "@/mocks/grammarData";
 import { vocabularyData } from "@/mocks/vocabularyData";
 import { topikQuestions } from "@/mocks/topikQuestions";
 import { topik2Questions } from "@/mocks/topik2Questions";
+import { getStreakData } from "@/utils/streak";
 
 // ─── Mini Bar Chart ───────────────────────────────────────────────────────
 function MiniBar({ value, max, color }: { value: number; max: number; color: string }) {
@@ -132,7 +133,7 @@ export default function LearnOverviewPage() {
   const [topik1Attempts] = useLocalStorage<number>("kts_topik1_attempts", 0);
   const [topik2Best] = useLocalStorage<number>("kts_topik2_best", 0);
   const [topik2Attempts] = useLocalStorage<number>("kts_topik2_attempts", 0);
-  const [streak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
+  const streak = getStreakData();
 
   // Grammar stats
   const grammarTotal = grammarPatterns.reduce((s, p) => s + p.exercises.length, 0);
@@ -174,9 +175,9 @@ export default function LearnOverviewPage() {
   // Activity days (simulate from streak)
   const activityDays = useMemo(() => {
     const days: string[] = [];
-    if (streak.lastDate) {
-      for (let i = 0; i < Math.min(streak.count, 28); i++) {
-        const d = new Date(streak.lastDate);
+    if (streak.lastStudyDate) {
+      for (let i = 0; i < Math.min(streak.currentStreak, 28); i++) {
+        const d = new Date(streak.lastStudyDate);
         d.setDate(d.getDate() - i);
         days.push(d.toISOString().split("T")[0]);
       }
@@ -245,7 +246,7 @@ export default function LearnOverviewPage() {
             {/* Quick stats */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
-                { label: "Streak", value: `${streak.count} ngày`, icon: "ri-fire-line", color: "#fb923c" },
+                { label: "Streak", value: `${streak.currentStreak} ngày`, icon: "ri-fire-line", color: "#fb923c" },
                 { label: "TOPIK I", value: topik1Attempts > 0 ? `${topik1Best}đ` : "Chưa thi", icon: "ri-file-list-2-line", color: "#38bdf8" },
                 { label: "TOPIK II", value: topik2Attempts > 0 ? `${topik2Best}đ` : "Chưa thi", icon: "ri-file-list-3-line", color: "#a78bfa" },
                 { label: "Từ thuộc", value: vocabDone, icon: "ri-translate-2", color: "#34d399" },
@@ -314,11 +315,11 @@ export default function LearnOverviewPage() {
         <div className="flex items-center justify-between mb-4">
           <div>
             <p className="text-white font-semibold text-sm">Lịch học tập (28 ngày)</p>
-            <p className="text-app-text-muted text-xs">Streak hiện tại: {streak.count} ngày liên tiếp</p>
+            <p className="text-app-text-muted text-xs">Streak hiện tại: {streak.currentStreak} ngày liên tiếp</p>
           </div>
           <div className="flex items-center gap-1.5 bg-app-accent-primary/8 border border-app-accent-primary/15 rounded-xl px-3 py-1.5">
             <i className="ri-fire-line text-app-accent-primary text-sm"></i>
-            <span className="text-app-accent-primary text-xs font-bold">{streak.count} ngày</span>
+            <span className="text-app-accent-primary text-xs font-bold">{streak.currentStreak} ngày</span>
           </div>
         </div>
         <ActivityStreak activityDays={activityDays} />

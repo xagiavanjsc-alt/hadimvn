@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { getStreakData } from "@/utils/streak";
 
 // ─── Types ────────────────────────────────────────────────────────────────
 interface DayData {
@@ -336,7 +337,7 @@ export default function StudyAnalyticsPage() {
   const [completedLessons] = useLocalStorage<Record<number, { score: number; completedAt: string }>>("kts_eps_lessons_progress", {});
   const [xpLog] = useLocalStorage<{ amount: number; reason: string; date: string }[]>("kts_xp_log", []);
   const [quizHistory] = useLocalStorage<{ date: string; score: number; total: number }[]>("kts_quiz_history", []);
-  const [streak] = useLocalStorage<number>("kts_streak", 0);
+  const streak = getStreakData();
   const [totalXP] = useLocalStorage<number>("kts_total_xp", 0);
   const [flashcardCount] = useLocalStorage<number>("kts_flashcard_total", 0);
 
@@ -394,7 +395,7 @@ export default function StudyAnalyticsPage() {
       {/* Top KPI cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6">
         {[
-          { label: "Streak hiện tại", value: `${streak} ngày`, icon: "ri-fire-line", color: "#fb923c", sub: "Liên tiếp" },
+          { label: "Streak hiện tại", value: `${streak.currentStreak} ngày`, icon: "ri-fire-line", color: "#fb923c", sub: "Liên tiếp" },
           { label: "Ngày học (30 ngày)", value: `${activeDays30} ngày`, icon: "ri-calendar-check-line", color: "#34d399", sub: `${Math.round((activeDays30 / 30) * 100)}% tháng này` },
           { label: "Tổng XP", value: totalXP.toLocaleString(), icon: "ri-star-line", color: "app-accent-primary", sub: "Điểm kinh nghiệm" },
           { label: "Từ vựng đã học", value: `~${totalVocabLearned}`, icon: "ri-book-2-line", color: "#a78bfa", sub: `${totalLessons} bài hoàn thành` },
@@ -488,7 +489,7 @@ export default function StudyAnalyticsPage() {
             details={[
               { label: "Bài thi", value: `${quizHistory.length}` },
               { label: "Flashcard", value: `${flashcardCount}` },
-              { label: "Streak", value: `${streak}` },
+              { label: "Streak", value: `${streak.currentStreak}` },
             ]}
             href="/topik-test"
           />

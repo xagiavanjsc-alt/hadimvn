@@ -2,6 +2,7 @@
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { getStreakData } from "@/utils/streak";
 
 type Period = "7days" | "30days" | "90days";
 
@@ -82,7 +83,7 @@ const COMMUNITY_BENCHMARKS = [
 export default function XPStatsPage() {
   const [period, setPeriod] = useState<Period>("7days");
   const { totalXP, xpHistory, currentRank, nextRank, xpToNext, progress } = useXPSystem();
-  const [streak] = useLocalStorage<{ count: number }>("kts_streak", { count: 0 });
+  const streak = getStreakData();
 
   const days = period === "7days" ? 7 : period === "30days" ? 30 : 90;
 

@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useWebPush } from "@/hooks/useWebPush";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import { epsVocabulary } from "@/mocks/epsVocabulary";
+import { getStreakData } from "@/utils/streak";
 
 // ─── Types ────────────────────────────────────────────────────────────────
 interface WeeklyReportData {
@@ -185,7 +186,7 @@ function EmailPreviewModal({ report, email, onClose, onSend, sending }: {
 export default function WeeklyReportPage() {
   const { user, profile } = useAuth();
   const [xpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
-  const [streak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
+  const streak = getStreakData();
   const [epsAnswers] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
   const [quizHistory] = useLocalStorage<{ date: string; score: number; total: number; lesson: string }[]>("kts_quiz_history", []);
   const [srCards] = useLocalStorage<Record<string, { repetitions: number; lastReview?: string }>>("kts_eps_sr_cards", {});
@@ -249,7 +250,7 @@ export default function WeeklyReportPage() {
       wordsLearned,
       questionsAnswered: totalAnswered || totalEpsAnswered,
       correctAnswers: correctAnswers || totalEpsCorrect,
-      streakDays: streak.count,
+      streakDays: streak.currentStreak,
       studyDays: Math.max(studyDays, selectedWeek === 0 ? 1 : 0),
       topicsStudied,
       quizScores: weekQuizzes,
@@ -409,7 +410,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
         <div class="pdf-section">
           <div class="pdf-section-title">Tóm tắt</div>
           <div class="pdf-row"><span>Tổng XP tích lũy</span><span><strong>${xpData.total.toLocaleString()} XP</strong></span></div>
-          <div class="pdf-row"><span>Streak hiện tại</span><span><strong>${streak.count} ngày</strong></span></div>
+          <div class="pdf-row"><span>Streak hiện tại</span><span><strong>${streak.currentStreak} ngày</strong></span></div>
           <div class="pdf-row"><span>Thẻ SR nắm vững</span><span><strong>${report.srMastered}</strong></span></div>
         </div>
         <div style="margin-top:20px; font-size:11px; color:#999; text-align:center;">Xuất từ Hàn Quốc Ơi! — ${new Date().toLocaleDateString("vi-VN")}</div>
@@ -628,7 +629,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
             <div className="space-y-2.5">
               {[
                 { label: "Tổng XP tích lũy", value: `${xpData.total.toLocaleString()} XP`, color: "app-accent-primary" },
-                { label: "Streak hiện tại", value: `${streak.count} ngày`, color: "#fb923c" },
+                { label: "Streak hiện tại", value: `${streak.currentStreak} ngày`, color: "#fb923c" },
                 { label: "Từ vựng đã học", value: `${report.wordsLearned} từ`, color: "#34d399" },
                 { label: "Độ chính xác EPS", value: `${accuracy}%`, color: "#a78bfa" },
               ].map(s => (

@@ -8,6 +8,7 @@ import { useApiCostTracker } from "@/hooks/useApiCostTracker";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import QuickStartGuide from "@/pages/home/components/QuickStartGuide";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
+import { getStreakData } from "@/utils/streak";
 
 const SRReviewWidget = lazy(() => import("@/pages/home/components/SRReviewWidget"));
 const StreakWidget = lazy(() => import("@/pages/home/components/StreakWidget"));
@@ -230,10 +231,7 @@ export default function Home() {
   const [approvedQAs] = useLocalStorage<ApprovedQA[]>("kts_naver_qas", []);
   const [cachedSearches] = useLocalStorage<CachedSearch[]>("kts_naver_cache", []);
 
-  const [streak] = useLocalStorage<{ count: number; lastDate: string; history: string[] }>(
-    "kts_streak",
-    { count: 0, lastDate: "", history: [] }
-  );
+  const streak = getStreakData();
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
   const [flashcardKnown] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
   const [examResults] = useLocalStorage<{ score: number; total: number; date: string }[]>(
@@ -357,7 +355,7 @@ export default function Home() {
             icon="ri-fire-line"
             color="#fb923c"
             label="Streak"
-            value={`${streak.count}🔥`}
+            value={`${streak.currentStreak}🔥`}
             sub="ngày liên tiếp"
           />
           <StatCard
@@ -514,7 +512,7 @@ export default function Home() {
               color="#4ade80"
               title="Thống kê học tập"
               desc="Streak, từ đã học, so sánh tuần"
-              stat={`${streak.count} ngày streak`}
+              stat={`${streak.currentStreak} ngày streak`}
               path="/study-stats"
             />
             {isAdmin && (
