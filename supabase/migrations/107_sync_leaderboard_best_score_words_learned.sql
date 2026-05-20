@@ -31,15 +31,15 @@ WHERE EXISTS (
 -- 3. Tính toán và cập nhật words_learned từ flashcard_known (giả lập từ localStorage)
 -- Vì words_learned không có trong database, ta dùng flashcard_known từ exam_results
 UPDATE public.user_progress up
-SET words_learned = (
-  SELECT COUNT(DISTINCT jsonb_array_elements(correct_ids)::TEXT)
-  FROM public.exam_results
-  WHERE user_id = up.user_id AND is_valid = true AND correct_ids IS NOT NULL AND jsonb_array_length(correct_ids) > 0
-)
-WHERE EXISTS (
-  SELECT 1 FROM public.exam_results
-  WHERE user_id = up.user_id AND is_valid = true AND correct_ids IS NOT NULL
-);
+SET words_learned = sub.word_count
+FROM (
+  SELECT er.user_id, COUNT(DISTINCT elem.word) as word_count
+  FROM public.exam_results er,
+       LATERAL jsonb_array_elements_text(er.correct_ids) as elem(word)
+  WHERE er.is_valid = true AND er.correct_ids IS NOT NULL AND jsonb_array_length(er.correct_ids) > 0
+  GROUP BY er.user_id
+) sub
+WHERE up.user_id = sub.user_id;
 
 -- 4. Sync từ user_progress sang leaderboard cho tất cả users
 INSERT INTO public.leaderboard (user_id, display_name, avatar_url, xp, streak, best_score, words_learned, level, is_vip, vip_expires_at, updated_at)
