@@ -152,25 +152,38 @@ export default function EPSExamsPage() {
   if (!selectedExam) {
     return (
       <DashboardLayout title="Bộ đề EPS" subtitle="Luyện thi EPS - 6 đề thi chuẩn">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {EPS_EXAMS.map(exam => (
             <div
               key={exam.id}
-              className="bg-app-card border border-app-border rounded-2xl p-6 hover:border-app-accent-primary/50 transition-all cursor-pointer"
+              className="bg-gradient-to-br from-app-card to-app-card2 border border-app-border rounded-2xl p-6 hover:border-app-accent-primary/50 hover:shadow-lg hover:shadow-app-accent-primary/10 transition-all cursor-pointer group"
               onClick={() => handleStartExam(exam)}
             >
-              <h3 className="text-xl font-bold text-white mb-2">{exam.title}</h3>
-              <div className="flex items-center gap-4 text-app-text-secondary text-sm mb-4">
-                <span className="flex items-center gap-1">
-                  <i className="ri-time-line" />
-                  {exam.duration} phút
-                </span>
-                <span className="flex items-center gap-1">
-                  <i className="ri-question-line" />
-                  {exam.questions.length} câu
-                </span>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-2xl font-bold text-white group-hover:text-app-accent-primary transition-colors">
+                  {exam.title}
+                </h3>
+                <div className="w-12 h-12 rounded-full bg-app-accent-primary/10 flex items-center justify-center group-hover:bg-app-accent-primary group-hover:text-white transition-all">
+                  <i className="ri-file-list-3-line text-xl text-app-accent-primary group-hover:text-white" />
+                </div>
               </div>
-              <button className="w-full py-3 rounded-xl bg-app-accent-primary text-white font-bold hover:bg-app-accent-primary/80 transition-all">
+              
+              <div className="space-y-3 mb-6">
+                <div className="flex items-center gap-3 text-app-text-secondary">
+                  <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                    <i className="ri-time-line text-blue-400" />
+                  </div>
+                  <span className="font-medium">{exam.duration} phút</span>
+                </div>
+                <div className="flex items-center gap-3 text-app-text-secondary">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                    <i className="ri-question-line text-emerald-400" />
+                  </div>
+                  <span className="font-medium">{exam.questions.length} câu hỏi</span>
+                </div>
+              </div>
+
+              <button className="w-full py-4 rounded-xl bg-gradient-to-r from-app-accent-primary to-app-accent-primary/80 text-white font-bold hover:from-app-accent-primary/90 hover:to-app-accent-primary/70 transition-all shadow-lg shadow-app-accent-primary/25 group-hover:shadow-app-accent-primary/40">
                 Bắt đầu làm
               </button>
             </div>
@@ -283,17 +296,21 @@ export default function EPSExamsPage() {
       {/* Timer and Progress */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-4">
-          <div className={`px-4 py-2 rounded-lg font-bold ${timeRemaining < 300 ? "bg-rose-500/10 text-rose-400" : "bg-app-card text-white"}`}>
-            <i className="ri-time-line mr-2" />
+          <div className={`px-6 py-3 rounded-xl font-bold text-lg flex items-center gap-2 ${
+            timeRemaining < 300 
+              ? "bg-rose-500/10 text-rose-400 border-2 border-rose-500/20 animate-pulse" 
+              : "bg-gradient-to-r from-app-card to-app-card2 text-white border border-app-border"
+          }`}>
+            <i className="ri-time-line" />
             {formatTime(timeRemaining)}
           </div>
-          <div className="bg-app-card px-4 py-2 rounded-lg text-white">
-            {currentQuestionIndex + 1} / {selectedExam.questions.length}
+          <div className="bg-gradient-to-r from-app-card to-app-card2 px-6 py-3 rounded-xl text-white font-bold border border-app-border">
+            Câu {currentQuestionIndex + 1} / {selectedExam.questions.length}
           </div>
         </div>
         <button
           onClick={handleSubmitExam}
-          className="px-4 py-2 rounded-lg bg-app-accent-primary text-white font-bold hover:bg-app-accent-primary/80 transition-all"
+          className="px-6 py-3 rounded-xl bg-gradient-to-r from-app-accent-primary to-app-accent-primary/80 text-white font-bold hover:from-app-accent-primary/90 hover:to-app-accent-primary/70 transition-all shadow-lg shadow-app-accent-primary/25"
         >
           Nộp bài
         </button>
@@ -301,26 +318,32 @@ export default function EPSExamsPage() {
 
       {/* Question */}
       {currentQuestion && (
-        <div className="bg-app-card border border-app-border rounded-2xl p-6 mb-6">
+        <div className="bg-gradient-to-br from-app-card to-app-card2 border border-app-border rounded-3xl p-8 mb-6 shadow-xl">
           {currentQuestion.image && (
-            <img src={currentQuestion.image} alt="" className="max-w-md rounded-lg mb-4 mx-auto" />
+            <div className="mb-6">
+              <img 
+                src={currentQuestion.image} 
+                alt="" 
+                className="max-w-2xl rounded-2xl mx-auto shadow-2xl"
+              />
+            </div>
           )}
-          <p className="text-white text-lg font-medium mb-6">
+          <p className="text-white text-xl font-medium mb-8 leading-relaxed">
             {currentQuestion.question}
           </p>
           
-          <div className="space-y-3">
+          <div className="space-y-4">
             {currentQuestion.options.map((opt, idx) => (
               <button
                 key={idx}
                 onClick={() => handleAnswer(currentQuestion.id, idx)}
-                className={`w-full p-4 rounded-xl text-left transition-all ${
+                className={`w-full p-5 rounded-2xl text-left transition-all font-medium text-lg ${
                   currentAnswer?.selectedOption === idx
-                    ? "bg-app-accent-primary text-white border-2 border-app-accent-primary"
-                    : "bg-app-card2 text-app-text-secondary hover:bg-app-card hover:text-white border-2 border-transparent"
+                    ? "bg-gradient-to-r from-app-accent-primary to-app-accent-primary/80 text-white border-2 border-app-accent-primary shadow-lg shadow-app-accent-primary/25"
+                    : "bg-app-card text-app-text-secondary hover:bg-app-card2 hover:text-white border-2 border-transparent"
                 }`}
               >
-                <span className="font-bold mr-3">{idx + 1}.</span>
+                <span className="font-bold mr-4 text-xl">{idx + 1}.</span>
                 {opt}
               </button>
             ))}
@@ -333,46 +356,47 @@ export default function EPSExamsPage() {
         <button
           onClick={handlePreviousQuestion}
           disabled={currentQuestionIndex === 0}
-          className="px-6 py-3 rounded-xl bg-app-card text-white font-bold hover:bg-app-card2 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          className="px-8 py-4 rounded-xl bg-gradient-to-r from-app-card to-app-card2 text-white font-bold hover:from-app-card2 hover:to-app-card transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-3 shadow-lg"
         >
-          <i className="ri-arrow-left-line" />
+          <i className="ri-arrow-left-line text-xl" />
           Câu trước
         </button>
         
         {currentQuestionIndex === selectedExam.questions.length - 1 ? (
           <button
             onClick={handleSubmitExam}
-            className="px-6 py-3 rounded-xl bg-app-accent-primary text-white font-bold hover:bg-app-accent-primary/80 transition-all flex items-center gap-2"
+            className="px-8 py-4 rounded-xl bg-gradient-to-r from-app-accent-primary to-app-accent-primary/80 text-white font-bold hover:from-app-accent-primary/90 hover:to-app-accent-primary/70 transition-all shadow-lg shadow-app-accent-primary/25 flex items-center gap-3"
           >
             Nộp bài
-            <i className="ri-check-line" />
+            <i className="ri-check-line text-xl" />
           </button>
         ) : (
           <button
             onClick={handleNextQuestion}
-            className="px-6 py-3 rounded-xl bg-app-accent-primary text-white font-bold hover:bg-app-accent-primary/80 transition-all flex items-center gap-2"
+            className="px-8 py-4 rounded-xl bg-gradient-to-r from-app-accent-primary to-app-accent-primary/80 text-white font-bold hover:from-app-accent-primary/90 hover:to-app-accent-primary/70 transition-all shadow-lg shadow-app-accent-primary/25 flex items-center gap-3"
           >
             Câu tiếp
-            <i className="ri-arrow-right-line" />
+            <i className="ri-arrow-right-line text-xl" />
           </button>
         )}
       </div>
 
       {/* Question Navigator */}
-      <div className="mt-6 bg-app-card border border-app-border rounded-2xl p-4">
-        <div className="flex flex-wrap gap-2">
+      <div className="mt-8 bg-gradient-to-br from-app-card to-app-card2 border border-app-border rounded-3xl p-6 shadow-xl">
+        <p className="text-app-text-secondary text-sm font-medium mb-4">Danh sách câu hỏi</p>
+        <div className="flex flex-wrap gap-3">
           {selectedExam.questions.map((q, idx) => {
             const answered = answers.find(a => a.questionId === q.id);
             return (
               <button
                 key={q.id}
                 onClick={() => setCurrentQuestionIndex(idx)}
-                className={`w-10 h-10 rounded-lg font-bold transition-all ${
+                className={`w-12 h-12 rounded-xl font-bold transition-all text-lg ${
                   idx === currentQuestionIndex
-                    ? "bg-app-accent-primary text-white"
+                    ? "bg-gradient-to-r from-app-accent-primary to-app-accent-primary/80 text-white shadow-lg shadow-app-accent-primary/25"
                     : answered
-                    ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/20"
-                    : "bg-app-card2 text-app-text-secondary hover:bg-app-card"
+                    ? "bg-emerald-500/10 text-emerald-400 border-2 border-emerald-500/20"
+                    : "bg-app-card text-app-text-secondary hover:bg-app-card2 border-2 border-transparent"
                 }`}
               >
                 {idx + 1}
