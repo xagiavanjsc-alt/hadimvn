@@ -72,7 +72,7 @@ function AvatarCell({ player, size = 36 }: { player: LeaderboardPlayer; size?: n
   const colorIdx = player.display_name.charCodeAt(0) % colors.length;
   return (
     <div
-      className={`rounded-full flex items-center justify-center flex-shrink-0 font-bold text-app-bg text-xs ${ringClass}`}
+      className={`rounded-full flex items-center justify-center flex-shrink-0 font-bold text-white text-xs ${ringClass}`}
       style={{ width: size, height: size, backgroundColor: colors[colorIdx] }}
     >
       {initials}
