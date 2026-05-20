@@ -45,7 +45,7 @@ const RANK_ICONS = ["ri-trophy-fill", "ri-medal-fill", "ri-award-fill"];
 
 function AvatarCell({ player, size = 36 }: { player: LeaderboardPlayer; size?: number }) {
   const isActiveVip = player.is_vip && (!player.vip_expires_at || new Date(player.vip_expires_at).getTime() > Date.now());
-  const ringClass = isActiveVip ? "ring-2 ring-[app-accent-primary]/60" : "";
+  const ringClass = isActiveVip ? "ring-2 ring-[app-accent-primary]/60" : "ring-1 ring-white/10";
   
   if (player.isCurrentUser) {
     return (
