@@ -88,7 +88,7 @@ export default function SeoulPhrasesPage() {
   const [quizState, setQuizState] = useState<QuizState>("idle");
   const [quiz, setQuiz] = useState<QuizSession | null>(null);
   const [showVietnamese, setShowVietnamese] = useState<Record<string, boolean>>({});
-  const [xpData, setXpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
+  const [xpData, setXpData] = useLocalStorage<{ total: number }>("xp_total", { total: 0 });
 
   const filtered = useMemo(() => {
     let result = ALL_PHRASES;

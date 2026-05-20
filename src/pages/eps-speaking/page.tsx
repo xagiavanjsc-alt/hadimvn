@@ -112,7 +112,7 @@ export default function EpsSpeakingPage() {
   const [showRomanization, setShowRomanization] = useState(false);
   const [showTips, setShowTips] = useState(false);
   const [attempts, setAttempts] = useState(0);
-  const [xpData, setXpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
+  const [xpData, setXpData] = useLocalStorage<{ total: number }>("xp_total", { total: 0 });
   const [sessionStats, setSessionStats] = useState({ correct: 0, total: 0, xpEarned: 0 });
   const [pronHistory, setPronHistory] = useLocalStorage<PronunciationRecord[]>("kts_pron_history", []);
   const [showStats, setShowStats] = useState(false);

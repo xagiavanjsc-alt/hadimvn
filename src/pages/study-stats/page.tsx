@@ -139,8 +139,8 @@ export default function StudyStatsPage() {
   const navigate = useNavigate();
   const streak = getStreakData();
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
-  const [flashcardKnown] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
-  const [learnedIds] = useLocalStorage<Record<string, string[]>>("kts_daily_learned", {});
+  const [flashcardKnown] = useLocalStorage<Record<string, boolean>>("flashcard_known", {});
+  const [learnedIds] = useLocalStorage<Record<string, string[]>>("daily_learned", {});
   const [examResults] = useLocalStorage<{ score: number; total: number; date: string }[]>(
     "kts_eps_exam_results",
     []

@@ -109,7 +109,7 @@ export default function SeoulWritingPage() {
   const [sessionStats, setSessionStats] = useState<SessionStats>({ correct: 0, partial: 0, wrong: 0, total: 0, xpEarned: 0 });
   const [sessionDone, setSessionDone] = useState(false);
   const [mode, setMode] = useState<"setup" | "practice">("setup");
-  const [xpData, setXpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
+  const [xpData, setXpData] = useLocalStorage<{ total: number }>("xp_total", { total: 0 });
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const filteredQuestions = useMemo(() => {

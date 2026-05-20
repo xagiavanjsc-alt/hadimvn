@@ -2,7 +2,7 @@
 import { HanjaEntry } from "@/mocks/hanjaData";
 import { useHanjaData } from "@/contexts/HanjaDataContext";
 
-const XP_KEY = "kts_total_xp";
+const XP_KEY = "xp_total";
 const PRON_HISTORY_KEY = "hanja_pronunciation_history";
 
 interface PronunciationRecord {

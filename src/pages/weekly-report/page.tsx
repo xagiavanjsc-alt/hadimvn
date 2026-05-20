@@ -185,13 +185,13 @@ function EmailPreviewModal({ report, email, onClose, onSend, sending }: {
 // ─── Main Page ────────────────────────────────────────────────────────────
 export default function WeeklyReportPage() {
   const { user, profile } = useAuth();
-  const [xpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
+  const [xpData] = useLocalStorage<{ total: number }>("xp_total", { total: 0 });
   const streak = getStreakData();
   const [epsAnswers] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
   const [quizHistory] = useLocalStorage<{ date: string; score: number; total: number; lesson: string }[]>("kts_quiz_history", []);
   const [srCards] = useLocalStorage<Record<string, { repetitions: number; lastReview?: string }>>("kts_eps_sr_cards", {});
   const [srWrongCards] = useLocalStorage<Record<string, { repetitions: number; lastReview?: string }>>("kts_eps_wrong_sr", {});
-  const [flashcardKnown] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
+  const [flashcardKnown] = useLocalStorage<Record<string, boolean>>("flashcard_known", {});
 
   const [selectedWeek, setSelectedWeek] = useState(0);
   const [emailInput, setEmailInput] = useState(user?.email || "");

@@ -96,13 +96,13 @@ const sourceColors: Record<string, string> = {
 type ViewMode = "review" | "overview";
 
 export default function SmartReviewPage() {
-  const [cards, setCards] = useLocalStorage<SRCard[]>("kts_sr_cards", INITIAL_CARDS);
+  const [cards, setCards] = useLocalStorage<SRCard[]>("sr_cards", INITIAL_CARDS);
   const [viewMode, setViewMode] = useState<ViewMode>("review");
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   const [sessionDone, setSessionDone] = useState(false);
   const [sessionStats, setSessionStats] = useState({ reviewed: 0, correct: 0, xpEarned: 0 });
-  const [xpData, setXpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
+  const [xpData, setXpData] = useLocalStorage<{ total: number }>("xp_total", { total: 0 });
   const [filterSource, setFilterSource] = useState("all");
 
   const today = new Date().toISOString().split("T")[0];

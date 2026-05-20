@@ -225,8 +225,8 @@ export default function WeeklyChallengeTab() {
       return updated;
     });
     // Add XP to global store
-    const currentXp = parseInt(localStorage.getItem("kts_total_xp") || "0");
-    localStorage.setItem("kts_total_xp", String(currentXp + xp));
+    const currentXp = parseInt(localStorage.getItem("xp_total") || "0");
+    localStorage.setItem("xp_total", String(currentXp + xp));
     setShowXpModal(true);
     setView("overview");
   };

@@ -83,7 +83,7 @@ export default function SeoulStreakPage() {
     longestStreak: 0,
   });
   const [completedMap] = useLocalStorage<Record<string, boolean>>("kts_seoul_progress", {});
-  const [xpData, setXpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
+  const [xpData, setXpData] = useLocalStorage<{ total: number }>("xp_total", { total: 0 });
   const [dayHistory] = useLocalStorage<DayRecord[]>("kts_seoul_day_history", []);
 
   const today = new Date().toISOString().split("T")[0];

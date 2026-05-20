@@ -7,7 +7,7 @@ export function useStudySync() {
   const syncToCloud = useCallback(async (userId: string) => {
     try {
       const streak = getStreakData();
-      const flashcardKnown = JSON.parse(localStorage.getItem("kts_flashcard_known") || "{}");
+      const flashcardKnown = JSON.parse(localStorage.getItem("flashcard_known") || "{}");
       const hangulKnown = JSON.parse(localStorage.getItem("kts_hangul_known") || "{}");
       const examResults = JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]");
 
@@ -114,13 +114,13 @@ export function useStudySync() {
             history: {}
           }));
         }
-        localStorage.setItem("kts_xp_total", JSON.stringify({ total: userProgress.xp }));
+        localStorage.setItem("xp_total", JSON.stringify({ total: userProgress.xp }));
         // Store best_score and words_learned for leaderboard sync
         if (userProgress.best_score !== undefined) {
           localStorage.setItem("kts_best_score", JSON.stringify(userProgress.best_score));
         }
         if (userProgress.words_learned !== undefined) {
-          localStorage.setItem("kts_words_learned", JSON.stringify(userProgress.words_learned));
+          localStorage.setItem("kts_sr_cards_learned", JSON.stringify(userProgress.words_learned));
         }
       }
 
@@ -153,7 +153,7 @@ export function useStudySync() {
         flashcardData.forEach(card => {
           flashcardKnown[card.card_id] = card.status === "mastered";
         });
-        localStorage.setItem("kts_flashcard_known", JSON.stringify(flashcardKnown));
+        localStorage.setItem("flashcard_known", JSON.stringify(flashcardKnown));
       }
 
       // Load exam_results
@@ -182,11 +182,11 @@ export function useStudySync() {
   const updateLeaderboard = useCallback(async (userId: string, _displayName: string) => {
     try {
       const streak = getStreakData();
-      const flashcardKnown = JSON.parse(localStorage.getItem("kts_flashcard_known") || "{}");
+      const flashcardKnown = JSON.parse(localStorage.getItem("flashcard_known") || "{}");
       const examResults = JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]");
       // Local granular XP total (from every awardXP/addXP call) — source of truth
       // for bonuses that the formula can't see (lesson completions, manual rewards).
-      const xpTotalState = JSON.parse(localStorage.getItem("kts_xp_total") || '{"total":0}');
+      const xpTotalState = JSON.parse(localStorage.getItem("xp_total") || '{"total":0}');
       const localTotalXP = Number(xpTotalState?.total) || 0;
 
       const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length;

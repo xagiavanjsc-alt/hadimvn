@@ -48,7 +48,7 @@ function StreakFlame({ count }: { count: number }) {
 export default function FriendStreakPage() {
   const { user } = useAuth();
   const myStreak = getStreakData();
-  const [myXP] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
+  const [myXP] = useLocalStorage<{ total: number }>("xp_total", { total: 0 });
   const [leaderboard, setLeaderboard] = useState<FriendStreak[]>([]);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState<"streak" | "xp">("streak");

@@ -189,7 +189,7 @@ export function useXPSystem() {
   const [xpData, setXPData] = useLocalStorage<{
     total: number;
     history: { type: string; amount: number; ts: number }[];
-  }>("kts_xp_total", { total: 0, history: [] });
+  }>("xp_total", { total: 0, history: [] });
 
   const [earnedBadgeIds, setEarnedBadgeIds] = useLocalStorage<string[]>(
     "kts_earned_badges",

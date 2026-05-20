@@ -66,7 +66,7 @@ function computeMyProgress(hanjaTotal: number): WeeklyProgress {
     const wordsLearned = Object.values(srData).filter(c => c.interval >= 7).length;
     const streakData = getStreakData();
     const streak = streakData.currentStreak;
-    const totalXp = parseInt(localStorage.getItem("kts_total_xp") || "0", 10);
+    const totalXp = parseInt(localStorage.getItem("xp_total") || "0", 10);
     return {
       wordsLearned,
       quizScore: Math.min(100, Math.round((wordsLearned / Math.max(1, hanjaTotal)) * 100 * 10)),

@@ -85,7 +85,7 @@ export default function HangulCanvasPage() {
   const [mode, setMode] = useState<"practice" | "quiz">("practice");
   const [quizIdx, setQuizIdx] = useState(0);
   const [quizStreak, setQuizStreak] = useState(0);
-  const [xpData, setXpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
+  const [xpData, setXpData] = useLocalStorage<{ total: number }>("xp_total", { total: 0 });
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const guideCanvasRef = useRef<HTMLCanvasElement>(null);

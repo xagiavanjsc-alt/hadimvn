@@ -83,13 +83,13 @@ export default function ProfilePage() {
 
   const streak = getStreakData();
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
-  const [flashcardProgress] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
+  const [flashcardProgress] = useLocalStorage<Record<string, boolean>>("flashcard_known", {});
   const [hangulProgress] = useLocalStorage<Record<string, boolean>>("kts_hangul_known", {});
   const [examResults] = useLocalStorage<ExamResult[]>("kts_eps_exam_history", []);
   const [quizHistory] = useLocalStorage<{ date: string; score: number; total: number }[]>("kts_quiz_history", []);
 
   // Hanja stats
-  const [srCards] = useLocalStorage<{ id: string; word: string; meaning: string; repetitions: number; nextReview: string; easeFactor: number; interval: number }[]>("kts_sr_cards", []);
+  const [srCards] = useLocalStorage<{ id: string; word: string; meaning: string; repetitions: number; nextReview: string; easeFactor: number; interval: number }[]>("sr_cards", []);
   const [hanjaFavorites] = useLocalStorage<string[]>("kts_hanja_favorites", []);
   const [srReviewHistory] = useLocalStorage<{ date: string; count: number }[]>("kts_sr_review_history", []);
   const [studyDiary] = useLocalStorage<{ date: string; wordsLearned: number; quizScore: number; quizTotal: number }[]>("kts_study_diary", []);

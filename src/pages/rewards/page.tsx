@@ -72,7 +72,7 @@ function AdminPanel() {
       .slice(0, 15);
   }, [srData]);
 
-  const xpData = useMemo(() => { try { return parseInt(localStorage.getItem("kts_total_xp") || "0", 10); } catch { return 0; } }, []);
+  const xpData = useMemo(() => { try { return parseInt(localStorage.getItem("xp_total") || "0", 10); } catch { return 0; } }, []);
   const streakData = useMemo(() => { try { return JSON.parse(localStorage.getItem("hanja_streak") || "{}"); } catch { return {}; } }, []);
 
   const subTabs = [
@@ -166,7 +166,7 @@ function AdminPanel() {
             <div className="grid grid-cols-2 gap-3">
               {[
                 { label: "Reset dữ liệu học Hán Hàn", icon: "ri-delete-bin-line", color: "#ef4444", action: () => { if (confirm("Reset toàn bộ dữ liệu học Hán Hàn?")) { localStorage.removeItem("hanja_sr_data"); window.location.reload(); } } },
-                { label: "Reset XP & Streak", icon: "ri-refresh-line", color: "#fb923c", action: () => { if (confirm("Reset XP và streak?")) { localStorage.removeItem("kts_total_xp"); localStorage.removeItem("hanja_streak"); window.location.reload(); } } },
+                { label: "Reset XP & Streak", icon: "ri-refresh-line", color: "#fb923c", action: () => { if (confirm("Reset XP và streak?")) { localStorage.removeItem("xp_total"); localStorage.removeItem("hanja_streak"); window.location.reload(); } } },
                 { label: "Xem dữ liệu SR (JSON)", icon: "ri-code-line", color: "#a78bfa", action: () => { const d = localStorage.getItem("hanja_sr_data"); showToast(d ? `${Object.keys(JSON.parse(d)).length} từ đã học` : "Chưa có dữ liệu", "info", 3000); } },
                 { label: "Xuất báo cáo JSON", icon: "ri-download-line", color: "#34d399", action: () => { const data = { totalWords, totalMastered, totalLearning, totalReviews, groupStats }; const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "hanja-report.json"; a.click(); } },
               ].map(btn => (
@@ -407,7 +407,7 @@ function AdminPanel() {
                       favorites: localStorage.getItem("hanja_favorites"),
                       notes: localStorage.getItem("hanja_notes"),
                       streak: localStorage.getItem("hanja_streak"),
-                      xp: localStorage.getItem("kts_total_xp"),
+                      xp: localStorage.getItem("xp_total"),
                       exportedAt: new Date().toISOString(),
                     };
                     const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
@@ -932,7 +932,7 @@ export default function RewardsPage() {
 
   // ─── UNIFIED XP SOURCE ────────────────────────────────────────────────────
   // Single source of truth site-wide = useXPSystem().totalXP (persisted in
-  // `kts_xp_total` localStorage, synced to Supabase user_progress via the
+  // `xp_total` localStorage, synced to Supabase user_progress via the
   // max(formula, local_total) rule). This page only spends/redeems locally.
   const { totalXP, currentRank, awardXP } = useXPSystem();
   const [redeemSpent, setRedeemSpent] = useLocalStorage<number>("kts_xp_redeem_spent", 0);

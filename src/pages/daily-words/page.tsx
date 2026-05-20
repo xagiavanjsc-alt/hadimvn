@@ -349,7 +349,7 @@ export default function DailyWordsPage() {
   const navigate = useNavigate();
   const { awardXP } = useXPSystem();
   const [learnedIds, setLearnedIds] = useLocalStorage<Record<string, string[]>>(
-    "kts_daily_learned",
+    "daily_learned",
     {}
   );
   const today = new Date().toISOString().split("T")[0];

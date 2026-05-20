@@ -338,7 +338,7 @@ export default function StudyAnalyticsPage() {
   const [xpLog] = useLocalStorage<{ amount: number; reason: string; date: string }[]>("kts_xp_log", []);
   const [quizHistory] = useLocalStorage<{ date: string; score: number; total: number }[]>("kts_quiz_history", []);
   const streak = getStreakData();
-  const [totalXP] = useLocalStorage<number>("kts_total_xp", 0);
+  const [totalXP] = useLocalStorage<number>("xp_total", 0);
   const [flashcardCount] = useLocalStorage<number>("kts_flashcard_total", 0);
 
   // Build XP by date

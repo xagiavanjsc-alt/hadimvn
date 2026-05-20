@@ -84,7 +84,7 @@ function saveQuizScore(lessonId: string, score: number, total: number) {
   const streak = recordActivity(1);
   // Award XP bonus for streak
   if (streak.currentStreak > 1) {
-    const xpKey = "kts_xp_total";
+    const xpKey = "xp_total";
     const xpStored = localStorage.getItem(xpKey);
     const xpData = xpStored ? JSON.parse(xpStored) : { total: 0 };
     const bonus = Math.min(streak.currentStreak * 5, 50); // max 50 XP bonus

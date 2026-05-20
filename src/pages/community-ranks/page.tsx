@@ -187,7 +187,7 @@ export default function CommunityRanksPage() {
   const [activeTab, setActiveTab] = useState<"ranks" | "badges" | "leaderboard">("ranks");
   const [badgeCategory, setBadgeCategory] = useState("all");
   const streak = getStreakData();
-  const [xpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
+  const [xpData] = useLocalStorage<{ total: number }>("xp_total", { total: 0 });
   const { user, profile } = useAuth();
 
   const userXP = xpData.total || 0;

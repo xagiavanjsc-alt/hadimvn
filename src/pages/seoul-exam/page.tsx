@@ -131,7 +131,7 @@ export default function SeoulExamPage() {
   const [showExplanation, setShowExplanation] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
   const [timerActive, setTimerActive] = useState(false);
-  const [xpData, setXpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
+  const [xpData, setXpData] = useLocalStorage<{ total: number }>("xp_total", { total: 0 });
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const startExam = (book: SeoulBook) => {

@@ -120,7 +120,7 @@ export default function PersonalizedRoadmapPage() {
   const navigate = useNavigate();
   const [selectedPath, setSelectedPath] = useState<LearningPath | null>(null);
   const [completedSteps, setCompletedSteps] = useLocalStorage<Record<string, string[]>>("kts_roadmap_completed", {});
-  const [xpData, setXpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
+  const [xpData, setXpData] = useLocalStorage<{ total: number }>("xp_total", { total: 0 });
 
   const toggleStep = (pathId: string, stepId: string) => {
     setCompletedSteps(prev => {

@@ -123,7 +123,7 @@ export default function DailyVocabPage() {
   const [allVocab, setAllVocab] = useState<VocabEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [revealed, setRevealed] = useLocalStorage<Record<string, boolean>>("kts_daily_revealed", {});
-  const [learned, setLearned] = useLocalStorage<Record<string, boolean>>("kts_daily_learned", {});
+  const [learned, setLearned] = useLocalStorage<Record<string, boolean>>("daily_learned", {});
   const [notifEnabled, setNotifEnabled] = useLocalStorage<boolean>("kts_daily_notif", false);
   const [streak, setStreak] = useLocalStorage<{ count: number; lastDate: string }>("kts_daily_vocab_streak", { count: 0, lastDate: "" });
 

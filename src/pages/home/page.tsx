@@ -233,12 +233,12 @@ export default function Home() {
 
   const streak = getStreakData();
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
-  const [flashcardKnown] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
+  const [flashcardKnown] = useLocalStorage<Record<string, boolean>>("flashcard_known", {});
   const [examResults] = useLocalStorage<{ score: number; total: number; date: string }[]>(
     "kts_eps_exam_results",
     []
   );
-  const [learnedIds] = useLocalStorage<Record<string, string[]>>("kts_daily_learned", {});
+  const [learnedIds] = useLocalStorage<Record<string, string[]>>("daily_learned", {});
 
   // Draft mode settings from admin
   const [melonDraftMode] = useLocalStorage<boolean>("kts_melon_draft_mode", false);

@@ -19,7 +19,7 @@ interface BannerDismiss {
 
 const SRNotificationBanner = memo(function SRNotificationBanner() {
   const navigate = useNavigate();
-  const [srCards] = useLocalStorage<SRCard[]>("kts_sr_cards", []);
+  const [srCards] = useLocalStorage<SRCard[]>("sr_cards", []);
   const [dismissed, setDismissed] = useLocalStorage<BannerDismiss>("kts_sr_banner_dismissed", { date: "", count: 0 });
   const [visible, setVisible] = useState(false);
   const [dueCards, setDueCards] = useState<SRCard[]>([]);

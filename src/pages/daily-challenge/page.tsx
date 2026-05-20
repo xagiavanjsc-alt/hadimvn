@@ -307,7 +307,7 @@ export default function DailyChallengePageComponent() {
   const [activeChallenge, setActiveChallenge] = useState<Challenge | null>(null);
   const [showXPToast, setShowXPToast] = useState(false);
   const [earnedXP, setEarnedXP] = useState(0);
-  const [xpData, setXpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
+  const [xpData, setXpData] = useLocalStorage<{ total: number }>("xp_total", { total: 0 });
 
   // Reset daily record if new day
   useEffect(() => {

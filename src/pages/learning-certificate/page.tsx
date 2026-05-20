@@ -18,7 +18,7 @@ interface Certificate {
 }
 
 function useCertificateData() {
-  const [xpData] = useLocalStorage<{ total: number }>("kts_xp_total", { total: 0 });
+  const [xpData] = useLocalStorage<{ total: number }>("xp_total", { total: 0 });
   const streak = getStreakData();
   const [epsHistory] = useLocalStorage<Array<{ score: number; total: number }>>("kts_eps_exam_history", []);
   const [vocabProgress] = useLocalStorage<Record<string, { known: boolean }>>("kts_vocab_progress", {});

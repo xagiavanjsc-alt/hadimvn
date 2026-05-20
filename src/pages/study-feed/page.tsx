@@ -112,7 +112,7 @@ export default function StudyFeedPage() {
   const streak = getStreakData();
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
   const [masteredIds] = useLocalStorage<string[]>("kts_eps_vocab_mastered", []);
-  const [flashcardKnownMap] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
+  const [flashcardKnownMap] = useLocalStorage<Record<string, boolean>>("flashcard_known", {});
   const [dismissedIds, setDismissedIds] = useLocalStorage<string[]>("kts_feed_dismissed", []);
   const [filterType, setFilterType] = useState<string>("all");
 

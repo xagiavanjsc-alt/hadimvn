@@ -6,6 +6,7 @@ import 'remixicon/fonts/remixicon.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import App from './App.tsx'
 import { ErrorBoundary } from './components/common/ErrorBoundary'
+import { migrateStorageKeys } from './utils/migrateStorageKeys'
 
 // ─── Polyfill requestIdleCallback for Safari ───────────────────────────────────────
 // Safari doesn't support requestIdleCallback, so polyfill with setTimeout
@@ -21,6 +22,10 @@ if (!('requestIdleCallback' in window)) {
   };
   (window as any).cancelIdleCallback = (id: number) => clearTimeout(id);
 }
+
+// ─── Run localStorage key migration ─────────────────────────────────────────────────
+// Migrate old kts_* keys to new keys for consistency
+migrateStorageKeys();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
