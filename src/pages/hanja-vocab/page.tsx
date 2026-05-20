@@ -893,8 +893,8 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
                       </button>
                     ) : (
                       <button onClick={() => resetToNew(item.korean)}
-                        className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-green-500/10 text-green-400 hover:bg-green-500/20 cursor-pointer transition-colors whitespace-nowrap">
-                        <i className="ri-refresh-line text-xs"></i>Đã thuộc
+                        className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-app-surface/50 text-white/40 hover:bg-app-surface/70 cursor-pointer transition-colors whitespace-nowrap">
+                        <i className="ri-refresh-line text-xs"></i>
                       </button>
                     )}
                   </div>
@@ -972,8 +972,8 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
                       </button>
                     ) : (
                       <button onClick={() => resetToNew(item.korean)}
-                        className="flex items-center gap-1 px-2 py-1 rounded-full text-xs bg-green-500/10 text-green-400 hover:bg-green-500/20 cursor-pointer transition-colors whitespace-nowrap w-fit">
-                        <i className="ri-refresh-line"></i>Đã thuộc
+                        className="flex items-center gap-1 px-2 py-1 rounded-full text-xs bg-app-surface/50 text-white/40 hover:bg-app-surface/70 cursor-pointer transition-colors whitespace-nowrap w-fit">
+                        <i className="ri-refresh-line"></i>
                       </button>
                     )}
                     <button onClick={() => onToggleFav(item.korean)}
