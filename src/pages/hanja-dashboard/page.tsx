@@ -16,7 +16,7 @@ interface HanjaNode {
 }
 
 const LEARNED_KEY = "kts_hanja_pro_known";
-const STREAK_KEY = "hanja_streak_log";
+const STREAK_KEY = "hanja_streak";
 
 function loadLearned(): Set<number> {
   try {
@@ -31,7 +31,14 @@ function loadLearned(): Set<number> {
 function loadStreakDays(): string[] {
   try {
     const raw = localStorage.getItem(STREAK_KEY);
-    return raw ? JSON.parse(raw) : [];
+    if (!raw) return [];
+    const data = JSON.parse(raw);
+    // hanja_streak structure: { currentStreak, longestStreak, lastStudyDate, history }
+    if (data.history && typeof data.history === "object") {
+      return Object.keys(data.history).filter(k => data.history[k] > 0);
+    }
+    // fallback for old array format
+    return Array.isArray(data) ? data : [];
   } catch { return []; }
 }
 
