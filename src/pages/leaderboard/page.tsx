@@ -5,6 +5,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 import { computeXP, deriveLevel } from "@/lib/xp";
+import { getStreakData } from "@/utils/streak";
 
 interface ExamResult {
   date: string;
@@ -89,7 +90,7 @@ export default function LeaderboardPage() {
   const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
 
   // Local stats for current user
-  const [streak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
+  const streakData = getStreakData();
   const [examResults] = useLocalStorage<ExamResult[]>("kts_eps_exam_results", []);
   const [flashcardKnown] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
 
@@ -102,7 +103,7 @@ export default function LeaderboardPage() {
   const myTotalCorrect = examResults.reduce((sum, r) => sum + (r.correctIds?.length ?? r.score ?? 0), 0);
   const myWordsLearned = Object.values(flashcardKnown).filter(Boolean).length;
   const myXp = computeXP({
-    streakDays: streak.count,
+    streakDays: streakData.currentStreak,
     bestScorePct: myBestScore,
     averageScorePct: myAvgScore,
     wordsLearned: myWordsLearned,
@@ -147,7 +148,7 @@ export default function LeaderboardPage() {
             display_name: profile?.display_name || "Bạn",
             avatar_url: profile?.avatar_url || null,
             level: deriveLevel(myBestScore),
-            streak: streak.count,
+            streak: streakData.currentStreak,
             best_score: myBestScore,
             words_learned: myWordsLearned,
             xp: myXp,
@@ -172,7 +173,7 @@ export default function LeaderboardPage() {
           display_name: profile?.display_name || "Bạn",
           avatar_url: profile?.avatar_url || null,
           level: deriveLevel(myBestScore),
-          streak: streak.count,
+            streak: streakData.currentStreak,
           best_score: myBestScore,
           words_learned: myWordsLearned,
           xp: myXp,
@@ -191,7 +192,7 @@ export default function LeaderboardPage() {
     } finally {
       setLoading(false);
     }
-  }, [sortKey, user, profile, streak.count, myBestScore, myWordsLearned, myXp]);
+  }, [sortKey, user, profile, streakData.currentStreak, myBestScore, myWordsLearned, myXp]);
 
   useEffect(() => {
     fetchLeaderboard();
@@ -259,7 +260,7 @@ export default function LeaderboardPage() {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
               {[
                 { label: "XP", value: myXp.toLocaleString(), color: "app-accent-primary" },
-                { label: "Streak", value: `${streak.count}d`, color: "#fb923c" },
+                { label: "Streak", value: `${streakData.currentStreak}d`, color: "#fb923c" },
                 { label: "EPS cao nhất", value: myBestScore > 0 ? `${myBestScore}%` : "—", color: "#4ade80" },
                 { label: "Từ đã học", value: myWordsLearned, color: "#a78bfa" },
               ].map((s) => (
