@@ -53,9 +53,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const createProfile = useCallback(async (userId: string, displayName: string) => {
     const refCode = getActiveRefCode();
+    // Avatar mặc định từ UI Avatars API
+    const defaultAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=random&color=fff&size=128`;
     const { data } = await supabase
       .from("user_profiles")
-      .insert({ id: userId, display_name: displayName, ...(refCode ? { ref_code: refCode } : {}) })
+      .insert({ id: userId, display_name: displayName, avatar_url: defaultAvatar, ...(refCode ? { ref_code: refCode } : {}) })
       .select()
       .maybeSingle();
     if (refCode && data) clearRefCode();
@@ -248,9 +250,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const updateProfile = useCallback(async (updates: Partial<Pick<UserProfile, "display_name" | "avatar_url">>) => {
     if (!state.user) return null;
+    // Nếu avatar_url được set về null, giữ nguyên avatar hiện tại hoặc dùng avatar mặc định
+    let finalUpdates = { ...updates, updated_at: new Date().toISOString() };
+    if (updates.avatar_url === null && state.profile) {
+      // Không cho phép xóa avatar, giữ nguyên
+      finalUpdates.avatar_url = state.profile.avatar_url;
+    } else if (updates.avatar_url === null && !state.profile && updates.display_name) {
+      // Nếu chưa có avatar và đang cập nhật display_name, tạo avatar mặc định
+      finalUpdates.avatar_url = `https://ui-avatars.com/api/?name=${encodeURIComponent(updates.display_name)}&background=random&color=fff&size=128`;
+    }
     const { data, error } = await supabase
       .from("user_profiles")
-      .update({ ...updates, updated_at: new Date().toISOString() })
+      .update(finalUpdates)
       .eq("id", state.user.id)
       .select()
       .maybeSingle();
@@ -266,7 +277,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     setState(prev => ({ ...prev, profile: data as UserProfile }));
     return data as UserProfile;
-  }, [state.user]);
+  }, [state.user, state.profile]);
 
   return (
     <AuthContext.Provider value={{ ...state, signUp, signIn, signOut, updateProfile, refreshProfile }}>
