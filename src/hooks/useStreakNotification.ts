@@ -1,10 +1,6 @@
 import { useEffect, useRef, useCallback } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-
-interface StreakData {
-  count: number;
-  lastDate: string;
-}
+import { getStreakData } from "@/utils/streak";
 
 interface NotificationSettings {
   streakWarning: boolean;
@@ -20,7 +16,7 @@ interface NotificationSettings {
  * - Simulates community activity notifications
  */
 export function useStreakNotification() {
-  const [streak] = useLocalStorage<StreakData>("kts_streak", { count: 0, lastDate: "" });
+  const streak = getStreakData();
   const [settings] = useLocalStorage<NotificationSettings>("kts_notif_settings", {
     streakWarning: true,
     dailyReminder: true,
@@ -74,14 +70,14 @@ export function useStreakNotification() {
     if (lastStreakWarnDate === today) return;
 
     // Check if studied today
-    const studiedToday = streak.lastDate === today;
+    const studiedToday = streak.lastStudyDate === today;
     if (studiedToday) return;
 
     // Streak at risk!
-    if (streak.count > 0) {
+    if (streak.currentStreak > 0) {
       sendNotification(
         "🔥 Streak sắp mất rồi!",
-        `Bạn đang có ${streak.count} ngày streak. Học ít nhất 1 bài hôm nay để giữ streak nhé!`
+        `Bạn đang có ${streak.currentStreak} ngày streak. Học ít nhất 1 bài hôm nay để giữ streak nhé!`
       );
     } else {
       sendNotification(

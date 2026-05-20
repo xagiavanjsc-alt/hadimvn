@@ -10,6 +10,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useToast, ToastContainer } from "@/components/common/ToastNotification";
 import { communitySlug } from "@/lib/slugify";
 import AuthModal from "@/components/feature/AuthModal";
+import { getStreakData } from "@/utils/streak";
 
 // ─── SEO Component for Community Page ───────────────────────────────────────────────
 function CommunitySEO({ category, search }: { category: Category; search: string }) {
@@ -1833,7 +1834,7 @@ export default function CommunityPage() {
   const [editingPost, setEditingPost] = useState<Post | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
   const [loadingPosts, setLoadingPosts] = useState(true);
-  const [streak] = useLocalStorage<{ count: number }>("kts_streak", { count: 0 });
+  const streak = getStreakData();
   const [currentPage, setCurrentPage] = useState(1);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const { user, profile } = useAuth();
@@ -2169,12 +2170,12 @@ export default function CommunityPage() {
                 <i className="ri-fire-line text-app-accent-primary text-lg"></i>
               </div>
               <div>
-                <p className="text-white font-bold text-base">{streak.count} ngày streak</p>
+                <p className="text-white font-bold text-base">{streak.currentStreak} ngày streak</p>
                 <p className="text-app-text-secondary text-xs">Của bạn</p>
               </div>
             </div>
             <p className="text-app-text-secondary text-xs leading-relaxed">
-              {streak.count >= 30 ? "Top 10% cộng đồng! Xuất sắc!" : streak.count >= 7 ? "Đang tiến bộ tốt — tiếp tục nhé!" : "Bắt đầu streak để leo bảng xếp hạng!"}
+              {streak.currentStreak >= 30 ? "Top 10% cộng đồng! Xuất sắc!" : streak.currentStreak >= 7 ? "Đang tiến bộ tốt — tiếp tục nhé!" : "Bắt đầu streak để leo bảng xếp hạng!"}
             </p>
           </div>
 

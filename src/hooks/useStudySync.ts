@@ -107,7 +107,12 @@ export function useStudySync() {
 
       if (userProgress) {
         if (userProgress.streak_count > 0) {
-          localStorage.setItem("kts_streak", JSON.stringify({ count: userProgress.streak_count, lastDate: userProgress.streak_last_date || "" }));
+          localStorage.setItem("hanja_streak", JSON.stringify({
+            currentStreak: userProgress.streak_count,
+            longestStreak: userProgress.streak_count,
+            lastStudyDate: userProgress.streak_last_date || "",
+            history: {}
+          }));
         }
         localStorage.setItem("kts_xp_total", JSON.stringify({ total: userProgress.xp }));
         // Store best_score and words_learned for leaderboard sync

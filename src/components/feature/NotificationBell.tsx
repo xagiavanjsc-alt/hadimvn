@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect, useRef, useMemo, memo } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
+import { getStreakData } from "@/utils/streak";
 
 interface StaticNotif {
   id: string;
@@ -25,7 +26,7 @@ function timeAgo(ts: number): string {
 
 function NotificationBell() {
   const [open, setOpen] = useState(false);
-  const [streak] = useLocalStorage<{ count: number }>("kts_streak", { count: 0 });
+  const streak = getStreakData();
   const [readIds, setReadIds] = useLocalStorage<string[]>("kts_notif_read_v2", []);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -34,12 +35,12 @@ function NotificationBell() {
   // Static/contextual notifications
   const staticNotifs = useMemo<StaticNotif[]>(() => {
     const items: StaticNotif[] = [];
-    if (streak.count >= 3) {
+    if (streak.currentStreak >= 3) {
       items.push({
-        id: `streak-${streak.count}`,
+        id: `streak-${streak.currentStreak}`,
         type: "streak",
-        title: `🔥 ${streak.count} ngày streak!`,
-        message: `Tuyệt vời! Bạn đang duy trì ${streak.count} ngày học liên tiếp. Tiếp tục nhé!`,
+        title: `🔥 ${streak.currentStreak} ngày streak!`,
+        message: `Tuyệt vời! Bạn đang duy trì ${streak.currentStreak} ngày học liên tiếp. Tiếp tục nhé!`,
         time: "Hôm nay",
         icon: "ri-fire-line",
         color: "#fb923c",
@@ -73,7 +74,7 @@ function NotificationBell() {
       color: "#34d399",
     });
     return items;
-  }, [streak.count]);
+  }, [streak.currentStreak]);
 
   // Merge XP notifications + static
   const allNotifications = useMemo(() => {

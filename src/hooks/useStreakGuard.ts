@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { getStreakData, recordActivity } from "@/utils/streak";
 
 /**
  * Streak data stored in localStorage
@@ -30,9 +31,9 @@ interface StreakStatus {
  * - markStudiedToday: Function to mark today as studied
  */
 export function useStreakGuard() {
-  const [streak, setStreak] = useLocalStorage<StreakData>("kts_streak", { count: 0, lastDate: "" });
+  const streak = getStreakData();
   const [status, setStatus] = useState<StreakStatus>({
-    count: streak.count,
+    count: streak.currentStreak,
     studiedToday: false,
     isAtRisk: false,
     hoursLeft: 24,
@@ -56,31 +57,22 @@ export function useStreakGuard() {
     const hoursLeft = Math.floor(msLeft / 3600000);
     const minutesLeft = Math.floor((msLeft % 3600000) / 60000);
 
-    const studiedToday = streak.lastDate === today;
-    const studiedYesterday = streak.lastDate === yesterday;
-    const missedDays = streak.lastDate && streak.lastDate !== today && streak.lastDate !== yesterday;
-
-    // Auto-reset if missed more than 1 day
-    let currentCount = streak.count;
-    let wasReset = false;
-    if (missedDays && streak.count > 0) {
-      currentCount = 0;
-      wasReset = true;
-      setStreak({ count: 0, lastDate: streak.lastDate });
-    }
+    const studiedToday = streak.lastStudyDate === today;
+    const studiedYesterday = streak.lastStudyDate === yesterday;
+    const missedDays = streak.lastStudyDate && streak.lastStudyDate !== today && streak.lastStudyDate !== yesterday;
 
     // At risk: has streak, studied yesterday (not today), and less than 3 hours left
-    const isAtRisk = currentCount > 0 && studiedYesterday && !studiedToday && hoursLeft < 3;
+    const isAtRisk = streak.currentStreak > 0 && studiedYesterday && !studiedToday && hoursLeft < 3;
 
     setStatus({
-      count: currentCount,
+      count: streak.currentStreak,
       studiedToday,
       isAtRisk,
       hoursLeft,
       minutesLeft,
-      wasReset,
+      wasReset: missedDays && streak.currentStreak === 0,
     });
-  }, [streak, setStreak]);
+  }, [streak]);
 
   /**
    * Mark today as studied and increment streak
@@ -88,12 +80,11 @@ export function useStreakGuard() {
    */
   const markStudiedToday = useCallback(() => {
     const today = new Date().toISOString().split("T")[0];
-    if (streak.lastDate === today) return; // already marked
+    if (streak.lastStudyDate === today) return; // already marked
 
-    const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
-    const newCount = streak.lastDate === yesterday ? streak.count + 1 : 1;
-    setStreak({ count: newCount, lastDate: today });
-  }, [streak, setStreak]);
+    // Use centralized recordActivity function
+    recordActivity(1);
+  }, [streak.lastStudyDate]);
 
   useEffect(() => {
     computeStatus();

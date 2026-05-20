@@ -4,6 +4,7 @@ import { RANKS, BADGES } from "@/data/ranks";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 import { computeXP, deriveLevel, MAX_SINGLE_ADD_XP, DAILY_RAW_XP_CAP } from "@/lib/xp";
+import { getStreakData } from "@/utils/streak";
 
 /**
  * XP event types for tracking user achievements
@@ -200,9 +201,7 @@ export function useXPSystem() {
     []
   );
 
-  const [streak] = useLocalStorage<{ count: number }>("kts_streak", {
-    count: 0,
-  });
+  const streak = getStreakData();
 
   const [dailyCounts, setDailyCounts] = useLocalStorage<DailyCounts>(
     "kts_xp_daily_counts",
@@ -250,7 +249,7 @@ export function useXPSystem() {
         const totalCorrect = validExams.reduce((sum, r) => sum + (r.correctIds?.length ?? r.score ?? 0), 0);
 
         const computedXP = computeXP({
-          streakDays: streak.count || 0,
+          streakDays: streak.currentStreak || 0,
           bestScorePct: bestScore,
           averageScorePct: avgScore,
           wordsLearned,
@@ -266,7 +265,7 @@ export function useXPSystem() {
           user_id: user.id,
           xp: finalXP,
           level,
-          streak_count: streak.count || 0,
+          streak_count: streak.currentStreak || 0,
           words_learned: wordsLearned,
           best_score: bestScore,
           last_active_at: new Date().toISOString(),
@@ -276,7 +275,7 @@ export function useXPSystem() {
         // silent fail; will retry on next award
       }
     }, 1500);
-  }, [user, streak.count]);
+  }, [user, streak.currentStreak]);
 
   const addNotification = useCallback(
     (notif: Omit<XPNotification, "id" | "timestamp">) => {
@@ -359,7 +358,7 @@ export function useXPSystem() {
 
       const newBadges = checkBadges(
         xpData.total + amount,
-        streak.count,
+        streak.currentStreak,
         earnedBadgeIds,
         { bestScorePct, wordsLearned }
       );
@@ -394,7 +393,7 @@ export function useXPSystem() {
     },
     [
       xpData.total,
-      streak.count,
+      streak.currentStreak,
       earnedBadgeIds,
       setXPData,
       setEarnedBadgeIds,

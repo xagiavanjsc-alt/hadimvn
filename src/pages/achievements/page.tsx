@@ -1,6 +1,7 @@
 ﻿import { useState, useMemo, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { getStreakData } from "@/utils/streak";
 
 interface Achievement {
   id: string;
@@ -143,7 +144,7 @@ function AchievementCard({ achievement, unlocked }: { achievement: Achievement; 
 }
 
 export default function AchievementsPage() {
-  const [streak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
+  const streak = getStreakData();
   const [activeCategory, setActiveCategory] = useState("all");
   const [showUnlockedOnly, setShowUnlockedOnly] = useState(false);
   const [newBadge, setNewBadge] = useState<Achievement | null>(null);
@@ -162,8 +163,8 @@ export default function AchievementsPage() {
     const totalXP = xpData.total || 0;
 
     return {
-      streak: streak.count || 12,
-      longestStreak: Math.max(streak.count || 12, 18),
+      streak: streak.currentStreak || 12,
+      longestStreak: streak.longestStreak || 18,
       epsScore: maxEps,
       wordsLearned,
       quizCount: quizHistory.length || 23,

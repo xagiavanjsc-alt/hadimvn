@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { getStreakData } from "@/utils/streak";
 
 interface ReminderSettings {
   enabled: boolean;
@@ -31,7 +32,7 @@ const DEFAULT_SETTINGS: ReminderSettings = {
 
 export default function DailyReminder() {
   const navigate = useNavigate();
-  const [streak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
+  const streak = getStreakData();
   const [settings, setSettings] = useLocalStorage<ReminderSettings>("kts_reminder_v2", DEFAULT_SETTINGS);
   const [visible, setVisible] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
@@ -42,8 +43,8 @@ export default function DailyReminder() {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
 
   const today = new Date().toISOString().split("T")[0];
-  const studiedToday = streak.lastDate === today;
-  const missedYesterday = streak.lastDate !== today && streak.lastDate !== new Date(Date.now() - 86400000).toISOString().split("T")[0];
+  const studiedToday = streak.lastStudyDate === today;
+  const missedYesterday = streak.lastStudyDate !== today && streak.lastStudyDate !== new Date(Date.now() - 86400000).toISOString().split("T")[0];
 
   useEffect(() => {
     if (!settings.enabled) return;
@@ -206,7 +207,7 @@ export default function DailyReminder() {
               </div>
               <div>
                 <p className="text-white text-sm font-medium mb-0.5">
-                  {missedYesterday ? `Streak ${streak.count} ngày sắp bị reset!` : "Bạn chưa học hôm nay"}
+                  {missedYesterday ? `Streak ${streak.currentStreak} ngày sắp bị reset!` : "Bạn chưa học hôm nay"}
                 </p>
                 <p className="text-white/50 text-xs leading-relaxed">
                   {missedYesterday

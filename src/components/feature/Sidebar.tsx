@@ -8,6 +8,7 @@ import { useIsAdmin, markAdminVerified } from "@/hooks/useIsAdmin";
 import { useEffect, useState, useMemo, memo } from "react";
 import AuthModal from "./AuthModal";
 import { RANKS } from "@/data/ranks";
+import { getStreakData } from "@/utils/streak";
 
 function getRankForXP(xp: number) {
   return [...RANKS].reverse().find(r => xp >= r.minXP) || RANKS[0];
@@ -15,7 +16,7 @@ function getRankForXP(xp: number) {
 
 function StreakBadge() {
   const { user, profile } = useAuth();
-  const [streak, setStreak] = useLocalStorage<{ count: number; lastDate: string }>("kts_streak", { count: 0, lastDate: "" });
+  const streak = getStreakData();
   const [xpFromDB, setXpFromDB] = useState(0);
 
   // Fetch XP from user_progress (unified source of truth)
@@ -25,17 +26,6 @@ function StreakBadge() {
       if (data) setXpFromDB(data.xp);
     });
   }, [user]);
-
-  useEffect(() => {
-    const today = new Date().toISOString().split("T")[0];
-    if (streak.lastDate === today) return;
-    const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
-    if (streak.lastDate === yesterday) {
-      setStreak({ count: streak.count + 1, lastDate: today });
-    } else {
-      setStreak({ count: 1, lastDate: today });
-    }
-  }, []);
 
   const totalXP = xpFromDB || 0;
   const rank = getRankForXP(totalXP);
@@ -49,7 +39,7 @@ function StreakBadge() {
       <div className="flex items-center gap-1.5">
         <i className="ri-fire-line text-app-accent-primary text-sm"></i>
         <div className="flex-1">
-          <p className="text-app-accent-primary text-xs font-bold">{streak.count} ngày liên tiếp</p>
+          <p className="text-app-accent-primary text-xs font-bold">{streak.currentStreak} ngày liên tiếp</p>
         </div>
       </div>
       <div className="flex items-center gap-1.5">

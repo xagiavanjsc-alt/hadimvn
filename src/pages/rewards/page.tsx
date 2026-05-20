@@ -9,6 +9,7 @@ import { RANKS } from "@/data/ranks";
 import { supabase } from "@/lib/supabase";
 import { HANJA_DATA } from "@/mocks/hanjaData";
 import { sanitizeHtml } from "@/lib/sanitize";
+import { getStreakData } from "@/utils/streak";
 
 const ADMIN_KEY = "kts_admin_mode";
 
@@ -165,7 +166,7 @@ function AdminPanel() {
             <div className="grid grid-cols-2 gap-3">
               {[
                 { label: "Reset dữ liệu học Hán Hàn", icon: "ri-delete-bin-line", color: "#ef4444", action: () => { if (confirm("Reset toàn bộ dữ liệu học Hán Hàn?")) { localStorage.removeItem("hanja_sr_data"); window.location.reload(); } } },
-                { label: "Reset XP & Streak", icon: "ri-refresh-line", color: "#fb923c", action: () => { if (confirm("Reset XP và streak?")) { localStorage.removeItem("kts_total_xp"); localStorage.removeItem("kts_streak"); window.location.reload(); } } },
+                { label: "Reset XP & Streak", icon: "ri-refresh-line", color: "#fb923c", action: () => { if (confirm("Reset XP và streak?")) { localStorage.removeItem("kts_total_xp"); localStorage.removeItem("hanja_streak"); window.location.reload(); } } },
                 { label: "Xem dữ liệu SR (JSON)", icon: "ri-code-line", color: "#a78bfa", action: () => { const d = localStorage.getItem("hanja_sr_data"); showToast(d ? `${Object.keys(JSON.parse(d)).length} từ đã học` : "Chưa có dữ liệu", "info", 3000); } },
                 { label: "Xuất báo cáo JSON", icon: "ri-download-line", color: "#34d399", action: () => { const data = { totalWords, totalMastered, totalLearning, totalReviews, groupStats }; const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "hanja-report.json"; a.click(); } },
               ].map(btn => (
@@ -920,7 +921,7 @@ export default function RewardsPage() {
   const navigate = useNavigate();
   const { showToast, ToastComponent } = useToast();
   const { user } = useAuth();
-  const [streak] = useLocalStorage<{ count: number }>("kts_streak", { count: 0 });
+  const streak = getStreakData();
   const [redeemedRewards, setRedeemedRewards] = useLocalStorage<string[]>("kts_redeemed_rewards", []);
   const [redeemMsg, setRedeemMsg] = useState<{ id: string; msg: string } | null>(null);
   const [activeTab, setActiveTab] = useState<"rewards" | "history" | "earn" | "admin">("rewards");
@@ -1043,7 +1044,7 @@ export default function RewardsPage() {
           </div>
           <div className="grid grid-cols-2 gap-4 text-center">
             {[
-              { label: "Streak", value: `${streak.count}d`, color: "#fb923c" },
+              { label: "Streak", value: `${streak.currentStreak}d`, color: "#fb923c" },
               { label: "Đã đổi", value: redeemedRewards.length, color: "#34d399" },
             ].map(s => (
               <div key={s.label}>

@@ -2,6 +2,7 @@ import { useCallback, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { getStreakData, recordActivity } from "@/utils/streak";
 
 /**
  * Award random 1–5 XP **once per calendar day** whenever a logged-in user is
@@ -16,21 +17,15 @@ export function useDailyLoginBonus() {
   const { user, loading } = useAuth();
   const { awardXP } = useXPSystem();
   const [lastDate, setLastDate] = useLocalStorage<string>("kts_daily_login_date", "");
-  const [streak, setStreak] = useLocalStorage<{ count: number; lastDate: string }>(
-    "kts_streak",
-    { count: 0, lastDate: "" }
-  );
 
   const claimIfNewDay = useCallback(() => {
     if (!user) return;
     const today = new Date().toISOString().slice(0, 10);
     if (lastDate === today) return;
 
-    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-    let newCount = 1;
-    if (streak.lastDate === yesterday) newCount = streak.count + 1;
-    else if (streak.lastDate === today) newCount = streak.count;
-    setStreak({ count: newCount, lastDate: today });
+    // Update streak using centralized function
+    const streakData = recordActivity(1);
+    const newCount = streakData.currentStreak;
 
     const bonus = Math.floor(Math.random() * 5) + 1;
     awardXP({ type: "streak_day", amount: bonus });
@@ -39,7 +34,7 @@ export function useDailyLoginBonus() {
     if (newCount === 7) awardXP({ type: "streak_bonus_7" });
     else if (newCount === 30) awardXP({ type: "streak_bonus_30" });
     else if (newCount === 100) awardXP({ type: "streak_bonus_100" });
-  }, [user, lastDate, streak.count, streak.lastDate, setStreak, setLastDate, awardXP]);
+  }, [user, lastDate, setLastDate, awardXP]);
 
   // Run on initial mount / auth change
   useEffect(() => {
