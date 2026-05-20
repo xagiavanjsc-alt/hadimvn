@@ -21,7 +21,7 @@ interface BackupSnapshot {
 
 // ─── Key categories ───────────────────────────────────────────────────────────
 const KEY_CATEGORIES: { prefix: string; label: string; color: string; icon: string }[] = [
-  { prefix: "kts_streak", label: "Streak", color: "#fb923c", icon: "ri-fire-line" },
+  { prefix: "hanja_streak", label: "Streak", color: "#fb923c", icon: "ri-fire-line" },
   { prefix: "kts_eps", label: "EPS", color: "app-accent-primary", icon: "ri-file-list-3-line" },
   { prefix: "kts_sr", label: "Spaced Repetition", color: "#a78bfa", icon: "ri-brain-line" },
   { prefix: "kts_melon", label: "Melon", color: "#f472b6", icon: "ri-music-line" },

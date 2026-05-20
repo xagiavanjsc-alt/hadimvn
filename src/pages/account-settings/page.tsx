@@ -7,7 +7,7 @@ import { supabase, isVipActive } from "@/lib/supabase";
 type Tab = "security" | "notifications" | "data" | "vip";
 
 const LOCAL_STORAGE_KEYS = [
-  { key: "kts_streak", label: "Streak học tập" },
+  { key: "hanja_streak", label: "Streak học tập" },
   { key: "kts_eps_answers", label: "Câu trả lời EPS" },
   { key: "kts_flashcard_known", label: "Flashcard đã thuộc" },
   { key: "kts_hangul_known", label: "Hangul đã học" },
