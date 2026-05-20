@@ -20,7 +20,7 @@ export default function LearnStatsPage() {
   const navigate = useNavigate();
   const streak = getStreakData();
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
-  const [flashcardKnown] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
+  const [flashcardKnown] = useLocalStorage<Record<string, boolean>>("flashcard_known", {});
   const [hangulKnown] = useLocalStorage<Record<string, boolean>>("kts_hangul_known", {});
   const [examResults] = useLocalStorage<ExamResult[]>("kts_eps_exam_results", []);
   const [quizHistory] = useLocalStorage<{ date: string; score: number; total: number; lesson: string }[]>("kts_quiz_history", []);

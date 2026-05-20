@@ -35,7 +35,7 @@ const PHASE_COLORS = ["app-accent-primary", "#34d399", "#fb923c", "#a78bfa", "#0
 export default function LearningPathPage() {
   const navigate = useNavigate();
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
-  const [flashcardProgress] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
+  const [flashcardProgress] = useLocalStorage<Record<string, boolean>>("flashcard_known", {});
   const [hangulProgress] = useLocalStorage<Record<string, boolean>>("kts_hangul_known", {});
   const [lessonProgress] = useLocalStorage<Record<number, boolean>>("kts_lesson_done", {});
   const [examResults] = useLocalStorage<{ score: number; total: number }[]>("kts_eps_exam_results", []);

@@ -480,7 +480,7 @@ export default function PersonalStatsPage() {
   const [xpLog] = useLocalStorage<XPEntry[]>("kts_xp_log", []);
   const [examResults] = useLocalStorage<ExamResult[]>("kts_eps_exam_history", []);
   const streak = getStreakData();
-  const [flashcardProgress] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
+  const [flashcardProgress] = useLocalStorage<Record<string, boolean>>("flashcard_known", {});
 
   // Generate date range
   const dateRange = useMemo(() => {

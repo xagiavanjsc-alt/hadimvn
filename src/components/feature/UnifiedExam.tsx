@@ -128,7 +128,7 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
       // Trigger leaderboard sync by upserting to user_progress
       // Recompute stats from all exam results + flashcard data
       const allResults = existingResults as Array<{ score: number; total: number; correctIds?: string[] }>;
-      const flashcardKnown = JSON.parse(localStorage.getItem("kts_flashcard_known") || "{}");
+      const flashcardKnown = JSON.parse(localStorage.getItem("flashcard_known") || "{}");
       const streak = getStreakData();
       
       const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length;

@@ -9,7 +9,7 @@ type Tab = "security" | "notifications" | "data" | "vip";
 const LOCAL_STORAGE_KEYS = [
   { key: "hanja_streak", label: "Streak học tập" },
   { key: "kts_eps_answers", label: "Câu trả lời EPS" },
-  { key: "kts_flashcard_known", label: "Flashcard đã thuộc" },
+  { key: "flashcard_known", label: "Flashcard đã thuộc" },
   { key: "kts_hangul_known", label: "Hangul đã học" },
   { key: "kts_quiz_history", label: "Lịch sử Quiz" },
   { key: "kts_eps_exam_results", label: "Kết quả thi thử EPS" },

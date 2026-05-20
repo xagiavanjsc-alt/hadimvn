@@ -92,7 +92,7 @@ export default function LeaderboardPage() {
   // Local stats for current user
   const streakData = getStreakData();
   const [examResults] = useLocalStorage<ExamResult[]>("kts_eps_exam_results", []);
-  const [flashcardKnown] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
+  const [flashcardKnown] = useLocalStorage<Record<string, boolean>>("flashcard_known", {});
 
   const myBestScore = examResults.length > 0
     ? Math.max(...examResults.map((r) => Math.round((r.score / r.total) * 100)))

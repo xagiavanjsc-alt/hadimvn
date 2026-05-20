@@ -84,7 +84,7 @@ export default function CompareFriendsPage() {
   const { totalXP, currentRank } = useXPSystem();
   const streak = getStreakData();
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
-  const [flashcardProgress] = useLocalStorage<Record<string, boolean>>("kts_flashcard_known", {});
+  const [flashcardProgress] = useLocalStorage<Record<string, boolean>>("flashcard_known", {});
   const [earnedBadgeIds] = useLocalStorage<string[]>("kts_earned_badges", []);
 
   const epsCorrect = epsQuestions.filter(q => answeredMap[q.id] === q.correctIndex).length;

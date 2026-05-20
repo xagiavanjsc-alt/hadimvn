@@ -236,7 +236,7 @@ export function useXPSystem() {
     if (syncTimerRef.current) clearTimeout(syncTimerRef.current);
     syncTimerRef.current = setTimeout(async () => {
       try {
-        const flashcardKnown = JSON.parse(localStorage.getItem("kts_flashcard_known") || "{}");
+        const flashcardKnown = JSON.parse(localStorage.getItem("flashcard_known") || "{}");
         const examResults = JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]");
         const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length;
         const validExams = examResults as { score: number; total: number; correctIds?: string[] }[];
@@ -346,7 +346,7 @@ export function useXPSystem() {
 
       // Check new badges — pass extra context for score/vocab badges
       const flashcardKnown = (() => {
-        try { return JSON.parse(localStorage.getItem("kts_flashcard_known") || "{}"); } catch { return {}; }
+        try { return JSON.parse(localStorage.getItem("flashcard_known") || "{}"); } catch { return {}; }
       })();
       const examResults = (() => {
         try { return JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]"); } catch { return []; }
