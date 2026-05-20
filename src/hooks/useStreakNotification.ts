@@ -23,7 +23,7 @@ export function useStreakNotification() {
     communityActivity: true,
   });
   const [permissionGranted, setPermissionGranted] = useLocalStorage<boolean>("kts_notif_permission", false);
-  const [lastStreakWarnDate, setLastStreakWarnDate] = useLocalStorage<string>("kts_streak_warn_date", "");
+  const [lastStreakWarnDate, setLastStreakWarnDate] = useLocalStorage<string>("streak_warn_date", "");
   const [lastCommunityNotif, setLastCommunityNotif] = useLocalStorage<string>("kts_community_notif_date", "");
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
