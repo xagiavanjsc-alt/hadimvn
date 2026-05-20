@@ -249,31 +249,55 @@ export default function EPSExamsPage() {
                         <p className="text-white font-medium mb-3">
                           Câu {q.number}: {q.question}
                         </p>
-                        {q.image && (
+                        {q.image && !q.optionImages && (
                           <img src={q.image} alt="" className="max-w-xs rounded-lg mb-3" />
                         )}
-                        <div className="space-y-2">
-                          {q.options.map((opt, optIdx) => (
-                            <div
-                              key={optIdx}
-                              className={`p-3 rounded-lg ${
-                                optIdx === q.correctAnswer
-                                  ? "bg-emerald-500/10 border border-emerald-500/20"
-                                  : optIdx === userAnswer?.selectedOption
-                                  ? "bg-rose-500/10 border border-rose-500/20"
-                                  : "bg-app-card2"
-                              }`}
-                            >
-                              <span className="text-app-text-secondary mr-2">{optIdx + 1}.</span>
-                              <span className={optIdx === q.correctAnswer ? "text-emerald-400" : "text-white"}>
-                                {opt}
-                              </span>
-                              {optIdx === q.correctAnswer && (
-                                <span className="text-emerald-400 ml-2">(Đáp án đúng)</span>
-                              )}
-                            </div>
-                          ))}
-                        </div>
+                        {q.optionImages ? (
+                          <div className="grid grid-cols-2 gap-2 mb-2">
+                            {q.optionImages.map((src, optIdx) => (
+                              <div
+                                key={optIdx}
+                                className={`relative rounded-xl overflow-hidden border-4 ${
+                                  optIdx === q.correctAnswer
+                                    ? "border-emerald-500"
+                                    : optIdx === userAnswer?.selectedOption
+                                    ? "border-rose-500"
+                                    : "border-transparent opacity-50"
+                                }`}
+                              >
+                                <img src={src} alt={`Option ${optIdx + 1}`} className="w-full object-contain bg-white" style={{ maxHeight: "120px" }} />
+                                <div className={`absolute top-1 left-1 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                                  optIdx === q.correctAnswer ? "bg-emerald-500 text-white"
+                                  : optIdx === userAnswer?.selectedOption ? "bg-rose-500 text-white"
+                                  : "bg-black/40 text-white"
+                                }`}>{optIdx + 1}</div>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="space-y-2">
+                            {q.options.map((opt, optIdx) => (
+                              <div
+                                key={optIdx}
+                                className={`p-3 rounded-lg ${
+                                  optIdx === q.correctAnswer
+                                    ? "bg-emerald-500/10 border border-emerald-500/20"
+                                    : optIdx === userAnswer?.selectedOption
+                                    ? "bg-rose-500/10 border border-rose-500/20"
+                                    : "bg-app-card2"
+                                }`}
+                              >
+                                <span className="text-app-text-secondary mr-2">{optIdx + 1}.</span>
+                                <span className={optIdx === q.correctAnswer ? "text-emerald-400" : "text-white"}>
+                                  {opt}
+                                </span>
+                                {optIdx === q.correctAnswer && (
+                                  <span className="text-emerald-400 ml-2">(Đáp án đúng)</span>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        )}
                         {q.explanation && (
                           <p className="text-app-text-faint text-sm mt-3">
                             Giải thích: {q.explanation}
@@ -319,7 +343,7 @@ export default function EPSExamsPage() {
       {/* Question */}
       {currentQuestion && (
         <div className="bg-gradient-to-br from-app-card to-app-card2 border border-app-border rounded-3xl p-8 mb-6 shadow-xl">
-          {currentQuestion.image && (
+          {currentQuestion.image && !currentQuestion.optionImages && (
             <div className="mb-6">
               <img 
                 src={currentQuestion.image} 
@@ -332,22 +356,48 @@ export default function EPSExamsPage() {
             {currentQuestion.question}
           </p>
           
-          <div className="space-y-4">
-            {currentQuestion.options.map((opt, idx) => (
-              <button
-                key={idx}
-                onClick={() => handleAnswer(currentQuestion.id, idx)}
-                className={`w-full p-5 rounded-2xl text-left transition-all font-medium text-lg ${
-                  currentAnswer?.selectedOption === idx
-                    ? "bg-gradient-to-r from-app-accent-primary to-app-accent-primary/80 text-white border-2 border-app-accent-primary shadow-lg shadow-app-accent-primary/25"
-                    : "bg-app-card text-app-text-secondary hover:bg-app-card2 hover:text-white border-2 border-transparent"
-                }`}
-              >
-                <span className="font-bold mr-4 text-xl">{idx + 1}.</span>
-                {opt}
-              </button>
-            ))}
-          </div>
+          {currentQuestion.optionImages ? (
+            <div className="grid grid-cols-2 gap-3">
+              {currentQuestion.optionImages.map((src, idx) => {
+                const isSelected = currentAnswer?.selectedOption === idx;
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => handleAnswer(currentQuestion.id, idx)}
+                    className={`relative rounded-2xl overflow-hidden border-4 transition-all cursor-pointer ${
+                      isSelected
+                        ? "border-app-accent-primary shadow-lg shadow-app-accent-primary/30"
+                        : "border-transparent hover:border-app-accent-primary/40"
+                    }`}
+                  >
+                    <img src={src} alt={`Option ${idx + 1}`} className="w-full object-contain bg-white" style={{ maxHeight: "180px" }} />
+                    <div className={`absolute top-2 left-2 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shadow ${
+                      isSelected ? "bg-app-accent-primary text-app-bg" : "bg-black/50 text-white"
+                    }`}>
+                      {idx + 1}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {currentQuestion.options.map((opt, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleAnswer(currentQuestion.id, idx)}
+                  className={`w-full p-5 rounded-2xl text-left transition-all font-medium text-lg ${
+                    currentAnswer?.selectedOption === idx
+                      ? "bg-gradient-to-r from-app-accent-primary to-app-accent-primary/80 text-white border-2 border-app-accent-primary shadow-lg shadow-app-accent-primary/25"
+                      : "bg-app-card text-app-text-secondary hover:bg-app-card2 hover:text-white border-2 border-transparent"
+                  }`}
+                >
+                  <span className="font-bold mr-4 text-xl">{idx + 1}.</span>
+                  {opt}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
