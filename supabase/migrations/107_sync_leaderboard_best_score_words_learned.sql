@@ -41,10 +41,9 @@ FROM (
 ) sub
 WHERE up.user_id = sub.user_id;
 
--- 3.5. Tạo avatar mặc định cho các user chưa có avatar trong user_profiles
-UPDATE public.user_profiles p
-SET avatar_url = 'https://ui-avatars.com/api/?name=' || encode(url_encode(p.display_name), 'escape') || '&background=random&color=fff&size=128'
-WHERE avatar_url IS NULL AND display_name IS NOT NULL;
+-- 3.5. Không cần tạo avatar mặc định trong database
+-- UI sẽ hiển thị initials khi avatar_url là null
+-- Điều này tránh phụ thuộc vào API bên ngoài
 
 -- 4. Sync từ user_progress sang leaderboard cho tất cả users
 INSERT INTO public.leaderboard (user_id, display_name, avatar_url, xp, streak, best_score, words_learned, level, is_vip, vip_expires_at, updated_at)
