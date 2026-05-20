@@ -45,8 +45,8 @@ WHERE up.user_id = sub.user_id;
 INSERT INTO public.leaderboard (user_id, display_name, avatar_url, xp, streak, best_score, words_learned, level, is_vip, vip_expires_at, updated_at)
 SELECT 
   up.user_id,
-  COALESCE(up.display_name, p.display_name, 'Học viên'),
-  COALESCE(p.avatar_url, up.avatar_url),
+  COALESCE(p.display_name, 'Học viên'),
+  p.avatar_url,
   COALESCE(up.xp, 0),
   COALESCE(up.streak_count, 0),
   COALESCE(up.best_score, 0),
