@@ -888,8 +888,8 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
                     <MasteryBadge level={mastery} />
                     {mastery !== "mastered" ? (
                       <button onClick={() => markAsLearned(item.korean)}
-                        className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-green-500/10 text-green-400 hover:bg-green-500/20 cursor-pointer transition-colors whitespace-nowrap">
-                        <i className="ri-check-line text-xs"></i>Đã thuộc
+                        className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs border border-white/20 text-white/50 hover:border-green-400/50 hover:text-green-400 hover:bg-green-500/10 cursor-pointer transition-colors whitespace-nowrap">
+                        <i className="ri-add-line text-xs"></i>Thuộc rồi
                       </button>
                     ) : (
                       <button onClick={() => resetToNew(item.korean)}
@@ -967,8 +967,8 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
                     <MasteryBadge level={mastery} />
                     {mastery !== "mastered" ? (
                       <button onClick={() => markAsLearned(item.korean)}
-                        className="flex items-center gap-1 px-2 py-1 rounded-full text-xs bg-green-500/10 text-green-400 hover:bg-green-500/20 cursor-pointer transition-colors whitespace-nowrap w-fit">
-                        <i className="ri-check-line"></i>Đã thuộc
+                        className="flex items-center gap-1 px-2 py-1 rounded-full text-xs border border-white/20 text-white/50 hover:border-green-400/50 hover:text-green-400 hover:bg-green-500/10 cursor-pointer transition-colors whitespace-nowrap w-fit">
+                        <i className="ri-add-line"></i>Thuộc rồi
                       </button>
                     ) : (
                       <button onClick={() => resetToNew(item.korean)}
