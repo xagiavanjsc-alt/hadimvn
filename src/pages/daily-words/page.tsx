@@ -2,7 +2,9 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useXPSystem } from "@/hooks/useXPSystem";
 import { HANJA_DATA } from "@/mocks/hanjaData";
+import { recordActivity } from "@/utils/streak";
 
 interface DailyWord {
   id: string;
@@ -345,12 +347,14 @@ function QuizResult({
 
 export default function DailyWordsPage() {
   const navigate = useNavigate();
+  const { awardXP } = useXPSystem();
   const [learnedIds, setLearnedIds] = useLocalStorage<Record<string, string[]>>(
     "kts_daily_learned",
     {}
   );
   const today = new Date().toISOString().split("T")[0];
   const todayLearned = learnedIds[today] || [];
+  const [awardedQuizXP, setAwardedQuizXP] = useState(false);
 
   const [words] = useState<DailyWord[]>(() => pickDailyWords(8));
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -378,10 +382,14 @@ export default function DailyWordsPage() {
       setLearnedIds((prev) => {
         const todayList = prev[today] || [];
         if (todayList.includes(id)) return prev;
+        // Award XP for learning a word
+        awardXP({ type: "hanja_word_learned" });
+        // Update streak
+        recordActivity(1);
         return { ...prev, [today]: [...todayList, id] };
       });
     },
-    [today, setLearnedIds]
+    [today, setLearnedIds, awardXP]
   );
 
   const handleUnlearn = useCallback(
@@ -397,6 +405,19 @@ export default function DailyWordsPage() {
   const handleQuizFinish = (score: number) => {
     setQuizScore(score);
     setPhase("result");
+    // Award XP for completing quiz based on score
+    if (!awardedQuizXP) {
+      const total = quizQuestions.length;
+      const percentage = score / total;
+      let xpAmount = 0;
+      if (percentage >= 0.8) xpAmount = 20; // 80%+ = 20 XP
+      else if (percentage >= 0.6) xpAmount = 15; // 60-79% = 15 XP
+      else if (percentage >= 0.4) xpAmount = 10; // 40-59% = 10 XP
+      else xpAmount = 5; // < 40% = 5 XP
+
+      awardXP({ type: "hanja_quiz_completed", amount: xpAmount });
+      setAwardedQuizXP(true);
+    }
   };
 
   const handleRetryQuiz = () => {
