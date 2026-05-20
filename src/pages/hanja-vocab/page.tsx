@@ -69,40 +69,7 @@ function speakKorean(text: string) {
   window.speechSynthesis.speak(utter);
 }
 
-// ─── Streak helpers ───────────────────────────────────────────────────────────
-interface StreakData {
-  currentStreak: number;
-  longestStreak: number;
-  lastStudyDate: string; // YYYY-MM-DD
-  history: Record<string, number>; // date → cards reviewed
-}
-
-function getToday(): string {
-  return new Date().toISOString().slice(0, 10);
-}
-
-function loadStreak(): StreakData {
-  try { return JSON.parse(localStorage.getItem(STREAK_KEY) || "null") ?? { currentStreak: 0, longestStreak: 0, lastStudyDate: "", history: {} }; }
-  catch { return { currentStreak: 0, longestStreak: 0, lastStudyDate: "", history: {} }; }
-}
-
-function recordStudy(count: number): StreakData {
-  const data = loadStreak();
-  const today = getToday();
-  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
-  data.history[today] = (data.history[today] || 0) + count;
-  if (data.lastStudyDate === today) {
-    // already counted today
-  } else if (data.lastStudyDate === yesterday) {
-    data.currentStreak += 1;
-  } else {
-    data.currentStreak = 1;
-  }
-  data.lastStudyDate = today;
-  data.longestStreak = Math.max(data.longestStreak, data.currentStreak);
-  localStorage.setItem(STREAK_KEY, JSON.stringify(data));
-  return data;
-}
+import { getStreakData, recordActivity, type StreakData } from "@/utils/streak";
 
 function getInitial(char: string): string {
   const code = char.charCodeAt(0) - 0xAC00;
@@ -552,7 +519,7 @@ function SRTab({ favs }: { favs: Set<string> }) {
   }
 
   if (mode === "session" && sessionDone) {
-    const streak = recordStudy(sessionCards.length);
+    const streak = recordActivity(sessionCards.length);
     return (
       <div className="max-w-lg mx-auto">
         <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8 text-center">
@@ -581,7 +548,7 @@ function SRTab({ favs }: { favs: Set<string> }) {
   }
 
   // Stats view
-  const streakData = loadStreak();
+  const streakData = getStreakData();
   const last14Days = Array.from({ length: 14 }, (_, i) => {
     const d = new Date(Date.now() - (13 - i) * 86400000).toISOString().slice(0, 10);
     return { date: d, count: streakData.history[d] || 0, label: d.slice(8) };

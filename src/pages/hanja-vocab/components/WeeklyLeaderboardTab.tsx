@@ -1,5 +1,6 @@
 ﻿import { useState, useMemo, useEffect } from "react";
 import { useHanjaData } from "@/contexts/HanjaDataContext";
+import { getStreakData } from "@/utils/streak";
 
 interface LeaderboardEntry {
   id: string;
@@ -63,8 +64,8 @@ function computeMyProgress(hanjaTotal: number): WeeklyProgress {
     const srData: Record<string, { interval: number; totalReviews: number }> =
       JSON.parse(localStorage.getItem("hanja_sr_data") || "{}");
     const wordsLearned = Object.values(srData).filter(c => c.interval >= 7).length;
-    const streakData = JSON.parse(localStorage.getItem("hanja_streak") || "{}");
-    const streak = streakData.currentStreak || 0;
+    const streakData = getStreakData();
+    const streak = streakData.currentStreak;
     const totalXp = parseInt(localStorage.getItem("kts_total_xp") || "0", 10);
     return {
       wordsLearned,

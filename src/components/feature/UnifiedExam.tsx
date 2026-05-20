@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { indexedDB, ExamHistoryData } from "@/lib/indexedDB";
 import { computeXP, deriveLevel } from "@/lib/xp";
+import { getStreakData } from "@/utils/streak";
 
 interface UnifiedExamProps {
   examType: string; // 'eps', 'seoul', 'topik'
@@ -128,7 +129,7 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
       // Recompute stats from all exam results + flashcard data
       const allResults = existingResults as Array<{ score: number; total: number; correctIds?: string[] }>;
       const flashcardKnown = JSON.parse(localStorage.getItem("kts_flashcard_known") || "{}");
-      const streak = JSON.parse(localStorage.getItem("kts_streak") || '{"count":0}');
+      const streak = getStreakData();
       
       const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length;
       const bestScore = allResults.length > 0
@@ -140,7 +141,7 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
       const totalCorrect = allResults.reduce((sum, r) => sum + (r.correctIds?.length ?? r.score ?? 0), 0);
 
       const xp = computeXP({
-        streakDays: streak.count || 0,
+        streakDays: streak.currentStreak,
         bestScorePct: bestScore,
         averageScorePct: avgScore,
         wordsLearned,
@@ -153,8 +154,8 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
         user_id: userId,
         xp,
         level,
-        streak_count: streak.count || 0,
-        streak_last_date: streak.lastDate || null,
+        streak_count: streak.currentStreak,
+        streak_last_date: streak.lastStudyDate || null,
         best_score: bestScore,
         words_learned: wordsLearned,
         last_active_at: new Date().toISOString(),

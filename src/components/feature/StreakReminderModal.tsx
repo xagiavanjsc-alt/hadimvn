@@ -1,16 +1,11 @@
 import { useState, useEffect, memo } from "react";
 import { useNavigate } from "react-router-dom";
-
-interface StreakData {
-  count: number;
-  lastDate: string;
-}
+import { getStreakData } from "@/utils/streak";
 
 interface LastStudyData {
   timestamp: number;
 }
 
-const STREAK_KEY = "kts_streak";
 const LAST_STUDY_KEY = "kts_last_study_time";
 const REMINDER_DISMISSED_KEY = "kts_reminder_dismissed_at";
 const HOURS_THRESHOLD = 20;
@@ -69,9 +64,8 @@ function StreakReminderModal() {
 
     if (hours >= HOURS_THRESHOLD) {
       // Get streak count
-      const streakRaw = localStorage.getItem(STREAK_KEY);
-      const streak: StreakData = streakRaw ? JSON.parse(streakRaw) : { count: 0, lastDate: "" };
-      setStreakCount(streak.count);
+      const streak = getStreakData();
+      setStreakCount(streak.currentStreak);
       setHoursSince(Math.floor(hours));
       setVisible(true);
     }

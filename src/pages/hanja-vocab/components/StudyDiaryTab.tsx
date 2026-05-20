@@ -1,6 +1,7 @@
 ﻿import { useState, useMemo } from "react";
 import { useVipYearGuard, addCsvWatermark } from "@/hooks/useVipYearGuard";
 import VipUpgradeModal from "@/components/feature/VipUpgradeModal";
+import { getStreakData } from "@/utils/streak";
 
 interface DiaryEntry {
   date: string; // YYYY-MM-DD
@@ -15,7 +16,6 @@ interface DiaryEntry {
 
 const DIARY_KEY = "hanja_study_diary";
 const SR_KEY = "hanja_sr_data";
-const STREAK_KEY = "hanja_streak";
 
 function getToday() {
   return new Date().toISOString().slice(0, 10);
@@ -35,13 +35,6 @@ function loadSRStats() {
     const data = JSON.parse(localStorage.getItem(SR_KEY) || "{}");
     return Object.keys(data).length;
   } catch { return 0; }
-}
-
-function loadStreakData() {
-  try {
-    const data = JSON.parse(localStorage.getItem(STREAK_KEY) || "null");
-    return data ?? { currentStreak: 0, history: {} };
-  } catch { return { currentStreak: 0, history: {} }; }
 }
 
 const MOOD_CONFIG = {
@@ -65,7 +58,7 @@ export default function StudyDiaryTab() {
   });
 
   const srTotal = loadSRStats();
-  const streakData = loadStreakData();
+  const streakData = getStreakData();
 
   const todayEntry = useMemo(() => diary.find(e => e.date === getToday()), [diary]);
 

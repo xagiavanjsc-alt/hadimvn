@@ -2,6 +2,7 @@ import { useState, useMemo, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { seoulBooks } from "@/mocks/seoulTextbook";
 import DashboardLayout from "@/components/feature/DashboardLayout";
+import { recordActivity } from "@/utils/streak";
 
 // ─── Wrong word type (same as seoul-wrong-review) ────────────────────────────
 interface WrongWord {
@@ -79,30 +80,16 @@ function saveQuizScore(lessonId: string, score: number, total: number) {
   if (history.length > 500) history.splice(0, history.length - 500);
   localStorage.setItem(historyKey, JSON.stringify(history));
 
-  // Also update Seoul streak
-  const streakKey = "kts_seoul_streak";
-  const today = new Date().toISOString().split("T")[0];
-  const streakStored = localStorage.getItem(streakKey);
-  const streak = streakStored ? JSON.parse(streakStored) : { count: 0, lastDate: "", totalDays: 0, longestStreak: 0 };
-  if (streak.lastDate !== today) {
-    const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
-    const newCount = streak.lastDate === yesterday ? streak.count + 1 : 1;
-    const newLongest = Math.max(streak.longestStreak || 0, newCount);
-    localStorage.setItem(streakKey, JSON.stringify({
-      count: newCount,
-      lastDate: today,
-      totalDays: (streak.totalDays || 0) + 1,
-      longestStreak: newLongest,
-    }));
-    // Award XP bonus for streak
-    if (newCount > 1) {
-      const xpKey = "kts_xp_total";
-      const xpStored = localStorage.getItem(xpKey);
-      const xpData = xpStored ? JSON.parse(xpStored) : { total: 0 };
-      const bonus = Math.min(newCount * 5, 50); // max 50 XP bonus
-      xpData.total = (xpData.total || 0) + bonus;
-      localStorage.setItem(xpKey, JSON.stringify(xpData));
-    }
+  // Update unified streak
+  const streak = recordActivity(1);
+  // Award XP bonus for streak
+  if (streak.currentStreak > 1) {
+    const xpKey = "kts_xp_total";
+    const xpStored = localStorage.getItem(xpKey);
+    const xpData = xpStored ? JSON.parse(xpStored) : { total: 0 };
+    const bonus = Math.min(streak.currentStreak * 5, 50); // max 50 XP bonus
+    xpData.total = (xpData.total || 0) + bonus;
+    localStorage.setItem(xpKey, JSON.stringify(xpData));
   }
 }
 

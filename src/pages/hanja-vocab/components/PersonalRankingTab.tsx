@@ -1,8 +1,8 @@
 import { useState, useMemo } from "react";
 import { useHanjaData } from "@/contexts/HanjaDataContext";
+import { getStreakData, type StreakData } from "@/utils/streak";
 
 const SR_KEY = "hanja_sr_data";
-const STREAK_KEY = "hanja_streak";
 
 interface SRCard {
   korean: string;
@@ -13,25 +13,8 @@ interface SRCard {
   correctStreak: number;
 }
 
-interface StreakData {
-  currentStreak: number;
-  longestStreak: number;
-  lastStudyDate: string;
-  history: Record<string, number>;
-}
-
 function getToday(): string {
   return new Date().toISOString().slice(0, 10);
-}
-
-function loadStreak(): StreakData {
-  try {
-    return JSON.parse(localStorage.getItem(STREAK_KEY) || "null") ?? {
-      currentStreak: 0, longestStreak: 0, lastStudyDate: "", history: {}
-    };
-  } catch {
-    return { currentStreak: 0, longestStreak: 0, lastStudyDate: "", history: {} };
-  }
 }
 
 function formatDate(dateStr: string): string {
@@ -52,7 +35,7 @@ export default function PersonalRankingTab() {
     try { return JSON.parse(localStorage.getItem(SR_KEY) || "{}"); } catch { return {}; }
   }, []);
 
-  const streakData = useMemo(() => loadStreak(), []);
+  const streakData = useMemo(() => getStreakData(), []);
 
   // Build daily history
   const days = useMemo(() => {

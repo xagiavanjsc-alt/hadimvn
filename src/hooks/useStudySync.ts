@@ -1,11 +1,12 @@
 import { useCallback } from "react";
 import { supabase } from "@/lib/supabase";
 import { computeXP, deriveLevel } from "@/lib/xp";
+import { getStreakData } from "@/utils/streak";
 
 export function useStudySync() {
   const syncToCloud = useCallback(async (userId: string) => {
     try {
-      const streak = JSON.parse(localStorage.getItem("kts_streak") || '{"count":0,"lastDate":""}');
+      const streak = getStreakData();
       const flashcardKnown = JSON.parse(localStorage.getItem("kts_flashcard_known") || "{}");
       const hangulKnown = JSON.parse(localStorage.getItem("kts_hangul_known") || "{}");
       const examResults = JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]");
@@ -22,7 +23,7 @@ export function useStudySync() {
       const totalCorrect = validExams.reduce((sum, r) => sum + (r.correctIds?.length ?? r.score ?? 0), 0);
 
       const xp = computeXP({
-        streakDays: streak.count || 0,
+        streakDays: streak.currentStreak,
         bestScorePct: bestScore,
         averageScorePct: avgScore,
         wordsLearned,
@@ -35,8 +36,8 @@ export function useStudySync() {
         user_id: userId,
         xp,
         level,
-        streak_count: streak.count || 0,
-        streak_last_date: streak.lastDate || null,
+        streak_count: streak.currentStreak,
+        streak_last_date: streak.lastStudyDate || null,
         best_score: bestScore,
         words_learned: wordsLearned,
         last_active_at: new Date().toISOString(),
@@ -194,7 +195,7 @@ export function useStudySync() {
       const totalCorrect = validExams.reduce((sum, r) => sum + (r.correctIds?.length ?? r.score ?? 0), 0);
 
       const computedXP = computeXP({
-        streakDays: streak.count || 0,
+        streakDays: streak.currentStreak,
         bestScorePct: bestScore,
         averageScorePct: avgScore,
         wordsLearned,
@@ -212,8 +213,8 @@ export function useStudySync() {
         user_id: userId,
         xp: finalXP,
         level,
-        streak_count: streak.count || 0,
-        streak_last_date: streak.lastDate || null,
+        streak_count: streak.currentStreak,
+        streak_last_date: streak.lastStudyDate || null,
         last_active_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       }, { onConflict: "user_id" });
