@@ -23,8 +23,10 @@ function loadStreak(): StreakData {
     if (typeof data.currentStreak === "number" && typeof data.longestStreak === "number") {
       return data;
     }
+    console.error("[Streak] Invalid streak data structure:", data);
     return { currentStreak: 0, longestStreak: 0, lastStudyDate: "", history: {} };
-  } catch {
+  } catch (error) {
+    console.error("[Streak] Failed to load streak data:", error);
     return { currentStreak: 0, longestStreak: 0, lastStudyDate: "", history: {} };
   }
 }
