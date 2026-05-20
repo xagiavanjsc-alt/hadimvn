@@ -41,9 +41,11 @@ FROM (
 ) sub
 WHERE up.user_id = sub.user_id;
 
--- 3.5. Không cần tạo avatar mặc định trong database
--- UI sẽ hiển thị initials khi avatar_url là null
--- Điều này tránh phụ thuộc vào API bên ngoài
+-- 3.5. Tạo avatar mặc định từ DiceBear API cho các user chưa có avatar
+-- DiceBear không cần URL encoding phức tạp, chỉ cần nối string
+UPDATE public.user_profiles p
+SET avatar_url = 'https://api.dicebear.com/7.x/adventurer/svg?seed=' || p.display_name || '&backgroundColor=b6e3f4'
+WHERE avatar_url IS NULL AND display_name IS NOT NULL;
 
 -- 4. Sync từ user_progress sang leaderboard cho tất cả users
 INSERT INTO public.leaderboard (user_id, display_name, avatar_url, xp, streak, best_score, words_learned, level, is_vip, vip_expires_at, updated_at)

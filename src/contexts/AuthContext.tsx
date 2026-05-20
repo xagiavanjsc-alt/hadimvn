@@ -53,10 +53,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const createProfile = useCallback(async (userId: string, displayName: string) => {
     const refCode = getActiveRefCode();
-    // Không tạo avatar mặc định từ API - UI sẽ hiển thị initials khi avatar_url là null
+    // Avatar mặc định từ DiceBear API (miễn phí, ổn định)
+    const defaultAvatar = `https://api.dicebear.com/7.x/adventurer/svg?seed=${encodeURIComponent(displayName)}&backgroundColor=b6e3f4`;
     const { data } = await supabase
       .from("user_profiles")
-      .insert({ id: userId, display_name: displayName, ...(refCode ? { ref_code: refCode } : {}) })
+      .insert({ id: userId, display_name: displayName, avatar_url: defaultAvatar, ...(refCode ? { ref_code: refCode } : {}) })
       .select()
       .maybeSingle();
     if (refCode && data) clearRefCode();
@@ -249,8 +250,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const updateProfile = useCallback(async (updates: Partial<Pick<UserProfile, "display_name" | "avatar_url">>) => {
     if (!state.user) return null;
-    // Nếu avatar_url được set về null, cho phép xóa - UI sẽ hiển thị initials
-    const finalUpdates = { ...updates, updated_at: new Date().toISOString() };
+    let finalUpdates = { ...updates, updated_at: new Date().toISOString() };
+    // Nếu avatar_url được set về null, tạo lại avatar mặc định từ DiceBear
+    if (updates.avatar_url === null && updates.display_name) {
+      finalUpdates.avatar_url = `https://api.dicebear.com/7.x/adventurer/svg?seed=${encodeURIComponent(updates.display_name)}&backgroundColor=b6e3f4`;
+    } else if (updates.avatar_url === null && state.profile?.display_name) {
+      finalUpdates.avatar_url = `https://api.dicebear.com/7.x/adventurer/svg?seed=${encodeURIComponent(state.profile.display_name)}&backgroundColor=b6e3f4`;
+    }
     const { data, error } = await supabase
       .from("user_profiles")
       .update(finalUpdates)
@@ -269,7 +275,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     setState(prev => ({ ...prev, profile: data as UserProfile }));
     return data as UserProfile;
-  }, [state.user]);
+  }, [state.user, state.profile]);
 
   return (
     <AuthContext.Provider value={{ ...state, signUp, signIn, signOut, updateProfile, refreshProfile }}>
