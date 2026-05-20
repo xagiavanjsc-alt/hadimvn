@@ -175,6 +175,7 @@ const SeoulVocabPracticePage = lazyPage(() => import("../pages/seoul-vocab-pract
 const SeoulGrammarPage = lazyPage(() => import("../pages/seoul-grammar/page"));
 const EpsGrammarPage = lazyPage(() => import("../pages/eps-grammar/page"));
 const EpsLessonDetailPage = lazyPage(() => import("../pages/eps-lesson-detail/page"));
+const EpsExamsPage = lazyPage(() => import("../pages/eps-exams/page"), "exam");
 
 // ─── TOPIK ───────────────────────────────────────────────────────────────────
 const TopikTestPage = lazyPage(() => import("../pages/topik-test/page"), "exam");
@@ -451,6 +452,7 @@ const routes: RouteObject[] = [
   { path: "/eps-30day-plan", element: <Eps30dayPlanPage /> },
   { path: "/eps-grammar", element: <EpsGrammarPage /> },
   { path: "/eps-lesson/:id", element: <EpsLessonDetailPage /> },
+  { path: "/eps-exams", element: <EpsExamsPage /> },
 
   // Seoul
   { path: "/seoul-textbook", element: <SeoulTextbookPage /> },
