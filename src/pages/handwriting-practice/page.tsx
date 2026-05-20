@@ -507,7 +507,7 @@ export default function HandwritingPracticePage() {
                   : "bg-app-card text-app-text-secondary hover:text-white"
               }`}
             >
-              {diff === "all" ? "Tất cả" : diff.charAt(0).toUpperCase() + diff.slice(1)}
+              {diff === "all" ? "Tất cả" : diff === "beginner" ? "Cơ bản" : diff === "intermediate" ? "Trung cấp" : "Nâng cao"}
             </button>
           ))}
         </div>
@@ -538,7 +538,7 @@ export default function HandwritingPracticePage() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <span className={`px-3 py-1 rounded-full text-xs font-bold border ${difficultyColors[currentLesson.difficulty]}`}>
-              {currentLesson.difficulty.toUpperCase()}
+              {currentLesson.difficulty === "beginner" ? "CƠ BẢN" : currentLesson.difficulty === "intermediate" ? "TRUNG CẤP" : "NÂNG CAO"}
             </span>
             <span className={`px-3 py-1 rounded-full text-xs font-bold border ${categoryColors[currentLesson.category]}`}>
               {currentLesson.category === "hangul" ? "HANGUL" : "HÁN TỰ"}
