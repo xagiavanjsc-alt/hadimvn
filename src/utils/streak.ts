@@ -23,30 +23,10 @@ function loadStreak(): StreakData {
     if (typeof data.currentStreak === "number" && typeof data.longestStreak === "number") {
       return data;
     }
-    // Migration from old formats
-    return migrateOldFormat(data);
+    return { currentStreak: 0, longestStreak: 0, lastStudyDate: "", history: {} };
   } catch {
     return { currentStreak: 0, longestStreak: 0, lastStudyDate: "", history: {} };
   }
-}
-
-function migrateOldFormat(data: any): StreakData {
-  // Handle kts_streak format: { count, lastDate }
-  if (typeof data.count === "number" && data.lastDate) {
-    return {
-      currentStreak: data.count,
-      longestStreak: data.longestStreak || data.count,
-      lastStudyDate: data.lastDate,
-      history: {},
-    };
-  }
-  // Handle array format: string[] of dates
-  if (Array.isArray(data)) {
-    const history: Record<string, number> = {};
-    data.forEach(d => history[d] = 1);
-    return { currentStreak: 0, longestStreak: 0, lastStudyDate: "", history };
-  }
-  return { currentStreak: 0, longestStreak: 0, lastStudyDate: "", history: {} };
 }
 
 function saveStreak(data: StreakData): void {
