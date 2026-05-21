@@ -438,5 +438,11 @@ export const EPS_EXAMS: EPSExam[] = [
       }
     ]
   },
-  // Add eps_02, eps_03, eps_04, eps_05, eps_06
+  {
+    id: "eps_02",
+    title: "ĐỀ Số 02",
+    duration: 70,
+    questions: [],
+  },
+  // Add eps_03, eps_04, eps_05, eps_06
 ];

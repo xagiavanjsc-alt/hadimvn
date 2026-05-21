@@ -126,6 +126,7 @@ const EpsSpeakingPage = lazyPage(() => import("../pages/eps-speaking/page"));
 const EpsMockExamPage = lazyPage(() => import("../pages/eps-mock-exam/page"), "exam");
 const EpsOfficialExamPage = lazyPage(() => import("../pages/eps-official-exam/page"), "exam");
 const EpsDe1ExamPage = lazyPage(() => import("../pages/eps-de1-exam/page"), "exam");
+const EpsDe2ExamPage = lazyPage(() => import("../pages/eps-de2-exam/page"), "exam");
 const EpsPersonalizedRoadmapPage = lazyPage(() => import("../pages/eps-personalized-roadmap/page"));
 const EpsProgressRoadmapPage = lazyPage(() => import("../pages/eps-progress-roadmap/page"));
 const EpsQuickReviewPage = lazyPage(() => import("../pages/eps-quick-review/page"));
@@ -455,6 +456,7 @@ const routes: RouteObject[] = [
   { path: "/eps-lesson/:id", element: <EpsLessonDetailPage /> },
   { path: "/eps-exams", element: <EpsExamsPage /> },
   { path: "/eps-de1", element: <EpsDe1ExamPage /> },
+  { path: "/eps-de2", element: <EpsDe2ExamPage /> },
 
   // Seoul
   { path: "/seoul-textbook", element: <SeoulTextbookPage /> },

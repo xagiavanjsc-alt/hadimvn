@@ -1,0 +1,2608 @@
+Total images: 307
+======================================================================
+
+[IMAGE 1]
+  BEFORE: 232
+  BEFORE: 240
+  BEFORE: Chúc các bạn thành công!
+  >>> image_1 <<<
+
+[IMAGE 2]
+  BEFORE: 232
+  BEFORE: 240
+  BEFORE: Chúc các bạn thành công!
+  >>> image_2 <<<
+
+[IMAGE 3]
+  BEFORE: 232
+  BEFORE: 240
+  BEFORE: Chúc các bạn thành công!
+  >>> image_3 <<<
+
+[IMAGE 4]
+  BEFORE: 232
+  BEFORE: 240
+  BEFORE: Chúc các bạn thành công!
+  >>> image_4 <<<
+
+[IMAGE 5]
+  BEFORE: 232
+  BEFORE: 240
+  BEFORE: Chúc các bạn thành công!
+  >>> image_5 <<<
+
+[IMAGE 6]
+  BEFORE: 232
+  BEFORE: 240
+  BEFORE: Chúc các bạn thành công!
+  >>> image_6 <<<
+
+[IMAGE 7]
+  BEFORE: 232
+  BEFORE: 240
+  BEFORE: Chúc các bạn thành công!
+  >>> image_7 <<<
+
+[IMAGE 8]
+  BEFORE: 232
+  BEFORE: 240
+  BEFORE: Chúc các bạn thành công!
+  >>> image_8 <<<
+
+[IMAGE 9]
+  BEFORE: 232
+  BEFORE: 240
+  BEFORE: Chúc các bạn thành công!
+  >>> image_9 <<<
+
+[IMAGE 10]
+  BEFORE: 232
+  BEFORE: 240
+  BEFORE: Chúc các bạn thành công!
+  >>> image_10 <<<
+
+[IMAGE 11]
+  BEFORE: 232
+  BEFORE: 240
+  BEFORE: Chúc các bạn thành công!
+  >>> image_11 <<<
+
+[IMAGE 12]
+  BEFORE: 232
+  BEFORE: 240
+  BEFORE: Chúc các bạn thành công!
+  >>> image_12 <<<
+
+[IMAGE 13]
+  BEFORE: 240
+  BEFORE: Chúc các bạn thành công!
+  >>> image_13 <<<
+
+[IMAGE 14]
+  BEFORE: Chúc các bạn thành công!
+  >>> image_14 <<<
+
+[IMAGE 15]
+  >>> image_15 <<<
+
+[IMAGE 16]
+  >>> image_16 <<<
+
+[IMAGE 17]
+  >>> image_17 <<<
+
+[IMAGE 18]
+  >>> image_18 <<<
+
+[IMAGE 19]
+  >>> image_19 <<<
+
+[IMAGE 20]
+  >>> image_20 <<<
+  AFTER:  ĐỀ SỐ 01
+
+[IMAGE 21]
+  >>> image_21 <<<
+  AFTER:  ĐỀ SỐ 01
+  AFTER:  읽기 ( 20 문항 )
+
+[IMAGE 22]
+  >>> image_22 <<<
+  AFTER:  ĐỀ SỐ 01
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 23]
+  >>> image_23 <<<
+  AFTER:  ĐỀ SỐ 01
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 24]
+  >>> image_24 <<<
+  AFTER:  ĐỀ SỐ 01
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 25]
+  >>> image_25 <<<
+  AFTER:  ĐỀ SỐ 01
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 26]
+  >>> image_26 <<<
+  AFTER:  ĐỀ SỐ 01
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 27]
+  >>> image_27 <<<
+  AFTER:  ĐỀ SỐ 01
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 28]
+  >>> image_28 <<<
+  AFTER:  ĐỀ SỐ 01
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 29]
+  >>> image_29 <<<
+  AFTER:  ĐỀ SỐ 01
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 30]
+  >>> image_30 <<<
+  AFTER:  ĐỀ SỐ 01
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 31]
+  >>> image_31 <<<
+  AFTER:  ĐỀ SỐ 01
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 32]
+  >>> image_32 <<<
+  AFTER:  ĐỀ SỐ 01
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 33]
+  >>> image_33 <<<
+  AFTER:  ĐỀ SỐ 01
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 34]
+  BEFORE: 3. 성격
+  BEFORE: 4. 외모
+  BEFORE: 1
+  >>> image_34 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  다음 주에 동료들과 여행을 가려고 합니다. 그래서 오늘 우리가 머물 숙소를 ______.
+  AFTER:  1. 받았습니다.
+
+[IMAGE 35]
+  BEFORE: 3. 성격
+  BEFORE: 4. 외모
+  BEFORE: 1
+  >>> image_35 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  다음 주에 동료들과 여행을 가려고 합니다. 그래서 오늘 우리가 머물 숙소를 ______.
+  AFTER:  1. 받았습니다.
+
+[IMAGE 36]
+  BEFORE: 3. 성격
+  BEFORE: 4. 외모
+  BEFORE: 1
+  >>> image_36 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  다음 주에 동료들과 여행을 가려고 합니다. 그래서 오늘 우리가 머물 숙소를 ______.
+  AFTER:  1. 받았습니다.
+
+[IMAGE 37]
+  BEFORE: 3. 성격
+  BEFORE: 4. 외모
+  BEFORE: 1
+  >>> image_37 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  다음 주에 동료들과 여행을 가려고 합니다. 그래서 오늘 우리가 머물 숙소를 ______.
+  AFTER:  1. 받았습니다.
+
+[IMAGE 38]
+  BEFORE: 3. 성격
+  BEFORE: 4. 외모
+  BEFORE: 1
+  >>> image_38 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  다음 주에 동료들과 여행을 가려고 합니다. 그래서 오늘 우리가 머물 숙소를 ______.
+  AFTER:  1. 받았습니다.
+
+[IMAGE 39]
+  BEFORE: 3. 성격
+  BEFORE: 4. 외모
+  BEFORE: 1
+  >>> image_39 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  다음 주에 동료들과 여행을 가려고 합니다. 그래서 오늘 우리가 머물 숙소를 ______.
+  AFTER:  1. 받았습니다.
+
+[IMAGE 40]
+  BEFORE: 3. 성격
+  BEFORE: 4. 외모
+  BEFORE: 1
+  >>> image_40 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  다음 주에 동료들과 여행을 가려고 합니다. 그래서 오늘 우리가 머물 숙소를 ______.
+  AFTER:  1. 받았습니다.
+
+[IMAGE 41]
+  BEFORE: 3. 성격
+  BEFORE: 4. 외모
+  BEFORE: 1
+  >>> image_41 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  다음 주에 동료들과 여행을 가려고 합니다. 그래서 오늘 우리가 머물 숙소를 ______.
+  AFTER:  1. 받았습니다.
+
+[IMAGE 42]
+  BEFORE: 3. 성격
+  BEFORE: 4. 외모
+  BEFORE: 1
+  >>> image_42 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  다음 주에 동료들과 여행을 가려고 합니다. 그래서 오늘 우리가 머물 숙소를 ______.
+  AFTER:  1. 받았습니다.
+
+[IMAGE 43]
+  BEFORE: 3. 성격
+  BEFORE: 4. 외모
+  BEFORE: 1
+  >>> image_43 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  다음 주에 동료들과 여행을 가려고 합니다. 그래서 오늘 우리가 머물 숙소를 ______.
+  AFTER:  1. 받았습니다.
+
+[IMAGE 44]
+  BEFORE: 3. 성격
+  BEFORE: 4. 외모
+  BEFORE: 1
+  >>> image_44 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  다음 주에 동료들과 여행을 가려고 합니다. 그래서 오늘 우리가 머물 숙소를 ______.
+  AFTER:  1. 받았습니다.
+
+[IMAGE 45]
+  BEFORE: 3. 오천 원 입니다.
+  BEFORE: 4. 이월 이십일입니다.
+  BEFORE: 2
+  >>> image_45 <<<
+  AFTER:  14. 직장인이 한국어를 배우는 이유에 대한 설명으로 맞는 것은 무엇입니까?
+  AFTER:  1. 한국 회사에서 일하려고 배운다는 응답이 제일 적습니다.
+  AFTER:  2. 드라마 이해를 위해 배운다는 응답이 두 번째로 많습니다.
+
+[IMAGE 46]
+  BEFORE: 3. 오천 원 입니다.
+  BEFORE: 4. 이월 이십일입니다.
+  BEFORE: 2
+  >>> image_46 <<<
+  AFTER:  14. 직장인이 한국어를 배우는 이유에 대한 설명으로 맞는 것은 무엇입니까?
+  AFTER:  1. 한국 회사에서 일하려고 배운다는 응답이 제일 적습니다.
+  AFTER:  2. 드라마 이해를 위해 배운다는 응답이 두 번째로 많습니다.
+
+[IMAGE 47]
+  BEFORE: 3. 오천 원 입니다.
+  BEFORE: 4. 이월 이십일입니다.
+  BEFORE: 2
+  >>> image_47 <<<
+  AFTER:  14. 직장인이 한국어를 배우는 이유에 대한 설명으로 맞는 것은 무엇입니까?
+  AFTER:  1. 한국 회사에서 일하려고 배운다는 응답이 제일 적습니다.
+  AFTER:  2. 드라마 이해를 위해 배운다는 응답이 두 번째로 많습니다.
+
+[IMAGE 48]
+  BEFORE: 3. 오천 원 입니다.
+  BEFORE: 4. 이월 이십일입니다.
+  BEFORE: 2
+  >>> image_48 <<<
+  AFTER:  14. 직장인이 한국어를 배우는 이유에 대한 설명으로 맞는 것은 무엇입니까?
+  AFTER:  1. 한국 회사에서 일하려고 배운다는 응답이 제일 적습니다.
+  AFTER:  2. 드라마 이해를 위해 배운다는 응답이 두 번째로 많습니다.
+
+[IMAGE 49]
+  BEFORE: 3. 오천 원 입니다.
+  BEFORE: 4. 이월 이십일입니다.
+  BEFORE: 2
+  >>> image_49 <<<
+  AFTER:  14. 직장인이 한국어를 배우는 이유에 대한 설명으로 맞는 것은 무엇입니까?
+  AFTER:  1. 한국 회사에서 일하려고 배운다는 응답이 제일 적습니다.
+  AFTER:  2. 드라마 이해를 위해 배운다는 응답이 두 번째로 많습니다.
+
+[IMAGE 50]
+  BEFORE: 1. 생활한복은 화려하고 디자인이 아름답습니다.
+  BEFORE: 2. 최근에 한국 사람들이 전통 한복을 많이 입습니다.
+  BEFORE: 3
+  >>> image_50 <<<
+  AFTER:  3. 생활한복은 일상생활에서 편하게 입을 수 있습니다.
+  AFTER:  4. 한국의 전통 의상은 색상이 단순하여 인기가 많습니다.
+  AFTER:  18. 다음 글을 읽고 내용과 같은 것을 고르십시오.
+
+[IMAGE 51]
+  BEFORE: 1. 생활한복은 화려하고 디자인이 아름답습니다.
+  BEFORE: 2. 최근에 한국 사람들이 전통 한복을 많이 입습니다.
+  BEFORE: 3
+  >>> image_51 <<<
+  AFTER:  3. 생활한복은 일상생활에서 편하게 입을 수 있습니다.
+  AFTER:  4. 한국의 전통 의상은 색상이 단순하여 인기가 많습니다.
+  AFTER:  18. 다음 글을 읽고 내용과 같은 것을 고르십시오.
+
+[IMAGE 52]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 4
+  >>> image_52 <<<
+  AFTER:  24. 들은 것을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 53]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 4
+  >>> image_53 <<<
+  AFTER:  24. 들은 것을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 54]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 4
+  >>> image_54 <<<
+  AFTER:  24. 들은 것을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 55]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 4
+  >>> image_55 <<<
+  AFTER:  24. 들은 것을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 56]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 4
+  >>> image_56 <<<
+  AFTER:  24. 들은 것을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 57]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 5
+  >>> image_57 <<<
+  AFTER:  29. 수건은 어디에 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 58]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 5
+  >>> image_58 <<<
+  AFTER:  29. 수건은 어디에 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 59]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 5
+  >>> image_59 <<<
+  AFTER:  29. 수건은 어디에 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 60]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 5
+  >>> image_60 <<<
+  AFTER:  29. 수건은 어디에 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 61]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 5
+  >>> image_61 <<<
+  AFTER:  29. 수건은 어디에 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 62]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 5
+  >>> image_62 <<<
+  AFTER:  29. 수건은 어디에 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 63]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 5
+  >>> image_63 <<<
+  AFTER:  29. 수건은 어디에 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 64]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 5
+  >>> image_64 <<<
+  AFTER:  29. 수건은 어디에 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 65]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 5
+  >>> image_65 <<<
+  AFTER:  29. 수건은 어디에 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 66]
+  BEFORE: 3. 그래서 집을 못 구할까 봐 걱정이에요.
+  BEFORE: 4. 그래서 이제 마음 편하게 잘 수 있겠네요.
+  BEFORE: 6
+  >>> image_66 <<<
+  AFTER:  36. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 67]
+  BEFORE: 3. 그래서 집을 못 구할까 봐 걱정이에요.
+  BEFORE: 4. 그래서 이제 마음 편하게 잘 수 있겠네요.
+  BEFORE: 6
+  >>> image_67 <<<
+  AFTER:  36. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 68]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 7
+  >>> image_68 <<<
+  AFTER:  38. 다음 중 들은 내용과 같은 것은 무엇입니까 ?
+  AFTER:  1. 쓰레기봉투는 한 종류 밖에 없다.
+  AFTER:  2. 쓰레기양을 줄어서 환경을 보호한다.
+
+[IMAGE 69]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 7
+  >>> image_69 <<<
+  AFTER:  38. 다음 중 들은 내용과 같은 것은 무엇입니까 ?
+  AFTER:  1. 쓰레기봉투는 한 종류 밖에 없다.
+  AFTER:  2. 쓰레기양을 줄어서 환경을 보호한다.
+
+[IMAGE 70]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 7
+  >>> image_70 <<<
+  AFTER:  38. 다음 중 들은 내용과 같은 것은 무엇입니까 ?
+  AFTER:  1. 쓰레기봉투는 한 종류 밖에 없다.
+  AFTER:  2. 쓰레기양을 줄어서 환경을 보호한다.
+
+[IMAGE 71]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 7
+  >>> image_71 <<<
+  AFTER:  38. 다음 중 들은 내용과 같은 것은 무엇입니까 ?
+  AFTER:  1. 쓰레기봉투는 한 종류 밖에 없다.
+  AFTER:  2. 쓰레기양을 줄어서 환경을 보호한다.
+
+[IMAGE 72]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 7
+  >>> image_72 <<<
+  AFTER:  38. 다음 중 들은 내용과 같은 것은 무엇입니까 ?
+  AFTER:  1. 쓰레기봉투는 한 종류 밖에 없다.
+  AFTER:  2. 쓰레기양을 줄어서 환경을 보호한다.
+
+[IMAGE 73]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 7
+  >>> image_73 <<<
+  AFTER:  38. 다음 중 들은 내용과 같은 것은 무엇입니까 ?
+  AFTER:  1. 쓰레기봉투는 한 종류 밖에 없다.
+  AFTER:  2. 쓰레기양을 줄어서 환경을 보호한다.
+
+[IMAGE 74]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 7
+  >>> image_74 <<<
+  AFTER:  38. 다음 중 들은 내용과 같은 것은 무엇입니까 ?
+  AFTER:  1. 쓰레기봉투는 한 종류 밖에 없다.
+  AFTER:  2. 쓰레기양을 줄어서 환경을 보호한다.
+
+[IMAGE 75]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 7
+  >>> image_75 <<<
+  AFTER:  38. 다음 중 들은 내용과 같은 것은 무엇입니까 ?
+  AFTER:  1. 쓰레기봉투는 한 종류 밖에 없다.
+  AFTER:  2. 쓰레기양을 줄어서 환경을 보호한다.
+
+[IMAGE 76]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 7
+  >>> image_76 <<<
+  AFTER:  38. 다음 중 들은 내용과 같은 것은 무엇입니까 ?
+  AFTER:  1. 쓰레기봉투는 한 종류 밖에 없다.
+  AFTER:  2. 쓰레기양을 줄어서 환경을 보호한다.
+
+[IMAGE 77]
+  BEFORE: 3. 남자는 어제 회사에서 일했습니다.
+  BEFORE: 4. 남자는 결혼식에서 여자를 만났습니다.
+  BEFORE: 8
+  >>> image_77 <<<
+  AFTER:  ĐỀ SỐ 02
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 78]
+  BEFORE: 3. 악수하거나
+  BEFORE: 4. 포옹하거나
+  BEFORE: 9
+  >>> image_78 <<<
+  AFTER:  8. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  이번 주말에 제가 좋아하는 가수의 고연이 있습니다. 저는 두 달 전에 표를 미리
+  AFTER:  샀습니다. 공연을 빨리 _______.
+
+[IMAGE 79]
+  BEFORE: 3. 악수하거나
+  BEFORE: 4. 포옹하거나
+  BEFORE: 9
+  >>> image_79 <<<
+  AFTER:  8. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  이번 주말에 제가 좋아하는 가수의 고연이 있습니다. 저는 두 달 전에 표를 미리
+  AFTER:  샀습니다. 공연을 빨리 _______.
+
+[IMAGE 80]
+  BEFORE: 3. 악수하거나
+  BEFORE: 4. 포옹하거나
+  BEFORE: 9
+  >>> image_80 <<<
+  AFTER:  8. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  이번 주말에 제가 좋아하는 가수의 고연이 있습니다. 저는 두 달 전에 표를 미리
+  AFTER:  샀습니다. 공연을 빨리 _______.
+
+[IMAGE 81]
+  BEFORE: 3. 악수하거나
+  BEFORE: 4. 포옹하거나
+  BEFORE: 9
+  >>> image_81 <<<
+  AFTER:  8. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  이번 주말에 제가 좋아하는 가수의 고연이 있습니다. 저는 두 달 전에 표를 미리
+  AFTER:  샀습니다. 공연을 빨리 _______.
+
+[IMAGE 82]
+  BEFORE: 3. 악수하거나
+  BEFORE: 4. 포옹하거나
+  BEFORE: 9
+  >>> image_82 <<<
+  AFTER:  8. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  이번 주말에 제가 좋아하는 가수의 고연이 있습니다. 저는 두 달 전에 표를 미리
+  AFTER:  샀습니다. 공연을 빨리 _______.
+
+[IMAGE 83]
+  BEFORE: 3. 악수하거나
+  BEFORE: 4. 포옹하거나
+  BEFORE: 9
+  >>> image_83 <<<
+  AFTER:  8. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  이번 주말에 제가 좋아하는 가수의 고연이 있습니다. 저는 두 달 전에 표를 미리
+  AFTER:  샀습니다. 공연을 빨리 _______.
+
+[IMAGE 84]
+  BEFORE: 3. 악수하거나
+  BEFORE: 4. 포옹하거나
+  BEFORE: 9
+  >>> image_84 <<<
+  AFTER:  8. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  이번 주말에 제가 좋아하는 가수의 고연이 있습니다. 저는 두 달 전에 표를 미리
+  AFTER:  샀습니다. 공연을 빨리 _______.
+
+[IMAGE 85]
+  BEFORE: 3. 악수하거나
+  BEFORE: 4. 포옹하거나
+  BEFORE: 9
+  >>> image_85 <<<
+  AFTER:  8. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  이번 주말에 제가 좋아하는 가수의 고연이 있습니다. 저는 두 달 전에 표를 미리
+  AFTER:  샀습니다. 공연을 빨리 _______.
+
+[IMAGE 86]
+  BEFORE: 3. 4 개국 중에 스페인이 두 번째로 영향을 받는 나라로 보인다.
+  BEFORE: 4. 스페인보다 미국이 영향을 덜 받는 나라로 보인다.
+  BEFORE: 10
+  >>> image_86 <<<
+  AFTER:  14. 표지는 무슨 뜻입니까?
+  AFTER:  1. 기대면 안 됩니다.
+  AFTER:  2. 물로 불을 끄면 안 됩니다.
+
+[IMAGE 87]
+  BEFORE: 3. 4 개국 중에 스페인이 두 번째로 영향을 받는 나라로 보인다.
+  BEFORE: 4. 스페인보다 미국이 영향을 덜 받는 나라로 보인다.
+  BEFORE: 10
+  >>> image_87 <<<
+  AFTER:  14. 표지는 무슨 뜻입니까?
+  AFTER:  1. 기대면 안 됩니다.
+  AFTER:  2. 물로 불을 끄면 안 됩니다.
+
+[IMAGE 88]
+  BEFORE: 3. 4 개국 중에 스페인이 두 번째로 영향을 받는 나라로 보인다.
+  BEFORE: 4. 스페인보다 미국이 영향을 덜 받는 나라로 보인다.
+  BEFORE: 10
+  >>> image_88 <<<
+  AFTER:  14. 표지는 무슨 뜻입니까?
+  AFTER:  1. 기대면 안 됩니다.
+  AFTER:  2. 물로 불을 끄면 안 됩니다.
+
+[IMAGE 89]
+  BEFORE: 3. 4 개국 중에 스페인이 두 번째로 영향을 받는 나라로 보인다.
+  BEFORE: 4. 스페인보다 미국이 영향을 덜 받는 나라로 보인다.
+  BEFORE: 10
+  >>> image_89 <<<
+  AFTER:  14. 표지는 무슨 뜻입니까?
+  AFTER:  1. 기대면 안 됩니다.
+  AFTER:  2. 물로 불을 끄면 안 됩니다.
+
+[IMAGE 90]
+  BEFORE: 사업주와 계약 후 한국 비자를 받을 수 있습니다. 한국에 온 후에는 한국인 노동자들과
+  BEFORE: 동등하게 노동법이 정한 기본적인 권리를 보장 받으며 일할 수 있습니다.
+  BEFORE: 11
+  >>> image_90 <<<
+  AFTER:  1. 지원자들은 한국에 입국한 후 사업주와 고용 계약을 합니다.
+  AFTER:  2. 고용허가제는 한국에 살고 있는 외국인을 위한 취업 제도입니다.
+  AFTER:  3. 지원자들은 시험에 통과해야 한국에서 일할 기회를 얻을 수 있습니다.
+
+[IMAGE 91]
+  BEFORE: 사업주와 계약 후 한국 비자를 받을 수 있습니다. 한국에 온 후에는 한국인 노동자들과
+  BEFORE: 동등하게 노동법이 정한 기본적인 권리를 보장 받으며 일할 수 있습니다.
+  BEFORE: 11
+  >>> image_91 <<<
+  AFTER:  1. 지원자들은 한국에 입국한 후 사업주와 고용 계약을 합니다.
+  AFTER:  2. 고용허가제는 한국에 살고 있는 외국인을 위한 취업 제도입니다.
+  AFTER:  3. 지원자들은 시험에 통과해야 한국에서 일할 기회를 얻을 수 있습니다.
+
+[IMAGE 92]
+  BEFORE: 사업주와 계약 후 한국 비자를 받을 수 있습니다. 한국에 온 후에는 한국인 노동자들과
+  BEFORE: 동등하게 노동법이 정한 기본적인 권리를 보장 받으며 일할 수 있습니다.
+  BEFORE: 11
+  >>> image_92 <<<
+  AFTER:  1. 지원자들은 한국에 입국한 후 사업주와 고용 계약을 합니다.
+  AFTER:  2. 고용허가제는 한국에 살고 있는 외국인을 위한 취업 제도입니다.
+  AFTER:  3. 지원자들은 시험에 통과해야 한국에서 일할 기회를 얻을 수 있습니다.
+
+[IMAGE 93]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 12
+  >>> image_93 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 94]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 12
+  >>> image_94 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 95]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 12
+  >>> image_95 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 96]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 12
+  >>> image_96 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 97]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 12
+  >>> image_97 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 98]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 12
+  >>> image_98 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 99]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 12
+  >>> image_99 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 100]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 12
+  >>> image_100 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 101]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 12
+  >>> image_101 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 102]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 13
+  >>> image_102 <<<
+  AFTER:  29. 은행은 어디에 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 103]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 13
+  >>> image_103 <<<
+  AFTER:  29. 은행은 어디에 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 104]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 13
+  >>> image_104 <<<
+  AFTER:  29. 은행은 어디에 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 105]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 13
+  >>> image_105 <<<
+  AFTER:  29. 은행은 어디에 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 106]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 13
+  >>> image_106 <<<
+  AFTER:  29. 은행은 어디에 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 107]
+  BEFORE: 1. 드라이버 하는 게 좋아요.
+  BEFORE: 2. 네, 제가 가져다 줄게요.
+  BEFORE: 14
+  >>> image_107 <<<
+  AFTER:  3. 네, 여기 있어요.
+  AFTER:  36. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+
+[IMAGE 108]
+  BEFORE: 1. 드라이버 하는 게 좋아요.
+  BEFORE: 2. 네, 제가 가져다 줄게요.
+  BEFORE: 14
+  >>> image_108 <<<
+  AFTER:  3. 네, 여기 있어요.
+  AFTER:  36. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+
+[IMAGE 109]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 15
+  >>> image_109 <<<
+  AFTER:  38. 대화 후 여자는 가장 먼저 무엇을 하겠습니까 ?
+  AFTER:  1. 페인트 통을 정리한다.
+  AFTER:  2. 바닥을 닦는다.
+
+[IMAGE 110]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 15
+  >>> image_110 <<<
+  AFTER:  38. 대화 후 여자는 가장 먼저 무엇을 하겠습니까 ?
+  AFTER:  1. 페인트 통을 정리한다.
+  AFTER:  2. 바닥을 닦는다.
+
+[IMAGE 111]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 15
+  >>> image_111 <<<
+  AFTER:  38. 대화 후 여자는 가장 먼저 무엇을 하겠습니까 ?
+  AFTER:  1. 페인트 통을 정리한다.
+  AFTER:  2. 바닥을 닦는다.
+
+[IMAGE 112]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 15
+  >>> image_112 <<<
+  AFTER:  38. 대화 후 여자는 가장 먼저 무엇을 하겠습니까 ?
+  AFTER:  1. 페인트 통을 정리한다.
+  AFTER:  2. 바닥을 닦는다.
+
+[IMAGE 113]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 15
+  >>> image_113 <<<
+  AFTER:  38. 대화 후 여자는 가장 먼저 무엇을 하겠습니까 ?
+  AFTER:  1. 페인트 통을 정리한다.
+  AFTER:  2. 바닥을 닦는다.
+
+[IMAGE 114]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 15
+  >>> image_114 <<<
+  AFTER:  38. 대화 후 여자는 가장 먼저 무엇을 하겠습니까 ?
+  AFTER:  1. 페인트 통을 정리한다.
+  AFTER:  2. 바닥을 닦는다.
+
+[IMAGE 115]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 15
+  >>> image_115 <<<
+  AFTER:  38. 대화 후 여자는 가장 먼저 무엇을 하겠습니까 ?
+  AFTER:  1. 페인트 통을 정리한다.
+  AFTER:  2. 바닥을 닦는다.
+
+[IMAGE 116]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 15
+  >>> image_116 <<<
+  AFTER:  38. 대화 후 여자는 가장 먼저 무엇을 하겠습니까 ?
+  AFTER:  1. 페인트 통을 정리한다.
+  AFTER:  2. 바닥을 닦는다.
+
+[IMAGE 117]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 15
+  >>> image_117 <<<
+  AFTER:  38. 대화 후 여자는 가장 먼저 무엇을 하겠습니까 ?
+  AFTER:  1. 페인트 통을 정리한다.
+  AFTER:  2. 바닥을 닦는다.
+
+[IMAGE 118]
+  BEFORE: 3. 남자는 부모님과 음악회에 가고 싶어합니다.
+  BEFORE: 4. 여자는 인터넷으로 공연을 찾아보려고 합니다.
+  BEFORE: 16
+  >>> image_118 <<<
+  AFTER:  ĐỀ SỐ 03
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 119]
+  BEFORE: 3. 보내고
+  BEFORE: 4. 보고하고
+  BEFORE: 17
+  >>> image_119 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  물건을 택배로 보낼 때는 ____을/를 받아야 합니다. 그래야 배송 경로를 확인할 수
+  AFTER:  있습니다.
+
+[IMAGE 120]
+  BEFORE: 3. 보내고
+  BEFORE: 4. 보고하고
+  BEFORE: 17
+  >>> image_120 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  물건을 택배로 보낼 때는 ____을/를 받아야 합니다. 그래야 배송 경로를 확인할 수
+  AFTER:  있습니다.
+
+[IMAGE 121]
+  BEFORE: 3. 보내고
+  BEFORE: 4. 보고하고
+  BEFORE: 17
+  >>> image_121 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  물건을 택배로 보낼 때는 ____을/를 받아야 합니다. 그래야 배송 경로를 확인할 수
+  AFTER:  있습니다.
+
+[IMAGE 122]
+  BEFORE: 3. 보내고
+  BEFORE: 4. 보고하고
+  BEFORE: 17
+  >>> image_122 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  물건을 택배로 보낼 때는 ____을/를 받아야 합니다. 그래야 배송 경로를 확인할 수
+  AFTER:  있습니다.
+
+[IMAGE 123]
+  BEFORE: 3. 보내고
+  BEFORE: 4. 보고하고
+  BEFORE: 17
+  >>> image_123 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  물건을 택배로 보낼 때는 ____을/를 받아야 합니다. 그래야 배송 경로를 확인할 수
+  AFTER:  있습니다.
+
+[IMAGE 124]
+  BEFORE: 3. 보내고
+  BEFORE: 4. 보고하고
+  BEFORE: 17
+  >>> image_124 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  물건을 택배로 보낼 때는 ____을/를 받아야 합니다. 그래야 배송 경로를 확인할 수
+  AFTER:  있습니다.
+
+[IMAGE 125]
+  BEFORE: 3. 보내고
+  BEFORE: 4. 보고하고
+  BEFORE: 17
+  >>> image_125 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  물건을 택배로 보낼 때는 ____을/를 받아야 합니다. 그래야 배송 경로를 확인할 수
+  AFTER:  있습니다.
+
+[IMAGE 126]
+  BEFORE: 3. 보내고
+  BEFORE: 4. 보고하고
+  BEFORE: 17
+  >>> image_126 <<<
+  AFTER:  7. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  물건을 택배로 보낼 때는 ____을/를 받아야 합니다. 그래야 배송 경로를 확인할 수
+  AFTER:  있습니다.
+
+[IMAGE 127]
+  BEFORE: 12. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  BEFORE: 저는 배를 만드는 회사에서 일해 본 적이 있어요. 그래서 ______을 신청했어요.
+  BEFORE: 1. 제조업 2. 조선업 3. 건설업 4. 축산업
+  >>> image_127 <<<
+  AFTER:  2. 해 보세요
+  AFTER:  3. 하지 마세요
+  AFTER:  4. 하지 않아요
+
+[IMAGE 128]
+  BEFORE: 4. 하지 않아요
+  BEFORE: 13. 다음 그래프에 대한 설명으로 맞는 것은 무엇입니까?
+  BEFORE: 18
+  >>> image_128 <<<
+  AFTER:  1. 정보를 검색한다는 응답이 제일 많습니다.
+  AFTER:  2. 이메일을 보낸다는 응답이 가장 적습니다.
+  AFTER:  3. 쇼핑을 한다는 응답이 두 번쨰로 많습니다.
+
+[IMAGE 129]
+  BEFORE: 4. 하지 않아요
+  BEFORE: 13. 다음 그래프에 대한 설명으로 맞는 것은 무엇입니까?
+  BEFORE: 18
+  >>> image_129 <<<
+  AFTER:  1. 정보를 검색한다는 응답이 제일 많습니다.
+  AFTER:  2. 이메일을 보낸다는 응답이 가장 적습니다.
+  AFTER:  3. 쇼핑을 한다는 응답이 두 번쨰로 많습니다.
+
+[IMAGE 130]
+  BEFORE: 1. 법률 상담 2. 문화 체험 3. 안전 교육 4. 자원 봉사
+  BEFORE: 16. 다음 글을 읽고 무엇에 대한 글인지 고르십시오.
+  BEFORE: 19
+  >>> image_130 <<<
+  AFTER:  작업장에서는 깔끔하고 단정한 복장이 필요합니다. 동료들에게 먼저 인사를 하며
+  AFTER:  윗사람에게는 존댓 말을 쓰며 아랫사람에게도 예의있게 행동해야 합니다. 다른사람에게
+  AFTER:  불쾌하게 행동해서는 안 되고 서 로 존중하며 배려해야 합니다.
+
+[IMAGE 131]
+  BEFORE: 1. 법률 상담 2. 문화 체험 3. 안전 교육 4. 자원 봉사
+  BEFORE: 16. 다음 글을 읽고 무엇에 대한 글인지 고르십시오.
+  BEFORE: 19
+  >>> image_131 <<<
+  AFTER:  작업장에서는 깔끔하고 단정한 복장이 필요합니다. 동료들에게 먼저 인사를 하며
+  AFTER:  윗사람에게는 존댓 말을 쓰며 아랫사람에게도 예의있게 행동해야 합니다. 다른사람에게
+  AFTER:  불쾌하게 행동해서는 안 되고 서 로 존중하며 배려해야 합니다.
+
+[IMAGE 132]
+  BEFORE: 1. 법률 상담 2. 문화 체험 3. 안전 교육 4. 자원 봉사
+  BEFORE: 16. 다음 글을 읽고 무엇에 대한 글인지 고르십시오.
+  BEFORE: 19
+  >>> image_132 <<<
+  AFTER:  작업장에서는 깔끔하고 단정한 복장이 필요합니다. 동료들에게 먼저 인사를 하며
+  AFTER:  윗사람에게는 존댓 말을 쓰며 아랫사람에게도 예의있게 행동해야 합니다. 다른사람에게
+  AFTER:  불쾌하게 행동해서는 안 되고 서 로 존중하며 배려해야 합니다.
+
+[IMAGE 133]
+  BEFORE: 1. 법률 상담 2. 문화 체험 3. 안전 교육 4. 자원 봉사
+  BEFORE: 16. 다음 글을 읽고 무엇에 대한 글인지 고르십시오.
+  BEFORE: 19
+  >>> image_133 <<<
+  AFTER:  작업장에서는 깔끔하고 단정한 복장이 필요합니다. 동료들에게 먼저 인사를 하며
+  AFTER:  윗사람에게는 존댓 말을 쓰며 아랫사람에게도 예의있게 행동해야 합니다. 다른사람에게
+  AFTER:  불쾌하게 행동해서는 안 되고 서 로 존중하며 배려해야 합니다.
+
+[IMAGE 134]
+  BEFORE: 구리선의 끝부분은 롱노즈 플라이어를 사용하여 깔끔하게 고정시켜야 합니다.
+  BEFORE: 1. 전선 접속 방법 2. 전선 절단 방법 3. 전선 교체 방법 4. 전선 운반 방법
+  BEFORE: 20
+  >>> image_134 <<<
+  AFTER:  듣기 ( 20 문항 )
+  AFTER:  21. 들은 것을 고르십시오.
+  AFTER:  화_________
+
+[IMAGE 135]
+  BEFORE: 구리선의 끝부분은 롱노즈 플라이어를 사용하여 깔끔하게 고정시켜야 합니다.
+  BEFORE: 1. 전선 접속 방법 2. 전선 절단 방법 3. 전선 교체 방법 4. 전선 운반 방법
+  BEFORE: 20
+  >>> image_135 <<<
+  AFTER:  듣기 ( 20 문항 )
+  AFTER:  21. 들은 것을 고르십시오.
+  AFTER:  화_________
+
+[IMAGE 136]
+  BEFORE: 구리선의 끝부분은 롱노즈 플라이어를 사용하여 깔끔하게 고정시켜야 합니다.
+  BEFORE: 1. 전선 접속 방법 2. 전선 절단 방법 3. 전선 교체 방법 4. 전선 운반 방법
+  BEFORE: 20
+  >>> image_136 <<<
+  AFTER:  듣기 ( 20 문항 )
+  AFTER:  21. 들은 것을 고르십시오.
+  AFTER:  화_________
+
+[IMAGE 137]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 21
+  >>> image_137 <<<
+  AFTER:  27. 이 사람은 무엇을 하고 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 138]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 21
+  >>> image_138 <<<
+  AFTER:  27. 이 사람은 무엇을 하고 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 139]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 21
+  >>> image_139 <<<
+  AFTER:  27. 이 사람은 무엇을 하고 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 140]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 21
+  >>> image_140 <<<
+  AFTER:  27. 이 사람은 무엇을 하고 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 141]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 21
+  >>> image_141 <<<
+  AFTER:  27. 이 사람은 무엇을 하고 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 142]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 21
+  >>> image_142 <<<
+  AFTER:  27. 이 사람은 무엇을 하고 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 143]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 21
+  >>> image_143 <<<
+  AFTER:  27. 이 사람은 무엇을 하고 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 144]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 21
+  >>> image_144 <<<
+  AFTER:  27. 이 사람은 무엇을 하고 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 145]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 21
+  >>> image_145 <<<
+  AFTER:  27. 이 사람은 무엇을 하고 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 146]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 21
+  >>> image_146 <<<
+  AFTER:  27. 이 사람은 무엇을 하고 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 147]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 21
+  >>> image_147 <<<
+  AFTER:  27. 이 사람은 무엇을 하고 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 148]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 21
+  >>> image_148 <<<
+  AFTER:  27. 이 사람은 무엇을 하고 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 149]
+  BEFORE: 3. 그렇게 힘들면 제가 같이 사거 도와드릴게요.
+  BEFORE: 4. 저는 어제 돈을 내서 오늘은 안 내도 된대요.
+  BEFORE: 22
+  >>> image_149 <<<
+  AFTER:  32. 다음을 듣고 질문에 알맞은 대답을 고르십시오.
+  AFTER:  1. 시험에 합격해서 정말 기뻐요.
+  AFTER:  2. 저는 아직 자격증을 못 받았어요.
+
+[IMAGE 150]
+  BEFORE: 3. 그렇게 힘들면 제가 같이 사거 도와드릴게요.
+  BEFORE: 4. 저는 어제 돈을 내서 오늘은 안 내도 된대요.
+  BEFORE: 22
+  >>> image_150 <<<
+  AFTER:  32. 다음을 듣고 질문에 알맞은 대답을 고르십시오.
+  AFTER:  1. 시험에 합격해서 정말 기뻐요.
+  AFTER:  2. 저는 아직 자격증을 못 받았어요.
+
+[IMAGE 151]
+  BEFORE: 3. 그렇게 힘들면 제가 같이 사거 도와드릴게요.
+  BEFORE: 4. 저는 어제 돈을 내서 오늘은 안 내도 된대요.
+  BEFORE: 22
+  >>> image_151 <<<
+  AFTER:  32. 다음을 듣고 질문에 알맞은 대답을 고르십시오.
+  AFTER:  1. 시험에 합격해서 정말 기뻐요.
+  AFTER:  2. 저는 아직 자격증을 못 받았어요.
+
+[IMAGE 152]
+  BEFORE: 3. 그렇게 힘들면 제가 같이 사거 도와드릴게요.
+  BEFORE: 4. 저는 어제 돈을 내서 오늘은 안 내도 된대요.
+  BEFORE: 22
+  >>> image_152 <<<
+  AFTER:  32. 다음을 듣고 질문에 알맞은 대답을 고르십시오.
+  AFTER:  1. 시험에 합격해서 정말 기뻐요.
+  AFTER:  2. 저는 아직 자격증을 못 받았어요.
+
+[IMAGE 153]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 23
+  >>> image_153 <<<
+  AFTER:  37. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 154]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 23
+  >>> image_154 <<<
+  AFTER:  37. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 155]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 23
+  >>> image_155 <<<
+  AFTER:  37. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 156]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 23
+  >>> image_156 <<<
+  AFTER:  37. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 157]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 23
+  >>> image_157 <<<
+  AFTER:  37. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 158]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 23
+  >>> image_158 <<<
+  AFTER:  37. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 159]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 23
+  >>> image_159 <<<
+  AFTER:  37. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 160]
+  BEFORE: 3. 두 사람은 오늘 같이 밥을 안 먹습니다.
+  BEFORE: 4. 두 사람은 내일 저녁을 같이 먹을 겁니다.
+  BEFORE: 24
+  >>> image_160 <<<
+  AFTER:  ĐỀ SỐ 04
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 161]
+  BEFORE: 3. 두 사람은 오늘 같이 밥을 안 먹습니다.
+  BEFORE: 4. 두 사람은 내일 저녁을 같이 먹을 겁니다.
+  BEFORE: 24
+  >>> image_161 <<<
+  AFTER:  ĐỀ SỐ 04
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 162]
+  BEFORE: 3. 두 사람은 오늘 같이 밥을 안 먹습니다.
+  BEFORE: 4. 두 사람은 내일 저녁을 같이 먹을 겁니다.
+  BEFORE: 24
+  >>> image_162 <<<
+  AFTER:  ĐỀ SỐ 04
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 163]
+  BEFORE: 3. 두 사람은 오늘 같이 밥을 안 먹습니다.
+  BEFORE: 4. 두 사람은 내일 저녁을 같이 먹을 겁니다.
+  BEFORE: 24
+  >>> image_163 <<<
+  AFTER:  ĐỀ SỐ 04
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 164]
+  BEFORE: 3. 두 사람은 오늘 같이 밥을 안 먹습니다.
+  BEFORE: 4. 두 사람은 내일 저녁을 같이 먹을 겁니다.
+  BEFORE: 24
+  >>> image_164 <<<
+  AFTER:  ĐỀ SỐ 04
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 165]
+  BEFORE: 3. 두 사람은 오늘 같이 밥을 안 먹습니다.
+  BEFORE: 4. 두 사람은 내일 저녁을 같이 먹을 겁니다.
+  BEFORE: 24
+  >>> image_165 <<<
+  AFTER:  ĐỀ SỐ 04
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 166]
+  BEFORE: 3. 지저분해요
+  BEFORE: 4. 복잡해요
+  BEFORE: 25
+  >>> image_166 <<<
+
+[IMAGE 167]
+  BEFORE: 3. 지저분해요
+  BEFORE: 4. 복잡해요
+  BEFORE: 25
+  >>> image_167 <<<
+
+[IMAGE 168]
+  BEFORE: 3. 지저분해요
+  BEFORE: 4. 복잡해요
+  BEFORE: 25
+  >>> image_168 <<<
+
+[IMAGE 169]
+  BEFORE: 3. 지저분해요
+  BEFORE: 4. 복잡해요
+  BEFORE: 25
+  >>> image_169 <<<
+
+[IMAGE 170]
+  BEFORE: 3. 지저분해요
+  BEFORE: 4. 복잡해요
+  BEFORE: 25
+  >>> image_170 <<<
+
+[IMAGE 171]
+  BEFORE: 25
+  >>> image_171 <<<
+
+[IMAGE 172]
+  >>> image_172 <<<
+  AFTER:  5. 다음 중 밑줄 친 부분이 맞는 문장을 고르십시오.
+  AFTER:  1. 부모님께 드리으려고 이 선물을 샀어요. 2. 자동차를 사으려고 돈을 모으고 있습니다.
+  AFTER:  3. 여권을 만들려고 사진을 찍었어요. 4. 사진을 찍려고 사진관에 갈 거예요.
+
+[IMAGE 173]
+  >>> image_173 <<<
+  AFTER:  5. 다음 중 밑줄 친 부분이 맞는 문장을 고르십시오.
+  AFTER:  1. 부모님께 드리으려고 이 선물을 샀어요. 2. 자동차를 사으려고 돈을 모으고 있습니다.
+  AFTER:  3. 여권을 만들려고 사진을 찍었어요. 4. 사진을 찍려고 사진관에 갈 거예요.
+
+[IMAGE 174]
+  >>> image_174 <<<
+  AFTER:  5. 다음 중 밑줄 친 부분이 맞는 문장을 고르십시오.
+  AFTER:  1. 부모님께 드리으려고 이 선물을 샀어요. 2. 자동차를 사으려고 돈을 모으고 있습니다.
+  AFTER:  3. 여권을 만들려고 사진을 찍었어요. 4. 사진을 찍려고 사진관에 갈 거예요.
+
+[IMAGE 175]
+  >>> image_175 <<<
+  AFTER:  5. 다음 중 밑줄 친 부분이 맞는 문장을 고르십시오.
+  AFTER:  1. 부모님께 드리으려고 이 선물을 샀어요. 2. 자동차를 사으려고 돈을 모으고 있습니다.
+  AFTER:  3. 여권을 만들려고 사진을 찍었어요. 4. 사진을 찍려고 사진관에 갈 거예요.
+
+[IMAGE 176]
+  BEFORE: 5. 다음 중 밑줄 친 부분이 맞는 문장을 고르십시오.
+  BEFORE: 1. 부모님께 드리으려고 이 선물을 샀어요. 2. 자동차를 사으려고 돈을 모으고 있습니다.
+  BEFORE: 3. 여권을 만들려고 사진을 찍었어요. 4. 사진을 찍려고 사진관에 갈 거예요.
+  >>> image_176 <<<
+  AFTER:  8. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  친구한테 빌린 돈을 ____ 통장을 조회해 보니 정액이 부족했습니다. 그래서 이번 달
+  AFTER:  월급을 받으면 되돌려 주기로 했습니다.
+
+[IMAGE 177]
+  BEFORE: 1. 스포츠를 관람한다고 답한 직장인이 두 번째로 많습니다.
+  BEFORE: 2. 가족과 식사한다고 답한 직장인이 두번째로 많습니다.
+  BEFORE: 26
+  >>> image_177 <<<
+  AFTER:  3. 공연을 관람한다고 답한 직장인이 가장 많습니다.
+  AFTER:  4. 여행한다고 답한 직장인이 가장 적습니다.
+  AFTER:  14. 다음은 읽고 설명으로 맞는 것은 무엇입니까?
+
+[IMAGE 178]
+  BEFORE: 1. 스포츠를 관람한다고 답한 직장인이 두 번째로 많습니다.
+  BEFORE: 2. 가족과 식사한다고 답한 직장인이 두번째로 많습니다.
+  BEFORE: 26
+  >>> image_178 <<<
+  AFTER:  3. 공연을 관람한다고 답한 직장인이 가장 많습니다.
+  AFTER:  4. 여행한다고 답한 직장인이 가장 적습니다.
+  AFTER:  14. 다음은 읽고 설명으로 맞는 것은 무엇입니까?
+
+[IMAGE 179]
+  BEFORE: 1. 스포츠를 관람한다고 답한 직장인이 두 번째로 많습니다.
+  BEFORE: 2. 가족과 식사한다고 답한 직장인이 두번째로 많습니다.
+  BEFORE: 26
+  >>> image_179 <<<
+  AFTER:  3. 공연을 관람한다고 답한 직장인이 가장 많습니다.
+  AFTER:  4. 여행한다고 답한 직장인이 가장 적습니다.
+  AFTER:  14. 다음은 읽고 설명으로 맞는 것은 무엇입니까?
+
+[IMAGE 180]
+  BEFORE: 요즘은 외국인들을 위한 은행 서비스가 늘어가고 있어요. 이제는 송금 수수료를 할인해
+  BEFORE: 주는 곳도 많고, 짧은 시간에 송금할 수 있는 서비스를 제공하기도 합니다. 특히 평일에
+  BEFORE: 27
+  >>> image_180 <<<
+  AFTER:  바쁜 외국인 근로자를 위해 몇몇 은행은 일요일에도 영업을 하고 있어요. 이렇게 불편을
+  AFTER:  덜어주고 편리한 금융 서비스를 제공하고 있어요.
+  AFTER:  1. 현재 금융 서비스.
+
+[IMAGE 181]
+  BEFORE: 요즘은 외국인들을 위한 은행 서비스가 늘어가고 있어요. 이제는 송금 수수료를 할인해
+  BEFORE: 주는 곳도 많고, 짧은 시간에 송금할 수 있는 서비스를 제공하기도 합니다. 특히 평일에
+  BEFORE: 27
+  >>> image_181 <<<
+  AFTER:  바쁜 외국인 근로자를 위해 몇몇 은행은 일요일에도 영업을 하고 있어요. 이렇게 불편을
+  AFTER:  덜어주고 편리한 금융 서비스를 제공하고 있어요.
+  AFTER:  1. 현재 금융 서비스.
+
+[IMAGE 182]
+  BEFORE: 요즘은 외국인들을 위한 은행 서비스가 늘어가고 있어요. 이제는 송금 수수료를 할인해
+  BEFORE: 주는 곳도 많고, 짧은 시간에 송금할 수 있는 서비스를 제공하기도 합니다. 특히 평일에
+  BEFORE: 27
+  >>> image_182 <<<
+  AFTER:  바쁜 외국인 근로자를 위해 몇몇 은행은 일요일에도 영업을 하고 있어요. 이렇게 불편을
+  AFTER:  덜어주고 편리한 금융 서비스를 제공하고 있어요.
+  AFTER:  1. 현재 금융 서비스.
+
+[IMAGE 183]
+  BEFORE: 요즘은 외국인들을 위한 은행 서비스가 늘어가고 있어요. 이제는 송금 수수료를 할인해
+  BEFORE: 주는 곳도 많고, 짧은 시간에 송금할 수 있는 서비스를 제공하기도 합니다. 특히 평일에
+  BEFORE: 27
+  >>> image_183 <<<
+  AFTER:  바쁜 외국인 근로자를 위해 몇몇 은행은 일요일에도 영업을 하고 있어요. 이렇게 불편을
+  AFTER:  덜어주고 편리한 금융 서비스를 제공하고 있어요.
+  AFTER:  1. 현재 금융 서비스.
+
+[IMAGE 184]
+  BEFORE: 3. 선물
+  BEFORE: 4. 피로
+  BEFORE: 28
+  >>> image_184 <<<
+  AFTER:  듣기 ( 20 문항 )
+  AFTER:  21. 들은 것을 고르십시오.
+  AFTER:  상__________
+
+[IMAGE 185]
+  BEFORE: 3. 선물
+  BEFORE: 4. 피로
+  BEFORE: 28
+  >>> image_185 <<<
+  AFTER:  듣기 ( 20 문항 )
+  AFTER:  21. 들은 것을 고르십시오.
+  AFTER:  상__________
+
+[IMAGE 186]
+  BEFORE: 3. 선물
+  BEFORE: 4. 피로
+  BEFORE: 28
+  >>> image_186 <<<
+  AFTER:  듣기 ( 20 문항 )
+  AFTER:  21. 들은 것을 고르십시오.
+  AFTER:  상__________
+
+[IMAGE 187]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 29
+  >>> image_187 <<<
+  AFTER:  27. 바나나가 얼마나 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 188]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 29
+  >>> image_188 <<<
+  AFTER:  27. 바나나가 얼마나 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 189]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 29
+  >>> image_189 <<<
+  AFTER:  27. 바나나가 얼마나 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 190]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 29
+  >>> image_190 <<<
+  AFTER:  27. 바나나가 얼마나 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 191]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 29
+  >>> image_191 <<<
+  AFTER:  27. 바나나가 얼마나 있습니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 192]
+  BEFORE: 3. 3 프로그램이 적은 것 같습니다.
+  BEFORE: 4. 4 질문을 다시 정리해 보겠습니다.
+  BEFORE: 30
+  >>> image_192 <<<
+  AFTER:  34. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 193]
+  BEFORE: 3. 3 프로그램이 적은 것 같습니다.
+  BEFORE: 4. 4 질문을 다시 정리해 보겠습니다.
+  BEFORE: 30
+  >>> image_193 <<<
+  AFTER:  34. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 194]
+  BEFORE: 3. 3 프로그램이 적은 것 같습니다.
+  BEFORE: 4. 4 질문을 다시 정리해 보겠습니다.
+  BEFORE: 30
+  >>> image_194 <<<
+  AFTER:  34. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 195]
+  BEFORE: 3. 3 프로그램이 적은 것 같습니다.
+  BEFORE: 4. 4 질문을 다시 정리해 보겠습니다.
+  BEFORE: 30
+  >>> image_195 <<<
+  AFTER:  34. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 196]
+  BEFORE: 3. 3 프로그램이 적은 것 같습니다.
+  BEFORE: 4. 4 질문을 다시 정리해 보겠습니다.
+  BEFORE: 30
+  >>> image_196 <<<
+  AFTER:  34. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 197]
+  BEFORE: 3. 3 프로그램이 적은 것 같습니다.
+  BEFORE: 4. 4 질문을 다시 정리해 보겠습니다.
+  BEFORE: 30
+  >>> image_197 <<<
+  AFTER:  34. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 198]
+  BEFORE: 3. 3 프로그램이 적은 것 같습니다.
+  BEFORE: 4. 4 질문을 다시 정리해 보겠습니다.
+  BEFORE: 30
+  >>> image_198 <<<
+  AFTER:  34. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 199]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 31
+  >>> image_199 <<<
+  AFTER:  36. 다음 중 여자가 하고 있는 일은 무엇입니까 ?
+  AFTER:  1. 창고 관리 2. 업무 확인 3. 재고 기록
+  AFTER:  4. 상품 출고
+
+[IMAGE 200]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 31
+  >>> image_200 <<<
+  AFTER:  36. 다음 중 여자가 하고 있는 일은 무엇입니까 ?
+  AFTER:  1. 창고 관리 2. 업무 확인 3. 재고 기록
+  AFTER:  4. 상품 출고
+
+[IMAGE 201]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 31
+  >>> image_201 <<<
+  AFTER:  36. 다음 중 여자가 하고 있는 일은 무엇입니까 ?
+  AFTER:  1. 창고 관리 2. 업무 확인 3. 재고 기록
+  AFTER:  4. 상품 출고
+
+[IMAGE 202]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 31
+  >>> image_202 <<<
+  AFTER:  36. 다음 중 여자가 하고 있는 일은 무엇입니까 ?
+  AFTER:  1. 창고 관리 2. 업무 확인 3. 재고 기록
+  AFTER:  4. 상품 출고
+
+[IMAGE 203]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 31
+  >>> image_203 <<<
+  AFTER:  36. 다음 중 여자가 하고 있는 일은 무엇입니까 ?
+  AFTER:  1. 창고 관리 2. 업무 확인 3. 재고 기록
+  AFTER:  4. 상품 출고
+
+[IMAGE 204]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 31
+  >>> image_204 <<<
+  AFTER:  36. 다음 중 여자가 하고 있는 일은 무엇입니까 ?
+  AFTER:  1. 창고 관리 2. 업무 확인 3. 재고 기록
+  AFTER:  4. 상품 출고
+
+[IMAGE 205]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 31
+  >>> image_205 <<<
+  AFTER:  36. 다음 중 여자가 하고 있는 일은 무엇입니까 ?
+  AFTER:  1. 창고 관리 2. 업무 확인 3. 재고 기록
+  AFTER:  4. 상품 출고
+
+[IMAGE 206]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 31
+  >>> image_206 <<<
+  AFTER:  36. 다음 중 여자가 하고 있는 일은 무엇입니까 ?
+  AFTER:  1. 창고 관리 2. 업무 확인 3. 재고 기록
+  AFTER:  4. 상품 출고
+
+[IMAGE 207]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 31
+  >>> image_207 <<<
+  AFTER:  36. 다음 중 여자가 하고 있는 일은 무엇입니까 ?
+  AFTER:  1. 창고 관리 2. 업무 확인 3. 재고 기록
+  AFTER:  4. 상품 출고
+
+[IMAGE 208]
+  BEFORE: 3. 여자는 봉사 활동 검색 사이트를 이용해 봤다.
+  BEFORE: 4. 남자는 여자와 함께 봉사 활동을 한 적이 있다.
+  BEFORE: 32
+  >>> image_208 <<<
+  AFTER:  ĐỀ SỐ 05
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 209]
+  BEFORE: 1. 미나 씨는 지금 서울에서 일합니다.
+  BEFORE: 2. 저는 어제 저녁에 민수 씨에서 이메일을 보냈습니다.
+  BEFORE: 3. 오늘은 우리 반 친구과 같이 공원에 갈 겁니다.
+  >>> image_209 <<<
+  AFTER:  4. 우리는 꽃와 선물을 샀습니다
+  AFTER:  6. 빈칸에 들어갈 가장알맞은 것을고르십시오.
+  AFTER:  결혼식이 끝난 후에 신랑 부모님과 친척들에게 인사를 드리는데 이것을_____(이)라고
+
+[IMAGE 210]
+  BEFORE: 3. 맞선
+  BEFORE: 4. 상견례
+  BEFORE: 33
+  >>> image_210 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  저는 무역 회사에 에 _____외국어를 공부합니다. 여러 언어를 알면 나중해외에서 일할 때
+  AFTER:  도움이 될 것 같아서요.
+
+[IMAGE 211]
+  BEFORE: 3. 맞선
+  BEFORE: 4. 상견례
+  BEFORE: 33
+  >>> image_211 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  저는 무역 회사에 에 _____외국어를 공부합니다. 여러 언어를 알면 나중해외에서 일할 때
+  AFTER:  도움이 될 것 같아서요.
+
+[IMAGE 212]
+  BEFORE: 3. 맞선
+  BEFORE: 4. 상견례
+  BEFORE: 33
+  >>> image_212 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  저는 무역 회사에 에 _____외국어를 공부합니다. 여러 언어를 알면 나중해외에서 일할 때
+  AFTER:  도움이 될 것 같아서요.
+
+[IMAGE 213]
+  BEFORE: 3. 맞선
+  BEFORE: 4. 상견례
+  BEFORE: 33
+  >>> image_213 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  저는 무역 회사에 에 _____외국어를 공부합니다. 여러 언어를 알면 나중해외에서 일할 때
+  AFTER:  도움이 될 것 같아서요.
+
+[IMAGE 214]
+  BEFORE: 3. 맞선
+  BEFORE: 4. 상견례
+  BEFORE: 33
+  >>> image_214 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  저는 무역 회사에 에 _____외국어를 공부합니다. 여러 언어를 알면 나중해외에서 일할 때
+  AFTER:  도움이 될 것 같아서요.
+
+[IMAGE 215]
+  BEFORE: 3. 맞선
+  BEFORE: 4. 상견례
+  BEFORE: 33
+  >>> image_215 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  저는 무역 회사에 에 _____외국어를 공부합니다. 여러 언어를 알면 나중해외에서 일할 때
+  AFTER:  도움이 될 것 같아서요.
+
+[IMAGE 216]
+  BEFORE: 3. 맞선
+  BEFORE: 4. 상견례
+  BEFORE: 33
+  >>> image_216 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  저는 무역 회사에 에 _____외국어를 공부합니다. 여러 언어를 알면 나중해외에서 일할 때
+  AFTER:  도움이 될 것 같아서요.
+
+[IMAGE 217]
+  BEFORE: 3. 맞선
+  BEFORE: 4. 상견례
+  BEFORE: 33
+  >>> image_217 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  저는 무역 회사에 에 _____외국어를 공부합니다. 여러 언어를 알면 나중해외에서 일할 때
+  AFTER:  도움이 될 것 같아서요.
+
+[IMAGE 218]
+  BEFORE: 3. 맞선
+  BEFORE: 4. 상견례
+  BEFORE: 33
+  >>> image_218 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  저는 무역 회사에 에 _____외국어를 공부합니다. 여러 언어를 알면 나중해외에서 일할 때
+  AFTER:  도움이 될 것 같아서요.
+
+[IMAGE 219]
+  BEFORE: 3. 맞선
+  BEFORE: 4. 상견례
+  BEFORE: 33
+  >>> image_219 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  저는 무역 회사에 에 _____외국어를 공부합니다. 여러 언어를 알면 나중해외에서 일할 때
+  AFTER:  도움이 될 것 같아서요.
+
+[IMAGE 220]
+  BEFORE: 3. 맞선
+  BEFORE: 4. 상견례
+  BEFORE: 33
+  >>> image_220 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  저는 무역 회사에 에 _____외국어를 공부합니다. 여러 언어를 알면 나중해외에서 일할 때
+  AFTER:  도움이 될 것 같아서요.
+
+[IMAGE 221]
+  BEFORE: 2. 커피 잔보다 세제를 선물하는 사람이 적습니다.
+  BEFORE: 3. 휴지는 가장 많이 주는 집들이 선물입니다.
+  BEFORE: 34
+  >>> image_221 <<<
+  AFTER:  4. 세제를 선물하는 사람이 가장 적습니다.
+  AFTER:  13. 다음 그래프에 대한 설명으로 맞은는 것을 고르십시오.
+  AFTER:  1. 여가 때 영화 보는 사람이 가장 많습니다.
+
+[IMAGE 222]
+  BEFORE: 2. 커피 잔보다 세제를 선물하는 사람이 적습니다.
+  BEFORE: 3. 휴지는 가장 많이 주는 집들이 선물입니다.
+  BEFORE: 34
+  >>> image_222 <<<
+  AFTER:  4. 세제를 선물하는 사람이 가장 적습니다.
+  AFTER:  13. 다음 그래프에 대한 설명으로 맞은는 것을 고르십시오.
+  AFTER:  1. 여가 때 영화 보는 사람이 가장 많습니다.
+
+[IMAGE 223]
+  BEFORE: 2. 커피 잔보다 세제를 선물하는 사람이 적습니다.
+  BEFORE: 3. 휴지는 가장 많이 주는 집들이 선물입니다.
+  BEFORE: 34
+  >>> image_223 <<<
+  AFTER:  4. 세제를 선물하는 사람이 가장 적습니다.
+  AFTER:  13. 다음 그래프에 대한 설명으로 맞은는 것을 고르십시오.
+  AFTER:  1. 여가 때 영화 보는 사람이 가장 많습니다.
+
+[IMAGE 224]
+  BEFORE: 2. 커피 잔보다 세제를 선물하는 사람이 적습니다.
+  BEFORE: 3. 휴지는 가장 많이 주는 집들이 선물입니다.
+  BEFORE: 34
+  >>> image_224 <<<
+  AFTER:  4. 세제를 선물하는 사람이 가장 적습니다.
+  AFTER:  13. 다음 그래프에 대한 설명으로 맞은는 것을 고르십시오.
+  AFTER:  1. 여가 때 영화 보는 사람이 가장 많습니다.
+
+[IMAGE 225]
+  BEFORE: 4. 점심 시간에 탁구 하는 사람이 반이상입니다.
+  BEFORE: 15. 다음 글을 읽고 무엇에 대한 글인지 고르십시오.
+  BEFORE: 이 작업을 할 때 장갑을 벗고 저속으로 회전시키면서 맨손으로 작업해야 합니다. 장 갑을
+  >>> image_225 <<<
+  AFTER:  착용한 채로 일하면 사고 나기가 쉽습니다.
+  AFTER:  1. 포장 작업 2. 도장 작업
+  AFTER:  3. 용접 작업
+
+[IMAGE 226]
+  BEFORE: 3. 용접 작업
+  BEFORE: 4. 연마 작업
+  BEFORE: 35
+  >>> image_226 <<<
+  AFTER:  16. 다음 글을 읽고 무엇에 대한 글인지 고르십시오.
+  AFTER:  일이 끝나면 하루에 쓰는 도구들이 제자리에 갖다 놓아야 합니다. 그리고 기계의
+  AFTER:  스위치를 내리고 플러그를 뽑아서 전원을 차단해야 합니다.
+
+[IMAGE 227]
+  BEFORE: 3. 용접 작업
+  BEFORE: 4. 연마 작업
+  BEFORE: 35
+  >>> image_227 <<<
+  AFTER:  16. 다음 글을 읽고 무엇에 대한 글인지 고르십시오.
+  AFTER:  일이 끝나면 하루에 쓰는 도구들이 제자리에 갖다 놓아야 합니다. 그리고 기계의
+  AFTER:  스위치를 내리고 플러그를 뽑아서 전원을 차단해야 합니다.
+
+[IMAGE 228]
+  BEFORE: 3. 용접 작업
+  BEFORE: 4. 연마 작업
+  BEFORE: 35
+  >>> image_228 <<<
+  AFTER:  16. 다음 글을 읽고 무엇에 대한 글인지 고르십시오.
+  AFTER:  일이 끝나면 하루에 쓰는 도구들이 제자리에 갖다 놓아야 합니다. 그리고 기계의
+  AFTER:  스위치를 내리고 플러그를 뽑아서 전원을 차단해야 합니다.
+
+[IMAGE 229]
+  BEFORE: 3. 용접 작업
+  BEFORE: 4. 연마 작업
+  BEFORE: 35
+  >>> image_229 <<<
+  AFTER:  16. 다음 글을 읽고 무엇에 대한 글인지 고르십시오.
+  AFTER:  일이 끝나면 하루에 쓰는 도구들이 제자리에 갖다 놓아야 합니다. 그리고 기계의
+  AFTER:  스위치를 내리고 플러그를 뽑아서 전원을 차단해야 합니다.
+
+[IMAGE 230]
+  BEFORE: 3. 대형 쓰레기
+  BEFORE: 4. 재활용 쓰레기
+  BEFORE: 36
+  >>> image_230 <<<
+  AFTER:  듣기 ( 20 문항 )
+  AFTER:  21. 들은 것을 고르십시오.
+  AFTER:  아______
+
+[IMAGE 231]
+  BEFORE: 3. 대형 쓰레기
+  BEFORE: 4. 재활용 쓰레기
+  BEFORE: 36
+  >>> image_231 <<<
+  AFTER:  듣기 ( 20 문항 )
+  AFTER:  21. 들은 것을 고르십시오.
+  AFTER:  아______
+
+[IMAGE 232]
+  BEFORE: 3. 대형 쓰레기
+  BEFORE: 4. 재활용 쓰레기
+  BEFORE: 36
+  >>> image_232 <<<
+  AFTER:  듣기 ( 20 문항 )
+  AFTER:  21. 들은 것을 고르십시오.
+  AFTER:  아______
+
+[IMAGE 233]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 37
+  >>> image_233 <<<
+  AFTER:  27. 여기는 어디입니까?
+  AFTER:  1.
+
+[IMAGE 234]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 37
+  >>> image_234 <<<
+  AFTER:  27. 여기는 어디입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 235]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 37
+  >>> image_235 <<<
+  AFTER:  27. 여기는 어디입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 236]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 37
+  >>> image_236 <<<
+  AFTER:  27. 여기는 어디입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 237]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 37
+  >>> image_237 <<<
+  AFTER:  27. 여기는 어디입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 238]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 37
+  >>> image_238 <<<
+  AFTER:  27. 여기는 어디입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 239]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 37
+  >>> image_239 <<<
+  AFTER:  27. 여기는 어디입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 240]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 37
+  >>> image_240 <<<
+  AFTER:  27. 여기는 어디입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 241]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 37
+  >>> image_241 <<<
+  AFTER:  27. 여기는 어디입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 242]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 37
+  >>> image_242 <<<
+  AFTER:  27. 여기는 어디입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 243]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 37
+  >>> image_243 <<<
+  AFTER:  27. 여기는 어디입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 244]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 37
+  >>> image_244 <<<
+  AFTER:  27. 여기는 어디입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 245]
+  BEFORE: 4.
+  BEFORE: 37
+  >>> image_245 <<<
+  AFTER:  27. 여기는 어디입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 246]
+  BEFORE: 4. 담당자한테 메모 잔해 드릴까요 ?
+  BEFORE: 3. 담당자 좀 바꿔 주시겠어요?
+  BEFORE: 38
+  >>> image_246 <<<
+  AFTER:  32. 다음을 듣고 질문에 알맞은 대답을 고르십시오.
+  AFTER:  1. 아니요. 제가 닫을게요.
+  AFTER:  2. 네. 짐깐만 열어 주세요.
+
+[IMAGE 247]
+  BEFORE: 4. 담당자한테 메모 잔해 드릴까요 ?
+  BEFORE: 3. 담당자 좀 바꿔 주시겠어요?
+  BEFORE: 38
+  >>> image_247 <<<
+  AFTER:  32. 다음을 듣고 질문에 알맞은 대답을 고르십시오.
+  AFTER:  1. 아니요. 제가 닫을게요.
+  AFTER:  2. 네. 짐깐만 열어 주세요.
+
+[IMAGE 248]
+  BEFORE: 4. 담당자한테 메모 잔해 드릴까요 ?
+  BEFORE: 3. 담당자 좀 바꿔 주시겠어요?
+  BEFORE: 38
+  >>> image_248 <<<
+  AFTER:  32. 다음을 듣고 질문에 알맞은 대답을 고르십시오.
+  AFTER:  1. 아니요. 제가 닫을게요.
+  AFTER:  2. 네. 짐깐만 열어 주세요.
+
+[IMAGE 249]
+  BEFORE: 4. 담당자한테 메모 잔해 드릴까요 ?
+  BEFORE: 3. 담당자 좀 바꿔 주시겠어요?
+  BEFORE: 38
+  >>> image_249 <<<
+  AFTER:  32. 다음을 듣고 질문에 알맞은 대답을 고르십시오.
+  AFTER:  1. 아니요. 제가 닫을게요.
+  AFTER:  2. 네. 짐깐만 열어 주세요.
+
+[IMAGE 250]
+  BEFORE: 4. 담당자한테 메모 잔해 드릴까요 ?
+  BEFORE: 3. 담당자 좀 바꿔 주시겠어요?
+  BEFORE: 38
+  >>> image_250 <<<
+  AFTER:  32. 다음을 듣고 질문에 알맞은 대답을 고르십시오.
+  AFTER:  1. 아니요. 제가 닫을게요.
+  AFTER:  2. 네. 짐깐만 열어 주세요.
+
+[IMAGE 251]
+  BEFORE: 4. 담당자한테 메모 잔해 드릴까요 ?
+  BEFORE: 3. 담당자 좀 바꿔 주시겠어요?
+  BEFORE: 38
+  >>> image_251 <<<
+  AFTER:  32. 다음을 듣고 질문에 알맞은 대답을 고르십시오.
+  AFTER:  1. 아니요. 제가 닫을게요.
+  AFTER:  2. 네. 짐깐만 열어 주세요.
+
+[IMAGE 252]
+  BEFORE: 4. 담당자한테 메모 잔해 드릴까요 ?
+  BEFORE: 3. 담당자 좀 바꿔 주시겠어요?
+  BEFORE: 38
+  >>> image_252 <<<
+  AFTER:  32. 다음을 듣고 질문에 알맞은 대답을 고르십시오.
+  AFTER:  1. 아니요. 제가 닫을게요.
+  AFTER:  2. 네. 짐깐만 열어 주세요.
+
+[IMAGE 253]
+  BEFORE: 4. 담당자한테 메모 잔해 드릴까요 ?
+  BEFORE: 3. 담당자 좀 바꿔 주시겠어요?
+  BEFORE: 38
+  >>> image_253 <<<
+  AFTER:  32. 다음을 듣고 질문에 알맞은 대답을 고르십시오.
+  AFTER:  1. 아니요. 제가 닫을게요.
+  AFTER:  2. 네. 짐깐만 열어 주세요.
+
+[IMAGE 254]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 39
+  >>> image_254 <<<
+  AFTER:  37. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 255]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 39
+  >>> image_255 <<<
+  AFTER:  37. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 256]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 39
+  >>> image_256 <<<
+  AFTER:  37. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 257]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 39
+  >>> image_257 <<<
+  AFTER:  37. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 258]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 39
+  >>> image_258 <<<
+  AFTER:  37. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 259]
+  BEFORE: 3. 여자는 지금 남자의 집에 놀러 왔습니다.
+  BEFORE: 4. 여자는 회사에서 가까운 집으로 이사할 겁니다.
+  BEFORE: 40
+  >>> image_259 <<<
+  AFTER:  ĐỀ SỐ 06
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 260]
+  BEFORE: 3. 여자는 지금 남자의 집에 놀러 왔습니다.
+  BEFORE: 4. 여자는 회사에서 가까운 집으로 이사할 겁니다.
+  BEFORE: 40
+  >>> image_260 <<<
+  AFTER:  ĐỀ SỐ 06
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 261]
+  BEFORE: 3. 여자는 지금 남자의 집에 놀러 왔습니다.
+  BEFORE: 4. 여자는 회사에서 가까운 집으로 이사할 겁니다.
+  BEFORE: 40
+  >>> image_261 <<<
+  AFTER:  ĐỀ SỐ 06
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 262]
+  BEFORE: 3. 여자는 지금 남자의 집에 놀러 왔습니다.
+  BEFORE: 4. 여자는 회사에서 가까운 집으로 이사할 겁니다.
+  BEFORE: 40
+  >>> image_262 <<<
+  AFTER:  ĐỀ SỐ 06
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 263]
+  BEFORE: 3. 여자는 지금 남자의 집에 놀러 왔습니다.
+  BEFORE: 4. 여자는 회사에서 가까운 집으로 이사할 겁니다.
+  BEFORE: 40
+  >>> image_263 <<<
+  AFTER:  ĐỀ SỐ 06
+  AFTER:  읽기 ( 20 문항 )
+  AFTER:  1. 다음 내용과 관계있는 그림을 고르십시오.
+
+[IMAGE 264]
+  BEFORE: 2. 기침을 했습니다
+  BEFORE: 4. 다리를 다쳤습니다
+  BEFORE: 41
+  >>> image_264 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  포도에 봉지를 ______농약이 포도에 닿지 않습니다. 그리고 비에 맞지 않고 새가 먹는
+  AFTER:  것도 방지할 수 있어서 좋습니다.
+
+[IMAGE 265]
+  BEFORE: 2. 기침을 했습니다
+  BEFORE: 4. 다리를 다쳤습니다
+  BEFORE: 41
+  >>> image_265 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  포도에 봉지를 ______농약이 포도에 닿지 않습니다. 그리고 비에 맞지 않고 새가 먹는
+  AFTER:  것도 방지할 수 있어서 좋습니다.
+
+[IMAGE 266]
+  BEFORE: 2. 기침을 했습니다
+  BEFORE: 4. 다리를 다쳤습니다
+  BEFORE: 41
+  >>> image_266 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  포도에 봉지를 ______농약이 포도에 닿지 않습니다. 그리고 비에 맞지 않고 새가 먹는
+  AFTER:  것도 방지할 수 있어서 좋습니다.
+
+[IMAGE 267]
+  BEFORE: 2. 기침을 했습니다
+  BEFORE: 4. 다리를 다쳤습니다
+  BEFORE: 41
+  >>> image_267 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  포도에 봉지를 ______농약이 포도에 닿지 않습니다. 그리고 비에 맞지 않고 새가 먹는
+  AFTER:  것도 방지할 수 있어서 좋습니다.
+
+[IMAGE 268]
+  BEFORE: 2. 기침을 했습니다
+  BEFORE: 4. 다리를 다쳤습니다
+  BEFORE: 41
+  >>> image_268 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  포도에 봉지를 ______농약이 포도에 닿지 않습니다. 그리고 비에 맞지 않고 새가 먹는
+  AFTER:  것도 방지할 수 있어서 좋습니다.
+
+[IMAGE 269]
+  BEFORE: 2. 기침을 했습니다
+  BEFORE: 4. 다리를 다쳤습니다
+  BEFORE: 41
+  >>> image_269 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  포도에 봉지를 ______농약이 포도에 닿지 않습니다. 그리고 비에 맞지 않고 새가 먹는
+  AFTER:  것도 방지할 수 있어서 좋습니다.
+
+[IMAGE 270]
+  BEFORE: 2. 기침을 했습니다
+  BEFORE: 4. 다리를 다쳤습니다
+  BEFORE: 41
+  >>> image_270 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  포도에 봉지를 ______농약이 포도에 닿지 않습니다. 그리고 비에 맞지 않고 새가 먹는
+  AFTER:  것도 방지할 수 있어서 좋습니다.
+
+[IMAGE 271]
+  BEFORE: 2. 기침을 했습니다
+  BEFORE: 4. 다리를 다쳤습니다
+  BEFORE: 41
+  >>> image_271 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  포도에 봉지를 ______농약이 포도에 닿지 않습니다. 그리고 비에 맞지 않고 새가 먹는
+  AFTER:  것도 방지할 수 있어서 좋습니다.
+
+[IMAGE 272]
+  BEFORE: 2. 기침을 했습니다
+  BEFORE: 4. 다리를 다쳤습니다
+  BEFORE: 41
+  >>> image_272 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  포도에 봉지를 ______농약이 포도에 닿지 않습니다. 그리고 비에 맞지 않고 새가 먹는
+  AFTER:  것도 방지할 수 있어서 좋습니다.
+
+[IMAGE 273]
+  BEFORE: 2. 기침을 했습니다
+  BEFORE: 4. 다리를 다쳤습니다
+  BEFORE: 41
+  >>> image_273 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  포도에 봉지를 ______농약이 포도에 닿지 않습니다. 그리고 비에 맞지 않고 새가 먹는
+  AFTER:  것도 방지할 수 있어서 좋습니다.
+
+[IMAGE 274]
+  BEFORE: 2. 기침을 했습니다
+  BEFORE: 4. 다리를 다쳤습니다
+  BEFORE: 41
+  >>> image_274 <<<
+  AFTER:  7. 빈칸에 들어갈 가장 알맞은 것은 고르십시오
+  AFTER:  포도에 봉지를 ______농약이 포도에 닿지 않습니다. 그리고 비에 맞지 않고 새가 먹는
+  AFTER:  것도 방지할 수 있어서 좋습니다.
+
+[IMAGE 275]
+  BEFORE: 2. 월 평균 200 만원~300 만원 미만 임금 노동자가 가장 적습니다.
+  BEFORE: 3. 월 평균 100 만원~200 만원 미만 임금 노동자가 전체의 절반이 넘 습니다.
+  BEFORE: 42
+  >>> image_275 <<<
+  AFTER:  4. 월 평균 100 만원 미만 임금 노동자가 두번째로 많습니다.
+  AFTER:  15. 다음 글을 읽고 무엇에 대한 글인지 고르십시오.
+  AFTER:  우리 회사는 동료들끼리 위해 주니까 항상 즐겁게 일하는 편입니다. 규율은 좀
+
+[IMAGE 276]
+  BEFORE: 2. 월 평균 200 만원~300 만원 미만 임금 노동자가 가장 적습니다.
+  BEFORE: 3. 월 평균 100 만원~200 만원 미만 임금 노동자가 전체의 절반이 넘 습니다.
+  BEFORE: 42
+  >>> image_276 <<<
+  AFTER:  4. 월 평균 100 만원 미만 임금 노동자가 두번째로 많습니다.
+  AFTER:  15. 다음 글을 읽고 무엇에 대한 글인지 고르십시오.
+  AFTER:  우리 회사는 동료들끼리 위해 주니까 항상 즐겁게 일하는 편입니다. 규율은 좀
+
+[IMAGE 277]
+  BEFORE: 2. 월 평균 200 만원~300 만원 미만 임금 노동자가 가장 적습니다.
+  BEFORE: 3. 월 평균 100 만원~200 만원 미만 임금 노동자가 전체의 절반이 넘 습니다.
+  BEFORE: 42
+  >>> image_277 <<<
+  AFTER:  4. 월 평균 100 만원 미만 임금 노동자가 두번째로 많습니다.
+  AFTER:  15. 다음 글을 읽고 무엇에 대한 글인지 고르십시오.
+  AFTER:  우리 회사는 동료들끼리 위해 주니까 항상 즐겁게 일하는 편입니다. 규율은 좀
+
+[IMAGE 278]
+  BEFORE: 1. 인터넷전문은행의 영업점이 많아지고 있습니다.
+  BEFORE: 2. 주말에 은행 업무를 보려면 4시까지 가야 합니다.
+  BEFORE: 43
+  >>> image_278 <<<
+  AFTER:  3. 인터넷전문은행을 이용하는 사람은 별로 없습니다.
+  AFTER:  4. 스마트폰으로 은행 업무를 보는 직장인이 많습니다.
+  AFTER:  19. 다음 설명에 알맞은 어휘를 고르십시오.
+
+[IMAGE 279]
+  BEFORE: 1. 인터넷전문은행의 영업점이 많아지고 있습니다.
+  BEFORE: 2. 주말에 은행 업무를 보려면 4시까지 가야 합니다.
+  BEFORE: 43
+  >>> image_279 <<<
+  AFTER:  3. 인터넷전문은행을 이용하는 사람은 별로 없습니다.
+  AFTER:  4. 스마트폰으로 은행 업무를 보는 직장인이 많습니다.
+  AFTER:  19. 다음 설명에 알맞은 어휘를 고르십시오.
+
+[IMAGE 280]
+  BEFORE: 1. 인터넷전문은행의 영업점이 많아지고 있습니다.
+  BEFORE: 2. 주말에 은행 업무를 보려면 4시까지 가야 합니다.
+  BEFORE: 43
+  >>> image_280 <<<
+  AFTER:  3. 인터넷전문은행을 이용하는 사람은 별로 없습니다.
+  AFTER:  4. 스마트폰으로 은행 업무를 보는 직장인이 많습니다.
+  AFTER:  19. 다음 설명에 알맞은 어휘를 고르십시오.
+
+[IMAGE 281]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 44
+  >>> image_281 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 282]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 44
+  >>> image_282 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 283]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 44
+  >>> image_283 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 284]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 44
+  >>> image_284 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 285]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 44
+  >>> image_285 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 286]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 44
+  >>> image_286 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 287]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 44
+  >>> image_287 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 288]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 44
+  >>> image_288 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 289]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 44
+  >>> image_289 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 290]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 44
+  >>> image_290 <<<
+  AFTER:  25. 이것은 무엇입니까?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 291]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 45
+  >>> image_291 <<<
+  AFTER:  29. 열쇠가 어디에 있어요?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 292]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 45
+  >>> image_292 <<<
+  AFTER:  29. 열쇠가 어디에 있어요?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 293]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 45
+  >>> image_293 <<<
+  AFTER:  29. 열쇠가 어디에 있어요?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 294]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 45
+  >>> image_294 <<<
+  AFTER:  29. 열쇠가 어디에 있어요?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 295]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 45
+  >>> image_295 <<<
+  AFTER:  29. 열쇠가 어디에 있어요?
+  AFTER:  1.
+  AFTER:  2.
+
+[IMAGE 296]
+  BEFORE: 3. 버스를 운전해요.
+  BEFORE: 4. 김치를 좋아해요.
+  BEFORE: 46
+  >>> image_296 <<<
+  AFTER:  36. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 297]
+  BEFORE: 3. 버스를 운전해요.
+  BEFORE: 4. 김치를 좋아해요.
+  BEFORE: 46
+  >>> image_297 <<<
+  AFTER:  36. 잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.
+  AFTER:  1. 2.
+  AFTER:  3.
+
+[IMAGE 298]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 47
+  >>> image_298 <<<
+  AFTER:  38. 들은 내용과 같은 것을 고르십시오.
+  AFTER:  1. 남자는 여자를 만났습니다.
+  AFTER:  2. 남자는 소포를 받았습니다.
+
+[IMAGE 299]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 47
+  >>> image_299 <<<
+  AFTER:  38. 들은 내용과 같은 것을 고르십시오.
+  AFTER:  1. 남자는 여자를 만났습니다.
+  AFTER:  2. 남자는 소포를 받았습니다.
+
+[IMAGE 300]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 47
+  >>> image_300 <<<
+  AFTER:  38. 들은 내용과 같은 것을 고르십시오.
+  AFTER:  1. 남자는 여자를 만났습니다.
+  AFTER:  2. 남자는 소포를 받았습니다.
+
+[IMAGE 301]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 47
+  >>> image_301 <<<
+  AFTER:  38. 들은 내용과 같은 것을 고르십시오.
+  AFTER:  1. 남자는 여자를 만났습니다.
+  AFTER:  2. 남자는 소포를 받았습니다.
+
+[IMAGE 302]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 47
+  >>> image_302 <<<
+  AFTER:  38. 들은 내용과 같은 것을 고르십시오.
+  AFTER:  1. 남자는 여자를 만났습니다.
+  AFTER:  2. 남자는 소포를 받았습니다.
+
+[IMAGE 303]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 47
+  >>> image_303 <<<
+  AFTER:  38. 들은 내용과 같은 것을 고르십시오.
+  AFTER:  1. 남자는 여자를 만났습니다.
+  AFTER:  2. 남자는 소포를 받았습니다.
+
+[IMAGE 304]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 47
+  >>> image_304 <<<
+  AFTER:  38. 들은 내용과 같은 것을 고르십시오.
+  AFTER:  1. 남자는 여자를 만났습니다.
+  AFTER:  2. 남자는 소포를 받았습니다.
+
+[IMAGE 305]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 47
+  >>> image_305 <<<
+  AFTER:  38. 들은 내용과 같은 것을 고르십시오.
+  AFTER:  1. 남자는 여자를 만났습니다.
+  AFTER:  2. 남자는 소포를 받았습니다.
+
+[IMAGE 306]
+  BEFORE: 3.
+  BEFORE: 4.
+  BEFORE: 47
+  >>> image_306 <<<
+  AFTER:  38. 들은 내용과 같은 것을 고르십시오.
+  AFTER:  1. 남자는 여자를 만났습니다.
+  AFTER:  2. 남자는 소포를 받았습니다.
+
+[IMAGE 307]
+  BEFORE: 3. 여자는 이 볼펜을 샀습니다.
+  BEFORE: 4. 이 볼펜은 필통에 안 들어갑니다.
+  BEFORE: 48
+  >>> image_307 <<<
