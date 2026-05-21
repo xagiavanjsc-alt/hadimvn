@@ -113,6 +113,17 @@ function QuestionCard({ q, answer, onAnswer, showResult, tts }: QuestionCardProp
         </div>
       )}
 
+      {/* Content image (sign, chart, ticket, scene...) */}
+      {q.contentImage && (
+        <div className="flex justify-center">
+          <img
+            src={q.contentImage}
+            alt=""
+            className="max-h-52 rounded-xl border border-gray-200 object-contain shadow-sm"
+          />
+        </div>
+      )}
+
       {/* Audio controls (listening only) */}
       {isListening && q.audioScript && (
         <div className="flex items-center gap-3 flex-wrap">
@@ -158,19 +169,32 @@ function QuestionCard({ q, answer, onAnswer, showResult, tts }: QuestionCardProp
             <button
               key={i}
               onClick={() => !showResult && onAnswer(i)}
-              className={`relative cursor-pointer rounded-xl border-2 transition-all ${
+              className={`relative cursor-pointer rounded-xl border-2 transition-all overflow-hidden ${
                 showResult
                   ? i === q.correct
                     ? "border-emerald-400 ring-2 ring-emerald-300"
                     : answer === i && i !== q.correct
                     ? "border-rose-400 ring-2 ring-rose-300"
-                    : ""
+                    : "border-gray-200"
                   : answer === i
                   ? "border-app-accent-primary ring-2 ring-app-accent-primary/30"
-                  : "border-transparent"
+                  : "border-gray-200 hover:border-app-accent-primary/40"
               }`}
             >
-              <ImgPlaceholder label={`${["①","②","③","④"][i]} ${opt}`} index={i} selected={answer === i} />
+              {q.optionImages?.[i] ? (
+                <div className="relative">
+                  <img
+                    src={q.optionImages[i]}
+                    alt={opt}
+                    className="w-full h-28 object-contain bg-white p-1"
+                  />
+                  <span className={`absolute bottom-1 left-1 text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full ${
+                    answer === i ? "bg-app-accent-primary text-white" : "bg-black/40 text-white"
+                  }`}>{["①","②","③","④"][i]}</span>
+                </div>
+              ) : (
+                <ImgPlaceholder label={`${["①","②","③","④"][i]} ${opt}`} index={i} selected={answer === i} />
+              )}
               {showResult && i === q.correct && (
                 <div className="absolute top-1 right-1 w-4 h-4 rounded-full bg-emerald-500 flex items-center justify-center">
                   <i className="ri-check-line text-white text-[9px]"></i>

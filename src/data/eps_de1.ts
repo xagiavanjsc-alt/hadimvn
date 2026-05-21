@@ -5,10 +5,14 @@
 export interface De1Question {
   id: number;
   section: "reading" | "listening";
-  /** 'image' = đáp án là hình (hiện placeholder), 'text' = text thường */
+  /** 'image' = đáp án là hình ảnh thực, 'text' = text thường */
   optionType: "text" | "image";
   prompt: string;
   content?: string;
+  /** Ảnh nội dung câu hỏi (ký hiệu, biểu đồ, vé...) */
+  contentImage?: string;
+  /** 4 đường dẫn ảnh dùng làm đáp án (thay thế text options) */
+  optionImages?: string[];
   /** Chỉ câu nghe: script tiếng Hàn sẽ được TTS đọc */
   audioScript?: string;
   /** Gợi ý nội dung âm thanh (hiển thị cho học viên sau khi nghe) */
@@ -28,8 +32,9 @@ export const DE1_QUESTIONS: De1Question[] = [
     optionType: "image",
     prompt: "다음 내용과 관계있는 그림을 고르십시오.",
     content: "냉장고입니다.",
-    options: ["냉장고", "세탁기", "에어컨", "전자레인지"],
-    correct: 0,
+    optionImages: ["/de1/p2_img3.jpeg", "/de1/p2_img4.jpeg", "/de1/p2_img5.jpeg", "/de1/p2_img6.jpeg"],
+    options: ["에어컨", "세탁기", "식기세척기", "냉장고"],
+    correct: 3,
   },
   {
     id: 2,
@@ -37,8 +42,9 @@ export const DE1_QUESTIONS: De1Question[] = [
     optionType: "image",
     prompt: "다음 내용과 관계있는 그림을 고르십시오.",
     content: "빵을 자르고 있습니다.",
-    options: ["빵 자르기", "빵 굽기", "빵 먹기", "빵 사기"],
-    correct: 0,
+    optionImages: ["/de1/p2_img7.jpeg", "/de1/p2_img8.jpeg", "/de1/p2_img9.jpeg", "/de1/p2_img10.jpeg"],
+    options: ["감자 깎기", "빵 자르기", "채칼 사용", "반죽하기"],
+    correct: 1,
   },
   {
     id: 3,
@@ -116,7 +122,7 @@ export const DE1_QUESTIONS: De1Question[] = [
     section: "reading",
     optionType: "text",
     prompt: "이 표지는 무슨 뜻입니까?",
-    content: "↑→ [직진 및 우회전 표지판]",
+    contentImage: "/de1/p3_img3.jpeg",
     options: [
       "직진 및 좌회전 할 수 있습니다.",
       "직진 및 우회전 할 수 있습니다.",
@@ -149,7 +155,7 @@ export const DE1_QUESTIONS: De1Question[] = [
     section: "reading",
     optionType: "text",
     prompt: "이 것을 사용하는 곳은 어디입니까?",
-    content: "[입장권 이미지 — 수영장 / 성인 5,000원 / 2월 21일]",
+    contentImage: "/de1/p3_img4.jpeg",
     options: [
       "청소년입니다.",
       "수영장입니다.",
@@ -163,15 +169,14 @@ export const DE1_QUESTIONS: De1Question[] = [
     section: "reading",
     optionType: "text",
     prompt: "직장인이 한국어를 배우는 이유에 대한 설명으로 맞는 것은 무엇입니까?",
-    content:
-      "[막대그래프 — 한국인 친구 사귀기 38% ▶ 드라마 이해 27% ▶ 한국 회사 취업 20% ▶ 학교 진학 15%]",
+    contentImage: "/de1/p4_img1.jpeg",
     options: [
       "한국 회사에서 일하려고 배운다는 응답이 제일 적습니다.",
       "드라마 이해를 위해 배운다는 응답이 두 번째로 많습니다.",
       "학교를 다니기 위해 배운다는 응답이 절반에 가깝습니다.",
       "한국인 친구를 사귀려고 배운다는 응답이 가장 많습니다.",
     ],
-    correct: 3,
+    correct: 2,
   },
   {
     id: 15,
@@ -280,82 +285,81 @@ export const DE1_QUESTIONS: De1Question[] = [
     correct: 2,
   },
 
-  // ── Q23-29: Nghe → chọn hình (image placeholder) ───────
+  // ── Q23-29: Nghe → chọn hình (ảnh thực từ PDF) ────────
   {
     id: 23,
     section: "listening",
     optionType: "image",
     prompt: "들은 것을 고르십시오.",
-    audioScript: "남자가 자전거를 타고 있습니다.",
-    audioHint: "Nghe mô tả hành động → chọn hình khớp",
-    options: ["자전거 타기", "수영하기", "축구하기", "달리기"],
-    correct: 0,
+    audioScript: "저는 매일 지하철을 타고 회사에 갑니다.",
+    audioHint: "Nghe cách di chuyển → chọn hình phương tiện đúng",
+    optionImages: ["/de1/p5_img1.jpeg", "/de1/p5_img2.jpeg", "/de1/p5_img3.jpeg", "/de1/p5_img4.jpeg"],
+    options: ["비행기", "지하철", "배", "버스"],
+    correct: 1,
   },
   {
     id: 24,
     section: "listening",
     optionType: "image",
     prompt: "들은 것을 고르십시오.",
-    audioScript: "여자가 꽃에 물을 주고 있습니다.",
-    audioHint: "Nghe mô tả hành động → chọn hình khớp",
-    options: ["꽃에 물 주기", "청소하기", "요리하기", "빨래하기"],
+    audioScript: "여자가 요리를 하고 있습니다.",
+    audioHint: "Nghe mô tả hành động của người phụ nữ → chọn hình đúng",
+    optionImages: ["/de1/p6_img2.jpeg", "/de1/p6_img3.jpeg", "/de1/p6_img4.jpeg", "/de1/p6_img5.jpeg"],
+    options: ["요리하기", "청소기 사용", "컴퓨터 작업", "물고기 보기"],
     correct: 0,
   },
   {
     id: 25,
     section: "listening",
-    optionType: "image",
+    optionType: "text",
     prompt: "이것은 무엇입니까?",
-    audioScript:
-      "이것은 음식을 차갑게 보관하는 기계입니다. 주방에서 사용합니다.",
-    audioHint: "Nghe mô tả đồ vật → chọn hình đúng",
-    options: ["냉장고", "세탁기", "에어컨", "전자레인지"],
+    audioScript: "이것은 매일 아침 세수할 때 사용합니다. 손이나 얼굴을 깨끗이 씻을 수 있습니다.",
+    audioHint: "Nghe mô tả đồ vật dùng khi rửa mặt",
+    options: ["세면도구", "청소도구", "주방용품", "사무용품"],
     correct: 0,
   },
   {
     id: 26,
     section: "listening",
-    optionType: "image",
+    optionType: "text",
     prompt: "여기는 어디입니까?",
-    audioScript:
-      "여기서는 아픈 사람을 치료합니다. 의사와 간호사가 일하는 곳입니다.",
-    audioHint: "Nghe mô tả địa điểm → chọn hình đúng",
-    options: ["약국", "병원", "학교", "마트"],
+    contentImage: "/de1/p6_img7.jpeg",
+    audioScript: "두 사람이 앉아서 음료를 마시며 이야기하고 있습니다. 자판기도 있습니다.",
+    audioHint: "Nghe mô tả nơi có máy bán hàng tự động, nghỉ ngơi",
+    options: ["공장 식당", "휴게실", "회의실", "사무실"],
     correct: 1,
   },
   {
     id: 27,
     section: "listening",
-    optionType: "image",
+    optionType: "text",
     prompt: "이 사람은 무엇을 하고 있습니까?",
-    audioScript: "이 사람은 빗자루로 바닥을 쓸고 있습니다.",
-    audioHint: "Nghe mô tả hành động → chọn hình đúng",
-    options: ["청소하고 있습니다", "요리하고 있습니다", "공부하고 있습니다", "운동하고 있습니다"],
-    correct: 0,
+    contentImage: "/de1/p6_img8.jpeg",
+    audioScript: "이 사람은 용접 작업을 하고 있습니다.",
+    audioHint: "Nghe mô tả công việc → chọn đáp án đúng",
+    options: ["청소하고 있습니다", "용접하고 있습니다", "운전하고 있습니다", "요리하고 있습니다"],
+    correct: 1,
   },
   {
     id: 28,
     section: "listening",
-    optionType: "image",
+    optionType: "text",
     prompt: "그릇이 몇 개 있습니까?",
-    audioScript: "그릇이 세 개 있습니다.",
-    audioHint: "Nghe số lượng → chọn hình có số bát đúng",
+    contentImage: "/de1/p6_img1.jpeg",
+    audioScript: "그릇이 네 개 있습니다.",
+    audioHint: "Nhìn hình → Nghe số lượng → chọn đúng",
     options: ["한 개", "두 개", "세 개", "네 개"],
-    correct: 2,
+    correct: 3,
   },
   {
     id: 29,
     section: "listening",
-    optionType: "image",
+    optionType: "text",
     prompt: "수건은 어디에 있습니까?",
-    audioScript: "수건이 세면대 왼쪽에 있습니다.",
-    audioHint: "Nghe vị trí → chọn hình đúng",
-    options: [
-      "세면대 왼쪽",
-      "세면대 오른쪽",
-      "세면대 위",
-      "세면대 앞",
-    ],
+    contentImage: "/de1/p7_img1.jpeg",
+    audioScript: "수건이 선반 왼쪽 위에 있습니다.",
+    audioHint: "Nhìn hình kệ phòng tắm → Nghe vị trí khăn",
+    options: ["선반 왼쪽 위", "선반 오른쪽", "세면대 위", "욕조 안"],
     correct: 0,
   },
 
@@ -453,16 +457,17 @@ export const DE1_QUESTIONS: De1Question[] = [
     correct: 3,
   },
 
-  // ── Q36-37: Nghe đoạn hội thoại ngắn → chọn hình ───────
+  // ── Q36-37: Nghe đoạn hội thoại ngắn → chọn hình (ảnh thực) ───
   {
     id: 36,
     section: "listening",
     optionType: "image",
     prompt: "잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.",
     audioScript:
-      "남자: 오늘 날씨가 정말 덥네요. 여자: 맞아요. 수영장에 가고 싶어요.",
-    audioHint: "Hội thoại: Nóng quá, muốn đi bơi → chọn hình liên quan",
-    options: ["수영장", "도서관", "공원", "식당"],
+      "남자: 오늘 수영장에 누가 왔어요? 여자: 남자와 여자 두 명이 수영장 안에서 공을 가지고 놀고 있었어요.",
+    audioHint: "Hội thoại về cảnh bể bơi → chọn đúng hình mô tả",
+    optionImages: ["/de1/p8_img1.jpeg", "/de1/p8_img2.jpeg", "/de1/p8_img3.jpeg", "/de1/p8_img4.jpeg"],
+    options: ["두 명 수영 중", "한 명 물화사하기", "중간에서 체조", "수영장 나가는 중"],
     correct: 0,
   },
   {
@@ -471,10 +476,11 @@ export const DE1_QUESTIONS: De1Question[] = [
     optionType: "image",
     prompt: "잘 듣고 들은 내용과 관계 있는 그림을 고르십시오.",
     audioScript:
-      "여자: 손이 너무 건조해요. 남자: 핸드크림을 자주 바르면 좋아질 거예요.",
-    audioHint: "Hội thoại: Da tay khô → dùng kem dưỡng tay",
-    options: ["핸드크림", "샴푸", "치약", "비누"],
-    correct: 0,
+      "여자 직원이 남자 손님에게 카메라를 건네주고 있습니다.",
+    audioHint: "Mô tả cảnh cửa hàng máy ảnh → chọn đúng hình",
+    optionImages: ["/de1/p8_img5.jpeg", "/de1/p8_img6.jpeg", "/de1/p8_img7.jpeg", "/de1/p8_img8.jpeg"],
+    options: ["직원이 어린이에게 보여주기", "남자가 진열대 구경", "여직원이 남성에게 건네주기", "직원이 구매 거절"],
+    correct: 2,
   },
 
   // ── Q38-40: Nghe đoạn dài → chọn nội dung đúng ─────────
