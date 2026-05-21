@@ -18,6 +18,7 @@ export interface EPSExam {
   title: string;
   duration: number; // in minutes
   questions: EPSQuestion[];
+  questionCount?: number; // override display count when questions array is empty
 }
 
 export const EPS_EXAMS: EPSExam[] = [
@@ -442,6 +443,7 @@ export const EPS_EXAMS: EPSExam[] = [
     id: "eps_02",
     title: "ĐỀ Số 02",
     duration: 50,
+    questionCount: 40,
     questions: [],
   },
   // Add eps_03, eps_04, eps_05, eps_06

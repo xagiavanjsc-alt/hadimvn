@@ -177,6 +177,11 @@ export default function EPSExamsPage() {
                       <i className="ri-volume-up-line" /> 40 câu · Audio TTS
                     </span>
                   )}
+                  {exam.id === "eps_02" && (
+                    <span className="inline-flex items-center gap-1 mt-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-violet-500/20 text-violet-400 border border-violet-500/30">
+                      <i className="ri-volume-up-line" /> 40 câu · Audio TTS
+                    </span>
+                  )}
                 </div>
                 <div className="w-12 h-12 rounded-full bg-app-accent-primary/10 flex items-center justify-center group-hover:bg-app-accent-primary group-hover:text-white transition-all">
                   <i className={`text-xl text-app-accent-primary group-hover:text-white ${exam.id === "eps_01" ? "ri-headphone-line" : "ri-file-list-3-line"}`} />
@@ -194,7 +199,7 @@ export default function EPSExamsPage() {
                   <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
                     <i className="ri-question-line text-emerald-400" />
                   </div>
-                  <span className="font-medium">{exam.questions.length} câu hỏi</span>
+                  <span className="font-medium">{exam.questionCount ?? exam.questions.length} câu hỏi</span>
                 </div>
               </div>
 
