@@ -55,6 +55,10 @@ export default function EPSExamsPage() {
   };
 
   const handleStartExam = (exam: EPSExam) => {
+    if (exam.id === "eps_01") {
+      navigate("/eps-de1");
+      return;
+    }
     setSelectedExam(exam);
     setCurrentQuestionIndex(0);
     setAnswers([]);
@@ -160,11 +164,18 @@ export default function EPSExamsPage() {
               onClick={() => handleStartExam(exam)}
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-2xl font-bold text-white group-hover:text-app-accent-primary transition-colors">
-                  {exam.title}
-                </h3>
+                <div>
+                  <h3 className="text-2xl font-bold text-white group-hover:text-app-accent-primary transition-colors">
+                    {exam.title}
+                  </h3>
+                  {exam.id === "eps_01" && (
+                    <span className="inline-flex items-center gap-1 mt-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-400 border border-sky-500/30">
+                      <i className="ri-volume-up-line" /> 40 câu · Audio TTS
+                    </span>
+                  )}
+                </div>
                 <div className="w-12 h-12 rounded-full bg-app-accent-primary/10 flex items-center justify-center group-hover:bg-app-accent-primary group-hover:text-white transition-all">
-                  <i className="ri-file-list-3-line text-xl text-app-accent-primary group-hover:text-white" />
+                  <i className={`text-xl text-app-accent-primary group-hover:text-white ${exam.id === "eps_01" ? "ri-headphone-line" : "ri-file-list-3-line"}`} />
                 </div>
               </div>
               
