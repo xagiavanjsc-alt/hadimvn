@@ -180,60 +180,7 @@ function QuestionCard({ q, answer, onAnswer, showResult, tts }: QuestionCardProp
       )}
 
       {/* Options */}
-      {isAudioOpts ? (
-        /* ── 4-audio format (Q26-29): nghe từng đáp án rồi chọn ── */
-        <div className="space-y-2">
-          <p className="text-[11px] text-sky-600 font-medium">
-            <i className="ri-volume-up-line mr-1"></i>Bấm từng số để nghe, rồi chọn đáp án đúng
-          </p>
-          <div className="grid grid-cols-2 gap-2.5">
-            {q.options.map((opt, i) => {
-              const isCorrect = showResult && i === q.correct;
-              const isWrong = showResult && answer === i && i !== q.correct;
-              const isPlaying = playingOptIdx === i;
-              return (
-                <button
-                  key={i}
-                  onClick={() => {
-                    if (!showResult) {
-                      handleSpeakOption(i);
-                      onAnswer(i);
-                    }
-                  }}
-                  className={`relative flex items-center gap-2.5 px-3 py-3 rounded-xl border-2 text-left transition-all cursor-pointer ${
-                    isCorrect
-                      ? "bg-emerald-50 border-emerald-400 ring-2 ring-emerald-200"
-                      : isWrong
-                      ? "bg-rose-50 border-rose-400 ring-2 ring-rose-200"
-                      : answer === i
-                      ? "bg-app-accent-primary/10 border-app-accent-primary"
-                      : "bg-white border-gray-200 hover:border-sky-300 hover:bg-sky-50/50"
-                  }`}
-                >
-                  <span className={`w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-full font-bold text-sm ${
-                    isCorrect ? "bg-emerald-500 text-white" :
-                    isWrong ? "bg-rose-400 text-white" :
-                    isPlaying ? "bg-sky-500 text-white animate-pulse" :
-                    answer === i ? "bg-app-accent-primary text-white" : "bg-gray-200 text-gray-600"
-                  }`}>
-                    {isCorrect ? <i className="ri-check-line" /> :
-                     isWrong ? <i className="ri-close-line" /> :
-                     isPlaying ? <i className="ri-volume-up-fill" /> :
-                     <><i className="ri-headphone-line text-xs" /><span className="text-xs ml-0.5">{i+1}</span></>}
-                  </span>
-                  {showResult ? (
-                    <span className={`text-xs font-medium ${
-                      isCorrect ? "text-emerald-700" : isWrong ? "text-rose-600" : "text-gray-500"
-                    }`}>{opt}</span>
-                  ) : (
-                    <span className="text-xs text-gray-400 italic">Bấm để nghe</span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      ) : isImageOpts ? (
+      {isImageOpts ? (
         <div className="grid grid-cols-2 gap-2.5">
           {q.options.map((opt, i) => (
             <button
