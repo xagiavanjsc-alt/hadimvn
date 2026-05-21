@@ -20,7 +20,7 @@ export const DE2_INFO = {
   totalQuestions: 40,
   readingQuestions: 20,
   listeningQuestions: 20,
-  timeMinutes: 70,
+  timeMinutes: 50,
   level: "EPS-TOPIK",
 };
 

@@ -593,6 +593,6 @@ export const DE1_INFO = {
   totalQuestions: 40,
   readingCount: 20,
   listeningCount: 20,
-  timeMinutes: 70,
+  timeMinutes: 50,
   passScore: 80,
 };
