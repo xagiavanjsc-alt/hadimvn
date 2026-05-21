@@ -237,12 +237,12 @@ function QuestionCard({ q, answer, onAnswer, showResult, tts }: QuestionCardProp
                     : "bg-white border-gray-200 text-gray-600 hover:border-app-accent-primary/30 hover:bg-app-accent-primary/5"
                 }`}
               >
-                <span className={`w-7 h-7 flex items-center justify-center rounded-full text-xs font-bold flex-shrink-0 ${
+                <span className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold flex-shrink-0 ${
                   isCorrect ? "bg-emerald-500 text-white" :
                   isWrong ? "bg-rose-400 text-white" :
-                  answer === i ? "bg-app-accent-primary text-app-bg" : "bg-gray-100 text-gray-500"
+                  answer === i ? "bg-app-accent-primary text-white" : "bg-gray-200 text-gray-600"
                 }`}>
-                  {isCorrect ? <i className="ri-check-line" /> : isWrong ? <i className="ri-close-line" /> : ["①","②","③","④"][i]}
+                  {isCorrect ? <i className="ri-check-line" /> : isWrong ? <i className="ri-close-line" /> : i + 1}
                 </span>
                 <span className="leading-relaxed">{opt}</span>
               </button>
