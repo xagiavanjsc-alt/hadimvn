@@ -15,6 +15,8 @@ export interface De1Question {
   optionImages?: string[];
   /** Chỉ câu nghe: script tiếng Hàn sẽ được TTS đọc */
   audioScript?: string;
+  /** Format 4-audio: mỗi phần tử là script TTS cho đáp án tương ứng (thay thế text options) */
+  audioOptions?: string[];
   /** Gợi ý nội dung âm thanh (hiển thị cho học viên sau khi nghe) */
   audioHint?: string;
   options: string[];
@@ -326,6 +328,7 @@ export const DE1_QUESTIONS: De1Question[] = [
     contentImage: "/de1/p6_img7.jpeg",
     audioScript: "두 사람이 앉아서 음료를 마시며 이야기하고 있습니다. 자판기도 있습니다.",
     audioHint: "Nghe mô tả nơi có máy bán hàng tự động, nghỉ ngơi",
+    audioOptions: ["공장 식당입니다.", "휴게실입니다.", "회의실입니다.", "사무실입니다."],
     options: ["공장 식당", "휴게실", "회의실", "사무실"],
     correct: 1,
   },
@@ -337,6 +340,7 @@ export const DE1_QUESTIONS: De1Question[] = [
     contentImage: "/de1/p6_img8.jpeg",
     audioScript: "이 사람은 용접 작업을 하고 있습니다.",
     audioHint: "Nghe mô tả công việc → chọn đáp án đúng",
+    audioOptions: ["청소하고 있습니다.", "용접하고 있습니다.", "운전하고 있습니다.", "요리하고 있습니다."],
     options: ["청소하고 있습니다", "용접하고 있습니다", "운전하고 있습니다", "요리하고 있습니다"],
     correct: 1,
   },
@@ -348,6 +352,7 @@ export const DE1_QUESTIONS: De1Question[] = [
     contentImage: "/de1/p6_img1.jpeg",
     audioScript: "그릇이 네 개 있습니다.",
     audioHint: "Nhìn hình → Nghe số lượng → chọn đúng",
+    audioOptions: ["한 개입니다.", "두 개입니다.", "세 개입니다.", "네 개입니다."],
     options: ["한 개", "두 개", "세 개", "네 개"],
     correct: 3,
   },
@@ -359,6 +364,7 @@ export const DE1_QUESTIONS: De1Question[] = [
     contentImage: "/de1/p7_img1.jpeg",
     audioScript: "수건이 선반 왼쪽 위에 있습니다.",
     audioHint: "Nhìn hình kệ phòng tắm → Nghe vị trí khăn",
+    audioOptions: ["선반 왼쪽 위에 있습니다.", "선반 오른쪽에 있습니다.", "세면대 위에 있습니다.", "욕조 안에 있습니다."],
     options: ["선반 왼쪽 위", "선반 오른쪽", "세면대 위", "욕조 안"],
     correct: 0,
   },
