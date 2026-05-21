@@ -534,6 +534,53 @@ export const DE1_QUESTIONS: De1Question[] = [
   },
 ];
 
+/** Giải thích tiếng Việt cho từng câu (id 1-40) */
+export const DE1_EXPLANATIONS: Record<number, string> = {
+  // ── Đọc hiểu ──────────────────────────────────────────────────────────────
+  1:  "냉장고 = tủ lạnh, dùng bảo quản thực phẩm. Phân biệt: 에어컨(điều hòa), 세탁기(máy giặt), 식기세척기(máy rửa chén).",
+  2:  "빵을 자르다 = cắt bánh mì. Hình ① có dao và ổ bánh mì. Phân biệt: 감자 깎다(gọt khoai), 반죽하다(nhào bột), 채칼(dụng cụ bào).",
+  3:  "독서(đọc sách) là một loại 취미(sở thích). Phân biệt: 위치(vị trí), 국적(quốc tịch), 가족(gia đình).",
+  4:  "건강(sức khỏe), 경치(cảnh sắc), 사이(quan hệ), 분위기(không khí) → đều kết hợp 좋다 hoặc 하다 để mô tả trạng thái. Nhóm từ này liên quan đến 하다.",
+  5:  "Câu ①: 먹으면서 TV를 봅니다 — đúng cú pháp. Câu khác sai: 치하면서→치면서, 운전으면서→운전하면서, 다니하면서→다니면서.",
+  6:  "Cùng ngày tháng sinh (5월 12일) nhưng khác năm → cùng 생일(ngày sinh), không phải cùng 나이(tuổi).",
+  7:  "숙소를 예약하다 = đặt chỗ ở trước. 받다(nhận), 주다(cho), 정리하다(dọn dẹp) không phù hợp ngữ cảnh.",
+  8:  "가끔 = thỉnh thoảng — ngữ cảnh: đôi khi gặp bạn bè nói chuyện thì giải tỏa stress. 너무(quá), 벌써(đã rồi), 제일(nhất) không phù hợp.",
+  9:  "두꺼운 외투(áo khoác dày) → mặc khi mùa đông → 춥지 않을 것 (sẽ không lạnh). 덥지/바쁘지/기쁘지 không hợp ngữ cảnh.",
+  10: "Biển giao thông mũi tên thẳng ↑ và rẽ phải → = 직진 및 우회전. Không phải rẽ trái hay chỉ thẳng.",
+  11: "세탁기를 돌리다 = cho chạy/bật máy giặt. Động từ đặc trưng của máy giặt là 돌리다, không phải 쓰다/닦다/하다.",
+  12: "손을 씻다(rửa tay) → cần 비누(xà phòng). 장갑(găng tay), 거울(gương), 치약(kem đánh răng) không liên quan.",
+  13: "Vé có in 수영장, độ tuổi, giá tiền, ngày → dùng tại 수영장(bể bơi). Các đáp án kia là thông tin trên vé, không phải nơi dùng.",
+  14: "Biểu đồ tròn: cột 'học để đi học' chiếm gần 50% → đáp án ③ đúng. Đáp án khác không khớp số liệu.",
+  15: "Đoạn văn nói cả điểm tốt (làm vui) lẫn điểm xấu (làm khô họng) của chocolate → chủ đề là 단점과 장점(ưu và nhược điểm).",
+  16: "Bài nói về việc trả dụng cụ về đúng chỗ sau khi dùng → chủ đề là 공구 정리(sắp xếp dụng cụ).",
+  17: "Bài viết nói rõ '생활한복은 실용적이어서 일상생활에서도 편하게 입을 수 있습니다' → đáp án ③.",
+  18: "Bài nói bắn cung tốt cho người thiếu 판단력(phán đoán) và 인내심(kiên nhẫn) → có thể rèn 판단력 → đáp án ①.",
+  19: "신호등 = đèn giao thông, dùng ánh sáng màu điều tiết xe cộ và người đi bộ. 노선도(sơ đồ tuyến), 육교(cầu vượt bộ hành), 화물선(tàu hàng).",
+  20: "세면도구 = dụng cụ vệ sinh cá nhân (rửa mặt hàng ngày). 면도기(dao cạo), 화장품(mỹ phẩm), 비누(xà phòng — chỉ 1 loại, không phải tập hợp).",
+
+  // ── Nghe hiểu ─────────────────────────────────────────────────────────────
+  21: "Nghe: '구경' — từ ghép bắt đầu bằng 구. Phân biệt: 구함(tìm), 구입(mua), 구경(ngắm/tham quan), 구청(ủy ban quận).",
+  22: "Nghe câu phủ định: '청소하지 않습니다'. Cấu trúc: động từ + 지 않다 = phủ định.",
+  23: "Nghe: '매일 지하철을 타고 회사에 갑니다' → phương tiện là 지하철(tàu điện ngầm). Hình ② = tàu điện ngầm.",
+  24: "Nghe: '여자가 요리를 하고 있습니다' → người phụ nữ đang nấu ăn. Hình ① = nấu ăn.",
+  25: "Nghe mô tả đồ vật dùng rửa mặt mỗi sáng → 세면도구(dụng cụ vệ sinh mặt).",
+  26: "Nghe: '두 사람이 음료를 마시며 이야기하고 있습니다. 자판기도 있습니다' → nơi nghỉ ngơi có máy bán hàng = 휴게실.",
+  27: "Nghe: '용접 작업을 하고 있습니다' → người đang hàn (용접하다). Nhìn hình để xác nhận.",
+  28: "Nghe: '그릇이 네 개 있습니다' → 4 cái bát. Nhìn ảnh đếm số bát.",
+  29: "Nghe: '수건이 선반 왼쪽 위에 있습니다' → khăn tắm ở trên góc trái kệ (선반 왼쪽 위).",
+  30: "Câu hỏi: '한국 생활이 어때요?' → trả lời phù hợp: '힘들지만 재미있어요'(vất vả nhưng thú vị).",
+  31: "Câu hỏi: 'Anh Yeongsu chưa về à?' → trả lời: '아직 안 들어왔는데요'(chưa vào). Các đáp án khác lạc đề.",
+  32: "Thông báo bố mất → phản ứng phù hợp: đi viếng đám tang sau giờ làm '퇴근 후에 장례식장에 가야겠네요'.",
+  33: "Câu hỏi: 'Tại sao mua hàng online?' → '값이 싸고 쇼핑이 편리해서요'(rẻ và tiện lợi).",
+  34: "Yêu cầu sửa ống quần → đáp án: '여기 표시한 데까지 해 주시면 돼요'(làm đến chỗ tôi đánh dấu là được).",
+  35: "Thông báo tìm được nhà → '그래서 이제 마음 편하게 잘 수 있겠네요'(giờ có thể ngủ ngon rồi).",
+  36: "Nghe: hai người đang chơi bóng trong bể bơi → hình ① = hai người bơi/chơi trong bể.",
+  37: "Nghe: nhân viên nữ đưa máy ảnh cho khách nam → hình ③ = 여직원이 남성에게 건네주기.",
+  38: "Nghe về hệ thống túi rác: mục đích là 'giảm lượng rác, bảo vệ môi trường' → 쓰레기양을 줄여서 환경을 보호한다.",
+  39: "Bác sĩ khuyên: cần chú ý ăn uống (ít đồ mặn, ăn nhiều rau) → '여자는 건강을 위해 음식에 신경 써야 합니다'.",
+  40: "Hội thoại về đám cưới: nam nói '오랜만에 여자 씨를 거기서 만났잖아요' → gặp người phụ nữ tại đám cưới.",
+};
+
 export const DE1_INFO = {
   id: "de1",
   title: "ĐỀ SỐ 01",

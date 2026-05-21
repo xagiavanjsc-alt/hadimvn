@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
-import { DE1_QUESTIONS, DE1_INFO, type De1Question } from "@/data/eps_de1";
+import { DE1_QUESTIONS, DE1_INFO, DE1_EXPLANATIONS, type De1Question } from "@/data/eps_de1";
+import { useXPSystem } from "@/hooks/useXPSystem";
 
 // ─── TTS Hook ────────────────────────────────────────────────────────────────
 function useTTS() {
@@ -148,6 +149,14 @@ function QuestionCard({ q, answer, onAnswer, showResult, tts }: QuestionCardProp
         </div>
       )}
 
+      {/* Explanation (review mode only) */}
+      {showResult && DE1_EXPLANATIONS[q.id] && (
+        <div className="bg-violet-50 border border-violet-200 rounded-xl px-4 py-3 text-xs text-violet-800 leading-relaxed">
+          <span className="font-bold text-violet-600 mr-1"><i className="ri-lightbulb-flash-line"></i> Giải thích:</span>
+          {DE1_EXPLANATIONS[q.id]}
+        </div>
+      )}
+
       {/* Audio hint */}
       {showHint && q.audioHint && (
         <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-2.5 text-xs text-amber-700">
@@ -255,12 +264,21 @@ function QuestionCard({ q, answer, onAnswer, showResult, tts }: QuestionCardProp
 }
 
 // ─── Result Screen ────────────────────────────────────────────────────────────
+const FEEDBACK_BANDS = [
+  { min: 90, label: "Xuất sắc! 🏆", comment: "Bạn nắm vững hầu hết từ vựng và ngữ pháp EPS. Tiếp tục duy trì!", color: "emerald" },
+  { min: 70, label: "Giỏi! 👍", comment: "Kết quả tốt. Ôn lại các câu sai để cải thiện thêm.", color: "sky" },
+  { min: 40, label: "Đạt 👌", comment: "Bạn đã vượt ngưỡng đậu EPS. Luyện tập thêm phần nghe để nâng điểm.", color: "amber" },
+  { min: 0,  label: "Cố lên! 💪", comment: "Hãy ôn lại từ vựng và ngữ pháp cơ bản, rồi thi lại nhé.", color: "rose" },
+];
+
 function ResultScreen({
   answers,
+  xpEarned,
   onRetry,
   onReview,
 }: {
   answers: (number | null)[];
+  xpEarned: number;
   onRetry: () => void;
   onReview: () => void;
 }) {
@@ -268,23 +286,36 @@ function ResultScreen({
   const correct = DE1_QUESTIONS.filter((q, i) => answers[i] === q.correct).length;
   const readingCorrect = DE1_QUESTIONS.filter((q, i) => q.section === "reading" && answers[i] === q.correct).length;
   const listeningCorrect = DE1_QUESTIONS.filter((q, i) => q.section === "listening" && answers[i] === q.correct).length;
-  const score = Math.round((correct / total) * 200); // EPS scale 0-200
-  const passed = score >= 80;
   const pct = Math.round((correct / total) * 100);
+  const passed = pct >= 40;
+  const band = FEEDBACK_BANDS.find(b => pct >= b.min) || FEEDBACK_BANDS[FEEDBACK_BANDS.length - 1];
+  const bandColors: Record<string, { bg: string; border: string; text: string; ring: string }> = {
+    emerald: { bg: "bg-emerald-50", border: "border-emerald-200", text: "text-emerald-700", ring: "border-emerald-400" },
+    sky:     { bg: "bg-sky-50",     border: "border-sky-200",     text: "text-sky-700",     ring: "border-sky-400" },
+    amber:   { bg: "bg-amber-50",   border: "border-amber-200",   text: "text-amber-700",   ring: "border-amber-400" },
+    rose:    { bg: "bg-rose-50",    border: "border-rose-200",    text: "text-rose-600",    ring: "border-rose-300" },
+  };
+  const c = bandColors[band.color];
 
   return (
     <div className="p-6 md:p-8 max-w-2xl mx-auto">
       {/* Score card */}
-      <div className={`rounded-2xl p-6 text-center mb-6 ${passed ? "bg-emerald-50 border border-emerald-200" : "bg-rose-50 border border-rose-200"}`}>
-        <div className={`w-24 h-24 rounded-full flex flex-col items-center justify-center mx-auto mb-3 border-4 ${passed ? "border-emerald-400 bg-emerald-100" : "border-rose-300 bg-rose-100"}`}>
-          <span className={`text-3xl font-extrabold leading-none ${passed ? "text-emerald-600" : "text-rose-500"}`}>{pct}%</span>
-          <span className="text-[10px] text-gray-500 mt-0.5">điểm</span>
+      <div className={`rounded-2xl p-6 text-center mb-4 ${c.bg} border ${c.border}`}>
+        <div className={`w-24 h-24 rounded-full flex flex-col items-center justify-center mx-auto mb-3 border-4 ${c.ring} ${c.bg}`}>
+          <span className={`text-3xl font-extrabold leading-none ${c.text}`}>{pct}%</span>
+          <span className="text-[10px] text-gray-500 mt-0.5">{correct}/{total}</span>
         </div>
-        <h2 className={`text-xl font-bold mb-1 ${passed ? "text-emerald-700" : "text-rose-600"}`}>
-          {passed ? "ĐẬU! Xuất sắc 🎉" : "Chưa đạt — Cố lên!"}
-        </h2>
-        <p className="text-gray-500 text-sm">{correct}/{total} câu đúng</p>
+        <h2 className={`text-xl font-bold mb-1 ${c.text}`}>{band.label}</h2>
+        <p className="text-gray-500 text-sm leading-relaxed">{band.comment}</p>
       </div>
+
+      {/* XP earned */}
+      {xpEarned > 0 && (
+        <div className="flex items-center justify-center gap-2 mb-4 bg-amber-50 border border-amber-200 rounded-xl py-2.5">
+          <i className="ri-sparkling-2-fill text-amber-500 text-lg"></i>
+          <span className="text-amber-700 font-bold text-sm">+{xpEarned} XP nhận được!</span>
+        </div>
+      )}
 
       {/* Breakdown */}
       <div className="grid grid-cols-3 gap-3 mb-6">
@@ -343,8 +374,10 @@ export default function EpsDe1ExamPage() {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(new Array(DE1_QUESTIONS.length).fill(null));
   const [timeLeft, setTimeLeft] = useState(DE1_INFO.timeMinutes * 60);
+  const [xpEarned, setXpEarned] = useState(0);
   const tts = useTTS();
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const { awardXP } = useXPSystem();
 
   // Timer
   useEffect(() => {
@@ -383,6 +416,13 @@ export default function EpsDe1ExamPage() {
 
   const submit = () => {
     tts.stop();
+    const correctCount = DE1_QUESTIONS.filter((q, i) => answers[i] === q.correct).length;
+    const xp = 20 + correctCount * 3;
+    setXpEarned(xp);
+    awardXP({ type: "eps_exam_completed" });
+    DE1_QUESTIONS.forEach((q, i) => {
+      if (answers[i] === q.correct) awardXP({ type: "eps_question_correct" });
+    });
     setPhase("result");
   };
 
@@ -397,6 +437,7 @@ export default function EpsDe1ExamPage() {
       <DashboardLayout title="Kết quả — Đề số 01">
         <ResultScreen
           answers={answers}
+          xpEarned={xpEarned}
           onRetry={() => {
             setAnswers(new Array(DE1_QUESTIONS.length).fill(null));
             setCurrentIdx(0);
