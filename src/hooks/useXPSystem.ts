@@ -51,7 +51,7 @@ export interface XPNotification {
 
 const XP_REWARDS: Record<XPEvent["type"], number> = {
   flashcard_learned: 5,
-  eps_question_correct: 3,
+  eps_question_correct: 5,
   eps_exam_completed: 20,
   streak_day: 10,
   streak_bonus_7: 50,

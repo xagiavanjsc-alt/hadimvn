@@ -425,7 +425,7 @@ export default function EpsDe1ExamPage() {
   const submit = () => {
     tts.stop();
     const correctCount = DE1_QUESTIONS.filter((q, i) => answers[i] === q.correct).length;
-    const xp = 20 + correctCount * 3;
+    const xp = 20 + correctCount * 5;
     setXpEarned(xp);
     awardXP({ type: "eps_exam_completed" });
     DE1_QUESTIONS.forEach((q, i) => {
