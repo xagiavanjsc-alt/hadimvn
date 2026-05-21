@@ -42,9 +42,9 @@ export const DE1_QUESTIONS: De1Question[] = [
     optionType: "image",
     prompt: "다음 내용과 관계있는 그림을 고르십시오.",
     content: "빵을 자르고 있습니다.",
-    optionImages: ["/de1/p2_img7.jpeg", "/de1/p2_img8.jpeg", "/de1/p2_img9.jpeg", "/de1/p2_img10.jpeg"],
-    options: ["감자 깎기", "빵 자르기", "채칼 사용", "반죽하기"],
-    correct: 1,
+    optionImages: ["/de1/p2_img8.jpeg", "/de1/p2_img7.jpeg", "/de1/p2_img10.jpeg", "/de1/p2_img9.jpeg"],
+    options: ["빵 자르기", "감자 깎기", "반죽하기", "채칼 사용"],
+    correct: 0,
   },
   {
     id: 3,

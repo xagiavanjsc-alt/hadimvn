@@ -181,19 +181,29 @@ function QuestionCard({ q, answer, onAnswer, showResult, tts }: QuestionCardProp
                   : "border-gray-200 hover:border-app-accent-primary/40"
               }`}
             >
+              {/* Number header */}
+              <div className={`px-3 py-1 text-xs font-bold border-b flex items-center gap-1.5 ${
+                showResult && i === q.correct
+                  ? "bg-emerald-100 text-emerald-700 border-emerald-200"
+                  : showResult && answer === i && i !== q.correct
+                  ? "bg-rose-100 text-rose-600 border-rose-200"
+                  : answer === i
+                  ? "bg-app-accent-primary/10 text-app-accent-primary border-app-accent-primary/20"
+                  : "bg-gray-50 text-gray-500 border-gray-100"
+              }`}>
+                <span className={`w-5 h-5 flex items-center justify-center rounded-full text-[11px] font-bold ${
+                  answer === i ? "bg-app-accent-primary text-white" : "bg-gray-200 text-gray-600"
+                }`}>{i + 1}</span>
+                <span className="truncate">{opt}</span>
+              </div>
               {q.optionImages?.[i] ? (
-                <div className="relative">
-                  <img
-                    src={q.optionImages[i]}
-                    alt={opt}
-                    className="w-full h-28 object-contain bg-white p-1"
-                  />
-                  <span className={`absolute bottom-1 left-1 text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full ${
-                    answer === i ? "bg-app-accent-primary text-white" : "bg-black/40 text-white"
-                  }`}>{["①","②","③","④"][i]}</span>
-                </div>
+                <img
+                  src={q.optionImages[i]}
+                  alt={opt}
+                  className="w-full h-28 object-contain bg-white p-2"
+                />
               ) : (
-                <ImgPlaceholder label={`${["①","②","③","④"][i]} ${opt}`} index={i} selected={answer === i} />
+                <ImgPlaceholder label="" index={i} selected={answer === i} />
               )}
               {showResult && i === q.correct && (
                 <div className="absolute top-1 right-1 w-4 h-4 rounded-full bg-emerald-500 flex items-center justify-center">
