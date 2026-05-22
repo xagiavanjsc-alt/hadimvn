@@ -6,7 +6,6 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 import { computeXP, deriveLevel } from "@/lib/xp";
 import { getStreakData } from "@/utils/streak";
-import { flushXPQueue } from "@/lib/xpSyncQueue";
 
 interface ExamResult {
   date: string;
@@ -89,7 +88,6 @@ export default function LeaderboardPage() {
   const [players, setPlayers] = useState<LeaderboardPlayer[]>([]);
   const [loading, setLoading] = useState(true);
   const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
-  const [recomputing, setRecomputing] = useState(false);
 
   // Local stats for current user
   const streakData = getStreakData();
@@ -363,35 +361,6 @@ export default function LeaderboardPage() {
               <i className={`ri-refresh-line ${loading ? "animate-spin" : ""}`}></i>
               Làm mới
             </button>
-            {user && (
-              <button
-                onClick={async () => {
-                  if (recomputing) return;
-                  setRecomputing(true);
-                  try {
-                    // First flush any pending local XP so the server formula sees
-                    // the latest stats, then ask the server to recompute everything
-                    // from authoritative DB sources (exam_results, hanja_progress,
-                    // flashcard_data) and update user_progress + leaderboard.
-                    await flushXPQueue();
-                    const { error } = await supabase.rpc("recompute_my_xp");
-                    if (error) throw error;
-                    await fetchLeaderboard();
-                  } catch (e) {
-                    console.error("[leaderboard] recompute failed:", e);
-                    alert("Không đồng bộ được, vui lòng thử lại");
-                  } finally {
-                    setRecomputing(false);
-                  }
-                }}
-                disabled={recomputing}
-                title="Buộc máy chủ tính lại XP / từ vựng / streak từ dữ liệu thật trong database"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs bg-app-accent-primary/10 text-app-accent-primary border border-app-accent-primary/25 hover:bg-app-accent-primary/15 transition-all cursor-pointer whitespace-nowrap disabled:opacity-40"
-              >
-                <i className={`ri-magic-line ${recomputing ? "animate-spin" : ""}`}></i>
-                {recomputing ? "Đang đồng bộ..." : "Đồng bộ lại"}
-              </button>
-            )}
             <div className="flex items-center gap-1 bg-app-surface/50 border border-app-border rounded-lg p-1">
               {(["week", "month", "all"] as Period[]).map((p) => (
                 <button

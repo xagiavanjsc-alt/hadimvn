@@ -156,6 +156,32 @@ export default function AdminXPConfigPage() {
   const communityFields = FIELDS.filter(f => f.group === "community");
   const anticheatFields = FIELDS.filter(f => f.group === "anticheat");
 
+  const [recomputing, setRecomputing] = useState(false);
+  const [recomputeResult, setRecomputeResult] = useState<{ users: number; ms: number } | null>(null);
+
+  const handleRecomputeAll = async () => {
+    if (recomputing) return;
+    if (!confirm("Tính lại XP / từ vựng / streak cho TẤT CẢ user từ dữ liệu thật trong DB? Thao tác này có thể mất vài giây nếu có nhiều user.")) return;
+    setRecomputing(true);
+    setRecomputeResult(null);
+    try {
+      const { data, error } = await supabase.rpc("admin_recompute_all_xp");
+      if (error) throw error;
+      const row = Array.isArray(data) ? data[0] : data;
+      const users = Number(row?.users_processed ?? 0);
+      const ms = Number(row?.duration_ms ?? 0);
+      setRecomputeResult({ users, ms });
+      setToast({ msg: `Đã tính lại cho ${users} user (${ms}ms)`, type: "ok" });
+      setTimeout(() => setToast(null), 4000);
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "lỗi không xác định";
+      setToast({ msg: `Tính lại thất bại: ${msg}`, type: "err" });
+      setTimeout(() => setToast(null), 5000);
+    } finally {
+      setRecomputing(false);
+    }
+  };
+
   return (
     <AdminLayout title="Cấu hình XP & Anti-cheat" subtitle="Tùy chỉnh trọng số tính điểm và ngưỡng chống gian lận">
       <div className="space-y-5 max-w-4xl">
@@ -180,6 +206,36 @@ export default function AdminXPConfigPage() {
               </p>
               <p>Server tự động tính lại XP cho toàn bộ user mỗi khi có exam mới. Cache client refresh sau 5 phút.</p>
             </div>
+          </div>
+        </div>
+
+        {/* Đồng bộ lại toàn bộ user */}
+        <div className="rounded-2xl p-5 border" style={{ borderColor: "var(--admin-border)", background: "var(--admin-card-bg)" }}>
+          <div className="flex items-start justify-between gap-4 flex-wrap">
+            <div className="flex-1 min-w-[260px]">
+              <h3 className="text-sm font-bold mb-1 flex items-center gap-2" style={{ color: "var(--admin-text)" }}>
+                <i className="ri-magic-line text-app-accent-primary"></i>
+                Đồng bộ lại điểm cho tất cả user
+              </h3>
+              <p className="text-xs leading-relaxed" style={{ color: "var(--admin-text-muted)" }}>
+                Buộc server tính lại XP, streak, từ đã học, điểm cao nhất từ dữ liệu thật trong database
+                (exam_results, user_hanja_progress, flashcard_data). Dùng khi thấy bảng xếp hạng lệch
+                hoặc sau khi thay đổi trọng số XP.
+              </p>
+              {recomputeResult && (
+                <p className="text-[11px] mt-2 text-app-accent-success">
+                  ✓ Đã xử lý {recomputeResult.users} user trong {recomputeResult.ms}ms
+                </p>
+              )}
+            </div>
+            <button
+              onClick={handleRecomputeAll}
+              disabled={recomputing}
+              className="px-4 py-2.5 rounded-xl text-sm font-bold bg-app-accent-primary hover:bg-app-accent-primary/90 text-app-bg disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer whitespace-nowrap flex items-center gap-2"
+            >
+              <i className={`ri-magic-line ${recomputing ? "animate-spin" : ""}`}></i>
+              {recomputing ? "Đang tính..." : "Tính lại toàn bộ"}
+            </button>
           </div>
         </div>
 
