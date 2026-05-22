@@ -396,21 +396,24 @@ export default function DailyWordsPage() {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const fetched = await fetchDailyWords(8);
-      if (!cancelled) {
+      try {
+        const fetched = await fetchDailyWords(8);
+        if (cancelled) return;
         setWords(fetched);
-        // Build wrong-answer pool from DB or fallback
         if (isSupabaseConfigured) {
           try {
             const { data } = await supabase
               .from("hanja_vocab_entries")
               .select("vietnamese");
-            if (data && data.length > 0) {
+            if (!cancelled && data && data.length > 0) {
               setViPool(data.map(r => r.vietnamese || "").filter(Boolean));
             }
           } catch { /* ignore */ }
         }
-        setWordsLoading(false);
+      } catch (err) {
+        console.error("[daily-words] failed to load:", err);
+      } finally {
+        if (!cancelled) setWordsLoading(false);
       }
     })();
     return () => { cancelled = true; };

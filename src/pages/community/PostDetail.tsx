@@ -447,7 +447,7 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
 
     const [postRes, commentsRes] = await Promise.all([
       supabase.from("community_posts").select("*").eq("id", actualId).maybeSingle(),
-      supabase.from("community_comments").select("*").eq("post_id", actualId).order("created_at", { ascending: true }),
+      supabase.from("community_comments").select("*").eq("post_id", actualId).order("created_at", { ascending: true }).limit(500),
     ]);
 
     if (postRes.data) setPost(postRes.data as Post);

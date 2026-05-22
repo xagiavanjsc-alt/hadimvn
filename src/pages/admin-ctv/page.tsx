@@ -273,6 +273,10 @@ export default function AdminCTVPage() {
   };
 
   const handleUpdateRate = async (id: string, rate: number) => {
+    if (!Number.isFinite(rate) || rate < 0 || rate > 50) {
+      showToast("Tỉ lệ hoa hồng phải nằm trong khoảng 0–50%");
+      return;
+    }
     const { error } = await supabase.from("ctv_profiles").update({ commission_rate: rate }).eq("id", id);
     if (error) { showToast("Lỗi: " + error.message); return; }
     setCtvs(prev => prev.map(c => c.id === id ? { ...c, commission_rate: rate } : c));

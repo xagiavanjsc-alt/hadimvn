@@ -90,14 +90,17 @@ export default function HanjaStoriesPage() {
   };
 
   const escapeAttr = (s: string) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const highlightHanjaWords = (content: string, hanjaWords: any[]) => {
     let highlightedContent = sanitizeHtml(content);
     hanjaWords.forEach((word) => {
-      const regex = new RegExp(word.korean, "g");
+      if (!word?.korean) return;
+      const regex = new RegExp(escapeRegex(word.korean), "g");
       const title = escapeAttr(`${word.hanja} - ${word.vietnamese}`);
+      const safeText = escapeAttr(word.korean);
       highlightedContent = highlightedContent.replace(
         regex,
-        `<span class="bg-app-accent-primary/20 text-app-accent-primary px-1 rounded font-semibold cursor-pointer hover:bg-app-accent-primary/30" title="${title}">${word.korean}</span>`
+        `<span class="bg-app-accent-primary/20 text-app-accent-primary px-1 rounded font-semibold cursor-pointer hover:bg-app-accent-primary/30" title="${title}">${safeText}</span>`
       );
     });
     return highlightedContent;

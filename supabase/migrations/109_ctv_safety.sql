@@ -138,3 +138,18 @@ END;
 $$;
 
 GRANT EXECUTE ON FUNCTION public.process_withdrawal_payment(UUID, TEXT) TO authenticated, service_role;
+
+-- ─── 5. Commission rate sanity bounds ────────────────────────────────────────
+-- NOT VALID skips existing rows so re-running this migration on a DB that
+-- already has data doesn't fail. New writes are constrained immediately.
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint
+    WHERE conname = 'ctv_profiles_commission_rate_range'
+  ) THEN
+    ALTER TABLE public.ctv_profiles
+      ADD CONSTRAINT ctv_profiles_commission_rate_range
+      CHECK (commission_rate >= 0 AND commission_rate <= 50) NOT VALID;
+  END IF;
+END$$;
