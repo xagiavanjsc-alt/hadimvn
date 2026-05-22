@@ -88,6 +88,8 @@ export default function LeaderboardPage() {
   const [players, setPlayers] = useState<LeaderboardPlayer[]>([]);
   const [loading, setLoading] = useState(true);
   const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 20;
 
   // Local stats for current user
   const streakData = getStreakData();
@@ -205,6 +207,16 @@ export default function LeaderboardPage() {
   const myRank = sortedPlayers.findIndex((p) => p.isCurrentUser) + 1;
   const myEntry = sortedPlayers.find((p) => p.isCurrentUser);
   const top3 = sortedPlayers.slice(0, 3);
+
+  // ─── Pagination ────────────────────────────────────────────────────────────
+  const totalPages = Math.max(1, Math.ceil(sortedPlayers.length / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages);
+  const pagedPlayers = useMemo(
+    () => sortedPlayers.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE),
+    [sortedPlayers, safePage]
+  );
+  // Reset to page 1 whenever sort/period changes.
+  useEffect(() => { setPage(1); }, [sortKey, period]);
 
   return (
     <DashboardLayout title="Bảng xếp hạng" subtitle="So sánh tiến độ với học viên khác">
@@ -403,8 +415,8 @@ export default function LeaderboardPage() {
                 <p className="text-app-text-muted text-xs">Hãy là người đầu tiên lên bảng xếp hạng!</p>
               </div>
             ) : (
-              sortedPlayers.map((player, idx) => {
-                const rank = idx + 1;
+              pagedPlayers.map((player, idx) => {
+                const rank = (safePage - 1) * PAGE_SIZE + idx + 1;
                 const isMe = player.isCurrentUser;
                 const isTop3 = rank <= 3;
 
@@ -528,8 +540,8 @@ export default function LeaderboardPage() {
                 <p className="text-app-text-muted text-xs">Hãy là người đầu tiên lên bảng xếp hạng!</p>
               </div>
             ) : (
-              sortedPlayers.map((player, idx) => {
-                const rank = idx + 1;
+              pagedPlayers.map((player, idx) => {
+                const rank = (safePage - 1) * PAGE_SIZE + idx + 1;
                 const isMe = player.isCurrentUser;
                 const isTop3 = rank <= 3;
 
@@ -609,6 +621,44 @@ export default function LeaderboardPage() {
             )}
           </div>
         </div>
+
+        {/* Pagination */}
+        {!loading && sortedPlayers.length > PAGE_SIZE && (
+          <div className="flex items-center justify-between gap-3 flex-wrap">
+            <p className="text-app-text-muted text-xs">
+              Hiển thị {(safePage - 1) * PAGE_SIZE + 1}–{Math.min(safePage * PAGE_SIZE, sortedPlayers.length)} trên tổng {sortedPlayers.length} học viên
+            </p>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setPage(p => Math.max(1, p - 1))}
+                disabled={safePage <= 1}
+                className="px-3 py-1.5 rounded-lg text-xs bg-app-surface/50 text-app-text-secondary border border-app-border hover:text-white/60 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                <i className="ri-arrow-left-s-line"></i> Trước
+              </button>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+                <button
+                  key={p}
+                  onClick={() => setPage(p)}
+                  className={`w-8 h-8 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                    p === safePage
+                      ? "bg-app-accent-primary/15 text-app-accent-primary border border-app-accent-primary/25"
+                      : "bg-app-surface/50 text-app-text-secondary border border-app-border hover:text-white/60"
+                  }`}
+                >
+                  {p}
+                </button>
+              ))}
+              <button
+                onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                disabled={safePage >= totalPages}
+                className="px-3 py-1.5 rounded-lg text-xs bg-app-surface/50 text-app-text-secondary border border-app-border hover:text-white/60 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                Sau <i className="ri-arrow-right-s-line"></i>
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Login CTA if not logged in */}
         {!user && (
