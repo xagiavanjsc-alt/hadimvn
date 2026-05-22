@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useStudySync } from "@/hooks/useStudySync";
 import { supabase } from "@/lib/supabase";
+import { validateSignupEmail } from "@/lib/emailValidation";
 
 interface AuthModalProps {
   onClose: () => void;
@@ -103,6 +104,8 @@ export default function AuthModal({ onClose }: AuthModalProps) {
       } else {
         if (!displayName.trim()) { setError("Vui lòng nhập tên hiển thị"); return; }
         if (password.length < 6) { setError("Mật khẩu phải có ít nhất 6 ký tự"); return; }
+        const emailCheck = validateSignupEmail(email);
+        if (!emailCheck.ok) { setError(emailCheck.reason || "Email không hợp lệ"); return; }
         const { data, error: err } = await signUp(email, password, displayName);
         if (err) {
           setError(translateError(err.message));
@@ -287,6 +290,11 @@ export default function AuthModal({ onClose }: AuthModalProps) {
                 <input type="email" name="email" value={email} onChange={e => setEmail(e.target.value)}
                   placeholder="email@example.com" required
                   className="w-full bg-app-card/50 border border-app-border rounded-lg px-3 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40" />
+                {mode === "register" && (
+                  <p className="text-[10px] text-white/30 mt-1 leading-snug">
+                    Chấp nhận: Gmail, Outlook, Hotmail, iCloud, Yahoo, Proton. Email khác hãy đăng nhập bằng Google bên trên.
+                  </p>
+                )}
               </div>
               <div>
                 <div className="flex items-center justify-between mb-1.5">
