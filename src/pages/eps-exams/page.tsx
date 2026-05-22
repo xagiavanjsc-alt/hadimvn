@@ -157,57 +157,43 @@ export default function EPSExamsPage() {
   const currentQuestion = selectedExam?.questions[currentQuestionIndex];
   const currentAnswer = currentQuestion ? answers.find(a => a.questionId === currentQuestion.id) : null;
 
+  const EXAM_COLORS: Record<string, { color: string; bg: string; icon: string }> = {
+    eps_01: { color: "#4ade80", bg: "rgba(74,222,128,0.08)", icon: "ri-headphone-line" },
+    eps_02: { color: "#60a5fa", bg: "rgba(96,165,250,0.08)", icon: "ri-file-list-3-line" },
+    default: { color: "#a78bfa", bg: "rgba(167,139,250,0.08)", icon: "ri-file-list-3-line" },
+  };
+
   if (!selectedExam) {
     return (
-      <DashboardLayout title="Bộ đề EPS" subtitle="Luyện thi EPS - 6 đề thi chuẩn">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {EPS_EXAMS.map(exam => (
-            <div
-              key={exam.id}
-              className="bg-gradient-to-br from-app-card to-app-card2 border border-app-border rounded-2xl p-6 hover:border-app-accent-primary/50 hover:shadow-lg hover:shadow-app-accent-primary/10 transition-all cursor-pointer group"
-              onClick={() => handleStartExam(exam)}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <h3 className="text-2xl font-bold text-white group-hover:text-app-accent-primary transition-colors">
-                    {exam.title}
-                  </h3>
-                  {exam.id === "eps_01" && (
-                    <span className="inline-flex items-center gap-1 mt-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-400 border border-sky-500/30">
-                      <i className="ri-volume-up-line" /> 40 câu · Audio TTS
-                    </span>
-                  )}
-                  {exam.id === "eps_02" && (
-                    <span className="inline-flex items-center gap-1 mt-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-violet-500/20 text-violet-400 border border-violet-500/30">
-                      <i className="ri-volume-up-line" /> 40 câu · Audio TTS
-                    </span>
-                  )}
-                </div>
-                <div className="w-12 h-12 rounded-full bg-app-accent-primary/10 flex items-center justify-center group-hover:bg-app-accent-primary group-hover:text-white transition-all">
-                  <i className={`text-xl text-app-accent-primary group-hover:text-white ${exam.id === "eps_01" ? "ri-headphone-line" : "ri-file-list-3-line"}`} />
-                </div>
-              </div>
-              
-              <div className="space-y-3 mb-6">
-                <div className="flex items-center gap-3 text-app-text-secondary">
-                  <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
-                    <i className="ri-time-line text-blue-400" />
+      <DashboardLayout title="Bộ đề EPS" subtitle="Luyện thi EPS-TOPIK chuẩn">
+        <div className="max-w-2xl">
+          <p className="text-app-text-secondary text-xs mb-3">Chọn đề để bắt đầu</p>
+          <div className="flex flex-col gap-3">
+            {EPS_EXAMS.map(exam => {
+              const c = EXAM_COLORS[exam.id] ?? EXAM_COLORS.default;
+              return (
+                <button
+                  key={exam.id}
+                  onClick={() => handleStartExam(exam)}
+                  className="w-full p-5 rounded-2xl border text-left transition-all hover:scale-[1.01] cursor-pointer"
+                  style={{ backgroundColor: c.bg, borderColor: c.color + "30" }}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-11 h-11 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: c.color + "20" }}>
+                      <i className={`${c.icon} text-xl`} style={{ color: c.color }} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-white font-bold text-sm">{exam.title}</p>
+                      <p className="text-app-text-secondary text-xs mt-0.5">
+                        {exam.questionCount ?? exam.questions.length} câu · {exam.duration} phút · Audio TTS
+                      </p>
+                    </div>
+                    <i className="ri-arrow-right-line text-sm flex-shrink-0" style={{ color: c.color }} />
                   </div>
-                  <span className="font-medium">{exam.duration} phút</span>
-                </div>
-                <div className="flex items-center gap-3 text-app-text-secondary">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-                    <i className="ri-question-line text-emerald-400" />
-                  </div>
-                  <span className="font-medium">{exam.questionCount ?? exam.questions.length} câu hỏi</span>
-                </div>
-              </div>
-
-              <button className="w-full py-4 rounded-xl bg-gradient-to-r from-app-accent-primary to-app-accent-primary/80 text-white font-bold hover:from-app-accent-primary/90 hover:to-app-accent-primary/70 transition-all shadow-lg shadow-app-accent-primary/25 group-hover:shadow-app-accent-primary/40">
-                Bắt đầu làm
-              </button>
-            </div>
-          ))}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </DashboardLayout>
     );
