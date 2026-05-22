@@ -5,6 +5,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { HANJA_DATA } from "@/mocks/hanjaData";
 import { recordActivity } from "@/utils/streak";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 
 interface DailyWord {
   id: string;
@@ -24,16 +25,19 @@ interface QuizQuestion {
   correctIdx: number;
 }
 
-function pickDailyWords(count = 8): DailyWord[] {
-  const today = new Date().toISOString().split("T")[0];
-  const seed = today.split("-").reduce((a, b) => a + parseInt(b), 0);
-  const all = HANJA_DATA.slice(0, 200);
-  const shuffled = [...all].sort((a, b) => {
-    const ha = (seed * (all.indexOf(a) + 1)) % 997;
-    const hb = (seed * (all.indexOf(b) + 1)) % 997;
+function seedPick<T>(arr: T[], seed: number, count: number): T[] {
+  const shuffled = [...arr].sort((a, b) => {
+    const ha = (seed * (arr.indexOf(a) + 1)) % 997;
+    const hb = (seed * (arr.indexOf(b) + 1)) % 997;
     return ha - hb;
   });
-  return shuffled.slice(0, count).map((w, i) => ({
+  return shuffled.slice(0, count);
+}
+
+function pickDailyWordsFallback(count = 8): DailyWord[] {
+  const today = new Date().toISOString().split("T")[0];
+  const seed = today.split("-").reduce((a, b) => a + parseInt(b), 0);
+  return seedPick(HANJA_DATA.slice(0, 200), seed, count).map((w, i) => ({
     id: `word-${i}`,
     korean: w.korean || "",
     hanja: w.hanja || "",
@@ -46,8 +50,38 @@ function pickDailyWords(count = 8): DailyWord[] {
   }));
 }
 
-function buildQuiz(words: DailyWord[]): QuizQuestion[] {
-  const allVietnamese = HANJA_DATA.slice(0, 100).map((w) => w.vietnamese || "").filter(Boolean);
+async function fetchDailyWords(count = 8): Promise<DailyWord[]> {
+  if (!isSupabaseConfigured) return pickDailyWordsFallback(count);
+  try {
+    const { data, error } = await supabase
+      .from("hanja_vocab_entries")
+      .select("id, korean, hanja, vietnamese, pronunciation, category, difficulty, examples, memory_tip")
+      .order("created_at", { ascending: true })
+      .limit(150);
+    if (error || !data || data.length < count) return pickDailyWordsFallback(count);
+    const today = new Date().toISOString().split("T")[0];
+    const seed = today.split("-").reduce((a, b) => a + parseInt(b), 0);
+    const DIFF_MAP: Record<number, DailyWord["difficulty"]> = { 1: "easy", 2: "medium", 3: "hard" };
+    return seedPick(data, seed, count).map((w, i) => ({
+      id: `db-${w.id}-${i}`,
+      korean: w.korean || "",
+      hanja: w.hanja || "",
+      vietnamese: w.vietnamese || "",
+      pronunciation: w.pronunciation || "",
+      example: (w.examples as any[])?.[0]?.korean || "",
+      exampleMeaning: (w.examples as any[])?.[0]?.vietnamese || "",
+      difficulty: DIFF_MAP[w.difficulty as number] || "medium",
+      category: w.category || "",
+    }));
+  } catch {
+    return pickDailyWordsFallback(count);
+  }
+}
+
+function buildQuiz(words: DailyWord[], extraPool: string[] = []): QuizQuestion[] {
+  const allVietnamese = extraPool.length > 0
+    ? extraPool
+    : HANJA_DATA.slice(0, 100).map((w) => w.vietnamese || "").filter(Boolean);
   return words.map((word) => {
     const wrongPool = allVietnamese.filter((v) => v !== word.vietnamese);
     const shuffledWrong = [...wrongPool].sort(() => Math.random() - 0.5).slice(0, 3);
@@ -356,7 +390,33 @@ export default function DailyWordsPage() {
   const todayLearned = learnedIds[today] || [];
   const [awardedQuizXP, setAwardedQuizXP] = useState(false);
 
-  const [words] = useState<DailyWord[]>(() => pickDailyWords(8));
+  const [words, setWords] = useState<DailyWord[]>([]);
+  const [wordsLoading, setWordsLoading] = useState(true);
+  const [viPool, setViPool] = useState<string[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const fetched = await fetchDailyWords(8);
+      if (!cancelled) {
+        setWords(fetched);
+        // Build wrong-answer pool from DB or fallback
+        if (isSupabaseConfigured) {
+          try {
+            const { data } = await supabase
+              .from("hanja_vocab_entries")
+              .select("vietnamese")
+              .limit(200);
+            if (data && data.length > 0) {
+              setViPool(data.map(r => r.vietnamese || "").filter(Boolean));
+            }
+          } catch { /* ignore */ }
+        }
+        setWordsLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [mode, setMode] = useState<"grid" | "focus">("grid");
   const [phase, setPhase] = useState<"learn" | "quiz" | "result">("learn");
@@ -365,17 +425,17 @@ export default function DailyWordsPage() {
   const progressRef = useRef<HTMLDivElement>(null);
 
   const learnedCount = words.filter((w) => todayLearned.includes(w.id)).length;
-  const allDone = learnedCount === words.length;
+  const allDone = words.length > 0 && learnedCount === words.length;
 
   useEffect(() => {
     if (allDone && phase === "learn") {
       const timer = setTimeout(() => {
-        setQuizQuestions(buildQuiz(words));
+        setQuizQuestions(buildQuiz(words, viPool));
         setPhase("quiz");
       }, 1500);
       return () => clearTimeout(timer);
     }
-  }, [allDone, phase, words]);
+  }, [allDone, phase, words, viPool]);
 
   const handleLearn = useCallback(
     (id: string) => {
@@ -421,16 +481,30 @@ export default function DailyWordsPage() {
   };
 
   const handleRetryQuiz = () => {
-    setQuizQuestions(buildQuiz(words));
+    setQuizQuestions(buildQuiz(words, viPool));
     setPhase("quiz");
   };
 
   const currentWord = words[currentIdx];
 
+  if (wordsLoading) {
+    return (
+      <DashboardLayout title="Học từ mới hôm nay" subtitle="Đang tải từ vựng...">
+        <div className="max-w-3xl mx-auto px-4 py-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="rounded-2xl border border-app-border bg-app-card/30 animate-pulse" style={{ height: 200 }} />
+            ))}
+          </div>
+        </div>
+      </DashboardLayout>
+    );
+  }
+
   return (
     <DashboardLayout
       title="Học từ mới hôm nay"
-      subtitle={`${today} · ${learnedCount}/${words.length} từ đã học`}
+      subtitle={`${today} · ${learnedCount}/${words.length} từ đã học${isSupabaseConfigured ? " · Supabase" : " · Local"}`}
     >
       <div className="max-w-3xl mx-auto px-4 py-6">
         {/* Phase indicator */}
@@ -532,7 +606,7 @@ export default function DailyWordsPage() {
                 </div>
                 <button
                   onClick={() => {
-                    setQuizQuestions(buildQuiz(words));
+                    setQuizQuestions(buildQuiz(words, viPool));
                     setPhase("quiz");
                   }}
                   className="px-4 py-2 rounded-xl bg-emerald-500/20 text-app-accent-success text-xs font-bold cursor-pointer whitespace-nowrap border border-emerald-500/30"
@@ -654,7 +728,7 @@ export default function DailyWordsPage() {
               {learnedCount > 0 && (
                 <button
                   onClick={() => {
-                    setQuizQuestions(buildQuiz(words));
+                    setQuizQuestions(buildQuiz(words, viPool));
                     setPhase("quiz");
                   }}
                   className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-app-accent-primary/10 text-app-accent-primary text-sm font-bold cursor-pointer hover:bg-app-accent-primary/15 transition-all border border-app-accent-primary/20 whitespace-nowrap"
