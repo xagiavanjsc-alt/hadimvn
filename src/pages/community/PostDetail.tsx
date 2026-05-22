@@ -6,6 +6,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase, resolveStoragePaths } from "@/lib/supabase";
 import { sanitizeHtml } from "@/lib/sanitize";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import DisplayNamePromptModal from "@/components/feature/DisplayNamePromptModal";
+import { isEmailLikeName } from "@/hooks/useDisplayNameStatus";
 
 // ─── SEO Component (uses usePageSEO) ──────────────────────────────────────────
 function PostSEO({ post, slug }: { post: Post; slug: string }) {
@@ -410,6 +412,9 @@ function CommentThread({
 }
 
 export default function PostDetailPage({ postId, titleSlug }: { postId: string; titleSlug?: string }) {
+  const [nameBlockerOpen, setNameBlockerOpen] = useState(false);
+  // The previous line keeps the blocker state at top-of-component scope so it
+  // can be referenced inside the comment-submit handler below.
   const navigate = useNavigate();
   const { user, profile } = useAuth();
   const { showToast, ToastComponent } = useToast();
@@ -480,6 +485,10 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
 
   const handleSubmitComment = async () => {
     if (!commentText.trim() || !user || submitting) return;
+    if (isEmailLikeName(profile?.display_name, user.email)) {
+      setNameBlockerOpen(true);
+      return;
+    }
     setSubmitting(true);
     const { error } = await supabase.from("community_comments").insert({
       post_id: resolvedPostId,
@@ -803,6 +812,13 @@ export default function PostDetailPage({ postId, titleSlug }: { postId: string; 
             </button>
           </div>
         </div>
+      )}
+      {nameBlockerOpen && (
+        <DisplayNamePromptModal
+          blocking
+          onClose={() => setNameBlockerOpen(false)}
+          onSaved={() => setNameBlockerOpen(false)}
+        />
       )}
     </DashboardLayout>
 

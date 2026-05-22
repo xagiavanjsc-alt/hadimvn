@@ -10,6 +10,8 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useToast, ToastContainer } from "@/components/common/ToastNotification";
 import { communitySlug } from "@/lib/slugify";
 import AuthModal from "@/components/feature/AuthModal";
+import DisplayNamePromptModal from "@/components/feature/DisplayNamePromptModal";
+import { isEmailLikeName } from "@/hooks/useDisplayNameStatus";
 import { getStreakData } from "@/utils/streak";
 
 // ─── SEO Component for Community Page ───────────────────────────────────────────────
@@ -739,11 +741,14 @@ function CommentsPanel({
   profile: { display_name: string } | null;
   showToast: (message: string, type?: "success" | "error" | "info") => void;
 }) {
+  const { user: authUser } = useAuth();
+  const userEmail = authUser?.email ?? null;
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState("");
   const [replyTo, setReplyTo] = useState<{ id: string; author: string } | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [nameBlockerOpen, setNameBlockerOpen] = useState(false);
 
   const fetchComments = useCallback(async () => {
     // RLS policy tự động lọc: approved + of-author + admin. Query all fields để
@@ -774,6 +779,10 @@ function CommentsPanel({
 
   const handleSubmit = async () => {
     if (!text.trim() || !currentUser || submitting) return;
+    if (isEmailLikeName(profile?.display_name, userEmail)) {
+      setNameBlockerOpen(true);
+      return;
+    }
     setSubmitting(true);
     // Insert với status='pending' (trigger auto-approve nếu admin/mod)
     const { error } = await supabase.from("community_comments").insert({
@@ -874,6 +883,13 @@ function CommentsPanel({
           )}
         </div>
       </div>
+      {nameBlockerOpen && (
+        <DisplayNamePromptModal
+          blocking
+          onClose={() => setNameBlockerOpen(false)}
+          onSaved={() => setNameBlockerOpen(false)}
+        />
+      )}
     </div>
   );
 }
@@ -1837,6 +1853,7 @@ export default function CommunityPage() {
   const streak = getStreakData();
   const [currentPage, setCurrentPage] = useState(1);
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [nameBlockerOpen, setNameBlockerOpen] = useState(false);
   const { user, profile } = useAuth();
   const { settings: commSettings } = useCommunitySettings();
   const { showToast, toasts, removeToast } = useToast();
@@ -1943,6 +1960,12 @@ export default function CommunityPage() {
   const handleNewPost = async (data: { title: string; content: string; category: string; imageUrl?: string; quiz?: QuizData | null }) => {
     if (!user || !profile) return;
 
+    // Block public action while display_name still leaks the user's email.
+    if (isEmailLikeName(profile.display_name, user.email)) {
+      setNameBlockerOpen(true);
+      return;
+    }
+
     // Kiểm tra chế độ bảo trì
     if (commSettings.access_mode === "maintenance") {
       showToast("Cộng đồng đang bảo trì, vui lòng quay lại sau!", "error");
@@ -1997,6 +2020,13 @@ export default function CommunityPage() {
     <CommunitySEO category={category} search={search} />
     <CommunityFAQSchema />
     <ToastContainer toasts={toasts} removeToast={removeToast} />
+    {nameBlockerOpen && (
+      <DisplayNamePromptModal
+        blocking
+        onClose={() => setNameBlockerOpen(false)}
+        onSaved={() => setNameBlockerOpen(false)}
+      />
+    )}
     <DashboardLayout
       title="Cộng đồng Hàn Quốc Ơi!"
       subtitle="Hỏi đáp, chia sẻ kinh nghiệm và cùng nhau tiến bộ"

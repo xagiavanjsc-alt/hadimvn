@@ -24,6 +24,27 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 const INIT_TIMEOUT_MS = 4000;
 
+/**
+ * Pick a display name for a brand-new profile without leaking email.
+ * Preference order:
+ *   1. display_name explicitly set during email-signup
+ *   2. full_name / name from OAuth provider (Google sends these)
+ *   3. Fallback: "Học viên" — NEVER fall back to the email local-part,
+ *      since that reveals contact info on leaderboards and posts.
+ */
+function pickInitialDisplayName(user: User): string {
+  const meta = (user.user_metadata ?? {}) as Record<string, unknown>;
+  const candidates = [meta.display_name, meta.full_name, meta.name];
+  for (const c of candidates) {
+    if (typeof c === "string") {
+      const trimmed = c.trim();
+      // Reject if it looks email-like (still leaks contact info).
+      if (trimmed.length >= 2 && !trimmed.includes("@")) return trimmed;
+    }
+  }
+  return "Học viên";
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<AuthState>({
     user: null,
@@ -92,7 +113,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           try {
             let profile = await fetchProfile(session.user.id);
             if (!profile && mounted) {
-              const name = session.user.user_metadata?.display_name || session.user.email?.split("@")[0] || "Học viên";
+              const name = pickInitialDisplayName(session.user);
               profile = await createProfile(session.user.id, name);
             }
             if (mounted) {
@@ -140,7 +161,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               try {
                 let profile = await fetchProfile(session.user.id);
                 if (!profile && mounted) {
-                  const name = session.user.user_metadata?.display_name || session.user.email?.split("@")[0] || "Học viên";
+                  const name = pickInitialDisplayName(session.user);
                   profile = await createProfile(session.user.id, name);
                 }
                 if (mounted) setState(prev => ({ ...prev, profile }));

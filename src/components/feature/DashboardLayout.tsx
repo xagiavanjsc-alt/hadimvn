@@ -8,6 +8,8 @@ import GlobalSearch from "./GlobalSearch";
 import AuthModal from "./AuthModal";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useDisplayNameStatus } from "@/hooks/useDisplayNameStatus";
+import DisplayNamePromptModal from "./DisplayNamePromptModal";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -21,6 +23,8 @@ export default function DashboardLayout({ children, title, subtitle, actions }: 
   const { user, profile, loading } = useAuth();
   const navigate = useNavigate();
   const [showAuth, setShowAuth] = useState(false);
+  const { isEmailLike, hasSkipped, skipForSession } = useDisplayNameStatus();
+  const showNamePrompt = !!user && isEmailLike && !hasSkipped;
 
   return (
     <div className="flex min-h-screen" style={{ backgroundColor: "var(--dash-bg, #13151c)" }}>
@@ -94,6 +98,10 @@ export default function DashboardLayout({ children, title, subtitle, actions }: 
 
       {/* Mobile Bottom Navigation */}
       <MobileNav />
+
+      {showNamePrompt && (
+        <DisplayNamePromptModal onClose={skipForSession} />
+      )}
     </div>
   );
 }
