@@ -102,7 +102,7 @@ function QuestionCard({ q, answer, onAnswer, showResult, tts }: QuestionCardProp
       {/* Section badge */}
       <div className="flex items-center gap-2">
         <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-          isListening ? "bg-sky-100 text-sky-600" : "bg-violet-100 text-violet-600"
+          isListening ? "bg-sky-500/15 text-sky-400" : "bg-violet-500/15 text-violet-400"
         }`}>
           {isListening ? "듣기 NGHE" : "읽기 ĐỌC"}
         </span>
@@ -110,12 +110,12 @@ function QuestionCard({ q, answer, onAnswer, showResult, tts }: QuestionCardProp
       </div>
 
       {/* Prompt */}
-      <p className="text-gray-700 font-semibold text-sm leading-relaxed">{q.prompt}</p>
+      <p className="text-white/90 font-semibold text-sm leading-relaxed">{q.prompt}</p>
 
       {/* Content / passage */}
       {q.content && (
         <div className={`rounded-xl p-4 text-sm leading-relaxed whitespace-pre-wrap border ${
-          isListening ? "bg-sky-50 border-sky-200 text-sky-800" : "bg-gray-50 border-gray-200 text-gray-700"
+          isListening ? "bg-sky-500/10 border-sky-500/20 text-sky-200" : "bg-app-card/60 border-app-border text-white/75"
         }`}>
           {q.content}
         </div>
@@ -158,22 +158,22 @@ function QuestionCard({ q, answer, onAnswer, showResult, tts }: QuestionCardProp
 
       {/* Explanation (review mode only) */}
       {showResult && DE1_EXPLANATIONS[q.id] && (
-        <div className="bg-violet-50 border border-violet-200 rounded-xl px-4 py-3 text-xs text-violet-800 leading-relaxed">
-          <span className="font-bold text-violet-600 mr-1"><i className="ri-lightbulb-flash-line"></i> Giải thích:</span>
+        <div className="bg-violet-500/10 border border-violet-500/20 rounded-xl px-4 py-3 text-xs text-violet-300 leading-relaxed">
+          <span className="font-bold text-violet-400 mr-1"><i className="ri-lightbulb-flash-line"></i> Giải thích:</span>
           {DE1_EXPLANATIONS[q.id]}
         </div>
       )}
 
       {/* Audio hint */}
       {showHint && q.audioHint && (
-        <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-2.5 text-xs text-amber-700">
+        <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl px-4 py-2.5 text-xs text-amber-300">
           <i className="ri-lightbulb-line mr-1"></i>{q.audioHint}
         </div>
       )}
 
       {/* Script reveal after play (exam mode: hidden until played) */}
       {showResult && q.audioScript && (
-        <div className="bg-sky-50 border border-sky-200 rounded-xl px-4 py-2.5 text-xs text-sky-700">
+        <div className="bg-sky-500/10 border border-sky-500/20 rounded-xl px-4 py-2.5 text-xs text-sky-300">
           <span className="font-semibold">Script nghe:</span> {q.audioScript}
         </div>
       )}
@@ -200,15 +200,15 @@ function QuestionCard({ q, answer, onAnswer, showResult, tts }: QuestionCardProp
               {/* Number header */}
               <div className={`px-3 py-1 text-xs font-bold border-b flex items-center gap-1.5 ${
                 showResult && i === q.correct
-                  ? "bg-emerald-100 text-emerald-700 border-emerald-200"
+                  ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/20"
                   : showResult && answer === i && i !== q.correct
-                  ? "bg-rose-100 text-rose-600 border-rose-200"
+                  ? "bg-rose-500/15 text-rose-400 border-rose-500/20"
                   : answer === i
                   ? "bg-app-accent-primary/10 text-app-accent-primary border-app-accent-primary/20"
-                  : "bg-gray-50 text-gray-500 border-gray-100"
+                  : "bg-app-card/60 text-app-text-muted border-app-border"
               }`}>
                 <span className={`w-5 h-5 flex items-center justify-center rounded-full text-[11px] font-bold ${
-                  answer === i ? "bg-app-accent-primary text-white" : "bg-gray-200 text-gray-600"
+                  answer === i ? "bg-app-accent-primary text-app-bg" : "bg-app-card text-app-text-muted"
                 }`}>{i + 1}</span>
                 <span className="truncate">{opt}</span>
               </div>
@@ -245,18 +245,18 @@ function QuestionCard({ q, answer, onAnswer, showResult, tts }: QuestionCardProp
                 onClick={() => !showResult && onAnswer(i)}
                 className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl border text-left transition-all cursor-pointer text-sm ${
                   isCorrect
-                    ? "bg-emerald-50 border-emerald-300 text-emerald-800"
+                    ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
                     : isWrong
-                    ? "bg-rose-50 border-rose-300 text-rose-700"
+                    ? "bg-rose-500/10 border-rose-500/30 text-rose-300"
                     : answer === i
-                    ? "bg-app-accent-primary/10 border-app-accent-primary/40 text-gray-800"
-                    : "bg-white border-gray-200 text-gray-600 hover:border-app-accent-primary/30 hover:bg-app-accent-primary/5"
+                    ? "bg-app-accent-primary/10 border-app-accent-primary/40 text-white"
+                    : "bg-app-card/50 border-app-border text-white/75 hover:border-app-accent-primary/30 hover:bg-app-accent-primary/5"
                 }`}
               >
                 <span className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold flex-shrink-0 ${
                   isCorrect ? "bg-emerald-500 text-white" :
                   isWrong ? "bg-rose-400 text-white" :
-                  answer === i ? "bg-app-accent-primary text-white" : "bg-gray-200 text-gray-600"
+                  answer === i ? "bg-app-accent-primary text-app-bg" : "bg-app-card text-app-text-muted"
                 }`}>
                   {isCorrect ? <i className="ri-check-line" /> : isWrong ? <i className="ri-close-line" /> : i + 1}
                 </span>
