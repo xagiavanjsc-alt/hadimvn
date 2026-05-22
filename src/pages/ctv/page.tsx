@@ -213,23 +213,36 @@ export default function CTVPage() {
 
   const handleWithdraw = async () => {
     if (!profile) return;
+    if (submittingWd) return; // belt-and-braces against rapid clicks
     const amount = parseInt(wdAmount.replace(/\D/g, ""));
     if (!amount || amount < 50000) { showToast("Số tiền rút tối thiểu 50.000đ", "err"); return; }
     if (amount > canWithdraw) { showToast("Số tiền vượt quá số dư có thể rút", "err"); return; }
     if (!profile.bank_info?.account_number) { showToast("Vui lòng cập nhật thông tin ngân hàng trước", "err"); return; }
     setSubmittingWd(true);
-    const { error } = await supabase.from("ctv_withdrawals").insert({
-      ctv_id: profile.id,
-      amount,
-      bank_info: profile.bank_info,
-      note: wdNote.trim(),
-    });
-    setSubmittingWd(false);
-    if (error) { showToast("Lỗi: " + error.message, "err"); return; }
-    setWdAmount("");
-    setWdNote("");
-    showToast("Đã gửi yêu cầu rút tiền. Admin sẽ xử lý trong 1-3 ngày.");
-    load();
+    try {
+      const { error } = await supabase.from("ctv_withdrawals").insert({
+        ctv_id: profile.id,
+        amount,
+        bank_info: profile.bank_info,
+        note: wdNote.trim(),
+      });
+      if (error) {
+        // 23505 = unique_violation on the partial-unique-pending index → user already has 1 pending
+        const msg = error.code === "23505"
+          ? "Bạn đã có một yêu cầu rút tiền đang chờ duyệt"
+          : "Lỗi: " + error.message;
+        showToast(msg, "err");
+        return;
+      }
+      setWdAmount("");
+      setWdNote("");
+      // Refresh state BEFORE re-enabling the button so the next click sees the
+      // updated balance, not the stale one.
+      await load();
+      showToast("Đã gửi yêu cầu rút tiền. Admin sẽ xử lý trong 1-3 ngày.");
+    } finally {
+      setSubmittingWd(false);
+    }
   };
 
   const referralLink = profile ? `https://hanquocoi.vn?ref=${profile.ref_code}` : "";

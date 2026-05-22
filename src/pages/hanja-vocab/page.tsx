@@ -69,6 +69,11 @@ function speakKorean(text: string) {
   window.speechSynthesis.speak(utter);
 }
 
+function getToday(): string {
+  // YYYY-MM-DD in local timezone (avoids UTC midnight skew).
+  return new Date().toLocaleDateString("sv-SE");
+}
+
 import { getStreakData, recordActivity, type StreakData } from "@/utils/streak";
 
 function getInitial(char: string): string {

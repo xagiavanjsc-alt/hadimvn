@@ -260,7 +260,7 @@ const AdminNaverKinPage = () => {
                 if (confirm("Xóa toàn bộ dữ liệu Naver KiN?")) {
                   localStorage.removeItem("kts_naver_kin_qa");
                   setQaItems([]);
-                  toast.success("Đã xóa toàn bộ dữ liệu");
+                  toast.showToast("Đã xóa toàn bộ dữ liệu", "success");
                 }
               }}
               className="px-4 py-2 bg-red-500/20 border border-red-500/40 rounded-lg text-red-400 text-sm hover:bg-red-500/30 transition-colors"

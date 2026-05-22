@@ -15,6 +15,8 @@ interface AntiCheatResult {
   interactionCount: number;
   validate: () => boolean;
   reset: () => void;
+  trackInteraction: () => void;
+  scrollContainerRef: React.RefObject<HTMLElement | null>;
 }
 
 /**

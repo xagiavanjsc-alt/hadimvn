@@ -181,7 +181,7 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
       handleChange();
     } catch (err) {
       console.error('Image insert error:', err);
-      showToast('Lỗi chèn ảnh', 'error');
+      alert('Lỗi chèn ảnh');
     }
     e.target.value = ''; // reset to allow same file again
   };
