@@ -594,6 +594,26 @@ export default function AdminDashboardPage() {
   const [seriesList] = useLocalStorage<EbookSeries[]>("kts_series_list", []);
   const [revenues] = useLocalStorage<RevenueEntry[]>("kts_revenues", []);
   const [showBroadcast, setShowBroadcast] = useState(false);
+  const [recomputing, setRecomputing] = useState(false);
+  const [recomputeMsg, setRecomputeMsg] = useState<string | null>(null);
+
+  const handleRecomputeAll = async () => {
+    if (recomputing) return;
+    if (!confirm("Tính lại XP / từ vựng / streak cho TẤT CẢ user từ dữ liệu thật trong database?")) return;
+    setRecomputing(true);
+    setRecomputeMsg(null);
+    try {
+      const { data, error } = await supabase.rpc("admin_recompute_all_xp");
+      if (error) throw error;
+      const row = Array.isArray(data) ? data[0] : data;
+      setRecomputeMsg(`✓ Đã tính lại cho ${row?.users_processed ?? 0} user trong ${row?.duration_ms ?? 0}ms`);
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "lỗi không xác định";
+      setRecomputeMsg(`✗ ${msg}`);
+    } finally {
+      setRecomputing(false);
+    }
+  };
 
   const totalRevenue = revenues.reduce((s, r) => s + r.amount, 0);
   const vipPct = stats.total > 0 ? Math.round((stats.vipCount / stats.total) * 100) : 0;
@@ -710,6 +730,35 @@ export default function AdminDashboardPage() {
       {/* Broadcast history */}
       <div className="mb-6">
         <BroadcastHistory />
+      </div>
+
+      {/* Đồng bộ lại điểm cho tất cả user */}
+      <div className="mb-6 rounded-xl border p-4 sm:p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
+        <div className="flex items-start justify-between gap-4 flex-wrap">
+          <div className="flex-1 min-w-[260px]">
+            <h3 className="font-semibold text-sm mb-1 flex items-center gap-2" style={{ color: "var(--admin-text)" }}>
+              <i className="ri-magic-line text-app-accent-primary"></i>
+              Đồng bộ lại điểm cho tất cả user
+            </h3>
+            <p className="text-xs leading-relaxed" style={{ color: "var(--admin-text-muted)" }}>
+              Buộc server tính lại XP, streak, từ đã học, điểm cao nhất từ dữ liệu thật trong database.
+              Dùng khi bảng xếp hạng lệch hoặc sau khi thay đổi trọng số XP.
+            </p>
+            {recomputeMsg && (
+              <p className={`text-[11px] mt-2 ${recomputeMsg.startsWith("✓") ? "text-app-accent-success" : "text-rose-400"}`}>
+                {recomputeMsg}
+              </p>
+            )}
+          </div>
+          <button
+            onClick={handleRecomputeAll}
+            disabled={recomputing}
+            className="px-4 py-2.5 rounded-xl text-sm font-bold bg-app-accent-primary hover:bg-app-accent-primary/90 text-app-bg disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer whitespace-nowrap flex items-center gap-2"
+          >
+            <i className={`ri-magic-line ${recomputing ? "animate-spin" : ""}`}></i>
+            {recomputing ? "Đang tính..." : "Tính lại toàn bộ"}
+          </button>
+        </div>
       </div>
 
       {/* Quick actions — full grid */}
