@@ -9,30 +9,16 @@
 const ALLOWED_EMAIL_DOMAINS: ReadonlySet<string> = new Set([
   // Google
   "gmail.com",
-  "googlemail.com",
   // Microsoft
   "outlook.com",
   "outlook.com.vn",
   "hotmail.com",
   "hotmail.com.vn",
-  "live.com",
-  "msn.com",
   // Apple
   "icloud.com",
-  "me.com",
-  "mac.com",
   // Yahoo
   "yahoo.com",
   "yahoo.com.vn",
-  "ymail.com",
-  "rocketmail.com",
-  // Privacy-focused
-  "proton.me",
-  "protonmail.com",
-  "pm.me",
-  // Other legitimate consumer providers
-  "aol.com",
-  "zoho.com",
 ]);
 
 export interface EmailValidationResult {
@@ -60,7 +46,7 @@ export function validateSignupEmail(emailRaw: string): EmailValidationResult {
   if (!ALLOWED_EMAIL_DOMAINS.has(domain)) {
     return {
       ok: false,
-      reason: `Hiện chỉ hỗ trợ đăng ký bằng các email phổ biến (Gmail, Outlook, Hotmail, iCloud, Yahoo, Proton…). Vui lòng dùng một trong các nhà cung cấp đó hoặc đăng nhập bằng Google.`,
+      reason: `Hiện chỉ chấp nhận email phổ biến: Gmail, Outlook, Hotmail, iCloud, Yahoo. Nếu bạn dùng email tên miền riêng (vd email công ty), vui lòng đăng nhập bằng Google.`,
     };
   }
 

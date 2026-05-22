@@ -292,7 +292,7 @@ export default function AuthModal({ onClose }: AuthModalProps) {
                   className="w-full bg-app-card/50 border border-app-border rounded-lg px-3 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40" />
                 {mode === "register" && (
                   <p className="text-[10px] text-white/30 mt-1 leading-snug">
-                    Chấp nhận: Gmail, Outlook, Hotmail, iCloud, Yahoo, Proton. Email khác hãy đăng nhập bằng Google bên trên.
+                    Chấp nhận: Gmail, Outlook, Hotmail, iCloud, Yahoo. Email tên miền riêng (công ty…) vui lòng dùng nút Google ở trên.
                   </p>
                 )}
               </div>
