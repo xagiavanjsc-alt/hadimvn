@@ -90,6 +90,11 @@ export default function LeaderboardPage() {
   const [lastRefresh, setLastRefresh] = useState<Date | null>(null);
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 20;
+  // Server-side pagination state — required for large leaderboards (5000+ users).
+  const [totalCount, setTotalCount] = useState(0);
+  const [top3, setTop3] = useState<LeaderboardPlayer[]>([]);
+  const [myEntryFromDB, setMyEntryFromDB] = useState<LeaderboardPlayer | null>(null);
+  const [myRankFromDB, setMyRankFromDB] = useState<number>(0);
 
   // Local stats for current user
   const streakData = getStreakData();
@@ -113,69 +118,91 @@ export default function LeaderboardPage() {
     validExamsCount: examResults.length,
   });
 
+  // Helper: map DB row → UI shape.
+  const mapRow = useCallback((row: any): LeaderboardPlayer => ({
+    id: row.id,
+    user_id: row.user_id,
+    display_name: row.display_name || "Học viên",
+    avatar_url: row.avatar_url,
+    level: row.level || "Cơ bản",
+    streak: row.streak || 0,
+    best_score: row.best_score || 0,
+    words_learned: row.words_learned || 0,
+    xp: row.xp || 0,
+    updated_at: row.updated_at,
+    is_vip: row.is_vip || false,
+    vip_expires_at: row.vip_expires_at || null,
+    isCurrentUser: user ? row.user_id === user.id : false,
+  }), [user]);
+
   const fetchLeaderboard = useCallback(async () => {
     setLoading(true);
     try {
-      const { data, error } = await supabase
+      const from = (page - 1) * PAGE_SIZE;
+      const to = from + PAGE_SIZE - 1;
+
+      // Run page + top3 + count + my-row + my-rank in parallel. At 5000 users
+      // these are all index-backed scans on `leaderboard` so the round-trip is
+      // dominated by network, not query cost.
+      const pageQuery = supabase
         .from("leaderboard")
-        .select("*")
+        .select("*", { count: "exact" })
         .order(sortKey, { ascending: false })
-        .limit(50);
+        .range(from, to);
 
-      if (error) throw error;
+      const top3Query = page === 1
+        ? Promise.resolve({ data: null, error: null } as { data: any[] | null; error: unknown })
+        : supabase
+            .from("leaderboard")
+            .select("*")
+            .order(sortKey, { ascending: false })
+            .limit(3);
 
-      const mapped: LeaderboardPlayer[] = (data || []).map((row) => ({
-        id: row.id,
-        user_id: row.user_id,
-        display_name: row.display_name || "Học viên",
-        avatar_url: row.avatar_url,
-        level: row.level || "Cơ bản",
-        streak: row.streak || 0,
-        best_score: row.best_score || 0,
-        words_learned: row.words_learned || 0,
-        xp: row.xp || 0,
-        updated_at: row.updated_at,
-        is_vip: row.is_vip || false,
-        vip_expires_at: row.vip_expires_at || null,
-        isCurrentUser: user ? row.user_id === user.id : false,
-      }));
+      const myRowQuery = user
+        ? supabase.from("leaderboard").select("*").eq("user_id", user.id).maybeSingle()
+        : Promise.resolve({ data: null, error: null } as { data: any | null; error: unknown });
 
-      // If current user not in list, add them
-      if (user) {
-        const hasMe = mapped.some((p) => p.user_id === user.id);
-        if (!hasMe) {
-          const myEntry: LeaderboardPlayer = {
-            id: "me-local",
-            user_id: user.id,
-            display_name: profile?.display_name || "Bạn",
-            avatar_url: profile?.avatar_url || null,
-            level: deriveLevel(myBestScore),
-            streak: streakData.currentStreak,
-            best_score: myBestScore,
-            words_learned: myWordsLearned,
-            xp: myXp,
-            updated_at: new Date().toISOString(),
-            is_vip: profile?.is_vip || false,
-            vip_expires_at: profile?.vip_expires_at || null,
-            isCurrentUser: true,
-          };
-          mapped.push(myEntry);
-          mapped.sort((a, b) => b[sortKey] - a[sortKey]);
-        }
+      const [pageRes, top3Res, myRowRes] = await Promise.all([
+        pageQuery as unknown as Promise<{ data: any[] | null; count: number | null; error: unknown }>,
+        top3Query,
+        myRowQuery,
+      ]);
+
+      if (pageRes.error) throw pageRes.error;
+      const pageRows = (pageRes.data || []).map(mapRow);
+      setPlayers(pageRows);
+      setTotalCount(pageRes.count ?? 0);
+
+      // top3 is the first 3 of the current sort. On page 1 it's just the
+      // first 3 of pageRows; on other pages we fetch separately so the
+      // podium stays visible.
+      if (page === 1) {
+        setTop3(pageRows.slice(0, 3));
+      } else if (top3Res.data) {
+        setTop3((top3Res.data as any[]).map(mapRow));
       }
 
-      setPlayers(mapped);
-      setLastRefresh(new Date());
-    } catch {
-      // fallback: giữ data cũ nếu có, chỉ thay thế cho user logged in
-      if (user) {
-        const myEntry: LeaderboardPlayer = {
+      // My rank: count of rows strictly greater than my value on `sortKey`,
+      // plus 1. Cheap when sortKey has an index, otherwise sequential scan —
+      // acceptable on the leaderboard's modest row count.
+      if (user && (myRowRes as { data: any | null }).data) {
+        const myRow = (myRowRes as { data: any }).data;
+        setMyEntryFromDB({ ...mapRow(myRow), isCurrentUser: true });
+        const myValue = Number(myRow[sortKey] ?? 0);
+        const { count } = await supabase
+          .from("leaderboard")
+          .select("*", { count: "exact", head: true })
+          .gt(sortKey, myValue);
+        setMyRankFromDB((count ?? 0) + 1);
+      } else if (user) {
+        // No row yet (brand new account) — fall back to local-computed entry.
+        setMyEntryFromDB({
           id: "me-local",
           user_id: user.id,
           display_name: profile?.display_name || "Bạn",
           avatar_url: profile?.avatar_url || null,
           level: deriveLevel(myBestScore),
-            streak: streakData.currentStreak,
+          streak: streakData.currentStreak,
           best_score: myBestScore,
           words_learned: myWordsLearned,
           xp: myXp,
@@ -183,40 +210,52 @@ export default function LeaderboardPage() {
           is_vip: profile?.is_vip || false,
           vip_expires_at: profile?.vip_expires_at || null,
           isCurrentUser: true,
-        };
-        // Giữ data cũ + thêm user entry
-        setPlayers(prev => {
-          const filtered = prev.filter(p => !p.isCurrentUser);
-          return [...filtered, myEntry];
         });
+        setMyRankFromDB(0);
+      } else {
+        setMyEntryFromDB(null);
+        setMyRankFromDB(0);
       }
-      // Guests: giữ data cũ, không set rỗng
+
+      setLastRefresh(new Date());
+    } catch {
+      // Keep previous data on error; the banner still shows whatever was last fetched.
     } finally {
       setLoading(false);
     }
-  }, [sortKey, user, profile, streakData.currentStreak, myBestScore, myWordsLearned, myXp]);
+  }, [page, sortKey, user, mapRow, profile, streakData.currentStreak, myBestScore, myWordsLearned, myXp]);
 
   useEffect(() => {
     fetchLeaderboard();
   }, [fetchLeaderboard]);
 
-  const sortedPlayers = useMemo(() => {
-    return [...players].sort((a, b) => b[sortKey] - a[sortKey]);
-  }, [players, sortKey]);
+  // Already sorted server-side; `players` IS the current page.
+  const pagedPlayers = players;
 
-  const myRank = sortedPlayers.findIndex((p) => p.isCurrentUser) + 1;
-  const myEntry = sortedPlayers.find((p) => p.isCurrentUser);
-  const top3 = sortedPlayers.slice(0, 3);
+  // myRank / myEntry come from dedicated DB queries so they're correct even
+  // when the user is not on the current visible page (e.g. page 47 of 250).
+  const myRank = myRankFromDB;
+  const myEntry = myEntryFromDB;
 
   // ─── Pagination ────────────────────────────────────────────────────────────
-  const totalPages = Math.max(1, Math.ceil(sortedPlayers.length / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
-  const pagedPlayers = useMemo(
-    () => sortedPlayers.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE),
-    [sortedPlayers, safePage]
-  );
   // Reset to page 1 whenever sort/period changes.
   useEffect(() => { setPage(1); }, [sortKey, period]);
+
+  // Smart paginator: keeps the button row compact at 5000+ users (250 pages).
+  // Shows first, last, current ± 2, with "…" between gaps.
+  const pageNumbers = useMemo((): (number | "...")[] => {
+    if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
+    const items: (number | "...")[] = [1];
+    const start = Math.max(2, safePage - 2);
+    const end = Math.min(totalPages - 1, safePage + 2);
+    if (start > 2) items.push("...");
+    for (let i = start; i <= end; i++) items.push(i);
+    if (end < totalPages - 1) items.push("...");
+    items.push(totalPages);
+    return items;
+  }, [safePage, totalPages]);
 
   return (
     <DashboardLayout title="Bảng xếp hạng" subtitle="So sánh tiến độ với học viên khác">
@@ -246,7 +285,7 @@ export default function LeaderboardPage() {
                 </p>
                 {myRank > 0 && (
                   <span className="bg-app-accent-primary/10 text-app-accent-primary text-xs px-2 py-0.5 rounded-full font-medium">
-                    #{myRank} / {sortedPlayers.length}
+                    #{myRank} / {totalCount.toLocaleString()}
                   </span>
                 )}
                 {!user && (
@@ -262,11 +301,9 @@ export default function LeaderboardPage() {
                   ? "Hoàn thành bài học để lên bảng xếp hạng"
                   : myRank <= 3
                   ? "Top 3! Xuất sắc lắm!"
-                  : myRank <= 5
-                  ? "Gần top 3 rồi — cố lên!"
-                  : myEntry && sortedPlayers[myRank - 2]
-                  ? `Cần thêm ${(sortedPlayers[myRank - 2][sortKey] - myEntry[sortKey]).toLocaleString()} điểm để vượt hạng`
-                  : "Tiếp tục học để leo hạng!"}
+                  : myRank <= 10
+                  ? "Top 10 rồi — cố lên!"
+                  : `Bạn đang ở hạng ${myRank}. Tiếp tục học để leo hạng!`}
               </p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
@@ -408,7 +445,7 @@ export default function LeaderboardPage() {
                 <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
                 <p className="text-app-text-muted text-sm">Đang tải bảng xếp hạng...</p>
               </div>
-            ) : sortedPlayers.length === 0 ? (
+            ) : pagedPlayers.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
                 <i className="ri-trophy-line text-white/10 text-4xl"></i>
                 <p className="text-app-text-muted text-sm">Chưa có học viên nào</p>
@@ -533,7 +570,7 @@ export default function LeaderboardPage() {
                 <div className="w-8 h-8 border-2 border-app-accent-primary/30 border-t-[app-accent-primary] rounded-full animate-spin"></div>
                 <p className="text-app-text-muted text-sm">Đang tải bảng xếp hạng...</p>
               </div>
-            ) : sortedPlayers.length === 0 ? (
+            ) : pagedPlayers.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
                 <i className="ri-trophy-line text-white/10 text-4xl"></i>
                 <p className="text-app-text-muted text-sm">Chưa có học viên nào</p>
@@ -623,12 +660,12 @@ export default function LeaderboardPage() {
         </div>
 
         {/* Pagination */}
-        {!loading && sortedPlayers.length > PAGE_SIZE && (
+        {!loading && totalCount > PAGE_SIZE && (
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <p className="text-app-text-muted text-xs">
-              Hiển thị {(safePage - 1) * PAGE_SIZE + 1}–{Math.min(safePage * PAGE_SIZE, sortedPlayers.length)} trên tổng {sortedPlayers.length} học viên
+              Hiển thị {(safePage - 1) * PAGE_SIZE + 1}–{Math.min(safePage * PAGE_SIZE, totalCount)} trên tổng {totalCount.toLocaleString()} học viên
             </p>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 flex-wrap justify-end">
               <button
                 onClick={() => setPage(p => Math.max(1, p - 1))}
                 disabled={safePage <= 1}
@@ -636,7 +673,9 @@ export default function LeaderboardPage() {
               >
                 <i className="ri-arrow-left-s-line"></i> Trước
               </button>
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+              {pageNumbers.map((p, i) => p === "..." ? (
+                <span key={`gap-${i}`} className="w-8 h-8 flex items-center justify-center text-xs text-app-text-muted">…</span>
+              ) : (
                 <button
                   key={p}
                   onClick={() => setPage(p)}
