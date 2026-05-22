@@ -36,3 +36,6 @@ out
 # Temporary files
 *.tmp
 *.temp
+
+# Claude Code session state
+.claude/

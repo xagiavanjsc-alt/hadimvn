@@ -2,6 +2,8 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useHanjaProgress } from "@/hooks/useHanjaProgress";
+import { useToast } from "@/components/base/Toast";
 import { supabase } from "@/lib/supabase";
 import { usePageSEO } from "@/hooks/usePageSEO";
 
@@ -84,8 +86,15 @@ function getMeaningSection(entry: HanjaEntry): string {
 export default function HanjaProDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const [known, setKnown] = useLocalStorage<Record<number, boolean>>("kts_hanja_pro_known", {});
+  const { isLearned, toggle: toggleKnown, lastError, clearError } = useHanjaProgress();
+  const { showToast, ToastComponent } = useToast();
   const [copied, setCopied] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!lastError) return;
+    showToast(lastError, "error", 3500);
+    clearError();
+  }, [lastError, showToast, clearError]);
 
   const handleCopy = useCallback((text: string, label: string) => {
     copyToClipboard(text);
@@ -190,7 +199,7 @@ export default function HanjaProDetailPage() {
 
   const meaning = getShortMeaning(entry);
   const fullMeaning = getMeaningSection(entry);
-  const isKnown = !!known[entry.id];
+  const isKnown = isLearned(entry.id);
   const isFav = !!favorites[entry.id];
 
   return (
@@ -216,7 +225,7 @@ export default function HanjaProDetailPage() {
             {isFav ? "Đã lưu" : "Lưu"}
           </button>
           <button
-            onClick={() => setKnown(p => ({ ...p, [entry.id]: !p[entry.id] }))}
+            onClick={() => toggleKnown(entry.id)}
             className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium cursor-pointer ${isKnown ? "bg-emerald-500/15 text-emerald-400" : "bg-app-card/50 hover:bg-app-card/70 text-white/70"}`}
           >
             <i className={isKnown ? "ri-check-double-line" : "ri-check-line"}></i>
@@ -406,6 +415,7 @@ export default function HanjaProDetailPage() {
           </button>
         </div>
       </div>
+      <ToastComponent />
     </DashboardLayout>
   );
 }

@@ -4,6 +4,8 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import { isVipActive, supabase } from "@/lib/supabase";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import VipUpgradeModal from "@/components/feature/VipUpgradeModal";
+import { useHanjaProgress } from "@/hooks/useHanjaProgress";
+import { useToast } from "@/components/base/Toast";
 
 interface HanjaProEntry {
   id: number;
@@ -23,7 +25,6 @@ interface CharGroup {
   count: number;
 }
 
-const KNOWN_KEY = "kts_hanja_pro_known";
 const FAV_KEY = "kts_hanja_pro_fav";
 
 function loadRecord(key: string): Record<number, boolean> {
@@ -69,7 +70,8 @@ export default function HanjaFlashcardPage() {
   const [entries, setEntries] = useState<HanjaProEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedChar, setSelectedChar] = useState<string>(searchParams.get("char") || "");
-  const [known, setKnown] = useState<Record<number, boolean>>(() => loadRecord(KNOWN_KEY));
+  const { learnedSet, toggle: toggleKnown, isLearned, lastError, clearError } = useHanjaProgress();
+  const { showToast, ToastComponent } = useToast();
   const [favorites, setFavorites] = useState<Record<number, boolean>>(() => loadRecord(FAV_KEY));
   const [filter, setFilter] = useState<"all" | "unknown" | "known" | "favorites">("all");
   const [groupPage, setGroupPage] = useState(1);
@@ -77,6 +79,12 @@ export default function HanjaFlashcardPage() {
   const [flashFlipped, setFlashFlipped] = useState(false);
   const [vipModal, setVipModal] = useState(false);
   const [showStartScreen, setShowStartScreen] = useState(true);
+
+  useEffect(() => {
+    if (!lastError) return;
+    showToast(lastError, "error", 3500);
+    clearError();
+  }, [lastError, showToast, clearError]);
 
   useEffect(() => {
     async function fetchEntries() {
@@ -145,12 +153,12 @@ export default function HanjaFlashcardPage() {
 
   const filteredCharGroups = useMemo(() => charGroups.filter(group => {
     return group.entries.some(entry => {
-      if (filter === "known") return known[entry.id];
-      if (filter === "unknown") return !known[entry.id];
+      if (filter === "known") return isLearned(entry.id);
+      if (filter === "unknown") return !isLearned(entry.id);
       if (filter === "favorites") return favorites[entry.id];
       return true;
     });
-  }), [charGroups, filter, known, favorites]);
+  }), [charGroups, filter, learnedSet, favorites, isLearned]);
 
   const GROUP_PAGE_SIZE = 20;
   const groupTotalPages = Math.ceil(filteredCharGroups.length / GROUP_PAGE_SIZE);
@@ -161,11 +169,11 @@ export default function HanjaFlashcardPage() {
 
   const currentEntries = useMemo(() => {
     const base = currentGroup?.entries || [];
-    if (filter === "known") return base.filter(entry => known[entry.id]);
-    if (filter === "unknown") return base.filter(entry => !known[entry.id]);
+    if (filter === "known") return base.filter(entry => isLearned(entry.id));
+    if (filter === "unknown") return base.filter(entry => !isLearned(entry.id));
     if (filter === "favorites") return base.filter(entry => favorites[entry.id]);
     return base;
-  }, [currentGroup, filter, known, favorites]);
+  }, [currentGroup, filter, learnedSet, favorites, isLearned]);
 
   useEffect(() => {
     setGroupPage(1);
@@ -174,15 +182,6 @@ export default function HanjaFlashcardPage() {
   useEffect(() => {
     if (groupPage > groupTotalPages) setGroupPage(Math.max(groupTotalPages, 1));
   }, [groupPage, groupTotalPages]);
-
-  const toggleKnown = useCallback((id: number) => {
-    setKnown(prev => {
-      const next = { ...prev, [id]: !prev[id] };
-      if (!next[id]) delete next[id];
-      saveRecord(KNOWN_KEY, next);
-      return next;
-    });
-  }, []);
 
   const toggleFavorite = useCallback((id: number) => {
     setFavorites(prev => {
@@ -214,7 +213,7 @@ export default function HanjaFlashcardPage() {
   }, [navigate]);
 
   const card = currentEntries[flashIdx];
-  const isKnown = card ? !!known[card.id] : false;
+  const isKnown = card ? isLearned(card.id) : false;
   const isFavorite = card ? !!favorites[card.id] : false;
 
   useEffect(() => {
@@ -269,8 +268,8 @@ export default function HanjaFlashcardPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
                   {[
                     { value: "all" as const, label: "Tất cả", count: entries.length },
-                    { value: "unknown" as const, label: "Chưa học", count: entries.filter(entry => !known[entry.id]).length },
-                    { value: "known" as const, label: "Đã học", count: entries.filter(entry => known[entry.id]).length },
+                    { value: "unknown" as const, label: "Chưa học", count: entries.filter(entry => !isLearned(entry.id)).length },
+                    { value: "known" as const, label: "Đã học", count: entries.filter(entry => isLearned(entry.id)).length },
                     { value: "favorites" as const, label: "Yêu thích", count: entries.filter(entry => favorites[entry.id]).length },
                   ].map(item => (
                     <button
@@ -297,12 +296,12 @@ export default function HanjaFlashcardPage() {
                   <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
                     {paginatedCharGroups.map(group => {
                       const filteredCount = group.entries.filter(entry => {
-                        if (filter === "known") return known[entry.id];
-                        if (filter === "unknown") return !known[entry.id];
+                        if (filter === "known") return isLearned(entry.id);
+                        if (filter === "unknown") return !isLearned(entry.id);
                         if (filter === "favorites") return favorites[entry.id];
                         return true;
                       }).length;
-                      const learnedCount = group.entries.filter(entry => known[entry.id]).length;
+                      const learnedCount = group.entries.filter(entry => isLearned(entry.id)).length;
                       const pct = group.count > 0 ? Math.round((learnedCount / group.count) * 100) : 0;
 
                       return (
@@ -390,7 +389,7 @@ export default function HanjaFlashcardPage() {
               <div className="w-64 h-2 bg-white/8 rounded-full overflow-hidden">
                 <div className="h-full bg-rose-400 rounded-full transition-all" style={{ width: `${((flashIdx + 1) / currentEntries.length) * 100}%` }} />
               </div>
-              <span className="text-xs text-app-text-muted">{currentEntries.filter(entry => known[entry.id]).length} đã học</span>
+              <span className="text-xs text-app-text-muted">{currentEntries.filter(entry => isLearned(entry.id)).length} đã học</span>
             </div>
 
             <div
@@ -521,6 +520,7 @@ export default function HanjaFlashcardPage() {
         reason={user ? "not_vip" : "not_logged_in"}
         featureName="Flashcard Hán Hàn"
       />
+      <ToastComponent />
     </DashboardLayout>
   );
 }

@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useHanjaProgress } from "@/hooks/useHanjaProgress";
 import { supabase } from "@/lib/supabase";
 
 interface HanjaEntry {
@@ -27,7 +28,7 @@ export default function HanjaProPage() {
   const [search, setSearch] = useState("");
   const [filterChar, setFilterChar] = useState<string | null>(null);
   const [filterStatus, setFilterStatus] = useState<'all' | 'known' | 'unknown' | 'favorites'>('all');
-  const [known] = useLocalStorage<Record<number, boolean>>("kts_hanja_pro_known", {});
+  const { learnedSet, isLearned } = useHanjaProgress();
   const [favorites] = useLocalStorage<Record<number, boolean>>("kts_hanja_pro_fav", {});
   const [quizMode, setQuizMode] = useState(false);
   const [quizLoading, setQuizLoading] = useState(false);
@@ -68,8 +69,8 @@ export default function HanjaProPage() {
   const filtered = useMemo(() => {
     let list = entries;
     if (filterChar) list = list.filter(e => e.hanja.includes(filterChar));
-    if (filterStatus === 'known') list = list.filter(e => known[e.id]);
-    if (filterStatus === 'unknown') list = list.filter(e => !known[e.id]);
+    if (filterStatus === 'known') list = list.filter(e => isLearned(e.id));
+    if (filterStatus === 'unknown') list = list.filter(e => !isLearned(e.id));
     if (filterStatus === 'favorites') list = list.filter(e => favorites[e.id]);
     if (search.trim()) {
       const q = search.toLowerCase();
@@ -80,16 +81,16 @@ export default function HanjaProPage() {
       );
     }
     return list;
-  }, [entries, search, filterChar, filterStatus, known, favorites]);
+  }, [entries, search, filterChar, filterStatus, learnedSet, favorites, isLearned]);
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const paginated = useMemo(() => filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE), [filtered, page, PAGE_SIZE]);
 
   const stats = useMemo(() => ({
     total: entries.length,
-    known: Object.values(known).filter(Boolean).length,
+    known: learnedSet.size,
     favorites: Object.values(favorites).filter(Boolean).length,
-  }), [entries, known, favorites]);
+  }), [entries, learnedSet, favorites]);
 
   useEffect(() => { setPage(1); }, [search, filterChar, filterStatus]);
 
@@ -333,7 +334,7 @@ export default function HanjaProPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
             {paginated.map(entry => {
-              const isKnown = known[entry.id];
+              const isKnown = isLearned(entry.id);
               const isFav = favorites[entry.id];
               const meaning = getShortMeaning(entry);
               return (

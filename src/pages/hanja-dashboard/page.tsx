@@ -2,6 +2,8 @@
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
+import { useHanjaProgress, localDateISO } from "@/hooks/useHanjaProgress";
+import { useToast } from "@/components/base/Toast";
 
 interface HanjaNode {
   id: number;
@@ -15,38 +17,11 @@ interface HanjaNode {
   meaning_detail?: string;
 }
 
-const LEARNED_KEY = "kts_hanja_pro_known";
-const STREAK_KEY = "hanja_streak";
-
-function loadLearned(): Set<number> {
-  try {
-    const raw = localStorage.getItem(LEARNED_KEY);
-    if (!raw) return new Set();
-    const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) return new Set(parsed.map(Number));
-    return new Set(Object.entries(parsed).filter(([, value]) => value).map(([key]) => Number(key)));
-  } catch { return new Set(); }
-}
-
-function loadStreakDays(): string[] {
-  try {
-    const raw = localStorage.getItem(STREAK_KEY);
-    if (!raw) return [];
-    const data = JSON.parse(raw);
-    // hanja_streak structure: { currentStreak, longestStreak, lastStudyDate, history }
-    if (data.history && typeof data.history === "object") {
-      return Object.keys(data.history).filter(k => data.history[k] > 0);
-    }
-    // fallback for old array format
-    return Array.isArray(data) ? data : [];
-  } catch { return []; }
-}
-
 function calcStreak(days: string[]): { current: number; longest: number; total: number } {
   if (days.length === 0) return { current: 0, longest: 0, total: 0 };
   const sorted = [...new Set(days)].sort();
-  const today = new Date().toISOString().split("T")[0];
-  const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
+  const today = localDateISO();
+  const yesterday = localDateISO(new Date(Date.now() - 86400000));
   let current = 0;
   let longest = 0;
   let streak = 0;
@@ -73,19 +48,26 @@ function calcStreak(days: string[]): { current: number; longest: number; total: 
   return { current, longest, total: sorted.length };
 }
 
+function csvEscape(value: string | number | null | undefined): string {
+  const s = String(value ?? "");
+  // Prefix formula-injection-prone leading chars (Excel/Sheets/Numbers).
+  const safe = /^[=+\-@\t\r]/.test(s) ? "'" + s : s;
+  return `"${safe.replace(/"/g, '""')}"`;
+}
+
 function exportLearnedCSV(nodes: HanjaNode[], learnedSet: Set<number>) {
   const learned = nodes.filter(n => learnedSet.has(n.id));
   if (learned.length === 0) return;
   const header = "korean,hanja,vietnamese,root_char,difficulty,category";
   const rows = learned.map(n =>
-    `"${n.korean}","${n.hanja}","${n.vietnamese}","${n.root_char}",${n.difficulty},"${n.category}"`
+    [n.korean, n.hanja, n.vietnamese, n.root_char, n.difficulty, n.category].map(csvEscape).join(",")
   );
   const csv = [header, ...rows].join("\n");
   const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `hanja_da_hoc_${new Date().toISOString().split("T")[0]}.csv`;
+  a.download = `hanja_da_hoc_${localDateISO()}.csv`;
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -566,69 +548,55 @@ function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
 // ─── Main Dashboard ───────────────────────────────────────────────────────────
 export default function HanjaDashboardPage() {
   const navigate = useNavigate();
+  const { learnedSet, toggle: toggleLearned, streakDays, lastError, clearError } = useHanjaProgress();
+  const { showToast, ToastComponent } = useToast();
   const [nodes, setNodes] = useState<HanjaNode[]>([]);
   const [loading, setLoading] = useState(true);
-  const [learnedSet, setLearnedSet] = useState<Set<number>>(loadLearned);
   const [showReview, setShowReview] = useState(false);
-  const [streakDays, setStreakDays] = useState<string[]>(loadStreakDays);
-
-  const toggleLearned = useCallback((id: number) => {
-    setLearnedSet(prev => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      localStorage.setItem(LEARNED_KEY, JSON.stringify(Object.fromEntries(Array.from(next).map(item => [item, true]))));
-      return next;
-    });
-  }, []);
 
   useEffect(() => {
+    if (!lastError) return;
+    showToast(lastError, "error", 3500);
+    clearError();
+  }, [lastError, showToast, clearError]);
+
+  useEffect(() => {
+    let cancelled = false;
     const fetchNodes = async () => {
-      setLoading(true);
-      const { data } = await supabase
-        .from("hanja_pro")
-        .select("id, hangul, hanja, meaning_vn, hanja_breakdown, slug")
-        .order("id");
-      if (data) {
-        setNodes(data.map((row: any) => {
-          const breakdown = Array.isArray(row.hanja_breakdown) ? row.hanja_breakdown : [];
-          const root = breakdown[0];
-          return {
-            id: row.id,
-            korean: row.hangul,
-            hanja: row.hanja,
-            vietnamese: row.meaning_vn || "",
-            root_char: root?.char || row.hanja?.[0] || "",
-            difficulty: row.hanja?.length >= 4 ? 3 : row.hanja?.length >= 3 ? 2 : 1,
-            category: "Hán Hàn Chuyên Sâu",
-            pronunciation: "",
-            meaning_detail: breakdown.map((item: any) => `${item.char}: ${item.meaning}`).join(" · "),
-          } as HanjaNode;
-        }));
+      try {
+        const { data, error } = await supabase
+          .from("hanja_pro")
+          .select("id, hangul, hanja, meaning_vn, hanja_breakdown, slug")
+          .order("id");
+        if (cancelled) return;
+        if (error) {
+          console.error("[HanjaDashboard] fetch error:", error);
+          return;
+        }
+        if (data) {
+          setNodes(data.map((row: any) => {
+            const breakdown = Array.isArray(row.hanja_breakdown) ? row.hanja_breakdown : [];
+            const root = breakdown[0];
+            return {
+              id: row.id,
+              korean: row.hangul,
+              hanja: row.hanja,
+              vietnamese: row.meaning_vn || "",
+              root_char: root?.char || row.hanja?.[0] || "",
+              difficulty: row.hanja?.length >= 4 ? 3 : row.hanja?.length >= 3 ? 2 : 1,
+              category: "Hán Hàn Chuyên Sâu",
+              pronunciation: "",
+              meaning_detail: breakdown.map((item: any) => `${item.char}: ${item.meaning}`).join(" · "),
+            } as HanjaNode;
+          }));
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
       }
-      setLoading(false);
     };
     fetchNodes();
+    return () => { cancelled = true; };
   }, []);
-
-  useEffect(() => {
-    const onStorage = () => {
-      setLearnedSet(loadLearned());
-      setStreakDays(loadStreakDays());
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, []);
-
-  useEffect(() => {
-    if (learnedSet.size === 0) return;
-    const today = new Date().toISOString().split("T")[0];
-    setStreakDays(prev => {
-      if (prev.includes(today)) return prev;
-      const next = [...prev, today];
-      localStorage.setItem(STREAK_KEY, JSON.stringify(next));
-      return next;
-    });
-  }, [learnedSet.size]);
 
   const treeStats = useMemo(() => {
     const groups: Record<string, HanjaNode[]> = {};
@@ -875,6 +843,7 @@ export default function HanjaDashboardPage() {
           onClose={() => setShowReview(false)}
         />
       )}
+      <ToastComponent />
     </DashboardLayout>
   );
 }
