@@ -28,7 +28,7 @@ interface PhaseGroup {
 const GOAL_ROADMAPS: Record<Goal, { title: string; subtitle: string; icon: string; color: string; beginnerFriendly: boolean; levelLabel: string; phases: PhaseGroup[] }> = {
   eps: {
     title: "EPS-TOPIK (Lao động)",
-    subtitle: "Bắt đầu từ con số 0 — không cần biết tiếng Hàn trước",
+    subtitle: "Không biết tiếng Hàn vẫn học được — lộ trình rõ từng bước",
     icon: "ri-file-list-3-line",
     color: "#4ade80",
     beginnerFriendly: true,
@@ -180,7 +180,7 @@ const GOAL_ROADMAPS: Record<Goal, { title: string; subtitle: string; icon: strin
 };
 
 const GOAL_OPTIONS: { id: Goal; title: string; subtitle: string; icon: string; color: string; beginnerFriendly: boolean; levelLabel: string }[] = [
-  { id: "eps", title: "EPS-TOPIK", subtitle: "Thi chứng chỉ lao động", icon: "ri-file-list-3-line", color: "#4ade80", beginnerFriendly: true, levelLabel: "Phù hợp người mới 100%" },
+  { id: "eps", title: "EPS-TOPIK", subtitle: "Không biết tiếng Hàn cũng học được", icon: "ri-file-list-3-line", color: "#4ade80", beginnerFriendly: true, levelLabel: "Phù hợp người mới 100%" },
   { id: "conversation", title: "Giao tiếp", subtitle: "Nói chuyện tự nhiên", icon: "ri-chat-voice-line", color: "#fb923c", beginnerFriendly: true, levelLabel: "Phù hợp người mới" },
   { id: "seoul", title: "Giáo trình Seoul", subtitle: "Du học, học thuật", icon: "ri-book-3-line", color: "#60a5fa", beginnerFriendly: true, levelLabel: "Phù hợp người mới" },
   { id: "topik", title: "Luyện thi TOPIK", subtitle: "Chứng chỉ quốc tế", icon: "ri-survey-line", color: "#f472b6", beginnerFriendly: false, levelLabel: "Cần biết cơ bản trước" },
