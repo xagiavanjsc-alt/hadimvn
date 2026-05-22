@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 import { computeXP, deriveLevel, MAX_SINGLE_ADD_XP, DAILY_RAW_XP_CAP } from "@/lib/xp";
 import { getStreakData } from "@/utils/streak";
+import { enqueueXPSync, flushXPQueue, flushXPQueueBeacon } from "@/lib/xpSyncQueue";
 
 /**
  * XP event types for tracking user achievements
@@ -234,7 +235,11 @@ export function useXPSystem() {
   const scheduleServerSync = useCallback(() => {
     if (!user) return;
     if (syncTimerRef.current) clearTimeout(syncTimerRef.current);
-    syncTimerRef.current = setTimeout(async () => {
+    // Debounce: keep 1.5s so rapid awards coalesce, but on each fire we now
+    // enqueue into a durable queue (localStorage) and try to flush. If the
+    // flush fails or the tab is closed before it lands, the next mount /
+    // `online` event / `beforeunload` keepalive fetch will deliver it.
+    syncTimerRef.current = setTimeout(() => {
       try {
         const flashcardKnown = JSON.parse(localStorage.getItem("flashcard_known") || "{}");
         const examResults = JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]");
@@ -261,7 +266,7 @@ export function useXPSystem() {
         // NEVER decrease: upload the greater of (formula baseline, local total).
         const finalXP = Math.max(computedXP, xpTotalRef.current);
 
-        await supabase.from("user_progress").upsert({
+        enqueueXPSync({
           user_id: user.id,
           xp: finalXP,
           level,
@@ -270,9 +275,10 @@ export function useXPSystem() {
           best_score: bestScore,
           last_active_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
-        }, { onConflict: "user_id" });
+        });
+        void flushXPQueue();
       } catch {
-        // silent fail; will retry on next award
+        // Even when we throw locally the queue is the safety net; no-op here.
       }
     }, 1500);
   }, [user, streak.currentStreak]);
@@ -436,6 +442,43 @@ export function useXPSystem() {
   useEffect(() => {
     return () => {
       if (syncTimerRef.current) clearTimeout(syncTimerRef.current);
+    };
+  }, []);
+
+  // Durable sync: drain the persisted XP queue on mount and whenever the
+  // network comes back online. On tab close/navigation we additionally fire
+  // a keepalive POST per pending row so the write lands even after the page
+  // is gone. The queue lives in localStorage so a hard refresh / new tab /
+  // crashed tab all get a chance to redeliver.
+  useEffect(() => {
+    void flushXPQueue();
+    const onOnline = () => { void flushXPQueue(); };
+    const onUnload = () => {
+      try {
+        const supabaseUrl = (import.meta.env.VITE_PUBLIC_SUPABASE_URL as string) || "";
+        const anonKey = (import.meta.env.VITE_PUBLIC_SUPABASE_ANON_KEY as string) || "";
+        if (!supabaseUrl || !anonKey) return;
+        // Pull current access token without await (synchronous-ish via local storage)
+        let token: string | null = null;
+        try {
+          // supabase-js stores session under sb-<ref>-auth-token; fall back to anon
+          const raw = localStorage.getItem(`sb-${new URL(supabaseUrl).hostname.split(".")[0]}-auth-token`);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            token = parsed?.access_token || parsed?.currentSession?.access_token || null;
+          }
+        } catch { /* ignore */ }
+        flushXPQueueBeacon(supabaseUrl, anonKey, token);
+      } catch { /* ignore */ }
+    };
+    window.addEventListener("online", onOnline);
+    // pagehide is more reliable than beforeunload on mobile Safari
+    window.addEventListener("pagehide", onUnload);
+    window.addEventListener("beforeunload", onUnload);
+    return () => {
+      window.removeEventListener("online", onOnline);
+      window.removeEventListener("pagehide", onUnload);
+      window.removeEventListener("beforeunload", onUnload);
     };
   }, []);
 
