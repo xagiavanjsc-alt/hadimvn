@@ -50,23 +50,11 @@ const EXAM_SECTIONS: ExamSection[] = [
       { id: "topik_mock", title: "Thử nghiệm", questions: 40, minutes: 50, examType: "topik", badge: "Mẫu" },
     ],
   },
-  {
-    id: "seoul",
-    title: "Seoul",
-    subtitle: "Giáo trình du học",
-    icon: "ri-book-3-line",
-    color: "#60a5fa",
-    bg: "rgba(96,165,250,0.06)",
-    items: [
-      { id: "seoul_mock", title: "Thử nghiệm", questions: 30, minutes: 25, examType: "seoul", badge: "Mẫu" },
-    ],
-  },
 ];
 
 // Keep for UnifiedExam lookup
 const EXAM_OPTIONS_COMPAT = [
   { id: "eps",   title: "EPS-TOPIK", subtitle: "Lao động",            icon: "ri-file-list-3-line", color: "#4ade80", bgColor: "rgba(74,222,128,0.08)",   totalQuestions: 50, timeLimit: 1800, description: "" },
-  { id: "seoul", title: "Seoul",     subtitle: "Giáo trình du học",   icon: "ri-book-3-line",      color: "#60a5fa", bgColor: "rgba(96,165,250,0.08)",   totalQuestions: 30, timeLimit: 1500, description: "" },
   { id: "topik", title: "TOPIK I",   subtitle: "Chứng chỉ tiếng Hàn",icon: "ri-survey-line",      color: "#f472b6", bgColor: "rgba(244,114,182,0.08)", totalQuestions: 40, timeLimit: 3000, description: "" },
 ];
 
@@ -255,75 +243,102 @@ export default function ExamHubPage() {
           </>
         ) : (
           <>
-            <div className="mb-8">
-              <h1 className="text-2xl font-bold text-white mb-2">Exam Hub</h1>
-              <p className="text-white/60 text-sm">Hệ thống thi thử thống nhất với timer và lịch sử thi</p>
+            <div className="mb-6">
+              <h1 className="text-2xl font-bold text-white mb-1">Exam Hub</h1>
+              <p className="text-white/60 text-sm">Luyện thi EPS-TOPIK & TOPIK chất lượng cao</p>
             </div>
 
-            <p className="text-app-text-secondary text-xs mb-3">Tất cả đề thi</p>
-            <div className="flex flex-col gap-3 max-w-2xl">
-              {EXAM_SECTIONS.map(section => (
-                <SectionGroup key={section.id} section={section} onSelectItem={handleSelectItem} />
-              ))}
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+              {/* LEFT — Exam sections */}
+              <div className="lg:col-span-3">
+                <p className="text-app-text-secondary text-xs mb-3">Đề thi</p>
+                <div className="flex flex-col gap-3">
+                  {EXAM_SECTIONS.map(section => (
+                    <SectionGroup key={section.id} section={section} onSelectItem={handleSelectItem} />
+                  ))}
+                </div>
+              </div>
+
+              {/* RIGHT — Stats + recent results */}
+              <div className="lg:col-span-2">
+                {examHistory.length > 0 ? (
+                  <>
+                    {/* Quick stats */}
+                    <p className="text-app-text-secondary text-xs mb-3">Thống kê</p>
+                    <div className="grid grid-cols-3 gap-2 mb-4">
+                      {[
+                        { label: "Lần thi", value: examHistory.length },
+                        { label: "Điểm TB", value: `${Math.round(examHistory.reduce((s,h) => s + (h.score/h.total)*100, 0) / examHistory.length)}%` },
+                        { label: "Cao nhất", value: `${Math.max(...examHistory.map(h => Math.round((h.score/h.total)*100)))}%` },
+                      ].map(stat => (
+                        <div key={stat.label} className="bg-app-card border border-app-border rounded-xl p-3 text-center">
+                          <p className="text-white font-bold text-lg leading-none">{stat.value}</p>
+                          <p className="text-app-text-secondary text-[10px] mt-1">{stat.label}</p>
+                        </div>
+                      ))}
+                    </div>
+                    {/* Recent results */}
+                    <p className="text-app-text-secondary text-xs mb-3">Gần đây</p>
+                    <div className="flex flex-col gap-2">
+                      {examHistory.slice(0, 5).map((h: any, i: number) => {
+                        const cfg = EXAM_OPTIONS_COMPAT.find(e => e.id === h.exam_type);
+                        const pct = Math.round((h.score / h.total) * 100);
+                        return (
+                          <button
+                            key={h.id || i}
+                            onClick={() => setSelectedHistory(h)}
+                            className="flex items-center gap-3 px-3 py-2.5 bg-app-card border border-app-border rounded-xl hover:border-app-border/50 transition-all cursor-pointer text-left"
+                          >
+                            <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: cfg?.bgColor || '#4ade8015' }}>
+                              <i className={`${cfg?.icon || 'ri-file-list-3-line'} text-sm`} style={{ color: cfg?.color || '#4ade80' }} />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-white text-xs font-medium truncate">{cfg?.title || h.exam_type}</p>
+                              <p className="text-app-text-faint text-[10px]">{new Date(h.taken_at).toLocaleDateString('vi-VN')}</p>
+                            </div>
+                            <span className={`text-xs font-bold ${pct >= 80 ? 'text-emerald-400' : pct >= 60 ? 'text-amber-400' : 'text-rose-400'}`}>{pct}%</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                    {examHistory.length > 5 && (
+                      <button
+                        onClick={() => setShowHistory(true)}
+                        className="mt-3 w-full text-center text-app-text-secondary text-xs hover:text-white transition-colors py-2"
+                      >
+                        Xem thêm {examHistory.length - 5} lần khác...
+                      </button>
+                    )}
+                  </>
+                ) : (
+                  <div className="rounded-2xl border border-app-border bg-app-card/30 p-6 text-center">
+                    <i className="ri-bar-chart-2-line text-2xl text-app-text-secondary mb-2 block" />
+                    <p className="text-app-text-secondary text-sm">Chưa có lịch sử thi</p>
+                    <p className="text-app-text-faint text-xs mt-1">Hoàn thành 1 bài thi để xem thống kê</p>
+                  </div>
+                )}
+              </div>
             </div>
 
-            {/* Exam History Section */}
-            {examHistory.length > 0 && (
-              <div className="mt-8">
+            {/* Full history collapsible (below, only if showHistory) */}
+            {showHistory && examHistory.length > 0 && (
+              <div className="mt-6">
                 <div className="flex items-center justify-between mb-4">
-                  <p className="text-app-text-secondary text-xs mb-0">Lịch sử thi</p>
-                  <button
-                    onClick={() => setShowHistory(!showHistory)}
-                    className="text-app-text-secondary text-xs hover:text-white transition-colors"
-                  >
-                    {showHistory ? "Ẩn" : "Hiện"}
-                  </button>
+                  <p className="text-app-text-secondary text-xs">Toàn bộ lịch sử</p>
+                  <button onClick={() => setShowHistory(false)} className="text-app-text-secondary text-xs hover:text-white transition-colors">Ẩn</button>
                 </div>
 
-                {showHistory && (
                   <>
                     {/* Filter Buttons */}
                     <div className="flex gap-2 mb-4">
-                      <button
-                        onClick={() => setFilterType("all")}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                          filterType === "all"
-                            ? "bg-white text-black"
-                            : "bg-app-card/50 text-app-text-secondary hover:text-white"
-                        }`}
-                      >
-                        Tất cả
-                      </button>
-                      <button
-                        onClick={() => setFilterType("eps")}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                          filterType === "eps"
-                            ? "bg-white text-black"
-                            : "bg-app-card/50 text-app-text-secondary hover:text-white"
-                        }`}
-                      >
-                        EPS-TOPIK
-                      </button>
-                      <button
-                        onClick={() => setFilterType("seoul")}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                          filterType === "seoul"
-                            ? "bg-white text-black"
-                            : "bg-app-card/50 text-app-text-secondary hover:text-white"
-                        }`}
-                      >
-                        Seoul
-                      </button>
-                      <button
-                        onClick={() => setFilterType("topik")}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                          filterType === "topik"
-                            ? "bg-white text-black"
-                            : "bg-app-card/50 text-app-text-secondary hover:text-white"
-                        }`}
-                      >
-                        TOPIK I
-                      </button>
+                      {["all","eps","topik"].map(f => (
+                        <button key={f} onClick={() => setFilterType(f)}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                            filterType === f ? "bg-white text-black" : "bg-app-card/50 text-app-text-secondary hover:text-white"
+                          }`}>
+                          {f === "all" ? "Tất cả" : f === "eps" ? "EPS-TOPIK" : "TOPIK I"}
+                        </button>
+                      ))}
                     </div>
 
                     {/* Filtered History */}
@@ -419,7 +434,6 @@ export default function ExamHubPage() {
                       );
                     })()}
                   </>
-                )}
               </div>
             )}
 
