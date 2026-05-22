@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { supabase } from "@/lib/supabase";
 import { computeXP, deriveLevel } from "@/lib/xp";
 import { getStreakData } from "@/utils/streak";
+import { enqueueXPSync, flushXPQueue } from "@/lib/xpSyncQueue";
 
 export function useStudySync() {
   const syncToCloud = useCallback(async (userId: string) => {
@@ -10,6 +11,14 @@ export function useStudySync() {
       const flashcardKnown = JSON.parse(localStorage.getItem("flashcard_known") || "{}");
       const hangulKnown = JSON.parse(localStorage.getItem("kts_hangul_known") || "{}");
       const examResults = JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]");
+      // Local granular XP — includes lesson completion bonuses, badges, manual
+      // grants that the formula doesn't see.
+      const localTotalXP = (() => {
+        try {
+          const raw = JSON.parse(localStorage.getItem("xp_total") || '{"total":0}');
+          return Number(raw?.total) || 0;
+        } catch { return 0; }
+      })();
 
       // Sync to user_progress (unified XP/streak)
       const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length + Object.values(hangulKnown).filter(Boolean).length;
@@ -22,7 +31,7 @@ export function useStudySync() {
         : 0;
       const totalCorrect = validExams.reduce((sum, r) => sum + (r.correctIds?.length ?? r.score ?? 0), 0);
 
-      const xp = computeXP({
+      const computedXP = computeXP({
         streakDays: streak.currentStreak,
         bestScorePct: bestScore,
         averageScorePct: avgScore,
@@ -32,9 +41,14 @@ export function useStudySync() {
       });
       const level = deriveLevel(bestScore);
 
-      await supabase.from("user_progress").upsert({
+      // XP RULE site-wide: server XP = max(formula, local). syncToCloud used
+      // to upload ONLY computedXP, which could shrink server XP on login if
+      // local had granular bonuses the formula couldn't see. Use the queue
+      // so the upsert is retried + flushed on unload like other XP writes.
+      const finalXP = Math.max(computedXP, localTotalXP);
+      enqueueXPSync({
         user_id: userId,
-        xp,
+        xp: finalXP,
         level,
         streak_count: streak.currentStreak,
         streak_last_date: streak.lastStudyDate || null,
@@ -42,7 +56,8 @@ export function useStudySync() {
         words_learned: wordsLearned,
         last_active_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
-      }, { onConflict: "user_id" });
+      });
+      void flushXPQueue();
 
       // Sync EPS progress to module_progress
       const epsAnswers = JSON.parse(localStorage.getItem("kts_eps_answers") || "{}");
@@ -213,8 +228,9 @@ export function useStudySync() {
       // Never decrease server XP — matches useXPSystem.scheduleServerSync.
       const finalXP = Math.max(computedXP, localTotalXP);
 
-      // Update user_progress (will trigger leaderboard sync via trigger)
-      await supabase.from("user_progress").upsert({
+      // Route through the same durable queue as scheduleServerSync — gives
+      // us retry + keepalive-on-unload behaviour for free.
+      enqueueXPSync({
         user_id: userId,
         xp: finalXP,
         level,
@@ -222,7 +238,8 @@ export function useStudySync() {
         streak_last_date: streak.lastStudyDate || null,
         last_active_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
-      }, { onConflict: "user_id" });
+      });
+      void flushXPQueue();
     } catch {
       // silent fail
     }
