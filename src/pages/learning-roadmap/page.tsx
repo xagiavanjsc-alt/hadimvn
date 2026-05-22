@@ -71,8 +71,8 @@ const GOAL_ROADMAPS: Record<Goal, { title: string; subtitle: string; icon: strin
     ],
   },
   seoul: {
-    title: "Giáo trình Seoul (Du học)",
-    subtitle: "Lộ trình học bài bản từ Seoul 1A đến TOPIK I",
+    title: "Giáo trình Seoul 1A → 4B",
+    subtitle: "Học đầy đủ từ 1A đến 4B — không cần biết tiếng Hàn trước",
     icon: "ri-book-3-line",
     color: "#60a5fa",
     beginnerFriendly: true,
@@ -181,8 +181,8 @@ const GOAL_ROADMAPS: Record<Goal, { title: string; subtitle: string; icon: strin
 
 const GOAL_OPTIONS: { id: Goal; title: string; subtitle: string; icon: string; color: string; beginnerFriendly: boolean; levelLabel: string }[] = [
   { id: "eps", title: "EPS-TOPIK", subtitle: "Không biết tiếng Hàn cũng học được", icon: "ri-file-list-3-line", color: "#4ade80", beginnerFriendly: true, levelLabel: "Phù hợp người mới 100%" },
-  { id: "conversation", title: "Giao tiếp", subtitle: "Nói chuyện tự nhiên", icon: "ri-chat-voice-line", color: "#fb923c", beginnerFriendly: true, levelLabel: "Phù hợp người mới" },
-  { id: "seoul", title: "Giáo trình Seoul", subtitle: "Du học, học thuật", icon: "ri-book-3-line", color: "#60a5fa", beginnerFriendly: true, levelLabel: "Phù hợp người mới" },
+  { id: "seoul", title: "Seoul 1A → 4B", subtitle: "Học bài bản theo giáo trình đại học", icon: "ri-book-3-line", color: "#60a5fa", beginnerFriendly: true, levelLabel: "Phù hợp người mới" },
+  { id: "conversation", title: "Giao tiếp", subtitle: "Nói chuyện tự nhiên hàng ngày", icon: "ri-chat-voice-line", color: "#fb923c", beginnerFriendly: true, levelLabel: "Phù hợp người mới" },
   { id: "topik", title: "Luyện thi TOPIK", subtitle: "Chứng chỉ quốc tế", icon: "ri-survey-line", color: "#f472b6", beginnerFriendly: false, levelLabel: "Cần biết cơ bản trước" },
   { id: "hanja", title: "Hán Hàn VIP", subtitle: "Từ vựng chuyên sâu", icon: "ri-character-recognition-line", color: "#eab308", beginnerFriendly: false, levelLabel: "Trung cấp trở lên" },
 ];
