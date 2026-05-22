@@ -6,40 +6,38 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { EPS_EXAMPLES, SEOUL_EXAMPLES, TOPIK_EXAMPLES } from "@/mocks/examSamples";
 import { indexedDB } from "@/lib/indexedDB";
 
-interface ExamOption {
+interface ExamItem {
+  id: string;
+  title: string;
+  questions: number;
+  minutes: number;
+  path?: string;        // navigate directly (real exams)
+  examType?: string;    // use UnifiedExam (mock exams)
+  badge?: string;
+}
+
+interface ExamSection {
   id: string;
   title: string;
   subtitle: string;
   icon: string;
   color: string;
-  bgColor: string;
-  totalQuestions: number;
-  timeLimit: number;
-  description: string;
+  bg: string;
+  items: ExamItem[];
 }
 
-const EXAM_OPTIONS: ExamOption[] = [
+const EXAM_SECTIONS: ExamSection[] = [
   {
     id: "eps",
     title: "EPS-TOPIK",
-    subtitle: "Lao động",
-    icon: "ri-file-list-3-line",
+    subtitle: "Lao động Hàn Quốc",
+    icon: "ri-headphone-line",
     color: "#4ade80",
-    bgColor: "rgba(74,222,128,0.08)",
-    totalQuestions: 50,
-    timeLimit: 1800,
-    description: "Đề thi EPS-TOPIK với 50 câu hỏi mẫu. Luyện thi chứng chỉ lao động Hàn Quốc.",
-  },
-  {
-    id: "seoul",
-    title: "Seoul",
-    subtitle: "Giáo trình du học",
-    icon: "ri-book-3-line",
-    color: "#60a5fa",
-    bgColor: "rgba(96,165,250,0.08)",
-    totalQuestions: 30,
-    timeLimit: 1500,
-    description: "Đề thi dựa trên giáo trình Seoul 1A-4B với 30 câu hỏi mẫu. Phù hợp cho học sinh du học.",
+    bg: "rgba(74,222,128,0.06)",
+    items: [
+      { id: "eps_01", title: "Đề Số 01", questions: 40, minutes: 50, path: "/eps-de1", badge: "Audio TTS" },
+      { id: "eps_02", title: "Đề Số 02", questions: 40, minutes: 50, path: "/eps-de2", badge: "Audio TTS" },
+    ],
   },
   {
     id: "topik",
@@ -47,45 +45,72 @@ const EXAM_OPTIONS: ExamOption[] = [
     subtitle: "Chứng chỉ tiếng Hàn",
     icon: "ri-survey-line",
     color: "#f472b6",
-    bgColor: "rgba(244,114,182,0.08)",
-    totalQuestions: 40,
-    timeLimit: 3000,
-    description: "Đề thi TOPIK I: 20 câu nghe + 20 câu đọc. Thời gian 50 phút.",
+    bg: "rgba(244,114,182,0.06)",
+    items: [
+      { id: "topik_mock", title: "Thử nghiệm", questions: 40, minutes: 50, examType: "topik", badge: "Mẫu" },
+    ],
+  },
+  {
+    id: "seoul",
+    title: "Seoul",
+    subtitle: "Giáo trình du học",
+    icon: "ri-book-3-line",
+    color: "#60a5fa",
+    bg: "rgba(96,165,250,0.06)",
+    items: [
+      { id: "seoul_mock", title: "Thử nghiệm", questions: 30, minutes: 25, examType: "seoul", badge: "Mẫu" },
+    ],
   },
 ];
 
-function ExamCard({ exam, onSelect }: { exam: ExamOption; onSelect: () => void }) {
+// Keep for UnifiedExam lookup
+const EXAM_OPTIONS_COMPAT = [
+  { id: "eps",   title: "EPS-TOPIK", subtitle: "Lao động",            icon: "ri-file-list-3-line", color: "#4ade80", bgColor: "rgba(74,222,128,0.08)",   totalQuestions: 50, timeLimit: 1800, description: "" },
+  { id: "seoul", title: "Seoul",     subtitle: "Giáo trình du học",   icon: "ri-book-3-line",      color: "#60a5fa", bgColor: "rgba(96,165,250,0.08)",   totalQuestions: 30, timeLimit: 1500, description: "" },
+  { id: "topik", title: "TOPIK I",   subtitle: "Chứng chỉ tiếng Hàn",icon: "ri-survey-line",      color: "#f472b6", bgColor: "rgba(244,114,182,0.08)", totalQuestions: 40, timeLimit: 3000, description: "" },
+];
+
+function SectionGroup({ section, onSelectItem }: { section: ExamSection; onSelectItem: (item: ExamItem) => void }) {
   return (
-    <button
-      onClick={onSelect}
-      className="w-full p-5 rounded-2xl border text-left transition-all hover:scale-[1.01] cursor-pointer"
-      style={{ backgroundColor: exam.bgColor, borderColor: exam.color + "30" }}
-    >
-      <div className="flex items-center gap-4 mb-3">
-        <div className="w-12 h-12 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: exam.color + "20" }}>
-          <i className={`${exam.icon} text-2xl`} style={{ color: exam.color }}></i>
+    <div className="rounded-2xl border overflow-hidden" style={{ borderColor: section.color + "25", backgroundColor: section.bg }}>
+      {/* Section header */}
+      <div className="flex items-center gap-3 px-4 py-3 border-b" style={{ borderColor: section.color + "20" }}>
+        <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: section.color + "20" }}>
+          <i className={`${section.icon} text-base`} style={{ color: section.color }} />
         </div>
-        <div className="flex-1">
-          <h3 className="text-white font-bold">{exam.title}</h3>
-          <p className="text-app-text-secondary text-xs">{exam.subtitle}</p>
-        </div>
-        <div className="w-5 h-5 flex items-center justify-center">
-          <i className="ri-arrow-right-line text-sm" style={{ color: exam.color }}></i>
+        <div>
+          <p className="text-white font-bold text-sm leading-none">{section.title}</p>
+          <p className="text-app-text-secondary text-[11px] mt-0.5">{section.subtitle}</p>
         </div>
       </div>
-      <div className="flex items-center gap-4 text-xs text-app-text-secondary">
-        <span>{exam.totalQuestions} câu hỏi</span>
-        <span>·</span>
-        <span>{Math.floor(exam.timeLimit / 60)} phút</span>
+      {/* Items */}
+      <div className="divide-y" style={{ borderColor: section.color + "15" }}>
+        {section.items.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => onSelectItem(item)}
+            className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-white/3 transition-all cursor-pointer"
+          >
+            <i className="ri-file-list-line text-sm flex-shrink-0" style={{ color: section.color + "99" }} />
+            <span className="flex-1 text-white text-sm font-medium">{item.title}</span>
+            {item.badge && (
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md" style={{ backgroundColor: section.color + "20", color: section.color }}>
+                {item.badge}
+              </span>
+            )}
+            <span className="text-app-text-secondary text-xs whitespace-nowrap">{item.questions} câu · {item.minutes} phút</span>
+            <i className="ri-arrow-right-s-line text-sm" style={{ color: section.color + "80" }} />
+          </button>
+        ))}
       </div>
-    </button>
+    </div>
   );
 }
 
 export default function ExamHubPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [activeExam, setActiveExam] = useState<ExamOption | null>(null);
+  const [activeExam, setActiveExam] = useState<any | null>(null);
   const [examResult, setExamResult] = useState<{ score: number; total: number; timeUsed: number } | null>(null);
   const [examHistory, setExamHistory] = useState<any[]>([]);
   const [showHistory, setShowHistory] = useState(false);
@@ -105,11 +130,18 @@ export default function ExamHubPage() {
     }
   };
 
-  const handleExamSelect = (exam: ExamOption) => {
-    if (exam.id === "eps") {
-      navigate("/eps-exams");
+  const handleSelectItem = (item: ExamItem) => {
+    if (item.path) {
+      navigate(item.path);
       return;
     }
+    if (item.examType) {
+      const compat = EXAM_OPTIONS_COMPAT.find(e => e.id === item.examType);
+      if (compat) { setActiveExam(compat as any); setExamResult(null); }
+    }
+  };
+
+  const handleExamSelect = (exam: any) => {
     setActiveExam(exam);
     setExamResult(null);
   };
@@ -229,9 +261,9 @@ export default function ExamHubPage() {
             </div>
 
             <p className="text-app-text-secondary text-xs mb-3">Tất cả đề thi</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {EXAM_OPTIONS.map(exam => (
-                <ExamCard key={exam.id} exam={exam} onSelect={() => handleExamSelect(exam)} />
+            <div className="flex flex-col gap-3 max-w-2xl">
+              {EXAM_SECTIONS.map(section => (
+                <SectionGroup key={section.id} section={section} onSelectItem={handleSelectItem} />
               ))}
             </div>
 
@@ -298,7 +330,7 @@ export default function ExamHubPage() {
                     {(() => {
                       const filteredHistory = filterType === "all"
                         ? examHistory
-                        : examHistory.filter(h => h.exam_type === filterType);
+                        : examHistory.filter((h: any) => h.exam_type === filterType);
 
                       if (filteredHistory.length === 0) {
                         return (
@@ -333,7 +365,7 @@ export default function ExamHubPage() {
                           {/* History List */}
                           <div className="space-y-3">
                             {filteredHistory.slice(0, 10).map((history, index) => {
-                              const examConfig = EXAM_OPTIONS.find(e => e.id === history.exam_type);
+                              const examConfig = EXAM_OPTIONS_COMPAT.find(e => e.id === history.exam_type);
                               const percentage = Math.round((history.score / history.total) * 100);
                               const date = new Date(history.taken_at);
                               const formattedDate = date.toLocaleDateString('vi-VN', {
@@ -401,15 +433,15 @@ export default function ExamHubPage() {
                       <div className="flex items-center gap-3">
                         <div
                           className="w-12 h-12 flex items-center justify-center rounded-xl"
-                          style={{ backgroundColor: EXAM_OPTIONS.find(e => e.id === selectedHistory.exam_type)?.bgColor || "#4ade8015" }}
+                          style={{ backgroundColor: EXAM_OPTIONS_COMPAT.find(e => e.id === selectedHistory.exam_type)?.bgColor || "#4ade8015" }}
                         >
                           <i
-                            className={`${EXAM_OPTIONS.find(e => e.id === selectedHistory.exam_type)?.icon || "ri-file-list-3-line"} text-2xl`}
-                            style={{ color: EXAM_OPTIONS.find(e => e.id === selectedHistory.exam_type)?.color || "#4ade80" }}
+                            className={`${EXAM_OPTIONS_COMPAT.find(e => e.id === selectedHistory.exam_type)?.icon || "ri-file-list-3-line"} text-2xl`}
+                            style={{ color: EXAM_OPTIONS_COMPAT.find(e => e.id === selectedHistory.exam_type)?.color || "#4ade80" }}
                           />
                         </div>
                         <div>
-                          <h2 className="text-white font-semibold">{EXAM_OPTIONS.find(e => e.id === selectedHistory.exam_type)?.title || selectedHistory.exam_type}</h2>
+                          <h2 className="text-white font-semibold">{EXAM_OPTIONS_COMPAT.find(e => e.id === selectedHistory.exam_type)?.title || selectedHistory.exam_type}</h2>
                           <p className="text-app-text-faint text-xs">
                             {new Date(selectedHistory.taken_at).toLocaleDateString('vi-VN', {
                               day: '2-digit',
