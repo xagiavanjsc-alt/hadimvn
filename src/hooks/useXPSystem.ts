@@ -395,6 +395,10 @@ export function useXPSystem() {
             }));
           }
         });
+        // Persist badge XP to the sync queue too — otherwise a tab close
+        // right after the level-up notification would lose this reward
+        // server-side.
+        scheduleServerSync();
       }
     },
     [
