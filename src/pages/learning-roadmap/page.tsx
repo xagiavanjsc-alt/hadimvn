@@ -27,8 +27,8 @@ interface PhaseGroup {
 
 const GOAL_ROADMAPS: Record<Goal, { title: string; subtitle: string; icon: string; color: string; beginnerFriendly: boolean; levelLabel: string; phases: PhaseGroup[] }> = {
   eps: {
-    title: "EPS-TOPIK (Lao động)",
-    subtitle: "Không biết tiếng Hàn vẫn học được — lộ trình rõ từng bước",
+    title: "Luyện thi EPS-TOPIK",
+    subtitle: "Không biết tiếng Hàn cũng học được — lộ trình rõ từng bước",
     icon: "ri-file-list-3-line",
     color: "#4ade80",
     beginnerFriendly: true,
@@ -309,15 +309,15 @@ export default function LearningRoadmapPage() {
     : 0;
 
   return (
-    <DashboardLayout title="Lộ trình học" subtitle="Kế hoạch học tiếng Hàn cá nhân hóa theo mục tiêu">
+    <DashboardLayout title="Lộ trình học" subtitle="Từ người mới hoàn toàn đến nâng cao — chọn đưỜng phù hợp với bạn">
       <div className="max-w-3xl mx-auto px-4 py-6">
 
         {/* Goal picker */}
         {showGoalPicker ? (
           <div>
             <div className="text-center mb-6">
-              <h2 className="text-white text-2xl font-bold mb-2">Mục tiêu của bạn là gì?</h2>
-              <p className="text-app-text-secondary text-sm">Chọn mục tiêu để nhận lộ trình học phù hợp nhất</p>
+              <h2 className="text-white text-2xl font-bold mb-2">Bạn muốn học theo hướng nào?</h2>
+              <p className="text-app-text-secondary text-sm">Chưa biết gì cũng không sao — có lộ trình cho mọi cấp độ, từ người mới đến nâng cao</p>
             </div>
             {/* Level filter */}
             <div className="flex items-center justify-center gap-2 mb-6">
