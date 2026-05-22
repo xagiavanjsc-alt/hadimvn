@@ -144,6 +144,12 @@ export default function AdminXPConfigPage() {
     setSettings(prev => ({ ...prev, [key]: value }));
   };
 
+  // Recompute hooks MUST sit before any early return, otherwise the hook
+  // order changes once `loading` flips from true to false and React unmounts
+  // the page (this is what wiped the XP config UI for the admin).
+  const [recomputing, setRecomputing] = useState(false);
+  const [recomputeResult, setRecomputeResult] = useState<{ users: number; ms: number } | null>(null);
+
   if (loading) {
     return (
       <AdminLayout title="Cấu hình XP" subtitle="Đang tải...">
@@ -155,9 +161,6 @@ export default function AdminXPConfigPage() {
   const weightFields = FIELDS.filter(f => f.group === "weights");
   const communityFields = FIELDS.filter(f => f.group === "community");
   const anticheatFields = FIELDS.filter(f => f.group === "anticheat");
-
-  const [recomputing, setRecomputing] = useState(false);
-  const [recomputeResult, setRecomputeResult] = useState<{ users: number; ms: number } | null>(null);
 
   const handleRecomputeAll = async () => {
     if (recomputing) return;
