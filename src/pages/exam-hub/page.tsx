@@ -106,6 +106,10 @@ export default function ExamHubPage() {
   };
 
   const handleExamSelect = (exam: ExamOption) => {
+    if (exam.id === "eps") {
+      navigate("/eps-exams");
+      return;
+    }
     setActiveExam(exam);
     setExamResult(null);
   };
