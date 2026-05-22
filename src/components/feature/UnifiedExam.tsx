@@ -103,7 +103,12 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
     try {
       await indexedDB.putExam(examData);
 
-      // Sync to Supabase
+      // Sync to Supabase. Mark is_valid client-side using the same 8s/câu rule
+      // the server uses, so the server-side anti-cheat decision is reflected
+      // back to the client immediately (no waiting for a later sync to discover
+      // the exam was rejected).
+      const MIN_SEC_PER_Q = 8;
+      const isValid = examData.time_used >= examData.total * MIN_SEC_PER_Q;
       await supabase.from("exam_results").insert({
         user_id: userId,
         exam_type: examType,
@@ -112,6 +117,7 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
         time_used: examData.time_used,
         correct_ids: examData.correct_ids,
         taken_at: examData.taken_at,
+        is_valid: isValid,
       });
 
       // Update local storage with latest exam result (so other pages see it)
