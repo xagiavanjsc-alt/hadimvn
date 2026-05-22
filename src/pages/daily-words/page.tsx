@@ -56,8 +56,7 @@ async function fetchDailyWords(count = 8): Promise<DailyWord[]> {
     const { data, error } = await supabase
       .from("hanja_vocab_entries")
       .select("id, korean, hanja, vietnamese, pronunciation, category, difficulty, examples, memory_tip")
-      .order("created_at", { ascending: true })
-      .limit(500);
+      .order("created_at", { ascending: true });
     if (error || !data || data.length < count) return pickDailyWordsFallback(count);
     const today = new Date().toISOString().split("T")[0];
     const seed = today.split("-").reduce((a, b) => a + parseInt(b), 0);
