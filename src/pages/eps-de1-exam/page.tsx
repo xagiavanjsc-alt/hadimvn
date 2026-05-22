@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { DE1_QUESTIONS, DE1_INFO, DE1_EXPLANATIONS, type De1Question } from "@/data/eps_de1";
 import { useXPSystem } from "@/hooks/useXPSystem";
@@ -373,12 +372,72 @@ function ResultScreen({
   );
 }
 
+// ─── Intro Screen ─────────────────────────────────────────────────────────────
+function IntroScreen({ onStart }: { onStart: () => void }) {
+  return (
+    <DashboardLayout title="Đề số 01 — EPS-TOPIK" subtitle="40 câu · 50 phút · Audio TTS">
+      <div className="max-w-2xl mx-auto space-y-4">
+        <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center">
+          <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-app-accent-primary/10 mx-auto mb-4">
+            <i className="ri-headphone-line text-app-accent-primary text-3xl"></i>
+          </div>
+          <h2 className="text-white text-xl font-bold mb-1">ĐỀ SỐ 01</h2>
+          <p className="text-app-text-secondary text-sm">EPS-TOPIK — 한국어능력시험 (Lao động)</p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          {[
+            { icon: "ri-time-line",       label: "Thời gian",  value: "50 phút",   color: "#eab308" },
+            { icon: "ri-question-line",   label: "Số câu",     value: "40 câu",    color: "#4ade80" },
+            { icon: "ri-book-open-line",  label: "Phần Đọc",   value: "20 câu",    color: "#a78bfa" },
+            { icon: "ri-headphone-line",  label: "Phần Nghe",  value: "20 câu",    color: "#38bdf8" },
+          ].map(info => (
+            <div key={info.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
+              <div className="w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${info.color}15` }}>
+                <i className={`${info.icon} text-base`} style={{ color: info.color }}></i>
+              </div>
+              <div>
+                <p className="text-app-text-secondary text-[10px]">{info.label}</p>
+                <p className="text-white font-bold text-sm">{info.value}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
+          <p className="text-white/50 text-sm font-semibold mb-3">Lưu ý trước khi thi</p>
+          <ul className="space-y-2">
+            {[
+              "Mỗi câu có 4 lựa chọn, chỉ 1 đáp án đúng",
+              "Phần Đọc (câu 1-20): đọc đoạn văn và chọn đáp án",
+              "Phần Nghe (câu 21-40): bấm nút Nghe để phát âm thanh TTS",
+              "Có thể chuyển qua lại bất kỳ câu bằng thanh số bên dưới",
+              "Kết quả phân tích chi tiết sau khi nộp bài",
+            ].map((rule, i) => (
+              <li key={i} className="flex items-start gap-2 text-app-text-secondary text-xs">
+                <i className="ri-checkbox-blank-circle-fill text-app-accent-primary/40 text-[6px] mt-1.5 flex-shrink-0"></i>
+                {rule}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <button
+          onClick={onStart}
+          className="w-full py-4 rounded-2xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-black text-lg transition-colors cursor-pointer"
+        >
+          <i className="ri-play-fill mr-2"></i>Bắt đầu thi
+        </button>
+      </div>
+    </DashboardLayout>
+  );
+}
+
 // ─── Main Page ────────────────────────────────────────────────────────────────
-type Phase = "exam" | "result" | "review";
+type Phase = "intro" | "exam" | "result" | "review";
 
 export default function EpsDe1ExamPage() {
-  const navigate = useNavigate();
-  const [phase, setPhase] = useState<Phase>("exam");
+  const [phase, setPhase] = useState<Phase>("intro");
   const [currentIdx, setCurrentIdx] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(new Array(DE1_QUESTIONS.length).fill(null));
   const [timeLeft, setTimeLeft] = useState(DE1_INFO.timeMinutes * 60);
@@ -387,39 +446,34 @@ export default function EpsDe1ExamPage() {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const { awardXP } = useXPSystem();
 
+  const TOTAL = DE1_INFO.timeMinutes * 60;
+  const readingQs  = DE1_QUESTIONS.filter(q => q.section === "reading");
+  const listeningQs = DE1_QUESTIONS.filter(q => q.section === "listening");
+  const currentSection = currentIdx < 20 ? "reading" : "listening";
+
   // Timer
   useEffect(() => {
-    if (phase !== "exam") {
-      if (timerRef.current) clearInterval(timerRef.current);
-      return;
-    }
+    if (phase !== "exam") { if (timerRef.current) clearInterval(timerRef.current); return; }
     timerRef.current = setInterval(() => {
-      setTimeLeft((t) => {
-        if (t <= 1) {
-          clearInterval(timerRef.current!);
-          setPhase("result");
-          return 0;
-        }
+      setTimeLeft(t => {
+        if (t <= 1) { clearInterval(timerRef.current!); setPhase("result"); return 0; }
         return t - 1;
       });
     }, 1000);
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, [phase]);
 
-  const formatTime = (s: number) =>
-    `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+  const fmt = (s: number) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+  const timePct = (timeLeft / TOTAL) * 100;
+  const isDanger = timeLeft < 180;
+  const isWarning = timeLeft < 600;
 
-  const timerColor = timeLeft < 300 ? "text-rose-500" : timeLeft < 600 ? "text-amber-500" : "text-emerald-600";
-
-  const q = DE1_QUESTIONS[currentIdx];
-  const answered = answers.filter((a) => a !== null).length;
+  const answered = answers.filter(a => a !== null).length;
+  const readingAnswered  = answers.slice(0, 20).filter(a => a !== null).length;
+  const listeningAnswered = answers.slice(20).filter(a => a !== null).length;
 
   const selectAnswer = (idx: number) => {
-    setAnswers((prev) => {
-      const next = [...prev];
-      next[currentIdx] = idx;
-      return next;
-    });
+    setAnswers(prev => { const next = [...prev]; next[currentIdx] = idx; return next; });
   };
 
   const submit = () => {
@@ -428,177 +482,139 @@ export default function EpsDe1ExamPage() {
     const xp = 20 + correctCount * 5;
     setXpEarned(xp);
     awardXP({ type: "eps_exam_completed" });
-    DE1_QUESTIONS.forEach((q, i) => {
-      if (answers[i] === q.correct) awardXP({ type: "eps_question_correct" });
-    });
+    DE1_QUESTIONS.forEach((q, i) => { if (answers[i] === q.correct) awardXP({ type: "eps_question_correct" }); });
     setPhase("result");
   };
 
-  // Section dividers for nav
-  const navSections = [
-    { label: "ĐỌC 1-20", start: 0, end: 19, color: "text-violet-600" },
-    { label: "NGHE 21-40", start: 20, end: 39, color: "text-sky-600" },
-  ];
+  const handleRetry = () => {
+    setAnswers(new Array(DE1_QUESTIONS.length).fill(null));
+    setCurrentIdx(0);
+    setTimeLeft(TOTAL);
+    setPhase("intro");
+  };
 
+  // ── Intro ──
+  if (phase === "intro") return <IntroScreen onStart={() => setPhase("exam")} />;
+
+  // ── Result ──
   if (phase === "result") {
     return (
       <DashboardLayout title="Kết quả — Đề số 01">
-        <ResultScreen
-          answers={answers}
-          xpEarned={xpEarned}
-          onRetry={() => {
-            setAnswers(new Array(DE1_QUESTIONS.length).fill(null));
-            setCurrentIdx(0);
-            setTimeLeft(DE1_INFO.timeMinutes * 60);
-            setPhase("exam");
-          }}
-          onReview={() => { setCurrentIdx(0); setPhase("review"); }}
-        />
+        <ResultScreen answers={answers} xpEarned={xpEarned} onRetry={handleRetry} onReview={() => { setCurrentIdx(0); setPhase("review"); }} />
       </DashboardLayout>
     );
   }
 
   const isReview = phase === "review";
+  const q = DE1_QUESTIONS[currentIdx];
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden bg-[#f4f6fb]">
-      {/* ── Top bar ── */}
-      <div className="flex-shrink-0 bg-white border-b border-gray-200 px-4 py-2.5 flex items-center gap-3 shadow-sm">
-        <button
-          onClick={() => { tts.stop(); navigate(-1); }}
-          className="flex items-center gap-1 text-gray-500 hover:text-gray-700 text-sm cursor-pointer whitespace-nowrap"
-        >
-          <i className="ri-arrow-left-line"></i>
-          Thoát
+    <DashboardLayout
+      title="ĐỀ SỐ 01 — EPS-TOPIK"
+      subtitle={isReview ? "Xem lại đáp án" : `${answered}/${DE1_QUESTIONS.length} câu đã trả lời`}
+      actions={!isReview ? (
+        <button onClick={submit} className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
+          <i className="ri-send-plane-fill"></i>Nộp bài ({answered}/{DE1_QUESTIONS.length})
         </button>
-
-        <div className="flex-1 min-w-0">
-          <p className="text-gray-700 font-bold text-sm truncate">ĐỀ SỐ 01 — EPS-TOPIK</p>
-          <div className="h-1 bg-gray-100 rounded-full overflow-hidden mt-1">
-            <div
-              className="h-full bg-app-accent-primary rounded-full transition-all"
-              style={{ width: `${((currentIdx + 1) / DE1_QUESTIONS.length) * 100}%` }}
-            />
+      ) : (
+        <button onClick={() => setPhase("result")} className="flex items-center gap-2 bg-app-card text-white text-sm px-4 py-2 rounded-xl border border-app-border cursor-pointer">
+          <i className="ri-bar-chart-2-line"></i>Kết quả
+        </button>
+      )}
+    >
+      {/* ── Sticky timer bar ── */}
+      {!isReview && (
+        <div className={`sticky top-0 z-10 bg-[#0a0c10]/95 backdrop-blur-sm border-b mb-5 py-3 px-1 -mx-1 ${isDanger ? "border-red-500/30" : isWarning ? "border-app-accent-primary/20" : "border-app-border"}`}>
+          <div className="flex items-center gap-4">
+            <div className={`flex items-center gap-2 px-4 py-2 rounded-xl border font-mono font-bold text-lg whitespace-nowrap ${isDanger ? "border-red-500/30 bg-red-500/8 text-red-400" : isWarning ? "border-app-accent-primary/25 bg-app-accent-primary/8 text-app-accent-primary" : "border-app-border bg-app-surface/50 text-white/70"}`}>
+              <i className={`ri-time-line text-base ${isDanger ? "animate-pulse" : ""}`}></i>
+              {fmt(timeLeft)}
+            </div>
+            <div className="flex-1">
+              <div className="flex justify-between mb-1">
+                <span className="text-app-text-muted text-[10px]">Thời gian còn lại</span>
+                <span className="text-app-text-muted text-[10px]">{Math.round(timePct)}%</span>
+              </div>
+              <div className="bg-app-card/50 rounded-full h-1.5 overflow-hidden">
+                <div className="h-full rounded-full transition-all" style={{ width: `${timePct}%`, backgroundColor: isDanger ? "#f87171" : isWarning ? "#eab308" : "#4ade80" }}></div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 text-xs whitespace-nowrap">
+              <span className="text-[#a78bfa]/80">Đọc: {readingAnswered}/{readingQs.length}</span>
+              <span className="text-[#38bdf8]/80">Nghe: {listeningAnswered}/{listeningQs.length}</span>
+            </div>
           </div>
         </div>
+      )}
 
-        {!isReview && (
-          <div className={`flex items-center gap-1 font-mono font-bold text-sm ${timerColor} whitespace-nowrap`}>
-            <i className="ri-timer-line"></i>
-            {formatTime(timeLeft)}
-          </div>
-        )}
-
-        <span className="text-gray-400 text-xs whitespace-nowrap">
-          {isReview ? `Xem lại` : `${answered}/${DE1_QUESTIONS.length}`}
-        </span>
-
-        {!isReview && (
+      {/* ── Section tabs ── */}
+      <div className="flex items-center bg-app-card/50 rounded-xl p-1 mb-5 w-fit">
+        {([["reading", "ri-book-open-line", "#a78bfa", 0, "Đọc"], ["listening", "ri-headphone-line", "#38bdf8", 20, "Nghe"]] as const).map(([sec, icon, color, start, label]) => (
           <button
-            onClick={submit}
-            className="px-3 py-1.5 bg-app-accent-primary text-app-bg rounded-lg text-xs font-bold cursor-pointer whitespace-nowrap"
+            key={sec}
+            onClick={() => setCurrentIdx(start)}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${currentSection === sec ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}
           >
-            Nộp bài
+            <i className={icon} style={currentSection !== sec ? { color } : {}}></i>
+            {label} ({sec === "reading" ? readingAnswered : listeningAnswered}/{sec === "reading" ? readingQs.length : listeningQs.length})
           </button>
-        )}
-        {isReview && (
-          <button
-            onClick={() => setPhase("result")}
-            className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-lg text-xs font-semibold cursor-pointer whitespace-nowrap"
-          >
-            Kết quả
-          </button>
-        )}
+        ))}
       </div>
 
-      {/* ── Main content ── */}
-      <div className="flex-1 overflow-y-auto p-4 md:p-6">
-        <div className="max-w-2xl mx-auto">
-          <QuestionCard
-            q={q}
-            answer={answers[currentIdx]}
-            onAnswer={selectAnswer}
-            showResult={isReview}
-            tts={tts}
-          />
-        </div>
-      </div>
-
-      {/* ── Bottom nav ── */}
-      <div className="flex-shrink-0 bg-white border-t border-gray-200 px-4 py-3 space-y-2">
-        {/* Section quick-jump */}
-        <div className="flex gap-2">
-          {navSections.map((s) => (
+      {/* ── Question number grid ── */}
+      <div className="flex flex-wrap gap-1.5 mb-5 bg-app-bg border border-app-border rounded-xl p-3">
+        {DE1_QUESTIONS.filter(dq => dq.section === currentSection).map((dq, sIdx) => {
+          const gIdx = currentSection === "reading" ? sIdx : sIdx + 20;
+          const isAnswered = answers[gIdx] !== null;
+          const isCurrent = gIdx === currentIdx;
+          const isWrong = isReview && answers[gIdx] !== dq.correct;
+          const isRight = isReview && answers[gIdx] === dq.correct;
+          return (
             <button
-              key={s.label}
-              onClick={() => setCurrentIdx(s.start)}
-              className={`text-[10px] font-bold px-3 py-1 rounded-full border transition-colors cursor-pointer ${
-                currentIdx >= s.start && currentIdx <= s.end
-                  ? "bg-app-accent-primary/15 border-app-accent-primary/30 text-app-accent-primary"
-                  : "bg-gray-50 border-gray-200 text-gray-500 hover:bg-gray-100"
+              key={dq.id}
+              onClick={() => { setCurrentIdx(gIdx); document.getElementById("question-card")?.scrollIntoView({ behavior: "smooth" }); }}
+              className={`w-8 h-8 flex items-center justify-center rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                isCurrent ? "bg-app-accent-primary text-app-bg" :
+                isRight   ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" :
+                isWrong   ? "bg-red-500/20 text-red-400 border border-red-500/30" :
+                isAnswered ? "bg-app-card text-white border border-app-border" :
+                "bg-app-card/50 text-app-text-muted"
               }`}
             >
-              {s.label}
+              {dq.id}
             </button>
-          ))}
-        </div>
-
-        {/* Question number dots */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setCurrentIdx((p) => Math.max(0, p - 1))}
-            disabled={currentIdx === 0}
-            className="flex items-center gap-1 px-3 py-2 bg-gray-100 rounded-xl text-gray-600 text-sm disabled:opacity-40 cursor-pointer whitespace-nowrap"
-          >
-            <i className="ri-arrow-left-line"></i>
-          </button>
-
-          <div className="flex-1 flex gap-1 overflow-x-auto py-0.5 scrollbar-hide">
-            {DE1_QUESTIONS.map((dq, i) => {
-              const isAnswered = answers[i] !== null;
-              const isCurrent = i === currentIdx;
-              const isWrong = isReview && answers[i] !== dq.correct;
-              const isRight = isReview && answers[i] === dq.correct;
-              return (
-                <button
-                  key={i}
-                  onClick={() => setCurrentIdx(i)}
-                  className={`w-6 h-6 flex-shrink-0 rounded text-[9px] font-bold transition-all cursor-pointer ${
-                    isCurrent
-                      ? "bg-app-accent-primary text-app-bg"
-                      : isRight
-                      ? "bg-emerald-400 text-white"
-                      : isWrong
-                      ? "bg-rose-400 text-white"
-                      : isAnswered
-                      ? dq.section === "listening"
-                        ? "bg-sky-100 text-sky-600"
-                        : "bg-violet-100 text-violet-600"
-                      : "bg-gray-100 text-gray-400"
-                  }`}
-                >
-                  {i + 1}
-                </button>
-              );
-            })}
-          </div>
-
-          <button
-            onClick={() =>
-              currentIdx === DE1_QUESTIONS.length - 1 && !isReview
-                ? submit()
-                : setCurrentIdx((p) => Math.min(DE1_QUESTIONS.length - 1, p + 1))
-            }
-            className="flex items-center gap-1 px-3 py-2 bg-app-accent-primary text-app-bg rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap"
-          >
-            {currentIdx === DE1_QUESTIONS.length - 1 && !isReview ? (
-              "Nộp"
-            ) : (
-              <i className="ri-arrow-right-line"></i>
-            )}
-          </button>
-        </div>
+          );
+        })}
       </div>
-    </div>
+
+      {/* ── Question card ── */}
+      <div id="question-card" className="bg-app-bg border border-app-border rounded-2xl p-5 mb-4 scroll-mt-4">
+        <QuestionCard q={q} answer={answers[currentIdx]} onAnswer={selectAnswer} showResult={isReview} tts={tts} />
+      </div>
+
+      {/* ── Prev / Next ── */}
+      <div className="flex gap-3 justify-between">
+        <button
+          onClick={() => setCurrentIdx(p => Math.max(0, p - 1))}
+          disabled={currentIdx === 0}
+          className="flex items-center gap-2 px-5 py-3 rounded-xl bg-app-card border border-app-border text-white text-sm font-medium disabled:opacity-40 cursor-pointer"
+        >
+          <i className="ri-arrow-left-line"></i>Trước
+        </button>
+        {currentIdx === DE1_QUESTIONS.length - 1 && !isReview ? (
+          <button onClick={submit} className="flex items-center gap-2 px-8 py-3 rounded-xl bg-app-accent-primary text-app-bg font-bold text-sm cursor-pointer">
+            <i className="ri-send-plane-fill"></i>Nộp bài
+          </button>
+        ) : (
+          <button
+            onClick={() => setCurrentIdx(p => Math.min(DE1_QUESTIONS.length - 1, p + 1))}
+            disabled={currentIdx === DE1_QUESTIONS.length - 1}
+            className="flex items-center gap-2 px-5 py-3 rounded-xl bg-app-accent-primary text-app-bg text-sm font-bold disabled:opacity-40 cursor-pointer"
+          >
+            Tiếp<i className="ri-arrow-right-line"></i>
+          </button>
+        )}
+      </div>
+    </DashboardLayout>
   );
 }
