@@ -157,12 +157,12 @@ function AntonymQuiz({ pairs, onClose }: { pairs: AntonymPair[]; onClose: () => 
     const pct = Math.round((score / questions.length) * 100);
     return (
       <div className="text-center py-8">
-        <div className={`w-16 h-16 flex items-center justify-center rounded-full mx-auto mb-4 ${pct >= 80 ? "bg-green-100" : pct >= 50 ? "bg-amber-100" : "bg-red-100"}`}>
-          <i className={`text-2xl ${pct >= 80 ? "ri-trophy-line text-green-600" : pct >= 50 ? "ri-emotion-normal-line text-amber-600" : "ri-emotion-sad-line text-red-500"}`}></i>
+        <div className={`w-16 h-16 flex items-center justify-center rounded-full mx-auto mb-4 ${pct >= 80 ? "bg-green-500/20" : pct >= 50 ? "bg-amber-500/20" : "bg-red-500/20"}`}>
+          <i className={`text-2xl ${pct >= 80 ? "ri-trophy-line text-green-400" : pct >= 50 ? "ri-emotion-normal-line text-amber-400" : "ri-emotion-sad-line text-red-400"}`}></i>
         </div>
-        <p className="text-2xl font-bold text-gray-900 mb-1">{pct}%</p>
-        <p className="text-gray-500 mb-6">Đúng {score} / {questions.length} cặp</p>
-        <button onClick={onClose} className="px-6 py-2.5 border border-gray-200 text-gray-700 rounded-xl font-medium cursor-pointer hover:bg-gray-50 transition-colors">
+        <p className="text-2xl font-bold text-white mb-1">{pct}%</p>
+        <p className="text-white/50 mb-6">Đúng {score} / {questions.length} cặp</p>
+        <button onClick={onClose} className="px-6 py-2.5 border border-app-border text-white/80 rounded-xl font-medium cursor-pointer hover:bg-app-surface/50 transition-colors">
           Quay lại
         </button>
       </div>
@@ -175,62 +175,62 @@ function AntonymQuiz({ pairs, onClose }: { pairs: AntonymPair[]; onClose: () => 
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
-        <button onClick={onClose} className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
+        <button onClick={onClose} className="flex items-center gap-1 text-sm text-white/50 hover:text-white/80 cursor-pointer">
           <i className="ri-arrow-left-line"></i> Dừng
         </button>
-        <span className="text-sm text-gray-500">{idx + 1} / {questions.length}</span>
-        <span className="text-sm font-semibold text-rose-600">✓ {score}</span>
+        <span className="text-sm text-white/50">{idx + 1} / {questions.length}</span>
+        <span className="text-sm font-semibold text-app-accent-primary">✓ {score}</span>
       </div>
-      <div className="w-full bg-gray-100 rounded-full h-1.5 mb-5">
-        <div className="bg-rose-400 h-1.5 rounded-full transition-all" style={{ width: `${(idx / questions.length) * 100}%` }}></div>
+      <div className="w-full bg-app-surface/50 rounded-full h-1.5 mb-5">
+        <div className="bg-app-accent-primary h-1.5 rounded-full transition-all" style={{ width: `${(idx / questions.length) * 100}%` }}></div>
       </div>
-      <div className="bg-rose-50 border border-rose-200 rounded-2xl p-6 text-center mb-5">
-        <p className="text-xs text-rose-400 tracking-normal mb-2">Từ đối nghĩa của từ này là gì?</p>
-        <p className="text-4xl font-bold text-gray-900 mb-1">{current.pair.a}</p>
-        {entryA && <p className="text-lg text-rose-400 font-bold mb-1">{entryA.hanja}</p>}
-        {entryA && <p className="text-sm text-gray-500">{entryA.vietnamese}</p>}
+      <div className="bg-app-accent-primary/10 border border-app-accent-primary/30 rounded-2xl p-6 text-center mb-5">
+        <p className="text-xs text-app-accent-primary tracking-normal mb-2">Từ đối nghĩa của từ này là gì?</p>
+        <p className="text-4xl font-bold text-white mb-1">{current.pair.a}</p>
+        {entryA && <p className="text-lg text-app-accent-primary font-bold mb-1">{entryA.hanja}</p>}
+        {entryA && <p className="text-sm text-white/50">{entryA.vietnamese}</p>}
         <button onClick={() => speakKorean(current.pair.a)}
-          className="mt-2 flex items-center gap-1 px-3 py-1 bg-white rounded-full text-xs text-rose-500 cursor-pointer hover:bg-rose-100 transition-colors mx-auto">
+          className="mt-2 flex items-center gap-1 px-3 py-1 bg-app-surface/50 rounded-full text-xs text-app-accent-primary cursor-pointer hover:bg-app-accent-primary/20 transition-colors mx-auto">
           <i className="ri-volume-up-line"></i>Nghe
         </button>
       </div>
       <div className="grid grid-cols-2 gap-3 mb-4">
         {current.choices.map((choice, i) => {
           const entry = getEntry(choice);
-          let cls = "border-2 border-gray-200 bg-white hover:border-rose-300";
+          let cls = "border-2 border-app-border bg-app-surface/50 hover:border-app-accent-primary";
           if (answered) {
-            if (choice === current.pair.b) cls = "border-2 border-green-400 bg-green-50";
-            else if (choice === selected) cls = "border-2 border-red-400 bg-red-50";
-            else cls = "border-2 border-gray-100 bg-gray-50 opacity-60";
+            if (choice === current.pair.b) cls = "border-2 border-green-400 bg-green-500/10";
+            else if (choice === selected) cls = "border-2 border-red-400 bg-red-500/10";
+            else cls = "border-2 border-app-border bg-app-surface/30 opacity-60";
           }
           return (
             <button key={i} onClick={() => handleAnswer(choice)} disabled={answered}
               className={`p-4 rounded-xl text-center cursor-pointer transition-all disabled:cursor-default ${cls}`}>
-              <p className="text-xl font-bold text-gray-900">{choice}</p>
-              {entry && <p className="text-sm text-rose-400">{entry.hanja}</p>}
-              {entry && <p className="text-xs text-gray-500 mt-1">{entry.vietnamese}</p>}
-              {answered && choice === current.pair.b && <i className="ri-check-line text-green-600 text-lg mt-1 block"></i>}
+              <p className="text-xl font-bold text-white">{choice}</p>
+              {entry && <p className="text-sm text-app-accent-primary">{entry.hanja}</p>}
+              {entry && <p className="text-xs text-white/50 mt-1">{entry.vietnamese}</p>}
+              {answered && choice === current.pair.b && <i className="ri-check-line text-green-400 text-lg mt-1 block"></i>}
             </button>
           );
         })}
       </div>
       {answered && (
         <div className="mb-4">
-          <div className="bg-white border border-gray-100 rounded-xl p-4 flex items-center gap-4 justify-center">
+          <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 flex items-center gap-4 justify-center">
             <div className="text-center">
-              <p className="text-2xl font-bold text-gray-900">{current.pair.a}</p>
-              {entryA && <p className="text-xs text-gray-500">{entryA.vietnamese}</p>}
+              <p className="text-2xl font-bold text-white">{current.pair.a}</p>
+              {entryA && <p className="text-xs text-white/50">{entryA.vietnamese}</p>}
             </div>
-            <div className="flex items-center gap-2 text-gray-400">
+            <div className="flex items-center gap-2 text-white/40">
               <i className="ri-arrow-left-right-line text-xl"></i>
-              <span className="text-xs font-medium text-rose-500">Đối nghĩa</span>
+              <span className="text-xs font-medium text-app-accent-primary">Đối nghĩa</span>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-gray-900">{current.pair.b}</p>
-              {entryB && <p className="text-xs text-gray-500">{entryB.vietnamese}</p>}
+              <p className="text-2xl font-bold text-white">{current.pair.b}</p>
+              {entryB && <p className="text-xs text-white/50">{entryB.vietnamese}</p>}
             </div>
           </div>
-          <button onClick={next} className="w-full mt-3 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">
+          <button onClick={next} className="w-full mt-3 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
             {idx + 1 >= questions.length ? "Xem kết quả" : "Tiếp theo →"}
           </button>
         </div>
@@ -266,62 +266,62 @@ function AddPairModal({ onAdd, onClose }: { onAdd: (pair: AntonymPair) => void; 
 
   return (
     <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={onClose}>
-      <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl" onClick={e => e.stopPropagation()}>
+      <div className="bg-app-surface/50 rounded-2xl p-6 w-full max-w-md shadow-xl" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-5">
-          <h3 className="text-lg font-bold text-gray-900">Thêm cặp đối nghĩa</h3>
-          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 cursor-pointer">
-            <i className="ri-close-line text-gray-500"></i>
+          <h3 className="text-lg font-bold text-white">Thêm cặp đối nghĩa</h3>
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-app-surface/70 cursor-pointer">
+            <i className="ri-close-line text-white/50"></i>
           </button>
         </div>
 
         <div className="grid grid-cols-2 gap-3 mb-4">
           <div>
-            <label className="text-xs font-medium text-gray-500 mb-1 block">Từ A</label>
+            <label className="text-xs font-medium text-white/50 mb-1 block">Từ A</label>
             <input value={wordA} onChange={e => setWordA(e.target.value)} placeholder="예: 성공"
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
+              className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
             {previewA && (
-              <div className="mt-1 p-2 bg-rose-50 rounded-lg text-center">
-                <p className="text-sm font-bold text-rose-500">{previewA.hanja}</p>
-                <p className="text-xs text-gray-500">{previewA.vietnamese}</p>
+              <div className="mt-1 p-2 bg-app-accent-primary/10 rounded-lg text-center">
+                <p className="text-sm font-bold text-app-accent-primary">{previewA.hanja}</p>
+                <p className="text-xs text-white/50">{previewA.vietnamese}</p>
               </div>
             )}
           </div>
           <div>
-            <label className="text-xs font-medium text-gray-500 mb-1 block">Từ B (đối nghĩa)</label>
+            <label className="text-xs font-medium text-white/50 mb-1 block">Từ B (đối nghĩa)</label>
             <input value={wordB} onChange={e => setWordB(e.target.value)} placeholder="예: 실패"
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
+              className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
             {previewB && (
-              <div className="mt-1 p-2 bg-gray-50 rounded-lg text-center">
-                <p className="text-sm font-bold text-rose-500">{previewB.hanja}</p>
-                <p className="text-xs text-gray-500">{previewB.vietnamese}</p>
+              <div className="mt-1 p-2 bg-app-surface/30 rounded-lg text-center">
+                <p className="text-sm font-bold text-app-accent-primary">{previewB.hanja}</p>
+                <p className="text-xs text-white/50">{previewB.vietnamese}</p>
               </div>
             )}
           </div>
         </div>
 
         <div className="mb-4">
-          <label className="text-xs font-medium text-gray-500 mb-2 block">Chủ đề</label>
+          <label className="text-xs font-medium text-white/50 mb-2 block">Chủ đề</label>
           <div className="flex flex-wrap gap-2">
             {PRESET_CATS.map(cat => (
               <button key={cat} onClick={() => setCategory(cat)}
-                className={`px-3 py-1 rounded-full text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${category === cat ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+                className={`px-3 py-1 rounded-full text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${category === cat ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
                 {cat}
               </button>
             ))}
           </div>
           {category === "Tùy chỉnh" && (
             <input value={customCat} onChange={e => setCustomCat(e.target.value)} placeholder="Nhập tên chủ đề..."
-              className="mt-2 w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
+              className="mt-2 w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
           )}
         </div>
 
-        {error && <p className="text-xs text-red-500 mb-3">{error}</p>}
+        {error && <p className="text-xs text-red-400 mb-3">{error}</p>}
 
         <div className="flex gap-3">
-          <button onClick={onClose} className="flex-1 py-2.5 border border-gray-200 text-gray-700 rounded-xl text-sm font-medium cursor-pointer hover:bg-gray-50 transition-colors">
+          <button onClick={onClose} className="flex-1 py-2.5 border border-app-border text-white/80 rounded-xl text-sm font-medium cursor-pointer hover:bg-app-surface/50 transition-colors">
             Hủy
           </button>
-          <button onClick={handleSubmit} className="flex-1 py-2.5 bg-rose-500 text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-rose-600 transition-colors">
+          <button onClick={handleSubmit} className="flex-1 py-2.5 bg-app-accent-primary text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
             Thêm cặp
           </button>
         </div>
@@ -339,37 +339,37 @@ function PairCard({ pair, srData, onDelete }: { pair: AntonymPair; srData: Recor
   const masteryB = getMastery(pair.b, srData);
 
   const masteryColor = (m: string) =>
-    m === "mastered" ? "text-green-600 bg-green-50" : m === "learning" ? "text-amber-600 bg-amber-50" : "text-gray-500 bg-gray-100";
+    m === "mastered" ? "text-green-400 bg-green-500/10" : m === "learning" ? "text-amber-400 bg-amber-500/10" : "text-white/50 bg-app-surface/50";
   const masteryLabel = (m: string) =>
     m === "mastered" ? "Đã thuộc" : m === "learning" ? "Đang học" : "Mới";
 
   return (
-    <div className={`bg-white border rounded-2xl p-4 hover:border-rose-200 transition-all ${pair.custom ? "border-rose-200" : "border-gray-100"}`}>
+    <div className={`bg-app-surface/50 border rounded-2xl p-4 hover:border-app-accent-primary transition-all ${pair.custom ? "border-app-accent-primary/30" : "border-app-border"}`}>
       {pair.custom && (
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs text-rose-500 font-medium flex items-center gap-1">
+          <span className="text-xs text-app-accent-primary font-medium flex items-center gap-1">
             <i className="ri-user-line"></i>Cặp của tôi
           </span>
           {onDelete && (
-            <button onClick={onDelete} className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-red-50 cursor-pointer text-gray-400 hover:text-red-500 transition-colors">
+            <button onClick={onDelete} className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-red-500/10 cursor-pointer text-white/40 hover:text-red-400 transition-colors">
               <i className="ri-delete-bin-line text-xs"></i>
             </button>
           )}
         </div>
       )}
       <div className="flex items-stretch gap-3">
-        <div className="flex-1 bg-rose-50 rounded-xl p-3 text-center">
-          <p className="text-2xl font-bold text-gray-900">{pair.a}</p>
+        <div className="flex-1 bg-app-accent-primary/10 rounded-xl p-3 text-center">
+          <p className="text-2xl font-bold text-white">{pair.a}</p>
           {entryA ? (
             <>
-              <p className="text-base font-bold text-rose-400">{entryA.hanja}</p>
-              <p className="text-xs text-gray-500 mt-1">{entryA.vietnamese}</p>
+              <p className="text-base font-bold text-app-accent-primary">{entryA.hanja}</p>
+              <p className="text-xs text-white/50 mt-1">{entryA.vietnamese}</p>
             </>
           ) : (
-            <p className="text-xs text-gray-400 mt-1 italic">Không có trong từ điển</p>
+            <p className="text-xs text-white/40 mt-1 italic">Không có trong từ điển</p>
           )}
           <button onClick={() => speakKorean(pair.a)}
-            className="mt-2 w-6 h-6 flex items-center justify-center bg-white rounded-full text-rose-400 cursor-pointer hover:bg-rose-100 transition-colors mx-auto">
+            className="mt-2 w-6 h-6 flex items-center justify-center bg-app-surface/50 rounded-full text-app-accent-primary cursor-pointer hover:bg-app-accent-primary/20 transition-colors mx-auto">
             <i className="ri-volume-up-line text-xs"></i>
           </button>
           <span className={`inline-block mt-2 px-2 py-0.5 rounded-full text-xs font-medium ${masteryColor(masteryA)}`}>
@@ -377,21 +377,21 @@ function PairCard({ pair, srData, onDelete }: { pair: AntonymPair; srData: Recor
           </span>
         </div>
         <div className="flex flex-col items-center justify-center gap-1 flex-shrink-0">
-          <i className="ri-arrow-left-right-line text-gray-300 text-xl"></i>
-          <span className="text-xs text-rose-400 font-medium whitespace-nowrap">Đối nghĩa</span>
+          <i className="ri-arrow-left-right-line text-white/30 text-xl"></i>
+          <span className="text-xs text-app-accent-primary font-medium whitespace-nowrap">Đối nghĩa</span>
         </div>
-        <div className="flex-1 bg-gray-50 rounded-xl p-3 text-center">
-          <p className="text-2xl font-bold text-gray-900">{pair.b}</p>
+        <div className="flex-1 bg-app-surface/30 rounded-xl p-3 text-center">
+          <p className="text-2xl font-bold text-white">{pair.b}</p>
           {entryB ? (
             <>
-              <p className="text-base font-bold text-rose-400">{entryB.hanja}</p>
-              <p className="text-xs text-gray-500 mt-1">{entryB.vietnamese}</p>
+              <p className="text-base font-bold text-app-accent-primary">{entryB.hanja}</p>
+              <p className="text-xs text-white/50 mt-1">{entryB.vietnamese}</p>
             </>
           ) : (
-            <p className="text-xs text-gray-400 mt-1 italic">Không có trong từ điển</p>
+            <p className="text-xs text-white/40 mt-1 italic">Không có trong từ điển</p>
           )}
           <button onClick={() => speakKorean(pair.b)}
-            className="mt-2 w-6 h-6 flex items-center justify-center bg-white rounded-full text-rose-400 cursor-pointer hover:bg-rose-100 transition-colors mx-auto">
+            className="mt-2 w-6 h-6 flex items-center justify-center bg-app-surface/50 rounded-full text-app-accent-primary cursor-pointer hover:bg-app-accent-primary/20 transition-colors mx-auto">
             <i className="ri-volume-up-line text-xs"></i>
           </button>
           <span className={`inline-block mt-2 px-2 py-0.5 rounded-full text-xs font-medium ${masteryColor(masteryB)}`}>
@@ -493,25 +493,25 @@ export default function AntonymTab() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
-        <div className="bg-green-50 rounded-xl p-4 text-center">
-          <p className="text-2xl font-bold text-green-600">{stats.bothMastered}</p>
-          <p className="text-xs text-gray-500 mt-1">Cặp đã thuộc cả 2</p>
+        <div className="bg-green-500/10 rounded-xl p-4 text-center">
+          <p className="text-2xl font-bold text-green-400">{stats.bothMastered}</p>
+          <p className="text-xs text-white/50 mt-1">Cặp đã thuộc cả 2</p>
         </div>
-        <div className="bg-amber-50 rounded-xl p-4 text-center">
-          <p className="text-2xl font-bold text-amber-600">{stats.oneMastered}</p>
-          <p className="text-xs text-gray-500 mt-1">Cặp thuộc 1 từ</p>
+        <div className="bg-amber-500/10 rounded-xl p-4 text-center">
+          <p className="text-2xl font-bold text-amber-400">{stats.oneMastered}</p>
+          <p className="text-xs text-white/50 mt-1">Cặp thuộc 1 từ</p>
         </div>
-        <div className="bg-gray-50 rounded-xl p-4 text-center">
-          <p className="text-2xl font-bold text-gray-600">{stats.neitherMastered}</p>
-          <p className="text-xs text-gray-500 mt-1">Cặp chưa học</p>
+        <div className="bg-app-surface/30 rounded-xl p-4 text-center">
+          <p className="text-2xl font-bold text-white/70">{stats.neitherMastered}</p>
+          <p className="text-xs text-white/50 mt-1">Cặp chưa học</p>
         </div>
       </div>
 
       {/* Tab switcher: All / Built-in / Custom */}
-      <div className="flex items-center gap-1 bg-gray-100 rounded-xl p-1 mb-4 w-fit">
+      <div className="flex items-center gap-1 bg-app-surface/50 rounded-xl p-1 mb-4 w-fit">
         {([["all", "Tất cả"], ["builtin", "Có sẵn"], ["custom", `Của tôi (${customPairs.length})`]] as [string, string][]).map(([val, label]) => (
           <button key={val} onClick={() => { setActiveTab(val as "all" | "builtin" | "custom"); setSelectedCategory(null); }}
-            className={`px-4 py-1.5 rounded-lg text-sm font-medium cursor-pointer transition-all whitespace-nowrap ${activeTab === val ? "bg-white text-rose-600 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}>
+            className={`px-4 py-1.5 rounded-lg text-sm font-medium cursor-pointer transition-all whitespace-nowrap ${activeTab === val ? "bg-app-surface/50 text-app-accent-primary shadow-sm" : "text-white/50 hover:text-white/80"}`}>
             {label}
           </button>
         ))}
@@ -520,20 +520,20 @@ export default function AntonymTab() {
       {/* Controls */}
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
-          <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+          <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/40 text-sm"></i>
           <input type="text" placeholder="Tìm từ đối nghĩa..." value={search} onChange={e => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
+            className="w-full pl-9 pr-4 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
         </div>
         <button onClick={() => setOnlyUnlearned(v => !v)}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium cursor-pointer transition-colors whitespace-nowrap ${onlyUnlearned ? "bg-amber-500 text-white" : "border border-amber-300 text-amber-600 hover:bg-amber-50"}`}>
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium cursor-pointer transition-colors whitespace-nowrap ${onlyUnlearned ? "bg-amber-500 text-white" : "border border-amber-500/40 text-amber-400 hover:bg-amber-500/10"}`}>
           <i className="ri-focus-3-line"></i>{onlyUnlearned ? "Đang lọc: Chưa thuộc" : "Chỉ hiện chưa thuộc"}
         </button>
         <button onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 px-4 py-2 border border-rose-300 text-rose-600 rounded-lg text-sm font-medium cursor-pointer hover:bg-rose-50 transition-colors whitespace-nowrap">
+          className="flex items-center gap-2 px-4 py-2 border border-app-accent-primary/40 text-app-accent-primary rounded-lg text-sm font-medium cursor-pointer hover:bg-app-accent-primary/10 transition-colors whitespace-nowrap">
           <i className="ri-add-line"></i>Thêm cặp mới
         </button>
         <button onClick={() => setQuizMode(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-rose-500 text-white rounded-lg text-sm font-semibold cursor-pointer hover:bg-rose-600 transition-colors whitespace-nowrap">
+          className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-white rounded-lg text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
           <i className="ri-gamepad-line"></i>Quiz ({Math.min(15, filteredPairs.length)} cặp)
         </button>
       </div>
@@ -541,14 +541,14 @@ export default function AntonymTab() {
       {/* Category filter */}
       <div className="flex flex-wrap gap-2 mb-5">
         <button onClick={() => setSelectedCategory(null)}
-          className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${!selectedCategory ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+          className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${!selectedCategory ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
           Tất cả ({ALL_PAIRS.length} cặp)
         </button>
         {CATEGORIES.map(cat => {
           const cnt = ALL_PAIRS.filter(p => p.category === cat).length;
           return (
             <button key={cat} onClick={() => setSelectedCategory(selectedCategory === cat ? null : cat)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedCategory === cat ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+              className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedCategory === cat ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
               {cat} ({cnt})
             </button>
           );
@@ -557,14 +557,14 @@ export default function AntonymTab() {
 
       {/* Custom tab empty state */}
       {activeTab === "custom" && customPairs.length === 0 && (
-        <div className="text-center py-16 border-2 border-dashed border-gray-200 rounded-2xl">
-          <div className="w-12 h-12 flex items-center justify-center bg-rose-50 rounded-full mx-auto mb-3">
-            <i className="ri-add-circle-line text-2xl text-rose-400"></i>
+        <div className="text-center py-16 border-2 border-dashed border-app-border rounded-2xl">
+          <div className="w-12 h-12 flex items-center justify-center bg-app-accent-primary/10 rounded-full mx-auto mb-3">
+            <i className="ri-add-circle-line text-2xl text-app-accent-primary"></i>
           </div>
-          <p className="text-gray-700 font-medium mb-1">Chưa có cặp đối nghĩa nào</p>
-          <p className="text-sm text-gray-400 mb-4">Thêm cặp đối nghĩa của riêng bạn để luyện tập</p>
+          <p className="text-white/80 font-medium mb-1">Chưa có cặp đối nghĩa nào</p>
+          <p className="text-sm text-white/40 mb-4">Thêm cặp đối nghĩa của riêng bạn để luyện tập</p>
           <button onClick={() => setShowAddModal(true)}
-            className="px-5 py-2 bg-rose-500 text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-rose-600 transition-colors">
+            className="px-5 py-2 bg-app-accent-primary text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
             Thêm cặp đầu tiên
           </button>
         </div>
@@ -584,15 +584,15 @@ export default function AntonymTab() {
       )}
 
       {filteredPairs.length === 0 && (activeTab !== "custom" || customPairs.length > 0) && (
-        <div className="text-center py-16 text-gray-400">
+        <div className="text-center py-16 text-white/40">
           <i className="ri-search-line text-4xl"></i>
           <p className="mt-2 text-sm">Không tìm thấy cặp đối nghĩa nào</p>
         </div>
       )}
 
-      <div className="mt-6 bg-rose-50 rounded-xl p-4">
-        <p className="text-xs font-semibold text-rose-600 mb-1">Mẹo học đối nghĩa</p>
-        <p className="text-xs text-gray-500">Học từng cặp cùng lúc giúp não ghi nhớ qua sự tương phản. Khi nhớ một từ, bạn sẽ tự động nhớ từ đối nghĩa của nó! Bạn cũng có thể tự thêm cặp đối nghĩa của riêng mình.</p>
+      <div className="mt-6 bg-app-accent-primary/10 rounded-xl p-4">
+        <p className="text-xs font-semibold text-app-accent-primary mb-1">Mẹo học đối nghĩa</p>
+        <p className="text-xs text-white/50">Học từng cặp cùng lúc giúp não ghi nhớ qua sự tương phản. Khi nhớ một từ, bạn sẽ tự động nhớ từ đối nghĩa của nó! Bạn cũng có thể tự thêm cặp đối nghĩa của riêng mình.</p>
       </div>
     </div>
   );

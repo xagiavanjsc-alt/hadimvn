@@ -191,24 +191,24 @@ export default function WordMatchTab() {
   if (gameState === "setup") {
     return (
       <div className="max-w-2xl mx-auto">
-        <div className="bg-white border border-gray-100 rounded-2xl p-8">
+        <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8">
           <div className="text-center mb-6">
-            <div className="w-14 h-14 flex items-center justify-center bg-rose-100 rounded-2xl mx-auto mb-3">
-              <i className="ri-drag-drop-line text-rose-600 text-2xl"></i>
+            <div className="w-14 h-14 flex items-center justify-center bg-app-accent-primary/20 rounded-2xl mx-auto mb-3">
+              <i className="ri-drag-drop-line text-app-accent-primary text-2xl"></i>
             </div>
-            <h2 className="text-xl font-bold text-gray-900 mb-1">Học theo cặp</h2>
-            <p className="text-sm text-gray-500">Ghép từ Hàn với nghĩa Việt — nhanh tay nhanh mắt!</p>
+            <h2 className="text-xl font-bold text-white mb-1">Học theo cặp</h2>
+            <p className="text-sm text-white/50">Ghép từ Hàn với nghĩa Việt — nhanh tay nhanh mắt!</p>
           </div>
 
           {/* Pair count */}
           <div className="mb-5">
-            <p className="text-sm font-semibold text-gray-700 mb-3">Số cặp từ</p>
+            <p className="text-sm font-semibold text-white/80 mb-3">Số cặp từ</p>
             <div className="flex gap-2">
               {[4, 6, 8, 10, 12].map(n => (
                 <button
                   key={n}
                   onClick={() => setPairCount(n)}
-                  className={`flex-1 py-2.5 rounded-xl border-2 text-sm font-semibold cursor-pointer transition-all ${pairCount === n ? "border-rose-400 bg-rose-50 text-rose-700" : "border-gray-200 text-gray-600 hover:border-gray-300"}`}
+                  className={`flex-1 py-2.5 rounded-xl border-2 text-sm font-semibold cursor-pointer transition-all ${pairCount === n ? "border-app-accent-primary bg-app-accent-primary/10 text-app-accent-primary" : "border-app-border text-white/70 hover:border-app-border"}`}
                 >
                   {n}
                 </button>
@@ -218,11 +218,11 @@ export default function WordMatchTab() {
 
           {/* Filter */}
           <div className="mb-6">
-            <p className="text-sm font-semibold text-gray-700 mb-2">Lọc theo chữ cái đầu</p>
+            <p className="text-sm font-semibold text-white/80 mb-2">Lọc theo chữ cái đầu</p>
             <div className="flex flex-wrap gap-1.5">
               <button
                 onClick={() => setSelectedInitial(null)}
-                className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600"}`}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70"}`}
               >
                 Tất cả ({HANJA_DATA.length})
               </button>
@@ -231,7 +231,7 @@ export default function WordMatchTab() {
                 if (cnt === 0) return null;
                 return (
                   <button key={g} onClick={() => setSelectedInitial(selectedInitial === g ? null : g)}
-                    className={`px-2.5 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedInitial === g ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600"}`}
+                    className={`px-2.5 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedInitial === g ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70"}`}
                   >
                     {g} ({cnt})
                   </button>
@@ -243,7 +243,7 @@ export default function WordMatchTab() {
           <button
             onClick={startGame}
             disabled={pool.length < pairCount}
-            className="w-full py-3 bg-rose-500 text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-rose-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-4"
+            className="w-full py-3 bg-app-accent-primary text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-4"
           >
             Bắt đầu chơi ({pairCount} cặp)
           </button>
@@ -253,21 +253,21 @@ export default function WordMatchTab() {
             <div>
               <button
                 onClick={() => setShowResults(r => !r)}
-                className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 cursor-pointer mb-3"
+                className="flex items-center gap-2 text-sm text-white/50 hover:text-white/80 cursor-pointer mb-3"
               >
-                <i className="ri-trophy-line text-amber-500"></i>
+                <i className="ri-trophy-line text-amber-400"></i>
                 Kết quả tốt nhất
                 <i className={showResults ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}></i>
               </button>
               {showResults && (
                 <div className="space-y-2">
                   {results.slice(0, 5).map((r, i) => (
-                    <div key={i} className="flex items-center gap-3 px-3 py-2 bg-gray-50 rounded-lg text-xs">
-                      <span className="text-amber-500 font-bold w-4">#{i + 1}</span>
-                      <span className="text-gray-600">{r.pairs} cặp</span>
-                      <span className="text-rose-600 font-semibold">{formatTime(r.time)}</span>
-                      <span className="text-gray-400">{r.mistakes} sai</span>
-                      <span className="text-gray-400 ml-auto">{new Date(r.date).toLocaleDateString("vi-VN")}</span>
+                    <div key={i} className="flex items-center gap-3 px-3 py-2 bg-app-surface/30 rounded-lg text-xs">
+                      <span className="text-amber-400 font-bold w-4">#{i + 1}</span>
+                      <span className="text-white/70">{r.pairs} cặp</span>
+                      <span className="text-app-accent-primary font-semibold">{formatTime(r.time)}</span>
+                      <span className="text-white/40">{r.mistakes} sai</span>
+                      <span className="text-white/40 ml-auto">{new Date(r.date).toLocaleDateString("vi-VN")}</span>
                     </div>
                   ))}
                 </div>
@@ -285,18 +285,18 @@ export default function WordMatchTab() {
     const score = Math.max(0, 100 - mistakes * 5);
     return (
       <div className="max-w-lg mx-auto">
-        <div className="bg-white border border-gray-100 rounded-2xl p-8 text-center">
-          <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4 ${score >= 90 ? "bg-green-100" : score >= 70 ? "bg-amber-100" : "bg-rose-100"}`}>
-            <i className={`text-3xl ${score >= 90 ? "ri-trophy-fill text-green-600" : score >= 70 ? "ri-medal-line text-amber-600" : "ri-gamepad-line text-rose-500"}`}></i>
+        <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8 text-center">
+          <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4 ${score >= 90 ? "bg-green-500/20" : score >= 70 ? "bg-amber-500/20" : "bg-app-accent-primary/20"}`}>
+            <i className={`text-3xl ${score >= 90 ? "ri-trophy-fill text-green-400" : score >= 70 ? "ri-medal-line text-amber-400" : "ri-gamepad-line text-app-accent-primary"}`}></i>
           </div>
-          <p className="text-4xl font-bold text-gray-900 mb-1">{score} điểm</p>
-          <p className="text-gray-500 mb-2">{pairCount} cặp · {formatTime(time)} · {mistakes} lần sai</p>
-          <p className="text-sm text-gray-400 mb-8">
+          <p className="text-4xl font-bold text-white mb-1">{score} điểm</p>
+          <p className="text-white/50 mb-2">{pairCount} cặp · {formatTime(time)} · {mistakes} lần sai</p>
+          <p className="text-sm text-white/40 mb-8">
             {score >= 90 ? "Xuất sắc! Bạn ghép cặp rất nhanh!" : score >= 70 ? "Tốt lắm! Luyện thêm để cải thiện!" : "Cần luyện thêm! Đừng nản lòng!"}
           </p>
           <div className="flex gap-3">
-            <button onClick={startGame} className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">Chơi lại</button>
-            <button onClick={() => setGameState("setup")} className="flex-1 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">Đổi cài đặt</button>
+            <button onClick={startGame} className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Chơi lại</button>
+            <button onClick={() => setGameState("setup")} className="flex-1 py-3 border border-app-border text-white/80 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Đổi cài đặt</button>
           </div>
         </div>
       </div>
@@ -310,32 +310,32 @@ export default function WordMatchTab() {
     <div className="max-w-3xl mx-auto">
       {/* Game header */}
       <div className="flex items-center justify-between mb-4">
-        <button onClick={() => setGameState("setup")} className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
+        <button onClick={() => setGameState("setup")} className="flex items-center gap-1 text-sm text-white/50 hover:text-white/80 cursor-pointer">
           <i className="ri-arrow-left-line"></i> Dừng
         </button>
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-rose-50 rounded-full">
-            <i className="ri-time-line text-rose-500 text-xs"></i>
-            <span className="text-sm font-bold text-rose-600">{formatTime(elapsed)}</span>
+          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-app-accent-primary/10 rounded-full">
+            <i className="ri-time-line text-app-accent-primary text-xs"></i>
+            <span className="text-sm font-bold text-app-accent-primary">{formatTime(elapsed)}</span>
           </div>
-          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-red-50 rounded-full">
-            <i className="ri-close-circle-line text-red-500 text-xs"></i>
-            <span className="text-sm font-bold text-red-600">{mistakes} sai</span>
+          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-red-500/10 rounded-full">
+            <i className="ri-close-circle-line text-red-400 text-xs"></i>
+            <span className="text-sm font-bold text-red-400">{mistakes} sai</span>
           </div>
-          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 rounded-full">
-            <i className="ri-check-double-line text-green-500 text-xs"></i>
-            <span className="text-sm font-bold text-green-600">{matchedCount}/{pairCount}</span>
+          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-green-500/10 rounded-full">
+            <i className="ri-check-double-line text-green-400 text-xs"></i>
+            <span className="text-sm font-bold text-green-400">{matchedCount}/{pairCount}</span>
           </div>
         </div>
       </div>
 
       {/* Progress bar */}
-      <div className="w-full bg-gray-100 rounded-full h-2 mb-5">
-        <div className="bg-rose-400 h-2 rounded-full transition-all duration-500" style={{ width: `${progress * 100}%` }}></div>
+      <div className="w-full bg-app-surface/50 rounded-full h-2 mb-5">
+        <div className="bg-app-accent-primary h-2 rounded-full transition-all duration-500" style={{ width: `${progress * 100}%` }}></div>
       </div>
 
       {/* Instructions */}
-      <div className="flex items-center gap-2 mb-4 text-xs text-gray-400">
+      <div className="flex items-center gap-2 mb-4 text-xs text-white/40">
         <i className="ri-information-line"></i>
         <span>Nhấn chọn 1 từ Hàn + 1 nghĩa Việt để ghép cặp. Từ Hàn sẽ được đọc khi chọn.</span>
       </div>
@@ -343,10 +343,10 @@ export default function WordMatchTab() {
       {/* Cards grid */}
       <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
         {cards.map(card => {
-          let cardClass = "bg-white border-2 border-gray-200 text-gray-700 hover:border-rose-300 cursor-pointer";
-          if (card.matched) cardClass = "bg-green-50 border-2 border-green-300 text-green-700 cursor-default";
-          else if (card.selected) cardClass = "bg-rose-50 border-2 border-rose-400 text-rose-700 cursor-pointer";
-          else if (card.wrong) cardClass = "bg-red-50 border-2 border-red-400 text-red-700 cursor-pointer animate-pulse";
+          let cardClass = "bg-app-surface/50 border-2 border-app-border text-white/80 hover:border-app-accent-primary cursor-pointer";
+          if (card.matched) cardClass = "bg-green-500/10 border-2 border-green-500/40 text-green-400 cursor-default";
+          else if (card.selected) cardClass = "bg-app-accent-primary/10 border-2 border-app-accent-primary text-app-accent-primary cursor-pointer";
+          else if (card.wrong) cardClass = "bg-red-500/10 border-2 border-red-400 text-red-400 cursor-pointer animate-pulse";
 
           return (
             <button
@@ -355,19 +355,19 @@ export default function WordMatchTab() {
               disabled={card.matched}
               className={`${cardClass} rounded-xl p-3 text-center transition-all min-h-[72px] flex flex-col items-center justify-center gap-1 disabled:cursor-default`}
             >
-              {card.matched && <i className="ri-check-line text-green-500 text-xs"></i>}
+              {card.matched && <i className="ri-check-line text-green-400 text-xs"></i>}
               <span className={`font-semibold leading-tight ${card.type === "korean" ? "text-base" : "text-xs"}`}>
                 {card.text}
               </span>
               {card.type === "korean" && card.hanja && (
-                <span className="text-[10px] text-rose-400 font-bold">{card.hanja}</span>
+                <span className="text-[10px] text-app-accent-primary font-bold">{card.hanja}</span>
               )}
             </button>
           );
         })}
       </div>
 
-      <p className="text-center text-xs text-gray-400 mt-4">
+      <p className="text-center text-xs text-white/40 mt-4">
         Nhấn vào thẻ để chọn · Ghép đúng cặp Hàn-Việt để ghi điểm
       </p>
     </div>

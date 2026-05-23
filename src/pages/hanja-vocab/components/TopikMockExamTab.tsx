@@ -192,14 +192,14 @@ export default function TopikMockExamTab() {
     if (currentIdx > 0) setCurrentIdx(i => i - 1);
   };
 
-  const timerColor = timeLeft < 300 ? "text-red-500" : timeLeft < 600 ? "text-amber-500" : "text-green-600";
-  const timerBg = timeLeft < 300 ? "bg-red-50 border-red-200" : timeLeft < 600 ? "bg-amber-50 border-amber-200" : "bg-green-50 border-green-200";
+  const timerColor = timeLeft < 300 ? "text-red-400" : timeLeft < 600 ? "text-amber-400" : "text-green-400";
+  const timerBg = timeLeft < 300 ? "bg-red-500/10 border-red-500/30" : timeLeft < 600 ? "bg-amber-500/10 border-amber-500/30" : "bg-green-500/10 border-green-500/30";
 
   // ── Intro ──────────────────────────────────────────────────────────────────
   if (examState === "intro") {
     return (
       <div className="max-w-2xl mx-auto">
-        <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden mb-5">
+        <div className="bg-app-surface/50 border border-app-border rounded-2xl overflow-hidden mb-5">
           {/* Header */}
           <div className="bg-gradient-to-r from-rose-500 to-orange-500 p-6 text-white text-center">
             <div className="w-14 h-14 flex items-center justify-center bg-app-border/200 rounded-2xl mx-auto mb-3">
@@ -217,29 +217,29 @@ export default function TopikMockExamTab() {
                 { icon: "ri-timer-line", label: "Thời gian", value: "30 phút", color: "#fb923c" },
                 { icon: "ri-bar-chart-line", label: "Điểm đạt", value: "70%+", color: "#34d399" },
               ].map(s => (
-                <div key={s.label} className="text-center bg-gray-50 rounded-xl p-4">
+                <div key={s.label} className="text-center bg-app-surface/30 rounded-xl p-4">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${s.color}15` }}>
                     <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
                   </div>
-                  <p className="font-bold text-gray-900 text-lg">{s.value}</p>
-                  <p className="text-xs text-gray-400">{s.label}</p>
+                  <p className="font-bold text-white text-lg">{s.value}</p>
+                  <p className="text-xs text-white/40">{s.label}</p>
                 </div>
               ))}
             </div>
 
             {/* Question types */}
             <div className="mb-5">
-              <p className="text-sm font-semibold text-gray-700 mb-3">Dạng câu hỏi trong đề thi</p>
+              <p className="text-sm font-semibold text-white/80 mb-3">Dạng câu hỏi trong đề thi</p>
               <div className="space-y-2">
                 {[
                   { label: "Hàn → Việt", desc: "Chọn nghĩa tiếng Việt đúng", pct: "40%" },
                   { label: "Việt → Hàn", desc: "Chọn từ tiếng Hàn đúng", pct: "40%" },
                   { label: "Hán tự → Hàn", desc: "Đọc Hán tự thành tiếng Hàn", pct: "20%" },
                 ].map(t => (
-                  <div key={t.label} className="flex items-center gap-3 px-3 py-2 bg-rose-50 rounded-lg">
-                    <span className="text-rose-600 font-semibold text-sm w-28 flex-shrink-0">{t.label}</span>
-                    <span className="text-gray-500 text-xs flex-1">{t.desc}</span>
-                    <span className="text-rose-400 text-xs font-bold">{t.pct}</span>
+                  <div key={t.label} className="flex items-center gap-3 px-3 py-2 bg-app-accent-primary/10 rounded-lg">
+                    <span className="text-app-accent-primary font-semibold text-sm w-28 flex-shrink-0">{t.label}</span>
+                    <span className="text-white/50 text-xs flex-1">{t.desc}</span>
+                    <span className="text-app-accent-primary text-xs font-bold">{t.pct}</span>
                   </div>
                 ))}
               </div>
@@ -247,10 +247,10 @@ export default function TopikMockExamTab() {
 
             {/* Filter by group */}
             <div className="mb-5">
-              <p className="text-sm font-semibold text-gray-700 mb-2">Chọn nhóm từ vựng</p>
+              <p className="text-sm font-semibold text-white/80 mb-2">Chọn nhóm từ vựng</p>
               <div className="flex flex-wrap gap-1.5">
                 <button onClick={() => setFilterGroup("all")}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${filterGroup === "all" ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${filterGroup === "all" ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
                   Tất cả ({HANJA_DATA.length})
                 </button>
                 {ALPHABET_GROUPS.map(g => {
@@ -258,22 +258,22 @@ export default function TopikMockExamTab() {
                   if (cnt < 4) return null;
                   return (
                     <button key={g} onClick={() => setFilterGroup(g)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${filterGroup === g ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${filterGroup === g ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
                       {g} ({cnt})
                     </button>
                   );
                 })}
               </div>
-              <p className="text-xs text-gray-400 mt-2">Đề thi sẽ lấy ngẫu nhiên {TOTAL_QUESTIONS} câu từ {pool.length} từ đã chọn</p>
+              <p className="text-xs text-white/40 mt-2">Đề thi sẽ lấy ngẫu nhiên {TOTAL_QUESTIONS} câu từ {pool.length} từ đã chọn</p>
             </div>
 
             <div className="flex gap-3">
               <button onClick={() => setExamState("history")}
-                className="flex items-center gap-2 px-4 py-3 border border-gray-200 text-gray-600 rounded-xl text-sm cursor-pointer hover:bg-gray-50 transition-colors whitespace-nowrap">
+                className="flex items-center gap-2 px-4 py-3 border border-app-border text-white/70 rounded-xl text-sm cursor-pointer hover:bg-app-surface/50 transition-colors whitespace-nowrap">
                 <i className="ri-history-line"></i>Lịch sử thi
               </button>
               <button onClick={startExam} disabled={pool.length < 4}
-                className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-bold cursor-pointer hover:bg-rose-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                 <i className="ri-play-circle-line"></i>Bắt đầu thi thử
               </button>
             </div>
@@ -282,17 +282,17 @@ export default function TopikMockExamTab() {
 
         {/* Recent history preview */}
         {history.length > 0 && (
-          <div className="bg-white border border-gray-100 rounded-xl p-4">
-            <p className="text-sm font-semibold text-gray-700 mb-3">Lần thi gần nhất</p>
+          <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
+            <p className="text-sm font-semibold text-white/80 mb-3">Lần thi gần nhất</p>
             <div className="flex items-center gap-4">
-              <div className={`w-14 h-14 flex items-center justify-center rounded-xl flex-shrink-0 ${history[0].score / history[0].total >= 0.7 ? "bg-green-100" : "bg-amber-100"}`}>
-                <span className={`text-xl font-bold ${history[0].score / history[0].total >= 0.7 ? "text-green-600" : "text-amber-600"}`}>
+              <div className={`w-14 h-14 flex items-center justify-center rounded-xl flex-shrink-0 ${history[0].score / history[0].total >= 0.7 ? "bg-green-500/20" : "bg-amber-500/20"}`}>
+                <span className={`text-xl font-bold ${history[0].score / history[0].total >= 0.7 ? "text-green-400" : "text-amber-400"}`}>
                   {Math.round((history[0].score / history[0].total) * 100)}%
                 </span>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-900">Đúng {history[0].score}/{history[0].total} câu</p>
-                <p className="text-xs text-gray-400">Thời gian: {formatTime(history[0].timeUsed)} · {history[0].date}</p>
+                <p className="text-sm font-medium text-white">Đúng {history[0].score}/{history[0].total} câu</p>
+                <p className="text-xs text-white/40">Thời gian: {formatTime(history[0].timeUsed)} · {history[0].date}</p>
               </div>
             </div>
           </div>
@@ -313,35 +313,35 @@ export default function TopikMockExamTab() {
     return (
       <div className="max-w-2xl mx-auto">
         {/* Exam header */}
-        <div className="flex items-center justify-between mb-4 bg-white border border-gray-100 rounded-xl px-4 py-3">
+        <div className="flex items-center justify-between mb-4 bg-app-surface/50 border border-app-border rounded-xl px-4 py-3">
           <div className="flex items-center gap-3">
-            <span className="text-sm text-gray-500">Câu {currentIdx + 1}/{questions.length}</span>
-            <span className="text-xs text-gray-400">({answeredCount} đã trả lời)</span>
+            <span className="text-sm text-white/50">Câu {currentIdx + 1}/{questions.length}</span>
+            <span className="text-xs text-white/40">({answeredCount} đã trả lời)</span>
           </div>
           <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm font-bold ${timerBg} ${timerColor}`}>
             <i className="ri-timer-line"></i>
             {formatTime(timeLeft)}
           </div>
           <button onClick={finishExam}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-rose-500 text-white rounded-lg text-xs font-semibold cursor-pointer hover:bg-rose-600 transition-colors whitespace-nowrap">
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-app-accent-primary text-white rounded-lg text-xs font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
             <i className="ri-flag-line"></i>Nộp bài
           </button>
         </div>
 
         {/* Progress bar */}
-        <div className="w-full bg-gray-100 rounded-full h-2 mb-5">
-          <div className="bg-rose-400 h-2 rounded-full transition-all" style={{ width: `${(answeredCount / questions.length) * 100}%` }}></div>
+        <div className="w-full bg-app-surface/50 rounded-full h-2 mb-5">
+          <div className="bg-app-accent-primary h-2 rounded-full transition-all" style={{ width: `${(answeredCount / questions.length) * 100}%` }}></div>
         </div>
 
         {/* Question */}
-        <div className="bg-white border-2 border-gray-100 rounded-2xl p-6 mb-4">
+        <div className="bg-app-surface/50 border-2 border-app-border rounded-2xl p-6 mb-4">
           <div className="flex items-center gap-2 mb-4">
-            <span className="px-2.5 py-1 bg-rose-100 text-rose-600 rounded-full text-xs font-bold">Câu {currentIdx + 1}</span>
-            <span className="text-sm text-gray-500">{prompt.label}</span>
+            <span className="px-2.5 py-1 bg-app-accent-primary/20 text-app-accent-primary rounded-full text-xs font-bold">Câu {currentIdx + 1}</span>
+            <span className="text-sm text-white/50">{prompt.label}</span>
           </div>
           <div className="text-center py-4">
-            <p className="text-4xl font-bold text-gray-900 mb-2">{prompt.main}</p>
-            {prompt.sub && <p className="text-xl text-rose-400 font-bold">{prompt.sub}</p>}
+            <p className="text-4xl font-bold text-white mb-2">{prompt.main}</p>
+            {prompt.sub && <p className="text-xl text-app-accent-primary font-bold">{prompt.sub}</p>}
           </div>
         </div>
 
@@ -351,23 +351,23 @@ export default function TopikMockExamTab() {
             const choiceLabel = getChoiceLabel(q, choice);
             const isSelected = q.userAnswer === choiceLabel;
             const isCorrect = choiceLabel === correctAns;
-            let cls = "border-2 border-gray-200 bg-white text-gray-700 hover:border-rose-300";
+            let cls = "border-2 border-app-border bg-app-surface/50 text-white/80 hover:border-app-accent-primary";
             if (answered) {
-              if (isCorrect) cls = "border-2 border-green-400 bg-green-50 text-green-700";
-              else if (isSelected) cls = "border-2 border-red-400 bg-red-50 text-red-700";
-              else cls = "border-2 border-gray-100 bg-gray-50 text-gray-400";
+              if (isCorrect) cls = "border-2 border-green-400 bg-green-500/10 text-green-400";
+              else if (isSelected) cls = "border-2 border-red-400 bg-red-500/10 text-red-400";
+              else cls = "border-2 border-app-border bg-app-surface/30 text-white/40";
             } else if (isSelected) {
-              cls = "border-2 border-rose-400 bg-rose-50 text-rose-700";
+              cls = "border-2 border-app-accent-primary bg-app-accent-primary/10 text-app-accent-primary";
             }
             return (
               <button key={i} onClick={() => handleAnswer(choice)}
                 className={`p-4 rounded-xl text-sm font-medium cursor-pointer transition-all text-left flex items-center gap-3 ${cls}`}>
-                <span className="w-7 h-7 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 text-xs font-bold flex-shrink-0">
+                <span className="w-7 h-7 flex items-center justify-center rounded-full bg-app-surface/50 text-white/50 text-xs font-bold flex-shrink-0">
                   {String.fromCharCode(65 + i)}
                 </span>
                 <span className="flex-1">{choiceLabel}</span>
-                {answered && isCorrect && <i className="ri-check-line text-green-600 flex-shrink-0"></i>}
-                {answered && isSelected && !isCorrect && <i className="ri-close-line text-red-500 flex-shrink-0"></i>}
+                {answered && isCorrect && <i className="ri-check-line text-green-400 flex-shrink-0"></i>}
+                {answered && isSelected && !isCorrect && <i className="ri-close-line text-red-400 flex-shrink-0"></i>}
               </button>
             );
           })}
@@ -376,11 +376,11 @@ export default function TopikMockExamTab() {
         {/* Navigation */}
         <div className="flex gap-3">
           <button onClick={goPrev} disabled={currentIdx === 0}
-            className="flex items-center gap-2 px-4 py-3 border border-gray-200 text-gray-600 rounded-xl text-sm cursor-pointer hover:bg-gray-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap">
+            className="flex items-center gap-2 px-4 py-3 border border-app-border text-white/70 rounded-xl text-sm cursor-pointer hover:bg-app-surface/50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap">
             <i className="ri-arrow-left-line"></i>Trước
           </button>
           <button onClick={goNext}
-            className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors flex items-center justify-center gap-2">
+            className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors flex items-center justify-center gap-2">
             {currentIdx + 1 >= questions.length ? (
               <><i className="ri-flag-line"></i>Nộp bài</>
             ) : (
@@ -390,15 +390,15 @@ export default function TopikMockExamTab() {
         </div>
 
         {/* Question navigator */}
-        <div className="mt-4 bg-white border border-gray-100 rounded-xl p-3">
-          <p className="text-xs text-gray-400 mb-2">Điều hướng câu hỏi</p>
+        <div className="mt-4 bg-app-surface/50 border border-app-border rounded-xl p-3">
+          <p className="text-xs text-white/40 mb-2">Điều hướng câu hỏi</p>
           <div className="flex flex-wrap gap-1.5">
             {questions.map((q, i) => (
               <button key={i} onClick={() => setCurrentIdx(i)}
                 className={`w-8 h-8 flex items-center justify-center rounded-lg text-xs font-bold cursor-pointer transition-all ${
-                  i === currentIdx ? "bg-rose-500 text-white" :
-                  q.userAnswer !== null ? "bg-green-100 text-green-700" :
-                  "bg-gray-100 text-gray-500 hover:bg-gray-200"
+                  i === currentIdx ? "bg-app-accent-primary text-white" :
+                  q.userAnswer !== null ? "bg-green-500/20 text-green-400" :
+                  "bg-app-surface/50 text-white/50 hover:bg-app-surface/80"
                 }`}>
                 {i + 1}
               </button>
@@ -418,25 +418,25 @@ export default function TopikMockExamTab() {
     return (
       <div className="max-w-2xl mx-auto">
         {/* Score card */}
-        <div className={`rounded-2xl p-6 mb-5 text-center ${passed ? "bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200" : "bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200"}`}>
-          <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4 ${passed ? "bg-green-100" : "bg-amber-100"}`}>
-            <i className={`text-3xl ${passed ? "ri-trophy-line text-green-600" : "ri-emotion-normal-line text-amber-600"}`}></i>
+        <div className={`rounded-2xl p-6 mb-5 text-center ${passed ? "bg-gradient-to-br from-green-50 to-emerald-50 border border-green-500/30" : "bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-500/30"}`}>
+          <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4 ${passed ? "bg-green-500/20" : "bg-amber-500/20"}`}>
+            <i className={`text-3xl ${passed ? "ri-trophy-line text-green-400" : "ri-emotion-normal-line text-amber-400"}`}></i>
           </div>
-          <p className="text-4xl font-bold text-gray-900 mb-1">{pct}%</p>
-          <p className={`text-lg font-semibold mb-2 ${passed ? "text-green-600" : "text-amber-600"}`}>
+          <p className="text-4xl font-bold text-white mb-1">{pct}%</p>
+          <p className={`text-lg font-semibold mb-2 ${passed ? "text-green-400" : "text-amber-400"}`}>
             {passed ? "Đạt! Xuất sắc!" : "Chưa đạt — Cần ôn thêm"}
           </p>
-          <p className="text-gray-500 text-sm mb-4">Đúng {examResult.score}/{examResult.total} câu · Thời gian: {formatTime(examResult.timeUsed)}</p>
+          <p className="text-white/50 text-sm mb-4">Đúng {examResult.score}/{examResult.total} câu · Thời gian: {formatTime(examResult.timeUsed)}</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
-              { label: "Đúng", value: examResult.score, color: "text-green-600", bg: "bg-green-100" },
-              { label: "Sai", value: examResult.total - examResult.score, color: "text-red-500", bg: "bg-red-100" },
-              { label: "Điểm", value: `${pct}%`, color: passed ? "text-green-600" : "text-amber-600", bg: passed ? "bg-green-100" : "bg-amber-100" },
+              { label: "Đúng", value: examResult.score, color: "text-green-400", bg: "bg-green-500/20" },
+              { label: "Sai", value: examResult.total - examResult.score, color: "text-red-400", bg: "bg-red-500/20" },
+              { label: "Điểm", value: `${pct}%`, color: passed ? "text-green-400" : "text-amber-400", bg: passed ? "bg-green-500/20" : "bg-amber-500/20" },
             ].map(s => (
               <div key={s.label} className={`${s.bg} rounded-xl p-3`}>
                 <p className={`text-xl font-bold ${s.color}`}>{s.value}</p>
-                <p className="text-xs text-gray-500">{s.label}</p>
+                <p className="text-xs text-white/50">{s.label}</p>
               </div>
             ))}
           </div>
@@ -444,38 +444,38 @@ export default function TopikMockExamTab() {
 
         {/* Wrong answers review */}
         {wrongItems.length > 0 && (
-          <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden mb-5">
-            <div className="px-5 py-4 border-b border-gray-100">
-              <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+          <div className="bg-app-surface/50 border border-app-border rounded-2xl overflow-hidden mb-5">
+            <div className="px-5 py-4 border-b border-app-border">
+              <h3 className="text-sm font-semibold text-white/80 flex items-center gap-2">
                 <i className="ri-close-circle-line text-red-400"></i>
                 Câu sai cần ôn lại ({wrongItems.length} câu)
               </h3>
             </div>
-            <div className="divide-y divide-gray-50">
+            <div className="divide-y divide-app-border">
               {wrongItems.slice(0, 10).map((item, i) => (
-                <div key={i} className="px-5 py-3 hover:bg-red-50/30 transition-colors">
+                <div key={i} className="px-5 py-3 hover:bg-red-500/100/5 transition-colors">
                   <div className="flex items-start gap-3">
-                    <div className="w-6 h-6 flex items-center justify-center rounded-full bg-red-100 flex-shrink-0 mt-0.5">
-                      <i className="ri-close-line text-red-500 text-xs"></i>
+                    <div className="w-6 h-6 flex items-center justify-center rounded-full bg-red-500/20 flex-shrink-0 mt-0.5">
+                      <i className="ri-close-line text-red-400 text-xs"></i>
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="font-bold text-gray-900">{item.entry.korean}</span>
-                        <span className="text-rose-400 font-bold">{item.entry.hanja}</span>
+                        <span className="font-bold text-white">{item.entry.korean}</span>
+                        <span className="text-app-accent-primary font-bold">{item.entry.hanja}</span>
                       </div>
-                      <p className="text-xs text-green-600 font-medium">✓ Đúng: {item.entry.vietnamese}</p>
+                      <p className="text-xs text-green-400 font-medium">✓ Đúng: {item.entry.vietnamese}</p>
                       {item.userAnswer && (
                         <p className="text-xs text-red-400">✗ Bạn chọn: {item.userAnswer}</p>
                       )}
                       {!item.userAnswer && (
-                        <p className="text-xs text-gray-400">Chưa trả lời</p>
+                        <p className="text-xs text-white/40">Chưa trả lời</p>
                       )}
                     </div>
                   </div>
                 </div>
               ))}
               {wrongItems.length > 10 && (
-                <div className="px-5 py-3 text-center text-xs text-gray-400">
+                <div className="px-5 py-3 text-center text-xs text-white/40">
                   +{wrongItems.length - 10} câu sai khác...
                 </div>
               )}
@@ -485,15 +485,15 @@ export default function TopikMockExamTab() {
 
         <div className="flex gap-3">
           <button onClick={() => setExamState("history")}
-            className="flex items-center gap-2 px-4 py-3 border border-gray-200 text-gray-600 rounded-xl text-sm cursor-pointer hover:bg-gray-50 transition-colors whitespace-nowrap">
+            className="flex items-center gap-2 px-4 py-3 border border-app-border text-white/70 rounded-xl text-sm cursor-pointer hover:bg-app-surface/50 transition-colors whitespace-nowrap">
             <i className="ri-history-line"></i>Lịch sử
           </button>
           <button onClick={startExam}
-            className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-bold cursor-pointer hover:bg-rose-600 transition-colors flex items-center justify-center gap-2">
+            className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors flex items-center justify-center gap-2">
             <i className="ri-refresh-line"></i>Thi lại
           </button>
           <button onClick={() => setExamState("intro")}
-            className="flex items-center gap-2 px-4 py-3 border border-gray-200 text-gray-600 rounded-xl text-sm cursor-pointer hover:bg-gray-50 transition-colors whitespace-nowrap">
+            className="flex items-center gap-2 px-4 py-3 border border-app-border text-white/70 rounded-xl text-sm cursor-pointer hover:bg-app-surface/50 transition-colors whitespace-nowrap">
             <i className="ri-home-line"></i>Trang chủ
           </button>
         </div>
@@ -507,17 +507,17 @@ export default function TopikMockExamTab() {
       <div className="max-w-2xl mx-auto">
         <div className="flex items-center gap-3 mb-5">
           <button onClick={() => setExamState("intro")}
-            className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
+            className="flex items-center gap-1 text-sm text-white/50 hover:text-white/80 cursor-pointer">
             <i className="ri-arrow-left-line"></i> Quay lại
           </button>
-          <h2 className="text-base font-bold text-gray-900">Lịch sử thi thử</h2>
+          <h2 className="text-base font-bold text-white">Lịch sử thi thử</h2>
         </div>
 
         {history.length === 0 ? (
-          <div className="text-center py-16 text-gray-400">
+          <div className="text-center py-16 text-white/40">
             <i className="ri-history-line text-4xl"></i>
             <p className="mt-2 text-sm">Chưa có lần thi nào</p>
-            <button onClick={() => setExamState("intro")} className="mt-3 text-rose-500 text-xs cursor-pointer">Bắt đầu thi thử →</button>
+            <button onClick={() => setExamState("intro")} className="mt-3 text-app-accent-primary text-xs cursor-pointer">Bắt đầu thi thử →</button>
           </div>
         ) : (
           <div className="space-y-3">
@@ -525,15 +525,15 @@ export default function TopikMockExamTab() {
               const pct = Math.round((h.score / h.total) * 100);
               const passed = pct >= 70;
               return (
-                <div key={i} className="bg-white border border-gray-100 rounded-xl p-4 flex items-center gap-4">
-                  <div className={`w-12 h-12 flex items-center justify-center rounded-xl flex-shrink-0 ${passed ? "bg-green-100" : "bg-amber-100"}`}>
-                    <span className={`text-sm font-bold ${passed ? "text-green-600" : "text-amber-600"}`}>{pct}%</span>
+                <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 flex items-center gap-4">
+                  <div className={`w-12 h-12 flex items-center justify-center rounded-xl flex-shrink-0 ${passed ? "bg-green-500/20" : "bg-amber-500/20"}`}>
+                    <span className={`text-sm font-bold ${passed ? "text-green-400" : "text-amber-400"}`}>{pct}%</span>
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-900">Đúng {h.score}/{h.total} câu</p>
-                    <p className="text-xs text-gray-400">Thời gian: {formatTime(h.timeUsed)} · {h.date}</p>
+                    <p className="text-sm font-medium text-white">Đúng {h.score}/{h.total} câu</p>
+                    <p className="text-xs text-white/40">Thời gian: {formatTime(h.timeUsed)} · {h.date}</p>
                   </div>
-                  <span className={`text-xs px-2.5 py-1 rounded-full font-bold ${passed ? "bg-green-100 text-green-600" : "bg-amber-100 text-amber-600"}`}>
+                  <span className={`text-xs px-2.5 py-1 rounded-full font-bold ${passed ? "bg-green-500/20 text-green-400" : "bg-amber-500/20 text-amber-400"}`}>
                     {passed ? "Đạt" : "Chưa đạt"}
                   </span>
                 </div>

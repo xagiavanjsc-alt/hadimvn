@@ -104,17 +104,17 @@ const POPULAR_SEARCHES = [
 
 function MasteryBadge({ level }: { level: "new" | "learning" | "mastered" }) {
   if (level === "new") return (
-    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-gray-100 text-gray-500">
+    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-app-surface/50 text-white/50">
       <i className="ri-seedling-line text-xs"></i>Mới
     </span>
   );
   if (level === "learning") return (
-    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-amber-50 text-amber-600">
+    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-amber-500/10 text-amber-400">
       <i className="ri-book-open-line text-xs"></i>Đang học
     </span>
   );
   return (
-    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-green-50 text-green-600">
+    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-green-500/10 text-green-400">
       <i className="ri-check-double-line text-xs"></i>Đã thuộc
     </span>
   );
@@ -179,7 +179,7 @@ export default function SmartSearchTab() {
       return (
         <>
           {text.slice(0, normIdx)}
-          <mark className="bg-rose-100 text-rose-700 rounded px-0.5">{text.slice(normIdx, normIdx + normQ.length)}</mark>
+          <mark className="bg-app-accent-primary/20 text-app-accent-primary rounded px-0.5">{text.slice(normIdx, normIdx + normQ.length)}</mark>
           {text.slice(normIdx + normQ.length)}
         </>
       );
@@ -187,7 +187,7 @@ export default function SmartSearchTab() {
     return (
       <>
         {text.slice(0, idx)}
-        <mark className="bg-rose-100 text-rose-700 rounded px-0.5">{text.slice(idx, idx + qLower.length)}</mark>
+        <mark className="bg-app-accent-primary/20 text-app-accent-primary rounded px-0.5">{text.slice(idx, idx + qLower.length)}</mark>
         {text.slice(idx + qLower.length)}
       </>
     );
@@ -197,15 +197,15 @@ export default function SmartSearchTab() {
     <div className="max-w-3xl mx-auto">
       {/* Header */}
       <div className="mb-6">
-        <h2 className="text-lg font-bold text-gray-900 mb-1">Tìm kiếm thông minh</h2>
-        <p className="text-sm text-gray-500">Gõ phiên âm tiếng Việt (ví dụ: &ldquo;thương&rdquo;, &ldquo;quân&rdquo;) để tìm tất cả từ Hán-Hàn liên quan</p>
+        <h2 className="text-lg font-bold text-white mb-1">Tìm kiếm thông minh</h2>
+        <p className="text-sm text-white/50">Gõ phiên âm tiếng Việt (ví dụ: &ldquo;thương&rdquo;, &ldquo;quân&rdquo;) để tìm tất cả từ Hán-Hàn liên quan</p>
       </div>
 
       {/* Search box */}
       <div className="relative mb-6">
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <i className="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
+            <i className="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-white/40 text-lg"></i>
             <input
               ref={inputRef}
               type="text"
@@ -215,30 +215,30 @@ export default function SmartSearchTab() {
               onFocus={() => setShowSuggestions(true)}
               onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
               placeholder="Nhập phiên âm tiếng Việt, từ Hàn hoặc Hán tự..."
-              className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl text-sm focus:outline-none focus:border-rose-400 transition-colors"
+              className="w-full pl-12 pr-4 py-3 border-2 border-app-border rounded-xl text-sm focus:outline-none focus:border-app-accent-primary transition-colors"
             />
             {query && (
               <button onClick={() => { setQuery(""); setSubmitted(""); inputRef.current?.focus(); }}
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600 cursor-pointer">
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-white/40 hover:text-white/70 cursor-pointer">
                 <i className="ri-close-line"></i>
               </button>
             )}
           </div>
           <button onClick={() => handleSearch(query)}
-            className="px-6 py-3 bg-rose-500 text-white rounded-xl font-medium cursor-pointer hover:bg-rose-600 transition-colors whitespace-nowrap">
+            className="px-6 py-3 bg-app-accent-primary text-white rounded-xl font-medium cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
             Tìm
           </button>
         </div>
 
         {/* Autocomplete suggestions */}
         {showSuggestions && filteredSuggestions.length > 0 && (
-          <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-xl z-20 py-1 shadow-lg">
+          <div className="absolute top-full left-0 right-0 mt-1 bg-app-surface/50 border border-app-border rounded-xl z-20 py-1 shadow-lg">
             {filteredSuggestions.map((s, i) => (
               <button key={i} onMouseDown={() => handleSearch(s)}
-                className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-rose-50 hover:text-rose-600 cursor-pointer transition-colors text-left">
-                <i className="ri-search-line text-gray-400 text-xs"></i>
+                className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-white/80 hover:bg-app-accent-primary/10 hover:text-app-accent-primary cursor-pointer transition-colors text-left">
+                <i className="ri-search-line text-white/40 text-xs"></i>
                 <span>{s}</span>
-                <span className="ml-auto text-xs text-gray-400">
+                <span className="ml-auto text-xs text-white/40">
                   {smartSearch(s, HANJA_DATA).length} từ
                 </span>
               </button>
@@ -250,13 +250,13 @@ export default function SmartSearchTab() {
       {/* Popular searches */}
       {!submitted && (
         <div className="mb-8">
-          <p className="text-xs font-semibold text-gray-500 mb-3 tracking-wide">Tìm kiếm phổ biến</p>
+          <p className="text-xs font-semibold text-white/50 mb-3 tracking-wide">Tìm kiếm phổ biến</p>
           <div className="flex flex-wrap gap-2">
             {POPULAR_SEARCHES.map(s => (
               <button key={s} onClick={() => handleSearch(s)}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm cursor-pointer hover:bg-rose-50 hover:text-rose-600 transition-colors">
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-app-surface/50 text-white/70 rounded-full text-sm cursor-pointer hover:bg-app-accent-primary/10 hover:text-app-accent-primary transition-colors">
                 <i className="ri-hashtag text-xs"></i>{s}
-                <span className="text-xs text-gray-400">({smartSearch(s, HANJA_DATA).length})</span>
+                <span className="text-xs text-white/40">({smartSearch(s, HANJA_DATA).length})</span>
               </button>
             ))}
           </div>
@@ -264,10 +264,10 @@ export default function SmartSearchTab() {
           {/* How it works */}
           <div className="mt-6 bg-gradient-to-r from-rose-50 to-amber-50 rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
-              <i className="ri-lightbulb-line text-amber-500"></i>
-              <span className="text-sm font-semibold text-gray-700">Cách tìm kiếm thông minh</span>
+              <i className="ri-lightbulb-line text-amber-400"></i>
+              <span className="text-sm font-semibold text-white/80">Cách tìm kiếm thông minh</span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gray-600">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-white/70">
               {[
                 { icon: "ri-translate-2", tip: "Gõ phiên âm Việt: \"thương\" → tìm tất cả từ có nghĩa liên quan đến \"thương\"" },
                 { icon: "ri-font-size", tip: "Không cần dấu: \"thuong\" = \"thương\" — hệ thống tự nhận dạng" },
@@ -275,7 +275,7 @@ export default function SmartSearchTab() {
                 { icon: "ri-character-recognition-line", tip: "Gõ Hán tự: \"商\" → tìm tất cả từ chứa chữ Hán đó" },
               ].map((t, i) => (
                 <div key={i} className="flex items-start gap-2">
-                  <i className={`${t.icon} text-rose-400 flex-shrink-0 mt-0.5`}></i>
+                  <i className={`${t.icon} text-app-accent-primary flex-shrink-0 mt-0.5`}></i>
                   <span>{t.tip}</span>
                 </div>
               ))}
@@ -289,13 +289,13 @@ export default function SmartSearchTab() {
         <div>
           <div className="flex items-center justify-between mb-4">
             <div>
-              <span className="text-sm font-semibold text-gray-700">
-                Kết quả cho &ldquo;<span className="text-rose-600">{submitted}</span>&rdquo;
+              <span className="text-sm font-semibold text-white/80">
+                Kết quả cho &ldquo;<span className="text-app-accent-primary">{submitted}</span>&rdquo;
               </span>
-              <span className="ml-2 text-xs text-gray-400">({results.length} từ)</span>
+              <span className="ml-2 text-xs text-white/40">({results.length} từ)</span>
             </div>
             {results.length > 0 && (
-              <div className="flex gap-2 text-xs text-gray-400">
+              <div className="flex gap-2 text-xs text-white/40">
                 <span className="flex items-center gap-1">
                   <span className="w-2 h-2 rounded-full bg-green-400 inline-block"></span>
                   {results.filter(r => getMasteryLevel(r.korean, srData) === "mastered").length} đã thuộc
@@ -309,16 +309,16 @@ export default function SmartSearchTab() {
           </div>
 
           {results.length === 0 ? (
-            <div className="text-center py-16 text-gray-400">
-              <div className="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-2xl mx-auto mb-4">
+            <div className="text-center py-16 text-white/40">
+              <div className="w-16 h-16 flex items-center justify-center bg-app-surface/50 rounded-2xl mx-auto mb-4">
                 <i className="ri-search-line text-3xl"></i>
               </div>
-              <p className="font-medium text-gray-500 mb-1">Không tìm thấy kết quả</p>
+              <p className="font-medium text-white/50 mb-1">Không tìm thấy kết quả</p>
               <p className="text-sm">Thử từ khác hoặc kiểm tra chính tả</p>
               <div className="flex flex-wrap gap-2 justify-center mt-4">
                 {POPULAR_SEARCHES.slice(0, 6).map(s => (
                   <button key={s} onClick={() => handleSearch(s)}
-                    className="px-3 py-1.5 bg-rose-50 text-rose-600 rounded-full text-xs cursor-pointer hover:bg-rose-100 transition-colors">
+                    className="px-3 py-1.5 bg-app-accent-primary/10 text-app-accent-primary rounded-full text-xs cursor-pointer hover:bg-app-accent-primary/20 transition-colors">
                     {s}
                   </button>
                 ))}
@@ -329,14 +329,14 @@ export default function SmartSearchTab() {
               {groupedResults!.map((item, i) => {
                 const mastery = getMasteryLevel(item.korean, srData);
                 return (
-                  <div key={i} className="bg-white border border-gray-100 rounded-xl px-4 py-3 hover:border-rose-200 transition-all flex items-center gap-4">
+                  <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl px-4 py-3 hover:border-app-accent-primary transition-all flex items-center gap-4">
                     <div className="flex items-center gap-3 flex-1 min-w-0">
                       <div className="flex-shrink-0">
-                        <span className="text-lg font-bold text-gray-900 block leading-tight">{item.korean}</span>
-                        <span className="text-sm font-bold text-rose-400">{item.hanja}</span>
+                        <span className="text-lg font-bold text-white block leading-tight">{item.korean}</span>
+                        <span className="text-sm font-bold text-app-accent-primary">{item.hanja}</span>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm text-gray-600 truncate">
+                        <p className="text-sm text-white/70 truncate">
                           {highlight(item.vietnamese, submitted)}
                         </p>
                       </div>
@@ -344,7 +344,7 @@ export default function SmartSearchTab() {
                     <div className="flex-shrink-0">
                       <MasteryBadge level={mastery} />
                     </div>
-                    <span className="text-xs text-gray-300 flex-shrink-0">#{i + 1}</span>
+                    <span className="text-xs text-white/30 flex-shrink-0">#{i + 1}</span>
                   </div>
                 );
               })}

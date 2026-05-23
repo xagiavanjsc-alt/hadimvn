@@ -135,33 +135,33 @@ export default function WeeklyLeaderboardTab() {
   return (
     <div className="max-w-2xl mx-auto">
       {/* Header */}
-      <div className="bg-gradient-to-r from-rose-50 to-orange-50 border border-rose-100 rounded-2xl p-5 mb-5">
+      <div className="bg-gradient-to-r from-rose-50 to-orange-50 border border-app-accent-primary/20 rounded-2xl p-5 mb-5">
         <div className="flex items-center justify-between mb-3">
           <div>
-            <h2 className="text-lg font-bold text-gray-900">Bảng xếp hạng tuần</h2>
-            <p className="text-sm text-gray-500">Tuần {weekId} · Còn {daysLeft} ngày</p>
+            <h2 className="text-lg font-bold text-white">Bảng xếp hạng tuần</h2>
+            <p className="text-sm text-white/50">Tuần {weekId} · Còn {daysLeft} ngày</p>
           </div>
           <button
             onClick={() => setShowShareModal(true)}
-            className="flex items-center gap-1.5 px-3 py-2 bg-rose-500 text-white rounded-xl text-sm font-medium cursor-pointer hover:bg-rose-600 transition-colors whitespace-nowrap"
+            className="flex items-center gap-1.5 px-3 py-2 bg-app-accent-primary text-white rounded-xl text-sm font-medium cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap"
           >
             <i className="ri-share-line"></i>Chia sẻ
           </button>
         </div>
 
         {/* My stats */}
-        <div className="bg-white/70 rounded-xl p-4">
+        <div className="bg-app-surface/50/70 rounded-xl p-4">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 flex items-center justify-center bg-rose-500 text-white rounded-full font-bold text-sm flex-shrink-0">
+            <div className="w-10 h-10 flex items-center justify-center bg-app-accent-primary text-white rounded-full font-bold text-sm flex-shrink-0">
               BN
             </div>
             <div className="flex-1">
-              <p className="font-bold text-gray-900 text-sm">Bạn · Hạng #{myRank}</p>
-              <p className="text-xs text-gray-500">Tuần này</p>
+              <p className="font-bold text-white text-sm">Bạn · Hạng #{myRank}</p>
+              <p className="text-xs text-white/50">Tuần này</p>
             </div>
-            <div className="flex items-center gap-1.5 px-2.5 py-1 bg-rose-100 rounded-full">
-              <i className="ri-star-fill text-rose-500 text-xs"></i>
-              <span className="text-rose-600 font-bold text-sm">{myProgress.xp.toLocaleString()} XP</span>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 bg-app-accent-primary/20 rounded-full">
+              <i className="ri-star-fill text-app-accent-primary text-xs"></i>
+              <span className="text-app-accent-primary font-bold text-sm">{myProgress.xp.toLocaleString()} XP</span>
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -174,8 +174,8 @@ export default function WeeklyLeaderboardTab() {
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-1" style={{ backgroundColor: `${s.color}15` }}>
                   <i className={`${s.icon} text-sm`} style={{ color: s.color }}></i>
                 </div>
-                <p className="font-bold text-gray-900 text-sm">{s.value}</p>
-                <p className="text-xs text-gray-400">{s.label}</p>
+                <p className="font-bold text-white text-sm">{s.value}</p>
+                <p className="text-xs text-white/40">{s.label}</p>
               </div>
             ))}
           </div>
@@ -184,7 +184,7 @@ export default function WeeklyLeaderboardTab() {
 
       {/* Sort controls */}
       <div className="flex gap-2 mb-4 flex-wrap">
-        <span className="text-xs text-gray-500 self-center">Sắp xếp theo:</span>
+        <span className="text-xs text-white/50 self-center">Sắp xếp theo:</span>
         {([
           { key: "xp" as SortKey, label: "XP" },
           { key: "wordsLearned" as SortKey, label: "Từ học" },
@@ -194,7 +194,7 @@ export default function WeeklyLeaderboardTab() {
           <button
             key={opt.key}
             onClick={() => setSortBy(opt.key)}
-            className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${sortBy === opt.key ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}
+            className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${sortBy === opt.key ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}
           >
             {opt.label}
           </button>
@@ -210,11 +210,11 @@ export default function WeeklyLeaderboardTab() {
           const h = heights[podiumIdx];
           return (
             <div key={entry.id} className={`flex flex-col items-center ${podiumIdx === 1 ? "order-2" : podiumIdx === 0 ? "order-1" : "order-3"}`}>
-              <div className={`w-12 h-12 flex items-center justify-center rounded-full font-bold text-sm mb-1 border-2 ${entry.isMe ? "bg-rose-500 text-white border-rose-300" : "bg-gray-100 text-gray-700 border-gray-200"}`}>
+              <div className={`w-12 h-12 flex items-center justify-center rounded-full font-bold text-sm mb-1 border-2 ${entry.isMe ? "bg-app-accent-primary text-white border-app-accent-primary/40" : "bg-app-surface/50 text-white/80 border-app-border"}`}>
                 {entry.avatar}
               </div>
-              <p className="text-xs font-semibold text-gray-700 mb-1 text-center leading-tight">{entry.name}</p>
-              <p className="text-xs text-gray-500 mb-2">{entry[sortBy].toLocaleString()}{sortBy === "quizScore" ? "%" : sortBy === "streak" ? "d" : sortBy === "xp" ? " XP" : " từ"}</p>
+              <p className="text-xs font-semibold text-white/80 mb-1 text-center leading-tight">{entry.name}</p>
+              <p className="text-xs text-white/50 mb-2">{entry[sortBy].toLocaleString()}{sortBy === "quizScore" ? "%" : sortBy === "streak" ? "d" : sortBy === "xp" ? " XP" : " từ"}</p>
               <div className={`w-full ${h} rounded-t-xl flex items-start justify-center pt-2`} style={{ backgroundColor: `${rankColors[rank - 1]}20`, border: `2px solid ${rankColors[rank - 1]}40` }}>
                 <i className={`${rankIcons[rank - 1]} text-xl`} style={{ color: rankColors[rank - 1] }}></i>
               </div>
@@ -224,8 +224,8 @@ export default function WeeklyLeaderboardTab() {
       </div>
 
       {/* Rest of leaderboard */}
-      <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden">
-        <div className="grid grid-cols-[40px_1fr_80px_80px_80px_80px] bg-gray-50 px-4 py-2.5 text-xs font-semibold text-gray-500 border-b border-gray-100">
+      <div className="bg-app-surface/50 border border-app-border rounded-2xl overflow-hidden">
+        <div className="grid grid-cols-[40px_1fr_80px_80px_80px_80px] bg-app-surface/30 px-4 py-2.5 text-xs font-semibold text-white/50 border-b border-app-border">
           <span>#</span>
           <span>Người học</span>
           <span className="text-center">Từ học</span>
@@ -233,44 +233,44 @@ export default function WeeklyLeaderboardTab() {
           <span className="text-center">Streak</span>
           <span className="text-center">XP</span>
         </div>
-        <div className="divide-y divide-gray-50">
+        <div className="divide-y divide-app-border">
           {allEntries.map((entry, idx) => {
             const rank = idx + 1;
             const isTop3 = rank <= 3;
             return (
               <div
                 key={entry.id}
-                className={`grid grid-cols-[40px_1fr_80px_80px_80px_80px] px-4 py-3 items-center transition-colors ${entry.isMe ? "bg-rose-50/50" : "hover:bg-gray-50/50"}`}
+                className={`grid grid-cols-[40px_1fr_80px_80px_80px_80px] px-4 py-3 items-center transition-colors ${entry.isMe ? "bg-app-accent-primary/10" : "hover:bg-app-surface/30"}`}
               >
                 <div className="flex items-center justify-center">
                   {isTop3 ? (
                     <i className={`${rankIcons[rank - 1]} text-base`} style={{ color: rankColors[rank - 1] }}></i>
                   ) : (
-                    <span className="text-sm font-bold text-gray-400">{rank}</span>
+                    <span className="text-sm font-bold text-white/40">{rank}</span>
                   )}
                 </div>
                 <div className="flex items-center gap-2.5">
-                  <div className={`w-8 h-8 flex items-center justify-center rounded-full text-xs font-bold flex-shrink-0 ${entry.isMe ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600"}`}>
+                  <div className={`w-8 h-8 flex items-center justify-center rounded-full text-xs font-bold flex-shrink-0 ${entry.isMe ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70"}`}>
                     {entry.avatar}
                   </div>
                   <div>
-                    <p className={`text-sm font-semibold ${entry.isMe ? "text-rose-600" : "text-gray-800"}`}>
+                    <p className={`text-sm font-semibold ${entry.isMe ? "text-app-accent-primary" : "text-white/90"}`}>
                       {entry.name}
-                      {entry.isMe && <span className="ml-1.5 text-xs bg-rose-100 text-rose-500 px-1.5 py-0.5 rounded-full">Bạn</span>}
+                      {entry.isMe && <span className="ml-1.5 text-xs bg-app-accent-primary/20 text-app-accent-primary px-1.5 py-0.5 rounded-full">Bạn</span>}
                     </p>
                   </div>
                 </div>
                 <div className="text-center">
-                  <span className={`text-sm font-bold ${sortBy === "wordsLearned" ? "text-rose-600" : "text-gray-700"}`}>{entry.wordsLearned}</span>
+                  <span className={`text-sm font-bold ${sortBy === "wordsLearned" ? "text-app-accent-primary" : "text-white/80"}`}>{entry.wordsLearned}</span>
                 </div>
                 <div className="text-center">
-                  <span className={`text-sm font-bold ${sortBy === "quizScore" ? "text-orange-500" : "text-gray-700"}`}>{entry.quizScore}%</span>
+                  <span className={`text-sm font-bold ${sortBy === "quizScore" ? "text-orange-400" : "text-white/80"}`}>{entry.quizScore}%</span>
                 </div>
                 <div className="text-center">
-                  <span className={`text-sm font-bold ${sortBy === "streak" ? "text-amber-500" : "text-gray-700"}`}>{entry.streak}d</span>
+                  <span className={`text-sm font-bold ${sortBy === "streak" ? "text-amber-400" : "text-white/80"}`}>{entry.streak}d</span>
                 </div>
                 <div className="text-center">
-                  <span className={`text-sm font-bold ${sortBy === "xp" ? "text-rose-600" : "text-gray-700"}`}>{entry.xp.toLocaleString()}</span>
+                  <span className={`text-sm font-bold ${sortBy === "xp" ? "text-app-accent-primary" : "text-white/80"}`}>{entry.xp.toLocaleString()}</span>
                 </div>
               </div>
             );
@@ -279,8 +279,8 @@ export default function WeeklyLeaderboardTab() {
       </div>
 
       {/* Note about data */}
-      <div className="mt-4 bg-amber-50 border border-amber-100 rounded-xl p-3">
-        <p className="text-xs text-amber-700 flex items-start gap-2">
+      <div className="mt-4 bg-amber-500/10 border border-amber-500/20 rounded-xl p-3">
+        <p className="text-xs text-amber-400 flex items-start gap-2">
           <i className="ri-information-line flex-shrink-0 mt-0.5"></i>
           <span>Dữ liệu bạn bè là mô phỏng. Kết nối Supabase để so sánh tiến độ thật với bạn bè trong thời gian thực.</span>
         </p>
@@ -289,16 +289,16 @@ export default function WeeklyLeaderboardTab() {
       {/* Share modal */}
       {showShareModal && (
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={() => setShowShareModal(false)}>
-          <div className="bg-white rounded-2xl p-6 max-w-sm w-full" onClick={e => e.stopPropagation()}>
-            <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-              <i className="ri-share-line text-rose-500"></i>Chia sẻ tiến độ
+          <div className="bg-app-surface/50 rounded-2xl p-6 max-w-sm w-full" onClick={e => e.stopPropagation()}>
+            <h3 className="font-bold text-white mb-3 flex items-center gap-2">
+              <i className="ri-share-line text-app-accent-primary"></i>Chia sẻ tiến độ
             </h3>
-            <div className="bg-gray-50 rounded-xl p-4 mb-4 text-sm text-gray-700 leading-relaxed">
+            <div className="bg-app-surface/30 rounded-xl p-4 mb-4 text-sm text-white/80 leading-relaxed">
               Tuần {weekId}: Tôi đã học <strong>{myProgress.wordsLearned} từ</strong> Hán-Hàn, đạt <strong>{myProgress.xp} XP</strong>! Xếp hạng <strong>#{myRank}</strong> trong nhóm bạn bè. 🎯
             </div>
             <div className="flex gap-3">
-              <button onClick={() => setShowShareModal(false)} className="flex-1 py-2.5 border border-gray-200 text-gray-600 rounded-xl text-sm cursor-pointer hover:bg-gray-50 transition-colors">Hủy</button>
-              <button onClick={handleShare} className="flex-1 py-2.5 bg-rose-500 text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-rose-600 transition-colors">
+              <button onClick={() => setShowShareModal(false)} className="flex-1 py-2.5 border border-app-border text-white/70 rounded-xl text-sm cursor-pointer hover:bg-app-surface/50 transition-colors">Hủy</button>
+              <button onClick={handleShare} className="flex-1 py-2.5 bg-app-accent-primary text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
                 {copied ? <><i className="ri-check-line mr-1"></i>Đã sao chép!</> : <><i className="ri-clipboard-line mr-1"></i>Sao chép</>}
               </button>
             </div>

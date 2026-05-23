@@ -182,7 +182,7 @@ const LEVEL_COLORS: Record<string, { bg: string; text: string; border: string }>
   TOPIK2: { bg: "bg-sky-500/10", text: "text-sky-400", border: "border-sky-500/20" },
   TOPIK3: { bg: "bg-amber-500/10", text: "text-amber-400", border: "border-amber-500/20" },
   TOPIK4: { bg: "bg-orange-500/10", text: "text-orange-400", border: "border-orange-500/20" },
-  TOPIK5: { bg: "bg-rose-500/10", text: "text-rose-400", border: "border-rose-500/20" },
+  TOPIK5: { bg: "bg-app-accent-primary/10", text: "text-app-accent-primary", border: "border-app-accent-primary/20" },
   TOPIK6: { bg: "bg-red-500/10", text: "text-red-400", border: "border-red-500/20" },
 };
 
@@ -253,7 +253,7 @@ export default function ExampleSentenceTab() {
           </div>
           <button
             onClick={() => { setStudyMode(m => !m); setStudyIdx(0); setStudyRevealed(false); }}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold cursor-pointer whitespace-nowrap transition-all flex-shrink-0 ${studyMode ? "bg-amber-500 text-white" : "bg-amber-500/15 text-amber-400 hover:bg-amber-500/25"}`}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold cursor-pointer whitespace-nowrap transition-all flex-shrink-0 ${studyMode ? "bg-amber-500 text-white" : "bg-amber-500/15 text-amber-400 hover:bg-amber-500/100/25"}`}
           >
             <i className={studyMode ? "ri-close-line" : "ri-play-circle-line"}></i>
             {studyMode ? "Thoát học" : "Chế độ học"}
@@ -276,7 +276,7 @@ export default function ExampleSentenceTab() {
             <div className="bg-app-surface/50 rounded-2xl p-5 mb-4 text-center">
               <div className="flex items-center justify-center gap-3 mb-3">
                 <span className="text-3xl font-bold text-white">{currentStudy.korean}</span>
-                <span className="text-2xl font-bold text-rose-400">{currentStudy.hanja}</span>
+                <span className="text-2xl font-bold text-app-accent-primary">{currentStudy.hanja}</span>
                 <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${LEVEL_COLORS[currentStudy.level].bg} ${LEVEL_COLORS[currentStudy.level].text}`}>
                   {currentStudy.level}
                 </span>
@@ -284,7 +284,7 @@ export default function ExampleSentenceTab() {
               {!studyRevealed ? (
                 <button
                   onClick={() => setStudyRevealed(true)}
-                  className="px-6 py-2.5 bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 rounded-xl text-sm font-semibold cursor-pointer transition-all"
+                  className="px-6 py-2.5 bg-amber-500/15 hover:bg-amber-500/100/25 text-amber-400 rounded-xl text-sm font-semibold cursor-pointer transition-all"
                 >
                   Xem nghĩa & câu ví dụ
                 </button>
@@ -381,12 +381,12 @@ export default function ExampleSentenceTab() {
                 <div key={i} className="bg-app-bg border border-app-border rounded-2xl overflow-hidden">
                   <button
                     onClick={() => setExpandedWord(isExpanded ? null : word.korean)}
-                    className="w-full flex items-center gap-4 px-5 py-4 hover:bg-white/2 transition-colors cursor-pointer text-left"
+                    className="w-full flex items-center gap-4 px-5 py-4 hover:bg-app-surface/70/2 transition-colors cursor-pointer text-left"
                   >
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 flex-wrap">
                         <span className="text-white font-bold text-lg">{word.korean}</span>
-                        <span className="text-rose-400 font-bold text-base">{word.hanja}</span>
+                        <span className="text-app-accent-primary font-bold text-base">{word.hanja}</span>
                         <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold border ${lvlCfg.bg} ${lvlCfg.text} ${lvlCfg.border}`}>
                           {word.level}
                         </span>

@@ -68,66 +68,66 @@ export default function StatsTab() {
   return (
     <div className="max-w-3xl mx-auto">
       {/* Overall summary */}
-      <div className="bg-white border border-gray-100 rounded-2xl p-6 mb-6">
-        <h2 className="text-base font-bold text-gray-800 mb-4">Tổng quan tiến độ</h2>
+      <div className="bg-app-surface/50 border border-app-border rounded-2xl p-6 mb-6">
+        <h2 className="text-base font-bold text-white/90 mb-4">Tổng quan tiến độ</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
-          <div className="text-center bg-gray-50 rounded-xl p-4">
-            <p className="text-2xl font-bold text-gray-500">{overall.new}</p>
-            <p className="text-xs text-gray-400 mt-1">Chưa học</p>
+          <div className="text-center bg-app-surface/30 rounded-xl p-4">
+            <p className="text-2xl font-bold text-white/50">{overall.new}</p>
+            <p className="text-xs text-white/40 mt-1">Chưa học</p>
           </div>
-          <div className="text-center bg-amber-50 rounded-xl p-4">
-            <p className="text-2xl font-bold text-amber-600">{overall.learning}</p>
-            <p className="text-xs text-gray-400 mt-1">Đang học</p>
+          <div className="text-center bg-amber-500/10 rounded-xl p-4">
+            <p className="text-2xl font-bold text-amber-400">{overall.learning}</p>
+            <p className="text-xs text-white/40 mt-1">Đang học</p>
           </div>
-          <div className="text-center bg-green-50 rounded-xl p-4">
-            <p className="text-2xl font-bold text-green-600">{overall.mastered}</p>
-            <p className="text-xs text-gray-400 mt-1">Đã thuộc</p>
+          <div className="text-center bg-green-500/10 rounded-xl p-4">
+            <p className="text-2xl font-bold text-green-400">{overall.mastered}</p>
+            <p className="text-xs text-white/40 mt-1">Đã thuộc</p>
           </div>
         </div>
-        <div className="mb-2 flex justify-between text-xs text-gray-500">
+        <div className="mb-2 flex justify-between text-xs text-white/50">
           <span>Tiến độ tổng thể</span>
-          <span className="font-semibold text-green-600">{overallPct}% đã thuộc ({overall.mastered}/{overall.total})</span>
+          <span className="font-semibold text-green-400">{overallPct}% đã thuộc ({overall.mastered}/{overall.total})</span>
         </div>
-        <div className="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+        <div className="w-full bg-app-surface/50 rounded-full h-3 overflow-hidden">
           <div className="h-3 rounded-full flex">
             <div className="bg-green-400 h-full transition-all" style={{ width: `${overallPct}%` }}></div>
             <div className="bg-amber-300 h-full transition-all" style={{ width: `${overall.total > 0 ? Math.round((overall.learning / overall.total) * 100) : 0}%` }}></div>
           </div>
         </div>
-        <div className="flex gap-4 mt-2 text-xs text-gray-400">
+        <div className="flex gap-4 mt-2 text-xs text-white/40">
           <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-green-400 inline-block"></span>Đã thuộc</span>
           <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-300 inline-block"></span>Đang học</span>
-          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-gray-200 inline-block"></span>Chưa học</span>
+          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-app-surface/70 inline-block"></span>Chưa học</span>
         </div>
       </div>
 
       {/* Per-group breakdown */}
-      <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100">
-          <h2 className="text-base font-bold text-gray-800">Tiến độ theo nhóm chữ cái</h2>
-          <p className="text-xs text-gray-400 mt-0.5">Nhấn vào nhóm để xem chi tiết</p>
+      <div className="bg-app-surface/50 border border-app-border rounded-2xl overflow-hidden">
+        <div className="px-5 py-4 border-b border-app-border">
+          <h2 className="text-base font-bold text-white/90">Tiến độ theo nhóm chữ cái</h2>
+          <p className="text-xs text-white/40 mt-0.5">Nhấn vào nhóm để xem chi tiết</p>
         </div>
-        <div className="divide-y divide-gray-50">
+        <div className="divide-y divide-app-border">
           {groupStats.map(g => (
-            <div key={g.group} className="px-5 py-4 hover:bg-gray-50/50 transition-colors">
+            <div key={g.group} className="px-5 py-4 hover:bg-app-surface/30 transition-colors">
               <div className="flex items-center gap-4">
                 {/* Group letter */}
-                <div className="w-10 h-10 flex items-center justify-center bg-rose-50 rounded-xl flex-shrink-0">
-                  <span className="text-lg font-bold text-rose-600">{g.group}</span>
+                <div className="w-10 h-10 flex items-center justify-center bg-app-accent-primary/10 rounded-xl flex-shrink-0">
+                  <span className="text-lg font-bold text-app-accent-primary">{g.group}</span>
                 </div>
 
                 {/* Stats */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-sm font-semibold text-gray-700">{g.total} từ</span>
+                    <span className="text-sm font-semibold text-white/80">{g.total} từ</span>
                     <div className="flex items-center gap-3 text-xs">
-                      <span className="text-gray-400">{g.new} mới</span>
-                      <span className="text-amber-500">{g.learning} học</span>
-                      <span className="text-green-600 font-semibold">{g.mastered} thuộc</span>
+                      <span className="text-white/40">{g.new} mới</span>
+                      <span className="text-amber-400">{g.learning} học</span>
+                      <span className="text-green-400 font-semibold">{g.mastered} thuộc</span>
                     </div>
                   </div>
                   {/* Progress bar */}
-                  <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
+                  <div className="w-full bg-app-surface/50 rounded-full h-2 overflow-hidden">
                     <div className="h-2 rounded-full flex">
                       <div className="bg-green-400 h-full transition-all" style={{ width: `${g.masteredPct}%` }}></div>
                       <div className="bg-amber-300 h-full transition-all" style={{ width: `${g.learningPct}%` }}></div>
@@ -137,10 +137,10 @@ export default function StatsTab() {
 
                 {/* Percentage */}
                 <div className="flex-shrink-0 text-right w-14">
-                  <span className={`text-sm font-bold ${g.masteredPct >= 80 ? "text-green-600" : g.masteredPct >= 40 ? "text-amber-500" : "text-gray-400"}`}>
+                  <span className={`text-sm font-bold ${g.masteredPct >= 80 ? "text-green-400" : g.masteredPct >= 40 ? "text-amber-400" : "text-white/40"}`}>
                     {g.masteredPct}%
                   </span>
-                  <p className="text-xs text-gray-400">thuộc</p>
+                  <p className="text-xs text-white/40">thuộc</p>
                 </div>
               </div>
             </div>
@@ -149,7 +149,7 @@ export default function StatsTab() {
       </div>
 
       {/* Tip */}
-      <div className="mt-4 bg-rose-50 rounded-xl p-4 text-xs text-rose-600">
+      <div className="mt-4 bg-app-accent-primary/10 rounded-xl p-4 text-xs text-app-accent-primary">
         <i className="ri-lightbulb-line mr-1"></i>
         Mẹo: Dùng tab <strong>Quick Review</strong> để ôn nhanh từng nhóm, hoặc <strong>Spaced Rep</strong> để ôn thông minh theo thuật toán SM-2.
       </div>

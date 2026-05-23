@@ -123,8 +123,8 @@ export default function PersonalRankingTab() {
       label: "Từ đầu tiên",
       desc: "Học từ đầu tiên",
       icon: "ri-seedling-line",
-      color: "text-green-600",
-      bg: "bg-green-50",
+      color: "text-green-400",
+      bg: "bg-green-500/10",
       unlocked: totalStudied >= 1,
     },
     {
@@ -132,8 +132,8 @@ export default function PersonalRankingTab() {
       label: "3 ngày liên tiếp",
       desc: "Học 3 ngày liên tiếp",
       icon: "ri-fire-line",
-      color: "text-orange-600",
-      bg: "bg-orange-50",
+      color: "text-orange-400",
+      bg: "bg-orange-500/10",
       unlocked: streakData.longestStreak >= 3,
     },
     {
@@ -141,8 +141,8 @@ export default function PersonalRankingTab() {
       label: "1 tuần liên tiếp",
       desc: "Học 7 ngày liên tiếp",
       icon: "ri-fire-fill",
-      color: "text-red-600",
-      bg: "bg-red-50",
+      color: "text-red-400",
+      bg: "bg-red-500/10",
       unlocked: streakData.longestStreak >= 7,
     },
     {
@@ -150,8 +150,8 @@ export default function PersonalRankingTab() {
       label: "Thuộc 10 từ",
       desc: "Đã thuộc 10 từ",
       icon: "ri-star-line",
-      color: "text-amber-600",
-      bg: "bg-amber-50",
+      color: "text-amber-400",
+      bg: "bg-amber-500/10",
       unlocked: masteryStats.mastered >= 10,
     },
     {
@@ -159,8 +159,8 @@ export default function PersonalRankingTab() {
       label: "Thuộc 50 từ",
       desc: "Đã thuộc 50 từ",
       icon: "ri-star-fill",
-      color: "text-amber-500",
-      bg: "bg-amber-50",
+      color: "text-amber-400",
+      bg: "bg-amber-500/10",
       unlocked: masteryStats.mastered >= 50,
     },
     {
@@ -168,8 +168,8 @@ export default function PersonalRankingTab() {
       label: "Thuộc 100 từ",
       desc: "Đã thuộc 100 từ",
       icon: "ri-trophy-line",
-      color: "text-yellow-600",
-      bg: "bg-yellow-50",
+      color: "text-yellow-400",
+      bg: "bg-yellow-500/10",
       unlocked: masteryStats.mastered >= 100,
     },
     {
@@ -186,8 +186,8 @@ export default function PersonalRankingTab() {
       label: "30 ngày liên tiếp",
       desc: "Học 30 ngày liên tiếp",
       icon: "ri-medal-line",
-      color: "text-rose-600",
-      bg: "bg-rose-50",
+      color: "text-app-accent-primary",
+      bg: "bg-app-accent-primary/10",
       unlocked: streakData.longestStreak >= 30,
     },
   ], [totalStudied, streakData, masteryStats]);
@@ -199,15 +199,15 @@ export default function PersonalRankingTab() {
       {/* Header stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
         {[
-          { label: "Streak hiện tại", value: `${streakData.currentStreak} ngày`, icon: "ri-fire-line", color: "text-orange-600", bg: "bg-orange-50" },
-          { label: "Kỷ lục streak", value: `${streakData.longestStreak} ngày`, icon: "ri-trophy-line", color: "text-amber-600", bg: "bg-amber-50" },
+          { label: "Streak hiện tại", value: `${streakData.currentStreak} ngày`, icon: "ri-fire-line", color: "text-orange-400", bg: "bg-orange-500/10" },
+          { label: "Kỷ lục streak", value: `${streakData.longestStreak} ngày`, icon: "ri-trophy-line", color: "text-amber-400", bg: "bg-amber-500/10" },
           { label: "Tổng lần ôn", value: totalStudied.toLocaleString(), icon: "ri-refresh-line", color: "text-teal-600", bg: "bg-teal-50" },
-          { label: "Đã thuộc", value: `${masteryStats.mastered} từ`, icon: "ri-check-double-line", color: "text-green-600", bg: "bg-green-50" },
+          { label: "Đã thuộc", value: `${masteryStats.mastered} từ`, icon: "ri-check-double-line", color: "text-green-400", bg: "bg-green-500/10" },
         ].map((s, i) => (
           <div key={i} className={`${s.bg} rounded-xl p-4`}>
             <div className="flex items-center gap-2 mb-1">
               <i className={`${s.icon} ${s.color}`}></i>
-              <span className="text-xs text-gray-500">{s.label}</span>
+              <span className="text-xs text-white/50">{s.label}</span>
             </div>
             <p className={`text-xl font-bold ${s.color}`}>{s.value}</p>
           </div>
@@ -215,13 +215,13 @@ export default function PersonalRankingTab() {
       </div>
 
       {/* Activity chart */}
-      <div className="bg-white border border-gray-100 rounded-2xl p-5 mb-5">
+      <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5 mb-5">
         <div className="flex items-center justify-between mb-4">
-          <p className="text-sm font-semibold text-gray-700">Hoạt động học tập</p>
-          <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
+          <p className="text-sm font-semibold text-white/80">Hoạt động học tập</p>
+          <div className="flex gap-1 bg-app-surface/50 rounded-lg p-1">
             {(["7", "30", "all"] as const).map(p => (
               <button key={p} onClick={() => setPeriod(p)}
-                className={`px-3 py-1 rounded-md text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${period === p ? "bg-white text-rose-600" : "text-gray-500"}`}>
+                className={`px-3 py-1 rounded-md text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${period === p ? "bg-app-surface/50 text-app-accent-primary" : "text-white/50"}`}>
                 {p === "7" ? "7 ngày" : p === "30" ? "30 ngày" : "90 ngày"}
               </button>
             ))}
@@ -231,7 +231,7 @@ export default function PersonalRankingTab() {
           {days.map((d, i) => (
             <div key={i} className="flex-1 min-w-[8px] flex flex-col items-center gap-0.5 group relative">
               <div
-                className={`w-full rounded-t-sm transition-all cursor-default ${d.isToday ? "bg-rose-500" : d.count > 0 ? "bg-rose-300" : "bg-gray-100"}`}
+                className={`w-full rounded-t-sm transition-all cursor-default ${d.isToday ? "bg-app-accent-primary" : d.count > 0 ? "bg-app-accent-primary/60" : "bg-app-surface/50"}`}
                 style={{ height: `${Math.max(4, (d.count / maxCount) * 80)}px` }}
               ></div>
               {/* Tooltip */}
@@ -243,7 +243,7 @@ export default function PersonalRankingTab() {
             </div>
           ))}
         </div>
-        <div className="flex justify-between mt-1 text-xs text-gray-400">
+        <div className="flex justify-between mt-1 text-xs text-white/40">
           <span>{days[0]?.label}</span>
           <span>{days[Math.floor(days.length / 2)]?.label}</span>
           <span>{days[days.length - 1]?.label}</span>
@@ -251,11 +251,11 @@ export default function PersonalRankingTab() {
       </div>
 
       {/* Streak calendar */}
-      <div className="bg-white border border-gray-100 rounded-2xl p-5 mb-5">
-        <p className="text-sm font-semibold text-gray-700 mb-3">Lịch học 5 tuần gần nhất</p>
+      <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5 mb-5">
+        <p className="text-sm font-semibold text-white/80 mb-3">Lịch học 5 tuần gần nhất</p>
         <div className="flex gap-1 mb-1">
           {["T2", "T3", "T4", "T5", "T6", "T7", "CN"].map(d => (
-            <div key={d} className="flex-1 text-center text-xs text-gray-400">{d}</div>
+            <div key={d} className="flex-1 text-center text-xs text-white/40">{d}</div>
           ))}
         </div>
         <div className="flex flex-col gap-1">
@@ -266,18 +266,18 @@ export default function PersonalRankingTab() {
                   className={`flex-1 aspect-square rounded-sm cursor-default transition-all ${
                     day.isToday ? "ring-2 ring-rose-400 ring-offset-1" : ""
                   } ${
-                    day.count === 0 ? "bg-gray-100" :
-                    day.count < 5 ? "bg-rose-200" :
-                    day.count < 15 ? "bg-rose-400" : "bg-rose-600"
+                    day.count === 0 ? "bg-app-surface/50" :
+                    day.count < 5 ? "bg-app-accent-primary/30" :
+                    day.count < 15 ? "bg-app-accent-primary" : "bg-app-accent-primary/90"
                   }`}
                 ></div>
               ))}
             </div>
           ))}
         </div>
-        <div className="flex items-center gap-2 mt-2 text-xs text-gray-400">
+        <div className="flex items-center gap-2 mt-2 text-xs text-white/40">
           <span>Ít</span>
-          {["bg-gray-100", "bg-rose-200", "bg-rose-400", "bg-rose-600"].map((c, i) => (
+          {["bg-app-surface/50", "bg-app-accent-primary/30", "bg-app-accent-primary", "bg-app-accent-primary/90"].map((c, i) => (
             <div key={i} className={`w-3 h-3 rounded-sm ${c}`}></div>
           ))}
           <span>Nhiều</span>
@@ -286,69 +286,69 @@ export default function PersonalRankingTab() {
 
       {/* Best day & records */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
-        <div className="bg-white border border-gray-100 rounded-xl p-4">
+        <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
           <div className="flex items-center gap-2 mb-2">
-            <i className="ri-calendar-check-line text-rose-500"></i>
-            <span className="text-xs font-semibold text-gray-600">Ngày học nhiều nhất</span>
+            <i className="ri-calendar-check-line text-app-accent-primary"></i>
+            <span className="text-xs font-semibold text-white/70">Ngày học nhiều nhất</span>
           </div>
           {bestDay ? (
             <>
-              <p className="text-2xl font-bold text-rose-600">{bestDay.count} từ</p>
-              <p className="text-xs text-gray-400">{formatDate(bestDay.date)} ({getDayLabel(bestDay.date)})</p>
+              <p className="text-2xl font-bold text-app-accent-primary">{bestDay.count} từ</p>
+              <p className="text-xs text-white/40">{formatDate(bestDay.date)} ({getDayLabel(bestDay.date)})</p>
             </>
           ) : (
-            <p className="text-sm text-gray-400">Chưa có dữ liệu</p>
+            <p className="text-sm text-white/40">Chưa có dữ liệu</p>
           )}
         </div>
-        <div className="bg-white border border-gray-100 rounded-xl p-4">
+        <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
           <div className="flex items-center gap-2 mb-2">
-            <i className="ri-bar-chart-2-line text-amber-500"></i>
-            <span className="text-xs font-semibold text-gray-600">Trung bình / ngày</span>
+            <i className="ri-bar-chart-2-line text-amber-400"></i>
+            <span className="text-xs font-semibold text-white/70">Trung bình / ngày</span>
           </div>
-          <p className="text-2xl font-bold text-amber-600">
+          <p className="text-2xl font-bold text-amber-400">
             {days.filter(d => d.count > 0).length > 0
               ? Math.round(days.reduce((s, d) => s + d.count, 0) / Math.max(1, days.filter(d => d.count > 0).length))
               : 0} từ
           </p>
-          <p className="text-xs text-gray-400">Trong {period === "all" ? "90" : period} ngày qua</p>
+          <p className="text-xs text-white/40">Trong {period === "all" ? "90" : period} ngày qua</p>
         </div>
-        <div className="bg-white border border-gray-100 rounded-xl p-4">
+        <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
           <div className="flex items-center gap-2 mb-2">
             <i className="ri-time-line text-teal-500"></i>
-            <span className="text-xs font-semibold text-gray-600">Ngày học gần nhất</span>
+            <span className="text-xs font-semibold text-white/70">Ngày học gần nhất</span>
           </div>
           {streakData.lastStudyDate ? (
             <>
               <p className="text-2xl font-bold text-teal-600">{formatDate(streakData.lastStudyDate)}</p>
-              <p className="text-xs text-gray-400">{getDayLabel(streakData.lastStudyDate)} · {streakData.history[streakData.lastStudyDate] || 0} từ</p>
+              <p className="text-xs text-white/40">{getDayLabel(streakData.lastStudyDate)} · {streakData.history[streakData.lastStudyDate] || 0} từ</p>
             </>
           ) : (
-            <p className="text-sm text-gray-400">Chưa học lần nào</p>
+            <p className="text-sm text-white/40">Chưa học lần nào</p>
           )}
         </div>
       </div>
 
       {/* Top reviewed words */}
       {topWords.length > 0 && (
-        <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden mb-5">
-          <div className="p-4 border-b border-gray-100">
-            <p className="text-sm font-semibold text-gray-700">Top 10 từ ôn nhiều nhất</p>
+        <div className="bg-app-surface/50 border border-app-border rounded-2xl overflow-hidden mb-5">
+          <div className="p-4 border-b border-app-border">
+            <p className="text-sm font-semibold text-white/80">Top 10 từ ôn nhiều nhất</p>
           </div>
-          <div className="divide-y divide-gray-50">
+          <div className="divide-y divide-app-border">
             {topWords.map((w, i) => (
-              <div key={i} className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors">
+              <div key={i} className="flex items-center gap-3 px-4 py-3 hover:bg-app-surface/50 transition-colors">
                 <span className={`w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold flex-shrink-0 ${
-                  i === 0 ? "bg-amber-100 text-amber-700" :
-                  i === 1 ? "bg-gray-200 text-gray-600" :
-                  i === 2 ? "bg-orange-100 text-orange-600" : "bg-gray-100 text-gray-500"
+                  i === 0 ? "bg-amber-500/20 text-amber-400" :
+                  i === 1 ? "bg-app-surface/70 text-white/70" :
+                  i === 2 ? "bg-orange-500/20 text-orange-400" : "bg-app-surface/50 text-white/50"
                 }`}>{i + 1}</span>
-                <span className="font-bold text-gray-900 w-20 flex-shrink-0">{w.korean}</span>
-                <span className="text-rose-400 font-bold w-16 flex-shrink-0">{w.hanja}</span>
-                <span className="text-sm text-gray-500 flex-1 truncate">{w.vietnamese}</span>
-                <span className="text-xs text-gray-400 flex-shrink-0">{w.totalReviews} lần</span>
+                <span className="font-bold text-white w-20 flex-shrink-0">{w.korean}</span>
+                <span className="text-app-accent-primary font-bold w-16 flex-shrink-0">{w.hanja}</span>
+                <span className="text-sm text-white/50 flex-1 truncate">{w.vietnamese}</span>
+                <span className="text-xs text-white/40 flex-shrink-0">{w.totalReviews} lần</span>
                 <div className="flex items-center gap-1 flex-shrink-0">
                   <i className="ri-fire-line text-orange-400 text-xs"></i>
-                  <span className="text-xs text-orange-500">{w.correctStreak}</span>
+                  <span className="text-xs text-orange-400">{w.correctStreak}</span>
                 </div>
               </div>
             ))}
@@ -357,21 +357,21 @@ export default function PersonalRankingTab() {
       )}
 
       {/* Achievements */}
-      <div className="bg-white border border-gray-100 rounded-2xl p-5">
+      <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5">
         <div className="flex items-center justify-between mb-4">
-          <p className="text-sm font-semibold text-gray-700">Thành tích</p>
-          <span className="text-xs text-gray-400">{unlockedCount} / {achievements.length} đã mở khóa</span>
+          <p className="text-sm font-semibold text-white/80">Thành tích</p>
+          <span className="text-xs text-white/40">{unlockedCount} / {achievements.length} đã mở khóa</span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {achievements.map(a => (
-            <div key={a.id} className={`rounded-xl p-3 text-center transition-all ${a.unlocked ? a.bg : "bg-gray-50 opacity-50"}`}>
-              <div className={`w-10 h-10 flex items-center justify-center rounded-full mx-auto mb-2 ${a.unlocked ? "bg-white" : "bg-gray-200"}`}>
-                <i className={`${a.icon} text-lg ${a.unlocked ? a.color : "text-gray-400"}`}></i>
+            <div key={a.id} className={`rounded-xl p-3 text-center transition-all ${a.unlocked ? a.bg : "bg-app-surface/30 opacity-50"}`}>
+              <div className={`w-10 h-10 flex items-center justify-center rounded-full mx-auto mb-2 ${a.unlocked ? "bg-app-surface/50" : "bg-app-surface/70"}`}>
+                <i className={`${a.icon} text-lg ${a.unlocked ? a.color : "text-white/40"}`}></i>
               </div>
-              <p className={`text-xs font-bold ${a.unlocked ? "text-gray-800" : "text-gray-400"}`}>{a.label}</p>
-              <p className="text-xs text-gray-400 mt-0.5">{a.desc}</p>
+              <p className={`text-xs font-bold ${a.unlocked ? "text-white/90" : "text-white/40"}`}>{a.label}</p>
+              <p className="text-xs text-white/40 mt-0.5">{a.desc}</p>
               {a.unlocked && (
-                <span className="inline-flex items-center gap-0.5 mt-1 px-1.5 py-0.5 bg-green-100 text-green-600 rounded-full text-xs">
+                <span className="inline-flex items-center gap-0.5 mt-1 px-1.5 py-0.5 bg-green-500/20 text-green-400 rounded-full text-xs">
                   <i className="ri-check-line text-xs"></i>Đạt được
                 </span>
               )}

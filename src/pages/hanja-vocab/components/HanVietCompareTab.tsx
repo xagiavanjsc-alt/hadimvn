@@ -168,7 +168,7 @@ export default function HanVietCompareTab() {
   const similarityConfig = {
     identical: { label: "Giống hệt", color: "#34d399", bg: "bg-emerald-500/10", border: "border-emerald-500/20", icon: "ri-check-double-line" },
     similar: { label: "Gần giống", color: "#fb923c", bg: "bg-orange-500/10", border: "border-orange-500/20", icon: "ri-check-line" },
-    different: { label: "Khác nhau", color: "#f43f5e", bg: "bg-rose-500/10", border: "border-rose-500/20", icon: "ri-close-line" },
+    different: { label: "Khác nhau", color: "#f43f5e", bg: "bg-app-accent-primary/10", border: "border-app-accent-primary/20", icon: "ri-close-line" },
   };
 
   return (
@@ -213,7 +213,7 @@ export default function HanVietCompareTab() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setQuizMode(m => !m)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all ${quizMode ? "bg-amber-500 text-white" : "bg-amber-500/10 text-amber-400 hover:bg-amber-500/20"}`}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all ${quizMode ? "bg-amber-500 text-white" : "bg-amber-500/10 text-amber-400 hover:bg-amber-500/100/20"}`}
               >
                 <i className="ri-gamepad-line"></i>{quizMode ? "Thoát quiz" : "Quiz nhanh"}
               </button>
@@ -232,7 +232,7 @@ export default function HanVietCompareTab() {
               <div className="bg-app-surface/50 rounded-xl p-5 text-center mb-4">
                 <p className="text-app-text-secondary text-xs mb-2">Từ Hán-Hàn này đọc Hán Việt là gì?</p>
                 <p className="text-3xl font-bold text-white mb-1">{currentQuiz.korean}</p>
-                <p className="text-xl text-rose-400 font-bold">{currentQuiz.hanja}</p>
+                <p className="text-xl text-app-accent-primary font-bold">{currentQuiz.hanja}</p>
                 <p className="text-app-text-secondary text-sm mt-2">{currentQuiz.vietnamese}</p>
               </div>
               {!quizRevealed ? (
@@ -268,7 +268,7 @@ export default function HanVietCompareTab() {
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <span className="text-white font-bold text-lg">{ex.korean}</span>
-                      <span className="text-rose-400 font-bold text-base ml-2">{ex.hanja}</span>
+                      <span className="text-app-accent-primary font-bold text-base ml-2">{ex.hanja}</span>
                     </div>
                     <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-app-accent-success/15 text-app-accent-success font-bold whitespace-nowrap">Giống!</span>
                   </div>
@@ -329,9 +329,9 @@ export default function HanVietCompareTab() {
           {filtered.map((item, i) => {
             const cfg = similarityConfig[item.similarity];
             return (
-              <div key={i} className="grid grid-cols-[1fr_1fr_1fr_1fr_auto] px-5 py-3 hover:bg-white/2 transition-colors items-center gap-3">
+              <div key={i} className="grid grid-cols-[1fr_1fr_1fr_1fr_auto] px-5 py-3 hover:bg-app-surface/70/2 transition-colors items-center gap-3">
                 <span className="text-white font-bold text-sm">{item.korean}</span>
-                <span className="text-rose-400 font-bold text-sm">{item.hanja}</span>
+                <span className="text-app-accent-primary font-bold text-sm">{item.hanja}</span>
                 <span className="text-app-accent-success font-semibold text-sm">{item.hanviet || "—"}</span>
                 <span className="text-white/50 text-xs">{item.vietnamese}</span>
                 <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap ${cfg.bg} ${cfg.border} border`} style={{ color: cfg.color }}>

@@ -97,7 +97,7 @@ function SwipeCard({
         <div className="flex items-center gap-1 text-sm font-semibold text-red-400" style={{ opacity: dontKnowOpacity }}>
           <i className="ri-close-circle-line text-lg"></i>Chưa biết
         </div>
-        <div className="flex items-center gap-1 text-sm font-semibold text-green-500" style={{ opacity: knowOpacity }}>
+        <div className="flex items-center gap-1 text-sm font-semibold text-green-400" style={{ opacity: knowOpacity }}>
           Đã biết<i className="ri-checkbox-circle-line text-lg"></i>
         </div>
       </div>
@@ -121,25 +121,25 @@ function SwipeCard({
         }}
       >
         <div
-          className="bg-white border-2 rounded-2xl p-8 text-center"
+          className="bg-app-surface/50 border-2 rounded-2xl p-8 text-center"
           style={{
-            borderColor: dragX > 40 ? "#22c55e" : dragX < -40 ? "#ef4444" : "#f3f4f6",
+            borderColor: dragX > 40 ? "#22c55e" : dragX < -40 ? "#ef4444" : "rgba(255,255,255,0.1)",
           }}
         >
-          <p className="text-xs text-gray-400 tracking-normal mb-3">Tiếng Hàn</p>
-          <p className="text-5xl font-bold text-gray-900 mb-2">{entry.korean}</p>
-          <p className="text-2xl text-rose-400 font-bold mb-4">{entry.hanja}</p>
+          <p className="text-xs text-white/40 tracking-normal mb-3">Tiếng Hàn</p>
+          <p className="text-5xl font-bold text-white mb-2">{entry.korean}</p>
+          <p className="text-2xl text-app-accent-primary font-bold mb-4">{entry.hanja}</p>
 
           {!revealed ? (
             <button
               onClick={() => { setRevealed(true); speakKorean(entry.korean); }}
-              className="px-6 py-2 bg-gray-100 text-gray-600 rounded-lg text-sm cursor-pointer hover:bg-gray-200 transition-colors"
+              className="px-6 py-2 bg-app-surface/50 text-white/70 rounded-lg text-sm cursor-pointer hover:bg-app-surface/80 transition-colors"
             >
               Hiện nghĩa
             </button>
           ) : (
-            <div className="border-t border-gray-100 pt-4">
-              <p className="text-xl font-semibold text-gray-700">{entry.vietnamese}</p>
+            <div className="border-t border-app-border pt-4">
+              <p className="text-xl font-semibold text-white/80">{entry.vietnamese}</p>
             </div>
           )}
         </div>
@@ -150,20 +150,20 @@ function SwipeCard({
         <div className="flex gap-4 mt-5">
           <button
             onClick={() => triggerExit("left")}
-            className="flex items-center gap-2 px-6 py-3 bg-red-50 border-2 border-red-200 text-red-600 rounded-xl font-semibold cursor-pointer hover:bg-red-100 transition-all"
+            className="flex items-center gap-2 px-6 py-3 bg-red-500/10 border-2 border-red-500/30 text-red-400 rounded-xl font-semibold cursor-pointer hover:bg-red-500/100/20 transition-all"
           >
             <i className="ri-close-line text-lg"></i>Chưa biết
           </button>
           <button
             onClick={() => triggerExit("right")}
-            className="flex items-center gap-2 px-6 py-3 bg-green-50 border-2 border-green-200 text-green-600 rounded-xl font-semibold cursor-pointer hover:bg-green-100 transition-all"
+            className="flex items-center gap-2 px-6 py-3 bg-green-500/10 border-2 border-green-500/30 text-green-400 rounded-xl font-semibold cursor-pointer hover:bg-green-500/100/20 transition-all"
           >
             Đã biết<i className="ri-check-line text-lg"></i>
           </button>
         </div>
       )}
 
-      <p className="text-xs text-gray-400 mt-3">Kéo sang phải = Đã biết · Kéo sang trái = Chưa biết</p>
+      <p className="text-xs text-white/40 mt-3">Kéo sang phải = Đã biết · Kéo sang trái = Chưa biết</p>
     </div>
   );
 }
@@ -253,33 +253,33 @@ export default function QuickReviewTab({ favs }: { favs: Set<string> }) {
   if (!started && !result) {
     return (
       <div className="max-w-lg mx-auto">
-        <div className="bg-white border border-gray-100 rounded-2xl p-8">
+        <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8">
           <div className="text-center mb-6">
-            <div className="w-14 h-14 flex items-center justify-center bg-rose-100 rounded-2xl mx-auto mb-3">
-              <i className="ri-flashlight-line text-rose-600 text-2xl"></i>
+            <div className="w-14 h-14 flex items-center justify-center bg-app-accent-primary/20 rounded-2xl mx-auto mb-3">
+              <i className="ri-flashlight-line text-app-accent-primary text-2xl"></i>
             </div>
-            <h2 className="text-xl font-bold text-gray-900 mb-1">Quick Review</h2>
-            <p className="text-sm text-gray-500">Ôn nhanh — kéo phải nếu biết, kéo trái nếu chưa biết</p>
+            <h2 className="text-xl font-bold text-white mb-1">Quick Review</h2>
+            <p className="text-sm text-white/50">Ôn nhanh — kéo phải nếu biết, kéo trái nếu chưa biết</p>
           </div>
 
           {/* Filters */}
           <div className="flex flex-wrap gap-2 mb-5">
             <button onClick={() => setOnlyFavs(f => !f)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${onlyFavs ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600"}`}>
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${onlyFavs ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70"}`}>
               <i className="ri-heart-line"></i>Yêu thích ({favs.size})
             </button>
             <button onClick={() => setOnlyNew(f => !f)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${onlyNew ? "bg-gray-700 text-white" : "bg-gray-100 text-gray-600"}`}>
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${onlyNew ? "bg-gray-700 text-white" : "bg-app-surface/50 text-white/70"}`}>
               <i className="ri-seedling-line"></i>Chỉ từ mới
             </button>
           </div>
 
           {/* Group filter */}
           <div className="mb-5">
-            <p className="text-xs text-gray-500 mb-2">Lọc theo nhóm chữ cái</p>
+            <p className="text-xs text-white/50 mb-2">Lọc theo nhóm chữ cái</p>
             <div className="flex flex-wrap gap-1.5">
               <button onClick={() => setSelectedInitial(null)}
-                className={`px-2.5 py-1 rounded-full text-xs cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600"}`}>
+                className={`px-2.5 py-1 rounded-full text-xs cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70"}`}>
                 Tất cả ({HANJA_DATA.length})
               </button>
               {ALPHABET_GROUPS.map(g => {
@@ -287,7 +287,7 @@ export default function QuickReviewTab({ favs }: { favs: Set<string> }) {
                 if (cnt === 0) return null;
                 return (
                   <button key={g} onClick={() => setSelectedInitial(selectedInitial === g ? null : g)}
-                    className={`px-2.5 py-1 rounded-full text-xs cursor-pointer whitespace-nowrap transition-all ${selectedInitial === g ? "bg-rose-500 text-white" : "bg-gray-100 text-gray-600"}`}>
+                    className={`px-2.5 py-1 rounded-full text-xs cursor-pointer whitespace-nowrap transition-all ${selectedInitial === g ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70"}`}>
                     {g} ({cnt})
                   </button>
                 );
@@ -296,7 +296,7 @@ export default function QuickReviewTab({ favs }: { favs: Set<string> }) {
           </div>
 
           <button onClick={startSession} disabled={pool.length === 0}
-            className="w-full py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            className="w-full py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
             Bắt đầu ({Math.min(30, pool.length)} từ)
           </button>
         </div>
@@ -308,23 +308,23 @@ export default function QuickReviewTab({ favs }: { favs: Set<string> }) {
     const pct = Math.round((result.known / result.total) * 100);
     return (
       <div className="max-w-lg mx-auto">
-        <div className="bg-white border border-gray-100 rounded-2xl p-8 text-center">
-          <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4 ${pct >= 80 ? "bg-green-100" : pct >= 50 ? "bg-amber-100" : "bg-red-100"}`}>
-            <i className={`text-3xl ${pct >= 80 ? "ri-trophy-line text-green-600" : pct >= 50 ? "ri-emotion-normal-line text-amber-600" : "ri-emotion-sad-line text-red-500"}`}></i>
+        <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8 text-center">
+          <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4 ${pct >= 80 ? "bg-green-500/20" : pct >= 50 ? "bg-amber-500/20" : "bg-red-500/20"}`}>
+            <i className={`text-3xl ${pct >= 80 ? "ri-trophy-line text-green-400" : pct >= 50 ? "ri-emotion-normal-line text-amber-400" : "ri-emotion-sad-line text-red-400"}`}></i>
           </div>
-          <p className="text-3xl font-bold text-gray-900 mb-1">{pct}%</p>
-          <p className="text-gray-500 mb-1">Đã biết {result.known} / {result.total} từ</p>
-          <p className="text-sm text-gray-400 mb-2">
+          <p className="text-3xl font-bold text-white mb-1">{pct}%</p>
+          <p className="text-white/50 mb-1">Đã biết {result.known} / {result.total} từ</p>
+          <p className="text-sm text-white/40 mb-2">
             {pct >= 80 ? "Xuất sắc! Bạn nhớ rất tốt!" : pct >= 50 ? "Khá tốt! Tiếp tục ôn nhé!" : "Cần ôn thêm! Đừng nản lòng!"}
           </p>
-          <p className="text-xs text-green-600 mb-6">Các từ bạn biết đã được đánh dấu &ldquo;Đã thuộc&rdquo; tự động</p>
+          <p className="text-xs text-green-400 mb-6">Các từ bạn biết đã được đánh dấu &ldquo;Đã thuộc&rdquo; tự động</p>
           <div className="flex gap-3">
             <button onClick={startSession}
-              className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">
+              className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
               Ôn lại
             </button>
             <button onClick={() => { setResult(null); setStarted(false); }}
-              className="flex-1 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">
+              className="flex-1 py-3 border border-app-border text-white/80 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">
               Đổi bộ lọc
             </button>
           </div>
@@ -338,17 +338,17 @@ export default function QuickReviewTab({ favs }: { favs: Set<string> }) {
       {/* Progress */}
       <div className="flex items-center justify-between mb-3">
         <button onClick={() => { setStarted(false); setResult(null); }}
-          className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
+          className="flex items-center gap-1 text-sm text-white/50 hover:text-white/80 cursor-pointer">
           <i className="ri-arrow-left-line"></i>Dừng
         </button>
-        <span className="text-sm text-gray-500">{idx + 1} / {queue.length}</span>
+        <span className="text-sm text-white/50">{idx + 1} / {queue.length}</span>
         <div className="flex items-center gap-3 text-xs">
-          <span className="text-green-600 font-semibold">✓ {knownSet.size}</span>
+          <span className="text-green-400 font-semibold">✓ {knownSet.size}</span>
           <span className="text-red-400 font-semibold">✗ {unknownSet.size}</span>
         </div>
       </div>
-      <div className="w-full bg-gray-100 rounded-full h-1.5 mb-6">
-        <div className="bg-rose-400 h-1.5 rounded-full transition-all" style={{ width: `${(idx / queue.length) * 100}%` }}></div>
+      <div className="w-full bg-app-surface/50 rounded-full h-1.5 mb-6">
+        <div className="bg-app-accent-primary h-1.5 rounded-full transition-all" style={{ width: `${(idx / queue.length) * 100}%` }}></div>
       </div>
 
       {currentCard && (

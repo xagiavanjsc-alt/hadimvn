@@ -52,8 +52,8 @@ const ADVANCED_TOPICS: AdvancedTopic[] = [
     name: "Y tế",
     nameKo: "의료",
     icon: "ri-heart-pulse-line",
-    color: "text-rose-600",
-    bg: "bg-rose-50",
+    color: "text-app-accent-primary",
+    bg: "bg-app-accent-primary/10",
     description: "Từ vựng y tế, sức khỏe, bệnh viện, điều trị",
     words: [
       { korean: "의료보험", hanja: "醫療保險", vietnamese: "bảo hiểm y tế", example: "의료보험에 가입했다.", exampleVi: "Đã tham gia bảo hiểm y tế." },
@@ -78,8 +78,8 @@ const ADVANCED_TOPICS: AdvancedTopic[] = [
     name: "Chính trị",
     nameKo: "정치",
     icon: "ri-government-line",
-    color: "text-amber-600",
-    bg: "bg-amber-50",
+    color: "text-amber-400",
+    bg: "bg-amber-500/10",
     description: "Từ vựng chính trị, ngoại giao, quản trị nhà nước",
     words: [
       { korean: "민주주의", hanja: "民主主義", vietnamese: "chủ nghĩa dân chủ", example: "민주주의 사회에서 살고 있다.", exampleVi: "Đang sống trong xã hội dân chủ." },
@@ -104,8 +104,8 @@ const ADVANCED_TOPICS: AdvancedTopic[] = [
     name: "Môi trường",
     nameKo: "환경",
     icon: "ri-leaf-line",
-    color: "text-green-600",
-    bg: "bg-green-50",
+    color: "text-green-400",
+    bg: "bg-green-500/10",
     description: "Từ vựng môi trường, biến đổi khí hậu, năng lượng xanh",
     words: [
       { korean: "기후변화", hanja: "氣候變化", vietnamese: "biến đổi khí hậu", example: "기후변화 대응이 시급하다.", exampleVi: "Ứng phó biến đổi khí hậu là cấp bách." },
@@ -243,8 +243,8 @@ export default function AdvancedTopicTab() {
     return (
       <div>
         <div className="mb-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-1">Học theo chủ đề nâng cao</h2>
-          <p className="text-sm text-gray-500">Từ vựng chuyên ngành với câu ví dụ thực tế từ báo chí và TOPIK</p>
+          <h2 className="text-lg font-bold text-white mb-1">Học theo chủ đề nâng cao</h2>
+          <p className="text-sm text-white/50">Từ vựng chuyên ngành với câu ví dụ thực tế từ báo chí và TOPIK</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {ADVANCED_TOPICS.map(topic => {
@@ -254,31 +254,31 @@ export default function AdvancedTopicTab() {
               <div
                 key={topic.id}
                 onClick={() => setSelectedTopic(topic)}
-                className="bg-white border border-gray-100 rounded-2xl p-5 cursor-pointer hover:border-rose-200 hover:shadow-sm transition-all group"
+                className="bg-app-surface/50 border border-app-border rounded-2xl p-5 cursor-pointer hover:border-app-accent-primary hover:shadow-sm transition-all group"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className={`w-12 h-12 flex items-center justify-center ${topic.bg} rounded-xl`}>
                     <i className={`${topic.icon} ${topic.color} text-xl`}></i>
                   </div>
-                  <span className="text-xs text-gray-400">{topic.words.length} từ</span>
+                  <span className="text-xs text-white/40">{topic.words.length} từ</span>
                 </div>
-                <h3 className="font-bold text-gray-900 mb-0.5">{topic.name}</h3>
-                <p className="text-sm text-gray-400 mb-1">{topic.nameKo}</p>
-                <p className="text-xs text-gray-500 mb-3 line-clamp-2">{topic.description}</p>
+                <h3 className="font-bold text-white mb-0.5">{topic.name}</h3>
+                <p className="text-sm text-white/40 mb-1">{topic.nameKo}</p>
+                <p className="text-xs text-white/50 mb-3 line-clamp-2">{topic.description}</p>
                 <div className="mb-2">
-                  <div className="flex justify-between text-xs text-gray-400 mb-1">
+                  <div className="flex justify-between text-xs text-white/40 mb-1">
                     <span>Đã học</span>
                     <span>{learnedCount}/{topic.words.length}</span>
                   </div>
-                  <div className="w-full bg-gray-100 rounded-full h-1.5">
-                    <div className="bg-rose-400 h-1.5 rounded-full transition-all" style={{ width: `${pct}%` }}></div>
+                  <div className="w-full bg-app-surface/50 rounded-full h-1.5">
+                    <div className="bg-app-accent-primary h-1.5 rounded-full transition-all" style={{ width: `${pct}%` }}></div>
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className={`text-xs font-semibold ${pct === 100 ? "text-green-600" : pct > 0 ? "text-amber-600" : "text-gray-400"}`}>
+                  <span className={`text-xs font-semibold ${pct === 100 ? "text-green-400" : pct > 0 ? "text-amber-400" : "text-white/40"}`}>
                     {pct === 100 ? "Hoàn thành!" : pct > 0 ? `${pct}% hoàn thành` : "Chưa bắt đầu"}
                   </span>
-                  <i className="ri-arrow-right-line text-gray-300 group-hover:text-rose-400 transition-colors"></i>
+                  <i className="ri-arrow-right-line text-white/30 group-hover:text-app-accent-primary transition-colors"></i>
                 </div>
               </div>
             );
@@ -294,15 +294,15 @@ export default function AdvancedTopicTab() {
       const pct = Math.round((quiz.score / quiz.words.length) * 100);
       return (
         <div className="max-w-lg mx-auto">
-          <div className="bg-white border border-gray-100 rounded-2xl p-8 text-center">
-            <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4 ${pct >= 80 ? "bg-green-100" : pct >= 50 ? "bg-amber-100" : "bg-red-100"}`}>
-              <i className={`text-3xl ${pct >= 80 ? "ri-trophy-line text-green-600" : pct >= 50 ? "ri-emotion-normal-line text-amber-600" : "ri-emotion-sad-line text-red-500"}`}></i>
+          <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8 text-center">
+            <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4 ${pct >= 80 ? "bg-green-500/20" : pct >= 50 ? "bg-amber-500/20" : "bg-red-500/20"}`}>
+              <i className={`text-3xl ${pct >= 80 ? "ri-trophy-line text-green-400" : pct >= 50 ? "ri-emotion-normal-line text-amber-400" : "ri-emotion-sad-line text-red-400"}`}></i>
             </div>
-            <p className="text-3xl font-bold text-gray-900 mb-1">{pct}%</p>
-            <p className="text-gray-500 mb-6">Đúng {quiz.score}/{quiz.words.length} câu — {selectedTopic.name}</p>
+            <p className="text-3xl font-bold text-white mb-1">{pct}%</p>
+            <p className="text-white/50 mb-6">Đúng {quiz.score}/{quiz.words.length} câu — {selectedTopic.name}</p>
             <div className="flex gap-3">
-              <button onClick={() => startQuiz(selectedTopic)} className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">Làm lại</button>
-              <button onClick={() => { setMode("browse"); setQuiz(null); }} className="flex-1 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">Xem từ vựng</button>
+              <button onClick={() => startQuiz(selectedTopic)} className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Làm lại</button>
+              <button onClick={() => { setMode("browse"); setQuiz(null); }} className="flex-1 py-3 border border-app-border text-white/80 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Xem từ vựng</button>
             </div>
           </div>
         </div>
@@ -313,33 +313,33 @@ export default function AdvancedTopicTab() {
     return (
       <div className="max-w-lg mx-auto">
         <div className="flex items-center justify-between mb-4">
-          <button onClick={() => { setMode("browse"); setQuiz(null); }} className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
+          <button onClick={() => { setMode("browse"); setQuiz(null); }} className="flex items-center gap-1 text-sm text-white/50 hover:text-white/80 cursor-pointer">
             <i className="ri-arrow-left-line"></i> Dừng quiz
           </button>
-          <span className="text-sm text-gray-500">{quiz.idx + 1}/{quiz.words.length}</span>
-          <span className="text-sm font-semibold text-rose-600">✓ {quiz.score}</span>
+          <span className="text-sm text-white/50">{quiz.idx + 1}/{quiz.words.length}</span>
+          <span className="text-sm font-semibold text-app-accent-primary">✓ {quiz.score}</span>
         </div>
-        <div className="w-full bg-gray-100 rounded-full h-1.5 mb-6">
-          <div className="bg-rose-400 h-1.5 rounded-full transition-all" style={{ width: `${(quiz.idx / quiz.words.length) * 100}%` }}></div>
+        <div className="w-full bg-app-surface/50 rounded-full h-1.5 mb-6">
+          <div className="bg-app-accent-primary h-1.5 rounded-full transition-all" style={{ width: `${(quiz.idx / quiz.words.length) * 100}%` }}></div>
         </div>
-        <div className="bg-white border border-gray-100 rounded-2xl p-8 text-center mb-4">
-          <p className="text-xs text-gray-400 mb-2 tracking-wide">Từ tiếng Hàn này có nghĩa là gì?</p>
-          <p className="text-4xl font-bold text-gray-900 mb-2">{current.korean}</p>
-          <p className="text-xl text-rose-400 font-bold">{current.hanja}</p>
+        <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8 text-center mb-4">
+          <p className="text-xs text-white/40 mb-2 tracking-wide">Từ tiếng Hàn này có nghĩa là gì?</p>
+          <p className="text-4xl font-bold text-white mb-2">{current.korean}</p>
+          <p className="text-xl text-app-accent-primary font-bold">{current.hanja}</p>
         </div>
         <div className="grid grid-cols-2 gap-3">
           {quiz.choices.map((choice, i) => {
-            let cls = "border-2 border-gray-200 bg-white text-gray-700 hover:border-rose-300";
+            let cls = "border-2 border-app-border bg-app-surface/50 text-white/80 hover:border-app-accent-primary";
             if (quiz.answered) {
-              if (choice.korean === current.korean) cls = "border-2 border-green-400 bg-green-50 text-green-700";
-              else if (choice.korean === quiz.selected) cls = "border-2 border-red-400 bg-red-50 text-red-700";
-              else cls = "border-2 border-gray-100 bg-gray-50 text-gray-400";
+              if (choice.korean === current.korean) cls = "border-2 border-green-400 bg-green-500/10 text-green-400";
+              else if (choice.korean === quiz.selected) cls = "border-2 border-red-400 bg-red-500/10 text-red-400";
+              else cls = "border-2 border-app-border bg-app-surface/30 text-white/40";
             }
             return (
               <button key={i} onClick={() => handleAnswer(choice)} disabled={quiz.answered}
                 className={`p-4 rounded-xl text-sm font-medium cursor-pointer transition-all text-left ${cls} disabled:cursor-default`}>
-                {quiz.answered && choice.korean === current.korean && <i className="ri-check-line text-green-600 mr-1"></i>}
-                {quiz.answered && choice.korean === quiz.selected && choice.korean !== current.korean && <i className="ri-close-line text-red-500 mr-1"></i>}
+                {quiz.answered && choice.korean === current.korean && <i className="ri-check-line text-green-400 mr-1"></i>}
+                {quiz.answered && choice.korean === quiz.selected && choice.korean !== current.korean && <i className="ri-close-line text-red-400 mr-1"></i>}
                 {choice.vietnamese}
               </button>
             );
@@ -347,12 +347,12 @@ export default function AdvancedTopicTab() {
         </div>
         {quiz.answered && (
           <div className="mt-4">
-            <div className="bg-gray-50 rounded-xl p-3 mb-3 text-xs text-gray-600">
+            <div className="bg-app-surface/30 rounded-xl p-3 mb-3 text-xs text-white/70">
               <p className="font-semibold mb-1">{current.korean} — {current.vietnamese}</p>
-              {current.example && <p className="text-gray-500 italic">{current.example}</p>}
-              {current.exampleVi && <p className="text-gray-400">{current.exampleVi}</p>}
+              {current.example && <p className="text-white/50 italic">{current.example}</p>}
+              {current.exampleVi && <p className="text-white/40">{current.exampleVi}</p>}
             </div>
-            <button onClick={nextQuestion} className="w-full py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">
+            <button onClick={nextQuestion} className="w-full py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
               {quiz.idx + 1 >= quiz.words.length ? "Xem kết quả" : "Câu tiếp →"}
             </button>
           </div>
@@ -367,30 +367,30 @@ export default function AdvancedTopicTab() {
   return (
     <div>
       <div className="flex items-center gap-3 mb-5">
-        <button onClick={() => setSelectedTopic(null)} className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
+        <button onClick={() => setSelectedTopic(null)} className="flex items-center gap-1 text-sm text-white/50 hover:text-white/80 cursor-pointer">
           <i className="ri-arrow-left-line"></i> Tất cả chủ đề
         </button>
         <div className={`w-8 h-8 flex items-center justify-center ${selectedTopic.bg} rounded-lg`}>
           <i className={`${selectedTopic.icon} ${selectedTopic.color} text-sm`}></i>
         </div>
         <div>
-          <h2 className="font-bold text-gray-900">{selectedTopic.name} <span className="text-gray-400 font-normal text-sm">({selectedTopic.nameKo})</span></h2>
-          <p className="text-xs text-gray-500">{learnedCount}/{selectedTopic.words.length} từ đã học</p>
+          <h2 className="font-bold text-white">{selectedTopic.name} <span className="text-white/40 font-normal text-sm">({selectedTopic.nameKo})</span></h2>
+          <p className="text-xs text-white/50">{learnedCount}/{selectedTopic.words.length} từ đã học</p>
         </div>
         <button onClick={() => startQuiz(selectedTopic)}
-          className="ml-auto flex items-center gap-2 px-4 py-2 bg-rose-500 text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-rose-600 transition-colors whitespace-nowrap">
+          className="ml-auto flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
           <i className="ri-gamepad-line"></i>Quiz chủ đề này
         </button>
       </div>
 
       {/* Progress */}
-      <div className="bg-white border border-gray-100 rounded-xl p-4 mb-5">
-        <div className="flex justify-between text-xs text-gray-500 mb-2">
+      <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 mb-5">
+        <div className="flex justify-between text-xs text-white/50 mb-2">
           <span>Tiến độ học</span>
           <span>{learnedCount}/{selectedTopic.words.length} từ ({Math.round((learnedCount / selectedTopic.words.length) * 100)}%)</span>
         </div>
-        <div className="w-full bg-gray-100 rounded-full h-2">
-          <div className="bg-rose-400 h-2 rounded-full transition-all" style={{ width: `${(learnedCount / selectedTopic.words.length) * 100}%` }}></div>
+        <div className="w-full bg-app-surface/50 rounded-full h-2">
+          <div className="bg-app-accent-primary h-2 rounded-full transition-all" style={{ width: `${(learnedCount / selectedTopic.words.length) * 100}%` }}></div>
         </div>
       </div>
 
@@ -399,40 +399,40 @@ export default function AdvancedTopicTab() {
           const isLearned = learnedWords.has(word.korean);
           const isExpanded = expandedWord === word.korean;
           return (
-            <div key={i} className={`bg-white border rounded-xl overflow-hidden transition-all ${isLearned ? "border-green-200" : "border-gray-100"}`}>
+            <div key={i} className={`bg-app-surface/50 border rounded-xl overflow-hidden transition-all ${isLearned ? "border-green-500/30" : "border-app-border"}`}>
               <div
-                className="flex items-center gap-4 p-4 cursor-pointer hover:bg-gray-50 transition-colors"
+                className="flex items-center gap-4 p-4 cursor-pointer hover:bg-app-surface/50 transition-colors"
                 onClick={() => setExpandedWord(isExpanded ? null : word.korean)}
               >
                 <div className="flex-1 flex items-center gap-3">
                   <div>
-                    <span className="text-base font-bold text-gray-900">{word.korean}</span>
-                    <span className="text-rose-400 font-bold ml-2">{word.hanja}</span>
+                    <span className="text-base font-bold text-white">{word.korean}</span>
+                    <span className="text-app-accent-primary font-bold ml-2">{word.hanja}</span>
                   </div>
-                  <span className="text-sm text-gray-600">{word.vietnamese}</span>
+                  <span className="text-sm text-white/70">{word.vietnamese}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={e => { e.stopPropagation(); speakKorean(word.korean); }}
-                    className="w-7 h-7 flex items-center justify-center bg-gray-100 hover:bg-rose-100 rounded-lg cursor-pointer transition-colors"
+                    className="w-7 h-7 flex items-center justify-center bg-app-surface/50 hover:bg-app-accent-primary/20 rounded-lg cursor-pointer transition-colors"
                   >
-                    <i className="ri-volume-up-line text-gray-500 text-xs"></i>
+                    <i className="ri-volume-up-line text-white/50 text-xs"></i>
                   </button>
                   <button
                     onClick={e => { e.stopPropagation(); toggleLearned(word.korean); }}
-                    className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium cursor-pointer transition-all ${isLearned ? "bg-green-100 text-green-600" : "bg-gray-100 text-gray-500 hover:bg-green-50 hover:text-green-600"}`}
+                    className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium cursor-pointer transition-all ${isLearned ? "bg-green-500/20 text-green-400" : "bg-app-surface/50 text-white/50 hover:bg-green-500/10 hover:text-green-400"}`}
                   >
                     <i className={isLearned ? "ri-check-double-line" : "ri-check-line"}></i>
                     {isLearned ? "Đã học" : "Đánh dấu"}
                   </button>
-                  <i className={`text-gray-400 text-sm transition-transform ${isExpanded ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
+                  <i className={`text-white/40 text-sm transition-transform ${isExpanded ? "ri-arrow-up-s-line" : "ri-arrow-down-s-line"}`}></i>
                 </div>
               </div>
               {isExpanded && word.example && (
-                <div className="px-4 pb-4 border-t border-gray-50 pt-3">
-                  <div className="bg-rose-50 rounded-lg p-3">
-                    <p className="text-sm font-medium text-rose-700 mb-1">{word.example}</p>
-                    <p className="text-xs text-rose-500">{word.exampleVi}</p>
+                <div className="px-4 pb-4 border-t border-app-border pt-3">
+                  <div className="bg-app-accent-primary/10 rounded-lg p-3">
+                    <p className="text-sm font-medium text-app-accent-primary mb-1">{word.example}</p>
+                    <p className="text-xs text-app-accent-primary">{word.exampleVi}</p>
                   </div>
                 </div>
               )}

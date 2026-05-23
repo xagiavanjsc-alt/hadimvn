@@ -35,40 +35,40 @@ const TOPICS: Topic[] = [
     id: "military",
     label: "Quân sự",
     icon: "ri-sword-line",
-    color: "text-red-600",
-    bg: "bg-red-50",
+    color: "text-red-400",
+    bg: "bg-red-500/10",
     keywords: ["군", "병", "전", "무", "사관", "사단", "사령", "사병", "군인", "군사", "공군", "해군", "육군", "포병", "공병", "항공", "항전", "항해", "전쟁", "전투", "진군", "행군", "대군", "반군", "파병", "포격", "폭동", "폭력", "폭행", "무력", "무기", "흉기", "훈련", "훈장", "휴전", "항거", "항고", "항생", "항의", "해군", "해병", "해적", "중위", "중장", "하사관", "대장", "대대", "중대", "소대", "벌형", "처형", "처벌", "사형", "탄압", "투쟁", "투항", "파견", "파병", "반란", "반격", "반공", "독립", "독재", "혁명", "전략", "전술"],
   },
   {
     id: "medical",
     label: "Y tế",
     icon: "ri-heart-pulse-line",
-    color: "text-rose-600",
-    bg: "bg-rose-50",
+    color: "text-app-accent-primary",
+    bg: "bg-app-accent-primary/10",
     keywords: ["병", "의", "약", "치", "건강", "간호", "간염", "감기", "감염", "내과", "외과", "산부인과", "해부", "해독", "해방", "혈관", "혈구", "혈맥", "혈압", "혈육", "혈통", "생리", "생명", "생물", "생존", "생태", "세균", "살균", "살충", "독", "독성", "독소", "중독", "해독", "면역", "면역", "태아", "산모", "산부", "산아", "환자", "환기", "침수", "침입", "침착", "침해", "폐", "폐병", "폐인", "흡수", "뇌", "뇌신경", "당뇨병", "백혈구", "백혈병", "급성", "만성", "발열", "발진", "미열", "구급", "구조", "구호", "응급", "수술", "처방", "처리", "진단", "검사", "검진"],
   },
   {
     id: "education",
     label: "Giáo dục",
     icon: "ri-graduation-cap-line",
-    color: "text-amber-600",
-    bg: "bg-amber-50",
+    color: "text-amber-400",
+    bg: "bg-amber-500/10",
     keywords: ["학", "교", "사범", "교육", "교수", "교사", "학교", "학생", "학습", "학문", "학력", "학년", "학기", "학비", "학위", "학자", "학점", "학제", "학칙", "학원", "학식", "학설", "학술", "대학", "대학원", "석사", "박사", "졸업", "입학", "수업", "강의", "강사", "교재", "교과", "교실", "도서관", "연구", "논문", "논리", "지식", "지능", "지도", "지시", "지식", "지역", "지원", "직무", "직원", "직책", "직분", "직속", "직접", "직계", "직권", "설계", "설립", "설교", "성적", "성공", "성과", "성실", "성심", "성의", "성년", "성인"],
   },
   {
     id: "politics",
     label: "Chính trị",
     icon: "ri-government-line",
-    color: "text-orange-600",
-    bg: "bg-orange-50",
+    color: "text-orange-400",
+    bg: "bg-orange-500/10",
     keywords: ["정", "국", "민", "권", "법", "정치", "정부", "정책", "정당", "정권", "국가", "국민", "국회", "국방", "국제", "국내", "국립", "국무", "국어", "국적", "민주", "민족", "민중", "민간", "민심", "민의", "권력", "권리", "권한", "법률", "법원", "헌법", "헌병", "헌장", "선거", "선언", "선고", "투표", "투쟁", "외교", "외무", "대사", "대사관", "대표", "대통령", "총리", "장관", "의원", "의회", "상원", "하원", "행정", "행정부", "사법", "사법부", "입법", "통치", "통일", "통제", "독립", "독재", "혁명", "반란", "반정부", "반체제", "항거", "항의", "항전"],
   },
   {
     id: "economy",
     label: "Kinh tế",
     icon: "ri-money-dollar-circle-line",
-    color: "text-green-600",
-    bg: "bg-green-50",
+    color: "text-green-400",
+    bg: "bg-green-500/10",
     keywords: ["경제", "경영", "경쟁", "상업", "상인", "상무", "상품", "무역", "무역", "산업", "산출", "생산", "수출", "수입", "투자", "투자", "금융", "금지", "세금", "세관", "세계", "화폐", "통화", "통상", "통계", "판매", "판단", "판결", "파산", "파괴", "포함", "포기", "평가", "평균", "비용", "비율", "비중", "비준", "특산", "특혜", "특권", "특별", "특성", "특수", "특유", "특정", "특종", "특파", "특급", "특명", "할당", "합작", "합법", "합리", "합력", "합당", "합창", "회사", "회계", "회비", "회원", "회의", "회장", "황금", "황실", "황족"],
   },
   {
@@ -116,17 +116,17 @@ function getTopicWords(data: HanjaEntry[], topic: Topic): HanjaEntry[] {
 
 function MasteryBadge({ level }: { level: "new" | "learning" | "mastered" }) {
   if (level === "new") return (
-    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-gray-100 text-gray-500">
+    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-app-surface/50 text-white/50">
       <i className="ri-seedling-line text-xs"></i>Mới
     </span>
   );
   if (level === "learning") return (
-    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-amber-50 text-amber-600">
+    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-amber-500/10 text-amber-400">
       <i className="ri-book-open-line text-xs"></i>Đang học
     </span>
   );
   return (
-    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-green-50 text-green-600">
+    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs bg-green-500/10 text-green-400">
       <i className="ri-check-double-line text-xs"></i>Đã thuộc
     </span>
   );
@@ -195,18 +195,18 @@ export default function TopicStudyTab() {
       const pct = filteredWords.length > 0 ? Math.round((quizResults.known / filteredWords.length) * 100) : 0;
       return (
         <div className="max-w-lg mx-auto">
-          <div className="bg-white border border-gray-100 rounded-2xl p-8 text-center">
-            <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4 ${pct >= 80 ? "bg-green-100" : pct >= 50 ? "bg-amber-100" : "bg-red-100"}`}>
-              <i className={`text-3xl ${pct >= 80 ? "ri-trophy-line text-green-600" : pct >= 50 ? "ri-emotion-normal-line text-amber-600" : "ri-emotion-sad-line text-red-500"}`}></i>
+          <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8 text-center">
+            <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4 ${pct >= 80 ? "bg-green-500/20" : pct >= 50 ? "bg-amber-500/20" : "bg-red-500/20"}`}>
+              <i className={`text-3xl ${pct >= 80 ? "ri-trophy-line text-green-400" : pct >= 50 ? "ri-emotion-normal-line text-amber-400" : "ri-emotion-sad-line text-red-400"}`}></i>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-1">{pct}%</h3>
-            <p className="text-gray-500 mb-2">Biết {quizResults.known} / {filteredWords.length} từ chủ đề <strong>{selectedTopic.label}</strong></p>
-            <p className="text-sm text-gray-400 mb-8">
+            <h3 className="text-2xl font-bold text-white mb-1">{pct}%</h3>
+            <p className="text-white/50 mb-2">Biết {quizResults.known} / {filteredWords.length} từ chủ đề <strong>{selectedTopic.label}</strong></p>
+            <p className="text-sm text-white/40 mb-8">
               {pct >= 80 ? "Xuất sắc! Bạn nắm rất tốt chủ đề này!" : pct >= 50 ? "Khá tốt! Tiếp tục luyện tập nhé!" : "Cần ôn thêm! Đừng nản lòng!"}
             </p>
             <div className="flex gap-3">
-              <button onClick={startQuiz} className="flex-1 py-3 bg-rose-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-rose-600 transition-colors">Ôn lại</button>
-              <button onClick={() => setQuizMode(false)} className="flex-1 py-3 border border-gray-200 text-gray-700 rounded-xl font-semibold cursor-pointer hover:bg-gray-50 transition-colors">Xem từ vựng</button>
+              <button onClick={startQuiz} className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Ôn lại</button>
+              <button onClick={() => setQuizMode(false)} className="flex-1 py-3 border border-app-border text-white/80 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Xem từ vựng</button>
             </div>
           </div>
         </div>
@@ -217,37 +217,37 @@ export default function TopicStudyTab() {
     return (
       <div className="max-w-lg mx-auto">
         <div className="flex items-center justify-between mb-4">
-          <button onClick={() => setQuizMode(false)} className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
+          <button onClick={() => setQuizMode(false)} className="flex items-center gap-1 text-sm text-white/50 hover:text-white/80 cursor-pointer">
             <i className="ri-arrow-left-line"></i> Dừng
           </button>
-          <span className="text-sm text-gray-500">{quizIdx + 1} / {filteredWords.length}</span>
-          <span className="text-xs text-green-600 font-medium">✓ {quizResults.known} &nbsp; ✗ {quizResults.unknown}</span>
+          <span className="text-sm text-white/50">{quizIdx + 1} / {filteredWords.length}</span>
+          <span className="text-xs text-green-400 font-medium">✓ {quizResults.known} &nbsp; ✗ {quizResults.unknown}</span>
         </div>
-        <div className="w-full bg-gray-100 rounded-full h-1.5 mb-6">
-          <div className="bg-rose-400 h-1.5 rounded-full transition-all" style={{ width: `${(quizIdx / filteredWords.length) * 100}%` }}></div>
+        <div className="w-full bg-app-surface/50 rounded-full h-1.5 mb-6">
+          <div className="bg-app-accent-primary h-1.5 rounded-full transition-all" style={{ width: `${(quizIdx / filteredWords.length) * 100}%` }}></div>
         </div>
-        <div className="bg-white border-2 border-gray-100 rounded-2xl p-8 text-center mb-4">
-          <p className="text-4xl font-bold text-gray-900 mb-2">{card.korean}</p>
-          <p className="text-xl text-rose-400 font-bold mb-4">{card.hanja}</p>
+        <div className="bg-app-surface/50 border-2 border-app-border rounded-2xl p-8 text-center mb-4">
+          <p className="text-4xl font-bold text-white mb-2">{card.korean}</p>
+          <p className="text-xl text-app-accent-primary font-bold mb-4">{card.hanja}</p>
           {!revealed ? (
             <button onClick={() => setRevealed(true)}
-              className="px-6 py-2 bg-gray-100 text-gray-600 rounded-lg text-sm cursor-pointer hover:bg-gray-200 transition-colors">
+              className="px-6 py-2 bg-app-surface/50 text-white/70 rounded-lg text-sm cursor-pointer hover:bg-app-surface/80 transition-colors">
               Hiện nghĩa
             </button>
           ) : (
-            <div className="border-t border-gray-100 pt-4">
-              <p className="text-xl font-semibold text-gray-700">{card.vietnamese}</p>
+            <div className="border-t border-app-border pt-4">
+              <p className="text-xl font-semibold text-white/80">{card.vietnamese}</p>
             </div>
           )}
         </div>
         {revealed && (
           <div className="grid grid-cols-2 gap-3">
             <button onClick={() => handleQuizAnswer(false)}
-              className="py-4 rounded-xl border-2 border-red-300 bg-red-50 text-red-700 font-bold cursor-pointer hover:bg-red-100 transition-colors">
+              className="py-4 rounded-xl border-2 border-red-500/40 bg-red-500/10 text-red-400 font-bold cursor-pointer hover:bg-red-500/100/20 transition-colors">
               <i className="ri-close-line mr-1"></i>Chưa biết
             </button>
             <button onClick={() => handleQuizAnswer(true)}
-              className="py-4 rounded-xl border-2 border-green-300 bg-green-50 text-green-700 font-bold cursor-pointer hover:bg-green-100 transition-colors">
+              className="py-4 rounded-xl border-2 border-green-500/40 bg-green-500/10 text-green-400 font-bold cursor-pointer hover:bg-green-500/100/20 transition-colors">
               <i className="ri-check-line mr-1"></i>Đã biết
             </button>
           </div>
@@ -263,7 +263,7 @@ export default function TopicStudyTab() {
       <div>
         <div className="flex items-center gap-3 mb-5">
           <button onClick={() => { setSelectedTopic(null); setSearch(""); }}
-            className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 cursor-pointer">
+            className="flex items-center gap-1 text-sm text-white/50 hover:text-white/80 cursor-pointer">
             <i className="ri-arrow-left-line"></i> Tất cả chủ đề
           </button>
           <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full ${selectedTopic.bg}`}>
@@ -273,29 +273,29 @@ export default function TopicStudyTab() {
         </div>
 
         {/* Stats bar */}
-        <div className="bg-white border border-gray-100 rounded-xl p-4 mb-5">
+        <div className="bg-app-surface/50 border border-app-border rounded-xl p-4 mb-5">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-semibold text-gray-700">{stats.total} từ trong chủ đề</span>
-            <span className="text-sm text-green-600 font-medium">{stats.mastered} đã thuộc ({stats.pct}%)</span>
+            <span className="text-sm font-semibold text-white/80">{stats.total} từ trong chủ đề</span>
+            <span className="text-sm text-green-400 font-medium">{stats.mastered} đã thuộc ({stats.pct}%)</span>
           </div>
-          <div className="w-full bg-gray-100 rounded-full h-2.5">
+          <div className="w-full bg-app-surface/50 rounded-full h-2.5">
             <div className="bg-green-400 h-2.5 rounded-full transition-all" style={{ width: `${stats.pct}%` }}></div>
           </div>
           <div className="flex gap-3 mt-3">
-            <span className="text-xs text-gray-400">Mới: {stats.total - stats.mastered - topicWords.filter(w => getMasteryLevel(w.korean, srData) === "learning").length}</span>
-            <span className="text-xs text-amber-500">Đang học: {topicWords.filter(w => getMasteryLevel(w.korean, srData) === "learning").length}</span>
-            <span className="text-xs text-green-500">Đã thuộc: {stats.mastered}</span>
+            <span className="text-xs text-white/40">Mới: {stats.total - stats.mastered - topicWords.filter(w => getMasteryLevel(w.korean, srData) === "learning").length}</span>
+            <span className="text-xs text-amber-400">Đang học: {topicWords.filter(w => getMasteryLevel(w.korean, srData) === "learning").length}</span>
+            <span className="text-xs text-green-400">Đã thuộc: {stats.mastered}</span>
           </div>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 mb-4">
           <div className="relative flex-1">
-            <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+            <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/40 text-sm"></i>
             <input type="text" placeholder="Tìm trong chủ đề..." value={search} onChange={e => setSearch(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
+              className="w-full pl-9 pr-4 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
           </div>
           <button onClick={startQuiz} disabled={filteredWords.length === 0}
-            className="flex items-center gap-2 px-4 py-2 bg-rose-500 text-white rounded-lg text-sm font-medium cursor-pointer hover:bg-rose-600 transition-colors whitespace-nowrap disabled:opacity-50">
+            className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-white rounded-lg text-sm font-medium cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap disabled:opacity-50">
             <i className="ri-flashlight-line"></i>Ôn tập nhanh ({filteredWords.length} từ)
           </button>
         </div>
@@ -304,12 +304,12 @@ export default function TopicStudyTab() {
           {filteredWords.map((item, i) => {
             const mastery = getMasteryLevel(item.korean, srData);
             return (
-              <div key={i} className="bg-white border border-gray-100 rounded-xl p-4 hover:border-rose-200 transition-all">
+              <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 hover:border-app-accent-primary transition-all">
                 <div className="mb-2">
-                  <span className="text-base font-bold text-gray-900 block">{item.korean}</span>
-                  <span className="text-xl font-bold text-rose-400">{item.hanja}</span>
+                  <span className="text-base font-bold text-white block">{item.korean}</span>
+                  <span className="text-xl font-bold text-app-accent-primary">{item.hanja}</span>
                 </div>
-                <p className="text-xs text-gray-500 mb-2">{item.vietnamese}</p>
+                <p className="text-xs text-white/50 mb-2">{item.vietnamese}</p>
                 <MasteryBadge level={mastery} />
               </div>
             );
@@ -317,7 +317,7 @@ export default function TopicStudyTab() {
         </div>
 
         {filteredWords.length === 0 && (
-          <div className="text-center py-16 text-gray-400">
+          <div className="text-center py-16 text-white/40">
             <i className="ri-search-line text-4xl"></i>
             <p className="mt-2 text-sm">Không tìm thấy từ nào</p>
           </div>
@@ -330,49 +330,49 @@ export default function TopicStudyTab() {
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-lg font-bold text-gray-900 mb-1">Ôn tập theo chủ đề</h2>
-        <p className="text-sm text-gray-500">Chọn chủ đề để học từ vựng theo nhóm ngữ nghĩa</p>
+        <h2 className="text-lg font-bold text-white mb-1">Ôn tập theo chủ đề</h2>
+        <p className="text-sm text-white/50">Chọn chủ đề để học từ vựng theo nhóm ngữ nghĩa</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {topicStats.map(topic => (
           <button key={topic.id} onClick={() => setSelectedTopic(topic)}
-            className="bg-white border border-gray-100 rounded-2xl p-5 text-left hover:border-rose-200 hover:shadow-sm transition-all cursor-pointer group">
+            className="bg-app-surface/50 border border-app-border rounded-2xl p-5 text-left hover:border-app-accent-primary hover:shadow-sm transition-all cursor-pointer group">
             <div className="flex items-center gap-3 mb-4">
               <div className={`w-12 h-12 flex items-center justify-center rounded-xl ${topic.bg} flex-shrink-0`}>
                 <i className={`${topic.icon} ${topic.color} text-xl`}></i>
               </div>
               <div>
-                <h3 className="font-bold text-gray-900 text-sm">{topic.label}</h3>
-                <p className="text-xs text-gray-400">{topic.total} từ</p>
+                <h3 className="font-bold text-white text-sm">{topic.label}</h3>
+                <p className="text-xs text-white/40">{topic.total} từ</p>
               </div>
             </div>
 
             {/* Progress bar */}
             <div className="mb-2">
-              <div className="flex justify-between text-xs text-gray-400 mb-1">
+              <div className="flex justify-between text-xs text-white/40 mb-1">
                 <span>Tiến độ</span>
-                <span className={topic.pct >= 80 ? "text-green-600 font-medium" : topic.pct >= 40 ? "text-amber-600 font-medium" : "text-gray-400"}>
+                <span className={topic.pct >= 80 ? "text-green-400 font-medium" : topic.pct >= 40 ? "text-amber-400 font-medium" : "text-white/40"}>
                   {topic.pct}%
                 </span>
               </div>
-              <div className="w-full bg-gray-100 rounded-full h-2">
+              <div className="w-full bg-app-surface/50 rounded-full h-2">
                 <div
-                  className={`h-2 rounded-full transition-all ${topic.pct >= 80 ? "bg-green-400" : topic.pct >= 40 ? "bg-amber-400" : "bg-gray-300"}`}
+                  className={`h-2 rounded-full transition-all ${topic.pct >= 80 ? "bg-green-400" : topic.pct >= 40 ? "bg-amber-400" : "bg-app-surface/80"}`}
                   style={{ width: `${topic.pct}%` }}
                 ></div>
               </div>
             </div>
 
             <div className="flex gap-2 text-xs">
-              <span className="text-gray-400">{topic.total - topic.mastered - HANJA_DATA.filter(w => {
+              <span className="text-white/40">{topic.total - topic.mastered - HANJA_DATA.filter(w => {
                 const inTopic = getTopicWords(HANJA_DATA, topic).some(tw => tw.korean === w.korean);
                 return inTopic && getMasteryLevel(w.korean, srData) === "learning";
               }).length} mới</span>
-              <span className="text-green-500">{topic.mastered} thuộc</span>
+              <span className="text-green-400">{topic.mastered} thuộc</span>
             </div>
 
-            <div className="mt-3 flex items-center gap-1 text-xs text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="mt-3 flex items-center gap-1 text-xs text-app-accent-primary opacity-0 group-hover:opacity-100 transition-opacity">
               <span>Học ngay</span>
               <i className="ri-arrow-right-line"></i>
             </div>
@@ -383,25 +383,25 @@ export default function TopicStudyTab() {
       {/* Summary */}
       <div className="mt-6 bg-gradient-to-r from-rose-50 to-amber-50 rounded-2xl p-5">
         <div className="flex items-center gap-3 mb-3">
-          <div className="w-10 h-10 flex items-center justify-center bg-white rounded-xl">
-            <i className="ri-bar-chart-line text-rose-500"></i>
+          <div className="w-10 h-10 flex items-center justify-center bg-app-surface/50 rounded-xl">
+            <i className="ri-bar-chart-line text-app-accent-primary"></i>
           </div>
           <div>
-            <p className="font-semibold text-gray-800 text-sm">Tổng quan theo chủ đề</p>
-            <p className="text-xs text-gray-500">{TOPICS.length} chủ đề · {HANJA_DATA.length} từ tổng cộng</p>
+            <p className="font-semibold text-white/90 text-sm">Tổng quan theo chủ đề</p>
+            <p className="text-xs text-white/50">{TOPICS.length} chủ đề · {HANJA_DATA.length} từ tổng cộng</p>
           </div>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { label: "Chủ đề tốt nhất", value: topicStats.sort((a, b) => b.pct - a.pct)[0]?.label ?? "-", icon: "ri-trophy-line", color: "text-amber-600" },
-            { label: "Cần ôn nhất", value: topicStats.sort((a, b) => a.pct - b.pct)[0]?.label ?? "-", icon: "ri-alarm-warning-line", color: "text-red-500" },
-            { label: "Tổng đã thuộc", value: `${topicStats.reduce((s, t) => s + t.mastered, 0)}`, icon: "ri-check-double-line", color: "text-green-600" },
-            { label: "Trung bình", value: `${Math.round(topicStats.reduce((s, t) => s + t.pct, 0) / TOPICS.length)}%`, icon: "ri-percent-line", color: "text-rose-600" },
+            { label: "Chủ đề tốt nhất", value: topicStats.sort((a, b) => b.pct - a.pct)[0]?.label ?? "-", icon: "ri-trophy-line", color: "text-amber-400" },
+            { label: "Cần ôn nhất", value: topicStats.sort((a, b) => a.pct - b.pct)[0]?.label ?? "-", icon: "ri-alarm-warning-line", color: "text-red-400" },
+            { label: "Tổng đã thuộc", value: `${topicStats.reduce((s, t) => s + t.mastered, 0)}`, icon: "ri-check-double-line", color: "text-green-400" },
+            { label: "Trung bình", value: `${Math.round(topicStats.reduce((s, t) => s + t.pct, 0) / TOPICS.length)}%`, icon: "ri-percent-line", color: "text-app-accent-primary" },
           ].map((s, i) => (
-            <div key={i} className="bg-white rounded-xl p-3 text-center">
+            <div key={i} className="bg-app-surface/50 rounded-xl p-3 text-center">
               <i className={`${s.icon} ${s.color} text-lg`}></i>
-              <p className="text-xs font-bold text-gray-800 mt-1 truncate">{s.value}</p>
-              <p className="text-xs text-gray-400">{s.label}</p>
+              <p className="text-xs font-bold text-white/90 mt-1 truncate">{s.value}</p>
+              <p className="text-xs text-white/40">{s.label}</p>
             </div>
           ))}
         </div>
