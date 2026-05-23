@@ -276,7 +276,7 @@ function LessonPageAlbum({ meta, lesson, idx, pageNum }: { meta: EbookMeta; less
     <div className="w-full h-full bg-white flex flex-col overflow-hidden relative">
       <div className="flex items-stretch" style={{ height: "28%" }}>
         <div className="w-28 flex-shrink-0 overflow-hidden">
-          <img src={albumImg} alt="album" className="w-full h-full object-cover" />
+          <img loading="lazy" decoding="async" src={albumImg} alt="album" className="w-full h-full object-cover" />
         </div>
         <div className="flex-1 p-4 flex flex-col justify-center" style={{ backgroundColor: "#dc2626", backgroundImage: "linear-gradient(135deg, #dc2626, #991b1b)" }}>
           <p className="text-[9px] font-bold tracking-normal text-white/60 mb-1">Bài {idx + 1}</p>

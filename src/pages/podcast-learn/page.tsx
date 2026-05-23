@@ -273,7 +273,7 @@ export default function PodcastLearnPage() {
               {/* Player */}
               <div className="lg:col-span-1 space-y-4">
                 <div className="bg-[#1a1f2e] rounded-2xl overflow-hidden border border-app-border">
-                  <img src={selectedPodcast.thumbnail} alt={selectedPodcast.title} className="w-full h-56 object-cover object-top" />
+                  <img loading="lazy" decoding="async" src={selectedPodcast.thumbnail} alt={selectedPodcast.title} className="w-full h-56 object-cover object-top" />
                   <div className="p-5">
                     <div className="flex items-center gap-2 mb-2">
                       <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${levelColor[selectedPodcast.level]}`}>{selectedPodcast.level}</span>
@@ -405,7 +405,7 @@ export default function PodcastLearnPage() {
               {filtered.map(podcast => (
                 <div key={podcast.id} onClick={() => { setSelectedPodcast(podcast); setCurrentTime(0); setIsPlaying(false); setActiveLineIdx(0); }} className="bg-[#1a1f2e] rounded-xl overflow-hidden border border-app-border hover:border-white/20 transition-all cursor-pointer group">
                   <div className="relative">
-                    <img src={podcast.thumbnail} alt={podcast.title} className="w-full h-44 object-cover object-top group-hover:scale-105 transition-transform duration-300" />
+                    <img loading="lazy" decoding="async" src={podcast.thumbnail} alt={podcast.title} className="w-full h-44 object-cover object-top group-hover:scale-105 transition-transform duration-300" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div className="absolute bottom-2 left-2 flex items-center gap-1.5">
                       <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${levelColor[podcast.level]}`}>{podcast.level}</span>

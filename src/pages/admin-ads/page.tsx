@@ -119,7 +119,7 @@ function AdEditor({
               {form.type === "html" ? (
                 <div dangerouslySetInnerHTML={{ __html: sanitizeHtmlAdmin(form.content || "") }} />
               ) : form.type === "image" ? (
-                <img src={form.content} alt="preview" className="w-full rounded-xl" />
+                <img loading="lazy" decoding="async" src={form.content} alt="preview" className="w-full rounded-xl" />
               ) : (
                 <div className="rounded-xl p-4" style={{ backgroundColor: form.bgColor || "rgba(232,200,74,0.06)", border: "1px solid rgba(232,200,74,0.15)" }}>
                   <p className="font-semibold text-sm" style={{ color: form.textColor || "app-accent-primary" }}>{form.title}</p>

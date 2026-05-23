@@ -450,7 +450,7 @@ function RevenueAnalytics({ users }: { users: ReturnType<typeof useAdminUsers>["
                 <div key={u.id} className="flex items-center gap-3 px-3 py-2 rounded-xl"
                   style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>
                   <div className="w-7 h-7 rounded-full flex items-center justify-center overflow-hidden flex-shrink-0" style={{ backgroundColor: "var(--admin-hover)" }}>
-                    {u.avatar_url ? <img src={u.avatar_url} alt={u.display_name} className="w-full h-full object-cover" /> : <i className="ri-user-line text-xs" style={{ color: "var(--admin-text-faint)" }}></i>}
+                    {u.avatar_url ? <img loading="lazy" decoding="async" src={u.avatar_url} alt={u.display_name} className="w-full h-full object-cover" /> : <i className="ri-user-line text-xs" style={{ color: "var(--admin-text-faint)" }}></i>}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs font-medium truncate" style={{ color: "var(--admin-text)" }}>{u.display_name}</p>

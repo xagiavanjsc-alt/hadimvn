@@ -385,7 +385,7 @@ export default function Battle1v1Page() {
                 </div>
                 <div className="text-center">
                   <div className="w-20 h-20 rounded-full bg-app-card/50 border-2 border-white/15 overflow-hidden mx-auto mb-3">
-                    <img src={opponent.avatar} alt={opponent.name} className="w-full h-full object-cover" />
+                    <img loading="lazy" decoding="async" src={opponent.avatar} alt={opponent.name} className="w-full h-full object-cover" />
                   </div>
                   <p className="text-white font-bold">{opponent.name}</p>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-app-card/70 text-white/50">{opponent.level}</span>
@@ -420,7 +420,7 @@ export default function Battle1v1Page() {
                   </div>
                   <div className="flex items-center gap-3 flex-row-reverse">
                     <div className="w-10 h-10 rounded-full bg-app-card/50 border border-white/15 overflow-hidden">
-                      <img src={opponent.avatar} alt={opponent.name} className="w-full h-full object-cover" />
+                      <img loading="lazy" decoding="async" src={opponent.avatar} alt={opponent.name} className="w-full h-full object-cover" />
                     </div>
                     <div className="text-right">
                       <p className="text-white font-bold text-sm">{opponent.name}</p>
@@ -550,7 +550,7 @@ export default function Battle1v1Page() {
                   </div>
                   <div className="text-center">
                     <div className="w-16 h-16 rounded-full bg-app-card/50 border-2 border-white/15 overflow-hidden mx-auto mb-3">
-                      <img src={opponent.avatar} alt={opponent.name} className="w-full h-full object-cover" />
+                      <img loading="lazy" decoding="async" src={opponent.avatar} alt={opponent.name} className="w-full h-full object-cover" />
                     </div>
                     <p className="text-white font-bold">{opponent.name}</p>
                     <p className="text-rose-400 text-2xl font-bold">{opponent.score}</p>
@@ -592,7 +592,7 @@ export default function Battle1v1Page() {
                   </div>
                   <div className="flex items-center gap-1">
                     <div className="w-4 h-4 rounded-full bg-app-card/70 overflow-hidden">
-                      <img src={opponent.avatar} alt="" className="w-full h-full object-cover" />
+                      <img loading="lazy" decoding="async" src={opponent.avatar} alt="" className="w-full h-full object-cover" />
                     </div>
                     {opponent.name}
                   </div>

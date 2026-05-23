@@ -56,7 +56,7 @@ function MemberRow({ user, selected, onToggle, lastStudy }: {
       </div>
       <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden bg-app-card/50">
         {user.avatar_url ? (
-          <img src={user.avatar_url} alt={user.display_name} className="w-full h-full object-cover" />
+          <img loading="lazy" decoding="async" src={user.avatar_url} alt={user.display_name} className="w-full h-full object-cover" />
         ) : (
           <i className="ri-user-line text-app-text-muted text-sm" />
         )}

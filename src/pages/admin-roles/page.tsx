@@ -232,7 +232,7 @@ export default function AdminRolesPage() {
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden"
                   style={{ backgroundColor: cfg.bg }}>
                   {user.avatar_url
-                    ? <img src={user.avatar_url} alt={user.display_name} className="w-full h-full object-cover rounded-xl" />
+                    ? <img loading="lazy" decoding="async" src={user.avatar_url} alt={user.display_name} className="w-full h-full object-cover rounded-xl" />
                     : <i className={`${cfg.icon} text-base`} style={{ color: cfg.color }}></i>}
                 </div>
                 <div className="flex-1 min-w-0">

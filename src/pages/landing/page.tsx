@@ -400,7 +400,7 @@ export default function LandingPage() {
                 </div>
                 <p className="text-gray-600 text-sm leading-relaxed mb-5 flex-1">&ldquo;{t.text}&rdquo;</p>
                 <div className="flex items-center gap-3">
-                  <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover object-top flex-shrink-0" />
+                  <img loading="lazy" decoding="async" src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover object-top flex-shrink-0" />
                   <div className="flex-1 min-w-0">
                     <p className="text-gray-900 text-sm font-semibold">{t.name}</p>
                     <p className="text-gray-400 text-xs truncate">{t.role}</p>

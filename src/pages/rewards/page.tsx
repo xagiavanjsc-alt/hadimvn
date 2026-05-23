@@ -759,7 +759,7 @@ function GrantXPPanel() {
               >
                 <div className="w-9 h-9 rounded-full bg-app-card flex items-center justify-center flex-shrink-0 overflow-hidden">
                   {u.avatar_url ? (
-                    <img src={u.avatar_url} alt={u.display_name} className="w-full h-full object-cover" />
+                    <img loading="lazy" decoding="async" src={u.avatar_url} alt={u.display_name} className="w-full h-full object-cover" />
                   ) : (
                     <i className="ri-user-3-line text-app-text-muted text-sm"></i>
                   )}

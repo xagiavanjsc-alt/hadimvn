@@ -153,7 +153,7 @@ export default function AdminSEOPage() {
                 placeholder="https://hanquocoi.vn/og-image.png"
               />
               {settings.ogImage && (
-                <img src={settings.ogImage} alt="OG Preview" className="mt-3 max-w-xs rounded-lg border border-app-border" />
+                <img loading="lazy" decoding="async" src={settings.ogImage} alt="OG Preview" className="mt-3 max-w-xs rounded-lg border border-app-border" />
               )}
             </div>
 

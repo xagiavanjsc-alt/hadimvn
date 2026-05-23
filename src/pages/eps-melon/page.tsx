@@ -226,7 +226,7 @@ export default function EpsMelonPage() {
 
         {/* Hero banner */}
         <div className="relative rounded-2xl overflow-hidden mb-6 h-32">
-          <img
+          <img loading="lazy" decoding="async"
             style={{ background: "linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)" }}
             alt="EPS Melon"
             className="w-full h-full object-cover object-top"
@@ -300,7 +300,7 @@ export default function EpsMelonPage() {
                         : "hover:bg-app-card/50 text-white/60"
                     }`}
                   >
-                    <img
+                    <img loading="lazy" decoding="async"
                       src={song.albumArt}
                       alt={song.title}
                       className="w-8 h-8 rounded-lg object-cover flex-shrink-0"
@@ -341,7 +341,7 @@ export default function EpsMelonPage() {
             {/* Song context header */}
             {selectedSong && (
               <div className="flex items-center gap-3 bg-app-surface/50 border border-app-border rounded-2xl p-4 mb-5">
-                <img src={selectedSong.albumArt} alt="" className="w-12 h-12 rounded-xl object-cover flex-shrink-0" />
+                <img loading="lazy" decoding="async" src={selectedSong.albumArt} alt="" className="w-12 h-12 rounded-xl object-cover flex-shrink-0" />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <p className="text-white font-semibold text-sm">{selectedSong.title}</p>

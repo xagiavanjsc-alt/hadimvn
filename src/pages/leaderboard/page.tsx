@@ -62,6 +62,8 @@ function AvatarCell({ player, size = 36 }: { player: LeaderboardPlayer; size?: n
       <img
         src={player.avatar_url}
         alt={player.display_name}
+        loading="lazy"
+        decoding="async"
         className={`rounded-full object-cover flex-shrink-0 ${ringClass}`}
         style={{ width: size, height: size }}
       />
@@ -270,7 +272,7 @@ export default function LeaderboardPage() {
             <div className="relative">
               <div className="w-14 h-14 rounded-2xl bg-app-accent-primary/15 flex items-center justify-center">
                 {user && profile?.avatar_url ? (
-                  <img src={profile.avatar_url} alt="" className="w-14 h-14 rounded-2xl object-cover" />
+                  <img src={profile.avatar_url} alt="" loading="lazy" decoding="async" className="w-14 h-14 rounded-2xl object-cover" />
                 ) : (
                   <i className="ri-user-3-line text-app-accent-primary text-2xl"></i>
                 )}

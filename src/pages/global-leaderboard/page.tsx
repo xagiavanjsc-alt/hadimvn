@@ -98,7 +98,7 @@ export default function GlobalLeaderboardPage() {
             {/* 2nd */}
             <div className="flex flex-col items-center gap-2 flex-1">
               <div className="relative">
-                <img src={top3[1]?.avatar} alt={top3[1]?.name} className="w-14 h-14 rounded-full object-cover border-2 border-white/20" onError={e => { (e.target as HTMLImageElement).src = "/images/brand/logo.svg"; }} />
+                <img src={top3[1]?.avatar} alt={top3[1]?.name} loading="lazy" decoding="async" className="w-14 h-14 rounded-full object-cover border-2 border-white/20" onError={e => { (e.target as HTMLImageElement).src = "/images/brand/logo.svg"; }} />
                 <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#C0C0C0] flex items-center justify-center text-xs font-bold text-black">2</div>
               </div>
               <p className="text-white/70 text-xs font-medium text-center truncate w-full">{top3[1]?.name}</p>
@@ -111,7 +111,7 @@ export default function GlobalLeaderboardPage() {
             <div className="flex flex-col items-center gap-2 flex-1">
               <div className="relative">
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-xl">👑</div>
-                <img src={top3[0]?.avatar} alt={top3[0]?.name} className="w-18 h-18 rounded-full object-cover border-2 border-app-accent-primary/60 mt-2" style={{ width: 72, height: 72 }} onError={e => { (e.target as HTMLImageElement).src = "/images/brand/logo.svg"; }} />
+                <img loading="lazy" decoding="async" src={top3[0]?.avatar} alt={top3[0]?.name} className="w-18 h-18 rounded-full object-cover border-2 border-app-accent-primary/60 mt-2" style={{ width: 72, height: 72 }} onError={e => { (e.target as HTMLImageElement).src = "/images/brand/logo.svg"; }} />
                 <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-app-accent-primary flex items-center justify-center text-xs font-bold text-black">1</div>
               </div>
               <p className="text-app-accent-primary text-xs font-bold text-center truncate w-full">{top3[0]?.name}</p>
@@ -123,7 +123,7 @@ export default function GlobalLeaderboardPage() {
             {/* 3rd */}
             <div className="flex flex-col items-center gap-2 flex-1">
               <div className="relative">
-                <img src={top3[2]?.avatar} alt={top3[2]?.name} className="w-14 h-14 rounded-full object-cover border-2 border-white/20" onError={e => { (e.target as HTMLImageElement).src = "/images/brand/logo.svg"; }} />
+                <img src={top3[2]?.avatar} alt={top3[2]?.name} loading="lazy" decoding="async" className="w-14 h-14 rounded-full object-cover border-2 border-white/20" onError={e => { (e.target as HTMLImageElement).src = "/images/brand/logo.svg"; }} />
                 <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#CD7F32] flex items-center justify-center text-xs font-bold text-white">3</div>
               </div>
               <p className="text-white/70 text-xs font-medium text-center truncate w-full">{top3[2]?.name}</p>
@@ -165,7 +165,7 @@ export default function GlobalLeaderboardPage() {
                 {/* Avatar */}
                 <div className="relative flex-shrink-0">
                   {user.avatar ? (
-                    <img src={user.avatar} alt={user.name} className="w-10 h-10 rounded-full object-cover" onError={e => { (e.target as HTMLImageElement).src = "/images/brand/logo.svg"; }} />
+                    <img src={user.avatar} alt={user.name} loading="lazy" decoding="async" className="w-10 h-10 rounded-full object-cover" onError={e => { (e.target as HTMLImageElement).src = "/images/brand/logo.svg"; }} />
                   ) : (
                     <div className="w-10 h-10 rounded-full bg-app-accent-primary/20 flex items-center justify-center">
                       <i className="ri-user-line text-app-accent-primary"></i>

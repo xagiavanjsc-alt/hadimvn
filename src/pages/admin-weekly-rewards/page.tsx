@@ -212,7 +212,7 @@ export default function AdminWeeklyRewardsPage() {
                     </span>
                     {/* Avatar */}
                     {entry.avatar_url ? (
-                      <img src={entry.avatar_url} className="w-8 h-8 rounded-full object-cover" />
+                      <img loading="lazy" decoding="async" src={entry.avatar_url} className="w-8 h-8 rounded-full object-cover" />
                     ) : (
                       <div className="w-8 h-8 rounded-full bg-app-accent-primary/20 flex items-center justify-center flex-shrink-0">
                         <i className="ri-user-line text-app-accent-primary text-sm"></i>

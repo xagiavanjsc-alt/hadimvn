@@ -454,7 +454,7 @@ export default function PricingPage() {
                         {/* QR */}
                         {vietQrUrl && (
                           <div className="flex-shrink-0">
-                            <img src={vietQrUrl} alt="QR chuyển khoản" className="w-32 h-32 rounded-xl bg-white" />
+                            <img loading="lazy" decoding="async" src={vietQrUrl} alt="QR chuyển khoản" className="w-32 h-32 rounded-xl bg-white" />
                             <p className="text-[10px] text-app-text-muted text-center mt-1">Quét để chuyển khoản</p>
                           </div>
                         )}
@@ -761,7 +761,7 @@ export default function PricingPage() {
               return qr ? (
                 <div className="flex flex-col items-center justify-center p-4 bg-app-card/50 rounded-xl">
                   <p className="text-app-text-secondary text-xs mb-3">Quét mã QR để chuyển khoản</p>
-                  <img src={qr} alt="QR Code" className="w-48 h-48 rounded-lg bg-white" />
+                  <img loading="lazy" decoding="async" src={qr} alt="QR Code" className="w-48 h-48 rounded-lg bg-white" />
                   <p className="text-app-text-muted text-[10px] mt-3 text-center">Sử dụng app ngân hàng để quét mã</p>
                 </div>
               ) : null;
@@ -786,7 +786,7 @@ export default function PricingPage() {
               <StarRating count={t.rating} />
               <p className="text-white/60 text-sm leading-relaxed mt-3 mb-4 italic">&ldquo;{t.text}&rdquo;</p>
               <div className="flex items-center gap-3">
-                <img src={t.avatar} alt={t.name} className="w-9 h-9 rounded-full object-cover object-top flex-shrink-0" />
+                <img loading="lazy" decoding="async" src={t.avatar} alt={t.name} className="w-9 h-9 rounded-full object-cover object-top flex-shrink-0" />
                 <div>
                   <p className="text-white/80 text-xs font-semibold">{t.name}</p>
                   <p className="text-app-text-muted text-[10px]">{t.role}</p>

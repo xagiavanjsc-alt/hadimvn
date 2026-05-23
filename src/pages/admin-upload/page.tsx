@@ -57,7 +57,7 @@ function UploadCard({ item, questions, onAssign, onRemove, onUpload }: {
   return (
     <div className={`bg-app-bg border rounded-xl p-4 transition-all ${item.status === "done" ? "border-emerald-500/20" : item.status === "error" ? "border-red-500/20" : "border-app-border"}`}>
       <div className="w-full h-36 rounded-lg overflow-hidden bg-app-surface/50 mb-3 relative">
-        <img src={item.preview} alt={item.file.name} className="w-full h-full object-cover" />
+        <img loading="lazy" decoding="async" src={item.preview} alt={item.file.name} className="w-full h-full object-cover" />
         {item.status === "done" && <div className="absolute inset-0 bg-emerald-500/20 flex items-center justify-center"><i className="ri-checkbox-circle-fill text-app-accent-success text-3xl"></i></div>}
         {item.status === "uploading" && <div className="absolute inset-0 bg-black/50 flex items-center justify-center"><div className="w-6 h-6 border-2 border-rose-400/30 border-t-rose-400 rounded-full animate-spin"></div></div>}
         <button onClick={() => onRemove(item.id)} className="absolute top-1.5 right-1.5 w-6 h-6 flex items-center justify-center rounded-full bg-black/60 text-white/60 hover:text-white cursor-pointer transition-colors"><i className="ri-close-line text-xs"></i></button>

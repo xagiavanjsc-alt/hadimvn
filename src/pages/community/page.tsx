@@ -158,7 +158,7 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
     try {
       const url = await onImageUpload(file);
       editorRef.current?.focus();
-      document.execCommand('insertHTML', false, `<img src="${url}" alt="" style="max-width:100%;border-radius:8px;margin:8px 0" /><br/>`);
+      document.execCommand('insertHTML', false, `<img loading="lazy" decoding="async" src="${url}" alt="" style="max-width:100%;border-radius:8px;margin:8px 0" /><br/>`);
       handleChange();
     } catch (err) {
       console.error('Image insert error:', err);
@@ -984,7 +984,7 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
       </div>
 
       {quiz.image_url && (
-        <img src={quiz.image_url} alt="" className="w-full max-h-64 object-contain rounded-lg mb-3 border border-app-border" />
+        <img loading="lazy" decoding="async" src={quiz.image_url} alt="" className="w-full max-h-64 object-contain rounded-lg mb-3 border border-app-border" />
       )}
 
       {loading ? (
@@ -1662,7 +1662,7 @@ function NewPostModal({
             )}
             {imagePreview && (
               <div className="mt-2 relative">
-                <img src={imagePreview} alt="Preview" className="w-full max-h-48 object-cover rounded-xl border border-app-border" />
+                <img loading="lazy" decoding="async" src={imagePreview} alt="Preview" className="w-full max-h-48 object-cover rounded-xl border border-app-border" />
                 <button onClick={() => { setImageUrl(""); setImagePreview(""); }}
                   className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center rounded-full bg-black/60 text-white/70 hover:text-white cursor-pointer">
                   <i className="ri-close-line text-xs"></i>
@@ -1972,7 +1972,7 @@ export default function CommunityPage() {
     // Store relative path in DB (not full URL) for VPS migration later
     // Format: {{storage:community-images/xxx.webp}} — converted to full URL on render
     const contentWithImage = data.imageUrl
-      ? `${data.content}\n\n<img src="{{storage:${data.imageUrl}}}" alt="ảnh" style="max-width:100%;border-radius:12px" />`
+      ? `${data.content}\n\n<img loading="lazy" decoding="async" src="{{storage:${data.imageUrl}}}" alt="ảnh" style="max-width:100%;border-radius:12px" />`
       : data.content;
 
     const { error } = await supabase.from("community_posts").insert({

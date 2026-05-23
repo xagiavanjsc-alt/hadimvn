@@ -69,7 +69,7 @@ function RelatedSongs({ song, allSongs, onNavigate }: RelatedSongsProps) {
               className="group text-left bg-app-surface/50 hover:bg-white/6 border border-app-border hover:border-app-border rounded-2xl overflow-hidden transition-all cursor-pointer"
             >
               <div className="relative w-full aspect-square">
-                <img
+                <img loading="lazy" decoding="async"
                   src={s.albumArt}
                   alt={s.title}
                   className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
@@ -259,7 +259,7 @@ export default function MelonDetailPage() {
         {/* Song hero */}
         <div className="flex flex-col sm:flex-row gap-5 mb-8">
           <div className="w-full sm:w-48 h-48 rounded-2xl overflow-hidden flex-shrink-0">
-            <img src={song.albumArt} alt={song.title} className="w-full h-full object-cover object-top" />
+            <img loading="lazy" decoding="async" src={song.albumArt} alt={song.title} className="w-full h-full object-cover object-top" />
           </div>
           <div className="flex flex-col justify-end">
             <span className="inline-flex items-center gap-1.5 text-[#00C73C] text-xs font-medium bg-[#00C73C]/10 px-3 py-1 rounded-full w-fit mb-3">

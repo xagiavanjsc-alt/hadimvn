@@ -256,7 +256,7 @@ export default function EPSExamsPage() {
                           Câu {q.number}: {q.question}
                         </p>
                         {q.image && !q.optionImages && (
-                          <img src={q.image} alt="" className="max-w-xs rounded-lg mb-3" />
+                          <img loading="lazy" decoding="async" src={q.image} alt="" className="max-w-xs rounded-lg mb-3" />
                         )}
                         {q.optionImages ? (
                           <div className="grid grid-cols-2 gap-2 mb-2">
@@ -271,7 +271,7 @@ export default function EPSExamsPage() {
                                     : "border-transparent opacity-50"
                                 }`}
                               >
-                                <img src={src} alt={`Option ${optIdx + 1}`} className="w-full object-contain bg-white" style={{ maxHeight: "120px" }} />
+                                <img loading="lazy" decoding="async" src={src} alt={`Option ${optIdx + 1}`} className="w-full object-contain bg-white" style={{ maxHeight: "120px" }} />
                                 <div className={`absolute top-1 left-1 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
                                   optIdx === q.correctAnswer ? "bg-emerald-500 text-white"
                                   : optIdx === userAnswer?.selectedOption ? "bg-rose-500 text-white"
@@ -351,7 +351,7 @@ export default function EPSExamsPage() {
         <div className="bg-gradient-to-br from-app-card to-app-card2 border border-app-border rounded-3xl p-8 mb-6 shadow-xl">
           {currentQuestion.image && !currentQuestion.optionImages && (
             <div className="mb-6">
-              <img 
+              <img loading="lazy" decoding="async" 
                 src={currentQuestion.image} 
                 alt="" 
                 className="max-w-2xl rounded-2xl mx-auto shadow-2xl"
@@ -376,7 +376,7 @@ export default function EPSExamsPage() {
                         : "border-transparent hover:border-app-accent-primary/40"
                     }`}
                   >
-                    <img src={src} alt={`Option ${idx + 1}`} className="w-full object-contain bg-white" style={{ maxHeight: "180px" }} />
+                    <img loading="lazy" decoding="async" src={src} alt={`Option ${idx + 1}`} className="w-full object-contain bg-white" style={{ maxHeight: "180px" }} />
                     <div className={`absolute top-2 left-2 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shadow ${
                       isSelected ? "bg-app-accent-primary text-app-bg" : "bg-black/50 text-white"
                     }`}>

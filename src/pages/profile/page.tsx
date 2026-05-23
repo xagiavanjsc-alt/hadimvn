@@ -355,7 +355,7 @@ export default function ProfilePage() {
               onClick={() => user && setShowAvatarPicker(true)}
             >
               {profile?.avatar_url ? (
-                <img src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
+                <img loading="lazy" decoding="async" src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-[app-accent-primary]/30 to-[#fb923c]/30 flex items-center justify-center">
                   <i className="ri-user-3-line text-app-accent-primary text-xl sm:text-2xl"></i>
@@ -547,7 +547,7 @@ export default function ProfilePage() {
                   onClick={() => handleSelectAvatar(url)}
                   className={`relative rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${profile?.avatar_url === url ? "border-app-accent-primary" : "border-app-border hover:border-white/30"}`}
                 >
-                  <img src={url} alt={`Avatar ${i + 1}`} className="w-full aspect-square object-cover bg-white/5" />
+                  <img loading="lazy" decoding="async" src={url} alt={`Avatar ${i + 1}`} className="w-full aspect-square object-cover bg-white/5" />
                   {profile?.avatar_url === url && (
                     <div className="absolute inset-0 bg-app-accent-primary/20 flex items-center justify-center">
                       <i className="ri-checkbox-circle-fill text-app-accent-primary text-xl"></i>

@@ -48,7 +48,7 @@ function ShareCard({ profile, stats }: { profile: PublicProfile; stats: PublicSt
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-xl overflow-hidden bg-app-accent-primary/20 flex items-center justify-center flex-shrink-0">
             {profile.avatar_url ? (
-              <img src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
+              <img loading="lazy" decoding="async" src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
             ) : (
               <span className="text-app-accent-primary text-xl font-bold">{profile.display_name?.[0]?.toUpperCase()}</span>
             )}
@@ -262,7 +262,7 @@ export default function PublicProfilePage() {
           <div className="flex items-center gap-4 mb-5">
             <div className="w-16 h-16 rounded-2xl overflow-hidden bg-app-accent-primary/15 flex items-center justify-center flex-shrink-0">
               {profile.avatar_url ? (
-                <img src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
+                <img loading="lazy" decoding="async" src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
               ) : (
                 <span className="text-app-accent-primary text-2xl font-bold">{profile.display_name?.[0]?.toUpperCase()}</span>
               )}

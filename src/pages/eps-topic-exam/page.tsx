@@ -324,7 +324,7 @@ export default function EpsTopicExamPage() {
 
               {currentQ.imageUrl && (
                 <div className="mb-4 rounded-xl overflow-hidden">
-                  <img src={currentQ.imageUrl} alt={currentQ.imageAlt || ""} className="w-full h-48 object-cover object-top" />
+                  <img loading="lazy" decoding="async" src={currentQ.imageUrl} alt={currentQ.imageAlt || ""} className="w-full h-48 object-cover object-top" />
                   {currentQ.imageCaption && <p className="text-app-text-muted text-[10px] text-center py-1.5 bg-app-surface/50">{currentQ.imageCaption}</p>}
                 </div>
               )}

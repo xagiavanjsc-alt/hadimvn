@@ -648,7 +648,7 @@ export default function AdminSettingsPage() {
                   <div className="flex items-start gap-4">
                     <div className="w-32 h-32 bg-white rounded-xl flex items-center justify-center flex-shrink-0">
                       {form.bankAccount.qrCodeUrl ? (
-                        <img src={form.bankAccount.qrCodeUrl} alt="QR Code" className="w-28 h-28" />
+                        <img loading="lazy" decoding="async" src={form.bankAccount.qrCodeUrl} alt="QR Code" className="w-28 h-28" />
                       ) : (
                         <div className="text-center">
                           <i className="ri-qr-code-line text-4xl text-gray-300"></i>

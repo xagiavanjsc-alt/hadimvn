@@ -12,7 +12,7 @@ import { isEmailLikeName } from "@/hooks/useDisplayNameStatus";
 // ─── SEO Component (uses usePageSEO) ──────────────────────────────────────────
 function PostSEO({ post, slug }: { post: Post; slug: string }) {
   const plainText = post.content.replace(/<[^>]*>/g, '').slice(0, 300);
-  const imageMatch = post.content.match(/<img[^>]+src=["']([^"']+)["']/);
+  const imageMatch = post.content.match(/<img loading="lazy" decoding="async"[^>]+src=["']([^"']+)["']/);
   const firstImage = imageMatch?.[1];
 
   const schema: Record<string, unknown> = {
@@ -220,7 +220,7 @@ function QuizCard({ post, currentUser, profile }: { post: Post; currentUser: { i
       </div>
 
       {quiz.image_url && (
-        <img src={quiz.image_url} alt="" className="w-full max-h-64 object-contain rounded-lg mb-3 border border-app-border" />
+        <img loading="lazy" decoding="async" src={quiz.image_url} alt="" className="w-full max-h-64 object-contain rounded-lg mb-3 border border-app-border" />
       )}
 
       {loading ? (

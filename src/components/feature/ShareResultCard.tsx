@@ -156,7 +156,7 @@ function ShareResultCard({
           {/* Logo */}
           <div className="flex items-center gap-2 mb-5">
             <div className="w-7 h-7 rounded-lg overflow-hidden flex-shrink-0">
-              <img src="/images/brand/logo.svg" alt="Logo" className="w-full h-full object-cover" />
+              <img loading="lazy" decoding="async" src="/images/brand/logo.svg" alt="Logo" className="w-full h-full object-cover" />
             </div>
             <span className="text-white/60 text-xs font-semibold">Hàn Quốc Ơi!</span>
             <span className="ml-auto text-app-text-muted text-[10px]">{new Date().toLocaleDateString("vi-VN")}</span>

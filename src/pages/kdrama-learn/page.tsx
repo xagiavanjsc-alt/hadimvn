@@ -307,7 +307,7 @@ export default function KDramaLearnPage() {
               {/* Left: Video + Info */}
               <div className="lg:col-span-1 space-y-4">
                 <div className="bg-[#1a1f2e] rounded-xl overflow-hidden border border-app-border">
-                  <img src={selectedScene.thumbnail} alt={selectedScene.title} className="w-full h-48 object-cover object-top" />
+                  <img loading="lazy" decoding="async" src={selectedScene.thumbnail} alt={selectedScene.title} className="w-full h-48 object-cover object-top" />
                   <div className="p-4">
                     <div className="flex items-center gap-2 mb-2">
                       <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${levelColor[selectedScene.level]}`}>{selectedScene.level}</span>
@@ -504,7 +504,7 @@ export default function KDramaLearnPage() {
                   className="bg-[#1a1f2e] rounded-xl overflow-hidden border border-app-border hover:border-white/20 transition-all cursor-pointer group"
                 >
                   <div className="relative">
-                    <img src={scene.thumbnail} alt={scene.title} className="w-full h-44 object-cover object-top group-hover:scale-105 transition-transform duration-300" />
+                    <img loading="lazy" decoding="async" src={scene.thumbnail} alt={scene.title} className="w-full h-44 object-cover object-top group-hover:scale-105 transition-transform duration-300" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div className="absolute bottom-2 left-2 flex items-center gap-1.5">
                       <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${levelColor[scene.level]}`}>{scene.level}</span>

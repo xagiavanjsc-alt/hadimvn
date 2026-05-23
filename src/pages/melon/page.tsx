@@ -525,7 +525,7 @@ const MelonPage = () => {
                     onMouseDown={() => { navigate(`/melon/${song.rank}`); setSearch(""); setShowSuggestions(false); }}
                     className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-white/8 transition-colors cursor-pointer text-left"
                   >
-                    <img src={song.albumArt} alt={song.title} className="w-8 h-8 rounded-lg object-cover flex-shrink-0" />
+                    <img loading="lazy" decoding="async" src={song.albumArt} alt={song.title} className="w-8 h-8 rounded-lg object-cover flex-shrink-0" />
                     <div className="flex-1 min-w-0">
                       <p className="text-white/85 text-xs font-semibold truncate">
                         {highlightMatch(song.title, search)}

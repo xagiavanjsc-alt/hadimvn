@@ -406,7 +406,7 @@ export default function MelonFlashcardPage() {
                       const done = songCards.filter(c => masteredIds.has(c.id)).length;
                       return (
                         <div key={rank} className="flex items-center gap-3">
-                          <img src={song?.albumArt} alt="" className="w-7 h-7 rounded-lg object-cover flex-shrink-0" />
+                          <img loading="lazy" decoding="async" src={song?.albumArt} alt="" className="w-7 h-7 rounded-lg object-cover flex-shrink-0" />
                           <div className="flex-1 min-w-0">
                             <p className="text-white/70 text-xs truncate">{song?.title}</p>
                             <div className="flex items-center gap-2 mt-0.5">

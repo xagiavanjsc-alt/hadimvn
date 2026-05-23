@@ -472,7 +472,7 @@ function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVi
           style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-rose-500/15 flex items-center justify-center overflow-hidden">
-              {user.avatar_url ? <img src={user.avatar_url} alt={user.display_name} className="w-full h-full object-cover" /> : <i className="ri-user-line text-rose-400 text-base"></i>}
+              {user.avatar_url ? <img loading="lazy" decoding="async" src={user.avatar_url} alt={user.display_name} className="w-full h-full object-cover" /> : <i className="ri-user-line text-rose-400 text-base"></i>}
             </div>
             <div>
               <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>{user.display_name}</p>
@@ -613,7 +613,7 @@ function UserRow({ user, selected, onSelect, onToggleVip, onToggleAdmin, onViewD
 
       <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden cursor-pointer" style={{ backgroundColor: "var(--admin-hover)" }}
         onClick={() => onViewDetail(user)}>
-        {user.avatar_url ? <img src={user.avatar_url} alt={user.display_name} className="w-full h-full object-cover" /> : <i className="ri-user-line text-xs" style={{ color: "var(--admin-text-faint)" }}></i>}
+        {user.avatar_url ? <img loading="lazy" decoding="async" src={user.avatar_url} alt={user.display_name} className="w-full h-full object-cover" /> : <i className="ri-user-line text-xs" style={{ color: "var(--admin-text-faint)" }}></i>}
       </div>
 
       <div className="flex-1 min-w-0 cursor-pointer" onClick={() => onViewDetail(user)}>

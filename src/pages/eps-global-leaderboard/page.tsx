@@ -234,7 +234,7 @@ export default function EpsGlobalLeaderboardPage() {
                 {top3[1] && (
                   <div className="flex flex-col items-center gap-2 flex-1">
                     <div className="relative">
-                      <img src={top3[1].avatar} alt={top3[1].displayName} className="w-14 h-14 rounded-full object-cover border-2 border-gray-400" />
+                      <img loading="lazy" decoding="async" src={top3[1].avatar} alt={top3[1].displayName} className="w-14 h-14 rounded-full object-cover border-2 border-gray-400" />
                       <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-gray-400 flex items-center justify-center text-xs font-bold text-white">2</div>
                     </div>
                     <div className="text-center">
@@ -252,7 +252,7 @@ export default function EpsGlobalLeaderboardPage() {
                   <div className="flex flex-col items-center gap-2 flex-1">
                     <div className="relative">
                       <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-xl">👑</div>
-                      <img src={top3[0].avatar} alt={top3[0].displayName} className="w-18 h-18 rounded-full object-cover border-2 border-app-accent-primary w-[72px] h-[72px]" />
+                      <img loading="lazy" decoding="async" src={top3[0].avatar} alt={top3[0].displayName} className="w-18 h-18 rounded-full object-cover border-2 border-app-accent-primary w-[72px] h-[72px]" />
                       <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-app-accent-primary flex items-center justify-center text-xs font-bold text-app-bg">1</div>
                     </div>
                     <div className="text-center">
@@ -273,7 +273,7 @@ export default function EpsGlobalLeaderboardPage() {
                 {top3[2] && (
                   <div className="flex flex-col items-center gap-2 flex-1">
                     <div className="relative">
-                      <img src={top3[2].avatar} alt={top3[2].displayName} className="w-14 h-14 rounded-full object-cover border-2 border-amber-700" />
+                      <img loading="lazy" decoding="async" src={top3[2].avatar} alt={top3[2].displayName} className="w-14 h-14 rounded-full object-cover border-2 border-amber-700" />
                       <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-amber-700 flex items-center justify-center text-xs font-bold text-white">3</div>
                     </div>
                     <div className="text-center">
@@ -295,7 +295,7 @@ export default function EpsGlobalLeaderboardPage() {
                 <div className="w-10 h-10 rounded-full bg-app-accent-primary/20 flex items-center justify-center flex-shrink-0">
                   <span className="text-app-accent-primary font-bold text-sm">#{myRank.rank}</span>
                 </div>
-                <img src={myRank.avatar} alt="me" className="w-10 h-10 rounded-full object-cover" />
+                <img loading="lazy" decoding="async" src={myRank.avatar} alt="me" className="w-10 h-10 rounded-full object-cover" />
                 <div className="flex-1 min-w-0">
                   <p className="text-white font-semibold text-sm">Bạn · {myRank.displayName}</p>
                   <p className="text-app-text-secondary text-xs">{myRank.region}</p>
@@ -325,7 +325,7 @@ export default function EpsGlobalLeaderboardPage() {
                     </div>
                     {/* Avatar */}
                     <div className="relative flex-shrink-0">
-                      <img src={entry.avatar} alt={entry.displayName} className="w-9 h-9 rounded-full object-cover" />
+                      <img loading="lazy" decoding="async" src={entry.avatar} alt={entry.displayName} className="w-9 h-9 rounded-full object-cover" />
                       {entry.streak >= 30 && (
                         <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-orange-500 flex items-center justify-center">
                           <i className="ri-fire-line text-white text-[8px]"></i>

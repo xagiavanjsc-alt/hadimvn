@@ -101,7 +101,7 @@ function AdItem({ ad, onDismiss }: { ad: AdConfig; onDismiss: () => void }) {
     return (
       <div className={`relative transition-all duration-300 ${visible ? "opacity-100" : "opacity-0"}`}>
         <a href={ad.linkUrl || "#"} target="_blank" rel="nofollow noreferrer">
-          <img src={ad.content} alt={ad.title || "Quảng cáo"} className="w-full rounded-xl object-cover" />
+          <img loading="lazy" decoding="async" src={ad.content} alt={ad.title || "Quảng cáo"} className="w-full rounded-xl object-cover" />
         </a>
         <button onClick={handleDismiss} className="absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded-full bg-black/50 text-white/60 hover:text-white cursor-pointer">
           <i className="ri-close-line text-[10px]"></i>

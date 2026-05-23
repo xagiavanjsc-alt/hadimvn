@@ -178,7 +178,7 @@ export default function AccountSettingsPage() {
       <div className="bg-gradient-to-r from-app-surface to-[#0f1117] border border-app-accent-primary/15 rounded-2xl p-5 mb-6 flex items-center gap-4">
         <div className="w-12 h-12 rounded-xl bg-app-accent-primary/15 flex items-center justify-center flex-shrink-0">
           {profile?.avatar_url ? (
-            <img src={profile.avatar_url} alt="" className="w-12 h-12 rounded-xl object-cover" />
+            <img loading="lazy" decoding="async" src={profile.avatar_url} alt="" className="w-12 h-12 rounded-xl object-cover" />
           ) : (
             <i className="ri-user-3-line text-app-accent-primary text-xl"></i>
           )}

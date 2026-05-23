@@ -383,7 +383,7 @@ export default function MelonHistoryPage() {
                         onClick={() => navigate(`/melon/${song.rank}`)}
                       >
                         <div className="flex items-start gap-3">
-                          <img src={song.albumArt} alt={song.title} className="w-12 h-12 rounded-xl object-cover object-top flex-shrink-0" />
+                          <img loading="lazy" decoding="async" src={song.albumArt} alt={song.title} className="w-12 h-12 rounded-xl object-cover object-top flex-shrink-0" />
                           <div className="flex-1 min-w-0">
                             <p className="text-white/85 text-sm font-semibold truncate">{song.title}</p>
                             <p className="text-app-text-secondary text-xs">{song.artist} · #{song.rank}</p>
@@ -441,7 +441,7 @@ export default function MelonHistoryPage() {
                     onClick={() => navigate(`/melon/${song.rank}`)}
                   >
                     <div className="relative w-full aspect-square">
-                      <img src={song.albumArt} alt={song.title} className="w-full h-full object-cover object-top" />
+                      <img loading="lazy" decoding="async" src={song.albumArt} alt={song.title} className="w-full h-full object-cover object-top" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                       <div className="absolute bottom-0 left-0 right-0 p-3">
                         <p className="text-white text-xs font-semibold truncate">{song.title}</p>

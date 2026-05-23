@@ -270,7 +270,7 @@ function SongCard({
   return (
     <div className="bg-app-surface/50 border border-white/6 rounded-2xl overflow-hidden">
       <div className="flex items-center gap-3 p-4">
-        <img src={group.albumArt} alt={group.songTitle} className="w-12 h-12 rounded-xl object-cover flex-shrink-0" />
+        <img loading="lazy" decoding="async" src={group.albumArt} alt={group.songTitle} className="w-12 h-12 rounded-xl object-cover flex-shrink-0" />
         <div className="flex-1 min-w-0">
           <p className="text-white/85 text-sm font-semibold truncate">{group.songTitle}</p>
           <p className="text-white/35 text-xs truncate">{group.artist}</p>
@@ -693,7 +693,7 @@ export default function KpopFlashcardPage() {
             ) : (
               filteredAllCards.map(card => (
                 <div key={card.id} className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${masteredIds.has(card.id) ? "border-emerald-500/15 bg-emerald-500/5" : "border-app-border bg-white/2"}`}>
-                  <img src={getAlbumArt(card)} alt="" className="w-9 h-9 rounded-lg object-cover flex-shrink-0" />
+                  <img loading="lazy" decoding="async" src={getAlbumArt(card)} alt="" className="w-9 h-9 rounded-lg object-cover flex-shrink-0" />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="text-app-accent-primary font-bold text-sm">{card.word}</span>
