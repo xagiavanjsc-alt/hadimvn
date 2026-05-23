@@ -143,6 +143,7 @@ export function isInCooldown(
 export function scorePct(score: number, total: number): number {
   const t = Number(total);
   if (!Number.isFinite(t) || t <= 0) return 0;
-  const s = Number(score) || 0;
+  const s = Number(score);
+  if (!Number.isFinite(s)) return 0;
   return Math.round((s / t) * 100);
 }

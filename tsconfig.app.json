@@ -15,7 +15,9 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    /* Linting */
+    /* Linting — strict mode disabled site-wide for now. Migration tracked in
+       docs/TS_STRICT_MIGRATION.md; flip flags one at a time and clear the
+       affected files. */
     "strict": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
@@ -31,7 +33,7 @@
     "noFallthroughCasesInSwitch": false,
     "noUncheckedSideEffectImports": false,
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src", "vite-env.d.ts"]
