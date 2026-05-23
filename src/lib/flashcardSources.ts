@@ -25,6 +25,8 @@ export interface FlashcardItem {
   mastered: boolean;
   reviewCount: number;
   source: CardSource;
+  addedAt?: string;      // ISO timestamp — only set for admin-uploaded EPS items
+                         // so the page can surface freshness signals.
 }
 
 interface BuildArgs {
@@ -122,6 +124,7 @@ export function buildAllFlashcards({
       mastered: masteredSet.has(id),
       reviewCount: reviews(id),
       source: { kind: "eps-supabase", topicId: v.topicId, topicLabel: topic?.label ?? "EPS-TOPIK" },
+      addedAt: v.addedAt,
     });
   }
 
@@ -153,13 +156,23 @@ export function buildAllFlashcards({
 
 export type SourceFilterValue =
   | "all"
+  | "newest"                    // EPS Supabase items, newest first (last 30 days)
   | `seoul:${string}`           // seoul:1A, seoul:4B, ...
   | `eps-lesson:${number}`      // eps-lesson:1, eps-lesson:60
   | "eps-supabase"
   | "kpop";
 
+// 30 days in ms — window for the "Mới cập nhật" filter.
+const NEWEST_WINDOW_MS = 30 * 24 * 60 * 60 * 1000;
+
 export function filterBySource(cards: FlashcardItem[], filter: SourceFilterValue): FlashcardItem[] {
   if (filter === "all") return cards;
+  if (filter === "newest") {
+    const cutoff = Date.now() - NEWEST_WINDOW_MS;
+    return cards
+      .filter(c => c.source.kind === "eps-supabase" && c.addedAt && Date.parse(c.addedAt) >= cutoff)
+      .sort((a, b) => Date.parse(b.addedAt!) - Date.parse(a.addedAt!));
+  }
   if (filter === "eps-supabase") return cards.filter(c => c.source.kind === "eps-supabase");
   if (filter === "kpop")         return cards.filter(c => c.source.kind === "kpop");
   if (filter.startsWith("seoul:")) {
@@ -171,6 +184,16 @@ export function filterBySource(cards: FlashcardItem[], filter: SourceFilterValue
     return cards.filter(c => c.source.kind === "eps-lesson" && c.source.lessonId === lessonId);
   }
   return cards;
+}
+
+/** Count EPS Supabase items added within the last N days. */
+export function countAddedWithinDays(cards: FlashcardItem[], days: number): number {
+  const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
+  let n = 0;
+  for (const c of cards) {
+    if (c.source.kind === "eps-supabase" && c.addedAt && Date.parse(c.addedAt) >= cutoff) n++;
+  }
+  return n;
 }
 
 /**

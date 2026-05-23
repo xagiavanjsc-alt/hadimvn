@@ -7,11 +7,13 @@ import { useXPSystem } from "@/hooks/useXPSystem";
 import { useToast } from "@/components/base/Toast";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
 import { EpsVocabProvider, useEpsVocab, useEpsVocabLoading } from "@/contexts/EpsVocabContext";
+import AuthModal from "@/components/feature/AuthModal";
 import { seoulBooks } from "@/mocks/data/seoul-books-data";
 import { epsLessons } from "@/mocks/data/eps-lessons-data";
 import {
   buildAllFlashcards,
   filterBySource,
+  countAddedWithinDays,
   type FlashcardItem,
   type SourceFilterValue,
 } from "@/lib/flashcardSources";
@@ -330,6 +332,7 @@ function FlashcardPageInner() {
   const [sessionKnown, setSessionKnown] = useState<string[]>([]);
   const [sessionDontKnow, setSessionDontKnow] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
 
   const CARDS_PER_PAGE = 32;
 
@@ -354,6 +357,11 @@ function FlashcardPageInner() {
   }, [allCards, sourceFilter, filterLesson]);
 
   const masteredCount = allCards.filter(c => c.mastered).length;
+
+  // Freshness signals — count EPS Supabase items added recently so users can
+  // see the catalog growing instead of staring at the same Seoul 1A–4B dump.
+  const newestCount = useMemo(() => countAddedWithinDays(allCards, 30), [allCards]);
+  const newThisWeek = useMemo(() => countAddedWithinDays(allCards, 7), [allCards]);
 
   // Pagination — split browse grid into 32-card pages so we don't dump
   // thousands of nodes into the DOM at once.
@@ -470,6 +478,44 @@ function FlashcardPageInner() {
         ) : null
       }
     >
+      {/* Guest soft-gate — keep page usable but nudge to sign in */}
+      {!user && (
+        <div className="flex items-center justify-between gap-3 mb-4 px-4 py-3 rounded-xl border border-app-accent-primary/30 bg-app-accent-primary/5">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <i className="ri-cloud-line text-app-accent-primary text-base flex-shrink-0"></i>
+            <p className="text-white/80 text-xs sm:text-sm truncate">
+              Đăng nhập để lưu tiến độ trên nhiều thiết bị — xóa cache là mất
+            </p>
+          </div>
+          <button
+            onClick={() => setAuthModalOpen(true)}
+            className="flex-shrink-0 text-app-accent-primary text-xs font-bold whitespace-nowrap hover:underline cursor-pointer"
+          >
+            Đăng nhập →
+          </button>
+        </div>
+      )}
+      {authModalOpen && <AuthModal onClose={() => setAuthModalOpen(false)} />}
+
+      {/* Fresh-content shout — only visible weeks the catalog actually grew */}
+      {newThisWeek > 0 && mode === "browse" && (
+        <button
+          onClick={() => { setSourceFilter("newest"); setFilterLesson("all"); setCurrentPage(1); }}
+          className="w-full flex items-center justify-between gap-3 mb-4 px-4 py-3 rounded-xl border border-emerald-500/30 bg-emerald-500/5 hover:bg-emerald-500/10 transition-colors cursor-pointer text-left"
+        >
+          <div className="flex items-center gap-2.5 min-w-0">
+            <i className="ri-sparkling-2-line text-emerald-400 text-base flex-shrink-0"></i>
+            <p className="text-white/80 text-xs sm:text-sm">
+              <span className="font-bold text-emerald-400">+{newThisWeek}</span> từ EPS mới tuần này
+              {newestCount > newThisWeek && <span className="text-white/40"> · {newestCount} từ trong 30 ngày</span>}
+            </p>
+          </div>
+          <span className="flex-shrink-0 text-emerald-400 text-xs font-bold whitespace-nowrap">
+            Học ngay →
+          </span>
+        </button>
+      )}
+
       {/* Stats bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
@@ -565,6 +611,9 @@ function FlashcardPageInner() {
               onChange={e => setSourceFilter(e.target.value as SourceFilterValue)}
               className="bg-app-card/50 border border-app-border rounded-lg px-3 py-1.5 text-white/80 text-xs focus:outline-none cursor-pointer max-w-[240px] sm:max-w-none truncate"
             >
+              {newestCount > 0 && (
+                <option value="newest" className="bg-app-bg">🆕 Mới cập nhật ({newestCount} từ, 30 ngày)</option>
+              )}
               <option value="all" className="bg-app-bg">Tất cả nguồn ({allCards.length.toLocaleString("vi-VN")} từ)</option>
               <optgroup label="Sách Seoul">
                 {seoulBooks.map(b => (

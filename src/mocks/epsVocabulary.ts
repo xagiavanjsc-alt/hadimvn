@@ -13,6 +13,8 @@ export interface EpsVocabItem {
   topic?: string; // Alias for backward compatibility
   difficulty?: string; // Optional difficulty level
   pronunciation?: string; // Optional pronunciation field
+  addedAt?: string; // ISO timestamp from Supabase created_at — only present
+                    // for admin-uploaded items, not the bundled mock.
 }
 
 export interface EpsVocabTopic {

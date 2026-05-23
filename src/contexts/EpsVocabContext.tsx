@@ -7,7 +7,7 @@ import {
 } from "@/mocks/epsVocabulary";
 import { supabase } from "@/lib/supabase";
 
-const CACHE_KEY = "eps_vocab_cache_v1";
+const CACHE_KEY = "eps_vocab_cache_v2"; // bumped: now carries addedAt
 const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 hours — matches useHanjaData
 
 interface CachePayload {
@@ -66,7 +66,7 @@ export function EpsVocabProvider({ children }: { children: ReactNode }) {
             .order("sort_order", { ascending: true }),
           supabase
             .from("eps_vocab_entries")
-            .select("id,korean,reading,vietnamese,example,example_vi,topic_id,level")
+            .select("id,korean,reading,vietnamese,example,example_vi,topic_id,level,created_at")
             .order("id", { ascending: true }),
         ]);
 
@@ -82,7 +82,7 @@ export function EpsVocabProvider({ children }: { children: ReactNode }) {
         }
 
         type TopicRow = { id: string; label: string; label_ko: string; icon: string | null; color: string | null; description: string | null; sort_order: number };
-        type EntryRow = { id: string; korean: string; reading: string | null; vietnamese: string; example: string | null; example_vi: string | null; topic_id: string | null; level: string | null };
+        type EntryRow = { id: string; korean: string; reading: string | null; vietnamese: string; example: string | null; example_vi: string | null; topic_id: string | null; level: string | null; created_at: string | null };
 
         const nextTopics: EpsVocabTopic[] = (topicRows as TopicRow[]).map(r => ({
           id: r.id,
@@ -102,6 +102,7 @@ export function EpsVocabProvider({ children }: { children: ReactNode }) {
           exampleVi: r.example_vi ?? "",
           topicId: r.topic_id ?? "",
           level: (r.level === "intermediate" || r.level === "advanced") ? r.level : "basic",
+          addedAt: r.created_at ?? undefined,
         }));
 
         writeCache(nextItems, nextTopics);
