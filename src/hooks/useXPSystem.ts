@@ -244,7 +244,8 @@ export function useXPSystem() {
         const flashcardKnown = JSON.parse(localStorage.getItem("flashcard_known") || "{}");
         const examResults = JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]");
         const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length;
-        const validExams = examResults as { score: number; total: number; correctIds?: string[] }[];
+        const validExams = (examResults as { score: number; total: number; correctIds?: string[] }[])
+          .filter(r => r && Number(r.total) > 0);
         const bestScore = validExams.length > 0
           ? Math.max(...validExams.map(r => Math.round((r.score / r.total) * 100)))
           : 0;
@@ -357,8 +358,9 @@ export function useXPSystem() {
       const examResults = (() => {
         try { return JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]"); } catch { return []; }
       })() as { score: number; total: number }[];
-      const bestScorePct = examResults.length > 0
-        ? Math.max(...examResults.map(r => Math.round((r.score / r.total) * 100)))
+      const validExamsForBadge = examResults.filter(r => r && Number(r.total) > 0);
+      const bestScorePct = validExamsForBadge.length > 0
+        ? Math.max(...validExamsForBadge.map(r => Math.round((r.score / r.total) * 100)))
         : 0;
       const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length;
 

@@ -129,8 +129,8 @@ export function getDueCards(
   // Return the original cards in priority order, limited by limit
   return prioritizedIds
     .slice(0, limit)
-    .map(id => cards.find(c => c.id === id)!)
-    .filter(Boolean);
+    .map(id => cards.find(c => c.id === id))
+    .filter((c): c is SRCard => Boolean(c));
 }
 
 export function getStudyRecommendation(

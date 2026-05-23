@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
+import { readJSON } from "@/utils/safeStorage";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface LeaderboardEntry {
@@ -62,8 +63,8 @@ function ScoreBar({ score }: { score: number }) {
 // ─── My Score Card ────────────────────────────────────────────────────────────
 function MyScoreCard() {
   const navigate = useNavigate();
-  const history = JSON.parse(localStorage.getItem("kts_eps_exam_history") || "[]");
-  const bestScore = history.length > 0 ? Math.max(...history.map((h: { score: number }) => h.score)) : null;
+  const history = readJSON<{ score: number }[]>("kts_eps_exam_history", []);
+  const bestScore = history.length > 0 ? Math.max(...history.map((h) => h.score)) : null;
   const lastScore = history.length > 0 ? history[0].score : null;
 
   return (

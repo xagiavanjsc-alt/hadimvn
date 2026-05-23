@@ -102,11 +102,14 @@ export default function LeaderboardPage() {
   const [flashcardKnown] = useLocalStorage<Record<string, boolean>>("flashcard_known", {});
 
   const myBestScore = examResults.length > 0
-    ? Math.max(...examResults.map((r) => Math.round((r.score / r.total) * 100)))
+    ? Math.max(...examResults.filter(r => r && r.total > 0).map((r) => Math.round((r.score / r.total) * 100)), 0)
     : 0;
-  const myAvgScore = examResults.length > 0
-    ? Math.round(examResults.reduce((sum, r) => sum + (r.score / r.total) * 100, 0) / examResults.length)
-    : 0;
+  const myAvgScore = (() => {
+    const valid = examResults.filter(r => r && r.total > 0);
+    return valid.length > 0
+      ? Math.round(valid.reduce((sum, r) => sum + (r.score / r.total) * 100, 0) / valid.length)
+      : 0;
+  })();
   const myTotalCorrect = examResults.reduce((sum, r) => sum + (r.correctIds?.length ?? r.score ?? 0), 0);
   const myWordsLearned = Object.values(flashcardKnown).filter(Boolean).length;
   const myXp = computeXP({

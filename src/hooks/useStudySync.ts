@@ -22,7 +22,8 @@ export function useStudySync() {
 
       // Sync to user_progress (unified XP/streak)
       const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length + Object.values(hangulKnown).filter(Boolean).length;
-      const validExams = examResults as { score: number; total: number; correctIds?: string[] }[];
+      const validExams = (examResults as { score: number; total: number; correctIds?: string[] }[])
+        .filter(r => r && Number(r.total) > 0);
       const bestScore = validExams.length > 0
         ? Math.max(...validExams.map(r => Math.round((r.score / r.total) * 100)))
         : 0;
@@ -205,7 +206,8 @@ export function useStudySync() {
       const localTotalXP = Number(xpTotalState?.total) || 0;
 
       const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length;
-      const validExams = examResults as { score: number; total: number; correctIds?: string[] }[];
+      const validExams = (examResults as { score: number; total: number; correctIds?: string[] }[])
+        .filter(r => r && Number(r.total) > 0);
       const bestScore = validExams.length > 0
         ? Math.max(...validExams.map(r => Math.round((r.score / r.total) * 100)))
         : 0;

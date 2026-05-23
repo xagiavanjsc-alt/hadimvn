@@ -2,6 +2,7 @@
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { getStreakData } from "@/utils/streak";
+import { readJSON } from "@/utils/safeStorage";
 
 interface Achievement {
   id: string;
@@ -152,14 +153,14 @@ export default function AchievementsPage() {
 
   // Build user stats from localStorage
   const userStats: UserStats = useMemo(() => {
-    const epsHistory = JSON.parse(localStorage.getItem("kts_eps_history") || "[]");
-    const maxEps = epsHistory.length > 0 ? Math.max(...epsHistory.map((h: { score?: number }) => h.score || 0)) : 72;
-    const flashcardData = JSON.parse(localStorage.getItem("kts_flashcard_progress") || "{}");
+    const epsHistory = readJSON<{ score?: number }[]>("kts_eps_history", []);
+    const maxEps = epsHistory.length > 0 ? Math.max(...epsHistory.map((h) => h.score || 0)) : 72;
+    const flashcardData = readJSON<Record<string, unknown>>("kts_flashcard_progress", {});
     const wordsLearned = Object.keys(flashcardData).length || 247;
-    const quizHistory = JSON.parse(localStorage.getItem("kts_quiz_history") || "[]");
-    const ebookExports = parseInt(localStorage.getItem("kts_pdf_exports_count") || "0");
+    const quizHistory = readJSON<unknown[]>("kts_quiz_history", []);
+    const ebookExports = parseInt(localStorage.getItem("kts_pdf_exports_count") || "0") || 0;
 
-    const xpData = JSON.parse(localStorage.getItem("kts_xp") || "{}");
+    const xpData = readJSON<{ total?: number }>("kts_xp", {});
     const totalXP = xpData.total || 0;
 
     return {

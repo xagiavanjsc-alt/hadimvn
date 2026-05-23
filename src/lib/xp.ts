@@ -134,3 +134,15 @@ export function isInCooldown(
   if (elapsed >= cooldownSec) return { inCooldown: false, remainingSec: 0 };
   return { inCooldown: true, remainingSec: Math.ceil(cooldownSec - elapsed) };
 }
+
+/**
+ * Convert (score, total) → percent (0–100), safe against total=0.
+ * Use everywhere instead of raw `score / total * 100` so corrupt exam rows
+ * (total === 0) don't leak Infinity/NaN into UI or leaderboard.
+ */
+export function scorePct(score: number, total: number): number {
+  const t = Number(total);
+  if (!Number.isFinite(t) || t <= 0) return 0;
+  const s = Number(score) || 0;
+  return Math.round((s / t) * 100);
+}
