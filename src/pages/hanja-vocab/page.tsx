@@ -7,6 +7,7 @@ import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useVipYearGuard, getExportBtnLabel, getExportBtnIcon, addCsvWatermark } from "@/hooks/useVipYearGuard";
 import VipUpgradeModal from "@/components/feature/VipUpgradeModal";
+import { useXPSystem } from "@/hooks/useXPSystem";
 
 // Lazy load heavy tab components
 const StatsTab = lazy(() => import("@/pages/hanja-vocab/components/StatsTab"));
@@ -404,6 +405,7 @@ function FlashcardTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (
 function SRTab({ favs }: { favs: Set<string> }) {
   const HANJA_DATA = useHanjaData();
   const { srData, review, getDueCards, getStats, resetCard } = useSR();
+  const { addXP } = useXPSystem();
   const [mode, setMode] = useState<"stats" | "session">("stats");
   const [useOnlyFavs, setUseOnlyFavs] = useState(false);
   const [sessionCards, setSessionCards] = useState<HanjaEntry[]>([]);
@@ -411,6 +413,7 @@ function SRTab({ favs }: { favs: Set<string> }) {
   const [revealed, setRevealed] = useState(false);
   const [sessionDone, setSessionDone] = useState(false);
   const [sessionResults, setSessionResults] = useState<{ correct: number; wrong: number }>({ correct: 0, wrong: 0 });
+  const [xpAwarded, setXpAwarded] = useState(false);
 
   const pool = useMemo(() => {
     if (useOnlyFavs) return HANJA_DATA.filter(d => favs.has(d.korean));
@@ -428,8 +431,17 @@ function SRTab({ favs }: { favs: Set<string> }) {
     setRevealed(false);
     setSessionDone(false);
     setSessionResults({ correct: 0, wrong: 0 });
+    setXpAwarded(false);
     setMode("session");
   };
+
+  // Award XP once when session completes (anti-double-fire via xpAwarded flag).
+  useEffect(() => {
+    if (sessionDone && !xpAwarded && sessionResults.correct > 0) {
+      addXP({ type: "flashcard_learned", amount: sessionResults.correct * 3, meta: { wrong: sessionResults.wrong } });
+      setXpAwarded(true);
+    }
+  }, [sessionDone, xpAwarded, sessionResults.correct, sessionResults.wrong, addXP]);
 
   const handleRate = (quality: number) => {
     const card = sessionCards[sessionIdx];
@@ -669,6 +681,7 @@ function MasteryBadge({ level }: { level: "new" | "learning" | "mastered" }) {
 // ─── Vocab Tab ────────────────────────────────────────────────────────────────
 function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: string) => void }) {
   const { isVipYear, isVip, isVipMonth, isLoggedIn, checkAndRun, modalOpen, modalReason, closeModal } = useVipYearGuard();
+  const { addXP } = useXPSystem();
   const [search, setSearch] = useState("");
   const [selectedInitial, setSelectedInitial] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("card");
@@ -686,6 +699,10 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
     setSrData(prev => {
       const now = Date.now();
       const existing = prev[korean];
+      // Only award XP for first-time mark (anti-farm: reset+remark cycle blocked).
+      if (!existing || existing.interval < 21) {
+        addXP({ type: "hanja_word_learned" });
+      }
       const next: SRCard = {
         korean,
         interval: 21,
@@ -698,7 +715,7 @@ function VocabTab({ favs, onToggleFav }: { favs: Set<string>; onToggleFav: (k: s
       localStorage.setItem(SR_KEY, JSON.stringify(updated));
       return updated;
     });
-  }, []);
+  }, [addXP]);
 
   // Reset to "new"
   const resetToNew = useCallback((korean: string) => {
@@ -1202,6 +1219,7 @@ function QuizTab({ favs }: { favs: Set<string> }) {
   const [selectedInitial, setSelectedInitial] = useState<string | null>(null);
   const HANJA_DATA = useHanjaData();
   const [onlyFavs, setOnlyFavs] = useState(false);
+  const { addXP } = useXPSystem();
 
   const filteredPool = useMemo(() => {
     let data = HANJA_DATA;
@@ -1235,7 +1253,13 @@ function QuizTab({ favs }: { favs: Set<string> }) {
 
   const nextQuestion = () => {
     const nextIdx = current + 1;
-    if (nextIdx >= pool.length) { setFinished(true); return; }
+    if (nextIdx >= pool.length) {
+      // Award XP scaled by score: 2 XP/correct, ceiling 40 (matches typed event default 15 ± bonus).
+      const xpEarned = Math.min(40, score * 2);
+      if (xpEarned > 0) addXP({ type: "hanja_quiz_completed", amount: xpEarned, meta: { score, total: pool.length } });
+      setFinished(true);
+      return;
+    }
     setCurrent(nextIdx);
     setQuestion(buildQuestion(pool[nextIdx], filteredPool));
   };
@@ -1567,32 +1591,53 @@ function HanjaVocabPageInner() {
     return () => window.removeEventListener("keydown", handler);
   }, [activeTab]);
 
-  const tabs: { key: TabType; label: string; icon: string; badge?: number; isNew?: boolean }[] = [
-    { key: "vocab", label: "Từ vựng", icon: "ri-book-open-line" },
-    { key: "search", label: "Tìm thông minh", icon: "ri-search-eye-line" },
-    { key: "synonym", label: "Đồng nghĩa/âm", icon: "ri-git-merge-line" },
-    { key: "antonym", label: "Đối nghĩa", icon: "ri-arrow-left-right-line" },
-    { key: "hanviet", label: "So sánh Hán Việt", icon: "ri-translate-2", isNew: true },
-    { key: "examples", label: "Câu ví dụ", icon: "ri-newspaper-line", isNew: true },
-    { key: "flashcard", label: "Flashcard", icon: "ri-stack-line" },
-    { key: "quickreview", label: "Quick Review", icon: "ri-flashlight-line" },
-    { key: "quiz", label: "Quiz", icon: "ri-gamepad-line" },
-    { key: "sr", label: "Spaced Rep", icon: "ri-brain-line" },
-    { key: "roots", label: "Đồng gốc", icon: "ri-links-line" },
-    { key: "topics", label: "Chủ đề", icon: "ri-apps-line" },
-    { key: "ranking", label: "Xếp hạng", icon: "ri-medal-line" },
-    { key: "stats", label: "Thống kê", icon: "ri-bar-chart-line" },
-    { key: "favorites", label: "Yêu thích", icon: "ri-heart-line", badge: favs.size },
-    ...(isAdmin ? [{ key: "export" as TabType, label: "Xuất flashcard", icon: "ri-download-2-line" }] : []),
-    { key: "weekly", label: "Thách thức tuần", icon: "ri-sword-line" },
-    { key: "leaderboard", label: "Bảng xếp hạng", icon: "ri-bar-chart-horizontal-line" },
-    { key: "homophone", label: "Đồng âm khác nghĩa", icon: "ri-sound-module-line" },
-    { key: "topik-exam", label: "Thi thử TOPIK", icon: "ri-file-paper-2-line" },
-    { key: "pronunciation", label: "Luyện phát âm", icon: "ri-mic-line" },
-    { key: "smart-review", label: "Ôn tập thông minh", icon: "ri-brain-line", isNew: true },
-    { key: "advanced-topics", label: "Chủ đề nâng cao", icon: "ri-graduation-cap-line", isNew: true },
-    { key: "diary", label: "Nhật ký học tập", icon: "ri-book-2-line", isNew: true },
-    { key: "word-match", label: "Ghép cặp", icon: "ri-drag-drop-line", isNew: true },
+  type TabDef = { key: TabType; label: string; icon: string; badge?: number; isNew?: boolean };
+  const tabGroups: { label: string; icon: string; tabs: TabDef[] }[] = [
+    {
+      label: "Học từ", icon: "ri-book-open-line", tabs: [
+        { key: "vocab", label: "Từ vựng", icon: "ri-book-open-line" },
+        { key: "topics", label: "Chủ đề", icon: "ri-apps-line" },
+        { key: "advanced-topics", label: "Chủ đề nâng cao", icon: "ri-graduation-cap-line", isNew: true },
+        { key: "examples", label: "Câu ví dụ", icon: "ri-newspaper-line", isNew: true },
+        { key: "hanviet", label: "So sánh Hán Việt", icon: "ri-translate-2", isNew: true },
+        { key: "roots", label: "Đồng gốc", icon: "ri-links-line" },
+      ],
+    },
+    {
+      label: "Ôn tập", icon: "ri-refresh-line", tabs: [
+        { key: "flashcard", label: "Flashcard", icon: "ri-stack-line" },
+        { key: "sr", label: "Spaced Rep", icon: "ri-brain-line" },
+        { key: "quickreview", label: "Quick Review", icon: "ri-flashlight-line" },
+        { key: "smart-review", label: "Ôn tập thông minh", icon: "ri-brain-line", isNew: true },
+        { key: "word-match", label: "Ghép cặp", icon: "ri-drag-drop-line", isNew: true },
+      ],
+    },
+    {
+      label: "Kiểm tra", icon: "ri-gamepad-line", tabs: [
+        { key: "quiz", label: "Quiz", icon: "ri-gamepad-line" },
+        { key: "topik-exam", label: "Thi thử TOPIK", icon: "ri-file-paper-2-line" },
+        { key: "pronunciation", label: "Luyện phát âm", icon: "ri-mic-line" },
+        { key: "homophone", label: "Đồng âm khác nghĩa", icon: "ri-sound-module-line" },
+      ],
+    },
+    {
+      label: "Khám phá", icon: "ri-search-eye-line", tabs: [
+        { key: "search", label: "Tìm thông minh", icon: "ri-search-eye-line" },
+        { key: "synonym", label: "Đồng nghĩa/âm", icon: "ri-git-merge-line" },
+        { key: "antonym", label: "Đối nghĩa", icon: "ri-arrow-left-right-line" },
+      ],
+    },
+    {
+      label: "Cá nhân", icon: "ri-user-line", tabs: [
+        { key: "favorites", label: "Yêu thích", icon: "ri-heart-line", badge: favs.size },
+        { key: "diary", label: "Nhật ký học tập", icon: "ri-book-2-line", isNew: true },
+        { key: "stats", label: "Thống kê", icon: "ri-bar-chart-line" },
+        { key: "ranking", label: "Xếp hạng", icon: "ri-medal-line" },
+        { key: "weekly", label: "Thách thức tuần", icon: "ri-sword-line" },
+        { key: "leaderboard", label: "Bảng xếp hạng", icon: "ri-bar-chart-horizontal-line" },
+        ...(isAdmin ? [{ key: "export" as TabType, label: "Xuất flashcard", icon: "ri-download-2-line" }] : []),
+      ],
+    },
   ];
 
   return (
@@ -1619,29 +1664,36 @@ function HanjaVocabPageInner() {
           </div>
         </div>
 
-        {/* Tabs — scrollable on mobile */}
-        <div className="mb-6 -mx-4 md:mx-0">
-          <div className="flex flex-wrap gap-1 bg-app-surface/50 rounded-none md:rounded-xl p-1">
-            {tabs.map(t => (
-              <button
-                key={t.key}
-                onClick={() => setActiveTab(t.key)}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium cursor-pointer whitespace-nowrap transition-all relative flex-shrink-0 ${activeTab === t.key ? "bg-app-surface/70 text-app-accent-primary" : "text-white/50 hover:text-white/70"}`}
-              >
-                <i className={t.icon}></i>
-                <span className="hidden sm:inline">{t.label}</span>
-                <span className="sm:hidden">{t.label.split(" ")[0]}</span>
-                {t.isNew && (
-                  <span className="absolute -top-2 -right-2 text-[7px] px-1.5 py-0.5 rounded-full bg-amber-400 text-white font-bold leading-none whitespace-nowrap">NEW</span>
-                )}
-                {t.badge !== undefined && t.badge > 0 && (
-                  <span className="absolute -top-1.5 -right-1.5 w-4 h-4 flex items-center justify-center bg-app-accent-primary text-white text-[9px] rounded-full leading-none">
-                    {t.badge > 9 ? "9+" : t.badge}
-                  </span>
-                )}
-              </button>
-            ))}
-          </div>
+        {/* Tabs — grouped into 5 categories */}
+        <div className="mb-6 space-y-3">
+          {tabGroups.map(group => (
+            <div key={group.label} className="bg-app-surface/30 border border-app-border/50 rounded-xl px-3 py-2.5">
+              <div className="flex items-center gap-1.5 mb-2 px-1">
+                <i className={`${group.icon} text-app-accent-primary/80 text-xs`}></i>
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-white/50">{group.label}</span>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                {group.tabs.map(t => (
+                  <button
+                    key={t.key}
+                    onClick={() => setActiveTab(t.key)}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer whitespace-nowrap transition-all relative ${activeTab === t.key ? "bg-app-accent-primary/15 text-app-accent-primary ring-1 ring-app-accent-primary/30" : "text-white/60 hover:text-white/90 hover:bg-app-surface/50"}`}
+                  >
+                    <i className={t.icon}></i>
+                    <span>{t.label}</span>
+                    {t.isNew && (
+                      <span className="absolute -top-1.5 -right-1.5 text-[7px] px-1 py-0.5 rounded-full bg-amber-400 text-white font-bold leading-none whitespace-nowrap">NEW</span>
+                    )}
+                    {t.badge !== undefined && t.badge > 0 && (
+                      <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 flex items-center justify-center bg-app-accent-primary text-white text-[9px] rounded-full leading-none">
+                        {t.badge > 9 ? "9+" : t.badge}
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
 
         <Suspense fallback={<TabFallback />}>

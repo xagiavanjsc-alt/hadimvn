@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo, useEffect } from "react";
 import { HanjaEntry } from "@/mocks/hanjaData";
 import { useHanjaData } from "@/contexts/HanjaDataContext";
+import { useXPSystem } from "@/hooks/useXPSystem";
 
 const SR_KEY = "hanja_sr_data";
 
@@ -66,6 +67,7 @@ export default function WordMatchTab() {
   const [elapsed, setElapsed] = useState(0);
   const [results, setResults] = useState<GameResult[]>(loadResults);
   const [showResults, setShowResults] = useState(false);
+  const { addXP } = useXPSystem();
 
   // Timer
   useEffect(() => {
@@ -157,6 +159,9 @@ export default function WordMatchTab() {
           const result: GameResult = { pairs: pairCount, time, mistakes, date: new Date().toISOString() };
           saveResult(result);
           setResults(loadResults());
+          // Award XP: 2 XP per pair, minus 1 XP per mistake (floor 0).
+          const xpEarned = Math.max(0, pairCount * 2 - mistakes);
+          if (xpEarned > 0) addXP(xpEarned, "Ghép cặp Hán-Hàn");
           setTimeout(() => setGameState("done"), 400);
         }
         return newCount;
@@ -178,7 +183,7 @@ export default function WordMatchTab() {
         ));
       }, 700);
     }
-  }, [selectedId, cards, pairCount, startTime, mistakes]);
+  }, [selectedId, cards, pairCount, startTime, mistakes, addXP]);
 
   const formatTime = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 

@@ -1,7 +1,7 @@
 ﻿import { useState, useMemo, useEffect, useCallback } from "react";
 import { HANJA_DATA as HANJA_DATA_MOCK, HanjaEntry } from "@/mocks/hanjaData";
 import { useHanjaData } from "@/contexts/HanjaDataContext";
-import { STORAGE_KEYS } from "@/lib/storageKeys";
+import { useXPSystem } from "@/hooks/useXPSystem";
 
 const WC_KEY = "hanja_weekly_challenge";
 const SR_KEY = "hanja_sr_data";
@@ -198,6 +198,7 @@ export default function WeeklyChallengeTab() {
   const [studyFlipped, setStudyFlipped] = useState(false);
   const [showXpModal, setShowXpModal] = useState(false);
   const [earnedXp, setEarnedXp] = useState(0);
+  const { addXP } = useXPSystem();
 
   const weekWords: HanjaEntry[] = useMemo(() =>
     challenge.wordList.map(k => HANJA_DATA.find(e => e.korean === k)).filter(Boolean) as HanjaEntry[],
@@ -225,9 +226,9 @@ export default function WeeklyChallengeTab() {
       saveChallenge(updated);
       return updated;
     });
-    // Add XP to global store
-    const currentXp = parseInt(localStorage.getItem(STORAGE_KEYS.XP_TOTAL) || "0");
-    localStorage.setItem(STORAGE_KEYS.XP_TOTAL, String(currentXp + xp));
+    // Award via official XP system: synced to Supabase + leaderboard + level-up toast.
+    // Typed event bypasses the 200-XP single-call cap so the full 500-700 weekly reward lands.
+    addXP({ type: "hanja_tree_completed", amount: xp, meta: { weekly: weekId } });
     setShowXpModal(true);
     setView("overview");
   };

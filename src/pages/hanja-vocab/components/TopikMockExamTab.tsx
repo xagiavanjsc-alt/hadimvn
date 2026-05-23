@@ -1,6 +1,7 @@
 ﻿import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { HanjaEntry } from "@/mocks/hanjaData";
 import { useHanjaData } from "@/contexts/HanjaDataContext";
+import { useXPSystem } from "@/hooks/useXPSystem";
 
 const EXAM_DURATION = 30 * 60; // 30 minutes in seconds
 const TOTAL_QUESTIONS = 30;
@@ -94,6 +95,7 @@ export default function TopikMockExamTab() {
   const [reviewIdx, setReviewIdx] = useState(0);
   const [filterGroup, setFilterGroup] = useState<string>("all");
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const { addXP } = useXPSystem();
 
   const ALPHABET_GROUPS = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
 
@@ -162,10 +164,16 @@ export default function TopikMockExamTab() {
         localStorage.setItem(EXAM_HISTORY_KEY, JSON.stringify(next));
         return next;
       });
+      // Award XP scaled by accuracy: 10 base + up to 30 bonus (max 40), gated to ≥30% to avoid farming blank submits.
+      const pct = result.total > 0 ? (result.score / result.total) * 100 : 0;
+      if (pct >= 30) {
+        const xpEarned = Math.round(10 + (pct / 100) * 30);
+        addXP({ type: "topik_exam_completed", amount: xpEarned, meta: { score: result.score, total: result.total, pct } });
+      }
       setExamState("review");
       return prev;
     });
-  }, [timeLeft]);
+  }, [timeLeft, addXP]);
 
   const handleAnswer = (choice: HanjaEntry) => {
     const answer = getChoiceLabel(questions[currentIdx], choice);

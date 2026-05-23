@@ -1,13 +1,13 @@
 ﻿import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { HanjaEntry } from "@/mocks/hanjaData";
 import { useHanjaData } from "@/contexts/HanjaDataContext";
+import { useXPSystem } from "@/hooks/useXPSystem";
 import {
   SpeechRecognitionEventLike,
   SpeechRecognitionErrorEventLike,
   getSpeechRecognitionCtor,
 } from "@/lib/speechRecognition";
 
-const XP_KEY = "xp_total";
 const PRON_HISTORY_KEY = "hanja_pronunciation_history";
 
 interface PronunciationRecord {
@@ -133,10 +133,8 @@ export default function PronunciationTab() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [notSupported, setNotSupported] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
-  const [totalXp, setTotalXp] = useState(() => {
-    try { return parseInt(localStorage.getItem(XP_KEY) || "0", 10); } catch { return 0; }
-  });
   const [xpGained, setXpGained] = useState<number | null>(null);
+  const { addXP } = useXPSystem();
   const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const pool = useMemo(() => {
@@ -216,13 +214,11 @@ export default function PronunciationTab() {
         return next;
       });
 
-      // Award XP if score >= 60
+      // Award XP if score >= 60 (synced to server via useXPSystem)
       if (s >= 60) {
         const xp = s >= 80 ? 10 : 5;
         setXpGained(xp);
-        const newXp = totalXp + xp;
-        setTotalXp(newXp);
-        localStorage.setItem(XP_KEY, String(newXp));
+        addXP(xp, "Luyện phát âm Hán-Hàn");
         setTimeout(() => setXpGained(null), 2000);
       }
     } catch (err: unknown) {
