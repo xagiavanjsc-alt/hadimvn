@@ -328,13 +328,16 @@ export default function DailyChallengePageComponent() {
     const today = todayStr();
     const seed = parseInt(today.replace(/-/g, ""), 10);
     const rng = seededRandom(seed);
+    let cancelled = false;
 
     supabase
       .from("hanja_vocab_entries")
       .select("id, korean, vietnamese, pronunciation, category")
       .limit(60)
-      .then(({ data }) => {
-        if (!data || data.length < 10) return;
+      .then(
+        ({ data, error }) => {
+          if (cancelled) return;
+          if (error || !data || data.length < 10) return;
 
         // Shuffle with seeded random
         const shuffled = [...data].sort(() => rng() - 0.5);
@@ -397,7 +400,10 @@ export default function DailyChallengePageComponent() {
             questions: writeQuestions,
           },
         ]);
-      });
+        },
+        () => { /* network error — challenges stay empty, user sees CTA */ }
+      );
+    return () => { cancelled = true; };
   }, []);
 
   const handleComplete = useCallback((xp: number) => {

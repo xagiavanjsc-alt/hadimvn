@@ -187,11 +187,18 @@ export default function VocabFavoritesPage() {
   // Load favorites from Supabase on login
   useEffect(() => {
     if (!user) return;
-    supabase.from("study_progress").select("vocab_favorites").eq("user_id", user.id).maybeSingle().then(({ data }) => {
-      if (data?.vocab_favorites && Array.isArray(data.vocab_favorites) && data.vocab_favorites.length > 0) {
-        setFavoriteIds(data.vocab_favorites as string[]);
-      }
-    });
+    let cancelled = false;
+    supabase.from("study_progress").select("vocab_favorites").eq("user_id", user.id).maybeSingle()
+      .then(
+        ({ data, error }) => {
+          if (cancelled || error) return;
+          if (data?.vocab_favorites && Array.isArray(data.vocab_favorites) && data.vocab_favorites.length > 0) {
+            setFavoriteIds(data.vocab_favorites as string[]);
+          }
+        },
+        () => { /* network error — keep local state */ }
+      );
+    return () => { cancelled = true; };
   }, [user?.id]);
 
   const favoriteItems = vocabularyData.filter(v => favoriteIds.includes(v.id));

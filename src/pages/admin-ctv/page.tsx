@@ -291,9 +291,16 @@ export default function AdminCTVPage() {
       .eq("status", "pending");
     if (error) { showToast("Lỗi: " + error.message); return; }
     const paid = commissions.filter(c => c.ctv_id === ctvId && c.status === "pending").reduce((s, c) => s + c.commission_amount, 0);
-    await supabase.from("ctv_profiles").update({
+    const { error: updErr } = await supabase.from("ctv_profiles").update({
       paid_commission: (ctvs.find(c => c.id === ctvId)?.paid_commission || 0) + paid
     }).eq("id", ctvId);
+    if (updErr) {
+      // Commissions were marked paid but profile total didn't update — surface
+      // it so admin can reconcile manually instead of silently going out of sync.
+      showToast("Đã đánh dấu thanh toán nhưng cập nhật tổng đã trả lỗi: " + updErr.message);
+      await load();
+      return;
+    }
     await load();
     showToast("Đã đánh dấu thanh toán");
   };

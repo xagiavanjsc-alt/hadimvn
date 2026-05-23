@@ -22,9 +22,20 @@ function StreakBadge() {
   // Fetch XP from user_progress (unified source of truth)
   useEffect(() => {
     if (!user) return;
-    supabase.from("user_progress").select("xp").eq("user_id", user.id).maybeSingle().then(({ data }) => {
-      if (data) setXpFromDB(data.xp);
-    });
+    let cancelled = false;
+    supabase.from("user_progress").select("xp").eq("user_id", user.id).maybeSingle()
+      .then(
+        ({ data, error }) => {
+          if (cancelled) return;
+          if (error) {
+            console.warn("[Sidebar] XP fetch failed:", error.message);
+            return;
+          }
+          if (data) setXpFromDB(data.xp);
+        },
+        (err) => { if (!cancelled) console.warn("[Sidebar] XP fetch threw:", err); }
+      );
+    return () => { cancelled = true; };
   }, [user]);
 
   const totalXP = xpFromDB || 0;

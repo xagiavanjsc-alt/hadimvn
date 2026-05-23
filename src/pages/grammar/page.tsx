@@ -410,11 +410,18 @@ export default function GrammarPage() {
   // Load grammar progress from Supabase on login
   useEffect(() => {
     if (!user) return;
-    supabase.from("study_progress").select("grammar_progress").eq("user_id", user.id).maybeSingle().then(({ data }) => {
-      if (data?.grammar_progress && typeof data.grammar_progress === "object" && Object.keys(data.grammar_progress).length > 0) {
-        setExerciseAnswers(data.grammar_progress as Record<string, boolean>);
-      }
-    });
+    let cancelled = false;
+    supabase.from("study_progress").select("grammar_progress").eq("user_id", user.id).maybeSingle()
+      .then(
+        ({ data, error }) => {
+          if (cancelled || error) return;
+          if (data?.grammar_progress && typeof data.grammar_progress === "object" && Object.keys(data.grammar_progress).length > 0) {
+            setExerciseAnswers(data.grammar_progress as Record<string, boolean>);
+          }
+        },
+        () => { /* network error — keep local state */ }
+      );
+    return () => { cancelled = true; };
   }, [user?.id]);
 
   // Sync grammar progress to Supabase

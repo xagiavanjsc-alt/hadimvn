@@ -109,7 +109,7 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
       // the exam was rejected).
       const MIN_SEC_PER_Q = 8;
       const isValid = examData.time_used >= examData.total * MIN_SEC_PER_Q;
-      await supabase.from("exam_results").insert({
+      const { error: examInsertErr } = await supabase.from("exam_results").insert({
         user_id: userId,
         exam_type: examType,
         score: examData.score,
@@ -119,6 +119,11 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
         taken_at: examData.taken_at,
         is_valid: isValid,
       });
+      if (examInsertErr) {
+        // Don't block the UI — the local IndexedDB copy still survives, and the
+        // next sync round (`useStudySync.syncToCloud`) will replay results.
+        console.warn("[UnifiedExam] exam_results insert failed:", examInsertErr.message);
+      }
 
       // Update local storage with latest exam result (so other pages see it)
       const localKey = "kts_eps_exam_results";

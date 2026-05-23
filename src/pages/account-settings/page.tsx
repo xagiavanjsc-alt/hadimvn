@@ -51,10 +51,19 @@ export default function AccountSettingsPage() {
     if (!user) return;
     setAutoRenewSaving(true);
     const newVal = !autoRenew;
+    const prev = autoRenew;
     setAutoRenew(newVal);
     localStorage.setItem(`auto_renew_${user.id}`, String(newVal));
-    await supabase.from("user_profiles").update({ updated_at: new Date().toISOString() }).eq("id", user.id);
+    const { error } = await supabase.from("user_profiles").update({ updated_at: new Date().toISOString() }).eq("id", user.id);
     setAutoRenewSaving(false);
+    if (error) {
+      // Rollback so the toast doesn't lie about persistence.
+      setAutoRenew(prev);
+      localStorage.setItem(`auto_renew_${user.id}`, String(prev));
+      setAutoRenewToast("Lưu thất bại, vui lòng thử lại.");
+      setTimeout(() => setAutoRenewToast(null), 3000);
+      return;
+    }
     setAutoRenewToast(newVal ? "Đã bật tự động gia hạn VIP!" : "Đã tắt tự động gia hạn VIP.");
     setTimeout(() => setAutoRenewToast(null), 3000);
   }, [user, autoRenew]);

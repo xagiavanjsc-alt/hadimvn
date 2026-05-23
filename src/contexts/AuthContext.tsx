@@ -76,11 +76,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const refCode = getActiveRefCode();
     // Avatar mặc định từ DiceBear API (miễn phí, ổn định)
     const defaultAvatar = `https://api.dicebear.com/7.x/adventurer/svg?seed=${encodeURIComponent(displayName)}&backgroundColor=b6e3f4`;
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("user_profiles")
       .insert({ id: userId, display_name: displayName, avatar_url: defaultAvatar, ...(refCode ? { ref_code: refCode } : {}) })
       .select()
       .maybeSingle();
+    if (error) {
+      console.error("[AuthContext] createProfile insert failed:", error.message);
+      return null;
+    }
     if (refCode && data) clearRefCode();
     return data as UserProfile | null;
   }, []);

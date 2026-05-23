@@ -278,11 +278,18 @@ export default function EpsVocabularyPage() {
   // Load mastered from Supabase
   useEffect(() => {
     if (!user) return;
-    supabase.from("study_progress").select("eps_vocab_mastered").eq("user_id", user.id).maybeSingle().then(({ data }) => {
-      if (data?.eps_vocab_mastered && Array.isArray(data.eps_vocab_mastered) && (data.eps_vocab_mastered as string[]).length > 0) {
-        setMasteredIds(data.eps_vocab_mastered as string[]);
-      }
-    });
+    let cancelled = false;
+    supabase.from("study_progress").select("eps_vocab_mastered").eq("user_id", user.id).maybeSingle()
+      .then(
+        ({ data, error }) => {
+          if (cancelled || error) return;
+          if (data?.eps_vocab_mastered && Array.isArray(data.eps_vocab_mastered) && (data.eps_vocab_mastered as string[]).length > 0) {
+            setMasteredIds(data.eps_vocab_mastered as string[]);
+          }
+        },
+        () => { /* network error — keep local state */ }
+      );
+    return () => { cancelled = true; };
   }, [user?.id]);
 
   const syncToCloud = useCallback(async (ids: string[]) => {
