@@ -7,18 +7,14 @@ import { useXPSystem } from "@/hooks/useXPSystem";
 import { useToast } from "@/components/base/Toast";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
 import { EpsVocabProvider, useEpsVocab, useEpsVocabLoading } from "@/contexts/EpsVocabContext";
-
-interface FlashcardItem {
-  id: string;
-  word: string;
-  reading: string;
-  meaning: string;
-  example?: string;
-  lessonTitle: string;
-  artist: string;
-  mastered: boolean;
-  reviewCount: number;
-}
+import { seoulBooks } from "@/mocks/data/seoul-books-data";
+import { epsLessons } from "@/mocks/data/eps-lessons-data";
+import {
+  buildAllFlashcards,
+  filterBySource,
+  type FlashcardItem,
+  type SourceFilterValue,
+} from "@/lib/flashcardSources";
 
 interface StudySession {
   cardId: string;
@@ -210,7 +206,7 @@ function FlipCard({ card, onKnow, onDontKnow }: {
             )}
             <div className="mt-4 flex items-center gap-1.5 text-app-text-muted text-xs">
               <i className="ri-music-2-line text-xs"></i>
-              {card.lessonTitle} — {card.artist}
+              {card.lessonTitle} — {card.subtitle}
             </div>
           </div>
         </div>
@@ -318,67 +314,37 @@ function FlashcardPageInner() {
 
   const [mode, setMode] = useState<"browse" | "study" | "done">("browse");
   const [filterLesson, setFilterLesson] = useState<"all" | "unmastered">("unmastered");
-  const [selectedLessonRank, setSelectedLessonRank] = useState<number | "all">("all");
+  // New unified source filter — replaces selectedLessonRank (K-pop only)
+  const [sourceFilter, setSourceFilter] = useState<SourceFilterValue>("all");
   const [studyQueue, setStudyQueue] = useState<FlashcardItem[]>([]);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [sessionKnown, setSessionKnown] = useState<string[]>([]);
   const [sessionDontKnow, setSessionDontKnow] = useState<string[]>([]);
 
-  // Build all flashcards from approved lessons + built-in EPS vocab
-  const allCards = useMemo<FlashcardItem[]>(() => {
-    const cards: FlashcardItem[] = [];
-    // Cards from K-pop lessons
-    approvedLessons.forEach(lesson => {
-      (lesson.vocab ?? []).forEach((v, i) => {
-        const id = `${lesson.song.rank}-vocab-${i}`;
-        cards.push({
-          id,
-          word: v.word,
-          reading: v.reading ?? "",
-          meaning: v.meaning,
-          example: v.example,
-          lessonTitle: lesson.song.title,
-          artist: lesson.song.artist,
-          mastered: masteredIds.includes(id),
-          reviewCount: sessions.filter(s => s.cardId === id).length,
-        });
-      });
-    });
-    // Built-in EPS vocabulary (always available)
-    epsVocabulary.forEach(v => {
-      const id = `eps-${v.id}`;
-      const topic = EPS_VOCAB_TOPICS.find(t => t.id === v.topicId);
-      cards.push({
-        id,
-        word: v.korean,
-        reading: v.reading,
-        meaning: v.vietnamese,
-        example: v.example,
-        lessonTitle: topic?.label ?? "EPS-TOPIK",
-        artist: topic?.labelKo ?? "한국어",
-        mastered: masteredIds.includes(id),
-        reviewCount: sessions.filter(s => s.cardId === id).length,
-      });
-    });
-    return cards;
-  }, [approvedLessons, masteredIds, sessions, epsVocabulary, EPS_VOCAB_TOPICS]);
+  // Aggregate every vocab source (Seoul ~4070 + EPS lessons ~2277 +
+  // admin-managed Supabase + user K-pop). See lib/flashcardSources.ts.
+  // Memoized on session ids only so review counts don't re-walk on every
+  // render but mastered toggles still reflect immediately.
+  const sessionsCardIds = useMemo(() => sessions.map(s => s.cardId), [sessions]);
+
+  const allCards = useMemo<FlashcardItem[]>(() => buildAllFlashcards({
+    epsVocabulary,
+    epsTopics: EPS_VOCAB_TOPICS,
+    approvedKpopLessons: approvedLessons,
+    masteredIds,
+    sessionsCardIds,
+  }), [epsVocabulary, EPS_VOCAB_TOPICS, approvedLessons, masteredIds, sessionsCardIds]);
 
   const filteredCards = useMemo(() => {
-    let cards = allCards;
-    if (selectedLessonRank !== "all") {
-      const lesson = approvedLessons.find(l => l.song.rank === selectedLessonRank);
-      if (lesson) {
-        cards = cards.filter(c => c.lessonTitle === lesson.song.title);
-      }
-    }
-    if (filterLesson === "unmastered") {
-      cards = cards.filter(c => !c.mastered);
-    }
+    let cards = filterBySource(allCards, sourceFilter);
+    if (filterLesson === "unmastered") cards = cards.filter(c => !c.mastered);
     return cards;
-  }, [allCards, selectedLessonRank, filterLesson, approvedLessons]);
+  }, [allCards, sourceFilter, filterLesson]);
 
   const masteredCount = allCards.filter(c => c.mastered).length;
 
+  // Daily session size — 20 is a good Anki-style chunk. Source filter limits
+  // the pool so picking "Seoul 1A" makes each session focus on that book.
   const DAILY_LIMIT = 20;
 
   const startStudy = useCallback(() => {
@@ -563,18 +529,29 @@ function FlashcardPageInner() {
               ))}
             </div>
             <select
-              value={selectedLessonRank === "all" ? "all" : String(selectedLessonRank)}
-              onChange={e => setSelectedLessonRank(e.target.value === "all" ? "all" : parseInt(e.target.value))}
-              className="bg-app-card/50 border border-app-border rounded-lg px-3 py-1.5 text-white/60 text-xs focus:outline-none cursor-pointer"
+              value={sourceFilter}
+              onChange={e => setSourceFilter(e.target.value as SourceFilterValue)}
+              className="bg-app-card/50 border border-app-border rounded-lg px-3 py-1.5 text-white/80 text-xs focus:outline-none cursor-pointer max-w-[240px] sm:max-w-none truncate"
             >
-              <option value="all" className="bg-app-bg">Tất cả bài học</option>
-              {approvedLessons.map(l => (
-                <option key={l.song.rank} value={l.song.rank} className="bg-app-bg">
-                  {l.song.title}
-                </option>
-              ))}
+              <option value="all" className="bg-app-bg">Tất cả nguồn ({allCards.length.toLocaleString("vi-VN")} từ)</option>
+              <optgroup label="Sách Seoul">
+                {seoulBooks.map(b => (
+                  <option key={b.id} value={`seoul:${b.id}`} className="bg-app-bg">{b.name} ({b.totalVocab} từ)</option>
+                ))}
+              </optgroup>
+              <optgroup label="EPS-TOPIK 60 bài">
+                {epsLessons.map(l => (
+                  <option key={l.id} value={`eps-lesson:${l.id}`} className="bg-app-bg">
+                    Bài {l.id}: {l.titleVi || l.title} ({l.vocabulary.length} từ)
+                  </option>
+                ))}
+              </optgroup>
+              <option value="eps-supabase" className="bg-app-bg">EPS bổ sung (admin) ({epsVocabulary.length} từ)</option>
+              {approvedLessons.length > 0 && (
+                <option value="kpop" className="bg-app-bg">K-pop của tôi ({approvedLessons.reduce((s, l) => s + (l.vocab?.length ?? 0), 0)} từ)</option>
+              )}
             </select>
-            <p className="text-app-text-muted text-xs ml-auto">{filteredCards.length} thẻ</p>
+            <p className="text-app-text-muted text-xs ml-auto">{filteredCards.length.toLocaleString("vi-VN")} thẻ</p>
           </div>
 
           {/* Card grid */}
