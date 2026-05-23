@@ -291,7 +291,7 @@ export default function SmartReviewTab() {
 
           <div className="flex gap-3">
             <button onClick={() => startSession(sessionCards.length)} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Ôn lại</button>
-            <button onClick={() => setMode("overview")} className="flex-1 py-3 border border-app-border text-white/80 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Xem tổng quan</button>
+            <button onClick={() => setMode("overview")} className="flex-1 py-2 border border-app-border text-white/80 rounded-lg text-sm font-medium cursor-pointer hover:bg-app-surface/50 transition-colors">Xem tổng quan</button>
           </div>
         </div>
       </div>

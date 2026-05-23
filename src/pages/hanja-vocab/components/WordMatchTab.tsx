@@ -243,7 +243,7 @@ export default function WordMatchTab() {
           <button
             onClick={startGame}
             disabled={pool.length < pairCount}
-            className="w-full py-3 bg-app-accent-primary text-app-bg rounded-xl font-bold text-lg cursor-pointer hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-4"
+            className="w-full py-2.5 bg-app-accent-primary text-app-bg rounded-lg font-semibold text-sm text-lg cursor-pointer hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-4"
           >
             Bắt đầu chơi ({pairCount} cặp)
           </button>
@@ -296,7 +296,7 @@ export default function WordMatchTab() {
           </p>
           <div className="flex gap-3">
             <button onClick={startGame} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Chơi lại</button>
-            <button onClick={() => setGameState("setup")} className="flex-1 py-3 border border-app-border text-white/80 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Đổi cài đặt</button>
+            <button onClick={() => setGameState("setup")} className="flex-1 py-2 border border-app-border text-white/80 rounded-lg text-sm font-medium cursor-pointer hover:bg-app-surface/50 transition-colors">Đổi cài đặt</button>
           </div>
         </div>
       </div>

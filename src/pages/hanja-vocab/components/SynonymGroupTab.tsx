@@ -217,7 +217,7 @@ function MatchQuiz({ groups, onClose }: { groups: SynonymGroup[]; onClose: () =>
             return (
               <button key={korean} onClick={() => !isMatched && setLeftSel(korean)}
                 disabled={isMatched}
-                className={`w-full py-4 rounded-xl border-2 text-center font-bold text-lg cursor-pointer transition-all disabled:cursor-default ${
+                className={`w-full py-2.5 rounded-xl border-2 text-center font-bold text-lg cursor-pointer transition-all disabled:cursor-default ${
                   isMatched ? "border-green-400 bg-green-500/10 text-green-400" :
                   isWrong ? "border-red-400 bg-red-500/10 text-red-400" :
                   isSelected ? "border-app-accent-primary bg-app-accent-primary/10 text-app-accent-primary" :
@@ -238,7 +238,7 @@ function MatchQuiz({ groups, onClose }: { groups: SynonymGroup[]; onClose: () =>
             return (
               <button key={viet} onClick={() => !isMatched && setRightSel(viet)}
                 disabled={isMatched}
-                className={`w-full py-4 rounded-xl border-2 text-center text-sm font-medium cursor-pointer transition-all disabled:cursor-default ${
+                className={`w-full py-2.5 rounded-xl border-2 text-center text-sm font-medium cursor-pointer transition-all disabled:cursor-default ${
                   isMatched ? "border-green-400 bg-green-500/10 text-green-400" :
                   isSelected ? "border-app-accent-primary bg-app-accent-primary/10 text-app-accent-primary" :
                   "border-app-border bg-app-surface/50 text-white/80 hover:border-app-accent-primary"
@@ -389,7 +389,7 @@ export default function SynonymGroupTab() {
           <p className="text-white/50 mb-8">Biết {quizResults.known} / {quizGroup.length} từ</p>
           <div className="flex gap-3">
             <button onClick={() => startQuiz(quizGroup)} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Ôn lại</button>
-            <button onClick={() => setQuizGroup(null)} className="flex-1 py-3 border border-app-border text-white/80 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Quay lại</button>
+            <button onClick={() => setQuizGroup(null)} className="flex-1 py-2 border border-app-border text-white/80 rounded-lg text-sm font-medium cursor-pointer hover:bg-app-surface/50 transition-colors">Quay lại</button>
           </div>
         </div>
       </div>

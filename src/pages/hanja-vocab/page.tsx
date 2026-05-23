@@ -557,7 +557,7 @@ function SRTab({ favs }: { favs: Set<string> }) {
           </div>
           <div className="flex gap-3">
             <button onClick={startSession} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Tiếp tục ôn</button>
-            <button onClick={() => setMode("stats")} className="flex-1 py-3 border border-app-border text-white/70 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Xem thống kê</button>
+            <button onClick={() => setMode("stats")} className="flex-1 py-2 border border-app-border text-white/70 rounded-lg text-sm font-medium cursor-pointer hover:bg-app-surface/50 transition-colors">Xem thống kê</button>
           </div>
         </div>
       </div>
@@ -634,7 +634,7 @@ function SRTab({ favs }: { favs: Set<string> }) {
       </div>
 
       <button onClick={startSession} disabled={dueCards.length === 0}
-        className="w-full py-3 bg-app-accent-primary text-app-bg rounded-xl font-bold text-lg cursor-pointer hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-3">
+        className="w-full py-2.5 bg-app-accent-primary text-app-bg rounded-lg font-semibold text-sm text-lg cursor-pointer hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-3">
         {dueCards.length > 0 ? `Bắt đầu ôn tập (${Math.min(20, dueCards.length)} câu)` : "Không có từ cần ôn hôm nay!"}
       </button>
       {dueCards.length === 0 && <p className="text-center text-sm text-green-400">Tuyệt vời! Hãy quay lại vào ngày mai.</p>}
@@ -1356,7 +1356,7 @@ function QuizTab({ favs }: { favs: Set<string> }) {
           </p>
           <div className="flex gap-3">
             <button onClick={startQuiz} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Làm lại</button>
-            <button onClick={() => setStarted(false)} className="flex-1 py-3 border border-app-border text-white/70 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Đổi chế độ</button>
+            <button onClick={() => setStarted(false)} className="flex-1 py-2 border border-app-border text-white/70 rounded-lg text-sm font-medium cursor-pointer hover:bg-app-surface/50 transition-colors">Đổi chế độ</button>
           </div>
         </div>
       </div>

@@ -294,7 +294,7 @@ export default function WeeklyLeaderboardTab() {
               Tuần {weekId}: Tôi đã học <strong>{myProgress.wordsLearned} từ</strong> Hán-Hàn, đạt <strong>{myProgress.xp} XP</strong>! Xếp hạng <strong>#{myRank}</strong> trong nhóm bạn bè. 🎯
             </div>
             <div className="flex gap-3">
-              <button onClick={() => setShowShareModal(false)} className="flex-1 py-2.5 border border-app-border text-white/70 rounded-xl text-sm cursor-pointer hover:bg-app-surface/50 transition-colors">Hủy</button>
+              <button onClick={() => setShowShareModal(false)} className="flex-1 py-2 border border-app-border text-white/70 rounded-lg text-sm cursor-pointer hover:bg-app-surface/50 transition-colors">Hủy</button>
               <button onClick={handleShare} className="flex-1 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
                 {copied ? <><i className="ri-check-line mr-1"></i>Đã sao chép!</> : <><i className="ri-clipboard-line mr-1"></i>Sao chép</>}
               </button>

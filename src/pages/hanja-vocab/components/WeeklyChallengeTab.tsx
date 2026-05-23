@@ -112,11 +112,11 @@ function WeeklyQuiz({ words, onPass, onFail }: {
         </p>
         <div className="flex gap-3 justify-center">
           {passed ? (
-            <button onClick={onPass} className="px-6 py-3 bg-green-500 text-app-bg rounded-xl font-bold cursor-pointer hover:bg-green-600 transition-colors whitespace-nowrap">
+            <button onClick={onPass} className="px-4 py-2 bg-green-500 text-app-bg rounded-lg font-semibold text-sm cursor-pointer hover:bg-green-600 transition-colors whitespace-nowrap">
               <i className="ri-gift-line mr-2"></i>Nhận XP Bonus!
             </button>
           ) : (
-            <button onClick={onFail} className="px-6 py-3 bg-app-accent-primary text-app-bg rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
+            <button onClick={onFail} className="px-4 py-2 bg-app-accent-primary text-app-bg rounded-lg font-semibold text-sm cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
               Thử lại
             </button>
           )}
@@ -266,7 +266,7 @@ export default function WeeklyChallengeTab() {
             ))}
           </div>
           <button onClick={() => setShowXpModal(false)}
-            className="w-full py-3 bg-app-accent-primary text-app-bg rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
+            className="w-full py-2.5 bg-app-accent-primary text-app-bg rounded-lg font-semibold text-sm cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
             Tuyệt vời!
           </button>
         </div>
@@ -327,7 +327,7 @@ export default function WeeklyChallengeTab() {
               setStudyFlipped(false);
               setStudyIdx(i => Math.min(i + 1, weekWords.length - 1));
             }}
-            className="flex-1 py-3 border border-app-border text-white/70 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors whitespace-nowrap">
+            className="flex-1 py-2 border border-app-border text-white/70 rounded-lg text-sm font-medium cursor-pointer hover:bg-app-surface/50 transition-colors whitespace-nowrap">
             Bỏ qua →
           </button>
         </div>
@@ -452,14 +452,14 @@ export default function WeeklyChallengeTab() {
       {/* Action buttons */}
       <div className="flex gap-3 mb-6">
         <button onClick={() => { setStudyIdx(0); setStudyFlipped(false); setView("study"); }}
-          className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-app-accent-primary text-app-bg rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
+          className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-app-accent-primary text-app-bg rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
           <i className="ri-book-open-line"></i>
           {learnedCount === 0 ? "Bắt đầu học" : "Tiếp tục học"}
         </button>
         <button
           onClick={() => setView("quiz")}
           disabled={challenge.quizPassed}
-          className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold cursor-pointer transition-colors whitespace-nowrap ${challenge.quizPassed ? "bg-app-surface/50 text-white/40 cursor-not-allowed" : learnedCount >= 20 ? "bg-amber-500 text-app-bg hover:bg-amber-600" : "border-2 border-dashed border-app-border text-white/40 cursor-not-allowed"}`}>
+          className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl font-bold cursor-pointer transition-colors whitespace-nowrap ${challenge.quizPassed ? "bg-app-surface/50 text-white/40 cursor-not-allowed" : learnedCount >= 20 ? "bg-amber-500 text-app-bg hover:bg-amber-600" : "border-2 border-dashed border-app-border text-white/40 cursor-not-allowed"}`}>
           <i className="ri-gamepad-line"></i>
           {challenge.quizPassed ? "Đã hoàn thành" : learnedCount >= 20 ? "Làm Quiz ngay!" : `Học thêm ${20 - learnedCount} từ`}
         </button>

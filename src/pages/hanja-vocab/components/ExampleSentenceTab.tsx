@@ -239,7 +239,7 @@ export default function ExampleSentenceTab() {
   return (
     <div className="space-y-5">
       {/* Header */}
-      <div className="bg-gradient-to-r from-amber-500/100/10 to-[#0f1117] border border-amber-500/20 rounded-2xl p-5">
+      <div className="bg-gradient-to-r from-amber-500/10 to-[#0f1117] border border-amber-500/20 rounded-2xl p-5">
         <div className="flex items-start gap-4">
           <div className="w-12 h-12 flex items-center justify-center bg-amber-500/15 rounded-xl flex-shrink-0">
             <i className="ri-newspaper-line text-amber-400 text-xl"></i>

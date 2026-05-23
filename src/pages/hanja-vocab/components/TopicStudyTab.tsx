@@ -235,7 +235,7 @@ export default function TopicStudyTab() {
             </p>
             <div className="flex gap-3">
               <button onClick={startQuiz} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Ôn lại</button>
-              <button onClick={() => setQuizMode(false)} className="flex-1 py-3 border border-app-border text-white/80 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Xem từ vựng</button>
+              <button onClick={() => setQuizMode(false)} className="flex-1 py-2 border border-app-border text-white/80 rounded-lg text-sm font-medium cursor-pointer hover:bg-app-surface/50 transition-colors">Xem từ vựng</button>
             </div>
           </div>
         </div>

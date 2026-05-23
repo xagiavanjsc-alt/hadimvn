@@ -201,8 +201,8 @@ export default function TopikMockExamTab() {
       <div>
         <div className="bg-app-surface/50 border border-app-border rounded-2xl overflow-hidden mb-5">
           {/* Header */}
-          <div className="bg-gradient-to-r from-app-accent-primary/100 to-orange-500/100 p-6 text-white text-center">
-            <div className="w-14 h-14 flex items-center justify-center bg-app-border/200 rounded-2xl mx-auto mb-3">
+          <div className="bg-gradient-to-r from-app-accent-primary to-orange-600 p-6 text-white text-center">
+            <div className="w-14 h-14 flex items-center justify-center bg-white/20 rounded-2xl mx-auto mb-3">
               <i className="ri-file-paper-2-line text-white text-2xl"></i>
             </div>
             <h2 className="text-xl font-bold mb-1">Thi thử TOPIK Hán Hàn</h2>
@@ -273,7 +273,7 @@ export default function TopikMockExamTab() {
                 <i className="ri-history-line"></i>Lịch sử thi
               </button>
               <button onClick={startExam} disabled={pool.length < 4}
-                className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                className="flex-1 py-2 bg-app-accent-primary text-app-bg rounded-lg font-semibold text-sm cursor-pointer hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                 <i className="ri-play-circle-line"></i>Bắt đầu thi thử
               </button>
             </div>
@@ -489,7 +489,7 @@ export default function TopikMockExamTab() {
             <i className="ri-history-line"></i>Lịch sử
           </button>
           <button onClick={startExam}
-            className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors flex items-center justify-center gap-2">
+            className="flex-1 py-2 bg-app-accent-primary text-app-bg rounded-lg font-semibold text-sm cursor-pointer hover:bg-app-accent-primary/90 transition-colors flex items-center justify-center gap-2">
             <i className="ri-refresh-line"></i>Thi lại
           </button>
           <button onClick={() => setExamState("intro")}

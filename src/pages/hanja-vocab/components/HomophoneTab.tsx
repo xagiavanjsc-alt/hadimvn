@@ -125,7 +125,7 @@ function HomophoneQuiz({ group, onClose }: { group: { korean: string; words: Han
           ))}
         </div>
         <div className="flex gap-3">
-          <button onClick={onClose} className="flex-1 py-2.5 border border-app-border text-white/70 rounded-xl text-sm cursor-pointer hover:bg-app-surface/50 transition-colors">Quay lại</button>
+          <button onClick={onClose} className="flex-1 py-2 border border-app-border text-white/70 rounded-lg text-sm cursor-pointer hover:bg-app-surface/50 transition-colors">Quay lại</button>
           <button onClick={buildQuestions} className="flex-1 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Bắt đầu Quiz</button>
         </div>
       </div>
@@ -143,7 +143,7 @@ function HomophoneQuiz({ group, onClose }: { group: { korean: string; words: Han
         <p className="text-white/50 mb-6">Đúng {score} / {questions.length} câu</p>
         <div className="flex gap-3">
           <button onClick={buildQuestions} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Làm lại</button>
-          <button onClick={onClose} className="flex-1 py-3 border border-app-border text-white/80 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Quay lại</button>
+          <button onClick={onClose} className="flex-1 py-2 border border-app-border text-white/80 rounded-lg text-sm font-medium cursor-pointer hover:bg-app-surface/50 transition-colors">Quay lại</button>
         </div>
       </div>
     );

@@ -379,7 +379,7 @@ export default function PronunciationTab() {
               <div className="text-center">
                 <p className="text-sm text-white/50 mb-4">Nghe phát âm chuẩn, sau đó nhấn ghi âm để luyện tập</p>
                 <button onClick={startRecording}
-                  className="flex items-center gap-3 px-8 py-4 bg-app-accent-primary text-app-bg rounded-2xl font-bold text-base cursor-pointer hover:bg-app-accent-primary/90 transition-all mx-auto">
+                  className="flex items-center gap-3 px-5 py-2.5 bg-app-accent-primary text-app-bg rounded-xl font-semibold text-sm cursor-pointer hover:bg-app-accent-primary/90 transition-all mx-auto">
                   <i className="ri-mic-line text-xl"></i>
                   Bắt đầu ghi âm
                 </button>
@@ -469,7 +469,7 @@ export default function PronunciationTab() {
                     <i className="ri-mic-line"></i>Thử lại
                   </button>
                   <button onClick={nextWord}
-                    className="flex-1 flex items-center justify-center gap-2 py-3 border border-app-border text-white/80 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">
+                    className="flex-1 flex items-center justify-center gap-2 py-2 border border-app-border text-white/80 rounded-lg text-sm font-medium cursor-pointer hover:bg-app-surface/50 transition-colors">
                     Từ tiếp theo<i className="ri-arrow-right-line"></i>
                   </button>
                 </div>

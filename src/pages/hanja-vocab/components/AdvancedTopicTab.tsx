@@ -302,7 +302,7 @@ export default function AdvancedTopicTab() {
             <p className="text-white/50 mb-6">Đúng {quiz.score}/{quiz.words.length} câu — {selectedTopic.name}</p>
             <div className="flex gap-3">
               <button onClick={() => startQuiz(selectedTopic)} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Làm lại</button>
-              <button onClick={() => { setMode("browse"); setQuiz(null); }} className="flex-1 py-3 border border-app-border text-white/80 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Xem từ vựng</button>
+              <button onClick={() => { setMode("browse"); setQuiz(null); }} className="flex-1 py-2 border border-app-border text-white/80 rounded-lg text-sm font-medium cursor-pointer hover:bg-app-surface/50 transition-colors">Xem từ vựng</button>
             </div>
           </div>
         </div>

@@ -256,7 +256,7 @@ export default function StudyDiaryTab() {
             <button onClick={addEntry} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
               <i className="ri-save-line mr-1"></i>Lưu nhật ký
             </button>
-            <button onClick={() => setShowAddForm(false)} className="px-6 py-3 border border-app-border text-white/70 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">
+            <button onClick={() => setShowAddForm(false)} className="px-6 py-2 border border-app-border text-white/70 rounded-lg text-sm font-medium cursor-pointer hover:bg-app-surface/50 transition-colors">
               Hủy
             </button>
           </div>

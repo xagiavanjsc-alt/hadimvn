@@ -324,7 +324,7 @@ export default function QuickReviewTab({ favs }: { favs: Set<string> }) {
               Ôn lại
             </button>
             <button onClick={() => { setResult(null); setStarted(false); }}
-              className="flex-1 py-3 border border-app-border text-white/80 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">
+              className="flex-1 py-2 border border-app-border text-white/80 rounded-lg text-sm font-medium cursor-pointer hover:bg-app-surface/50 transition-colors">
               Đổi bộ lọc
             </button>
           </div>
