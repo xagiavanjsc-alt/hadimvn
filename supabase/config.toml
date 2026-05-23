@@ -17,7 +17,7 @@ max_rows = 1000
 # Port to use for local PostgreSQL database
 port = 54322
 # Major version of PostgreSQL
-major_version = 15
+major_version = 17
 
 [studio]
 # Port to use for Supabase Studio
