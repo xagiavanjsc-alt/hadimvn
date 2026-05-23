@@ -6,7 +6,7 @@ import { useStudySync } from "@/hooks/useStudySync";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { useToast } from "@/components/base/Toast";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
-import { epsVocabulary, EPS_VOCAB_TOPICS } from "@/mocks/epsVocabulary";
+import { EpsVocabProvider, useEpsVocab, useEpsVocabLoading } from "@/contexts/EpsVocabContext";
 
 interface FlashcardItem {
   id: string;
@@ -301,7 +301,7 @@ function SessionComplete({ known, total, onRestart, onReview }: {
 }
 
 // ─── Main Page ────────────────────────────────────────────────────────────
-export default function FlashcardPage() {
+function FlashcardPageInner() {
   const { user, profile } = useAuth();
   const { syncToCloud, updateLeaderboard } = useStudySync();
   const { awardXP } = useXPSystem();
@@ -309,6 +309,12 @@ export default function FlashcardPage() {
   const [masteredIds, setMasteredIds] = useLocalStorage<string[]>("kts_flashcard_mastered", []);
   const [sessions, setSessions] = useLocalStorage<StudySession[]>("kts_flashcard_sessions", []);
   const [cloudSynced, setCloudSynced] = useState(false);
+
+  // EPS vocab now comes from Supabase (auto-updates when admin adds new words).
+  // Falls back to the bundled mock on cache miss or fetch failure so the page
+  // is never empty.
+  const { items: epsVocabulary, topics: EPS_VOCAB_TOPICS } = useEpsVocab();
+  const epsLoading = useEpsVocabLoading();
 
   const [mode, setMode] = useState<"browse" | "study" | "done">("browse");
   const [filterLesson, setFilterLesson] = useState<"all" | "unmastered">("unmastered");
@@ -355,7 +361,7 @@ export default function FlashcardPage() {
       });
     });
     return cards;
-  }, [approvedLessons, masteredIds, sessions]);
+  }, [approvedLessons, masteredIds, sessions, epsVocabulary, EPS_VOCAB_TOPICS]);
 
   const filteredCards = useMemo(() => {
     let cards = allCards;
@@ -444,7 +450,7 @@ export default function FlashcardPage() {
   return (
     <DashboardLayout
       title="Flashcard"
-      subtitle="Học từ vựng từ truyện chêm — lật thẻ, đánh dấu đã thuộc"
+      subtitle={epsLoading ? "Đang đồng bộ từ vựng mới…" : "Học từ vựng từ truyện chêm — lật thẻ, đánh dấu đã thuộc"}
       actions={
         mode === "browse" ? (
           <button
@@ -625,6 +631,17 @@ export default function FlashcardPage() {
         </div>
       )}
     </DashboardLayout>
+  );
+}
+
+// ─── Provider wrapper ─────────────────────────────────────────────────────
+// Keeps the EPS vocab fetcher scoped to this page (mirrors HanjaDataProvider
+// usage in /hanja-vocab).
+export default function FlashcardPage() {
+  return (
+    <EpsVocabProvider>
+      <FlashcardPageInner />
+    </EpsVocabProvider>
   );
 }
 
