@@ -160,8 +160,10 @@ serve(async (req) => {
         .maybeSingle();
       if (existing?.audio_url) {
         // Fire-and-forget hit counter via the SECURITY DEFINER RPC so we
-        // don't block the response on an UPDATE roundtrip.
-        adminClient.rpc("increment_tts_hit", { p_text_hash: textHash }).then(() => {});
+        // don't block the response on an UPDATE roundtrip. Pass a no-op
+        // error handler — PostgrestBuilder is PromiseLike (no `.catch`).
+        adminClient.rpc("increment_tts_hit", { p_text_hash: textHash })
+          .then(() => {}, () => {});
         return json({ url: existing.audio_url, source: "cache" });
       }
     }
@@ -181,15 +183,23 @@ serve(async (req) => {
       try { cfg = JSON.parse(settings.value as string); } catch { cfg = null; }
     }
     if (!cfg?.provider) {
-      // Record miss so admin can review demand.
-      await adminClient.rpc("record_tts_miss", { p_text: normalized, p_text_hash: textHash })
-        .catch(async () => {
-          // RPC may not exist yet — fall back to direct upsert.
-          await adminClient.from("tts_audio_misses").upsert(
-            { text: normalized, text_hash: textHash, last_seen_at: new Date().toISOString() },
-            { onConflict: "text_hash" }
-          );
+      // Record miss so admin can review demand. RPC is SECURITY DEFINER and
+      // grants execute to service_role; if it's somehow missing we fall back
+      // to a direct upsert. Both calls return PromiseLike (not native
+      // Promise) so use try/catch instead of `.catch()`.
+      try {
+        const { error: rpcErr } = await adminClient.rpc("record_tts_miss", {
+          p_text: normalized,
+          p_text_hash: textHash,
         });
+        if (rpcErr) throw rpcErr;
+      } catch (err) {
+        console.warn("record_tts_miss RPC failed, falling back to upsert:", err);
+        await adminClient.from("tts_audio_misses").upsert(
+          { text: normalized, text_hash: textHash, last_seen_at: new Date().toISOString() },
+          { onConflict: "text_hash" }
+        );
+      }
       return json({ error: "TTS provider not configured", needsAdmin: true }, 503);
     }
 
