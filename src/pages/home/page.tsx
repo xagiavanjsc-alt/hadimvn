@@ -274,10 +274,12 @@ export default function Home() {
   const epsCorrect = epsQuestions.filter((q) => answeredMap[q.id] === q.correctIndex).length;
   const epsAccuracy = epsDone > 0 ? Math.round((epsCorrect / epsDone) * 100) : 0;
   const knownCount = Object.values(flashcardKnown).filter(Boolean).length;
-  const bestExamPct =
-    examResults.length > 0
-      ? Math.max(...examResults.map((r) => Math.round((r.score / r.total) * 100)))
+  const bestExamPct = (() => {
+    const valid = examResults.filter((r) => r && r.total > 0);
+    return valid.length > 0
+      ? Math.max(...valid.map((r) => Math.round((r.score / r.total) * 100)))
       : 0;
+  })();
 
   const today = new Date().toISOString().split("T")[0];
   const todayLearned = learnedIds[today] || [];

@@ -36,11 +36,13 @@ export default function LearnStatsPage() {
   const hangulCount = Object.values(hangulKnown).filter(Boolean).length;
 
   // Exam
-  const bestExam = examResults.length > 0 ? Math.max(...examResults.map(r => Math.round((r.score / r.total) * 100))) : 0;
-  const avgExam = examResults.length > 0 ? Math.round(examResults.reduce((s, r) => s + Math.round((r.score / r.total) * 100), 0) / examResults.length) : 0;
+  const validExams = examResults.filter(r => r && r.total > 0);
+  const bestExam = validExams.length > 0 ? Math.max(...validExams.map(r => Math.round((r.score / r.total) * 100))) : 0;
+  const avgExam = validExams.length > 0 ? Math.round(validExams.reduce((s, r) => s + Math.round((r.score / r.total) * 100), 0) / validExams.length) : 0;
 
   // Quiz
-  const avgQuiz = quizHistory.length > 0 ? Math.round(quizHistory.reduce((s, h) => s + Math.round((h.score / h.total) * 100), 0) / quizHistory.length) : 0;
+  const validQuizzes = quizHistory.filter(h => h && h.total > 0);
+  const avgQuiz = validQuizzes.length > 0 ? Math.round(validQuizzes.reduce((s, h) => s + Math.round((h.score / h.total) * 100), 0) / validQuizzes.length) : 0;
 
   // Weekly activity (last 8 weeks)
   const weeklyData = useMemo(() => {

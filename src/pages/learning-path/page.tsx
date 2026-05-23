@@ -49,8 +49,9 @@ export default function LearningPathPage() {
   const flashcardKnown = Object.values(flashcardProgress).filter(Boolean).length;
   const hangulKnown = Object.values(hangulProgress).filter(Boolean).length;
   const lessonsDone = Object.values(lessonProgress).filter(Boolean).length;
-  const bestExamScore = examResults.length > 0
-    ? Math.max(...examResults.map(r => Math.round((r.score / r.total) * 100)))
+  const validExams = examResults.filter(r => r && r.total > 0);
+  const bestExamScore = validExams.length > 0
+    ? Math.max(...validExams.map(r => Math.round((r.score / r.total) * 100)))
     : 0;
 
   const phases: PathPhase[] = useMemo(() => [

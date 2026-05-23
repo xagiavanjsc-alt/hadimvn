@@ -92,24 +92,36 @@ export function useCoupons() {
 
   const toggleCoupon = useCallback(async (id: string) => {
     const coupon = coupons.find(c => c.id === id);
-    if (!coupon) return;
+    if (!coupon) return false;
     const newActive = !coupon.active;
     const { error } = await supabase
       .from("coupons")
       .update({ active: newActive, updated_at: new Date().toISOString() })
       .eq("id", id);
-    if (!error) setCoupons(prev => prev.map(c => c.id === id ? { ...c, active: newActive } : c));
+    if (error) {
+      console.warn("[useCoupons] toggleCoupon failed:", error.message);
+      return false;
+    }
+    setCoupons(prev => prev.map(c => c.id === id ? { ...c, active: newActive } : c));
+    return true;
   }, [coupons]);
 
   const recordUsage = useCallback(async (id: string, times: number) => {
     const coupon = coupons.find(c => c.id === id);
-    if (!coupon) return;
+    if (!coupon) return false;
     const newCount = coupon.usageCount + times;
     const { error } = await supabase
       .from("coupons")
       .update({ usage_count: newCount, updated_at: new Date().toISOString() })
       .eq("id", id);
-    if (!error) setCoupons(prev => prev.map(c => c.id === id ? { ...c, usageCount: newCount } : c));
+    if (error) {
+      // If the count fails to increment, callers should NOT treat the
+      // redemption as complete — otherwise max_usage caps stop enforcing.
+      console.warn("[useCoupons] recordUsage failed:", error.message);
+      return false;
+    }
+    setCoupons(prev => prev.map(c => c.id === id ? { ...c, usageCount: newCount } : c));
+    return true;
   }, [coupons]);
 
   return { coupons, loading, fetchCoupons, saveCoupon, deleteCoupon, toggleCoupon, recordUsage };

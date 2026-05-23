@@ -216,13 +216,15 @@ export default function ProfilePage() {
   const avgDiaryWords = totalDiaryDays > 0 ? Math.round(studyDiary.reduce((s, d) => s + d.wordsLearned, 0) / totalDiaryDays) : 0;
 
   const bestExam = useMemo(() => {
-    if (examResults.length === 0) return null;
-    return examResults.reduce((best, r) => (r.score / r.total > best.score / best.total ? r : best));
+    const valid = examResults.filter(r => r && r.total > 0);
+    if (valid.length === 0) return null;
+    return valid.reduce((best, r) => (r.score / r.total > best.score / best.total ? r : best));
   }, [examResults]);
 
   const avgExamScore = useMemo(() => {
-    if (examResults.length === 0) return 0;
-    return Math.round(examResults.reduce((s, r) => s + Math.round((r.score / r.total) * 100), 0) / examResults.length);
+    const valid = examResults.filter(r => r && r.total > 0);
+    if (valid.length === 0) return 0;
+    return Math.round(valid.reduce((s, r) => s + Math.round((r.score / r.total) * 100), 0) / valid.length);
   }, [examResults]);
 
   const estimatedVocab = flashcardKnown * 3 + hangulKnown * 2 + epsCorrect * 2 + srLearned * 2;

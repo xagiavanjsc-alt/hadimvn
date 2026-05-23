@@ -167,7 +167,7 @@ function AdminPanel() {
               {[
                 { label: "Reset dữ liệu học Hán Hàn", icon: "ri-delete-bin-line", color: "#ef4444", action: () => { if (confirm("Reset toàn bộ dữ liệu học Hán Hàn?")) { localStorage.removeItem("hanja_sr_data"); window.location.reload(); } } },
                 { label: "Reset XP & Streak", icon: "ri-refresh-line", color: "#fb923c", action: () => { if (confirm("Reset XP và streak?")) { localStorage.removeItem("xp_total"); localStorage.removeItem("hanja_streak"); window.location.reload(); } } },
-                { label: "Xem dữ liệu SR (JSON)", icon: "ri-code-line", color: "#a78bfa", action: () => { const d = localStorage.getItem("hanja_sr_data"); showToast(d ? `${Object.keys(JSON.parse(d)).length} từ đã học` : "Chưa có dữ liệu", "info", 3000); } },
+                { label: "Xem dữ liệu SR (JSON)", icon: "ri-code-line", color: "#a78bfa", action: () => { const d = localStorage.getItem("hanja_sr_data"); let count = 0; if (d) { try { count = Object.keys(JSON.parse(d)).length; } catch { showToast("Dữ liệu SR bị hỏng — không đọc được", "error", 3000); return; } } showToast(count > 0 ? `${count} từ đã học` : "Chưa có dữ liệu", "info", 3000); } },
                 { label: "Xuất báo cáo JSON", icon: "ri-download-line", color: "#34d399", action: () => { const data = { totalWords, totalMastered, totalLearning, totalReviews, groupStats }; const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "hanja-report.json"; a.click(); } },
               ].map(btn => (
                 <button key={btn.label} onClick={btn.action}

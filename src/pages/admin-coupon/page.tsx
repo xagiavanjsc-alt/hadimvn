@@ -303,7 +303,8 @@ export default function AdminCouponPage() {
   };
 
   const handleToggle = async (id: string) => {
-    await toggleCoupon(id);
+    const ok = await toggleCoupon(id);
+    if (!ok) showToast("Lỗi cập nhật trạng thái coupon");
   };
 
   const handleDelete = async (id: string) => {
@@ -312,8 +313,8 @@ export default function AdminCouponPage() {
   };
 
   const handleRecordUsage = async (id: string, times: number) => {
-    await recordUsage(id, times);
-    showToast(`Đã ghi nhận +${times} lần sử dụng`);
+    const ok = await recordUsage(id, times);
+    showToast(ok ? `Đã ghi nhận +${times} lần sử dụng` : "Lỗi ghi nhận lượt dùng — vui lòng thử lại");
   };
 
   const handleCopyCode = (code: string) => {
