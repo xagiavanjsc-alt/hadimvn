@@ -320,6 +320,9 @@ function FlashcardPageInner() {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [sessionKnown, setSessionKnown] = useState<string[]>([]);
   const [sessionDontKnow, setSessionDontKnow] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const CARDS_PER_PAGE = 32;
 
   // Aggregate every vocab source (Seoul ~4070 + EPS lessons ~2277 +
   // admin-managed Supabase + user K-pop). See lib/flashcardSources.ts.
@@ -342,6 +345,26 @@ function FlashcardPageInner() {
   }, [allCards, sourceFilter, filterLesson]);
 
   const masteredCount = allCards.filter(c => c.mastered).length;
+
+  // Pagination — split browse grid into 32-card pages so we don't dump
+  // thousands of nodes into the DOM at once.
+  const totalPages = Math.max(1, Math.ceil(filteredCards.length / CARDS_PER_PAGE));
+
+  // Reset to page 1 whenever the underlying pool changes (filter / source).
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [sourceFilter, filterLesson]);
+
+  // Clamp if the current page falls off the end (e.g. user marked the last
+  // few cards as mastered while on the final page).
+  useEffect(() => {
+    if (currentPage > totalPages) setCurrentPage(totalPages);
+  }, [totalPages, currentPage]);
+
+  const pagedCards = useMemo(() => {
+    const start = (currentPage - 1) * CARDS_PER_PAGE;
+    return filteredCards.slice(start, start + CARDS_PER_PAGE);
+  }, [filteredCards, currentPage]);
 
   // Daily session size — 20 is a good Anki-style chunk. Source filter limits
   // the pool so picking "Seoul 1A" makes each session focus on that book.
@@ -551,7 +574,13 @@ function FlashcardPageInner() {
                 <option value="kpop" className="bg-app-bg">K-pop của tôi ({approvedLessons.reduce((s, l) => s + (l.vocab?.length ?? 0), 0)} từ)</option>
               )}
             </select>
-            <p className="text-app-text-muted text-xs ml-auto">{filteredCards.length.toLocaleString("vi-VN")} thẻ</p>
+            <p className="text-app-text-muted text-xs ml-auto">
+              {filteredCards.length > 0 && (
+                <>
+                  Hiển thị <span className="text-white font-medium">{(currentPage-1)*CARDS_PER_PAGE+1}–{Math.min(currentPage*CARDS_PER_PAGE, filteredCards.length)}</span> / <span className="text-app-accent-primary font-medium">{filteredCards.length.toLocaleString("vi-VN")}</span> thẻ
+                </>
+              )}
+            </p>
           </div>
 
           {/* Card grid */}
@@ -576,34 +605,76 @@ function FlashcardPageInner() {
               )}
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-h-[500px] overflow-y-auto">
-              {filteredCards.map(card => (
-                <div
-                  key={card.id}
-                  className={`p-4 rounded-xl border transition-all ${
-                    card.mastered
-                      ? "border-emerald-500/20 bg-emerald-500/5"
-                      : "border-app-border bg-app-surface/50 hover:border-app-border"
-                  }`}
-                >
-                  <div className="flex items-start justify-between mb-2">
-                    <p className="text-white font-bold text-base">{card.word}</p>
-                    {card.mastered && (
-                      <button
-                        onClick={() => handleUnmaster(card.id)}
-                        className="w-5 h-5 flex items-center justify-center cursor-pointer"
-                        title="Bỏ đánh dấu thuộc"
-                      >
-                        <i className="ri-checkbox-circle-fill text-app-accent-success text-sm"></i>
-                      </button>
-                    )}
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {pagedCards.map(card => (
+                  <div
+                    key={card.id}
+                    className={`p-4 rounded-xl border transition-all ${
+                      card.mastered
+                        ? "border-emerald-500/20 bg-emerald-500/5"
+                        : "border-app-border bg-app-surface/50 hover:border-app-border"
+                    }`}
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <p className="text-white font-bold text-base">{card.word}</p>
+                      {card.mastered && (
+                        <button
+                          onClick={() => handleUnmaster(card.id)}
+                          className="w-5 h-5 flex items-center justify-center cursor-pointer"
+                          title="Bỏ đánh dấu thuộc"
+                        >
+                          <i className="ri-checkbox-circle-fill text-app-accent-success text-sm"></i>
+                        </button>
+                      )}
+                    </div>
+                    {card.reading && <p className="text-app-text-muted text-[10px] mb-1">{card.reading}</p>}
+                    <p className="text-app-accent-primary text-xs font-medium mb-2">{card.meaning}</p>
+                    <p className="text-app-text-muted text-[10px] truncate">{card.lessonTitle}</p>
                   </div>
-                  {card.reading && <p className="text-app-text-muted text-[10px] mb-1">{card.reading}</p>}
-                  <p className="text-app-accent-primary text-xs font-medium mb-2">{card.meaning}</p>
-                  <p className="text-app-text-muted text-[10px] truncate">{card.lessonTitle}</p>
+                ))}
+              </div>
+
+              {totalPages > 1 && (
+                <div className="flex items-center justify-center gap-2 mt-6 flex-wrap">
+                  <button
+                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="px-3 py-2 bg-app-card/40 hover:bg-app-card/60 disabled:opacity-30 text-white rounded-xl text-sm cursor-pointer"
+                  >
+                    <i className="ri-arrow-left-s-line"></i>
+                  </button>
+                  {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+                    const p = totalPages <= 5
+                      ? i + 1
+                      : currentPage <= 3
+                      ? i + 1
+                      : currentPage >= totalPages - 2
+                      ? totalPages - 4 + i
+                      : currentPage - 2 + i;
+                    return (
+                      <button
+                        key={p}
+                        onClick={() => setCurrentPage(p)}
+                        className={`px-3 py-2 rounded-xl text-sm font-medium cursor-pointer ${
+                          currentPage === p ? "bg-app-accent-primary text-app-bg" : "bg-app-card/40 hover:bg-app-card/60 text-white/70"
+                        }`}
+                      >
+                        {p}
+                      </button>
+                    );
+                  })}
+                  <button
+                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                    disabled={currentPage === totalPages}
+                    className="px-3 py-2 bg-app-card/40 hover:bg-app-card/60 disabled:opacity-30 text-white rounded-xl text-sm cursor-pointer"
+                  >
+                    <i className="ri-arrow-right-s-line"></i>
+                  </button>
+                  <span className="text-app-text-muted text-sm ml-2">Trang {currentPage}/{totalPages}</span>
                 </div>
-              ))}
-            </div>
+              )}
+            </>
           )}
         </div>
       )}
