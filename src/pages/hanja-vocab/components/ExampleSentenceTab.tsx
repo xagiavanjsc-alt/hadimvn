@@ -253,7 +253,7 @@ export default function ExampleSentenceTab() {
           </div>
           <button
             onClick={() => { setStudyMode(m => !m); setStudyIdx(0); setStudyRevealed(false); }}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold cursor-pointer whitespace-nowrap transition-all flex-shrink-0 ${studyMode ? "bg-amber-500 text-white" : "bg-amber-500/15 text-amber-400 hover:bg-amber-500/25"}`}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold cursor-pointer whitespace-nowrap transition-all flex-shrink-0 ${studyMode ? "bg-amber-500 text-app-bg" : "bg-amber-500/15 text-amber-400 hover:bg-amber-500/25"}`}
           >
             <i className={studyMode ? "ri-close-line" : "ri-play-circle-line"}></i>
             {studyMode ? "Thoát học" : "Chế độ học"}
@@ -321,7 +321,7 @@ export default function ExampleSentenceTab() {
               <div className="flex gap-3">
                 <button
                   onClick={() => { setStudyIdx(i => i + 1); setStudyRevealed(false); }}
-                  className="flex-1 py-3 bg-amber-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-amber-600 transition-colors"
+                  className="flex-1 py-3 bg-amber-500 text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-amber-600 transition-colors"
                 >
                   Từ tiếp theo →
                 </button>

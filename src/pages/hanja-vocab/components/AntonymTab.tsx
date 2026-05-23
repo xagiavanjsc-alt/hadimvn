@@ -278,7 +278,7 @@ function AddPairModal({ onAdd, onClose }: { onAdd: (pair: AntonymPair) => void; 
           <div>
             <label className="text-xs font-medium text-white/50 mb-1 block">Từ A</label>
             <input value={wordA} onChange={e => setWordA(e.target.value)} placeholder="예: 성공"
-              className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
+              className="w-full px-3 py-2 bg-app-surface/50 border border-app-border rounded-lg text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-app-accent-primary" />
             {previewA && (
               <div className="mt-1 p-2 bg-app-accent-primary/10 rounded-lg text-center">
                 <p className="text-sm font-bold text-app-accent-primary">{previewA.hanja}</p>
@@ -289,7 +289,7 @@ function AddPairModal({ onAdd, onClose }: { onAdd: (pair: AntonymPair) => void; 
           <div>
             <label className="text-xs font-medium text-white/50 mb-1 block">Từ B (đối nghĩa)</label>
             <input value={wordB} onChange={e => setWordB(e.target.value)} placeholder="예: 실패"
-              className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
+              className="w-full px-3 py-2 bg-app-surface/50 border border-app-border rounded-lg text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-app-accent-primary" />
             {previewB && (
               <div className="mt-1 p-2 bg-app-surface/30 rounded-lg text-center">
                 <p className="text-sm font-bold text-app-accent-primary">{previewB.hanja}</p>
@@ -311,7 +311,7 @@ function AddPairModal({ onAdd, onClose }: { onAdd: (pair: AntonymPair) => void; 
           </div>
           {category === "Tùy chỉnh" && (
             <input value={customCat} onChange={e => setCustomCat(e.target.value)} placeholder="Nhập tên chủ đề..."
-              className="mt-2 w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
+              className="mt-2 w-full px-3 py-2 bg-app-surface/50 border border-app-border rounded-lg text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-app-accent-primary" />
           )}
         </div>
 
@@ -522,10 +522,10 @@ export default function AntonymTab() {
         <div className="relative flex-1">
           <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/40 text-sm"></i>
           <input type="text" placeholder="Tìm từ đối nghĩa..." value={search} onChange={e => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
+            className="w-full pl-9 pr-4 py-2 bg-app-surface/50 border border-app-border rounded-lg text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-app-accent-primary" />
         </div>
         <button onClick={() => setOnlyUnlearned(v => !v)}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium cursor-pointer transition-colors whitespace-nowrap ${onlyUnlearned ? "bg-amber-500 text-white" : "border border-amber-500/40 text-amber-400 hover:bg-amber-500/10"}`}>
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium cursor-pointer transition-colors whitespace-nowrap ${onlyUnlearned ? "bg-amber-500 text-app-bg" : "border border-amber-500/40 text-amber-400 hover:bg-amber-500/10"}`}>
           <i className="ri-focus-3-line"></i>{onlyUnlearned ? "Đang lọc: Chưa thuộc" : "Chỉ hiện chưa thuộc"}
         </button>
         <button onClick={() => setShowAddModal(true)}

@@ -301,7 +301,7 @@ export default function FlashcardExportTab() {
               </div>
             )}
             <button onClick={handleExport}
-              className={`w-full mt-4 py-3 rounded-xl font-semibold text-sm cursor-pointer transition-all flex items-center justify-center gap-2 ${!isVipYear ? "bg-app-surface/70 text-white/40" : exportSuccess ? "bg-green-500 text-white" : "bg-app-accent-primary hover:bg-app-accent-primary/90 text-white"}`}>
+              className={`w-full mt-4 py-3 rounded-xl font-semibold text-sm cursor-pointer transition-all flex items-center justify-center gap-2 ${!isVipYear ? "bg-app-surface/70 text-white/40" : exportSuccess ? "bg-green-500 text-app-bg" : "bg-app-accent-primary hover:bg-app-accent-primary/90 text-white"}`}>
               {exportSuccess ? (
                 <><i className="ri-check-line"></i>Đã xuất thành công!</>
               ) : (
@@ -322,7 +322,7 @@ export default function FlashcardExportTab() {
               <div className="relative">
                 <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/40 text-xs"></i>
                 <input type="text" placeholder="Tìm từ..." value={search} onChange={e => setSearch(e.target.value)}
-                  className="pl-8 pr-3 py-1.5 border border-app-border rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-rose-300 w-40" />
+                  className="pl-8 pr-3 py-1.5 bg-app-surface/50 border border-app-border rounded-lg text-xs text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-app-accent-primary w-40" />
               </div>
             </div>
 

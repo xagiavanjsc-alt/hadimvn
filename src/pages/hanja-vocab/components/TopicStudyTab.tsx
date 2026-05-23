@@ -75,32 +75,32 @@ const TOPICS: Topic[] = [
     id: "society",
     label: "Xã hội",
     icon: "ri-team-line",
-    color: "text-teal-600",
-    bg: "bg-teal-50",
+    color: "text-teal-400",
+    bg: "bg-teal-500/10",
     keywords: ["사회", "사람", "사건", "사고", "사실", "사용", "사원", "사유", "사임", "사장", "사정", "사직", "사치", "사태", "사망", "사면", "사명", "사범", "사법", "사병", "사본", "사부", "사상", "사수", "사신", "사교", "사관", "사단", "사령", "사례", "사립", "사막", "사망률", "가족", "가정", "결혼", "이혼", "혼인", "혼례", "혼약", "처녀", "처리", "처지", "처형", "처벌", "노동", "노력", "노예", "노인", "노화", "농민", "농업", "농촌", "농장", "공동", "공민", "공중", "공평", "공화", "공정", "공개", "공고", "공인", "공립", "공원", "공연", "공업", "공급", "공간", "공감"],
   },
   {
     id: "culture",
     label: "Văn hóa",
     icon: "ri-palette-line",
-    color: "text-violet-600",
-    bg: "bg-violet-50",
+    color: "text-violet-400",
+    bg: "bg-violet-500/10",
     keywords: ["문화", "문학", "문명", "문서", "문장", "문인", "문헌", "예술", "예능", "음악", "음악", "성악", "성가", "성경", "종교", "종교", "불교", "기독교", "천당", "천명", "천문", "천벌", "천부", "선교", "선교사", "선녀", "선인", "설교", "성당", "성모", "성인", "성혼", "성행", "성패", "성의", "성심", "성실", "성사", "성분", "성문", "성능", "성년", "성과", "성공", "성격", "성가", "전통", "전설", "전래", "민요", "민담", "민간", "민족", "민중", "민주", "민심", "민의", "민증", "민지", "민립", "민단", "민망"],
   },
   {
     id: "nature",
     label: "Thiên nhiên",
     icon: "ri-leaf-line",
-    color: "text-emerald-600",
-    bg: "bg-emerald-50",
+    color: "text-emerald-400",
+    bg: "bg-emerald-500/10",
     keywords: ["자연", "산", "강", "바다", "하늘", "땅", "물", "불", "바람", "태양", "태양계", "태평양", "지구", "지형", "지진", "지중해", "지리", "지역", "지방", "해양", "해류", "해리", "해마", "해삼", "해적", "해방", "해부", "해산", "해답", "해독", "해로", "해군", "해병", "해체", "해학", "풍경", "풍부", "풍상", "풍속", "풍토", "생태", "생물", "생존", "생산", "생식", "생리", "생명", "생사", "생", "토양", "토인", "토론", "석탄", "석사", "산호", "산하", "산신", "산아", "산업", "산출", "산란", "산모", "산물", "산발", "산부"],
   },
   {
     id: "emotion",
     label: "Cảm xúc",
     icon: "ri-emotion-line",
-    color: "text-pink-600",
-    bg: "bg-pink-50",
+    color: "text-pink-400",
+    bg: "bg-pink-500/10",
     keywords: ["감정", "감동", "감격", "감각", "감기", "감면", "감속", "기분", "기대", "기억", "기회", "기쁨", "슬픔", "분노", "공포", "희망", "희생", "흥미", "흥분", "흥망", "행복", "행복", "혜택", "호감", "호기심", "호의", "혼돈", "혼란", "혼미", "혼비백산", "혼수", "혼약", "혼인", "혼잡", "혼전", "혼합", "상상", "상사", "상사병", "상실", "상쾌", "상태", "상황", "상호", "추억", "추상", "추진", "추천", "추가", "추세", "추수", "추석", "쾌락", "타당", "타도", "타의", "타향", "타협", "탄복", "탄생", "탄압", "탐험", "태도", "태만", "태연", "태평", "편견", "편안", "편집"],
   },
 ];
@@ -321,7 +321,7 @@ export default function TopicStudyTab() {
           <div className="relative flex-1">
             <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/40 text-sm"></i>
             <input type="text" placeholder="Tìm trong chủ đề..." value={search} onChange={e => setSearch(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
+              className="w-full pl-9 pr-4 py-2 bg-app-surface/50 border border-app-border rounded-lg text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-app-accent-primary" />
           </div>
           <button onClick={startQuiz} disabled={filteredWords.length === 0}
             className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-white rounded-lg text-sm font-medium cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap disabled:opacity-50">

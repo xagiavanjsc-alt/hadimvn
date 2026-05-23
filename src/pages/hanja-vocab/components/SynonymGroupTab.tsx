@@ -500,7 +500,7 @@ export default function SynonymGroupTab() {
         <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/40 text-sm"></i>
         <input type="text" placeholder={mode === "synonym" ? "Tìm theo nghĩa tiếng Việt..." : "Tìm theo từ Hàn..."}
           value={search} onChange={e => setSearch(e.target.value)}
-          className="w-full pl-9 pr-4 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
+          className="w-full pl-9 pr-4 py-2 bg-app-surface/50 border border-app-border rounded-lg text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-app-accent-primary" />
       </div>
 
       {/* Synonym groups */}

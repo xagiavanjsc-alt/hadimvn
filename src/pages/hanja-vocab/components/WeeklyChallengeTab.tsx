@@ -112,7 +112,7 @@ function WeeklyQuiz({ words, onPass, onFail }: {
         </p>
         <div className="flex gap-3 justify-center">
           {passed ? (
-            <button onClick={onPass} className="px-6 py-3 bg-green-500 text-white rounded-xl font-bold cursor-pointer hover:bg-green-600 transition-colors whitespace-nowrap">
+            <button onClick={onPass} className="px-6 py-3 bg-green-500 text-app-bg rounded-xl font-bold cursor-pointer hover:bg-green-600 transition-colors whitespace-nowrap">
               <i className="ri-gift-line mr-2"></i>Nhận XP Bonus!
             </button>
           ) : (
@@ -319,7 +319,7 @@ export default function WeeklyChallengeTab() {
               setStudyFlipped(false);
               setStudyIdx(i => Math.min(i + 1, weekWords.length - 1));
             }}
-            className="flex-1 py-3 bg-green-500 text-white rounded-xl font-semibold cursor-pointer hover:bg-green-600 transition-colors whitespace-nowrap">
+            className="flex-1 py-3 bg-green-500 text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-green-600 transition-colors whitespace-nowrap">
             <i className="ri-check-line mr-1"></i>Đã thuộc
           </button>
           <button
@@ -367,14 +367,14 @@ export default function WeeklyChallengeTab() {
   return (
     <div className="max-w-4xl mx-auto">
       {/* Header banner */}
-      <div className="bg-gradient-to-r from-app-accent-primary/100 to-orange-400 rounded-2xl p-6 mb-6 text-white relative overflow-hidden">
-        <div className="absolute right-0 top-0 w-40 h-40 bg-app-card/70 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute right-10 bottom-0 w-24 h-24 bg-app-card/50 rounded-full translate-y-1/2"></div>
+      <div className="bg-gradient-to-r from-app-accent-primary to-orange-600 rounded-2xl p-6 mb-6 text-white relative overflow-hidden">
+        <div className="absolute right-0 top-0 w-40 h-40 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute right-10 bottom-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2"></div>
         <div className="relative">
           <div className="flex items-center gap-2 mb-2">
-            <i className="ri-sword-line text-white/80 text-lg"></i>
-            <span className="text-white/80 text-sm font-medium">Thách thức hàng tuần</span>
-            <span className="bg-app-border/200 text-white text-xs font-bold px-2 py-0.5 rounded-full">{weekId}</span>
+            <i className="ri-sword-line text-white/90 text-lg"></i>
+            <span className="text-white text-sm font-semibold">Thách thức hàng tuần</span>
+            <span className="bg-white/20 text-white text-xs font-bold px-2 py-0.5 rounded-full">{weekId}</span>
           </div>
           <h2 className="text-2xl font-bold mb-1">Học 50 từ Hán-Hàn</h2>
           <p className="text-white/70 text-sm">Hoàn thành quiz đạt 70%+ để nhận XP bonus</p>
@@ -459,7 +459,7 @@ export default function WeeklyChallengeTab() {
         <button
           onClick={() => setView("quiz")}
           disabled={challenge.quizPassed}
-          className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold cursor-pointer transition-colors whitespace-nowrap ${challenge.quizPassed ? "bg-app-surface/50 text-white/40 cursor-not-allowed" : learnedCount >= 20 ? "bg-amber-500 text-white hover:bg-amber-600" : "border-2 border-dashed border-app-border text-white/40 cursor-not-allowed"}`}>
+          className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold cursor-pointer transition-colors whitespace-nowrap ${challenge.quizPassed ? "bg-app-surface/50 text-white/40 cursor-not-allowed" : learnedCount >= 20 ? "bg-amber-500 text-app-bg hover:bg-amber-600" : "border-2 border-dashed border-app-border text-white/40 cursor-not-allowed"}`}>
           <i className="ri-gamepad-line"></i>
           {challenge.quizPassed ? "Đã hoàn thành" : learnedCount >= 20 ? "Làm Quiz ngay!" : `Học thêm ${20 - learnedCount} từ`}
         </button>

@@ -213,7 +213,7 @@ export default function HanVietCompareTab() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setQuizMode(m => !m)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all ${quizMode ? "bg-amber-500 text-white" : "bg-amber-500/10 text-amber-400 hover:bg-amber-500/20"}`}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all ${quizMode ? "bg-amber-500 text-app-bg" : "bg-amber-500/10 text-amber-400 hover:bg-amber-500/20"}`}
               >
                 <i className="ri-gamepad-line"></i>{quizMode ? "Thoát quiz" : "Quiz nhanh"}
               </button>
@@ -255,7 +255,7 @@ export default function HanVietCompareTab() {
                     <p className="text-app-accent-success font-bold text-lg">{currentQuiz.hanviet}</p>
                     <p className="text-white/50 text-xs mt-1">{currentQuiz.note}</p>
                   </div>
-                  <button onClick={nextQuiz} className="px-6 py-2.5 bg-amber-500 text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-amber-600 transition-colors">
+                  <button onClick={nextQuiz} className="px-6 py-2.5 bg-amber-500 text-app-bg rounded-xl text-sm font-semibold cursor-pointer hover:bg-amber-600 transition-colors">
                     Câu tiếp →
                   </button>
                 </div>

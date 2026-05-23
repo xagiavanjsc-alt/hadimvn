@@ -39,7 +39,7 @@ function loadSRStats() {
 
 const MOOD_CONFIG = {
   great: { icon: "ri-emotion-laugh-line", label: "Tuyệt vời", color: "text-green-400", bg: "bg-green-500/10" },
-  good: { icon: "ri-emotion-happy-line", label: "Tốt", color: "text-emerald-500", bg: "bg-emerald-50" },
+  good: { icon: "ri-emotion-happy-line", label: "Tốt", color: "text-emerald-400", bg: "bg-emerald-500/10" },
   okay: { icon: "ri-emotion-normal-line", label: "Bình thường", color: "text-amber-400", bg: "bg-amber-500/10" },
   bad: { icon: "ri-emotion-unhappy-line", label: "Khó khăn", color: "text-red-400", bg: "bg-red-500/10" },
 };
@@ -165,102 +165,100 @@ export default function StudyDiaryTab() {
             </button>
           )}
           <button
-            onClick={() => setShowAddForm(true)}
+            onClick={() => setShowAddForm(v => !v)}
             className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap"
           >
-            <i className="ri-add-line"></i>
-            {todayEntry ? "Cập nhật hôm nay" : "Ghi hôm nay"}
+            <i className={showAddForm ? "ri-arrow-up-s-line" : "ri-add-line"}></i>
+            {showAddForm ? "Đóng form" : (todayEntry ? "Cập nhật hôm nay" : "Ghi hôm nay")}
           </button>
         </div>
 
-      {/* VIP Upgrade Modal */}
-      <VipUpgradeModal
-        open={modalOpen}
-        onClose={closeModal}
-        reason={modalReason ?? "not_vip_year"}
-        featureName="Xuất CSV nhật ký học tập"
-      />
+        {/* VIP Upgrade Modal */}
+        <VipUpgradeModal
+          open={modalOpen}
+          onClose={closeModal}
+          reason={modalReason ?? "not_vip_year"}
+          featureName="Xuất CSV nhật ký học tập"
+        />
       </div>
 
-      {/* Add form modal */}
+      {/* Inline add form — expands above diary list, no overlay */}
       {showAddForm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30">
-          <div className="bg-app-surface/50 rounded-2xl p-6 w-full max-w-md">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-bold text-white">Ghi nhật ký — {formatDateShort(getToday())}</h3>
-              <button onClick={() => setShowAddForm(false)} className="text-white/40 hover:text-white/70 cursor-pointer">
-                <i className="ri-close-line text-xl"></i>
-              </button>
-            </div>
+        <div className="bg-app-surface/50 border border-app-accent-primary/30 rounded-2xl p-5 mb-5">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-bold text-white">Ghi nhật ký — {formatDateShort(getToday())}</h3>
+            <button onClick={() => setShowAddForm(false)} className="text-white/40 hover:text-white/70 cursor-pointer text-sm">
+              <i className="ri-close-line text-xl"></i>
+            </button>
+          </div>
 
-            {/* Mood */}
-            <div className="mb-4">
-              <p className="text-xs font-semibold text-white/70 mb-2">Cảm giác học hôm nay?</p>
-              <div className="flex gap-2">
-                {(Object.entries(MOOD_CONFIG) as [DiaryEntry["mood"], typeof MOOD_CONFIG.great][]).map(([key, cfg]) => (
-                  <button
-                    key={key}
-                    onClick={() => setForm(f => ({ ...f, mood: key }))}
-                    className={`flex-1 flex flex-col items-center gap-1 py-2 rounded-xl border-2 cursor-pointer transition-all ${form.mood === key ? `border-app-accent-primary ${cfg.bg}` : "border-app-border"}`}
-                  >
-                    <i className={`${cfg.icon} ${form.mood === key ? cfg.color : "text-white/40"} text-lg`}></i>
-                    <span className={`text-[10px] font-medium ${form.mood === key ? cfg.color : "text-white/40"}`}>{cfg.label}</span>
-                  </button>
-                ))}
-              </div>
+          {/* Mood */}
+          <div className="mb-4">
+            <p className="text-xs font-semibold text-white/70 mb-2">Cảm giác học hôm nay?</p>
+            <div className="flex gap-2">
+              {(Object.entries(MOOD_CONFIG) as [DiaryEntry["mood"], typeof MOOD_CONFIG.great][]).map(([key, cfg]) => (
+                <button
+                  key={key}
+                  onClick={() => setForm(f => ({ ...f, mood: key }))}
+                  className={`flex-1 flex flex-col items-center gap-1 py-2 rounded-xl border-2 cursor-pointer transition-all ${form.mood === key ? `border-app-accent-primary ${cfg.bg}` : "border-app-border"}`}
+                >
+                  <i className={`${cfg.icon} ${form.mood === key ? cfg.color : "text-white/40"} text-lg`}></i>
+                  <span className={`text-[10px] font-medium ${form.mood === key ? cfg.color : "text-white/40"}`}>{cfg.label}</span>
+                </button>
+              ))}
             </div>
+          </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
-              <div>
-                <label className="text-xs font-semibold text-white/70 block mb-1">Từ đã học</label>
-                <input
-                  type="number" min="0" value={form.wordsLearned}
-                  onChange={e => setForm(f => ({ ...f, wordsLearned: e.target.value }))}
-                  placeholder="0"
-                  className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-semibold text-white/70 block mb-1">Quiz đúng</label>
-                <input
-                  type="number" min="0" value={form.quizScore}
-                  onChange={e => setForm(f => ({ ...f, quizScore: e.target.value }))}
-                  placeholder="0"
-                  className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-semibold text-white/70 block mb-1">Tổng câu</label>
-                <input
-                  type="number" min="0" value={form.quizTotal}
-                  onChange={e => setForm(f => ({ ...f, quizTotal: e.target.value }))}
-                  placeholder="0"
-                  className="w-full px-3 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300"
-                />
-              </div>
-            </div>
-
-            <div className="mb-4">
-              <label className="text-xs font-semibold text-white/70 block mb-1">Ghi chú (tùy chọn)</label>
-              <textarea
-                value={form.note}
-                onChange={e => setForm(f => ({ ...f, note: e.target.value }))}
-                placeholder="Hôm nay học được gì? Khó khăn gặp phải?..."
-                rows={3}
-                maxLength={300}
-                className="w-full px-3 py-2 border border-app-border rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-rose-300"
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+            <div>
+              <label className="text-xs font-semibold text-white/70 block mb-1">Từ đã học</label>
+              <input
+                type="number" min="0" value={form.wordsLearned}
+                onChange={e => setForm(f => ({ ...f, wordsLearned: e.target.value }))}
+                placeholder="0"
+                className="w-full px-3 py-2 bg-app-surface/50 border border-app-border rounded-lg text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-app-accent-primary"
               />
-              <p className="text-xs text-white/40 text-right">{form.note.length}/300</p>
             </div>
+            <div>
+              <label className="text-xs font-semibold text-white/70 block mb-1">Quiz đúng</label>
+              <input
+                type="number" min="0" value={form.quizScore}
+                onChange={e => setForm(f => ({ ...f, quizScore: e.target.value }))}
+                placeholder="0"
+                className="w-full px-3 py-2 bg-app-surface/50 border border-app-border rounded-lg text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-app-accent-primary"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-semibold text-white/70 block mb-1">Tổng câu</label>
+              <input
+                type="number" min="0" value={form.quizTotal}
+                onChange={e => setForm(f => ({ ...f, quizTotal: e.target.value }))}
+                placeholder="0"
+                className="w-full px-3 py-2 bg-app-surface/50 border border-app-border rounded-lg text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-app-accent-primary"
+              />
+            </div>
+          </div>
 
-            <div className="flex gap-3">
-              <button onClick={addEntry} className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
-                Lưu nhật ký
-              </button>
-              <button onClick={() => setShowAddForm(false)} className="flex-1 py-3 border border-app-border text-white/70 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">
-                Hủy
-              </button>
-            </div>
+          <div className="mb-4">
+            <label className="text-xs font-semibold text-white/70 block mb-1">Ghi chú (tùy chọn)</label>
+            <textarea
+              value={form.note}
+              onChange={e => setForm(f => ({ ...f, note: e.target.value }))}
+              placeholder="Hôm nay học được gì? Khó khăn gặp phải?..."
+              rows={3}
+              maxLength={300}
+              className="w-full px-3 py-2 bg-app-surface/50 border border-app-border rounded-lg text-sm text-white placeholder-white/40 resize-none focus:outline-none focus:ring-2 focus:ring-app-accent-primary"
+            />
+            <p className="text-xs text-white/40 text-right">{form.note.length}/300</p>
+          </div>
+
+          <div className="flex gap-3">
+            <button onClick={addEntry} className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
+              <i className="ri-save-line mr-1"></i>Lưu nhật ký
+            </button>
+            <button onClick={() => setShowAddForm(false)} className="px-6 py-3 border border-app-border text-white/70 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">
+              Hủy
+            </button>
           </div>
         </div>
       )}
@@ -346,9 +344,9 @@ export default function StudyDiaryTab() {
                         </div>
                       )}
                       {entry.srReviewed > 0 && (
-                        <div className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 rounded-lg">
-                          <i className="ri-brain-line text-indigo-500 text-xs"></i>
-                          <span className="text-xs font-semibold text-indigo-700">{entry.srReviewed} SR</span>
+                        <div className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-500/10 rounded-lg">
+                          <i className="ri-brain-line text-indigo-400 text-xs"></i>
+                          <span className="text-xs font-semibold text-indigo-400">{entry.srReviewed} SR</span>
                         </div>
                       )}
                     </div>
@@ -422,7 +420,7 @@ export default function StudyDiaryTab() {
             {[
               { label: "Tổng ngày học", value: stats.totalDays, icon: "ri-calendar-check-line", color: "text-app-accent-primary", bg: "bg-app-accent-primary/10" },
               { label: "Tổng từ đã học", value: stats.totalWords, icon: "ri-book-open-line", color: "text-amber-400", bg: "bg-amber-500/10" },
-              { label: "TB từ/ngày", value: stats.avgWords, icon: "ri-bar-chart-line", color: "text-indigo-600", bg: "bg-indigo-50" },
+              { label: "TB từ/ngày", value: stats.avgWords, icon: "ri-bar-chart-line", color: "text-indigo-400", bg: "bg-indigo-500/10" },
               { label: "Độ chính xác quiz", value: `${stats.accuracy}%`, icon: "ri-gamepad-line", color: "text-green-400", bg: "bg-green-500/10" },
             ].map(s => (
               <div key={s.label} className={`${s.bg} rounded-xl p-4 text-center`}>

@@ -177,8 +177,8 @@ export default function PersonalRankingTab() {
       label: "Ôn 100 lần",
       desc: "Tổng ôn tập 100 lần",
       icon: "ri-refresh-line",
-      color: "text-teal-600",
-      bg: "bg-teal-50",
+      color: "text-teal-400",
+      bg: "bg-teal-500/10",
       unlocked: totalStudied >= 100,
     },
     {
@@ -201,7 +201,7 @@ export default function PersonalRankingTab() {
         {[
           { label: "Streak hiện tại", value: `${streakData.currentStreak} ngày`, icon: "ri-fire-line", color: "text-orange-400", bg: "bg-orange-500/10" },
           { label: "Kỷ lục streak", value: `${streakData.longestStreak} ngày`, icon: "ri-trophy-line", color: "text-amber-400", bg: "bg-amber-500/10" },
-          { label: "Tổng lần ôn", value: totalStudied.toLocaleString(), icon: "ri-refresh-line", color: "text-teal-600", bg: "bg-teal-50" },
+          { label: "Tổng lần ôn", value: totalStudied.toLocaleString(), icon: "ri-refresh-line", color: "text-teal-400", bg: "bg-teal-500/10" },
           { label: "Đã thuộc", value: `${masteryStats.mastered} từ`, icon: "ri-check-double-line", color: "text-green-400", bg: "bg-green-500/10" },
         ].map((s, i) => (
           <div key={i} className={`${s.bg} rounded-xl p-4`}>
@@ -314,12 +314,12 @@ export default function PersonalRankingTab() {
         </div>
         <div className="bg-app-surface/50 border border-app-border rounded-xl p-4">
           <div className="flex items-center gap-2 mb-2">
-            <i className="ri-time-line text-teal-500"></i>
+            <i className="ri-time-line text-teal-400"></i>
             <span className="text-xs font-semibold text-white/70">Ngày học gần nhất</span>
           </div>
           {streakData.lastStudyDate ? (
             <>
-              <p className="text-2xl font-bold text-teal-600">{formatDate(streakData.lastStudyDate)}</p>
+              <p className="text-2xl font-bold text-teal-400">{formatDate(streakData.lastStudyDate)}</p>
               <p className="text-xs text-white/40">{getDayLabel(streakData.lastStudyDate)} · {streakData.history[streakData.lastStudyDate] || 0} từ</p>
             </>
           ) : (

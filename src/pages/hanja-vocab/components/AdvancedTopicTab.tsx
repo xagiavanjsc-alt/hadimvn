@@ -26,8 +26,8 @@ const ADVANCED_TOPICS: AdvancedTopic[] = [
     name: "Kinh tế",
     nameKo: "경제",
     icon: "ri-line-chart-line",
-    color: "text-emerald-600",
-    bg: "bg-emerald-50",
+    color: "text-emerald-400",
+    bg: "bg-emerald-500/10",
     description: "Từ vựng chuyên ngành kinh tế, tài chính, thương mại",
     words: [
       { korean: "경제성장", hanja: "經濟成長", vietnamese: "tăng trưởng kinh tế", example: "경제성장률이 높아졌다.", exampleVi: "Tỷ lệ tăng trưởng kinh tế đã tăng lên." },
@@ -125,8 +125,8 @@ const ADVANCED_TOPICS: AdvancedTopic[] = [
     name: "Công nghệ",
     nameKo: "기술",
     icon: "ri-cpu-line",
-    color: "text-indigo-600",
-    bg: "bg-indigo-50",
+    color: "text-indigo-400",
+    bg: "bg-indigo-500/10",
     description: "Từ vựng công nghệ, AI, kỹ thuật số, đổi mới sáng tạo",
     words: [
       { korean: "인공지능", hanja: "人工知能", vietnamese: "trí tuệ nhân tạo (AI)", example: "인공지능 기술이 발전했다.", exampleVi: "Công nghệ trí tuệ nhân tạo đã phát triển." },
@@ -146,8 +146,8 @@ const ADVANCED_TOPICS: AdvancedTopic[] = [
     name: "Pháp luật",
     nameKo: "법률",
     icon: "ri-scales-3-line",
-    color: "text-slate-600",
-    bg: "bg-slate-50",
+    color: "text-slate-400",
+    bg: "bg-slate-500/10",
     description: "Từ vựng pháp luật, tư pháp, quyền công dân",
     words: [
       { korean: "법률위반", hanja: "法律違反", vietnamese: "vi phạm pháp luật", example: "법률위반으로 처벌받았다.", exampleVi: "Bị xử phạt vì vi phạm pháp luật." },

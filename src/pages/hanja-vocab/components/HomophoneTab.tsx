@@ -323,7 +323,7 @@ export default function HomophoneTab() {
         <div className="relative flex-1 min-w-48">
           <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/40 text-sm"></i>
           <input type="text" placeholder="Tìm từ Hàn, Hán tự, nghĩa..." value={search} onChange={e => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 border border-app-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300" />
+            className="w-full pl-9 pr-4 py-2 bg-app-surface/50 border border-app-border rounded-lg text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-app-accent-primary" />
         </div>
         <button onClick={() => setFilterFamous(f => !f)}
           className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium cursor-pointer whitespace-nowrap transition-all ${filterFamous ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>

@@ -215,7 +215,7 @@ export default function SmartSearchTab() {
               onFocus={() => setShowSuggestions(true)}
               onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
               placeholder="Nhập phiên âm tiếng Việt, từ Hàn hoặc Hán tự..."
-              className="w-full pl-12 pr-4 py-3 border-2 border-app-border rounded-xl text-sm focus:outline-none focus:border-app-accent-primary transition-colors"
+              className="w-full pl-12 pr-4 py-3 bg-app-surface/50 border-2 border-app-border rounded-xl text-sm text-white placeholder-white/40 focus:outline-none focus:border-app-accent-primary transition-colors"
             />
             {query && (
               <button onClick={() => { setQuery(""); setSubmitted(""); inputRef.current?.focus(); }}
