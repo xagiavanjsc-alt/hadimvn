@@ -380,6 +380,7 @@ const AdminRevenuePage = lazyPage(() => import("../pages/admin-revenue/page"));
 const AdminAdsPage = lazyPage(() => import("../pages/admin-ads/page"));
 const AdminHanjaPage = lazyPage(() => import("../pages/admin-hanja/page"));
 const AdminHanjaExcelPage = lazyPage(() => import("../pages/admin-hanja-excel/page"));
+const AdminEpsVocabExcelPage = lazyPage(() => import("../pages/admin-eps-vocab-excel/page"));
 const AdminHanjaAudioPage = lazyPage(() => import("../pages/admin-hanja-audio/page"));
 const AdminAudioPage = lazyPage(() => import("../pages/admin-audio/page"));
 const AdminHanjaProSEOPage = lazyPage(() => import("../pages/admin-hanja-pro-seo/page"));
@@ -623,6 +624,7 @@ const routes: RouteObject[] = [
   { path: "/admin/hanja-audio", element: <AdminGuard><AdminHanjaAudioPage /></AdminGuard> },
   { path: "/admin/audio", element: <AdminGuard><AdminAudioPage /></AdminGuard> },
   { path: "/admin/hanja-excel", element: <RequirePermission permission="eps.upload"><AdminHanjaExcelPage /></RequirePermission> },
+  { path: "/admin/eps-vocab-excel", element: <RequirePermission permission="eps.upload"><AdminEpsVocabExcelPage /></RequirePermission> },
   { path: "/admin/hanja-pro-seo", element: <AdminGuard><AdminHanjaProSEOPage /></AdminGuard> },
   { path: "/admin/ctv", element: <AdminGuard><AdminCTVPage /></AdminGuard> },
   { path: "/admin/control", element: <RequirePermission permission="system.settings"><AdminControlPage /></RequirePermission> },
