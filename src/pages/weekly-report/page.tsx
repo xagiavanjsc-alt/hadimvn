@@ -7,6 +7,16 @@ import { epsQuestions } from "@/mocks/epsQuestions";
 import { epsVocabulary } from "@/mocks/epsVocabulary";
 import { getStreakData } from "@/utils/streak";
 
+// Escape HTML special chars to prevent injection in template literals
+function esc(v: string | number): string {
+  return String(v)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 // ─── Types ────────────────────────────────────────────────────────────────
 interface WeeklyReportData {
   weekLabel: string;
@@ -388,32 +398,32 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
       el.style.display = "block";
       el.innerHTML = `
         <div class="pdf-title">📊 Báo cáo học tập tuần</div>
-        <div class="pdf-sub">${report.weekLabel} — Hàn Quốc Ơi!</div>
+        <div class="pdf-sub">${esc(report.weekLabel)} — Hàn Quốc Ơi!</div>
         <div>
-          <div class="pdf-stat"><strong>${report.xpEarned}</strong><br/><small>XP kiếm được</small></div>
-          <div class="pdf-stat"><strong>${report.wordsLearned}</strong><br/><small>Từ đã học</small></div>
-          <div class="pdf-stat"><strong>${report.streakDays} ngày</strong><br/><small>Streak</small></div>
-          <div class="pdf-stat"><strong>${accuracy}%</strong><br/><small>Độ chính xác</small></div>
-          <div class="pdf-stat"><strong>${report.studyDays}/7</strong><br/><small>Ngày học</small></div>
-          <div class="pdf-stat"><strong>${report.srCardsReviewed}</strong><br/><small>SR đã ôn</small></div>
+          <div class="pdf-stat"><strong>${esc(report.xpEarned)}</strong><br/><small>XP kiếm được</small></div>
+          <div class="pdf-stat"><strong>${esc(report.wordsLearned)}</strong><br/><small>Từ đã học</small></div>
+          <div class="pdf-stat"><strong>${esc(report.streakDays)} ngày</strong><br/><small>Streak</small></div>
+          <div class="pdf-stat"><strong>${esc(accuracy)}%</strong><br/><small>Độ chính xác</small></div>
+          <div class="pdf-stat"><strong>${esc(report.studyDays)}/7</strong><br/><small>Ngày học</small></div>
+          <div class="pdf-stat"><strong>${esc(report.srCardsReviewed)}</strong><br/><small>SR đã ôn</small></div>
         </div>
         ${report.quizScores.length > 0 ? `
         <div class="pdf-section">
           <div class="pdf-section-title">Kết quả quiz tuần này</div>
           ${report.quizScores.slice(0, 8).map(q => `
             <div class="pdf-row">
-              <span>${q.lesson}</span>
-              <span><strong>${q.score}/${q.total}</strong> (${q.total > 0 ? Math.round(q.score / q.total * 100) : 0}%)</span>
+              <span>${esc(q.lesson)}</span>
+              <span><strong>${esc(q.score)}/${esc(q.total)}</strong> (${q.total > 0 ? Math.round(q.score / q.total * 100) : 0}%)</span>
             </div>
           `).join("")}
         </div>` : ""}
         <div class="pdf-section">
           <div class="pdf-section-title">Tóm tắt</div>
-          <div class="pdf-row"><span>Tổng XP tích lũy</span><span><strong>${xpData.total.toLocaleString()} XP</strong></span></div>
-          <div class="pdf-row"><span>Streak hiện tại</span><span><strong>${streak.currentStreak} ngày</strong></span></div>
-          <div class="pdf-row"><span>Thẻ SR nắm vững</span><span><strong>${report.srMastered}</strong></span></div>
+          <div class="pdf-row"><span>Tổng XP tích lũy</span><span><strong>${esc(xpData.total.toLocaleString())} XP</strong></span></div>
+          <div class="pdf-row"><span>Streak hiện tại</span><span><strong>${esc(streak.currentStreak)} ngày</strong></span></div>
+          <div class="pdf-row"><span>Thẻ SR nắm vững</span><span><strong>${esc(report.srMastered)}</strong></span></div>
         </div>
-        <div style="margin-top:20px; font-size:11px; color:#999; text-align:center;">Xuất từ Hàn Quốc Ơi! — ${new Date().toLocaleDateString("vi-VN")}</div>
+        <div style="margin-top:20px; font-size:11px; color:#999; text-align:center;">Xuất từ Hàn Quốc Ơi! — ${esc(new Date().toLocaleDateString("vi-VN"))}</div>
       `;
     }
 

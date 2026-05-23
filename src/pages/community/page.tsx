@@ -134,38 +134,17 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
   // Set initial content once
   useEffect(() => {
     if (editorRef.current && value && !editorRef.current.innerHTML) {
-      editorRef.current.innerHTML = value;
+      editorRef.current.innerHTML = sanitizeHtml(value);
     }
   }, [value]);
 
-  // Handle paste - strip inline styles & spans để tránh lỗi H2 bị wrap span/style
+  // Handle paste - sanitize via DOMPurify (whitelisted tags/attrs, blocks script/iframe/event handlers)
   const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
     e.preventDefault();
     const html = e.clipboardData.getData('text/html');
     const plain = e.clipboardData.getData('text/plain');
     if (html) {
-      // Strip: style attrs, class attrs, <span>, <font>, <meta>, fragments
-      let cleaned = html
-        .replace(/<!--[\s\S]*?-->/g, '')
-        .replace(/<meta[^>]*>/gi, '')
-        .replace(/<style[\s\S]*?<\/style>/gi, '')
-        .replace(/<script[\s\S]*?<\/script>/gi, '')
-        .replace(/<(\w+)([^>]*)>/gi, (_m, tag, attrs) => {
-          // Chỉ giữ href cho <a> và src/alt cho <img>
-          if (tag.toLowerCase() === 'a') {
-            const href = attrs.match(/href\s*=\s*"([^"]*)"/i);
-            return `<a${href ? ` href="${href[1]}"` : ''}>`;
-          }
-          if (tag.toLowerCase() === 'img') {
-            const src = attrs.match(/src\s*=\s*"([^"]*)"/i);
-            const alt = attrs.match(/alt\s*=\s*"([^"]*)"/i);
-            return `<img${src ? ` src="${src[1]}"` : ''}${alt ? ` alt="${alt[1]}"` : ''}/>`;
-          }
-          return `<${tag}>`;
-        })
-        // Bỏ <span> </span> wrap (vô nghĩa sau khi strip attrs)
-        .replace(/<\/?span>/gi, '')
-        .replace(/<\/?font>/gi, '');
+      const cleaned = sanitizeHtml(html);
       document.execCommand('insertHTML', false, cleaned);
     } else if (plain) {
       document.execCommand('insertText', false, plain);
@@ -248,9 +227,10 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
       setHtmlDraft(editorRef.current?.innerHTML || value || "");
       setHtmlMode(true);
     } else {
-      // Chuyển HTML → WYSIWYG: ghi HTML vào editor
-      if (editorRef.current) editorRef.current.innerHTML = htmlDraft;
-      onChangeRef.current(htmlDraft);
+      // Chuyển HTML → WYSIWYG: sanitize trước khi ghi vào editor
+      const cleaned = sanitizeHtml(htmlDraft);
+      if (editorRef.current) editorRef.current.innerHTML = cleaned;
+      onChangeRef.current(cleaned);
       setHtmlMode(false);
     }
   };
