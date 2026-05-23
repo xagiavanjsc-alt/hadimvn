@@ -4,6 +4,7 @@ import { supabase, isVipActive } from "@/lib/supabase";
 import { useAuthContext } from "@/contexts/AuthContext";
 import VipUpgradeModal from "@/components/feature/VipUpgradeModal";
 import realNaverData from "@/mocks/naver_kin_real.json";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 interface VocabItem  { korean: string; vn: string; level?: string; }
 interface GrammarItem { pattern: string; meaning: string; example?: string; level?: string; }
@@ -34,7 +35,7 @@ function loadQAFallback(): NaverQA[] {
   if (realNaverData && (realNaverData as NaverQA[]).length > 0)
     return realNaverData as NaverQA[];
   try {
-    const raw = localStorage.getItem("kts_naver_qa");
+    const raw = localStorage.getItem(STORAGE_KEYS.NAVER_QA);
     if (raw) return JSON.parse(raw) as NaverQA[];
   } catch { /* ignore */ }
   return DEFAULT_QA;
@@ -346,7 +347,7 @@ const NaverPage = () => {
   }, []);
 
   useEffect(() => {
-    const saved = localStorage.getItem("kts_naver_liked");
+    const saved = localStorage.getItem(STORAGE_KEYS.NAVER_LIKED);
     if (saved) { try { setLikedIds(JSON.parse(saved)); } catch { /* ignore */ } }
   }, []);
 
@@ -394,7 +395,7 @@ const NaverPage = () => {
   const toggleLike = (id: number) => {
     setLikedIds(prev => {
       const next = prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id];
-      localStorage.setItem("kts_naver_liked", JSON.stringify(next));
+      localStorage.setItem(STORAGE_KEYS.NAVER_LIKED, JSON.stringify(next));
       return next;
     });
   };

@@ -4,6 +4,7 @@ import { useXPSystem } from "@/hooks/useXPSystem";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 import { seoulBooks, SeoulVocabItem } from "@/mocks/seoulTextbook";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 // ─── Types ────────────────────────────────────────────────────────────────
 interface FlashcardItem extends SeoulVocabItem {
@@ -160,7 +161,7 @@ export default function SeoulFlashcardPage() {
   // Local progress (fallback when not logged in)
   const [localProgress, setLocalProgress] = useState<ProgressMap>(() => {
     try {
-      return JSON.parse(localStorage.getItem("kts_seoul_flashcard_status") || "{}");
+      return JSON.parse(localStorage.getItem(STORAGE_KEYS.SEOUL_FLASHCARD_STATUS) || "{}");
     } catch {
       return {};
     }
@@ -223,7 +224,7 @@ export default function SeoulFlashcardPage() {
     // Update local
     setLocalProgress(prev => {
       const next = { ...prev, [card.id]: status };
-      localStorage.setItem("kts_seoul_flashcard_status", JSON.stringify(next));
+      localStorage.setItem(STORAGE_KEYS.SEOUL_FLASHCARD_STATUS, JSON.stringify(next));
       return next;
     });
     // Update DB if logged in

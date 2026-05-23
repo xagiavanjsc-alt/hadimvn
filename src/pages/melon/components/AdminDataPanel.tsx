@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 interface AdminDataPanelProps {
   onClose: () => void;
@@ -30,7 +31,7 @@ export default function AdminDataPanel({ onClose }: AdminDataPanelProps) {
   };
 
   const handleDownloadCurrent = () => {
-    const raw = localStorage.getItem("kts_melon_songs");
+    const raw = localStorage.getItem(STORAGE_KEYS.MELON_SONGS);
     let rows: string[] = [TEMPLATE_HEADERS];
     if (raw) {
       try {
@@ -81,7 +82,7 @@ export default function AdminDataPanel({ onClose }: AdminDataPanelProps) {
         });
         return obj;
       }).filter(s => s.rank && s.title);
-      localStorage.setItem("kts_melon_songs", JSON.stringify(songs));
+      localStorage.setItem(STORAGE_KEYS.MELON_SONGS, JSON.stringify(songs));
       setUploadStatus("success");
       setUploadMsg(`Đã import thành công ${songs.length} bài hát! Tải lại trang để xem.`);
     } catch (err) {

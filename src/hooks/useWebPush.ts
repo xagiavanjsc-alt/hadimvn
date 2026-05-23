@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useLocalStorage } from "./useLocalStorage";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 interface PushSettings {
   enabled: boolean;
@@ -77,7 +78,7 @@ export function useWebPush() {
   // ─── Count SR cards due today ─────────────────────────────────────────
   const countSRDueToday = useCallback((): number => {
     try {
-      const srData = localStorage.getItem("kts_sr_vocab");
+      const srData = localStorage.getItem(STORAGE_KEYS.SR_VOCAB);
       if (!srData) return 0;
       const cards: Array<{ nextReview?: string; dueDate?: string }> = JSON.parse(srData);
       const today = new Date().toISOString().split("T")[0];

@@ -4,6 +4,7 @@ import { useToast } from "@/components/base/Toast";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { useMelonSongs, saveMelonSongsToSupabase, upsertMelonSongsToSupabase, clearMelonSongsFromSupabase } from "@/hooks/useMelonSongs";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 interface MelonSong {
   rank: number;
@@ -234,7 +235,7 @@ const AdminMelonPage = () => {
       // Reassign ranks
       merged.forEach((item, idx) => { item.rank = idx + 1; });
 
-      localStorage.setItem("kts_melon_songs", JSON.stringify(merged));
+      localStorage.setItem(STORAGE_KEYS.MELON_SONGS, JSON.stringify(merged));
       setSongs(merged);
       setFetchMsg(`✅ Đã fetch thành công ${newItems.length} bài hát mới! Tổng: ${merged.length} bài.`);
       toast.showToast(`Đã fetch ${newItems.length} bài hát mới`, "success");

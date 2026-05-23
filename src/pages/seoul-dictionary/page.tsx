@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { seoulBooks } from "@/mocks/seoulTextbook";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 const bookColors: Record<string, string> = {
   "1A": "text-amber-400 bg-amber-500/10 border-amber-500/20",
@@ -163,7 +164,7 @@ export default function SeoulDictionaryPage() {
   // Load notes from localStorage
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("seoul_dict_notes");
+      const saved = localStorage.getItem(STORAGE_KEYS.SEOUL_DICT_NOTES);
       if (saved) setNotes(JSON.parse(saved));
     } catch {
       // ignore
@@ -181,7 +182,7 @@ export default function SeoulDictionaryPage() {
       delete updated[id];
     }
     setNotes(updated);
-    localStorage.setItem("seoul_dict_notes", JSON.stringify(updated));
+    localStorage.setItem(STORAGE_KEYS.SEOUL_DICT_NOTES, JSON.stringify(updated));
     setSaveToast(true);
     setTimeout(() => setSaveToast(false), 2000);
   };

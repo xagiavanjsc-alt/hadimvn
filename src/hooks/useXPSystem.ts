@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabase";
 import { computeXP, deriveLevel, MAX_SINGLE_ADD_XP, DAILY_RAW_XP_CAP } from "@/lib/xp";
 import { getStreakData } from "@/utils/streak";
 import { enqueueXPSync, flushXPQueue, flushXPQueueBeacon } from "@/lib/xpSyncQueue";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 /**
  * XP event types for tracking user achievements
@@ -241,8 +242,8 @@ export function useXPSystem() {
     // `online` event / `beforeunload` keepalive fetch will deliver it.
     syncTimerRef.current = setTimeout(() => {
       try {
-        const flashcardKnown = JSON.parse(localStorage.getItem("flashcard_known") || "{}");
-        const examResults = JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]");
+        const flashcardKnown = JSON.parse(localStorage.getItem(STORAGE_KEYS.FLASHCARD_KNOWN) || "{}");
+        const examResults = JSON.parse(localStorage.getItem(STORAGE_KEYS.EPS_EXAM_RESULTS) || "[]");
         const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length;
         const validExams = (examResults as { score: number; total: number; correctIds?: string[] }[])
           .filter(r => r && Number(r.total) > 0);
@@ -353,10 +354,10 @@ export function useXPSystem() {
 
       // Check new badges — pass extra context for score/vocab badges
       const flashcardKnown = (() => {
-        try { return JSON.parse(localStorage.getItem("flashcard_known") || "{}"); } catch { return {}; }
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.FLASHCARD_KNOWN) || "{}"); } catch { return {}; }
       })();
       const examResults = (() => {
-        try { return JSON.parse(localStorage.getItem("kts_eps_exam_results") || "[]"); } catch { return []; }
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.EPS_EXAM_RESULTS) || "[]"); } catch { return []; }
       })() as { score: number; total: number }[];
       const validExamsForBadge = examResults.filter(r => r && Number(r.total) > 0);
       const bestScorePct = validExamsForBadge.length > 0

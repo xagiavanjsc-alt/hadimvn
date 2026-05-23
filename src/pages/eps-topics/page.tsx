@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsQuestions, EPS_TOPICS } from "@/mocks/epsQuestions";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 // ─── Types ────────────────────────────────────────────────────────────────
 interface TopicProgress {
@@ -249,7 +250,7 @@ export default function EpsTopicsPage() {
 
   const handleStartPractice = (topicId: string) => {
     // Navigate to EPS page with topic pre-selected via localStorage
-    localStorage.setItem("kts_eps_start_topic", topicId);
+    localStorage.setItem(STORAGE_KEYS.EPS_START_TOPIC, topicId);
     navigate("/eps");
   };
 

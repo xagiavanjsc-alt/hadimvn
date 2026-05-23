@@ -3,6 +3,7 @@ import AdminLayout from "@/components/feature/AdminLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { AdConfig } from "@/components/feature/AdBanner";
 import { useNavigate } from "react-router-dom";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type TabId = "ads" | "draft" | "import" | "export";
@@ -505,9 +506,9 @@ function ExportTab() {
       getData: (): string[][] => {
         const headers = ["Hạng", "Tên bài hát", "Nghệ sĩ", "Thể loại", "Đã học", "Ngày học"];
         try {
-          const learnedRaw = localStorage.getItem("melon_learned_ranks");
+          const learnedRaw = localStorage.getItem(STORAGE_KEYS.MELON_LEARNED_RANKS);
           const learnedRanks: number[] = learnedRaw ? JSON.parse(learnedRaw) : [];
-          const playlistRaw = localStorage.getItem("melon_playlist_ranks");
+          const playlistRaw = localStorage.getItem(STORAGE_KEYS.MELON_PLAYLIST_RANKS);
           const playlistRanks: number[] = playlistRaw ? JSON.parse(playlistRaw) : [];
           const rows: string[][] = [headers];
           for (let i = 1; i <= 100; i++) {
@@ -556,7 +557,7 @@ function ExportTab() {
       getData: (): string[][] => {
         const headers = ["Tiếng Hàn", "Hán tự", "Tiếng Việt", "Phát âm", "Ví dụ", "Độ khó"];
         try {
-          const raw = localStorage.getItem("kts_hanja_vocab");
+          const raw = localStorage.getItem(STORAGE_KEYS.HANJA_VOCAB);
           const data = raw ? JSON.parse(raw) : [];
           const rows: string[][] = [headers];
           data.forEach((item: Record<string, string>) => {

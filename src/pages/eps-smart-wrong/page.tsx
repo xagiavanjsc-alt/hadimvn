@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { epsQuestions, EpsQuestion } from "@/mocks/epsQuestions";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface WrongAnswer {
@@ -24,14 +25,14 @@ interface ReviewSession {
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 function getWrongAnswers(): WrongAnswer[] {
   try {
-    return JSON.parse(localStorage.getItem("kts_eps_wrong_answers") || "[]");
+    return JSON.parse(localStorage.getItem(STORAGE_KEYS.EPS_WRONG_ANSWERS) || "[]");
   } catch {
     return [];
   }
 }
 
 function saveWrongAnswers(data: WrongAnswer[]) {
-  localStorage.setItem("kts_eps_wrong_answers", JSON.stringify(data));
+  localStorage.setItem(STORAGE_KEYS.EPS_WRONG_ANSWERS, JSON.stringify(data));
 }
 
 function timeAgo(dateStr: string): string {

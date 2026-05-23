@@ -1,6 +1,7 @@
 ﻿import { useState, useMemo, useEffect, useCallback } from "react";
 import { HANJA_DATA as HANJA_DATA_MOCK, HanjaEntry } from "@/mocks/hanjaData";
 import { useHanjaData } from "@/contexts/HanjaDataContext";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 const WC_KEY = "hanja_weekly_challenge";
 const SR_KEY = "hanja_sr_data";
@@ -225,8 +226,8 @@ export default function WeeklyChallengeTab() {
       return updated;
     });
     // Add XP to global store
-    const currentXp = parseInt(localStorage.getItem("xp_total") || "0");
-    localStorage.setItem("xp_total", String(currentXp + xp));
+    const currentXp = parseInt(localStorage.getItem(STORAGE_KEYS.XP_TOTAL) || "0");
+    localStorage.setItem(STORAGE_KEYS.XP_TOTAL, String(currentXp + xp));
     setShowXpModal(true);
     setView("overview");
   };

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 type QType = 51 | 52 | 53 | 54;
 
@@ -576,8 +577,8 @@ export default function TopikExamWritingPage() {
     : "text-white/40";
 
   const hasDraft = !!localStorage.getItem(DRAFT_KEY(selectedQ.id));
-  const [guideOpen, setGuideOpen] = useState(() => !localStorage.getItem("topik_guide_seen"));
-  const dismissGuide = () => { setGuideOpen(false); localStorage.setItem("topik_guide_seen", "1"); };
+  const [guideOpen, setGuideOpen] = useState(() => !localStorage.getItem(STORAGE_KEYS.TOPIK_GUIDE_SEEN));
+  const dismissGuide = () => { setGuideOpen(false); localStorage.setItem(STORAGE_KEYS.TOPIK_GUIDE_SEEN, "1"); };
 
   return (
     <DashboardLayout>

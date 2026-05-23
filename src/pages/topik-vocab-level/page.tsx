@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 import { seoulBooks } from "@/mocks/data/seoul-books-data";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 interface VocabWord {
   id: number;
@@ -265,7 +266,7 @@ export default function TopikVocabLevelPage() {
 
   useEffect(() => {
     // Load learned words from localStorage
-    const saved = localStorage.getItem("topik_learned_words");
+    const saved = localStorage.getItem(STORAGE_KEYS.TOPIK_LEARNED_WORDS);
     if (saved) {
       try { setLearnedWords(new Set(JSON.parse(saved))); } catch { /* ignore */ }
     }
@@ -325,7 +326,7 @@ export default function TopikVocabLevelPage() {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
-      localStorage.setItem("topik_learned_words", JSON.stringify([...next]));
+      localStorage.setItem(STORAGE_KEYS.TOPIK_LEARNED_WORDS, JSON.stringify([...next]));
       return next;
     });
   };

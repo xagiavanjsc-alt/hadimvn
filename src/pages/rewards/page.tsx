@@ -10,6 +10,7 @@ import { supabase } from "@/lib/supabase";
 import { HANJA_DATA } from "@/mocks/hanjaData";
 import { sanitizeHtml } from "@/lib/sanitize";
 import { getStreakData } from "@/utils/streak";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 const ADMIN_KEY = "kts_admin_mode";
 
@@ -24,7 +25,7 @@ function getInitial(korean: string): string {
 function AdminPanel() {
   const { showToast, ToastComponent } = useToast();
   const [srData] = useState<Record<string, { interval: number; totalReviews: number; correctStreak?: number; dueDate?: number }>>(() => {
-    try { return JSON.parse(localStorage.getItem("hanja_sr_data") || "{}"); } catch { return {}; }
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.HANJA_SR_DATA) || "{}"); } catch { return {}; }
   });
   const [adminSubTab, setAdminSubTab] = useState<"overview" | "chart" | "quiz" | "groups" | "content" | "grant_xp" | "redemptions">("overview");
 
@@ -48,7 +49,7 @@ function AdminPanel() {
   // 30-day activity chart from hanja_streak history
   const activityData = useMemo(() => {
     try {
-      const streakRaw = JSON.parse(localStorage.getItem("hanja_streak") || "{}");
+      const streakRaw = JSON.parse(localStorage.getItem(STORAGE_KEYS.HANJA_STREAK) || "{}");
       const history: Record<string, number> = streakRaw.history || {};
       return Array.from({ length: 30 }, (_, i) => {
         const d = new Date(Date.now() - (29 - i) * 86400000);
@@ -72,8 +73,8 @@ function AdminPanel() {
       .slice(0, 15);
   }, [srData]);
 
-  const xpData = useMemo(() => { try { return parseInt(localStorage.getItem("xp_total") || "0", 10); } catch { return 0; } }, []);
-  const streakData = useMemo(() => { try { return JSON.parse(localStorage.getItem("hanja_streak") || "{}"); } catch { return {}; } }, []);
+  const xpData = useMemo(() => { try { return parseInt(localStorage.getItem(STORAGE_KEYS.XP_TOTAL) || "0", 10); } catch { return 0; } }, []);
+  const streakData = useMemo(() => { try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.HANJA_STREAK) || "{}"); } catch { return {}; } }, []);
 
   const subTabs = [
     { key: "overview" as const, label: "Tổng quan", icon: "ri-dashboard-line" },
@@ -87,11 +88,11 @@ function AdminPanel() {
 
   // Content management data
   const contentStats = useMemo(() => {
-    const favs = (() => { try { return JSON.parse(localStorage.getItem("hanja_favorites") || "[]"); } catch { return []; } })();
-    const notes = (() => { try { return JSON.parse(localStorage.getItem("hanja_notes") || "{}"); } catch { return {}; } })();
-    const weeklyChallenge = (() => { try { return JSON.parse(localStorage.getItem("hanja_weekly_challenge") || "null"); } catch { return null; } })();
-    const topikHistory = (() => { try { return JSON.parse(localStorage.getItem("hanja_topik_history") || "[]"); } catch { return []; } })();
-    const pronunciationHistory = (() => { try { return JSON.parse(localStorage.getItem("hanja_pronunciation_history") || "[]"); } catch { return []; } })();
+    const favs = (() => { try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.HANJA_FAVORITES) || "[]"); } catch { return []; } })();
+    const notes = (() => { try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.HANJA_NOTES) || "{}"); } catch { return {}; } })();
+    const weeklyChallenge = (() => { try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.HANJA_WEEKLY_CHALLENGE) || "null"); } catch { return null; } })();
+    const topikHistory = (() => { try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.HANJA_TOPIK_HISTORY) || "[]"); } catch { return []; } })();
+    const pronunciationHistory = (() => { try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.HANJA_PRONUNCIATION_HISTORY) || "[]"); } catch { return []; } })();
     return {
       favCount: Array.isArray(favs) ? favs.length : 0,
       noteCount: Object.keys(notes).length,
@@ -165,9 +166,9 @@ function AdminPanel() {
             </h3>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { label: "Reset dữ liệu học Hán Hàn", icon: "ri-delete-bin-line", color: "#ef4444", action: () => { if (confirm("Reset toàn bộ dữ liệu học Hán Hàn?")) { localStorage.removeItem("hanja_sr_data"); window.location.reload(); } } },
-                { label: "Reset XP & Streak", icon: "ri-refresh-line", color: "#fb923c", action: () => { if (confirm("Reset XP và streak?")) { localStorage.removeItem("xp_total"); localStorage.removeItem("hanja_streak"); window.location.reload(); } } },
-                { label: "Xem dữ liệu SR (JSON)", icon: "ri-code-line", color: "#a78bfa", action: () => { const d = localStorage.getItem("hanja_sr_data"); let count = 0; if (d) { try { count = Object.keys(JSON.parse(d)).length; } catch { showToast("Dữ liệu SR bị hỏng — không đọc được", "error", 3000); return; } } showToast(count > 0 ? `${count} từ đã học` : "Chưa có dữ liệu", "info", 3000); } },
+                { label: "Reset dữ liệu học Hán Hàn", icon: "ri-delete-bin-line", color: "#ef4444", action: () => { if (confirm("Reset toàn bộ dữ liệu học Hán Hàn?")) { localStorage.removeItem(STORAGE_KEYS.HANJA_SR_DATA); window.location.reload(); } } },
+                { label: "Reset XP & Streak", icon: "ri-refresh-line", color: "#fb923c", action: () => { if (confirm("Reset XP và streak?")) { localStorage.removeItem(STORAGE_KEYS.XP_TOTAL); localStorage.removeItem(STORAGE_KEYS.HANJA_STREAK); window.location.reload(); } } },
+                { label: "Xem dữ liệu SR (JSON)", icon: "ri-code-line", color: "#a78bfa", action: () => { const d = localStorage.getItem(STORAGE_KEYS.HANJA_SR_DATA); let count = 0; if (d) { try { count = Object.keys(JSON.parse(d)).length; } catch { showToast("Dữ liệu SR bị hỏng — không đọc được", "error", 3000); return; } } showToast(count > 0 ? `${count} từ đã học` : "Chưa có dữ liệu", "info", 3000); } },
                 { label: "Xuất báo cáo JSON", icon: "ri-download-line", color: "#34d399", action: () => { const data = { totalWords, totalMastered, totalLearning, totalReviews, groupStats }; const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "hanja-report.json"; a.click(); } },
               ].map(btn => (
                 <button key={btn.label} onClick={btn.action}
@@ -403,11 +404,11 @@ function AdminPanel() {
                   color: "#34d399",
                   action: () => {
                     const data = {
-                      srData: localStorage.getItem("hanja_sr_data"),
-                      favorites: localStorage.getItem("hanja_favorites"),
-                      notes: localStorage.getItem("hanja_notes"),
-                      streak: localStorage.getItem("hanja_streak"),
-                      xp: localStorage.getItem("xp_total"),
+                      srData: localStorage.getItem(STORAGE_KEYS.HANJA_SR_DATA),
+                      favorites: localStorage.getItem(STORAGE_KEYS.HANJA_FAVORITES),
+                      notes: localStorage.getItem(STORAGE_KEYS.HANJA_NOTES),
+                      streak: localStorage.getItem(STORAGE_KEYS.HANJA_STREAK),
+                      xp: localStorage.getItem(STORAGE_KEYS.XP_TOTAL),
                       exportedAt: new Date().toISOString(),
                     };
                     const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
@@ -423,21 +424,21 @@ function AdminPanel() {
                   desc: "Xóa tất cả từ đã lưu yêu thích",
                   icon: "ri-heart-3-line",
                   color: "#f43f5e",
-                  action: () => { if (confirm("Xóa tất cả từ yêu thích?")) { localStorage.removeItem("hanja_favorites"); window.location.reload(); } }
+                  action: () => { if (confirm("Xóa tất cả từ yêu thích?")) { localStorage.removeItem(STORAGE_KEYS.HANJA_FAVORITES); window.location.reload(); } }
                 },
                 {
                   label: "Reset ghi chú",
                   desc: "Xóa tất cả ghi chú từ vựng",
                   icon: "ri-sticky-note-2-line",
                   color: "app-accent-primary",
-                  action: () => { if (confirm("Xóa tất cả ghi chú?")) { localStorage.removeItem("hanja_notes"); window.location.reload(); } }
+                  action: () => { if (confirm("Xóa tất cả ghi chú?")) { localStorage.removeItem(STORAGE_KEYS.HANJA_NOTES); window.location.reload(); } }
                 },
                 {
                   label: "Reset lịch sử thi TOPIK",
                   desc: "Xóa kết quả thi thử TOPIK Hán Hàn",
                   icon: "ri-file-paper-2-line",
                   color: "#a78bfa",
-                  action: () => { if (confirm("Xóa lịch sử thi TOPIK?")) { localStorage.removeItem("hanja_topik_history"); window.location.reload(); } }
+                  action: () => { if (confirm("Xóa lịch sử thi TOPIK?")) { localStorage.removeItem(STORAGE_KEYS.HANJA_TOPIK_HISTORY); window.location.reload(); } }
                 },
               ].map(btn => (
                 <button
@@ -656,7 +657,7 @@ function GrantXPPanel() {
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<{ ok: boolean; msg: string } | null>(null);
   const [history, setHistory] = useState<{ user_id: string; amount: number; reason: string; ts: number }[]>(() => {
-    try { return JSON.parse(localStorage.getItem("kts_admin_grant_xp_history") || "[]"); } catch { return []; }
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.ADMIN_GRANT_XP_HISTORY) || "[]"); } catch { return []; }
   });
 
   const handleSearch = async () => {
@@ -707,7 +708,7 @@ function GrantXPPanel() {
       // Update local history
       const next = [{ user_id: selected.id, amount, reason, ts: Date.now() }, ...history].slice(0, 20);
       setHistory(next);
-      try { localStorage.setItem("kts_admin_grant_xp_history", JSON.stringify(next)); } catch { /* ignore */ }
+      try { localStorage.setItem(STORAGE_KEYS.ADMIN_GRANT_XP_HISTORY, JSON.stringify(next)); } catch { /* ignore */ }
       // Refresh selected user XP
       setSelected({ ...selected, xp: newXP });
       setUsers(prev => prev.map(u => u.id === selected.id ? { ...u, xp: newXP } : u));

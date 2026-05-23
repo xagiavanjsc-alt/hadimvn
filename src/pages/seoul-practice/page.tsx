@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { seoulBooks, type SeoulLesson, type SeoulBook } from "@/mocks/seoulTextbook";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 interface WrongWord {
   korean: string;
@@ -682,7 +683,7 @@ export default function SeoulPracticePage() {
 
   // Track study time for streak reminder
   useEffect(() => {
-    localStorage.setItem("kts_last_study_time", JSON.stringify({ timestamp: Date.now() }));
+    localStorage.setItem(STORAGE_KEYS.LAST_STUDY_TIME, JSON.stringify({ timestamp: Date.now() }));
   }, []);
 
   const [selectedBook, setSelectedBook] = useState<SeoulBook | null>(null);

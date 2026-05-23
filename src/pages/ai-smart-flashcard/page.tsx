@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect, useMemo, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface VocabCard {
@@ -384,7 +385,7 @@ export default function AISmartFlashcardPage() {
   const [vocab, setVocab] = useState<VocabCard[]>(mockVocab);
   const [memories, setMemories] = useState<Record<string, CardMemory>>(() => {
     try {
-      const saved = localStorage.getItem("kts_ai_flashcard_memories");
+      const saved = localStorage.getItem(STORAGE_KEYS.AI_FLASHCARD_MEMORIES);
       return saved ? JSON.parse(saved) : {};
     } catch { return {}; }
   });
@@ -414,7 +415,7 @@ export default function AISmartFlashcardPage() {
 
   // Save memories to localStorage
   useEffect(() => {
-    localStorage.setItem("kts_ai_flashcard_memories", JSON.stringify(memories));
+    localStorage.setItem(STORAGE_KEYS.AI_FLASHCARD_MEMORIES, JSON.stringify(memories));
   }, [memories]);
 
   const suggestions = useMemo(() => getAISuggestions(vocab, memories), [vocab, memories]);

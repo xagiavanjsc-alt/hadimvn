@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 interface AdminDataPanelProps {
   onClose: () => void;
@@ -30,7 +31,7 @@ export default function NaverAdminDataPanel({ onClose }: AdminDataPanelProps) {
   };
 
   const handleDownloadCurrent = () => {
-    const raw = localStorage.getItem("kts_naver_qa");
+    const raw = localStorage.getItem(STORAGE_KEYS.NAVER_QA);
     let rows: string[] = [TEMPLATE_HEADERS];
     if (raw) {
       try {
@@ -83,7 +84,7 @@ export default function NaverAdminDataPanel({ onClose }: AdminDataPanelProps) {
         if (!obj.id) obj.id = idx + 1;
         return obj;
       }).filter(s => s.question);
-      localStorage.setItem("kts_naver_qa", JSON.stringify(items));
+      localStorage.setItem(STORAGE_KEYS.NAVER_QA, JSON.stringify(items));
       setUploadStatus("success");
       setUploadMsg(`Đã import thành công ${items.length} câu hỏi! Tải lại trang để xem.`);
     } catch (err) {

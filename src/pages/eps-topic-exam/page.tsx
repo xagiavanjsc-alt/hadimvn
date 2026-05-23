@@ -6,6 +6,7 @@ import { useXPSystem } from "@/hooks/useXPSystem";
 import { useToast } from "@/components/base/Toast";
 import { epsQuestions, EPS_TOPICS } from "@/mocks/epsQuestions";
 import { isExamTooFast, isInCooldown } from "@/lib/xp";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 const TOPIC_EXAM_COUNT = 20;
 const TOPIC_EXAM_DURATION = 25 * 60; // 25 minutes
@@ -67,7 +68,7 @@ export default function EpsTopicExamPage() {
 
   const startExam = useCallback((topicId: string) => {
     // Anti-cheat: cooldown chống spam
-    const lastAt = parseInt(localStorage.getItem("kts_eps_topic_exam_last_at") || "0", 10) || null;
+    const lastAt = parseInt(localStorage.getItem(STORAGE_KEYS.EPS_TOPIC_EXAM_LAST_AT) || "0", 10) || null;
     const { inCooldown, remainingSec } = isInCooldown(lastAt);
     if (inCooldown) {
       showToast(`Vui lòng chờ ${remainingSec}s trước khi làm bài mới`, "warning", 3000);
@@ -127,7 +128,7 @@ export default function EpsTopicExamPage() {
       return;
     }
 
-    localStorage.setItem("kts_eps_topic_exam_last_at", String(Date.now()));
+    localStorage.setItem(STORAGE_KEYS.EPS_TOPIC_EXAM_LAST_AT, String(Date.now()));
     awardXP({ type: "eps_exam_completed", amount: 15 + Math.round((correct / examQuestions.length) * 20) });
     setMode("result");
   }, [examQuestions, answers, selectedTopic, setHistory, awardXP]);

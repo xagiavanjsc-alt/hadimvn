@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useToast } from "@/components/base/Toast";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 interface NaverQaItem {
   id: number;
@@ -49,7 +50,7 @@ const AdminNaverKinPage = () => {
   // Load Q&A from localStorage
   useEffect(() => {
     try {
-      const raw = localStorage.getItem("kts_naver_kin_qa");
+      const raw = localStorage.getItem(STORAGE_KEYS.NAVER_KIN_QA);
       if (raw) {
         const data = JSON.parse(raw) as NaverQaItem[];
         setQaItems(data);
@@ -102,7 +103,7 @@ const AdminNaverKinPage = () => {
         throw new Error("Unsupported file format");
       }
 
-      localStorage.setItem("kts_naver_kin_qa", JSON.stringify(data));
+      localStorage.setItem(STORAGE_KEYS.NAVER_KIN_QA, JSON.stringify(data));
       setQaItems(data);
       setUploadStatus("success");
       setUploadMsg(`Đã import thành công ${data.length} Q&A!`);
@@ -117,7 +118,7 @@ const AdminNaverKinPage = () => {
     if (!editingItem) return;
     const updated = qaItems.map(item => item.id === editingItem.id ? editingItem : item);
     setQaItems(updated);
-    localStorage.setItem("kts_naver_kin_qa", JSON.stringify(updated));
+    localStorage.setItem(STORAGE_KEYS.NAVER_KIN_QA, JSON.stringify(updated));
     setEditingItem(null);
     toast.showToast("Đã lưu thay đổi", "success");
   };
@@ -126,7 +127,7 @@ const AdminNaverKinPage = () => {
     if (!confirm("Bạn có chắc muốn xóa Q&A này?")) return;
     const updated = qaItems.filter(item => item.id !== id);
     setQaItems(updated);
-    localStorage.setItem("kts_naver_kin_qa", JSON.stringify(updated));
+    localStorage.setItem(STORAGE_KEYS.NAVER_KIN_QA, JSON.stringify(updated));
     toast.showToast("Đã xóa Q&A", "success");
   };
 
@@ -195,7 +196,7 @@ const AdminNaverKinPage = () => {
       // Reassign IDs
       merged.forEach((item, idx) => { item.id = idx + 1; });
 
-      localStorage.setItem("kts_naver_kin_qa", JSON.stringify(merged));
+      localStorage.setItem(STORAGE_KEYS.NAVER_KIN_QA, JSON.stringify(merged));
       setQaItems(merged);
       setFetchMsg(`✅ Đã fetch thành công ${newItems.length} Q&A mới! Tổng: ${merged.length} Q&A.`);
       toast.showToast(`Đã fetch ${newItems.length} Q&A mới`, "success");
@@ -258,7 +259,7 @@ const AdminNaverKinPage = () => {
             <button
               onClick={() => {
                 if (confirm("Xóa toàn bộ dữ liệu Naver KiN?")) {
-                  localStorage.removeItem("kts_naver_kin_qa");
+                  localStorage.removeItem(STORAGE_KEYS.NAVER_KIN_QA);
                   setQaItems([]);
                   toast.showToast("Đã xóa toàn bộ dữ liệu", "success");
                 }

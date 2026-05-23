@@ -3,6 +3,7 @@ import AdminLayout from "@/components/feature/AdminLayout";
 import { useApiCostTracker } from "@/hooks/useApiCostTracker";
 import { supabase } from "@/lib/supabase";
 import type { AIProvider } from "@/services/aiService";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 type TestStatus = "idle" | "testing" | "ok" | "fail";
 interface TestResult {
@@ -90,10 +91,10 @@ function useAdminSettings() {
         };
         setSettings(loaded);
         // Also sync to localStorage for aiService compatibility
-        localStorage.setItem("kts_settings", JSON.stringify(loaded));
+        localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(loaded));
       } else {
         // Fallback to localStorage
-        const raw = localStorage.getItem("kts_settings");
+        const raw = localStorage.getItem(STORAGE_KEYS.SETTINGS);
         if (raw) {
           try {
             const parsed = JSON.parse(raw);
@@ -103,7 +104,7 @@ function useAdminSettings() {
       }
     } catch {
       // Fallback to localStorage
-      const raw = localStorage.getItem("kts_settings");
+      const raw = localStorage.getItem(STORAGE_KEYS.SETTINGS);
       if (raw) {
         try {
           const parsed = JSON.parse(raw);
@@ -126,11 +127,11 @@ function useAdminSettings() {
       }
       setSettings(newSettings);
       // Also sync to localStorage for aiService compatibility
-      localStorage.setItem("kts_settings", JSON.stringify(newSettings));
+      localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(newSettings));
       return true;
     } catch (err) {
       // Fallback: save to localStorage only
-      localStorage.setItem("kts_settings", JSON.stringify(newSettings));
+      localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(newSettings));
       setSettings(newSettings);
       throw err;
     } finally {
@@ -191,7 +192,7 @@ export default function AdminSettingsPage() {
       showToastMsg("Đã xóa toàn bộ cài đặt");
     } catch {
       setForm(DEFAULT_SETTINGS);
-      localStorage.setItem("kts_settings", JSON.stringify(DEFAULT_SETTINGS));
+      localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(DEFAULT_SETTINGS));
       showToastMsg("Đã xóa (localStorage)");
     }
   };
@@ -736,7 +737,7 @@ export default function AdminSettingsPage() {
               className="flex items-center gap-2 text-amber-400/50 hover:text-amber-400 text-xs transition-colors cursor-pointer">
               <i className="ri-refresh-line"></i>Reset lịch sử bài hát Melon
             </button>
-            <button onClick={() => { localStorage.removeItem("kts_naver_cache"); showToastMsg("Đã xóa cache Naver KiN"); }}
+            <button onClick={() => { localStorage.removeItem(STORAGE_KEYS.NAVER_CACHE); showToastMsg("Đã xóa cache Naver KiN"); }}
               className="flex items-center gap-2 text-sky-400/50 hover:text-sky-400 text-xs transition-colors cursor-pointer">
               <i className="ri-history-line"></i>Xóa cache tìm kiếm Naver KiN
             </button>

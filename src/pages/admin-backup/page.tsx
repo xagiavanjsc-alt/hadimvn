@@ -1,6 +1,7 @@
 ﻿import { useState, useMemo, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useAdminToast } from "@/contexts/AdminToastContext";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface BackupEntry {
@@ -484,10 +485,10 @@ function ScheduleTab({ onCreateBackup, snapshots: externalSnapshots, setSnapshot
   const [editId, setEditId] = useState<string | null>(null);
   const [schedToast, setSchedToast] = useState<string | null>(null);
   const [autoCleanup, setAutoCleanup] = useState<boolean>(() => {
-    try { return JSON.parse(localStorage.getItem("kts_backup_autocleanup") || "true"); } catch { return true; }
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.ADMIN_BACKUP_AUTOCLEAN) || "true"); } catch { return true; }
   });
   const [cleanupDays, setCleanupDays] = useState<number>(() => {
-    try { return JSON.parse(localStorage.getItem("kts_backup_cleanup_days") || "30"); } catch { return 30; }
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.ADMIN_BACKUP_CLEANUP_DAYS) || "30"); } catch { return 30; }
   });
   const [showCleanupSettings, setShowCleanupSettings] = useState(false);
   const [formName, setFormName] = useState("");
@@ -503,12 +504,12 @@ function ScheduleTab({ onCreateBackup, snapshots: externalSnapshots, setSnapshot
 
   const toggleAutoCleanup = (val: boolean) => {
     setAutoCleanup(val);
-    localStorage.setItem("kts_backup_autocleanup", JSON.stringify(val));
+    localStorage.setItem(STORAGE_KEYS.ADMIN_BACKUP_AUTOCLEAN, JSON.stringify(val));
   };
 
   const updateCleanupDays = (days: number) => {
     setCleanupDays(days);
-    localStorage.setItem("kts_backup_cleanup_days", JSON.stringify(days));
+    localStorage.setItem(STORAGE_KEYS.ADMIN_BACKUP_CLEANUP_DAYS, JSON.stringify(days));
   };
 
   const runManualCleanup = (snapshots: BackupSnapshot[], setSnapshots: (s: BackupSnapshot[]) => void) => {
@@ -517,7 +518,7 @@ function ScheduleTab({ onCreateBackup, snapshots: externalSnapshots, setSnapshot
     const removed = snapshots.length - kept.length;
     if (removed > 0) {
       setSnapshots(kept);
-      localStorage.setItem("kts_admin_backups", JSON.stringify(kept));
+      localStorage.setItem(STORAGE_KEYS.ADMIN_BACKUPS, JSON.stringify(kept));
       showMsg(`Đã xóa ${removed} backup cũ hơn ${cleanupDays} ngày`);
       showToast({ type: "success", title: `Auto-cleanup: xóa ${removed} backup cũ` });
     } else {
@@ -915,7 +916,7 @@ export default function AdminBackupPage() {
   const [entries, setEntries] = useState<BackupEntry[]>(() => readAllLocalStorage());
   const [snapshots, setSnapshots] = useState<BackupSnapshot[]>(() => {
     try {
-      return JSON.parse(localStorage.getItem("kts_admin_backups") || "[]");
+      return JSON.parse(localStorage.getItem(STORAGE_KEYS.ADMIN_BACKUPS) || "[]");
     } catch { return []; }
   });
   const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
@@ -985,7 +986,7 @@ export default function AdminBackupPage() {
     };
     const updated = [snapshot, ...snapshots];
     setSnapshots(updated);
-    localStorage.setItem("kts_admin_backups", JSON.stringify(updated));
+    localStorage.setItem(STORAGE_KEYS.ADMIN_BACKUPS, JSON.stringify(updated));
     setBackupName("");
     setSelectedKeys(new Set());
     showToast(`Đã tạo backup "${snapshot.name}" với ${snapshot.keyCount} keys`);
@@ -1005,7 +1006,7 @@ export default function AdminBackupPage() {
     };
     const updated = [snapshot, ...snapshots];
     setSnapshots(updated);
-    localStorage.setItem("kts_admin_backups", JSON.stringify(updated));
+    localStorage.setItem(STORAGE_KEYS.ADMIN_BACKUPS, JSON.stringify(updated));
   };
 
   const handleExportJSON = () => {
@@ -1075,7 +1076,7 @@ export default function AdminBackupPage() {
   const handleDeleteSnapshot = (id: string) => {
     const updated = snapshots.filter(s => s.id !== id);
     setSnapshots(updated);
-    localStorage.setItem("kts_admin_backups", JSON.stringify(updated));
+    localStorage.setItem(STORAGE_KEYS.ADMIN_BACKUPS, JSON.stringify(updated));
     showToast("Đã xóa backup");
   };
 

@@ -8,6 +8,7 @@ import { useXPSystem } from "@/hooks/useXPSystem";
 import { useToast } from "@/components/base/Toast";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import { isExamTooFast, isInCooldown, MIN_EPS_EXAM_TIME_SEC } from "@/lib/xp";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 interface ExamResult {
   id: string;
@@ -184,7 +185,7 @@ export default function EpsExamPage() {
 
   const startExam = useCallback(() => {
     // Anti-cheat: cooldown để chống spam
-    const lastAt = parseInt(localStorage.getItem("kts_eps_exam_last_at") || "0", 10) || null;
+    const lastAt = parseInt(localStorage.getItem(STORAGE_KEYS.EPS_EXAM_LAST_AT) || "0", 10) || null;
     const { inCooldown, remainingSec } = isInCooldown(lastAt);
     if (inCooldown) {
       showToast(`Vui lòng chờ ${remainingSec}s trước khi làm bài mới`, "warning", 3000);
@@ -243,7 +244,7 @@ export default function EpsExamPage() {
     }
 
     // Ghi timestamp cooldown — ngăn spam submit liên tiếp
-    localStorage.setItem("kts_eps_exam_last_at", String(Date.now()));
+    localStorage.setItem(STORAGE_KEYS.EPS_EXAM_LAST_AT, String(Date.now()));
 
     // Auto-sync to cloud after valid exam
     if (user) {

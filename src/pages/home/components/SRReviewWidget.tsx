@@ -2,6 +2,7 @@ import { useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { HANJA_DATA, HanjaEntry } from "@/mocks/hanjaData";
 import { supabase } from "@/lib/supabase";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 const DB_CACHE_KEY = "hanja_db_cache_v2";
 function readDbCache(): HanjaEntry[] {
@@ -37,7 +38,7 @@ function seededShuffle<T>(arr: T[], seed: number): T[] {
 function getDailyDueWords(): { entry: HanjaEntry; card: SRCard | null; isNew: boolean }[] {
   try {
     const allData = readDbCache();
-    const srData: Record<string, SRCard> = JSON.parse(localStorage.getItem("hanja_sr_data") || "{}");
+    const srData: Record<string, SRCard> = JSON.parse(localStorage.getItem(STORAGE_KEYS.HANJA_SR_DATA) || "{}");
     const now = Date.now();
     const today = new Date();
     const daySeed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
@@ -61,7 +62,7 @@ function getDailyDueWords(): { entry: HanjaEntry; card: SRCard | null; isNew: bo
 function getTotalDueLocal(): number {
   try {
     const allData = readDbCache();
-    const srData: Record<string, SRCard> = JSON.parse(localStorage.getItem("hanja_sr_data") || "{}");
+    const srData: Record<string, SRCard> = JSON.parse(localStorage.getItem(STORAGE_KEYS.HANJA_SR_DATA) || "{}");
     const now = Date.now();
     return allData.filter(e => {
       const card = srData[e.korean];

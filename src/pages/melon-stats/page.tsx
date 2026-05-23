@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { mockMelonSongs } from "@/mocks/melonSongs";
 import { MelonLessonResult } from "@/services/aiService";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 /* ── Types ─────────────────────────────────────────────────────────────────── */
 interface QuizScore { rank: number; score: number; total: number; date: string; }
@@ -9,11 +10,11 @@ interface VocabEntry { word: string; meaning: string; rank: number; songTitle: s
 
 /* ── Local helpers ─────────────────────────────────────────────────────────── */
 function loadLearnedRanks(): number[] {
-  try { return JSON.parse(localStorage.getItem("melon_learned_ranks") ?? "[]"); }
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.MELON_LEARNED_RANKS) ?? "[]"); }
   catch { return []; }
 }
 function loadQuizScores(): QuizScore[] {
-  try { return JSON.parse(localStorage.getItem("melon_quiz_scores") ?? "[]"); }
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.MELON_QUIZ_SCORES) ?? "[]"); }
   catch { return []; }
 }
 function loadAnalysis(rank: number): MelonLessonResult | null {
@@ -23,7 +24,7 @@ function loadAnalysis(rank: number): MelonLessonResult | null {
   } catch { return null; }
 }
 function loadFlashcardProgress(): Record<string, number> {
-  try { return JSON.parse(localStorage.getItem("melon_flashcard_progress") ?? "{}"); }
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.MELON_FLASHCARD_PROGRESS) ?? "{}"); }
   catch { return {}; }
 }
 

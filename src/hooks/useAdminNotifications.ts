@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 export interface AdminNotification {
   id: string;
@@ -102,7 +103,7 @@ export function useAdminNotifications() {
   useEffect(() => {
     const interval = setInterval(() => {
       const coupons = (() => {
-        try { return JSON.parse(localStorage.getItem("kts_coupons") || "[]") as { usageCount: number; code: string }[]; }
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.COUPONS) || "[]") as { usageCount: number; code: string }[]; }
         catch { return []; }
       })();
       const totalUsage = coupons.reduce((s: number, c: { usageCount: number }) => s + c.usageCount, 0);

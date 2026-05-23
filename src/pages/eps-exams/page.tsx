@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { EPS_EXAMS, EPSExam, EPSQuestion } from "@/data/epsExams";
 import { useXPSystem } from "@/hooks/useXPSystem";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 interface UserAnswer {
   questionId: string;
@@ -139,9 +140,9 @@ export default function EPSExamsPage() {
     });
 
     // Save to localStorage
-    const history = JSON.parse(localStorage.getItem("eps_exam_history") || "[]");
+    const history = JSON.parse(localStorage.getItem(STORAGE_KEYS.EPS_EXAM_HISTORY_LEGACY) || "[]");
     history.push(result);
-    localStorage.setItem("eps_exam_history", JSON.stringify(history));
+    localStorage.setItem(STORAGE_KEYS.EPS_EXAM_HISTORY_LEGACY, JSON.stringify(history));
   };
 
   const handleBackToSelection = () => {

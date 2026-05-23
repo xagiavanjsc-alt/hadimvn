@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { epsQuestions, EpsQuestion } from "@/mocks/epsQuestions";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface ExamResult {
@@ -394,7 +395,7 @@ function ResultScreen({ questions, results, timeUsed, onReview, onRetry }: Resul
 
   // Save to history
   useEffect(() => {
-    const history = JSON.parse(localStorage.getItem("kts_eps_exam_history") || "[]");
+    const history = JSON.parse(localStorage.getItem(STORAGE_KEYS.EPS_EXAM_HISTORY) || "[]");
     history.unshift({
       id: Date.now().toString(),
       date: new Date().toISOString(),
@@ -406,10 +407,10 @@ function ResultScreen({ questions, results, timeUsed, onReview, onRetry }: Resul
       timeUsed,
       passed,
     });
-    localStorage.setItem("kts_eps_exam_history", JSON.stringify(history.slice(0, 50)));
+    localStorage.setItem(STORAGE_KEYS.EPS_EXAM_HISTORY, JSON.stringify(history.slice(0, 50)));
 
     // Save wrong answers
-    const wrongAnswers = JSON.parse(localStorage.getItem("kts_eps_wrong_answers") || "[]");
+    const wrongAnswers = JSON.parse(localStorage.getItem(STORAGE_KEYS.EPS_WRONG_ANSWERS) || "[]");
     results.forEach((r, i) => {
       if (!r.isCorrect) {
         const q = questions[i];
@@ -429,7 +430,7 @@ function ResultScreen({ questions, results, timeUsed, onReview, onRetry }: Resul
         }
       }
     });
-    localStorage.setItem("kts_eps_wrong_answers", JSON.stringify(wrongAnswers));
+    localStorage.setItem(STORAGE_KEYS.EPS_WRONG_ANSWERS, JSON.stringify(wrongAnswers));
   }, []);
 
   return (

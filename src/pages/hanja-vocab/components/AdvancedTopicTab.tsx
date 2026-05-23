@@ -1,3 +1,4 @@
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 ﻿import { useState, useMemo } from "react";
 
 interface TopicWord {
@@ -185,7 +186,7 @@ export default function AdvancedTopicTab() {
   const [mode, setMode] = useState<"browse" | "quiz">("browse");
   const [quiz, setQuiz] = useState<QuizState | null>(null);
   const [learnedWords, setLearnedWords] = useState<Set<string>>(() => {
-    try { return new Set(JSON.parse(localStorage.getItem("hanja_adv_learned") || "[]")); }
+    try { return new Set(JSON.parse(localStorage.getItem(STORAGE_KEYS.HANJA_ADV_LEARNED) || "[]")); }
     catch { return new Set(); }
   });
   const [expandedWord, setExpandedWord] = useState<string | null>(null);
@@ -194,7 +195,7 @@ export default function AdvancedTopicTab() {
     setLearnedWords(prev => {
       const next = new Set(prev);
       next.has(korean) ? next.delete(korean) : next.add(korean);
-      localStorage.setItem("hanja_adv_learned", JSON.stringify(Array.from(next)));
+      localStorage.setItem(STORAGE_KEYS.HANJA_ADV_LEARNED, JSON.stringify(Array.from(next)));
       return next;
     });
   };

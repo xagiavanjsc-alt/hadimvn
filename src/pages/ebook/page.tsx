@@ -10,6 +10,7 @@ import EbookTemplates, { type EbookTemplate } from "./components/EbookTemplates"
 import EbookPDFPreview from "./components/EbookPDFPreview";
 import EbookBatchExport from "./components/EbookBatchExport";
 import FreeStoryGenerator from "./components/FreeStoryGenerator";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 export interface EbookMeta {
   title: string;
@@ -160,9 +161,9 @@ export default function EbookPage() {
 
   const handleAddFreeLesson = useCallback((lesson: ApprovedLesson) => {
     // Add to approvedLessons in localStorage
-    const stored = JSON.parse(localStorage.getItem("kts_melon_lessons") ?? "[]") as ApprovedLesson[];
+    const stored = JSON.parse(localStorage.getItem(STORAGE_KEYS.MELON_LESSONS) ?? "[]") as ApprovedLesson[];
     const updated = [...stored, lesson];
-    localStorage.setItem("kts_melon_lessons", JSON.stringify(updated));
+    localStorage.setItem(STORAGE_KEYS.MELON_LESSONS, JSON.stringify(updated));
     // Auto-select the new lesson
     setSelectedRanks((prev) => [...prev, lesson.song.rank]);
     showToast(`Đã thêm "${lesson.song.title}" vào ebook!`);

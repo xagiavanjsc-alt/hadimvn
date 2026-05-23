@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface RoadmapItem {
@@ -289,7 +290,7 @@ export default function OnboardingPage() {
 
   const handleStart = () => {
     // Save onboarding complete
-    localStorage.setItem("kts_onboarding_done", "1");
+    localStorage.setItem(STORAGE_KEYS.ONBOARDING_DONE, "1");
   };
 
   const canProceed = (s: number) => {

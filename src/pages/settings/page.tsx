@@ -4,6 +4,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useApiCostTracker } from "@/hooks/useApiCostTracker";
 import type { AIProvider } from "@/services/aiService";
 import { useToast } from "@/components/base/Toast";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 type TestStatus = "idle" | "testing" | "ok" | "fail";
 interface TestResult {
@@ -782,9 +783,9 @@ export default function SettingsPage() {
 
             <button
               onClick={() => {
-                localStorage.removeItem("kts_melon_seen_songs");
-                localStorage.removeItem("kts_melon_cached_songs");
-                localStorage.removeItem("kts_melon_fetch_meta");
+                localStorage.removeItem(STORAGE_KEYS.MELON_SEEN_SONGS);
+                localStorage.removeItem(STORAGE_KEYS.MELON_CACHED_SONGS);
+                localStorage.removeItem(STORAGE_KEYS.MELON_FETCH_META);
                 showToastMsg("Đã reset lịch sử bài hát Melon — lần quét tiếp sẽ coi tất cả là bài mới");
               }}
               className="flex items-center gap-2 text-amber-400/50 hover:text-amber-400 text-xs transition-colors cursor-pointer"
@@ -795,7 +796,7 @@ export default function SettingsPage() {
 
             <button
               onClick={() => {
-                localStorage.removeItem("kts_naver_cache");
+                localStorage.removeItem(STORAGE_KEYS.NAVER_CACHE);
                 showToastMsg("Đã xóa cache tìm kiếm Naver KiN");
               }}
               className="flex items-center gap-2 text-sky-400/50 hover:text-sky-400 text-xs transition-colors cursor-pointer"

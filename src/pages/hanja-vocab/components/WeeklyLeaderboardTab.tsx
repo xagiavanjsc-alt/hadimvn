@@ -1,6 +1,7 @@
 ﻿import { useState, useMemo, useEffect } from "react";
 import { useHanjaData } from "@/contexts/HanjaDataContext";
 import { getStreakData } from "@/utils/streak";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 interface LeaderboardEntry {
   id: string;
@@ -62,11 +63,11 @@ function loadMyProgress(): WeeklyProgress {
 function computeMyProgress(hanjaTotal: number): WeeklyProgress {
   try {
     const srData: Record<string, { interval: number; totalReviews: number }> =
-      JSON.parse(localStorage.getItem("hanja_sr_data") || "{}");
+      JSON.parse(localStorage.getItem(STORAGE_KEYS.HANJA_SR_DATA) || "{}");
     const wordsLearned = Object.values(srData).filter(c => c.interval >= 7).length;
     const streakData = getStreakData();
     const streak = streakData.currentStreak;
-    const totalXp = parseInt(localStorage.getItem("xp_total") || "0", 10);
+    const totalXp = parseInt(localStorage.getItem(STORAGE_KEYS.XP_TOTAL) || "0", 10);
     return {
       wordsLearned,
       quizScore: Math.min(100, Math.round((wordsLearned / Math.max(1, hanjaTotal)) * 100 * 10)),

@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect, useRef, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 interface TreeNode {
   id: number;
@@ -76,7 +77,7 @@ export default function AdvancedDictionaryPage() {
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    const saved = localStorage.getItem("adv_dict_recent");
+    const saved = localStorage.getItem(STORAGE_KEYS.ADV_DICT_RECENT);
     if (saved) { try { setRecentSearches(JSON.parse(saved)); } catch { /* ignore */ } }
     loadBrowse(null);
   }, []);
@@ -129,7 +130,7 @@ export default function AdvancedDictionaryPage() {
     }
     const updated = [node.korean, ...recentSearches.filter(r => r !== node.korean)].slice(0, 8);
     setRecentSearches(updated);
-    localStorage.setItem("adv_dict_recent", JSON.stringify(updated));
+    localStorage.setItem(STORAGE_KEYS.ADV_DICT_RECENT, JSON.stringify(updated));
   };
 
   const handleSearch = async () => {
@@ -224,7 +225,7 @@ export default function AdvancedDictionaryPage() {
               <div className="rounded-2xl border p-4" style={{ backgroundColor: "#0f1117", borderColor: "rgba(255,255,255,0.07)" }}>
                 <div className="flex items-center justify-between mb-3">
                   <p className="text-[10px] font-semibold" style={{ color: "rgba(255,255,255,0.3)" }}>Tìm kiếm gần đây</p>
-                  <button onClick={() => { setRecentSearches([]); localStorage.removeItem("adv_dict_recent"); }}
+                  <button onClick={() => { setRecentSearches([]); localStorage.removeItem(STORAGE_KEYS.ADV_DICT_RECENT); }}
                     className="text-[10px] cursor-pointer" style={{ color: "rgba(255,255,255,0.2)" }}>Xóa</button>
                 </div>
                 <div className="flex flex-wrap gap-2">

@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { epsVocabulary } from "@/mocks/epsVocabulary";
 import { seoulBooks } from "@/mocks/seoulTextbook";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 // ─── Navigation items ─────────────────────────────────────────────────────────
 interface NavItem {
@@ -157,7 +158,7 @@ const DEFAULT_QA: QAItem[] = [
 
 function loadQA(): QAItem[] {
   try {
-    const raw = localStorage.getItem("kts_naver_qa");
+    const raw = localStorage.getItem(STORAGE_KEYS.NAVER_QA);
     if (raw) return JSON.parse(raw) as QAItem[];
   } catch { /* ignore */ }
   return DEFAULT_QA;

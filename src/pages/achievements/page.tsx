@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { getStreakData } from "@/utils/streak";
 import { readJSON } from "@/utils/safeStorage";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 interface Achievement {
   id: string;
@@ -158,7 +159,7 @@ export default function AchievementsPage() {
     const flashcardData = readJSON<Record<string, unknown>>("kts_flashcard_progress", {});
     const wordsLearned = Object.keys(flashcardData).length || 247;
     const quizHistory = readJSON<unknown[]>("kts_quiz_history", []);
-    const ebookExports = parseInt(localStorage.getItem("kts_pdf_exports_count") || "0") || 0;
+    const ebookExports = parseInt(localStorage.getItem(STORAGE_KEYS.ADMIN_PDF_EXPORTS_COUNT) || "0") || 0;
 
     const xpData = readJSON<{ total?: number }>("kts_xp", {});
     const totalXP = xpData.total || 0;

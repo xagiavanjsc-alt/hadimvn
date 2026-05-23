@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 // ─── Admin email list (client-side hint only, RLS is the real guard) ──────────
 const ADMIN_EMAILS: string[] = [
@@ -17,12 +18,12 @@ export function useIsAdmin(): boolean {
   const [isAdmin, setIsAdmin] = useState<boolean>(() => {
     // Fast sync check from localStorage (cache only, short TTL)
     try {
-      const raw = localStorage.getItem("kts_admin_verified");
+      const raw = localStorage.getItem(STORAGE_KEYS.ADMIN_VERIFIED);
       if (!raw) return false;
       const parsed = JSON.parse(raw);
       if (parsed?.verified === true) {
         if (parsed.expiresAt && Date.now() > parsed.expiresAt) {
-          localStorage.removeItem("kts_admin_verified");
+          localStorage.removeItem(STORAGE_KEYS.ADMIN_VERIFIED);
           return false;
         }
         return true;
@@ -38,7 +39,7 @@ export function useIsAdmin(): boolean {
       const user = data?.user;
       if (!user) {
         // No session → clear cache
-        localStorage.removeItem("kts_admin_verified");
+        localStorage.removeItem(STORAGE_KEYS.ADMIN_VERIFIED);
         setIsAdmin(false);
         return;
       }
@@ -65,7 +66,7 @@ export function useIsAdmin(): boolean {
       }
 
       // 3. Not admin → clear cache
-      localStorage.removeItem("kts_admin_verified");
+      localStorage.removeItem(STORAGE_KEYS.ADMIN_VERIFIED);
       setIsAdmin(false);
     });
     return () => { mounted = false; };
@@ -79,8 +80,7 @@ export function useIsAdmin(): boolean {
  * Short TTL (1 hour) to force re-verification frequently.
  */
 export function markAdminVerified(): void {
-  localStorage.setItem(
-    "kts_admin_verified",
+  localStorage.setItem(STORAGE_KEYS.ADMIN_VERIFIED,
     JSON.stringify({
       verified: true,
       // Expires after 1 hour (was 48h — too long for admin cache)
@@ -93,5 +93,5 @@ export function markAdminVerified(): void {
  * Clear admin session (logout)
  */
 export function clearAdminVerified(): void {
-  localStorage.removeItem("kts_admin_verified");
+  localStorage.removeItem(STORAGE_KEYS.ADMIN_VERIFIED);
 }

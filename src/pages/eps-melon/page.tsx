@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { MelonSong } from "@/mocks/melonSongs";
 import { epsVocabulary } from "@/mocks/epsVocabulary";
 import { useMelonSongs } from "@/hooks/useMelonSongs";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 const PAGE_SIZE = 32;
 
@@ -106,7 +107,7 @@ export default function EpsMelonPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [learnedIds, setLearnedIds] = useState<Set<string>>(() => {
     try {
-      const raw = localStorage.getItem("eps_melon_learned");
+      const raw = localStorage.getItem(STORAGE_KEYS.EPS_MELON_LEARNED);
       return new Set(raw ? JSON.parse(raw) : []);
     } catch { return new Set(); }
   });
@@ -182,7 +183,7 @@ export default function EpsMelonPage() {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
-      localStorage.setItem("eps_melon_learned", JSON.stringify([...next]));
+      localStorage.setItem(STORAGE_KEYS.EPS_MELON_LEARNED, JSON.stringify([...next]));
       return next;
     });
   }, []);
