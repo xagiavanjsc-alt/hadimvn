@@ -1,6 +1,4 @@
 import { useState, memo } from "react";
-import html2canvas from "html2canvas";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 interface ShareResultModalProps {
   score: number;

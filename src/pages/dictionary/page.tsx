@@ -2,7 +2,6 @@
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
-import * as XLSX from "xlsx";
 import { useVipYearGuard, addCsvWatermark } from "@/hooks/useVipYearGuard";
 import VipUpgradeModal from "@/components/feature/VipUpgradeModal";
 
@@ -166,27 +165,33 @@ export default function DictionaryPage() {
       "Nghệ sĩ": v.artists.join("; "),
       "Số lần xuất hiện": v.count,
     }));
-    const ws = XLSX.utils.json_to_sheet(rows);
-    ws["!cols"] = [
-      { wch: 20 }, { wch: 30 }, { wch: 50 }, { wch: 40 }, { wch: 30 }, { wch: 10 },
-    ];
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Tu dien K-pop");
-    const fileName = `KTS_Dictionary_${new Date().toISOString().split("T")[0]}.xlsx`;
-    const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-    const blob = new Blob([wbout], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    const msg = isVipYear
-      ? `Đã xuất ${dictionary.length} từ ra Excel!`
-      : `Đã xuất 50 từ (VIP Tháng giới hạn). Nâng cấp VIP Năm để xuất toàn bộ!`;
-    showExportToast(msg);
+    // xlsx is a 400KB+ dependency — lazy-load only when the user actually
+    // clicks "export to Excel" instead of paying for it on every dictionary
+    // page visit.
+    void (async () => {
+      const XLSX = await import("xlsx");
+      const ws = XLSX.utils.json_to_sheet(rows);
+      ws["!cols"] = [
+        { wch: 20 }, { wch: 30 }, { wch: 50 }, { wch: 40 }, { wch: 30 }, { wch: 10 },
+      ];
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Tu dien K-pop");
+      const fileName = `KTS_Dictionary_${new Date().toISOString().split("T")[0]}.xlsx`;
+      const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+      const blob = new Blob([wbout], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      const msg = isVipYear
+        ? `Đã xuất ${dictionary.length} từ ra Excel!`
+        : `Đã xuất 50 từ (VIP Tháng giới hạn). Nâng cấp VIP Năm để xuất toàn bộ!`;
+      showExportToast(msg);
+    })();
   };
 
   const handleExportAnki = () => {
