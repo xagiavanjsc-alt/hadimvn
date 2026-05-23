@@ -76,18 +76,20 @@ export default function StatsTab() {
           <h2 className="text-base font-bold text-white">Tổng quan tiến độ</h2>
         </div>
 
-        <div className="grid grid-cols-3 gap-3 mb-5">
+        <div className="grid grid-cols-3 gap-2.5 sm:gap-3 mb-5">
           {[
             { label: "Chưa học", value: overall.new, icon: "ri-seedling-line", border: "border-slate-500/20", bg: "bg-slate-500/10", iconBg: "bg-slate-500/20", iconColor: "text-slate-300", textColor: "text-slate-300" },
             { label: "Đang học", value: overall.learning, icon: "ri-book-open-line", border: "border-amber-500/20", bg: "bg-amber-500/10", iconBg: "bg-amber-500/20", iconColor: "text-amber-400", textColor: "text-amber-400" },
             { label: "Đã thuộc", value: overall.mastered, icon: "ri-check-double-line", border: "border-green-500/20", bg: "bg-green-500/10", iconBg: "bg-green-500/20", iconColor: "text-green-400", textColor: "text-green-400" },
           ].map(c => (
-            <div key={c.label} className={`relative flex flex-col items-center justify-center text-center rounded-2xl border ${c.border} ${c.bg} p-4 sm:p-5 transition-colors`}>
-              <div className={`w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl ${c.iconBg} mb-2`}>
-                <i className={`${c.icon} ${c.iconColor} text-base sm:text-lg`}></i>
+            <div key={c.label} className={`rounded-xl border ${c.border} ${c.bg} px-3 py-2.5 sm:px-4 sm:py-3 transition-colors`}>
+              <div className="flex items-center gap-2 mb-0.5">
+                <div className={`w-7 h-7 flex items-center justify-center rounded-lg ${c.iconBg} flex-shrink-0`}>
+                  <i className={`${c.icon} ${c.iconColor} text-sm`}></i>
+                </div>
+                <p className={`text-lg sm:text-xl font-bold ${c.textColor} leading-none tabular-nums truncate`}>{c.value.toLocaleString("vi-VN")}</p>
               </div>
-              <p className={`text-2xl sm:text-3xl font-bold ${c.textColor} leading-none`}>{c.value.toLocaleString()}</p>
-              <p className="text-xs text-white/50 mt-1.5">{c.label}</p>
+              <p className="text-[11px] sm:text-xs text-white/50">{c.label}</p>
             </div>
           ))}
         </div>
