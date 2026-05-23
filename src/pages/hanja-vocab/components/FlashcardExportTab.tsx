@@ -259,12 +259,12 @@ export default function FlashcardExportTab() {
             <p className="text-sm font-semibold text-white/80 mb-3">Lọc theo chữ cái</p>
             <div className="flex flex-wrap gap-1.5">
               <button onClick={() => setSelectedAlpha(null)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-medium cursor-pointer transition-all ${!selectedAlpha ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
+                className={`px-2.5 py-1 rounded-lg text-xs font-medium cursor-pointer transition-all ${!selectedAlpha ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
                 Tất cả
               </button>
               {ALPHABET_GROUPS.map(alpha => (
                 <button key={alpha} onClick={() => setSelectedAlpha(selectedAlpha === alpha ? null : alpha)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-medium cursor-pointer transition-all ${selectedAlpha === alpha ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
+                  className={`px-2.5 py-1 rounded-lg text-xs font-medium cursor-pointer transition-all ${selectedAlpha === alpha ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
                   {alpha}
                   {alphaGroups[alpha] ? <span className="ml-1 opacity-60">({alphaGroups[alpha]})</span> : null}
                 </button>

@@ -316,12 +316,12 @@ export default function PronunciationTab() {
       {/* Filter */}
       <div className="flex flex-wrap gap-1.5 mb-5">
         <button onClick={() => setSelectedInitial(null)}
-          className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
+          className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
           Tất cả
         </button>
         {ALPHABET_GROUPS.map(g => (
           <button key={g} onClick={() => setSelectedInitial(selectedInitial === g ? null : g)}
-            className={`px-2.5 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedInitial === g ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
+            className={`px-2.5 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedInitial === g ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
             {g}
           </button>
         ))}
@@ -363,7 +363,7 @@ export default function PronunciationTab() {
           {/* TTS buttons */}
           <div className="flex gap-3 p-4 border-b border-app-border">
             <button onClick={handleSpeak} disabled={isSpeaking}
-              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium cursor-pointer transition-all ${isSpeaking ? "bg-app-accent-primary text-white" : "bg-app-accent-primary/10 text-app-accent-primary hover:bg-app-accent-primary/20"}`}>
+              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium cursor-pointer transition-all ${isSpeaking ? "bg-app-accent-primary text-app-bg" : "bg-app-accent-primary/10 text-app-accent-primary hover:bg-app-accent-primary/20"}`}>
               <i className={isSpeaking ? "ri-volume-up-fill" : "ri-volume-up-line"}></i>
               {isSpeaking ? "Đang phát..." : "Nghe phát âm chuẩn"}
             </button>
@@ -379,7 +379,7 @@ export default function PronunciationTab() {
               <div className="text-center">
                 <p className="text-sm text-white/50 mb-4">Nghe phát âm chuẩn, sau đó nhấn ghi âm để luyện tập</p>
                 <button onClick={startRecording}
-                  className="flex items-center gap-3 px-8 py-4 bg-app-accent-primary text-white rounded-2xl font-bold text-base cursor-pointer hover:bg-app-accent-primary/90 transition-all mx-auto">
+                  className="flex items-center gap-3 px-8 py-4 bg-app-accent-primary text-app-bg rounded-2xl font-bold text-base cursor-pointer hover:bg-app-accent-primary/90 transition-all mx-auto">
                   <i className="ri-mic-line text-xl"></i>
                   Bắt đầu ghi âm
                 </button>
@@ -465,7 +465,7 @@ export default function PronunciationTab() {
 
                 <div className="flex gap-3">
                   <button onClick={startRecording}
-                    className="flex-1 flex items-center justify-center gap-2 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
+                    className="flex-1 flex items-center justify-center gap-2 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
                     <i className="ri-mic-line"></i>Thử lại
                   </button>
                   <button onClick={nextWord}

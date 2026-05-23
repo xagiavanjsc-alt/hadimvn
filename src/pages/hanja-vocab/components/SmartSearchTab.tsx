@@ -225,7 +225,7 @@ export default function SmartSearchTab() {
             )}
           </div>
           <button onClick={() => handleSearch(query)}
-            className="px-6 py-3 bg-app-accent-primary text-white rounded-xl font-medium cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
+            className="px-6 py-3 bg-app-accent-primary text-app-bg rounded-xl font-medium cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
             Tìm
           </button>
         </div>

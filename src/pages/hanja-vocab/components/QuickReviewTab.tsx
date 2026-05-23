@@ -265,7 +265,7 @@ export default function QuickReviewTab({ favs }: { favs: Set<string> }) {
           {/* Filters */}
           <div className="flex flex-wrap gap-2 mb-5">
             <button onClick={() => setOnlyFavs(f => !f)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${onlyFavs ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70"}`}>
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all ${onlyFavs ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/70"}`}>
               <i className="ri-heart-line"></i>Yêu thích ({favs.size})
             </button>
             <button onClick={() => setOnlyNew(f => !f)}
@@ -279,7 +279,7 @@ export default function QuickReviewTab({ favs }: { favs: Set<string> }) {
             <p className="text-xs text-white/50 mb-2">Lọc theo nhóm chữ cái</p>
             <div className="flex flex-wrap gap-1.5">
               <button onClick={() => setSelectedInitial(null)}
-                className={`px-2.5 py-1 rounded-full text-xs cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70"}`}>
+                className={`px-2.5 py-1 rounded-full text-xs cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/70"}`}>
                 Tất cả ({HANJA_DATA.length})
               </button>
               {ALPHABET_GROUPS.map(g => {
@@ -287,7 +287,7 @@ export default function QuickReviewTab({ favs }: { favs: Set<string> }) {
                 if (cnt === 0) return null;
                 return (
                   <button key={g} onClick={() => setSelectedInitial(selectedInitial === g ? null : g)}
-                    className={`px-2.5 py-1 rounded-full text-xs cursor-pointer whitespace-nowrap transition-all ${selectedInitial === g ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70"}`}>
+                    className={`px-2.5 py-1 rounded-full text-xs cursor-pointer whitespace-nowrap transition-all ${selectedInitial === g ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/70"}`}>
                     {g} ({cnt})
                   </button>
                 );
@@ -296,7 +296,7 @@ export default function QuickReviewTab({ favs }: { favs: Set<string> }) {
           </div>
 
           <button onClick={startSession} disabled={pool.length === 0}
-            className="w-full py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            className="w-full py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
             Bắt đầu ({Math.min(30, pool.length)} từ)
           </button>
         </div>
@@ -320,7 +320,7 @@ export default function QuickReviewTab({ favs }: { favs: Set<string> }) {
           <p className="text-xs text-green-400 mb-6">Các từ bạn biết đã được đánh dấu &ldquo;Đã thuộc&rdquo; tự động</p>
           <div className="flex gap-3">
             <button onClick={startSession}
-              className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
+              className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
               Ôn lại
             </button>
             <button onClick={() => { setResult(null); setStarted(false); }}

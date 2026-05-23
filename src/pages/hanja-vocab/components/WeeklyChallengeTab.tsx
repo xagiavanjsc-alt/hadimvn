@@ -116,7 +116,7 @@ function WeeklyQuiz({ words, onPass, onFail }: {
               <i className="ri-gift-line mr-2"></i>Nhận XP Bonus!
             </button>
           ) : (
-            <button onClick={onFail} className="px-6 py-3 bg-app-accent-primary text-white rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
+            <button onClick={onFail} className="px-6 py-3 bg-app-accent-primary text-app-bg rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
               Thử lại
             </button>
           )}
@@ -158,7 +158,7 @@ function WeeklyQuiz({ words, onPass, onFail }: {
         })}
       </div>
       {answered && (
-        <button onClick={next} className="w-full py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
+        <button onClick={next} className="w-full py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
           {idx + 1 >= questions.length ? "Xem kết quả" : "Câu tiếp →"}
         </button>
       )}
@@ -266,7 +266,7 @@ export default function WeeklyChallengeTab() {
             ))}
           </div>
           <button onClick={() => setShowXpModal(false)}
-            className="w-full py-3 bg-app-accent-primary text-white rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
+            className="w-full py-3 bg-app-accent-primary text-app-bg rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
             Tuyệt vời!
           </button>
         </div>
@@ -338,7 +338,7 @@ export default function WeeklyChallengeTab() {
           <div className="flex flex-wrap gap-1.5">
             {weekWords.map((w, i) => (
               <button key={i} onClick={() => { setStudyIdx(i); setStudyFlipped(false); }}
-                className={`px-2 py-1 rounded-lg text-xs font-medium cursor-pointer transition-all ${i === studyIdx ? "bg-app-accent-primary text-white" : challenge.learned.includes(w.korean) ? "bg-green-500/20 text-green-400" : "bg-app-surface/50 text-white/70 border border-app-border"}`}>
+                className={`px-2 py-1 rounded-lg text-xs font-medium cursor-pointer transition-all ${i === studyIdx ? "bg-app-accent-primary text-app-bg" : challenge.learned.includes(w.korean) ? "bg-green-500/20 text-green-400" : "bg-app-surface/50 text-white/70 border border-app-border"}`}>
                 {w.korean}
               </button>
             ))}
@@ -452,7 +452,7 @@ export default function WeeklyChallengeTab() {
       {/* Action buttons */}
       <div className="flex gap-3 mb-6">
         <button onClick={() => { setStudyIdx(0); setStudyFlipped(false); setView("study"); }}
-          className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-app-accent-primary text-white rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
+          className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-app-accent-primary text-app-bg rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
           <i className="ri-book-open-line"></i>
           {learnedCount === 0 ? "Bắt đầu học" : "Tiếp tục học"}
         </button>

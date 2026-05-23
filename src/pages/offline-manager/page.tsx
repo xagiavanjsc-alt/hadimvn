@@ -301,7 +301,7 @@ export default function OfflineManagerPage() {
                     <button
                       onClick={() => downloadContent(content.id)}
                       disabled={!isOnline || isDownloading}
-                      className="px-4 py-2 rounded-lg bg-app-accent-primary text-white text-sm font-medium cursor-pointer hover:bg-app-accent-primary/80 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-4 py-2 rounded-lg bg-app-accent-primary text-app-bg text-sm font-medium cursor-pointer hover:bg-app-accent-primary/80 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {progress > 0 && progress < 100 ? `${Math.round(progress)}%` : "Tải"}
                     </button>

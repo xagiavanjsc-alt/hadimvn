@@ -137,7 +137,7 @@ export default function WeeklyLeaderboardTab() {
           </div>
           <button
             onClick={() => setShowShareModal(true)}
-            className="flex items-center gap-1.5 px-3 py-2 bg-app-accent-primary text-white rounded-xl text-sm font-medium cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap"
+            className="flex items-center gap-1.5 px-3 py-2 bg-app-accent-primary text-app-bg rounded-xl text-sm font-medium cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap"
           >
             <i className="ri-share-line"></i>Chia sẻ
           </button>
@@ -146,7 +146,7 @@ export default function WeeklyLeaderboardTab() {
         {/* My stats */}
         <div className="bg-app-surface/70 rounded-xl p-4">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 flex items-center justify-center bg-app-accent-primary text-white rounded-full font-bold text-sm flex-shrink-0">
+            <div className="w-10 h-10 flex items-center justify-center bg-app-accent-primary text-app-bg rounded-full font-bold text-sm flex-shrink-0">
               BN
             </div>
             <div className="flex-1">
@@ -188,7 +188,7 @@ export default function WeeklyLeaderboardTab() {
           <button
             key={opt.key}
             onClick={() => setSortBy(opt.key)}
-            className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${sortBy === opt.key ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}
+            className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${sortBy === opt.key ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}
           >
             {opt.label}
           </button>
@@ -205,7 +205,7 @@ export default function WeeklyLeaderboardTab() {
             const h = heights[podiumIdx];
             return (
               <div key={entry.id} className={`flex flex-col items-center ${podiumIdx === 1 ? "order-2" : podiumIdx === 0 ? "order-1" : "order-3"}`}>
-                <div className={`w-12 h-12 flex items-center justify-center rounded-full font-bold text-sm mb-1 border-2 ${entry.isMe ? "bg-app-accent-primary text-white border-app-accent-primary/40" : "bg-app-surface/50 text-white/80 border-app-border"}`}>
+                <div className={`w-12 h-12 flex items-center justify-center rounded-full font-bold text-sm mb-1 border-2 ${entry.isMe ? "bg-app-accent-primary text-app-bg border-app-accent-primary/40" : "bg-app-surface/50 text-white/80 border-app-border"}`}>
                   {entry.avatar}
                 </div>
                 <p className="text-xs font-semibold text-white/80 mb-1 text-center leading-tight">{entry.name}</p>
@@ -246,7 +246,7 @@ export default function WeeklyLeaderboardTab() {
                   )}
                 </div>
                 <div className="flex items-center gap-2.5">
-                  <div className={`w-8 h-8 flex items-center justify-center rounded-full text-xs font-bold flex-shrink-0 ${entry.isMe ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70"}`}>
+                  <div className={`w-8 h-8 flex items-center justify-center rounded-full text-xs font-bold flex-shrink-0 ${entry.isMe ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/70"}`}>
                     {entry.avatar}
                   </div>
                   <div>
@@ -295,7 +295,7 @@ export default function WeeklyLeaderboardTab() {
             </div>
             <div className="flex gap-3">
               <button onClick={() => setShowShareModal(false)} className="flex-1 py-2.5 border border-app-border text-white/70 rounded-xl text-sm cursor-pointer hover:bg-app-surface/50 transition-colors">Hủy</button>
-              <button onClick={handleShare} className="flex-1 py-2.5 bg-app-accent-primary text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
+              <button onClick={handleShare} className="flex-1 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
                 {copied ? <><i className="ri-check-line mr-1"></i>Đã sao chép!</> : <><i className="ri-clipboard-line mr-1"></i>Sao chép</>}
               </button>
             </div>

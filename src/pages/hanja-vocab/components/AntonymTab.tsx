@@ -230,7 +230,7 @@ function AntonymQuiz({ pairs, onClose }: { pairs: AntonymPair[]; onClose: () => 
               {entryB && <p className="text-xs text-white/50">{entryB.vietnamese}</p>}
             </div>
           </div>
-          <button onClick={next} className="w-full mt-3 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
+          <button onClick={next} className="w-full mt-3 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
             {idx + 1 >= questions.length ? "Xem kết quả" : "Tiếp theo →"}
           </button>
         </div>
@@ -304,7 +304,7 @@ function AddPairModal({ onAdd, onClose }: { onAdd: (pair: AntonymPair) => void; 
           <div className="flex flex-wrap gap-2">
             {PRESET_CATS.map(cat => (
               <button key={cat} onClick={() => setCategory(cat)}
-                className={`px-3 py-1 rounded-full text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${category === cat ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
+                className={`px-3 py-1 rounded-full text-xs font-medium cursor-pointer transition-all whitespace-nowrap ${category === cat ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
                 {cat}
               </button>
             ))}
@@ -321,7 +321,7 @@ function AddPairModal({ onAdd, onClose }: { onAdd: (pair: AntonymPair) => void; 
           <button onClick={onClose} className="flex-1 py-2.5 border border-app-border text-white/80 rounded-xl text-sm font-medium cursor-pointer hover:bg-app-surface/50 transition-colors">
             Hủy
           </button>
-          <button onClick={handleSubmit} className="flex-1 py-2.5 bg-app-accent-primary text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
+          <button onClick={handleSubmit} className="flex-1 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
             Thêm cặp
           </button>
         </div>
@@ -533,7 +533,7 @@ export default function AntonymTab() {
           <i className="ri-add-line"></i>Thêm cặp mới
         </button>
         <button onClick={() => setQuizMode(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-white rounded-lg text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
+          className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-app-bg rounded-lg text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
           <i className="ri-gamepad-line"></i>Quiz ({Math.min(15, filteredPairs.length)} cặp)
         </button>
       </div>
@@ -541,14 +541,14 @@ export default function AntonymTab() {
       {/* Category filter */}
       <div className="flex flex-wrap gap-2 mb-5">
         <button onClick={() => setSelectedCategory(null)}
-          className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${!selectedCategory ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
+          className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${!selectedCategory ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
           Tất cả ({ALL_PAIRS.length} cặp)
         </button>
         {CATEGORIES.map(cat => {
           const cnt = ALL_PAIRS.filter(p => p.category === cat).length;
           return (
             <button key={cat} onClick={() => setSelectedCategory(selectedCategory === cat ? null : cat)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedCategory === cat ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
+              className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedCategory === cat ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
               {cat} ({cnt})
             </button>
           );
@@ -564,7 +564,7 @@ export default function AntonymTab() {
           <p className="text-white/80 font-medium mb-1">Chưa có cặp đối nghĩa nào</p>
           <p className="text-sm text-white/40 mb-4">Thêm cặp đối nghĩa của riêng bạn để luyện tập</p>
           <button onClick={() => setShowAddModal(true)}
-            className="px-5 py-2 bg-app-accent-primary text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
+            className="px-5 py-2 bg-app-accent-primary text-app-bg rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
             Thêm cặp đầu tiên
           </button>
         </div>

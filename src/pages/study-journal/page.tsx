@@ -209,7 +209,7 @@ function ShareJournalModal({ entry, onClose }: ShareJournalModalProps) {
             <button
               onClick={handleDownload}
               disabled={downloading}
-              className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-app-accent-primary text-white text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors disabled:opacity-60"
+              className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-app-accent-primary text-app-bg text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors disabled:opacity-60"
             >
               <i className={`${downloading ? "ri-loader-4-line animate-spin" : "ri-download-line"} text-sm`}></i>
               {downloading ? "Đang tạo..." : "Tải ảnh"}
@@ -468,7 +468,7 @@ function JournalForm({ initial, onSave, onCancel }: JournalFormProps) {
         </button>
         <button
           onClick={handleSubmit}
-          className="flex-1 py-2.5 rounded-lg bg-app-accent-primary text-white text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors"
+          className="flex-1 py-2.5 rounded-lg bg-app-accent-primary text-app-bg text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors"
         >
           {initial ? "Lưu thay đổi" : "Lưu nhật ký"}
         </button>
@@ -748,7 +748,7 @@ export default function StudyJournalPage() {
             {!showForm && (
               <button
                 onClick={() => { setEditEntry(null); setShowForm(true); }}
-                className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-white rounded-lg text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-app-bg rounded-lg text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors"
               >
                 <i className="ri-add-line"></i>
                 {hasToday ? "Thêm ghi chú" : "Ghi hôm nay"}
@@ -844,7 +844,7 @@ export default function StudyJournalPage() {
               <p className="text-sm text-gray-400 mb-5">Bắt đầu ghi lại hành trình học tiếng Hàn của bạn!</p>
               <button
                 onClick={() => setShowForm(true)}
-                className="px-5 py-2.5 bg-app-accent-primary text-white rounded-lg text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors"
+                className="px-5 py-2.5 bg-app-accent-primary text-app-bg rounded-lg text-sm font-medium hover:bg-[#d4b340] cursor-pointer whitespace-nowrap transition-colors"
               >
                 Viết nhật ký đầu tiên
               </button>

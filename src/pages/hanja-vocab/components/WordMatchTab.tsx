@@ -222,7 +222,7 @@ export default function WordMatchTab() {
             <div className="flex flex-wrap gap-1.5">
               <button
                 onClick={() => setSelectedInitial(null)}
-                className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70"}`}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${!selectedInitial ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/70"}`}
               >
                 Tất cả ({HANJA_DATA.length})
               </button>
@@ -231,7 +231,7 @@ export default function WordMatchTab() {
                 if (cnt === 0) return null;
                 return (
                   <button key={g} onClick={() => setSelectedInitial(selectedInitial === g ? null : g)}
-                    className={`px-2.5 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedInitial === g ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70"}`}
+                    className={`px-2.5 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedInitial === g ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/70"}`}
                   >
                     {g} ({cnt})
                   </button>
@@ -243,7 +243,7 @@ export default function WordMatchTab() {
           <button
             onClick={startGame}
             disabled={pool.length < pairCount}
-            className="w-full py-3 bg-app-accent-primary text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-4"
+            className="w-full py-3 bg-app-accent-primary text-app-bg rounded-xl font-bold text-lg cursor-pointer hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-4"
           >
             Bắt đầu chơi ({pairCount} cặp)
           </button>
@@ -295,7 +295,7 @@ export default function WordMatchTab() {
             {score >= 90 ? "Xuất sắc! Bạn ghép cặp rất nhanh!" : score >= 70 ? "Tốt lắm! Luyện thêm để cải thiện!" : "Cần luyện thêm! Đừng nản lòng!"}
           </p>
           <div className="flex gap-3">
-            <button onClick={startGame} className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Chơi lại</button>
+            <button onClick={startGame} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Chơi lại</button>
             <button onClick={() => setGameState("setup")} className="flex-1 py-3 border border-app-border text-white/80 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Đổi cài đặt</button>
           </div>
         </div>

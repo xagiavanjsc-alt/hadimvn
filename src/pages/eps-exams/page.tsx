@@ -228,7 +228,7 @@ export default function EPSExamsPage() {
               </button>
               <button
                 onClick={handleBackToSelection}
-                className="px-6 py-3 rounded-xl bg-app-accent-primary text-white font-bold hover:bg-app-accent-primary/80 transition-all"
+                className="px-6 py-3 rounded-xl bg-app-accent-primary text-app-bg font-bold hover:bg-app-accent-primary/80 transition-all"
               >
                 Làm đề khác
               </button>

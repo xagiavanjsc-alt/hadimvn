@@ -234,7 +234,7 @@ export default function TopicStudyTab() {
               {pct >= 80 ? "Xuất sắc! Bạn nắm rất tốt chủ đề này!" : pct >= 50 ? "Khá tốt! Tiếp tục luyện tập nhé!" : "Cần ôn thêm! Đừng nản lòng!"}
             </p>
             <div className="flex gap-3">
-              <button onClick={startQuiz} className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Ôn lại</button>
+              <button onClick={startQuiz} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Ôn lại</button>
               <button onClick={() => setQuizMode(false)} className="flex-1 py-3 border border-app-border text-white/80 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Xem từ vựng</button>
             </div>
           </div>
@@ -324,7 +324,7 @@ export default function TopicStudyTab() {
               className="w-full pl-9 pr-4 py-2 bg-app-surface/50 border border-app-border rounded-lg text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-app-accent-primary" />
           </div>
           <button onClick={startQuiz} disabled={filteredWords.length === 0}
-            className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-white rounded-lg text-sm font-medium cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap disabled:opacity-50">
+            className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-app-bg rounded-lg text-sm font-medium cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap disabled:opacity-50">
             <i className="ri-flashlight-line"></i>Ôn tập nhanh ({filteredWords.length} từ)
           </button>
         </div>

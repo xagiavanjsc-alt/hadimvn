@@ -301,7 +301,7 @@ export default function AdvancedTopicTab() {
             <p className="text-3xl font-bold text-white mb-1">{pct}%</p>
             <p className="text-white/50 mb-6">Đúng {quiz.score}/{quiz.words.length} câu — {selectedTopic.name}</p>
             <div className="flex gap-3">
-              <button onClick={() => startQuiz(selectedTopic)} className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Làm lại</button>
+              <button onClick={() => startQuiz(selectedTopic)} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Làm lại</button>
               <button onClick={() => { setMode("browse"); setQuiz(null); }} className="flex-1 py-3 border border-app-border text-white/80 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Xem từ vựng</button>
             </div>
           </div>
@@ -352,7 +352,7 @@ export default function AdvancedTopicTab() {
               {current.example && <p className="text-white/50 italic">{current.example}</p>}
               {current.exampleVi && <p className="text-white/40">{current.exampleVi}</p>}
             </div>
-            <button onClick={nextQuestion} className="w-full py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
+            <button onClick={nextQuestion} className="w-full py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
               {quiz.idx + 1 >= quiz.words.length ? "Xem kết quả" : "Câu tiếp →"}
             </button>
           </div>
@@ -378,7 +378,7 @@ export default function AdvancedTopicTab() {
           <p className="text-xs text-white/50">{learnedCount}/{selectedTopic.words.length} từ đã học</p>
         </div>
         <button onClick={() => startQuiz(selectedTopic)}
-          className="ml-auto flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
+          className="ml-auto flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-app-bg rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
           <i className="ri-gamepad-line"></i>Quiz chủ đề này
         </button>
       </div>

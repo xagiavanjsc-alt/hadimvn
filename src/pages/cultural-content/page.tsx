@@ -416,7 +416,7 @@ export default function CulturalContentPage() {
               onClick={() => setSelectedCategory("all")}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
                 selectedCategory === "all"
-                  ? "bg-app-accent-primary text-white"
+                  ? "bg-app-accent-primary text-app-bg"
                   : "bg-app-card text-app-text-secondary hover:text-white"
               }`}
             >
@@ -428,7 +428,7 @@ export default function CulturalContentPage() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
                   selectedCategory === cat
-                    ? "bg-app-accent-primary text-white"
+                    ? "bg-app-accent-primary text-app-bg"
                     : "bg-app-card text-app-text-secondary hover:text-white"
                 }`}
               >
@@ -475,7 +475,7 @@ export default function CulturalContentPage() {
                     e.stopPropagation();
                     startQuiz(lesson);
                   }}
-                  className="w-full py-2 rounded-lg bg-app-accent-primary text-white text-sm font-bold cursor-pointer hover:bg-app-accent-primary/80 transition-all"
+                  className="w-full py-2 rounded-lg bg-app-accent-primary text-app-bg text-sm font-bold cursor-pointer hover:bg-app-accent-primary/80 transition-all"
                 >
                   Làm quiz
                 </button>
@@ -609,7 +609,7 @@ export default function CulturalContentPage() {
                 </button>
                 <button
                   onClick={() => startQuiz(selectedLesson)}
-                  className="flex-1 py-3 rounded-lg bg-app-accent-primary text-white font-bold cursor-pointer hover:bg-app-accent-primary/80 transition-all"
+                  className="flex-1 py-3 rounded-lg bg-app-accent-primary text-app-bg font-bold cursor-pointer hover:bg-app-accent-primary/80 transition-all"
                 >
                   Làm lại
                 </button>

@@ -166,7 +166,7 @@ export default function StudyDiaryTab() {
           )}
           <button
             onClick={() => setShowAddForm(v => !v)}
-            className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap"
+            className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-app-bg rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap"
           >
             <i className={showAddForm ? "ri-arrow-up-s-line" : "ri-add-line"}></i>
             {showAddForm ? "Đóng form" : (todayEntry ? "Cập nhật hôm nay" : "Ghi hôm nay")}
@@ -253,7 +253,7 @@ export default function StudyDiaryTab() {
           </div>
 
           <div className="flex gap-3">
-            <button onClick={addEntry} className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
+            <button onClick={addEntry} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
               <i className="ri-save-line mr-1"></i>Lưu nhật ký
             </button>
             <button onClick={() => setShowAddForm(false)} className="px-6 py-3 border border-app-border text-white/70 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">
@@ -288,7 +288,7 @@ export default function StudyDiaryTab() {
           </div>
           <p className="font-medium text-white/50 mb-1">Chưa có nhật ký nào</p>
           <p className="text-sm mb-6">Nhấn "Ghi hôm nay" để bắt đầu theo dõi tiến độ học tập</p>
-          <button onClick={() => setShowAddForm(true)} className="px-6 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
+          <button onClick={() => setShowAddForm(true)} className="px-6 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
             Ghi nhật ký đầu tiên
           </button>
         </div>

@@ -388,7 +388,7 @@ export default function SynonymGroupTab() {
           <h3 className="text-2xl font-bold text-white mb-1">{pct}%</h3>
           <p className="text-white/50 mb-8">Biết {quizResults.known} / {quizGroup.length} từ</p>
           <div className="flex gap-3">
-            <button onClick={() => startQuiz(quizGroup)} className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Ôn lại</button>
+            <button onClick={() => startQuiz(quizGroup)} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Ôn lại</button>
             <button onClick={() => setQuizGroup(null)} className="flex-1 py-3 border border-app-border text-white/80 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Quay lại</button>
           </div>
         </div>
@@ -423,7 +423,7 @@ export default function SynonymGroupTab() {
               </p>
             </div>
             <button onClick={() => startQuiz(currentGroupWords)}
-              className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-white rounded-lg text-sm font-medium cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
+              className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-app-bg rounded-lg text-sm font-medium cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
               <i className="ri-flashlight-line"></i>Ôn nhóm này
             </button>
           </div>
@@ -490,7 +490,7 @@ export default function SynonymGroupTab() {
           </button>
         </div>
         <button onClick={() => setMatchQuizMode(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
+          className="flex items-center gap-2 px-4 py-2 bg-app-accent-primary text-app-bg rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
           <i className="ri-drag-drop-line"></i>Quiz ghép cặp đồng nghĩa
         </button>
       </div>

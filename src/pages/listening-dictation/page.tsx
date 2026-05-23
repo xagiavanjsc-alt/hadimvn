@@ -409,7 +409,7 @@ export default function ListeningDictationPage() {
             }}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
               selectedDifficulty === diff
-                ? "bg-app-accent-primary text-white"
+                ? "bg-app-accent-primary text-app-bg"
                 : "bg-app-card text-app-text-secondary hover:text-white"
             }`}
           >
@@ -427,7 +427,7 @@ export default function ListeningDictationPage() {
           }}
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
             exerciseMode === "dictation"
-              ? "bg-app-accent-primary text-white"
+              ? "bg-app-accent-primary text-app-bg"
               : "bg-app-card text-app-text-secondary hover:text-white"
           }`}
         >
@@ -440,7 +440,7 @@ export default function ListeningDictationPage() {
           }}
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
             exerciseMode === "gapFill"
-              ? "bg-app-accent-primary text-white"
+              ? "bg-app-accent-primary text-app-bg"
               : "bg-app-card text-app-text-secondary hover:text-white"
           }`}
         >
@@ -474,7 +474,7 @@ export default function ListeningDictationPage() {
           <div className="flex items-center gap-4">
             <button
               onClick={handlePlayPause}
-              className="w-12 h-12 flex items-center justify-center rounded-full bg-app-accent-primary text-white cursor-pointer hover:bg-app-accent-primary/80 transition-all"
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-app-accent-primary text-app-bg cursor-pointer hover:bg-app-accent-primary/80 transition-all"
             >
               {isPlaying ? <i className="ri-pause-line text-xl" /> : <i className="ri-play-line text-xl" />}
             </button>
@@ -488,7 +488,7 @@ export default function ListeningDictationPage() {
                   onClick={() => handleSpeedChange(speed)}
                   className={`px-2 py-1 rounded text-xs cursor-pointer transition-all ${
                     playbackSpeed === speed
-                      ? "bg-app-accent-primary text-white"
+                      ? "bg-app-accent-primary text-app-bg"
                       : "bg-app-card text-app-text-secondary hover:text-white"
                   }`}
                 >
@@ -513,7 +513,7 @@ export default function ListeningDictationPage() {
                 <button
                   onClick={checkDictation}
                   disabled={!userInput.trim()}
-                  className="flex-1 py-3 rounded-xl bg-app-accent-primary text-white font-bold cursor-pointer hover:bg-app-accent-primary/80 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 py-3 rounded-xl bg-app-accent-primary text-app-bg font-bold cursor-pointer hover:bg-app-accent-primary/80 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Kiểm tra
                 </button>
@@ -571,7 +571,7 @@ export default function ListeningDictationPage() {
                 <button
                   onClick={checkGapFill}
                   disabled={gapFillAnswers.some(a => !a)}
-                  className="flex-1 py-3 rounded-xl bg-app-accent-primary text-white font-bold cursor-pointer hover:bg-app-accent-primary/80 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 py-3 rounded-xl bg-app-accent-primary text-app-bg font-bold cursor-pointer hover:bg-app-accent-primary/80 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Kiểm tra
                 </button>
@@ -648,7 +648,7 @@ export default function ListeningDictationPage() {
         <button
           onClick={handleNext}
           disabled={currentIndex === filteredLessons.length - 1}
-          className="px-6 py-3 rounded-xl bg-app-accent-primary text-white font-bold cursor-pointer hover:bg-app-accent-primary/80 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          className="px-6 py-3 rounded-xl bg-app-accent-primary text-app-bg font-bold cursor-pointer hover:bg-app-accent-primary/80 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
         >
           Bài tiếp
           <i className="ri-arrow-right-line" />

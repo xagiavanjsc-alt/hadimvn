@@ -1659,7 +1659,7 @@ function HanjaVocabPageInner() {
                       <span className="absolute -top-1.5 -right-1.5 text-[7px] px-1 py-0.5 rounded-full bg-amber-400 text-white font-bold leading-none whitespace-nowrap">NEW</span>
                     )}
                     {t.badge !== undefined && t.badge > 0 && (
-                      <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 flex items-center justify-center bg-app-accent-primary text-white text-[9px] rounded-full leading-none">
+                      <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 flex items-center justify-center bg-app-accent-primary text-app-bg text-[9px] rounded-full leading-none">
                         {t.badge > 9 ? "9+" : t.badge}
                       </span>
                     )}

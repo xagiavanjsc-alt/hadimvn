@@ -250,7 +250,7 @@ export default function TopikMockExamTab() {
               <p className="text-sm font-semibold text-white/80 mb-2">Chọn nhóm từ vựng</p>
               <div className="flex flex-wrap gap-1.5">
                 <button onClick={() => setFilterGroup("all")}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${filterGroup === "all" ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${filterGroup === "all" ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
                   Tất cả ({HANJA_DATA.length})
                 </button>
                 {ALPHABET_GROUPS.map(g => {
@@ -258,7 +258,7 @@ export default function TopikMockExamTab() {
                   if (cnt < 4) return null;
                   return (
                     <button key={g} onClick={() => setFilterGroup(g)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${filterGroup === g ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${filterGroup === g ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
                       {g} ({cnt})
                     </button>
                   );
@@ -273,7 +273,7 @@ export default function TopikMockExamTab() {
                 <i className="ri-history-line"></i>Lịch sử thi
               </button>
               <button onClick={startExam} disabled={pool.length < 4}
-                className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                 <i className="ri-play-circle-line"></i>Bắt đầu thi thử
               </button>
             </div>
@@ -323,7 +323,7 @@ export default function TopikMockExamTab() {
             {formatTime(timeLeft)}
           </div>
           <button onClick={finishExam}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-app-accent-primary text-white rounded-lg text-xs font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-app-accent-primary text-app-bg rounded-lg text-xs font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors whitespace-nowrap">
             <i className="ri-flag-line"></i>Nộp bài
           </button>
         </div>
@@ -380,7 +380,7 @@ export default function TopikMockExamTab() {
             <i className="ri-arrow-left-line"></i>Trước
           </button>
           <button onClick={goNext}
-            className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors flex items-center justify-center gap-2">
+            className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors flex items-center justify-center gap-2">
             {currentIdx + 1 >= questions.length ? (
               <><i className="ri-flag-line"></i>Nộp bài</>
             ) : (
@@ -396,7 +396,7 @@ export default function TopikMockExamTab() {
             {questions.map((q, i) => (
               <button key={i} onClick={() => setCurrentIdx(i)}
                 className={`w-8 h-8 flex items-center justify-center rounded-lg text-xs font-bold cursor-pointer transition-all ${
-                  i === currentIdx ? "bg-app-accent-primary text-white" :
+                  i === currentIdx ? "bg-app-accent-primary text-app-bg" :
                   q.userAnswer !== null ? "bg-green-500/20 text-green-400" :
                   "bg-app-surface/50 text-white/50 hover:bg-app-surface/80"
                 }`}>
@@ -489,7 +489,7 @@ export default function TopikMockExamTab() {
             <i className="ri-history-line"></i>Lịch sử
           </button>
           <button onClick={startExam}
-            className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors flex items-center justify-center gap-2">
+            className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-bold cursor-pointer hover:bg-app-accent-primary/90 transition-colors flex items-center justify-center gap-2">
             <i className="ri-refresh-line"></i>Thi lại
           </button>
           <button onClick={() => setExamState("intro")}

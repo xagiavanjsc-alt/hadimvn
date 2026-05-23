@@ -126,7 +126,7 @@ function HomophoneQuiz({ group, onClose }: { group: { korean: string; words: Han
         </div>
         <div className="flex gap-3">
           <button onClick={onClose} className="flex-1 py-2.5 border border-app-border text-white/70 rounded-xl text-sm cursor-pointer hover:bg-app-surface/50 transition-colors">Quay lại</button>
-          <button onClick={buildQuestions} className="flex-1 py-2.5 bg-app-accent-primary text-white rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Bắt đầu Quiz</button>
+          <button onClick={buildQuestions} className="flex-1 py-2.5 bg-app-accent-primary text-app-bg rounded-xl text-sm font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Bắt đầu Quiz</button>
         </div>
       </div>
     );
@@ -142,7 +142,7 @@ function HomophoneQuiz({ group, onClose }: { group: { korean: string; words: Han
         <p className="text-2xl font-bold text-white mb-1">{pct}%</p>
         <p className="text-white/50 mb-6">Đúng {score} / {questions.length} câu</p>
         <div className="flex gap-3">
-          <button onClick={buildQuestions} className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Làm lại</button>
+          <button onClick={buildQuestions} className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">Làm lại</button>
           <button onClick={onClose} className="flex-1 py-3 border border-app-border text-white/80 rounded-xl font-semibold cursor-pointer hover:bg-app-surface/50 transition-colors">Quay lại</button>
         </div>
       </div>
@@ -193,7 +193,7 @@ function HomophoneQuiz({ group, onClose }: { group: { korean: string; words: Han
       </div>
 
       {q.answered && (
-        <button onClick={next} className="w-full py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
+        <button onClick={next} className="w-full py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
           {idx + 1 >= questions.length ? "Xem kết quả" : "Câu tiếp theo →"}
         </button>
       )}
@@ -283,7 +283,7 @@ export default function HomophoneTab() {
         </div>
 
         <button onClick={() => setQuizGroup(selectedGroup)}
-          className="w-full py-3 bg-app-accent-primary text-white rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors flex items-center justify-center gap-2">
+          className="w-full py-3 bg-app-accent-primary text-app-bg rounded-xl font-semibold cursor-pointer hover:bg-app-accent-primary/90 transition-colors flex items-center justify-center gap-2">
           <i className="ri-gamepad-line"></i>Quiz phân biệt nhóm này
         </button>
       </div>
@@ -326,7 +326,7 @@ export default function HomophoneTab() {
             className="w-full pl-9 pr-4 py-2 bg-app-surface/50 border border-app-border rounded-lg text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-app-accent-primary" />
         </div>
         <button onClick={() => setFilterFamous(f => !f)}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium cursor-pointer whitespace-nowrap transition-all ${filterFamous ? "bg-app-accent-primary text-white" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium cursor-pointer whitespace-nowrap transition-all ${filterFamous ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/70 hover:bg-app-surface/80"}`}>
           <i className="ri-star-line"></i>Từ nổi tiếng
         </button>
       </div>
@@ -363,7 +363,7 @@ export default function HomophoneTab() {
               onClick={() => setSelectedGroup(group)}>
               {isFamous && (
                 <div className="absolute -top-2 -right-2">
-                  <span className="bg-app-accent-primary text-white text-xs px-2 py-0.5 rounded-full font-bold">Hot</span>
+                  <span className="bg-app-accent-primary text-app-bg text-xs px-2 py-0.5 rounded-full font-bold">Hot</span>
                 </div>
               )}
               <div className="flex items-start justify-between mb-3">

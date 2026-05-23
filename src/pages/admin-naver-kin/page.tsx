@@ -319,7 +319,7 @@ const AdminNaverKinPage = () => {
                 <button
                   onClick={handleUpload}
                   disabled={uploadStatus === "processing"}
-                  className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-medium hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-medium hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {uploadStatus === "processing" ? "Đang upload..." : "Upload"}
                 </button>
@@ -357,7 +357,7 @@ const AdminNaverKinPage = () => {
               {uploadStatus === "idle" && (
                 <button
                   onClick={handleUpload}
-                  className="flex-1 py-2.5 bg-app-accent-primary text-white rounded-xl font-medium hover:bg-app-accent-primary/90 transition-colors"
+                  className="flex-1 py-2.5 bg-app-accent-primary text-app-bg rounded-xl font-medium hover:bg-app-accent-primary/90 transition-colors"
                 >
                   Upload & Cập nhật
                 </button>
@@ -388,7 +388,7 @@ const AdminNaverKinPage = () => {
               onClick={() => setFilterTranslated("all")}
               className={`px-4 py-2 rounded-lg text-sm transition-colors ${
                 filterTranslated === "all"
-                  ? "bg-app-accent-primary text-white"
+                  ? "bg-app-accent-primary text-app-bg"
                   : "bg-white/10 text-white/60 hover:bg-white/20"
               }`}
             >
@@ -577,7 +577,7 @@ const AdminNaverKinPage = () => {
                 <div className="flex gap-3 pt-4">
                   <button
                     onClick={handleSaveEdit}
-                    className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-medium hover:bg-app-accent-primary/90 transition-colors"
+                    className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-medium hover:bg-app-accent-primary/90 transition-colors"
                   >
                     Lưu thay đổi
                   </button>
@@ -704,7 +704,7 @@ const AdminNaverKinPage = () => {
                 <div className="flex gap-3 pt-4">
                   <button
                     onClick={() => { setSelectedItem(null); setEditingItem(selectedItem); }}
-                    className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-medium hover:bg-app-accent-primary/90 transition-colors"
+                    className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-medium hover:bg-app-accent-primary/90 transition-colors"
                   >
                     <i className="ri-edit-line mr-2"></i>
                     Chỉnh sửa

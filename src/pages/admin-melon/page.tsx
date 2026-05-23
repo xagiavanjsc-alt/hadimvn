@@ -422,7 +422,7 @@ const AdminMelonPage = () => {
                 <button
                   onClick={handleUpload}
                   disabled={uploadStatus === "processing"}
-                  className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-medium hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-medium hover:bg-app-accent-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {uploadStatus === "processing" ? "Đang upload..." : "Upload"}
                 </button>
@@ -460,7 +460,7 @@ const AdminMelonPage = () => {
               {uploadStatus === "idle" && (
                 <button
                   onClick={handleUpload}
-                  className="flex-1 py-2.5 bg-app-accent-primary text-white rounded-xl font-medium hover:bg-app-accent-primary/90 transition-colors"
+                  className="flex-1 py-2.5 bg-app-accent-primary text-app-bg rounded-xl font-medium hover:bg-app-accent-primary/90 transition-colors"
                 >
                   Upload & Cập nhật
                 </button>
@@ -659,7 +659,7 @@ const AdminMelonPage = () => {
                 <div className="flex gap-3 pt-4">
                   <button
                     onClick={handleSaveEdit}
-                    className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-medium hover:bg-app-accent-primary/90 transition-colors"
+                    className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-medium hover:bg-app-accent-primary/90 transition-colors"
                   >
                     Lưu thay đổi
                   </button>
@@ -779,7 +779,7 @@ const AdminMelonPage = () => {
                 <div className="flex gap-3 pt-4">
                   <button
                     onClick={() => { setSelectedSong(null); setEditingSong(selectedSong); }}
-                    className="flex-1 py-3 bg-app-accent-primary text-white rounded-xl font-medium hover:bg-app-accent-primary/90 transition-colors"
+                    className="flex-1 py-3 bg-app-accent-primary text-app-bg rounded-xl font-medium hover:bg-app-accent-primary/90 transition-colors"
                   >
                     <i className="ri-edit-line mr-2"></i>
                     Chỉnh sửa
