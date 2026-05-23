@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, ReactNode, useRef } from "react";
+import { createContext, useContext, useState, useCallback, useMemo, ReactNode, useRef } from "react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 export type AdminToastType = "approve" | "reject" | "delete" | "restore" | "ban" | "vip" | "role" | "backup" | "success" | "error" | "info";
@@ -99,8 +99,13 @@ export function AdminToastProvider({ children }: { children: ReactNode }) {
     }, duration);
   }, []);
 
+  const value = useMemo(
+    () => ({ toasts, showToast, dismissToast }),
+    [toasts, showToast, dismissToast]
+  );
+
   return (
-    <AdminToastContext.Provider value={{ toasts, showToast, dismissToast }}>
+    <AdminToastContext.Provider value={value}>
       {children}
       {/* Toast container */}
       {toasts.length > 0 && (

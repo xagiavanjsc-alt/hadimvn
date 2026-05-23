@@ -60,12 +60,14 @@ function BulkActionModal({
         await onGrantVip(selectedUsers.map(u => u.id), vipType, getExpiresAt());
         setProgress(100);
       } else if (action === "vip_revoke") {
-        for (let i = 0; i < selectedUsers.length; i++) {
+        let done = 0;
+        await Promise.all(selectedUsers.map(async (u) => {
           await supabase.functions.invoke("admin-grant-vip", {
-            body: { action: "revoke_vip", userId: selectedUsers[i].id },
+            body: { action: "revoke_vip", userId: u.id },
           });
-          setProgress(Math.round(((i + 1) / selectedUsers.length) * 100));
-        }
+          done++;
+          setProgress(Math.round((done / selectedUsers.length) * 100));
+        }));
       } else if (action === "email_expiry") {
         await onSendEmail(selectedUsers, "vip_expiry_reminder");
         setProgress(100);
