@@ -150,13 +150,13 @@ function SwipeCard({
         <div className="flex gap-4 mt-5">
           <button
             onClick={() => triggerExit("left")}
-            className="flex items-center gap-2 px-6 py-3 bg-red-500/10 border-2 border-red-500/30 text-red-400 rounded-xl font-semibold cursor-pointer hover:bg-red-500/100/20 transition-all"
+            className="flex items-center gap-2 px-6 py-3 bg-red-500/10 border-2 border-red-500/30 text-red-400 rounded-xl font-semibold cursor-pointer hover:bg-red-500/20 transition-all"
           >
             <i className="ri-close-line text-lg"></i>Chưa biết
           </button>
           <button
             onClick={() => triggerExit("right")}
-            className="flex items-center gap-2 px-6 py-3 bg-green-500/10 border-2 border-green-500/30 text-green-400 rounded-xl font-semibold cursor-pointer hover:bg-green-500/100/20 transition-all"
+            className="flex items-center gap-2 px-6 py-3 bg-green-500/10 border-2 border-green-500/30 text-green-400 rounded-xl font-semibold cursor-pointer hover:bg-green-500/20 transition-all"
           >
             Đã biết<i className="ri-check-line text-lg"></i>
           </button>

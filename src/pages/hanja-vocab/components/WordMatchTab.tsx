@@ -190,7 +190,7 @@ export default function WordMatchTab() {
   // Setup screen
   if (gameState === "setup") {
     return (
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8">
           <div className="text-center mb-6">
             <div className="w-14 h-14 flex items-center justify-center bg-app-accent-primary/20 rounded-2xl mx-auto mb-3">
@@ -307,7 +307,7 @@ export default function WordMatchTab() {
   const progress = matchedCount / pairCount;
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-4xl mx-auto">
       {/* Game header */}
       <div className="flex items-center justify-between mb-4">
         <button onClick={() => setGameState("setup")} className="flex items-center gap-1 text-sm text-white/50 hover:text-white/80 cursor-pointer">

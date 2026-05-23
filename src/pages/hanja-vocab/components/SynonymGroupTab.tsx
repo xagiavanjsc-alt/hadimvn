@@ -364,11 +364,11 @@ export default function SynonymGroupTab() {
         {quizRevealed && (
           <div className="grid grid-cols-2 gap-3">
             <button onClick={() => handleQuizAnswer(false)}
-              className="py-4 rounded-xl border-2 border-red-500/40 bg-red-500/10 text-red-400 font-bold cursor-pointer hover:bg-red-500/100/20 transition-colors">
+              className="py-4 rounded-xl border-2 border-red-500/40 bg-red-500/10 text-red-400 font-bold cursor-pointer hover:bg-red-500/20 transition-colors">
               <i className="ri-close-line mr-1"></i>Chưa biết
             </button>
             <button onClick={() => handleQuizAnswer(true)}
-              className="py-4 rounded-xl border-2 border-green-500/40 bg-green-500/10 text-green-400 font-bold cursor-pointer hover:bg-green-500/100/20 transition-colors">
+              className="py-4 rounded-xl border-2 border-green-500/40 bg-green-500/10 text-green-400 font-bold cursor-pointer hover:bg-green-500/20 transition-colors">
               <i className="ri-check-line mr-1"></i>Đã biết
             </button>
           </div>

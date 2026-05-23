@@ -162,10 +162,39 @@ export default function TopicStudyTab() {
   const topicStats = useMemo(() => {
     return TOPICS.map(t => {
       const words = getTopicWords(HANJA_DATA, t);
-      const mastered = words.filter(w => getMasteryLevel(w.korean, srData) === "mastered").length;
-      return { ...t, total: words.length, mastered, pct: words.length > 0 ? Math.round((mastered / words.length) * 100) : 0 };
+      let mastered = 0;
+      let learning = 0;
+      for (const w of words) {
+        const lvl = getMasteryLevel(w.korean, srData);
+        if (lvl === "mastered") mastered++;
+        else if (lvl === "learning") learning++;
+      }
+      return {
+        ...t,
+        total: words.length,
+        mastered,
+        learning,
+        newCount: words.length - mastered - learning,
+        pct: words.length > 0 ? Math.round((mastered / words.length) * 100) : 0,
+      };
     });
   }, [srData, HANJA_DATA]);
+
+  // Best/worst topic — single pass, no sort mutation of memoized array
+  const summary = useMemo(() => {
+    if (topicStats.length === 0) return { best: "-", worst: "-", totalMastered: 0, avg: 0 };
+    let best = topicStats[0];
+    let worst = topicStats[0];
+    let totalMastered = 0;
+    let sumPct = 0;
+    for (const t of topicStats) {
+      if (t.pct > best.pct) best = t;
+      if (t.pct < worst.pct) worst = t;
+      totalMastered += t.mastered;
+      sumPct += t.pct;
+    }
+    return { best: best.label, worst: worst.label, totalMastered, avg: Math.round(sumPct / topicStats.length) };
+  }, [topicStats]);
 
   const startQuiz = () => {
     setQuizIdx(0);
@@ -243,11 +272,11 @@ export default function TopicStudyTab() {
         {revealed && (
           <div className="grid grid-cols-2 gap-3">
             <button onClick={() => handleQuizAnswer(false)}
-              className="py-4 rounded-xl border-2 border-red-500/40 bg-red-500/10 text-red-400 font-bold cursor-pointer hover:bg-red-500/100/20 transition-colors">
+              className="py-4 rounded-xl border-2 border-red-500/40 bg-red-500/10 text-red-400 font-bold cursor-pointer hover:bg-red-500/20 transition-colors">
               <i className="ri-close-line mr-1"></i>Chưa biết
             </button>
             <button onClick={() => handleQuizAnswer(true)}
-              className="py-4 rounded-xl border-2 border-green-500/40 bg-green-500/10 text-green-400 font-bold cursor-pointer hover:bg-green-500/100/20 transition-colors">
+              className="py-4 rounded-xl border-2 border-green-500/40 bg-green-500/10 text-green-400 font-bold cursor-pointer hover:bg-green-500/20 transition-colors">
               <i className="ri-check-line mr-1"></i>Đã biết
             </button>
           </div>
@@ -282,8 +311,8 @@ export default function TopicStudyTab() {
             <div className="bg-green-400 h-2.5 rounded-full transition-all" style={{ width: `${stats.pct}%` }}></div>
           </div>
           <div className="flex gap-3 mt-3">
-            <span className="text-xs text-white/40">Mới: {stats.total - stats.mastered - topicWords.filter(w => getMasteryLevel(w.korean, srData) === "learning").length}</span>
-            <span className="text-xs text-amber-400">Đang học: {topicWords.filter(w => getMasteryLevel(w.korean, srData) === "learning").length}</span>
+            <span className="text-xs text-white/40">Mới: {stats.newCount}</span>
+            <span className="text-xs text-amber-400">Đang học: {stats.learning}</span>
             <span className="text-xs text-green-400">Đã thuộc: {stats.mastered}</span>
           </div>
         </div>
@@ -365,10 +394,7 @@ export default function TopicStudyTab() {
             </div>
 
             <div className="flex gap-2 text-xs">
-              <span className="text-white/40">{topic.total - topic.mastered - HANJA_DATA.filter(w => {
-                const inTopic = getTopicWords(HANJA_DATA, topic).some(tw => tw.korean === w.korean);
-                return inTopic && getMasteryLevel(w.korean, srData) === "learning";
-              }).length} mới</span>
+              <span className="text-white/40">{topic.newCount} mới</span>
               <span className="text-green-400">{topic.mastered} thuộc</span>
             </div>
 
@@ -381,7 +407,7 @@ export default function TopicStudyTab() {
       </div>
 
       {/* Summary */}
-      <div className="mt-6 bg-gradient-to-r from-rose-50 to-amber-50 rounded-2xl p-5">
+      <div className="mt-6 bg-gradient-to-r from-app-accent-primary/10 to-amber-500/10 rounded-2xl p-5">
         <div className="flex items-center gap-3 mb-3">
           <div className="w-10 h-10 flex items-center justify-center bg-app-surface/50 rounded-xl">
             <i className="ri-bar-chart-line text-app-accent-primary"></i>
@@ -393,10 +419,10 @@ export default function TopicStudyTab() {
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { label: "Chủ đề tốt nhất", value: topicStats.sort((a, b) => b.pct - a.pct)[0]?.label ?? "-", icon: "ri-trophy-line", color: "text-amber-400" },
-            { label: "Cần ôn nhất", value: topicStats.sort((a, b) => a.pct - b.pct)[0]?.label ?? "-", icon: "ri-alarm-warning-line", color: "text-red-400" },
-            { label: "Tổng đã thuộc", value: `${topicStats.reduce((s, t) => s + t.mastered, 0)}`, icon: "ri-check-double-line", color: "text-green-400" },
-            { label: "Trung bình", value: `${Math.round(topicStats.reduce((s, t) => s + t.pct, 0) / TOPICS.length)}%`, icon: "ri-percent-line", color: "text-app-accent-primary" },
+            { label: "Chủ đề tốt nhất", value: summary.best, icon: "ri-trophy-line", color: "text-amber-400" },
+            { label: "Cần ôn nhất", value: summary.worst, icon: "ri-alarm-warning-line", color: "text-red-400" },
+            { label: "Tổng đã thuộc", value: `${summary.totalMastered}`, icon: "ri-check-double-line", color: "text-green-400" },
+            { label: "Trung bình", value: `${summary.avg}%`, icon: "ri-percent-line", color: "text-app-accent-primary" },
           ].map((s, i) => (
             <div key={i} className="bg-app-surface/50 rounded-xl p-3 text-center">
               <i className={`${s.icon} ${s.color} text-lg`}></i>

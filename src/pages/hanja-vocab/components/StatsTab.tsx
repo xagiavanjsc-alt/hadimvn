@@ -66,7 +66,7 @@ export default function StatsTab() {
   const overallPct = overall.total > 0 ? Math.round((overall.mastered / overall.total) * 100) : 0;
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-4xl mx-auto">
       {/* Overall summary */}
       <div className="bg-app-surface/50 border border-app-border rounded-2xl p-6 mb-6">
         <h2 className="text-base font-bold text-white/90 mb-4">Tổng quan tiến độ</h2>

@@ -1062,18 +1062,9 @@ function FavoritesTab({ favs, onToggleFav, onStartFlashcard, notes, onSaveNote }
     const q = favSearch.trim().toLowerCase();
     return all.filter(d => d.korean.includes(q) || d.hanja.includes(q) || d.vietnamese.toLowerCase().includes(q));
   }, [favs, favSearch]);
-  const [editingNote, setEditingNote] = useState<string | null>(null);
-  const [draftNote, setDraftNote] = useState("");
-
-  const startEdit = (korean: string) => {
-    setEditingNote(korean);
-    setDraftNote(notes[korean] || "");
-  };
-
-  const commitNote = (korean: string) => {
-    onSaveNote(korean, draftNote);
-    setEditingNote(null);
-  };
+  // Local draft buffer per word — keeps typing snappy, saves on blur.
+  const [drafts, setDrafts] = useState<Record<string, string>>({});
+  const getDraft = (korean: string) => drafts[korean] ?? notes[korean] ?? "";
 
   const handleExportCSV = () => checkAndRun(
     () => exportCSV(favList, "hanja_yeu_thich.csv", notes),
@@ -1160,44 +1151,27 @@ function FavoritesTab({ favs, onToggleFav, onStartFlashcard, notes, onSaveNote }
             </div>
             <p className="text-xs text-white/50 mb-3">{item.vietnamese}</p>
 
-            {/* Note area */}
-            {editingNote === item.korean ? (
-              <div>
-                <textarea
-                  value={draftNote}
-                  onChange={e => setDraftNote(e.target.value)}
-                  placeholder="Ghi chú của bạn..."
-                  maxLength={200}
-                  rows={3}
-                  className="w-full text-xs border border-app-accent-primary/30 rounded-lg p-2 resize-none focus:outline-none focus:ring-2 focus:ring-app-accent-primary bg-app-surface/50 text-white"
-                  autoFocus
-                />
-                <div className="flex gap-2 mt-1.5">
-                  <button onClick={() => commitNote(item.korean)}
-                    className="flex-1 py-1 bg-app-accent-primary text-app-bg rounded-md text-xs font-medium cursor-pointer hover:bg-app-accent-primary/90 transition-colors">
-                    Lưu
-                  </button>
-                  <button onClick={() => setEditingNote(null)}
-                    className="flex-1 py-1 border border-app-border text-white/50 rounded-md text-xs cursor-pointer hover:bg-app-surface/50 transition-colors">
-                    Hủy
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <button onClick={() => startEdit(item.korean)}
-                className={`w-full text-left px-2.5 py-2 rounded-lg text-xs cursor-pointer transition-all border ${notes[item.korean] ? "border-amber-500/30 bg-amber-500/10 text-amber-400 hover:bg-amber-500/20" : "border-dashed border-app-border text-white/40 hover:border-app-accent-primary/30 hover:text-app-accent-primary"}`}>
-                {notes[item.korean] ? (
-                  <span className="flex items-start gap-1.5">
-                    <i className="ri-sticky-note-line flex-shrink-0 mt-0.5"></i>
-                    <span className="line-clamp-2">{notes[item.korean]}</span>
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-1.5">
-                    <i className="ri-add-line"></i>Thêm ghi chú...
-                  </span>
-                )}
-              </button>
-            )}
+            {/* Note area — always editable inline, auto-save on blur or Ctrl+Enter */}
+            <div className="relative">
+              <i className="ri-sticky-note-line absolute left-2 top-2 text-white/30 text-xs pointer-events-none"></i>
+              <textarea
+                value={getDraft(item.korean)}
+                onChange={e => setDrafts(d => ({ ...d, [item.korean]: e.target.value }))}
+                onBlur={e => {
+                  const text = e.target.value;
+                  if (text !== (notes[item.korean] ?? "")) onSaveNote(item.korean, text);
+                }}
+                onKeyDown={e => {
+                  if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+                    e.currentTarget.blur();
+                  }
+                }}
+                placeholder="Thêm ghi chú... (Ctrl+Enter để lưu)"
+                maxLength={200}
+                rows={2}
+                className={`w-full text-xs pl-7 pr-2 py-2 rounded-lg resize-y bg-app-surface/30 text-white/90 placeholder-white/30 focus:outline-none focus:ring-1 focus:ring-app-accent-primary transition-all border ${notes[item.korean] ? "border-amber-500/30" : "border-app-border"}`}
+              />
+            </div>
           </div>
         ))}
       </div>
@@ -1642,7 +1616,7 @@ function HanjaVocabPageInner() {
 
   return (
     <DashboardLayout>
-      <div className="p-4 md:p-6 max-w-6xl mx-auto">
+      <div className="p-4 md:p-6 max-w-5xl mx-auto">
         {/* Header */}
         <div className="mb-6">
           <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-white/50 hover:text-white/70 mb-4 cursor-pointer">

@@ -171,7 +171,7 @@ export default function SmartReviewTab() {
   // ── Overview ──────────────────────────────────────────────────────────────
   if (mode === "overview") {
     return (
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <div className="mb-6">
           <h2 className="text-lg font-bold text-white mb-1">Ôn tập thông minh</h2>
           <p className="text-sm text-white/50">Hệ thống tự động chọn từ cần ôn nhất dựa trên lịch sử học tập của bạn</p>
@@ -355,7 +355,7 @@ export default function SmartReviewTab() {
         <div className="grid grid-cols-2 gap-3">
           <button
             onClick={() => handleRate(false)}
-            className="p-4 rounded-xl border-2 border-red-500/40 bg-red-500/10 text-red-400 cursor-pointer hover:bg-red-500/100/20 transition-all text-center"
+            className="p-4 rounded-xl border-2 border-red-500/40 bg-red-500/10 text-red-400 cursor-pointer hover:bg-red-500/20 transition-all text-center"
           >
             <i className="ri-close-line text-xl block mb-1"></i>
             <p className="font-bold">Chưa nhớ</p>
@@ -363,7 +363,7 @@ export default function SmartReviewTab() {
           </button>
           <button
             onClick={() => handleRate(true)}
-            className="p-4 rounded-xl border-2 border-green-500/40 bg-green-500/10 text-green-400 cursor-pointer hover:bg-green-500/100/20 transition-all text-center"
+            className="p-4 rounded-xl border-2 border-green-500/40 bg-green-500/10 text-green-400 cursor-pointer hover:bg-green-500/20 transition-all text-center"
           >
             <i className="ri-check-line text-xl block mb-1"></i>
             <p className="font-bold">Đã nhớ</p>

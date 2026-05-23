@@ -244,7 +244,7 @@ export default function HomophoneTab() {
         </div>
 
         {/* Hero comparison */}
-        <div className="bg-gradient-to-br from-rose-50 to-orange-50 border border-app-accent-primary/20 rounded-2xl p-6 mb-5">
+        <div className="bg-gradient-to-br from-app-accent-primary/10 to-orange-500/10 border border-app-accent-primary/20 rounded-2xl p-6 mb-5">
           <div className="text-center mb-5">
             <p className="text-5xl font-bold text-white mb-1">{selectedGroup.korean}</p>
             <p className="text-sm text-white/50">{selectedGroup.words.length} nghĩa khác nhau — phân biệt qua Hán tự</p>

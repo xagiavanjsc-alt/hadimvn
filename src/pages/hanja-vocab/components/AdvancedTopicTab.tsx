@@ -1,5 +1,5 @@
+import { useState } from "react";
 import { STORAGE_KEYS } from "@/lib/storageKeys";
-﻿import { useState, useMemo } from "react";
 
 interface TopicWord {
   korean: string;

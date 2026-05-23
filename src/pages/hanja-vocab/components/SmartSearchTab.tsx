@@ -194,7 +194,7 @@ export default function SmartSearchTab() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-4xl mx-auto">
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-lg font-bold text-white mb-1">Tìm kiếm thông minh</h2>
@@ -262,7 +262,7 @@ export default function SmartSearchTab() {
           </div>
 
           {/* How it works */}
-          <div className="mt-6 bg-gradient-to-r from-rose-50 to-amber-50 rounded-2xl p-5">
+          <div className="mt-6 bg-gradient-to-r from-app-accent-primary/10 to-amber-500/10 rounded-2xl p-5">
             <div className="flex items-center gap-2 mb-3">
               <i className="ri-lightbulb-line text-amber-400"></i>
               <span className="text-sm font-semibold text-white/80">Cách tìm kiếm thông minh</span>

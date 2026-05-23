@@ -38,17 +38,9 @@ function getDaysLeftInWeek(): number {
   return dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
 }
 
-// Mock friends data (simulated)
-const MOCK_FRIENDS: LeaderboardEntry[] = [
-  { id: "f1", name: "Minh Tuấn", avatar: "MT", wordsLearned: 48, quizScore: 92, streak: 12, xp: 1240 },
-  { id: "f2", name: "Thu Hương", avatar: "TH", wordsLearned: 35, quizScore: 88, streak: 7, xp: 980 },
-  { id: "f3", name: "Quang Huy", avatar: "QH", wordsLearned: 52, quizScore: 76, streak: 5, xp: 1100 },
-  { id: "f4", name: "Lan Anh", avatar: "LA", wordsLearned: 29, quizScore: 95, streak: 14, xp: 1380 },
-  { id: "f5", name: "Đức Thành", avatar: "ĐT", wordsLearned: 41, quizScore: 83, streak: 9, xp: 1050 },
-  { id: "f6", name: "Phương Linh", avatar: "PL", wordsLearned: 22, quizScore: 71, streak: 3, xp: 620 },
-  { id: "f7", name: "Văn Khoa", avatar: "VK", wordsLearned: 60, quizScore: 89, streak: 18, xp: 1560 },
-  { id: "f8", name: "Bảo Châu", avatar: "BC", wordsLearned: 17, quizScore: 65, streak: 2, xp: 410 },
-];
+// Real members only — populated from Supabase in future iteration.
+// Empty until backend integration; placeholder data has been removed.
+const OTHER_MEMBERS: LeaderboardEntry[] = [];
 
 function loadMyProgress(): WeeklyProgress {
   try {
@@ -110,8 +102,10 @@ export default function WeeklyLeaderboardTab() {
   };
 
   const allEntries = useMemo(() => {
-    return [...MOCK_FRIENDS, meEntry].sort((a, b) => b[sortBy] - a[sortBy]);
+    return [...OTHER_MEMBERS, meEntry].sort((a, b) => b[sortBy] - a[sortBy]);
   }, [sortBy, myProgress]);
+
+  const isSoloBoard = OTHER_MEMBERS.length === 0;
 
   const myRank = useMemo(() => {
     return allEntries.findIndex(e => e.isMe) + 1;
@@ -133,9 +127,9 @@ export default function WeeklyLeaderboardTab() {
   const rankIcons = ["ri-trophy-fill", "ri-medal-fill", "ri-award-fill"];
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-4xl mx-auto">
       {/* Header */}
-      <div className="bg-gradient-to-r from-rose-50 to-orange-50 border border-app-accent-primary/20 rounded-2xl p-5 mb-5">
+      <div className="bg-gradient-to-r from-app-accent-primary/10 to-orange-500/10 border border-app-accent-primary/20 rounded-2xl p-5 mb-5">
         <div className="flex items-center justify-between mb-3">
           <div>
             <h2 className="text-lg font-bold text-white">Bảng xếp hạng tuần</h2>
@@ -150,7 +144,7 @@ export default function WeeklyLeaderboardTab() {
         </div>
 
         {/* My stats */}
-        <div className="bg-app-surface/50/70 rounded-xl p-4">
+        <div className="bg-app-surface/70 rounded-xl p-4">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 flex items-center justify-center bg-app-accent-primary text-white rounded-full font-bold text-sm flex-shrink-0">
               BN
@@ -201,27 +195,29 @@ export default function WeeklyLeaderboardTab() {
         ))}
       </div>
 
-      {/* Top 3 podium */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
-        {[top3[1], top3[0], top3[2]].map((entry, podiumIdx) => {
-          if (!entry) return <div key={podiumIdx} />;
-          const rank = podiumIdx === 1 ? 1 : podiumIdx === 0 ? 2 : 3;
-          const heights = ["h-24", "h-32", "h-20"];
-          const h = heights[podiumIdx];
-          return (
-            <div key={entry.id} className={`flex flex-col items-center ${podiumIdx === 1 ? "order-2" : podiumIdx === 0 ? "order-1" : "order-3"}`}>
-              <div className={`w-12 h-12 flex items-center justify-center rounded-full font-bold text-sm mb-1 border-2 ${entry.isMe ? "bg-app-accent-primary text-white border-app-accent-primary/40" : "bg-app-surface/50 text-white/80 border-app-border"}`}>
-                {entry.avatar}
+      {/* Top 3 podium — hidden until at least 2 other members exist */}
+      {allEntries.length >= 3 && (
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
+          {[top3[1], top3[0], top3[2]].map((entry, podiumIdx) => {
+            if (!entry) return <div key={podiumIdx} />;
+            const rank = podiumIdx === 1 ? 1 : podiumIdx === 0 ? 2 : 3;
+            const heights = ["h-24", "h-32", "h-20"];
+            const h = heights[podiumIdx];
+            return (
+              <div key={entry.id} className={`flex flex-col items-center ${podiumIdx === 1 ? "order-2" : podiumIdx === 0 ? "order-1" : "order-3"}`}>
+                <div className={`w-12 h-12 flex items-center justify-center rounded-full font-bold text-sm mb-1 border-2 ${entry.isMe ? "bg-app-accent-primary text-white border-app-accent-primary/40" : "bg-app-surface/50 text-white/80 border-app-border"}`}>
+                  {entry.avatar}
+                </div>
+                <p className="text-xs font-semibold text-white/80 mb-1 text-center leading-tight">{entry.name}</p>
+                <p className="text-xs text-white/50 mb-2">{entry[sortBy].toLocaleString()}{sortBy === "quizScore" ? "%" : sortBy === "streak" ? "d" : sortBy === "xp" ? " XP" : " từ"}</p>
+                <div className={`w-full ${h} rounded-t-xl flex items-start justify-center pt-2`} style={{ backgroundColor: `${rankColors[rank - 1]}20`, border: `2px solid ${rankColors[rank - 1]}40` }}>
+                  <i className={`${rankIcons[rank - 1]} text-xl`} style={{ color: rankColors[rank - 1] }}></i>
+                </div>
               </div>
-              <p className="text-xs font-semibold text-white/80 mb-1 text-center leading-tight">{entry.name}</p>
-              <p className="text-xs text-white/50 mb-2">{entry[sortBy].toLocaleString()}{sortBy === "quizScore" ? "%" : sortBy === "streak" ? "d" : sortBy === "xp" ? " XP" : " từ"}</p>
-              <div className={`w-full ${h} rounded-t-xl flex items-start justify-center pt-2`} style={{ backgroundColor: `${rankColors[rank - 1]}20`, border: `2px solid ${rankColors[rank - 1]}40` }}>
-                <i className={`${rankIcons[rank - 1]} text-xl`} style={{ color: rankColors[rank - 1] }}></i>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
 
       {/* Rest of leaderboard */}
       <div className="bg-app-surface/50 border border-app-border rounded-2xl overflow-hidden">
@@ -279,12 +275,13 @@ export default function WeeklyLeaderboardTab() {
       </div>
 
       {/* Note about data */}
-      <div className="mt-4 bg-amber-500/10 border border-amber-500/20 rounded-xl p-3">
-        <p className="text-xs text-amber-400 flex items-start gap-2">
-          <i className="ri-information-line flex-shrink-0 mt-0.5"></i>
-          <span>Dữ liệu bạn bè là mô phỏng. Kết nối Supabase để so sánh tiến độ thật với bạn bè trong thời gian thực.</span>
-        </p>
-      </div>
+      {isSoloBoard && (
+        <div className="mt-4 bg-app-surface/30 border border-app-border rounded-xl p-4 text-center">
+          <i className="ri-team-line text-white/30 text-2xl mb-2 block"></i>
+          <p className="text-sm font-semibold text-white/70 mb-1">Chưa có thành viên khác</p>
+          <p className="text-xs text-white/40">Bảng xếp hạng sẽ cập nhật tự động khi có người dùng khác hoàn thành bài học trong tuần này.</p>
+        </div>
+      )}
 
       {/* Share modal */}
       {showShareModal && (

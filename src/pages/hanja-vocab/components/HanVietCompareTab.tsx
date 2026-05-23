@@ -174,7 +174,7 @@ export default function HanVietCompareTab() {
   return (
     <div className="space-y-5">
       {/* Header insight */}
-      <div className="bg-gradient-to-r from-emerald-500/10 to-[#0f1117] border border-emerald-500/20 rounded-2xl p-5">
+      <div className="bg-gradient-to-r from-emerald-500/100/10 to-[#0f1117] border border-emerald-500/20 rounded-2xl p-5">
         <div className="flex items-start gap-4">
           <div className="w-12 h-12 flex items-center justify-center bg-app-accent-success/15 rounded-xl flex-shrink-0">
             <i className="ri-lightbulb-line text-app-accent-success text-xl"></i>
@@ -213,7 +213,7 @@ export default function HanVietCompareTab() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setQuizMode(m => !m)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all ${quizMode ? "bg-amber-500 text-white" : "bg-amber-500/10 text-amber-400 hover:bg-amber-500/100/20"}`}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-all ${quizMode ? "bg-amber-500 text-white" : "bg-amber-500/10 text-amber-400 hover:bg-amber-500/20"}`}
               >
                 <i className="ri-gamepad-line"></i>{quizMode ? "Thoát quiz" : "Quiz nhanh"}
               </button>
@@ -329,7 +329,7 @@ export default function HanVietCompareTab() {
           {filtered.map((item, i) => {
             const cfg = similarityConfig[item.similarity];
             return (
-              <div key={i} className="grid grid-cols-[1fr_1fr_1fr_1fr_auto] px-5 py-3 hover:bg-app-surface/70/2 transition-colors items-center gap-3">
+              <div key={i} className="grid grid-cols-[1fr_1fr_1fr_1fr_auto] px-5 py-3 hover:bg-app-surface/30 transition-colors items-center gap-3">
                 <span className="text-white font-bold text-sm">{item.korean}</span>
                 <span className="text-app-accent-primary font-bold text-sm">{item.hanja}</span>
                 <span className="text-app-accent-success font-semibold text-sm">{item.hanviet || "—"}</span>

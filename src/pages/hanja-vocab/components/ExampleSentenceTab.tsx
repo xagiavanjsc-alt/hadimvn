@@ -239,7 +239,7 @@ export default function ExampleSentenceTab() {
   return (
     <div className="space-y-5">
       {/* Header */}
-      <div className="bg-gradient-to-r from-amber-500/10 to-[#0f1117] border border-amber-500/20 rounded-2xl p-5">
+      <div className="bg-gradient-to-r from-amber-500/100/10 to-[#0f1117] border border-amber-500/20 rounded-2xl p-5">
         <div className="flex items-start gap-4">
           <div className="w-12 h-12 flex items-center justify-center bg-amber-500/15 rounded-xl flex-shrink-0">
             <i className="ri-newspaper-line text-amber-400 text-xl"></i>
@@ -253,7 +253,7 @@ export default function ExampleSentenceTab() {
           </div>
           <button
             onClick={() => { setStudyMode(m => !m); setStudyIdx(0); setStudyRevealed(false); }}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold cursor-pointer whitespace-nowrap transition-all flex-shrink-0 ${studyMode ? "bg-amber-500 text-white" : "bg-amber-500/15 text-amber-400 hover:bg-amber-500/100/25"}`}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold cursor-pointer whitespace-nowrap transition-all flex-shrink-0 ${studyMode ? "bg-amber-500 text-white" : "bg-amber-500/15 text-amber-400 hover:bg-amber-500/25"}`}
           >
             <i className={studyMode ? "ri-close-line" : "ri-play-circle-line"}></i>
             {studyMode ? "Thoát học" : "Chế độ học"}
@@ -271,7 +271,7 @@ export default function ExampleSentenceTab() {
             <span className="text-app-text-muted text-xs">{(studyIdx % studyPool.length) + 1}/{studyPool.length}</span>
           </div>
 
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             {/* Word card */}
             <div className="bg-app-surface/50 rounded-2xl p-5 mb-4 text-center">
               <div className="flex items-center justify-center gap-3 mb-3">
@@ -284,7 +284,7 @@ export default function ExampleSentenceTab() {
               {!studyRevealed ? (
                 <button
                   onClick={() => setStudyRevealed(true)}
-                  className="px-6 py-2.5 bg-amber-500/15 hover:bg-amber-500/100/25 text-amber-400 rounded-xl text-sm font-semibold cursor-pointer transition-all"
+                  className="px-6 py-2.5 bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 rounded-xl text-sm font-semibold cursor-pointer transition-all"
                 >
                   Xem nghĩa & câu ví dụ
                 </button>
@@ -381,7 +381,7 @@ export default function ExampleSentenceTab() {
                 <div key={i} className="bg-app-bg border border-app-border rounded-2xl overflow-hidden">
                   <button
                     onClick={() => setExpandedWord(isExpanded ? null : word.korean)}
-                    className="w-full flex items-center gap-4 px-5 py-4 hover:bg-app-surface/70/2 transition-colors cursor-pointer text-left"
+                    className="w-full flex items-center gap-4 px-5 py-4 hover:bg-app-surface/30 transition-colors cursor-pointer text-left"
                   >
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 flex-wrap">
